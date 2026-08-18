@@ -295,6 +295,38 @@ scr_dump_structure_once (scr_gameref_t game)
       fprintf (stderr, "CONTAINER idx=%ld obj=%ld [%s]\n", i, oo, s ? s : "");
     }
 
+  /* Stateful-object enumeration (Openable != 0 or CurrentState != 0, in
+   * object order).  Task object-state restrictions and change-object-status
+   * actions address this list 1-based; room-alt type 1 Var2 does NOT (it is
+   * a 1-based global object number -- see lib_use_room_alt). */
+  {
+    scr_int idx = 0;
+    for (i = 0; i < gs_object_count (game); i++)
+      {
+        scr_vartype_t pk[3], pv;
+        scr_int openable, curstate;
+        const scr_char *states = NULL, *s;
+        pk[0].string = "Objects";
+        pk[1].integer = i;
+        pk[2].string = "Openable";
+        openable = prop_get (bundle, "I<-sis", &pv, pk) ? pv.integer : 0;
+        pk[2].string = "CurrentState";
+        curstate = prop_get (bundle, "I<-sis", &pv, pk) ? pv.integer : 0;
+        if (openable == 0 && curstate == 0)
+          continue;
+        idx++;
+        pk[2].string = "States";
+        if (prop_get (bundle, "S<-sis", &pv, pk))
+          states = pv.string;
+        s = scdump_object_name (game, i);
+        fprintf (stderr,
+                 "STATEFUL idx=%ld obj=%ld [%s] openable=%ld curstate=%ld"
+                 " states=[%s]\n",
+                 idx, i, s ? s : "", openable, curstate,
+                 states ? states : "");
+      }
+  }
+
   /* Static-object room membership (the "Where" list). Dynamic objects are
    * located via the debugger; statics have no single position, so list every
    * room each static is directly present in -- the only way to pin a locked
@@ -871,8 +903,9 @@ scr_dump_structure_once (scr_gameref_t game)
                   {
                     scr_int obj = obj_stateful_object (game, v1 - 1);
                     const scr_char *s = scdump_object_name (game, obj);
-                    fprintf (stderr, " gateObj=%ld [%s] wantState=%ld\n",
-                             obj, s ? s : "", v2);
+                    fprintf (stderr, " gateObj=%ld [%s] wantState=%ld"
+                             " rawV1=%ld\n",
+                             obj, s ? s : "", v2, v1);
                   }
               }
           }

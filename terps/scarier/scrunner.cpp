@@ -261,16 +261,29 @@ static scr_commands_t MOVE_COMMANDS_8[] = {
 /* "Priority" library commands, may take precedence over the game. */
 static scr_commands_t PRIORITY_COMMANDS[] = {
 
-  /* Acquisition of and disposal of inventory. */
-  {"[[get/take/remove/extract] [all/everything] from/empty] %object%",
+  /* Acquisition of and disposal of inventory.
+   *
+   * Bare `pick %object%` is a genuine take synonym in both real Runners:
+   * run400 answers `pick pretty flowers` (Professor Von Witt) with "You take
+   * the pretty flowers from the window box.", and run390 answers `pick boat`
+   * (Marooned v1) with "You can't take the wrecked boat."  It reaches the
+   * whole *object* take family -- `pick all`, `pick X from Y`, `pick all
+   * from Y` -- but NOT the NPC handlers: run400 gives `pick burton` "Take
+   * what?" where `take burton` is answered "...would appreciate being
+   * handled.", and `pick all from burton` "I don't understand where you want
+   * to get things from." where `take all from burton` again gets the
+   * "handled" reply.  `pick up X from Y` is not a take-from either ("Take
+   * what?").  All measured live 2026-08-18; Professor Von Witt's own bundled
+   * walkthrough depends on the bare-`pick` form. */
+  {"[[get/take/remove/extract/pick] [all/everything] from/empty] %object%",
    lib_cmd_take_all_from},
-  {"[[get/take/remove/extract] [all/everything] from/empty] %object%"
+  {"[[get/take/remove/extract/pick] [all/everything] from/empty] %object%"
    " [[except/but] {for}/apart from] %text%",
    lib_cmd_take_from_except_multiple},
-  {"[get/take/remove/extract] [all/everything]"
+  {"[get/take/remove/extract/pick] [all/everything]"
    " [[except/but] {for}/apart from] %text% from %object%",
    lib_cmd_take_from_except_multiple},
-  {"[get/take/remove/extract] %text% from %object%",
+  {"[get/take/remove/extract/pick] %text% from %object%",
    lib_cmd_take_from_multiple},
   {"[get/take] [all/everything] from %character%", lib_cmd_take_all_from_npc},
   {"[get/take] [all/everything] from %character%"
@@ -280,12 +293,16 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    " [[except/but] {for}/apart from] %text% from %character%",
    lib_cmd_take_from_npc_except_multiple},
   {"[get/take] %text% from %character%", lib_cmd_take_from_npc_multiple},
-  {"[[get/take/pick up] [all/everything]/pick [all/everything] up]",
+  {"[[get/take/pick up/pick] [all/everything]/pick [all/everything] up]",
    lib_cmd_take_all},
-  {"[get/take/pick up] [all/everything] [[except/but] {for}/apart from] %text%",
+  {"[get/take/pick up/pick] [all/everything]"
+   " [[except/but] {for}/apart from] %text%",
    lib_cmd_take_except_multiple},
-  {"[get/take/pick up] %text%", lib_cmd_take_multiple},
+  /* `pick %text% up` before the bare-`pick` catch-all: a failed object parse
+   * in lib_cmd_take_multiple falls through, but keep `pick flowers up` from
+   * ever being read as `pick "flowers up"` in the first place. */
   {"pick %text% up", lib_cmd_take_multiple},
+  {"[get/take/pick up/pick] %text%", lib_cmd_take_multiple},
   /*
    * "drop X in Y" and "drop X on Y" are Adrift's put handlers wearing a
    * different verb: `drop wallet in bin` answers "You put your wallet inside
@@ -522,7 +539,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[count/num]", lib_cmd_count},
 
   /* Standard response commands; no real action, just output. */
-  {"[get/take/pick up] *", lib_cmd_get_what},
+  {"[get/take/pick up/pick] *", lib_cmd_get_what},
   {"open *", lib_cmd_open_what},
   {"close *", lib_cmd_close_other},
   {"give %object% *", lib_cmd_give_object},

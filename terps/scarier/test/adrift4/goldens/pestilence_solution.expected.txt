@@ -476,9 +476,9 @@ wooden shelf. The room seems to have a very strange smell. The only exit is
 east, which leads to a corridor.
 
 > exam shelf
-Narrow and fairly long, the wooden shelf is about shoulder height.  Some
-apollo, some ares, some athena, some demeter, some hades, some helios, some
-hera, some hermes and some zeus are on the shelf.
+Narrow and fairly long, the wooden shelf is about shoulder height.  On the
+shelf is some apollo, some ares, some athena, some demeter, some hades, some
+helios, some hera, some hermes and some zeus.
 
 > get all from shelf
 You take the apollo, the ares, the athena, the demeter, the hades, the

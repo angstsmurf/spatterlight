@@ -90,14 +90,8 @@ nowhere is a recipe for disaster.
 I step foot into the house. God, I hope he's here. Shane. That's my son's
 name. I hope Shane's here.
 
-House (Den)
-Life does not belong here. Toys strewn everywhere, a broken television, a
-streak of blood across the carpet leading to another room (north). And there
-seems to be a kitchen or dining area in the corner of the room (northeast).
-The only thing normal about the room is a lounge chair that is unusually
-clean, seemingly unaffected by the rest of the chaos in the room.
-
-A broken window behind me (out).
+Darkness
+Darkness.
 
 > turn light on
 I turn on the flashlight.

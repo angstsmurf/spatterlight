@@ -182,7 +182,7 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
 
     case 1:                    /* Stateful object. */
       {
-        scr_int var2, var3, object;
+        scr_int var2, var3;
 
         vt_key[4].string = "Var2";
         var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
@@ -193,8 +193,24 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
             vt_key[4].string = "Var3";
             var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
 
-            object = obj_stateful_object (game, var2 - 1);
-            retval = restr_pass_task_object_state (game, object + 1, var3 - 1);
+            /*
+             * Var2 here is a 1-based GLOBAL object number, NOT an index
+             * into the stateful-object list like a task object-state
+             * restriction's Var1.  Proof is corpus-wide: Professor Von
+             * Witt's Laboratory alts carry Var2 = 5 for the mailbox, which
+             * is stateful object #1 but global object #5 (run400 displays
+             * the alt keyed on the mailbox's state); and many games author
+             * Var2 far beyond their stateful-object count, which no
+             * stateful reading could address at all -- Beanstalk 8 of 3,
+             * Terrified 30 of 3, Showtime at the Gallows 59 of 1,
+             * goldilocks 90 of 22, cursed 683.  (Task restrictions and
+             * change-status actions really are stateful-indexed: across
+             * the 107 corpus games using them, no index exceeds the
+             * stateful count.)  SCARE always mapped Var2 through the
+             * stateful list here, so every one of these alts tested the
+             * wrong object's state.
+             */
+            retval = restr_object_in_state (game, var2 - 1, var3 - 1);
           }
         break;
       }
@@ -3705,12 +3721,51 @@ lib_list_in_object (scr_gameref_t game, scr_int container, scr_bool is_described
 
 
 /*
- * lib_list_on_object()
+ * lib_list_on_object_normal()
  *
- * List the objects on a given surface object.
+ * List the objects on a given surface object, normal format listing.
  */
 static scr_bool
-lib_list_on_object (scr_gameref_t game, scr_int supporter, scr_bool is_described)
+lib_list_on_object_normal (scr_gameref_t game,
+                           scr_int supporter, scr_bool is_described)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int object;
+  lib_list_t list;
+
+  /* List out the objects standing on this surface. */
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      /* Standing on? */
+      if (gs_object_position (game, object) == OBJ_ON_OBJECT
+          && gs_object_parent (game, object) == supporter)
+        list.push_back (object);
+    }
+  if (!list.empty ())
+    {
+      if (is_described)
+        pf_buffer_string (filter, "  ");
+      pf_buffer_string (filter, "On ");
+      lib_print_object_np (game, supporter);
+      pf_buffer_string (filter,
+                        lib_select_plurality (game, list[0], " is ", " are "));
+      lib_print_list (game, list, lib_print_object, " and ");
+      pf_buffer_character (filter, '.');
+    }
+
+  /* Return TRUE if anything listed. */
+  return !list.empty ();
+}
+
+
+/*
+ * lib_list_on_object_alternate()
+ *
+ * List the objects on a given surface object, alternate format listing.
+ */
+static scr_bool
+lib_list_on_object_alternate (scr_gameref_t game,
+                              scr_int supporter, scr_bool is_described)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int object;
@@ -3741,6 +3796,51 @@ lib_list_on_object (scr_gameref_t game, scr_int supporter, scr_bool is_described
 
   /* Return TRUE if anything listed. */
   return !list.empty ();
+}
+
+
+/*
+ * lib_list_on_object()
+ *
+ * List the objects on a given surface object.
+ *
+ * The Runner picks between the same two styles it uses for containers, on
+ * the same rule: one or two objects get the alternate (postfixed) format,
+ * three or more the normal (prefixed) one -- see lib_list_in_object() for
+ * the run400 derivation.  SCARE used the postfixed format unconditionally
+ * for surfaces.  Both halves are visible in the Professor Von Witt
+ * walkthrough transcript (Runner 4.00, 2026-08-18): "On the shelves is a
+ * leg to stand on, a handy dandy extra hand, the sloppy jalopy, a portable
+ * doorknob and a pollen popper upper." (5 objects) against "A container of
+ * Reggie's Remedy Rust Resolvent is on the shelves." (1 object).
+ */
+static scr_bool
+lib_list_on_object (scr_gameref_t game, scr_int supporter, scr_bool is_described)
+{
+  scr_bool use_alternate_format = FALSE;
+  scr_int object, count;
+
+  /* Count the objects this surface holds. */
+  count = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (gs_object_position (game, object) == OBJ_ON_OBJECT
+          && gs_object_parent (game, object) == supporter)
+        count++;
+      if (count > 2)
+        break;
+    }
+
+  if (count == 1 || count == 2)
+    use_alternate_format = TRUE;
+  else if (obj_is_static (game, supporter)
+           && gs_object_position (game, supporter) == OBJ_PART_NPC)
+    use_alternate_format = TRUE;
+
+  /* List objects on the surface using the selected handler. */
+  return use_alternate_format
+         ? lib_list_on_object_alternate (game, supporter, is_described)
+         : lib_list_on_object_normal (game, supporter, is_described);
 }
 
 

@@ -168,8 +168,8 @@ You take the stale donut from the display unit.
 
 > x table
 It's a very old rickety table.  It has no table cloth and you can see years
-of dirty stains on it.  A cup, an old sandwich and a paperback are on the
-table.
+of dirty stains on it.  On the table is a cup, an old sandwich and a
+paperback.
 
 > look under table
 You look under the table and find something.
@@ -489,8 +489,8 @@ It couldn't possibility be one of them."
 
 > x desk
 An old battered desk.  It is that type of furniture which probably looked old
-and battered when it was new.  The desk is closed.  A notepad, a pen and a
-note are on the desk.
+and battered when it was new.  The desk is closed.  On the desk is a notepad,
+a pen and a note.
 
 > get notepad
 The Station Master stops you.  I suggest you try to get rid of him.

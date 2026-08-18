@@ -241,10 +241,9 @@ You move east.
 
 Ruined Statue
 Above you towers a broken statue, ravaged by the passage of time. A crown of
-stone rests upon its brow, a glittering jewel its centrepiece. About you lurk
-malevolent shadows, seeming to move with a life of their own, though these
-are glimpses seen from the corner of your eye that vanish the moment you look
-closely at them.
+stone rests upon its brow, its glittering centrepiece radiating light from
+the small ray of sunshine streaking in from the hole somewhere in the
+ceiling. In one corner stands a small pedestal.
 
 Passages in the ruined walls of this place lie to the north and west.
 

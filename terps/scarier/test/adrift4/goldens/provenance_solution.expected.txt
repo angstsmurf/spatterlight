@@ -2631,6 +2631,17 @@ You move down.
 In The Cellar
 
 You are in the cellar.  The damp odor of mold and mildew fill the air.
+  You now have enough light to see adequately.  It is cool and damp in here
+and these conditions may be adding to the considerable unease you feel.  In
+daily use this basement would have been used as a laundry room.  Clothes and
+linens would be washed and ironed down here.  The cellar was also a place
+where the cook could preserve fruits and vegetables in the summer time
+without heating the rest of the house.  A small rusty woodstove sits in one
+corner.  Its reddish hue, in the light of your lamp, along with the mess of
+spider webs that surround it give it an ominous appearance.  The crude cement
+floor is sloped with the lay of the land to provide drainage.  A small area
+of the floor appears to have been broken up and the moist dirt of the ground
+below it has been exposed.
 
 > dig ground
 

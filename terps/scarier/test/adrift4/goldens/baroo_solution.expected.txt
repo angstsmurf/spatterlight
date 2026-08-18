@@ -805,29 +805,35 @@ You take the flashlight.
 
 > s
 Small and narrow tunnel
-You can see a little light filtering into the tunnel from the cave you first
-entered.  Otherwise the tunnel is pitch black.
+A ball of light illuminates the small and narrow tunnel.  Down to the north
+is the cave you first entered.  The tunnel contines south and starts getting
+steeper upward.
 
 > s
 You move south.
 
-Pitch Black
-It is pitch black.  Only by feeling the ground, you determine that you can
-continue south or return downward back north.  Further on you do hear
-dripping water.
+Steep and narrow tunnel
+A small ball of light illuminates the steep and narrow tunnel.  To the north,
+you could proceed back down toward the cave.  The tunnel opens to a larger
+area to the south, from which you hear dripping water.  A small bend in the
+tunnel leads up to a very narrow tunnel, possibly a "chimney" vent.
 
 > u
 You move up.
 
-Pitch Black
-It is pitch black and for the first time you start to feel claustrophobic, as
-the walls literally are very tight around you.
+Small and tight tunnel
+The chimney vent is very tight around you, but the rock is unusually climber
+friendly.
 
 > u
 You move up.
 
-Pitch Black
-It is pitch black.
+Records Room
+The chimney vent continues up but far too small for you to enter.  What is
+astounding is this room - the stone floor has been polished to a smooth
+glaze, the walls are a steel alloy, and the ceiling is painted white.  Metal
+file cabinets fill the room and a desk with a keyboard is built into it sits
+in the middle of the room.
 
 > x desk
 The desk is a plain four leg table with a keyboard built into the surface.
@@ -874,9 +880,9 @@ Well that answered all your questions - Hah!
 > d
 You move down.
 
-Pitch Black
-It is pitch black and for the first time you start to feel claustrophobic, as
-the walls literally are very tight around you.
+Small and tight tunnel
+The chimney vent is very tight around you, but the rock is unusually climber
+friendly.
 
 2307...  plus 310... plus 309...  June 13, 2618.  Well, now you know when you
 are.
@@ -884,10 +890,11 @@ are.
 > d
 You move down.
 
-Pitch Black
-It is pitch black.  Only by feeling the ground, you determine that you can
-continue south or return downward back north.  Further on you do hear
-dripping water.
+Steep and narrow tunnel
+A small ball of light illuminates the steep and narrow tunnel.  To the north,
+you could proceed back down toward the cave.  The tunnel opens to a larger
+area to the south, from which you hear dripping water.  A small bend in the
+tunnel leads up to a very narrow tunnel, possibly a "chimney" vent.
 
 Politics?!  What kind of clue is that?  Conservative, liberal?  ...  Blue,
 red? ...
@@ -895,10 +902,15 @@ red? ...
 > s
 You move south.
 
-Pitch Black
-It is pitch black, you stepped into a deep puddle of water, and at
-intermittant intervals, a drop of water falls on the back of your neck.  The
-area echos with the sound of flowing water.
+Cathedral Cavern
+This cathedral cavern puts all other caves that you've been in to shame.  The
+colors of the rock formations ripple from the ball of light coming from the
+flashlight.  Stalactites over 300 feet long suspend over stalagmites pointing
+up at them.  Pools of water cover the floor, and drain toward an opening to
+the south.  You feel that if you were to go that direction, you might not be
+able to get back up - a last resort to leaving the area.  Behind you to the
+north, is the tunnel leading back up to the outside world.  To the southeast
+and southwest are two other tunnels.
 
 ... Left wing, right ...  wing ...  Ah!
 
@@ -917,8 +929,12 @@ openings lead to the north and northeast.
 > ne
 You move northeast.
 
-Pitch Black
-It is pitch black.
+Convertor Room
+This larger cave appears to be shaped into a rectangular room, but nature
+seems to have re-shaped is somewhat.  Stalactites and stalagmites are thick
+on the ceiling and floor.  Metal pipes pass from floor to ceiling and are
+coated with mineral deposits.  Some pipes from the ground bend over to a
+large piece of equipment, the likes you've never seen.
 
 > x equipment
 The machine is old.  Some of the material is simply tarnished, while some
@@ -972,22 +988,27 @@ openings lead to the northeast and southwest.
 > ne
 You move northeast.
 
-Pitch Black
-It is pitch black, you stepped into a deep puddle of water, and at
-intermittant intervals, a drop of water falls on the back of your neck.  The
-area echos with the sound of flowing water.
+Cathedral Cavern
+This cathedral cavern puts all other caves that you've been in to shame.  The
+colors of the rock formations ripple from the ball of light coming from the
+flashlight.  Stalactites over 300 feet long suspend over stalagmites pointing
+up at them.  Pools of water cover the floor, and drain toward an opening to
+the south.  You feel that if you were to go that direction, you might not be
+able to get back up - a last resort to leaving the area.  Behind you to the
+north, is the tunnel leading back up to the outside world.  To the southeast
+and southwest are two other tunnels.
 
 > s
 You move south.
 
-Pitch Dark
+Water overflow slide
 The stone floor has been worn to a glass-like surface and with the water
 flowing rapidly below your feet it immediately feels like ice.  So much so
 you slip and fall - like a giant amusement park slide, you glide along the
 floor, proceeding at a rapid rate through twists and turns, bumps and dips.
 For the moment, you have managed to regain control of your descent and come
-to a stop somewhere in the depths of this drain tube.    Now if only you
-could see where to go.
+to a stop somewhere in the depths of this drain tube.    The tunnel extends
+downward toward the northwest.
 
 > nw
 You move northwest.
@@ -995,7 +1016,8 @@ You move northwest.
 Slide pool
 Water from the drain tube accumulates into a pool of water about waist deep,
 which flows out north into a river.  There is enough stone not eroded
-partially surrounding the pool which you can walk on.
+partially surrounding the pool which you can walk on.    Thankfully you were
+able to avoid falling into the pool.
 
 A canoe is partly in the water.
 
@@ -1067,8 +1089,10 @@ You leave the canoe, which floats nearby the dock.
 > e
 You move east.
 
-Dark Room
-Very little light enters the room from the door to the west.
+Store Room
+The area near the door to the west is fairly barren, however the south and
+east walls are covered with shelving.  In the northeast corner of the room
+are stairs leading up.
 
 Several metal boxes sit on the middle of the floor.
 The warlock is sitting crosslegged on the floor near the metal boxes.

@@ -268,6 +268,11 @@ You open the door.
 You move down.
 
 Top of the Stairs
+With a low ceiling and poor lighting, it feels particularly claustrophobic
+here. The banister guarding the top of the staircase has definitely seen
+better days and looks a little rotten. The only light is coming from the open
+door above you, which leads up onto the roof. The stairs lead down to the
+exit from the building.
 
 > d
 Going down the stairs will end the game.  Do you want to do this now Y or N?

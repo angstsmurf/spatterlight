@@ -407,8 +407,8 @@ Vous prenez Un téléphone de Un beau bureau.
 > x téléphone
 C'est un téléphone à touches.
 Vous remarquez différents boutons sur sa surface.
-  Le 1, Le 2, Le 3, Le 4, Le 5, Le 6, Le 7, Le 8, Le 9 et Le 0 est sur Un
-téléphone.
+  On Un téléphone est Le 1, Le 2, Le 3, Le 4, Le 5, Le 6, Le 7, Le 8, Le 9 et
+Le 0.
 
 > appuyer 3
 

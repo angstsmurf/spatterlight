@@ -2205,6 +2205,31 @@ gmylm_solution.txt|GMYLM_2010.taf|Victory! - - -|SCR_SKIP_WAITKEY=1
 # is not to score the maximum number of points".  The stray `a cauldron` line is
 # the author's own typo, kept verbatim; it is a parse error and costs no turn.
 provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2006!!!|SCR_SKIP_WAITKEY=1
+
+# Professor Von Witt's Fabulous Flying Machine, from the game's own bundled
+# "Professor walkthrough.txt" (annotated transcript).  Replays VERBATIM,
+# `pick pretty flowers` included -- pick is a Runner take-synonym
+# (library patterns "pick up %objects%" / "pick %objects% up").  Getting here
+# surfaced three engine fixes: the pick patterns themselves, the room-alt
+# "state of object" Var2 being a 1-based GLOBAL object number (the whole
+# Laboratory description lives in two alts keyed on the mailbox-on-a-rope's
+# state), and the surface-listing count split ("On the shelves is ..." for
+# 3+ objects vs "... is on the shelves." for 1-2, mirroring containers).
+# The transcript is a Verbose-ON session (bold room heading + NPC walker
+# lines on re-entry; Verbose OFF prints only "RoomName." and no walker
+# lines).  One known transcript deviation: on the turn-12 `west` into
+# Whimsington Square we print "Shelly is walking slowly, delivering the
+# mail." where the author's transcript is bare.  A live run400 measurement
+# (fresh session, Verbose ON, parity-flipped so the square entry lands on
+# turn 12) shows Shelly IS there on turn 12 -- her deterministic walk parks
+# her in the square turns 12-21, exactly our phase -- so the bare line is a
+# stitched-transcript artifact, not an engine bug.  The author's later
+# turn-19 `east` entry has the Shelly line and matches us verbatim.
+# No name prompt, no <waitkey>, so the row needs no env.  Ends the same way
+# the author's own walkthrough does -- Burton gets the IOCC board seat --
+# 151/229, 65%: this is the walkthrough's intended finish, not a shortfall.
+professor_solution.txt|Professor.taf|You scored 151 out of the maximum 229!
+
 EOF
 }
 

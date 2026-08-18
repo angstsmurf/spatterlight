@@ -935,8 +935,7 @@ You retrieve the Room Key form under the Huge rock.
 Backyard Garden
 This is a lovely backyard garden. Every inch of ground is covered with
 flowers, vines and ivy run rampant. Wherever there is an open spot, bright
-green grass grows. A small path runs east from here.  There is a huge rock
-standing here!
+green grass grows. A small path runs east from here.
 
 There is a huge rock here!
 

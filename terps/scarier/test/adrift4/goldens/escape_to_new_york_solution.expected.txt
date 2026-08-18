@@ -680,8 +680,8 @@ on the piano.
 You take the cap from the piano.
 
 > exam table
-This dining table is mahogany with a crimson upholstery surface.  A menu, a
-plate, a leaflet and a silver coffee pot are on the dining table.
+This dining table is mahogany with a crimson upholstery surface.  On the
+dining table is a menu, a plate, a leaflet and a silver coffee pot.
 
 > get silver coffee pot
 You take the silver coffee pot from the dining table.

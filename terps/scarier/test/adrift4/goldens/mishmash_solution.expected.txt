@@ -196,7 +196,7 @@ is built into the eastern wall, with a conveyor belt inside. The top of the
 machine is currently closed, with two long metal arms lying flat on its
 sides. As the stacking of the crates is a mechanised process, people rarely
 walk in here. This means it should be relatively safe compared to the rest of
-the complex.  An open door leads to the north.
+the complex.  A closed door leads to the north.
 
 > remove cap
 You remove the ghost cap.
@@ -288,8 +288,8 @@ You move north.
 Hallway, northwest
 A storage room for miscellaneous items that no longer need immediate
 accessibility is to the north. The door to the storage room is currently
-open.  This section of the hallway is reasonably bare apart from a bin, which
-sits in the corner. The janitors have obviously been through the area
+closed.  This section of the hallway is reasonably bare apart from a bin,
+which sits in the corner. The janitors have obviously been through the area
 recently, as the bin is nearly empty of rubbish. Alternatively, it could just
 be that there isn't much rubbish around. You don't actually remember much
 from your time playing through. Maybe the program edits out boring
@@ -302,7 +302,7 @@ The security guard marches out to the east.
 You move east.
 
 Hallway, north
-One of the two laboratories in this area is through the closed door to the
+One of the two laboratories in this area is through the open door to the
 north. This laboratory is not used as much at this time as the other
 laboratory. Not as important scientists and the kids work regularly in there
 on more unusual projects, instead of the top people. The work in the other
@@ -344,7 +344,7 @@ You put on the ghost cap.
 You move south.
 
 Hallway, north
-One of the two laboratories in this area is through the closed door to the
+One of the two laboratories in this area is through the open door to the
 north. This laboratory is not used as much at this time as the other
 laboratory. Not as important scientists and the kids work regularly in there
 on more unusual projects, instead of the top people. The work in the other
@@ -361,8 +361,8 @@ You move west.
 Hallway, northwest
 A storage room for miscellaneous items that no longer need immediate
 accessibility is to the north. The door to the storage room is currently
-open.  This section of the hallway is reasonably bare apart from a bin, which
-sits in the corner. The janitors have obviously been through the area
+closed.  This section of the hallway is reasonably bare apart from a bin,
+which sits in the corner. The janitors have obviously been through the area
 recently, as the bin is nearly empty of rubbish. Alternatively, it could just
 be that there isn't much rubbish around. You don't actually remember much
 from your time playing through. Maybe the program edits out boring

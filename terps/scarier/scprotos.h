@@ -855,8 +855,8 @@ extern void task_set_move_assist (scr_bool flag);
 extern scr_bool task_get_move_assist (void);
 
 /* Task restriction functions. */
-extern scr_bool restr_pass_task_object_state (scr_gameref_t game,
-                                             scr_int var1, scr_int var2);
+extern scr_bool restr_object_in_state (scr_gameref_t game,
+                                       scr_int object, scr_int var2);
 extern scr_bool restr_eval_task_restrictions (scr_gameref_t game,
                                              scr_int task, scr_bool *pass,
                                              const scr_char **fail_message);

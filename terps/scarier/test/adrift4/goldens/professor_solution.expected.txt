@@ -1,0 +1,588 @@
+Loading game...
+
+Professor Von Witt's Fabulous Flying Machine
+
+You are Professor Von Witt, inventor of contraptions.  You are coming up for
+review to become a Senior Board Member on the board of IOCC. (Inventors of
+Contraptions Committee) They will be holding a competition for the position.
+You will have to enter the competition and come up with a flying machine to
+demonstrate to the board.  Good Luck!
+
+You have been waiting for this opportunity for a long time, and now is your
+chance to become a respectable board member; rather than just another
+crackpot inventor.
+
+> south
+You walk along the worn out trail until you reach the center of town.  You
+are in Whimsington Square.
+
+> south
+You move south.
+
+Peabody's Grove
+Small, quaint looking houses line the shaded road.  There is Mr. Beakers
+house,  Mrs. Peabody's house is across from that. Next to her house is
+Milo's, maker of  Milo's Magnificent Mystery Meat.  The tool man lives just
+across from him.
+Burton is in front of his house, looking like he is up to no good.
+
+> knock on peabody's door
+You knock on Mrs. Peabody's door and hear a muffled, "just a minute", come
+from inside.  A moment later Mrs. Peabody steps outside.
+
+"Oh, Professor Von Witt, how are you this warm day?  Is there something I can
+do for you?" She says, looking at you expectantly.
+
+> ask lady about pie
+"Oh, that reminds me.  I sure could use some of that fruit that is on sale
+down at the market.  Please be a dear and get some for me.  Here is a basket
+you can put it in."  She says, then slips inside for a moment to fetch the
+basket.
+
+"I'll go start preparing the crust for a pie." She enters her house and
+closes the door behind her.
+
+> north
+You move north.
+
+Whimsington Square
+
+> east
+You move east.
+
+Beaker Street Market
+The Beaker Street Market is the only market in these parts.  Since the fruit
+festival, it has been pretty low on fruits.  You can find all sorts of other
+essentials, though.  A large sign above the counter lists the current items
+on sale, while other items are located on the shelves along the isles.
+Mr. Beaker is stocking shelves nearby.
+
+> give basket to mr beaker
+"Here you go, Professor.  It's the last bunch I have ready right now. So
+don't waste it." He says, while filling the basket with fruit.
+
+> take meat
+You grab one of the cans of Milo's Magnificent Mystery Meat from the top of
+the pyramid.  Mr. Beaker quickly places another can on the top of the pyramid
+to replace the one that you took.
+
+"Put it on my tab, Mr. Beaker." You direct, and he nods in agreement.
+
+> take juice
+You take a bottle of Jasper's Jazzy Jungle Juice from the shelf.  Mr. Beaker
+quickly puts another in the empty space on the shelf.
+
+"I'll put it on your tab, Professor." Says Mr. Beaker.
+
+> drink juice
+You drink a bottle of Jasper's Jazzy Jungle Juice and feel quite refreshed.
+You dispose of the bottle, but something about the cap makes you want to save
+it. So you hang on to the bottle cap.
+
+> take juice
+You take a bottle of Jasper's Jazzy Jungle Juice from the shelf.  Mr. Beaker
+quickly puts another in the empty space on the shelf.
+
+"I'll put it on your tab, Professor." Says Mr. Beaker.
+
+> west
+You move west.
+
+Whimsington Square
+Shelly is walking slowly, delivering the mail.
+
+> west
+You move west.
+
+Laboratory
+Your laboratory is pretty much a mess.  Scattered about are dozens of
+inventions that you haven't finished; and some that just don't work very
+well.  One of your favorite inventions is the Mailbox on-a-rope, which is by
+the window.
+
+There is a open area in the middle of the room, where you like to work on
+larger inventions. A shelf along the wall holds more of your inventions.
+
+> examine shelves
+The shelves hold several contraptions that you have invented.  Some didn't
+work as well as you had hoped for.  On the shelves is a leg to stand on, a
+handy dandy extra hand, the sloppy jalopy, a portable doorknob and a pollen
+popper upper.
+
+> take pollen popper upper
+You take the pollen popper upper from the shelves.
+
+> take hand
+You take the handy dandy extra hand from the shelves.
+
+> take leg to stand on
+You take the leg to stand on from the shelves.
+
+> take doorknob
+You take the portable doorknob from the shelves.
+
+> east
+You move east.
+
+Whimsington Square
+Shelly is walking slowly, delivering the mail.
+
+> give jasper's Jazzy Jungle Juice to shelly
+"Oh, thank you, Professor.  I am sure that I have something for you.  I will
+get it to you as soon as I can.  Thanks again for the juice." She says, as
+she continues on her route.
+
+> examine mailbox on-a Rope
+Ingenious invention, it was.  It has saved you countless trips up and down
+the stairs of the laboratory.  It is nothing more than a hollowed out log,
+attached to a rope and pulley system inside the lab.  The Mailbox on-a Rope
+is up by the window.  The mail is inside the Mailbox on-a Rope.
+
+> take mail
+You take the mail from the Mailbox on-a Rope.
+
+> examine mail
+The mail looks very old.  It must have gotten lost or something.
+
+> read mail
+It reads:
+
+Dear Mr. Clangor,
+
+        I was able to evaluate the data you had sent about your flying
+contraption. You are right in your assessment that the contraption is short
+2.2 grams of weight. You could just find something that is the required
+weight, and hang on to it. If this adjustment is made, everything should work
+properly. I wish you luck on your review. I hear that Beaker's Brother has
+sent his oldest son to Whimsington.  Keep an eye out for him, he's a rough
+teen.   I believe he will be trying to run for the IOCC board.
+
+Sincerely,
+
+W.P. Pennington
+
+> south
+You move south.
+
+Peabody's Grove
+Small, quaint looking houses line the shaded road.  There is Mr. Beakers
+house,  Mrs. Peabody's house is across from that. Next to her house is
+Milo's, maker of  Milo's Magnificent Mystery Meat.  The tool man lives just
+across from him.
+Burton is in front of his house, looking like he is up to no good.
+
+> knock on peabody's door
+You knock on Mrs. Peabody's door and hear a muffled, "just a minute", come
+from inside.  A moment later Mrs. Peabody steps outside.
+
+"Oh, Professor Von Witt, how are you this warm day?  Is there something I can
+do for you?" She says, looking at you expectantly.
+
+> give fruit to lady
+You hand Mrs. Peabody the basket of fruit.  And she seems rather strong for
+an old lady.
+
+"Wait here. I'll be back in a jiffy." She says, disappearing into her house.
+
+She returns nearly a half hour later with a fresh baked pie. "I hope you
+enjoy it." She says, then returns back inside her home, closing the door
+behind her.
+
+> throw pie at burton
+You throw the pie at the snot nosed teenager. He manages to fall backwards
+trying to avoid  the flying pie, dropping a coupon of some sort. The pie hits
+him square in the face.
+
+"I'll get you for this....you.....you.....I'll get you!" He yells as he
+stomps off into his house.  You pick up the coupon that he dropped.  You
+never know when you might need one.
+
+> north
+You move north.
+
+Whimsington Square
+
+> se
+You move southeast.
+
+Tools-R-R-Business
+The store is fairly new, but still rather small.  There is a service counter
+with a sign and a bell.  All of the tools are kept in an area behind the
+counter.  You've been in here a couple times before, so you already know that
+you have to ask the clerk for the tools that you want.  There are also a
+couple of benches where customers can sit while they wait for their
+purchases.  A small table holds the Tools-R-R-Business catalog.
+Shelly is walking slowly, delivering the mail.
+
+> ring bell
+You ring the bell and the clerk pops up from behind the counter.
+
+> give coupon to clerk
+You hand the coupon to the clerk and he disappears for a moment to the back
+of the store.
+
+"Here you go. It's the best hammer ever made." He hands it to you and says,
+"remember only one coupon per customer."
+
+> nw
+You leave Tools-R-R-Business and return to Whimsington square.
+
+> south
+You move south.
+
+Peabody's Grove
+Small, quaint looking houses line the shaded road.  There is Mr. Beakers
+house,  Mrs. Peabody's house is across from that. Next to her house is
+Milo's, maker of  Milo's Magnificent Mystery Meat.  The tool man lives just
+across from him.
+
+> knock on milos door
+You knock on Milo's door and he opens it only a few inches.  "What can I do
+for you, Professor?" he says, "I'm a little busy right now."
+
+> give hammer to milo
+You hand Milo the TRRB hammer and say, "I thought you could use this, since
+your coupon was stolen and you are very busy."
+
+He grabs it from you, "thank you so much. I really need this right now. Here,
+you can have this.  You never know when you might need one."  He hands you a
+repelling rope.  I'll be around if you need help. I have a feeling you might
+be needing it soon."  Then he quickly closes the door.  The next thing you
+hear is banging and loud, high pitched screeches, that seem to fade the more
+the banging goes on.
+
+> examine window box
+The window box holds all sorts of beautiful flowers.  You are amazed that
+they can grow with hardly no sunlight.  The pretty flowers are inside the
+window box.
+
+> pick pretty flowers
+You take the pretty flowers from the window box.
+
+> north
+You move north.
+
+Whimsington Square
+Shelly is walking slowly, delivering the mail.
+
+> north
+You follow the worn path to the north until you reach Glen's Lookout.  You
+are now at Glen's Lookout.
+
+> tie rope to tree
+You fasten the rope to the tree so securely, that you are sure you won't be
+able to remove it.
+
+> down
+You carefully descend down the rope, nearly loosing your grip.  You finally
+reach the bottom in once piece.
+
+> feed fish
+You pop the top on the meat and plop it into the water.  The fish swarm in a
+frenzy on the meat.
+The piranhas are feeding feverishly upon the meat.  They act if the haven't
+been fed in ages.
+
+> swim
+You jump into the famed Slapp's Lake and swim towards the center.
+
+> put flowers in pollen popper upper
+You insert the pretty flowers into the pollen popper upper and stay perfectly
+still as a swarm of bees enters the balloon.  The buzzing bees activate the
+balloon, inflating it.
+
+> use balloon on contraption
+You manage to attach the balloon the the contraption, and it begins to lift
+out of the water.  Loud creaks and groaned fill the air as the machine slowly
+emerges.
+
+It doesn't look like it is going to be successful, as the balloon starts to
+descend back towards the water.  Just then, Milo appears to give you a
+helping hand.  He just happened to bring a tarp along, and covers the machine
+while both of you get the contraption back to your lab.
+
+"I'll keep your secret, Professor.  But you will owe me one." Milo states as
+he leaves your lab. You thank him and agree. "I'll just release these bees.
+See you later, Professor." Milo leaves your lab with the Pollen Popper Upper.
+
+> examine contraption
+You see no such thing.
+
+> look
+
+Laboratory
+Your laboratory is pretty much a mess.  Scattered about are dozens of
+inventions that you haven't finished; and some that just don't work very
+well.  One of your favorite inventions is the Mailbox on-a-rope, which is by
+the window.
+
+There is a open area in the middle of the room, where you like to work on
+larger inventions. A shelf along the wall holds more of your inventions.
+
+> examine area
+There is a strange looking flying contraption in the center of the room.
+
+> examine contraption
+It must be the late Woodworf Clangor's flying contraption.   The flying
+contraption is looking like a rusty old log; and is in bad need of cleaning.
+
+> east
+You move east.
+
+Whimsington Square
+
+> east
+You move east.
+
+Beaker Street Market
+The Beaker Street Market is the only market in these parts.  Since the fruit
+festival, it has been pretty low on fruits.  You can find all sorts of other
+essentials, though.  A large sign above the counter lists the current items
+on sale, while other items are located on the shelves along the isles.
+Mr. Beaker is stocking shelves nearby.
+
+> examine shelves
+The shelves are a recently added feature to the market.  Mr. Beaker used to
+keep his merchandise in baskets until the Fabulous Fine Fruit Festival.  Most
+of the baskets disappeared around that time.
+
+  For the most part, the shelves are stocked with can foods, drinks, and odds
+and ends.  You notice some cans of Milo's Magnificent Mystery Meat and some
+bottles of Jaspers Jazzy Jungle Juice.  A container of Reggie's Remedy Rust
+Resolvent is on the shelves.
+
+> take reggie's Remedy Rust Resolvent
+You take the container of Reggie's Remedy Rust Resolvent from the shelves.
+
+> west
+You move west.
+
+Whimsington Square
+Shelly is walking slowly, delivering the mail.
+
+> west
+You move west.
+
+Laboratory
+Your laboratory is pretty much a mess.  Scattered about are dozens of
+inventions that you haven't finished; and some that just don't work very
+well.  One of your favorite inventions is the Mailbox on-a-rope, which is by
+the window.
+
+There is a open area in the middle of the room, where you like to work on
+larger inventions. A shelf along the wall holds more of your inventions.
+
+> examine contraption
+It must be the late Woodworf Clangor's flying contraption.   The flying
+contraption is looking like a rusty old log; and is in bad need of cleaning.
+
+> clean contraption
+You spray the machine down with the bottle of Reggie's Remedy Rust Remover.
+Within seconds the rusted flying contraption turns into a shiny metal, bright
+and clean.  You dispose of the bottle, and look the contraption over.
+
+> examine contraption
+It must be the late Woodworf Clangor's flying contraption.   The flying
+contraption is like new; and has a sleek arerodynamic body that is shiny.
+
+> use door knob on contraption
+You take a shot in the dark, and attach the door knob to the side of the
+contraption.  Twisting the knob, you are shocked as the side pops open.
+Inside you find a letter.
+
+  As you remove the letter from the contraption, the opening snaps shut,
+flinging the doorknob into the air. You manage to catch it before it flies
+out the window.
+
+> read letter
+It reads:
+
+I felt I had to write this down.  It is only minutes before the flying
+competition, and I have made a most disturbing discovery.  I have reason to
+believe that the young Mortamer Franklin will attempt to sabotage my flying
+contraption. I have also discovered a secret room in the IOCC building.
+There is a lever in the library.  It's located very high, and you'd need a
+leg up to reach it.  I haven't much time to check it out now, I have to
+double check my machine before flight.  I just know that something strange is
+going on.
+
+W. Clangor.
+
+> east
+You move east.
+
+Whimsington Square
+
+> sw
+You enter the IOCC Building.
+
+Inventors of Contraptions Committee Building
+The small, dark building, which you are familiar with; or at least were
+familiar with before the renovations, is quiet.  A half moon shaped table
+fills the space near the far wall, which is where the board members of the
+IOCC sit.
+
+A small library, if you will, takes up the west wall, just around the corner
+from where the board members sit.  Many hours have you spent researching your
+'theories', here in the silence of the IOCC board room.
+Clayton Melborne Rogers is sitting behind the table.  It almost looks like he
+is napping.  Thomas Jules Whitney is sitting behind the large table.  He is
+keeping a close eye on the entry box.  Mortamer Ulysses Franklin is sitting
+behind the moon shaped table, watching your every move.
+
+> examine painting
+The painting depicts the founder of Wimsington, just outside of the old
+building; before renovations had begun, several years back.  The statue seems
+to be looking toward the east.  The painting is pretty nice, but there seems
+to be a thread out of place..
+
+> examine statue
+There are a couple of statues on the library shelves.  One looks to be a
+miniature replica of the town's founder, that is located just outside the
+building.  The small statue is facing toward you.
+
+> pull thread
+You pull the thread protruding from the painting.  It slowly begins to detach
+the bottom corner of the canvas.
+
+> press button
+You press the button and hear a noise behind you.
+
+> examine statue
+There are a couple of statues on the library shelves.  One looks to be a
+miniature replica of the town's founder, that is located just outside the
+building.  The small statue is turned sideways.
+
+> stand on leg to stand on
+You carefully stand atop the Leg to Stand On and see a small lever.
+
+> inventory
+You are carrying a bottle cap, a leg to stand on, a handy dandy extra hand, a
+portable doorknob, a letter and the mail.
+
+> pull lever
+You should really fill out your entry form before you go messing around with
+stuff.
+
+> examine mortamer ulysses franklin
+It seems that Morty, as you like to call him, is much younger then the other
+board members.  He's a stout man with short dark hair, with some red tones.
+Mortamer Ulysses Franklin is carrying an entry form and an ink pen.
+
+> ask mortamer ulysses franklin about form
+"Yes, Professor.  I have the form right here.  I will fill it out for you."
+He says, but is slightly taken back by your refusal.
+
+"Thank you, Morty.  But I think I can handle this one on my own." You take
+the form and the pen from Mortamer and promptly fill it out.  When you are
+finished, you hand the pen back to Mortamer, fold your entry and slip it into
+the entry box.
+
+> stand on leg to stand on
+You carefully stand atop the Leg to Stand On and see a small lever.
+
+> pull lever
+You pull the lever and hear a low rumble. You turn around to see the floor
+open up.  There is a dark, narrow stairway leading down.
+Just as you are about to investigate further, you hear Thomas and Clayton
+coming.  You round the corner just in time to keep them from seeing the
+entrance to the secret room.
+
+"It's time to fly, Von Witt.  I hope your contraption is ready.  You have
+five minutes to get to Glen's Lookout, so you better hurry." Thomas says,
+escorting you to the door.
+
+A moment later Mortamer emerges from the building and they lock the door.
+You watch as the three men walk north, towards Glen's lookout.  You don't
+have much time, so you hurry over to your lab.
+
+> look
+
+Laboratory
+Your laboratory is pretty much a mess.  Scattered about are dozens of
+inventions that you haven't finished; and some that just don't work very
+well.  One of your favorite inventions is the Mailbox on-a-rope, which is by
+the window.
+
+There is a open area in the middle of the room, where you like to work on
+larger inventions. A shelf along the wall holds more of your inventions.
+Milo is looking around your laboratory.  His hand is bandaged.
+
+> move contraption
+Milo's hand has been injured.  If only there was something you could do.
+
+> give milo a hand
+You secure the handy Dandy Extra Hand onto Milos arm.  He now has an extra
+hand.
+
+> move contraption
+With the help of Milo, both of you carry the contraption to Glen's Lookout.
+
+"I guess I should tell you that my pop worked on Clangor's contraption when I
+was a kid.  I spent several hours watching him.  I took the liberty of
+replacing the wiring.  I have no idea why it didn't work right way back then.
+All you have to do is climb on the contraption and push the green button."
+Glen's Lookout is bustling with onlookers.  Board members are gathered about
+checking over the entrants.  The tall oak tree provides some shade in from
+the midday sun.
+
+ Your contraption is sitting here, just waiting to go. Several of the town's
+folk can't help but to muse over your contraption, and none are old enough to
+remember Clangor's contraption...and if they are old enough, they just can't
+remember.
+
+You carefully set the contraption down.  And look around at all the people
+that have gathered to watch the event.
+
+> look
+Glen's Lookout overlooks Clangors Glen.  Named after the ill-fated Professor
+Woodworf Clanger.  Nearly 40 years ago he had built a flying contraption that
+didn't fly.  He plummeted over the edge and went straight down into the
+water. It is rumored that parts of his contraption are still submerged in the
+waters of Slapp's Lake, at the glen's bottom. It's called Glen's Lookout
+because that was supposedly the last words he yelled before he went over the
+edge. LOOK OUT! He tried to grab hold of the oak tree, but the weight of his
+contraption pulled him over the edge.  The town is to the south.
+
+> examine contraption
+It looks like something from out outer space.  Clangor must have worked on
+this for a long time. There is a green button on the contraption.  The flying
+contraption is like new; and has a sleek arerodynamic body that is shiny.
+
+> sit on contraption
+You climb on top of the bullet shaped craft and make yourself comfortable.
+
+> examine contraption
+It looks like something from out outer space.  Clangor must have worked on
+this for a long time. There is a green button on the contraption.  The flying
+contraption is like new; and has a sleek arerodynamic body that is shiny.
+
+> ride contraption
+You climb on top of the bullet shaped craft and make yourself comfortable.
+
+> examine button
+There is a little green button on your contraption.  The green button is on
+the contraption.
+
+> press button
+You press the green button and barely have time to grab hold of the
+contraption as it lurches forward, through the crowd, over the edge of the
+glen.  You spiral downward at a sickening pace, toward the water.  The
+contraption hits the water hard and you are nearly thrown off.  The piranas
+give chase as the contraption moves through the water like torpedo.  Large
+rocks beneath the waters surface becomes your focal point as they become
+larger with your approach.
+
+With all your might, you lean backward on the machine and it shoots straight
+up out of the water. The crowd roars with applause and cheers as they
+watching astonishment. You are barely able to catch your breath as the
+machine takes you higher and higher.
+
+The crowd watches in horror as you disappear from sight, and are never seen
+again. The good news is that the machine actually flew. The bad news is that
+your seat on the IOCC board was given to Burton, who also had an entry.  Too
+bad you'll never what it was.
+
+Better luck next time.
+You scored 151 out of the maximum 229!
+That is 65% of the game!

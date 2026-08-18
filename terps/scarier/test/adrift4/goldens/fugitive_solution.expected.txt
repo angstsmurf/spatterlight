@@ -368,8 +368,8 @@ to the ground so silently that nobody notices.
 
 > x soldier
 The soldier is wearing a khaki uniform and heavy boots. His face is painted
-with black stripes, as if he was going to a battle.  A pistol, a knife and an
-assault rifle are on the unconscious soldier.
+with black stripes, as if he was going to a battle.  On the unconscious
+soldier is a pistol, a knife and an assault rifle.
 
 > get pistol
 You take a pistol from the unconscious soldier.

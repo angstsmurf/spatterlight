@@ -1,0 +1,86 @@
+south
+south
+knock on peabody's door
+ask lady about pie
+north
+east
+give basket to mr beaker
+take meat
+take juice
+drink juice
+take juice
+west
+west
+examine shelves
+take pollen popper upper
+take hand
+take leg to stand on
+take doorknob
+east
+give jasper's Jazzy Jungle Juice to shelly
+examine mailbox on-a Rope
+take mail
+examine mail
+read mail
+south
+knock on peabody's door
+give fruit to lady
+throw pie at burton
+north
+se
+ring bell
+give coupon to clerk
+nw
+south
+knock on milos door
+give hammer to milo
+examine window box
+pick pretty flowers
+north
+north
+tie rope to tree
+down
+feed fish
+swim
+put flowers in pollen popper upper
+use balloon on contraption
+examine contraption
+look
+examine area
+examine contraption
+east
+east
+examine shelves
+take reggie's Remedy Rust Resolvent
+west
+west
+examine contraption
+clean contraption
+examine contraption
+use door knob on contraption
+read letter
+east
+sw
+examine painting
+examine statue
+pull thread
+press button
+examine statue
+stand on leg to stand on
+inventory
+pull lever
+examine mortamer ulysses franklin
+ask mortamer ulysses franklin about form
+stand on leg to stand on
+pull lever
+look
+move contraption
+give milo a hand
+move contraption
+look
+examine contraption
+sit on contraption
+examine contraption
+ride contraption
+examine button
+press button

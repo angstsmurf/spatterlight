@@ -745,8 +745,8 @@ I can only move south.
 Okay.  I lean the ladder against the wall.
 
 > X table
-The oval display table is finely crafted from highly polished wood.  An
-amphora, a tennis racquet and a slate are on the oval table.
+The oval display table is finely crafted from highly polished wood.  On the
+oval table is an amphora, a tennis racquet and a slate.
 
 > Get amphora
 Okay.  I have taken the amphora from the oval table.
@@ -788,9 +788,9 @@ there is a triangular table.
 I can only move west.
 
 > X table
-The triangular display table is finely crafted from highly polished wood.
-Some swimming goggles, a watch, a musket and a china doll are on the
-triangular table.
+The triangular display table is finely crafted from highly polished wood.  On
+the triangular table are some swimming goggles, a watch, a musket and a china
+doll.
 
 > Get watch
 Okay.  I have taken the watch from the triangular table.
@@ -835,7 +835,7 @@ written "DO NOT OPEN" in large letters above the keyhole.
 
 > X table
 The crescent-shaped display table is finely crafted from highly polished
-wood.  A claw, a swimming cap and a bronze key are on the crescent table.
+wood.  On the crescent table is a claw, a swimming cap and a bronze key.
 
 > Get claw
 Okay.  I have taken the claw from the crescent table.
@@ -1271,8 +1271,8 @@ Click.  The display case springs open.
 
 > X case
 The rectangular display table is finely crafted from highly polished wood.
-An amphora, some swimming goggles, a watch, a claw and a swimming cap are on
-the rectangular table.
+On the rectangular table is an amphora, some swimming goggles, a watch, a
+claw and a swimming cap.
 
 > Get all from case
 Okay.  I have taken the amphora, the swimming goggles, the watch, the claw

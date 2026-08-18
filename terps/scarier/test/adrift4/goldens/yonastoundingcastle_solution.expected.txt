@@ -239,8 +239,8 @@ Ye putteth ye resizing wheel cronkle onto yon belt resizing device.
 Ye believeth ye hath fixed yon belt resizing device!
 
 > x rack
-'Tis ye rack for belt-holding.    Ye magic belt, ye intercontinental title
-and yon other belts are on ye belt rack.
+'Tis ye rack for belt-holding.    On ye belt rack is ye magic belt, ye
+intercontinental title and yon other belts.
 
 > get belt
 Ye taketh ye magic belt from ye belt rack.
@@ -879,8 +879,8 @@ Ye moveth east.
 Outside Yon Ring of Lava
 Ye standeth on ye outside of yon ring of entirely deadly lava, which maketh
 ye sweat profusely.  Yon island-type platform protrudeth from ye centre of
-yon ring in ye east, but quite out of ye reach.  Ye suspecteth something
-fancy doth hide there.
+yon ring in ye east, which ye can getteth to by crossing yon stone bridge.
+Ye suspecteth something fancy doth hide on ye platform.
 
 > e
 Ye moveth east.

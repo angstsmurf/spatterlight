@@ -111,6 +111,9 @@ eyes. There seems to be few furnishings or luxuries of any kind, excepting a
 huge stone chair and a black oven so large you could enter it without
 difficulty. The exit is to this cheerless place is to the south.
 
+"Oh, no!" cries the ogre's wife. "I hear my husband coming home! Quick, hide
+inside the oven!"
+
 > n
 You went into the castle, where the giantess serves you some breakfast.
 
@@ -228,6 +231,9 @@ Despite the hugeness of the castle, it looks cold and unfriendly to your
 eyes. There seems to be few furnishings or luxuries of any kind, excepting a
 huge stone chair and a black oven so large you could enter it without
 difficulty. The exit is to this cheerless place is to the south.
+
+"Oh, no!" cries the ogre's wife. "I hear my husband coming home! Quick, hide
+inside the oven!"
 
 > n
 You went into the castle, where the giantess serves you some breakfast.
@@ -347,6 +353,9 @@ Despite the hugeness of the castle, it looks cold and unfriendly to your
 eyes. There seems to be few furnishings or luxuries of any kind, excepting a
 huge stone chair and a black oven so large you could enter it without
 difficulty. The exit is to this cheerless place is to the south.
+
+"Oh, no!" cries the ogre's wife. "I hear my husband coming home! Quick, hide
+inside the oven!"
 
 > n
 You went into the castle, where the giantess serves you some breakfast.

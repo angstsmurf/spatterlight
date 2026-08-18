@@ -195,7 +195,7 @@ It say "Do not push button while the ship is in hyperspace or at a station."
 
 SoMorph chuckles.
 
-SoMorph see bathroom door is closed.
+SoMorph see bathroom door open. Corridor to West.
 
 SoMorph can only move west.
 SoMorph try hold it in...
@@ -261,7 +261,7 @@ No windows! Why no windows???
 
 Corridor split into four. Exits to North, West and South.
 
-To east is bathroom, but door is closed.
+To east is bathroom. SoMorph see bathroom door is open.
 
 Human is here.
 
@@ -383,7 +383,7 @@ No windows! Why no windows???
 
 Corridor split into four. Exits to North, West and South.
 
-To east is bathroom, but door is closed.
+To east is bathroom. SoMorph see bathroom door is open.
 
 SoMorph can move north, east, south and west.
 
