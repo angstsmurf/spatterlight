@@ -171,12 +171,12 @@ extern void map_surface_free (map_surface_t *s);
    drawing depends on the scheme below. */
 extern void map_set_palette (unsigned int background, unsigned int text);
 
-/* MAP_SCHEME_STANDARD spends them flat: `background` fills the map and the
-   room boxes, `text` draws the connectors, borders and labels, and the
-   player's room is their inversion.  MAP_SCHEME_DERIVED treats them as paper
-   and ink and mixes room fills, a you-are-here amber, faded link greys and
-   contrast-picked labels out of them.  Standard until the host says
-   otherwise; the setting is the host's to remember. */
+/* MAP_SCHEME_STANDARD mixes `background` and `text` as paper and ink:
+   shaded room cards, a filled-in player's room, faded connectors.  No
+   third hue.  MAP_SCHEME_DERIVED keeps those cards but paints you-are-here
+   in amber (with orange/cyan fallbacks) the way the ADRIFT runner did.
+   Standard until the host says otherwise; the setting is the host's to
+   remember. */
 enum {
   MAP_SCHEME_STANDARD = 0,
   MAP_SCHEME_DERIVED = 1

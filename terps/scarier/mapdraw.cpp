@@ -51,28 +51,26 @@ const char *const map_dirs[MAP_N_DIRS] = {
 
    Two schemes are on offer, chosen by map_set_colour_scheme:
 
-     MAP_SCHEME_STANDARD  the map and its room boxes take the style's
-                          background colour, connectors, borders and labels
-                          its text colour, and the player's room is drawn
-                          inverted (text-colour fill, background-colour
-                          label) where the runner filled it yellow.
-
-     MAP_SCHEME_DERIVED   paper and ink instead seed a small hierarchy, so
-                          the pane reads as cards rather than hollow frames:
+     MAP_SCHEME_STANDARD  paper and ink seed a small hierarchy, with no
+                          third hue:
 
                             canvas      = background
                             room fill   = a little ink mixed into paper
-                            here fill   = the room card mixed toward amber
-                                          (ADRIFT's yellow), with orange and
-                                          cyan fallbacks if amber collapses
-                                          into the card
-                            strokes /
-                            labels      = ink (the label may flip to paper,
-                                          black or white for contrast)
+                            here fill   = the room card mixed further toward
+                                          ink, so the player's room reads as
+                                          the filled-in box
+                            strokes     = ink
+                            labels      = ink or paper, on the other side
+                                          of the fill
                             links/stubs = ink faded toward paper
 
                           Links are then drawn near-opaque, since the fading
-                          is already in the colour. */
+                          is already in the colour.
+
+     MAP_SCHEME_DERIVED   the same cards, but the player's room is mixed
+                          toward amber (ADRIFT's yellow), with orange and
+                          cyan fallbacks if amber collapses into the card,
+                          and the here-stroke picks up a little gold. */
 static unsigned int map_bg = 0xFFFFFF;
 static unsigned int map_fg = 0x000000;
 static int map_scheme = MAP_SCHEME_STANDARD;
@@ -168,6 +166,25 @@ rgb_near_gray (unsigned int rgb)
    sits on a much darker card. */
 #define MAP_ROOM_FILL_ALPHA 200
 
+/* Paper/ink labels: put the mark on the other side of mid-luminance from
+   the fill.  WCAG on an alpha-blended mid grey still prefers dark ink, which
+   then fails to mark "you are here" as the filled-in box. */
+static unsigned int
+paper_ink_label_on (unsigned int fill)
+{
+  double fill_l = rgb_luminance (fill);
+  double fg_l = rgb_luminance (map_fg);
+  double bg_l = rgb_luminance (map_bg);
+  double mid;
+
+  if (fg_l == bg_l)
+    return map_fg;
+  mid = (fg_l + bg_l) * 0.5;
+  if (fill_l >= mid)
+    return fg_l > bg_l ? map_bg : map_fg;
+  return fg_l > bg_l ? map_fg : map_bg;
+}
+
 static unsigned int
 best_label_on (unsigned int fill)
 {
@@ -229,18 +246,23 @@ rebuild_derived_palette (void)
 
   if (map_scheme != MAP_SCHEME_DERIVED)
     {
-      /* Two colours, used flat: boxes are paper, everything drawn on them is
-         ink, and the player's room is the inversion. */
-      map_room_fill = map_bg;
+      /* Paper and ink only: rooms sit a little off the canvas; the player's
+         room is mixed further toward ink so it reads as the filled-in box.
+         Shallow here-mixes landed on a mid grey whose label then failed to
+         invert. */
+      map_room_fill = mix_rgb (map_bg, map_fg, room_t);
       map_room_stroke = map_fg;
-      map_here_fill = map_fg;
+      map_here_fill = mix_rgb (map_room_fill, map_fg,
+                              dark ? 0.85 : 0.90);
       map_here_stroke = map_fg;
-      map_here_label = map_bg;
-      map_label = map_fg;
-      map_link = map_fg;
-      map_stub = map_fg;
-      map_link_alpha = 100;
-      map_link_alpha_far = 30;
+      room_eff = mix_rgb (map_bg, map_room_fill, fill_a);
+      here_eff = mix_rgb (map_bg, map_here_fill, fill_a);
+      map_label = paper_ink_label_on (room_eff);
+      map_here_label = paper_ink_label_on (here_eff);
+      map_link = mix_rgb (map_bg, map_fg, dark ? 0.50 : 0.60);
+      map_stub = mix_rgb (map_bg, map_fg, dark ? 0.35 : 0.40);
+      map_link_alpha = 220;
+      map_link_alpha_far = 70;
       return;
     }
 
