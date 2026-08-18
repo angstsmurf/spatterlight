@@ -2229,7 +2229,29 @@ provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2
 # the author's own walkthrough does -- Burton gets the IOCC board seat --
 # 151/229, 65%: this is the walkthrough's intended finish, not a shortfall.
 professor_solution.txt|Professor.taf|You scored 151 out of the maximum 229!
-
+# The Wingman (AIF), by Dark Horse, 2011 minicomp.  The game ships its own
+# walkthrough.txt (bar-scene command list plus a topic-list of body-part
+# verbs for the bedroom scene, warning that two of its scoring commands are
+# the game's own documented losing endings), but very little of it replays
+# literally: `pay bartender with twenty dollar bill` isn't a recognised verb
+# (TASK 0's real command is just `pay bartender`), and `turn stereo on` /
+# `undress stacie` aren't recognised either (TASK 17 is `turn on stereo`,
+# TASK 23 is `remove dress`).  The real command sequence, and the fact that
+# a Condom must be WORN and the player's own pants REMOVED before the
+# climax task (TASK 48) will succeed, were derived from
+# `SCR_DUMP_TASKS=1`'s task/RESTR dump rather than the walkthrough text.
+# The walkthrough lists three winning finishers gated on TASK 48; two of
+# the three score 95/121 while the third only scores 75/121, so one of the
+# higher-scoring pair is the one wired.  As with the games below, the
+# literal commands are in the gitignored solution file.  Adult content,
+# cast is adults throughout, so it goes in on the Diary of a Stripper /
+# Camp Windy Lake 2 terms:
+# `goldens/wingman1_solution.txt` and its `.expected.txt` are gitignored and
+# this row is the only committed artefact.  The row NOSCRIPTs where those
+# files do not exist, which is not a failure.  The game DOES prompt for a
+# name, so line 1 of the solution is `Hero`; no <waitkey>, so the row needs
+# no env.
+wingman1_solution.txt|wingman1.taf|You scored 95 out of the maximum 121!
 EOF
 }
 

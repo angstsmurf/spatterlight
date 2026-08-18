@@ -34,6 +34,10 @@
 /goldens/gamma_solution.txt
 /goldens/gamma_solution.expected.txt
 
+# The Wingman (AIF): explicit text, deliberately not committed.
+/goldens/wingman1_solution.txt
+/goldens/wingman1_solution.expected.txt
+
 # The croft.taf SYNONYM-precedence probe generator.  It is a faithful
 # reduction of an AIF file and is built from that game's own vocabulary, so
 # it stays local like the solutions above; the finding it measured is
