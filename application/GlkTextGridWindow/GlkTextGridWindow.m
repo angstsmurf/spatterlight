@@ -20,6 +20,7 @@
 #import "NSString+Categories.h"
 #import "Theme.h"
 #import "GlkStyle.h"
+#import "GlkCSSBasic.h"
 #import "Constants.h"
 #import "Game.h"
 #import "Metadata.h"
@@ -85,6 +86,8 @@
         NSDictionary *styleDict = nil;
 
         self.styleHints = [GlkWindow deepCopyOfStyleHintsArray:glkctl_.gridStyleHints];
+        self.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:glkctl_.gridCssSpanHints];
+        self.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:glkctl_.gridCssParaHints];
 
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {

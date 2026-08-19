@@ -5,6 +5,7 @@
 #import "GlkTextBufferWindow.h"
 
 #import "Constants.h"
+#import "GlkCSSBasic.h"
 #import "GlkStyle.h"
 
 #import "InputHistory.h"
@@ -77,6 +78,9 @@
         _currentTerminators = _pendingTerminators;
         self.canDrawConcurrently = YES;
         usingStyles = self.theme.doStyles;
+        _currentInlineCSS = [NSMutableDictionary dictionary];
+        _cssSpanHints = nil;
+        _cssParaHints = nil;
     }
 
     return self;
@@ -103,6 +107,11 @@
         history = [decoder decodeObjectOfClass:[InputHistory class] forKey:@"history"];
         usingStyles = [decoder decodeBoolForKey:@"usingStyles"];
         underlineLinks = [decoder decodeBoolForKey:@"underlineLinks"];
+        _currentInlineCSS = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"currentInlineCSS"];
+        if (!_currentInlineCSS)
+            _currentInlineCSS = [NSMutableDictionary dictionary];
+        _cssSpanHints = [decoder decodeObjectOfClass:[NSArray class] forKey:@"cssSpanHints"];
+        _cssParaHints = [decoder decodeObjectOfClass:[NSArray class] forKey:@"cssParaHints"];
     }
     return self;
 }
@@ -129,6 +138,9 @@
     [encoder encodeObject:history forKey:@"history"];
     [encoder encodeBool:usingStyles forKey:@"usingStyles"];
     [encoder encodeBool:underlineLinks forKey:@"underlineLinks"];
+    [encoder encodeObject:_currentInlineCSS forKey:@"currentInlineCSS"];
+    [encoder encodeObject:_cssSpanHints forKey:@"cssSpanHints"];
+    [encoder encodeObject:_cssParaHints forKey:@"cssParaHints"];
 }
 
 + (NSArray *)deepCopyOfStyleHintsArray:(NSArray *)array {
@@ -211,6 +223,64 @@
     if (hintsForStyle.count <= stylehint_ReverseColor)
         return attributes;
 
+    /* Re-apply justification from stylehints at print time.  styles[] is
+       baked at window creation, but some themes/rebuild paths can leave
+       paragraph alignment stale; this keeps <right>/<center> honest. */
+    if (hintsForStyle.count > stylehint_Justification
+        && [hintsForStyle[stylehint_Justification] isNotEqualTo:[NSNull null]]) {
+        NSMutableParagraphStyle *para =
+            [attributes[NSParagraphStyleAttributeName] mutableCopy]
+            ?: [[NSMutableParagraphStyle alloc] init];
+        switch ([hintsForStyle[stylehint_Justification] integerValue]) {
+            case stylehint_just_LeftFlush:
+                para.alignment = NSTextAlignmentLeft;
+                break;
+            case stylehint_just_LeftRight:
+                para.alignment = NSTextAlignmentJustified;
+                break;
+            case stylehint_just_Centered:
+                para.alignment = NSTextAlignmentCenter;
+                break;
+            case stylehint_just_RightFlush:
+                para.alignment = NSTextAlignmentRight;
+                break;
+            default:
+                break;
+        }
+        attributes[NSParagraphStyleAttributeName] = para;
+    }
+
+    /* CSS Basic hints (span always; paragraph when this starts a visual paragraph
+       is approximated by always applying para hints into paragraph style — Glk
+       paragraph boundaries are newline-driven and AppKit paragraph styles apply
+       per run). */
+    BOOL cssReverse = NO;
+    if (stylevalue < self.cssSpanHints.count) {
+        NSDictionary *spanHints = self.cssSpanHints[stylevalue];
+        if (spanHints.count)
+            [GlkCSSBasic applyProperties:spanHints
+                          toAttributes:attributes
+                                 theme:self.theme
+                        allowParagraph:NO
+                            reverseOut:&cssReverse];
+    }
+    if (stylevalue < self.cssParaHints.count) {
+        NSDictionary *paraHints = self.cssParaHints[stylevalue];
+        if (paraHints.count)
+            [GlkCSSBasic applyProperties:paraHints
+                          toAttributes:attributes
+                                 theme:self.theme
+                        allowParagraph:YES
+                            reverseOut:NULL];
+    }
+    if (self.currentInlineCSS.count) {
+        [GlkCSSBasic applyProperties:self.currentInlineCSS
+                      toAttributes:attributes
+                             theme:self.theme
+                    allowParagraph:NO
+                        reverseOut:&cssReverse];
+    }
+
     if (currentZColor) {
         attributes[@"ZColor"] = currentZColor;
         if (self.theme.doStyles) {
@@ -223,7 +293,8 @@
         }
     }
 
-    if (self.currentReverseVideo) {
+    BOOL reverse = self.currentReverseVideo || cssReverse;
+    if (reverse) {
         attributes[@"ReverseVideo"] = @(YES);
         if (!self.theme.doStyles || [hintsForStyle[stylehint_ReverseColor] isNotEqualTo:@(1)]) {
             // Current style has stylehint_ReverseColor unset, so we reverse colors

@@ -28,6 +28,7 @@
 
 #import "NSColor+integer.h"
 #import "NSString+Categories.h"
+#import "GlkCSSBasic.h"
 
 #include "glkimp.h"
 #include "messagenames.h"
@@ -38,6 +39,135 @@
 #endif
 
 @implementation GlkController (GlkRequests)
+
+#pragma mark - CSS Basic helpers
+
+- (void)cssUnpackBuffer:(char *)buf
+                 length:(size_t)len
+                   prop:(NSString **)propOut
+                  value:(NSString **)valOut {
+    *propOut = nil;
+    *valOut = nil;
+    if (!buf || len == 0)
+        return;
+    NSUInteger propLen = 0;
+    while (propLen < len && buf[propLen] != '\0')
+        propLen++;
+    if (propLen == 0)
+        return;
+    *propOut = [[NSString alloc] initWithBytes:buf length:propLen encoding:NSUTF8StringEncoding];
+    if (propLen + 1 < len) {
+        NSUInteger valStart = propLen + 1;
+        NSUInteger valLen = 0;
+        while (valStart + valLen < len && buf[valStart + valLen] != '\0')
+            valLen++;
+        if (valLen)
+            *valOut = [[NSString alloc] initWithBytes:buf + valStart length:valLen encoding:NSUTF8StringEncoding];
+    }
+}
+
+/* Windows copy CSS hint arrays at creation; keep those copies live when the
+   terp sets or clears hints after open (same idea as REFRESH). */
+- (void)syncCssHintsToOpenWindowsForWindowType:(int)wintype {
+    BOOL syncBuffer = (wintype == wintype_TextBuffer || wintype == wintype_AllTypes);
+    BOOL syncGrid = (wintype == wintype_TextGrid || wintype == wintype_AllTypes);
+    if (!syncBuffer && !syncGrid)
+        return;
+
+    for (GlkWindow *win in self.gwindows.allValues) {
+        if (syncBuffer && [win isKindOfClass:[GlkTextBufferWindow class]]) {
+            win.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.bufferCssSpanHints];
+            win.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.bufferCssParaHints];
+        } else if (syncGrid && [win isKindOfClass:[GlkTextGridWindow class]]) {
+            win.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.gridCssSpanHints];
+            win.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.gridCssParaHints];
+        }
+    }
+}
+
+- (void)handleCssHintOnWindowType:(int)wintype
+                            style:(NSUInteger)style
+                       parOrSpan:(int)parOrSpan
+                            prop:(NSString *)prop
+                           value:(NSString *)value {
+    if (style >= style_NUMSTYLES || !prop.length)
+        return;
+
+    NSMutableArray *bufferStore = (parOrSpan == CSS_Paragraph)
+        ? self.bufferCssParaHints : self.bufferCssSpanHints;
+    NSMutableArray *gridStore = (parOrSpan == CSS_Paragraph)
+        ? self.gridCssParaHints : self.gridCssSpanHints;
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            bufferStore[style][prop] = value ?: @"";
+            gridStore[style][prop] = value ?: @"";
+            break;
+        case wintype_TextGrid:
+            gridStore[style][prop] = value ?: @"";
+            break;
+        case wintype_TextBuffer:
+            bufferStore[style][prop] = value ?: @"";
+            break;
+        default:
+            return;
+    }
+    [self syncCssHintsToOpenWindowsForWindowType:wintype];
+}
+
+- (void)handleClearCssHintOnWindowType:(int)wintype
+                                 style:(NSUInteger)style
+                            parOrSpan:(int)parOrSpan
+                                 prop:(NSString *)prop {
+    if (style >= style_NUMSTYLES || !prop.length)
+        return;
+
+    NSMutableArray *bufferStore = (parOrSpan == CSS_Paragraph)
+        ? self.bufferCssParaHints : self.bufferCssSpanHints;
+    NSMutableArray *gridStore = (parOrSpan == CSS_Paragraph)
+        ? self.gridCssParaHints : self.gridCssSpanHints;
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            [bufferStore[style] removeObjectForKey:prop];
+            [gridStore[style] removeObjectForKey:prop];
+            break;
+        case wintype_TextGrid:
+            [gridStore[style] removeObjectForKey:prop];
+            break;
+        case wintype_TextBuffer:
+            [bufferStore[style] removeObjectForKey:prop];
+            break;
+        default:
+            return;
+    }
+    [self syncCssHintsToOpenWindowsForWindowType:wintype];
+}
+
+- (void)handleClearAllCssHintsOnWindowType:(int)wintype style:(NSUInteger)style {
+    if (style >= style_NUMSTYLES)
+        return;
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            [self.bufferCssSpanHints[style] removeAllObjects];
+            [self.bufferCssParaHints[style] removeAllObjects];
+            [self.gridCssSpanHints[style] removeAllObjects];
+            [self.gridCssParaHints[style] removeAllObjects];
+            break;
+        case wintype_TextGrid:
+            [self.gridCssSpanHints[style] removeAllObjects];
+            [self.gridCssParaHints[style] removeAllObjects];
+            break;
+        case wintype_TextBuffer:
+            [self.bufferCssSpanHints[style] removeAllObjects];
+            [self.bufferCssParaHints[style] removeAllObjects];
+            break;
+        default:
+            return;
+    }
+    [self syncCssHintsToOpenWindowsForWindowType:wintype];
+}
 
 - (void)handleOpenPrompt:(int)fileusage {
     if (self.pendingSaveFilePath) {
@@ -1136,6 +1266,54 @@
             }
             break;
 
+        case CSSHINT: {
+            NSString *prop = nil, *val = nil;
+            [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+            [self handleCssHintOnWindowType:req->a1
+                                      style:(NSUInteger)req->a2
+                                 parOrSpan:req->a3
+                                      prop:prop
+                                     value:val];
+            break;
+        }
+
+        case CLEARCSSHINT: {
+            NSString *prop = nil, *val = nil;
+            [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+            [self handleClearCssHintOnWindowType:req->a1
+                                           style:(NSUInteger)req->a2
+                                      parOrSpan:req->a3
+                                           prop:prop];
+            break;
+        }
+
+        case CLEARALLCSSHINT:
+            [self handleClearAllCssHintsOnWindowType:req->a1 style:(NSUInteger)req->a2];
+            break;
+
+        case SETCSSINLINE: {
+            if (reqWin) {
+                NSString *prop = nil, *val = nil;
+                [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+                if (prop.length) {
+                    if (!reqWin.currentInlineCSS)
+                        reqWin.currentInlineCSS = [NSMutableDictionary dictionary];
+                    reqWin.currentInlineCSS[prop] = val ?: @"";
+                }
+            }
+            break;
+        }
+
+        case CLEARCSSINLINE: {
+            if (reqWin) {
+                NSString *prop = nil, *val = nil;
+                [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+                if (prop.length)
+                    [reqWin.currentInlineCSS removeObjectForKey:prop];
+            }
+            break;
+        }
+
         case QUOTEBOX:
             if (reqWin) {
                 [((GlkTextGridWindow *)reqWin) quotebox:(NSUInteger)req->a2];
@@ -1353,10 +1531,14 @@
 //            It can also update any inline images.
             if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
                 reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.bufferStyleHints];
+                reqWin.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.bufferCssSpanHints];
+                reqWin.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.bufferCssParaHints];
                 if (req->a2 > 0)
                     [((GlkTextBufferWindow *)reqWin) updateImageAttachmentsWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
             } else if ([reqWin isKindOfClass:[GlkTextGridWindow class]]) {
                 reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.gridStyleHints];
+                reqWin.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.gridCssSpanHints];
+                reqWin.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.gridCssParaHints];
             } else {
                 break;
             }

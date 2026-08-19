@@ -306,6 +306,17 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         [_bufferStyleHints addObject:[nullarray mutableCopy]];
     }
 
+    _bufferCssSpanHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    _bufferCssParaHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    _gridCssSpanHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    _gridCssParaHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    for (i = 0 ; i < style_NUMSTYLES ; i ++) {
+        [_bufferCssSpanHints addObject:[NSMutableDictionary dictionary]];
+        [_bufferCssParaHints addObject:[NSMutableDictionary dictionary]];
+        [_gridCssSpanHints addObject:[NSMutableDictionary dictionary]];
+        [_gridCssParaHints addObject:[NSMutableDictionary dictionary]];
+    }
+
     // Initialize VoiceOver / speech state. We start quiet (mustBeQuiet = YES)
     // to prevent speaking during initialization and autorestore. Speech is
     // enabled later once the game is fully running and the window becomes key.
