@@ -11,7 +11,7 @@
 
 #import <AppKit/AppKit.h>
 
-@class Game, Theme, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, CommandScriptHandler, CoverImageHandler, GlkController, InfocomV6MenuHandler;
+@class Game, Theme, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, CommandScriptHandler, CoverImageHandler, GlkController, InfocomV6MenuHandler, MapWindowController;
 
 #define MAXWIN 64
 
@@ -31,6 +31,9 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property NSMutableDictionary<NSNumber*,GlkWindow*> *gwindows;
 @property SoundHandler *soundHandler;
 @property ImageHandler *imageHandler;
+@property MapWindowController *mapWindowController;
+/* One-shot: terp called glk_request_map_event; cleared on deliver/cancel/close. */
+@property BOOL mapEventRequest;
 @property NSMutableArray *imagesToSpeak;
 
 @property NSMutableArray<GlkWindow *> *windowsToBeAdded;

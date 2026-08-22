@@ -4,7 +4,8 @@
 #include "glkimp.h"
 #include "fileref.h"
 
-static int loadimage(int image)
+/* Shared by glk_image_draw* and glk_map_present_image / glk_map_overlay. */
+int gli_loadimage(int image)
 {
     glui32 chunktype;
     FILE *file;
@@ -70,7 +71,7 @@ glui32 glk_image_draw_scaled(winid_t win, glui32 image,
         return FALSE;
     }
 
-    if (!loadimage(image))
+    if (!gli_loadimage(image))
     {
         return FALSE;
     }
@@ -122,7 +123,7 @@ glui32 glk_image_draw_scaled_ext(winid_t win, glui32 image,
         (heightrule == imagerule_HeightFixed && height == 0))
         return FALSE;
 
-    if (!loadimage(image))
+    if (!gli_loadimage(image))
     {
         return FALSE;
     }
@@ -136,9 +137,9 @@ glui32 glk_image_get_info(glui32 image, glui32 *width, glui32 *height)
     if (width) *width = 1;
     if (height) *height = 1;
     
-    if (!loadimage(image))
+    if (!gli_loadimage(image))
     {
-        fprintf(stderr, "glk_image_get_info: loadimage(%d) FAILED\n", image);
+        fprintf(stderr, "glk_image_get_info: gli_loadimage(%d) FAILED\n", image);
         return FALSE;
     }
     

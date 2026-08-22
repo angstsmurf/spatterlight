@@ -20,6 +20,7 @@
 #import "InfoController.h"
 #import "InputTextField.h"
 #import "ImageHandler.h"
+#import "MapWindowController.h"
 #import "LibController.h"
 #import "Metadata.h"
 #import "NotificationBezel.h"
@@ -1357,6 +1358,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     }
     [self autoSaveOnExit];
     [_soundHandler stopAllAndCleanUp];
+    [_mapWindowController closeMap];
+    _mapWindowController = nil;
 
     [self closeLogFile];
 

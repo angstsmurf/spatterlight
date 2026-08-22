@@ -1085,6 +1085,19 @@ again:
             event->val1 = wmsg.a2;
             event->val2 = wmsg.a3;
             break;
+        case EVTMAP:
+#ifdef DEBUG
+            fprintf(stderr, "win_select: received map event subtype %d payload %d\n",
+                    wmsg.a2, wmsg.a3);
+#endif
+            event->type = evtype_Map;
+            event->win = NULL;
+            event->val1 = wmsg.a2;  /* mapevent_* */
+            event->val2 = wmsg.a3;  /* payload */
+            if (!gli_map_event_request)
+                goto again;
+            gli_map_event_request = FALSE;
+            break;
         case EVTTIMER:
 #ifdef DEBUG
             fprintf(stderr, "timer event\n");

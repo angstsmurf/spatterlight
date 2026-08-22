@@ -164,7 +164,8 @@ static BOOL pollMoreData(int fd) {
     // terpDidStop), so this is a backstop for any path that slips through.
     if (terpHasStopped &&
         (gevent.type == EVTKEY || gevent.type == EVTLINE ||
-         gevent.type == EVTHYPER || gevent.type == EVTMOUSE)) {
+         gevent.type == EVTHYPER || gevent.type == EVTMOUSE ||
+         gevent.type == EVTMAP)) {
         return;
     }
     if (gevent.type == EVTARRANGE) {
@@ -190,7 +191,8 @@ static BOOL pollMoreData(int fd) {
             redrawEvent = [[GlkEvent alloc] initRedrawEvent];
     }
 
-    if (gevent.type == EVTKEY || gevent.type == EVTLINE || gevent.type == EVTHYPER || gevent.type == EVTMOUSE)
+    if (gevent.type == EVTKEY || gevent.type == EVTLINE || gevent.type == EVTHYPER ||
+        gevent.type == EVTMOUSE || gevent.type == EVTMAP)
         self.shouldScrollOnCharEvent = YES;
 
     if (waitforfilename) {

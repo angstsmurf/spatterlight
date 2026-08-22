@@ -183,6 +183,24 @@ enum {
 };
 extern void map_set_colour_scheme (int scheme);
 
+/* Resolved colours for the current scheme (room/here fills are already
+   blended onto the canvas background so SVG can paint them opaque).
+   Builds the default black-on-white hierarchy if the host has not called
+   map_set_palette yet. */
+typedef struct map_palette_s {
+  unsigned int background;
+  unsigned int room_fill;
+  unsigned int room_stroke;
+  unsigned int here_fill;
+  unsigned int here_stroke;
+  unsigned int label;
+  unsigned int here_label;
+  unsigned int link;
+  unsigned int stub;
+} map_palette_t;
+
+extern void map_get_palette (map_palette_t *out);
+
 /* What the renderer needs to know about the run.  Keeping this a callback
    table is what lets the map be drawn from the headless harness (and diffed)
    without linking the Glk layer, and lets one renderer serve two engines whose
@@ -258,5 +276,31 @@ extern const char *map_hit (const map_t *map, const map_view_t *view,
    exactly as DoWalk does. */
 extern int map_walk_step (const map_view_t *view, const char *from,
                           const char *to);
+
+/* SVG document for glk_map_present (gestalt_Map). Caller frees with
+   map_svg_free(). Returns NULL when there is nothing useful to show. */
+typedef struct map_svg_hyperlink_s {
+  unsigned int id;            /* 1-based; matches glk_maphyperlink_t.id */
+  char *key;                  /* room key (heap); for the terp, not Glk */
+  char *label;                /* UTF-8 display name (heap); may be NULL */
+  int npoints;                /* 4 for room boxes */
+  int *xy;                    /* npoints*2 document-space ints: x0,y0,... */
+} map_svg_hyperlink_t;
+
+typedef struct map_svg_s {
+  char *svg;
+  int focus_left;
+  int focus_top;
+  unsigned int focus_width;
+  unsigned int focus_height;
+  int origin_x;
+  int origin_y;
+  map_svg_hyperlink_t *hyperlinks;
+  int nhyperlinks;
+} map_svg_t;
+
+extern map_svg_t *map_render_svg (const map_t *map, const map_view_t *view,
+                                  const char *player_key);
+extern void map_svg_free (map_svg_t *svg);
 
 #endif /* MAPDRAW_H */

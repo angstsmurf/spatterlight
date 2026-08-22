@@ -1283,6 +1283,7 @@ scmap_build (scr_gameref_t game, const map_view_t *view)
           snprintf (key, sizeof key, "%d", (int) sc_room (dest));
           node->links[nl].dest = sm_intern (m, key);
           node->links[nl].dotted = L.rooms[rno].restricted[d];
+          node->links[nl].duplex = (L.rooms[dest].exits[sm_opp (d)] == rno);
           nl++;
         }
       node->n_links = nl;
