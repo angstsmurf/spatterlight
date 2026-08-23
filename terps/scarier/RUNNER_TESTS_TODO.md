@@ -741,11 +741,15 @@ do not patch) vs *Scarier divergence* (→ engine fix).
 ## 4. Semantics arbitrated against the Runners — the standing divergence table
 
 Every row is settled — measured live, ported, deliberately kept, or refuted —
-with one exception. *Restriction evaluation order* rests on the P-code alone
+with two exceptions. *Restriction evaluation order* rests on the P-code alone
 because no ADRIFT 4 restriction has a side effect, so there is nothing to
 probe. (*An event's length when `Time1 ≠ Time2`* was the other exception until
-2026-08-17, when §10's probes settled it in both Runners.) This table is the
-live part of the file — keep it current.
+2026-08-17, when §10's probes settled it in both Runners.) The second is the
+*task whose only action is `End game`* row, added 2026-08-23: the divergence
+itself is measured, and the decision not to port it stands, but the row names
+an untaken probe — unrecognised verb with an unambiguous object **in hand**,
+global refusal or verb-object refusal? — that would be needed before it could
+be ported. This table is the live part of the file — keep it current.
 
 | Item | Scarier | Runner | Status |
 |---|---|---|---|
@@ -774,6 +778,7 @@ live part of the file — keep it current.
 | A **spent** (done, non-repeatable) task whose restrictions now FAIL with a message | ~~restrictions first in every version, so the fail message printed~~ **version-gated 2026-08-23** | **4.0**: restrictions are checked *before* the done state, so the fail message prints and eats the command — on the library-callback path too; **3.9**: done state first, so the answer is "You have already done that." whether the restrictions pass or fail, and the fail message never prints | **Measured live and FIXED 2026-08-23.** Probe `DONE` in `make_arena_probe.py` (run400, `Adrift_14.txt`) against its 3.9 twin `make_39_doneprobe.py` (run390, `Adrift_18.txt`): with the stone dropped, run400 answers `alpha` "BLOCK-ALPHA." and `get gem` "BLOCK-GEM.", run390 answers both "You have already done that." / the plain library take. `scrunner.cpp` gates the spent-task arm of `run_game_commands_common()` on `TAF_VERSION_400`, and pre-4.0 falls through to `run_task_refusal()` as before. This is what the two long-standing 3.90 corpus FAILs (`cybercow_win`, `melbourne_beach`) were telling us. |
 | An **unspent** task whose restrictions fail with a message, matched from the **library take/drop callback** | ~~loud pass ran in every version, so the fail message beat the library~~ **version-gated 2026-08-23** | **4.0**: the fail message wins (`get gem` without the stone → "BLOCK-GEM.", run400 `Adrift_20.txt`); **pre-4.0**: the library wins silently (run390 takes the gem, `Adrift_18.txt`; run380 on the real `haunt.taf` answers `take fish` "You take dead fish from fish tank." where its `take * fish` task's "task 15 not done" restriction fails with the message "-", `Adven_2.rtf`) | **Measured live and FIXED 2026-08-23.** `run_game_task_commands()` now passes `include_restrictions` only from 4.0 on; tasks whose restrictions *pass* still run in either version. Corpus fallout: one golden, `haunt_solution.txt`, re-blessed **against the run380 replay of the same 64 commands** rather than on engine authority. |
 | Below 4.0, a task match that says nothing still **claims** the command | falls through to the standard library verb | claims it: `x book` on a spent `* x * book *` task answers "You have already done that." (not the book's description — `look at book`, matching no task, does print it, run390 `Adrift_19.txt`), and a silent task that runs and prints nothing leaves "I don't understand." rather than the library answer (`Adrift_18.txt`). run400 falls through in both cells. | **Measured 2026-08-23, deliberately NOT imported.** Same family as the `*`-task row above, and it fails the same way: recording the silent match and skipping `run_standard_commands()` below 4.0 costs **15** v4-corpus goldens, four of them walkthroughs that stop winning (`inverness` included — the very soft-lock §2 already refuses to import). The rule as stated is too broad and the narrowing is unmeasured. `scrunner.cpp` carries the note where the flag would go. |
+| A 4.0 task whose **only** action is `End game`, with no CompleteText | counts the ending as output, so the task **claims** the command and the library never sees it | falls through to the library like any other silent match — the ending prints at *end of turn*, so at match time the task has said nothing | **Measured 2026-08-23, NOT ported.** `relojero.taf` ("La hija del relojero") task 5 is `arreglar *fenix`, gated on holding the Phoenix and the broken cord, with a single `type=6` action and no text of its own — the ending prose is the game's WINTEXT. run400 answers the winning `arreglar fenix` with the game's **global** "Disculpa pero no te entiendo." and *then* the WINTEXT; Scarier prints the WINTEXT alone. That one line is the only difference across the whole 11-command transcript (`pfx/drive_c/adrift/relojero.txt`); strip it and the remainder is character-identical. The cause is `task_run_end_game_action()` returning `var1 != 3`, claiming output that its own comment documents as printed later by `task_print_end_game_message()`. Returning FALSE is **not** sufficient: with `is_running` already cleared the library catch-all `* %object% *` (`lib_cmd_verb_object`) then claims the command silently, and were it to speak it would print "I don't understand what you want me to do with the Fenix de laton." — the verb-object refusal, not the global one run400 gave. Why run400 reached the global message with the referenced object in hand is **unmeasured**; see the probe named in the closure log below. Cosmetic, one line, at the last command of the game, and the fix lands in the dispatch core — left alone until that probe is taken. |
 | `drop <thing> in/on <container>` | ~~the priority `drop %text%` pattern swallowed the `in <container>` tail and answered "Drop what?"~~ **FIXED 2026-08-02** | routes it to the put-in / put-on handlers: `drop wallet in bin` → "You put your wallet inside the rubbish bin.", `drop wallet on bin` → the put-on refusal "You can't put anything onto the rubbish bin!" | **Confirmed live against run400 and FIXED 2026-08-02** while deriving `Ticket to No Where`, whose author-route disposes of five bits of litter with `drop <litter> in bin` (2 points each — the difference between 100 and its full 110). Six patterns added to `PRIORITY_COMMANDS[]` (`scrunner.cpp`), covering `drop`/`put down` × `in`/`on` × plain/`all`/`all except`, placed *before* the plain drop patterns so the `%text%` no longer eats the tail. No corpus fallout. |
 | What `all` ranges over | ~~everything a named take can reach, including the contents of a carried open container~~ **FIXED 2026-08-02** | leaves alone anything already in the player's possession; a *named* take still reaches into a carried open container | **Confirmed live against run400 and FIXED 2026-08-02.** In `Ticket to No Where`, holding the open bag of shopping and typing `get all` answers "You take the pamphlet." and leaves the tights, pet food, deodorant and gloves in the bag, while `get paper` still lifts the scrap out of the carried wallet ("You take the scrap of paper from your wallet."). `lib_take_all_filter()` (`sclibrar.cpp`) = `lib_take_filter && !obj_indirectly_held_by_player`, used by `lib_cmd_take_all` and by the `take all except` resolver in `lib_take_multiple_common`. The visible symptom was four bogus items of inventory weight later refusing `get banana skin`. Corpus fallout: the two ALEXIS goldens, re-blessed after proving the change correct there too (its leather bag is player-carried, so the Runner would never have emptied it either). |
 | "get all" with nothing takeable | ~~"There is nothing to pick up here." in every version~~ **version-gated 2026-08-15** | pre-4.0 "There is nothing to pick up here."; 4.0 "There is nothing worth taking here." | **Settled live and PORTED 2026-08-15**, together with the bare-take row below — same handler, same split. run370 (`p37pos.taf`), run380 (`marooned.taf`) and run390 (`p39held.taf`) all answer "There is nothing to pick up here."; run400 (probe `TK`) answers "There is nothing worth taking here." 4.0 also has **no "else" form**: `take all except rock` with nothing else left answers the same flat line, where Scarier composed "There is nothing else to pick up here." Both refusal sites in `sclibrar.cpp` (`lib_cmd_take_all`, `lib_take_multiple_common`) now go through `lib_is_version_400()`. |
@@ -2933,3 +2938,64 @@ where we substitute the player's name. Our third person reads "Player has 0.
 The most Player can hold is 90." It surfaced only because `gen400`'s
 upconversion drops `Perspective`; no third-person game in the corpus exercises
 `count`.
+
+### 2026-08-23, third batch — the ending is not output yet, and `relojero` is the game that shows it
+
+`relojero.taf` ("La hija del relojero", 4.00, Spanish, one room, eight tasks)
+was replayed through run400 to check the port against a Runner on a game
+nobody had measured before. The 11-command solution already in
+`goldens/relojero_solution.txt` was typed straight in; the transcript is
+`pfx/drive_c/adrift/relojero.txt`.
+
+**Ten of the eleven commands are identical** once the Runner's space padding
+is normalised — the two `x` blocks with the long backstory, the `hablar`
+task, the drawer, the take, `tirar cuerda`, and the recurring pain-moan
+event landing on the same turns in both. The eleventh differs by exactly one
+line:
+
+```
+arreglar fenix
+Disculpa pero no te entiendo.          <- run400 only
+Con sumo cuidado ato los dos extremos de la cuerda y tiro suavemente.
+```
+
+Strip that line and the rest of the block is character-for-character equal,
+1223 bytes each, WINTEXT included.
+
+**Why.** Task 5 (`arreglar *fenix`, alternates `arreglar/unir/atar *cuerda`,
+two holding restrictions) has **no CompleteText**; its only action is
+`type=6`, and the ending prose lives in WINTEXT. So the task says nothing at
+match time, run400 falls through to the library, the library cannot parse a
+Spanish verb, and the game's global "don't understand" message prints —
+*then* the end-of-turn handler prints WINTEXT. That is the same
+silent-match-falls-through rule the ET probes established for the peek work,
+and the row above it in §4 records run400 doing it in the 3.x cells too.
+
+Scarier does model the fallthrough — `run_game_commands_common()` returns
+`is_handled`, which is set only when `task_run_task()` actually printed — but
+`task_run_end_game_action()` returns `var1 != 3`, reporting output for an
+action whose own comment says the message is printed later, at the end of the
+turn, by `task_print_end_game_message()`. So the command counts as handled
+and the library never gets its look.
+
+**The one-line fix was tried and reverted, because it is not the whole fix.**
+With `task_run_end_game_action()` returning FALSE the peek does fall through
+correctly (`peek=0, prio=0, unrestr=0, restr=0`), but the game has ended by
+then, and the library catch-all `* %object% *` → `lib_cmd_verb_object` claims
+the command and returns TRUE without printing. Worse, if it *did* print it
+would say "I don't understand what you want me to do with the Fenix de
+laton." — the verb-object refusal — where run400 gave the **global** one. The
+same command with the restrictions unmet (Phoenix still in the drawer, so
+`count != 1` in `lib_cmd_verb_object`) does reach the global message in
+Scarier, which is what pins the difference on scope rather than on wording.
+
+**The probe that would settle it, not yet taken:** an unrecognised verb with
+an unambiguous object *in hand* — does run400 answer with its verb-object
+refusal or with the global "don't understand"? One arena task, one command,
+one transcript. It governs a whole class of commands, not just this ending,
+and it is the missing measurement behind the new §4 row. Until it is taken,
+the divergence stays: one cosmetic line, at the very last command of the
+game, against a change in the dispatch core.
+
+No engine change, no golden change. v4 corpus 261/261 after reverting the
+experiment.
