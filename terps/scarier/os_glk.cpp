@@ -6390,15 +6390,38 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
   /*
    * ADRIFT 5 detection.  ADRIFT 5 games are zlib-compressed XML (optionally
    * Blorb-wrapped) and unrelated to the ADRIFT <=4 TAF format the scare engine
-   * reads.  a5model_load returns NULL cleanly for a non-ADRIFT-5 file, so we
-   * try it first; on success we run the dedicated a5 turn loop (gsc_a5_main)
-   * and skip the scare path entirely.  a5model_load reads the file by path, so
-   * this requires gsc_game_path to have been set by the startup code.
+   * reads.  a5model_load_buffer returns NULL cleanly for a non-ADRIFT-5 file, so
+   * we try it first from the already-open Glk stream; on success we run the
+   * dedicated a5 turn loop (gsc_a5_main) and skip the scare path entirely.
+   *
+   * Loading from the Glk stream (rather than fopen of gsc_game_path) is required
+   * for hosts like Emglken that open the story via Dialog with FILESYSTEM=0.
    */
-  if (gsc_game_path[0] != '\0')
-    {
-      gsc_a5_adv = a5model_load (gsc_game_path);
-      if (gsc_a5_adv)
+  {
+    glui32 file_len;
+    char *file_buf;
+    glui32 got;
+
+    glk_stream_set_position (game_stream, 0, seekmode_End);
+    file_len = glk_stream_get_position (game_stream);
+    glk_stream_set_position (game_stream, 0, seekmode_Start);
+
+    if (file_len > 0)
+      {
+        file_buf = (char *) malloc (file_len);
+        if (file_buf != NULL)
+          {
+            got = glk_get_buffer_stream (game_stream, file_buf, file_len);
+            /* Rewind for the ADRIFT <=4 path if A5 load fails. */
+            glk_stream_set_position (game_stream, 0, seekmode_Start);
+            if (got == file_len)
+              gsc_a5_adv = a5model_load_buffer ((uint8_t *) file_buf, file_len);
+            else
+              free (file_buf);
+          }
+      }
+
+    if (gsc_a5_adv)
         {
           gsc_is_a5 = TRUE;
           gsc_game = NULL;
@@ -6436,7 +6459,7 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
 #endif
           return TRUE;
         }
-    }
+  }
 
   gsc_game = scr_game_from_callback (gsc_callback, game_stream);
   if (!gsc_game)
@@ -10452,8 +10475,9 @@ glkunix_startup_code (glkunix_startup_t * data)
       return TRUE;
     }
 
-  /* Remember the game file path; the ADRIFT 5 loader (a5model_load) reads the
-   * file directly by path rather than through a Glk stream. */
+  /* Remember the game file path for hosts that reopen it (graphics/sound via
+   * glkunix_stream_open_pathname). ADRIFT 5 game data itself is loaded from the
+   * Glk stream above via a5model_load_buffer. */
   snprintf (gsc_game_path, sizeof gsc_game_path, "%s", argv[argv_index]);
 
   /* Open a stream to the TAF file, complain if this fails. */
