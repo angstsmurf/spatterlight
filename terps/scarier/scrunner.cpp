@@ -236,8 +236,8 @@ static scr_commands_t MOVE_COMMANDS_4[] = {
   {"{go {to {the}}} [west/w]", lib_cmd_go_west},
   {"{go {to {the}}} [up/u]", lib_cmd_go_up},
   {"{go {to {the}}} [down/d]", lib_cmd_go_down},
-  {"{go {to {the}}} [in]", lib_cmd_go_in},
-  {"{go {to {the}}} [out/o]", lib_cmd_go_out},
+  {"{go {to {the}}} [in/inside/enter]", lib_cmd_go_in},
+  {"{go {to {the}}} [out/o/outside/exit]", lib_cmd_go_out},
   {NULL, NULL}
 };
 
@@ -249,8 +249,8 @@ static scr_commands_t MOVE_COMMANDS_8[] = {
   {"{go {to {the}}} [west/w]", lib_cmd_go_west},
   {"{go {to {the}}} [up/u]", lib_cmd_go_up},
   {"{go {to {the}}} [down/d]", lib_cmd_go_down},
-  {"{go {to {the}}} [in]", lib_cmd_go_in},
-  {"{go {to {the}}} [out/o]", lib_cmd_go_out},
+  {"{go {to {the}}} [in/inside/enter]", lib_cmd_go_in},
+  {"{go {to {the}}} [out/o/outside/exit]", lib_cmd_go_out},
   {"{go {to {the}}} [northeast/north-east/ne]", lib_cmd_go_northeast},
   {"{go {to {the}}} [southeast/south-east/se]", lib_cmd_go_southeast},
   {"{go {to {the}}} [northwest/north-west/nw]", lib_cmd_go_northwest},
@@ -274,22 +274,19 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    * to get things from." where `take all from burton` again gets the
    * "handled" reply.  `pick up X from Y` is not a take-from either ("Take
    * what?").  All measured live 2026-08-18; Professor Von Witt's own bundled
-   * walkthrough depends on the bare-`pick` form.
-   *
-   * `grab %object%` is the same story: `grab gizmo` (no such object, easter
-   * Egg Hunt) gets the identical "Take what?" the bare-object fallback gives
-   * `take gizmo`/`pick gizmo`.  Only that bare-object form was independently
-   * measured live 2026-08-18; it is folded into the rest of the object take
-   * family here by analogy with `pick`, not by testing every form. */
-  {"[[get/take/remove/extract/pick/grab] [all/everything] from/empty] %object%",
+   * walkthrough depends on the bare-`pick` form.  `pick` is also the only
+   * one of these that survives the check described above `close %object%`
+   * below: it appears as a literal in all four Runner listings, where
+   * `grab` -- once listed here -- appears in none. */
+  {"[[get/take/remove/extract/pick] [all/everything] from/empty] %object%",
    lib_cmd_take_all_from},
-  {"[[get/take/remove/extract/pick/grab] [all/everything] from/empty] %object%"
+  {"[[get/take/remove/extract/pick] [all/everything] from/empty] %object%"
    " [[except/but] {for}/apart from] %text%",
    lib_cmd_take_from_except_multiple},
-  {"[get/take/remove/extract/pick/grab] [all/everything]"
+  {"[get/take/remove/extract/pick] [all/everything]"
    " [[except/but] {for}/apart from] %text% from %object%",
    lib_cmd_take_from_except_multiple},
-  {"[get/take/remove/extract/pick/grab] %text% from %object%",
+  {"[get/take/remove/extract/pick] %text% from %object%",
    lib_cmd_take_from_multiple},
   {"[get/take] [all/everything] from %character%", lib_cmd_take_all_from_npc},
   {"[get/take] [all/everything] from %character%"
@@ -299,16 +296,16 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    " [[except/but] {for}/apart from] %text% from %character%",
    lib_cmd_take_from_npc_except_multiple},
   {"[get/take] %text% from %character%", lib_cmd_take_from_npc_multiple},
-  {"[[get/take/pick up/pick/grab] [all/everything]/pick [all/everything] up]",
+  {"[[get/take/pick up/pick] [all/everything]/pick [all/everything] up]",
    lib_cmd_take_all},
-  {"[get/take/pick up/pick/grab] [all/everything]"
+  {"[get/take/pick up/pick] [all/everything]"
    " [[except/but] {for}/apart from] %text%",
    lib_cmd_take_except_multiple},
   /* `pick %text% up` before the bare-`pick` catch-all: a failed object parse
    * in lib_cmd_take_multiple falls through, but keep `pick flowers up` from
    * ever being read as `pick "flowers up"` in the first place. */
   {"pick %text% up", lib_cmd_take_multiple},
-  {"[get/take/pick up/pick/grab] %text%", lib_cmd_take_multiple},
+  {"[get/take/pick up/pick] %text%", lib_cmd_take_multiple},
   /*
    * "drop X in Y" and "drop X on Y" are Adrift's put handlers wearing a
    * different verb: `drop wallet in bin` answers "You put your wallet inside
@@ -377,32 +374,26 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   /* Inventory, and general investigation of surroundings. */
 #ifdef SCARIER_NO_ABBREVIATIONS
   {"[inventory/inv]", lib_cmd_inventory},
-  /*
-   * `inspect gizmo` and `check gizmo` (no such object, easter Egg Hunt) both
-   * get the identical "You see no such thing." the examine family's
-   * unmatched-object fallback gives `examine gizmo`; measured live 2026-08-18
-   * against run400.
-   */
-  {"[ex/exam/examine/inspect/check/look {at}] {{the} [room/location]}",
+  {"[ex/exam/examine/look {at}] {{the} [room/location]}",
    lib_cmd_look},
-  {"[ex/exam/examine/inspect/check/look {at/in}] %object%",
+  {"[ex/exam/examine/look {at/in}] %object%",
    lib_cmd_examine_object},
-  {"[ex/exam/examine/inspect/check/look {at}] %character%",
+  {"[ex/exam/examine/look {at}] %character%",
    lib_cmd_examine_npc},
-  {"[ex/exam/examine/inspect/check/look {at}] [me/self/myself]",
+  {"[ex/exam/examine/look {at}] [me/self/myself]",
    lib_cmd_examine_self},
-  {"[ex/exam/examine/inspect/check/look {at}] all", lib_cmd_examine_all},
+  {"[ex/exam/examine/look {at}] all", lib_cmd_examine_all},
 #else
   {"[inventory/inv/i]", lib_cmd_inventory},
-  {"[x/ex/exam/examine/inspect/check/l/look {at}] {{the} [room/location]}",
+  {"[x/ex/exam/examine/l/look {at}] {{the} [room/location]}",
    lib_cmd_look},
-  {"[x/ex/exam/examine/inspect/check/look {at/in}] %object%",
+  {"[x/ex/exam/examine/look {at/in}] %object%",
    lib_cmd_examine_object},
-  {"[x/ex/exam/examine/inspect/check/look {at}] %character%",
+  {"[x/ex/exam/examine/look {at}] %character%",
    lib_cmd_examine_npc},
-  {"[x/ex/exam/examine/inspect/check/look {at}] [me/self/myself]",
+  {"[x/ex/exam/examine/look {at}] [me/self/myself]",
    lib_cmd_examine_self},
-  {"[x/ex/exam/examine/inspect/check/look {at}] all", lib_cmd_examine_all},
+  {"[x/ex/exam/examine/look {at}] all", lib_cmd_examine_all},
 #endif
 
   /* Attempted acquisition of and disposal of NPCs. */
@@ -438,35 +429,68 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    lib_cmd_put_on_multiple},
   {"open %object%", lib_cmd_open_object},
   /*
-   * A handful of the Runner's single-verb physical actions turned out to
-   * have an unbracketed synonym apiece, found the same way `pick` was: type
-   * the verb at a nonexistent object and compare wording against the
-   * canonical verb's identical unmatched-object fallback.  `shut gizmo` gets
-   * `close gizmo`'s "You can't close that.", `bolt`/`unbolt gizmo` do not
-   * ("I'm afraid that I wasn't anticipating that particular input.").
-   * `hand gizmo to bob` gets `give gizmo to bob`'s "Give what?".  All
-   * measured live 2026-08-18 against run400 on easter.taf; none of the other
-   * candidates tried alongside them (twist/rotate for turn, shove for push,
-   * tug for pull, sip/gulp for drink, wield's brandish, snatch for take,
-   * toss/chuck for throw, switch on/off) were recognised.
+   * DO NOT ADD VERB SYNONYMS BY DIFFING RESPONSES AGAINST A LIVE RUNNER.
+   * Twelve were added that way on 2026-08-18 -- grab, inspect, check, shut,
+   * hand, consume, slay, ignite, shatter, crack, swallow, yank -- each
+   * "confirmed" because it drew the canonical verb's unmatched-object
+   * response rather than the catch-all.  Every one was a false positive:
+   * the probe game, easter.taf, ships its own 100-entry SYNONYM table
+   * (`SCR_DUMP_TASKS=1` prints it) that rewrites all of them before the
+   * parser ever sees them.  None of the twelve occurs as a literal --
+   * anywhere, in any casing -- in run370.bas, run380.bas, run390's
+   * Form1.frm or run400.bas, while every verb that survives here does.
+   *
+   * The listings are the authority: grep the four of them in
+   * ~/Adrift_decompile, or use `index/verbs.py -w <word>`, which lists the
+   * matcher literals per Runner.  A live probe can only confirm what the
+   * listing already shows, and only on a game with no SYNONYM table of its
+   * own (The Town of Azra has none, easter.taf and The Cellar do).
    */
-  {"[close/shut] %object%", lib_cmd_close_object},
+  {"close %object%", lib_cmd_close_object},
   {"unlock %object% with %text%", lib_cmd_unlock_object_with},
   {"lock %object% with %text%", lib_cmd_lock_object_with},
   {"unlock %object%", lib_cmd_unlock_object},
   {"lock %object%", lib_cmd_lock_object},
   {"read %object%", lib_cmd_read_object},
   {"read *", lib_cmd_read_other},
-  {"[give/hand] %object% to %character%", lib_cmd_give_object_npc},
+  {"give %object% to %character%", lib_cmd_give_object_npc},
   {"sit {down/up} [on/in] %object%", lib_cmd_sit_on_object},
   {"stand {up/down} [on/in] %object%", lib_cmd_stand_on_object},
   {"[lie/lay] on %object%", lib_cmd_lie_on_object},
+  /*
+   * `get up` is a `stand` synonym in every Runner; `get off` and `get down`
+   * are `stand`-off-a-thing synonyms that arrived in 3.9.  The sitstand
+   * proc tests `c("get off") Or c("get down")` (run400 loc_46B6E4, run390
+   * loc_44432x); neither string appears anywhere in run370/run380.
+   * Measured live on the one file microwaveman.taf -- a 3.80 game -- run
+   * under three Runners, which is the way to see a *library* change rather
+   * than a file-format one:
+   *
+   *              run380              run390                  run400
+   *   get up    "already standing!"  "already standing!"   "already standing!"
+   *   get down  "Take what?"         "not standing on ..."  "not standing on ..."
+   *   get off   "Take what?"         "not standing on ..."  "not standing on ..."
+   *
+   * SCARE has only the file, so it gates on the .taf version as a proxy for
+   * the Runner the game was written for -- the same proxy every other
+   * version-gated row here uses.  The pre-3.9 "Take what?" then falls out
+   * on its own: lib_cmd_get_off()/lib_cmd_get_down() decline below 3.9 and
+   * the command drops through to the bare-verb row
+   * `[get/take/pick up/pick] *` -> lib_cmd_get_what further down.
+   *
+   * `get on %object%` arrived at the same time and is gated with them; it
+   * is a `stand on` synonym that refuses differently.  See
+   * lib_cmd_get_on_object().
+   */
+  {"get on %object%", lib_cmd_get_on_object},
   {"get {down/up} off %object%", lib_cmd_get_off_object},
   {"get off", lib_cmd_get_off},
+  {"get down", lib_cmd_get_down},
+  {"get up", lib_cmd_stand_on_floor},
   {"sit {down/up} {[on/in] {the} [ground/floor]}", lib_cmd_sit_on_floor},
   {"stand {up/down} {[on/in] {the} [ground/floor]}", lib_cmd_stand_on_floor},
   {"[lie/lay] {down/up} {[on/in] {the} [ground/floor]}", lib_cmd_lie_on_floor},
-  {"[eat/consume] %object%", lib_cmd_eat_object},
+  {"eat %object%", lib_cmd_eat_object},
 
   /* Dressing up, and dressing down. */
   {"[[wear/put on/don] [all/everything]/put [all/everything] on]",
@@ -485,6 +509,27 @@ static scr_commands_t STANDARD_COMMANDS[] = {
 
   /* Selected NPC interactions and conversation. */
   {"ask %character% about %text%", lib_cmd_ask_npc_about},
+
+  /*
+   * `talk to %character% about %text%` is the same conversation branch as
+   * `ask`: every Runner guards it with `c("ask") Or c("talk to")` (run370
+   * loc_4387F4, run380 loc_440683, run390 loc_4597F2, run400 loc_47F8F7).
+   * `speak to` is not in that list at any version, so it only ever reaches
+   * the ask-format hint below, even where a topic would have matched.  A
+   * `talk to` with no matching topic lands on the hint too -- see
+   * lib_ask_npc_about().
+   *
+   * The hint itself is the per-character pass's `talk`/`speak` branch, and
+   * its guard is where the versions part: 3.7 and 3.8 match the bare words
+   * (run370 loc_438748, run380 loc_4405D7), 3.9 and 4.0 require the "to"
+   * (run390 loc_45973D, run400 loc_47F84A).  Hence the second row's gate.
+   * Both rows sit ahead of `talk *` further down, which is the generaltasks
+   * rabblings line -- the fall-through 3.9/4.0 leave for a bare `talk bob`.
+   * See lib_cmd_talk_to_npc().
+   */
+  {"talk to %character% about %text%", lib_cmd_talk_to_npc_about},
+  {"[talk/speak] to %character% *", lib_cmd_talk_to_npc},
+  {"[talk/speak] %character% *", lib_cmd_talk_to_npc_pre_390},
   {"[attack/kick] %character% with %object%", lib_cmd_attack_npc_with},
   {"chop %character% with %object%", lib_cmd_chop_npc_with},
   {"cut %character% with %object%", lib_cmd_cut_npc_with},
@@ -492,36 +537,57 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"shoot %character% with %object%", lib_cmd_shoot_npc_with},
   {"stab %character% with %object%", lib_cmd_stab_npc_with},
   {"throw %object% at %character%", lib_cmd_throw_npc_with},
-  {"[kill/slay] %character% with %object%", lib_cmd_kill_npc_with},
+  {"kill %character% with %object%", lib_cmd_kill_npc_with},
   {"fight %character% with %object%", lib_cmd_fight_npc_with},
   /*
-   * `slap`/`smack` are pre-4.0-only synonyms for attack/kick: dropped from
-   * the Runner's grammar in 4.0, where `slap gizmo` gets the same "I'm
-   * afraid that I wasn't anticipating that particular input." a nonsense
-   * verb gets, not attack/kick's combat dispatch.  But in 3.90 (measured
-   * live 2026-08-18 against run390 on The Town of Azra, controlled against
-   * both `strike` and a nonsense verb) `slap gizmo`/`smack gizmo` get the
-   * identical "Who do you want to attack?" that `kick gizmo` does -- a
-   * genuine synonym there.  lib_cmd_slap_npc[_with]() decline outright
-   * (return FALSE, falling through to further grammar) on 4.0+ games and
-   * otherwise behave exactly like attack/kick.  `strike` was tried
-   * alongside both and never recognised in either version -- not a
-   * synonym at any version.
+   * `slap` is a pre-parse rewrite to `hit`, not a grammar verb, and it is
+   * space-bounded in 4.0 so a command-initial `slap` never fires there.
+   * `smack` is in no Runner at all.  See lib_cmd_slap_*() for the sites.
    */
   {"[attack/kick] %character%", lib_cmd_attack_npc},
-  {"[slap/smack] %character%", lib_cmd_slap_npc},
-  {"[slap/smack] %character% with %object%", lib_cmd_slap_npc_with},
+  {"slap %character% with %object%", lib_cmd_slap_npc_with},
+  {"slap %character%", lib_cmd_slap_npc},
   {"chop %character%", lib_cmd_chop_npc},
   {"cut %character%", lib_cmd_cut_npc},
   {"shoot %character%", lib_cmd_shoot_npc},
   {"stab %character%", lib_cmd_stab_npc},
-  {"[kill/slay] %character%", lib_cmd_kill_npc},
+  {"kill %character%", lib_cmd_kill_npc},
   {"fight %character%", lib_cmd_fight_npc},
 
   /* More movement, waiting, and miscellaneous administrative commands. */
-  {"[goto/go {to}] %text%", lib_cmd_go_room},
-  {"[goto/go {to}] *", lib_cmd_print_room_exits},
-  {"[exit/exits/directions/where]", lib_cmd_print_room_exits},
+  /*
+   * `go` and `enter` are the two verbs generaltasks answers with a nudge back
+   * to the compass -- run370 loc_43DD8B / loc_43DDB4, run380 loc_44481C /
+   * loc_444845, run390 loc_45DF66 / loc_45DF83, run400 loc_48936C /
+   * loc_489383.  The movement table above has already taken every bare
+   * direction word, `enter` and `exit` among them, so what is left here is a
+   * bare `go` and an `enter` with something attached.  See
+   * lib_cmd_just_a_direction().
+   *
+   * `goto`/`go to` keep their own rows below: they are the Runner's
+   * gotoplace(), which exits at once on a bare `go`, `goto` or `go to`
+   * (run390 loc_43C7B0, run400 loc_464998) and so leaves those to the nudge
+   * as well.
+   */
+  {"go", lib_cmd_just_a_direction},
+  {"go to", lib_cmd_just_a_direction},
+  {"enter *", lib_cmd_just_a_direction},
+
+  /*
+   * The room-request rows.  `goto X` and `go to X` are gotoplace() at every
+   * version; a bare `go X` only became one in 3.9, so under 3.7 and 3.8 it
+   * falls to the nudge instead -- see lib_cmd_just_a_direction_pre_390(),
+   * which returns FALSE from 3.9 on and lets the two `go` rows after it have
+   * the command.
+   */
+  {"goto %text%", lib_cmd_go_room},
+  {"goto *", lib_cmd_print_room_exits},
+  {"go to %text%", lib_cmd_go_room},
+  {"go to *", lib_cmd_print_room_exits},
+  {"go *", lib_cmd_just_a_direction_pre_390},
+  {"go %text%", lib_cmd_go_room},
+  {"go *", lib_cmd_print_room_exits},
+  {"[exits/directions/where]", lib_cmd_print_room_exits},
 #ifdef SCARIER_NO_ABBREVIATIONS
   {"[wait] %number%", lib_cmd_wait_number},
   {"[wait]", lib_cmd_wait},
@@ -588,11 +654,11 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[count/num]", lib_cmd_count},
 
   /* Standard response commands; no real action, just output. */
-  {"[get/take/pick up/pick/grab] *", lib_cmd_get_what},
+  {"[get/take/pick up/pick] *", lib_cmd_get_what},
   {"open *", lib_cmd_open_what},
-  {"[close/shut] *", lib_cmd_close_other},
-  {"[give/hand] %object% *", lib_cmd_give_object},
-  {"[give/hand] *", lib_cmd_give_what},
+  {"close *", lib_cmd_close_other},
+  {"give %object% *", lib_cmd_give_object},
+  {"give *", lib_cmd_give_what},
   {"lock %text%", lib_cmd_lock_other},
   {"lock", lib_cmd_lock_what},
   {"unlock %text%", lib_cmd_unlock_other},
@@ -603,9 +669,19 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[remove/take off/doff] *", lib_cmd_remove_what},
   {"[drop/put down] *", lib_cmd_drop_what},
   {"[wear/put on/don] *", lib_cmd_wear_what},
-  {"[shit/fuck/bastard/cunt/crap/hell/shag/bollocks/bollox/bugger] *",
+  /*
+   * The swearing list is version-split at both ends.  `piss` has been in it
+   * since 3.7 and was simply missed here; `bugger` arrived in 3.9 and is not
+   * in the 3.7/3.8 Runners; `bloody` went the other way and was dropped in
+   * 4.0.  Read out of generaltasks in all four decompiled Runners with
+   * `index/verbs.py -w <word>` (~/Adrift_decompile), which lists every
+   * literal handed to the parser's whole-word matchers.
+   */
+  {"[shit/fuck/bastard/cunt/crap/hell/shag/bollocks/bollox/piss] *",
    lib_cmd_profanity},
-  {"[x/examine/inspect/check/look {at}] *", lib_cmd_examine_other},
+  {"bugger *", lib_cmd_profanity_390},
+  {"bloody *", lib_cmd_profanity_pre_400},
+  {"[x/examine/look {at}] *", lib_cmd_examine_other},
   {"[locate/where {is/are}/find] *", lib_cmd_locate_other},
   {"[cp/mv/ln/ls] *", lib_cmd_unix_like},
   {"dir *", lib_cmd_dos_like},
@@ -615,14 +691,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"block %object% *", lib_cmd_block_object},
   {"block %text%", lib_cmd_block_other},
   {"block", lib_cmd_block_what},
-  /*
-   * `shatter gizmo`/`crack gizmo` (no such object) get the identical "You
-   * might need that." `break gizmo` does; measured live 2026-08-18.  Only the
-   * object-directed form was tested, so they're added here and not to the
-   * bare `break`/`destroy`/`smash` responses below.
-   */
-  {"[break/destroy/smash/shatter/crack] %object% *", lib_cmd_break_object},
-  {"[break/destroy/smash/shatter/crack] %text%", lib_cmd_break_other},
+  {"[break/destroy/smash] %object% *", lib_cmd_break_object},
+  {"[break/destroy/smash] %text%", lib_cmd_break_other},
   {"break", lib_cmd_break_what},
   {"destroy", lib_cmd_destroy_what},
   {"smash", lib_cmd_smash_what},
@@ -640,14 +710,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"cut %text%", lib_cmd_cut_other},
   {"cut", lib_cmd_cut_what},
   {"dance *", lib_cmd_dance},
-  /*
-   * `swallow gizmo` (no such object) gets the identical "You can't drink
-   * that." `drink gizmo` does; measured live 2026-08-18.  `sip`/`gulp gizmo`
-   * do not ("I'm afraid that I wasn't anticipating that particular input.").
-   * As above, only the object-directed form was tested.
-   */
-  {"[drink/swallow] %object% *", lib_cmd_drink_object},
-  {"[drink/swallow] %text%", lib_cmd_drink_other},
+  {"drink %object% *", lib_cmd_drink_object},
+  {"drink %text%", lib_cmd_drink_other},
   {"drink", lib_cmd_drink_what},
   {"eat *", lib_cmd_eat_other},
   {"feed *", lib_cmd_feed},
@@ -662,6 +726,9 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"hit %object% *", lib_cmd_hit_object},
   {"hit %text%", lib_cmd_hit_other},
   {"hit", lib_cmd_hit_what},
+  {"slap %object% *", lib_cmd_slap_object},
+  {"slap %text%", lib_cmd_slap_other},
+  {"slap", lib_cmd_slap_what},
   {"hum *", lib_cmd_hum},
   {"jump *", lib_cmd_jump},
   {"kick %character%", lib_cmd_attack_npc},
@@ -671,19 +738,13 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"kiss %character% *", lib_cmd_kiss_npc},
   {"kiss %object% *", lib_cmd_kiss_object},
   {"kiss *", lib_cmd_kiss_other},
-  {"[kill/slay] *", lib_cmd_kill_other},
+  {"kill *", lib_cmd_kill_other},
   {"lift %object% *", lib_cmd_lift_object},
   {"lift %text%", lib_cmd_lift_other},
   {"lift", lib_cmd_lift_what},
-  /*
-   * `ignite gizmo` matches `light gizmo`'s "You can't light that." exactly;
-   * `burn gizmo` instead falls to the generic "I'm afraid that I wasn't
-   * anticipating that particular input.", so it was left out.  Measured
-   * live 2026-08-18 against run400 on easter.taf.
-   */
-  {"[light/ignite] %object% *", lib_cmd_light_object},
-  {"[light/ignite] %text%", lib_cmd_light_other},
-  {"[light/ignite]", lib_cmd_light_what},
+  {"light %object% *", lib_cmd_light_object},
+  {"light %text%", lib_cmd_light_other},
+  {"light", lib_cmd_light_what},
   {"listen *", lib_cmd_listen},
   {"mend %object% *", lib_cmd_mend_object},
   {"mend %text%", lib_cmd_mend_other},
@@ -695,13 +756,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"press %object% *", lib_cmd_press_object},
   {"press %text%", lib_cmd_press_other},
   {"press", lib_cmd_press_what},
-  /*
-   * `yank gizmo` (no such object) gets the identical "You pull, but nothing
-   * happens." `pull gizmo` does; measured live 2026-08-18.  `tug gizmo` does
-   * not.  As above, only the object-directed form was tested.
-   */
-  {"[pull/yank] %object% *", lib_cmd_pull_object},
-  {"[pull/yank] %text%", lib_cmd_pull_other},
+  {"pull %object% *", lib_cmd_pull_object},
+  {"pull %text%", lib_cmd_pull_other},
   {"pull", lib_cmd_pull_what},
   {"punch *", lib_cmd_punch},
   {"push %object% *", lib_cmd_push_object},

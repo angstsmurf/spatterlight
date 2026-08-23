@@ -54,7 +54,7 @@ cabinet with the standard mirror is above the sink and a shower booth is to
 the left of the sink.
 
 > piss
-I don't understand what you mean!
+I really don't think there's any need for language like that!
 
 > w
 You move west.
@@ -212,7 +212,8 @@ You move in.
 
 Living room
 A rather ugly, purple sofa is in front of a small, black&white screen tv. A
-window looking out into the street is behind the tv.
+window looking out into the street is behind the tv. There is a soda can
+lying on the sofa.
 
 > e
 You move east.
@@ -256,9 +257,9 @@ It's Sunday and it's December.
 Your stats are
 Fun=0
 Health=%health%
-Sleep=907
-Bladder=19
-Communication=907
+Sleep=904
+Bladder=16
+Communication=904
 Hunger=4
 
 > quit

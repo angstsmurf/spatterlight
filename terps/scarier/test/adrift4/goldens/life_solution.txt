@@ -43,13 +43,25 @@
 #   1. `stats` prints `Health=%health%` verbatim.  There is no `health`
 #      variable in the file (the 30 variables are listed by SCR_DUMP_TASKS),
 #      so the reference is never substituted.  THIS IS THE WIN MARKER.
-#   2. `piss` in the bathroom prints "I don't understand what you mean!" and
-#      yet works: SCR_TRACE_TASKS shows `task 24 running 2 actions` (bladder
-#      = 100, +15 min) followed by `finished, return false` -- T24's
-#      completion text is empty, so the engine falls back to the parser's
-#      failure message.  Outside the bathroom the same command correctly says
-#      "You can't do that here!", which makes the bathroom look like the one
-#      room where it is NOT understood.
+#   2. `piss` in the bathroom works but says nothing useful: SCR_TRACE_TASKS
+#      shows `task 24 running 2 actions` (bladder = 100, +15 min) followed by
+#      `finished, return false` -- T24's completion text is empty.  T24 lives
+#      only in the bathroom, so the same command in any other room reaches the
+#      Runner's swearing list, which has held `piss` since 3.7.
+#
+#      WE DIVERGE ON THAT ONE LINE, and it is not this game's fault.  run390
+#      on this .taf answers the bathroom `piss` with "I don't understand what
+#      you mean!" and the kitchen `piss` with "I really don't think there's
+#      any need for language like that!" (measured 2026-08-23, Adrift_22.txt):
+#      once a task claims the command the Runner never reaches generaltasks(),
+#      so its swearing check cannot fire.  SCARE instead lets a task that
+#      printed nothing fall through to the standard library -- deliberately,
+#      because games like "Shadow of the Past" need the library verb to answer
+#      after a silent task -- so the swearing row claims the bathroom `piss`
+#      too.  That is the pre-4.0 rule left UNPORTED in scrunner.cpp just above
+#      run_match_task_commands(); porting it as written costs 15 goldens, and
+#      the narrowing that would keep them is still unmeasured.  The `piss` row
+#      itself is right; this line is collateral from that known gap.
 #   3. `cat help` ends mid-sentence: "To know what your cat is thinking at
 #      the moment you type ''", and the `buy cat food` text tells you to type
 #      `cat food level` in the kitchen.  There is no such task.

@@ -2951,6 +2951,29 @@ lib_go (scr_gameref_t game, scr_int direction)
  * lib_cmd_go_*()
  *
  * Direction-specific movement commands.
+ *
+ * `in` also answers to `inside` and `enter`, and `out` to `outside` and
+ * `exit`; the other ten directions have no such alternates.  Every Runner
+ * tests the three- and four-way alternations right where it tests `in` and
+ * `out` themselves, and by equality against the whole command rather than
+ * with c(): run370 loc_434AEA / loc_434C02, run380 loc_43B44D / loc_43B556,
+ * run390 loc_44FDF6 / loc_44FF01, run400 loc_474FEF / loc_4750A4.
+ *
+ * `exit` used to sit in the `exits`/`where`/`directions` row below, which is
+ * only right for a room with no out exit.  A room that has one is left by
+ * `exit`, and where it has none the wording still differs from a real exits
+ * request: the Runner seeds the response of all twenty movement words with
+ * the exits summary before the direction blocks get their chance to overwrite
+ * it (run380 loc_43AA58), and the several-exits form of that seed is prefixed
+ * " can't go in that direction, but" for every word except `exits`, `where`
+ * and `directions` (loc_43AC7E).  That is exactly lib_go()'s own refusal, so
+ * routing `exit` to lib_cmd_go_out() gets both cases right at once.
+ *
+ * `inside` and `outside` are absent from that twenty-word seed list, so in a
+ * room without the matching exit the Runner has nothing to say and drops
+ * through to the catch-all.  We print the exits summary there instead, which
+ * is what lib_go() does for every other direction word; the deviation is
+ * confined to the case where the movement fails.
  */
 scr_bool
 lib_cmd_go_north (scr_gameref_t game)
@@ -2998,6 +3021,45 @@ scr_bool
 lib_cmd_go_out (scr_gameref_t game)
 {
   return lib_go (game, DIR_OUT);
+}
+
+/*
+ * lib_cmd_just_a_direction()
+ *
+ * Every Runner ends generaltasks' verb sweep with a pair of branches that
+ * answer anything still containing the whole word `go` or `enter` -- run370
+ * loc_43DD8B / loc_43DDB4, run380 loc_44481C / loc_444845, run390 loc_45DF66
+ * / loc_45DF83, run400 loc_489377 / loc_48938E.  Neither is guarded on the
+ * response line being empty, so they overwrite whatever an earlier branch
+ * had to say; `enter mansion` gets this and not the generic
+ * unknown-verb-with-object reply.  A bare `enter`, `in`, `out` and the rest
+ * never reach it -- those are movement words, handled above.
+ */
+scr_bool
+lib_cmd_just_a_direction (scr_gameref_t game)
+{
+  return lib_print_message (game, "Just a direction will do.\n");
+}
+
+
+/*
+ * lib_cmd_just_a_direction_pre_390()
+ *
+ * `go <somewhere>` only reaches the Runner's gotoplace() from 3.9 on.  In 3.7
+ * and 3.8 the sub is guarded on the whole word `goto`, or on a `go to ` with
+ * an argument, and nothing else (run370 loc_42B994, run380 loc_431B8D); 3.9
+ * and 4.0 relaxed the second half of that test to a bare `go ` prefix (run390
+ * loc_43C764, run400 loc_46494C).  So under the older Runners a `go bedroom`
+ * is not a room request at all -- it reaches no direction and no place, and
+ * generaltasks answers it with the nudge above.
+ */
+scr_bool
+lib_cmd_just_a_direction_pre_390 (scr_gameref_t game)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    return FALSE;
+
+  return lib_cmd_just_a_direction (game);
 }
 
 scr_bool
@@ -7406,13 +7468,27 @@ lib_npc_reply_to (scr_gameref_t game, scr_int npc, scr_int topic)
 }
 
 
+static const scr_char *lib_ask_format_subject (scr_gameref_t game);
+
 /*
+ * lib_ask_npc_about()
  * lib_cmd_ask_npc_about()
+ * lib_cmd_talk_to_npc_about()
  *
  * Converse with NPC.
+ *
+ * `talk to X about Y` enters the same branch as `ask X about Y` in every
+ * Runner -- its guard is `c("ask") Or c("talk to")` (run370 loc_4387F4,
+ * run380 loc_440683, run390 loc_4597F2, run400 loc_47F8F7) -- but it differs
+ * in what happens when no topic matches.  The ask-format hint branch runs
+ * just before it and has already claimed the response line for anything
+ * containing `talk to` (see lib_cmd_talk_to_npc), and the no-topic reply is
+ * written only over an empty one (run380 loc_4409E8).  A matching topic does
+ * overwrite it (loc_440918), so the topic still wins where there is one.
  */
-scr_bool
-lib_cmd_ask_npc_about (scr_gameref_t game)
+static scr_bool
+lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
+                   scr_bool hint_when_silent)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_var_setref_t vars = gs_get_vars (game);
@@ -7422,7 +7498,7 @@ lib_cmd_ask_npc_about (scr_gameref_t game)
   scr_bool found, default_found, is_ambiguous;
 
   /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, "ask", &is_ambiguous);
+  npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
   if (npc == -1)
     return is_ambiguous;
 
@@ -7488,6 +7564,14 @@ lib_cmd_ask_npc_about (scr_gameref_t game)
   else if (default_found && lib_npc_reply_to (game, npc, default_topic))
     return TRUE;
 
+  /* No topic matched, so `talk to` falls back on the hint it displaced. */
+  if (hint_when_silent)
+    {
+      lib_print_wrapped_npc (game, "Use the format \"ask ",
+                             npc, lib_ask_format_subject (game));
+      return TRUE;
+    }
+
   /* NPC has no response. */
   pf_new_sentence (filter);
   lib_print_npc_np (game, npc);
@@ -7497,6 +7581,18 @@ lib_cmd_ask_npc_about (scr_gameref_t game)
                                 " does not respond to my question.\n",
                                 " does not respond to %player%'s question.\n"));
   return TRUE;
+}
+
+scr_bool
+lib_cmd_ask_npc_about (scr_gameref_t game)
+{
+  return lib_ask_npc_about (game, "ask", FALSE);
+}
+
+scr_bool
+lib_cmd_talk_to_npc_about (scr_gameref_t game)
+{
+  return lib_ask_npc_about (game, "talk to", TRUE);
 }
 
 
@@ -8719,30 +8815,71 @@ lib_cmd_attack_npc_with (scr_gameref_t game)
 }
 
 /*
- * lib_cmd_slap_npc()
- * lib_cmd_slap_npc_with()
+ * lib_cmd_slap_*()
  *
- * `slap`/`smack` are attack/kick synonyms in pre-4.0 Runners only; 4.0
- * dropped them from the grammar entirely, so on a 4.0+ game these decline
- * (return FALSE) and let the input fall through to other grammar, matching
- * the "I'm afraid that I wasn't anticipating that particular input."
- * response the real 4.0 Runner gives -- measured live 2026-08-18 against
- * run390/run400 on The Town of Azra (3.90) and easter.taf (4.00).
+ * `slap` is not a verb in any Runner's grammar.  It is a pre-parse text
+ * rewrite to `hit`, applied to the command line just after the game's own
+ * synonyms and alongside "everything" -> "all" and "except" -> "but":
+ *
+ *   run370 loc_43B430, run380 loc_441C50   change("slap", "hit")
+ *   run390 loc_45F246                      Replace("slap", "hit")
+ *   run400 loc_48A330                      Replace(" slap ", " hit ")
+ *
+ * 4.0's form is space-bounded on both sides, so a command that *begins*
+ * with `slap` is never rewritten.  That is why run400 answers `slap gizmo`
+ * with the "I'm afraid that I wasn't anticipating that particular input."
+ * a nonsense verb gets, while run390 gives it the combat dispatch (both
+ * measured live 2026-08-18, on easter.taf and The Town of Azra).  So these
+ * decline on 4.0 and behave as `hit` -- not `attack` -- everywhere else:
+ * `hit` carries battle attack index 2, `attack`/`kick` carry -1.
+ *
+ * `smack` and `strike` are synonyms at no version: neither literal occurs
+ * anywhere in run370.bas, run380.bas, run390 Form1.frm or run400.bas.
  */
+static scr_bool
+lib_slap_declines (scr_gameref_t game)
+{
+  return lib_is_version_400 (game);
+}
+
 scr_bool
 lib_cmd_slap_npc (scr_gameref_t game)
 {
-  if (lib_is_version_400 (game))
+  if (lib_slap_declines (game))
     return FALSE;
-  return lib_battle_attack_bare (game, "attack", -1, TRUE);
+  return lib_cmd_hit_npc (game);
 }
 
 scr_bool
 lib_cmd_slap_npc_with (scr_gameref_t game)
 {
-  if (lib_is_version_400 (game))
+  if (lib_slap_declines (game))
     return FALSE;
-  return lib_battle_attack_with (game, "attack", -1, TRUE);
+  return lib_cmd_hit_npc_with (game);
+}
+
+scr_bool
+lib_cmd_slap_object (scr_gameref_t game)
+{
+  if (lib_slap_declines (game))
+    return FALSE;
+  return lib_cmd_hit_object (game);
+}
+
+scr_bool
+lib_cmd_slap_other (scr_gameref_t game)
+{
+  if (lib_slap_declines (game))
+    return FALSE;
+  return lib_cmd_hit_other (game);
+}
+
+scr_bool
+lib_cmd_slap_what (scr_gameref_t game)
+{
+  if (lib_slap_declines (game))
+    return FALSE;
+  return lib_cmd_hit_what (game);
 }
 
 scr_bool
@@ -9195,7 +9332,8 @@ enum
 };
 enum
 { MOVE_SIT, MOVE_SIT_FLOOR,
-  MOVE_STAND, MOVE_STAND_FLOOR, MOVE_LIE, MOVE_LIE_FLOOR
+  MOVE_STAND, MOVE_STAND_FLOOR, MOVE_LIE, MOVE_LIE_FLOOR,
+  MOVE_GET_ON
 };
 
 /*
@@ -9219,6 +9357,7 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
   switch (movement)
     {
     case MOVE_STAND:
+    case MOVE_GET_ON:
     case MOVE_SIT:
     case MOVE_LIE:
       {
@@ -9240,6 +9379,14 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
                                                 "You can't stand on ",
                                                 "I can't stand on ",
                                                 "%player% can't stand on ");
+            movement_mask = OBJ_STANDABLE_MASK;
+            break;
+          case MOVE_GET_ON:
+            /*
+             * Same branch, no refusal of its own -- see lib_cmd_get_on_object.
+             */
+            disambiguate = "stand on";
+            cant_do_that = NULL;
             movement_mask = OBJ_STANDABLE_MASK;
             break;
           case MOVE_SIT:
@@ -9274,6 +9421,8 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
         sit_lie_flags = prop_get_integer (bundle, "I<-sis", vt_key);
         if (!(sit_lie_flags & movement_mask))
           {
+            if (!cant_do_that)
+              return FALSE;
             pf_buffer_string (filter, cant_do_that);
             lib_print_object_np (game, object);
             pf_buffer_string (filter, ".\n");
@@ -9296,6 +9445,7 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
   switch (movement)
     {
     case MOVE_STAND:
+    case MOVE_GET_ON:
       already_doing_that = lib_select_response (game,
                                             "You are already standing on ",
                                             "I am already standing on ",
@@ -9432,6 +9582,36 @@ lib_cmd_stand_on_object (scr_gameref_t game)
   return lib_stand_sit_lie (game, MOVE_STAND);
 }
 
+static scr_bool lib_has_get_off (scr_gameref_t game);
+
+/*
+ * lib_cmd_get_on_object()
+ *
+ * `get on X` is the stand-on branch of the 3.9/4.0 sitstand proc, entered by
+ * `c("stand") Or c("get up") Or c("get on")` and then `c("on") Or c("in")`
+ * (run400 loc_46B889, run390 loc_444565).  3.9 is also where takes() gained
+ * its matching `Not c("get on")` exclusion (run390 loc_4544C6, run400
+ * loc_47B68A), without which the take handler would eat the command first;
+ * neither literal exists anywhere in run370/run380, so this is 3.9+ only.
+ *
+ * It differs from `stand on X` in what happens when the object is not a
+ * standable one.  The refusal "You can't stand on X." is not produced by
+ * the sitstand proc at all -- it comes from a later generaltasks fallback
+ * keyed on the literal phrase "stand on" (run400 loc_489DDF), which `get on
+ * X` does not contain.  So a non-standable object leaves the whole turn
+ * unanswered and drops through to the generic unknown-verb reply: run390 on
+ * Microwave Man answers `get on glass` with "I don't understand what you
+ * want me to do with the shard of glass.", where `stand on glass` refuses.
+ * Declining here reproduces that fall-through.
+ */
+scr_bool
+lib_cmd_get_on_object (scr_gameref_t game)
+{
+  if (!lib_has_get_off (game))
+    return FALSE;
+  return lib_stand_sit_lie (game, MOVE_GET_ON);
+}
+
 scr_bool
 lib_cmd_stand_on_floor (scr_gameref_t game)
 {
@@ -9484,9 +9664,9 @@ lib_cmd_get_off_object (scr_gameref_t game)
   if (gs_playerparent (game) != object)
     {
       lib_print_response_object (game,
-                                 "You are not on ",
-                                 "I am not on ",
-                                 "%player% is not on ",
+                                 "You are not standing on ",
+                                 "I am not standing on ",
+                                 "%player% is not standing on ",
                                  object, "!\n");
       return TRUE;
     }
@@ -9504,19 +9684,33 @@ lib_cmd_get_off_object (scr_gameref_t game)
   return TRUE;
 }
 
+static scr_bool
+lib_has_get_off (scr_gameref_t game)
+{
+  return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390;
+}
+
 scr_bool
 lib_cmd_get_off (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+
+  /*
+   * Not a verb before 3.9.  run380 on Wrecked answers a bare `get off` with
+   * "Take what?", i.e. the take handler, so decline and let the take family
+   * keep it.
+   */
+  if (!lib_has_get_off (game))
+    return FALSE;
 
   /* Reject the attempt if the player is not on anything. */
   if (gs_playerparent (game) == -1)
     {
       pf_buffer_string (filter,
                         lib_select_response (game,
-                                             "You are not on anything!\n",
-                                             "I am not on anything!\n",
-                                             "%player% is not on anything!\n"));
+                                             "You are not standing on anything!\n",
+                                             "I am not standing on anything!\n",
+                                             "%player% is not standing on anything!\n"));
       return TRUE;
     }
 
@@ -9532,6 +9726,23 @@ lib_cmd_get_off (scr_gameref_t game)
   gs_set_playerposition (game, 0);
   gs_set_playerparent (game, -1);
   return TRUE;
+}
+
+/*
+ * lib_cmd_get_down()
+ *
+ * `get down` shares the Runner's dismount branch with `get off`, so it is
+ * gated the same way: both arrived in 3.9.  Under run380, `get down` and
+ * `get off` are answered "Take what?" -- the take handler, not sitstand --
+ * and declining here reproduces that, because the take family is matched
+ * first and only falls through once it has failed to resolve an object.
+ */
+scr_bool
+lib_cmd_get_down (scr_gameref_t game)
+{
+  if (!lib_has_get_off (game))
+    return FALSE;
+  return lib_cmd_get_off (game);
 }
 
 
@@ -10124,6 +10335,32 @@ lib_cmd_profanity (scr_gameref_t game)
                             " that!\n");
 }
 
+/*
+ * lib_cmd_profanity_390()
+ * lib_cmd_profanity_pre_400()
+ *
+ * Two words entered and left the Runner's swearing list.  `bugger` is in the
+ * 3.9 and 4.0 lists but in neither 3.7's nor 3.8's, and `bloody` is in
+ * 3.7/3.8/3.9 and gone from 4.0.  Where the word is not in that Runner's list
+ * these decline, so the input falls through to the rest of the grammar exactly
+ * as any other unrecognised word does.
+ */
+scr_bool
+lib_cmd_profanity_390 (scr_gameref_t game)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return FALSE;
+  return lib_cmd_profanity (game);
+}
+
+scr_bool
+lib_cmd_profanity_pre_400 (scr_gameref_t game)
+{
+  if (lib_is_version_400 (game))
+    return FALSE;
+  return lib_cmd_profanity (game);
+}
+
 scr_bool
 lib_cmd_examine_all (scr_gameref_t game)
 {
@@ -10409,11 +10646,69 @@ lib_cmd_yes_or_no (scr_gameref_t game)
 
 
 /*
+ * lib_ask_format_subject()
+ * lib_ask_format_character()
+ *
+ * The ask-format hint spells its placeholders with angle brackets in 3.7 and
+ * with square ones from 3.8 on -- the only thing that changed about it in
+ * four Runner releases:
+ *
+ *   run370 loc_4387A0, loc_438BDC   "ask " & name & " about <subject>" & "."
+ *   run370 loc_43D782               "ask <character> about <subject>"
+ *   run380 loc_44062F, loc_440A6B   "ask " & name & " about [subject]" & "."
+ *   run380 loc_444219               "ask [character] about [subject]"
+ *   run390 loc_45976B / loc_45DA37, run400 loc_47F879 / loc_488D55: as 3.8.
+ */
+static const scr_char *
+lib_ask_format_subject (scr_gameref_t game)
+{
+  return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
+         ? " about [subject]\".\n" : " about <subject>\".\n";
+}
+
+static const scr_char *
+lib_ask_format_character (scr_gameref_t game)
+{
+  return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
+         ? "Use the format \"ask [character] about [subject]\".\n"
+         : "Use the format \"ask <character> about <subject>\".\n";
+}
+
+
+/*
  * lib_cmd_ask_npc()
  * lib_cmd_ask_object()
  * lib_cmd_ask_other()
+ * lib_cmd_talk_to_npc()
+ * lib_cmd_talk_to_npc_pre_390()
  *
  * Malformed and rhetorical question responses.
+ *
+ * `talk to X` and `speak to X` reach the same hint.  It is produced by the
+ * per-character pass, inside the block that a command only enters when it
+ * names the character (run380 loc_4401AA, `c(name) Or c(descriptor)`), by a
+ * branch whose guard is the one thing here that moved between releases:
+ *
+ *   run370 loc_438748, run380 loc_4405D7   c("talk") Or c("speak")
+ *   run390 loc_45973D, run400 loc_47F84A   c("talk to") Or c("speak to")
+ *
+ * So 3.7 and 3.8 answer a bare `talk bob` or `speak bob` with the hint and
+ * 3.9 and 4.0 do not -- there the bare word falls through to the
+ * generaltasks `c("talk")` rabblings line, which every Runner has
+ * (run400 loc_488DA2), and `speak` alone reaches nothing at all.
+ *
+ * `talk to X about Y` is different again: `c("ask") Or c("talk to")` guards
+ * the real conversation branch in all four (run370 loc_4387F4, run380
+ * loc_440683, run390 loc_4597F2, run400 loc_47F8F7), and it runs after the
+ * hint branch and overwrites it.  `speak to` is not in that list, so it only
+ * ever gets the hint.  See the grammar rows in scrunner.cpp.
+ *
+ * Not ported: the pre-parse rewrites of a command *beginning* `ask about `
+ * or `talk about ` into `ask <last named character> about ...` (run370
+ * loc_4380CF/loc_438185, run380 loc_43FF4F/loc_440005, run390 loc_459010/
+ * loc_4590E1, run400 loc_47F14C/loc_47F20F).  They need the Runner's
+ * "character most recently named by a command" register, which SCARE has no
+ * equivalent of.
  */
 scr_bool
 lib_cmd_ask_npc (scr_gameref_t game)
@@ -10428,8 +10723,33 @@ lib_cmd_ask_npc (scr_gameref_t game)
 
   /* Incomplete ask command, so offer help and return. */
   lib_print_wrapped_npc (game, "Use the format \"ask ",
-                         npc, " about [subject]\".\n");
+                         npc, lib_ask_format_subject (game));
   return TRUE;
+}
+
+scr_bool
+lib_cmd_talk_to_npc (scr_gameref_t game)
+{
+  scr_int npc;
+  scr_bool is_ambiguous;
+
+  /* Get the referenced npc, and if none, consider complete. */
+  npc = lib_disambiguate_npc (game, "talk to", &is_ambiguous);
+  if (npc == -1)
+    return is_ambiguous;
+
+  lib_print_wrapped_npc (game, "Use the format \"ask ",
+                         npc, lib_ask_format_subject (game));
+  return TRUE;
+}
+
+scr_bool
+lib_cmd_talk_to_npc_pre_390 (scr_gameref_t game)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    return FALSE;
+
+  return lib_cmd_talk_to_npc (game);
 }
 
 scr_bool
@@ -10456,8 +10776,7 @@ scr_bool
 lib_cmd_ask_other (scr_gameref_t game)
 {
   /* Incomplete ask command, so offer help and return. */
-  return lib_print_message (game,
-                            "Use the format \"ask [character] about [subject]\".\n");
+  return lib_print_message (game, lib_ask_format_character (game));
 }
 
 

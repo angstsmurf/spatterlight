@@ -1631,7 +1631,7 @@ me. Best you go now, before I forget myself and rid this world of one more
 interfering do-gooder."
 
 > talk to vadris
-No-one listens to your rabblings.
+Use the format "ask Vadris about [subject]".
 
 > north
 You cannot go in that direction. Try instead going northeast and south.
@@ -3511,7 +3511,7 @@ asked too much, too much... I was not ready... I knew it was a mistake, knew
 it, knew it..."
 
 > talk to garrick
-No-one listens to your rabblings.
+Use the format "ask Garrick about [subject]".
 
 > ask garrick about mordrel
    At the mention of Mordrel, Garrick looks at you.
