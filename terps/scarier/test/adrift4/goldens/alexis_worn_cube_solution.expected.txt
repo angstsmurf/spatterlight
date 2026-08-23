@@ -371,8 +371,8 @@ little marks where something has been scraping.  A large knife and the Glaven
 stone are on the large stone table.
 
 > get all from large stone table
-You take the Glaven stone from the large stone table.  The large knife is too
-heavy for you to carry at the moment.
+You take the Glaven stone from the large stone table.  That is too heavy for
+you to carry.
 
 > turn ring
 The iron ring slowly begins to move, it turns to a right angle and you hear a

@@ -3958,7 +3958,10 @@ gsc_command_abbreviations (const char *argument)
  * Select how the player's carried load is accounted for.  When off (the
  * default) SCARIER mirrors the real ADRIFT Runner, keeping a running total
  * updated on take and drop.  When on, SCARIER recomputes the load afresh from
- * the objects currently held on each check (legacy SCARIER behaviour).
+ * the objects currently held on each check (legacy SCARE behaviour).
+ *
+ * Only run400 keeps a running total, so the switch bites only in a 4.0 game;
+ * see obj_uses_running_load() for the probe that establishes that.
  */
 static void
 gsc_set_capacity (scr_bool state)
@@ -3974,7 +3977,7 @@ gsc_command_capacity (const char *argument)
                       scr_get_game_capacity_recompute (gsc_game),
                       gsc_set_capacity,
                       "; the load is summed afresh from held objects on each"
-                      " check (legacy SCARIER behaviour).\n",
+                      " check (legacy SCARE behaviour).\n",
                       "; a running total is kept as the original ADRIFT Runner"
                       " does.\n", FALSE);
 }
@@ -5193,16 +5196,18 @@ gsc_command_help (const char *command)
   else if (matched->handler == gsc_command_capacity)
     {
       gsc_normal_string ("Controls how your carried load is accounted for.\n\n"
-                         "By default SCARIER mirrors the real ADRIFT Runner,"
-                         " keeping a running total updated as you take and drop"
-                         " objects.  Use ");
+                         "By default SCARIER keeps a running total as you take"
+                         " and drop, like the ADRIFT Runner.  Use ");
       gsc_standout_string ("glk capacity on");
-      gsc_normal_string (" to instead recompute the load afresh from the"
-                         " objects you are currently holding on each check"
-                         " (legacy SCARIER behaviour), and ");
+      gsc_normal_string (" to recompute it instead from what you are holding"
+                         " (legacy SCARE behaviour), and ");
       gsc_standout_string ("glk capacity off");
-      gsc_normal_string (" to return to matching the Runner.  This affects only"
-                         " when an over-encumbered take is refused.\n");
+      gsc_normal_string (" to go back.  It changes when a take is refused as"
+                         " too much to carry, and what ");
+      gsc_standout_string ("count");
+      gsc_normal_string (" reports.  Only a 4.0 Runner keeps such a total;"
+                         " earlier ones recompute anyway, so for a 3.7, 3.8 or"
+                         " 3.9 game the setting does nothing.\n");
     }
 
   else if (matched->handler == gsc_command_combat_assist)

@@ -952,6 +952,7 @@ extern scr_int obj_get_base_weight (scr_gameref_t game, scr_int object);
 extern scr_int obj_get_player_size_limit (scr_gameref_t game);
 extern scr_int obj_get_player_weight_limit (scr_gameref_t game);
 extern scr_bool obj_uses_burden_model (scr_gameref_t game);
+extern scr_bool obj_uses_running_load (scr_gameref_t game);
 extern scr_int obj_get_burden (scr_gameref_t game, scr_int object);
 extern scr_int obj_get_player_burden_limit (scr_gameref_t game);
 extern scr_int obj_get_container_capacity (scr_gameref_t game, scr_int object);

@@ -274,7 +274,7 @@ typedef struct scr_game_s
   scr_bool carried_suspend;
 
   /* When TRUE, the capacity checks recompute the carried load from currently
-   * held objects each time (legacy SCARIER behaviour); when FALSE (default)
+   * held objects each time (legacy SCARE behaviour); when FALSE (default)
    * they consult the running totals above, matching the real Runner.  Toggled
    * with the "capacity" metacommand. */
   scr_bool capacity_recompute;

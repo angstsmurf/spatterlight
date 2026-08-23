@@ -548,7 +548,7 @@ on Oakland Ave. angle away to the west.
 Billy is here.
 
 > wear crappy baseball glove
-You put on the crappy baseball glove.
+You put on a crappy baseball glove.
 
 > have a catch with billy
 You look over at Billy who is flipping a ball up and down into his glove.

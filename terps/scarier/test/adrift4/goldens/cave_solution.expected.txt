@@ -24,7 +24,7 @@ You pluck a single poppy from the field.  You could almost swear you heard a
 faint scream as it was wrenched from the ground.
 
 > wear poppy
-You put on the small red poppy.
+You put on a small red poppy.
 
 > w
 You move west.
@@ -1093,7 +1093,7 @@ one of them leaves, it drops a gauntlet.  The space-ship disappears.
 You pick up the strange gauntlet.
 
 > wear gauntlet
-You put on the strange gauntlet.
+You put on a strange gauntlet.
 
 > drop spade
 You drop the garden spade.

@@ -555,7 +555,11 @@ lib_print_object (scr_gameref_t game, scr_int object)
 
   /*
    * Get the object's prefix, and print if not empty, otherwise default to an
-   * "a " prefix, as that's what Adrift seems to do.
+   * "a " prefix.  The default is unconditional -- the Runners never inflect it
+   * to "an" before a vowel.  run380 on the pwearv probe, four wearables with
+   * empty prefixes and vowel-initial names, answers "You put on a apple." and
+   * lists them back as "You are wearing a apple, a orange, a egg and a
+   * umbrella" (2026-08-23).
    */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
@@ -916,6 +920,9 @@ lib_print_name_list (scr_gameref_t game, const lib_list_t &list,
  * every "You can't wear ..."-style report about a batch of objects takes.
  * Prints nothing for an empty list.  Returns TRUE if it printed anything,
  * so that callers can fold the result into their has_printed.
+ *
+ * Names are normalized ("the ...") unless the caller asks for lib_print_object
+ * instead; the pre-3.9 wear report is the one place that does.
  */
 static scr_bool
 lib_print_object_list (scr_gameref_t game, scr_bool has_printed,
@@ -923,7 +930,8 @@ lib_print_object_list (scr_gameref_t game, scr_bool has_printed,
                        const scr_char *conjunction, scr_char terminator,
                        const scr_char *second_person,
                        const scr_char *first_person,
-                       const scr_char *third_person)
+                       const scr_char *third_person,
+                       lib_print_item_t print_item = lib_print_object_np)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
@@ -932,7 +940,7 @@ lib_print_object_list (scr_gameref_t game, scr_bool has_printed,
 
   lib_print_clause (game, has_printed,
                     second_person, first_person, third_person);
-  lib_print_list (game, list, lib_print_object_np, conjunction);
+  lib_print_list (game, list, print_item, conjunction);
   pf_buffer_character (filter, terminator);
   return TRUE;
 }
@@ -4677,10 +4685,24 @@ lib_apply_filter (scr_gameref_t game,
 /*
  * lib_carried_burden()
  *
- * Return the total burden of everything the player currently holds or wears,
- * under the version 3.8 pooled model (see obj_get_burden()).  Always computed
- * afresh: unlike weight, a burden is never charged twice, since a container is
- * not charged for its contents, so there is no running total to drift from.
+ * Return the total burden of everything the player is currently holding, under
+ * the version 3.8 pooled model (see obj_get_burden()).
+ *
+ * Worn objects are free.  Wearing something does not spend any of MaxCarried,
+ * and neither does keeping it on -- measured with a MaxCarried 2 probe holding
+ * a wearable and two others: run370 and run380 both accept all three, and
+ * "count" reports the two held (pworn/qworn, 2026-08-23).  Taking anything off
+ * therefore costs a slot again.
+ *
+ * Always computed afresh, and that is faithful: unlike 4.0's running size and
+ * weight totals, the pooled burden does not drift.  A container is not charged
+ * for its contents and wearing is not a charge at all, so neither of the two
+ * shapes of 4.0 leak has anything to leak here -- confirmed against both
+ * Runners with the drop-a-loaded-container and wear-then-drop sequences
+ * (pleakc/pleakw and their 3.70 twins).  This is why "glk capacity" is a no-op
+ * for a 3.7/3.8 game: there is no Runner arithmetic to escape.  It is a no-op
+ * for a 3.9 game too, for the same reason by a different route -- run390 keeps
+ * a running total but keeps it exactly; see obj_uses_running_load().
  */
 static scr_int
 lib_carried_burden (scr_gameref_t game)
@@ -4689,8 +4711,7 @@ lib_carried_burden (scr_gameref_t game)
 
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     {
-      if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
-          || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
+      if (gs_object_position (game, index_) == OBJ_HELD_PLAYER)
         burden += obj_get_burden (game, index_);
     }
 
@@ -4703,16 +4724,23 @@ lib_carried_burden (scr_gameref_t game)
  * lib_carried_weight()
  *
  * The player's current carried size and weight as the capacity checks see
- * them.  By default this is the Runner's running total (gs_carried_*, with
- * its take/drop double-count); in legacy mode it is recomputed afresh from
- * currently held or worn objects.
+ * them.  For a 4.0 game this is by default the Runner's running total
+ * (gs_carried_*, with its take/drop double-count); otherwise, and in legacy
+ * mode, it is recomputed afresh from what is currently held or worn.
+ *
+ * Only 4.0 keeps a running total worth reproducing: run390 adjusts the same
+ * two globals but does so exactly, so recomputing is what a 3.9 game looks
+ * like from the outside -- see obj_uses_running_load() for the probe that
+ * separates the two.  Legacy mode also drops the Runner's stale parent rule
+ * from obj_weigh(), so it is free of the phantom weight too; a 3.9 game gets
+ * that for the same reason, having no running total to poison.
  */
 static scr_int
 lib_carried_size (scr_gameref_t game)
 {
   scr_int index_, size;
 
-  if (!game->capacity_recompute)
+  if (obj_uses_running_load (game) && !game->capacity_recompute)
     return gs_carried_size (game);
 
   size = 0;
@@ -4731,7 +4759,7 @@ lib_carried_weight (scr_gameref_t game)
 {
   scr_int index_, weight;
 
-  if (!game->capacity_recompute)
+  if (obj_uses_running_load (game) && !game->capacity_recompute)
     return gs_carried_weight (game);
 
   weight = 0;
@@ -4758,16 +4786,20 @@ lib_cmd_count (scr_gameref_t game)
   scr_int size, weight;
 
   /*
-   * A version 3.8 game has neither of these axes -- report the one pooled
-   * burden its capacity check really uses instead of two laundered numbers.
+   * A version 3.8 game has neither of these axes, and its "count" is a single
+   * unlabelled line counting objects rather than the two tab-stopped Size and
+   * Weight lines below: "You have 0 objects.  The most you can hold is 2."
+   * There is no singular -- one object still reads "1 objects" -- and the
+   * first person is "I have ... The most I can hold is ...".  Measured on
+   * run380 with the pcount/pcount1 probes, 2026-08-23.
    */
   if (obj_uses_burden_model (game))
     {
-      pf_buffer_string (filter, "Burden:\t");
       pf_buffer_string (filter,
                         lib_select_response (game, "You have ", "I have ",
                                              "%player% has "));
       pf_buffer_integer (filter, lib_carried_burden (game));
+      pf_buffer_string (filter, " objects");
       pf_buffer_string (filter,
                         lib_select_response (game,
                                              ".  The most you can hold is ",
@@ -4827,7 +4859,7 @@ lib_cmd_count (scr_gameref_t game)
  * Return TRUE if the given object is too heavy for the player to carry.
  */
 static scr_bool
-lib_object_too_heavy (scr_gameref_t game, scr_int object, scr_bool *is_portable)
+lib_object_too_heavy (scr_gameref_t game, scr_int object)
 {
   scr_int player_limit, weight, object_weight;
 
@@ -4837,11 +4869,7 @@ lib_object_too_heavy (scr_gameref_t game, scr_int object, scr_bool *is_portable)
    * and answers "Your hands are full." to everything it refuses.
    */
   if (obj_uses_burden_model (game))
-    {
-      if (is_portable)
-        *is_portable = TRUE;
-      return FALSE;
-    }
+    return FALSE;
 
   /* Get the player limit and the given object weight. */
   player_limit = obj_get_player_weight_limit (game);
@@ -4850,12 +4878,53 @@ lib_object_too_heavy (scr_gameref_t game, scr_int object, scr_bool *is_portable)
   /* Establish the player's current carried weight. */
   weight = lib_carried_weight (game);
 
-  /* If requested, return object portability. */
-  if (is_portable)
-    *is_portable = !(object_weight > player_limit);
-
   /* Return TRUE if the new object exceeds limit. */
   return weight + object_weight > player_limit;
+}
+
+
+/*
+ * lib_print_too_heavy()
+ *
+ * Print the weight refusal for one object, into a clause the caller has
+ * already opened.
+ *
+ * The whole sentence is a 4.0 rewording.  run390 answers a fixed "That is too
+ * heavy for you to carry." -- it names no object, and it never qualifies the
+ * refusal.  run400 names the object and always qualifies it: "The lump is too
+ * heavy for Player to carry at the moment."  Both were measured on the p39wt
+ * probe (2026-08-23), one Runner each, against a brick that fits in empty
+ * hands and a lump that does not: each Runner gave its single shape for both,
+ * so the "at the moment" is not the portability hedge SCARE took it for.
+ * Neither Runner has a plural form -- there is no "are too heavy" string in
+ * either binary.
+ *
+ * A 3.7 or 3.8 game never reaches here: the pooled burden has no weight axis
+ * and lib_object_too_heavy() stands down for it.
+ */
+static void
+lib_print_too_heavy (scr_gameref_t game, scr_int object)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    {
+      pf_buffer_string (filter,
+                        lib_select_response
+                          (game,
+                           "That is too heavy for you to carry.",
+                           "That is too heavy for me to carry.",
+                           "That is too heavy for %player% to carry."));
+      return;
+    }
+
+  lib_print_object_np (game, object);
+  pf_buffer_string (filter,
+                    lib_select_response
+                      (game,
+                       " is too heavy for you to carry at the moment.",
+                       " is too heavy for me to carry at the moment.",
+                       " is too heavy for %player% to carry at the moment."));
 }
 
 
@@ -4865,7 +4934,7 @@ lib_object_too_heavy (scr_gameref_t game, scr_int object, scr_bool *is_portable)
  * Return TRUE if the given object is too large for the player to carry.
  */
 static scr_bool
-lib_object_too_large (scr_gameref_t game, scr_int object, scr_bool *is_portable)
+lib_object_too_large (scr_gameref_t game, scr_int object)
 {
   scr_int player_limit, size, object_size;
 
@@ -4881,15 +4950,6 @@ lib_object_too_large (scr_gameref_t game, scr_int object, scr_bool *is_portable)
 
       player_limit = obj_get_player_burden_limit (game);
 
-      /*
-       * 3.8 never qualifies the refusal.  run380 answers a flat "Your hands
-       * are full." whether or not empty hands would have taken the object
-       * (measured 2026-08-03), so report the object as unportable and keep
-       * the 4.0 " at the moment" suffix off.
-       */
-      if (is_portable)
-        *is_portable = FALSE;
-
       return lib_carried_burden (game) + object_burden > player_limit;
     }
 
@@ -4899,10 +4959,6 @@ lib_object_too_large (scr_gameref_t game, scr_int object, scr_bool *is_portable)
 
   /* Establish the player's current carried size. */
   size = lib_carried_size (game);
-
-  /* If requested, return object portability. */
-  if (is_portable)
-    *is_portable = !(object_size > player_limit);
 
   /* Return TRUE if the new object exceeds limit. */
   return size + object_size > player_limit;
@@ -4967,7 +5023,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * sentence for every such object (run400 @0047C127/@0047C0F0), not just
    * the first.
    */
-  lib_list_t over_capacity, over_is_size, over_is_portable;
+  lib_list_t over_capacity, over_is_size;
   assert (!is_associate_object || !is_associate_npc);
 
   /*
@@ -4993,25 +5049,21 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
             && obj_indirectly_held_by_player (game,
                                               gs_object_parent (game, object))))
         {
-          scr_bool is_portable;
-
           /*
            * See if the object takes us beyond capacity.  If it does and it's
            * the first of its kind, note it and continue.
            */
-          if (lib_object_too_heavy (game, object, &is_portable))
+          if (lib_object_too_heavy (game, object))
             {
               over_capacity.push_back (object);
               over_is_size.push_back (FALSE);
-              over_is_portable.push_back (is_portable);
               game->object_references[object] = FALSE;
               continue;
             }
-          if (lib_object_too_large (game, object, &is_portable))
+          if (lib_object_too_large (game, object))
             {
               over_capacity.push_back (object);
               over_is_size.push_back (TRUE);
-              over_is_portable.push_back (is_portable);
               game->object_references[object] = FALSE;
               continue;
             }
@@ -5060,8 +5112,6 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
           list.clear ();
           for (object = 0; object < object_count; object++)
             {
-              scr_bool is_portable;
-
               if (!game->object_references[object])
                 continue;
 
@@ -5093,18 +5143,16 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                if (parent == -1
                    || !obj_indirectly_held_by_player (game, parent))
                 {
-                  if (lib_object_too_heavy (game, object, &is_portable))
+                  if (lib_object_too_heavy (game, object))
                     {
                       over_capacity.push_back (object);
                       over_is_size.push_back (FALSE);
-                      over_is_portable.push_back (is_portable);
                       continue;
                     }
-                  if (lib_object_too_large (game, object, &is_portable))
+                  if (lib_object_too_large (game, object))
                     {
                       over_capacity.push_back (object);
                       over_is_size.push_back (TRUE);
-                      over_is_portable.push_back (is_portable);
                       continue;
                     }
                 }
@@ -5204,28 +5252,14 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
             size_reported = TRUE;
 
             lib_print_clause (game, has_printed,
-                              "Your hands are full",
-                              "My hands are full",
-                              "%player%'s hands are full");
-            if (over_is_portable[over])
-              pf_buffer_string (filter, " at the moment");
-            pf_buffer_character (filter, '.');
+                              "Your hands are full.",
+                              "My hands are full.",
+                              "%player%'s hands are full.");
           }
         else
           {
             lib_new_clause (game, has_printed);
-            lib_print_object_np (game, over_capacity[over]);
-            pf_buffer_string (filter,
-                              lib_select_plurality (game, over_capacity[over],
-                                                    " is", " are"));
-            pf_buffer_string (filter,
-                              lib_select_response (game,
-                                       " too heavy for you to carry",
-                                       " too heavy for me to carry",
-                                       " too heavy for %player% to carry"));
-            if (over_is_portable[over])
-              pf_buffer_string (filter, " at the moment");
-            pf_buffer_character (filter, '.');
+            lib_print_too_heavy (game, over_capacity[over]);
           }
         has_printed |= TRUE;
       }
@@ -6474,10 +6508,27 @@ lib_wear_backend (scr_gameref_t game)
       gs_object_player_wear (game, object);
     }
 
+  /*
+   * Pre-3.9 announces the wear with the object's own prefix where every other
+   * report normalizes it: run370 and run380 answer "You put on a rusty w3."
+   * and "You put on a w1." for an empty prefix, against "You pick up the rusty
+   * w3." on the take path in the same session.  A "some" or "the ..." prefix
+   * comes out verbatim either way, so the "a ..." and empty cases are what
+   * separate the two printers.  3.9 normalized this along with the rest:
+   * run390 and run400 both say "You put on the w0, ..." for the very same
+   * objects.  Measured on the pwear probe carried across all four Runners
+   * (2026-08-23); the empty-prefix default is a bare "a" even before a vowel,
+   * measured separately on pwearv.  See RUNNER_TESTS_TODO.md section 4.
+   */
   has_printed |= lib_print_object_list (game, has_printed, list, " and ", '.',
                                         "You put on ",
                                         "I put on ",
-                                        "%player% puts on ");
+                                        "%player% puts on ",
+                                        prop_get_taf_version
+                                        (gs_get_bundle (game))
+                                        >= TAF_VERSION_390
+                                        ? lib_print_object_np
+                                        : lib_print_object);
 
   /* Note any remaining multiple references left out of the wear operation. */
   list.clear ();
@@ -7076,8 +7127,8 @@ lib_attempt_key_acquisition (scr_gameref_t game, scr_int object)
    */
   if (!obj_indirectly_held_by_player (game, object))
     {
-      if (lib_object_too_heavy (game, object, NULL)
-          || lib_object_too_large (game, object, NULL))
+      if (lib_object_too_heavy (game, object)
+          || lib_object_too_large (game, object))
         return;
     }
 
@@ -7728,7 +7779,6 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
                        scr_bool *printed)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_bool is_portable;
 
   if (!lib_is_version_400 (game))
     return TRUE;
@@ -7758,32 +7808,19 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
   lib_print_object_np (game, object);
   pf_buffer_string (filter, " first)\n");
 
-  if (lib_object_too_heavy (game, object, &is_portable))
+  if (lib_object_too_heavy (game, object))
     {
       lib_new_clause (game, FALSE);
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, object, " is", " are"));
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             " too heavy for you to carry",
-                                             " too heavy for me to carry",
-                                             " too heavy for %player% to carry"));
-      if (is_portable)
-        pf_buffer_string (filter, " at the moment");
-      pf_buffer_character (filter, '.');
+      lib_print_too_heavy (game, object);
     }
-  else if (lib_object_too_large (game, object, &is_portable))
+  else if (lib_object_too_large (game, object))
     {
       lib_new_clause (game, FALSE);
       pf_buffer_string (filter,
                         lib_select_response (game,
-                                             "Your hands are full",
-                                             "My hands are full",
-                                             "%player%'s hands are full"));
-      if (is_portable)
-        pf_buffer_string (filter, " at the moment");
-      pf_buffer_character (filter, '.');
+                                             "Your hands are full.",
+                                             "My hands are full.",
+                                             "%player%'s hands are full."));
     }
   else
     {

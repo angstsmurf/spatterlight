@@ -154,6 +154,13 @@ gs_runner_worn (scr_gameref_t gs, scr_int object)
  * The move-object task action (Proc_19_10) does its own accounting in
  * task_move_object.  No-op until the totals are seeded (carried_ready), so
  * it ignores object placement during game setup.
+ *
+ * All of this is 4.0's alone.  run390 has no single generic setter -- it
+ * adjusts the same two globals from each command handler in turn -- and its
+ * arithmetic comes out exact, so a 3.9 game reads its load back from
+ * lib_carried_size()/lib_carried_weight() instead of from here; see
+ * obj_uses_running_load().  The totals are still tracked for every version,
+ * because a .tas save carries them, but nothing consults them below 4.0.
  */
 static void
 gs_carried_track (scr_gameref_t gs, scr_int object, scr_int old_pos,

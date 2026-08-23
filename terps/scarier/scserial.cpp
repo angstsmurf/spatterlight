@@ -86,7 +86,7 @@ static const scr_char *const SER_BATTLE_MARKER_V1 = "ScarierBattleState/1";
  * unreadable.  We now emit the header so the Runner will accept our saves, and
  * on read we treat the leading 0xAC byte as an unambiguous discriminator: a
  * line beginning with it is a Runner/new-format save whose version line we skip;
- * any other first line is a legacy SCARIER save whose first line is the GameName.
+ * any other first line is a legacy SCARE save whose first line is the GameName.
  */
 static const scr_byte SER_VERSION_LEAD = 0xAC;
 static const scr_char *const SER_VERSION_HEADER = "\xAC" "400052";
@@ -1264,7 +1264,7 @@ ser_object_parent_valid (scr_gameref_t game, scr_int position, scr_int parent)
  * Read an object's location.  In 4.0 Runner format a static object is a room
  * list (count then that many room indices), whose values we discard -- a static
  * object's location is taken from its bundle "Where" list, and relocated-static
- * state is not separately persisted (as in legacy SCARIER saves).  A pre-4.0
+ * state is not separately persisted (as in legacy SCARE saves).  A pre-4.0
  * save has no room list: a static is a bare position, discarded for the same
  * reason.  A dynamic object, or any object in a legacy save, is a single
  * position integer.
@@ -1367,7 +1367,7 @@ ser_load_game (scr_gameref_t game,
    * The container tells us the layout: only run390.exe -- and ser_save_game_-
    * to_file() for a pre-4.0 game -- writes a PRNG-obfuscated save, so an
    * obfuscated stream is a pre-4.0 Runner save.  Everything else is a zlib
-   * stream, either 4.0 Runner format or legacy SCARIER, told apart below by the
+   * stream, either 4.0 Runner format or legacy SCARE, told apart below by the
    * version line.  This keeps 4.0-format saves we wrote earlier for a 3.9 game
    * readable.
    */
@@ -1401,7 +1401,7 @@ ser_load_game (scr_gameref_t game,
    * Read the first line.  If it begins with the ADRIFT v4 version-line lead
    * byte (0xAC) it is a Runner/new-format save: skip the version line (we accept
    * any version a v4 Runner wrote rather than insist on our own digits) and take
-   * the GameName from the next line.  Otherwise the file is a legacy SCARIER save
+   * the GameName from the next line.  Otherwise the file is a legacy SCARE save
    * whose first line is already the GameName.  See SER_VERSION_HEADER.
    */
   gamename = ser_get_string ();
@@ -1448,7 +1448,7 @@ ser_load_game (scr_gameref_t game,
   /* Restore the score. */
   new_game->score = ser_get_int ();
 
-  /* Skip the player name (4.0 Runner format only; absent in legacy SCARIER
+  /* Skip the player name (4.0 Runner format only; absent in legacy SCARE
    * saves and in pre-4.0 Runner saves). */
   if (runner_format && !ser_pre_v4)
     (void) ser_get_string ();

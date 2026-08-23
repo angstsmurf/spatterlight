@@ -265,7 +265,7 @@ Also here is a wedding ring.
 You pick up the wedding ring.
 
 > wear wedding ring
-You put on the wedding ring.
+You put on a wedding ring.
 
 > east
 You move east.

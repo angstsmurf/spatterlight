@@ -13,22 +13,22 @@ You take the socks, the shirt, the underwear and the pair of pants from the
 dresser.
 
 > wear underwear
-You put on the underwear.
+You put on a underwear.
 
 > wear socks
-You put on the socks.
+You put on a socks.
 
 > wear pants
-You put on the pair of pants.
+You put on a pair of pants.
 
 > wear shirt
-You put on the shirt.
+You put on a shirt.
 
 > take vans
 You pick up the pair of vans.
 
 > wear vans
-You put on the pair of vans.
+You put on a pair of vans.
 
 > south
 You move south.

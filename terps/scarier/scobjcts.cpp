@@ -449,11 +449,21 @@ obj_weigh (scr_gameref_t game, scr_int object, scr_int depth)
    * surface, so objects whose [2E] is stale (leftover raw Parent data that
    * ordinary takes, drops, and task/event moves never touch) silently add
    * phantom weight; see the runner_parent notes in scgamest.h.  We match on the
-   * runner_parent shadow of that field for the versions whose capacity
-   * checks weigh objects (3.9/4.0).  The 3.7/3.8 burden model never calls
-   * this on the take path, and those versions' loaders rewrote the raw
-   * Parent values our shadow is seeded from, so they keep the older
-   * position-filtered membership.
+   * runner_parent shadow of that field, but only for the version that keeps
+   * a running carried total to corrupt (obj_uses_running_load, i.e. 4.0).
+   * A 3.7 or 3.8 game never calls this on the take path at all, and those
+   * versions' loaders rewrote the raw Parent values our shadow is seeded
+   * from; a 3.9 game recomputes its totals, so a stale parent has nothing to
+   * accumulate into.  All three keep the position-filtered membership.
+   *
+   * `glk capacity on` (game->capacity_recompute) keeps the same older
+   * membership: that switch exists to hand a player a load model free of the
+   * Runner's accounting bugs, and phantom weight is one of them -- with the
+   * Runner rule left in place here, the escape hatch cured the running total's
+   * size leaks but still weighed a stale parent's children.  Goldilocks is the
+   * case that shows it: `drop package` refunds 29 where the package and its
+   * leaflet weigh 10, the extra 19 being worn objects whose leftover raw
+   * Parent still points at the package.
    */
   for (other = 0; other < gs_object_count (game); other++)
     {
@@ -462,7 +472,7 @@ obj_weigh (scr_gameref_t game, scr_int object, scr_int depth)
       if (other == object)
         continue;
 
-      if (obj_uses_burden_model (game))
+      if (!obj_uses_running_load (game) || game->capacity_recompute)
         is_child = (gs_object_position (game, other) == OBJ_IN_OBJECT
                     || gs_object_position (game, other) == OBJ_ON_OBJECT)
                    && gs_object_parent (game, other) == object;
@@ -567,6 +577,40 @@ obj_uses_burden_model (scr_gameref_t game)
 
   return vt_rvalue.integer != 0;
 }
+
+
+/*
+ * obj_uses_running_load()
+ *
+ * TRUE if the Runner keeps a *running* carried size and weight, updated as
+ * objects move, rather than recomputing the totals from what is held.  Only
+ * 4.0 does.
+ *
+ * run400 keeps both totals in the player record and edits them from one
+ * central move routine (Proc_21_54 @4528D8), which is where its two leaks
+ * live: dropping a carried container refunds only the container's own size,
+ * and wearing then dropping something subtracts its size twice.  run390 has
+ * no such central routine -- it adjusts the same two globals from each
+ * command handler in turn -- and its arithmetic comes out exact, so a 3.9
+ * game is indistinguishable from recomputing the totals afresh.
+ *
+ * Measured on the p39leak probe, one Runner each, same commands (2026-08-23).
+ * Size after take bag + take rock, put rock in bag, drop bag, take cape,
+ * wear cape, drop cape:
+ *
+ *   run390   36   9   0   9   9   0
+ *   run400   36  36  27  36  27  18
+ *
+ * Weight tracks 0/6/6/0/9/9/0 in run390 and 0/6/6/0/9/9/0 in run400 up to the
+ * drop, both refunding a dropped container recursively.  The 3.7/3.8 pooled
+ * burden is recomputed too (see lib_carried_burden), so 4.0 is alone here.
+ */
+scr_bool
+obj_uses_running_load (scr_gameref_t game)
+{
+  return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400;
+}
+
 
 /*
  * obj_get_burden()

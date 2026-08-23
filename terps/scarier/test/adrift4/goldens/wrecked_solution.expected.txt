@@ -668,7 +668,7 @@ I am in the pool room.  There is a large swimming pool here.
 I can move in and out.
 
 > wear scuba outfit
-I put on the scuba outfit.
+I put on a scuba outfit.
 
 > in
 I move in.
@@ -1194,7 +1194,7 @@ I tie the anchor onto the piece of rope.
 I throw the anchor overboard.
 
 > wear scuba outfit
-I put on the scuba outfit.
+I put on a scuba outfit.
 
 > out
 I move out.
