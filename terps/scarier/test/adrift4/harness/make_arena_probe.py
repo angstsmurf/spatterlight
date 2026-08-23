@@ -1354,6 +1354,78 @@ CONFIGS = {
             dict(short="Delay Range", affected=0, starter=2, restart=2,
                  start=1, end=3, time1=1, time2=1,
                  starttext="3S.", finishtext="3F.")]),
+ # ET: "Space Boy's First Adventure" Task 72 ("drop cape to the floor") has
+ # empty CompleteText/RepeatText, is unrestricted, and scores +250 (action
+ # type 4) plus moves the cape and hides an NPC.  Scarier's
+ # run_game_commands_common() calls task_run_task() unconditionally on an
+ # unrestricted match, so those effects land silently and it then falls
+ # through to the library "Drop what?" refusal because CompleteText produced
+ # no output.  A live run400 transcript instead shows an ordinary "You drop
+ # the red Cape." with NO score change, which only makes sense if run400
+ # either never selects Task 72 as the match at all, or selects it but skips
+ # RUNNING its actions when it has nothing to say.  RUNNER_TESTS_TODO rows
+ # 774-776 (measured 2026-08-23) establish that a *silent* task match still
+ # falls through to the plain library verb -- consistent with "You drop the
+ # red Cape." -- but not whether the task's actions ran first.  This probe
+ # isolates that with the engine score as an unambiguous side channel (read
+ # with the "score" library command, which is untouched by any of this):
+ #   etcontrol: real CompleteText, +5.  Control -- proves scoring/`score`
+ #              works at all in this probe.
+ #   etquiet:   empty Complete/RepeatText, unrestricted, undone, +7, command
+ #              "etquiet" collides with no library verb -- isolates the
+ #              silent-task-action question from the library-fallthrough one.
+ #   the drop:  mirrors Task 72's exact shape -- empty Complete/RepeatText,
+ #              unrestricted, undone, +250, matched via a library-colliding
+ #              wildcard pattern ("* drop * rock *") the way Task 72 is
+ #              matched from the drop callback.  rock starts held so "drop
+ #              rock" is a legal library drop.  If run400 prints "You drop
+ #              the rock." and `score` stays wherever etquiet left it, the
+ #              action never ran; if score jumps by 250, it ran silently
+ #              behind the library's own message, exactly as Scarier does.
+ 'ET': dict(name="Probe ET",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","rock",1,0,0,0,0,0,0), ("a","cape",1,0,0,0,0,0,0)],
+    npcs=[],
+    tasks=[dict(commands=["etcontrol"], complete="ET control fired.",
+                actions=[(4,5)]),
+           dict(commands=["etquiet"], complete="", actions=[(4,7)]),
+           dict(commands=["* drop * rock *"], complete="",
+                actions=[(4,250)]),
+           # ET2: Task 72's ACTUAL shape (SCR_DUMP_TASKS on the real game,
+           # 2026-08-23) is not a wildcard -- it's the literal 6-word command
+           # "drop cape to the floor", unrestricted, empty text, +250.  A
+           # player typing the plain "drop cape" the library recognises does
+           # NOT match that literal command at all, so the question is what
+           # run400's own library drop does with the trailing junk when
+           # Task 72's exact literal command IS typed: does its %text%/
+           # %object% matching still resolve "cape" out of "cape to the
+           # floor" and drop it normally, the way the real transcript's "You
+           # drop the red Cape." implies?
+           dict(commands=["drop cape to the floor"], complete="",
+                actions=[(4,250)]),
+           # ET3: same literal words, but with a wildcard splice ("*" for
+           # "to the") -- isolates whether it's specifically the presence of
+           # a wildcard/bracket glyph in the task's OWN command pattern (not
+           # word count, not trailing junk, not the object itself) that
+           # decides whether a silently-matched task's action runs at all.
+           dict(commands=["drop hat * floor"], complete="",
+                actions=[(4,250)])]),
+
+    # ET4: isolates the wildcard-vs-literal question cleanly.  ET2 above
+    # proved real run400 does NOT apply a literal task's silent action when
+    # its exact command "drop cape to the floor" is typed (library's own
+    # drop wins, task never fires).  ET3's control ("drop hat * floor") was
+    # contaminated by "hat" not being a real object, so the parser rejected
+    # the whole line before task matching was ever attempted.
+'ET4': dict(name="Probe ET4",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","rock",1,0,0,0,0,0,0), ("a","cape",1,0,0,0,0,0,0)],
+    npcs=[],
+    tasks=[dict(commands=["drop cape * floor"], complete="",
+                actions=[(4,250)])]),
+
 }
 
 if __name__ == '__main__':

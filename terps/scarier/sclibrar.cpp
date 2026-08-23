@@ -4439,7 +4439,20 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
   const scr_char *list;
   scr_bool is_matched;
 
-  /* Look for "object" or "object and ...", and set match and more flags. */
+  /*
+   * Look for "object" or "object and ...", and set match and more flags.
+   *
+   * Fall back to "object <trailing text>" -- a single object followed by
+   * anything that isn't "and" -- if neither matches.  run400 tolerates
+   * filler after a single object reference (probe DONE 2026-08-23: Space
+   * Boy's First Adventure Task 72's own command is the literal, unrestricted,
+   * textless "drop cape to the floor"; typing it live gets the library's
+   * ordinary "Player drop the cape." with the score unchanged, Adrift_8.txt/
+   * Adrift_10.txt), where scarier's exact-match-only %object% previously
+   * failed to parse "cape to the floor" at all, so the library's drop never
+   * ran and the command fell through to "Drop what?" instead.  This fallback
+   * is tried last so it never preempts a real "X and Y" list.
+   */
   list = var_get_ref_text (vars);
   if (uip_match ("%object%", list, game))
     {
@@ -4449,6 +4462,11 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
   else if (uip_match ("%object% and %text%", list, game))
     {
       *are_more_objects = TRUE;
+      is_matched = TRUE;
+    }
+  else if (uip_match ("%object% %text%", list, game))
+    {
+      *are_more_objects = FALSE;
       is_matched = TRUE;
     }
   else

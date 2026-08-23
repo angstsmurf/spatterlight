@@ -987,7 +987,8 @@ the west.
 Evil Man hits you, but it doesn't seem to do any damage.
 
 > drop cape to the floor
-Drop what?
+You drop the red Cape.
+Evil Man hits you.
 
 > w
 You move west.
@@ -1005,6 +1006,6 @@ the war.HAHAHAHAHAHAHAHAHAHA!!!!!!!!!!!!!!!!"
 
 STAY TUNED FOR MORE EXCITING EPISODES OF ACTION WITH SPACE BOY AND WONDER
 DOG!
-You scored 1184 out of the maximum 1374!
-That is 86% of the game!
-You finished 190 points short.
+You scored 934 out of the maximum 1374!
+That is 67% of the game!
+You finished 440 points short.

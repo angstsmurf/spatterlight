@@ -30,4 +30,7 @@ __attribute__((constructor)) static void seed_det(void) {
     task_debug_trace(1);
     restr_debug_trace(1);
   }
+  if (getenv("SCR_TRACE_NPCS")) {
+    npc_debug_trace(1);
+  }
 }

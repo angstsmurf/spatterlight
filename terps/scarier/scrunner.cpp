@@ -1396,6 +1396,209 @@ run_task_is_loudly_restricted (scr_gameref_t game, scr_int task)
 
 
 /*
+ * run_task_is_silent_and_literal()
+ *
+ * First half of run_game_commands_common()'s exclude_silent_literal peek (see
+ * run_all_commands(); the other half is run_task_reachable_by_library_
+ * callback()).  Return TRUE for a task that (a) has no CompleteText of its
+ * own to print and (b) has no wildcard-leading command pattern in either
+ * direction -- i.e. a task that, if matched here, would run its actions with
+ * no visible sign that it ran at all, and whose every pattern is specific
+ * enough that the priority-command callback (run_game_task_commands(),
+ * is_library=TRUE) could in principle get a look at it first.
+ *
+ * Silence alone is necessary but nowhere near sufficient, and must never be
+ * used on its own: "Sommeril" task 35 ("take silver orb", +5, no message) is
+ * silent and literal in exactly this sense, yet the Runner runs it and then
+ * lets the library's own take answer "You are already carrying the SILVER
+ * ORB." -- which is why the caller also requires that no library short form
+ * can reach the pattern.  Both halves are load-bearing: dropping this one
+ * costs 27 corpus walkthroughs, dropping the other costs 4.
+ *
+ * The case that needs excluding is "Space Boy's First Adventure" task 72,
+ * "drop cape to the floor" (+250, no message) -- run400 lets the library's
+ * ordinary drop win outright and the task never runs at all (Adrift_8.txt/
+ * Adrift_10.txt, 2026-08-23).  The case that must NOT be excluded is that
+ * same game's task 27, "{take/get}{them/boots}" (CompleteText "Taken."),
+ * which must still win over the library's own take (run_v4_walkthroughs.sh
+ * space_boy golden, "Taken." not "You take the pair of Flight Boots.").
+ * Task 27 is kept safe here rather than by reachability: the library only
+ * ever builds its callback string from the object's display Short name
+ * ("get pair of Flight Boots"), never from an alias like "boots", so 27
+ * looks unreachable too -- but it has real CompleteText and so is never
+ * silent, and priority's generic take never gets to steal it.
+ *
+ * "No visible sign that it ran" has to cover every way task_run_task_
+ * unrestricted() (sctasks.cpp) can print, not just CompleteText: a
+ * ShowRoomDesc auto room-description or an AdditionalMessage are both
+ * static per-task properties read the same cheap way, and both print
+ * unconditionally when set (see the comment on that code, topaz.taf task 22
+ * and marooned.taf task 29).  Found live on "Princess in the Tower"
+ * (princess1.taf): task 15, the win task for walking into the tower, has
+ * empty CompleteText but a non-zero ShowRoomDesc, so the original
+ * CompleteText-only version of this check misclassified it as silent,
+ * excluded it from the peek, and let task 18's refusal (identical literal
+ * pattern "in") win the peek instead -- breaking the golden.  Also exclude
+ * any task with an Execute-Task (action type 5) or End-Game (action type 6)
+ * action: task_run_task_action() (sctasks.cpp) is the only place besides
+ * CompleteText/ShowRoomDesc/AdditionalMessage that can make a task's status
+ * come back TRUE, and only those two action types ever set it -- an
+ * End-Game action prints a score summary/ending text of its own, and an
+ * Execute-Task action cascades into another task whose own output can't be
+ * predicted from here.  The other action types (move object, move NPC,
+ * change object status, change variable, change score, change battle
+ * attribute) never do.  A task tripping either check just falls through to
+ * a full, unexcluded try in the next pass, same as any wildcard-leading
+ * task -- this is a conservative "don't know, so don't peek" exclusion, not
+ * a correctness requirement in itself.
+ */
+/*
+ * run_task_reachable_by_library_callback()
+ *
+ * Second half of the exclude_silent_literal test (see run_all_commands()).
+ * Return TRUE if the library's own priority-command callback could ever put
+ * this task's pattern in front of run_game_task_commands() -- that is, if
+ * some object's canonical "verb OBJECT" short form (the only shape
+ * lib_try_game_command_common() ever constructs: "<verb> <Prefix> <Short>"
+ * and, prefix dropped, "<verb> <Short>") matches one of the task's patterns.
+ *
+ * This is what actually separates the two run400-probed cases the peek has
+ * to tell apart, and it is a property of the *pattern*, not of the task's
+ * silence.  "Space Boy's First Adventure" task 72 is "drop cape to the
+ * floor": the library's short forms are "drop the cape" and "drop cape", and
+ * neither matches a pattern that insists on the trailing "to the floor", so
+ * the Runner's library claims the command outright and the task never runs
+ * (Adrift_8.txt/Adrift_10.txt, 2026-08-23).  "Sommeril" task 35 is the bare
+ * "take silver orb", which IS the library's own short form for that object,
+ * so the Runner runs it (silently, +5) and the library's take then answers
+ * "You are already carrying the SILVER ORB." -- the shape the golden records.
+ * Excluding the latter along with the former loses the task and five points;
+ * see the corpus note in run_all_commands().
+ *
+ * uip_match() binds game object references as it goes, and this runs at the
+ * moment a real match has already bound them for the task about to run, so
+ * save and restore them around the probe -- same contract
+ * lib_try_game_command_common() keeps for its own speculative matches.
+ */
+static scr_bool
+run_task_reachable_by_library_callback (scr_gameref_t game, scr_int task,
+                                        const scr_char *string,
+                                        scr_bool is_forwards)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const std::vector<const scr_char *> &patterns =
+      run_task_command_patterns (game, task, is_forwards);
+  std::vector<scr_bool> references (game->object_references);
+  const scr_char *verb;
+  scr_int verb_length, object;
+  scr_bool is_reachable = FALSE;
+
+  /* Isolate the verb the player typed; no verb, nothing to construct. */
+  verb = string + strspn (string, WHITESPACE);
+  verb_length = strcspn (verb, WHITESPACE);
+  if (verb_length == 0)
+    return FALSE;
+
+  for (object = 0; object < gs_object_count (game) && !is_reachable; object++)
+    {
+      scr_vartype_t vt_key[3];
+      const scr_char *prefix, *name;
+      std::string candidates[2];
+      scr_int form;
+
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = object;
+      vt_key[2].string = "Prefix";
+      prefix = prop_get_string (bundle, "S<-sis", vt_key);
+      vt_key[2].string = "Short";
+      name = prop_get_string (bundle, "S<-sis", vt_key);
+      if (scr_strempty (name))
+        continue;
+
+      candidates[0] = std::string (verb, verb_length) + " " + name;
+      candidates[1] = std::string (verb, verb_length) + " "
+                      + (prefix ? prefix : "") + " " + name;
+
+      for (form = 0; form < 2 && !is_reachable; form++)
+        {
+          scr_int command;
+
+          for (command = 0; command < (scr_int) patterns.size (); command++)
+            {
+              if (uip_match (patterns[command], candidates[form].c_str (),
+                             game))
+                {
+                  is_reachable = TRUE;
+                  break;
+                }
+            }
+        }
+    }
+
+  game->object_references = references;
+  return is_reachable;
+}
+
+
+static scr_bool
+run_task_is_silent_and_literal (scr_gameref_t game, scr_int task)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5];
+  const scr_char *completetext, *additionalmessage;
+  scr_int direction, showroomdesc, action_count, action;
+
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = task;
+  vt_key[2].string = "CompleteText";
+  completetext = prop_get_string (bundle, "S<-sis", vt_key);
+  if (!scr_strempty (completetext))
+    return FALSE;
+
+  vt_key[2].string = "ShowRoomDesc";
+  showroomdesc = prop_get_integer (bundle, "I<-sis", vt_key);
+  if (showroomdesc != 0)
+    return FALSE;
+
+  vt_key[2].string = "AdditionalMessage";
+  additionalmessage = prop_get_string (bundle, "S<-sis", vt_key);
+  if (!scr_strempty (additionalmessage))
+    return FALSE;
+
+  vt_key[2].string = "Actions";
+  action_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  for (action = 0; action < action_count; action++)
+    {
+      scr_int type;
+
+      vt_key[3].integer = action;
+      vt_key[4].string = "Type";
+      type = prop_get_integer (bundle, "I<-sisis", vt_key);
+      if (type == 5 || type == 6)
+        return FALSE;
+    }
+
+  for (direction = 0; direction < 2; direction++)
+    {
+      const scr_bool is_forwards = !direction;
+      const std::vector<const scr_char *> &patterns =
+          run_task_command_patterns (game, task, is_forwards);
+      scr_int command;
+
+      for (command = 0; command < (scr_int) patterns.size (); command++)
+        {
+          const scr_char *pattern = patterns[command];
+          const scr_int first = strspn (pattern, WHITESPACE);
+
+          if (pattern[first] == WILDCARD_PATTERN)
+            return FALSE;
+        }
+    }
+  return TRUE;
+}
+
+
+/*
  * run_game_commands_common()
  * run_game_commands_in_parser_context()
  *
@@ -1428,12 +1631,24 @@ run_task_is_loudly_restricted (scr_gameref_t game, scr_int task)
  * Part of the fun and games is that run_game_task_commands() is called by the
  * library to try to run "get " and "drop " game commands for standard get/drop
  * handlers and get_all/drop_all handlers.  No pressure, then.
+ *
+ * exclude_silent_literal makes the first (unrestricted) loop below a "peek":
+ * a task that matches, would win, and is both silent (run_task_is_silent_and_
+ * literal()) and unreachable from the library's own callback string
+ * (run_task_reachable_by_library_callback()) does not win -- and, crucially,
+ * neither does any task after it.  The whole pass is abandoned and returns
+ * FALSE, because ADRIFT task precedence is "lowest matching index wins": a
+ * task that matched cannot be stepped over in favour of a later one without
+ * inventing a match the Runner never makes.  See run_all_commands().  This
+ * has no effect on the second (loudly-restricted) loop, which is about
+ * failing-restriction messages, not CompleteText.
  */
 static scr_bool
 run_game_commands_common (scr_gameref_t game, const scr_char *string,
-                          scr_bool include_restrictions, scr_bool is_library)
+                          scr_bool include_restrictions, scr_bool is_library,
+                          scr_bool exclude_silent_literal)
 {
-  scr_bool is_matched = FALSE, is_handled = FALSE;
+  scr_bool is_matched = FALSE, is_handled = FALSE, is_abandoned = FALSE;
   scr_int task_count, task, direction;
 
   /*
@@ -1511,6 +1726,29 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
               if (is_runnable_directional
                   && run_task_is_unrestricted (game, task))
                 {
+                  /*
+                   * In the peek pass, a silent, literal task does not win --
+                   * but neither may any task after it.  Abandon the whole
+                   * pass so that task precedence (lowest matching index wins)
+                   * is preserved: priority commands get their look next, and
+                   * if they don't claim the command the immediately following
+                   * unexcluded pass re-matches from task 0.  Skipping just
+                   * this task and reading on would hand the command to a
+                   * later, lower-precedence task the Runner never reaches --
+                   * "The Forum" task 1 (literal "x ... hand", silent, falls
+                   * through to the library's own examine) losing to task 2
+                   * ("[examine/...]{at}[%object%]", which has CompleteText of
+                   * its own), and seven more corpus walkthroughs like it.
+                   */
+                  if (exclude_silent_literal
+                      && run_task_is_silent_and_literal (game, task)
+                      && !run_task_reachable_by_library_callback (
+                             game, task, string, is_forwards))
+                    {
+                      is_abandoned = TRUE;
+                      break;
+                    }
+
                   run_note_task_ran (game, task);
                   if (task_run_task (game, task, is_forwards))
                     is_handled = TRUE;
@@ -1522,9 +1760,12 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
                 is_matching[task] = TRUE;
             }
         }
-      if (is_matched)
+      if (is_matched || is_abandoned)
         break;
     }
+
+  if (is_abandoned)
+    return FALSE;
 
   /*
    * If no match, and we've been asked to consider failing restrictions, look
@@ -1583,14 +1824,16 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
 
 static scr_bool
 run_game_commands_in_parser_context (scr_gameref_t game, const scr_char *string,
-                                     scr_bool include_restrictions)
+                                     scr_bool include_restrictions,
+                                     scr_bool exclude_silent_literal)
 {
   /*
    * Try game commands, either with or without restrictions, and all full and
    * complete parse matching (no special case for game commands that begin
    * with a '*' wildcard).
    */
-  return run_game_commands_common (game, string, include_restrictions, FALSE);
+  return run_game_commands_common (game, string, include_restrictions, FALSE,
+                                   exclude_silent_literal);
 }
 
 /*
@@ -2071,17 +2314,71 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * no way to get the ball in the first place.
    *
    * Trying to find the right way to do things here, then, has been tricky.
-   * Here's the current process:  First, run game commands, ignoring any
-   * cases where restrictions fail to let the task run.  Next, try "priority"
-   * system commands; ones that move objects to inventory.  These system
-   * commands will call back into trying game commands for objects taken or
-   * dropped, and in those tries, allow overrides only if the game task is
-   * explicit about what it's doing -- it doesn't start with "*", or it does
-   * but explicitly names a verb (see run_match_task_commands() for the
-   * run400 probe results behind that rule) -- and handle restrictions in
-   * those tries.  After that, retry all game commands again with
-   * restrictions enabled.  And finally, try all other standard library
-   * commands.
+   * Here's the current process:  First, try "priority" system commands; ones
+   * that move objects to inventory.  These system commands will call back
+   * into trying game commands for objects taken or dropped, and in those
+   * tries, allow overrides only if the game task is explicit about what it's
+   * doing -- it doesn't start with "*", or it does but explicitly names a
+   * verb (see run_match_task_commands() for the run400 probe results behind
+   * that rule) -- and handle restrictions in those tries.  Next, run game
+   * commands directly, ignoring any cases where restrictions fail to let the
+   * task run.  After that, retry all game commands again with restrictions
+   * enabled.  And finally, try all other standard library commands.
+   *
+   * Priority commands go BEFORE the direct game-command pass (not after, as
+   * an earlier version of this had it): probe DONE, task 72 in "Space Boy's
+   * First Adventure" is the literal, unrestricted, textless command "drop
+   * cape to the floor" (+250 score, no message).  run400 answers the typed
+   * command with the library's ordinary "Player drop the cape." and the
+   * score UNCHANGED (Adrift_8.txt/Adrift_10.txt, 2026-08-23) -- the task
+   * never runs at all, even though its own literal pattern matches the raw
+   * input exactly.  A same-shaped task using a bare object with no trailing
+   * words ("* drop * rock *", i.e. equivalent to the library's own
+   * canonical "drop <object>" callback string) DOES run silently alongside
+   * the library's message (Adrift_2.txt).  So it is specifically the
+   * priority command's own callback -- matching only its constructed
+   * "verb OBJECT" short form, not the raw typed line -- that gets first
+   * refusal on a recognised system verb; a task whose pattern extends past
+   * that short form (trailing words the library only swallows as free
+   * %text%) is never reached once the library has already claimed and
+   * finished the command.  Swapping the two passes reproduces that: on a
+   * recognised system verb, run_priority_commands() (and its short-form
+   * task callback) gets the first and often the only look, and the direct,
+   * ignore-restrictions task pass only sees what the priority commands
+   * didn't recognise as a system verb at all (so "etcontrol"-style
+   * non-system task commands are unaffected).
+   *
+   * But that swap alone regresses the same game's task 27, "{take/get}
+   * {them/boots}" (CompleteText "Taken."): the callback's constructed short
+   * form is built from the object's display Short name ("get pair of Flight
+   * Boots"), never from an alias like "boots", so the callback attempt fails
+   * for a reason unrelated to task 72's "trailing words" problem, and
+   * priority's own generic take now wins a task the golden walkthrough (and,
+   * definitionally, the pre-swap Runner-matching behaviour this port has
+   * always had) says must win instead.  (The bare swap is not a near miss:
+   * it fails 75 of the 262 corpus walkthroughs, because scarier's callback
+   * string is weaker than the Runner's -- Short name only, no aliases -- so
+   * far more tasks are unreachable here than there.)  So a peek at the direct
+   * task pass runs BEFORE priority after all, and task 72's shape is excluded
+   * from it: silent (no CompleteText, ShowRoomDesc, AdditionalMessage or
+   * status-setting action) AND unreachable from any library short form for
+   * any object ("drop cape" / "drop the cape" can never satisfy a pattern
+   * that insists on "to the floor").  Both halves are needed -- silence alone
+   * loses "Sommeril" task 35 and 3 more walkthroughs, unreachability alone
+   * loses 27 of them.
+   *
+   * Excluding a task means abandoning the ENTIRE peek, not reading past it to
+   * the next task.  ADRIFT resolves a command to the lowest-indexed matching
+   * task, so stepping over a match to let a later task win invents a Runner
+   * behaviour that does not exist: "The Forum" task 1 (silent literal "x ...
+   * hand", which falls through to the library's own examine) was being
+   * skipped in favour of task 2, "[examine/read/x/l/look]{at}[%object%]",
+   * whose CompleteText then answered every examine in the game.  That cost
+   * 8 corpus walkthroughs (forum, forum2, cursed, iqsfot, sommeril, funhouse
+   * and both to_hell_and_beyond replays) until the peek was made all-or-
+   * nothing.  On abandonment priority gets its look next, and if it does not
+   * claim the command the immediately following unexcluded pass re-matches
+   * from task 0, unchanged from the original order.
    */
   /*
    * The carrying-capacity accounting toggle is exposed as a Glk port command
@@ -2090,11 +2387,13 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    */
   run_dispatch_input = string;
   run_tasks_ran_this_command.assign (gs_task_count (game), FALSE);
-  status = run_game_commands_in_parser_context (game, string, FALSE);
+  status = run_game_commands_in_parser_context (game, string, FALSE, TRUE);
   if (!status)
     status = run_priority_commands (game, string);
+  if (!status)
+    status = run_game_commands_in_parser_context (game, string, FALSE, FALSE);
   if (!status && !run_defer_loud_tasks_to_movement (game, string))
-    status = run_game_commands_in_parser_context (game, string, TRUE);
+    status = run_game_commands_in_parser_context (game, string, TRUE, FALSE);
   if (!status)
     status = run_standard_commands (game, string);
   if (!status)
@@ -2125,7 +2424,8 @@ run_game_task_commands (scr_gameref_t game, const scr_char *string)
   const scr_bool include_restrictions =
       run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;
 
-  return run_game_commands_common (game, string, include_restrictions, TRUE);
+  return run_game_commands_common (game, string, include_restrictions, TRUE,
+                                   FALSE);
 }
 
 
