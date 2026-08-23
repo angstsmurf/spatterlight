@@ -34,7 +34,7 @@ and I can reach the second-floor hall by going west.
 
 Before me lies an interactive fiction magazine.
 
-There are exits south and west.
+I can move south and west.
 
 > s
 I move south.
@@ -50,7 +50,7 @@ purposes, as it has many a use in my make-believes.
 
 Before me lies a broom and a dustpan.
 
-There is an exit north.
+I can only move north.
 
 > get all
 I take the broom and the dustpan.
@@ -205,6 +205,8 @@ ceiling, many with their own little spider smack-dab in the middle.  A heavy
 chest sits in the eastern corner, and Christmas decorations are piled up
 against the western wall.
 
+I can only move down.
+
 > clean attic
 
 This sucks...
@@ -232,6 +234,8 @@ upright from end to end, even in the more narrow corners.  It looks very nice
 and cozy up here, with the possible reason being that it just received a good
 cleaning.  A heavy chest sits in the eastern corner, and Christmas
 decorations are piled up against the western wall.
+
+I can only move down.
 
 > open chest
 I'll have to say this right now...  This is probably the single most
@@ -288,6 +292,8 @@ upright from end to end, even in the more narrow corners.  It looks very nice
 and cozy up here, with the possible reason being that it just received a good
 cleaning.  A heavy chest sits in the eastern corner, and Christmas
 decorations are piled up against the western wall.
+
+I can only move down.
 
 > d
 I move down.
@@ -815,6 +821,8 @@ behind a waterfall.  Of course, I can't stand around here enjoying the
 scenery all day, now can I?  Before me lies a pile of rubble and a nice
 little hole in the cliff wall.
 
+I can move in and out.
+
 > in
 I move in.
 
@@ -896,6 +904,8 @@ small wooden chair here, perhaps used by my great-grandfather himself those
 many years ago.
 
 Before me lies a pile of ash.
+
+I can move east and west.
 
 > e
 I move east.
@@ -1132,6 +1142,8 @@ I now dub this room the Riki Tiki Cavern, in honor of the glorious battle
 that my mongoose fought.  I'm so proud of that little thing!  The rattlesnake
 is gone, and now I can explore further through the caves.
 
+I can move east and west.
+
 > e
 I move east.
 
@@ -1168,6 +1180,8 @@ room there is a large pit, which looks like it goes down quite a ways.  Off
 to its side, there is a stalagmite, reaching up towards the ceiling.  My rope
 is tied to the stalagmite, and it is also hanging down into the pit, so now I
 can descend downward if I wish.
+
+I can move west and down.
 
 > d
 I move down.
@@ -1227,6 +1241,8 @@ In this room I narrowly escaped with my life, but I am now free to explore
 the rest of the cave.  The gold is near, I can feel it in my bones.  I'm just
 a little way away from becoming the richest kid in Splintered Rock!  I can't
 wait to find it!
+
+I can move east and west.
 
 > e
 I move east.
@@ -1367,6 +1383,8 @@ Closet
 The Trask boys live in a nasty house, and this is a nasty closet.  I can't
 believe that they actually expected me to stay in here the rest of my life!
 Well, I'm not about to give them that pleasure.  I'm getting out of here!
+
+I can only move west.
 
 > w
 I move west.

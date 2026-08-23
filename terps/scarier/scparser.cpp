@@ -2273,7 +2273,8 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
           for (index_ = 0; index_ < gs_object_count (game); index_++)
             {
               if (game->object_references[index_]
-                  && gs_object_seen (game, index_)
+                  && (gs_object_seen (game, index_)
+                      || prop_get_taf_version (bundle) < TAF_VERSION_390)
                   && obj_indirectly_in_room (game,
                                              index_, gs_playerroom (game)))
                 {

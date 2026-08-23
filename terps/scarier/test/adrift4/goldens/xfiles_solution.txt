@@ -1,5 +1,6 @@
 
 open desk
+x desk
 take all from desk
 clean desk
 burn memo
@@ -13,6 +14,7 @@ ask cancerman about 1
 ask cancerman about 2
 ask cancerman about 3
 take case file
+x Case File 10193
 take warehouse key
 examine warehouse key
 u
@@ -29,6 +31,7 @@ s
 in
 play jukebox
 u
+x Your Coffee Table
 take fish food container
 open fish food container
 take pellet

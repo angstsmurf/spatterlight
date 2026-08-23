@@ -47,6 +47,7 @@
 # No <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1).
 Sam
 male
+x end table
 take matches
 n
 w
@@ -54,6 +55,7 @@ open cupboard
 take cat food
 e
 e
+x dining table
 take candelabra
 w
 n
@@ -101,6 +103,7 @@ w
 d
 unlock door
 in
+x small table
 take pipe
 out
 light candelabra

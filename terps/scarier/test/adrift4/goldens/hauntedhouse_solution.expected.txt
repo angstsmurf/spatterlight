@@ -26,7 +26,7 @@ You're in the entrance of Desther's house, a large open area with a statue of
 the owner in one corner and a series of doors leading off to the rest of the
 house.
 
-There are exits south, up and southwest.
+You can move south, up and southwest.
 
 > sw
 You move southwest.
@@ -37,10 +37,10 @@ like he's cleaned up in here in a long, long time. Lying on the floor, lying
 very still, is what appears to be a dead body. Aside from that there's the
 usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
 
-There are exits south, west and northeast.
+You can move south, west and northeast.
 
 > take knife
-You take the knife from the sink.
+Take what?
 
 > open oven
 You open the oven.  A severed head is inside the oven.
@@ -402,6 +402,8 @@ The front porch of Desther's house is quite impressive. If you didn't know
 what a dump the inside was, you might well think someone with taste lived
 here.
 Desther is here.
+
+You can only move north.
 "Ah, well done," says Desther. "I see the ghosts have departed."
 
 "What about the severed head in the oven?" you ask.

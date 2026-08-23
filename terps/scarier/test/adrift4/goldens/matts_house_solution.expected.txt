@@ -12,7 +12,7 @@ Hallway
 The hallway
 Dozer is here.
 
-There are exits north, east, south and west.
+You can move north, east, south and west.
 
 > e
 You move east.

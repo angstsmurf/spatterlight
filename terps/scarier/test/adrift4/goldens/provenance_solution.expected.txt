@@ -1085,7 +1085,13 @@ if required.
 
 > get it
 [get the pup tent]
-You take the pup tent.
+
+You try to approach the tent but the bulldog intervenes.  He barks at you
+loudly, showing his teeth and salivating excessively as he does so.  You
+slowly back off maintaining eye contact with the animal.  This seems to calm
+the dog down a bit.  But every time you make a move towards the tent the dog
+defends it with enthusiasm.  If only there were a way to divert its attention
+for a moment.
 
 > throw stick
 
@@ -5819,7 +5825,7 @@ of hiking boots, and you are carrying a skeleton key, a pocket watch, a box
 of matches and a brass key.
 
 > e
-You can't go in that direction, but you can move north.
+You can only move north.
 
 > climb out
 You climb through the window onto the veranda.
@@ -6723,7 +6729,7 @@ You shouldn't enter the cave unless you are properly equipped with a caving
 helmet and headlamp.
 
 > wear boots
-You are already wearing the pair of hiking boots.
+You are already wearing the pair of hiking boots!
 
 > wear helmet
 You put on the caving helmet with headlamp.
@@ -6765,7 +6771,9 @@ You take the pocket watch.
 You take the box of matches.
 
 > s
-You can't go in any direction!
+
+The only way you are going to make it through that hole is if you drop
+everything you are carrying.
 
 > u
 You make your way up through the tunnel to the mouth of the cave.
@@ -7077,18 +7085,6 @@ distance.
 > put map in rucksack
 You put the map of the caves inside the rugged rucksack.
 
-> get raincoat
-You take the raincoat.
-
-> put raincoat in rucksack
-You put the raincoat inside the rugged rucksack.
-
-> get whistle
-You take the bosun's whistle.
-
-> put whistle in rucksack
-You put the bosun's whistle inside the rugged rucksack.
-
 > look
 
 In Front Of A Hedge Maze
@@ -7098,6 +7094,8 @@ pathway leads into the maze to the north.  The hedge itself is constructed
 entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
 directions from the point of access.
 A large wooden sign is posted near the ingress.
+
+Also here is a raincoat and a bosun's whistle.
 
 > n
 You move north.
@@ -7340,40 +7338,40 @@ Inside A Hedge Maze
 You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
 Cypress and stands about ten feet in height making it impossible to see over.
 
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
 Eleven o'clock in the morning is sounded out by the remote church bells.
 
-> n
-You move north.
-
-Inside A Hedge Maze
-
-You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
-Cypress and stands about ten feet in height making it impossible to see over.
-
-> n
-You move north.
-
-Inside A Hedge Maze
-
-You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
-Cypress and stands about ten feet in height making it impossible to see over.
-
-> e
-You move east.
-
-Inside A Hedge Maze
-
-You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
-Cypress and stands about ten feet in height making it impossible to see over.
-
-> e
-You move east.
-
-Inside A Hedge Maze
-
-You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
-Cypress and stands about ten feet in height making it impossible to see over.
-
 > e
 You move east.
 
@@ -7637,8 +7635,6 @@ Inside A Hedge Maze
 
 You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
 Cypress and stands about ten feet in height making it impossible to see over.
-
-Midday is announced by the drawn out chiming of distant church bells.
 
 > e
 You move east.
@@ -7676,6 +7672,8 @@ You are wearing a brown tweed suit, a rugged rucksack, a caving helmet with
 headlamp, a pair of hiking boots and a brass key, and you are carrying a
 skeleton key, a pocket watch, a box of matches, a tiny mirror, a bellows and
 an air mattress.
+
+Midday is announced by the drawn out chiming of distant church bells.
 
 > get rope
 You take the sturdy rope from the rugged rucksack.
@@ -7732,12 +7730,6 @@ You take the map of the caves from the rugged rucksack.
 > put map on altar
 You put the map of the caves onto the altar.
 
-> get raincoat
-You take the raincoat from the rugged rucksack.
-
-> put raincoat on altar
-You put the raincoat onto the altar.
-
 > remove helmet
 You remove the caving helmet with headlamp.
 
@@ -7756,8 +7748,1165 @@ mirror, the bellows and the air mattress onto the altar.
 You are wearing a brown tweed suit and a brass key, and you are carrying
 nothing.
 
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+A lone gong of the far off church bells signals one o'clock in the afternoon.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+Two distant rings of the church bells indicates that it is two o'clock in the
+afternoon.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+At The Entrance To A Hedge Maze
+
+This is the entrance to a meticulously kept hedge maze.  The hedge itself is
+cut entirely from Leyland Cypress and stands about ten feet in height making
+it impossible to see over.
+
+> s
+You move south.
+
+In Front Of A Hedge Maze
+
+You are standing at the entrance to an elaborate hedge maze.  A narrow sodden
+pathway leads into the maze to the north.  The hedge itself is constructed
+entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
+directions from the point of access.
+A large wooden sign is posted near the ingress.
+
+Also here is a raincoat and a bosun's whistle.
+
+> look
+
+In Front Of A Hedge Maze
+
+You are standing at the entrance to an elaborate hedge maze.  A narrow sodden
+pathway leads into the maze to the north.  The hedge itself is constructed
+entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
+directions from the point of access.
+A large wooden sign is posted near the ingress.
+
+Also here is a raincoat and a bosun's whistle.
+
+> get raincoat
+You take the raincoat.
+
 > get whistle
-You take the bosun's whistle from the rugged rucksack.
+You take the bosun's whistle.
+
+> i
+You are wearing a brown tweed suit and a brass key, and you are carrying a
+raincoat and a bosun's whistle.
+
+> n
+You move north.
+
+At The Entrance To A Hedge Maze
+
+This is the entrance to a meticulously kept hedge maze.  The hedge itself is
+cut entirely from Leyland Cypress and stands about ten feet in height making
+it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+Three o'clock in the afternoon is announced by the distant chime of the
+church bells.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+As the late autumn afternoon light begins to fade, distant church bells
+announce four o'clock in the afternoon.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> w
+You move west.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> s
+You move south.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> e
+You move east.
+
+Inside A Hedge Maze
+
+You are inside a hedge maze.  The hedge itself is cut entirely from Leyland
+Cypress and stands about ten feet in height making it impossible to see over.
+
+> n
+You move north.
+
+At The Centre Of The Topiary
+
+You are standing at the centre of the topiary; a large spacious rectangular
+area adorned with a dizzying variety of hardy flowering plants.  The walls of
+the hedge are tall enough to block out any view of what lies beyond.  You can
+hear running water, like a slowly trickling brook, though you cannot discern
+from which direction the sound is coming.  The only exit lies to the south,
+leading back into the maze.
+
+A large stone altar rests at the centre of the yard.
+
+In a shallow depression in the ground here is a circular storm drain to allow
+rain water to run off.
+
+> put raincoat on altar
+You put the raincoat onto the altar.
+
+> i
+You are wearing a brown tweed suit and a brass key, and you are carrying a
+bosun's whistle.
 
 > blow the whistle
 

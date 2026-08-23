@@ -38,6 +38,8 @@ boys silently clean and care for a couple horses. From the south the
 fragrance of blooming flowers wafts into the air and in that direction you
 can see a perfectly tended flowerbed. To your west towers the tall rounded
 gates of the temple leading out into the Panrian Woods.
+
+EXITS:  north, east, south and west.
 A woman cries out in terror at your sudden appearance and rushes away into
 the building. A few other people in the court yard stare at you in confusion.
 
@@ -264,6 +266,8 @@ You enter the cold room and close the door behind you at the command of the
 guards. You see three iron doors with a tiny barred window on each. Looking
 through the windows you can see that the doors each block off a jail cell.
 
+EXIT:   north.
+
 > east
 Using the key, you walk through the door.
 
@@ -273,6 +277,8 @@ place to spend a long time in. Some moldy hay piled in a corner of the room
 is supposed to be a bed. You think you see a rat scurry out from under the
 hay and hide in a dark corner. Very cosy, you think darkly.
 A Rapist is here.
+
+EXIT:   west.
 A Rapist hits you with the rock.
 
 > get flower

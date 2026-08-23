@@ -5,7 +5,7 @@ Cyber Warp 2
 The Coffee House
 You're in the coffee house, and hear someone talking about a warp.
 
-There are exits north, east, south and west.
+You can move north, east, south and west.
 
 > w
 You move west.
@@ -15,7 +15,7 @@ you are in the place you sleep in.
 
 Also here is Electric Uniform.
 
-There is an exit east.
+You can only move east.
 
 > take electric uniform
 You take Electric Uniform.
@@ -66,6 +66,8 @@ you are teleported!
 Teleporter booth
 You teleport to the teleport booth in the BluDeath Mountains.
 
+You can only move out.
+
 > out
 You move out.
 
@@ -87,6 +89,8 @@ You run into the warp and everyone applauses.
 
 Bisstonia
 You are in the old demension on a search for lightning.
+
+You can only move northeast.
 
 > ne
 You move northeast.
@@ -191,6 +195,8 @@ Mr. Bissoff's Room
 You are in the room with Mr. Bissoff! As soon as you get in, he snatches your
 weapon! All of a sudden, Lightning comes in!
 Lightning and Mr. Bissoff are here.
+
+You can only move south.
 Mr. Bissoff manages to avoid Lightning's attack.
 
 > use firebolt

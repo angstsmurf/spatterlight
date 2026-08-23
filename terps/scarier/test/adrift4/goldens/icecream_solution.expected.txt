@@ -28,7 +28,7 @@ attention. You look at him with vacant eyes, and as you wipe the drool from
 your lower lip, he says, "I'd like an ice cream cone, please."
 
 > take cone
-You already have the cone!
+You are already carrying the cone.
 
 > scoop ice cream
 You reach down and get a scoop of ice cream.

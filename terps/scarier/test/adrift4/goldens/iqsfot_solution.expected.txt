@@ -78,9 +78,7 @@ An annoyingly high shelf hangs over Irvine's bunk.  A keypad on the wall
 unlocks his locker.  An automatic door (to the left of which is a privacy
 button) leads out of the chamber to port.
 
- A small, circular window on the southern wall looks out into black, starry
-space.  A draft blows through the room.  To the left of the door is an
-inconspicuous privacy button.
+A draft blows through the room.
 
 Also here is a holopostcard.
 HiRBy hovers nearby.
@@ -339,9 +337,6 @@ An annoyingly high shelf hangs over Irvine's bunk.  A keypad on the wall
 unlocks his locker.  An automatic door (to the left of which is a privacy
 button) leads out of the chamber to port.
 
- A small, circular window on the southern wall looks out into black, starry
-space.  To the left of the door is an inconspicuous privacy button.
-
 Also here is a holopostcard.
 
 The door closes behind Irvine.
@@ -429,9 +424,6 @@ SHIP'S CLOSET
 Oddly, it looks about the same size and style as all the other rooms on the
 spaceship.  An automatic door stands in the starboard wall, to the left of
 which is an inconspicuous privacy button.
-
-  The planet Traglea is visible from a small, circular window on the northern
-wall.
 
 Also here is the tiger coat.
 
@@ -1267,8 +1259,6 @@ end of the room, and a sophisticated cloning apparatus sprawls across the
 starboard wall.  Aft is the ship's infirmary.  An automatic door is set in
 the port wall, to the left of which is an inconspicuous privacy button.
 
-  To the left of the door is an inconspicuous privacy button.
-
 Doctor Voss appears to be alternating between an experiment with some of the
 things on the table and the cloning apparatus.  Smitty the Cat is here,
 nodding and going "hmm."
@@ -1333,8 +1323,6 @@ of the room.  A large, brightly illuminated aquarium stands at the forward
 end of the room, and a sophisticated cloning apparatus sprawls across the
 starboard wall.  Aft is the ship's infirmary.  An automatic door is set in
 the port wall, to the left of which is an inconspicuous privacy button.
-
-  To the left of the door is an inconspicuous privacy button.
 
 Also here is a hairball.
 

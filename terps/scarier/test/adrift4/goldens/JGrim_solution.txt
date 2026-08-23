@@ -78,7 +78,9 @@ remove panel
 up
 take boots
 wear boots
+x silver metal tray
 take margarine
+x jutting metal shard
 take toolbox
 open toolbox
 take blowtorch

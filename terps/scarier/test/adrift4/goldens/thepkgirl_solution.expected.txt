@@ -729,8 +729,6 @@ An Office
     This is a one-person office with a nice carpet and a desk.  There is a
 swivel chair beside the desk.  Underneath the desk is a large cardboard box.
 
-A swivel chair is by the desk.
-
     Laurie follows you from the east.
 
 > move box

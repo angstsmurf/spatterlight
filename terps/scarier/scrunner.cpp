@@ -1066,6 +1066,100 @@ run_forget_game (const void *game)
 }
 
 /*
+ * run_pattern_names_verb()
+ *
+ * Helper for run_match_task_commands().  Return TRUE if the pattern
+ * contains, as a standalone whitespace-delimited token, the first word of
+ * the string passed in (case insensitive).
+ */
+static scr_bool
+run_pattern_names_verb (const scr_char *pattern, const scr_char *string)
+{
+  const scr_char *verb;
+  scr_int verb_length;
+
+  /* Isolate the first word of the string; no word, no possible match. */
+  verb = string + strspn (string, WHITESPACE);
+  verb_length = strcspn (verb, WHITESPACE);
+  if (verb_length == 0)
+    return FALSE;
+
+  /* Scan pattern tokens for a case-insensitive whole-word match. */
+  for (pattern += strspn (pattern, WHITESPACE); *pattern != NUL;)
+    {
+      const scr_int token_length = strcspn (pattern, WHITESPACE);
+
+      if (token_length == verb_length
+          && scr_strncasecmp (pattern, verb, verb_length) == 0)
+        return TRUE;
+
+      pattern += token_length;
+      pattern += strspn (pattern, WHITESPACE);
+    }
+
+  return FALSE;
+}
+
+/*
+ * The player's current command element (pronoun-substituted), stashed by
+ * run_all_commands() so that library-initiated match attempts can consult
+ * the verb the player actually typed alongside the library's canonical
+ * constructed command ("get <object>", and so on).
+ */
+static const scr_char *run_dispatch_input = NULL;
+
+/*
+ * Tasks that have already been run by the current command element, reset by
+ * run_all_commands() alongside run_dispatch_input.
+ *
+ * A command is dispatched to the tasks twice, once with restrictions ignored
+ * and once with them honoured, and the spent-task refusal pass below has to
+ * know the difference between a task that was already done when the player
+ * typed, and one this very command has just completed.  Only the first is a
+ * refusal.  "Shadow of the Past" is the case: `examine good book` runs a
+ * silent task (it drops a key and scores, and has no completion text), which
+ * turns its own "book not yet crumbled" restriction false; the library
+ * examine then prints the book's -- now crumbled -- description.  run400
+ * answers the first `examine good book` with that description and only a
+ * second one with the restriction's "The book is nothing but dust now."
+ * (measured live 2026-08-23, Adrift_15.txt).
+ */
+static std::vector<scr_bool> run_tasks_ran_this_command;
+
+static void
+run_note_task_ran (scr_gameref_t game, scr_int task)
+{
+  if (run_tasks_ran_this_command.size () != (size_t) gs_task_count (game))
+    run_tasks_ran_this_command.assign (gs_task_count (game), FALSE);
+  run_tasks_ran_this_command[task] = TRUE;
+}
+
+static scr_bool
+run_task_ran_this_command (scr_int task)
+{
+  return (size_t) task < run_tasks_ran_this_command.size ()
+         && run_tasks_ran_this_command[task];
+}
+
+/*
+ * UNPORTED, measured 2026-08-23 (make_39_doneprobe.py, run390 Adrift_18.txt
+ * and Adrift_19.txt): below 4.0 a game task that matches the command element
+ * claims it even when it says nothing, so the standard library verb that would
+ * otherwise answer never gets a turn.  `x book` on a spent `* x * book *` task
+ * answers "You have already done that." instead of the book's description,
+ * where `look at book` -- matching no task -- prints the description; and a
+ * silent task that runs and prints nothing leaves "I don't understand." rather
+ * than the library answer.  4.0 dropped this: run400 falls through to the
+ * library examine in both cells (Adrift_14.txt, Adrift_15.txt).
+ *
+ * Implementing it as written -- record the silent match, then skip
+ * run_standard_commands() below 4.0 -- costs 15 v4-corpus goldens, several of
+ * them whole walkthroughs that stop winning, so the rule as stated is too
+ * broad and the narrowing is not yet measured.  Left out until it is; see
+ * test/adrift4/notes/RUNNER_TESTS_TODO.md.
+ */
+
+/*
  * run_match_task_commands()
  *
  * Helper for run_game_commands_common().
@@ -1098,10 +1192,35 @@ run_match_task_commands (scr_gameref_t game,
 
       /*
        * Make a special case of library calls and commands that begin with a
-       * wildcard; these we ignore for this match attempt.
+       * wildcard.  Probed live in run400 (2026-08-22, probes pPREC and
+       * pPREC2, transcripts Adrift_10/11.txt): a wildcard-leading pattern
+       * with failing messaged restrictions blocks the system take only when
+       * the pattern explicitly names a verb -- either the library's
+       * canonical verb ("* get * tent *" blocks both "get tent" and "take
+       * tent") or the verb the player actually typed ("* take * tent *"
+       * blocks "take tent" but NOT "get tent").  A verb-less "* ball *"
+       * pattern never blocks: the system take wins even though the same
+       * pattern with passing restrictions would run as a game command.
+       * Failing restrictions with an empty message fall through to the
+       * system command silently in every case (that drops out of the
+       * loudly-restricted machinery here without special handling).
+       *
+       * The library constructs its match string with the canonical verb
+       * ("get <object>"), so a pattern naming only the typed verb cannot
+       * match it; for those, retry the match against the player's actual
+       * input, stashed by run_all_commands().
        */
-      if (pattern[first] != SPECIAL_PATTERN
-          && !(is_library && pattern[first] == WILDCARD_PATTERN))
+      if (pattern[first] == SPECIAL_PATTERN)
+        ;
+      else if (is_library && pattern[first] == WILDCARD_PATTERN)
+        {
+          if (run_pattern_names_verb (pattern, string))
+            is_matched = uip_match (pattern, string, game);
+          if (!is_matched && run_dispatch_input != NULL
+              && run_pattern_names_verb (pattern, run_dispatch_input))
+            is_matched = uip_match (pattern, run_dispatch_input, game);
+        }
+      else
         is_matched = uip_match (pattern, string, game);
 
       /* Stop searching if we find a match. */
@@ -1275,10 +1394,44 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
    * Iterate over every task, ignoring those not runnable.  For each runnable
    * task, try matching task commands, and on matches, check restrictions and
    * if they pass, try running the task.
+   *
+   * Spent tasks (done, non-repeatable, but still in their rooms) also get
+   * their forwards commands matched -- not to run them, but to seed the
+   * cache for the loud restriction-failure pass below.  The Runner checks a
+   * matched task's restrictions before its done state, so a spent task whose
+   * restrictions fail with a message still prints that message (run400,
+   * Provenance's squeeze-through-the-hole task: a second "s" at the hole
+   * re-prints "The only way you are going to make it through that hole is if
+   * you drop everything you are carrying.", 2026-08-22).  A spent task whose
+   * restrictions PASS instead falls through to run_task_refusal(), which
+   * answers with RepeatText or "You have already done that.".
+   *
+   * This holds on the library-callback path too, not just for plain game
+   * commands: probe DONE, task `* get * gem *` with a "holding the stone"
+   * restriction, run400 2026-08-23 -- once the task is spent, `get gem`
+   * without the stone answers "BLOCK-GEM." instead of taking the gem, and
+   * with the stone falls through to the library take ("Player take the
+   * gem.").  So `is_library` does not gate the spent-task match here.
+   *
+   * All of that is 4.0 only.  The 3.9 twin of the probe (p39done.taf, built
+   * by test/adrift4/harness/make_39_doneprobe.py) says run390 orders the two
+   * tests the other way about: a spent task answers "You have already done
+   * that." whether its restrictions pass or fail, and never prints a fail
+   * message (`alpha` and `x book` after dropping the stone, Adrift_18.txt
+   * 2026-08-23).  Pre-4.0 therefore leaves spent tasks out of the loud
+   * restriction pass entirely, and run_task_refusal() answers them.
    */
+  const scr_bool is_restriction_first =
+      run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;
+
   for (task = 0; task < task_count; task++)
     {
-      if (!task_can_run_task (game, task))
+      const scr_bool is_refusing = include_restrictions
+                                   && is_restriction_first
+                                   && !run_task_ran_this_command (task)
+                                   && task_is_done_refused (game, task);
+
+      if (!is_refusing && !task_can_run_task (game, task))
         continue;
 
       /*
@@ -1290,13 +1443,19 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
       for (direction = 0; direction < 2; direction++)
         {
           const scr_bool is_forwards = !direction;
+          const scr_bool is_runnable_directional =
+              task_can_run_task_directional (game, task, is_forwards);
 
-          if (task_can_run_task_directional (game, task, is_forwards)
-              && run_match_task_commands (game, task, string,
-                                          is_forwards, is_library))
+          if (!is_runnable_directional && !(is_refusing && is_forwards))
+            continue;
+
+          if (run_match_task_commands (game, task, string,
+                                       is_forwards, is_library))
             {
-              if (run_task_is_unrestricted (game, task))
+              if (is_runnable_directional
+                  && run_task_is_unrestricted (game, task))
                 {
+                  run_note_task_ran (game, task);
                   if (task_run_task (game, task, is_forwards))
                     is_handled = TRUE;
                   is_matched = TRUE;
@@ -1321,8 +1480,15 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
     {
       for (task = 0; task < task_count; task++)
         {
-          if (!is_matching[task] || !task_can_run_task (game, task))
+          scr_bool is_refusing;
+
+          if (!is_matching[task])
             continue;
+
+          /* Spent tasks are eligible here too (4.0); see the first loop. */
+          is_refusing = is_restriction_first
+                        && !run_task_ran_this_command (task)
+                        && task_is_done_refused (game, task);
 
           /*
            * Check matches of forwards and reverse commands.  If there's a
@@ -1334,12 +1500,14 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
             {
               const scr_bool is_forwards = !direction;
 
-              if (task_can_run_task_directional (game, task, is_forwards)
+              if ((task_can_run_task_directional (game, task, is_forwards)
+                   || (is_refusing && is_forwards))
                   && run_match_task_commands (game, task, string,
                                               is_forwards, is_library))
                 {
                   if (run_task_is_loudly_restricted (game, task))
                     {
+                      run_note_task_ran (game, task);
                       if (task_run_task (game, task, is_forwards))
                         {
                           is_handled = TRUE;
@@ -1760,7 +1928,14 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
             }
         }
 
+      /*
+       * A task the current command has just completed is not "already done"
+       * for that command -- p39done.taf's silent `* x * scroll *` task runs,
+       * prints nothing, and run390 then answers "I don't understand." rather
+       * than "You have already done that." (Adrift_18.txt 2026-08-23).
+       */
       if (refusal == REFUSAL_NONE
+          && !run_task_ran_this_command (task)
           && task_is_done_refused (game, task)
           && run_match_task_commands (game, task, string, TRUE, FALSE))
         {
@@ -1845,20 +2020,20 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * system commands; ones that move objects to inventory.  These system
    * commands will call back into trying game commands for objects taken or
    * dropped, and in those tries, allow overrides only if the game task is
-   * explicit about what it's doing (that is, doesn't start with "*"), and
-   * handle restrictions in those tries.  After that, retry all game commands
-   * again with restrictions enabled.  And finally, try all other standard
-   * library commands.
-   *
-   * TODO This is the fourth or fifth attempt at getting this to match the
-   * Runner, which is surprisingly inconsistent in this area.  What on earth
-   * is the real behavior supposed to be?
+   * explicit about what it's doing -- it doesn't start with "*", or it does
+   * but explicitly names a verb (see run_match_task_commands() for the
+   * run400 probe results behind that rule) -- and handle restrictions in
+   * those tries.  After that, retry all game commands again with
+   * restrictions enabled.  And finally, try all other standard library
+   * commands.
    */
   /*
    * The carrying-capacity accounting toggle is exposed as a Glk port command
    * ("glk capacity"), handled in the front end before input ever reaches the
    * interpreter, so there is no administrative meta-command to match here.
    */
+  run_dispatch_input = string;
+  run_tasks_ran_this_command.assign (gs_task_count (game), FALSE);
   status = run_game_commands_in_parser_context (game, string, FALSE);
   if (!status)
     status = run_priority_commands (game, string);
@@ -1868,6 +2043,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     status = run_standard_commands (game, string);
   if (!status)
     status = run_task_refusal (game, string);
+  run_dispatch_input = NULL;
+  run_tasks_ran_this_command.clear ();
 
   return status;
 }
@@ -1876,11 +2053,23 @@ scr_bool
 run_game_task_commands (scr_gameref_t game, const scr_char *string)
 {
   /*
-   * Try game commands, including restrictions, and noting that this is a
-   * library call so that the parse matcher can exclude game commands that
-   * begin with a '*' wildcard.
+   * Try game commands, and note that this is a library call so that the parse
+   * matcher can exclude game commands that begin with a '*' wildcard.
+   *
+   * Restrictions are honoured -- meaning a task whose restrictions fail with a
+   * message gets run for the message, beating the library action -- from 4.0
+   * on only.  Probe DONE, task `* get * gem *` restricted to "holding the
+   * stone", measured 2026-08-23: run400 answers `get gem` without the stone
+   * with "BLOCK-GEM." (Adrift_20.txt), while run390 on the 3.9 twin probe
+   * quietly takes the gem instead (Adrift_18.txt).  Pre-4.0 the library wins,
+   * so the loud pass is switched off here rather than being allowed to claim
+   * the command.  Tasks whose restrictions PASS still run in either version --
+   * the first loop below does not consult this flag.
    */
-  return run_game_commands_common (game, string, TRUE, TRUE);
+  const scr_bool include_restrictions =
+      run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;
+
+  return run_game_commands_common (game, string, include_restrictions, TRUE);
 }
 
 

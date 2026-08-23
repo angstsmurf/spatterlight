@@ -1,11 +1,11 @@
 # Shadowpeak ADRIFT 4.0 walkthrough: deterministic WIN, 700/790 under
-# SCR_LEGACY_RANDMAP=1 SCR_SEED=102 (2026-08-02: the load-time immediate-event
-# start -- StarterType=1 events now begin during game load -- re-threaded every
-# walker again, exactly as the 2026-08-01 walk-timing fix did. No seed in
-# 1-5000 wins the old route shape; the break is the Damastus maze chase, which
-# is re-derived below. Seed 102 survives the trailing gargoyle and lands the
-# Jarris/Boris/Arthur zombie kills the old seed-5 thread missed, so this route
-# is +20 on the 680 it used to score.)
+# SCR_LEGACY_RANDMAP=1 SCR_SEED=7 (2026-08-23: re-derived after the exclusive
+# event-length roll and the 4.0 put/implicit-take + carried-total fixes, each of
+# which re-threads every walker's RNG. Three `x table` / `x rubble` / `x shrine`
+# lines are new: the venison, the chisel and the scroll are container contents
+# that only exist once their container has been examined -- the same rule the
+# Goldilocks run400 transcript shows. The Damastus maze chase is re-derived
+# below with harness/shadowpeak_chase.py.)
 # Full prose notes: terps/scarier/test/adrift4/notes/Shadowpeak_walkthrough.md
 # Lines whose first non-blank character is '#' are COMMENTS: the harness skips
 # them (os_ansi.c, gated by -DSCARE_DUMP_TOOLS), so inline notes no longer leak
@@ -463,6 +463,7 @@ n
 # yet entered with the sword), shaving one in-window turn: 104 is reached ON the
 # turn-48 kill check -> safe.
 e
+x table
 take venison
 w
 # ============================ SESSION 20 (+105) ============================
@@ -476,6 +477,11 @@ w
 # --- Lantern run (enters 77, STARTS the timer). w->77 (Zandos paces, trapped
 # in the pentagram), s->78 (Melvin), s->79 storeroom: the lit lantern is needed
 # both for the dark cellar AND the dark crypt.
+z
+z
+z
+z
+z
 w
 s
 s
@@ -493,6 +499,7 @@ d
 d
 e
 s
+x rubble
 take chisel
 n
 w
@@ -523,6 +530,7 @@ n
 # attack with two carried weapons now asks, faithfully to run400).
 attack cat with sword
 n
+x shrine
 take scroll
 s
 s
@@ -778,33 +786,20 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED after the section-10 exclusive event-length roll
-# (2026-08-17: event lengths and delays roll lo + Int(Rnd*(hi-lo)), matching
-# both real Runners -- ranged events re-timed and re-threaded the walkers'
-# RNG engine-wide).  Now at SCR_SEED=7.  Upstream clean at seed 7 (room 157,
-# score 560, Damastus alive).
-# Greedy BFS from the stone button (room 157): attack when co-located, else
-# BFS-step toward him.  Damastus dies in room 161, stamina 38.
-# Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
+# chase re-derived by shadowpeak_chase.py (k=5 pre-timer pads, SCR_SEED=7): Damastus dies in room 151, stamina 50
 e
 e
 e
 e
 e
-e
-s
-n
 attack damastus
-s
-attack damastus
-n
-attack damastus
-w
 attack damastus
 w
 attack damastus
 e
+attack damastus
 e
+attack damastus
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
 # greaves (obj170) here in the Minotaur's lair and WEAR them - they are required

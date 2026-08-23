@@ -9,6 +9,9 @@ Please enter your name:
 
 > Rex
 
+> x basket
+The basket  The ball is inside the basket.
+
 > take ball
 I take the ball from the basket.
 
@@ -21,6 +24,9 @@ Also here is the bone.
 
 > piss on the tree
 Pissing on my old oak is one of my favourite sports. Good... I needed it.
+
+> x oak
+An old tree with an old hollow trunk.  The doll is inside the oak.
 
 > take doll
 I take the doll from the oak.
@@ -111,7 +117,7 @@ Time passes...
 > z
 Time passes...
 "Rex!!!! I'm back."
-Rex I love you!
+Woooooooof! Well done!
 You scored 30 out of the maximum 30!
 That is 100% of the game!
 Well done - you scored maximum points!

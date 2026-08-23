@@ -3,15 +3,31 @@ w
 n
 n
 take bottle
+look in dustbin
 take note
+i
+take note
+read note
 s
 w
 take leaves
 take pumpkin
+examine vegetable
+l
+x leaves
+i
+x plot
+get pumpkin
 in
 x pots
 open trunk
-take all
+get all
+l
+get secateurs
+get dynamite
+get gloves
+get trowel
+x pots
 out
 n
 give turnip to cow
@@ -26,10 +42,10 @@ n
 w
 fill bottle
 open packet
-take bean
 plant bean
 water bean
 take all
+l
 climb beanstalk
 jump to roof
 turn aerial
@@ -38,9 +54,10 @@ drop note
 drop bottle
 drop packet
 drop trowel
-take spoon
+look table
+get spoon
 open dresser
-take gigantic bowl
+get gigantic bowl
 pour porridge in large bowl into gigantic bowl
 eat porridge in tiny bowl
 eat porridge in gigantic bowl
@@ -49,12 +66,16 @@ drop gigantic bowl
 drop spoon
 n
 open freezer
-take chops
+get chops
 take box
+x shelves
+get box
 open box
 take pendant
 wear pendant
 take matchbox
+take mouse
+x mousetrap
 take mouse
 take cheese
 drop box
@@ -67,6 +88,7 @@ open trapdoor
 n
 drop rug
 take antimacassar
+drop antimacassaer
 drop antimacassar
 sit on tiny chair
 take wood
@@ -88,6 +110,7 @@ s
 w
 n
 ask wolf about turbine
+tak oil can
 take oil can
 oil secateurs
 drop oil can
@@ -111,6 +134,7 @@ open machine with poker
 drop dumbells
 u
 n
+cuit cable
 cut cable
 s
 d
@@ -120,6 +144,7 @@ n
 sit on large chair
 push button
 open fridge
+take beed
 take beer
 drink beer
 take remote
@@ -134,8 +159,15 @@ stand
 s
 out
 open package
+take package
+drop all
+take package
+open package
 take toaster
+get dynamite
 put dynamite in toaster
+get all
+drop package
 in
 d
 push switch a
@@ -143,6 +175,7 @@ u
 n
 sit on large chair
 push button
+unpug tv
 unplug tv
 plug in toaster
 push lever
@@ -158,6 +191,8 @@ sit on large chair
 push button
 w
 take wrench
+x bench
+get wrench
 take paint
 paint ball
 open crate with poker
@@ -179,6 +214,15 @@ in
 u
 kiss frog
 open window with wrench
+give pumpkin to godmother
+out
+d
+out
+get puimpkin
+take pumpkin
+in
+u
+give puimpkin to godmother
 give pumpkin to godmother
 give mouse to godmother
 ask godmother about dress
@@ -202,7 +246,7 @@ n
 take rug
 s
 cover trapdoor
-take cheese
+get cheese
 close door
 u
 lie on tiny bed

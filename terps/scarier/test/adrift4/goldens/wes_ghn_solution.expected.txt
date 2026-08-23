@@ -216,6 +216,11 @@ The receptionist's window quickly opens and you hear a fleshy thud as
 something hits the floor. The window closes before you can turn around to see
 if anyone was ever there.
 
+> x severed hand
+It appears to be the bloody hand of an adult human male. From a glance you
+can tell this hand was severed violently and painfully...  A gold ring is on
+the severed hand.
+
 > take ring
 You take the gold ring from the severed hand.
 
@@ -481,15 +486,14 @@ Hope hits you.
 > attack hope
 You cut Hope with the Soul Scythe.
 
-> attack hope
-You cut Hope with the Soul Scythe.
-Hope hits you.
-
-> attack hope
-You cut Hope with the Soul Scythe.
-
 "I...I'll never return to that box!!!" Hope says trembling as she takes a
 step back. A bright white light flashes and she is gone.
+
+> attack hope
+Your words... they're so unclear
+
+> attack hope
+Your words... they're so unclear
 
 > w
 You move west.
@@ -735,7 +739,6 @@ that that is just plain rude. I'm gonna have to show ya'll what the light of
 Hope kin do..."
 
 She smiles from ear to ear as she lunges at the both of you...
-Hope manages to avoid Charity Bell's attack.
 
 >
 
@@ -745,8 +748,8 @@ Hope manages to avoid Charity Bell's attack.
 
 > attack hope
 You cut Hope with the Soul Scythe.
-Hope attacks Charity Bell with the Stripper Sword, but Charity Bell manages
-to avoid it.
+Hope manages to avoid Charity Bell's attack.
+Hope cuts you with the Stripper Sword.
 
 > attack hope
 You cut Hope with the Soul Scythe.
@@ -759,11 +762,6 @@ Hope cuts you with the Stripper Sword, but it doesn't seem to do any damage.
 > attack hope
 You cut Hope with the Soul Scythe.
 Hope manages to avoid Charity Bell's attack.
-
-> attack hope
-You cut Hope with the Soul Scythe.
-Hope manages to avoid Charity Bell's attack.
-Hope cuts you with the Stripper Sword, but it doesn't seem to do any damage.
 
 > attack hope
 You cut Hope with the Soul Scythe.
@@ -801,6 +799,8 @@ that in mind."
 
 And with a jaunty flip of her hair Charity walks out of the room and leaves
 you alone to contemplate the challenges ahead of you.
+
+>
 
 > unlock door with vial
 You unlock the medicine cabinet door with the vial.

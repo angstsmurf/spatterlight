@@ -239,6 +239,7 @@ give meat to dogs
 e
 show gold to jed
 open trunk
+x heavy trunk
 get circlet
 # --- Merna in the Dryad Grove: the leaf circlet buys the Dryad's Kiss.
 w

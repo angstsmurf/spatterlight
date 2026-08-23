@@ -99,6 +99,7 @@ e
 open wood box
 take axe
 down
+x awful-smelling bed
 take bucket
 up
 w
@@ -133,7 +134,11 @@ in
 u
 u
 u
+z
+z
 give pearl to pirate
+x bed
+x ruffled sheet
 take key
 d
 out

@@ -125,7 +125,7 @@ the servant says, handing you a note. With a brief bow, the servant exits and
 closes the door.
 
 > take note
-You are already holding the note.
+You are already carrying the note from Princess Tevona.
 
 > open note
 You break the seal on the note and open it.

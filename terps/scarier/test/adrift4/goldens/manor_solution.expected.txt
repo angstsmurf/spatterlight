@@ -59,6 +59,11 @@ that leads north from the room.
 You can also see Theo's cellphone.
 Angie is here.
 
+> x end table
+This is a small table beside one of the chairs. It is covered in dust and has
+cobwebs running from the underside of the surface down its legs.  A book of
+matches is on the end table.
+
 > take matches
 You take a book of matches from the end table.
 
@@ -98,6 +103,10 @@ Dining Room
 This appears to be the dining room. There is a large table in the centre of
 the room. There are chairs surrounding the table. Large windows, similar to
 those in the foyer, line the east wall.
+
+> x dining table
+The table is large and could easily seat eight people. It is covered in a
+thin layer of dust.  An unlit candelabra is on the dining table.
 
 > take candelabra
 You take an unlit candelabra from the dining table.
@@ -223,13 +232,13 @@ You move east.
 Closet
 It is dark here. You cannot see anything.
 
+Somewhere in the house you hear a door bang shut.
+
 > search shelf
 You search the shelf and discover an old brass key buried in the dust.
 
 > take key
 You pick up the old brass key.
-
-Somewhere in the house you hear a door bang shut.
 
 > w
 You move west.
@@ -246,8 +255,14 @@ It is dark here. You cannot see anything.
 > search bed
 You find an old necklace underneath the bed!
 
+A ghostly figure of a little boy runs by you. He stops and looks back at you.
+"Did you steal my ball?" he asks, and then fades away.
+
 > take necklace
 You pick up the necklace.
+
+You suddenly feel a chill in the air, and hear a whispery voice say "Sam!".
+You spin around, but no one is there!
 
 > e
 You move east.
@@ -255,17 +270,11 @@ You move east.
 Western Hallway
 It is dark here. You cannot see anything.
 
-A ghostly figure of a little boy runs by you. He stops and looks back at you.
-"Did you steal my ball?" he asks, and then fades away.
-
 > n
 You move north.
 
 Spare Bedroom
 It is dark here. You cannot see anything.
-
-You suddenly feel a chill in the air, and hear a whispery voice say "Sam!".
-You spin around, but no one is there!
 
 > search clothes
 You search the pile of clothing and find a small rubber ball. When you touch
@@ -334,6 +343,8 @@ tucked in one of the drawer slots.
 > take doll
 You pick up the doll.
 
+You hear the wind picking up outside, and thunder in the distance.
+
 > w
 You move west.
 
@@ -345,8 +356,6 @@ You move north.
 
 Attic Stairwell
 It is dark here. You cannot see anything.
-
-You hear the wind picking up outside, and thunder in the distance.
 
 > u
 You move up.
@@ -410,6 +419,10 @@ Secret Alcove
 This is a small alcove hidden behind the wooden panelling underneath the
 stairs. There is a small table here.
 
+> x small table
+This is a tall end table with a small surface. It is covered with cobwebs.  A
+pipe and an ashtray are on the small table.
+
 > take pipe
 You take a pipe from the small table.
 
@@ -445,6 +458,8 @@ here beside an alcove with a small set of stairs leading down. There are
 windows on the west wall.
 The ghost of a little girl is here.
 
+A ghost floats off to the east.
+
 > d
 You move down.
 
@@ -472,6 +487,9 @@ You use the shovel to bury the necklace.
 
 > bury pipe
 You use the shovel to bury the pipe.
+
+You suddenly feel a chill in the air, and hear a whispery voice say "Sam!".
+You spin around, but no one is there!
 
 > bury ball
 You use the shovel to bury the ball.

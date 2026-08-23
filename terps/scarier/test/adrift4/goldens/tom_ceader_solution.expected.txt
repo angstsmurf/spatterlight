@@ -18,7 +18,7 @@ drivable .
 
 Also here is a swade breifcase.
 
-There are exits east and in.
+You can move east and in.
 
 > take case
 You pick up the swade breifcase.

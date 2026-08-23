@@ -61,6 +61,8 @@ lights make you feel cheerful and bright.
 Mystery is talking with some Drifters, making sure everyone is having a good
 time.
 
+You can only move north.
+
 > kiss mystery
 You lay a Happy Holidays kiss on Mystery.  Turns out that Mystery didn't
 appreciate it much and belts you right in the kisser.
@@ -537,6 +539,11 @@ You can only move north.
 You open the wardrobe.  A leather jacket and an assortment of shoes are
 inside the wardrobe.
 
+> x wardrobe
+The wardrobe is an fairly new and made from a finely polished wood.    The
+wardrobe is open.  A leather jacket and an assortment of shoes are inside the
+wardrobe.  The suitcase is on the wardrobe.
+
 > get suitcase
 You take the suitcase from the wardrobe.
 
@@ -635,6 +642,10 @@ You drop the suitcase.
 You jump on the suitcase and are flung high into the air.  After a few more
 jumps, you manage to jump high enough to reach the roof.....So high, in fact
 that you overshoot and land hard on Blitzen.
+
+> x sleigh
+Your sleigh is quite small, but it does the trick.  It can hold lots of
+presents and is pretty quick.  A bag of presents is inside your sleigh.
 
 > get presents
 You take the bag of presents from your sleigh.

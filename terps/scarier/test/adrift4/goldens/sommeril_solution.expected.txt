@@ -44,7 +44,7 @@ shapes are moving about unseen in it.  It is twilight. The rest is silence.
 
 Also here is a BOOK COVER.
 
-There are exits north, south, northeast and northwest.
+You can move north, south, northeast and northwest.
 
 >
 
@@ -142,7 +142,7 @@ A SILVER ORB is held in the SKELETON's prone hand.
 You can move north and south.
 
 > take silver orb
-You've already got the SILVER ORB!
+You are already carrying the SILVER ORB.
 
 > put fish in fountain
 The fish leaps from your grip into the dark water and disappears from sight.
@@ -503,6 +503,9 @@ The pile of dust  is probably composed of dead skin, bone marrow and rotted
 cloth, and is almost an inch deep in places. There is a RING inside the PILE
 OF DUST.
 
+> x PILE OF DUST
+A RING is inside the PILE OF DUST.
+
 > take ring
 You take the RING from the PILE OF DUST.
 
@@ -510,10 +513,10 @@ You take the RING from the PILE OF DUST.
 You drop the RING.
 
 > take ring
-You've already got the RING!
+You are already carrying the RING.
 
 > take silver key
-Take what?
+You are already carrying the SILVER KEY.
 
 > s
 You move south.
@@ -565,6 +568,8 @@ your left, a building with a sign over the door reads "Town Crier" in Gothic
 letters.
 
 You can move north, south and in.
+A line of tiny naked mice, each with a perfectly formed human ear growing on
+its back, runs across the street a few feet ahead of you.
 
 > in
 You move in.
@@ -699,7 +704,7 @@ You can't read it from here.
 You can only move south.
 
 > take rat-chewed page
-You've already got the RAT-CHEWED PAGE!
+You are already carrying the RAT-CHEWED PAGE.
 
 > read rat-chewed page
 "Disconnected.
@@ -782,6 +787,8 @@ A large glass EYEBALL the size of a volkswagen is suspended from a dead tree
 by a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
+A line of tiny naked mice, each with a perfectly formed human ear growing on
+its back, runs across the street a few feet ahead of you.
 
 > n
 You move north.
@@ -806,6 +813,8 @@ Citadel foyer
 The inside of the Citadel towers here like a ten story Gothic cave. Its
 spires and turrets are capped with copper. Its windows are stained-glass
 jigsaw puzzles of various saints and sinners you recall from history.
+
+You can move in and out.
 
 > in
 Suddenly, hundreds of candles leap to life! Their flames flicker on,

@@ -117,6 +117,7 @@ e
 s
 se
 e
+x shelf
 take paint
 take pills
 w

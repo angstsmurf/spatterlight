@@ -402,11 +402,11 @@ obj_get_size (scr_gameref_t game, scr_int object)
 }
 
 scr_int
-obj_get_weight (scr_gameref_t game, scr_int object)
+obj_get_base_weight (scr_gameref_t game, scr_int object)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
-  scr_int weight, count;
+  scr_int count;
 
   /* Static objects have no weight; see the note above obj_get_size. */
   if (obj_is_static (game, object))
@@ -419,29 +419,71 @@ obj_get_weight (scr_gameref_t game, scr_int object)
   count = prop_get_integer (bundle, "I<-sis", vt_key) % OBJ_DIMENSION_DIVISOR;
 
   /* Calculate base object weight. */
-  weight = obj_scale (obj_get_weight_multiple (game), count);
+  return obj_scale (obj_get_weight_multiple (game), count);
+}
 
-  /* If this is a container or a surface, add weights of parented objects. */
-  if (obj_is_container (game, object) || obj_is_surface (game, object))
+/*
+ * Recursion depth cap for the weigh loop below.  The Runner's only cycle
+ * defence is its i <> self guard, so an authored parent cycle would hang it;
+ * we bottom out instead of hanging with it.  32 comfortably exceeds any real
+ * containment nesting.
+ */
+enum { OBJ_WEIGH_DEPTH_LIMIT = 32 };
+
+static scr_int
+obj_weigh (scr_gameref_t game, scr_int object, scr_int depth)
+{
+  scr_int weight, other;
+
+  /* Base object weight; zero for statics. */
+  weight = obj_get_base_weight (game, object);
+
+  if (depth >= OBJ_WEIGH_DEPTH_LIMIT)
+    return weight;
+
+  /*
+   * Add the recursive weights of "child" objects.  run400's weigh routine
+   * (Sub_22_63 @447600) matches children on the bare per-object container
+   * field ([2E]) with only an i <> self guard -- it checks neither the
+   * child's position nor whether the weighed object is a container or
+   * surface, so objects whose [2E] is stale (leftover raw Parent data that
+   * ordinary takes, drops, and task/event moves never touch) silently add
+   * phantom weight; see the runner_parent notes in scgamest.h.  We match on the
+   * runner_parent shadow of that field for the versions whose capacity
+   * checks weigh objects (3.9/4.0).  The 3.7/3.8 burden model never calls
+   * this on the take path, and those versions' loaders rewrote the raw
+   * Parent values our shadow is seeded from, so they keep the older
+   * position-filtered membership.
+   */
+  for (other = 0; other < gs_object_count (game); other++)
     {
-      scr_int other;
+      scr_bool is_child;
 
-      /* Find and add contained or surface objects. */
-      for (other = 0; other < gs_object_count (game); other++)
-        {
-          if ((gs_object_position (game, other) == OBJ_IN_OBJECT
-               || gs_object_position (game, other) == OBJ_ON_OBJECT)
-              && gs_object_parent (game, other) == object)
-            {
-              weight += obj_get_weight (game, other);
-            }
-        }
+      if (other == object)
+        continue;
+
+      if (obj_uses_burden_model (game))
+        is_child = (gs_object_position (game, other) == OBJ_IN_OBJECT
+                    || gs_object_position (game, other) == OBJ_ON_OBJECT)
+                   && gs_object_parent (game, other) == object;
+      else
+        is_child = gs_object_runner_parent (game, other) == object;
+
+      if (is_child)
+        weight += obj_weigh (game, other, depth + 1);
     }
+
+  return weight;
+}
+
+scr_int
+obj_get_weight (scr_gameref_t game, scr_int object)
+{
+  const scr_int weight = obj_weigh (game, object, 0);
 
   if (obj_trace)
     scr_trace ("Object: object %ld is weight %ld\n", object, weight);
 
-  /* Return total weight. */
   return weight;
 }
 
@@ -1080,11 +1122,37 @@ obj_turn_update (scr_gameref_t game)
 {
   scr_int index_;
 
-  /* Update object seen flag to current state. */
+  /*
+   * Update object seen flag to current state.  The Adrift Runner marks an
+   * object seen when the room description lists it: static objects present
+   * in the room (including parts of a present NPC), and dynamic objects
+   * lying directly in the room.  Objects held or worn by the player are
+   * seen from the start.  Objects inside or on top of other objects, and
+   * NPC possessions, are NOT seen until a contents listing reveals them
+   * (examine/open/look in the parent, or examining the NPC), so don't
+   * recurse through holders here.
+   */
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     {
-      if (!gs_object_seen (game, index_)
-          && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+      scr_bool is_visible;
+
+      if (gs_object_seen (game, index_))
+        continue;
+
+      if (obj_is_static (game, index_))
+        is_visible = obj_static_in_room (game, index_,
+                                         gs_playerroom (game), TRUE);
+      else
+        {
+          scr_int position;
+
+          position = gs_object_position (game, index_);
+          is_visible = position == gs_playerroom (game) + 1
+                       || position == OBJ_HELD_PLAYER
+                       || position == OBJ_WORN_PLAYER;
+        }
+
+      if (is_visible)
         gs_set_object_seen (game, index_, TRUE);
     }
 }

@@ -281,7 +281,16 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination)
                     object, destination);
         }
 
-      /* Move object depending on destination. */
+      /*
+       * Move object depending on destination.  The Runner's event mover
+       * never touches the carried-load totals -- an event-placed object
+       * weighs nothing towards the player's limits, and one spirited out
+       * of the player's hands stays counted (measured live in run400,
+       * RUNNER_TESTS_TODO.md section 9; its totals are only ever written
+       * by the take/drop handlers and the task mover) -- so the position
+       * tracker is suspended for the move.
+       */
+      gs_set_carried_suspend (game, TRUE);
       switch (destination)
         {
         case -1:               /* Hidden. */
@@ -310,6 +319,7 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination)
             }
           break;
         }
+      gs_set_carried_suspend (game, FALSE);
 
       /*
        * If static, mark as no longer unmoved.
@@ -1016,6 +1026,17 @@ evt_tick_event (scr_gameref_t game, scr_int event)
               evt_finish_event (game, event);
             else
               {
+                /*
+                 * The start turn itself must not consume a tick.  Measured
+                 * against run400 with Provenance's fixed-length "Air Runs
+                 * Out In Lab" event (task-started, Time1 = Time2 = 15,
+                 * mid-texts at 10 and 5 remaining): the Runner prints the
+                 * StartText on the turn the starter task completes, but its
+                 * 10-left, 5-left and finish texts each landed one turn
+                 * after ours did.  Adding one here, the same adjustment the
+                 * ES_WAITING immediate-start hack above makes, reproduces
+                 * the Runner's timing exactly.
+                 */
                 /*
                  * If the pauser has completed, but resumer not, immediately
                  * also pause this event.

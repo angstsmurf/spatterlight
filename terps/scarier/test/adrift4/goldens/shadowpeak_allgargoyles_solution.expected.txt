@@ -56,7 +56,7 @@ comes the stench of rotting vegetation.
 
 Also here is a fallen oak tree.
 
-There are exits north, south, west, southeast and southwest.
+You can move north, south, west, southeast and southwest.
 
 > se
 You move southeast.
@@ -154,7 +154,6 @@ can be sure to achieve in your life?\’."
 > death
 The henge glows and hums momentarily, then stops. A shield appears out of
 thin air, and clatters to the ground.
-Fetlar scratches himself.
 
 > take shield
 You take the Shield.
@@ -174,6 +173,7 @@ to be whispering something to you.
 It is raining...
 
 You can move south and up.
+You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 > climb up
 Up a tree
@@ -184,12 +184,14 @@ can be seen. To the southwest, a vast swamp swallows up much of the land.
 You see a pair of leather gloves hung over a branch of the tree.
 It is raining...
 
+You can only move down.
+You hear the flutter of batlike wings.
+
 > take gloves
 You take the pair of leather gloves.
 
 > wear gloves
 You put on the pair of leather gloves.
-You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 > d
 You move down.
@@ -216,7 +218,6 @@ Also here is a body and a staff.
 Fetlar the overly fetid is here.  It is raining...
 
 You can move north, east, south and west.
-A chill wind blows southerly.
 
 > e
 You move east.
@@ -231,15 +232,8 @@ You move north.
 
 Shadow Forest.
 To the east, the forest thickens.
-Reevling the Warrior is here.
 
 You can move north and south.
-Reevling, the warrior, looks you up and down, sighs, and mumbles something
-about your being... nothing but another villager waiting to be turned into a
-zombie.
-
-Reevling trots off to the south.
-You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"
 
 > n
 You move north.
@@ -270,6 +264,7 @@ rummage about inside it.
 
 > get brass key
 You take brass key.
+You hear the flutter of batlike wings.
 
 > n
 You move north.
@@ -298,8 +293,6 @@ Fang is here.
 You can move north, east and west.
 Seeker hums!
 Seeker hums!
-Fang cuts you with the fine set of teeth in its muzzle, but it doesn't seem
-to do any damage.
 
 > e
 You move east.
@@ -309,6 +302,7 @@ The impassable Kuskarian Range mountains can be seen to the north, while, to
 the east, the forest thickens.
 
 You can move south and west.
+You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 > s
 You move south.
@@ -343,6 +337,7 @@ You can move north, east, south and west.
 Upon seeing you, Rossi gets a little excited and grunts the word "easy "
 followed by a strange, muffled noise sounding something like the word
 "target".
+You hear the distant howling of wolves.
 Rossi, the muck dweller, deftly takes hold of the sword with its
 exceptionally long fingers, and before you know it, the sword vanishes in a
 cloud of muck.
@@ -354,10 +349,7 @@ That dreaded perfume-y smell," it growls. With this, Rossi backs off,
 whimpering to itself.
 
 Rossi creeps in.
-
-Reevling trots in from the south.
-Lightning lances the clouds above. The rumble of thunder can be heard over
-the rain.
+You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"
 
 > s
 You move south.
@@ -384,7 +376,6 @@ face can be seen stretching upwards.
 It is raining...
 
 You can move north, east, west, northeast and northwest.
-You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 > w
 You move west.
@@ -395,7 +386,6 @@ You see a chasm to the south.
 Also here is a sword.  It is raining...
 
 You can move north, east, west, northeast and northwest.
-You hear the distant howling of wolves.
 
 > take sword
 You take the sword.
@@ -410,13 +400,14 @@ You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
 
 Fetlar the overly fetid flutters down.
+It stops raining...
 
 > nw
 You move northwest.
 
 Great Swamp.
 
-Also here is a statue of a fair maiden and a sign.  It is raining...
+Also here is a statue of a fair maiden and a sign.
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -471,7 +462,6 @@ Also here is a statue of a fair maiden and a sign.
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
-A chill wind blows southerly.
 
 > se
 You move southeast.
@@ -504,7 +494,6 @@ southeast, can still be followed. The wind blows from the west, and with it
 comes the stench of rotting vegetation.
 
 Also here is a fallen oak tree.
-Reevling the Warrior is here.
 
 You can move north, south, west, southeast and southwest.
 
@@ -521,6 +510,7 @@ leads south, away from the henge, while another leads north into the forest.
 Also here is a body and a staff.
 
 You can move north, east, south and west.
+You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 > e
 You move east.
@@ -606,12 +596,12 @@ Alam Nadeer hits you, but it doesn't seem to do any damage.
 > stand on sarcophagus
 You stand on the sarcophagus.
 Seeker hums!
-Alam Nadeer hits you, but it doesn't seem to do any damage.
 
 > turn handle
 As you reach up and turn the handle, it jams into position, and a secret
 passage is revealed in the northern wall.
 Seeker hums!
+Alam Nadeer hits you, but it doesn't seem to do any damage.
 
 > n
 (Getting off the sarcophagus first)
@@ -769,7 +759,6 @@ Shadow Forest gap.
 To the east, there is a gap in the forest’s trees.
 
 You can move north, east and west.
-You hear the flutter of batlike wings.
 
 > w
 You move west.
@@ -782,10 +771,8 @@ silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
 
 Also here is a body and a staff.
-Reevling the Warrior is here.  It is raining...
 
 You can move north, east, south and west.
-You hear the distant howling of wolves.
 
 > s
 You move south.
@@ -796,7 +783,7 @@ The tree seems quite easy to climb over, so the trail, which now leads
 southeast, can still be followed. The wind blows from the west, and with it
 comes the stench of rotting vegetation.
 
-Also here is a fallen oak tree.  It is raining...
+Also here is a fallen oak tree.
 
 You can move north, south, west, southeast and southwest.
 
@@ -808,7 +795,6 @@ The stench of the swamp permeates the air.
 The swamp heads off to the west and the north. To the south lies a chasm
 spanning some 100 feet across to the opposite side, where the other cliff
 face can be seen stretching upwards.
-It is raining...
 
 You can move north, east, west, northeast and northwest.
 
@@ -816,19 +802,17 @@ You can move north, east, west, northeast and northwest.
 You move northwest.
 
 Great Swamp.
-You stand in the Great Swamp.  It is raining...
+You stand in the Great Swamp.
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
-Lightning lances the clouds above. The rumble of thunder can be heard over
-the rain.
 
 > nw
 You move northwest.
 
 Great Swamp.
 
-Also here is a statue of a fair maiden and a sign.  It is raining...
+Also here is a statue of a fair maiden and a sign.
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -860,16 +844,17 @@ Time passes...
 
 > z
 Time passes...
-You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"
+
+> z
+Time passes...
+You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 > z
 Time passes...
 
 > z
 Time passes...
-
-> z
-Time passes...
+You hear the flutter of batlike wings.
 
 > z
 Time passes...
@@ -880,8 +865,6 @@ Grumski stomps over from the east.
 Grumski pushes the large boulder to one side, revealing a passage going
 further into the cave.
  Grumski strolls off to the east.
-You hear the flutter of batlike wings.
-You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 > w
 You move west.
@@ -895,6 +878,7 @@ You can only move east.
 
 > unlock large wooden chest with brass key
 You unlock large wooden chest with brass key.
+You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"
 
 > open large wooden chest
 You open large wooden chest.  Inside large wooden chest is a small copper
@@ -934,7 +918,7 @@ You move east.
 
 Great Swamp.
 
-Also here is a statue of a fair maiden and a sign.
+Also here is a statue of a fair maiden and a sign.  It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -944,12 +928,14 @@ You move southeast.
 
 Great Swamp.
 You stand in the Great Swamp.
-Rossi, the muck dweller, is here.
+Rossi, the muck dweller, is here.  It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
 
 Fetlar the overly fetid flutters down.
+Lightning lances the clouds above. The rumble of thunder can be heard over
+the rain.
 
 > se
 You move southeast.
@@ -959,9 +945,9 @@ The stench of the swamp permeates the air.
 The swamp heads off to the west and the north. To the south lies a chasm
 spanning some 100 feet across to the opposite side, where the other cliff
 face can be seen stretching upwards.
+It is raining...
 
 You can move north, east, west, northeast and northwest.
-It starts to rain...
 
 > ne
 You move northeast.
@@ -980,17 +966,18 @@ sleep!
 
 > roll oak tree
 You heave the tree to one side, revealing a crushed villager underneath.
+You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 > move villager
 You heave the dead villager to one side,  revealing a pair of leather boots
 and pants.
+You hear the flutter of batlike wings.
 
 > take boots
 You take the pair of thick leather boots.
 
 > wear boots
 You put on the pair of thick leather boots.
-You hear the flutter of batlike wings.
 
 > se
 You move southeast.
@@ -1005,7 +992,6 @@ you here from the henge bends off to the west.
 It is raining...
 
 You can move west, up, down and northwest.
-You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"
 
 > fly
 The ring glows and you float up into the air. The cold wind blows you
@@ -1016,6 +1002,8 @@ Windthrush.
 You stand at the entrance of Windthrush Village. The village looks deserted.
 There’s not a soul to be seen in the Village Square, to the south. The chasm
 is to the north.
+
+You can only move south.
 You feel weak, and very tired. Your strength starts to ebb away. You
 definitely need to sleep.
 
@@ -1028,18 +1016,37 @@ appear abandoned. West leads to one such shop; east leads to a blacksmith’s,
 while south leads further into the village.
 
 Also here is a market stall and a Well.
-Jarris, a zombie villager, is here.
+Holga, a zombie villager, is here.
 
 You can move north, east, south, west and down.
 Seeker hums!
 
-Jarris lumbers off to the south.
-
-Arthur pulls himself in from below.
-You see a horrible sight. Arthur, one of the village zombies, is pulling
-himself along by his arms, as his legs have long since been eaten away.
+Holga stumbles off to the south.
 Fetlar shouts, "Good luck, buddy friend. I'm off for a nap. All this flapping
 about has made me feel rather tired." Fetlar flies off.
+
+> attack holga
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+> attack holga
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+> attack holga
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+Boris lumbers in from the east.
 Seeker hums!
 
 > attack holga
@@ -1049,7 +1056,7 @@ rephrasing your command.
 > z
 Time passes...
 
-Arthur pulls himself away to the east.
+Boris drags himself off to the south.
 
 > attack holga
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1058,227 +1065,72 @@ rephrasing your command.
 > z
 Time passes...
 
-Holga stumbles in from the east.
+Boris lumbers in from the south.
 Seeker hums!
+Boris hits you, but it doesn't seem to do any damage.
 
-Arthur pulls himself in from the east.
+> attack holga
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+Boris drags himself off to the south.
+
+Arthur pulls himself in from the south.
+You see a horrible sight. Arthur, one of the village zombies, is pulling
+himself along by his arms, as his legs have long since been eaten away.
 Seeker hums!
-You manage to avoid Holga's attack.
 You manage to avoid Arthur's attack.
+
+> attack holga
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+Arthur pulls himself away to the south.
+
+> attack holga
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+> attack holga
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+Holga stumbles in from the south.
+Seeker hums!
+
+Jarris staggers in from the south.
+Seeker hums!
 
 > attack holga
 You stab Holga with the sword.
 Holga keels over and is at last put to rest. Her undead hand is loosely
 holding a garlic bud.
 
-Arthur pulls himself away to below.
+Jarris lumbers off to the west.
 
 > z
 Time passes...
 
-Arthur pulls himself in from below.
+Jarris staggers in from the west.
 Seeker hums!
+You manage to avoid Jarris's attack.
 
 > attack holga
 I don't understand what you want me to do with the dead Holga zombie.
-
-Arthur pulls himself away to the east.
-
-> z
-Time passes...
-
-> attack holga
-I don't understand what you want me to do with the dead Holga zombie.
-
-Holga stumbles in from the south.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles off to the east.
-
-Arthur pulls himself in from the east.
-Seeker hums!
-
-> attack holga
-I don't understand what you want me to do with the dead Holga zombie.
-
-Arthur pulls himself away to the south.
-
-> z
-Time passes...
-
-Arthur pulls himself in from the south.
-Seeker hums!
-You manage to avoid Arthur's attack.
-
-> attack holga
-I don't understand what you want me to do with the dead Holga zombie.
-
-Arthur pulls himself away to the south.
-
-> z
-Time passes...
-
-Arthur pulls himself in from the south.
-Seeker hums!
-
-> attack holga
-I don't understand what you want me to do with the dead Holga zombie.
-
-Arthur pulls himself away to the south.
-
-> z
-Time passes...
-
-Arthur pulls himself in from the south.
-Seeker hums!
-You manage to avoid Arthur's attack.
-
-> attack holga
-I don't understand what you want me to do with the dead Holga zombie.
-
-Holga stumbles in from the east.
-Seeker hums!
-
-Arthur pulls himself away to below.
-
-> z
-Time passes...
-
-Holga stumbles off to the south.
-
-Arthur pulls himself in from below.
-Seeker hums!
-
-> attack holga
-I don't understand what you want me to do with the dead Holga zombie.
-
-Arthur pulls himself away to the south.
-
-> z
-Time passes...
-
-> attack holga
-I don't understand what you want me to do with the dead Holga zombie.
-
-Holga stumbles in from the south.
-Seeker hums!
-
-Jarris staggers in from the south.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles off to below.
-
-Jarris lumbers off to the south.
-
-> attack holga
-I don't understand what you want me to do with the dead Holga zombie.
-
-Holga stumbles in from below.
-Seeker hums!
-
-Boris lumbers in from the south.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles off to the east.
-
-Boris drags himself off to the east.
-
-> attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-
-Holga stumbles in from the east.
-Seeker hums!
-
-> attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-
-Holga stumbles off to below.
-
-> attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-
-Holga stumbles in from below.
-Seeker hums!
-
-Boris lumbers in from the east.
-Seeker hums!
-
-> attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-
-Holga stumbles off to the east.
-
-Boris drags himself off to below.
-
-> attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-
-Holga stumbles in from the east.
-Seeker hums!
-
-Jarris staggers in from the south.
-Seeker hums!
-
-Boris lumbers in from below.
-Seeker hums!
-
-> attack jarris
-You stab Jarris with the sword.
-
-Holga stumbles off to the east.
 
 Jarris lumbers off to the east.
-
-Boris drags himself off to below.
-
-> z
-Time passes...
-
-Boris lumbers in from below.
-Seeker hums!
-Boris hits you, but it doesn't seem to do any damage.
-
-> attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-
-Boris drags himself off to the west.
-
-> attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
 
 > z
 Time passes...
@@ -1286,7 +1138,83 @@ Time passes...
 Jarris staggers in from the east.
 Seeker hums!
 
-Boris lumbers in from the west.
+> attack holga
+I don't understand what you want me to do with the dead Holga zombie.
+
+Jarris lumbers off to the east.
+
+> z
+Time passes...
+
+> attack jarris
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+Holga stumbles in from the east.
+Seeker hums!
+
+Arthur pulls himself in from the south.
+Seeker hums!
+
+> attack jarris
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+Holga stumbles off to below.
+
+Arthur pulls himself away to the west.
+
+> attack jarris
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+Holga stumbles in from below.
+Seeker hums!
+
+Arthur pulls himself in from the west.
+Seeker hums!
+You manage to avoid Arthur's attack.
+
+> attack jarris
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+Holga stumbles off to the west.
+
+Jarris staggers in from the east.
+Seeker hums!
+
+Arthur pulls himself away to the south.
+
+> attack jarris
+You stab Jarris with the sword.
+
+Holga stumbles in from the west.
+Seeker hums!
+
+Jarris lumbers off to the south.
+
+> z
+Time passes...
+
+Holga stumbles off to the south.
+
+Jarris staggers in from the south.
+Seeker hums!
+
+Boris lumbers in from the south.
 Seeker hums!
 
 > attack jarris
@@ -1299,134 +1227,55 @@ Boris drags himself off to below.
 > z
 Time passes...
 
+Jarris staggers in from the east.
+Seeker hums!
+
+Boris lumbers in from below.
+Seeker hums!
+Boris hits you, but it doesn't seem to do any damage.
+
+> attack jarris
+You stab Jarris with the sword.
+
+Boris drags himself off to the east.
+
+> z
+Time passes...
+
+Jarris staggers in from below.
+Seeker hums!
+
+Boris lumbers in from the east.
+Seeker hums!
+
+> attack jarris
+You stab Jarris with the sword.
+
+Holga stumbles in from the south.
+Seeker hums!
+
+Jarris staggers in.
+Seeker hums!
+
+Boris drags himself off to below.
+
+> z
+Time passes...
+
+Holga stumbles off to the west.
+
+Jarris lumbers off to below.
+
 Boris lumbers in from below.
 Seeker hums!
 
 > attack jarris
 I don't understand what you want me to do with the dead Jarris zombie.
-
-Jarris staggers in from the south.
-Seeker hums!
-
-Boris drags himself off to the south.
-
-> z
-Time passes...
-
-Jarris lumbers off to the west.
-
-> attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-
-Jarris staggers in from the west.
-Seeker hums!
-
-> z
-Time passes...
-
-Jarris lumbers off to the south.
-
-> attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-
-> z
-Time passes...
-
-Holga stumbles in from the east.
-Seeker hums!
-
-Boris lumbers in from the south.
-Seeker hums!
-
-> attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-
-Holga stumbles off to below.
-
-Boris drags himself off to the west.
-
-Arthur pulls himself in from the south.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles in from below.
-Seeker hums!
-
-Boris lumbers in from the west.
-Seeker hums!
-
-Arthur pulls himself away to the west.
-Boris hits you, but it doesn't seem to do any damage.
-
-> attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-
-Holga stumbles off to the west.
-
-Jarris staggers in from the south.
-Seeker hums!
-
-Boris drags himself off to the south.
-
-Arthur pulls himself in from the west.
-Seeker hums!
-You manage to avoid Arthur's attack.
-
-> z
-Time passes...
 
 Holga stumbles in from the west.
 Seeker hums!
 
-Jarris lumbers off to the west.
-
-Arthur pulls himself away to below.
-
-> attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-
-Holga stumbles off to the south.
-
-Jarris staggers in from the west.
-Seeker hums!
-
-Arthur pulls himself in from below.
-Seeker hums!
-
-> z
-Time passes...
-
-Jarris lumbers off to the south.
-
-Boris lumbers in from the south.
-Seeker hums!
-
-Arthur pulls himself away to the west.
-
-> attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-
-Boris drags himself off to below.
-
-Arthur pulls himself in from the west.
-Seeker hums!
-You manage to avoid Arthur's attack.
-
-> z
-Time passes...
-
-Boris lumbers in from below.
-Seeker hums!
-
-Arthur pulls himself away to the east.
-Boris hits you, but it doesn't seem to do any damage.
-
-> attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-
-Jarris staggers in from the south.
+Jarris staggers in from below.
 Seeker hums!
 
 Boris drags himself off to the east.
@@ -1434,92 +1283,480 @@ Boris drags himself off to the east.
 > z
 Time passes...
 
-Jarris lumbers off to the west.
+Holga stumbles off to below.
+
+Jarris lumbers off to the south.
 
 > attack jarris
 I don't understand what you want me to do with the dead Jarris zombie.
 
-Jarris staggers in from the west.
+Holga stumbles in from below.
 Seeker hums!
 
 > z
 Time passes...
 
-Holga stumbles in from the south.
+Holga stumbles off to the west.
+
+Boris lumbers in from the east.
 Seeker hums!
 
-Jarris lumbers off to the east.
+> attack jarris
+I don't understand what you want me to do with the dead Jarris zombie.
 
-> attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
+Holga stumbles in from the west.
+Seeker hums!
+
+Boris drags himself off to the east.
+
+Arthur pulls himself in from the south.
+Seeker hums!
 
 > z
 Time passes...
 
-Holga stumbles off to the south.
+Holga stumbles off to below.
 
-Jarris staggers in from the east.
+Arthur pulls himself away to the south.
+
+> attack jarris
+I don't understand what you want me to do with the dead Jarris zombie.
+
+Holga stumbles in from below.
 Seeker hums!
-
-Arthur pulls himself in from the east.
-Seeker hums!
-
-> attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
 
 > z
 Time passes...
 
-Holga stumbles in from the south.
+Holga stumbles off to the west.
+
+Boris lumbers in from the east.
+Seeker hums!
+Boris hits you, but it doesn't seem to do any damage.
+
+> attack jarris
+I don't understand what you want me to do with the dead Jarris zombie.
+
+Holga stumbles in from the west.
 Seeker hums!
 
-Jarris lumbers off to the south.
-
-Arthur pulls himself away to below.
-
-> attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
+Boris drags himself off to below.
 
 > z
 Time passes...
 
-Holga stumbles off to the south.
+Holga stumbles off to the west.
 
-Arthur pulls himself in from below.
+Boris lumbers in from below.
 Seeker hums!
-You manage to avoid Arthur's attack.
 
-> attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
+> attack jarris
+I don't understand what you want me to do with the dead Jarris zombie.
+
+Holga stumbles in from the west.
+Seeker hums!
+
+Boris drags himself off to the west.
 
 > z
 Time passes...
 
-Arthur pulls himself away to below.
+Holga stumbles off to below.
 
-> attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
+Boris lumbers in from the west.
+Seeker hums!
+
+> attack jarris
+I don't understand what you want me to do with the dead Jarris zombie.
+
+Holga stumbles in from below.
+Seeker hums!
+
+Boris drags himself off to below.
 
 > z
 Time passes...
 
-Arthur pulls himself in from below.
+Holga stumbles off to below.
+
+Boris lumbers in from below.
+Seeker hums!
+Boris hits you, but it doesn't seem to do any damage.
+
+> attack jarris
+I don't understand what you want me to do with the dead Jarris zombie.
+
+Holga stumbles in from below.
 Seeker hums!
 
-> attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
+Boris drags himself off to below.
+
+Arthur pulls himself in from the south.
+Seeker hums!
+Arthur hits you, but it doesn't seem to do any damage.
+
+> z
+Time passes...
+
+Holga stumbles off to the east.
+
+Boris lumbers in from below.
+Seeker hums!
+
+Arthur pulls himself away to the west.
+
+> attack jarris
+I don't understand what you want me to do with the dead Jarris zombie.
+
+Boris drags himself off to the east.
+
+Arthur pulls himself in from the west.
+Seeker hums!
 
 > z
 Time passes...
 
 Boris lumbers in from the east.
 Seeker hums!
+
+Arthur pulls himself away to the south.
+
+> attack jarris
+I don't understand what you want me to do with the dead Jarris zombie.
+
+Boris drags himself off to the south.
+
+Arthur pulls himself in from the south.
+Seeker hums!
+You manage to avoid Arthur's attack.
+
+> z
+Time passes...
+
+Boris lumbers in from the south.
+Seeker hums!
+
+Arthur pulls himself away to the west.
+Boris hits you, but it doesn't seem to do any damage.
+
+> attack boris
+You stab Boris with the sword.
+Boris falls down, quite dead.
+
+Arthur pulls himself in from the west.
+Seeker hums!
+
+> z
+Time passes...
+
+Arthur pulls himself away to below.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Boris lumbers in from the east.
+Seeker hums!
+
+Arthur pulls himself in from below.
+Seeker hums!
+You manage to avoid Arthur's attack.
+
+> z
+Time passes...
+
+Boris drags himself off to the west.
+
+Arthur pulls himself away to the west.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Boris lumbers in from the west.
+Seeker hums!
+
+Arthur pulls himself in from the west.
+Seeker hums!
+
+> z
+Time passes...
+
+Boris drags himself off to the east.
+
+Arthur pulls himself away to the west.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Holga stumbles in from the east.
+Seeker hums!
+
+Arthur pulls himself in from the west.
+Seeker hums!
+You manage to avoid Arthur's attack.
+
+> z
+Time passes...
+
+Holga stumbles off to the east.
+
+Arthur pulls himself away to the south.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Boris lumbers in from the east.
+Seeker hums!
+
+> z
+Time passes...
+
+Boris drags himself off to the west.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Boris lumbers in from the west.
+Seeker hums!
+
+> z
+Time passes...
+
+Boris drags himself off to the east.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Boris lumbers in from the east.
+Seeker hums!
+
+Arthur pulls himself in from the south.
+Seeker hums!
+
+> z
+Time passes...
+
+Boris drags himself off to the west.
+
+Arthur pulls himself away to the east.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Boris lumbers in from the west.
+Seeker hums!
+
+Arthur pulls himself in from the east.
+Seeker hums!
+You manage to avoid Arthur's attack.
+
+> z
+Time passes...
+
+Boris drags himself off to the west.
+
+Arthur pulls himself away to the east.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Holga stumbles in from the east.
+Seeker hums!
+
+Jarris staggers in from the south.
+Seeker hums!
+
+Boris lumbers in from the west.
+Seeker hums!
+
+Arthur pulls himself in from the east.
+Seeker hums!
+
+> z
+Time passes...
+
+Holga stumbles off to the south.
+
+Jarris lumbers off to below.
+
+Boris drags himself off to the south.
+
+Arthur pulls himself away to below.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Holga stumbles in from the south.
+Seeker hums!
+
+Jarris staggers in from below.
+Seeker hums!
+
+Boris lumbers in from the south.
+Seeker hums!
+
+Arthur pulls himself in from below.
+Seeker hums!
+You manage to avoid Arthur's attack.
+
+> z
+Time passes...
+
+Holga stumbles off to below.
+
+Jarris lumbers off to the east.
+
+Boris drags himself off to the east.
+
+Arthur pulls himself away to the south.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Holga stumbles in from below.
+Seeker hums!
+
+Arthur pulls himself in from the south.
+Seeker hums!
+
+> z
+Time passes...
+
+Holga stumbles off to the west.
+
+Arthur pulls himself away to the west.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Holga stumbles in from the west.
+Seeker hums!
+
+Arthur pulls himself in from the west.
+Seeker hums!
+You manage to avoid Arthur's attack.
+
+> z
+Time passes...
+
+Holga stumbles off to below.
+
+Arthur pulls himself away to the east.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Holga stumbles in from below.
+Seeker hums!
+
+Arthur pulls himself in from the east.
+Seeker hums!
+
+> z
+Time passes...
+
+Holga stumbles off to below.
+
+Arthur pulls himself away to the east.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Holga stumbles in from below.
+Seeker hums!
+
+Boris lumbers in from the east.
+Seeker hums!
+
+> z
+Time passes...
+
+Holga stumbles off to the west.
+
+Boris drags himself off to below.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Holga stumbles in from the west.
+Seeker hums!
+
+Jarris staggers in from the east.
+Seeker hums!
+
+Boris lumbers in from below.
+Seeker hums!
+
+> z
+Time passes...
+
+Holga stumbles off to the south.
+
+Jarris lumbers off to the west.
+
+Boris drags himself off to the west.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Jarris staggers in from the west.
+Seeker hums!
+
+Boris lumbers in from the west.
+Seeker hums!
+
+Arthur pulls himself in from the east.
+Seeker hums!
+You manage to avoid Arthur's attack.
+
+> z
+Time passes...
+
+Jarris lumbers off to the south.
+
+Boris drags himself off to below.
+
+Arthur pulls himself away to the east.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Holga stumbles in from the south.
+Seeker hums!
+
+Boris lumbers in from below.
+Seeker hums!
+
+> z
+Time passes...
+
+Holga stumbles off to below.
+
+Boris drags himself off to the west.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Holga stumbles in from below.
+Seeker hums!
+
+Jarris staggers in from the south.
+Seeker hums!
+
+Boris lumbers in from the west.
+Seeker hums!
+
+Arthur pulls himself in from the east.
+Seeker hums!
+You manage to avoid Arthur's attack.
+
+> z
+Time passes...
+
+Holga stumbles off to the east.
+
+Jarris lumbers off to the east.
+
+Boris drags himself off to the south.
 
 Arthur pulls himself away to the south.
 
@@ -1531,50 +1768,29 @@ the light of day makes it harder for him to see.
 Seeker Hums!
 
 > attack boris
-You stab Boris with the sword.
-Boris falls down, quite dead.
+I don't understand what you want me to do with the dead Boris zombie.
 
-Boris lumbers in.
+Holga stumbles in from the east.
+Seeker hums!
+
+Jarris staggers in from the east.
 Seeker hums!
 Seeker Hums!
 
 > z
 Time passes...
 
-Boris drags himself off to the south.
+Holga stumbles off to the west.
+
+Jarris lumbers off to the west.
 
 Lazaraz rides away to the west.
 
 > attack boris
 I don't understand what you want me to do with the dead Boris zombie.
 
-Boris lumbers in from the south.
+Holga stumbles in from the west.
 Seeker hums!
-
-> z
-Time passes...
-
-Boris drags himself off to the south.
-
-Lazaraz rides over from the west.
-Seeker Hums!
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Jarris staggers in from the south.
-Seeker hums!
-Seeker Hums!
-
-> z
-Time passes...
-
-Jarris lumbers off to the west.
-
-Lazaraz rides away to the north.
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
 
 Jarris staggers in from the west.
 Seeker hums!
@@ -1585,21 +1801,52 @@ Seeker hums!
 > z
 Time passes...
 
-Jarris lumbers off to the east.
+Holga stumbles off to the east.
 
-Boris drags himself off to the south.
+Jarris lumbers off to below.
 
-Lazaraz rides over from the north.
+Boris drags himself off to below.
+
+Lazaraz rides over from the west.
 Seeker Hums!
 
 > attack boris
 I don't understand what you want me to do with the dead Boris zombie.
+
+Jarris staggers in from below.
+Seeker hums!
+
+Boris lumbers in from below.
+Seeker hums!
 Seeker Hums!
 
 > z
 Time passes...
 
-Lazaraz rides away to the south.
+Jarris lumbers off to the east.
+
+Boris drags himself off to the west.
+
+Lazaraz rides away to the west.
+
+> attack boris
+I don't understand what you want me to do with the dead Boris zombie.
+
+Holga stumbles in from the east.
+Seeker hums!
+
+Boris lumbers in from the west.
+Seeker hums!
+
+> z
+Time passes...
+
+Holga stumbles off to the south.
+
+Boris drags himself off to below.
+
+Lazaraz rides over from the west.
+Seeker Hums!
 
 > attack boris
 I don't understand what you want me to do with the dead Boris zombie.
@@ -1607,229 +1854,19 @@ I don't understand what you want me to do with the dead Boris zombie.
 Jarris staggers in from the east.
 Seeker hums!
 
-> z
-Time passes...
-
-Jarris lumbers off to the west.
-
-Lazaraz rides over from the south.
-Seeker Hums!
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Jarris staggers in from the west.
-Seeker hums!
-Seeker Hums!
-
-> z
-Time passes...
-
-Holga stumbles in from the south.
-Seeker hums!
-
-Jarris lumbers off to the south.
-
-Lazaraz rides away to the east.
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Holga stumbles off to the west.
-
-Jarris staggers in from the south.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles in from the west.
-Seeker hums!
-
-Jarris lumbers off to below.
-
-Lazaraz rides over from the east.
-Seeker Hums!
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Holga stumbles off to the east.
-
-Jarris staggers in from below.
-Seeker hums!
-Seeker Hums!
-
-> z
-Time passes...
-
-Holga stumbles in from the east.
-Seeker hums!
-
-Jarris lumbers off to the west.
-
-Lazaraz rides away to the west.
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Holga stumbles off to below.
-
-Jarris staggers in from the west.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles in from below.
-Seeker hums!
-
-Jarris lumbers off to the south.
-
-Lazaraz rides over from the west.
-Seeker Hums!
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Holga stumbles off to the east.
-
-Jarris staggers in from the south.
+Boris lumbers in from below.
 Seeker hums!
 
 Arthur pulls himself in from the south.
 Seeker hums!
 Seeker Hums!
-You manage to avoid Arthur's attack.
 
 > z
 Time passes...
 
-Holga stumbles in from the east.
-Seeker hums!
-
-Jarris lumbers off to the east.
-
-Arthur pulls himself away to below.
-
-Lazaraz rides away to the west.
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Holga stumbles off to below.
-
-Boris lumbers in from the south.
-Seeker hums!
-
-Arthur pulls himself in from below.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles in from below.
-Seeker hums!
+Jarris lumbers off to the south.
 
 Boris drags himself off to below.
-
-Arthur pulls himself away to the east.
-
-Lazaraz rides over from the west.
-Seeker Hums!
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Holga stumbles off to the west.
-
-Boris lumbers in from below.
-Seeker hums!
-
-Arthur pulls himself in from the east.
-Seeker hums!
-Seeker Hums!
-You manage to avoid Arthur's attack.
-
-> z
-Time passes...
-
-Holga stumbles in from the west.
-Seeker hums!
-
-Boris drags himself off to the east.
-
-Arthur pulls himself away to the east.
-
-Lazaraz rides away to the east.
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Holga stumbles off to the south.
-
-Boris lumbers in from the east.
-Seeker hums!
-
-Arthur pulls himself in from the east.
-Seeker hums!
-
-> z
-Time passes...
-
-Boris drags himself off to the west.
-
-Arthur pulls himself away to the east.
-
-Lazaraz rides over from the east.
-Seeker Hums!
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Boris lumbers in from the west.
-Seeker hums!
-Seeker Hums!
-
-> z
-Time passes...
-
-Boris drags himself off to the west.
-
-Lazaraz rides away to the west.
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Jarris staggers in from the east.
-Seeker hums!
-
-Boris lumbers in from the west.
-Seeker hums!
-
-> z
-Time passes...
-
-Jarris lumbers off to the east.
-
-Boris drags himself off to the south.
-
-Lazaraz rides over from the west.
-Seeker Hums!
-
-> attack boris
-I don't understand what you want me to do with the dead Boris zombie.
-
-Arthur pulls himself in from the east.
-Seeker hums!
-Seeker Hums!
-You manage to avoid Arthur's attack.
-
-> z
-Time passes...
-
-Holga stumbles in from the south.
-Seeker hums!
 
 Arthur pulls himself away to the west.
 
@@ -1838,23 +1875,24 @@ Lazaraz rides away to the east.
 > attack boris
 I don't understand what you want me to do with the dead Boris zombie.
 
-Holga stumbles off to the east.
+Jarris staggers in from the south.
+Seeker hums!
 
-Boris lumbers in from the south.
+Boris lumbers in from below.
 Seeker hums!
 
 Arthur pulls himself in from the west.
 Seeker hums!
+You manage to avoid Arthur's attack.
 
 > z
 Time passes...
 
-Holga stumbles in from the east.
-Seeker hums!
+Jarris lumbers off to the south.
 
-Boris drags himself off to the east.
+Boris drags himself off to below.
 
-Arthur pulls himself away to below.
+Arthur pulls himself away to the east.
 
 Lazaraz rides over from the east.
 Seeker Hums!
@@ -1865,15 +1903,11 @@ You move east.
 Outside the blacksmith’s.
 It looks to be in very bad condition; the door hangs off its hinges. East
 leads into the blacksmith’s, while west leads to the Village Square.
-Jarris, a zombie villager, is here.  Boris, a zombie villager, is here.
+Arthur, a zombie villager, is here.
 
 You can move east and west.
-Seeker hums!
-Seeker hums!
 
-Jarris lumbers off to the west.
-
-Boris drags himself off to the west.
+Arthur pulls himself away to the east.
 
 > e
 You move east.
@@ -1883,8 +1917,11 @@ It appears that the blacksmith isn’t home. It also appears that he has taken
 his wares with him, leaving very little for any would-be looters.
 
 Also here is an anvil and a cupboard.
+Arthur, a zombie villager, is here.
 
 You can only move west.
+
+Arthur pulls himself away to the west.
 
 > attack arthur
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1893,132 +1930,140 @@ rephrasing your command.
 > z
 Time passes...
 
-Arthur pulls himself in from the west.
+Jarris staggers in from the west.
 Seeker hums!
-
-> attack arthur
-You stab Arthur with the sword.
-Arthur falls face down as he his finally put out of his misery.
-
-> z
-Time passes...
-
-> attack arthur
-I don't understand what you want me to do with the dead Arthur zombie.
-You are feeling very tired, indeed, and realise you should find somewhere to
-sleep!
-
-> z
-Time passes...
-
-> attack arthur
-I don't understand what you want me to do with the dead Arthur zombie.
-
-> z
-Time passes...
-
-> attack arthur
-I don't understand what you want me to do with the dead Arthur zombie.
-
-> z
-Time passes...
-
-> attack arthur
-I don't understand what you want me to do with the dead Arthur zombie.
-
-Holga stumbles in from the west.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles off to the west.
-
-> attack arthur
-I don't understand what you want me to do with the dead Arthur zombie.
-
-Holga stumbles in from the west.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles off to the west.
-
-> attack arthur
-I don't understand what you want me to do with the dead Arthur zombie.
-
-Holga stumbles in from the west.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles off to the west.
-
-> attack arthur
-I don't understand what you want me to do with the dead Arthur zombie.
-
-Holga stumbles in from the west.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles off to the west.
-
-> attack arthur
-I don't understand what you want me to do with the dead Arthur zombie.
-
-Holga stumbles in from the west.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles off to the west.
-
-> attack arthur
-I don't understand what you want me to do with the dead Arthur zombie.
-
-> z
-Time passes...
-
-> attack arthur
-I don't understand what you want me to do with the dead Arthur zombie.
-
-> z
-Time passes...
-
-> attack arthur
-I don't understand what you want me to do with the dead Arthur zombie.
-
-Holga stumbles in from the west.
-Seeker hums!
-
-> z
-Time passes...
-
-Holga stumbles off to the west.
 
 Boris lumbers in from the west.
 Seeker hums!
 
 Arthur pulls himself in from the west.
 Seeker hums!
+You manage to avoid Arthur's attack.
 
 > attack arthur
 You stab Arthur with the sword.
+Arthur falls face down as he his finally put out of his misery.
 
-Holga stumbles in from the west.
+Jarris lumbers off to the west.
+
+Boris drags himself off to the west.
+You are feeling very tired, indeed, and realise you should find somewhere to
+sleep!
+
+> z
+Time passes...
+
+Jarris staggers in from the west.
 Seeker hums!
+
+Boris lumbers in from the west.
+Seeker hums!
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+Jarris lumbers off to the west.
 
 Boris drags himself off to the west.
 
 > z
 Time passes...
 
-Holga stumbles off to the west.
+Jarris staggers in from the west.
+Seeker hums!
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+Jarris lumbers off to the west.
+
+> z
+Time passes...
+
+Jarris staggers in from the west.
+Seeker hums!
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+Jarris lumbers off to the west.
+
+> z
+Time passes...
+
+Jarris staggers in from the west.
+Seeker hums!
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+Jarris lumbers off to the west.
+
+> z
+Time passes...
+
+Jarris staggers in from the west.
+Seeker hums!
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+Jarris lumbers off to the west.
+
+> z
+Time passes...
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+> z
+Time passes...
+
+Jarris staggers in from the west.
+Seeker hums!
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+Jarris lumbers off to the west.
+
+> z
+Time passes...
+
+Jarris staggers in from the west.
+Seeker hums!
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+Jarris lumbers off to the west.
+
+> z
+Time passes...
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+> z
+Time passes...
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+> z
+Time passes...
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+> z
+Time passes...
+
+> attack arthur
+I don't understand what you want me to do with the dead Arthur zombie.
+
+> z
+Time passes...
 
 > attack arthur
 I don't understand what you want me to do with the dead Arthur zombie.
@@ -2047,6 +2092,9 @@ leads into the blacksmith’s, while west leads to the Village Square.
 
 You can move east and west.
 
+Jarris staggers in from the west.
+Seeker hums!
+
 > w
 You move west.
 
@@ -2057,20 +2105,16 @@ while south leads further into the village.
 
 Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris
 zombie, a dead Boris zombie and a garlic bud.
-Holga, a zombie villager, is here.  Arthur, a zombie villager, is here.
+Lazaraz, servant of Morac, is here.
 
 You can move north, east, south, west and down.
+
+Jarris staggers in from the east.
 Seeker hums!
 
-Holga stumbles off to the south.
-
-Jarris staggers in from the west.
+Arthur pulls himself in from the south.
 Seeker hums!
-
-Boris lumbers in from the west.
-Seeker hums!
-
-Arthur pulls himself away to the east.
+Seeker Hums!
 
 > s
 You move south.
@@ -2081,18 +2125,11 @@ boarded up. To the west lies the Inn of the Giggling Gargoyle; east would
 take you to a long road bending southerly to the village graveyard; southeast
 lies the village church; southwest leads to a small trail that would take you
 out of the village; and directly south lies an open field.
-Holga, a zombie villager, is here.
 
 You can move north, east, south, west, southeast and southwest.
+
+Holga stumbles in from the west.
 Seeker hums!
-
-Holga stumbles off to the east.
-
-Boris lumbers in from the north.
-Seeker hums!
-
-Lazaraz rides over from the south-west.
-Seeker Hums!
 
 > w
 You move west.
@@ -2108,21 +2145,18 @@ Also here is a bar and a shelf.
 
 You can move east, west and up.
 
-Boris lumbers in from the east.
+Holga stumbles in from the east.
 Seeker hums!
 
 > stand on bar
 You stand on the bar.
 
-Boris drags himself off to the east.
+Holga stumbles off to above.
 
 > get bottle
 You take hold of the bottle.
 
-Jarris staggers in from the east.
-Seeker hums!
-
-Boris lumbers in from the east.
+Holga stumbles in from above.
 Seeker hums!
 
 > u
@@ -2134,10 +2168,7 @@ You stand halfway up the spiral staircase. The stairs creak with your weight.
 
 You can move up and down.
 
-Jarris staggers in from below.
-Seeker hums!
-
-Boris lumbers in from below.
+Boris lumbers in from above.
 Seeker hums!
 You hear footsteps and laughter from upstairs. Could Morac have found you
 already?
@@ -2163,7 +2194,7 @@ Boris drags himself off to below.
 > take coin
 You take silver coin.
 
-Jarris staggers in from below.
+Boris lumbers in from below.
 Seeker hums!
 
 > d
@@ -2174,10 +2205,10 @@ You stand halfway up the spiral staircase. The stairs creak with your weight.
 
 You can move up and down.
 
-Jarris staggers in from above.
+Boris lumbers in from above.
 Seeker hums!
 
-Boris lumbers in from below.
+Arthur pulls himself in from below.
 Seeker hums!
 
 > d
@@ -2191,12 +2222,8 @@ opens westward to the kitchen, while a creaky spiral staircase leads up.
 There is a picture, hanging behind the bar, of a giggling gargoyle.
 
 Also here is a bar and a shelf.
-Holga, a zombie villager, is here.
 
 You can move east, west and up.
-Seeker hums!
-
-Holga stumbles off to the east.
 
 > w
 You move west.
@@ -2212,7 +2239,7 @@ You can only move east.
 > open wooden box
 You open the large wooden box.  A leg of lamb is inside the large wooden box.
 Seeker hums!
-You manage to avoid Bambi's attack.
+Bambi hits you, but it doesn't seem to do any damage.
 
 > take lamb
 You take the leg of lamb from the large wooden box.
@@ -2239,12 +2266,21 @@ opens westward to the kitchen, while a creaky spiral staircase leads up.
 There is a picture, hanging behind the bar, of a giggling gargoyle.
 
 Also here is a bar and a shelf.
-Jarris, a zombie villager, is here.
+Holga, a zombie villager, is here.  Jarris, a zombie villager, is here.
+Boris, a zombie villager, is here.  Arthur, a zombie villager, is here.
 
 You can move east, west and up.
 Seeker hums!
+Seeker hums!
+Seeker hums!
 
-Jarris lumbers off to above.
+Holga stumbles off to above.
+
+Jarris lumbers off to the east.
+
+Boris drags himself off to above.
+
+Arthur pulls himself away to above.
 
 > e
 You move east.
@@ -2255,16 +2291,12 @@ boarded up. To the west lies the Inn of the Giggling Gargoyle; east would
 take you to a long road bending southerly to the village graveyard; southeast
 lies the village church; southwest leads to a small trail that would take you
 out of the village; and directly south lies an open field.
-Lazaraz, servant of Morac, is here.
+Jarris, a zombie villager, is here.
 
 You can move north, east, south, west, southeast and southwest.
-
-Holga stumbles in from the east.
 Seeker hums!
 
-Arthur pulls himself in from the east.
-Seeker hums!
-Seeker Hums!
+Jarris lumbers off to the west.
 
 > n
 You move north.
@@ -2276,8 +2308,11 @@ while south leads further into the village.
 
 Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris
 zombie, a dead Boris zombie and a garlic bud.
+Lazaraz, servant of Morac, is here.
 
 You can move north, east, south, west and down.
+
+Lazaraz rides away to the north.
 
 > d
 You move down.
@@ -2292,8 +2327,13 @@ You can only move up.
 > pour liquid out
 You pour out its contents.
 
+Jarris staggers in from above.
+Seeker hums!
+
 > fill bottle with water
 You fill the bottle with some water.
+
+Jarris lumbers off to above.
 
 > u
 You move up.
@@ -2305,17 +2345,19 @@ while south leads further into the village.
 
 Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris
 zombie, a dead Boris zombie and a garlic bud.
-Boris, a zombie villager, is here.
+Jarris, a zombie villager, is here.  Lazaraz, servant of Morac, is here.
 
 You can move north, east, south, west and down.
 Seeker hums!
 
-Boris drags himself off to below.
+Jarris lumbers off to below.
+
+Lazaraz rides away to the south.
 
 > take garlic
 You take the garlic bud.
 
-Boris lumbers in from below.
+Jarris staggers in from below.
 Seeker hums!
 
 > s
@@ -2327,17 +2369,14 @@ boarded up. To the west lies the Inn of the Giggling Gargoyle; east would
 take you to a long road bending southerly to the village graveyard; southeast
 lies the village church; southwest leads to a small trail that would take you
 out of the village; and directly south lies an open field.
-Holga, a zombie villager, is here.  Arthur, a zombie villager, is here.
+Lazaraz, servant of Morac, is here.
 
 You can move north, east, south, west, southeast and southwest.
+
+Boris lumbers in from the west.
 Seeker hums!
 
-Holga stumbles off to the east.
-
-Jarris staggers in from the east.
-Seeker hums!
-
-Arthur pulls himself away to the west.
+Lazaraz rides away to the north.
 
 > s
 You move south.
@@ -2345,10 +2384,8 @@ You move south.
 The village fields.
 The village fields must of been where the villagers planted their crops. The
 field is fenced off to the south.
-Lazaraz, servant of Morac, is here.
 
 You can move north, east, west and northeast.
-Seeker Hums!
 
 > w
 You move west.
@@ -2375,11 +2412,8 @@ boarded up. To the west lies the Inn of the Giggling Gargoyle; east would
 take you to a long road bending southerly to the village graveyard; southeast
 lies the village church; southwest leads to a small trail that would take you
 out of the village; and directly south lies an open field.
-Lazaraz, servant of Morac, is here.
 
 You can move north, east, south, west, southeast and southwest.
-
-Lazaraz rides away to the south.
 
 > se
 You move southeast.
@@ -2471,9 +2505,6 @@ northern edge of the Webbed Woods.
 
 You can move east, south, west, northeast and southwest.
 
-Lazaraz rides over from the south.
-Seeker Hums!
-
 > s
 You move south.
 
@@ -2527,13 +2558,6 @@ You stab Haraxis with the sword.
 
 > z
 Time passes...
-Haraxis hits you, but it doesn't seem to do any damage.
-
-> attack haraxis
-You stab Haraxis with the sword.
-
-> z
-Time passes...
 
 Haraxis skitters off to below.
 
@@ -2575,7 +2599,7 @@ You stab Haraxis with the sword.
 
 > z
 Time passes...
-Haraxis hits you, but it doesn't seem to do any damage.
+Haraxis hits you.
 
 > attack haraxis
 You stab Haraxis with the sword.
@@ -2583,6 +2607,13 @@ You stab Haraxis with the sword.
 > z
 Time passes...
 Haraxis hits you.
+
+> attack haraxis
+You stab Haraxis with the sword.
+
+> z
+Time passes...
+Haraxis hits you, but it doesn't seem to do any damage.
 
 > attack haraxis
 You stab Haraxis with the sword.
@@ -2682,22 +2713,22 @@ rephrasing your command.
 
 > z
 Time passes...
-
-> attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-
-> attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
 You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
+
+> attack haraxis
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
+
+> attack haraxis
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> z
+Time passes...
 
 > attack haraxis
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -2829,7 +2860,6 @@ You can only move north.
 A thin mist gathers here. It turns into a female form. Maretta, vampire wife
 of Morac, has arrived. She blocks your entrance into the castle.
 Seeker hums!
-Maretta hits you.
 
 > z
 Time passes...
@@ -2883,10 +2913,10 @@ the arched ceiling, where four stone gargoyles survey the room from above.
 Decoration in here is sparse apart from a main hall staircase that winds
 upwards to the next level, but this is somewhat obscured by the majestic pipe
 organ that rests in the centre of this room.
+Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
-
-Berto flutters in.
+A bat swoops down from above and darts off into the shadows.
 Abruptly the music stops...
 Seeker hums!
 Berto is walking up and down on the pipe organ.
@@ -2898,34 +2928,31 @@ from what you are doing as the four stone gargoyles in the main hall spring
 to life! They unfold their wings and start to fly down, menacingly, towards
 you.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
-Gargoyle #4 cuts you with the glaive, but it doesn't seem to do any damage.
 
 > attack gargoyle #2
 You stab Gargoyle #2 with the sword.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
 brimstone…
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #3 attacks you with the pike, but you manage to avoid it.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 > attack gargoyle #3
 You stab Gargoyle #3 with the sword.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
 brimstone…
-
-Melvin waddles in from the east.
 Seeker hums!
-"Hello there. Melvin’s the name, and riddles are my game. Up, up to the very
-top; up, up, you must not stop; up, up to the very top; once you’re there, no
-need to knock," says Melvin, looking rather pleased with himself.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #4 cuts you with the glaive, but it doesn't seem to do any damage.
 
 > attack gargoyle #4
 You stab Gargoyle #4 with the sword.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
 brimstone…
 Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 > s
 You move south.
@@ -2941,11 +2968,9 @@ Seeker hums!
 
 > drop sword
 You drop the sword.
-Dong! You hear a bell toll elsewhere in the castle.
 
 > drop shield
 You drop the Shield.
-A bat swoops down from above and darts off into the shadows.
 
 > swim
 You plunge into the fountain.
@@ -2986,21 +3011,24 @@ fountain that resides in its centre. To the north lies the main hall.
 
 Also here is a sword, a Shield and gold coin.
 
+You can only move north.
+A black cat suddenly darts in front of you and off into the shadows.
+
 > take sword
 You take the sword.
 
 Gargoyle #1 flies in from the north.
 Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 > take shield
 You take the Shield.
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > take gold coin
 You take gold coin.
 Seeker hums!
-You hear the sound of a cat’s "meow".
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > n
@@ -3014,8 +3042,6 @@ obscured by the majestic pipe organ that rests in the centre of this room.
 Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
-
-Melvin waddles in from the west.
 Seeker hums!
 
 > e
@@ -3027,6 +3053,12 @@ This is a very long room. The smell of freshly-cooked venison fills the air.
 Also here is a table.
 
 You can move east and west.
+Seeker hums!
+You hear the sound of a cat’s "meow".
+
+> x table
+It is a large table, made out of some very expensive wood, no doubt; it is
+very well-polished.  Some venison is on the table.
 Seeker hums!
 
 > take venison
@@ -3041,31 +3073,20 @@ This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
 obscured by the majestic pipe organ that rests in the centre of this room.
-Melvin the Butler is here.
 Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
-
-Melvin waddles out to the east.
 Seeker hums!
-You hear Melvin singing. He must be somewhere nearby.
+
+> z
+Time passes...
+Seeker hums!
 
 > z
 Time passes...
 Seeker hums!
 You see a pair of cat’s eyes looking at you from the shadows. As soon as you
 notice them, they are gone.
-
-> z
-Time passes...
-Seeker hums!
-
-> z
-Time passes...
-
-Melvin waddles in from the east.
-Seeker hums!
-Berto squawks the words, "Quoth said the raven....... nevermore!"
 
 > z
 Time passes...
@@ -3077,25 +3098,8 @@ Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 > z
 Time passes...
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-
-> z
-Time passes...
-
-Melvin waddles out to the west.
-Seeker hums!
-Berto squawks the words, "Quoth said the raven....... nevermore!"
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-
-> z
-Time passes...
-Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-
-> z
-Time passes...
-Seeker hums!
-You hear the shuffling of feet elsewhere in the castle.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 > z
 Time passes...
@@ -3107,23 +3111,22 @@ damage.
 Time passes...
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+
+> z
+Time passes...
+A bat swoops down from above and darts off into the shadows.
+Seeker hums!
 
 > z
 Time passes...
 
 Berto flies out of the room.
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-
-> z
-Time passes...
-Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 > z
 Time passes...
-A bat swoops down from above and darts off into the shadows.
 Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
@@ -3135,13 +3138,28 @@ Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > z
 Time passes...
+Seeker hums!
 
-Melvin waddles in from the west.
+> z
+Time passes...
 
 Berto flutters in.
-Berto squawks, "Melvin’s a nutter, he lives in a gutter, squwark."
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+
+> z
+Time passes...
+Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+
+> z
+Time passes...
+Seeker hums!
+
+> z
+Time passes...
+Seeker hums!
+Gargoyle #1 stabs you with the military fork.
 
 > z
 Time passes...
@@ -3163,9 +3181,8 @@ Zandos, the demon, is here.
 Zandos paces back and forth inside the pentagram.
 
 You can move east, south and west.
-
-Melvin waddles in from the east.
 Seeker hums!
+Zandos sighs...
 Seeker hums!
 "Hello, friend" says a most unsavoury voice coming from the huge tentacled
 monstrosity which stands entrapped in the pentagram. "My name is Zandos. Is
@@ -3217,10 +3234,13 @@ away by woodworm, leaving only the dusty remains. North leads back to the
 pentagram room, while from the south you can feel a cool breeze.
 
 Also here is a desk.
-Melvin the Butler is here.
 
 You can move north and south.
+
+Gargoyle #1 flies in.
 Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 > n
 You move north.
@@ -3233,9 +3253,8 @@ Zandos, the demon, is here.
 Zandos paces back and forth inside the pentagram.
 
 You can move east, south and west.
-
-Gargoyle #1 flies in from the east.
 Seeker hums!
+Zandos grinds his teeth impatiently.
 Seeker hums!
 The demon’s eyes watch you as you move about the room.
 
@@ -3251,7 +3270,6 @@ Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
 Seeker hums!
-You hear Melvin singing. He must be somewhere nearby.
 
 > e
 You move east.
@@ -3274,8 +3292,12 @@ equipment being full of grime and dirt. West leads to the dining room.
 Also here is a archway.
 
 You can move south, west and down.
+
+Melvin waddles in from below.
 Seeker hums!
-A black cat suddenly darts in front of you and off into the shadows.
+"Hello there. Melvin’s the name, and riddles are my game. Up, up to the very
+top; up, up, you must not stop; up, up to the very top; once you’re there, no
+need to knock," says Melvin, looking rather pleased with himself.
 
 > d
 You move down.
@@ -3284,18 +3306,7 @@ The cellar stairs.
 You stand at the halfway point of the cellar stairs.
 
 You can move up and down.
-
-Woody scampers in from below.
-Woody, the wererat, strokes his exceptionally long snout with one of his
-hands, and sniffs the air around you.
 Seeker hums!
-You hear the shuffling of feet elsewhere in the castle.
-Woody, the wererat, starts a coughing fit. His ribs nearly burst through his
-skinny body. The sound he makes is horrible, and phlegm flies everywhere from
-his long snout. Then he seems to regain his composure, and looks at you with
-disgust in his small beady eyes.
-Woody moans and wines about something totally irrelevant, then turns round
-and casually spits on you.
 
 > d
 You move down.
@@ -3309,6 +3320,7 @@ water.
 
 You can move north, east and up.
 Seeker hums!
+Dong! You hear a bell toll elsewhere in the castle.
 
 > e
 You move east.
@@ -3335,10 +3347,16 @@ Also here is a pile of rubble.
 You can only move north.
 Seeker hums!
 
+> x rubble
+The rubble is made up of huge chunks of stone.  A chisel is on the pile of
+rubble.
+Seeker hums!
+
 > take chisel
 You take the chisel from the pile of rubble.
+
+Gargoyle #1 flies in.
 Seeker hums!
-Dong! You hear a bell toll elsewhere in the castle.
 
 > n
 You move north.
@@ -3364,10 +3382,6 @@ darkness, while to the east you hear the sound of rats and the lapping of
 water.
 
 You can move north, east and up.
-
-Gargoyle #1 flies in.
-
-Woody scampers in from the north.
 Seeker hums!
 
 > u
@@ -3378,6 +3392,7 @@ You stand at the halfway point of the cellar stairs.
 
 You can move up and down.
 Seeker hums!
+You hear the sound of a cat’s "meow".
 
 > u
 You move up.
@@ -3401,8 +3416,6 @@ Also here is a table.
 
 You can move east and west.
 Seeker hums!
-You see a pair of cat’s eyes looking at you from the shadows. As soon as you
-notice them, they are gone.
 
 > w
 You move west.
@@ -3451,8 +3464,12 @@ Seeker hums!
 
 > take brooch
 You take the brooch from the coffin #7.
+
+Gargoyle #1 flies in.
 Seeker hums!
 Seeker hums!
+You hear Melvin singing. He must be somewhere nearby.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > s
 You move south.
@@ -3472,15 +3489,14 @@ The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
-obscured by the majestic pipe organ that rests in the centre of this room.
-Berto, the bald raven, is here.  A faint mist swirls around you.
+obscured by the majestic pipe organ that rests in the centre of this room.  A
+faint mist swirls around you.
 
 You can move north, east, south, west, up and down.
 
-Gargoyle #1 flies in.
-
-Berto flies out of the room.
+Berto flutters in.
 Seeker hums!
+You hear the shuffling of feet elsewhere in the castle.
 
 > w
 You move west.
@@ -3528,7 +3544,6 @@ A faint mist swirls around you.
 
 You can move north and south.
 Seeker hums!
-Dong! You hear a bell toll elsewhere in the castle.
 
 > n
 You move north.
@@ -3561,11 +3576,18 @@ here.
 Also here is a shrine.  A faint mist swirls around you.
 
 You can only move south.
-A bat swoops down from above and darts off into the shadows.
 Seeker hums!
 You suddenly feel rather dizzy, so dizzy that you black out and fall to the
 ground unconscious. When you awake, you do not know how long you have been
 unconscious for, but you feel much better now.
+
+> x shrine
+The shrine is dedicated to Xeros, the god of murder.  A scroll is on the
+shrine.
+
+Gargoyle #1 flies in.
+Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > take scroll
 You take the scroll from the shrine.
@@ -3591,10 +3613,7 @@ This dark passage slopes downwards from south to north.
 A faint mist swirls around you.
 
 You can move north and south.
-
-Gargoyle #1 flies in.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork.
 
 > s
 You move south.
@@ -3626,6 +3645,7 @@ you.
 
 You can move east, south and west.
 Seeker hums!
+Zandos sighs...
 Seeker hums!
 The demon’s eyes watch you as you move about the room.
 
@@ -3654,6 +3674,7 @@ Berto, the bald raven, is here.  A faint mist swirls around you.
 
 You can move north, east, south, west, up and down.
 Seeker hums!
+You feel the hairs on the back your neck stand up.
 
 > u
 You move up.
@@ -3664,7 +3685,6 @@ you.
 
 You can move up and down.
 Seeker hums!
-You feel the hairs on the back your neck stand up.
 
 > u
 You move up.
@@ -3676,17 +3696,21 @@ flickers from under it.
 Also here is steel door.  A faint mist swirls around you.
 
 You can only move down.
+
+Gargoyle #1 flies in.
 Seeker hums!
 
 > unlock steel door with brooch
 You unlock steel door with the brooch.
 Seeker hums!
 You hear the shuffling of feet elsewhere in the castle.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > open steel door
 You open steel door.
 Seeker hums!
-You hear Melvin singing. He must be somewhere nearby.
+You are feeling very tired, indeed, and realise you should find somewhere to
+sleep!
 
 > n
 You move north.
@@ -3698,15 +3722,8 @@ compass. A cool breeze comes from the west.
 Also here is steel door.
 
 You can move north, east, south and west.
-
-Gargoyle #1 flies in.
 Seeker hums!
-Suddenly a grotesque form of a man enters the room, completely bald, eyes of
-white marble, and with fangs that hang over his bottom lip. He wears a black
-suit and cape, the lining of which is deep red. You realise that this is
-Morac! He seems to be looking for something.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
+You hear Melvin singing. He must be somewhere nearby.
 
 > n
 You move north.
@@ -3720,6 +3737,7 @@ You can only move south.
 "Colos at your service, sir, but first, the password, if you please," booms
 the golem.
 Seeker hums!
+Dong! You hear a bell toll elsewhere in the castle.
 
 > attack golem
 You stab Colos with the sword.
@@ -3736,8 +3754,6 @@ You stab Colos with the sword.
 Seeker hums!
 "What is the password?" booms the golem again.
 Seeker hums!
-You are feeling very tired, indeed, and realise you should find somewhere to
-sleep!
 
 > attack golem
 You stab Colos with the sword.
@@ -3754,6 +3770,8 @@ Seeker hums!
 
 > say carom
 BOOM! The golem explodes in a shower of dust.
+
+Gargoyle #1 flies in.
 Seeker hums!
 
 > eat venison
@@ -3761,6 +3779,7 @@ You eat the venison.  Not bad, but it could do with a pinch of salt!
 Mmm, that made you feel much better. But you can’t help feeling that someone
 is trying to fatten you up.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > s
 You move south.
@@ -3770,7 +3789,6 @@ You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
 
 Also here is steel door.
-Gargoyle #1 is here.
 
 You can move north, east, south and west.
 Seeker hums!
@@ -3785,11 +3803,7 @@ flickers from under it.
 Also here is steel door.
 
 You can move north and down.
-
-Gargoyle #1 flies in from the north.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
 
 > d
 You move down.
@@ -3808,10 +3822,10 @@ This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
 obscured by the majestic pipe organ that rests in the centre of this room.
-Melvin the Butler is here.
-Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
+
+Berto flutters in.
 Seeker hums!
 
 > e
@@ -3851,7 +3865,10 @@ equipment being full of grime and dirt. West leads to the dining room.
 Also here is a archway.
 
 You can move south, west and down.
+
+Gargoyle #1 flies in.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > s
 You move south.
@@ -3863,7 +3880,6 @@ west, east, and south.
 
 You can move north, east, south and west.
 Seeker hums!
-You hear the shuffling of feet elsewhere in the castle.
 
 > w
 You move west.
@@ -3878,11 +3894,7 @@ Seeker hums!
 
 > take stake
 You take the stake.
-
-Gargoyle #1 flies in.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
 
 > e
 You move east.
@@ -3903,11 +3915,11 @@ This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
 
 Also here is a archway.
+Gargoyle #1 is here.
 
 You can move south, west and down.
-
-Woody scampers in from below.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > w
 You move west.
@@ -3916,11 +3928,8 @@ The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
 
 Also here is a table.
-Melvin the Butler is here.
 
 You can move east and west.
-
-Melvin waddles out to the east.
 Seeker hums!
 
 > w
@@ -3934,8 +3943,8 @@ obscured by the majestic pipe organ that rests in the centre of this room.
 Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
-A bat swoops down from above and darts off into the shadows.
 Seeker hums!
+Dong! You hear a bell toll elsewhere in the castle.
 
 > d
 You move down.
@@ -3966,13 +3975,17 @@ Seeker hums!
 
 > take silver key
 You take silver key.
+
+Gargoyle #1 flies in.
 Seeker hums!
 Seeker hums!
+You hear Melvin singing. He must be somewhere nearby.
 
 > unlock cell door with silver key
 You unlock the cell door with silver key.
 Seeker hums!
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > open cell door
 You open the cell door.
@@ -3983,23 +3996,22 @@ its hinges. Hair quickly starts to grow all over her body. You stand,
 stunned, as she continues to destroy the cell. Suddenly she stops and stands
 transformed before you. Margo, the village maid, is a werewolf.
 Seeker hums!
-Margo hits you.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Margo hits you, but it doesn't seem to do any damage.
 
 > attack margo with sword
 You stab Margo with the sword.
 Margo falls backward, and her eyes roll up into her head. Phew, she is dead.
 
-Gargoyle #1 flies in.
-
 Margo enters.
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > attack margo with sword
 You stab Margo with the sword.
 
 Margo enters.
 Seeker hums!
+You hear the shuffling of feet elsewhere in the castle.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
@@ -4027,7 +4039,6 @@ northward.
 You can move north and south.
 Seeker hums!
 Seeker hums!
-Dong! You hear a bell toll elsewhere in the castle.
 
 > open coffin #2
 You open the coffin #2.  A sceptre is inside the coffin #2.
@@ -4050,9 +4061,12 @@ Seeker hums!
 
 > open coffin #11
 You open the coffin #11.
+
+Gargoyle #1 flies in.
 Seeker hums!
 Seeker hums!
 The coffin is empty. You can only wonder where the occupant is now.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > s
 You move south.
@@ -4064,7 +4078,6 @@ main hall stairs lead back up.
 
 You can move north, south and up.
 Seeker hums!
-You hear Melvin singing. He must be somewhere nearby.
 
 > u
 You move up.
@@ -4074,11 +4087,10 @@ This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
 obscured by the majestic pipe organ that rests in the centre of this room.
-Woody, the wererat, is here.  Berto, the bald raven, is here.
+Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
 Seeker hums!
-Berto squawks the words, "Quoth said the raven....... nevermore!"
 
 > u
 You move up.
@@ -4087,10 +4099,7 @@ The main hall stairs.
 You stand halfway up the main hall staircase.
 
 You can move up and down.
-
-Gargoyle #1 flies in.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork.
 
 > u
 You move up.
@@ -4140,7 +4149,6 @@ your bravery, you shall be rewarded." As she says this, she hands you a
 golden key. "Good luck, brave sir knight," she says, "I will join my true
 love at last. Thank you, so very much." And with this, she vanishes.
 Seeker hums!
-You hear the shuffling of feet elsewhere in the castle.
 
 > unlock iron chest with golden key
 You unlock iron chest with golden key.
@@ -4152,6 +4160,8 @@ Seeker hums!
 
 > take ballista bolt
 You take the ballista bolt from iron chest.
+
+Gargoyle #1 flies in.
 Seeker hums!
 
 > w
@@ -4184,12 +4194,9 @@ The steps end here at a single wooden door on the northern wall.
 Also here is wooden door.
 
 You can only move down.
-
-Gargoyle #1 flies in.
 Seeker hums!
 You suddenly feel slightly lightheaded, with the horrible feeling of
 butterflies in your stomach. You realise that Morac must be very close by.
-Gargoyle #1 stabs you with the military fork.
 
 > wear shield
 You put on the Shield.
@@ -4198,8 +4205,6 @@ Seeker hums!
 > open wooden door
 You open wooden door.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
 
 > n
 You move north.
@@ -4222,6 +4227,7 @@ tactic. His eyes fix on your own as he tries to hypnotize you.
 > look away
 You do so, thwarting Morac’s attack yet again.
 Seeker hums!
+You hear Melvin singing. He must be somewhere nearby.
 Morac’s face turns red with rage. He suddenly holds one hand up, palm open,
 as you feel a tugging sensation from your chest.
 
@@ -4243,7 +4249,6 @@ Morac flies around the castle on his black dragon.
 
 You can move south and down.
 Seeker hums!
-You hear the shuffling of feet elsewhere in the castle.
 
 > d
 You move down.
@@ -4255,7 +4260,12 @@ grow here; they climb the tower’s wall to a shuttered window high above.
 Morac flies around the castle on his black dragon.
 
 You can move north and up.
+
+Gargoyle #1 flies in.
 Seeker hums!
+You hear the shuffling of feet elsewhere in the castle.
+Dong! You hear a bell toll elsewhere in the castle.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > n
 You move north.
@@ -4279,14 +4289,38 @@ ocean. Morac seems to have vanished. Then you catch a glimpse of a bat flying
 northward to the stone henge.
 Seeker hums!
 
-> attack gargoyle #1 with sword
-I don't understand what you want me to do with the sword.
-
-Gargoyle #1 flies in.
+> z
+Time passes...
 Seeker hums!
 
-> attack gargoyle #1 with sword
-You stab Gargoyle #1 with the sword.
+> z
+Time passes...
+Seeker hums!
+
+> z
+Time passes...
+Seeker hums!
+
+> z
+Time passes...
+Seeker hums!
+
+> z
+Time passes...
+Seeker hums!
+
+> z
+Time passes...
+Seeker hums!
+
+> z
+Time passes...
+Seeker hums!
+
+> z
+Time passes...
+
+Gargoyle #1 flies in from the south.
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
@@ -4331,11 +4365,8 @@ The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
 
 Also here is a table.
-Woody, the wererat, is here.
 
 You can move east and west.
-
-Woody scampers away to the west.
 
 > e
 You move east.
@@ -4394,10 +4425,8 @@ This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
 
 Also here is a archway.
-Woody, the wererat, is here.
 
 You can move south, west and down.
-You hear Melvin singing. He must be somewhere nearby.
 
 > w
 You move west.
@@ -4408,8 +4437,7 @@ This is a very long room. The smell of freshly-cooked venison fills the air.
 Also here is a table.
 
 You can move east and west.
-
-Woody scampers in from the east.
+You hear the shuffling of feet elsewhere in the castle.
 
 > w
 You move west.
@@ -4445,6 +4473,7 @@ northward.
 
 You can move north and south.
 Seeker hums!
+You hear Melvin singing. He must be somewhere nearby.
 
 > n
 You move north.
@@ -4473,13 +4502,16 @@ leads south, away from the henge, while another leads north into the forest.
 
 Also here is a body.
 Fetlar the overly fetid is here.  Morac is here.
-It is raining...  There is a portal here.
+There is a portal here.
+
+You can move north, east, south and west.
+Fetlar smiles and sniffs the air, as a foul smell erupts from him.
 
 > kill morac
 You cleave Morac’s skull with the sceptre. A white flash of light, followed
 by a loud bang, fills the area. Morac explodes into dust. You have finally
 defeated him.
-You hear the distant howling of wolves.
+It starts to rain...
 
 > e
 You move east.
@@ -4658,6 +4690,8 @@ The sunlight streams into the entrance hall of the cave, making visible a
 room further into the east. West leads back out onto the grassy plains.
 
 You can move east and west.
+You are feeling very tired, indeed, and realise you should find somewhere to
+sleep!
 
 > w
 You move west.
@@ -4696,7 +4730,6 @@ Shadow Forest gap.
 To the east, there is a gap in the forest’s trees.
 
 You can move north, east and west.
-You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"
 
 > w
 You move west.
@@ -4709,9 +4742,11 @@ silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
 
 Also here is a body.
-Fetlar the overly fetid is here.  There is a portal here.
+Fetlar the overly fetid is here.  It is raining...  There is a portal here.
 
 You can move north, east, south and west.
+Fetlar grabs one of the flies that circle around his rear, pops it in his
+mouth, and swallows it.
 
 > w
 You move west.
@@ -4721,16 +4756,18 @@ You stand amidst the Shadow Forest.
 
 You can move north, east, south, west, southwest and northwest.
 
+Rossi creeps in.
+Rossi looks nervously about with its large goggle eyes. It looks frightened.
+
 > nw
 You move northwest.
 
 Great Swamp.
 You stand in the Great Swamp.
+It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
-You hear the flutter of batlike wings.
-You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 > n
 You move north.
@@ -4740,12 +4777,13 @@ You see the great Kuskarian Range mountains blocking your path northward,
 although those huge double doors may be of some use if you would happen to
 want to go in that direction.
 
-Also here is a double doors.
+Also here is a double doors.  It is raining...
 
 You can move east, south, west, southeast and southwest.
 
 > unlock double doors with triangular piece of metal
 You unlock the double doors with the triangular piece of metal.
+You hear the flutter of batlike wings.
 
 > open double doors
 You open the double doors.
@@ -4762,8 +4800,6 @@ Suddenly a huge stone block slams down behind you, blocking you in! The block
 has words carved into it.
 The huge stone block starts sliding slowly northward. It looks like it would
 crush you against the northern wall, if given time to do so.
-You are feeling very tired, indeed, and realise you should find somewhere to
-sleep!
 
 > open golden chest
 You open golden chest.  A lever is inside golden chest.
@@ -4971,12 +5007,14 @@ You can move east and west.
 As you stepped into this corridor, there was a sudden flash of light, which
 made you feel a bit disoriented. You realise the way you came into this area
 is no longer visible.
+A spear suddenly hurtles toward you, and hits you squarely in the chest.
+Something or someone must have thrown it at you, and by the force it hit you
+with, they must be rather strong indeed.
 
 > eat venison
 You eat the venison.  Not bad, but it could do with a pinch of salt!
 Mmm, that made you feel much better. But you can’t help feeling that someone
 is trying to fatten you up.
-All is quiet in here...
 
 > e
 You move east.
@@ -4985,9 +5023,6 @@ Maze.
 You stand in a smooth-walled corridor.
 
 You can move north, east and west.
-A spear suddenly hurtles toward you, and hits you squarely in the chest.
-Something or someone must have thrown it at you, and by the force it hit you
-with, they must be rather strong indeed.
 
 > e
 You move east.
@@ -5024,8 +5059,6 @@ You move west.
 Maze.
 You stand in a smooth-walled corridor.
 
-Also here is a spear.
-
 You can move north, east and west.
 
 > w
@@ -5033,6 +5066,8 @@ You move west.
 
 Maze
 You stand in a smooth-walled corridor.
+
+Also here is a spear.
 
 You can move east and west.
 
@@ -5198,33 +5233,9 @@ You move south.
 
 Maze.
 You stand in a smooth-walled corridor.
-
-You can move north and south.
-
-> s
-You move south.
-
-Maze.
-You stand in a smooth-walled corridor.
-Damastus, the minotaur, is here!
-
-You can move north, east and south.
-
-Damastus lumbers off to the north.
-
-> n
-You move north.
-
-Maze.
-You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!
 
 You can move north and south.
-Seeker Hums!
-You manage to avoid Damastus's attack.
-
-> attack damastus
-You stab Damastus with the sword.
 
 Damastus lumbers off to the north.
 
@@ -5265,7 +5276,7 @@ You move north.
 
 Maze.
 You stand in a smooth-walled corridor.
-Damastus, the minotaur, is here!
+Damastus, the minotaur, is here!  Chin on legs is here.
 
 You can move north, east, south and west.
 Seeker Hums!
@@ -5274,16 +5285,32 @@ You manage to avoid Damastus's attack.
 > attack damastus
 You stab Damastus with the sword.
 
-Damastus lumbers off to the north.
+Damastus lumbers off to the south.
 
-> n
-You move north.
+> s
+You move south.
 
 Maze.
 You stand in a smooth-walled corridor.
-Damastus, the minotaur, is here!  Chin on legs is here.
+Damastus, the minotaur, is here!
 
 You can move north and south.
+Seeker Hums!
+You manage to avoid Damastus's attack.
+
+> attack damastus
+You stab Damastus with the sword.
+
+Damastus lumbers off to the south.
+
+> s
+You move south.
+
+Maze.
+You stand in a smooth-walled corridor.
+Damastus, the minotaur, is here!
+
+You can move north, east and south.
 Seeker Hums!
 You manage to avoid Damastus's attack.
 
@@ -5292,13 +5319,36 @@ You stab Damastus with the sword.
 Damastus screams in pain, and, with that, falls to the ground with a loud
 thud!
 
-Chin scuttles to the south.
+> n
+You move north.
+
+Maze.
+You stand in a smooth-walled corridor.
+
+You can move north and south.
 
 > n
 You move north.
 
 Maze.
 You stand in a smooth-walled corridor.
+
+You can move north, east, south and west.
+
+> n
+You move north.
+
+Maze.
+You stand in a smooth-walled corridor.
+
+You can move north and south.
+
+> n
+You move north.
+
+Maze.
+You stand in a smooth-walled corridor.
+Chin on legs is here.
 
 You can move north, east and south.
 
@@ -5314,6 +5364,8 @@ You can move south and west.
 
 > press bronze button
 Click! You do so.
+
+Chin scuttles from the south.
 
 > w
 You move west.
@@ -5386,7 +5438,6 @@ You stand in the Great Swamp.
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
-A chill wind blows southerly.
 
 > se
 You move southeast.
@@ -5461,6 +5512,8 @@ with a large wooden pole.
 Time passes...
 As the ferryman gets closer, you notice his head is that of a grinning skull
 partially hidden by the robes that he wears.
+You are feeling very tired, indeed, and realise you should find somewhere to
+sleep!
 
 > z
 Time passes...
@@ -5555,18 +5608,22 @@ You stab Cerberus with the sword.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker Hums!
+You manage to avoid Cerberus's attack.
+
+> attack cerberus
+You stab Cerberus with the sword.
+Seeker Hums!
+Cerberus' serpent tail lashes round and tries to bite you with its poisonous
+fangs, but you manage to deflect the blow with the shield you are wearing.
+Seeker Hums!
+Cerberus' serpent tail lashes round and bites your arm with its poisonous
+fangs, but your arm greaves deflect the blow.
 Cerberus hits you, but it doesn't seem to do any damage.
 
 > attack cerberus
 You stab Cerberus with the sword.
 Cerberus yelps, and falls to the hot cavernous floor, dead. Its body slowly
 fades away.
-You are feeling very tired, indeed, and realise you should find somewhere to
-sleep!
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
 
 > n
 You move north.

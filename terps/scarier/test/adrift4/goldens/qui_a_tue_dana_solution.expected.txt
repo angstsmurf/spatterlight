@@ -76,6 +76,8 @@ La Chambre de John
 C'est une chambre des plus démunie.
 Un lit, des habits jetés à la va-vite sur le sol, un gros cendrier rempli de
 mégots sur le sol à la tête du lit.
+
+Vous pouvez seulement vous déplacer vers le Nord.
 Habillé, ça le fait mieux quand même!
 
 > n
@@ -91,6 +93,8 @@ A votre gauche, au milieu d'un mur de tapisserie jaunie, une porte,
 certainement la sortie de chez vous.
 
 Un bar se dresse devant vous.
+
+Sorties évidentes: Sud et out.
 
 > prendre cigarette
 Vous êtes maintenant en possession d'une cigarete.
@@ -163,6 +167,8 @@ Vous filez à vive allure dans les rues de New York.
 MALKOWITCH sait toujours où vous devez aller.
 C'est une voiture de police traditionnelle américaine.
 MALKOWITCH est assis là.
+
+Vous pouvez seulement vous déplacer vers le Bas.
 
 > d
 Vous vous déplacez vers le Bas.
@@ -273,6 +279,7 @@ Le Responsable de l'Enquête est ici.
 La Médecin légiste est ici.
 La Chef scientifique est là.
 
+Vous pouvez seulement vous déplacer vers le Haut.
 Vous pouvez vous déplacer maintenant vers le haut.
 votre adjoint semble avoir rallumé la voiture.
 
@@ -308,6 +315,7 @@ MALKOWITCH sait toujours où vous devez aller.
 C'est une voiture de police traditionnelle américaine.
 MALKOWITCH est assis là.
 
+Sorties évidentes: Bas et in.
 Vous êtes maintenant arrivé au commissariat, entrez donc!
 
 > in
@@ -402,13 +410,10 @@ Vous pouvez seulement vous déplacer vers l'Est.
 Vous vous saisissez du dossier.
 
 > prendre téléphone
-Vous prenez Un téléphone de Un beau bureau.
+Prendre quoi?
 
 > x téléphone
-C'est un téléphone à touches.
-Vous remarquez différents boutons sur sa surface.
-  On Un téléphone est Le 1, Le 2, Le 3, Le 4, Le 5, Le 6, Le 7, Le 8, Le 9 et
-Le 0.
+Vous ne voyez pas une telle chose.
 
 > appuyer 3
 

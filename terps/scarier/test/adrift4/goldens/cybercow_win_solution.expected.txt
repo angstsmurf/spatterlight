@@ -20,7 +20,7 @@ You are standing at a bus stop at the base of a hill that rises to the south.
 yard there is a small cottage.  Other than this little chapel with its
 cottage on the hill, there is nothing around for a long ways.
 
-There is an exit south.
+You can only move south.
 
 > s
 You move south.
@@ -31,7 +31,7 @@ none of them are occurring to you right now.  Your humble abode is to the
 east.  Fields are to the west.  The chapel is on top of the hill to the
 south.  Down the hill to the north there is the bus stop.
 
-There are exits north, east, south and west.
+You can move north, east, south and west.
 Red sky in morning...
 
 > x well
@@ -58,7 +58,7 @@ It's just an ordinary cupboard.  The cupboard is closed.
 > open cupboard
 You open the cupboard.  The bowl and the flashlight are inside the cupboard.
 
-> take all
+> take all from cupboard
 You take the bowl and the flashlight from the cupboard.
 
 > x couch
@@ -249,6 +249,8 @@ the hill to the north there is the bus stop.
 
 Also here are the heavy cross.
 It is daytime.
+
+You can move north, east, south and west.
 
 > throw rope down well
 You throw the rope down the well.
@@ -466,6 +468,8 @@ chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
 It is daytime.
 
+You can move north, east, south, west and down.
+
 > drop milk
 You drop the bowl.
 
@@ -660,6 +664,8 @@ battle still rage to the east.  To the west you seem to see a light of some
 kind.
 
 Also here is a thing.
+
+You can move east and west.
 Just as you reach the lair entrance, behind you there is a bellow and a flash
 of light.
 A thing falls near your foot.
@@ -686,6 +692,8 @@ a microwave on it, in the southeast corner.  Covering almost the entire west
 wall is a huge map of the world.  Also a fine rolltop desk is against that
 wall.
 You have a sneaking suspicion that this lair has recently been Feng-Shuied.
+
+You can only move east.
 
 > x map
 This huge map of the world covers almost the entire west wall of the lair.
@@ -766,6 +774,8 @@ The stone wall leads up to a small circular view of the sky.  A rope dangles
 here.  The CyberCow, victorious, has lain it head on the ruptured hulk of the
 Robot and weeps bitterly.
 CyberCow and Robot are here.
+
+You can move west and up.
 
 > up
 You half-swim, half-climb over the sobbing CyberCow (which makes no protest)

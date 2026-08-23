@@ -77,6 +77,7 @@ out
 nw
 n
 x pile of dust
+x PILE OF DUST
 take ring
 drop ring
 take ring

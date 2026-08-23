@@ -103,8 +103,8 @@ thing that calms you the ever present timer slowly counting down to
 Armageddon.
 [-00:58-]
 
-You take the code table and the ball point pen from the comunication console.
- You take the bullets from the body.
+> get bullets
+You take the bullets from the body.
 
 > get gun
 You take the gun.
@@ -120,6 +120,12 @@ direct hit and the lock explodes from the impact.
 > open locker
 You open the locker.
 
+> x locker
+The only object that sits along the east wall is this battered orange locker.
+ You assume it is some sort of storage facility but you have never seen it
+open.   A small bullet hole is above the handle.  The locker is open.  A
+first aid kit and a small red Medal are inside the locker.
+
 > get kit
 You take the first aid kit from the locker.
 
@@ -130,28 +136,24 @@ aid kit you notice a large bandage roll, a pair of scissors and a syringe.
 > get scissors
 You take the pair of scissors from the first aid kit.
 
-> get bandage
-You take the large bandage roll from the first aid kit.
+The pain in your head becomes over powering.  Gripping you neck with both
+hands, you lay on the floor in the fetal position until the pain becomes
+subsides.
+[-00:53-]
 
 > open panel with scissors
 Using the blunt tip of the scissors, a little luck and a lot of persistence,
 you manage to loosen the remaining screws, and open the panel.The guts of the
 radio appear torn out.Who have I been talking to?
 
-The pain in your head becomes over powering.  Gripping you neck with both
-hands, you lay on the floor in the fetal position until the pain becomes
-subsides.
-[-00:53-]
-
-> wear bandage on neck
-You wrap the bandage tightly around your skull. Hopefully this will control
-the bleeding.
-
-> turn camera to camera 1
-You turn the dial to camera 1.  The screen flickers above you.
-
-There is nothing but static on the screen, apparently the camera at the
-facility entrance is offline.
+> x console
+The Deadmans console fills the north side of the room.  It serves as a
+security, communication and launch station. On the far left the security
+station holds a large dial next to red plastic joystick.  On the far right,
+is the Constant Communication Console where audio transmissions are broadcast
+twenty-four hours a day via a built in radio.  In the middle, a window of
+opaque green glass dominates the Launch station.  The code table and a ball
+point pen are on the comunication console.
 
 Suddenly your head begins to spin and the lights fades in and out, slowly at
 first, but soon working its way up to a frenzied strobe. Then darkness.
@@ -172,6 +174,22 @@ The grin gets even wider, there's nothing to grin at down here but me.
 After a final flash of white. The darkness fades in.
 
 You awaken on the control room floor.
+
+> get all from console
+You take the code table and the ball point pen from the comunication console.
+
+> turn camera to camera 1
+You turn the dial to camera 1.  The screen flickers above you.
+
+There is nothing but static on the screen, apparently the camera at the
+facility entrance is offline.
+
+> get bandage
+You take the large bandage roll from the first aid kit.
+
+> wear bandage on neck
+You wrap the bandage tightly around your skull. Hopefully this will control
+the bleeding.
 
 > get syringe
 You take the syringe from the first aid kit.
@@ -210,15 +228,12 @@ Deadman Protocol underway.
 Time remaining,
 You quickly look at the countdown,
 
-T Minus 45 minutes and counting, please respond.
-I repeat T Minus 45 minutes until Deadman Launch. Please respond.
+T Minus 43 minutes and counting, please respond.
+I repeat T Minus 43 minutes until Deadman Launch. Please respond.
 .  .  .
 
 You continue to wait but there is no response.
 God, you wish someone would answer.
-
-> z
-Time passes...
 Your thoughts are interrupted by harsh static.
 A loud voice fills the room.
 
@@ -231,15 +246,6 @@ Acknowlege and prepare to receive standard abort code.
 Over.
 
 You stand in silence.
-
-> z
-Time passes...
-
-> z
-Time passes...
-
-> z
-Time passes...
 
 > z
 Time passes...
@@ -374,8 +380,21 @@ silence.
 The door stands closed and latched.
 The pounding at the door returns.
 
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
 > stand
 You stand up.
+They're all dead, sir.
 
 > open door
 Slowly you unlatch the steel door and pull it open just a crack.  Not seeing
@@ -395,6 +414,7 @@ With a wild swing the axe arcs down at the wrist of Capt. Mattingly.  You
 hear a dull thud as it strikes the bone.  Pulling the axe head free you chop
 down again and again…
 The bloody hand falls to the floor wetly.
+A small rush fills you with pleasure.
 
 > get hand
 You take the bloody hand.

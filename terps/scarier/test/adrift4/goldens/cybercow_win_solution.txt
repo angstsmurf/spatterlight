@@ -6,7 +6,7 @@ e
 x mailbox
 x cupboard
 open cupboard
-take all
+take all from cupboard
 x couch
 push couch
 w

@@ -30,9 +30,13 @@ A magic cube appears in your hands.
 > wear cube
 You put on the magic cube.
 
-> take all
-You take a diary, a brass lantern, a woven cloak and some nice food from the
-old oak table.
+> x old oak table
+The table is beautifully made, very heavy and solid.  On the old oak table is
+a diary, a brass lantern, a woven cloak and some nice food.
+
+> get all from table
+You take the diary, the brass lantern, the woven cloak and the nice food from
+the old oak table.
 
 > wear cloak
 You put on the woven cloak.
@@ -45,8 +49,12 @@ This dark little room has lots of shelves with little on them.
 
 You can also see a gold coin.
 
-> take oil
-You take a bottle of oil from the shelves.
+> x shelves
+The wooden shelves don't look very strong but suit their purpose.  A bottle
+of oil is on the shelves.
+
+> get all from shelves
+You take the bottle of oil from the shelves.
 
 > take coin
 You pick up the gold coin and put it in your purse.
@@ -90,17 +98,16 @@ Wolf hits you, but it doesn't seem to do any damage.
 
 > attack wolf
 You hit Wolf.
-
-> attack wolf
-You hit Wolf.
 Wolf hits you, but it doesn't seem to do any damage.
 
 > attack wolf
 You hit Wolf.
-Wolf hits you, but it doesn't seem to do any damage.
 
 > attack wolf
-You hit Wolf.
+Command not understood
+
+> attack wolf
+Command not understood
 
 > attack wolf
 Command not understood
@@ -358,8 +365,14 @@ You move east.
 Large cave
 It is too dark to see here.
 
-> take glaven stone
-You take the Glaven stone from the large stone table.
+> x large stone table
+The table is made of the same stone as the walls of the cave. It is full of
+little marks where something has been scraping.  A large knife and the Glaven
+stone are on the large stone table.
+
+> get all from large stone table
+You take the Glaven stone from the large stone table.  The large knife is too
+heavy for you to carry at the moment.
 
 > turn ring
 The iron ring slowly begins to move, it turns to a right angle and you hear a
@@ -383,8 +396,12 @@ You move west.
 Square cave
 It is too dark to see.
 
-> take spade
-You take a metal spade from the holes in the wall.
+> x holes in the wall
+The holes are cut into the stone and have very flat surfaces.  A steel vest
+and a metal spade are on the holes in the wall.
+
+> get all from holes in the wall
+You take the steel vest and the metal spade from the holes in the wall.
 
 > e
 You move east.
@@ -634,8 +651,13 @@ cupboard.
 > open cupboard
 The cupboard creaks open and the objects inside glitter and shine.
 
-> take elven armour
-You take some elven armour from the elven cupboard.
+> x elven cupboard
+The cupboard is typically elven. The handles are made of brass. The carvings
+on the front are of weapons.  The elven cupboard is open.  Some elven armour
+and a small dagger are inside the elven cupboard.
+
+> get all from cupboard
+You take the elven armour and the small dagger from the elven cupboard.
 
 > wear elven armour
 You put on the elven armour.
@@ -692,8 +714,6 @@ any damage.
 
 > attack goblin
 You cut Forester Goblin with the small sword.
-Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
-any damage.
 
 > attack goblin
 You cut Forester Goblin with the small sword.
@@ -787,11 +807,11 @@ through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.
 The Longmore marsh king is here.
-Longmore king stabs you with the pointy stick, but it doesn't seem to do any
-damage.
 
 > attack monster
 You cut Longmore king with the small sword.
+Longmore king stabs you with the pointy stick, but it doesn't seem to do any
+damage.
 
 > attack monster
 You cut Longmore king with the small sword.
@@ -845,8 +865,13 @@ The chest's lock slowly turns and with a clunk, the chest is unlocked.
 > open chest
 The large chest is already open!
 
-> take longmore chest plate
-You take a longmore chest plate from the large chest.
+> x large chest
+The chest is quite large and has various ornate jewels on the lid. They are
+securely fastened and cannot be removed.  The large chest is open.  A
+longmore chest plate is inside the large chest.
+
+> get all from chest
+You take the longmore chest plate from the large chest.
 
 > wear longmore chest plate
 You put on the longmore chest plate.
@@ -896,7 +921,6 @@ Eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You cut Eagle with the small sword.
-Eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You cut Eagle with the small sword.
@@ -1054,6 +1078,7 @@ Uron Dark Path
 The air is very dense now, the smog fills your nostrils with foul air. There
 are pools of slime and mud all around here. Southeast will take you down the
 mountain. Northeast will take you up.
+You start to stagger along the path.
 
 > ne
 You move northeast.
@@ -1071,15 +1096,15 @@ air appears less dense. It is replaced with a feeling that you are unwanted.
 There is a large wooden door that looks extremely thick. The path leads South
 down the mountain.
 
-> say the password
-The words seem to have moved the doors a little. They must be unlocked. They
-could probably be opened now.
-
 Haron follows you.
 A knight catches up to you and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
 have brought a gift from Natalya."
 Haron hands you a phial.
+
+> say the password
+The words seem to have moved the doors a little. They must be unlocked. They
+could probably be opened now.
 
 > open door
 The doors slowly creak open. A darkness that seems to come out of the doors,
@@ -1096,14 +1121,15 @@ corridor. East will take you into a smaller room.
 Larnt is here.
 
 Haron follows you from the south.
-
-> attack larnt
-You cut Larnt with the small sword.
-Haron cuts Larnt with the elven sword.
 Larnt cuts Haron with the blade from Uron.
 
 > attack larnt
 You cut Larnt with the small sword.
+Haron cuts Larnt with the elven sword.
+
+> attack larnt
+You cut Larnt with the small sword.
+Larnt cuts Haron with the blade from Uron.
 
 > attack larnt
 You cut Larnt with the small sword.
@@ -1155,8 +1181,12 @@ is locked. South will take you into the Main Hall.
 
 Haron follows you from the south.
 
-> take all
-You take a small key from the long table.
+> x long table
+The table is huge and would seat about 50 people around it.  A small key is
+on the long table.
+
+> get all from long table
+You take the small key from the long table.
 
 > s
 You move south.
@@ -1198,8 +1228,13 @@ chest unlocks.
 > open chest
 The chest creaks open.
 
-> take all
-You take a large key from the large chest.
+> x large chest
+The chest has precious jewels around the edges and metal plating on the
+sides. The chest is unlocked.  The large chest is open.  A large key is
+inside the large chest.
+
+> get all from chest
+You take the large key from the large chest.
 
 > d
 You move down.
@@ -1288,6 +1323,15 @@ Haron follows you.
 > attack urgorn
 You cut Urgorn with the small sword.
 Haron cuts Urgorn with the elven sword.
+Urgorn shoots you with the ball of fire, but it doesn't seem to do any
+damage.
+
+> attack urgorn
+You cut Urgorn with the small sword.
+
+> attack urgorn
+You cut Urgorn with the small sword.
+Haron cuts Urgorn with the elven sword.
 
 > attack urgorn
 You cut Urgorn with the small sword.
@@ -1296,13 +1340,6 @@ You cut Urgorn with the small sword.
 You cut Urgorn with the small sword.
 Haron cuts Urgorn with the elven sword.
 Urgorn shoots Haron with the ball of fire.
-
-> attack urgorn
-You cut Urgorn with the small sword.
-
-> attack urgorn
-You cut Urgorn with the small sword.
-Haron cuts Urgorn with the elven sword.
 
 > attack urgorn
 You cut Urgorn with the small sword.

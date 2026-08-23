@@ -176,21 +176,10 @@ You open the file cabinet.  Some order forms are inside the file cabinet.
 You take the order forms from the file cabinet.
 
 > x list
-To Do List
-
-embezzle funds
-
-piss off employees
-
-do something about annoying bird in oak tree that keeps stealing my pens
-
-leave some hapless idiot in charge to fix things argh stupid bird here it
-comes aga--
-
-The text trails off into an unreadable squiggle at the end.
+You see no such thing.
 
 > get cup
-You take the empty plastic cup from the waste basket.
+Take what?
 
 > e
 You move east.

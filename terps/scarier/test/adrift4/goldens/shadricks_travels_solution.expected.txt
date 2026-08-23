@@ -34,8 +34,8 @@ small pile that lay on the ground near the stump."
 ot make sure I'm not down wind from him the rest of the trip."
 
 > x wood
-Please be more clear, what do you want to examine?  The pile of wood or the
-piece of wood?
+"There are five or six pieces of wood piled near the stump."  A piece of wood
+is on the pile of wood.
 
 > take wood
 You take the piece of wood from the pile of wood.

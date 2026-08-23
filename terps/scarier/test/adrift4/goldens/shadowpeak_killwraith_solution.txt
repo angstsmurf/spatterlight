@@ -1,10 +1,11 @@
 # Shadowpeak ADRIFT 4.0 - ALTERNATIVE walkthrough: KILL THE WRAITH FIRST.
-# Deterministic 0-death WIN, 735/790 under SCR_LEGACY_RANDMAP=1 SCR_SEED=201
-# (2026-08-02: the load-time immediate-event start -- StarterType=1 events now
-# begin during game load -- re-threaded every walker, so both the seed and the
-# Damastus chase are re-derived below; 735 is unchanged from the old seed-1
-# route. The Fang +5 remains lost, as it has been since the 2026-08-01
-# walk-timing fix.)
+# Deterministic 0-death WIN, 710/790 under SCR_LEGACY_RANDMAP=1 SCR_SEED=48
+# (2026-08-23: the 4.0 put/implicit-take and carried-total fixes re-threaded the
+# walkers again, so the seed and the Damastus chase are re-derived below.  Three
+# `x table` / `x rubble` / `x shrine` lines were also added: the venison, the
+# chisel and the scroll are container contents that only exist once their
+# container has been examined.  735 -> 710: like the Fang +5 lost to the
+# 2026-08-01 walk-timing fix, some wandering-NPC kills no longer line up.)
 #
 # Variant of the canonical 710/790 win that ALSO:
 #   * kills the wraith Alam Nadeer at the sarcophagus (room 119) the moment he
@@ -444,6 +445,7 @@ n
 # (room 77 not yet entered with the sword), shaving one in-window turn so the
 # climb reaches room 104 exactly on the turn of the task-327 kill check.
 e
+x table
 take venison
 w
 w
@@ -460,6 +462,7 @@ d
 d
 e
 s
+x rubble
 take chisel
 n
 w
@@ -483,6 +486,7 @@ n
 # attack with two carried weapons now asks, faithfully to run400).
 attack cat with sword
 n
+x shrine
 take scroll
 s
 s
@@ -720,23 +724,14 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED after the section-10 exclusive event-length roll
-# (2026-08-17: event lengths and delays roll lo + Int(Rnd*(hi-lo)), matching
-# both real Runners -- ranged events re-timed and re-threaded the walkers'
-# RNG engine-wide).  Now at SCR_SEED=149.  Upstream clean at seed 149
-# (room 157, score 595, Damastus alive).
+# DAMASTUS chase RE-DERIVED 2026-08-23 after the 4.0 put/implicit-take and
+# carried-total fixes re-threaded the walkers' RNG again.  Now at SCR_SEED=48
+# (upstream clean: room 157, score 570, Damastus alive).
 # Greedy BFS from the stone button (room 157): attack when co-located, else
-# BFS-step toward him.  Damastus dies in room 149, stamina 29.
+# BFS-step toward him.  Damastus dies in room 156, stamina 37
 # Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
-e
-e
-e
-e
-e
-e
 s
-attack damastus
-attack damastus
+s
 s
 attack damastus
 s
@@ -744,7 +739,16 @@ attack damastus
 n
 attack damastus
 n
+attack damastus
 n
+attack damastus
+n
+e
+e
+e
+e
+e
+e
 press bronze button
 w
 w

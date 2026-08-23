@@ -54,6 +54,8 @@ You are standing outside a large grocery store.  You look at the door.  On
 the door is a sign that reads, "Merry's Store.  Closed!"  Oh man, you think.
 You really wanted a bite to eat.  Oh well.
 
+You can move east and west.
+
 > east
 You move east.
 
@@ -251,6 +253,8 @@ the distance, the pump, the fordge, the Merc, the Icecream Parlor, and some
 other buildings.  Wow, where is Julian, and why is he evil.  I thought he was
 a cute little goat, you think.
 
+You can only move north.
+
 The Mermaid follows you.
 
 > north
@@ -435,6 +439,8 @@ In the radio station
 You are in w m t h radio.  You have know idea what you are doing here.  Maybe
 it's time for your radio show.  No, it's not.  What.
 Mr. Shaphren is here.
+
+You can move east, south and west.
 
 The Mermaid follows you.
 
@@ -695,6 +701,8 @@ The Main Frame
 You are stand in a large room.  The cieling reaches 20 feet in to the air,
 and the room is empty so it echos.  You notice a sign on a post.  On closer
 examination, it says.  Welcome to the Main Frame.  Wow.
+
+You can move north and south.
 
 The Mermaid follows you.
 

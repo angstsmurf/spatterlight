@@ -31,6 +31,7 @@ se
 e
 n
 in
+x phone
 take coin
 # Sets up the alleyway meeting that later turns the urn's contents into $5000.
 dial 985489
@@ -93,6 +94,7 @@ s
 
 # --- The alleyway, the dumpster and the Woop Woop tip -------------------------
 s
+x rubbish
 open bag
 take crowbar
 take dress
@@ -106,6 +108,7 @@ z
 z
 z
 z
+x small package
 take sleep pills
 take pain killer pills
 # The letter is a red herring; kept for turn parity.
@@ -174,11 +177,13 @@ take key
 n
 unlock door
 n
+x shelf
 take urn
 # The spade is a red herring ("dig" has no actions); kept for turn parity.
 take spade
 smash urn
 # Grandma's ashes are, as far as Steve is concerned, ten grams of cocaine.
+x bits of china
 take substance
 s
 s

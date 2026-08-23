@@ -58,6 +58,10 @@ other cops are always ribbing you about your transvesitism.
 You drop the handbag rather hurridly, and the snake slithers away into the
 undergrowth.
 
+> x Mary Quant handbag
+A white vinyl handbag by Mary Quant.  The Mary Quant handbag is open.  A gun
+is inside the Mary Quant handbag.
+
 > take gun
 You take the gun from the Mary Quant handbag.
 
@@ -217,6 +221,10 @@ illuminating the open sarcophagus. In the sarcophagus lies the be-turbaned
 skeleton of the evil Mandoo!
 
 Donald McRonald follows you from outside.
+
+> x stone sarcophagus
+A stone sarcophagus containing the mortal remains of Mandoo the Mystic.  A
+femur bone is inside the stone sarcophagus.
 
 > take bone
 You take the femur bone from the stone sarcophagus.

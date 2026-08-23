@@ -49,6 +49,28 @@ typedef struct scr_objectstate_s
 {
   scr_int position;
   scr_int parent;
+  /*
+   * The Runner's per-object container field ([2E]/global_46 in run400),
+   * which its recursive weigh routine (Proc_21_55 @447680) matches children
+   * on with no position check.  The loader fills it from the raw .taf Parent
+   * value for every dynamic object -- including worn, held, in-room and
+   * not-yet-anywhere ones, where that value is leftover authoring data --
+   * except NPC-held/worn placements, which it clears.  After that only a
+   * put-in/put-on ever points it at an object again, and it is cleared only
+   * on a *detach*: moving out of an in/on placement (whatever the
+   * destination), removing a worn object, or entering NPC possession.
+   * Ordinary takes from a room, drops, and task moves of uncontained
+   * objects leave it untouched, so a stale value silently adds the object's
+   * weight to whichever container shares its Parent number for the whole
+   * game (measured live in run400 2026-08-22: goldilocks' package, object
+   * 0, weighs 19 more than its contents because the worn-from-the-start
+   * watch and dress and the never-placed broken bottle all carry Parent 0
+   * -- and the bottle keeps doing so through a take and a drop, while
+   * remove-then-drop of the watch shed its 9).  -1 means cleared; the
+   * Runner writes &HFF, which we do not reproduce because it could falsely
+   * match object 255 in a large game.
+   */
+  scr_int runner_parent;
   scr_int openness;
   scr_int state;
   scr_bool seen;
@@ -234,8 +256,9 @@ typedef struct scr_game_s
 
   /* ADRIFT-style carried-load running totals.  The real Runner keeps the
    * player's carried weight and size as running totals, updated incrementally
-   * on each take/drop (so taking a container and then removing its contents
-   * double-counts those contents); it recomputes them only when loading state.
+   * on each take/drop; a take of an object already possessed indirectly
+   * (inside or on something carried or worn) adjusts nothing, so there is no
+   * container double-count.  It recomputes them only when loading state.
    * These mirror that: maintained incrementally during play, recomputed at
    * game create/copy/restore.  Derived state -- not part of the saved stream
    * (the Runner stores live totals in the save but recomputes on load).
@@ -244,10 +267,16 @@ typedef struct scr_game_s
   scr_int carried_size;
   scr_bool carried_ready;
 
+  /* When TRUE, position changes bypass the incremental tracker.  The task
+   * and event object movers set this while they move: the Runner's task
+   * mover does its own total accounting (Proc_19_10), and its event mover
+   * does none at all.  Transient -- never saved, only set across a call. */
+  scr_bool carried_suspend;
+
   /* When TRUE, the capacity checks recompute the carried load from currently
-   * held objects each time (legacy SCARIER behaviour, which avoids the Runner's
-   * double-count); when FALSE (default) they consult the running totals above,
-   * matching the real Runner.  Toggled with the "capacity" metacommand. */
+   * held objects each time (legacy SCARIER behaviour); when FALSE (default)
+   * they consult the running totals above, matching the real Runner.  Toggled
+   * with the "capacity" metacommand. */
   scr_bool capacity_recompute;
 
   /* Miscellaneous library and main loop conveniences. */

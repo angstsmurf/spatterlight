@@ -1528,6 +1528,41 @@ ser_load_game (scr_gameref_t game,
        * OnlyWhenNotMoved stands, exactly as it does in the 3.9 Runner. */
       if (!ser_pre_v4)
         gs_set_object_unmoved (new_game, index_, ser_get_boolean ());
+
+      /*
+       * Reconstruct the Runner's container field ([2E]) -- see the
+       * runner_parent notes in scgamest.h.  No save format stores it, so
+       * this is a heuristic built on the detach model: an in/on placement
+       * points it at the restored parent; NPC possession clears it; an
+       * object that *started* in/on but is no longer there must have been
+       * detached at some point, so it is cleared too.  Everything else
+       * keeps the raw .taf Parent seed gs_create() gave it, which the
+       * Runner's ordinary take/drop/task moves never touch.  The one case
+       * this gets wrong is a raw-Parent object that was worn and then
+       * removed -- the save cannot tell us.
+       */
+      if (obj_is_static (new_game, index_))
+        gs_set_object_runner_parent (new_game, index_, -1);
+      else
+        {
+          const scr_int position = new_game->objects[index_].position;
+
+          if (position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
+            gs_set_object_runner_parent (new_game, index_,
+                                         new_game->objects[index_].parent);
+          else if (position == OBJ_HELD_NPC || position == OBJ_WORN_NPC)
+            gs_set_object_runner_parent (new_game, index_, -1);
+          else
+            {
+              scr_int initialposition;
+
+              vt_key[2].string = "InitialPosition";
+              initialposition = prop_get_integer (bundle, "I<-sis", vt_key);
+              if (initialposition == 2 || initialposition == 3)
+                gs_set_object_runner_parent (new_game, index_, -1);
+              /* Otherwise the seed from gs_create() stands. */
+            }
+        }
     }
 
   /* Restore tasks information. */
@@ -1664,6 +1699,13 @@ ser_load_game (scr_gameref_t game,
    */
   new_game->requested_sound = game->requested_sound;
   new_game->requested_graphic = game->requested_graphic;
+
+  /*
+   * Reseed the carried-load totals from the restored inventory the way the
+   * run400 save loader does (base weights and sizes only; see
+   * gs_carried_recompute).  gs_copy() then carries them over verbatim.
+   */
+  gs_carried_recompute (new_game);
 
   /*
    * If we got this far, we successfully restored the game from the file.

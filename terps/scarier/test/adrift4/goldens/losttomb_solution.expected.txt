@@ -44,6 +44,10 @@ You pick up your rucksack.
 You open your rucksack.  Inside your rucksack is a box of matches, a pencil,
 a notebook, a water bottle, a rope and a stick of dynamite.
 
+> x nightstand
+A cheap and simple piece of furniture. Functional, rather than formal.  The
+lamp is on your nightstand.
+
 > take lamp
 You take the lamp from your nightstand.
 
@@ -61,6 +65,10 @@ You pour the water onto the ground.
 
 > fill bottle with sand
 The water bottle is now filled with sand, and feels heavier for being so.
+
+> x water bottle
+A leather water bottle, large enough for two days ration.  A cork and some
+sand are inside the water bottle.
 
 > take cork
 You take a cork from the water bottle.
@@ -395,6 +403,9 @@ Time passes...
 The spear begins to bend.
 The northern door is open enough for you to escape!
 
+An alarm clock rings from inside Rupert's bag.
+"Ah! Time for tiffin!" He exclaims, looking at the clock.
+
 > n
 
 You and Rupert quickly dash for the door and squeeze under, moments before
@@ -409,27 +420,29 @@ stunningly painted and carved. Mounted in an arch in one of the walls, is a
 large and impressive statue of a jackal.
 Three gold rimmed archways lead off in three directions, northwest, north and
 northeast.
-Rupert is here.
+Rupert is here.  Rupert is having 'tiffin'
 
 > put cork in mouth
 You poke it in with your thumb. It makes a tight fit.
 
-An alarm clock rings from inside Rupert's bag.
-"Ah! Time for tiffin!" He exclaims, looking at the clock.
-
-> ask rupert to open sarcophagus
-"Another one eh? Very well."
-
-> ask rupert to open sarcophagus
-"Another one eh? Very well."
-
 Rupert slurps some tea, eats the scones and burps.
 "Oops, pardon me!" He says, brushing crumbs from his moustache.
+
+> ask rupert to open sarcophagus
+"Another one eh? Very well."
+
+He packs it all back up and looks ready for more adventuring.
+
+> ask rupert to open sarcophagus
+"Another one eh? Very well."
 
 > open sarcophagus
 You both manage to push the heavy lid onto the floor.
 
-He packs it all back up and looks ready for more adventuring.
+> x sarcophagus
+It is made of solid gold and takes pride of place in the middle of the room.
+immaculately carved into its surface are hundreds of  hieroglyphics.  The
+sarcophagus is open.  The mummy and a sapphire are inside the sarcophagus.
 
 > take sapphire
 You take a sapphire from the sarcophagus.

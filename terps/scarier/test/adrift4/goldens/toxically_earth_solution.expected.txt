@@ -5,7 +5,7 @@ RON: TOXICALLY EARTH
 #1
 type down to continue!
 
-There is an exit down.
+I can only move down.
 
 > down
 I move down.
@@ -16,7 +16,7 @@ blue planet has bad times now. Some poisened gases went around the world and
 now, it`s only an ill planet, maybe a dead planet soon.   press down to
 continue!
 
-There is an exit down.
+I can only move down.
 
 > down
 I move down.

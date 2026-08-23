@@ -61,6 +61,10 @@ old armchair. To the west is your bedroom. To the east the door out.
 > open door
 You move the wooden plank to a side.
 
+> x armchair
+The armchair is old and grey. Some springs are broken. It is really an old
+car's back seat.  A flashlight is on the armchair.
+
 > get flashlight
 You take the flashlight from the armchair.
 
@@ -71,6 +75,10 @@ Forest Clearing
 This is a small muddy and trampled clearing in the forest, in front of your
 cottage. There is some assorted trash in the ground. To the north there is a
 tool shack. To the south the forest deepens. To the east you can see a river.
+
+> x pile of trash
+A pile of trash lies on the ground by the shack.  A straight iron and a
+battery are inside the pile of trash.
 
 > get iron
 You take the straight iron from the pile of trash.

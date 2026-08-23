@@ -105,6 +105,7 @@ set dial to 3071
 push green button
 exit rocket
 enter rift
+x yellow crate
 take sticker
 put sticker on red crate
 take patch

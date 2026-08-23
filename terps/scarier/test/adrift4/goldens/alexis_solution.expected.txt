@@ -27,9 +27,13 @@ a cellar too.
 > nnamen tutem selronden flar darg
 A magic cube appears in your hands.
 
-> take all
-You take a diary, a brass lantern, a woven cloak and some nice food from the
-old oak table.
+> x old oak table
+The table is beautifully made, very heavy and solid.  On the old oak table is
+a diary, a brass lantern, a woven cloak and some nice food.
+
+> get all from table
+You take the diary, the brass lantern, the woven cloak and the nice food from
+the old oak table.
 
 > wear cloak
 You put on the woven cloak.
@@ -42,8 +46,12 @@ This dark little room has lots of shelves with little on them.
 
 You can also see a gold coin.
 
-> take oil
-You take a bottle of oil from the shelves.
+> x shelves
+The wooden shelves don't look very strong but suit their purpose.  A bottle
+of oil is on the shelves.
+
+> get all from shelves
+You take the bottle of oil from the shelves.
 
 > take coin
 You pick up the gold coin and put it in your purse.
@@ -82,17 +90,15 @@ of here but there is no path running there. You can here the sound of rushing
 water in the distance.
 
 You can also see the Tonerith stone.
-
-> attack wolf
-You hit Wolf with the magic cube.
+There is a grey wolf circling you.
 Wolf hits you.
 
 > attack wolf
 You hit Wolf with the magic cube.
-The wolf limps away, badly hurt. It won't be likely to bother you again.
 
 > attack wolf
-Command not understood
+You hit Wolf with the magic cube.
+The wolf limps away, badly hurt. It won't be likely to bother you again.
 
 > take tonerith stone
 You pick up the Tonerith stone.
@@ -127,8 +133,11 @@ The dwarf, with his last ounce of strength lifts himself to the side of the
 bridge. He removes his shirt and axe and then he slumps over the wall and
 falls into the river with a huge splash.
 
-> attack bridgekeeper
-Command not understood
+Serond follows you.
+Serond walks up to you and shakes your hand. "I found you at last Alexis!
+However, let us not talk for long, there is little time."
+"However, I bring you a gift. Now, where did I put it?
+ Ah! here it is. Serond hands you a small gourd."
 
 > w
 You move west.
@@ -138,6 +147,8 @@ You are standing at a junction.  There appears to be a stone bridge over the
 river east of here and a path to the north, running alongside the river.
 Tonerith pass runs west of here.
 
+Serond follows you from the east.
+
 > w
 You move west.
 
@@ -146,11 +157,7 @@ This wide path continues to the East. You can see the hills of Forecarn north
 of here but there is no path running there. You can here the sound of rushing
 water in the distance.
 
-Serond follows you.
-Serond walks up to you and shakes your hand. "I found you at last Alexis!
-However, let us not talk for long, there is little time."
-"However, I bring you a gift. Now, where did I put it?
- Ah! here it is. Serond hands you a small gourd."
+Serond follows you from the east.
 
 > west
 You move west.
@@ -162,34 +169,6 @@ hills of Forecarn, while another leads west into Dusteron. Due East of here
 runs a wide path that cuts into Tonerith.
 
 Serond follows you from the east.
-
-> north
-You move north.
-
-Hills of Forecarn
-The large green hills of Forecarn, roll out all around. The cool breeze
-sweeps across your face. From the top of this hill, you can see that the path
-lies Northeast. However, another hill blocks your view of where the path
-leads, but you can here the sound of rushing water from that direction. South
-will take you to a cottage.
-
-You can also see a small sword.
-
-Serond follows you from the south.
-
-> take small sword
-You pick up the small sword.
-
-> south
-You move south.
-
-Outside Cottage
-The gentle wind wafts through your hair as you start your adventure. You are
-standing in front of an old cottage. A well trodden path leads north up the
-hills of Forecarn, while another leads west into Dusteron. Due East of here
-runs a wide path that cuts into Tonerith.
-
-Serond follows you from the north.
 
 > west
 You move west.
@@ -289,23 +268,12 @@ blocked by a large troll.
 Narfild is here.
 
 Serond follows you from the south-east.
+Narfild hits Serond with the large club.
 
 > attack narfild
 You hit Narfild with the magic cube.
 Serond shoots Narfild with the oak staff.
 Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
-
-> attack narfild
-Command not understood
-
-> attack narfild
-Command not understood
-
-> attack narfild
-Command not understood
-
-> attack narfild
-Command not understood
 
 > e
 You move east.
@@ -318,8 +286,14 @@ protruding from the wall.
 
 Serond follows you from the west.
 
-> take glaven stone
-You take the Glaven stone from the large stone table.
+> x large stone table
+The table is made of the same stone as the walls of the cave. It is full of
+little marks where something has been scraping.  A large knife and the Glaven
+stone are on the large stone table.
+
+> get all from large stone table
+You take the Glaven stone from the large stone table.  The large knife is too
+heavy for you to carry at the moment.
 
 > turn ring
 The iron ring slowly begins to move, it turns to a right angle and you hear a
@@ -360,8 +334,12 @@ you back into the small cave.
 
 Serond follows you from the east.
 
-> take spade
-You take a metal spade from the holes in the wall.
+> x holes in the wall
+The holes are cut into the stone and have very flat surfaces.  A steel vest
+and a metal spade are on the holes in the wall.
+
+> get all from holes in the wall
+You take the steel vest and the metal spade from the holes in the wall.
 
 > e
 You move east.
@@ -484,7 +462,7 @@ The Longmore marsh king is here.
 
 Serond follows you from the north-west.
 Serond shoots Longmore king with the oak staff.
-Longmore king stabs Serond with the pointy stick.
+Longmore king stabs you with the pointy stick.
 
 > se
 You move southeast.
@@ -663,8 +641,13 @@ Serond follows you from the north-west.
 > open cupboard
 The cupboard creaks open and the objects inside glitter and shine.
 
-> take elven armour
-You take some elven armour from the elven cupboard.
+> x cupboard
+The cupboard is typically elven. The handles are made of brass. The carvings
+on the front are of weapons.  The elven cupboard is open.  Some elven armour
+and a small dagger are inside the elven cupboard.
+
+> get all from cupboard
+You take the elven armour and the small dagger from the elven cupboard.
 
 > wear elven armour
 You put on the elven armour.
@@ -713,24 +696,28 @@ You can also see the Kedarn stone.
 There is a Forester Goblin hanging from a tree here.
 
 Serond follows you from the north-west.
-Forester Goblin shoots Serond with the bow and arrow.
+Serond shoots Forester Goblin with the oak staff.
+Forester Goblin shoots you with the bow and arrow.
 
 > attack goblin
 You hit Forester Goblin with the magic cube.
-Serond shoots Forester Goblin with the oak staff.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
-> attack goblin
-Command not understood
+Forester Goblin jumps through the trees to you.
 
 > attack goblin
-Command not understood
+You hit Forester Goblin with the magic cube.
+
+Forester Goblin jumps through the trees to you.
+
+> attack goblin
+You hit Forester Goblin with the magic cube.
+
+Forester Goblin jumps through the trees to you.
 
 > take kedarn stone
 You pick up the Kedarn stone.
-
-Forester Goblin jumps through the trees to you.
 
 > nw
 You move northwest.
@@ -785,20 +772,15 @@ The Longmore marsh king is here.
 
 Serond follows you from the south-east.
 Serond shoots Longmore king with the oak staff.
-
-> attack monster
-You hit Longmore king with the magic cube.
 Longmore king stabs you with the pointy stick.
 
 > attack monster
 You hit Longmore king with the magic cube.
+Longmore king stabs Serond with the pointy stick.
+
+> attack monster
+You hit Longmore king with the magic cube.
 The swamp monster slowly melts into the marsh. It then dissapears.
-
-> attack monster
-Command not understood
-
-> attack monster
-Command not understood
 
 > ne
 You move northeast.
@@ -814,8 +796,13 @@ The chest's lock slowly turns and with a clunk, the chest is unlocked.
 > open chest
 The large chest is already open!
 
-> take longmore chest plate
-You take a longmore chest plate from the large chest.
+> x chest
+The chest is quite large and has various ornate jewels on the lid. They are
+securely fastened and cannot be removed.  The large chest is open.  A
+longmore chest plate is inside the large chest.
+
+> get all from chest
+You take the longmore chest plate from the large chest.
 
 > wear longmore chest plate
 You put on the longmore chest plate.
@@ -866,16 +853,12 @@ will take you along a path.
 There is an eagle above you circling around your head.
 
 Serond follows you from the west.
-Serond shoots Eagle with the oak staff.
 Eagle hits Serond.
 
 > attack eagle
 You hit Eagle with the magic cube.
 The eagle makes a last flap of it's enormous wings and falls deep into the
 ravine out of view.
-
-> attack eagle
-Command not understood
 
 > w
 You move west.
@@ -930,7 +913,7 @@ There is a Narn here.
 
 Serond follows you from the south-west.
 Serond shoots Kerfald with the oak staff.
-Kerfald hits you, but it doesn't seem to do any damage.
+Kerfald hits Serond.
 
 > e
 You move east.
@@ -1024,7 +1007,6 @@ take you up the mountain.
 There is a large Narn here.
 
 Serond follows you from the south-west.
-You get up and start walking again.
 Serond shoots Karurn with the oak staff.
 Karurn hits Serond.
 
@@ -1066,6 +1048,12 @@ could probably be opened now.
 The doors slowly creak open. A darkness that seems to come out of the doors,
 consumes you.
 
+Haron follows you.
+A knight catches up to you and smiles. Clearing his throat he says:
+" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
+have brought a gift from Natalya."
+Haron hands you a phial.
+
 > n
 You move north.
 
@@ -1078,24 +1066,14 @@ Larnt is here.
 
 Serond follows you from the south.
 
-Haron follows you.
-A knight catches up to you and smiles. Clearing his throat he says:
-" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
-have brought a gift from Natalya."
-Haron hands you a phial.
-Serond shoots Larnt with the oak staff.
-Haron cuts Larnt with the elven sword.
+Haron follows you from the south.
 
 > attack larnt
 You hit Larnt with the magic cube.
+Serond shoots Larnt with the oak staff.
+Haron cuts Larnt with the elven sword.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
-
-> attack larnt
-Command not understood
-
-> attack larnt
-Command not understood
 
 > n
 You move north.
@@ -1110,8 +1088,12 @@ Serond follows you from the south.
 
 Haron follows you from the south.
 
-> take all
-You take a small key from the long table.
+> x long table
+The table is huge and would seat about 50 people around it.  A small key is
+on the long table.
+
+> get all from long table
+You take the small key from the long table.
 
 > s
 You move south.
@@ -1159,8 +1141,13 @@ chest unlocks.
 > open chest
 The chest creaks open.
 
-> take all
-You take a large key from the large chest.
+> x chest
+The chest has precious jewels around the edges and metal plating on the
+sides. The chest is unlocked.  The large chest is open.  A large key is
+inside the large chest.
+
+> get all from chest
+You take the large key from the large chest.
 
 > d
 You move down.
@@ -1259,6 +1246,9 @@ Serond follows you.
 
 Haron follows you.
 Serond shoots Urgorn with the oak staff.
+
+> attack urgorn
+You hit Urgorn with the magic cube.
 Haron cuts Urgorn with the elven sword.
 
 > attack urgorn
@@ -1267,8 +1257,6 @@ Serond shoots Urgorn with the oak staff.
 
 > attack urgorn
 You hit Urgorn with the magic cube.
-Serond shoots Urgorn with the oak staff.
-Haron cuts Urgorn with the elven sword.
 Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the

@@ -39,7 +39,7 @@ taxi's (all empty) and the main entrance to the station.
 
 Against one wall you can see one of those wire frame rubbish bins.
 
-There is an exit north.
+To the north you can see the station entrance.
 
 >
 
@@ -208,8 +208,6 @@ Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.
-
-You can see a green railway bench.
 
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
@@ -380,8 +378,6 @@ Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.
-
-You can see a green railway bench.
 
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
@@ -775,8 +771,6 @@ You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.
 
-You can see a green railway bench.
-
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.  It is still raining very hard.
@@ -986,8 +980,6 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
 
-You can see a green railway bench.
-
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.
@@ -1128,8 +1120,6 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
 
-You can see a green railway bench.
-
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.
@@ -1226,8 +1216,6 @@ You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
-
-You can see a green railway bench.
 
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
@@ -1452,8 +1440,6 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
 
-You can see a green railway bench.
-
 You can also see an apple core and a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.
@@ -1522,8 +1508,6 @@ You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
-
-You can see a green railway bench.
 
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
@@ -1701,8 +1685,6 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
 
-You can see a green railway bench.
-
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.
@@ -1855,8 +1837,6 @@ You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
-
-You can see a green railway bench.
 
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
@@ -2048,8 +2028,6 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
 
-You can see a green railway bench.
-
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.
@@ -2237,8 +2215,6 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
 
-You can see a green railway bench.
-
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.
@@ -2341,8 +2317,6 @@ You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
-
-You can see a green railway bench.
 
 You can also see a set of double doors with glass panels.
 A drunk is sleeping off a heavy night on a bench.  A tall business woman is
@@ -2497,8 +2471,6 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
 
-You can see a green railway bench.
-
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.  A tall business woman is looking at you.
@@ -2570,8 +2542,6 @@ You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
-
-You can see a green railway bench.
 
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
@@ -2690,8 +2660,6 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
 
-You can see a green railway bench.
-
 You can also see a single sock and a set of double doors with glass panels.
 A drunk is sleeping off a heavy night on a bench.  A tall business woman is
 looking at you.
@@ -2729,8 +2697,6 @@ You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
-
-You can see a green railway bench.
 
 You can also see a single sock and a set of double doors with glass panels.
 A drunk is sleeping off a heavy night on a bench.  A tall business woman is
@@ -2801,8 +2767,6 @@ You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
-
-You can see a green railway bench.
 
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
@@ -2923,8 +2887,6 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
 
-You can see a green railway bench.
-
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.  A tall business woman is looking at you.
@@ -2989,8 +2951,6 @@ You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.
-
-You can see a green railway bench.
 
 You can also see a set of double doors with glass panels.
 The Porter is here leaning against the wall.  A drunk is sleeping off a heavy

@@ -76,7 +76,8 @@ def build(cfg):
         cmds = t['commands']
         s(len(cmds))
         for c in cmds: s(c)
-        s(t['complete']); s(""); s(""); s("")   # CompleteText Reverse Repeat Additional
+        s(t['complete']); s("")                 # CompleteText Reverse
+        s(t.get('repeat', "")); s("")           # RepeatText Additional
         s(0); s(t.get('repeatable', 1)); s(0)   # ShowRoomDesc Repeatable Reversible
         s(0)                                    # ReverseCommands
         s(3)                                    # Where: all rooms
@@ -1249,6 +1250,98 @@ CONFIGS = {
  #       roll (scevents.cpp's other scr_randomint site).
  # The load path re-seeds from Timer, so fresh sessions are independent; ~25
  # x `z` per session reads out ~8 draws per family.
+ # PREC: task-vs-system-get precedence when restrictions FAIL.  Measured need:
+ # provenance (4.0) shows `* get * tent *` with a failing messaged restriction
+ # BLOCKS the system take in run400 (bulldog); SCARE's run_all_commands comment
+ # claims TWAD's (3.9) `* ball *` must NOT block it.  Four objects, one per
+ # pattern shape:
+ #   tent: `* get * tent *` failing restr, message   -> does it block?
+ #   ball: `* ball *`       failing restr, message   -> does it block?
+ #   coin: `* get * coin *` failing restr, NO message-> silent fallthrough?
+ #   rock: no task                                    -> control
+ # Restrs are "object held by player" (v2=1 v3=0) on an object that starts on
+ # the floor, so they always fail before any successful take.
+ 'PREC': dict(name="Probe PREC",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","tent",4,0,0,0,0,0,0),
+             ("a","ball",4,0,0,0,0,0,0),
+             ("a","coin",4,0,0,0,0,0,0),
+             ("a","rock",4,0,0,0,0,0,0)],
+    npcs=[],
+    tasks=[dict(commands=["* get * tent *","* take * tent *"],
+                complete="TENT-TASK-RAN.",
+                restrs=[(3,1,0,"BLOCK-TENT: something stops you.")]),
+           dict(commands=["* ball *"],
+                complete="BALL-TASK-RAN.",
+                restrs=[(4,1,0,"BLOCK-BALL: not holding it.")]),
+           dict(commands=["* get * coin *"],
+                complete="COIN-TASK-RAN.",
+                restrs=[(5,1,0,"")])]),
+ # PREC2: which pattern verbs count as "naming" the system get for the
+ # override-blocking rule measured by PREC?  All patterns wildcard-leading,
+ # all restrictions fail with a message.  tenta/tentb have take-only
+ # patterns (probe both typed "get" and typed "take"); tentc has a
+ # grab-only pattern; tentd a get-only pattern probed with typed "take".
+ 'PREC2': dict(name="Probe PREC2",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","tenta",4,0,0,0,0,0,0),
+             ("a","tentb",4,0,0,0,0,0,0),
+             ("a","tentc",4,0,0,0,0,0,0),
+             ("a","tentd",4,0,0,0,0,0,0)],
+    npcs=[],
+    tasks=[dict(commands=["* take * tenta *"],
+                complete="TENTA-TASK-RAN.",
+                restrs=[(3,1,0,"BLOCK-TENTA.")]),
+           dict(commands=["* take * tentb *"],
+                complete="TENTB-TASK-RAN.",
+                restrs=[(4,1,0,"BLOCK-TENTB.")]),
+           dict(commands=["* grab * tentc *"],
+                complete="TENTC-TASK-RAN.",
+                restrs=[(5,1,0,"BLOCK-TENTC.")]),
+           dict(commands=["* get * tentd *"],
+                complete="TENTD-TASK-RAN.",
+                restrs=[(6,1,0,"BLOCK-TENTD.")])]),
+ # DONE: what does the Runner answer when a command matches a task that has
+ # already been done (non-repeatable) and whose restrictions now FAIL with a
+ # message?  Provenance's squeeze-through-hole task suggests the restriction
+ # message still prints (restrictions checked before done state).  Cells:
+ #   alpha: done task alone, custom command      -> message vs refusal?
+ #   beta:  done task 2 vs runnable task 3, both matching, both failing
+ #          -> whose message wins?
+ #   book:  done task vs library examine (book has a description)
+ #   gem:   done `* get * gem *` vs system take (library callback path)
+ #   gamma: done task WITH RepeatText, restr pass and fail cells
+ #   mmm/s: done task with `* s` alt command, no south exit (the provenance
+ #          measurement, minimized)
+ # All restrictions are "holding the stone": pass while held, fail after
+ # dropping it, so each task can be completed once and re-tried failing.
+ 'DONE': dict(name="Probe DONE",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a","stone",4,0,0,0,0,0,0),
+             ("a","ball",4,0,0,0,0,0,0),
+             ("a","book",4,0,0,0,0,0,0),
+             ("a","gem",4,0,0,0,0,0,0),
+             ("an","emerald",4,0,0,0,0,0,0)],
+    npcs=[],
+    tasks=[dict(commands=["alpha"], complete="ALPHA-RAN.",
+                repeatable=0, restrs=[(3,1,0,"BLOCK-ALPHA.")]),
+           dict(commands=["beta"], complete="BETA1-RAN.",
+                repeatable=0, restrs=[(3,1,0,"BLOCK-BETA1.")]),
+           dict(commands=["beta"], complete="BETA2-RAN.",
+                repeatable=1, restrs=[(7,1,0,"BLOCK-BETA2.")]),
+           dict(commands=["* x * book *","* examine * book *"],
+                complete="BOOK-CRUMBLES.",
+                repeatable=0, restrs=[(3,1,0,"BOOK-DUST.")]),
+           dict(commands=["* get * gem *"], complete="GEM-TASK-RAN.",
+                repeatable=0, restrs=[(3,1,0,"BLOCK-GEM.")]),
+           dict(commands=["gamma"], complete="GAMMA-RAN.",
+                repeat="GAMMA-REPEAT.",
+                repeatable=0, restrs=[(3,1,0,"BLOCK-GAMMA.")]),
+           dict(commands=["mmm","* s"], complete="MOVE-TASK-RAN.",
+                repeatable=0, restrs=[(3,1,0,"BLOCK-MOVE.")])]),
  'EL': dict(name="Probe EL",
     player=(200,0,0,0,0,0,0,0,0,0),
     rooms=[("Test Arena","A bare arena.",{})],

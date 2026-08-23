@@ -568,6 +568,8 @@ You are in the room of eternal dialling.  There is a phone here.  It gives
 you the strange idea of using it to dial a number!  What a good idea!  There
 is another door to the east.  It's locked.
 A Robot Guard is here.
+
+You can only move west.
 Robot Guard hits you with the robot's chain.
 
 > dial 987

@@ -13,6 +13,14 @@ It appears to have been grown over many years. It is gray and stranggly. It,
 however, is in bad need of grooming. There may be critters living in there!
 Yuck!
 
+> x soda machine
+It is a standard soda machine. There is a coin slot  covered with a lock.
+There is a change return near the soda bin.  A change return is inside the
+Soda machine.
+
+> x change return
+It is a small, open change return.  A coin is inside the change return.
+
 > take coin
 You take the coin from the change return.
 
@@ -20,7 +28,7 @@ You take the coin from the change return.
 You put the coin in the newspaper slot and take one newspaper.
 
 > take newspaper
-You've already got the Newspaper!
+You are already carrying the Newspaper.
 
 > open suitcase
 You open the suitcase.  A pistol is inside the suitcase.
@@ -200,9 +208,6 @@ at the far end. There are many cocktail tables and chairs.
 Igotta Bigbottom is here.
 
 You can only move north.
-
-> z
-Time passes...
 You manage to avoid Igotta Bigbottom's attack.
 
 > z
@@ -212,8 +217,12 @@ You manage to avoid Igotta Bigbottom's attack.
 > z
 Time passes...
 You manage to avoid Igotta Bigbottom's attack.
+
+> z
+Time passes...
 
 Ivanna Stiffdrink walks towards you from the north.
+You manage to avoid Igotta Bigbottom's attack.
 
 > z
 Time passes...

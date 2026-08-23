@@ -25,7 +25,7 @@ marked path leads south and west, whilst in every other direction are, well,
 trees.
 An old pedlar is sitting on a log here, tending to his bunions.
 
-There are exits north, east and south.
+I can move north, east and south.
 
 > s
 I move south.
@@ -36,7 +36,7 @@ from the north towards the west. In every other direction there are dark,
 sinister looking trees that wave their branches at me in an anthropomorphic
 kind of way. Ooh, I'm soooo scared!
 
-There are exits north, east, south and west.
+I can move north, east, south and west.
 
 > w
 As I head off along the path a pathetic, mangey looking wolf jumps out from
@@ -52,6 +52,8 @@ At a fork in the path
 I'm at a fork in the path. Not the kind of fork you eat with, the sort where
 the path forks; you know, like a fork. To the north the path widens into a
 clearing. To the west it disappears into the forest.
+
+I can move north, east and west.
 
 > n
 I move north.
@@ -83,8 +85,24 @@ I can only move south.
 > take bottle
 I take the empty milkbottle.
 
+> look in dustbin
+An environmentally sound way of disposing of all the objects I'm finished
+with. The dustbin is empty.
+
+> take note
+Take what?
+
+> i
+I am wearing a wristwatch and a "distressed" Laura Ashley dress, and I am
+carrying an empty milkbottle.  A crumpled note is inside the empty
+milkbottle.
+
 > take note
 I take the crumpled note from the empty milkbottle.
+
+> read note
+'Dear Snookums, three pints tomorrow please - one regular, one skimmed and
+one semi-skimmed. From your little Fuzzy-wuzzy'
 
 > s
 I move south.
@@ -119,6 +137,35 @@ vegetable actually attached to the leaves. Weird; I always thought these
 things came from tins!
 
 > take pumpkin
+Take what?
+
+> examine vegetable
+I see no such thing.
+
+> l
+
+In the garden
+I'm in a little garden alongside the cottage. There's a vegetable plot in a
+sunny spot by the wall and on the other side of the garden a somewhat
+neglected ornamental pond. There's obviously been some attempt at landscaping
+but the effect is less Capability Brown and more incapable bruin. A
+ramshackle potting shed completes the image of horticultural incompetence. To
+the north, an overgrown pergola leads into a meadow.
+
+I can move north, east and in.
+
+> x leaves
+I see no such thing.
+
+> i
+I am wearing a wristwatch and a "distressed" Laura Ashley dress, and I am
+carrying a turnip, an empty milkbottle and a crumpled note.
+
+> x plot
+It's in a sunny spot by the side of the cottage.  There's also an overripe
+pumpkin growing there.
+
+> get pumpkin
 I take the overripe pumpkin from the vegetable plot.
 
 > in
@@ -146,10 +193,36 @@ I open the trunk. It contains some sticks of dynamite. If this is what Papa
 Bear thinks of as fishing tackle I dread to think what he uses for hunting -
 a Sherman tank, perhaps?
 
-> take all
-I take the pair of secateurs and the ratty old paintbrush.  I take the sticks
-of dynamite from the old metal trunk.  I take the trowel and the pair of
-gardening gloves from one of the plant pots.
+> get all
+I take the pair of secateurs and the ratty old paintbrush.
+
+> l
+
+In the potting shed
+I'm in the potting shed, a ramshackle structure that was obviously cobbled
+together in five minutes some idle Sunday afternoon.  I didn't know bears had
+green fingers. In fact I didn't know they had fingers at all. Plant pots of
+all sizes are scattered about the shed untidily and the whole place is
+festooned with cobwebs.
+
+In the corner is an old metal trunk marked 'FISHING TACKLE.'
+
+I can only move out.
+
+> get secateurs
+I am already carrying the pair of secateurs.
+
+> get dynamite
+I take the sticks of dynamite from the old metal trunk.
+
+> get gloves
+I take the pair of gardening gloves from one of the plant pots.
+
+> get trowel
+I take the trowel from one of the plant pots.
+
+> x pots
+Plant pots of all different sizes are scattered about the floor of the shed.
 
 > out
 I move out.
@@ -310,9 +383,6 @@ covered in pondslime now! Thanks a lot!
 > open packet
 I open the small packet.  A magic bean is inside the small packet.
 
-> take bean
-I take the magic bean from the small packet.
-
 > plant bean
 Okay, I planted it in the vegetable plot. Nothing seems to be happening. So
 much for the "magic."
@@ -332,6 +402,20 @@ I take the crumpled note, the broken bottle, the sticks of dynamite, the pair
 of secateurs, the small packet, the trowel, the ratty old paintbrush, the
 overripe pumpkin and the pair of gardening gloves.
 
+> l
+
+In the garden
+I'm in a little garden alongside the cottage. There's a vegetable plot in a
+sunny spot by the wall and on the other side of the garden a somewhat
+neglected ornamental pond. There's obviously been some attempt at landscaping
+but the effect is less Capability Brown and more incapable bruin. A
+ramshackle potting shed completes the image of horticultural incompetence. To
+the north, an overgrown pergola leads into a meadow.  A gigantic beanstalk
+rises out of the vegetable plot and stops abruptly just above the level of
+the roof.
+
+I can move north, east and in.
+
 > climb beanstalk
 If Jack can do it, so can Goldilocks!
 
@@ -339,6 +423,8 @@ At the top of the beanstalk
 I'm at the top of the beanstalk. I was under the impression that these giant
 beanstalks all had castles at the top of them, but not this scrawny specimin.
 However I can almost touch the roof of the cottage from here.
+
+I can only move down.
 
 > jump to roof
 Okay... Oof! Fortunately for you I had a soft landing on the thatched roof of
@@ -364,6 +450,8 @@ totally lacking in "mod cons." A large dining table sits in the centre of the
 room and there is a dresser against the wall. Opposite the dresser is an
 enormous brick fireplace that seems to fill half the room.
 
+I can move north and east.
+
 > drop note
 I drop the crumpled note.
 
@@ -376,13 +464,18 @@ I drop the small packet.
 > drop trowel
 I drop the trowel.
 
-> take spoon
+> look table
+It looks rather rustic, which is to say that it looks like a bunch of logs
+crudely nailed together.  On the dining table is a spoon, a large bowl, a
+medium-sized bowl and a tiny little bowl.
+
+> get spoon
 I take the spoon from the dining table.
 
 > open dresser
 I open the kitchen dresser.  A gigantic bowl is inside the kitchen dresser.
 
-> take gigantic bowl
+> get gigantic bowl
 I take the gigantic bowl from the kitchen dresser.
 
 > pour porridge in large bowl into gigantic bowl
@@ -426,10 +519,17 @@ I can only move south.
 > open freezer
 I open the freezer.  A packet of frozen pork chops is inside the freezer.
 
-> take chops
+> get chops
 I take the packet of frozen pork chops from the freezer.
 
 > take box
+Take what?
+
+> x shelves
+One of the bears is obviously into DIY.  On the shelf is a box of porridge
+oats, a matchbox and a wedge of cheese.
+
+> get box
 I take the box of porridge oats from the shelf.
 
 > open box
@@ -445,6 +545,13 @@ cool is that?
 
 > take matchbox
 I take the matchbox from the shelf.
+
+> take mouse
+Take what?
+
+> x mousetrap
+A simple little gadget designed to deliver swift and painless death to
+harmless little rodents.  A dead mouse is inside the mousetrap.
 
 > take mouse
 I take the dead mouse from the mousetrap.
@@ -480,6 +587,8 @@ disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door is closed.
 
 I can also see a bearskin rug.
+
+I can move north, west and up.
 
 'Ding-Dong!' The doorbell rings. A booming voice can be heard from the
 direction of the front door: 'Little pigs, little pigs, LET ME IN, or I'll
@@ -532,6 +641,9 @@ a little tetchy about other people using his chair - he's wired it up to the
 mains! There's a cable connected to the electrodes which presumably supplies
 the juice.
 
+> drop antimacassaer
+Drop what?
+
 > drop antimacassar
 I drop the antimacassar.
 
@@ -552,8 +664,6 @@ portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
-
- Just inside the front door is an open trapdoor.
 The Big Bad Wolf is here.
 
 I can move north, west, up, down and out.
@@ -595,8 +705,6 @@ portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
-
- Just inside the front door is an open trapdoor.
 The Big Bad Wolf is here.
 
 I can move north, west, up, down and out.
@@ -641,8 +749,6 @@ portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
-
- Just inside the front door is an open trapdoor.
 The Big Bad Wolf is here.
 
 I can move north, west, up, down and out.
@@ -727,6 +833,9 @@ that he gives a low bow, at which point the oil can falls from the top of the
 turbine and bops him on the head. With a cluck of annoyance he hitches up the
 hem of his nightdress, hops over the fence and disappears into the forest.
 
+> tak oil can
+I don't understand what you want me to do with the oil can.
+
 > take oil can
 I take the oil can.
 
@@ -786,8 +895,6 @@ portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
-
- Just inside the front door is an open trapdoor.
 
 I can move north, west, up, down and out.
 
@@ -894,8 +1001,6 @@ disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
 
- Just inside the front door is an open trapdoor.
-
 I can move north, west, up, down and out.
 
 > n
@@ -913,6 +1018,9 @@ I can also see a bearskin rug and an antimacassar.
 
 I can only move south.
 
+> cuit cable
+I don't understand what you want me to do with the electrodes.
+
 > cut cable
 Okay, I use the secateurs to cut the cable connecting the electrodes to the
 power supply. Let's see Papa Bear try to fry me now!
@@ -926,8 +1034,6 @@ portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
-
- Just inside the front door is an open trapdoor.
 
 I can move north, west, up, down and out.
 
@@ -957,8 +1063,6 @@ portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
-
- Just inside the front door is an open trapdoor.
 
 I can move north, west, up, down and out.
 
@@ -1005,6 +1109,9 @@ for someone much heavier than me!
 
 > open fridge
 I open the refridgerator.  A can of beer is inside the refridgerator.
+
+> take beed
+Take what?
 
 > take beer
 I take the can of beer from the refridgerator.
@@ -1056,8 +1163,6 @@ disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
 
- Just inside the front door is an open trapdoor.
-
 I can move north, west, up, down and out.
 'Ding-Dong!' A bell rings somewhere.
 
@@ -1077,15 +1182,41 @@ I can also see a package.
 I can move south and in.
 
 > open package
+I am not carrying the package!
+
+> take package
+The package is too heavy for me to carry at the moment.
+
+> drop all
+I drop the matchbox, the empty beer can, the sticks of dynamite, the pair of
+secateurs, the blackened metal poker, the cue ball, the ratty old paintbrush,
+the dead mouse, the overripe pumpkin and the pair of gardening gloves.
+
+> take package
+I take the package.
+
+> open package
 I open the package.  An electric toaster and a leaflet are inside the
 package.
 
 > take toaster
 I take the electric toaster from the package.
 
+> get dynamite
+I take the sticks of dynamite.
+
 > put dynamite in toaster
 Hmmm... they seem to fit quite snuggly. I jammed them in upside down so that
 the fuses are touching the heating elements of the toaster.
+
+> get all
+I take the matchbox, the empty beer can, the pair of secateurs, the blackened
+metal poker, the cue ball, the ratty old paintbrush and the dead mouse.  The
+overripe pumpkin is too heavy for me to carry at the moment.  The pair of
+gardening gloves is too heavy for me to carry at the moment.
+
+> drop package
+I drop the package.
 
 > in
 I move in.
@@ -1096,8 +1227,6 @@ portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
-
- Just inside the front door is an open trapdoor.
 
 I can move north, west, up, down and out.
 
@@ -1127,8 +1256,6 @@ portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
-
- Just inside the front door is an open trapdoor.
 
 I can move north, west, up, down and out.
 
@@ -1173,6 +1300,9 @@ I can also see a TV remote control.
    The jolt threw me out of the chair - I guess the mechanism was designed
 for someone much heavier than me!
 
+> unpug tv
+I don't understand what you want me to do with the television.
+
 > unplug tv
 Okay, I pulled the plug out of the wall socket.
 
@@ -1201,8 +1331,6 @@ portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
-
- Just inside the front door is an open trapdoor.
 
 I can move north, west, up, down and out.
 
@@ -1240,8 +1368,6 @@ portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
-
- Just inside the front door is an open trapdoor.
 
 I can move north, west, up, down and out.
 
@@ -1281,6 +1407,8 @@ smoking slightly.
 
 I can also see a TV remote control.
 
+I can only move west.
+
    The jolt threw me out of the chair - I guess the mechanism was designed
 for someone much heavier than me!
 
@@ -1298,6 +1426,13 @@ the words: "DANGER: PROTOTYPE!"
 I can only move east.
 
 > take wrench
+Take what?
+
+> x bench
+It's old and worn, splattered with paint and full of grooves and dents.  A
+wrench and a tin of gold paint are on the bench.
+
+> get wrench
 I take the wrench from the bench.
 
 > take paint
@@ -1350,8 +1485,6 @@ disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
 
- Just inside the front door is an open trapdoor.
-
 I can move north, west, up, down and out.
 
 > out
@@ -1365,7 +1498,7 @@ forest.
 
 A battered old dustbin sits to one side of the porch.
 
-I can also see a package.
+I can also see a package, an overripe pumpkin and a pair of gardening gloves.
 
 I can move south and in.
 
@@ -1429,7 +1562,7 @@ forest.
 
 A battered old dustbin sits to one side of the porch.
 
-I can also see a package.
+I can also see a package, an overripe pumpkin and a pair of gardening gloves.
 
 I can move south and in.
 
@@ -1442,8 +1575,6 @@ portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
-
- Just inside the front door is an open trapdoor.
 
 I can move north, west, up, down and out.
 
@@ -1485,6 +1616,76 @@ itself into a tiny little old lady with wings.
 her exertions, 'I am your Fairy Godmother and you shall go to the... to
 the... oh, what was it now?' She looks up at me, bewildered. 'Who are you? Is
 it time for my medicine?'
+
+> give pumpkin to godmother
+I don't have a pumpkin!
+
+> out
+I can only move down.
+
+> d
+I move down.
+
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+I can move north, west, up, down and out.
+
+> out
+I move out.
+
+On the porch
+I'm standing on the porch of the Three Bears' cottage. It would be quite
+pretty in a rustic sort of way had someone not seen fit to paint it gold. The
+front door has been wedged open. Just south of me is the clearing in the
+forest.
+
+A battered old dustbin sits to one side of the porch.
+
+I can also see a package, an overripe pumpkin and a pair of gardening gloves.
+
+I can move south and in.
+
+> get puimpkin
+Take what?
+
+> take pumpkin
+I take the overripe pumpkin.
+
+> in
+I move in.
+
+In the hall
+I'm in the entrance hall of the Three Bears' house. Hung around the walls are
+portraits of various members of the Bear clan, along with some highly
+disturbing hunting trophies. A narrow staircase leads up to the bears'
+bedroom. The front door has been wedged open. Just inside the front door is
+an open trapdoor.
+
+I can move north, west, up, down and out.
+
+> u
+I move up.
+
+In the bedroom
+I'm in the Three Bears' bedroom, a small attic room with steeply sloping
+walls. They have the weirdest sleeping arrangements. There's a tiny little
+bed, a medium-sized bed and a full sized snooker table. A narrow staircase
+leads down to the hall.
+
+A tiny dormer window looks out onto the clearing.
+
+I can also see a rather thin blanket.
+My Fairy Godmother is here.
+
+I can only move down.
+
+> give puimpkin to godmother
+Give what?
 
 > give pumpkin to godmother
 'Thankyou dear,' says my Fairy Godmother as I hand her the pumpkin. 'With a
@@ -1538,8 +1739,6 @@ disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
 
- Just inside the front door is an open trapdoor.
-
 I can move north, west, up, down and out.
 
 > n
@@ -1577,6 +1776,8 @@ Of the television set there is no sign. The fridge is lying on its side,
 smoking slightly.
 
 I can also see a TV remote control.
+
+I can only move west.
 
    The jolt threw me out of the chair - I guess the mechanism was designed
 for someone much heavier than me!
@@ -1635,8 +1836,6 @@ disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
 
- Just inside the front door is an open trapdoor.
-
 I can move north, west, up, down and out.
 
 > d
@@ -1675,7 +1874,7 @@ disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
 
- Just inside the front door is an open trapdoor.
+I can move north, west, up, down and out.
 
 > n
 I move north.
@@ -1705,15 +1904,13 @@ disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
 an open trapdoor.
 
- Just inside the front door is an open trapdoor.
-
 I can move north, west, up, down and out.
 
 > cover trapdoor
 Okay, I placed the rug over the trapdoor, so that it looks exactly as before
 - except that the trapdoor is open!
 
-> take cheese
+> get cheese
 Okay, I removed the wedge of cheese that was holding the door open.
 
 > close door

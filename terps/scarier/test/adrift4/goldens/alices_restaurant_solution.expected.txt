@@ -299,6 +299,8 @@ can make out Alice's garden.  Your VW microbus is parked here on a road
 heading north.  You'll have to get back in the bus if you want to go that
 way.  It's too far to walk.  There is a mailbox here.
 
+You can move north and east.
+
 > north
 You move north.
 
@@ -432,6 +434,8 @@ can make out Alice's garden.  Your VW microbus is parked here on a road
 heading north.  You'll have to get back in the bus if you want to go that
 way.  It's too far to walk.  There is a mailbox here.
 
+You can move north and east.
+
 > break garbage with implement of destruction
 The garbage is now mashed, crushed, smashed and compacted to a much more
 manageable size.
@@ -509,6 +513,8 @@ Red VW Microbus
 You are in your red VW microbus which is parked in front of the church.  The
 road leads to the north from here.
 
+You can only move east.
+
 > get out of bus
 You're on foot.
 
@@ -521,6 +527,8 @@ to remind you of a New England post card.  On the east side of the church you
 can make out Alice's garden.  Your VW microbus is parked here on a road
 heading north.  You'll have to get back in the bus if you want to go that
 way.  It's too far to walk.  There is a mailbox here.
+
+You can move north and east.
 
 > north
 You move north.
@@ -608,6 +616,8 @@ for your army physical....
 Whitehall Street
 This is the building where you get injected, inspected, detected, infected,
 neglected and selected.
+
+You can only move north.
 A Mean Looking Soldier asks you for your papers and looks you over as though
 he is inspecting any other piece of government property.  You believe you see
 a brief smirk on his face as he looks at your hair.  He hands you a piece of

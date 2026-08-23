@@ -621,7 +621,7 @@ Also here is a key.
 You can only move west.
 
 > take key
-You've already got the key!
+You are already carrying the key.
 
 > w
 You move west.

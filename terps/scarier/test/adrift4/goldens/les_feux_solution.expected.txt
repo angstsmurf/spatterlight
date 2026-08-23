@@ -150,6 +150,8 @@ en lettres élégantes en or. La porte de droite est faite de pierre solide
 sans aucune poignée
 où système d'ouverture.
 
+Vous pouvez seulement vous déplacer vers le Sud.
+
 > s
 Vous vous déplacez vers le Sud.
 
@@ -237,6 +239,8 @@ Au Nord-est vous pouvez voir un couloir bien éclairé qui a une odeur de cire
 et au nord
 un long tunnel qui serpente au loin. A l'est se trouve la pièce circulaire.
 
+Sorties évidentes: nord, Est, sud, Ouest et Nord-Est.
+
 > n
 Vous vous déplacez vers le Nord.
 
@@ -289,6 +293,8 @@ de grosses pierres grises et vos pas résonne sur le sol de roche. Une porte
 se trouve
 à l'extrémité du couloir. Au sud vous distinguez la petite caverne.
 Un Démon d'éffroi est ici, prêt à vous attaquer !
+
+Vous pouvez seulement vous déplacer vers le Sud.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
@@ -368,6 +374,8 @@ fait
 de grosses pierres grises et vos pas résonne sur le sol de roche. Une porte
 se trouve
 à l'extrémité du couloir. Au sud vous distinguez la petite caverne.
+
+Sorties évidentes: Nord et Sud.
 
 > drink fiole bleue
 Un grand frisson parcourt votre corps et vous vous sentez beaucoup mieux.

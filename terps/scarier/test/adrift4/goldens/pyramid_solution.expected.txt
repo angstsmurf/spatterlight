@@ -37,6 +37,8 @@ wall.
 Short passage
 A short passageway south from the entrance chamber.
 
+You can move north and south.
+
 > s
 You move south.
 

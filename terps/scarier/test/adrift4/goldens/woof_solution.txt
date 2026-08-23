@@ -15,9 +15,11 @@
 # (N->3 W->0), 2 neighbour fence (N->5 E->0), 3 patio (S->1 W->4), 4 main door
 # (E->3 S->0 W->5), 5 near the window (E->4 S->2).
 Rex
+x basket
 take ball
 e
 piss on the tree
+x oak
 take doll
 take bone
 eat the bone

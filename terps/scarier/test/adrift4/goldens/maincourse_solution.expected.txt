@@ -61,7 +61,7 @@ cheap, and so are we!"
 
 SoMorph not impressed.
 
-There is an exit north.
+SoMorph can only move north.
 
 > north
 (Standing up first)
@@ -81,7 +81,7 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-There are exits north, south and west.
+SoMorph can move north, south and west.
 
 Somorph thinking that Brian did this.
 

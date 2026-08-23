@@ -107,9 +107,11 @@ w
 search desk
 drop note
 drop bible
+remove cap
+drop cap
+drop lighter
 get jacket
 wear jacket
-get bible
 e
 s
 e
@@ -164,7 +166,12 @@ talk to ray
 talk to ray
 talk to ray
 give cigarettes to ray
+drop cigarettes
+drop screwdriver
 s
+w
+get bible
+e
 s
 e
 e
@@ -174,6 +181,7 @@ n
 nw
 unlock door
 open door
+drop keys
 n
 n
 e
@@ -197,8 +205,6 @@ e
 ne
 e
 se
-drop screwdriver
-drop lighter
 get cutters
 nw
 w

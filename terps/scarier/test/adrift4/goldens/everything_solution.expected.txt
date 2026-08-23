@@ -35,7 +35,7 @@ however, complete the woman, as there are moments where one has to tease her
 from the surroundings like the way the wind blows through the open window and
 probes the splendid curtains: searching, feeling, shaping...
 
-There is an exit out.
+I can only move out.
 
 >
 
@@ -190,15 +190,10 @@ into the mirror, rolling her eyes over the reflection, and working on
 sculpting a greater beauty than how it interpreted her.
 
 > x wig
-   That's her raven curls, the sheen surely is evidence. And I have ran my
-hands through those locks suspecting nothing, run my hands through softly,
-collecting the ends and letting them cascade back over her fine shoulders.
+I see no such thing.
 
 > x necklace
-   The necklace that I gave her as a token of my love and since that day it
-would always hang around her sweet neck the way I would hang on her every
-thought. Strange that I should never have noticed the small key that depends
-from it.
+I see no such thing.
 
 > x key
    It's a small key attached to her necklace like a pendant, attached tightly

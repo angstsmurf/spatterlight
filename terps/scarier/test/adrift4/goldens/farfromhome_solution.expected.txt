@@ -37,12 +37,17 @@ You hear a small snap, as if a twig had been broken.
 > down
 You clamber down the ladder into the cellar.
 
+> x awful-smelling bed
+It smells really bad. It's also stained.  A rusty bucket is on the
+awful-smelling bed.
+
 > take bucket
 You take a rusty bucket from the awful-smelling bed.
 
 > up
 You grasp the ladder and climb back into the cabin.
-You hear a small snap, as if a twig had been broken.
+A cool breeze blows past. The grass and plants that surround you quiver as it
+caresses them.
 
 > w
 You move west.
@@ -51,8 +56,6 @@ The base of the mountain
 A huge mountain looms in front of you, like a man before an ant. You can see
 a small hole at the base of a group of trees. There is a path that leads
 south, through a winding forest. A small, dilapidated cabin lies eastward.
-A cool breeze blows past. The grass and plants that surround you quiver as it
-caresses them.
 
 > s
 You move south.
@@ -61,16 +64,16 @@ A huge forest
 The trees are quite varied. Some are pine, some oak, some live, some dead and
 rotting. The dirt path leads south and north. You can see footprints of small
 animals in the dust. Small twigs litter the grass.
+You hear a small snap, as if a twig had been broken.
 
 > chop down tree
 You whack the tree repeatedly with the axe. Soon, it crashes to the ground. A
 shovel dislodges from the branches.
-You hear a small snap, as if a twig had been broken.
+A cool breeze blows past. The grass and plants that surround you quiver as it
+caresses them.
 
 > take shovel
 You pick up the shovel.
-A cool breeze blows past. The grass and plants that surround you quiver as it
-caresses them.
 
 > s
 You move south.
@@ -80,11 +83,13 @@ This field is so big that if you went anywhere but back north, you'd get
 lost. The grass is taller here than anywhere else. It's almost up to your
 elbows. The grass moves occasionally, as a small creature moves through it.
 There is a large molehill near your right foot.
+You hear a small snap, as if a twig had been broken.
 
 > dig
 You sink the shovel into the soft earth of a molehill and start to remove the
 dirt. Soon, you expose a small hole leading down into the ground.
-You hear a small snap, as if a twig had been broken.
+A cool breeze blows past. The grass and plants that surround you quiver as it
+caresses them.
 
 > d
 You move down.
@@ -106,7 +111,8 @@ lost. The grass is taller here than anywhere else. It's almost up to your
 elbows. The grass moves occasionally, as a small creature moves through it.
 Dirt is scattered about the field, and you can move down through a small hole
 into a cave.
-You hear a small snap, as if a twig had been broken.
+A cool breeze blows past. The grass and plants that surround you quiver as it
+caresses them.
 
 > n
 You move north.
@@ -115,8 +121,6 @@ A huge forest
 The trees are quite varied. Some are pine, some oak, some live, some dead and
 rotting. The dirt path leads south and north. You can see footprints of small
 animals in the dust. Small twigs litter the grass.
-A cool breeze blows past. The grass and plants that surround you quiver as it
-caresses them.
 
 > n
 You move north.
@@ -125,6 +129,7 @@ The base of the mountain
 A huge mountain looms in front of you, like a man before an ant. You can see
 a small hole at the base of a group of trees. There is a path that leads
 south, through a winding forest. A small, dilapidated cabin lies eastward.
+You hear a small snap, as if a twig had been broken.
 
 > dump water into hole
 You turn up the bucket and empty its contents into the hole. Suddenly,
@@ -286,12 +291,28 @@ lies tucked into the corner, its sheets and blanket nowhere near made.
 An old pirate is here,searching through everything in the room, stopping and
 cursing every so often. "Where is it, where IS it, !%@$^%?!"
 
+> z
+Time passes...
+
+> z
+Time passes...
+
 > give pearl to pirate
 The pirate's eyes light up. "Hey, thanks, kid, this's what I've bin lookin'
 fer!" He pockets the pearl. "Aye, I said I'd give yer somethin' fer yer
 trouble, didn't I?" He searches his bag. "Ah, here you go, matey! May the
 seas be in yer favor!" He hands you a dirty coil of rope and scuttles away.
 You wonder where he would go, since there wasn't a boat outside.
+
+> x bed
+It smells really bad. It's also stained.  A ruffled sheet is on the
+awful-smelling bed.
+
+> x ruffled sheet
+The sheet is wrinkled and moldy. The pirate most likely picked it up, took
+one look, and put it back down on the bed again. You wouldn't blame him if he
+did, it's a bit gross to be honest.  A tiny bronze key is inside the ruffled
+sheet.
 
 > take key
 You take a tiny bronze key from the ruffled sheet.

@@ -470,6 +470,8 @@ the spot by screws. Eggbert obviously wants it to stay put.
 Also here is rusty cog.
 Eggbert is here.
 
+You can only move up.
+
 > take cog
 You pick up rusty cog.
 
@@ -554,8 +556,7 @@ of the water.
 The wind howls and you shiver.
 
 > take fish
--
-
+You take dead fish from fish tank.
 A sudden crash of lightning makes you jump.
 
 > put fish in whisky

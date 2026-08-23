@@ -28,8 +28,10 @@ x stains
 break poster
 e
 open door
+x armchair
 get flashlight
 e
+x pile of trash
 get iron
 get battery
 put battery in flashlight

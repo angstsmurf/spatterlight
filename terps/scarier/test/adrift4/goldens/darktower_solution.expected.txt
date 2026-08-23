@@ -23,7 +23,7 @@ metal security gate blocking the exit to the building.
 
 Also here is a gold key card and a memo.
 
-There are exits north and south.
+You can move north and south.
 
 > take gold key card
 You pick up the gold key card.

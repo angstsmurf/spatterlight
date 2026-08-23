@@ -290,6 +290,8 @@ one can say about Grandad's sense of art deco - let alone humour.  Once again
 Grandad seems to have forgotten to actually put a bed in the spare bedroom.
 There is a small tabby cat here, watching me intently.
 
+I can only move east.
+
 > Get coin
 Okay.  I have taken the coin from the cat.
 
@@ -427,6 +429,8 @@ this well any more, it must have dried out years ago.  That is if you can
 call this muddy sludge dry.  A rope leads up the well to ground level.  The
 well's brick wall looks as though it has been weakened greatly by damp over
 the years.
+
+I can only move up.
 
 > Dig
 I dig around in the mud and uncover a carrot.
@@ -657,6 +661,8 @@ jump out of the chair.
 Dark
 Everything is dark.
 
+Exits are east and up.
+
 > E
 
 Dark
@@ -677,6 +683,8 @@ east and west, whilst an ornate archway has been bricked up to my south.
 
 A wooden ladder leans against the wall.
 The body of the miner lies unconcious on the ground.
+
+Exits are east and west.
 
 > X miner
 The miner is a small, hunched man with a wild red beard.  Warts cover his
@@ -881,6 +889,8 @@ I am in the manor grounds of Attervist manor.  It is a beautiful summer's day
 and the lawns stretch out before me.  To my east there is a small gap in the
 hedge.  A man-sized hole in the grass at my feet leads downwards.
 
+Exits are east and down.
+
 > E
 
 Field
@@ -915,6 +925,8 @@ I am inside the Frog and Ferret public house.  It is a typical Victorian pub.
 expectantly behind the bar.  It is not exactly hectic in here.
 A grave-digger stands nearby.  He is standing at the bar, looking vacantly
 into an empty glass.
+
+An exit leads outside.
 
 > Give doll to barman
 "Why, my young daughter will love that.  Here, have this in exchange".  The
@@ -1032,6 +1044,8 @@ I am in the dingy tunnel by an iron grating.  The tunnel looks onto an
 entrance hall, a stone staircase to one side.  The tunnel continues into damp
 gloominess to my west.  The grating is closed.
 
+I can only move west.
+
 > W
 
 Tunnel
@@ -1076,6 +1090,8 @@ up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
 beechwood armchair sits in the middle of the cellar.
 There is a small chimpanzee here.
+
+Exits are east and up.
 
 > U
 
@@ -1471,6 +1487,8 @@ A round marble plinth stands in the middle of the room.  Built into the floor
 of the room there is a small drain.  On one of the walls there is a small
 official-looking sign.  There are thirteen sweets sitting on the plinth.
 A large octopus is sprawled over most of the room.
+
+I can only move west.
 He extends a slippery tentacle in my direction and I hesitantly shake it.
 "Glad you could make it", says the octopus, "You're just in time..  Fancy a
 game of Wubble-A-Gloop?  I'm sure you do.  You do know the rules I trust,
@@ -1901,6 +1919,8 @@ I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
 prickly brambles and are covered with frosty cobwebs.
 
+Exits are north, east, south and west.
+
 > S
 
 The Maze
@@ -2095,6 +2115,8 @@ directions.  A sign hangs on the wall of the warren.  Something red sparkles
 brightly at the end of the burrow to my north.  There are two flowers here:
 one blue and one orange.
 A waistcoated rabbit leans drunkenly against a wall.
+
+Exits are north, east, south, west, up and down.
 
 > Give carrot to rabbit
 Dylan the rabbit smiles, "Gee thanks bud."  He begins to chew on the carrot.
@@ -2903,6 +2925,8 @@ I am onboard the Viking longboat.  This seems to be some sort of galley area
 - boars hang up on hooks from the low beamed ceiling.  Blood slowly drips
 from the boars carcasses onto a large oval table.
 There is a Viking here.
+
+Exits are north and south.
 He hands me a mug, "Here, this'll soon warm you up.."
 
 > X hair
@@ -3032,6 +3056,8 @@ iced over in this freezing weather.  A huge Viking longboat has been caught
 in the ice's grasp, its wooden bows creaking under the pressure.  Beyond the
 longboat there is a small island.
 
+Exits are north and south.
+
 > N
 
 Manor Grounds
@@ -3135,6 +3161,8 @@ marzipan and icing sugar are liberally scattered across the damp stone floor.
 Also here is a caddy.
 A shark is leaning against one of the mounds of marzipan.  He gives me a
 knowing wink.
+
+I can only move east.
 
 Schrodinger wanders towards me from the east.
 
@@ -3335,6 +3363,8 @@ ones on previous floors, and looks as if it was last dusted in 1957.  In fact
 I doubt this part of the house can be visited much at all.  A shallow
 passageway leads eastward over wooden floorboards, and there is a small
 laundry room to my west.
+
+Exits are east, west and down.
 Clouds of steam billow from the kettle's spout and slowly drift upwards.
 
 > E
@@ -3639,6 +3669,8 @@ snow here.  A side wall of the manor marks the west boundary of the yard, and
 a thick hedge blocks passage to the east.  A large wooden hen-house is at the
 end of the yard, a small ramp leading inside.  To my south there is a high
 wire fence.
+
+Exits are south and in.
 
 > In
 
@@ -4365,6 +4397,8 @@ and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
 of creatures is gathered to the south, crowded around the bar.
 
+Exits are north and south.
+
 Grandad enters from the north.
 
 > X table
@@ -4554,6 +4588,8 @@ curious mist.  I can hear innocuous muzak being played gently in the
 background.  A wooden chute has been built into one of the walls.
 A Viking is slumped in the corner.
 
+Exits are north and south.
+
 Grandad enters from the north.
 
 > S
@@ -4565,6 +4601,8 @@ I am standing by a bus stop in a rural country lane.  There is a windowless
 concrete building to my north.  The lane continues its twisty journey east
 and west for a while before disappearing into a strange thick mist.
 A strange-looking robot stands authoritatively beside the bus stop.
+
+Exits are north, east and west.
 A coach trundles past, beeps its horn, and drives off into the mist to my
 east.
 
@@ -4672,6 +4710,8 @@ a thick hedge blocks passage to the east.  A large wooden hen-house is at the
 end of the yard, a small ramp leading inside.  To my south there is a high
 wire fence.
 
+Exits are south and in.
+
 > In
 
 Hen-house
@@ -4714,6 +4754,8 @@ man-sized gap in the ceiling above me, looking out on the winter sky.  It is
 a little high to reach though.
 
 Also here is a mattress.
+
+I can only move south.
 
 > S
 
@@ -5629,12 +5671,15 @@ smile crosses his face, and he starts talking loudly in Norwegian.  His
 conversation over he runs northwards into the mist.  I notice Olaf has left
 behind his rucksack and call after him.  But it is too late.
 
+> Get rucksack
+Okay.  I have taken the rucksack.
+
 > Open rucksack
 I open the rucksack.  Some white powder is inside the rucksack.
+Olaf sniffs.
 
 > Get powder
 Okay.  I have taken the white powder from the rucksack.
-Olaf sniffs.
 
 > Put powder in chute
 Okay.  I put the white powder inside the D chute.
@@ -5714,6 +5759,8 @@ high roof of the ceiling there is a large dark hole.
 Also here is a crowbar, some white powder and a raspberry.
 A fairy sits on a pile of junk nearby.  She doesn't look very happy.
 
+Exits are north, east, south and west.
+
 > Get powder
 Okay.  I have taken the white powder.
 
@@ -5750,6 +5797,8 @@ high roof of the ceiling there is a large dark hole.
 Also here is a crowbar and a raspberry.
 A fairy sits on a pile of junk nearby.  She doesn't look very happy.
 
+Exits are north, east, south and west.
+
 > Get raspberry
 Okay.  I have taken the raspberry.
 
@@ -5780,6 +5829,8 @@ circuitry through optical fibres.  There is a marble pedestal here.
 
 Also here is a humbug and a filofax.
 A hacker stands beside the computer.
+
+Exits are north and west.
 
 > Turn on torch
 Okay.  I turn the torch on.
@@ -5952,8 +6003,8 @@ sheets, a bus pass and a polaroid.
 Exits are north, east, south, west and up.
 
 > Drop all
-Okay.  I have dropped the torch, the tooth, the diamond, the amethyst and the
-sapphire.
+Okay.  I have dropped the torch, the rucksack, the tooth, the diamond, the
+amethyst and the sapphire.
 
 > Get torch
 Okay.  I have taken the torch.
@@ -6161,6 +6212,8 @@ way northwards.
 
 A pile of ash rests on the ground.  The fire alarm is ringing loudly.
 
+I can only move north.
+
 > Turn off wheel
 I turn the wheel.  The wall of fire to my north goes out almost immediately.
 
@@ -6301,43 +6354,63 @@ persian rug lies in a large circle before me. The front door is to my south.
 Also here is a satchel, a shovel, an envelope, some gloves, a swimming cap, a
 jigsaw, an emerald, a ruby, a hat, a golden casket, a fish, a pot, a bone, a
 sandwich, a ticket, a hedgehog, a zircon, a battery, a trombone, a bus pass,
-a tooth, a polaroid, a diamond, an amethyst and a sapphire.
+a rucksack, a tooth, a polaroid, a diamond, an amethyst and a sapphire.
 
 Exits are north, east, south, west and up.
 
 > Get battery
 Okay.  I have taken the battery.
 
+Schrodinger wanders towards me from above.
+
 > X torch
 The torch is large and bulky, and is a product of the Instant Karma
 Corporation.  There is a small compartment in the torch for a battery.  The
 torch is closed.
+
+Schrodinger wanders to the north.
 
 > Open torch
 Okay.  I open the torch.  As soon as the Instant Karma battery comes into
 contact with the open air it begins to disintegrate.  A gust of air blows the
 last dusty fragments away.
 
+Schrodinger wanders towards me from the north.
+
 > Put battery in torch
 Okay.  I put the battery inside the torch.
+
+Schrodinger wanders to the north.
 
 > Close torch
 I close the torch.
 
+Schrodinger wanders towards me from the north.
+
 > Get zircon
 Okay.  I have taken the zircon.
+
+Schrodinger wanders to above.
 
 > Get ruby
 Okay.  I have taken the ruby.
 
+Schrodinger wanders towards me from above.
+
 > Get emerald
 Okay.  I have taken the emerald.
+
+Schrodinger wanders to the north.
 
 > Get sapphire
 Okay.  I have taken the sapphire.
 
+Schrodinger wanders towards me from the north.
+
 > Get amethyst
 Okay.  I have taken the amethyst.
+
+Schrodinger wanders to above.
 
 > Get diamond
 Okay.  I have taken the diamond.
@@ -6349,8 +6422,12 @@ Okay.  I have taken the gloves.
 [Wear some gloves]
 Okay.  I am now wearing the gloves.
 
+Schrodinger wanders towards me from above.
+
 > Get hedgehog
 Okay.  I have taken the hedgehog.
+
+Schrodinger wanders to the north.
 
 > U
 
@@ -6362,8 +6439,6 @@ bedroom, whilst northwards is the bathroom. There is a locked door to my
 west.
 
 Exits are north, east, up and down.
-
-Schrodinger wanders towards me from above.
 
 > E
 
@@ -6399,11 +6474,10 @@ this part of the manor with portraits of serious-looking ladies and
 gentlemen. A narrow archway draped with wooden beads leads eastwards into a
 bedroom, whilst northwards is the bathroom. There is a locked door to my
 west.
-There is a small tabby cat here, watching me intently.
 
 Exits are north, east, up and down.
 
-Schrodinger wanders to below.
+Schrodinger wanders towards me from above.
 
 > D
 
@@ -6414,12 +6488,11 @@ persian rug lies in a large circle before me. The front door is to my south.
 
 Also here is a satchel, a shovel, an envelope, a swimming cap, a jigsaw, a
 hat, a golden casket, a fish, a pot, a bone, a sandwich, a ticket, a
-trombone, a bus pass, a tooth and a polaroid.
-There is a small tabby cat here, watching me intently.
+trombone, a bus pass, a rucksack, a tooth and a polaroid.
 
 Exits are north, east, south, west and up.
 
-Schrodinger wanders to the west.
+Schrodinger wanders towards me from above.
 
 > N
 
@@ -6548,8 +6621,6 @@ an open doorway to my south, whilst the entire northern wall is taken up by a
 curious mist.  I can hear innocuous muzak being played gently in the
 background.  A wooden chute has been built into one of the walls.
 
-Also here is a rucksack.
-
 Exits are north and south.
 
 > X chute
@@ -6559,6 +6630,7 @@ front an ornate letter "D" has been engraved.
 
 > Put diamond in chute
 Okay.  I put the diamond inside the D chute.
+Olaf mutters something about a very sad story.
 
 > Pull lever
 I pull the lever.  There is a whooshing sound from the chute and the diamond
@@ -6878,52 +6950,45 @@ persian rug lies in a large circle before me. The front door is to my south.
 
 Also here is a satchel, a shovel, an envelope, a swimming cap, a jigsaw, a
 hat, a golden casket, a fish, a pot, a bone, a sandwich, a ticket, a
-trombone, a bus pass, a tooth and a polaroid.
+trombone, a bus pass, a rucksack, a tooth and a polaroid.
+There is a small tabby cat here, watching me intently.
 
 Exits are north, east, south, west and up.
 
-Schrodinger wanders towards me from above.
+Schrodinger wanders to the north.
 
 > Drop torch
 Okay.  I have dropped the torch.
 
-Schrodinger wanders to the north.
+Schrodinger wanders towards me from the north.
 
 > Get casket
 Okay.  I have taken the golden casket.
 
-Schrodinger wanders towards me from the north.
+Schrodinger wanders to the north.
 
 > X casket
 The golden casket is bedecked with gold and jewels.  It looks very valuable.
 The golden casket is open.  Some pepper is inside the golden casket.
 
-Schrodinger wanders to the north.
+Schrodinger wanders towards me from the north.
 
 > Get pepper
 Okay.  I have taken the pepper from the golden casket.
 
-Schrodinger wanders towards me from the north.
+Schrodinger wanders to above.
 
 > Drop casket
 Okay.  I have dropped the golden casket.
 
-Schrodinger wanders to the west.
-
 > Get trombone
 Okay.  I have taken the trombone.
-
-Schrodinger wanders towards me from the west.
 
 > Get pot
 Okay.  I have taken the pot.
 
-Schrodinger wanders to above.
-
 > Get polaroid
 Okay.  I have taken the polaroid.
-
-Schrodinger wanders towards me from above.
 
 > E
 
@@ -6968,11 +7033,9 @@ persian rug lies in a large circle before me. The front door is to my south.
 
 Also here is a satchel, a shovel, an envelope, a torch, a swimming cap, a
 jigsaw, a hat, a golden casket, a fish, a bone, a sandwich, a ticket, a bus
-pass and a tooth.
+pass, a rucksack and a tooth.
 
 Exits are north, east, south, west and up.
-
-Schrodinger wanders towards me from the north.
 
 > S
 
@@ -7096,6 +7159,8 @@ The Maze
 I am standing in the maze on a snow covered pathway.  Twisty long pathways
 lead away from here, bordered by high hedges.  The hedges are made out of
 prickly brambles and are covered with frosty cobwebs.
+
+Exits are north, east, south and west.
 
 > Drop pot
 Okay.  I have dropped the pot.  At once I feel a heavy hand upon my shoulder.
@@ -7460,17 +7525,30 @@ Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
 
+> Look
+
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
+equipment make it quite cramped in here.  A plastic dustbin sits in one
+corner of the hut, beside a long wooden workbench.
+
+Also here is a can.
+Horace, Grandad's rather tubby gardener, is here.
+
+An exit leads outside.
+Horace reaches into his back pocket and takes out a small tin.
+
 > Throw plane
 Okay.  I have thrown the paper aeroplane.  The plane flies high in the air
 and begins an impressive display of aerobatics.  Horace sees the aeroplane
 and his mouth opens wide in awe.  Horace quickly remembers his role in life.
 His pupils dilate, his teeth gnash, and his eyebrows furrow as he snarls the
 word he hates more than any other: "litter".
-Horace reaches into his back pocket and takes out a small tin.
+He leaps up and puts the tin down on the workbench.
 Horace bounds after the paper aeroplane, trying to catch it.
 
 > Get tin
-Horace refuses to give me the tin!
+Okay.  I have taken the tin from horace's workbench.
 Horace bounds after the paper aeroplane, trying to catch it.
 
 > Open it
@@ -7489,7 +7567,7 @@ Horace bounds after the paper aeroplane, trying to catch it.
 > Wait
 Time passes...
 Horace catches the paper aeroplane.  He looks very pleased with himself.
-He picks up the tin and puts it in his back pocket.
+Horace grabs the tin off me, and puts it in his back pocket.
 
 > Wait
 Time passes...
@@ -7518,10 +7596,10 @@ Horace reaches into his back pocket and takes out a small tin.
 Horace opens the tin and takes a brown substance out between his finger and
 thumb.  This he unceremoniously snorts up his nostrils.  Slowly his nose
 begins to twitch, and then... Achoooo!
+He picks up the tin and puts it in his back pocket.
 
 > Get can
 Okay.  I have taken the can.
-He picks up the tin and puts it in his back pocket.
 
 > Out
 
@@ -7613,6 +7691,8 @@ The chain won't stretch any further, and I am forced to drop it.
 Dark
 Everything is dark.
 
+Exits are east and up.
+
 > U
 
 Wishing Well
@@ -7636,6 +7716,8 @@ snow here.  A side wall of the manor marks the west boundary of the yard, and
 a thick hedge blocks passage to the east.  A large wooden hen-house is at the
 end of the yard, a small ramp leading inside.  To my south there is a high
 wire fence.
+
+Exits are south and in.
 
 > In
 

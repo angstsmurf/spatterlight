@@ -615,7 +615,11 @@ As you enter you get the tell tale aroma of gin.
 As you go to open the desk the doctor shouts, "No! Don't open the desk." You
 pull the desk open before he can stop you.
 
-> get bottle
+> x desk
+The desk looks to be fairly old and well used.  The desk is open.  A bottle
+is inside the desk.
+
+> get all from desk
 You take the bottle from the desk.
 
 > ask doctor about bottle
@@ -631,11 +635,11 @@ Spotting an opportunity you ask, "What will be in it for me?"
 Pausing for a moment, he shows you a small silver hip flask, "Will this do?"
 You reply with a nod.
 
+You notice that the engines seem to have stopped.
+
 > give bottle to doctor
 You hand the bottle to the doctor, who taking it gives you a small silver hip
 flask.
-
-You notice that the engines seem to have stopped.
 
 > open suitcase
 You open the suitcase.  Inside the suitcase are some wires, a coin and a tie
@@ -1087,6 +1091,7 @@ The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.  The room has developed quite a slope.
 The postal clerk is looking around and appears very worried.
+The postal clerk wipes his face with the back of his hand.
 
 > down
 You move down.
@@ -1115,6 +1120,7 @@ The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.  The room has developed quite a slope.
 The postal clerk is looking around and appears very worried.
+The postal clerk drags a mail bag to the door.
 
 > west
 You move west.
@@ -1294,7 +1300,6 @@ silver-plated metal brackets holding oak handrails. You can go either up to
 'D' deck or down the staircase to 'F' deck.  To the east is a crew corridor
 known as 'Scotland Road' and heading west will take you to the second class
 entrance.  The staircase has developed quite a slope.
-The Master-at-Arms is stood watching you very carefully.
 
 > east
 You move east.
@@ -1326,7 +1331,11 @@ the old desk.
 > open bag
 You open the gladstone bag. A gold cigar case is inside the gladstone bag.
 
-> get cigar case
+> x bag
+It is a large travelling bag made of stiff leather.  The gladstone bag is
+open.  A gold cigar case is inside the gladstone bag.
+
+> get all from gladstone bag
 You take the gold cigar case from the gladstone bag.
 
 > open suitcase
@@ -1380,10 +1389,6 @@ excitement."
 You look away for only a second and the purser has gone. "Blimey," you think
 to yourself, "Now he would make a good sneak thief!"
 
-Master-at-Arms King enters from the west.
-With the Master-at-arms hanging around it would not be a good idea to let him
-catch you with anything stolen.
-
 > up
 You move up.
 
@@ -1392,6 +1397,8 @@ The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'B' deck or down the staircase to 'D'
 deck.  To the west is the entrance to the Library.  The staircase has
 developed quite a slope.
+
+Master-at-Arms King enters from above.
 Some people wearing lifebelts push passed and head up the stairs. You hear
 one of them say, "I overheard someone say that the ship has hit an iceberg."
 
@@ -1557,11 +1564,6 @@ The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'B' deck or down the staircase to 'D'
 deck.  To the west is the entrance to the Library.  The staircase has
 developed quite a slope.
-The Master-at-Arms is stood watching you very carefully.
-With the Master-at-arms hanging around it would not be a good idea to let him
-catch you with anything stolen.
-
-Master-at-Arms King leaves to above.
 
 > up
 You move up.
@@ -1571,11 +1573,6 @@ You are on the second-class forward staircase, 'B' Deck.  Heading up the
 staircase will lead you to 'A' deck and down will take you to 'C' deck.  The
 western exit leads to the Smoking Room.  The staircase has developed quite a
 slope.
-The Master-at-Arms is stood watching you very carefully.
-With the Master-at-arms hanging around it would not be a good idea to let him
-catch you with anything stolen.
-With the Master-at-arms hanging around it would not be a good idea to let him
-catch you with anything stolen.
 
 > up
 You move up.
@@ -1637,7 +1634,7 @@ of the seven or so wooden lifeboats on this side of the ship, it is attached
 to a couple of arms called davits. The door to the south leads to the boat
 deck entrance and a small metal locker is just to your right.  To the north
 the crew are busy loading one of the lifeboats. You can hear the band playing
-something by Gilbert and Sullivan.
+a lively ragtime tune.
 5th Officer Lowe is supervising the loading one of the lifeboats.  To one
 side is a large group of men, mostly first class passengers.  Some ladies and
 children are waiting near to the lifeboat ready to board the small boat.

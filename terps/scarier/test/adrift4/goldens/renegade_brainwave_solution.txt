@@ -1,5 +1,6 @@
 open handbag
 drop handbag
+x Mary Quant handbag
 take gun
 west
 take crowbar
@@ -12,6 +13,7 @@ south
 east
 give cigar to dummy
 in
+x stone sarcophagus
 take bone
 out
 west

@@ -23,13 +23,16 @@
 n
 e
 s
+x table
 take plate
 n
 n
+x stone foundation
 take water
 s
 w
 n
+x pulpit
 take orb
 put orb in water
 s

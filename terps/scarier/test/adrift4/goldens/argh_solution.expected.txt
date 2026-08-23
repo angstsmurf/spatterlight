@@ -56,12 +56,20 @@ except this one leads to freedom.  There is a slab, which the patient is to
 lie on, and a rock table nearby.  A cubby hole in the wall, looks to be some
 sort of storage space.
 
+> x rock table
+The rock is an odd shape, but has a flat surface.  Some medicine is on the
+rock table.
+
 > get medicine
 You take the medicine from the rock table.
 
 > wear beaver
 You plop the the sick beaver on your head.  It looks like you have created
 the first caveman mullet!
+
+> x cubby hole
+It looks like some sort of storage container.  A nurse dress is inside the
+cubby hole.
 
 > get dress
 You take the nurse dress from the cubby hole.

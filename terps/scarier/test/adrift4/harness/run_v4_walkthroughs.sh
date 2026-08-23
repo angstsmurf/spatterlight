@@ -77,8 +77,8 @@ cruel_solution.txt|CAH.taf|destroyed our reality
 trabula_solution.txt|Trabula.taf|given the gold coins to Trabula
 shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=7
-shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=13
-shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=149
+shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=83
+shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=48
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 topaz_solution.txt|topaz.taf|The two of you set out into the forest.|SCR_SKIP_WAITKEY=1
@@ -116,7 +116,7 @@ orient_express_solution.txt|Orient_Express.taf|You successfully complete your as
 screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to get everyone to the set!
 secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
 space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCITING EPISODES
-sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 125 out of the maximum 145!
+sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 135 out of the maximum 145!
 tcom_solution.txt|tcom.taf|the file entitled "tcom2"
 think2_solution.txt|Theannihilationofthink2.taf|Think.com has been restored
 toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICALLY EARTH

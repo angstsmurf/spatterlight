@@ -696,7 +696,7 @@ parchment.  You take the piece of parchment but before you manage to grab the
 robot, it is off again down the passage.  And it never comes back...
 
 > take parchment
-You've already got half of a parchment!
+You are already carrying half of a parchment.
 
 > out
 You move out.

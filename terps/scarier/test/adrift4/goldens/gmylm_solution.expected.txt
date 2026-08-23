@@ -203,8 +203,6 @@ The front yard is just outside to the south.  The hallway is to the north.
 The dining room is just west of here, and across to the east is the living
 room.
 
-Sis' backpack is on the floor here.
-
 > n
 I move north.
 
@@ -260,8 +258,6 @@ Sis' backpack is on the floor.
 The front yard is just outside to the south.  The hallway is to the north.
 The dining room is just west of here, and across to the east is the living
 room.
-
-Sis' backpack is on the floor here.
 
 > s
 I move south.
@@ -377,8 +373,6 @@ Sis' backpack is on the floor.
 The front yard is just outside to the south.  The hallway is to the north.
 The dining room is just west of here, and across to the east is the living
 room.
-
-Sis' backpack is on the floor here.
 
 > w
 I move west.
@@ -498,8 +492,6 @@ Sis' backpack is on the floor.
 The front yard is just outside to the south.  The hallway is to the north.
 The dining room is just west of here, and across to the east is the living
 room.
-
-Sis' backpack is on the floor here.
 
 > s
 I move south.
@@ -626,8 +618,6 @@ Sis' backpack is on the floor.
 The front yard is just outside to the south.  The hallway is to the north.
 The dining room is just west of here, and across to the east is the living
 room.
-
-Sis' backpack is on the floor here.
 
 > n
 I move north.

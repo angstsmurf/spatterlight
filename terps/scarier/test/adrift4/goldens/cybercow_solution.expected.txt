@@ -20,7 +20,7 @@ You are standing at a bus stop at the base of a hill that rises to the south.
 yard there is a small cottage.  Other than this little chapel with its
 cottage on the hill, there is nothing around for a long ways.
 
-There is an exit south.
+You can only move south.
 
 > s
 You move south.
@@ -31,7 +31,7 @@ none of them are occurring to you right now.  Your humble abode is to the
 east.  Fields are to the west.  The chapel is on top of the hill to the
 south.  Down the hill to the north there is the bus stop.
 
-There are exits north, east, south and west.
+You can move north, east, south and west.
 Red sky in morning...
 
 > e
@@ -207,6 +207,8 @@ the hill to the north there is the bus stop.
 
 Also here are the heavy cross.
 It is daytime.
+
+You can move north, east, south and west.
 
 > throw rope down well
 You throw the rope down the well.

@@ -126,6 +126,10 @@ and steal the money inside.
 
 You can only move out.
 
+> x phone
+This is the phone, it only takes 20 cent coins. To dial someone type dial
+phonenumber.  20 cent coin is inside the phone.
+
 > take coin
 You take 20 cent coin from the phone.
 
@@ -220,6 +224,7 @@ Mull Road goes north and south from here. To the west you can see Bobs
 Boozhouse.
 
 You can move north, east, south and west.
+You fart.
 
 > w
 You move west.
@@ -233,7 +238,6 @@ Butcherbird is wiping a glass with an old rag behind the counter.  Fry the
 Magpie is sitting on a stool, getting drunk.
 
 You can move east and northwest.
-You fart.
 
 > buy wendy a beer
 "Hey Bob, can I've a beer," you say. "Sure thing Thumper," says Bob filling up an empty mug. You hand Bob $5 and then walk over to Wendy. "Here's your beer," you say handing the mug to Wendy. "Thanks Thumpy Wumpy," says Wendy drinking the beer. "I thought you said you
@@ -338,7 +342,6 @@ places is creeping you out, so you might leave soon. There is a small shack
 to the north you, must be the grave keepers hut.
 
 You can move north and east.
-You hear an owl hooting.
 
 > n
 You move north.
@@ -430,8 +433,6 @@ main arena," says Paul. "Thanks," you say putting the badge on.
 > east
 "Let me see your driver's license and you can enter the stadium," says Kevin. You quickly flash your card to Kevin. "Hey, let me see it again," says Kevin. You hold your card up to Kevin. "Hmm... doesn't look like you, what did you say your name was again?" says
 Kevin. "Uhhh... Eddie the Elephant," you say. "But you're not an elephant, you're a wombat," says Kevin. You start sweating. "How do you confuse an idiot?" you quickly say. "I dunno, how?" says Kevin. "27," you say. "27, what, I don't get it," says Kevin. You quickly sneak into the stadium while Kevin tries to figure it out.
-"Why don't you go f#$k yourself you dirty hunk of dog s#$t!" yells another of
-the possums. The croud gasps then cheers.
 
 > d
 You move down.
@@ -459,6 +460,7 @@ cheering.
 Philip the Possum is here, ready to swear.
 
 You can only move up.
+You burp.
 
 > karnishnar
 "Karnishnar!" you yell. "Oh! My ears! My virgin ears!" screams Philip as he falls on the ground. "And we have a winner!" booms over the speakers. "It's Thumper!". The croud
@@ -466,9 +468,6 @@ goes wild. A man walks down to you, and holds out his hand. You shake it. "Congr
 stadium, and I'd like to give you this," says Colin as he hands you a bag
 containing $5000. "Thanks a lot!" you say. You run back up to the stadium,
 shaking peoples hands as you go.
-You burp.
-A voice booms over the speaker. "Do you want to enter the Swear 'O' Rama
-playoffs? Sign up in the lobby!"
 
 > w
 You move west.
@@ -536,6 +535,10 @@ time," you yell. "You won't get a good time until you bringing me the mother fuc
 yells Steve. "Calm down man!" you say. "SHUT UP AND BRING ME THE GOODS!" screams Steve. "Look, what are the goods?" you ask. "The cocaine, boy!" yells Steve. "Nope, I don't have no cocaine on me," you say. "WHAT! NO COCAINE! You go and find me some cocaine and I'll give you the
 cash!" yells Steve.
 
+> x rubbish
+There are a few bags of rubbish lieing on the ground next to the dumpster.  A
+plastic bag is on lots of rubbish.
+
 > open bag
 You open the plastic bag.  Inside the plastic bag is a crowbar, an old dress,
 a porno magazine and a half smoked cigarette.
@@ -554,13 +557,13 @@ You put on the gas mask.
 
 > open dumpster
 You grab the crowbar and leaver the dumpster open.
-
-> z
-Time passes...
 You suddenly get a jerk as the dumpster raises off the ground. Oh shit! The
 garbage truck is picking you up! All the rubbish falls on top of you as you
 fall upsidedown. The dumpster then stops moving, and the lid opens. You and a
 heap of rubbish fall down into the garbage truck.
+
+> z
+Time passes...
 
 > z
 Time passes...
@@ -574,6 +577,11 @@ out onto the ground, buried under piles of rubbish.
 
 > z
 Time passes...
+
+> x small package
+This is a small package titled "Gunjaville Pharmacy", it has already been
+ripped open.  Inside the small package is a letter, a jar of sleep pills and
+a jar of pain killer pills.
 
 > take sleep pills
 You take a jar of sleep pills from the small package.
@@ -593,6 +601,7 @@ out into the garbage.
 Bert the Bull is sitting at his desk, drinking some coffee.
 
 You can only move southwest.
+Bert drinks from his mug of coffee.
 
 > open desk
 You open the desk.  The truck keys are inside the desk.
@@ -664,6 +673,7 @@ alleyway. To the west of you is the Bath House and to the east of you is a
 large skyscraper called Dark Baron enterprises.
 
 You can move north, east, south and west.
+You scratch your arse.
 
 > w
 You move west.
@@ -695,7 +705,6 @@ see three hot bimbo koala babes in the spa.
 Fred the Frog is sitting down, wearing some boardies.
 
 You can move east and in.
-You scratch your arse.
 
 > e
 You move east.
@@ -779,8 +788,6 @@ whole way back, now I'm a little tired and a little cranky, BUT GIVE ME A GOD
 DAMN REWARD!" you yell. "Fine, fine, Sally!" yells Matthew. "Yes sir?" says Sally. "Get Thumper here a pack of cuban cigars," says Matthew. "Right away sir," says Sally as she walks off and grabs a packet of cuban
 cigars, then hands them to you. "Now, that's what I call a reward, thanks a bundle," you say. "I'm going to go back to my office, and work on my next project," says
 Matthew. "See you later," you say as Matt walks to the elevator. He left his electronic device!
-Chris falls on the ground, then gets back up giggling. There is something
-seriouslly wrong with this place.
 
 > take device
 You pick up the electronic device.
@@ -834,6 +841,7 @@ alleyway. To the west of you is the Bath House and to the east of you is a
 large skyscraper called Dark Baron enterprises.  Your spine is killing you.
 
 You can move north, east, south and west.
+You fart.
 
 > n
 You move north.
@@ -863,7 +871,6 @@ You can move north, east, south, west and in.
 > trade device with cameron
 "Want to trade this electronic device?" you ask. "Sure, I've got a mint condition fife," says Cameron. "A fife, in mint condition? How much is it worth?" you ask. "I dunno, but apparently it annoys the crap out of the dead," says Cameron. "Hmmm, interesting, I'll take it," you say, handing Cameron the electronic
 device.
-You fart.
 
 > trade porn magazine with cameron
 "Want to trade this 80 year old porn?" you ask. "Sure, would you like an undead horn?" says Cameron. "What's that?" you ask. "Well, I traded it for a magical thorn, it apparently wakes the dead but I
@@ -904,6 +911,7 @@ places is creeping you out, so you might leave soon. There is a small shack
 to the north you, must be the grave keepers hut.  Your spine is killing you.
 
 You can move north and east.
+A wolf howels in the distance.
 
 > blow horn
 You put the horn up to your mouth and blow. A loud thundering sound comes out
@@ -920,7 +928,6 @@ so you can't annoy him no longer.
 
 > take key
 You pick up the skeleton key.
-A wolf howels in the distance.
 
 > n
 You move north.
@@ -949,6 +956,9 @@ Also here is a spade.  Your spine is killing you.
 
 You can only move south.
 
+> x shelf
+This is a small wooden shelf above the bed.  An urn is on the shelf.
+
 > take urn
 You take an urn from the shelf.
 
@@ -958,6 +968,10 @@ You pick up the spade.
 > smash urn
 You drop the urn on the floor, and it shatters into millions of bits of
 cracked china, white ashes going everywhere.
+
+> x bits of china
+There are millions of bits of cracked china.  Some white substance is on the
+bits of china.
 
 > take substance
 You take some white substance from the bits of china.
@@ -1089,6 +1103,7 @@ Steve the Snake is looking around eagerly, smoking a cigarette.  Your spine
 is killing you.
 
 You can move north and south.
+You burp.
 
 > give cocaine to steve
 "Hey, I brought you the cocaine," you say. "Well fucking alright! Thanks man, here's ya reward," says Steve handing you
@@ -1116,7 +1131,6 @@ You put on the lipstick.
 
 > s
 "Hey, are you girl?" asks Kristy. "Sure," you sweetly say. "Alright, in ya go," says Kristy. You walk into the nightclub.
-You burp.
 
 > s
 You move south.
@@ -1369,6 +1383,7 @@ then hands it to you. You hand Bob $5.
 
 > drink beer
 You grab your mug and drink back some beer. Lovely.
+You scratch your arse.
 
 > drink beer
 You grab your mug and drink back some beer. Lovely.
@@ -1377,13 +1392,6 @@ place.
 
 > take component
 You pick up the titus component.
-
-> z
-Time passes...
-You scratch your arse.
-
-> z
-Time passes...
 
 > z
 Time passes...
@@ -1403,6 +1411,12 @@ Time passes...
 > z
 Time passes...
 You fart.
+
+> z
+Time passes...
+
+> z
+Time passes...
 Suddenly your fantasy world starts disolving, and your brain pounds against
 your skull rapidly. You just had a hangover! Back to the real world...
 
@@ -1573,9 +1587,6 @@ You move along the maze, hoping to get out soon.
 You move along the maze, hoping to get out soon.
 
 > n
-You move along the maze, hoping to get out soon.
-
-> n
 You move north.
 
 Maze
@@ -1584,22 +1595,6 @@ directions. You are a bit lost.  Your spine is killing you.  It is raining
 heavily.
 
 You can only move south.
-
-> n
-You move along the maze, hoping to get out soon.
-
-> n
-You move north.
-
-Maze
-You are standing in the green hedge maze, there are pathways leading in all
-directions. You are a bit lost.  Your spine is killing you.  It is raining
-heavily.
-
-You can only move south.
-
-> n
-You move along the maze, hoping to get out soon.
 
 > n
 You move along the maze, hoping to get out soon.
@@ -1614,6 +1609,18 @@ Bob the Bull is sitting at the drivers seat.  Your spine is killing you.
 
 You can only move south.
 
+> n
+You can only move south.
+
+> n
+You can only move south.
+
+> n
+You can only move south.
+
+> n
+You can only move south.
+
 >
 
 > buy ticket
@@ -1622,6 +1629,7 @@ watch as you leave Gunjaville. About 5 minutes later, you arrive at a ghost
 town called Woop Woop. You can only see two houses here, one to the west and
 one to the east, which is the garbage tip. You stand up from your seat and
 leave the bus. The bus drives off.
+You burp.
 
 > w
 You move west.

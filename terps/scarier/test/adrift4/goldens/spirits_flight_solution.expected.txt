@@ -36,7 +36,7 @@ floating around the place. This place is dead quiet.  A voice in your mind
 whispers "Find the elementals. South is your first direction. The fighter
 must accompany you."
 
-There is an exit south.
+You can only move south.
 
 > south
 (Standing up first)
@@ -46,7 +46,7 @@ Path to Stone Circle
 The path is paved with large gravel, and is lined on the sides with stones.
 Lamanluie is here.
 
-There are exits north and south.
+You can move north and south.
 
 > south
 You walk south.
@@ -355,6 +355,8 @@ on the floor.
 Also here is A snow flake.
 Lamanluie is here.
 
+You can move west and down.
+
 > down
 You climb down.
 
@@ -517,6 +519,8 @@ as though it'll erupt any minute. It creeps ever so slowly at you.
 
 Also here are The Amber of Flames.
 Lamanluie and Kelorano are here.
+
+You can only move west.
 You feels as though you should leave quickly.
 Lamanluie cuts Kelorano with the old scimitar.
 Kelorano hits Lamanluie.

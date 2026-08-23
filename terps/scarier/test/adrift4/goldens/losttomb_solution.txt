@@ -85,12 +85,14 @@
 in
 take rucksack
 open rucksack
+x nightstand
 take lamp
 take matches
 light lamp
 take bottle
 empty bottle
 fill bottle with sand
+x water bottle
 take cork
 out
 #
@@ -175,6 +177,7 @@ put cork in mouth
 ask rupert to open sarcophagus
 ask rupert to open sarcophagus
 open sarcophagus
+x sarcophagus
 take sapphire
 #
 # --- Pillar Room: rub the inscription, then match beast to element -----

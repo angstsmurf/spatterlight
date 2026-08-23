@@ -54,7 +54,7 @@ bus stops in the boss zone and waits for people to board it.  A man in a
 hurry runs into you. He gives you a cold stare then walks off . There is a
 manhole here which leads in the sewers.
 
-There are exits west and in.
+You can move west and in.
 
 > w
 You move west.
@@ -136,6 +136,9 @@ Also here is coffee mug.
 
 You can only move south.
 
+> x table
+A long thick table, sits about 30 people.  A folder is on the table.
+
 > open folder
 You open the folder.  Security card is inside the folder.
 
@@ -188,11 +191,19 @@ the room and a large workbench in the center.
 
 You can only move south.
 
+> x tool racks
+There are lots of tool racks which each have a set of tools on them.  On tool
+racks is a saw, a hammer, jar of nails and some pliers.
+
 > take pliers
 You take some pliers from tool racks.
 
-> take crowbar
-You take a crowbar from work table.
+> x work table
+A workbench table which is covered in saw dust and wood chippings.  A crowbar
+is on work table.
+
+> get all from work table
+You take the crowbar from work table.
 
 > s
 You move south.
@@ -235,9 +246,9 @@ You move east.
 The Footpath
 You are standing on the footpath. It is very busy here. To the west of you is
 the Imperial Agency building, where the bomb is supposed to be planted.  A
-car brakes suddenly, and five cars behind it start honking there horns.  A
-lady walks by and drops her bag. She picks it up again and walks off. There
-is a manhole here which leads in the sewers.
+taxi stops and picks up a young woman, then drives off.  An old man walks
+down the footpath and trips over, nearly losing balance. There is a manhole
+here which leads in the sewers.
 
 You can move west, down and in.
 
@@ -248,6 +259,18 @@ The Sewers
 You are underground in a dark sewer. There is a package here.
 
 You can only move up.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
 
 > open package
 You open the package.  A bomb is inside the package.

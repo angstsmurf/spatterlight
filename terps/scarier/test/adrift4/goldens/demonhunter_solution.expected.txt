@@ -52,6 +52,10 @@ under the lone piece of furniture--a table. It is probably weeks old. Even
 the flies won't come here, though. The evil is too strong. You can exit to
 the north.
 
+> x table
+The table is made of some foreign wood that has a particularly glossy sheen.
+A ceramic plate is on the table.
+
 > take plate
 You take the ceramic plate from the table.
 
@@ -69,6 +73,12 @@ You move north.
 A Foundation
 This house is long gone. The only thing left is the stone foundation that the
 house was built on. You can pick your way back out to the south.
+
+> x stone foundation
+The foundation is apparently very well built, having survived the onslaught
+of the demon. There is a hole in the wall that looks as though it could carry
+an object, were it pressed to do so.  A small flask of water is inside the
+stone foundation.
 
 > take water
 You take the small flask of water from the stone foundation.
@@ -100,6 +110,10 @@ This church is dead; you felt it as soon as you stepped in. What appears to
 be a pile of the pews lies against the wall, blackened and charred. The
 pulpit is gone, leaving a gaping hole in the floor. The altar seems to be the
 only thing left untouched; in fact, it still radiates a warm aura.
+
+> x pulpit
+Where the pulpit was is now a gaping hole, apparently ravaged by the demon.
+A mysterious black orb is inside the pulpit.
 
 > take orb
 You take the mysterious black orb from the pulpit.

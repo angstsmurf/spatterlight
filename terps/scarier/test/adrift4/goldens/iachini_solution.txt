@@ -52,7 +52,8 @@ click breakout
 s
 w
 w
-get card
+x round glass table
+get all from round glass table
 
 # --- upstairs: the mirror, the weights, the basketball ---------------------
 # The index card is written backwards; the mirror is too smudged to read it
@@ -92,7 +93,8 @@ get screwdriver
 n
 open tool chest
 get hammer
-get tablets
+x sturdy shelves
+get all from sturdy shelves
 get discs
 move chest
 
@@ -105,7 +107,9 @@ e
 fix stair
 drop screwdriver
 n
-get soap
+x set of metal shelves
+get all from set of metal shelves
+drop note
 open machine
 put soap in machine
 drop soap
@@ -158,7 +162,9 @@ w
 w
 w
 n
-get towel
+x set of wooden shelves
+get all from set of wooden shelves
+drop list
 s
 sw
 move panel
@@ -180,8 +186,9 @@ put firewood in fireplace
 w
 w
 look under table
-get sheets
-get newspaper
+drop towel
+x dining room table
+get all from dining room table
 e
 e
 put newspaper in fireplace
@@ -200,6 +207,8 @@ light match
 light fire
 w
 w
+get sheets
+get towel
 s
 push key 80
 open piano

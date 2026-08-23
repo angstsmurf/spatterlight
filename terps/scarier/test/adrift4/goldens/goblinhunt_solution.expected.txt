@@ -28,7 +28,7 @@ The gates of the graveyard loom before you, nasty looking structures carved
 from great big ogre bones and thrust into the earth. What was wrong with wood
 you don't know.
 
-There is an exit north.
+You can only move north.
 
 > n
 You move north.
@@ -84,6 +84,8 @@ hangings, piles of tapestries in the corner and wall-to-wall carpeting and
 this is just one downright tawdry place.
 Bert the gravedigger is here.
 
+You can only move out.
+
 "You must be one of them dere goblin hunters," says Bert. "Filthy scum."
    "All goblins are," you say.
    "I wasn't talkin' about the goblins."
@@ -135,6 +137,8 @@ The only thing of interest in the northern part of the graveyard is the
 gravedigger's hut. And this is a lot less interesting than you might think on
 account of it being locked up tighter than your wife's purse when you're on
 the scrounge.
+
+You can move south, southeast and southwest.
 
 > se
 You move southeast.
@@ -218,6 +222,8 @@ from great big ogre bones and thrust into the earth. What was wrong with wood
 you don't know.
 Blood, the most vicious goblin you've seen for at least fifteen minutes, is
 here, bloodstained hammer in hand.
+
+You can only move north.
 
 "Come ter die then, hooman?" grunts Blood.
    "Nope," you say cheerfully. "I've come to lop your head off and hang it

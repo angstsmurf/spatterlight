@@ -137,7 +137,7 @@ You are now high above the ground. From up here you can see all the way to
 the building you passed on the hidden trail. You see a red vine growing here.
 
 > get herb
-You take the special herb from long red vine.
+Take what?
 
 > d
 You move down.

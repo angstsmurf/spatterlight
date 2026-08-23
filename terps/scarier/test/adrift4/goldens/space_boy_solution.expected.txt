@@ -923,8 +923,6 @@ flowers, vines and ivy run rampant. Wherever there is an open spot, bright
 green grass grows. A small path runs east from here.  There is a huge rock
 standing here!
 
-There is a huge rock here!
-
 > move huge rock
 Using the Strength from your belt, you easily toss the huge rock aside
 revealing a room key!
@@ -936,8 +934,6 @@ Backyard Garden
 This is a lovely backyard garden. Every inch of ground is covered with
 flowers, vines and ivy run rampant. Wherever there is an open spot, bright
 green grass grows. A small path runs east from here.
-
-There is a huge rock here!
 
 > e
 You move east.
@@ -976,8 +972,6 @@ This is your room! This place is the biggest mess you have ever seen! You
 desk is covered in old newspapers and you can't even see your bed under the
 dirty clothes piled on top. It is a wonder you can find your way out of here
 at all!
-
-Your bed is here.
 Your arch-nemesis Evil Man is here. It would appear that he has been waiting
 for you to reach him. As you enter the room he stands to his feet and
 pointing his hooked hand towards you he exclaims, "Now I will finish you once

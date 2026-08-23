@@ -1,10 +1,12 @@
 hard
 nnamen tutem selronden flar darg
 wear cube
-take all
+x old oak table
+get all from table
 wear cloak
 down
-take oil
+x shelves
+get all from shelves
 take coin
 up
 put oil in lantern
@@ -61,12 +63,14 @@ attack narfild
 attack narfild
 attack narfild
 e
-take glaven stone
+x large stone table
+get all from large stone table
 turn ring
 w
 w
 w
-take spade
+x holes in the wall
+get all from holes in the wall
 e
 e
 nw
@@ -103,7 +107,8 @@ put water in pan
 n
 se
 open cupboard
-take elven armour
+x elven cupboard
+get all from cupboard
 wear elven armour
 nw
 w
@@ -142,7 +147,8 @@ attack monster
 ne
 unlock chest
 open chest
-take longmore chest plate
+x large chest
+get all from chest
 wear longmore chest plate
 sw
 nw
@@ -193,13 +199,15 @@ attack larnt
 attack larnt
 attack larnt
 n
-take all
+x long table
+get all from long table
 s
 w
 u
 unlock chest
 open chest
-take all
+x large chest
+get all from chest
 d
 e
 n

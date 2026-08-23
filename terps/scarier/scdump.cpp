@@ -183,6 +183,19 @@ scr_dump_structure_once (scr_gameref_t game)
                * against MaxCarried.  Absent (-1/0) for 3.9 and 4.0 games. */
               swk[2].string = "SizeWeightClass";
               if (prop_get (bundle, "I<-sis", &bv, swk)) swclass = bv.integer;
+              /* The raw .taf Parent field, printed even when Position says the
+               * object is not inside/on anything: the Runner's recursive
+               * weight scan (Sub_22_63) matches children on this field alone,
+               * with no position check, so a stale Parent silently adds an
+               * elsewhere-located object's weight to this container's. */
+              {
+                scr_int rawpar = -1;
+                swk[2].string = "Parent";
+                if (prop_get (bundle, "I<-sis", &bv, swk)) rawpar = bv.integer;
+                fprintf (stderr, "OBJLOC-RAWPAR obj=%ld rawparent=%ld"
+                         " runner_parent=%ld\n",
+                         i, rawpar, gs_object_runner_parent (game, i));
+              }
               fprintf (stderr,
                        "OBJLOC obj=%ld pos=%ld room=%ld parent=%ld effroom=%ld"
                        " static=%ld unmoved=%ld open=%ld state=%ld hit=%ld"

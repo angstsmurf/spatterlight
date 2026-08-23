@@ -19,7 +19,7 @@ cant even tell if the line ends.  The throne room is at the end of the hall.
 You notice all the people here are very tall except one little man three
 people ahead of you.  Yup, its still the first day.
 
-There are exits north and south.
+You can move north and south.
 
 >
 
@@ -107,6 +107,10 @@ decorate the walls.  A fiery forge is in the corner.  There is a weapon rack
 over there in the corner too.  Yup, its still the first day.
 
 You can move west and in.
+
+> x Weapon Rack
+This Weapon rack holds a few weapons.  Big surprise.  Inside Weapon Rack is
+Kinda Sharp Sword, Kinda Dented Shield and Highly Explosive Grenade.
 
 > take sword
 You take Kinda Sharp Sword from Weapon Rack.
@@ -217,7 +221,7 @@ You search him and find THE GOLDEN SOAP!  Better pick it up soon, and take it
 to the king.
 
 > take golden soap
-You've already got Golden soap!
+You are already carrying Golden soap.
 
 > n
 You move north.
@@ -237,6 +241,7 @@ You give the golden soap to the king and he yells loudly "I HAVE THE GOLDEN
 SOAP, I HAVE THE GOLDEN SOAP!"  and you slowly back away.  He also sais, "By
 they way, did you get the non-golden soap on a rope?" (if you did say "yes"
 if you didn't say "no")
+The day is half over.
 
 > s
 You move south.
@@ -250,7 +255,11 @@ draft.
 Jackass Trying to Kill You (dead) is here.  Yup, its still the first day.
 
 You can move north and south.
-The day is half over.
+
+> x Cracked Broken Window
+Hey, this window is broken.  Who would do such a dastardly, dastardly deed?
+Cracked Broken Window is open.  A Soap on a rope is inside Cracked Broken
+Window.
 
 > take soap on a rope
 You take a Soap on a rope from Cracked Broken Window.

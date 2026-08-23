@@ -13,7 +13,7 @@ The sword is on you now.
 Also here is A Chest.
 Leon is here.
 
-There is an exit south.
+You can only move south.
 
 > point up
 You gained 100 points

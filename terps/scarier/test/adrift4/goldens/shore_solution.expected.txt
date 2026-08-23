@@ -102,7 +102,7 @@ couldn't hope to lift the basket.
 fades in your hand, the soggy flesh crumbling into the basket.
 
 > take leek
-You take the leek from the basket.
+Take what?
 
 > eat leek
    You nibble the root of the leek, its foul taste matching its foul stench.
@@ -140,10 +140,7 @@ a dirty grey variety, grows in ragged patches around the field.
    Tugging at the barren ground, a cow wanders aimlessly through the gloom.
 
 > give leek to cow
-   The cow's bones audibly creak as it turns to sniff the leek. Tentatively
-it nibbles on the root before collecting the full vegetable from your hand.
-Finished chewing, it turns to you in expectation of another leek but ignores
-you when it realises no more offerings are forthcoming.
+   You don't have a leek to give the cow.
 
 > n
 You move north.
@@ -165,7 +162,6 @@ sea washes upon the sand, the sting of icy spray hanging in the air.
 
    A hill leads up into the fog and your dinghy sits on the rocks to the
 west.
-   A light, dim in the fog, shines in from the south.
 
 > s
 

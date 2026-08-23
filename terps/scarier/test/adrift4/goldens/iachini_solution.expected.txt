@@ -144,7 +144,16 @@ very unique design.  There is an attractive console piano on the east wall.
 The entrance hall is to the east, and the dining room is to the north,
 through an archway.
 
-> get card
+> x round glass table
+The glass table is of a design you've never seen before.  It is made up of
+three large brass circles, each about three feet in diameter, mounted on a
+triangular brass base at three different heights.  Filling in each ring, and
+forming the surfaces of the table, are large glass discs.  The rings can be
+rotated about the base to allow use from different pieces of furniture.  All
+in all, it is a very unique, classy design.  An index card is on the round
+glass table.
+
+> get all from round glass table
 You take the index card from the round glass table.
 
 >
@@ -330,11 +339,17 @@ You open the heavy tool chest.  A claw hammer is inside the heavy tool chest.
 > get hammer
 You take the claw hammer from the heavy tool chest.
 
-> get tablets
-You take the box of acidic tablets from the sturdy shelves.
+> x sturdy shelves
+These sturdy shelves are filled with typical garage junk -- car supplies,
+gardening supplies, and the like.  Most of it looks useless for today.  A box
+of acidic tablets and a jug of basic discs are on the sturdy shelves.
+
+> get all from sturdy shelves
+You take the box of acidic tablets and the jug of basic discs from the sturdy
+shelves.
 
 > get discs
-You take the jug of basic discs from the sturdy shelves.
+You are already carrying the jug of basic discs.
 
 > move chest
 With much grunting and sweating, you manage to shove the massive tool chest
@@ -368,8 +383,16 @@ You are in the laundry area in the back of the basement.  There are some
 shelves here with several odds and ends on them.  There is also a washing
 machine and a dryer here.  The rest of the basement lies to the south.
 
-> get soap
-You take the bottle of laundry soap from the set of metal shelves.
+> x set of metal shelves
+The shelves are crowded with mostly useless odds and ends.    A bottle of
+laundry soap and a handwritten note are on the set of metal shelves.
+
+> get all from set of metal shelves
+You take the bottle of laundry soap and the handwritten note from the set of
+metal shelves.
+
+> drop note
+You drop the handwritten note.
 
 > open machine
 You open the washing machine.
@@ -622,8 +645,16 @@ In the upstairs closets
 You are in the upstairs storage closets.  There are some wooden shelves here
 with household items on them.  You can leave this area to the south.
 
-> get towel
+> x set of wooden shelves
+The wooden shelves are filled with lots of miscellaneous household goods.
+This closet also seems to be used as a linen closet.  A fluffy bath towel is
+on the set of wooden shelves.
+
+> get all from set of wooden shelves
 You take the fluffy bath towel from the set of wooden shelves.
+
+> drop list
+You drop the handwritten to-do list.
 
 > s
 You move south.
@@ -746,10 +777,15 @@ living room is south of you, and the kitchen is to the east.
 Looking under the dining room table, you discover a box of dryer sheets.
 What kind of a moron would put dryer sheets in a place like that?
 
-> get sheets
-You take the box of dryer sheets.
+> drop towel
+You drop the fluffy bath towel.
 
-> get newspaper
+> x dining room table
+The dining room table is very large and looks to be of Amish craftsmanship.
+It is spacious enough to seat up to ten people, and is high enough to crawl
+under.  Today's newspaper is on the dining room table.
+
+> get all from dining room table
 You take today's newspaper from the dining room table.
 
 > e
@@ -804,7 +840,7 @@ You are in the laundry area in the back of the basement.  There are some
 shelves here with several odds and ends on them.  There is also a washing
 machine and a dryer here.  The rest of the basement lies to the south.
 
-You can also see a bottle of laundry soap.
+You can also see a bottle of laundry soap and a handwritten note.
 
 > put afghan in machine
 You put the dirty, comfortable-looking afghan inside the washing machine.
@@ -875,6 +911,14 @@ You are in the dining room.  There is a bay window overlooking the hot tub on
 the back patio.  A large dining room table is here, as well as an antique
 radio.  There are six wooden chairs around the table.  The archway to the
 living room is south of you, and the kitchen is to the east.
+
+You can also see a box of dryer sheets and a fluffy bath towel.
+
+> get sheets
+You take the box of dryer sheets.
+
+> get towel
+You take the fluffy bath towel.
 
 > s
 You move south.
@@ -1008,7 +1052,7 @@ You are in the laundry area in the back of the basement.  There are some
 shelves here with several odds and ends on them.  There is also a washing
 machine and a dryer here.  The rest of the basement lies to the south.
 
-You can also see a bottle of laundry soap.
+You can also see a bottle of laundry soap and a handwritten note.
 
 >
 

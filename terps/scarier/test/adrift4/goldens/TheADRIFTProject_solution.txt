@@ -30,8 +30,9 @@
 # below now reach the prompts they were written for.
 Drifter
 male
-take suit
-wear it
+x captain's chair
+get all from captain's chair
+wear suit
 open door
 s
 s
@@ -76,6 +77,23 @@ pour slime in box
 put green orb in tube
 x tray
 take orb
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
 activate orb
 twist green orb
 where is sweeper

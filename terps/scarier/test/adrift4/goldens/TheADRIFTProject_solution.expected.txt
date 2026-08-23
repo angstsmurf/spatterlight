@@ -79,11 +79,15 @@ several flat-screen control panels that flicker randomly.  The door to the
 ADRIFT-O-Lift is to the south, near a small vent that lies at ground level
 and appears to have some writing just above it.
 
-> take suit
+> x captain's chair
+The contoured captain’s chair sits in the center of the room.  It has a high
+back and seat that is thickly padded and upholstered with the most brilliant
+royal blue fabric.  A gravity suit is on the captain's chair.
+
+> get all from captain's chair
 You take the gravity suit from the captain's chair.
 
-> wear it
-[wear a gravity suit]
+> wear suit
 You put on the gravity suit.
 
 > open door
@@ -123,14 +127,14 @@ You can move north and south.
 > stand on phone
 You stand on the DRIFT-O-Com.
 
+DARWIN enters from the south.
+
 > put battery in charger
 The charger flashes repeatedly, giving the room the appearance of being a lit
 by a strobe light.  You take the opportunity to do your best John Travolta
 impression, from the movie Saturday Night Fever.  A couple of moments later,
 the charger flashes red three times and the battery falls.  You manage to
 catch it, but lose your balance in the process and fall from the Drift-O-Com.
-
-DARWIN enters from the south.
 
 > n
 (Standing up first)
@@ -225,9 +229,9 @@ You take the green Drift-O-Sphere and the piece of gum from the wardrobe.
 
 > chew gum
 
-You chew the gum and are shocked that it tastes just like carpet!  Reminds
-you of the time you passed out after having to lick Roger 'Budda' Johnson's
-armpit during college hazing.
+You chew the gum and are shocked that it tastes just like grasshopper!  You
+can only assume that this is what it would taste like, since you have never
+really eaten a grasshopper
 
 As much as you are enjoying the experience, you take the gum out of your
 mouth.
@@ -327,6 +331,8 @@ control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
+You can only move south.
+
 > s
 You move south.
 
@@ -356,10 +362,10 @@ concerned at all about your presence.
 
 You can only move north.
 
+DARWIN exits to the north.
+
 > take pill
 Take what?
-
-DARWIN exits to the north.
 
 > open tin
 You open the Drift-O-Jump tin.  A small pill is inside the Drift-O-Jump tin.
@@ -407,6 +413,8 @@ concerned at all about your presence.
 
 You can only move south.
 
+DARWIN exits.
+
 > up
 You push the lever into the Up position and the ADRIFT-O-Lift begins to rise
 upward, but the ceiling isn't moving.  As the space gets more and more
@@ -425,11 +433,8 @@ control panel on the wall that flickers with multicolored lights.
 
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
-DARWIN is intently working on something, but you can't make out what it is.
-It turns away from you each time you approach.  It doesn't seem to be
-concerned at all about your presence.
 
-DARWIN enters.
+You can only move south.
 
 > s
 You move south.
@@ -476,6 +481,65 @@ Drift-O-Sphere is inside the tray.
 > take orb
 You take the green Drift-O-Sphere from the tray.
 
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+DARWIN enters from the north.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+DARWIN exits to the north.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+ADRIFT-O-Sweep zooms in through the vent from the north.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+ADRIFT-O-Sweep zooms out through the vent to the north.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
 > activate orb
 I don't understand what you want me to do with the green Drift-O-Sphere.
 
@@ -486,7 +550,7 @@ vibrate slightly and flicker with a greenish light.
 
 > where is sweeper
 ADRIFT-O-Sweep --
-The ADRIFT-O-Lift
+ADRIFT-O-Lift
 .
 
 > n
@@ -517,9 +581,6 @@ with multicolored lights.
 
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
-DARWIN is intently working on something, but you can't make out what it is.
-It turns away from you each time you approach.  It doesn't seem to be
-concerned at all about your presence.
 
 You can move north, south, southeast and southwest.
 
@@ -539,12 +600,15 @@ control panel on the wall that flickers with multicolored lights.
 
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
+The ADRIFT-O-Sweep is zooming around the room.
+
+You can only move south.
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
 
 > n
-You can't go in that direction, but you can move south.
+You can only move south.
 
 > up
 You push the lever into the Up position and the ADRIFT-O-Lift begins to rise
@@ -564,10 +628,13 @@ control panel on the wall that flickers with multicolored lights.
 
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
+The ADRIFT-O-Sweep is zooming around the room.
+
+You can only move south.
 
 > where is sweeper
 ADRIFT-O-Sweep --
-The Bridge
+ADRIFT-O-Lift
 .
 
 > n
@@ -581,7 +648,6 @@ main screen.  Titanium walls encircle the bridge, and are embedded with
 several flat-screen control panels that flicker randomly.  The door to the
 ADRIFT-O-Lift is to the south, near a small vent that lies at ground level
 and appears to have some writing just above it.
-The ADRIFT-O-Sweep is zooming around the room.
 
 You can only move south.
 
@@ -597,10 +663,9 @@ with multicolored lights.
 
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
+The ADRIFT-O-Sweep is zooming around the room.
 
 You can move north, south, southeast and southwest.
-
-ADRIFT-O-Sweep zooms in through the vent from the north.
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
 
@@ -611,7 +676,7 @@ sucking it up.
 
 > where is darwin
 DARWIN --
-The Laboratory
+Central Communications Core
 .
 
 > z
@@ -622,7 +687,7 @@ Time passes...
 > z
 Time passes...
 
-ADRIFT-O-Sweep zooms out through the vent to the south.
+ADRIFT-O-Sweep zooms out through the vent to the south-east.
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
@@ -636,14 +701,14 @@ activated it yet."
 > z
 Time passes...
 
-DARWIN enters from the south.
+ADRIFT-O-Sweep zooms in through the vent from the south-east.
 
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > z
 Time passes...
 
-DARWIN exits.
+DARWIN enters from the south.
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
@@ -651,9 +716,13 @@ it."
 > z
 Time passes...
 
+ADRIFT-O-Sweep zooms out through the vent to the south-west.
+
+DARWIN exits.
+
 > where is darwin
 DARWIN --
-The Corridor
+ADRIFT-O-Lift
 .
 
 > z
@@ -666,9 +735,9 @@ Run that by me agian- I didn't understand what you meant!
 
 > z
 Time passes...
-"I activated the bomb.  I wonder how much time I have until it blows."
 
-ADRIFT-O-Sweep zooms in through the vent from the south.
+ADRIFT-O-Sweep zooms in through the vent from the south-west.
+"I activated the bomb.  I wonder how much time I have until it blows."
 
 > where is darwin
 DARWIN --
@@ -681,10 +750,10 @@ Time passes...
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
 
-ADRIFT-O-Sweep zooms out through the vent.
-
 > z
 Time passes...
+
+ADRIFT-O-Sweep zooms out through the vent to the north.
 
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
@@ -698,7 +767,7 @@ door, which must have blown off during the explosion.
 You did it!.  Now you need to get in touch with the captain.
 
 > n
-You can't go in that direction, but you can move south.
+You can only move south.
 
 > s
 You move south.
@@ -731,6 +800,8 @@ control panel on the wall that flickers with multicolored lights.
 
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
+
+You can only move south.
 
 > s
 You move south.

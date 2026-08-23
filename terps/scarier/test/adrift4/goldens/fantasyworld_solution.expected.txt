@@ -1629,6 +1629,11 @@ then storms out.
 > open trunk
 You break open Jed's trunk.
 
+> x heavy trunk
+This chest holds the treasures of Jed Hobble and his daughters.    Heavy
+trunk is open.  Inside heavy trunk is leaf circlet, Meggle's deed and
+meticulous notes.
+
 > get circlet
 You take leaf circlet from heavy trunk.
 
@@ -1792,6 +1797,7 @@ again.
  "Why didn't you do that before?" you ask her and she smiles sweetly at you.
 
  "I can't leave your side," she answers softly, "now that we're bonded."
+You gain a few hit points
 
 > d
 You move down.
@@ -1799,7 +1805,6 @@ You move down.
 Catacombs
 This is a tunnel under the King's dungeon. It is dark, but there is enough
 light filtering in that you can see.
-You gain a few hit points
 
 > s
 You move south.
@@ -1840,7 +1845,6 @@ damage.
 Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
 damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
-Skull Collector hits Mat, but it doesn't seem to do any damage.
 
 > n
 You move north.
@@ -1864,13 +1868,12 @@ This is a large room beneath the King's dungeon.  There is a pit in the
 center of the chamber that you don't want to get to close to as it seems to
 yawn darkly below you.  There are exits to the north, south, east, and west.
 
-The shrink potion starts to wear off and you feel a tingling sensation as
-suddenly you return to your normal size.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
 damage.
 Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
 damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
+Skull Collector hits Mat, but it doesn't seem to do any damage.
 
 > w
 You move west.
@@ -1878,12 +1881,13 @@ You move west.
 Catacombs
 This tunnel winds down into the earth and there is a stench wafting up at you
 from below.  It leads forward into a dark room.
+The shrink potion starts to wear off and you feel a tingling sensation as
+suddenly you return to your normal size.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
 damage.
 Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
 damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
-Skull Collector hits Gail, but it doesn't seem to do any damage.
 
 > w
 You move west.
@@ -1915,9 +1919,22 @@ Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
 damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
 Shade hits Skull Collector.
+Skull Collector hits Aline.
 
 > wait
 Time passes...
+Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
+damage.
+Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
+damage.
+Gail hits Skull Collector, but it doesn't seem to do any damage.
+Shade hits Skull Collector.
+Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
+damage.
+Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
+damage.
+Gail hits Skull Collector, but it doesn't seem to do any damage.
+Shade hits Skull Collector.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
 damage.
 Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
@@ -1925,18 +1942,6 @@ damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
 Shade hits Skull Collector.
 Skull Collector hits Aline.
-Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
-Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
 
 > wait
 Time passes...
@@ -1946,7 +1951,6 @@ Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
 damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
 Shade hits Skull Collector.
-Skull Collector hits Gail, but it doesn't seem to do any damage.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
 damage.
 Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
@@ -1959,6 +1963,7 @@ Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
 damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
 Shade hits Skull Collector.
+Skull Collector hits Shade.
 
 > wait
 Time passes...
@@ -1968,7 +1973,6 @@ Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
 damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
 Shade hits Skull Collector.
-Skull Collector hits Mat, but it doesn't seem to do any damage.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
 damage.
 Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
@@ -1982,6 +1986,7 @@ You feel more powerful
 
 > get heart
 You pick up the heart.
+You gain a few hit points
 
 > e
 You move east.
@@ -1989,7 +1994,6 @@ You move east.
 Catacombs
 This tunnel winds down into the earth and there is a stench wafting up at you
 from below.  It leads forward into a dark room.
-You gain a few hit points
 
 > e
 You move east.
@@ -2195,6 +2199,7 @@ You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
 as you gaze northward, you can only see the winding mountian pass that you
 just traversed.
+You gain a few hit points
 
 > n
 You move north.
@@ -2205,7 +2210,6 @@ high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
 Greater Ghoul is here.
-You gain a few hit points
 
 > e
 You move east.
@@ -2386,6 +2390,7 @@ Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
+You gain a few hit points
 
 > n
 You move north.
@@ -2394,7 +2399,6 @@ The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
 time by traveling to the east or the west.
-You gain a few hit points
 
 > n
 You move north.
@@ -2571,6 +2575,7 @@ buildup as if a landslide buried something forever.
 Greater Ghoul is here.
 
 Demon  from the south.
+You gain a few hit points
 
 > e
 You move east.
@@ -2584,7 +2589,6 @@ there.
 Ghoul is here.
 
 Demon  from the west.
-You gain a few hit points
 
 > n
 You move north.
@@ -2816,6 +2820,7 @@ enter, a Dryad rushes up to you.  "You are a great hero, you must assist me."
 Merna is here.
 
 Demon  from the north.
+You gain a few hit points
 
 > kill demon
 As the demon enters the Dryad circle, its footsteps leave smoldering
@@ -2833,7 +2838,6 @@ and catch her as she falls.
 
  "I have failed," she cries, her tears hot against your hand.  "I must rest,"
 she says softly and then seems to fade away in your arms.
-You gain a few hit points
 You feel more powerful.
 
 > n
@@ -3066,6 +3070,7 @@ enter it.    There is an open grave here that was home to the zombie that you
 turned.
 
 Demon  from inside.
+You gain a few hit points
 
 > e
 You move east.
@@ -3076,7 +3081,6 @@ can leave the trail at anytime by going to the west.  To the west is a
 massive graveyard.
 
 Demon  from the west.
-You gain a few hit points
 
 > n
 You move north.

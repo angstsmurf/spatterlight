@@ -11,6 +11,7 @@ open portfolio
 look at piece of paper
 n
 n
+x table
 open folder
 take card
 s
@@ -19,14 +20,20 @@ in
 press 3rd floor
 out
 n
+x tool racks
 take pliers
-take crowbar
+x work table
+get all from work table
 s
 in
 down
 out
 e
 down
+z
+z
+z
+z
 open package
 z
 cut red wire

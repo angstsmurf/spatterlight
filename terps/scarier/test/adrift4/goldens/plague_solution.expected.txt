@@ -1225,6 +1225,15 @@ I discarded the handwritten note.
 > drop bible
 I discarded the torn bible.
 
+> remove cap
+I took off the baseball cap.
+
+> drop cap
+I discarded the baseball cap.
+
+> drop lighter
+I discarded the lighter.
+
 > get jacket
 I helped myself to the short jacket.
 
@@ -1232,9 +1241,6 @@ I helped myself to the short jacket.
 I slipped on the jacket. The zip was bust so I left it open. My arms felt
 warmer and it seemed a lot more practical with all the shit that was
 happening!
-
-> get bible
-I helped myself to the torn bible.
 
 > e
 (moving east)
@@ -1893,8 +1899,43 @@ The brightly lit parade, eerie and deserted, threaded its way south. A new
 walkway extended north. I could head north (walkway), south (parade) or west
 (cafe).
 
+> drop cigarettes
+I discarded the packet of cigarettes.
+
+> drop screwdriver
+I discarded the screwdriver.
+
 > s
 (moving south)
+
+Parade South
+Investments had been made in this section of the station. A colourful mosaic
+of floor tiles spread towards an assortment of small shops. Have something to
+eat and drink, spend some money, then catch the train to your next
+destination. The lighting was much brighter and the area was scrubbed clean
+and fresh smelling...but there was no around. Just distant moans. Just
+distant crackles of gunfire. Just distant screams. It was like standing on a
+empty stage only then to notice that the audience had long gone home. I could
+head north (parade), east (JJB Sports), south (walkway), west (Thomas Cook).
+
+> w
+(moving west)
+
+Thomas Cook
+It was little more than a point of information than a fully fledged travel
+agency. Still, it really didn't matter now. The single room outlet reeked of
+unflinching butchery. The carpet was soaked with a large pool of blood and a
+desk had been ripped in half. A smashed computer lay atop a slew of blood
+spattered brochures. I could move east (parade).
+
+I could also see a handwritten note, a torn bible, a baseball cap and a
+lighter.
+
+> get bible
+I helped myself to the torn bible.
+
+> e
+(moving east)
 
 Parade South
 Investments had been made in this section of the station. A colourful mosaic
@@ -1974,6 +2015,9 @@ mechanism clicked open.
 > open door
 I edged the door slowly open to reveal a deserted hallway.
 
+> drop keys
+I discarded the bunch of keys.
+
 > n
 I walked through the doorway into the hallway.
 
@@ -2042,6 +2086,8 @@ Corridor
 I was standing at the end of a clean and disinfected corridor. There was an
 open door marked PRIVATE - STAFF ONLY in the north wall. I could move north
 (through the door) or southeast (ticket hall).
+
+I could also see a bunch of keys.
 
 > se
 (moving southeast)
@@ -2208,12 +2254,6 @@ northwest (tunnel).
 
 I could also see some cutters.
 
-> drop screwdriver
-I discarded the screwdriver.
-
-> drop lighter
-I discarded the lighter.
-
 > get cutters
 I helped myself to the cutters.
 
@@ -2337,6 +2377,8 @@ Corridor
 I was standing at the end of a clean and disinfected corridor. There was an
 open door marked PRIVATE - STAFF ONLY in the north wall. I could move north
 (through the door) or southeast (ticket hall).
+
+I could also see a bunch of keys.
 
 > n
 I walked through the doorway into the hallway.
@@ -2655,6 +2697,8 @@ Corridor
 I was standing at the end of a clean and disinfected corridor. There was an
 open door marked PRIVATE - STAFF ONLY in the north wall. I could move north
 (through the door) or southeast (ticket hall).
+
+I could also see a bunch of keys.
 
 > se
 (moving southeast)

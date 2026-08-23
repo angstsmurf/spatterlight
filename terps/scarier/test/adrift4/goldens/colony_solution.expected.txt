@@ -14,7 +14,7 @@ party member and radioactive gas is leeking in through the vents . There are
 several computers and screens here mainly for navigation and mostly inactive
 .
 
-There is an exit down.
+You can only move down.
 
 > d
 You move down.
@@ -28,7 +28,7 @@ ozone .
 
 Also here is body armour.
 
-There are exits up and down.
+You can move up and down.
 
 > take armour
 You pick up body armour.

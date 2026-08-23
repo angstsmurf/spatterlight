@@ -23,6 +23,7 @@ talk to ghost
 exam boat
 get rucksack
 open rucksack
+look in rucksack
 get leaflet
 drop rucksack
 give booklet to ghost

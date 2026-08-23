@@ -1233,8 +1233,7 @@ hanging up.  The door to the bathroom was removed, however there are no
 fixtures in the room, just drain holes.  Except for the missing toilet
 facilities, it looks much like a typical hotel room.
 
-A suit is lying on the floor.  Searching among the suits you find one that
-looks like it would fit you.
+Searching among the suits you find one that looks like it would fit you.
 
 > take suit
 You select a suit that looks about your size.

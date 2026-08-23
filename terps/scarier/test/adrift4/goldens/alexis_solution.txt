@@ -1,9 +1,11 @@
 easy
 nnamen tutem selronden flar darg
-take all
+x old oak table
+get all from table
 wear cloak
 down
-take oil
+x shelves
+get all from shelves
 take coin
 up
 put oil in lantern
@@ -12,19 +14,14 @@ out
 east
 attack wolf
 attack wolf
-attack wolf
 take tonerith stone
 e
 e
 attack bridgekeeper
 attack bridgekeeper
-attack bridgekeeper
 w
 w
 west
-north
-take small sword
-south
 west
 north
 north
@@ -36,17 +33,15 @@ north
 nw
 nw
 attack narfild
-attack narfild
-attack narfild
-attack narfild
-attack narfild
 e
-take glaven stone
+x large stone table
+get all from large stone table
 turn ring
 w
 w
 w
-take spade
+x holes in the wall
+get all from holes in the wall
 e
 e
 se
@@ -83,7 +78,8 @@ put water in pan
 n
 se
 open cupboard
-take elven armour
+x cupboard
+get all from cupboard
 wear elven armour
 nw
 w
@@ -100,18 +96,16 @@ nw
 nw
 attack monster
 attack monster
-attack monster
-attack monster
 ne
 unlock chest
 open chest
-take longmore chest plate
+x chest
+get all from chest
 wear longmore chest plate
 sw
 nw
 e
 e
-attack eagle
 attack eagle
 w
 w
@@ -134,16 +128,16 @@ say the password
 open door
 n
 attack larnt
-attack larnt
-attack larnt
 n
-take all
+x long table
+get all from long table
 s
 w
 u
 unlock chest
 open chest
-take all
+x chest
+get all from chest
 d
 e
 n
@@ -156,17 +150,3 @@ north
 attack urgorn
 attack urgorn
 attack urgorn
-attack urgorn
-attack urgorn
-attack urgorn
-attack urgorn
-attack urgorn
-attack urgorn
-attack urgorn
-attack urgorn
-attack urgorn
-attack urgorn
-attack urgorn
-attack urgorn
-score
-

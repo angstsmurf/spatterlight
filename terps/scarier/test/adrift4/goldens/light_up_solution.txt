@@ -3,7 +3,8 @@
 open trunk
 get flashlight
 north
-get rock
+x grass
+get all from grass
 break window
 turn light on
 look under chair
@@ -98,7 +99,7 @@ look
 look
 look
 look
-look
+take blue box
 close blue box
 look
 look
@@ -126,7 +127,7 @@ look
 look
 look
 look
-look
+take red box
 open red box
 take child
 use blanket on child
@@ -172,7 +173,7 @@ look
 look
 look
 look
-look
+take blank box
 open blank box
 take red orb
 take orange orb
@@ -201,7 +202,7 @@ look
 look
 look
 look
-look
+take green box
 open green box
 take lighter
 attack chip
@@ -253,6 +254,9 @@ attack riven
 take lighter
 attack riven
 take lighter
+look
+look
+look
 north
 attack ozgat
 take lighter
@@ -388,6 +392,11 @@ take lighter
 attack higher
 take double-lighter
 take lighter
+look
+look
+look
+look
+look
 look
 northeast
 attack ozgat

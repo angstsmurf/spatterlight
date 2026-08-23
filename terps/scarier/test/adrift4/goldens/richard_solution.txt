@@ -123,10 +123,12 @@ type qwertyuiop
 s
 sleep
 w
+x hall closet
 get pail
 w
 get mat
 w
+x master bedroom closet
 get backpack
 e
 n

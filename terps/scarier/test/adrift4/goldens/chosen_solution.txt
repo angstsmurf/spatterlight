@@ -69,6 +69,7 @@
 # SCR_SKIP_WAITKEY=1 is required for the row: the ending is a long scene that
 # pauses.
 
+x trousers
 n
 take belt
 attach belt to cable

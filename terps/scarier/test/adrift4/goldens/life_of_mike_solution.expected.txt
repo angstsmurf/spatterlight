@@ -9,7 +9,8 @@ You realize that it is thursday which translates to "Payday"  you decide to
 get dressed and head to WORK.
 
 > take all from dresser
-You take a socks, a shirt, a underwear and a pair of pants from the dresser.
+You take the socks, the shirt, the underwear and the pair of pants from the
+dresser.
 
 > wear underwear
 You put on the underwear.
@@ -252,6 +253,8 @@ here.
 
 Also here is a mustang.
 
+You can only move north.
+
 > north
 You move north.
 
@@ -317,6 +320,8 @@ your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
 have the keys.
 
 Also here is a mustang and a piece of crap truck.
+
+You can move north, south and west.
 
 > north
 You move north.
@@ -428,6 +433,8 @@ center. toi the south is bob's Driveway
 
 Also here is a piece of crap truck.
 
+You can only move south.
+
 > south
 You move south.
 
@@ -488,6 +495,8 @@ your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
 have the keys.
 
 Also here is a mustang and a piece of crap truck.
+
+You can move north, south and west.
 
 > south
 You move south.
@@ -603,6 +612,8 @@ This is the parking lot of the grocery store you work at. There are many cars
 here.
 
 Also here is a mustang.
+
+You can only move north.
 
 > north
 You move north.

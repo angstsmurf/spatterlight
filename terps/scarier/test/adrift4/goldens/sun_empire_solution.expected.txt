@@ -111,11 +111,15 @@ Also here is a clothes trunk.
 > open trunk
 You open the trunk.
 
-> take id pass
-You take the ID pass from the clothes trunk.
+> x clothes trunk
+Sitting at the foot of the bed is Jeriah's clothes trunk.  The clothes trunk
+is open.  An ID pass and the clothes are inside the clothes trunk.
+
+> get all from clothes trunk
+You take the ID pass and the clothes from the clothes trunk.
 
 > take clothes
-You take the clothes from the clothes trunk.
+You are already carrying the clothes.
 
 > ne
 You move northeast.
@@ -159,10 +163,10 @@ Time passes...
 > z
 Time passes...
 
+Jeriah Eldon enters from the south.
+
 > z
 Time passes...
-
-Jeriah Eldon enters from the south.
 
 > give id pass to jeriah
 Looking relieved, Jeriah takes the ID pass from you.
@@ -193,10 +197,16 @@ on the potential success of various methods of stimulation.
 This is amazing work and very important.  You wish that Jeriah had brought it
 to your attention earlier.
 
-> take genetic sampler
-You take the genetic sampler from the stainless steel lab table.
-
 Jeriah Eldon exits to the south.
+
+> x stainless steel lab table
+The levels of the table are as easily accessible as the other.  The steel
+table is used to hold experiments and lab equipment.  On the stainless steel
+lab table is a genetic sampler, a growth vat and an electron microscope.
+
+> get all from stainless steel lab table
+You take the genetic sampler, the growth vat and the electron microscope from
+the stainless steel lab table.
 
 > get sample from me
 Pressing the genetic sampler to your arm, you feel a slight tingle.  Examing
@@ -280,9 +290,6 @@ This sprawling room is sectioned in two by a long, multi-level stainless
 steel table.  The main lab exit is to the east and the control stairwell is
 to the south.  Against the west wall is a large single piece of equipment,
 the DNA analysis computer, that takes up half the wall.
-Jeriah Eldon is pacing here musing over a notepad.
-
-Jeriah Eldon exits to the south.
 
 > s
 You move south.
@@ -291,7 +298,6 @@ Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
 Mhentsh is here.
-Jeriah Eldon is pacing here musing over a notepad.
 
 > u
 You move up.
@@ -303,8 +309,7 @@ west is the entrance door and a steel stairway leads downwards.
 
 A large white, polymer patio table appears cheesily inexpensive but lends
 itself to the informal and laid back atmosphere of the patio.
-
-Jeriah Eldon enters from below.
+Jeriah Eldon is pacing here musing over a notepad.
 
 > w
 You move west.
@@ -347,11 +352,8 @@ Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
 Mhentsh is here.
-Jeriah Eldon is pacing here musing over a notepad.
 
 Mark Eridian walks in from above.
-
-Jeriah Eldon exits to the north.
 
 > n
 You move north.
@@ -369,6 +371,8 @@ have incoming hostile Orgaan units.  Initiating code red.  Code Red".
 
 With that the voice is gone, there is a moment of silence broken finally by a
 siren wail in the distance.
+
+Jeriah Eldon exits to the south.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
 
@@ -378,8 +382,6 @@ You can hear the wail of a distant emergency siren.
 
 > z
 Time passes...
-
-Jeriah Eldon exits to the south.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
 Several muffled explosions are heard in the distance.
@@ -419,55 +421,54 @@ glances off of Jeriah.  Exposed through the breach, the cafeteria room next
 door disappears in a cloud of  dust and debris.  There is the sound of
 shattering glass and wrenching metal as the steel support beam fails and
 crashes down into the laboratory control room.
-Mark Eridian hits Skyrv, but it doesn't seem to do any damage.
-You manage to avoid Skyrv's attack.
-Skynd hits you, but it doesn't seem to do any damage.
-
-> z
-Time passes...
-You can hear the wail of a distant emergency siren.
-Skynd manages to avoid Mark Eridian's attack.
-
-> z
-Time passes...
-A previously non-descript red light blinks to life in the center of the
-ceiling.
-Skyrv manages to avoid Mark Eridian's attack.
-You manage to avoid Skyrv's attack.
+Mark Eridian hits Skynd, but it doesn't seem to do any damage.
 Skynd hits you, but it doesn't seem to do any damage.
 
 > z
 Time passes...
 You can hear the wail of a distant emergency siren.
 Mark Eridian hits Skyrv.
+You manage to avoid Skyrv's attack.
 
 > z
 Time passes...
 A previously non-descript red light blinks to life in the center of the
 ceiling.
-Skyrv manages to avoid Mark Eridian's attack.
-Skyrv hits Mark Eridian, but it doesn't seem to do any damage.
-Skynd hits you, but it doesn't seem to do any damage.
+Skynd manages to avoid Mark Eridian's attack.
+Skynd hits Mark Eridian.
 
 > z
 Time passes...
 You can hear the wail of a distant emergency siren.
 Skyrv manages to avoid Mark Eridian's attack.
-Mark Eridian manages to avoid Skyrv's attack.
+Skyrv hits Mark Eridian.
+You manage to avoid Skynd's attack.
+
+> z
+Time passes...
+
+Mark Eridian walks in.
+A previously non-descript red light blinks to life in the center of the
+ceiling.
+You manage to avoid Skyrv's attack.
+Skynd hits you.
+
+> z
+Time passes...
+You can hear the wail of a distant emergency siren.
+You manage to avoid Skynd's attack.
 
 > z
 Time passes...
 A previously non-descript red light blinks to life in the center of the
 ceiling.
-Skyrv manages to avoid Mark Eridian's attack.
-Mark Eridian manages to avoid Skyrv's attack.
-Skynd hits you, but it doesn't seem to do any damage.
+You manage to avoid Skyrv's attack.
+You manage to avoid Skynd's attack.
 
 > take rifle
 You take the 401K Auto Rifle.
 You can hear the wail of a distant emergency siren.
-Skyrv manages to avoid Mark Eridian's attack.
-Skynd hits you.
+You manage to avoid Skyrv's attack.
 
 > get sample from skyrv
 Pressing the genetic sampler to its arm, you take Skyrv's genetic sample.
@@ -476,8 +477,7 @@ it off and take it with you.
 
 A previously non-descript red light blinks to life in the center of the
 ceiling.
-Skynd manages to avoid Mark Eridian's attack.
-You manage to avoid Skyrv's attack.
+Skyrv hits you, but it doesn't seem to do any damage.
 Skynd hits you, but it doesn't seem to do any damage.
 
 > get sample from orgaan soldier
@@ -486,9 +486,8 @@ sample.  Examing the sampler, a cannister presents itself out of the head.
 You snap it off and take it with you.
 
 You can hear the wail of a distant emergency siren.
-Skynd manages to avoid Mark Eridian's attack.
-You manage to avoid Skyrv's attack.
-You manage to avoid Skynd's attack.
+Skyrv hits you.
+Skynd hits you, but it doesn't seem to do any damage.
 
 > get sample from guard
 Pressing the genetic sampler to his arm, you take Mhentsh's genetic sample.
@@ -497,8 +496,7 @@ it off and take it with you.
 
 A previously non-descript red light blinks to life in the center of the
 ceiling.
-Skynd manages to avoid Mark Eridian's attack.
-Mark Eridian manages to avoid Skyrv's attack.
+You manage to avoid Skyrv's attack.
 
 > get sample from mark
 Pressing the genetic sampler to his arm, you take Marks genetic sample.
@@ -506,8 +504,8 @@ Examing the sampler, a cannister presents itself out of the head.  You snap
 it off and take it with you.
 
 You can hear the wail of a distant emergency siren.
-Skynd manages to avoid Mark Eridian's attack.
-You manage to avoid Skynd's attack.
+You manage to avoid Skyrv's attack.
+Skynd hits you, but it doesn't seem to do any damage.
 
 > s
 You move south.
@@ -516,28 +514,28 @@ Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
 
-Also here is a dead Orgaan soldier.
+Also here is a dead Orgaan soldier and a dead Jeriah.
 
 Mark Eridian walks in from the north.
 
 Skyrv runs in from the north.
 
 Skynd runs in from the north.
-Skynd manages to avoid Mark Eridian's attack.
-You manage to avoid Skyrv's attack.
+Skynd hits you, but it doesn't seem to do any damage.
 
 > get sample from jeriah
-Jeriah is not here to take a genetic sample from.
-Skynd manages to avoid Mark Eridian's attack.
-Skynd hits you, but it doesn't seem to do any damage.
+Pressing the genetic sampler to his arm, you take Jeriah's genetic sample.
+Examing the sampler, a cannister presents itself out of the head.  You snap
+it off and take it with you.
+
+You manage to avoid Skyrv's attack.
 
 > get sample from orgaan soldier
 Pressing the genetic sampler to its arm, you take that Orgaan's genetic
 sample.  Examing the sampler, a cannister presents itself out of the head.
 You snap it off and take it with you.
 
-Skyrv manages to avoid Mark Eridian's attack.
-Skyrv hits Mark Eridian, but it doesn't seem to do any damage.
+You manage to avoid Skynd's attack.
 
 > u
 You move up.
@@ -550,15 +548,12 @@ west is the entrance door and a steel stairway leads downwards.
 A large white, polymer patio table appears cheesily inexpensive but lends
 itself to the informal and laid back atmosphere of the patio.
 
-Also here is a dead Jeriah.
-
 Mark Eridian walks in from below.
 
 Skyrv runs in from below.
 
 Skynd runs in from below.
-Mark Eridian hits Skyrv, but it doesn't seem to do any damage.
-Skynd hits you, but it doesn't seem to do any damage.
+You manage to avoid Skyrv's attack.
 
 > w
 You move west.
@@ -581,9 +576,7 @@ Skynd runs in from the east.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
 BeeDoop...  BeeDoop... There appears to be some activity on the VidCom.
-Skyrv manages to avoid Mark Eridian's attack.
-Skyrv hits you, but it doesn't seem to do any damage.
-Skynd hits you, but it doesn't seem to do any damage.
+You manage to avoid Skynd's attack.
 
 > answer vidcom
 Answering the vidcom, a Kantan security guard appears on the small monitor.
@@ -609,21 +602,18 @@ black.
 The lab rocks slightly at the concusion of almost simultaneous grenade
 explosions.
 You can hear the wail of a distant emergency siren.
-Mark Eridian hits Skyrv, but it doesn't seem to do any damage.
-Skynd hits you, but it doesn't seem to do any damage.
+You manage to avoid Skyrv's attack.
+You manage to avoid Skynd's attack.
 
 > open drawer
 You open the drawer.  A data chip is inside the drawer.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
-Skynd manages to avoid Mark Eridian's attack.
-Mark Eridian manages to avoid Skyrv's attack.
-You manage to avoid Skynd's attack.
+Skyrv hits you, but it doesn't seem to do any damage.
 
 > take data chip
 You take the data chip from the drawer.
 You can hear the wail of a distant emergency siren.
-Skyrv manages to avoid Mark Eridian's attack.
 You manage to avoid Skynd's attack.
 
 > download data
@@ -654,8 +644,7 @@ else, Tangee?"
 The computer goes black.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
-Skynd manages to avoid Mark Eridian's attack.
-Skyrv hits you.
+You manage to avoid Skyrv's attack.
 
 > w
 You move west.
@@ -679,8 +668,7 @@ Mark Eridian walks in from the east.
 Skyrv runs in from the east.
 
 Skynd runs in from the east.
-Skynd manages to avoid Mark Eridian's attack.
-Skynd hits Mark Eridian, but it doesn't seem to do any damage.
+You manage to avoid Skynd's attack.
 
 > throw grenade
 Taking the element of surprise, you prime the grenade and roll it down the
@@ -693,8 +681,8 @@ carries dust, debris and Orgaan parts past you in the hall.
 
 After a moment, all is quiet and you don't hear nor see any additional
 movement from the reception area.
-Skyrv manages to avoid Mark Eridian's attack.
 Skyrv hits you, but it doesn't seem to do any damage.
+You manage to avoid Skynd's attack.
 
 > n
 You move north.
@@ -709,8 +697,7 @@ Mark Eridian walks in from the south.
 Skyrv runs in from the south.
 
 Skynd runs in from the south.
-Skynd manages to avoid Mark Eridian's attack.
-You manage to avoid Skynd's attack.
+You manage to avoid Skyrv's attack.
 
 > e
 You move east.
@@ -728,16 +715,15 @@ Mark Eridian walks in from the west.
 Skyrv runs in from the west.
 
 Skynd runs in from the west.
-Skynd manages to avoid Mark Eridian's attack.
-Skyrv hits you.
+You manage to avoid Skyrv's attack.
+Skynd hits you, but it doesn't seem to do any damage.
 
 > get sample from nadine
 Pressing the genetic sampler to her arm, you take Nadine's genetic sample.
 Examing the sampler, no cannister presents itself.  Then you remember that
 you cannot obtain a genetic sample off of Antonai.
 
-Skyrv manages to avoid Mark Eridian's attack.
-Mark Eridian manages to avoid Skynd's attack.
+You manage to avoid Skyrv's attack.
 
 > e
 You move east.
@@ -754,10 +740,9 @@ Mark Eridian walks in from the west.
 Skyrv runs in from the west.
 
 Skynd runs in from the west.
-Mark Eridian hits Skyrv, but it doesn't seem to do any damage.
-Mark Eridian manages to avoid Skyrv's attack.
-Malthew manages to avoid Skynd's attack.
-Malthew hits Skynd.
+You manage to avoid Skyrv's attack.
+Skynd hits Malthew, but it doesn't seem to do any damage.
+Skynd manages to avoid Malthew's attack.
 
 > talk to malthew
 Sitting down next to him, Malthew looks over at you.
@@ -782,18 +767,15 @@ but I'm not.  I'll get my turn to pay the Orgaans in kind for their deaths."
 
 You smile back at him, "Ok, now you're getting all chatty on me.  Let's get
 out of here."
-Mark Eridian hits Skyrv.
-Malthew manages to avoid Skyrv's attack.
-Skynd hits Malthew, but it doesn't seem to do any damage.
-Malthew hits Skynd.
+Malthew hits Skynd, but it doesn't seem to do any damage.
 
 > get sample from malthew
 Pressing the genetic sampler to his arm, you take Malthew's genetic sample.
 Examing the sampler, a cannister presents itself out of the head.  You snap
 it off and take it with you.
 
-Skynd manages to avoid Mark Eridian's attack.
 Malthew manages to avoid Skyrv's attack.
+Malthew manages to avoid Skynd's attack.
 Skynd manages to avoid Malthew's attack.
 
 > w
@@ -814,10 +796,8 @@ Skyrv runs in from the east.
 Skynd runs in from the east.
 
 Malthew walks in from the east.
-Skynd manages to avoid Mark Eridian's attack.
-You manage to avoid Skyrv's attack.
-Skynd hits Mark Eridian, but it doesn't seem to do any damage.
-Skynd manages to avoid Malthew's attack.
+Skyrv hits you, but it doesn't seem to do any damage.
+Malthew hits Skyrv.
 
 > w
 You move west.
@@ -834,9 +814,9 @@ Skyrv runs in from the east.
 Skynd runs in from the east.
 
 Malthew walks in from the east.
-Mark Eridian hits Skyrv.
-You manage to avoid Skyrv's attack.
-Skyrv manages to avoid Malthew's attack.
+Malthew manages to avoid Skynd's attack.
+Malthew hits Skyrv.
+The attack cuts down the Orgaan who falls face forward to the floor.
 
 > s
 You move south.
@@ -857,23 +837,16 @@ blocked by a collapse of the ceiling.
 
 Mark Eridian walks in from the north.
 
-Skyrv runs in from the north.
-
 Skynd runs in from the north.
 
 Malthew walks in from the north.
-Mark Eridian hits Skyrv, but it doesn't seem to do any damage.
-You manage to avoid Skyrv's attack.
-Skynd hits Mark Eridian, but it doesn't seem to do any damage.
 Malthew hits Skynd.
 
 > shoot windows
 The 401K Auto Rifle chips away at the plasteel until finally with a
 satisfying crunch one of the windows gives way to an opening to the gardens.
-Skyrv manages to avoid Mark Eridian's attack.
-You manage to avoid Skyrv's attack.
 You manage to avoid Skynd's attack.
-Skyrv manages to avoid Malthew's attack.
+Skynd manages to avoid Malthew's attack.
 
 > w
 Rushing out into the western gardens, a few Orgaan soldiers from the interior
@@ -896,6 +869,6 @@ after the adrenaline wears off.
 men.  Giving you a hand into the vehicle, the rest of the marines load up and
 the vehicle  surges forward.
 
-You scored 125 out of the maximum 145!
-That is 86% of the game!
-You finished 20 points short.
+You scored 135 out of the maximum 145!
+That is 93% of the game!
+You finished 10 points short.

@@ -18,7 +18,7 @@ this is the driveway leading to the front door of the building.  154 street
 is to the north.  A hill leads east to first ave.    there is a closed mail
 box here
 
-There is an exit west.
+You can only move west.
 
 > open mail box
 as you open the mail box it explodes and is distroyed

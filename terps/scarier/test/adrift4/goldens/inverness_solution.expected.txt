@@ -198,10 +198,10 @@ answer]
 The box slowly opens.
 
 > take key
-You take an old key from the wooden box.
+Take what?
 
 > take scroll
-You take a scroll from the wooden box.
+Take what?
 
 > n
 You move north.
@@ -261,7 +261,7 @@ You unlock the desk.
 You open the desk drawer.
 
 > take letter
-You take a letter from the desk.
+Take what?
 
 > s
 You move south.

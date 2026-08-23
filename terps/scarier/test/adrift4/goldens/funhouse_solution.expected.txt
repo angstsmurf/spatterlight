@@ -16,7 +16,7 @@ office. Will you be able to catch them!
 Also here is a wallet, a ten dollars, a five dollar bill, a five ones, a five
 twos and a lighter.
 
-There is an exit south.
+You can only move south.
 
 > south
 You move south.
@@ -29,7 +29,7 @@ Also here is a hundred dollars, a drink and a ticket.
 Ticket man and Your children 8) are here.
 The tall man is pleasant.
 
-There are exits north and east.
+You can move north and east.
 
 Mafia man .
 
@@ -103,6 +103,8 @@ A feel along the wall reveals a slide you did not notice. Should you save
 some time and take the slide?
 
 Also here is a diamond ring.
+
+You can only move south.
 
 > south
 You move south.

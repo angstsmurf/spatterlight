@@ -6,6 +6,12 @@ A Red Conine Game
 
 Copyright @ 2009
 
+> x closet
+This closet is so stuffed that if a single thing was taken out, it could very
+well all fallout and risk your very own death. The only thing that seems to
+be removable is a two dollar bill.  Your closet is open.  A two dollar bill
+is inside your closet.
+
 > take two dollar bill
 You take a two dollar bill from your closet.
 
@@ -369,7 +375,7 @@ That dog is here.
 You put on your bathrobe.
 
 > e
-You can't go in that direction, but you can move north.
+You can only move north.
 
 > n
 You move north.

@@ -56,7 +56,7 @@ comes the stench of rotting vegetation.
 
 Also here is a fallen oak tree.
 
-There are exits north, south, west, southeast and southwest.
+You can move north, south, west, southeast and southwest.
 
 > se
 You move southeast.
@@ -183,6 +183,8 @@ can be seen. To the southwest, a vast swamp swallows up much of the land.
 
 You see a pair of leather gloves hung over a branch of the tree.
 It is raining...
+
+You can only move down.
 
 > take gloves
 You take the pair of leather gloves.
@@ -1007,6 +1009,8 @@ Windthrush.
 You stand at the entrance of Windthrush Village. The village looks deserted.
 There’s not a soul to be seen in the Village Square, to the south. The chasm
 is to the north.
+
+You can only move south.
 You feel weak, and very tired. Your strength starts to ebb away. You
 definitely need to sleep.
 
@@ -2917,6 +2921,8 @@ fountain that resides in its centre. To the north lies the main hall.
 
 Also here is a sword, a Shield and gold coin.
 
+You can only move north.
+
 > take sword
 You take the sword.
 
@@ -2963,11 +2969,16 @@ Also here is a table.
 You can move east and west.
 Seeker hums!
 
-> take venison
-You take the venison from the table.
+> x table
+It is a large table, made out of some very expensive wood, no doubt; it is
+very well-polished.  Some venison is on the table.
 Seeker hums!
 You see a pair of cat’s eyes looking at you from the shadows. As soon as you
 notice them, they are gone.
+
+> take venison
+You take the venison from the table.
+Seeker hums!
 
 > w
 You move west.
@@ -2980,7 +2991,39 @@ obscured by the majestic pipe organ that rests in the centre of this room.
 Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
+A bat swoops down from above and darts off into the shadows.
 Seeker hums!
+
+> z
+Time passes...
+Seeker hums!
+Berto squawks the words, "Quoth said the raven....... nevermore!"
+
+> z
+Time passes...
+Seeker hums!
+
+> z
+Time passes...
+
+Gargoyle #1 flies in from the south.
+
+Gargoyle #2 flies in from the south.
+Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 cuts you with the halberd.
+
+> z
+Time passes...
+Seeker hums!
+
+> z
+Time passes...
+Seeker hums!
+Berto squawks the words, "Quoth said the raven....... nevermore!"
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > w
 You move west.
@@ -2993,7 +3036,6 @@ Zandos, the demon, is here.
 Zandos paces back and forth inside the pentagram.
 
 You can move east, south and west.
-A bat swoops down from above and darts off into the shadows.
 Seeker hums!
 Seeker hums!
 "Hello, friend" says a most unsavoury voice coming from the huge tentacled
@@ -3030,18 +3072,11 @@ Seeker hums!
 
 > take lantern
 You take the lantern.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > turn lantern on
 You do so.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork.
 
 > n
 You move north.
@@ -3070,6 +3105,7 @@ Zandos paces back and forth inside the pentagram.
 You can move east, south and west.
 Seeker hums!
 Seeker hums!
+A black cat suddenly darts in front of you and off into the shadows.
 The demon’s eyes watch you as you move about the room.
 
 > e
@@ -3080,11 +3116,13 @@ This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
 obscured by the majestic pipe organ that rests in the centre of this room.
+Gargoyle #1 is here.
+Gargoyle #2 is here.
 Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
 Seeker hums!
-Berto squawks the words, "Quoth said the raven....... nevermore!"
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > e
 You move east.
@@ -3114,8 +3152,13 @@ You move down.
 
 The cellar stairs.
 You stand at the halfway point of the cellar stairs.
+Woody, the wererat, is here.
 
 You can move up and down.
+Woody, the wererat, strokes his exceptionally long snout with one of his
+hands, and sniffs the air around you.
+
+Woody scampers away to above.
 Seeker hums!
 
 > d
@@ -3154,18 +3197,16 @@ heap of rubble is in one corner. The only exit is from the way you came in.
 Also here is a pile of rubble.
 
 You can only move north.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
+
+> x rubble
+The rubble is made up of huge chunks of stone.  A chisel is on the pile of
+rubble.
+Seeker hums!
 
 > take chisel
 You take the chisel from the pile of rubble.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
 
 > n
 You move north.
@@ -3191,17 +3232,25 @@ darkness, while to the east you hear the sound of rats and the lapping of
 water.
 
 You can move north, east and up.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > u
 You move up.
 
 The cellar stairs.
 You stand at the halfway point of the cellar stairs.
+Melvin the Butler is here.
 
 You can move up and down.
+
+Melvin waddles out to below.
 Seeker hums!
-You hear the sound of a cat’s "meow".
 
 > u
 You move up.
@@ -3234,9 +3283,10 @@ This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
 obscured by the majestic pipe organ that rests in the centre of this room.
-Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
+
+Berto flutters in.
 Seeker hums!
 
 > d
@@ -3268,14 +3318,8 @@ A faint mist starts collecting in the room.
 > open coffin #7
 You open the coffin #7.  A brooch and The remains of Maldus are inside the
 coffin #7.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
 Seeker hums!
-Gargoyle #1 stabs you with the military fork.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > take brooch
 You take the brooch from the coffin #7.
@@ -3300,11 +3344,17 @@ The main hall.
 This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
-obscured by the majestic pipe organ that rests in the centre of this room.  A
-faint mist swirls around you.
+obscured by the majestic pipe organ that rests in the centre of this room.
+Berto, the bald raven, is here.  A faint mist swirls around you.
 
 You can move north, east, south, west, up and down.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Gargoyle #1 stabs you with the military fork.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > w
 You move west.
@@ -3318,9 +3368,17 @@ Zandos paces back and forth inside the pentagram.  A faint mist swirls around
 you.
 
 You can move east, south and west.
+
+Woody scampers in from the south.
 Seeker hums!
 Seeker hums!
 The demon’s eyes watch you as you move about the room.
+Woody, the wererat, starts a coughing fit. His ribs nearly burst through his
+skinny body. The sound he makes is horrible, and phlegm flies everywhere from
+his long snout. Then he seems to regain his composure, and looks at you with
+disgust in his small beady eyes.
+Woody moans and wines about something totally irrelevant, then turns round
+and casually spits on you.
 
 > w
 You move west.
@@ -3351,7 +3409,6 @@ This dark passage slopes downwards from south to north.
 A faint mist swirls around you.
 
 You can move north and south.
-A bat swoops down from above and darts off into the shadows.
 Seeker hums!
 
 > n
@@ -3385,21 +3442,19 @@ here.
 Also here is a shrine.  A faint mist swirls around you.
 
 You can only move south.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
 You suddenly feel rather dizzy, so dizzy that you black out and fall to the
 ground unconscious. When you awake, you do not know how long you have been
 unconscious for, but you feel much better now.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
+
+> x shrine
+The shrine is dedicated to Xeros, the god of murder.  A scroll is on the
+shrine.
+Seeker hums!
 
 > take scroll
 You take the scroll from the shrine.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
 
 > s
 You move south.
@@ -3411,7 +3466,13 @@ the painting; another passage leads northward, further into the caverns.
 Also here is a Shadow, the dead black cat.  A faint mist swirls around you.
 
 You can move north and south.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > s
 You move south.
@@ -3481,6 +3542,8 @@ Berto, the bald raven, is here.  A faint mist swirls around you.
 
 You can move north, east, south, west, up and down.
 Seeker hums!
+You feel the hairs on the back your neck stand up.
+Berto squawks the words, "Quoth said the raven....... nevermore!"
 
 > u
 You move up.
@@ -3491,7 +3554,6 @@ you.
 
 You can move up and down.
 Seeker hums!
-You feel the hairs on the back your neck stand up.
 
 > u
 You move up.
@@ -3503,28 +3565,21 @@ flickers from under it.
 Also here is steel door.  A faint mist swirls around you.
 
 You can only move down.
+Seeker hums!
+
+> unlock steel door with brooch
+You unlock steel door with the brooch.
+Seeker hums!
+
+> open steel door
+You open steel door.
 
 Gargoyle #1 flies in.
 
 Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #1 stabs you with the military fork.
 Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
-
-> unlock steel door with brooch
-You unlock steel door with the brooch.
-Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-
-> open steel door
-You open steel door.
-Seeker hums!
-Suddenly a grotesque form of a man enters the room, completely bald, eyes of
-white marble, and with fangs that hang over his bottom lip. He wears a black
-suit and cape, the lining of which is deep red. You realise that this is
-Morac! He seems to be looking for something.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > n
 You move north.
@@ -3537,6 +3592,10 @@ Also here is steel door.
 
 You can move north, east, south and west.
 Seeker hums!
+Suddenly a grotesque form of a man enters the room, completely bald, eyes of
+white marble, and with fangs that hang over his bottom lip. He wears a black
+suit and cape, the lining of which is deep red. You realise that this is
+Morac! He seems to be looking for something.
 
 > n
 You move north.
@@ -3582,19 +3641,13 @@ Seeker hums!
 
 > say carom
 BOOM! The golem explodes in a shower of dust.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #2 cuts you with the halberd.
 
 > eat venison
 You eat the venison.  Not bad, but it could do with a pinch of salt!
 Mmm, that made you feel much better. But you can’t help feeling that someone
 is trying to fatten you up.
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > s
 You move south.
@@ -3606,7 +3659,14 @@ compass. A cool breeze comes from the west.
 Also here is steel door.
 
 You can move north, east, south and west.
+
+Gargoyle #1 flies in from the south.
+
+Gargoyle #2 flies in from the south.
 Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > s
 You move south.
@@ -3637,8 +3697,11 @@ This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
 obscured by the majestic pipe organ that rests in the centre of this room.
+Woody, the wererat, is here.  Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
+
+Woody scampers away to the east.
 Seeker hums!
 
 > e
@@ -3648,13 +3711,17 @@ The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
 
 Also here is a table.
+Woody, the wererat, is here.
 
 You can move east and west.
+A bat swoops down from above and darts off into the shadows.
 Strange, some more venison has just appeared on the table!
 Seeker hums!
 
 > take venison
 You take the venison from the table.
+
+Woody scampers away to the west.
 Seeker hums!
 
 > eat venison
@@ -3678,14 +3745,7 @@ equipment being full of grime and dirt. West leads to the dining room.
 Also here is a archway.
 
 You can move south, west and down.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > s
 You move south.
@@ -3707,7 +3767,13 @@ Skeletons of the once-proud servants litter the floor in this room.
 Also here is a stake.
 
 You can only move east.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > take stake
 You take the stake.
@@ -3732,13 +3798,9 @@ This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
 
 Also here is a archway.
-Gargoyle #1 is here.
-Gargoyle #2 is here.
 
 You can move south, west and down.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
 
 > w
 You move west.
@@ -3749,7 +3811,6 @@ This is a very long room. The smell of freshly-cooked venison fills the air.
 Also here is a table.
 
 You can move east and west.
-A bat swoops down from above and darts off into the shadows.
 Seeker hums!
 
 > w
@@ -3791,17 +3852,13 @@ You can only move north.
 Please set me free," she cries.
 Seeker hums!
 Seeker hums!
+You are feeling very tired, indeed, and realise you should find somewhere to
+sleep!
 
 > take silver key
 You take silver key.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
 Seeker hums!
-Gargoyle #1 stabs you with the military fork.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > n
 You move north.
@@ -3825,8 +3882,13 @@ South leads back to the bottom of the main stairs; another exit leads
 northward.
 
 You can move north and south.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
 Seeker hums!
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > open coffin #2
 You open the coffin #2.  A sceptre is inside the coffin #2.
@@ -3834,6 +3896,7 @@ Seeker hums!
 Grazilda lies in her coffin.
 Grazilda’s eyes flick open.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > stake grazilda
 As you plunge the stake into Grazilda’s heart, she screams and wines with the
@@ -3841,17 +3904,21 @@ pain. Her whole body convulses, then at last she is silent. Her body
 evaporates into the air, along with the stake that brought about her end.
 Seeker hums!
 Seeker hums!
+Gargoyle #2 cuts you with the halberd.
 
 > take sceptre
 You take the sceptre from the coffin #2.
 Seeker hums!
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > open coffin #11
 You open the coffin #11.
 Seeker hums!
 Seeker hums!
 The coffin is empty. You can only wonder where the occupant is now.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > s
 You move south.
@@ -3863,8 +3930,6 @@ main hall stairs lead back up.
 
 You can move north, south and up.
 Seeker hums!
-You are feeling very tired, indeed, and realise you should find somewhere to
-sleep!
 
 > u
 You move up.
@@ -3874,12 +3939,11 @@ This is a massive hall dominated by four huge stone pillars that reach up to
 the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
 obscured by the majestic pipe organ that rests in the centre of this room.
-Melvin the Butler is here.
-Berto, the bald raven, is here.
+Woody, the wererat, is here.  Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
 
-Melvin waddles out to the east.
+Berto flies out of the room.
 Seeker hums!
 
 > u
@@ -3901,13 +3965,7 @@ flickers from under it.
 Also here is steel door.
 
 You can move north and down.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > n
 You move north.
@@ -3932,7 +3990,14 @@ shoulders. She is dressed in her wedding dress.
 Also here is iron chest.
 
 You can only move west.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > kiss lady
 By kissing her, you appear to have a broken some sort of spell. Her eyes
@@ -3949,14 +4014,20 @@ Seeker hums!
 > unlock iron chest with golden key
 You unlock iron chest with golden key.
 Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > open iron chest
 You open iron chest.  A ballista bolt is inside iron chest.
 Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 > take ballista bolt
 You take the ballista bolt from iron chest.
 Seeker hums!
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > w
 You move west.
@@ -3994,18 +4065,11 @@ butterflies in your stomach. You realise that Morac must be very close by.
 
 > wear shield
 You put on the Shield.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > open wooden door
 You open wooden door.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
 
 > n
 You move north.
@@ -4018,12 +4082,19 @@ Also here is wooden door.
 Morac is here.
 
 You can only move south.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
 The wooden door slams shut.
 A huge fireball hurtles from Morac toward you. Luckily for you, the shield
 that you wear takes the brunt of it.
 Seeing that his fireball spell has been thwarted, Morac decides on a new
 tactic. His eyes fix on your own as he tries to hypnotize you.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > look away
 You do so, thwarting Morac’s attack yet again.
@@ -4038,6 +4109,9 @@ You rush to the window to watch him fall to the courtyard below, but he does
 not. With the flapping sound of wings, you see Morac land safely on the back
 of a huge black dragon.
 Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > n
 You move north.
@@ -4105,14 +4179,7 @@ northwest stand the front watch towers of the castle.
 Also here are the castle’s front doors.
 
 You can move north, south, northeast and northwest.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > s
 You move south.
@@ -4135,7 +4202,14 @@ obscured by the majestic pipe organ that rests in the centre of this room.
 Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Berto squawks the words, "Quoth said the raven....... nevermore!"
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > d
 You move down.
@@ -4191,6 +4265,8 @@ leads south, away from the henge, while another leads north into the forest.
 Also here is a body.
 Fetlar the overly fetid is here.  Morac is here.
 It is raining...  There is a portal here.
+
+You can move north, east, south and west.
 Seeker hums!
 
 > kill morac
@@ -4228,14 +4304,7 @@ impassable Kuskarian Range mountains. There are some rather large footprints
 here!
 
 You can move north, south, west, southwest and northwest.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > n
 You move north.
@@ -4256,7 +4325,13 @@ The sunlight streams into the entrance hall of the cave, making visible a
 room further into the east. West leads back out onto the grassy plains.
 
 You can move east and west.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > e
 You move east.
@@ -4346,10 +4421,6 @@ Seeker hums!
 > z
 Time passes...
 
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
-
 Quentis rides over from the east.
 Quentis is an imposing fellow with lance in hand. He wears full plate armour,
 and is dressed in the colours of Tesslesar. Dents and bloodstains mar his
@@ -4361,8 +4432,6 @@ If our enemies get their hands on it, who knows what might happen." Quentis
 quickly turns his steed and heads off back down to the rest of the knights.
 Seeker hums!
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > take horn
 You take the  horn of the angels.
@@ -4381,7 +4450,12 @@ the mountain.
 Andro, the sphinx, is here.
 
 You can move east and west.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > w
 You move west.
@@ -4447,7 +4521,6 @@ Shadow Forest gap.
 To the east, there is a gap in the forest’s trees.
 
 You can move north, east and west.
-You hear the flutter of batlike wings.
 Seeker hums!
 
 > w
@@ -4461,7 +4534,7 @@ silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
 
 Also here is a body.
-Fetlar the overly fetid is here.  There is a portal here.
+Fetlar the overly fetid is here.  It is raining...  There is a portal here.
 
 You can move north, east, south and west.
 Seeker hums!
@@ -4471,26 +4544,16 @@ You move west.
 
 Shadow Forest.
 You stand amidst the Shadow Forest.
-Fang is here.
 
 You can move north, east, south, west, southwest and northwest.
 Seeker hums!
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
-Seeker hums!
-Fang cuts you with the fine set of teeth in its muzzle, but it doesn't seem
-to do any damage.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > nw
 You move northwest.
 
 Great Swamp.
 You stand in the Great Swamp.
+It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -4504,19 +4567,29 @@ You see the great Kuskarian Range mountains blocking your path northward,
 although those huge double doors may be of some use if you would happen to
 want to go in that direction.
 
-Also here is a double doors.
+Also here is a double doors.  It is raining...
 
 You can move east, south, west, southeast and southwest.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > unlock double doors with triangular piece of metal
 You unlock the double doors with the triangular piece of metal.
+You hear the flutter of batlike wings.
+A chill wind blows southerly.
 Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
 
 > open double doors
 You open the double doors.
-You catch a faint whiff of Fetlar. He must be somewhere nearby.
 Seeker hums!
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > n
 You move north.
@@ -4561,15 +4634,9 @@ Seeker hums!
 
 > z
 Time passes...
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Edna turns towards you and moans, "Thou shalt not pass. Only one way is true,
 if you defeat me the way shall be revealed."
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > z
 Time passes...
@@ -4578,19 +4645,11 @@ You manage to avoid Edna's attack.
 
 > sleep
 You do so, and wake up feeling rather refreshed.
-Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
-> attack edna
-You stab Edna with the sword.
-Seeker hums!
-You manage to avoid Edna's attack.
+Gargoyle #1 flies in.
 
-> attack edna
-You stab Edna with the sword.
+Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > attack edna
@@ -4601,12 +4660,24 @@ You manage to avoid Edna's attack.
 
 > attack edna
 You stab Edna with the sword.
+Seeker hums!
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
+
+> attack edna
+You stab Edna with the sword.
+Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
+You manage to avoid Edna's attack.
+
+> attack edna
+You stab Edna with the sword.
 Edna keels over and collapses to the floor. The magical energy that held its
 body together pours out, leaving only a fleshy mound of rotten flesh.
 The northern passage suddenly glows momentarily.
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > attack edna
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -4664,19 +4735,11 @@ Further along the passage, you can see a pedestal, but can’t quite gain any
 further information from where you are standing.
 
 You can move north and south.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > say alam nadeer
 You do so, and strangely feel a bit relieved.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
 
 > n
 You move north.
@@ -4687,7 +4750,13 @@ The passage ends here. There are no visible exits.
 Also here is a pedestal.
 
 You can only move south.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > rub lamp
 The lamp shudders slightly, then a cloud of smoke whooshes out of it. When
@@ -4712,6 +4781,9 @@ You notice that an opening has appeared in the ceiling.
 The voice of Olmo lingers on momentarily; you hear the words, "Try and catch
 the wind."
 Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > u
 You move up.
@@ -4754,14 +4826,7 @@ Seeker hums!
 
 > green
 You step onto a green tile. Which colour next?
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > purple
 You step onto a purple tile. Which colour next?
@@ -4769,10 +4834,13 @@ Seeker hums!
 
 > orange
 You step onto a orange tile. Which colour next?
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > blue
 You step onto a blue tile, and the wall of fire disappears.
@@ -4803,13 +4871,15 @@ Seeker hums!
 As you stepped into this corridor, there was a sudden flash of light, which
 made you feel a bit disoriented. You realise the way you came into this area
 is no longer visible.
+A spear suddenly hurtles toward you, and hits you squarely in the chest.
+Something or someone must have thrown it at you, and by the force it hit you
+with, they must be rather strong indeed.
 
 > eat venison
 You eat the venison.  Not bad, but it could do with a pinch of salt!
 Mmm, that made you feel much better. But you can’t help feeling that someone
 is trying to fatten you up.
 Seeker hums!
-All is quiet in here...
 
 > e
 You move east.
@@ -4819,9 +4889,6 @@ You stand in a smooth-walled corridor.
 
 You can move north, east and west.
 Seeker hums!
-A spear suddenly hurtles toward you, and hits you squarely in the chest.
-Something or someone must have thrown it at you, and by the force it hit you
-with, they must be rather strong indeed.
 
 > e
 You move east.
@@ -4845,13 +4912,7 @@ Seeker hums!
 
 > press iron button
 Click! You do so.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > w
 You move west.
@@ -4868,16 +4929,23 @@ You move west.
 Maze.
 You stand in a smooth-walled corridor.
 
-Also here is a spear.
-
 You can move north, east and west.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > w
 You move west.
 
 Maze
 You stand in a smooth-walled corridor.
+
+Also here is a spear.
 
 You can move east and west.
 Seeker hums!
@@ -4899,6 +4967,8 @@ You stand in a smooth-walled corridor.
 
 You can move east, south and west.
 Seeker hums!
+You are feeling very tired, indeed, and realise you should find somewhere to
+sleep!
 
 > w
 You move west.
@@ -4940,31 +5010,31 @@ Maze.
 You stand in a smooth-walled corridor.
 
 You can move north, east, south and west.
+Seeker hums!
+
+> n
+You move north.
+
+Maze.
+You stand in a smooth-walled corridor.
+
+You can move north and south.
+Seeker hums!
+
+> n
+You move north.
+
+Maze.
+You stand in a smooth-walled corridor.
+
+You can move north and south.
 
 Gargoyle #1 flies in.
 
 Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
-
-> n
-You move north.
-
-Maze.
-You stand in a smooth-walled corridor.
-
-You can move north and south.
-Seeker hums!
-
-> n
-You move north.
-
-Maze.
-You stand in a smooth-walled corridor.
-Chin on legs is here.
-
-You can move north and south.
-Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > n
 You move north.
@@ -4976,8 +5046,6 @@ There is a stone button here.
 
 You can move east and south.
 Seeker hums!
-You are feeling very tired, indeed, and realise you should find somewhere to
-sleep!
 
 > press stone button
 Click! You do so.
@@ -4988,8 +5056,11 @@ You move east.
 
 Maze
 You stand in a smooth-walled corridor.
+Chin on legs is here.
 
 You can move east and west.
+
+Chin scuttles to the west.
 Seeker hums!
 
 > e
@@ -5026,114 +5097,13 @@ Maze.
 You stand in a smooth-walled corridor.
 
 You can move east, south and west.
-Seeker hums!
 
-> e
-You move east.
-
-Maze.
-You stand in a smooth-walled corridor.
-
-There is a bronze button here.
-
-You can move south and west.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
-Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
-
-> s
-You move south.
-
-Maze.
-You stand in a smooth-walled corridor.
-Damastus, the minotaur, is here!
-
-You can move north, east and south.
-
-Damastus lumbers off to the north.
-Seeker hums!
-
-> n
-You move north.
-
-Maze.
-You stand in a smooth-walled corridor.
-
-There is a bronze button here.
-
-Gargoyle #1 is here.
-Gargoyle #2 is here.
-Damastus, the minotaur, is here!
-
-You can move south and west.
+Damastus lumbers in from the east.
 Seeker hums!
 Seeker Hums!
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
-You manage to avoid Damastus's attack.
 
 > attack damastus
 You stab Damastus with the sword.
-
-Damastus lumbers off to the south.
-Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-
-> s
-You move south.
-
-Maze.
-You stand in a smooth-walled corridor.
-Damastus, the minotaur, is here!
-
-You can move north, east and south.
-Seeker hums!
-Seeker Hums!
-You manage to avoid Damastus's attack.
-
-> attack damastus
-You stab Damastus with the sword.
-
-Damastus lumbers off to the north.
-Seeker hums!
-
-> n
-You move north.
-
-Maze.
-You stand in a smooth-walled corridor.
-
-There is a bronze button here.
-
-Gargoyle #1 is here.
-Gargoyle #2 is here.
-Damastus, the minotaur, is here!
-
-You can move south and west.
-Seeker hums!
-Seeker Hums!
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
-You manage to avoid Damastus's attack.
-
-> attack damastus
-You stab Damastus with the sword.
-
-Damastus lumbers off to the west.
-Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-
-> w
-You move west.
-
-Maze.
-You stand in a smooth-walled corridor.
-Damastus, the minotaur, is here!
-
-You can move east, south and west.
 Seeker hums!
 Seeker Hums!
 You manage to avoid Damastus's attack.
@@ -5158,37 +5128,54 @@ Gargoyle #1 flies in.
 Gargoyle #2 flies in.
 Seeker hums!
 Seeker Hums!
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
+You manage to avoid Damastus's attack.
+
+> attack damastus
+You stab Damastus with the sword.
+
+Damastus lumbers off to the east.
+Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
+
+> e
+You move east.
+
+Maze.
+You stand in a smooth-walled corridor.
+Damastus, the minotaur, is here!
+
+You can move east, south and west.
+Seeker hums!
+Seeker Hums!
+You manage to avoid Damastus's attack.
+
+> attack damastus
+You stab Damastus with the sword.
+
+Damastus lumbers off to the east.
+Seeker hums!
+
+> e
+You move east.
+
+Maze.
+You stand in a smooth-walled corridor.
+
+There is a bronze button here.
+
+Damastus, the minotaur, is here!
+
+You can move south and west.
+Seeker hums!
+Seeker Hums!
 You manage to avoid Damastus's attack.
 
 > attack damastus
 You stab Damastus with the sword.
 Damastus screams in pain, and, with that, falls to the ground with a loud
 thud!
-Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-
-> e
-You move east.
-
-Maze.
-You stand in a smooth-walled corridor.
-
-You can move east, south and west.
-Seeker hums!
-
-> e
-You move east.
-
-Maze.
-You stand in a smooth-walled corridor.
-
-There is a bronze button here.
-
-You can move south and west.
 Seeker hums!
 
 > press bronze button
@@ -5209,16 +5196,12 @@ You move west.
 
 Maze.
 You stand in a smooth-walled corridor.
-
-Also here is a the dead Damastus.
 Gargoyle #1 is here.
 Gargoyle #2 is here.
 
 You can move east and west.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > w
 You move west.
@@ -5238,22 +5221,23 @@ This room stinks of bovine excretion. Some spiral stairs lead upwards.
 Also here are chewed bones, a straw mat and some arm and leg greaves.
 
 You can move north and up.
-Seeker hums!
-
-> take greaves
-You take the arm and leg greaves.
-Seeker hums!
-
-> wear greaves
-You put on the arm and leg greaves.
 
 Gargoyle #1 flies in.
 
 Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
+
+> take greaves
+You take the arm and leg greaves.
+Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+
+> wear greaves
+You put on the arm and leg greaves.
+Seeker hums!
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > u
 You move up.
@@ -5286,6 +5270,7 @@ You move south.
 
 Great Swamp.
 You stand in the Great Swamp.
+It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -5296,12 +5281,8 @@ You move southeast.
 
 Shadow Forest.
 You stand amidst the Shadow Forest.
-Fang is here.
 
 You can move north, east, south, west, southwest and northwest.
-Seeker hums!
-
-Fang darts off to the north.
 Seeker hums!
 
 > e
@@ -5315,15 +5296,17 @@ silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
 
 Also here is a body.
-Fetlar the overly fetid is here.  There is a portal here.
+Fetlar the overly fetid is here.  It is raining...  There is a portal here.
 
 You can move north, east, south and west.
+You hear the distant howling of wolves.
+Fetlar scratches himself.
+Fetlar smiles and sniffs the air, as a foul smell erupts from him.
 Seeker hums!
 
 > say borantha
 The staff that you are holding glows a brilliant white. You have a feeling
 that it’s waiting for you to do something.
-Fetlar smiles and sniffs the air, as a foul smell erupts from him.
 Seeker hums!
 
 > snap staff
@@ -5334,6 +5317,10 @@ The landscape here is scorched and black. Flames shoot up out of the foul
 earth, and all is lit by a deep red sky. It seems the only safe way to travel
 is past a rather large, black iron gate to north, or south to a river of
 lava.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
 You hear a load voice boom out!! "Well, well, well, you didn’t think it would
 be that easy, did you? The staff you broke was also infused with Morac’s
@@ -5343,6 +5330,9 @@ domain. I’m sure we will meet very soon. In fact, I’m rather looking forward
 to it, HAHAHAHAHAHA."
 The laughter trails off to nothing. You have no idea where the voice could
 have come from, and you feel very alone.
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
+damage.
+Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > s
 You move south.
@@ -5357,39 +5347,28 @@ Seeker hums!
 
 > whistle
 You whistle a little tune.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
 You see something sailing across the River Styx!
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > z
 Time passes...
 Seeker hums!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > z
 Time passes...
 Seeker hums!
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > z
 Time passes...
 Seeker hums!
 It seems the ferryman must be on his way toward you. He moves his ferry along
 with a large wooden pole.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
 
 > z
 Time passes...
 Seeker hums!
 As the ferryman gets closer, you notice his head is that of a grinning skull
 partially hidden by the robes that he wears.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #2 cuts you with the halberd, but it doesn't seem to do any damage.
 
 > z
 Time passes...
@@ -5397,7 +5376,6 @@ Seeker hums!
 Charon, the ferryman, arrives at the shore. He holds out a bony skeletal
 hand, apparently waiting for payment.
 You see something sailing across the River Styx!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > give gold coin to charon
 Charon takes the gold coin in his bony hand, and pushes you on board with his
@@ -5421,7 +5399,13 @@ Seeker hums!
 
 > take black key
 You take black key.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > d
 You move down.
@@ -5440,10 +5424,6 @@ Seeker hums!
 
 > stand on ferry
 You stand on the ferry.
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
 Charon, the ferryman, takes you back across the River Styx.
 
@@ -5493,7 +5473,7 @@ Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker hums!
 Seeker Hums!
-Cerberus hits you, but it doesn't seem to do any damage.
+You manage to avoid Cerberus's attack.
 
 > attack cerberus
 You stab Cerberus with the sword.
@@ -5501,7 +5481,7 @@ Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker hums!
 Seeker Hums!
-Cerberus hits you, but it doesn't seem to do any damage.
+You manage to avoid Cerberus's attack.
 
 > attack cerberus
 You stab Cerberus with the sword.
@@ -5556,8 +5536,13 @@ look very evil and dangerous. You notice the tunnel of the underdark carries
 on to the north, past the demons.
 
 You can move north and south.
+
+Gargoyle #1 flies in.
+
+Gargoyle #2 flies in.
 Seeker hums!
 Seeker Hums!
+Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > n
 You move north.
@@ -5574,12 +5559,7 @@ Seeker hums!
 > touch picture
 As you do so, your hear the doors unlock. Then they swing open. All is dark
 beyond!
-
-Gargoyle #1 flies in.
-
-Gargoyle #2 flies in.
 Seeker hums!
-Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
 > n
 You move north.

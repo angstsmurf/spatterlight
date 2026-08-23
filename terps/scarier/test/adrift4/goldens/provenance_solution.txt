@@ -649,10 +649,6 @@ get tent
 put tent in rucksack
 get map
 put map in rucksack
-get raincoat
-put raincoat in rucksack
-get whistle
-put whistle in rucksack
 look
 n
 e
@@ -743,12 +739,153 @@ get tent
 put tent on altar
 get map
 put map on altar
-get raincoat
-put raincoat on altar
 remove helmet
 remove boots
 remove rucksack
 put all on altar
 i
+s
+w
+w
+n
+n
+n
+n
+e
+e
+e
+e
+s
+s
+e
+n
+n
+n
+w
+w
+w
+w
+w
+n
+e
+e
+e
+e
+e
+n
+w
+w
+w
+w
+w
+w
+w
+w
+s
+s
+s
+s
+s
+s
+e
+s
+s
+s
+e
+e
+e
+e
+e
+e
+e
+e
+n
+n
+n
+e
+s
+s
+s
+s
+w
+w
+w
+w
+w
+s
+look
+get raincoat
 get whistle
+i
+n
+e
+e
+e
+e
+e
+n
+n
+n
+n
+w
+s
+s
+s
+w
+w
+w
+w
+w
+w
+w
+w
+n
+n
+n
+w
+n
+n
+n
+n
+n
+n
+e
+e
+e
+e
+e
+e
+e
+e
+s
+w
+w
+w
+w
+w
+s
+e
+e
+e
+e
+e
+s
+s
+s
+w
+n
+n
+w
+w
+w
+w
+s
+s
+s
+s
+e
+e
+n
+put raincoat on altar
+i
 blow the whistle

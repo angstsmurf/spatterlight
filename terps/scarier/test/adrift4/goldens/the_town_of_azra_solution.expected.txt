@@ -54,7 +54,7 @@ Also here is a pile of rubbish.
 Kiris is here.  The street is busy with people walking, purchasing, and
 talking.
 
-There are exits north, east, south and west.
+You can move north, east, south and west.
 
 >
 
@@ -71,7 +71,7 @@ about the menu. Also here is the dirty dish rack.
 Harthro is here.  Hartho's Golden Tavern is alive with laughter, joy, and an
 overall sense of loud peace.
 
-There is an exit west.
+You can only move west.
 
 > change a dollar into cents
 You ask the store owner for some change. The owner agrees. You hand the owner

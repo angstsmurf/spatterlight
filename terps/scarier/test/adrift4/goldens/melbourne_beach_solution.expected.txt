@@ -523,7 +523,7 @@ good.
 David is here.
 
 > get pot
-You take the coffee pot from the counter.
+Take what?
 
 > pour coffee
 You pour the coffee into the yellow coffee cup and pick it up. Mmm, it's nice

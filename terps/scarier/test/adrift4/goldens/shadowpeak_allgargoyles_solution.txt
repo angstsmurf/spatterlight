@@ -1,8 +1,11 @@
 # Shadowpeak "all four gargoyles" variant: deterministic WIN, 715/790 under
-# SCR_LEGACY_RANDMAP=1 SCR_SEED=230 (2026-08-02: the load-time immediate-event
-# start re-threaded every walker, so both the seed and the Damastus chase are
-# re-derived; 715 is unchanged from the old seed-1 route). This route kills the
-# fourth gargoyle and says sorry to Melvin, for +5 over the canonical route.
+# SCR_LEGACY_RANDMAP=1 SCR_SEED=83 (2026-08-23: the 4.0 put/implicit-take and
+# carried-total fixes re-threaded every walker, so the seed, the ballista
+# gargoyle-#1 kill and the Damastus chase are all re-derived below; the three
+# `x table` / `x rubble` / `x shrine` lines are new too -- the venison, chisel
+# and scroll only exist once their container has been examined.  715 is
+# unchanged). This route kills the fourth gargoyle and says sorry to Melvin,
+# for +5 over the canonical route.
 #      so the Melvin behead (T333) never fires. Here we keep #1 alive only through
 #      the tight Morac-timer castle race (untouched), then kill it with the sword at
 #      the ballista (room 68) once the one-shot timer has already fired. The behead
@@ -466,6 +469,7 @@ n
 # (room 77 not yet entered with the sword), shaving one in-window turn so the
 # climb reaches room 104 exactly on the turn of the task-327 kill check.
 e
+x table
 take venison
 w
 # TICK-ORDER RE-TUNE: Melvin's walk meet task (T295 #Melvinmeetsplayer1sttime)
@@ -518,6 +522,7 @@ d
 d
 e
 s
+x rubble
 take chisel
 n
 w
@@ -548,6 +553,7 @@ n
 # attack with two carried weapons now asks, faithfully to run400).
 attack cat with sword
 n
+x shrine
 take scroll
 s
 s
@@ -655,8 +661,17 @@ fire
 # All four gargoyles dead + painting #6 destroyed + Melvin met -> the Melvin behead
 # (T333) fires and we wake headless in the Max Head room (107). Name the sword
 # explicitly ('attack morac with sceptre' left the sceptre wielded).
-attack gargoyle #1 with sword
-attack gargoyle #1 with sword
+# 2026-08-23 RE-DERIVED (harness/../ag_ballista greedy walk-wait): gargoyle #1
+# is a walker, so wait at the ballista until it flies in and kill it in one
+# blow.  Eight waits at SCR_SEED=7.
+z
+z
+z
+z
+z
+z
+z
+z
 attack gargoyle #1 with sword
 z
 # Say sorry + yes; Melvin reattaches our head, dumping us in the main hall (71)
@@ -829,13 +844,10 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED after the section-10 exclusive event-length roll
-# (2026-08-17: event lengths and delays roll lo + Int(Rnd*(hi-lo)), matching
-# both real Runners -- ranged events re-timed and re-threaded the walkers'
-# RNG engine-wide).  Now at SCR_SEED=13.  Upstream clean at seed 13
-# (room 157, score 575, Damastus alive).
+# DAMASTUS chase RE-DERIVED 2026-08-23 at SCR_SEED=83 (upstream clean: room
+# 157, score 575, all four gargoyles dead, Damastus alive).
 # Greedy BFS from the stone button (room 157): attack when co-located, else
-# BFS-step toward him.  Damastus dies in room 149, stamina 30.
+# BFS-step toward him.  Damastus dies in room 146, stamina 50
 # Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
 e
 e
@@ -847,17 +859,19 @@ s
 s
 s
 s
-s
-n
-attack damastus
 n
 attack damastus
 s
 attack damastus
 n
 attack damastus
-n
+s
 attack damastus
+s
+attack damastus
+n
+n
+n
 n
 n
 press bronze button

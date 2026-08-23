@@ -135,6 +135,13 @@ people to purchase the goods on the shelves. He is almost blind and you have
 no money, so you usually just steal the items you want. The exit is to the
 west.
 
+> x shelf
+Most of the products on the shelves are not worth stealing. The owner's poor
+eyesight means that the food here is usually out of date, and the hygiene
+could also be improved. However, there are often a few items that look
+interesting and worth taking.  On the shelf is a can of black paint, a box of
+sleeping pills and a toy World title belt.
+
 > take paint
 You take the can of black paint from the shelf.
 

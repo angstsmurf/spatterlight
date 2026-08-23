@@ -16,7 +16,7 @@ Please enter your name:
 Maze A
 You are in a twisty maze, Section A.
 
-There is an exit north.
+You can only move north.
 
 > n
 You move north.
@@ -24,7 +24,7 @@ You move north.
 Maze A
 You are in a twisty maze, Section A.
 
-There are exits north, east and south.
+You can move north, east and south.
 
 > e
 You move east.

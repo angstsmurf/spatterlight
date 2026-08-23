@@ -848,8 +848,6 @@ Havelock's spectre.
 
 Exits lie: north (to the dark passageway)
 
-   Sitting under the table is a large box.
-
 > open box
    You unlock the box with the key given to you by Lorgrim. Inside are a
 collection of herbs which you decide to take with you.
@@ -3167,8 +3165,6 @@ Havelock's spectre.
    From far off in the castle you hear ghoulish laughter.
 
 Exits lie: north (to the dark passageway)
-
-   Sitting under the table is a large box.
 
 Garrick walks towards you from the north.
 

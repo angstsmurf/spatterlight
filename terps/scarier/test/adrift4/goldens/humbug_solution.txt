@@ -783,6 +783,7 @@ N
 W
 S
 Say 010473470651
+Get rucksack
 Open rucksack
 Get powder
 Put powder in chute
@@ -983,6 +984,7 @@ Drop pot
 Drop sock
 Look
 Get plane
+Look
 Look
 Look
 Look

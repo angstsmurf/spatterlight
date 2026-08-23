@@ -36,25 +36,32 @@
 /*
  * gs_carried_recompute()
  *
- * Recompute the player's carried weight and size totals from the objects
- * currently held or worn.  This is the "healed" load -- it does not reproduce
- * the Runner's take/drop double-count -- and matches what the real Runner does
- * when it loads game state.  Used to seed the running totals at game create,
- * copy, and restore, after which gs_carried_track() maintains them.
+ * Seed the player's carried weight and size totals from the objects
+ * currently held or worn, the way the run400 object loader does (Proc_19_5):
+ * a held object adds its own BASE weight and size (loc_490709-490731), a
+ * worn object its own base weight only (loc_4907A3-4907BB) -- contained
+ * objects' weights are NOT rolled in, so a restore "loses" the contents
+ * weight of anything held.  Proc_19_5 reads object records from the
+ * adventure file itself, so this same seeding runs for a NEW game too
+ * (measured live in run400: goldilocks turn-zero `count` reports the worn
+ * items' weight), after Proc_19_4's tail (loc_45AA71-45AA7E) zeroes the
+ * totals.  Called at new game and after restoring a saved game; undo
+ * snapshots carry the totals verbatim (Proc_19_62, loc_45AEA4-45AEB7).
  */
-static void
+void
 gs_carried_recompute (scr_gameref_t gs)
 {
   scr_int index_, weight = 0, size = 0;
 
   for (index_ = 0; index_ < gs->object_count; index_++)
     {
-      if (gs->objects[index_].position == OBJ_HELD_PLAYER
-          || gs->objects[index_].position == OBJ_WORN_PLAYER)
+      if (gs->objects[index_].position == OBJ_HELD_PLAYER)
         {
-          weight += obj_get_weight (gs, index_);
+          weight += obj_get_base_weight (gs, index_);
           size += obj_get_size (gs, index_);
         }
+      else if (gs->objects[index_].position == OBJ_WORN_PLAYER)
+        weight += obj_get_base_weight (gs, index_);
     }
   gs->carried_weight = weight;
   gs->carried_size = size;
@@ -62,23 +69,97 @@ gs_carried_recompute (scr_gameref_t gs)
 }
 
 /*
+ * gs_runner_possessed()
+ * gs_runner_worn()
+ *
+ * The Runner's two possession predicates, Proc_21_46 @44615C ("with the
+ * player") and Proc_21_45 @444BD0 ("worn, or inside something worn").  Both
+ * walk the bare [2E] container field -- our runner_parent shadow -- and
+ * neither consults openness or container/surface flags, so an object sealed
+ * inside a closed carried box still counts as carried.  32 bottoms out an
+ * authored parent cycle that the Runner itself would hang on.
+ */
+enum { GS_RUNNER_WALK_LIMIT = 32 };
+
+static scr_bool
+gs_runner_reaches (scr_gameref_t gs, scr_int object, scr_bool worn_only)
+{
+  scr_int walk = object;
+  int depth;
+
+  for (depth = 0; depth < GS_RUNNER_WALK_LIMIT; depth++)
+    {
+      const scr_int position = gs->objects[walk].position;
+
+      if (position == OBJ_WORN_PLAYER)
+        return TRUE;
+      if (position == OBJ_HELD_PLAYER)
+        return !worn_only;
+      if (position != OBJ_IN_OBJECT && position != OBJ_ON_OBJECT)
+        return FALSE;
+      walk = gs->objects[walk].runner_parent;
+      if (walk < 0 || walk >= gs->object_count)
+        return FALSE;
+    }
+  return FALSE;
+}
+
+scr_bool
+gs_runner_possessed (scr_gameref_t gs, scr_int object)
+{
+  return gs_runner_reaches (gs, object, FALSE);
+}
+
+static scr_bool
+gs_runner_worn (scr_gameref_t gs, scr_int object)
+{
+  return gs_runner_reaches (gs, object, TRUE);
+}
+
+/*
  * gs_carried_track()
  *
- * Maintain the carried weight/size running totals as objects move in and out
- * of the player's hands, mirroring the Runner's incremental accounting: an
- * object's weight (including its container contents) is added when it becomes
- * held and subtracted when it leaves.  Because a container's contents are
- * counted both inside the container and again when taken out individually, the
- * running total can exceed the true held weight -- exactly the Runner quirk
- * that blocks an over-encumbered take.  No-op until the totals are seeded
- * (carried_ready), so it ignores object placement during game setup.
+ * Maintain the carried weight/size running totals as objects move around.
+ * 4.0 funnels every move through one generic setter, Proc_21_54 @4528D8, and
+ * that setter is the only thing that touches the two totals the `count`
+ * command prints; the direct writes elsewhere in Proc_19_6/Proc_19_7 sit on
+ * branches no player-facing command reaches.  Its rule, transcribed from
+ * loc_4527DD-4528D2 and confirmed command by command against a purpose-built
+ * probe adventure in run400 (2026-08-23):
+ *
+ *   was possessed:
+ *     no longer possessed          weight -= RECURSIVE weight (Proc_21_55)
+ *     no longer possessed, or                                 @447680
+ *       newly worn                 size   -= OWN size ([2C], not the
+ *                                                      recursive Proc_21_56)
+ *     still possessed, no longer   size   += OWN size
+ *       worn
+ *   was not possessed:
+ *     possessed now                weight += RECURSIVE weight
+ *     possessed now, not worn      size   += OWN size
+ *
+ * Neither total is ever recomputed, so the Runner's asymmetries are leaks
+ * that persist for the rest of the game and we reproduce them:
+ *
+ *   Putting a held object into a carried bag keeps its size counted, but
+ *   dropping that bag only refunds the BAG's own size -- the contents' size
+ *   stays on the total forever (measured: bag 9 + rock 27 = 36, drop bag
+ *   leaves 27).  Weight refunds correctly because it recurses.
+ *
+ *   Wearing debits the size twice if the worn object is then dropped or put
+ *   away, because "newly worn" and "no longer possessed" are separate
+ *   subtractions with no matching credit (measured: held pack 50, wear 47,
+ *   drop 44).
+ *
+ * The move-object task action (Proc_19_10) does its own accounting in
+ * task_move_object.  No-op until the totals are seeded (carried_ready), so
+ * it ignores object placement during game setup.
  */
 static void
-gs_carried_track (scr_gameref_t gs, scr_int object, scr_int old_pos, scr_int new_pos)
+gs_carried_track (scr_gameref_t gs, scr_int object, scr_int old_pos,
+                  scr_int new_pos, scr_bool was_possessed,
+                  scr_bool was_worn)
 {
-  if (old_pos == new_pos)
-    return;
-
   /*
    * A wielded weapon that leaves the player's hands -- dropped, thrown, given
    * away, put down, worn -- is no longer wielded, and the wield never falls
@@ -86,22 +167,33 @@ gs_carried_track (scr_gameref_t gs, scr_int object, scr_int old_pos, scr_int new
    * bypasses this by assigning positions directly, so a restored wield is
    * whatever the save says.
    */
-  if (object == gs->playerwield && old_pos == OBJ_HELD_PLAYER)
+  if (object == gs->playerwield
+      && old_pos == OBJ_HELD_PLAYER && new_pos != OBJ_HELD_PLAYER)
     gs->playerwield = -1;
 
-  if (!gs->carried_ready)
+  if (!gs->carried_ready || gs->carried_suspend)
     return;
 
-  if (new_pos == OBJ_HELD_PLAYER)
-    {
-      gs->carried_weight += obj_get_weight (gs, object);
-      gs->carried_size += obj_get_size (gs, object);
-    }
-  else if (old_pos == OBJ_HELD_PLAYER)
-    {
-      gs->carried_weight -= obj_get_weight (gs, object);
-      gs->carried_size -= obj_get_size (gs, object);
-    }
+  {
+    const scr_bool is_possessed = gs_runner_possessed (gs, object);
+    const scr_bool is_worn = gs_runner_worn (gs, object);
+
+    if (was_possessed)
+      {
+        if (!is_possessed)
+          gs->carried_weight -= obj_get_weight (gs, object);
+        if (!is_possessed || (!was_worn && is_worn))
+          gs->carried_size -= obj_get_size (gs, object);
+        if (is_possessed && was_worn && !is_worn)
+          gs->carried_size += obj_get_size (gs, object);
+      }
+    else if (is_possessed)
+      {
+        gs->carried_weight += obj_get_weight (gs, object);
+        if (!is_worn)
+          gs->carried_size += obj_get_size (gs, object);
+      }
+  }
 }
 
 
@@ -251,6 +343,23 @@ gs_carried_size (scr_gameref_t gs)
 {
   assert (gs_is_game_valid (gs));
   return gs->carried_size;
+}
+
+void
+gs_set_carried_suspend (scr_gameref_t gs, scr_bool flag)
+{
+  assert (gs_is_game_valid (gs));
+  gs->carried_suspend = flag;
+}
+
+void
+gs_carried_adjust (scr_gameref_t gs, scr_int weight, scr_int size)
+{
+  assert (gs_is_game_valid (gs));
+  if (!gs->carried_ready)
+    return;
+  gs->carried_weight += weight;
+  gs->carried_size += size;
 }
 
 
@@ -458,84 +567,170 @@ gs_object_parent (scr_gameref_t gs, scr_int object)
   return gs->objects[object].parent;
 }
 
+/*
+ * The Runner-shadow container field; see its note in scgamest.h.  The
+ * movers below keep it in step the way run400's do:
+ *
+ *   - A put-in/put-on writes the container or surface object.
+ *   - Moving an object *out of* an in/on position detaches it: the field
+ *     is cleared, whatever the destination (take out of container, task
+ *     move to a room, "plant bean" sending an in-packet object hidden).
+ *   - Removing a worn object also clears it (measured: remove+drop of the
+ *     load-worn watch took Goldilocks's package phantom from 19 to 10).
+ *   - NPC possession always clears it, matching the loader's treatment of
+ *     NPC-held/worn initial placements.
+ *   - Every other move leaves it untouched.  Measured: the broken bottle
+ *     (stale raw Parent 0) keeps phantom-weighing the package through a
+ *     player "take" from a room and a "drop"; task moves of held objects
+ *     to hidden (water, cheese, milk bottle) neither clear nor write the
+ *     player-possession selector.
+ */
+
+/*
+ * Clear runner_parent only when the move detaches the object from an
+ * in/on placement (and, when clear_worn is set, from a worn one).  All
+ * other sources leave any stale value in place, as the Runner does.
+ * Must be called before the mover rewrites the position field.
+ */
+static void
+gs_rp_detach (scr_gameref_t gs, scr_int object, scr_bool clear_worn)
+{
+  const scr_int old_pos = gs->objects[object].position;
+  if (old_pos == OBJ_IN_OBJECT || old_pos == OBJ_ON_OBJECT
+      || (clear_worn
+          && (old_pos == OBJ_WORN_PLAYER || old_pos == OBJ_WORN_NPC)))
+    gs->objects[object].runner_parent = -1;
+}
+
+scr_int
+gs_object_runner_parent (scr_gameref_t gs, scr_int object)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  return gs->objects[object].runner_parent;
+}
+
+void
+gs_set_object_runner_parent (scr_gameref_t gs, scr_int object,
+                             scr_int runner_parent)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  gs->objects[object].runner_parent = runner_parent;
+}
+
 static void
 gs_object_move_onto_unchecked (scr_gameref_t gs, scr_int object, scr_int onto)
 {
   scr_int old_pos = gs->objects[object].position;
+  scr_bool was_possessed, was_worn;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  /* Both predicates walk the parent chain, so read them before the move. */
+  was_possessed = gs_runner_possessed (gs, object);
+  was_worn = gs_runner_worn (gs, object);
   gs->objects[object].position = OBJ_ON_OBJECT;
   gs->objects[object].parent = onto;
-  gs_carried_track (gs, object, old_pos, OBJ_ON_OBJECT);
+  gs->objects[object].runner_parent = onto;
+  gs_carried_track (gs, object, old_pos, OBJ_ON_OBJECT, was_possessed, was_worn);
 }
 
 static void
 gs_object_move_into_unchecked (scr_gameref_t gs, scr_int object, scr_int into)
 {
   scr_int old_pos = gs->objects[object].position;
+  scr_bool was_possessed, was_worn;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  was_possessed = gs_runner_possessed (gs, object);
+  was_worn = gs_runner_worn (gs, object);
   gs->objects[object].position = OBJ_IN_OBJECT;
   gs->objects[object].parent = into;
-  gs_carried_track (gs, object, old_pos, OBJ_IN_OBJECT);
+  gs->objects[object].runner_parent = into;
+  gs_carried_track (gs, object, old_pos, OBJ_IN_OBJECT, was_possessed, was_worn);
 }
 
 static void
 gs_object_make_hidden_unchecked (scr_gameref_t gs, scr_int object)
 {
   scr_int old_pos = gs->objects[object].position;
+  scr_bool was_possessed, was_worn;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  was_possessed = gs_runner_possessed (gs, object);
+  was_worn = gs_runner_worn (gs, object);
+  gs_rp_detach (gs, object, FALSE);
   gs->objects[object].position = OBJ_HIDDEN;
   gs->objects[object].parent = -1;
-  gs_carried_track (gs, object, old_pos, OBJ_HIDDEN);
+  gs_carried_track (gs, object, old_pos, OBJ_HIDDEN, was_possessed, was_worn);
 }
 
 static void
 gs_object_player_get_unchecked (scr_gameref_t gs, scr_int object)
 {
   scr_int old_pos = gs->objects[object].position;
+  scr_bool was_possessed, was_worn;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  /* Possession must be read before the move rewrites position and parent. */
+  was_possessed = gs_runner_possessed (gs, object);
+  was_worn = gs_runner_worn (gs, object);
+  gs_rp_detach (gs, object, TRUE);
   gs->objects[object].position = OBJ_HELD_PLAYER;
   gs->objects[object].parent = -1;
-  gs_carried_track (gs, object, old_pos, OBJ_HELD_PLAYER);
+  gs_carried_track (gs, object, old_pos, OBJ_HELD_PLAYER, was_possessed,
+                    was_worn);
 }
 
 static void
 gs_object_npc_get_unchecked (scr_gameref_t gs, scr_int object, scr_int npc)
 {
   scr_int old_pos = gs->objects[object].position;
+  scr_bool was_possessed, was_worn;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  was_possessed = gs_runner_possessed (gs, object);
+  was_worn = gs_runner_worn (gs, object);
   gs->objects[object].position = OBJ_HELD_NPC;
   gs->objects[object].parent = npc;
-  gs_carried_track (gs, object, old_pos, OBJ_HELD_NPC);
+  gs->objects[object].runner_parent = -1;
+  gs_carried_track (gs, object, old_pos, OBJ_HELD_NPC, was_possessed, was_worn);
 }
 
 static void
 gs_object_player_wear_unchecked (scr_gameref_t gs, scr_int object)
 {
   scr_int old_pos = gs->objects[object].position;
+  scr_bool was_possessed, was_worn;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  was_possessed = gs_runner_possessed (gs, object);
+  was_worn = gs_runner_worn (gs, object);
+  gs_rp_detach (gs, object, FALSE);
   gs->objects[object].position = OBJ_WORN_PLAYER;
   gs->objects[object].parent = 0;
-  gs_carried_track (gs, object, old_pos, OBJ_WORN_PLAYER);
+  gs_carried_track (gs, object, old_pos, OBJ_WORN_PLAYER, was_possessed,
+                    was_worn);
 }
 
 static void
 gs_object_npc_wear_unchecked (scr_gameref_t gs, scr_int object, scr_int npc)
 {
   scr_int old_pos = gs->objects[object].position;
+  scr_bool was_possessed, was_worn;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  was_possessed = gs_runner_possessed (gs, object);
+  was_worn = gs_runner_worn (gs, object);
   gs->objects[object].position = OBJ_WORN_NPC;
   gs->objects[object].parent = npc;
-  gs_carried_track (gs, object, old_pos, OBJ_WORN_NPC);
+  gs->objects[object].runner_parent = -1;
+  gs_carried_track (gs, object, old_pos, OBJ_WORN_NPC, was_possessed, was_worn);
 }
 
 static void
 gs_object_to_room_unchecked (scr_gameref_t gs, scr_int object, scr_int room)
 {
   scr_int old_pos = gs->objects[object].position;
+  scr_bool was_possessed, was_worn;
   assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  was_possessed = gs_runner_possessed (gs, object);
+  was_worn = gs_runner_worn (gs, object);
+  gs_rp_detach (gs, object, FALSE);
   gs->objects[object].position = room + 1;
   gs->objects[object].parent = -1;
-  gs_carried_track (gs, object, old_pos, room + 1);
+  gs_carried_track (gs, object, old_pos, room + 1, was_possessed, was_worn);
 }
 
 void
@@ -907,6 +1102,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->carried_weight = 0;
   game->carried_size = 0;
   game->carried_ready = FALSE;
+  game->carried_suspend = FALSE;
   game->capacity_recompute = FALSE;
 
   /* Create rooms state array. */
@@ -956,9 +1152,16 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
               vt_key[2].string = "Parent";
               parent = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
               game->objects[index_].parent = parent;
+              game->objects[index_].runner_parent = -1;
             }
           else
-            gs_object_make_hidden_unchecked (game, index_);
+            {
+              gs_object_make_hidden_unchecked (game, index_);
+              /* Statics never carry Runner [2E] data; the mover above no
+               * longer clears unconditionally, so do it here (the vector
+               * resize zero-fill would falsely match object 0). */
+              game->objects[index_].runner_parent = -1;
+            }
         }
       else
         {
@@ -1052,6 +1255,32 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
                   gs_object_to_room_unchecked (game, index_, -2);
                 }
             }
+
+          /*
+           * Mirror the Runner's loader: except for in/on placements (where
+           * the movers above already pointed runner_parent at the translated
+           * container object) and NPC-possessed objects (below), [2E] keeps
+           * the raw .taf Parent value verbatim.  For in-room and
+           * not-yet-anywhere objects that value is leftover authoring data,
+           * and for player-held/worn ones it is the player selector, 0 --
+           * either way the Runner's weigh routine happily matches it against
+           * a container's object number, which is the phantom weight this
+           * field exists to reproduce (goldilocks: the worn watch and dress
+           * and the nowhere bottle, all Parent 0, phantom-weigh package
+           * object 0, measured live in run400 2026-08-22).
+           *
+           * NPC-held/worn objects are the exception: their raw Parent is the
+           * NPC selector (npc + 1), and the same live measurements show no
+           * phantom from them -- goldilocks' suitcase (Parent 4) does not
+           * weigh into the spoon (object 4), nor the crown (Parent 1) into
+           * the toaster (object 1) -- so the Runner's loader evidently
+           * clears [2E] on that path, as its give-to-NPC mover does.
+           */
+          if (game->objects[index_].position != OBJ_IN_OBJECT
+              && game->objects[index_].position != OBJ_ON_OBJECT
+              && game->objects[index_].position != OBJ_HELD_NPC
+              && game->objects[index_].position != OBJ_WORN_NPC)
+            gs_set_object_runner_parent (game, index_, initialparent);
         }
 
       vt_key[2].string = "CurrentState";
@@ -1234,8 +1463,17 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->her_npc = -1;
   game->it_npc = -1;
 
-  /* Seed the carried-load totals now that initial object placement is done;
-   * this also arms gs_carried_track() for subsequent moves. */
+  /*
+   * Seed the carried-load totals from the starting inventory.  run400 zeroes
+   * globals 36/38 at new-game start (Proc_19_4's tail, loc_45AA71-45AA7E),
+   * but the adventure-file object loader (Proc_19_5, loc_490709-4907BB) then
+   * adds base size and weight for each object the player starts out holding
+   * and base weight only for each object worn, the same base-only seeding a
+   * restore performs -- measured live in run400 (goldilocks, 2026-08-22):
+   * `count` on turn zero reports the worn wristwatch+dress weight (10) with
+   * size 0.  gs_carried_recompute() implements exactly that rule, and also
+   * arms gs_carried_track() for subsequent moves.
+   */
   gs_carried_recompute (game);
 }
 
@@ -1456,14 +1694,19 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->it_npc = from->it_npc;
 
   /*
-   * Recompute the carried-load totals from the copied object positions rather
-   * than carrying over the source's running totals.  This matches the Runner,
-   * which recomputes carried load when it loads state, so undo and restore both
-   * "heal" any accumulated take/drop double-count.  The capacity_recompute mode
-   * flag is a session preference, so (like verbose) it is left invariant across
-   * copies and deliberately not propagated here.
+   * Carry the running totals over verbatim: run400's undo snapshot restores
+   * its carried-load globals from the snapshot values (Proc_19_62,
+   * loc_45AEA4-45AEB7) rather than reweighing, so accumulated accounting
+   * quirks survive an undo.  A restored SAVE is different -- the .tas
+   * loader reseeds base-only sums -- and the restore path handles that by
+   * calling gs_carried_recompute() on the freshly loaded game before it is
+   * copied here.  The capacity_recompute mode flag is a session preference,
+   * so (like verbose) it is left invariant across copies and deliberately
+   * not propagated here.
    */
-  gs_carried_recompute (to);
+  to->carried_weight = from->carried_weight;
+  to->carried_size = from->carried_size;
+  to->carried_ready = from->carried_ready;
 }
 
 

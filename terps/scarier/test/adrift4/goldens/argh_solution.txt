@@ -12,8 +12,10 @@ take drumstick
 hit bars with drumstick
 feed beaver the drumstick
 take beaver
+x rock table
 get medicine
 wear beaver
+x cubby hole
 get dress
 wear dress
 feed the beaver the medicine

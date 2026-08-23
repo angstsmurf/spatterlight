@@ -36,6 +36,7 @@
 # No <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1).
 look under bed
 take trouser
+x dresser
 take alarm clock
 w
 put trouser on woman
@@ -44,15 +45,20 @@ kiss woman
 eat woman
 fuck woman
 turn off alarm clock
+x coffee table
 take bottle
+x bookshelf
 take invitation
 n
+x kitchen bench
 take pepsi
 put pepsi in bottle
 put water in bottle
 s
 e
+x night table
 take cellular phone
+x chair
 take suit
 take boxer shorts
 n
@@ -62,14 +68,8 @@ wear boxer shorts
 wear suit
 read invitation
 x business card
-x picture
-x book
 x window
 score
-look
-look
-look
-look
 eat hanna
 s
 e

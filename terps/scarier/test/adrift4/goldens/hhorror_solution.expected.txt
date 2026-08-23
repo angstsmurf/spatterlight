@@ -21,7 +21,7 @@ A gravel covered driveway leads north to the house.
 
 Also here is your car.
 
-There is an exit north.
+You can only move north.
 
 > n
 You move north.
@@ -29,7 +29,7 @@ You move north.
 Porch
 A porch with ivy growing up the wooden lattice work. The front door is here.
 
-There are exits north and south.
+You can move north and south.
 
 > open door
 You open the door.

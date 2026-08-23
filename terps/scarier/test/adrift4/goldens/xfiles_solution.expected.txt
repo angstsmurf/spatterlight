@@ -89,6 +89,11 @@ superbone_ali@yahoo.com.
 You open Your Desk.  Inside Your Desk is Gun Holster, Your Cell Phone, Neatly
 Wrapped Gift and Your Badge.
 
+> x desk
+This is your desk, the appitomy of clutter and despair.  Your Desk is open.
+Inside Your Desk is Gun Holster, Your Cell Phone, Neatly Wrapped Gift and
+Your Badge.  Your Coffee Mug and The Memo are on Your Desk.
+
 > take all from desk
 You take Your Coffee Mug, Gun Holster, Your Cell Phone, Neatly Wrapped Gift,
 Your Badge and the Memo from Your Desk.
@@ -170,9 +175,21 @@ illuminated by the neon lights that line the ceiling alone.  It is somewhat
 dark, and smells of exhaust and cigarette smoke.  The man leaning against the
 wall seems eager to talk to you.
 Cancer Man awaits you in the shadows.
+
+You can move west and up.
 Cancerman has receded into the shadows and is watching you.
 
 Cancerman leaves.
+
+> x Case File 10193
+This is the Bellefleur Case File, detailing your parents' first case together
+in 1993.  There are two reports, one submitted by each of your parents.  As
+you read them, you inwardly smile at the ironic tones each takes to one
+another.  The second report here is by Agent Scully detailing Agent Mulder's
+disappearance in May of 2000.  The third report details Agent Doggett's
+search for your mother when she disappeared and his speculation that she
+could be found in Bellefleur, Oregon.  Case File 10193 is open.  The
+Warehouse Key is inside Case File 10193.
 
 > take warehouse key
 You take the Warehouse Key from Case File 10193.
@@ -321,6 +338,11 @@ unplugged in one corner.  You're a rip snortin' hottie, woof!
 
 You can move down and out.
 
+> x Your Coffee Table
+This is your coffee table.  Rings mark places where you forgot to put
+cupholders at one time or another.    An Issue Of "The Magic Bullet" Magazine
+and Fish Food Container are on Your Coffee Table.
+
 > take fish food container
 You take Fish Food Container from Your Coffee Table.
 
@@ -345,6 +367,8 @@ tank illuminates your computer desk and the coffee table.  A TV sits
 unplugged in one corner.  You're a rip snortin' hottie, woof!
 
 Also here is Fish Food Container.
+
+You can move down and out.
 
 > d
 You move down.
@@ -456,6 +480,8 @@ Shelves, boxes, and wires incorporate the rest.  The sight of their coffee
 machine gives you a nauseous feeling.
 Byers, Frohike and Skinner are here.
 Langly is here.
+
+You can move up and out.
 
 > call ruth
 Thinking back on the events of the last few hours, you decide to call Ruth.

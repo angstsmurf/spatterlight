@@ -33,7 +33,7 @@ This is the computer room. There are windows along the north wall, and
 bookshelves bracket the doorway. Under the windows is a long wooden table
 with a computer sitting on it.
 
-There are exits east, south and west.
+You can go east, south and west.
 
 > turn on computer
 You turn the computer on. After a few moments the screen lights up.
@@ -69,6 +69,10 @@ small, open closet here.
 
 You can go east, south and west.
 
+> x hall closet
+It is full of towels and washcloths, toothpaste and toilet paper, soaps and
+supplies.  A watering pail is inside the hall closet.
+
 > get pail
 You take a watering pail from the hall closet.
 
@@ -95,6 +99,11 @@ There is a nightstand next to the bed, and there is an open closet in the
 corner.
 
 You can go north and east.
+
+> x master bedroom closet
+This closet is full of summer clothes and shoes. Everything is neatly stored,
+and all the clothes look clean and unwrinkled.  A backpack is inside the
+master bedroom closet.
 
 > get backpack
 You take a backpack from the master bedroom closet.
@@ -204,12 +213,15 @@ A fly is buzzing around, bumping into things.
 
 You can go up and in.
 
+The fly buzzes into the phone booth.
+
 > in
 You move in.
 
 In the phone booth
 There is no phone in the booth, but where the phone would usually be is a
 flat metal panel.
+A fly is buzzing around, bumping into things.
 
 You can only go out.
 

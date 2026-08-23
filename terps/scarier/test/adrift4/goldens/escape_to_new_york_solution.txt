@@ -69,7 +69,8 @@ east
 up
 east
 open desk
-get bottle
+x desk
+get all from desk
 ask doctor about bottle
 give bottle to doctor
 open suitcase
@@ -180,7 +181,8 @@ unlock door
 south
 exam desk
 open bag
-get cigar case
+x bag
+get all from gladstone bag
 open suitcase
 put case in suitcase
 close suitcase

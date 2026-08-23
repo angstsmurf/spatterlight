@@ -341,8 +341,16 @@ You take the pair of workmen's boots.
 > wear boots
 You put on the pair of workmen's boots.
 
+> x silver metal tray
+A metal meal tray, the kind you would find in a canteen.  A single serving of
+margarine is on the silver metal tray.
+
 > take margarine
 You take the single serving of margarine from the silver metal tray.
+
+> x jutting metal shard
+You bend the shard of metal back, and peer behind it.  A toolbox and a note
+are inexpertly hidden behind the jutting metal shard.
 
 > take toolbox
 You take the toolbox from behind the jutting metal shard.

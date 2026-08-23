@@ -886,6 +886,10 @@ A pale green glow from an unidentifiable source fills the area.   There is a
 red crate and a yellow crate here.  Going south will take you through the
 space/time rift and back into space.
 
+> x yellow crate
+The crate is maked "King Size Cooling Fans."  A sticker is on the yellow
+crate.
+
 > take sticker
 You take a sticker from the yellow crate.
 

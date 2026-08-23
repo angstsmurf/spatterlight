@@ -113,6 +113,26 @@ main (void)
   expect ("2^-2", 0);
   expect ("-2^-1", 0);
 
+  /* Parenthesized group ahead of a division chain -- a DELIBERATE deviation
+     (see RUNNER_TESTS_TODO.md section 4, "ADRIFT 5 paren group + division
+     chain").  clsVariable's run-based reducer cannot collapse a group whose
+     contents need run 2 (+ - mod ^), so `*`/`/` pairs to its RIGHT reduce
+     first and the chain effectively right-associates: the real runner gives
+     (A+0)/B/C = A/(B/C) but (A)/B/C = (A/B)/C -- ralphmerridew's report,
+     verified by source reading in ADRIFT 5.0.36.5 and FrankenDrift (both
+     unfixed).  a5sexpr is uniformly LEFT-associative; corpus exposure is
+     zero (2026-08-22: 85,566 expressions across 174 games, no delayed group
+     followed by a 2-op mul/div chain).  Runner-divergent values noted. */
+  expect ("(100)/10/5", 2);      /* both engines agree: (100/10)/5        */
+  expect ("(100+0)/10/5", 2);    /* runner: 100/(10/5) = 50               */
+  expect ("(2+2)/4/2", 1);       /* runner: 4/(4/2) = 2                   */
+  expect ("(10-4)/3/2", 1);      /* runner: 6/(3/2) = 3                   */
+  expect ("1/(2+0)/3/4", 0);     /* mid-chain group; runner: (1/2)/(3/4) = 1 */
+  expect ("max(1+1,3)/4/2", 1);  /* delayed funct arg; runner: 3/(4/2) = 2 */
+  expect ("(2*3)/6/2", 1);       /* run-1 group contents: both agree      */
+  expect ("3*(10/3)", 9);        /* the FBA corpus shape: both agree      */
+  expect ("(100*7)/50", 14);     /* the score-line corpus shape: agree    */
+
   /* Division / modulo by zero: the runner reads SafeInt(Val(...)) of the
      result.  a5sexpr guards mod-by-zero to 0 directly; division by zero
      evaluates to "\xe2\x88\x9e" (Infinity), whose Val() is 0 -- so both read

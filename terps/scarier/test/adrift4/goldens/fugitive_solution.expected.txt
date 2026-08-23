@@ -157,6 +157,8 @@ staggering along the street.  You can hear distant police sirens from behind.
 your eyes for a second.  Cold raindrops are falling down like the blood from
 a victim's neck.
 
+You can go south and west.
+
 > south
 You walk south.
 

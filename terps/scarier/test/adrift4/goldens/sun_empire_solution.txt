@@ -7,7 +7,8 @@ s
 open door
 sw
 open trunk
-take id pass
+x clothes trunk
+get all from clothes trunk
 take clothes
 ne
 n
@@ -22,7 +23,8 @@ z
 z
 give id pass to jeriah
 x pdd
-take genetic sampler
+x stainless steel lab table
+get all from stainless steel lab table
 get sample from me
 get sample from limb
 perform dna analysis

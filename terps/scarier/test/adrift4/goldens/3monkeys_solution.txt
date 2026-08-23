@@ -2,8 +2,11 @@ quiet
 stand up
 get hook
 get stone
-get blanket
-get jersey
+z
+x bed
+look in bed
+get all from bed
+put the sheet over my head
 ne
 get fork
 sw
@@ -25,6 +28,11 @@ lift bucket with fork
 put bucket on hook
 z
 z
+z
+z
+z
+z
+z
 chimp, get coconut
 turn fan northeast
 ne
@@ -33,6 +41,9 @@ hit coconut with stone
 get husk
 z
 give coconut to chimp
+z
+z
+z
 z
 z
 z
@@ -60,17 +71,6 @@ s
 get mattress
 e
 throw mattress through gate
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
 z
 z
 z

@@ -55,6 +55,10 @@ them.  Other than that, the room is bare.
 
 >
 
+> x trousers
+These are your trousers - black, tough and warm.  Your belt is on your
+trousers.
+
 > n
 You move north.
 

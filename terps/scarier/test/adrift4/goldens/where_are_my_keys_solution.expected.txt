@@ -69,9 +69,6 @@ You open the kitchen unit.  A large knife and a jar of coffee are inside the
 kitchen unit.
 
 > get all from unit
-It is plugged into the wall and in any case it is not a good idea.
-I do not think that is a good idea.
-
 You take the large knife and the jar of coffee from the kitchen unit.
 
 > se
@@ -524,12 +521,7 @@ You try to lift the dirty dishes from the sink but you can't.  As you are
 messing about with the dishes a teaspoon falls to the floor.
 
 > get all
-It is plugged into the wall and in any case it is not a good idea.
-I do not think that is a good idea.
-
-You take the teaspoon.  You take the tub of butter, the butter knife and the
-bottle of milk from the fridge.  You take the pizza box and the breadbin from
-the kitchen table.  You take the saucepan and the frying pan from the cooker.
+You take the teaspoon.
 You can hear a dog howling.
 
 > make coffee

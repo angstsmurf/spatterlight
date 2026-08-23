@@ -48,7 +48,7 @@ safety harness and tie it securely to you.  Your drifting away from the
 escape pod ends.
 
 > take repairbot
-You take the repairbot.
+The repairbot is too heavy for you to carry at the moment.
 
 > turn on the repairbot
 More lights activate on the repairbot and it begins to hum.

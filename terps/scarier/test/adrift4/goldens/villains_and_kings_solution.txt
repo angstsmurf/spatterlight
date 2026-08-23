@@ -10,6 +10,7 @@ s
 s
 s
 e
+x Weapon Rack
 take sword
 wield sword
 w
@@ -26,6 +27,7 @@ take golden soap
 n
 give the golden soap to king
 s
+x Cracked Broken Window
 take soap on a rope
 x window
 close window

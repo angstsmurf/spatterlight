@@ -13,7 +13,7 @@ of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
 here.
 
-There are exits north, east, south and west.
+You can move north, east, south and west.
 
 > e
 You move east.
@@ -23,7 +23,7 @@ There's a shack here. It's made of bright blue wood and has a purple door.
 There are two lanterns hanging from each side of the door. There are pink
 flames illuminating them. Wonder what's inside?
 
-There are exits west and in.
+You can move west and in.
 
 > in
 You move in.
@@ -37,8 +37,16 @@ outside world.
 
 You can only move out.
 
+> x wooden table
+It's just a plain old wooden table. It's got a bunch of junk on it.  A shiny
+bracelet is on the wooden table.
+
 > take bracelet
 You take a shiny bracelet from the wooden table.
+
+> x bookshelf
+Its overflowing with a bunch of musty old books. I wouldn't touch them. Might
+be termites inside.  A star statue and some books are on the bookshelf.
 
 > take statue
 You take a star statue from the bookshelf.
@@ -127,6 +135,10 @@ You can only move out.
 > take tp
 You pick up the TP.
 
+> x hole
+Looking into the toilet, are we now? Sicko.  A piece of paper is inside the
+hole.
+
 > take paper
 You take a piece of paper from the hole.
 
@@ -185,6 +197,10 @@ You can move north and south.
 "Oh, man! I'm so hungry. So hungry I cant MOVE. I mean oh my GOD. Hey, you?
 Do you have anything to eat? I'm freakin' STARVIN' over here!" Wow. A talking
 squirrel. Groovy.
+
+> x tree
+It's big, it's black, and it's dead. How could anyone want to sleep there?  A
+branch is on the tree.
 
 > take branch
 You take a branch from the tree.
@@ -273,6 +289,10 @@ You can only move east.
 
 Squirrel scampers up from the east.
 
+> x desk
+It is covered in dust. On the desk is a sewing machine and some scissors,
+pins, and other things.  A sharp needle and a needle box are on the desk.
+
 > take needle
 You take a sharp needle from the desk.
 
@@ -302,6 +322,11 @@ seem like anything has been touched in ages.
 You can only move west.
 
 Squirrel scampers up from the west.
+
+> x table
+A very small polished oak table. Termites seem to have eaten holes in it, and
+there is a thick, disgusting layer of dust covering it.  A tea packet is on
+the table.
 
 > take tea packet
 You take a tea packet from the table.
@@ -429,6 +454,8 @@ quiet. The walls are blue-gray and the floors are black marble.  Above is an
 extravagent chandeleir, but it is not lit.
 Squirrel is here.
 
+You can move north, east, west and out.
+
 > n
 You move north.
 
@@ -515,6 +542,9 @@ a table over there. Maybe it has something useful on it.
 You can only move west.
 
 Squirrel scampers up from the west.
+
+> x table
+Just a place to read your books.  A spellbook is on the table.
 
 > take spellbook
 You take a spellbook from the table.
@@ -965,6 +995,8 @@ Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
 extravagent chandeleir, but it is not lit.
 Squirrel is here.
+
+You can move north, east, west and out.
 
 Vampy glides in from outside.
 

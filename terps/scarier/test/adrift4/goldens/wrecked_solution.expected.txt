@@ -28,7 +28,7 @@ I am at the bus stop.  The main road runs in a north-south direction.  There
 is a rather flimsy looking bus shelter here, with a plastic bench which looks
 like it's seen better days.
 
-There is an exit west.
+I can only move west.
 
 > x shelter
 The bus shelter consists of a perspex wall with a roof over it.  In the
@@ -394,6 +394,8 @@ Boris yanks open the doors, and kicks me out of the moving train.
 
 By some wasteland
 I am on some barren wasteland.  There is a railway line running past here.
+
+I can only move east.
 
 > east
 I move east.
@@ -893,6 +895,8 @@ I am in a snowy land.  There are lots of trees about, casting eerie shadows
 all over the place.  There appears to be some sort of portal here.
 Mr Tumnus is here.
 
+I can only move out.
+
 > x Mr Tumnus
 Mr Tumnus is a Faun, a man from waist upwards, but with legs shaped like a
 goat's with goat's hoofs for feet.  He looks quite cold.  Mr Tumnus is
@@ -1206,6 +1210,8 @@ I swim down.
 By the old shipwreck
 I am deep underwater.  There is an old shipwreck nearby, listing on one side.
 
+I can move up and in.
+
 > in
 I move in.
 
@@ -1231,7 +1237,7 @@ inside the old wooden cabinet.
 
 > get all from it
 [get all from the old wooden cabinet]
-I take an old log book and a large bronze key from the old wooden cabinet.
+I take the old log book and the large bronze key from the old wooden cabinet.
 
 > out
 I move out.
@@ -1246,6 +1252,8 @@ I swim back up to the surface, relieved to find the boat still there.
 
 In the sea
 I am swimming in the sea.  There is a speedboat here.
+
+I can move down and in.
 
 > in
 I move in.
@@ -1407,6 +1415,8 @@ I am at the Redstown railway station.  The platform is very small, and
 there's not a lot around here.  There is a large sign here.  A train sits at
 the station, its doors open.
 
+I can move east and in.
+
 > east
 I move east.
 
@@ -1509,6 +1519,8 @@ At Ambersville station
 I am at the Ambersville railway station.  The platform is very small, and
 there's not a lot around here.  There is a large sign here.  A train sits at
 the station, its doors open.
+
+I can move east and in.
 
 > east
 I move east.

@@ -88,8 +88,10 @@
 Sam
 male
 open desk
-take set
-take cards
+x Shane's Desk
+get all from desk
+x Revolving Table
+get all from table
 s
 switch off stereo
 open michaels locker
@@ -101,7 +103,8 @@ take stick
 e
 e
 n
-take apple
+x rubbish bin
+get all from rubbish bin
 e
 throw apple at fan
 take shard
@@ -110,6 +113,42 @@ give ball to michael
 s
 w
 s
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
 give set to mrs walsh
 wear earplugs
 w

@@ -9,7 +9,7 @@ in the world. You also have heard that there was trouble by the BluDeath
 Mountains. This place is also under construction.
 Lightning is practicing his electricity here.
 
-There is an exit south.
+You can only move south.
 
 > s
 You move south.
@@ -17,7 +17,7 @@ You move south.
 Teleporter room
 You go into a large room with a teleporter in the center.
 
-There is an exit north.
+You can only move north.
 
 > open teleporter
 You open the teleporter.
@@ -29,6 +29,8 @@ BluDeath Mountains
 You are in extremely cold mountains, but you dont care! You are heated by
 your fire powers.
 Lightning is practicing his electricity here.
+
+You can move west and in.
 
 > out
 You move out.
@@ -55,6 +57,8 @@ Lightning! He is sucked in!
 
 Bisstonia
 Lightning was just sucked in. You must find him.
+
+You can only move northeast.
 
 > ne
 You move northeast.

@@ -25,6 +25,7 @@ n
 ring bell
 
 z
+x severed hand
 take ring
 n
 summon scythe

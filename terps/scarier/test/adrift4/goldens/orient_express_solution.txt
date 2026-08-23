@@ -1,4 +1,6 @@
 examine mustach
+x soda machine
+x change return
 take coin
 put coin in slot
 take newspaper

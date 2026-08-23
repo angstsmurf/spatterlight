@@ -34,11 +34,20 @@ Greg is here, annoying you with his mere presence.
 > open desk
 The desk drawer slides open.
 
-> take set
-You take a Correspondence Set from Shane's Desk.
+> x Shane's Desk
+The desk drawer has been opened.  Shane's Desk is open.  A Correspondence Set
+is inside Shane's Desk.
 
-> take cards
-You take a pack of cards from the Revolving Table.
+> get all from desk
+You take the Correspondence Set from Shane's Desk.
+
+> x Revolving Table
+This revolving table is where the students play cards and eat when they're
+not doing anything more important.  A pack of cards is on the Revolving
+Table.
+
+> get all from table
+You take the pack of cards from the Revolving Table.
 
 > s
 You move south.
@@ -124,9 +133,8 @@ The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
 amongst themselves about boring subjects. A path runs alongside the deck
 leading north to the Library and south towards the Corridor Entrance.
-Some 7th Formers are lounging here.
-
-Mrs Walsh walks towards you from the south.
+Some 7th Formers are lounging here.  Mrs Walsh is here, bullying
+Correspondence students.
 
 > n
 You move north.
@@ -140,8 +148,12 @@ One small student is carrying a bin that is far too big for him. The Common
 Room dominates your southern vista.  The library door is closed.
 Mr B is here.
 
-> take apple
-You take a half-eaten apple from the rubbish bin.
+> x rubbish bin
+It's a rubbish bin which has been decorated in an attempt to make it look
+cool.   A half-eaten apple is inside the rubbish bin.
+
+> get all from rubbish bin
+You take the half-eaten apple from the rubbish bin.
 
 > e
 You move east.
@@ -202,8 +214,117 @@ The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
 amongst themselves about boring subjects. A path runs alongside the deck
 leading north to the Library and south towards the Corridor Entrance.
-Some 7th Formers are lounging here.  Mrs Walsh is here, bullying
-Correspondence students.
+Some 7th Formers are lounging here.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+Mrs Walsh walks towards you from the south.
 
 > give set to mrs walsh
 "Thank you. Now hurry up and finish the next one young man. These might help
@@ -211,8 +332,6 @@ you finish it faster." She hands you some earplugs.
 
 > wear earplugs
 You put on the pair of earplugs.
-
-Mrs Walsh walks off to the south.
 
 > w
 You move west.
@@ -229,7 +348,7 @@ bit to get Phil moving. At the moment the Common Room is in a bit of turmoil
 because Shane and Hamish have been taken away by Homus, sparking a lot of
 controversy as to what they've been up to. Perhaps you should ask around...
 Shane's desk is open and its contents are displayed to the world.
-Greg is here, annoying you with his mere presence.
+Greg is here, annoying you with his mere presence.  Luke is here, dancing.
 
 > smash greg with shard
 When Greg turns his back you smite him mightily with the plastic shard. He
@@ -248,15 +367,14 @@ along with various electronic appliances used in the production of
 semi-nutritious meals. Greg's Locker is here as well as Michael's Locker.
 The stereo on the table is utterly silent. Peace reigns in the Common Room
 for a change.
-Luke is here, dancing.
 
 > open gregs locker
 Greg's Locker opens before you, revealing a $20 bill.
 
+Luke enters from the north.
+
 > take note
 You pick up the $20 note.
-
-Luke leaves to the north.
 
 > n
 You move north.
@@ -273,7 +391,7 @@ bit to get Phil moving. At the moment the Common Room is in a bit of turmoil
 because Shane and Hamish have been taken away by Homus, sparking a lot of
 controversy as to what they've been up to. Perhaps you should ask around...
 Shane's desk is open and its contents are displayed to the world.
-Greg is here, annoying you with his mere presence.  Luke is here, dancing.
+Greg is here, annoying you with his mere presence.
 
 > e
 You move east.
@@ -283,7 +401,8 @@ The deck is where many of the students choose to frequent on fine days such
 as today. The Seventh Formers sit upon squeaky rotating chairs, chatting
 amongst themselves about boring subjects. A path runs alongside the deck
 leading north to the Library and south towards the Corridor Entrance.
-Some 7th Formers are lounging here.
+Some 7th Formers are lounging here.  Mrs Walsh is here, bullying
+Correspondence students.
 
 > n
 You move north.
@@ -346,6 +465,7 @@ You move south.
 On the Library path
 You're standing on the path that leads northwards to the library and
 southwards to the entrance to the main block.
+Mrs Walsh is here, bullying Correspondence students.
 
 > s
 You move south.
@@ -357,7 +477,6 @@ their nest. One particular Year 8 student sits morosely on the ground,
 lacking in energy which is quite unlike the usual behaviour of a Year 8. The
 entrance to the main block is to the south.
 A Year 8 student is here.
-Mrs Walsh is here, bullying Correspondence students.
 
 > s
 You move south.
@@ -397,13 +516,13 @@ In the Corridor South
 You're in the southern half of the one way corridor. Entrances to various
 classrooms are to each side of you but unfortunately they're locked. The only
 way out is to continue forwards.
+Mrs Trimmer is here, patrolling the corridor.
 
 > n
 You move north.
 
 In the Corridor North
 The corridor continues....
-Mrs Trimmer is here, patrolling the corridor.
 
 > n
 You move north.
@@ -480,6 +599,7 @@ their nest. One particular Year 8 student sits morosely on the ground,
 lacking in energy which is quite unlike the usual behaviour of a Year 8. The
 entrance to the main block is to the south.
 A Year 8 student is here.
+Mrs Walsh is here, bullying Correspondence students.
 
 > s
 You move south.
@@ -489,7 +609,6 @@ This is where the library path that heads north intersects with the path that
 leads east to the main block and the office area. Unlike the library path,
 the east path is covered which gives you an idea as to how student welfare
 rates compared to teacher welfare.
-Mrs Walsh is here, bullying Correspondence students.
 
 > e
 You move east.
@@ -792,7 +911,6 @@ The double doors that mark the entrance to the main block are to your north
 while the path continues east and west. The steps lead south but your
 business is located around the main block and you can't afford to get
 sidetracked. There's a sign here.
-Mrs Walsh is here, bullying Correspondence students.
 
 > e
 You move east.
@@ -885,6 +1003,7 @@ The double doors that mark the entrance to the main block are to your north
 while the path continues east and west. The steps lead south but your
 business is located around the main block and you can't afford to get
 sidetracked. There's a sign here.
+Mrs Walsh is here, bullying Correspondence students.
 
 > w
 You move west.
@@ -894,7 +1013,6 @@ This is where the library path that heads north intersects with the path that
 leads east to the main block and the office area. Unlike the library path,
 the east path is covered which gives you an idea as to how student welfare
 rates compared to teacher welfare.
-Mrs Walsh is here, bullying Correspondence students.
 
 > n
 You move north.
@@ -938,7 +1056,7 @@ bit to get Phil moving. At the moment the Common Room is in a bit of turmoil
 because Shane and Hamish have been taken away by Homus, sparking a lot of
 controversy as to what they've been up to. Perhaps you should ask around...
 Shane's desk is open and its contents are displayed to the world.
-Greg is here, annoying you with his mere presence.
+Greg is here, annoying you with his mere presence.  Luke is here, dancing.
 
 > s
 You move south.
@@ -949,13 +1067,12 @@ along with various electronic appliances used in the production of
 semi-nutritious meals. Greg's Locker is here as well as Michael's Locker.
 The stereo on the table is utterly silent. Peace reigns in the Common Room
 for a change.
-Luke is here, dancing.
+
+Luke enters from the north.
 
 > give slippers to luke
 Luke happily takes the slippers. He hands you a letter. "Here, seeing as
 you're such a pal, could you take this letter to the office for me? Cheers."
-
-Luke leaves to the north.
 
 > n
 You move north.
@@ -972,7 +1089,7 @@ bit to get Phil moving. At the moment the Common Room is in a bit of turmoil
 because Shane and Hamish have been taken away by Homus, sparking a lot of
 controversy as to what they've been up to. Perhaps you should ask around...
 Shane's desk is open and its contents are displayed to the world.
-Greg is here, annoying you with his mere presence.  Luke is here, dancing.
+Greg is here, annoying you with his mere presence.
 
 > e
 You move east.
@@ -1000,7 +1117,6 @@ with Year 8 students who mill around like ants who have been cut off from
 their nest. One particular Year 8 student sits morosely on the ground,
 lacking in energy which is quite unlike the usual behaviour of a Year 8. The
 entrance to the main block is to the south.
-Mrs Walsh is here, bullying Correspondence students.
 
 > s
 You move south.
@@ -1010,6 +1126,7 @@ This is where the library path that heads north intersects with the path that
 leads east to the main block and the office area. Unlike the library path,
 the east path is covered which gives you an idea as to how student welfare
 rates compared to teacher welfare.
+Mrs Walsh is here, bullying Correspondence students.
 
 > e
 You move east.
