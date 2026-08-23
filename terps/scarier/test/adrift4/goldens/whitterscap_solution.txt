@@ -1,0 +1,21 @@
+start
+charles
+ask charles about buttons
+whoops
+take button
+charles
+give button to charles
+look
+south
+take decoder
+north
+give decoder to brelgan
+south
+2
+west
+charles
+wait
+wait
+zenes
+q
+quit

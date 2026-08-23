@@ -1,0 +1,292 @@
+Loading game...
+
+Gorxungula's Curse
+
+Gorxungula's Curse
+Written using ADRIFT, (c) Campbell Wild, 1998-2008.
+Written by Duncan Bowsman-- a phantasy story.
+Written for the Odd Competition.
+v1.00: September 2008.
+
+[Press any key to continue]
+
+Yes, Lophese... above the absurd voids have you lived a happy life in faraway
+Rabbits until that day when a misspoken word birthed the spirit of
+Gorxungula.
+
+With one magical word, Gorxungula stole your voice and began his reign of
+terror over beloved Rabbits.
+
+Clever Lophese, there is only one cure for the evil curse-- you must bring a
+sacrifice of spirits and gold to Elder Moose, the Great Antlered One who
+lives beneath a new state of being.
+
+Find these items and put them in Elder Moose's revered wooden tub to purge
+Gorxungula's curse!
+
+[press any key to begin]
+
+Please enter your name:
+
+> Lophese
+Please choose the player's gender (male or female):
+
+> male
+
+Rabbits
+In your beloved home a fluffle of familiar leporids float through the void
+like lepidopterans, each blindly cavorting over or around the other.  The
+rabbits take deep notice of your presence and occasionally giggle.
+Gorxungula hovers just inches over your head, seething with translucent
+blue-black steam.
+
+The wretched spirit begins to chant some sort of horrible incantation at the
+rabbits.  "Behold-- I am your master, Gorxungula, Lord of the Void and Taker
+of Voices!  None have such aweful power as mine!  Silence thy will, for
+nothing is thine!"
+
+For help with game commands, type "help" and press enter; for help with
+puzzles, type "hint" and press enter.
+
+> d
+You descend into deeper absurdity.
+
+A New State of Being
+In this new void, the purest sense of newness overcomes you and your skull
+flushes with a dizzying plurge of new thoughts.  Uncertain toast is in the
+background to the east and, if you so wished, you could descend from this new
+state down to the state of being in the Void of Elder Moose.  Some new tug in
+your gut tells you that you oughtn't to go west.
+
+> e
+You fumble your way easterly.
+
+Uncertain Toast
+The exact implication of "toast" in this context is unclear, therefore all
+usages are prohibited until further research into its intended meaning allows
+unanimous agreement upon one of the following definitions:
+
+~v.: to heat thoroughly, esp. until crisp and brown as or by a Maillard
+reaction
+~v.:  to use a toaster or toaster oven
+~n.:  sliced bread browned on both sides by heat (perhaps in a toaster),
+generally eaten by itself or as an open-faced sandwich with butter, cheese,
+beans, eggs, or any variety of jellied fruitgoods
+~n.:  any of a variety of stylistic variations of the aforementioned food
+item, including French, Melba, Texas, bagel toast, or milk toast (whose
+blandness inspired the term "milquetoast," referring to a timid, apologetic
+character)
+~n.:  a person or thing to which a ceremonial drink is proposed or the act of
+proposing such a drink
+~v.:  to propose or partake in a ceremonial drink
+~interj.:  a call to incite such an event as a toast
+~n.:  one that is highly admired ("the toast of the town")
+~n., slang: a thing unclear in meaning ("vague as toast," a spoof of Texas
+toast supposing origins in Las Vegas, Nevada)
+~n., slang: finished; done with; at a conclusion; terminado
+
+Clathering is here, attempting to solve some conundrum.
+
+> w
+You blunder off to the west.
+
+A New State of Being
+In this new void, the purest sense of newness overcomes you and your skull
+flushes with a dizzying plurge of new thoughts.  Uncertain toast is in the
+background to the east and, if you so wished, you could descend from this new
+state down to the state of being in the Void of Elder Moose.  Some new tug in
+your gut tells you that you oughtn't to go west.
+
+> w
+You blunder off to the west.
+
+You are dead!
+
+I'm afraid you are dead!
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+
+Would you like to RESTART, RESTORE a saved game, or QUIT?
+
+> restart
+
+Gorxungula's Curse
+Written using ADRIFT, (c) Campbell Wild, 1998-2008.
+Written by Duncan Bowsman-- a phantasy story.
+Written for the Odd Competition.
+v1.00: September 2008.
+
+[Press any key to continue]
+
+Yes, Lophese... above the absurd voids have you lived a happy life in faraway
+Rabbits until that day when a misspoken word birthed the spirit of
+Gorxungula.
+
+With one magical word, Gorxungula stole your voice and began his reign of
+terror over beloved Rabbits.
+
+Clever Lophese, there is only one cure for the evil curse-- you must bring a
+sacrifice of spirits and gold to Elder Moose, the Great Antlered One who
+lives beneath a new state of being.
+
+Find these items and put them in Elder Moose's revered wooden tub to purge
+Gorxungula's curse!
+
+[press any key to begin]
+
+Rabbits
+In your beloved home a fluffle of familiar leporids float through the void
+like lepidopterans, each blindly cavorting over or around the other.  The
+rabbits take deep notice of your presence and occasionally giggle.
+
+Gorxungula hovers just inches over your head, seething with translucent
+blue-black steam.
+
+The wretched spirit begins to chant some sort of horrible incantation at the
+rabbits.  "Behold-- I am your master, Gorxungula, Lord of the Void and Taker
+of Voices!  None have such aweful power as mine!  Silence thy will, for
+nothing is thine!"
+
+For help with game commands, type "help" and press enter; for help with
+puzzles, type "hint" and press enter.
+
+The wretched spirit begins to chant some sort of horrible incantation at the
+rabbits.  "Behold-- I am your master, Gorxungula, Lord of the Void and Taker
+of Voices!  None have such aweful power as mine!  Silence thy will, for
+nothing is thine!"
+
+For help with game commands, type "help" and press enter; for help with
+puzzles, type "hint" and press enter.
+
+> d
+You descend into deeper absurdity.
+
+A New State of Being
+In this new void, the purest sense of newness overcomes you and your skull
+flushes with a dizzying plurge of new thoughts.  Uncertain toast is in the
+background to the east and, if you so wished, you could descend from this new
+state down to the state of being in the Void of Elder Moose.  Some new tug in
+your gut tells you that you oughtn't to go west.
+
+> d
+You descend into deeper absurdity.
+
+The Void of Elder Moose
+This is the solemn home of the great and wise Elder Moose where from out of
+the void-space before the Great Antlered One hovers the revered wooden tub.
+The only way out is to ascend to some new state of being.
+
+> look in tub
+The revered wooden tub is the proper receptacle for all tribute to Elder
+Moose.  A tome is inside the revered wooden tub.
+
+> take tome
+You take the tome from the revered wooden tub.
+
+> i
+You are carrying a gold coin and a tome.
+
+Elder Moose brushes its antlers on the void resulting in a brief musical
+sound.
+
+> u
+You ascend to the new state of being.
+
+A New State of Being
+In this new void, the purest sense of newness overcomes you and your skull
+flushes with a dizzying plurge of new thoughts.  Uncertain toast is in the
+background to the east and, if you so wished, you could descend from this new
+state down to the state of being in the Void of Elder Moose.  Some new tug in
+your gut tells you that you oughtn't to go west.
+
+> e
+You fumble your way easterly.
+
+Uncertain Toast
+The exact implication of "toast" in this context is unclear, therefore all
+usages are prohibited until further research into its intended meaning allows
+unanimous agreement upon one of the following definitions:
+
+~v.: to heat thoroughly, esp. until crisp and brown as or by a Maillard
+reaction
+~v.:  to use a toaster or toaster oven
+~n.:  sliced bread browned on both sides by heat (perhaps in a toaster),
+generally eaten by itself or as an open-faced sandwich with butter, cheese,
+beans, eggs, or any variety of jellied fruitgoods
+~n.:  any of a variety of stylistic variations of the aforementioned food
+item, including French, Melba, Texas, bagel toast, or milk toast (whose
+blandness inspired the term "milquetoast," referring to a timid, apologetic
+character)
+~n.:  a person or thing to which a ceremonial drink is proposed or the act of
+proposing such a drink
+~v.:  to propose or partake in a ceremonial drink
+~interj.:  a call to incite such an event as a toast
+~n.:  one that is highly admired ("the toast of the town")
+~n., slang: a thing unclear in meaning ("vague as toast," a spoof of Texas
+toast supposing origins in Las Vegas, Nevada)
+~n., slang: finished; done with; at a conclusion; terminado
+
+Clathering is here, attempting to solve some conundrum.
+
+"Ah," Clathering whispers to himself, "but then that could be
+tautological..."
+
+> give tome to clathering
+"Why, I say!  How serendipitously useful," says Clathering.  "Would you hold
+onto this for me while a give it a read?"
+
+He hands you a non-descript alcoholic beverage.
+
+You take it.
+
+> i
+You are carrying a gold coin and a non-descript alcoholic beverage.
+
+> w
+You blunder off to the west.
+
+A New State of Being
+In this new void, the purest sense of newness overcomes you and your skull
+flushes with a dizzying plurge of new thoughts.  Uncertain toast is in the
+background to the east and, if you so wished, you could descend from this new
+state down to the state of being in the Void of Elder Moose.  Some new tug in
+your gut tells you that you oughtn't to go west.
+
+> d
+You descend into deeper absurdity.
+
+The Void of Elder Moose
+This is the solemn home of the great and wise Elder Moose where from out of
+the void-space before the Great Antlered One hovers the revered wooden tub.
+The only way out is to ascend to some new state of being.
+
+> put gold coin in tub
+You put the gold coin inside the revered wooden tub.
+
+> put spirits in tub
+You put the non-descript alcoholic beverage inside the revered wooden tub.
+
+Elder Moose brushes its antlers on the void resulting in a brief musical
+sound.
+
+Elder Moose rouses from the depths of thought once the offering is in place.
+
+[press any key to continue]
+
+     "What are you doing with that moose, Lophese?"
+     The doctor's voice shocks you.  You don't recall being in the waiting
+room, but there you are.  You try in vain to explain what has happened, about
+the birth and defeat of Gorxungula.
+     "That's quite interesting, Lophese," says the doc.  "Are you finished
+with those papers?"
+     You are.
+     "Excellent," drones the doctor.  "Then you're discharged.  Been fun
+working with you, but we're all done.  It's time to go home to your rabbits,
+now."
+     You hand the discharge papers to the doctor and absently find your way
+out the revolving doors of the hospital.
+     Reviewing your papers the doctor (for whatever reason, if any) mutters,
+"Toast."
+     Odd, not even the doctor knows why.
+
+--THE END--

@@ -1,0 +1,4 @@
+jump
+talk to george
+jump
+turn right

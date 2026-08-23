@@ -1,0 +1,5 @@
+take briefcase
+back
+open penknife
+put knife in slot
+out

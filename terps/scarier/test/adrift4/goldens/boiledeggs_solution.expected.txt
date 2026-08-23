@@ -1,0 +1,196 @@
+Loading game...
+
+Boiled Eggs
+The conversation with Louise starts rather strangely, it must be said. She
+turns to me one day when we're watching deal or no deal, and says: "Do you
+believe in magic?"
+
+Unsure, you mumble "Sort of..."
+
+"You know Mr. Wright?"
+
+"Old Joe, he's that old man you cook for, yeah?" She's been working for him
+for seven months.
+
+"Yeah, well he's got this little wooden box thing, and it's... well, it's
+kinda weird."
+
+"Weird how?"
+
+"It just... never mind." She falls silent, and turns her attention back to
+the tv screen.
+
+Refusing to let it drop, you urge her to continue.
+
+"He uses it to... get things. Things he wants. He wishes for stuff, and the
+box shakes a bit, and it just... happens. The stuff he wishes for just turns
+up, in his pocket or in the kitchen or three feet above my head."
+
+"What does he wish for?" you ask, wondering at the endless possibilities
+presented by this.
+
+"Boiled eggs. Perfectly cooked boiled eggs, he loves them, it's all he wishes
+for."
+
+Your brain starts working overtime. The most incredible gift in the world at
+his fingertips, and he uses it for eggs?! What a waste! So, in the interest
+of world peace, curing cancer, and getting mightily wealthy at the same time,
+you decide to liberate the little box, and whatever's in it. It's only fair.
+So now you've got to get as much information from Louise as you can,
+preferably without raising her suspicions.
+
+> talk to louise
+First, you decide to get his address. "Old Joe... he's the guy who lives on
+Elm Street, right?"
+
+" Wickham street, north of the park." Luckily she's still distracted by Deal
+or no Deal, making it much easier to get information out of her.
+
+"Right, of course, just by the corner shop."
+
+"No, further up by the skate park, he lives at number 58."
+
+"Right, right, of course."
+
+> talk to louise
+"I sometimes worry about old people like that. They're not safe."
+
+"How d'ya mean?" she says, taking another handful of crisps.
+
+"Well, you know what they're like. They put a key under a flowerpot or the
+doormat and expect nobody to find it."
+
+"Yeah..."
+
+Not exactly the response you were hoping for. What do you do?
+
+1) Drop it
+2) Ask directly
+3) Be subtle.
+
+> 2
+"Does he keep a spare outside?"
+
+"Yeah, that's how I get in. It's always under the loose flagstone on his
+path."
+
+"Oh, ok. Well at least nobody would guess that."
+
+> talk to louise
+"This magic box - you're just pulling my leg, aren't you. There's no magic
+box hidden in his cupboards."
+
+"No, I swear! I'm not lying! Under his bed, and it actually works, I've seen
+it!"
+
+"Well, I don't know... I'm not convinced."
+
+> talk to louise
+"So is he asleep when you get there, or what?"
+
+"He wakes up when I open the door. He's a really light sleeper, I never have
+to go and wake him." Great.
+
+> north
+You've found out what you need to know, so you leave and walk to Old Joe's
+house.
+It's only a twenty minute walk, so soon enough you're standing outside his
+house in the garden.
+
+Old Joe's garden
+The old stone path leads up to the window and the front door, where
+flowerpots, rocks, a doormat and so on leave any number of possible hiding
+places for the key.
+
+There's a stone here too, lying inconspicuously in the middle of the grass.
+Now you've just got to find it...
+
+> lift the loose flagstone
+Heaving the flagstone off the path, you see a small brass key in the dirt
+beneath it. You pocket it, and push the stone back in place.
+
+> unlock the front door with the key
+You quietly turn the key in the lock. Waiting for the click, you then push
+the door open slowly...
+
+Whereupon you are ambushed by a tiny, but very ferocious, dog. It seizes your
+leg and starts growling angrily. You just about manage to kick the thing off,
+shutting it outside where it begins yapping at the door.
+
+Is there any chance he didn't hear that?
+
+Hallway
+The dingy hallway is lined with pictures. Dark red carpet and dark red walls
+give it a claustrophobic feel.
+
+> up
+You creep gingerly up the stairs, careful not to make the slightest noise.
+
+Staircase
+The dark, carpeted stairs lead to the upstairs hallway. There are more
+pictures along the wall.
+Hiding behind the bannister, you can hear the sound of a door opening, and
+shuffling feet leaving the bedroom. Old Joe goes into the bathroom. Do you
+have time to get the box before he comes back?
+
+> up
+As silently as you know how, you hurry upstairs.
+
+Upstairs hallway
+The dark red colour scheme is starting to get really oppressive. Still more
+disapproving women glare at you from their frames.
+Probably not a good idea to hang about, I think. You can hear movement in the
+bathrom; that means the bedroom's clear...
+
+> north
+You slip into Old Joe's bedroom, home of that little magical box that could
+hold the answer to all your problems...
+
+Bedroom
+Old Joe's bedroom is much airier than the rest of the house. In fact the
+overall colour scheme is grey. This doesn't make for a vast improvement. His
+grey single bed is wedged in the corner by the window.
+
+> look under bed
+Searching under the bed, you see a simple, plain wooden box. The film of dust
+that lays over everything seems to have not touched the box... it must be
+regularly used.
+
+> hide under the bed
+You shuffle quickly underneath the bed.
+
+> wait
+Time passes...
+Joe shuffles towards the bed - you now have a fantastic view of his fuzzy
+grey slippers - and gets in.
+Joe is tossing and turning.
+
+> wait
+Time passes...
+His breathing becomes slower and regular.
+It sounds as if Joe is asleep now.
+
+> stand up
+You stand up.
+
+> take box
+You take the box.
+
+> climb out of window
+You clamber out of the window as quietly as you can.
+
+Old Joe's garden
+The old stone path leads up to the window and the front door, where
+flowerpots, rocks, a doormat and so on leave any number of possible hiding
+places for the key.
+
+There's a stone here too, lying inconspicuously in the middle of the grass.
+There's no sign of the dog...
+
+> open box
+You summon the willpower to keep the box shut until you get home.Back in your
+bedroom, you open the box, and are filled with joy at the prospect of as many
+boiled eggs as you want for the rest of your life! Finally, there will be no
+limit of boiled eggs! You can have boiled eggs forever! Then you go to sleep,
+and dream of boiled eggs. Congratulations. You have everything you could ever
+possibly want in that box.

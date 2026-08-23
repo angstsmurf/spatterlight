@@ -1,0 +1,240 @@
+Loading game...
+
+Business As Usual
+by Abbi Park
+
+"Ugh, what nimwits.  Dimwits.  Scoundrels.  Nitwits," you mutter.  Yes, you
+are quite fond of talking to yourself, especially about the people who visit
+the little... er... miniscule... place you work, which is something like a
+museum, except  that you only have four, completely unrelated, items.  And
+thus you refer to it as the place.
+
+It's not that the visitors steal the items.  That would not be nearly as
+annoying, because they would be taken once, and that would be it.  No.
+Instead, your visitors actually move the items all over the place, randomly,
+throughout the day.  Maybe some of them are trying to be helpful, but you
+really wish they wouldn't.
+
+Basically, it's your job to make sure the four "Grand Items" (you take this
+opportunity to remind yourself not to worry, not to worry, you didn't come up
+with that title for them... you're not that corny, not to worry...) are back
+in place by the time your boss shows up at night.
+
+If the object aren't back, well...  that's not something you like to think
+about.  You will succeed.
+
+> wait
+You wait a bit...
+
+Once you've visited each room today, you can revisit it by simply typing in
+the room's main word.  (i.e., central / book / vase / lamp / shoe)
+
+> wait
+You wait a bit...
+
+> wait
+You wait a bit...
+
+It's better to have all of the objects in place when the boss arrives, but if
+you're holding one of them en route to replace it, that's okay, too.
+
+> wait
+You wait a bit...
+
+Blue lights flash.  The book has been taken!
+
+> wait
+You wait a bit...
+
+The Blob rolls in from below.
+
+The Old Man shuffles in from below.
+
+Some people have a set pattern that they visit the rooms in each day, but
+others don't.
+
+> wait
+You wait a bit...
+
+The Blob slides out to the west.
+
+The Old Man staggers off to the north.
+
+> wait
+You wait a bit...
+
+The Boy enters from below.
+
+The Girl skips in from below.
+
+The Mother steps in from below.
+
+Red lights flash.  Someone nabbed the shoe!
+
+Yellow lights flicker.  Somebody grabbed the lamp!
+
+It's always the same people taking or placing the items, but sometimes the
+place they put it is different, and their timing is usually not the same each
+day.
+
+> wait
+You wait a bit...
+
+The Old Hag stumbles in from below.
+
+> wait
+You wait a bit...
+
+The Old Hag creeps off to the west.
+
+> wait
+You wait a bit...
+
+> wait
+You wait a bit...
+
+The Goat prances in from below.
+
+> wait
+You wait a bit...
+
+> wait
+You wait a bit...
+
+Yellow lights flicker.  Somebody grabbed the lamp!
+
+> wait
+You wait a bit...
+
+The Blob rolls in from the south.
+
+The Teenager slumps in from below.
+
+> wait
+You wait a bit...
+
+The Blob slides out to below.
+
+The Teenager trudges off to the east.
+
+Your watch beeps.  10 turns to go.
+
+> wait
+You wait a bit...
+
+> north
+You move north.
+
+The Book Room
+
+If you ever have to give one of the dreaded tours of the place, you always
+exclaim, "Guess what we call this room containing a book!"
+
+The Central Room is south.
+
+The book is missing.
+
+The lamp is in this room.
+
+The Old Hag stumbles in.
+
+> take all
+You take the Great Lamp.
+
+> southeast
+You move southeast.
+
+The Lamp Room
+
+Home to the Great Lamp.
+
+The Central Room is east.
+
+The Great Lamp is in this room, which is where it belongs.
+
+The shoe is in this room.
+The teenager is lounging around the room.  Its baggy clothing is suspicious,
+but you are relieved that it at least did not bring its backpack.
+
+> drop all
+You drop the Great Lamp.
+
+Beep!  5 turns to go.  Any remaining visitors should be on their way out the
+door.
+
+> take all
+You take the Shoe.  The Great Lamp is too much for you to carry at the
+moment.
+
+The Teenager trudges off to the east.
+
+> east
+You move east.
+
+The Central Room
+
+This room serves as a nice middleground for getting from one room to another.
+
+The Book Room is north, the Shoe Room is east, the Vase Room is south, and
+the Lamp Room is west.  (The Entrance Hall is down from here, but you are not
+permitted to use it while the place is open.)
+
+The shoe is in this room.
+The children's mother is observing the premises.   That is, if she really is
+the kids' mother.  You hope so.  She looks innocent enough, which always
+makes you more suspicious.  It's not unlikely that, mother or not, she's a
+criminal mastermind who has been training the children to move items around
+since their birth.  You sigh.  One can only hope otherwise.
+
+The teenager is lounging around the room.  Its baggy clothing is suspicious,
+but you are relieved that it at least did not bring its backpack.
+
+The old hag is hovering about the room.
+
+The Goat is lollygagging about here.  You don't like the look of it.
+
+The Mother wanders off to below.
+
+The Teenager trudges off to below.
+
+The Old Hag creeps off to below.
+
+> east
+You move east.
+
+The Shoe Room
+
+You'll keep the shoe here if you know what's good for you.
+
+The Central Room is west.
+
+The Shoe is in this room, which is where it goes.
+
+The book is in this room.
+
+> drop all
+You drop the Shoe.
+
+Your boss is coming...
+
+> take all
+You take the Ancient Book.  The Shoe is too much for you to carry at the
+moment.
+
+> wait
+You wait a bit...
+
+> wait
+You wait a bit...
+
+Your Boss marches in from the west.
+
+You Won, Of Course
+Congratulations!  You succeeded in putting all of the items back in their
+proper places!
+
+> wait
+You wait a bit...
+
+> quit
+Do you really want to quit? [Y/N]

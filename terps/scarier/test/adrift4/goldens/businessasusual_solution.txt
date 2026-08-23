@@ -1,0 +1,28 @@
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+north
+take all
+southeast
+drop all
+take all
+east
+east
+drop all
+take all
+wait
+wait
+wait

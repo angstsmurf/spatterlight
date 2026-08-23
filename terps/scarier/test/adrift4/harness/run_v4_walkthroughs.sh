@@ -2358,6 +2358,69 @@ longbarrow_solution.txt|longbarrow.taf|That'll show 'em (and maybe even bag you 
 # valve toggles silently relocate NPC satellites between camera rooms; a
 # specific open/close sequence lands all required satellite groups together.
 asteroidafter_solution.txt|asteroid_after.taf|All satellites correctly aligned.|SCR_SKIP_WAITKEY=1
+# Existence (IntroComp 2009, 3-room ghost vignette, no scoring): use the fan
+# to be sucked through and empowered, then use the pencil to win.
+existence_solution.txt|Existence.taf|Congratulations!  You've made it through the ADRIFT IntroComp 2009 version of|SCR_SKIP_WAITKEY=1
+# P2P (steeplechase reflex race, 30/30 max): jump the Pine Stand, talk to
+# George to spook a blocking rival horse at the Wretched Curve, jump the
+# Harlequin Pond log pile, then turn to swerve past Tom's horse.
+p2p_solution.txt|P2P.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
+# Zack Smackfoot (3-room teaser demo, no scoring, single unconditional stop
+# ending): open the penknife, jam it in the cargo door's emergency slot to
+# release the jam, then exit the wreck with the briefcase for the better text.
+zacksmackfoot_solution.txt|zacksmackfoot.taf|THE END . . . . . for now!|SCR_SKIP_WAITKEY=1
+# Boiled Eggs (no scoring, single win ending): pump Louise's dialogue tree
+# for the spare-key location and Joe's box, unlock the front door, hide
+# under the bed until Joe falls asleep, then take the box and climb out.
+boiledeggs_solution.txt|boiled eggs.taf|You summon the willpower to keep the box shut until you get home.
+# The Shuffling Room (horror vignette, no scoring): release shoulders before
+# hands, feel the dark for a hidden lightswitch (needs "use switch" twice),
+# open the revealed stone door, climb up, and join the circle to win.
+shufflingroom_solution.txt|The_Shuffling_Room.taf|your powerful discovery.
+# The Angel the Devil and the Human (river-crossing puzzle, no scoring):
+# never leave the Devil unsupervised with the Angel or the Human; ferry
+# them to Heaven one at a time via a "predator conflicts with both" swap.
+angeldevilhuman_solution.txt|The Angel the Devil and the Human.taf|Have a peanut.
+# herrdoktor (3-room comedy puzzle, no scoring): bait a fishing pole with an
+# acorn to lure a squirrel, strap on a jetpack fueled by a de-linted
+# sweetroll, then launch it down the well to rescue the trapped girl.
+herrdoktor_solution.txt|herrdoktor.taf|Mein tiny jetpack ist ein success!
+# Rolling the Dough (drunk sneak-into-bed comedy, 50/50 max, sudden-death
+# heavy): shoes off before the creaky stairs, stash them in the bathroom,
+# throw the rolling pin out the bedroom window, then lie on the bed.
+rollingthedough_solution.txt|rollingthedough.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
+# MurderMansionntro (3-room promo teaser, no scoring, no win condition): work
+# through the intro menu, examine the stoop objects, then bang the knocker to
+# reach the demo's fixed closing-credit screen -- the fullest reachable content.
+murdermansionntro_solution.txt|MurderMansionntro.taf|Thank you for trying my Intro to Murder Mansion|SCR_SKIP_WAITKEY=1
+# Whitterscap's Key (Q-key running-gag comedy, 2/2 max): give the button to
+# Charles, decode Brelgan's runes, pick the Zenes spell, steal the key from
+# Whitterscap, then type a Q-word for the score bonus before quitting to win.
+whitterscap_solution.txt|whitterscap.taf|You win with the best score and stuff, yeah!
+# The Dangers of Driving at Night (unscored horror vignette): drive north
+# through the accident event, pay the gas station clerk, spare Chris some
+# change, refuse trucker Harold's ride, then let Chris reveal the back exit.
+dangersdrivingnight_solution.txt|The Dangers of Driving at Night.taf|no longer bothering to hide his long, curved fangs|SCR_SKIP_WAITKEY=1
+# All Hallows Eve (3-room Halloween vignette, 23/26 true max -- 3 pts belong
+# to a mutually exclusive alternate ending): brew a love potion from toad
+# eggs, purple beetles, and bird-bath water, then trap and ransom the cat.
+allhallowseve_solution.txt|All Hallows Eve.taf|You scored 23 out of the maximum 26!|SCR_SKIP_WAITKEY=1
+# Gorxungula's Curse (unscored surreal fantasy): deliberately die walking west
+# to seed a gold coin on restart, trade the tub's tome to Clathering for
+# spirits, then offer both the coin and spirits to Elder Moose's tub to win.
+gorxungula_solution.txt|gorxungula.taf|Elder Moose rouses from the depths of thought once the offering is in place.|SCR_SKIP_WAITKEY=1
+# Attack of Doc Lobster's Mutant Menagerie of Horror (unscored monster-factory
+# sim): repeat the scalpel+sprinkles+envenomator+serum combo across 6 named
+# species to deterministically push the hidden death counter past 6000.
+lobster_solution.txt|lobster.taf|Next: WORLD DOMINATION!
+# Business As Usual (unscored museum tidy-up puzzle): wait out the scripted
+# NPC thefts through turn 16, then shuttle Book/Lamp/Shoe home one at a time
+# (bare noun words get synonym-rewritten to room travel, so use take/drop all).
+businessasusual_solution.txt|Business As Usual.taf|You Won, Of Course
+# Oh, Human (60/200, escape-room dead-end trap): the ladder/box-on-crate 100pt
+# branch is provably unreachable, so drop the electrical device to free the
+# light, cut through the walls at theroom==4, and exit through the door.
+ohhuman_solution.txt|Oh_Human.taf|Congratulations!  You beat the game!
 # Sandy's Lost Doll (1286 bytes, 4.00): 6 rooms, 9 tasks, no score, zero
 # declared objects. UNWINNABLE as authored -- the toilet-check win task's
 # RESTR type=4 Var1=0 tests the command's referenced NUMBER (not the `mom`

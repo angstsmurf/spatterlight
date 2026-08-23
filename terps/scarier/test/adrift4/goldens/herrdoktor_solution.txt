@@ -1,0 +1,15 @@
+s
+examine tree
+take acorn
+tie acorn to pole
+n
+squirrel
+take squirrel
+attach cylinder to squirrel
+e
+buy roll
+w
+remove lint from sweetroll
+put roll in jetpack
+s
+put squirrel in well

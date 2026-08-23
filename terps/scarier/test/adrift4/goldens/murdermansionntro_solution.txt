@@ -1,0 +1,15 @@
+Y
+1
+2
+3
+look
+examine door
+examine knocker
+examine trellis
+examine bush
+examine light
+examine keyhole
+look street
+look portico
+look rain
+bang knocker

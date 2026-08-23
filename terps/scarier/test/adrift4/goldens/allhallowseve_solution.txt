@@ -1,0 +1,16 @@
+sing to toads
+west
+shake bush
+east
+trap cat
+west
+west
+examine grass
+get cauldron
+east
+fill cauldron with water
+splash water into cauldron
+put toad eggs in cauldron
+throw the purple beetles into the cauldron
+west
+ransom the cat

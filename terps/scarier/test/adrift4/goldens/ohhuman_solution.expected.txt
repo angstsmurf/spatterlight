@@ -1,0 +1,76 @@
+Loading game...
+
+Oh, Human
+by Abbi Park
+
+Darkness
+The walls are barely visible, but you seem to be in a small, square room.
+
+> go through hole
+As you begin to reach toward the hole, you hear a rushing sound and are
+propelled straight through the hole to whatever is on the other side.  You
+also hear clunking noises, as if large objects were being moved around.  The
+hole closes behind you, and the rushing sound stops.  When you look back,
+there is no evidence of the hole you came from.
+
+A crisp, clear female voice announces, "Good job.  That is worth ten points."
+
+> drop device
+You set the device down on the floor.  The light follows it, staying a few
+feet away from it.  You feel better now.
+
+> get light
+Carefully, so as to not hurt your hand, you reach out and grab the circular
+light, placing your thumb and fingers on each side and avoiding touching the
+edge with your palm.  It takes a lot of effort to break the bond between the
+light and the device, but after a while of struggling, you finally manage to
+pull it free, and the light no longer responds to the device's call.
+
+> push crate
+You try to push the crate away from its spot on the wall, revealing... oh,
+hey, there's a hole behind where the crate was.  How completely unexpected.
+Just as you are thinking this, you must have gotten too close to the hole,
+because the now-familiar noises start up, and you're sucked through the the
+hole to the other side.
+
+The voice announces, "Great job.  That is worth 20 points."
+
+> stand on box
+You stand on the box.
+
+> go through hole
+As you reach toward the hole, you hear the same noises you heard last time,
+and are once again propelled through to the other side with no evidence of
+the hole behind you when you arrive.
+
+The voice announces, "Nice job.  That is worth 30 points."
+
+For a few seconds there, you thought you heard muted voices, but now there is
+only silence.
+
+> use light to cut walls
+Your feet and fists aren't enough to break the wall, but you've got a tool.
+You scrape and cut the wall and beat against it until...  You break it, and
+go through the hole to a new room.  You look back, and somehow that hole you
+made has already closed behind you.
+
+The Hall
+It looks to be a long hallway with no features other than a door on one end
+and three people on the other.
+
+> go door
+You march over to the door, grasp the handle, and push the door open, pausing
+for a second out of curiousity to see if anyone will try to stop you.  No one
+does.  You shrug, relieved, and step out the door, then close it behind you
+and take a deep breath of fresh air.
+
+You are free.
+
+The End
+Congratulations!  You beat the game!
+
+> score
+Your score is 60 out of a maximum of 200.  (30%)
+
+> quit
+Do you really want to quit? [Y/N]

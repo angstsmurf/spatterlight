@@ -1,0 +1,481 @@
+Loading game...
+
+Attack of Doc Lobster's Mutant Menagerie of Horror
+
+Tonight the menagerie will be unleashed!  The insane experiments of your
+collaborator and servant have created a fantastic array of Frankenstein
+monsters to invade the city and destroy it, once and for all.  You have yet
+only to give your first creature a name, superpowers, and life.
+
+Please enter the name of the first species to add to your menagerie.
+
+For example:
+
+HORSE
+EARTHWORM
+FOUR NOSTRILLED ANT-EATER
+
+> HORSE
+Species #1: the HORSE is dead.  Now it lies on the dissection table, ready
+for monsterification.  Proper procedure requires you must now refer to it as
+"the subject."
+
+(press any key to continue)
+
+Lobster's Lab
+It is here, from within your tank, that you plot the return of havoc to the
+world.
+
+Before you is The Servant's dissection table, upon which the subject lies,
+ready for monsterification.  Leaping lightning lashes light the laboratory.
+Your immense, weirdly-shaped claws reach all over the lab, ready to pinch
+anything.
+
+Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
+reanimating serum and the envenomator.
+The mad veterinarian cackles to himself, awaiting your choice of instruments.
+"Servant, let the monsterification begin!"
+
+Under your telepathic command, The Servant opens up the subject to receive
+your augmentations...
+
+> take scalpel
+You grasp the scalpel with one of your mighty pincers.
+
+> give scalpel to servant
+You press the scalpel into The Servant's gloved hands.
+
+> take sprinkles
+You grasp the rainbow sprinkles with one of your mighty pincers.
+
+> give sprinkles to servant
+You press the rainbow sprinkles into The Servant's gloved hands.
+The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+
+> take envenomator
+You grasp the envenomator with one of your mighty pincers.
+
+> give envenomator to servant
+You press the envenomator into The Servant's gloved hands.
+The Servant puts all the poison onto the subject.  He channels your own
+(telepathic) maniacal laughter.
+
+> take serum
+You grasp the reanimating serum with one of your mighty pincers.
+
+> give serum to servant
+You press the reanimating serum into The Servant's gloved hands.
+The Servant injects the reanimating serum into the subject and, with
+bloodshot anticipation, watches it twitch.
+
+"It's alive... it's ALIVE!"
+
+*     *     *     *
+THIS JUST IN: CUTE VISITOR SPREADS PLAGUE!
+Parents, keep your children away from anything that might have been near the
+HORSE recently captured by authorities.  Local hospitals have admitted a
+number of patients suffering from flesh-eating bacteria after coming into
+contact with the creature's saliva.
+
+If you or anybody you know may have had contact with the deadly,
+poison-tongued HORSE, please seek help immediately.
+
+(press enter to continue)
+
+>
+
+Deaths: 1002
+Mayhem: 200
+Destruction: $0k
+Infection: 2
+
+"Incredible!  What chaos you wield, that looses such havoc upon the world, My
+Master!"
+
+What will call the next species to unleash your lobstery wrath?
+
+> CAT
+Species #2: the CAT is dead.  Now it lies on the dissection table, ready for
+monsterification.  Proper procedure requires you must now refer to it as "the
+subject."
+
+(press any key to continue)
+
+Lobster's Lab
+It is here, from within your tank, that you plot the return of havoc to the
+world.
+
+Before you is The Servant's dissection table, upon which the subject lies,
+ready for monsterification.  Leaping lightning lashes light the laboratory.
+Your immense, weirdly-shaped claws reach all over the lab, ready to pinch
+anything.
+
+Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
+reanimating serum and the envenomator.
+The mad veterinarian cackles to himself, awaiting your choice of instruments.
+"Servant, let the monsterification begin!"
+
+Under your telepathic command, The Servant opens up the subject to receive
+your augmentations...
+
+> take scalpel
+You grasp the scalpel with one of your mighty pincers.
+
+> give scalpel to servant
+You press the scalpel into The Servant's gloved hands.
+
+> take sprinkles
+You grasp the rainbow sprinkles with one of your mighty pincers.
+
+> give sprinkles to servant
+You press the rainbow sprinkles into The Servant's gloved hands.
+The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+
+> take envenomator
+You grasp the envenomator with one of your mighty pincers.
+
+> give envenomator to servant
+You press the envenomator into The Servant's gloved hands.
+The Servant puts all the poison onto the subject.  He channels your own
+(telepathic) maniacal laughter.
+
+> take serum
+You grasp the reanimating serum with one of your mighty pincers.
+
+> give serum to servant
+You press the reanimating serum into The Servant's gloved hands.
+The Servant injects the reanimating serum into the subject and, with
+bloodshot anticipation, watches it twitch.
+
+"It's alive... it's ALIVE!"
+
+*     *     *     *
+THIS JUST IN: CUTE VISITOR SPREADS PLAGUE!
+Parents, keep your children away from anything that might have been near the
+CAT recently captured by authorities.  Local hospitals have admitted a number
+of patients suffering from flesh-eating bacteria after coming into contact
+with the creature's saliva.
+
+If you or anybody you know may have had contact with the deadly,
+poison-tongued CAT, please seek help immediately.
+
+(press enter to continue)
+
+>
+
+Deaths: 2006
+Mayhem: 400
+Destruction: $0k
+Infection: 4
+
+"Incredible!  What chaos you wield, that looses such havoc upon the world, My
+Master!"
+
+What will call the next species to unleash your lobstery wrath?
+
+> DOG
+Species #3: the DOG is dead.  Now it lies on the dissection table, ready for
+monsterification.  Proper procedure requires you must now refer to it as "the
+subject."
+
+(press any key to continue)
+
+Lobster's Lab
+It is here, from within your tank, that you plot the return of havoc to the
+world.
+
+Before you is The Servant's dissection table, upon which the subject lies,
+ready for monsterification.  Leaping lightning lashes light the laboratory.
+Your immense, weirdly-shaped claws reach all over the lab, ready to pinch
+anything.
+
+Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
+reanimating serum and the envenomator.
+The mad veterinarian cackles to himself, awaiting your choice of instruments.
+"Servant, let the monsterification begin!"
+
+Under your telepathic command, The Servant opens up the subject to receive
+your augmentations...
+
+> take scalpel
+You grasp the scalpel with one of your mighty pincers.
+
+> give scalpel to servant
+You press the scalpel into The Servant's gloved hands.
+
+> take sprinkles
+You grasp the rainbow sprinkles with one of your mighty pincers.
+
+> give sprinkles to servant
+You press the rainbow sprinkles into The Servant's gloved hands.
+The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+
+> take envenomator
+You grasp the envenomator with one of your mighty pincers.
+
+> give envenomator to servant
+You press the envenomator into The Servant's gloved hands.
+The Servant puts all the poison onto the subject.  He channels your own
+(telepathic) maniacal laughter.
+
+> take serum
+You grasp the reanimating serum with one of your mighty pincers.
+
+> give serum to servant
+You press the reanimating serum into The Servant's gloved hands.
+The Servant injects the reanimating serum into the subject and, with
+bloodshot anticipation, watches it twitch.
+
+"It's alive... it's ALIVE!"
+
+*     *     *     *
+THIS JUST IN: CUTE VISITOR SPREADS PLAGUE!
+Parents, keep your children away from anything that might have been near the
+DOG recently captured by authorities.  Local hospitals have admitted a number
+of patients suffering from flesh-eating bacteria after coming into contact
+with the creature's saliva.
+
+If you or anybody you know may have had contact with the deadly,
+poison-tongued DOG, please seek help immediately.
+
+(press enter to continue)
+
+>
+
+Deaths: 3012
+Mayhem: 600
+Destruction: $0k
+Infection: 6
+
+"Incredible!  What chaos you wield, that looses such havoc upon the world, My
+Master!"
+
+What will call the next species to unleash your lobstery wrath?
+
+> BAT
+Species #4: the BAT is dead.  Now it lies on the dissection table, ready for
+monsterification.  Proper procedure requires you must now refer to it as "the
+subject."
+
+(press any key to continue)
+
+Lobster's Lab
+It is here, from within your tank, that you plot the return of havoc to the
+world.
+
+Before you is The Servant's dissection table, upon which the subject lies,
+ready for monsterification.  Leaping lightning lashes light the laboratory.
+Your immense, weirdly-shaped claws reach all over the lab, ready to pinch
+anything.
+
+Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
+reanimating serum and the envenomator.
+The mad veterinarian cackles to himself, awaiting your choice of instruments.
+"Servant, let the monsterification begin!"
+
+Under your telepathic command, The Servant opens up the subject to receive
+your augmentations...
+
+> take scalpel
+You grasp the scalpel with one of your mighty pincers.
+
+> give scalpel to servant
+You press the scalpel into The Servant's gloved hands.
+
+> take sprinkles
+You grasp the rainbow sprinkles with one of your mighty pincers.
+
+> give sprinkles to servant
+You press the rainbow sprinkles into The Servant's gloved hands.
+The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+
+> take envenomator
+You grasp the envenomator with one of your mighty pincers.
+
+> give envenomator to servant
+You press the envenomator into The Servant's gloved hands.
+The Servant puts all the poison onto the subject.  He channels your own
+(telepathic) maniacal laughter.
+
+> take serum
+You grasp the reanimating serum with one of your mighty pincers.
+
+> give serum to servant
+You press the reanimating serum into The Servant's gloved hands.
+The Servant injects the reanimating serum into the subject and, with
+bloodshot anticipation, watches it twitch.
+
+"It's alive... it's ALIVE!"
+
+*     *     *     *
+THIS JUST IN: CUTE VISITOR SPREADS PLAGUE!
+Parents, keep your children away from anything that might have been near the
+BAT recently captured by authorities.  Local hospitals have admitted a number
+of patients suffering from flesh-eating bacteria after coming into contact
+with the creature's saliva.
+
+If you or anybody you know may have had contact with the deadly,
+poison-tongued BAT, please seek help immediately.
+
+(press enter to continue)
+
+>
+
+Deaths: 4020
+Mayhem: 800
+Destruction: $0k
+Infection: 8
+
+"Incredible!  What chaos you wield, that looses such havoc upon the world, My
+Master!"
+
+What will call the next species to unleash your lobstery wrath?
+
+> RAT
+Species #5: the RAT is dead.  Now it lies on the dissection table, ready for
+monsterification.  Proper procedure requires you must now refer to it as "the
+subject."
+
+(press any key to continue)
+
+Lobster's Lab
+It is here, from within your tank, that you plot the return of havoc to the
+world.
+
+Before you is The Servant's dissection table, upon which the subject lies,
+ready for monsterification.  Leaping lightning lashes light the laboratory.
+Your immense, weirdly-shaped claws reach all over the lab, ready to pinch
+anything.
+
+Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
+reanimating serum and the envenomator.
+The mad veterinarian cackles to himself, awaiting your choice of instruments.
+"Servant, let the monsterification begin!"
+
+Under your telepathic command, The Servant opens up the subject to receive
+your augmentations...
+
+> take scalpel
+You grasp the scalpel with one of your mighty pincers.
+
+> give scalpel to servant
+You press the scalpel into The Servant's gloved hands.
+
+> take sprinkles
+You grasp the rainbow sprinkles with one of your mighty pincers.
+
+> give sprinkles to servant
+You press the rainbow sprinkles into The Servant's gloved hands.
+The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+
+> take envenomator
+You grasp the envenomator with one of your mighty pincers.
+
+> give envenomator to servant
+You press the envenomator into The Servant's gloved hands.
+The Servant puts all the poison onto the subject.  He channels your own
+(telepathic) maniacal laughter.
+
+> take serum
+You grasp the reanimating serum with one of your mighty pincers.
+
+> give serum to servant
+You press the reanimating serum into The Servant's gloved hands.
+The Servant injects the reanimating serum into the subject and, with
+bloodshot anticipation, watches it twitch.
+
+"It's alive... it's ALIVE!"
+
+*     *     *     *
+THIS JUST IN: CUTE VISITOR SPREADS PLAGUE!
+Parents, keep your children away from anything that might have been near the
+RAT recently captured by authorities.  Local hospitals have admitted a number
+of patients suffering from flesh-eating bacteria after coming into contact
+with the creature's saliva.
+
+If you or anybody you know may have had contact with the deadly,
+poison-tongued RAT, please seek help immediately.
+
+(press enter to continue)
+
+>
+
+Deaths: 5030
+Mayhem: 1000
+Destruction: $0k
+Infection: 10
+
+"Incredible!  What chaos you wield, that looses such havoc upon the world, My
+Master!"
+
+What will call the next species to unleash your lobstery wrath?
+
+> OWL
+Species #6: the OWL is dead.  Now it lies on the dissection table, ready for
+monsterification.  Proper procedure requires you must now refer to it as "the
+subject."
+
+(press any key to continue)
+
+Lobster's Lab
+It is here, from within your tank, that you plot the return of havoc to the
+world.
+
+Before you is The Servant's dissection table, upon which the subject lies,
+ready for monsterification.  Leaping lightning lashes light the laboratory.
+Your immense, weirdly-shaped claws reach all over the lab, ready to pinch
+anything.
+
+Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
+reanimating serum and the envenomator.
+The mad veterinarian cackles to himself, awaiting your choice of instruments.
+"Servant, let the monsterification begin!"
+
+Under your telepathic command, The Servant opens up the subject to receive
+your augmentations...
+
+> take scalpel
+You grasp the scalpel with one of your mighty pincers.
+
+> give scalpel to servant
+You press the scalpel into The Servant's gloved hands.
+
+> take sprinkles
+You grasp the rainbow sprinkles with one of your mighty pincers.
+
+> give sprinkles to servant
+You press the rainbow sprinkles into The Servant's gloved hands.
+The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+
+> take envenomator
+You grasp the envenomator with one of your mighty pincers.
+
+> give envenomator to servant
+You press the envenomator into The Servant's gloved hands.
+The Servant puts all the poison onto the subject.  He channels your own
+(telepathic) maniacal laughter.
+
+> take serum
+You grasp the reanimating serum with one of your mighty pincers.
+
+> give serum to servant
+You press the reanimating serum into The Servant's gloved hands.
+The Servant injects the reanimating serum into the subject and, with
+bloodshot anticipation, watches it twitch.
+
+"It's alive... it's ALIVE!"
+
+*     *     *     *
+THIS JUST IN: CUTE VISITOR SPREADS PLAGUE!
+Parents, keep your children away from anything that might have been near the
+OWL recently captured by authorities.  Local hospitals have admitted a number
+of patients suffering from flesh-eating bacteria after coming into contact
+with the creature's saliva.
+
+If you or anybody you know may have had contact with the deadly,
+poison-tongued OWL, please seek help immediately.
+
+(press enter to continue)
+
+The city is totally destroyed.  The lobstery wrath of your menagerie of
+horror has prevailed!  Next: WORLD DOMINATION!

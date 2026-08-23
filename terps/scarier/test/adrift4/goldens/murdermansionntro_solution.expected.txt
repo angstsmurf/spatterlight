@@ -1,0 +1,226 @@
+Loading game...
+
+Murder Mansion
+
+Introduction
+
+Murder Mansion
+
+Interactive Fiction
+Copyright © 2005 by Reelyor (Roy Lee);
+Version 1.0 / ADRIFT 4.00 Release 46 / Mystery's Default Library
+
+Do you wish to review the credits, instructions and introduction (Y/N)?
+
+> Y
+
+  Welcome to The Murder Mansion, where you will attempt to solve the murder
+of a victim that has occurred in one of 8 rooms in an old mansion. Each time
+you begin a new game, the location of the murder, the weapon and the murderer
+will be chosen at random by the author, for your sleuthing pleasure.
+
+Now, would you like to:
+
+1 - View the credits for the game;
+2 - Review special commands and general instructions used in this game;
+3 - Read the Introduction first and play the game;
+4 - Continue on to the game?
+
+> 1
+
+  Credits
+
+   This text adventure is loosely based on Clue, the board game by Hasbro
+Corporation, the movie, and book series. The idea of a Glossary was offered
+by Whatever. To the best of my knowledge, DavidW originated the concept of a
+room as a title screen, along with creating the means of choosing several
+options at the onset of the game.
+   Everything else is my idea.
+   Roy
+
+(Please press any key)
+
+   The Murder Mansion
+
+Now, would you like to:
+
+1 - View the credits for the game;
+2 - Review special commands and general instructions used in this game;
+3 - Read the Introduction first and play the game;
+4 - Continue on to the game?
+
+> 2
+
+Special Commands and General Instructions
+(All are disabled at present except "glossary")
+
+  There are several special commands that can be entered at any time. They
+are listed alphabetically as follows:
+accuse - This command is used to make a formal accusation when you feel you
+have deduced the required information: the Person who committed the murder,
+the Weapon that was used to commit it, and the Place where the murder
+occurred. To make the accusation, you must first summons all of the occupants
+of the mansion to the Entry Hall by ringing the servants buzzer in the
+kitchen, and then proceed to the Hall where you will make your accusation in
+front of everyone.  (Disabled for this Intro)
+COMMAND - this will call up this screen to allow you to review these
+commands.
+glossary - This will bring up a list of terms and information that may assist
+you in understanding the crime and how to solve it. (Incomplete for this
+Intro)
+
+General Instructions
+  Be sure to look or examine frequently, and to ask about certain things you
+want to know and ask questions of the people you will encounter. Be aware
+that some people will either try to avoid questioning or give you vague
+answers. Be persistent.
+  Also, use each of your senses to investigate those things you feel might
+have a bearing on the case. Verbs such as touch or feel, smell, listen and
+taste may provide an important clue.
+  Above all, I hope you enjoy the game!
+
+ Please press any key
+
+   The Murder Mansion
+
+Now, would you like to:
+
+1 - View the credits for the game;
+2 - Review special commands and general instructions used in this game;
+3 - Read the Introduction first and play the game;
+4 - Continue on to the game?
+
+> 3
+   And so it starts...
+
+  The wind-swept cold rain lashes your face as you walk up the long
+cobblestone pathway towards the front door of the Harrington Mansion on this
+night of March 13th, 1938. On your approach to the front entrance, your eyes
+carefully scan the well-manicured landscape, absorbing the hedge-lined walk
+and occasional statuary. Turning your attention towards the huge shadowy
+building ahead, you quickly notice that there are very few lights on inside
+the dwelling, and what little illumination you do see at two of the bottom
+floor windows seems to flicker behind the thin curtains. Gripping your hat
+tenaciously in defiance against a gust of wind in the ungodly weather, you
+step under the portico, grateful for a moment's respite from the rain. Your
+hopes for a warm, quiet night at the Division Headquarters have been
+shattered by the phone call you received some half hour ago that reported a
+murder at this location.
+   As you prepare to rap the door knocker, you reflect on the fact that the
+anonymous female caller seemed calm and had only reported that someone had
+died. No other information was obtained before the line went dead.
+   Now, as Chief Inspector, it falls on your broad shoulders to investigate
+the heinous crime, and bring justice to bear by naming the killer, the
+location where the murder occurred, and by securing the weapon!
+
+(Please press any key)
+
+Front Stoop
+   You huddle under the portico roof at the front door of the mansion as your
+eyes become accustomed to the darkness. The wind howls around you as a cold
+rain pelts your face with the semblance of a thousand tiny needles pricking
+your exposed skin, and the meager illumination from the street lights some
+hundred feet away flicker as tree branches dance in the gusty winds, casting
+sporadic light into the shadows where you stand.
+   Tall trellises devoid of any living vegetation rise at the each side of
+the stoop, placed as a barrier to the tall, broad shrubbery that grows beyond
+near the house. Above you, set into the ceiling of the portico, is an ornate
+light that is not turned on at this time, and except for the faint and
+erratic glow from the street you stand in darkness.
+  A large mahogany door, inset into the portico framework of the house, looms
+in front of you, with an ornate brass door knocker mounted to its face.
+
+> look
+   That will not reveal any necessary evidence for your investigation.
+
+> examine door
+   Your hand moves over the once smooth surface of the old door, revealing
+only that it is rough and in need of refinishing. You look at your fingers
+and observe that a dark brown stain is on each of the tips where you touched
+the door. Filing this piece of information away in your mind, you wipe your
+fingers with your clean handkerchief.
+
+> examine knocker
+   The metal of the knocker is quite heavy to your touch. You hear a tiny
+squeak as you heft the ring. There is nothing else that arouses your
+interest.
+
+> examine trellis
+   You reach out and touch the trellis, testing its firmness. The wet and
+rotting wood reveals only that it is old.
+
+> examine bush
+  As you reach out and touch the small branches of the bush nearest where you
+stand, you observe that one of the branches draws your attention in that it
+has been completely stripped of its leaves. You remove a couple of the tiny
+leaves and put them in your pocket.
+
+> examine light
+   It is too high above you to reach. Your sense of sight is all you can use
+at the moment.
+
+> examine keyhole
+   That will not reveal any necessary evidence for your investigation.
+
+> look street
+   You gaze in the direction of the lit roadway and see the streetlamps
+flicker as the wind-tossed tree branches momentarily block the light.
+
+> look portico
+   The portico is a raised concrete slab with an overhanging roof supported
+by two large columns. A large door marks the entryway into the house.
+
+> look rain
+   The rain falls at a diagonal slant, blown sideways by the strong winds.
+Puddles on the walkway are dimpled by the falling drops, forming miniature
+fountains as each drop splashes the surface.
+
+> bang knocker
+   You bang the knocker on the door loudly and in a few seconds you hear a
+metallic sound and a "thunk" as the bolt is thrown back. Almost immediately,
+the large wooden door opens back, and a youngish woman in a maid's uniform
+greets you somberly.
+   "Hello, Sir. You must be from the Police. I'm Maid Marian, Sir Basil's
+servant. Please come in and I'll fetch him," she says, stepping back.
+   You enter the room, closing the door behind you. Turning around, you find
+yourself in a large room.
+
+(Please press any key)
+
+Entry Hall
+   You are standing on an imported antique red and gold persian rug that
+covers the high-gloss wood floor of a large rectangular room that is
+approximately 30 feet wide by 50 feet long. The visibility is difficult as
+none of the electric lights are on - all of the illumination is derived from
+several candles flickering on tables at various locations of the room.
+  Along the east wall, rising to a landing above, is a dimly-lit marble
+staircase and ornate railing. At the top there is a balcony which fades into
+the darkness. Along the rose-colored walls are several doors that you assume
+lead to adjoining rooms. Hung on the walls between the doors are several
+large paintings of various scenes, as well as a lion's head, a bear's head,
+an elk's head and a rhinocerous' head - trophies that lend an eerie
+atmosphere to the dark of the room. On the floor, between each of the doors,
+are plush red velvet upholstered settees and chairs and attendant small oak
+tables at which you observe some people who are seated, looking at you.
+   A tall, portly man in his sixties with a flushed face approaches you.
+  "Ah, Inspector. Good of you to come on such a dreadful night. I am Sir
+Basil Harrington, the owner of this abode. These are a few of my guests," he
+says, turning and tossing his hand about.
+  He turns back to you and continues, "I was having my annual birthday party,
+and I invited some acquaintances to attend. (Some I don't know)," he
+whispers, "(they came with others as guests.) Some of us were in the Dining
+Room discussing the the appalling state of affairs in Europe when the power
+suddenly went out. Blast this storm! We had no sooner lit some candles to
+give us light when Marian suddenly came in to report that one of the guests,
+Harriet Wilmark, was found dead in the elevator. The body is still there.
+  "This is all such a dreadful mess! I wish you could investigate this matter
+immediately, but I'm afraid this is as far as you can go right now......"
+
+(Please press any key)
+
+Thank you for trying my Intro to Murder Mansion
+
+     Roy
+
+> quit
+Do you really want to quit? [Y/N]

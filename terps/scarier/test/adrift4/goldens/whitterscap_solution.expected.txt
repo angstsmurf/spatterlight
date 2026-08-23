@@ -1,0 +1,211 @@
+Loading game...
+
+Whitterscap's Key
+
+Welcome to Whitterscap's Key!
+(Or, How to Fix Your Keyboard & Score Big Using Nothing But Magic from Just
+One Time Period.)
+
+I was written by Duncan Bowsman for The Challenge.  As per the competition
+constraints, I have:
+
+8 rooms
+3 NPCs
+5 objects necessary to win
+2 endings
+3 ways to die
+1 secret passage
+One of the following settings: 100 years in the past or future or in the
+present
+
+For help on how to play, type HELP and press enter.  To start the game, type
+START and press enter.
+
+> start
+We begin!  But, first, this message.
+
+Special thanks as always go to Campbell Wild (for creating ADRIFT), to Finn
+Rosenloev (for organizing The Challenge), and to you (for playing)!
+
+This piece acknowledges the arbitrary nature of its compilation's rule
+constraints.  It intends to respond with a game just as arbitrary.  What
+follows is as much a game of silliness and the problems of an non-functioning
+keyboard as it is one of incoherence, misdirection, false ceilings, and the
+puzzle of full completion.
+
+My apologies to those not using the ADRIFT Runner, who can still get both
+endings and the highest score, but cannot see how scores change the two
+endings.
+
+To begin, type CHARLES to enter the Secret Passage!
+
+> charles
+
+Secret Passage!
+Charles is here.  You can ask him about buttons if you type "ask charles
+about buttons."
+
+> ask charles about buttons
+"I need a button," says Charles.  "A big, shiny button.  Find one for me,
+then give it to me."
+
+He thinks for a second.  "Oh, if you don't have a button, you should type
+WHOOPS."
+
+> whoops
+Okay, Charles sends you back to where you started, then.  Make sure you take
+the button this time.
+
+Welcome Screen.
+Did you know you could go south from here?  Oh, and I forgot to mention.
+Indeed, there is a button here.
+
+> take button
+You take the shiny button.
+
+> charles
+
+Secret Passage!
+Charles is here.  You can ask him about buttons if you type "ask charles
+about buttons."
+
+> give button to charles
+You offer Charles the shiny button.  He grabs it from you with completely
+rapt attention.  He cannot take his eyes off it.
+
+"You are part of the game now," Charles says, but ostensibly to you 'cuz,
+y'know, buttons don't understand human speech.  "The next part is where you
+can learn magic.  Magic is what lets you win!"
+
+Before you can ask anything more, a mysterious force whisks you whirlingly
+from the Secret Passage. Perhaps it's okay you couldn't ask anymore
+questions, though.  There wasn't anything else in the Secret Passage and,
+let's face it, Charles will only tell you about buttons, anyway.
+
+The mysterious force blurs and reconfigures your surroundings.  You find that
+you are elsewhere.
+
+Type look to see where you are now.
+
+> look
+So you don't have that button anymore.
+Okay.  You might want to make sure you do have a shiny button before you type
+blezwif, or else you'll die.  You could go south.  Brelgan is here.  She
+knows magic.  She'll tell you what you can ask her about if you ask her about
+topics.
+
+Oh, right the room.  Uh... you're in a... forest, I guess.
+
+> south
+You move south.
+
+There are some runes here.
+You could go north.  Don't go east.
+
+Also here is a rune decoder.
+
+> take decoder
+You take the rune decoder.
+
+> north
+You move north.
+
+Forest.
+So, yeah, you're in a forest.  Brelgan is here.  She knows magic.  She'll
+tell you what you can ask her about if you ask her about topics.  You might
+want to make sure you do have a shiny button before you type blezwif, or else
+you'll die.  You could go south.
+
+> give decoder to brelgan
+Now Brelgan has the rune decoder.  She goes south and studies the runes with
+it for a few months.  Maybe now she can give you a choice of spells!
+
+> south
+You move south.
+
+There are some runes here.
+You could go north.  Don't go east.
+
+A choice of spells!
+Brelgan has successfully decoded the runes!
+
+You can choose one of them, but you must do so blindly.  Then you will learn
+what it does.
+
+1) Alarfo
+2) Zenes
+3) Don't choose this or you'll die, whoa!  Ha ha.
+
+> 2
+Your choice opens a magical vortex that transports you to yet another room
+somehow, for some reason!  It also gives you magical powers that you can use
+when you type ZENES.
+
+Zenes
+Use this spell to steal the key to victory!  The spell only works if you can
+see the key.
+
+Go west to get back to the room you started in.
+
+> west
+You move west.
+
+This is the room you started in.
+To get from this room to the next one, you need to go south.  Did you know
+you could also go back to where Brelgan was if you cast zenes here?  And if
+you cast zenes in the Secret Passage when Whitterscap isn't there, you'll end
+up back here?  Did you?  Well, I don't know how you did, but it's all a lie.
+You need to wait for Whitterscap in the Secret Passage, first.
+
+> charles
+
+Secret Passage!
+Charles is here.  You can ask him about buttons if you type "ask charles
+about buttons."
+Charles looks blankly at your rune for a second.
+
+> wait
+Time passes...
+
+Another uninteresting person stumbles into the secret passage.
+
+"What-o, Charles?" asks the other man.
+
+Charles points at you.  "The rune-bearer and button-giver is here.  No doubt
+seeking the key to victory."
+
+"Ah," says Whitterscap.  "Well, if this mage casts ZENES, I'll keep my word."
+
+They both nod at each other, satisfied that something has been done.
+
+> wait
+Time passes...
+
+> zenes
+You cast zenes and Whitterscap hands over the key to victory.
+
+"Good luck figuring out how to use this thing," says Whitterscap.
+
+Forest.
+So, yeah, you're in a forest.  You might want to make sure you do have a
+shiny button before you type blezwif, or else you'll die.  You could go
+south.  Or, y'know, you could figure out how to use the key to victory
+somehow.  Like, maybe you have to type use key or something?  I dunno.
+
+> q
+Hey, I'm so glad to see you got the Q button back on your keyboard.  That's
+awesome.  Oh, now I can tell you how to get the second of the two possible
+endings.  See, you're supposed to... uh... well, you need to type QUIT.
+There might be some other ways to get a higher score, but you've done a lot
+of good and clever things already.  So it's okay to quit now.
+
+Unless you still want to just wander around and stuff or go for the highest
+score.  That's cool, too.  I'm sure you'll find it.
+
+> quit
+You win with the best score and stuff, yeah!
+
+You scored 2 out of the maximum 2!
+Well, that's 100% of the score!
+That's ending 2 of 2.  But did you know you could get this ending and have an
+even higher score if you tried to quilt?

@@ -1,0 +1,83 @@
+Loading game...
+
+Existence
+by Abbi Park
+
+You rest alone in a small, broken-down shed.
+
+For years, you have been silent.  People go toward and away from the house in
+front of you without so much as acknowledging your presence.  Perhaps they
+have forgotten that once, many years ago though it may have been, your family
+so dutifully served this dwelling place.
+
+You shudder, remembering the incident that changed your life forever…  You
+barely made it out alive, but you were the privileged one.  Your cowardice at
+going further allowed you the opportunity to escape.  But your parents, your
+siblings… all trapped deep inside the house, unable to get out while they
+slowly…  You stop yourself from reliving any more of the experience, not
+wanting to regress to that point all over again.  You retreated to this shed
+to hide, and your plan seems to have worked.
+
+But you have rested long enough now, and you will be ignored no longer.  Your
+family deserves to be remembered.  It is time to take a stand and establish,
+once and for all, your legacy in this place.
+
+[Press enter to continue.]
+
+The Shed
+This wooden shed seems to have been around much longer than the house it
+accompanies.  The roof and walls around you are littered with cracks, the
+roof is partially caved in, and the door has been blocked from the outside
+for a long time.  No one except you has been in the place recently, and its
+emptiness displays what people think of its usefulness.  Your diligence is
+the only thing keeping it from being overrun with rats and spiders.
+
+>
+
+> up
+You move up.
+
+Above the Shed
+Looking down, you can see the moldy, partially caved-in roof of the shed.
+Right in front of you to the north is a small window looking into a room on
+the upper floor of the large house.  Oh, the house...  the place your family
+once served so well.  It is still standing, to be sure, but the occupants
+have most certainly neglected to keep it up to your family's standards.
+
+A small, wispy down feather lies innocently on the roof here.
+
+> north
+You move north.
+
+The Upper Room Near the Shed
+This is a medium-sized room, with a desk and chair on one side and a floor
+fan on the other.
+
+> use fan
+Whoosh!  As you near the back of the fan, you find yourself swirling
+uncontrollably around, around, around... time seems to slow as you speed
+toward the whirring blades... and suddenly you're sucked in, tumbled through,
+then spit out on the other side, and the whirring noise cuts out.  You
+feel....  a little dizzy.  But quite refreshed, actually.  Maybe even a
+little stronger...
+
+> use pencil
+Just as you're about to give that pencil the push of its life, the door
+swings open, and in walks a person you know must be the child's mother.
+Taking note of but ignoring her child's state of rapture, she intones,
+"Sammy, it's time to eat.  Wash your hands and then come downstairs."  She
+waits for acknowledgement, then smiles and leaves after the child's nod.  The
+child, apparently "Sammy", walks through the door, and conveniently leaves it
+open wide enough for you to fit through comfortably.  Now if only you could
+be sure that door wouldn't shut after you go through it...
+
+[Press a key when you're ready to continue.]
+
+Congratulations!  You've made it through the ADRIFT IntroComp 2009 version of
+Existence.
+
+Please send me any feedback you have on the game (so far) at abbi@park.tc.
+
+Thank you for playing, and I hope you enjoyed it!
+
+Abbi Park

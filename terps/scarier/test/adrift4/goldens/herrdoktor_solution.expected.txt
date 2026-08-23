@@ -1,0 +1,161 @@
+Loading game...
+
+Herr Doktor von Nördlingendinkelsbühlhündchen-am-Rhein
+The good Herr Doktor von Nördlingendinkelsbühlhündchen-am-Rhein is the most
+famous inventor in the world. It was he who designed those little warning
+lights that come on in the airplanes when you should put your seat-belt back
+on, it was he who created an ice cream that wouldn't freeze solid and get
+those nasty ice crystals in it if you left it in the freezer too long, and it
+was he who poured heart and soul, years of his life, and millions of dollars
+into the revolutionary new video technology of Betamax.
+
+Well, nobody's right all the time.
+
+Recently, the good doctor has hit a mental roadblock on the greatest
+invention ever conceived by man: namely, he forgot what the hell it was
+supposed to be. After several hours of thought, he has decided to take a good
+old-fashioned German constitutional, to clear his head and maybe buy some
+sweetrolls...
+
+Nifty Street
+Nifty Street is a pleasant, well-lit, and tidy street. Perhaps coincidentally
+(but probably not), it has the densest concentration of German people in the
+world, excluding places that are actually in the country of Germany. Trees
+line either side of the road, and occasionally a shopper or just somebody out
+for a walk (much like our good doctor) passes by. An attractive,
+well-groomed, and shaded park lies to the south, while a bakery is open on
+the east side of the street, and the good doctor's laboratory squats on the
+west side.
+
+> s
+The good doctor walks south.
+
+The Park
+The Nifty Street Public Park is the favorite meeting place of many people who
+like to walk in the shade, chat idly with friends, or have illicit sex behind
+the biggest oak tree in town with a complete stranger. Some people also like
+the gardens. The paths of the park rejoin Nifty Street to the north.
+
+Several people appear to be clustered around a well.
+
+> examine tree
+This is the largest tree in town, planted at the town's founding as a symbol
+of its people's moral uprightness. It is also the most common place for
+teenagers to come to smoke, drink, or fornicate. Go figure.  An acorn is on
+the large oak tree.
+A man exclaims, "We've got to get her out of there!"
+
+> take acorn
+The good doctor takess the acorn from the large oak tree.
+
+> tie acorn to pole
+The good doctor ponders something for a moment. "I haff ein idea!" he says.
+He then proceeds to tie an acorn to the end of his sonic fishing pole.
+A woman screams, "Won't somebody please help her?!"
+
+> n
+The good doctor walks north.
+
+Nifty Street
+Nifty Street is a pleasant, well-lit, and tidy street. Perhaps coincidentally
+(but probably not), it has the densest concentration of German people in the
+world, excluding places that are actually in the country of Germany. Trees
+line either side of the road, and occasionally a shopper or just somebody out
+for a walk (much like our good doctor) passes by. An attractive,
+well-groomed, and shaded park lies to the south, while a bakery is open on
+the east side of the street, and the good doctor's laboratory squats on the
+west side.
+
+> squirrel
+The good doctor casts the line of his sonic fishing pole, complete with
+acorn, into the tree the squirrel currently inhabits. The squirrel sniffs at
+the acorn, gobbles it up, and then starts making little contented squirrel
+sounds. It hops down onto the ground in front of the doctor.
+
+> take squirrel
+The good doctor takess the squirrel.
+
+> attach cylinder to squirrel
+The good doctor raises the little squirrel's arms and attaches the tiny tube
+to its back by virtue of the miniature armstraps. The squirrel looks
+strangely like a little astronaut with a jetpack....
+
+"Oh ja!" exclaims the doctor. "I remember now! Zis is ein jetpack for small
+things!"
+
+> e
+The good doctor walks east.
+
+The Bakery
+The Nifty Street Bakery is practically an institution by now: its sweetrolls
+have brought joy to the townspeople for nearly a century. In fact, they've
+basically cut out everything except the sweetrolls by now. A large sign says,
+"BUY a SWEETROLL!" The door to Nifty Street is in the west wall.
+
+> buy roll
+The good doctor, in violation of logic and physics, actually manages to find
+some money in his pockets with which to purchase a sweetroll. He then tucks
+it into his coat for no reason whatsoever and gets some lint on it.
+
+> w
+The good doctor walks west.
+
+Nifty Street
+Nifty Street is a pleasant, well-lit, and tidy street. Perhaps coincidentally
+(but probably not), it has the densest concentration of German people in the
+world, excluding places that are actually in the country of Germany. Trees
+line either side of the road, and occasionally a shopper or just somebody out
+for a walk (much like our good doctor) passes by. An attractive,
+well-groomed, and shaded park lies to the south, while a bakery is open on
+the east side of the street, and the good doctor's laboratory squats on the
+west side.
+
+> remove lint from sweetroll
+The good doctor brushes absentmindedly at the lint on the sweetroll, but
+doesn't seem too concerned with it.
+
+> put roll in jetpack
+The good doctor tucks the sweetroll bit by bit into the jetpack. "Zere!" he
+says. "Der carbohydrates contained in der sveetroll should be plenty to fuel
+zis jetpack!"
+
+> s
+The good doctor walks south.
+
+The Park
+The Nifty Street Public Park is the favorite meeting place of many people who
+like to walk in the shade, chat idly with friends, or have illicit sex behind
+the biggest oak tree in town with a complete stranger. Some people also like
+the gardens. The paths of the park rejoin Nifty Street to the north.
+
+Several people appear to be clustered around a well.
+A man exclaims, "We've got to get her out of there!"
+
+> put squirrel in well
+The good doctor walks over to the well and sets the squirrel on the edge.
+"Now, shkvirrel," he says. "I vant you to JUMP into zis vell and rescue der
+little girl!"
+
+The squirrel cocks its head at the good doctor.
+
+"GO!"
+
+The squirrel springs into the well. There is a brief pause, and then the
+crowd watches in amazement as the squirrel and the little girl go flying into
+the air, propelled by the squirrel's tiny jetpack. "Oh!" says the doctor.
+"Mein tiny jetpack ist ein success!"
+
+The girl and the squirrel alight upon the path gently. Running out of the
+crowd, the girl's mother snatches her up and runs away.
+
+The good doctor puts his hands in his pockets and rocks back and forth on his
+heels. "Vell! Zat vas pretty good. Now if only I could remember mein
+inventio--"
+
+The doctor interrupts himself. "I haff it! I must write it down!" He dashes
+off to his laboratory as the crowd starts to disperse. Five minutes later, he
+walks back into the park.
+
+"What happened, doctor?" calls out a man?
+
+"I forgot vere I put mein keys."

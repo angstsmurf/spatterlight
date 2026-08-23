@@ -1,0 +1,91 @@
+Loading game...
+
+Zack Smackfoot
+
+THWACK
+
+CRACK
+
+CRASH
+
+Then there was blackness
+
+. . . .  Press a key to continue
+
+Coming round you recall that the plane, that you were at the controls of,
+crashed through the canopy of trees and seems to be partially buried, nose
+down at an angle, in the floor of the jungle that you were travelling over on
+your way to Florida.The dry earth fills the space in the front of the
+aircraft that used to be occupied by the glass of the windshield.
+
+You gently feel around yourself, and check that all of your limbs appear to
+be in working order. Once you confirm that you have survived the crash of
+your light aircraft surprisingly unscathed, you survey your surroundings,
+unbuckle and remove your seatbelt. Quickly retrieving your loaded handgun
+from beneath your seat, you never know who or what you can meet in the
+jungle, you try to decide what the best course of action would be.
+
+The cockpit
+Luckily the cockpit was robust enough to protect you from the worst ravages
+of the crash. The emergency light above illuminates the controls in front of
+your seat look that look dead. Near to the seat is the side door to the
+aircraft and back, back through behind a curtain is the cargo area of the
+plane.
+
+A metal briefcase is slid down beside your seat.
+
+> take briefcase
+You take the briefcase.
+
+> back
+You move the curtain aside and go back to the cargo bay.
+
+Cargo bay
+A metal lined shell provides a good space for you to carry assorted goods
+around. You can go forward, through the dividing curtain, to the  cockpit.
+
+Beside the rear cargo door is a small control panel.  There is a bulky crate
+lashed up against the side of the plane.
+
+> open penknife
+You open your penknife.
+
+> put knife in slot
+A quick push and the button in the slot operates a quick release allowing the
+cargo door to lower under it's own weight.
+The door hit's the ground with a crash.
+
+> out
+You move out.
+
+By the aircraft
+The body of your aircraft, partially buried, is beside you. All around are
+trees and the sounds of a myriad of birds and animals, many of which you
+would prefer not to meet.
+
+. . . .  Press a key to continue
+
+___________________________
+
+Zack Smackfoot
+Escape from the
+Jungle Terror
+
+(Version 0.5)
+
+by
+
+Ken Franklin
+___________________________
+
+. . . .  Press a key to continue
+
+You have made it out of the aircraft, but as you look around you it is clear
+that that was the simple part. Getting out of the jungle alive is a
+completely different challenge.
+
+The owners will be pleased you brought the case with you. You just hope that
+you aren't caught by the authorities with it otherwise it might be hard to
+explain if your suspicions about the contents are right.
+
+THE END . . . . . for now!

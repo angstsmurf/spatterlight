@@ -1,0 +1,262 @@
+Loading game...
+
+The Dangers of Driving at Night
+You're making the long trip back to your college after a visit to your
+parents on a four-day weekend, and decided to pull an all-nighter on the
+road, despite your father's protests--he's always been a little
+overprotective.
+
+"C'mon princess, you know I get worried enough having my pretty girl on the
+road alone with all those sickos out there these days, the least you can do
+is make sure you stop somewhere and get some rest. You really shouldn't drive
+all night without sleep, it's just not safe."
+
+Stifling a yawn as yet another mile flies by, you have to admit that maybe he
+was right. Peering ahead into the darkness, you watch for signs or
+lights...there's supposed to be a little town somewhere up ahead, and if
+nothing else you hope you can find a store still open and willing to sell you
+some coffee.
+
+> n
+You move north.
+
+Lonely Road
+When you were a child you used to love it when your parents took you and your
+brother on long drives at night. Going out of town on a visit to your aunt's
+during the day was an exercise in boredom and frustration, but at night,
+gazing out the window at distant twinkling lights, time losing all meaning as
+you dozed and woke and dozed and woke again to what might as well have been
+the same indistinct scenery sweeping past as though in a darkly moving river,
+you felt wonderfully safe and secure.
+
+Being the one responsible for driving the car is obviously not as relaxing an
+experience, but just the same, as the unchanging road flows under your tires
+and you drive on and on to the north, you feel your eyelids getting heavy...
+
+> n
+It was only a second, maybe even a fraction of a second that you nodded off,
+but when you opened them there was an animal in the road. Instinctively
+slamming on the brakes and struggling to keep from losing control as your car
+wildly swerves, you have only the briefest impression of irridescent yellow
+eyes reflecting your headlights back at you, and then an indistinct shape
+loping off into the brush.
+
+Brakes screeching, a heartbeat later the car comes to rest with a grating
+noise against a guardrail. You don't think there was any major damage--a
+nasty dent that will need to be looked at later, to be sure, but as there
+seems to be some kind of steep drop off on the other side of the rail it
+clearly could have been a lot worse. The animal is nowhere to be seen...
+
+Wait a minute...now that you think about it, what was it that you almost hit?
+Your first impression was that it was some kind of dog, but judging from the
+eyes, it would have had to be a big dog, about the height of a deer, and the
+way it moved was all wrong. After a moment you shake your head and dismiss it
+from your thoughts - you only saw it in a split, panicked second, after all,
+and you've got more important things to worry about. Taking a deep breath,
+you ease your car back into the proper lane, for now the pounding of your
+heart doing an excellent job in keeping you awake despite your exhausted
+state as you continue northward.
+
+Lonely Road
+Thoroughly shaken by your close call, you note with a great sense of relief
+the glowing sign of a gas station beckoning to you just a little further
+north. This should be a good place to stop and take a look at the damage to
+your car. Anyway, glancing at your gas gauge you see that you are getting
+kind of low, and at any rate it would do you a world of good to stretch your
+legs a bit and get some caffeine in you.
+
+> n
+You move north.
+
+Parking Lot
+You've park your car at the closest pump and now stand next to it, trying to
+avoid stepping on any of the dozens of crickets that are always hopping
+around this time of year. A pair of street lights bathe the cracked parking
+lot in an eerie orange glow, a swarm of enraptured moths fluttering around
+them. The dubious comforts of the tiny gas station are to be found just to
+your east, a faded sign in a filthy window advertising a special on their
+fountain drinks.
+
+> e
+You move east.
+
+Gas Station
+Sagging racks of chips and candy take up most of the store's small interior.
+A cooler filled with soda and beer and covered in greasy fingerprints is in
+the back, and a fountain drink dispenser is crammed into a small alcove along
+with an ancient arcade machine. The place looks like it hasn't been cleaned
+in awhile, and blinding florescent lights starkly illuminate every bit of
+grime with unflattering effect, including the half-crushed and still
+twitching cricket just inside the door. A door in the alcove to the east
+seems to lead to the bathrooms, but judging by the state of the rest of the
+place you're not too eager to see them.
+A pale, gangly teenager stands in the alcove fiddling boredly with the arcade
+game.  The clerk is at the counter, looking utterly indifferent to your
+plight.
+
+> buy drink
+You pay for a large soda and $20 of gas, starting to tell the clerk the story
+of the wreck you almost had despite the fact that he barely seems to be
+paying attention. Getting to the part about denting your fender on the
+guardrail, you gesture outside, only then noticing that a large truck with a
+cattle trailer on the back has pulled up next to it, completely blocking it
+from view. The door is open, but you don't see the driver until a man comes
+walking around from the hidden side and climbs back in, reparking the truck
+at another pump and then just sitting there a long moment, gazing toward the
+store...and you get the uncomfortable feeling specifically at you...with an
+odd little smile.
+
+Entering, the smile is definitely directed at you as he doffs his cap,
+revealing thinning, unwashed hair. "Why hullo there, miss! I'm Harold. Been
+awhile since I seen such a pretty girl in this place...I hope you stay a good
+long while...maybe forever?"
+
+His clothes are filthy, covered with strange dark blotches, and you notice
+his fingernails are packed with grime when he turns to the clerk, slapping a
+hand down on the counter. "Oh, an' one of my damned hounds run off again...no
+telling what kind of mess he'll cause this time...you call me if you see or
+hear anything, alright? Or jus' don't try to deal with it yerself, for damn
+sure. You know what happened to..."
+
+Suddenly he seems to remember you're standing there and breaks off in
+mid-sentence, clearing his throat. "Ah, nevermind about that for now..."
+Turning to you, he adds, "I apologize for the language, miss, and of course I
+didn't mean to butt in while you were paying for your things...I'll just shut
+up and let you get on with your business." He grins toothily. "I'm sure we'll
+get plenty o' chances to talk later."
+
+Shaking your head, you say, "Actually, I think I'm done here," and gathering
+your things quickly, you prepare to leave.
+
+> w
+Halfway to the door, you're suddenly stopped as the kid you noticed playing
+the game earlier practically leaps in front of you. "Excuse me, ma'am!"
+
+"Ah...yes?" you ask, trying to hold back your annoyance. At this point you
+just want to get back on the road as quickly as possible.
+
+"Hi. I'm Chris. Um..." The boy fidgets awkwardly a moment, shooting a quick
+glance at Harold, who's giving him a cold stare, and seeming to be searching
+for words. "Sorry to bother you, but do you...uh, have some change I can
+borrow? For the game," he finishes lamely, nodding in the direction of the
+arcade machine.
+
+Silly as the request seems, he really seems determined to block your path to
+the door until you give him that change.
+
+> give change to chris
+Rolling your eyes a little and sighing, you tuck your drink under your arm
+and fish around in your purse until you come up with four quarters and
+wordlessly hold them out. Moving to take them from you, Chris instead grabs
+your hand, his nervous grip ice cold and surprisingly strong, and leans
+forward to hoarsely whisper, "Don't go out there! Or at least look around
+first. Look around carefully. Harold's done this before..."
+
+Then he releases you, says, "Anyway, thanks for the quarters!" loud enough
+for the whole store to hear, and scrambles quickly back over to the machine,
+pretending to focus his attention on it for a long moment before he risks a
+glance around, first at Harold, then at you.
+
+Dumbfounded, you pause in front of the door and glance toward the parking lot
+outside, trying to process what you just heard. Look around? At what?
+
+> look outside
+The kid is nuts, right?
+
+But...just to be safe...
+
+Uncertainly, you scan the parking lot. Is it your imagination, or did
+something move in the shadows just outside the pool of orange light?
+Something big?
+
+Your eyes are drawn to your own car. It's impossible to see inside it from
+here, and [i]surely[/i] you're imagining things this time, but are there two
+yellow eyes dimly visible in the back, or is that just the reflection from
+the store's lights?
+
+Then you notice something that is definitely real. Your front tire is
+completely flat. Everyone turns to stare at you as you let out a cry of
+exasperation, and blushing a little, you explain the problem, wondering aloud
+how it could have happened so quickly...it was just fine when you drove up.
+
+This whole scenario is becoming a bit surreal.
+
+Chris shoots an angry scowl in Harold's direction, which only deepens when
+the man gives a little chuckle. "Well ain't that something! Hard to believe
+the timing on that, isn't it? It must be the providence of the Lord that
+brought you nice and safe here before that damn tire gave out, if you'll
+pardon my language, miss..." As he continues to speak he steps closer, giving
+you a too-wide grin. It's all you can do to hold back a grimace at the
+stench--he smells like rotten meat, you realize. "...Anyway," he's saying,
+"ain't nothing can be done about it until the auto shop up the road opens in
+the morning. But I seem to recall there's a hotel right across from it, and I
+gotta go through town on the way to my place, so I'd be happy to give you a
+ride."
+
+You glance over at Chris. He's shaking his head, wide-eyed.
+
+Do you accept or refuse Harold's offer?
+
+> refuse
+Harold's grin disappears, his expression darkening in an instant.
+
+"Suit yourself," he sneers, turning on his heel and striding toward the door
+without another word. Once outside, you see him lean against his truck and
+light a cigarette, occasionally glancing toward the store and seeming in no
+hurry to leave.
+
+Bewildered and growing increasingly nervous, you bite your lip and try to
+think. So...what now? Chris seems to know something about what's going on,
+maybe you should talk to him.
+
+> talk to chris
+Chris shrugs. "Yeah...the guy's dangerous. And so are his dogs. I really
+don't want to talk about it in here though..." He glances meaningfully over
+at the clerk and then ducks his head, tapping a button rapidly to shoot down
+a couple of alien ships, a thoughtful frown lingering on his face. "Look," he
+finally says, "You see the door to the bathrooms there? Well, there's an exit
+at the end of the hall behind it...my van is parked out back." He looks at
+you and then shrugs again."I wasn't going to risk it because the, um, all the
+trees right there and no light and stuff...but I think if we move fast we
+should be all right. Just head for the door in the back when you're ready..."
+
+> e
+Feeling like you're out of options, you take another look out at the parking
+lot, and while Harold appears to be distracted fishing out another cigarette
+you catch Chris' eye and then leap into action, barreling through the back
+doors and down the short hallway to the exit, your unlikely rescuer
+scrambling along right behind you.
+
+Shouldering the door open, you stumble out onto a little slab of stained
+concrete and towards the beat up old van parked next to a leaking dumpster.
+The lighting is poor and the trees and thick brush do begin to press in a
+little close to the edge of the slab back here--for a moment you stare wildly
+into the darkness, remembering the shape you thought you saw moving there
+earlier--but Chris has already thrown himself into the van, and when he
+flings the passenger side open you waste no time in following suit, slamming
+the door behind you and locking it.
+
+You're still fumbling with your seatbelt when Chris revs the engine to life
+and the two of you go roaring around the side of the building, nearly running
+Harold down, and you get only a brief glimpse of his startled, enraged face
+as he leaps out of the way with surprising agility, and then you're leaving
+him in the dust, slumping in your seat with a sigh of relief as you speed
+toward the safety of the nearest town...at least, you hope you'll be safe
+there.
+
+"He won't be able to follow us!" Chris assures you quickly, as though sensing
+your concerns. "Not at this speed, anyway, when he's got to worry about all
+the dogs in the trailer...and there are people there that won't take kindly
+into him trying to bring them into town, and he knows it."
+
+"I suppose I'll take your word for it," you say, taking one last glance at
+the rearview mirror. Harold's truck is nowhere in sight. "Anyway, thank you.
+I don't know what would have happened if you hadn't warned me, and then you
+got me out of there, and I know you probably didn't want to get involved in
+the first place..."
+
+Chris shrugs playfully and meets your gaze in the mirror...only it takes you
+a moment to realize you don't actually see his reflection there. "Hey, no
+problem! It's the least I could do...after all, Harold was right about one
+thing, it's not often we see such a pretty girl around here!" He grins
+cheerfully, no longer bothering to hide his long, curved fangs.

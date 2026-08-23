@@ -1,0 +1,65 @@
+HORSE
+
+take scalpel
+give scalpel to servant
+take sprinkles
+give sprinkles to servant
+take envenomator
+give envenomator to servant
+take serum
+give serum to servant
+
+CAT
+
+take scalpel
+give scalpel to servant
+take sprinkles
+give sprinkles to servant
+take envenomator
+give envenomator to servant
+take serum
+give serum to servant
+
+DOG
+
+take scalpel
+give scalpel to servant
+take sprinkles
+give sprinkles to servant
+take envenomator
+give envenomator to servant
+take serum
+give serum to servant
+
+BAT
+
+take scalpel
+give scalpel to servant
+take sprinkles
+give sprinkles to servant
+take envenomator
+give envenomator to servant
+take serum
+give serum to servant
+
+RAT
+
+take scalpel
+give scalpel to servant
+take sprinkles
+give sprinkles to servant
+take envenomator
+give envenomator to servant
+take serum
+give serum to servant
+
+OWL
+
+take scalpel
+give scalpel to servant
+take sprinkles
+give sprinkles to servant
+take envenomator
+give envenomator to servant
+take serum
+give serum to servant

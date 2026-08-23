@@ -1,0 +1,20 @@
+Lophese
+male
+d
+e
+w
+w
+restart
+d
+d
+look in tub
+take tome
+i
+u
+e
+give tome to clathering
+i
+w
+d
+put gold coin in tub
+put spirits in tub

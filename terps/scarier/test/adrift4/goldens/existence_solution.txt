@@ -1,0 +1,5 @@
+
+up
+north
+use fan
+use pencil

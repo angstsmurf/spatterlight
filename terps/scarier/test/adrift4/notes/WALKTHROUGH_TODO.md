@@ -949,6 +949,128 @@ fork's self-piped transcript is never a substitute for the real harness pass.
 
 **155 unwired files remain** after this batch.
 
+**Fourth batch, 2026-08-23: 8 more wired, suite 287 → 295 rows, all PASS.**
+All eight were low/zero content-vocabulary-scanner hits (1-5 matches on
+incidental words like "naked"/"strip"/"penis" in non-sexual horror or comedy
+prose, confirmed as false positives before deriving); genuine AIF-flagged
+titles remain deferred, untouched.
+
+- **rollingthedough** (drunk sneak-into-bed comedy, sudden-death heavy) —
+  needs `SCR_SKIP_WAITKEY=1`. **WON, 50/50** (max). Remove shoes before the
+  creaky stairs, stash them specifically in the Bathroom, throw the rolling
+  pin out the bedroom window, then lie on the bed — nearly every other move
+  (lights, the dog, talking to the sleeping wife, keeping the pin/shoes) is
+  an instant death branch.
+- **The_Shuffling_Room** (horror vignette, 0/0), 10 commands. `release
+  shoulders` must complete before `release hands` will succeed; feeling
+  along the dark wall after falling free of the circle finds a hidden
+  lightswitch that needs `use switch` typed twice (the first "resists" as a
+  no-op flavor task). The "naked men"/"naked women" horror-atmosphere prose
+  that triggered the vocabulary scanner is incidental, not sexual.
+- **herrdoktor** (3-room comedy puzzle, 0/0), 15 commands. Bait a fishing
+  pole with an acorn to lure a squirrel down from its tree, strap a jetpack
+  cylinder to its back, fuel it with a de-linted sweetroll, then launch it
+  down the well to rescue the trapped girl. The flagged "strip" hit was just
+  the game's own `strip`/`rem*coat` parser verb.
+- **The Angel the Devil and the Human** (river-crossing puzzle, 0/0), 24
+  commands (leading "1" answers a mode prompt). Classic fox/goose/corn
+  logic: never leave the Devil unsupervised with the Angel or the Human
+  (Angel+Human alone is always safe); ferry all three to Heaven and the win
+  fires automatically once they're all present. The flagged "penis" hit was
+  one incidental comedic aside, not explicit content.
+- **Existence** (IntroComp 2009, 3-room ghost vignette, 0/0) — needs
+  `SCR_SKIP_WAITKEY=1`. 5 commands (1 blank to dismiss the intro pause).
+  `use fan` sucks the player through and empowers them, unlocking `use
+  pencil` as the win.
+- **zacksmackfoot** (3-room teaser demo, 0/0) — needs `SCR_SKIP_WAITKEY=1`.
+  5 commands, single unconditional "stop" ending reached the instant the
+  player exits the wreck. Take the briefcase first for the better epilogue
+  text (cosmetic only, since the game is unscored); open the penknife and
+  jam it in the cargo door's emergency slot to free the jam.
+- **boiled eggs** (no scoring, single win ending), 19 commands. Pump an
+  NPC's dialogue tree (in strict topic order) for the spare-key location and
+  a neighbor's hidden box, unlock the front door, hide under the bed until
+  the neighbor falls asleep, then take the box and climb out the window.
+- **P2P** ("Point 2 Point" steeplechase reflex race) — needs
+  `SCR_SKIP_WAITKEY=1`. **WON, 30/30** (max), 4 commands. Jump the first
+  obstacle, talk to a rival rider to spook the horse blocking a turn (no
+  actual steering needed), then jump and turn past the final two hazards.
+
+**147 unwired files remain** after this batch.
+
+**Fifth batch, 2026-08-23: 8 more wired, suite 295 → 303 rows, all PASS.**
+All eight were the smallest remaining zero-content-vocabulary-scanner-hit
+titles by file size; genuine AIF-flagged titles remain deferred, untouched.
+
+- **MurderMansionntro** (3-room promo teaser, 0/0) — needs
+  `SCR_SKIP_WAITKEY=1` (a "(Please press any key)" pause after the Credits
+  screen otherwise eats the next scripted menu choice). Not the full "Murder
+  Mansion" game, just a walk-up-and-knock demo with no win/end condition at
+  all (no `ACT type=6` anywhere): work the intro menu, examine the stoop
+  objects, then bang the door knocker to reach the fixed closing-credit
+  screen, the fullest reachable content.
+- **whitterscap** ("Whitterscap's Key", Q-key running-gag comedy) — **WON,
+  2/2** (max). Give a shiny button to Charles to reach the Forest, decode
+  Brelgan's runes with a decoder, pick the Zenes spell over the alternative,
+  wait for Whitterscap to appear in the Secret Passage and steal his key with
+  `zenes`, then type any Q-word (but not `quit` itself) for the score bonus
+  before quitting to win. A second, mutually-exclusive +1 "blezwif" ending
+  requires still holding the button while in the Forest — unreachable, since
+  the only route into the Forest consumes the button.
+- **The Dangers of Driving at Night** (unscored horror vignette, 0/0) — needs
+  `SCR_SKIP_WAITKEY=1` (an unlogged "(Press a key)" pause after a scripted
+  roadside near-miss otherwise eats the next `n`). Drive north through the
+  accident event, pay the gas station clerk, spare teenager Chris some
+  change, refuse trucker Harold's ride (accepting is presumably a dead
+  branch, not explored), then talk to Chris again so he reveals the back
+  exit and the ending fires.
+- **All Hallows Eve** (3-room Halloween vignette, 23/26 true single-playthrough
+  max — the nominal 26-point sum is unreachable in one game since the last
+  two endings are mutually exclusive) — needs `SCR_SKIP_WAITKEY=1`. Brew a
+  love potion from toad eggs (sing to the toads), purple beetles (shake the
+  bush), and bird-bath water poured into a cauldron hidden under the grass,
+  then trap the witch's wandering cat and ransom it back to her for the
+  higher-value ending (+15) over just throwing the potion at her (+3).
+- **gorxungula** ("Gorxungula's Curse", unscored surreal fantasy, 0/0) —
+  needs `SCR_SKIP_WAITKEY=1` (the very first "(Press any key)" intro pause
+  otherwise eats the gender answer and desyncs into an infinite reprompt
+  loop). No gold coin exists anywhere in the world at start; it can only be
+  obtained by deliberately walking into the death room and typing `restart`
+  from the death screen (a live in-game `restart` does not grant it). Trade
+  the tome sitting in Elder Moose's tub to Clathering for a beverage
+  ("spirits"), then offer both the coin and the spirits in the tub to win.
+- **lobster** ("Attack of Doc Lobster's Mutant Menagerie of Horror",
+  unscored monster-factory sim, 0/0). Each round names a new species, then
+  hands the Servant a fixed instrument sequence; repeating the
+  scalpel+sprinkles+envenomator+serum combo across 6 named species
+  deterministically drives a hidden `death` counter (with non-random,
+  flat deltas for this specific combo) past the 6000 threshold the win task
+  checks. `SCR_SKIP_WAITKEY=1` is not needed here — the script's own blank
+  lines correctly satisfy every in-game pause, and adding the flag instead
+  desyncs the placeholder blanks into extra harmless empty-command turns.
+- **Business As Usual** (unscored museum tidy-up puzzle, 0/0), 27 commands.
+  Nine background NPCs steal and relocate three of four "Grand Items" on a
+  fixed schedule that finishes by turn 16; grabbing an item early doesn't
+  protect it, since the scripted thefts strip it from the player's inventory
+  regardless of who holds it. Wait out the disruption, then shuttle the
+  displaced items home one at a time (carry capacity is exactly one) before
+  the boss's turn-~26 inspection. Bare noun words like "book"/"lamp" get
+  globally synonym-rewritten to "go to X room", so use `take all`/`drop all`
+  instead of naming objects directly.
+- **Oh_Human** (escape-room dead-end trap, 60/200) — the apparent 100-point
+  "climb the ladder" branch requires the crate to be sitting on top of the
+  box, a state provably unreachable from the task/action graph (the crate's
+  only two possible locations never overlap with the box's static room), so
+  it and the 40-point fourth "hole" jump that gates it are dead ends/red
+  herrings. The real ending: drop the electrical device once past the first
+  hole to free its orbiting light, pick the light up, and while still in the
+  `theroom==4` window (i.e. before taking the fourth hole-jump, which
+  permanently exits that window) use it to cut through the walls and escape
+  through the door — the only text reachable at all, since the game has no
+  `ACT type=6` EndGame action anywhere in its 11 authored tasks.
+
+**139 unwired files remain** after this batch.
+
 ## Camp Windy Lake : Part 2 (2026-08-12) — the AIF treatment, done once
 
 Wired out of the smallest-first order because the user asked for it by name.

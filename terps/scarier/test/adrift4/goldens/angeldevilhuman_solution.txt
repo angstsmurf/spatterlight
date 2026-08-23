@@ -1,0 +1,25 @@
+1
+take devil
+up
+up
+leave devil
+down
+down
+take angel
+up
+up
+leave angel
+take devil
+down
+down
+leave devil
+take human
+up
+up
+leave human
+down
+down
+take devil
+up
+up
+push plunger

@@ -1,0 +1,13 @@
+unlock door with keys
+open door
+n
+remove shoes
+n
+w
+drop shoes
+e
+n
+x cabinet
+take rolling pin
+throw rolling pin out window
+lay on bed

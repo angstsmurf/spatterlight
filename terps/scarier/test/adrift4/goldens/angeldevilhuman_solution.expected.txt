@@ -1,0 +1,243 @@
+Loading game...
+
+The Angel, the Devil and the Human
+
+By Benjamin Samuel
+
+This is a twist that I hope you'll enjoy on the Fox/Chicken/Corn puzzle,
+except you have to move the three characters from hell to heaven, instead of
+from one riverbank to the other.
+
+Instructions
+
+To win, you must take the three main characters, Devil, Angel and Human, from
+their starting point (hell), to the finishing point (heaven). But there's a
+catch! You mustn't leave Devil alone with Human or Human will sell his soul
+and you mustn't leave Angel alone with Devil or Angel will smite Devil. You
+must find a way around these problems.
+
+Controls
+
+To make one of the characters follow you, simply type "take [character]". To
+leave them in the place you want, type "leave [character]". You can only
+leave the character in either heaven or hell. There's a middle area (earth)
+where you can't drop the characters. You move by typing "up" or "down".
+
+1. Start
+2.Credits
+3.Info
+
+> 1
+
+Hell
+You are in the waiting room of the first circle of hell. An office that was
+recently occupied by the devil has a sign on the door handle saying "Gone to
+a meeting in heaven - - - Back in 5 decades". Some imps are rushing (slightly
+charred) paperwork back and forth while the sexy succubus secretary (Ah!
+tongue twister!) is at the enquiries desk, leaning near a telephone.
+
+Devil, Angel and Human are here.
+
+> take devil
+The devil tags along in the off-chance of proquiring your soul.
+
+> up
+You move up.
+
+Earth
+You're standing now at earth, the supposed sorting station for heaven and
+hell, which is why it's in the middle. Specifically, you're standing in the
+centre of a well preserved park with onlookers starting at you in sheer
+astonishment. Even now you can hear someone whispering "Hey, did that person
+just come outta the ground with the devil on their back?" heaven is up and
+hell is all the way down.
+
+> up
+You move up.
+
+Heaven
+Peering into the disguise of clouds and gates covered in pearls, a boring
+Florida-estate can be seen in what is apparently Heaven! Happy waitresses
+tend to pleased looking retirees in the bar who are mostly eating salads with
+goat cheese. Fitness gyms as far as the eyes could bear to see show within
+them more old folks doing light excercises on treadmills, checking their
+heartrate and drinking water from a bottle before driving off in their
+Vauxhalls to their stately suburban homes. What a horrible existence!
+
+> leave devil
+The devil makes one last feeble attempt at buying your soul before moving
+onto someone more gullible. He succeeds with them.
+
+> down
+You move down.
+
+Earth
+You're standing now at earth, the supposed sorting station for heaven and
+hell, which is why it's in the middle. Specifically, you're standing in the
+centre of a well preserved park with onlookers starting at you in sheer
+astonishment. Even now you can hear someone whispering "Hey, did that person
+just descend from the sky with a saddle on their back?" heaven is up and hell
+is all the way down.
+
+> down
+You move down.
+
+Hell
+You are in the waiting room of the first circle of hell. An office that was
+recently occupied by the devil has a sign on the door handle saying "Gone to
+a meeting in heaven - - - Back in 5 decades". Some imps are rushing (slightly
+charred) paperwork back and forth while the sexy succubus secretary (Ah!
+tongue twister!) is at the enquiries desk, leaning near a telephone.
+
+Angel and Human are here.
+
+> take angel
+The angel agrees to follow you.
+
+> up
+You move up.
+
+Earth
+You're standing now at earth, the supposed sorting station for heaven and
+hell, which is why it's in the middle. Specifically, you're standing in the
+centre of a well preserved park with onlookers starting at you in sheer
+astonishment. Even now you can hear someone whispering "Hey, did that person
+just descend from the sky with an angel on their back?" heaven is up and hell
+is all the way down.
+
+> up
+You move up.
+
+Heaven
+Peering into the disguise of clouds and gates covered in pearls, a boring
+Florida-estate can be seen in what is apparently Heaven! Happy waitresses
+tend to pleased looking retirees in the bar who are mostly eating salads with
+goat cheese. Fitness gyms as far as the eyes could bear to see show within
+them more old folks doing light excercises on treadmills, checking their
+heartrate and drinking water from a bottle before driving off in their
+Vauxhalls to their stately suburban homes. What a horrible existence!
+Devil is here.
+
+> leave angel
+The angel bows, says goodbye and that he hopes you consider converting.
+
+> take devil
+The devil tags along in the off-chance of proquiring your soul.
+
+> down
+You move down.
+
+Earth
+You're standing now at earth, the supposed sorting station for heaven and
+hell, which is why it's in the middle. Specifically, you're standing in the
+centre of a well preserved park with onlookers starting at you in sheer
+astonishment. Even now you can hear someone whispering "Hey, did that person
+just descend from the sky with the devil on their back?" heaven is up and
+hell is all the way down.
+
+> down
+You move down.
+
+Hell
+You are in the waiting room of the first circle of hell. An office that was
+recently occupied by the devil has a sign on the door handle saying "Gone to
+a meeting in heaven - - - Back in 5 decades". Some imps are rushing (slightly
+charred) paperwork back and forth while the sexy succubus secretary (Ah!
+tongue twister!) is at the enquiries desk, leaning near a telephone.
+
+Human is here.
+
+> leave devil
+The devil makes one last feeble attempt at buying your soul before moving
+onto someone more gullible. He succeeds with them.
+
+> take human
+The human happily follows you as his kind has been doing for the last four
+millenia.
+
+> up
+You move up.
+
+Earth
+You're standing now at earth, the supposed sorting station for heaven and
+hell, which is why it's in the middle. Specifically, you're standing in the
+centre of a well preserved park with onlookers starting at you in sheer
+astonishment. Even now you can hear someone whispering "Hey, did that person
+just descend from the sky with some nerd on their back?" heaven is up and
+hell is all the way down.
+
+> up
+You move up.
+
+Heaven
+Peering into the disguise of clouds and gates covered in pearls, a boring
+Florida-estate can be seen in what is apparently Heaven! Happy waitresses
+tend to pleased looking retirees in the bar who are mostly eating salads with
+goat cheese. Fitness gyms as far as the eyes could bear to see show within
+them more old folks doing light excercises on treadmills, checking their
+heartrate and drinking water from a bottle before driving off in their
+Vauxhalls to their stately suburban homes. What a horrible existence!
+Angel is here.
+
+> leave human
+The human wanders of to gaze at the unique scenery.
+
+> down
+You move down.
+
+Earth
+You're standing now at earth, the supposed sorting station for heaven and
+hell, which is why it's in the middle. Specifically, you're standing in the
+centre of a well preserved park with onlookers starting at you in sheer
+astonishment. Even now you can hear someone whispering "Hey, did that person
+just descend from the sky with a saddle on their back?" heaven is up and hell
+is all the way down.
+
+> down
+You move down.
+
+Hell
+You are in the waiting room of the first circle of hell. An office that was
+recently occupied by the devil has a sign on the door handle saying "Gone to
+a meeting in heaven - - - Back in 5 decades". Some imps are rushing (slightly
+charred) paperwork back and forth while the sexy succubus secretary (Ah!
+tongue twister!) is at the enquiries desk, leaning near a telephone.
+
+Devil is here.
+
+> take devil
+The devil tags along in the off-chance of proquiring your soul.
+
+> up
+You move up.
+
+Earth
+You're standing now at earth, the supposed sorting station for heaven and
+hell, which is why it's in the middle. Specifically, you're standing in the
+centre of a well preserved park with onlookers starting at you in sheer
+astonishment. Even now you can hear someone whispering "Hey, did that person
+just descend from the sky with the devil on their back?" heaven is up and
+hell is all the way down.
+
+> up
+You move up.
+
+Heaven
+Peering into the disguise of clouds and gates covered in pearls, a boring
+Florida-estate can be seen in what is apparently Heaven! Happy waitresses
+tend to pleased looking retirees in the bar who are mostly eating salads with
+goat cheese. Fitness gyms as far as the eyes could bear to see show within
+them more old folks doing light excercises on treadmills, checking their
+heartrate and drinking water from a bottle before driving off in their
+Vauxhalls to their stately suburban homes. What a horrible existence!
+Angel and Human are here.
+
+Suddenly, from the clouds emerge a podium similar to the one in The Price is
+Right, complete with big red plunger. I think you performed a winning action!
+
+> push plunger
+Congratulations! You worked out the puzzle.
+
+...
+
+Have a peanut.

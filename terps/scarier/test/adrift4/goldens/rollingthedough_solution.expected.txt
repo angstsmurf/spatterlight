@@ -1,0 +1,114 @@
+Loading game...
+
+Rolling the Dough
+
+(a very rushed game) by Richard Otter
+
+[Written for the The Hourglass Competition - 3rd Three Hour Comp 2006]
+
+Just one more drink they said, just one more. If only it had been only one
+more! If only it had been only one more bar.
+
+So, it is now late, very late. No that is not true, it is early, very early.
+
+You promised your wife, Miriam, you would back hours ago. You promised her
+last time that you would never stay out drinking all night again.
+
+You have finally managed to get home and are now starting at the front of
+your house.
+
+Hopefully she is asleep, so can you get to bed without waking her?
+
+WARNING: This game contains sudden death.
+
+[Press ENTER to start]
+
+Front of your house
+The front of your house is as depressing as any other part of the property.
+Made from cheap and mostly poor quality materials it is a wonder it still
+stands. To the north is the front door. On the right hand side of the door is
+a drainpipe which passes your bedroom window above.
+
+> unlock door with keys
+You unlock your front door with your keys.
+
+> open door
+You open your front door.
+
+> n
+You move north.
+
+The Hall
+The hall is dark; you dare not turn on any lights. To the south is the front
+door and just to your right (east) is the even darker living room. Along the
+hall to the north are the creaky old stairs leading to the landing above.
+
+You can also see a small red torch.
+
+> remove shoes
+You remove your shoes.
+
+> n
+You head north and go up the stairs.
+
+The Landing
+The landing is very dark, but you still dare not turn on any lights. Even in
+your present drunken condition your memory is functional, the bathroom is to
+the west and your bedroom (and Miriam) to the north.
+
+> w
+You move west.
+
+The Bathroom
+In gloom you can only really make out the bath and the toilet. At least the
+sound in here is muffled slightly mostly due to a mouldy old carpet. The
+landing is to the east.
+
+> drop shoes
+You drop your shoes without making any noise.
+
+> e
+You move east.
+
+The Landing
+The landing is very dark, but you still dare not turn on any lights. Even in
+your present drunken condition your memory is functional, the bathroom is to
+the west and your bedroom (and Miriam) to the north.
+
+> n
+You move north.
+
+Your Bedroom
+Your bedroom is the location of many a battle of the sexes (you always lose).
+You can see your marital bed and hear Miriam, who is snoring loudly. Next to
+the bed is a small cabinet and an open window is to the north. To the south
+is the way back to the landing.
+Miriam is lying in your bed, hopefully fast asleep.
+
+> x cabinet
+It is a very cheap bedside cabinet.  The rolling pin is on the cabinet.
+
+> take rolling pin
+You take the rolling pin from the cabinet.
+
+> throw rolling pin out window
+You throw the rolling pin out of the window.
+
+> lay on bed
+You lie down on your bed.
+You carefully lie on the bed trying not to wake Miriam.
+
+Miriam wakes and shouts, "What time it is?"
+
+To which you reply, "It is late my sweetness."
+
+Her substantial frame rolls over and goes back to sleep.
+
+You have done it!
+
+Feel free to report any bugs, send praise or give general feedback to
+richardo@delron.co.uk
+
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

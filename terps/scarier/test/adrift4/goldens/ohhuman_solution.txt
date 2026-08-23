@@ -1,0 +1,9 @@
+go through hole
+drop device
+get light
+push crate
+stand on box
+go through hole
+use light to cut walls
+go door
+score
