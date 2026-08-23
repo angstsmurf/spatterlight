@@ -41,6 +41,10 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 @property NSInteger currentHyperlink;
 
 @property NSArray *styleHints;
+/** CSS Basic span hints copied from the controller when the window opens. */
+@property NSArray<NSDictionary *> *cssSpanHints;
+@property NSArray<NSDictionary *> *cssParaHints;
+@property NSMutableDictionary<NSString *, NSString *> *currentInlineCSS;
 @property Theme *theme;
 
 @property NSMutableDictionary *pendingTerminators;
