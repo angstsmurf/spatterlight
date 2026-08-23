@@ -192,7 +192,7 @@ static int gsc_commands_enabled = TRUE,
    itself in the game's colours too; the mode itself is documented where
    gsc_set_colour lives. */
 #if defined(SPATTERLIGHT) || defined(GARGLK) \
-    || defined(GLK_MODULE_GARGLK_FILE_RESOURCES)
+    || defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(EMGLKEN)
 # define GSC_HAVE_ZCOLORS 1
 #endif
 
