@@ -1755,6 +1755,35 @@ var_get_ref_number (scr_var_setref_t vars)
   return vars->referenced_number;
 }
 
+/*
+ * var_is_number_referenced()
+ * var_restore_ref_number()
+ *
+ * Peek at, and put back, the whole referenced-number state -- the value and
+ * the "has one ever been set" flag that %number% substitution tests.  Used by
+ * scrunner.c to keep Scarier's own meta commands ("wait 5", "hist 3") from
+ * writing the game's referenced number: they match a %number% pattern, but the
+ * real Runner has no such commands and only ever sets its referenced number
+ * (run400 MemVar_49420C, written solely by numintext/numintext2 off the
+ * wildcard expansion in mdlSpreadTheLoad.Proc_19_36_45F268) while expanding a
+ * pattern that really contains %number%.
+ */
+scr_bool
+var_is_number_referenced (scr_var_setref_t vars)
+{
+  assert (var_is_valid (vars));
+  return vars->is_number_referenced;
+}
+
+void
+var_restore_ref_number (scr_var_setref_t vars,
+                        scr_int number, scr_bool is_referenced)
+{
+  assert (var_is_valid (vars));
+  vars->referenced_number = number;
+  vars->is_number_referenced = is_referenced;
+}
+
 const scr_char *
 var_get_ref_text (scr_var_setref_t vars)
 {

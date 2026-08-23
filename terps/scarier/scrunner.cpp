@@ -864,9 +864,64 @@ run_priority_defer (void)
   run_priority_deferred = TRUE;
 }
 
+/*
+ * scr_ref_number_guard
+ *
+ * Save and put back the game's referenced-number state across a library
+ * command table walk.
+ *
+ * Three library rows carry a %number% wildcard -- "wait 5", "redo 3",
+ * "hist 3" (the wait row is written twice, abbreviation-gated) -- and
+ * uip_match_number() sets the referenced number as a side effect of matching
+ * one, exactly as it does for a game task's own %number%.  But those commands are Scarier's, not the Runner's: run400 has no
+ * "wait N" at all, and its referenced number (MemVar_49420C) has just two
+ * writers, numintext/numintext2, reachable only from the wildcard expansion
+ * helper mdlSpreadTheLoad.Proc_19_36_45F268 and only when the pattern being
+ * expanded really contains %number%.  So in the Runner a game with no number
+ * wildcard anywhere can never see a referenced number other than the initial
+ * zero, and a "$number = N" restriction (Type 4, Var1 0 -- run400
+ * loc_4817BF..loc_4817F8) can never pass.
+ *
+ * Leaving the leak in makes those meta commands part of the game: Sandy.taf's
+ * win task tests the referenced number against 2 where the author meant the
+ * variable "mom", so `wait 2` followed by `look in toilet` won a game that is
+ * unwinnable in the Runner.  Restoring around the whole walk -- not inside the
+ * handlers -- also covers a row that matches and then declines, such as
+ * "redo 99" falling through to the %text% row.
+ *
+ * Only the number is guarded.  The referenced object, character and text are
+ * bound by library rows the Runner does have, and the text they later expand
+ * into is meant to see them.
+ */
+class scr_ref_number_guard
+{
+public:
+  explicit scr_ref_number_guard (scr_gameref_t game)
+    : vars_ (gs_get_vars (game)),
+      number_ (var_get_ref_number (vars_)),
+      is_referenced_ (var_is_number_referenced (vars_))
+  {
+  }
+
+  ~scr_ref_number_guard ()
+  {
+    var_restore_ref_number (vars_, number_, is_referenced_);
+  }
+
+  scr_ref_number_guard (const scr_ref_number_guard &) = delete;
+  scr_ref_number_guard &operator= (const scr_ref_number_guard &) = delete;
+
+private:
+  const scr_var_setref_t vars_;
+  const scr_int number_;
+  const scr_bool is_referenced_;
+};
+
+
 static scr_bool
 run_priority_commands (scr_gameref_t game, const scr_char *string)
 {
+  const scr_ref_number_guard ref_number (game);
   scr_commandsref_t command;
 
   run_priority_pass_active = TRUE;
@@ -912,6 +967,8 @@ static scr_bool
 run_try_command_table (scr_commandsref_t command,
                        scr_gameref_t game, const scr_char *string)
 {
+  const scr_ref_number_guard ref_number (game);
+
   for (; command->command; command++)
     {
       if (uip_match (command->command, string, game))

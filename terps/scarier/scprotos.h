@@ -294,6 +294,9 @@ extern void var_set_ref_text (scr_var_setref_t vars, const scr_char *text);
 extern scr_int var_get_ref_character (scr_var_setref_t vars);
 extern scr_int var_get_ref_object (scr_var_setref_t vars);
 extern scr_int var_get_ref_number (scr_var_setref_t vars);
+extern scr_bool var_is_number_referenced (scr_var_setref_t vars);
+extern void var_restore_ref_number (scr_var_setref_t vars,
+                                    scr_int number, scr_bool is_referenced);
 extern const scr_char *var_get_ref_text (scr_var_setref_t vars);
 extern scr_uint var_get_elapsed_seconds (scr_var_setref_t vars);
 extern void var_set_elapsed_seconds (scr_var_setref_t vars, scr_uint seconds);
