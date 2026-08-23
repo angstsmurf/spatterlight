@@ -106,6 +106,9 @@ A5MAP_HARNESS := test/adrift5/harness/a5map_dump.cpp
 A5MAP_BIN     := test/adrift5/harness/a5map_dump
 SCMAP_HARNESS := test/adrift4/harness/scmap_dump.cpp
 SCMAP_BIN     := test/adrift4/harness/scmap_dump
+MAPSVG_HARNESS_MM := test/mapsvg_harness.mm
+MAPSVG_FIXTURE := test/mapsvg_fixture.cpp
+MAPSVG_BIN := test/mapsvg_harness
 A5PARSE_HARNESS := test/adrift5/harness/a5parse_test.cpp
 A5PARSE_BIN     := test/adrift5/harness/a5parse_test
 A5DIS_HARNESS   := test/adrift5/harness/a5_disambig_test.cpp
@@ -146,7 +149,7 @@ WHERE_TAF  := test/adrift4/harness/where_refusal.taf \
               test/adrift4/harness/where_refusal_3p.taf
 WHERE_PROBES := where_refusal where_refusal_1p where_refusal_3p
 
-.PHONY: test test-fd sanitize taf clean capacitytest capacitybless wheretest wherebless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5walkthroughs-golden a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5sexprtest v4walkthroughs scprojregress gamescheck gamesfetch vendorcheck
+.PHONY: test test-fd sanitize taf clean capacitytest capacitybless wheretest wherebless scmap a5dump a5model a5text a5run a5map mapsvg a5parsetest a5runtest a5walkthroughs a5walkthroughs-golden a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5sexprtest v4walkthroughs scprojregress gamescheck gamesfetch vendorcheck
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
 # copyrighted and not committed.  Override A5_GAMES_DIR / A5_BULLETS to relocate.
@@ -409,6 +412,15 @@ $(A5MAP_BIN): $(A5_RUN_SRC) $(A5DIR)/a5map.cpp mapdraw.cpp $(A5MAP_HARNESS) $(A5
 	$(CXX) $(CXXFLAGS) $(A5_RUN_SRC) $(A5DIR)/a5map.cpp mapdraw.cpp $(A5MAP_HARNESS) \
 	    $(A5_RAND_OBJ) $(LDLIBS) -o $@
 
+# SVG map harness: hard-coded map.xml Main/REVEAL fixture → SVG + NSImage PNG.
+#   make -f Makefile.headless mapsvg
+#   ./test/mapsvg_harness -o /tmp/map.png --svg /tmp/map.svg
+mapsvg: $(MAPSVG_BIN)
+$(MAPSVG_BIN): mapsvg.cpp mapdraw.cpp $(MAPSVG_FIXTURE) $(MAPSVG_HARNESS_MM) \
+               mapdraw.h test/mapsvg_fixture.h
+	$(CXX) $(CXXFLAGS) -ObjC++ -I. mapsvg.cpp mapdraw.cpp $(MAPSVG_FIXTURE) \
+	    $(MAPSVG_HARNESS_MM) -framework AppKit -o $@
+
 # Render the ADRIFT 4 map headlessly to a PPM (no Glk).  Run it by hand:
 #   make -f Makefile.headless scmap
 #   ./test/adrift4/harness/scmap_dump path/to/game.taf [script.txt] -o map.ppm [-all] [-grid]
@@ -536,5 +548,5 @@ $(BADP_TAF): test/adrift4/harness/make_badparent_taf.py
 	python3 test/adrift4/harness/make_badparent_taf.py $(BADP_TAF)
 
 clean:
-	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5_RAND_OBJ) $(CAP_BIN)
+	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5MAP_BIN) $(SCMAP_BIN) $(MAPSVG_BIN) $(A5_RAND_OBJ) $(CAP_BIN)
 	rm -f $(BIN)_san $(PREC_BIN)_san $(BADP_BIN)_san $(CORRUPT_BIN)_san $(QUIT_BIN)_san $(A5PARSE_BIN)_san $(A5SEXPR_BIN)_san $(A5DIS_BIN)_san $(A5WALK_BIN)_san $(A5OBJ_BIN)_san $(A5SAVE_BIN)_san $(CAP_BIN)_san $(SAN_RAND_OBJ)

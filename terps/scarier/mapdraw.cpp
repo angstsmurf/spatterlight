@@ -317,6 +317,28 @@ map_set_colour_scheme (int scheme)
 }
 
 void
+map_get_palette (map_palette_t *out)
+{
+  double fill_a = MAP_ROOM_FILL_ALPHA / 255.0;
+
+  if (out == NULL)
+    return;
+  ensure_derived_palette ();
+  /* Room fills are painted at MAP_ROOM_FILL_ALPHA over the canvas in the
+     raster path; expose the on-screen blend so SVG (and any other opaque
+     consumer) matches without needing fill-opacity over the links. */
+  out->background = map_bg;
+  out->room_fill = mix_rgb (map_bg, map_room_fill, fill_a);
+  out->room_stroke = map_room_stroke;
+  out->here_fill = mix_rgb (map_bg, map_here_fill, fill_a);
+  out->here_stroke = map_here_stroke;
+  out->label = map_label;
+  out->here_label = map_here_label;
+  out->link = map_link;
+  out->stub = map_stub;
+}
+
+void
 map_free (map_t *map)
 {
   int p, n, l;

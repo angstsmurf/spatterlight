@@ -19,6 +19,7 @@ unsigned chartokeycode(unsigned ch);
 - (instancetype)initSoundNotify:(NSInteger)notify withSound:(NSInteger)sound;
 - (instancetype)initVolumeNotify:(NSInteger)notify;
 - (instancetype)initLinkEvent:(NSUInteger)linkid forWindow:(NSInteger)name;
+- (instancetype)initMapEventSubtype:(NSUInteger)subtype payload:(NSUInteger)payload;
 
 - (void)writeEvent:(int)fd;
 
