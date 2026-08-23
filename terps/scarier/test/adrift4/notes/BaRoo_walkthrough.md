@@ -67,7 +67,7 @@ TASK 63  cmd=[[take/pull/tear] [meat/animal/roast]]   (rep=1)
 the alien root spends two `eat meat`, so the walkthrough was unwinnable.
 
 Ground truth for the fix is run400's matcher itself, `Proc_9_4_45D940` in the
-decompiled Runner (`~/adrift-battle/decompiled/NewParse.bas`): it dispatches on
+decompiled Runner (`~/Adrift_decompile/run400-analysed/NewParse.bas`): it dispatches on
 `Left(pattern,1)` being `[` or `{`, and everything else is a literal run
 compared with `Left(input,n) = Left(pattern,n)` up to the next `[`/`{`. It has
 no notion of a bare slash at all — so `take/get/eat stew` matches only the
