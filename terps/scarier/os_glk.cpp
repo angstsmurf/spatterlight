@@ -190,8 +190,11 @@ static int gsc_commands_enabled = TRUE,
    the "glk colour" mode.  Defined up here rather than down with the rest of
    the colour code because the status line, drawn earlier in the file, draws
    itself in the game's colours too; the mode itself is documented where
-   gsc_set_colour lives. */
+   gsc_set_colour lives.  GLK_MODULE_GARGLKTEXT is the extension's own feature
+   macro, which brings in remglk and remglk-rs (and with it Emglken) as well as
+   Gargoyle itself. */
 #if defined(SPATTERLIGHT) || defined(GARGLK) \
+    || defined(GLK_MODULE_GARGLKTEXT) \
     || defined(GLK_MODULE_GARGLK_FILE_RESOURCES)
 # define GSC_HAVE_ZCOLORS 1
 #endif
@@ -335,8 +338,10 @@ static scr_game gsc_game = NULL;
 /* ADRIFT 5 game.  When the file loaded at startup is an ADRIFT 5 game,
  * gsc_a5_adv holds the parsed adventure and gsc_is_a5 is set; glk_main then
  * runs the dedicated a5 turn loop (gsc_a5_main) instead of the scare engine.
- * gsc_game_path is the on-disk path, needed by a5model_load (which reads the
- * file itself rather than via a Glk stream). */
+ * The game data itself comes off the startup Glk stream (a5model_load_buffer);
+ * gsc_game_path is the on-disk path, kept for the things that reopen the file
+ * later -- the Blorb resource map (gsc_a5_init_resources) and the autosave
+ * directory's file signature. */
 static char gsc_game_path[2048];
 static a5_adventure_t *gsc_a5_adv = NULL;
 static int gsc_is_a5 = FALSE;
@@ -6420,46 +6425,46 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
               free (file_buf);
           }
       }
-
-    if (gsc_a5_adv)
-        {
-          gsc_is_a5 = TRUE;
-          gsc_game = NULL;
-          gsc_game_message = NULL;
-          /* Unlike ADRIFT 4, where the palette is a Runner preference the .taf
-             knows nothing about, an ADRIFT 5 adventure carries the author's
-             own colours; colour mode uses those. */
-          gsc_colour_background = gsc_a5_adv->bg_colour;
-          gsc_colour_output = gsc_a5_adv->output_colour;
-          gsc_colour_input = gsc_a5_adv->input_colour;
-#ifdef GSC_HAVE_ZCOLORS
-          /* An adventure that chose its own colours starts in them, as "-c"
-             would; asked here, while the loading window is still up to measure
-             the theme against. */
-          if (gsc_colour_detect (window))
-            gsc_colour_startup = TRUE;
-#endif
-          glk_stream_close (game_stream, NULL);
-          if (restore_stream)
-            glk_stream_close (restore_stream, NULL);
-          if (window)
-            glk_window_close (window, NULL);
-#ifdef GARGLK
-          if (gsc_a5_adv->title && gsc_a5_adv->title[0])
-            {
-              /* The title may carry ADRIFT markup (Trapped's is
-                 "<centre><b>'Trapped'  by Driftwood</b></centre>"); render it
-                 down to plain text before handing it to the host UI, exactly as
-                 the in-game title Display does (see a5run.cpp). */
-              char *tp = a5text_render_plain (gsc_a5_adv->title);
-              garglk_set_story_name (tp);
-              garglk_set_story_title (tp);
-              free (tp);
-            }
-#endif
-          return TRUE;
-        }
   }
+
+  if (gsc_a5_adv)
+    {
+      gsc_is_a5 = TRUE;
+      gsc_game = NULL;
+      gsc_game_message = NULL;
+      /* Unlike ADRIFT 4, where the palette is a Runner preference the .taf
+         knows nothing about, an ADRIFT 5 adventure carries the author's
+         own colours; colour mode uses those. */
+      gsc_colour_background = gsc_a5_adv->bg_colour;
+      gsc_colour_output = gsc_a5_adv->output_colour;
+      gsc_colour_input = gsc_a5_adv->input_colour;
+#ifdef GSC_HAVE_ZCOLORS
+      /* An adventure that chose its own colours starts in them, as "-c"
+         would; asked here, while the loading window is still up to measure
+         the theme against. */
+      if (gsc_colour_detect (window))
+        gsc_colour_startup = TRUE;
+#endif
+      glk_stream_close (game_stream, NULL);
+      if (restore_stream)
+        glk_stream_close (restore_stream, NULL);
+      if (window)
+        glk_window_close (window, NULL);
+#ifdef GARGLK
+      if (gsc_a5_adv->title && gsc_a5_adv->title[0])
+        {
+          /* The title may carry ADRIFT markup (Trapped's is
+             "<centre><b>'Trapped'  by Driftwood</b></centre>"); render it
+             down to plain text before handing it to the host UI, exactly as
+             the in-game title Display does (see a5run.cpp). */
+          char *tp = a5text_render_plain (gsc_a5_adv->title);
+          garglk_set_story_name (tp);
+          garglk_set_story_title (tp);
+          free (tp);
+        }
+#endif
+      return TRUE;
+    }
 
   gsc_game = scr_game_from_callback (gsc_callback, game_stream);
   if (!gsc_game)
@@ -7647,6 +7652,13 @@ extern "C" strid_t glkunix_stream_open_pathname (char *pathname,
  *
  * Probe for graphics/sound support and register the game Blorb as the Glk
  * resource map, so image/sound resources can be addressed by Blorb number.
+ *
+ * The game is reopened here by path rather than kept from startup, because
+ * giblorb_set_resource_map() takes ownership of the stream it is given and the
+ * startup stream has other work to do first.  Reopening through Glk (not
+ * fopen) is what keeps this working on hosts with no C library filesystem,
+ * such as Emglken, whose Glk implements glkunix_stream_open_pathname over its
+ * own VFS and permits it outside glkunix_startup_code.
  */
 static void
 gsc_a5_init_resources (void)
@@ -7659,7 +7671,14 @@ gsc_a5_init_resources (void)
     return;
 
   stream = glkunix_stream_open_pathname (gsc_game_path, FALSE, 0);
-  if (stream != NULL && giblorb_set_resource_map (stream) != giblorb_err_None)
+  if (stream == NULL)
+    {
+      /* The file is unreachable by path (a host that cannot reopen it, or a
+         game that has moved since startup): no resource map, so no media. */
+      gsc_a5_graphics_ok = gsc_a5_sound_ok = FALSE;
+      return;
+    }
+  if (giblorb_set_resource_map (stream) != giblorb_err_None)
     {
       /* Not a Blorb (e.g. a raw .taf with no resources): no media. */
       glk_stream_close (stream, NULL);
