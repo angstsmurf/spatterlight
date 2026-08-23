@@ -152,8 +152,6 @@ hut invites you in.
 
 Exits: North, East and West
 
-Horse waits here, looking quite majestic.
-
 Jimiyu Wangai sat at the table, a thoughtful look on his face.  He was dead.
 He wasn't surprised by this - in fact he'd been fairly certain it was going
 to happen anytime soon.  He enjoyed being proved right.  Well, he'd lived a
@@ -297,7 +295,6 @@ new frontrunner in the "Most Uncomfortable I Have Ever Been" stakes.
 Exits:  East
 
 You can see a shovel blade.
-Horse waits here, looking quite majestic.
 
 Private Kline yawned.  Guard duty was so unbelievably boring.  He knew that
 he wouldn't have normally pulled this duty for six days in a row but recent
@@ -523,8 +520,7 @@ and objects that look suspiciously mechanical.
 Exits: Up
 
 You can see Ernest Busset's shoe.
-Horse waits here, looking quite majestic.  Thomas Brewer stands here, looking
-around the cellar thoughtfully.
+Thomas Brewer stands here, looking around the cellar thoughtfully.
 
 "If this works we'll be famous!" chattered Ernest Busset, excitedly.
 
@@ -753,8 +749,6 @@ street and named Drop and Give Me Fifty Dress Ups.  Perhaps it's the Grim
 Reaper costume in the window.
 
 Exits: East and South
-
-Horse waits here, looking quite majestic.
 
 Horse touches down on a grubby San Francisco sidewalk, crowded with people.
 That would be the sort of thing that usually draws attention to itself but
@@ -997,8 +991,6 @@ new frontrunner in the "Most Uncomfortable I Have Ever Been" stakes.
 
 Exits:  East
 
-Horse waits here, looking quite majestic.
-
 > wear mask
 
 An idea occurs to you.  You try the mask on.  It fits quite snugly.  A little
@@ -1152,9 +1144,6 @@ of you.
 
 Exits: No Exits
 
-Ernest Busset is standing, marvelling at the sights and sounds around him.
-He doesn't seem at all worried.
-
 You clamber from the time machine, feeling like a stick insect escaping from
 a tennis ball.  Only when you've stretched and composed yourself do you look
 at where the machine has sent you.  You appear to be in the middle of a
@@ -1267,8 +1256,6 @@ your clients - Lord Nigel McWorthington.
 
 Exits: No Exits
 
-Horse waits here, looking quite majestic.
-
 Lord Nigel McWorthington gazed out over the crisp, snowy scene and smiled.
 He was glad that he'd decided to do this; that he'd decided to celebrate his
 sixtieth birthday by trekking through the Himilayas.  His family had insisted
@@ -1340,8 +1327,7 @@ of you is a snowdrift, most of which has been dug away to reveal a body.
 
 Exits: No Exits
 
-Horse waits here, looking quite majestic.  Lord Nigel McWorthington is here,
-lying on the rocky ground.
+Horse waits here, looking quite majestic.
 
 > reap soul
 
@@ -1374,8 +1360,6 @@ see Jimiyu's hut to the north, and to the west the open doorway of another
 hut invites you in.
 
 Exits: North, East and West
-
-Horse waits here, looking quite majestic.
 
 > n
 You move north.
@@ -1467,8 +1451,6 @@ the east wall, next to which is a opening where the lift arrives.  Imposing,
 closed metallic doors inform you that the lift is at a different floor.
 
 Exits: West
-
-Horse waits here, looking quite majestic.
 
 Agathe Laurent lay on the bed, smiling to herself.  Death hadn't been as
 unpleasant as she'd feared, but she would still rather cling on to life.  She

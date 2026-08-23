@@ -153,7 +153,6 @@ you gaze in wonder, the man and trap leave.
 Time passes...
 
 > e
-
 Cave entrance
 At least 20 feet high, the entrance to the cave has a massive wrought iron
 gate that spans it's width and reaches far above your head. The interior of
@@ -523,6 +522,14 @@ Time passes...
 Time passes...
 
 > get out of barrel
+Pigsty
+To the north of the boulders, at the lower end of the valley, is a simple
+pigsty - a low corral of stout logs, a sea of mud within, and a rank stench.
+Two pigs root and grunt in the mud, and several large barrels, presumably
+holding slops, are lined up on the outside of the sty.
+
+A cool breeze comes from the east, where a glacier terminates, pushing
+boulders ahead of it in its inexorable path down the mountain.
 
 You clamber out of the barrel and call to your parents to do the same. You
 aren't sure where the Giant is - perhaps he's fallen in the chasm, although
@@ -536,15 +543,6 @@ gate might still be open.'
 
 'Oh, I don't think we need to worry about him. Just pray he's run out of
 poems to recite.'
-
-Pigsty
-To the north of the boulders, at the lower end of the valley, is a simple
-pigsty - a low corral of stout logs, a sea of mud within, and a rank stench.
-Two pigs root and grunt in the mud, and several large barrels, presumably
-holding slops, are lined up on the outside of the sty.
-
-A cool breeze comes from the east, where a glacier terminates, pushing
-boulders ahead of it in its inexorable path down the mountain.
 
 > s
 You move south.

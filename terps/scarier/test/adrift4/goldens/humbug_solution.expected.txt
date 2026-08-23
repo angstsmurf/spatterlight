@@ -6208,9 +6208,7 @@ I am at a dead end in the underground tunnel.  The red brick walls here are
 virtually invisible beneath a thick layer of soot.  A small metal wheel is
 set into one of the walls.  A wooden chute has been built into one of the
 walls.  The fire alarm is ringing loudly.  A raging wall of fire blocks my
-way northwards.
-
-A pile of ash rests on the ground.  The fire alarm is ringing loudly.
+way northwards.  The fire alarm is ringing loudly.
 
 I can only move north.
 

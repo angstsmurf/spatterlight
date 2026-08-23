@@ -242,8 +242,6 @@ Do you wish to:
 
 Your HP: 100
 Flare Rat's HP: 30
-The Flare Rat glares menacingly at you, foaming at the mouth with a rare
-disease. The disease is known as "Combustial Rabies".
 
 > a
 

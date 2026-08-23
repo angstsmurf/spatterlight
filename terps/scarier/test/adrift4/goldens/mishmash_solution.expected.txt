@@ -483,6 +483,8 @@ with the video games console, it provides hours of entertainment. There are a
 number of couches for people to sit down. A stereo is near the television.
 The exits are to the east and west.
 
+Chad is standing in front of the door, looking unhappy.
+
 As you enter the room, you pay attention to the thought reader, hoping the
 telepathic conversation will be shown on the laptop's screen. Surprisingly it
 works. You thought it should but you were not completely sure. On the screen
@@ -619,7 +621,7 @@ fills most of the area, with the food from the patch supplementing the food
 shipped in from overseas. The soil was originally shipped in for this
 purpose, and the area has been warmed by the huge heaters next to one wall.
 The walls of this room are made of glass, and you can see the night sky
-outside. The garden continues to the northeast, with a closed door leading to
+outside. The garden continues to the northeast, with an open door leading to
 the southwest. A slot is next to the door.
 A gardener is tending to the vegetable patch.
 
@@ -766,7 +768,7 @@ to influence, but generally you were too junior and instead acted on the
 decisions that were made. The layout of this section is fairly similar to the
 southeast section you started in. The southeast section can be accessed by
 returning through the door to the southeast leading to the garden.  The door
-is currently closed. A slot is next to the door. The hallway leads east and
+is currently open. A slot is next to the door. The hallway leads east and
 north.
 
 The door closes behind you.
@@ -974,7 +976,7 @@ inhabitants of the complex to relax. The centrepiece of the area is a
 fountain, with water spurting out from the penguin statue. Various plants
 have been grown around the fountain to add to the calm atmosphere. Relaxation
 is not high on your priorities, in your current panicking state.  The garden
-continues to the southwest, with a closed door leading to the northeast. A
+continues to the southwest, with an open door leading to the northeast. A
 slot is next to the door.
 
 There is a node here, which currently looks like a small blue sphere hovering
@@ -1032,7 +1034,7 @@ to influence, but generally you were too junior and instead acted on the
 decisions that were made. The layout of this section is fairly similar to the
 southeast section you started in. The southeast section can be accessed by
 returning through the door to the southeast leading to the garden.  The door
-is currently closed. A slot is next to the door. The hallway leads east and
+is currently open. A slot is next to the door. The hallway leads east and
 north.
 
 The door closes behind you, but it doesn't lock.
@@ -1291,7 +1293,7 @@ inhabitants of the complex to relax. The centrepiece of the area is a
 fountain, with water spurting out from the penguin statue. Various plants
 have been grown around the fountain to add to the calm atmosphere. Relaxation
 is not high on your priorities, in your current panicking state.  The garden
-continues to the southwest, with a closed door leading to the northeast. A
+continues to the southwest, with an open door leading to the northeast. A
 slot is next to the door.
 
 The door closes behind you, but it doesn't lock.
@@ -1570,8 +1572,6 @@ south, but they have been broken over the crack. Unfortunately, it is a
 little too far to jump from this side of the track to the other. As you do
 not want to retreat back to the north, you can only move east, with cliffs
 and the crack blocking the other directions.
-
-Memoryblam is shooting drones, whilst following you.
 
 > e
 You move east.

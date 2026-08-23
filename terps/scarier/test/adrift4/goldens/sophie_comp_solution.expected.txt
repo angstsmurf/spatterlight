@@ -167,8 +167,6 @@ the patches of lichen are crude drawings which you suppose were left behind
 by the previous inhabitants of the cave. The sound of the sea breaking on the
 shore can be heard from outside.
    Exits lie: northeast (to the beach).
-Grumble, Snitch, Arkle, Grolsch "Thigh-Cracker" Thunderhammer the
-Skullbreaker and Randle are here.
 
 "We're alive!" Randle cries, lifting his face up from the fine sand of the
 cave floor. "Woo-hoo!"
@@ -313,6 +311,15 @@ Grumble complaining of beer deprivation staggers in from the south-west.
 > e
 You move east.
 
+Beach
+The central part of the beach is no more exhilarating than the western part
+and if not for the half-buried scarecrow by the sea's edge there'd be nothing
+here to comment on at all. The beach extends a little further to the east
+where the stone statue is looking a little more prominent. A path leading up
+the cliffs to the north is a short distance away.
+   Exits lie: west (to the beach), east (to some more beach) and northwest
+(to the path).
+
 You catch sight of someone standing on top of the cliff to the north and a
 moment later a rock comes flying down and misses your head by an inch!
    "What was that?" grunts Grumble, looking around myopically. "Was it a can
@@ -325,15 +332,6 @@ out of sight.
    "Maybe it had a can of beer tied to it."
    "But why-" you start to say then just decide you're better off keeping
 quiet.
-
-Beach
-The central part of the beach is no more exhilarating than the western part
-and if not for the half-buried scarecrow by the sea's edge there'd be nothing
-here to comment on at all. The beach extends a little further to the east
-where the stone statue is looking a little more prominent. A path leading up
-the cliffs to the north is a short distance away.
-   Exits lie: west (to the beach), east (to some more beach) and northwest
-(to the path).
 
 Grumble complaining of beer deprivation staggers in from the west.
 
@@ -1132,8 +1130,6 @@ you feel more than a little afraid. One of the cave entrances looks familiar
 and you remember what Bast the bartender told you. This is where the monster
 has its lair.
    Exits lie: south (to the hills) and northwest (to the monster's lair).
-
-Also here is a crucifix and the holy handgrenade.
 
 Emerging from the cave, you stumble and drop everything you're carrying. Your
 items, big and small, tumble down the hill.

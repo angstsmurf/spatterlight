@@ -251,8 +251,6 @@ Parking lot of publix
 This is the parking lot of the grocery store you work at. There are many cars
 here.
 
-Also here is a mustang.
-
 You can only move north.
 
 > north
@@ -319,7 +317,7 @@ There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
 have the keys.
 
-Also here is a mustang and a piece of crap truck.
+Also here is a piece of crap truck.
 
 You can move north, south and west.
 
@@ -431,8 +429,6 @@ Bob's Street
 This is the street leading to Bobs house. There are yellow lines in the
 center. toi the south is bob's Driveway
 
-Also here is a piece of crap truck.
-
 You can only move south.
 
 > south
@@ -494,7 +490,7 @@ There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
 have the keys.
 
-Also here is a mustang and a piece of crap truck.
+Also here is a mustang.
 
 You can move north, south and west.
 
@@ -610,8 +606,6 @@ You get in the car and drive to work.
 Parking lot of publix
 This is the parking lot of the grocery store you work at. There are many cars
 here.
-
-Also here is a mustang.
 
 You can only move north.
 

@@ -502,6 +502,8 @@ This small island is in the shape of a pentagon with a small raised platform
 in the middle.  The magma bridge melts and the wall of lava blocks your path
 to the north. You can see an island to the northeast.
 
+Resting on the platform is an odd looking pair of goggles.
+
 > wear goggles
 You put on the pair of Heat Goggles.
 

@@ -151,11 +151,8 @@ You step out of the taxi.
 
 In the streets
 The maze of streets is a dangerous place on a night like this, with only a
-few street-lights smoothly disturbing the darkness.  Some drunk person is
-staggering along the street.  You can hear distant police sirens from behind.
- A helicopter crosses the space above the roofs and its searchlights blind
-your eyes for a second.  Cold raindrops are falling down like the blood from
-a victim's neck.
+few street-lights smoothly disturbing the darkness.  Rain is dropping on the
+car's roof, reminding you of the tales of blood and fear.
 
 You can go south and west.
 

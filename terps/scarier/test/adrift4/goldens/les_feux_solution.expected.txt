@@ -365,8 +365,6 @@ d'entrer dans cet salle.
                                         [Appuyez sur une touche pour
 continuer]
 
-Vous avez pris rapidement dans le sac une chaine en bronze.
-
 TUNNEL SOMBRE
 
 Vous marchez le long d'un tunnel sombre qui part vers le Nord. Les murs sont
@@ -376,6 +374,7 @@ se trouve
 à l'extrémité du couloir. Au sud vous distinguez la petite caverne.
 
 Sorties évidentes: Nord et Sud.
+Vous avez pris rapidement dans le sac une chaine en bronze.
 
 > drink fiole bleue
 Un grand frisson parcourt votre corps et vous vous sentez beaucoup mieux.

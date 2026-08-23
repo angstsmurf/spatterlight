@@ -602,9 +602,6 @@ the fire.
 You tie the cord around your waist as tightly as you can.
 
 > w
-(first untying the cord from your waist)
-You step over to the west.
-
 Southwest Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
@@ -614,6 +611,9 @@ and to the east a gate set in the wall.  The chimpanzee is northeast in the
 tree.  The mandrill is north.
 
     The fire you started is burning here, smoke being blown towards the east.
+
+(first untying the cord from your waist)
+You step over to the west.
 
 > get sheet
 You're already wearing your sheet!

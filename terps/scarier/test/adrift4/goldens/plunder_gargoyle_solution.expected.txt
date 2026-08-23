@@ -266,8 +266,6 @@ really knoweth how to do it.  Some day, 'twill probably maketh an incredible
 touristy attraction of some sort.  But today, 'twill leadeth ye to treasure.
 Yarr harr!  Thar be some footprints in ye sand here.
 
-Also here is ye cannon.
-
 > push cannon south
 Hi-ho!  Ye pusheth ye cannon southward.
 
@@ -277,8 +275,6 @@ greenery and brambles surroundeth ye upon many sides.  Ye could also taketh
 ye waye back north to ye beach or head east along ye path ye cut through yon
 twisted greenery.
 
-Also here is ye cannon.
-
 > push cannon east
 Hi-ho!  Ye pusheth ye cannon eastward.
 
@@ -286,8 +282,6 @@ Ye Olde Ruins
 Verily, ye ruins looketh crumbly and stonish.  Strange carvings cover ye
 walls except on ye northern wall, which hath a huge crack in it.  Lo, yon
 eerie totem standeth amidst ye aged rubble.  Obvious exits are west and east.
-
-Also here is ye cannon.
 
 > push cannon east
 Hi-ho!  Ye pusheth ye cannon eastward.
@@ -298,7 +292,7 @@ view of ye ocean from here, too.  A viney tree groweth at ye cliff's edge,
 from which dangleth ye mightily secure grappling hook.  Ye could go west back
 to ye olde ruins or down ye cliffside.
 
-Also here is ye cannon and yon treasure chest.
+Also here is yon treasure chest.
 Ye helpful pirate buddy Ichabod standeth by, lookin' around.
 
 > shoot ghost ship
@@ -316,9 +310,6 @@ Ye Olde Ruins
 Verily, ye ruins looketh crumbly and stonish.  Strange carvings cover ye
 walls except on ye northern wall, which hath a huge crack in it.  Lo, yon
 eerie totem standeth amidst ye aged rubble.  Obvious exits are west and east.
-
-Also here is yon treasure chest.
-Ye helpful pirate buddy Ichabod standeth by, lookin' around.
 
 > open chest
 Ye shove open yon heavy, creaking treasure lid and are blinded by yon gleam
@@ -350,9 +341,6 @@ greenery and brambles surroundeth ye upon many sides.  Ye could also taketh
 ye waye back north to ye beach or head east along ye path ye cut through yon
 twisted greenery.
 
-Also here is yon treasure chest.
-Ye helpful pirate buddy Ichabod standeth by, lookin' around.
-
 Somewhence, yon creepy swamp crickets chirpeth.
 
 > push treasure north
@@ -365,9 +353,6 @@ really knoweth how to do it.  Some day, 'twill probably maketh an incredible
 touristy attraction of some sort.  But today, 'twill leadeth ye to treasure.
 Yarr harr!  Thar be some footprints in ye sand here.
 
-Also here is yon treasure chest.
-Ye helpful pirate buddy Ichabod standeth by, lookin' around.
-
 > push treasure west
 Ichabod and yeself each take an end of yon treasure chest and hauleth it
 west.
@@ -379,8 +364,7 @@ sea.  Also, ye liketh to sail around in it plunderin', which is what maketh
 ye a pirate in ye first place.  From here ye can moveth east down ye
 gangplank to yon beach.  Or, when ye feeleth ready, ye might set sail.
 
-Also here is ye olde riddle scroll and yon treasure chest.
-Ye helpful pirate buddy Ichabod standeth by, lookin' around.
+Also here is ye olde riddle scroll.
 
 > set sail
 Aye, set sail!

@@ -615,8 +615,6 @@ covering the floor, hangs heavy in the air.  The stone wall that blocked the
 tunnel to the northeast is completely gone, without a trace.  The tunnel also
 goes off to the southeast.
 
-Also here is a large boulder.
-
 A flock of bats swoop in from the south-east.
 
 > push boulder se
@@ -631,8 +629,6 @@ tunnel, only making the stench of the bat droppings that much more
 nauseating.  I can see that the tunnel branches off to the northeast and
 northwest, as well as to the south.
 
-Also here is a large boulder.
-
 > push boulder s
 "Grrrr. Hhhrrrmmmmmmmmmppphhhh."
 
@@ -643,8 +639,6 @@ A Dark Tunnel
 The tunnel narrows a little here, but I can see that it runs north and south
 from here.  The stench from the bat droppings that cover the tunnel floor is
 quite overwhelming.
-
-Also here is a large boulder.
 
 > push boulder s
 "Grrrr. Hhhrrrmmmmmmmmmppphhhh."
@@ -657,8 +651,6 @@ The tunnel divides into four different directions here.  It goes south, while
 three other tunnels lead north, northeast, and northwest.  A strong odor of
 ammonia fills the air.  It is likely coming from the bat guano that covers
 the ground.
-
-Also here is a large boulder.
 
 > push boulder nw
 "Grrrr. Hhhrrrmmmmmmmmmppphhhh."
@@ -673,8 +665,6 @@ the tunnels early on.  It almost seems like this tunnel is a little more
 narrow than the others I’ve been in.  It looks like the tunnel goes southeast
 and north.
 
-Also here is a large boulder.
-
 > push boulder n
 "Grrrr. Hhhrrrmmmmmmmmmppphhhh."  I pushed the boulder to the north.
 
@@ -682,8 +672,6 @@ A Dark tunnel
 
 This narrow tunnel leads west and south, and is intoxicating to be in.  The
 floor is piled high with bat droppings, and the stench is quite nauseating.
-
-Also here is a large boulder.
 
 > push boulder w
 "Grrrr. Hhhrrrmmmmmmmmmppphhhh."
@@ -696,8 +684,6 @@ It appears that the tunnel ends here and the room opens up into a large cave,
 of sorts.  Three stone plinths rise up from the guano covered floor, each one
 differing in height.  I can see a tall plinth, a medium plinth, and a short
 plinth. Wow, it really smells bad in here.
-
-Also here is a large boulder.
 
 > put large boulder on short plinth
 "Mmmmgggphh. Uuuuugghhh.  Whoy boy.  Easy does it.  Oh!  Ahh!  Grrruuummmph.
@@ -875,7 +861,6 @@ A Dark Tunnel
 The tunnel curves around to the southeast and southwest from here.  Directly
 south is an open doorway, leading into darkness.  Thankfully there isn't any
 guano present, though the smell still lingers.
-"Hanson is here, looking at me for direction."
 
 > sw
 I move southwest.
@@ -931,7 +916,6 @@ A Dark Tunnel
 
 A large pit, nearly six foot wide lies before me.  The bridge that was here
 has disappeared somewhere into the pit.  The tunnel leads east.
-"Hanson is here, looking at me for direction."
 
 > put ladder over pit
 Steadying the ladder at the edge of the pit, I slowly lower it, making
@@ -960,7 +944,6 @@ A Dark Tunnel
 A single streak of light beams down from a boarded up hole from above.  There
 is no way to reach it now, the ladder has come free from the wall.  It looks
 like the tunnel goes west from here, and back east to where the rats are.
-"Hanson is here, looking at me for direction."
 
 > e
 I move east.

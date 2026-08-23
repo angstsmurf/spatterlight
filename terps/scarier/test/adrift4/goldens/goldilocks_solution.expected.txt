@@ -1872,7 +1872,8 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
+an open trapdoor.  Extremely hot porridge is gushing down the sides of the
+porridge pot. The room is steadily beginning to fill up with the stuff.
 
 I can move north, west, up, down and out.
 

@@ -1180,10 +1180,6 @@ Jumping into your car, you speed off into the night.
 Home Free!
 You made it! congratulations
 
-Also here is a torch, a diamond ring, a silver candlestick, a silver
-necklace, a property deed, a bundle of money, an emerald ring, a gold
-braclet, a gold bar, a bag of doubloons and your car.
-
 > wait
 Time passes...
 It has been a long and frightful night. The long boney fingers of terror

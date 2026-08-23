@@ -2191,8 +2191,6 @@ warmth.
 
 Exits lie: east (through the now open door)
 
-   You can also see Lara's doll.
-
    The moment you step into the cell, "Harris" looks up in alarm - he clearly
 knows what has happened and that you are aware of his identity.
    "You'll do well to keep your distance!" he warns. "You don't want to mess

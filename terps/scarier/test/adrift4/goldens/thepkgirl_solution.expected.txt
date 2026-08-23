@@ -332,7 +332,6 @@ of the city.  Traffic on this road is moderate, with every now and then a
 vehicle zooming past and leaving the sound of its passage reverberating in
 the air.  Langston Bridge, which you recently passed over, is to the east.
 Your motorcycle is parked here.
-    Laurie is right beside you.
 
 > east
 (Getting off your motorcycle first)
@@ -357,7 +356,6 @@ and west, and the river to the east.  The view might be considered romantic
 under different circumstances.  To the south is Langston Bridge.  Not far off
 below the hill, in the immediate parts of the city, some buildings are
 visible, one of which is larger than the rest.
-    Laurie is right beside you.
 
     Laurie steps forward and looks out over the darkened city below where her
 sister must surely be, shivering a little because the night has grown
@@ -406,7 +404,6 @@ general condition of buildings and the street itself is poor.  If there were
 people sitting about it, which there aren't, it would be difficult to picture
 them smiling.  North is a run-down gas station and south is an empty lot.  To
 the east the river is almost visible.  The street continues on west.
-    Laurie is right beside you.
 
     Laurie follows you from the south.   "I do not like this street.  It is
 too quiet", she whispers.
@@ -571,7 +568,6 @@ Long Hall North
 you don't have a lot of time to look around!  Rather than entering one of the
 rooms that are to the west or east, you would be best off continuing south
 until you get to a place where you can throw your pursuers off.
-Laurie is waiting for you under the lamppost.
 
     A loud alarm is ringing.
 
@@ -596,7 +592,6 @@ Hallway Junction
     This is where the north-south hallway ends.  Running perpendicular to it
 is a similar-looking hallway which extends east and west for an
 indeterminable distance.
-Laurie is waiting for you under the lamppost.
 
     Laurie follows you from the south.
 
@@ -614,7 +609,6 @@ You move east.
 Long Hall East
     The hallway continues east and west, with the entrance to some darkened
 room to the south.
-Laurie is waiting for you under the lamppost.
 
     Laurie follows you from the west.
 
@@ -661,7 +655,6 @@ On the Windowsill
     You are standing on a windowsill, hugging the north wall to keep from
 falling.  South of you is the exterior wall of some other part of the
 building.  The windowsill continues east and west.
-Laurie is waiting for you under the lamppost.
 
     Laurie edges her way along the windowsill slowly.  There is terror in her
 eyes.
@@ -687,13 +680,12 @@ of some other part of the building.
 > north
 You step through the window.
 
-    Laurie follows you through the window and then stops.
-
 Copy Room
     There are no furnishings here other than a copy machine in one corner and
 stacks of papers all around.  To the north is the main hallway.  There are
 also rooms to the east and west.  To the south is a window.
-Laurie is waiting for you under the lamppost.
+
+    Laurie follows you through the window and then stops.
 
     An alarm can be heard in the halls outside.
 
@@ -750,7 +742,6 @@ around a corner up ahead.  Except for the hatchway from which you dropped,
 the ceiling is practically concealed by the criss-crossing of a myriad of
 pipes.  This area appears to be a dead end from which the only way one can go
 is north.
-Laurie is waiting for you under the lamppost.
 
 > north
 As you move forward you can hear the cries of a girl from up ahead.  You and
@@ -763,7 +754,6 @@ furniture provides cover.
     Over to the west you see that Laurie's sister is being held down in a
 chair in the center of the room.
     Three kidnappers are standing near her.
-Laurie is waiting for you under the lamppost.
 
     "Cassie!", gasps Laurie.
 
@@ -947,8 +937,6 @@ than in the domestic atmosphere that permeates it, made possible by
 cleanliness and simple feminine decor.  A mat lies at the foot of the front
 door, which is east.  A mailbox is attached to the wall beside the door.
 Your motorcycle is parked close by.
-Laurie is waiting for you under the lamppost.
-    Cassie is also beside you.
 
 > wait
 Time passes...
@@ -1650,9 +1638,6 @@ displaying the cafe's name.  The city continues to the north.
 > east
 You enter the cafe.
 
-    "Have a seat", says the woman at the table.  She has not looked up but it
-is clear she is speaking to you.
-
 Cafe
     The interior of this cafe is lit primarily by a tiny window on the east
 wall; the place really doesn't seem to require any more lighting than that.
@@ -1660,6 +1645,9 @@ The room is not large, yet contains a number of closely packed square tables
 and chairs.  A menu is displayed atop a counter.  The exit to the cafe is
 west.
     A mysterious woman is seated at a table facing the window.
+
+    "Have a seat", says the woman at the table.  She has not looked up but it
+is clear she is speaking to you.
 
 > sit
 You sit down at the table.
@@ -1734,13 +1722,13 @@ count on you."
 > west
 You leave the cafe.
 
-    You do not see Katryn anywhere.
-
 By the Cafe
     The avenue from the west ends here beside a fashionable cafe with a row
 of rose bushes in front.  A couple tables with chairs have been set up for
 the occasional outdoor diner, and there is a folded sign on the ground
 displaying the cafe's name.  The city continues to the north.
+
+    You do not see Katryn anywhere.
 
 > west
 You move west.
@@ -2673,7 +2661,6 @@ great distance.   A thick forest of dark and unsightly trees borders it on
 both sides.  There are no man-made structures to be seen other than the road
 itself.  There are no vehicles passing at this lifeless hour of night.  But
 your motorcycle is parked here.
-    Katryn is seated on your motorcycle.
 
 1) "Not with a traitor."
 2) "Get off my bike this instant."
@@ -3008,14 +2995,14 @@ find it.  The pass leads east through the mountains.
 You navigate through the canyon-esque pass, emerging after some time in a
 spacious clearing...
 
-    Some people wearing white are moving away from that building, spilling
-out like candy from a paper sack.
-
 Clearing
     Few would expect to find so wide an expanse of flat open space among
 mountains such as these.  The shrub becomes sparser as you move eastward, out
 from under the cover of the mountains into this vast clearing.  At the far
 end of the clearing you can see a building, beige in color, square in shape.
+
+    Some people wearing white are moving away from that building, spilling
+out like candy from a paper sack.
 
 > east
 You head east towards the building.  By the time that you reach it, those
@@ -3613,8 +3600,6 @@ complex.  The wall, floor, and ceiling are of stained steel, and all look
 much the same.  There are scarcely any features to them; only a row of red
 dome-shaped lights that lines the outer wall.  A door is to the north.  The
 corridor continues east and west.
-Laurie is waiting for you under the lamppost.
-    Katryn is standing here.
 
     Laurie follows you from the west.
 
@@ -3641,7 +3626,6 @@ portion of the ceiling that opens and extends upwards some ways to where
 there is a hatch of some kind.  A ladder-like apparatus is attached near it.
 The corridor continues north and east.  The ladder is unfolded and reaches
 all the way down to the floor.
-    Katryn is standing here.
 
     Katryn follows from the east.
 
@@ -3665,15 +3649,6 @@ Press enter to continue
 
 You crawl out from the hatchway, followed closely by Laurie.
 
-    "Make your move, then, if you dare", challenges Dustin.
-    "Why should I deny you your own reputation?  You always were the one to
-start a fight.  And the one to lose it as well", Octal replies calmly.
-    Angered, Dustin pulls out a revolver, a .357, and thrusts the barrel in
-Octal's direction.
-    "Would you shoot me?  Guns are a cowardly way to contend."
-    In response, Dustin attempts to cock the weapon, but cannot do it.  The
-gun simply fails to click.  Octal laughs.
-
 Top of the Silo
     A panoramic view of the mountains is once again to be had outside the
 silo.  The sun is low on the horizon.   You can see the barren valley that
@@ -3685,8 +3660,16 @@ stretching for yards and yards without aberration, except for a lone
 satellite dish.  Far in the distance a helicopter also rests atop the
 building, its back facing you.  As they cut the air, the spinning blades
 create a noise so loud it can be heard all across the surface of the silo.
-Laurie is waiting for you under the lamppost.
     Octal stands opposite and facing Dustin.
+
+    "Make your move, then, if you dare", challenges Dustin.
+    "Why should I deny you your own reputation?  You always were the one to
+start a fight.  And the one to lose it as well", Octal replies calmly.
+    Angered, Dustin pulls out a revolver, a .357, and thrusts the barrel in
+Octal's direction.
+    "Would you shoot me?  Guns are a cowardly way to contend."
+    In response, Dustin attempts to cock the weapon, but cannot do it.  The
+gun simply fails to click.  Octal laughs.
 
 > wait
 Time passes...

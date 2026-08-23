@@ -77,8 +77,11 @@ def build(cfg):
         s(len(cmds))
         for c in cmds: s(c)
         s(t['complete']); s("")                 # CompleteText Reverse
-        s(t.get('repeat', "")); s("")           # RepeatText Additional
-        s(0); s(t.get('repeatable', 1)); s(0)   # ShowRoomDesc Repeatable Reversible
+        s(t.get('repeat', "")); s(t.get('additional', ""))  # RepeatText Additional
+        # ShowRoomDesc is 0 for "don't", else the 1-based room whose name and
+        # description the task shows.  It is emitted BEFORE the task's own
+        # actions run -- see probe SRD below.
+        s(t.get('showroomdesc', 0)); s(t.get('repeatable', 1)); s(0)
         s(0)                                    # ReverseCommands
         s(3)                                    # Where: all rooms
         q = t.get('question', "")
@@ -1426,6 +1429,53 @@ CONFIGS = {
     tasks=[dict(commands=["drop cape * floor"], complete="",
                 actions=[(4,250)])]),
 
+    # SRD: where does a task's ShowRoomDesc sit relative to its own actions?
+    # Space Boy task 24 ("{take/get} {them/goggles}", ShowRoomDesc = Treasure
+    # Island, action = move the goggles to held-by-player) makes run400 print
+    # a room description that STILL lists the goggles on the platform, while
+    # scarier -- which ran actions first, then appended the room description
+    # -- omitted them.  Six tasks pin the order down from every side.
+    #
+    # Measured on run400 2026-08-23; the answer is room-then-actions, with the
+    # description built from the world as it stood when the task matched:
+    #
+    #   alpha    room object -> player's hands   widget STILL listed
+    #   beta     held object -> into the room    gizmo NOT listed
+    #   gamma    redirect to a "DELTA." task     room text first, DELTA. after
+    #   epsilon  as gamma, + AdditionalMessage   EPSILON. / room / DELTA. / ADDMSG.
+    #   zeta     NPC -> player's room            Bob NOT listed
+    #   eta      NPC -> away                     Bob STILL listed
+    #
+    # So the full emission order is CompleteText, room description, action
+    # output, AdditionalMessage.
+'SRD': dict(name="Probe SRD",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{}),
+           ("Back Room","A back room.",{})],
+    objects=[("a","widget",4,0,0,0,0,0,0), ("a","gizmo",1,0,0,0,0,0,0)],
+    npcs=[("Bob",1,0,10,0,0,0,0,0,0,0,0,0,0)],
+    tasks=[dict(commands=["alpha"], complete="ALPHA.", showroomdesc=1,
+                actions=[(0,3,4,0)]),
+           dict(commands=["beta"], complete="BETA.", showroomdesc=1,
+                actions=[(0,4,6,0)]),
+           # gamma redirects to deltaxyzzy, whose CompleteText dates the room
+           # build: if "DELTA." lands after the room text, the room was built
+           # before the action ran.
+           dict(commands=["gamma"], complete="GAMMA.", showroomdesc=1,
+                actions=[(5,0,3)]),
+           dict(commands=["deltaxyzzy"], complete="DELTA."),
+           # epsilon adds AdditionalMessage to the mix, so one task fixes the
+           # whole emission order: complete text, room description, action
+           # output and additional message all carry a distinct marker.
+           dict(commands=["epsilon"], complete="EPSILON.", additional="ADDMSG.",
+                showroomdesc=1, actions=[(5,0,3)]),
+           # zeta/eta repeat the alpha/beta pair for an NPC rather than an
+           # object, because the room description lists NPCs too and several
+           # corpus games (light_up, thorn) turn on exactly that.
+           dict(commands=["zeta"], complete="ZETA.", showroomdesc=1,
+                actions=[(1,2,2,0)]),
+           dict(commands=["eta"], complete="ETA.", showroomdesc=1,
+                actions=[(1,2,0,2)])]),
 }
 
 if __name__ == '__main__':

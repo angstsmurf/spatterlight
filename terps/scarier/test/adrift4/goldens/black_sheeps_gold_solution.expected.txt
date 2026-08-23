@@ -903,8 +903,6 @@ unremarkable compared to some of the rooms I've seen so far.  There is a
 small wooden chair here, perhaps used by my great-grandfather himself those
 many years ago.
 
-Before me lies a pile of ash.
-
 I can move east and west.
 
 > e
@@ -1142,6 +1140,8 @@ I now dub this room the Riki Tiki Cavern, in honor of the glorious battle
 that my mongoose fought.  I'm so proud of that little thing!  The rattlesnake
 is gone, and now I can explore further through the caves.
 
+Before me lies the snake.
+
 I can move east and west.
 
 > e
@@ -1241,6 +1241,8 @@ In this room I narrowly escaped with my life, but I am now free to explore
 the rest of the cave.  The gold is near, I can feel it in my bones.  I'm just
 a little way away from becoming the richest kid in Splintered Rock!  I can't
 wait to find it!
+
+Before me lies the hungry cave bear.
 
 I can move east and west.
 

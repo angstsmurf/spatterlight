@@ -352,7 +352,7 @@ Cavern of Mirages
 The carvern is covered in translucent ice.  Borken pieces of the mirror are
 on the floor.
 
-Also here is A snow flake.
+Also here is Bent Mirror.
 Lamanluie is here.
 
 You can move west and down.
@@ -516,8 +516,6 @@ Core of Volcano
 The magma is oozing everywhere and your body breaks into a sweat. Each drop
 from your body drips onto the ground and sizzles mightily.  The magma looks
 as though it'll erupt any minute. It creeps ever so slowly at you.
-
-Also here are The Amber of Flames.
 Lamanluie and Kelorano are here.
 
 You can only move west.

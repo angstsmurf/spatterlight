@@ -356,8 +356,6 @@ End of Hall
 You are standing at the window of the second-floor hall. The stairway lies to
 the north.  Peering through the grimy glass and even grimier fire escape, you
 can make out several fires raging throughout the area.
-A mangled zombie has found you! It's countenance is feral and hungry, and its
-eyes promise only a painful death!
 
 A mangled zombie has found you! It's countenance is feral and hungry, and its
 eyes promise only a painful death!

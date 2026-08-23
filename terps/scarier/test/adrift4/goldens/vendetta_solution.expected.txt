@@ -417,6 +417,7 @@ carefully pick out the carved images of cherubs, busts and theatrical masks
 that decorate the walls behind them. The entrance to this place lies to the
 north in the form of a huge archway. Either side of the entrance are the
 statues of two rampant lions on plinths.
+A thespian is here.
 A man in a fancy tuxedo, probably an actor, leans against the wall with a
 smug grin on his face.
 "Nice suitcase you got there." he calls out to you, gesturing with his foot.
@@ -670,7 +671,6 @@ large bay window that stretches the entire length of the wall. In the corner,
 right next to the window is a small bookshelf, to the right of which is a
 videocom. In the middle of the room is a leather sofa and a small coffee
 table.
-Sally is here.
 "I can't believe you haven't got any rooms left with two beds. Surely you
 can't be that busy at this time of the year..." you tell the receptionist.
 "I'm afraid we are, Mr. Bitter. I can't help you, sorry." The receptionist
@@ -1080,16 +1080,16 @@ which looks deserted. You decide to dump the jetbike some distance from the
 lithoid and travel the rest of the way on foot through the thick forest.
 
 You reach your destination in no time.
+
+At the edge of the Woods
+Behind you lies miles of dense, snow-covered woodland. In front of you, some
+distance to the east, is the Falcon Lithoid.
 You glance down at your watch :
 
         21  JAN   09:00:00 PM
 
 That gives me about an hour before that bitch finds out that I am not where I
 should be, you think to yourself. I had better keep an eye on the time...
-
-At the edge of the Woods
-Behind you lies miles of dense, snow-covered woodland. In front of you, some
-distance to the east, is the Falcon Lithoid.
 
 > e
 You move east.

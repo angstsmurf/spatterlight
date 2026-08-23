@@ -120,8 +120,6 @@ This place is about the size of one of those cans you have just seen. The
 wall in front of you appears to be an enormous flap. You do not see any
 visible exits.
 
-An enormous paperclip is laying on the floor.
-
 > get paperclip
 You take the paperclip.
 

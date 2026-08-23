@@ -91,7 +91,6 @@ Buried in the side of a large sand dune, is the entrance to the fabled lost
 tomb of pharaoh Erick.
 The huge stone door that had been blocking it was removed the previous day,
 leaving now an ominous looking hole, leading into darkness.
-Rupert is here.
 
 > n
 You move north.
@@ -173,7 +172,6 @@ The Sand Room
 Standing in the middle of the room is a magnificently decorated sarcophagus.
 The walls are decorated with brightly coloured effigies of animals and
 several holes in the ceiling spiral outwards from a central point.
-Rupert is here.
 Sand begins to filter through holes in the ceiling.
 
 > take emeralds
@@ -419,8 +417,7 @@ quality, takes centre stage in a large chamber, the walls of which are
 stunningly painted and carved. Mounted in an arch in one of the walls, is a
 large and impressive statue of a jackal.
 Three gold rimmed archways lead off in three directions, northwest, north and
-northeast.
-Rupert is here.  Rupert is having 'tiffin'
+northeast.   Rupert is having 'tiffin'
 
 > put cork in mouth
 You poke it in with your thumb. It makes a tight fit.
@@ -509,8 +506,6 @@ then the others. Standing in each corner is a pillar, each painted a
 different colour, red, green, yellow and blue.  A large symmetrical design of
 abstract shapes has been carved into the floor. The inscription has broken,
 revealing a secret compartment.
-
-Also here is a ruby.
 Rupert is here.
 
 > take ruby
@@ -553,7 +548,7 @@ The Bottom of the well
 You're standing up to your knees in stagnant water. The sides of the well are
 smooth and slippery, making them impossible to climb.
 
-Also here is a rope and the death mask.
+Also here is the death mask.
 
 > take mask
 You pick up the death mask.

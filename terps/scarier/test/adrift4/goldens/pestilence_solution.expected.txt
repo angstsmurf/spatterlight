@@ -17,10 +17,6 @@ Version 1.00, 2006
 
 > 1
 
-The pain from your headache is now much worse.  Although it is difficult to
-put into words it is like a piercing or maybe a burning pain. A bit like
-someone is stabbing at your eyes with a nail or knife from the inside.
-
 Outside the Medical Centre
 The Rushmore Medical Centre is situated in a very grim and desperate part of
 town. Standing at the end of a long and high brick wall lined alley, it has a
@@ -29,6 +25,10 @@ grey concrete blocks, the centre seems to be surrounded by various mounds of
 rubbish. A strong looking security door is to the north and the highway is
 back to the south.
 A wide-eyed hungry looking security guard is watching you.
+
+The pain from your headache is now much worse.  Although it is difficult to
+put into words it is like a piercing or maybe a burning pain. A bit like
+someone is stabbing at your eyes with a nail or knife from the inside.
 
 > exam rubbish
 Hiding amongst of the smelly mounds is an old house brick and a broken knife,
@@ -84,8 +84,6 @@ The plain white walls are dripping with condensation and the flooring looks
 to be covered in some sort of anti-slip surface. Along the ceiling are rows
 of harsh fluorescent lights. North leads to some stairs, east to a
 consultation room, west to a lab and south is the reception area.
-
-You can also see a silver key.
 
 Someone charges into you from the room on the left and runs away to the
 north.  You can hear them running down some stairs.

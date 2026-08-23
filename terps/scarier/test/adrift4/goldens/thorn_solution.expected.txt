@@ -216,8 +216,6 @@ window into a gray rectangle, but seems hardly strong enough to penetrate the
 glass. Where the south wall must be there is a black gap you guess is a
 fireplace.
 
-The vicar lets out a soft sigh.
-
 > make fire
 You put the sticks into the fireplace.  They are light as ancient bones. To
 your surprise they burst into flames.  In moments firelight has pushed the

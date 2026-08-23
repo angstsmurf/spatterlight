@@ -194,7 +194,7 @@ Blinking on the computer screen: Password correct! you may pass.
 Mr. Bissoff's Room
 You are in the room with Mr. Bissoff! As soon as you get in, he snatches your
 weapon! All of a sudden, Lightning comes in!
-Lightning and Mr. Bissoff are here.
+Mr. Bissoff is here.
 
 You can only move south.
 Mr. Bissoff manages to avoid Lightning's attack.

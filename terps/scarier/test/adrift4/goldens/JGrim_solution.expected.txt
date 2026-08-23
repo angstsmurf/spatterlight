@@ -671,9 +671,6 @@ Aw-
 
 Press any key to continue
 
-Feeling hungry you pop the prawn sandwiches into your mouth and munch happily
-until they are gone.
-
 Valley
 You are stood in what was once a lush, pink valley.
 The key words there are was and pink. Wherever you are, it isn't Earth.
@@ -702,6 +699,9 @@ Behind the valley wall looms the huge shape of the Cittian. It seems that you
 weren't the only thing to crash land here.
 
 Also here is a broken, empty oxygen tank.
+
+Feeling hungry you pop the prawn sandwiches into your mouth and munch happily
+until they are gone.
 
 You pull yourself groggily to your feet and give yourself a quick once over.
 Amazingly, you seem to be in one piece. Your home-made space-suit appears to

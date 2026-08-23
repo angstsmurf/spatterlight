@@ -504,6 +504,18 @@ worked out okay in the end.
 
 ... more ...
 
+Destiny
+I'm in… I don't know. It's strange.
+
+The room is ten feet wide and fifteen feet long. The walls are covered with
+windows which show a desolate landscape shooting past at unbelievable speeds.
+The floor, too, is windowed, although the two views differ: the walls view
+shows that the room is level with the ground, the floor view shows that the
+ground is several hundred feet away. The ceiling shows an underwater scene. A
+table with Mr ER's briefcase on rests in the centre of the strange room.
+   Mr ER is here, his personality so loud and overpowering there seems
+precious little room for anything else.
+
    "Now, was that STRANGE or was that STRANGE?" booms Mr ER, laughing
 delightedly to himself. "Ready for another one, Mr Kramer?"
    "No, I fucking well am not!" I snap. I stare about myself, at the room, at
@@ -519,18 +531,6 @@ requiring an ANSWER of either 'yes' or 'no'. Are you ready?"
 is simply: yes or no?"
    "Yes or no what?"
    Infuriatingly, he just stands there and repeats: "yes or no?"
-
-Destiny
-I'm in… I don't know. It's strange.
-
-The room is ten feet wide and fifteen feet long. The walls are covered with
-windows which show a desolate landscape shooting past at unbelievable speeds.
-The floor, too, is windowed, although the two views differ: the walls view
-shows that the room is level with the ground, the floor view shows that the
-ground is several hundred feet away. The ceiling shows an underwater scene. A
-table with Mr ER's briefcase on rests in the centre of the strange room.
-   Mr ER is here, his personality so loud and overpowering there seems
-precious little room for anything else.
 
 > yes
 "And YES it is!" cries Mr ER and before I can ask him just what he means, my
@@ -809,6 +809,18 @@ My surroundings change...
 
 ... more ...
 
+Destiny
+I'm in… I don't know. It's strange.
+
+The room is ten feet wide and fifteen feet long. The walls are covered with
+windows which show a desolate landscape shooting past at unbelievable speeds.
+The floor, too, is windowed, although the two views differ: the walls view
+shows that the room is level with the ground, the floor view shows that the
+ground is several hundred feet away. The ceiling shows an underwater scene. A
+table with Mr ER's briefcase on rests in the centre of the strange room.
+   Mr ER is here, his personality so loud and overpowering there seems
+precious little room for anything else.
+
 "And our journey has come to an END!" cries Mr ER himself. "It was a GOOD
 journey but, alas, it has now reached its CONCLUSION!"
    "What the hell are you talking about?" I rub a hand across my eyes. I feel
@@ -835,18 +847,6 @@ all possibility of conversation.
 have been closed for several months, if not years. The street extends east
 and west, both directions looking equally bleak, while south, over the road,
 there looks to have been some kind of incident.
-
-Destiny
-I'm in… I don't know. It's strange.
-
-The room is ten feet wide and fifteen feet long. The walls are covered with
-windows which show a desolate landscape shooting past at unbelievable speeds.
-The floor, too, is windowed, although the two views differ: the walls view
-shows that the room is level with the ground, the floor view shows that the
-ground is several hundred feet away. The ceiling shows an underwater scene. A
-table with Mr ER's briefcase on rests in the centre of the strange room.
-   Mr ER is here, his personality so loud and overpowering there seems
-precious little room for anything else.
 
 > s
 I set off south, determined this time to avoid the fate which occurred

@@ -429,8 +429,6 @@ Glaven junction
 You are standing at the junction of four paths. One leaves west towards some
 caves. Another path leads towards some mountains northeast of here. A long
 path goes southwest. The last path is wide and goes southeast.
-
-You can also see a large hole.
 Serond is standing on your right.
 
 > se
@@ -974,6 +972,7 @@ You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
 one side of the bridge, east to the other.  Larnt is standing in front of you
 barring the way.
+Larnt is here.
 Serond is standing on your right.
 
 > e

@@ -1919,6 +1919,69 @@ task_suppresses_additional_message (scr_gameref_t game)
 
 
 /*
+ * task_show_room_desc()
+ *
+ * Append the task's ShowRoomDesc room name, description and exits, if it has
+ * one.  Returns TRUE if anything was printed.
+ *
+ * The Runner emits this BEFORE it runs the task's actions, not after, so
+ * the description shows the world as it stood when the task matched.  Probe
+ * SRD in test/adrift4/harness/make_arena_probe.py measured all three sides of
+ * it live on run400:
+ *
+ *   alpha    move a room object into the player's hands, then show the room
+ *            -> "Also here is a widget." is STILL listed
+ *   beta     move a held object into the room, then show the room
+ *            -> the gizmo is NOT listed
+ *   gamma    redirect to a task whose CompleteText is "DELTA.", then show the
+ *            room -> the room text comes first, "DELTA." after it
+ *
+ * epsilon adds an AdditionalMessage and pins the whole emission order down:
+ * CompleteText, room description, action output, AdditionalMessage.  The
+ * wild one in the corpus is Space Boy task 24 ("{take/get} {them/goggles}",
+ * ShowRoomDesc = Treasure Island, action = move the goggles to held-by-
+ * player), where run400 duly reprints "Resting on the platform is an odd
+ * looking pair of goggles." for goggles the player is by then holding.
+ *
+ * Printing here also keeps the description out of the muting that
+ * task_run_task_actions() applies once an action ends the game, which is why
+ * topaz.taf task 22 shows its room ahead of the ending.
+ *
+ * The call sits ahead of the caller's buffer transfer, so the room text rides
+ * along with the CompleteText: one paragraph break between the two, and both
+ * interpolated at the final flush.  Emitting it after the transfer instead
+ * would interpolate it with the values in effect pre-action, but it would also
+ * land in an empty filter and so lose that paragraph break -- 120 corpus
+ * walkthroughs' worth of blank line.  Nothing has measured which set of
+ * variable values run400 uses here.
+ */
+static scr_bool
+task_show_room_desc (scr_gameref_t game, scr_int task)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_int showroomdesc;
+
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = task;
+  vt_key[2].string = "ShowRoomDesc";
+  showroomdesc = prop_get_integer (bundle, "I<-sis", vt_key);
+  if (showroomdesc == 0)
+    return FALSE;
+
+  lib_print_room_name (game, showroomdesc - 1);
+  lib_print_room_description (game, showroomdesc - 1);
+  /*
+   * The run400 room builder appends the exits list itself when the
+   * ShowExits global is set (@00472BFF in Proc_19_63_472CA4), so
+   * task-driven room displays include it too.
+   */
+  lib_print_room_exits (game, showroomdesc - 1);
+  return TRUE;
+}
+
+
+/*
  * task_run_task_unrestricted()
  *
  * Run a task, providing restrictions permit, in the given direction.  Return
@@ -1933,7 +1996,7 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
   const scr_char *completetext, *additionalmessage;
-  scr_int action_count, showroomdesc;
+  scr_int action_count;
   scr_bool status;
 
   /* Start considering task output tracking. */
@@ -2020,6 +2083,9 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   vt_key[2].string = "Res";
   res_handle_resource (game, "sis", vt_key);
 
+  /* Show the task's room, ahead of its actions. */
+  status |= task_show_room_desc (game, task);
+
   /*
    * Things get slightly tricky here.  We need to filter the completion text
    * for the task using any final variable values generated or modified by
@@ -2060,28 +2126,13 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
     }
 
   /*
-   * Append any room description and additional message for the task.  Both
-   * are printed even when an action above has just ended the game: measured
-   * live on topaz.taf (run400), whose task 22 "wear ring" is a single "end
-   * game (win)" action with a room description and "The two of you set out
-   * into the forest." as its AdditionalMessage, and the Runner shows both,
-   * ahead of the ending.  marooned.taf task 29 says the same for run380.
+   * The AdditionalMessage trails the actions, and is printed even when one of
+   * them has just ended the game: measured live on topaz.taf (run400), whose
+   * task 22 "wear ring" is a single "end game (win)" action with a room
+   * description and "The two of you set out into the forest." as its
+   * AdditionalMessage, and the Runner shows both, ahead of the ending.
+   * marooned.taf task 29 says the same for run380.
    */
-  vt_key[2].string = "ShowRoomDesc";
-  showroomdesc = prop_get_integer (bundle, "I<-sis", vt_key);
-  if (showroomdesc != 0)
-    {
-      lib_print_room_name (game, showroomdesc - 1);
-      lib_print_room_description (game, showroomdesc - 1);
-      /*
-       * The run400 room builder appends the exits list itself when the
-       * ShowExits global is set (@00472BFF in Proc_19_63_472CA4), so
-       * task-driven room displays include it too.
-       */
-      lib_print_room_exits (game, showroomdesc - 1);
-      status |= TRUE;
-    }
-
   vt_key[2].string = "AdditionalMessage";
   additionalmessage = prop_get_string (bundle, "S<-sis", vt_key);
   if (!scr_strempty (additionalmessage)

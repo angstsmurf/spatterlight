@@ -77,10 +77,7 @@ Directly opposite of you is an old wooden door with a frosted glass window.
 It smells strongly of alcohol in here.
 
 Upon the floor here lies a glowing syringe of Formula X.
-
-Also here are some glass shards.
-Your headless body stands here.  Gerchis is here, shocked stiff by your
-still-standing body in the doorway.
+Gerchis is here, shocked stiff by your still-standing body in the doorway.
 
 > kill gerchis
 Crack!  You pank Gerchis's skull with the shovel and he falls to the floor,

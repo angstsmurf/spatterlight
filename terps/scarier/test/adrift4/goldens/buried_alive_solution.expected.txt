@@ -204,15 +204,6 @@ must have come up them to get here.
 > w
 You step into the bedroom.
 
---The Hallway--
-
-The hallway winds around the whole of the second floor of your house. Whole?
-Well, there's your and your dearest's bedroom to the west and the bathroom to
-the east. You really feel 'whole' should mean something a bit bigger but
-there you are. The sound of someone singing can be heard from the bathroom.
-Steps lead down, though you've probably already guessed this considering you
-must have come up them to get here.
-
 --The Bedroom--
 
 The bedroom you share with the love of your life. It's not much of a bedroom
@@ -221,6 +212,14 @@ to call it a bedroom. The darling thing you married thought it would be
 different to have mattresses on the floor so that's what she did. Were you
 happy with this? Er... not really but then you have to make sacrifices in
 marriage and this was yours.
+--The Hallway--
+
+The hallway winds around the whole of the second floor of your house. Whole?
+Well, there's your and your dearest's bedroom to the west and the bathroom to
+the east. You really feel 'whole' should mean something a bit bigger but
+there you are. The sound of someone singing can be heard from the bathroom.
+Steps lead down, though you've probably already guessed this considering you
+must have come up them to get here.
 
    "You've got a head!" your dear wife screeches. "What are you doing with
 the milkman's head?"

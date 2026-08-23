@@ -194,7 +194,6 @@ Below you is a deep ravine with a river running south, with slight bends and
 twists.  The Peruvian forests cover the land on either side of the ravine.
 Looking at the southern horizon, you see a metallic glint beyond the
 mountains, occasionally obscured by clouds.
-The wizard is here.
 
 > ask wizard about politics
 "We have been trained by teachings of the ancients to help prevent the old
@@ -219,7 +218,6 @@ Anti-Gravity Platform
 The platform is at the far western end of the hotel parking lot.  The lot
 itself was once solid concrete, but now many cracks with wildflowers and
 weeds cover the ground.
-The wizard is here.
 
 Wizard strides off to the east.
 
@@ -346,6 +344,15 @@ not here.
 You work your way past the wizards and push through the swinging doors into
 the kitchen.
 
+Kitchen
+Someone is living much better than the villagers!  The commercial gas range
+and oven are made of gleaming metal.  A dishwasher is giving off steam, a
+load in the process of being cleaned.  The fridge and freezer are not
+connected to any power source yet definitely are functional.  Pots and pans
+hang from the ceiling, along with other cooking utensils.  To the south was
+the manager's office, to the west are a set of double doors, along the north
+wall are stairs leading down, and to the east are swinging doors.
+
 The brown cloaked figure follows you into the kitchen.  With a chuckle, she
 flips her hood back and nods back toward the dining area.
 
@@ -357,16 +364,6 @@ She starts leaving the kitchen south, when you ask, "Who are you?"
 
 "I'm one of the warlocks those pompous fools fear, but you can call me
 M'greet," she replies as she leaves the room.
-
-Kitchen
-Someone is living much better than the villagers!  The commercial gas range
-and oven are made of gleaming metal.  A dishwasher is giving off steam, a
-load in the process of being cleaned.  The fridge and freezer are not
-connected to any power source yet definitely are functional.  Pots and pans
-hang from the ceiling, along with other cooking utensils.  To the south was
-the manager's office, to the west are a set of double doors, along the north
-wall are stairs leading down, and to the east are swinging doors.
-The warlock is casually walking.
 
 Warlock saunters out to the south.
 
@@ -805,9 +802,8 @@ You take the flashlight.
 
 > s
 Small and narrow tunnel
-A ball of light illuminates the small and narrow tunnel.  Down to the north
-is the cave you first entered.  The tunnel contines south and starts getting
-steeper upward.
+You can see a little light filtering into the tunnel from the cave you first
+entered.  Otherwise the tunnel is pitch black.
 
 > s
 You move south.
@@ -1039,17 +1035,14 @@ passage west.  The river is moving slowly eastward, bending slightly to the
 south further downstream.  You could drift down, but would be very time
 consuming.
 
-You are sitting in the canoe.
-
 > e
 A few strokes of the paddle pushes the canoe faster down the river.
 Ravine River
 The river performs a gradual bend from west to south.  The cliffs of the
 ravine are unclimbable.  The narrow river banks have some vegetation, with an
 occasional burst of color from blooming plants.  The river is moving slowly
-allowing you to drift down, however you don't want to move that slow.
-
-You are sitting in the canoe.
+allowing you to drift down, however you don't want to move that slow.    You
+are drifting along the river.
 
 > s
 A few strokes of the paddle pushes the canoe faster down the river, with most
@@ -1058,9 +1051,8 @@ Ravine River
 The ravine slightly widens and a rocky beach on the eastern side is wide
 enough for the occasional river wake to lap only a small portion of the sand.
  The river twists slightly in different directions, but overall continues to
-drift south, however you don't want to move that slow.
-
-You are sitting in the canoe.
+drift south, however you don't want to move that slow.  You are drifting
+along the river.
 Some catfish were lingering on the river bed, when the shadow of the canoe
 causes them to swim away.
 
@@ -1070,9 +1062,8 @@ You paddle a little bit faster down this stretch of the river.
 Ravine River
 The river slightly widens and you see a dilapidated hotel approaching on the
 east.  Tucked under a concrete wall is a boat dock.  Further south the river
-drops several meters down a waterfall.
-
-You are sitting in the canoe.
+drops several meters down a waterfall.  Several butterflies flitter amongst
+the vegetation.  You are drifting along the river.
 
 > e
 A couple strokes brings you right next to the dock.
@@ -1080,8 +1071,7 @@ A couple strokes brings you right next to the dock.
 Boat Dock
 A solitary dock extends into the river.  It is sheltered by a concrete wall
 and ceiling.  The dock connects to a door in the east wall.
-
-You are sitting in the canoe.
+You are drifting along the river.
 
 > exit canoe
 You leave the canoe, which floats nearby the dock.
@@ -1321,8 +1311,6 @@ here.  Normally you would call this rocky terrain, but further examination
 make it seem almost wooden in texture.  Where the capsule landed is probably
 the smoothest spot around.  To the east is the tower, about five hundred
 meters to where you will seriously start to climb instead of walking.
-
-Also here is a capsule.
 
 > take backpack
 You take the backpack from the capsule.

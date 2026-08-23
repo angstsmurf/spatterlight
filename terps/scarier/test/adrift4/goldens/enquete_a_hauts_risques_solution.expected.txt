@@ -299,7 +299,6 @@ Devant le domicile de Roberto Amato
 Vous arrivez sur place après un long quart d'heure de trajet.  Vous vous
 trouvez dans une petite cour. La porte d'entrée de la maison se trouve au
 Nord.
-Yannick Vilon est ici.  Patrick Gini est ici.
 
 > n
 Vous frappez à la porte. Un grand homme barbu vient vous ouvrir: "Qu'est-ce
@@ -1197,7 +1196,6 @@ certifiez-vous.
 
 Devant le cabinet de Maître Laguiard
 Vous arrivez devant le cabinet de l'avocat. L'entrée se trouve au Nord.
-Yannick Vilon est ici.
 
 > n
 Au moment où vous vous apprétiez à entrer dans le cabinet de l'avocat, un

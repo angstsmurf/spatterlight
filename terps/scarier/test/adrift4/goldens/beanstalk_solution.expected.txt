@@ -150,10 +150,6 @@ garden below.
 > u
 You climbed up the beanstalk a few feet.
 
-As you reverse-climb off the beanstalk, the world fades and reforms. It looks
-like it's two years earlier. Mother and I have changed. And what am I
-carrying now?
-
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
@@ -161,6 +157,10 @@ road to the village market starts off to the east.
 
 A tall beanstalk dominates the garden.
 Your mother is here.
+
+As you reverse-climb off the beanstalk, the world fades and reforms. It looks
+like it's two years earlier. Mother and I have changed. And what am I
+carrying now?
 
 > i
 You are carrying a brown hen.
@@ -272,10 +272,6 @@ garden below.
 > u
 You climbed up the beanstalk a few feet.
 
-As you reverse-climb off the beanstalk, the world fades and reforms. It looks
-like it's two years earlier. Mother and I have changed. And what am I
-carrying now?
-
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
@@ -283,6 +279,10 @@ road to the village market starts off to the east.
 
 A tall beanstalk dominates the garden.
 Your mother is here.
+
+As you reverse-climb off the beanstalk, the world fades and reforms. It looks
+like it's two years earlier. Mother and I have changed. And what am I
+carrying now?
 
 > i
 You are carrying a bag of gold.
@@ -394,11 +394,6 @@ garden below.
 > u
 You climbed up the beanstalk a few feet.
 
-Somewhere, a rooster crows.
-
-"You've done very well, Jack," says the mysterious voice, "but now it's the
-break of day. You should get some rest," the voice says hintingly.
-
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
@@ -406,6 +401,11 @@ road to the village market starts off to the east.
 
 A tall beanstalk dominates the garden.
 Your mother is here.
+
+Somewhere, a rooster crows.
+
+"You've done very well, Jack," says the mysterious voice, "but now it's the
+break of day. You should get some rest," the voice says hintingly.
 
 > e
 You went east.

@@ -542,8 +542,6 @@ guests from behind the counter. The lobby isn't crowded this time of the
 night, and, luckily, you can't see any vampires around. To the east is the
 elevator, and to the west a door leads into the conference rooms. Doors to
 the south leads out of the hotel.
-Simonsen is here.
-Anette is here.
 
 > e
 You move east.

@@ -290,8 +290,6 @@ Wiley has in mind for the room, it is not yet apparent.  At the moment it
 gives the impression of a raw plywood box with creaking floorboards. A vile
 miasma fills the air.
 
-There is a photograph here.
-
 > x floorboards
 In the light from the glowstick you can see cracks between the floorboards.
 You guess there might be a crawlspace underneath the room.
@@ -486,6 +484,8 @@ You can feel leather restraints biting into your wrists and the cold
 electrodes stuck to your arms. Your head is partially covered by a cap and
 you feel dampness against your scalp. The air is alive with a faint buzzing
 which seems to impart a vague vibration to the chair.
+
+A wild flurry of shadows.
 
 > z
 Time passes...

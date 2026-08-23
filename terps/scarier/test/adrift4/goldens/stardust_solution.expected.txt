@@ -452,7 +452,6 @@ Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
 extravagent chandeleir, but it is not lit.
-Squirrel is here.
 
 You can move north, east, west and out.
 
@@ -994,7 +993,6 @@ Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
 extravagent chandeleir, but it is not lit.
-Squirrel is here.
 
 You can move north, east, west and out.
 

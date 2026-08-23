@@ -517,7 +517,7 @@ capital, Ki'parandazar.
 
 The Sagittarian rests neatly between two other ships of its class.  A
 gangplank leads up into the hull of the ship.
-Nika is here, working away at the ship with her toolbox.
+
 Some mechanics rush over to check in the spaceship, then leave Nika to her
 work.
 
@@ -684,7 +684,6 @@ CEREMONIAL ARENA
 The tight cave walls to the south fall away into this open area, where a
 large circle has been marked on the floor with bones and torches.  The
 northern half of this room drops into a deep ravine.
-Grastor the Champion is here.
 
 Irvine's heart beats like a frantic rabbit and his limbs feel strangely
 frozen.  "Can't we j-just talk this over?" he asks.  The handbook falls out
@@ -840,7 +839,7 @@ A small, flat plot of green has been cleared from the jungle here, while the
 jungle regains its thick shaggy grasses and holds the line of its trees to
 the west.  To the south is a waterfall.
 
-A wooden crate lies here.  A bush of Traglenip is busy growing here.
+A bush of Traglenip is busy growing here.
 
 Also here is the crate.
 
@@ -854,8 +853,6 @@ The path to the west is overrun by the thick, verdant grasses of the jungle.
 The grass, in turn, is interrupted by a tall wall of elaborate columns
 running from north to south.  An ornately decorated gate rests in the wall.
 A cleared plot is to the south.
-
-A wooden crate lies here.
 Drash the Guard stands at the ready here.
 
 Also here is the crate.
@@ -871,8 +868,6 @@ dense foliage, and a few other, shorter trees. A monkey chitters and romps in
 the trees above.  The path continues to the north and west, and dips slightly
 to the south, from whence comes the trickling of a small brook.  The gate to
 Ki'parandazar looms to the east.
-
-A wooden crate lies here.
 
 Also here is a red fruit.
 
@@ -1302,8 +1297,6 @@ centre.  A small tray stands next to it, and a glass cabinet holds fast
 against the wall.  A set of super-bright lights hang overhead.  A cryogenic
 freezer stands in the port-aft corner of the room.  Forward is the
 laboratory.
-Dr. Voss is here, looking after Smitty.  Smitty lies on the steel table,
-unconscious.
 
 Voss turns to Irvine.  "It seems Smitty's words caused something to go off in
 this collar he's wearing.  If my calculations are correct, it will be
@@ -1475,15 +1468,6 @@ CHAPTER FIVE:
 
 UNBELIEVABLE KARATE ACTION!
 
-Suddenly, the sentinel guarding this place scorches Irvine with a blast from
-his laser crossbow.  No questions, just ZAPPO!  Irvine stands there aghast
-for a second... yet instead of pain, his training in Traglean karate causes
-the spirit of the cat warrior to course through him.  He feels like he
-doesn't have to put up with this drezz mess!  He feels like punching some
-dudes!
-
-The sentinel begins reloading his weapon...
-
 PALACE BACKDOOR
 It is clear from its construction of steel and concrete that this is an
 ancient back entrance to the palace, built to withstand the emergencies of a
@@ -1493,6 +1477,15 @@ door to the south and goes north, down a descending corridor.
 EXITS: NORTH.
 
 HiRBy hovers nearby.  A sentinel is here, brandishing a laser crossbow!
+
+Suddenly, the sentinel guarding this place scorches Irvine with a blast from
+his laser crossbow.  No questions, just ZAPPO!  Irvine stands there aghast
+for a second... yet instead of pain, his training in Traglean karate causes
+the spirit of the cat warrior to course through him.  He feels like he
+doesn't have to put up with this drezz mess!  He feels like punching some
+dudes!
+
+The sentinel begins reloading his weapon...
 
 The metal door swings shut and locks behind Irvine!
 
@@ -1860,7 +1853,8 @@ SPACE EMPEROR!
 ROYAL THRONE ROOM
 A giant throne of pointed, synthetic wicker dominates this room.  West to the
 royal chambers, a spiral staircase leads out.
-A fan servant is busy fanning.
+A fan servant is busy fanning.  The Fat Cat, Rrasharshan, is here, armed with
+a vicious microwave cannon.
 
 Fat Cat Rrasharshan leaps up from his throne, fur on end.
 
