@@ -1,0 +1,19 @@
+dig with trowel
+dig with trowel
+dig with trowel
+u
+take hammer
+take pick-axe
+take backpack
+d
+take trowel
+turn on torch
+dig depression
+w
+w
+dig dark patch
+w
+dig under rock
+wedge spikes behind slab
+tie twine around slab
+pull rock

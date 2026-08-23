@@ -1,0 +1,16 @@
+examine desk
+take ruler
+take mug
+push bookcase
+north
+lever board with ruler
+take tweezers
+put ruler in pipe
+wash tweezers
+take hairpin
+open door
+north
+search bin
+open safe
+take outline
+x outline

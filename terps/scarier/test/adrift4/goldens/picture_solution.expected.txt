@@ -1,0 +1,24 @@
+Loading game...
+
+Conversation with a Picture
+
+You are in a art museum and have come into a small room with some paintings.
+There is a wooden bench in the middle of the room. Your eyes are directed
+toward a small picture hanging on the wall opposite the bench. It's a
+genre-painting depicting everyday life in a Dutch home in the 17th century.
+
+***
+
+> sit on bench
+You sit down on the wooden bench and hear a voice coming from the picture:
+ "How nice to get some company. Let's talk."
+You can ask the picture - or just p - about several things. Anytime you can
+ask p about "topics", to get a list of appropriate subjects to discuss.
+
+> ask picture about bird
+"The bird in the cage is a parrot".
+
+> ask picture about parrot
+"I am a parrot!"
+
+The title of the picture is "The Parrot's Cage".

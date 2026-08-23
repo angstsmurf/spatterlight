@@ -1,0 +1,137 @@
+Loading game...
+
+Outline
+an ADRIFT IntroComp entry by Robert Rafgon
+
+A normal day of rewarding police work, sitting around on the side of the road
+doing nothing, was unfortunately broken up when you were ordered to
+investigate a suicide. It is just your bad luck, as you were hoping to get
+home early. At least it was a spectacular suicide with the chairman Michael
+Fleming of a large company called Mastocorp, jumping from the window of his
+office.
+
+If the office had been on the first floor, there would have been no need for
+an investigation, but the fact that it was near the top of the tower block
+meant that it was not a pretty sight. Luckily by the time you reached the
+scene, there was only a chalk outline left outside. You have been given a key
+that Michael Fleming was carrying, and you have been asked to provide a quick
+check of the crime scene. You just need to verify the details in his office
+and hopefully you can get away soon. You had better do a thorough job though,
+as your commanding officer was threatening to fire you after your last lazily
+performed investigation allowed the criminal to escape.
+
+Please type info for more information about the game.
+
+Michael Fleming's office
+The crime scene is an ordinary looking office. The broken window supports the
+evidence that someone jumped out, and the locked door at the time of the
+crime means that it was likely suicide. With all this evidence, you do not
+think that the investigation will last long. Hopefully you can get out of
+here soon. The only furniture in this room is a desk and a bookcase.   If you
+want, you can go back down and abandon the investigation.
+
+> examine desk
+This desk has been cleared of all papers, which presumably have been filed in
+the desk's drawer. There isn't even a suicide note. Some people are very
+inconsiderate. You guess that Michael Fleming was a tidy person, as you know
+that if you committed suicide, you would not bother to tidy up before you
+jumped.  A ruler and a mug are on the desk.
+
+> take ruler
+You take the ruler from the desk.
+
+> take mug
+You take the mug from the desk.
+
+> push bookcase
+When you push the bookcase a hidden passageway to the north is revealed.
+Unfortunately that does look a bit suspicious so you probably should
+investigate. You wonder why did you have to push that bookcase? Your
+intuition is annoyingly good at times, preventing you from getting out of
+here and having fun.
+
+> north
+You move north.
+
+The lost passage
+A door to the north bars your way through this downward sloping passage.
+Inside it is gloomy and you wonder why it even exists in an otherwise
+ordinary office building. There is a pipe sticking out of one wall, and a
+loose floorboard. You can return to the south.
+
+You can also see a hairpin jammed between two floorboards.
+
+> lever board with ruler
+You lever up the board slightly and find that it is filthy underneath. You
+think that you can identify a pair of tweezers down there.
+
+> take tweezers
+You take the pair of tweezers.
+
+> put ruler in pipe
+When you put the ruler inside you can feel a blockage, which you push aside
+to allow a trickle of water to begin flowing out. You should probably call a
+plumber after you are finished.
+
+You wait and wait until the mug is quarter filled by the trickle of water. It
+stops dripping soon after.
+
+> wash tweezers
+You wash the tweezers in the water until they are clean.
+
+> take hairpin
+You pull out the hairpin with the tweezers.
+
+> open door
+You pick the lock with the hairpin and open the door.
+
+> north
+You move north.
+
+James McDonald's office
+This is another standard office, which according to the name on the door is
+normally occupied by the Vice-Chairman James McDonald. You suppose it is
+suspicious that he had access to the locked office where the Chairman
+committed suicide. Maybe the Chairman was pushed instead. In this office is a
+desk, with a bin sitting next to it. There is also a very secure-looking safe
+on the wall. You can head back south or out.
+
+> search bin
+You look through the bin and find a safe combination on a piece of paper.
+Obviously the Vice-Chairman has never heard of a shredder, or he really is
+lazy like you.
+
+> open safe
+You open the safe.  An outline is inside the safe.
+
+> take outline
+You take the outline from the safe.
+
+> x outline
+It is an outline of some kind of plot, maybe to take over the world! You
+don't know, although that is probably unlikely. Unfortunately the page is
+ripped, leaving only the top two lines:
+* Get rid of Michael Fleming
+* Buy into Victicorp
+
+This is a genuine clue, although you can still think of a few questions.
+Is James McDonald really that careless, or has he been set up?
+If he is guilty, what is his motive?
+Why was there a lost passage in this building in the first place?
+Didn't they have a better designer for the building?
+Is there more to the outline or is that it?
+Is the outline's writer just leaving cryptic clues to trap a talented or
+not-so-talented detective?
+What is Victicorp?
+Why does it feel like that you are playing someone else's game?
+Why are there so many questions?
+Can someone else answer them?
+
+Unfortunately, you know that the answer to the last question is no, or you
+will be fired. It is a pity that you continue to overachieve through the
+drive that pushes you on. All you ever wanted was a nice, lazy desk job, but
+for now you had better get on with the task at hand.
+
+You scored 5 out of the maximum 5!
+That is 100% of the game!
+Well done - you scored maximum points!

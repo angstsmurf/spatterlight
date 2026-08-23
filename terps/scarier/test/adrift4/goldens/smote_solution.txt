@@ -1,0 +1,9 @@
+get ice
+e
+e
+get pyramid
+w
+pop volcano
+heat ice
+e
+put ice

@@ -1,0 +1,7 @@
+x desk
+take pot
+n
+n
+n
+smash window
+n

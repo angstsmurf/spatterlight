@@ -1,0 +1,82 @@
+Loading game...
+
+Hungry
+by Richard Otter
+
+Written in just under 3 hours for the Ectocomp 2011 competition
+
+NOTE: The game does not work properly with the ADRIFT V5 runner, please use
+ADRIFT V4 R51.
+
+HUNGRY!
+
+You seem to have very little on your mind these days. It is not that you have
+nothing to worry about, you probably have.  But, you just do not care.  Not
+only that, you no longer care that you do not care.
+
+Instead your worldly worries have been replaced with simpler ideas.  You must
+feed, you must rest, you must escape. Yes, you must escape. Nothing else
+matters at the moment.
+
+Some Place
+A semi-circular desk sits just to one side of the place. To the north and
+east are holes in the wall. Nothing seems familiar and you recognise very
+little; apart from a plastic seat which seems to have some interest. You
+entered this place through a hole to the south. A trail of blood leads north.
+
+> x desk
+The reception desk is semi-circular and is made of some type of wood,
+probably oak. What is oak?  A pot is on the reception desk.
+
+> take pot
+You take the pot from the reception desk.
+
+> n
+You move north.
+
+Some Place
+A plain office with very little furniture consisting only of a green desk.
+Holes leading to places are north, south, west and east.  A trail of blood
+leads south. The hole to the west is very dark.
+
+You hear someone shout, "I think he went in here!"
+
+Another voice replies, "Okay, you go in and see. Watch yourself."
+
+The first voice answers, "Don't worry, I'll deal with him!"
+
+> n
+You move north.
+
+Some Place
+In front of you is a counter and an old filing cabinet. Places are to the
+north, south and east. A trail of blood leads north.
+A scared looking woman is staring wide eyed at you.
+
+> n
+You move north. The female runs from the place screaming. You can almost feel
+pleasure.
+
+Some Place
+This place has very little things in it apart from a green desk. Another
+place is south. A trail of blood leads south.  On the wall opposite the hole
+is a window.
+
+> smash window
+You start hammering at the window then decide to throw the pot at it.  The
+pot smashes through the window and falls outside.  The window is now open.
+
+> n
+You move north and can feel yourself falling.
+
+Escaped!!!!
+It is quite a drop from the window and as you stand one of your leg things
+isn't working.  You drag yourself away as quickly as possible. You feel
+hungry.
+
+Escape. Freedom.
+
+It continues.
+
+Feel free to report any bugs, send praise or give general feedback to
+richardo@delron.co.uk

@@ -1,0 +1,181 @@
+Loading game...
+
+T h e   L o n g   B a r r o w
+
+by C.Henshaw
+
+The sun beats down. It's not so high in the sky - you'd think it would cool
+off as it goes down, but no. It gets hotter. The ground has stored up the
+heat and is now releasing it, convecting all around you, angling off the
+rocks, soaking into your clothes, your skin. It goes up into the sky, but the
+pressure of air sends it back down again, so you have heat from above, heat
+from below.
+
+Sweat drips down your nose and splashes onto the hard soil as you trowel
+rocks aside. You are alone. The others are all at the 'business end' of the
+long barrow - striving inch by inch to reveal the bones of the structure -
+and, eventually the bones they expect to find inside. Brown, flaking, stained
+human bones. It's no big deal to you. You've seen them before.
+
+But you are not at all happy that THIER end is the shady side (now that the
+sun is on its way down and out). Why they stuck you over here, where there's
+obviously nothing of interest... you can't even SEE the long barrow for god's
+sake. It shouldn't surprise you - you don't have a fancy master's degree, so
+you get stuck in places like this.
+
+You wipe more sweat out of your eyes.
+
+Rocky hollow
+You are in a depression filled with hard earth and stones. The top 10 inches
+of soil have been bulldozed away, but didn't make the digging any easier. You
+can't see the long barrow you are supposed to be excavating - you can't even
+hear the others. You can just about see the tops of the hills surrounding the
+narrow valley in the middle of nowhere in Wiltshire.
+
+Also here is a hammer, a pick-axe, your backpack, a galvanized bucket and a
+metal shovel.
+
+> dig with trowel
+You dig with the trowel. More stones. More hard dirt.
+
+> dig with trowel
+You dig with the trowel. More stones. More hard dirt.
+
+> dig with trowel
+You dig with the trowel. More stones. More hard dirt.
+
+As you dig, you find a flat stone jammed tight in the ground. Levering it
+out, you just catch a glimpse of darkness underneath it when suddenly, you
+find your feet giving way beneath you, and with a shower of dirt and rock,
+tumble into darkness, crashing painfully onto a hard surface.
+
+Your possessions are scattered around you where you dropped them as you fell.
+
+Round chamber
+In the swirling dust, stirred up by the infall of earth you created, the sun
+slants in, showing you a round underground chamber of some sort, just a bit
+taller than you are. You feel quite vindicated - thought they'd stick you out
+of sight and mind, eh? Heh, heh. Except for an oblong depression in the
+middle, the floor is flat and hard, packed earth. Niches in the walls contain
+piles of long bones. Yep, they're human. One one side of you is dry dusty
+earth, scraped vertical by ancient ancestor-worshippers. On the other is bare
+rock. Your orientation is excellent, and you know that's the direction the
+long barrow is in. There's a pile of rocks by one of the niches. A wall of
+bricks covers part of the earthen wall. Held together with ancient, crumbly
+mortor, these bricks must be much, much later than the chamber and its bones.
+They are soft and friable to the touch.
+
+> u
+You move up.
+
+Rocky hollow
+You are in a depression filled with hard earth and stones. The top 10 inches
+of soil have been bulldozed away, but didn't make the digging any easier. You
+can't see the long barrow you are supposed to be excavating - you can't even
+hear the others. You can just about see the tops of the hills surrounding the
+narrow valley in the middle of nowhere in Wiltshire.
+
+Also here is a hammer, a pick-axe, your backpack, a galvanized bucket and a
+metal shovel.
+
+> take hammer
+You take the hammer.
+
+> take pick-axe
+You take the pick-axe.
+
+> take backpack
+You take your backpack.
+
+> d
+You move down.
+
+Round chamber
+In the swirling dust, stirred up by the infall of earth you created, the sun
+slants in, showing you a round underground chamber of some sort, just a bit
+taller than you are. You feel quite vindicated - thought they'd stick you out
+of sight and mind, eh? Heh, heh. Except for an oblong depression in the
+middle, the floor is flat and hard, packed earth. Niches in the walls contain
+piles of long bones. Yep, they're human. One one side of you is dry dusty
+earth, scraped vertical by ancient ancestor-worshippers. On the other is bare
+rock. Your orientation is excellent, and you know that's the direction the
+long barrow is in. There's a pile of rocks by one of the niches. A wall of
+bricks covers part of the earthen wall. Held together with ancient, crumbly
+mortor, these bricks must be much, much later than the chamber and its bones.
+They are soft and friable to the touch.
+
+Also here is a trowel and a large brush.
+
+> take trowel
+You take the trowel.
+
+> turn on torch
+You turn on your torch.
+
+> dig depression
+You get down on one knee and scrape away at the depression. The
+discolouration may be a sign of a filled-in pit, or....
+
+You have only scraped an inch or so, when your trowel catches on something. A
+loud rumble fills the space, and the rock wall in front of you begins to
+tremble. Mouth agape, you stand back and cower as a giant slab of sandstone
+crashes down over the floor in front of you. You can see a narrow tunnel
+leading west where the rock used to be.
+
+> w
+You move west.
+
+Tunnel
+You are in a narrow tunnel. You can stand, just. It slants down slightly, and
+has a bare sandstone floors and walls. The ceiling is hard packed earth.You
+can go west.
+Suddenly, the tunnel exit to the round chamber collapses in on itself. You
+have a mouth full of dust.
+
+The atmosphere in this blocked off tunnel feels dank and musty. It seems
+there is no air shaft in this place, or if there was it is blocked.
+
+> w
+You go west
+
+Tunnel
+You are in a narrow tunnel. You can stand, just. It slants down slightly, and
+has a bare sandstone floors and walls. The ceiling is hard packed earth.
+There is dark patch in the ceiling, which is softer than the surrounding
+earth.You can go east and west.
+
+> dig dark patch
+You dig at the dark, soft patch in the ceiling. Aha, an air shaft! A warm
+rush of air flows though and you begin to breath more easily.
+
+> w
+You move west.
+
+Large carved room
+The tunnel has opened up into a large room with earthen walls, ceiling and
+floor. Intricate carvings decorate all the surfaces - labyrinths, mythical
+beasts, stick humans, handprints. It's an awesome sight. Ahead of you, to the
+west, is a blank slab of sandstone, similar to the one that fell at the other
+end of the tunnel.
+
+> dig under rock
+You dig under the slab of rock to destablise it.
+
+> wedge spikes behind slab
+You wedge the spikes behind the rock, tapping them in with the hammer until
+there is a small gap between the slab of rock and the wall.
+
+> tie twine around slab
+You loop the twine behind the rock from one side to the other.
+
+> pull rock
+You give a might heave on the twine. The rock budges, just a mite. You heave
+again, and it crashes down, sending rock chips flying. Slowly, through the
+dust, you can see a hole, light and warmth streaming through.
+Surprised faces greet you as you stumble from the hole you made in the
+'business end' of the long barrow. 'Why, hello,' you say. 'Fancy running into
+you guys!' The looks of dismay on the other assistant's faces are priceless.
+You dust yourself down and proceed at a leisurely pace, past the shocked
+onlookers, to the director's tent.
+
+That'll show 'em (and maybe even bag you a raise).

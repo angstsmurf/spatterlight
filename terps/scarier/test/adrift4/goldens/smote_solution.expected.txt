@@ -1,0 +1,81 @@
+Loading game...
+
+Smote
+by Robert Street.
+
+You are the god Jimmy. You need worshippers. You have just found a promising
+solar system. You will smite the bug-like aliens until they worship you.
+
+Water World
+This world is mainly covered with water. The aliens do not live in the water
+through. They live on blocks of ice, which float across the oceans. There is
+another world to the east.
+
+You can see a comparatively small block of ice where aliens live, just under
+where you are looking down.
+
+> get ice
+You pick up the ice and many aliens fall in to the sea. Lots die, as they
+cannot swim well. The survivors fear and worship you.
+
+You have smote 1 world into submission.
+
+> e
+You move east.
+
+Volcano World
+This world is centred on a volcano. The aliens all live around it, not
+realising the danger. The volcano looks like it is ready to burst and pop
+open at the slightest opportunity. There are more worlds to the east and
+west.
+
+> e
+You move east.
+
+Desert World
+This is a very dry, sandy world. It does not look like it has ever seen any
+water. The aliens who live on this planet look hot and bothered. There is
+another world to the west.
+
+A pointy pyramid is in the desert.
+
+> get pyramid
+You take the pyramid.
+
+> w
+You move west.
+
+Volcano World
+This world is centred on a volcano. The aliens all live around it, not
+realising the danger. The volcano looks like it is ready to burst and pop
+open at the slightest opportunity. There are more worlds to the east and
+west.
+
+> pop volcano
+You pop open the volcano using the pyramid. Lava immediately starts flowing
+out, destroying lots of aliens. The survivors fear and worship you.
+
+You have smote 2 worlds into submission.
+
+> heat ice
+You get some lava, which starts to melt the ice.
+
+> e
+You move east.
+
+Desert World
+This is a very dry, sandy world. It does not look like it has ever seen any
+water. The aliens who live on this planet look hot and bothered. There is
+another world to the west.
+
+> put ice
+The ice slowly melts and floods a section of the desert. Many aliens die. The
+survivors fear and worship you.
+
+Ha! Ha! Ha! You have smote all 3 worlds into submission. Jimmy is a mighty
+god.
+
+(Press a key)
+
+A voice from downstairs yells, "Jimmy, stop playing with the ants, and come
+down for dinner."

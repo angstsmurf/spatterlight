@@ -1,0 +1,6 @@
+open second valve
+open fifth valve
+open fourth valve
+close second valve
+open first valve
+open third valve

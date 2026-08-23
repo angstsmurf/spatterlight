@@ -1,0 +1,81 @@
+Loading game...
+
+Rift
+
+        It was the middle of summer, and the air was cold as can be. In a
+small steel room, he sits in a chair and screams.
+
+Steel Room
+You appear in a small steel room. There are no windows or doors and as you
+look around the walls seem to close in on you. A man with a metal blindfold
+around his eyes and tape stuck to his mouth is squirming in a steel chair.
+
+> move
+Move what?
+
+You wake up and rub your eyes. Flashing before your eyes is a small steel
+room, but it quickly fades from your mind.
+
+        "Must have been a dream..."
+
+        As you rise from your bed, and take a step you trip over something
+and fall to the cold hard ground.
+
+        "Dammit, i can already tell this sure is gonna be a great day..."
+
+        You get up and look behind you, seeing that a few floorboards are
+loose and propped up.
+
+        "How did that happen, well i better examine em..."
+
+Your Room
+Your room is pretty barren. Your not really interested in much except video
+games. To the east is your bed, and at the foot of it is a huge chest full of
+games. To the left is a huge tv (you got it with your own money, it's the
+only thing you ever saved up for) Hooked up to it is your Ps2, and Xbox. Off
+to the side is various other consoles. On the ground a few of your
+floorboards are loose, you might want to fix them.
+
+> x the floorboards
+You kneel down and check out the floorboards. Before setting them down, you
+pick them up and look under them. To your surprise, a room is down there. A
+laboratory of sorts... You can see tons of computers.
+
+        "What the..."
+
+You hop down to the room below.
+
+Lab
+Looking around you can see numerous computers whirring about. The walls look
+very thick and blank. The center of the room however, is a large capsule-type
+thing with a seat and many buttons inside. You feel at home in this room,
+like you were born to be in it. Or... like you have been in it before. You
+can go up to your room.
+
+> x the machine
+As you walk towards the machine, images flash before your eyes of different
+worlds. Odd people, different species, all talking to you. Looking at you...
+
+Then, it all comes back to you. The man in the chair... you. The men that
+walk out of the machine, is it this machine? He was you... your house... this
+was his dream...
+
+        "Someone walked out of the machine?"
+
+You walk inside and look around. A panel of different numbers lie next to a
+small screen. A date is set to it.
+
+                                5/22/20
+
+        "Is this... a time machine?"
+
+A large green button is next to the screen titled "go". The machine begins to
+buzz and electricity surges throughout the machine. Invoulantarily your hand
+moves to the big green button.
+
+                                        "go"
+
+Thanks for playing this intro. I hope you like it and if you really do maybe
+i'll make it into a full game!
+
+END, for now.

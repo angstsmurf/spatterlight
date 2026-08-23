@@ -1,0 +1,15 @@
+look under couch
+east
+look in bin
+look in cupboard
+west
+north
+look for doll
+west
+look under bed
+east
+east
+look in tub
+look in toilet
+look in toilet
+look in toilet

@@ -1,0 +1,55 @@
+Loading game...
+
+Conversation with a Hitchhiker
+
+Conversation with a Hitchhiker
+
+By revgiblet, for Ectocomp 2008.
+
+[MORE]
+
+I'd like to ask you a question.
+
+You're driving alone through a remote part of the country.  It's getting dark
+as the evening begins to turn into night.  In the glare of your headlights
+you see a young man carrying a bulky bag.  He's hitchhiking.
+
+Would you stop to pick him up?
+
+[MORE]
+
+In The Car...
+
+I am sitting in the driving seat of my car, travelling at a steady speed
+towards my destination.  The headlights illuminate the bleak, dark road ahead
+of us.  I don't remember the last time we passed another car, which just adds
+to my feeling of desperate isolation.  My hands grip the steering wheel
+tightly and my eyes flick nervously between the dashboard, the rear view
+mirror and my passenger.
+The Hitchhiker relaxes in the passenger seat beside me, his sports bag
+resting on his lap.
+
+> kill the hitchhiker
+
+The voices in my head make a familiar suggestion.
+
+"Hey, are you OK?"  The Hitchhiker asks, glancing at me.
+
+"Sure.  I'm fine."
+
+A grin creeps over my face as I slowly reach down beside my seat and make my
+plans...
+
+[MORE]
+
+What if the question was not "Would you stop to pick him up?"
+
+What if the question was "Should he get into the car with you?"
+
+[MORE]
+
+THE END
+
+You have found Ending Three of Three.
+
+Thank you for playing.

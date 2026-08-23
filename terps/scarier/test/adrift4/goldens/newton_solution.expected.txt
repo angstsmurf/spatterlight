@@ -1,0 +1,36 @@
+Loading game...
+
+Newton
+
+Alas, and behold!  You are the Young Sir Isaac Newton, son of the otherwise
+famed Mr. Figly Newton.  All of your scholastically life, you've been budged
+at by your persnickety father to join the Royal Guild of Botanists & Botanry,
+but you have particular reservations (most especially an important one at Ye
+Olde Hilton which you would be most loathe to miss).  Your father-- truly the
+King of all tiny & healthful pastry goods-- claims you have no ambition and
+derides your true passiones scientificos, or however you would say it in
+Latin because you're so smart.
+
+Lo!  'Tis the eve of your signatory promising to enter the Royal Guildery.
+With a bag lunch & much bedragglement, you have plodded about and come to
+rest beneath a tree.
+
+[press a key to begin]
+
+ur under a tree,chilln w/lunch
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+apl falls from tree
+
+> get apple
+u dscvr gravity
+
+WIN

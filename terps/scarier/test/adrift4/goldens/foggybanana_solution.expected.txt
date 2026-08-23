@@ -1,0 +1,66 @@
+Loading game...
+
+"THE FOGGY BANANA ADVENTURE"
+Three simple game controls:-
+
+TALK (name)
+
+INSPECT (name)
+
+USE (name)
+
+You are an old warehouseman working on the docks. It is early evening, and
+the foghorns are hooting mournfully across the RIVER.  A ship's crew of MEN
+are unloading banana BOXES from their ship and wheeling them into your old
+cobwebbed warehouse ROOM...
+
+> talk men
+The MEN are surly and rough, and are reluctant to chat. They seem very
+anxious to get rid of their cargo of BOXES. As they leave, you overhear one
+say that they never wish to see banana BOXES again.
+
+> inspect boxes
+This box looks fine - there are many bunches of fat firm bananas.  The waxy
+tropical yellow of the bananas contrasts with the dusty grey of the warehouse
+ROOM.
+
+> inspect boxes
+You INSPECT more banana BOXES. As you open one, something furry and black
+skitters out of the box and runs across your hand. It vanishes into the
+SHADOWS.
+SPIDERS start to crawl from the BOXES.  Big black tropical ones!  INSPECT the
+ROOM to find a quick means of dealing with them.  You will have to be quick
+(10 turns max)!
+
+> use hoover
+The old hoover starts up, the noise filling the warehouse ROOM.  How could
+you ever think that this small old HOOVER could clean such a dirty old
+warehouse?
+
+> use hoover
+You use the HOOVER to quickly suck up and thus capture all of the
+lethal-looking tropical SPIDERS.  Maybe the authorities should be alerted
+now?
+
+> use phone
+You pick up the old-fashioned PHONE.  There is a dial-tone.  But who would
+you call?
+
+> use phone
+You dial the operator and TALK to the local ZOO. It's late evening, and a
+weary voice answers. You tell him about the large tropical spiders and their
+strange red markings.  He becomes excited.  Will you TALK to this man at the
+ZOO further, or INSPECT the HOOVER to check that some of the spiders are
+still alive?
+
+> talk zoo
+You TALK further with the man at the ZOO. He is a researcher working late in
+the offices. You are startled to find that you are offering him a colony of
+the rarest SPIDERS in the world, the wild Peruvian banana spider. He suggests
+it would be fair to offer $10,000 to have the ZOO buy them from you, since
+they are so dangerous to capture.
+~~~~~~~~~~~~~~~~~~~~~
+
+The rare Peruvian banana SPIDERS have been captured by you and sold to the
+ZOO at a huge profit!  And without a single one biting you! Treat yourself to
+a banana!  You can afford a new BROOM now!

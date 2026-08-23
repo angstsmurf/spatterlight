@@ -1,0 +1,25 @@
+x desk
+get shotgun
+n
+n
+kill demon with gun
+n
+x desk
+get ak47
+kill demon with ak47
+kill demon with ak47
+s
+x counter
+get missile launcher
+kill demon with missile
+kill demon with ak47
+e
+kill demon with ak47
+s
+x worktop
+get plasma torch
+kill demon with plasma
+w
+kill demon with plasma
+s
+s

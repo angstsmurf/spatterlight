@@ -1,0 +1,16 @@
+take pebble
+e
+throw pebble at trap
+climb fence
+w
+chew cord
+tie cord to rock
+e
+e
+tie leash to cord
+wake dog
+e
+e
+climb fence
+open lid
+down

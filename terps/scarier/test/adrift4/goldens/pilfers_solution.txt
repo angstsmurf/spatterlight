@@ -1,0 +1,16 @@
+MIC:1
+1
+MIC:2
+C
+DOOR:2
+read paper
+look under bed
+look hole
+take rock
+stand on bed
+take bulb
+get off bed
+throw rock at window
+push bed to window
+climb window
+Y

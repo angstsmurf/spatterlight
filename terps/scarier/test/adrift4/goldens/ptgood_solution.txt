@@ -1,0 +1,6 @@
+open window
+w
+u
+se
+e
+open vial

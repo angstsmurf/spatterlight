@@ -1,0 +1,70 @@
+Loading game...
+
+Sandy's Lost Doll
+
+Sandy's Lost Doll
+
+Living Room
+This clean carpeted living room is your living room. Well, not quite. It
+belongs to your parents. There's an Entertainment center looming tall before
+you and a slightly smaller t.v in the middle of it. There's a couch on the
+left hand side and another one behind you. A lamp is in the corner, standing
+on a stand. To the east is the kitchen.
+
+> e
+You move east.
+
+Kitchen
+The kitchen is small, but well stocked and clean. There's a sink here with a
+stove next to it. A refrigerator is also here, with a decoration of alphabets
+and numbers with magnetic backs, stuck to the metallic surface. A trash bin
+is in the corner. There are also a bunch of cupboards here.
+
+> w
+You move west.
+
+Living Room
+This clean carpeted living room is your living room. Well, not quite. It
+belongs to your parents. There's an Entertainment center looming tall before
+you and a slightly smaller t.v in the middle of it. There's a couch on the
+left hand side and another one behind you. A lamp is in the corner, standing
+on a stand. To the east is the kitchen.
+
+> n
+You move north.
+
+Hallway
+This is the hallway. To the east is the bathroom, to the west is the kitchen.
+To the south is the living room.
+
+> e
+You move east.
+
+Bathroom
+There's a tub here, and a toilet on the other end of the room.
+
+> look in toilet
+As you lift the seat of the toilet, your mother quickly comes into the
+bathroom. She picks you up and sternly admonishes you for something so silly.
+
+> look in toilet
+Your mom once again comes into the bathroom and sternly tells you to stop
+lifting the seat.
+
+> wait 2
+The game will now wait 2 turns for each 'wait' command you enter.
+
+> look in toilet
+You see no such thing.
+
+> hist 2
+These are your most recent game commands:
+
+   8 -- Time 0m 00s, turn 6 : look in toilet
+   9 -- Time 0m 00s, turn 7 : [history]
+
+> look in toilet
+You see no such thing.
+
+> quit
+Do you really want to quit? [Y/N]

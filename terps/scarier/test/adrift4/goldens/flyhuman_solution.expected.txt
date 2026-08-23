@@ -1,0 +1,105 @@
+Loading game...
+
+The Fly Human
+My life literally started on the garbage heap and like most of my kind,
+should have ended there.  My own desire for something more that the dried out
+wastes did me in.  How was I to know that this was the end of a normal
+existance?  This is my story from the beginning...  may this never happen to
+you!
+
+Garbage Heap
+Many piles of waste material from the human world scattered around.  My clan
+hovering and searching for sources of food in the debris.  Immediately around
+me are pieces of plastic and glass crushed into a dried out and barren land.
+The only sources of nutrition are a soup can and the only intact bottle of
+pop in the area.
+
+> ne
+Quickly I fly up and head toward a fence.  Food must be over it somewhere!
+
+Back Yard
+The old brown fence blocks the human view of the garbage dump.  What is of
+more interest is the picnic table!  The rusty grill next to the table is too
+hot to approach and does not have any food anyways.  A white house with an
+open window toward the back yard leads to a possibility of other food
+sources.
+
+> enter window
+The backyard has lost its appeal.  With discretion I fly through the window
+and into the human kitchen.
+
+Kitchen
+Darn!  The place is spotless!  Except... I spy with my compound eye something
+that begins with "S"!  Some refined sugar is spilled on a counter and wonder
+of wonders, cookie crumbs!
+
+> north
+I beat a hasty retreat and fly north through the open door.  The woman slams
+the door shut behind me - thank goodness!
+
+Garage
+Ugh.  I can feel the dryness of the room - nothing to eat here.  An old car
+sits in the middle of the room with the driver's door open.
+
+> enter car
+I succumb to temptation and enter the car.  No sooner than I do when a
+younger male human enters the car also and closes the door.  He punches
+something on the roof of the car and the garage door opens.  Then he procedes
+to turn on some loud music - so loud the back window vibrates.  While I try
+to find somewhere to land away from the rear of the vehicle, the male starts
+the car up and drives out the garage.
+
+Inside Car
+The vibration of the music keeps me from landing on the back window or ledge.
+ I have limited choices: the three remaining windows (driver's, front,
+passenger), the dashboard, or the passenger seat.
+
+> sit on passenger window
+The window offers a respite from the flaying hands.  The human says
+"finally!" and causes the window to open.  Who am I to argue with the
+opportunity?  Off I fly out.
+
+After a short hunt, I find a window open to a basement of a warehouse like
+building.  Good, no spider webs (I shudder just thinking about it).
+
+Outside Basement Window
+The outside world so far has been disappointing.  Looking inside the basement
+I see an open chamber with wires and pipes connected to it.  For some reason
+I think it may have food in it.
+
+> enter window
+What the heck.  I fly off into the basement and enter the chamber.  Nirvana!
+
+Chamber
+Covering the walls, ceiling, and floor are splatters of blood and meat.  A
+paradise of food!
+
+> wait
+Time passes...
+While I am indulging myself, the chamber closes with me inside.  Who cares,
+I'm in heaven!
+The pain!  I feel as if I am turning inside out!  For the first time ever my
+eyesight fails me!
+The next thing I know, I'm inside a glass jar with an airtight lid.
+
+Jar
+Smooth clean glass.  The wall distorts the view of the world outside of it.
+What's odd is how I see the glass - as if I have lost all but two of my
+compound eyes.
+I'm puzzled by my vision.  I try to use clean my eyes but see human like
+limbs.  I try to twitch my antenna and find those limbs move in response.  in
+fear I attempt to fly but feel my back hurting.
+
+Oh my...  I've turned into a micro human!
+A distorted human face looks in at me.  Something about it's skin reminds me
+about what my exterior used to be.  I feel the jar being carried, then I am
+dumped from it into a large glass cage.
+
+Terrarium
+This room is now my home.  The human that dumped me in here had changed into
+a large fly and was killed by other humans.  A female human looks after me
+and keeps me fed.  My tastes have changed, and I know that I have lived
+longer than any of my former relatives.  Still... I guess this is the end.
+
+> quit
+Do you really want to quit? [Y/N]

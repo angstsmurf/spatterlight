@@ -1,0 +1,135 @@
+dress up
+e
+e
+press button
+wait
+wait
+in
+wait
+wait
+out
+e
+e
+e
+talk to boss
+e
+e
+e
+get in cubicle
+
+
+
+
+
+
+e
+e
+press button
+wait
+wait
+in
+wait
+wait
+out
+e
+get out of car
+pet wolf
+
+
+
+
+
+
+e
+e
+press button
+wait
+wait
+in
+wait
+wait
+out
+e
+e
+take leaf
+
+
+
+
+
+
+e
+e
+press button
+wait
+wait
+in
+wait
+wait
+out
+w
+talk to man
+
+
+
+
+
+
+leave
+
+
+
+
+
+
+e
+e
+press button
+wait
+wait
+in
+wait
+wait
+out
+e
+e
+e
+talk to boss
+
+
+
+
+
+
+e
+e
+press button
+wait
+wait
+in
+wait
+wait
+out
+e
+e
+e
+e
+e
+e
+e
+Jump
+
+
+
+
+
+
+e
+e
+in
+out
+e
+e
+e
+e
+w

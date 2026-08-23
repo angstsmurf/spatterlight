@@ -1,0 +1,13 @@
+east
+open drawer
+get matches
+open cache
+get red bottle
+get blue bottles
+x green book
+draw pentagram with oil
+west
+throw blue bottles at vampire
+throw blue bottle at vampire
+east
+light match

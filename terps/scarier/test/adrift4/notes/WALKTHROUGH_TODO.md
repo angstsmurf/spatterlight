@@ -756,6 +756,186 @@ first column of `games.manifest.tsv`; re-run the vocabulary scan with
 `harness/taf_pattern_scan.py`'s `plaintext()`, which de-obfuscates both TAF
 generations.
 
+## Fourth wave, 2026-08-23- — the manifest outgrew the corpus again
+
+**"There is no next file to take" (above) was true on 2026-08-17, but the
+manifest kept growing under issue #119's ongoing IFDB `adrift 4` tag sweep.**
+Regenerating the unwired list (the recipe just above) on 2026-08-23 found the
+manifest at 431 rows against 252 wired — **179 unwired `.taf` files**, all
+physically present in `games/`. A quick heuristic triage before touching any
+of them: a small regex vocabulary scan (`aif_scan.py`, scratch script, not
+committed — same `plaintext()` de-obfuscation as `taf_pattern_scan.py`, counts
+hits for a list of explicit-content terms) ranks all 179 by hit count. The top
+of that ranking reproduces the same handful of titles the third-wave AIF
+triage already flagged by name (`windy.taf`, `enc1.taf`, `enc2.taf`, `Buffy
+Before the Date.taf`) plus new ones worth the same content-decline scrutiny
+before deriving (`ss whore.taf`, `British.Fox.and.the.Celebrity.Abductions.taf`,
+`BSG TWENTY TWO Final.taf`, `A Dream Come True.taf`, `goblin.taf`,
+`sibling seduction.taf`, `plains.taf`, `Riding_Home.taf`, `awakening.taf`,
+`Choices.taf`, `delight.taf`, `cldone.taf`, `amy.taf` — none decided yet, the
+scan only tells you where to look first). The 0-hit remainder is ordinary
+smallest-first territory.
+
+**First batch, 2026-08-23: 8 more wired, suite 252 → 260 rows, all PASS
+(counted after later batches landed too — see the running total in the repo
+history; check `sh run_v4_walkthroughs.sh` for the live count).** All eight
+are tiny (1.3–2.6 KB) 4.00 files with no `EndGame`/score structure of any real
+puzzle weight — this size band is mostly speed-IF/joke/demo material, which
+matches the "smallest-first" pattern from every earlier wave. Derived in
+parallel (one background agent per game, each doing its own `SCR_DUMP_TASKS`
+structural dump before playing) and merged by hand, re-blessing every golden
+through the real harness rather than trusting a worker's own transcript pipe
+— one (`picture_solution.txt`) had a stray trailing blank line from a
+slightly different pipeline, and one win marker (`smote_solution.txt`) turned
+out to straddle a word-wrapped line break and had to be shortened to a
+substring that stays on one line. Both are now general cautions for future
+batches, not just this one.
+
+- **Sandy's Lost Doll** (`Sandy.taf`, 1286 bytes) — **UNWINNABLE, 0/0.** Six
+  flavour-only "look in/under X" tasks, plus a three-stage toilet gag gated on
+  a `mom` counter. The win task's `RESTR type=4 Var1=0` tests the *command's
+  referenced number* (offset scheme: `Var1=0` = numeric wildcard capture, not
+  a variable compare — that needs `Var1>=2`), which `look in toilet` never
+  supplies, so it fails forever. An authoring slip in the `.taf` itself,
+  reproduced faithfully.
+- **Newton** (`Newton.taf`, 1291 bytes) — **WON, 0/0**, 4 commands. Joke
+  micro-game: wait for the apple to fall (turn 4), then `get apple` on the
+  very next command is the *only* winning move (a bare wildcard or `examine
+  apple` both lose).
+- **Pick up the phone booth and Cry** (`Phoneb.taf`, 1372 bytes) — **WON,
+  0/0**, 2 commands. `x me` silently completes a hidden gate, then `take
+  phone booth` wins (grim flavour text, but a real `type=6 v1=0` EndGame).
+  The game's own hinted `cry` first step is a red herring.
+- **PTGOOD 8\*10^23** (`competition2006__adrift__ptgood__PTGOOD.taf`, 1971
+  bytes, 2006 minicomp) — **WON, 0/0**, 6 commands. Open a window to unlock a
+  room-exit shortcut, reach Slan's Bench, `open vial` to win.
+- **Smote** (`smote.taf`, 1987 bytes) — **WON, 0/0**, 9 commands. Play the god
+  Jimmy across three linked worlds (Water/Volcano/Desert); `get ice`, carry it
+  + a pyramid to pop the volcano, melt and carry the ice to flood the desert —
+  each step smites one world, the third ends the game.
+- **JINXTRON** (`JINXTRON.taf`, 2179 bytes) — **no win/loss/score at all** —
+  a pure dialogue toy (the childhood "jinx" game) driven by an 11-state
+  `VAR1` conversation machine plus a recurring random-word interjection
+  event. Banked as a demonstrative 7-command playthrough, same class as
+  `Toxically_Earth`/`lifesimulation`.
+- **Conversation With A Picture** (`Picture.taf`, 2257 bytes) — **WON, 0/0**,
+  3 commands. Sit on a bench, `ask picture about bird` unlocks `ask picture
+  about parrot`, which wins.
+- **Rift** (`rift.taf`, 2606 bytes) — **WON, 0/0**, 3 commands. Unfinished
+  intro/demo (the author's own WINTEXT says so): `move`, `x the floorboards`
+  (article required), `x the machine`.
+
+None of the eight needed an engine change; all are faithful joke/demo/
+speed-IF material with no score to maximize. **171 unwired files remain**
+after this batch — continue smallest-first through the 0-vocab-hit games,
+and give the flagged AIF-vocabulary titles the same quoted-evidence
+content-decline review the third wave used before deriving any of them.
+
+**Second batch, 2026-08-23: 8 more wired, suite 269 → 277 rows, all PASS.**
+Continuing smallest-first (2745–4401 bytes, all 4.00, all 0-vocab-hit).
+Three of the eight needed `SCR_SKIP_WAITKEY=1` — a fork's own manual
+transcript can look correct while actually desyncing on an unhandled intro
+"press a key" prompt, so every incoming row now gets a real
+`sh run_v4_walkthroughs.sh --bless` pass rather than trusting the worker's
+self-reported transcript, same rule as the picture/smote fixes above.
+
+- **The Foggy Banana Adventure** — **WON, 0/0**, 8 commands. One room, a
+  strict TALK/INSPECT/USE chain; `use hoover`/`use phone` each consume a
+  generic no-restriction task ahead of the real gated one in task order, so
+  both must be issued twice.
+- **Just Another Day** (2886 bytes) — **WON, 0/0**, 135 lines (mostly blank
+  padding for "press any key" pauses; needs `SCR_SKIP_WAITKEY=1`). A
+  Groundhog-Day time loop: a task21 AND gate requires four side-quest flags
+  (pet the wolf, take the leaf, visit the old man, an undressed talk with
+  the boss) before `Jump` is accepted from Outside; jumping resets into a
+  parallel "empty" map whose real exit is `w` from Cubicles (`e` there is a
+  dead-end joke room reprint).
+- **Blast** (3447 bytes, Ectocomp 2008) — **WON, 0/0**, 25 commands. A
+  100 HP demon roams 7 rooms on a deterministic patrol; four weapons sit on
+  surfaces that must be examined before `get` works. Killing the demon (100
+  damage total) sets a hidden "frag" flag that is the real unlock for an
+  exit — a `Var1`-offset-by-2 restriction quirk made it look like a check on
+  an unrelated "body" variable instead.
+- **Pilfers** (3727 bytes) — **WON, 107/107** (max), 16 commands; needs
+  `SCR_SKIP_WAITKEY=1`. Two-room escape/logic-puzzle skin: the Blue Room
+  quiz answers are flavour-only, `DOOR:2` not `DOOR:1` (an unconditional
+  death trap); the Red Room's window-break task has an AND `RestrMask`, so
+  both `throw rock at window` and `push bed to window` are required.
+- **The_Stowaway** — **WON, 10000/10000** (max), 16 commands. Climb to the
+  crow's nest, dialogue a ghostly Strange Kid three times (catching him
+  early is instant death), then during a lightning-storm timed event
+  `use kid as a shield` — counter-intuitively the winning, max-score move is
+  sacrificing the kid as a lightning rod.
+- **Witness_Demon_vs_Vampire** (3849 bytes) — **WON, 0/0**, 13 commands;
+  needs `SCR_SKIP_WAITKEY=1`. The game ships its own hint system giving away
+  the solution outright: matches + oil + holy water from a cache, draw a
+  pentagram (traps the demon), kill the vampire with holy water, lure the
+  demon into the pentagram, light a match — order matters, holy water before
+  the pentagram is a death trap.
+- **The Vault** (4258 bytes) — **WON, 0/0**, 1 command. The intended
+  item-fetch quest (cross to the Street, get a key off a dying man, unlock a
+  drawer for a bible, return) is entirely bypassable: the win task
+  (`read bible` in the starting room) has zero restrictions, so it fires
+  immediately. Authoring bug, reproduced faithfully.
+- **hiker** ("Conversation with a Hitchhiker", 4401 bytes, Ectocomp 2008) —
+  **WON, 0/0**, 3 lines (2 blank + 1 command). The game itself labels three
+  "Ending N of Three" branches; `kill the hitchhiker` is an explicit win
+  task (Ending Three) — far shorter than surviving the doom-timer to Ending
+  Two, and equally a clean win since there's no score to maximize.
+
+**163 unwired files remain** after this batch.
+
+**Third batch, 2026-08-23: 8 more wired, suite 277 → 285 rows, all PASS.**
+Same discipline as the second batch: every fork was pre-briefed to self-check
+`SCR_SKIP_WAITKEY=1` before reporting, but one (asteroid_after) still slipped
+through with a solution that looked plausible without the flag and only
+failed the win-marker check at real `--bless` time — reconfirming that a
+fork's self-piped transcript is never a substitute for the real harness pass.
+
+- **raccoon** (6 rooms, 0/0) — needs `SCR_SKIP_WAITKEY=1`. Trip the yard's
+  traps with a thrown pebble, chew through the garbage-can lid's tie-cord and
+  re-tie it to a heavy rock, splice the sleeping dog's leash onto that same
+  cord, then wake the dog — an automatic chase sequence yanks the rock away
+  and hauls the dog off, leaving the lid unguarded to open and descend into.
+- **Way Out** (5 rooms, 0/0), 5 commands. A straight corridor north to the
+  exit; optional look-left/-right side commands drain a "sanity" variable
+  toward a stop-game threshold but are entirely avoidable.
+- **The Fly Human** (9-room linear corridor, 21 tasks) — **unwinnable by
+  design**: zero `ACT type=4`/`type=6` actions exist anywhere in the task
+  dump, confirmed by the `score` command reading `0 out of a maximum of 0`.
+  The final two rooms fire via automatic post-completion events, not player
+  input; the closing line is authorial flavor text with no real EndGame.
+- **zombiecow** (5-room comedy) — needs `SCR_SKIP_WAITKEY=1`. **WON,
+  100/130** — the declared max double-counts two mutually-exclusive +30
+  winning endings (`eat the clover` / `refuse clover`), only one of which is
+  ever reachable in a single playthrough; 130 is not achievable.
+- **outline** (3-room detective puzzle) — **WON, 5/5** (max), 16 commands.
+  Objects on a surface (ruler/mug on the desk) are out of scope for
+  `take`/`x` until the surface itself has been examined once; the win task
+  only matches the literal pattern `x*outline`/`read*outline`, not a generic
+  `examine`.
+- **hungry** ("Ectocomp 2011", 9-room escape, 0/0), 7 commands. Grab the pot
+  off the reception desk (invisible until the desk is examined), then smash
+  the north office window with it before the randomly-arriving soldier shows
+  up (he never actually enters within this short route).
+- **The Long Barrow** (8-room dig/tunnel puzzle, 0/0), 19 commands. A
+  countdown "dig" variable triggers a fall into the tunnels on the 3rd dig;
+  tools must be fetched by climbing back up once the down exit unlocks. A
+  lit torch is required before tunnel movement works at all, and a 5-turn
+  suffocation timer starts on tunnel entry — digging a "dark patch" defuses
+  it before pulling the final chamber's slab loose.
+- **Asteroid Aftermath** (single-hub satellite realignment puzzle, 0/0) —
+  needs `SCR_SKIP_WAITKEY=1` (the fork's self-check missed this: two
+  "press any key" intro prompts silently ate the first two valve commands,
+  producing a plausible-looking but wrong "Valve action not available"
+  transcript that only surfaced as a real `--bless` REFUSED). Valve toggles
+  silently relocate NPC satellites between camera rooms; a specific
+  open/close sequence lands every required satellite group together, and a
+  "*** ERROR ***" block on the close-valve step is authorial flavor text, not
+  a real failure.
+
+**155 unwired files remain** after this batch.
+
 ## Camp Windy Lake : Part 2 (2026-08-12) — the AIF treatment, done once
 
 Wired out of the smallest-first order because the user asked for it by name.

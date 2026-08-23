@@ -1,0 +1,153 @@
+Loading game...
+
+Quest for Food
+Dusk falls, and along with many of this dark wood's denizens you begin to
+stir, slinking out of your safe, warm home to go again on the eternal quest.
+
+Quest for Food
+an interactive raid
+press any key to begin
+
+Edge of the Road
+You crouch on the edge of a long gravel road, just outside the relative
+safety of the dense brush to your west. Loose pebbles shift alarmingly
+beneath your paws, and the air is heavy with strange smells. The scent of
+humans is strong, as is the rank stench of a dog nearby. But above all,
+beckoning to you, is the intoxicating aroma of delicious food, just across
+the road to the east.
+
+A particularly shiny pebble has captured the attention of the moonlight.
+
+> take pebble
+You take the shiny pebble.
+
+> e
+Following your nose, you dash across the road. Then you take a moment, as you
+do every night, to stare in awe at the tall, smooth container that rises high
+above your head. The food smell is as mouth-watering as ever, (or at least it
+would be if you had saliva glands), but something makes you pause...tonight,
+something is different. Something is wrong.
+
+> throw pebble at trap
+You rear up on your hind legs and regretfully toss the shiny pebble at one of
+the traps. There is a loud SNAP! and the trap spins sideways as it goes off,
+and then a whole series of them as it's sudden movement triggers the others.
+
+After all the noise you cast a worried glance into the yard, but the dog is
+still sound asleep.
+
+> climb fence
+Quickly, you scale the fence.
+
+On the Fence
+You cling precariously  to the rail on top of the fence. The human's yard is
+to the east and the top of the garbage can is to the west.
+
+> w
+You move west.
+
+On the Garbage Can
+A flat, square platform, offering you just enough room to stand. You nearly
+swoon at the thought of all the heavenly delicacies seperated from you by
+nothing more than a hinged plastic lid. Though if you can muster the
+willpower to leave, the top of the fence is to the east, and you need only to
+jump down to reach the edge of the road.
+
+A large, heavy rock is sitting stubbornly on the lid of the can.  A long cord
+has been wrapped around and around the handle of the lid, tying it shut.
+
+> chew cord
+Your sharp little teeth make short work of the cord, and you lay the remains
+beside you on the lid.
+
+> tie cord to rock
+You use your nimble little paws to tie one end of the cord to the rock,
+letting the other end drape over the fence.
+
+> e
+You move east.
+
+On the Fence
+You cling precariously  to the rail on top of the fence. The human's yard is
+to the east and the top of the garbage can is to the west.
+
+> e
+You move east.
+
+Inside the Fence
+You peer about nervously, having only rarely actually gone so far as to enter
+the yard in the past. The grass here is curiously short and uniform in size,
+offering no cover. Across this wide unprotected stretch is the giant
+sharp-angled structure the humans stay in, and much nearer to you an enormous
+dog snores next to a tree. At your back is the fence, and you reassure
+yourself that it only needs to be climbed to reach safety.
+
+A dog is sleeping here.
+
+Also here is a dangling cord.
+
+> tie leash to cord
+You deftly tie the ends of the cord and leash together with your nimble (and
+adorable!) paws.
+
+> wake dog
+You cautiously sneak up to the dog and bit it HARD on the tail. Then you run
+like hell.
+
+The dog lets out a yelp and leaps to its feet, barking furiously and charging
+after you. This in turn yanks the rock off of the garbage can lid and there
+are a few muffled thuds as it bounces along in the grass until it's wrapped
+around the tree you're currently being chased around and the cord snaps.
+
+Meanwhile, with the dog literally right on your tail you vault to the top of
+the fence in a single leap, then dive onto the road and across it, burrowing
+deep into the undergrowth.
+
+A light comes on in the house, and there are a few startlingly loud moments
+of yelling combined with the barking before the dog is conveniently taken
+inside.
+
+> e
+You move east.
+
+Edge of the Road
+You crouch on the edge of a long gravel road, just outside the relative
+safety of the dense brush to your west. Loose pebbles shift alarmingly
+beneath your paws, and the air is heavy with strange smells. The scent of
+humans is strong, as is the rank stench of a dog nearby. But above all,
+beckoning to you, is the intoxicating aroma of delicious food, just across
+the road to the east.
+
+> e
+You move east.
+
+Outside the Fence
+The smell of human and dog are strong here, but you know from experience that
+the humans don't come out of their burrows at this time of night. And the
+chain-link fence blocking your path to the east will be ample protection from
+the dog, assuming the lazy, half-deaf creature were to even wake up.
+
+Above you the object of your desires rises up out of the tall grass; the
+Tower of Leftovers, the Can of Plenty, and the Altar of Food, as it is
+variously referred to by the inhabitants of the thicket.
+
+The moonlight catches a gleam of metal from something hidden in the tall
+grass.
+
+> climb fence
+Quickly, you scale the fence.
+
+On the Fence
+You cling precariously  to the rail on top of the fence. The human's yard is
+to the east and the top of the garbage can is to the west.
+
+> open lid
+With trembling paws, you grip the edge of the lid and flip it open, your nose
+twitching in anticipation. The aromas that assail your nostrils are nothing
+short of heavenly; old grease, half-rotten vegetables, stale doughnuts, and
+somewhere down near the bottom must be a partial open can of tuna. The
+entrance to the can is down.
+
+> down
+You dive headfirst into the can, easily shredding thin plastic bags with your
+claws and blissfully settling down to enjoy a well-earned night of gluttony.

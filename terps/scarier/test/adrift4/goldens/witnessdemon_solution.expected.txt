@@ -1,0 +1,119 @@
+Loading game...
+
+Witness: Demon vs. Vampire
+by Robert Street
+
+Suddenly you awaken.
+
+It takes a few moments for your eyesight to stop blurring, but you soon wish
+you hadn't been able to focus. A horrific face of a demon is peering down at
+you. When it notices your realisation, it smiles (so many pointy teeth) and
+moves away. You notice another figure beside it.
+
+The demon says, "Welcome back to life. I am the Demon of the North and this
+is the dreaded vampire Stain. We wish to fight over this territory and you
+will be the judge of this contest."
+
+As they stare at you, you nod your head. You do not want them angry right
+now. The two begin fighting as you watch. You hope there is some way to
+escape this.
+
+(Press a key)
+
+Inside of the church
+You wish you could remember something of your former life. You are inside
+what appears to be a church. The exit to the church is to the south and there
+is also a small room to the east.
+
+The demon and vampire are fighting.
+
+> east
+You move east.
+
+The small library
+You are in a small library. There are bookshelves covering the walls on
+various holy matters and philosophies. This could be interesting if a demon
+and a vampire were not fighting outside and you had some time. There is also
+a desk situated in the room. The exit is to the west.
+
+There is a dead body of a young man in here, who is wearing similar robes to
+you.
+
+> open drawer
+You open the drawer.  A box of matches is inside the drawer.
+
+> get matches
+You take the box of matches from the drawer.
+
+> open cache
+You open the cache.  A red bottle and two blue bottles are inside the cache.
+
+> get red bottle
+You take the red bottle from the cache.
+
+> get blue bottles
+You take two blue bottles from the cache.
+
+> x green book
+You take the only green book from the bookshelves. As the book is moved, you
+hear a noise and a cache in the floor opens up.
+
+> draw pentagram with oil
+You draw a pentagram using the oil at the entrance to the room. You can walk
+through it, but a demon will be trapped.
+
+> west
+You move west.
+
+Inside of the church
+You wish you could remember something of your former life. You are inside
+what appears to be a church. The exit to the church is to the south and there
+is also a small room to the east.
+
+The demon and vampire are fighting.
+
+> throw blue bottles at vampire
+You throw the bottle of water at the vampire. It hits him and splashes all
+over his body. The vampire glances down and says, "Holy water won't harm me,
+whilst I have this amulet on."
+
+The demon glares at you and says, "Interfere again and I'll kill you."
+
+It then walks over to the vampire and in a sudden motion rips off the amulet
+and crushes it in its hands. The vampire is surprised and the demon says, "No
+unfair advantages. This should just be a contest of our strengths."
+
+> throw blue bottle at vampire
+You throw the remaining blue bottle at the vampire. The holy water again
+splashes all over him. Suddenly he begins to burn and soon only ashes are
+left amongst the water.
+
+The demon is furious and glares in your direction. You do not have much time
+now.
+
+> east
+You run into the small room. The demon follows and is trapped in the
+pentagram, as it enters the room. It snarls at you, as it asks, "What are you
+going to do now. You cannot get out of here, unless you come closer."
+
+The small library
+You are in a small library. There are bookshelves covering the walls on
+various holy matters and philosophies. This could be interesting if a demon
+and a vampire were not fighting outside and you had some time. There is also
+a desk situated in the room. The exit is to the west.
+
+There is a dead body of a young man in here, who is wearing similar robes to
+you.
+
+The demon is trapped in the pentagram.
+
+> light match
+You light the match and throw it on the oil of the pentagram. The pentagram
+immediately comes alight and sends the demon trapped inside back to wherever
+it originally came from.
+
+You have saved your church from the horrors of the two monsters fighting over
+it. More of your memory begins to come back, as this seems familiar to you.
+It appears as if your service to the Hidden God is not finished yet, with
+monsters like these around. Even as a monster now yourself, you will continue
+to serve, like you have today.

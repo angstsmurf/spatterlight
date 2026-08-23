@@ -2252,6 +2252,141 @@ professor_solution.txt|Professor.taf|You scored 151 out of the maximum 229!
 # name, so line 1 of the solution is `Hero`; no <waitkey>, so the row needs
 # no env.
 wingman1_solution.txt|wingman1.taf|You scored 95 out of the maximum 121!
+
+# Fourth wave, 2026-08-23-: the manifest grew to 431 rows (issue #119's IFDB
+# adrift-4 tag sweep) while the corpus sat at 252 wired -- 179 unwired files,
+# smallest-first, vocabulary-scanned for AIF content before deriving.  See
+# "Fourth wave" in WALKTHROUGH_TODO.md.
+# Newton (1291 bytes, 4.00): joke micro-game, one room, no score. An apple
+# falls off a tree on turn 4; `get apple` on the very next command is the
+# ONLY winning move (a bare wildcard and `examine apple` both lose).
+newton_solution.txt|Newton.taf|u dscvr gravity
+# Conversation With A Picture (2257 bytes, 4.00): one room, no score. Sit on
+# the bench, ask the talking Picture NPC about "bird" (unlocks "parrot"),
+# then ask about "parrot" to fire the win. 3 commands.
+picture_solution.txt|Picture.taf|The title of the picture is "The Parrot's Cage".
+# Smote (1987 bytes, 4.00): 3 linked worlds (Water/Volcano/Desert), no score.
+# Play the god Jimmy: get ice in Water World (smites it), carry it + the
+# Desert pyramid to pop the volcano (smites it), melt/carry the ice to
+# flood the Desert (smites it, wins). 9 commands.
+smote_solution.txt|smote.taf|smote all 3 worlds into submission
+# Rift (2606 bytes, 4.00): 3-room unfinished intro/demo, no score. `move` in
+# the Steel Room, `x the floorboards` (article required) reveals the Lab and
+# moves you there, `x the machine` is the win (author's own "unfinished demo"
+# disclaimer as WINTEXT). 3 commands.
+rift_solution.txt|rift.taf|Thanks for playing this intro.
+# The Foggy Banana Adventure (2745 bytes, 4.00): one room, no score. A strict
+# TALK/INSPECT/USE chain -- `use hoover`/`use phone` each consume a generic
+# no-restriction task ahead of the real gated one in task order, so both must
+# be issued twice. 8 commands.
+foggybanana_solution.txt|The Foggy Banana Adventure.taf|SPIDERS have been captured by you and sold to the
+# The Vault (4258 bytes, 4.00): post-apocalyptic survival sim, no score. The
+# intended quest (cross to the Street, get a key off a dying man, unlock a
+# drawer for a bible, return to the Vault) is entirely bypassable -- the
+# win task ("read bible" in the starting room) has zero restrictions, so it
+# fires with no setup at all. Authoring bug; 1 command.
+vault_solution.txt|The Vault.taf|And as if  the gods have answered you, the vault door begins to open.
+# Pilfers (3727 bytes, 4.00): two-room escape/logic-puzzle skin, 107/107 max.
+# Blue Room quiz answers are flavor-only; DOOR:2 not DOOR:1 (an unconditional
+# death trap). Red Room bonus content, then task 18's RestrMask is AND, not
+# OR -- both `throw rock at window` and `push bed to window` are required to
+# climb out. 16 commands.
+pilfers_solution.txt|Pilfers.taf|You scored 107 out of the maximum 107!|SCR_SKIP_WAITKEY=1
+# Witness: Demon vs. Vampire (3849 bytes, 4.00): two rooms, no score. The
+# game ships its own hint system giving away the solution: matches + oil +
+# holy water from a cache, draw a pentagram (traps the demon), kill the
+# vampire with holy water, lure the demon east into the pentagram, light a
+# match. Order matters -- holy water before the pentagram is a death trap.
+# 13 commands.
+witnessdemon_solution.txt|Witness_Demon_vs_Vampire.taf|You have saved your church from the horrors of the two monsters fighting over|SCR_SKIP_WAITKEY=1
+# The Stowaway (3785 bytes, 4.00): 10000/10000 max. Climb to the crow's
+# nest, dialogue a ghostly Strange Kid three times (catching him early is an
+# instant death), then during the lightning-storm timed event `use kid as a
+# shield` -- counter-intuitively the winning, max-score move is sacrificing
+# the kid as a lightning rod. 16 commands.
+stowaway_solution.txt|The_Stowaway.taf|Well done - you scored maximum points!
+# Blast (3447 bytes, 4.00): Ectocomp-2008 horror mini-game, no score. A
+# 100 HP demon roams 7 rooms on a deterministic turn-indexed patrol; four
+# weapons are scattered on surfaces (each needs its surface examined before
+# `get` works). Killing the demon (100 total damage) sets a hidden "frag"
+# flag -- the real unlock for the south exit (a Var1-offset-by-2 restriction
+# quirk masked it as a check on an unrelated "body" variable). 25 commands.
+blast_solution.txt|blast.taf|You exit the building.  You have won!!!!
+# Conversation with a Hitchhiker (4401 bytes, 4.00, Ectocomp 2008): one
+# room, no score, three labeled "Ending N of Three" branches. `kill the
+# hitchhiker` is an explicit win task (Ending Three) -- far shorter than
+# surviving the doom-timer to Ending Two, and equally a clean win since the
+# game has no score to maximize. Two leading blank lines page past the
+# intro's [MORE] prompts.
+hiker_solution.txt|hiker.taf|You have found Ending Three of Three.
+# Just Another Day (2886 bytes, 4.00): Groundhog-Day time-loop game, no
+# score. A task21 AND gate requires four side-quest flags (pet the wolf,
+# take the leaf, visit the old man, an undressed talk with the boss) before
+# `Jump` is accepted from Outside; jumping resets into a parallel "empty"
+# map whose real exit is `w` from Cubicles (`e` there is a dead-end joke
+# room reprint). 135 lines, mostly blank padding for "press any key" pauses.
+justanotherday_solution.txt|Just Another Day.taf|Congratulations...You won the game.|SCR_SKIP_WAITKEY=1
+# Way Out (4598 bytes, 4.00): 5-room horror vignette, no score. A straight
+# corridor north to the exit; optional look-left/-right side commands drain
+# a "sanity" variable toward a stop-game threshold but are entirely
+# avoidable. 5 lines (a leading "1" answers an opening prompt).
+wayout_solution.txt|Way Out.taf|You're alive! But you'll never be the same...
+# The Fly Human (9-room linear corridor, 21 tasks, no ChangeScore/EndGame
+# actions anywhere in the data): unwinnable/unscoreable by design. The final
+# two rooms fire via automatic post-completion events, not player input.
+# "Still... I guess this is the end." is authorial flavor text only.
+flyhuman_solution.txt|The Fly Human.taf|Still... I guess this is the end.
+# zombiecow (5-room comedy, 100/130 max: two mutually-exclusive +30 endings
+# both count toward the declared 130 max but only one is ever reachable).
+zombiecow_solution.txt|zombiecow.taf|You are a free cow now.|SCR_SKIP_WAITKEY=1
+# raccoon (6-room, no scoring): trip yard traps, splice dog's leash onto the
+# garbage-can lid cord to yank the guarding rock away during an automatic
+# chase sequence, then loop back and open the unguarded can.
+raccoon_solution.txt|raccoon.taf|You dive headfirst into the can, easily shredding thin plastic bags with your|SCR_SKIP_WAITKEY=1
+# outline (3-room detective puzzle, 5/5): push bookcase to reveal a hidden
+# passage, lever a floorboard with a ruler, fill a mug via a pipe to wash
+# tweezers, pull a hairpin, pick the office lock; safe combo is in the bin.
+outline_solution.txt|outline.taf|Well done - you scored maximum points!
+# hungry (Ectocomp 2011, 9-room escape, no scoring): grab the pot from the
+# reception desk, head to the north office, smash the window with the pot.
+hungry_solution.txt|hungry.taf|Escape. Freedom.
+# The Long Barrow (8-room dig/tunnel puzzle, no scoring): dig into the site,
+# fetch tools after the first collapse, light a torch, defuse the tunnel air
+# timer by digging a dark patch, then pry the final chamber's slab loose.
+longbarrow_solution.txt|longbarrow.taf|That'll show 'em (and maybe even bag you a raise).
+# Asteroid Aftermath (single-hub satellite-realignment puzzle, no scoring):
+# valve toggles silently relocate NPC satellites between camera rooms; a
+# specific open/close sequence lands all required satellite groups together.
+asteroidafter_solution.txt|asteroid_after.taf|All satellites correctly aligned.|SCR_SKIP_WAITKEY=1
+# Sandy's Lost Doll (1286 bytes, 4.00): 6 rooms, 9 tasks, no score, zero
+# declared objects. UNWINNABLE as authored -- the toilet-check win task's
+# RESTR type=4 Var1=0 tests the command's referenced NUMBER (not the `mom`
+# counter the author meant), which `look in toilet` never supplies, so it
+# always fails and the EndGame task never runs. Ceiling: explore all six
+# look-in/under vignettes plus both "mom catches you" toilet lines.
+sandy_solution.txt|Sandy.taf|You see no such thing.
+# Same game, guarding the referenced-number leak that once won it: Scarier's
+# own meta commands ("wait 2", "hist 2") match a %number% pattern, and before
+# the scr_ref_number_guard in scrunner.c that wrote the game's referenced
+# number -- which is exactly what TASK 8's `$number = 2` restriction tests.
+# run400 never sets its referenced number outside a %number% pattern expansion
+# and this .taf has no wildcard at all, so the third `look in toilet` must
+# still be refused after both meta commands.
+sandy_meta_number_solution.txt|Sandy.taf|You see no such thing.
+# PTGOOD 8*10^23 (2006 minicomp, 4.00, 9 rooms, 2 tasks, no score). Open the
+# Front Desk window to unlock a room-exit shortcut, reach Slan's Bench,
+# `open vial` to win. 6 commands.
+ptgood_solution.txt|competition2006__adrift__ptgood__PTGOOD.taf|You win! Yay!
+# Pick up the phone booth and Cry (1372 bytes, 4.00): one room, no score.
+# `x me` silently completes the hidden "cried yet" gate, then `take phone
+# booth` fires the win (death-flavored text but a type=6 v1=0 EndGame).
+# 2 commands; the game's own hinted `cry` first step is a red herring.
+phoneb_solution.txt|Phoneb.taf|Committing its final act of mercy
+# JINXTRON (2179 bytes, 4.00): one room, no score, no EndGame anywhere --
+# a pure dialogue toy (the childhood "jinx" game) with an 11-state VAR1
+# conversation machine and a recurring random-word interjection event.
+# No win/loss to reach; 7-command demonstrative playthrough.
+jinxtron_solution.txt|JINXTRON.taf|You're unjinxed now.
 EOF
 }
 

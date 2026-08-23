@@ -1,0 +1,120 @@
+Loading game...
+
+The Stowaway
+I didn't know what to do. "Swabbers! Where's that swabby bastard?" I could
+hear the captain's voice storm in, shortly along with that fat bastard
+himself. It's what he was knew for, his loud mouth. The old captain wanted me
+for something. "Swabbers! There's a stowaway fartin' about up in the nest.
+Climb up there and bring 'im 'ere!"
+
+Galley
+The galley was empty, and the others were on duty, asleep or throwing up from
+the food in the galley. The rocking from the ship was rolling, and was making
+me slightly ill.
+Captain Milton was there at the time.
+
+> n
+I was cleaning up in there for so long, that I forgot what time it was. Eve
+had set, and the light air refreshed my head. Up in the sky, the clouds were
+packing. They were dark, and shrouded the orange sky that met up with the
+horizon.
+
+> n
+So that's when I moved north.
+
+Deck - Near Captain's quarters and mast
+I won't get into the Captain's quarters, too boring, but the mast was
+enormous. There were a few barrels scattered about which a few bored men sat
+on.
+
+> u
+So that's when I moved up.
+
+Base of mast
+I hated this climb, and for some reason I was the one who did it the most. "I
+think my leg is stuck!" I said.
+
+> u
+I shifted the rest of the way up as rain started to mingle with the wind. The
+sky was setting fast and I think some of the boys were baiting me from the
+deck.
+
+> u
+I pulled myself further up, faster as well. The sky up there was colder,
+miserably so. I began to feel dizzy. I didn't know where I was. The hollers
+from below were hazed. What was up? I didn't usually get sick from climbing
+the mast. The whole place was fogged up, too.
+
+Nothing else here, apart from when I distinctly puked all over the crew from
+above. They didn't like that!
+
+> u
+I finally made it to the top. I had reached the top part of the mast and all
+that was left was to go north into the crow's nest and see to the little
+stowie. The sun had completely gone by then and it was pitch dark.
+
+> n
+"That's funny," I thought to myself, "there isn't anyone here."
+
+Crow's nest
+While not my job, I could imagine the loneliness of being in the nest. The
+night sky made things difficult to see further than the torch there that was
+unlit at the time.
+An unusual wind lapped at my ankles.
+
+> wait
+Time passes...
+
+The rain picked up in strength.
+
+> wait
+Time passes...
+The ends of my fingers and nose felt like ice.
+
+As I was up at the top of the ship, with the miserable captain glaring from
+below, the weather and my sudden seasickness, the weirdest thing happened to
+me. For a moment, I could see everything clearly, though grey, and a boy
+stood, his back to me, next to the nest.
+
+> talk to kid
+"Er, hello? What are you doing on the mast?" The kid didn't turn around, he
+just, in a misshapen voice, whispered "playing."
+
+> talk to kid
+"You should... should get off the mast." I was trembling. "Why, mister?" he
+uttered. "It's not like I'm in danger in nothin'."
+
+> talk to kid
+"You should really come down!" I think I shouted at the kid. The kid turned
+to me, his blank eyes and papery face scowling at me at last, and said,
+"You're mean! I don't want to listen to you!" His arms pointed at me, and
+they were bright as fire...
+
+"SWABBERS!!" A bellow from Captain from beneath made us both shake. Two fiery
+streams skimmed right by my head!
+
+The kid, or whatever he was, looked as shaken as me! I thought this was my
+chance!
+
+> catch kid
+Then I leapt for the damn thing! His weedy body put up a fight. Then, he
+screamed: "Lightning! Help me!" What was this monster? No sooner than he said
+that, the rain turned into a proper storm and there were flashes of light!
+There were flashes of lighting.
+
+> use kid as a shield
+I held the kid up to the clouds, where he wriggled difficultly.
+
+> wait
+Time passes...
+Then, a bolt came and just missed the tip of the mast.
+
+> wait
+Time passes...
+Another bolt. That time it was dangerously close!
+The bolt struck. I bravely used the kid as a shield! The bolt tore through
+the child, sending his sorry arse to wherever ghosts get sent!
+
+You scored 10000 out of the maximum 10000!
+That is 100% of the game!
+Well done - you scored maximum points!

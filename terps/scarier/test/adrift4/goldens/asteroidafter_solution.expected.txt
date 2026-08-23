@@ -1,0 +1,185 @@
+Loading game...
+
+Asteroid Aftermath
+
+Asteroid Aftermath
+Written using ADRIFT, (c) Campbell Wild, 1998-2008.
+Written by Duncan Bowsman-- a science fiction story.
+Written for the Odd Competition.
+v1.00: September 2008.
+
+[press any key to continue]
+
+Prologue
+
+It is the Galactic Civil Year 5012, in a galaxy somewhere far from Earth...
+
+Satellite Control Station XI, a critical junction for observation and
+potential communication with the Sol star system in the Parigathon Galaxy,
+has suffered a collision with a previously undetected asteroid now known as
+Tarsellis Alpha II.  The station's satellites are now out of position and
+communications with the Sol system have ceased.  Unfortunately, the systems
+administrator for the station was at work when the asteroid hit, so the
+Sector Head has assigned you to the station.
+
+As systems administrator for XI, your priorities are two-fold: you must
+re-align the satellites to resume communications with the Sol system and
+restore the station's switchboard to active status.  The satellites must be
+re-aligned before the switchboard can be changed from safe to active status.
+So long as the switchboard is in safe mode it will reset periodically to
+prevent tampering by space pirates.  Resetting will require the re-alignment
+of the satellites.
+
+A class W shuttle will be by Station XI to recollect you as soon as your job
+is finished.
+
+[press any key to begin]
+
+Satellite Control Station XI
+Even the ultralight titanium shell of the station could scarcely withstand
+the impact of Tarsellis Alpha II.  The formidable debris strewn all about the
+station, barely anchored by weak artificial gravity, will have to get sorted
+by the janitors after you finish.  Appropriately crater-sized dents have
+deformed the station's switchboard, but it still appears to function.  In all
+cardinal directions are camera stations which one could enter to observe
+surrounding satellite positions.
+
+A spark flies up from the switchboard and dissipates.
+
+For help with game commands, type "help" and press enter.  For help with
+puzzles, type "hint" and press enter.
+
+Be warned, however, that the hints are not very stable... if you end up
+stuck, you may do best to save, restart, and access hints from the beginning
+(i.e., this screen) in order to see all available hints.
+
+> open second valve
+Confirmed.
+     _____________
+        VALVE OPENED.
+
+     [Reconfiguring satellite arrangement.]
+
+     ......
+
+     *** COMPLETE. ***
+     _____________
+
+> open fifth valve
+Confirmed.
+     _____________
+        VALVE OPENED.
+
+     [Reconfiguring satellite arrangement.]
+
+     ......
+
+     *** COMPLETE. ***
+     _____________
+
+> open fourth valve
+Confirmed.
+
+     _____________
+        VALVE OPENED.
+
+     [Reconfiguring satellite arrangement.]
+
+     ......
+
+     *** COMPLETE. ***
+     _____________
+
+> close second valve
+Confirmed.
+     _____________
+     VALVE CLOSED.
+
+     [Reconfiguring satellite arrangement.]
+
+     ......
+
+     *** ERROR. ***
+     Recapture malfunction.
+     Valve closed, but unable to display
+       closed valve state on-screen.
+     Possible damage to C-state detectors.
+     Satellites not moved
+       from corresponding open valve position.
+     To correct display error and
+       return satellites to previous position,
+       please use the reset command
+       or contact your system administrator.
+     _____________
+
+> open first valve
+Confirmed.
+     _____________
+        VALVE OPENED.
+
+     [Reconfiguring satellite arrangement.]
+
+     ......
+
+     *** COMPLETE. ***
+     _____________
+
+> open third valve
+Confirmed.
+     _____________
+        VALVE OPENED.
+
+     [Reconfiguring satellite arrangement.]
+
+     ......
+
+     *** COMPLETE. ***
+     _____________
+
+Confirmed.
+     _____________
+
+     [Reverting from safe mode.]
+
+     ......
+
+     *** COMPLETE. ***
+     All satellites correctly aligned.
+     Timed reset deactivated.
+     Control restored to station.
+     Have a nice day.
+     _____________
+
+As the switchboard settles into the rhythmic hum of its normal work, the
+lights of a class W shuttle flood Satellite Control Station XI.  The shuttle
+docks with the station and drops off the cleaning crew-- it's their turn to
+work this place over.
+
+You board the shuttle, ready for the long ride home.
+
+[press any key to continue]
+
+Epilogue
+
+The shuttle docks at your home colony-ship, A-48, but relief is still as far
+as your living chamber.  The colony seems abuzz about something; there are
+almost never this many people at the docking bay so late and never any so lit
+up.
+
+Has there been a parade?  A riot?
+
+You can barely take two steps from the gangplank before the Sector Head waves
+you down.
+
+The Sector Head looks pale and keeps making quick wipes at his forehead.  You
+cannot discern whether his dilated pupils shine frantically or wildly.
+
+He rambles, "While you were working... while you were working, we started to
+get some weird signals in from satellite number four at your station...
+messages from the one called Earth, but they don't make any sense... they're
+too... we can't tell... it's...
+
+"Come on," he says, grabbing the sleeve of your spacesuit, "you'd better have
+a look at this..."
+
+[--THE END--]

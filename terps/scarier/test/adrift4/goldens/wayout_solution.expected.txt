@@ -1,0 +1,51 @@
+Loading game...
+
+Way Out
+** by Rob Roy **
+
+Welcome to the adventure!
+
+(1) Jump straight to the game
+(2) Read the introduction to this adventure
+(3) Learn how to play interactive fiction titles
+
+Select a room (1) (2) (3)
+
+> 1
+
+The father and mother's room. He killed himself in the bathroom on the right.
+
+Don't look left! Don't look right! Just get out!
+
+> north
+I move north.
+
+Southern Hallway
+This portion of hallway connects to the two children's rooms to the left and
+right. The hallway extends north. They found the youngest daughter dead in
+her playroom. I'm not sure which room and I don't care. Angie's little sister
+is crying in the bedroom to the right.
+
+> north
+I move north.
+
+Northern Hallway
+The children's bathroom is on the left. Seven-year-old Casey was drowned in
+the tub. A walk-in closet is to the right.. That's where the husband kept the
+shotgun. That's where he shot his wife in the face.
+
+> north
+I move north.
+
+Living Room
+It's decrepit and full of broken furniture. Corin was the first to die. Out
+of the corner of my eye, I can see her shadow swinging on the wall to the
+right. The way out lies north!
+
+> north
+Run! Flee into the night!
+
+"JESSSSICAAAAA!!!"
+
+DON"T LOOK BACK! DON'T LOOK BACK!!!
+You're alive! But you'll never be the same...

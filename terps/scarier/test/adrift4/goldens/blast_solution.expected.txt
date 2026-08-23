@@ -1,0 +1,195 @@
+Loading game...
+
+Blast
+(a very rushed game) by Richard Otter
+
+[Written for the Ectocomp 2008]
+
+Your day starts with a headless receptionist and then just goes from bad to
+worse; don't you just hate Monday mornings.
+
+Reception
+A semi-circular reception desk sits just to one side of the room. To the
+north is an office and east leads to the toilets. To one side of the room is
+a sad looking plant sitting in a plastic pot. The extensive waiting
+facilities seem to consist of one plastic seat.  The entrance to the building
+is to the south. A trial of blood leads north.
+
+> x desk
+The reception desk is semi-circular and is made of some type of wood,
+probably oak.  A shotgun is on the reception desk.
+
+> get shotgun
+You take the shotgun from the reception desk.
+
+> n
+You move north.
+
+Office
+A plain office with very little furniture consisting only of a green desk.
+The reception is south, Filing to north and the Kitchen east. A trial of
+blood leads south.
+
+> n
+You move north.
+
+Filing
+In front of you is a counter which basically cuts the room into two halves.
+Behind the counter are row after row of filing cabinets. Offices are to the
+north and south. The Dining room is east. A trial of blood leads north.
+A demon is snarling at you.
+The demon charges forward and bites you in the head. You lose 5 health
+points.
+The demon charges forward and bites you in the head. You lose 5 health
+points.
+
+> kill demon with gun
+You pull the trigger and feel the shotgun recoil. The demon loses 5 health
+points.
+
+> n
+You move north.
+
+Office
+A plain office with very little furniture consisting only of a green desk.
+Filing is south. A trial of blood leads south.
+
+Demon arrives from the south.
+The demon charges forward and bites you in the head. You lose 5 health
+points.
+The demon charges forward and bites you in the head. You lose 5 health
+points.
+
+> x desk
+The green metal desk is of the type which has no drawers or storage. In fact
+it is more like a table than a desk.  An AK-47 is on the desk.
+
+> get ak47
+You take the AK-47 from the desk.
+The demon charges forward and bites you in the left arm. You lose 5 health
+points.
+
+> kill demon with ak47
+You pull the trigger and feel the ak-47 recoil. The demon loses 10 health
+points.
+
+> kill demon with ak47
+You pull the trigger and feel the ak-47 recoil. The demon loses 10 health
+points.
+The demon charges forward and bites you in the left hand. You lose 5 health
+points.
+
+> s
+You move south.
+
+Filing
+In front of you is a counter which basically cuts the room into two halves.
+Behind the counter are row after row of filing cabinets. Offices are to the
+north and south. The Dining room is east. A trial of blood leads north.
+
+Demon arrives from the north.
+The demon charges forward and bites you in the left arm. You lose 5 health
+points.
+
+> x counter
+From the look of it, the battered old counter has been in the building some
+years.  A missile launcher is on the counter.
+The demon charges forward and bites you in the head. You lose 5 health
+points.
+
+> get missile launcher
+You take the missile launcher from the counter.
+
+> kill demon with missile
+You pull the trigger and feel the launcher recoil. The demon loses 25 health
+points.
+The demon charges forward and bites you in the right hand. You lose 5 health
+points.
+
+> kill demon with ak47
+You pull the trigger and feel the ak-47 recoil. The demon loses 10 health
+points.
+
+> e
+You move east.
+
+Dining Room
+Usually it can be one of the busiest places in any organisation; here though
+it is strangely quiet. The room is arranged with bench like seats either side
+of several long tables. To the south are the kitchens and west is Filing. A
+trial of blood leads west.
+
+Demon arrives from the west.
+The demon charges forward and bites you in the right leg. You lose 5 health
+points.
+The demon charges forward and bites you in the right leg. You lose 5 health
+points.
+
+> kill demon with ak47
+You pull the trigger and feel the ak-47 recoil. The demon loses 10 health
+points.
+
+> s
+You move south.
+
+Kitchen
+After a brief look around you have the impression that no actual cooking
+takes place here, as you can see no cooking facilities. The only equipment
+seems to be a fridge and a worktop fixed to the wall.  So it is likely that
+it is just a food preparation area rather than a traditional kitchen. To the
+north is the dining room and west is an office.  A trial of blood leads
+north.
+
+Demon arrives from the north.
+The demon charges forward and bites you in the left leg. You lose 5 health
+points.
+The demon charges forward and bites you in the left leg. You lose 5 health
+points.
+
+> x worktop
+The metal worktop looks very well used as it is criss-crossed with various
+scratches.  A plasma torch is on the worktop.
+
+> get plasma torch
+You take the plasma torch from the worktop.
+The demon charges forward and bites you in the right leg. You lose 5 health
+points.
+
+> kill demon with plasma
+You pull the trigger and feel the shotgun recoil. The demon loses 15 health
+points.
+
+> w
+You move west.
+
+Office
+A plain office with very little furniture consisting only of a green desk.
+The reception is south, Filing to north and the Kitchen east. A trial of
+blood leads south.
+
+Demon arrives from the east.
+The demon charges forward and bites you in the right arm. You lose 5 health
+points.
+The demon charges forward and bites you in the right arm. You lose 5 health
+points.
+
+> kill demon with plasma
+You pull the trigger and feel the shotgun recoil. The demon loses 15 health
+points.
+The demon collapses to the ground. After a couple of seconds it vanishes.
+
+> s
+You move south.
+
+Reception
+A semi-circular reception desk sits just to one side of the room. To the
+north is an office and east leads to the toilets. To one side of the room is
+a sad looking plant sitting in a plastic pot. The extensive waiting
+facilities seem to consist of one plastic seat.  The entrance to the building
+is to the south. A trial of blood leads north.
+
+> s
+You exit the building.  You have won!!!!
+
+Feel free to report any bugs, send praise or give general feedback to
+richardo@delron.co.uk

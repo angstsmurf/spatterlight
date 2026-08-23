@@ -1,0 +1,636 @@
+Loading game...
+
+Just Another Day
+This is a game with no story, no direction, and no instruction. This is a
+game meant to make a statement in the world. It is suggested that the map is
+at the top of the screen.
+Press any key to continue.
+
+My Room
+It's my room. The bed is next to me, and my wardrobe is just by the door.  I
+am undressed and  my alarm clock is ringing loudly.
+
+> dress up
+I put on my clothing and pick up my brief case.
+
+> e
+I move east.
+
+Kitchen
+It's the kitchen. My wife is by the stove cooking and  the television is on.
+
+> e
+I move east.
+
+Apartment Building
+It's my apartment building. I'm on the sixth floor and I should use the
+button to call the elevater.
+
+> press button
+I press the button and I can here the elevator coming.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The elevator doors open.
+
+> in
+I move in.
+
+Elevator
+I press the "main floor" button as I enter the elevator. The doors close so
+all I have to do is wait. There's an old lady in here with a cane.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The elevator doors open and the bell chimes.
+
+> out
+I move out.
+
+Outside Apartment Building
+I step out of the elevator and walk outside. There is nothing here but the
+building itself.
+
+> e
+I move east.
+
+Road
+It's the road to my work place. I'm in my car and I just have to drive east.
+
+> e
+I move east.
+
+Outside Work Place
+I get out of my car, standing outside of my work place. There's a tall
+building, that's where I work. Infront of it is a dead tree with a single
+leaf.
+
+> e
+I move east.
+
+Lobby
+I walk into the lobby and see my boss standing outside his office. He seems
+pretty upset at me.
+
+> talk to boss
+"You're late...GET TO WORK!" he yells at me.
+
+> e
+I move east.
+
+Cubicles
+I'm in the second floor, there's a bunch of cubicles with people working in
+them.
+
+> e
+I move east.
+
+More Cubicles
+There are more cubicles on the fifth floor.
+
+> e
+I move east.
+
+Even More Cubicles
+There are much more cubicles on the eighteenth floor. My cubicle is here. I
+should get in it.
+
+> get in cubicle
+I step into my cubicle and get to work...
+Press any key to continue.
+
+...and work...
+Press any key to continue.
+
+...and work...
+Press any key to continue.
+
+...and work.
+Press any key to continue.
+
+The next day, I awaken in my room.
+
+>
+
+>
+
+>
+
+>
+
+>
+
+>
+
+> e
+I move east.
+
+Kitchen
+It's the kitchen. My wife is by the stove cooking and  the television is on.
+
+> e
+I move east.
+
+Apartment Building
+It's my apartment building. I'm on the sixth floor and I should use the
+button to call the elevater.
+
+> press button
+I press the button and I can here the elevator coming.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The elevator doors open.
+
+> in
+I move in.
+
+Elevator
+I press the "main floor" button as I enter the elevator. The doors close so
+all I have to do is wait. There's an old lady in here with a cane.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The elevator doors open and the bell chimes.
+
+> out
+I move out.
+
+Outside Apartment Building
+I step out of the elevator and walk outside. There is nothing here but the
+building itself.
+
+> e
+I move east.
+
+Road
+It's the road to my work place. I'm in my car and I just have to drive east.
+
+> get out of car
+I get out of the car and head out to the wilderness.
+
+> pet wolf
+I pet the wolf and it nudges me away.
+Press any key to continue.
+
+The next day, I awaken in my room.
+
+>
+
+>
+
+>
+
+>
+
+>
+
+>
+
+> e
+I move east.
+
+Kitchen
+It's the kitchen. My wife is by the stove cooking and  the television is on.
+
+> e
+I move east.
+
+Apartment Building
+It's my apartment building. I'm on the sixth floor and I should use the
+button to call the elevater.
+
+> press button
+I press the button and I can here the elevator coming.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The elevator doors open.
+
+> in
+I move in.
+
+Elevator
+I press the "main floor" button as I enter the elevator. The doors close so
+all I have to do is wait. There's an old lady in here with a cane.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The elevator doors open and the bell chimes.
+
+> out
+I move out.
+
+Outside Apartment Building
+I step out of the elevator and walk outside. There is nothing here but the
+building itself.
+
+> e
+I move east.
+
+Road
+It's the road to my work place. I'm in my car and I just have to drive east.
+
+> e
+I move east.
+
+Outside Work Place
+I get out of my car, standing outside of my work place. There's a tall
+building, that's where I work. Infront of it is a dead tree with a single
+leaf.
+
+> take leaf
+I take the leaf from the dead tree and look at it's beauty.
+Press any key to continue.
+
+The next day, I awaken in my room.
+
+>
+
+>
+
+>
+
+>
+
+>
+
+>
+
+> e
+I move east.
+
+Kitchen
+It's the kitchen. My wife is by the stove cooking and  the television is on.
+
+> e
+I move east.
+
+Apartment Building
+It's my apartment building. I'm on the sixth floor and I should use the
+button to call the elevater.
+
+> press button
+I press the button and I can here the elevator coming.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The elevator doors open.
+
+> in
+I move in.
+
+Elevator
+I press the "main floor" button as I enter the elevator. The doors close so
+all I have to do is wait. There's an old lady in here with a cane.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The elevator doors open and the bell chimes.
+
+> out
+I move out.
+
+Outside Apartment Building
+I step out of the elevator and walk outside. There is nothing here but the
+building itself.
+
+> w
+I move west.
+
+Side of Building
+I'm at the side of the building, where an intersection is. There's an old man
+here sitting against the wall.
+
+> talk to man
+"Do you want to go somewhere quiet?" he asks me.
+Press any key to continue.
+
+"Yes." I say.
+Press any key to continue.
+
+The old man takes me to a graveyard, and we both stand at the iron gates.
+Silently waiting. The old man says that I can leave whenever I want.
+
+>
+
+>
+
+>
+
+>
+
+>
+
+>
+
+> leave
+I leave the graveyard...
+Press any key to continue
+
+The next day, I awaken in my room.
+
+>
+
+>
+
+>
+
+>
+
+>
+
+>
+
+> e
+I move east.
+
+Kitchen
+It's the kitchen. My wife is by the stove cooking and  the television is on.
+
+> e
+I move east.
+
+Apartment Building
+It's my apartment building. I'm on the sixth floor and I should use the
+button to call the elevater.
+
+> press button
+I press the button and I can here the elevator coming.
+
+> wait
+Time passes...
+The elevator doors open.
+
+> wait
+Time passes...
+
+> in
+I move in.
+
+Elevator
+I press the "main floor" button as I enter the elevator. The doors close so
+all I have to do is wait. There's an old lady in here with a cane.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The elevator doors open and the bell chimes.
+
+> out
+I move out.
+
+Outside Apartment Building
+I step out of the elevator and walk outside. There is nothing here but the
+building itself.
+
+> e
+I move east.
+
+Road
+It's the road to my work place. I'm in my car and I just have to drive east.
+
+> e
+I move east.
+
+Outside Work Place
+I get out of my car, standing outside of my work place. There's a tall
+building, that's where I work. Infront of it is a dead tree with a single
+leaf.
+
+> e
+I move east.
+
+Lobby
+I walk into the lobby and see my boss standing outside his office. He seems
+pretty upset at me.
+
+> talk to boss
+"What? Where's your tie!?"
+Press any key to continue.
+
+"YOU'RE FIRED!!!"
+Press any key to continue.
+
+I beg to get my job back...And I do.
+Press any key to continue.
+
+The next day, I awaken in my room.
+
+>
+
+>
+
+>
+
+>
+
+>
+
+>
+
+> e
+I move east.
+
+Kitchen
+It's the kitchen. My wife is by the stove cooking and  the television is on.
+
+> e
+I move east.
+
+Apartment Building
+It's my apartment building. I'm on the sixth floor and I should use the
+button to call the elevater.
+
+> press button
+I press the button and I can here the elevator coming.
+
+> wait
+Time passes...
+The elevator doors open.
+
+> wait
+Time passes...
+
+> in
+I move in.
+
+Elevator
+I press the "main floor" button as I enter the elevator. The doors close so
+all I have to do is wait. There's an old lady in here with a cane.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The elevator doors open and the bell chimes.
+
+> out
+I move out.
+
+Outside Apartment Building
+I step out of the elevator and walk outside. There is nothing here but the
+building itself.
+
+> e
+I move east.
+
+Road
+It's the road to my work place. I'm in my car and I just have to drive east.
+
+> e
+I move east.
+
+Outside Work Place
+I get out of my car, standing outside of my work place. There's a tall
+building, that's where I work. Infront of it is a dead tree with a single
+leaf.
+
+> e
+I move east.
+
+Lobby
+I walk into the lobby and see my boss standing outside his office. He seems
+pretty upset at me.
+
+> e
+I move east.
+
+Cubicles
+I'm in the second floor, there's a bunch of cubicles with people working in
+them.
+
+> e
+I move east.
+
+More Cubicles
+There are more cubicles on the fifth floor.
+
+> e
+I move east.
+
+Even More Cubicles
+There are much more cubicles on the eighteenth floor. My cubicle is here. I
+should get in it.
+
+> e
+I move east.
+
+Outside
+I'm at the eighteenth floor again. I can see the entire city. I walk to the
+ledge and look down...and I think.
+
+> Jump
+I walk to the edge of the balcony and climb to the top of the fencing.
+Press any key to continue
+
+I look down and see the roads in the city.
+Press any key to continue
+
+I jump off and feel the air flowing around my body...
+Press any key to continue
+
+I open my eyes and see that I'm in my room. I seem to be fully clothed...it
+also seems so quiet.
+
+>
+
+>
+
+>
+
+>
+
+>
+
+>
+
+> e
+I move east.
+
+Kitchen
+It's the kitchen. It's empty...
+
+> e
+I move east.
+
+Apartment Building
+It's my apartment building. The elevator is here, waiting for me...
+
+> in
+I move in.
+
+Elevator
+I walk in the elevator and press the button. It's so quiet.
+
+> out
+I move out.
+
+Outside Apartment Building
+I get out of the elevator and step outside. It seems to so silent.
+
+> e
+I move east.
+
+Road
+I drive along the road...No traffic.
+
+> e
+I move east.
+
+Outside Work Place
+My work place...All the lights in the building are on.
+
+> e
+I move east.
+
+Lobby
+The lobby...My boss isn't here...It's empty.
+
+> e
+I move east.
+
+Cubicles
+I go down the hall and see cubicles...And that's just it.
+
+> w
+I move west.
+
+Realization
+I see a light and I walk towards it.
+Press any key to continue
+
+Then...I get it.
+Press any key to continue
+
+Congratulations...You won the game.
+
+> quit
+Do you really want to quit? [Y/N]

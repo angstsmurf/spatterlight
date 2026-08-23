@@ -1,0 +1,7 @@
+ne
+enter window
+north
+enter car
+sit on passenger window
+enter window
+wait

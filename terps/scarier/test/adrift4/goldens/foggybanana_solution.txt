@@ -1,0 +1,8 @@
+talk men
+inspect boxes
+inspect boxes
+use hoover
+use hoover
+use phone
+use phone
+talk zoo

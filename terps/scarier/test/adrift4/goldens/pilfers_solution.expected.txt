@@ -1,0 +1,146 @@
+Loading game...
+
+Pilfers
+In the year 2020 the judicial system has evolved, there was global panic as
+many acts of law had prohibited criminals from being released ever, the
+general public were still strongly apposed to execution but still all agreed
+they didn't want these people walking among them.  After some years the
+prisons across the world began to fill up, the criminals outnumbered the
+wardens and prison riots were nearly always ending in mass breakouts.  As
+things fell apart even more countries were resorting to shipping criminals
+abroad to foreign facilities but nothing worked.  Extremist groups were now
+voting for the death penalty to be brought back and this silenced the
+criminal rebellions enough to introduce a new criminal act.  Although the new
+system was a lot harsher it meant a lot of life criminals were being killed
+anyway and they were also helping military research.
+press key
+
+There are now three classes of criminals called the 'tolerance register'.
+Criminals who act out of 'reasonable motivation' are placed in group A, where
+they serve a sentence in county prisons.  Criminals who act out of 'mental or
+emotional motivation' are placed in group B and sentenced to reformation;
+this can take any where from 1-20 years and after the 20 year limit they were
+moved to group C.  The last group, Group C is for any one who posses a
+un-reformable threat to society, it was agreed under the 'criminalisation
+act' in 2016 that these criminals would not be allowed back into society, but
+instead of execution they would face being used for experimentation.
+press key
+
+Many men who were prosecuted under the old judicial system in 2010 and were
+nearing the end of their life sentence were caught up in a transfer that
+meant they were now most likely to die.  One of these individuals was
+Terrance, sentenced to life in 2010 after he murdered his best friend for
+abducting his wife.  The history of the case was that both men ended up
+serving life in separate facilities for crimes that appeared to cancel each
+other out.  The truth was that the court case was to wild to argue and both
+men had hired very good council to represent them and after three years over
+twenty continuances and four different juries the judge put an end at two
+life sentences. In the WLHQ (world law headquarters) many barristers were
+employed to organise how criminals prosecuted under the old judicial were to
+be treated,  Terrance's case was the largest file in circulation and totalled
+918,076 words, the two barristers on his case read the first 18 pages before
+skipping to the end where the words 'SENTENCED TO LIFE' sat in bold red.
+They transferred him to group C without thought. Terrance was serving the
+last two years of his sentence when his cell was raided one night, he was
+forced into an official van and taken across country to what was only
+referred to as 'the new facilities'
+
+Government facilities were set up across the globe to house these criminals
+who where deemed unfit for society, not much was known about these facilities
+apart from that out of every ten criminals who were forced to serve at these
+facilities, only four out of the ten came out alive.
+press key
+
+Terrance awakes awakes in a blue room...
+
+> MIC:1
+A voice bellows through the room, "MIC:1 ACTIVE!"
+"YOU MAY ASK ONE OF THE FOLLOWING QUESTIONS, I WILL ONLY ANSWER 'YES' OR
+'NO', ONE OF US ALWAYS TELLS THE TRUTH AND ONE OF US ALWAYS LIES!"
+
+there is a short pause before the voice returns.
+"TYPE 1 TO ASK 'DOES MIC:1 TELL THE TRUTH'"
+"TYPE 2 TO ASK 'DOES MIC:2 TELL THE TRUTH'"
+"TYPE 3 TO ASK 'WILL MIC:2 TELL ME THIS DOOR LEADS TO DEATH'"
+"TYPE 4 TO ASK 'WILL MIC:2 TELL ME THIS DOOR LEADS TO SAFETY"
+
+"ONCE YOU HAVE ASKED BOTH MICROPHONES MAKE YOUR DECISION BY TYPING DOOR:1 OR
+DOOR:2"
+
+> 1
+"YES"
+
+> MIC:2
+A voice bellows through the room, "MIC:2 ACTIVE!"
+"YOU MAY ASK ONE OF THE FOLLOWING QUESTIONS, I WILL ONLY ANSWER 'YES' OR
+'NO', ONE OF US ALWAYS TELLS THE TRUTH AND ONE OF US ALWAYS LIES!"
+
+there is a short pause before the voice returns.
+"TYPE A TO ASK 'DOES MIC:2 TELL THE TRUTH'"
+"TYPE B TO ASK 'DOES MIC:1 TELL THE TRUTH'"
+"TYPE C TO ASK 'WILL MIC:1 TELL ME THIS DOOR LEADS TO DEATH'"
+"TYPE D TO ASK 'WILL MIC:1 TELL ME THIS DOOR LEADS TO SAFETY"
+
+"ONCE YOU HAVE ASKED BOTH MICROPHONES MAKE YOUR DECISION BY TYPYING DOOR:1 OR
+DOOR:2"
+
+> C
+"YES"
+
+> DOOR:2
+Well done
+
+> read paper
+you now have 20 turns to get out of here!
+
+> look under bed
+you find a piece of string under the bed.
+you take the string.
+
+> look hole
+the bars are deffinatly perminant, you run your hand down the concrete
+side... a rock falls loose.
+
+> take rock
+You take the rock.
+
+> stand on bed
+You stand on the bed.
+
+> take bulb
+You yank the bulb from the ceiling, snapping the cable...
+
+> get off bed
+You get off the bed.
+
+> throw rock at window
+you throw the rock at the window breaking it.
+
+> push bed to window
+You push the bed underneath the window.
+
+> climb window
+You clamber through the small window, it's a sqeeze but you eventually fit.
+You land on the ground the other side of the door.. hard.  After you clear
+your head and stand up you look, the walls are glass and behind the glass are
+several men in lab coats...
+
+"Well that concludes the IQ test Mr Terrance, we will now begin medical
+testing"
+"Will you empty you pockets on the floor please"
+
+will you empty your pockets or not?
+
+type Y or N
+
+> Y
+you empty your pockets...
+
+"Ok mr Terrance that completes the 'medical testing'"
+
+"Don't worry you honesty wont go unrewarded, please step into the next
+room"...
+
+You scored 107 out of the maximum 107!
+That is 100% of the game!
+Well done - you scored maximum points!

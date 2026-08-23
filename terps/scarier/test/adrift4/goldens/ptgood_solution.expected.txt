@@ -1,0 +1,51 @@
+Loading game...
+
+PTGOOD
+The objective of this game is to kill Slan Xorax for terrorizing the IF
+community with terrible games. You have been transported to his workplace.
+
+Front Desk
+You are standing in front of the front desk of the Smith Cancer Center.
+Bright light shines in through the glass doors. You can travel west into the
+Cancer Center.
+
+> open window
+You open the window.
+
+> w
+You move west.
+
+Atrium
+An atrium welcomes the visitor into the the dreary world of cancer research.
+A natty couch sits in the corner, smelling a bit like an interesting moldform
+that you once observed. You can travel up or west. Eastward leads to the
+front desk.
+
+> u
+You move up.
+
+Stairs
+You are standing at the top of a perfectly normal stairway. Down leads to the
+atrium. To the east is an adiminstrative area, and to the southeast is a
+laboratory.
+
+> se
+You move southeast.
+
+Lab
+You are in a workplace for scientists. There are lots of reagents lying
+around. West is the viral containment room. East is Slan's bench.
+
+Also here is a sign.
+
+> e
+You move east.
+
+Slan's Bench
+You are at the bench where Slan Xorax works. It is messy and sloppily
+maintained.
+Xorax is here.
+
+> open vial
+You open the vial, releasing the virus into the air.
+You win! Yay!
