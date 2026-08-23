@@ -2387,6 +2387,19 @@ phoneb_solution.txt|Phoneb.taf|Committing its final act of mercy
 # conversation machine and a recurring random-word interjection event.
 # No win/loss to reach; 7-command demonstrative playthrough.
 jinxtron_solution.txt|JINXTRON.taf|You're unjinxed now.
+# The same toy played all the way round its loop (2026-08-23).  Jinx (VAR 1)
+# is the whole machine: 1 = not yet jinxed, saying anything that is not `jinx`
+# jinxes you (2); five more turns of anything walk it to 7 ("Player, Player,
+# Player -- you're unjinxed"); at 7 the Random_say event announces "Oh, EDAM,
+# by the way." each turn and typing that same word back (tasks 23-33 compare
+# the referenced text against the string variable random_say) reaches 8; `jinx`
+# then jinxes JINXTRON (9); saying `jinxtron` three times -- the jinxtron_said
+# counter -- frees it (10) and it asks "Isn't jinx fun?"; answering anything
+# jinxes you again and drops Jinx back to 2.  So the loop closes and there is
+# still no ending: zero type-4 (score) and zero type-6 (EndGame) actions in the
+# whole file.  The word to echo back is seed-dependent -- it is EDAM under the
+# harness's fixed RNG, so this row is only deterministic there.
+jinxtron_full_solution.txt|JINXTRON.taf|I'm free!  Bwa hahaha!
 EOF
 }
 

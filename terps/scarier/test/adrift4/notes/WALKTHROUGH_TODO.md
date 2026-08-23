@@ -817,7 +817,20 @@ batches, not just this one.
   a pure dialogue toy (the childhood "jinx" game) driven by an 11-state
   `VAR1` conversation machine plus a recurring random-word interjection
   event. Banked as a demonstrative 7-command playthrough, same class as
-  `Toxically_Earth`/`lifesimulation`.
+  `Toxically_Earth`/`lifesimulation`. Re-checked 2026-08-23 and the whole
+  loop is now banked too (`jinxtron_full_solution.txt`): the `Jinx` variable
+  runs 1 → 2 (anything but `jinx` gets you jinxed) → 7 (five more turns;
+  "Player, Player, Player — you're unjinxed") → 8 (at 7 the `Random_say`
+  event announces "Oh, EDAM, by the way." each turn, and typing that same
+  word back matches tasks 23–33, which compare the *referenced text* against
+  the string variable `random_say`) → 9 (`jinx`, and now JINXTRON is the
+  jinxed one) → 10 (say `jinxtron` three times, counted in `jinxtron_said`,
+  and it is freed: "I'm free! Bwa hahaha!… Isn't jinx fun?"). Answering that
+  question puts `Jinx` back to 2 and jinxes you again, so the machine is a
+  closed loop — there are **zero** type-4 (score) and **zero** type-6
+  (EndGame) actions in the file, and no reachable ending. The word to echo
+  back is RNG-dependent, so the row is deterministic only under the
+  harness's fixed seed.
 - **Conversation With A Picture** (`Picture.taf`, 2257 bytes) — **WON, 0/0**,
   3 commands. Sit on a bench, `ask picture about bird` unlocks `ask picture
   about parrot`, which wins.

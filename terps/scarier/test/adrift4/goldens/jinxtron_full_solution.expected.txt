@@ -1,0 +1,95 @@
+Loading game...
+
+JINXTRON
+
+Please enter your name:
+
+> Player
+
+JINXTRON
+When I was a kid, we used to play a game called jinx.  It went something like
+this...
+
+First, you pretend to be me back when I used to play jinx.  Shouldn't be that
+hard.  I can't bring my brothers or any friends to you through the computer
+screen, so I built you this special replica.  You can play with JINXTRON.
+
+Now, go ahead and type something in.  We'll pretend you're actually saying it
+aloud.  Remember, to JINXTRON just pressing enter means that you're choosing
+to say something incoherent rather than nothing at all.
+
+[Remember: to JINXTRON just pressing enter means that you're choosing to say
+something incoherent rather than nothing at all.]
+
+> hello
+"HELLO-- JINX!"
+
+See, I said the same thing as you at the same time, but I shouted jinx before
+you.  Now you can't say anything until someone says your name three times.
+
+> world
+Hey, you can't say anything yet!  Getting other people to say your name
+doesn't count, so you still can't talk yet.  Like, I have to say your name
+three times.
+
+So just wait.
+
+[To wait, type wait or z and press enter.]
+
+> foo
+No, I haven't said your name even once yet.  So be quiet, cheater!
+
+> bar
+Nuh-uh!  Shut up.  I jinxed you!
+
+> baz
+You're not fair!  I'm not gonna play jinx with you if you don't play by the
+rules.
+
+> qux
+Argh... okay, fine.  "Player, Player, Player."  You're unjinxed now.
+
+Okay, fine.  Go ahead and try to say something else.
+
+> jinxtron
+No, don't even think about sayin' jinx until we say the same word at the same
+time.  That's the only time you can jinx someone.  C'mon, I thought you knew
+the rules by now?
+
+Oh, EDAM, by the way.
+
+> EDAM
+Oh, man, I hope you don't jinx me.
+
+> jinx
+Dang it!  I mean, uh, I'm not talking.  I'll shut up... ah, shoot...
+
+> jinxtron
+...
+
+> jinxtron
+...
+
+> jinxtron
+I'm free!  Bwa hahaha!
+
+Well, what did you think?  Isn't jinx fun?
+
+> yes
+"YES-- JINX!"
+
+Bwa hahaha!  I win!  I jinxed you again!
+
+> quit
+Hey, you can't say anything yet!  Getting other people to say your name
+doesn't count, so you still can't talk yet.  Like, I have to say your name
+three times.
+
+So just wait.
+
+[To wait, type wait or z and press enter.]
+
+> y
+No, I haven't said your name even once yet.  So be quiet, cheater!
+
+>
