@@ -691,8 +691,21 @@ scr_dump_structure_once (scr_gameref_t game)
               s = prop_get_string (bundle, "S<-sisi", tk);
               snprintf (nm, sizeof nm, " task%ld=[%s]", v1 - 1, s ? s : "");
             }
-          fprintf (stderr, "    RESTR type=%ld v1=%ld v2=%ld v3=%ld%s\n",
-                   rtype, v1, v2, v3, nm);
+          /*
+           * The FailMessage decides how a failing restriction looks from the
+           * outside: with one, 4.0 prints it and eats the command; with none,
+           * the refusal is silent and the turn falls through to the library
+           * and then to "I don't understand ...".  Two divergences have now
+           * been chased that turn on exactly that difference, so dump it.
+           */
+          {
+            const scr_char *fail;
+            k[4].string = "FailMessage";
+            fail = prop_get_string (bundle, "S<-sisis", k);
+            fprintf (stderr,
+                     "    RESTR type=%ld v1=%ld v2=%ld v3=%ld%s fail=[%s]\n",
+                     rtype, v1, v2, v3, nm, fail ? fail : "");
+          }
         }
 
       for (i = 0; i < acount; i++)

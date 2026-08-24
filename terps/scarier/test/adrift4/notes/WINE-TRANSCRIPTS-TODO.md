@@ -1811,7 +1811,7 @@ desk.` as a second sentence rather than `..., and inside is a crystal.`, the
 inner arms are live after all and the guard order in `lib_list_in_object()`
 has to move.
 
-## OPEN 2026-08-25 -- `burn memo`
+## OPEN 2026-08-25 -- `burn memo`  (probe built, waiting on Wine)
 
 **run400 refuses a task Scarier runs.**  Task 24, `Burn %object%`, restr=2,
 mask `#A#`:
@@ -1822,11 +1822,83 @@ mask `#A#`:
 `SCR_TRACE_TASKS=1` shows both PASS in Scarier and the task running, printing
 its CompleteText (`You incinerate the The Memo with a Zippo ...`).  run400
 answers `I don't understand what you want me to do with The Memo.`, which is
-`therest` (`Proc_19_85_489F4C`) at `loc_488706` -- i.e. the typed-command
-dispatcher returned FALSE, so in run400 one of those two restrictions failed
-*and printed nothing*.  Which one is not decidable from the listing: needs a
-built probe with one restriction at a time.  It is not the empty-CompleteText
-refusal (see Open leads) -- the CompleteText is not empty.
+`generaltasks`' end-of-turn fallback at `loc_48B1F5`
+(`mdlSpreadTheLoad.bas:33899`; the other copy of the string is in `therest`,
+`Proc_19_85_489F4C`, at `loc_488706`).  So run400 refused the task **and
+printed nothing at all**.  It is not the empty-CompleteText refusal (see Open
+leads) -- the CompleteText is not empty.
+
+**The FailMessages narrow it to restriction 2.**  `scdump.cpp`'s RESTR line now
+prints each restriction's `FailMessage`, because that is what decides how a
+failure *looks* from outside:
+
+    RESTR type=0 v1=1 v2=3 v3=0 fail=[There's nothing here to burn!]
+    RESTR type=3 v1=0 v2=2 v3=-1 fail=[]
+
+Whatever rule run400 uses to pick which failing restriction's message to print
+-- first-failing, first-failing-with-a-message, last-failing -- they all agree
+when only *one* restriction fails, because then there is only one candidate.
+So if restriction 1 had failed, `There's nothing here to burn!` would have been
+printed.  It was not.  Restriction 1 passed in run400; the silence is
+restriction 2's empty message, or the task never matched at all.
+
+**No mechanism found in the listings.**  Ruled out, in order:
+
+- the feed -- every command in `Adrift_22_xfiles.txt` lines 5-21 echoes
+  correctly, `burn memo` included;
+- an NPC actually being present -- no NPC starts in Your Office (room 0); Ruth
+  is prose only; the 16 NPC start rooms are 3, 15, 9, 9, 9, 9, 25, 24, 24, 5,
+  28, 34, -1, 30, 17, 19;
+- a hidden-NPC collision on room 0 -- run400's player room is 1-based
+  (`Proc_19_27_4430F0`, `mdlSpreadTheLoad.bas:22660`, returns a room index
+  unchanged while it is `< NumberOfRooms + 1`, which is only right for 1-based
+  rooms; exit `Dest`s go into `unk_409011.global_0` raw), in the same space as
+  NPC `global_14`, so a nowhere NPC at 0 can never match;
+- an off-by-one in run400's Alone loop -- `loc_4812F0` is `var_86 = TRUE; For i
+  = 0 To NumberOfNPCs-1: If playerroom = NPCs(i).global_14 Then var_86 = FALSE`,
+  semantically identical to Scarier's `!(npc_count_in_room(playerroom) > 1)`;
+- task 24 being spent -- xfiles has **no** `ACT type=5` (execute task) anywhere,
+  and all six of its events are `starter=3`;
+- another task claiming the command -- task 25's `Burn *Car` cannot match.
+
+Task 24 carries the game's **only** `type=3 Var2=2` restriction, so nothing
+else in the transcript can corroborate or refute it.
+
+**The probe is built and staged**:
+`harness/make_400_burnprobe.py` -> `p4BURN.taf`, with
+`~/adrift-battle/runner/wine/cmdfile_burn.txt`.  Two rooms, one trinket each
+side, and exactly one NPC, which starts **nowhere** (`StartRoom` 0) as xfiles'
+NPC 12 does.  Thirteen cells: a restriction-free baseline, a restriction-free
+`burn %object%` (is the verb intercepted before task matching?), each of
+xfiles' two restrictions alone, xfiles' exact two-restriction shape, and
+sure-failing twins (`no object is visible`, `the player is not alone`) in every
+combination of empty and non-empty FailMessage.  Scarier's own answers, which
+are what the Wine run is measured against, are:
+
+    pa coin   PA PASS.        burn coin  BURN PASS.
+    pb coin   PB PASS.        (restriction 1 alone)
+    pc coin   PC PASS.        (restriction 2 alone -- THE test)
+    pd coin   PD PASS.        (xfiles' exact shape)
+    pe coin   PE PASS.
+    pf coin   PF FAIL.        pg coin  PG FAIL.
+    ph coin   PH FAIL A.      pi coin  PI FAIL B.
+    pj coin   I don't understand what you want me to do with the coin.
+    pk coin   PK FAIL A.
+    pl coin   I don't understand what you want me to do with the coin.
+
+`pb`/`pc` say which of xfiles' restrictions run400 disagrees with; `pa`/`burn`
+say whether matching itself is the problem; `ph`/`pi`/`pj`/`pk` decode the
+message-selection rule as a by-product (Scarier takes the *first* failing
+restriction's message even when it is empty -- `restr_lowest_fail`,
+`screstrs.cpp:906`, consumed at `:1176`).
+
+The command file runs the alone cells in the start room, then again after `e`
+and `w`.  That round trip is deliberate: the .taf stores the header's
+`StartRoom` 0-based but every exit `Dest` 1-based, so a Runner that failed to
+normalise the header would have the player at room 0 until the first move --
+colliding with the nowhere NPC and making "alone" false in the start room only.
+xfiles burns the memo in its start room.  If `pc` fails before the round trip
+and passes after it, that is the whole bug.
 
 ## CLOSED 2026-08-24 -- empty-M1 room alts, and recursive holding
 
