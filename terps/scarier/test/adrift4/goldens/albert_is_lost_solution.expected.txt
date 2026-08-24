@@ -299,8 +299,8 @@ instruments.  A trail south leads to a little hill where buskers sometimes
 entertain people eating lunch, and a less-used one leads east to a secluded
 section of the festival.   Also nearby is yon stout bush.
 
-"Ye shall soon be safe, Albert," mumbleth Tiberius.  "Thinketh of chocolate,
-li'l buddy."
+Tiberius mutters to himself, "Worrieth not, dear brother... I shan't letteth
+ye wizards get ye!"
 
 > lookfrotho
 "LOOKFROTHO!" invoketh Tiberius...

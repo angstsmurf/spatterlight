@@ -5771,7 +5771,7 @@ house lies to the north.
 
 > time
 
-It is about 6:25 AM in the early morning.
+It is about 6:20 AM in the early morning.
 
 > x armoire
 

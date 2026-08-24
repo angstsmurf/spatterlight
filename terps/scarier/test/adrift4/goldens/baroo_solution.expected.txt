@@ -65,8 +65,8 @@ The niche has a holographic image of a plastic gun.  Gold and silver touch
 pads are on the side of the niche.
 
 > press gold pad
-Both the silver and gold touch pads fade away.  The weapon4 becomes solid and
-sits in the niche.
+Both the silver and gold touch pads fade away.  The plastic gun becomes solid
+and sits in the niche.
 
 > take gun
 You take the plastic gun from the rectangular niche.  As soon as you do that,
@@ -415,8 +415,7 @@ You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 11 through
 14.  A stairwell near the corner goes up to the second floor.  To the east is
 room 10.
-The warlock is seated on the foot of the double bed, her face looking
-directly at you.
+The warlock is casually walking.
 
 Warlock saunters out to the east.
 

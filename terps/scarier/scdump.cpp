@@ -610,6 +610,40 @@ scr_dump_structure_once (scr_gameref_t game)
         if (h2 && *h2) fprintf (stderr, "    HINT2=[%s]\n", h2);
       }
 
+      /* The task's own text.  A wording measurement against a Runner
+       * transcript stands or falls on knowing which words the author wrote:
+       * the dump used to show only the command, so an engine-supplied phrase
+       * and an authored one looked alike.  CompleteText is what the task
+       * prints when it runs, AdditionalMessage what task_run_task_
+       * unrestricted() appends after the actions, RepeatText what answers a
+       * second typing (see run_task_refusal()), and ReverseMessage what an
+       * "un-doing" of the task says.  humbug's task 80 "put * sweet on *
+       * plinth" is the worked example: its CompleteText is a bare "I put the
+       * sweet on the plinth.", so neither of the two "Okay."s the Runner
+       * prefixes to it is authored -- both come from the game's own
+       * self-containing ALR [I put ] -> [Okay.  I put ], one per filter pass
+       * the turn runs (see pf_refilter()). */
+      {
+        const scr_char *tt;
+        static const char *const text_fields[] =
+          { "CompleteText", "AdditionalMessage", "RepeatText",
+            "ReverseMessage", NULL };
+        static const char *const text_labels[] =
+          { "COMPLETE", "ADDMSG", "REPEATTEXT", "REVERSE", NULL };
+        scr_int f;
+
+        for (f = 0; text_fields[f]; f++)
+          {
+            k[2].string = text_fields[f];
+            if (prop_get (bundle, "S<-sis", &vt, k)
+                && !scr_strempty (vt.string))
+              {
+                tt = vt.string;
+                fprintf (stderr, "    %s=[%s]\n", text_labels[f], tt);
+              }
+          }
+      }
+
       /* Print any extra command alternatives (Command[1..]) -- these are the
        * synonym/wildcard forms ADRIFT matches in addition to Command[0]. */
       for (ci = 1; ci < ccount; ci++)

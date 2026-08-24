@@ -110,7 +110,7 @@ same."
 > 4
 "I have told you everything you need to know about von Lastmeer," says the
 man, and from his tone it is obvious he has no intention of telling you
-anything else. "Now. Your answer: will you kill von Lastmeer or not?"
+anything else. ""Now. Your answer: will you kill von Lastmeer or not?"
 
 [1]  Say you will do it.
 [2]  Refuse to have anything to do with him.

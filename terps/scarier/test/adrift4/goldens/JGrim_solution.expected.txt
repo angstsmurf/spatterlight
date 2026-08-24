@@ -293,7 +293,7 @@ You take the roll of sellotape from the dark suitcase.
 You take the pair of dark sunglasses.
 
 > wear sunglasses
-You put on the pair of dark sunglasses. Looking good.
+You put on the pair of dark sunglasses. Looking good. Looking good.
 
 > take pistol
 You take the short, black pistol.

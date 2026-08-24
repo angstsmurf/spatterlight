@@ -312,8 +312,8 @@ blooded murderer had been spawned inside these walls.
 I looked around the damp smelling bedroom and shivered. Bare wooden
 floorboards streaked with light from a narrow, rain spattered window. Against
 one cracked and damp riddled wall was a heavy looking, wooden trunk. Outside,
-in the treetops,
-I could see a black cat, staring in at me. The only exit was south.
+in the treetops, I could see a black cat, staring in at me. The only exit was
+south.
 
 > unlock window
 

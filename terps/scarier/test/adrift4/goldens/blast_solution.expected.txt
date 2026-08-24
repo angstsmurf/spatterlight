@@ -38,7 +38,7 @@ In front of you is a counter which basically cuts the room into two halves.
 Behind the counter are row after row of filing cabinets. Offices are to the
 north and south. The Dining room is east. A trial of blood leads north.
 A demon is snarling at you.
-The demon charges forward and bites you in the head. You lose 5 health
+The demon charges forward and bites you in the right hand. You lose 5 health
 points.
 The demon charges forward and bites you in the head. You lose 5 health
 points.
@@ -55,7 +55,7 @@ A plain office with very little furniture consisting only of a green desk.
 Filing is south. A trial of blood leads south.
 
 Demon arrives from the south.
-The demon charges forward and bites you in the head. You lose 5 health
+The demon charges forward and bites you in the right arm. You lose 5 health
 points.
 The demon charges forward and bites you in the head. You lose 5 health
 points.
@@ -88,7 +88,7 @@ Behind the counter are row after row of filing cabinets. Offices are to the
 north and south. The Dining room is east. A trial of blood leads north.
 
 Demon arrives from the north.
-The demon charges forward and bites you in the left arm. You lose 5 health
+The demon charges forward and bites you in the left hand. You lose 5 health
 points.
 
 > x counter
@@ -120,7 +120,7 @@ of several long tables. To the south are the kitchens and west is Filing. A
 trial of blood leads west.
 
 Demon arrives from the west.
-The demon charges forward and bites you in the right leg. You lose 5 health
+The demon charges forward and bites you in the right hand. You lose 5 health
 points.
 The demon charges forward and bites you in the right leg. You lose 5 health
 points.
@@ -141,7 +141,7 @@ north is the dining room and west is an office.  A trial of blood leads
 north.
 
 Demon arrives from the north.
-The demon charges forward and bites you in the left leg. You lose 5 health
+The demon charges forward and bites you in the right hand. You lose 5 health
 points.
 The demon charges forward and bites you in the left leg. You lose 5 health
 points.

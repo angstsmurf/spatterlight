@@ -750,8 +750,7 @@ Behind the Furniture
     This is where the cellar passageway from the south opens into a spacious
 room to the west.   Pipes hang from the ceiling.  Some miscellaneous
 furniture provides cover.
-    Over to the west you see that Laurie's sister is being held down in a
-chair in the center of the room.
+    Over to the west you see that Laurie's sister is also with them.
     Three kidnappers are standing near her.
 
     "Cassie!", gasps Laurie.
@@ -3523,7 +3522,7 @@ You open the door and enter.
 
 Detainment
     This room of average dimensions is entirely bare.  The exit is east.
-    Laurie is in your arms.
+    Laurie is standing here.
 
     "It's gone, Petter, the forcefield!  It's gone!"  Without waiting for a
 reply, Laurie runs directly into your arms.  "I waited for you to come back.

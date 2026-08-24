@@ -161,6 +161,43 @@ the cave is pitch black, in stark contrast to the bright day outside.
 The tiny gatehouse is west, and giant's valley is east.
 An Ogre sits gloomily, his eyes shining redly.
 
+The Ogre blinks, and the reddish light disappears for a moment.
+
+Then he opens his eyes again and makes a sickening slobbery sound.
+
+'Little person,' he rumbles. 'How are you to-day.' He doesn't ask it as a
+question, but says the words as if reading them off a prompt (as if Ogres can
+read).
+
+'W-well, thank you.' you manage to stammer.
+
+'I live here. Welcome to my home. Mr Fiddle will see you soon. First you must
+listen to my poem. I have to finish it right before you can go on.'
+
+'Oh, okay. So... you wrote it?' You try to sound enthusiastic as wafts of
+vile-smelling body odour assails you every time the thing moves around.
+
+'No, of course not.' suddenly the Ogre seems to be speaking in his own,
+normal voice. 'If I had my way, I'd just rip your arms off and suck the blood
+off the ragged ends. But...' and here he's back to his recital. 'Mr Fiddle is
+bigger than me, and kindly lets me live here. Here's the poem.'
+
+Press a key
+
+A centipede was happy quite,
+Until a frog in fun
+Said, "Pray, which leg comes after which?"
+This raised her mind to such a pitch,
+She lay distracted in the ditch,
+Considering how to run.
+
+There's a pause and you wonder if that's it. The Ogre blinks again. 'Um, that
+was nice!' you say.
+
+ 'Did I get it right?' the Ogre asks.
+
+'Yes, yes, perfectly!'
+
 > e
 You move east.
 
@@ -175,8 +212,8 @@ large ring of stones encloses a smoldering fire.
 There's a pigsty to the north, a briar patch to the east, a patch of forest
 to the southeast, and a swamp to the south. The cave entrance is to the west.
 
-Glum is here, pontificating.'Long, long ago, in a country far, far away...'he
-stops, then shakes his head and mutters an expletive.
+Glum, standing nearby, seems to be having a bright idea, face lighting up,
+finger in mid-air. But then it goes away, and he frowns.
 
 As you and Glum face each other over the pile of boulders, he gives a mild
 grin and flourishes an arm. 'Please, sit in my parlor!' He exclaims, loudly
@@ -288,7 +325,8 @@ you can see of it between stands of some kind of swamp bush.
 The pile of boulders is visible to the north, and a stand of trees is to the
 east.
 
-The giant is here, and let's out belch that makes you wince.
+Glum Fiddle is here, fiddling with his housecoat, under which he wears
+nothing.
 
 > take slime in teapot
 You scoop up some slime from the marsh with the teapot.

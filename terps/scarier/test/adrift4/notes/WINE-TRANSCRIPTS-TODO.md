@@ -267,6 +267,8 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `Orient_Express.taf` | 4.00 | full run400 replay, `Adrift_36_orient_express.txt` | the 4.0 walk directions; also the spurious "Gimme Atip enters." arrival |
 | `S_Tar_Dus.taf` | 3.90 | full run390 replay, `Adrift_38_stardust.txt` | all 129 walk lines match count for count; pinned the not-a-room-zero arrival gate |
 | `asteroid_after.taf` | 4.00 | live run400 probes (six co-present valves) + the corpus' ALR tables + UTF-16 literals in all four exes | the 4.00 object-ambiguity rule, its wording, its follow-up prompt, and that NPCs share the object message -- see the MEASURED section below |
+| `p4ALR` / `p4ALRSRC` / `p4WALKCOUNT` / `p4VARFREEZE` (built probes) | 4.00 + 3.90 | run400 and run390 replays of four packed probe games | the whole **4.0 output filter**: walk = repeat a length-descending pass until nothing changes, self-containing ALRs retired per walk, one walk per completing task plus the flush, variables frozen by each walk -- see the FIXED section below |
+| `3monkeys.taf` | 4.00 | live run400 replay of the solution's first 36 commands, `Adrift_16.txt` | the Runner really does print the raw `CHIMPSIGNAL=0`; the variable freeze is not a port artefact |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -780,7 +782,9 @@ of step.
   three are inside the replayed prefix, so they are real and re-measurable
   cheaply:
   * command 217 `Put sweet on plinth` -- run400 prints "Okay.  Okay.  I put the
-    sweet on the plinth." (the "Okay." is *doubled*), Scarier prints one.
+    sweet on the plinth." (the "Okay." is *doubled*), Scarier printed one.
+    **FIXED 2026-08-24** -- the whole 4.0 output filter, see the section at the
+    bottom.  Neither "Okay." is authored.
   * command 254 `W` -- Scarier prints "(Getting off the stool first)", run400
     prints nothing.  **FIXED 2026-08-24, and it was never a bug in the mover**
     -- see "the bracket checkbox governs three more lines" below.
@@ -894,8 +898,9 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
   re-driving 1050 commands after a desync.
 - **Two logged-but-unchased humbug divergences:** cmd 217 `Put sweet on
   plinth` (run400 doubles "Okay."), cmd 254 `W` (scarier adds "(Getting off
-  the stool first)").  The second is **CLOSED 2026-08-24** -- a display
-  setting, not an engine bug; see the section below.  Only cmd 217 is left.
+  the stool first)").  Both are now **CLOSED 2026-08-24** -- the second was a
+  display setting, not an engine bug (see the section below), and the first
+  turned out to be the whole 4.0 output filter (last section).
 - **Next candidates** down the list: `goldilocks`, `cibass`, `sophie`/`sa.taf`.
   With the pre-3.9 pool now clean, the remaining 3.90 and 4.00 candidates are
   where the next divergences will come from.
@@ -1909,3 +1914,94 @@ in that commit.  The other thirteen re-blessed rows are 3.90/4.00 and were
 right to lose theirs.  Restoring the pre-3.9 half means writing a *new* echo
 (round brackets, the antecedent alone, no italics), not reverting.  Not done
 here.
+
+## FIXED 2026-08-24 -- the ADRIFT 4.0 output filter (the humbug `Okay.  Okay.`)
+
+The lead was humbug (4.00) command 217 `Put sweet on plinth`:
+
+    run400   Okay.  Okay.  I put the sweet on the plinth.
+    Scarier  Okay.  I put the sweet on the plinth.
+
+Neither "Okay." is the author's.  Task 80's CompleteText is a bare "I put the
+sweet on the plinth." (`SCR_DUMP_TASKS=1`, which now dumps CompleteText,
+AdditionalMessage, RepeatText and ReverseMessage for exactly this reason), and
+the game carries one ALR
+
+    [I put ] -> [Okay.  I put ]
+
+whose replacement contains its own original.  That is the only shape in which
+the number of times the Runner applies an ALR is observable at all, which is
+why it took four probe games to pin down.
+
+### The rule, as measured
+
+Four probe games were built with `harness/make_400_alr*probe.py`,
+`make_400_walkcountprobe.py` and `make_400_varfreezeprobe.py`, packed with
+`taftool.py`, and replayed in Wine.  Each script's docstring carries its own
+cells and the transcript they answered with; the model they add up to is:
+
+1. **A walk of the ALR list** is a full length-descending pass, repeated until
+   a pass changes nothing.  An ALR whose replacement contains its own original
+   is retired for the rest of the walk it fired in -- but only that walk.
+   *(run400 `qqAAA.`, `QQ.`, `done.`; `Adrift_2/3/4.txt`.)*
+2. **3.9 is exactly one plain pass** of that list, with no repeat and no
+   retirement.  *(run390 `qAAA.`, `PPPP.`, `VVVV.`; `Adrift_5.txt`.)*
+3. **A 4.0 turn walks its whole accumulated buffer once at the end of every
+   task that completes**, and once more at the flush.  "Every task" means
+   every one: tasks an action executes, at any nesting depth, and tasks an
+   event's `TaskAffected` runs.  Refusing to repeat a non-repeatable task is
+   not a completion and gets the flush walk alone.  *(`Adrift_13/14.txt`:
+   `O qqqqqqball.` for four completions plus the event's plus the flush.)*
+4. **That pass interpolates variables too**, so each one freezes the values
+   then and there.  A task's own change-variable action still reaches text the
+   task has already printed -- so 4.0 must *not* checkpoint the buffer before
+   a variable change, the way pre-4.0 does -- but a task run by an action
+   freezes the text before any action after it runs.  *(`Adrift_15.txt`:
+   `B n=9` with the change alone, `A n=5` with a silent task run first.)*
+
+### What it cost, and the one that had to be measured on a real game
+
+Thirty-one goldens moved, all of them consequences of one of three shapes: a
+self-containing ALR multiplied once per completing task (sophie's
+`[north] -> [north (to the farmhouse)]`, shardsofmemory's
+`[I move north.] -> [I move north.<br>]`), a variable frozen one step earlier
+(ticket's clock, unauthorized_termination's charge level, the_town_of_azra's
+turn counter -- its win marker moved 27 -> 26), and tokens that simply resolve
+now where the golden had carried them raw (cursed's `[windmessage=Rixomas]`,
+ticket's "telling off about the .").
+
+3monkeys was the one that could not be blessed on a probe's word.  Its "chimp"
+task prints `[CHIMPSIGNAL=%signal_to_chimp%]` -- an ALR original built out of
+a variable -- then runs a silent bookkeeping task, and only then increments the
+variable.  Rule 4 says the text freezes at `CHIMPSIGNAL=0`, no ALR has an
+original for that, and the player is shown the raw token while the prose the
+author wrote for `=1` arrives one signal late.  That is a bad enough outcome
+for a well-liked game to be worth a run of its own, so it got one: run400, the
+solution's first 36 commands, every command echoed (`Adrift_16.txt`).
+
+    chimp, get coconut
+    CHIMPSIGNAL=0
+    The chimpanzee scans the ground immediately near his feet, but there are
+    no fallen coconuts to be seen.
+
+The Runner prints it.  Measured, not argued.
+
+### Where it lives
+
+`pf_filter_internal()` and `pf_replace_alrs()` in `scprintf.cpp` hold rules 1
+and 2; `pf_refilter()`, called at the end of `task_run_task_unrestricted()` for
+4.0 games, holds 3 and 4, and the pre-4.0 checkpoint in
+`task_run_change_variable_action()` is now gated `< TAF_VERSION_400`.  4.0 task
+actions no longer transfer the turn's buffer out and prepend it back; they hide
+it behind a barrier instead (`pf_hide_prefix()` / `pf_reveal_prefix()`), so the
+paragraph-spacing helpers still see what they saw before while the filter sees
+the whole buffer.  Suite: **303/303 PASS**, and the ADRIFT 5 corpora are
+unchanged.
+
+### Left unmeasured
+
+- Whether 3.9 also drops the pre-variable-change checkpoint.  The corpus cannot
+  see it either way, so the gate keeps the old behaviour there.
+- What run400 does with a mutual `A -> B` / `B -> A` ALR pair.  The repeat loop
+  is bounded by the ALR count so it terminates; that bound is a guard, not a
+  model of the Runner.

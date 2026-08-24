@@ -255,7 +255,7 @@ You can move north, east, south, west and southeast.
 > stats
 These are your stats:
 Wealth: $246, and 50 cents.
-Number of turns passed: 27
+Number of turns passed: 26
 
 For Stamina, Strength, and Defense values, type status.
 

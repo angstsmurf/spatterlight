@@ -385,7 +385,7 @@ night on a bench.  You can see a young girl wandering around looking very
 lost.
 
 You appear to be able to move east, south and northwest.
-The young girl says "how get donningby?"
+The young girl says "wo ist train to donningby."
 The young girl says "how get donningby?"
 
 > nw
@@ -927,7 +927,7 @@ The Ticket Seller is looking at you expectantly.  You can see a young girl
 wandering around looking very lost.
 
 You appear to be able to move north, south and west.
-The young girl says "need train."
+The young girl says "need train to donningby."
 The young girl says "need train."
 You hear someone blowing a whistle and the train on platform 2 pulls out of
 the station.
@@ -1048,7 +1048,7 @@ To the north you can see the station entrance.
 You put the crumbled newspaper inside the rubbish bin.
 
 > time
-You look at your wristwatch and see that the time is 11:38.
+You look at your wristwatch and see that the time is 11:37.
 
 > north
 You move north.
@@ -1242,7 +1242,7 @@ The young girl says "need donningby train."
 12:00.)
 
 > ask young girl about flowers
-The young girl says "need donningby train."
+The young girl says "where platform 1."
 
 A cat strolls in from the north-west.
 The young girl says "need donningby train."
@@ -1620,7 +1620,7 @@ You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 You can see the station master on platform 1 talking to the porter. It looks
-like the porter is getting a telling off about the .
+like the porter is getting a telling off about the iou.
 
 The Station Master enters from the southwest and heads east.
 
@@ -1696,7 +1696,7 @@ You appear to be able to move east, south and northwest.
 me into trouble."  The Porter looks a little cross.
 
 > time
-You look at your wristwatch and see that the time is 12:39.
+You look at your wristwatch and see that the time is 12:38.
 
 > ask porter about bill peters
 "Bill Peters, great man is Bill. He sometimes gives me horse racing tips."
@@ -1719,13 +1719,13 @@ does like a bet does Bill.  He sometimes put hundreds on a single race."
 > bored
 Time seems to fly.......
 
-You look at your wristwatch and see that the time is 13:01.
+You look at your wristwatch and see that the time is 13:00.
 
 (pity you can't do this in real life - if you use the railways you know what
 I mean.)
 
 (Not wanting to add any pressure at this stage in the game but you have 3
-hours remaining. The time is now 13:01.)
+hours remaining. The time is now 13:00.)
 
 The station sound system bursts into life and you hear some crackling and
 whistling.  You then hear Bakeswell followed by something like "running
@@ -1852,7 +1852,7 @@ You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 > time
-You look at your wristwatch and see that the time is 13:12.
+You look at your wristwatch and see that the time is 13:11.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
@@ -1884,7 +1884,7 @@ Station Master waves an acknowledge and goes back into his office.
 The Porter mutters something under his breath.
 
 > time
-You look at your wristwatch and see that the time is 13:17.
+You look at your wristwatch and see that the time is 13:16.
 
 You can see that the Bakeswell train is at platform 2.
 
@@ -2166,7 +2166,7 @@ need a pencil. I think I'll go back to Rapid." You look down at your feet and
 try to hide a smile.
 
 > time
-You look at your wristwatch and see that the time is 13:54.
+You look at your wristwatch and see that the time is 13:53.
 
 A train thunders through the station and it doesn't sound like it is going to
 stop.
@@ -2558,12 +2558,12 @@ The shaking feels like it is never going to stop.
 > bored
 Time seems to fly.......
 
-You look at your wristwatch and see that the time is 15:01.
+You look at your wristwatch and see that the time is 15:00.
 
 (pity you can't do this in real life - if you use the railways you know what
 I mean.)
 
-(You only have 1 hour left to finish. The time is now 15:01.)
+(You only have 1 hour left to finish. The time is now 15:00.)
 
 The station sound system bursts into life and you hear some crackling and
 whistling.  You then hear Thrumpton followed by something like "running
@@ -2817,7 +2817,7 @@ You can also see a payphone.
 You appear to be able to move north, east and southwest.
 
 > time
-You look at your wristwatch and see that the time is 15:22.
+You look at your wristwatch and see that the time is 15:21.
 
 A train thunders through the station and it doesn't sound like it is going to
 stop.

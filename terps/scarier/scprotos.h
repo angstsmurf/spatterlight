@@ -345,8 +345,17 @@ extern void pf_flush (scr_filterref_t filter,
                       scr_var_setref_t vars, scr_prop_setref_t bundle);
 extern void pf_checkpoint (scr_filterref_t filter,
                            scr_var_setref_t vars, scr_prop_setref_t bundle);
+/* As pf_checkpoint(), but leaving the buffer marked as still needing to be
+   filtered, so that the flush filters it again; the extra pass a completing
+   version 4.0 task runs over the turn's output. */
+extern void pf_refilter (scr_filterref_t filter,
+                         scr_var_setref_t vars, scr_prop_setref_t bundle);
 extern const scr_char *pf_get_buffer (scr_filterref_t filter);
 extern scr_char *pf_transfer_buffer (scr_filterref_t filter);
+/* Hide the buffer from the paragraph-spacing helpers while version 4.0 task
+   actions run, the way pf_transfer_buffer() does for pre-4.0. */
+extern size_t pf_hide_prefix (scr_filterref_t filter);
+extern void pf_reveal_prefix (scr_filterref_t filter, size_t previous);
 extern void pf_empty (scr_filterref_t filter);
 extern scr_char *pf_escape (const scr_char *string);
 extern scr_char *pf_filter_input (const scr_char *string,

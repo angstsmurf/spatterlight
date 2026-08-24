@@ -136,7 +136,7 @@ The door slides open with a swoosh and Irvine goes out.
 OUTSIDE IRVINE'S CABIN
 The hall continues aft towards the ship's lounge and port towards the bridge.
  To starboard, a door reads: "Irvine Quik: Cadet."
-First Mate Silthen attends the exit hatch.
+First Mate Silthen stands here, at attention.
 
 The door closes behind Irvine.
 
@@ -1133,7 +1133,7 @@ the ground and throws him backwards.  HiRBy staggers to keep up with all of
 the fast-paced action!
 
 > claw
-Irvine leaps, erupting into a secret claw attack combo!
+Irvine spins through the air with a super secret claw attack!
 
 Grastor goes hurtling through the air and tumbles to the forest floor in a
 heap!

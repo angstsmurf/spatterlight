@@ -479,10 +479,10 @@ control case and I watch him, feeling some slight regret, as he ambles from
 the office.
    On my way out, I check with my secretary to see if there have been any
 messages. She says no but as the phone rings three times while I'm asking her
-and she's too busy checking her makeup in a mirror to answer it, I probably
-shouldn't take her word for it. Deciding I'll have to fire her one of these
-days, I head out of the office and make my way to where I've parked my car.
-As I'm passing an alleyway, a voice hisses to me: "Oi! You! In here!"
+and she's too busy checking her makeup in a mirror to answer it to answer it,
+I probably shouldn't take her word for it. Deciding I'll have to fire her one
+of these days, I head out of the office and make my way to where I've parked
+my car. As I'm passing an alleyway, a voice hisses to me: "Oi! You! In here!"
    I peer into the alleyway but can see nothing.
    "I got information for you, pal," the voice hisses again.
    Information, I wonder, or a would-be mugger? Only one way to find out.
@@ -561,7 +561,8 @@ and nods. "That the guy you is looking for?"
    "Him's called Murt."
    "Murt?"
    "That's all I know. Murt. Dunno if it's his first name or his last name.
-Just Murt. I've seen him in hurt from time to time."
+Just Murt. I've seen him in hurt from time to time. I've seen him in hurt
+from time to time."
    I thank him for his time, although what use a single name will be in
 finding Marcus Kavallon I don't know.
    "Now the ladies," says the spotty teenager with a desperation that's so

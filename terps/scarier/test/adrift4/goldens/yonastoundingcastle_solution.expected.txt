@@ -238,7 +238,8 @@ Ye putteth ye resizing wheel cronkle onto yon belt resizing device.
 Ye believeth ye hath fixed yon belt resizing device!
 
 > x rack
-'Tis ye rack for belt-holding.    On ye belt rack is ye magic belt, ye
+'Tis ye rack for belt-holding.  Ah, ye thinketh ye get it now.  This place
+must be ye olde beltery!  On ye belt rack is ye magic belt, ye
 intercontinental title and yon other belts.
 
 > get belt

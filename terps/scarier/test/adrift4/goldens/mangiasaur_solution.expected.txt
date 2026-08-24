@@ -217,8 +217,7 @@ The squirmy little critter is as satisfying to your stomach as it is to your
 palate.  Though you were already full of food when you ate, your stomach
 makes room for the food. While you digest the bug, your body grows a little
 bit larger.
-Distension is a natural thing for a mangiasaur's belly, but you are aware of
-your stomach returning to normal as you process your excess of food.
+[hungerEveReport=-6]
 
 > eat caterpillar
 The nearest caterpillar is enjoying a feast of its own as you approach.
@@ -679,7 +678,7 @@ I don't understand what you are trying to eat.
 
 > eat bristle bush
 It's really not very good.
-A good meal.  You'll be satisfied for a while now.
+The food is refreshing.  Your hunger is mitigated for now.
 
 > eat roots
 They look tasty, but the ground is packed here and your feet aren't great for

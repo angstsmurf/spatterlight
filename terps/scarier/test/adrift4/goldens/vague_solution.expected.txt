@@ -574,7 +574,7 @@ The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
-standard hidden lighting set to a low level, most of the room is in dullness.
+standard hidden lighting set to a low level, most of the room is in darkness.
 A security monitor is on one side of the room, to your right the interrogator
 and virtually opposite is the teleporter.
 Zeta-Theta is standing against the wall.
@@ -611,12 +611,12 @@ The room slowly fades and is replaced with your destination.
 Roof of Building
 You are on the roof of the futuristic Bakewell Insurance Building, which has
 19 floors and was built around 10 years ago. A strong wind is blowing from
-the east and it looks like it could easily rain anytime. A large antenna is
-whipping in the wind to your right and the air conditioning equipment in
-front of you is making a very loud noise. A large sign is fastened to the
-roof here. Just at your feet is the closed door leading down to the roof
-exit. You can go north, northeast, east, southeast, south, southwest, west,
-northwest and down.
+the east and it looks like it could easily rain this afternoon. A large
+antenna is whipping in the wind to your right and the air conditioning
+equipment in front of you is making a very loud noise. A large sign is
+fastened to the roof here. Just at your feet is the closed door leading down
+to the roof exit. You can go north, northeast, east, southeast, south,
+southwest, west, northwest and down.
 A dirty, smelly old tramp is lying on the floor.
 A large airplane roars overhead, you are very close to the airport here.
 The tramp pretends to yawn.
@@ -803,7 +803,6 @@ sorting the mail. To your east is a corridor and some steps lead down.
 
 You can also see a sweeping brush.
 A postal clerk is busy sorting the mail.
-
 You hear a door close.
 The postal clerk looks in one of the mail bags.
 
@@ -1143,9 +1142,9 @@ The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
-standard hidden lighting set to a low level, most of the room is in dullness.
-A security monitor is on one side of the room, to your right the interrogator
-and virtually opposite is the teleporter.
+standard hidden lighting set to a low level, most of the room is in
+murkiness. A security monitor is on one side of the room, to your right the
+interrogator and virtually opposite is the teleporter.
 Zeta-Theta is standing next to the teleporter.
 
 > give card to zeta-theta

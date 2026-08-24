@@ -70,7 +70,8 @@ Southwest Corner
 walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
 nearby corner facing east.  Your bed is here.
     You see to the north a high platform, to the northeast some sort of tree,
-and to the east a gate set in the wall.  The mandrill is north.
+and to the east a gate set in the wall.  The chimpanzee is northeast.  The
+mandrill is north.
 
     Lying on the ground here is a flint stone.
     The chimpanzee is here.
@@ -143,7 +144,7 @@ walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
 nearby corner facing east.  Your bed is here.
     You see to the north a high platform, to the northeast some sort of tree,
 and to the east a gate set in the wall.  The chimpanzee is north.  The
-mandrill is northeast.
+mandrill is east.
 
 > make fire
 You'll start a fire, that's what you'll do!  You've heard that a fire can be
@@ -201,8 +202,8 @@ You lob the banana so that it lands up there on the ledge where not even you
 can reach it.
 The coordinates marking the new location of the banana are immediately picked
 up by the chimpanzee, whom Nature has bestowed with an internal banana radar.
- He edges out along a leaf of the tree, or at least it sort of looks that
-way.  Whatever the case, this ape's gonna jump.
+ He goes to the coconut tree and slides up it with an obvious purpose in
+mind.
 
 > s
 You scurry over to the south.
@@ -314,16 +315,7 @@ artificial than the hard cold platform, I guess.  A nice place to visit to
 pick up a banana or whatnot, but he wouldn't build a monkey nest there.
 
 > chimp, get coconut
-You remember reading about a lady that lived among wild chimpanzees, or was
-raised by them, or something like that.  She discovered that apes in the wild
-often communicate complex algebraic expressions to one another using simple
-hand gestures.  Or something; you might have gotten a few of the facts
-muddled.  The point is--you too can communicate with this chimp!  Well, maybe
-not this chimp.  This chimp looks like he probably flunked out of banana
-theory.
-    Anyhow, it's worth a shot.  You get the ape's attention and begin
-gesticulating wildly at him.  You try everything you can think of to get your
-message across, using arms, legs, soul.
+CHIMPSIGNAL=0
 
 That's an easy one for the ape.  He's doubtless been given enough
 coconut-picking assignments in his time to glean the meaning.  The chimp
@@ -333,18 +325,17 @@ to turn over in his expert, appraising hands.
     The fire is burning quite hotly.  You could roast quite the marshmallow.
 
 > turn fan northeast
-(first stepping over to the here)
+(first stepping over to the west)
 
 Southwest Corner
     You occupy the interior of a large cubical enclosure with transparent
 walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
-nearby corner blowing wind northeast.  Your bed is here.
+nearby corner blowing wind east.  Your bed is here.
     You see to the north a high platform, to the northeast some sort of tree,
 and to the east a gate set in the wall.  The chimpanzee is northeast in the
-tree.  The mandrill is north.
+tree.  The mandrill is northeast.
 
-    The fire you started is burning here, smoke being blown towards the
-northeast.
+    The fire you started is burning here, smoke being blown towards the east.
 
 You turn the fan so it is facing northeast.
 The smoke follows suit.
@@ -364,12 +355,12 @@ walls, a high ceiling, and a dirt floor.  A coconut tree is standing, perhaps
 even growing, in this corner of the cage.  A short distance from the tree is
 a trough suspended in the air, stretching southward.
     You see to the south a gate set in the wall, to the southwest your bed,
-and to the west a high platform.  The mandrill is west.  Also to the
-southwest is the fire that you started.
+and to the west a high platform in the tree.  The mandrill is west.  Also to
+the southwest is the fire that you started.
 
     Smoke blown in from the southwest makes it slightly uncomfortable to
 breathe in this corner of the cage.
-    The chimpanzee is here.
+    The chimpanzee is up in the coconut tree.
 
 > get coconut
 You pull the coconut out of the chimpanzee's grip.  He tries to take it back
@@ -450,8 +441,16 @@ Time passes...
 coconut fix in weeks.
 
 > chimp, put coconut on trough
-You grab the chimpanzee's attention a second time.  He stares at you dumb,
-but you do the wild gesturing thing.
+You remember reading about a lady that lived among wild chimpanzees, or was
+raised by them, or something like that.  She discovered that apes in the wild
+often communicate complex algebraic expressions to one another using simple
+hand gestures.  Or something; you might have gotten a few of the facts
+muddled.  The point is--you too can communicate with this chimp!  Well, maybe
+not this chimp.  This chimp looks like he probably flunked out of banana
+theory.
+    Anyhow, it's worth a shot.  You get the ape's attention and begin
+gesticulating wildly at him.  You try everything you can think of to get your
+message across, using arms, legs, soul.
 
 The chimp seems to have understood!  He imitates your sideways motion and
 lobs the coconut the short distance to the mid-air trough.  It's so close
@@ -656,11 +655,7 @@ you've never seen a mandrill "pounce" before?)
     The fire is still going strong.
 
 > throw stone at nest
-You bob the rock in your hand confidently, wind up, and hurl it at the nest
-of hornets.  Your aim is true, and the desired effect (if it really was your
-desired effect!) takes place.  The hornets emerge from the nest in an immense
-swarm and sally forth like cavalry storming down a hill.  "Alll rigghhht,
-whooo threww thatt rockkk?!", they seem to want to know.
+ROCKATNEST=0
 
         The chimpanzee has dropped from the tree.
 
@@ -706,8 +701,8 @@ walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a
 gate is positioned midway up the east wall.  Protruding outward perpendicular
 from a point high up on the south wall is a long cylindrical bar.
     You see to the west your bed, to the northwest a platform, and to the
-north a coconut tree.  The chimpanzee is west.  The mandrill is west.  Also
-to the west is the fire that you started.
+north a coconut tree.  The chimpanzee is west.  The mandrill is northwest.
+Also to the west is the fire that you started.
 
     Smoke blown in from the west makes it slightly uncomfortable to breathe
 in this corner of the cage.
@@ -884,8 +879,8 @@ Southwest Corner
 walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
 nearby corner blowing wind east.  Your bed is here.
     You see to the north a high platform, to the northeast some sort of tree,
-and to the east a gate set in the wall.  The chimpanzee is east.  The
-mandrill is east.
+and to the east a gate set in the wall.  The chimpanzee is northeast.  The
+mandrill is northeast.
 
     The fire you started is burning here, smoke being blown towards the east.
 
@@ -984,8 +979,8 @@ walls, a high ceiling, and a dirt floor.  A slab of metal that functions as a
 gate is positioned midway up the east wall.  Protruding outward perpendicular
 from a point high up on the south wall is a long cylindrical bar.
     You see to the west your bed, to the northwest a platform, and to the
-north a coconut tree.  The chimpanzee is north.  Also to the west is the fire
-that you started.
+north a coconut tree.  The chimpanzee is northwest.  Also to the west is the
+fire that you started.
 
     A thick swarm of hornets fills the air.
 

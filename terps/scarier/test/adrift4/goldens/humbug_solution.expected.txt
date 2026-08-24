@@ -1522,7 +1522,7 @@ The octopus's large eyes are streaming in the stinging fog.  It tries to wave
 the fog away with its tentacles.
 
 > Put sweet on plinth
-Okay.  I put the sweet on the plinth.
+Okay.  Okay.  I put the sweet on the plinth.
 
 > Drop watch
 Okay.  I have dropped the watch.
@@ -3020,8 +3020,8 @@ The dispenser is an ageing box-shaped device.  There are some buttons on it.
 There is a slot in the side of the dispenser.
 
 > Put coin in slot
-Okay.  I put the coin in the slot.  The dispenser gives an appreciative
-wheeze.
+Okay.  Okay.  I put the coin in the slot.  The dispenser gives an
+appreciative wheeze.
 
 > X buttons
 There are 5 buttons on the dispenser, each with a number and legend:
@@ -5833,8 +5833,9 @@ stool here.
 Exits are south and west.
 
 > Put bag on stool
-Okay.  I put the bag of porridge on the stool.  There is a harsh grating
-noise from the east.  Slowly but surely the metal door begins to slide open.
+Okay.  Okay.  I put the bag of porridge on the stool.  There is a harsh
+grating noise from the east.  Slowly but surely the metal door begins to
+slide open.
 
 > E
 
@@ -6549,7 +6550,7 @@ front an ornate letter "S has been engraved.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 > Put sapphire in chute
-Okay.  I put the sapphire inside the S chute.
+Okay.  Okay.  Okay.  I put the sapphire inside the S chute.
 "No time to lose," cries Dennis, "We've got a fire to put out."
 
 > Pull lever
@@ -6718,7 +6719,7 @@ The chute is quite narrow and made out of wood.  It leads down into darkness.
 front an ornate letter "R" has been engraved.
 
 > Put ruby in chute
-Okay.  I put the ruby inside the R chute.
+Okay.  Okay.  I put the ruby inside the R chute.
 
 > Pull lever
 I pull the lever.  There is a whooshing sound from the chute and the ruby

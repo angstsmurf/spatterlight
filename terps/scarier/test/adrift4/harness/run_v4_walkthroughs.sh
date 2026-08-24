@@ -272,7 +272,10 @@ shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the 
 spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a maximum of 95.
 srsintro_solution.txt|SRSintro.taf|
 the_nonsense_machine_6000_solution.txt|The_Nonsense_Machine_6000.taf|
-the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 27
+# Marker 27 -> 26 on 2026-08-24 with the 4.0 output filter (see the humbug
+# row): the end-of-game summary's turn counter is frozen when the winning task
+# completes, one event tick before the flush would have read it.
+the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 26
 # Azra ships as two files and they are NOT the same game to play.  The
 # underscored IF Archive build is a 4.00-signature upconversion of the author's
 # 3.90 original: the ADRIFT 4 editor left every battle attribute degenerate, so
@@ -861,6 +864,12 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # The winnable oracle (task 21, 55 restrictions -- the corpus maximum) is the
 # game that exposed the $RestrMask left-association bug fixed the same day; it
 # now answers "The game is still winnable." from turn 1 to the jump.
+# Re-blessed 2026-08-24 for the 4.0 output filter (see the humbug row below).
+# This is the game that decided it: its "chimp" task prints the ALR original
+# [CHIMPSIGNAL=%signal_to_chimp%] and only afterwards increments the variable,
+# so the freeze at the nested task's completion leaves the raw token on screen
+# and shifts every later signal message one back.  run400 does exactly that --
+# measured on the game (Adrift_16.txt), not inferred from the probes.
 3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!
 # Humbug (Graham Cluley 1990/1997, converted to ADRIFT 4.00 by Campbell Wild)
 # -- WIN with the FULL 2000/2000, "a winner.. or a cheat", in 1048 commands.
@@ -970,6 +979,38 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # loc_42303C / loc_423078, run380 loc_428244 / loc_428280), so the gate is
 # `< TAF_VERSION_390` and no pre-3.9 row moved.  43 lines went, all deletions,
 # across 29 rows; every one of them was a bracket line and nothing else.
+# Re-blessed a third time 2026-08-24, with thirty other rows, for the ADRIFT
+# 4.0 OUTPUT FILTER.  This row is the lead: command 217 `Put sweet on plinth`
+# answers "Okay.  Okay.  I put the sweet on the plinth." in run400
+# (Adrift_30_humbug.txt:841) where Scarier said "Okay." once.  Neither "Okay."
+# is authored -- task 80's CompleteText is a bare "I put the sweet on the
+# plinth." (SCR_DUMP_TASKS=1) -- both come from the game's own ALR
+# [I put ] -> [Okay.  I put ], whose replacement contains its own original.
+#
+# Three probes, packed with taftool.py and replayed in Wine, measured the rule
+# (see harness/make_400_alr*probe.py and make_400_varfreezeprobe.py for the
+# cells and the transcripts):
+#
+#   * A walk of the ALR list is a full length-descending pass repeated until a
+#     pass changes nothing, with a self-containing ALR retired for the rest of
+#     the walk it fired in.  3.9 is exactly ONE plain pass (run390 answers
+#     "qAAA."/"PPPP." where run400 answers "qqAAA."/"QQ.").
+#   * A 4.0 turn walks its WHOLE accumulated buffer once at the end of every
+#     task that completes -- including tasks an action executes, at any depth,
+#     and tasks an event's TaskAffected runs -- and once more at the flush.
+#     Hence humbug's two "Okay."s, and hence sophie's [north] -> [north (to
+#     the farmhouse)] repeating once per completing task.
+#   * That pass interpolates variables too, so it FREEZES them at the
+#     completing task.  A task that prints "%v%", runs another task, then
+#     changes v shows the OLD value (run400: "A n=5 qqqball.").
+#
+# The last one bites 3monkeys, whose "chimp" task prints
+# [CHIMPSIGNAL=%signal_to_chimp%] -- an ALR original built out of the variable
+# -- before the action that increments it.  run400 prints the raw token; that
+# was measured on the game itself, not argued (Adrift_16.txt, the first 36
+# commands of the solution, every one echoed).  the_town_of_azra's win marker
+# moved with it, 27 turns -> 26: its end-of-game summary freezes the turn
+# counter at the completing task, before that turn's event bumps it.
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
 # WIN with the FULL 95/95 in 90 commands.  downloaded/CrimeAdventure_walkthrough.sol

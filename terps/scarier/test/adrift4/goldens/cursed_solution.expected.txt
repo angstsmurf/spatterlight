@@ -1359,7 +1359,7 @@ black-robed man still haunts my mind, but with effort I put it aside, and
 focus on the task at hand and the journey ahead of me.
 [ Press any key ]
 
-[windmessage=Rixomas]
+   A harsh, cold wind whistles by, making you shiver.
 
 Interlude: Conversations with the King
 
@@ -1419,7 +1419,7 @@ made no sense.
    An soft, eerie sound reaches your ears as the wind blows across the top of
 the chimney.
 
-   Rithusar glances quickly at your glass of wine.
+   The king glances quickly at your glass of wine.
    "Don't forget your wine, Rixomas," he says with a small smile. He then
 turns his attention back to the fire.
 
@@ -1534,9 +1534,9 @@ convicted and sentenced. How we feel about the decision won't change what
 happened."
    "Actually, it matters a great deal to me," Rithusar says, with a smile.
 
-   [kingnamebegin=1] points to your wine glass. "I don't want to distract you
-too much with talk," he says. "Drink your wine and enjoy it." His attention
-then returns to the fire.
+   Rithusar points to your wine glass. "I don't want to distract you too much
+with talk," he says. "Drink your wine and enjoy it." His attention then
+returns to the fire.
 
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
@@ -1820,8 +1820,6 @@ northeast, across the loose shale of the northern stream bank, is open
 grassland.
    The valley wall to the east is quite sheer and precludes any thought of
 climbing it.
-   The sound of the dogs is close but confused. You can hear them whining as
-they try to recover the scent.
 
    You hear the sounds of pursuit getting closer, but then something changes.
 The barking of the dogs becomes frantic, confused. You can hear them rushing
@@ -1830,9 +1828,9 @@ around trying to find your scent.
    The coldness of the water begins to sap your strength.
 
 > creep over stones
-You pass through the water of the stream and creep over the mass of loose
-shale, barely making a sound. As the wind strikes your soaking fur you find
-yourself shivering uncontrollably.
+You exit the stream and very carefully creep over the mass of loose shale,
+barely making a sound. As the wind strikes your soaking fur you find yourself
+shivering uncontrollably.
 
 [ Your score just went up by three. ]
 Grassy plain
@@ -2298,8 +2296,9 @@ You bark fiercely.
 
    The horse reacts instantly to the noise, rearing away and screaming in
 equine terror. The rope tethering him to the stable breaks and now free, the
-horse bolts wildly, running in circles for a few moments before heading north
-and disappearing from view entirely.
+horse bolts wildly, running in circles for a few moments, smashing into the
+barrels of beer in the process, before heading north and disappearing from
+view entirely. The barrels collapse into a disorganised pile on the ground.
 
    As they collapse, one on the barrels rolls down the hill to the northeast.
 And after a moment or two you hear a crashing sound in that direction.
@@ -3275,6 +3274,7 @@ floor, and your scent masked by the burnt spices. You slip through the door
 unnoticed.
 
 [ Your score just went up by three. ]
+
 Bottom of the stairway
 A grand marble stairway rises up before you, lit by a couple of flaming
 torches mounted on the walls. On the western wall between the torches is a
@@ -3534,8 +3534,8 @@ of rich green which has been spoiled by a dark, sinister stain near the edge.
     A passage leads westwards, while the door back to the corridor stands
 open to the south.
 
-   Standing a short distance away is Lord Vonisor, who is looking at you but
-is obviously ready for anything.
+   Lord Vonisor is standing nearby, with a determination in his stance as if
+he is ready to attack the first enemy to come into view.
 
 > smell
 You can smell a faint, but very distinct odour here, past the mustiness that
@@ -3859,7 +3859,7 @@ opposite each other in the northern and southern walls, provide exits, other
 than the stairs that lead back down.
 
 > s
-You [playermove=Rithusar] south.
+You trot south.
 
 Corridor outside Rixomas' rooms
 A long dark corridor stretches away to the west, with occasion pools of light
@@ -3869,7 +3869,7 @@ archway marks the exit to the north.
    There is a door in the southern wall which you know to be the entrance to
 the wizard Rixomas' rooms. It is currently stands open.
 
-   Lord Vonisor [lordfindsplayer=Bottom of the stairs].
+   Lord Vonisor exits from Rixomas' rooms..
    "Torrin, I found you," he says with a broad grin. "Rixomas is recovering,
 the antidote worked! It might take him a couple of days to recover, but it
 won't be long until you're uncursed!"

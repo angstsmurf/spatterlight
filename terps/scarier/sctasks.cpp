@@ -1093,8 +1093,18 @@ task_run_change_variable_action (scr_gameref_t game,
    * a variable value, so interpolating here before doing that ensures that
    * any currently buffered text gets the values that were set when the text
    * was buffered.
+   *
+   * Version 4.0 does no such thing.  Its filter passes happen at the end of a
+   * completing task and at the flush -- both of them after this action has
+   * run -- so text buffered before the change comes out holding the value the
+   * change set, not the one it replaced.  Measured under run400.exe in Wine on
+   * 2026-08-24 with harness/make_400_alrsrcprobe.py, whose "victor" task has
+   * CompleteText "CT n=%n% TXT %w%." and one action setting n = 9 over an
+   * initial 5: the Runner answers "CT n=9 TXT qqball."  Pre-4.0 keeps the
+   * checkpoint, which is not measured either way.
    */
-  pf_checkpoint (filter, vars, bundle);
+  if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+    pf_checkpoint (filter, vars, bundle);
 
   /* Get the name and type of the variable being addressed. */
   vt_key[0].string = "Variables";
@@ -2116,7 +2126,32 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
    */
   vt_key[2].string = "Actions";
   action_count = prop_get_child_count (bundle, "I<-sis", vt_key);
-  if (action_count > 0)
+  if (action_count > 0 && prop_get_taf_version (bundle) >= TAF_VERSION_400)
+    {
+      /*
+       * Version 4.0 does none of that: the turn's text stays in the buffer
+       * while the actions run, so a task an action runs filters it along with
+       * its own (see pf_refilter()).  The probe's "uniform" task, whose
+       * CompleteText is "CTU ball." and whose one action runs the "zulu" task,
+       * answers "CTU qqqball." -- three walks, one of them zulu's.
+       *
+       * It is still hidden from the paragraph-spacing helpers, so that text an
+       * action prints opens its paragraph exactly as it does pre-4.0; only the
+       * filtering differs.  RAII, since the calls below can throw.
+       */
+      struct hide_guard
+      {
+        scr_filterref_t filter_;
+        size_t previous_;
+        explicit hide_guard (scr_filterref_t f)
+          : filter_ (f), previous_ (pf_hide_prefix (f)) { }
+        ~hide_guard () { pf_reveal_prefix (filter_, previous_); }
+      } guard (filter);
+
+      task_start_npc_walks (game, task);
+      status |= task_run_task_actions (game, task);
+    }
+  else if (action_count > 0)
     {
       /*
        * Take ownership of the current filter buffer text, then start NPC
@@ -2157,6 +2192,17 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
       pf_buffer_paragraph_line (filter, additionalmessage);
       status |= TRUE;
     }
+
+  /*
+   * A version 4.0 task that completes runs the output filter over the whole
+   * of the turn's buffered text on its way out -- variables interpolated
+   * where they stand and the ALR list walked -- and the turn's own flush then
+   * filters what it leaves behind a second time.  That is the whole of the
+   * "some text gets its ALRs applied twice" story; the measurements are in
+   * pf_refilter().
+   */
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+    pf_refilter (filter, gs_get_vars (game), bundle);
 
   /* Return status -- TRUE if matched and we output something. */
   return status;

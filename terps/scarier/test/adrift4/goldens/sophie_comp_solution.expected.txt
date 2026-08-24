@@ -1170,10 +1170,11 @@ darkness and makes a grab for your head.
 chest.
    The monster crashes back into the shadows and Grumble follows it, cursing
 loudly about "beer-loathing scum" and "the only good beer-hater's a dead
-beer-hater" as he does: from the darkness of the cave there is the sound of a
-fight unfolding. You consider rushing into the shadows and trying to give
-Grumble a hand but you can't see a thing and you worry that you'd just get in
-the way (okay, you're also worried you might wind up dead).
+beer-hater beer-hater beer-hater" as he does: from the darkness of the cave
+there is the sound of a fight unfolding. You consider rushing into the
+shadows and trying to give Grumble a hand but you can't see a thing and you
+worry that you'd just get in the way (okay, you're also worried you might
+wind up dead).
 ...press a key...
 
    After a minute or so, Grumble - swaying a little from side to side - comes
@@ -2183,11 +2184,13 @@ dust and those trapped inside will be killed."
    You shush him. "What needs doing, Arliss?"
    "The power crystals must be found. As I said before, the skeleton lord's
 champion took them but I suspect he will have scattered them as far and wide
-as he can to make it harder than ever to relocate them. There are five in
-total though I can work the magic needed to run the tower with just three if
-needs be. However, I need the most powerful of the crystals - the Torazin
-Crystal - to unlock the chamber required for your trials. That one, alas, I
-believe is held by the evil skeleton lord's champion."
+as he can to make it harder than ever to relocate them. As I said before, the
+skeleton lord's champion took them but I suspect he will have scattered them
+as far and wide as he can to make it harder than ever to relocate them. There
+are five in total though I can work the magic needed to run the tower with
+just three if needs be. However, I need the most powerful of the crystals -
+the Torazin Crystal - to unlock the chamber required for your trials. That
+one, alas, I believe is held by the evil skeleton lord's champion."
    "What trials?"
    "That doesn't matter right now. What does matter is that you find as many
 of the crystals as you can and use them where you stand right now. My magic
@@ -2637,6 +2640,8 @@ off her! She's cheated us! She's conned us out of the prize! Grab her and
 bash her and get that- Oh, she's run off."
    You heard about the first two words of that so by the time the skeletons
 started to move, you were already out of the room.
+...press a key...
+
 ...press a key...
 
 Room Of Challenges
@@ -3170,8 +3175,10 @@ abandoned. A field to one side contains some graves and more than a few bales
 of hay which look to have been torched. Of the farmhouse itself there is
 little to see. The windows have been covered with boards and the door is
 hanging from its hinges. There doesn't seem to be anyone around.
-   Exits lie: north (to the farmhouse), west (to the field) and southeast (to
-the crossroads).
+   Exits lie: north (to the farmhouse), north (to the farmhouse), north (to
+the farmhouse), north (to the farmhouse), north (to the farmhouse), north (to
+the farmhouse), north (to the farmhouse), north (to the farmhouse), west (to
+the field) and southeast (to the crossroads).
 
 Snitch seems ready for trouble as he enters from the south-east.
 
@@ -3209,8 +3216,11 @@ old.
 cocky if you 'ad been!"
    "Being hit in the face with a doll's head frightens skeletons, does it?"
    The little girl looks at you, then at your companions, then back at you.
-Then she sticks her tongue out! "Sez you, piggy! Anyway, you're ugly as a mud
-pie so I ain't listenin' to you!"
+Then she sticks her tongue out! Then she sticks her tongue out! Then she
+sticks her tongue out! Then she sticks her tongue out! Then she sticks her
+tongue out! Then she sticks her tongue out! Then she sticks her tongue out!
+Then she sticks her tongue out! Then she sticks her tongue out! "Sez you,
+piggy! Anyway, you're ugly as a mud pie so I ain't listenin' to you!"
    Arliss says, "what is your name?"
    "!Cor! You smell!" says the little girl, waving a hand in front of her
 face. "You pooed or somefin'?"
@@ -3267,7 +3277,11 @@ somewhere."
 
 > x trapdoor
 It certainly looks like a sturdy trapdoor and not one that is likely to give
-way easily. The lock looks complicated to say the least.
+way easily. The lock looks complicated to say the least. The lock looks
+complicated to say the least. The lock looks complicated to say the least.
+The lock looks complicated to say the least. The lock looks complicated to
+say the least. The lock looks complicated to say the least. The lock looks
+complicated to say the least. The lock looks complicated to say the least.
 
 > pick lock
 Alas, as an eight year old your experience of picking locks is seriously

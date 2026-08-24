@@ -427,6 +427,7 @@ the shadows of the fortress.
 
 > n
 I move north.
+
 A sheltered courtyard surrounds me; at its centre a fountain, cloaked in
 shadow, with cool water pouring from the stone mouth of a nymph. A darkened
 doorway in the far wall of the courtyard leads inside though little of the
@@ -609,6 +610,7 @@ be a bad idea indeed.
 
 > s
 I move south.
+
 It is as if I have stepped into another world: the forest is eerily silent. I
 can hear nothing aside from my own breathing and the thudding of my heart in
 my chest. No animals call out. The trees I see before me appear dead, their
@@ -716,6 +718,7 @@ movement further that way.
 
 > e
 I move east.
+
 I stand before a gate which has been built in this narrow mountain pass,
 completely blocking off the way further eastwards. Several figures stand
 around the gate, grotesque inhuman creatures wearing scraps of armour and
@@ -941,6 +944,7 @@ statue again.
 
 > se
 I move southeast.
+
 A fire has recently torn across the path here, setting alight the bushes and
 trees and reducing them to little more than burnt remnants. The skeleton of a
 hut sits at the end of the path, the door and two of the walls burnt away to

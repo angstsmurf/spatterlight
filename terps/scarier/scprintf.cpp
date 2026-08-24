@@ -121,6 +121,9 @@ typedef struct scr_filter_s
      newline of its own; -1 if the last one did not, or if anything has been
      buffered since.  See pf_undo_auto_break(). */
   scr_int auto_break_at;
+  /* Length of a prefix of the buffer that the paragraph-spacing helpers are
+     to treat as if it were not there.  See pf_hide_prefix(). */
+  size_t hidden;
 } scr_filter_t;
 
 
@@ -302,6 +305,7 @@ pf_create (void)
   filter->is_muted = FALSE;
   filter->needs_filtering = FALSE;
   filter->auto_break_at = -1;
+  filter->hidden = 0;
 
   return filter;
 }
@@ -511,8 +515,9 @@ pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
       std::string rebuilt;
 
       /*
-       * Ignore ALR indexes that have already been applied.  This prevents
-       * endless loops in ALR replacement.
+       * Ignore ALR indexes that have already been applied.  Only the ALRs
+       * whose replacement contains their own original are ever marked (see
+       * below), so this is the loop guard for those, not a once-only rule.
        */
       if (alr_applied[index_])
         continue;
@@ -533,8 +538,22 @@ pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
           marker = current.c_str ();
           replaced = TRUE;
 
-          /* Note this ALR as "used up", and unavailable for future passes. */
-          alr_applied[index_] = TRUE;
+          /*
+           * Retire the ALR only if its replacement contains its own original,
+           * as [I put ] -> [Okay.  I put ] does.  Those are the ones that
+           * would match themselves forever on the next pass; every other ALR
+           * stays live, and fires again on a later pass if a *different* ALR
+           * puts its original back into the text.
+           *
+           * Measured on run400 2026-08-24 with make_400_alrsrcprobe.py, ALRs
+           * [TOKEN] -> [tok] and [zebra] -> [TOKEN] over "TOKEN zebra.": the
+           * Runner prints "tok tok.", so the TOKEN rule fires a second time on
+           * the TOKEN that the zebra rule just wrote.  Retiring every fired
+           * ALR -- which is what SCARE did -- gives "tok TOKEN." instead.
+           */
+          if (strstr (pf_alr_cache[index_].replacement,
+                      pf_alr_cache[index_].original))
+            alr_applied[index_] = TRUE;
         }
     }
 
@@ -747,27 +766,74 @@ pf_output_untagged (const scr_char *string)
  * Bundle may be NULL, requesting that the function suppress ALR replacements,
  * and do only variables; used for game info strings.
  *
- * The way Adrift does this is somewhat obscure, but the following seems to
- * replicate it well enough for most practical purposes (it's unlikely that
- * any game assumes or relies on anything not covered by this):
+ * How many times the Runner walks the ALR list is a version split, and both
+ * halves are measured rather than argued (harness/make_400_alrprobe.py and
+ * harness/make_39_alrprobe.py, one task per cell, run under run400.exe and
+ * run390.exe in Wine on 2026-08-24):
+ *
+ *                      ALRs                       run390     run400
+ *    "AAA."      AAA -> qAAA                      qAAA.      qqAAA.
+ *    "EEE."      EEE -> EEE EEE                   EEE EEE.   EEE EEE EEE EEE.
+ *    "RRR."      PPPP -> QQ, RRR -> PPPP          PPPP.      QQ.
+ *    "UUU."      WWWWW -> done, VVVV -> WWWWW,
+ *                UUU -> VVVV                      VVVV.      done.
+ *    "MMM."      MM -> short, MMM -> long         long.      long.
+ *    "ZZ ZZ."    ZZ -> z                          z z.       z z.
+ *
+ * So version 3.9 makes ONE plain pass: walk the ALR list once in length-
+ * descending order, replacing every occurrence of each original.  A chain only
+ * runs in the direction of the walk ("RRR." stops at "PPPP." because PPPP was
+ * already behind the cursor when RRR produced it), and a self-containing ALR
+ * fires exactly once.  That is the loop at loc_45BD43, the tail of run390's
+ * output filter Proc_2_28_45CBD0 (run390_3.bas:55465), read straight.
+ *
+ * Version 4.0 keeps going until nothing new can be replaced, which is what
+ * carries "UUU." all three hops and "RRR." both:
  *
  *  repeat some number of times
  *    repeat some number of times
  *      interpolate variables
- *    repeat [some number of times?]
- *      for each ALR unused so far this pass
+ *    repeat
+ *      for each ALR not retired so far
  *        search the current string for the ALR original
  *        if found
- *          replace this ALR in the current string
- *          mark this ALR as used
+ *          replace every occurrence in the current string
+ *          if the replacement contains the original, retire this ALR
  *    until no more changes in the current string
  *
+ * Only the self-containing ALRs retire, and that is purely the loop guard:
+ * it is what holds "AAA -> qAAA" to exactly one "q" per walk.  Every other
+ * ALR stays live for the whole walk and fires again whenever another ALR
+ * writes its original back into the text.  Measured, with
+ * [TOKEN] -> [tok] and [zebra] -> [TOKEN] over "TOKEN zebra.":
+ *
+ *                                                 run390     run400
+ *    "TOKEN zebra."                               tok TOKEN. tok tok.
+ *
+ * SCARE retired every ALR that fired, which gives run390's answer for a
+ * version 4.0 game.
+ *
+ * All of the above is one walk over the whole turn's text at flush.  Version
+ * 4.0 gives ONE KIND OF TEXT a second walk of its own: a completing task's
+ * CompleteText and AdditionalMessage, filtered again as the task prints them
+ * (see pf_buffer_task_paragraph_line() below, and the measurement in
+ * harness/make_400_alrsrcprobe.py).  That is the humbug (4.00) divergence
+ * this all started from -- its "[I put ] -> [Okay.  I put ]" is
+ * self-containing, so task 80's CompleteText answers `Put sweet on plinth`
+ * with "Okay.  Okay.  I put the sweet on the plinth."
+ * (Adrift_30_humbug.txt:841) while the library's own put, in the same
+ * transcript, says "Okay.  I put the watch onto the rectangular table." with
+ * a single "Okay.".
+ *
+ * Versions 3.8 and 3.7 cannot reach any of this: neither schema in
+ * sctafpar.cpp carries an ALRs section, so those games have no ALRs at all.
  */
 static scr_char *
 pf_filter_internal (const scr_char *string,
                     scr_var_setref_t vars, scr_prop_setref_t bundle)
 {
   scr_int alr_count, iteration;
+  scr_bool alr_single_pass, alr_pass_done;
   std::string current;
   scr_bool have_current;
   std::vector<scr_bool> alr_applied;
@@ -787,17 +853,26 @@ pf_filter_internal (const scr_char *string,
 
       /*
        * Create a new set of ALR application flags.  These are used to ensure
-       * that a given ALR is applied only once on a given pass.  If the game
+       * that a given ALR is applied only once on a given round.  If the game
        * has no ALRs, leave the flag set empty.
        */
       if (alr_count > 0)
         alr_applied.assign (alr_count, FALSE);
+
+      /*
+       * What a walk of the ALR list is -- the measured version split
+       * described above.  Version 3.9 gets one plain walk; version 4.0 gets
+       * the replace-until-nothing-new loop.
+       */
+      alr_single_pass = prop_get_taf_version (bundle) < TAF_VERSION_400;
     }
   else
     {
       /* Not including ALRs, so set alr count to 0. */
       alr_count = 0;
+      alr_single_pass = FALSE;
     }
+  alr_pass_done = FALSE;
 
   /*
    * Loop for a sort-of arbitrary number of passes; probably enough.
@@ -843,34 +918,78 @@ pf_filter_internal (const scr_char *string,
       /* If we have ALRs to process, search out and replace all findable. */
       if (alr_count > 0)
         {
-          /* Replace ALRs until no more ALRs can be found. */
-          inner_iteration = 0;
-          while (TRUE)
+          /*
+           * Version 3.9 walks the list exactly once for the whole filter --
+           * not once per iteration of the loop we are in -- so the "until
+           * nothing more can be replaced" loop below is a version 4.0 shape
+           * only.
+           */
+          if (alr_single_pass)
             {
-              /*
-               * Replace ALRs, and adopt current as for variables above.
-               * Leave the loop when ALR replacements stop.  Again, work on
-               * the current string if any, otherwise the input string.
-               */
-              intermediate = pf_replace_alrs (have_current ? current.c_str ()
-                                                           : string,
-                                              bundle, alr_applied.data (),
-                                              alr_count);
-              if (intermediate)
+              if (!alr_pass_done)
                 {
-                  current = intermediate;
-                  scr_free (intermediate);
-                  have_current = TRUE;
-                  changed = TRUE;
-                  if (pf_trace)
+                  alr_pass_done = TRUE;
+
+                  intermediate
+                    = pf_replace_alrs (have_current ? current.c_str () : string,
+                                       bundle, alr_applied.data (), alr_count);
+                  if (intermediate)
                     {
-                      scr_trace ("Printfilter: replaced [%ld,%ld] \"%s\"\n",
-                                iteration, inner_iteration, current.c_str ());
+                      current = intermediate;
+                      scr_free (intermediate);
+                      have_current = TRUE;
+                      changed = TRUE;
+                      if (pf_trace)
+                        {
+                          scr_trace ("Printfilter: replaced [%ld,-] \"%s\"\n",
+                                    iteration, current.c_str ());
+                        }
                     }
                 }
-              else
-                break;
-              inner_iteration++;
+            }
+          else
+            {
+              /* Replace ALRs until no more ALRs can be found. */
+              inner_iteration = 0;
+              while (TRUE)
+                {
+                  /*
+                   * Replace ALRs, and adopt current as for variables above.
+                   * Leave the loop when ALR replacements stop.  Again, work on
+                   * the current string if any, otherwise the input string.
+                   */
+                  intermediate = pf_replace_alrs (have_current ? current.c_str ()
+                                                               : string,
+                                                  bundle, alr_applied.data (),
+                                                  alr_count);
+                  if (intermediate)
+                    {
+                      current = intermediate;
+                      scr_free (intermediate);
+                      have_current = TRUE;
+                      changed = TRUE;
+                      if (pf_trace)
+                        {
+                          scr_trace ("Printfilter: replaced [%ld,%ld] \"%s\"\n",
+                                    iteration, inner_iteration, current.c_str ());
+                        }
+                    }
+                  else
+                    break;
+                  inner_iteration++;
+
+                  /*
+                   * Now that an ALR retires only when its replacement
+                   * contains its own original, a pair that rewrites each
+                   * other (A -> B and B -> A) would pass the string back and
+                   * forth for ever.  No chain of N ALRs needs more than N
+                   * passes to run out, so stop there.  What run400 does with
+                   * such a pair is not measured -- no game in the corpus has
+                   * one -- so this is a guard, not a model of the Runner.
+                   */
+                  if (inner_iteration > alr_count)
+                    break;
+                }
             }
         }
 
@@ -1041,6 +1160,74 @@ pf_checkpoint (scr_filterref_t filter,
 
 
 /*
+ * pf_refilter()
+ *
+ * Filter buffered data the way pf_checkpoint() does, but leave it marked as
+ * still needing filtering, so that the flush at the end of the turn filters
+ * it once more.
+ *
+ * This is what a completing version 4.0 task does to the turn's output, and
+ * it is why some text comes out with its ALRs applied twice.  Measured under
+ * run400.exe in Wine on 2026-08-24 with harness/make_400_alrsrcprobe.py,
+ * whose ALRs include the self-containing "ball -> qball" (transcripts
+ * Adrift_11/12/13 in ~/adrift-battle/runner/wine/pfx/drive_c/adrift):
+ *
+ *    look       "LONG ball ..." (room, no task)      -> LONG qball
+ *    zulu       task CompleteText                    -> You take the qqball.
+ *    victor     CompleteText "CT n=%n% TXT %w%.",
+ *               its action then setting n = 9        -> CT n=9 TXT qqball.
+ *    uniform    CompleteText "CTU ball.", an action
+ *               running zulu, AdditionalMessage
+ *               "AMU ball."     -> CTU qqqball.  You take the qqqball.
+ *                                  AMU qqball.
+ *    tango      CompleteText "CTT ball." and
+ *               ShowRoomDesc    -> CTT qqball. / LONG qqball ... qqAAA
+ *
+ * Every one of those falls out of one rule: at the end of a task that
+ * completes, the Runner runs its output filter over the whole of the turn's
+ * buffered text, and the turn's own flush runs it once more.  So the "qqq" in
+ * the uniform cell is the inner task's pass, the outer task's pass and the
+ * flush; "AMU" misses the inner one because it was printed after it; and the
+ * room description tango prints is caught by tango's pass just like tango's
+ * own CompleteText.
+ *
+ * The variables go the same way -- the pass interpolates them where it finds
+ * them, which is why "CT n=%n%" comes out as the value the task's own action
+ * has just set, and why "%w%" (holding "ball") comes out with both walks
+ * applied to its value.
+ */
+void
+pf_refilter (scr_filterref_t filter,
+             scr_var_setref_t vars, scr_prop_setref_t bundle)
+{
+  assert (pf_is_valid (filter));
+  assert (vars && bundle);
+
+  if (!filter->buffer.empty () && filter->needs_filtering)
+    {
+      const size_t length = filter->buffer.size ();
+      scr_char *filtered;
+
+      filtered = pf_filter_internal (filter->buffer.c_str (), vars, bundle);
+      if (filtered)
+        {
+          const scr_bool at_end = filter->auto_break_at >= 0
+                                  && (size_t) filter->auto_break_at == length;
+
+          filter->buffer.assign (filtered);
+          scr_free (filtered);
+
+          /* Keep the note of our own trailing newline pointing at the end of
+             the rewritten text, so pf_undo_auto_break() can still take it
+             back. */
+          if (at_end && pf_text_ends_with_break (filter->buffer.c_str ()))
+            filter->auto_break_at = (scr_int) filter->buffer.size ();
+        }
+    }
+}
+
+
+/*
  * pf_get_buffer()
  * pf_transfer_buffer()
  *
@@ -1056,9 +1243,10 @@ pf_get_buffer (scr_filterref_t filter)
 {
   assert (pf_is_valid (filter));
 
-  /* Return the buffer if it holds any text, otherwise NULL. */
-  if (!filter->buffer.empty ())
-    return filter->buffer.c_str ();
+  /* Return the visible buffer if it holds any text, otherwise NULL.  Text
+     before the barrier, if one is set, is invisible here (pf_hide_prefix()). */
+  if (filter->buffer.size () > filter->hidden)
+    return filter->buffer.c_str () + filter->hidden;
   else
     return NULL;
 }
@@ -1117,6 +1305,52 @@ pf_empty (scr_filterref_t filter)
   filter->is_muted = FALSE;
   filter->needs_filtering = FALSE;
   filter->auto_break_at = -1;
+  filter->hidden = 0;
+}
+
+
+/*
+ * pf_hide_prefix()
+ * pf_reveal_prefix()
+ *
+ * Hide everything buffered so far from the paragraph-spacing helpers, and put
+ * it back.  pf_hide_prefix() returns the barrier that was in force, which the
+ * caller hands to pf_reveal_prefix() when it is done, so that the pair nests.
+ *
+ * Version 4.0 task running keeps the turn's text in the buffer while a task's
+ * actions run, because a task that an action completes filters that text along
+ * with its own (see pf_refilter()).  Pre-4.0 task running instead transfers
+ * the text out and prepends it back afterwards, and the spacing helpers there
+ * see an empty buffer for the duration.  Hiding rather than transferring keeps
+ * that -- text run by an action opens its paragraph the same way under both --
+ * so the version split stays confined to when the filter runs.
+ */
+size_t
+pf_hide_prefix (scr_filterref_t filter)
+{
+  size_t previous;
+
+  assert (pf_is_valid (filter));
+
+  previous = filter->hidden;
+  filter->hidden = filter->buffer.size ();
+
+  /*
+   * pf_transfer_buffer() clears these two as a side effect of resetting the
+   * filter, and pf_prepend_string() does not put them back; match it.
+   */
+  filter->new_sentence = FALSE;
+  filter->is_muted = FALSE;
+
+  return previous;
+}
+
+void
+pf_reveal_prefix (scr_filterref_t filter, size_t previous)
+{
+  assert (pf_is_valid (filter));
+
+  filter->hidden = previous;
 }
 
 
@@ -1422,12 +1656,12 @@ pf_buffer_join (scr_filterref_t filter, const scr_char *string)
   assert (pf_is_valid (filter));
   assert (string);
 
-  if (!filter->is_muted && !filter->buffer.empty ())
+  if (!filter->is_muted && filter->buffer.size () > filter->hidden)
     {
       if (filter->buffer.back () == '\n')
         filter->buffer.pop_back ();
 
-      if (!filter->buffer.empty ()
+      if (filter->buffer.size () > filter->hidden
           && !pf_text_ends_with_break (filter->buffer.c_str ()))
         pf_append_string (filter, "  ");
     }

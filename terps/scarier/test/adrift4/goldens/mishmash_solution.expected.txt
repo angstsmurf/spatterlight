@@ -559,7 +559,7 @@ with the video games console, it provides hours of entertainment. There are a
 number of couches for people to sit down. A stereo is near the television.
 The exits are to the east and west.
 
-A man and woman are having a conversation here.
+A man and woman are in the area.
 
 The man and woman exit to the west.
 
@@ -1503,8 +1503,6 @@ outside the valley, you can see more cold suits arriving to support the
 United Institutions troops. These suits are led by the four modified cold
 suits, who will turn the battle decisively in their side's favour. From this
 location you can only exit by climbing back down to the valley.
-
-Memoryblam is pointing a gun at you threateningly.
 
 A voice behind you says, "Turn around slowly. I've got you covered."
 

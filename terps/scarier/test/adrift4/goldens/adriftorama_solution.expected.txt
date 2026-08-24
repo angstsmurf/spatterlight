@@ -28,34 +28,35 @@ until it reaches the hole.  You manage to catch it as it flies out.  You have
 a plum golf ball.
 
 > north
-        You open the door and are blinded by a flash of light.  You blink
-repeatedly until things finally begin to focus.  You find yourself at the
-first hole.
+        You open the door and immediately lose your footing.  Twisting and
+turning, you find yourself sliding down a giant water slide that seems to be
+upside down, yet you are not falling to your death as you think you should.
+Cranking your neck downward, or would that be upward?  Anyway, you crank your
+neck and notice some sort of wooden fish closing in on you from behind.
+Leaning hard to one side, you manage to get out of the way so it can pass.
+Hooked to the tail is some sort of banner.  You are able to make out the
+words, 'I borrowed a few ideas from Mystery'.  Before you have time to focus
+on anything else, you feel your bottom skidding across solid ground.  When
+you pick yourself up, you clearly see that you are at the first hole.
 
 > put ball on marker
 You put the golf ball onto the marker.
 
 > hit ball
-        You raise the club over your shoulder and prepare to swing but before
-you can Mystery taps you on the shoulder.  She points towards Bob, and you
-look. 'SMACK!'  You never seen it coming.  When you finally manage to pull
-yourself up from the ground, Mystery is nowhere in sight.
+        You've got a real problem, pal!
 
 > put ball on marker
 You are not holding the golf ball.
 
 > hit ball
-        You hit it with the club as hard as you can, and it doesn't even
-leave a scratch.
+        You've got a real problem, pal!
 
 > put ball on marker
 You are not holding the golf ball.
 
 > hit ball
-        You putt the pall and watch in anticipation as it is being flung all
-over the course by the rapidly spinning question marks.  It's approaching the
-hole...the computer is rising....YES!  You made the shot! You're about as
-excited as Mystery in a fire station.
+        You give a hard swing, launching your ball off the spinning question
+marks, into a dip, over a hill, and right into the hole! NICE SHOT!
 
 The Mad Monk's Hole
         Before you lies the marker where you place your plum ball. A thick
@@ -67,11 +68,10 @@ Smaller penguins skate about the course, making it harder for a clean shot.
 You put the golf ball onto the marker.
 
 > hit ball
-        You swing the club back over your shoulder and smack the ball as hard
-as you can.  It glides across the ice, missing the little skating dudes, and
-gets trapped under the foot of the penguin.  When it's foot rises, you can't
-find your ball anywhere. It must have been knocked into the hole when the
-giant penguin came down on it.
+        The ball glides down the ice heading toward a cluster of little
+penguins looking to block it.  Out of nowhere comes a splintery wooden shoe
+and smashes the little penguins.  The force of the impact sends the ball into
+the hole.
 
 Mel S.'s Hole
         Before you lies the marker where you place your plum ball.  The
@@ -83,18 +83,6 @@ like there are little bugs crawling about all over the course.
 You put the golf ball onto the marker.
 
 > hit ball
-        You couldn't hit the head of a nail.
-
-> put ball on marker
-You are not holding the golf ball.
-
-> hit ball
-        Wouldn't you rather play nice?
-
-> put ball on marker
-You are not holding the golf ball.
-
-> hit ball
         Mystery pops in out of thin air and takes your club from you.
 "You're not doing it right!"  She proceeds to beat you over the head with the
 club, then disappears.  You might not feel better, but she sure does.
@@ -103,9 +91,24 @@ club, then disappears.  You might not feel better, but she sure does.
 You are not holding the golf ball.
 
 > hit ball
-        Mystery pops in out of thin air and takes your club from you.
-"You're not doing it right!"  She proceeds to beat you over the head with the
-club, then disappears.  You might not feel better, but she sure does.
+        The pool of blood rises up, forming a horrid creature of massive
+proportions.  In all of 2 seconds you fall to the ground in a heap.  You
+never were much for the sight of blood, and certainly not one that could
+morph.
+
+> put ball on marker
+You are not holding the golf ball.
+
+> hit ball
+        You swing and miss.  All of the beetles line up in front of you,
+doing some sort of dance where they are all hanging on to one another kicking
+their prickly little legs up in unison.
+
+> put ball on marker
+You are not holding the golf ball.
+
+> hit ball
+        HAHAHA! You missed.
 
 > put ball on marker
 You are not holding the golf ball.
@@ -127,7 +130,9 @@ he is waiting to draw his gun.
 You put the golf ball onto the marker.
 
 > hit ball
-        You draw the club back and swing as hard as you can, hitting it.
+        Before you can do anything, the man in black draws his gun and shoots
+the club from your hand.  You quickly lunge for it, and out of the path of
+flying bullets.
 
 > put ball on marker
 You are not holding the golf ball.
@@ -163,10 +168,9 @@ helicopter, rotate at a moderate speed over the hole.
 You put the golf ball onto the marker.
 
 > hit ball
-        Drawing your club back, you hit the ball with a fierce swing.  The
-ball goes through the loop and is hit hard by the propelling blades by the
-hole.  The ball flies straight up into the air as the blades finally begin to
-slow.  The ball lands right in the hole.
+        You whack the ball as hard as you call and it sails into the air,
+skipping right over the loop and into the hole. You're getting pretty good at
+this.
 
 KF's Hole
         Before you lies the marker where you place your ball.  All along the
@@ -179,8 +183,8 @@ hard, covering the hole where you need to get the ball in.
 You put the golf ball onto the marker.
 
 > hit ball
-        You try to hit it but KF appears and takes your club and beats you to
-a pulp. When he is finished he gives you the club back and disappears.
+        You draw the club up and swing as hard as you can.  After twisting
+around twice, you fall flat on your face.
 
 > put ball on marker
 You are not holding the golf ball.
@@ -193,8 +197,9 @@ creative than that.  Wrong again!
 You are not holding the golf ball.
 
 > hit ball
-        Hitting the ball hard, it ricochets off the press, the nose of a
-bear, the marker, the middle of your forehead, and finally lands in the hole.
+        You whack the ball as hard as you can, beaming several teddy bears
+with the ball before it finally lands in the little hole.  Nice shot!
+Hitting the teddies, I mean.  The ball going in the hole was just luck.
 
 David W.'s Hole
         Before you lies the marker where you place your plum ball.  The
@@ -212,8 +217,7 @@ Waldork starts, "He's the kind of fella that girls dream about at night."
 Stapler takes the punchline, "It's better than seeing him in the light."
 
 > hit ball
-        You hit the ball as hard as you can and the chicken makes a run for
-it, exposing the hole.  You made the shot!
+        No sense in feeding your ego.  You made the shot, now get lost.
 
 Cannibal's Hole
         Before you lies the marker where you place your plum ball.  Tall,
@@ -235,11 +239,9 @@ brief light to the dark woods.  Unfortunately it doesn't last long enough to
 tell what the evil looking, glowing red eyes are from.
 
 > hit ball
-        Swinging the club back, it suddenly gets caught on something.  Slowly
-you turn...step by step...inch by inch...  Oh, that was from that one movie.
-You look and see that your ball is caught in one of the trees.  Tugging and
-pulling, the club breaks free, spins around, smacks the ball and goes right
-in the hole.
+        With your hands trembling, you swing the club back and it the ball
+into the darkness.  You listen as the rats screech and scurry about.  A flash
+of lighting lights up the course and you see your ball roll into the hole.
 
 DuoDave's Hole
         Before you lies the marker where you place your plum ball.  You get
@@ -255,24 +257,25 @@ hole.
 You put the golf ball onto the marker.
 
 > hit ball
-        You actually hit it!  Too bad nothing happened when you did.
+        "HAHAHAHAHA!" laughs Skippy, so menacing the hair on the back of your
+neck stands on end.
 
 > put ball on marker
 You are not holding the golf ball.
 
 > hit ball
-        You swing the club back, but before you can hit it the peanuts and
-popcorn come to life right in front of you.  Mocking you, chasing you,
-heckling you...You run around screaming only to have your senses knocked back
-into place with a hard shot from Skippy the clown.
+        The club flies out of your hand when you tried to hit it. Too bad it
+landed right in the hands of that evil clown.  He sticks the club in one of
+the calliope pipes and laughs as it launches out and bonks you on top of the
+head.
 
 > put ball on marker
 You are not holding the golf ball.
 
 > hit ball
-        You putt the ball down the course, over several squashed pieces of
-popcorn and peanuts.  The ball catches on the edge of the clown's foot and is
-knocked into the hole.
+        You hit the ball high into the air and it lands right next to the
+hole.  DuoDave appears out of nowhere and knocks it in, giving you a friendly
+wave before he disappears.
 
 The Amazing Poodle Boy's Hole
         Before you lies the marker where you place your plum ball.  A
@@ -286,9 +289,11 @@ there are hundreds of little bunny rabbits hopping all over the flat course.
 You put the golf ball onto the marker.
 
 > hit ball
-        You smack the ball hard and it flies up into the air, off the
-balloon..."Oh that had to hurt!" ...off a bunny's nose, and right into the
-hole. Try to forget about the little bunny...he didn't see it coming.
+        You hit the ball far onto the course when the poodle comes alive and
+grabs it. He makes a run for it, but you have the bunnies on your side this
+time.  They make a towering formation and go after the poodle like Ds on
+elephant!  The poodle goes down hard, allowing you to make another shot and
+sink the ball into the hole.
 
 DS490's Hole
         Before you lies the marker where you place your plum ball.  The
@@ -302,21 +307,26 @@ hole.
 You put the golf ball onto the marker.
 
 > hit ball
-        You hit it with the club and it shatters into a hundred tiny pieces.
-Each piece begins to rapidly grow, cloning into the very object you hit. You
-are no match for them as they rise against you.  The beating you take is too
-terrible to describe. (Either that, or the author was too lazy to describe
-it!)  Needless to say, you have to start the hole over.
+        You look through the binoculars at the tall building.  Though the sun
+is setting, it shines a brilliant light over the balconies, shedding light on
+a disturbing sight. Streaks of blood stain the side of the balcony just below
+the penthouse, dripping down the sides of the balconies below...."Oh, sorry.
+That's a different game. Either way, you miss!"
 
 > put ball on marker
 You are not holding the golf ball.
 
 > hit ball
-        You hit it with the club and it shatters into a hundred tiny pieces.
-Each piece begins to rapidly grow, cloning into the very object you hit. You
-are no match for them as they rise against you.  The beating you take is too
-terrible to describe. (Either that, or the author was too lazy to describe
-it!)  Needless to say, you have to start the hole over.
+        You hit it with the club and stand in horror at the large elephant
+that is approaching in anger.  Before you can even let out a scream, the
+elephant scoops you up in his massive trunk and starts slamming you into the
+ground, impaling you with Shit On A Stick™.  Now covered in poo, the elephant
+proceeds to roll you in the wooden shoes, which stick to you very easily. "OH
+NO YOU DON'T!" a voice orders, from somewhere you can't seem to see. "YOU
+CAN'T PUT THAT CLUB THEREEEEEEE...(The rest is drowned our by your
+screams)Oh, too late." The next thing you know, you are in an unknown place,
+having the club removed from a place you'd rather not mention.  A short time
+later you are cleaned up and returned back to the hole.
 
 > put ball on marker
 You are not holding the golf ball.
@@ -353,9 +363,9 @@ is a revolving bookcase near the end, revealing the hole as it turns.
 You put the golf ball onto the marker.
 
 > hit ball
-        Well, aren't you talented?  You managed to avoid all of the obstacles
-and get it into the hole.  Now if only you were talented enough to write your
-own game.
+        You hit the ball across the course and ricochets off the giant
+bottle, into the bookcase, off a pile of jelly beans, and finally into the
+hole.  Nice shot!
 
 Woodfish's Hole
         Before you lies the marker where you place your plum ball.  Lying to
@@ -385,16 +395,24 @@ that provide a path to the hole.
 You put the golf ball onto the marker.
 
 > hit ball
-        You hit it with the club and are struck by lightning.
+        You hit it, and Mystery promptly appears and explains to you why you
+shouldn't have done that.  Then she continues, "If you'd behave yourself you
+wouldn't need a moderator. I wasn't sure if moderating was something I wanted
+to do.  People expect you not to have opinions when you are a moderator...I
+guess it isn't really funny, just sad."  She lowers her head and returns to
+the darkness whispering, "I was a Drifter first."
 
 > put ball on marker
 You are not holding the golf ball.
 
 > hit ball
-        Bringing the club up over your shoulder, you hit the ball into the
-twisty segments.  Brilliant flashes of lightning allow you to see the ball
-move through the course, as if it were being guided my some mysterious force.
- As luck should have it, your ball drops down into the glowing hole.
+        You hit the ball but are distracted by Mystery appearing at your
+side.  She begins to tell you how you could achieve better results by
+altering your position and holding your club differently.  You try hard not
+to laugh at the way that sounded, but just can't help it and break out into a
+fit of laughter.  Mystery leaves while you are hunched over, trying to catch
+your breath.  When you stand tall again, you notice that your ball has made
+it through the maze and into the hole.
 
 Guess the Verb Mountain
         Before you lies the marker where you place your plum ball.  A large
@@ -403,7 +421,8 @@ At the top there is a large sign, and the hole is partially visible on the
 slope.
 
 > guess the verb
-        You guessed it! It's about time!
+        Nice job!  You guess the verb! The ball magically takes flight into
+the air and lands in the hole.
 
 Campbell's Hole
         Before you lies the marker where you place your plum ball.  Stacks of
@@ -419,8 +438,8 @@ users of ADRIFT.
 You put the golf ball onto the marker.
 
 > hit ball
-        You hit the golf ball off a stack of computer manuals, knock the bug
-reports right out of Campbell's hand, over the cable and into the hole.
+        WooHoo!  You got it in the hole and didn't even need a cheesy
+description to stroke your ego.
 
 THE END
 
