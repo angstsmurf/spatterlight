@@ -735,8 +735,8 @@ for ye quite politely.
 > x it
 Ye rickety, olde desk hath taken harsh treatement from ye mixing of various
 chymicals & reagent-type things.  Otherwise, 'twould not looketh so ugly.  Ye
-alchymist's desk is open.  Ye magic crystal is inside ye alchymist's desk.
-Ye olde desk clutter is on ye alchymist's desk.
+alchymist's desk is open.  Ye olde desk clutter is on ye alchymist's desk,
+and inside is ye magic crystal.
 
 > get crystal
 Ye taketh ye magic crystal from ye alchymist's desk.

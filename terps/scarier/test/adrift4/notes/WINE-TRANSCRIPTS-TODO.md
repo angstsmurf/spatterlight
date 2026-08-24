@@ -271,7 +271,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `3monkeys.taf` | 4.00 | live run400 replay of the solution's first 36 commands, `Adrift_16.txt` | the Runner really does print the raw `CHIMPSIGNAL=0`; the variable freeze is not a port artefact |
 | `sa.taf` (`sophie`) | 4.00 | live run400 replay, `Adrift_41_sophie.txt`..`Adrift_45_sophie.txt` (five runs of the solution's first fifty commands), plus the game's own 488-entry ALR table | the walk announcement is **joined into the turn's paragraph**, so 12 of sa.taf's 65 join-spanning ALRs fire and delete the arrivals they match -- see the FIXED section below |
 | `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
-| `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased** -- see the FIXED section below.  Also closed the `knock` lead (a feed artefact) and opened two more: the `x desk` clause order, and `burn memo` |
+| `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased**, and **what is *on* an object is listed before what is *in* it, in one sentence** -- see the two FIXED sections below.  Also closed the `knock` lead (a feed artefact) and left `burn memo` open |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -1443,10 +1443,11 @@ Corpus exposure measured: 18 games use any of the three, `%onin_%` only
 `WhereAreMyKeys` and `door`.  Exactly one golden line pair moved corpus-wide;
 **303/303 PASS**.
 
-The nested case is deliberately left alone: when an object is both *on* and
-*in* the associate, run400 reaches the same lister with `var_9E == 1` and
-prints a prefixed ", and inside is `<list>`", which scarier does not model.
-No corpus row and no saved replay exercises it.
+The nested case was deliberately left alone here: when an object is both *on*
+and *in* the associate, run400 reaches the same lister with `var_9E == 1` and
+prints a prefixed ", and inside is `<list>`", which scarier did not model.
+**Ported 2026-08-25** off the xfiles replay, which does exercise it -- see
+"what is ON an object is listed before what is IN it" below.
 
 Still open from the same replay: run400 **lower-cases object state names**
 ("switched off", "switch in the on position") where we print the `States`
@@ -1715,14 +1716,9 @@ head is the prefix whenever there is one.  No corpus game exercises the
 difference, so it stays as inherited SCARE behaviour until something measures
 it.
 
-## OPEN 2026-08-25 -- two more from the same xfiles transcript
+## FIXED 2026-08-25 -- what is ON an object is listed before what is IN it
 
-Both are deterministic (no RNG line anywhere near them), both are in
-`Adrift_22_xfiles.txt`, and neither is fixed yet.
-
-**1. `x desk` -- the container and surface clauses are ordered the other way,
-and joined.**  run400 puts the surface first and runs the two into one
-sentence; Scarier puts the container first and ends the sentence between them:
+`x desk`, `Adrift_22_xfiles.txt` line 9:
 
     run400   Your Desk is open.  Your Coffee Mug and The Memo are on Your
              Desk, and inside is Gun Holster, Your Cell Phone, Neatly Wrapped
@@ -1731,14 +1727,94 @@ sentence; Scarier puts the container first and ends the sentence between them:
              Phone, Neatly Wrapped Gift and Your Badge.  Your Coffee Mug and
              The Memo are on Your Desk.
 
-Note this is the **examine** path only: `open desk` one command earlier agrees
-exactly (`You open Your Desk.  Inside Your Desk is ...`), so the `Inside X is`
-wording itself is right and it is the examine lister that combines the two
-clauses differently.  Start at `examines` (`Proc_19_87_471F94`), which is one
-of `tense`'s callers.
+Two differences in one line: the **order** (surface first, not container
+first) and the **join** (one sentence, not two, and the container is not
+named the second time).
 
-**2. `burn memo` -- run400 refuses a task Scarier runs.**  Task 24, `Burn
-%object%`, restr=2, mask `#A#`:
+The Runner does not have a container lister and a surface lister the way
+SCARE does.  It has one combined helper, **`whatisinon`**,
+`Proc_19_26_46A950` @46A950 (`run400/Project/mdlSpreadTheLoad.bas:21880`, body
+46A058-46A94A), and its second argument is a mode:
+
+| guard | half | at |
+| --- | --- | --- |
+| `arg_14 <> 0` | the ON list | `loc_46A083` |
+| `arg_14 <> 1` | the IN list | `loc_46A41E` |
+
+so mode 0 is containers only, mode 1 surfaces only, and mode 2 both.  All four
+callers, and what they pass:
+
+| caller | mode | |
+| --- | --- | --- |
+| `openclose` `Proc_19_3_476468` | 0 | @475852 |
+| the room lister, `General.bas` | 0 | @479919 |
+| `inventory` `Proc_19_70_45C304` | **2** | @45C2C8 |
+| `examines` `Proc_19_87_471F94` | **2** | @471928 |
+
+That is exactly why `open desk`, one command earlier in the same transcript,
+already agreed byte for byte (`You open Your Desk.  Inside Your Desk is ...`):
+the open path never sees the surface at all.  Only examine and inventory
+combine.
+
+The join is a flag, `var_9E`, set to 1 once the ON list has printed something.
+The IN half tests it **first**, before any format choice (`loc_46A786`):
+
+    loc_46A786:  If var_9E = 1 Then
+    loc_46A795:      MemVar & ", and inside is "
+    loc_46A79D:      GoTo loc_46A7E0            ' the plain list loop
+
+-- no container name, no `pspace`, no new sentence.  The single closing `.`
+is appended once at the very end of the sub (`loc_46A8C6`, and only if
+anything was added at all), which is why the ON clause carries no period of
+its own when an IN clause follows it.
+
+**The count-1 and count-2 arms are unreachable when a surface listed.**  The
+`"<a> is inside <cont>"` branch is guarded `var_98 = 1 And var_9E = 0`
+(`loc_46A49E`-`loc_46A4AE`) and the `"<a> and <b> are inside <cont>"` branch
+`var_98 = 2 And var_9E = 0` (`loc_46A607`-`loc_46A617`).  Each of them then
+contains an inner `If var_9E = 1` arm (`loc_46A4F1`, `loc_46A66C`) that can
+never run -- leftovers of the VB source.  Taken literally, a surface listing
+forces `", and inside is <list>"` **whatever the in-count**, and that is what
+is implemented.
+
+Ported in `sclibrar.cpp` as `lib_list_in_on_object()`, with
+`lib_list_in_object_joined()` for the joined wording; `lib_list_on_object()`
+gained an "omit the period" argument and `lib_list_in_object()` a "joined"
+one.  Both mode-2 call sites now go through it -- `lib_describe_object()` and
+the inventory loop -- while the open handler keeps calling
+`lib_list_in_object()` directly, as run400's mode 0 does.
+
+**Pre-3.9 is excluded.**  There is no combined lister there at all: run380 has
+`whatisin1` @4297AC and `whatisin2` @42998C as separate subs, and its
+`examines` @43D5EC carries its listing inline as an either/or on one field --
+`loc_43D07A` prints `"  Inside <obj>"` when it is 1, `loc_43D0D0` prints
+`"  On <obj>"` when it is 2, never both.  And the literal `", and inside is "`
+is absent from `run370.exe` and `run380.exe`, appearing first in `run390.exe`
+-- the same boundary as `" is inside "` and `" is on "` (counted in the four
+binaries as UTF-16LE, 2026-08-25).  So a pre-3.9 game keeps the older
+container-then-surface pair of sentences.
+
+Three goldens move, corpus back to **303/303 PASS**:
+
+| golden | in-count | new wording |
+| --- | --- | --- |
+| `xfiles_solution` | 4 | `... are on Your Desk, and inside is Gun Holster, ...` |
+| `ADRIFTMAS_Party_solution` | 2 | `The suitcase is on the wardrobe, and inside is a leather jacket and an assortment of shoes.` |
+| `yonastoundingcastle_solution` | 1 | `Ye olde desk clutter is on ye alchymist's desk, and inside is ye magic crystal.` |
+
+Only the first is *measured*; the other two are the unreachable-arm cases and
+rest on the disassembly alone.  **Probe still wanted** once the desktop is
+unlocked: one .taf with a desk that is both a surface and an open container,
+one object on it, and one, two and three objects inside across three cells,
+`x desk` each time.  If the count-1 cell answers `A crystal is inside the
+desk.` as a second sentence rather than `..., and inside is a crystal.`, the
+inner arms are live after all and the guard order in `lib_list_in_object()`
+has to move.
+
+## OPEN 2026-08-25 -- `burn memo`
+
+**run400 refuses a task Scarier runs.**  Task 24, `Burn %object%`, restr=2,
+mask `#A#`:
 
     RESTR type=0 var1=1 var2=3 var3=0    "any object visible to the player"
     RESTR type=3 var1=0 var2=2 var3=-1   "the player is alone"

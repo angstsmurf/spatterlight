@@ -531,8 +531,8 @@ inside the wardrobe.
 
 > x wardrobe
 The wardrobe is an fairly new and made from a finely polished wood.    The
-wardrobe is open.  A leather jacket and an assortment of shoes are inside the
-wardrobe.  The suitcase is on the wardrobe.
+wardrobe is open.  The suitcase is on the wardrobe, and inside is a leather
+jacket and an assortment of shoes.
 
 > get suitcase
 You take the suitcase from the wardrobe.

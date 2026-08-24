@@ -91,8 +91,8 @@ Wrapped Gift and Your Badge.
 
 > x desk
 This is your desk, the appitomy of clutter and despair.  Your Desk is open.
-Inside Your Desk is Gun Holster, Your Cell Phone, Neatly Wrapped Gift and
-Your Badge.  Your Coffee Mug and The Memo are on Your Desk.
+Your Coffee Mug and The Memo are on Your Desk, and inside is Gun Holster,
+Your Cell Phone, Neatly Wrapped Gift and Your Badge.
 
 > take all from desk
 You take Your Coffee Mug, Gun Holster, Your Cell Phone, Neatly Wrapped Gift,

@@ -283,12 +283,35 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 #     falling through prints the prefix verbatim anyway.  Two lines move here
 #     (cmd 17's "You take The Warehouse Key from Case File 10193." among them);
 #     cyber2, afdfr and the 3.90 spirits_flight move too.
-# Still divergent and NOT fixed here, both logged in
-# notes/WINE-TRANSCRIPTS-TODO.md: `x desk` orders and joins its container and
-# surface clauses differently ("... are on Your Desk, and inside is ..." in one
-# sentence, vs scarier's two, container first), and `burn memo` is refused by
-# run400 -- task 24 matches but one of its two restrictions fails silently
-# there, and which one needs a single-restriction probe.
+#  4. 2026-08-25 -- ON BEFORE IN, AND IN ONE SENTENCE.  `x desk` answers
+#     "Your Desk is open.  Your Coffee Mug and The Memo are on Your Desk, and
+#     inside is Gun Holster, Your Cell Phone, Neatly Wrapped Gift and Your
+#     Badge." (Adrift_22_xfiles.txt line 9); scarier put the container first
+#     and ended the sentence between the two clauses.  The Runner lists both
+#     in one helper, whatisinon (Proc_19_26_46A950 @46A950), whose second
+#     argument is a mode -- the "on" half is guarded on mode <> 0 (loc_46A083)
+#     and the "in" half on mode <> 1 (loc_46A41E).  examines() and inventory()
+#     pass 2 and get both; openclose() and the room lister pass 0 and get
+#     containers only, which is why `open desk` one command earlier already
+#     agreed and only the examine path diverged.  When the "on" half printed
+#     anything it sets var_9E, and the "in" half tests that FIRST (loc_46A786):
+#     ", and inside is " plus the plain list, no container name, no new
+#     sentence, and the single closing '.' comes once at loc_46A8C6.  Note the
+#     count-1 and count-2 "<a> is inside <cont>" branches are both guarded on
+#     var_9E = 0, so a surface listing forces the joined wording whatever the
+#     count -- the `If var_9E = 1` arms nested inside them (loc_46A4F1,
+#     loc_46A66C) are unreachable.  That literal reading is what is
+#     implemented, and it is what moves ADRIFTMAS_Party (in-count 2) and
+#     yonastoundingcastle (in-count 1) as well as this row; a live probe of
+#     those two counts is still wanted.  Pre-3.9 is excluded: run380 has no
+#     combined lister at all (whatisin1 @4297AC and whatisin2 @42998C are
+#     separate, and examines @43D5EC prints "  Inside <obj>" or "  On <obj>",
+#     never both), and ", and inside is " is absent from run370.exe and
+#     run380.exe.
+# Still divergent and NOT fixed here, logged in
+# notes/WINE-TRANSCRIPTS-TODO.md: `burn memo` is refused by run400 -- task 24
+# matches but one of its two restrictions fails silently there, and which one
+# needs a single-restriction probe.
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
@@ -415,6 +438,13 @@ tq3_solution.txt|tq3.taf|Please forward your comments to chris@jons.org.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
 yeh_solution.txt|yeh.taf|Your score is 3100 out of a maximum of 3400.
+# Re-blessed 2026-08-25 for the on-before-in joined listing (see item 4 in the
+# xfiles_solution.txt block above): the wardrobe is both a surface and an open
+# container, so `x wardrobe` now reads "The suitcase is on the wardrobe, and
+# inside is a leather jacket and an assortment of shoes."  This is one of the
+# two rows that exercise run400's unreachable count-1/count-2 arms -- here the
+# in-count is 2 -- so it is the literal disassembly that is blessed, not a
+# measurement.
 ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And to all a good night!"|SCR_SKIP_WAITKEY=1
 Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.|SCR_SKIP_WAITKEY=1
 JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH|SCR_SKIP_WAITKEY=1
@@ -432,6 +462,9 @@ sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1
 easter_solution.txt|easter.taf|***You have won***|
+# Re-blessed 2026-08-25 for the same on-before-in joined listing, with an
+# in-count of 1: "Ye olde desk clutter is on ye alchymist's desk, and inside is
+# ye magic crystal."
 yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SKIP_WAITKEY=1
 # The twenty-one entries of the 1st, 2nd and 3rd ADRIFT One-Hour Game
 # Competitions (2003), swept in on 2026-08-03 -- see the per-game

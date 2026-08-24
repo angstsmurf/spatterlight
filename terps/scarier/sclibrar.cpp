@@ -4281,6 +4281,47 @@ lib_list_in_object_alternate (scr_gameref_t game,
 
 
 /*
+ * lib_list_in_object_joined()
+ *
+ * List the objects in a given container object, run onto the end of a
+ * surface listing already printed for the same object.
+ *
+ * The Runner's combined lister keeps a flag, var_9E, that it sets when it
+ * has printed an "on" listing, and the container half then tests it before
+ * anything else: at run400 loc_46A786 var_9E == 1 appends the literal
+ * ", and inside is " and jumps straight to loc_46A7E0, the list loop the
+ * "Inside <cont> is " branch also falls into.  So the joined form takes no
+ * format choice, names no container, opens no new sentence, and gets the
+ * turn's single closing '.' (appended once at loc_46A8C6) -- see
+ * lib_list_in_on_object() for where the two halves meet.
+ */
+static scr_bool
+lib_list_in_object_joined (scr_gameref_t game, scr_int container)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int object;
+  lib_list_t list;
+
+  /* List out the objects contained in this container. */
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (gs_object_position (game, object) == OBJ_IN_OBJECT
+          && gs_object_parent (game, object) == container)
+        list.push_back (object);
+    }
+  if (!list.empty ())
+    {
+      pf_buffer_string (filter, ", and inside is ");
+      lib_print_list (game, list, lib_print_object, " and ");
+      pf_buffer_character (filter, '.');
+    }
+
+  /* Return TRUE if anything listed. */
+  return !list.empty ();
+}
+
+
+/*
  * lib_list_in_object()
  *
  * List the objects in a given container object.
@@ -4297,8 +4338,11 @@ lib_list_in_object_alternate (scr_gameref_t game,
  *
  * -- i.e. one or two objects get the alternate (postfixed) format and three or
  * more get the normal (prefixed) one, with no test on the container being
- * static or dynamic anywhere in the chain.  (var_9E == 1 is the nested case,
- * which prints ", and inside is <list>"; scarier does not model it.)
+ * static or dynamic anywhere in the chain.  var_9E == 1 is the case where
+ * an "on" listing for this same object has already gone out; that one is
+ * lib_list_in_object_joined(), and note that its guard comes FIRST, so a
+ * surface listing forces the joined wording whatever the count -- the
+ * count-1 and count-2 branches above are both guarded on var_9E == 0.
  *
  * Confirmed against the real Runner in the "It's Easter, Peeps!" walkthrough
  * transcript, which exercises all three: "An umbrella is inside the umbrella
@@ -4323,7 +4367,8 @@ lib_list_in_object_alternate (scr_gameref_t game,
  * same replay shows it again on `look in mailbox`.
  */
 static scr_bool
-lib_list_in_object (scr_gameref_t game, scr_int container, scr_bool is_described)
+lib_list_in_object (scr_gameref_t game, scr_int container,
+                    scr_bool is_described, scr_bool joined)
 {
   scr_bool use_alternate_format = FALSE;
   scr_int object, count;
@@ -4344,6 +4389,13 @@ lib_list_in_object (scr_gameref_t game, scr_int container, scr_bool is_described
           gs_set_object_seen (game, object, TRUE);
         }
     }
+
+  /*
+   * A surface listing for this same object has just been printed, so the
+   * two clauses are run together and there is no format to choose.
+   */
+  if (joined)
+    return lib_list_in_object_joined (game, container);
 
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     use_alternate_format = FALSE;
@@ -4366,8 +4418,8 @@ lib_list_in_object (scr_gameref_t game, scr_int container, scr_bool is_described
  * List the objects on a given surface object, normal format listing.
  */
 static scr_bool
-lib_list_on_object_normal (scr_gameref_t game,
-                           scr_int supporter, scr_bool is_described)
+lib_list_on_object_normal (scr_gameref_t game, scr_int supporter,
+                           scr_bool is_described, scr_bool omit_period)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int object;
@@ -4390,7 +4442,8 @@ lib_list_on_object_normal (scr_gameref_t game,
       /* " is " unconditionally -- see lib_list_in_object_normal(). */
       pf_buffer_string (filter, " is ");
       lib_print_list (game, list, lib_print_object, " and ");
-      pf_buffer_character (filter, '.');
+      if (!omit_period)
+        pf_buffer_character (filter, '.');
     }
 
   /* Return TRUE if anything listed. */
@@ -4404,8 +4457,8 @@ lib_list_on_object_normal (scr_gameref_t game,
  * List the objects on a given surface object, alternate format listing.
  */
 static scr_bool
-lib_list_on_object_alternate (scr_gameref_t game,
-                              scr_int supporter, scr_bool is_described)
+lib_list_on_object_alternate (scr_gameref_t game, scr_int supporter,
+                              scr_bool is_described, scr_bool omit_period)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int object;
@@ -4431,7 +4484,8 @@ lib_list_on_object_alternate (scr_gameref_t game,
 
       /* Print out the surface. */
       lib_print_object_np (game, supporter);
-      pf_buffer_character (filter, '.');
+      if (!omit_period)
+        pf_buffer_character (filter, '.');
     }
 
   /* Return TRUE if anything listed. */
@@ -4460,7 +4514,8 @@ lib_list_on_object_alternate (scr_gameref_t game,
  * only wording those two can produce.
  */
 static scr_bool
-lib_list_on_object (scr_gameref_t game, scr_int supporter, scr_bool is_described)
+lib_list_on_object (scr_gameref_t game, scr_int supporter,
+                    scr_bool is_described, scr_bool omit_period)
 {
   scr_bool use_alternate_format = FALSE;
   scr_int object, count;
@@ -4491,8 +4546,102 @@ lib_list_on_object (scr_gameref_t game, scr_int supporter, scr_bool is_described
 
   /* List objects on the surface using the selected handler. */
   return use_alternate_format
-         ? lib_list_on_object_alternate (game, supporter, is_described)
-         : lib_list_on_object_normal (game, supporter, is_described);
+         ? lib_list_on_object_alternate (game, supporter, is_described,
+                                         omit_period)
+         : lib_list_on_object_normal (game, supporter, is_described,
+                                      omit_period);
+}
+
+
+/*
+ * lib_list_in_on_object()
+ *
+ * List both what is on an object and what is inside it.
+ *
+ * The Runner does the two together, in one helper -- whatisinon(), run400
+ * Proc_19_26_46A950 @46A950 (mdlSpreadTheLoad.bas:21880), body 46A058-46A94A.
+ * Its second argument is a mode: the "on" half is guarded on mode <> 0
+ * (loc_46A083) and the "in" half on mode <> 1 (loc_46A41E), so mode 0 is
+ * containers only, mode 1 surfaces only, and mode 2 both.  Of its four
+ * callers, openclose() (@475852) and the room-description lister in
+ * General.bas (@479919) pass 0, while inventory() (@45C2C8) and examines()
+ * (@471928) pass 2 -- which is why `open desk` and `x desk` word the same
+ * desk differently.
+ *
+ * When both halves have something to say, the surface goes FIRST and the
+ * container is run onto the end of the same sentence:
+ *
+ *   > x desk
+ *   Your Desk is open.  Your Coffee Mug and The Memo are on Your Desk, and
+ *   inside is Gun Holster, Your Cell Phone, Neatly Wrapped Gift and Your
+ *   Badge.
+ *
+ * measured live in run400 on The_X-Files_A_New_Beginning.taf (4.00),
+ * 2026-08-25, Adrift_22_xfiles.txt line 9.  SCARE had it the other way and
+ * as two sentences, "Inside Your Desk is ...  Your Coffee Mug and The Memo
+ * are on Your Desk."  The single closing '.' is appended once at the end of
+ * whatisinon (loc_46A8C6, and only if anything was added at all), so the
+ * "on" clause does not carry one when an "in" clause follows it.
+ *
+ * All of that is 3.9-and-later.  Before 3.9 there is no combined lister at
+ * all: run380 has whatisin1() @4297AC and whatisin2() @42998C as separate
+ * subs, and its examines() (@43D5EC) carries its own listing inline, an
+ * either/or on one field -- run380 loc_43D07A prints "  Inside <obj>" when
+ * that field is 1 and loc_43D0D0 prints "  On <obj>" when it is 2, never
+ * both.  ", and inside is " is absent from run370.exe and run380.exe and
+ * first appears in run390.exe (same boundary as " is inside " and " is on ",
+ * counted in the binaries 2026-08-25), so pre-3.9 games keep the older
+ * container-then-surface pair of sentences here rather than take a wording
+ * their Runner cannot produce.
+ */
+static scr_bool
+lib_list_in_on_object (scr_gameref_t game, scr_int object,
+                       scr_bool is_described)
+{
+  scr_bool is_open_container, on_listed = FALSE, in_listed = FALSE;
+  scr_bool has_contents = FALSE;
+  scr_int contained;
+
+  is_open_container = obj_is_container (game, object)
+                      && gs_object_openness (game, object) <= OBJ_OPEN;
+
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    {
+      if (is_open_container)
+        in_listed = lib_list_in_object (game, object, is_described, FALSE);
+      if (obj_is_surface (game, object))
+        on_listed = lib_list_on_object (game, object,
+                                        is_described || in_listed, FALSE);
+      return in_listed || on_listed;
+    }
+
+  /*
+   * Look ahead for contents, so that the surface listing knows to leave
+   * its sentence open for them.
+   */
+  if (is_open_container)
+    {
+      for (contained = 0; contained < gs_object_count (game); contained++)
+        {
+          if (gs_object_position (game, contained) == OBJ_IN_OBJECT
+              && gs_object_parent (game, contained) == object)
+            {
+              has_contents = TRUE;
+              break;
+            }
+        }
+    }
+
+  /* For surface objects, list out what's on them -- first. */
+  if (obj_is_surface (game, object))
+    on_listed = lib_list_on_object (game, object, is_described, has_contents);
+
+  /* For open container objects, list out what's in them. */
+  if (is_open_container)
+    in_listed = lib_list_in_object (game, object,
+                                    is_described || on_listed, on_listed);
+
+  return on_listed || in_listed;
 }
 
 
@@ -4649,13 +4798,8 @@ lib_cmd_examine_object (scr_gameref_t game)
         is_described |= lib_list_object_state (game, object, is_described);
     }
 
-  /* For open container objects, list out what's in them. */
-  if (obj_is_container (game, object) && openness <= OBJ_OPEN)
-    is_described |= lib_list_in_object (game, object, is_described);
-
-  /* For surface objects, list out what's on them. */
-  if (obj_is_surface (game, object))
-    is_described |= lib_list_on_object (game, object, is_described);
+  /* List out what's on and what's inside the object. */
+  is_described |= lib_list_in_on_object (game, object, is_described);
 
   /* If nothing yet said, print a default response. */
   if (!is_described)
@@ -7414,14 +7558,7 @@ lib_cmd_inventory (scr_gameref_t game)
       for (object = 0; object < gs_object_count (game); object++)
         {
           if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
-            {
-              if (obj_is_container (game, object)
-                  && gs_object_openness (game, object) <= OBJ_OPEN)
-                lib_list_in_object (game, object, TRUE);
-
-              if (obj_is_surface (game, object))
-                lib_list_on_object (game, object, TRUE);
-            }
+            lib_list_in_on_object (game, object, TRUE);
         }
       pf_buffer_character (filter, '\n');
     }
@@ -7514,7 +7651,7 @@ lib_cmd_open_object (scr_gameref_t game)
 
       /* Set open state, and list contents. */
       gs_set_object_openness (game, object, OBJ_OPEN);
-      lib_list_in_object (game, object, TRUE);
+      lib_list_in_object (game, object, TRUE, FALSE);
       pf_buffer_character (filter, '\n');
       return TRUE;
 
