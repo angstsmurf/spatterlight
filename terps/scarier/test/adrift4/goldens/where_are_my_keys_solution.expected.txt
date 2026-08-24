@@ -419,7 +419,7 @@ rest of the windows in this house.  A table is positioned in the centre of
 the room and on the floor near the back door is a small dog basket.  The hall
 is to the east, the door to the back garden south and what looks like a
 cupboard under the stairs is southeast.
-The small brown terrier is wandering around.
+The small brown dog is here.
 
 The small brown terrier wandering around is snarling at you.
 The dog is standing near the back door waiting to go out.
@@ -448,7 +448,7 @@ south to the garden shed and you can see that the door to the shed is closed.
 The back garden is east.
 
 You can also see a bone.
-The small brown terrier is wandering around.
+The small brown dog is here.
 
 The small brown terrier wandering around is whimpering at you.
 You hear a door slamming shut.

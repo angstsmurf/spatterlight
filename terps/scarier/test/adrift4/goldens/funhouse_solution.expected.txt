@@ -36,9 +36,6 @@ Mafia man .
 > take hundred dollars
 You take the hundred dollars.
 
-Bouncer walks towards you.
-thank you. Have fun now.
-
 > pick up money
 Take what?
 You manage to avoid Mafia man's attack.
@@ -162,8 +159,9 @@ What'll it be sir. The bracelet and strips of tickets are five dollars each.
 Hurry up now got a line forming here.
 
 Also here is a drink and a ticket.
-Tall man, Ticket man, Bouncer and Your children 8) are here.
-Violent mafia man is here looking for a cassette. He knows where to look!
+Ticket man and Your children 8) are here.
+The tall man is pleasant.  Violent mafia man is here looking for a cassette.
+He knows where to look!
 
 You can move north and east.
 

@@ -60,6 +60,12 @@ FILTER="${1:-}"
 # an apostrophe in a marker would break the whole script.)
 map_rows() { cat <<'EOF'
 icecream_solution.txt|IceCream.taf||SCR_SKIP_WAITKEY=1
+# Measured live in run400 under Wine (2026-08-24), full 8-command replay,
+# Verbose ON: the Runner prints only "Huey the Contractor walks by and
+# stops."  It never prints "A young boy arrives under the tree." -- the boy
+# NPC's walk has expired by then.  The old golden carried the arrival, so it
+# was wrong; every other line of the replay matched.  See the NPC walk-ticker
+# rules in scnpcs.cpp npc_tick_npc().
 the_cat_in_the_tree_solution.txt|TheCatintheTree.taf|You scored 50 out of the maximum 50!|SCR_SKIP_WAITKEY=1
 man_overboard_solution.txt|man overboard.taf|Maybe it wasn't all a waste of time|SCR_SKIP_WAITKEY=1
 pieces_of_eden_solution.txt|Pieces of eden.taf|END OF PART ONE
@@ -101,17 +107,53 @@ circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED
 colony_solution.txt|Colony.taf|You scored 200 out of the maximum 200!
 cyber_solution.txt|cyber.taf|THE END,or is it?
 cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
+# 3.90.  Re-blessed 2026-08-24 for one line: Vluurinik's room description at
+# command ~185 goes from "Vluurinik flits around." to "Vluurinik darts in
+# circles.".  Not measured in run390 under Wine -- justified from run390's own
+# P-code instead, which is stronger here than a single replay would be.
+# Vluurinik (NPC 1) has three walks, all with real StartTask/StoppingTask
+# pairs, and the line comes from the ChangedDesc of whichever of them is
+# "eligible".  run390's viewroom (run390_3.bas:29000, loop at loc_447D1D)
+# scans walks ASCENDING, computes its ok flag from StartTask/StoppingTask
+# only -- there is NO counter test -- and *overwrites* the NPC's description
+# on every eligible walk, so the HIGHEST-numbered eligible walk wins.  That is
+# byte-for-byte the same shape as run400's viewroom (Proc_19_63_472CA4, NPC
+# loop 4727E2..472931), which four live run400 measurements already confirmed
+# this session (FunHouse 0/18, TheCatintheTree, Main Course, Orient Express).
+# Scarier used to pick the first walk that was still counting down; it now
+# picks the last eligible one, which is what both Runners do.
 cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of the CyberCow.
 cybercow_solution.txt|lair-of-the-cybercow.taf|Your score is 6 out of a maximum of 10.
 deaths_solution.txt|deaths.taf|crumbles into dust
 donuts_intro_solution.txt|donuts_intro.taf|To be continued (maybe)..
+# Measured live in run400 under Wine: the whole 18-command replay matches the
+# fixed engine exactly (0 differing commands).  This is the row that pins down
+# the precedence half of the walk fix -- run400 lets a higher-numbered walk
+# with StartTask 0 shut a lower one down with no counter test at all
+# (Proc_19_1_468DA0 @4686FD-468747), even when it has no stops to walk -- and
+# the task-state (not counter) test in lib_get_npc_inroom_text().  The other
+# half, what a finished 4.0 walk's counter is stamped with, is pinned by
+# the_pk_girl instead; see that row.
 funhouse_solution.txt|FunHouse.taf|thank you for bravely protecting this important information
 gateway_solution.txt|gateway.taf|THE END
 hyper_b_s_solution.txt|hyper_b_s.taf|The Flare Rat is dead! Mission complete!
 jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=11
 light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=16
-maincourse_solution.txt|Main Course.taf|You're on your way home with just a little indigestion!|SCR_SEED=17
+# Measured live in run400 under Wine (2026-08-24), full replay, Verbose ON.
+# The game is NOT winnable in the real Runner: "Cat sheepishly enters from
+# the east." never appears (the cat's walk has expired), so `attack cat` gets
+# "I don't understand what you mean!" and the closing `main course` command is
+# refused.  Win marker deliberately removed -- the walkthrough is kept for its
+# transcript, not for a win.
+maincourse_solution.txt|Main Course.taf||SCR_SEED=17
 melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the original game Melbourne Beach
+# Measured live in run400 under Wine (2026-08-24).  At command 38, `n` into
+# the Dining Car, the Runner prints "The waiter saunters over." -- the same
+# line the fixed engine now prints.  The old golden had "Gimme Atip is here.",
+# i.e. the plain NPC name rather than the walk's ChangedDesc.  (Unrelated and
+# still-open run400 differences in this game: timed-event turn offsets, NPCs
+# named "the large man"/"BIG BOSS" instead of in full, and walk-direction
+# suffixes such as "wobbles in from the east".)
 orient_express_solution.txt|Orient_Express.taf|You successfully complete your assignment.
 screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to get everyone to the set!
 secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
@@ -120,6 +162,25 @@ sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 135 out
 tcom_solution.txt|tcom.taf|the file entitled "tcom2"
 think2_solution.txt|Theannihilationofthink2.taf|Think.com has been restored
 toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICALLY EARTH
+# Measured live in run400 under Wine (2026-08-24).  Two findings:
+#
+#  * Room alts with Var3 = 0.  The Lobby and Davis Storage Warehouse each
+#    carry a type-2 alt with Var2 = 4 ("isn't in the same room as") and no
+#    object selected.  run400 prints them on every visit -- "Do you have your
+#    badge?" and "You left the key back in D.C., didn't you?" -- because it
+#    runs the test against an object it cannot find.  SCARE printed neither,
+#    ever.  Fixed in sclibrar.cpp lib_use_room_alt(); only three alts in the
+#    whole corpus use Var3 = 0 (these two and one empty one in House.taf).
+#
+#  * The walk line ("You notice a man sitting alone in a dark car." beside
+#    "Langly is here.") could NOT be measured: run400 refuses this
+#    walkthrough's `burn memo`, `take knife`, `knock`, `look at camera`,
+#    `get in the van` and `take directions`, so by command 53 it is back in
+#    the FBI parking garage while we are in Bellefleur.  Those are
+#    task-matching divergences, a separate investigation.  The line is
+#    corroborated internally instead: the very next command's own game text
+#    is "The man in the dark car watches you silently as you climb in the
+#    van.", so the man is in that room and the description should say so.
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
@@ -281,6 +342,18 @@ unauthorized_termination_solution.txt|unauthorized.taf|Assignment Status: You ha
 # in the kitchen -- then it trots to the back door on its own and `open door`
 # (task 294 -> 293) lets it out to bury the bone in the Vegetable Patch, which
 # is what unearths the car keys (task 292).
+# Measured live in run400 under Wine (2026-08-24): the replay desyncs, so the
+# two changed lines (the Kitchen's "The small brown terrier is wandering
+# around." vs "The small brown dog is here.") could NOT be measured.  run400's
+# Dog is in different rooms from command 31 onward -- and it was already in
+# different rooms under the OLD golden, so that is pre-existing and unrelated
+# to the walk fix.  run400 also refuses the ending ("You do not have the keys
+# so it is probably not a good idea to go just yet."), so the game does not
+# finish there.  Two engine-wide divergences this replay exposed, both also
+# visible in xfiles and neither addressed here: run400 lower-cases object
+# state names ("switched off", "switch in the on position") where we
+# capitalise them, and it lists container contents last and phrases them
+# "Inside the fridge is X" where we lead with "X are inside the fridge".
 where_are_my_keys_solution.txt|WhereAreMyKeys.taf|You start the car and head home.|SCR_SKIP_WAITKEY=1
 # To Hell in a Hamper: the IF-Archive walkthrough desyncs badly on this release.
 # It has to be re-derived around a carry-weight limit ("too heavy for me to carry
@@ -702,6 +775,44 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 #     the 2000 -- without them the game still ends in a win, at 1930.
 # Needs SCR_SKIP_WAITKEY=1: the "[Press any key]" title screen swallows the
 # first two commands otherwise.
+# Re-blessed 2026-08-24 for the walk rewrite (scnpcs.cpp npc_tick_npc /
+# npc_walk_is_enabled).  Every changed line here is a walk ChangedDesc pick,
+# and each one moved *towards* the game's own sense: Grandad now "is sitting
+# at one of the tables" in the pub instead of snoring in his armchair, and
+# "is sleeping beneath an ultraviolet light" once he has been captured;
+# Dennis "lies unconscious on the ground" after he is knocked out.  The old
+# golden repeated one armchair line everywhere.
+#   Justified from run400's own room lister, Proc_19_63_472CA4, NPC loop
+#   4727E2..472931 (read 2026-08-24).  Its per-walk "ok" is built from the
+#   task fields alone -- 47283C StartTask == 0 -> ok, 472867 StartTask done
+#   -> ok, 472893 StoppingTask done -> not ok -- with no test at all against
+#   the walk's counter, and the pick at 4728B0 is
+#       If ok = 1 And walk.ChangedDesc <> "" Then desc(npc) = walk.ChangedDesc
+#   inside an *ascending* loop, so the highest-numbered enabled walk with a
+#   non-empty description wins and a spent walk goes on describing its NPC.
+#   The empty-string guard is why the fairy keeps her own walk text rather
+#   than being blanked; the reason her golden line lost "She doesn't look
+#   very happy." is the other half -- that sentence is her InRoomText, and
+#   NPC 25's single walk (StartTask 254, no StoppingTask, ChangedDesc "A
+#   fairy sits on a pile of junk nearby.") now covers it for good once task
+#   254 is done.
+# Re-blessed again 2026-08-24 for two NPC/container wording fixes measured in
+# run400 under Wine (sclibrar.cpp lib_list_in_object_normal and
+# lib_list_npc_inventory):
+#   * "On the triangular table is some swimming goggles, ..." -- the surface
+#     and container listers say " is " unconditionally, never " are ".
+#   * "Grandad is wearing a hat, and carrying a document." -- the carried
+#     clause drops the subject *and* the second "is" in 3.9/4.0.
+# The two remaining changed lines (the Tunnel's "Grandad stands nearby." and
+# "Grandad walks to the south.") are the NPC_WALK_EXPIRED = -1 sentinel, and
+# are NOT measured here: humbug randomises three secrets at start-up (the dial
+# combination, the magic word and the keypad code), so a command-for-command
+# Wine replay diverges at the keypad -- see notes/WINE-TRANSCRIPTS-TODO.md,
+# "How humbug was made replayable".  The sentinel rests on the_pk_girl's
+# measurement and on run400's own P-code, where the walk counter's reset value
+# is `push &HFF 'Byte` = -1 (VB Decompiler prints a signed byte; the same
+# opcode/operand at 00068805 is the Step of a For ... To 0 loop).
+# Still a win: the marker below is unaffected.
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
 # WIN with the FULL 95/95 in 90 commands.  downloaded/CrimeAdventure_walkthrough.sol
@@ -816,6 +927,38 @@ thesisters_solution.txt|TheSisters.taf|lifeless body of Trisha Seabourne.|SCR_SK
 # the situation-10 +3 needs `katryn_done_talking` back at 0, which nothing
 # resets once a conversation has closed.  55/60 is the practical ceiling.
 # Needs SCR_SKIP_WAITKEY=1 -- the game is full of "Press enter to continue".
+# Measured live in run400 under Wine (2026-08-24), the whole walkthrough with a
+# 96-command peddler hunt spliced in: the Runner reaches "Congratulations!  You
+# got Katryn's ending." / "Your Secret Letter is: E", with Laurie following the
+# player 24 times.  That measurement is what fixed the walk ticker's expiry
+# sentinel.  Laurie is NPC 2 and has fourteen walks; the one that carries her
+# after the player is WALK 3 (loop, StartTask 415, StoppingTask 416, MeetChar
+# 29).  Six of the walks above it -- 5, 6, 7, 9, 10 and 12 -- are non-looping
+# with no StoppingTask at all, so once their start tasks have fired nothing in
+# the game ever switches them off again, and run400's precedence scan
+# (Proc_19_1_468DA0 @4686E7-4687C3) lets a higher-numbered walk shut a lower one
+# down while its counter is above zero.  Everything therefore turns on what a
+# finished 4.0 walk's counter holds.  The stamp at 46860B is `push &HFF 'Byte`,
+# which is a SIGNED byte -- P32Dasm renders it "LitI2_Byte: 255 (True)", and the
+# same opcode with the same operand is the Step of the descending stop scan at
+# 468805, where it can only be -1.  Read as 255 it is a 256-turn countdown: the
+# six walks keep restarting, sit above zero almost permanently, and pin WALK 3
+# shut from the R.O.S.A. complex onwards, so Laurie is left behind at the ladder
+# and "Aren't you forgetting Laurie?" ends the game two rooms short.  Read as -1
+# it is inert -- never decremented, never restarted, never run, never in the way
+# -- which is also why 4.0 could drop the pre-4.0 "looping walks only" test from
+# its restart branch at 468675.  The engine now stamps -1 and matches the
+# Runner: 24 follows and the win.
+# The seven remaining differences against the pre-fix golden are all Laurie's
+# in-room line, and the Runner confirms every one of them: it prints "Laurie is
+# waiting for you under the lamppost." exactly ONCE, where the old golden had it
+# eight times over, and otherwise the plain or task-selected description
+# ("standing here", "by the stovetop cooking something", "sitting at the table",
+# "lying on the floor").  Still open and NOT walk-related: on the second
+# Detainment visit the Runner prints "Laurie is standing here." where the engine
+# picks the alternate description "Laurie is in your arms.", and the game's
+# timed events run a turn out of step with the Runner's in a good many places --
+# the same offset class already noted on orient_express.
 thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SKIP_WAITKEY=1
 # Second Chance (David Whyld, 2005) replays its shipped Walkthrough.pdf
 # VERBATIM -- 49 commands, not one repair, straight to the good ending.  The
@@ -935,23 +1078,25 @@ plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_W
 #     KO is not the end of any of them.  EVENTs 15-18 [Sentry/Guard/Patrol/
 #     Soldier Respawn] restart each one on its own timer (7 / 9-14 / 6-10 /
 #     9-11 turns) into whatever room the player is standing in, which is what
-#     "A sentry charges in" and "Patrol charges after Irvine" are.  The
+#     "A sentry charges in" is.  The
 #     palace therefore cannot be cleared, only outrun: the four timers are
 #     staggered, so a room is empty for a turn or two at a time and the route
 #     has to spend that turn moving.
 #   * Leaving is blocked while anything is in the room ("Irvine has to deal
 #     with his enemies before he can leave!"), so every doorway costs a full
-#     sweep of whoever has cycled back in.  That is what lines 134-138,
-#     144-149 and 155-159 are; the doubled `sweep patrol` / `kick guard` are
-#     the respawn landing on the very turn of the KO, not a missed swing.
+#     sweep of whoever has cycled back in -- one correct swing each, since a
+#     KO sticks until that mook's own respawn timer comes round again.  The
+#     elite is the exception: it is not one of the four, it does not block a
+#     doorway, and the route simply walks past it into the throne hall while
+#     it is still standing there burning Irvine with its heat gun.
 #   * `claw` (TASK 1217) is an area attack that hits every enemy present at
 #     once, and it is the ONLY thing that touches the elite -- TASK 1292
 #     `#elite_clawed_(POW!)` carries four "NPC not in room" restrictions, one
 #     per mook, which is the "elite must be alone" rule from the PDF.  It is
 #     gated on `claw_count >= 3` and resets the counter to 0, and every
 #     attack (hit or miss) bumps the counter by one, so it recharges over
-#     three swings.  The route saves its one charge for the elite and takes
-#     the throne-hall door on the very next turn.
+#     three swings.  The route never spends it in the palace: nothing there
+#     needs an area attack and the elite need not be fought at all.
 #   * Health is a damage counter, not a pool: VAR 41 [Irvine_Health] starts a
 #     fight at 0 and each `#<mook>_attack` adds 1 for every enemy standing in
 #     the room; VAR 63 [HP] is only the mirror (TASK 1342 ###IRVINE_HEALTH###
@@ -959,13 +1104,13 @@ plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_W
 #     At damage 12 TASK 1343 #Irvine_LifeCheck fires, and inside the palace
 #     (rooms 42-53) TASK 1347 #imprisoned! throws Irvine in room 62.  TASK
 #     1348 #heal_over_time takes one damage back off and EVENT 45 [Heal Over
-#     Time] runs it every 3-6 turns.  The route arrives at the throne hall on
-#     HP 9 and finishes chapter 5 on 9.  `breathe` (one damage off a turn,
+#     Time] runs it every 3-6 turns.  `breathe` (one damage off a turn,
 #     refused unless Irvine is alone) is the only repair the player can aim,
-#     and it does work -- 9 back to a full 12 in three turns -- but the respawn
-#     lands on the fourth quiet turn wherever the player is, so topping up
-#     just hands the wave back at the wrong moment; going straight through
-#     turned out to be cheaper than healing first.
+#     and it does work -- three turns take a badly hurt Irvine back to a full
+#     12 -- but the respawn lands on the fourth quiet turn wherever the player
+#     is, so topping up just hands the wave back at the wrong moment; going
+#     straight through turned out to be cheaper than healing first, and the
+#     route never comes near the damage cap.
 # The two health-restoring objects the tasks talk about are unreachable: the
 # health pill (obj310) has no Where node at all and no action anywhere moves
 # it, so OBJLOC reports pos=-1 room=-1 for the whole game.
@@ -973,6 +1118,26 @@ plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_W
 # The chapter 6 fan-servant scene (`teach fan karate`, `give jacket to fan`,
 # `ask for help`) is optional by the PDF's own admission; it is kept because
 # the epilogue calls back to it ("Where's your coat?" / "Gave it away.").
+#
+# Chapter 5 re-derived 2026-08-24 (185 commands down to 178, everything from
+# `sweep guard` on) for the walk-precedence fix.  The old route swung twice at
+# the patrol at four separate doorways because a KO'd patrol came straight
+# back the same turn: NPC 16's WALK 1 is a one-stop follow-the-player walk
+# started by TASK 1276 #patrol_clawed, and Scarier used to run it, which is
+# what "Patrol charges after Irvine." was.  The real Runner never runs it.
+# NPC 16 also carries a WALK 2 with StartTask 0, StoppingTask 0 and no stops
+# at all, and run400's precedence scan (Proc_19_1_468DA0, walk loop
+# 4686E7-4687C3) lets a StartTask-0 walk suppress every lower-numbered walk
+# with no test of its counter and none of its stop count -- so WALK 2 pins
+# both WALK 0 and WALK 1 shut for the whole game.  That is the same shape as
+# The Fun House's bouncer, whose 18-command replay was measured live in
+# run400 under Wine and matches the fixed engine exactly; this row leans on
+# that measurement instead of one of its own, because chapter 5 is driven by
+# respawn timers that re-roll on any change of turn count, so a
+# command-for-command Wine replay of a 178-turn route proves nothing.  The
+# attribution was pinned down by construction as well: suppress the empty
+# walk's precedence and the pre-fix route reproduces the pre-fix golden byte
+# for byte, change nothing else and it does not.
 iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- MANGIASAUR (DCBSupafly, ADRIFT Spring Comp 2011).  You are a
@@ -1090,6 +1255,26 @@ cave_solution.txt|cave.taf|You scored 1000 out of the maximum 1000!
 haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!
 twilight_solution.txt|twilight.taf|Your score is 500 out of a maximum of 500
 haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
+# 3.80.  Re-blessed 2026-08-24: "Mrs Walters totters into the room." moves
+# about six lines later in the transcript -- she is announced on a later turn,
+# not lost.  Not measured under Wine (3.80 needs the Save-Transcript-at-end
+# .rtf flow); justified from run380's P-code, which decompiles far more
+# readably than run390's and says the same thing as run400:
+#   Public Sub characters() '441928
+#     loc_4412E4  counter countdown -- a PLAIN decrement, with NO 0xFF expiry
+#                 stamp (that is a 4.0-only addition)
+#     loc_441389  restart gate: ((counter < 0) Or (counter = 0 And Loop = 1))
+#                 And ok   -- i.e. a non-looping 3.8 walk never restarts
+#     loc_4413FB  For other = self+1 To NumWalks-1
+#                   If walk(other).StartTask = 0 Then ok = 0
+#                   Else If done(walk(other).StartTask)
+#                           And walk(other).counter > 0 Then ok = 0
+#                 -- note there is NO StoppingTask test at all, because 3.7
+#                 and 3.8 have no such field.  npc_walk_property() returns 0
+#                 for it there, so Scarier's single npc_walk_preempts()
+#                 already degrades to exactly this.
+# npc_tick_npc() gates the 0xFF stamp on is_400 and the restart on
+# (is_400 || npc_walk_is_loop(...)), so the 3.8 path matches line for line.
 great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!
 tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
 timmy_reid_solution.txt|tra.taf|Thanks for getting us back home!

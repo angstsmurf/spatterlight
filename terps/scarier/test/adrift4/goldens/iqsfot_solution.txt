@@ -126,43 +126,36 @@ n
 punch sentry
 n
 sweep guard
-sweep patrol
 throw patrol
 e
 punch soldier
 s
 s
-punch sentry
 s
+punch sentry
 e
 x crates
 deploy
 get key
 get key
 deploy
+throw patrol
 kick guard
-throw patrol
-throw soldier
 punch sentry
-throw patrol
+punch soldier
 w
 n
 n
 n
 n
-sweep patrol
-sweep patrol
-punch sentry
-throw soldier
 w
-kick guard
+throw patrol
+punch sentry
 n
 w
 unlock door
-sweep patrol
-sweep patrol
-punch sentry
-claw elite
+punch soldier
+kick guard
 w
 teach fan karate
 give jacket to fan

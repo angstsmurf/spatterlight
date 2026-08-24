@@ -344,7 +344,7 @@ The postal clerk takes a parcel from a bin and puts it in one of the mail
 bags.
 
 > open suitcase
-You open the suitcase.  Inside the suitcase are some wires, a bank note and a
+You open the suitcase.  Inside the suitcase is some wires, a bank note and a
 tie pin.
 
 > put coin in suitcase
@@ -523,7 +523,7 @@ The barber has obviously recognised you so you will need to act quickly.
 The barber rubs his chin.
 
 > open suitcase
-You open the suitcase.  Inside the suitcase are some wires, a bank note, a
+You open the suitcase.  Inside the suitcase is some wires, a bank note, a
 coin and a tie pin.
 
 > get note
@@ -642,7 +642,7 @@ You hand the bottle to the doctor, who taking it gives you a small silver hip
 flask.
 
 > open suitcase
-You open the suitcase.  Inside the suitcase are some wires, a coin and a tie
+You open the suitcase.  Inside the suitcase is some wires, a coin and a tie
 pin.
 
 > put flask in suitcase
@@ -691,7 +691,7 @@ dining table is a menu, a plate, a leaflet and a silver coffee pot.
 You take the silver coffee pot from the dining table.
 
 > open suitcase
-You open the suitcase.  Inside the suitcase are some wires, a coin, a silver
+You open the suitcase.  Inside the suitcase is some wires, a coin, a silver
 flask and a tie pin.
 
 > put pot in suitcase
@@ -746,7 +746,7 @@ You take the ring from the purse.
 You drop the purse.
 
 > open suitcase
-You open the suitcase.  Inside the suitcase are some wires, a coin, a silver
+You open the suitcase.  Inside the suitcase is some wires, a coin, a silver
 flask, a silver coffee pot and a tie pin.
 
 > put ring in suitcase

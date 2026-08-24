@@ -815,7 +815,7 @@ scr_dump_structure_once (scr_gameref_t game)
             scr_int loop = 0, st = 0, ct = 0, mo = 0, ot = 0, sp = 0, mc = 0;
             scr_int rc, s;
             nk[3].integer = w;
-            nk[4].string = "BLoop";       if (prop_get (bundle, "B<-sisis", &nv, nk)) loop = nv.integer;
+            nk[4].string = "Loop";       if (prop_get (bundle, "B<-sisis", &nv, nk)) loop = nv.integer;
             nk[4].string = "StartTask";   if (prop_get (bundle, "I<-sisis", &nv, nk)) st = nv.integer;
             nk[4].string = "CharTask";    if (prop_get (bundle, "I<-sisis", &nv, nk)) ct = nv.integer;
             nk[4].string = "MeetObject";  if (prop_get (bundle, "I<-sisis", &nv, nk)) mo = nv.integer;
@@ -826,14 +826,21 @@ scr_dump_structure_once (scr_gameref_t game)
                      "  WALK %ld loop=%ld startTask=%ld charTask=%ld(task%ld)"
                      " meetChar=%ld meetObj=%ld objTask=%ld(task%ld) stopTask=%ld\n",
                      w, loop, st, ct, ct - 1, mc, mo, ot, ot - 1, sp);
+            nk[4].string = "ChangedDesc";
+            fprintf (stderr, "    changeddesc [%s]\n",
+                     prop_get (bundle, "S<-sisis", &nv, nk) && nv.string
+                     ? nv.string : "");
             nk[4].string = "Rooms";
             rc = prop_get_child_count (bundle, "I<-sisis", nk);
             for (s = 0; s < rc; s++)
               {
-                scr_int rm = 0;
+                scr_int rm = 0, tm = 0;
                 nk[5].integer = s;
                 if (prop_get (bundle, "I<-sisisi", &nv, nk)) rm = nv.integer;
-                fprintf (stderr, "    step %ld dest=%ld\n", s, rm);
+                nk[4].string = "Times";
+                if (prop_get (bundle, "I<-sisisi", &nv, nk)) tm = nv.integer;
+                nk[4].string = "Rooms";
+                fprintf (stderr, "    step %ld dest=%ld times=%ld\n", s, rm, tm);
               }
           }
       }

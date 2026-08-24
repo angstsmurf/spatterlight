@@ -1529,14 +1529,6 @@ Irvine grabs the guard's pike, closes in, and trips the guard to the ground.
 
 Irvine's health recovers slightly.
 
-> sweep patrol
-Irvine grabs the patrol by his uniform, pulls him left, and then right,
-sweeping him over his foot, to the ground with a loud thud.
-
-Patrol charges after Irvine.
-
-The patrol strikes Irvine with a robotic arm.  Oof!
-
 > throw patrol
 Irvine grabs the patrol by the wrist and yanks his body off-balance, then
 sends his wrist into a clockwise spin, causing the patrol's body to follow
@@ -1570,8 +1562,6 @@ EXITS: NORTH and SOUTH.
 
 HiRBy hovers over from the north.
 
-Irvine's health recovers slightly.
-
 > s
 Irvine goes south.
 
@@ -1581,11 +1571,8 @@ A black tube runs south along the ceiling.
 EXITS: NORTH and SOUTH
 
 HiRBy hovers over from the north.
-A sentry charges in, brandishing a beam weapon!
 
-> punch sentry
-Irvine punches the sentry in the stomach, then takes him out with an
-uppercut.
+Irvine's health recovers slightly.
 
 > s
 Irvine goes south.
@@ -1596,8 +1583,11 @@ A black tube hangs on the ceiling here, running east into the next room.
 EXITS: NORTH and EAST.
 
 HiRBy hovers over from the north.
+A sentry charges in, brandishing a beam weapon!
 
-Irvine's health recovers slightly.
+> punch sentry
+Irvine punches the sentry in the stomach, then takes him out with an
+uppercut.
 
 > e
 Irvine goes east.
@@ -1614,15 +1604,11 @@ HiRBy hovers over from the west.
 Stacks of big, impenetrable crates holding who-knows-what.  Keys, maybe?  An
 important-looking key is on the giant metal crates.
 
-A patrol charges in, brandishing cyborg fists!
-
 > deploy
 Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
 pincers unfold from inside HiRBy.
 
-The patrol strikes Irvine with a robotic arm.  Oof!
-
-Irvine's health recovers slightly.
+A patrol charges in, brandishing cyborg fists!
 
 > get key
 HiRBy takes the important-looking key in its pincers.
@@ -1637,44 +1623,34 @@ Irvine presses HiRBy's deploy button.  HiRBy's arms fold back in.
 
 The patrol strikes Irvine with a robotic arm.  Oof!
 
-A guard charges in, brandishing a shock staff!
-
 A soldier charges in, brandishing an electro ray!
 
-> kick guard
-Irvine leaps and kicks the guard in the chin, then lands and takes out the
-sentry's knees.  The guard doesn't get up.
-
-The patrol strikes Irvine with a robotic arm.  Oof!
-
-The soldier shocks Irvine with an electro ray.  Ouch!
-A sentry charges in, brandishing a beam weapon!
+Irvine's health recovers slightly.
 
 > throw patrol
 Irvine grabs the patrol by the shoulders and throws him into the wall.
 
 The patrol doesn't get back up.
 
-Patrol charges after Irvine.
-
-The patrol strikes Irvine with a robotic arm.  Oof!
-
 The soldier shocks Irvine with an electro ray.  Ouch!
 
-Irvine's health recovers slightly.
+A guard charges in, brandishing a shock staff!
 
-> throw soldier
-Irvine dodges behind the soldier, grabs him from the armpit, and flips him
-over his back onto the floor.
-The sentry shoots Irvine with a beam weapon.  Eek!
+> kick guard
+Irvine leaps and kicks the guard in the chin, then lands and takes out the
+sentry's knees.  The guard doesn't get up.
 
-The patrol strikes Irvine with a robotic arm.  Oof!
+The soldier shocks Irvine with an electro ray.  Ouch!
+A sentry charges in, brandishing a beam weapon!
 
 > punch sentry
 Irvine knocks the sentry out with a simple punch-to-elbow combination.
 
-> throw patrol
-Irvine grabs the patrol and flips him easily to the floor.
+The soldier shocks Irvine with an electro ray.  Ouch!
+
+> punch soldier
+Irvine palm strikes the soldier in his furry face, knuckles him in the rib
+cage, and elbows him down to the floor, out cold.
 
 Irvine's health recovers slightly.
 
@@ -1707,6 +1683,8 @@ A black tube runs south along the ceiling.
 EXITS: NORTH and SOUTH.
 
 HiRBy hovers over from the south.
+
+Irvine's health recovers slightly.
 
 > n
 Irvine goes north.
@@ -1739,37 +1717,6 @@ EXITS: SOUTH and WEST.
 
 HiRBy hovers over from the south.
 
-A patrol charges in, brandishing cyborg fists!
-
-Irvine's health recovers slightly.
-
-> sweep patrol
-Irvine crouches low and throws a reverse heel at the patrol's ankle, knocking
-him to the floor.
-
-Patrol charges after Irvine.
-
-> sweep patrol
-Irvine shoots into a crouch and sweeps his left foot across in front of him,
-taking the patrol down.  Irvine comes back to a standing position with a back
-handspring.
-A sentry charges in, brandishing a beam weapon!
-
-> punch sentry
-Irvine palm strikes the sentry in his furry face, knuckles him in the rib
-cage, and elbows him down to the floor, out cold.
-
-A soldier charges in, brandishing an electro ray!
-
-Irvine's health recovers slightly.
-
-> throw soldier
-Irvine grabs the soldier by the wrist and yanks his body off-balance, then
-sends his wrist into a clockwise spin, causing the soldier's body to follow,
-and fall in pain.
-
-The soldier does not get back up.
-
 > w
 Irvine goes west.
 
@@ -1778,11 +1725,18 @@ EXITS: EAST and NORTH.
 
 HiRBy hovers over from the east.
 
-A guard charges in, brandishing a shock staff!
+A patrol charges in, brandishing cyborg fists!
 
-> kick guard
-Irvine kicks the guard with a one-two combination, throwing his heel hard
-into the guard's ribs, then into his temple.  The guard goes down.
+> throw patrol
+Irvine dodges behind the patrol, grabs him from the armpit, and flips him
+over his back onto the floor.
+A sentry charges in, brandishing a beam weapon!
+
+> punch sentry
+Irvine strikes the sentry in the throat with his fingers, then takes him down
+to the ground with a backhand.
+
+Irvine's health recovers slightly.
 
 > n
 Irvine goes north.
@@ -1803,38 +1757,24 @@ An elite is here, brandishing a heat gun!
 
 HiRBy hovers over from the east.
 
-A patrol charges in, brandishing cyborg fists!
-
-Irvine's health recovers slightly.
-
 > unlock door
 No wonder they both looked important.  The door opens to the west.
 
-The patrol strikes Irvine with a robotic arm.  Oof!
-
-> sweep patrol
-Irvine tangles the patrol's arms, closes in, and trips the patrol to the
-ground.
-
-Patrol charges after Irvine.
-
-The elite burns Irvine with a heat gun.  The pain...!
-
-> sweep patrol
-Irvine grabs the patrol by his uniform, pulls him left, and then right,
-sweeping him over his foot, to the ground with a loud thud.
-A sentry charges in, brandishing a beam weapon!
-
-> punch sentry
-Irvine strikes the sentry in the throat with his fingers, then takes him down
-to the ground with a backhand.
-
-> claw elite
-Irvine leaps, erupting into a secret claw attack combo!
-
-DOUBLE KA-POW!!  The elite stumbles... and falls over, defeated.
+A soldier charges in, brandishing an electro ray!
 
 Irvine's health recovers slightly.
+
+> punch soldier
+Irvine punches the soldier in the stomach, then takes him out with an
+uppercut.
+
+A guard charges in, brandishing a shock staff!
+
+> kick guard
+Irvine kicks the guard with a one-two combination, throwing his heel hard
+into the guard's ribs, then into his temple.  The guard goes down.
+
+The elite burns Irvine with a heat gun.  The pain...!
 
 > w
 Irvine goes west.
@@ -1880,14 +1820,14 @@ Irvine shows the fan how to punch and kick.
 The fan starts throwing out some goofy attacks, looking about as ridiculous
 as Irvine, but having a grand time of it.
 
+Irvine's health recovers slightly.
+
 "Just... awesome," adores the fan.
 
 > give jacket to fan
 Irvine hands his jacket over to the fan servant.
 
 The fan goes, "Yessss!" and then runs off to tell everyone about it.
-
-Irvine's health recovers slightly.
 
 > ask for help
 "Me...?"  The fan's eyes go wide.
@@ -1923,6 +1863,8 @@ sent."
 
 "I-I don't know," stammers Irvine.  "Exploring somewhere?"
 
+Irvine's health recovers slightly.
+
 > x top hat
 Sinister!
 
@@ -1930,8 +1872,6 @@ Sinister!
 growls.  "And you will fall under my command.  Surrender!"
 
 Irvine stammers.  "Have to d-do what?  I'm here about the fish..."
-
-Irvine's health recovers slightly.
 
 > x end table
 A short table, built in an ostentatious style only the rich could appreciate
@@ -1957,6 +1897,8 @@ be Space Emperor!"
 "I was counting on kidnapping Gatts on that fake exploration mission, but no
 matter.  Soon, I will declare them extinct or too endangered to save... and
 you will tell them that I actually built Dr. Voss's machine!"
+
+Irvine's health recovers slightly.
 
 > deploy
 Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
@@ -1985,8 +1927,6 @@ Fat Cat Rrasharshan laughs maniacally at his evil scheme.
 
 Okay.  Okay.  Uh.  Irvine panics!
 
-Irvine's health recovers slightly.
-
 > look
 
 ROYAL CHAMBERS
@@ -2004,6 +1944,8 @@ Rrasharshan fires a wave of focused microheat just over Irvine's head.
 
 "I'm warning you," the Fat Cat growls.  "I did not mean to miss.  You are
 next..."
+
+Irvine's health recovers slightly.
 
 > get mirror
 Irvine leans, leaps, and grabs the stylized mirror just as Fat Cat
@@ -2023,13 +1965,13 @@ The only surface to stand on in the gigantic, circular reservoir is a metal
 platform at the southern end of the room upon which stands an identical copy
 of Dr. Voss's cloning apparatus.
 
-Irvine's health recovers slightly.
-
 > x reservoir
 From its condition, there's no doubt the villainous chieftain once housed
 some sort of monster fish in here before hatching his current evil plan.  A
 tranquil Fish of Traglea and a drowsy Fish of Traglea are inside the
 reservoir.
+
+Irvine's health recovers slightly.
 
 > get drowsy fish
 Irvine scoops the drowsy Fish of Traglea out of the reservoir without a
@@ -2040,8 +1982,6 @@ He names it "Drowser."
 Irvine scoops the tranquil Fish of Traglea out of the reservoir without a
 struggle.
 He names it "Gillbert."
-
-Irvine's health recovers slightly.
 
 > s
 Irvine goes south.

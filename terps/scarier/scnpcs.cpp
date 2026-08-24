@@ -36,6 +36,18 @@
 /* Trace flag, set before running. */
 static scr_bool npc_trace = FALSE;
 
+/*
+ * The counter the 4.0 Runner stamps on a non-looping walk that has just
+ * run out; see npc_tick_npc().  The 4.0 ticker dropped the pre-4.0 "only
+ * looping walks restart" test from its restart branch, so it needs a
+ * sentinel that no longer compares greater than zero: a walk sitting on
+ * it is never decremented, never restarted, never run, and -- the part
+ * that matters for the_pk_girl -- never takes precedence over a
+ * lower-numbered walk.  In the P-code the literal is the same "&HFF"
+ * that the descending stop scan uses as its Step, i.e. -1.
+ */
+static const scr_int NPC_WALK_EXPIRED = -1;
+
 
 /*
  * npc_walk_meetobject_needs_fixup()
@@ -120,28 +132,142 @@ npc_count_in_room (scr_gameref_t game, scr_int room)
 
 
 /*
- * npc_start_npc_walk()
+ * npc_walk_property()
+ * npc_walk_is_loop()
+ * npc_walk_total_time()
  *
- * Start the given walk for the given NPC.
+ * Read a walk's properties.  npc_walk_total_time() is the Runner's
+ * "For j = 0 To NumStops - 1: counter = counter + Times(j)" loop, and is
+ * both the value a walk's counter is (re)seeded to and the largest value
+ * the stop scan can ever match.
  */
-void
-npc_start_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
+static scr_int
+npc_walk_property (scr_gameref_t game, scr_int npc, scr_int walk,
+                   const scr_char *name)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[6];
-  scr_int movetime;
+  scr_vartype_t vt_key[5];
 
-  /* Retrieve movetime 0 for the NPC walk. */
   vt_key[0].string = "NPCs";
   vt_key[1].integer = npc;
   vt_key[2].string = "Walks";
   vt_key[3].integer = walk;
-  vt_key[4].string = "MoveTimes";
-  vt_key[5].integer = 0;
-  movetime = prop_get_integer (bundle, "I<-sisisi", vt_key) + 1;
+  vt_key[4].string = name;
+  return prop_get_integer (bundle, "I<-sisis", vt_key);
+}
 
-  /* Set up walkstep. */
-  gs_set_npc_walkstep (game, npc, walk, movetime);
+static scr_bool
+npc_walk_is_loop (scr_gameref_t game, scr_int npc, scr_int walk)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5];
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Walks";
+  vt_key[3].integer = walk;
+  vt_key[4].string = "Loop";
+  return prop_get_boolean (bundle, "B<-sisis", vt_key);
+}
+
+static scr_int
+npc_walk_total_time (scr_gameref_t game, scr_int npc, scr_int walk)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[6];
+  scr_int stops, stop, total;
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Walks";
+  vt_key[3].integer = walk;
+  vt_key[4].string = "Times";
+  stops = prop_get_child_count (bundle, "I<-sisis", vt_key);
+
+  total = 0;
+  for (stop = 0; stop < stops; stop++)
+    {
+      vt_key[5].integer = stop;
+      total += prop_get_integer (bundle, "I<-sisisi", vt_key);
+    }
+  return total;
+}
+
+
+/*
+ * npc_walk_is_enabled()
+ *
+ * TRUE if a walk's tasks currently allow it to run -- the Runner's "ok"
+ * flag, before higher-numbered walks get their say.  A walk is enabled when
+ * its StartTask is absent or complete, and is disabled again by a completed
+ * StoppingTask.
+ *
+ * Note what is *not* here: the walk's counter.  Both the walk ticker
+ * (run400 468DA0, run390 45A3xx, run380 4412CA) and the room lister's
+ * changed-description pick (run400 4727FE, run390 28995) decide from the
+ * task state alone, so a walk that has run out of counter is still "the
+ * walk this NPC is on" as far as its ChangedDesc is concerned.  3.7 and 3.8
+ * have no StoppingTask; their walk schema leaves the property zero, which
+ * reads here as "no stopping task" and needs no version test.
+ */
+scr_bool
+npc_walk_is_enabled (scr_gameref_t game, scr_int npc, scr_int walk)
+{
+  scr_int starttask, stoppingtask;
+
+  starttask = npc_walk_property (game, npc, walk, "StartTask");
+  if (starttask > 0 && !gs_task_done (game, starttask - 1))
+    return FALSE;
+
+  stoppingtask = npc_walk_property (game, npc, walk, "StoppingTask");
+  if (stoppingtask > 0 && gs_task_done (game, stoppingtask - 1))
+    return FALSE;
+
+  return TRUE;
+}
+
+
+/*
+ * npc_walk_preempts()
+ *
+ * TRUE if this walk suppresses every lower-numbered walk of the same NPC.
+ *
+ * An NPC runs at most one walk at a time, and the Runner picks it with this
+ * test rather than with any notion of "the active walk": ticking walk w, it
+ * loops over w+1 .. NumWalks-1 and clears its "ok" flag if any of them
+ * preempts (run380 441411, run390 45A6xx, run400 4686E7 -- the same code in
+ * all three).  A game-start walk (StartTask 0) preempts unconditionally,
+ * even though it may be long finished or have no stops at all; a
+ * task-started walk preempts only while its counter is still running.
+ * Either way a completed StoppingTask takes the walk out of the running
+ * (3.7/3.8 have no StoppingTask and so always suppress).
+ *
+ * This is what stops "The Fun House" (4.00) walking its Bouncer: NPC 5's
+ * WALK 2 is an empty game-start walk, which silently pins WALK 1 shut for
+ * the whole game, so the bouncer never approaches the player and his
+ * meet-object task never fires.  Scarier used to test "is walk w+1 still
+ * counting down" instead, which let the empty walk expire on turn one and
+ * released the walk the Runner keeps closed.
+ */
+static scr_bool
+npc_walk_preempts (scr_gameref_t game, scr_int npc, scr_int walk)
+{
+  scr_int starttask, stoppingtask;
+
+  starttask = npc_walk_property (game, npc, walk, "StartTask");
+  if (starttask > 0)
+    {
+      if (!gs_task_done (game, starttask - 1))
+        return FALSE;
+      if (gs_npc_walkstep (game, npc, walk) <= 0)
+        return FALSE;
+    }
+
+  stoppingtask = npc_walk_property (game, npc, walk, "StoppingTask");
+  if (stoppingtask > 0 && gs_task_done (game, stoppingtask - 1))
+    return FALSE;
+
+  return TRUE;
 }
 
 
@@ -156,6 +282,15 @@ npc_start_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
  * Only the game-start (StartTask 0) case was probed live, and the corpus
  * wants the narrow rule: "deaths" (3.9) ends with a demon walked in by a
  * task-triggered one-stop walk, so those keep running.
+ *
+ * The decompiled ticker suggests a wider rule -- pre-4.0 it reseeds a spent
+ * counter only for a *looping* walk (run380 441389, run390 45A585), so on the
+ * face of it no non-looping game-start walk should ever run.  It cannot be
+ * that wide: "Melbourne Beach" (3.90) walks Judy round a six-stop
+ * non-looping game-start walk, and the game is not completable without it.
+ * Something outside the ticker therefore seeds a game-start walk, and the
+ * one live probe we have only pins down what happens with a single stop.
+ * Until that is measured, keep the narrow rule.
  */
 static scr_bool
 npc_start_walk_is_390_noop (scr_gameref_t game, scr_int npc, scr_int walk)
@@ -163,7 +298,6 @@ npc_start_walk_is_390_noop (scr_gameref_t game, scr_int npc, scr_int walk)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
   scr_int stops;
-  scr_bool is_loop;
 
   if (npc_version (game) >= TAF_VERSION_400)
     return FALSE;
@@ -174,9 +308,23 @@ npc_start_walk_is_390_noop (scr_gameref_t game, scr_int npc, scr_int walk)
   vt_key[3].integer = walk;
   vt_key[4].string = "Times";
   stops = prop_get_child_count (bundle, "I<-sisis", vt_key);
-  vt_key[4].string = "Loop";
-  is_loop = prop_get_boolean (bundle, "B<-sisis", vt_key);
-  return stops == 1 && !is_loop;
+  return stops == 1 && !npc_walk_is_loop (game, npc, walk);
+}
+
+
+/*
+ * npc_start_npc_walk()
+ *
+ * Start the given walk for the given NPC.  This is the seeding done when a
+ * walk's StartTask completes: the Runner sets the counter to one and then
+ * adds every stop's Times, so the tick later in the same turn brings it down
+ * to the walk's total and arrives at stop zero.
+ */
+void
+npc_start_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
+{
+  gs_set_npc_walkstep (game, npc, walk,
+                       npc_walk_total_time (game, npc, walk) + 1);
 }
 
 
@@ -203,33 +351,24 @@ npc_turn_update (scr_gameref_t game)
 void
 npc_setup_initial (scr_gameref_t game)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5];
-  scr_int index_;
+  scr_int npc;
 
-  /* Start any walks that do not depend on a StartTask */
-  vt_key[0].string = "NPCs";
-  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+  /*
+   * Start any walk that does not depend on a StartTask.  The Runner has no
+   * such loop in the walk ticker -- there a spent counter is reseeded only
+   * for a looping walk (pre-4.0) or unconditionally (4.0) -- so the seeding
+   * of a game-start walk happens somewhere else in it; see the note in
+   * npc_start_walk_is_390_noop() for what is measured and what is not.
+   */
+  for (npc = 0; npc < gs_npc_count (game); npc++)
     {
       scr_int walk;
 
-      /* Set up invariant parts of the properties key. */
-      vt_key[1].integer = index_;
-      vt_key[2].string = "Walks";
-
-      /* Process each walk, starting at the last and working backwards. */
-      for (walk = gs_npc_walkstep_count (game, index_) - 1; walk >= 0; walk--)
+      for (walk = gs_npc_walkstep_count (game, npc) - 1; walk >= 0; walk--)
         {
-          scr_int starttask;
-
-          /* If StartTask is zero, start walk at game start -- except for the
-           * 3.9 one-stop non-looping walks the real Runner never runs. */
-          vt_key[3].integer = walk;
-          vt_key[4].string = "StartTask";
-          starttask = prop_get_integer (bundle, "I<-sisis", vt_key);
-          if (starttask == 0
-              && !npc_start_walk_is_390_noop (game, index_, walk))
-            npc_start_npc_walk (game, index_, walk);
+          if (npc_walk_property (game, npc, walk, "StartTask") == 0
+              && !npc_start_walk_is_390_noop (game, npc, walk))
+            npc_start_npc_walk (game, npc, walk);
         }
     }
 
@@ -603,129 +742,92 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
 /*
  * npc_tick_npc()
  *
- * Move an NPC one step along current walk.
+ * Move an NPC one step along its current walk.
+ *
+ * This is a straight port of the Runner's per-NPC walk loop (run400 468DA0
+ * from loc_4685B0, and the same shape in run390 45A4AE and the readable
+ * run380 4412CA).  For each walk, in ascending order:
+ *
+ *   - decrement a running counter, and in 4.0 stamp a non-looping walk that
+ *     has just run out with 0xFF;
+ *   - work out whether the walk's tasks enable it;
+ *   - if it is enabled and its counter has run out, seed the counter with
+ *     the walk's total time -- 4.0 unconditionally, earlier Runners only for
+ *     a looping walk;
+ *   - let any higher-numbered walk preempt it;
+ *   - and if it is still enabled and counting, take the step.
+ *
+ * Ascending order matters: the precedence test reads the higher walks'
+ * counters before they are decremented this turn.
+ *
+ * The 4.0 expiry stamp is not a "walk finished" flag the Runner tests
+ * anywhere -- it is just a large counter.  It keeps the walk preempting
+ * lower ones (0xFF is greater than zero) and it keeps counting down, so a
+ * finished 4.0 walk quietly replays itself once every 256 turns as the
+ * counter descends back through the stop times.  Earlier Runners leave the
+ * counter at zero instead, and a finished walk there both stops preempting
+ * and stays finished.
  */
 static void
 npc_tick_npc (scr_gameref_t game, scr_int npc)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[6];
-  scr_int walk;
-  scr_bool has_moved = FALSE;
+  const scr_bool is_400 = npc_version (game) >= TAF_VERSION_400;
+  scr_int walk_count, walk;
 
   if (npc_trace)
     scr_trace ("NPC: ticking NPC %ld\n", npc);
 
-  /* Set up invariant key parts. */
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Walks";
-
-  /* Find active walk, and if any found, make a step along it. */
-  for (walk = gs_npc_walkstep_count (game, npc) - 1; walk >= 0; walk--)
+  walk_count = gs_npc_walkstep_count (game, npc);
+  for (walk = 0; walk < walk_count; walk++)
     {
-      scr_int starttask, stoppingtask;
+      scr_int total, other;
+      scr_bool enabled;
 
-      /* Ignore finished walks. */
-      if (gs_npc_walkstep (game, npc, walk) <= 0)
-        continue;
-
-      /* Get start task. */
-      vt_key[3].integer = walk;
-      vt_key[4].string = "StartTask";
-      starttask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
-
-      /*
-       * Check that the starter is still complete, and if not, stop walk.
-       * Then keep on looking for an active walk.
-       */
-      if (starttask >= 0 && !gs_task_done (game, starttask))
+      /* Count the walk down, and mark a finished 4.0 walk. */
+      if (gs_npc_walkstep (game, npc, walk) > 0)
         {
-          if (npc_trace)
-            scr_trace ("NPC: stopping NPC %ld walk, start task undone\n", npc);
-
-          gs_set_npc_walkstep (game, npc, walk, -1);
-          continue;
+          gs_decrement_npc_walkstep (game, npc, walk);
+          if (is_400
+              && gs_npc_walkstep (game, npc, walk) == 0
+              && !npc_walk_is_loop (game, npc, walk))
+            gs_set_npc_walkstep (game, npc, walk, NPC_WALK_EXPIRED);
         }
 
-      /* Get stopping task. */
-      vt_key[4].string = "StoppingTask";
-      stoppingtask = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
+      enabled = npc_walk_is_enabled (game, npc, walk);
 
-      /*
-       * A completed stopping task holds the walk at the top of its cycle: it
-       * neither finishes it -- un-completing the task starts it moving again
-       * -- nor merely freezes the counter where it stood.  Re-arming it every
-       * stopped turn is what reproduces run400 (probe `S` of
-       * make_400_walkprobe.py, three sessions live under Wine,
-       * RUNNER_TESTS_TODO.md section 9): with a looping two-stop walk,
-       * Times = 2 and 2, stopping the walk anywhere in the cycle and
-       * un-completing the task N turns later always yields the same thing --
-       * the walk runs a *fresh* cycle, arriving at stop 0 on the turn the task
-       * is un-completed.  Stop it with the walker away from stop 0 and
-       * "resume" prints its own text and the walker's arrival in one breath:
-       * `RESUME TASK DONE.  Bob BOB ENTERS..`.  Stop it with the walker
-       * already standing at stop 0 and that arrival is a move to where it
-       * already is, so nothing is printed and the next visible step comes two
-       * turns later -- the one-turn delay that looks like a lost tick but is
-       * the cycle starting over.
-       *
-       * Scarier used to skip the tick and leave the counter alone, which
-       * resumed mid-cycle instead.
-       */
-      if (stoppingtask >= 0 && gs_task_done (game, stoppingtask))
+      /* Restart a walk that has run out of counter. */
+      total = npc_walk_total_time (game, npc, walk);
+      if (enabled
+          && gs_npc_walkstep (game, npc, walk) == 0
+          && (is_400 || npc_walk_is_loop (game, npc, walk)))
+        gs_set_npc_walkstep (game, npc, walk, total);
+
+      /* Higher-numbered walks take precedence over this one. */
+      for (other = walk + 1; other < walk_count; other++)
         {
-          if (npc_trace)
-            scr_trace ("NPC: holding NPC %ld walk, stop task done\n", npc);
-
-          npc_start_npc_walk (game, npc, walk);
-          continue;
+          if (npc_walk_preempts (game, npc, other))
+            {
+              if (npc_trace)
+                {
+                  scr_trace ("NPC: NPC %ld walk %ld preempted by walk %ld\n",
+                            npc, walk, other);
+                }
+              enabled = FALSE;
+            }
         }
 
-      /* Decrement steps. */
-      gs_decrement_npc_walkstep (game, npc, walk);
-
-      /* If we just hit a walk end, loop if called for. */
-      if (gs_npc_walkstep (game, npc, walk) == 0)
-          {
-            scr_bool is_loop;
-
-            /* If walk is a loop, restart it. */
-            vt_key[4].string = "Loop";
-            is_loop = prop_get_boolean (bundle, "B<-sisis", vt_key);
-            if (is_loop)
-              {
-                vt_key[4].string = "MoveTimes";
-                vt_key[5].integer = 0;
-                gs_set_npc_walkstep (game, npc, walk,
-                                     prop_get_integer (bundle,
-                                                       "I<-sisisi", vt_key));
-              }
-            else
-              {
-                /*
-                 * A non-looping walk finishes silently: the Runner's counter
-                 * tick marks the walk done (0xFF) before any arrival
-                 * processing keys off it, so the expiry turn neither moves
-                 * the NPC nor re-runs the CharTask -- the final stop's
-                 * arrival already happened on an earlier turn (run400 walk
-                 * probe C, live 2026-08-01: exactly one CHARTASK, on turn 1,
-                 * nothing on turn 2; Scarier used to fire it again).
-                 */
-                gs_set_npc_walkstep (game, npc, walk, -1);
-                continue;
-              }
-          }
-
       /*
-       * If not yet made a move on this walk, make one, and once made, make
-       * no other
+       * Take the step.  The Runner's gate is just "enabled and counting",
+       * its stop scan then doing nothing at all unless the counter matches
+       * one of the stop times exactly; the extra test against the walk's
+       * total is the same thing said in advance, and keeps npc_tick_npc_walk
+       * -- which acts on more than the exact arrival tick -- away from the
+       * 0xFF expiry stamp.
        */
-      if (!has_moved)
-        {
-          npc_tick_npc_walk (game, npc, walk);
-          has_moved = TRUE;
-        }
+      if (enabled
+          && gs_npc_walkstep (game, npc, walk) > 0
+          && gs_npc_walkstep (game, npc, walk) <= total)
+        npc_tick_npc_walk (game, npc, walk);
     }
 }
 

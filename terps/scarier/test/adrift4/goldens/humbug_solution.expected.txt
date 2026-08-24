@@ -797,7 +797,7 @@ I can only move west.
 
 > X table
 The triangular display table is finely crafted from highly polished wood.  On
-the triangular table are some swimming goggles, a watch, a musket and a china
+the triangular table is some swimming goggles, a watch, a musket and a china
 doll.
 
 > Get watch
@@ -2282,7 +2282,7 @@ I can only move west.
 > X Grandad
 Grandad has always had this thing about Napoleon Bonaparte, and is dressed
 accordingly, as the first Emperor of France.  Well, at least it keeps him
-happy.  Grandad is wearing a hat, and is carrying a document.
+happy.  Grandad is wearing a hat, and carrying a document.
 
 > Get Document
 Okay.  I have taken the document from Grandad.
@@ -4416,7 +4416,7 @@ I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
 of creatures is gathered to the south, crowded around the bar.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+Grandad is sitting at one of the tables.
 
 Exits are north and south.
 
@@ -4427,7 +4427,7 @@ I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
 of creatures is gathered to the south, crowded around the bar.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+Grandad is sitting at one of the tables.
 
 Exits are north and south.
 
@@ -4438,7 +4438,7 @@ I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
 of creatures is gathered to the south, crowded around the bar.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+Grandad is sitting at one of the tables.
 
 Exits are north and south.
 
@@ -4449,7 +4449,7 @@ I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
 of creatures is gathered to the south, crowded around the bar.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+Grandad is sitting at one of the tables.
 
 Exits are north and south.
 
@@ -4460,7 +4460,7 @@ I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
 of creatures is gathered to the south, crowded around the bar.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+Grandad is sitting at one of the tables.
 
 Exits are north and south.
 
@@ -4471,7 +4471,7 @@ I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
 of creatures is gathered to the south, crowded around the bar.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+Grandad is sitting at one of the tables.
 
 Exits are north and south.
 "A voice carries through the den, although it is hard to see where it comes
@@ -4495,7 +4495,7 @@ I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
 of creatures is gathered to the south, crowded around the bar.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+Grandad is sitting at one of the tables.
 
 Exits are north and south.
 "And the winner of the third prize, the mystery package, is the holder of
@@ -4518,7 +4518,7 @@ I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
 of creatures is gathered to the south, crowded around the bar.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+Grandad is sitting at one of the tables.
 
 Exits are north and south.
 "And the top prize tonight goes to blue 5!".  Grandad jumps up and down with
@@ -4535,7 +4535,7 @@ I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
 of creatures is gathered to the south, crowded around the bar.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+Grandad is sitting at one of the tables.
 
 Exits are north and south.
 
@@ -5570,8 +5570,8 @@ Exits are north and west.
 
 > X hacker
 The hacker's name is Alex.  He looks a bit of a computer junkie.  I'd best be
-careful, they're a dangerous breed.  Alex is wearing an anorak, and is
-carrying a stanley knife.
+careful, they're a dangerous breed.  Alex is wearing an anorak, and carrying
+a stanley knife.
 
 > Give package to hacker
 The hacker smiles, "Cor thanks!  How did you know it was my birthday?".  The
@@ -5795,7 +5795,7 @@ far as I can see, in some places piled as high as small buildings.  In the
 high roof of the ceiling there is a large dark hole.
 
 Also here is a crowbar and a raspberry.
-A fairy sits on a pile of junk nearby.  She doesn't look very happy.
+A fairy sits on a pile of junk nearby.
 
 Exits are north, east, south and west.
 
@@ -6153,7 +6153,7 @@ and a biro.
 
 > X Dennis
 Dennis is a rather overweight fireman.  Dennis is wearing a uniform and a
-helmet, and is carrying a pelican.
+helmet, and carrying a pelican.
 
 > Give mug to Dennis
 Dennis takes his helmet off, "Don't mind if I do.. thanks very much."  He
@@ -6175,7 +6175,7 @@ Okay.  I tie Dennis up with the sheets.
 
 > X Dennis
 Dennis is a rather overweight fireman.  He is lying unconscious on the
-ground.  Dennis is wearing his underwear, and is carrying a mug.
+ground.  Dennis is wearing his underwear, and carrying a mug.
 
 > X underwear
 I couldn't even begin to describe Dennis's underwear.
@@ -6229,7 +6229,8 @@ creatures live down here.  A wooden chute has been built into one of the
 walls.
 
 Also here is a torch, some sheets, a biro and a form.
-Dennis the fireman is here.  The fire alarm is ringing loudly.
+Dennis the fireman lies unconscious on the ground.  The fire alarm is ringing
+loudly.
 
 Exits are east, south and west.
 
@@ -6719,7 +6720,8 @@ creatures live down here.  A wooden chute has been built into one of the
 walls.
 
 Also here are some sheets, a biro and a form.
-Dennis the fireman is here.  The fire alarm is ringing loudly.
+Dennis the fireman lies unconscious on the ground.  The fire alarm is ringing
+loudly.
 
 Exits are east, south and west.
 
@@ -6770,7 +6772,8 @@ creatures live down here.  A wooden chute has been built into one of the
 walls.
 
 Also here are some sheets, a biro and a form.
-Dennis the fireman is here.  The fire alarm is ringing loudly.
+Dennis the fireman lies unconscious on the ground.  The fire alarm is ringing
+loudly.
 
 Exits are east, south and west.
 
@@ -7663,7 +7666,8 @@ sticks up through the mud on the floor.  Through the bars I can see the
 familiar figure of Grandad.
 
 There is the end of a long chain here.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+He doesn't seem particularly bothered by his capture: he is sleeping beneath
+an ultraviolet light.  Huh, and I was so worried about him.
 
 Exits are north, east, south and west.
 

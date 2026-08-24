@@ -649,7 +649,7 @@ Something has fallen from his clothes.
 > exam tramp
 It is the body of a dead, smelly old tramp.  The dead tramp is wearing a
 filthy camel brown jacket, a pair of trainers and a pair of old corduroy
-trousers, and is carrying some artemis and a police radio.
+trousers, and carrying some artemis and a police radio.
 
 > get artemis
 As you pickup the Artemis it triggers a memory.  You hand the jar filled with

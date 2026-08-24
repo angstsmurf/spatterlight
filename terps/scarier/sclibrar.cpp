@@ -226,12 +226,26 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
 
         if (var3 == 0)
           {
+            /*
+             * No object selected.  The Runner still runs the same test, on
+             * an object it cannot find, so every "isn't ..." condition
+             * holds and every "is ..." condition fails.  SCARE's table had
+             * that right for holding (0/1) and wearing (2/3) but inverted
+             * for the same-room pair, answering FALSE to "isn't in the same
+             * room as <nothing>".  Measured in run400 on The X-Files: A New
+             * Beginning, whose Lobby (room 1) and Davis Storage Warehouse
+             * (room 8) both carry a Var2 = 4, Var3 = 0 alt -- the Runner
+             * prints "Do you have your badge?" and "You left the key back
+             * in D.C., didn't you?" on every visit, unconditionally, where
+             * SCARE printed neither ever.  Only three alts corpus-wide use
+             * Var3 = 0: those two, and one in House.taf with empty text.
+             */
             switch (var2)
               {
-              case 0: case 2: case 5:
+              case 0: case 2: case 4:
                 retval = TRUE;
                 break;
-              case 1: case 3: case 4:
+              case 1: case 3: case 5:
                 retval = FALSE;
                 break;
               default:
@@ -449,16 +463,17 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
  * prefix -- any "a"/"an"/"some" is replaced by "the" -- and with the full
  * prefix.
  *
- * "some" joined that list in 3.9.  3.7 and 3.8 normalize "a"/"an" only and
- * leave a "some" prefix exactly as the author wrote it.  Measured live on one
- * game carried across three .taf versions by the ADRIFT generators, so the
- * data is provably identical in all three: microwaveman.taf (3.80) upconverted
- * with gen390 and gen400, `take clothes` on an object whose Prefix is "some"
- * -- run380 "You pick up some aluminum clothes.", run390 "You pick up the
- * aluminum clothes.", run400 "You take the aluminum clothes."  3.70 answers
- * like 3.80: a copy of arlo.taf with the bone's "a" prefix rewritten to "some"
- * gives "You pick up some bone." in run370.  See RUNNER_TESTS_TODO.md
- * section 4.
+ * Pre-3.9 normalizes far less, and the branch below spells out exactly what
+ * Form1.tense() does instead.  "some" is the case that was measured first:
+ * it joined the normalized list in 3.9, and 3.7 and 3.8 leave a "some" prefix
+ * exactly as the author wrote it.  Measured live on one game carried across
+ * three .taf versions by the ADRIFT generators, so the data is provably
+ * identical in all three: microwaveman.taf (3.80) upconverted with gen390 and
+ * gen400, `take clothes` on an object whose Prefix is "some" -- run380 "You
+ * pick up some aluminum clothes.", run390 "You pick up the aluminum clothes.",
+ * run400 "You take the aluminum clothes."  3.70 answers like 3.80: a copy of
+ * arlo.taf with the bone's "a" prefix rewritten to "some" gives "You pick up
+ * some bone." in run370.  See RUNNER_TESTS_TODO.md section 4.
  */
 void
 lib_print_object_np (scr_gameref_t game, scr_int object)
@@ -491,7 +506,60 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
    * divergence table in RUNNER_TESTS_TODO.md, settled 2026-08-14.
    */
   normalized = prefix;
-  if (scr_compare_word (prefix, "a", 1))
+  if (prop_get_integer (bundle, "I<-s", vt_version) < TAF_VERSION_390)
+    {
+      /*
+       * Pre-3.9 is Form1.tense(), and it is a much smaller thing: three
+       * literal tests and no default (run370 @420F28, run380 @425FA8, the two
+       * byte-identical).  An exact "a" becomes "the"; a prefix opening "a " or
+       * "an " has that much replaced by "the "; anything else -- a bare "an",
+       * a "some" -- comes back untouched.  So run370 answers `take implement
+       * of destruction` with "You pick up an implement of destruction." where
+       * 3.9 and 4.0 say "the".  Measured live under Wine 2026-08-24 on
+       * arlo.taf.
+       *
+       * tense() has no empty-prefix branch either, but pre-3.9 still comes
+       * out with "the", because the empty prefix never reaches it: the .taf
+       * loader rewrites it on the way in.  run380 @4481B2 reads the Prefix
+       * line and, `If (var_3C8(0) = vbNullString) Then var_3C8(0) = "a"`,
+       * substitutes a literal "a" (run370 @43F5DA does the same; run390 and
+       * run400 have no such substitution and default in the printers
+       * instead).  So pre-3.9 an empty prefix simply *is* an "a" prefix, and
+       * both of scarier's existing defaults -- "the " here, "a " in
+       * lib_print_object below -- already fall out of it correctly.
+       *
+       * Measured live under Wine 2026-08-24 on mikes.taf (3.80) in run380,
+       * whose dresser, toilet, poop and vans all carry an empty Prefix
+       * (deobfuscated straight out of the .taf, so this is not inference):
+       * `take vans` answers "You pick up the pair of vans.", `take poop`
+       * "You take a poop from the toilet.", `take all from dresser` "You
+       * take a socks, a shirt, a underwear and a pair of pants from the
+       * dresser."  Note "a underwear" -- the substituted article is never
+       * inflected to "an", exactly as lib_print_object's own default isn't.
+       */
+      if (strcmp (prefix, "a") == 0)
+        pf_buffer_string (filter, "the ");
+      else if (strncmp (prefix, "a ", 2) == 0)
+        {
+          pf_buffer_string (filter, "the ");
+          pf_buffer_string (filter, prefix + 2);
+          pf_buffer_character (filter, ' ');
+        }
+      else if (strncmp (prefix, "an ", 3) == 0)
+        {
+          pf_buffer_string (filter, "the ");
+          pf_buffer_string (filter, prefix + 3);
+          pf_buffer_character (filter, ' ');
+        }
+      else if (scr_strempty (prefix))
+        pf_buffer_string (filter, "the ");
+      else
+        {
+          pf_buffer_string (filter, prefix);
+          pf_buffer_character (filter, ' ');
+        }
+    }
+  else if (scr_compare_word (prefix, "a", 1))
     {
       normalized = prefix + 1;
       pf_buffer_string (filter, "the");
@@ -506,8 +574,7 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
       normalized = prefix + 3;
       pf_buffer_string (filter, "the");
     }
-  else if (scr_compare_word (prefix, "some", 4)
-           && prop_get_integer (bundle, "I<-s", vt_version) >= TAF_VERSION_390)
+  else if (scr_compare_word (prefix, "some", 4))
     {
       normalized = prefix + 4;
       pf_buffer_string (filter, "the");
@@ -518,15 +585,19 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
   /*
    * If the remaining normalized prefix isn't empty, print it, and a space.
    * If it is, then consider adding a space to any "the" printed above, except
-   * for the one done for empty prefixes, that is.
+   * for the one done for empty prefixes, that is.  The pre-3.9 branch above
+   * has already emitted its own prefix and separator.
    */
-  if (!scr_strempty (normalized))
+  if (prop_get_integer (bundle, "I<-s", vt_version) >= TAF_VERSION_390)
     {
-      pf_buffer_string (filter, normalized);
-      pf_buffer_character (filter, ' ');
+      if (!scr_strempty (normalized))
+        {
+          pf_buffer_string (filter, normalized);
+          pf_buffer_character (filter, ' ');
+        }
+      else if (normalized > prefix)
+        pf_buffer_character (filter, ' ');
     }
-  else if (normalized > prefix)
-    pf_buffer_character (filter, ' ');
 
   /*
    * Print the object's name; here we also look for a leading article and
@@ -577,6 +648,40 @@ lib_print_object (scr_gameref_t game, scr_int object)
   vt_key[2].string = "Short";
   name = prop_get_string (bundle, "S<-sis", vt_key);
   pf_buffer_string (filter, name);
+}
+
+
+/*
+ * lib_print_object_raw()
+ *
+ * Print an object as the pre-3.9 "remove" handler does: the authored prefix,
+ * a space, and the name, with no normalizing and no default for an empty
+ * prefix.  run370 @42980D and run380 @42FF38 both build the message by plain
+ * concatenation, `... & " remove " & ob(0) & " " & ob(4) & "."`, where every
+ * other lister in those Runners passes the prefix through tense() first
+ * (run370 drop @430A50, run380 drop @438C3B).  3.9 unified the two: run390
+ * builds both its drop @00045B93 and its remove @00039E15 out of the same
+ * General.Sub_3_45 helper, so from 3.9 on "remove" normalizes like the rest.
+ * Measured live under Wine 2026-08-24, akron.taf (3.80) in run380: "You remove
+ * a grubby sweatshirt." and "You remove a pair of ragged jeans." where the
+ * same game in Scarier said "the".
+ */
+static void
+lib_print_object_raw (scr_gameref_t game, scr_int object)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+
+  vt_key[2].string = "Prefix";
+  pf_buffer_string (filter, prop_get_string (bundle, "S<-sis", vt_key));
+  pf_buffer_character (filter, ' ');
+
+  vt_key[2].string = "Short";
+  pf_buffer_string (filter, prop_get_string (bundle, "S<-sis", vt_key));
 }
 
 
@@ -967,10 +1072,28 @@ lib_get_npc_inroom_text (scr_gameref_t game, scr_int npc)
   vt_key[2].string = "Walks";
   walk_count = prop_get_child_count (bundle, "I<-sis", vt_key);
 
-  /* Check for any active walk with a description, return if found. */
+  /*
+   * Check for any active walk with a description, return if found.
+   *
+   * "Active" here is the walk's task state -- StartTask complete, StoppingTask
+   * not -- and nothing to do with how much counter the walk has left; the
+   * Runner's room lister looks at those two fields and the ChangedDesc, and at
+   * no counter (run400 viewroom Proc_19_63_472CA4, the NPC loop at
+   * 4727E2..472931, re-read from the P-code 2026-08-24; run390 28995; 3.7
+   * and 3.8 have no ChangedDesc at all, and their walk schema leaves it
+   * empty).  So a walk that has run its course goes on describing the NPC
+   * for the rest of the game.  In "The
+   * Fun House" (4.00) that is the difference between "The tall man is
+   * pleasant." and dropping him into the room's "... are here." sentence from
+   * turn 16 on.
+   *
+   * The Runner scans upwards and keeps overwriting, so the highest-numbered
+   * walk with a description wins; scanning down and returning is the same
+   * pick.
+   */
   for (walk = walk_count - 1; walk >= 0; walk--)
     {
-      if (gs_npc_walkstep (game, npc, walk) > 0)
+      if (npc_walk_is_enabled (game, npc, walk))
         {
           const scr_char *changeddesc;
 
@@ -1832,16 +1955,45 @@ lib_print_room_exits (scr_gameref_t game, scr_int room)
  *
  * Print out details of the player room, in brief if verbose not set and the
  * room has already been visited.
+ *
+ * The room-name heading above the description is a 3.9 feature.  It is the
+ * "showshortroom" Appearance option, and the string occurs eight times in the
+ * run390 P-code and twice in run400's, but not once in run370's or run380's --
+ * their Options -> Appearance submenu offers colours and a font size only.  So
+ * the pre-3.9 Runners print no heading at all in verbose mode, and in brief
+ * mode print the room name *with a trailing period* as the whole of the
+ * description.  Measured live under Wine 2026-08-24: arlo.taf (3.70) in
+ * run370, twenty-odd room entries with Verbose on and not one heading, then
+ * the same replay with Verbose off giving "Alice's Garden.  Horse walks
+ * towards you from the north." for a revisit; and akron.taf (3.80) in run380,
+ * 25 room entries, again no heading anywhere.
  */
 static void
 lib_describe_player_room (scr_gameref_t game, scr_bool force_verbose)
 {
-  /* Print the room name. */
-  lib_print_room_name (game, gs_playerroom (game));
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_bool is_verbose;
+
+  is_verbose = force_verbose
+               || game->verbose || !gs_room_seen (game, gs_playerroom (game));
+
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
+    lib_print_room_name (game, gs_playerroom (game));
+  else if (!is_verbose)
+    {
+      /*
+       * Pre-3.9 brief: the name, with a period, is the whole description.  No
+       * paragraph break -- the pre-3.9 room text runs on the line below the
+       * move message rather than after a blank line, "You move south." then
+       * "Alice's Garden.  Horse walks towards you from the north."
+       */
+      pf_buffer_string (filter, lib_get_room_name (game, gs_playerroom (game)));
+      pf_buffer_string (filter, ".\n");
+    }
 
   /* Print other room details if applicable. */
-  if (force_verbose
-      || game->verbose || !gs_room_seen (game, gs_playerroom (game)))
+  if (is_verbose)
     {
       /* Print room description, and objects and NPCs. */
       lib_print_room_description (game, gs_playerroom (game));
@@ -3661,10 +3813,35 @@ lib_list_npc_inventory (scr_gameref_t game, scr_int npc, scr_bool is_described)
         {
           lib_new_clause (game, is_described);
           lib_print_npc_np (game, npc);
+          pf_buffer_string (filter, " is");
         }
       else
-        pf_buffer_string (filter, ", and");
-      pf_buffer_string (filter, " is carrying ");
+        {
+          /*
+           * "... is wearing a hat, and carrying a document." -- the second
+           * clause has no subject and no second "is".  run390 and run400
+           * build it the same way: the worn-items branch sets a flag (var_AA),
+           * and the carried-items branch tests it, appending ", and" and
+           * jumping straight past the name and the " is" to " carrying "
+           * (run400 @45BA6B/45BA91/45BAA5, run390 @382E1/382FF/38311).
+           *
+           * 3.8 does repeat the subject: run380 @2CA67 appends ", and " and
+           * then falls through to its own name & " is", giving "... is
+           * wearing a hat, and Grandad is carrying a document."  (run370 has
+           * no NPC worn/carried listing at all.)  Measured on humbug.taf,
+           * 2026-08-24: run400 prints "Grandad is wearing a hat, and
+           * carrying a document."
+           */
+          if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+            {
+              pf_buffer_string (filter, ", and ");
+              lib_print_npc_np (game, npc);
+              pf_buffer_string (filter, " is");
+            }
+          else
+            pf_buffer_string (filter, ", and");
+        }
+      pf_buffer_string (filter, " carrying ");
       lib_print_list (game, list, lib_print_object, " and ");
       pf_buffer_character (filter, '.');
     }
@@ -3769,8 +3946,15 @@ lib_list_in_object_normal (scr_gameref_t game,
         pf_buffer_string (filter, "  ");
       pf_buffer_string (filter, "Inside ");
       lib_print_object_np (game, container);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, list[0], " is ", " are "));
+      /*
+       * " is ", never " are ", however plural the contents.  The Runner has
+       * an is/are helper (run400 isare(), Proc_19_69_4507BC @4507BC) and uses
+       * it for "Also here is/are", but this listing does not call it: the
+       * string is a literal, at run400 46A7C7 and run390 43E245's sibling.
+       * Measured on humbug.taf, 2026-08-24: run400 prints "On the triangular
+       * table is some swimming goggles, a watch, a musket and a china doll."
+       */
+      pf_buffer_string (filter, " is ");
       lib_print_list (game, list, lib_print_object, " and ");
       pf_buffer_character (filter, '.');
     }
@@ -3916,8 +4100,8 @@ lib_list_on_object_normal (scr_gameref_t game,
         pf_buffer_string (filter, "  ");
       pf_buffer_string (filter, "On ");
       lib_print_object_np (game, supporter);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, list[0], " is ", " are "));
+      /* " is " unconditionally -- see lib_list_in_object_normal(). */
+      pf_buffer_string (filter, " is ");
       lib_print_list (game, list, lib_print_object, " and ");
       pf_buffer_character (filter, '.');
     }
@@ -5215,6 +5399,20 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                * take the diary, the brass lantern, the woven cloak and the
                * nice food from the old oak table."  (Adrift_8.txt, measured
                * live 2026-08-22.)
+               *
+               * That multi-take exception is a 3.9 change of its own: pre-3.9
+               * the multi-take loop prints raw too, so from 3.7 to 3.8 every
+               * from-container take is raw whatever it named.  Measured live
+               * under Wine 2026-08-24 on mikes.taf (3.80) in run380, whose
+               * dresser holds four objects with EMPTY prefixes (deobfuscated
+               * from the .taf, so this is not a guess): `take all from
+               * dresser` answers "You take a socks, a shirt, a underwear and
+               * a pair of pants from the dresser."  Empty is the case that
+               * separates the two printers -- raw defaults it to "a ", the
+               * normalizing one to "the " -- and the same replay pins both
+               * halves at once, since the container itself comes out "the
+               * dresser".  3.9 normalizes the same shape: the ALEXIS `get all
+               * from table` above.
                */
               if (parent == -1)
                 pf_buffer_string (filter,
@@ -5235,8 +5433,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                                                        "%player% takes "));
               lib_print_list (game, list,
                               parent == -1 || lib_is_version_400 (game)
-                              || !(lib_take_single_named
-                                   || lib_take_from_single_named)
+                              || (prop_get_taf_version (gs_get_bundle (game))
+                                  >= TAF_VERSION_390
+                                  && !(lib_take_single_named
+                                       || lib_take_from_single_named))
                               ? lib_print_object_np : lib_print_object,
                               " and ");
               if (parent != -1)
@@ -6128,6 +6328,7 @@ typedef struct
   const scr_char *does[3];    /* "You drop ", and so on */
   const scr_char *lacks[3];   /* "You are not holding ", and so on */
   scr_char lacks_end;         /* Terminator for the "not holding" list */
+  scr_bool raw_prefix_pre_390;/* Print the authored prefix below 3.9 */
 } lib_move_verb_t;
 
 static void
@@ -6154,21 +6355,21 @@ static const lib_move_verb_t LIB_DROP_VERB = {
   lib_move_to_room, NULL,
   {"You drop ", "I drop ", "%player% drops "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
-  '.'
+  '.', FALSE
 };
 
 static const lib_move_verb_t LIB_REMOVE_VERB = {
   lib_move_to_player, NULL,
   {"You remove ", "I remove ", "%player% removes "},
   {"You are not wearing ", "I am not wearing ", "%player% is not wearing "},
-  '!'
+  '!', TRUE
 };
 
 static const lib_move_verb_t LIB_PUT_ON_VERB = {
   lib_move_onto, " onto ",
   {"You put ", "I put ", "%player% puts "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
-  '.'
+  '.', FALSE
 };
 
 
@@ -6217,6 +6418,7 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
                   scr_int target, scr_bool has_printed)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int object_count, object;
   lib_list_t list;
 
@@ -6238,7 +6440,10 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
                         verb->does[0],
                         verb->does[1],
                         verb->does[2]);
-      lib_print_list (game, list, lib_print_object_np, " and ");
+      lib_print_list (game, list,
+                      verb->raw_prefix_pre_390
+                      && prop_get_taf_version (bundle) < TAF_VERSION_390
+                      ? lib_print_object_raw : lib_print_object_np, " and ");
       if (verb->onto)
         {
           pf_buffer_string (filter, verb->onto);

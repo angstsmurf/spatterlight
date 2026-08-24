@@ -251,8 +251,8 @@ This train car provides a relaxing place to enjoy a meal.  Small tables and a
 few booths take up the space in this room.  This car also has a kitchen built
 on top of it. The passengers do not have access to the kitchen. There is a
 booth with a large table.
-Gimme Atip is here.  You take a quick look out the window and see the station
-getting larger as you approach.
+The waiter saunters over.  You take a quick look out the window and see the
+station getting larger as you approach.
 
 You can move north and south.
 

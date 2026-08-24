@@ -1969,7 +1969,15 @@ task_show_room_desc (scr_gameref_t game, scr_int task)
   if (showroomdesc == 0)
     return FALSE;
 
-  lib_print_room_name (game, showroomdesc - 1);
+  /*
+   * Pre-3.9 Runners have no room-name heading anywhere -- see the
+   * "showshortroom" note on lib_describe_player_room().  Measured on the same
+   * run380 akron.taf replay, whose task 'west' into the factory shows the room
+   * with no heading: "You step into the factory itself.  Machines clang all
+   * around you. ..."
+   */
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
+    lib_print_room_name (game, showroomdesc - 1);
   lib_print_room_description (game, showroomdesc - 1);
   /*
    * The run400 room builder appends the exits list itself when the

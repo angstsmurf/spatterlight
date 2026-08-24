@@ -122,8 +122,8 @@ You move down.
 Lobby
 This is the lobby of the J. Edgar Hoover Building.  Video monitors and long
 benches remain from the days when they used to allow visitors to tour the
-building.  Several potted plants look like they need tended to.  You can hear
-a Salvation Army volunteer ringing a bell in the street outside.
+building.  Several potted plants look like they need tended to.  Do you have
+your badge?  You might need it to get back in.
 
 You can move east, up and out.
 
@@ -239,7 +239,7 @@ You move north.
 
 Davis Storage Warehouse - Baltimore, MD
 You stand outside the garage that the warehouse key indicated.  Nothing seems
-out of place.    You can use the warehouse key to enter the building.
+out of place.  You left the key back in D.C., didn't you?
 
 You can only move south.
 
@@ -267,7 +267,7 @@ You move out.
 
 Davis Storage Warehouse - Baltimore, MD
 You stand outside the garage that the warehouse key indicated.  Nothing seems
-out of place.    You can use the warehouse key to enter the building.
+out of place.  You left the key back in D.C., didn't you?
 
 You can move south and in.
 
@@ -693,7 +693,7 @@ forgotten neighbors.  Wheelbarrows lean against the outside of this building.
 
 Also here is VW Van.
 Byers, Frohike and Skinner are here.
-Langly is here.
+Langly is here.   You notice a man sitting alone in a dark car.
 
 You can move south, in and southwest.
 
@@ -720,7 +720,7 @@ forgotten neighbors.  Wheelbarrows lean against the outside of this building.
 
 Also here is VW Van.
 Byers, Frohike and Skinner are here.
-Langly is here.
+Langly is here.   You notice a man sitting alone in a dark car.
 
 You can move south, in and southwest.
 Frohike looks to you and your companions and you all get out of the van.

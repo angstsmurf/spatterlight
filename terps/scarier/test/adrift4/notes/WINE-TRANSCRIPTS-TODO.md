@@ -1,4 +1,4 @@
-# TODO: Runner-transcript verification of the pre-4.0 walkthroughs
+# TODO: Runner-transcript verification of the v4 walkthroughs
 
 The *Professor Von Witt* exercise, generalised. That game's author walkthrough
 was replayed command-for-command in the real Windows Runner under Wine, the
@@ -9,11 +9,16 @@ plus one non-bug that cost a session (see *Verbose* below). The write-up is
 the comment block above the `professor_solution.txt` row in
 `harness/run_v4_walkthroughs.sh`; the fixes are commit `6b61f2ab`.
 
-Nothing in this file is done yet. It is the candidate list and the recipe.
+Nothing in this file is done yet, apart from Professor itself. It is the
+candidate list and the recipe.
 
-**Scope: 3.90, 3.80 and 3.70 games only.** The 4.00 pool (124 further
-seed-invariant rows) is deliberately not listed here — it is being worked
-through separately.
+**Scope: all four file versions.** The file started as a pre-4.0 list (3.90 /
+3.80 / 3.70, 66 rows); the 4.00 pool — 124 further seed-invariant rows, listed
+here since 2026-08-23 — is the larger half and is where Professor itself came
+from, so it belongs in the same list under the same recipe. The only thing
+that changes with the version is **which Runner binary to launch** (next
+section but one) and **how the transcript is captured**; the seed-invariance
+test, the Verbose/Appearance pre-flight and the diff discipline are identical.
 
 ## Why these games and not others
 
@@ -33,9 +38,15 @@ luck. Result:
 |---|---:|
 | wired v4 walkthrough rows | 303 |
 | carrying their own `SCR_SEED` / `SCR_ASSUME_COMBAT` (excluded) | 16 |
-| seed-invariant under both seeds | 190 |
-| — of those, 4.00 (out of scope here) | 124 |
-| — **of those, pre-4.0 (this file)** | **66** |
+| seed-invariant under both seeds | **190** |
+| — of those, 4.00 | 124 |
+| — of those, 3.90 | 54 |
+| — of those, 3.80 | 10 |
+| — of those, 3.70 | 2 |
+
+Re-run 2026-08-23 against the current 303-row harness: the four counts above
+reproduce exactly, so no row has drifted in or out since the list was first
+cut.
 
 The 16 excluded rows are excluded because `$ROW_ENV` is applied *after* `env`
 in `transcript()`, so a row that pins its own seed overrides the ambient
@@ -79,6 +90,47 @@ existing helper unchanged, passing the Runner as `$3`:
     cd ~/adrift-battle/runner/wine
     sh runner_transcript.sh <game.taf> <cmdfile> run390.exe
 
+⚠️ **For run400, use the `_safe` helpers instead.** run400 pops a modal
+"Cannot play sounds" alert on games that carry sound (the prefix runs with
+`mmdevapi=d` because Wine audio soft-locks the whole Mac), and that modal
+**eats one Return** — the fed command it swallows is silently lost and every
+later line lands one turn early, which reads exactly like an engine
+divergence:
+
+    sh runner_transcript_safe.sh <game.taf> <cmdfile> run400.exe
+    sh drive_ckpt_safe.sh ...        # instead of drive_ckpt.sh
+
+A startup sound alert can itself *be* the "cascaded window" a retry loop is
+chasing, so dismiss it before concluding the window stack is wrong.
+
+⚠️ **The transcript menu is dead until the game has begun.**  While the Runner
+sits on a startup "press any key" pause it is in a modal key loop and ignores
+the menu bar entirely: the click does nothing, no Save dialog appears, and
+`measure.sh` reports "Save-transcript dialog never appeared".  Count the pauses
+in the game's opening and pass that count as `measure.sh`'s 4th argument.
+`humbug` has two -- `[Press any key]` after the ASCII-art title and `<MORE>`
+after the credits -- so it needs `PRE=2`.  These are game text, so they are
+visible in the golden; count them there.
+
+⚠️ **Only ever click the menu bar** (window-relative y+43), and pick the item
+by its accelerator (`t` for "Start &Transcript").  A click into the window body
+that misses an open menu lands in the scrollback, and the Runner **copies the
+clicked word into the command entry field** -- so a missed menu click does not
+merely fail, it glues a stray word onto the next scripted command.  The menu
+cannot be driven from the keyboard alone: Alt+A is swallowed by Wine, so the
+top-level menu still needs that one click.  For the same reason
+`drive_ckpt_safe.sh` no longer clicks to focus at all by default (fronting the
+process is enough); its old hard-coded `CLICK_Y=825` was off the entry field,
+which put every focus click into the scrollback.
+
+⚠️ **Close every menu before driving.**  An open menu swallows the first typed
+command *and its Return*, so the whole replay runs one turn behind the engine --
+which in the diff is indistinguishable from an NPC-walk divergence.  On `humbug`
+that cost a 50-minute run: the only visible symptom was Schrodinger the cat
+arriving one command late, everywhere.  `drive_ckpt_safe.sh` now takes
+`FIRSTCHECK=<transcript path>` and aborts if the first command never reaches the
+game; `measure.sh` passes it.  Escape does not reliably close a Runner menu.
+
 **run380 and run370 — "Save Transcript".** No live transcript at all: the
 menu item dumps the whole scrollback *at the moment you click it* to
 `C:\adrift\Adven_<N>.rtf` and pops a "Transcript saved" MsgBox (no Save-As
@@ -111,9 +163,39 @@ Unverified: whether the scrollback dump is capped for a long session. `cave`
   the Verbose-ON Runner, and author transcripts are Verbose-ON sessions.
   Measured in run400; assumed but **not yet verified** for run390/380/370 —
   check the Options menu on the first game of each version.
-- **Tick the Appearance checkboxes.** All five default OFF and never persist.
-  "Room names in descriptions" off means no room headings at all; "References
-  in brackets" governs the `g` echo.
+- **Check, do not assume, the Appearance checkboxes.** An earlier note here
+  said "all five default OFF and never persist". Both halves are wrong, and
+  the correction is sourced twice over (2026-08-24):
+  * run400's options loader (`Proc_21_24_4747F8`, `run400.bas:89290`) reads
+    each one through `Proc_21_25_44AC08(key, default)` -- args are pushed in
+    reverse, so the byte pushed *before* the key string is the default. The
+    defaults are `Myfont` 0, `Sound` 1, `Graphics` 1, **`showbrackets` 1**,
+    `showgt` 0, **`showshortroom` 1**, `autopause` 1. So "Room names in
+    descriptions" and "References in brackets" default **ON**, not off.
+  * they *do* persist: this prefix's `pfx/user.reg` carries
+    `[Software\\VB and VBA Program Settings\\ADRIFT\\Runner]` with
+    `"showshortroom"="1"`, `"Graphics"="0"`, `"Sound"="1"`, `"Verbose"="False"`.
+    (`run390`'s `m_showshortroom_Click` is a plain `SaveSetting`.) The old
+    "nothing records it" reading was taken before anything had ever toggled
+    the box, when the key simply did not exist yet.
+  What this means in practice: room headings are **on** in this prefix, which
+  is why `measure.sh` -- which only sends Ctrl+V for Verbose and never touches
+  Appearance -- still matches Scarier's headings (FunHouse, 0/18 commands
+  differ). Verbose is the only box that really does reset every launch.
+  Read the key out of `user.reg` before a measurement rather than trusting
+  either claim.
+- **Look for randomised puzzle state before splicing a command file.**  The
+  Runner rolls its own numbers, so any walkthrough that types a combination,
+  a code or a count back at the game will break in the Runner even when the
+  engines agree perfectly.  `humbug` is the worked example: it randomises a
+  four-digit lock at game start and shows it on a slate as one roman numeral
+  (`lock1` thousands ... `lock4` units).  Scarier at `SCR_SEED=1` rolls 3446,
+  which is why the walkthrough says `Turn dial to 3/4/4/6`; run400 rolled 4937
+  on the launch that mattered.  Fed the golden's digits, the Runner's case
+  simply never opens and every later command runs against a different world.
+  Grep the `.taf` for `%var%` inside object descriptions if you are unsure --
+  humbug's slate reads
+  `The numerals read [lock1=%lock1%][lock2=%lock2%][lock3=%lock3%][lock4=%lock4%].`
 - **Fresh process per measurement.** Adventure → Restart game does not
   reliably reset NPC walk state.
 - Feed with `drive_ckpt.sh`, which echo-verifies each line. Wine mangles
@@ -128,6 +210,37 @@ Unverified: whether the scrollback dump is capped for a long session. `cave`
   then verify with `ps aux | grep -iE 'wine|\.exe'`. `pkill -f wine` alone
   matches nothing — Wine's Windows processes carry Windows command lines.
 
+## Measured so far
+
+Everything below was settled between 2026-08-02 and 2026-08-24.  The
+walkthroughs themselves were never touched; where the Runner disagreed, the
+engine changed and the golden was re-blessed, with the evidence written into
+the row's comment block in `harness/run_v4_walkthroughs.sh`.
+
+| game | version | how it was settled | outcome |
+|---|---|---|---|
+| `Professor.taf` | 4.00 | full run400 replay | the worked example; walk phase, arrival lines, presence lines |
+| `FunHouse.taf` | 4.00 | full run400 replay, 0/18 commands differ | an **empty game-start walk preempts for ever**: NPC 3 WALK 1 and NPC 5 WALK 1 stay shut all game |
+| `TheCatintheTree.taf` | 4.00 | full run400 replay | corroborates the same rule -- the boy (NPC 2 WALK 1) never arrives |
+| `humbug.taf` | 4.00 | run400 P-code, room lister `Proc_19_63_472CA4`; then a two-phase replay that reaches command 373 of 1050 | ChangedDesc pick is task-state only, ascending, non-empty wins; the partial replay added the `On X is`, `and carrying` and pronoun-echo findings below.  **Not fully replayable** -- three randomised secrets, see "Still open" |
+| `lair-of-the-cybercow.taf` | 3.90 | run390 P-code, viewroom `loc_447D1D` | same lister rule one Runner down; one line changes |
+| `great.taf` | 3.80 | run380 P-code, `characters() '441928` | no expiry stamp at all, restart needs `Loop = 1`, preempt has no StoppingTask test |
+| `maincourse`, `orient`, `xfiles`, `wamk` | 4.00 | re-blessed under the same two rules | `maincourse` lost its win marker to a faithful preemption |
+| `iqsfot.taf` | 4.00 | see the row's comment block | NPC 16 WALK 2 is an empty game-start walk with no stops; it pins the patrol shut and the game cannot be won in run400 |
+| `the_pk_girl.taf` | 4.00 | full run400 replay with a 96-command peddler hunt spliced in | the Runner WINS -- and that is what proved a finished 4.0 walk is stamped **-1**, not 255 |
+
+Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
+full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
+the Runner's stream cannot be aligned against ours command for command; for
+`humbug` it is randomised puzzle answers that the walkthrough hard-codes.  For
+those, argue from the P-code and from a short targeted probe instead.
+`the_pk_girl` looked like a fourth
+until 2026-08-24, and it is worth knowing why it was not: what blocked it was
+one randomly-placed NPC, and brute-forcing him out of the way (see
+`cmdfile_pkhunt.txt`) made the whole game replayable.  Its transcript still
+carries RNG-timed lines, so a command-for-command diff is noisy -- but the
+*outcome* lines are not noisy at all, and the outcome was the whole question.
+
 ## Candidates
 
 Sorted by NPC **walk** count first, then by length. Walks are the payload:
@@ -135,6 +248,173 @@ every Professor-class divergence found so far lived in walk phase, walk
 arrival announcements, or walker presence lines. `walks`/`NPCs`/`events` come
 from `SCR_DUMP_TASKS=1 harness/scare <game>`. `cmds` is the walkthrough
 length. Solution files are `goldens/<solution>_solution.txt`.
+
+The dump is one-shot and fires from the first task check, so it needs a turn
+to be taken: `printf 'look\nquit\ny\n' | SCR_DUMP_TASKS=1 harness/scare
+games/<game>` on stderr. Twelve of the 4.00 games open on a keypress-gated
+intro that swallows that `look` and print nothing at all — feed them their own
+solution file (with `SCR_SKIP_WAITKEY=1` where the row uses it) instead of
+concluding the game has no tasks. Counts are `^NPC `, `^  WALK ` and `^EVENT `
+lines.
+
+### 4.00 — 124 games
+
+Professor is in this table (marked **done**) so the exemplar sits next to its
+peers. 122 distinct .taf files; `Sandy.taf` and `unravel.taf` each carry two
+rows, and `sa.taf` / `sophie.taf` are the two releases of *Sophie's
+Adventure*.
+
+Shape of the pool: 29 rows author at least one walk, 88 author at least one
+event, 59 need the waitkey allowance, and the lengths are strongly bimodal —
+12 rows of 100+ commands against 52 of 20 or fewer. So there are two ways in:
+a short row to calibrate the feeder cheaply, then a long walk-rich row for
+the payload.
+
+⚠️ The `walks` column counts **authored** walks, not walks the walkthrough
+traverses, and at 4.00 that gap can be total: `To_Hell_And_Beyond` heads the
+table on 19 walks but its row is a 3-command partial that reaches Oran and
+stops, so it exercises essentially none of them. Read `walks` against `cmds`
+before picking.
+
+The four best targets, by walks x length:
+
+- `goldilocks` — 252 commands, 8 walks, 10 events. The strongest row in the
+  4.00 pool, and it strictly dominates Professor (86 / 2 / 4).
+- `sophie` (`sa.taf`) — 255 commands, 7 walks, and **73 NPCs**, far more than
+  anything else here; NPC presence lines are exactly where the Professor
+  divergences lived. `sophie_comp` (`sophie.taf`) replays the comp release of
+  the same game, so the pair also cross-checks a re-release.
+- `cibass` — 40 commands, 8 walks, 8 events. Short enough to finish in one
+  session at full walk density.
+- `vardock_bates` — 103 commands, 2 walks, waitkey; the closest structural
+  match to Professor, useful as a control.
+
+| game | solution | cmds | walks | NPCs | events | waitkey | notes |
+|---|---|---:|---:|---:|---:|---|---|
+| `To_Hell_And_Beyond.taf` | `to_hell_and_beyond` | 3 | 19 | 41 | 7 | -- | [To_Hell_And_Beyond_walkthrough](To_Hell_And_Beyond_walkthrough.md) |
+| `goldilocks.taf` | `goldilocks` | 252 | 8 | 6 | 10 | -- | [Goldilocks_walkthrough](Goldilocks_walkthrough.md) |
+| `CIBASS.taf` | `cibass` | 40 | 8 | 2 | 8 | yes | [CIBASS_walkthrough](CIBASS_walkthrough.md) |
+| `FunHouse.taf` | `funhouse` | 18 | 8 | 9 | 0 | -- | **done** 2026-08-24 -- see "Measured so far" |
+| `sa.taf` | `sophie` | 255 | 7 | 73 | 13 | yes | [Sophies_Adventure_walkthrough](Sophies_Adventure_walkthrough.md) |
+| `sophie.taf` | `sophie_comp` | 255 | 6 | 72 | 13 | yes | [Sophies_Adventure_walkthrough](Sophies_Adventure_walkthrough.md) |
+| `Oh_Human.taf` | `ohhuman` | 9 | 6 | 3 | 5 | -- | -- |
+| `TheCatintheTree.taf` | `the_cat_in_the_tree` | 8 | 5 | 4 | 1 | yes | **done** 2026-08-24 -- see "Measured so far" |
+| `Monsters_r2.taf` | `monsters` | 38 | 3 | 3 | 4 | -- | -- |
+| `The Angel the Devil and the Human.taf` | `angeldevilhuman` | 25 | 3 | 3 | 3 | -- | -- |
+| `Through time.taf` | `through_time` | 18 | 3 | 10 | 3 | -- | [Through_time_walkthrough](Through_time_walkthrough.md) |
+| `Vardock Bates.taf` | `vardock_bates` | 103 | 2 | 4 | 4 | yes | [Vardock_Bates_walkthrough](Vardock_Bates_walkthrough.md) |
+| `Professor.taf` | `professor` | 86 | 2 | 9 | 4 | -- | **done** -- the worked example |
+| `cyber2.taf` | `cyber2` | 29 | 2 | 8 | 1 | -- | [cyber2_walkthrough](cyber2_walkthrough.md) |
+| `ADRIFTMaze.taf` | `adrift_maze` | 26 | 2 | 5 | 5 | -- | [ADRIFT_Maze_walkthrough](ADRIFT_Maze_walkthrough.md) |
+| `cyber.taf` | `cyber` | 20 | 2 | 3 | 1 | -- | [Cyber_walkthrough](Cyber_walkthrough.md) |
+| `DragonShrineR43.taf` | `dragonshrine` | 136 | 1 | 1 | 7 | yes | [The_Curse_of_DragonShrine_walkthrough](The_Curse_of_DragonShrine_walkthrough.md) |
+| `BlackSheepsGold.taf` | `black_sheeps_gold` | 99 | 1 | 11 | 1 | yes | -- |
+| `QuiATueDana.taf` | `qui_a_tue_dana` | 63 | 1 | 4 | 0 | yes | -- |
+| `plunder_gargoyle.taf` | `plunder_gargoyle` | 43 | 1 | 3 | 4 | -- | [Pirates_Plunder_walkthrough](Pirates_Plunder_walkthrough.md) |
+| `demonhunter.taf` | `demonhunter` | 40 | 1 | 2 | 2 | -- | [Apprentice_of_the_Demonhunter_walkthrough](Apprentice_of_the_Demonhunter_walkthrough.md) |
+| `Invasion of the Second-Hand Shirts.taf` | `invasion_shirts` | 39 | 1 | 3 | 0 | -- | [Invasion_of_the_Second-Hand_Shirts_walkthrough](Invasion_of_the_Second-Hand_Shirts_walkthrough.md) |
+| `Imagination.taf` | `imagination` | 35 | 1 | 1 | 0 | -- | [Just_My_Imagination_walkthrough](Just_My_Imagination_walkthrough.md) |
+| `hyper_b_s.taf` | `hyper_b_s` | 34 | 1 | 2 | 1 | -- | [hyper_b_s_walkthrough](hyper_b_s_walkthrough.md) |
+| `Renegade_Brainwave.taf` | `renegade_brainwave` | 25 | 1 | 5 | 3 | -- | [Renegade_Brainwave_walkthrough](Renegade_Brainwave_walkthrough.md) |
+| `whitterscap.taf` | `whitterscap` | 21 | 1 | 3 | 4 | -- | -- |
+| `All Hallows Eve.taf` | `allhallowseve` | 16 | 1 | 4 | 0 | yes | -- |
+| `SRSintro.taf` | `srsintro` | 13 | 1 | 2 | 3 | -- | [SRSintro_walkthrough](SRSintro_walkthrough.md) |
+| `competition2006__adrift__ptgood__PTGOOD.taf` | `ptgood` | 6 | 1 | 1 | 0 | -- | -- |
+| `The Plague - Redux.taf` | `plague` | 266 | 0 | 10 | 20 | yes | [The_Plague_Redux_walkthrough](The_Plague_Redux_walkthrough.md) |
+| `vetknow.taf` | `vetknow` | 228 | 0 | 15 | 38 | yes | [Veteran_Knowledge_walkthrough](Veteran_Knowledge_walkthrough.md) |
+| `TheCellar.taf` | `cellar` | 176 | 0 | 1 | 1 | yes | [TheCellar_walkthrough](TheCellar_walkthrough.md) |
+| `mysteryofcaves.taf` | `mysteryofcaves` | 146 | 0 | 6 | 1 | yes | [mysteryofcaves_walkthrough](mysteryofcaves_walkthrough.md) |
+| `Space Boy's First Adventure.taf` | `space_boy` | 145 | 0 | 1 | 1 | -- | [Space_Boy_walkthrough](Space_Boy_walkthrough.md) |
+| `vetknow2.taf` | `vetknow2` | 141 | 0 | 15 | 38 | yes | [Veteran_Knowledge_walkthrough](Veteran_Knowledge_walkthrough.md) |
+| `shardsofmemory.taf` | `shardsofmemory` | 122 | 0 | 6 | 5 | yes | [Shards_of_Memory_walkthrough](Shards_of_Memory_walkthrough.md) |
+| `man overboard.taf` | `man_overboard` | 99 | 0 | 5 | 0 | yes | [Man_Overboard_walkthrough](Man_Overboard_walkthrough.md) |
+| `relojero.taf` | `relojero` | 88 | 0 | 0 | 2 | -- | [La_hija_del_relojero_walkthrough](La_hija_del_relojero_walkthrough.md) |
+| `salutations.taf` | `salutations` | 88 | 0 | 3 | 2 | yes | [Salutations_walkthrough](Salutations_walkthrough.md) |
+| `CBN.taf` | `cbn` | 82 | 0 | 1 | 0 | yes | [The_Revenge_Of_Clueless_Bob_Newbie_walkthrough](The_Revenge_Of_Clueless_Bob_Newbie_walkthrough.md) |
+| `forum2.taf` | `forum2` | 82 | 0 | 1 | 0 | yes | [Forum_2_walkthrough](Forum_2_walkthrough.md) |
+| `asdfa.taf` | `asdfa` | 80 | 0 | 4 | 0 | yes | [ASDFA_walkthrough](ASDFA_walkthrough.md) |
+| `mortality.taf` | `mortality` | 78 | 0 | 4 | 5 | yes | [Mortality_walkthrough](Mortality_walkthrough.md) |
+| `princess1.taf` | `princess_in_the_tower` | 78 | 0 | 4 | 1 | -- | [Princess_In_The_Tower_walkthrough](Princess_In_The_Tower_walkthrough.md) |
+| `Private Eye.taf` | `private_eye` | 74 | 0 | 0 | 0 | yes | [Private_Eye_walkthrough](Private_Eye_walkthrough.md) |
+| `AFDFR.taf` | `afdfr` | 73 | 0 | 32 | 17 | yes | [A_Fine_Day_For_Reaping_walkthrough](A_Fine_Day_For_Reaping_walkthrough.md) |
+| `chooseyourown.taf` | `chooseyourown` | 72 | 0 | 0 | 0 | yes | [chooseyourown_walkthrough](chooseyourown_walkthrough.md) |
+| `hauntedhouse.taf` | `hauntedhouse` | 72 | 0 | 4 | 1 | -- | [The_Haunted_House_of_Hideous_Horror_walkthrough](The_Haunted_House_of_Hideous_Horror_walkthrough.md) |
+| `valley.taf` | `valley` | 72 | 0 | 6 | 0 | yes | [HappyValley_walkthrough](HappyValley_walkthrough.md) |
+| `yak_shaving.taf` | `yak_shaving` | 71 | 0 | 5 | 3 | yes | [Yak_Shaving_walkthrough](Yak_Shaving_walkthrough.md) |
+| `unravel.taf` | `unraveling_god_lou` | 70 | 0 | 4 | 10 | yes | -- |
+| `unravel.taf` | `unraveling_god` | 70 | 0 | 4 | 10 | yes | -- |
+| `lobster.taf` | `lobster` | 65 | 0 | 1 | 4 | -- | -- |
+| `Tear.taf` | `Tear` | 62 | 0 | 0 | 3 | -- | [Tears_of_a_Tough_Man_walkthrough](Tears_of_a_Tough_Man_walkthrough.md) |
+| `cbn2.taf` | `cbn2` | 60 | 0 | 2 | 0 | yes | [The_Revenge_Of_Clueless_Bob_Newbie_2_walkthrough](The_Revenge_Of_Clueless_Bob_Newbie_2_walkthrough.md) |
+| `imagi.taf` | `imagidroids` | 60 | 0 | 0 | 7 | yes | [ImagiDroids_walkthrough](ImagiDroids_walkthrough.md) |
+| `saffire.taf` | `saffire` | 58 | 0 | 0 | 1 | -- | [Saffire_walkthrough](Saffire_walkthrough.md) |
+| `CD.taf` | `crimsondetritus` | 53 | 0 | 1 | 0 | yes | [CrimsonDetritus_walkthrough](CrimsonDetritus_walkthrough.md) |
+| `exercise.taf` | `too_much_exercise` | 51 | 0 | 0 | 0 | -- | [Too_Much_Exercise_walkthrough](Too_Much_Exercise_walkthrough.md) |
+| `marika.taf` | `marika` | 50 | 0 | 0 | 1 | yes | -- |
+| `second chance.taf` | `second_chance` | 50 | 0 | 23 | 9 | yes | [Second_Chance_walkthrough](Second_Chance_walkthrough.md) |
+| `Beanstalk.taf` | `beanstalk` | 49 | 0 | 3 | 1 | -- | -- |
+| `goblinhunt.taf` | `goblinhunt` | 48 | 0 | 2 | 0 | yes | [Goblin_Hunt_walkthrough](Goblin_Hunt_walkthrough.md) |
+| `shore.taf` | `shore` | 46 | 0 | 1 | 1 | -- | [The_Farthest_Shore_walkthrough](The_Farthest_Shore_walkthrough.md) |
+| `chicken.taf` | `chicken` | 45 | 0 | 2 | 0 | -- | [The_Evil_Chicken_of_Doom_walkthrough](The_Evil_Chicken_of_Doom_walkthrough.md) |
+| `buried.taf` | `buried_alive` | 43 | 0 | 1 | 1 | -- | [Buried_Alive_walkthrough](Buried_Alive_walkthrough.md) |
+| `Percy.taf` | `percy` | 41 | 0 | 1 | 1 | -- | [The_Saga_of_Percy_the_Viking_walkthrough](The_Saga_of_Percy_the_Viking_walkthrough.md) |
+| `marlin_affair.taf` | `marlin_affair` | 40 | 0 | 0 | 1 | yes | [Marlin_Affair_Prologue_walkthrough](Marlin_Affair_Prologue_walkthrough.md) |
+| `microbe_willie.taf` | `microbe_willie` | 40 | 0 | 2 | 2 | -- | [Microbe_Willie_vs_The_Rat_walkthrough](Microbe_Willie_vs_The_Rat_walkthrough.md) |
+| `pyramid.taf` | `pyramid` | 38 | 0 | 0 | 2 | yes | [The_Pyramid_of_Hamaratum_walkthrough](The_Pyramid_of_Hamaratum_walkthrough.md) |
+| `Confession(1).taf` | `confession` | 37 | 0 | 1 | 3 | yes | [Confession_walkthrough](Confession_walkthrough.md) |
+| `togetyou.taf` | `togetyou` | 34 | 0 | 1 | 8 | yes | [We_Are_Coming_To_Get_You_walkthrough](We_Are_Coming_To_Get_You_walkthrough.md) |
+| `Griswold.taf` | `griswold` | 33 | 0 | 0 | 1 | yes | [Griswold_walkthrough](Griswold_walkthrough.md) |
+| `endgame.taf` | `endgame` | 32 | 0 | 1 | 0 | -- | [The_Game_To_End_All_Games_walkthrough](The_Game_To_End_All_Games_walkthrough.md) |
+| `frog.taf` | `frog` | 27 | 0 | 3 | 0 | -- | [The_Green_Princess_walkthrough](The_Green_Princess_walkthrough.md) |
+| `SPAM.taf` | `spam` | 27 | 0 | 2 | 3 | yes | [SPAM_walkthrough](SPAM_walkthrough.md) |
+| `I am the Law.taf` | `law` | 26 | 0 | 5 | 3 | yes | [IAmTheLaw_walkthrough](IAmTheLaw_walkthrough.md) |
+| `topaz.taf` | `topaz` | 23 | 0 | 0 | 4 | yes | [Topaz_walkthrough](Topaz_walkthrough.md) |
+| `Wreckage.taf` | `wreckage` | 23 | 0 | 0 | 2 | -- | [Wreckage_walkthrough](Wreckage_walkthrough.md) |
+| `ARGH_sGreatEscape.taf` | `argh` | 22 | 0 | 0 | 1 | -- | [ARGHs_Great_Escape_walkthrough](ARGHs_Great_Escape_walkthrough.md) |
+| `ShadricksTravels.taf` | `shadricks_travels` | 22 | 0 | 3 | 0 | -- | -- |
+| `1HRGAME.taf` | `masochists_heaven` | 20 | 0 | 0 | 0 | -- | [Masochists_Heaven_walkthrough](Masochists_Heaven_walkthrough.md) |
+| `Pieces of eden.taf` | `pieces_of_eden` | 20 | 0 | 1 | 3 | -- | [Pieces_of_eden_walkthrough](Pieces_of_eden_walkthrough.md) |
+| `longbarrow.taf` | `longbarrow` | 19 | 0 | 0 | 2 | -- | -- |
+| `Vagabond.taf` | `vagabond` | 19 | 0 | 3 | 2 | yes | [Vagabond_walkthrough](Vagabond_walkthrough.md) |
+| `agent_4F[1].A.taf` | `agent4f` | 18 | 0 | 0 | 5 | -- | [Agent_4-F_from_Mars_walkthrough](Agent_4-F_from_Mars_walkthrough.md) |
+| `dancingevenhim.taf` | `dancing_even_him` | 17 | 0 | 0 | 1 | yes | -- |
+| `Undefined1.taf` | `undefined` | 17 | 0 | 0 | 0 | -- | [Undefined_walkthrough](Undefined_walkthrough.md) |
+| `outline.taf` | `outline` | 16 | 0 | 0 | 0 | -- | -- |
+| `Pilfers.taf` | `pilfers` | 16 | 0 | 0 | 1 | yes | -- |
+| `QuestI.taf` | `questi` | 16 | 0 | 0 | 1 | -- | [QuestI_walkthrough](QuestI_walkthrough.md) |
+| `raccoon.taf` | `raccoon` | 16 | 0 | 0 | 0 | yes | -- |
+| `The_Stowaway.taf` | `stowaway` | 16 | 0 | 2 | 2 | -- | -- |
+| `herrdoktor.taf` | `herrdoktor` | 15 | 0 | 0 | 1 | -- | -- |
+| `InMemory.taf` | `inmemory` | 15 | 0 | 0 | 9 | yes | [InMemory_walkthrough](InMemory_walkthrough.md) |
+| `MurderMansionntro.taf` | `murdermansionntro` | 15 | 0 | 0 | 0 | yes | -- |
+| `Sandy.taf` | `sandy` | 15 | 0 | 0 | 0 | -- | -- |
+| `shreddem.taf` | `shred_em` | 15 | 0 | 0 | 1 | -- | [Shred_Em_walkthrough](Shred_Em_walkthrough.md) |
+| `rollingthedough.taf` | `rollingthedough` | 13 | 0 | 1 | 3 | yes | -- |
+| `Witness_Demon_vs_Vampire.taf` | `witnessdemon` | 13 | 0 | 0 | 0 | yes | -- |
+| `TheAmulet.taf` | `the_amulet` | 12 | 0 | 0 | 3 | -- | -- |
+| `The Dangers of Driving at Night.taf` | `dangersdrivingnight` | 11 | 0 | 4 | 0 | yes | -- |
+| `MammothVacuum.taf` | `mammoth` | 11 | 0 | 1 | 0 | yes | [MammothVacuumButtonOfDeath_walkthrough](MammothVacuumButtonOfDeath_walkthrough.md) |
+| `headless.taf` | `headless` | 10 | 0 | 4 | 4 | yes | [TeenageHeadlessExperiment_walkthrough](TeenageHeadlessExperiment_walkthrough.md) |
+| `Sandy.taf` | `sandy_meta_number` | 10 | 0 | 0 | 0 | -- | -- |
+| `The_Shuffling_Room.taf` | `shufflingroom` | 10 | 0 | 0 | 8 | -- | -- |
+| `smote.taf` | `smote` | 9 | 0 | 0 | 0 | -- | -- |
+| `The Foggy Banana Adventure.taf` | `foggybanana` | 8 | 0 | 3 | 1 | -- | -- |
+| `The Fly Human.taf` | `flyhuman` | 7 | 0 | 0 | 3 | -- | -- |
+| `hungry.taf` | `hungry` | 7 | 0 | 2 | 1 | -- | -- |
+| `zombiecow.taf` | `zombiecow` | 7 | 0 | 0 | 2 | yes | -- |
+| `asteroid_after.taf` | `asteroidafter` | 6 | 0 | 11 | 3 | yes | -- |
+| `door.taf` | `door` | 5 | 0 | 0 | 1 | -- | [Door_walkthrough](Door_walkthrough.md) |
+| `Existence.taf` | `existence` | 5 | 0 | 1 | 1 | yes | -- |
+| `Newton.taf` | `newton` | 5 | 0 | 0 | 1 | -- | -- |
+| `Way Out.taf` | `wayout` | 5 | 0 | 0 | 0 | -- | -- |
+| `zacksmackfoot.taf` | `zacksmackfoot` | 5 | 0 | 0 | 2 | yes | -- |
+| `P2P.taf` | `p2p` | 4 | 0 | 0 | 4 | yes | -- |
+| `hiker.taf` | `hiker` | 3 | 0 | 1 | 5 | -- | -- |
+| `rift.taf` | `rift` | 3 | 0 | 0 | 1 | -- | -- |
+| `Phoneb.taf` | `phoneb` | 2 | 0 | 0 | 0 | -- | -- |
+| `ptbad.taf` | `ptbad` | 1 | 0 | 1 | 0 | -- | -- |
+| `Cut_the_Red_Wire.taf` | `redwire` | 1 | 0 | 1 | 0 | yes | [CutTheRedWire_walkthrough](CutTheRedWire_walkthrough.md) |
+| `The Vault.taf` | `vault` | 1 | 0 | 1 | 1 | -- | -- |
 
 ### 3.90 — 54 games
 
@@ -217,8 +497,10 @@ length. Solution files are `goldens/<solution>_solution.txt`.
 | `arlo.taf` | `alices_restaurant` | 85 | 11 | 9 | 9 | -- | [ADRIFT_370](ADRIFT_370.md) |
 | `castle.taf` | `castle_quest` | 17 | 0 | 1 | 0 | -- | [ADRIFT_370](ADRIFT_370.md) |
 
-`arlo.taf` is the single best target in this whole file: 11 walks in 85
-commands, and 3.70 is the least-exercised parse schema in the engine.
+`arlo.taf` is the single best target in the pre-4.0 half: 11 walks in 85
+commands, and 3.70 is the least-exercised parse schema in the engine. Across
+the whole file `goldilocks` and `sophie` (4.00) are denser, but they test a
+schema Professor has already been through — arlo tests one nothing has.
 
 ## What to do with a diff
 
@@ -232,3 +514,305 @@ Same discipline as Professor:
    walkthrough, re-bless the golden, and record the measurement that
    justifies any deliberate deviation in the row's comment block in
    `harness/run_v4_walkthroughs.sh`.
+
+## Open leads
+
+Things a measurement turned up that are **not** walk bugs and have not been
+chased yet.  Each needs its own investigation; none of them should be folded
+into a walk-related change.
+
+- **run400 refuses commands Scarier accepts** (found while replaying
+  `The_X-Files_A_New_Beginning`, 4.00, 2026-08-23).  `take knife` and
+  `take directions` get "Take what?" from run400 while Scarier takes the
+  object; `burn memo` gets "I don't understand what you want me to do with
+  The Memo."; `look at camera` gets "You see no such thing."; `knock` gets a
+  task refusal.  These are task-matching / parser divergences and they are
+  what makes that row unmeasurable by full replay.  Worth its own probe --
+  the common shape is a multi-word object name matched on a later word.
+- **Games whose transcripts carry RNG-timed lines** (`xfiles`, `wamk`) need a
+  *targeted* Runner probe rather than a full replay.  There is no harness for
+  that yet; the p4WK* probe .taf files in
+  `~/adrift-battle/runner/wine/pfx/drive_c/adrift/` were built by hand in
+  gen400 and there is no script that regenerates them.  Note that RNG-timed
+  lines do not by themselves make a game unmeasurable -- see `the_pk_girl`
+  below, where the diff is noisy but the *outcome* lines are not.
+- **A dead NPC still walks in Scarier** (read out of run400 while chasing the
+  PK Girl walk counters, 2026-08-24).  run400's walk ticker opens with
+  `Proc_19_1_468DA0` @0004685B6: `If npc.Room = &HFB Then GoTo 468D61`, i.e.
+  it skips *every* walk of an NPC whose room is 251.  251 is the battle
+  system's "dead" marker (`Battles.bas` @00044B127, right after the
+  " falls down, dead." line).  Scarier has no such marker: `battle_npc_die()`
+  in `scbattle.cpp` puts the corpse in location 0, which is "Hidden", and
+  `npc_tick_npc()` goes on ticking its walks -- so a walk can march a dead
+  NPC back into play.  A faithful fix needs a *separate* dead flag, because
+  run400 does keep ticking the walks of a merely hidden NPC (that is how a
+  hidden walker comes back); reusing location 0 for both would break that.
+  Only battle games can reach it, so it is parked rather than fixed here.
+- **FIXED 2026-08-24: "On X is", never "On X are"** (measured on `humbug`,
+  4.00, then confirmed in P-code for 3.90 as well).  run400 prints
+  "On the triangular table **is** some swimming goggles, a watch, a musket and
+  a china doll."  Scarier printed "are": `lib_list_on_object_normal()` and
+  `lib_list_in_object_normal()` in `sclibrar.cpp` chose the verb with
+  `lib_select_plurality (game, list[0], ...)` -- i.e. from the plurality of the
+  *first listed item*.  The Runner does have an is/are helper
+  (`isare`, `Proc_19_69_4507BC` @4507BC, a string heuristic on the article and
+  the noun's last letter) and calls it for "Also here is/are", but these two
+  listings do not: the verb is a literal, run400 @46A31F ("On ") and @46A7C7
+  ("Inside "), run390 @443944.  3.70 and 3.80 have no such listing at all, so
+  there is no version split.  Both sites now emit `" is "` unconditionally.
+- **FIXED 2026-08-24: "... is wearing a hat, and carrying a document."**
+  (measured on `humbug`, 4.00; P-code checked in all four Runners).  Scarier
+  printed "and **is** carrying".  `lib_list_npc_inventory()` in `sclibrar.cpp`
+  emitted `", and"` and then `" is carrying "` unconditionally; the Runner puts
+  the `" is"` in the *subject* clause, not the verb clause, so it appears only
+  when there is no preceding "wearing" clause:
+      run400 @45B901   worn count > 0  ->  var_AA = 1, "  " & np & " is wearing "
+      run400 @45BA5F   If var_AA = 1 Then  MemVar_4941B0 &= ", and" : GoTo 45BAA2
+      run400 @45BA76   Else                MemVar_4941B0 &= "  " & np & " is"
+      run400 @45BAA2                       MemVar_4941B0 &= " carrying "
+  run390 is byte-for-byte the same shape (@382E1 `", and"`, @382FF `" is"`,
+  @38311 `" carrying "`).  **3.80 differs** and repeats the whole subject:
+  @2CA67 appends `", and "` and then falls through to its own `np & " is"`,
+  giving "... is wearing a hat, and Grandad is carrying a document."  run370
+  has no NPC worn/carried listing at all (its only `" wearing "`/`" carrying "`
+  literals, @2B457/@2B5CD, are the player's own inventory).  So the fix is
+  gated at `TAF_VERSION_390`.  Corpus movers: `humbug`, `vague`, `target`
+  (all 4.00); no 3.80 golden exercises the lister, so that branch rests on the
+  P-code alone.
+
+- **run400 prints no pronoun echo** (measured on `humbug`, 4.00, 2026-08-24).
+  `Drop it` gets a bare "Okay.  I have dropped the paper aeroplane." from the
+  Runner, where Scarier prints an italic `[Drop a paper aeroplane]` line first;
+  same for `Read it`.  That echo is deliberate in `scrunner.cpp` (~line 2620) --
+  upstream SCARE echoed the rewrite for *synonyms* too, that half was removed as
+  noise "the Runner never prints", and the pronoun half was kept on the argument
+  that "it"/"her" are ambiguous and the echo is how the player learns what they
+  bound to.  The Runner does not agree.  It is a defensible deliberate
+  deviation, but it is currently undocumented and unmeasured; decide it properly
+  and either drop it or record it as `deliberate:` with this measurement.  Blast
+  radius is wide -- bracket-only lines appear in ~20 goldens (`plague` 39,
+  `cellar` 28, `provenance` 27), though some of those are game text, not echoes.
+
+- **`the_pk_girl`'s second Detainment visit** (2026-08-24).  With an identical
+  command stream the Runner prints "Laurie is standing here." where Scarier
+  prints "Laurie is in your arms."  Laurie is in the player's arms in both --
+  what differs is which alternate NPC description the room lister picks, so
+  this is the *selector*, not the walk state, and it is a different question
+  from the ChangedDesc pick that `donuts_intro`/`maincourse`/`orient_express`
+  already pin down.
+- **Timed events run a turn out of step** in `the_pk_girl` (2026-08-24), the
+  same class already noted on `orient_express`.  Of the 470 replayed commands
+  138 differ, and the great majority are an event line landing one command
+  early or late.  Nothing about the walk work touches this; it wants its own
+  measurement on a small event-heavy game.
+
+## Where the walk work stands, 2026-08-24
+
+The walk rewrite in `scnpcs.cpp` is finished and every claim in it is
+live-measured in run400.  The v4 corpus stands at **304 PASS**, all rows blessed.  Everything below is uncommitted
+on `master`.
+
+### The finding: `push &HFF 'Byte` is -1, not 255
+
+VB Decompiler renders a one-byte immediate as `push &HFF 'Byte` and the operand
+is **signed**.  P32Dasm shows the same instruction as `F4 LitI2_Byte: 255
+(True)`, and VB's `True` is -1.  The unambiguous case sits in the walk ticker
+itself: at `468805` the same opcode with the same operand is the `Step` of
+`For var_BC = (NumStops - 1) To 0`, a loop that runs at all only if the step is
+-1.  So the counter a finished non-looping 4.0 walk is stamped with at `46860B`
+is **-1**, a sentinel that compares false against every `> 0` test in the
+routine -- not a 255-turn countdown.
+
+That is the whole reason 4.0 could drop the pre-4.0 "only looping walks
+restart" test from its restart branch: a spent walk holds itself shut on -1
+instead.  Read as 255 it becomes a 256-turn cycle whose walks sit above zero
+almost permanently, and because the precedence scan runs over the
+*higher-numbered* walks, a handful of spent ones pin every lower walk shut
+forever.  Written up in `~/Adrift_decompile/README.md` and in the
+`run400 468DA0 npc_walk_tick` row of `~/Adrift_decompile/index/annotations.tsv`.
+
+### Measured, not argued
+
+- `funhouse`: 18/18 commands identical under Wine.  Pins the precedence rule --
+  run400 lets a higher-numbered walk with `StartTask 0` shut a lower one down
+  with no counter test at all (`Proc_19_1_468DA0` @4686FD-468747), even with no
+  stops to walk -- and the task-state (not counter) test in
+  `lib_get_npc_inroom_text()`.
+- `the_pk_girl`: full replay under run400, and **the Runner wins** --
+  `Congratulations! You got Katryn's ending.` / `Your Secret Letter is: E`, with
+  24 "Laurie follows you".  This is what pins the sentinel.  A prior reading of
+  the P-code had concluded the opposite (that Laurie's spent walks preempt her
+  follow walk for good and the game cannot be won in run400); the replay
+  disproved it, and the only way to make Scarier agree was -1.  The engine fix
+  cut this game's golden diff from 512 lines to 30 and restored the ending.
+- `donuts_intro`, `the_cat_in_the_tree`, `maincourse`, `orient_express`: pin the
+  room lister's task-state ChangedDesc pick.
+- `iqsfot` re-derived (185 -> 178 commands) and re-blessed.  Attribution
+  confirmed by construction: suppress the empty walk's precedence and the
+  pre-fix route reproduces the pre-fix golden byte for byte.
+- `humbug` is the only other corpus row the sentinel change moves: two hunks at
+  golden lines 6089/6095 (`Grandad stands nearby.` / `Grandad walks to the
+  south.` disappear), at command 844 of 1050.  Under Wine now.
+
+### How `the_pk_girl` was made replayable
+
+Its blocker was never the RNG-timed event lines, it was one NPC.  NPC 26 [the
+umbrella peddler] has one walk whose three stops are all the same *room group*
+(`dest=119`), so which plaza room he is in is a fresh draw each arrival, and the
+walkthrough must meet him ("give money to peddler" / "ask peddler about valley")
+to unlock the `j) Wautomec Valley` motorcycle destination.  The first replay
+stranded at the Plaza with 90 commands to go.  The fix was brute force:
+`cmdfile_pkhunt.txt` (504 lines) splices a 96-command sweep of the plaza rooms,
+retrying the meeting in each, in after feed index 308.  Run it with
+
+    cd ~/adrift-battle/runner/wine && sh measure.sh pkgirl.taf cmdfile_pkhunt.txt run400.exe 0
+
+The lesson generalises: a randomly-placed NPC is not an unmeasurable game, it is
+a search, and the search is cheap compared to arguing from P-code and getting it
+backwards.
+
+### How `humbug` was made replayable
+
+Same shape as `the_pk_girl`, different obstacle: a randomised combination
+lock rather than a randomly-placed NPC, and the answer is a **two-phase
+drive** rather than a brute-force sweep.  `measure.sh` leaves the Runner
+running when its command file is exhausted, so a second file can be driven
+into the same live process with `drive_ckpt_safe.sh` directly:
+
+    # phase A -- everything up to the first dial (solution lines 1..165)
+    sed -n '1,165p' goldens/humbug_solution.txt > ~/adrift-battle/runner/wine/cmdfile_hb_A.txt
+    cd ~/adrift-battle/runner/wine && sh measure.sh humbug.taf cmdfile_hb_A.txt run400.exe 2
+
+    # read the Runner's own slate out of the transcript and rewrite the dials
+    python3 <scratch>/hb_partb.py pfx/drive_c/adrift/Adrift_30.txt \
+        <repo>/goldens/humbug_solution.txt cmdfile_hb_B.txt
+
+    # phase B -- into the SAME pid, no relaunch
+    FIRSTCHECK=pfx/drive_c/adrift/Adrift_30.txt sh drive_ckpt_safe.sh <pid> cmdfile_hb_B.txt
+
+`hb_partb.py` parses the roman numeral after `The numerals read`, zero-pads it
+to four digits and rewrites the four `Turn dial to N` lines in walkthrough
+order (Entrance Hall, East Alcove, South Alcove, North Alcove).  Always pass
+`FIRSTCHECK` on the second drive: nothing has verified the process is at a
+prompt, and an unnoticed dropped first command puts the whole phase a turn out
+of step.
+
+### Still open
+
+- Scarier synthesizes an `NPCWalkAlert` task pair (`sctasks.cpp:1844-1873` ->
+  `npc_start_npc_walk()`) for which run400 has no counterpart; in practice it
+  only anticipates the ticker's own restart branch by a tick, so nothing in the
+  corpus depends on it.  Unresolved, not urgent.
+- Scarier has no equivalent of run400's dead-NPC walk gate; see the open lead
+  above.
+- **`humbug` is not measurable by full replay** -- it joins `xfiles` and `wamk`.
+  The two-phase splice below gets the dial combination right, but the game
+  randomises *three* secrets, not one, and the other two are unreachable the
+  same way: the magic word (command 209 `Read runes`, "Jisanajen" here vs
+  "Tedikebat" in the Runner) and the keypad code (command 344 `Read wall`,
+  "HEL3761" vs "HEL1594").  The keypad is the hard break: at command 373
+  `push button 7` the Runner answers only "Beep.  The liquid crystal display
+  flickers." with no "The metal door to my west slides open.", so command 376
+  `W` fails and the streams part for good.  A three-phase splice (dials, then
+  magic word, then keypad) would work and costs about an hour of Wine
+  wall-clock; nobody has run it.  Everything the replay *did* reach was worth
+  having -- both wording fixes above came out of commands 800/2285 -- but the
+  two `NPC_WALK_EXPIRED` lines at golden 6089/6096 sit past the break and stay
+  unmeasured here.  They are measured on `the_pk_girl` instead.
+  Also: the Grandad absence at command 843 that looked like a confirmation is
+  **not** one.  Runner and Scarier Grandad lines agree only through command
+  328; the Runner has none after that, and at command 583 `Blow trombone` it
+  answers "But I am not carrying the trombone.", so his pub sequence never
+  fired and his walk was never started.  The absence proves nothing.
+- **Three RNG-independent `humbug` divergences, found but not chased.**  All
+  three are inside the replayed prefix, so they are real and re-measurable
+  cheaply:
+  * command 217 `Put sweet on plinth` -- run400 prints "Okay.  Okay.  I put the
+    sweet on the plinth." (the "Okay." is *doubled*), Scarier prints one.
+  * command 254 `W` -- Scarier prints "(Getting off the stool first)", run400
+    prints nothing.
+  * command 321 `X Grandad` -- this was the "and is carrying" bug, now FIXED
+    (see Open leads).
+- Next candidates down the list, in order: `arlo.taf` (3.70, 11 walks / 85
+  commands -- the best pre-4.0 target, and it shows up twice in the killer-walk
+  scan), then `goldilocks`, `cibass`, `sophie`/`sa.taf`.
+
+## PARKED 2026-08-24 -- pre-3.9 wording rules, mid-flight
+
+Uncommitted in the tree: `sclibrar.cpp`, `sctasks.cpp`.  It builds
+(`sh test/adrift4/harness/build.sh`) and akron.taf is at **0 differing
+commands out of 44** against run380.  Picked up from here, the next step is
+the container-listing format below, then the 19-row re-bless.
+
+### Measured this round (Wine, three new replays)
+
+| game | .taf | Runner | transcript | state |
+|---|---|---|---|---|
+| arlo.taf | 3.70 | run370 | `Adven_5.rtf` (Verbose off), `Adven_6.rtf` (Verbose on) | 6 differing, all NPC-walk payload |
+| akron.taf | 3.80 | run380 | `Adven_7.rtf` | **0 differing / 44** |
+| mikes.taf | 3.80 | run380 | `Adven_8.rtf` | 7 differing; replay desyncs at cmd 27 |
+
+cmdfiles are `~/adrift-battle/runner/wine/cmdfile_{arlo,akron,mikes}.txt`.
+
+### Rules confirmed and already fixed in the tree
+
+1. **No room-name heading before 3.9.**  `showshortroom` occurs 8x in the
+   run390 P-code and 2x in run400's, and *zero* times in run370's or
+   run380's.  Fixed in `lib_describe_player_room()` and
+   `task_show_room_desc()`; brief mode pre-3.9 prints the room name with a
+   trailing period as the whole description.
+2. **`remove` prints the prefix raw before 3.9** (run370 @42980D, run380
+   @42FF38 concatenate; run390 routes through `General.Sub_3_45`).
+   `lib_move_verb_t::raw_prefix_pre_390`, TRUE for remove only.
+3. **`tense()` is much smaller than the 3.9 normalizer** -- run370 @420F28
+   and run380 @425FA8 are byte-identical: exact "a" -> "the", leading "a " or
+   "an " -> "the ", *nothing else*.  A bare "an" survives ("You pick up an
+   implement of destruction." on arlo), and so does "some".
+4. **An empty Prefix is not a case at all before 3.9** -- the loader
+   rewrites it.  run380 @4481B2 / run370 @43F5DA: `If (var_3C8(0) =
+   vbNullString) Then var_3C8(0) = "a"`.  So empty *is* "a", and scarier's
+   long-standing defaults ("the " normalized, "a " raw) were already right.
+   This retracts an earlier inference from tense()-has-no-default that
+   pre-3.9 emits no article; mikes.taf disproved it and the loader explains
+   why.
+5. **The from-container multi-take prints raw before 3.9.**  3.9 normalizes
+   it (ALEXIS `get all from table` -> "the diary, the brass lantern, ...");
+   run380 on mikes gives "You take a socks, a shirt, a underwear and a pair
+   of pants from the dresser."  Fixed in `lib_take_backend_common()`.
+
+### Next step, not yet done
+
+**Container listing has no alternate format before 3.9.**  scarier picks
+"<obj> is inside <cont>." for one or two contents and "Inside <cont> is
+<list>." for three or more, a rule derived from run400.  Pre-3.9 there is no
+choice to make: run370 and run380 have *only* the "  Inside " literal (run380
+@43D0B1, `"  Inside " & tense(p) & " " & short & " is " & list`), and neither
+binary contains " is inside " or " are inside " anywhere -- both strings first
+appear in run390.  Measured on mikes: `open toilet` (one content) gives
+run380 "Inside the toilet is a poop." where scarier says "A poop is inside
+the toilet.", and `look in mailbox` the same shape.  Fix
+`lib_list_in_object()` to force the normal format below TAF_VERSION_390.
+
+Then re-diff akron/arlo, re-check the 19 pre-3.9 regressions, re-bless them,
+and write the rules up in the comment block above the `akron_solution.txt`
+row in `harness/run_v4_walkthroughs.sh`.  (`/tmp/pre39_block.txt` holds an
+earlier draft of that block whose rule 3 asserts the *retracted* empty-prefix
+claim -- rewrite it from rules 1-5 above rather than pasting it.)
+
+### Open leads from this round
+
+- **arlo, NPC walk departures.**  run370 prints lines scarier omits: "Rude
+  Customer walks off.", "Alice walks off to ...", "Officer Obie walks off to
+  not moved."  This desynchronises presence state by cmd 33.
+- **arlo, `get out of bus` at the church** (cmds 37 and 64): run370 ends with
+  the task's "You are no longer in the bus." and prints no exits list;
+  scarier prints the exits and drops the task line.
+- **mikes replay desync**, for anyone re-running it: cmd 27 `take truck keys`
+  hits a disambiguation prompt ("Which keys. The mustang keys or the truck
+  keys?") that scarier resolves silently, and everything from cmd 53 on is a
+  consequence.  Only commands before 27 are evidence.
+- **Humbug via SAVE points** (user's suggestion, untried): checkpoint the
+  replay with the Runner's own `save`/`restore` so the three randomised
+  secrets -- dial combination, magic word at cmd 209, keypad code at cmd 344
+  -- can each be read out of the Runner's transcript and spliced in without
+  re-driving 1050 commands after a desync.

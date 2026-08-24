@@ -985,7 +985,7 @@ home sweet home must include, such as a couch, a coffee table, a rug, and
 wall decorations adorning the walls.  All that is lacking is the hearth.  The
 space opens up to a dining area to the south, and an area with a stairway
 east.  The front door is west.
-Laurie is waiting for you under the lamppost.
+    Laurie is standing here.
     Monika is standing here.
     Cassie is also standing here.
 
@@ -1131,7 +1131,7 @@ end.  There is a drawer beneath the counter, and several cupboards above it.
 There is also a cabinet underneath the sink.  A refrigerator that includes a
 freezer stands against the opposite wall.  The dining room is west and the
 stairway north.
-Laurie is waiting for you under the lamppost.
+    Laurie is by the stovetop cooking something.
 
     "Good morning", says Laurie cheerfully.  "I hope I didn't awaken you.  I
 was thinking you might like some hashbrowns.  They should be done soon."
@@ -1206,7 +1206,7 @@ to make mealtimes pleasant when the weather is nice, and comfortable when it
 is not.  To the north is the living room and to the east is the kitchen.
 Some chairs are pushed in around the table.  A fruit bowl serves as a
 centerpiece.  A plate is on the dining table.
-Laurie is waiting for you under the lamppost.
+    Laurie is sitting at the table.
     Cassie is sitting at the table.
 
     Laurie puts the plate of hashbrowns and egg omelette down in front of
@@ -1448,7 +1448,7 @@ end.  There is a drawer beneath the counter, and several cupboards above it.
 There is also a cabinet underneath the sink.  A refrigerator that includes a
 freezer stands against the opposite wall.  The dining room is west and the
 stairway north.  A granola bar is on the kitchen counter.
-Laurie is waiting for you under the lamppost.
+    Laurie is standing here.
     Cassie is sitting on the counter.
 
     "Petter!  Laurie, he's back."
@@ -2127,7 +2127,7 @@ has been kept clean.  Either Monika gets guests often or she simply doesn't
 need the spare room for herself.  The door is west.
 
 Also here is a foldable mattress.
-Laurie is waiting for you under the lamppost.
+    Laurie is standing here.
 
     Laurie has recently risen and is stretching her arms.  "I needed that
 nap", she confesses.
@@ -3248,7 +3248,7 @@ You open the door and enter.
 
 Detainment
     This room of average dimensions is entirely bare.  The exit is east.
-Laurie is waiting for you under the lamppost.
+    Laurie is lying on the floor.
 
     Laurie awakens immediately.  Seeing you her eyes fill with incredulous
 joy.  She gets to her feet and runs towards you, arms flung open.  You stand
@@ -3528,7 +3528,7 @@ You open the door and enter.
 
 Detainment
     This room of average dimensions is entirely bare.  The exit is east.
-Laurie is waiting for you under the lamppost.
+    Laurie is in your arms.
 
     "It's gone, Petter, the forcefield!  It's gone!"  Without waiting for a
 reply, Laurie runs directly into your arms.  "I waited for you to come back.

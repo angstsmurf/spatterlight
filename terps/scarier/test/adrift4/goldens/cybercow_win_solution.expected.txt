@@ -521,7 +521,7 @@ the foot of the hill, northeast of you, you can just make out the sign of the
 bus stop.
 
 Also here is the fairy and the bowl.
-Vluurinik flits around.
+Vluurinik darts in circles.
 It is daytime.
 
 You can only move east.
@@ -706,7 +706,7 @@ You see no such thing.
 A fine rolltop desk (not made of teak).  The rolltop desk is closed.
 
 > open desk
-You open the rolltop desk.  Inside the rolltop desk are some bills, an
+You open the rolltop desk.  Inside the rolltop desk is some bills, an
 envelope and a sticky note.
 
 > read note

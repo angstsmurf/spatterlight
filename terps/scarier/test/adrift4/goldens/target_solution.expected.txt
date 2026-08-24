@@ -83,7 +83,7 @@ It is one of those dirty, smelly, unshaven tramps who hang around the town
 and who has probably been drinking far too much. Although, it is a very odd
 place for a tramp to be and he looks a lot cleaner than you would expect.
 The tramp is wearing a pair of old corduroy trousers, a filthy camel brown
-jacket and a pair of trainers, and is carrying a bottle.
+jacket and a pair of trainers, and carrying a bottle.
 
 > throw knife at tramp
 Looking around quickly to make sure no-one else is around you take out your
@@ -96,7 +96,7 @@ You take the knife.
 > x tramp
 It is the body of a dead, smelly old tramp.  The dead tramp is wearing a pair
 of old corduroy trousers, a filthy camel brown jacket and a pair of trainers,
-and is carrying a bottle and a police radio.
+and carrying a bottle and a police radio.
 
 > get badge
 You take the badge.

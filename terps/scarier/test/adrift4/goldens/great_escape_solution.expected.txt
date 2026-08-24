@@ -290,13 +290,13 @@ address. "Okay." she says, "An ambulance will be over shortly, so stay where
 you are and try and keep the patient comfortable." You look down at the still
 form of Mrs Walter's and decide that she's pretty comfortable. You sit down
 on the food-encrusted sofa and watch the TV. About half an hour later...
-
-Mrs Walters totters into the room.
 Loud sirens awake you from your soap-apera induced slumber. The doorbell
 rings.
 
 > z
 Time passes...
+
+Mrs Walters totters into the room.
 The ambulance man charges through the door knocking you over. You pick
 yourself up and see that the ambulance man is crouched over the dead body of
 Mrs Walters. He sighs a deep sigh and says "Dammit, I'm afraid she's dead
