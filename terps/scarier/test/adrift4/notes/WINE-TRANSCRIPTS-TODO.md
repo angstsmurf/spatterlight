@@ -1438,3 +1438,75 @@ Worth measuring in the same session, since each is one command:
 - `Colony.taf` (`DispFirstRoom` **on**): the two `Take what?` hits at golden
   lines 218/222 are dynamics in a described room, so if they fail live the
   room lister's marking is wrong, not the model.
+
+## FIXED 2026-08-24 -- `where` / `find` / `locate`, from P-code alone
+
+No golden had ever run this command with an argument the Runner answers
+positively, so upstream SCARE's wording had never been checked.  It is wrong
+in four places.  Unusually, run370 and run380 decompile to readable VB here
+(`run380/run380.bas`, `where`-for-objects at @436F4F, `where`-for-characters at
+@440B3E), so the whole handler can be read rather than reconstructed, and
+run390/run400 confirm every literal.
+
+- **"<Name> is <lowercased room name>.", never "<Name> -- <Room Name>."**
+  The lowercasing is a real `LCase()` call -- `ImpAdCallFPR4 LCase()` at
+  run380 dasm @00040B94, and run400 @468143 (objects) / @47FD19 (characters).
+  The string `" -- "` occurs in **none** of the four binaries.
+  The character branch uses a literal `" is "`; the object branch calls
+  `isare()`.
+- **"is carrying", not "is holding"** for an object an NPC is holding.  The
+  carrying/wearing pair sits together at run400 @467FC1/@46802E and run380
+  @4372E6/@43736B.  "holding" was upstream's invention.
+- **The object branch drops the "that"**: `"somewhere " & person(5) &
+  " haven't been yet."` (run400 @4681B0, run380 @4375D3), where the character
+  branch of the same command says `" is somewhere that " & person(5) &
+  " haven't been yet."` (run400 @47FD89, run380 @440C11).  An inconsistency of
+  ADRIFT's own that all four Runners carry.
+- **The smart-alec clause was `#if 0`'d out** upstream.  All four Runners print
+  it when the NPC is standing in the player's room, and there is **no comma**
+  before "silly" -- the literals are `"  (Right next to "` and `" silly!)"`
+  with the perspective pronoun spliced between (run380 @00040BCE/@00040BE2,
+  run400 @47FD56/@47FD6A).
+
+`viewroom` opens by copying `room(0)` into `room(4)` (run400 @472053) before
+the alt selector runs, so run400's `room(4)` -- the field both branches read --
+is the alt-resolved name, i.e. exactly what `lib_get_room_name()` returns.  The
+new `lib_print_room_name_lower()` folds that.
+
+Corpus movers: `TheADRIFTProject` ("DARWIN is central communications core.")
+and `ticket` ("Young Girl is waiting room."), both re-blessed.  Nothing else in
+the v4 corpus reaches these handlers, so nothing else moved.  The lowercasing
+reads badly on games that name rooms in title case -- that is what the Runner
+does.
+
+### Two leads this turned up
+
+- **`isare()` is not `obj_appears_plural()`.**  The real helper decompiles
+  cleanly at run380 @428EAC:
+
+      r = " is "
+      If Left(prefix,4) = "some" And Right(name,1) = "s" Then r = " are "
+      If Right(name,1) = "s" And Mid(name, Len(name)-1, 1) <> "u" Then r = " are "
+      If prefix = "a"  Or Left(prefix,2) = "a "  Then r = " is "
+      If prefix = "an" Or Left(prefix,3) = "an " Then r = " is "
+
+  (the first test is redundant; the net rule is *plural iff the short name ends
+  in `s` not preceded by `u`, and the prefix is not an `a`/`an` article*).
+  SCARE's `obj_appears_plural()` in `scobjcts.cpp` adds a condition the Runner
+  does not have: it returns singular for an **empty** prefix, where `isare`
+  returns " are ".  Not changed here -- `obj_appears_plural()` feeds 24 call
+  sites, several of which the Runner answers with a literal rather than
+  `isare`, and VB6's default `Option Compare Binary` makes the `"a"`/`"s"`
+  tests case-sensitive in a way SCARE's `scr_compare_word()` is not.  Wants a
+  live probe on an object with a blank prefix and a plural short name before
+  anyone touches it.
+- **"<Name> is dead!"** -- run390 @459D74 and run400 @47FDB9 answer `where` for
+  a character whose room field is `&HFB` (251) with that line; run370 and
+  run380 have no such branch and no such string.  251 is the battle system's
+  corpse marker (run400 sets it at Battles.bas @44B127, right after the
+  " falls down, dead." line, and the walk ticker skips every NPC carrying it at
+  @4685B6).  Scarier has no dead marker at all -- `battle_npc_die()` hides the
+  corpse in location 0, which also means "hidden" -- so this stays with the
+  parked *dead NPC still walks* lead above.  Both want the same fix: a separate
+  dead flag, because the Runner does keep ticking the walks of a merely hidden
+  NPC.
