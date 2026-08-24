@@ -8,8 +8,6 @@ find a way back.
 
 > out
 You move out.
-
-The car lot
 The milatary car lot was directly above the lab so most of the cars and
 trucks are completely gone , or burned to the point where the engine is
 melted in . The ground is paved with black ashfalt and a fence souronds the
@@ -24,8 +22,8 @@ You can move east and in.
 You pick up the swade breifcase.
 
 > open case
-You open the swade breifcase.  150 dollars and walter ppk pistol are inside
-the swade breifcase.
+You open the swade breifcase.  Inside the swade breifcase is 150 dollars and
+walter ppk pistol.
 
 > take money
 You take 150 dollars from the swade breifcase.
@@ -42,8 +40,6 @@ as you drove to town .
 
 > east
 You move east.
-
-Main street (west)
 The street is paved and very black , there are no yellow lines along the
 middle . There is a building here , it looks like a bar or hotel .
 
@@ -51,8 +47,6 @@ You can move east, west and in.
 
 > in
 You move in.
-
-The bar
 The bar has some people around it , there is a bar tender behind the bar ,
 and a couple of stools . The bar is very ill lit with one light in the middle
 of the room .
@@ -76,8 +70,6 @@ him that he was using to contact suvivers . They would have killed you .
 
 > out
 You move out.
-
-Main street (west)
 The street is paved and very black , there are no yellow lines along the
 middle . There is a building here , it looks like a bar or hotel .
 
@@ -85,8 +77,6 @@ You can move east, west and in.
 
 > east
 You move east.
-
-Main street
 The paved street has some lights on it , and the usual yellow lines . The
 road is black and there is a concrete building in the center , the center
 building appears to be a pavilion .
@@ -95,8 +85,6 @@ You can move north, east, south, west and in.
 
 > east
 You move east.
-
-Main street (east)
 The street ends here , there is a building here , it looks like a shop of
 some sort . The road is paved black , there are street lights near the road
 and the basic yellow markers .
@@ -105,8 +93,6 @@ You can move west and in.
 
 > in
 You move in.
-
-A lock smith shop
 The lock smith is standing behind the order table , there are lots of
 machines here . The lighting is provided by two 60 watts light bulbs . There
 is also a pop machine and a couch here.
@@ -129,8 +115,6 @@ You know there must be survivers so you should leave asap.
 
 > out
 You move out.
-
-Main street (east)
 The street ends here , there is a building here , it looks like a shop of
 some sort . The road is paved black , there are street lights near the road
 and the basic yellow markers .
@@ -139,8 +123,6 @@ You can move west and in.
 
 > west
 You move west.
-
-Main street
 The paved street has some lights on it , and the usual yellow lines . The
 road is black and there is a concrete building in the center , the center
 building appears to be a pavilion .
@@ -149,8 +131,6 @@ You can move north, east, south, west and in.
 
 > north
 You move north.
-
-A small airport
 The airport has one concrete building and a paved strip for a runway .
 
 You can move south and in.
@@ -175,8 +155,6 @@ it .
 
 > west
 You move west.
-
-The entranceway
 The entranceway is very clean and the red carpet is wonderous , there are a
 set of stairs leading to the commanders office .
 

@@ -45,8 +45,6 @@ You take a small pistol from some aluminum clothes.
 
 > south
 You move south.
-
-Kitchen counter
 The kitchen, a wide and wonderful place compared to the dark isolation of the
 microwave.  There's a counter, a ceramic floor, a stove, a sink, and various
 other fixtures in a kitchen (you know what a kitchen looks like!).

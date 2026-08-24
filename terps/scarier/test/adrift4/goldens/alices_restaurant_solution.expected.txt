@@ -31,8 +31,6 @@ for your army physical a week from today.
 
 > north
 You move north.
-
-At the Church Door
 You are at a wooden gothic arched doorway.
 
 You can move east, south and out.
@@ -73,8 +71,6 @@ few moments, Facha returns, tracking in a fair ammount of dirt.
 
 > south
 You move south.
-
-In Front of the Church
 You are in front of a gothic wooden church.  The paint is peeling and the
 stained glass windows are in disrepair, but it retains much of its beauty and
 charm especially at this time of year.   Although the colors reached their
@@ -88,8 +84,6 @@ You can move north and east.
 
 > east
 You move east.
-
-Alice's Garden
 You are in Alice's garden.   Although the growing season has largely passed
 there are still some flowers and vegetables here.  The sunflowers seem to
 have toppled.  You are in Alice's garden.   The dog appears to have been
@@ -103,12 +97,10 @@ Also here is an implement of destruction.
 You can move north and west.
 
 > take implement of destruction
-You pick up the implement of destruction.
+You pick up an implement of destruction.
 
 > north
 You move north.
-
-The Stable
 You are at the stable.  Back in the days when this was an active church, it
 had room for 10 horses.  The stalls smell distinctly of manure and straw.
 In the back of the stable there is an old cabinet of some kind.
@@ -123,8 +115,6 @@ music.
 
 > south
 You move south.
-
-Alice's Garden
 You are in Alice's garden.   Although the growing season has largely passed
 there are still some flowers and vegetables here.  The sunflowers seem to
 have toppled.  You are in Alice's garden.   The dog appears to have been
@@ -142,8 +132,6 @@ Ok, you're not playing any more.
 
 > north
 You move north.
-
-The Stable
 You are at the stable.  Back in the days when this was an active church, it
 had room for 10 horses.  The stalls smell distinctly of manure and straw.
 In the back of the stable there is an old cabinet of some kind.
@@ -158,8 +146,6 @@ You have the shovel.
 
 > south
 You move south.
-
-Alice's Garden
 You are in Alice's garden.   Although the growing season has largely passed
 there are still some flowers and vegetables here.  The sunflowers seem to
 have toppled.  You are in Alice's garden.   The dog appears to have been
@@ -173,8 +159,6 @@ You can move north and west.
 
 > west
 You move west.
-
-In Front of the Church
 You are in front of a gothic wooden church.  The paint is peeling and the
 stained glass windows are in disrepair, but it retains much of its beauty and
 charm especially at this time of year.   Although the colors reached their
@@ -192,8 +176,6 @@ the direction you would like to go.
 
 > drive north
 You drive north.
-
-In front of the Town Dump
 You are in front of the Town Dump.  There are roads leading northeast, east
 and south.   You can not continue to the dump itself because there is a fence
 and a chain across the road with a sign on it that you can't quite make out
@@ -211,16 +193,12 @@ You're in the red VW microbus.
 
 > drive east
 You drive east.
-
-Parking Area
 You are in the red VW microbus in the parking area near Alice's Restaurant.
 There is a sidewalk heading to the restaurant.  The road goes to the west
 from here.
 
 > get out of bus
 You are on foot.
-
-In Front of Alice's Restaurant
 This is the front of Alice's famous restaurant.  It looks like a
 hole-in-the-wall but you're sure the inside must have a few homey touches.
 Your red VW microbus is parked nearby.   As you step towards the door, a rude
@@ -238,8 +216,6 @@ The door is open.
 
 > in
 You move in.
-
-Alice's Restaurant
 It looks like your basic diner except for a few homey decorations over the
 grill.   There are booths and a counter.  On the counter is a tray.
 
@@ -252,8 +228,6 @@ You pick up the brownie.
 
 > out
 You move out.
-
-In Front of Alice's Restaurant
 This is the front of Alice's famous restaurant.  It looks like a
 hole-in-the-wall but you're sure the inside must have a few homey touches.
 Your red VW microbus is parked nearby.   As you step towards the door, a rude
@@ -266,30 +240,22 @@ You can only move in.
 
 > get in bus
 You hop in.
-
-Parking Area
 You are in the red VW microbus in the parking area near Alice's Restaurant.
 There is a sidewalk heading to the restaurant.  The road goes to the west
 from here.
 
 > drive west
 You drive west.
-
-In front of the Town Dump
 You are in front of the Town Dump.  There are roads leading northeast, east
 and south.  The dump is closed on Thanksgiving.
 
 > drive south
 You drive south.
-
-Red VW Microbus
 You are in your red VW microbus which is parked in front of the church.  The
 road leads to the north from here.
 
 > get out of bus
 You're on foot.
-
-In Front of the Church
 You are in front of a gothic wooden church.  The paint is peeling and the
 stained glass windows are in disrepair, but it retains much of its beauty and
 charm especially at this time of year.   Although the colors reached their
@@ -303,16 +269,12 @@ You can move north and east.
 
 > north
 You move north.
-
-At the Church Door
 You are at a wooden gothic arched doorway.
 
 You can move north, east, south, in and out.
 
 > north
 You move north.
-
-The Sanctuary
 The sanctuary has a high arched roof.  A few of the stained glass windows
 have been broken, but most are still intact.  They are mostly light blue and
 depict religious scenes, chalices and lillies.  Above the door is the
@@ -341,8 +303,6 @@ half the brownie for another occasion.
 
 > west
 You move west.
-
-Beneath the Bell Tower
 You are below the bell tower.    As you look up you can see the floor of a
 small room above, but where there ought to be stairs or a ladder there is
 nothing.  Apparently they haven't got done building that part yet.
@@ -356,8 +316,6 @@ know what it is like to be a leaf in the fall.  Oh, no, except leaves fall
 down and you're floating up.  Well, sometimes leave float up, when there's an
 updraft or something.  The leaf floats up and then it drifts back and forth
 on the breeze and gently lands as you are now on the floor of the bell tower.
-
-Bell Tower
 You are in a small room that has been built in the old bell tower.  The bell
 is still here above your head.  There is a tiny square window cut into the
 wall in the middle of a round embellishment on the facade.  The room is
@@ -388,8 +346,6 @@ tower if you like.  Alice's expression says she highly recommends it.
 
 > down
 You move down.
-
-Beneath the Bell Tower
 You are below the bell tower.    They will probably repair the stairway soon.
 
 Also here is a ladder.
@@ -398,8 +354,6 @@ You can move east and up.
 
 > east
 You move east.
-
-The Sanctuary
 The sanctuary has a high arched roof.  A few of the stained glass windows
 have been broken, but most are still intact.  They are mostly light blue and
 depict religious scenes, chalices and lillies.  Above the door is the
@@ -423,8 +377,6 @@ balancing act that would impress the flying Walendas, you manage to get the
 half a ton of garbage out of the church only to discover that it is far to
 bulky to fit in your red VW microbus.  You are left standing outside the
 church, scratching your head, trying to figure out how to make it fit.
-
-In Front of the Church
 You are in front of a gothic wooden church.  The paint is peeling and the
 stained glass windows are in disrepair, but it retains much of its beauty and
 charm especially at this time of year.   Although the colors reached their
@@ -446,15 +398,11 @@ the direction you would like to go.
 
 > drive north
 You drive north.
-
-In front of the Town Dump
 You are in front of the Town Dump.  There are roads leading northeast, east
 and south.  The dump is closed on Thanksgiving.
 
 > drive northeast
 You drive northeast.
-
-Side Road
 This is a narrow side road that will soon be too narrow for you to pass.  You
 can turn around and go back by driving southwest.  Off to the east there
 seems to be a little footpath.  It can only be visited on foot.
@@ -467,8 +415,6 @@ You have the garbage.
 
 > east
 You move east.
-
-15 Foot Cliff
 Off to the side of the side road is a 15 foot cliff.    At the botton of the
 cliff is a little pile of garbage.
 
@@ -483,8 +429,6 @@ You've put that envelope under that garbage.
 
 > west
 You move west.
-
-On foot on the Side Road
 You are outside the red VW microbus on a side road.  You can walk down a
 little path to the east or get back in the bus and drive back to the south
 west.
@@ -493,23 +437,17 @@ You can only move east.
 
 > get in bus
 You're back in the red VW microbus.
-
-Side Road
 This is a narrow side road that will soon be too narrow for you to pass.  You
 can turn around and go back by driving southwest.  Off to the east there
 seems to be a little footpath.  It can only be visited on foot.
 
 > drive southwest
 You drive southwest.
-
-In front of the Town Dump
 You are in front of the Town Dump.  There are roads leading northeast, east
 and south.  The dump is closed on Thanksgiving.
 
 > drive south
 You drive south.
-
-Red VW Microbus
 You are in your red VW microbus which is parked in front of the church.  The
 road leads to the north from here.
 
@@ -517,8 +455,6 @@ You can only move east.
 
 > get out of bus
 You're on foot.
-
-In Front of the Church
 You are in front of a gothic wooden church.  The paint is peeling and the
 stained glass windows are in disrepair, but it retains much of its beauty and
 charm especially at this time of year.   Although the colors reached their
@@ -532,16 +468,12 @@ You can move north and east.
 
 > north
 You move north.
-
-At the Church Door
 You are at a wooden gothic arched doorway.
 
 You can move north, east, south, in and out.
 
 > north
 You move north.
-
-The Sanctuary
 The sanctuary has a high arched roof.  A few of the stained glass windows
 have been broken, but most are still intact.  They are mostly light blue and
 depict religious scenes, chalices and lillies.  Above the door is the
@@ -592,8 +524,6 @@ to see you back here again."
 
 > leave station
 You leave the station, prepared for your day in court.
-
-In District Court, Lee, Massachusetts
 The court room is in an old colonial building with uncomfortable wooden
 seats.
  On the fateful day Obie shows up with 27 8X10 color glossy photos with
@@ -612,8 +542,6 @@ overseeing the task, that you should only have to pick up the garbage that
 you actually put down there in the first place, but he's not buying it.  What
 a week you're having.  Two days later you have to report to Whitehall Street
 for your army physical....
-
-Whitehall Street
 This is the building where you get injected, inspected, detected, infected,
 neglected and selected.
 
@@ -625,8 +553,6 @@ paper and says, "Kid, see the psychiatrist, room 604."
 
 > north
 You move north.
-
-Hall 1
 This is a sterile military cooridor lined with doors that do not appear to be
 in any particular numerical order.
 
@@ -634,8 +560,6 @@ You can move north and south.
 
 > north
 You move north.
-
-Hall 2
 This is a sterile military cooridor lined with doors that do not appear to be
 in any particular numerical order.
 
@@ -643,8 +567,6 @@ You can move north, east and south.
 
 > north
 You move north.
-
-Hall 3
 This is a sterile military cooridor lined with doors that do not appear to be
 in any particular numerical order.
 
@@ -652,8 +574,6 @@ You can move north, east and south.
 
 > east
 You move east.
-
-Hall 8
 This is a sterile military cooridor lined with doors that do not appear to be
 in any particular numerical order.
 
@@ -661,8 +581,6 @@ You can move north, east and west.
 
 > east
 You move east.
-
-Hall 7
 This is a sterile military cooridor lined with doors that do not appear to be
 in any particular numerical order.
 
@@ -670,8 +588,6 @@ You can move north, east and south.
 
 > east
 You move east.
-
-Hall 6
 This is a sterile military cooridor lined with doors that do not appear to be
 in any particular numerical order.
 
@@ -679,8 +595,6 @@ You can move east and west.
 
 > east
 You move east.
-
-Hall 5
 This is a sterile military cooridor lined with doors that do not appear to be
 in any particular numerical order.
 
@@ -688,14 +602,10 @@ You can move north, east, south and west.
 
 > south
 You move south.
-
-Outside Room 604
 You are at a door with a sign on it that says "Room 604."
 
 > open door
 The door is now open.
-
-In Room 604.
 The room is barren except for the psychiatrist's desk.
 Psychiatrist is here.
 "Come in my boy," says the psychiatrist.  He is apparently trying to put you
@@ -721,8 +631,6 @@ story of the 27 8x10 color glossy photos with the circles and arrows... he
 stops you again and says, "Kid, I want you to go over there and sit down on
 that bench that says "Group W."
 You walk in and join Group W.
-
-The Group W Bench
 This is where they put you if you may not be moral enough to join the army
 after committing your special crime.
 There on the bench are mother rapers, father stabbers, father rapers, all

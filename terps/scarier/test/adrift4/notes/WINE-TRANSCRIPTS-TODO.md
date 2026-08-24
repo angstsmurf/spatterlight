@@ -737,82 +737,53 @@ of step.
   commands -- the best pre-4.0 target, and it shows up twice in the killer-walk
   scan), then `goldilocks`, `cibass`, `sophie`/`sa.taf`.
 
-## PARKED 2026-08-24 -- pre-3.9 wording rules, mid-flight
+## PARKED 2026-08-24 -- pre-3.9 wording rules, round one done
 
-Uncommitted in the tree: `sclibrar.cpp`, `sctasks.cpp`.  It builds
-(`sh test/adrift4/harness/build.sh`) and akron.taf is at **0 differing
-commands out of 44** against run380.  Picked up from here, the next step is
-the container-listing format below, then the 19-row re-bless.
+The pre-3.9 round is finished and committed; the suite is **304/304 PASS**
+with all nineteen pre-3.9 rows re-blessed.  The five rules, their P-code
+evidence and the retracted empty-prefix inference are written up in the
+comment block above the `akron_solution.txt` row in
+`harness/run_v4_walkthroughs.sh`, which is the place to read them.  What is
+left here is what is still *open*.
 
 ### Measured this round (Wine, three new replays)
 
 | game | .taf | Runner | transcript | state |
 |---|---|---|---|---|
-| arlo.taf | 3.70 | run370 | `Adven_5.rtf` (Verbose off), `Adven_6.rtf` (Verbose on) | 6 differing, all NPC-walk payload |
+| arlo.taf | 3.70 | run370 | `Adven_5.rtf` (Verbose off), `Adven_6.rtf` (Verbose on) | 6 differing of 84, all NPC-walk payload |
 | akron.taf | 3.80 | run380 | `Adven_7.rtf` | **0 differing / 44** |
-| mikes.taf | 3.80 | run380 | `Adven_8.rtf` | 7 differing; replay desyncs at cmd 27 |
+| mikes.taf | 3.80 | run380 | `Adven_8.rtf` | 5 differing of 103, all downstream of one desync |
 
 cmdfiles are `~/adrift-battle/runner/wine/cmdfile_{arlo,akron,mikes}.txt`.
+akron is the first pre-3.9 game to match the real Runner byte for byte.
 
-### Rules confirmed and already fixed in the tree
-
-1. **No room-name heading before 3.9.**  `showshortroom` occurs 8x in the
-   run390 P-code and 2x in run400's, and *zero* times in run370's or
-   run380's.  Fixed in `lib_describe_player_room()` and
-   `task_show_room_desc()`; brief mode pre-3.9 prints the room name with a
-   trailing period as the whole description.
-2. **`remove` prints the prefix raw before 3.9** (run370 @42980D, run380
-   @42FF38 concatenate; run390 routes through `General.Sub_3_45`).
-   `lib_move_verb_t::raw_prefix_pre_390`, TRUE for remove only.
-3. **`tense()` is much smaller than the 3.9 normalizer** -- run370 @420F28
-   and run380 @425FA8 are byte-identical: exact "a" -> "the", leading "a " or
-   "an " -> "the ", *nothing else*.  A bare "an" survives ("You pick up an
-   implement of destruction." on arlo), and so does "some".
-4. **An empty Prefix is not a case at all before 3.9** -- the loader
-   rewrites it.  run380 @4481B2 / run370 @43F5DA: `If (var_3C8(0) =
-   vbNullString) Then var_3C8(0) = "a"`.  So empty *is* "a", and scarier's
-   long-standing defaults ("the " normalized, "a " raw) were already right.
-   This retracts an earlier inference from tense()-has-no-default that
-   pre-3.9 emits no article; mikes.taf disproved it and the loader explains
-   why.
-5. **The from-container multi-take prints raw before 3.9.**  3.9 normalizes
-   it (ALEXIS `get all from table` -> "the diary, the brass lantern, ...");
-   run380 on mikes gives "You take a socks, a shirt, a underwear and a pair
-   of pants from the dresser."  Fixed in `lib_take_backend_common()`.
-
-### Next step, not yet done
-
-**Container listing has no alternate format before 3.9.**  scarier picks
-"<obj> is inside <cont>." for one or two contents and "Inside <cont> is
-<list>." for three or more, a rule derived from run400.  Pre-3.9 there is no
-choice to make: run370 and run380 have *only* the "  Inside " literal (run380
-@43D0B1, `"  Inside " & tense(p) & " " & short & " is " & list`), and neither
-binary contains " is inside " or " are inside " anywhere -- both strings first
-appear in run390.  Measured on mikes: `open toilet` (one content) gives
-run380 "Inside the toilet is a poop." where scarier says "A poop is inside
-the toilet.", and `look in mailbox` the same shape.  Fix
-`lib_list_in_object()` to force the normal format below TAF_VERSION_390.
-
-Then re-diff akron/arlo, re-check the 19 pre-3.9 regressions, re-bless them,
-and write the rules up in the comment block above the `akron_solution.txt`
-row in `harness/run_v4_walkthroughs.sh`.  (`/tmp/pre39_block.txt` holds an
-earlier draft of that block whose rule 3 asserts the *retracted* empty-prefix
-claim -- rewrite it from rules 1-5 above rather than pasting it.)
-
-### Open leads from this round
+### Open leads
 
 - **arlo, NPC walk departures.**  run370 prints lines scarier omits: "Rude
   Customer walks off.", "Alice walks off to ...", "Officer Obie walks off to
-  not moved."  This desynchronises presence state by cmd 33.
+  not moved."  This desynchronises presence state by cmd 33, and accounts for
+  four of arlo's six differing commands.  `scnpcs.cpp` was partly reworked
+  while chasing this (per-stop `Times` summed instead of `MoveTimes[0]`, and
+  an is-enabled test over StartTask/StoppingTask) but the departure lines
+  themselves are not implemented.
 - **arlo, `get out of bus` at the church** (cmds 37 and 64): run370 ends with
   the task's "You are no longer in the bus." and prints no exits list;
   scarier prints the exits and drops the task line.
 - **mikes replay desync**, for anyone re-running it: cmd 27 `take truck keys`
   hits a disambiguation prompt ("Which keys. The mustang keys or the truck
   keys?") that scarier resolves silently, and everything from cmd 53 on is a
-  consequence.  Only commands before 27 are evidence.
+  consequence.  Only commands before 27 are evidence.  Worth a second look on
+  its own account -- the disambiguation itself is a real divergence.
 - **Humbug via SAVE points** (user's suggestion, untried): checkpoint the
   replay with the Runner's own `save`/`restore` so the three randomised
   secrets -- dial combination, magic word at cmd 209, keypad code at cmd 344
   -- can each be read out of the Runner's transcript and spliced in without
   re-driving 1050 commands after a desync.
+- **Two logged-but-unchased humbug divergences:** cmd 217 `Put sweet on
+  plinth` (run400 doubles "Okay."), cmd 254 `W` (scarier adds "(Getting off
+  the stool first)").
+- **The pronoun-echo lead** still needs a decision -- remove it, or mark it
+  `deliberate:` with the measurement.  It affects about twenty goldens.
+- **Next candidates** down the list: `goldilocks`, `cibass`, `sophie`/`sa.taf`.
+  With the pre-3.9 pool now clean, the remaining 3.90 and 4.00 candidates are
+  where the next divergences will come from.

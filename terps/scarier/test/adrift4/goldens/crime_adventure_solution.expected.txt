@@ -11,62 +11,44 @@ You are in a dirty, old arcade with a few decent machines.
 
 > south
 You move south.
-
-Sidewalk infront of arcade
 A car comes screeching around the corner! Someone jumps out and grabs Mrs
 Fenwick out of the telephone booth near the arcade and drives off! A arcade
 token dispenser is here.
 
 > south
 You move south.
-
-Gravel Parking lot
 Gravel Parking lot
 
 Also here is an advertisement.
 
 > south
 You move south.
-
-Concrete parking lot
 Concrete parking lot
 
 > south
 You move south.
-
-In the middle of a street
 In the middle of a street
 
 > south
 You move south.
-
-On the sidewalk infront of the Fenwick house
 On the sidewalk infront of the Fenwick house
 
 > west
 You move west.
-
-West corner
 On the west corner of the Fenwick house
 
 > west
 You move west.
-
-North-south street
 In the middle of a north-south street
 
 > west
 You move west.
-
-Parking lot behind restaurant
 In the parking lot behind the restaurant
 
 Also here is a shovel.
 
 > west
 You move west.
-
-Restaurant
 In a restaurant
 
 Also here is a fortune cookie.
@@ -81,56 +63,40 @@ will then be in a underground world"
 
 > east
 You move east.
-
-Parking lot behind restaurant
 In the parking lot behind the restaurant
 
 Also here is a shovel.
 
 > east
 You move east.
-
-North-south street
 In the middle of a north-south street
 
 > east
 You move east.
-
-West corner
 On the west corner of the Fenwick house
 
 > east
 You move east.
-
-On the sidewalk infront of the Fenwick house
 On the sidewalk infront of the Fenwick house
 
 > south
 You move south.
-
-Stoop
 On the porch of the Fenwick house
 
 > south
 You move south.
-
-Foyer
 In the Foyer of the Fenwick house
 
 Also here is a hat.
 
 > west
 You move west.
-
-Hallway
 In the hallway of the Fenwick house
 
 Also here is a picture.
 
 > west
 You move west.
-
-Master bedroom
 In the master bedroom of the Fenwick house
 
 Also here is a diary.
@@ -142,16 +108,12 @@ stew tonight."
 
 > east
 You move east.
-
-Hallway
 In the hallway of the Fenwick house
 
 Also here is a picture.
 
 > north
 You move north.
-
-Spare bedroom
 In spare bedroom of Fenwicks house. There is a dresser here.
 
 > open dresser
@@ -165,71 +127,53 @@ You take a golf ball from the dresser.
 
 > south
 You move south.
-
-Hallway
 In the hallway of the Fenwick house
 
 Also here is a picture.
 
 > east
 You move east.
-
-Foyer
 In the Foyer of the Fenwick house
 
 Also here is a hat.
 
 > north
 You move north.
-
-Stoop
 On the porch of the Fenwick house
 
 > north
 You move north.
-
-On the sidewalk infront of the Fenwick house
 On the sidewalk infront of the Fenwick house
 
 > north
 You move north.
-
-In the middle of a street
 In the middle of a street
 
 > north
 You move north.
-
-Concrete parking lot
 Concrete parking lot
 
 > north
 You move north.
-
-Gravel Parking lot
 Gravel Parking lot
 
 Also here is an advertisement.
 
 > north
 You move north.
-
-Sidewalk infront of arcade
 A car comes screeching around the corner! Someone jumps out and grabs Mrs
 Fenwick out of the telephone booth near the arcade and drives off! A arcade
 token dispenser is here.
 
 > north
 You move north.
-
-Arcade
 You are in a dirty, old arcade with a few decent machines including a Casino
 machine.
 
 Also here is a casino.
 
 > x casino
-A cash is inside the casino.
+Inside the casino is a cash.
 
 > use penny on machine
 You put the penny in the machine and give the lever a pull. All of a sudden
@@ -243,22 +187,16 @@ You take a cash from the casino.
 
 > south
 You move south.
-
-Sidewalk infront of arcade
 A car comes screeching around the corner! Someone jumps out and grabs Mrs
 Fenwick out of the telephone booth near the arcade and drives off! A arcade
 token dispenser is here.
 
 > east
 You move east.
-
-On sidewalk infront of shoe store
 On sidewalk infront of shoe store
 
 > north
 You move north.
-
-Shoe Store
 In the shoe store.
 
 Also here is a pair of golf shoes.
@@ -271,89 +209,65 @@ checkout.
 You wear the golf shoes
 
 > remove shoes
-You remove the pair of golf shoes.
+You remove a pair of golf shoes.
 
 > wear golf shoes
 You wear the golf shoes
 
 > south
 You move south.
-
-On sidewalk infront of shoe store
 On sidewalk infront of shoe store
 
 > west
 You move west.
-
-Sidewalk infront of arcade
 A car comes screeching around the corner! Someone jumps out and grabs Mrs
 Fenwick out of the telephone booth near the arcade and drives off! A arcade
 token dispenser is here.
 
 > south
 You move south.
-
-Gravel Parking lot
 Gravel Parking lot
 
 Also here is an advertisement.
 
 > south
 You move south.
-
-Concrete parking lot
 Concrete parking lot
 
 > south
 You move south.
-
-In the middle of a street
 In the middle of a street
 
 > south
 You move south.
-
-On the sidewalk infront of the Fenwick house
 On the sidewalk infront of the Fenwick house
 
 > south
 You move south.
-
-Stoop
 On the porch of the Fenwick house
 
 > south
 You move south.
-
-Foyer
 In the Foyer of the Fenwick house
 
 Also here is a hat.
 
 > west
 You move west.
-
-Hallway
 In the hallway of the Fenwick house
 
 Also here is a picture.
 
 > south
 You move south.
-
-Junction
 At a junction in the Fenwick home
 
 > south
 You move south.
-
-Back Porch
 On the back porch of the Fenwick house
 
 > east
 You move east.
-
-Kitchen
 In the kitchen of the Fenwick house
 
 Also here is a carrots, a onions, a meat, a potatoes, a kettle, a saucepan
@@ -405,8 +319,6 @@ You drop the cash.
 
 > north
 You move north.
-
-Dining room
 In the dining room of the Fenwick House
 
 Also here is a putter.
@@ -431,20 +343,14 @@ You pick up the golf ball.
 
 > west
 You move west.
-
-Junction
 At a junction in the Fenwick home
 
 > south
 You move south.
-
-Back Porch
 On the back porch of the Fenwick house
 
 > south
 You move south.
-
-Back yard
 In the back yard of the Fenwick house. You can see a green, and a flag
 
 > putt golf ball
@@ -460,8 +366,6 @@ You drop the golf ball.
 
 > down
 You move down.
-
-Underground Passage
 In a underground passage.
 
 Also here is a penny.
@@ -471,8 +375,6 @@ You open the door.
 
 > north
 You move north.
-
-Room
 You close the door behind you and enter this wierd room. There is a ceiling
 with a hole big enough for you.
 

@@ -636,6 +636,8 @@ locked_door_solution.txt|Locked_door_with_water_trap.taf|See if I ever dive with
 # destroys (and firing the loaded one is fatal), and only the dented gas can's
 # lighting task starts the Rescue event, so the scratched can's pour/light
 # pair is mutually exclusive with winning.
+# 3.80.  Re-blessed 2026-08-24 with the other eighteen pre-3.9 rows; the
+# five measured wording rules are written up above the akron row below.
 marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!
 # Wrecked (Campbell Wild, 2000), TAF 3.80.  WIN at the full 250/250, following
 # the author's own published walkthrough -- but that walkthrough leaves four
@@ -654,6 +656,8 @@ marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!
 # re-encodes its restriction byte-identically to our parse.
 # (4) "turn it" after "put key in ignition" binds to the ignition and hits the
 # not-yet-started blocker; "turn key" is what scores.
+# 3.80.  Re-blessed 2026-08-24 with the other eighteen pre-3.9 rows; see the
+# comment block above the akron row below.
 wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.|SCR_SEED=234
 # Mortality (David Whyld, 2004).  A VERBATIM replay of the author's own session
 # transcript shipped inside the game's doc file: all 78 commands, no repairs,
@@ -848,6 +852,8 @@ humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner..
 #     author left it answers "You are not holding a saucepan."
 # No score is printed at the ending, so the route runs `score` (75/95) on the
 # turn before the winning `stand on chair`, which banks the last 20.
+# 3.80, despite sitting in the 3.90 block.  Re-blessed 2026-08-24 with the
+# other eighteen pre-3.9 rows; see the comment block above the akron row.
 crime_adventure_solution.txt|Crime_Adventure.taf|Mrs Fenwick was in no danger at all, it was a friend
 # The Sisters (Andy Joel / "Mad Monk") -- ADRIFT 4.00, 50 rooms, 123 tasks,
 # 9 events.  WIN with the FULL 109/109 in 151 commands.  All 109 points live in
@@ -1250,6 +1256,65 @@ afdfr_solution.txt|AFDFR.taf|Life is good for Death.|SCR_SKIP_WAITKEY=1
 # sctafpar.cpp, every guessed field since measured against the real
 # run370.exe), so both now sit in games/ with the rest of the corpus and both
 # load and run -- see ../ADRIFT_370.md and RUNNER_TESTS_TODO.md section 6.
+#
+# 2026-08-24 -- ALL NINETEEN PRE-3.9 ROWS RE-BLESSED.  The nineteen rows in
+# this suite that come from a 3.70 or 3.80 .taf (the seventeen listed above,
+# plus marooned and wrecked further up and Crime_Adventure in the 3.90 block)
+# all changed together, because five wordings that scarier had only ever
+# measured on 3.9 and 4.0 turn out to be later inventions.  Three walkthroughs
+# were replayed command-for-command in the real Runner under Wine to pin them:
+# arlo.taf (3.70) in run370, and akron.taf and mikes.taf (3.80) in run380.
+# akron now matches run380 exactly, 0 differing commands out of 44.
+#
+#   1. No room-name heading at all.  "showshortroom" occurs eight times in the
+#      run390 P-code and twice in run400's, and not once in run370's or
+#      run380's -- their Options -> Appearance submenu offers colours and a
+#      font size only.  Verbose mode prints the description with no heading
+#      above it; brief mode prints the room name with a trailing period as the
+#      whole of the description.  This accounts for nearly every deleted line
+#      in this re-bless.
+#   2. "remove" prints the object's prefix raw: "You remove a grubby
+#      sweatshirt.", not "the".  run370 @42980D and run380 @42FF38 concatenate
+#      it; run390 routes the same listing through General.Sub_3_45.
+#   3. tense() is a much smaller normalizer -- run370 @420F28 and run380
+#      @425FA8 are byte-identical, three literal tests and no default.  Exact
+#      "a" -> "the", leading "a " or "an " -> "the ", everything else passes
+#      through, so a bare "an" survives: run370 answers `take implement of
+#      destruction` with "You pick up an implement of destruction."  (A prefix
+#      the author used as part of the noun phrase passes through too, which is
+#      why haunt keeps "Inside kitchen cupboard is vial of liquid." -- its
+#      Prefix really is "kitchen" and its Short "cupboard".)
+#   4. The from-container multi-take prints raw as well.  3.9 normalizes it
+#      (run390 on ALEXIS: `get all from table` -> "the diary, the brass
+#      lantern, ..."); run380 on mikes gives "You take a socks, a shirt, a
+#      underwear and a pair of pants from the dresser."
+#   5. There is no alternate container or surface listing.  scarier picks
+#      "<obj> is inside <cont>." for one or two contents and "Inside <cont> is
+#      <list>." for three or more, a rule derived from run400.  Pre-3.9 there
+#      is nothing to pick: run370 and run380 carry only the "  Inside " and
+#      "  On " literals (run380 @43D0B1), and " is inside ", " are inside ",
+#      " is on " and " are on " are all absent from both binaries and first
+#      appear in run390.  run380 on mikes answers `open toilet`, one content,
+#      with "Inside the toilet is a poop."
+#
+# An empty Prefix is deliberately NOT on that list, and the reason is worth
+# recording because the opposite was believed for a while.  tense() has no
+# empty-prefix branch, which looks like it should leave pre-3.9 with no
+# article -- but the empty prefix never reaches tense(): the loader rewrites
+# it.  run380 @4481B2 and run370 @43F5DA read the Prefix line and, if it is
+# empty, substitute a literal "a".  So empty simply *is* "a" before 3.9, and
+# scarier's long-standing defaults ("the " normalized, "a " raw) were right
+# all along.  mikes.taf is the disproof: its dresser, toilet, poop and vans
+# all carry an empty Prefix -- deobfuscated straight out of the .taf, not
+# inferred -- and run380 still says "You pick up the pair of vans."
+#
+# Still open against the Runner, and not deviations these goldens claim to
+# settle: arlo's NPC walks.  run370 prints departure lines scarier omits
+# ("Rude Customer walks off.", "Alice walks off to ..."), which desynchronises
+# presence state by command 33, and `get out of bus` at the church ends with
+# the task's "You are no longer in the bus." and no exits list where scarier
+# prints the exits and drops the task line.  Six of arlo's 84 commands differ
+# for those two reasons alone.  See notes/WINE-TRANSCRIPTS-TODO.md.
 akron_solution.txt|akron.taf|you brave adventurer, saved yourself
 cave_solution.txt|cave.taf|You scored 1000 out of the maximum 1000!
 haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!

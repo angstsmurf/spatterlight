@@ -19,15 +19,11 @@ going on, or at least recover some of the memories that are eluding you.
 
 > w
 You move west.
-
-Cliff Path
 Loose rocks and a stiff wind make footing along this rocky passage perilous.
 The path wraps around the cliff, continuing  to the south.
 
 > s
 You move south.
-
-Grove
 It is quite pleasant here in this small grove of trees.  The wind is barely
 noticeable, while the air is warm and carries the fragrance of many flowers
 growing along  the lush grassy soil.  There is also soft music, sounds that
@@ -53,15 +49,11 @@ one, but please take this as a token of my friendship."
 
 > n
 You move north.
-
-Cliff Path
 Loose rocks and a stiff wind make footing along this rocky passage perilous.
 The path wraps around the cliff, continuing  to the south.
 
 > e
 You move east.
-
-Cliff Top
 A wispy fog creeps along the ground toward you, guided by a cold, steady
 wind.  Below there is only darkness, while above the floating mansion looms.
 
@@ -75,15 +67,11 @@ in there," she says, pointing downward.
 
 > down
 You move down.
-
-Rock Ledge
 Above the cliff top is just in reach, while the entrance to a cave carved
 deep into the rockface is before you.
 
 > s
 You move south.
-
-Cavern
 Pools of water collected along the uneven terrain reflect images of light
 orbs imbedded in the rock, which provide minimal lighting.  Occasionally
 droplets of water fall into the pools from the darkened ceiling above.
@@ -100,8 +88,6 @@ You pick up the plastic pirate knife.
 
 > down
 You move down.
-
-Large Pit
 The light orbs reveal a barren area with exits leading out in all directions
 except down.  Currently however, all exits are being blocked off by heavy
 iron bars, which slid into place the moment you entered from the cavern.
@@ -130,16 +116,12 @@ to stop us..."
 
 > e
 You move east.
-
-Cavern Lake
 A lake fills most of this large cavern.  In the middle is a small island.
 Under the illumination of the light orbs, you can make out a walkable ridge,
 leading east around the edge of the lake, to a barely visible waterfall.
 
 > e
 You move east.
-
-Cavern Waterfall
 A small waterfall flows through a crack in the rock, and  underneath the rock
 bridge you are standing on.  It feeds the lake, though you suspect there is
 another source as well.
@@ -151,16 +133,12 @@ Careful not to lose your balance, you reach in and retrieve it.
 
 > w
 You move west.
-
-Cavern Lake
 A lake fills most of this large cavern.  In the middle is a small island.
 Under the illumination of the light orbs, you can make out a walkable ridge,
 leading east around the edge of the lake, to a barely visible waterfall.
 
 > w
 You move west.
-
-Large Pit
 The light orbs reveal a barren area with exits leading out in all directions
 except down.  Currently however, all exits are being blocked off by heavy
 iron bars, which slid into place the moment you entered from the cavern.
@@ -169,14 +147,10 @@ A monkey is here.
 
 > s
 You move south.
-
-Rocky Cave
 Large rocks as scattered throughout the cave.  Exits lead in all directions.
 
 > down
 You move down.
-
-Small Nook
 A narrow space underneath two converging masses of rock.
 
 Also here is a fishing pole.
@@ -186,14 +160,10 @@ You pick up the fishing pole.
 
 > up
 You move up.
-
-Rocky Cave
 Large rocks as scattered throughout the cave.  Exits lead in all directions.
 
 > n
 You move north.
-
-Large Pit
 The light orbs reveal a barren area with exits leading out in all directions
 except down.  Currently however, all exits are being blocked off by heavy
 iron bars, which slid into place the moment you entered from the cavern.
@@ -202,8 +172,6 @@ A monkey is here.
 
 > e
 You move east.
-
-Cavern Lake
 A lake fills most of this large cavern.  In the middle is a small island.
 Under the illumination of the light orbs, you can make out a walkable ridge,
 leading east around the edge of the lake, to a barely visible waterfall.
@@ -216,8 +184,6 @@ remarks, as you haul in your catch, a metal toy car.
 
 > w
 You move west.
-
-Large Pit
 The light orbs reveal a barren area with exits leading out in all directions
 except down.  Currently however, all exits are being blocked off by heavy
 iron bars, which slid into place the moment you entered from the cavern.
@@ -226,8 +192,6 @@ A monkey is here.
 
 > w
 You move west.
-
-Fire Wells
 Wells of fire are scattered throughout the cave, though the air remains cool
 despite the heat source.  On the far side of the cave, to the west,  you see
 what appears to be a huge petrified mushroom.
@@ -239,8 +203,6 @@ burn the wood, but ends up fizzling out, and fading away."
 
 > w
 You move west.
-
-Petrified Mushroom
 The large fossil, is surrounded by smaller stone mushrooms along the ground.
 
 Also here is a wrist watch.
@@ -250,16 +212,12 @@ You pick up the wrist watch.
 
 > e
 You move east.
-
-Fire Wells
 Wells of fire are scattered throughout the cave, though the air remains cool
 despite the heat source.  On the far side of the cave, to the west,  you see
 what appears to be a huge petrified mushroom.
 
 > e
 You move east.
-
-Large Pit
 The light orbs reveal a barren area with exits leading out in all directions
 except down.  Currently however, all exits are being blocked off by heavy
 iron bars, which slid into place the moment you entered from the cavern.
@@ -268,8 +226,6 @@ A monkey is here.
 
 > n
 You move north.
-
-Long Tunnel
 At the end of this long, narrow tunnel is a solid steel door
 
 > open door
@@ -280,8 +236,6 @@ sort, allowing you a way to cross the void.
 
 > n
 You move north.
-
-Main Entrance
 A grand split staircase wraps around the side walls to a balcony overlooking
 the room.  Hanging on the wall are many paintings along with a single, framed
 portrait, while tall ornate vases rest on marble pedestals.  Overhead, a
@@ -289,8 +243,6 @@ candle-lit brass chandelier hangs from the ceiling, looming high above.
 
 > n
 You move north.
-
-Sitting Room
 Flames crackle in the fireplace, which is flanked by a long leather couch,
 and row of luxurious high-backed chairs.
 
@@ -302,15 +254,11 @@ You pick up the fire poker.
 
 > n
 You move north.
-
-Dining Room
 Spanning the oblong room, is a long, strecthed out oak table topped by golden
 candelabra and surrounded by twenty or so chairs.
 
 > e
 You move east.
-
-Kitchen
 An otherwise large kitchen is cramped with every imaginable appliance used in
 cooking, including a large stove and refrigerator.
 
@@ -321,7 +269,7 @@ On top of the refrigerator you see a metal spatula.
 You pick up the spatula.
 
 > open refrigerator
-You open the refrigerator.  The moldy cheese is inside the refrigerator.
+You open the refrigerator.  Inside the refrigerator is the moldy cheese.
 
 > take cheese
 You take the moldy cheese from the refrigerator.
@@ -341,16 +289,12 @@ You take the moldy cheese from the gas stove.
 
 > n
 You move north.
-
-Pantry
 The shelving covering the walls are filed with long oudated canned food, and
 jars of unidentified perserves--none of which look particularly appetizing.
 A set of rickety old stairs lead downward.
 
 > down
 You move down.
-
-Basement
 A dreary, dank space, with exposed wooden supports and a dirt floor.
 
 > dig
@@ -367,16 +311,12 @@ You pick up the yellow balloon.
 
 > up
 You move up.
-
-Pantry
 The shelving covering the walls are filed with long oudated canned food, and
 jars of unidentified perserves--none of which look particularly appetizing.
 A set of rickety old stairs lead downward.
 
 > s
 You move south.
-
-Kitchen
 An otherwise large kitchen is cramped with every imaginable appliance used in
 cooking, including a large stove and refrigerator.
 
@@ -386,23 +326,17 @@ balloon with water.
 
 > w
 You move west.
-
-Dining Room
 Spanning the oblong room, is a long, strecthed out oak table topped by golden
 candelabra and surrounded by twenty or so chairs.
 
 > s
 You move south.
-
-Sitting Room
 Flames crackle in the fireplace, which is flanked by a long leather couch,
 and row of luxurious high-backed chairs.
 A ghost is here.
 
 > s
 You move south.
-
-Main Entrance
 A grand split staircase wraps around the side walls to a balcony overlooking
 the room.  Hanging on the wall are many paintings along with a single, framed
 portrait, while tall ornate vases rest on marble pedestals.  Overhead, a
@@ -410,28 +344,22 @@ candle-lit brass chandelier hangs from the ceiling, looming high above.
 
 > up
 You move up.
-
-Balcony
 Below is the main entrance to the mansion, while a hallway leads back into
 the heart of the second story.
 
 > n
 You move north.
-
-Second Story Hallway - South End
 A row of closed  doors lines the hallway on either side of you.
 
 > w
 You move west.
-
-Master Bedroom
 The lavish furnishings are a stark contrast to the otherwise modest decor of
 the mansion, highlighted by layered drapery covering the windows, a silky
 canopy surrounding the four-poster bed, and a vanity of intricately carved
 wood.  There is also a large closet.
 
 > open closet
-You open the closet.  A porcelain doll is inside the closet.
+You open the closet.  Inside the closet is a porcelain doll.
 
 > take doll
 You take a porcelain doll from the closet.
@@ -444,14 +372,10 @@ finished.
 
 > e
 You move east.
-
-Second Story Hallway - South End
 A row of closed  doors lines the hallway on either side of you.
 
 > e
 You move east.
-
-Bathroom
 The tiled walls and floor sweat with droplets of water.  A round mirror hangs
 above a porcelain sink, next to a commode.  There is also a deep claw-footed
 tub.    Underneath the tub, there appears to be a partially-visible white
@@ -465,59 +389,45 @@ You pick up the cue ball.
 
 > w
 You move west.
-
-Second Story Hallway - South End
 A row of closed  doors lines the hallway on either side of you.
 
 > n
 You move north.
-
-Second Story Hallway - North End
 The hallway contiues to the south, while a staircase leads up to the third
 level.
 
 > e
 You move east.
-
-Guest Room
 A simple bedroom with a  twin-sized bed, small dresser, and wardrobe.
 
 > open wardrobe
-You open the wardrobe.  A cheap suit is inside the wardrobe.
+You open the wardrobe.  Inside the wardrobe is a cheap suit.
 
 > take suit
 You take a cheap suit from the wardrobe.
 
 > open dresser
-You open the small dresser.  A faded photo is inside the small dresser.
+You open the small dresser.  Inside the small dresser is a faded photo.
 
 > take photo
 You take a faded photo from the small dresser.
 
 > w
 You move west.
-
-Second Story Hallway - North End
 The hallway contiues to the south, while a staircase leads up to the third
 level.
 
 > s
 You move south.
-
-Second Story Hallway - South End
 A row of closed  doors lines the hallway on either side of you.
 
 > s
 You move south.
-
-Balcony
 Below is the main entrance to the mansion, while a hallway leads back into
 the heart of the second story.
 
 > down
 You move down.
-
-Main Entrance
 A grand split staircase wraps around the side walls to a balcony overlooking
 the room.  Hanging on the wall are many paintings along with a single, framed
 portrait, while tall ornate vases rest on marble pedestals.  Overhead, a
@@ -525,8 +435,6 @@ candle-lit brass chandelier hangs from the ceiling, looming high above.
 
 > n
 You move north.
-
-Sitting Room
 Flames crackle in the fireplace, which is flanked by a long leather couch,
 and row of luxurious high-backed chairs.
 A ghost is here.
@@ -550,8 +458,6 @@ away.
 
 > e
 You move east.
-
-Game Room
 Dominating the room is a full-sized pool table, surrounded by other games of
 amusement.
 
@@ -567,15 +473,11 @@ You pick up the sleigh bell.
 
 > w
 You move west.
-
-Sitting Room
 Flames crackle in the fireplace, which is flanked by a long leather couch,
 and row of luxurious high-backed chairs.
 
 > s
 You move south.
-
-Main Entrance
 A grand split staircase wraps around the side walls to a balcony overlooking
 the room.  Hanging on the wall are many paintings along with a single, framed
 portrait, while tall ornate vases rest on marble pedestals.  Overhead, a
@@ -583,28 +485,20 @@ candle-lit brass chandelier hangs from the ceiling, looming high above.
 
 > up
 You move up.
-
-Balcony
 Below is the main entrance to the mansion, while a hallway leads back into
 the heart of the second story.
 
 > n
 You move north.
-
-Second Story Hallway - South End
 A row of closed  doors lines the hallway on either side of you.
 
 > n
 You move north.
-
-Second Story Hallway - North End
 The hallway contiues to the south, while a staircase leads up to the third
 level.
 
 > w
 You move west.
-
-Study
 A large oak desk sits in front of the window, while  a broken clock hangs on
 the wall nearby.
 
@@ -626,22 +520,16 @@ You snap the blade into the hilt, forming a complete dagger.
 
 > e
 You move east.
-
-Second Story Hallway - North End
 The hallway contiues to the south, while a staircase leads up to the third
 level.
 
 > up
 You move up.
-
-Third Floor Hallway
 The short hallway leads to another staircase, as well as rooms on either
 side.
 
 > w
 You move west.
-
-Music Room
 A grand piano sits atop a platform, surrounded by other instruments resting
 on stands.  There is a shelf mounted on the wall filled with music books.
 
@@ -654,15 +542,11 @@ You pick up the crystal amulet.
 
 > e
 You move east.
-
-Third Floor Hallway
 The short hallway leads to another staircase, as well as rooms on either
 side.
 
 > e
 You move east.
-
-Library
 The room is crammed with endless volumes of old books, filling rows of cases.
  There is a small reading area off on one side, where a reading lamp emits an
 intensly bright light.
@@ -674,15 +558,11 @@ dagger, remaining even when withdrawn from the light.
 
 > w
 You move west.
-
-Third Floor Hallway
 The short hallway leads to another staircase, as well as rooms on either
 side.
 
 > s
 You move south.
-
-Attic stairs
 The stairs lead up to the attic.
 A ghostly apparition is here.
 
@@ -692,8 +572,6 @@ before disappearing.
 
 > up
 You move up.
-
-Attic
 Dusty boxes of junk, and broken furniture fill the space between the rafters.
  Along the south wall there is a toy box.
 The Sentinel is here.

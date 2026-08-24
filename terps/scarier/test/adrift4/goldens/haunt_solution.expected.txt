@@ -27,8 +27,6 @@ The rain continues to batter down.
 
 > up
 You move up.
-
-On the Landing
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
@@ -58,8 +56,6 @@ The rain continues to batter down.
 
 > w
 You move west.
-
-In the Master bedroom
 The master bedroom is dominated by a grand, four-poster bed. A proud family
 crest is displayed on the south wall. Beside the bed is a table with a
 fishtank on it.
@@ -78,8 +74,6 @@ Thunder rumbles ominously.
 
 > e
 You move east.
-
-On the Landing
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
@@ -90,8 +84,6 @@ The rain continues to batter down.
 
 > e
 You move east.
-
-In the Library
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
 dominates most of the room, the books being on shelves on the walls.
@@ -103,8 +95,6 @@ The wind howls and you shiver.
 
 > s
 You move south.
-
-In the Guest bedroom
 The guest bedroom has one large, four-poster bed and a small chest of
 drawers. A rung ladder leads up the east wall into a hole in the ceiling.   A
 door to the bathroom is locked from the other side.
@@ -113,7 +103,7 @@ You can move north and up.
 A sudden crash of lightning makes you jump.
 
 > open drawers
-You open chest of drawers.  Packet of weedkiller is inside chest of drawers.
+You open chest of drawers.  Inside chest of drawers is packet of weedkiller.
 Thunder rumbles ominously.
 
 > take weedkiller
@@ -122,8 +112,6 @@ The rain continues to batter down.
 
 > n
 You move north.
-
-In the Library
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
 dominates most of the room, the books being on shelves on the walls.
@@ -135,8 +123,6 @@ The wind howls and you shiver.
 
 > w
 You move west.
-
-On the Landing
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
@@ -147,8 +133,6 @@ A sudden crash of lightning makes you jump.
 
 > down
 You move down.
-
-In the Hallway
 You are in the hallway of this creepy house. There is little furniture but an
 umbrella stand and writing-desk. Portaits of long-dead residents of the house
 decorate the walls. You have the odd feeling that the eyes are watching
@@ -159,8 +143,6 @@ Thunder rumbles ominously.
 
 > e
 You move east.
-
-In the Living Room
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
 wall.
@@ -170,8 +152,6 @@ The rain continues to batter down.
 
 > n
 You move north.
-
-In the Conservatory
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
@@ -181,8 +161,6 @@ The wind howls and you shiver.
 
 > n
 You move north.
-
-In the Back Garden
 The back garden is fairly well kept. The light of a full moon gives allows
 you to see that to the east is a shed, and a greenhouse to the north. A gate
 to the west leads to the family graveyard. At one side of the garden is a
@@ -199,8 +177,6 @@ Thunder rumbles ominously.
 
 > n
 You move north.
-
-In the Greenhouse
 The greenhouse is humid and steamy despite the cold of the night.  The
 greenhouse now has several broken windows. The plant lies brown and
 shrivelled, along with all the other plants in the greenhouse.
@@ -216,8 +192,6 @@ The wind howls and you shiver.
 
 > s
 You move south.
-
-In the Back Garden
 The back garden is fairly well kept. The light of a full moon gives allows
 you to see that to the east is a shed, and a greenhouse to the north. A gate
 to the west leads to the family graveyard. At one side of the garden is a
@@ -232,8 +206,6 @@ Thunder rumbles ominously.
 
 > e
 You move east.
-
-In the Toolshed
 The tool shed is untidy and littered with all sorts of junk.
 
 Also here is iron hammer and folding ladder.
@@ -251,8 +223,6 @@ A sudden crash of lightning makes you jump.
 
 > w
 You move west.
-
-In the Back Garden
 The back garden is fairly well kept. The light of a full moon gives allows
 you to see that to the east is a shed, and a greenhouse to the north. A gate
 to the west leads to the family graveyard. At one side of the garden is a
@@ -263,8 +233,6 @@ Thunder rumbles ominously.
 
 > s
 You move south.
-
-In the Conservatory
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
@@ -274,8 +242,6 @@ The rain continues to batter down.
 
 > s
 You move south.
-
-In the Living Room
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
 wall.
@@ -285,8 +251,6 @@ The wind howls and you shiver.
 
 > w
 You move west.
-
-In the Hallway
 You are in the hallway of this creepy house. There is little furniture but an
 umbrella stand and writing-desk. Portaits of long-dead residents of the house
 decorate the walls. You have the odd feeling that the eyes are watching
@@ -301,8 +265,6 @@ Thunder rumbles ominously.
 
 > s
 You move south.
-
-In the Front garden
 The front garden is unkempt and overgrown. You shiver as you think of the
 wolves that drove you to this place. Above you, light is showing from the
 bathroom window.
@@ -321,8 +283,6 @@ must go back inside immediately!
 
 > up
 You move up.
-
-In the Bathroom
 The bathroom is colder than the rest of the house. There is a toilet, sink
 and bath, all white and well-scrubbed. The window is still open, the curtains
 flapping in the breeze. There is a door to the east, locked with a bolt on
@@ -351,8 +311,6 @@ A sudden crash of lightning makes you jump.
 
 > e
 You move east.
-
-In the Guest bedroom
 The guest bedroom has one large, four-poster bed and a small chest of
 drawers. A rung ladder leads up the east wall into a hole in the ceiling.
 The door to the bathroom is now open.
@@ -362,8 +320,6 @@ Thunder rumbles ominously.
 
 > n
 You move north.
-
-In the Library
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
 dominates most of the room, the books being on shelves on the walls.
@@ -375,8 +331,6 @@ The rain continues to batter down.
 
 > w
 You move west.
-
-On the Landing
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
@@ -387,8 +341,6 @@ The wind howls and you shiver.
 
 > down
 You move down.
-
-In the Hallway
 You are in the hallway of this creepy house. There is little furniture but an
 umbrella stand and writing-desk. Portaits of long-dead residents of the house
 decorate the walls. You have the odd feeling that the eyes are watching
@@ -399,8 +351,6 @@ A sudden crash of lightning makes you jump.
 
 > e
 You move east.
-
-In the Living Room
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
 wall.
@@ -427,8 +377,6 @@ Thunder rumbles ominously.
 
 > n
 You move north.
-
-In the Conservatory
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
@@ -438,8 +386,6 @@ The rain continues to batter down.
 
 > w
 You move west.
-
-In the Kitchen
 The kitchen is quite tidy and clean. A cupboard stands by the far wall, and a
 stove rests beside the window. You notice that one of the floortiles is
 loose.
@@ -448,7 +394,7 @@ You can only move east.
 The wind howls and you shiver.
 
 > open cupboard
-You open kitchen cupboard.  Vial of liquid is inside kitchen cupboard.
+You open kitchen cupboard.  Inside kitchen cupboard is vial of liquid.
 A sudden crash of lightning makes you jump.
 
 > take vial
@@ -458,8 +404,6 @@ Thunder rumbles ominously.
 > hit tile with hammer
 The tile smashes away, and foolishly you were standing on it when you did so.
 You fall a short distance and find yourself in a room.
-
-In the Laboratory
 Eggbert has transformed this basement into a laboratory, full of weird
 potions and strange diagrams. It is the testament to an obsessed mind. The
 place is littered with sketches of the human body, some drawn horribly
@@ -481,8 +425,6 @@ you, erm, sorry," he says, blushing.
 
 > up
 You move up.
-
-In the Kitchen
 The kitchen is quite tidy and clean. A cupboard stands by the far wall, and a
 stove rests beside the window. You notice that one of the floortiles is
 loose.  The kitchen is quite tidy and clean. A cupboard stands by the far
@@ -494,8 +436,6 @@ Thunder rumbles ominously.
 
 > e
 You move east.
-
-In the Conservatory
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
@@ -505,8 +445,6 @@ The rain continues to batter down.
 
 > s
 You move south.
-
-In the Living Room
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
 wall.
@@ -516,8 +454,6 @@ The wind howls and you shiver.
 
 > w
 You move west.
-
-In the Hallway
 You are in the hallway of this creepy house. There is little furniture but an
 umbrella stand and writing-desk. Portaits of long-dead residents of the house
 decorate the walls. You have the odd feeling that the eyes are watching
@@ -528,8 +464,6 @@ A sudden crash of lightning makes you jump.
 
 > up
 You move up.
-
-On the Landing
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
@@ -540,8 +474,6 @@ Thunder rumbles ominously.
 
 > w
 You move west.
-
-In the Master bedroom
 The master bedroom is dominated by a grand, four-poster bed. A proud family
 crest is displayed on the south wall. Beside the bed is a table with a
 fishtank on it.
@@ -566,8 +498,6 @@ Thunder rumbles ominously.
 
 > e
 You move east.
-
-On the Landing
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
@@ -578,8 +508,6 @@ The rain continues to batter down.
 
 > e
 You move east.
-
-In the Library
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
 dominates most of the room, the books being on shelves on the walls.
@@ -600,8 +528,6 @@ You hear the chiming of the grandfather clock.
 
 > w
 You move west.
-
-On the Landing
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
@@ -613,8 +539,6 @@ You hear the chiming of the grandfather clock.
 
 > down
 You move down.
-
-In the Hallway
 You are in the hallway of this creepy house. There is little furniture but an
 umbrella stand and writing-desk. Portaits of long-dead residents of the house
 decorate the walls. You have the odd feeling that the eyes are watching
@@ -626,8 +550,6 @@ You hear the chiming of the grandfather clock.
 
 > e
 You move east.
-
-In the Living Room
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
 wall.
@@ -641,8 +563,6 @@ You hear the chiming of the grandfather clock.
 
 > n
 You move north.
-
-In the Conservatory
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
@@ -653,8 +573,6 @@ You hear the chiming of the grandfather clock.
 
 > w
 You move west.
-
-In the Kitchen
 The kitchen is quite tidy and clean. A cupboard stands by the far wall, and a
 stove rests beside the window. You notice that one of the floortiles is
 loose.  The kitchen is quite tidy and clean. A cupboard stands by the far
@@ -667,8 +585,6 @@ You hear the chiming of the grandfather clock.
 
 > down
 You move down.
-
-In the Laboratory
 Eggbert has transformed this basement into a laboratory, full of weird
 potions and strange diagrams. It is the testament to an obsessed mind. The
 place is littered with sketches of the human body, some drawn horribly
@@ -689,8 +605,6 @@ You hear the chiming of the grandfather clock.
 
 > up
 You move up.
-
-In the Kitchen
 The kitchen is quite tidy and clean. A cupboard stands by the far wall, and a
 stove rests beside the window. You notice that one of the floortiles is
 loose.  The kitchen is quite tidy and clean. A cupboard stands by the far
@@ -703,8 +617,6 @@ You hear the chiming of the grandfather clock.
 
 > e
 You move east.
-
-In the Conservatory
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
@@ -717,8 +629,6 @@ You hear the chiming of the grandfather clock.
 
 > n
 You move north.
-
-In the Back Garden
 The back garden is fairly well kept. The light of a full moon gives allows
 you to see that to the east is a shed, and a greenhouse to the north. A gate
 to the west leads to the family graveyard. At one side of the garden is a
@@ -729,8 +639,6 @@ The rain continues to batter down.
 
 > w
 You move west.
-
-In the Graveyard
 The family graveyard is haunted by twisted trees. The wind is uncommonly
 cold. Rows of gravestones stand like broken teeth, glistening in the rain. A
 crow sits on the branch of a tree, fixing you with a beady eye.
@@ -755,8 +663,6 @@ Thunder rumbles ominously.
 
 > e
 You move east.
-
-In the Back Garden
 The back garden is fairly well kept. The light of a full moon gives allows
 you to see that to the east is a shed, and a greenhouse to the north. A gate
 to the west leads to the family graveyard. At one side of the garden is a
@@ -769,8 +675,6 @@ The rain continues to batter down.
 
 > s
 You move south.
-
-In the Conservatory
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
@@ -783,8 +687,6 @@ You hear the chiming of the grandfather clock.
 
 > w
 You move west.
-
-In the Kitchen
 The kitchen is quite tidy and clean. A cupboard stands by the far wall, and a
 stove rests beside the window. You notice that one of the floortiles is
 loose.  The kitchen is quite tidy and clean. A cupboard stands by the far
@@ -802,8 +704,6 @@ Your score is 84 out of a maximum of 84.  (100%)
 
 > down
 You move down.
-
-In the Laboratory
 Eggbert has transformed this basement into a laboratory, full of weird
 potions and strange diagrams. It is the testament to an obsessed mind. The
 place is littered with sketches of the human body, some drawn horribly

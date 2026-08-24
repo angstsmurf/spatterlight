@@ -28,8 +28,6 @@ You put on a small red poppy.
 
 > w
 You move west.
-
-By the old shack
 You are standing outside an old shack.  It looks very run down.  There is a
 pump here.  There is a cave to the north, a poppy field to the east, and a
 pool to the south.
@@ -48,8 +46,6 @@ You open the door.
 
 > in
 You move in.
-
-Inside the shack
 The shack is quite small, but looks as though it was once the home of some
 type of hermit.  There is dust everywhere.  There is a fireplace on the far
 wall.  To one side is a small bed, and over in the corner is a small toilet
@@ -64,24 +60,20 @@ You pull the spring from the matress.  It straightens out as you do, and
 finally snaps off from the mattress.
 
 > open chest
-You open the large chest.  A rusty old axe and a rusty poker are inside the
-large chest.
+You open the large chest.  Inside the large chest is a rusty old axe and a
+rusty poker.
 
 > take axe
 You take a rusty old axe from the large chest.
 
 > out
 You move out.
-
-By the old shack
 You are standing outside an old shack.  It looks very run down.  There is a
 pump here.  There is a cave to the north, a poppy field to the east, and a
 pool to the south.
 
 > e
 You move east.
-
-In the poppy field
 You are standing in a large field of poppies.  All around you, you can see
 red, swaying in each gust of wind.  The smell of pollen is in the air.  There
 is a large tree to the north, a river bank to the east, an old stairway to
@@ -91,8 +83,6 @@ Also here is an old book and a faded map.
 
 > e
 You move east.
-
-Beside the river
 You are standing on the banks of the river.  The river flows from the south
 to the north.  There is a small stone plinth here.  There is a bridge to the
 north, a beach to the south, and a poppy field to the west.
@@ -102,8 +92,6 @@ You push the button firmly.  You see a flash to the south.
 
 > n
 You move north.
-
-West of the bridge
 You are standing beside a great river, which is roaring past furiously.
 Someone has built a bridge here, which spans eastwards, over the river.
 There is a peninsula to the north, a bridge to the east, the river bank to
@@ -111,8 +99,6 @@ the south, and a large tree to the west.
 
 > n
 You move north.
-
-On the small peninsula
 You are standing on a small peninsula.  To your east, the river flow out,
 spanning into a large delta which blocks your way north.  The ground here is
 very rocky, and there is not much vegetation.  Sticking out from the rocks is
@@ -130,8 +116,6 @@ You turn the wheel.  Nothing appears to happen.
 
 > s
 You move south.
-
-West of the bridge
 You are standing beside a great river, which is roaring past furiously.
 Someone has built a bridge here, which spans eastwards, over the river.
 There is a peninsula to the north, a bridge to the east, the river bank to
@@ -139,8 +123,6 @@ the south, and a large tree to the west.
 
 > w
 You move west.
-
-By the large tree
 You are standing beside an enormous tree.  The bark itself must be a couple
 of inches thick as you can see small gaps in the bark near the base of the
 tree.  Some of the roots poke back out from the ground like thick railings.
@@ -207,23 +189,17 @@ You pick up some planks of wood.
 
 > w
 You move west.
-
-At the cave entrance
 You are standing outside the entrance to a cave.  Inside, darkness beckons
 you.  There is a large tree to the east, and an old shack to the south.
 
 > s
 You move south.
-
-By the old shack
 You are standing outside an old shack.  It looks very run down.  There is a
 pump here.  There is a cave to the north, a poppy field to the east, and a
 pool to the south.
 
 > in
 You move in.
-
-Inside the shack
 The shack is quite small, but looks as though it was once the home of some
 type of hermit.  There is dust everywhere.  There is a fireplace on the far
 wall.  To one side is a small bed, and over in the corner is a small toilet
@@ -238,8 +214,6 @@ You open the hatch.
 
 > down
 You move down.
-
-In the cellar
 You are down in the basement of the old shack.  It is very dark down here,
 but every now and then, the baby dragon burps, sending a plume of fire from
 it's nostrils, lighting up the room.  There is a lever on one of the walls.
@@ -251,8 +225,6 @@ small wooden box.
 
 > up
 You move up.
-
-Inside the shack
 The shack is quite small, but looks as though it was once the home of some
 type of hermit.  There is dust everywhere.  There is a fireplace on the far
 wall.  To one side is a small bed, and over in the corner is a small toilet
@@ -264,16 +236,12 @@ Also here is some sellotape.
 
 > out
 You move out.
-
-By the old shack
 You are standing outside an old shack.  It looks very run down.  There is a
 pump here.  There is a cave to the north, a poppy field to the east, and a
 pool to the south.
 
 > e
 You move east.
-
-In the poppy field
 You are standing in a large field of poppies.  All around you, you can see
 red, swaying in each gust of wind.  The smell of pollen is in the air.  There
 is a large tree to the north, a river bank to the east, an old stairway to
@@ -283,8 +251,6 @@ Also here is an old book and a faded map.
 
 > s
 You move south.
-
-By the old stairway
 You are standing at the bottom of an old stairway cut into the rock.  The
 steps are very large and a little slippery, but there is a rope handrail
 running along the side.  To the north is the poppy field, the beach is to the
@@ -306,8 +272,6 @@ You drop the baby dragon.
 
 > e
 You move east.
-
-On the beach
 You are standing on a small beach.  It is not really much of a beach, as the
 sand is very muddy, but the river appears quite calm here.  To the north is
 the river bank, to the south is a large rock face, and there is a stone
@@ -339,8 +303,6 @@ You drop some planks of wood.
 
 > e
 You move east.
-
-At the market
 You are standing in a small market.  There are a couple of stalls here, but
 nothing to sing and dance about.  To the north is a river bank, to the east
 is the gate to a graveyard, to the south is a large door, and there is a pier
@@ -353,8 +315,6 @@ puts it in his pocket.  Reluctantly, he hands you the hammer.
 
 > n
 You move north.
-
-Beside the river
 You are standing on the bank of the river.  It is very grassy here.  There is
 a small path leading north and south.  Sitting on the path is a small dog.
 There is a bridge to the north, and a market to the south.  To the east is a
@@ -396,8 +356,6 @@ You drop the fishing rod.
 
 > s
 You move south.
-
-At the market
 You are standing in a small market.  There are a couple of stalls here, but
 nothing to sing and dance about.  To the north is a river bank, to the east
 is the gate to a graveyard, to the south is a large door, and there is a pier
@@ -406,22 +364,16 @@ Bob is here, standing behind a stall.
 
 > s
 You move south.
-
-Outside a large door
 You are standing outside a large door built into the side of a small
 building.  There is a market to the north, and a garage to the east.
 
 > e
 You move east.
-
-Outside the garage
 You are standing outside what looks like a garage.  There is a large door to
 your west, and to the north are the gates to a graveyard.
 
 > in
 You move in.
-
-Inside Megs garage
 You are standing inside a small garage.  There are shelves running along the
 sides of the walls.  There is an old run down car in here.
 
@@ -433,22 +385,16 @@ You take a small can of oil from the shelves.
 
 > out
 You move out.
-
-Outside the garage
 You are standing outside what looks like a garage.  There is a large door to
 your west, and to the north are the gates to a graveyard.
 
 > w
 You move west.
-
-Outside a large door
 You are standing outside a large door built into the side of a small
 building.  There is a market to the north, and a garage to the east.
 
 > n
 You move north.
-
-At the market
 You are standing in a small market.  There are a couple of stalls here, but
 nothing to sing and dance about.  To the north is a river bank, to the east
 is the gate to a graveyard, to the south is a large door, and there is a pier
@@ -457,8 +403,6 @@ Bob is here, standing behind a stall.
 
 > w
 You move west.
-
-On the pier
 You are standing on a little pier made from wood.  It sticks out into the
 river which flows from the south.  To your east, you can just make out a
 small market.
@@ -470,8 +414,6 @@ You pick up some planks of wood.
 
 > e
 You move east.
-
-At the market
 You are standing in a small market.  There are a couple of stalls here, but
 nothing to sing and dance about.  To the north is a river bank, to the east
 is the gate to a graveyard, to the south is a large door, and there is a pier
@@ -480,8 +422,6 @@ Bob is here, standing behind a stall.
 
 > n
 You move north.
-
-Beside the river
 You are standing on the bank of the river.  It is very grassy here.  There is
 a small path leading north and south.  There is a small hole beside the path.
  There is a bridge to the north, and a market to the south.  To the east is a
@@ -494,8 +434,6 @@ You pick up the pair of batteries.
 
 > n
 You move north.
-
-East of the bridge
 You are standing to the east of a wooden bridge that spans across the river.
   At least, it would do if there wasn't a great gaping hole it the middle of
 it.  To the north is a waterfall, and the south takes you along the river.
@@ -510,8 +448,6 @@ You drop the claw hammer.
 
 > s
 You move south.
-
-Beside the river
 You are standing on the bank of the river.  It is very grassy here.  There is
 a small path leading north and south.  There is a small hole beside the path.
  There is a bridge to the north, and a market to the south.  To the east is a
@@ -524,8 +460,6 @@ You pick up the fishing rod.
 
 > n
 You move north.
-
-East of the bridge
 You are standing to the east of a wooden bridge that spans across the river.
   To the north is a waterfall, and the south takes you along the river.
 
@@ -533,15 +467,11 @@ Also here is a claw hammer.
 
 > w
 You move west.
-
-On the bridge
 You are standing on the bridge spanning the river.  There is land to both the
 east and west.  It looks as though someone did a recent repair job here.
 
 > w
 You move west.
-
-West of the bridge
 You are standing beside a great river, which is roaring past furiously.
 Someone has built a bridge here, which spans eastwards, over the river.
 There is a peninsula to the north, a bridge to the east, the river bank to
@@ -549,8 +479,6 @@ the south, and a large tree to the west.
 
 > w
 You move west.
-
-By the large tree
 You are standing by what was once an enormous tree.  All that is left, is a
 large stump in the ground, and a load of roots sticking out the ground.
 
@@ -558,8 +486,6 @@ Also here is a rusty old axe.
 
 > s
 You move south.
-
-In the poppy field
 You are standing in a large field of poppies.  All around you, you can see
 red, swaying in each gust of wind.  The smell of pollen is in the air.  There
 is a large tree to the north, a river bank to the east, an old stairway to
@@ -569,8 +495,6 @@ Also here is an old book and a faded map.
 
 > w
 You move west.
-
-By the old shack
 You are standing outside an old shack.  It looks very run down.  There is a
 pump here.  There is a cave to the north, a poppy field to the east, and a
 pool to the south.
@@ -595,8 +519,6 @@ You drop the small can of oil.
 
 > e
 You move east.
-
-In the poppy field
 You are standing in a large field of poppies.  All around you, you can see
 red, swaying in each gust of wind.  The smell of pollen is in the air.  There
 is a large tree to the north, a river bank to the east, an old stairway to
@@ -606,8 +528,6 @@ Also here is an old book and a faded map.
 
 > s
 You move south.
-
-By the old stairway
 You are standing at the bottom of an old stairway cut into the rock.  The
 steps are very large and a little slippery.  To the north is the poppy field,
 the beach is to the east, and the pool to the west.
@@ -622,8 +542,6 @@ You pick up the piece of wire.
 
 > e
 You move east.
-
-On the beach
 You are standing on a small beach.  It is not really much of a beach, as the
 sand is very muddy, but the river appears quite calm here.  To the north is
 the river bank, to the south is a large rock face, and there is a stone
@@ -647,16 +565,12 @@ You drop the fishing rod.
 
 > w
 You move west.
-
-By the old stairway
 You are standing at the bottom of an old stairway cut into the rock.  The
 steps are very large and a little slippery.  To the north is the poppy field,
 the beach is to the east, and the pool to the west.
 
 > n
 You move north.
-
-In the poppy field
 You are standing in a large field of poppies.  All around you, you can see
 red, swaying in each gust of wind.  The smell of pollen is in the air.  There
 is a large tree to the north, a river bank to the east, an old stairway to
@@ -666,8 +580,6 @@ Also here is an old book and a faded map.
 
 > w
 You move west.
-
-By the old shack
 You are standing outside an old shack.  It looks very run down.  There is a
 pump here.  There is a cave to the north, a poppy field to the east, and a
 pool to the south.
@@ -676,15 +588,11 @@ Also here is a small can of oil.
 
 > n
 You move north.
-
-At the cave entrance
 You are standing outside the entrance to a cave.  Inside, darkness beckons
 you.  There is a large tree to the east, and an old shack to the south.
 
 > in
 You move in.
-
-Inside the cave
 You are standing inside the cave.  The dragon lights up the room with
 periodic bursts of fire.  Further in, the walls become too narrow for you to
 progress.  Slime drips down from the walls and splashes on the ground.
@@ -700,15 +608,11 @@ You are already carrying half of a parchment.
 
 > out
 You move out.
-
-At the cave entrance
 You are standing outside the entrance to a cave.  Inside, darkness beckons
 you.  There is a large tree to the east, and an old shack to the south.
 
 > s
 You move south.
-
-By the old shack
 You are standing outside an old shack.  It looks very run down.  There is a
 pump here.  There is a cave to the north, a poppy field to the east, and a
 pool to the south.
@@ -717,8 +621,6 @@ Also here is a small can of oil.
 
 > in
 You move in.
-
-Inside the shack
 The shack is quite small, but looks as though it was once the home of some
 type of hermit.  There is dust everywhere.  There is a fireplace on the far
 wall.  To one side is a small bed, and over in the corner is a small toilet
@@ -733,8 +635,6 @@ You pick up some sellotape.
 
 > down
 You move down.
-
-In the cellar
 You are down in the basement of the old shack.  It is very dark down here,
 but every now and then, the baby dragon burps, sending a plume of fire from
 it's nostrils, lighting up the room.  There is a lever on one of the walls.
@@ -757,8 +657,6 @@ You drop the tiny key.
 
 > up
 You move up.
-
-Inside the shack
 The shack is quite small, but looks as though it was once the home of some
 type of hermit.  There is dust everywhere.  There is a fireplace on the far
 wall.  To one side is a small bed, and over in the corner is a small toilet
@@ -768,8 +666,6 @@ hatch in the floor.
 
 > out
 You move out.
-
-By the old shack
 You are standing outside an old shack.  It looks very run down.  There is a
 pump here.  There is a cave to the north, a poppy field to the east, and a
 pool to the south.
@@ -790,8 +686,6 @@ You drop some sellotape.
 
 > s
 You move south.
-
-By the pool
 You are standing by a little pool.  The water is very clear.  A few reeds
 stick out from beneath the surface.  To the north is an old shack, and there
 is an old stairway to the east.
@@ -801,8 +695,6 @@ You swim out into the middle of the pool.
 
 > down
 You take a deep breath, and dive down to the bottom of the pool.
-
-At the bottom of the pool
 You are holding your breath, swimming about at the bottom of the pool.  It is
 quite light here as the water is so clear.  The bottom of the pool is covered
 in reed type plants.
@@ -819,8 +711,6 @@ left in the pool, and you are left standing in a crater.
 
 > down
 You move down.
-
-Inside the U.F.O.
 You are in what appears to be a space-ship.  There are consoles all around
 the perimeter of the ship.  In front of the screens is a single seat.   Next
 to the seat is a control panel.
@@ -843,16 +733,12 @@ You pick up the dead alien.
 
 > up
 You move up.
-
-In the crater
 You are standing in a crater.  The ground is damp, and there is a small hole
 in the middle of the crater.  There are various reeds scattered around.  The
 only way out of the crater is to the north.
 
 > n
 You move north.
-
-By the pool
 You are standing north of a large crater which was once a pool.  To the north
 is an old shack, and there is an old stairway to the east.
 
@@ -861,8 +747,6 @@ You drink the water, and feel refreshed.
 
 > n
 You move north.
-
-By the old shack
 You are standing outside an old shack.  It looks very run down.  There is a
 pump here.  There is a cave to the north, a poppy field to the east, and a
 crater to the south.
@@ -878,15 +762,11 @@ You pick up some sellotape.
 
 > n
 You move north.
-
-At the cave entrance
 You are standing outside the entrance to a cave.  Inside, darkness beckons
 you.  There is a large tree to the east, and an old shack to the south.
 
 > in
 You move in.
-
-Inside the cave
 It is too dark to make out anything other than the cave exit.
 
 > put bottle under slime
@@ -895,15 +775,11 @@ bottle.  You wait for a few more drops, before picking up the bottle.
 
 > out
 You move out.
-
-At the cave entrance
 You are standing outside the entrance to a cave.  Inside, darkness beckons
 you.  There is a large tree to the east, and an old shack to the south.
 
 > s
 You move south.
-
-By the old shack
 You are standing outside an old shack.  It looks very run down.  There is a
 pump here.  There is a cave to the north, a poppy field to the east, and a
 crater to the south.
@@ -915,8 +791,6 @@ You pick up the star shaped amulet.
 
 > e
 You move east.
-
-In the poppy field
 You are standing in a large field of poppies.  All around you, you can see
 red, swaying in each gust of wind.  The smell of pollen is in the air.  There
 is a large tree to the north, a river bank to the east, an old stairway to
@@ -926,8 +800,6 @@ Also here is an old book and a faded map.
 
 > s
 You move south.
-
-By the old stairway
 You are standing at the bottom of an old stairway cut into the rock.  The
 steps are very large and a little slippery.  To the north is the poppy field,
 the beach is to the east, and the pool to the west.
@@ -937,8 +809,6 @@ You drop the star shaped amulet.
 
 > n
 You move north.
-
-In the poppy field
 You are standing in a large field of poppies.  All around you, you can see
 red, swaying in each gust of wind.  The smell of pollen is in the air.  There
 is a large tree to the north, a river bank to the east, an old stairway to
@@ -948,8 +818,6 @@ Also here is an old book and a faded map.
 
 > n
 You move north.
-
-By the large tree
 You are standing by what was once an enormous tree.  All that is left, is a
 large stump in the ground, and a load of roots sticking out the ground.
 
@@ -957,8 +825,6 @@ Also here is a rusty old axe.
 
 > e
 You move east.
-
-West of the bridge
 You are standing beside a great river, which is roaring past furiously.
 Someone has built a bridge here, which spans eastwards, over the river.
 There is a peninsula to the north, a bridge to the east, the river bank to
@@ -966,15 +832,11 @@ the south, and a large tree to the west.
 
 > e
 You move east.
-
-On the bridge
 You are standing on the bridge spanning the river.  There is land to both the
 east and west.  It looks as though someone did a recent repair job here.
 
 > e
 You move east.
-
-East of the bridge
 You are standing to the east of a wooden bridge that spans across the river.
   To the north is a waterfall, and the south takes you along the river.
 
@@ -982,8 +844,6 @@ Also here is a claw hammer.
 
 > s
 You move south.
-
-Beside the river
 You are standing on the bank of the river.  It is very grassy here.  There is
 a small path leading north and south.  There is a small hole beside the path.
  There is a bridge to the north, and a market to the south.  To the east is a
@@ -991,8 +851,6 @@ large metal fence.
 
 > s
 You move south.
-
-At the market
 You are standing in a small market.  There are a couple of stalls here, but
 nothing to sing and dance about.  To the north is a river bank, to the east
 is the gate to a graveyard, to the south is a large door, and there is a pier
@@ -1001,22 +859,16 @@ Bob is here, standing behind a stall.
 
 > s
 You move south.
-
-Outside a large door
 You are standing outside a large door built into the side of a small
 building.  There is a market to the north, and a garage to the east.
 
 > e
 You move east.
-
-Outside the garage
 You are standing outside what looks like a garage.  There is a large door to
 your west, and to the north are the gates to a graveyard.
 
 > in
 You move in.
-
-Inside Megs garage
 You are standing inside a small garage.  There are shelves running along the
 sides of the walls.  There is an old run down car in here.
 
@@ -1033,8 +885,6 @@ car jolts backwards, crashing through the rear wall of the garage.
 
 > s
 You move south.
-
-Megs back garden
 You are in Megs back garden.  There are bricks lying about, and in the middle
 is a very crumpled old car.  Meg has built a patio here.  There is a wall
 surrounding the garden.
@@ -1046,8 +896,6 @@ You pick up the garden spade.
 
 > n
 You move north.
-
-Inside Megs garage
 You are standing inside a small garage.  There are shelves running along the
 sides of the walls.  There is a large hole in the south wall of the garage.
 
@@ -1055,15 +903,11 @@ Also here is a glass bottle.
 
 > out
 You move out.
-
-Outside the garage
 You are standing outside what looks like a garage.  There is a large door to
 your west, and to the north are the gates to a graveyard.
 
 > n
 You move north.
-
-Outside the graveyard
 You are standing outside a graveyard.  The graveyard is surrounded by a large
 metal fence.  There is an open gate here leading in to the graveyard.  A
 sombre looking dude stands in front of the gate.  There is a market to the
@@ -1100,8 +944,6 @@ You drop the garden spade.
 
 > out
 You move out.
-
-Outside the graveyard
 You are standing outside a graveyard.  The graveyard is surrounded by a large
 metal fence.  There is an open gate here leading in to the graveyard.  A
 sombre looking dude is asleep near the gate.  There is a market to the west,
@@ -1110,8 +952,6 @@ Douglas is here, looking well 'ard.
 
 > w
 You move west.
-
-At the market
 You are standing in a small market.  There are a couple of stalls here, but
 nothing to sing and dance about.  To the north is a river bank, to the east
 is the gate to a graveyard, to the south is a large door, and there is a pier
@@ -1120,8 +960,6 @@ Bob is here, standing behind a stall.
 
 > s
 You move south.
-
-Outside a large door
 You are standing outside a large door built into the side of a small
 building.  There is a market to the north, and a garage to the east.
 
@@ -1140,15 +978,11 @@ of the television.  "We don't get many flowers this side of the river."
 
 > out
 You move out.
-
-Outside a large door
 You are standing outside a large door built into the side of a small
 building.  There is a market to the north, and a garage to the east.
 
 > n
 You move north.
-
-At the market
 You are standing in a small market.  There are a couple of stalls here, but
 nothing to sing and dance about.  To the north is a river bank, to the east
 is the gate to a graveyard, to the south is a large door, and there is a pier
@@ -1157,8 +991,6 @@ Bob is here, standing behind a stall.
 
 > n
 You move north.
-
-Beside the river
 You are standing on the bank of the river.  It is very grassy here.  There is
 a small path leading north and south.  There is a small hole beside the path.
  There is a bridge to the north, and a market to the south.  To the east is a
@@ -1166,8 +998,6 @@ large metal fence.
 
 > n
 You move north.
-
-East of the bridge
 You are standing to the east of a wooden bridge that spans across the river.
   To the north is a waterfall, and the south takes you along the river.
 
@@ -1175,16 +1005,12 @@ Also here is a claw hammer.
 
 > n
 You move north.
-
-By the waterfall
 You are standing by a small waterfall.  It comes from a pipe in the hills to
 the east, and flows down into the river to your west.  The waterfall is not
 falling too heavy at the moment.  There is a bridge to the south.
 
 > n
 You move north.
-
-Under the waterfall
 You are standing underneath the waterfall.  It is moderately dry here as the
 water falls in a clear arc above you.  There is a solid rock face to the
 north, but the east wall appears to be made from mud.
@@ -1195,15 +1021,11 @@ uncovered a secret passage.
 
 > e
 You move east.
-
-In the secret passage
 You are in an east west passageway.  It is very dark here.  You can feel
 water running past you.
 
 > e
 You move east.
-
-In an underground cavern
 Everything is dark.
 
 > move rock
@@ -1222,15 +1044,11 @@ all over it.
 
 > w
 You move west.
-
-In the secret passage
 You are in an east west passageway.  It is very dark here.  You can feel
 water running past you.
 
 > w
 You move west.
-
-Under the waterfall
 You are standing underneath the waterfall.  It is moderately dry here as the
 water falls in a clear arc above you.  There is a solid rock face to the
 north, but the east wall appears to be made from mud.  There is a secret
@@ -1238,16 +1056,12 @@ passage in the east wall.
 
 > s
 You move south.
-
-By the waterfall
 You are standing by a small waterfall.  It comes from a pipe in the hills to
 the east, and flows down into the river to your west.  The waterfall is not
 falling too heavy at the moment.  There is a bridge to the south.
 
 > s
 You move south.
-
-East of the bridge
 You are standing to the east of a wooden bridge that spans across the river.
   To the north is a waterfall, and the south takes you along the river.
 
@@ -1255,15 +1069,11 @@ Also here is a claw hammer.
 
 > w
 You move west.
-
-On the bridge
 You are standing on the bridge spanning the river.  There is land to both the
 east and west.  It looks as though someone did a recent repair job here.
 
 > w
 You move west.
-
-West of the bridge
 You are standing beside a great river, which is roaring past furiously.
 Someone has built a bridge here, which spans eastwards, over the river.
 There is a peninsula to the north, a bridge to the east, the river bank to
@@ -1271,8 +1081,6 @@ the south, and a large tree to the west.
 
 > w
 You move west.
-
-By the large tree
 You are standing by what was once an enormous tree.  All that is left, is a
 large stump in the ground, and a load of roots sticking out the ground.
 
@@ -1280,8 +1088,6 @@ Also here is a rusty old axe.
 
 > s
 You move south.
-
-In the poppy field
 You are standing in a large field of poppies.  All around you, you can see
 red, swaying in each gust of wind.  The smell of pollen is in the air.  There
 is a large tree to the north, a river bank to the east, an old stairway to
@@ -1291,8 +1097,6 @@ Also here is an old book and a faded map.
 
 > s
 You move south.
-
-By the old stairway
 You are standing at the bottom of an old stairway cut into the rock.  The
 steps are very large and a little slippery.  To the north is the poppy field,
 the beach is to the east, and the pool to the west.
@@ -1304,15 +1108,11 @@ You pick up the star shaped amulet.
 
 > up
 You move up.
-
-At the top of the stairs
 You are standing at the top of the stairs cut into the rock.  To your east
 you can see the main part of the rock, while the steps lead back down.
 
 > e
 You move east.
-
-On the rock
 You are standing on the top of the large rock.  You can see all around you.
 You can see how the river runs from the south all the way up to the north.
 There is a stone table set into the middle of the rock.
@@ -1324,8 +1124,6 @@ slowly, the table starts moving downwards, revealing a passage.
 
 > down
 You move down.
-
-Under the rock
 You are in a small room carved into the rock.  There is a flight of stairs
 here leading up to a small hole in the roof.
 

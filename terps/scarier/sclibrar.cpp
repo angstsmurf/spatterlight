@@ -4036,6 +4036,16 @@ lib_list_in_object_alternate (scr_gameref_t game,
  * extra alternative so that containers worn by or attached to an NPC keep the
  * format they had before this rule was derived; it can only matter for three
  * or more contained objects.
+ *
+ * Before 3.9 there is no choice to make: the alternate format does not exist.
+ * run370 and run380 carry only the "  Inside " literal -- run380 @43D0B1 is
+ * the whole of it, `"  Inside " & tense(prefix) & " " & short & " is " &
+ * list` -- and neither binary contains " is inside " or " are inside "
+ * anywhere; both strings first appear in run390.  Measured live under Wine
+ * 2026-08-24 on mikes.taf (3.80) in run380, whose toilet holds exactly one
+ * object: `open toilet` answers "You open the toilet.  Inside the toilet is
+ * a poop." where 3.9 and 4.0 would say "A poop is inside the toilet."  The
+ * same replay shows it again on `look in mailbox`.
  */
 static scr_bool
 lib_list_in_object (scr_gameref_t game, scr_int container, scr_bool is_described)
@@ -4060,7 +4070,9 @@ lib_list_in_object (scr_gameref_t game, scr_int container, scr_bool is_described
         }
     }
 
-  if (count == 1 || count == 2)
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    use_alternate_format = FALSE;
+  else if (count == 1 || count == 2)
     use_alternate_format = TRUE;
   else if (obj_is_static (game, container)
            && gs_object_position (game, container) == OBJ_PART_NPC)
@@ -4166,6 +4178,11 @@ lib_list_on_object_alternate (scr_gameref_t game,
  * leg to stand on, a handy dandy extra hand, the sloppy jalopy, a portable
  * doorknob and a pollen popper upper." (5 objects) against "A container of
  * Reggie's Remedy Rust Resolvent is on the shelves." (1 object).
+ *
+ * And it drops the alternate format before 3.9 for the same reason
+ * containers do: " is on " and " are on " are absent from run370 and run380
+ * and first appear in run390, which leaves "On <surface> is <list>." as the
+ * only wording those two can produce.
  */
 static scr_bool
 lib_list_on_object (scr_gameref_t game, scr_int supporter, scr_bool is_described)
@@ -4189,7 +4206,9 @@ lib_list_on_object (scr_gameref_t game, scr_int supporter, scr_bool is_described
         }
     }
 
-  if (count == 1 || count == 2)
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    use_alternate_format = FALSE;
+  else if (count == 1 || count == 2)
     use_alternate_format = TRUE;
   else if (obj_is_static (game, supporter)
            && gs_object_position (game, supporter) == OBJ_PART_NPC)

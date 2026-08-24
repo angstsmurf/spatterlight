@@ -24,8 +24,6 @@ You pick up the library card.
 
 > north
 You move north.
-
-Central Garbanzo Street
 This is Garbanzo Street, in the south end of Akron. It stretches as far as
 the eye can see both east and west. There is surprisingly little traffic - of
 course, at 11:15 AM, most people are comfortably settled into their jobs. A
@@ -34,8 +32,6 @@ the north is the Akron Public Library.
 
 > north
 You move north.
-
-Inside Akron Public Library
 Akron Public Library is a small community library, with a relatively limited
 selection of books. You're in the front alcove, which contains only the
 checkout/return desk and a cart which seems to contain the books to be filed.
@@ -55,8 +51,6 @@ You take a thin book from the return cart.
 
 > south
 You move south.
-
-Central Garbanzo Street
 This is Garbanzo Street, in the south end of Akron. It stretches as far as
 the eye can see both east and west. There is surprisingly little traffic - of
 course, at 11:15 AM, most people are comfortably settled into their jobs. A
@@ -65,8 +59,6 @@ the north is the Akron Public Library.
 
 > west
 You move west.
-
-West Garbanzo Street
 This is the western end of Garbanzo Street, extending into the industrial
 district. There is a factory here that looks like it makes cars. Its entrance
 is to the north. To the south is a boarded-up store. West of you is a suburb
@@ -74,8 +66,6 @@ complex, and east is Central Garbanzo Street.
 
 > south
 You move south.
-
-Outside the boarded-up store
 You stand just outside what was formerly some kind of men's clothing store.
 All the windows are boarded up, and the canopy above the door is torn. The
 door itself is southwards, and Garbanzo street is to the north.
@@ -93,8 +83,6 @@ and you open it.
 
 > south
 You move south.
-
-The boarded-up store
 This is a deserted men's clothing store. Empty racks are all around you -
 there seems to be no merchandise. Even the cash register is empty. This is
 not a very cheerful place.
@@ -105,26 +93,22 @@ Also here is a spiffy tuxedo.
 You pick up the spiffy tuxedo.
 
 > remove sweatshirt
-You remove the grubby sweatshirt.
+You remove a grubby sweatshirt.
 
 > remove jeans
-You remove the pair of ragged jeans.
+You remove a pair of ragged jeans.
 
 > wear tuxedo
 You put the tuxedo on. Boy, do you look good.
 
 > north
 You move north.
-
-Outside the boarded-up store
 You stand just outside what was formerly some kind of men's clothing store.
 All the windows are boarded up, and the canopy above the door is torn. The
 door itself is southwards, and Garbanzo street is to the north.
 
 > north
 You move north.
-
-West Garbanzo Street
 This is the western end of Garbanzo Street, extending into the industrial
 district. There is a factory here that looks like it makes cars. Its entrance
 is to the north. To the south is a boarded-up store. West of you is a suburb
@@ -132,8 +116,6 @@ complex, and east is Central Garbanzo Street.
 
 > east
 You move east.
-
-Central Garbanzo Street
 This is Garbanzo Street, in the south end of Akron. It stretches as far as
 the eye can see both east and west. There is surprisingly little traffic - of
 course, at 11:15 AM, most people are comfortably settled into their jobs. A
@@ -142,8 +124,6 @@ the north is the Akron Public Library.
 
 > east
 You move east.
-
-East Garbanzo Street
 Garbanzo Street makes a sharp curve to the left here, just managing to stay
 inside Akron city limits. Beyond it, to the east, is a large cornfield. To
 the north is a convenience store, and to the south is a vacant lot. Central
@@ -151,8 +131,6 @@ Garbanzo Street is back west.
 
 > south
 You move south.
-
-The vacant lot
 There is next to nothing here. Some trash has been tossed into this area, but
 most of it is rotten. Looks like someone plans to build here eventually,
 though.
@@ -164,8 +142,6 @@ You pick up the surveyor's stake.
 
 > north
 You move north.
-
-East Garbanzo Street
 Garbanzo Street makes a sharp curve to the left here, just managing to stay
 inside Akron city limits. Beyond it, to the east, is a large cornfield. To
 the north is a convenience store, and to the south is a vacant lot. Central
@@ -173,8 +149,6 @@ Garbanzo Street is back west.
 
 > east
 You move east.
-
-Lost in the cornfield
 You have blundered into a cornfield. Oh my. It looks like this is another one
 of those annoying mazes that the programmer loves so much. Well, let me give
 you a little hint - just go NORTH and you'll be out of the maze! You see, I,
@@ -183,8 +157,6 @@ programmer's coming. AIEEEEEEEEEEEEE...
 
 > north
 You move north.
-
-A clearing in the cornfield
 Wow! You made it all the way through the maze! I'm so impressed! This is a
 clearing in the cornfield.  WOAH! Prancing around you is... is... it's a
 demon form of Elizabeth Dole! SHE WANTS YOUR SOUL! Better defeat her, quick!
@@ -200,8 +172,6 @@ You pick up the small passcard.
 
 > south
 You move south.
-
-Lost in the cornfield
 You have blundered into a cornfield. Oh my. It looks like this is another one
 of those annoying mazes that the programmer loves so much. Well, let me give
 you a little hint - just go NORTH and you'll be out of the maze! You see, I,
@@ -210,8 +180,6 @@ programmer's coming. AIEEEEEEEEEEEEE...
 
 > west
 You move west.
-
-East Garbanzo Street
 Garbanzo Street makes a sharp curve to the left here, just managing to stay
 inside Akron city limits. Beyond it, to the east, is a large cornfield. To
 the north is a convenience store, and to the south is a vacant lot. Central
@@ -219,8 +187,6 @@ Garbanzo Street is back west.
 
 > west
 You move west.
-
-Central Garbanzo Street
 This is Garbanzo Street, in the south end of Akron. It stretches as far as
 the eye can see both east and west. There is surprisingly little traffic - of
 course, at 11:15 AM, most people are comfortably settled into their jobs. A
@@ -229,8 +195,6 @@ the north is the Akron Public Library.
 
 > west
 You move west.
-
-West Garbanzo Street
 This is the western end of Garbanzo Street, extending into the industrial
 district. There is a factory here that looks like it makes cars. Its entrance
 is to the north. To the south is a boarded-up store. West of you is a suburb
@@ -238,8 +202,6 @@ complex, and east is Central Garbanzo Street.
 
 > north
 You move north.
-
-The Johnson automotive plant's lobby
 This is the lobby of the Johnson automotive plant, employer of nearly
 everybody in this part of Akron. (It is, in fact, one of the only factories
 in Akron that doesn't deal with rubber.) Cars, mostly Plymouths, litter this
@@ -253,8 +215,6 @@ noticed.
 
 > west
 You step into the factory itself.
-
-The Johnson automotive plant
 Machines clang all around you. Workers bustle in every direction. Noise is
 shattering your ears. Better spend as little time here as you can. The exit
 into the lobby is back to the east.
@@ -269,8 +229,6 @@ You put on a wedding ring.
 
 > east
 You move east.
-
-The Johnson automotive plant's lobby
 This is the lobby of the Johnson automotive plant, employer of nearly
 everybody in this part of Akron. (It is, in fact, one of the only factories
 in Akron that doesn't deal with rubber.) Cars, mostly Plymouths, litter this
@@ -280,8 +238,6 @@ The smiling desk clerk sits here, reading a Danielle Steele novel.
 
 > south
 You move south.
-
-West Garbanzo Street
 This is the western end of Garbanzo Street, extending into the industrial
 district. There is a factory here that looks like it makes cars. Its entrance
 is to the north. To the south is a boarded-up store. West of you is a suburb
@@ -289,24 +245,18 @@ complex, and east is Central Garbanzo Street.
 
 > west
 You move west.
-
-Kumquat Avenue
 Garbanzo Street becomes Kumquat Avenue here, as we enter the Smallwood Green
 subdivision housing complex. It stretches further on to the west, and
 Garbanzo Street is to the east.
 
 > west
 You move west.
-
-West Kumquat Avenue
 Kumquat Avenue reaches a dead end here. Interestingly, there is a police car
 parked outside the house at the dead end to the west (37 Kumquat). Maybe you
 should check it out.
 
 > west
 You move west.
-
-The doorstep of 37 Kumquat Avenue
 You stand on the doorstep outside 37 Kumquat Avenue.  Officer Stanley Peters,
 of the Ohio Police Department, stands in front of the door. "Get out of
 here," he orders you. "There is serious police business going on inside."

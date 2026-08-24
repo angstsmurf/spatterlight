@@ -35,8 +35,6 @@ You have been awarded 25 points for going beyond the call of duty.
 
 > n
 You move north.
-
-On the Cottage Deck
 You are standing on the front deck of the cottage.  Some of the boards are
 slightly rotted.  Despite the rot, the deck looks freshly painted.  The front
 door stands before you and the porch door is to your left.  An old sign is
@@ -73,8 +71,6 @@ The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > in
 You move in.
-
-In the Cottage Kitchen
 You are standing in the smallest kitchen that you have ever seen on dry land.
  You can almost touch all four walls without moving.  Your breathing gets
 shallow.  In the kitchen is a refrigerator, the kitchen counter, the kitchen
@@ -95,8 +91,8 @@ You take old meat from the big white refrigerator.
 You take all of the knives from the silverware drawer.
 
 > open kitchen cupboard
-You open the kitchen cupboard.  Yummy pop-tarts and a can of corn are inside
-the kitchen cupboard.
+You open the kitchen cupboard.  Inside the kitchen cupboard is yummy
+pop-tarts and a can of corn.
 
 > get pop-tarts
 You take yummy pop-tarts from the kitchen cupboard.
@@ -105,8 +101,6 @@ coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > w
 You move west.
-
-In the Cottage Living Room
 You are standing in the small cottage living room.  The living room is pitch
 dark.
 
@@ -123,8 +117,6 @@ Your memory is quite good.  You earn 10 points for getting to work early.
 You slowly push the fuse cartridge into the slot in the fuse box.  There's a
 loud snap and a flash of blue light.  A fine stream of bluish smoke wafts
 upward from the fuse box.
-
-In the Cottage Living Room
 You are standing in the small cottage living room.  The living room is pitch
 dark.
 Jon is here.
@@ -132,8 +124,6 @@ You've earned 5 additional points for doing the right thing.
 
 > turn on the living room light
 You have successfully  turned on the living room light
-
-In the Cottage Living Room
 You are standing in the small cottage living room.  The living room walls
 which show exposed studs are painted a pale yellow.  There are knick-knacks
 all over the place.  There's a green table and chairs on the east wall.
@@ -147,8 +137,6 @@ You get only 2 points for doing something obvious.
 
 > s
 You move south.
-
-On the Cottage Porch
 The front porch looks exactly as you expected.  Against the far wall there is
 a wooden storage chest with a hinged lid under a thin mattress that doubles
 as the base to the small bed where Kevin always sleeps.  There is a black
@@ -181,8 +169,6 @@ through the neighborhood.
 
 > n
 You move north.
-
-In the Cottage Living Room
 You are standing in the small cottage living room.  The living room walls
 which show exposed studs are painted a pale yellow.  There are knick-knacks
 all over the place.  There's a green table and chairs on the east wall.
@@ -195,8 +181,6 @@ ripping through some lumber can be heard intermittantly off in the distance.
 
 > up
 You move up.
-
-On the Cottage Stairway
 The cottage stairway is extremely narrow and steep.  The stairway is dark.  A
 string fades away upstairs through a series of small eye hooks.
 
@@ -210,8 +194,6 @@ You pull the light string and the stairway and upstairs lights up.
 
 > up
 You move up.
-
-Upstairs at the Cottage
 You are standing on the second floor of the cottage.  There are two double
 beds and some dressers here.  The beds seem to have been made in haste and
 the sheets are not completely tucked in.  There is a small metal can on the
@@ -236,8 +218,6 @@ You receive 10 points although the book is reward enough.
 
 > down
 You move down.
-
-On the Cottage Stairway
 The cottage stairway is extremely narrow and steep.  The twisty and narrow
 stairway leads to the second floor.  There is also a string running up the
 stairway through a series of small eye hooks.  The stairs and walls are
@@ -249,8 +229,6 @@ Also here is an orange frisbee and an old trackball game set.
 
 > down
 You move down.
-
-In the Cottage Living Room
 You are standing in the small cottage living room.  The living room walls
 which show exposed studs are painted a pale yellow.  There are knick-knacks
 all over the place.  There's a green table and chairs on the east wall.
@@ -269,8 +247,6 @@ coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > n
 You move north.
-
-In the Cottage Bathroom
 You are standing in the tiny bathroom.  You thought you were chlostraphobic
 in the kitchen...  To the north is a small window with a towel rack below.
 To the east is a small shower stall.  To the west is a toilet and a vanity.
@@ -287,8 +263,6 @@ The faint odor of snappers wafts towards you from the south.
 
 > in
 You move in.
-
-In the Shower Stall
 The metal shower stall is extremely tight and your arms brush up against the
 sides of the stall causing a thunderous rumble.
 
@@ -304,8 +278,6 @@ You pick up strawberry shampoo.
 
 > out
 You move out.
-
-In the Cottage Bathroom
 You are standing in the tiny bathroom.  You thought you were chlostraphobic
 in the kitchen...  To the north is a small window with a towel rack below.
 To the east is a small shower stall.  To the west is a toilet and a vanity.
@@ -331,8 +303,6 @@ The faint odor of snappers wafts off to the south.
 
 > s
 You move south.
-
-In the Cottage Living Room
 You are standing in the small cottage living room.  The living room walls
 which show exposed studs are painted a pale yellow.  There are knick-knacks
 all over the place.  There's a green table and chairs on the east wall.
@@ -345,8 +315,6 @@ The faint odor of snappers is here.
 
 > e
 You move east.
-
-In the Cottage Kitchen
 You are standing in the smallest kitchen that you have ever seen on dry land.
  You can almost touch all four walls without moving.  Your breathing gets
 shallow.  In the kitchen is a refrigerator, the kitchen counter, the kitchen
@@ -362,8 +330,6 @@ The faint odor of snappers wafts towards you from the west.
 
 > out
 You move out.
-
-On the Cottage Deck
 You are standing on the front deck of the cottage.  Some of the boards are
 slightly rotted.  Despite the rot, the deck looks freshly painted.  The front
 door stands before you and the porch door is to your left.  An old sign is
@@ -375,8 +341,6 @@ Hovey is here.
 
 > s
 You move south.
-
-On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
@@ -390,8 +354,6 @@ Reid'.  OK?"  You nod and say, "Ok Grandpa".
 
 > w
 You move west.
-
-On Oakland Ave. @ Art & Marge's
 You are standing directly in front of Art & Marge's house.  There is a large
 set of concrete steps leading steeply up to the front porch.  There is a
 vague cloud of smoke billowing up from the porch door.  They live here year
@@ -410,8 +372,6 @@ coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > e
 You move east.
-
-On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
@@ -421,8 +381,6 @@ The faint odor of snappers is here.
 
 > e
 You move east.
-
-On Oakland Ave. @ side yard
 You are standing on Oakland Ave at the top of the cottage side yard.  To the
 south is the ball field behind the Salvation Army building.
 Hovey is here.
@@ -435,8 +393,6 @@ scraping through some lumber off  in the distance.
 
 > n
 You move north.
-
-On the Cottage Side Yard
 This is the side yard of the cottage.  This is where people sometimes park
 their cars when they stay at the cottage.  You can usually fit two cars in
 here.  The grass is very long and is in need of whackin'.  Somebody should be
@@ -448,8 +404,6 @@ coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > n
 You move north.
-
-Behind the Cottage
 You are standing directly behind the cottage.  There is a slightly rotted
 wooded door that leads to a crawl space below the cottage.  The door is set
 below the surface of the grass and wooden boards hold back the dirt from the
@@ -466,8 +420,6 @@ The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > in
 You move in.
-
-In the Cottage Cellar
 The extra traction that you got from wearing grandpa's shoes gave you just
 enough umph to open the cellar door.  The cottage cellar is very dark and is
 musty and cold. All that you can see is some light seeping in through the
@@ -496,8 +448,6 @@ coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > out
 You move out.
-
-Behind the Cottage
 You are standing directly behind the cottage.  There is a slightly rotted
 wooded door that leads to a crawl space below the cottage.  The door is set
 below the surface of the grass and wooden boards hold back the dirt from the
@@ -521,16 +471,12 @@ You drop the bladed golf club.
 
 > s
 You move south.
-
-On the Cottage Side Yard
 This is the side yard of the cottage.  This is where people sometimes park
 their cars when they stay at the cottage.  You can usually fit two cars in
 here.  The grass is freshly cut and your father is quite proud of you.
 
 > s
 You move south.
-
-On Oakland Ave. @ side yard
 You are standing on Oakland Ave at the top of the cottage side yard.  To the
 south is the ball field behind the Salvation Army building.
 Electricity rips through your spine as your ears are attacked by one of Art's
@@ -538,8 +484,6 @@ coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > s
 You move south.
-
-In the Ball Field
 You are standing in the ballfield which is directly behind Uncle George's
 cottage and the Salvation Army building.  It is a small grassy field with
 dirt spots worn where the bases and home plate would be on a baseball field.
@@ -590,23 +534,17 @@ The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > e
 You move east.
-
-At the Salvation Army
 You are standing in front of the Salvation Army building just north of Union
 Ave.  A path leads north to the corner of Oakland Ave.
 
 > in
 You move in.
-
-In the Salvation Army
 You have entered the Salvation Army building.  You are standing in the lobby
 of the building.  To the north is the sanctuary and to the west is a hallway
 that leads to the rest rooms and the gymnasium.
 
 > n
 You move north.
-
-The Salvation Army sanctuary
 You are standing in the middle of the Salvation Army sanctuary.  There are
 about 12 rows of 12 feet long pews on each side of the middle isle.  There is
 a small wooden podium on the raised platform.  There are several banners hung
@@ -624,16 +562,12 @@ You are at peace with yourself and you begin to feel a bit lucky.
 
 > s
 You move south.
-
-In the Salvation Army
 You have entered the Salvation Army building.  You are standing in the lobby
 of the building.  To the north is the sanctuary and to the west is a hallway
 that leads to the rest rooms and the gymnasium.
 
 > w
 You move west.
-
-The Salvation Army Gym
 This is the Salvation Army gymnasium.  The gymnasium is somewhat dark and is
 dimly lit from the louvered windows up on the west wall. One of the windows
 seems freshly broken based on the presence of broken glass on the gymnasium
@@ -667,23 +601,17 @@ You pick up the old ratty stepladder.
 
 > e
 You move east.
-
-In the Salvation Army
 You have entered the Salvation Army building.  You are standing in the lobby
 of the building.  To the north is the sanctuary and to the west is a hallway
 that leads to the rest rooms and the gymnasium.
 
 > out
 You move out.
-
-At the Salvation Army
 You are standing in front of the Salvation Army building just north of Union
 Ave.  A path leads north to the corner of Oakland Ave.
 
 > s
 You move south.
-
-On Union Ave. @ the Tabernacle
 The Tabernacle is a large menacing structure that's pretty beat up.  The
 Salvation Army uses this for special events and Sunday morning meeting in the
 summer.  It stands at the top of Union Ave.  You can see the beach looking to
@@ -691,8 +619,6 @@ the east down the street.  Traffic is zipping by in both directions.
 
 > e
 You move east.
-
-At the top of Union Ave.
 You are standing at the top of Union Ave.  To the west is the Tabernacle and
 Union Ave. continues eastward down toward the beach.  There is a tiny little
 convenience store on the south side of the road.  Traffic is zipping by in
@@ -700,8 +626,6 @@ both directions.
 
 > in
 You move in.
-
-In the convenience store
 This is a grimy little convenience store.  The unfinished wood floors are
 gritty with sand.  There is a little checkout stand just before the door.
 You smell old newspapers.  Grandpa gets his morning paper and plain donuts
@@ -711,7 +635,6 @@ Also here is a box of plain donuts.
 
 > look
 
-In the convenience store
 This is a grimy little convenience store.  The unfinished wood floors are
 gritty with sand.  There is a little checkout stand just before the door.
 You smell old newspapers.  Grandpa gets his morning paper and plain donuts
@@ -752,16 +675,12 @@ You've just earned 15 points for being ballsey.
 
 > out
 You move out.
-
-In the Grove
 You are standing in a grove of large pine trees.  Intermingled between the
 trees are some long wooden benches.  They are painted dark green and are
 blotched by pine sap stains.  There are pine needles littered about.
 
 > e
 You move east.
-
-On the Arched Walkway
 You are standing at the arched walkway which leads from the Band Shell to
 Washington Ave.  The sidewalk is about 20 slabs long and is very worn and
 cracked.  There is sand on everything.
@@ -770,8 +689,6 @@ scraping through some lumber off  in the distance.
 
 > n
 You move north.
-
-On Washington Ave. (S)
 You are on Washington Ave. near the Arched Walkway that leads to the
 bandshell.  The road continues to your north where it meets up with Saco Ave.
  J. M. Wortman's, the old  hardware and 5 & 10 cent store, is on the west
@@ -779,8 +696,6 @@ side of the street.  There is a soda machine just outside of Wortman's.
 
 > in
 You move in.
-
-J. M. Wortman's
 J. M. Wortman's is a hardware and a 5 & 10 cent store.  You can get anything
 from a hammer and nails to candy buttons.  Wortman runs the place and knows
 where everything is.  The shelves have all sorts of things on them.
@@ -792,7 +707,6 @@ Mr. Wortman is here.
 
 > look
 
-J. M. Wortman's
 J. M. Wortman's is a hardware and a 5 & 10 cent store.  You can get anything
 from a hammer and nails to candy buttons.  Wortman runs the place and knows
 where everything is.  The shelves have all sorts of things on them.
@@ -828,8 +742,6 @@ Your score just went up by 10.
 
 > out
 You move out.
-
-On Washington Ave. (S)
 You are on Washington Ave. near the Arched Walkway that leads to the
 bandshell.  The road continues to your north where it meets up with Saco Ave.
  J. M. Wortman's, the old  hardware and 5 & 10 cent store, is on the west
@@ -846,7 +758,6 @@ released and are free to go.
 
 > look
 
-OOB Police Station
 This is the Old Orchard Beach Police Station.  It looks much like the police
 station on the Andy Griffith Show.  There is a small table with a coffee
 maker and some donuts on the north wall.  Jail cells line the east wall and
@@ -873,8 +784,6 @@ turns, quick as a cat despite his paunch, and grabs you by the nape of the
 neck and squeezes until your eyes tear.  He utters some grunts and says
 "You'd better not let me catch you around here again!" and shoves you out the
 front door.  Jon quickly follows, snickering.
-
-At Saco Ave. & Old Orchard St.
 You are standing at the top of Old Orchard St.  To the north is the Old
 Orchard Beach Police Station (you wouldn't dare go in there).  To the east
 descends Old Orchard St. all the way down to The Pier.  Saco Ave is to your
@@ -884,8 +793,6 @@ desired.  Score 10 for timmy.
 
 > e
 You move east.
-
-On Old Orchard St. near Tattoo Parlor
 You are standing slightly down the hill from the top of Old Orchard St.  To
 the north is a Tattoo Parlor.  The windows are dark but there is a sign
 hanging in the window closest to the door.  Upon further inspection, the sign
@@ -893,8 +800,6 @@ reads "Open".  Traffic is zipping by in both directions.
 
 > in
 You move in.
-
-In the Tattoo Parlor
 The room is dank and dark.  There is a barber's chair in the center of the
 room.  Around the room is a wall counter which is stained with ink blotches.
 So much so that Dr. Rorschach would be proud.  The walls are covered with 8.5
@@ -934,8 +839,6 @@ You take a medical kit from the wall counter.
 
 > out
 You move out.
-
-On Old Orchard St. near Tattoo Parlor
 You are standing slightly down the hill from the top of Old Orchard St.  To
 the north is a Tattoo Parlor.  The windows are dark but there is a sign
 hanging in the window closest to the door.  Upon further inspection, the sign
@@ -945,8 +848,6 @@ A band of Harley's cruises toward you from the east.
 
 > e
 You move east.
-
-On Old Orchard St. near Emerson's Carmel Corn
 You are standing outside one of your favorite places in Old Orchard Beach.
 Emerson's Carmel Corn.  In the front window winds a saltwater taffy machine
 that mixes and mixes the taffy.  Inside, you know that there is all sorts of
@@ -954,8 +855,6 @@ confections.  Yum yum yum!!!  Traffic is zipping by in both directions.
 
 > e
 You move east.
-
-On Old Orchard St. near St. Tropez
 You are standing almost completely down the bottom of Old Orchard St.  The
 St. Tropez swimwear store is on the north side of the street.  You can see in
 and are immediately immersed with the feeling of chlostraphobia.  There are
@@ -964,8 +863,6 @@ windows.  Traffic is zipping by in both directions.
 
 > e
 You move east.
-
-On rr tracks @ Old Orchard St.
 You are standing at the intersection of Old Orchard St. and the railroad
 tracks.  The tracks bend out of sight to the north and south.  The Pier is to
 the east and Old Orchard St. rolls up hill to the west.  There are some low
@@ -989,8 +886,6 @@ but painful cuts just above your wrist.
 
 > e
 You move east.
-
-On Old Orchard St. & Grand Ave.
 You are standing on the corner of Old Orchard St. and Grand Ave.  Grand Ave.
 continues on it's way to the north (but you don't remember ever going that
 way).  The Pier is to the east.  The Wonderland Arcade can be found to the
@@ -1000,24 +895,18 @@ in both directions.
 
 > e
 You move east.
-
-At the Pier (entrance)
 You are standing on the sloped wooden ramp which is the entrance to the Pier.
  The Pier leads eastward over the ocean.  Oh what fun lies on the Pier.
 There are some hungry seagulls soaring overhead searching for bits of food.
 
 > e
 You move east.
-
-On The Pier near Woolf's Souveniers
 You are standing at the top of the ramp that leads to the entrance of the
 pier.  Woolf's Souvenier shop is here.  The pier runs to the east from here.
 There are a few hungry seagulls soaring above looking for hand-outs.
 
 > e
 You move east.
-
-On The Pier near Dairy Twirl
 You are standing on western end of the pier.  There is a Dairy Twirl soft
 serve ice cream stand here.  On a day like today, an ice cream would do
 wonders.  There is a spin art booth here also.  A bunch of little mcgrubbits
@@ -1026,8 +915,6 @@ circling the area.
 
 > e
 You move east.
-
-On the Pier near Pier French Fries
 You are standing somewhere in the middle of the pier near Pier French Fries.
 This place has the best french fries that you've ever had, or at least that's
 what the sign says.  You can smell the fries from a long way away which
@@ -1054,8 +941,6 @@ You score 5 points for being a good guy.
 
 > w
 You move west.
-
-On The Pier near Dairy Twirl
 You are standing on western end of the pier.  There is a Dairy Twirl soft
 serve ice cream stand here.  On a day like today, an ice cream would do
 wonders.  There is a spin art booth here also.  A bunch of little mcgrubbits
@@ -1064,24 +949,18 @@ circling the area.
 
 > w
 You move west.
-
-On The Pier near Woolf's Souveniers
 You are standing at the top of the ramp that leads to the entrance of the
 pier.  Woolf's Souvenier shop is here.  The pier runs to the east from here.
 There are a few hungry seagulls soaring above looking for hand-outs.
 
 > w
 You move west.
-
-At the Pier (entrance)
 You are standing on the sloped wooden ramp which is the entrance to the Pier.
  The Pier leads eastward over the ocean.  Oh what fun lies on the Pier.
 There are some hungry seagulls soaring overhead searching for bits of food.
 
 > w
 You move west.
-
-On Old Orchard St. & Grand Ave.
 You are standing on the corner of Old Orchard St. and Grand Ave.  Grand Ave.
 continues on it's way to the north (but you don't remember ever going that
 way).  The Pier is to the east.  The Wonderland Arcade can be found to the
@@ -1091,8 +970,6 @@ in both directions.
 
 > s
 You move south.
-
-Outside Wonderland Arcade
 You are stand just outside of the Wonderland Arcade.  You look up at the red
 and white sign and notice that there is a large lion or tiger oddly perched
 on top of it expressing a painful grin.  Doesn't make too much sense but you
@@ -1103,8 +980,6 @@ Ave. continues on south.  Traffic is zipping by in both directions.
 
 > in
 You move in.
-
-In the Wonderland Arcade
 This is one of your favorite places in the world outside of your bedroom at
 home.  There are Skeeball games against the north wall.  There is a prize
 counter loaded with all sorts of awesome prizes in the northwest corner.
@@ -1135,8 +1010,6 @@ Your score has gone up by 10.
 
 > out
 You move out.
-
-Outside Wonderland Arcade
 You are stand just outside of the Wonderland Arcade.  You look up at the red
 and white sign and notice that there is a large lion or tiger oddly perched
 on top of it expressing a painful grin.  Doesn't make too much sense but you
@@ -1147,8 +1020,6 @@ Ave. continues on south.  Traffic is zipping by in both directions.
 
 > e
 You move east.
-
-In Palace Playland (nw)
 You are standing in the northwest corner of Palace Playland.  The Sizzler is
 here and is whipping innocent victims around in centripital circles.  There
 is a booth where you have to knock down three fuzzy looking creatures with a
@@ -1157,8 +1028,6 @@ Dave the Guesser is here.
 
 > s
 You move south.
-
-In Palace Playland (w)
 You are standing in the west section of Palace Playland.  There is a kiddie
 motorcycle ride here and a booth where you try to throw small colored rings
 onto the neck of one of the one hundred or so bottles.  You never win at that
@@ -1166,8 +1035,6 @@ game.
 
 > e
 You move east.
-
-In Palace Playland (e)
 You are standing in the eastern section of Palace Playland.  The DODGE'M cars
 bumper car ride is here and there is a booth where you have to completely
 shoot out a red star from a piece of paper with a bb sub-machine gun.  Very
@@ -1175,8 +1042,6 @@ cool!
 
 > in
 You move in.
-
-At the DODGEM Cars
 This building houses one of your favorite playland rides.  The DODGEM Cars or
 bumper cars.  The floor and ceiling are made from sheets of metal.  The
 ceiling has an electrical charge and the floor acts as the ground.  The cars
@@ -1226,8 +1091,6 @@ Your score has gone up by 10.
 
 > out
 You move out.
-
-In Palace Playland (e)
 You are standing in the eastern section of Palace Playland.  The DODGE'M cars
 bumper car ride is here and there is a booth where you have to completely
 shoot out a red star from a piece of paper with a bb sub-machine gun.  Very
@@ -1235,8 +1098,6 @@ cool!
 
 > w
 You move west.
-
-In Palace Playland (w)
 You are standing in the west section of Palace Playland.  There is a kiddie
 motorcycle ride here and a booth where you try to throw small colored rings
 onto the neck of one of the one hundred or so bottles.  You never win at that
@@ -1244,8 +1105,6 @@ game.
 
 > s
 You move south.
-
-In Palace Playland (sw)
 You are standing in the southwest corner of Palace Playland.  There is a
 large roller coaster here and you see one or two four-seater cars wizzing
 around the track making an awesome rumble.  There is a booth here where you
@@ -1253,8 +1112,6 @@ shoot a basketball at a hoop for prizes.
 
 > w
 You move west.
-
-On Grand Ave. near bar
 You are standing just outside of a biker bar.  It seems deserted but you
 realize that everybody is inside already.  There is a steady hum of music
 from within and you can hear glass breaking occassionally.
@@ -1264,16 +1121,12 @@ A band of Harley's cruises toward you from the south.
 
 > s
 You move south.
-
-On Grand Ave. & Atlantic Ave.
 You are standing at the intersection of Grand Ave and Atlantic Ave.  There is
 a mini-golf course on the  north-west corner and a place that rents bicycles
 and double-wide bikes.  Traffic is zipping by in both directions.
 
 > s
 You move south.
-
-On Grand Ave. (mid)
 You are standing on Grand Ave. between Atlantic Ave. and Union Ave.  There is
 nothing of interest here.  You can hear the ocean off to the east.  Traffic
 is zipping by in both directions.
@@ -1282,8 +1135,6 @@ A dual seater rental bike rolls away to the south.
 
 > s
 You move south.
-
-At Union & Grand Ave.
 You've come to the intersection of Union and Grand Avenues.  This is a pretty
 busy intersection with the occasional car and rental double bike.  To the
 north are many motels and shops.  To the east is the beach and to the south
@@ -1291,8 +1142,6 @@ is more motels and Ocean Park.  Traffic is zipping by in both directions.
 
 > s
 You move south.
-
-On Grand Ave near bookstore
 You are standing on Grand Ave. near a small used book store.  The sign in the
 window reads "Closed".  Oh well, you're not interested in reading anyway.
 Traffic is zipping by in both directions.
@@ -1301,8 +1150,6 @@ A dual seater rental bike rolls towards you from the north.
 
 > s
 You move south.
-
-On Grand Ave. & Odessa Ave.
 You are standing at the intersection of Grand Ave. and Odessa Ave.  Gregory's
 Variety and Union Ave. are to the north.  The beach is to the east.  Ocean
 Park is to the south and you see your Uncle Joe's cottage to the west.  It is
@@ -1310,8 +1157,6 @@ a funky light green color.  Traffic is zipping by in both directions.
 
 > w
 You move west.
-
-On Odessa Ave @ Uncle Joe's
 You are standing just in front of Uncle Joe's cottage.  It looks very well
 maintained.  There are many small American flags adorning the perimeter of
 the front porch.
@@ -1324,8 +1169,6 @@ somehow convince yourself that they won't notice if you take all these flags.
 
 > e
 You move east.
-
-On Grand Ave. & Odessa Ave.
 You are standing at the intersection of Grand Ave. and Odessa Ave.  Gregory's
 Variety and Union Ave. are to the north.  The beach is to the east.  Ocean
 Park is to the south and you see your Uncle Joe's cottage to the west.  It is
@@ -1333,8 +1176,6 @@ a funky light green color.  Traffic is zipping by in both directions.
 
 > e
 You move east.
-
-On the beach @ Odessa Ave.
 You are standing on the beach at the end of Odessa Ave.  There are many
 people sunning themselves and playing in the water.  You can see some rocks
 at the low tide mark.  The rocks are called Googin's Rocks although you don't
@@ -1345,8 +1186,6 @@ Sunbather is here.
 
 > in
 You move in.
-
-In the ocean @ Odessa Ave.
 In the shallow water is a large rock outcropping.  It looks like it was
 dropped here because it seems so out of place.  The rocks are called Googin's
 Rocks but you have no idea why.  There are some people inspecting the rocks
@@ -1369,8 +1208,6 @@ and you give him a dirty look.
 
 > out
 You move out.
-
-On the beach @ Odessa Ave.
 You are standing on the beach at the end of Odessa Ave.  There are many
 people sunning themselves and playing in the water.  You can see some rocks
 at the low tide mark.  The rocks are called Googin's Rocks although you don't
@@ -1383,8 +1220,6 @@ Canadian couple walks towards you from the north.
 
 > w
 You move west.
-
-On Grand Ave. & Odessa Ave.
 You are standing at the intersection of Grand Ave. and Odessa Ave.  Gregory's
 Variety and Union Ave. are to the north.  The beach is to the east.  Ocean
 Park is to the south and you see your Uncle Joe's cottage to the west.  It is
@@ -1392,16 +1227,12 @@ a funky light green color.  Traffic is zipping by in both directions.
 
 > n
 You move north.
-
-On Grand Ave near bookstore
 You are standing on Grand Ave. near a small used book store.  The sign in the
 window reads "Closed".  Oh well, you're not interested in reading anyway.
 Traffic is zipping by in both directions.
 
 > n
 You move north.
-
-At Union & Grand Ave.
 You've come to the intersection of Union and Grand Avenues.  This is a pretty
 busy intersection with the occasional car and rental double bike.  To the
 north are many motels and shops.  To the east is the beach and to the south
@@ -1409,24 +1240,18 @@ is more motels and Ocean Park.  Traffic is zipping by in both directions.
 
 > n
 You move north.
-
-On Grand Ave. (mid)
 You are standing on Grand Ave. between Atlantic Ave. and Union Ave.  There is
 nothing of interest here.  You can hear the ocean off to the east.  Traffic
 is zipping by in both directions.
 
 > n
 You move north.
-
-On Grand Ave. & Atlantic Ave.
 You are standing at the intersection of Grand Ave and Atlantic Ave.  There is
 a mini-golf course on the  north-west corner and a place that rents bicycles
 and double-wide bikes.  Traffic is zipping by in both directions.
 
 > n
 You move north.
-
-On Grand Ave. near bar
 You are standing just outside of a biker bar.  It seems deserted but you
 realize that everybody is inside already.  There is a steady hum of music
 from within and you can hear glass breaking occassionally.
@@ -1458,8 +1283,6 @@ Your score has gone up by 10.
 
 > s
 You move south.
-
-On Washington Ave. (S)
 You are on Washington Ave. near the Arched Walkway that leads to the
 bandshell.  The road continues to your north where it meets up with Saco Ave.
  J. M. Wortman's, the old  hardware and 5 & 10 cent store, is on the west
@@ -1467,8 +1290,6 @@ side of the street.  There is a soda machine just outside of Wortman's.
 
 > s
 You move south.
-
-On the Arched Walkway
 You are standing at the arched walkway which leads from the Band Shell to
 Washington Ave.  The sidewalk is about 20 slabs long and is very worn and
 cracked.  There is sand on everything.  The sound of a skill saw ripping
@@ -1477,16 +1298,12 @@ The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > w
 You move west.
-
-In the Grove
 You are standing in a grove of large pine trees.  Intermingled between the
 trees are some long wooden benches.  They are painted dark green and are
 blotched by pine sap stains.  There are pine needles littered about.
 
 > w
 You move west.
-
-On Oakland Ave. @ corner
 You are standing on the corner of Oakland Ave. near the grove.  The cottage
 can be seen to the west and the band shell can be seen to the north east.
 There is a pathway leading south to the front of the Salvation Army building.
@@ -1497,8 +1314,6 @@ tight turns but he doesn't falter.
 
 > w
 You move west.
-
-On Oakland Ave. @ side yard
 You are standing on Oakland Ave at the top of the cottage side yard.  To the
 south is the ball field behind the Salvation Army building.
 Hovey and Billy are here.  You can see Billy casually riding his bike on the
@@ -1509,8 +1324,6 @@ Hovey shuffles off to the north.
 
 > w
 You move west.
-
-On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
@@ -1523,7 +1336,6 @@ coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > look
 
-On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
@@ -1535,7 +1347,6 @@ doesn't falter.
 
 > look
 
-On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
@@ -1547,7 +1358,6 @@ doesn't falter.
 
 > look
 
-On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
@@ -1561,7 +1371,6 @@ The faint odor of snappers wafts towards you from the north.
 
 > look
 
-On Oakland Ave. @ Cottage
 You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line

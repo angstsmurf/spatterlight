@@ -9,8 +9,7 @@ You realize that it is thursday which translates to "Payday"  you decide to
 get dressed and head to WORK.
 
 > take all from dresser
-You take the socks, the shirt, the underwear and the pair of pants from the
-dresser.
+You take a socks, a shirt, a underwear and a pair of pants from the dresser.
 
 > wear underwear
 You put on a underwear.
@@ -32,8 +31,6 @@ You put on a pair of vans.
 
 > south
 You move south.
-
-Hall
 This is the hallway leading to you bedroom. To the east is your brother's
 bedroom, to the west is the bathroom.
 
@@ -41,23 +38,19 @@ You can move north, east, south and west.
 
 > west
 You move west.
-
-Bathroom
 This is the restroom. There is a toilet, a sink, and a shower tub. To the
 east is the Hall.
 
 You can only move east.
 
 > open toilet
-You open the toilet.  A poop is inside the toilet.
+You open the toilet.  Inside the toilet is a poop.
 
 > take poop
 You take a poop from the toilet.
 
 > east
 You move east.
-
-Hall
 This is the hallway leading to you bedroom. To the east is your brother's
 bedroom, to the west is the bathroom.
 
@@ -65,8 +58,6 @@ You can move north, east, south and west.
 
 > north
 You move north.
-
-Bedroom
 You are in your bedroom. In this room you see a bed, a dresser, a television
 and some dirty laundry.
 
@@ -77,8 +68,6 @@ You put the poop inside the dresser.
 
 > south
 You move south.
-
-Hall
 This is the hallway leading to you bedroom. To the east is your brother's
 bedroom, to the west is the bathroom.
 
@@ -86,8 +75,6 @@ You can move north, east, south and west.
 
 > west
 You move west.
-
-Bathroom
 This is the restroom. There is a toilet, a sink, and a shower tub. To the
 east is the Hall.
 
@@ -98,8 +85,6 @@ you flush the toilet
 
 > east
 You move east.
-
-Hall
 This is the hallway leading to you bedroom. To the east is your brother's
 bedroom, to the west is the bathroom.
 
@@ -107,8 +92,6 @@ You can move north, east, south and west.
 
 > east
 You move east.
-
-Brother's Room
 This is your brother's room. To the west is the hallway.
 
 You can only move west.
@@ -118,8 +101,6 @@ You take a mustang keys from the night stand.
 
 > west
 You move west.
-
-Hall
 This is the hallway leading to you bedroom. To the east is your brother's
 bedroom, to the west is the bathroom.
 
@@ -127,8 +108,6 @@ You can move north, east, south and west.
 
 > south
 You move south.
-
-Hall
 This is the hall way leading to your room. To the east is  your sisters'
 room.
 
@@ -136,8 +115,6 @@ You can move north, east, south and west.
 
 > south
 You move south.
-
-Living Room
 This is the living room, Therer are two couches, an arm Chair and a
 telivisonin here. To the west is the kitchen, to the east is your little
 brother's room, and to the south is another hallway.
@@ -146,8 +123,6 @@ You can move north, east, south and west.
 
 > west
 You move west.
-
-Kitchen
 This is the kitchen the only points of intrest are a telephone and a
 refrigerato.  To the east is the Dining room and to the west is the Living
 room
@@ -161,8 +136,6 @@ are you? click..."
 
 > west
 You move west.
-
-Dining room
 This is the dining room, There is a table and chairs and a hutch in here. To
 the east is the kitchen, to the north is the back porch, to the west is your
 Parents' room and to the south is the Computer Room.
@@ -171,8 +144,6 @@ You can move north, east, south and west.
 
 > west
 You move west.
-
-Parent's room
 This is your parent's room. There is a bed and a dresser, nothing too
 important.
 
@@ -183,8 +154,6 @@ You take a truck keys from the closet.
 
 > east
 You move east.
-
-Dining room
 This is the dining room, There is a table and chairs and a hutch in here. To
 the east is the kitchen, to the north is the back porch, to the west is your
 Parents' room and to the south is the Computer Room.
@@ -193,8 +162,6 @@ You can move north, east, south and west.
 
 > east
 You move east.
-
-Kitchen
 This is the kitchen the only points of intrest are a telephone and a
 refrigerato.  To the east is the Dining room and to the west is the Living
 room
@@ -203,8 +170,6 @@ You can move east and west.
 
 > east
 You move east.
-
-Living Room
 This is the living room, Therer are two couches, an arm Chair and a
 telivisonin here. To the west is the kitchen, to the east is your little
 brother's room, and to the south is another hallway.
@@ -213,8 +178,6 @@ You can move north, east, south and west.
 
 > south
 You move south.
-
-Front hallway
 This is the front hallway leading to the front door. To the south is the
 front porch, to the east is the garrage,  to the west is the computer room,
 and to the north is the living room.
@@ -223,16 +186,12 @@ You can move north, east, south and west.
 
 > south
 You move south.
-
-Front porch
 This is the front porch.
 
 You can move north and east.
 
 > east
 You move east.
-
-Driveway
 There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
 have the keys.
@@ -246,8 +205,6 @@ You kick the truck a few times.
 
 > drive mustang work
 You get in the car and drive to work.
-
-Parking lot of publix
 This is the parking lot of the grocery store you work at. There are many cars
 here.
 
@@ -255,16 +212,12 @@ You can only move north.
 
 > north
 You move north.
-
-Front entrance of publix
 You are now entering publix.
 
 You can move north and south.
 
 > north
 You move north.
-
-Front loby
 This is the front loby of Publix.  (you realize that you have a pay check
 waiting for you at the service desk)
 
@@ -272,8 +225,6 @@ You can move north, east and south.
 
 > east
 You move east.
-
-Service desk
 This is the service desk of Publix. Type "cash check" to get your pay.
 
 You can move north and west.
@@ -283,8 +234,6 @@ You cash your check and recieve $120.83.
 
 > west
 You move west.
-
-Front loby
 This is the front loby of Publix.  (you realize that you have a pay check
 waiting for you at the service desk)
 
@@ -292,16 +241,12 @@ You can move north, east and south.
 
 > south
 You move south.
-
-Front entrance of publix
 You are now entering publix.
 
 You can move north and south.
 
 > south
 You move south.
-
-Parking lot of publix
 This is the parking lot of the grocery store you work at. There are many cars
 here.
 
@@ -311,8 +256,6 @@ You can only move north.
 
 > drive mustang home
 You drive back home
-
-Driveway
 There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
 have the keys.
@@ -323,8 +266,6 @@ You can move north, south and west.
 
 > north
 You move north.
-
-Garage
 This is the garage where your father spends time making stuff out of wood.
 Don't touch anything or he might get mad.
 
@@ -334,8 +275,6 @@ You can move south and west.
 
 > west
 You move west.
-
-Front hallway
 This is the front hallway leading to the front door. To the south is the
 front porch, to the east is the garrage,  to the west is the computer room,
 and to the north is the living room.
@@ -344,8 +283,6 @@ You can move north, east, south and west.
 
 > west
 You move west.
-
-Computer room
 This room is where you spend long hours everyday on the computer chatting to
 people you don't even know in real life, and bidding on usless stuff on ebay.
 There is also two couches an arm chair and a desk. To the north is the Dining
@@ -394,8 +331,6 @@ the money, go to your mail box and "send money to ebay"
 
 > east
 You move east.
-
-Front hallway
 This is the front hallway leading to the front door. To the south is the
 front porch, to the east is the garrage,  to the west is the computer room,
 and to the north is the living room.
@@ -404,16 +339,12 @@ You can move north, east, south and west.
 
 > south
 You move south.
-
-Front porch
 This is the front porch.
 
 You can move north and east.
 
 > east
 You move east.
-
-Driveway
 There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
 have the keys.
@@ -424,8 +355,6 @@ You can move north, south and west.
 
 > drive truck bob
 You get in the truck and drive to Bob's house.
-
-Bob's Street
 This is the street leading to Bobs house. There are yellow lines in the
 center. toi the south is bob's Driveway
 
@@ -433,8 +362,6 @@ You can only move south.
 
 > south
 You move south.
-
-Bob's driveway
 this is bob's drive way.The front door is south of here.  The drive was is
 covered with dirt, it was once white cement but is not blck ish brown, it
 needs to be cleaned.
@@ -445,8 +372,6 @@ You can move north and south.
 
 > south
 You move south.
-
-Bobs front door
 This is bob's front door. you can try knocking.
 
 You can only move north.
@@ -459,8 +384,6 @@ Bob moves the car and goes back into the house.,
 
 > north
 You move north.
-
-Bob's driveway
 this is bob's drive way.The front door is south of here.  The drive was is
 covered with dirt, it was once white cement but is not blck ish brown, it
 needs to be cleaned.
@@ -473,8 +396,6 @@ $135.00 for the job.
 
 > north
 You move north.
-
-Bob's Street
 This is the street leading to Bobs house. There are yellow lines in the
 center. toi the south is bob's Driveway
 
@@ -484,8 +405,6 @@ You can only move south.
 
 > drive truck home
 You get in the truck and drive it home.
-
-Driveway
 There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
 have the keys.
@@ -496,8 +415,6 @@ You can move north, south and west.
 
 > south
 You move south.
-
-Mail box
 This is the mail box.
 
 You can only move north.
@@ -574,7 +491,7 @@ Time passes...
 Time passes...
 
 > look in mailbox
-This is a mail box.  A small box is inside the mailbox.
+This is a mail box.  Inside the mailbox is a small box.
 
 > open box
 You can't open the small box!
@@ -590,8 +507,6 @@ You take some brass balls from the neat carrying case.
 
 > north
 You move north.
-
-Driveway
 There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
 have the keys.
@@ -602,8 +517,6 @@ You can move north, south and west.
 
 > drive mustang work
 You get in the car and drive to work.
-
-Parking lot of publix
 This is the parking lot of the grocery store you work at. There are many cars
 here.
 
@@ -611,16 +524,12 @@ You can only move north.
 
 > north
 You move north.
-
-Front entrance of publix
 You are now entering publix.
 
 You can move north and south.
 
 > north
 You move north.
-
-Front loby
 This is the front loby of Publix.  (you realize that you have a pay check
 waiting for you at the service desk)
 
@@ -628,16 +537,12 @@ You can move north, east and south.
 
 > east
 You move east.
-
-Service desk
 This is the service desk of Publix. Type "cash check" to get your pay.
 
 You can move north and west.
 
 > north
 You move north.
-
- More Cash registers
 Thereare about six cash registers here. Behind one you see Michelle
 You see Michelle here. Your heart skips a beat.
 

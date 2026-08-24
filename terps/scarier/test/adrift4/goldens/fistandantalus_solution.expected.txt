@@ -9,8 +9,6 @@ fabled to be in his old tower.  Thats where you are. May luck be with you.
 
 > north
 You move north.
-
-Armory
  This room is filled with all kinds of wepons long sience rusted. Swords,
 Axes, Sheilds, and Spears line the many racks.  This was so solders had ready
 accsess to wepons in case of attack.  It looks as if there is a button on the
@@ -23,16 +21,12 @@ from where they wern't wanted.
 
 > west
 You move west.
-
-Secret passage
 This passage smells of old protection spells and dried rose petals.  Normal
 for a former mages tower. There is another door to the west or you can go
 east back to the armory.
 
 > west
 You move west.
-
-Quarters1
 This room was used to host guest when the tower was in service. The walls are
 plan grey stone bricks and strangly there are no windows in this guest room.
 The walls also have some mold on them. There is an empty chest and a bed in
@@ -40,8 +34,6 @@ the corner. You can go north or you can go east back to the armory.
 
 > north
 You move north.
-
-Quarters2
  This looks much like the last room.This room was used to host guest when the
 tower was in service. The walls are plan grey stone bricks and strangly there
 are no windows in this guest room. The walls also have some mold on them.
@@ -61,16 +53,12 @@ lowly yong mage.  See ya in the marrow.  Signed Tanis half-elven
 
 > north
 You move north.
-
-Quarters3
 This room looks much like the last two.  A bed and desk in the corner moldy
 walls ect... There is an exit to the east, north  or to the south back to the
 last Quarters room.
 
 > east
 You move east.
-
-Hall Way
 This hallway connects the quarters with the rest of the tower.  The walls are
 grey moldy brick stone. There is a small window on either side of the
 hallway. As you look out those windows you can see the startling wonderful
@@ -93,8 +81,6 @@ must go tend the gardens good-day and may you have the best of luck.
 
 > east
 You move east.
-
-Library
 This is a huge library.  There are 15ft tall shelves as far as the eye can
 see.  This is a truley marvalous collection of books.  The dust of ages has
 all but destroyed the book.  There are many butiful tapastrys lineing the
@@ -104,8 +90,6 @@ east and back west to the hallway.
 
 > east
 You move east.
-
-Kitchen
 This was clearly a kitchen.  There are about 5 stoves and countless numbers
 of cookware.  There is still some freash bread and some turkey and the
 stoves.  Clearly Rastlin Majiere cooks for himslef. There is an exit to the
@@ -115,8 +99,6 @@ Also here is fresh bread and fresh  turkey.
 
 > north
 You move north.
-
-Storage room
 This is a storage room for all the food.  It is mostly barren. The cobwebs
 have certainly taken over in this room and there seems to be a very thick
 layer of dust on the floor.  You see a few rats scurry into there holes as
@@ -138,8 +120,6 @@ that being greedy would kill me but to get the book I shouldn't be greedy.
 
 > west
 You move west.
-
-Tower
 This was once the labratory of the great Fistandantalus.  Now it is barran.
 All of  a sudden a gost appers!  " Do not be alarmed.  I am fistandantalus.
 You have proven your self worthy of this book.  Tell the caretaker that I
