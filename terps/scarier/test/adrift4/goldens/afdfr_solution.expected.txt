@@ -132,7 +132,7 @@ Horse waits here, looking quite majestic.
 
 > take scythe
 
-You take the Grim Reaper's Scythe.
+You take The Grim Reaper's Scythe.
 
 > say kenya to horse
 

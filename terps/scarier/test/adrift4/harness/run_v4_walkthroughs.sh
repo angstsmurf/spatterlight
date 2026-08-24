@@ -109,6 +109,12 @@ thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
 #     Garage 5, entered through task 7 ("Use Key", ShowRoomDesc = 0), with the
 #     Small Pocket Knife lying loose on the floor.  The next command, `out`,
 #     moves normally, so the player really is standing there.
+#     (2026-08-25: read that transcript exactly as it stands.  The Runner got
+#     `use key` and then `take knife` with NOTHING between them -- the `look`
+#     the walkthrough puts there was lost by the feed and never echoed.  That
+#     is what makes the measurement clean, but it also means the reveal command
+#     was never tested here; and the knock refusal eleven commands later is not
+#     a second divergence, just task 9's fourth restriction, "Knife held".)
 #   * humbug, Adrift_29_humbug.txt: `X teeth` -> "Nothing Special." (see that row).
 # Fifteen rows were re-derived for it, each by inserting the reveal command a
 # player would actually type (a `look`, or an `x` of the container) before the
@@ -141,6 +147,8 @@ bomb_threat_solution.txt|Bomb Threat.taf|Or have you...
 circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=12 SCR_SKIP_WAITKEY=1
 colony_solution.txt|Colony.taf|You scored 200 out of the maximum 200!
 cyber_solution.txt|cyber.taf|THE END,or is it?
+# 2026-08-25: one line moves with the "The"-prefix fix (the Runner's tense
+# has no "the" branch -- see the xfiles block below).
 cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 # 3.90.  Re-blessed 2026-08-24 for one line: Vluurinik's room description at
 # command ~185 goes from "Vluurinik flits around." to "Vluurinik darts in
@@ -259,10 +267,28 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 #     where SCARE printed the unconditioned alt instead.  This game is the only
 #     row in the corpus the fix moves.
 #  2. The empty-M1 room-alt start rule (see the lair-of-the-cybercow rows).
-# Still divergent and NOT fixed here: at cmd 17 run400 prints "You take The
-# Warehouse Key from Case File 10193." where scarier prints "the Warehouse Key".
-# The article is capitalised in the take message but not by the same object's
-# examine message; logged in notes/WINE-TRANSCRIPTS-TODO.md, pre-existing.
+#  3. 2026-08-25 -- A "The" PREFIX KEEPS ITS CAPITAL.  The Memo's Prefix is
+#     literally "The", and run400 prints it back that way everywhere in
+#     Adrift_22_xfiles.txt: "... Your Badge and The Memo from Your Desk.",
+#     "Your Coffee Mug and The Memo are on Your Desk", and "I don't understand
+#     what you want me to do with The Memo."  The Runner's normalizer, tense
+#     (Proc_21_13_44F474 @44F474, reached from the name builder
+#     Proc_21_31_448710 in its normalizing mode 0, and handed Prefix & " " &
+#     Short as one string), tests exactly six things -- the whole string
+#     against "a"/"an"/"some" and its head against "a "/"an "/"some " -- and
+#     returns its argument untouched otherwise.  There is no "the" branch, in
+#     4.0 or in the byte-identical pre-3.9 tense (run370 @420F28, run380
+#     @425FA8).  scarier's lib_print_object_np() had one, and all it ever did
+#     was lower-case the author's capital: the fix is its deletion, since
+#     falling through prints the prefix verbatim anyway.  Two lines move here
+#     (cmd 17's "You take The Warehouse Key from Case File 10193." among them);
+#     cyber2, afdfr and the 3.90 spirits_flight move too.
+# Still divergent and NOT fixed here, both logged in
+# notes/WINE-TRANSCRIPTS-TODO.md: `x desk` orders and joins its container and
+# surface clauses differently ("... are on Your Desk, and inside is ..." in one
+# sentence, vs scarier's two, container first), and `burn memo` is refused by
+# run400 -- task 24 matches but one of its two restrictions fails silently
+# there, and which one needs a single-restriction probe.
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
@@ -273,6 +299,10 @@ mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|You scored 90 out of the maxim
 phoenix_destiny_solution.txt|Phoenix_Destiny.taf|Gold: 100
 questi_solution.txt|QuestI.taf|Your score is 10 out of a maximum of 10.
 shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the statue was you from a past life.
+# 3.90.  2026-08-25: nine lines move with the "The"-prefix fix -- The Spirit
+# Dagger, The Orb of Storms and The Amber of Flames all carry a "The" Prefix.
+# The run390 decompilation does not reach its normalizer, so 3.9 is bracketed
+# by the measured 3.8 and 4.0 behaviour rather than read.  See the xfiles block.
 spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a maximum of 95.
 srsintro_solution.txt|SRSintro.taf|
 the_nonsense_machine_6000_solution.txt|The_Nonsense_Machine_6000.taf|
@@ -1417,6 +1447,8 @@ mangiasaur_solution.txt|Mangiasaur.taf|Thanks for playing Mangiasaur!|
 #   * `take tape` is refused on purpose ("If you ever need it then you know
 #     where to find it") -- the masking tape is consumed implicitly by
 #     `repair shovel`, which itself requires `x workbench` first (TASK 182).
+# 2026-08-25: one line moves with the "The"-prefix fix (the Runner's tense
+# has no "the" branch -- see the xfiles block below).
 afdfr_solution.txt|AFDFR.taf|Life is good for Death.|SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-03 -- THE COMPLETE TAF 3.80 CORPUS.  A byte-level survey of both

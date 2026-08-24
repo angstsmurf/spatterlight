@@ -607,11 +607,29 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
       normalized = prefix + 2;
       pf_buffer_string (filter, "the");
     }
-  else if (scr_compare_word (prefix, "the", 3))
-    {
-      normalized = prefix + 3;
-      pf_buffer_string (filter, "the");
-    }
+  /*
+   * No "the" branch.  The Runner's normalizer only ever rewrites the three
+   * indefinite articles, so a prefix the author wrote as "The" comes back
+   * "The", capital and all.  run400's tense (Proc_21_13_44F474 @44F474, called
+   * from the name builder Proc_21_31_448710 in its normalizing mode 0) tests
+   * exactly six things -- the whole string against "a", "an" and "some", and
+   * its head against "a ", "an " and "some " -- and returns its argument
+   * untouched otherwise; pre-3.9's tense is the same shape with the two "some"
+   * tests missing (see the branch above).  Measured live: run400 playing The
+   * X-Files: A New Beginning, whose Memo carries the Prefix "The", answers
+   * `take all from desk` with "... Your Badge and The Memo from Your Desk.",
+   * `x desk` with "Your Coffee Mug and The Memo are on Your Desk" and `burn
+   * memo` with "I don't understand what you want me to do with The Memo."
+   * (Adrift_22_xfiles.txt, 2026-08-25).  Falling through leaves the prefix in
+   * "normalized", which the tail below prints verbatim, so all this branch
+   * ever did was lower-case the author's capital.
+   *
+   * 3.9 is bracketed rather than read: the run390 decompilation does not
+   * reach its normalizer.  Both neighbours leave "the" alone, and the only
+   * thing 3.9 is known to have added to tense is the "some" pair, so the
+   * 3.90 games in the corpus (The Spirit's Flight, whose Spirit Dagger and
+   * Orb of Storms both carry a "The" prefix) follow 4.0 here.
+   */
   else if (scr_compare_word (prefix, "some", 4))
     {
       normalized = prefix + 4;

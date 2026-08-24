@@ -120,7 +120,7 @@ Also here is The Spirit Dagger.
 You can move north and southeast.
 
 > get dagger
-You pick up the Spirit Dagger.
+You pick up The Spirit Dagger.
 
 > north
 You walk north.
@@ -173,7 +173,7 @@ Moyru hits Lamanluie, but it doesn't seem to do any damage.
 Lamanluie cuts Moyru with the old rusty broken blood-stained scimitar.
 
 > attack moyru
-You stab Moyru with the Spirit Dagger.
+You stab Moyru with The Spirit Dagger.
 Moyru cackles one last time before her body melts into a puddle of water.
 
 > south
@@ -214,7 +214,7 @@ You can only move down.
 Lamanluie cuts Fergo with the old rusty broken blood-stained scimitar.
 
 > attack fergo
-You stab Fergo with the Spirit Dagger.
+You stab Fergo with The Spirit Dagger.
 Fergo collapses. The wind elemental leaves his body and transforms itself
 into an object.
 The Fletched Spear floats magically into your hands.
@@ -222,7 +222,7 @@ The ridge is no longer windy. However, a gust of wind clears the clouds
 behind you, showing the path out.
 
 > get orb
-You pick up the Orb of Storms.
+You pick up The Orb of Storms.
 
 > out
 You move out.
@@ -246,7 +246,7 @@ Morana hits Lamanluie, but it doesn't seem to do any damage.
 Lamanluie cuts Morana with the old rusty broken blood-stained scimitar.
 
 > attack morana
-You stab Morana with the Spirit Dagger.
+You stab Morana with The Spirit Dagger.
 Morana screeches before she disappears in a puff of smoke.
 
 > attack morana
@@ -329,7 +329,7 @@ You can only move north.
 Serpanern hits Lamanluie, but it doesn't seem to do any damage.
 
 > attack serpanern
-You stab Serpanern with the Spirit Dagger.
+You stab Serpanern with The Spirit Dagger.
 It's body shrivels and is instantly consumed by fishes.
 
 > attack serpanern
@@ -376,7 +376,7 @@ Crynasalda is here.
 Lamanluie cuts Crynasalda with the old rusty broken blood-stained scimitar.
 
 > attack crynasalda
-You stab Crynasalda with the Spirit Dagger.
+You stab Crynasalda with The Spirit Dagger.
 Crynasalda collapses. The water elemental leaves her body and transforms
 itself into an object.
 The Sea Serpent's Scales floats magically onto your body.
@@ -533,7 +533,7 @@ You feels as though you should leave quickly.
 Kelorano hits you, but it doesn't seem to do any damage.
 
 > get amber
-You pick up the Amber of Flames.
+You pick up The Amber of Flames.
 Lamanluie cuts Kelorano with the old scimitar.
 Kelorano hits you, but it doesn't seem to do any damage.
 
@@ -578,7 +578,7 @@ You can only move west.
 Lamanluie cuts Slikerma with the old scimitar.
 
 > attack slikerma
-You stab Slikerma with the Spirit Dagger.
+You stab Slikerma with The Spirit Dagger.
 Bright red blood oozes from Slikerma's fatal wound.
 
 > attack slikerma

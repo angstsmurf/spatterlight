@@ -96,7 +96,7 @@ Your Badge.  Your Coffee Mug and The Memo are on Your Desk.
 
 > take all from desk
 You take Your Coffee Mug, Gun Holster, Your Cell Phone, Neatly Wrapped Gift,
-Your Badge and the Memo from Your Desk.
+Your Badge and The Memo from Your Desk.
 
 > clean desk
 Oh, good for you, Agent Mulder!
@@ -190,7 +190,7 @@ could be found in Bellefleur, Oregon.  Case File 10193 is open.  The
 Warehouse Key is inside Case File 10193.
 
 > take warehouse key
-You take the Warehouse Key from Case File 10193.
+You take The Warehouse Key from Case File 10193.
 
 > examine warehouse key
 This is a labeled key.  The label reads,"Davis Storage, Baltimore, MD. / 5"

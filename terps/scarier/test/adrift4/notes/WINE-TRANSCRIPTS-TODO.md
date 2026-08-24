@@ -271,6 +271,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `3monkeys.taf` | 4.00 | live run400 replay of the solution's first 36 commands, `Adrift_16.txt` | the Runner really does print the raw `CHIMPSIGNAL=0`; the variable freeze is not a port artefact |
 | `sa.taf` (`sophie`) | 4.00 | live run400 replay, `Adrift_41_sophie.txt`..`Adrift_45_sophie.txt` (five runs of the solution's first fifty commands), plus the game's own 488-entry ALR table | the walk announcement is **joined into the turn's paragraph**, so 12 of sa.taf's 65 join-spanning ALRs fire and delete the arrivals they match -- see the FIXED section below |
 | `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
+| `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased** -- see the FIXED section below.  Also closed the `knock` lead (a feed artefact) and opened two more: the `x desk` clause order, and `burn memo` |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -578,8 +579,29 @@ into a walk-related change.
   refusal are the object `seen` gate, not the noun matcher -- ported and
   landed, see the seen-model section at the end of this file (`take knife` in
   `Adrift_22_xfiles.txt` is one of the two live measurements the port rests on).
-  `burn memo` and `knock` are still unexplained and remain task-matching
-  suspects.
+  **CLOSED 2026-08-25: `knock` was never a divergence, and neither was the
+  `take knife` difference.**  Both are downstream of one command the feed lost.
+  The walkthrough reads `use key` / `look` / `take knife`; the transcript reads
+
+      use key
+      The garage door begins to groan open ...
+      take knife
+      Take what?
+
+  -- no `look` echoed between them.  So the Runner entered Garage 5 through a
+  `ShowRoomDesc = 0` task, nothing ever listed the Small Pocket Knife, and its
+  `seen` byte stayed clear; Scarier *did* get the `look`, listed the knife and
+  took it.  `knock` then follows mechanically: task 9 `Knock` has four ANDed
+  restrictions (`#A#A#A#`) and the fourth is **Knife held**
+  (`RESTR type=0 v1=26 v2=1 v3=0`), so the Runner answers with that
+  restriction's own FailMessage, "You should check out the warehouse first."
+  One lost command, two apparent bugs.  Note this does **not** weaken the
+  seen-model measurement -- losing the `look` is exactly what left the Runner
+  on the bare `ShowRoomDesc = 0` entry the model predicts a refusal for.  It
+  does mean the walkthrough's own comment at `goldens/xfiles_solution.txt:25`
+  overstates the case: the `look` on the next line would have listed the knife,
+  and the Runner simply never saw it.
+  `burn memo` is still open, but is narrowed -- see the OPEN section below.
 - **Games whose transcripts carry RNG-timed lines** (`xfiles`, `wamk`) need a
   *targeted* Runner probe rather than a full replay.  There is no harness for
   that yet; the p4WK* probe .taf files in
@@ -1629,6 +1651,107 @@ Two harness facts fell out of the failed attempts, both worth keeping:
   `loginwindow 30000x30000`, `osascript` returns `-1719 Can't get process 1
   whose frontmost = true`, and `screencapture -R`/`-l` both refuse.
 
+## FIXED 2026-08-25 -- a "The" prefix keeps its capital
+
+The X-Files: A New Beginning gives its Memo the Prefix `The` (straight out of
+`SCR_DUMP_TASKS=1`: `OBJNAME obj=20 [Memo] prefix=[The]`).  run400 prints it
+back with the capital intact, everywhere -- the surface clause of an examine,
+the take-all list, and the last-resort refusal:
+
+    x desk
+    ... Your Coffee Mug and The Memo are on Your Desk, and inside is ...
+
+    take all from desk
+    You take Your Coffee Mug, ... Your Badge and The Memo from Your Desk.
+
+    burn memo
+    I don't understand what you want me to do with The Memo.
+
+Scarier printed `the Memo` in the first two of those, because
+`lib_print_object_np()` carried a `the` branch alongside its `a`/`an`/`some`
+ones and re-emitted the article in lower case.
+
+**The Runner has no such branch.**  Its normalizer is `tense`
+(`Proc_21_13_44F474` @44F474), reached from the name builder
+`Proc_21_31_448710` in its normalizing mode 0 -- and note that `tense` is
+handed `Prefix & " " & Short`, the whole thing, not the prefix alone.  It
+tests exactly six things and returns its argument untouched otherwise:
+
+    = "a"        -> "the"
+    = "an"       -> "the"
+    = "some"     -> "the"
+    Left(s,2) = "a "     -> "the " & Right(s, Len(s) - 2)
+    Left(s,3) = "an "    -> "the " & Right(s, Len(s) - 3)
+    Left(s,5) = "some "  -> "the " & Right(s, Len(s) - 5)
+
+`"The Memo"` matches none of them.  Pre-3.9's `tense` (run370 @420F28, run380
+@425FA8, byte-identical) is the same shape with the two `some` tests missing,
+so it does not rewrite `the` either -- and that branch of
+`lib_print_object_np()` was already right.  3.9 is bracketed rather than read:
+the run390 decompilation does not reach its normalizer, but both neighbours
+leave `the` alone and the only thing 3.9 is known to have added to `tense` is
+the `some` pair.
+
+The fix is a deletion.  Falling through leaves the prefix in `normalized`,
+which the tail of the function prints verbatim followed by a space, so the
+branch only ever changed the author's capital -- `the foo` and `The foo` came
+out of it identically apart from that one letter.
+
+Four goldens moved, in both affected generations:
+
+| golden | version | line |
+|---|---|---|
+| `xfiles_solution` | 4.00 | `... Your Badge and The Memo from Your Desk.`, `You take The Warehouse Key from Case File 10193.` |
+| `cyber2_solution` | 4.00 | `You open The Teleporter.` |
+| `afdfr_solution` | 4.00 | `You take The Grim Reaper's Scythe.` |
+| `spirits_flight_solution` | 3.90 | nine lines -- `The Spirit Dagger`, `The Orb of Storms`, `The Amber of Flames` |
+
+303/303 after re-blessing.
+
+Not touched, and worth a probe some day: `lib_print_object_np()` also strips a
+leading `a`/`an`/`the`/`some` off the object's **Short name**, which `tense`
+cannot do -- it only ever looks at the head of `Prefix & " " & Short`, and the
+head is the prefix whenever there is one.  No corpus game exercises the
+difference, so it stays as inherited SCARE behaviour until something measures
+it.
+
+## OPEN 2026-08-25 -- two more from the same xfiles transcript
+
+Both are deterministic (no RNG line anywhere near them), both are in
+`Adrift_22_xfiles.txt`, and neither is fixed yet.
+
+**1. `x desk` -- the container and surface clauses are ordered the other way,
+and joined.**  run400 puts the surface first and runs the two into one
+sentence; Scarier puts the container first and ends the sentence between them:
+
+    run400   Your Desk is open.  Your Coffee Mug and The Memo are on Your
+             Desk, and inside is Gun Holster, Your Cell Phone, Neatly Wrapped
+             Gift and Your Badge.
+    scarier  Your Desk is open.  Inside Your Desk is Gun Holster, Your Cell
+             Phone, Neatly Wrapped Gift and Your Badge.  Your Coffee Mug and
+             The Memo are on Your Desk.
+
+Note this is the **examine** path only: `open desk` one command earlier agrees
+exactly (`You open Your Desk.  Inside Your Desk is ...`), so the `Inside X is`
+wording itself is right and it is the examine lister that combines the two
+clauses differently.  Start at `examines` (`Proc_19_87_471F94`), which is one
+of `tense`'s callers.
+
+**2. `burn memo` -- run400 refuses a task Scarier runs.**  Task 24, `Burn
+%object%`, restr=2, mask `#A#`:
+
+    RESTR type=0 var1=1 var2=3 var3=0    "any object visible to the player"
+    RESTR type=3 var1=0 var2=2 var3=-1   "the player is alone"
+
+`SCR_TRACE_TASKS=1` shows both PASS in Scarier and the task running, printing
+its CompleteText (`You incinerate the The Memo with a Zippo ...`).  run400
+answers `I don't understand what you want me to do with The Memo.`, which is
+`therest` (`Proc_19_85_489F4C`) at `loc_488706` -- i.e. the typed-command
+dispatcher returned FALSE, so in run400 one of those two restrictions failed
+*and printed nothing*.  Which one is not decidable from the listing: needs a
+built probe with one restriction at a time.  It is not the empty-CompleteText
+refusal (see Open leads) -- the CompleteText is not empty.
+
 ## CLOSED 2026-08-24 -- empty-M1 room alts, and recursive holding
 
 Two `sclibrar.cpp` fixes, three live Wine measurements, 19 goldens across 13
@@ -1663,6 +1786,8 @@ the `lair-of-the-cybercow` rows; see also `xfiles`, `unraveling_god`,
   Warehouse Key from Case File 10193."; scarier prints "the Warehouse Key".
   The same object's *examine* message capitalises correctly in both.
   Pre-existing, unrelated to either fix above.
+  **FIXED 2026-08-25** -- the Runner's normalizer has no `the` branch at all;
+  see "a \"The\" prefix keeps its capital" below.
 
 ### Harness lessons from this round
 
