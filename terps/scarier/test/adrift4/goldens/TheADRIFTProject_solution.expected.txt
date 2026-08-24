@@ -548,8 +548,8 @@ vibrate slightly and flicker with a greenish light.
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > where is sweeper
-ADRIFT-O-Sweep --
-ADRIFT-O-Lift
+ADRIFT-O-Sweep is
+adrift-o-lift
 .
 
 > n
@@ -632,8 +632,8 @@ The ADRIFT-O-Sweep is zooming around the room.
 You can only move south.
 
 > where is sweeper
-ADRIFT-O-Sweep --
-ADRIFT-O-Lift
+ADRIFT-O-Sweep is
+adrift-o-lift
 .
 
 > n
@@ -674,8 +674,8 @@ a vacuum so powerful that it literally rips everything from your hands,
 sucking it up.
 
 > where is darwin
-DARWIN --
-Central Communications Core
+DARWIN is
+central communications core
 .
 
 > z
@@ -720,8 +720,8 @@ ADRIFT-O-Sweep zooms out through the vent to the south-west.
 DARWIN exits.
 
 > where is darwin
-DARWIN --
-ADRIFT-O-Lift
+DARWIN is
+adrift-o-lift
 .
 
 > z
@@ -739,8 +739,8 @@ ADRIFT-O-Sweep zooms in through the vent from the south-west.
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > where is darwin
-DARWIN --
-ADRIFT-O-Dump
+DARWIN is
+adrift-o-dump
 .
 
 > z

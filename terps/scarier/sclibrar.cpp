@@ -442,6 +442,29 @@ lib_get_room_name (scr_gameref_t game, scr_int room)
   return name;
 }
 
+
+/*
+ * lib_print_room_name_lower()
+ *
+ * Print a room's name folded to lower case.  The Runner's where/find/locate
+ * handlers are the only place that does this -- they build the answer as
+ * `... & LCase(room.name) & "."` -- so it gets its own small helper rather
+ * than a flag on lib_print_room_name().
+ *      run380 @4374E1 (objects) and @440BDF (characters)
+ *      run400 @468143 (objects) and @47FD19 (characters)
+ */
+static void
+lib_print_room_name_lower (scr_gameref_t game, scr_int room)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  std::string name (lib_get_room_name (game, room));
+
+  for (std::string::size_type index_ = 0; index_ < name.size (); index_++)
+    name[index_] = scr_tolower (name[index_]);
+  pf_buffer_string (filter, name.c_str ());
+}
+
+
 void
 lib_print_room_name (scr_gameref_t game, scr_int room)
 {
@@ -10360,9 +10383,14 @@ lib_cmd_locate_object (scr_gameref_t game)
         {
           pf_new_sentence (filter);
           lib_print_npc_np (game, parent);
+          /*
+           * "is carrying", not "is holding" -- the two literals sit side by
+           * side in the Runner, run400 @467FC1 and @46802E, run380 @4372E6
+           * and @43736B.  Upstream SCARE invented "holding".
+           */
           pf_buffer_string (filter,
                             (position == OBJ_HELD_NPC)
-                              ? " is holding " : " is wearing ");
+                              ? " is carrying " : " is wearing ");
           lib_print_object_np (game, object);
           pf_buffer_string (filter, ".\n");
         }
@@ -10439,19 +10467,32 @@ lib_cmd_locate_object (scr_gameref_t game)
       lib_print_object_np (game, object);
       pf_buffer_string (filter,
                         lib_select_plurality (game, object, " is", " are"));
+      /*
+       * No "that" here.  The object branch concatenates a bare "somewhere "
+       * (run400 @4681B0, run380 @4375D3) where the character branch of the
+       * same command uses " is somewhere that " (run400 @47FD89,
+       * run380 @440C11) -- an inconsistency of ADRIFT's own that all four
+       * Runners carry.
+       */
       pf_buffer_string (filter,
                         lib_select_response (game,
-                             " somewhere that you haven't been yet.\n",
-                             " somewhere that I haven't been yet.\n",
-                             " somewhere that %player% hasn't been yet.\n"));
+                             " somewhere you haven't been yet.\n",
+                             " somewhere I haven't been yet.\n",
+                             " somewhere %player% hasn't been yet.\n"));
       return TRUE;
     }
 
-  /* Print the details of the object's room. */
+  /*
+   * "<Object> is <lowercased room name>."  The Runner builds this as
+   * name & isare(prefix, short) & LCase(room name) & "." -- run400 @468115
+   * through @46814E, run380 @4374E1 -- and the " -- " upstream SCARE printed
+   * here appears in none of the four binaries.
+   */
   pf_new_sentence (filter);
   lib_print_object_np (game, object);
-  pf_buffer_string (filter, " -- ");
-  pf_buffer_string (filter, lib_get_room_name (game, room));
+  pf_buffer_string (filter,
+                    lib_select_plurality (game, object, " is ", " are "));
+  lib_print_room_name_lower (game, room);
   pf_buffer_string (filter, ".\n");
   return TRUE;
 }
@@ -10536,22 +10577,32 @@ lib_cmd_locate_npc (scr_gameref_t game)
       return TRUE;
     }
 
-  /* Print the location, and smart-alec response. */
+  /*
+   * "<Name> is <lowercased room name>.", then the smart-alec clause when the
+   * NPC is standing next to the player.  The character branch uses a literal
+   * " is " rather than isare(), and the room name is lowercased exactly as in
+   * the object branch:
+   *      run370 @438D0A   run380 @440BDF   run390 @459D27   run400 @47FD19
+   *
+   * The clause itself was disabled upstream; all four Runners print it, and
+   * there is no comma before "silly" -- the literals are "  (Right next to "
+   * and " silly!)" with the perspective pronoun spliced between them
+   * (run380 @00040BCE/@00040BE2, run400 @47FD56/@47FD6A).
+   */
   pf_new_sentence (filter);
   lib_print_npc_np (game, npc);
-  pf_buffer_string (filter, " -- ");
-  pf_buffer_string (filter, lib_get_room_name (game, room));
-#if 0
+  pf_buffer_string (filter, " is ");
+  lib_print_room_name_lower (game, room);
+  pf_buffer_string (filter, ".");
   if (room == gs_playerroom (game))
     {
       pf_buffer_string (filter,
                         lib_select_response (game,
-                                         "  (Right next to you, silly!)",
-                                         "  (Right next to me, silly!)",
-                                         "  (Right next to %player%, silly!)"));
+                                          "  (Right next to you silly!)",
+                                          "  (Right next to me silly!)",
+                                          "  (Right next to %player% silly!)"));
     }
-#endif
-  pf_buffer_string (filter, ".\n");
+  pf_buffer_character (filter, '\n');
   return TRUE;
 }
 

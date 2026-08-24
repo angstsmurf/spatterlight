@@ -1206,7 +1206,7 @@ think.
 A cat strolls out to the south-east.
 
 > where is young girl
-Young Girl -- Waiting Room.
+Young Girl is waiting room.
 
 > se
 You move southeast.
