@@ -534,6 +534,10 @@ into a walk-related change.
   task refusal.  These are task-matching / parser divergences and they are
   what makes that row unmeasurable by full replay.  Worth its own probe --
   the common shape is a multi-word object name matched on a later word.
+  **Partly diagnosed 2026-08-24**: the two `Take what?` hits and the
+  `look at camera` refusal are the object `seen` gate, not the noun matcher --
+  see the parked-port section at the end of this file.  `burn memo` and
+  `knock` are still unexplained and remain task-matching suspects.
 - **Games whose transcripts carry RNG-timed lines** (`xfiles`, `wamk`) need a
   *targeted* Runner probe rather than a full replay.  There is no harness for
   that yet; the p4WK* probe .taf files in
