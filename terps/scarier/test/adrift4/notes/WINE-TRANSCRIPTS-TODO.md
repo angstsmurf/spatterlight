@@ -1339,3 +1339,98 @@ the `lair-of-the-cybercow` rows; see also `xfiles`, `unraveling_god`,
   *blocks the Adventure menu*: answer the game's startup prompts by hand
   first, then start the transcript, then drive the remaining commands.
 
+
+## PARKED 2026-08-24 -- the object `seen` model, branch `scarier-seen-flag-port`
+
+The xfiles replay (`Adrift_22.txt`) left one unexplained divergence: run400
+answers `take knife` in Garage 5 with **"Take what?"** where Scarier takes the
+knife.  Task 7 "Use Key" carries the player into Garage 5 with `ShowRoomDesc`
+off, so no room description prints, and the knife is a dynamic that has been
+lying there since the load.  The Runner's parser will not resolve a noun to an
+object whose `seen` byte is clear, and nothing on that path ever sets it.
+
+Scarier, by contrast, has always marked *everything* in the player's room seen
+on every turn (`obj_turn_update`).  That is the bug.  The port lives on
+`scarier-seen-flag-port` (commit `de7bffcc`); master is untouched and green.
+
+### What run400 actually does
+
+- **The gate.**  `co()` (`Proc_21_39_46486C`, `run400/Project/General.bas:8711`)
+  tests `(obhere(obj) Or mode = 4) And obj(48) = 1` in both its counting loop
+  (`@00464372`) and its selection loop (`@00464693`).  `takes`
+  (`Proc_19_6_47C83C`) reaches `co()` at `@0047B9DC`, `@0047BD9D` and
+  `@0047C694` and has no bypass, so the seen byte gates `take` as hard as it
+  gates `examine`.
+- **The seed.**  `openadv` clears the byte and sets it at `@004909B5` when the
+  location field is `0` (held by the player) or `&H9C` (worn).  Statics reach
+  that test through the same `location = InitialPosition - 1` mapping at
+  `@00490270`, so a static whose `Where/Type` is **ONE_ROOM (1)** lands on 0
+  and *starts seen*; some-rooms (`&HF6`), all-rooms (`&HEC`),
+  part-of-character (`&HE2`) and hidden (`-1`) statics start unseen.  The
+  Runner plainly never noticed it was labelling single-room statics "held".
+  This quirk is load-bearing: it is the only reason a game with
+  `DispFirstRoom` off -- `ZAC.taf`, `1HRGAME.taf`,
+  `secret_of_lost_world` -- can answer `x sand` on turn one, since `tstart`
+  calls `viewroom` only when that flag is set (`@0044D68F`).
+- **The writers.**  All 47 sites, by containing function: `execute_action` 14,
+  `whatisinon` 6, `viewroom` 4, `examines` 3, then two each in `openadv`,
+  `obhere`, `inventory`, `charinv`, `insides`, `drops`, `dobattle` and the
+  event mover `Proc_19_16_45614C`.  Census both decompiler idioms or the
+  answer is wrong: `Dim from_stack_1.global_48 As Byte: ... = from_stack_2`
+  **and** `var_XXX(48) = from_stack_1`, across `*.bas` *and* `*.frm`, with
+  `grep -a` (General.bas reads as binary).
+- **Task player moves reveal statics only.**  `execute_action`'s three
+  player-room destinations (`@0048CA32` "to room", `@0048CADD` "to roomgroup
+  part", `@0048CB48` "to same room as") sweep the object table and set the byte
+  where `global_24 = 1` **and** the static's presence array covers the new
+  room.  Dynamics are skipped -- which is precisely the xfiles knife.
+- **Task/event object moves reveal only into the player's room.**  Both
+  `execute_action` (`@0048C40A` and siblings) and the event mover
+  (`@00456124`) compare the object's freshly written location field against
+  `unk_409011.global_0` and stamp the byte only on equality.
+
+### Why it is parked
+
+The port takes the v4 corpus from 0 to **15** regressions:
+
+    renegade_brainwave colony xfiles mr_smith spirits_flight spam wreckage
+    imagination to_hell_in_a_hamper 3monkeys humbug deadman lair valley
+    wonderwombat
+
+`xfiles` is the intended one.  The rest are all the same shape, and
+**Renegade Brainwave is the one that needs a live answer**.  Its task 15
+(`Command "* west *"`, `ShowRoomDesc 7`, `CompleteText "You move west."`) has
+three actions in this order:
+
+    0  move object 4 (the crowbar) to room 7-1 = 6   <- player is still in room 0
+    1  move character 0 (the player) to room 6
+    2  move character 4 (NPC 2) to room 9-1 = 8
+
+Under the model above the crowbar is moved while the player is elsewhere (no
+reveal), the player-move sweep that follows touches statics only, and
+`ShowRoomDesc` prints room 6 from *pre-action* state (see
+`adrift4-showroomdesc-before-actions`), so it never lists the crowbar either.
+Scarier on the branch therefore answers `take crowbar` with "Take what?" one
+move into the walkthrough.
+
+**The probe that settles it** -- load `Renegade_Brainwave.taf` in run400, type
+`west`, then `take crowbar`:
+
+- *"You take the crowbar."*  -> the model is missing a reveal on the task
+  player-move path (dynamics as well as statics, or a post-action lister).
+  Find it before landing anything.
+- *"Take what?"*  -> the branch is right, and the 15 walkthroughs were derived
+  against a permissive engine.  They then need re-deriving with an explicit
+  `look` (or an `x` of the container/surface) before the take, and re-blessing;
+  the win-marker guard will refuse any that stop being winnable, which is the
+  signal to check the route by hand.
+
+Worth measuring in the same session, since each is one command:
+
+- `SPAM.taf` (`DispFirstRoom` off): `take spam` as the very first command.
+- `1HRGAME.taf`: `x little table` then `take bubbles` -- the surface listing
+  inside an object description is what reveals the bubbles, and that path
+  (`examines`, `@0047174D`/`@00471DF1`) is already ported.
+- `Colony.taf` (`DispFirstRoom` **on**): the two `Take what?` hits at golden
+  lines 218/222 are dynamics in a described room, so if they fail live the
+  room lister's marking is wrong, not the model.
