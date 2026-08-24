@@ -3331,6 +3331,82 @@ parse_class (const scr_char *class_)
 
 
 /*
+ * parse_trim_object_names()
+ *
+ * Normalize object Prefix and Short exactly as the Runner's loader does, as
+ * post-processing after the TAF file has been successfully parsed.
+ *
+ * run400 reads the two fields back to back in mdlSpreadTheLoad.bas:7594-7653.
+ * After LineInput'ing Prefix (loc_4900E3) -- and substituting the literal "a"
+ * for an empty one (loc_4900EC) -- it loops
+ *
+ *   loc_490100..loc_49015C:  If Right(s, 1) = " " Then s = Left(s, Len(s) - 1)
+ *
+ * stripping every TRAILING space from the prefix; then, having LineInput'ed
+ * Short (loc_49016C), it loops
+ *
+ *   loc_490170..loc_4901CC:  If Left(s, 1) = " " Then s = Right(s, Len(s) - 1)
+ *
+ * stripping every LEADING space from the short name.  run370 (@43F5DA) and
+ * run380 (@4481B2) carry the same pair of loops, so this is not version-split.
+ *
+ * The trim belongs in the loader, not in the printers: every later consumer --
+ * the name builder that joins Prefix, " " and Short, the room and container
+ * listings, and the noun matcher that has to recognize what it printed -- sees
+ * the trimmed text in the Runner, so they all see it here too.
+ *
+ * Fourteen objects across nine corpus games are written with the spaces still
+ * on, among them Crime_Adventure's "an arcade token ", arlo's "the ", and
+ * ADRIFTMAS_Party's " bathroom door".
+ */
+static void
+parse_trim_object_names (scr_prop_setref_t bundle)
+{
+  scr_vartype_t vt_key[3];
+  scr_int objects_count, object;
+
+  /* Get the count of objects. */
+  vt_key[0].string = "Objects";
+  objects_count = prop_get_child_count (bundle, "I<-s", vt_key);
+
+  for (object = 0; object < objects_count; object++)
+    {
+      const scr_char *prefix, *short_name;
+      scr_int length;
+
+      vt_key[1].integer = object;
+
+      /* Strip trailing spaces from the prefix. */
+      vt_key[2].string = "Prefix";
+      prefix = prop_get_string (bundle, "S<-sis", vt_key);
+      length = strlen (prefix);
+      while (length > 0 && prefix[length - 1] == ' ')
+        length--;
+      if (prefix[length] != NUL)
+        {
+          scr_owned_string trimmed ((scr_char *) scr_malloc (length + 1));
+
+          memcpy (trimmed.get (), prefix, length);
+          trimmed.get ()[length] = NUL;
+          prop_put_string (bundle, "S<-sis", trimmed.get (), vt_key);
+        }
+
+      /* Strip leading spaces from the short name. */
+      vt_key[2].string = "Short";
+      short_name = prop_get_string (bundle, "S<-sis", vt_key);
+      if (short_name[0] == ' ')
+        {
+          const scr_char *trimmed = short_name;
+
+          while (*trimmed == ' ')
+            trimmed++;
+          prop_put_string (bundle, "S<-sis", trimmed, vt_key);
+        }
+    }
+}
+
+
+/*
  * parse_add_walkalerts()
  *
  * Add a list of all NPC walks started by each task.  This is post-processing
@@ -3612,7 +3688,9 @@ parse_game (scr_tafref_t taf, scr_prop_setref_t bundle)
   if (taf_more_lines (parse_taf))
     scr_error ("parse_game: unexpected trailing data\n");
 
-  /* Append post-processing walkalerts and move times. */
+  /* Trim object names as the loader does, then append post-processing
+     walkalerts and move times. */
+  parse_trim_object_names (parse_bundle);
   parse_add_walkalerts (parse_bundle);
   parse_add_movetimes (parse_bundle);
 

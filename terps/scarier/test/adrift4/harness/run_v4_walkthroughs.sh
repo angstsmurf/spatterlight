@@ -843,6 +843,17 @@ locked_door_solution.txt|Locked_door_with_water_trap.taf|See if I ever dive with
 # pair is mutually exclusive with winning.
 # 3.80.  Re-blessed 2026-08-24 with the other eighteen pre-3.9 rows; the
 # five measured wording rules are written up above the akron row below.
+# Re-blessed 2026-08-25 for the loader's whitespace trims.  run400's object
+# loader strips every TRAILING space off Prefix (mdlSpreadTheLoad.bas
+# loc_490100..loc_49015C) and every LEADING space off Short
+# (loc_490170..loc_4901CC); run370 @43F5DA and run380 @4481B2 do the same.
+# Fourteen objects across nine corpus games are written with the spaces still
+# on, and each printed a double space where the name gets joined -- here
+# marooned's obj 15 " trash" in "a pile of  trash", Crime_Adventure's obj 17/20
+# "a " in "a  cookery book", first.taf's obj 9/10/12 "fresh "/"old " in "fresh
+# bread and fresh  turkey", and hhorror's obj 51 " floorboards".  The trim now
+# runs at parse time, in parse_trim_object_names(), because in the Runner it
+# happens in the loader and the noun matcher therefore sees it too.
 marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!
 # Wrecked (Campbell Wild, 2000), TAF 3.80.  WIN at the full 250/250, following
 # the author's own published walkthrough -- but that walkthrough leaves four

@@ -271,7 +271,7 @@ You move east.
 In the kitchen of the Fenwick house
 
 Also here is a carrots, a onions, a meat, a potatoes, a kettle, a saucepan
-and a  cookery book.
+and a cookery book.
 
 > read book
 It says "To stew - Find saucepan, get carrots, onions, potatoes, meat and put

@@ -736,7 +736,7 @@ not far from the shipping lanes.
 
 As you enter the area, a sickly sweet stench enters your nostrils.
 
-Also here is a pile of  trash.
+Also here is a pile of trash.
 
 > move trash
 

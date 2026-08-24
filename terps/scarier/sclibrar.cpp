@@ -690,9 +690,8 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
    * Pre-3.9's tense is the same shape with the two "some" tests missing (see
    * the branch above), so this holds in all four Runners.
    *
-   * Not modelled, and no corpus game exercises it: the loader's whitespace
-   * trims.  A Prefix written "a " or a Short written " lamp" reaches us with
-   * the space still on.
+   * The loader's whitespace trims -- trailing spaces off Prefix, leading ones
+   * off Short -- are modelled too, in parse_trim_object_names().
    */
   vt_key[2].string = "Short";
   name = prop_get_string (bundle, "S<-sis", vt_key);

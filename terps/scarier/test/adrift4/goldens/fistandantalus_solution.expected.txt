@@ -95,7 +95,7 @@ of cookware.  There is still some freash bread and some turkey and the
 stoves.  Clearly Rastlin Majiere cooks for himslef. There is an exit to the
 morth and west back to the library.
 
-Also here is fresh bread and fresh  turkey.
+Also here is fresh bread and fresh turkey.
 
 > north
 You move north.
@@ -105,7 +105,7 @@ layer of dust on the floor.  You see a few rats scurry into there holes as
 you walk in. There is a chest in the corner and a note at your feet. The only
 exit is back where you came from.
 
-Also here is old  note and old  chest.
+Also here is old note and old chest.
 
 > read old note
 When you open the chest  your real test to see if your worthy of my book will

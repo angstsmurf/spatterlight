@@ -1763,9 +1763,42 @@ The Runner prints `the The horn of the angels`, and the same shape is
 confirmed live in the xfiles replay, where a `The` **prefix** survives as
 `The Memo`.  Three goldens re-blessed, corpus **303/303**.
 
-Still not modelled, and no corpus game exercises it: the loader's whitespace
-trims.  A Prefix written `a ` or a Short written ` lamp` reaches scarier with
-the space still on.
+### The loader's whitespace trims, same reading
+
+Reading that loader out also settled a second, smaller thing.  Having
+LineInput'd Prefix and substituted `"a"` for an empty one, run400 loops
+
+    loc_490100..loc_49015C:  If Right(s, 1) = " " Then s = Left(s, Len(s) - 1)
+
+stripping every **trailing** space from the prefix; having then LineInput'd
+Short, it loops
+
+    loc_490170..loc_4901CC:  If Left(s, 1) = " " Then s = Right(s, Len(s) - 1)
+
+stripping every **leading** space from the short name.  Only those two, and
+only in those two directions: a Short written `pictures ` keeps its trailing
+space, and the aliases that follow are never touched.  run370 (@43F5DA) and
+run380 (@4481B2) carry the same pair of loops, so it is not version-split.
+
+Contrary to what this file said an hour ago, the corpus *does* exercise it --
+fourteen objects across nine games, found by dumping every game's `OBJNAME`
+lines and looking for a bracketed field that opens or closes with a space:
+
+    Crime_Adventure.taf  obj 0 `[an arcade token ]`, obj 17/20 `[a ]`
+    arlo.taf             obj 22 `[the ]`
+    first.taf            obj 9 `[fresh ]`, obj 10/12 `[old ]`
+    superliam.taf        obj 0 `[red ]`
+    tra.taf              obj 6 `[the ]`
+    ADRIFTMAS_Party.taf  obj 24 `[ bathroom door]`, 85 `[ rack]`, 154 `[ potted plant]`
+    hhorror.taf          obj 51 `[ floorboards]`
+    marooned.taf         obj 15 `[ trash]`
+
+Every one of them printed as a **double space** where the name is joined:
+`Also here is a pile of  trash.`, `and a  cookery book.`, `Also here is fresh
+bread and fresh  turkey.`, `Also here are the  floorboards.`  The trim is now
+done in `parse_trim_object_names()`, at parse time rather than in the printers,
+because in the Runner it happens in the loader and so the noun matcher sees the
+trimmed text as well.  Four goldens re-blessed, corpus **303/303**.
 
 ## FIXED 2026-08-25 -- what is ON an object is listed before what is IN it
 
