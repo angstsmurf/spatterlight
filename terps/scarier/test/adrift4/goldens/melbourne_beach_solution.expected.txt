@@ -36,7 +36,7 @@ You take a pair of jeans from the dresser.
 OK, you're now wearing the jeans. They are a little snug but seem to fit for
 now.  The pair of jeans has four pockets you can put small items in.
 
-Kitty saunters in.
+Kitty saunters in from the west.
 
 > open closet
 You open the closet.  A shirt is inside the closet.
@@ -58,7 +58,7 @@ This is a long, white-tiled hallway lined with photographs. The guest room is
 to the east, David's room is to the north-east, a bathroom is to the north,
 Judy's bedroom is to the west. The hallway continues to the south.
 
-Kitty slinks in from the east.
+Kitty slinks in.
 
 > w
 You move west.
@@ -223,7 +223,7 @@ and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
 
-David comes in from the north-east.
+David comes in.
 
 > ne
 You move northeast.
@@ -434,7 +434,7 @@ proceeds north and south.
 Kitty is here. You're not allergic, are you?  Judy is here, whistling
 happily.
 
-Kitty retreats to the east.
+Kitty retreats to inside.
 
 > s
 You move south.

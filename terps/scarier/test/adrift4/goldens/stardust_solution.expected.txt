@@ -354,7 +354,7 @@ someone to help you enter the mansion you could get in.
 
 You can only move south.
 
-Squirrel scampers up.
+Squirrel scampers up from inside.
 
 > s
 You move south.
@@ -641,9 +641,9 @@ someone to help you enter the mansion you could get in.
 
 You can only move south.
 
-Squirrel scampers up.
+Squirrel scampers up from inside.
 
-Vampy glides in.
+Vampy glides in from inside.
 
 > s
 You move south.
@@ -996,9 +996,9 @@ extravagent chandeleir, but it is not lit.
 
 You can move north, east, west and out.
 
-Vampy glides in from outside.
+Vampy glides in.
 
-Old Man hobbles up from outside.
+Old Man hobbles up.
 
 > n
 You move north.
@@ -1106,13 +1106,13 @@ someone to help you enter the mansion you could get in.
 
 You can only move south.
 
-Squirrel scampers up.
+Squirrel scampers up from inside.
 
-Vampy glides in.
+Vampy glides in from inside.
 
-Old Man hobbles up.
+Old Man hobbles up from inside.
 
-Plant Lady prances along.
+Plant Lady prances along from inside.
 
 > s
 You move south.

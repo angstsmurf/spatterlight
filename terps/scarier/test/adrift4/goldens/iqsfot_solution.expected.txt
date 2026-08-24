@@ -154,7 +154,7 @@ her.  She's Ghlarskean, true, but the First Mate may be the only member of
 the crew-- or of the galaxy-- who wouldn't call his extinct home planet's
 population "just humans."
 
-HiRBy hovers over from the south.
+HiRBy hovers over from inside.
 
 > port
 Irvine goes port.
@@ -184,7 +184,7 @@ The Captain is here.
 
 The door closes behind Irvine.
 
-HiRBy hovers over from the west.
+HiRBy hovers over from outside.
 
 CHAPTER TWO:
 
@@ -318,7 +318,7 @@ artificial gravity core.
 
 The door closes behind Irvine.
 
-HiRBy hovers over from the east.
+HiRBy hovers over from inside.
 
 > starboard
 Irvine goes starboard.
@@ -341,7 +341,7 @@ Also here is a holopostcard.
 
 The door closes behind Irvine.
 
-HiRBy hovers over from the north.
+HiRBy hovers over from outside.
 
 > open compartment
 Irvine unclosess the small compartment.  A strip of papyr is inside the small
@@ -384,7 +384,7 @@ The hall continues aft towards the ship's lounge and port towards the bridge.
 
 The door closes behind Irvine.
 
-HiRBy hovers over from the south.
+HiRBy hovers over from inside.
 
 > port
 Irvine goes port.
@@ -429,7 +429,7 @@ Also here is the tiger coat.
 
 The door closes behind Irvine.
 
-HiRBy hovers over from the south.
+HiRBy hovers over from outside.
 
 > get coat
 Irvine picks up the tiger coat.
@@ -449,7 +449,7 @@ door to port reads: "Closet."
 
 The door closes behind Irvine.
 
-HiRBy hovers over from the north.
+HiRBy hovers over from inside.
 
 > forward
 Irvine goes forward.
@@ -521,7 +521,7 @@ gangplank leads up into the hull of the ship.
 Some mechanics rush over to check in the spaceship, then leave Nika to her
 work.
 
-HiRBy hovers over from above.
+HiRBy hovers over from inside.
 
 > e
 Irvine goes east.
@@ -761,7 +761,7 @@ fills the sickly air.  Cricketous whistling emits from somewhere nearby.  The
 sporadic rustling of the undergrowth throws Irvine's mind into a mess of
 frantic questions.
 
-HiRBy hovers over.
+HiRBy hovers over from the north.
 
 Irvine's health recovers slightly.
 
@@ -939,7 +939,7 @@ KI'PARANDAZAR, GATES
 Nice city.  A lane laid in shining stone leads east from here.  The city gate
 is to the west.
 
-HiRBy hovers over from the west.
+HiRBy hovers over from outside.
 
 CHAPTER FOUR:
 
@@ -1053,7 +1053,7 @@ The grass, in turn, is interrupted by a tall wall of elaborate columns
 running from north to south.  An ornately decorated gate rests in the wall.
 A cleared plot is to the south.
 
-HiRBy hovers over from the east.
+HiRBy hovers over from inside.
 
 > w
 Irvine goes west.
@@ -1220,7 +1220,7 @@ To port, a door reads: "Gatts Grupen: Captain."  A hatch leads down to the
 surface of Traglea.
 First Mate Silthen attends the exit hatch.
 
-HiRBy hovers over from below.
+HiRBy hovers over from outside.
 
 > s
 Irvine goes starboard.
@@ -1260,7 +1260,7 @@ nodding and going "hmm."
 
 The door closes behind Irvine.
 
-HiRBy hovers over from the north.
+HiRBy hovers over from outside.
 
 Voss says, "Ah, Irvine.  Please, take this specimen analysis which I've
 prepapred for you.  It will tell you a little more about the organisms we
@@ -1305,7 +1305,7 @@ not: I will supervise the feline diplomat's convalescence.  Carry on, cadet."
 
 "Aye, aye."
 
-HiRBy hovers over from the east.
+HiRBy hovers over from outside.
 
 > forward
 Irvine goes forward.
@@ -1319,7 +1319,7 @@ the port wall, to the left of which is an inconspicuous privacy button.
 
 Also here is a hairball.
 
-HiRBy hovers over from the west.
+HiRBy hovers over from inside.
 
 > get hairball
 Irvine picks up the hairball.
@@ -1338,7 +1338,7 @@ ship.
 
 The door closes behind Irvine.
 
-HiRBy hovers over from the south.
+HiRBy hovers over from inside.
 
 Irvine's health recovers slightly.
 
@@ -1380,7 +1380,7 @@ capital, Ki'parandazar.
 The Sagittarian rests neatly between two other ships of its class.  A
 gangplank leads up into the hull of the ship.
 
-HiRBy hovers over from above.
+HiRBy hovers over from inside.
 
 > e
 Irvine goes east.

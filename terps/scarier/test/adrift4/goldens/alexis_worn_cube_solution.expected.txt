@@ -1316,7 +1316,7 @@ As you pass through the door, Urgorn creates a spell that shuts the exit to
 the South. He then smiles, and says:
  Just us now, no escape.
 
-Haron follows you.
+Haron follows you from the south.
 
 > attack urgorn
 You cut Urgorn with the small sword.

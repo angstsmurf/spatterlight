@@ -3946,7 +3946,7 @@ you won't be in a position to worry about such things for much longer." He
 takes a step towards you. "Ah, I see you flinch. As well you might, for today
 you die, Marlon."
 
-Gragor follows you from the east.
+Gragor follows you.
 
 > kill vampire
    Shock is clearly written on the vampire's face as he sees you are carrying

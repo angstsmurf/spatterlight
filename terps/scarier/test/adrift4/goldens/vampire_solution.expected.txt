@@ -550,9 +550,9 @@ Elevator
 A standard Hotel elevator. There are a panel of button here ranging from 0 to
 30.
 
-Jon Simonsen enters.
+Jon Simonsen enters from the west.
 
-Anette follows you from the.
+Anette follows you from the from the west.
 
 > push 15
 The elevator gets into motion, and you arrive at the floor of the grand
@@ -577,7 +577,7 @@ Anette follows you from the.
 > w
 You walk into the lobby.
 
-Jon Simonsen enters from the east.
+Jon Simonsen enters.
 
 Anette follows you from the.
 

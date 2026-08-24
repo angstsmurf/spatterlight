@@ -228,6 +228,10 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `maincourse`, `orient`, `xfiles`, `wamk` | 4.00 | re-blessed under the same two rules | `maincourse` lost its win marker to a faithful preemption |
 | `iqsfot.taf` | 4.00 | see the row's comment block | NPC 16 WALK 2 is an empty game-start walk with no stops; it pins the patrol shut and the game cannot be won in run400 |
 | `the_pk_girl.taf` | 4.00 | full run400 replay with a 96-command peddler hunt spliced in | the Runner WINS -- and that is what proved a finished 4.0 walk is stamped **-1**, not 255 |
+| `arlo.taf` | 3.70 | full run370 replay, `Adven_6.rtf` | the 3.7 walk departure lines, incl. "walks off to not moved."; 3 differing of 85 |
+| `tra.taf` | 3.80 | full run380 replay, `Adven_9.rtf` | "outside" takes no "to" in a departure line |
+| `Melbourne Beach.taf` | 3.90 | full run390 replay, `Adrift_37.txt` | the 3.9 walk directions, incl. the diagonal a pre-4.0 8-exit scan cannot name |
+| `Orient_Express.taf` | 4.00 | full run400 replay, `Adrift_36.txt` | the 4.0 walk directions; also the spurious "Gimme Atip enters." arrival |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -760,31 +764,36 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
 
 ### Open leads
 
-- **arlo, NPC walk departures.**  run370 prints lines scarier omits: "Rude
-  Customer walks off.", "Alice walks off to ...", "Officer Obie walks off to
-  not moved."  This desynchronises presence state by cmd 33.  `scnpcs.cpp` was
-  partly reworked while chasing this (per-stop `Times` summed instead of
-  `MoveTimes[0]`, and an is-enabled test over StartTask/StoppingTask) but the
-  departure lines themselves are not implemented.  **This is the next item to
-  pick up.**
-
-  *Correction, 2026-08-24:* this lead used to claim four of arlo's six
-  differing commands.  It is three.  Command 34 was never walk-presence desync
-  -- it was the empty-M1 room-alt bug fixed below -- and arlo is now 6
-  differing of 85 rather than 7.  The rules for the departure lines were
-  settled from P-code in the earlier session and still stand:
-  `wherefrom(from,to)` returns "not moved" when `from == to`, "nowhere" when
-  `from == 0xFF` / there is no exit / (3.9) `to == 0`, and otherwise the
-  *opposite* direction name.  **3.7** skips only "nowhere", so "walks off to
-  not moved." really does print; **3.8** and **3.9** skip both; **4.0** skips
-  only "not moved" and prints "nowhere" directionless, with an "outside"
-  special case (`" " & dir & "."`).  Pre-4.0 announces *before* moving and
-  evaluates the step's destination, so it fires even when the NPC does not
-  move; the Runner's direction lookup is `wherefrom(dest, playerroom)` in
-  3.7/3.8, where scarier scans the forward exit of `start`.  run400's argument
-  order is still unsettled against `run400.p32dasm.txt`.  The thing that
-  currently suppresses the 3.7 lines is the `if (start != dest)` gate in
-  `npc_tick_npc_walk()`.
+- **NPC arrivals from the not-a-room zero.**  3.8, 3.9 and 4.0 gate the
+  *arrival* line on the walker's pre-move location not being the Runner's
+  not-a-room zero (run380 @4416F4, run390 `loc_45A99B`, run400 @468A5D); 3.7
+  has no such test (run370 @43955E).  The Runner spells "not a room" two ways
+  -- `0` for an NPC the game never placed, `&HFF` for one a walk has just
+  hidden -- and only the first suppresses the line; a hidden walker's next
+  arrival still prints, just directionless, `wherefrom()` bailing out on the
+  `&HFF`.  Scarier collapses both into a single marker (`gs_npc_location()`
+  returns `0` for either, `scgamest.cpp:847`/`854`) so it cannot tell them
+  apart, and announces either.  **Live proof this matters:** in
+  `orient_express` under run400, Scarier prints "Gimme Atip enters." where the
+  Runner prints nothing.  Fixing it means giving `scr_npcstate_t.location` a
+  second sentinel and teaching the `.tas` serialiser about it -- callers are
+  `scbattle.cpp:876`, `scnpcs.cpp:840`, `sctasks.cpp:776`/`783`,
+  `scserial.cpp:1609`.
+- **The walk move and the meet-task dispatch sit outside the exact-tick
+  test.**  run400 `loc_468841` is `If (counter = suffix_sum) And (suffix_sum
+  > 0)` and it branches false straight to `loc_468D51`, which is the walk-step
+  loop's `Next` -- so the *entire* step, the move included, happens only on
+  the exact tick.  `npc_tick_npc_walk()` now gates both announcements on
+  `is_exact` but still runs `if (start != dest) { move }` and the CharTask
+  dispatch unconditionally, and still forces `is_arrival` true for the Hidden
+  and roomgroup cases.  **Live exposure:** `provenance`'s butler is displaced
+  by a task and Scarier warps him back on a non-exact tick, which is where its
+  three now-deleted bare "The butler exits." lines came from.  The
+  announcements are right now; the move timing is not.  Moving the tail inside
+  `is_exact` would change meet-task firing corpus-wide, so it wants its own
+  measurement round -- and check it against pre-4.0 too, plus the "Ticket to
+  No Where" roomgroup case, which is the evidence that a Times>1 roomgroup
+  stop *does* re-run every tick.
 - **arlo, `get out of bus` at the church** (cmds 37 and 64): run370 ends with
   the task's "You are no longer in the bus." and prints no exits list;
   scarier prints the exits and drops the task line.
@@ -806,6 +815,51 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
 - **Next candidates** down the list: `goldilocks`, `cibass`, `sophie`/`sa.taf`.
   With the pre-3.9 pool now clean, the remaining 3.90 and 4.00 candidates are
   where the next divergences will come from.
+
+## CLOSED 2026-08-24 -- NPC walk announcements, all four generations
+
+`scnpcs.cpp`'s walk departure/arrival lines rewritten against the Runner's own
+`wherefrom()` (run370 @422F8C, run380 @42800C, run390 @430200, run400
+`Proc_19_20` @45234C -- one routine, unchanged across all four).  Twenty
+goldens across nineteen games re-blessed, corpus back to **303/303 PASS**.
+The canonical write-up is the comment block above the `alices_restaurant` row
+in `harness/run_v4_walkthroughs.sh`; the short version:
+
+- The direction names *the other room as seen from the player's*: scan the
+  other room's exits for the player's room and print that exit's **opposite**,
+  **last match winning** (there is no early break).  SCARE scanned the
+  player's room forward and took the first match, which agrees only on a
+  symmetric map.
+- `EightPointCompass` is never consulted.  Pre-4.0 scans exits 0..7, 4.0 scans
+  0..11, so a diagonal move is nameless before 4.0.
+- Departure suppression is version-split: **3.7** suppresses only "nowhere"
+  (so "Alice walks off to not moved." really does print, twice, in arlo);
+  **3.8**/**3.9** suppress both; **4.0** suppresses only "not moved" and
+  prints a bare "X walks off." on "nowhere".
+- `"outside"` loses the "to" everywhere: "walks off outside." (run380
+  @0004160D, run390 `loc_45A840`, run400 `loc_46891E`).
+- A **follow-player stop is announced by no Runner**; a **hidden stop** gets a
+  directionless, resource-less line in **3.7 and 4.0 only** (run370
+  `loc_4397A3`, run400 `loc_468CF9` -- run380 `loc_4418DD` and run390 have
+  nothing there but the "stamp the NPC nowhere" assignment).
+- Both lines fire only on the exact tick, so a multi-turn stay is announced
+  once.
+
+Measured live under Wine, one game per generation:
+
+| Game | Runner | Transcript | What it pinned |
+|---|---|---|---|
+| `arlo.taf` | run370 | `Adven_6.rtf` | all three 3.7 departure lines; arlo down to **3 differing of 85** |
+| `tra.taf` | run380 | `Adven_9.rtf` | "Hovey shuffles off outside." -- no "to"; the old golden was wrong |
+| `Melbourne Beach.taf` | run390 | `Adrift_37.txt` | all four changed sites, incl. the dropped diagonal ("David strolls in.") |
+| `Orient_Express.taf` | run400 | `Adrift_36.txt` | every 4.0 walk line, incl. "...walks off to the west." and "...wobbles in from the east." |
+
+At 3.9 only the NPC *verb text* ever differed from the Runner (the walk's
+random alternate texts), never the direction.
+
+Two residual items came out of this and are now open leads above: the
+not-a-room-zero **arrival** gate, and the fact that the walk **move** and
+meet-task dispatch still sit outside the exact-tick test.
 
 ## CLOSED 2026-08-24 -- empty-M1 room alts, and recursive holding
 

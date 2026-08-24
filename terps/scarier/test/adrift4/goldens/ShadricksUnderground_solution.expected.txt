@@ -995,7 +995,7 @@ floor.  I can now go east or south.
 
 Also here is a brick.
 
-Hanson follows me in.
+Hanson follows me in from the east.
 
 > s
 I move south.

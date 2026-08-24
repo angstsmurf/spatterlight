@@ -174,14 +174,18 @@ light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=16
 # refused.  Win marker deliberately removed -- the walkthrough is kept for its
 # transcript, not for a win.
 maincourse_solution.txt|Main Course.taf||SCR_SEED=17
+# The 3.9 half of the walk-announcement rewrite was measured on this game --
+# run390 under Wine, Adrift_37.txt, 2026-08-24.  See the arlo block.
 melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the original game Melbourne Beach
 # Measured live in run400 under Wine (2026-08-24).  At command 38, `n` into
 # the Dining Car, the Runner prints "The waiter saunters over." -- the same
 # line the fixed engine now prints.  The old golden had "Gimme Atip is here.",
 # i.e. the plain NPC name rather than the walk's ChangedDesc.  (Unrelated and
 # still-open run400 differences in this game: timed-event turn offsets, NPCs
-# named "the large man"/"BIG BOSS" instead of in full, and walk-direction
-# suffixes such as "wobbles in from the east".)
+# named "the large man"/"BIG BOSS" instead of in full, and one spurious
+# "Gimme Atip enters." -- the not-a-room-zero arrival gate.)  The walk
+# direction suffixes such as "wobbles in from the east" were the 4.0 half of
+# the walk-announcement rewrite; see the arlo block for the full measurement.
 orient_express_solution.txt|Orient_Express.taf|You successfully complete your assignment.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
@@ -1410,6 +1414,9 @@ haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 # (is_400 || npc_walk_is_loop(...)), so the 3.8 path matches line for line.
 great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!
 tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
+# The 3.8 half of the walk-announcement rewrite was measured on this game --
+# run380 under Wine, Adven_9.rtf, 2026-08-24: Hovey's departure really is
+# "shuffles off outside." with no "to".  See the arlo block.
 timmy_reid_solution.txt|tra.taf|Thanks for getting us back home!
 duck_mccloud_solution.txt|duck.taf|You jump from the plane just in time and you survive the huge
 fistandantalus_solution.txt|first.taf|Congradulations you have won the game
@@ -1422,8 +1429,83 @@ super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 # byte-exact against Adven_6.rtf, taking arlo from 7 differing commands of 85
 # down to 6.  Note this corrects an earlier diagnosis recorded in
 # notes/WINE-TRANSCRIPTS-TODO.md, which blamed cmd 34 on NPC-walk presence
-# desync; it is a room-alt selection bug and is unrelated to the missing walk
-# departure announcements, which are still open.
+# desync; it is a room-alt selection bug and is unrelated to the walk departure
+# announcements, which the block below then ported.
+#
+# 2026-08-24 -- NPC walk announcements rewritten against the Runner's own
+# wherefrom() (run370 @422F8C, run380 @42800C, run390 @430200, run400
+# Proc_19_20 @45234C -- one routine, unchanged across all four).  Twenty
+# goldens moved; the four generations were each measured live under Wine to
+# pin the parts that differ.  What changed:
+#
+#   * DIRECTION IS NAMED FROM THE OTHER ROOM, REVERSED.  SCARE scanned the
+#     *player's* room forward for the NPC's room and took the first match.
+#     The Runner scans the *other* room's exits for the player's room, names
+#     that exit's opposite, and lets the LAST match win (no early break).  On
+#     a symmetric map the two agree; on a one-way map they do not, which is
+#     why provenance's butler gained "to the west" at three sites where the
+#     old forward scan found nothing.
+#   * EIGHTPOINTCOMPASS IS NEVER CONSULTED.  Pre-4.0 scans exits 0..7, 4.0
+#     scans 0..11, whatever the flag says -- so a diagonal move is nameless
+#     before 4.0.  That is alexis' 28 lost "from the south-east"/"north-west"
+#     clauses and stardust's, and melbourne_beach's "David strolls in."
+#   * THE DEPARTURE GATE IS VERSION-SPLIT.  wherefrom() answers two
+#     non-directions, "not moved" and "nowhere", and each Runner suppresses a
+#     different pair: 3.7 suppresses only "nowhere" (so "Alice walks off to
+#     not moved." really is what run370 prints, twice, in arlo); 3.8 and 3.9
+#     suppress both; 4.0 suppresses only "not moved" and prints a bare
+#     "X walks off." on "nowhere".  baroo's "Wizard strides off toward the
+#     hotel and enters it." and cursed's "Lord Vonisor exits through the door
+#     and joins you in the corridor." are 4.0 bare lines -- author-written
+#     self-contained sentences that had been getting a bogus " to the east"
+#     bolted on.
+#   * "outside" LOSES THE "to".  Every Runner special-cases it: "walks off
+#     outside.", not "walks off to outside." (run380 @0004160D, run390
+#     loc_45A840, run400 loc_46891E).  timmy_reid's Hovey is the corpus case.
+#   * A FOLLOW-PLAYER STOP IS ANNOUNCED BY NO RUNNER, even though the walker
+#     is about to warp to the player.  4.0 gates the departure branch on the
+#     resolved destination being a real room (run400 @4688B0, var_BE > 0, and
+#     a follow stop resolves to the not-a-room zero); 3.7/3.8/3.9 do reach the
+#     branch but hand wherefrom() that same zero, whose exit-less dummy room
+#     answers "nowhere", which all three suppress.
+#   * A HIDDEN STOP gets a directionless line in 3.7 and 4.0 ONLY (run370
+#     loc_4397A3, run400 loc_468CF9, and no resource is played).  run380
+#     loc_4418DD and run390 have nothing in that branch but the "stamp the NPC
+#     nowhere" assignment, so a 3.8/3.9 walker vanishes in silence.  arlo's
+#     "Rude Customer walks off." is the 3.7 case.
+#   * BOTH LINES FIRE ONLY ON THE EXACT TICK, the turn the walk counter lands
+#     on this stop's suffix sum -- run400 loc_468841 is
+#     `If (counter = sum) And (sum > 0)` branching false straight to
+#     loc_468D51, the loop's Next, so a multi-turn stay is announced once, not
+#     once per turn.  This is what dropped provenance's three bare "The butler
+#     exits." lines: they fired on non-exact ticks after a task had displaced
+#     the butler.
+#
+# Measured live under Wine, one game per generation:
+#   3.7  arlo / run370 / Adven_6.rtf -- all three departure lines now match;
+#        arlo is down to 3 differing commands of 85 (the two `get out of bus`
+#        rows and the transcript-end artefact, both still open).
+#   3.8  timmy_reid / run380 / Adven_9.rtf -- "Hovey shuffles off outside.",
+#        with no "to".  The old golden's "to outside" was wrong.
+#   3.9  melbourne_beach / run390 / Adrift_37.txt -- all four changed sites:
+#        "Kitty departs to inside.", "Kitty comes in from the west."
+#        (direction gained), "Kitty enters." (direction dropped) and
+#        "David strolls in." (diagonal dropped, 8-exit scan).  Only the NPC
+#        verb text differs, never the direction -- those are the walk's random
+#        alternate texts.
+#   4.0  orient_express / run400 / Adrift_36.txt -- every walk line matches,
+#        including "Ivanna Stiffdrink walks off to the west.", "Ivanna
+#        Stiffdrink walks towards you from inside." and "Oddly Istink wobbles
+#        in from the east."
+#
+# Still open, and logged in notes/WINE-TRANSCRIPTS-TODO.md rather than fixed
+# here: 3.8/3.9/4.0 add one more arrival test we cannot make -- the walker's
+# pre-move location must not be the Runner's not-a-room zero (run380 @4416F4,
+# run390 loc_45A99B, run400 @468A5D).  The Runner spells "not a room" two
+# ways, 0 for an NPC the game never placed and 0xFF for one a walk has just
+# hidden; Scarier collapses both into one marker, so it cannot tell them
+# apart.  orient_express is the live proof this matters: Scarier prints
+# "Gimme Atip enters." where run400 prints nothing.
 alices_restaurant_solution.txt|arlo.taf|recording an album that will be that hit record
 castle_quest_solution.txt|castle.taf|Thanks for playing!
 # ---------------------------------------------------------------------------

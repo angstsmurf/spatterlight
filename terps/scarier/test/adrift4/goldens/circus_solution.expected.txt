@@ -194,7 +194,7 @@ Marie is here, behind the ticket booth.
 > sell 10 points
 Your score has been lowered by 10 points to 0, but you now have $1.
 
-the vendor enters from the north-west.
+the vendor enters.
 
 > buy peanut
 The vendor sells you a bag of peanuts for $1.
@@ -289,8 +289,6 @@ People are milling about, playing games.  A little girl is playing with a
 stuffed animal won on the midway.  The odor of pizza wafts its way over to
 you.
 Lance the ringmaster is here, announcing acts and working the crowd.
-
-Lance retreats to the north-west.
 
 > sw
 You move southwest.

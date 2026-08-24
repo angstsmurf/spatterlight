@@ -69,7 +69,7 @@ around in the water, that leads into darkness.
 
 Also here is a piece of dental floss and a small rock.
 
-Jenny follows you .
+Jenny follows you  from the north.
 
 > take floss
 You take the piece of dental floss.

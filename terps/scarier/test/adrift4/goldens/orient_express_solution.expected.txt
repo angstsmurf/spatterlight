@@ -39,7 +39,7 @@ You take the pistol from the suitcase.
 > board train
 You climb aboard the train, and take one last look at Destination Station.
 
-Oddly Istink wobbles in.
+Oddly Istink wobbles in from the east.
 You hear the conductor yell, "ALL Aboard"
 
 > give ticket to oddly istink
@@ -81,7 +81,7 @@ You take the bag.
 "Thank you so much. Maybe we can get together later, for a drink"  With that
 said, she walks into her compartment.
 
-Ivanna Stiffdrink walks off.
+Ivanna Stiffdrink walks off to the west.
 
 > s
 You move south.
@@ -318,7 +318,7 @@ HopeImakeit Station
 The Hopeimakeit station seems deserted. The platform is empty,  the streets
 are empty.  The only thing in sight is a public telephone.
 
-Ivanna Stiffdrink walks towards you.
+Ivanna Stiffdrink walks towards you from inside.
 
 > use phone
 You look around and don't see Miss Fortune anywhere. You were certain that

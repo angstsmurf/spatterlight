@@ -1108,7 +1108,7 @@ ends up getting killed. At your back is the way out which is looking more and
 more welcoming as the seconds tick by...
    Exits lie: southeast (to the end of the path).
 
-Grumble complaining of beer deprivation staggers in from the south-east.
+Grumble complaining of beer deprivation staggers in.
 
 > se
 
@@ -1138,7 +1138,7 @@ You haven't been so terrified since you got three lots of detention in a row
 but at least the teacher didn't try to strangle you.
    "Dunno," says Grumble. "But I doubt the thing's got any beer."
 
-Grumble complaining of beer deprivation staggers in.
+Grumble complaining of beer deprivation staggers in from the north-west.
 
 > nw
 "You sure about this?" Grumble asks, with an uneasy look at the cave. "There
@@ -1192,7 +1192,7 @@ mean, no beer! Bah, makes yer blood curdle sometimes to think of it."
 A minute later you find, after some careful searching, what appears to be a
 light switch. Flicking it reveals the lair in its glory (or lack of).
 
-Grumble complaining of beer deprivation staggers in from the south-east.
+Grumble complaining of beer deprivation staggers in.
 
 > se
 You move southeast.
@@ -1209,7 +1209,7 @@ has its lair.
 
 Also here is a crucifix and the holy handgrenade.
 
-Grumble complaining of beer deprivation staggers in.
+Grumble complaining of beer deprivation staggers in from the north-west.
 
 > get crucifix
 You take the crucifix.

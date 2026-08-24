@@ -232,7 +232,7 @@ River bank in Glaven
 You are standing on the bank of the Forecarn river. North of here is a
 cobblestone path which seems to lead to a cave.
 
-Serond follows you.
+Serond follows you from the south.
 
 > north
 You move north.
@@ -254,7 +254,7 @@ to be made from a very hard rock. Northwest of here the caves continue.
 Southeast will take you out of the cave.  You can see a large area in the
 cave up ahead.
 
-Serond follows you from the south-east.
+Serond follows you.
 
 > nw
 You move northwest.
@@ -267,7 +267,7 @@ Southeast takes you down a straight passage.  The path northwest is being
 blocked by a large troll.
 Narfild is here.
 
-Serond follows you from the south-east.
+Serond follows you.
 Narfild hits Serond with the large club.
 
 > attack narfild
@@ -375,7 +375,7 @@ to be made from a very hard rock. Northwest of here the caves continue.
 Southeast will take you out of the cave.  You can see a large area in the
 cave up ahead.
 
-Serond follows you from the north-west.
+Serond follows you.
 
 > se
 You move southeast.
@@ -386,7 +386,7 @@ true! They say that there are unimaginable terrors in the caves. Northwest
 will take you into the cave, Northeast will take you away, up a long path.
 South will take you to a river bank.
 
-Serond follows you from the north-west.
+Serond follows you.
 
 > ne
 You move northeast.
@@ -396,7 +396,7 @@ The path is long and will take you either northeast to a junction or
 southwest towards a cave.   Tarin the dwarf is barring your way northeast.
 Tarin, the dwarf is here.
 
-Serond follows you from the south-west.
+Serond follows you.
 
 > look
 
@@ -419,7 +419,7 @@ You are standing at the junction of four paths. One leaves west towards some
 caves. Another path leads towards some mountains northeast of here. A long
 path goes southwest. The last path is wide and goes southeast.
 
-Serond follows you from the south-west.
+Serond follows you.
 
 > dig
 You remove the topsoil carefully with the spade. You then dig down and down
@@ -442,7 +442,7 @@ caves, and southeast will take you into a marshy area.
 
 You can also see the Longmore stone.
 
-Serond follows you from the north-west.
+Serond follows you.
 
 > take longmore stone
 You pick up the Longmore stone.
@@ -458,7 +458,7 @@ through the ground. You can trudge northwest, southeast or attempt another
 direction.
 The Longmore marsh king is here.
 
-Serond follows you from the north-west.
+Serond follows you.
 Serond shoots Longmore king with the oak staff.
 Longmore king stabs you with the pointy stick.
 
@@ -470,7 +470,7 @@ The ground has turned extremely wet and appears to get even wetter furthur
 Northwest. Southeast goes to a track junction. In the far distance you can
 see mountains.
 
-Serond follows you from the north-west.
+Serond follows you.
 
 > se
 You move southeast.
@@ -480,7 +480,7 @@ You are standing on the junction, where a wide path passes a small faint
 track. The faint track leads towards the river southwest. The wide path leads
 east towards a village, and northwest where the ground gets much wetter.
 
-Serond follows you from the north-west.
+Serond follows you.
 
 > sw
 You move southwest.
@@ -493,7 +493,7 @@ path to a junction.
 
 You can also see a large pot and an ornate key.
 
-Serond follows you from the north-east.
+Serond follows you.
 
 > take pot
 You pick up the large pot.
@@ -512,7 +512,7 @@ You are standing on the junction, where a wide path passes a small faint
 track. The faint track leads towards the river southwest. The wide path leads
 east towards a village, and northwest where the ground gets much wetter.
 
-Serond follows you from the south-west.
+Serond follows you.
 
 > e
 You move east.
@@ -634,7 +634,7 @@ door leading east, but it is locked. It simply has the words: "Nnem shclam
 quaten" (Translated as sleeping quarters)  There is an unlocked weapons
 cupboard.
 
-Serond follows you from the north-west.
+Serond follows you.
 
 > open cupboard
 The cupboard creaks open and the objects inside glitter and shine.
@@ -660,7 +660,7 @@ with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
 Natalya is here.
 
-Serond follows you from the south-east.
+Serond follows you.
 
 > w
 You move west.
@@ -693,7 +693,7 @@ northwest.
 You can also see the Kedarn stone.
 There is a Forester Goblin hanging from a tree here.
 
-Serond follows you from the north-west.
+Serond follows you.
 Serond shoots Forester Goblin with the oak staff.
 Forester Goblin shoots you with the bow and arrow.
 
@@ -725,7 +725,7 @@ The forest is opened out and you stand between the forest and green fields.
 Picked through the forest there appears to be a path southeast. Another path
 heads north to a junction.
 
-Serond follows you from the south-east.
+Serond follows you.
 
 > n
 You move north.
@@ -755,7 +755,7 @@ The ground has turned extremely wet and appears to get even wetter furthur
 Northwest. Southeast goes to a track junction. In the far distance you can
 see mountains.
 
-Serond follows you from the south-east.
+Serond follows you.
 
 > nw
 You move northwest.
@@ -768,7 +768,7 @@ through the ground. You can trudge northwest, southeast or attempt another
 direction.
 The Longmore marsh king is here.
 
-Serond follows you from the south-east.
+Serond follows you.
 Serond shoots Longmore king with the oak staff.
 Longmore king stabs you with the pointy stick.
 
@@ -786,7 +786,7 @@ You move northeast.
 Marshy cave
 It is too dark to see.
 
-Serond follows you from the south-west.
+Serond follows you.
 
 > unlock chest
 The chest's lock slowly turns and with a clunk, the chest is unlocked.
@@ -817,7 +817,7 @@ direction.
 
 You can also see a pointy stick.
 
-Serond follows you from the north-east.
+Serond follows you.
 
 > nw
 You move northwest.
@@ -828,7 +828,7 @@ are snowcapped mountains. East of here, there is one huge mountain with a
 large castle near the top. Northwest will take you towards Glaven, near some
 caves, and southeast will take you into a marshy area.
 
-Serond follows you from the south-east.
+Serond follows you.
 
 > e
 You move east.
@@ -889,7 +889,7 @@ path goes southwest. The last path is wide and goes southeast.
 
 You can also see a large hole.
 
-Serond follows you from the south-east.
+Serond follows you.
 
 > ne
 You move northeast.
@@ -900,7 +900,7 @@ extremely steep mountains. It is impossible to attempt to climb up any.
 Southwest will take you towards Glaven. Northeast takes you further along the
 pass. East takes you along a valley ridge.
 
-Serond follows you from the south-west.
+Serond follows you.
 
 > ne
 You move northeast.
@@ -909,7 +909,7 @@ Nelone mountain pass
 This long path threads through the mountains east or to a junction southwest.
 There is a Narn here.
 
-Serond follows you from the south-west.
+Serond follows you.
 Serond shoots Kerfald with the oak staff.
 Kerfald hits Serond.
 
@@ -933,7 +933,7 @@ sure is that west leads down into a valley.
 
 You can also see the Nelone stone.
 
-Serond follows you from the north-west.
+Serond follows you.
 
 > take nelone stone
 You pick up the Nelone stone.
@@ -1004,7 +1004,7 @@ smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.
 There is a large Narn here.
 
-Serond follows you from the south-west.
+Serond follows you.
 Serond shoots Karurn with the oak staff.
 Karurn hits Serond.
 
@@ -1016,7 +1016,7 @@ The air is very dense now, the smog fills your nostrils with foul air. There
 are pools of slime and mud all around here. Southeast will take you down the
 mountain. Northeast will take you up.
 
-Serond follows you from the south-east.
+Serond follows you.
 
 > ne
 You move northeast.
@@ -1025,7 +1025,7 @@ Uron Dark Path
 The path starts to get steeper as you get nearer the top of the mountain. The
 path leads Southwest down the mountain or North up the mountain.
 
-Serond follows you from the south-west.
+Serond follows you.
 
 > n
 You move north.
@@ -1240,9 +1240,9 @@ As you pass through the door, Urgorn creates a spell that shuts the exit to
 the South. He then smiles, and says:
  Just us now, no escape.
 
-Serond follows you.
+Serond follows you from the south.
 
-Haron follows you.
+Haron follows you from the south.
 Serond shoots Urgorn with the oak staff.
 
 > attack urgorn

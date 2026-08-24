@@ -380,7 +380,7 @@ the river, or anything.  Some largish stones are embedded into the ground at
 the foot of the hill, which looms above like a tolerant titan.  A vacant lot
 can be reached by travelling to the west.
 
-    Laurie follows you from the east.
+    Laurie follows you from above.
 
 > west
 You move west.

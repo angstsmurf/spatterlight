@@ -675,8 +675,6 @@ With that the house servant goes back to his duties.
 You grasp the doorknob and pull only to find that the door has somehow been
 sealed shut.  You will have to find another way out of the house.
 
-The butler exits.
-
 > open window
 
 You reach up above the door, turn the handle and push the window open.
@@ -3276,8 +3274,6 @@ around lighting the wood at strategic points to ensure the fire starts
 evenly.  Within a few minutes the stack of kindling is burning nicely in the
 fireplace, casting a nice glow and throwing some welcome heat.
 
-The butler exits.
-
 Flames lick up the flue dancing their evil dance as they consume the wood
 that is their offering.  Within only a few minutes a comfortable fire is
 burning in the fireplace.
@@ -3335,8 +3331,6 @@ with inlaid satinwood and tulip-wood, the hutch consists of two large
 cupboards flanking a single large drawer in the middle.  The legs are tapered
 and reeded with inlays of rosewood.  The lower shelves are typically used for
 displaying and showing off the family's good chinaware and crystal.
-
-The butler exits.
 
 The butler enters the room walking quickly and talking to you at the same
 time.

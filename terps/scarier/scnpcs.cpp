@@ -463,20 +463,123 @@ npc_random_adjacent_roomgroup_member (scr_gameref_t game,
 
 
 /*
+ * The direction names the Runner's wherefrom() answers with, in exit order.
+ * wherefrom(roomfrom, roomto) scans *roomfrom's* exits for roomto and then
+ * reports that exit's *opposite* -- it names the direction roomfrom lies in
+ * as seen from roomto.  "Alice walks off to the north." therefore means the
+ * room Alice is heading for has a south exit back into the player's room.  On
+ * a symmetric map that is the same answer SCARE's old forward scan of the
+ * player's own room gave; on a one-way map it is not.  This table is
+ * DIRNAMES_8 reversed, index for index.
+ */
+static const scr_char *const WHEREFROM_DIRNAMES[] = {
+  "the south", "the west", "the north", "the east", "below", "above",
+  "outside", "inside",
+  "the south-west", "the north-west", "the north-east", "the south-east"
+};
+
+/* wherefrom()'s two non-direction answers.  Both are compared as strings by
+   the Runner, and "not moved" is even printed as one -- see npc_announce(). */
+static const scr_char NOT_MOVED[] = "not moved";
+static const scr_char NOWHERE[] = "nowhere";
+
+/*
+ * npc_wherefrom()
+ *
+ * Port of the Runner's wherefrom() (run370 @422F8C, run380 @42800C, run390
+ * @430200, run400 Proc_19_20 @45234C -- one routine, unchanged across all
+ * four).  Rooms are numbered from zero here and -1 is "hidden"; the Runner
+ * numbers them from one and spells "not a room" two ways (0 for an NPC that
+ * has never been anywhere, 0xFF for one a walk has just hidden), which is why
+ * it needs both of its guards where we need one.
+ *
+ * Note there is no early exit from the scan: the *last* matching exit wins,
+ * not the first, so a room reachable by two exits is named by the higher one.
+ * Pre-4.0 scans eight exits, 4.0 twelve, and neither consults
+ * EightPointCompass -- so a diagonal move is nameless before 4.0.
+ */
+static const scr_char *
+npc_wherefrom (scr_gameref_t game, scr_int roomfrom, scr_int roomto)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5], vt_rvalue;
+  const scr_char *retval;
+  scr_int length, dir;
+
+  retval = NULL;
+  if (roomfrom == roomto)
+    retval = NOT_MOVED;
+  if (roomfrom == -1)
+    return NOWHERE;
+
+  length = (npc_version (game) >= TAF_VERSION_400) ? 12 : 8;
+
+  vt_key[0].string = "Rooms";
+  vt_key[1].integer = roomfrom;
+  vt_key[2].string = "Exits";
+  for (dir = 0; dir < length; dir++)
+    {
+      vt_key[3].integer = dir;
+      if (prop_get (bundle, "I<-sisi", &vt_rvalue, vt_key))
+        {
+          scr_int dest;
+
+          vt_key[4].string = "Dest";
+          dest = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
+          if (dest == roomto)
+            retval = WHEREFROM_DIRNAMES[dir];
+        }
+    }
+
+  if (!retval)
+    retval = NOWHERE;
+
+  /* The Runner's "roomto is not a room" guard, and it overrides everything
+     above -- including "not moved" for a walk from hidden to hidden. */
+  if (roomto == -1)
+    retval = NOWHERE;
+
+  return retval;
+}
+
+
+/*
  * npc_announce()
  *
- * Helper for npc_tick_npc().
+ * Print an NPC's walk departure or arrival line.  other_room is the room at
+ * the far end of the move -- where the NPC is going for a departure, where it
+ * came from for an arrival -- and the caller has already established that the
+ * player is in the room the NPC is leaving or entering.
+ *
+ * Both lines are built the same way (run370 @4393BB / @43955E, run380
+ * @44153F / @4416F4, run390 @45A7DB / @45A97B, run400 @4688C0 / @468A64):
+ * the NPC's name, its ExitText or EnterText, and then a direction clause
+ * naming *the other room* as seen from the player's.  The departure's version
+ * split is in the gates, not the wording:
+ *
+ *   3.7  suppressed only on "nowhere", so a walk whose stop *is* the player's
+ *        room prints the sentinel verbatim -- "Alice walks off to not
+ *        moved." really is what run370 says, and arlo says it twice;
+ *   3.8  and 3.9 suppress both "nowhere" and "not moved";
+ *   4.0  suppresses only "not moved", and prints a bare "X walks off." when
+ *        the direction comes back "nowhere".
+ *
+ * The arrival has no direction gate at all -- a "nowhere" answer just drops
+ * the " from ..." clause -- because its caller has already tested that the
+ * NPC came from somewhere else.
+ *
+ * "outside" is special-cased in every Runner: "walks off outside." rather
+ * than "walks off to outside.".
  */
 static void
 npc_announce (scr_gameref_t game, scr_int npc,
-              scr_int room, scr_bool is_exit, scr_int npc_room)
+              scr_bool is_exit, scr_int other_room)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5], vt_rvalue;
-  const scr_char *text, *name, *const *dirnames;
-  scr_int dir, dir_match;
-  scr_bool eightpointcompass, showenterexit, found;
+  scr_vartype_t vt_key[4];
+  const scr_char *text, *name, *dir;
+  scr_bool showenterexit, is_400;
 
   /* If no announcement required, return immediately. */
   vt_key[0].string = "NPCs";
@@ -486,61 +589,22 @@ npc_announce (scr_gameref_t game, scr_int npc,
   if (!showenterexit)
     return;
 
+  is_400 = npc_version (game) >= TAF_VERSION_400;
+  dir = npc_wherefrom (game, other_room, gs_playerroom (game));
+
+  if (is_exit)
+    {
+      if (strcmp (dir, NOT_MOVED) == 0 && npc_version (game) > TAF_VERSION_370)
+        return;
+      if (strcmp (dir, NOWHERE) == 0 && !is_400)
+        return;
+    }
+
   /* Get exit or entry text, and NPC name. */
   vt_key[2].string = is_exit ? "ExitText" : "EnterText";
   text = prop_get_string (bundle, "S<-sis", vt_key);
   vt_key[2].string = "Name";
   name = prop_get_string (bundle, "S<-sis", vt_key);
-
-  /* Decide on four or eight point compass names list. */
-  eightpointcompass = prop_get_global_boolean (bundle, "EightPointCompass");
-  dirnames = eightpointcompass ? DIRNAMES_8 : DIRNAMES_4;
-
-  /* Set invariant key for room exit search. */
-  vt_key[0].string = "Rooms";
-  vt_key[1].integer = room;
-  vt_key[2].string = "Exits";
-
-  /* Find the room exit that matches the NPC room. */
-  found = FALSE;
-  dir_match = 0;
-  for (dir = 0; dirnames[dir]; dir++)
-    {
-      vt_key[3].integer = dir;
-      if (prop_get (bundle, "I<-sisi", &vt_rvalue, vt_key))
-        {
-          scr_int dest;
-
-          /* Get room's direction destination, and compare. */
-          vt_key[4].string = "Dest";
-          dest = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
-          if (dest == npc_room)
-            {
-              dir_match = dir;
-              found = TRUE;
-              break;
-            }
-        }
-    }
-
-  /*
-   * A walk's stops are room indexes, not exits, so a walker can step between
-   * rooms that share no exit -- and then there is no direction to name.  The
-   * pre-4.0 Runner reacts to that by dropping the *leave* announcement
-   * altogether, while still printing the arrival one without a direction
-   * (run390 walk probes H and J, live 2026-08-02: with the two probe rooms
-   * unconnected only "Bob BOB ENTERS.." appears, but once they are joined
-   * north/south both "BOB ENTERS. from the north." and "BOB LEAVES. to the
-   * north." do).  run400 prints the directionless leave line (walk probe H
-   * against run400, same day), so this is a pre-4.0 suppression; 3.8 games run
-   * under the same 3.9 Runner and are assumed to share it.
-   *
-   * Corpus exposure is three games: "Melbourne Beach" (Judy), "Lair of the
-   * CyberCow" (Vluurinik) and "thetest" (the Robot Guard) all walk between
-   * rooms that share no exit while the player watches.
-   */
-  if (is_exit && !found && npc_version (game) < TAF_VERSION_400)
-    return;
 
   /* Print NPC exit/entry details. */
   pf_buffer_character (filter, '\n');
@@ -548,10 +612,13 @@ npc_announce (scr_gameref_t game, scr_int npc,
   pf_buffer_string (filter, name);
   pf_buffer_character (filter, ' ');
   pf_buffer_string (filter, text);
-  if (found)
+  if (strcmp (dir, NOWHERE) != 0)
     {
-      pf_buffer_string (filter, is_exit ? " to " : " from ");
-      pf_buffer_string (filter, dirnames[dir_match]);
+      if (is_exit)
+        pf_buffer_string (filter, strcmp (dir, "outside") == 0 ? " " : " to ");
+      else
+        pf_buffer_string (filter, " from ");
+      pf_buffer_string (filter, dir);
     }
   pf_buffer_string (filter, ".\n");
 
@@ -561,6 +628,55 @@ npc_announce (scr_gameref_t game, scr_int npc,
   vt_key[2].string = "Res";
   vt_key[3].integer = is_exit ? 3 : 2;
   res_handle_resource (game, "sisi", vt_key);
+}
+
+
+/*
+ * npc_announce_hidden()
+ *
+ * Print the directionless departure line a walk stop of "Hidden" gets.  This
+ * is a separate branch in the Runner -- the else of its "the stop is a room"
+ * test -- and it is not the same code as npc_announce(): there is no
+ * direction clause and no wherefrom() call, just the name, the ExitText and a
+ * full stop.  arlo's "Rude Customer walks off." is one of these.
+ *
+ * It exists in 3.7 (run370 loc_4397A3) and in 4.0 (run400 loc_468CF9) only.
+ * run380 loc_4418DD and run390 have nothing in that branch but the "stamp the
+ * NPC nowhere" assignment, so a 3.8 or 3.9 walker vanishes in silence.
+ */
+static void
+npc_announce_hidden (scr_gameref_t game, scr_int npc)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+  const scr_char *text, *name;
+  scr_int version;
+
+  version = npc_version (game);
+  if (version != TAF_VERSION_370 && version < TAF_VERSION_400)
+    return;
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "ShowEnterExit";
+  if (!prop_get_boolean (bundle, "B<-sis", vt_key))
+    return;
+
+  vt_key[2].string = "ExitText";
+  text = prop_get_string (bundle, "S<-sis", vt_key);
+  vt_key[2].string = "Name";
+  name = prop_get_string (bundle, "S<-sis", vt_key);
+
+  pf_buffer_character (filter, '\n');
+  pf_new_sentence (filter);
+  pf_buffer_string (filter, name);
+  pf_buffer_character (filter, ' ');
+  pf_buffer_string (filter, text);
+  pf_buffer_string (filter, ".\n");
+
+  /* No resource here: unlike the two announcements above, neither run370's
+     loc_4397A3 nor run400's loc_468CF9 touches the NPC's Res entries. */
 }
 
 
@@ -576,7 +692,7 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
   scr_vartype_t vt_key[6];
   scr_int roomgroups, movetimes, walkstep, start, dest, destnum;
   scr_int chartask, objecttask;
-  scr_bool is_arrival;
+  scr_bool is_arrival, is_exact;
 
   if (npc_trace)
     {
@@ -639,6 +755,10 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
   is_arrival = gs_npc_walkstep (game, npc, walk)
                == prop_get_integer (bundle, "I<-sisisi", vt_key);
 
+  /* The same test, kept unmodified by the destination cases below, because
+     the Runner's walk announcements hang off it and not off is_arrival. */
+  is_exact = is_arrival;
+
   /* Sort out a destination. */
   dest = start = gs_npc_location (game, npc) - 1;
 
@@ -683,6 +803,33 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
         }
     }
 
+  /*
+   * Announce the departure, move, then announce the arrival -- the Runner's
+   * order, and its departure gate reads the NPC's location *before* the move,
+   * so a stop naming the room the walker already stands in still gets a line
+   * in 3.7 (see npc_announce()).  It fires only on the turn the counter lands
+   * exactly on this stop's suffix sum: the Runner does the whole
+   * move-and-announce inside that test (run370 loc_439360, run400
+   * loc_468841), so a multi-turn stay is announced once, not once per turn.
+   * That is is_exact, not is_arrival, which the Hidden and roomgroup cases
+   * above force true for the benefit of the meet-task dispatch below.
+   *
+   * A "follow the player" stop is announced by no Runner at all, even though
+   * the walker is about to warp to the player: 4.0 gates its departure branch
+   * on the resolved destination being a real room (run400 @4688B0, var_BE > 0,
+   * and a follow stop resolves to the not-a-room zero), while 3.7/3.8/3.9 do
+   * reach the branch but hand wherefrom() that same zero, whose exit-less
+   * dummy room answers "nowhere" -- which every one of them suppresses.  One
+   * destnum > 1 test therefore stands in for both shapes.
+   */
+  if (is_exact && gs_player_in_room (game, start))
+    {
+      if (destnum == 0)
+        npc_announce_hidden (game, npc);
+      else if (destnum > 1)
+        npc_announce (game, npc, TRUE, dest);
+    }
+
   /* See if the NPC actually moved. */
   if (start != dest)
     {
@@ -692,11 +839,19 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
       /* Move NPC to destination. */
       gs_set_npc_location (game, npc, dest + 1);
 
-      /* Announce NPC movements, and handle meeting characters and objects. */
-      if (gs_player_in_room (game, start))
-        npc_announce (game, npc, start, TRUE, dest);
-      else if (gs_player_in_room (game, dest))
-        npc_announce (game, npc, dest, FALSE, start);
+      /*
+       * Announce the arrival, unless the player watched the departure.
+       * 3.8, 3.9 and 4.0 add one more test we cannot make: the walker's
+       * pre-move location must not be the Runner's not-a-room zero (run380
+       * @4416F4, run390 loc_45A99B, run400 @468A5D), which is where an NPC
+       * the game never placed sits.  A walk that hides its NPC stamps &HFF
+       * instead, so a hidden walker's next arrival still gets a line -- just
+       * a directionless one, wherefrom() bailing out on the &HFF.  We keep a
+       * single hidden marker for both, so we cannot separate the two, and
+       * announce either.  3.7 has no such test at all (run370 @43955E).
+       */
+      if (!gs_player_in_room (game, start) && gs_player_in_room (game, dest))
+        npc_announce (game, npc, FALSE, start);
     }
 
   /* Handle meeting characters and objects -- arrival turns only. */

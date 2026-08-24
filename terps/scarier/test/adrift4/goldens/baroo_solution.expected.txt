@@ -230,7 +230,7 @@ cover the ground.  One solitary pickup sits with the hood open near the
 loading dock at the north end of the lot.  To the east is the hotel itself.
 The wizard is here.
 
-Wizard strides off to the east.
+Wizard strides off toward the hotel and enters it.
 
 > e
 You move east.

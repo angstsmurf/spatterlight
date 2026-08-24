@@ -361,7 +361,7 @@ interesting though.  Then Julian the goat appears.  He looks at you and seems
 verry mad.  Do something.  You have a laser gun, use it!
 Julian is here.
 
-The Mermaid follows you.
+The Mermaid follows you from outside.
 
 > shoot julian
 boom.  He blows up with a loud explosion.  Then everything starts to blur.
@@ -581,7 +581,7 @@ mighty and fat, I mean strong.  I am going to eat you, like I ate those
 cameras.  You glance at your laser gun, and know exactly what to do.
 Worm is here.
 
-The Mermaid follows you.
+The Mermaid follows you from the east.
 
 > shoot worm
 The worm glares at you.  I even ate the female swedish basketball players

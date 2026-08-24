@@ -211,6 +211,8 @@ The rude man looks at the sign and slowly reads "closed on Thanksgiving."  He
 seems to be processing the information.  "Oh, it's closed," he says finally.
 The man shrugs and goes home.
 
+Rude Customer walks off.
+
 > open restaurant door
 The door is open.
 
@@ -482,6 +484,8 @@ of garbage in the corner.   To the west is the bell tower.
 Alice and Facha are here.
 
 You can move south, west and out.
+
+Alice walks off to not moved.
 "There you are," says Alice.  "I've been looking all over for you.  You got a
 phone call from Officer Obie.  He says he found an envelope with your name on
 it underneath a half a ton of garbage and he wants to know if you have any
@@ -506,6 +510,8 @@ Time passes...
 You are in the cell.
 
 Officer Obie walks towards you.
+
+Officer Obie walks off to not moved.
 
 > call Alice
 You call Alice and ask her to bail you out of jail.  Alice has a few thoughts

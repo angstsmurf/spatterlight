@@ -3568,7 +3568,7 @@ wall which you know to be the entrance to Prince Alsanter's rooms. Mounted on
 the southern wall, beside the archway, is a plaque featuring the emblem of
 the crown prince of Rylane.
 
-   Lord Vonisor enters from the north.
+   Lord Vonisor exits through the door and joins you in the corridor.
 
 > w
 You trot west.
@@ -3619,7 +3619,7 @@ of the castle buttresses extends into the room somewhat.
    Besides the doorway to the south, which is open, the other exit is through
 a passage to the west.
 
-   Lord Vonisor enters from the south.
+   Lord Vonisor enters through the door.
 
 > smell
 You can smell a couple of distinct odours here. There is a floral-like smell,
