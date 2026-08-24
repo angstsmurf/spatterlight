@@ -561,6 +561,27 @@ Same discipline as Professor:
    justifies any deliberate deviation in the row's comment block in
    `harness/run_v4_walkthroughs.sh`.
 
+Step 2 is now mechanical.  `harness/compare_wine_transcript.py` takes the
+game, the command file that was driven in and the Runner's own
+`Adrift_N.txt`, replays the same feed through `harness/scare`, and splits
+both sides into turns — the Runner's by its echoed command line, scarier's by
+the `>` prompt:
+
+    python3 harness/compare_wine_transcript.py \
+        --taf games/The_X-Files_A_New_Beginning.taf \
+        --feed goldens/xfiles_solution.txt \
+        --runner ~/adrift-battle/runner/wine/pfx/drive_c/adrift/Adrift_22_xfiles.txt
+
+It prints, before any diff, **every feed command the Runner never echoed**,
+and marks every later turn as past that point; then it diffs the turns that
+did line up, whitespace-normalised so the Runner's own hard wrapping is not a
+difference, and says so explicitly when the two streams re-synchronise a
+prompt out.  Its self-test is the X-Files row, where it finds `feed[23] look`
+— the one lost command that produced two apparent engine bugs (`take knife`
+and `knock`) and cost a day of argument before anyone counted the echoes.
+`burn memo` at turn 4, which is upstream of the loss, is the only real
+divergence it reports there.
+
 ## Open leads
 
 Things a measurement turned up that are **not** walk bugs and have not been
