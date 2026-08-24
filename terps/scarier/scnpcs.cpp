@@ -833,24 +833,34 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
   /* See if the NPC actually moved. */
   if (start != dest)
     {
+      scr_bool was_walk_hidden;
+
       if (npc_trace)
         scr_trace ("NPC: walking NPC %ld moved to %ld\n", npc, dest);
 
-      /* Move NPC to destination. */
+      /* Move NPC to destination, remembering first whether the location we
+         are leaving was a walk's Hidden stamp -- the setter clears it. */
+      was_walk_hidden = gs_npc_walk_hidden (game, npc);
       gs_set_npc_location (game, npc, dest + 1);
+      if (dest == -1)
+        gs_set_npc_walk_hidden (game, npc, TRUE);
 
       /*
        * Announce the arrival, unless the player watched the departure.
-       * 3.8, 3.9 and 4.0 add one more test we cannot make: the walker's
-       * pre-move location must not be the Runner's not-a-room zero (run380
-       * @4416F4, run390 loc_45A99B, run400 @468A5D), which is where an NPC
-       * the game never placed sits.  A walk that hides its NPC stamps &HFF
-       * instead, so a hidden walker's next arrival still gets a line -- just
-       * a directionless one, wherefrom() bailing out on the &HFF.  We keep a
-       * single hidden marker for both, so we cannot separate the two, and
-       * announce either.  3.7 has no such test at all (run370 @43955E).
+       * 3.8, 3.9 and 4.0 add one more test: the walker's pre-move location
+       * must not be the Runner's *never placed* not-a-room zero (run380
+       * @4416F4, run390 loc_45A99B, run400 @468A5D -- the whole gate there is
+       * ShowEnterExit AND old <> playerroom AND old <> 0).  A walk that hides
+       * its NPC stamps &HFF instead (run400 loc_468D4A), which passes that
+       * test, so a hidden walker's next arrival still gets a line -- just a
+       * directionless one, wherefrom() bailing out on the &HFF.  Both are
+       * location 0 here, which is what gs_npc_walk_hidden() tells apart.
+       * 3.7 has no such test at all (run370 @43955E).
        */
-      if (!gs_player_in_room (game, start) && gs_player_in_room (game, dest))
+      if (!gs_player_in_room (game, start) && gs_player_in_room (game, dest)
+          && (start != -1
+              || was_walk_hidden
+              || npc_version (game) == TAF_VERSION_370))
         npc_announce (game, npc, FALSE, start);
     }
 

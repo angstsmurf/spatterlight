@@ -3829,8 +3829,6 @@ and will no doubt be a useful ally in this place.
 
    YOUR JOURNAL HAS BEEN UPDATED - PAGE 22
 
-Gragor follows you.
-
 > east
 You move east.
 

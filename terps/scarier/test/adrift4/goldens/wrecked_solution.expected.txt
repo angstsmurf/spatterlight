@@ -861,8 +861,6 @@ I wave the wand about.  There is a creaking noise, and slowly, the statue of
 Porkie transforms from cold grey stone, into warm, pink Porkie the pig!
 Somehow, he manages to scramble off the pillar.
 
-Porkie walks towards you.
-
 > west
 I move west.
 I am outside the village post office.  The roof of the post office is fairly

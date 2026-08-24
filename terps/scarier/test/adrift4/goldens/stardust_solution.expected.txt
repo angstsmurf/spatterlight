@@ -1047,8 +1047,6 @@ you so much for releasing me!" she says, smiling warmly and stepping down
 from the fountain. "Maybe I can be of use to you somehow. Let me tag along,
 and I'll repay you if I can."
 
-Plant Lady prances along.
-
 > give candy to plant lady
 She laughs but does not accept the candy. "All I need is water and moonlight,
 but thanks anyway!"

@@ -488,8 +488,6 @@ Your time in 'stealth tactic' mode is halfway done... you are becomine tired.
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
 
-Deer comes in.
-
 > take the deer carcass
 You pick up the deer carcass.
 
@@ -669,8 +667,6 @@ You chop Deer with the hunting sword.
 > attack deer
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
-
-Deer comes in.
 
 > take the deer carcass
 You pick up the deer carcass.
@@ -863,8 +859,6 @@ You chop Deer with the hunting sword.
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
 
-Deer comes in.
-
 > take the deer carcass
 You pick up the deer carcass.
 
@@ -1036,8 +1030,6 @@ You chop Deer with the hunting sword.
 > attack deer
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
-
-Deer comes in.
 
 > take the deer carcass
 You pick up the deer carcass.
@@ -1224,8 +1216,6 @@ You chop Deer with the hunting sword.
 > attack deer
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
-
-Deer comes in.
 
 > take the deer carcass
 You pick up the deer carcass.
@@ -1572,8 +1562,6 @@ Time passes...
 > z
 Time passes...
 
-Deer comes in.
-
 > attack deer
 You chop Deer with the hunting sword.
 
@@ -1586,8 +1574,6 @@ You chop Deer with the hunting sword.
 > attack deer
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
-
-Deer comes in.
 
 > take the deer carcass
 You pick up the deer carcass.
@@ -1757,8 +1743,6 @@ You chop Deer with the hunting sword.
 > attack deer
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
-
-Deer comes in.
 
 > take the deer carcass
 You pick up the deer carcass.
@@ -1949,8 +1933,6 @@ You chop Deer with the hunting sword.
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
 
-Deer comes in.
-
 > take the deer carcass
 You pick up the deer carcass.
 
@@ -2123,8 +2105,6 @@ You chop Deer with the hunting sword.
 > attack deer
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
-
-Deer comes in.
 
 > take the deer carcass
 You pick up the deer carcass.
@@ -2314,8 +2294,6 @@ You chop Deer with the hunting sword.
 > attack deer
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
-
-Deer comes in.
 
 > take the deer carcass
 You pick up the deer carcass.
@@ -2664,8 +2642,6 @@ Time passes...
 > z
 Time passes...
 
-Deer comes in.
-
 > attack deer
 You chop Deer with the hunting sword.
 
@@ -2678,8 +2654,6 @@ You chop Deer with the hunting sword.
 > attack deer
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
-
-Deer comes in.
 
 > take the deer carcass
 You pick up the deer carcass.
@@ -2850,8 +2824,6 @@ You chop Deer with the hunting sword.
 > attack deer
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
-
-Deer comes in.
 
 > take the deer carcass
 You pick up the deer carcass.
@@ -3041,8 +3013,6 @@ You chop Deer with the hunting sword.
 > attack deer
 You chop Deer with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
-
-Deer comes in.
 
 > take the deer carcass
 You pick up the deer carcass.

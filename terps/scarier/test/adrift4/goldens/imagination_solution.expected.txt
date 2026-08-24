@@ -54,8 +54,6 @@ Please enter your name:
 > take stick
 You take the small stick.
 
-Jenny follows you .
-
 > dig dirt
 You use the stick as a makeshift shovel and dig the passage out.  The stick
 breaks and is no longer usable, so you toss it up out of the hole.

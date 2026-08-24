@@ -40,9 +40,6 @@ couple of steps, she asks, "I hear a squeaking noise! Is that a mouse?"
   You stagger over to the tree, your 5'-4" tall 110 pound frame dragging the
 ladder behind you, and place it against the trunk up into the branches.
 
-Huey the Contractor walks by and stops
-.
-
 > ask girl for milk
   You thank the little girl as you take the cup of milk.
   "Your welcome. You owe me 25 cents!" she says, handing it to you.

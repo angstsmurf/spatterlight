@@ -3231,8 +3231,6 @@ ask your opinion…
    "Er… no," is your reply when it finally arrives.
    No change there then.
 
- Your companions enter.
-
 > n
 You move north.
 
@@ -3263,8 +3261,6 @@ hanging from its hinges. There doesn't seem to be anyone around.
 the crossroads).
 
 Snitch seems ready for trouble as he enters from the south-east.
-
-Arliss strides towards you.
 
  Your companions enter from the south-east.
 

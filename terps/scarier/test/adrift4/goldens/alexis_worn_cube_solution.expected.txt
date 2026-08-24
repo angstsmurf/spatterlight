@@ -718,47 +718,29 @@ You cut Forester Goblin with the small sword.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
-Forester Goblin jumps through the trees to you.
+> attack goblin
+You cut Forester Goblin with the small sword.
 
 > attack goblin
 You cut Forester Goblin with the small sword.
 
-Forester Goblin jumps through the trees to you.
+> attack goblin
+You cut Forester Goblin with the small sword.
 
 > attack goblin
 You cut Forester Goblin with the small sword.
 
-Forester Goblin jumps through the trees to you.
+> attack goblin
+You cut Forester Goblin with the small sword.
 
 > attack goblin
 You cut Forester Goblin with the small sword.
 
-Forester Goblin jumps through the trees to you.
-
 > attack goblin
 You cut Forester Goblin with the small sword.
 
-Forester Goblin jumps through the trees to you.
-
 > attack goblin
 You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
-
-> attack goblin
-You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
-
-> attack goblin
-You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
-
-> attack goblin
-You cut Forester Goblin with the small sword.
-
-Forester Goblin jumps through the trees to you.
 
 > take kedarn stone
 You pick up the Kedarn stone.
@@ -1093,8 +1075,6 @@ The walls of the castle reach high in the air. The smell fades now, and the
 air appears less dense. It is replaced with a feeling that you are unwanted.
 There is a large wooden door that looks extremely thick. The path leads South
 down the mountain.
-
-Haron follows you.
 A knight catches up to you and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
 have brought a gift from Natalya."

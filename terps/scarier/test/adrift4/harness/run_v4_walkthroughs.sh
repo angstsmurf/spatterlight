@@ -1835,6 +1835,51 @@ farfromhome_solution.txt|FarFromHome.taf|You scored 50 out of the maximum 50!|SC
 # conditions cost you nothing but two mistakes, so every optional scene is
 # still on the way.  The missing page falls in the LAKE, not the outhouse:
 # `ACT type=0` "into object" indexes the container list directly, no -1.
+# ---------------------------------------------------------------------------
+# 2026-08-24 -- the not-a-room-zero ARRIVAL gate.  Canonical block for the
+# twenty goldens this moved; the walk *announcement* rewrite it completes is
+# written up above the alices_restaurant row.
+#
+# 3.8, 3.9 and 4.0 gate a walker's arrival line on its PRE-MOVE location not
+# being the Runner's "never placed anywhere" zero.  run400 @468A64 is the
+# whole test in one line -- ShowEnterExit AND (old <> playerroom) AND
+# (old <> 0) -- with run380 @4416F4 and run390 loc_45A99B the same shape.
+# 3.7 has no such test at all (run370 @43955E), which is why no 3.7 row moved.
+#
+# The subtlety is that the Runner spells "not a room" TWO ways and only one of
+# them suppresses the line:
+#   0      an NPC the game never placed -- StartRoom 0, sitting nowhere until
+#          its walk first fires.  Its first arrival prints NOTHING.
+#   &HFF   an NPC a walk's Hidden stop has just hidden (run400 loc_468D4A).
+#          It passes the <> 0 test, so its next arrival DOES print -- just
+#          directionless, wherefrom() bailing out on the &HFF.
+# Scarier stores location as room+1 with 0 for both, so scr_npcstate_t gained
+# a `walk_hidden` flag to carry the half of the distinction the announcement
+# needs; gs_set_npc_location() clears it, npc_tick_npc_walk() sets it right
+# after stamping a Hidden stop.  It is deliberately NOT in the .tas stream:
+# the Runner's own save writes a room byte in 0..NumRooms, so a restored
+# hidden walker reads back as never-placed at either engine.
+#
+# Measured live under Wine at three generations -- 3.7 needed none, being
+# exempt, and arlo did not move:
+#   3.8  tra.taf / run380 / Adven_9.rtf -- the Runner does NOT print "Sting
+#        walks towards you." when the tattooist first appears.  It DOES print
+#        "Canadian couple walks towards you from the north." for an NPC that
+#        had been placed, so the gate is the zero and not the walk.
+#   3.9  S_Tar_Dus.taf / run390 / Adrift_38.txt (117 commands, full replay) --
+#        the strongest single measurement in this round: all 129 walk lines
+#        match count for count across four walkers and six directions, and the
+#        one line the gate removes, a bare "Plant Lady prances along.", is
+#        absent from the Runner while its four directional siblings are
+#        present in both.
+#   4.0  Orient_Express.taf / run400 / Adrift_36.txt -- "Gimme Atip enters."
+#        is printed by Scarier and by no Runner.  This was the divergence that
+#        started the item.
+#
+# Everything the gate removed is a first-ever arrival of a never-placed NPC,
+# one to three lines per game, and no game lost a *directional* arrival --
+# which is the shape you would expect and a useful check if this is ever
+# revisited.
 stardust_solution.txt|S_Tar_Dus.taf|You decide to go with the plant lady and
 # Diary of a Stripper is AIF: the game's text is sexually explicit, so its
 # solution and golden are deliberately NOT committed (they are in .gitignore).

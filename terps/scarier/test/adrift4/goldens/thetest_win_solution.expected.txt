@@ -629,8 +629,6 @@ Robot Guard hits you with the robot's chain.
 
 > shout 1
 You shout one and the robot scurries off.
-
-Robot Guard storms in.
 Robot Guard hits you with the robot's chain.
 
 > shout 3
@@ -650,8 +648,6 @@ Robot Guard hits you with the robot's chain.
 
 > shout 6
 You shout six and the robot scurries off.
-
-Robot Guard storms in.
 Robot Guard hits you with the robot's chain.
 
 > shout 10
@@ -686,8 +682,6 @@ Robot Guard hits you with the robot's chain.
 
 > shout 15
 You shout fifteen and the robot scurries off.
-
-Robot Guard storms in.
 Robot Guard hits you with the robot's chain.
 
 > shout 21

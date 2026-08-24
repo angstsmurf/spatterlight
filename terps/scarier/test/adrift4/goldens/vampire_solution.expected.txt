@@ -567,19 +567,13 @@ can only hope that you used so little heroin in the beer that Igor won't
 notice when he sinks his fangs in Anettes throat. If he doesen't the heroin
 will finish him of for sure. You sneak back into the elevator.
 
-Anette follows you from the.
-
 > push 0
 You arrive at the 0. floor. You can leave the elevator to the west.
-
-Anette follows you from the.
 
 > w
 You walk into the lobby.
 
 Jon Simonsen enters.
-
-Anette follows you from the.
 
 > w
 You move west.
@@ -594,8 +588,6 @@ acknowledgement as you enter. To the west is the door to the meeting, and you
 can go east to the lobby.
 
 Jon Simonsen enters from the east.
-
-Anette follows you from the.
 
 > w
 You and Simonsen enter the conference. Simonsen is now an undead and passes
@@ -625,8 +617,6 @@ grand master vampire.
 Congratulations!
 Thank's for playing The Vampire with a Consience. Type AMUSING to find get
 some hints on funny things to do, or END to see your score.
-
-Anette follows you from the.
 
 > score
 Your score is 100 out of a maximum of 100.  (100%)

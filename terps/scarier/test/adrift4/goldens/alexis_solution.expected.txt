@@ -702,17 +702,11 @@ You hit Forester Goblin with the magic cube.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
-Forester Goblin jumps through the trees to you.
-
 > attack goblin
 You hit Forester Goblin with the magic cube.
 
-Forester Goblin jumps through the trees to you.
-
 > attack goblin
 You hit Forester Goblin with the magic cube.
-
-Forester Goblin jumps through the trees to you.
 
 > take kedarn stone
 You pick up the Kedarn stone.
@@ -1045,8 +1039,6 @@ could probably be opened now.
 > open door
 The doors slowly creak open. A darkness that seems to come out of the doors,
 consumes you.
-
-Haron follows you.
 A knight catches up to you and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
 have brought a gift from Natalya."

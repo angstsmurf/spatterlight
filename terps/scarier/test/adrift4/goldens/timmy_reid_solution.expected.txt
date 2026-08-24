@@ -811,8 +811,6 @@ several minutes, you hear some stirring from behind a curtain in the back of
 the parlour.  The curtain is pushed open by a strange looking character who
 you assume is the tattoo guy.
 
-Sting walks towards you.
-
 > get a tattoo
 You look around the room at all the sample tattoos.  The one that catches
 your eye is the Red Sox logo with the two red socks crossed with "Red Sox"

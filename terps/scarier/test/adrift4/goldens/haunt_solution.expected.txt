@@ -652,8 +652,6 @@ the ground begins to churn and writhe... a bony, half-rotten hand bursts
 through the mud and you almost faint with fright. Uncle Horace (deceased)
 pulls himself out of the earth and stands dumbly, unblinking, before you. But
 after all this effort - what are you going to do with him?
-
-Horace lurches in.
 A sudden crash of lightning makes you jump.
 
 > show paper to horace

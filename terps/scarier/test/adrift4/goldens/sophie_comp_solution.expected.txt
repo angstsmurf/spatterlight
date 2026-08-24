@@ -3175,8 +3175,6 @@ the crossroads).
 
 Snitch seems ready for trouble as he enters from the south-east.
 
-Arliss strides towards you.
-
 > n
 You move north.
 
@@ -4470,8 +4468,6 @@ die." Brask takes a step towards you, raising the sceptre as he does so.
    The tip of the sceptre starts to glow with magic and you sense Brask is
 about to cast another spell.
 
-Snitch seems ready for trouble as he enters.
-
 > meteor strike
 The moment you utter the two words, a pall of dread crosses Brask's skeletal
 face. "No!" he screams. "That fool Dimm told you the Words of Power..."
@@ -4480,8 +4476,6 @@ molten fire.
    "Damn you, Dimm!" he thunders. "Damn yo-"
    And then the fiery clouds spew down death and destruction on him. Brask
 gives a cry of rage and pain and disappears amidst the rolling flames.
-
-Arliss strides towards you.
 
 > cast implosion
 "A deadly spell I think," says Brask: starts casting his spell - a moment

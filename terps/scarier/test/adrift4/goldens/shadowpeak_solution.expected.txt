@@ -1212,8 +1212,6 @@ You manage to avoid Arthur's attack.
 
 > attack jarris
 You stab Jarris with the sword.
-
-Jarris staggers in.
 Seeker hums!
 
 Arthur pulls himself away to the south.
@@ -2154,8 +2152,6 @@ Bambi hits you, but it doesn't seem to do any damage.
 > attack bambi
 You stab Bambi with the sword.
 The poor child keels over and finally dies.
-
-Bambi shuffles in.
 Seeker hums!
 
 > e

@@ -3137,8 +3137,6 @@ realm, the wounds have already been dealt and some still require healing.
 However, those wounds are for others to mend.   So long as the dragon is
 still about, your quest remains unfulfilled.
 
-Demon .
-
 > u
 You move up.
 

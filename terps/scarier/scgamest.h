@@ -131,6 +131,19 @@ typedef struct scr_battle_s
 typedef struct scr_npcstate_s
 {
   scr_int location;
+  /*
+   * TRUE when this NPC's location was stamped by a walk's "Hidden" stop.  The
+   * Runner spells "not a room" two ways -- 0 for an NPC the game never placed
+   * anywhere, and &HFF for one a walk has just hidden (run400 loc_468D4A) --
+   * and its arrival announcement suppresses only the first (run380 @4416F4,
+   * run390 loc_45A99B, run400 @468A5D; 3.7 has no such test at all, run370
+   * @43955E).  We store both as location 0, so this flag carries the half of
+   * the distinction the announcement needs.  Any other placement clears it,
+   * because gs_set_npc_location() does.  Not part of the .tas stream: the
+   * Runner's own save writes a room byte in 0..NumRooms, so a restored
+   * hidden walker reads back as never-placed at either engine.
+   */
+  scr_bool walk_hidden;
   scr_int position;
   scr_int parent;
   scr_int walkstep_count;

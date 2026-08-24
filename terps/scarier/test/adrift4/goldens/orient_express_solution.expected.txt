@@ -177,8 +177,6 @@ You can only move north.
 > read menu
 You gaze at the menu.
 
-Gimme Atip enters.
-
 > take spoon
 For some reason you feel compelled to take the spoon from the table.
 You hear the trains whistle blow loudly.

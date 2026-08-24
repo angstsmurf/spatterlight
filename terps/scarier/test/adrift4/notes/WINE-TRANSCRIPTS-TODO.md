@@ -232,6 +232,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `tra.taf` | 3.80 | full run380 replay, `Adven_9.rtf` | "outside" takes no "to" in a departure line |
 | `Melbourne Beach.taf` | 3.90 | full run390 replay, `Adrift_37.txt` | the 3.9 walk directions, incl. the diagonal a pre-4.0 8-exit scan cannot name |
 | `Orient_Express.taf` | 4.00 | full run400 replay, `Adrift_36.txt` | the 4.0 walk directions; also the spurious "Gimme Atip enters." arrival |
+| `S_Tar_Dus.taf` | 3.90 | full run390 replay, `Adrift_38.txt` | all 129 walk lines match count for count; pinned the not-a-room-zero arrival gate |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -764,21 +765,6 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
 
 ### Open leads
 
-- **NPC arrivals from the not-a-room zero.**  3.8, 3.9 and 4.0 gate the
-  *arrival* line on the walker's pre-move location not being the Runner's
-  not-a-room zero (run380 @4416F4, run390 `loc_45A99B`, run400 @468A5D); 3.7
-  has no such test (run370 @43955E).  The Runner spells "not a room" two ways
-  -- `0` for an NPC the game never placed, `&HFF` for one a walk has just
-  hidden -- and only the first suppresses the line; a hidden walker's next
-  arrival still prints, just directionless, `wherefrom()` bailing out on the
-  `&HFF`.  Scarier collapses both into a single marker (`gs_npc_location()`
-  returns `0` for either, `scgamest.cpp:847`/`854`) so it cannot tell them
-  apart, and announces either.  **Live proof this matters:** in
-  `orient_express` under run400, Scarier prints "Gimme Atip enters." where the
-  Runner prints nothing.  Fixing it means giving `scr_npcstate_t.location` a
-  second sentinel and teaching the `.tas` serialiser about it -- callers are
-  `scbattle.cpp:876`, `scnpcs.cpp:840`, `sctasks.cpp:776`/`783`,
-  `scserial.cpp:1609`.
 - **The walk move and the meet-task dispatch sit outside the exact-tick
   test.**  run400 `loc_468841` is `If (counter = suffix_sum) And (suffix_sum
   > 0)` and it branches false straight to `loc_468D51`, which is the walk-step
@@ -815,6 +801,40 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
 - **Next candidates** down the list: `goldilocks`, `cibass`, `sophie`/`sa.taf`.
   With the pre-3.9 pool now clean, the remaining 3.90 and 4.00 candidates are
   where the next divergences will come from.
+
+## CLOSED 2026-08-24 -- the not-a-room-zero arrival gate
+
+The residual left open by the walk-announcement round below, closed the same
+day.  20 goldens across 20 games re-blessed, corpus **303/303 PASS**.  Full
+write-up in the comment block above the `stardust` row in
+`harness/run_v4_walkthroughs.sh`.
+
+3.8/3.9/4.0 gate a walker's arrival line on its **pre-move** location not
+being the Runner's never-placed zero (run400 @468A64 is the whole test:
+ShowEnterExit AND `old <> playerroom` AND `old <> 0`; run380 @4416F4 and
+run390 `loc_45A99B` the same shape).  **3.7 has no such test** (run370
+@43955E) -- and indeed no 3.7 row moved.
+
+The Runner spells "not a room" two ways and only one suppresses: `0` for an
+NPC the game never placed, `&HFF` for one a walk's Hidden stop just hid
+(run400 `loc_468D4A`), the latter still printing a directionless arrival.
+Scarier stored both as location 0, so `scr_npcstate_t` gained a `walk_hidden`
+flag -- cleared by `gs_set_npc_location()`, set by `npc_tick_npc_walk()` right
+after a Hidden stamp.  Deliberately **not** in the `.tas` stream: the Runner's
+own save writes a room byte in `0..NumRooms`, so a restored hidden walker
+reads back as never-placed at either engine.
+
+Measured live at three generations (3.7 exempt, so none needed):
+
+| Game | Runner | Transcript | What it showed |
+|---|---|---|---|
+| `tra.taf` | run380 | `Adven_9.rtf` | no "Sting walks towards you." -- but "Canadian couple walks towards you from the north." *is* there, so the gate is the zero, not the walk |
+| `S_Tar_Dus.taf` | run390 | `Adrift_38.txt` | full 117-command replay: **all 129 walk lines match count for count** across four walkers and six directions, and the bare "Plant Lady prances along." is absent from the Runner while its four directional siblings are in both |
+| `Orient_Express.taf` | run400 | `Adrift_36.txt` | "Gimme Atip enters." is printed by Scarier and by no Runner -- the divergence that started the item |
+
+Everything removed is a first-ever arrival of a never-placed NPC, one to three
+lines per game, and **no game lost a directional arrival** -- a useful shape
+check if this is ever revisited.
 
 ## CLOSED 2026-08-24 -- NPC walk announcements, all four generations
 
@@ -857,9 +877,9 @@ Measured live under Wine, one game per generation:
 At 3.9 only the NPC *verb text* ever differed from the Runner (the walk's
 random alternate texts), never the direction.
 
-Two residual items came out of this and are now open leads above: the
-not-a-room-zero **arrival** gate, and the fact that the walk **move** and
-meet-task dispatch still sit outside the exact-tick test.
+Two residual items came out of this.  The not-a-room-zero **arrival** gate is
+closed above, the same day.  The fact that the walk **move** and meet-task
+dispatch still sit outside the exact-tick test is still an open lead.
 
 ## CLOSED 2026-08-24 -- empty-M1 room alts, and recursive holding
 

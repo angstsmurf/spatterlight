@@ -1254,8 +1254,6 @@ You stab Jarris with the sword.
 
 Holga stumbles in from the south.
 Seeker hums!
-
-Jarris staggers in.
 Seeker hums!
 
 Boris drags himself off to below.
@@ -2252,8 +2250,6 @@ Bambi hits you, but it doesn't seem to do any damage.
 > attack bambi
 You stab Bambi with the sword.
 The poor child keels over and finally dies.
-
-Bambi shuffles in.
 Seeker hums!
 
 > e
@@ -4003,14 +3999,10 @@ Margo hits you, but it doesn't seem to do any damage.
 > attack margo with sword
 You stab Margo with the sword.
 Margo falls backward, and her eyes roll up into her head. Phew, she is dead.
-
-Margo enters.
 Seeker hums!
 
 > attack margo with sword
 You stab Margo with the sword.
-
-Margo enters.
 Seeker hums!
 You hear the shuffling of feet elsewhere in the castle.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any

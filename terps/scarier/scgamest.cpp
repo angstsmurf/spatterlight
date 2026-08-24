@@ -848,6 +848,24 @@ gs_set_npc_location (scr_gameref_t gs, scr_int npc, scr_int location)
 {
   assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
   gs->npcs[npc].location = location;
+
+  /* Any placement at all clears the walk-hidden marker; npc_tick_npc_walk()
+     sets it again immediately after stamping a Hidden stop. */
+  gs->npcs[npc].walk_hidden = FALSE;
+}
+
+void
+gs_set_npc_walk_hidden (scr_gameref_t gs, scr_int npc, scr_bool hidden)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
+  gs->npcs[npc].walk_hidden = hidden;
+}
+
+scr_bool
+gs_npc_walk_hidden (scr_gameref_t gs, scr_int npc)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
+  return gs->npcs[npc].walk_hidden;
 }
 
 scr_int
@@ -1632,6 +1650,7 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   for (npc = 0; npc < from->npc_count; npc++)
     {
       to->npcs[npc].location = from->npcs[npc].location;
+      to->npcs[npc].walk_hidden = from->npcs[npc].walk_hidden;
       to->npcs[npc].position = from->npcs[npc].position;
       to->npcs[npc].parent = from->npcs[npc].parent;
       to->npcs[npc].seen = from->npcs[npc].seen;
