@@ -769,17 +769,66 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
   test.**  run400 `loc_468841` is `If (counter = suffix_sum) And (suffix_sum
   > 0)` and it branches false straight to `loc_468D51`, which is the walk-step
   loop's `Next` -- so the *entire* step, the move included, happens only on
-  the exact tick.  `npc_tick_npc_walk()` now gates both announcements on
-  `is_exact` but still runs `if (start != dest) { move }` and the CharTask
-  dispatch unconditionally, and still forces `is_arrival` true for the Hidden
-  and roomgroup cases.  **Live exposure:** `provenance`'s butler is displaced
-  by a task and Scarier warps him back on a non-exact tick, which is where its
+  the exact tick.  run390 has the identical shape (loop `loc_45A741`, gate
+  `loc_45A780`, `End If` `loc_45ABC7`, `Next` `loc_45ABC2`, the `&HFF` hide
+  stamp at `loc_45ABB8` inside it), so this is not a 4.0 rewrite.
+  `npc_tick_npc_walk()` now gates both announcements on `is_exact` but still
+  runs `if (start != dest) { move }` and the CharTask dispatch
+  unconditionally, and still forces `is_arrival` true for the Hidden and
+  roomgroup cases.  **Live exposure:** `provenance`'s butler is displaced by a
+  task and Scarier warps him back on a non-exact tick, which is where its
   three now-deleted bare "The butler exits." lines came from.  The
-  announcements are right now; the move timing is not.  Moving the tail inside
-  `is_exact` would change meet-task firing corpus-wide, so it wants its own
-  measurement round -- and check it against pre-4.0 too, plus the "Ticket to
-  No Where" roomgroup case, which is the evidence that a Times>1 roomgroup
-  stop *does* re-run every tick.
+  announcements are right now; the move timing is not.
+
+  **Corpus cost, measured 2026-08-24 (engine experiment, not blessed):**
+  gating both the move and the meet tasks on `is_exact` costs 10 rows
+  (shadowpeak x3, `the_town_of_azra_v390`, `thetest_win`, `ticket`,
+  `great_escape`, `textident_evil`, `merry_murders`, `provenance`); gating
+  only the move costs 9 -- the same list minus `ticket`.  So the meet-task
+  half is what breaks the "Ticket to No Where" roomgroup canary and the move
+  half is the substantive change.  `merry_murders` does not merely re-word:
+  it stops being winnable on its present script ("Trey's not here!"), so that
+  row would need re-deriving, not re-blessing.
+
+  **The live probe that was meant to settle it FAILED, and its result must
+  not be quoted.**  `Merry_Murders.taf` (3.90) was driven through run390 with
+  a 23-command probe ending in `look`s in the Hallway and the Plaza
+  (`~/adrift-battle/runner/wine/mm2.cmds`, transcript
+  `pfx/drive_c/adrift/Adrift_40.txt`).  The Runner desynced at command 4:
+  the game's "Act II" cutscene warps the player to the Plaza, and the `w`
+  typed straight afterwards never echoed at all -- the transcript goes
+  cutscene, blank, "I don't understand what you mean!", so the keystroke was
+  swallowed while the Runner was still painting the cutscene.  Every later
+  command therefore landed in a different room from Scarier's, and in
+  particular task 9 (`n` / `open door`, `Where.Room` 11) never ran there.
+  That task is the one whose `NPCWalkAlert` `[0,2 2,0 5,0]` starts Nancy's
+  walk 2, Mary's walk 0 and Trey's walk 0, so the Runner's "Trey is still in
+  the Hallway, Mary is still in the Plaza" says nothing about walk timing --
+  it only says the walks were never started.  **The lead is still
+  unmeasured.**  Next time pick a probe game whose opening has no long
+  cutscene, and check every command echoed before reading anything.
+
+  Two things *were* nailed down from the decompiles on the way, and they
+  cost nothing to keep.  (Read run390 from the cooked `run390/run390.bas`,
+  not `Project2/Form1.frm` -- the stack-machine listing is unreadable next to
+  it.)  The 3.9 walk struct is `(0)` StartTask, `(4)` Loop, `(8)` stops
+  (`.global_2` = Times), `(12)` NumStops, `(13)` counter, `(18)`
+  StoppingTask.  First, `loc_45A71E` gates the whole step loop on `enabled
+  And counter > 0`, and the only reseed in the ticker is `loc_45A5A7`,
+  `((counter < 0) Or (counter = 0 And Loop = 1)) And enabled` -> sum of Times
+  (the `counter < 0` disjunct is dead: it is a Byte).  Scarier's
+  `npc_tick_npc()` already has both.  Second, the seeding really is
+  `1 + total`: the task-completion handler at `loc_43F095` walks every NPC
+  and every walk and, `If walk.StartTask - 1 = taskno`, sets `counter = 1`
+  and then adds each stop's Times -- which is exactly
+  `npc_start_npc_walk()`.  Note the Runner finds the walk by **scanning
+  every walk's StartTask**, where `task_start_npc_walks()` reads the task's
+  own `NPCWalkAlert` list; the two agree on this corpus, but a game where
+  they disagree would show it here first.
+
+  When this is finally measured, check it against pre-4.0 too, plus the
+  "Ticket to No Where" roomgroup case, which is the evidence that a Times>1
+  roomgroup stop *does* re-run every tick.
 - **arlo, `get out of bus` at the church** (cmds 37 and 64): run370 ends with
   the task's "You are no longer in the bus." and prints no exits list;
   scarier prints the exits and drops the task line.
