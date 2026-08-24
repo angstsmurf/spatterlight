@@ -5,7 +5,6 @@ You are playing as Matt Mancini. You can explore his house and do the things
 he does in an average day.
 
 > n
-(Standing up first)
 You move north.
 
 Hallway

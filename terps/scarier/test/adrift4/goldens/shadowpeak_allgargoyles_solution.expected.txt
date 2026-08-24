@@ -604,7 +604,6 @@ Seeker hums!
 Alam Nadeer hits you, but it doesn't seem to do any damage.
 
 > n
-(Getting off the sarcophagus first)
 You move north.
 
 Secret room.
@@ -1577,7 +1576,6 @@ You stand on the bar.
 You take hold of the bottle.
 
 > u
-(Getting off the bar first)
 You move up.
 
 Inn’s stairs.

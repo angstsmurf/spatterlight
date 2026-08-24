@@ -137,7 +137,6 @@ the charger flashes red three times and the battery falls.  You manage to
 catch it, but lose your balance in the process and fall from the Drift-O-Com.
 
 > n
-(Standing up first)
 You move north.
 
 The ADRIFT-O-Lift

@@ -334,7 +334,6 @@ the air.  Langston Bridge, which you recently passed over, is to the east.
 Your motorcycle is parked here.
 
 > east
-(Getting off your motorcycle first)
 You move east.
 
 Bridge Landing
@@ -1109,7 +1108,6 @@ east.  The front door is west.
     You become aware of the sounds and smells of....yes, breakfast.
 
 > south
-(Getting off the couch first)
 You move south.
 
 Dining Room
@@ -1566,7 +1564,6 @@ It seems to be the fountain from which much of the traffic flows to or from.
 Your motorcycle is parked along the street.
 
 > north
-(Getting off your motorcycle first)
 You move north.
 
 Intersection
@@ -2302,7 +2299,6 @@ minutes, Monika."
 another toss.
 
 > north
-(Getting off the chairs first)
 You move north.
 
 Living Room
@@ -2860,7 +2856,6 @@ It seems to be the fountain from which much of the traffic flows to or from.
 Your motorcycle is parked along the street.
 
 > north
-(Getting off your motorcycle first)
 You move north.
 
 Intersection

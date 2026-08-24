@@ -732,7 +732,6 @@ HiRBy hovers over from the north.
 Irvine bangs his shin on a stalagmite and falls over, cursing.
 
 > w
-(Standing up first)
 Irvine goes west.
 
 CROOKED TREES
@@ -900,7 +899,6 @@ Irvine presses HiRBy's deploy button.  HiRBy's arms fold back in.
 Irvine picks up the tiger coat from the pack.
 
 > e
-(Getting off the crate first)
 Irvine goes east.
 
 OUTSIDE CITY GATE
@@ -1162,7 +1160,6 @@ Irvine stands there looking at the flower in his hand.  He looks at HiRBy... and
 "Back to the spaceship, I guess."
 
 > s
-(Standing up first)
 Irvine goes south.
 
 CROOKED TREES

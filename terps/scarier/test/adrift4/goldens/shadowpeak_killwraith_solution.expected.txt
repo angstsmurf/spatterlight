@@ -643,7 +643,6 @@ As you reach up and turn the handle, it jams into position, and a secret
 passage is revealed in the northern wall.
 
 > n
-(Getting off the sarcophagus first)
 You move north.
 
 Secret room.
@@ -1919,7 +1918,6 @@ You stand on the bar.
 You take hold of the bottle.
 
 > u
-(Getting off the bar first)
 You move up.
 
 Inn’s stairs.

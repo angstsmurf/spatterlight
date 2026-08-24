@@ -64,7 +64,6 @@ SoMorph not impressed.
 SoMorph can only move north.
 
 > north
-(Standing up first)
 SoMorph moves north.
 
 Corridor Alpha

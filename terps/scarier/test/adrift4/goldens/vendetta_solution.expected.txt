@@ -54,7 +54,6 @@ adjacent to your bed. On the opposite side of the room is a wardrobe, where
 your clothes are kept. To the east is the lounge.
 
 > e
-(Getting off the bed first)
 You move east.
 
 Lounge

@@ -231,7 +231,6 @@ You begin to take a short nap... You fall asleep...
 You feel a little better, after taking the nap.
 
 > out
-(Getting off the bed first)
 You move out.
 
 In Gralle's Inn

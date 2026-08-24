@@ -183,7 +183,6 @@ time to get down to the lab and see how Herb is doing.
 You open lab office door.
 
 > n
-(Getting off the chair first)
 You move north.
 
 Lab hallway
@@ -808,7 +807,6 @@ beside the chair. The hallway is to the east.
 The doorbell rings.
 
 > e
-(Getting off leather chair first)
 You move east.
 
 Hallway

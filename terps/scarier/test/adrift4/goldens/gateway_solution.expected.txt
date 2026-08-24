@@ -80,7 +80,6 @@ you the paper and says, "Deliver this to the black smith in Fayn. He will
 give you supplies for your journey. Good luck."
 
 > east
-(Getting off the comfy chair first)
 You move east.
 
 Bright Hall

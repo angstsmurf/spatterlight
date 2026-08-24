@@ -1319,7 +1319,6 @@ You take the backpack from the capsule.
 You put on the backpack.
 
 > e
-(Getting off the capsule first)
 You move east.
 
 Base of Climb

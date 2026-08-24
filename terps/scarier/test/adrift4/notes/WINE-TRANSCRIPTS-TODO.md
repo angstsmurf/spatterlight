@@ -782,7 +782,8 @@ of step.
   * command 217 `Put sweet on plinth` -- run400 prints "Okay.  Okay.  I put the
     sweet on the plinth." (the "Okay." is *doubled*), Scarier prints one.
   * command 254 `W` -- Scarier prints "(Getting off the stool first)", run400
-    prints nothing.
+    prints nothing.  **FIXED 2026-08-24, and it was never a bug in the mover**
+    -- see "the bracket checkbox governs three more lines" below.
   * command 321 `X Grandad` -- this was the "and is carrying" bug, now FIXED
     (see Open leads).
 - Next candidates down the list, in order: `arlo.taf` (3.70, 11 walks / 85
@@ -893,7 +894,8 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
   re-driving 1050 commands after a desync.
 - **Two logged-but-unchased humbug divergences:** cmd 217 `Put sweet on
   plinth` (run400 doubles "Okay."), cmd 254 `W` (scarier adds "(Getting off
-  the stool first)").
+  the stool first)").  The second is **CLOSED 2026-08-24** -- a display
+  setting, not an engine bug; see the section below.  Only cmd 217 is left.
 - **Next candidates** down the list: `goldilocks`, `cibass`, `sophie`/`sa.taf`.
   With the pre-3.9 pool now clean, the remaining 3.90 and 4.00 candidates are
   where the next divergences will come from.
@@ -1848,3 +1850,62 @@ pass (corpses no longer draw a walk random each turn, which re-threads every
 downstream walker and battle roll): `shadowpeak_killwraith` 710 -> **735/790**.
 
 v4 corpus after the port: **303/303**.
+
+## CLOSED 2026-08-24 -- the bracket checkbox governs three more lines
+
+The humbug cmd 254 lead ("Scarier prints `(Getting off the stool first)`,
+run400 prints nothing") was logged as an engine divergence.  It is not one.
+It is rule 1 of *What to do with a diff* -- rule out the Appearance
+checkboxes first -- and it was skipped.
+
+**Options -> Display & Media... -> Appearance -> "References in brackets"**
+(registry `showbrackets`) does not gate only the pronoun echo already written
+up in `RUNNER_TESTS_TODO.md` §4.  From 3.9 on it also gates the mover's two
+bracketed lines:
+
+| Runner | `(Getting off X first)` | `(Standing up first)` | gate |
+| --- | --- | --- | --- |
+| run370 | `loc_42303C` | `loc_423078` | none -- no such menu |
+| run380 | `loc_428244` | `loc_428280` | none -- no such menu |
+| run390 | `loc_431911` | `loc_4319A0` | `m_showbrackets.Checked`, by name |
+| run400 | `loc_450339` | `loc_4503BF` | `MemVar_4942BA = 1` |
+
+`MemVar_4942BA` is `showbrackets`: run400 writes it to the registry under that
+key at `4679A1` (`Form1.frm` 6289), and it is the same byte the pronoun echo
+is already known to hang on -- `48A095`, the `Sub_20_62` site recorded in §4.
+The whole set of nine `MemVar_4942BA` tests in run400 is: six pronoun echoes
+(`him`, `he`, `her`, `she`, `it`, `them`, `Proc_19_49_461F38`), the
+`ask about`/`talk about` rewrite (`47F15A`, `47F21D`), the general reference
+echo (`48A095`), and these two.  Nothing else.
+
+The checkbox starts unticked on every launch and is never restored from the
+registry (run400 has a `SaveSetting` for `showbrackets` and no `GetSetting`),
+so a default Runner prints neither line.  **Ported**: `lib_go()` in
+`sclibrar.cpp` now prints both only below `TAF_VERSION_390`.  43 lines went
+across 29 rows -- every one a bracket line, every diff a pure deletion, no
+pre-3.9 row touched.  Corpus 303/303.
+
+### The same finding says 7f7349c7 over-reached
+
+`7f7349c7` ("drop the bracketed pronoun echo -- no Runner prints one") is
+right about the default and wrong about the mechanism, and the mechanism is
+what the commit message argues from.  The Runner *does* print a pronoun echo;
+it prints it in **round** brackets, which is why searching run370/run380 for a
+`[` literal found nothing and read as proof of absence.  What it really shows
+is that upstream SCARE's square brackets are not the Runner's.
+
+run370 `Sub Form1.its` @0002CA9C prints, for each of seven pronouns
+(`him`, `he`, `her`, `she`, `it`, `them`, **`one`** -- 4.0 has no `one`),
+`"(" & antecedent & ")"` followed by a newline, and it is **not gated**: 3.7
+has no Appearance menu.  run380 @000326B4 is the same routine.  The antecedent
+is the NPC's Name for the four personal pronouns (`MemVar_4460B4`, seeded
+`"Nobody"`) and `tense(Prefix) & " " & Short` for the object ones
+(`MemVar_4460AC`, seeded `"Absolutely nothing"`) -- so the pre-3.9 Runner
+answers `drop it` with `(the paper aeroplane)`, not with the rewritten
+command.
+
+Corpus exposure of the over-reach is one row: `wrecked` (3.80) lost 25 lines
+in that commit.  The other thirteen re-blessed rows are 3.90/4.00 and were
+right to lose theirs.  Restoring the pre-3.9 half means writing a *new* echo
+(round brackets, the antecedent alone, no italics), not reverting.  Not done
+here.

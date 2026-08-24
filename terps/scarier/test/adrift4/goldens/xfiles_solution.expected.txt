@@ -116,7 +116,6 @@ Gross . . . you drank the half-solidified, week-old coffee.  Just goes to
 prove that drummers will drink or eat anything for . . .  no reason at all.
 
 > d
-(Standing up first)
 You move down.
 
 Lobby
@@ -335,7 +334,6 @@ classic,  "One" by Filter starts drifting through the air and you return to a
 seat at the bar.
 
 > u
-(Getting off the Stool first)
 You move up.
 
 Your Apartment

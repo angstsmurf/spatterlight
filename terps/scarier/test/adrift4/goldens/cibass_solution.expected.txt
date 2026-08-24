@@ -141,7 +141,6 @@ of the original ever made.  A knife is on the marble counter.
 I take the knife from the marble counter.
 
 > north
-(Getting off the chair first)
 I move north.
 
 Downstairs Hall

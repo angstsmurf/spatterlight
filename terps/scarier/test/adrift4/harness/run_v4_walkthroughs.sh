@@ -952,6 +952,24 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # player has never had described, so they are not seen and the examine falls
 # through to the default.  That single line is the second live confirmation
 # the seen model rests on.
+# Re-blessed again 2026-08-24, with twenty-eight other rows, for the version
+# gate on "(Getting off X first)" / "(Standing up first)" (sclibrar.cpp
+# lib_go).  This row is where it was measured: command 254, a bare "W" off the
+# stool, gets no such line from run400 at all.  It is NOT a parser or a
+# position bug -- both lines are bracketed *references*, and from 3.9 on the
+# Runner puts them behind Options -> Display & Media... -> Appearance ->
+# "References in brackets", the same checkbox that gates the pronoun echo
+# removed above.  That box starts unticked on every launch and is never
+# restored from the registry, so the default Runner prints neither line:
+#   run390 loc_431911 / loc_4319A0  test m_showbrackets.Checked by name
+#   run400 loc_450339 / loc_4503BF  test MemVar_4942BA, the byte saved as
+#                                   "showbrackets" at 4679A1 -- and the same
+#                                   byte the "References in brackets" echo is
+#                                   already known to hang on (48A095)
+# 3.7 and 3.8 have no such menu and print both lines unconditionally (run370
+# loc_42303C / loc_423078, run380 loc_428244 / loc_428280), so the gate is
+# `< TAF_VERSION_390` and no pre-3.9 row moved.  43 lines went, all deletions,
+# across 29 rows; every one of them was a bracket line and nothing else.
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
 # WIN with the FULL 95/95 in 90 commands.  downloaded/CrimeAdventure_walkthrough.sol

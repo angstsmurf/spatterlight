@@ -1183,7 +1183,6 @@ Sleepily you ask:
 "Now!"
 
 > out
-(Getting off the bed first)
 You walk out.
 
 Upstairs

@@ -16,7 +16,6 @@ is inside your closet.
 You take a two dollar bill from your closet.
 
 > e
-(Getting off your bathrobe first)
 You move east.
 
 Your Bathroom

@@ -3137,15 +3137,34 @@ lib_go (scr_gameref_t game, scr_int direction)
                 gs_playerroom (game), destination);
     }
 
-  /* Indicate if getting off something or standing up first. */
-  if (gs_playerparent (game) != -1)
+  /*
+   * Indicate if getting off something or standing up first -- but only for
+   * pre-3.9 games.  Both lines are bracketed *references*, and from 3.9 on
+   * the Runner puts them behind Options -> Display & Media... -> Appearance
+   * -> "References in brackets", the checkbox that also gates the pronoun
+   * echo.  That box starts unticked on every launch and is never restored
+   * from the registry, so the default Runner prints neither line:
+   *
+   *   run390 loc_431911 / loc_4319A0   test m_showbrackets.Checked
+   *   run400 loc_450339 / loc_4503BF   test the same byte (MemVar_4942BA,
+   *                                    saved as "showbrackets" @4679A1)
+   *
+   * 3.7 and 3.8 have no such menu and print both lines unconditionally
+   * (run370 loc_42303C / loc_423078, run380 loc_428244 / loc_428280).
+   * Measured on humbug (4.00) command 254, where run400 answers a bare "W"
+   * from a stool with no "(Getting off the stool first)" at all.
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     {
-      pf_buffer_string (filter, "(Getting off ");
-      lib_print_object_np (game, gs_playerparent (game));
-      pf_buffer_string (filter, " first)\n");
+      if (gs_playerparent (game) != -1)
+        {
+          pf_buffer_string (filter, "(Getting off ");
+          lib_print_object_np (game, gs_playerparent (game));
+          pf_buffer_string (filter, " first)\n");
+        }
+      else if (gs_playerposition (game) != 0)
+        pf_buffer_string (filter, "(Standing up first)\n");
     }
-  else if (gs_playerposition (game) != 0)
-    pf_buffer_string (filter, "(Standing up first)\n");
 
   /* Confirm and then make move. */
   pf_buffer_string (filter,
