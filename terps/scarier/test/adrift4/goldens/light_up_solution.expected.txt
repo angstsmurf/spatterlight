@@ -409,9 +409,7 @@ anything of interest for some distance (east).
 
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
-anything of interest for some distance (east).
-
-A bird enters from the east.
+anything of interest for some distance (east).  A bird enters from the east.
 
 > throw rock at bird
 I toss the rock as hard as I can. It hits the bird in the face, which seems

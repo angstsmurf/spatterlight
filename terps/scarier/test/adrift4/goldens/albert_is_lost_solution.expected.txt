@@ -77,9 +77,8 @@ in a semi-circular pattern.
 Tiberius unclosess the belt pouch.  A quarter is inside the belt pouch.
 
 > get quarter
-Tiberius picks ups the quarter from the belt pouch.
-
-Wally the Stray slinketh in from the south.
+Tiberius picks ups the quarter from the belt pouch.  Wally the Stray slinketh
+in from the south.
 
 > put quarter in coin slot
 Tiberius puts/drops/feeds/inserts the solitary quarter into the Fortune
@@ -112,9 +111,8 @@ Here in the lukewarm shade of a windblown nut tree stands the open-air booth
 of a sketch artist.  She sits by her easel, playing idly with her drawing
 instruments.  A trail south leads to a little hill where buskers sometimes
 entertain people eating lunch, and a less-used one leads east to a secluded
-section of the festival.   Also nearby is yon stout bush.
-
-Wally the Stray slinketh in from the east.
+section of the festival.   Also nearby is yon stout bush.  Wally the Stray
+slinketh in from the east.
 
 > ask artist about strange
 Tiberius inquires, "Doth anything seemeth strange to ye 'round this
@@ -139,9 +137,8 @@ looketh a bit off to ye?"
 Rhymin' Simon answers, "We all go through a stupid phase.  I say just enjoy
 it, kid.  You'll grow out of it."
 
-Tiberius scratches his head o'er this.  "What phase?"
-
-Wally the Stray slinketh in from the north.
+Tiberius scratches his head o'er this.  "What phase?"  Wally the Stray
+slinketh in from the north.
 
 > e
 Tiberius prances east.
@@ -217,9 +214,8 @@ thread of paper in forever.  The change machine is open.  From inside there
 comes the blinding gleam of yon quarter motherload!
 
 > get motherload
-Tiberius picks ups yon quarter motherload from the change machine.
-
-Wally the Stray slinketh in from the south.
+Tiberius picks ups yon quarter motherload from the change machine.  Wally the
+Stray slinketh in from the south.
 
 HUZZAH!  Tiberius now has some treasure!
 
@@ -285,9 +281,8 @@ LOOKFROTHO!"
 
  "An' how would I useth LOOKFROTHO so?"
 
- "Just say it ev'ry place ye go.  Surely when it works, ye'll know!"
-
-Wally the Stray slinketh in from the north.
+ "Just say it ev'ry place ye go.  Surely when it works, ye'll know!"  Wally
+the Stray slinketh in from the north.
 
 > n
 Tiberius goes north.

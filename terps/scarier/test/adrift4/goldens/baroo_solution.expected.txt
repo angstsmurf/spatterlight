@@ -218,7 +218,6 @@ Anti-Gravity Platform
 The platform is at the far western end of the hotel parking lot.  The lot
 itself was once solid concrete, but now many cracks with wildflowers and
 weeds cover the ground.
-
 Wizard strides off to the east.
 
 > e
@@ -228,9 +227,7 @@ Parking Lot
 It was once solid concrete, but now many cracks with wildflowers and weeds
 cover the ground.  One solitary pickup sits with the hood open near the
 loading dock at the north end of the lot.  To the east is the hotel itself.
-The wizard is here.
-
-Wizard strides off toward the hotel and enters it.
+The wizard is here.  Wizard strides off toward the hotel and enters it.
 
 > e
 You move east.
@@ -242,9 +239,7 @@ faces is still intact.  The front desk counter is bare, the room mailboxes
 are empty, and all evidence indicates that the hotel hasn't functioned as a
 public building for quite some time.  To the north is, or was, the manager's
 office.  The main hall continues to the east.
-The wizard is here.
-
-Wizard strides off to the east.
+The wizard is here.  Wizard strides off to the east.
 
 > e
 You move east.
@@ -258,9 +253,7 @@ resilient and very easy on the feet.  The hall is "L" shaped with the long
 part extending east-west, then around the corner to the north.  Directly
 north of you is an open doorway to the dining hall, and to the west is the
 foyer.
-The wizard is here.
-
-Wizard strides off to the north.
+The wizard is here.  Wizard strides off to the north.
 
 > n
 You move north.
@@ -364,7 +357,6 @@ She starts leaving the kitchen south, when you ask, "Who are you?"
 
 "I'm one of the warlocks those pompous fools fear, but you can call me
 M'greet," she replies as she leaves the room.
-
 Warlock saunters out to the south.
 
 > s
@@ -373,9 +365,7 @@ You move south.
 Office
 The office are completely cleaned out of any business furniture.  The only
 things remaining is a single wooden chair and a small coffee table.
-The warlock is casually walking.
-
-Warlock saunters out to the south.
+The warlock is casually walking.  Warlock saunters out to the south.
 
 > s
 You move south.
@@ -387,9 +377,7 @@ faces is still intact.  The front desk counter is bare, the room mailboxes
 are empty, and all evidence indicates that the hotel hasn't functioned as a
 public building for quite some time.  To the north is, or was, the manager's
 office.  The main hall continues to the east.
-The warlock is casually walking.
-
-Warlock saunters out to the east.
+The warlock is casually walking.  Warlock saunters out to the east.
 
 > e
 You move east.
@@ -403,9 +391,7 @@ resilient and very easy on the feet.  The hall is "L" shaped with the long
 part extending east-west, then around the corner to the north.  Directly
 north of you is an open doorway to the dining hall, and to the west is the
 foyer.
-The warlock is casually walking.
-
-Warlock saunters out to the east.
+The warlock is casually walking.  Warlock saunters out to the east.
 
 > e
 You move east.
@@ -415,9 +401,7 @@ You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 11 through
 14.  A stairwell near the corner goes up to the second floor.  To the east is
 room 10.
-The warlock is casually walking.
-
-Warlock saunters out to the east.
+The warlock is casually walking.  Warlock saunters out to the east.
 
 > e
 You move east.
@@ -1040,7 +1024,7 @@ Ravine River
 The river performs a gradual bend from west to south.  The cliffs of the
 ravine are unclimbable.  The narrow river banks have some vegetation, with an
 occasional burst of color from blooming plants.  The river is moving slowly
-allowing you to drift down, however you don't want to move that slow.    You
+allowing you to drift down, however you don't want to move that slow.  You
 are drifting along the river.
 
 > s
@@ -1119,9 +1103,7 @@ firmly, "Thanks!", her smirk back in place.  Slapping the dust from her
 backside, she says, "Better put the parts in your sack, it'll be easier to
 carry.  Follow me, we need to send you on your way to the aliens' ship."
 She looks at your clothing, "You won't survive with that.  Get a suit and
-meet me in the conference room."
-
-Warlock saunters out to above.
+meet me in the conference room."  Warlock saunters out to above.
 
 > u
 You move up.
@@ -1134,9 +1116,7 @@ connected to any power source yet definitely are functional.  Pots and pans
 hang from the ceiling, along with other cooking utensils.  To the south was
 the manager's office, to the west are a set of double doors, along the north
 wall are stairs leading down, and to the east are swinging doors.
-The warlock is casually walking.
-
-Warlock saunters out to the south.
+The warlock is casually walking.  Warlock saunters out to the south.
 
 > s
 You move south.
@@ -1144,9 +1124,7 @@ You move south.
 Office
 The office are completely cleaned out of any business furniture.  The only
 things remaining is a single wooden chair and a small coffee table.
-The warlock is casually walking.
-
-Warlock saunters out to the south.
+The warlock is casually walking.  Warlock saunters out to the south.
 
 > s
 You move south.
@@ -1158,9 +1136,7 @@ faces is still intact.  The front desk counter is bare, the room mailboxes
 are empty, and all evidence indicates that the hotel hasn't functioned as a
 public building for quite some time.  To the north is, or was, the manager's
 office.  The main hall continues to the east.
-The warlock is casually walking.
-
-Warlock saunters out to the east.
+The warlock is casually walking.  Warlock saunters out to the east.
 
 > e
 You move east.
@@ -1174,9 +1150,7 @@ resilient and very easy on the feet.  The hall is "L" shaped with the long
 part extending east-west, then around the corner to the north.  Directly
 north of you is an open doorway to the dining hall, and to the west is the
 foyer.
-The warlock is casually walking.
-
-Warlock saunters out to the east.
+The warlock is casually walking.  Warlock saunters out to the east.
 
 > e
 You move east.
@@ -1186,9 +1160,7 @@ You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 11 through
 14.  A stairwell near the corner goes up to the second floor.  To the east is
 room 10.
-The warlock is casually walking.
-
-Warlock saunters out to above.
+The warlock is casually walking.  Warlock saunters out to above.
 
 > u
 You move up.
@@ -1198,9 +1170,7 @@ You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 21 through
 24.  A stairwell near the corner goes down to the main floor.  To the east is
 room 20.
-The warlock is casually walking.
-
-Warlock saunters out to the west.
+The warlock is casually walking.  Warlock saunters out to the west.
 
 > n
 You move north.

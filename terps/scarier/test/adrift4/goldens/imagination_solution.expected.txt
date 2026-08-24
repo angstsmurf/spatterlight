@@ -75,9 +75,8 @@ Underground water pipe
 You are at the underground water way.  There is a wooden spoon floating
 around in the water, that leads into darkness.
 
-Also here is a piece of dental floss and a small rock.
-
-Jenny follows you  from the north.
+Also here is a piece of dental floss and a small rock.  Jenny follows you
+from the north.
 
 > take floss
 You take the piece of dental floss.

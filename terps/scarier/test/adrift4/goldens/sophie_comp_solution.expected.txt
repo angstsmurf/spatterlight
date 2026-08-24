@@ -304,9 +304,8 @@ are about all the beach has to offer by way of entertainment value and part
 of you will be secretly glad to see the back of this depressing place. The
 sea borders the beach to one side and to the other is a large cliff. Just off
 to your left is the cave you emerged from at the start of your adventure.
-   Exits lie: southwest (to the cave) and east (along the beach).
-
-Grumble complaining of beer deprivation staggers in from the south-west.
+   Exits lie: southwest (to the cave) and east (along the beach).  Grumble
+complaining of beer deprivation staggers in from the south-west.
 
 > e
 You move east.
@@ -333,8 +332,6 @@ out of sight.
    "But why-" you start to say then just decide you're better off keeping
 quiet.
 
-Grumble complaining of beer deprivation staggers in from the west.
-
 > nw
 You move northwest.
 
@@ -345,9 +342,8 @@ you are the way you originally came - down to the beach - and another one off
 to the northeast which looks a little more used than the path you're standing
 on now.
    Exits lie: northeast (to the muddier path) and southeast (to the central
-part of the beach).
-
-Grumble complaining of beer deprivation staggers in from the south-east.
+part of the beach).  Grumble complaining of beer deprivation staggers in from
+the south-east.
 
 > ne
 You move northeast.
@@ -359,9 +355,8 @@ hereabouts is pretty desolate, leading you to believe that not even the
 occasional tree or bush would want to here around here. A little further
 ahead there looks to be some sort of crossroads.
    Exits lie: north (to the extremely muddy path) and southwest (to the muddy
-path).
-
-Grumble complaining of beer deprivation staggers in from the south-west.
+path).  Grumble complaining of beer deprivation staggers in from the
+south-west.
 
 > n
 You move north.
@@ -373,9 +368,8 @@ hidden and not given to announcing itself. Several paths seem to fork off
 from here although as everything you see is through a mud-caked haze it's
 difficult to tell much about them.
    Exits lie: east (to a copse of trees), west (to some hills), south (to a
-muddy path) and north (to a not quite so muddy path)
-
-Grumble complaining of beer deprivation staggers in from the south.
+muddy path) and north (to a not quite so muddy path)  Grumble complaining of
+beer deprivation staggers in from the south.
 
 > n
 You move north.
@@ -387,9 +381,7 @@ trees which look at once strange and threatening though you're not sure why.
 Further on along the path, you hear the sound of voices drifting on the
 breeze and there looks to be some kind of large building a way away.
    Exits lie: northeast (to a mud-free path) and south (to an extremely muddy
-path).
-
-Grumble complaining of beer deprivation staggers in from the south.
+path).  Grumble complaining of beer deprivation staggers in from the south.
 
 > ne
 You move northeast.
@@ -403,9 +395,8 @@ marketplace and overlooks the village in the way only a large building can.
 There are merry rows of colourful flowers on either side of the path that
 quite remind you of your mother for reasons you're not sure of.
    Exits lie: southwest (to the not quite so muddy path) and northeast (to
-the marketplace of Grimmghoul Town).
-
-Grumble complaining of beer deprivation staggers in from the south-west.
+the marketplace of Grimmghoul Town).  Grumble complaining of beer deprivation
+staggers in from the south-west.
 
 > ne
 You move northeast.
@@ -422,9 +413,8 @@ house. Several shops dot the outskirts of the marketplace although most of
 them appear to be boarded up.
    Exits lie: north (to the castle gates), northwest (to the disreputable
 alley), northeast (to the Orc's Bottom Tavern), southeast (to Tanner Row) and
-southwest (to a mud-free path).
-
-Grumble complaining of beer deprivation staggers in from the south-west.
+southwest (to a mud-free path).  Grumble complaining of beer deprivation
+staggers in from the south-west.
 
 > n
 You move north.
@@ -476,8 +466,6 @@ matter.
    "Or fourthly: you could always makes a sizeable donation to my retirement
 fund," adds Snordy hopefully.
 
-Grumble complaining of beer deprivation staggers in from the south.
-
 > s
 You move south.
 
@@ -493,9 +481,8 @@ house. Several shops dot the outskirts of the marketplace although most of
 them appear to be boarded up.
    Exits lie: north (to the castle gates), northwest (to the disreputable
 alley), northeast (to the Orc's Bottom Tavern), southeast (to Tanner Row) and
-southwest (to a mud-free path).
-
-Grumble complaining of beer deprivation staggers in from the north.
+southwest (to a mud-free path).  Grumble complaining of beer deprivation
+staggers in from the north.
 
 > ne
 You try to go northeast but a bouncer on the door of the tavern puts his hand
@@ -546,8 +533,6 @@ beer has been drunk before his feet hit the floor.
 did you want one as well?"
    "I'm fine, thanks," you say, a little weary of tangling with him right
 now.
-
-Grumble complaining of beer deprivation staggers in from the south-west.
 
 > talk to bast
 Bast eyes you with the sheer dread of knowing that, as a customer, he can't
@@ -606,9 +591,8 @@ house. Several shops dot the outskirts of the marketplace although most of
 them appear to be boarded up.
    Exits lie: north (to the castle gates), northwest (to the disreputable
 alley), northeast (to the Orc's Bottom Tavern), southeast (to Tanner Row) and
-southwest (to a mud-free path).
-
-Grumble complaining of beer deprivation staggers in from the north-east.
+southwest (to a mud-free path).  Grumble complaining of beer deprivation
+staggers in from the north-east.
 
 > se
 You move southeast.
@@ -620,9 +604,8 @@ play in the gutter or fight amongst themselves and several older people look
 at you with barely disguised loathing. Further ahead, the street seems to
 reach the eastern edge of the village.
    Exits lie: northwest (to the marketplace), northeast (to the general
-store): southeast (to Merridew Lane).
-
-Grumble complaining of beer deprivation staggers in from the north-west.
+store): southeast (to Merridew Lane).  Grumble complaining of beer
+deprivation staggers in from the north-west.
 
 > se
 You move southeast.
@@ -636,7 +619,6 @@ signs and begging bowls and setting up an unholy dirge. No one seems to be
 paying them much heed.
    Exits lie: northwest (to Tanner Row), northeast (to the church), south (to
 a tumbledown building inhabited by beggars) and southeast (to Morry Row).
-
 Grumble complaining of beer deprivation staggers in from the north-west.
 
 > ne
@@ -652,9 +634,8 @@ windows used to be and the rest has to be left to your imagination. A
 pedestal at the far end of the "church" is where the priest stands to give
 speeches although it doesn't look to have received much use recently.
    Exits lie: southwest (to Merridew Lane).
-Shamuel is here, cackling madly and geturing bizarelly.
-
-Grumble complaining of beer deprivation staggers in from the south-west.
+Shamuel is here, cackling madly and geturing bizarelly.  Grumble complaining
+of beer deprivation staggers in from the south-west.
 
 > talk to shamuel
 "Come to cast off some sins, have you?" says Shamuel. "Well, well, we don't
@@ -718,7 +699,6 @@ signs and begging bowls and setting up an unholy dirge. No one seems to be
 paying them much heed.
    Exits lie: northwest (to Tanner Row), northeast (to the church), south (to
 a tumbledown building inhabited by beggars) and southeast (to Morry Row).
-
 Grumble complaining of beer deprivation staggers in from the north-east.
 
 > s
@@ -734,9 +714,8 @@ and doesn't look at all safe), you see a battered old font, which hints that
 this used to be some kind of church a long time ago. The bustle of the
 outside world drifts in from the north.
    Exits lie: north (to Merridew Lane).
-Lurch, Grunge and Moppet are here.
-
-Grumble complaining of beer deprivation staggers in from the north.
+Lurch, Grunge and Moppet are here.  Grumble complaining of beer deprivation
+staggers in from the north.
 
 > talk to lurch
 "Hello-" you start to say then Moppet gives a yell.
@@ -781,8 +760,6 @@ a tumbledown building inhabited by beggars) and southeast (to Morry Row).
 think on your feet sometimes. Ah just said what ah thought they expected ter
 hear."
 
-Grumble complaining of beer deprivation staggers in from the south.
-
 > nw
 You move northwest.
 
@@ -793,9 +770,8 @@ play in the gutter or fight amongst themselves and several older people look
 at you with barely disguised loathing. Further ahead, the street seems to
 reach the eastern edge of the village.
    Exits lie: northwest (to the marketplace), northeast (to the general
-store): southeast (to Merridew Lane).
-
-Grumble complaining of beer deprivation staggers in from the south-east.
+store): southeast (to Merridew Lane).  Grumble complaining of beer
+deprivation staggers in from the south-east.
 
 > nw
 You move northwest.
@@ -812,9 +788,8 @@ house. Several shops dot the outskirts of the marketplace although most of
 them appear to be boarded up.
    Exits lie: north (to the castle gates), northwest (to the disreputable
 alley), northeast (to the Orc's Bottom Tavern), southeast (to Tanner Row) and
-southwest (to a mud-free path).
-
-Grumble complaining of beer deprivation staggers in from the south-east.
+southwest (to a mud-free path).  Grumble complaining of beer deprivation
+staggers in from the south-east.
 
 > ne
 You move northeast. The bouncer glares daggers at you but one look from
@@ -843,8 +818,6 @@ Professor Heretic is sitting on a stool.
 beautiful smell in the world, is there?"
    "What about perfume?"
    "Bah! Have you ever tried drinking Chanel No.5?"
-
-Grumble complaining of beer deprivation staggers in from the south-west.
 
 > kill scab
 Considering that guile might serve you better here than brute force, you
@@ -884,9 +857,8 @@ house. Several shops dot the outskirts of the marketplace although most of
 them appear to be boarded up.
    Exits lie: north (to the castle gates), northwest (to the disreputable
 alley), northeast (to the Orc's Bottom Tavern), southeast (to Tanner Row) and
-southwest (to a mud-free path).
-
-Grumble complaining of beer deprivation staggers in from the north-east.
+southwest (to a mud-free path).  Grumble complaining of beer deprivation
+staggers in from the north-east.
 
 > se
 You move southeast.
@@ -898,9 +870,8 @@ play in the gutter or fight amongst themselves and several older people look
 at you with barely disguised loathing. Further ahead, the street seems to
 reach the eastern edge of the village.
    Exits lie: northwest (to the marketplace), northeast (to the general
-store): southeast (to Merridew Lane).
-
-Grumble complaining of beer deprivation staggers in from the north-west.
+store): southeast (to Merridew Lane).  Grumble complaining of beer
+deprivation staggers in from the north-west.
 
 > se
 You move southeast.
@@ -914,7 +885,6 @@ signs and begging bowls and setting up an unholy dirge. No one seems to be
 paying them much heed.
    Exits lie: northwest (to Tanner Row), northeast (to the church), south (to
 a tumbledown building inhabited by beggars) and southeast (to Morry Row).
-
 Grumble complaining of beer deprivation staggers in from the north-west.
 
 > ne
@@ -952,8 +922,6 @@ Your niceness has just increased.
 church but you wonder if a crucifix here might actually be an effective thing
 to have with you.
 
-Grumble complaining of beer deprivation staggers in from the south-west.
-
 > talk to shamuel
 "Word has spread around town of your deeds," says Shamuel with a smile. "Scab
 has been beaten within an inch of his life. Ah, it warms my heart to hear
@@ -986,7 +954,6 @@ signs and begging bowls and setting up an unholy dirge. No one seems to be
 paying them much heed.
    Exits lie: northwest (to Tanner Row), northeast (to the church), south (to
 a tumbledown building inhabited by beggars) and southeast (to Morry Row).
-
 Grumble complaining of beer deprivation staggers in from the north-east.
 
 > nw
@@ -999,9 +966,8 @@ play in the gutter or fight amongst themselves and several older people look
 at you with barely disguised loathing. Further ahead, the street seems to
 reach the eastern edge of the village.
    Exits lie: northwest (to the marketplace), northeast (to the general
-store): southeast (to Merridew Lane).
-
-Grumble complaining of beer deprivation staggers in from the south-east.
+store): southeast (to Merridew Lane).  Grumble complaining of beer
+deprivation staggers in from the south-east.
 
 > nw
 You move northwest.
@@ -1018,9 +984,8 @@ house. Several shops dot the outskirts of the marketplace although most of
 them appear to be boarded up.
    Exits lie: north (to the castle gates), northwest (to the disreputable
 alley), northeast (to the Orc's Bottom Tavern), southeast (to Tanner Row) and
-southwest (to a mud-free path).
-
-Grumble complaining of beer deprivation staggers in from the south-east.
+southwest (to a mud-free path).  Grumble complaining of beer deprivation
+staggers in from the south-east.
 
 > sw
 You move southwest.
@@ -1034,9 +999,8 @@ marketplace and overlooks the village in the way only a large building can.
 There are merry rows of colourful flowers on either side of the path that
 quite remind you of your mother for reasons you're not sure of.
    Exits lie: southwest (to the not quite so muddy path) and northeast (to
-the marketplace of Grimmghoul Town).
-
-Grumble complaining of beer deprivation staggers in from the north-east.
+the marketplace of Grimmghoul Town).  Grumble complaining of beer deprivation
+staggers in from the north-east.
 
 > sw
 You move southwest.
@@ -1048,9 +1012,8 @@ trees which look at once strange and threatening though you're not sure why.
 Further on along the path, you hear the sound of voices drifting on the
 breeze and there looks to be some kind of large building a way away.
    Exits lie: northeast (to a mud-free path) and south (to an extremely muddy
-path).
-
-Grumble complaining of beer deprivation staggers in from the north-east.
+path).  Grumble complaining of beer deprivation staggers in from the
+north-east.
 
 > s
 You move south.
@@ -1062,9 +1025,8 @@ hidden and not given to announcing itself. Several paths seem to fork off
 from here although as everything you see is through a mud-caked haze it's
 difficult to tell much about them.
    Exits lie: east (to a copse of trees), west (to some hills), south (to a
-muddy path) and north (to a not quite so muddy path)
-
-Grumble complaining of beer deprivation staggers in from the north.
+muddy path) and north (to a not quite so muddy path)  Grumble complaining of
+beer deprivation staggers in from the north.
 
 > w
 You move west.
@@ -1076,9 +1038,8 @@ birds chitter to themselves in the solitary trees which dot the tops of the
 hills but you don't understand anything of what they're saying on account of
 not taking Bird Linguistics in school yet.
    Exits lie: east (to the extremely muddy path), north (to the end of the
-path) and southwest (to some old ruins).
-
-Grumble complaining of beer deprivation staggers in from the east.
+path) and southwest (to some old ruins).  Grumble complaining of beer
+deprivation staggers in from the east.
 
 > n
 You move north.
@@ -1092,7 +1053,6 @@ you feel more than a little afraid. One of the cave entrances looks familiar
 and you remember what Bast the bartender told you. This is where the monster
 has its lair.
    Exits lie: south (to the hills) and northwest (to the monster's lair).
-
 Grumble complaining of beer deprivation staggers in from the south.
 
 > nw
@@ -1106,9 +1066,8 @@ Somewhere in the darkness lurks the monster you have come here to kill but
 something tells you that if you're not careful, it won't be the monster that
 ends up getting killed. At your back is the way out which is looking more and
 more welcoming as the seconds tick by...
-   Exits lie: southeast (to the end of the path).
-
-Grumble complaining of beer deprivation staggers in.
+   Exits lie: southeast (to the end of the path).  Grumble complaining of
+beer deprivation staggers in.
 
 > se
 
@@ -1137,8 +1096,6 @@ items, big and small, tumble down the hill.
 You haven't been so terrified since you got three lots of detention in a row
 but at least the teacher didn't try to strangle you.
    "Dunno," says Grumble. "But I doubt the thing's got any beer."
-
-Grumble complaining of beer deprivation staggers in from the north-west.
 
 > nw
 "You sure about this?" Grumble asks, with an uneasy look at the cave. "There
@@ -1193,8 +1150,6 @@ mean, no beer! Bah, makes yer blood curdle sometimes to think of it."
 A minute later you find, after some careful searching, what appears to be a
 light switch. Flicking it reveals the lair in its glory (or lack of).
 
-Grumble complaining of beer deprivation staggers in.
-
 > se
 You move southeast.
 
@@ -1208,9 +1163,8 @@ and you remember what Bast the bartender told you. This is where the monster
 has its lair.
    Exits lie: south (to the hills) and northwest (to the monster's lair).
 
-Also here is a crucifix and the holy handgrenade.
-
-Grumble complaining of beer deprivation staggers in from the north-west.
+Also here is a crucifix and the holy handgrenade.  Grumble complaining of
+beer deprivation staggers in from the north-west.
 
 > get crucifix
 You take the crucifix.
@@ -1228,9 +1182,8 @@ birds chitter to themselves in the solitary trees which dot the tops of the
 hills but you don't understand anything of what they're saying on account of
 not taking Bird Linguistics in school yet.
    Exits lie: east (to the extremely muddy path), north (to the end of the
-path) and southwest (to some old ruins).
-
-Grumble complaining of beer deprivation staggers in from the north.
+path) and southwest (to some old ruins).  Grumble complaining of beer
+deprivation staggers in from the north.
 
 > e
 You move east.
@@ -1242,9 +1195,8 @@ hidden and not given to announcing itself. Several paths seem to fork off
 from here although as everything you see is through a mud-caked haze it's
 difficult to tell much about them.
    Exits lie: east (to a copse of trees), west (to some hills), south (to a
-muddy path) and north (to a not quite so muddy path)
-
-Grumble complaining of beer deprivation staggers in from the west.
+muddy path) and north (to a not quite so muddy path)  Grumble complaining of
+beer deprivation staggers in from the west.
 
 > n
 You move north.
@@ -1256,9 +1208,7 @@ trees which look at once strange and threatening though you're not sure why.
 Further on along the path, you hear the sound of voices drifting on the
 breeze and there looks to be some kind of large building a way away.
    Exits lie: northeast (to a mud-free path) and south (to an extremely muddy
-path).
-
-Grumble complaining of beer deprivation staggers in from the south.
+path).  Grumble complaining of beer deprivation staggers in from the south.
 
 > ne
 You move northeast.
@@ -1272,9 +1222,8 @@ marketplace and overlooks the village in the way only a large building can.
 There are merry rows of colourful flowers on either side of the path that
 quite remind you of your mother for reasons you're not sure of.
    Exits lie: southwest (to the not quite so muddy path) and northeast (to
-the marketplace of Grimmghoul Town).
-
-Grumble complaining of beer deprivation staggers in from the south-west.
+the marketplace of Grimmghoul Town).  Grumble complaining of beer deprivation
+staggers in from the south-west.
 
 > ne
 You move northeast.
@@ -1291,9 +1240,8 @@ house. Several shops dot the outskirts of the marketplace although most of
 them appear to be boarded up.
    Exits lie: north (to the castle gates), northwest (to the disreputable
 alley), northeast (to the Orc's Bottom Tavern), southeast (to Tanner Row) and
-southwest (to a mud-free path).
-
-Grumble complaining of beer deprivation staggers in from the south-west.
+southwest (to a mud-free path).  Grumble complaining of beer deprivation
+staggers in from the south-west.
 
 > n
 You move north.
@@ -1326,8 +1274,6 @@ see everyone who wants to see him."
    "So how do I get into the castle?"
    "In short," says Snordy, "you don't."
 
-Grumble complaining of beer deprivation staggers in from the south.
-
 > s
 You move south.
 
@@ -1343,9 +1289,8 @@ house. Several shops dot the outskirts of the marketplace although most of
 them appear to be boarded up.
    Exits lie: north (to the castle gates), northwest (to the disreputable
 alley), northeast (to the Orc's Bottom Tavern), southeast (to Tanner Row) and
-southwest (to a mud-free path).
-
-Grumble complaining of beer deprivation staggers in from the north.
+southwest (to a mud-free path).  Grumble complaining of beer deprivation
+staggers in from the north.
 
 > se
 You move southeast.
@@ -1357,9 +1302,8 @@ play in the gutter or fight amongst themselves and several older people look
 at you with barely disguised loathing. Further ahead, the street seems to
 reach the eastern edge of the village.
    Exits lie: northwest (to the marketplace), northeast (to the general
-store): southeast (to Merridew Lane).
-
-Grumble complaining of beer deprivation staggers in from the north-west.
+store): southeast (to Merridew Lane).  Grumble complaining of beer
+deprivation staggers in from the north-west.
 
 > se
 You move southeast.
@@ -1373,7 +1317,6 @@ signs and begging bowls and setting up an unholy dirge. No one seems to be
 paying them much heed.
    Exits lie: northwest (to Tanner Row), northeast (to the church), south (to
 a tumbledown building inhabited by beggars) and southeast (to Morry Row).
-
 Grumble complaining of beer deprivation staggers in from the north-west.
 
 > se
@@ -1390,9 +1333,8 @@ Off to the south is a large field in which a circus tent has been erected;
 around this are dancing several gaily-clad figures who are also making an
 inordinate amount of noise.
    Exits lie: northwest (to Merridew Lane), south (to the field) and east (to
-the east gate and the house).
-
-Grumble complaining of beer deprivation staggers in from the north-west.
+the east gate and the house).  Grumble complaining of beer deprivation
+staggers in from the north-west.
 
 > e
 You move east.
@@ -1406,9 +1348,8 @@ around the gate: also at the entrance to a house to the north which you
 imagine is some kind of barracks. Between narrow cracks in the gate (none
 large enough to sneak through alas!) you catch sight of a road leading over a
 blasted moorland.
-   Exits lie: west (to Morry Row)  and east (through the east gate).
-
-Grumble complaining of beer deprivation staggers in from the west.
+   Exits lie: west (to Morry Row)  and east (through the east gate).  Grumble
+complaining of beer deprivation staggers in from the west.
 
 > e
 As you start to move east to the locked gate, a guard steps forward and says,
@@ -1456,8 +1397,6 @@ I could have done with some more quality time spent drinking beforehand."
    "Why ask me?" Grumble glances about and frowns. "Damn! No sign of a pub
 for miles."
 
-Grumble complaining of beer deprivation staggers in from the west.
-
 > e
 You move east.
 
@@ -1484,8 +1423,6 @@ sort of thing."
    Gribb sighs. "Pity. I'd have been most grateful if you could have found me
 some."
 
-Grumble complaining of beer deprivation staggers in from the west.
-
 > e
 You move east.
 
@@ -1497,8 +1434,7 @@ Several ferocious howls can be heard on a minute by minute basis and even the
 trees seem to have it in for you, constantly brushing you with knobbly
 branches and trying to trip you with their roots.
    Exits lie: west (to the east road) and southeast (deeper into the forest).
-
-Grumble complaining of beer deprivation staggers in from the west.
+ Grumble complaining of beer deprivation staggers in from the west.
 
 > se
 You move southeast.
@@ -1512,9 +1448,8 @@ smashed ages ago - and you know it won't be any good for getting across the
 stream now. But then the stream doesn't look to be more than a few inches
 deep so you shouldn't have any problems crossing it. In theory…
    Exits lie: northwest (to a dark forest path) and east (to the other side
-of the stream).
-
-Grumble complaining of beer deprivation staggers in from the north-west.
+of the stream).  Grumble complaining of beer deprivation staggers in from the
+north-west.
 
 > e
 The moment you attempt to cross the stream, you feel a wave of dizziness hits
@@ -1534,9 +1469,7 @@ like a bridge which once spanned the stream but has now fallen into
 disrepair. The path you're following winds away deeper into the forest to the
 east.
    Exits lie: west (to the other side of the stream) and east (to a shadowy
-glade).
-
-Grumble complaining of beer deprivation staggers in from the west.
+glade).  Grumble complaining of beer deprivation staggers in from the west.
 
 > e
 You move east.
@@ -1547,7 +1480,6 @@ battered and beaten. Broken weapons lie scattered about. Something tells you
 that bad deeds happened here not too long enough and you'd be well advised to
 get yourself out of here as fast as your little legs can carry you.
    Exits lie: west (to a stream) and east (to the edge of the forest).
-
 Grumble complaining of beer deprivation staggers in from the west.
 
 > e
@@ -1605,9 +1537,8 @@ Overhead the trees of the forest are thinning out and you can make out some
 treeless areas to the east. A campfire is burning away here although there
 doesn't appear to be anybody around to keep watch on it. Visions of forest
 fires spring to mind.
-   Exits lie: west (into the forest) and east (to a rutted path).
-
-Grumble complaining of beer deprivation staggers in from the west.
+   Exits lie: west (into the forest) and east (to a rutted path).  Grumble
+complaining of beer deprivation staggers in from the west.
 
 > e
 You move east.
@@ -1620,9 +1551,7 @@ a grisly edge to the proceedings. The very air is tense with violence.
    Along a narrow path to the north you can make out a tower some distance
 away and the same path extends further to the south.
    Exits lie: north (to the tower), west and southeast (further along the
-path).
-
-Grumble complaining of beer deprivation staggers in from the west.
+path).  Grumble complaining of beer deprivation staggers in from the west.
 
 > se
 You move southeast.
@@ -1636,9 +1565,8 @@ thing to you.
    To the far west you can make out a forest while to the east a massive
 cliff blocks off the horizon.
    Exits lie: northwest (to a rutted path) and east (to a well maintained
-road).
-
-Grumble complaining of beer deprivation staggers in from the north-west.
+road).  Grumble complaining of beer deprivation staggers in from the
+north-west.
 
 > e
 You move east.
@@ -1652,9 +1580,8 @@ things are even less friendly than the empty spikes). Further along the road
 to the northeast you can hear a ferocious growling noise although what's
 making this you have no idea. It's coming from beyond the roadside tavern you
 can make out.
-   Exits lie: west (to a junction) and northeast (along the road).
-
-Grumble complaining of beer deprivation staggers in from the west.
+   Exits lie: west (to a junction) and northeast (along the road).  Grumble
+complaining of beer deprivation staggers in from the west.
 
 > ne
 You move northeast.
@@ -1666,9 +1593,8 @@ Grimmghoul but even more slimy and disreputable. The door is firmly locked
 but the sounds of merriment (or fighting and people being violently ill to be
 brutally honest) filter through cracks in the oak walls.
    Exits lie: southeast (to the Prancing Pratt Public House), northeast
-(along the road) and southwest (to the well maintained road).
-
-Grumble complaining of beer deprivation staggers in from the south-west.
+(along the road) and southwest (to the well maintained road).  Grumble
+complaining of beer deprivation staggers in from the south-west.
 
 > ne
 You move northeast.
@@ -1682,9 +1608,8 @@ everything is quite eerie and shadowy here.
    Further along, the path splits, both branches heading deeper into the
 wooded area.
    Exits lie: southwest (to outside the Prancing Pratt Public House) and
-northeast and southeast (deeper into the wooded area).
-
-Grumble complaining of beer deprivation staggers in from the south-west.
+northeast and southeast (deeper into the wooded area).  Grumble complaining
+of beer deprivation staggers in from the south-west.
 
 > ne
 You move northeast.
@@ -1696,9 +1621,8 @@ sunlight being almost completely blocked out by the overhanging branches.
 Even with that, you can still make out the body lying in the middle of the
 path. Blood is pooled around it in a manner you find quite icky.
    Exits lie: southeast (into the wooded area) and southwest (to the shadowy
-path).
-
-Grumble complaining of beer deprivation staggers in from the south-west.
+path).  Grumble complaining of beer deprivation staggers in from the
+south-west.
 
 > x body
 It's dead, but still warm to the touch which indicates it hasn't been lying
@@ -1737,9 +1661,8 @@ Smelly Path
 You don't know what is making this part of the path smell but it sure does
 reek! It's all you can do to stop gasping for breath and making horrid
 choking sounds to look around for a speedy exit.
-   Exits lie: southwest and northwest (into the wooded area).
-
-Grumble complaining of beer deprivation staggers in from the north-west.
+   Exits lie: southwest and northwest (into the wooded area).  Grumble
+complaining of beer deprivation staggers in from the north-west.
 
 > sw
 You move southwest.
@@ -1751,9 +1674,8 @@ neatly arranged them into a pebble-dashing effect. You're not sure why
 someone would do this but then people often do strange things and this isn't
 the strangest thing you've seen today by a long shot.
    Exits lie: north (to skull clearing), northwest and northeast (along
-paths).
-
-Grumble complaining of beer deprivation staggers in from the north-east.
+paths).  Grumble complaining of beer deprivation staggers in from the
+north-east.
 
 > n
 You move north.
@@ -1766,8 +1688,7 @@ growling sound: you get the distinct feeling that someone - or something - is
 using it as a lair. Scattered around outside the massive skull are an
 assortment of chewed, bitten and partially-eaten bones.
    Exits lie: south (to the pebbled path) and in (to the black tiger's lair).
-
-Grumble complaining of beer deprivation staggers in from the south.
+ Grumble complaining of beer deprivation staggers in from the south.
 
 > throw meat
 You throw the meat into the skull - and immediately there comes the sound of
@@ -1793,9 +1714,7 @@ neatly arranged them into a pebble-dashing effect. You're not sure why
 someone would do this but then people often do strange things and this isn't
 the strangest thing you've seen today by a long shot.
    Exits lie: north (to skull clearing), northwest and northeast (along
-paths).
-
-Grumble complaining of beer deprivation staggers in from the north.
+paths).  Grumble complaining of beer deprivation staggers in from the north.
 
 > nw
 You move northwest.
@@ -1809,9 +1728,8 @@ everything is quite eerie and shadowy here.
    Further along, the path splits, both branches heading deeper into the
 wooded area.
    Exits lie: southwest (to outside the Prancing Pratt Public House) and
-northeast and southeast (deeper into the wooded area).
-
-Grumble complaining of beer deprivation staggers in from the south-east.
+northeast and southeast (deeper into the wooded area).  Grumble complaining
+of beer deprivation staggers in from the south-east.
 
 > sw
 You move southwest.
@@ -1823,9 +1741,8 @@ Grimmghoul but even more slimy and disreputable. The door is firmly locked
 but the sounds of merriment (or fighting and people being violently ill to be
 brutally honest) filter through cracks in the oak walls.
    Exits lie: southeast (to the Prancing Pratt Public House), northeast
-(along the road) and southwest (to the well maintained road).
-
-Grumble complaining of beer deprivation staggers in from the north-east.
+(along the road) and southwest (to the well maintained road).  Grumble
+complaining of beer deprivation staggers in from the north-east.
 
 > se
 You move southeast.
@@ -1845,9 +1762,8 @@ several very stressed looking waitresses.
 the games room), southeast (to the fight pit) and south (to the strip den).
 Smiggles the bartender and Snark are here.
 Seated at a table in the corner of the room is Balfour.  Stiran is here,
-regarding the proceedings with disdain.
-
-Grumble complaining of beer deprivation staggers in from the north-west.
+regarding the proceedings with disdain.  Grumble complaining of beer
+deprivation staggers in from the north-west.
 
 > talk to snark
 "Blimey!" gasps Snark. "You did it!"
@@ -1916,8 +1832,6 @@ kinda tavern this is."
 you hard stares.
    Grumble shushes.
 
-Grumble complaining of beer deprivation staggers in from the west.
-
 > w
 You move west.
 
@@ -1939,9 +1853,8 @@ Seated at a table in the corner of the room is Balfour.  Stiran is here,
 regarding the proceedings with disdain.
 
 As you enter the main room, you catch sight of a girl swiping someone's
-wallet and sneaking off southwards into the strip den.
-
-Grumble complaining of beer deprivation staggers in from the east.
+wallet and sneaking off southwards into the strip den.  Grumble complaining
+of beer deprivation staggers in from the east.
 
 > s
 You move south.
@@ -1956,8 +1869,7 @@ there's a perfectly good reason for it.
    Exits lie: north (to the main room).
 Sylvie is here, moving alluringly about.  Bumble is here looking very
 cheerful.  Jodee is here doing her best to look annoyed with her lot in life.
-
-Grumble complaining of beer deprivation staggers in from the north.
+ Grumble complaining of beer deprivation staggers in from the north.
 
 > talk to jodee
 "Yah, boo sucks!" Jodee hisses. "Are you another of them wot's got it in for
@@ -1992,9 +1904,8 @@ several very stressed looking waitresses.
 the games room), southeast (to the fight pit) and south (to the strip den).
 Smiggles the bartender is here.
 Seated at a table in the corner of the room is Balfour.  Stiran is here,
-regarding the proceedings with disdain.
-
-Grumble complaining of beer deprivation staggers in from the south.
+regarding the proceedings with disdain.  Grumble complaining of beer
+deprivation staggers in from the south.
 
 > talk to smiggles
 "Ah, you have the evidence!" says Smiggles. "And the filthy, stinking thief
@@ -2028,9 +1939,8 @@ first class boxer slouches in the corner and is the final nail in the coffin
 for the room's image as far as you're concerned.
    Exits lie: down (to the main room).
 
-Also here is the Torrow Crystal.
-
-Grumble complaining of beer deprivation staggers in from below.
+Also here is the Torrow Crystal.  Grumble complaining of beer deprivation
+staggers in from below.
 
 > get torrow crystal
 You take the Torrow Crystal.
@@ -2053,9 +1963,8 @@ several very stressed looking waitresses.
 the games room), southeast (to the fight pit) and south (to the strip den).
 Smiggles the bartender is here.
 Seated at a table in the corner of the room is Balfour.  Stiran is here,
-regarding the proceedings with disdain.
-
-Grumble complaining of beer deprivation staggers in from above.
+regarding the proceedings with disdain.  Grumble complaining of beer
+deprivation staggers in from above.
 
 > nw
 You move northwest.
@@ -2067,9 +1976,8 @@ Grimmghoul but even more slimy and disreputable. The door is firmly locked
 but the sounds of merriment (or fighting and people being violently ill to be
 brutally honest) filter through cracks in the oak walls.
    Exits lie: southeast (to the Prancing Pratt Public House), northeast
-(along the road) and southwest (to the well maintained road).
-
-Grumble complaining of beer deprivation staggers in from the south-east.
+(along the road) and southwest (to the well maintained road).  Grumble
+complaining of beer deprivation staggers in from the south-east.
 
 > sw
 You move southwest.
@@ -2083,9 +1991,8 @@ things are even less friendly than the empty spikes). Further along the road
 to the northeast you can hear a ferocious growling noise although what's
 making this you have no idea. It's coming from beyond the roadside tavern you
 can make out.
-   Exits lie: west (to a junction) and northeast (along the road).
-
-Grumble complaining of beer deprivation staggers in from the north-east.
+   Exits lie: west (to a junction) and northeast (along the road).  Grumble
+complaining of beer deprivation staggers in from the north-east.
 
 > w
 You move west.
@@ -2099,9 +2006,7 @@ thing to you.
    To the far west you can make out a forest while to the east a massive
 cliff blocks off the horizon.
    Exits lie: northwest (to a rutted path) and east (to a well maintained
-road).
-
-Grumble complaining of beer deprivation staggers in from the east.
+road).  Grumble complaining of beer deprivation staggers in from the east.
 
 > nw
 You move northwest.
@@ -2114,9 +2019,8 @@ a grisly edge to the proceedings. The very air is tense with violence.
    Along a narrow path to the north you can make out a tower some distance
 away and the same path extends further to the south.
    Exits lie: north (to the tower), west and southeast (further along the
-path).
-
-Grumble complaining of beer deprivation staggers in from the south-east.
+path).  Grumble complaining of beer deprivation staggers in from the
+south-east.
 
 > n
 You move north.
@@ -2126,7 +2030,6 @@ This narrow path is crowded on both sides by a horde of seriously nasty
 looking plants. You saw Day of the Triffids once and they had nothing on
 these things. They're tall and straggly and appear diseased.
    Exits lie: north (to Arliss's tower) and south (to a rutted path).
-
 Grumble complaining of beer deprivation staggers in from the south.
 
 > n
@@ -2140,9 +2043,8 @@ is, incidentally, shaped into a huge mouth complete with fangs. Tall trees
 crowd around behind the tower, effectively blocking the way further on aside
 from one narrow path.
    Exits lie: northwest (to a field), east (into the tower) and south (along
-the narrow path).
-
-Grumble complaining of beer deprivation staggers in from the south.
+the narrow path).  Grumble complaining of beer deprivation staggers in from
+the south.
 
 > e
 You start into the shadowy confines of Arliss' tower - and find an invisible
@@ -3178,9 +3080,8 @@ hanging from its hinges. There doesn't seem to be anyone around.
    Exits lie: north (to the farmhouse), north (to the farmhouse), north (to
 the farmhouse), north (to the farmhouse), north (to the farmhouse), north (to
 the farmhouse), north (to the farmhouse), north (to the farmhouse), west (to
-the field) and southeast (to the crossroads).
-
-Snitch seems ready for trouble as he enters from the south-east.
+the field) and southeast (to the crossroads).  Snitch seems ready for trouble
+as he enters from the south-east.
 
 > n
 You move north.
@@ -3232,11 +3133,9 @@ deff!"
    Melissa shrugs. "Well, since dis mornin' anyways. But I'm still 'ungry as
 'ell. Anyways…" She glances back at you and sticks her tongue out. "She's
 ugly an' you're all stupid an' ugly!"
-   Which seems to be pretty much all Melissa has on her mind.
-
-Snitch seems ready for trouble as he enters from the south.
-
-Arliss strides towards you from the south.
+   Which seems to be pretty much all Melissa has on her mind.  Snitch seems
+ready for trouble as he enters from the south.  Arliss strides towards you
+from the south.
 
 > x melissa
 Melissa is even younger than you - you'd guess about four - but from the way
@@ -3309,11 +3208,8 @@ legs: an old sofa sits in one corner; there are a jumbled collection of boxes
 in one corner. Light is emitted from a torch in a holder on one wall but from
 the smoky atmosphere you're guessing the air conditioning down here isn't
 anything to write home about.
-   Exits lie: up (to the main room of the farmhouse).
-
-Snitch seems ready for trouble as he enters from above.
-
-Arliss strides towards you from above.
+   Exits lie: up (to the main room of the farmhouse).  Snitch seems ready for
+trouble as he enters from above.  Arliss strides towards you from above.
 
 > move sofa
 You're too small to move the sofa yourself but after convincing Grumble that
@@ -3335,11 +3231,8 @@ hate to run into the sort of person who could smash their way through the
 ground like this!) Above you is the cellar of the farmhouse whereas north - a
 loooooooooong way north - the tunnel extends.
    Exits lie: up (to the cellar) and north (3,294 locations to the end of the
-tunnel).
-
-Snitch seems ready for trouble as he enters from above.
-
-Arliss strides towards you from above.
+tunnel).  Snitch seems ready for trouble as he enters from above.  Arliss
+strides towards you from above.
 
 > n
 You move north.
@@ -3357,10 +3250,7 @@ knob or anything!
 "I'm cream-crackered!" gasps Randle.
    "Not me," says Arkle. "I'm more knackered than anything else."
    "…just as… long as… we don't… have to go… back… again… I'll be… fine…"
-gasps Arliss.
-
-Snitch seems ready for trouble as he enters from the south.
-
+gasps Arliss.  Snitch seems ready for trouble as he enters from the south.
 Arliss strides towards you from the south.
 
 > x wall
@@ -3393,10 +3283,8 @@ clean. At the far end of the room a flight of steps lead up to a dark alcove
 beyond which - quite worryingly - you can't see a single thing. At your back
 is the end of the tunnel, just visible through the hidden door you passed.
    Exits lie: down (to the end of the tunnel) and up (to the dark alcove).
-
-Snitch seems ready for trouble as he enters from below.
-
-Arliss strides towards you from below.
+Snitch seems ready for trouble as he enters from below.  Arliss strides
+towards you from below.
 
 > e
 You approach the dark alcove - and step through.
@@ -3417,11 +3305,8 @@ thought. Almost pleasant in fact."
    "Be on your guard," warns Arliss. "Nothing in this fortress should be
 pleasant."
    "I think I stubbed my toe coming up the stairs," says Snitch.
-   Arliss nods. "That's better."
-
-Snitch seems ready for trouble as he enters from the west.
-
-Arliss strides towards you from the west.
+   Arliss nods. "That's better."  Snitch seems ready for trouble as he enters
+from the west.  Arliss strides towards you from the west.
 
 > w
 You move west.
@@ -3452,11 +3337,8 @@ him.
 an' not get killed! Waaaahahahahahahahahh!"
    "Is that really a skeleton?" asks Randle.
    "Maybe we should question it and find out," says Arliss.
-   Predictably, everyone looks to you.
-
-Snitch seems ready for trouble as he enters from the east.
-
-Arliss strides towards you from the east.
+   Predictably, everyone looks to you.  Snitch seems ready for trouble as he
+enters from the east.  Arliss strides towards you from the east.
 
 > talk to ickle
 "Waahahahahahahaha!" wails Ickle. "Don't hurt me! Don't hurt lil Ickle!
@@ -3547,11 +3429,8 @@ a tunic and bowler hat stands in the centre of the room, a placard giving
 directions clutched in his bony fingers. On the west side of the room is an
 alcove of pure darkness which you can't see a thing beyond!
    Exits lie: west (to the dark alcove), north (to a gallery), east (to an
-art room) and south (to a balcony).
-
-Snitch seems ready for trouble as he enters from the west.
-
-Arliss strides towards you from the west.
+art room) and south (to a balcony).  Snitch seems ready for trouble as he
+enters from the west.  Arliss strides towards you from the west.
 
 > x throne
 No doubt this was where the lord of this fortress sat in ancient times. The
@@ -3688,11 +3567,8 @@ in dark robes standing around an altar, clutching sacrificial daggers and
 clacking their jaws together in a weird chant. Tied to the altar is a length
 of wood such as you might expect to find being carved into a door one day. To
 say the whole setting is weird would be an alarming understatement.
-   Exits lie: north (to the shadowy hall).
-
-Snitch seems ready for trouble as he enters from the north.
-
-Arliss strides towards you from the north.
+   Exits lie: north (to the shadowy hall).  Snitch seems ready for trouble as
+he enters from the north.  Arliss strides towards you from the north.
 
 > n
 You move north.
@@ -3725,11 +3601,9 @@ sacrifice lengths of wood," you say, "we sacrifice vir-"
    "It's, er, what we use for sacrifices," says Randle, struggling to keep
 his hand in place. "You'd be surprised what good sacrifices they make."
    Dimm nods. "I shall be sure to mention this to Brask the next time I see
-him. It will be information he will greatly need."
-
-Snitch seems ready for trouble as he enters from the south.
-
-Arliss strides towards you from the south.
+him. It will be information he will greatly need."  Snitch seems ready for
+trouble as he enters from the south.  Arliss strides towards you from the
+south.
 
 > s
 You move south.
@@ -3741,11 +3615,8 @@ in dark robes standing around an altar, clutching sacrificial daggers and
 clacking their jaws together in a weird chant. Tied to the altar is a length
 of wood such as you might expect to find being carved into a door one day. To
 say the whole setting is weird would be an alarming understatement.
-   Exits lie: north (to the shadowy hall).
-
-Snitch seems ready for trouble as he enters from the north.
-
-Arliss strides towards you from the north.
+   Exits lie: north (to the shadowy hall).  Snitch seems ready for trouble as
+he enters from the north.  Arliss strides towards you from the north.
 
 > cast implosion
 You unleash your deadliest spell on the skeletons. A wave of killing magic
@@ -3772,11 +3643,8 @@ directions clutched in his bony fingers. On the west side of the room is an
 alcove of pure darkness which you can't see a thing beyond!
    Exits lie: west (to the dark alcove), north (to a gallery), east (to an
 art room) and south (to a balcony).
-Dimm the skeleton is here.
-
-Snitch seems ready for trouble as he enters from the south.
-
-Arliss strides towards you from the south.
+Dimm the skeleton is here.  Snitch seems ready for trouble as he enters from
+the south.  Arliss strides towards you from the south.
 
 > n
 You move north.
@@ -3791,11 +3659,8 @@ half-snake/half-woman creature with a big scimitar in her scaly hands. They
 look like the sort of things that would give you nightmares if you spent too
 long thinking about them.
    Exits lie: south (to the shadowy hall), northwest (to a corridor) and
-north (to a large open chamber).
-
-Snitch seems ready for trouble as he enters from the south.
-
-Arliss strides towards you from the south.
+north (to a large open chamber).  Snitch seems ready for trouble as he enters
+from the south.  Arliss strides towards you from the south.
 
 > nw
 You move northwest.
@@ -3806,10 +3671,8 @@ strikes you as wrong but you're not sure what it is. As far as you can tell,
 the corridor is completely blank for its entire length which seems to be
 roughly a mile…
    Exits lie: north (along the corridor) and southeast (to the gallery).
-
-Snitch seems ready for trouble as he enters from the south-east.
-
-Arliss strides towards you from the south-east.
+Snitch seems ready for trouble as he enters from the south-east.  Arliss
+strides towards you from the south-east.
 
 > se
 You move southeast.
@@ -3860,10 +3723,7 @@ thinking that is all part of being a dwarf. He straightens and faces Benthem.
 "You got yourself a deal, bud. We give you something to drink and you give us
 that compass."
    "A deal indeed," confirms Benthem. "We'll be waiting here for your
-return."
-
-Snitch seems ready for trouble as he enters from the north-west.
-
+return."  Snitch seems ready for trouble as he enters from the north-west.
 Arliss strides towards you from the north-west.
 
 > kill benthem
@@ -3918,10 +3778,8 @@ strikes you as wrong but you're not sure what it is. As far as you can tell,
 the corridor is completely blank for its entire length which seems to be
 roughly a mile…
    Exits lie: north (along the corridor) and southeast (to the gallery).
-
-Snitch seems ready for trouble as he enters from the south-east.
-
-Arliss strides towards you from the south-east.
+Snitch seems ready for trouble as he enters from the south-east.  Arliss
+strides towards you from the south-east.
 
 > sleep
 You doze off for a few moments and, when you awaken, find your magical
@@ -3940,11 +3798,8 @@ half-snake/half-woman creature with a big scimitar in her scaly hands. They
 look like the sort of things that would give you nightmares if you spent too
 long thinking about them.
    Exits lie: south (to the shadowy hall), northwest (to a corridor) and
-north (to a large open chamber).
-
-Snitch seems ready for trouble as he enters from the north-west.
-
-Arliss strides towards you from the north-west.
+north (to a large open chamber).  Snitch seems ready for trouble as he enters
+from the north-west.  Arliss strides towards you from the north-west.
 
 > n
 You move north.
@@ -3956,11 +3811,9 @@ nevertheless). Set in each wall of this chamber are a series of suits of
 armour, seemingly embedded in the walls. You've never seen anything like it
 and if you didn't know better you'd swear the walls had suddenly come alive
 and started to swallow the statues.
-   Exits lie: south (to the gallery) and north (along a corridor).
-
-Snitch seems ready for trouble as he enters from the south.
-
-Arliss strides towards you from the south.
+   Exits lie: south (to the gallery) and north (along a corridor).  Snitch
+seems ready for trouble as he enters from the south.  Arliss strides towards
+you from the south.
 
 > n
 The moment you take a step towards the north corridor, a grill slams down
@@ -4020,11 +3873,8 @@ half-snake/half-woman creature with a big scimitar in her scaly hands. They
 look like the sort of things that would give you nightmares if you spent too
 long thinking about them.
    Exits lie: south (to the shadowy hall), northwest (to a corridor) and
-north (to a large open chamber).
-
-Snitch seems ready for trouble as he enters from the north.
-
-Arliss strides towards you from the north.
+north (to a large open chamber).  Snitch seems ready for trouble as he enters
+from the north.  Arliss strides towards you from the north.
 
 > s
 You move south.
@@ -4039,11 +3889,8 @@ directions clutched in his bony fingers. On the west side of the room is an
 alcove of pure darkness which you can't see a thing beyond!
    Exits lie: west (to the dark alcove), north (to a gallery), east (to an
 art room) and south (to a balcony).
-Dimm the skeleton is here.
-
-Snitch seems ready for trouble as he enters from the north.
-
-Arliss strides towards you from the north.
+Dimm the skeleton is here.  Snitch seems ready for trouble as he enters from
+the north.  Arliss strides towards you from the north.
 
 > e
 You move east.
@@ -4055,10 +3902,7 @@ walking corpse so that probably goes without saying). A skeleton, apparently
 asleep, is seated at a desk by a collection of the better portraits. Faint
 snores emanate from its fleshless skull.
    Exits lie: west (to the shadowy hall) and east (to another room of
-portraits).
-
-Snitch seems ready for trouble as he enters from the west.
-
+portraits).  Snitch seems ready for trouble as he enters from the west.
 Arliss strides towards you from the west.
 
 > e
@@ -4072,10 +3916,7 @@ one skeleton from the next as they all look surprisingly similar. A circular
 staircase in the centre of the room leads up to the next part of the
 fortress.
    Exits lie: west (to the art room) and up (to the next part of the
-fortress).
-
-Snitch seems ready for trouble as he enters from the west.
-
+fortress).  Snitch seems ready for trouble as he enters from the west.
 Arliss strides towards you from the west.
 
 > u
@@ -4088,11 +3929,8 @@ The statue must be thirty feet tall and carries a sword in one hand and a
 dead body in the other. You find yourself really hoping that this isn't a
 true representation of what Brask is really like because he looks big.
    Exits lie: down (to the portraits room) and west, northwest and northeast
-(deeper into the fortress).
-
-Snitch seems ready for trouble as he enters from below.
-
-Arliss strides towards you from below.
+(deeper into the fortress).  Snitch seems ready for trouble as he enters from
+below.  Arliss strides towards you from below.
 
 > w
 You move west.
@@ -4102,11 +3940,9 @@ This passage looks like it has started to decay. The walls lean at an angle,
 the ceiling sags and even the floor has a rotted look to it. Walking about is
 awkward and dangerous due to the gaps in the flagstones and you suspect at
 any moment for the whole thing to come crashing down around you.
-   Exits lie: east (to the empty hall) and west (to a small study).
-
-Snitch seems ready for trouble as he enters from the east.
-
-Arliss strides towards you from the east.
+   Exits lie: east (to the empty hall) and west (to a small study).  Snitch
+seems ready for trouble as he enters from the east.  Arliss strides towards
+you from the east.
 
 > w
 You move west.
@@ -4118,11 +3954,9 @@ before a roaring log fire. On the edge of the bureau is a large glass of
 wine, with a bottle at the side of it promising further refreshments. A
 comfortable looking armchair sits before the fire. Above it there is a window
 showing a sunny meadow with several cows giving each other the evil eye.
-   Exits lie: east (to the crumbling passage).
-
-Snitch seems ready for trouble as he enters from the east.
-
-Arliss strides towards you from the east.
+   Exits lie: east (to the crumbling passage).  Snitch seems ready for
+trouble as he enters from the east.  Arliss strides towards you from the
+east.
 
 > read scroll
 You read:
@@ -4201,11 +4035,9 @@ This passage looks like it has started to decay. The walls lean at an angle,
 the ceiling sags and even the floor has a rotted look to it. Walking about is
 awkward and dangerous due to the gaps in the flagstones and you suspect at
 any moment for the whole thing to come crashing down around you.
-   Exits lie: east (to the empty hall) and west (to a small study).
-
-Snitch seems ready for trouble as he enters from the west.
-
-Arliss strides towards you from the west.
+   Exits lie: east (to the empty hall) and west (to a small study).  Snitch
+seems ready for trouble as he enters from the west.  Arliss strides towards
+you from the west.
 
 > w
 You move west.
@@ -4252,11 +4084,8 @@ beer hater though."
    You study the orb and Arliss casts a wizened eye over it. It's difficult
 to make out much about it but you're sure there's something very, very
 powerful about this orb. You can practically feel the magic emanating from
-it.
-
-Snitch seems ready for trouble as he enters from the east.
-
-Arliss strides towards you from the east.
+it.  Snitch seems ready for trouble as he enters from the east.  Arliss
+strides towards you from the east.
 
 > e
 You move east.
@@ -4266,11 +4095,9 @@ This passage looks like it has started to decay. The walls lean at an angle,
 the ceiling sags and even the floor has a rotted look to it. Walking about is
 awkward and dangerous due to the gaps in the flagstones and you suspect at
 any moment for the whole thing to come crashing down around you.
-   Exits lie: east (to the empty hall) and west (to a small study).
-
-Snitch seems ready for trouble as he enters from the west.
-
-Arliss strides towards you from the west.
+   Exits lie: east (to the empty hall) and west (to a small study).  Snitch
+seems ready for trouble as he enters from the west.  Arliss strides towards
+you from the west.
 
 > e
 You move east.
@@ -4282,11 +4109,8 @@ The statue must be thirty feet tall and carries a sword in one hand and a
 dead body in the other. You find yourself really hoping that this isn't a
 true representation of what Brask is really like because he looks big.
    Exits lie: down (to the portraits room) and west, northwest and northeast
-(deeper into the fortress).
-
-Snitch seems ready for trouble as he enters from the west.
-
-Arliss strides towards you from the west.
+(deeper into the fortress).  Snitch seems ready for trouble as he enters from
+the west.  Arliss strides towards you from the west.
 
 > d
 You move down.
@@ -4299,11 +4123,8 @@ one skeleton from the next as they all look surprisingly similar. A circular
 staircase in the centre of the room leads up to the next part of the
 fortress.
    Exits lie: west (to the art room) and up (to the next part of the
-fortress).
-
-Snitch seems ready for trouble as he enters from above.
-
-Arliss strides towards you from above.
+fortress).  Snitch seems ready for trouble as he enters from above.  Arliss
+strides towards you from above.
 
 > w
 You move west.
@@ -4315,10 +4136,7 @@ walking corpse so that probably goes without saying). A skeleton, apparently
 asleep, is seated at a desk by a collection of the better portraits. Faint
 snores emanate from its fleshless skull.
    Exits lie: west (to the shadowy hall) and east (to another room of
-portraits).
-
-Snitch seems ready for trouble as he enters from the east.
-
+portraits).  Snitch seems ready for trouble as he enters from the east.
 Arliss strides towards you from the east.
 
 > w
@@ -4334,11 +4152,8 @@ directions clutched in his bony fingers. On the west side of the room is an
 alcove of pure darkness which you can't see a thing beyond!
    Exits lie: west (to the dark alcove), north (to a gallery), east (to an
 art room) and south (to a balcony).
-Dimm the skeleton is here.
-
-Snitch seems ready for trouble as he enters from the east.
-
-Arliss strides towards you from the east.
+Dimm the skeleton is here.  Snitch seems ready for trouble as he enters from
+the east.  Arliss strides towards you from the east.
 
 > give orb
 "Ah," says Dimm, cradling the orb in his hands. "I had hoped to recover this
@@ -4358,10 +4173,7 @@ walking corpse so that probably goes without saying). A skeleton, apparently
 asleep, is seated at a desk by a collection of the better portraits. Faint
 snores emanate from its fleshless skull.
    Exits lie: west (to the shadowy hall) and east (to another room of
-portraits).
-
-Snitch seems ready for trouble as he enters from the west.
-
+portraits).  Snitch seems ready for trouble as he enters from the west.
 Arliss strides towards you from the west.
 
 > e
@@ -4375,10 +4187,7 @@ one skeleton from the next as they all look surprisingly similar. A circular
 staircase in the centre of the room leads up to the next part of the
 fortress.
    Exits lie: west (to the art room) and up (to the next part of the
-fortress).
-
-Snitch seems ready for trouble as he enters from the west.
-
+fortress).  Snitch seems ready for trouble as he enters from the west.
 Arliss strides towards you from the west.
 
 > u
@@ -4391,11 +4200,8 @@ The statue must be thirty feet tall and carries a sword in one hand and a
 dead body in the other. You find yourself really hoping that this isn't a
 true representation of what Brask is really like because he looks big.
    Exits lie: down (to the portraits room) and west, northwest and northeast
-(deeper into the fortress).
-
-Snitch seems ready for trouble as he enters from below.
-
-Arliss strides towards you from below.
+(deeper into the fortress).  Snitch seems ready for trouble as he enters from
+below.  Arliss strides towards you from below.
 
 > nw
 The moment you set foot on the northwest corridor, a strange sensation sweeps

@@ -1097,9 +1097,7 @@ The hall is huge and has Gargoyles around the ceiling. When looking at one,
 another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.
-Larnt is here.
-
-Haron follows you from the south.
+Larnt is here.  Haron follows you from the south.
 
 > attack larnt
 You cut Larnt with the small sword.
@@ -1156,9 +1154,8 @@ Long room
 The room is very long and has a huge table down the centre of it. There are
 lots of chairs down the sides of the table. At the head of the table is a
 large chair almost like a throne. On the north wall is a stone door, but it
-is locked. South will take you into the Main Hall.
-
-Haron follows you from the south.
+is locked. South will take you into the Main Hall.  Haron follows you from
+the south.
 
 > x long table
 The table is huge and would seat about 50 people around it.  A small key is
@@ -1176,9 +1173,7 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.
 
-You can also see a blade from Uron.
-
-Haron follows you from the north.
+You can also see a blade from Uron.  Haron follows you from the north.
 
 > w
 You move west.
@@ -1186,9 +1181,8 @@ You move west.
 Corridor
 This long narrow corridor is very poorly lit. It is lit by just one candle,
 very high up. There are some stairs up to another room, or you can go South
-to a small room. The main hall is due east of here.
-
-Haron follows you from the east.
+to a small room. The main hall is due east of here.  Haron follows you from
+the east.
 
 > u
 You move up.
@@ -1196,9 +1190,7 @@ You move up.
 Bedroom
 The room is small, but in the centre is a huge bed. Around the outside of the
 walls are chests and cupboards. There sre some stairs leading down to a
-corridor.
-
-Haron follows you from below.
+corridor.  Haron follows you from below.
 
 > unlock chest
 The key turns slowly in the lock of the chest. Suddenly with a clunk the
@@ -1221,9 +1213,8 @@ You move down.
 Corridor
 This long narrow corridor is very poorly lit. It is lit by just one candle,
 very high up. There are some stairs up to another room, or you can go South
-to a small room. The main hall is due east of here.
-
-Haron follows you from above.
+to a small room. The main hall is due east of here.  Haron follows you from
+above.
 
 > e
 You move east.
@@ -1234,9 +1225,7 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.
 
-You can also see a blade from Uron.
-
-Haron follows you from the west.
+You can also see a blade from Uron.  Haron follows you from the west.
 
 > n
 You move north.
@@ -1245,9 +1234,8 @@ Long room
 The room is very long and has a huge table down the centre of it. There are
 lots of chairs down the sides of the table. At the head of the table is a
 large chair almost like a throne. On the north wall is a stone door, but it
-is locked. South will take you into the Main Hall.
-
-Haron follows you from the south.
+is locked. South will take you into the Main Hall.  Haron follows you from
+the south.
 
 > unlock door
 The key turns in the lock and with a clunk the door unlocks.
@@ -1268,9 +1256,8 @@ You move north.
 Mirror room
 This room is small but on each wall except the south wall, is a mirror. There
 is a West mirror, a North mirror, and an East Mirror. The mirrors look like
-doorways. As you look closer at each one, they display somewhere else.
-
-Haron follows you from the south.
+doorways. As you look closer at each one, they display somewhere else.  Haron
+follows you from the south.
 
 > drink gourd
 You do not have the Gourd.
@@ -1288,16 +1275,12 @@ A dark figure darts out of the door to the North of here.
 The seven stones of power are placed around the room. There is a red glow
 coming from them all. They seem to be joined by a beam of red light.
  The stones suddenly fly into the air and dissapear through the doorway to
-the North.
-
-Haron follows you.
+the North.  Haron follows you.
 
 > north
 As you pass through the door, Urgorn creates a spell that shuts the exit to
 the South. He then smiles, and says:
- Just us now, no escape.
-
-Haron follows you from the south.
+ Just us now, no escape.  Haron follows you from the south.
 
 > attack urgorn
 You cut Urgorn with the small sword.

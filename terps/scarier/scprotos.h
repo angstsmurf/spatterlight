@@ -329,6 +329,8 @@ extern scr_bool pf_undo_auto_break (scr_filterref_t filter);
 extern scr_bool pf_ends_with_double_space (scr_filterref_t filter);
 extern void pf_buffer_join (scr_filterref_t filter,
                             const scr_char *string);
+extern void pf_buffer_join_always (scr_filterref_t filter,
+                                  const scr_char *string);
 extern void pf_prepend_string (scr_filterref_t filter,
                                const scr_char *string);
 extern void pf_new_sentence (scr_filterref_t filter);

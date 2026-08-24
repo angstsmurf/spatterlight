@@ -573,9 +573,7 @@ of years working as a carpenter). The decorative mouldings and all the
 handrails look like they are bronze.  You can go west to a corridor, east to
 the forward staircase and to the southeast is a barber shop.
 The Master-at-Arms is stood watching you very carefully.  The concerned
-looking ship's barber is here.
-
-Master-at-Arms King leaves to the south-east.
+looking ship's barber is here.  Master-at-Arms King leaves to the south-east.
 
 > east
 You move east.
@@ -1396,9 +1394,7 @@ Forward Staircase, C Deck
 The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'B' deck or down the staircase to 'D'
 deck.  To the west is the entrance to the Library.  The staircase has
-developed quite a slope.
-
-Master-at-Arms King enters from above.
+developed quite a slope.  Master-at-Arms King enters from above.
 Some people wearing lifebelts push passed and head up the stairs. You hear
 one of them say, "I overheard someone say that the ship has hit an iceberg."
 

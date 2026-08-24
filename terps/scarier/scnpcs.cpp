@@ -570,6 +570,50 @@ npc_wherefrom (scr_gameref_t game, scr_int roomfrom, scr_int roomto)
  *
  * "outside" is special-cased in every Runner: "walks off outside." rather
  * than "walks off to outside.".
+ *
+ * The line is JOINED onto whatever the turn has printed so far, with the
+ * Runner's two-space separator, rather than given a line of its own.  All
+ * four Runners do it, the older two with the test written out inline and the
+ * newer two through pspace:
+ *
+ *   run370 loc_4395AA / run380 loc_441740
+ *       If Right(buf, 1) <> Chr(10) And Len(buf) > 0 Then buf = buf & "  "
+ *   run390 loc_45A99E / run400 loc_468A67
+ *       Call pspace()   ' the same test plus "already ends in two spaces"
+ *                       ' and "already ends in <br>"
+ *
+ * which is what pf_buffer_join() is.  This is not cosmetic: the arrival
+ * sentence lands in the same buffer the ALR pass later walks, so an author
+ * can -- and David Whyld routinely does -- write an ALR whose Original spans
+ * the join and deletes the arrival at a named spot.  sophie.taf carries a
+ * whole family of them, e.g.
+ *
+ *   'quiet.  Grumble complaining of beer deprivation staggers in from the
+ *    west.'  ->  'quiet.'
+ *
+ * and that is why eight of its first fifty turns say nothing about Grumble.
+ * Buffered on a line of its own, as this used to be, no such ALR can ever
+ * match.  Measured with harness/make_400_walkalrprobe.py under run400
+ * (Adrift_47.txt): its cross-the-join ALRs both fire, and the single-space
+ * twin of one of them does not, so the separator really is two spaces.
+ *
+ * Whether the Name is capitalised is a version split of its own, and one the
+ * join makes visible: 3.7, 3.8 and 3.9 concatenate the Name verbatim
+ * (run370 loc_43961A / run380 loc_4417B0 / run390 loc_45AA0F all push the raw
+ * field), while 4.0 puts it through the Runner's one-line capitaliser first
+ * (run400 loc_468A79 and loc_4688E0 both call
+ *     Proc_21_3_446BB4 = UCase(Left(s, 1)) & Right(s, Len(s) - 1)
+ * General.bas:75).  It matters for exactly the NPCs whose Name starts
+ * lower-case, which is not a hypothetical: baroo.taf (4.00) names its walkers
+ * "wizard" and "warlock" with Prefix "the", so 4.0 really does print "Wizard
+ * strides off to the east." while a 3.9 game in the same shape would print
+ * "wizard".  SCARE used to capitalise unconditionally, which was right for
+ * 4.0 and wrong for everything older.
+ *
+ * The join carries the version split pf_buffer_join_always() exists for: 3.9
+ * and 4.0 go through pspace, which does not add a separator to text that
+ * already ends in one, while 3.7 and 3.8 add theirs unconditionally and so
+ * really do make four spaces there.
  */
 static void
 npc_announce (scr_gameref_t game, scr_int npc,
@@ -606,10 +650,13 @@ npc_announce (scr_gameref_t game, scr_int npc,
   vt_key[2].string = "Name";
   name = prop_get_string (bundle, "S<-sis", vt_key);
 
-  /* Print NPC exit/entry details. */
-  pf_buffer_character (filter, '\n');
-  pf_new_sentence (filter);
-  pf_buffer_string (filter, name);
+  /* Print NPC exit/entry details, run on from the turn's text so far. */
+  if (is_400)
+    pf_new_sentence (filter);
+  if (npc_version (game) >= TAF_VERSION_390)
+    pf_buffer_join (filter, name);
+  else
+    pf_buffer_join_always (filter, name);
   pf_buffer_character (filter, ' ');
   pf_buffer_string (filter, text);
   if (strcmp (dir, NOWHERE) != 0)
@@ -643,6 +690,10 @@ npc_announce (scr_gameref_t game, scr_int npc,
  * It exists in 3.7 (run370 loc_4397A3) and in 4.0 (run400 loc_468CF9) only.
  * run380 loc_4418DD and run390 have nothing in that branch but the "stamp the
  * NPC nowhere" assignment, so a 3.8 or 3.9 walker vanishes in silence.
+ *
+ * Both sites append a bare "  " with no pspace call and push the raw Name --
+ * so this branch joins unconditionally, and 4.0 does NOT capitalise here even
+ * though its two npc_announce() sites do.
  */
 static void
 npc_announce_hidden (scr_gameref_t game, scr_int npc)
@@ -668,9 +719,20 @@ npc_announce_hidden (scr_gameref_t game, scr_int npc)
   vt_key[2].string = "Name";
   name = prop_get_string (bundle, "S<-sis", vt_key);
 
-  pf_buffer_character (filter, '\n');
-  pf_new_sentence (filter);
-  pf_buffer_string (filter, name);
+  /*
+   * Joined on like npc_announce()'s lines, though here the two Runners that
+   * have this branch at all append the separator unguarded --
+   *
+   *   run370 loc_4397A3   buf = buf & "  " & Name & " " & ExitText & "."
+   *   run400 loc_468CF9   the same, no pspace call
+   *
+   * -- so a turn whose only output is a hidden departure really does open
+   * with two spaces there, and text already ending in two spaces gets two
+   * more in both.  The empty-buffer half of pf_buffer_join_always()'s guard
+   * is kept: it can differ only in that leading-whitespace case, which
+   * nothing can depend on.
+   */
+  pf_buffer_join_always (filter, name);
   pf_buffer_character (filter, ' ');
   pf_buffer_string (filter, text);
   pf_buffer_string (filter, ".\n");

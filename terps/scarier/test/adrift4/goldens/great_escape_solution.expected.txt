@@ -270,9 +270,7 @@ Loud sirens awake you from your soap-apera induced slumber. The doorbell
 rings.
 
 > z
-Time passes...
-
-Mrs Walters totters into the room.
+Time passes...  Mrs Walters totters into the room.
 The ambulance man charges through the door knocking you over. You pick
 yourself up and see that the ambulance man is crouched over the dead body of
 Mrs Walters. He sighs a deep sigh and says "Dammit, I'm afraid she's dead
@@ -284,9 +282,7 @@ a few minutes the body of Mrs Walters is whisked away. The ambulance-man also
 leaves quickly leaving you feeling very depressed and alone.
 
 > z
-Time passes...
-
-Mrs Walters totters out of the room to the east.
+Time passes...  Mrs Walters totters out of the room to the east.
 
 > take picasso
 You quickly take the picasso and run out of the door.

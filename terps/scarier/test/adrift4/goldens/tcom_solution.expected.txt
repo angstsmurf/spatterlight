@@ -165,10 +165,8 @@ something that looks like a huge, dark wooden door.
 
 Ugh - I just stepped on something soft and unpleasant. I look downward.
 
-Also here is a soft and unpleasant thing.
-
-Death drifts along the asphalt towards me, silent and precise in his
-relentless pursuit.
+Also here is a soft and unpleasant thing.  Death drifts along the asphalt
+towards me, silent and precise in his relentless pursuit.
 
 > n
 I move north.

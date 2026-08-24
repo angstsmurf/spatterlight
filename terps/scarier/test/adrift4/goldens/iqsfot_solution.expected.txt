@@ -150,9 +150,7 @@ Silthen glares at him as she leaves.  The First Mate is perpetually annoyed
 with him.  Most of the crew have forgiven Irvine for his accident, but not
 her.  She's Ghlarskean, true, but the First Mate may be the only member of
 the crew-- or of the galaxy-- who wouldn't call his extinct home planet's
-population "just humans."
-
-HiRBy hovers over from inside.
+population "just humans."  HiRBy hovers over from inside.
 
 > port
 Irvine goes port.
@@ -161,9 +159,7 @@ OUTSIDE SHIP'S BRIDGE
 A corridor of ultralight titanium.  Most importantly, the door to the ship's
 bridge is forward from here.  The hall continues port and starboard towards
 crew quarters.  A flight of stairs leads down toward the lab and the
-artificial gravity core.
-
-HiRBy hovers over from the south.
+artificial gravity core.  HiRBy hovers over from the south.
 
 > forward
 The door slides open with a swoosh and Irvine goes forward.
@@ -180,9 +176,7 @@ A draft blows through the room.
 Also here are the computer goggles.
 The Captain is here.
 
-The door closes behind Irvine.
-
-HiRBy hovers over from outside.
+The door closes behind Irvine.  HiRBy hovers over from outside.
 
 CHAPTER TWO:
 
@@ -314,18 +308,15 @@ bridge is forward from here.  The hall continues port and starboard towards
 crew quarters.  A flight of stairs leads down toward the lab and the
 artificial gravity core.
 
-The door closes behind Irvine.
-
-HiRBy hovers over from inside.
+The door closes behind Irvine.  HiRBy hovers over from inside.
 
 > starboard
 Irvine goes starboard.
 
 OUTSIDE IRVINE'S CABIN
 The hall continues aft towards the ship's lounge and port towards the bridge.
- To starboard, a door reads: "Irvine Quik: Cadet."
-
-HiRBy hovers over from the north.
+ To starboard, a door reads: "Irvine Quik: Cadet."  HiRBy hovers over from
+the north.
 
 > starboard
 The door slides open with a swoosh and Irvine goes starboard.
@@ -337,9 +328,7 @@ button) leads out of the chamber to port.
 
 Also here is a holopostcard.
 
-The door closes behind Irvine.
-
-HiRBy hovers over from outside.
+The door closes behind Irvine.  HiRBy hovers over from outside.
 
 > open compartment
 Irvine unclosess the small compartment.  A strip of papyr is inside the small
@@ -380,9 +369,7 @@ OUTSIDE IRVINE'S CABIN
 The hall continues aft towards the ship's lounge and port towards the bridge.
  To starboard, a door reads: "Irvine Quik: Cadet."
 
-The door closes behind Irvine.
-
-HiRBy hovers over from inside.
+The door closes behind Irvine.  HiRBy hovers over from inside.
 
 > port
 Irvine goes port.
@@ -391,9 +378,7 @@ OUTSIDE SHIP'S BRIDGE
 A corridor of ultralight titanium.  Most importantly, the door to the ship's
 bridge is forward from here.  The hall continues port and starboard towards
 crew quarters.  A flight of stairs leads down toward the lab and the
-artificial gravity core.
-
-HiRBy hovers over from the south.
+artificial gravity core.  HiRBy hovers over from the south.
 
 > port
 Irvine goes port.
@@ -402,18 +387,14 @@ EXIT HATCH
 The corridor continues aft to the kitchens and starboard toward the bridge.
 To port, a door reads: "Gatts Grupen: Captain."  A hatch leads down to the
 surface of Traglea.
-First Mate Silthen attends the exit hatch.
-
-HiRBy hovers over from the south.
+First Mate Silthen attends the exit hatch.  HiRBy hovers over from the south.
 
 > aft
 Irvine goes aft.
 
 OUTSIDE SHIP'S CLOSET
 The hall continues forward toward the bridge and aft toward the kitchens.  A
-door to port reads: "Closet."
-
-HiRBy hovers over from the east.
+door to port reads: "Closet."  HiRBy hovers over from the east.
 
 > port
 The door slides open with a swoosh and Irvine goes port.
@@ -425,9 +406,7 @@ which is an inconspicuous privacy button.
 
 Also here is the tiger coat.
 
-The door closes behind Irvine.
-
-HiRBy hovers over from outside.
+The door closes behind Irvine.  HiRBy hovers over from outside.
 
 > get coat
 Irvine picks up the tiger coat.
@@ -445,9 +424,7 @@ OUTSIDE SHIP'S CLOSET
 The hall continues forward toward the bridge and aft toward the kitchens.  A
 door to port reads: "Closet."
 
-The door closes behind Irvine.
-
-HiRBy hovers over from inside.
+The door closes behind Irvine.  HiRBy hovers over from inside.
 
 > forward
 Irvine goes forward.
@@ -456,9 +433,7 @@ EXIT HATCH
 The corridor continues aft to the kitchens and starboard toward the bridge.
 To port, a door reads: "Gatts Grupen: Captain."  A hatch leads down to the
 surface of Traglea.
-First Mate Silthen attends the exit hatch.
-
-HiRBy hovers over from the west.
+First Mate Silthen attends the exit hatch.  HiRBy hovers over from the west.
 
 > down
 Irvine moves out the exit and down the ship's gangplank.
@@ -518,7 +493,6 @@ gangplank leads up into the hull of the ship.
 
 Some mechanics rush over to check in the spaceship, then leave Nika to her
 work.
-
 HiRBy hovers over from inside.
 
 > e
@@ -529,9 +503,7 @@ A circle of tall, broad-leafed trees grows here, surrounded by ridiculously
 dense foliage, and a few other, shorter trees. A monkey chitters and romps in
 the trees above.  The path continues to the north and west, and dips slightly
 to the south, from whence comes the trickling of a small brook.  The gate to
-Ki'parandazar looms to the east.
-
-HiRBy hovers over from the west.
+Ki'parandazar looms to the east.  HiRBy hovers over from the west.
 
 Uh oh...
 
@@ -558,9 +530,8 @@ Irvine goes south.
 BROOK
 A tame, friendly jungle thrives all around this area.  A brook flows by here,
 its waters playing music on some of the larger stones protruding from it.
-Brim the Kitten sits here, holding a fishing pole and pouting.
-
-HiRBy hovers over from the north.
+Brim the Kitten sits here, holding a fishing pole and pouting.  HiRBy hovers
+over from the north.
 
 The kitten looks at Irvine with pleading eyes and pouts.  "I can't get it.
 It won't work."
@@ -597,9 +568,7 @@ the trees above.  The path continues to the north and west, and dips slightly
 to the south, from whence comes the trickling of a small brook.  The gate to
 Ki'parandazar looms to the east.
 
-Also here is a red fruit.
-
-HiRBy hovers over from the south.
+Also here is a red fruit.  HiRBy hovers over from the south.
 
 > e
 Irvine goes east.
@@ -610,7 +579,6 @@ The grass, in turn, is interrupted by a tall wall of elaborate columns
 running from north to south.  An ornately decorated gate rests in the wall.
 A cleared plot is to the south.
 Drash the Guard stands at the ready here.  Grastor the Champion is here.
-
 HiRBy hovers over from the west.
 
 Upon seeing him, Drash the Guard salutes Irvine and requests him to stop.  He
@@ -636,9 +604,7 @@ A small, flat plot of green has been cleared from the jungle here, while the
 jungle regains its thick shaggy grasses and holds the line of its trees to
 the west.  To the south is a waterfall.
 
-A bush of Traglenip is busy growing here.
-
-HiRBy hovers over from the north.
+A bush of Traglenip is busy growing here.  HiRBy hovers over from the north.
 
 > get traglenip
 Irvine picks up a sprig of Traglenip from the bush.
@@ -652,7 +618,6 @@ The grass, in turn, is interrupted by a tall wall of elaborate columns
 running from north to south.  An ornately decorated gate rests in the wall.
 A cleared plot is to the south.
 Drash the Guard stands at the ready here.  Grastor the Champion is here.
-
 HiRBy hovers over from the south.
 
 Drash appears distracted.
@@ -689,9 +654,7 @@ of his inventory open to rule #4: "When all is lost, retreat, but never
 surrender!"
 
 Grastor bears down on Irvine, glaring and growling while he recovers his
-book.
-
-HiRBy hovers over.
+book.  HiRBy hovers over.
 
 > drop traglenip
 Irvine sets downs the sprig of Traglenip.
@@ -710,9 +673,7 @@ scent of sulfur and methane dominate the stuffy air.  The tunnel continues
 north and south.
 
 Irvine gasps for breath.  Continuing the retreat back to the city gates to
-regroup seems the most prudent course.
-
-HiRBy hovers over from the north.
+regroup seems the most prudent course.  HiRBy hovers over from the north.
 
 > s
 Irvine goes south.
@@ -724,9 +685,8 @@ through it.  The entrance to the cave is flanked by a standing torch to its
 left, and a stretched scaly hide on its right.  A large mask hangs high over
 the cave entrance.
 
-A clumsy stalagmite juts out of the ground.
-
-HiRBy hovers over from the north.
+A clumsy stalagmite juts out of the ground.  HiRBy hovers over from the
+north.
 
 > w
 Irvine bangs his shin on a stalagmite and falls over, cursing.
@@ -739,9 +699,7 @@ The jungle grows wild here, its trees no longer glowing.  A natural opening
 formed by crooked trees gives sight to a dark, foreboding forest beyond,
 where unseen eyes and disembodied hisses of constant spectres lurk and the
 very trees twist and blacken with malice.  The jungle is more tame to the
-south.
-
-HiRBy hovers over from the east.
+south.  HiRBy hovers over from the east.
 
 > s
 Irvine flees south.
@@ -756,9 +714,7 @@ as a grotesque, blackened mockery of its original form, as if all trees
 shared the same root in the darkness itself.  A putrid-sweet, rotting smell
 fills the sickly air.  Cricketous whistling emits from somewhere nearby.  The
 sporadic rustling of the undergrowth throws Irvine's mind into a mess of
-frantic questions.
-
-HiRBy hovers over from the north.
+frantic questions.  HiRBy hovers over from the north.
 
 Irvine's health recovers slightly.
 
@@ -770,9 +726,7 @@ The jungle grows wild here, its trees no longer glowing.  A natural opening
 formed by crooked trees gives sight to a dark, foreboding forest beyond,
 where unseen eyes and disembodied hisses of constant spectres lurk and the
 very trees twist and blacken with malice.  The jungle is more tame to the
-south.
-
-HiRBy hovers over from the north.
+south.  HiRBy hovers over from the north.
 
 > s
 Irvine goes south.
@@ -784,9 +738,7 @@ the trees above.  The path continues to the north and west, and dips slightly
 to the south, from whence comes the trickling of a small brook.  The gate to
 Ki'parandazar looms to the east.
 
-Also here is a red fruit.
-
-HiRBy hovers over from the north.
+Also here is a red fruit.  HiRBy hovers over from the north.
 
 > e
 Irvine goes east.
@@ -796,9 +748,7 @@ The path to the west is overrun by the thick, verdant grasses of the jungle.
 The grass, in turn, is interrupted by a tall wall of elaborate columns
 running from north to south.  An ornately decorated gate rests in the wall.
 A cleared plot is to the south.
-Drash the Guard stands at the ready here.
-
-HiRBy hovers over from the west.
+Drash the Guard stands at the ready here.  HiRBy hovers over from the west.
 
 > s
 Irvine goes south.
@@ -808,9 +758,7 @@ A small, flat plot of green has been cleared from the jungle here, while the
 jungle regains its thick shaggy grasses and holds the line of its trees to
 the west.  To the south is a waterfall.
 
-A bush of Traglenip is busy growing here.
-
-HiRBy hovers over from the north.
+A bush of Traglenip is busy growing here.  HiRBy hovers over from the north.
 
 > s
 Irvine goes south.
@@ -822,9 +770,7 @@ droplets moistening the air.  The way south is made impassable by the river.
 A way north leads back to Ki'parandazar.
 
 A wooden crate lies here.  A forcefield projector here is off, and quiet as a
-lump.
-
-HiRBy hovers over from the north.
+lump.  HiRBy hovers over from the north.
 
 Irvine's health recovers slightly.
 
@@ -838,9 +784,7 @@ the west.  To the south is a waterfall.
 
 A bush of Traglenip is busy growing here.
 
-Also here is the crate.
-
-HiRBy hovers over from the south.
+Also here is the crate.  HiRBy hovers over from the south.
 
 > push crate n
 Irvine pushes the crate north.
@@ -852,9 +796,7 @@ running from north to south.  An ornately decorated gate rests in the wall.
 A cleared plot is to the south.
 Drash the Guard stands at the ready here.
 
-Also here is the crate.
-
-HiRBy hovers over from the south.
+Also here is the crate.  HiRBy hovers over from the south.
 
 > push crate w
 Irvine pushes the crate west.
@@ -868,9 +810,7 @@ Ki'parandazar looms to the east.
 
 Also here is a red fruit.
 
-Also here is the crate.
-
-HiRBy hovers over from the east.
+Also here is the crate.  HiRBy hovers over from the east.
 
 > climb crate
 Irvine clambers atop the crate.
@@ -906,9 +846,7 @@ The path to the west is overrun by the thick, verdant grasses of the jungle.
 The grass, in turn, is interrupted by a tall wall of elaborate columns
 running from north to south.  An ornately decorated gate rests in the wall.
 A cleared plot is to the south.
-Drash the Guard stands at the ready here.
-
-HiRBy hovers over from the west.
+Drash the Guard stands at the ready here.  HiRBy hovers over from the west.
 
 > give coat to drash
 Irvine shows the tiger coat to Drash.
@@ -932,9 +870,7 @@ Irvine goes east.
 
 KI'PARANDAZAR, GATES
 Nice city.  A lane laid in shining stone leads east from here.  The city gate
-is to the west.
-
-HiRBy hovers over from outside.
+is to the west.  HiRBy hovers over from outside.
 
 CHAPTER FOUR:
 
@@ -950,9 +886,7 @@ Irvine goes east.
 
 MASTER MOJI'S DOJO
 A dragon statue stands near the door of Master Moji's Dojo.  The Shining Lane
-continues west and north.
-
-HiRBy hovers over from the west.
+continues west and north.  HiRBy hovers over from the west.
 
 > in
 Irvine enters Master Moji's Dojo.
@@ -960,9 +894,8 @@ Irvine enters Master Moji's Dojo.
 TRAGLEAN KARATE LESSONS
 Matted floors and training equipment fill this room.  A practice dummy is set
 up off to the side.
-Master Moji sits cross-legged upon a very high stool.
-
-HiRBy hovers over from outside.
+Master Moji sits cross-legged upon a very high stool.  HiRBy hovers over from
+outside.
 
 "Ah, Young Rabbit..." says the old Master.  "Have you come to learn martial
 arts?" (Y/N)
@@ -1033,9 +966,7 @@ Irvine goes west.
 
 KI'PARANDAZAR, GATES
 Nice city.  A lane laid in shining stone leads east from here.  The city gate
-is to the west.
-
-HiRBy hovers over.
+is to the west.  HiRBy hovers over.
 
 > w
 Irvine goes west.
@@ -1044,9 +975,7 @@ OUTSIDE CITY GATE
 The path to the west is overrun by the thick, verdant grasses of the jungle.
 The grass, in turn, is interrupted by a tall wall of elaborate columns
 running from north to south.  An ornately decorated gate rests in the wall.
-A cleared plot is to the south.
-
-HiRBy hovers over from inside.
+A cleared plot is to the south.  HiRBy hovers over from inside.
 
 > w
 Irvine goes west.
@@ -1060,9 +989,7 @@ Ki'parandazar looms to the east.
 
 A wooden crate lies here.
 
-Also here is a red fruit.
-
-HiRBy hovers over from the east.
+Also here is a red fruit.  HiRBy hovers over from the east.
 
 > n
 Irvine goes north.
@@ -1072,9 +999,7 @@ The jungle grows wild here, its trees no longer glowing.  A natural opening
 formed by crooked trees gives sight to a dark, foreboding forest beyond,
 where unseen eyes and disembodied hisses of constant spectres lurk and the
 very trees twist and blacken with malice.  The jungle is more tame to the
-south.
-
-HiRBy hovers over from the south.
+south.  HiRBy hovers over from the south.
 
 > n
 Irvine goes north.
@@ -1086,9 +1011,7 @@ as a grotesque, blackened mockery of its original form, as if all trees
 shared the same root in the darkness itself.  A putrid-sweet, rotting smell
 fills the sickly air.  Cricketous whistling emits from somewhere nearby.  The
 sporadic rustling of the undergrowth throws Irvine's mind into a mess of
-frantic questions.
-
-HiRBy hovers over from the south.
+frantic questions.  HiRBy hovers over from the south.
 
 Irvine cowers at the jungle and Grastor bursts out from behind a dark tree,
 startling him!
@@ -1167,9 +1090,7 @@ The jungle grows wild here, its trees no longer glowing.  A natural opening
 formed by crooked trees gives sight to a dark, foreboding forest beyond,
 where unseen eyes and disembodied hisses of constant spectres lurk and the
 very trees twist and blacken with malice.  The jungle is more tame to the
-south.
-
-HiRBy hovers over from the north.
+south.  HiRBy hovers over from the north.
 
 > s
 Irvine goes south.
@@ -1183,9 +1104,7 @@ Ki'parandazar looms to the east.
 
 A wooden crate lies here.
 
-Also here is a red fruit.
-
-HiRBy hovers over from the north.
+Also here is a red fruit.  HiRBy hovers over from the north.
 
 Irvine's health recovers slightly.
 
@@ -1199,9 +1118,8 @@ parked in rows.  A simple path through the trees leads east to the Traglean
 capital, Ki'parandazar.
 
 The Sagittarian rests neatly between two other ships of its class.  A
-gangplank leads up into the hull of the ship.
-
-HiRBy hovers over from the east.
+gangplank leads up into the hull of the ship.  HiRBy hovers over from the
+east.
 
 > u
 Irvine moves up the gangplank and into the Sagittarian.
@@ -1210,9 +1128,7 @@ EXIT HATCH
 The corridor continues aft to the kitchens and starboard toward the bridge.
 To port, a door reads: "Gatts Grupen: Captain."  A hatch leads down to the
 surface of Traglea.
-First Mate Silthen attends the exit hatch.
-
-HiRBy hovers over from outside.
+First Mate Silthen attends the exit hatch.  HiRBy hovers over from outside.
 
 > s
 Irvine goes starboard.
@@ -1221,9 +1137,7 @@ OUTSIDE SHIP'S BRIDGE
 A corridor of ultralight titanium.  Most importantly, the door to the ship's
 bridge is forward from here.  The hall continues port and starboard towards
 crew quarters.  A flight of stairs leads down toward the lab and the
-artificial gravity core.
-
-HiRBy hovers over from the north.
+artificial gravity core.  HiRBy hovers over from the north.
 
 > d
 Irvine goes down.
@@ -1234,7 +1148,7 @@ than this one.  Starboard is the lab.  The hall continues to port toward the
 artificial gravity core.  A flight of stairs leads up to the rest of the
 ship.
 
-HiRBy hovers over from above.
+  HiRBy hovers over from above.
 
 > s
 The door slides open with a swoosh and Irvine goes starboard.
@@ -1250,9 +1164,7 @@ Doctor Voss appears to be alternating between an experiment with some of the
 things on the table and the cloning apparatus.  Smitty the Cat is here,
 nodding and going "hmm."
 
-The door closes behind Irvine.
-
-HiRBy hovers over from outside.
+The door closes behind Irvine.  HiRBy hovers over from outside.
 
 Voss says, "Ah, Irvine.  Please, take this specimen analysis which I've
 prepapred for you.  It will tell you a little more about the organisms we
@@ -1295,9 +1207,7 @@ this collar he's wearing.  If my calculations are correct, it will be
 impossible to remove right now without risking the ambassador's life.  Fear
 not: I will supervise the feline diplomat's convalescence.  Carry on, cadet."
 
-"Aye, aye."
-
-HiRBy hovers over from outside.
+"Aye, aye."  HiRBy hovers over from outside.
 
 > forward
 Irvine goes forward.
@@ -1309,9 +1219,7 @@ end of the room, and a sophisticated cloning apparatus sprawls across the
 starboard wall.  Aft is the ship's infirmary.  An automatic door is set in
 the port wall, to the left of which is an inconspicuous privacy button.
 
-Also here is a hairball.
-
-HiRBy hovers over from inside.
+Also here is a hairball.  HiRBy hovers over from inside.
 
 > get hairball
 Irvine picks up the hairball.
@@ -1328,9 +1236,7 @@ than this one.  Starboard is the lab.  The hall continues to port toward the
 artificial gravity core.  A flight of stairs leads up to the rest of the
 ship.
 
-The door closes behind Irvine.
-
-HiRBy hovers over from inside.
+The door closes behind Irvine.  HiRBy hovers over from inside.
 
 Irvine's health recovers slightly.
 
@@ -1342,11 +1248,8 @@ A corridor of ultralight titanium.  Most importantly, the door to the ship's
 bridge is forward from here.  The hall continues port and starboard towards
 crew quarters.  A flight of stairs leads down toward the lab and the
 artificial gravity core.
-The CAS droid is here.
-
-CAS droid hovers off to the north.
-
-HiRBy hovers over from below.
+The CAS droid is here.  CAS droid hovers off to the north.  HiRBy hovers over
+from below.
 
 > port
 Irvine goes port.
@@ -1356,9 +1259,7 @@ The corridor continues aft to the kitchens and starboard toward the bridge.
 To port, a door reads: "Gatts Grupen: Captain."  A hatch leads down to the
 surface of Traglea.
 The CAS droid is here.
-First Mate Silthen attends the exit hatch.
-
-HiRBy hovers over from the south.
+First Mate Silthen attends the exit hatch.  HiRBy hovers over from the south.
 
 > down
 Irvine moves out the exit and down the ship's gangplank.
@@ -1370,9 +1271,7 @@ parked in rows.  A simple path through the trees leads east to the Traglean
 capital, Ki'parandazar.
 
 The Sagittarian rests neatly between two other ships of its class.  A
-gangplank leads up into the hull of the ship.
-
-HiRBy hovers over from inside.
+gangplank leads up into the hull of the ship.  HiRBy hovers over from inside.
 
 > e
 Irvine goes east.
@@ -1386,9 +1285,7 @@ Ki'parandazar looms to the east.
 
 A wooden crate lies here.
 
-Also here is a red fruit.
-
-HiRBy hovers over from the west.
+Also here is a red fruit.  HiRBy hovers over from the west.
 
 > n
 Irvine goes north.
@@ -1398,9 +1295,7 @@ The jungle grows wild here, its trees no longer glowing.  A natural opening
 formed by crooked trees gives sight to a dark, foreboding forest beyond,
 where unseen eyes and disembodied hisses of constant spectres lurk and the
 very trees twist and blacken with malice.  The jungle is more tame to the
-south.
-
-HiRBy hovers over from the south.
+south.  HiRBy hovers over from the south.
 
 Irvine's health recovers slightly.
 
@@ -1414,18 +1309,15 @@ as a grotesque, blackened mockery of its original form, as if all trees
 shared the same root in the darkness itself.  A putrid-sweet, rotting smell
 fills the sickly air.  Cricketous whistling emits from somewhere nearby.  The
 sporadic rustling of the undergrowth throws Irvine's mind into a mess of
-frantic questions.
-
-HiRBy hovers over from the south.
+frantic questions.  HiRBy hovers over from the south.
 
 > w
 Irvine goes west.
 
 TOP SECRET ENTRANCE
 Low amongst the leafy lightlessness, a bit of stainless steel glints in the
-faintly green light of a glowing keypad.  A metal door.
-
-HiRBy hovers over from the east.
+faintly green light of a glowing keypad.  A metal door.  HiRBy hovers over
+from the east.
 
 > x keypad
 A pad with numbers on it from 0 to 9.  Apparently, this keypad is a sort of
@@ -1452,9 +1344,7 @@ EXITS: NORTH.
 A sentinel is here, brandishing a laser crossbow!
 
 The sentinel spins to face Irvine urgently and threateningly, crossbow
-pointed.
-
-HiRBy hovers over from outside.
+pointed.  HiRBy hovers over from outside.
 
 CHAPTER FIVE:
 
@@ -1495,9 +1385,8 @@ downward to the north.  A black tube runs north along the ceiling.
 
 EXITS: NORTH and SOUTH.
 
-A sentry is here, brandishing a beam weapon!
-
-HiRBy hovers over from the south.
+A sentry is here, brandishing a beam weapon!  HiRBy hovers over from the
+south.
 
 > punch sentry
 Irvine palm strikes the sentry in his furry face, knuckles him in the rib
@@ -1512,9 +1401,7 @@ The black tube follows the curve to the east.
 EXITS: SOUTH and EAST.
 
 A guard is here, brandishing a shock staff!  A patrol is here, brandishing
-his cyborg fists!
-
-HiRBy hovers over from the south.
+his cyborg fists!  HiRBy hovers over from the south.
 
 > sweep guard
 Irvine grabs the guard's pike, closes in, and trips the guard to the ground.
@@ -1536,9 +1423,8 @@ The black tube from the west turns south here.
 
 EXITS: NORTH, WEST, and SOUTH.
 
-A soldier is here, brandishing an electro ray!
-
-HiRBy hovers over from the west.
+A soldier is here, brandishing an electro ray!  HiRBy hovers over from the
+west.
 
 > punch soldier
 Irvine strikes the soldier in the throat with his fingers, then takes him
@@ -1713,9 +1599,7 @@ HiRBy hovers over from the south.
 Irvine goes west.
 
 TUNNEL
-EXITS: EAST and NORTH.
-
-HiRBy hovers over from the east.
+EXITS: EAST and NORTH.  HiRBy hovers over from the east.
 
 A patrol charges in, brandishing cyborg fists!
 
@@ -1734,9 +1618,7 @@ Irvine's health recovers slightly.
 Irvine goes north.
 
 TUNNEL
-EXITS: SOUTH and WEST.
-
-HiRBy hovers over from the south.
+EXITS: SOUTH and WEST.  HiRBy hovers over from the south.
 
 > w
 Irvine goes west.
@@ -1745,9 +1627,7 @@ THRONE HALL ENTRANCE
 An important-looking door is set in the west wall.
 
 EXITS: EAST.
-An elite is here, brandishing a heat gun!
-
-HiRBy hovers over from the east.
+An elite is here, brandishing a heat gun!  HiRBy hovers over from the east.
 
 > unlock door
 No wonder they both looked important.  The door opens to the west.
@@ -1801,8 +1681,7 @@ Before Irvine can ponder the significance of that dramatically trailed-off
 statement, Rrasharshan bolts off to the west.
 
 The fan servant stares agog at Irvine.  "Can I have your jacket...?"
-
-HiRBy hovers over from the east.
+  HiRBy hovers over from the east.
 
 "So cool," says the fan.
 
@@ -1838,7 +1717,6 @@ close as the chandelier.  Except maybe for that end table...
 
 The throne room is east.  A secret room is to the north!
 The Fat Cat, Rrasharshan, is here, armed with a vicious microwave cannon.
-
 HiRBy hovers over from the east.
 
 > x fat cat

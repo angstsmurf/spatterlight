@@ -456,9 +456,7 @@ This is the kitchen. There is a small table here and a long counter.
 Cupboards line the wall above the counter. There is a large, old refrigerator
 here beside an alcove with a small set of stairs leading down. There are
 windows on the west wall.
-The ghost of a little girl is here.
-
-A ghost floats off to the east.
+The ghost of a little girl is here.  A ghost floats off to the east.
 
 > d
 You move down.

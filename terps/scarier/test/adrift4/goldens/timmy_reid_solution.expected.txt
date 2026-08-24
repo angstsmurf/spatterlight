@@ -237,11 +237,8 @@ wall is an antique clock , a small fuse box and a magazine rack.  There is
 also a crummy old couch there.  To the north is a stairway leading upstairs,
 the bathroom door and a corner seat.  A small plastic sea gull hangs on the
 end of the chain that dangles from the light above.
-Hovey is here.
-
-Hovey shuffles off to the north.
-
-The faint odor of snappers wafts towards you from the east.
+Hovey is here.  Hovey shuffles off to the north.  The faint odor of snappers
+wafts towards you from the east.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
@@ -257,9 +254,8 @@ Hovey is here.
 > get grandpa's shoes
 You are able to convince grandpa to give you his shoes.  You sit down and
 lace 'em up.  You feel energized.
-You receive 10 points for being clever.
-
-The faint odor of snappers wafts towards you from the south.
+You receive 10 points for being clever.  The faint odor of snappers wafts
+towards you from the south.
 
 > in
 You move in.
@@ -285,7 +281,6 @@ To the east is a small shower stall.  To the west is a toilet and a vanity.
 by taking  all the knives from the silverware drawer.)
 Hovey and The faint odor of snappers are here.  The sound of a skill saw
 ripping through some lumber can be heard intermittantly off in the distance.
-
 Hovey shuffles off to the south.
 The sound of a skill saw ripping lumber finally fades to  stillness.
 
@@ -297,9 +292,8 @@ coughing fits.  It ends after several seconds and you wonder if he's dead.
 > piss
 You close your eyes and relieve yourself right here and now.  A feeling of
 total relief overcomes you.
-You are awarded 5 points for good hygene.
-
-The faint odor of snappers wafts off to the south.
+You are awarded 5 points for good hygene.  The faint odor of snappers wafts
+off to the south.
 
 > s
 You move south.
@@ -322,11 +316,8 @@ sink, a silverware drawer, a gas stove and a kitchen cupboard.
 
 Also here is a plastic garbage container, the kitchen table and the kitchen
 chairs.
-Hovey is here.
-
-Hovey shuffles off outside.
-
-The faint odor of snappers wafts towards you from the west.
+Hovey is here.  Hovey shuffles off outside.  The faint odor of snappers wafts
+towards you from the west.
 
 > out
 You move out.
@@ -345,9 +336,8 @@ You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
 running from it.  There is an old tree stump directly in front of the
-cottage.  Uncle George's cottage is on the south side of the road.
-
-Hovey shuffles towards you from the north.
+cottage.  Uncle George's cottage is on the south side of the road.  Hovey
+shuffles towards you from the north.
 Your grandfather eye's you and says, "Hey Timmy, would you run up to the
 store and get the paper and a box of plain donuts?  Just tell 'em 'paper for
 Reid'.  OK?"  You nod and say, "Ok Grandpa".
@@ -383,11 +373,8 @@ The faint odor of snappers is here.
 You move east.
 You are standing on Oakland Ave at the top of the cottage side yard.  To the
 south is the ball field behind the Salvation Army building.
-Hovey is here.
-
-Hovey shuffles off to the north.
-
-The faint odor of snappers wafts towards you from the west.
+Hovey is here.  Hovey shuffles off to the north.  The faint odor of snappers
+wafts towards you from the west.
 Your ears are rudely awakened by the sound of a skill saw screaming and
 scraping through some lumber off  in the distance.
 
@@ -410,9 +397,8 @@ below the surface of the grass and wooden boards hold back the dirt from the
 depression.  The grass is very long and is in need of whackin'.  Grandpa or
 Dad should be out here with the bladed golf club.
 Dad is here.  The sound of a skill saw ripping through some lumber can be
-heard intermittantly off in the distance.
-
-Hovey shuffles towards you from the south.
+heard intermittantly off in the distance.  Hovey shuffles towards you from
+the south.
 Your grandfather eye's you and says, "Hey Timmy, would you run up to the
 store and get the paper and a box of plain donuts?  Just tell 'em 'paper for
 Reid'.  OK?"  You nod and say, "Ok Grandpa".
@@ -840,9 +826,8 @@ You move out.
 You are standing slightly down the hill from the top of Old Orchard St.  To
 the north is a Tattoo Parlor.  The windows are dark but there is a sign
 hanging in the window closest to the door.  Upon further inspection, the sign
-reads "Open".  Traffic is zipping by in both directions.
-
-A band of Harley's cruises toward you from the east.
+reads "Open".  Traffic is zipping by in both directions.  A band of Harley's
+cruises toward you from the east.
 
 > e
 You move east.
@@ -1113,9 +1098,8 @@ You move west.
 You are standing just outside of a biker bar.  It seems deserted but you
 realize that everybody is inside already.  There is a steady hum of music
 from within and you can hear glass breaking occassionally.
-Bouncer is here.  Traffic is zipping by in both directions.
-
-A band of Harley's cruises toward you from the south.
+Bouncer is here.  Traffic is zipping by in both directions.  A band of
+Harley's cruises toward you from the south.
 
 > s
 You move south.
@@ -1127,9 +1111,8 @@ and double-wide bikes.  Traffic is zipping by in both directions.
 You move south.
 You are standing on Grand Ave. between Atlantic Ave. and Union Ave.  There is
 nothing of interest here.  You can hear the ocean off to the east.  Traffic
-is zipping by in both directions.
-
-A dual seater rental bike rolls away to the south.
+is zipping by in both directions.  A dual seater rental bike rolls away to
+the south.
 
 > s
 You move south.
@@ -1142,9 +1125,8 @@ is more motels and Ocean Park.  Traffic is zipping by in both directions.
 You move south.
 You are standing on Grand Ave. near a small used book store.  The sign in the
 window reads "Closed".  Oh well, you're not interested in reading anyway.
-Traffic is zipping by in both directions.
-
-A dual seater rental bike rolls towards you from the north.
+Traffic is zipping by in both directions.  A dual seater rental bike rolls
+towards you from the north.
 
 > s
 You move south.
@@ -1212,9 +1194,7 @@ at the low tide mark.  The rocks are called Googin's Rocks although you don't
 know why.
 
 Also here is a young family.
-Sunbather is here.
-
-Canadian couple walks towards you from the north.
+Sunbather is here.  Canadian couple walks towards you from the north.
 
 > w
 You move west.
@@ -1316,9 +1296,7 @@ You are standing on Oakland Ave at the top of the cottage side yard.  To the
 south is the ball field behind the Salvation Army building.
 Hovey and Billy are here.  You can see Billy casually riding his bike on the
 road near the cottage.  He's quite shakey due to the slow speed and tight
-turns but he doesn't falter.
-
-Hovey shuffles off to the north.
+turns but he doesn't falter.  Hovey shuffles off to the north.
 
 > w
 You move west.
@@ -1363,9 +1341,7 @@ running from it.  There is an old tree stump directly in front of the
 cottage.  Uncle George's cottage is on the south side of the road.
 Jon is here.  You can see Billy casually riding his bike on the road near the
 cottage.  He's quite shakey due to the slow speed and tight turns but he
-doesn't falter.
-
-The faint odor of snappers wafts towards you from the north.
+doesn't falter.  The faint odor of snappers wafts towards you from the north.
 
 > look
 
@@ -1382,9 +1358,8 @@ scraping through some lumber off  in the distance.
 
 > put the items into the red bag
 You grab the thumb wrestler, skeleton key and wiffle ball from your stash and
-shove them into the red bag.
-
-The faint odor of snappers wafts off to the east.
+shove them into the red bag.  The faint odor of snappers wafts off to the
+east.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
 
@@ -1437,7 +1412,6 @@ You've worked up quite a sweat.
 You slowly turn your head toward Jon with the realization that you can now go
 back home.  You don't know why you know, but you KNOW that you can go home
 now.  You grab your brother's arm and confidently say, "Jon, let's go!"
-
 Hovey shuffles towards you from the east.
 Your grandfather looks at you with a twinkle in his eye and says, "You're a
 good boy Timmy.  You've returned with the paper and donuts."  He pats your

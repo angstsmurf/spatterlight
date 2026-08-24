@@ -65,9 +65,7 @@ You move down.
 Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
-Mhentsh is here.
-
-Jeriah Eldon enters from the north.
+Mhentsh is here.  Jeriah Eldon enters from the north.
 
 > n
 You move north.
@@ -161,9 +159,7 @@ Time passes...
 Time passes...
 
 > z
-Time passes...
-
-Jeriah Eldon enters from the south.
+Time passes...  Jeriah Eldon enters from the south.
 
 > z
 Time passes...
@@ -196,7 +192,6 @@ on the potential success of various methods of stimulation.
 
 This is amazing work and very important.  You wish that Jeriah had brought it
 to your attention earlier.
-
 Jeriah Eldon exits to the south.
 
 > x stainless steel lab table
@@ -341,9 +336,8 @@ Here a large railed section is affectionately known as the patio.  To the
 west is the entrance door and a steel stairway leads downwards.
 
 A large white, polymer patio table appears cheesily inexpensive but lends
-itself to the informal and laid back atmosphere of the patio.
-
-Mark Eridian walks in from the west.
+itself to the informal and laid back atmosphere of the patio.  Mark Eridian
+walks in from the west.
 
 > d
 You move down.
@@ -351,9 +345,7 @@ You move down.
 Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
-Mhentsh is here.
-
-Mark Eridian walks in from above.
+Mhentsh is here.  Mark Eridian walks in from above.
 
 > n
 You move north.
@@ -363,16 +355,13 @@ This sprawling room is sectioned in two by a long, multi-level stainless
 steel table.  The main lab exit is to the east and the control stairwell is
 to the south.  Against the west wall is a large single piece of equipment,
 the DNA analysis computer, that takes up half the wall.
-Jeriah Eldon is pacing here musing over a notepad.
-
-Mark Eridian walks in from the south.
+Jeriah Eldon is pacing here musing over a notepad.  Mark Eridian walks in
+from the south.
 A loud voice breaks into the room over the com system:  "All personnel.  We
 have incoming hostile Orgaan units.  Initiating code red.  Code Red".
 
 With that the voice is gone, there is a moment of silence broken finally by a
-siren wail in the distance.
-
-Jeriah Eldon exits to the south.
+siren wail in the distance.  Jeriah Eldon exits to the south.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
 
@@ -512,11 +501,8 @@ Control Stairwell
 Underneath the steel framework that supports the control room above the
 laboratory floor, a stairwell leads up.  The lab floor is to the north.
 
-Also here is a dead Orgaan soldier and a dead Jeriah.
-
-Skyrv runs in from the north.
-
-Skynd runs in from the north.
+Also here is a dead Orgaan soldier and a dead Jeriah.  Skyrv runs in from the
+north.  Skynd runs in from the north.
 Skynd hits you, but it doesn't seem to do any damage.
 
 > get sample from jeriah
@@ -542,11 +528,8 @@ Here a large railed section is affectionately known as the patio.  To the
 west is the entrance door and a steel stairway leads downwards.
 
 A large white, polymer patio table appears cheesily inexpensive but lends
-itself to the informal and laid back atmosphere of the patio.
-
-Skyrv runs in from below.
-
-Skynd runs in from below.
+itself to the informal and laid back atmosphere of the patio.  Skyrv runs in
+from below.  Skynd runs in from below.
 You manage to avoid Skyrv's attack.
 
 > w
@@ -560,11 +543,8 @@ floor.  The control room door is east.
 
 A massive I beam that held up a portion of the laboratory ceiling now forms a
 natural and treacherous walkway from the laboratory control room to the
-breached cafeteria.  The code red warning light is on.
-
-Skyrv runs in from the east.
-
-Skynd runs in from the east.
+breached cafeteria.  The code red warning light is on.  Skyrv runs in from
+the east.  Skynd runs in from the east.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
 BeeDoop...  BeeDoop... There appears to be some activity on the VidCom.
@@ -655,9 +635,7 @@ intersection to the east.  From here it appears that the main entrance is
 unblocked.  However, if you walk into the hallway, they'll see you long
 before you can escape past them.
 
-Skyrv runs in from the east.
-
-Skynd runs in from the east.
+Skyrv runs in from the east.  Skynd runs in from the east.
 You manage to avoid Skynd's attack.
 
 > throw grenade
@@ -680,11 +658,8 @@ You move north.
 East/West Hall
 Green and greyish Orgaan goo is spilt over the orange carpet and stone tiles
 in the hall. The reception area to the west of here appears destroyed.  To
-the south is the laboratory cafeteria.
-
-Skyrv runs in from the south.
-
-Skynd runs in from the south.
+the south is the laboratory cafeteria.  Skyrv runs in from the south.  Skynd
+runs in from the south.
 You manage to avoid Skyrv's attack.
 
 > e
@@ -696,11 +671,8 @@ and greyish goo is mixed with wood and tile splinters.  The northern entrance
 is blocked by a collapsed ceiling.  To the south is the south/west hallway.
 An open door to the east is labelled, "Security."
 
-Also here is a dead Nadine.
-
-Skyrv runs in from the west.
-
-Skynd runs in from the west.
+Also here is a dead Nadine.  Skyrv runs in from the west.  Skynd runs in from
+the west.
 You manage to avoid Skyrv's attack.
 Skynd hits you, but it doesn't seem to do any damage.
 
@@ -719,11 +691,8 @@ Security is the nerve center of the laboratory.  Walls filled with video
 monitors and computer terminals allow checking in on any area of the grounds.
  Security was the nerve center of the laboratory.  The ensuing fighting after
 the attack has destroyed all of the electronic equipment in the room.
-Malthew stands here at attention.
-
-Skyrv runs in from the west.
-
-Skynd runs in from the west.
+Malthew stands here at attention.  Skyrv runs in from the west.  Skynd runs
+in from the west.
 You manage to avoid Skyrv's attack.
 Skynd hits Malthew, but it doesn't seem to do any damage.
 Skynd manages to avoid Malthew's attack.
@@ -771,13 +740,8 @@ and greyish goo is mixed with wood and tile splinters.  The northern entrance
 is blocked by a collapsed ceiling.  To the south is the south/west hallway.
 An open door to the east is labelled, "Security."
 
-Also here is a dead Nadine.
-
-Skyrv runs in from the east.
-
-Skynd runs in from the east.
-
-Malthew walks in from the east.
+Also here is a dead Nadine.  Skyrv runs in from the east.  Skynd runs in from
+the east.  Malthew walks in from the east.
 Skyrv hits you, but it doesn't seem to do any damage.
 Malthew hits Skyrv.
 
@@ -787,13 +751,8 @@ You move west.
 East/West Hall
 Green and greyish Orgaan goo is spilt over the orange carpet and stone tiles
 in the hall. The reception area to the west of here appears destroyed.  To
-the south is the laboratory cafeteria.
-
-Skyrv runs in from the east.
-
-Skynd runs in from the east.
-
-Malthew walks in from the east.
+the south is the laboratory cafeteria.  Skyrv runs in from the east.  Skynd
+runs in from the east.  Malthew walks in from the east.
 Malthew manages to avoid Skynd's attack.
 Malthew hits Skyrv.
 The attack cuts down the Orgaan who falls face forward to the floor.
@@ -813,11 +772,8 @@ To the north is the main east/west hallway.  You peer around the corner and
 discern no movement from the reception area.  Your grenade has taken out most
 of the desk.  Small pieces of Orgaan are blown everywhere in the reception
 area and the east/west hall.  Now you can see that the main entrance is
-blocked by a collapse of the ceiling.
-
-Skynd runs in from the north.
-
-Malthew walks in from the north.
+blocked by a collapse of the ceiling.  Skynd runs in from the north.  Malthew
+walks in from the north.
 Malthew hits Skynd.
 
 > shoot windows

@@ -279,9 +279,7 @@ Ross is here.
 Ross hits you with metal glove, but it doesn't seem to do any damage.
 
 > kill ross
-ross dissapears and you don't know where he went
-
-Joshua walks in .
+ross dissapears and you don't know where he went   Joshua walks in .
 Joshua stabs Ross with sword of hope.
 
 > north
@@ -291,9 +289,7 @@ Hall1 east
 this is the west end of a hall in apartment 1 of the building of death.
 there are doors to the north and south
 
-You can move north, south and west.
-
-Joshua walks in  from the south.
+You can move north, south and west.  Joshua walks in  from the south.
 
 > west
 You move west.
@@ -304,9 +300,7 @@ this is the hallway leading to the bedrooms of apartment 1
 Also here is frying pan.
 Debbie is here.
 
-You can move east and west.
-
-Joshua walks in  from the east.
+You can move east and west.  Joshua walks in  from the east.
 Debbie hits you, but it doesn't seem to do any damage.
 
 > west
@@ -315,9 +309,7 @@ You move west.
 Corner of hall
 this is the corner of a hall witch runs west and north
 
-You can move north, east, south and west.
-
-Joshua walks in  from the east.
+You can move north, east, south and west.  Joshua walks in  from the east.
 
 > south
 You move south.
@@ -327,9 +319,7 @@ this is the living room for apartment 1 there is a fireplace on one wall and
 a hallway to yournorth.  there is a table infront of you and a couch behind
 it
 
-You can move north and west.
-
-Joshua walks in  from the north.
+You can move north and west.  Joshua walks in  from the north.
 
 > west
 You move west.
@@ -338,9 +328,7 @@ Second floor
 this is the second floor of the building of death there are two doors one to
 each side of you and a second flight of stairs leading up to the third floor.
 
-You can move east, west, up and down.
-
-Joshua walks in  from the east.
+You can move east, west, up and down.  Joshua walks in  from the east.
 
 > up
 You move up.
@@ -350,9 +338,7 @@ this is the top floor of the building of death.  There are two doors on each
 side of the hallway.
 Demon is here.
 
-You can move east, west and down.
-
-Joshua walks in  from below.
+You can move east, west and down.  Joshua walks in  from below.
 Joshua stabs Demon with sword of hope.
 the demon disappears in a flash of light
 
@@ -366,9 +352,7 @@ Attic
 this is the attic of the house of death
 Dark force is here.
 
-You can only move down.
-
-Joshua walks in  from below.
+You can only move down.  Joshua walks in  from below.
 Dark force hits Joshua, but it doesn't seem to do any damage.
 
 > kill force

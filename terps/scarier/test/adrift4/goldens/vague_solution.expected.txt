@@ -45,18 +45,15 @@ double doors with glass panels.
 Against the wall you can see one of those wire frame rubbish bins.
 A porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.  A trainspotter dressed in wet weather gear is watching
-you.
-
-A small black and white cat strolls in from the east.
+you.  A small black and white cat strolls in from the east.
 
 > exam bin
 You can see a wire rubbish (trash) basket with some of the wires are sticking
 out.  An old magazine and a pencil are inside the rubbish bin.
 
 > get magazine
-You take the old magazine from the rubbish bin.
-
-A small black and white cat strolls out to the west.
+You take the old magazine from the rubbish bin.  A small black and white cat
+strolls out to the west.
 The drunk makes a sighing sound.
 
 You hear a voice coming from somewhere behind you, "Are you still wasting
@@ -98,9 +95,8 @@ a game. Still, you should try being a non-player character".
 "But," you continue with, "I have no idea who I am or what I should to do".
 
 He turns towards you and states, "Identify the game this location comes from
-and then find it written on something".
-
-A small black and white cat strolls in from the west.
+and then find it written on something".  A small black and white cat strolls
+in from the west.
 
 The whole station shakes as a freight train rumbles through.  The shaking
 feels like it is never going to stop.
@@ -115,9 +111,8 @@ You pretend to show some interest but he moves the book away, as if trying to
 hide it.  For some reason you are aware that it has no relevance.
 
 > open door
-You open the set of double doors with glass panels.
-
-A small black and white cat strolls out to the east.
+You open the set of double doors with glass panels.  A small black and white
+cat strolls out to the east.
 The drunk makes a sighing sound.
 
 > south
@@ -302,9 +297,8 @@ double doors with glass panels.
 Against the wall you can see one of those wire frame rubbish bins.
 A porter is here leaning against the wall.  A drunk is sleeping off a heavy
 night on a bench.  A cat is silently wandering around.  A trainspotter
-dressed in wet weather gear is watching you.
-
-A small black and white cat strolls out to the west.
+dressed in wet weather gear is watching you.  A small black and white cat
+strolls out to the west.
 The trainspotter glaces at you and then quickly looks away.
 
 > east
@@ -484,9 +478,8 @@ square it has a high wall all the way around and the floor is concrete. The
 exits are through a metal gate to the south and back into the pub north.
 
 You can also see a photograph.
-A cat is silently wandering around.  Jed Peters is watching you carefully.
-
-A small black and white cat strolls out to the north.
+A cat is silently wandering around.  Jed Peters is watching you carefully.  A
+small black and white cat strolls out to the north.
 
 As you stand in the yard you realise how quiet a place it is, which must be
 something to do with the high walls surrounding it. Quietly to yourself, "If
@@ -749,9 +742,8 @@ pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
 Road and the yard behind the pub is to the south.
 Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
- Emma Taylor is standing behind the bar.
-
-A small black and white cat strolls in from the west.
+ Emma Taylor is standing behind the bar.  A small black and white cat strolls
+in from the west.
 Colin and Fred are talking about a soap that was on last night.
 
 > west

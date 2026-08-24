@@ -211,9 +211,7 @@ booth up into the ceiling. The booth has no door, and it looks like you could
 squeeze into it with no problem.
 A fly is buzzing around, bumping into things.
 
-You can go up and in.
-
-The fly buzzes into the phone booth.
+You can go up and in.  The fly buzzes into the phone booth.
 
 > in
 You move in.

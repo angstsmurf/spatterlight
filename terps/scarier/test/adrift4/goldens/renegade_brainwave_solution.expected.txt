@@ -84,9 +84,7 @@ the darkness, disappearing among the winding, mossy ways.
 that gorilla." But Donald is busy cleaning out his ears with a Q-Tip and
 doesn't seem to have noticed the spooky goings-on. With a sigh you turn back
 to the scene of your psychic visitation, and notice something glinting in the
-moonlight.
-
-Donald McRonald follows you from the east.
+moonlight.  Donald McRonald follows you from the east.
 
 > look
 
@@ -118,9 +116,8 @@ with an eerie, greenish light! To the south an open gate leads back to the
 road and the safety of your patrol car. East and west, paths meander into the
 gloom.
 
-Also here is a Mary Quant handbag.
-
-Donald McRonald follows you from the west.
+Also here is a Mary Quant handbag.  Donald McRonald follows you from the
+west.
 
 > north
 You move north.
@@ -129,9 +126,7 @@ Outside the chapel
 Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
 boarded up, several solid planks nailed across the door to deter vandals.
 From a gigantic hole in the roof comes an eerie light that casts a green pall
-over the lowering clouds.
-
-Donald McRonald follows you from the south.
+over the lowering clouds.  Donald McRonald follows you from the south.
 
 > west
 You move west.
@@ -142,9 +137,8 @@ variously sized headstones to be seen, including a gigantic stone angel,
 alabaster white and entwined all around by the roots of some twisting tree.
 To the south is the yew tree, and to the east is the ruined chapel with its
 eerie green glow.
-A four-hundred pound gorilla leans nonchalently against a tombstone.
-
-Donald McRonald follows you from the east.
+A four-hundred pound gorilla leans nonchalently against a tombstone.  Donald
+McRonald follows you from the east.
 The gorilla sees you arrive with gun in hand and immediately throws up his
 arms.
 
@@ -168,9 +162,7 @@ Outside the chapel
 Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
 boarded up, several solid planks nailed across the door to deter vandals.
 From a gigantic hole in the roof comes an eerie light that casts a green pall
-over the lowering clouds.
-
-Donald McRonald follows you from the west.
+over the lowering clouds.  Donald McRonald follows you from the west.
 
 > south
 You move south.
@@ -187,9 +179,8 @@ with an eerie, greenish light! To the south an open gate leads back to the
 road and the safety of your patrol car. East and west, paths meander into the
 gloom.
 
-Also here is a Mary Quant handbag.
-
-Donald McRonald follows you from the north.
+Also here is a Mary Quant handbag.  Donald McRonald follows you from the
+north.
 
 > east
 You move east.
@@ -203,9 +194,8 @@ From the darkness of the vault emerges a terrible creature, knife in hand.
 Four feet in height it is and life-size only as to its enamelled head - a
 grinning  cloth and papier-mache doll dressed in a velveteen suit and white
 patent-leather cuban-heeled shoes. A ventriloquist's dummy, brought to a
-shocking semblance of life by the mysterious space radiation!
-
-Donald McRonald follows you from the west.
+shocking semblance of life by the mysterious space radiation!  Donald
+McRonald follows you from the west.
 
 > give cigar to dummy
 "Don't mind if I do," says the ventriloquist's dummy, though you're quite
@@ -223,9 +213,7 @@ This is the vault of Mandoo the Mystic - the evil psychic and hypnotist who
 once tried to turn the townsfolk into his willing slaves! Heavy drapes cover
 the slimy walls, and guttering candles festooned with cobwebs burn dimly
 illuminating the open sarcophagus. In the sarcophagus lies the be-turbaned
-skeleton of the evil Mandoo!
-
-Donald McRonald follows you from outside.
+skeleton of the evil Mandoo!  Donald McRonald follows you from outside.
 
 > x stone sarcophagus
 A stone sarcophagus containing the mortal remains of Mandoo the Mystic.  A
@@ -240,9 +228,8 @@ You move out.
 The Vault of Mandoo the Mystic
 Here lies the ivy-covered vault of Mandoo the Mystic, an ornate stone
 structure in the style of an Indian temple that is sinking slowly into the
-depths of the bog. The lead-lined door hangs open.
-
-Donald McRonald follows you from inside.
+depths of the bog. The lead-lined door hangs open.  Donald McRonald follows
+you from inside.
 
 > west
 You move west.
@@ -259,9 +246,8 @@ with an eerie, greenish light! To the south an open gate leads back to the
 road and the safety of your patrol car. East and west, paths meander into the
 gloom.
 
-Also here is a Mary Quant handbag.
-
-Donald McRonald follows you from the east.
+Also here is a Mary Quant handbag.  Donald McRonald follows you from the
+east.
 
 > north
 You move north.
@@ -270,9 +256,7 @@ Outside the chapel
 Here, beneath a shroud of ivy, lurks the ruined chapel. The chapel has been
 boarded up, several solid planks nailed across the door to deter vandals.
 From a gigantic hole in the roof comes an eerie light that casts a green pall
-over the lowering clouds.
-
-Donald McRonald follows you from the south.
+over the lowering clouds.  Donald McRonald follows you from the south.
 
 > open chapel
 You swiftly remove the wooden boards from the door of the chapel and push it
@@ -285,9 +269,7 @@ The Chapel
 The chapel has been completely wrecked by the object that fell from the sky.
 From a massive hole in the floor comes a greenish glow. Crumbling stone steps
 lead down into the crypt, and a gothic archway leads back out into the
-cemetary.
-
-Donald McRonald follows you from outside.
+cemetary.  Donald McRonald follows you from outside.
 
 > down
 You move down.
@@ -299,9 +281,8 @@ The Mexicans have been sending these things up for years, at a cost of
 billions of Pesos, but nobody quite knows why. Presumably they are out there
 colonising every planet in the solar system. The door to the module has been
 blown off its hinges by the impact, an eerie green glow issuing from within.
-Crumbling stone steps lead up into the chapel.
-
-Donald McRonald follows you from above.
+Crumbling stone steps lead up into the chapel.  Donald McRonald follows you
+from above.
 
 > in
 You move in.
@@ -316,9 +297,8 @@ rift between the dimensions.
 You wonder how you know all this stuff, but it is obviously the powerful
 atmosphere of cosmic background information.
 Sitting motionless in the flight seat is a space-suited astronaut, his
-features obscured by his mirrored helmet.
-
-Donald McRonald follows you from outside.
+features obscured by his mirrored helmet.  Donald McRonald follows you from
+outside.
 
 > throw bone at curtain
 You hurl the bone into the shimmering veil of light, whereupon it is swiftly

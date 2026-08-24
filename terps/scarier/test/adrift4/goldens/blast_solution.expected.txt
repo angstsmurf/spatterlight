@@ -52,9 +52,7 @@ You move north.
 
 Office
 A plain office with very little furniture consisting only of a green desk.
-Filing is south. A trial of blood leads south.
-
-Demon arrives from the south.
+Filing is south. A trial of blood leads south.  Demon arrives from the south.
 The demon charges forward and bites you in the right arm. You lose 5 health
 points.
 The demon charges forward and bites you in the head. You lose 5 health
@@ -86,7 +84,6 @@ Filing
 In front of you is a counter which basically cuts the room into two halves.
 Behind the counter are row after row of filing cabinets. Offices are to the
 north and south. The Dining room is east. A trial of blood leads north.
-
 Demon arrives from the north.
 The demon charges forward and bites you in the left hand. You lose 5 health
 points.
@@ -117,9 +114,7 @@ Dining Room
 Usually it can be one of the busiest places in any organisation; here though
 it is strangely quiet. The room is arranged with bench like seats either side
 of several long tables. To the south are the kitchens and west is Filing. A
-trial of blood leads west.
-
-Demon arrives from the west.
+trial of blood leads west.  Demon arrives from the west.
 The demon charges forward and bites you in the right hand. You lose 5 health
 points.
 The demon charges forward and bites you in the right leg. You lose 5 health
@@ -138,9 +133,7 @@ takes place here, as you can see no cooking facilities. The only equipment
 seems to be a fridge and a worktop fixed to the wall.  So it is likely that
 it is just a food preparation area rather than a traditional kitchen. To the
 north is the dining room and west is an office.  A trial of blood leads
-north.
-
-Demon arrives from the north.
+north.  Demon arrives from the north.
 The demon charges forward and bites you in the right hand. You lose 5 health
 points.
 The demon charges forward and bites you in the left leg. You lose 5 health
@@ -165,9 +158,7 @@ You move west.
 Office
 A plain office with very little furniture consisting only of a green desk.
 The reception is south, Filing to north and the Kitchen east. A trial of
-blood leads south.
-
-Demon arrives from the east.
+blood leads south.  Demon arrives from the east.
 The demon charges forward and bites you in the right arm. You lose 5 health
 points.
 The demon charges forward and bites you in the right arm. You lose 5 health

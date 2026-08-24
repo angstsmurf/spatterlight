@@ -323,7 +323,6 @@ Time passes...
 
 > z
 Time passes...
-
 Mrs Walsh walks towards you from the south.
 
 > give set to mrs walsh
@@ -369,9 +368,8 @@ The stereo on the table is utterly silent. Peace reigns in the Common Room
 for a change.
 
 > open gregs locker
-Greg's Locker opens before you, revealing a $20 bill.
-
-Luke enters from the north.
+Greg's Locker opens before you, revealing a $20 bill.  Luke enters from the
+north.
 
 > take note
 You pick up the $20 note.
@@ -1066,9 +1064,7 @@ This is the Southern Half of the Common Room where the lockers are situated,
 along with various electronic appliances used in the production of
 semi-nutritious meals. Greg's Locker is here as well as Michael's Locker.
 The stereo on the table is utterly silent. Peace reigns in the Common Room
-for a change.
-
-Luke enters from the north.
+for a change.  Luke enters from the north.
 
 > give slippers to luke
 Luke happily takes the slippers. He hands you a letter. "Here, seeing as

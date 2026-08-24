@@ -3411,7 +3411,6 @@ polished stone, running the entire length of the corridor, is a plush carpet.
 There is just sufficient light to see the door to Lord Gaxin's rooms in the
 southern wall, which is closed, while a banner in the colours of the region
 of Sylaph hangs on the opposite wall.
-
    Lord Vonisor enters from the west.
 
 > e
@@ -3424,7 +3423,6 @@ polished stone, running the entire length of the corridor, is a plush carpet.
 There is just sufficient light to see the door to Lady Hallyn's rooms in the
 southern wall, while a banner in the colours of the region of Pethilia hangs
 on the opposite wall.
-
    Lord Vonisor enters from the west.
 
 > e
@@ -3437,7 +3435,6 @@ polished stone, running the entire length of the corridor, is a plush carpet.
 There is just sufficient light to see the door to Lord Sulanar's rooms in the
 southern wall, while a banner in the colours of the region of Alallsia hangs
 on the opposite wall.
-
    Lord Vonisor enters from the west.
 
 > e
@@ -3449,7 +3446,6 @@ of light provided by a series of torches mounted on the wall. On the floor on
 polished stone, running the entire length of the corridor, is a plush carpet.
 There is just sufficient light to see the door to Lord Adath's rooms in the
 southern wall, which is currently closed.
-
    Lord Vonisor enters from the west.
 
 > e
@@ -3462,7 +3458,6 @@ stone, running the entire length of the corridor, is a plush carpet. A stone
 archway marks the exit to the north.
    There is a door in the southern wall which you know to be the entrance to
 the wizard Rixomas' rooms. It is currently is closed.
-
    Lord Vonisor enters from the west.
 
 > n
@@ -3474,7 +3469,6 @@ appointed landing. Aside from a portrait of the king adorning the western
 wall, there is not much refinement here at all. Two archways, standing
 opposite each other in the northern and southern walls, provide exits, other
 than the stairs that lead back down.
-
    Lord Vonisor enters from the south.
 
    Your vulpine hearing detects some sounds -- movement to the north.
@@ -3506,7 +3500,6 @@ archway marks the exit to the south. There is a closed door in the northern
 wall which you know to be the entrance to Prince Alsanter's rooms. Mounted on
 the southern wall, beside the archway, is a plaque featuring the emblem of
 the crown prince of Rylane.
-
    Lord Vonisor enters from the south.
 
 > open door
@@ -3567,7 +3560,6 @@ archway marks the exit to the south. There is an open door in the northern
 wall which you know to be the entrance to Prince Alsanter's rooms. Mounted on
 the southern wall, beside the archway, is a plaque featuring the emblem of
 the crown prince of Rylane.
-
    Lord Vonisor exits through the door and joins you in the corridor.
 
 > w
@@ -3578,7 +3570,6 @@ A long dark corridor stretches away to the east and west, with occasion pools
 of light provided by a series of torches mounted on the wall. On the floor of
 polished stone, running the entire length of the corridor, is a plush carpet.
 No features of any sort mark the corridor walls here.
-
    Lord Vonisor enters from the east.
 
    Lord Vonisor crosses his arms and sighs deeply as he looks at you.
@@ -3593,7 +3584,6 @@ polished stone, running the entire length of the corridor, is a plush carpet.
 There is a door in the northern wall which you know to be the entrance to
 Prince Tevona's rooms. Mounted on the southern wall is a plaque featuring the
 emblem of the crown princess of Rylane.
-
    Lord Vonisor enters from the east.
 
 > open door
@@ -3618,7 +3608,6 @@ delicate rose hue covers much of the floor.
 of the castle buttresses extends into the room somewhat.
    Besides the doorway to the south, which is open, the other exit is through
 a passage to the west.
-
    Lord Vonisor enters through the door.
 
 > smell

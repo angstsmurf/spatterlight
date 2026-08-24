@@ -578,9 +578,7 @@ The other end: The international number password company.
 Do you have the number for (you look at the serial number on the door) 50718?
 Them: Yes its 9303235.
 You: Thank you.
-Them: Bye.
-
-Robot Guard stamps out to the east.
+Them: Bye.  Robot Guard stamps out to the east.
 
 > enter 9303235
 You enter 9303235 into the door panel, a click, and the door slides upwards
@@ -622,9 +620,7 @@ Why shout numbers now?
 Why shout numbers now?
 
 > shout 1
-Why shout numbers now?
-
-Robot Guard storms in.
+Why shout numbers now?  Robot Guard storms in.
 Robot Guard hits you with the robot's chain.
 
 > shout 1
@@ -641,9 +637,7 @@ Why shout numbers now?
 Why shout numbers now?
 
 > shout 6
-Why shout numbers now?
-
-Robot Guard storms in from the west.
+Why shout numbers now?  Robot Guard storms in from the west.
 Robot Guard hits you with the robot's chain.
 
 > shout 6
@@ -675,9 +669,7 @@ Why shout numbers now?
 Why shout numbers now?
 
 > shout 15
-Why shout numbers now?
-
-Robot Guard storms in.
+Why shout numbers now?  Robot Guard storms in.
 Robot Guard hits you with the robot's chain.
 
 > shout 15
@@ -695,9 +687,7 @@ the robot guard just dropped his key.  Just thought you ought to know.
 You pick up yet another key.
 
 > take teleporter
-You pick up the portable teleporter.
-
-Robot Guard storms in from the west.
+You pick up the portable teleporter.  Robot Guard storms in from the west.
 Robot Guard hits you with the robot's chain.
 
 > west
@@ -713,9 +703,7 @@ You can move east and west.
 > teleport
 As I said, its broken.  The entire destination circuit has been broken off.
 But as I told you it might still work, here it goes.  Colours swirl around
-you.  Then you arrive.
-
-Robot Guard storms in.
+you.  Then you arrive.  Robot Guard storms in.
 Robot Guard hits you with the robot's chain.
 
 > look
@@ -730,9 +718,8 @@ Robot Guard hits you with the robot's chain.
 > tiddlywink
 You say tiddlywinks.  Thick smoke swirls around the room.  You wait for what
 seems like half a minute before the smoke disappears.  The room is just the
-same as it was though your pocket feels slight heavier.
-
-Robot Guard stamps out to the east.
+same as it was though your pocket feels slight heavier.  Robot Guard stamps
+out to the east.
 
 > take tiddlywink
 You take the blue tiddlywink from your clothes.
@@ -757,9 +744,8 @@ Robot Guard hits you with the robot's chain.
 
 > push south
 You push the south wall, but instead of opening it swivels round, leaving yet
-another door!  On the right hand side of the door is a key hole.
-
-Robot Guard stamps out to the west.
+another door!  On the right hand side of the door is a key hole.  Robot Guard
+stamps out to the west.
 
 > use key with keyhole
 You put yet another key into the keyhole then pull the brick wall towards

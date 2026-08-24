@@ -146,12 +146,9 @@ Astridian is here, resting in the shadows.  Ds490 is here, socializing with
 some of the Drifters.
 
 You can move north, south, west, northeast, southeast and southwest.
-
-Astridian slips out to the south-west.
-
-The Invisible Man sidles unobtrusively into the room from the south-west.
-
-Nick Grimson wanders in from the south-west.
+Astridian slips out to the south-west.  The Invisible Man sidles
+unobtrusively into the room from the south-west.  Nick Grimson wanders in
+from the south-west.
 
 > w
 You move west.
@@ -230,8 +227,7 @@ You can move north, east, south and west.
 
 > open cabinet
 You open the cabinet.  The nutmeg and Campbell's soup are inside the cabinet.
-
-KF walks in from the south.
+ KF walks in from the south.
 
 > get nutmeg
 You take the nutmeg from the cabinet.
@@ -359,9 +355,7 @@ complete with fancy barstools.
 Samantha is behind the bar making drinks.  MileOut stands in the corner of
 the room, lip-synching with others present.
 
-You can move east, south and out.
-
-KF walks in from the south.
+You can move east, south and out.  KF walks in from the south.
 
 > put nutmeg in absinthe
 You wait for MileOut to look away, then slip a fair amount of nutmeg into his
@@ -369,7 +363,6 @@ bottle of Absinthe. After a few minutes of drinking MileOut begins spouting
 off something about a pink elephant and the bartender in compromising
 positions in some far off getaway.  Several minutes go by of him grasping at
 the air....for some unseen reason.  He then mumbles something about pool.
-
 Nick Grimson wanders in from the east.
 
 > ask mileout about pool
@@ -430,9 +423,7 @@ here, and seems to be distracted by thoughts of anime chracters battling
 sentient, philosophical kiwi fruits.  Mystery is talking with some Drifters,
 making sure everyone is having a good time.
 
-You can move west and northwest.
-
-Davidw goes  to the north-west.
+You can move west and northwest.  Davidw goes  to the north-west.
 
 > give money to dave
 You hand Dave the money and he begins doing his reading.
@@ -460,9 +451,8 @@ foyer.
 davidw is standing here looking for someone to antagonize.  Lancer Sykera,
 Sky Samuri, is present in the area.
 
-You can move north, south, west, northeast, southeast and southwest.
-
-Lancer Sykera floats away through the air to the west.
+You can move north, south, west, northeast, southeast and southwest.  Lancer
+Sykera floats away through the air to the west.
 
 > sw
 You move southwest.

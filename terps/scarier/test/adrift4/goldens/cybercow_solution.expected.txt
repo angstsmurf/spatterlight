@@ -211,9 +211,7 @@ It is daytime.
 You can move north, east, south and west.
 
 > throw rope down well
-You throw the rope down the well.
-
-Vluurinik flies in from the west.
+You throw the rope down the well.  Vluurinik flies in from the west.
 
 > take cross
 You pick up the heavy cross.
@@ -503,9 +501,7 @@ OW!
 --She *bit* you!
 
 > eat fairy
-You don't have the fairy!
-
-Vluurinik flies off to the east.
+You don't have the fairy!  Vluurinik flies off to the east.
 
 > e
 You move east.

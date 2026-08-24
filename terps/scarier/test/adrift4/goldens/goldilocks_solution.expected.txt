@@ -265,9 +265,8 @@ but the effect is less Capability Brown and more incapable bruin. A
 ramshackle potting shed completes the image of horticultural incompetence. To
 the north, an overgrown pergola leads into a meadow.
 
-I can move north, east and in.
-
-Daisy the cow walks towards me from the north.
+I can move north, east and in.  Daisy the cow walks towards me from the
+north.
 
 > e
 I move east.
@@ -280,9 +279,8 @@ deter trespassers. Just to the north is the front porch. A little path lined
 by rows of white-painted stones leads around the side of the house to the
 west.
 
-I can move north, south and west.
-
-Daisy the cow walks towards me from the west.
+I can move north, south and west.  Daisy the cow walks towards me from the
+west.
 
 > s
 I move south.
@@ -292,9 +290,8 @@ I'm at a fork in the path. Not the kind of fork you eat with, the sort where
 the path forks; you know, like a fork. To the north the path widens into a
 clearing. To the west it disappears into the forest.
 
-I can move north, east and west.
-
-Daisy the cow walks towards me from the north.
+I can move north, east and west.  Daisy the cow walks towards me from the
+north.
 
 > e
 I move east.
@@ -305,9 +302,8 @@ from the north towards the west. In every other direction there are dark,
 sinister looking trees that wave their branches at me in an anthropomorphic
 kind of way. Ooh, I'm soooo scared!
 
-I can move north, east, south and west.
-
-Daisy the cow walks towards me from the west.
+I can move north, east, south and west.  Daisy the cow walks towards me from
+the west.
 
 > n
 I move north.
@@ -320,9 +316,8 @@ marked path leads south and west, whilst in every other direction are, well,
 trees.
 An old pedlar is sitting on a log here, tending to his bunions.
 
-I can move north, east and south.
-
-Daisy the cow walks towards me from the south.
+I can move north, east and south.  Daisy the cow walks towards me from the
+south.
 
 'Ah, now there's a lovely specimen!' says the Pedlar, getting up from his log
 and feeling Daisy's knees. He seems satisfied. 'all present and correct! Here
@@ -771,9 +766,7 @@ forest.
 
 A battered old dustbin sits to one side of the porch.
 
-I can move south and in.
-
-The Big Bad Wolf walks towards me from inside.
+I can move south and in.  The Big Bad Wolf walks towards me from inside.
 
 > s
 I move south.
@@ -786,9 +779,8 @@ deter trespassers. Just to the north is the front porch. A little path lined
 by rows of white-painted stones leads around the side of the house to the
 west.
 
-I can move north, south and west.
-
-The Big Bad Wolf walks towards me from the north.
+I can move north, south and west.  The Big Bad Wolf walks towards me from the
+north.
 
 > w
 I move west.
@@ -803,9 +795,8 @@ the north, an overgrown pergola leads into a meadow.  A gigantic beanstalk
 rises out of the vegetable plot and stops abruptly just above the level of
 the roof.
 
-I can move north, east and in.
-
-The Big Bad Wolf walks towards me from the east.
+I can move north, east and in.  The Big Bad Wolf walks towards me from the
+east.
 
 > n
 I move north.
@@ -816,9 +807,7 @@ by a rickety fence. In the middle of the meadow is what appears to be a
 homemade wind turbine! To the south, through the tangled pergola, is the
 garden.
 
-I can only move south.
-
-The Big Bad Wolf walks towards me from the south.
+I can only move south.  The Big Bad Wolf walks towards me from the south.
 
 > ask wolf about turbine
 'Ah, so you wish to make use of my prodigious talents! Well never fear, I

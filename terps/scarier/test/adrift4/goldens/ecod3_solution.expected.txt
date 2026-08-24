@@ -44,17 +44,14 @@ Bottom of Stage
 You're standing at the edge of the stage, which towers over you. The ledge of
 the stage casts a dark shadow over the area, making it hard to see. The
 darkness continues to the North, which leads underneath the stage itself. You
-can hear the Evil Chicken continuing with his act up above.
-
-The Usher heads to the south.
-
-> z
-Time passes...
+can hear the Evil Chicken continuing with his act up above.   The Usher heads
+to the south.
 
 > z
 Time passes...
 
-The Usher walks from the south.
+> z
+Time passes...  The Usher walks from the south.
 
 > take flashlight
 In the dark shadows at the bottom of the stage, you swipe the flashlight from
@@ -62,9 +59,7 @@ the Usher.
 
 > fix flashlight
 Using the gum, you manage to reconnect the two loose wires, fixing the
-flashlight.
-
-The Usher heads to the south.
+flashlight.  The Usher heads to the south.
 
 > n
 With the flashlight on, you head under the stage.

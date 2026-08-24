@@ -1012,7 +1012,7 @@ dismal place. Something tells you not to spend too much time here.
 Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
-Garrick walks towards you from the north-west.
+  Garrick walks towards you from the north-west.
 
 > east
 You move east.
@@ -1034,7 +1034,7 @@ appears firmly locked.
 
 Exits lie: west (to the shadowy hallway)
 
-Garrick walks towards you from the west.
+  Garrick walks towards you from the west.
 
 > x statue
    Wrinkled and graying, the man carved in stone appears to be a wizard of
@@ -1066,7 +1066,7 @@ to say the least. Cobwebs are here in abundance, masking every surface.
 
 Exits lie: north (through the steel door) and up (the stairs)
 
-Garrick walks towards you from the north.
+  Garrick walks towards you from the north.
 
 > up
    You move up.
@@ -1103,9 +1103,8 @@ of boxes in one corner. Archways in three walls lead further into the castle.
 Exits lie: northwest (through an archway), east (through an archway),
 southeast (through an archway) and south (to the top of the stairs)
 
-   YOUR JOURNAL HAS BEEN UPDATED - PAGE 7
-
-Garrick walks towards you from the south.
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 7  Garrick walks towards you from the
+south.
 
 > se
 You move southeast.
@@ -1125,7 +1124,7 @@ library was an active place rather than the memory it is now.
 
 Exits lie: northwest (to the empty room) and south (to a passageway)
 
-Garrick walks towards you from the north-west.
+  Garrick walks towards you from the north-west.
 
 > x bookshelves
    You begin a quick, but thorough, search of the bookshelves, beginning at
@@ -1157,7 +1156,7 @@ be emitting a low, humming sound.
 
 Exits lie: north (to the library) and south (along the passageway)
 
-Garrick walks towards you from the north.
+  Garrick walks towards you from the north.
 
 > south
    As you approach the pit, a sudden wave of dizziness sweeps over you. You
@@ -1187,9 +1186,7 @@ Vadris is here.
 become apparent at once. All your items are gone. You are now clad in strange
 green robes which swirl about as you move, seeming to try to blend themselves
 in with their surroundings by subtle shifts of colour. You have never seen
-anything like them.
-
-Garrick walks towards you.
+anything like them.  Garrick walks towards you.
 
 > talk to vadris
    "Ah, the wanderer arrives," says Vadris. "I always wondered when you would
@@ -1222,9 +1219,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Iridil is here.
-
-Garrick walks towards you from the north.
+Iridil is here.  Garrick walks towards you from the north.
 
 > west
 You move west.
@@ -1239,9 +1234,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Sokan is here.
-
-Garrick walks towards you from the east.
+Sokan is here.  Garrick walks towards you from the east.
 
 > give spear to sokan
    Sokan takes the spear and gives you a surprised look. "Impressive. You
@@ -1279,9 +1272,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Iridil is here.
-
-Garrick walks towards you from the west.
+Iridil is here.  Garrick walks towards you from the west.
 
 > give crown to iridil
    "Ah, my symbol of rulership is returned!" cries Iridil, snatching the
@@ -1321,9 +1312,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Sokan is here.
-
-Garrick walks towards you from the east.
+Sokan is here.  Garrick walks towards you from the east.
 
 > nw
 You move northwest.
@@ -1338,9 +1327,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Gabriel is here.
-
-Garrick walks towards you from the south-east.
+Gabriel is here.  Garrick walks towards you from the south-east.
 
 > give sword to gabriel
    Gabriel takes the sword and a slow smile spreads across his craggy face.
@@ -1378,9 +1365,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Sokan is here.
-
-Garrick walks towards you from the north-west.
+Sokan is here.  Garrick walks towards you from the north-west.
 
 > east
 You move east.
@@ -1395,9 +1380,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Iridil is here.
-
-Garrick walks towards you from the west.
+Iridil is here.  Garrick walks towards you from the west.
 
 > north
 You move north.
@@ -1412,9 +1395,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Vadris is here.
-
-Garrick walks towards you from the south.
+Vadris is here.  Garrick walks towards you from the south.
 
 > open coffin
    As you move towards the coffin, Vadris blocks your path - then shies back
@@ -1442,9 +1423,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Iridil is here.
-
-Garrick walks towards you from the north.
+Iridil is here.  Garrick walks towards you from the north.
 
 > west
 You move west.
@@ -1459,9 +1438,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Sokan is here.
-
-Garrick walks towards you from the east.
+Sokan is here.  Garrick walks towards you from the east.
 
 > nw
 You move northwest.
@@ -1476,9 +1453,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Gabriel is here.
-
-Garrick walks towards you from the south-east.
+Gabriel is here.  Garrick walks towards you from the south-east.
 
 > sw
 You move southwest.
@@ -1493,9 +1468,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Timon is here.
-
-Garrick walks towards you from the north-east.
+Timon is here.  Garrick walks towards you from the north-east.
 
 > give cross to timon
    "My faith is restored," says Timon as you hand him the cross. He cradles
@@ -1531,9 +1504,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Volroar is here.
-
-Garrick walks towards you from the north-west.
+Volroar is here.  Garrick walks towards you from the north-west.
 
 > give goblet to volroar
    "Hmmm, very nice," Volroar says upon sampling the content of the goblet.
@@ -1565,9 +1536,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Selphaza is here.
-
-Garrick walks towards you from the west.
+Selphaza is here.  Garrick walks towards you from the west.
 
 > give mirror to selphaza
    "My mirror!" cries Selphaza and snatches it from your hand. She peers into
@@ -1604,9 +1573,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Iridil is here.
-
-Garrick walks towards you from the south-west.
+Iridil is here.  Garrick walks towards you from the south-west.
 
 > north
 You move north.
@@ -1621,9 +1588,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Vadris is here.
-
-Garrick walks towards you from the south.
+Vadris is here.  Garrick walks towards you from the south.
 
 > give stake to vadris
    Vadris takes the stake with a smile. "And thus I am safe. There exists
@@ -1651,9 +1616,8 @@ carrying before the dream began.
    "You have done well..." whispers a voice from somewhere. "You have
 succeeded where many before you failed... Perhaps you have a chance... Take
 the Orb... Do with it what must be done..."
-   The voice fades leaving you alone in the passageway.
-
-Garrick walks towards you.
+   The voice fades leaving you alone in the passageway.  Garrick walks
+towards you.
 
 > look
 
@@ -1699,7 +1663,7 @@ library was an active place rather than the memory it is now.
 
 Exits lie: northwest (to the empty room) and south (to a passageway)
 
-Garrick walks towards you from the south.
+  Garrick walks towards you from the south.
 
 > nw
 You move northwest.
@@ -1718,7 +1682,7 @@ of boxes in one corner. Archways in three walls lead further into the castle.
 Exits lie: northwest (through an archway), east (through an archway),
 southeast (through an archway) and south (to the top of the stairs)
 
-Garrick walks towards you from the south-east.
+  Garrick walks towards you from the south-east.
 
 > nw
 You move northwest.
@@ -1738,7 +1702,7 @@ before. Are they real? Or just the work of a fevered mind?
 
 Exits lie: west (to the pit) and southeast (to the empty room)
 
-Garrick walks towards you from the south-east.
+  Garrick walks towards you from the south-east.
 
 > x statues
    There are eight alcoves in total, each containing the statue of a beast
@@ -1964,7 +1928,7 @@ seems to quieten them down.
 
 Exits lie: south (to the pit)
 
-Garrick walks towards you from the south.
+  Garrick walks towards you from the south.
 
 > raise orb
    The moment you raise the orb, a strange thing happens. Each of the cell
@@ -2053,7 +2017,7 @@ the walls.
 
 Exits lie:  north (to the openings) and east (to the passage)
 
-Garrick walks towards you from the north.
+  Garrick walks towards you from the north.
 
 > east
 You move east.
@@ -2074,7 +2038,7 @@ before. Are they real? Or just the work of a fevered mind?
 
 Exits lie: west (to the pit) and southeast (to the empty room)
 
-Garrick walks towards you from the west.
+  Garrick walks towards you from the west.
 
 > se
 You move southeast.
@@ -2110,7 +2074,7 @@ laughter and voices of several people.
 
 Exits lie: down (the stairs) and north (through the door)
 
-Garrick walks towards you from the north.
+  Garrick walks towards you from the north.
 
 > down
    You move down.
@@ -2149,7 +2113,7 @@ now stands open.
 
 Exits lie: west (to the shadowy hallway) and south (through the steel door)
 
-Garrick walks towards you from the south.
+   Garrick walks towards you from the south.
 
 > west
 You move west.
@@ -2172,7 +2136,7 @@ dismal place. Something tells you not to spend too much time here.
 Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
-Garrick walks towards you from the east.
+  Garrick walks towards you from the east.
 
 > nw
 You move northwest.
@@ -2193,7 +2157,7 @@ there is little to see.
 
 Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
-Garrick walks towards you from the south-east.
+  Garrick walks towards you from the south-east.
 
 > west
 Cell
@@ -2230,9 +2194,8 @@ hell of it!"
 past you, fleeing into the laboratory and then to the southeast. You start to
 give chase but know you will never catch him - he runs like the wind.
 
-   YOUR JOURNAL HAS BEEN UPDATED - PAGE 15
-
-Garrick walks towards you from the east.
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 15  Garrick walks towards you from
+the east.
 
 > get doll
    You get the doll.
@@ -2279,7 +2242,7 @@ dismal place. Something tells you not to spend too much time here.
 Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
-Garrick walks towards you from the north-west.
+  Garrick walks towards you from the north-west.
 
 > east
 You move east.
@@ -2301,7 +2264,7 @@ now stands open.
 
 Exits lie: west (to the shadowy hallway) and south (through the steel door)
 
-Garrick walks towards you from the west.
+   Garrick walks towards you from the west.
 
 > south
 You move south.
@@ -2318,7 +2281,7 @@ to say the least. Cobwebs are here in abundance, masking every surface.
 
 Exits lie: north (through the steel door) and up (the stairs)
 
-Garrick walks towards you from the north.
+  Garrick walks towards you from the north.
 
 > up
    You move up.
@@ -2382,7 +2345,7 @@ beyond which nothing can be seen.
 
 Exits lie: west (to the empty room) and east (to the shadowy archway)
 
-Garrick walks towards you from the west.
+  Garrick walks towards you from the west.
 
 > east
    The moment you try to walk along the corridor, a bright light flares
@@ -2441,7 +2404,7 @@ the sound of voices.
 Exits lie: west, north and northeast (along the corridors), east (through an
 archway) and south (to the sloping corridor)
 
-Garrick walks towards you from the south.
+  Garrick walks towards you from the south.
 
 > north
 You move north.
@@ -2459,7 +2422,7 @@ shape upon it, hidden beneath the filthy blankets.
 
 Exits lie: south (to the feasthall)
 
-Garrick walks towards you from the south.
+  Garrick walks towards you from the south.
 
 > extinguish fire
    You stamp on the fire until it goes out, leaving the room seeming quite a
@@ -2485,7 +2448,7 @@ the sound of voices.
 Exits lie: west, north and northeast (along the corridors), east (through an
 archway) and south (to the sloping corridor)
 
-Garrick walks towards you from the north.
+  Garrick walks towards you from the north.
 
 > west
 You move west.
@@ -2505,7 +2468,7 @@ of skulls.
 Exits lie: west, southwest and south (through the doors) and east to the
 feasthall
 
-Garrick walks towards you from the east.
+  Garrick walks towards you from the east.
 
 > south
 The Pool
@@ -2521,9 +2484,8 @@ mouth open in song. Water cascades from her open mouth.
 
 Exits lie: north (to the end of the corridor)
 
-   YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
-
-Garrick walks towards you from the north.
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 12  Garrick walks towards you from
+the north.
 
 > x woman
    The statue is carved in the figure of a woman, naked from the waist up,
@@ -2560,7 +2522,7 @@ of skulls.
 Exits lie: west, southwest and south (through the doors) and east to the
 feasthall
 
-Garrick walks towards you from the south.
+  Garrick walks towards you from the south.
 
 > east
 You move east.
@@ -2582,7 +2544,7 @@ the sound of voices.
 Exits lie: west, north and northeast (along the corridors), east (through an
 archway) and south (to the sloping corridor)
 
-Garrick walks towards you from the west.
+  Garrick walks towards you from the west.
 
 > x skeleton
    The skeleton is a grisly reminder of what you face in this castle. It
@@ -2664,7 +2626,7 @@ of skulls.
 Exits lie: west, southwest and south (through the doors) and east to the
 feasthall
 
-Garrick walks towards you from the east.
+  Garrick walks towards you from the east.
 
 > south
 You move south.
@@ -2682,7 +2644,7 @@ mouth open in song. Water cascades from her open mouth.
 
 Exits lie: north (to the end of the corridor)
 
-Garrick walks towards you from the north.
+  Garrick walks towards you from the north.
 
 > use powder
    Following the instructions you received from Havelock's skeletal remains,
@@ -2714,7 +2676,7 @@ of skulls.
 Exits lie: west, southwest and south (through the doors) and east to the
 feasthall
 
-Garrick walks towards you from the south.
+  Garrick walks towards you from the south.
 
 > west
 You move west.
@@ -2731,7 +2693,7 @@ door in the northern wall.
 
 Exits lie: north and east (through doors)
 
-Garrick walks towards you from the east.
+  Garrick walks towards you from the east.
 
 > climb walls
    Climbing the slanting walls is not actually possible because the slant is
@@ -2821,9 +2783,8 @@ Exits lie: north and east (through doors)
 
    As you exit Toril's chambers, you experience a strange sensation. Turning
 around, you can see nothing different than before but something tells you
-that the wards have reinstated themselves.
-
-Garrick walks towards you from the north.
+that the wards have reinstated themselves.  Garrick walks towards you from
+the north.
 
 > east
 You move east.
@@ -2843,7 +2804,7 @@ of skulls.
 Exits lie: west, southwest and south (through the doors) and east to the
 feasthall
 
-Garrick walks towards you from the west.
+  Garrick walks towards you from the west.
 
 > sw
 You move southwest.
@@ -2867,9 +2828,8 @@ here.
 
 Exits lie: northeast (to the end of the corridor)
 
-Greera the cook is here, leaning on her staff.
-
-Garrick walks towards you from the north-east.
+Greera the cook is here, leaning on her staff.  Garrick walks towards you
+from the north-east.
 
 > give ring to greera
    Greera takes the gold ring and coos, "ah, it is back, it is back! My
@@ -2902,7 +2862,7 @@ of skulls.
 Exits lie: west, southwest and south (through the doors) and east to the
 feasthall
 
-Garrick walks towards you from the south-west.
+  Garrick walks towards you from the south-west.
 
 > east
 Ancient Feasthall
@@ -2934,9 +2894,8 @@ if hearing something (although you hear nothing yourself). He looks back at
 you. "I would go if I were you, Marlon. Vaslock is aware of what you have
 done and will doubtless send someone to investigate very soon."
 
-   YOUR JOURNAL HAS BEEN UPDATED - PAGE 12
-
-Garrick walks towards you from the west.
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 12  Garrick walks towards you from
+the west.
 
 > east
 Room
@@ -2955,9 +2914,8 @@ Chad the vampire and Lara are here.
    Chad looks up as you enter and presses a dagger hard against Lara's
 throat. "You've found me then? Now what are you going to do?"
 
-   YOUR JOURNAL HAS BEEN UPDATED - PAGE 15
-
-Garrick walks towards you from the west.
+   YOUR JOURNAL HAS BEEN UPDATED - PAGE 15  Garrick walks towards you from
+the west.
 
 > throw dagger at chad
    Acting on reflex, you throw the silver dagger at Chad. He has time for one
@@ -3008,7 +2966,7 @@ the sound of voices.
 Exits lie: west, north and northeast (along the corridors), east (through an
 archway) and south (to the sloping corridor)
 
-Garrick walks towards you from the east.
+  Garrick walks towards you from the east.
 
 > south
 You move south.
@@ -3027,7 +2985,7 @@ seen.
 
 Exits lie: west (to the passageway) and north (the sloping corridor)
 
-Garrick walks towards you from the north.
+  Garrick walks towards you from the north.
 
 > west
 You move west.
@@ -3045,7 +3003,7 @@ beyond which nothing can be seen.
 
 Exits lie: west (to the empty room) and east (to the shadowy archway)
 
-Garrick walks towards you from the east.
+  Garrick walks towards you from the east.
 
 > west
 You move west.
@@ -3066,7 +3024,7 @@ of boxes in one corner. Archways in three walls lead further into the castle.
 Exits lie: northwest (through an archway), east (through an archway),
 southeast (through an archway) and south (to the top of the stairs)
 
-Garrick walks towards you from the east.
+  Garrick walks towards you from the east.
 
 > south
 You move south.
@@ -3082,7 +3040,7 @@ laughter and voices of several people.
 
 Exits lie: down (the stairs) and north (through the door)
 
-Garrick walks towards you from the north.
+  Garrick walks towards you from the north.
 
 > down
    You move down, stepping as carefully as you can. Alas, it seems, not
@@ -3125,7 +3083,7 @@ now stands open.
 
 Exits lie: west (to the shadowy hallway) and south (through the steel door)
 
-Garrick walks towards you from the south.
+   Garrick walks towards you from the south.
 
 > west
 You move west.
@@ -3148,7 +3106,7 @@ dismal place. Something tells you not to spend too much time here.
 Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
-Garrick walks towards you from the east.
+  Garrick walks towards you from the east.
 
 > sw
 You move southwest.
@@ -3164,7 +3122,7 @@ shore somewhere that you do not recognise.
 
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
-Garrick walks towards you from the north-east.
+  Garrick walks towards you from the north-east.
 
 > south
 You move south.
@@ -3188,7 +3146,7 @@ corners of the room yet when you look again there is nothing there.
 
 Exits lie: north (to the dark passageway)
 
-Garrick walks towards you from the north.
+  Garrick walks towards you from the north.
 
 > give cloak to toril
    "Ah, so kind, so kind," murmurs Toril as you hand over his possession.
@@ -3229,7 +3187,7 @@ shore somewhere that you do not recognise.
 
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
-Garrick walks towards you from the south.
+  Garrick walks towards you from the south.
 
 > ne
 You move northeast.
@@ -3252,7 +3210,7 @@ dismal place. Something tells you not to spend too much time here.
 Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
 
-Garrick walks towards you from the south-west.
+  Garrick walks towards you from the south-west.
 
 > east
 You move east.
@@ -3275,7 +3233,7 @@ now stands open.
 
 Exits lie: west (to the shadowy hallway) and south (through the steel door)
 
-Garrick walks towards you from the west.
+   Garrick walks towards you from the west.
 
 > south
 You move south.
@@ -3292,7 +3250,7 @@ to say the least. Cobwebs are here in abundance, masking every surface.
 
 Exits lie: north (through the steel door) and up (the stairs)
 
-Garrick walks towards you from the north.
+  Garrick walks towards you from the north.
 
 > up
    You move up.
@@ -3345,7 +3303,7 @@ beyond which nothing can be seen.
 
 Exits lie: west (to the empty room) and east (to the shadowy archway)
 
-Garrick walks towards you from the west.
+  Garrick walks towards you from the west.
 
 > east
 You move east.
@@ -3387,7 +3345,7 @@ the sound of voices.
 Exits lie: west, north and northeast (along the corridors), east (through an
 archway) and south (to the sloping corridor)
 
-Garrick walks towards you from the south.
+  Garrick walks towards you from the south.
 
 > ne
 You move northeast.
@@ -3438,9 +3396,7 @@ figure shakes its head. "Ah, but what is the point of telling you anything?
 The experiment has failed." He clenches his hands into fists. "Time to
 dispose of the 'evidence', and Torodim is just the sort to get it dealt
 with."
-   He starts towards you.
-
-Garrick walks towards you from the south-west.
+   He starts towards you.  Garrick walks towards you from the south-west.
 
 > kill torodim
    Torodim eyes go wide as you raise the silver dagger.
@@ -3924,7 +3880,7 @@ the skull's eyesockets.
 
 Exits lie: west (to the junction) and southeast (to the storeroom)
 
-Gragor follows you from the south-east.
+  Gragor follows you from the south-east.
 
 > west
 You move west.
@@ -3945,7 +3901,7 @@ suspicion in their eyes.
 
 Exits lie: north, northeast, south and east (along passageways)
 
-Gragor follows you from the east.
+  Gragor follows you from the east.
 
 > west
 Dark Tunnel [1]
@@ -3969,9 +3925,7 @@ the nerve to come here, despite what they tell me of you."
    The vampire laughs. "Me? Oh no. My name does not matter now. After all,
 you won't be in a position to worry about such things for much longer." He
 takes a step towards you. "Ah, I see you flinch. As well you might, for today
-you die, Marlon."
-
-Gragor follows you.
+you die, Marlon."  Gragor follows you.
 
 > kill vampire
    Shock is clearly written on the vampire's face as he sees you are carrying
@@ -4006,7 +3960,7 @@ would be found here
 
 Exits lie: west and east (along tunnel)
 
-Gragor follows you from the east.
+  Gragor follows you from the east.
 
 > west
 You move west.
@@ -4020,7 +3974,7 @@ it is unmovable. There is nothing else here.
 
 Exits lie: east (along the tunnel)
 
-Gragor follows you from the east.
+  Gragor follows you from the east.
 
 > raise orb
    The moment you raise the orb, there is a grinding sound from the block of
@@ -4041,7 +3995,7 @@ tunnel disappearing into the distance. Westwards the passage slopes upwards.
 
 Exits lie: east (to the dark tunnel) and west (to the sloping passage)
 
-Gragor follows you from the east.
+  Gragor follows you from the east.
 
 > west
 You move west.
@@ -4058,7 +4012,7 @@ you. If you dare only take it.
 
 Exits lie: east (to the passage) and west (to the lair of the vampire)
 
-Gragor follows you from the east.
+  Gragor follows you from the east.
 
 > open door
    "Let me," says Gragor, shouldering you aside. "I want first stab at the

@@ -580,7 +580,7 @@ Oasis
 De entre las dunas del desierto aparece un pequeño oasis, un aire de vida a
 aquello que parecía totalmente apagado. Notas el frescor del agua gracias a
 una hermosa charca,  el verdor de la vegetación y el cobijo de las palmeras.
-  Los jinetes oscuros van tras tus huellas...
+Los jinetes oscuros van tras tus huellas...
 
 > lanzar el brazalete a la charca
 Te siguen los pasos de muy cerca y sabes, que si no te deshaces del brazalete

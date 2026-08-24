@@ -435,9 +435,8 @@ A Dark Tunnel
 This tunnel is overrun with bat droppings so thick that the stench is enough
 to make me want to pass out.  The stinky tunnel leads to the north and to the
 southwest.
-Bat's are are flying about everywhere.
-
-A flock of bats flutter away to the north.
+Bat's are are flying about everywhere.  A flock of bats flutter away to the
+north.
 
 > n
 I move north.
@@ -469,9 +468,8 @@ I move west.
 A Dark Tunnel
 
 There is an opening in the east wall that wasn't there before.  The guano
-filled tunnel stretches east and south.
-
-A flock of bats swoop in from the south.
+filled tunnel stretches east and south.  A flock of bats swoop in from the
+south.
 
 > s
 I move south.
@@ -567,9 +565,7 @@ A Dark Tunnel
 
 The tunnel narrows a little here, but I can see that it runs north and south
 from here.  The stench from the bat droppings that cover the tunnel floor is
-quite overwhelming.
-
-A flock of bats swoop in from the south.
+quite overwhelming.  A flock of bats swoop in from the south.
 
 > n
 I move north.
@@ -613,9 +609,7 @@ A Dark Tunnel
 The light from the lantern seems more calm now, but the stench from the guano
 covering the floor, hangs heavy in the air.  The stone wall that blocked the
 tunnel to the northeast is completely gone, without a trace.  The tunnel also
-goes off to the southeast.
-
-A flock of bats swoop in from the south-east.
+goes off to the southeast.  A flock of bats swoop in from the south-east.
 
 > push boulder se
 "Grrrr. Hhhrrrmmmmmmmmmppphhhh."
@@ -757,9 +751,8 @@ The light from the lantern seems more calm now, but the stench from the guano
 covering the floor, hangs heavy in the air.  The stone wall that blocked the
 tunnel to the northeast is completely gone, without a trace.  The tunnel also
 goes off to the southeast.
-Bat's are are flying about everywhere.
-
-A flock of bats flutter away to the south-east.
+Bat's are are flying about everywhere.  A flock of bats flutter away to the
+south-east.
 
 > ne
 I move northeast.
@@ -870,9 +863,7 @@ A Dark Tunnel
 The light from the lantern seems more calm now, but the stench from the guano
 covering the floor, hangs heavy in the air.  The stone wall that blocked the
 tunnel to the northeast is completely gone, without a trace.  The tunnel also
-goes off to the southeast.
-
-Hanson follows me in from the north-east.
+goes off to the southeast.  Hanson follows me in from the north-east.
 
 > se
 I move southeast.
@@ -882,9 +873,8 @@ A Dark Tunnel
 The lantern flickers slightly with an invisible breeze that moves through the
 tunnel, only making the stench of the bat droppings that much more
 nauseating.  I can see that the tunnel branches off to the northeast and
-northwest, as well as to the south.
-
-Hanson follows me in from the north-west.
+northwest, as well as to the south.  Hanson follows me in from the
+north-west.
 
 > s
 I move south.
@@ -893,9 +883,7 @@ A Dark Tunnel
 
 The tunnel narrows a little here, but I can see that it runs north and south
 from here.  The stench from the bat droppings that cover the tunnel floor is
-quite overwhelming.
-
-Hanson follows me in from the north.
+quite overwhelming.  Hanson follows me in from the north.
 
 > s
 I move south.
@@ -905,9 +893,7 @@ A Dark Tunnel
 The tunnel divides into four different directions here.  It goes south, while
 three other tunnels lead north, northeast, and northwest.  A strong odor of
 ammonia fills the air.  It is likely coming from the bat guano that covers
-the ground.
-
-Hanson follows me in from the north.
+the ground.  Hanson follows me in from the north.
 
 > s
 South, back to the pit.
@@ -952,9 +938,7 @@ A Dark Tunnel
 
 Great!  I hate rats!  Water runs down the center of the tunnel and is filled
 with hundreds of rats that scurry about.  The tunnel runs south from here and
-west.  Man, there are a lot of rats!
-
-Hanson follows me in from the west.
+west.  Man, there are a lot of rats!  Hanson follows me in from the west.
 
 > s
 I move south.
@@ -965,7 +949,6 @@ The damp tunnel is blocked with a large iron grate, with a single door.  It
 is too dark to see what lies to the west, on the other side of the grate.
 This side has large puddles of water that fill the center of the tunnel, and
 it appears to lead to the north from here.
-
 Hanson follows me in from the north.
 
 > e
@@ -980,7 +963,6 @@ The damp tunnel is blocked with a large iron grate, with a single door.  I
 can make out a lever near the grate.  It is too dark to see what lies to the
 east on the other side of the grate, and I dread to think of returning to the
 west, where all of those spiders are.
-
 Hanson follows me in from the east.
 
 > w
@@ -993,9 +975,7 @@ floor, everything is crawling with spiders.  I can see the tunnel turns east
 from here, a very large, but quite smashed, spider lies squished on the
 floor.  I can now go east or south.
 
-Also here is a brick.
-
-Hanson follows me in from the east.
+Also here is a brick.  Hanson follows me in from the east.
 
 > s
 I move south.
@@ -1005,9 +985,8 @@ A Dark Tunnel
 It looks an underground tunnel.  The walls are narrow and puddles saturate
 the floor.  It looks like it continues to the north and a hole in the wall
 leads back into the cellar, which I can go through.  How odd, though.  There
-is no sign of the lantern that I am sure I heard Hanson break.
-
-Hanson follows me in from the north.
+is no sign of the lantern that I am sure I heard Hanson break.  Hanson
+follows me in from the north.
 
 > in
 I stick the lantern through the hole first, making sure something isn't in
@@ -1022,9 +1001,8 @@ stacked up in the corners near several more keg barrels.  The western wall is
 completely lined with shelves and holds several bags of herbs  and spices,
 along with some jars.  The other wall has a large hole in it, leading in,
 with a pile of bricks slightly off to the side.  Mum isn’t going to be happy
-about this at all. The trapdoor leads up to the storeroom.
-
-Hanson follows me in.
+about this at all. The trapdoor leads up to the storeroom.  Hanson follows me
+in.
 
 > score
 My score is 85 out of a maximum of 0.  (0%)

@@ -41,9 +41,7 @@ that of "Uncle Horace, 1746-1803. Motto: I WILL LIVE AGAIN"
 A sudden crash of lightning makes you jump.
 
 > kiss marie
-Cousion Marie is not here!
-
-Marie floats in from the east.
+Cousion Marie is not here!  Marie floats in from the east.
 Thunder rumbles ominously.
 
 > kiss marie
@@ -555,9 +553,7 @@ perhaps of when this house was inhabited. A drinks cabinet is on the west
 wall.
 Eggbert is here.
 
-You can move north and west.
-
-Eggbert runs off to the west.
+You can move north and west.  Eggbert runs off to the west.
 The wind howls and you shiver.
 You hear the chiming of the grandfather clock.
 
@@ -621,9 +617,7 @@ You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
 
-You can move north, south and west.
-
-Eggbert bumbles in from the south.
+You can move north, south and west.  Eggbert bumbles in from the south.
 Thunder rumbles ominously.
 You hear the chiming of the grandfather clock.
 
@@ -666,9 +660,7 @@ you to see that to the east is a shed, and a greenhouse to the north. A gate
 to the west leads to the family graveyard. At one side of the garden is a
 vegetable patch with a water tank in the middle.
 
-You can move north, east, south and west.
-
-Horace lurches in from the west.
+You can move north, east, south and west.  Horace lurches in from the west.
 The rain continues to batter down.
 
 > s
@@ -677,9 +669,7 @@ You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
 
-You can move north, south and west.
-
-Horace lurches in from the north.
+You can move north, south and west.  Horace lurches in from the north.
 The wind howls and you shiver.
 You hear the chiming of the grandfather clock.
 
@@ -691,9 +681,7 @@ loose.  The kitchen is quite tidy and clean. A cupboard stands by the far
 wall, and a stove rests beside the window. A hole in the ground leads down to
 the laboratory.
 
-You can move east and down.
-
-Horace lurches in from the east.
+You can move east and down.  Horace lurches in from the east.
 A sudden crash of lightning makes you jump.
 You hear the chiming of the grandfather clock.
 
@@ -712,9 +700,7 @@ doesn't notice for a while.
 Also here is bottle of whisky.
 Eggbert is here.
 
-You can only move up.
-
-Horace lurches in from above.
+You can only move up.  Horace lurches in from above.
 You hear the chiming of the grandfather clock.You drop down into the
 laboratory, Horace following you. Eggbert freezes, then drops the test tube
 he was carrying. Uncle Horace fixes Eggbert with a blank gaze, then lurches

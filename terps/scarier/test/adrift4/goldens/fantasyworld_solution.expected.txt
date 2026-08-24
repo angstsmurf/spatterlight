@@ -2549,9 +2549,7 @@ Mountain Pass
 This side of the pass is much easier than the northern side.  To the north is
 the summit of the peak and southward lies the valley.  As you're walking, you
 notice that from time to time, sheer cliffs appear on either the east side or
-the west side of the path.
-
-Demon  from the south.
+the west side of the path.  Demon  from the south.
 
 > n
 You move north.
@@ -2560,9 +2558,7 @@ Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
 as you gaze northward, you can only see the winding mountian pass that you
-just traversed.
-
-Demon  from the south.
+just traversed.  Demon  from the south.
 
 > n
 You move north.
@@ -2572,9 +2568,7 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
-Greater Ghoul is here.
-
-Demon  from the south.
+Greater Ghoul is here.  Demon  from the south.
 You gain a few hit points
 
 > e
@@ -2586,9 +2580,7 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-Ghoul is here.
-
-Demon  from the west.
+Ghoul is here.  Demon  from the west.
 
 > n
 You move north.
@@ -2598,18 +2590,14 @@ This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
 least of your worries as the ground seems to shift constantly.  The trail
 winds its way to the south and there is a smaller, trail that leads into a
-cleft of the rock to the east.
-
-Demon  from the south.
+cleft of the rock to the east.  Demon  from the south.
 
 > e
 You move east.
 
 Cleft in the rock
 This cleft is nothing more than the base of a rock chimney.  A skilled
-climber could ascend to the peak.
-
-Demon  from the west.
+climber could ascend to the peak.  Demon  from the west.
 
 > u
 You move up.
@@ -2619,9 +2607,8 @@ You have reached the top of the rock chimney and look about.  Far below you,
 the pass seems to wander.  From this vantage point, you can see farther than
 you had ever thought and as you look to the east, you see a strange fortress
 looking building squatting atop the hill.  Seen from a distance, this
-fortress would be practically invisible so carefully crafted it is.
-
-Demon  from below.
+fortress would be practically invisible so carefully crafted it is.  Demon
+from below.
 
 > e
 You move east.
@@ -2633,9 +2620,7 @@ place.  You notice that it seems to have been converted into a temple but do
 not recognize the symbol as any traditional god.   There is a well here and
 it seems to be well used as the rope and pulley are in a state of good
 repair.  There is a two handed sword embedded in the stone here where the
-Temple Guard finally left the waking world.
-
-Demon  from the west.
+Temple Guard finally left the waking world.  Demon  from the west.
 
 > n
 You move north.
@@ -2644,9 +2629,7 @@ Temple of Jedimah
 As you enter the temple you feel a sudden feeling of peace.    You can see
 that the courtyard of this fortress has been converted to a worship place and
 you can see a statue of the god being worshipped here.  To the east is the
-keep.
-
-Demon  from the south.
+keep.  Demon  from the south.
 
 > e
 You move east.
@@ -2658,9 +2641,7 @@ a beam of sunlight upon a shattered Altar.  Then, a shape moves out of the
 gloom toward you.  "Ah, you return."
 
 Also here is Altar of Silence.
-Elizabeth and Jedimah are here.
-
-Demon  from the west.
+Elizabeth and Jedimah are here.  Demon  from the west.
 
 > kill demon
 You turn to strike at the demon as it breaks through the stone walls of the
@@ -2684,9 +2665,7 @@ Temple of Jedimah
 As you enter the temple you feel a sudden feeling of peace.    You can see
 that the courtyard of this fortress has been converted to a worship place and
 you can see a statue of the god being worshipped here.  To the east is the
-keep.
-
-Demon  from the east.
+keep.  Demon  from the east.
 
 > s
 You move south.
@@ -2698,9 +2677,7 @@ place.  You notice that it seems to have been converted into a temple but do
 not recognize the symbol as any traditional god.   There is a well here and
 it seems to be well used as the rope and pulley are in a state of good
 repair.  There is a two handed sword embedded in the stone here where the
-Temple Guard finally left the waking world.
-
-Demon  from the north.
+Temple Guard finally left the waking world.  Demon  from the north.
 
 > w
 You move west.
@@ -2710,18 +2687,15 @@ You have reached the top of the rock chimney and look about.  Far below you,
 the pass seems to wander.  From this vantage point, you can see farther than
 you had ever thought and as you look to the east, you see a strange fortress
 looking building squatting atop the hill.  Seen from a distance, this
-fortress would be practically invisible so carefully crafted it is.
-
-Demon  from the east.
+fortress would be practically invisible so carefully crafted it is.  Demon
+from the east.
 
 > d
 You move down.
 
 Cleft in the rock
 This cleft is nothing more than the base of a rock chimney.  A skilled
-climber could ascend to the peak.
-
-Demon  from above.
+climber could ascend to the peak.  Demon  from above.
 
 > w
 You move west.
@@ -2731,9 +2705,7 @@ This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
 least of your worries as the ground seems to shift constantly.  The trail
 winds its way to the south and there is a smaller, trail that leads into a
-cleft of the rock to the east.
-
-Demon  from the east.
+cleft of the rock to the east.  Demon  from the east.
 
 > s
 You move south.
@@ -2744,9 +2716,7 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-Ghoul is here.
-
-Demon  from the north.
+Ghoul is here.  Demon  from the north.
 
 > w
 You move west.
@@ -2756,9 +2726,7 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
-Greater Ghoul is here.
-
-Demon  from the east.
+Greater Ghoul is here.  Demon  from the east.
 
 > s
 You move south.
@@ -2767,9 +2735,7 @@ Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
 as you gaze northward, you can only see the winding mountian pass that you
-just traversed.
-
-Demon  from the north.
+just traversed.  Demon  from the north.
 
 > s
 You move south.
@@ -2778,9 +2744,7 @@ Mountain Pass
 This side of the pass is much easier than the northern side.  To the north is
 the summit of the peak and southward lies the valley.  As you're walking, you
 notice that from time to time, sheer cliffs appear on either the east side or
-the west side of the path.
-
-Demon  from the north.
+the west side of the path.  Demon  from the north.
 
 > s
 You move south.
@@ -2794,8 +2758,7 @@ in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.    The King is here and he is surrounded by his
 Royal guards.  You can't see what he is doing as he seems to be lounging
 about reading the book you acquired for him and fingering Melvin's medallion.
-
-Demon  from the north.
+ Demon  from the north.
 
 > w
 You move west.
@@ -2803,9 +2766,7 @@ You move west.
 Forest
 You have foolishly entered the forest and quickly lost your way.  You can try
 traveling in any direction in hopes of reaching the trail or a settlement of
-some kind.
-
-Demon  from the east.
+some kind.  Demon  from the east.
 
 > s
 You move south.
@@ -2817,9 +2778,7 @@ circular clearing.  Ancient lore tells you that this is a dryad grove.  What
 you remember of Dryads is shaky but you recall that they are beautiful
 godesses of the forest and punish any who trespass upon their lands.  As you
 enter, a Dryad rushes up to you.  "You are a great hero, you must assist me."
-Merna is here.
-
-Demon  from the north.
+Merna is here.  Demon  from the north.
 You gain a few hit points
 
 > kill demon
@@ -2846,9 +2805,7 @@ You move north.
 Forest
 You have foolishly entered the forest and quickly lost your way.  You can try
 traveling in any direction in hopes of reaching the trail or a settlement of
-some kind.
-
-Demon  from the south.
+some kind.  Demon  from the south.
 
 > e
 You move east.
@@ -2862,8 +2819,7 @@ in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.    The King is here and he is surrounded by his
 Royal guards.  You can't see what he is doing as he seems to be lounging
 about reading the book you acquired for him and fingering Melvin's medallion.
-
-Demon  from the west.
+ Demon  from the west.
 
 > n
 You move north.
@@ -2872,9 +2828,7 @@ Mountain Pass
 This side of the pass is much easier than the northern side.  To the north is
 the summit of the peak and southward lies the valley.  As you're walking, you
 notice that from time to time, sheer cliffs appear on either the east side or
-the west side of the path.
-
-Demon  from the south.
+the west side of the path.  Demon  from the south.
 
 > n
 You move north.
@@ -2883,9 +2837,7 @@ Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
 as you gaze northward, you can only see the winding mountian pass that you
-just traversed.
-
-Demon  from the south.
+just traversed.  Demon  from the south.
 
 > n
 You move north.
@@ -2895,9 +2847,7 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.
-Greater Ghoul is here.
-
-Demon  from the south.
+Greater Ghoul is here.  Demon  from the south.
 
 > e
 You move east.
@@ -2908,9 +2858,7 @@ village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
 there.
-Ghoul is here.
-
-Demon  from the west.
+Ghoul is here.  Demon  from the west.
 
 > n
 You move north.
@@ -2920,9 +2868,7 @@ This is the trailhead of the only pass through the mountains.  These
 mountains are a dangerous place and the creatures that inhabit it are the
 least of your worries as the ground seems to shift constantly.  The trail
 winds its way to the south and there is a smaller, trail that leads into a
-cleft of the rock to the east.
-
-Demon  from the south.
+cleft of the rock to the east.  Demon  from the south.
 
 > n
 You move north.
@@ -2930,9 +2876,7 @@ You move north.
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
-massive graveyard.
-
-Demon  from the south.
+massive graveyard.  Demon  from the south.
 
 > n
 You move north.
@@ -2940,9 +2884,7 @@ You move north.
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
-time by traveling to the east or the west.
-
-Demon  from the south.
+time by traveling to the east or the west.  Demon  from the south.
 
 > n
 You move north.
@@ -2951,9 +2893,7 @@ The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
 trail proper.  If you desire, you can climb down to the river itself but
-caution is recommended.
-
-Demon  from the south.
+caution is recommended.   Demon  from the south.
 
 > n
 You move north.
@@ -2967,9 +2907,7 @@ haunted by foul beasts.  Rumor also has it that there is a temple in the
 mountains though none can claim to have seen it.    As you look to your
 village, you can't help but to weep at the senseless slaughter that took
 place there.
-Dragon is here.
-
-Demon  from the south.
+Dragon is here.  Demon  from the south.
 
 > kill demon
 You grieve as you think about your destroyed vilage and then, the demon roar
@@ -2989,9 +2927,7 @@ The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
 trail proper.  If you desire, you can climb down to the river itself but
-caution is recommended.
-
-Demon  from the north.
+caution is recommended.   Demon  from the north.
 
 > s
 You move south.
@@ -2999,9 +2935,7 @@ You move south.
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
-time by traveling to the east or the west.
-
-Demon  from the north.
+time by traveling to the east or the west.  Demon  from the north.
 
 > s
 You move south.
@@ -3009,9 +2943,7 @@ You move south.
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
-massive graveyard.
-
-Demon  from the north.
+massive graveyard.  Demon  from the north.
 
 > w
 You move west.
@@ -3022,9 +2954,7 @@ nice and cheery place during the day but at night people are loathe to come
 here as it is haunted by a vampire or other fell undead.   There is a crypt
 here that seems older than the village itself.  If you wanted, you could
 enter it.    There is an open grave here that was home to the zombie that you
-turned.
-
-Demon  from the east.
+turned.  Demon  from the east.
 
 > in
 You move in.
@@ -3037,9 +2967,7 @@ them are nice but nothing that hasn't been seen before.  The third is a huge
 stone creation that is beautiful to behold.  Carved upon the lid is the image
 of a buxom woman and the words carved along the side read "Ever lasting
 love."
-Caroline is here.
-
-Demon  from outside.
+Caroline is here.  Demon  from outside.
 
 > kill demon
 In the darkness of the crypt, the demon's unholy light casts strange shadows
@@ -3067,9 +2995,7 @@ nice and cheery place during the day but at night people are loathe to come
 here as it is haunted by a vampire or other fell undead.   There is a crypt
 here that seems older than the village itself.  If you wanted, you could
 enter it.    There is an open grave here that was home to the zombie that you
-turned.
-
-Demon  from inside.
+turned.  Demon  from inside.
 You gain a few hit points
 
 > e
@@ -3078,9 +3004,7 @@ You move east.
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
-massive graveyard.
-
-Demon  from the west.
+massive graveyard.  Demon  from the west.
 
 > n
 You move north.
@@ -3088,9 +3012,7 @@ You move north.
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
-time by traveling to the east or the west.
-
-Demon  from the south.
+time by traveling to the east or the west.  Demon  from the south.
 
 > n
 You move north.
@@ -3099,9 +3021,7 @@ The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
 trail proper.  If you desire, you can climb down to the river itself but
-caution is recommended.
-
-Demon  from the south.
+caution is recommended.   Demon  from the south.
 
 > d
 You move down.
@@ -3111,9 +3031,7 @@ This is the landing on Thale.  The only exit is up to the bridge above or out
 into the river.  Without a boat, traveling along the river will prove fatal
 for only a few hundred feet, there is a minor waterfall and several dangerous
 rapids.  Even with a boat, it is a dangerous feat.
-Gelry is here.
-
-Demon  from above.
+Gelry is here.  Demon  from above.
 
 > kill demon
 As you enter the river, Gelry suddenly takes form in front of you as a living
@@ -3144,9 +3062,7 @@ The bridge
 You have reached the bridge crossing the mighty mountain river Thale.  To the
 north is the trailhead which leads to the village and to the south is the
 trail proper.  If you desire, you can climb down to the river itself but
-caution is recommended.
-
-Demon  from below.
+caution is recommended.   Demon  from below.
 
 > n
 You move north.

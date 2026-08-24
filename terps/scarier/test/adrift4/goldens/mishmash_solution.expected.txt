@@ -220,9 +220,8 @@ here. The square of rooms mainly concentrates on the development, maintenance
 and use of the cold suits. However, there is not much evidence of this here.
 There is only the door to the south leading to the storage room where you
 first escaped from.
-A security guard is currently in the location.
-
-The security guard marches out to the west.
+A security guard is currently in the location.  The security guard marches
+out to the west.
 
 > n
 You move north.
@@ -273,9 +272,8 @@ A passcard has been dropped unknowingly by one of the two people. It is
 almost hidden under the cupboard.
 A security guard is currently in the location.
 
-A man and woman are having a conversation here.
-
-The security guard marches out to the north.
+A man and woman are having a conversation here.  The security guard marches
+out to the north.
 
 The man says "I've been hearing from my friends who know the higher ups that
 we won't be able to afford more losses. The competition from the People's
@@ -294,9 +292,8 @@ recently, as the bin is nearly empty of rubbish. Alternatively, it could just
 be that there isn't much rubbish around. You don't actually remember much
 from your time playing through. Maybe the program edits out boring
 necessities. The hallway continues to the south and east.
-A security guard is currently in the location.
-
-The security guard marches out to the east.
+A security guard is currently in the location.  The security guard marches
+out to the east.
 
 > e
 You move east.
@@ -310,9 +307,8 @@ laboratory was seen as more important, with improvements to the cold suit
 thought of as the top priority. However, this will change very shortly once
 the impact of the current experiment begins to be considered. The hallway
 continues to the east and west.
-A security guard is currently in the location.
-
-The security guard marches out to the east.
+A security guard is currently in the location.  The security guard marches
+out to the east.
 
 > n
 You move north.
@@ -367,9 +363,8 @@ recently, as the bin is nearly empty of rubbish. Alternatively, it could just
 be that there isn't much rubbish around. You don't actually remember much
 from your time playing through. Maybe the program edits out boring
 necessities. The hallway continues to the south and east.
-A security guard is currently in the location.
-
-The security guard marches out to the east.
+A security guard is currently in the location.  The security guard marches
+out to the east.
 
 > rc
 You remove the ghost cap.
@@ -417,9 +412,8 @@ sits in the corner. The janitors have obviously been through the area
 recently, as the bin is nearly empty of rubbish. Alternatively, it could just
 be that there isn't much rubbish around. You don't actually remember much
 from your time playing through. Maybe the program edits out boring
-necessities. The hallway continues to the south and east.
-
-The security guard marches in from the south.
+necessities. The hallway continues to the south and east.  The security guard
+marches in from the south.
 
 > s
 You move south.
@@ -593,14 +587,10 @@ People's Shareholdings. The hallway continues to the west and south.
 The sound of footsteps is approaching.
 
 > z
-Time passes...
-
-The security guard marches in from the west.
+Time passes...  The security guard marches in from the west.
 
 > z
-Time passes...
-
-The security guard marches out to the south.
+Time passes...  The security guard marches out to the south.
 
 > rc
 You remove the ghost cap.
@@ -1585,10 +1575,8 @@ pieces. However, one suit has survived more intact, with only its legs cut
 off. The pilot seems to have abandoned it, with the cockpit being open. On
 the other side of the barrier piece is a cart on a track that leads towards
 the west. A lever is next to the cart. You can move to the west and south,
-with cliffs blocking other directions.
-
-memoryblam keeps firing at the chasing drones, whilst following you from the
-west.
+with cliffs blocking other directions.  memoryblam keeps firing at the
+chasing drones, whilst following you from the west.
 
 > get in suit
 You climb into the cockpit of the suit.
@@ -1603,10 +1591,8 @@ either, so the arms are not as useful as they used to be. You can see on the
 screens showing outside, the track, cart, and barrier pieces. With the suit
 only hidden amongst the wreckage and only having limited functionality, the
 gun from the alien ship should not spot it easily. You can only climb out of
-the suit.
-
-memoryblam keeps firing at the chasing drones, whilst following you from
-outside.
+the suit.  memoryblam keeps firing at the chasing drones, whilst following
+you from outside.
 
 > rc
 You remove the cap.
@@ -1631,10 +1617,8 @@ cockpit being open. Away from the suit is a cart on a track that leads
 towards the west. A lever is next to the cart. You can move to the west and
 south, with cliffs blocking other directions.
 
-There is a long, thin barrier piece balanced on the cart.
-
-memoryblam keeps firing at the chasing drones, whilst following you from
-inside.
+There is a long, thin barrier piece balanced on the cart.  memoryblam keeps
+firing at the chasing drones, whilst following you from inside.
 
 > rc
 You remove the cap.
@@ -1663,10 +1647,8 @@ is a large crack in the ground of the south part of this area. There are
 tracks leading from the east to the south, but they have been broken over the
 crack. However, a barrier piece now acts as a bridge, connecting one side of
 the track to the other. As you do not want to retreat back to the north, you
-can only move east and south.
-
-memoryblam keeps firing at the chasing drones, whilst following you from the
-east.
+can only move east and south.  memoryblam keeps firing at the chasing drones,
+whilst following you from the east.
 
 > s
 You move south.
@@ -1680,10 +1662,8 @@ played through as one of them, you can now better understand the frustration
 of their enemies. To open the door, a keypad, which is situated in the cliff
 wall next to the door, can be used. That is, if you knew the passcode, which
 you don't. A track leads from the north to the door. A crack prevents access
-to the east, so you can currently only return back north.
-
-memoryblam keeps firing at the chasing drones, whilst following you from the
-north.
+to the east, so you can currently only return back north.  memoryblam keeps
+firing at the chasing drones, whilst following you from the north.
 
 > stand in front of door
 You position yourself in front of the door.
@@ -1743,9 +1723,8 @@ in the air.
 
 The drones seem to be waiting for you, as you exit the node. There is no way
 you can escape the program if they keep chasing you like this. You need to
-find some way to get rid of them for a while.
-
-memoryblam keeps firing at the chasing drones, whilst following you.
+find some way to get rid of them for a while.  memoryblam keeps firing at the
+chasing drones, whilst following you.
 
 > x node ripper
 The node ripper looks like a small remote control. Its main purpose is to rip
@@ -1767,10 +1746,8 @@ with a platform on one side of the bridge you are standing on, able to be
 lowered down to the other bridge. It presumably is operated with the panel
 next to it.
 
-An alien stands guard over the bridge controls.
-
-memoryblam keeps firing at the chasing drones, whilst following you from the
-north.
+An alien stands guard over the bridge controls.  memoryblam keeps firing at
+the chasing drones, whilst following you from the north.
 
 > s
 You move south.
@@ -1782,10 +1759,8 @@ yourself when you previously played through the game. However, from your
 memory, there was a long passageway that led the tracks deep underground. You
 do not remember that the passageway ended this quickly. The aliens have
 obviously only inhabited the sections of the mine that suited them and are in
-good condition. The rest have probably been blocked off.
-
-memoryblam keeps firing at the chasing drones, whilst following you from the
-north.
+good condition. The rest have probably been blocked off.  memoryblam keeps
+firing at the chasing drones, whilst following you from the north.
 
 > e
 As you enter the room you notice an alien pull a lever and then stand under a
@@ -1808,10 +1783,8 @@ it is instead being used to create slaves. The machine is built to the scale
 of an alien, so you cannot actually reach the main controls on the central
 unit. Hanging next to this unit is a scanner. On the other side of the room
 are a number of labelled funnels, with pipes leading to the central unit.
-They are currently empty. The only exit is to the west.
-
-memoryblam keeps firing at the chasing drones, whilst following you from the
-west.
+They are currently empty. The only exit is to the west.  memoryblam keeps
+firing at the chasing drones, whilst following you from the west.
 
 > w
 You move west.
@@ -1823,10 +1796,8 @@ yourself when you previously played through the game. However, from your
 memory, there was a long passageway that led the tracks deep underground. You
 do not remember that the passageway ended this quickly. The aliens have
 obviously only inhabited the sections of the mine that suited them and are in
-good condition. The rest have probably been blocked off.
-
-memoryblam keeps firing at the chasing drones, whilst following you from the
-east.
+good condition. The rest have probably been blocked off.  memoryblam keeps
+firing at the chasing drones, whilst following you from the east.
 
 > w
 You move west.
@@ -1842,10 +1813,8 @@ like they were collected from around the mine area before it was transformed.
 The only exit from this room is to the east.
 
 The cloned alien finishes collecting raw materials for its cart and pushes it
-back to the east.
-
-memoryblam keeps firing at the chasing drones, whilst following you from the
-east.
+back to the east.  memoryblam keeps firing at the chasing drones, whilst
+following you from the east.
 
 > rc
 You remove the cap.
@@ -1869,10 +1838,8 @@ yourself when you previously played through the game. However, from your
 memory, there was a long passageway that led the tracks deep underground. You
 do not remember that the passageway ended this quickly. The aliens have
 obviously only inhabited the sections of the mine that suited them and are in
-good condition. The rest have probably been blocked off.
-
-memoryblam keeps firing at the chasing drones, whilst following you from the
-west.
+good condition. The rest have probably been blocked off.  memoryblam keeps
+firing at the chasing drones, whilst following you from the west.
 
 > e
 You move east.
@@ -1889,10 +1856,8 @@ are a number of labelled funnels, with pipes leading to the central unit.
 They are currently partially filled. The only exit is to the west.
 
 The cloned alien finishes distributing materials into the funnels and pushes
-the cart back to the west.
-
-memoryblam keeps firing at the chasing drones, whilst following you from the
-west.
+the cart back to the west.  memoryblam keeps firing at the chasing drones,
+whilst following you from the west.
 
 > rc
 You remove the cap.
@@ -1938,9 +1903,8 @@ yourself when you previously played through the game. However, from your
 memory, there was a long passageway that led the tracks deep underground. You
 do not remember that the passageway ended this quickly. The aliens have
 obviously only inhabited the sections of the mine that suited them and are in
-good condition. The rest have probably been blocked off.
-
-memoryblam follows you from the east.
+good condition. The rest have probably been blocked off.  memoryblam follows
+you from the east.
 
 > n
 You move north.
@@ -1957,9 +1921,8 @@ With the elevator having been lowered, you can now see an emergency ladder on
 the pillar the platform moves along. You are not sure how you missed it
 originally.
 
-An alien stands guard over the bridge controls.
-
-memoryblam follows you from the south.
+An alien stands guard over the bridge controls.  memoryblam follows you from
+the south.
 
 > d
 You begin climbing down the ladder with memoryblam following behind you.

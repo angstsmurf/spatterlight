@@ -208,9 +208,7 @@ between to light the massive room.  Open doorways lead north and south from
 the Great Hall.
 
 The ghost of a young woman hovers nearby; now and then parts of her disappear
-through the wall.
-
-A ghost hovers in from the north.
+through the wall.  A ghost hovers in from the north.
 
 > x table
 The table is quite long, running the length of the Great Hall.  Large rats
@@ -254,9 +252,7 @@ Between each torch is a painting, most of which appear to be of the castle or
 surrounding areas. Only one of the paintings appears to be a portrait.
 
 The ghost of a young woman hovers nearby; now and then parts of her disappear
-through the wall.
-
-A ghost hovers in from the north.
+through the wall.  A ghost hovers in from the north.
 
 > s
 You move south.
@@ -273,9 +269,7 @@ guard to what lies beyond.  The large main door to the castle lies to the
 south.
 
 The ghost of a young woman hovers nearby; now and then parts of her disappear
-through the wall.
-
-A ghost hovers in from the north.
+through the wall.  A ghost hovers in from the north.
 
 “You must bring the body of the last victim to the shrine and give her the
 potion.  Read the incantation from the scroll.   I must return to the lake,

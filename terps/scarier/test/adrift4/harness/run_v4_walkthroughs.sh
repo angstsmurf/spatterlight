@@ -134,6 +134,10 @@ archie_solution.txt|Archie's Birthday V 1-2.taf|To be continued|SCR_SKIP_WAITKEY
 # final "Your score is N out of a maximum of M." line as their marker so the
 # documented maxima stay locked; win rows use the game's own victory text.
 bomb_threat_solution.txt|Bomb Threat.taf|Or have you...
+# circus's three "The vendor ..." walk lines are the corpus proof that the
+# announcement is joined into the turn's paragraph: the author carries the ALR
+# pair '  Joe' -> '  The vendor' / 'Joe' -> 'the vendor', and only the joined
+# form gets the capital.  See the 2026-08-25 block further down.
 circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=12 SCR_SKIP_WAITKEY=1
 colony_solution.txt|Colony.taf|You scored 200 out of the maximum 200!
 cyber_solution.txt|cyber.taf|THE END,or is it?
@@ -387,6 +391,13 @@ JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH|SCR_SKIP_WAITKEY=1
 mysteryofcaves_solution.txt|mysteryofcaves.taf|Your finishing rank is: Godlike Adventurer.|SCR_SKIP_WAITKEY=1
 chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms with Sharon Elson.|SCR_SKIP_WAITKEY=1
 fantasyworld_solution.txt|fantasyworld.taf|You scored 0 out of the maximum 500!
+# Grumble's arrival is missing from 12 turns of these two goldens ON PURPOSE:
+# sa.taf carries 65 ALRs whose Original spans the two-space join and deletes
+# the sentence at a named spot ('quiet.  Grumble complaining of beer
+# deprivation staggers in from the west.' -> 'quiet.').  Bisected live in Wine
+# and re-derived with harness/make_400_walkalrprobe.py; see the 2026-08-25
+# block further down.  Never "fix" a missing walker line here without checking
+# the ALR list first.
 sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1
@@ -1682,6 +1693,78 @@ super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 # hidden; Scarier collapses both into one marker, so it cannot tell them
 # apart.  orient_express is the live proof this matters: Scarier prints
 # "Gimme Atip enters." where run400 prints nothing.
+#
+# 2026-08-25 -- THE ANNOUNCEMENT IS JOINED INTO THE TURN'S PARAGRAPH, not
+# given a line of its own, and 61 goldens moved for it.  Every Runner appends
+# the walk lines to the same buffer the rest of the turn is being built in,
+# with the two-space section separator:
+#
+#   run370 loc_4395AA / run380 loc_441740
+#       If Right(buf, 1) <> Chr(10) And Len(buf) > 0 Then buf = buf & "  "
+#   run390 loc_45A99E / run400 loc_468A67 (arrival) and loc_4688D3 (departure)
+#       Call pspace()    ' the same test plus "already ends in two spaces"
+#                        ' and "already ends in <br>"
+#
+# so the pre-3.9 form really does make four spaces where the text already
+# ended in two, and 3.9/4.0 does not -- hence pf_buffer_join() (pspace) and
+# pf_buffer_join_always() (the older inline form) in scprintf.cpp, picked by
+# version in npc_announce().  The 3.7/4.0 HIDDEN-stop line (run370 loc_4397A3,
+# run400 loc_468CF9) appends a bare "  " with no pspace call at all.
+#
+# This is not cosmetic.  The joined sentence lands in the buffer the ALR pass
+# later walks, so an author can write an ALR whose Original spans the join:
+#
+#   sa.taf / sophie.taf (4.00) carry 65 of them, e.g.
+#       'quiet.  Grumble complaining of beer deprivation staggers in from the
+#        west.'  ->  'quiet.'
+#   and 12 fire in this walkthrough, which is why Grumble's arrival vanishes
+#   at named spots.  Buffered on a line of its own, as Scarier used to, no
+#   such ALR can ever match, and every one of those 12 lines survived.
+#   Bisected live in sa.taf under Wine (deleting all 488 ALRs made the silent
+#   turns announce), then reproduced from scratch by
+#   harness/make_400_walkalrprobe.py under run400 (Adrift_47_p4walkalr.txt): its two
+#   cross-the-join ALRs both fire and the single-space twin of one of them
+#   does not, so the separator is two spaces and not "some whitespace".
+#
+#   circus.taf (3.90) shows an author building ON the join rather than
+#   deleting through it -- for its NPC named "Joe" it carries the pair
+#       '  Joe'  ->  '  The vendor'        (the joined, sentence-initial case)
+#       'Joe'    ->  'the vendor'          (everywhere else)
+#   and the first of those two now fires, which is why circus's three vendor
+#   lines gained their capital.
+#
+# CAPITALISING THE NAME IS A 4.0-ONLY STEP, and the join is what made it
+# visible.  3.7/3.8/3.9 concatenate the Name verbatim (run370 loc_43961A,
+# run380 loc_4417B0, run390 loc_45AA0F); 4.0 puts it through the Runner's
+# one-line capitaliser first at both npc_announce() sites (run400 loc_468A79
+# and loc_4688E0 call Proc_21_3_446BB4 = UCase(Left(s,1)) & Right(s,Len(s)-1),
+# General.bas:75) and NOT at the hidden-stop site (loc_468CF9).  SCARE used to
+# capitalise unconditionally.  baroo.taf (4.00) is the corpus case both ways:
+# its walkers are named "wizard" and "warlock" with Prefix "the", and 4.0
+# really does print "Wizard strides off to the east."  A pre-4.0 game in the
+# same shape would not.  harness/make_400_walkcapprobe.py is the live
+# confirmation, built and not yet run (the desktop was locked).
+#
+# Cross-checked against every committed Runner transcript that has a walker,
+# one per generation:
+#   3.7  arlo / Adven_6_arlo.rtf -- "The man shrugs and goes home.  Rude
+#        Customer walks off." and "...You can move south, west and out.  Alice
+#        walks off to not moved."
+#   3.8  timmy_reid / Adven_9_timmy_reid.rtf -- "Hovey is here.  Hovey shuffles
+#        off to the north.  The faint odor of snappers wafts towards you from
+#        the east." -- three sections, one paragraph.
+#   3.9  melbourne_beach / Adrift_37_melbourne_beach.txt -- all five sites,
+#        e.g. "...four pockets you can put small items in.  Kitty comes in from
+#        the west." and "Kitchen.  David strolls in."
+#   3.9  stardust / Adrift_38_stardust.txt -- "You can move north and south.
+#        Squirrel scampers up from the north." and the rest of its 129 lines.
+#   4.0  orient_express / Adrift_36_orient_express.txt -- "Dining Car.  Ivanna
+#        Stiffdrink walks towards you from the south.  The train whistle blows
+#        loudly, causing a slight ringing in your ears."
+#
+# Of the 61 goldens this moved, 57 differ from their predecessors in
+# whitespace alone; the other four are baroo (the capital), circus (the '  Joe'
+# ALR) and the two sophie rows (the 12 deleted arrivals).
 # arlo.taf (3.70) -- one measured, deliberate deviation, diagnosed 2026-08-24
 # against run370.exe under Wine (Adven_10_arlo.rtf) and the run370 p-code.
 #
@@ -1734,6 +1817,10 @@ deadman_solution.txt|The Dead Man.taf|ABORT SUCSESFUL|SCR_SKIP_WAITKEY=1
 # backpack *inside* it (TASK 258/286 restrict obj1 to "in capsule"), and the
 # suit puts the backpack back on you, so "remove backpack" has to precede both
 # "put backpack in capsule".  16/16, the game's own maximum.
+# baroo names its walkers "wizard" and "warlock" (Prefix "the") in lower case,
+# and this is the corpus case for the 4.0-only Name capitaliser: run400 prints
+# "Wizard strides off to the east." where a 3.9 game in the same shape would
+# print "wizard".  See the 2026-08-25 block above.
 baroo_solution.txt|baroo.taf|You scored 16 out of the maximum 16!
 # Lair of the Vampire -- the author's own 276-line command list plus 3 lines.
 # The ruined stairs (rooms 11/14) are a coin flip: TASK 140 carries you up only

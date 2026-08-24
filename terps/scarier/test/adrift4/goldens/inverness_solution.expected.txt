@@ -234,9 +234,8 @@ Back Hall
 From the back hall you can go north to the kitchen.  A narrow stone staircase
 leads up to the upstairs hall.  You can also go east to the servant's
 quarters, north-east to the kitchen staff's quarters, south-east to the
-sitting room or south to the entrance hall.
-
-Porter saunters in from the south.
+sitting room or south to the entrance hall.  Porter saunters in from the
+south.
 
 > up
 You move up.

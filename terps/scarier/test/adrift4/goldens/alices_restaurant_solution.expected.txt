@@ -123,9 +123,7 @@ been brought to the surface along with some blue rocks.  These are slag from
 the old iron furnace that once supported the workers of the town.  They must
 have been buried for years.
 
-You can move north and west.
-
-Horse walks towards you from the north.
+You can move north and west.  Horse walks towards you from the north.
 
 > stop playing
 Ok, you're not playing any more.
@@ -209,9 +207,7 @@ Rude Customer is here.
 > put sign on window
 The rude man looks at the sign and slowly reads "closed on Thanksgiving."  He
 seems to be processing the information.  "Oh, it's closed," he says finally.
-The man shrugs and goes home.
-
-Rude Customer walks off.
+The man shrugs and goes home.  Rude Customer walks off.
 
 > open restaurant door
 The door is open.
@@ -483,9 +479,7 @@ attractiveness of the room is marred somewhat by the presence of a large pile
 of garbage in the corner.   To the west is the bell tower.
 Alice and Facha are here.
 
-You can move south, west and out.
-
-Alice walks off to not moved.
+You can move south, west and out.  Alice walks off to not moved.
 "There you are," says Alice.  "I've been looking all over for you.  You got a
 phone call from Officer Obie.  He says he found an envelope with your name on
 it underneath a half a ton of garbage and he wants to know if you have any
@@ -508,20 +502,15 @@ seat for good measure.  He closes the cell door behind you.
 > wait
 Time passes...
 You are in the cell.
-
 Officer Obie walks towards you.
-
 Officer Obie walks off to not moved.
 
 > call Alice
 You call Alice and ask her to bail you out of jail.  Alice has a few thoughts
 to share with you on the subject of dumping a half a ton of garbage and
 getting arrested while you're a guest at her house, but finally she arrives
-with bail money and you are released.
-
-Alice walks towards you.
-
-Officer Obie walks towards you.
+with bail money and you are released.    Alice walks towards you.  Officer
+Obie walks towards you.
 Officer Obie says, "Well, you're free to go, kid.  Don't forget to show up in
 court.  And take whatever stuff you're going to need with you.  I don't want
 to see you back here again."
@@ -641,9 +630,7 @@ There on the bench are mother rapers, father stabbers, father rapers, all
 sitting on the bench there next to you.
 
 > wait
-Time passes...
-
-Father Raper walks towards you.
+Time passes...  Father Raper walks towards you.
 The meanest, nastiest, most horrible criminal of them all is summing you up.
 He could snap you in half with his bare hands if he wanted to.  You're hoping
 he doesn't want to.  "So, what did you get?"  He asks you.  "I didn't get

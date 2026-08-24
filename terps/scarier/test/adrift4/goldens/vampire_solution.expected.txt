@@ -196,19 +196,8 @@ face. She is even after norwegian standards a very attractive girl.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful
-face. She is even after norwegian standards a very attractive girl.
-
-Bozo Guard walks off to the west.
-
-> x girl
-A  very sweet girl. With dark brown hair and eyes. With a round beautiful
-face. She is even after norwegian standards a very attractive girl.
-
-> x girl
-A  very sweet girl. With dark brown hair and eyes. With a round beautiful
-face. She is even after norwegian standards a very attractive girl.
-
-Bozo Guard walks towards you from the west.
+face. She is even after norwegian standards a very attractive girl.  Bozo
+Guard walks off to the west.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful
@@ -216,7 +205,8 @@ face. She is even after norwegian standards a very attractive girl.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful
-face. She is even after norwegian standards a very attractive girl.
+face. She is even after norwegian standards a very attractive girl.  Bozo
+Guard walks towards you from the west.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful
@@ -250,7 +240,14 @@ face. She is even after norwegian standards a very attractive girl.
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful
 face. She is even after norwegian standards a very attractive girl.
 
-Bozo Guard walks off to the west.
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.
+
+> x girl
+A  very sweet girl. With dark brown hair and eyes. With a round beautiful
+face. She is even after norwegian standards a very attractive girl.  Bozo
+Guard walks off to the west.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful
@@ -258,9 +255,8 @@ face. She is even after norwegian standards a very attractive girl.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful
-face. She is even after norwegian standards a very attractive girl.
-
-Bozo Guard walks towards you from the west.
+face. She is even after norwegian standards a very attractive girl.  Bozo
+Guard walks towards you from the west.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful
@@ -299,9 +295,8 @@ face. She is even after norwegian standards a very attractive girl.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful
-face. She is even after norwegian standards a very attractive girl.
-
-Jon Simonsen enters from the east.
+face. She is even after norwegian standards a very attractive girl.  Jon
+Simonsen enters from the east.
 
 > ask simonsen about plan
 "Wait", Simonsen says. "We don't have much time. Have you found a way to get
@@ -309,9 +304,7 @@ me into the conference room yet? OK, I'll come with you. I sure hope you know
 what you're doing." He fumbles around in his pockets and draws out a gun. You
 put it behind your belt and quickly buttons your jacket to hide it. "And here
 are the carbonated bullets", he slips a small box in your jacket's left
-pocket.
-
-Bozo Guard walks off to the west.
+pocket.  Bozo Guard walks off to the west.
 
 > e
 You move east.
@@ -319,9 +312,8 @@ You move east.
 Karl Johans Street
 Karl Johans is the main street through Oslo centrum. You are standing about
 half way beetween the central station to the south and the royal castle to
-the north. Across the street to the west is a night club called Bozo.
-
-Jon Simonsen enters from the west.
+the north. Across the street to the west is a night club called Bozo.  Jon
+Simonsen enters from the west.
 
 > n
 You move north.
@@ -333,9 +325,7 @@ down to the Egertorget subway station. There are a lot of people here,
 walking between different bars and discodeque's. To the east in front of a
 dark hallway you can see a small group of people having an argument of some
 sort. To the north Karl Johan continues  ahead, but you don't think you'll
-find anything interesting there.
-
-Jon Simonsen enters from the south.
+find anything interesting there.  Jon Simonsen enters from the south.
 
 > e
 You move east.
@@ -345,7 +335,6 @@ You enter the dark hallway. A few junkies are haggling with a pusher over
 drug prices. The pusher doesen't seem to be giving any discounts to day, and
 the addicts get more and more frustrated. Further back in the hallway a true
 wreck of a junkie is lying half dead of a perhaps to big dose of some drug.
-
 Jon Simonsen enters from the west.
 
 > listen
@@ -373,9 +362,7 @@ down to the Egertorget subway station. There are a lot of people here,
 walking between different bars and discodeque's. To the east in front of a
 dark hallway you can see a small group of people having an argument of some
 sort. To the north Karl Johan continues  ahead, but you don't think you'll
-find anything interesting there.
-
-Jon Simonsen enters from the east.
+find anything interesting there.  Jon Simonsen enters from the east.
 
 > s
 You move south.
@@ -383,9 +370,8 @@ You move south.
 Karl Johans Street
 Karl Johans is the main street through Oslo centrum. You are standing about
 half way beetween the central station to the south and the royal castle to
-the north. Across the street to the west is a night club called Bozo.
-
-Jon Simonsen enters from the north.
+the north. Across the street to the west is a night club called Bozo.  Jon
+Simonsen enters from the north.
 
 > w
 You move west.
@@ -401,9 +387,8 @@ wall. You count 4 beer tabs along it, and an equal amount of bartenders. You
 can go east back to the street, and another door behind the bar to the west.
 
 Bartender and The Bozo Guard are here.
-A girl at a small table by the dancefloor eyes you closly.
-
-Jon Simonsen enters from the east.
+A girl at a small table by the dancefloor eyes you closly.  Jon Simonsen
+enters from the east.
 
 > w
 You move west.
@@ -412,9 +397,7 @@ Bozo backyard
 Bozos backyard is dark. The tall buildings blocks the sounds from the city
 outside, and the only light filters out of a few windows. There is a garbage
 container here.From the east you hear Britney Spears singing through  the
-bozo back door.
-
-Jon Simonsen enters from the east.
+bozo back door.  Jon Simonsen enters from the east.
 
 > drain jon simonsen
 You sink your fangs into jon's neck. He tries to defend himself, but you're
@@ -467,11 +450,8 @@ Bozo backyard
 Bozos backyard is dark. The tall buildings blocks the sounds from the city
 outside, and the only light filters out of a few windows. There is a garbage
 container here.From the east you hear Britney Spears singing through  the
-bozo back door.
-
-Anette follows you from the from the east.
-
-Bozo Guard walks towards you from the east.
+bozo back door.  Anette follows you from the from the east.  Bozo Guard walks
+towards you from the east.
 
 > remove stick
 You pull the stick out from the container handles.
@@ -480,9 +460,7 @@ You pull the stick out from the container handles.
 You hear some noise from inside the container. When you open it up it reveals
 Jon. Now he's an undead just like you. His eyes are filled with hate. But he
 can't harm you since you are his creator, his master. He climbs out of the
-container.
-
-Bozo Guard walks off to the east.
+container.  Bozo Guard walks off to the east.
 
 > e
 You move east.
@@ -497,10 +475,7 @@ not a single mirror in sight. The bar itself is large and covers an entire
 wall. You count 4 beer tabs along it, and an equal amount of bartenders. You
 can go east back to the street, and another door behind the bar to the west.
 
-Bartender and The Bozo Guard are here.
-
-Jon Simonsen enters from the west.
-
+Bartender and The Bozo Guard are here.  Jon Simonsen enters from the west.
 Anette follows you from the from the west.
 
 > e
@@ -509,11 +484,8 @@ You move east.
 Karl Johans Street
 Karl Johans is the main street through Oslo centrum. You are standing about
 half way beetween the central station to the south and the royal castle to
-the north. Across the street to the west is a night club called Bozo.
-
-Jon Simonsen enters from the west.
-
-Anette follows you from the from the west.
+the north. Across the street to the west is a night club called Bozo.  Jon
+Simonsen enters from the west.  Anette follows you from the from the west.
 
 > s
 You move south.
@@ -522,11 +494,8 @@ Oslo Central Station
 In front of the Oslo Central Station there is a small market place. At this
 time of night there are a lot of stands and small trailers selling junk food.
 By a taxi station the queue is growing rapidly, and it will probably take a
-while before you can get back to the hotel in a cab.
-
-Jon Simonsen enters from the north.
-
-Anette follows you from the from the north.
+while before you can get back to the hotel in a cab.  Jon Simonsen enters
+from the north.  Anette follows you from the from the north.
 
 > enter queue
 You Anette and Jon lines up for a taxi. It takes quite a while but you
@@ -548,11 +517,8 @@ You move east.
 
 Elevator
 A standard Hotel elevator. There are a panel of button here ranging from 0 to
-30.
-
-Jon Simonsen enters from the west.
-
-Anette follows you from the from the west.
+30.   Jon Simonsen enters from the west.  Anette follows you from the from
+the west.
 
 > push 15
 The elevator gets into motion, and you arrive at the floor of the grand
@@ -571,9 +537,7 @@ will finish him of for sure. You sneak back into the elevator.
 You arrive at the 0. floor. You can leave the elevator to the west.
 
 > w
-You walk into the lobby.
-
-Jon Simonsen enters.
+You walk into the lobby.  Jon Simonsen enters.
 
 > w
 You move west.
@@ -585,9 +549,7 @@ In front of the door two mirrors have been placed, so that any one entering
 the room has to pass between them. A much used method to screen out any
 living intruders. One of the vampires gives you a small nod of
 acknowledgement as you enter. To the west is the door to the meeting, and you
-can go east to the lobby.
-
-Jon Simonsen enters from the east.
+can go east to the lobby.  Jon Simonsen enters from the east.
 
 > w
 You and Simonsen enter the conference. Simonsen is now an undead and passes

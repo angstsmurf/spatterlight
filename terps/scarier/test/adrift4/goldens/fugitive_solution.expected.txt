@@ -324,9 +324,7 @@ You can only go north.
 Time passes...
 
 > wait
-Time passes...
-
-The train is coming to station from the west.
+Time passes...  The train is coming to station from the west.
 
 > get in train
 You jump into the train just when it is leaving the station. You just hope

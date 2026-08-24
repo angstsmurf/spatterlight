@@ -2104,7 +2104,6 @@ center of the room is a plush covered round table covered with tiny framed
 photographs.  In one corner stands an old phonograph.  The dining room is to
 the north while the main hall lies to the west through a large archway.  The
 foyer and front door are visible to the south.
-
 The butler enters from the north.
 
 > w
@@ -2209,7 +2208,6 @@ photographs.  In one corner stands an old phonograph.  The dining room is to
 the north while the main hall lies to the west through a large archway.  The
 foyer and front door are visible to the south.
 The butler is here.
-
 The butler exits to the west.
 
 > n
@@ -3385,9 +3383,7 @@ Time passes...
 Time passes...
 
 > z
-Time passes...
-
-The butler enters.
+Time passes...  The butler enters.
 
 > get china
 
@@ -3432,9 +3428,7 @@ Time passes...
 Time passes...
 
 > z
-Time passes...
-
-The butler exits to the south.
+Time passes...  The butler exits to the south.
 
 > z
 Time passes...
@@ -3470,7 +3464,6 @@ photographs.  In one corner stands an old phonograph.  The dining room is to
 the north while the main hall lies to the west through a large archway.  The
 foyer and front door are visible to the south.
 The butler is here.
-
 The butler exits to the west.
 
 > s

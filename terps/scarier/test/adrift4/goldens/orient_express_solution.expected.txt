@@ -38,7 +38,6 @@ You take the pistol from the suitcase.
 
 > board train
 You climb aboard the train, and take one last look at Destination Station.
-
 Oddly Istink wobbles in from the east.
 You hear the conductor yell, "ALL Aboard"
 
@@ -79,9 +78,8 @@ You take the bag.
 
 > give bag to ivanna
 "Thank you so much. Maybe we can get together later, for a drink"  With that
-said, she walks into her compartment.
-
-Ivanna Stiffdrink walks off to the west.
+said, she walks into her compartment.  Ivanna Stiffdrink walks off to the
+west.
 
 > s
 You move south.
@@ -183,9 +181,7 @@ You hear the trains whistle blow loudly.
 
 > order tea
 You tell the waiter what you'd like. He looks at you kind of funny then walks
-away.
-
-Gimme Atip walks off.
+away.  Gimme Atip walks off.
 You are thrown backward as the train begins to pull away from the station.
 
 > give coin to waiter
@@ -218,7 +214,6 @@ You manage to avoid Igotta Bigbottom's attack.
 
 > z
 Time passes...
-
 Ivanna Stiffdrink walks towards you from the north.
 You manage to avoid Igotta Bigbottom's attack.
 
@@ -252,9 +247,8 @@ booth with a large table.
 The waiter saunters over.  You take a quick look out the window and see the
 station getting larger as you approach.
 
-You can move north and south.
-
-Ivanna Stiffdrink walks towards you from the south.
+You can move north and south.  Ivanna Stiffdrink walks towards you from the
+south.
 
 > n
 You move north.
@@ -267,9 +261,8 @@ Also here is a sign.
 Oddly Istink is here.  You take a quick look out the window and see the
 station getting larger as you approach.
 
-You can move north, east, south and west.
-
-Ivanna Stiffdrink walks towards you from the south.
+You can move north, east, south and west.  Ivanna Stiffdrink walks towards
+you from the south.
 You lunge slightly to counteract the force of the train coming to a stop.
 
 > n
@@ -279,9 +272,8 @@ Compartment C
 This car is full of berths. There are berths that line the corridor on both
 sides. The berths are small bunks with curtains to provide privacy.
 
-You can move north, east, south, west and up.
-
-Ivanna Stiffdrink walks towards you from the south.
+You can move north, east, south, west and up.  Ivanna Stiffdrink walks
+towards you from the south.
 
 > n
 You move north.
@@ -292,9 +284,8 @@ compartments are numbered B1-B20.  The corridor is empty
 
 Also here is a note.
 
-You can move north and south.
-
-Ivanna Stiffdrink walks towards you from the south.
+You can move north and south.  Ivanna Stiffdrink walks towards you from the
+south.
 
 > n
 You move north.
@@ -305,18 +296,16 @@ compartments are much nicer than berths. They also provide privacy. Doors
 line the corridor.  The doors are numbered A1-A20. You can see your
 compartment A3 to the west.
 
-You can move north, south, west and out.
-
-Ivanna Stiffdrink walks towards you from the south.
+You can move north, south, west and out.  Ivanna Stiffdrink walks towards you
+from the south.
 
 > out
 You move out.
 
 HopeImakeit Station
 The Hopeimakeit station seems deserted. The platform is empty,  the streets
-are empty.  The only thing in sight is a public telephone.
-
-Ivanna Stiffdrink walks towards you from inside.
+are empty.  The only thing in sight is a public telephone.  Ivanna Stiffdrink
+walks towards you from inside.
 
 > use phone
 You look around and don't see Miss Fortune anywhere. You were certain that
@@ -339,9 +328,8 @@ the street on both sides. Most are boarded up. You can't help but have the
 feeling that you are being watched. A trash can sits near one of the old,
 boarded up shops.
 
-You can move north and east.
-
-Ivanna Stiffdrink walks towards you from the east.
+You can move north and east.  Ivanna Stiffdrink walks towards you from the
+east.
 
 > n
 You move north.
@@ -353,9 +341,7 @@ the public due the the rash of theft and robbery. This is the address on the
 card.
 Habibo is here.
 
-You can only move south.
-
-Ivanna Stiffdrink walks towards you from the south.
+You can only move south.  Ivanna Stiffdrink walks towards you from the south.
 
 > give card to habibo
 You hand the card to Habibo. He looks you over and see's that you can be

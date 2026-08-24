@@ -176,9 +176,8 @@ gun on this guy.
 Cancer Man awaits you in the shadows.
 
 You can move west and up.
-Cancerman has receded into the shadows and is watching you.
-
-Cancerman leaves.
+Cancerman has receded into the shadows and is watching you.  Cancerman
+leaves.
 
 > x Case File 10193
 This is the Bellefleur Case File, detailing your parents' first case together

@@ -1640,18 +1640,49 @@ pf_buffer_paragraph_break (scr_filterref_t filter)
 
 /*
  * pf_buffer_join()
+ * pf_buffer_join_always()
  *
  * Append a string as a continuation of the current output line, with the
  * Adrift runner's two-space sentence separator.  The runner builds a turn's
  * output as one paragraph joined with two spaces; our section printers
  * instead terminate each section with a newline of their own.  To join text
  * onto the previous section the way the runner does -- event look text runs
- * on after the room's character lines -- remove a single terminating newline
+ * on after the room's character lines, and an NPC walk announcement runs on
+ * after whatever the turn has printed -- remove a single terminating newline
  * first, then separate with two spaces unless the text before it ends with
  * an author's own break.
+ *
+ * 3.9 and 4.0 factor that out into a sub, pspace (run390 loc_45A99E, run400
+ * Proc_21_50_44A9F4 @ General.bas:10341), which is
+ *
+ *   If buf <> "" And Right(buf, 2) <> "  " And Right(buf, 1) <> Chr(10)
+ *      And Right(buf, 4) <> "<br>" Then buf = buf & "  "
+ *
+ * -- so text that already ends in the separator does not get a second one.
+ * The two older runners write the test out inline at each site and it is
+ * shorter, with no such clause:
+ *
+ *   run370 loc_4395AA / run380 loc_441740
+ *      If Right(buf, 1) <> Chr(10) And Len(buf) > 0 Then buf = buf & "  "
+ *
+ * so a 3.7 or 3.8 join onto text ending in two spaces really does make four.
+ * pf_buffer_join_always() is that form, for callers that carry the version
+ * split; the "<br>" clause is not split, both being folded into
+ * pf_text_ends_with_break(), because no game has yet shown the difference.
  */
-void
-pf_buffer_join (scr_filterref_t filter, const scr_char *string)
+static scr_bool
+pf_buffer_ends_with_two_spaces (scr_filterref_t filter)
+{
+  const size_t length = filter->buffer.size ();
+
+  return length >= filter->hidden + 2
+         && filter->buffer[length - 1] == ' '
+         && filter->buffer[length - 2] == ' ';
+}
+
+static void
+pf_buffer_join_internal (scr_filterref_t filter, const scr_char *string,
+                         scr_bool is_pspace)
 {
   assert (pf_is_valid (filter));
   assert (string);
@@ -1662,10 +1693,23 @@ pf_buffer_join (scr_filterref_t filter, const scr_char *string)
         filter->buffer.pop_back ();
 
       if (filter->buffer.size () > filter->hidden
-          && !pf_text_ends_with_break (filter->buffer.c_str ()))
+          && !pf_text_ends_with_break (filter->buffer.c_str ())
+          && !(is_pspace && pf_buffer_ends_with_two_spaces (filter)))
         pf_append_string (filter, "  ");
     }
   pf_buffer_string (filter, string);
+}
+
+void
+pf_buffer_join (scr_filterref_t filter, const scr_char *string)
+{
+  pf_buffer_join_internal (filter, string, TRUE);
+}
+
+void
+pf_buffer_join_always (scr_filterref_t filter, const scr_char *string)
+{
+  pf_buffer_join_internal (filter, string, FALSE);
 }
 
 

@@ -125,9 +125,7 @@ doors allows the ADRIFT-O-Sweep access to the CCC.
 You can move north and south.
 
 > stand on phone
-You stand on the DRIFT-O-Com.
-
-DARWIN enters from the south.
+You stand on the DRIFT-O-Com.  DARWIN enters from the south.
 
 > put battery in charger
 The charger flashes repeatedly, giving the room the appearance of being a lit
@@ -358,9 +356,7 @@ DARWIN is intently working on something, but you can't make out what it is.
 It turns away from you each time you approach.  It doesn't seem to be
 concerned at all about your presence.
 
-You can only move north.
-
-DARWIN exits to the north.
+You can only move north.  DARWIN exits to the north.
 
 > take pill
 Take what?
@@ -409,9 +405,7 @@ DARWIN is intently working on something, but you can't make out what it is.
 It turns away from you each time you approach.  It doesn't seem to be
 concerned at all about your presence.
 
-You can only move south.
-
-DARWIN exits.
+You can only move south.  DARWIN exits.
 
 > up
 You push the lever into the Up position and the ADRIFT-O-Lift begins to rise
@@ -487,7 +481,6 @@ Time passes...
 
 > z
 Time passes...
-
 DARWIN enters from the north.
 
 > z
@@ -495,7 +488,6 @@ Time passes...
 
 > z
 Time passes...
-
 DARWIN exits to the north.
 
 > z
@@ -503,7 +495,6 @@ Time passes...
 
 > z
 Time passes...
-
 ADRIFT-O-Sweep zooms in through the vent from the north.
 
 > z
@@ -511,7 +502,6 @@ Time passes...
 
 > z
 Time passes...
-
 ADRIFT-O-Sweep zooms out through the vent to the north.
 
 > z
@@ -683,9 +673,7 @@ Time passes...
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > z
-Time passes...
-
-ADRIFT-O-Sweep zooms out through the vent to the south-east.
+Time passes...  ADRIFT-O-Sweep zooms out through the vent to the south-east.
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
@@ -697,25 +685,18 @@ Time passes...
 activated it yet."
 
 > z
-Time passes...
-
-ADRIFT-O-Sweep zooms in through the vent from the south-east.
+Time passes...  ADRIFT-O-Sweep zooms in through the vent from the south-east.
 
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > z
-Time passes...
-
-DARWIN enters from the south.
+Time passes...  DARWIN enters from the south.
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
 
 > z
-Time passes...
-
-ADRIFT-O-Sweep zooms out through the vent to the south-west.
-
+Time passes...  ADRIFT-O-Sweep zooms out through the vent to the south-west.
 DARWIN exits.
 
 > where is darwin
@@ -732,9 +713,7 @@ activated it yet."
 Run that by me agian- I didn't understand what you meant!
 
 > z
-Time passes...
-
-ADRIFT-O-Sweep zooms in through the vent from the south-west.
+Time passes...  ADRIFT-O-Sweep zooms in through the vent from the south-west.
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > where is darwin
@@ -749,9 +728,7 @@ Time passes...
 it."
 
 > z
-Time passes...
-
-ADRIFT-O-Sweep zooms out through the vent to the north.
+Time passes...  ADRIFT-O-Sweep zooms out through the vent to the north.
 
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."

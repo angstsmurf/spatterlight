@@ -73,9 +73,8 @@ Maze D
 You are in a twisty maze, Section D.
 A powerful wizard is here.
 
-You can move east, southwest and northwest.
-
-Wizard vanishes to the north-west.
+You can move east, southwest and northwest.  Wizard vanishes to the
+north-west.
 
 > e
 You move east.

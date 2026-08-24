@@ -122,14 +122,11 @@ You're all covered in soot now.  Happy?
 Cabin Roof
 You're now on the cabin roof, which is made of plastic shingles similar to
 the recycled materials the rest of the cabin is made of.  Tied to the chimney
-is a helium balloon.
-
-Sphere enters.
+is a helium balloon.  Sphere enters.
 
 > take the balloon
 You untie the helium balloon from the chimney and tie it to your hand.
 Suddenly you feel the balloon gently tug you up... higher and higher...
-
 Sphere enters.
 
 > look

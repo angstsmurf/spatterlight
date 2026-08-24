@@ -863,9 +863,7 @@ It starts to rain.
 
 > wave wand
 I wave the wand about.  Apart from looking like a conductor, nothing appears
-to happen.
-
-Porkie walks towards you from the south.
+to happen.  Porkie walks towards you from the south.
 
 > wave wand
 I wave the wand about.  Porkie suddenly slows down.  Slowly, his pinkiness

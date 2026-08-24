@@ -67,9 +67,8 @@ You can also see a set of double doors with glass panels.
 The Ticket Seller is looking at you expectantly.  A cat is silently wandering
 around.
 
-You appear to be able to move north, south and west.
-
-A cat strolls out to the south.
+You appear to be able to move north, south and west.  A cat strolls out to
+the south.
 
 > ask ticket seller about grantby
 "ticket to Grantby, that is £30.  The next train is at 4.00pm."
@@ -79,9 +78,8 @@ the meeting at that time so you will have to find another train to catch.
 
 > x counter
 You look carefully at the battered old counter.  From the look of it the
-counter has been in the building some years.  A leaflet is on the counter.
-
-A cat strolls in from the south.
+counter has been in the building some years.  A leaflet is on the counter.  A
+cat strolls in from the south.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
@@ -96,9 +94,7 @@ worn by a cat.
 > read leaflet
 The leaflet goes into a lot of detail on how great Super Stationary is and
 how bad the opposition is. Someone has written a phone number on the back of
-the leaflet - 768555
-
-A cat strolls out to the south.
+the leaflet - 768555  A cat strolls out to the south.
 
 > inventory
 You are wearing your suit and a wristwatch, and you are carrying your wallet,
@@ -109,9 +105,7 @@ business card are inside your wallet.
 The scrap of paper reads
 
 "John Tailer of Broke Brothers, Tel: 767123"
-"Meeting today at Grantby, 4.00pm"
-
-A cat strolls in from the south.
+"Meeting today at Grantby, 4.00pm"  A cat strolls in from the south.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
@@ -129,9 +123,8 @@ You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 > ask ticket seller about leaflet
-"a passenger must have left it.  I'll throw it away later."
-
-A cat strolls out to the south.
+"a passenger must have left it.  I'll throw it away later."  A cat strolls
+out to the south.
 
 > west
 You move west.
@@ -229,9 +222,7 @@ never goes into the cafe."
 "the next train is at 4.00pm."
 
 "4.00pm! that is far too late" you think.  You will need to find another way
-to meet John Tailer.
-
-A young girl wanders in from the east.
+to meet John Tailer.  A young girl wanders in from the east.
 The young girl says "wo ist train to donningby."
 
 > east
@@ -400,9 +391,8 @@ platforms.
 A cat is silently wandering around.  A Trainspotter dressed in wet weather
 gear is watching you.
 
-You appear to be able to move northeast and southeast.
-
-A cat strolls out to the south-east.
+You appear to be able to move northeast and southeast.  A cat strolls out to
+the south-east.
 
 > x trainspotter
 The trainspotter is wearing a big hooded coat (Anorak) and rainproof
@@ -561,9 +551,8 @@ You can also see a payphone.
 A large pigeon is watching you from the canopy over the platform.  It is
 still raining very hard.
 
-You appear to be able to move north, east and southwest.
-
-A cat strolls in from the south-west.
+You appear to be able to move north, east and southwest.  A cat strolls in
+from the south-west.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
@@ -575,9 +564,7 @@ worn by a cat.
 
 > read sticker
 The sticker reads Need to know when the next train is? then call Train
-Timeline on 858585
-
-A cat strolls out to the east.
+Timeline on 858585  A cat strolls out to the east.
 
 > call 768555
 You pick up the handset, insert a pound and dial the number.
@@ -597,9 +584,7 @@ You pick up the handset, insert a pound and dial the number.
 "Look who are you and how did you get this number?  If you ring again things
 could get very messy for you."
 
-The person at the other end hangs up.
-
-A cat strolls in from the east.
+The person at the other end hangs up.  A cat strolls in from the east.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
@@ -618,9 +603,7 @@ You pick up the handset, insert a pound and dial the number. "Hello this is
 Rapid Stationary.  Everyone is busy just now but if you leave your name and
 number someone will get back to you as soon as possible."
 
-You hang up before the beep.
-
-A cat strolls out to the east.
+You hang up before the beep.  A cat strolls out to the east.
 
 > call 858585
 You pick up the handset, insert a pound and dial the number.
@@ -647,9 +630,7 @@ You can also see a desk and a telephone.
 The Station Master is standing to one side.  A cat is silently wandering
 around.  It is still raining very hard.
 
-The door out of the room is west.
-
-A cat strolls out to the west.
+The door out of the room is west.  A cat strolls out to the west.
 
 > ask station master about passing through
 "railway station, lots of trains pass through."
@@ -670,9 +651,8 @@ You can also see a payphone.
 A cat is silently wandering around.  A large pigeon is watching you from the
 canopy over the platform.  It is still raining very hard.
 
-You appear to be able to move north, east and southwest.
-
-A cat strolls out to the east.
+You appear to be able to move north, east and southwest.  A cat strolls out
+to the east.
 
 > sw
 You move southwest.
@@ -755,9 +735,8 @@ feeling wet and miserable.
 > ask trainspotter about beard
 "Yes, I saw him storm out of the station.  He was complaining about someone
 stealing his wallet.  Seems to be a lot of that happening a long this line.
-My brother was telling me that this happened at his station."
-
-A cat strolls in from the north-east.
+My brother was telling me that this happened at his station."  A cat strolls
+in from the north-east.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 The rain is blowing in through the metal grill of the bridge.  You are
@@ -781,9 +760,8 @@ better."
 The rain finally seems to be stopping.
 
 > x mess
-The pigeon has done its business on your suit 1 times!
-
-A cat strolls in from the north-west.
+The pigeon has done its business on your suit 1 times!  A cat strolls in from
+the north-west.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
@@ -808,11 +786,8 @@ The Ticket Seller is looking at you expectantly.  You can see a young girl
 wandering around looking very lost.
 
 You appear to be able to move north, south and west.
-The young girl says "need donningby train."
-
-A cat strolls in from the north.
-
-A young girl wanders out to the west.
+The young girl says "need donningby train."  A cat strolls in from the north.
+ A young girl wanders out to the west.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
@@ -1021,9 +996,8 @@ The Ticket Seller is looking at you expectantly.  You can see a young girl
 wandering around looking very lost.
 
 You appear to be able to move north, south and west.
-The young girl says "need train to donningby."
-
-A young girl wanders out to the west.
+The young girl says "need train to donningby."  A young girl wanders out to
+the west.
 
 A train thunders through the station and it doesn't sound like it is going to
 stop.
@@ -1062,9 +1036,8 @@ probably).  The floor is wet in here; the rain must have been blown in.
 You can also see a banana skin and a set of double doors with glass panels.
 The Ticket Seller is looking at you expectantly.
 
-You appear to be able to move north, south and west.
-
-A young girl wanders in from the west.
+You appear to be able to move north, south and west.  A young girl wanders in
+from the west.
 The young girl says "need train to donningby."
 
 > get banana skin
@@ -1107,9 +1080,8 @@ The Ticket Seller is looking at you expectantly.  You can see a young girl
 wandering around looking very lost.
 
 You appear to be able to move north, south and west.
-The young girl says "donningby platform?"
-
-A young girl wanders out to the west.
+The young girl says "donningby platform?"  A young girl wanders out to the
+west.
 
 > north
 You move north.
@@ -1175,9 +1147,8 @@ You take the pair of gloves from the bag of shopping.
 
 > give gloves to trainspotter
 You hand the gloves to the Trainspotter.  He tries them on and then says
-"that's a pity they don't fit me."  He hands that back to you.
-
-A cat strolls in from the north-east.
+"that's a pity they don't fit me."  He hands that back to you.  A cat strolls
+in from the north-east.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
@@ -1201,9 +1172,7 @@ to change at Grantby.  I think the German for station is Bahnhof and
 umsteigen means to change. "
 
 "Ah! so I need to say something like Donningby bahnhof umsteigen Grantby" you
-think.
-
-A cat strolls out to the south-east.
+think.  A cat strolls out to the south-east.
 
 > where is young girl
 Young Girl is waiting room.
@@ -1226,11 +1195,8 @@ You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 > ask young girl about flowers
-You cannot see the Lost Looking Girl anywhere?
-
-A cat strolls out to the north-west.
-
-A young girl wanders in from the east.
+You cannot see the Lost Looking Girl anywhere?  A cat strolls out to the
+north-west.  A young girl wanders in from the east.
 The young girl says "next train going to donningby?"
 
 > give flowers to young girl
@@ -1242,9 +1208,8 @@ The young girl says "need donningby train."
 12:00.)
 
 > ask young girl about flowers
-The young girl says "where platform 1."
-
-A cat strolls in from the north-west.
+The young girl says "where platform 1."  A cat strolls in from the
+north-west.
 The young girl says "need donningby train."
 
 A train thunders through the station and it doesn't sound like it is going to
@@ -1274,9 +1239,8 @@ grill then fills the gap up to the roof.  From here you can see both
 platforms.
 A Trainspotter dressed in wet weather gear is watching you.
 
-You appear to be able to move northeast and southeast.
-
-A cat strolls in from the south-east.
+You appear to be able to move northeast and southeast.  A cat strolls in from
+the south-east.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 The Trainspotters says "I prefer cheese in my sandwiches."
@@ -1340,9 +1304,8 @@ You can also see a payphone.
 A cat is silently wandering around.  A large pigeon is watching you from the
 canopy over the platform.
 
-You appear to be able to move north, east and southwest.
-
-A cat strolls out to the east.
+You appear to be able to move north, east and southwest.  A cat strolls out
+to the east.
 
 You can see that the Colesworth train is at platform 1.
 
@@ -1361,9 +1324,7 @@ closing.
 It is a diesel powered small, one carriage commuter train.  Dirty and over
 crowded.  The windows of the train are very dirty and you cannot see inside.
 The train has a number painted on the front which is 34316.  The automatic
-doors of the train have closed.
-
-A cat strolls in from the east.
+doors of the train have closed.  A cat strolls in from the east.
 
 You can see that the Colesworth train is at platform 1.
 You can hear a small bell tinkling which sounds just like one of those bells
@@ -1421,9 +1382,8 @@ platforms.
 A cat is silently wandering around.  A Trainspotter dressed in wet weather
 gear is watching you.
 
-You appear to be able to move northeast and southeast.
-
-A cat strolls out to the north-east.
+You appear to be able to move northeast and southeast.  A cat strolls out to
+the north-east.
 The Trainspotter turns to face you and asks "what's that mess on your
 shoulder?"
 The Trainspotter has spotted the manual you are carrying and gets all
@@ -1550,9 +1510,8 @@ You can see a large poster with a picture of a policeman on it.
 You can also see a payphone.
 A cat is silently wandering around.
 
-You appear to be able to move north, east and southwest.
-
-A cat strolls out to the north.
+You appear to be able to move north, east and southwest.  A cat strolls out
+to the north.
 
 > east
 You move east.
@@ -1594,9 +1553,7 @@ You can see the station master on platform 1 talking to the porter. It looks
 like the porter is getting a telling off about the iou.
 
 > wait
-Time passes...
-
-A cat strolls out to the north.
+Time passes...  A cat strolls out to the north.
 
 A train thunders through the station and it doesn't sound like it is going to
 stop.
@@ -1606,7 +1563,6 @@ like the porter is getting a telling off about the iou.
 
 You can see the station master on platform 1 talking to the porter. It looks
 like the porter is getting a telling off about the iou.
-
 A cat strolls in from the north.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
@@ -1623,7 +1579,6 @@ You can see the station master on platform 1 talking to the porter. It looks
 like the porter is getting a telling off about the iou.
 
 The Station Master enters from the southwest and heads east.
-
 A cat strolls out to the north.
 
 > east
@@ -1656,9 +1611,8 @@ You can see a large poster with a picture of a policeman on it.
 You can also see a payphone.
 A cat is silently wandering around.
 
-You appear to be able to move north, east and southwest.
-
-A cat strolls out to the north.
+You appear to be able to move north, east and southwest.  A cat strolls out
+to the north.
 
 The whole station seems to be shaking as a freight train rumbles through.
 The shaking feels like it is never going to stop.
@@ -1766,9 +1720,8 @@ You can see a large poster with a picture of a policeman on it.
 You can also see a payphone.
 A cat is silently wandering around.
 
-You appear to be able to move north, east and southwest.
-
-A cat strolls out to the north.
+You appear to be able to move north, east and southwest.  A cat strolls out
+to the north.
 
 > north
 You move north.
@@ -1790,9 +1743,8 @@ You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 > get suitcase
-The suitcase is too heavy for you to carry at the moment.
-
-A cat strolls out to the south.
+The suitcase is too heavy for you to carry at the moment.  A cat strolls out
+to the south.
 
 > south
 You move south.
@@ -1823,9 +1775,8 @@ grill then fills the gap up to the roof.  From here you can see both
 platforms.
 A Trainspotter dressed in wet weather gear is watching you.
 
-You appear to be able to move northeast and southeast.
-
-A cat strolls in from the north-east.
+You appear to be able to move northeast and southeast.  A cat strolls in from
+the north-east.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
@@ -1845,9 +1796,8 @@ night on a bench.
 You appear to be able to move east, south and northwest.
 
 > ask porter about suitcase
-"look it ain't yours so leave it alone."
-
-A cat strolls in from the north-west.
+"look it ain't yours so leave it alone."  A cat strolls in from the
+north-west.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
@@ -1858,7 +1808,6 @@ worn by a cat.
 
 > west
 You can't go in that direction, but you can move east, south and northwest.
-
 A cat strolls out to the north-west.
 
 The whole station seems to be shaking as a freight train rumbles through.

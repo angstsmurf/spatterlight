@@ -29,9 +29,7 @@ Also here is a hundred dollars, a drink and a ticket.
 Ticket man and Your children 8) are here.
 The tall man is pleasant.
 
-You can move north and east.
-
-Mafia man .
+You can move north and east.  Mafia man .
 
 > take hundred dollars
 You take the hundred dollars.

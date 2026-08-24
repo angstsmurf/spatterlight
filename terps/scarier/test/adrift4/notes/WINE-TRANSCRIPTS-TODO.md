@@ -269,6 +269,8 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `asteroid_after.taf` | 4.00 | live run400 probes (six co-present valves) + the corpus' ALR tables + UTF-16 literals in all four exes | the 4.00 object-ambiguity rule, its wording, its follow-up prompt, and that NPCs share the object message -- see the MEASURED section below |
 | `p4ALR` / `p4ALRSRC` / `p4WALKCOUNT` / `p4VARFREEZE` (built probes) | 4.00 + 3.90 | run400 and run390 replays of four packed probe games | the whole **4.0 output filter**: walk = repeat a length-descending pass until nothing changes, self-containing ALRs retired per walk, one walk per completing task plus the flush, variables frozen by each walk -- see the FIXED section below |
 | `3monkeys.taf` | 4.00 | live run400 replay of the solution's first 36 commands, `Adrift_16.txt` | the Runner really does print the raw `CHIMPSIGNAL=0`; the variable freeze is not a port artefact |
+| `sa.taf` (`sophie`) | 4.00 | live run400 replay, `Adrift_41_sophie.txt`..`Adrift_45_sophie.txt` (five runs of the solution's first fifty commands), plus the game's own 488-entry ALR table | the walk announcement is **joined into the turn's paragraph**, so 12 of sa.taf's 65 join-spanning ALRs fire and delete the arrivals they match -- see the FIXED section below |
+| `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -324,7 +326,9 @@ The four best targets, by walks x length:
 - `sophie` (`sa.taf`) — 255 commands, 7 walks, and **73 NPCs**, far more than
   anything else here; NPC presence lines are exactly where the Professor
   divergences lived. `sophie_comp` (`sophie.taf`) replays the comp release of
-  the same game, so the pair also cross-checks a re-release.
+  the same game, so the pair also cross-checks a re-release.  The first fifty commands were replayed
+  2026-08-25 and pinned the walk-announcement join; the rest of the row is
+  still open.
 - `cibass` — 40 commands, 8 walks, 8 events. Short enough to finish in one
   session at full walk density.
 - `vardock_bates` — 103 commands, 2 walks, waitkey; the closest structural
@@ -336,7 +340,7 @@ The four best targets, by walks x length:
 | `goldilocks.taf` | `goldilocks` | 252 | 8 | 6 | 10 | -- | [Goldilocks_walkthrough](Goldilocks_walkthrough.md) |
 | `CIBASS.taf` | `cibass` | 40 | 8 | 2 | 8 | yes | [CIBASS_walkthrough](CIBASS_walkthrough.md) |
 | `FunHouse.taf` | `funhouse` | 18 | 8 | 9 | 0 | -- | **done** 2026-08-24 -- see "Measured so far" |
-| `sa.taf` | `sophie` | 255 | 7 | 73 | 13 | yes | [Sophies_Adventure_walkthrough](Sophies_Adventure_walkthrough.md) |
+| `sa.taf` | `sophie` | 255 | 7 | 73 | 13 | yes | **partly done** 2026-08-25 (first 50 commands) -- see "Measured so far"; [Sophies_Adventure_walkthrough](Sophies_Adventure_walkthrough.md) |
 | `sophie.taf` | `sophie_comp` | 255 | 6 | 72 | 13 | yes | [Sophies_Adventure_walkthrough](Sophies_Adventure_walkthrough.md) |
 | `Oh_Human.taf` | `ohhuman` | 9 | 6 | 3 | 5 | -- | -- |
 | `TheCatintheTree.taf` | `the_cat_in_the_tree` | 8 | 5 | 4 | 1 | yes | **done** 2026-08-24 -- see "Measured so far" |
@@ -653,6 +657,16 @@ into a walk-related change.
   this is the *selector*, not the walk state, and it is a different question
   from the ChangedDesc pick that `donuts_intro`/`maincourse`/`orient_express`
   already pin down.
+- **A task with an EMPTY CompleteText does not match in Scarier** (noticed
+  2026-08-25 while building `make_400_walkcapprobe.py`).  A probe task whose
+  CompleteText is `""` and whose only content is its actions gets
+  "I don't understand." from Scarier -- the command never reaches the task.
+  The Runner runs such tasks happily; `make_400_walkcountprobe.py`'s silent
+  `romeo`/`sil1`/`sil2`/`sil3` are exactly that shape and they completed in
+  run400 (their ALR walks were counted).  Those, though, were reached by
+  another task's *execute-task* action, not typed -- so what is untested is
+  the typed path.  Whether the gate is in the matcher or in the printer is
+  unknown; the probe worked around it by giving each cell a real CompleteText.
 - **Timed events run a turn out of step** in `the_pk_girl` (2026-08-24), the
   same class already noted on `orient_express`.  Of the 470 replayed commands
   138 differ, and the great majority are an event line landing one command
@@ -792,7 +806,9 @@ of step.
     (see Open leads).
 - Next candidates down the list, in order: `arlo.taf` (3.70, 11 walks / 85
   commands -- the best pre-4.0 target, and it shows up twice in the killer-walk
-  scan), then `goldilocks`, `cibass`, `sophie`/`sa.taf`.
+  scan), then `goldilocks`, `cibass`, `sophie`/`sa.taf`.  (`arlo` and
+  `sophie` are both done as of 2026-08-25 -- `sophie` only for its first fifty
+  commands -- so the next two down are `goldilocks` and `cibass`.)
 
 ## PARKED 2026-08-24 -- pre-3.9 wording rules, round one done
 
@@ -901,7 +917,8 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
   the stool first)").  Both are now **CLOSED 2026-08-24** -- the second was a
   display setting, not an engine bug (see the section below), and the first
   turned out to be the whole 4.0 output filter (last section).
-- **Next candidates** down the list: `goldilocks`, `cibass`, `sophie`/`sa.taf`.
+- **Next candidates** down the list: `goldilocks`, `cibass` (`sophie`/`sa.taf`
+  has since been replayed for its first fifty commands, 2026-08-25).
   With the pre-3.9 pool now clean, the remaining 3.90 and 4.00 candidates are
   where the next divergences will come from.
 
@@ -1480,6 +1497,115 @@ random alternate texts), never the direction.
 Two residual items came out of this.  The not-a-room-zero **arrival** gate is
 closed above, the same day.  The fact that the walk **move** and meet-task
 dispatch still sit outside the exact-tick test is still an open lead.
+
+## FIXED 2026-08-25 -- the walk announcement is JOINED into the turn's paragraph
+
+The Runner does not give an NPC walk announcement a line of its own.  It
+appends it to the buffer the turn has built so far, with the same two-space
+section separator every other run-on uses -- so the announcement is part of
+the turn's ONE paragraph, and an author's ALR pass sees the join.  Scarier
+started the line instead.  **61 goldens re-blessed, corpus 304/304 PASS.**
+
+### The separator, and its version split
+
+3.9 and 4.0 call the shared "pspace" routine (run390 `loc_45A99E`, run400
+`loc_468A67` arrival / `loc_4688D3` departure).  3.7 and 3.8 write it inline
+and shorter:
+
+    run370 loc_4395AA / run380 loc_441740
+        If Right(buf, 1) <> Chr(10) And Len(buf) > 0 Then buf = buf & "  "
+
+which tests only the LAST character, so a buffer already ending in two spaces
+gets two more.  Pre-3.9 really can make four spaces where 3.9/4.0 make two.
+Ported as `pf_buffer_join()` (pspace) and `pf_buffer_join_always()` (the
+pre-3.9 inline form) in `scprintf.cpp`, split at `TAF_VERSION_390` in
+`npc_announce()`.
+
+### The Name is capitalised in 4.0 ONLY
+
+`Proc_21_3_446BB4` (run400 `General.bas:75`) is
+`UCase(Left(s,1)) & Right(s, Len(s)-1)`, and run400 pipes the NPC Name
+through it at **both** `npc_announce()` sites -- `loc_468A79` (arrival) and
+`loc_4688E0` (departure).  It is called at neither site in run370
+(`loc_43961A`), run380 (`loc_4417B0`) or run390 (`loc_45AA0F`), which push the
+raw Name.  Nor at run400's **hidden**-departure site `loc_468CF9`, which
+appends a bare `"  "` with no pspace call and no capitalisation at all (as
+does run370 `loc_4397A3`).  So: capitalise in 4.0's two `npc_announce()`
+sites, nowhere else.
+
+The corpus case is `baroo.taf` (4.00), whose NPC Names are lower-case
+"wizard" and "warlock": the golden reads "Wizard walks off ...".  Gated on
+`is_400` in `npc_announce()`.
+
+### Why it matters beyond whitespace: the ALRs span the join
+
+Because the announcement lands in the same buffer, an author who wants to
+reword a walker writes an ALR whose Original starts with the separator.
+`sa.taf` (sophie, 4.00) has **65** such join-spanning ALRs, **12** of which
+fire in the walkthrough -- and each one *deletes* the arrival it matches.
+That is the whole substance of the two sophie goldens' 12 lost arrival lines;
+every one was matched mechanically back to an ALR Original in the table
+(count at 0-based plain-text line 255954 of `taf_pattern_scan.plaintext()`'s
+body, pairs on the lines after it).  `circus.taf` corroborates from the other
+direction with `'  Joe' -> '  The vendor'`, which only fires once the two
+spaces are there.
+
+### What was measured, and where
+
+Runner transcripts confirm the join on **every** generation:
+
+| Game | Runner | Transcript |
+|---|---|---|
+| `arlo.taf` | run370 | `Adven_6_arlo.rtf` |
+| `tra.taf` | run380 | `Adven_9_timmy_reid.rtf` |
+| `Melbourne Beach.taf`, `S_Tar_Dus.taf` | run390 | `Adrift_37_melbourne_beach.txt`, `Adrift_38_stardust.txt` |
+| `Orient_Express.taf` | run400 | `Adrift_36_orient_express.txt` |
+
+(The melbourne_beach "Kitty comes in" / golden "Kitty saunters in" mismatch is
+the walk's random alternate verb texts, already documented on the arlo row --
+the direction and the join match.)
+
+The join itself was additionally pinned by a built probe, `p4WALKALR.taf`
+(`harness/make_400_walkalrprobe.py`, transcript `Adrift_47_p4walkalr.txt`).
+
+Of the 61 goldens this moved, **57 differ from their predecessors in
+whitespace alone**; the other four are `baroo` (the capital), `circus` (the
+`'  Joe'` ALR) and the two `sophie` rows (the 12 deleted arrivals).  The
+canonical write-up is the dated block above the `arlo.taf` row in
+`harness/run_v4_walkthroughs.sh`, with pointer comments on the `circus`,
+`sophie`, `sophie_comp` and `baroo` rows.
+
+### Still to do
+
+`harness/make_400_walkcapprobe.py` is the live confirmation of the 4.0-only
+capitaliser -- **built and not yet run**: the Mac's screen was locked and the
+Wine harness drives the Runner's menus through System Events, so it cannot run
+without an unlocked desktop.  It packs two rooms and one NPC named `"bob"` on
+sophie's walk, and four cells: `e`/`w` (a mid-paragraph join) and `pb`/`pa`
+(a task whose CompleteText ends in `<br><br>`, so pspace adds nothing and the
+Name opens a line).  Expectation, from the listings: `"bob"` -> `"Bob"` in all
+four.  Run it with
+
+    LOAD_SLEEP=22 sh measure.sh p4WALKCAP.taf cmdfile_walkcap.txt
+
+and replace the probe's "ANSWERED FROM THE LISTINGS 2026-08-25" docstring with
+the live transcript.
+
+Two harness facts fell out of the failed attempts, both worth keeping:
+
+- **`measure.sh` now forces Verbose ON in the registry**, not with a blind
+  Ctrl+V toggle.  `pfx/user.reg` carries `"Verbose"="True"` under
+  `VB and VBA Program Settings\ADRIFT\Runner` and it *survives* launches, so
+  the old blind toggle flipped a Verbose-ON prefix OFF and made every room
+  re-entry look like a divergence (`run400-verbose-toggle` says the value
+  resets each launch; it does not).  Decide whether to mirror the
+  `~/adrift-battle/runner/wine/measure.sh` changes back into the repo.
+- A locked screen fails in a way that looks like a game problem: three runs
+  died with "WARNING: 3 pause-dismiss Return(s) sent" / "Save-transcript
+  dialog never appeared", and the known-good `p4WALKALR.taf` failed
+  identically.  The tell is elsewhere: `swift winlist.swift` shows
+  `loginwindow 30000x30000`, `osascript` returns `-1719 Can't get process 1
+  whose frontmost = true`, and `screencapture -R`/`-l` both refuse.
 
 ## CLOSED 2026-08-24 -- empty-M1 room alts, and recursive holding
 

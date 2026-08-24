@@ -101,9 +101,8 @@ odor of the hot dogs in the air reminds you of when you were a kid.  You hear
 calliope music coming from the direction of the funhouse.
 
 "Ring toss!  Ring toss!" calls the carny. "Three tries, just one token!"
-A carny is here, working the ring toss game.
-
-Wemmie walks toward you from the south.
+A carny is here, working the ring toss game.  Wemmie walks toward you from
+the south.
 
 > e
 You move east.
@@ -141,9 +140,7 @@ You won a plastic clown!
 
 You give the vendor a token and play the duck pond game.
 
-You won a plush frog toy!
-
-Wemmie arrives from the west.
+You won a plush frog toy!  Wemmie arrives from the west.
 
 > play duck pond
 "Win the prize!" the carny says. "Just one token, play duck pond!"
@@ -192,9 +189,8 @@ ring.
 Marie is here, behind the ticket booth.
 
 > sell 10 points
-Your score has been lowered by 10 points to 0, but you now have $1.
-
-the vendor enters.
+Your score has been lowered by 10 points to 0, but you now have $1.  The
+vendor enters.
 
 > buy peanut
 The vendor sells you a bag of peanuts for $1.
@@ -206,9 +202,7 @@ I don't think that is for sale.
 I don't think that is for sale.
 
 > buy peanut
-I don't think that is for sale.
-
-the vendor departs to the south.
+I don't think that is for sale.  The vendor departs to the south.
 
 > ne
 You move northeast.
@@ -260,9 +254,7 @@ You don't see Pringles here.
 You don't see Pringles here.
 
 > give peanut to pringles
-You don't see Pringles here.
-
-Pringles comes in from above.
+You don't see Pringles here.  Pringles comes in from above.
 
 > give peanut to pringles
 Pringles greedily takes the bag of peanuts from you and starts eating them.
@@ -316,9 +308,7 @@ Your score has been lowered by 10 points to 3, but you now have $4.
 
 > buy 6 tokens
 You give Marie $3 and she sells you 6 tokens.  You have $1 left, which will
-buy you up to 2 tokens.
-
-the vendor comes in from the south.
+buy you up to 2 tokens.  The vendor comes in from the south.
 
 > s
 You move south.
@@ -476,9 +466,8 @@ aerial performers launch from, which is accessed by climbing a ladder.
 
 People are milling about, playing games.  Young kids are laughing at the
 clowns.  You smell freshly popped popcorn in the air.
-Lance the ringmaster is here, announcing acts and working the crowd.
-
-Lance walks out to the east.
+Lance the ringmaster is here, announcing acts and working the crowd.  Lance
+walks out to the east.
 
 > n
 You move north.
@@ -535,9 +524,8 @@ Backyard
 You're behind the circus tent, in an area where animals and performers
 prepare.  There is a lot of straw and sawdust on the ground here.  To the
 south is the backdoor to the big top.  To the north you see some animal
-cages, to the east and west are trailers used as dressing rooms.
-
-Barb sashays in from the north.
+cages, to the east and west are trailers used as dressing rooms.  Barb
+sashays in from the north.
 
 > n
 You move north.
@@ -567,9 +555,8 @@ Use the format "ask [character] about [subject]".
 Use the format "ask [character] about [subject]".
 
 > ask barb about tape
-Use the format "ask [character] about [subject]".
-
-Barb walks toward you from the south.
+Use the format "ask [character] about [subject]".  Barb walks toward you from
+the south.
 
 > ask barb about tape
 "Oh, what's that doing there?" Barb says. She reaches into the lion cage and
@@ -584,9 +571,7 @@ Barb does not respond to your question.
 Barb does not respond to your question.
 
 > ask barb about tape
-Barb does not respond to your question.
-
-Barb departs to the south.
+Barb does not respond to your question.  Barb departs to the south.
 
 > ask barb about tape
 Use the format "ask [character] about [subject]".
@@ -599,9 +584,7 @@ You're behind the circus tent, in an area where animals and performers
 prepare.  There is a lot of straw and sawdust on the ground here.  To the
 south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.
-Barb is here.
-
-Barb moves on to the west.
+Barb is here.  Barb moves on to the west.
 
 > s
 You move south.
@@ -688,9 +671,7 @@ This is where the animal cages are.  There is straw and sawdust on the ground
 here.  You see an elephant cage, a lion cage, a tiger cage, and a gorilla
 cage.  There is also a stable here.  The rear entrance to the big top is to
 your south, as are the dressing rooms.
-Barb is here.
-
-Barb strolls away to the south.
+Barb is here.  Barb strolls away to the south.
 
 > use camera
 You film the animals with the video camera.  Wow, it seems your mission is a

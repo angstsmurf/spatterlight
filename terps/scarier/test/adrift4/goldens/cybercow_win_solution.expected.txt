@@ -93,9 +93,7 @@ bus stop.
 Also here is a snail.
 It is daytime.
 
-You can only move east.
-
-Vluurinik flies in.
+You can only move east.  Vluurinik flies in.
 
 > x snail
 It's a snail.  Pretty gross.
@@ -114,9 +112,7 @@ east.  Fields are to the west.  The chapel is on top of the hill to the
 south.  Down the hill to the north there is the bus stop.
 It is daytime.
 
-You can move north, east, south and west.
-
-Vluurinik flies in from the west.
+You can move north, east, south and west.  Vluurinik flies in from the west.
 
 > s
 You move south.
@@ -256,9 +252,7 @@ You can move north, east, south and west.
 You throw the rope down the well.
 
 > take cross
-You pick up the heavy cross.
-
-Vluurinik flies in from the west.
+You pick up the heavy cross.  Vluurinik flies in from the west.
 
 > s
 You move south.
@@ -482,9 +476,7 @@ You pause a moment...
 You pause a moment...
 
 > z
-You pause a moment...
-
-Vluurinik flies in from the west.
+You pause a moment...  Vluurinik flies in from the west.
 Whoah!  That bowl of milk has captured Vluurinik's attention!
 Before you can react, Vluurinik snatches up the bowl of milk and (flying low
 from the weight of the thing) makes for the meadow!
@@ -617,9 +609,7 @@ Your humble childhood home.  Next to the mailbox, the door west leads
 outside.  There is a cupboard here, which you recall generally not having
 cookies.  There is a couch here, which used to cleverly hide a trapdoor.
 
-You can move west and down.
-
-The Robot marches in  from below.
+You can move west and down.  The Robot marches in  from below.
 
 > w
 You move west.
@@ -631,9 +621,8 @@ chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
 It is daytime.
 
-You can move north, east, south, west and down.
-
-The Robot marches in  from the east.
+You can move north, east, south, west and down.  The Robot marches in  from
+the east.
 
 > d
 You move down.
@@ -644,9 +633,7 @@ moist here.  The end of the rope dangles here, providing you with a way back
 up.  To the west you can see the narrow entrance to the CyberCow's lair.
 The CyberCow is here.
 
-You can move west and up.
-
-The Robot marches in  from above.
+You can move west and up.  The Robot marches in  from above.
 The Robot and the CyberCow lock eyes.
 
 The Robot begins charging its ray weapon.

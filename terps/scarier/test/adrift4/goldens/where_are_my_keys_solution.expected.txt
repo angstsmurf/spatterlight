@@ -252,9 +252,8 @@ window to the south will look out onto the garden. Just inside the door is a
 three shelf bookcase. You can only go north from here back to the landing.
 
 You can see a dirty handkerchief.
-The small brown terrier is wandering around.
-
-The small dog wanders out to the north.
+The small brown terrier is wandering around.  The small dog wanders out to
+the north.
 
 > x bookcase
 The bookcase is one of those cheap DIY jobs.  In this case though even a cut
@@ -274,9 +273,8 @@ the light is on but doesn't seem to help.  Even in the bad light you can see
 more terrible wallpaper and a very threadbare carpet. The main bedroom is to
 the north and the back bedroom is opposite.  You can just make out the
 bathroom to the east and you can go down to the hall.
-The small brown terrier is wandering around.
-
-The small dog wanders out to below.
+The small brown terrier is wandering around.  The small dog wanders out to
+below.
 
 > down
 You move down.

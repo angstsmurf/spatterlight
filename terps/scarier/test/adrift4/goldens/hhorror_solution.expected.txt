@@ -83,9 +83,7 @@ from the walls. In the ceiling is a hatch door.
 
 Also here are the bloodstains.
 
-You can move north, east, south and west.
-
-Ghost appears from above.
+You can move north, east, south and west.  Ghost appears from above.
 A strange chill fills the air.
 You hear a creaking noise.
 
@@ -104,9 +102,7 @@ Also here is a hook.
 You can move east, south and west.
 
 > take hook
-You pick up the hook.
-
-Ghost appears from the south.
+You pick up the hook.  Ghost appears from the south.
 
 > w
 You move west.
@@ -129,9 +125,7 @@ The room is wide and luxurious. A huge oak bed sticks out into the room from
 the north wall and the bedding is the same shade as the cream painted walls.
 The ghost is haunting this room.
 
-You can move east, south and west.
-
-Ghost disappears to the west.
+You can move east, south and west.  Ghost disappears to the west.
 
 > e
 You move east.
@@ -367,14 +361,12 @@ You can only move east.
 You hear a creaking noise.
 
 > turn tap
-You turn the tap and water pours out.
-
-Zombie stumbles towards you from the east.
+You turn the tap and water pours out.  Zombie stumbles towards you from the
+east.
 
 > fill bottle
-You fill the bottle with water from the tap..
-
-Zombie Stumbles away from you to the east.
+You fill the bottle with water from the tap..  Zombie Stumbles away from you
+to the east.
 You hear a creaking noise.
 
 > bless water
@@ -497,9 +489,8 @@ in the centre.
 
 Also here is a property deed.
 
-You can move north, south, west and down.
-
-Zombie stumbles towards you from the south.
+You can move north, south, west and down.  Zombie stumbles towards you from
+the south.
 
 > w
 You move west.
@@ -570,9 +561,7 @@ stormy night. Plants of all kinds grow in pots and hanging baskets and the
 temperature is rather hot.
 The ghost is haunting this room.  A plant monster grows here.
 
-You can move north and south.
-
-Ghost disappears to the south.
+You can move north and south.  Ghost disappears to the south.
 
 > s
 You move south.
@@ -740,9 +729,8 @@ off the walls. An impressive staircase glides down.
 Also here is a table.
 The Zombie is here, trashing the place.
 
-You can move north, east, west and down.
-
-Zombie Stumbles away from you to the east.
+You can move north, east, west and down.  Zombie Stumbles away from you to
+the east.
 
 > n
 You move north.
@@ -776,9 +764,7 @@ out into the dark night in the north wall, while a brick wall makes the
 south.
 Bats are here.  The ghost is haunting this room.
 
-You can only move down.
-
-Ghost disappears to below.
+You can only move down.  Ghost disappears to below.
 You hear a creaking noise.
 
 > blow whistle
@@ -997,9 +983,8 @@ off the walls. An impressive staircase glides down.
 
 Also here is a table.
 
-You can move north, east, west and down.
-
-Zombie stumbles towards you from the west.
+You can move north, east, west and down.  Zombie stumbles towards you from
+the west.
 You hear a strange, spine chilling groan.
 
 > fire blunderbuss
@@ -1007,9 +992,7 @@ Summoning up all your courage, you approach the zombie and fire point blank.
 The snooker ball comes out of the gun in an almighty blast and punches a hole
 big enough for you to put your fist into in the zombie's chest. In gasping,
 chocking breaths, he falls to the ground, blood spraying from his sucking
-wound, then dies.
-
-Zombie Stumbles away from you to the north.
+wound, then dies.  Zombie Stumbles away from you to the north.
 
 > drop blunderbuss
 You drop the blunderbuss.
@@ -1142,9 +1125,8 @@ It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.
 
-You can move north, east, south, west and up.
-
-Zombie stumbles towards you from above.
+You can move north, east, south, west and up.  Zombie stumbles towards you
+from above.
 The zombie has spotted you and attacks!
 He thumps you with his clenched fists, causing you much pain.
 

@@ -131,9 +131,7 @@ Bridgekeeper chops you with the iron axe.
 You hit Bridgekeeper with the magic cube.
 The dwarf, with his last ounce of strength lifts himself to the side of the
 bridge. He removes his shirt and axe and then he slumps over the wall and
-falls into the river with a huge splash.
-
-Serond follows you.
+falls into the river with a huge splash.  Serond follows you.
 Serond walks up to you and shakes your hand. "I found you at last Alexis!
 However, let us not talk for long, there is little time."
 "However, I bring you a gift. Now, where did I put it?
@@ -145,9 +143,7 @@ You move west.
 Tonerith junction
 You are standing at a junction.  There appears to be a stone bridge over the
 river east of here and a path to the north, running alongside the river.
-Tonerith pass runs west of here.
-
-Serond follows you from the east.
+Tonerith pass runs west of here.  Serond follows you from the east.
 
 > w
 You move west.
@@ -155,9 +151,7 @@ You move west.
 Tonerith Pass
 This wide path continues to the East. You can see the hills of Forecarn north
 of here but there is no path running there. You can here the sound of rushing
-water in the distance.
-
-Serond follows you from the east.
+water in the distance.  Serond follows you from the east.
 
 > west
 You move west.
@@ -166,9 +160,7 @@ Outside Cottage
 The gentle wind wafts through your hair as you start your adventure. You are
 standing in front of an old cottage. A well trodden path leads north up the
 hills of Forecarn, while another leads west into Dusteron. Due East of here
-runs a wide path that cuts into Tonerith.
-
-Serond follows you from the east.
+runs a wide path that cuts into Tonerith.  Serond follows you from the east.
 
 > west
 You move west.
@@ -177,18 +169,14 @@ Dusteron Pass
 The path gets gradually less well distinguished. You can feel that in the
 wind there is a sandy, dusty feeling on your face. The path continues to the
 North where it appears to get more dusty. Southeast of here is a small
-cottage.
-
-Serond follows you from the east.
+cottage.  Serond follows you from the east.
 
 > north
 You move north.
 
 Dusteron pass enters the desert
 North of here seems to enter into the Dusteron desert, while South will take
-you down Dusteron pass.
-
-Serond follows you from the south.
+you down Dusteron pass.  Serond follows you from the south.
 
 > north
 You move north.
@@ -200,9 +188,7 @@ combination of wind and sand, it is difficult to tell where it is coming
 from. The sand whistles into your eyes but you can just see a small path to
 the East, otherwise you can retreat south.
 
-You can also see the Dusteron stone.
-
-Serond follows you from the south.
+You can also see the Dusteron stone.  Serond follows you from the south.
 
 > take dusteron stone
 You pick up the Dusteron stone.
@@ -215,9 +201,7 @@ You stand on the banks of the Forecarn river, the fast rushing water flows
 from the west to the east. The sound is almost deafening. Across the other
 side of the river is a cobblestone path leading away. There is another path
 to the West leading to the Dusteron desert.   There is a rotted tree standing
- just next to the river.
-
-Serond follows you from the west.
+ just next to the river.  Serond follows you from the west.
 
 > push tree
 The tree creaks. It looks like it's going to fall into the river.  Then it
@@ -230,9 +214,8 @@ ROTTING tree, what did I expect?" you think to yourself.
 
 River bank in Glaven
 You are standing on the bank of the Forecarn river. North of here is a
-cobblestone path which seems to lead to a cave.
-
-Serond follows you from the south.
+cobblestone path which seems to lead to a cave.  Serond follows you from the
+south.
 
 > north
 You move north.
@@ -241,9 +224,7 @@ Entrance to the Cave
 You are standing at the entrance to Caves of Eternal night. The legends were
 true! They say that there are unimaginable terrors in the caves. Northwest
 will take you into the cave, Northeast will take you away, up a long path.
-South will take you to a river bank.
-
-Serond follows you from the south.
+South will take you to a river bank.  Serond follows you from the south.
 
 > nw
 You move northwest.
@@ -252,9 +233,7 @@ Passage in the Caves of eternal night
 The walls are dripping with water, it is extremely dark and the walls appear
 to be made from a very hard rock. Northwest of here the caves continue.
 Southeast will take you out of the cave.  You can see a large area in the
-cave up ahead.
-
-Serond follows you.
+cave up ahead.  Serond follows you.
 
 > nw
 You move northwest.
@@ -265,9 +244,7 @@ is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
 blocked by a large troll.
-Narfild is here.
-
-Serond follows you.
+Narfild is here.  Serond follows you.
 Narfild hits you with the large club.
 
 > attack narfild
@@ -282,9 +259,7 @@ Large cave
 The large circular cave has a large circular stone table in the centre. There
 is a large knife on the table, but it is too heavy for you to move. The walls
 have covered in water. There is an iron ring about the size of your wrist
-protruding from the wall.
-
-Serond follows you from the west.
+protruding from the wall.  Serond follows you from the west.
 
 > x large stone table
 The table is made of the same stone as the walls of the cave. It is full of
@@ -309,9 +284,8 @@ smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  There is a huge troll stretched
 out across the floor. He has large scratches all over his body.
 
-Also here are some grotty rags and a large club.
-
-Serond follows you from the east.
+Also here are some grotty rags and a large club.  Serond follows you from the
+east.
 
 > w
 You move west.
@@ -320,9 +294,7 @@ Small Cave
 This small cave makes you bow your head slightly. There is water running down
 all the walls apart from one, where the water drips into a puddle. East will
 take you back into the main cave.  There is a doorway that connects this cave
-with a square cave to the West.
-
-Serond follows you from the east.
+with a square cave to the West.  Serond follows you from the east.
 
 > w
 You move west.
@@ -330,9 +302,7 @@ You move west.
 Square cave
 The cave is square shaped and looks as if it has been purposefully chipped
 at. There are holes cut in the wall, where objects are placed. East will take
-you back into the small cave.
-
-Serond follows you from the east.
+you back into the small cave.  Serond follows you from the east.
 
 > x holes in the wall
 The holes are cut into the stone and have very flat surfaces.  A steel vest
@@ -348,9 +318,7 @@ Small Cave
 This small cave makes you bow your head slightly. There is water running down
 all the walls apart from one, where the water drips into a puddle. East will
 take you back into the main cave.  There is a doorway that connects this cave
-with a square cave to the West.
-
-Serond follows you from the west.
+with a square cave to the West.  Serond follows you from the west.
 
 > e
 You move east.
@@ -362,9 +330,8 @@ smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  There is a huge troll stretched
 out across the floor. He has large scratches all over his body.
 
-Also here are some grotty rags and a large club.
-
-Serond follows you from the west.
+Also here are some grotty rags and a large club.  Serond follows you from the
+west.
 
 > se
 You move southeast.
@@ -373,9 +340,7 @@ Passage in the Caves of eternal night
 The walls are dripping with water, it is extremely dark and the walls appear
 to be made from a very hard rock. Northwest of here the caves continue.
 Southeast will take you out of the cave.  You can see a large area in the
-cave up ahead.
-
-Serond follows you.
+cave up ahead.  Serond follows you.
 
 > se
 You move southeast.
@@ -384,9 +349,7 @@ Entrance to the Cave
 You are standing at the entrance to Caves of Eternal night. The legends were
 true! They say that there are unimaginable terrors in the caves. Northwest
 will take you into the cave, Northeast will take you away, up a long path.
-South will take you to a river bank.
-
-Serond follows you.
+South will take you to a river bank.  Serond follows you.
 
 > ne
 You move northeast.
@@ -394,9 +357,7 @@ You move northeast.
 Long Glaven path
 The path is long and will take you either northeast to a junction or
 southwest towards a cave.   Tarin the dwarf is barring your way northeast.
-Tarin, the dwarf is here.
-
-Serond follows you.
+Tarin, the dwarf is here.  Serond follows you.
 
 > look
 
@@ -417,9 +378,8 @@ You move northeast.
 Glaven junction
 You are standing at the junction of four paths. One leaves west towards some
 caves. Another path leads towards some mountains northeast of here. A long
-path goes southwest. The last path is wide and goes southeast.
-
-Serond follows you.
+path goes southwest. The last path is wide and goes southeast.  Serond
+follows you.
 
 > dig
 You remove the topsoil carefully with the spade. You then dig down and down
@@ -440,9 +400,7 @@ are snowcapped mountains. East of here, there is one huge mountain with a
 large castle near the top. Northwest will take you towards Glaven, near some
 caves, and southeast will take you into a marshy area.
 
-You can also see the Longmore stone.
-
-Serond follows you.
+You can also see the Longmore stone.  Serond follows you.
 
 > take longmore stone
 You pick up the Longmore stone.
@@ -456,9 +414,7 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.
-The Longmore marsh king is here.
-
-Serond follows you.
+The Longmore marsh king is here.  Serond follows you.
 Longmore king stabs you with the pointy stick.
 
 > se
@@ -467,9 +423,7 @@ You move southeast.
 Longmore pass
 The ground has turned extremely wet and appears to get even wetter furthur
 Northwest. Southeast goes to a track junction. In the far distance you can
-see mountains.
-
-Serond follows you.
+see mountains.  Serond follows you.
 
 > se
 You move southeast.
@@ -478,7 +432,6 @@ Track junction
 You are standing on the junction, where a wide path passes a small faint
 track. The faint track leads towards the river southwest. The wide path leads
 east towards a village, and northwest where the ground gets much wetter.
-
 Serond follows you.
 
 > sw
@@ -490,9 +443,7 @@ right next to the river. The water next to where the bank meets it is slower
 and cleaner than the rest of the river. Northeast will take you up a small
 path to a junction.
 
-You can also see a large pot and an ornate key.
-
-Serond follows you.
+You can also see a large pot and an ornate key.  Serond follows you.
 
 > take pot
 You pick up the large pot.
@@ -510,7 +461,6 @@ Track junction
 You are standing on the junction, where a wide path passes a small faint
 track. The faint track leads towards the river southwest. The wide path leads
 east towards a village, and northwest where the ground gets much wetter.
-
 Serond follows you.
 
 > e
@@ -519,9 +469,7 @@ You move east.
 Kedarn junction
 The path splits here. A thin path leads south towards a forest. A wide path
 travels towards a small village to the east. Another thin path heads towards
-wetter ground to the west.
-
-Serond follows you from the west.
+wetter ground to the west.  Serond follows you from the west.
 
 > e
 You move east.
@@ -531,18 +479,15 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-Natalya is here.
-
-Serond follows you from the west.
+Natalya is here.  Serond follows you from the west.
 
 > e
 You move east.
 
 East wooden hut
 The hut floor is covered with straw and in the corner there is a bed. Their
-is a desk against the wall and a stool in front of it.
-
-Serond follows you from the west.
+is a desk against the wall and a stool in front of it.  Serond follows you
+from the west.
 
 > open desk
 You open the wooden desk.  A small jacket and a pile of gold coins are inside
@@ -565,9 +510,7 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-Natalya is here.
-
-Serond follows you from the east.
+Natalya is here.  Serond follows you from the east.
 
 > n
 You move north.
@@ -576,9 +519,8 @@ North wooden hut
 The hut is made of wood and is quite small. In the middle there is a table
 with a chair next to it. They are sunken in to the floor. On the table lies
 many items, closely guarded by a tall man. The items have price tags on them.
-Examine the table to see what it available.
-
-Serond follows you from the south.
+Examine the table to see what it available.  Serond follows you from the
+south.
 
 > buy metal helmet
 Crisso hands you the helmet as he takes your coins.
@@ -594,9 +536,7 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-Natalya is here.
-
-Serond follows you from the north.
+Natalya is here.  Serond follows you from the north.
 
 > s
 You move south.
@@ -605,9 +545,7 @@ South wooden hut
 This hut appears to be an area for cooking and eating. There is a fire in the
 centre of the hut with a large metal pan hanging over it. There is a long
 table around the outside.
-Derek is here.
-
-Serond follows you from the north.
+Derek is here.  Serond follows you from the north.
 
 > put water in pan
 The river water sploshes into the metal pan and begins to boil.
@@ -620,9 +558,7 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-Natalya is here.
-
-Serond follows you from the south.
+Natalya is here.  Serond follows you from the south.
 
 > se
 You move southeast.
@@ -631,9 +567,7 @@ Southeast wooden hut
 The hut is very small but has many cupboards around it's borders. There is a
 door leading east, but it is locked. It simply has the words: "Nnem shclam
 quaten" (Translated as sleeping quarters)  There is an unlocked weapons
-cupboard.
-
-Serond follows you.
+cupboard.  Serond follows you.
 
 > open cupboard
 The cupboard creaks open and the objects inside glitter and shine.
@@ -657,9 +591,7 @@ You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.
-Natalya is here.
-
-Serond follows you.
+Natalya is here.  Serond follows you.
 
 > w
 You move west.
@@ -667,9 +599,7 @@ You move west.
 Kedarn junction
 The path splits here. A thin path leads south towards a forest. A wide path
 travels towards a small village to the east. Another thin path heads towards
-wetter ground to the west.
-
-Serond follows you from the east.
+wetter ground to the west.  Serond follows you from the east.
 
 > s
 You move south.
@@ -677,9 +607,7 @@ You move south.
 Kedarn forest opening
 The forest is opened out and you stand between the forest and green fields.
 Picked through the forest there appears to be a path southeast. Another path
-heads north to a junction.
-
-Serond follows you from the north.
+heads north to a junction.  Serond follows you from the north.
 
 > se
 You move southeast.
@@ -690,9 +618,7 @@ closing in. West will take you down a tiny path. Another clearer path leads
 northwest.
 
 You can also see the Kedarn stone.
-There is a Forester Goblin hanging from a tree here.
-
-Serond follows you.
+There is a Forester Goblin hanging from a tree here.  Serond follows you.
 Serond shoots Forester Goblin with the oak staff.
 Forester Goblin shoots Serond with the bow and arrow.
 
@@ -710,9 +636,7 @@ You move northwest.
 Kedarn forest opening
 The forest is opened out and you stand between the forest and green fields.
 Picked through the forest there appears to be a path southeast. Another path
-heads north to a junction.
-
-Serond follows you.
+heads north to a junction.  Serond follows you.
 
 > n
 You move north.
@@ -720,9 +644,7 @@ You move north.
 Kedarn junction
 The path splits here. A thin path leads south towards a forest. A wide path
 travels towards a small village to the east. Another thin path heads towards
-wetter ground to the west.
-
-Serond follows you from the south.
+wetter ground to the west.  Serond follows you from the south.
 
 > w
 You move west.
@@ -731,7 +653,6 @@ Track junction
 You are standing on the junction, where a wide path passes a small faint
 track. The faint track leads towards the river southwest. The wide path leads
 east towards a village, and northwest where the ground gets much wetter.
-
 Serond follows you from the east.
 
 > nw
@@ -740,9 +661,7 @@ You move northwest.
 Longmore pass
 The ground has turned extremely wet and appears to get even wetter furthur
 Northwest. Southeast goes to a track junction. In the far distance you can
-see mountains.
-
-Serond follows you.
+see mountains.  Serond follows you.
 
 > nw
 You move northwest.
@@ -753,9 +672,7 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.
-The Longmore marsh king is here.
-
-Serond follows you.
+The Longmore marsh king is here.  Serond follows you.
 
 > attack monster
 You hit Longmore king with the magic cube.
@@ -770,9 +687,7 @@ The swamp monster slowly melts into the marsh. It then dissapears.
 You move northeast.
 
 Marshy cave
-It is too dark to see.
-
-Serond follows you.
+It is too dark to see.  Serond follows you.
 
 > unlock chest
 The chest's lock slowly turns and with a clunk, the chest is unlocked.
@@ -801,9 +716,7 @@ through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.
 
-You can also see a pointy stick.
-
-Serond follows you.
+You can also see a pointy stick.  Serond follows you.
 
 > nw
 You move northwest.
@@ -812,9 +725,7 @@ Longmore junction
 This is the junction to four paths. The view is magnificent. North of here
 are snowcapped mountains. East of here, there is one huge mountain with a
 large castle near the top. Northwest will take you towards Glaven, near some
-caves, and southeast will take you into a marshy area.
-
-Serond follows you.
+caves, and southeast will take you into a marshy area.  Serond follows you.
 
 > e
 You move east.
@@ -822,9 +733,8 @@ You move east.
 Somlost Pass
 This is a long path towards a large mountain. On one side are lots of snow
 capped mountains, on the other is marsh. East will take you towards the
-mountain. West will take you back to the Longmore Junction.
-
-Serond follows you from the west.
+mountain. West will take you back to the Longmore Junction.  Serond follows
+you from the west.
 
 > e
 You move east.
@@ -834,9 +744,8 @@ You are standing on the edge of a huge ravine. Below you the cliff drops
 about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.
-There is an eagle above you circling around your head.
-
-Serond follows you from the west.
+There is an eagle above you circling around your head.  Serond follows you
+from the west.
 Serond shoots Eagle with the oak staff.
 Eagle hits you, but it doesn't seem to do any damage.
 
@@ -851,9 +760,8 @@ You move west.
 Somlost Pass
 This is a long path towards a large mountain. On one side are lots of snow
 capped mountains, on the other is marsh. East will take you towards the
-mountain. West will take you back to the Longmore Junction.
-
-Serond follows you from the east.
+mountain. West will take you back to the Longmore Junction.  Serond follows
+you from the east.
 
 > w
 You move west.
@@ -862,9 +770,8 @@ Longmore junction
 This is the junction to four paths. The view is magnificent. North of here
 are snowcapped mountains. East of here, there is one huge mountain with a
 large castle near the top. Northwest will take you towards Glaven, near some
-caves, and southeast will take you into a marshy area.
-
-Serond follows you from the east.
+caves, and southeast will take you into a marshy area.  Serond follows you
+from the east.
 
 > nw
 You move northwest.
@@ -874,9 +781,7 @@ You are standing at the junction of four paths. One leaves west towards some
 caves. Another path leads towards some mountains northeast of here. A long
 path goes southwest. The last path is wide and goes southeast.
 
-You can also see a large hole.
-
-Serond follows you.
+You can also see a large hole.  Serond follows you.
 
 > ne
 You move northeast.
@@ -885,18 +790,14 @@ Nelone mountain junction
 This path threads over the bottoms of many mountains. On each side are
 extremely steep mountains. It is impossible to attempt to climb up any.
 Southwest will take you towards Glaven. Northeast takes you further along the
-pass. East takes you along a valley ridge.
-
-Serond follows you.
+pass. East takes you along a valley ridge.  Serond follows you.
 
 > ne
 You move northeast.
 
 Nelone mountain pass
 This long path threads through the mountains east or to a junction southwest.
-There is a Narn here.
-
-Serond follows you.
+There is a Narn here.  Serond follows you.
 Serond shoots Kerfald with the oak staff.
 Kerfald hits you, but it doesn't seem to do any damage.
 
@@ -905,9 +806,7 @@ You move east.
 
 Thin mountain path
 The path thins out here to just a small footpath. The path thickens west, or
-goes to a junction to the Southeast.
-
-Serond follows you from the west.
+goes to a junction to the Southeast.  Serond follows you from the west.
 
 > se
 You move southeast.
@@ -918,9 +817,7 @@ three ways. Impossible to tell where each one goes as they thread through
 mountains. The paths lead Northwest, West and East. The only way that can be
 sure is that west leads down into a valley.
 
-You can also see the Nelone stone.
-
-Serond follows you.
+You can also see the Nelone stone.  Serond follows you.
 
 > take nelone stone
 You pick up the Nelone stone.
@@ -932,9 +829,8 @@ Nelone bridge West
 In front of you is a small rope footbridge that stretches over the ravine
 below. It is held by strong ropes that are driven into the ground by huge
 stakes. It would be impossible to cut the ropes with anything. East will take
-you along the bridge. West will take you to a junction.
-
-Serond follows you from the west.
+you along the bridge. West will take you to a junction.  Serond follows you
+from the west.
 
 > e
 You move east.
@@ -944,9 +840,7 @@ You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
 one side of the bridge, east to the other.  Larnt is standing in front of you
 barring the way.
-Larnt is here.
-
-Serond follows you from the west.
+Larnt is here.  Serond follows you from the west.
 
 > give stones to larnt
 As you hand over the stones, Larnt's face breaks into an evil smile. As the
@@ -967,9 +861,7 @@ You move east.
 Nelone Bridge East
 The large footbridge is behind you now as you look to the huge mountain in
 front of you. West takes you along the bridge. East will take you along a
-dark path that winds up the mountain.
-
-Serond follows you from the west.
+dark path that winds up the mountain.  Serond follows you from the west.
 
 > e
 You move east.
@@ -978,9 +870,7 @@ Uron Dark Path
 This long path is completely shadowed. The little light that there is comes
 from far off in the distance. There are sharp jagged rocks on each side of
 the path. West will take you towards the bridge. Northeast will take you
-further up the mountain.
-
-Serond follows you from the west.
+further up the mountain.  Serond follows you from the west.
 You drop to the floor feeling very ill.
 
 > ne
@@ -990,9 +880,7 @@ Uron Dark Path
 The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.
-There is a large Narn here.
-
-Serond follows you.
+There is a large Narn here.  Serond follows you.
 Serond shoots Karurn with the oak staff.
 
 > nw
@@ -1001,18 +889,15 @@ You move northwest.
 Uron Dark Path
 The air is very dense now, the smog fills your nostrils with foul air. There
 are pools of slime and mud all around here. Southeast will take you down the
-mountain. Northeast will take you up.
-
-Serond follows you.
+mountain. Northeast will take you up.  Serond follows you.
 
 > ne
 You move northeast.
 
 Uron Dark Path
 The path starts to get steeper as you get nearer the top of the mountain. The
-path leads Southwest down the mountain or North up the mountain.
-
-Serond follows you.
+path leads Southwest down the mountain or North up the mountain.  Serond
+follows you.
 
 > n
 You move north.
@@ -1021,9 +906,7 @@ Uron Castle Entrance
 The walls of the castle reach high in the air. The smell fades now, and the
 air appears less dense. It is replaced with a feeling that you are unwanted.
 There is a large wooden door that looks extremely thick. The path leads South
-down the mountain.
-
-Serond follows you from the south.
+down the mountain.  Serond follows you from the south.
 
 > say the password
 The words seem to have moved the doors a little. They must be unlocked. They
@@ -1045,11 +928,8 @@ The hall is huge and has Gargoyles around the ceiling. When looking at one,
 another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.
-Larnt is here.
-
-Serond follows you from the south.
-
-Haron follows you from the south.
+Larnt is here.  Serond follows you from the south.  Haron follows you from
+the south.
 Larnt cuts you with the blade from Uron.
 
 > attack larnt
@@ -1066,11 +946,8 @@ Long room
 The room is very long and has a huge table down the centre of it. There are
 lots of chairs down the sides of the table. At the head of the table is a
 large chair almost like a throne. On the north wall is a stone door, but it
-is locked. South will take you into the Main Hall.
-
-Serond follows you from the south.
-
-Haron follows you from the south.
+is locked. South will take you into the Main Hall.  Serond follows you from
+the south.  Haron follows you from the south.
 
 > x long table
 The table is huge and would seat about 50 people around it.  A small key is
@@ -1088,10 +965,7 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.
 
-You can also see a blade from Uron.
-
-Serond follows you from the north.
-
+You can also see a blade from Uron.  Serond follows you from the north.
 Haron follows you from the north.
 
 > w
@@ -1100,11 +974,8 @@ You move west.
 Corridor
 This long narrow corridor is very poorly lit. It is lit by just one candle,
 very high up. There are some stairs up to another room, or you can go South
-to a small room. The main hall is due east of here.
-
-Serond follows you from the east.
-
-Haron follows you from the east.
+to a small room. The main hall is due east of here.  Serond follows you from
+the east.  Haron follows you from the east.
 
 > u
 You move up.
@@ -1112,11 +983,7 @@ You move up.
 Bedroom
 The room is small, but in the centre is a huge bed. Around the outside of the
 walls are chests and cupboards. There sre some stairs leading down to a
-corridor.
-
-Serond follows you from below.
-
-Haron follows you from below.
+corridor.  Serond follows you from below.  Haron follows you from below.
 
 > unlock chest
 The key turns slowly in the lock of the chest. Suddenly with a clunk the
@@ -1139,11 +1006,8 @@ You move down.
 Corridor
 This long narrow corridor is very poorly lit. It is lit by just one candle,
 very high up. There are some stairs up to another room, or you can go South
-to a small room. The main hall is due east of here.
-
-Serond follows you from above.
-
-Haron follows you from above.
+to a small room. The main hall is due east of here.  Serond follows you from
+above.  Haron follows you from above.
 
 > e
 You move east.
@@ -1154,11 +1018,8 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.
 
-You can also see a blade from Uron.
-
-Serond follows you from the west.
-
-Haron follows you from the west.
+You can also see a blade from Uron.  Serond follows you from the west.  Haron
+follows you from the west.
 
 > n
 You move north.
@@ -1167,11 +1028,8 @@ Long room
 The room is very long and has a huge table down the centre of it. There are
 lots of chairs down the sides of the table. At the head of the table is a
 large chair almost like a throne. On the north wall is a stone door, but it
-is locked. South will take you into the Main Hall.
-
-Serond follows you from the south.
-
-Haron follows you from the south.
+is locked. South will take you into the Main Hall.  Serond follows you from
+the south.  Haron follows you from the south.
 
 > unlock door
 The key turns in the lock and with a clunk the door unlocks.
@@ -1193,10 +1051,7 @@ Mirror room
 This room is small but on each wall except the south wall, is a mirror. There
 is a West mirror, a North mirror, and an East Mirror. The mirrors look like
 doorways. As you look closer at each one, they display somewhere else.
-
-Serond follows you from the south.
-
-Haron follows you from the south.
+Serond follows you from the south.  Haron follows you from the south.
 
 > drink gourd
 The drink slowly runs down your neck, you feel very much stronger.
@@ -1215,20 +1070,13 @@ A dark figure darts out of the door to the North of here.
 The seven stones of power are placed around the room. There is a red glow
 coming from them all. They seem to be joined by a beam of red light.
  The stones suddenly fly into the air and dissapear through the doorway to
-the North.
-
-Serond follows you.
-
-Haron follows you.
+the North.  Serond follows you.  Haron follows you.
 
 > north
 As you pass through the door, Urgorn creates a spell that shuts the exit to
 the South. He then smiles, and says:
- Just us now, no escape.
-
-Serond follows you from the south.
-
-Haron follows you from the south.
+ Just us now, no escape.  Serond follows you from the south.  Haron follows
+you from the south.
 Serond shoots Urgorn with the oak staff.
 
 > attack urgorn
