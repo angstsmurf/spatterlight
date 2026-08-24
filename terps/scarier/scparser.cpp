@@ -2168,7 +2168,27 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
           extent = 2;
         }
 
-      /* Assign prefix and name to the full object or NPC name, if any. */
+      /*
+       * Assign prefix and name to the full object or NPC name, if any.
+       *
+       * An object goes in as its whole noun phrase, prefix and all; a
+       * character goes in as its bare Name.  That asymmetry is the Runner's,
+       * and it holds in all four generations -- the two antecedents are
+       * separate variables, seeded with "Absolutely nothing" / "nothing" for
+       * the object and "Nobody" (4.0 adds "No male" / "No female") for the
+       * character, and the character one is assigned the Name field alone:
+       *
+       *   run370  loc_438332   MemVar_4460B4 = var_164(0)         [Name]
+       *   run370  loc_43B696   MemVar_4460AC = tense(Prefix) & " " & Short
+       *   run400  loc_47F3B9   MemVar_494184 = var_140(0)         [Name]
+       *
+       * Field 0 of a character really is the Name, not a prefix: run390's
+       * room lister builds "<(0)> is <(4)> <(8)>." at loc_459248 -- "Chloe is
+       * a girl." -- and matches the typed word against (0) and (8) at
+       * loc_4592B8.  We used to prepend the NPC's Prefix too, which turned
+       * "ask him about pens" into "ask the Harold about pens" (wrecked, 3.80)
+       * where the Runner writes "ask harold about pens".
+       */
       if (object > -1)
         {
           prefix = prop_get_indexed_string (bundle, "Objects", object,
@@ -2177,7 +2197,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
         }
       else if (npc > -1)
         {
-          prefix = prop_get_indexed_string (bundle, "NPCs", npc, "Prefix");
+          prefix = "";
           name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
         }
 
@@ -2200,10 +2220,13 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
               modified = TRUE;
             }
 
-          /* Build the replacement text: "<prefix> <name>". */
+          /* Build the replacement text: "<prefix> <name>", or just the name. */
           replacement.reserve (strlen (prefix) + 1 + strlen (name));
-          replacement.append (prefix);
-          replacement.push_back (' ');
+          if (prefix[0] != NUL)
+            {
+              replacement.append (prefix);
+              replacement.push_back (' ');
+            }
           replacement.append (name);
 
           /* Splice the replacement in for the matched extent. */
