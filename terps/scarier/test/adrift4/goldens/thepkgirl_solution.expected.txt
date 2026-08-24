@@ -2589,7 +2589,7 @@ You climb onto the ledge.
 > south
 You walk south along the ledge, through a doorway into the adjoining room.
 
-Back Room
+Back Room (on the ledge)
     The room adjoining the main warehouse is much smaller, but just as poorly
 lit.  The ledge continues along the north and east walls.  From an opening in
 the east wall cool air pours in from the outside.  Down at ground level a

@@ -1039,8 +1039,7 @@ mountain.
 Nelone Bridge
 You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
-one side of the bridge, east to the other.  Larnt is standing in front of you
-barring the way.
+one side of the bridge, east to the other.
 Larnt is here.
 
 > e

@@ -183,8 +183,7 @@ You move south.
 Skyview kiosk
 You are in a 10 x 10 room with a desk against the north wall bearing the sign
 "Skyview Monitor".  A large staircase can be seen spiralling into the north
-wall beside the desk.  A gentle shimmer can be peripherally glimpsed before
-the staircase.
+wall beside the desk.
 Merthyr is here.
 
 > s

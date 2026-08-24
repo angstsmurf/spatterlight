@@ -183,8 +183,7 @@ You move south.
 The castle entrance
 This is the entrance to the castle. An elegant tapestry hangs above a door to
 the north. The bricks in the wall are roughly hewn, and cold to the touch. A
-film of dirt coats the floor, and you can see your footprints in it.  The
-drawbridge has been lowered, exposing a large white wasteland to the south.
+film of dirt coats the floor, and you can see your footprints in it.
 
 > s
 You move south.

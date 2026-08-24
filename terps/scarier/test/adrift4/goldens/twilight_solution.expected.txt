@@ -140,9 +140,7 @@ leading east around the edge of the lake, to a barely visible waterfall.
 > w
 You move west.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.  Currently however, all exits are being blocked off by heavy
-iron bars, which slid into place the moment you entered from the cavern.
-There is a cystal lock in the north passage, just out of reach.
+except down.
 A monkey is here.
 
 > s
@@ -165,9 +163,7 @@ Large rocks as scattered throughout the cave.  Exits lead in all directions.
 > n
 You move north.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.  Currently however, all exits are being blocked off by heavy
-iron bars, which slid into place the moment you entered from the cavern.
-There is a cystal lock in the north passage, just out of reach.
+except down.
 A monkey is here.
 
 > e
@@ -185,9 +181,7 @@ remarks, as you haul in your catch, a metal toy car.
 > w
 You move west.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.  Currently however, all exits are being blocked off by heavy
-iron bars, which slid into place the moment you entered from the cavern.
-There is a cystal lock in the north passage, just out of reach.
+except down.
 A monkey is here.
 
 > w
@@ -219,9 +213,7 @@ what appears to be a huge petrified mushroom.
 > e
 You move east.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.  Currently however, all exits are being blocked off by heavy
-iron bars, which slid into place the moment you entered from the cavern.
-There is a cystal lock in the north passage, just out of reach.
+except down.
 A monkey is here.
 
 > n

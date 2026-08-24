@@ -207,7 +207,7 @@ You move down.
 Bottom of Bell Tower
 You are at the bottom of the bell tower.  A rickety spiral stairway leads up
 the inside of the tower -- a long way up.  West returns to the chapel proper.
- A huge cracked bell is here.  The end of a rope dangles here.
+ A huge cracked bell is here.
 
 Also here is the rope.
 
@@ -274,7 +274,7 @@ You move east.
 Bottom of Bell Tower
 You are at the bottom of the bell tower.  A rickety spiral stairway leads up
 the inside of the tower -- a long way up.  West returns to the chapel proper.
- A huge cracked bell is here.  The end of a rope dangles here.
+ A huge cracked bell is here.
 
 You can move west and up.
 
@@ -327,7 +327,7 @@ You move out.
 Bottom of Bell Tower
 You are at the bottom of the bell tower.  A rickety spiral stairway leads up
 the inside of the tower -- a long way up.  West returns to the chapel proper.
- A huge cracked bell is here.  The end of a rope dangles here.
+ A huge cracked bell is here.
 
 Also here are the heavy cross.
 

@@ -599,10 +599,7 @@ Outside the MagLab
 Outside the MagLab
 You've stepped outside of the Superconducting Diamagnetic Field Study
 Laboratory, and can see much of the campus of  the University of Illinois
-from here. The lot where you always park is to the south.  As nice of a day
-as it is, though, this isn't a good time for enjoying the sunshine. Nor is it
-a good time to let your nerves get the better of you. It is time, right now,
-to get down to the lab proper and get on with the long-duration suspension.
+from here. The lot where you always park is to the south.
 
 > s
 You move south.

@@ -609,8 +609,9 @@ into a walk-related change.
 ## Where the walk work stands, 2026-08-24
 
 The walk rewrite in `scnpcs.cpp` is finished and every claim in it is
-live-measured in run400.  The v4 corpus stands at **304 PASS**, all rows blessed.  Everything below is uncommitted
-on `master`.
+live-measured in run400.  (Stale when written and corrected 2026-08-24: this
+work *is* committed -- it is in the history up to `1622d8fc` -- and the corpus
+is **303** rows, not 304.  As of 2026-08-24 it is 303/303 PASS.)
 
 ### The finding: `push &HFF 'Byte` is -1, not 255
 
@@ -761,11 +762,29 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
 
 - **arlo, NPC walk departures.**  run370 prints lines scarier omits: "Rude
   Customer walks off.", "Alice walks off to ...", "Officer Obie walks off to
-  not moved."  This desynchronises presence state by cmd 33, and accounts for
-  four of arlo's six differing commands.  `scnpcs.cpp` was partly reworked
-  while chasing this (per-stop `Times` summed instead of `MoveTimes[0]`, and
-  an is-enabled test over StartTask/StoppingTask) but the departure lines
-  themselves are not implemented.
+  not moved."  This desynchronises presence state by cmd 33.  `scnpcs.cpp` was
+  partly reworked while chasing this (per-stop `Times` summed instead of
+  `MoveTimes[0]`, and an is-enabled test over StartTask/StoppingTask) but the
+  departure lines themselves are not implemented.  **This is the next item to
+  pick up.**
+
+  *Correction, 2026-08-24:* this lead used to claim four of arlo's six
+  differing commands.  It is three.  Command 34 was never walk-presence desync
+  -- it was the empty-M1 room-alt bug fixed below -- and arlo is now 6
+  differing of 85 rather than 7.  The rules for the departure lines were
+  settled from P-code in the earlier session and still stand:
+  `wherefrom(from,to)` returns "not moved" when `from == to`, "nowhere" when
+  `from == 0xFF` / there is no exit / (3.9) `to == 0`, and otherwise the
+  *opposite* direction name.  **3.7** skips only "nowhere", so "walks off to
+  not moved." really does print; **3.8** and **3.9** skip both; **4.0** skips
+  only "not moved" and prints "nowhere" directionless, with an "outside"
+  special case (`" " & dir & "."`).  Pre-4.0 announces *before* moving and
+  evaluates the step's destination, so it fires even when the NPC does not
+  move; the Runner's direction lookup is `wherefrom(dest, playerroom)` in
+  3.7/3.8, where scarier scans the forward exit of `start`.  run400's argument
+  order is still unsettled against `run400.p32dasm.txt`.  The thing that
+  currently suppresses the 3.7 lines is the `if (start != dest)` gate in
+  `npc_tick_npc_walk()`.
 - **arlo, `get out of bus` at the church** (cmds 37 and 64): run370 ends with
   the task's "You are no longer in the bus." and prints no exits list;
   scarier prints the exits and drops the task line.
@@ -787,3 +806,63 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
 - **Next candidates** down the list: `goldilocks`, `cibass`, `sophie`/`sa.taf`.
   With the pre-3.9 pool now clean, the remaining 3.90 and 4.00 candidates are
   where the next divergences will come from.
+
+## CLOSED 2026-08-24 -- empty-M1 room alts, and recursive holding
+
+Two `sclibrar.cpp` fixes, three live Wine measurements, 19 goldens across 13
+games re-blessed, corpus back to **303/303 PASS**.  The full write-ups live in
+the row comment blocks in `harness/run_v4_walkthroughs.sh` (canonical block on
+the `lair-of-the-cybercow` rows; see also `xfiles`, `unraveling_god`,
+`alices_restaurant`).  In short:
+
+- **A matching method-0/1 room alt is the description's starting point even
+  when its own M1 is blank**, and everything accumulated before it is thrown
+  away.  `lib_find_starting_alt()` used to skip such an alt and keep scanning
+  backwards.  Only the *non*-matching branch is guarded, on M2.  Confirmed at
+  all three generations, and deliberately on cases where the new behaviour
+  *loses* text, which is the direction that needed proving:
+  - **3.7** `arlo.taf` / run370 -- cmd 34 now byte-exact against `Adven_6.rtf`.
+  - **3.9** `lair-of-the-cybercow.taf` / run390 -- `Adrift_35.txt`.  Room 7's
+    alt 0 is method 2, unconditional, "The end of a rope dangles here."; alt 1
+    is method 1 on task 31 with M1 and M2 both empty.  Before `untie rope` the
+    Runner prints the rope line; after it, it does not.
+  - **4.0** `unravel.taf` / run400 -- `Adrift_34.txt`.  Every "Outside the
+    MagLab" ends at "...is to the south." and never carries the "As nice of a
+    day as it is, though, ..." block the old golden had.
+- **Room-alt "is/isn't holding" is the Runner's recursive possession
+  predicate** (run400 4579C1/4579EB -> `Proc_21_46` @44615C), so an object
+  inside or on something carried or worn counts as held.  SCARE tested the
+  object's own position only.  `xfiles.taf` is the only corpus row it moves,
+  and that replay is now Runner-exact.
+
+### Newly logged, not fixed
+
+- **xfiles cmd 17, article capitalisation.**  run400 prints "You take **The**
+  Warehouse Key from Case File 10193."; scarier prints "the Warehouse Key".
+  The same object's *examine* message capitalises correctly in both.
+  Pre-existing, unrelated to either fix above.
+
+### Harness lessons from this round
+
+- **Write cmdfiles with plain LF, never CRLF.**  `drive_ckpt_safe.sh` reads
+  with `IFS= read -r line` and leaves the `\r` on, so `keystroke "$line"`
+  submits the command by itself and the following `key code 36` submits an
+  *empty* line.  The tell is a parser refusal ("Nope!", "I'll be dammed if
+  that makes any sense.") after every single turn.
+- **`drive_ckpt_safe.sh` now takes `TYPE_SLEEP` / `ENTER_SLEEP`** (defaults
+  0.25 / 0.45), forwarded by `runner_transcript_safe.sh`.  A game whose
+  responses run to several screens can still be laying out text when the next
+  line is typed: the keystroke lands before the `(press any key)` pause
+  exists, is eaten as an empty command, and the pause then swallows the
+  *following* real command -- which reads exactly like the engine dropping a
+  turn.  `unravel.taf` needs `TYPE_SLEEP=0.6 ENTER_SLEEP=1.6`.
+- **`runner_transcript_safe.sh` now picks the largest window for the pid**,
+  not the first non-1x1 one.  A game that opens with its own modal -- e.g.
+  `lair-of-the-cybercow.taf`, which asks for a player name and then a gender
+  in two separate dialogs (417x162 and 282x127) -- otherwise has that dialog
+  chosen as "the window", and the whole Start-Transcript click sequence is
+  aimed at it, so nothing in the game is ever clicked and the script reports
+  "could not identify our own new transcript file".  Note the modal also
+  *blocks the Adventure menu*: answer the game's startup prompts by hand
+  first, then start the transcript, then drive the remaining commands.
+

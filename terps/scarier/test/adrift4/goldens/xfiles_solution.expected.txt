@@ -144,8 +144,8 @@ You move down.
 Parking Garage B
 This is the lower level of the official FBI Parking Garage.  The area is
 illuminated by the neon lights that line the ceiling alone.  It is somewhat
-dark, and smells of exhaust and cigarette smoke.  The man leaning against the
-wall seems eager to talk to you.
+dark, and smells of exhaust and cigarette smoke.  It may be unwise to pull a
+gun on this guy.
 Cancer Man awaits you in the shadows.
 
 You can only move up.
@@ -172,8 +172,8 @@ Trust No One, Agent Mulder."
 Parking Garage B
 This is the lower level of the official FBI Parking Garage.  The area is
 illuminated by the neon lights that line the ceiling alone.  It is somewhat
-dark, and smells of exhaust and cigarette smoke.  The man leaning against the
-wall seems eager to talk to you.
+dark, and smells of exhaust and cigarette smoke.  It may be unwise to pull a
+gun on this guy.
 Cancer Man awaits you in the shadows.
 
 You can move west and up.
@@ -216,8 +216,7 @@ In Front Of FBI HQ Parking Garage A - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building Parking
 Garage  in Washington, D.C.  Christmas lights line the buildings as snowfall
 gently continues to layer the streets.  Well kept during the tourist season,
-you wonder if you'll be able to hail a taxi.  You feel compelled to enter the
-parking garage.  Maybe it's just the cold.
+you wonder if you'll be able to hail a taxi.
 
 You can move west and in.
 
@@ -228,8 +227,7 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.  You feel drawn to the parking
-garage for some reason.  Maybe it's just the cold.
+wonder if you'll be able to hail a taxi.
 Volunteer is here.
 
 You can move north, east, south and in.
@@ -278,8 +276,7 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.  You feel drawn to the parking
-garage for some reason.  Maybe it's just the cold.
+wonder if you'll be able to hail a taxi.
 Volunteer is here.
 
 You can move north, east, south and in.
@@ -402,8 +399,7 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.  You feel drawn to the parking
-garage for some reason.  Maybe it's just the cold.
+wonder if you'll be able to hail a taxi.
 Volunteer is here.
 
 You can move north, east, south, in and southwest.
@@ -446,8 +442,7 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.  You feel drawn to the parking
-garage for some reason.  Maybe it's just the cold.
+wonder if you'll be able to hail a taxi.
 Volunteer is here.
 
 You can move north, east, south, west, in and southwest.
@@ -542,8 +537,7 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.  You feel drawn to the parking
-garage for some reason.  Maybe it's just the cold.
+wonder if you'll be able to hail a taxi.
 Volunteer is here.
 
 You can move north, east, south, west, in and southwest.

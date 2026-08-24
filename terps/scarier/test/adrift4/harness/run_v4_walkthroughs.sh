@@ -85,6 +85,8 @@ shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=7
 shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=83
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=48
+# Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
+# that justifies it is on the lair-of-the-cybercow rows above.
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 topaz_solution.txt|topaz.taf|The two of you set out into the forest.|SCR_SKIP_WAITKEY=1
@@ -122,6 +124,32 @@ cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 # this session (FunHouse 0/18, TheCatintheTree, Main Course, Orient Express).
 # Scarier used to pick the first walk that was still counting down; it now
 # picks the last eligible one, which is what both Runners do.
+# ---------------------------------------------------------------------------
+# Empty-M1 room alts: a *matching* method-0/1 alt is the starting point even
+# when its own M1 is blank, and everything accumulated before it is discarded.
+# SCARE used to skip such an alt and keep scanning backwards, which let an
+# earlier alt's text survive.  Measured live in run390 under Wine on this game
+# 2026-08-24.  Room 7 (Bottom of Bell Tower) has exactly two alts: alt 0 is
+# method 2, unconditional, M1 "The end of a rope dangles here."; alt 1 is
+# method 1, gated on task 31 (untie rope), with M1 *and* M2 both empty.
+#   before "untie rope" (alt 1 not matching), run390 prints
+#     "...West returns to the chapel proper.  A huge cracked bell is here.
+#      The end of a rope dangles here."
+#   after  "untie rope" (alt 1 matching, blank), run390 prints
+#     "...West returns to the chapel proper.  A huge cracked bell is here.
+#      Also here is the rope."
+# -- the rope-dangling line is gone, so the blank matching alt really did reset
+# the description to the room's Long ("A huge cracked bell is here." is part of
+# that Long, past a <br>, which is why it survives).  See sclibrar.cpp
+# lib_find_starting_alt(): run400's lister (Proc_19_63 @472CA4) accumulates
+# forwards and applies the display method on a match with no emptiness test at
+# all, and the pre-4.0 Runners reach the same place by picking the task alt on
+# task-doneness alone (run370 @43318C, run390 @447648 loc_447670) and then
+# skipping the base/LastDesc branch.  Only the *non*-matching branch is guarded,
+# on M2.  Confirmed independently at all three engine generations: 3.7 (arlo,
+# below), 3.9 (here), 4.0 (unravel, below).  19 goldens across 13 games were
+# blessed from the old model and were re-blessed for this.
+# ---------------------------------------------------------------------------
 cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of the CyberCow.
 cybercow_solution.txt|lair-of-the-cybercow.taf|Your score is 6 out of a maximum of 10.
 deaths_solution.txt|deaths.taf|crumbles into dust
@@ -155,6 +183,8 @@ melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the 
 # named "the large man"/"BIG BOSS" instead of in full, and walk-direction
 # suffixes such as "wobbles in from the east".)
 orient_express_solution.txt|Orient_Express.taf|You successfully complete your assignment.
+# Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
+# that justifies it is on the lair-of-the-cybercow rows above.
 screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to get everyone to the set!
 secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
 space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCITING EPISODES
@@ -181,6 +211,21 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 #    corroborated internally instead: the very next command's own game text
 #    is "The man in the dark car watches you silently as you climb in the
 #    van.", so the man is in that room and the description should say so.
+# Two engine fixes land on this row, both measured live in run400 under Wine
+# 2026-08-24; afterwards the replay is Runner-exact.
+#  1. Room-alt player conditions "is/isn't holding" are the Runner's *recursive*
+#     possession predicate (run400 4579C1/4579EB call Proc_21_46 @44615C), so an
+#     object inside or on something carried or worn counts as held; SCARE tested
+#     the object's own position only.  Parking Garage B (room 3) carries a
+#     Var2=1, Var3=2 alt on the gun, which lives inside the worn holster, so
+#     run400 prints "It may be unwise to pull a gun on this guy." on every visit
+#     where SCARE printed the unconditioned alt instead.  This game is the only
+#     row in the corpus the fix moves.
+#  2. The empty-M1 room-alt start rule (see the lair-of-the-cybercow rows).
+# Still divergent and NOT fixed here: at cmd 17 run400 prints "You take The
+# Warehouse Key from Case File 10193." where scarier prints "the Warehouse Key".
+# The article is capitalised in the take message but not by the same object's
+# examine message; logged in notes/WINE-TRANSCRIPTS-TODO.md, pre-existing.
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
@@ -223,6 +268,8 @@ to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town
 # (Var2=-1).  With only SCR_ASSUME_COMBAT the player never leaves the mansion
 # and the closing "claim the throne" is not understood (the 2026-07-14 "desync"
 # was exactly that -- a replay missing SCR_ASSUME_MOVES).
+# Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
+# that justifies it is on the lair-of-the-cybercow rows above.
 to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1
 # ...and the *max* assisted row, 265/373 (the row above banks 265-17=248).  The
 # extra 20 comes from task 72 `^^aquired armor^^` (Theeve's death reward), which
@@ -280,9 +327,13 @@ shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in vi
 TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you|SCR_SKIP_WAITKEY=1
 ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caught red handed in the vault|SCR_SKIP_WAITKEY=1
 ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SEED=10 SCR_SKIP_WAITKEY=1
+# Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
+# that justifies it is on the lair-of-the-cybercow rows above.
 cleft_solution.txt|cleft.taf|You scored 100 out of the maximum 100!
 Tear_solution.txt|Tear.taf|Suddenly the world seems a brighter place, and you feel there is a good
 tq3_solution.txt|tq3.taf|Please forward your comments to chris@jons.org.
+# Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
+# that justifies it is on the lair-of-the-cybercow rows above.
 yeh_solution.txt|yeh.taf|Your score is 3100 out of a maximum of 3400.
 ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And to all a good night!"|SCR_SKIP_WAITKEY=1
 Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.|SCR_SKIP_WAITKEY=1
@@ -400,6 +451,15 @@ vendetta_solution.txt|Vendetta.taf|The End|SCR_SKIP_WAITKEY=1
 # commentary with the commands and never spells out the house sequence: `skip
 # delay` has to come BEFORE `answer the door` (it is what rings the bell), and
 # the "call 911" line is a parenthetical list of synonyms, not four commands.
+# Confirmed the empty-M1 room-alt start rule (see the lair-of-the-cybercow rows)
+# at 4.0 as well: measured live in run390's sibling run400 under Wine 2026-08-24
+# (pfx/drive_c/adrift/Adrift_34.txt).  Every "Outside the MagLab" description in
+# that transcript ends at "...The lot where you always park is to the south."
+# and is never followed by the "As nice of a day as it is, though, ..." block
+# the old golden carried -- a later matching method-0/1 alt with a blank M1
+# discards it.  Driving note: this game's two opening "(press any key)" pauses
+# need TYPE_SLEEP=0.6 ENTER_SLEEP=1.6, or the keystroke lands before the pause
+# exists and the pause then eats the following real command.
 unraveling_god_solution.txt|unravel.taf|smile as the river burns through your flesh.|SCR_SKIP_WAITKEY=1
 unraveling_god_lou_solution.txt|unravel.taf|smile fades and you feel the beginnings of fear.|SCR_SKIP_WAITKEY=1
 # My Mind's Mishmash replays its shipped walkthru command-for-command bar one
@@ -466,6 +526,8 @@ the_hangover_solution.txt|hangover.taf|Your score is 5 out of a maximum of 7.
 # The win marker is the closing line rather than a score line: the game ends
 # inside `tickle frog` and never prints a final score, so the `score` just
 # before it reads 180 and the last task's 5 points land in the ending text.
+# Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
+# that justifies it is on the lair-of-the-cybercow rows above.
 troll_solution.txt|Troll.taf|clean by dinner time, I'll bust your head in!|SCR_SKIP_WAITKEY=1
 # A Spot Of Bother wins at the author's own maximum, 100/100, and the upstream
 # transcript needed exactly ONE repair in 270 commands: a second `push door` in
@@ -658,6 +720,8 @@ marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!
 # not-yet-started blocker; "turn key" is what scores.
 # 3.80.  Re-blessed 2026-08-24 with the other eighteen pre-3.9 rows; see the
 # comment block above the akron row below.
+# Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
+# that justifies it is on the lair-of-the-cybercow rows above.
 wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.|SCR_SEED=234
 # Mortality (David Whyld, 2004).  A VERBATIM replay of the author's own session
 # transcript shipped inside the game's doc file: all 78 commands, no repairs,
@@ -965,6 +1029,8 @@ thesisters_solution.txt|TheSisters.taf|lifeless body of Trisha Seabourne.|SCR_SK
 # picks the alternate description "Laurie is in your arms.", and the game's
 # timed events run a turn out of step with the Runner's in a good many places --
 # the same offset class already noted on orient_express.
+# Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
+# that justifies it is on the lair-of-the-cybercow rows above.
 thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SKIP_WAITKEY=1
 # Second Chance (David Whyld, 2005) replays its shipped Walkthrough.pdf
 # VERBATIM -- 49 commands, not one repair, straight to the good ending.  The
@@ -1318,6 +1384,8 @@ afdfr_solution.txt|AFDFR.taf|Life is good for Death.|SCR_SKIP_WAITKEY=1
 akron_solution.txt|akron.taf|you brave adventurer, saved yourself
 cave_solution.txt|cave.taf|You scored 1000 out of the maximum 1000!
 haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!
+# Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
+# that justifies it is on the lair-of-the-cybercow rows above.
 twilight_solution.txt|twilight.taf|Your score is 500 out of a maximum of 500
 haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 # 3.80.  Re-blessed 2026-08-24: "Mrs Walters totters into the room." moves
@@ -1349,6 +1417,13 @@ james_bond_solution.txt|jb2000.taf|YOU COMPLEATED THE MISSION! YOU LANDED WELL
 microwave_man_solution.txt|microwaveman.taf|You scored 100 out of the maximum 100!
 life_of_mike_solution.txt|mikes.taf|Ypu ask her out
 super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
+# The 3.7 confirmation of the empty-M1 room-alt start rule (see the
+# lair-of-the-cybercow rows): measured live in run370 under Wine, cmd 34 is now
+# byte-exact against Adven_6.rtf, taking arlo from 7 differing commands of 85
+# down to 6.  Note this corrects an earlier diagnosis recorded in
+# notes/WINE-TRANSCRIPTS-TODO.md, which blamed cmd 34 on NPC-walk presence
+# desync; it is a room-alt selection bug and is unrelated to the missing walk
+# departure announcements, which are still open.
 alices_restaurant_solution.txt|arlo.taf|recording an album that will be that hit record
 castle_quest_solution.txt|castle.taf|Thanks for playing!
 # ---------------------------------------------------------------------------
@@ -1666,6 +1741,8 @@ report_solution.txt|report.taf|You scored 100 out of the maximum 100!
 # and the box to the Puzzlelord -- nothing can be fetched back afterwards.
 # The pirate walks away after one turn, so `give pearl to pirate` has to be
 # the first command on the lighthouse's 4th floor.
+# Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
+# that justifies it is on the lair-of-the-cybercow rows above.
 farfromhome_solution.txt|FarFromHome.taf|You scored 50 out of the maximum 50!|SCR_SKIP_WAITKEY=1
 # S Tar Dus T: no score anywhere in the file, so the goal is the richest of
 # the four `sw` endings.  All four are gated on T31 (the magic words) and
@@ -1814,6 +1891,8 @@ richard_solution.txt|Richard.taf|You scored 1000 out of the maximum 1000!|SCR_SK
 # (`open * shed *` / `enter` / `in` / `open * door *`, whose fail text is
 # "It's locked!") are separate tasks, so the published walkthrough's single
 # `open door` cannot reach the score and the solution spells both out.
+# Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
+# that justifies it is on the lair-of-the-cybercow rows above.
 windy2_solution.txt|windy2.taf|You spin and see Liz running out of the woods towards you.
 # Salutations (Lumin, Ectocomp 2008) is the smallest 4.00 file in the corpus
 # and a one-room speed-IF: 17 tasks, 2 events, no score at all, so the marker

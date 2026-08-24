@@ -459,8 +459,7 @@ all the graffiti around here."
 > out
 I move out.
 I am outside the one and only village shop.  There is a large window in the
-front of the shop.  One thing in particular that catches your eye is a scuba
-outfit.  It is raining.
+front of the shop.  It is raining.
 
 I can move south, west and in.
 

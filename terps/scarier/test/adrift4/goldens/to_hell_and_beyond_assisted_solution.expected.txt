@@ -613,8 +613,7 @@ You can move north, east and west.
 You move east.
 
 Kitchen
-This is the kitchen. You can see a chair and a sink.  There's a cat in the
-sink.
+This is the kitchen. You can see a chair and a sink.
 
 Also here is a key.
 

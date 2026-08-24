@@ -436,8 +436,7 @@ You move west.
 Outside hotel
 You are standing outside the Planet X Luxury Hotel.   To the north is the
 Desert Planet Cafe, moving east will take you inside the Hotel, while west
-will take you to the crossroads.  An immense robotic bulldozer is slowly
-making its way towards the Hotel.
+will take you to the crossroads.
 
 > w
 You move west.
@@ -525,8 +524,7 @@ You move east.
 Outside hotel
 You are standing outside the Planet X Luxury Hotel.   To the north is the
 Desert Planet Cafe, moving east will take you inside the Hotel, while west
-will take you to the crossroads.  An immense robotic bulldozer is slowly
-making its way towards the Hotel.
+will take you to the crossroads.
 
 > n
 You move north.
@@ -546,8 +544,7 @@ You move south.
 Outside hotel
 You are standing outside the Planet X Luxury Hotel.   To the north is the
 Desert Planet Cafe, moving east will take you inside the Hotel, while west
-will take you to the crossroads.  An immense robotic bulldozer is slowly
-making its way towards the Hotel.
+will take you to the crossroads.
 
 > w
 You move west.
@@ -605,8 +602,7 @@ You move east.
 Outside hotel
 You are standing outside the Planet X Luxury Hotel.   To the north is the
 Desert Planet Cafe, moving east will take you inside the Hotel, while west
-will take you to the crossroads.  An immense robotic bulldozer is slowly
-making its way towards the Hotel.
+will take you to the crossroads.
 
 > n
 You move north.
@@ -627,8 +623,7 @@ You move south.
 Outside hotel
 You are standing outside the Planet X Luxury Hotel.   To the north is the
 Desert Planet Cafe, moving east will take you inside the Hotel, while west
-will take you to the crossroads.  An immense robotic bulldozer is slowly
-making its way towards the Hotel.
+will take you to the crossroads.
 
 > w
 You move west.
@@ -714,7 +709,7 @@ It looks like there was something under all that stuff.
 
 Patrick's cube
 This is Patrick's cube.  West will take you back to being by the cubes, while
-to the north you spot Martin's cube.  Patrick's stuff fills the cube.
+to the north you spot Martin's cube.
 
 > w
 You move west.

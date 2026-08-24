@@ -230,9 +230,7 @@ You pick up the brownie.
 You move out.
 This is the front of Alice's famous restaurant.  It looks like a
 hole-in-the-wall but you're sure the inside must have a few homey touches.
-Your red VW microbus is parked nearby.   As you step towards the door, a rude
-man blocks your path.  "Where do you think you're going you long haired
-hippie perversion?"  he asks.
+Your red VW microbus is parked nearby.
 
 Also here is a sign.
 

@@ -263,12 +263,21 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
         switch (var2)
           {
           case 0:              /* Isn't holding (or wearing). */
-            retval = gs_object_position (game, object) != OBJ_HELD_PLAYER
-                     && gs_object_position (game, object) != OBJ_WORN_PLAYER;
+            /*
+             * The Runner's holding test is its recursive possession
+             * predicate (run400 4579C1/4579EB call Proc_21_46 @44615C), so
+             * an object inside or on something the player carries or wears
+             * counts as held.  SCARE tested the object's own position only.
+             * Measured in run400 on The X-Files: A New Beginning, whose
+             * Parking Garage B (room 3) carries a Var2 = 1, Var3 = 2 alt on
+             * the gun, which lives inside the worn holster: the Runner
+             * prints "It may be unwise to pull a gun on this guy." on every
+             * visit, where SCARE printed the unconditioned alt instead.
+             */
+            retval = !gs_runner_possessed (game, object);
             break;
           case 1:              /* Is holding (or wearing). */
-            retval = gs_object_position (game, object) == OBJ_HELD_PLAYER
-                     || gs_object_position (game, object) == OBJ_WORN_PLAYER;
+            retval = gs_runner_possessed (game, object);
             break;
           case 2:              /* Isn't wearing. */
             retval = gs_object_position (game, object) != OBJ_WORN_PLAYER;
@@ -334,16 +343,22 @@ lib_find_starting_alt (scr_gameref_t game, scr_int room)
 
       if (lib_use_room_alt (game, room, alt))
         {
-          const scr_char *m1;
-
-          vt_key[3].integer = alt;
-          vt_key[4].string = "M1";
-          m1 = prop_get_string (bundle, "S<-sisis", vt_key);
-          if (!scr_strempty (m1))
-            {
-              retval = alt;
-              break;
-            }
+          /*
+           * A matching alt is the starting point whether or not its M1 is
+           * empty.  run400's room lister (Proc_19_63 @472CA4) accumulates
+           * forwards and applies the display method on a match with no
+           * emptiness test at all (472102 method 0 assigns M1 over the
+           * buffer; 472127 method 1 resets it to the room's Long and then
+           * appends M1 only if both are non-empty), so a later matching
+           * method-0/1 alt discards everything appended before it even when
+           * its own text is blank.  The pre-4.0 Runners reach the same place
+           * by a different route: their viewroom picks the task alt on
+           * task-doneness alone (run370 @43318C, run390 @447648 loc_447670)
+           * and then skips the base/LastDesc branch entirely.  Only the
+           * non-matching branch is guarded, on M2, below.
+           */
+          retval = alt;
+          break;
         }
       else
         {
