@@ -3781,7 +3781,7 @@ Seeker hums!
 Seeker hums!
 
 > take horn
-You take the  horn of the angels.
+You take the The horn of the angels.
 Seeker hums!
 Seeker hums!
 

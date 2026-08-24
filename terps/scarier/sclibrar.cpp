@@ -560,11 +560,13 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
        * out with "the", because the empty prefix never reaches it: the .taf
        * loader rewrites it on the way in.  run380 @4481B2 reads the Prefix
        * line and, `If (var_3C8(0) = vbNullString) Then var_3C8(0) = "a"`,
-       * substitutes a literal "a" (run370 @43F5DA does the same; run390 and
-       * run400 have no such substitution and default in the printers
-       * instead).  So pre-3.9 an empty prefix simply *is* an "a" prefix, and
-       * both of scarier's existing defaults -- "the " here, "a " in
-       * lib_print_object below -- already fall out of it correctly.
+       * substitutes a literal "a" (run370 @43F5DA does the same).  So pre-3.9
+       * an empty prefix simply *is* an "a" prefix, and both of scarier's
+       * existing defaults -- "the " here, "a " in lib_print_object below --
+       * already fall out of it correctly.  4.0 turns out to do it too, at
+       * loc_4900EC in its own object loader (mdlSpreadTheLoad.bas:7599), so
+       * the substitution is not a pre-3.9 quirk at all; it is only that the
+       * defaults here make it invisible.
        *
        * Measured live under Wine 2026-08-24 on mikes.taf (3.80) in run380,
        * whose dresser, toilet, poop and vans all carry an empty Prefix
@@ -656,49 +658,44 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
     }
 
   /*
-   * Print the object's name.  Inherited SCARE also looked for a leading
+   * Print the object's name, verbatim.  Inherited SCARE looked for a leading
    * article here and stripped it, on the grounds that "some games may avoid
-   * prefix and do this instead"; that is now gated on the prefix really being
-   * empty, because with a prefix present the Runner provably cannot see the
-   * name's own article.
+   * prefix and do this instead".  No Runner can do that, and the whole path
+   * is readable end to end:
    *
-   * run400 builds every object name in one place, Proc_21_31_448710
-   * (General.bas:7041, called 232 times), and it builds it as the single
-   * string `Prefix & " " & Short` (loc_4486B7..loc_4486CF) before handing it
-   * to tense, Proc_21_13_44F474 (General.bas:1728).  tense tests exactly six
-   * things and nothing else: the whole string against "a", "an" and "some",
-   * and its first 2/3/5 characters against "a ", "an " and "some ".  So the
-   * only characters it ever inspects are at the head of the concatenation --
-   * and the head is the prefix whenever there is one.  An object with Prefix
-   * "The" and Short "the Memo" comes out of run400 as "The the Memo".
-   * Callers then run tense over the result a second time (e.g. Battles.bas:
-   * 261 and 265, objname then tense), which changes nothing here: the head is
-   * still the prefix.  Pre-3.9's tense is the same shape with the two "some"
-   * tests missing (see the branch above), so this holds in all four Runners.
+   * - The object loader normalizes the two fields as it reads them.  run400
+   *   at loc_4900E3 (mdlSpreadTheLoad.bas:7594) LineInputs the Prefix,
+   *   substitutes a literal "a" for an empty one (loc_4900EC), then loops
+   *   stripping trailing spaces (loc_490100..loc_49015C); it then LineInputs
+   *   the Short at loc_49016C and loops stripping *leading* spaces
+   *   (loc_490170..loc_4901CC), and moves straight on to the alias count.
+   *   Nothing looks at an article.  run370 @43F5DA and run380 @4481B2 make
+   *   the same "a" substitution.
+   * - run400 builds every object name in one place, Proc_21_31_448710
+   *   (General.bas:7041, 232 call sites), as the single string
+   *   `Prefix & " " & Short` (loc_4486B7..loc_4486CF).
+   * - It hands that to tense, Proc_21_13_44F474 (General.bas:1728), which
+   *   tests exactly six things and nothing else: the whole string against
+   *   "a", "an" and "some", and its first 2/3/5 characters against "a ",
+   *   "an " and "some ".  Callers tense the result a second time (e.g.
+   *   Battles.bas:261 then :265), which changes nothing.
    *
-   * The empty-prefix case is deliberately left stripping.  There the
-   * concatenation opens with a space, which no tense test matches, so the
-   * listing says the name comes back untouched -- but the listing and the one
-   * live measurement of an empty prefix disagree (run400 playing La hija del
-   * relojero answers "You take the Fenix de laton de el cajon.", and there is
-   * no "the " literal anywhere in run400 outside tense itself).  Something
-   * about that path is not understood yet, so it keeps the behaviour that was
-   * measured rather than the one that was read.  No corpus golden moves
-   * either way.
+   * So the only characters ever inspected are at the head of the
+   * concatenation, and after the loader's substitution the head is always the
+   * prefix.  An object with Prefix "The" and Short "the Memo" comes out of
+   * run400 as "The the Memo"; one with no prefix at all is "a Fenix de
+   * laton" going in and "the Fenix de laton" coming out, which is what run400
+   * playing La hija del relojero answers to "coger fenix" and what the two
+   * defaults in this file and in lib_print_object below already reproduce.
+   * Pre-3.9's tense is the same shape with the two "some" tests missing (see
+   * the branch above), so this holds in all four Runners.
+   *
+   * Not modelled, and no corpus game exercises it: the loader's whitespace
+   * trims.  A Prefix written "a " or a Short written " lamp" reaches us with
+   * the space still on.
    */
   vt_key[2].string = "Short";
   name = prop_get_string (bundle, "S<-sis", vt_key);
-  if (scr_strempty (prefix))
-    {
-      if (scr_compare_word (name, "a", 1))
-        name += 1;
-      else if (scr_compare_word (name, "an", 2))
-        name += 2;
-      else if (scr_compare_word (name, "the", 3))
-        name += 3;
-      else if (scr_compare_word (name, "some", 4))
-        name += 4;
-    }
   pf_buffer_string (filter, name);
 }
 
@@ -758,12 +755,22 @@ lib_print_object_raw (scr_gameref_t game, scr_int object)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
+  const scr_char *prefix;
 
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
 
   vt_key[2].string = "Prefix";
-  pf_buffer_string (filter, prop_get_string (bundle, "S<-sis", vt_key));
+  prefix = prop_get_string (bundle, "S<-sis", vt_key);
+
+  /*
+   * "No default for an empty prefix" is right about the message builder and
+   * wrong about what reaches it: the pre-3.9 loaders rewrite an empty Prefix
+   * to a literal "a" before any of this (run370 @43F5DA, run380 @4481B2, and
+   * run400 at loc_4900EC too), so the concatenation never sees one.  Without
+   * this the message would open with a stray space.
+   */
+  pf_buffer_string (filter, scr_strempty (prefix) ? "a" : prefix);
   pf_buffer_character (filter, ' ');
 
   vt_key[2].string = "Short";

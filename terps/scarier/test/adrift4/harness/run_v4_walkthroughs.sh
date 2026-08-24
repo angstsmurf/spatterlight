@@ -87,6 +87,21 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=48
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
+#
+# Re-blessed again 2026-08-25, four lines across the three rows, for the
+# object-name article strip.  These are the only goldens in the corpus that
+# reach it: Shadowpeak has two objects with an empty Prefix whose Short name
+# opens with an article -- [The horn of the angels] and [The dead Margo] --
+# and scarier used to strip that "The" off the name as well as normalizing
+# the prefix, printing "You take the  horn of the angels." with the tell-tale
+# double space.  No Runner can do that.  run400's object loader
+# (mdlSpreadTheLoad.bas:7594-7653) rewrites an empty Prefix to a literal "a",
+# trims trailing spaces off it and leading spaces off the Short, and looks at
+# nothing else; the name builder Proc_21_31_448710 then hands
+# `Prefix & " " & Short` to tense, which only ever tests the head of that
+# string.  So the Runner prints "the The horn of the angels", and the same
+# shape is confirmed live in the xfiles replay, where a "The" prefix survives
+# as "The Memo" (Adrift_22_xfiles.txt).
 # The Forester Goblin fight lost two of its three `attack goblin` commands, and
 # the row gained SCR_SEED=4, when the dead-NPC walk skip landed (2026-08-24,
 # see notes/WINE-TRANSCRIPTS-TODO.md): the goblin's corpse used to keep

@@ -3279,7 +3279,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > attack margo with sword
-I don't understand what you want me to do with the  dead Margo.
+I don't understand what you want me to do with the The dead Margo.
 Seeker hums!
 
 > n
@@ -3923,7 +3923,7 @@ quickly turns his steed and heads off back down to the rest of the knights.
 Seeker hums!
 
 > take horn
-You take the  horn of the angels.
+You take the The horn of the angels.
 Seeker hums!
 
 >

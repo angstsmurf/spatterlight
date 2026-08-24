@@ -1709,42 +1709,63 @@ Four goldens moved, in both affected generations:
 
 303/303 after re-blessing.
 
-**Follow-up, settled from the P-code 2026-08-25 (no corpus movement).**
+**Follow-up, settled from the P-code and re-blessed 2026-08-25.**
 `lib_print_object_np()` also stripped a leading `a`/`an`/`the`/`some` off the
 object's **Short name**, inherited from SCARE on the grounds that "some games
-may avoid prefix and do this instead".  The Runner provably cannot do that
-whenever there *is* a prefix, so the strip is now gated on the prefix being
-empty.  The proof is short enough to state in full:
+may avoid prefix and do this instead".  No Runner can do that.  The whole path
+is readable end to end:
 
-- run400 builds every object name in one place, `Proc_21_31_448710`
-  (`General.bas:7041`), called 232 times, and builds it as the single string
+- **The object loader normalizes both fields as it reads them.**  run400
+  `loc_4900E3` (`mdlSpreadTheLoad.bas:7594`) `LineInput`s the Prefix,
+  substitutes a literal `"a"` for an empty one (`loc_4900EC`), then loops
+  stripping trailing spaces (`loc_490100`..`loc_49015C`).  It `LineInput`s the
+  Short at `loc_49016C` and loops stripping **leading** spaces
+  (`loc_490170`..`loc_4901CC`), then moves straight on to the alias count.
+  Nothing anywhere looks at an article.
+- **The name is built in one place**, `Proc_21_31_448710`
+  (`General.bas:7041`, 232 call sites), as the single string
   `Prefix & " " & Short` (`loc_4486B7`..`loc_4486CF`).
-- It hands that to `tense`, `Proc_21_13_44F474` (`General.bas:1728`), which
-  tests **exactly six things**: the whole string against `"a"`, `"an"` and
-  `"some"`, and `Left(s,2)`/`Left(s,3)`/`Left(s,5)` against `"a "`, `"an "` and
-  `"some "`.  Everything else comes back untouched.
-- So the only characters tense ever inspects are at the head of the
-  concatenation, and the head is the prefix whenever there is one.  An object
-  with Prefix `The` and Short `the Memo` comes out of run400 as
-  `The the Memo`.
-- Callers run tense over the result a *second* time (`Battles.bas:261` then
-  `:265`, objname then tense) -- which changes nothing: the head is still the
-  prefix.  Pre-3.9's tense is the same shape minus the two `"some"` tests, so
-  this holds in all four Runners.
+- **tense** (`Proc_21_13_44F474`, `General.bas:1728`) tests **exactly six
+  things**: the whole string against `"a"`, `"an"` and `"some"`, and
+  `Left(s,2)`/`Left(s,3)`/`Left(s,5)` against `"a "`, `"an "` and `"some "`.
+  Everything else comes back untouched.  Callers tense the result a *second*
+  time (`Battles.bas:261` then `:265`), which changes nothing.
 
-**The empty-prefix half is deliberately left alone**, and it is the one thing
-here that does not add up.  With an empty prefix the concatenation opens with
-a space, which no tense test matches, so the listing says the name comes back
-verbatim -- yet the live measurement of an empty prefix (run400 playing La
-hija del relojero, "You take the Fenix de laton de el cajon.", settled
-2026-08-14) has a `the` in it, and **there is no `"the "` string literal
-anywhere in run400 outside tense itself** (`grep -c 'push "the "'` over
-`run400/Project/*.bas` is 0 in every module but General).  Either the
-Generator writes a literal `the` prefix for objects the author left
-prefix-less -- which would explain both this and the xfiles `The Memo` -- or
-something else on that path is unread.  Until that is measured, the empty
-prefix keeps the behaviour that was observed rather than the one that was
-read.  Corpus **303/303** either way; no golden moves.
+So the only characters ever inspected are at the head of the concatenation,
+and after the loader's substitution the head is **always** the prefix.  An
+object with Prefix `The` and Short `the Memo` comes out of run400 as
+`The the Memo`.
+
+That loader substitution also settles the empty-prefix question that this note
+used to leave open, and corrects a claim in `sclibrar.cpp`: 4.0 was said to
+have no `"a"` substitution and to default in the printers instead.  It has
+one, at `loc_4900EC`, exactly like run370 `@43F5DA` and run380 `@4481B2`.  It
+is simply invisible, because scarier's own two defaults -- `"the "` in
+`lib_print_object_np()` and `"a "` in `lib_print_object()` -- reproduce its
+effect.  It is what makes run400 answer `coger fenix` in La hija del relojero
+with "You take **the** Fenix de laton de el cajon." for an object whose Prefix
+really is empty (`OBJNAME obj=6 [Fenix de laton] prefix=[]`): the loader makes
+it `a`, and `tense("a Fenix de laton")` is `the Fenix de laton`.  The one
+place the default was *missing* was `lib_print_object_raw()`, the pre-3.9
+`remove` wording, which concatenated the raw prefix and would have opened its
+message with a stray space; it now defaults to `a` as well.
+
+**Four corpus lines move, and they are the proof.**  `Shadowpeak.taf` (4.00)
+is the only game in the corpus that reaches this: two objects with an empty
+Prefix whose Short opens with an article, `[The horn of the angels]` and
+`[The dead Margo]`.  scarier used to print
+
+    You take the  horn of the angels.
+    I don't understand what you want me to do with the  dead Margo.
+
+-- with the tell-tale double space left where the stripped `The` had been.
+The Runner prints `the The horn of the angels`, and the same shape is
+confirmed live in the xfiles replay, where a `The` **prefix** survives as
+`The Memo`.  Three goldens re-blessed, corpus **303/303**.
+
+Still not modelled, and no corpus game exercises it: the loader's whitespace
+trims.  A Prefix written `a ` or a Short written ` lamp` reaches scarier with
+the space still on.
 
 ## FIXED 2026-08-25 -- what is ON an object is listed before what is IN it
 
