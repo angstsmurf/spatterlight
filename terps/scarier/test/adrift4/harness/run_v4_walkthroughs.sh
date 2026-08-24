@@ -105,11 +105,11 @@ thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
 # in its examine/open/inventory paths -- never once a turn -- so a room the
 # game never described hides everything loose in it, and `take <thing>` there
 # answers "Take what?".  Two live run400 measurements pin this:
-#   * The X-Files, Adrift_22.txt lines 92-93: `take knife` -> "Take what?" in
+#   * The X-Files, Adrift_22_xfiles.txt lines 92-93: `take knife` -> "Take what?" in
 #     Garage 5, entered through task 7 ("Use Key", ShowRoomDesc = 0), with the
 #     Small Pocket Knife lying loose on the floor.  The next command, `out`,
 #     moves normally, so the player really is standing there.
-#   * humbug, Adrift_29.txt: `X teeth` -> "Nothing Special." (see that row).
+#   * humbug, Adrift_29_humbug.txt: `X teeth` -> "Nothing Special." (see that row).
 # Fifteen rows were re-derived for it, each by inserting the reveal command a
 # player would actually type (a `look`, or an `x` of the container) before the
 # first reference; where that turn could not be spent -- colony's alien kills
@@ -204,7 +204,7 @@ light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=16
 # transcript, not for a win.
 maincourse_solution.txt|Main Course.taf||SCR_SEED=17
 # The 3.9 half of the walk-announcement rewrite was measured on this game --
-# run390 under Wine, Adrift_37.txt, 2026-08-24.  See the arlo block.
+# run390 under Wine, Adrift_37_melbourne_beach.txt, 2026-08-24.  See the arlo block.
 melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the original game Melbourne Beach
 # Measured live in run400 under Wine (2026-08-24).  At command 38, `n` into
 # the Dining Car, the Runner prints "The waiter saunters over." -- the same
@@ -450,7 +450,7 @@ unauthorized_termination_solution.txt|unauthorized.taf|Assignment Status: You ha
 # from lowering the first letter -- and %in_<obj>% / %on_<obj>% pick their
 # listing format by content count, exactly as the library listers already do.
 # The latter is FIXED (var_use_alternate_format() in scvars.cpp).  Measured in
-# Adrift_23.txt: `open fridge` (CompleteText "...%in_fridge%", three objects
+# Adrift_23_where_are_my_keys.txt: `open fridge` (CompleteText "...%in_fridge%", three objects
 # inside) prints "Inside the fridge is a tub of butter, a butter knife and a
 # bottle of milk.", while the two-object control `open unit` in the same
 # transcript keeps the postfixed form, "A large knife and a jar of coffee are
@@ -504,7 +504,7 @@ vendetta_solution.txt|Vendetta.taf|The End|SCR_SKIP_WAITKEY=1
 # the "call 911" line is a parenthetical list of synonyms, not four commands.
 # Confirmed the empty-M1 room-alt start rule (see the lair-of-the-cybercow rows)
 # at 4.0 as well: measured live in run390's sibling run400 under Wine 2026-08-24
-# (pfx/drive_c/adrift/Adrift_34.txt).  Every "Outside the MagLab" description in
+# (pfx/drive_c/adrift/Adrift_34_unraveling_god.txt).  Every "Outside the MagLab" description in
 # that transcript ends at "...The lot where you always park is to the south."
 # and is never followed by the "As nice of a day as it is, though, ..." block
 # the old golden carried -- a later matching method-0/1 alt with a blank M1
@@ -946,7 +946,7 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # the renegade_brainwave row).  humbug needs no route change -- exactly ONE
 # line moved across the whole 832-command replay, `X teeth` at command 723,
 # and the new answer is the RIGHT one: the live run400 transcript
-# (~/adrift-battle/runner/wine/pfx/drive_c/adrift/Adrift_29.txt) answers
+# (~/adrift-battle/runner/wine/pfx/drive_c/adrift/Adrift_29_humbug.txt) answers
 # "Nothing Special." there, where Scarier used to print Jasper's gold-teeth
 # description.  Grandad's teeth are a part-of-character static of an NPC the
 # player has never had described, so they are not seen and the examine falls
@@ -1482,7 +1482,7 @@ haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!
 tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
 # The 3.8 half of the walk-announcement rewrite was measured on this game --
-# run380 under Wine, Adven_9.rtf, 2026-08-24: Hovey's departure really is
+# run380 under Wine, Adven_9_timmy_reid.rtf, 2026-08-24: Hovey's departure really is
 # "shuffles off outside." with no "to".  See the arlo block.
 timmy_reid_solution.txt|tra.taf|Thanks for getting us back home!
 duck_mccloud_solution.txt|duck.taf|You jump from the plane just in time and you survive the huge
@@ -1490,7 +1490,7 @@ fistandantalus_solution.txt|first.taf|Congradulations you have won the game
 james_bond_solution.txt|jb2000.taf|YOU COMPLEATED THE MISSION! YOU LANDED WELL
 microwave_man_solution.txt|microwaveman.taf|You scored 100 out of the maximum 100!
 # DIAGNOSED 2026-08-24, deliberately not ported -- cmd 27 `take truck keys`.
-# run380 (Adven_8.rtf line 207) answers "Which keys.  The mustang keys or the
+# run380 (Adven_8_mikes.rtf line 207) answers "Which keys.  The mustang keys or the
 # truck keys?" and does NOT take them; scarier binds the truck keys silently,
 # and every difference from cmd 53 on is downstream of that.
 #
@@ -1543,7 +1543,7 @@ life_of_mike_solution.txt|mikes.taf|Ypu ask her out
 super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 # The 3.7 confirmation of the empty-M1 room-alt start rule (see the
 # lair-of-the-cybercow rows): measured live in run370 under Wine, cmd 34 is now
-# byte-exact against Adven_6.rtf, taking arlo from 7 differing commands of 85
+# byte-exact against Adven_6_arlo.rtf, taking arlo from 7 differing commands of 85
 # down to 6.  Note this corrects an earlier diagnosis recorded in
 # notes/WINE-TRANSCRIPTS-TODO.md, which blamed cmd 34 on NPC-walk presence
 # desync; it is a room-alt selection bug and is unrelated to the walk departure
@@ -1599,18 +1599,18 @@ super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 #     the butler.
 #
 # Measured live under Wine, one game per generation:
-#   3.7  arlo / run370 / Adven_6.rtf -- all three departure lines now match;
+#   3.7  arlo / run370 / Adven_6_arlo.rtf -- all three departure lines now match;
 #        arlo is down to 3 differing commands of 85 (the two `get out of bus`
 #        rows and the transcript-end artefact, both still open).
-#   3.8  timmy_reid / run380 / Adven_9.rtf -- "Hovey shuffles off outside.",
+#   3.8  timmy_reid / run380 / Adven_9_timmy_reid.rtf -- "Hovey shuffles off outside.",
 #        with no "to".  The old golden's "to outside" was wrong.
-#   3.9  melbourne_beach / run390 / Adrift_37.txt -- all four changed sites:
+#   3.9  melbourne_beach / run390 / Adrift_37_melbourne_beach.txt -- all four changed sites:
 #        "Kitty departs to inside.", "Kitty comes in from the west."
 #        (direction gained), "Kitty enters." (direction dropped) and
 #        "David strolls in." (diagonal dropped, 8-exit scan).  Only the NPC
 #        verb text differs, never the direction -- those are the walk's random
 #        alternate texts.
-#   4.0  orient_express / run400 / Adrift_36.txt -- every walk line matches,
+#   4.0  orient_express / run400 / Adrift_36_orient_express.txt -- every walk line matches,
 #        including "Ivanna Stiffdrink walks off to the west.", "Ivanna
 #        Stiffdrink walks towards you from inside." and "Oddly Istink wobbles
 #        in from the east."
@@ -1624,7 +1624,7 @@ super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 # apart.  orient_express is the live proof this matters: Scarier prints
 # "Gimme Atip enters." where run400 prints nothing.
 # arlo.taf (3.70) -- one measured, deliberate deviation, diagnosed 2026-08-24
-# against run370.exe under Wine (Adven_10.rtf) and the run370 p-code.
+# against run370.exe under Wine (Adven_10_arlo.rtf) and the run370 p-code.
 #
 #     > get out of bus                                    (at the church)
 #     run370:  You're on foot.  <room 0 description> ... There is a mailbox
@@ -2009,17 +2009,17 @@ farfromhome_solution.txt|FarFromHome.taf|You scored 50 out of the maximum 50!|SC
 #
 # Measured live under Wine at three generations -- 3.7 needed none, being
 # exempt, and arlo did not move:
-#   3.8  tra.taf / run380 / Adven_9.rtf -- the Runner does NOT print "Sting
+#   3.8  tra.taf / run380 / Adven_9_timmy_reid.rtf -- the Runner does NOT print "Sting
 #        walks towards you." when the tattooist first appears.  It DOES print
 #        "Canadian couple walks towards you from the north." for an NPC that
 #        had been placed, so the gate is the zero and not the walk.
-#   3.9  S_Tar_Dus.taf / run390 / Adrift_38.txt (117 commands, full replay) --
+#   3.9  S_Tar_Dus.taf / run390 / Adrift_38_stardust.txt (117 commands, full replay) --
 #        the strongest single measurement in this round: all 129 walk lines
 #        match count for count across four walkers and six directions, and the
 #        one line the gate removes, a bare "Plant Lady prances along.", is
 #        absent from the Runner while its four directional siblings are
 #        present in both.
-#   4.0  Orient_Express.taf / run400 / Adrift_36.txt -- "Gimme Atip enters."
+#   4.0  Orient_Express.taf / run400 / Adrift_36_orient_express.txt -- "Gimme Atip enters."
 #        is printed by Scarier and by no Runner.  This was the divergence that
 #        started the item.
 #

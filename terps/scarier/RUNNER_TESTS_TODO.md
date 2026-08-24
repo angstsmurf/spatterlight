@@ -97,7 +97,7 @@ can't be staged.
     click it* and pops a MsgBox to dismiss, so play first and save last
     (`run380 Form1.frm`, `transcript_Click` at `42A378`). Scripted by
     `runner_savetranscript.sh`; read the result with
-    `textutil -convert txt -stdout Adven_1.rtf`.
+    `textutil -convert txt -stdout Adven_1_marooned.rtf`.
   - Answer any load-time modal (name InputBox, "Please choose the gender of the
     player") **before** clicking the menu, or the click lands on a blocked
     window. `drive_ckpt.sh` aborts the run if an unexpected window appears

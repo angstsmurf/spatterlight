@@ -3666,7 +3666,7 @@ lib_disambiguate_npc (scr_gameref_t game,
  *
  * Ours is a positional matcher, so `take truck keys` binds only the truck
  * keys; the Runner also sees the mustang keys through their shared alias
- * "keys" and asks.  mikes.taf cmd 27 is the live case (Adven_8.rtf).
+ * "keys" and asks.  mikes.taf cmd 27 is the live case (Adven_8_mikes.rtf).
  */
 static scr_bool
 lib_co_contains (const scr_char *command, const scr_char *term)
@@ -4877,8 +4877,8 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
    * filler after a single object reference (probe DONE 2026-08-23: Space
    * Boy's First Adventure Task 72's own command is the literal, unrestricted,
    * textless "drop cape to the floor"; typing it live gets the library's
-   * ordinary "Player drop the cape." with the score unchanged, Adrift_8.txt/
-   * Adrift_10.txt), where scarier's exact-match-only %object% previously
+   * ordinary "Player drop the cape." with the score unchanged, Adrift_8_pET2.txt/
+   * Adrift_10_pET4.txt), where scarier's exact-match-only %object% previously
    * failed to parse "cape to the floor" at all, so the library's drop never
    * ran and the command fell through to "Drop what?" instead.  This fallback
    * is tried last so it never preempts a real "X and Y" list.

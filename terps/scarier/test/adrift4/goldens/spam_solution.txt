@@ -14,7 +14,7 @@
 # SEEN-MODEL RE-DERIVE (2026-08-24): a dynamic object lying loose in a room
 # is not referenceable until something LISTS it -- the Runner stamps the seen
 # byte in its room lister, not once a turn.  Measured live in run400
-# (Adrift_22.txt, The X-Files): `take knife` in a room entered through a
+# (Adrift_22_xfiles.txt, The X-Files): `take knife` in a room entered through a
 # ShowRoomDesc=0 task answers "Take what?" although the knife is on the floor.
 # SPAM.taf has DispFirstRoom off, so the opening room is never described and the
 # spam is unlisted on turn one.  `look` is the first command a player would type.

@@ -138,7 +138,7 @@ prompt; dismissed with key code 36). So the order is reversed — play first,
 save last:
 
     sh runner_savetranscript.sh <game.taf> <cmdfile> run380.exe
-    textutil -convert txt -stdout pfx/drive_c/adrift/Adven_1.rtf
+    textutil -convert txt -stdout pfx/drive_c/adrift/Adven_1_marooned.rtf
 
 The output is RTF with a colour table, which is a bonus: it preserves the
 bold and the colours, so room headings and author styling survive.
@@ -154,6 +154,39 @@ somebody else's hours-old transcript instead of failing — that is how the
 
 Unverified: whether the scrollback dump is capped for a long session. `cave`
 (216 commands) is the one to check that on before trusting a 3.80 diff.
+
+⚠️ **The Runner reuses transcript numbers, so old citations rot.** Both
+`Adrift_<N>.txt` and `Adven_<N>.rtf` restart their numbering when the prefix's
+`adrift` directory is emptied or the Runner is reinstalled, and the new run
+silently overwrites the old file. A note that cites "measured in `Adrift_18`"
+is therefore only trustworthy if the file's mtime is *later* than the note.
+
+To stop that happening again, every transcript in
+`~/adrift-battle/runner/wine/pfx/drive_c/adrift/` was renamed 2026-08-24 to
+carry the game it is a transcript of, keeping the original index as a prefix:
+
+    Adrift_22.txt  ->  Adrift_22_xfiles.txt
+    Adven_1.rtf    ->  Adven_1_marooned.rtf
+
+Real games were identified by matching the transcript's opening prose against
+the golden solutions; the synthetic probes (`pET*`, `srd`, `p39*`, `pwear400`)
+by the `.taf` whose mtime immediately precedes the transcript's. Keep the
+convention for new captures: `Adrift_<N>_<slug>.txt`.
+
+Citations in the tree that still resolve were updated to the new names. These
+ones were **not** -- their files have since been overwritten by a later run and
+the measurement they describe is no longer reproducible from disk:
+
+    sclibrar.cpp:5646, :6196          Adrift_8   (ALEXIS/iachini, 2026-08-22)
+    scrunner.cpp:1251, :1279          Adrift_14/15 (now relojero)
+    scrunner.cpp:1271, :1272          Adrift_18/19 (now funhouse / cat-in-the-tree)
+    scrunner.cpp:1761, :2304          Adrift_18
+    scrunner.cpp:2488, :2489          Adrift_20/18 (now maincourse)
+    RUNNER_TESTS_TODO.md:778-780      Adven_2 cited as the run380 haunt.taf run
+    harness/make_39_doneprobe.py:4    Adrift_14
+    goldens/life_solution.txt:55      Adrift_22 (string is in neither Adrift_22 nor Adven_8)
+
+Re-measure before relying on any of them.
 
 ## Before measuring anything
 
@@ -228,11 +261,11 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `maincourse`, `orient`, `xfiles`, `wamk` | 4.00 | re-blessed under the same two rules | `maincourse` lost its win marker to a faithful preemption |
 | `iqsfot.taf` | 4.00 | see the row's comment block | NPC 16 WALK 2 is an empty game-start walk with no stops; it pins the patrol shut and the game cannot be won in run400 |
 | `the_pk_girl.taf` | 4.00 | full run400 replay with a 96-command peddler hunt spliced in | the Runner WINS -- and that is what proved a finished 4.0 walk is stamped **-1**, not 255 |
-| `arlo.taf` | 3.70 | full run370 replay, `Adven_6.rtf` | the 3.7 walk departure lines, incl. "walks off to not moved."; 3 differing of 85 |
-| `tra.taf` | 3.80 | full run380 replay, `Adven_9.rtf` | "outside" takes no "to" in a departure line |
-| `Melbourne Beach.taf` | 3.90 | full run390 replay, `Adrift_37.txt` | the 3.9 walk directions, incl. the diagonal a pre-4.0 8-exit scan cannot name |
-| `Orient_Express.taf` | 4.00 | full run400 replay, `Adrift_36.txt` | the 4.0 walk directions; also the spurious "Gimme Atip enters." arrival |
-| `S_Tar_Dus.taf` | 3.90 | full run390 replay, `Adrift_38.txt` | all 129 walk lines match count for count; pinned the not-a-room-zero arrival gate |
+| `arlo.taf` | 3.70 | full run370 replay, `Adven_6_arlo.rtf` | the 3.7 walk departure lines, incl. "walks off to not moved."; 3 differing of 85 |
+| `tra.taf` | 3.80 | full run380 replay, `Adven_9_timmy_reid.rtf` | "outside" takes no "to" in a departure line |
+| `Melbourne Beach.taf` | 3.90 | full run390 replay, `Adrift_37_melbourne_beach.txt` | the 3.9 walk directions, incl. the diagonal a pre-4.0 8-exit scan cannot name |
+| `Orient_Express.taf` | 4.00 | full run400 replay, `Adrift_36_orient_express.txt` | the 4.0 walk directions; also the spurious "Gimme Atip enters." arrival |
+| `S_Tar_Dus.taf` | 3.90 | full run390 replay, `Adrift_38_stardust.txt` | all 129 walk lines match count for count; pinned the not-a-room-zero arrival gate |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -537,7 +570,7 @@ into a walk-related change.
   **FIXED 2026-08-24**: the two `Take what?` hits and the `look at camera`
   refusal are the object `seen` gate, not the noun matcher -- ported and
   landed, see the seen-model section at the end of this file (`take knife` in
-  `Adrift_22.txt` is one of the two live measurements the port rests on).
+  `Adrift_22_xfiles.txt` is one of the two live measurements the port rests on).
   `burn memo` and `knock` are still unexplained and remain task-matching
   suspects.
 - **Games whose transcripts carry RNG-timed lines** (`xfiles`, `wamk`) need a
@@ -702,11 +735,11 @@ into the same live process with `drive_ckpt_safe.sh` directly:
     cd ~/adrift-battle/runner/wine && sh measure.sh humbug.taf cmdfile_hb_A.txt run400.exe 2
 
     # read the Runner's own slate out of the transcript and rewrite the dials
-    python3 <scratch>/hb_partb.py pfx/drive_c/adrift/Adrift_30.txt \
+    python3 <scratch>/hb_partb.py pfx/drive_c/adrift/Adrift_30_humbug.txt \
         <repo>/goldens/humbug_solution.txt cmdfile_hb_B.txt
 
     # phase B -- into the SAME pid, no relaunch
-    FIRSTCHECK=pfx/drive_c/adrift/Adrift_30.txt sh drive_ckpt_safe.sh <pid> cmdfile_hb_B.txt
+    FIRSTCHECK=pfx/drive_c/adrift/Adrift_30_humbug.txt sh drive_ckpt_safe.sh <pid> cmdfile_hb_B.txt
 
 `hb_partb.py` parses the roman numeral after `The numerals read`, zero-pads it
 to four digits and rewrites the four `Turn dial to N` lines in walkthrough
@@ -768,9 +801,9 @@ left here is what is still *open*.
 
 | game | .taf | Runner | transcript | state |
 |---|---|---|---|---|
-| arlo.taf | 3.70 | run370 | `Adven_5.rtf` (Verbose off), `Adven_6.rtf` (Verbose on) | 6 differing of 84, all NPC-walk payload |
-| akron.taf | 3.80 | run380 | `Adven_7.rtf` | **0 differing / 44** |
-| mikes.taf | 3.80 | run380 | `Adven_8.rtf` | 5 differing of 103, all downstream of one desync |
+| arlo.taf | 3.70 | run370 | `Adven_5_arlo.rtf` (Verbose off), `Adven_6_arlo.rtf` (Verbose on) | 6 differing of 84, all NPC-walk payload |
+| akron.taf | 3.80 | run380 | `Adven_7_akron.rtf` | **0 differing / 44** |
+| mikes.taf | 3.80 | run380 | `Adven_8_mikes.rtf` | 5 differing of 103, all downstream of one desync |
 
 cmdfiles are `~/adrift-battle/runner/wine/cmdfile_{arlo,akron,mikes}.txt`.
 akron is the first pre-3.9 game to match the real Runner byte for byte.
@@ -806,7 +839,7 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
   not be quoted.**  `Merry_Murders.taf` (3.90) was driven through run390 with
   a 23-command probe ending in `look`s in the Hallway and the Plaza
   (`~/adrift-battle/runner/wine/mm2.cmds`, transcript
-  `pfx/drive_c/adrift/Adrift_40.txt`).  The Runner desynced at command 4:
+  `pfx/drive_c/adrift/Adrift_40_merry_murders.txt`).  The Runner desynced at command 4:
   the game's "Act II" cutscene warps the player to the Plaza, and the `w`
   typed straight afterwards never echoed at all -- the transcript goes
   cutscene, blank, "I don't understand what you mean!", so the keystroke was
@@ -871,7 +904,7 @@ run380 answers mikes cmd 27 `take truck keys` with
 
     Which keys.  The mustang keys or the truck keys?
 
-and does not take them (`Adven_8.rtf` line 207).  Scarier binds the truck
+and does not take them (`Adven_8_mikes.rtf` line 207).  Scarier binds the truck
 keys silently, which is where the replay desyncs.
 
 ### What the Runner does
@@ -1004,7 +1037,7 @@ run390, so scarier's "Please be more clear, who do you want to attack?"
 ## DIAGNOSED 2026-08-24 -- the run370 double matcher pass (arlo)
 
 The one remaining pre-3.9 divergence, read out of the run370 p-code and
-matched line for line against `Adven_10.rtf`.  **Understood in full, and
+matched line for line against `Adven_10_arlo.rtf`.  **Understood in full, and
 deliberately not ported** -- see "Why it is not ported" at the end.
 
 ### What the transcript shows
@@ -1166,7 +1199,7 @@ branches: `0006A49E` (count == 1) -> "`<obj>` is inside `<cont>`.";
 TAF_VERSION_390 only the prefixed form exists.  The variables took a
 different path and missed all of it.
 
-Measured in run400's `Adrift_23.txt` (WhereAreMyKeys.taf, 4.00):
+Measured in run400's `Adrift_23_where_are_my_keys.txt` (WhereAreMyKeys.taf, 4.00):
 
 ```
 open fridge
@@ -1235,9 +1268,9 @@ Measured live at three generations (3.7 exempt, so none needed):
 
 | Game | Runner | Transcript | What it showed |
 |---|---|---|---|
-| `tra.taf` | run380 | `Adven_9.rtf` | no "Sting walks towards you." -- but "Canadian couple walks towards you from the north." *is* there, so the gate is the zero, not the walk |
-| `S_Tar_Dus.taf` | run390 | `Adrift_38.txt` | full 117-command replay: **all 129 walk lines match count for count** across four walkers and six directions, and the bare "Plant Lady prances along." is absent from the Runner while its four directional siblings are in both |
-| `Orient_Express.taf` | run400 | `Adrift_36.txt` | "Gimme Atip enters." is printed by Scarier and by no Runner -- the divergence that started the item |
+| `tra.taf` | run380 | `Adven_9_timmy_reid.rtf` | no "Sting walks towards you." -- but "Canadian couple walks towards you from the north." *is* there, so the gate is the zero, not the walk |
+| `S_Tar_Dus.taf` | run390 | `Adrift_38_stardust.txt` | full 117-command replay: **all 129 walk lines match count for count** across four walkers and six directions, and the bare "Plant Lady prances along." is absent from the Runner while its four directional siblings are in both |
+| `Orient_Express.taf` | run400 | `Adrift_36_orient_express.txt` | "Gimme Atip enters." is printed by Scarier and by no Runner -- the divergence that started the item |
 
 Everything removed is a first-ever arrival of a never-placed NPC, one to three
 lines per game, and **no game lost a directional arrival** -- a useful shape
@@ -1276,10 +1309,10 @@ Measured live under Wine, one game per generation:
 
 | Game | Runner | Transcript | What it pinned |
 |---|---|---|---|
-| `arlo.taf` | run370 | `Adven_6.rtf` | all three 3.7 departure lines; arlo down to **3 differing of 85** |
-| `tra.taf` | run380 | `Adven_9.rtf` | "Hovey shuffles off outside." -- no "to"; the old golden was wrong |
-| `Melbourne Beach.taf` | run390 | `Adrift_37.txt` | all four changed sites, incl. the dropped diagonal ("David strolls in.") |
-| `Orient_Express.taf` | run400 | `Adrift_36.txt` | every 4.0 walk line, incl. "...walks off to the west." and "...wobbles in from the east." |
+| `arlo.taf` | run370 | `Adven_6_arlo.rtf` | all three 3.7 departure lines; arlo down to **3 differing of 85** |
+| `tra.taf` | run380 | `Adven_9_timmy_reid.rtf` | "Hovey shuffles off outside." -- no "to"; the old golden was wrong |
+| `Melbourne Beach.taf` | run390 | `Adrift_37_melbourne_beach.txt` | all four changed sites, incl. the dropped diagonal ("David strolls in.") |
+| `Orient_Express.taf` | run400 | `Adrift_36_orient_express.txt` | every 4.0 walk line, incl. "...walks off to the west." and "...wobbles in from the east." |
 
 At 3.9 only the NPC *verb text* ever differed from the Runner (the walk's
 random alternate texts), never the direction.
@@ -1302,12 +1335,12 @@ the `lair-of-the-cybercow` rows; see also `xfiles`, `unraveling_god`,
   backwards.  Only the *non*-matching branch is guarded, on M2.  Confirmed at
   all three generations, and deliberately on cases where the new behaviour
   *loses* text, which is the direction that needed proving:
-  - **3.7** `arlo.taf` / run370 -- cmd 34 now byte-exact against `Adven_6.rtf`.
-  - **3.9** `lair-of-the-cybercow.taf` / run390 -- `Adrift_35.txt`.  Room 7's
+  - **3.7** `arlo.taf` / run370 -- cmd 34 now byte-exact against `Adven_6_arlo.rtf`.
+  - **3.9** `lair-of-the-cybercow.taf` / run390 -- `Adrift_35_cybercow.txt`.  Room 7's
     alt 0 is method 2, unconditional, "The end of a rope dangles here."; alt 1
     is method 1 on task 31 with M1 and M2 both empty.  Before `untie rope` the
     Runner prints the rope line; after it, it does not.
-  - **4.0** `unravel.taf` / run400 -- `Adrift_34.txt`.  Every "Outside the
+  - **4.0** `unravel.taf` / run400 -- `Adrift_34_unraveling_god.txt`.  Every "Outside the
     MagLab" ends at "...is to the south." and never carries the "As nice of a
     day as it is, though, ..." block the old golden had.
 - **Room-alt "is/isn't holding" is the Runner's recursive possession
@@ -1350,7 +1383,7 @@ the `lair-of-the-cybercow` rows; see also `xfiles`, `unraveling_god`,
 
 ## FIXED 2026-08-24 -- the object `seen` model (was PARKED on `scarier-seen-flag-port`)
 
-The xfiles replay (`Adrift_22.txt`) left one unexplained divergence: run400
+The xfiles replay (`Adrift_22_xfiles.txt`) left one unexplained divergence: run400
 answers `take knife` in Garage 5 with **"Take what?"** where Scarier takes the
 knife.  Task 7 "Use Key" carries the player into Garage 5 with `ShowRoomDesc`
 off, so no room description prints, and the knife is a dynamic that has been
@@ -1404,7 +1437,7 @@ The parked note said only a live run400 probe could decide it, and the console
 was locked for the whole session.  It never needed one: **the answer was
 already in the archived transcripts.**
 
-- **xfiles, `Adrift_22.txt` lines 92-93.**  The exact case the branch changes,
+- **xfiles, `Adrift_22_xfiles.txt` lines 92-93.**  The exact case the branch changes,
   measured live months ago and never read closely:
 
         take knife
@@ -1416,7 +1449,7 @@ already in the archived transcripts.**
   standing in the room and the knife simply does not exist to the parser.  The
   same transcript answers `take directions` and `get in the van` with "Take
   what?" too.
-- **humbug, `Adrift_29.txt`.**  A command-for-command replay of the first 832
+- **humbug, `Adrift_29_humbug.txt`.**  A command-for-command replay of the first 832
   of `cmdfile_humbug.txt` against both master and the branch found **exactly
   one** line where they differ -- `X teeth` at command 723 -- and the branch is
   the one that matches the Runner:

@@ -592,7 +592,7 @@ var_print_list (scr_gameref_t game, const var_list_t &list)
  * opened by a task whose CompleteText ends "%in_fridge%": with three objects
  * in it the Runner answers "You open the fridge and the light comes on.  Well
  * that's something. Inside the fridge is a tub of butter, a butter knife and
- * a bottle of milk." (Adrift_23.txt), where we printed "A tub of butter, a
+ * a bottle of milk." (Adrift_23_where_are_my_keys.txt), where we printed "A tub of butter, a
  * butter knife and a bottle of milk are inside the fridge."  The same replay
  * shows the two-object case keeping the alternate format, from the library
  * lister: `open unit` -> "A large knife and a jar of coffee are inside the

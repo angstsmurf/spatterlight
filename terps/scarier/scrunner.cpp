@@ -1487,8 +1487,8 @@ run_task_is_loudly_restricted (scr_gameref_t game, scr_int task)
  *
  * The case that needs excluding is "Space Boy's First Adventure" task 72,
  * "drop cape to the floor" (+250, no message) -- run400 lets the library's
- * ordinary drop win outright and the task never runs at all (Adrift_8.txt/
- * Adrift_10.txt, 2026-08-23).  The case that must NOT be excluded is that
+ * ordinary drop win outright and the task never runs at all (Adrift_8_pET2.txt/
+ * Adrift_10_pET4.txt, 2026-08-23).  The case that must NOT be excluded is that
  * same game's task 27, "{take/get}{them/boots}" (CompleteText "Taken."),
  * which must still win over the library's own take (run_v4_walkthroughs.sh
  * space_boy golden, "Taken." not "You take the pair of Flight Boots.").
@@ -1538,7 +1538,7 @@ run_task_is_loudly_restricted (scr_gameref_t game, scr_int task)
  * floor": the library's short forms are "drop the cape" and "drop cape", and
  * neither matches a pattern that insists on the trailing "to the floor", so
  * the Runner's library claims the command outright and the task never runs
- * (Adrift_8.txt/Adrift_10.txt, 2026-08-23).  "Sommeril" task 35 is the bare
+ * (Adrift_8_pET2.txt/Adrift_10_pET4.txt, 2026-08-23).  "Sommeril" task 35 is the bare
  * "take silver orb", which IS the library's own short form for that object,
  * so the Runner runs it (silently, +5) and the library's take then answers
  * "You are already carrying the SILVER ORB." -- the shape the golden records.
@@ -2400,12 +2400,12 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * First Adventure" is the literal, unrestricted, textless command "drop
    * cape to the floor" (+250 score, no message).  run400 answers the typed
    * command with the library's ordinary "Player drop the cape." and the
-   * score UNCHANGED (Adrift_8.txt/Adrift_10.txt, 2026-08-23) -- the task
+   * score UNCHANGED (Adrift_8_pET2.txt/Adrift_10_pET4.txt, 2026-08-23) -- the task
    * never runs at all, even though its own literal pattern matches the raw
    * input exactly.  A same-shaped task using a bare object with no trailing
    * words ("* drop * rock *", i.e. equivalent to the library's own
    * canonical "drop <object>" callback string) DOES run silently alongside
-   * the library's message (Adrift_2.txt).  So it is specifically the
+   * the library's message (Adrift_2_pET.txt).  So it is specifically the
    * priority command's own callback -- matching only its constructed
    * "verb OBJECT" short form, not the raw typed line -- that gets first
    * refusal on a recognised system verb; a task whose pattern extends past

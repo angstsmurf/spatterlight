@@ -1178,7 +1178,7 @@ obj_shows_initial_description (scr_gameref_t game, scr_int object)
  * examines, charinv, inventory, drops, whatisinon, insides, afteroa,
  * checkevent.
  *
- * Measured in run400's Adrift_22.txt (The X-Files, 4.00): task 7 "Use Key"
+ * Measured in run400's Adrift_22_xfiles.txt (The X-Files, 4.00): task 7 "Use Key"
  * carries ShowRoomDesc = 0, so entering Garage 5 through it prints no room
  * description -- and `take knife` there answers "Take what?", although the
  * Small Pocket Knife (object 31, InitialPosition 11 = room 7) is lying
