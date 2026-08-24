@@ -801,7 +801,18 @@ lib_is_version_400 (scr_gameref_t game)
  * run400's matcher requires it in every match mode), so an object inside
  * an unlisted container "doesn't exist" until a room description, contents
  * listing, or examination reveals it.  The 3.8 Runner's co()/obhere() have
- * no such test -- there the seen flag only feeds the where/find command.
+ * no such test.
+ *
+ * Pinned in the decompiles 2026-08-24.  The flag is at a different struct
+ * offset in each Runner -- 40 in run370 and run380, 44 in run390, 48 in
+ * run400 -- and co() grew from 50 lines (run370 4261B4) and 75 (run380
+ * 42DE60) to 408 (run390 43B6BC) and 530 (run400 46486C).  Only the last
+ * two read it: run390 at 43B2FB/43B4AE/43B677, run400 at
+ * 464372/464693/4647DD/46480F, in each case after obhere() has failed.
+ * Before 3.9 exactly two routines consult the flag, and neither is the
+ * matcher: whereis() (run370 430320 @42FC06, run380 437954 @43712E), and
+ * therest()'s "With what?" check on the second noun of <verb> X with Y
+ * (run370 43EAA8 @43CFBE, run380 4455B4 @443AB6).
  */
 static scr_bool
 lib_matcher_requires_seen (scr_gameref_t game)
