@@ -144,8 +144,8 @@ saucepan.
 You get the bone.
 
 > open fridge
-You open the fridge and the light comes on.  Well that's something. A tub of
-butter, a butter knife and a bottle of milk are inside the fridge.
+You open the fridge and the light comes on.  Well that's something. Inside
+the fridge is a tub of butter, a butter knife and a bottle of milk.
 
 > put bone in fridge
 You put the bone into the fridge.

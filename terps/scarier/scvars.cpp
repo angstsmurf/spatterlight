@@ -574,16 +574,58 @@ var_print_list (scr_gameref_t game, const var_list_t &list)
 
 
 /*
+ * var_use_alternate_format()
+ *
+ * Pick between the Runner's two listing styles for the contents of a
+ * container or a surface.  This is the same routine the room and examine
+ * listers go through -- run400 lists a container's or a surface's contents
+ * from one place, 0006A418, and %in_<object>%, %on_<object>% and the library
+ * listers all end up there -- so the choice is made on the same rule:
+ * one or two objects get the alternate (postfixed) "<list> is/are inside
+ * <cont>." format, three or more the normal (prefixed) "Inside <cont> is
+ * <list>." one, and before 3.9 the alternate format does not exist at all.
+ * See lib_list_in_object() in sclibrar.cpp for the derivation and for the
+ * live measurements behind it.
+ *
+ * The variables used to take the alternate format unconditionally.  Measured
+ * live in run400 under Wine 2026-08-24 on WhereAreMyKeys.taf, whose fridge is
+ * opened by a task whose CompleteText ends "%in_fridge%": with three objects
+ * in it the Runner answers "You open the fridge and the light comes on.  Well
+ * that's something. Inside the fridge is a tub of butter, a butter knife and
+ * a bottle of milk." (Adrift_23.txt), where we printed "A tub of butter, a
+ * butter knife and a bottle of milk are inside the fridge."  The same replay
+ * shows the two-object case keeping the alternate format, from the library
+ * lister: `open unit` -> "A large knife and a jar of coffee are inside the
+ * kitchen unit."
+ */
+static scr_bool
+var_use_alternate_format (scr_gameref_t game, scr_int associate, size_t count)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  if (prop_get_taf_version (bundle) < TAF_VERSION_390)
+    return FALSE;
+  if (count == 1 || count == 2)
+    return TRUE;
+
+  return obj_is_static (game, associate)
+         && gs_object_position (game, associate) == OBJ_PART_NPC;
+}
+
+
+/*
  * var_list_at_object()
  * var_list_in_object()
  * var_list_on_object()
  *
  * List the objects held in a given container object, or standing on a given
- * surface object.  `position` picks which, and `singular` and `plural` are
- * the phrase joining the list to the associate.
+ * surface object.  `position` picks which, `prefix` introduces the normal
+ * format, and `singular` and `plural` are the phrase joining the list to the
+ * associate in the alternate one.
  */
 static void
 var_list_at_object (scr_gameref_t game, scr_int associate, scr_int position,
+                    const scr_char *prefix,
                     const scr_char *singular, const scr_char *plural)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
@@ -600,15 +642,26 @@ var_list_at_object (scr_gameref_t game, scr_int associate, scr_int position,
     }
   if (!list.empty ())
     {
-      var_print_list (game, list);
-      var_append_temp (vars,
-                       list.size () == 1
-                       ? var_select_plurality (game, list[0],
-                                               singular, plural)
-                       : plural);
+      if (var_use_alternate_format (game, associate, list.size ()))
+        {
+          var_print_list (game, list);
+          var_append_temp (vars,
+                           list.size () == 1
+                           ? var_select_plurality (game, list[0],
+                                                   singular, plural)
+                           : plural);
 
-      /* Print out the container or surface. */
-      var_print_object_np (game, associate);
+          /* Print out the container or surface. */
+          var_print_object_np (game, associate);
+        }
+      else
+        {
+          /* " is ", never " are " -- see lib_list_in_object_normal(). */
+          var_append_temp (vars, prefix);
+          var_print_object_np (game, associate);
+          var_append_temp (vars, " is ");
+          var_print_list (game, list);
+        }
       var_append_temp (vars, ".");
     }
 }
@@ -616,14 +669,14 @@ var_list_at_object (scr_gameref_t game, scr_int associate, scr_int position,
 static void
 var_list_in_object (scr_gameref_t game, scr_int container)
 {
-  var_list_at_object (game, container, OBJ_IN_OBJECT,
+  var_list_at_object (game, container, OBJ_IN_OBJECT, "Inside ",
                       " is inside ", " are inside ");
 }
 
 static void
 var_list_on_object (scr_gameref_t game, scr_int supporter)
 {
-  var_list_at_object (game, supporter, OBJ_ON_OBJECT,
+  var_list_at_object (game, supporter, OBJ_ON_OBJECT, "On ",
                       " is on ", " are on ");
 }
 
@@ -652,15 +705,25 @@ var_list_onin_object (scr_gameref_t game, scr_int associate)
   supporting = !list.empty ();
   if (supporting)
     {
-      var_print_list (game, list);
-      var_append_temp (vars,
-                       list.size () == 1
-                       ? var_select_plurality (game, list[0],
-                                               " is on ", " are on ")
-                       : " are on ");
+      if (var_use_alternate_format (game, associate, list.size ()))
+        {
+          var_print_list (game, list);
+          var_append_temp (vars,
+                           list.size () == 1
+                           ? var_select_plurality (game, list[0],
+                                                   " is on ", " are on ")
+                           : " are on ");
 
-      /* Print out the surface. */
-      var_print_object_np (game, associate);
+          /* Print out the surface. */
+          var_print_object_np (game, associate);
+        }
+      else
+        {
+          var_append_temp (vars, "On ");
+          var_print_object_np (game, associate);
+          var_append_temp (vars, " is ");
+          var_print_list (game, list);
+        }
     }
 
   /* List out the objects contained in this object. */
@@ -674,20 +737,41 @@ var_list_onin_object (scr_gameref_t game, scr_int associate)
     }
   if (!list.empty ())
     {
+      /*
+       * The nested clause -- something on the surface as well as in it -- is
+       * left as SCARE wrote it.  run400 reaches it with var_9E set and prints
+       * a prefixed ", and inside is <list>" there (see lib_list_in_object()),
+       * but no corpus row and no Runner replay exercises it, so the shape is
+       * unmeasured and this is not the change to guess it in.  The unnested
+       * clause is the one %in_<object>% would have produced, so it goes
+       * through the same selector.
+       */
       if (supporting)
-        var_append_temp (vars, ", and ");
-      var_print_list (game, list);
-      var_append_temp (vars,
-                       list.size () == 1
-                       ? var_select_plurality (game, list[0],
-                                               " is inside ", " are inside ")
-                       : " are inside");
-
-      /* Print out the container. */
-      if (!supporting)
         {
-          var_append_temp (vars, " ");
+          var_append_temp (vars, ", and ");
+          var_print_list (game, list);
+          var_append_temp (vars,
+                           list.size () == 1
+                           ? var_select_plurality (game, list[0],
+                                                   " is inside ", " are inside ")
+                           : " are inside");
+        }
+      else if (var_use_alternate_format (game, associate, list.size ()))
+        {
+          var_print_list (game, list);
+          var_append_temp (vars,
+                           list.size () == 1
+                           ? var_select_plurality (game, list[0],
+                                                   " is inside ", " are inside ")
+                           : " are inside ");
           var_print_object_np (game, associate);
+        }
+      else
+        {
+          var_append_temp (vars, "Inside ");
+          var_print_object_np (game, associate);
+          var_append_temp (vars, " is ");
+          var_print_list (game, list);
         }
       var_append_temp (vars, ".");
     }

@@ -405,10 +405,18 @@ unauthorized_termination_solution.txt|unauthorized.taf|Assignment Status: You ha
 # to the walk fix.  run400 also refuses the ending ("You do not have the keys
 # so it is probably not a good idea to go just yet."), so the game does not
 # finish there.  Two engine-wide divergences this replay exposed, both also
-# visible in xfiles and neither addressed here: run400 lower-cases object
-# state names ("switched off", "switch in the on position") where we
-# capitalise them, and it lists container contents last and phrases them
-# "Inside the fridge is X" where we lead with "X are inside the fridge".
+# visible in xfiles: run400 lower-cases object state names ("switched off",
+# "switch in the on position") where we capitalise them -- still open, only
+# first-character evidence exists so LCase-whole-string cannot be told apart
+# from lowering the first letter -- and %in_<obj>% / %on_<obj>% pick their
+# listing format by content count, exactly as the library listers already do.
+# The latter is FIXED (var_use_alternate_format() in scvars.cpp).  Measured in
+# Adrift_23.txt: `open fridge` (CompleteText "...%in_fridge%", three objects
+# inside) prints "Inside the fridge is a tub of butter, a butter knife and a
+# bottle of milk.", while the two-object control `open unit` in the same
+# transcript keeps the postfixed form, "A large knife and a jar of coffee are
+# inside the kitchen unit."  Same 1/2/3+ selector as run400's single lister at
+# 0006A418; before TAF_VERSION_390 only the prefixed form exists.
 where_are_my_keys_solution.txt|WhereAreMyKeys.taf|You start the car and head home.|SCR_SKIP_WAITKEY=1
 # To Hell in a Hamper: the IF-Archive walkthrough desyncs badly on this release.
 # It has to be re-derived around a carry-weight limit ("too heavy for me to carry

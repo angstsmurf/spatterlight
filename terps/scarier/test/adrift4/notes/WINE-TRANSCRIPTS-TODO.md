@@ -1144,6 +1144,63 @@ were built on.
   destruction`.**  An earlier session used that command as a single-task
   probe; it never was one.
 
+## CLOSED 2026-08-24 -- `%in_<obj>%` / `%on_<obj>%` listing format
+
+`scvars.cpp` printed the contents of a container or surface named by
+`%in_X%` / `%on_X%` / `%onin_X%` in the postfixed form unconditionally --
+"A tub of butter, a butter knife and a bottle of milk are inside the fridge."
+The library listers in `sclibrar.cpp` have selected the format **by content
+count** since the 3.9 wording round, because run400 lists container and
+surface contents from a single routine at 0006A418 that counts first and then
+branches: `0006A49E` (count == 1) -> "`<obj>` is inside `<cont>`.";
+`0006A607` (count == 2) -> "`<a>` and `<b>` are inside `<cont>`.";
+`0006A786` otherwise -> "Inside `<cont>` is `<list>`."  Before
+TAF_VERSION_390 only the prefixed form exists.  The variables took a
+different path and missed all of it.
+
+Measured in run400's `Adrift_23.txt` (WhereAreMyKeys.taf, 4.00):
+
+```
+open fridge
+You open the fridge and the light comes on.  Well that's something. Inside
+the fridge is a tub of butter, a butter knife and a bottle of milk.
+```
+
+-- task CompleteText is `"...  Well that's something. %in_fridge%"`, three
+objects inside, so the prefixed form.  The two-object control is in the same
+transcript and keeps the postfixed form:
+
+```
+open unit
+A large knife and a jar of coffee are inside the kitchen unit.
+```
+
+so this is the count selector, not a blanket rewording.  Fixed with
+`var_use_alternate_format()` in `scvars.cpp`, shared by all three variables.
+Corpus exposure measured: 18 games use any of the three, `%onin_%` only
+`WhereAreMyKeys` and `door`.  Exactly one golden line pair moved corpus-wide;
+**303/303 PASS**.
+
+The nested case is deliberately left alone: when an object is both *on* and
+*in* the associate, run400 reaches the same lister with `var_9E == 1` and
+prints a prefixed ", and inside is `<list>`", which scarier does not model.
+No corpus row and no saved replay exercises it.
+
+Still open from the same replay: run400 **lower-cases object state names**
+("switched off", "switch in the on position") where we print the `States`
+pipe-list verbatim.  Only first-character evidence exists, so `LCase` over
+the whole string cannot be told apart from lowering the first letter, and the
+corpus has states where the difference is destructive -- `in the UP position`
+(TheADRIFTProject), `facing South` (The_Hunter), `Sur la gauche` (Les Feux de
+l'enfer), `R1..R7` (Oh_Human), `Locked off` (baroo).  No saved transcript
+covers any of them; `%state_` / `%obstate` are 4.00-only (UTF-16LE at
+run400.exe 0x1d1cc and 0x1d108, absent from run370/380/390) and run400's
+game-logic literals live in a runtime table that neither `run400.p32dasm.txt`
+nor `run400-analysed/Form1.frm` resolves.  If it is ever measured, the single
+place to change is `obj_state_name()` in `scobjcts.cpp`: its three callers
+(`lib_list_object_state`, `%obstate%`, `%state_X%`) are all print sites and
+nothing compares state names.
+
 ## CLOSED 2026-08-24 -- the not-a-room-zero arrival gate
 
 The residual left open by the walk-announcement round below, closed the same
