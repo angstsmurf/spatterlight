@@ -1464,6 +1464,33 @@ place to change is `obj_state_name()` in `scobjcts.cpp`: its three callers
 (`lib_list_object_state`, `%obstate%`, `%state_X%`) are all print sites and
 nothing compares state names.
 
+**Probe built 2026-08-25, waiting on Wine.**
+`harness/make_400_stateprobe.py` -> `p4STATE.taf`, staged in
+`~/adrift-battle/runner/wine/pfx/drive_c/adrift/` with `cmdfile_state.txt`
+next to it.  Six stateful objects in one room, each carrying one of the
+corpus's destructive shapes -- `In the UP position`, `Facing South`,
+`Locked Off`, `R1`, `Sur la gauche` -- plus `switched off` as the control,
+which is already lower case and so must come back unchanged under either
+rule.  Each is read through all three callers, because they are three
+separate sites in run400 too and need not agree: `x <obj>` (the examine
+lister, `BStateListed` on), `ob <obj>` (a task printing `OB=[%obstate%]`) and
+`st <obj>` (one printing `ST=[%state_<obj>%]`); a fourth cell, `mid <obj>`,
+puts the same name mid-sentence in case run400 only lower-cases what opens a
+line.  `flip` then moves the lever to `In the DOWN Position` so all four reads
+repeat on a state the game switched to rather than started in.  Scarier's
+answers, for the diff:
+
+    x lever    A test object.  The lever is In the UP position.
+    ob panel   OB=[R1]
+    st sign    ST=[Sur la gauche]
+    mid lever  MID: the lever reads In the UP position today.
+    flip / x lever   A test object.  The lever is In the DOWN Position.
+
+Run it with
+
+    cd ~/adrift-battle/runner/wine
+    LOAD_SLEEP=22 sh measure.sh p4STATE.taf cmdfile_state.txt
+
 ## CLOSED 2026-08-24 -- the not-a-room-zero arrival gate
 
 The residual left open by the walk-announcement round below, closed the same
