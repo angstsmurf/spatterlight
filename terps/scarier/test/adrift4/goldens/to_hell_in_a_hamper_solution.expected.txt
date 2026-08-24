@@ -230,6 +230,24 @@ I take the cricket ball.
 > get ear-trumpet
 I take the ear-trumpet.
 
+> look
+
+In the basket of a balloon
+I am in the basket of the balloon, high, though not high enough above the
+foothills of the Andes. Directly ahead of us is a glow in the sky; the
+heavens themselves seem to be ablaze as the wind carries us ever nearer to an
+erupting volcano! Attached to the ropes that hold the balloon aloft is a
+brass altimeter, the one and only piece of aeronautical equipment that has
+not been sacrificed.
+
+Sitting on the floor of the basket is the most enormous carpetbag I have ever
+seen.
+
+Also here is a boomerang and a smudge stick.
+Hubert Booby stands in the corner of the basket, peering at me suspiciously.
+A St. Bernard dog is lying fast asleep on the floor of the basket, oblivious
+to the drama unfolding before him.
+
 > put ear-trumpet in dog's ear
 I put the ear-trumpet in the Saint Bernard's ear.
 
@@ -437,9 +455,8 @@ I toss the burning smudge stick over the side of the balloon.
 The equilibrium of a balloon in the air is so sensitive that the loss of an
 almost  insignificant weight can produce a very appreciable displacement. In
 this instance, the balloon gains around one hundred feet in altitude.
-'A man of your years,' says Aunt Gertie cryptically, 'you ought to be
-ashamed!' She gives me a crack across the shins with her cane, just for the
-hell of it.
+'We ought to have more manure...' says Aunt Gertie, cryptically. She gives me
+a crack across the shins with her cane, just for the hell of it.
 
 > tie parachute to apron
 I wait 'til her back is turned, and swiftly tie the parachute to her apron

@@ -1653,6 +1653,26 @@ the Orb... Do with it what must be done..."
 
 Garrick walks towards you.
 
+> look
+
+Passageway
+
+Passageway
+This short passageway extends from the library as far south as you can see.
+However, just ten feet from where you stand there is a gaping pit in the
+floor - it looks as if a mighty fist has smashed down and scooped out a
+sizeable chunk of the ground.
+   A sudden pain behind your eyes leaves you feeling weak and irritable.
+   Hanging above the pit, just out of reach, is a glowing globe. It seems to
+be emitting a low, humming sound.
+
+Exits lie: north (to the library) and south (along the passageway)
+
+   You can also see a picklock, a wallet, a silver marble, your journal, the
+worn, leather gloves, a crucifix, a gold ring, some smelling salts, the
+verdigris key, a vial of holy water, some herbs, a scroll and the cobalt key.
+Garrick is here.
+
 > get all
 You take the picklock, the wallet, the silver marble, your journal, the worn,
 leather gloves, the crucifix, the gold ring, the smelling salts, the
@@ -1668,7 +1688,7 @@ Deserted Library
 There is a feeling of great age about this location, as if the library has
 stood here since time immemorial. Cobwebs cover all surfaces, lending an
 eerie look to the place.
-   You hear a voice braying in laughter - and another shrieking in pain.
+   Several doors slam somewhere else in the castle.
    Seven rows of books line one wall, three line the other. At the end of the
 second row are a ruin of old bookshelves and destroyed books. The destruction
 appears recent.
@@ -1688,7 +1708,7 @@ Empty room
 You expected to find this room full of people - but instead it appears
 deserted. What happened to the voices and laughter you heard? Or did you hear
 them at all?
-   Several doors slam somewhere else in the castle.
+   Somewhere in the castle, a clock strikes the hour.
    Of the room itself, little can be said. It is small, perhaps the same size
 as the cell you awoke in earlier, and desolate aside from a small collection
 of boxes in one corner. Archways in three walls lead further into the castle.
@@ -1709,7 +1729,7 @@ appears to be a large open area with a pit in the centre. A fire burns in
 this pit. Seated around the pit, their eyes as larger as saucers, are a group
 of strange men in long, black robes. They appear to be chanting words under
 their breath.
-   Somewhere in the castle, a clock strikes the hour.
+   A sudden pain behind your eyes leaves you feeling weak and irritable.
    Set into the walls of this passage are a number of alcoves, each of which
 is filled by a statue of some fantastic beast you have never seen the like of
 before. Are they real? Or just the work of a fevered mind?
@@ -1892,7 +1912,7 @@ You find yourself standing at the very edge of a pit which has been dug into
 the floor of this chamber. Flames shoot up at regular intervals, searing the
 air with tremendous heat. What is causing this you do not know, but you sense
 that there is great power here. Best you keep well back...
-   Several doors slam somewhere else in the castle.
+   A cold wind blows at you, chilling you to the bone.
    Seated around the pit are a group of strange people: clad in black robes,
 they have eyes the size of saucers and seem to be chanting something under
 their breaths. They appear wholly unaware of your presence.
@@ -2020,7 +2040,8 @@ You find yourself standing at the very edge of a pit which has been dug into
 the floor of this chamber. Flames shoot up at regular intervals, searing the
 air with tremendous heat. What is causing this you do not know, but you sense
 that there is great power here. Best you keep well back...
-   A sudden pain behind your eyes leaves you feeling weak and irritable.
+   One of the walls to your left suddenly shudders. Nothing else happens. But
+the event leaves you wondering just how safe this place is.
    Seated around the pit are a group of strange people: clad in black robes,
 they have eyes the size of saucers and seem to be chanting something under
 their breaths. They appear wholly unaware of your presence.
@@ -2043,7 +2064,8 @@ appears to be a large open area with a pit in the centre. A fire burns in
 this pit. Seated around the pit, their eyes as larger as saucers, are a group
 of strange men in long, black robes. They appear to be chanting words under
 their breath.
-   Several doors slam somewhere else in the castle.
+   In one corner of the room you fancy you see someone standing watching you,
+but a closer examination reveals there is nothing there.
    Set into the walls of this passage are a number of alcoves, each of which
 is filled by a statue of some fantastic beast you have never seen the like of
 before. Are they real? Or just the work of a fevered mind?
@@ -2061,7 +2083,9 @@ Empty room
 You expected to find this room full of people - but instead it appears
 deserted. What happened to the voices and laughter you heard? Or did you hear
 them at all?
-   Several doors slam somewhere else in the castle.
+   Dust stirred by your footsteps obscures your vision for a moment, and
+causes you a worrying moment when you think you hear someone moving around
+behind you.
    Of the room itself, little can be said. It is small, perhaps the same size
 as the cell you awoke in earlier, and desolate aside from a small collection
 of boxes in one corner. Archways in three walls lead further into the castle.
@@ -2079,7 +2103,7 @@ Top of the stairs
 Top of the Stairs
 A winding flight of ruined stairs lead downwards into the very depths of the
 castle. Looking at them gives you a bad attack of vertigo.
-   A cold wind blows at you, chilling you to the bone.
+   You hear a voice braying in laughter - and another shrieking in pain.
    Before you is a door set firmly into the wall. Beyond it you can hear the
 laughter and voices of several people.
 
@@ -2088,11 +2112,7 @@ Exits lie: down (the stairs) and north (through the door)
 Garrick walks towards you from the north.
 
 > down
-   You move down, stepping as carefully as you can. Alas, it seems, not
-carefully enough. One of the steps gives way beneath your feet, sending you
-crashing to the bottom of the stairs.
-
-   You grimly pick yourself up. You are winded but do not seem badly hurt.
+   You move down.
 
 Ruined Stairs
 
@@ -2102,7 +2122,7 @@ upwards into the very heart of the castle. Light leaks down from a doorway
 set perhaps fifty feet above you. The steps, which are of incredible age,
 have collapsed in parts, leaving gaping holes which will make passage awkward
 to say the least. Cobwebs are here in abundance, masking every surface.
-   From somewhere you hear a door slam. It seems you are not alone.
+   From far off in the castle you hear ghoulish laughter.
 
 Exits lie: north (through the steel door) and up (the stairs)
 
@@ -2138,9 +2158,9 @@ Shadowy hallway
 Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
 breathe, the walls ever-so-slightly out of focus, the floorboards feeling
-more like stone beneath your feet. For certain this is not a natural place.
-From the corner of your eye one of the figures in a portrait appears to move
-but when you turn to look it is back in place again.
+more like stone beneath your feet. For certain this is not a natural place. A
+wave of dizziness suddenly sweeps over you and you grasp at the wall to
+steady yourself.
    The hallway stretches for perhaps thirty feet east to west and is lined at
 regular intervals with portraits. The eyes of each person seem alive with
 malice and appear almost to follow you as you move about.
@@ -2168,7 +2188,7 @@ through the cracks in the boards. Perhaps outside there might be some chance
 at escape...?
    Light from a glowing panel set into the ceiling illuminates this room but
 there is little to see.
-   A rat scurries over your foot, half causing you to have a heart attack.
+   The floor underfoot seems to shake visibly.
 
 Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
@@ -2231,8 +2251,7 @@ through the cracks in the boards. Perhaps outside there might be some chance
 at escape...?
    Light from a glowing panel set into the ceiling illuminates this room but
 there is little to see.
-   Out of the corner of your eye, you catch sight of something sitting in the
-corners of the room yet when you look again there is nothing there.
+   From far off in the castle you hear ghoulish laughter.
 
 Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
@@ -2246,15 +2265,15 @@ Shadowy hallway
 Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
 breathe, the walls ever-so-slightly out of focus, the floorboards feeling
-more like stone beneath your feet. For certain this is not a natural place. A
-wave of dizziness suddenly sweeps over you and you grasp at the wall to
-steady yourself.
+more like stone beneath your feet. For certain this is not a natural place.
+From the corner of your eye one of the figures in a portrait appears to move
+but when you turn to look it is back in place again.
    The hallway stretches for perhaps thirty feet east to west and is lined at
 regular intervals with portraits. The eyes of each person seem alive with
 malice and appear almost to follow you as you move about.
    Lit from above by glowing panels, the hallway is nevertheless a dark and
 dismal place. Something tells you not to spend too much time here.
-   You have a sinking feeling that someone, somewhere, is watching you.
+   A rat scurries over your foot, half causing you to have a heart attack.
 
 Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
@@ -2294,18 +2313,11 @@ upwards into the very heart of the castle. Light leaks down from a doorway
 set perhaps fifty feet above you. The steps, which are of incredible age,
 have collapsed in parts, leaving gaping holes which will make passage awkward
 to say the least. Cobwebs are here in abundance, masking every surface.
-   A rat scurries over your foot, half causing you to have a heart attack.
+   From somewhere you hear a door slam. It seems you are not alone.
 
 Exits lie: north (through the steel door) and up (the stairs)
 
 Garrick walks towards you from the north.
-
-> up
-   You move up, stepping as carefully as you can. Alas, it seems, not
-carefully enough. One of the steps gives way beneath your feet, sending you
-crashing to the bottom of the stairs.
-
-   You grimly pick yourself up. You are winded but do not seem badly hurt.
 
 > up
    You move up.
@@ -2315,14 +2327,25 @@ Top of the stairs
 Top of the Stairs
 A winding flight of ruined stairs lead downwards into the very depths of the
 castle. Looking at them gives you a bad attack of vertigo.
-   In one corner of the room you fancy you see someone standing watching you,
-but a closer examination reveals there is nothing there.
+   A cold wind blows at you, chilling you to the bone.
    Before you is a door set firmly into the wall. Beyond it you can hear the
 laughter and voices of several people.
 
 Exits lie: down (the stairs) and north (through the door)
 
 Garrick walks towards you from below.
+
+> up
+   You fail to find an exit in that direction. Try instead going north and
+down.
+
+> up
+   You fail to find an exit in that direction. Try instead going north and
+down.
+
+> up
+   You fail to find an exit in that direction. Try instead going north and
+down.
 
 > north
 You move north.
@@ -2333,7 +2356,7 @@ Empty room
 You expected to find this room full of people - but instead it appears
 deserted. What happened to the voices and laughter you heard? Or did you hear
 them at all?
-   A cold wind blows at you, chilling you to the bone.
+   Somewhere in the castle, a clock strikes the hour.
    Of the room itself, little can be said. It is small, perhaps the same size
 as the cell you awoke in earlier, and desolate aside from a small collection
 of boxes in one corner. Archways in three walls lead further into the castle.
@@ -2389,8 +2412,7 @@ The floor here appears of a more modern appearance than what you have seen
 thus far, and cleaner besides indicating that this section of the castle is
 used more than the areas you have previously travelled through. Torches line
 the walls giving off a sickly illumination.
-   You rub tiredly at your eyes, wondering if you will ever see the outside
-world again.
+   You hear a voice braying in laughter - and another shrieking in pain.
    At the far end of the corridor is an archway beyond which nothing can be
 seen.
 
@@ -2452,7 +2474,7 @@ Perhaps several centuries past, this was the main feasthall of the castle. A
 row of tables surround a central pit dug into the floor. You suspect that in
 olden times a mighty fire would light and heat the room from this pit, which
 now contains little more than ashes.
-   A feeling of despair grips you and it takes a moment to shake it off.
+   The sudden slamming of a door makes your blood run cold.
    At one end of the largest feast table is a throne of dark metal upon which
 sits a skeleton clad in black robes. A broadsword is resting on the
 skeleton's lap and a crown upon its fleshless brow.
@@ -2473,7 +2495,7 @@ End of Corridor
 The corridor ends here with each of the three walls being taken up by a
 single door. Each door has a plaque attached to it, perhaps giving a hint as
 to what lies within.
-   Far away in the castle you hear the sound of someone howling in pain.
+   A shiver runs down your spine.
    Hanging on a chain by the southern door is a bell and set into the wall by
 the western door a button. The southwestern door has no such item.
    In the corner between the southwestern and southern doors is a small pile
@@ -2528,7 +2550,7 @@ End of Corridor
 The corridor ends here with each of the three walls being taken up by a
 single door. Each door has a plaque attached to it, perhaps giving a hint as
 to what lies within.
-   The sudden slamming of a door makes your blood run cold.
+   Far away in the castle you hear the sound of someone howling in pain.
    Hanging on a chain by the southern door is a bell and set into the wall by
 the western door a button. The southwestern door has no such item.
    In the corner between the southwestern and southern doors is a small pile
@@ -2702,8 +2724,7 @@ Strange Room
 You find yourself in a room of strange proportions: the ceiling appears to
 curve downwards in the centre, two of the walls are slanted at angles, there
 is a gaping hole in the middle of the floor...
-   One of the walls suddenly seems to bulge - but when you look again there
-is nothing there.
+   A shiver runs down your spine.
    It is difficult to tell anything for certain about this room aside from a
 door in the northern wall.
 
@@ -2790,7 +2811,7 @@ Strange Room
 You find yourself in a room of strange proportions: the ceiling appears to
 curve downwards in the centre, two of the walls are slanted at angles, there
 is a gaping hole in the middle of the floor...
-   Far away in the castle you hear the sound of someone howling in pain.
+   A feeling of despair grips you and it takes a moment to shake it off.
    It is difficult to tell anything for certain about this room aside from a
 door in the northern wall.
 
@@ -2833,8 +2854,7 @@ which are alight. Capering around this pot are a bizarre group of creatures:
 none stand more than four feet tall and seem to have features which are
 hideously twisted out of shape. You see huge noses, gaping mouths, eyes that
 appear almost to be hanging from the sockets.
-   One of the walls suddenly seems to bulge - but when you look again there
-is nothing there.
+   A feeling of despair grips you and it takes a moment to shake it off.
    Hanging on one wall are a series of cupboards that look to have seen
 better years. You wonder how it is they manage to stay attached to the wall.
    Upon your arrival, several of the figures (there are an even dozen in
@@ -2870,7 +2890,8 @@ End of Corridor
 The corridor ends here with each of the three walls being taken up by a
 single door. Each door has a plaque attached to it, perhaps giving a hint as
 to what lies within.
-   Far away in the castle you hear the sound of someone howling in pain.
+   One of the walls suddenly seems to bulge - but when you look again there
+is nothing there.
    Hanging on a chain by the southern door is a bell and set into the wall by
 the western door a button. The southwestern door has no such item.
    In the corner between the southwestern and southern doors is a small pile
@@ -2973,7 +2994,8 @@ Perhaps several centuries past, this was the main feasthall of the castle. A
 row of tables surround a central pit dug into the floor. You suspect that in
 olden times a mighty fire would light and heat the room from this pit, which
 now contains little more than ashes.
-   The sudden slamming of a door makes your blood run cold.
+   One of the walls suddenly seems to bulge - but when you look again there
+is nothing there.
    At one end of the largest feast table is a throne of dark metal upon which
 sits a skeleton clad in black robes. A broadsword is resting on the
 skeleton's lap and a crown upon its fleshless brow.
@@ -2996,8 +3018,7 @@ The floor here appears of a more modern appearance than what you have seen
 thus far, and cleaner besides indicating that this section of the castle is
 used more than the areas you have previously travelled through. Torches line
 the walls giving off a sickly illumination.
-   You rub tiredly at your eyes, wondering if you will ever see the outside
-world again.
+   You hear a voice braying in laughter - and another shrieking in pain.
    At the far end of the corridor is an archway beyond which nothing can be
 seen.
 
@@ -3052,8 +3073,7 @@ Top of the stairs
 Top of the Stairs
 A winding flight of ruined stairs lead downwards into the very depths of the
 castle. Looking at them gives you a bad attack of vertigo.
-   In one corner of the room you fancy you see someone standing watching you,
-but a closer examination reveals there is nothing there.
+   Several doors slam somewhere else in the castle.
    Before you is a door set firmly into the wall. Beyond it you can hear the
 laughter and voices of several people.
 
@@ -3076,7 +3096,8 @@ upwards into the very heart of the castle. Light leaks down from a doorway
 set perhaps fifty feet above you. The steps, which are of incredible age,
 have collapsed in parts, leaving gaping holes which will make passage awkward
 to say the least. Cobwebs are here in abundance, masking every surface.
-   From far off in the castle you hear ghoulish laughter.
+   Out of the corner of your eye, you catch sight of something sitting in the
+corners of the room yet when you look again there is nothing there.
 
 Exits lie: north (through the steel door) and up (the stairs)
 
@@ -3113,14 +3134,14 @@ Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
 breathe, the walls ever-so-slightly out of focus, the floorboards feeling
 more like stone beneath your feet. For certain this is not a natural place.
-From the corner of your eye one of the figures in a portrait appears to move
-but when you turn to look it is back in place again.
+Something rushes by your feet. You jerk back, fearing rats. But nothing is
+there.
    The hallway stretches for perhaps thirty feet east to west and is lined at
 regular intervals with portraits. The eyes of each person seem alive with
 malice and appear almost to follow you as you move about.
    Lit from above by glowing panels, the hallway is nevertheless a dark and
 dismal place. Something tells you not to spend too much time here.
-   You have a sinking feeling that someone, somewhere, is watching you.
+   A rat scurries over your foot, half causing you to have a heart attack.
 
 Exits lie: northwest (to the laboratory), east (to the bend in the hallway)
 and southwest (to a further branching of the hallway)
@@ -3137,7 +3158,7 @@ Here the hallway turns sharply, one branch heading off southwards into a
 dimly-lit room, the other to the northeast. There is little to see at this
 juncture aside from a single portrait affixed to the wall. It depicts a dark
 shore somewhere that you do not recognise.
-   You have a sinking feeling that someone, somewhere, is watching you.
+   From far off in the castle you hear ghoulish laughter.
 
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
@@ -3160,7 +3181,8 @@ face. The fire in the hearth has long since gone out.
 such that you have never seen before. The sixth chair, the one that would sit
 at the head of the table, now contains the transluctent form of Lord
 Havelock's spectre.
-   From far off in the castle you hear ghoulish laughter.
+   Out of the corner of your eye, you catch sight of something sitting in the
+corners of the room yet when you look again there is nothing there.
 
 Exits lie: north (to the dark passageway)
 
@@ -3201,7 +3223,7 @@ Here the hallway turns sharply, one branch heading off southwards into a
 dimly-lit room, the other to the northeast. There is little to see at this
 juncture aside from a single portrait affixed to the wall. It depicts a dark
 shore somewhere that you do not recognise.
-   A shiver goes down your spine.
+   From far off in the castle you hear ghoulish laughter.
 
 Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
@@ -3244,7 +3266,8 @@ at the thing.
    The hallway here shows definite signs of ruin: the ceiling is lined with
 cracks, the walls appear to be crumbling, the floorboards are broken and
 shattered where chunks of stone have forced their way up through them.
-   A rat scurries over your foot, half causing you to have a heart attack.
+   Out of the corner of your eye, you catch sight of something sitting in the
+corners of the room yet when you look again there is nothing there.
    Set into the south wall is a steel door. It appears of modern design and
 no doubt was fitted only recently. You can guess at the purpose for this. It
 now stands open.
@@ -3278,7 +3301,7 @@ Top of the stairs
 Top of the Stairs
 A winding flight of ruined stairs lead downwards into the very depths of the
 castle. Looking at them gives you a bad attack of vertigo.
-   A cold wind blows at you, chilling you to the bone.
+   Somewhere in the castle, a clock strikes the hour.
    Before you is a door set firmly into the wall. Beyond it you can hear the
 laughter and voices of several people.
 
@@ -3295,7 +3318,7 @@ Empty room
 You expected to find this room full of people - but instead it appears
 deserted. What happened to the voices and laughter you heard? Or did you hear
 them at all?
-   A cold wind blows at you, chilling you to the bone.
+   A sudden pain behind your eyes leaves you feeling weak and irritable.
    Of the room itself, little can be said. It is small, perhaps the same size
 as the cell you awoke in earlier, and desolate aside from a small collection
 of boxes in one corner. Archways in three walls lead further into the castle.
@@ -3334,7 +3357,8 @@ The floor here appears of a more modern appearance than what you have seen
 thus far, and cleaner besides indicating that this section of the castle is
 used more than the areas you have previously travelled through. Torches line
 the walls giving off a sickly illumination.
-   A cold wind blows at you, chilling you to the bone.
+   In one corner of the room you fancy you see someone standing watching you,
+but a closer examination reveals there is nothing there.
    At the far end of the corridor is an archway beyond which nothing can be
 seen.
 
@@ -3352,7 +3376,7 @@ Perhaps several centuries past, this was the main feasthall of the castle. A
 row of tables surround a central pit dug into the floor. You suspect that in
 olden times a mighty fire would light and heat the room from this pit, which
 now contains little more than ashes.
-   A shiver runs down your spine.
+   The sudden slamming of a door makes your blood run cold.
    At one end of the largest feast table is a throne of dark metal upon which
 sits a skeleton clad in black robes. A broadsword is resting on the
 skeleton's lap and a crown upon its fleshless brow.
@@ -3374,8 +3398,7 @@ Just northeast of the feasthall, the corridor widens dramatically until the
 sides are some thirty feet apart. The reason for the widening is apparent a
 little way further on - a large statue has been erected. Further details are
 a little unclear from where you stand.
-   One of the walls suddenly seems to bulge - but when you look again there
-is nothing there.
+   The sudden slamming of a door makes your blood run cold.
    You note a strange smell in the air here, one you are unable to trace.
 Perhaps you had best proceed cautiously.
 
@@ -3397,7 +3420,8 @@ impressive feat of workmanship. The carver, whoever he or she was, has caught
 every detail of the recipient, making it almost seem that the statue is a
 real person frozen into stone. A name plaque at the base informs who just who
 this is.
-   A shiver runs down your spine.
+   One of the walls suddenly seems to bulge - but when you look again there
+is nothing there.
    Set into the north wall of this chamber is a shadowy archway.
 
 Exits lie: southwest (to the corridor) and north (to the shadowy archway)
@@ -3883,6 +3907,9 @@ here."
    "What is it?" you ask.
    "An amulet of protection from the undead." Gragor puts it around his neck.
 "Now I feel a bit better prepared."
+
+   "And there should be something under that pile of broken shelves," Gragor
+adds.
 
 > nw
 You move northwest.

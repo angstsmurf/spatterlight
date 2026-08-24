@@ -39,6 +39,19 @@ swearing starts off)
 
 >
 
+> look
+
+Thumpers House
+This is your flaming house, nothing but fires and burnt piles of wood. Oh
+crap! You left the beer inside!  To the west is Mull Road.
+
+Also here is a gas mask.
+Womby is here.
+Stinky the Galah is pissing on the fire, trying to put it out.  Sir Heinreich
+Von Slutt is here, he looks pissed as hell.
+
+You can only move west.
+
 > take mask
 You pick up the gas mask.
 
@@ -191,6 +204,7 @@ You are sitting in the spa, the water tingles all around you.
 Three Hot Bimbo Koala Babes are sitting at the other end of the spa.
 
 You can only move out.
+One of the bimbo's giggle.
 
 > out
 You move out.
@@ -212,6 +226,7 @@ alleyway. To the west of you is the Bath House and to the east of you is a
 large skyscraper called Dark Baron enterprises.
 
 You can move north, east, south and west.
+You fart.
 
 > n
 You move north.
@@ -224,7 +239,6 @@ Mull Road goes north and south from here. To the west you can see Bobs
 Boozhouse.
 
 You can move north, east, south and west.
-You fart.
 
 > w
 You move west.
@@ -371,6 +385,7 @@ places is creeping you out, so you might leave soon. There is a small shack
 to the north you, must be the grave keepers hut.
 
 You can move north and east.
+You hear the sounds of chains being pulled along the ground.
 
 > e
 You move east.
@@ -450,6 +465,9 @@ Swearing is now on.
 > you idiot
 "That insult was not even remotely insulting," says Philip. "And we have a winner, Philip the Possum!" booms a voice over the speaker. The croud goes wild. That was hard, you've got to find out something that Philip gets insulted
 by.
+You burp.
+A voice booms over the speaker. "Do you want to enter the Swear 'O' Rama
+playoffs? Sign up in the lobby!"
 
 > d
 You move down.
@@ -460,7 +478,6 @@ cheering.
 Philip the Possum is here, ready to swear.
 
 You can only move up.
-You burp.
 
 > karnishnar
 "Karnishnar!" you yell. "Oh! My ears! My virgin ears!" screams Philip as he falls on the ground. "And we have a winner!" booms over the speakers. "It's Thumper!". The croud
@@ -557,16 +574,13 @@ You put on the gas mask.
 
 > open dumpster
 You grab the crowbar and leaver the dumpster open.
+
+> z
+Time passes...
 You suddenly get a jerk as the dumpster raises off the ground. Oh shit! The
 garbage truck is picking you up! All the rubbish falls on top of you as you
 fall upsidedown. The dumpster then stops moving, and the lid opens. You and a
 heap of rubbish fall down into the garbage truck.
-
-> z
-Time passes...
-
-> z
-Time passes...
 
 > z
 Time passes...
@@ -577,6 +591,21 @@ out onto the ground, buried under piles of rubbish.
 
 > z
 Time passes...
+
+> z
+Time passes...
+
+> look
+
+The WoopWoop Tip
+You are standing in the middle of a disgusting rubbish tip, the WoopWoop tip.
+Nothing special here except for thousands of tonnes of garbage all around
+you. To the northeast you can see a small little office.
+
+Also here is a small package.
+A garbage truck is parked next to you.
+
+You can move in and northeast.
 
 > x small package
 This is a small package titled "Gunjaville Pharmacy", it has already been
@@ -601,7 +630,6 @@ out into the garbage.
 Bert the Bull is sitting at his desk, drinking some coffee.
 
 You can only move southwest.
-Bert drinks from his mug of coffee.
 
 > open desk
 You open the desk.  The truck keys are inside the desk.
@@ -663,6 +691,7 @@ Time passes...
 Time passes...
 You finally reach Gunjaville, and park the truck. You hop out, happy to be
 away from the damn "Mr Funs Happy Songs".
+You scratch your arse.
 
 > s
 You move south.
@@ -673,7 +702,6 @@ alleyway. To the west of you is the Bath House and to the east of you is a
 large skyscraper called Dark Baron enterprises.
 
 You can move north, east, south and west.
-You scratch your arse.
 
 > w
 You move west.
@@ -788,6 +816,7 @@ whole way back, now I'm a little tired and a little cranky, BUT GIVE ME A GOD
 DAMN REWARD!" you yell. "Fine, fine, Sally!" yells Matthew. "Yes sir?" says Sally. "Get Thumper here a pack of cuban cigars," says Matthew. "Right away sir," says Sally as she walks off and grabs a packet of cuban
 cigars, then hands them to you. "Now, that's what I call a reward, thanks a bundle," you say. "I'm going to go back to my office, and work on my next project," says
 Matthew. "See you later," you say as Matt walks to the elevator. He left his electronic device!
+You are going mad, your eyes are spinning too fast.
 
 > take device
 You pick up the electronic device.
@@ -823,6 +852,7 @@ You can only move east.
 
 > take syndrom pills
 You take a jar of chronic fooluffultitus syndrom pills from the desk.
+You fart.
 
 > d
 You slip and begin to fall down the hole. "SHHHHHHIIIIIIIITTTTTTTT!!!!!!!!!!!!" you scream as you fall. You land face
@@ -841,7 +871,6 @@ alleyway. To the west of you is the Bath House and to the east of you is a
 large skyscraper called Dark Baron enterprises.  Your spine is killing you.
 
 You can move north, east, south and west.
-You fart.
 
 > n
 You move north.
@@ -911,7 +940,6 @@ places is creeping you out, so you might leave soon. There is a small shack
 to the north you, must be the grave keepers hut.  Your spine is killing you.
 
 You can move north and east.
-A wolf howels in the distance.
 
 > blow horn
 You put the horn up to your mouth and blow. A loud thundering sound comes out
@@ -1079,6 +1107,7 @@ Boozhouse.
 A garbage truck is parked next to you.  Your spine is killing you.
 
 You can move north, east, south and west.
+You burp.
 
 > s
 You move south.
@@ -1103,7 +1132,6 @@ Steve the Snake is looking around eagerly, smoking a cigarette.  Your spine
 is killing you.
 
 You can move north and south.
-You burp.
 
 > give cocaine to steve
 "Hey, I brought you the cocaine," you say. "Well fucking alright! Thanks man, here's ya reward," says Steve handing you
@@ -1375,6 +1403,7 @@ You grab your mug and drink back some beer. Lovely.
 
 > drink beer
 You grab your mug and drink back some beer. Lovely.
+You scratch your arse.
 Bob takes your mug and begins to wipe it up.
 
 > buy beer
@@ -1383,18 +1412,22 @@ then hands it to you. You hand Bob $5.
 
 > drink beer
 You grab your mug and drink back some beer. Lovely.
-You scratch your arse.
 
 > drink beer
 You grab your mug and drink back some beer. Lovely.
 You fall over on the ground, and you suddenly are transported to a wonderful
 place.
 
+> look
+
+Fantasy Land
+You are standing on a cloud, there are big kegs of beer and rabbits all
+around you. This is your perfect place to be.
+
+Also here is a shotgun and a titus component.  Your spine is killing you.
+
 > take component
 You pick up the titus component.
-
-> z
-Time passes...
 
 > z
 Time passes...
@@ -1419,6 +1452,9 @@ Time passes...
 Time passes...
 Suddenly your fantasy world starts disolving, and your brain pounds against
 your skull rapidly. You just had a hangover! Back to the real world...
+
+> z
+Time passes...
 
 >
 
@@ -1505,6 +1541,7 @@ You slip and begin to fall down the hole. "SHHHHHHIIIIIIIITTTTTTTT!!!!!!!!!!!!" 
 forward on the floor. Normally if someone fell from that height, there body
 would be mangled all over the floor, but since Thumper is the official
 "Wonder Wombat", it only broke his spine.
+Sally lets out a mad laugh and begins to drool.
 
 > w
 You move west.
@@ -1587,6 +1624,35 @@ You move along the maze, hoping to get out soon.
 You move along the maze, hoping to get out soon.
 
 > n
+You move along the maze, hoping to get out soon.
+
+> n
+You move along the maze, hoping to get out soon.
+
+> n
+You move along the maze, hoping to get out soon.
+
+> n
+You move along the maze, hoping to get out soon.
+
+> n
+You move along the maze, hoping to get out soon.
+You burp.
+
+> n
+You move north.
+
+Maze
+You are standing in the green hedge maze, there are pathways leading in all
+directions. You are a bit lost.  Your spine is killing you.  It is raining
+heavily.
+
+You can only move south.
+
+> n
+You move along the maze, hoping to get out soon.
+
+> n
 You move north.
 
 Maze
@@ -1609,18 +1675,6 @@ Bob the Bull is sitting at the drivers seat.  Your spine is killing you.
 
 You can only move south.
 
-> n
-You can only move south.
-
-> n
-You can only move south.
-
-> n
-You can only move south.
-
-> n
-You can only move south.
-
 >
 
 > buy ticket
@@ -1629,7 +1683,6 @@ watch as you leave Gunjaville. About 5 minutes later, you arrive at a ghost
 town called Woop Woop. You can only see two houses here, one to the west and
 one to the east, which is the garbage tip. You stand up from your seat and
 leave the bus. The bus drives off.
-You burp.
 
 > w
 You move west.

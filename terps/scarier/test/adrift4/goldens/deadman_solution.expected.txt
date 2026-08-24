@@ -92,6 +92,18 @@ by a pair of handcuffs attached to the door handle.  The face of Capt.
 Mattingly stares into nothingness.  With the body turned over your search
 reveals some bullets.
 
+> look
+
+Control Room
+On the south wall is a large digital timer, clicking away the seconds until
+Armageddon.  Dominating the north wall is the communications console and its
+large monitor-viewer.  A utilitarian chair rests on casters in front of the
+console.  Along the east wall is a small locker, and to the west a large
+steel door leading to the rest of the complex. The dead eyes of Capt.
+Matingly stare across the room.
+
+A gun rests on the floor.
+
 > get all
 BANG BANG
 As your hands touch the gun a shock runs through your hand and you drop it as
@@ -133,27 +145,18 @@ You take the first aid kit from the locker.
 You open the first aid kit.  Among the usual things you would find in a first
 aid kit you notice a large bandage roll, a pair of scissors and a syringe.
 
-> get scissors
-You take the pair of scissors from the first aid kit.
-
 The pain in your head becomes over powering.  Gripping you neck with both
 hands, you lay on the floor in the fetal position until the pain becomes
 subsides.
 [-00:53-]
 
+> get scissors
+You take the pair of scissors from the first aid kit.
+
 > open panel with scissors
 Using the blunt tip of the scissors, a little luck and a lot of persistence,
 you manage to loosen the remaining screws, and open the panel.The guts of the
 radio appear torn out.Who have I been talking to?
-
-> x console
-The Deadmans console fills the north side of the room.  It serves as a
-security, communication and launch station. On the far left the security
-station holds a large dial next to red plastic joystick.  On the far right,
-is the Constant Communication Console where audio transmissions are broadcast
-twenty-four hours a day via a built in radio.  In the middle, a window of
-opaque green glass dominates the Launch station.  The code table and a ball
-point pen are on the comunication console.
 
 Suddenly your head begins to spin and the lights fades in and out, slowly at
 first, but soon working its way up to a frenzied strobe. Then darkness.
@@ -174,6 +177,15 @@ The grin gets even wider, there's nothing to grin at down here but me.
 After a final flash of white. The darkness fades in.
 
 You awaken on the control room floor.
+
+> x console
+The Deadmans console fills the north side of the room.  It serves as a
+security, communication and launch station. On the far left the security
+station holds a large dial next to red plastic joystick.  On the far right,
+is the Constant Communication Console where audio transmissions are broadcast
+twenty-four hours a day via a built in radio.  In the middle, a window of
+opaque green glass dominates the Launch station.  The code table and a ball
+point pen are on the comunication console.
 
 > get all from console
 You take the code table and the ball point pen from the comunication console.
@@ -209,6 +221,18 @@ bands.  Closing your eyes against the pressure building up in your forehead,
 a flash of light enters your mind's eye and a euphoric rush comes over your
 entire body, strangely similar to an orgasm.  Suddenly, you've never felt
 better.
+Your thoughts are interrupted by harsh static.
+A loud voice fills the room.
+
+Deadman Tango, this is Blair do you read.
+Deadman Tango, this is Blair do you read.
+Deadman, we understand you have a situation there, please respond.
+
+Acknowlege and prepare to receive standard abort code.
+
+Over.
+
+You stand in silence.
 
 > use radio
 Leaning closer to the radio you say:
@@ -234,21 +258,6 @@ I repeat T Minus 43 minutes until Deadman Launch. Please respond.
 
 You continue to wait but there is no response.
 God, you wish someone would answer.
-Your thoughts are interrupted by harsh static.
-A loud voice fills the room.
-
-Deadman Tango, this is Blair do you read.
-Deadman Tango, this is Blair do you read.
-Deadman, we understand you have a situation there, please respond.
-
-Acknowlege and prepare to receive standard abort code.
-
-Over.
-
-You stand in silence.
-
-> z
-Time passes...
 A small rush fills you with pleasure.
 
 > z
@@ -392,9 +401,12 @@ Time passes...
 > z
 Time passes...
 
+> z
+Time passes...
+They're all dead, sir.
+
 > stand
 You stand up.
-They're all dead, sir.
 
 > open door
 Slowly you unlatch the steel door and pull it open just a crack.  Not seeing
@@ -408,13 +420,13 @@ inside.
 
 > get axe
 You take the axe.
+A small rush fills you with pleasure.
 
 > chop off hand with axe
 With a wild swing the axe arcs down at the wrist of Capt. Mattingly.  You
 hear a dull thud as it strikes the bone.  Pulling the axe head free you chop
 down again and again…
 The bloody hand falls to the floor wetly.
-A small rush fills you with pleasure.
 
 > get hand
 You take the bloody hand.

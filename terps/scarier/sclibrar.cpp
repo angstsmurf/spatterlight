@@ -1595,6 +1595,14 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
         pf_buffer_character (filter, '\n');
     }
 
+  /*
+   * Reveal what a full room description reveals.  Not gated on showobjects:
+   * the Runner's marking loops sit above its "Also here" list and below its
+   * brief-mode exit, so a HideObjects alt suppresses the sentence and not
+   * the knowledge.  See obj_mark_room_objects_seen().
+   */
+  obj_mark_room_objects_seen (game, room);
+
   /* Print room contents. */
   if (showobjects)
     {
@@ -5997,8 +6005,9 @@ lib_take_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * still lifts the scrap of paper out of the carried wallet (verified live
  * against run400.exe, 2026-08-02).
  *
- * The seen test needs no explicit port here: a dynamic object directly in
- * the player's room is marked seen by obj_turn_update() every turn.
+ * The seen test does need porting: since obj_mark_room_objects_seen() moved
+ * the room's marking into the room lister, a loose object in a room whose
+ * description never printed is unseen, and 4.0 leaves it where it lies.
  */
 static scr_bool
 lib_take_all_filter (scr_gameref_t game, scr_int object, scr_int unused)
@@ -6006,7 +6015,9 @@ lib_take_all_filter (scr_gameref_t game, scr_int object, scr_int unused)
   assert (unused == -1);
 
   return !obj_is_static (game, object)
-         && gs_object_position (game, object) == gs_playerroom (game) + 1;
+         && gs_object_position (game, object) == gs_playerroom (game) + 1
+         && (!lib_matcher_requires_seen (game)
+             || gs_object_seen (game, object));
 }
 
 

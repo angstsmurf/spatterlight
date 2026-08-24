@@ -79,6 +79,16 @@ You pick up Healing Potion.
 One of the books are not books at all. It is a switch. A slight crack on the
 bottom of the shelf opens. You crawl in without Kilfuno spotting you.
 
+> look
+
+High Wizard's Tower Storeroom
+The storeroom only has one small window. However, it looks as though there is
+nothing much here.
+
+Also here is Volmor's Cake.
+
+You can only move out.
+
 > get cake
 You pick up Volmor's Cake.
 
@@ -161,6 +171,7 @@ Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
 A fierce wind blows.
 Moyru is here.
+Moyru hits Lamanluie, but it doesn't seem to do any damage.
 Lamanluie cuts Moyru with the old rusty broken blood-stained scimitar.
 
 > attack moyru
@@ -202,7 +213,6 @@ must be the ridge of storms.
 Fergo is here.
 
 You can only move down.
-Fergo stabs Lamanluie with Fletched Spear.
 Lamanluie cuts Fergo with the old rusty broken blood-stained scimitar.
 
 > attack fergo
@@ -234,6 +244,7 @@ A steady wind blows.
 Morana is here.
 
 You can only move south.
+Morana hits Lamanluie, but it doesn't seem to do any damage.
 Lamanluie cuts Morana with the old rusty broken blood-stained scimitar.
 
 > attack morana
@@ -317,7 +328,6 @@ A thin tunnel under the water.
 Serpanern is here.
 
 You can only move north.
-Lamanluie cuts Serpanern with the old rusty broken blood-stained scimitar.
 Serpanern hits Lamanluie, but it doesn't seem to do any damage.
 
 > attack serpanern
@@ -505,6 +515,8 @@ from your body drips onto the ground and sizzles mightily.
 Kelorano is here.
 
 You can only move west.
+You feel cold.
+Lamanluie cuts Kelorano with the old broken scimitar.
 Kelorano hits Lamanluie with Ever-burning torch.
 
 > kelorano t1
@@ -520,13 +532,12 @@ Lamanluie and Kelorano are here.
 
 You can only move west.
 You feels as though you should leave quickly.
-Lamanluie cuts Kelorano with the old scimitar.
-Kelorano hits Lamanluie.
+Kelorano hits you, but it doesn't seem to do any damage.
 
 > get amber
 You pick up the Amber of Flames.
 Lamanluie cuts Kelorano with the old scimitar.
-Kelorano hits Lamanluie.
+Kelorano hits you, but it doesn't seem to do any damage.
 
 > west
 You walk west.
@@ -567,7 +578,6 @@ Slikerma is here.
 
 You can only move west.
 Lamanluie cuts Slikerma with the old scimitar.
-Slikerma hits Lamanluie, but it doesn't seem to do any damage.
 
 > attack slikerma
 You stab Slikerma with the Spirit Dagger.

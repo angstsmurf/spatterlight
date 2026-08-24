@@ -47,6 +47,17 @@ Taking grasp of the drifting steel cable, you hook it through the suits
 safety harness and tie it securely to you.  Your drifting away from the
 escape pod ends.
 
+> look
+
+Deep Space
+Adrift in the expanse of deep space, around you floats the debris of the
+starship you were on.  Nearby is the escape pod you survived in.
+
+Snaking through the debris within reach, a steel cable appears to be
+entangled with the escape pod.  Floating quietly in the debris is a discus
+shaped repairbot.  Several of its dozen spindly legs have been crushed at odd
+angles.
+
 > take repairbot
 The repairbot is too heavy for you to carry at the moment.
 

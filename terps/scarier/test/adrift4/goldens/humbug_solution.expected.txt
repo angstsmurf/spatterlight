@@ -5224,10 +5224,7 @@ Jasper looks at me, "Do you know where it is?  You better not be hiding it
 from me.."
 
 > X teeth
-The trouble with being a dentist is that you still have to get someone else
-to look after your own chompers.  Whoever is Jasper's dentist can't be very
-good, or else he wouldn't need all those gold teeth.  No wonder he's always
-so unpleasant to people.
+Nothing Special.
 
 > Give toffee to Jasper
 Jasper pops the toffee in his mouth and begins to chew.

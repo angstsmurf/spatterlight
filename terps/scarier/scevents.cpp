@@ -334,6 +334,21 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination)
        */
       if (obj_is_static (game, object))
         gs_set_object_static_unmoved (game, object, FALSE);
+
+      /*
+       * An object an event drops into the room the player is standing in is
+       * seen at once, with no lister involved.  run400's event mover ends on
+       * exactly that test -- @00456124 compares the object's freshly written
+       * location field against the player-room global and stamps the seen
+       * byte -- and it is the only reveal on the path, since an event that
+       * places an object mid-turn prints no room description.
+       *
+       * The comparison is against the object's own location, not its
+       * container's: an event that posts something into a closed box in the
+       * player's room leaves it unseen until the box is opened.
+       */
+      if (gs_object_position (game, object) == gs_playerroom (game) + 1)
+        gs_set_object_seen (game, object, TRUE);
     }
 }
 

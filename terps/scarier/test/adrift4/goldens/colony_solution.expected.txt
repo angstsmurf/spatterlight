@@ -214,12 +214,23 @@ You can move down and out.
 You climb the steel cable to the tower top .
 A large alien hits you.
 
-> take light helmet
-You pick up the light helmet.
+> look
+
+In the top of the tower
+You are in the door way of the top area of the tower , there are lots of
+computers here mainly for monitoring flights in and out of the mining colony
+. There are no lights that are on in here but you can see because of the
+flaming clouds outside , the window is busted and there is no air or pressure
+.
+
+Also here is a light helmet and explode on inmpact bullets.
+A large alien is here.
+
+You can only move down.
 A large alien hits you.
 
-> take bullets
-You pick up explode on inmpact bullets.
+> take all
+You pick up the light helmet and explode on inmpact bullets.
 A large alien hits you.
 
 > wear light helmet

@@ -99,6 +99,27 @@ alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=4
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 topaz_solution.txt|topaz.taf|The two of you set out into the forest.|SCR_SKIP_WAITKEY=1
 thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
+# ---------------------------------------------------------------------------
+# THE OBJECT *SEEN* MODEL (2026-08-24).  An object is not referenceable until
+# something LISTS it.  The Runner stamps the seen byte in its room lister and
+# in its examine/open/inventory paths -- never once a turn -- so a room the
+# game never described hides everything loose in it, and `take <thing>` there
+# answers "Take what?".  Two live run400 measurements pin this:
+#   * The X-Files, Adrift_22.txt lines 92-93: `take knife` -> "Take what?" in
+#     Garage 5, entered through task 7 ("Use Key", ShowRoomDesc = 0), with the
+#     Small Pocket Knife lying loose on the floor.  The next command, `out`,
+#     moves normally, so the player really is standing there.
+#   * humbug, Adrift_29.txt: `X teeth` -> "Nothing Special." (see that row).
+# Fifteen rows were re-derived for it, each by inserting the reveal command a
+# player would actually type (a `look`, or an `x` of the container) before the
+# first reference; where that turn could not be spent -- colony's alien kills
+# in two hits, 3monkeys' mandrill corners you -- an existing turn was folded
+# into it instead, keeping the route turn-for-turn identical.  Every one of the
+# fifteen still wins, and lair still scores its full 226.  The engine change is
+# obj_mark_room_objects_seen()/obj_mark_room_statics_seen() in scobjcts.cpp.
+# ---------------------------------------------------------------------------
+# Renegade Brainwave: `west` is a task move with ShowRoomDesc off, so the yew
+# tree's crowbar is never listed; the route gained one `look`.
 renegade_brainwave_solution.txt|Renegade_Brainwave.taf|planet Earth has been averted!
 goldilocks_solution.txt|goldilocks.taf|Three Bears are no more
 masochists_heaven_solution.txt|1HRGAME.taf|You scored 15 out of the maximum 15!
@@ -921,6 +942,16 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # cruel, humbug, iqsfot, man_overboard, provenance, shred_em,
 # TheADRIFTProject, veteran, wrecked, yak_shaving and yonastoundingcastle;
 # every one of them was a bracket line, and nothing else moved.
+# Re-blessed again 2026-08-24 for the object *seen* model (see the block above
+# the renegade_brainwave row).  humbug needs no route change -- exactly ONE
+# line moved across the whole 832-command replay, `X teeth` at command 723,
+# and the new answer is the RIGHT one: the live run400 transcript
+# (~/adrift-battle/runner/wine/pfx/drive_c/adrift/Adrift_29.txt) answers
+# "Nothing Special." there, where Scarier used to print Jasper's gold-teeth
+# description.  Grandad's teeth are a part-of-character static of an NPC the
+# player has never had described, so they are not seen and the examine falls
+# through to the default.  That single line is the second live confirmation
+# the seen model rests on.
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
 # WIN with the FULL 95/95 in 90 commands.  downloaded/CrimeAdventure_walkthrough.sol

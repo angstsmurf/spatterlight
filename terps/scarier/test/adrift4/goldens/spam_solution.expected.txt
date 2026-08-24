@@ -26,6 +26,14 @@ So, how do you intend to find out what's in SPAM©?
 
 >
 
+> look
+
+Kitchen
+The usual refrigerator, stove, and the like are all here, along with
+groceries, and a can of SPAM©.
+
+Also here is a can of SPAM©.
+
 > take spam
 You take the can of SPAM©.
 

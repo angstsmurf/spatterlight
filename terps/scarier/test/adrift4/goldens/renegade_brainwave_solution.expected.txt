@@ -88,6 +88,18 @@ moonlight.
 
 Donald McRonald follows you from the east.
 
+> look
+
+Yew tree
+You stand under the spreading shadow of a vast yew tree, gnarled and twisted
+with age and knobbled with bulbous fungoid protusions. Hundreds of ragged
+crows wheel above the old tree. To the east a meandering pathway disappear
+into the gloom.
+
+Also here is a crowbar.
+Officer Donald McRonald stands nearby, paying scant attention to what is
+going on.
+
 > take crowbar
 You take the crowbar.
 

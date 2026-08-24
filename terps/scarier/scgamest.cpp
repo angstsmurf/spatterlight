@@ -1333,7 +1333,41 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
       gs_set_object_openness (game, index_,
                               prop_get_integer (bundle, "I<-sis", vt_key));
 
-      gs_set_object_seen (game, index_, FALSE);
+      /*
+       * openadv seeds the seen byte straight from the location field it has
+       * just built (@004909B5): it clears the byte, then sets it when the
+       * location is 0 (held by the player) or &H9C (worn by the player).
+       *
+       * A static never reaches that mapping's dynamic cases, but it does go
+       * through the same "location = InitialPosition - 1" step at @00490270,
+       * so a static whose Where/Type is ONE_ROOM (1) lands on 0 and starts
+       * *seen*.  Statics in some or all rooms (2 and 3, remapped to &HF6 and
+       * &HEC), part-of-character statics (&HE2) and everything hidden (-1)
+       * all start unseen.  The Runner reuses the dynamic mapping here and
+       * plainly never noticed it was labelling single-room statics "held".
+       *
+       * The quirk is load-bearing: it is what lets a game with DispFirstRoom
+       * off -- ZAC.taf, 1HRGAME.taf, secret_of_lost_world -- answer
+       * `x sand` on turn one although tstart (@0044D68F) only calls viewroom
+       * when that flag is set, so no room description has ever run and no
+       * lister has revealed anything.
+       */
+      if (is_static)
+        {
+          vt_key[2].string = "Where";
+          vt_key[3].string = "Type";
+          gs_set_object_seen (game, index_,
+                              prop_get_integer (bundle, "I<-siss", vt_key)
+                                == ROOMLIST_ONE_ROOM);
+        }
+      else
+        {
+          const scr_int position = gs_object_position (game, index_);
+
+          gs_set_object_seen (game, index_,
+                              position == OBJ_HELD_PLAYER
+                              || position == OBJ_WORN_PLAYER);
+        }
 
       vt_key[2].string = "InRoomDesc";
       inroomdesc = prop_get_string (bundle, "S<-sis", vt_key);

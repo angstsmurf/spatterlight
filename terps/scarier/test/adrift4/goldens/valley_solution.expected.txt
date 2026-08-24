@@ -75,6 +75,19 @@ time being expected to run around in a mine all day hoping rocks don't fall
 on our heads. If you'll order us some proper construction hats, I'll bet I
 can talk the miners into at least giving you a chance."
 
+> look
+
+Outside the Mine
+A lovely rock garden consisting of boulders of varying sizes has been
+artfully arranged right at the foot of this steeply sloping mountainside that
+is home to the Gnomish Mines. You know it's called the Gnomish Mines, because
+the words "Gnomish Mines" have been carved into the rock wall just above the
+cave entrance to the west. Obviously, whoever designed this place wasn't big
+on subtlety.
+Goospaduggle hums cheerfully to herself while fussing over a cauldron near
+the entrance.  Foreman Fogofoogo is here, reading over a list of complaints
+and muttering to himself.
+
 > get gloves
 You take the pair of gardening gloves.
 
@@ -111,8 +124,7 @@ A nest made of twigs and decorated with a fascinating array of old feathers
 and scraps of paper and bird droppings and oh yes, a shiny plastic pen.
 
 > x scrap
-You notice that one of the scraps has the number 3436 scrawled on it and your
-puzzle sense starts tingling.
+You see no such thing.
 
 > get pen
 You pocket the pen, mentally congratulating yourself. That stupid bird

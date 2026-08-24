@@ -534,10 +534,12 @@ into a walk-related change.
   task refusal.  These are task-matching / parser divergences and they are
   what makes that row unmeasurable by full replay.  Worth its own probe --
   the common shape is a multi-word object name matched on a later word.
-  **Partly diagnosed 2026-08-24**: the two `Take what?` hits and the
-  `look at camera` refusal are the object `seen` gate, not the noun matcher --
-  see the parked-port section at the end of this file.  `burn memo` and
-  `knock` are still unexplained and remain task-matching suspects.
+  **FIXED 2026-08-24**: the two `Take what?` hits and the `look at camera`
+  refusal are the object `seen` gate, not the noun matcher -- ported and
+  landed, see the seen-model section at the end of this file (`take knife` in
+  `Adrift_22.txt` is one of the two live measurements the port rests on).
+  `burn memo` and `knock` are still unexplained and remain task-matching
+  suspects.
 - **Games whose transcripts carry RNG-timed lines** (`xfiles`, `wamk`) need a
   *targeted* Runner probe rather than a full replay.  There is no harness for
   that yet; the p4WK* probe .taf files in
@@ -1346,7 +1348,7 @@ the `lair-of-the-cybercow` rows; see also `xfiles`, `unraveling_god`,
   first, then start the transcript, then drive the remaining commands.
 
 
-## PARKED 2026-08-24 -- the object `seen` model, branch `scarier-seen-flag-port`
+## FIXED 2026-08-24 -- the object `seen` model (was PARKED on `scarier-seen-flag-port`)
 
 The xfiles replay (`Adrift_22.txt`) left one unexplained divergence: run400
 answers `take knife` in Garage 5 with **"Take what?"** where Scarier takes the
@@ -1355,9 +1357,10 @@ off, so no room description prints, and the knife is a dynamic that has been
 lying there since the load.  The Runner's parser will not resolve a noun to an
 object whose `seen` byte is clear, and nothing on that path ever sets it.
 
-Scarier, by contrast, has always marked *everything* in the player's room seen
-on every turn (`obj_turn_update`).  That is the bug.  The port lives on
-`scarier-seen-flag-port` (commit `de7bffcc`); master is untouched and green.
+Scarier, by contrast, used to mark *everything* in the player's room seen on
+every turn (`obj_turn_update`).  That was the bug.  The port was written on
+`scarier-seen-flag-port` (commit `de7bffcc`) and landed on master on
+2026-08-24, with fifteen walkthroughs re-derived for it (below).
 
 ### What run400 actually does
 
@@ -1395,51 +1398,102 @@ on every turn (`obj_turn_update`).  That is the bug.  The port lives on
   (`@00456124`) compare the object's freshly written location field against
   `unk_409011.global_0` and stamp the byte only on equality.
 
-### Why it is parked
+### How it was settled
 
-The port takes the v4 corpus from 0 to **15** regressions:
+The parked note said only a live run400 probe could decide it, and the console
+was locked for the whole session.  It never needed one: **the answer was
+already in the archived transcripts.**
 
-    renegade_brainwave colony xfiles mr_smith spirits_flight spam wreckage
-    imagination to_hell_in_a_hamper 3monkeys humbug deadman lair valley
-    wonderwombat
+- **xfiles, `Adrift_22.txt` lines 92-93.**  The exact case the branch changes,
+  measured live months ago and never read closely:
 
-`xfiles` is the intended one.  The rest are all the same shape, and
-**Renegade Brainwave is the one that needs a live answer**.  Its task 15
-(`Command "* west *"`, `ShowRoomDesc 7`, `CompleteText "You move west."`) has
-three actions in this order:
+        take knife
+        Take what?
 
-    0  move object 4 (the crowbar) to room 7-1 = 6   <- player is still in room 0
-    1  move character 0 (the player) to room 6
-    2  move character 4 (NPC 2) to room 9-1 = 8
+  Task 7 "Use Key" carries `ShowRoomDesc = 0`, the Small Pocket Knife (object
+  31, `InitialPosition` 11 = room 7) is lying loose on the floor of Garage 5,
+  and the very next command, `out`, moves normally -- so the player really is
+  standing in the room and the knife simply does not exist to the parser.  The
+  same transcript answers `take directions` and `get in the van` with "Take
+  what?" too.
+- **humbug, `Adrift_29.txt`.**  A command-for-command replay of the first 832
+  of `cmdfile_humbug.txt` against both master and the branch found **exactly
+  one** line where they differ -- `X teeth` at command 723 -- and the branch is
+  the one that matches the Runner:
 
-Under the model above the crowbar is moved while the player is elsewhere (no
-reveal), the player-move sweep that follows touches statics only, and
-`ShowRoomDesc` prints room 6 from *pre-action* state (see
-`adrift4-showroomdesc-before-actions`), so it never lists the crowbar either.
-Scarier on the branch therefore answers `take crowbar` with "Take what?" one
-move into the walkthrough.
+        RUNNER: Nothing Special.
+        MASTER: The trouble with being a dentist is that you still have to ...
+        BRANCH: Nothing Special.
 
-**The probe that settles it** -- load `Renegade_Brainwave.taf` in run400, type
-`west`, then `take crowbar`:
+  Grandad's teeth are a part-of-character static of an NPC the player has never
+  had described, so they are unseen and the examine falls through to the
+  default.
 
-- *"You take the crowbar."*  -> the model is missing a reveal on the task
-  player-move path (dynamics as well as statics, or a post-action lister).
-  Find it before landing anything.
-- *"Take what?"*  -> the branch is right, and the 15 walkthroughs were derived
-  against a permissive engine.  They then need re-deriving with an explicit
-  `look` (or an `x` of the container/surface) before the take, and re-blessing;
-  the win-marker guard will refuse any that stop being winnable, which is the
-  signal to check the route by hand.
+Two independent live confirmations, zero contradicting evidence, and the
+P-code re-read above (`obhere`'s only two `(48) = 1` writes are in its
+part-of-character branch; the player-move sweep at `loc_48CA32` is gated on
+`global_24 = 1` **and** the static presence array) all agree.  The Renegade
+Brainwave probe was never needed -- and on the branch it behaves exactly as
+predicted:
 
-Worth measuring in the same session, since each is one command:
+    > take crowbar  =>  Take what?
+    > look          =>  Yew tree  You stand under the spreading shadow of ...
+    > take crowbar  =>  You take the crowbar.
 
-- `SPAM.taf` (`DispFirstRoom` off): `take spam` as the very first command.
-- `1HRGAME.taf`: `x little table` then `take bubbles` -- the surface listing
-  inside an object description is what reveals the bubbles, and that path
-  (`examines`, `@0047174D`/`@00471DF1`) is already ported.
-- `Colony.taf` (`DispFirstRoom` **on**): the two `Take what?` hits at golden
-  lines 218/222 are dynamics in a described room, so if they fail live the
-  room lister's marking is wrong, not the model.
+So the note's own decision rule applied: *"Take what?" -> the branch is right,
+and the 15 walkthroughs need re-deriving.*
+
+### Landing it
+
+Cherry-picked onto master as `scarier-seen-flag-land`; six files
+(`scevents.cpp`, `scgamest.cpp`, `sclibrar.cpp`, `scobjcts.cpp`, `scprotos.h`,
+`sctasks.cpp`).  The 15 regressions reproduced unchanged on top of the new
+master, and each was repaired by inserting the reveal command a player would
+actually type before the first reference:
+
+| row | repair |
+| --- | --- |
+| renegade_brainwave | `look` before `take crowbar` |
+| xfiles | `look` before `take knife` (the measured case) |
+| mr_smith | `look` before `take gold key` |
+| spirits_flight | `look` before `get cake` |
+| spam | `look` first (`DispFirstRoom` off) |
+| wreckage | `look` before `take repairbot` |
+| imagination | `look` first (`DispFirstRoom` off) |
+| valley | `look` before `get gloves` |
+| to_hell_in_a_hamper | `look` before `put ear-trumpet in dog's ear` |
+| deadman | `look` before `get all` |
+| 3monkeys | `look` before `get stone`, **minus** the `z` that followed |
+| colony | `look` + one `take all` **replacing** two separate takes |
+| lair | `look` before the wake-up `get all`, plus two more `up` |
+| wonderwombat | three `look`s, and the maze re-measured 12 -> 15 norths |
+| humbug | **no route change** -- only `X teeth` moved |
+
+Two of them could not afford the extra turn and had to stay turn-for-turn
+identical: colony's alien kills in two hits (the old route died on the shifted
+turn), and 3monkeys' mandrill corners you one turn later.  Folding an existing
+turn into the reveal fixed both.
+
+`lair` is the one worth reading.  TASK 313 (`open coffin` in the dream, room
+31) moves the cobalt key to room 21 *while the player is still in the dream*,
+so no reveal fires -- a task object move only reveals into the player's
+**current** room.  The wake-up narration prints no room description, so without
+a `look` the `get all` silently misses the key, the chest at the end cannot be
+opened, and the game finishes at 221 instead of 226 while still printing its
+win marker.  That is exactly the class of quiet loss the marker guard cannot
+catch, so **check the score, not just the marker, on every seen-model repair.**
+The added turn then desynced the random ruined-stairs collapse, which is why
+that row now climbs four times.
+
+Corpus after landing: v4 **303/303 PASS**, a5 unchanged (MATCH 180, DIVERGE 17
+all at baseline, NOSCRIPT 2).
+
+The three follow-up probes the parked note listed are now moot for `SPAM.taf`
+and `Colony.taf` -- both re-derived and green, and Colony's two pre-existing
+"Take what?" lines at golden 218/222 are unchanged, which is the right answer
+for dynamics in a described room.  `1HRGAME.taf` (`x little table` then `take
+bubbles`) is still worth a live check if a console ever comes back, but it
+exercises the `examines` path that was already ported.
 
 ## FIXED 2026-08-24 -- `where` / `find` / `locate`, from P-code alone
 

@@ -20,6 +20,13 @@
 # --- Mull Road, the opening errands ------------------------------------------
 # The gas mask is the single most important object in the game (see the tip
 # sequence below); it is lying in Thumper's burnt-out house.
+# SEEN-MODEL RE-DERIVE (2026-08-24): a dynamic object lying loose in a room
+# is not referenceable until something LISTS it -- the Runner stamps the seen
+# byte in its room lister, not once a turn.  Measured live in run400
+# (Adrift_22.txt, The X-Files): `take knife` in a room entered through a
+# ShowRoomDesc=0 task answers "Take what?" although the knife is on the floor.
+# wonderwombat.taf has DispFirstRoom off: the opening room is never described.
+look
 take mask
 w
 w
@@ -108,6 +115,10 @@ z
 z
 z
 z
+# The truck tips you out at Woop Woop without a room description, so even the
+# package itself is unlisted -- `x small package` answers "You see no such
+# thing." until this `look`.
+look
 x small package
 take sleep pills
 take pain killer pills
@@ -261,6 +272,8 @@ drink beer
 buy beer
 drink beer
 drink beer
+# Same again in Fantasy Land: the component is a loose dynamic nobody has listed.
+look
 take component
 # Eight turns of hangover; there is no way to leave Fantasy Land early.
 z
@@ -292,6 +305,12 @@ n
 # "move character to random room"), so the maze cannot be mapped -- it can only
 # be walked until it spits you out.  The seeded harness makes the wander
 # reproducible; this is the measured number of norths, nothing more.
+# Re-measured 2026-08-24 for the seen-model re-derive: the three `look`s above
+# re-threaded the teleport stream, and 15 norths is now what drops you at the
+# Bus Stop (12 left you in the graveyard, where `buy ticket` has no seller).
+n
+n
+n
 n
 n
 n

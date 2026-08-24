@@ -63,11 +63,20 @@ You palm the hook, which comes free with a simple twist and tug.
 
     The chimpanzee bounds towards you (from your northeast).
 
+> look
+
+Southwest Corner
+    You occupy the interior of a large cubical enclosure with transparent
+walls, a high ceiling, and a dirt floor.  There is a round fan mounted at the
+nearby corner facing east.  Your bed is here.
+    You see to the north a high platform, to the northeast some sort of tree,
+and to the east a gate set in the wall.  The mandrill is north.
+
+    Lying on the ground here is a flint stone.
+    The chimpanzee is here.
+
 > get stone
 You take the flint stone.
-
-> z
-Time passes...
 
     The mandrill lumbers over to your northeast (from your north).
 

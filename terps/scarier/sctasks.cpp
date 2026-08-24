@@ -808,6 +808,7 @@ task_run_move_npc_action (scr_gameref_t game,
         {
         case 0:                /* To room */
           gs_move_player_to_room (game, var3);
+          obj_mark_room_statics_seen (game, var3);
           return;
 
         case 1:                /* To roomgroup part */
@@ -820,7 +821,10 @@ task_run_move_npc_action (scr_gameref_t game,
           {
             scr_int dest = lib_random_roomgroup_member (game, var3);
             if (dest >= 0)       /* Empty group: leave the player in place. */
-              gs_move_player_to_room (game, dest);
+              {
+                gs_move_player_to_room (game, dest);
+                obj_mark_room_statics_seen (game, dest);
+              }
           }
           return;
 
@@ -847,7 +851,10 @@ task_run_move_npc_action (scr_gameref_t game,
                 scr_trace ("Task: silently suppressed player move to hidden\n");
             }
           else
-            gs_move_player_to_room (game, room);
+            {
+              gs_move_player_to_room (game, room);
+              obj_mark_room_statics_seen (game, room);
+            }
           return;
 
         case 3:                /* To standing on */
@@ -878,6 +885,7 @@ task_run_move_npc_action (scr_gameref_t game,
               && var3 >= 0 && var3 < gs_room_count (game))
             {
               gs_move_player_to_room (game, var3);
+              obj_mark_room_statics_seen (game, var3);
               return;
             }
           if (task_trace)

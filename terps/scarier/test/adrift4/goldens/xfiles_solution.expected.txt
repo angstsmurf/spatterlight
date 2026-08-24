@@ -257,6 +257,17 @@ gift?"  "Uh, yeah," you say.  "And?"  "And I liked it very much."  She sighs
 on the other end of the phone.  "Try not to get too jolly, okay Mulder?"
 "Okay," you say.  She hangs up and your left with the phone in your hand.
 
+> look
+
+Garage 5
+The garage is empty.  It has been cleaned out recently.  Footprints in the
+inch-thick dust indicate that whoever did was in a hurry.  Take the knife
+with you.  It may come in handy.
+
+Also here is Small Pocket Knife.
+
+You can only move out.
+
 > take knife
 You take Small Pocket Knife.
 

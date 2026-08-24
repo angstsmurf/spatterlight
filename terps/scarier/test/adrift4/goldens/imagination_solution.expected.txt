@@ -51,6 +51,16 @@ Please enter your name:
 
 > Jenny
 
+> look
+
+In a dark tunnel
+You are in a dark tunnel that seems to have caved in when the little girl
+unexpectedly fell in.  A pile of dirt indicates where the tunnel once was.  A
+hole high above provides a tiny bit of light, but is far to high to climb
+back out.
+
+Also here is a small stick.
+
 > take stick
 You take the small stick.
 

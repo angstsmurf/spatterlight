@@ -274,6 +274,14 @@ You shoot Fernelli with Colt .45 pistol.
 > shoot fernelli with pistol
 You shoot Fernelli with Colt .45 pistol.
 
+> look
+
+Observatory
+You enter the observatory. It is a dimly lit room with few candles and an
+open drawer.
+
+Also here is gold key and a Remington 410 shotgun.
+
 > take gold key
 You pick up gold key.
 

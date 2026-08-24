@@ -1156,6 +1156,104 @@ obj_shows_initial_description (scr_gameref_t game, scr_int object)
 
 
 /*
+ * obj_mark_room_objects_seen()
+ *
+ * Mark seen the objects a room description reveals: static objects present
+ * in the room (including parts of a present NPC), and dynamic objects lying
+ * directly in it.  Objects inside or on top of other objects, and NPC
+ * possessions, are NOT seen until a contents listing reveals them
+ * (examine/open/look in the parent, or examining the NPC), so don't recurse
+ * through holders here.
+ *
+ * This runs from the room lister, not once a turn, because that is where
+ * every Runner does it.  The seen byte is object field 40 in 3.8 and field
+ * 44 in 3.9/4.0, and a census of its writers finds exactly one site in the
+ * room path: run380 viewroom sets it at 00439735 for a static whose room
+ * array covers the player room and at 00439792 for a dynamic whose location
+ * is the room being listed, and run390 viewroom does the same pair at
+ * 00447B9C and 00447BFC.  Both sit *below* the lister's brief-mode exit
+ * (run390 @00447B10, "If verbose = 1 Then Exit Sub"), so a room the Runner
+ * did not describe in full marks nothing.  The Runner's other writers are
+ * all reveal sites Scarier already has: openadv (held or worn at load),
+ * examines, charinv, inventory, drops, whatisinon, insides, afteroa,
+ * checkevent.
+ *
+ * Measured in run400's Adrift_22.txt (The X-Files, 4.00): task 7 "Use Key"
+ * carries ShowRoomDesc = 0, so entering Garage 5 through it prints no room
+ * description -- and `take knife` there answers "Take what?", although the
+ * Small Pocket Knife (object 31, InitialPosition 11 = room 7) is lying
+ * loose on the floor.  The very next command, `out`, moves normally, so the
+ * player really is in the room; the knife simply does not exist to the
+ * parser until something lists it.  Scarier used to mark it seen every turn
+ * regardless and took it.
+ *
+ * Both tests use the room being listed.  run400's viewroom reads the
+ * static's presence array at its own room argument (@00472639), while
+ * run390's reads it at the player-room global (unk_4082E6.global_0) and
+ * tests only dynamics against the argument; the two differ solely when a
+ * task displays a room the player is not in, which is rare enough that the
+ * 4.0 reading is the one worth carrying.
+ */
+void
+obj_mark_room_objects_seen (scr_gameref_t game, scr_int room)
+{
+  scr_int index_;
+
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      scr_bool is_visible;
+
+      if (gs_object_seen (game, index_))
+        continue;
+
+      if (obj_is_static (game, index_))
+        is_visible = obj_static_in_room (game, index_, room, TRUE);
+      else
+        is_visible = gs_object_position (game, index_) == room + 1;
+
+      if (is_visible)
+        gs_set_object_seen (game, index_, TRUE);
+    }
+}
+
+
+
+/*
+ * obj_mark_room_statics_seen()
+ *
+ * Mark seen every static object present in a room.  A task action that moves
+ * the player runs this over the destination: run400's executor sweeps the
+ * whole object table after each of its three player-room destinations ("to
+ * room" @0048CA32, "to roomgroup part" @0048CADD, "to same room as"
+ * @0048CB48) and sets the seen byte on every object whose static flag is set
+ * and whose presence array covers the new player room.  Dynamic objects are
+ * not touched -- each sweep tests global_24 = 1 first -- so an object lying
+ * loose in the destination stays unknown until something lists it.
+ *
+ * The sweep matters because it is the only reveal on that path: a task that
+ * moves the player without ShowRoomDesc prints no room description, so the
+ * room lister never runs.  Measured against Professor.taf, whose "move
+ * contraption" task carries the player to Glen's Lookout and prints the room
+ * text from its own ALR-expanded CompleteText -- `examine button` there
+ * resolves the green button (object 86, a static of that room) although no
+ * lister ever mentioned it.
+ */
+void
+obj_mark_room_statics_seen (scr_gameref_t game, scr_int room)
+{
+  scr_int index_;
+
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      if (gs_object_seen (game, index_) || !obj_is_static (game, index_))
+        continue;
+
+      if (obj_static_in_room (game, index_, room, TRUE))
+        gs_set_object_seen (game, index_, TRUE);
+    }
+}
+
+/*
  * obj_turn_update()
  * obj_setup_initial()
  *
@@ -1167,36 +1265,21 @@ obj_turn_update (scr_gameref_t game)
   scr_int index_;
 
   /*
-   * Update object seen flag to current state.  The Adrift Runner marks an
-   * object seen when the room description lists it: static objects present
-   * in the room (including parts of a present NPC), and dynamic objects
-   * lying directly in the room.  Objects held or worn by the player are
-   * seen from the start.  Objects inside or on top of other objects, and
-   * NPC possessions, are NOT seen until a contents listing reveals them
-   * (examine/open/look in the parent, or examining the NPC), so don't
-   * recurse through holders here.
+   * Anything the player holds or wears is seen.  run390's loader stamps the
+   * flag for exactly these two positions as it reads each object in
+   * (openadv @004656F0 tests location 0 and &H9C, held and worn), and its
+   * inventory lister re-stamps them; keeping it here covers an object that
+   * reaches the player's hands by a route with no lister of its own.
    */
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     {
-      scr_bool is_visible;
+      scr_int position;
 
       if (gs_object_seen (game, index_))
         continue;
 
-      if (obj_is_static (game, index_))
-        is_visible = obj_static_in_room (game, index_,
-                                         gs_playerroom (game), TRUE);
-      else
-        {
-          scr_int position;
-
-          position = gs_object_position (game, index_);
-          is_visible = position == gs_playerroom (game) + 1
-                       || position == OBJ_HELD_PLAYER
-                       || position == OBJ_WORN_PLAYER;
-        }
-
-      if (is_visible)
+      position = gs_object_position (game, index_);
+      if (position == OBJ_HELD_PLAYER || position == OBJ_WORN_PLAYER)
         gs_set_object_seen (game, index_, TRUE);
     }
 }
