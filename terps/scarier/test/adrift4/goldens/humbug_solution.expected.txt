@@ -123,7 +123,6 @@ Heh heh.  I think not.
 Okay.  I have taken the paper aeroplane from the satchel.
 
 > Drop it
-[Drop a paper aeroplane]
 Okay.  I have dropped the paper aeroplane.
 
 > Out
@@ -169,7 +168,6 @@ inside the letterbox.
 Okay.  I have taken the envelope from the letterbox.
 
 > Read it
-[Read an envelope]
 Addressed to Grandad Widdershins, Attervist Manor, Windmill Lane, Kent.  It
 is still sealed.
 
@@ -2288,7 +2286,6 @@ happy.  Grandad is wearing a hat, and carrying a document.
 Okay.  I have taken the document from Grandad.
 
 > Read it
-[Read a document]
 It is addressed to Grandad, and is from the solicitors of Grandad's neighbour
 Jasper Slake:
 
@@ -2322,7 +2319,6 @@ Grandad has scrawled a very rude word over the document.  He doesn't like his
 neighbour very much.
 
 > Drop it
-[Drop a document]
 Okay.  I have dropped the document.
 
 > Get hat
@@ -3995,21 +3991,18 @@ Okay.  I have taken the envelope.
 Schrodinger wanders towards me from the north.
 
 > Read it
-[Read an envelope]
 Addressed to Grandad Widdershins, Attervist Manor, Windmill Lane, Kent.  It
 is still sealed.
 
 Schrodinger wanders to above.
 
 > Open it
-[Open an envelope]
 I tear open the envelope.  The envelope contains a Christmas card.
 
 > Get card
 Okay.  I have taken the Christmas card from the envelope.
 
 > Read it
-[Read a Christmas card]
 Two robins are perched on the front of the Christmas card.  Inside a message
 is written in mum's familiar handwriting:  "Grandad, have a Happy Xmas, love
 from all the family.  xxx.  PS. Don't forget young Sidney is visiting for a
@@ -4983,7 +4976,6 @@ Exits are north, east, south, west and up.
 Okay.  I have taken the gloves.
 
 > Wear it
-[Wear some gloves]
 Okay.  I am now wearing the gloves.
 
 > Get hedgehog
@@ -6418,7 +6410,6 @@ Okay.  I have taken the diamond.
 Okay.  I have taken the gloves.
 
 > Wear it
-[Wear some gloves]
 Okay.  I am now wearing the gloves.
 
 Schrodinger wanders towards me from above.
@@ -6834,7 +6825,6 @@ Exits are north, east and south.
 Okay.  I have taken the monocle.
 
 > Wear it
-[Wear a monocle]
 Okay.  I am now wearing the monocle.  As soon as I put on the monocle my
 eyesight is dramatically distorted.  All I can see now is a menagerie of
 distorted shapes and squiggles.  No wonder Grandad has such a strange view of
@@ -7553,7 +7543,6 @@ Okay.  I have taken the tin from horace's workbench.
 Horace bounds after the paper aeroplane, trying to catch it.
 
 > Open it
-[Open a tin]
 I open the tin.  Some snuff is inside the tin.
 Horace bounds after the paper aeroplane, trying to catch it.
 

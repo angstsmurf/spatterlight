@@ -32,11 +32,9 @@ A normal bench.
 Your bag that you brought in for tonight.  The bag is closed.
 
 > take it
-[take bag]
 You pick up the bag.
 
 > open it
-[open bag]
 You open the bag.  A crowbar is inside the bag.
 
 > x crowbar

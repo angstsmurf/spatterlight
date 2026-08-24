@@ -517,7 +517,6 @@ contains, apart from a few dust-bunnies, is an electric hairdryer.
 You take the hairdryer from the seat.
 
 > x it
-[x a hairdryer]
 Quite what the Dada Lama wants with a hairdryer is beyond you - the man is as
 bald as a coot. Perhaps it belongs to one of his 'disciples'. It appears to
 be powered by cosmic energy, which is handy as there doesn't seem to be

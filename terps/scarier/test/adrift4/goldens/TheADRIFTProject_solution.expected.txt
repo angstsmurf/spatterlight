@@ -287,7 +287,6 @@ You can't open the black box as it is locked!
 You unlock the black box with the silver key.
 
 > open it
-[open the black box]
 You open the black box.  The remote control is inside the black box.
 
 > take remote

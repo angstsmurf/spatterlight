@@ -207,7 +207,6 @@ Sensing ye no longer requireth ye grimy key, ye discardeth of it in yon
 stewpot.  Man... ye betteth yon stew shall tasteth inexorably funky by now.
 
 > open it
-[open ye dirty table]
 Ye openeth ye dirty table.  Ye resizing wheel cronkle is inside ye dirty
 table.
 
@@ -279,7 +278,6 @@ Ye magic belt looketh more like ye size, now.
 Ye taketh ye magic belt from yon belt resizing device.
 
 > wear it
-[wear ye magic belt]
 Ye putteth on ye magic belt.
 
 Ye feeleth much stronger!
@@ -742,7 +740,6 @@ Ye sticketh ye silver key into yon desk & unlocketh it forthwith!  It openeth
 for ye quite politely.
 
 > x it
-[x ye alchymist's desk]
 Ye rickety, olde desk hath taken harsh treatement from ye mixing of various
 chymicals & reagent-type things.  Otherwise, 'twould not looketh so ugly.  Ye
 alchymist's desk is open.  Ye magic crystal is inside ye alchymist's desk.

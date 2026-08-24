@@ -39,7 +39,6 @@ You turn on the shredder.  It hums satisfyingly.
 You take the files from the filing cabinet.
 
 > shred them
-[shred some files]
 You feed the pages into the shredder. Grind! Grind! Grind!  They are now
 confetti.
 
@@ -47,7 +46,6 @@ confetti.
 You take the files from the filing cabinet.
 
 > shred them
-[shred some files]
 You feed the pages into the shredder. Grind! Grind! Grind!  They are now
 confetti.
 
@@ -55,7 +53,6 @@ confetti.
 You take the files from the filing cabinet.
 
 > shred them
-[shred some files]
 You feed the pages into the shredder. Grind! Grind! Grind!  They are now
 confetti.
 
@@ -63,7 +60,6 @@ confetti.
 You take the files from the filing cabinet.
 
 > shred them
-[shred some files]
 You feed the pages into the shredder. Grind! Grind! Grind!  They are now
 confetti.
 
@@ -71,7 +67,6 @@ confetti.
 You take the files from the filing cabinet.
 
 > shred them
-[shred some files]
 You feed the pages into the shredder. Grind! Grind! Grind!  They are now
 confetti.
 The SEC Investigator bursts into the room!  Luckily, you've shredded all of

@@ -107,7 +107,6 @@ A small wooden cupboard in the corner of your room. All your wordly
 possessions lie within...  The Cupboard is closed.
 
 > open it
-[open Cupboard]
 You open the Cupboard.  A Fake beard and the Captain's log are inside the
 Cupboard.
 
@@ -246,14 +245,12 @@ A large wooden wardrobe that is attached to the wall.  The wardrobe is
 closed.
 
 > open it
-[open wardrobe]
 You open the wardrobe.  A bar of chocolate is inside the wardrobe.
 
 > x chocolate
 A small bar of chocolate., that smells yummy!
 
 > take it
-[take a bar of chocolate]
 You take the bar of chocolate from the wardrobe.
 
 > x bulb
@@ -261,7 +258,6 @@ You look up at the bulb in the ceiling. Its a small glass bulb hanging from
 the ceiling.
 
 > take it
-[take the bulb]
 You reach up to grab the bulb, but you are not tall enough to get it. (Plus
 your back hurts when you stretch).
 
@@ -311,7 +307,6 @@ A grey steel pantry. It is filthy and covered in handprints and dirt. You
 assume that food was kept here once. The door to the pantry is closed.
 
 > open it
-[open pantry]
 You try opening the pantry door, but it is jammed shut. There is no lock, so
 you guess it must just be too stiff to open with just your puny arms.
 
@@ -382,7 +377,6 @@ would assist your plight anyway.
 You see no such thing.
 
 > take it
-[take a key]
 You take the key.
 
 > x first mate
@@ -486,7 +480,6 @@ A long white container that holds the life raft to the ship.  The container
 is closed.
 
 > open it
-[open a container]
 You open the container.  A note is inside the container.
 
 > read note
@@ -577,7 +570,6 @@ The ship's flag is attached to the mast, flying and blowing in the wind.
 A small metal toolbox.  The toolbox is closed.
 
 > open it
-[open toolbox]
 You open the toolbox.  A crowbar is inside the toolbox.
 
 > x crowbar

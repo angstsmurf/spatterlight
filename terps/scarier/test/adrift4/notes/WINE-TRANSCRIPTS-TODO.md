@@ -585,19 +585,23 @@ into a walk-related change.
   (all 4.00); no 3.80 golden exercises the lister, so that branch rests on the
   P-code alone.
 
-- **run400 prints no pronoun echo** (measured on `humbug`, 4.00, 2026-08-24).
-  `Drop it` gets a bare "Okay.  I have dropped the paper aeroplane." from the
-  Runner, where Scarier prints an italic `[Drop a paper aeroplane]` line first;
-  same for `Read it`.  That echo is deliberate in `scrunner.cpp` (~line 2620) --
-  upstream SCARE echoed the rewrite for *synonyms* too, that half was removed as
-  noise "the Runner never prints", and the pronoun half was kept on the argument
-  that "it"/"her" are ambiguous and the echo is how the player learns what they
-  bound to.  The Runner does not agree.  It is a defensible deliberate
-  deviation, but it is currently undocumented and unmeasured; decide it properly
-  and either drop it or record it as `deliberate:` with this measurement.  Blast
-  radius is wide -- bracket-only lines appear in ~20 goldens (`plague` 39,
-  `cellar` 28, `provenance` 27), though some of those are game text, not echoes.
-
+- **FIXED 2026-08-24: the bracketed pronoun echo is gone** (measured on
+  `humbug`, 4.00).  `Drop it` gets a bare "Okay.  I have dropped the paper
+  aeroplane." from run400, where Scarier printed an italic
+  `[Drop a paper aeroplane]` line first; same for `Read it`.  That echo was
+  upstream SCARE's, for synonyms and pronouns alike; an earlier session had
+  already removed the synonym half as noise "the Runner never prints" and kept
+  the pronoun half on the argument that "it"/"her" are ambiguous and the echo
+  is how the player learns what they bound to.  The Runner does not agree, and
+  the other three generations back run400 up by string search: **run370 and
+  run380 contain no `[` string literal at all, and run390's only one is the
+  `[More]` pager** (run400's messages live in a table, so it cannot be checked
+  that way -- hence the live measurement).  Removed from `scrunner.cpp`; the
+  substitution itself still happens.  14 goldens re-blessed, 94 lines, every
+  one of them a bracket line and nothing else: `adrift_maze`, `archie`,
+  `cellar`, `cruel`, `humbug`, `iqsfot`, `man_overboard`, `provenance`,
+  `shred_em`, `TheADRIFTProject`, `veteran`, `wrecked`, `yak_shaving`,
+  `yonastoundingcastle`.  Corpus 303/303.
 - **`the_pk_girl`'s second Detainment visit** (2026-08-24).  With an identical
   command stream the Runner prints "Laurie is standing here." where Scarier
   prints "Laurie is in your arms."  Laurie is in the player's arms in both --
@@ -847,8 +851,6 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
 - **Two logged-but-unchased humbug divergences:** cmd 217 `Put sweet on
   plinth` (run400 doubles "Okay."), cmd 254 `W` (scarier adds "(Getting off
   the stool first)").
-- **The pronoun-echo lead** still needs a decision -- remove it, or mark it
-  `deliberate:` with the measurement.  It affects about twenty goldens.
 - **Next candidates** down the list: `goldilocks`, `cibass`, `sophie`/`sa.taf`.
   With the pre-3.9 pool now clean, the remaining 3.90 and 4.00 candidates are
   where the next divergences will come from.

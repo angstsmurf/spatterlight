@@ -885,6 +885,16 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # is `push &HFF 'Byte` = -1 (VB Decompiler prints a signed byte; the same
 # opcode/operand at 00068805 is the Step of a For ... To 0 loop).
 # Still a win: the marker below is unaffected.
+# Re-blessed 2026-08-24 with thirteen other rows for the removal of the
+# bracketed pronoun echo (scrunner.cpp).  Upstream SCARE answered a command it
+# had rewritten with an italic "[Drop a paper aeroplane]" line; no Runner does.
+# Measured live here on run400 -- "Drop it" gets a bare "Okay.  I have dropped
+# the paper aeroplane." -- and confirmed against the other three by string
+# search: run370 and run380 contain no "[" literal at all, and run390's only
+# one is the "[More]" pager.  94 lines went, in adrift_maze, archie, cellar,
+# cruel, humbug, iqsfot, man_overboard, provenance, shred_em,
+# TheADRIFTProject, veteran, wrecked, yak_shaving and yonastoundingcastle;
+# every one of them was a bracket line, and nothing else moved.
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
 # WIN with the FULL 95/95 in 90 commands.  downloaded/CrimeAdventure_walkthrough.sol

@@ -2613,23 +2613,16 @@ run_player_input (scr_gameref_t game)
             : (filtered ? scr_normalize_string (filtered.get ()) : line_element);
 
   /*
-   * Echo the rewritten command, but only when a pronoun fired.  Upstream SCARE
-   * echoed it for synonyms too, which is noise the Runner never prints and which
-   * exposes authoring the player is not meant to see: "The Warlord, The Princess
-   * & The Bulldog" routes "i"/"inv"/"inventory" through a synonym to the keyword
+   * Upstream SCARE echoed the rewritten command in italic brackets, for
+   * synonyms and for pronouns alike.  No Runner does: run370 and run380 have
+   * no "[" string literal at all, run390's only one is the "[More]" pager, and
+   * run400 was measured live on humbug (2026-08-24) answering "Drop it" with a
+   * bare "Okay.  I have dropped the paper aeroplane."  The echo also exposed
+   * authoring the player is not meant to see -- "The Warlord, The Princess &
+   * The Bulldog" routes "i"/"inv"/"inventory" through a synonym to the keyword
    * its inventory task listens for, so every "i" answered with a bare "[iii]".
-   * A pronoun is different -- "it" and "her" are ambiguous by nature, and the
-   * echo is the only way the player learns what they bound to.
+   * Both halves are gone; the substitution itself still happens.
    */
-  if (replaced)
-    {
-      if_print_tag (SCR_TAG_ITALICS, "");
-      if_print_character ('[');
-      if_print_string (command);
-      if_print_character (']');
-      if_print_tag (SCR_TAG_ENDITALICS, "");
-      if_print_character ('\n');
-    }
 
   /* Try the command line element against command matchers. */
   status = run_all_commands (game, command);

@@ -205,13 +205,11 @@ It is a very tropy with a golden cup and giant letters that spell out ADRIFT.
  It look like there is some writing on it.
 
 > read it
-[read a trophy]
 It has the following engraved on it.
 
 adventurer
 
 > take it
-[take a trophy]
 You take the trophy and hold it up proudly.
 
 Congratulations!  You WIN!

@@ -118,11 +118,9 @@ A simple pair of glasses used to correct visual impairments, such as Irvine's
 reading-specific astigmatism.
 
 > take it
-[take a pair of glasses]
 HiRBy takes the pair of glasses in its pincers.
 
 > take it
-[take a pair of glasses]
 Irvine plucks the pair of glasses from HiRBy's pincers.
 Irvine mumbles something and dons his glasses again quickly, hoping he won't
 lose them.
@@ -893,7 +891,6 @@ The HiRBy droid continues to hover with its arms deployed, bobbing up and
 down in the air contentedly.
 
 > get it
-[get a knapsack]
 Irvine plucks the pack from HiRBy's pincers.
 
 > deploy
@@ -1002,7 +999,6 @@ Irvine feebly pushes at the dummy with his feet, smacking at it uselessly
 with all his sole.
 
 > sweep him
-[sweep the Practice Dummy]
 Irvine struggles at the resiliently balanced practice dummy.  Eventually, it
 turns a little flip over his leg and falls over.
 
@@ -1012,7 +1008,6 @@ Sproing!  It stands back up.
 will not teach you to block."
 
 > throw him
-[throw the Practice Dummy]
 Irvine grapples the practice dummy and stumbles around with it, eventually
 sending it to the floor with a thud.
 

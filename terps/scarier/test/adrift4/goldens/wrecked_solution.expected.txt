@@ -39,7 +39,6 @@ the shelter.
 Ridiculous isn't it.  Who writes this stuff?
 
 > read it
-[read the graffiti]
 JD fancies me!  Up the Celts.  SFD rules!  Phone 4388 for a good time.  My
 other bus shelter's a Porsche.
 
@@ -82,7 +81,6 @@ brown colour.  On the bench is a tweed jacket.
 I take a tweed jacket from the bench.
 
 > x it
-[x a tweed jacket]
 The tweed jacket is a delightful brown colour.  It looks a bit worn,
 especially at the elbows.  Inside the tweed jacket is a small key.
 
@@ -99,12 +97,10 @@ locking mechanism in the locker requires a coin to lock it.  The red locker
 is open.
 
 > close it
-[close the red locker]
 As I close the red locker, I hear a clunking noise, as though something has
 fallen out of the locking mechanism.  I open the door again.
 
 > x it
-[x the red locker]
 The bright red locker appears to be the only one which isn't locked.  The
 locking mechanism in the locker requires a coin to lock it.  The red locker
 is open.  Inside the red locker is a small silver coin.
@@ -202,12 +198,10 @@ the leaflet rack is an application form.
 I take an application form from the leaflet rack.
 
 > x it
-[x an application form]
 The form appears to be an application form for a Gold card.  It has the
 address of some company written on it.
 
 > fill it out
-[fill an application form out]
 I fill out the application form.
 
 > out
@@ -219,7 +213,6 @@ low.  There is a bright red post box set outside the door of the post office.
 I can move north, east, south and in.
 
 > post it
-[post an application form]
 I post the application form into the post box.
 
 > east
@@ -394,11 +387,9 @@ manilla envelope.
 I take a manilla envelope from the post office tray.
 
 > open it
-[open a manilla envelope]
 I tear open the envelope.  Inside, I find a Gold card.
 
 > drop it
-[drop a manilla envelope]
 I drop the manilla envelope.
 
 > out
@@ -452,7 +443,6 @@ you.  He walks around to the window, and hands you the scuba outfit.  "Hope
 it fits!"
 
 > ask him about pens
-[ask the Harold about pens]
 "No, I'm sorry.  We don't sell those any more - we're trying to cut down on
 all the graffiti around here."
 
@@ -483,7 +473,6 @@ The plaque is set into the pillar, and is made from brass.  It protrudes
 slightly.
 
 > push it
-[push the small plaque]
 I push the plaque firmly.  The plaque clicks, and then springs open,
 revealing a juicy pork chop.
 The rain eases slightly.
@@ -502,7 +491,6 @@ I can move north, east, south, west and in.
 The rain stops.
 
 > drop it
-[drop a juicy pork chop]
 I drop the pork chop.  Angus immediately pounces on the chop, and starts
 chewing away.
 
@@ -524,7 +512,6 @@ pavings, sticking out like a sore thumb.  The drain is closed.
 I can move north, east, south and west.
 
 > open drain with it
-[open drain with a large shark hook]
 With a bit of effort, I manage to get the drain open with the shark hook.
 
 > drop hook
@@ -749,7 +736,6 @@ The toilet looks extremely unhygenic.  There appears to be something stuck in
 the toilet.
 
 > flush it
-[flush the toilet]
 I flush the toilet.  It gurgles a lot, then suddenly, whatever it is that is
 stuck inside gets sucked down and away.
 
@@ -775,12 +761,10 @@ goat's with goat's hoofs for feet.  He looks quite cold.  Mr Tumnus is
 carrying a small flute.
 
 > give him the jacket
-[give the Mr Tumnus the jacket]
 I hand Mr Tumnus the tweed jacket.  "Thanks very much.  You are very kind.
 Here, take this flute."
 
 > give him the flowers
-[give the Mr Tumnus the flowers]
 "Oh, thanks!  I've not seen flowers for years - not since the Witch turned
 everything to snow."  Mr Tumnus turns around.  "Hey, Aslan!"  Out of the
 bushes, a large lion appears.  "Look at what I've been given!"  Aslan looks
@@ -792,7 +776,6 @@ better have this."
 I pick up the witch's magic wand.
 
 > ask aslan about it
-[ask aslan about the witch's magic wand]
 "Sorry, I don't know anything about that."
 
 > out
@@ -889,7 +872,6 @@ I wave the wand about.  Porkie suddenly slows down.  Slowly, his pinkiness
 turns to grey, and he turns back into a statue.
 
 > drop it
-[drop the witch's magic wand]
 I drop the witch's magic wand.
 
 > stand on statue
@@ -929,7 +911,6 @@ Madge watches me intently from behind the glass screen.
 I can only move out.
 
 > give it to madge
-[give a small black cat to madge]
 I hand Madge her cat.  "Oh, my baby!"  Madge cuddles the cat tightly - the
 cat's eyes bulge out slightly.  "I'm so grateful, here, take this."  Madge
 removes the amulet from around her neck, and gives it to me
@@ -1006,7 +987,6 @@ The engine looks very powerful.  There is a cap in the top of the engine.
 There is a dial on the side of the engine.  The needle points to empty.
 
 > put petrol in it
-[put petrol in the engine]
 I pour the petrol from the glass into the engine.
 
 > put key in ignition
@@ -1066,7 +1046,6 @@ have thought.  The door is open.  Inside the old wooden cabinet is an old log
 book and a large bronze key.
 
 > get all from it
-[get all from the old wooden cabinet]
 I take an old log book and a large bronze key from the old wooden cabinet.
 
 > out
@@ -1253,11 +1232,9 @@ adventure.
 I'd say ADRIFT is by far the best."
 
 > ask her about good time
-[ask the attractive Suzie about good time]
 "Oh, that.  That'll be referring to my musical talents."
 
 > give her the flute
-[give the attractive Suzie the flute]
 I hand the small flute to Suzie.  Her eyes light up.  "A flute!  I've been
 wanting to play one for ages."  She takes it off me, and begins to play a
 beautiful tune.
@@ -1430,7 +1407,6 @@ The slot looks as though something should be inserted into it.  I think it's
 connected to the portcullis.
 
 > put stick in it
-[put stick in the slot]
 I put the stick into the slot.  It fits perfectly, creating a lever.
 
 > pull lever
@@ -1449,7 +1425,6 @@ The chest is huge.  The name The Unsinkable is stensilled on the lid.  The
 chest is closed.
 
 > open it
-[open the large wooden chest]
 I carefully open the chest.  Suddenly, a stream of poisonous gas ejects from
 inside the chest, filling the room.  Luckily, I'm wearing the scuba outfit,
 and it appears to be working, because the gas has no effect on me.  It takes
