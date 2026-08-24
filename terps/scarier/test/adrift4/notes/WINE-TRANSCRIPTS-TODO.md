@@ -672,13 +672,25 @@ into a walk-related change.
   `cellar`, `cruel`, `humbug`, `iqsfot`, `man_overboard`, `provenance`,
   `shred_em`, `TheADRIFTProject`, `veteran`, `wrecked`, `yak_shaving`,
   `yonastoundingcastle`.  Corpus 303/303.
-- **`the_pk_girl`'s second Detainment visit** (2026-08-24).  With an identical
-  command stream the Runner prints "Laurie is standing here." where Scarier
-  prints "Laurie is in your arms."  Laurie is in the player's arms in both --
-  what differs is which alternate NPC description the room lister picks, so
-  this is the *selector*, not the walk state, and it is a different question
-  from the ChangedDesc pick that `donuts_intro`/`maincourse`/`orient_express`
-  already pin down.
+- **CLOSED 2026-08-25: `the_pk_girl`'s second Detainment visit** (opened
+  2026-08-24).  Scarier now prints exactly what the Runner does, at both
+  visits, and the closing needed no new measurement -- only re-reading the
+  old one against today's engine.  The original note called this "which
+  alternate NPC description the room lister picks", and that was wrong on the
+  mechanism: there is no selector.  Laurie's line is an **ALR** keyed on a
+  variable -- `[[LAURIE_DOING=6]]` -> `is in your arms.`,
+  `[[LAURIE_DOING=9]]` -> `is standing here.` -- so the two engines were
+  simply printing the room at different values of `laurie_doing`, 6 against 9.
+  Both Detainment entries are `ShowRoomDesc` tasks (task 1866 for the first
+  visit and task 1898 for the second, both `where=1 room=104 srd=106`), and
+  the reunion that sets `laurie_doing = 6` is task 1955, reached from those
+  entries.  So the room description has to be printed against the **pre-action**
+  world state, which is exactly what the "ShowRoomDesc prints BEFORE the task's
+  actions" port established a day later; it fixed this row as a side effect and
+  nobody came back to cross it off.  Verified by replaying the golden under
+  `SCR_TRACE_TASKS=1` and diffing both visits against
+  `Adrift_27_thepkgirl.txt` lines 2807 and 3004: "Laurie is lying on the
+  floor." then "Laurie is standing here.", both identical now.
 - **NOT A BUG 2026-08-25: a typed task that prints nothing is refused, and
   run400 refuses it too.**  Noticed while building
   `make_400_walkcapprobe.py`: typing `sil1` at `p4WC.taf` (the walk-count
