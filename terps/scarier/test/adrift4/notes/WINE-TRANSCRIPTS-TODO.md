@@ -1709,12 +1709,42 @@ Four goldens moved, in both affected generations:
 
 303/303 after re-blessing.
 
-Not touched, and worth a probe some day: `lib_print_object_np()` also strips a
-leading `a`/`an`/`the`/`some` off the object's **Short name**, which `tense`
-cannot do -- it only ever looks at the head of `Prefix & " " & Short`, and the
-head is the prefix whenever there is one.  No corpus game exercises the
-difference, so it stays as inherited SCARE behaviour until something measures
-it.
+**Follow-up, settled from the P-code 2026-08-25 (no corpus movement).**
+`lib_print_object_np()` also stripped a leading `a`/`an`/`the`/`some` off the
+object's **Short name**, inherited from SCARE on the grounds that "some games
+may avoid prefix and do this instead".  The Runner provably cannot do that
+whenever there *is* a prefix, so the strip is now gated on the prefix being
+empty.  The proof is short enough to state in full:
+
+- run400 builds every object name in one place, `Proc_21_31_448710`
+  (`General.bas:7041`), called 232 times, and builds it as the single string
+  `Prefix & " " & Short` (`loc_4486B7`..`loc_4486CF`).
+- It hands that to `tense`, `Proc_21_13_44F474` (`General.bas:1728`), which
+  tests **exactly six things**: the whole string against `"a"`, `"an"` and
+  `"some"`, and `Left(s,2)`/`Left(s,3)`/`Left(s,5)` against `"a "`, `"an "` and
+  `"some "`.  Everything else comes back untouched.
+- So the only characters tense ever inspects are at the head of the
+  concatenation, and the head is the prefix whenever there is one.  An object
+  with Prefix `The` and Short `the Memo` comes out of run400 as
+  `The the Memo`.
+- Callers run tense over the result a *second* time (`Battles.bas:261` then
+  `:265`, objname then tense) -- which changes nothing: the head is still the
+  prefix.  Pre-3.9's tense is the same shape minus the two `"some"` tests, so
+  this holds in all four Runners.
+
+**The empty-prefix half is deliberately left alone**, and it is the one thing
+here that does not add up.  With an empty prefix the concatenation opens with
+a space, which no tense test matches, so the listing says the name comes back
+verbatim -- yet the live measurement of an empty prefix (run400 playing La
+hija del relojero, "You take the Fenix de laton de el cajon.", settled
+2026-08-14) has a `the` in it, and **there is no `"the "` string literal
+anywhere in run400 outside tense itself** (`grep -c 'push "the "'` over
+`run400/Project/*.bas` is 0 in every module but General).  Either the
+Generator writes a literal `the` prefix for objects the author left
+prefix-less -- which would explain both this and the xfiles `The Memo` -- or
+something else on that path is unread.  Until that is measured, the empty
+prefix keeps the behaviour that was observed rather than the one that was
+read.  Corpus **303/303** either way; no golden moves.
 
 ## FIXED 2026-08-25 -- what is ON an object is listed before what is IN it
 

@@ -656,19 +656,49 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
     }
 
   /*
-   * Print the object's name; here we also look for a leading article and
-   * strip if found -- some games may avoid prefix and do this instead.
+   * Print the object's name.  Inherited SCARE also looked for a leading
+   * article here and stripped it, on the grounds that "some games may avoid
+   * prefix and do this instead"; that is now gated on the prefix really being
+   * empty, because with a prefix present the Runner provably cannot see the
+   * name's own article.
+   *
+   * run400 builds every object name in one place, Proc_21_31_448710
+   * (General.bas:7041, called 232 times), and it builds it as the single
+   * string `Prefix & " " & Short` (loc_4486B7..loc_4486CF) before handing it
+   * to tense, Proc_21_13_44F474 (General.bas:1728).  tense tests exactly six
+   * things and nothing else: the whole string against "a", "an" and "some",
+   * and its first 2/3/5 characters against "a ", "an " and "some ".  So the
+   * only characters it ever inspects are at the head of the concatenation --
+   * and the head is the prefix whenever there is one.  An object with Prefix
+   * "The" and Short "the Memo" comes out of run400 as "The the Memo".
+   * Callers then run tense over the result a second time (e.g. Battles.bas:
+   * 261 and 265, objname then tense), which changes nothing here: the head is
+   * still the prefix.  Pre-3.9's tense is the same shape with the two "some"
+   * tests missing (see the branch above), so this holds in all four Runners.
+   *
+   * The empty-prefix case is deliberately left stripping.  There the
+   * concatenation opens with a space, which no tense test matches, so the
+   * listing says the name comes back untouched -- but the listing and the one
+   * live measurement of an empty prefix disagree (run400 playing La hija del
+   * relojero answers "You take the Fenix de laton de el cajon.", and there is
+   * no "the " literal anywhere in run400 outside tense itself).  Something
+   * about that path is not understood yet, so it keeps the behaviour that was
+   * measured rather than the one that was read.  No corpus golden moves
+   * either way.
    */
   vt_key[2].string = "Short";
   name = prop_get_string (bundle, "S<-sis", vt_key);
-  if (scr_compare_word (name, "a", 1))
-    name += 1;
-  else if (scr_compare_word (name, "an", 2))
-    name += 2;
-  else if (scr_compare_word (name, "the", 3))
-    name += 3;
-  else if (scr_compare_word (name, "some", 4))
-    name += 4;
+  if (scr_strempty (prefix))
+    {
+      if (scr_compare_word (name, "a", 1))
+        name += 1;
+      else if (scr_compare_word (name, "an", 2))
+        name += 2;
+      else if (scr_compare_word (name, "the", 3))
+        name += 3;
+      else if (scr_compare_word (name, "some", 4))
+        name += 4;
+    }
   pf_buffer_string (filter, name);
 }
 
