@@ -465,6 +465,36 @@ scr_dump_structure_once (scr_gameref_t game)
       }
   }
 
+  /*
+   * ALRs (output-rewrite rules applied to the finished turn text).
+   *
+   * Worth dumping for a reason that has nothing to do with the game: an ALR's
+   * *Original* string is the author's own transcription of a **Runner**
+   * message, typed while looking at the real Runner's output.  That makes the
+   * corpus' ALR tables a free, offline oracle for library wording -- see the
+   * asteroid_after measurement in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md,
+   * where `Which valve.` and `Which satellite.   satellite,  satellite or
+   * satellite?` pin run400's ambiguity message and its
+   * `tense(Prefix) & " " & Short` list construction without launching Wine.
+   */
+  {
+    scr_vartype_t yk[3];
+    scr_int yc, yi;
+    yk[0].string = "ALRs";
+    yc = prop_get_child_count (bundle, "I<-s", yk);
+    for (yi = 0; yi < yc; yi++)
+      {
+        const scr_char *orig, *repl;
+        yk[1].integer = yi;
+        yk[2].string = "Original";
+        orig = prop_get_string (bundle, "S<-sis", yk);
+        yk[2].string = "Replacement";
+        repl = prop_get_string (bundle, "S<-sis", yk);
+        fprintf (stderr, "ALR [%s] -> [%s]\n",
+                 orig ? orig : "", repl ? repl : "");
+      }
+  }
+
   /* Synonyms (input-rewrite rules applied before task/library matching). */
   {
     scr_vartype_t yk[3];

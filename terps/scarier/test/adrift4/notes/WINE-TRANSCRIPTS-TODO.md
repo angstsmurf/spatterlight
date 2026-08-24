@@ -266,6 +266,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `Melbourne Beach.taf` | 3.90 | full run390 replay, `Adrift_37_melbourne_beach.txt` | the 3.9 walk directions, incl. the diagonal a pre-4.0 8-exit scan cannot name |
 | `Orient_Express.taf` | 4.00 | full run400 replay, `Adrift_36_orient_express.txt` | the 4.0 walk directions; also the spurious "Gimme Atip enters." arrival |
 | `S_Tar_Dus.taf` | 3.90 | full run390 replay, `Adrift_38_stardust.txt` | all 129 walk lines match count for count; pinned the not-a-room-zero arrival gate |
+| `asteroid_after.taf` | 4.00 | live run400 probes (six co-present valves) + the corpus' ALR tables + UTF-16 literals in all four exes | the 4.00 object-ambiguity rule, its wording, its follow-up prompt, and that NPCs share the object message -- see the MEASURED section below |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -1004,8 +1005,9 @@ list (see `V400_...` vs `V390_...` in `sctafpar.cpp`).  If a 4.00 object's
 *every* alias were a `co()` term, `open second valve` would be ambiguous in
 asteroid_after -- six valves, each aliased "valve", each with Prefix "the" so
 the escape hatch never fires -- and the game would be unplayable.  That is
-good evidence run400 does something else (narrowing on the longest match is
-the obvious candidate).  It cannot be read off the decompile: run400 keeps
+good evidence run400 does something else; the obvious candidate, narrowing on
+the longest match, is wrong, and the section below has what it really does.
+It cannot be read off the decompile: run400 keeps
 its messages in a table, so neither `run400.bas` nor `run400.p32dasm.txt`
 resolves the "Which " literal, although the literal really is in the binary
 (UTF-16LE at file offset 0x17a2c in run400.exe, and likewise at 0x9568 /
@@ -1017,22 +1019,173 @@ only divergence -- one row, whose walkthrough would then need re-deriving
 adjective that would disambiguate).  Porting on that alone would mean
 inventing a 4.00 rule.
 
-### The one command that unblocks it
+### MEASURED 2026-08-24 -- run400 narrows, but not by the longest match
 
-Run `asteroid_after.taf` in run400 under Wine and type `open second valve`.
+`open second valve` in run400 answers normally, so 4.00 does narrow and the
+"the game would be unplayable" argument above is void.  What it does *not* do
+is prefer the longest matching name.  Twenty-odd probes into a live run400 on
+`asteroid_after.taf` (pid kept warm, `look` between probes -- see the first
+footgun below) give a two-pass rule:
 
-* A "Which valve." prompt means the 4.00 rule is the same one and the port is
-  a single code path (and asteroid_after's walkthrough is wrong).
-* A normal answer means 4.00 narrows by the longest matching name, and the
-  port has to be version-split -- in which case also check
-  `get scammin's ring` in mysteryofcaves, whose two rings share the alias
-  "ring" and differ only in their Short names, to see which way it narrows.
+* **Pass 1 -- Short.**  Any present object whose **Short** appears
+  word-bounded anywhere in the command resolves the reference outright.
+* **Pass 2 -- aliases, last writer wins.**  If no Short hit, the objects are
+  walked in object order and every object that hits *overwrites* the term
+  with its own last-hitting alias.  Only the final -- highest-numbered --
+  hitting object's term survives, and the count of present objects whose
+  Short or alias equals that term decides.
 
-Also worth measuring while the Runner is up: the disambiguation *wording*,
-since ours matches no Runner at all, and whether the Runner disambiguates
-**NPCs** -- there is no "which character" message anywhere in run370/run380/
-run390, so scarier's "Please be more clear, who do you want to attack?"
-(3 lines in `cybercow`'s golden) may have no counterpart at all.
+The consequence is brutal, and it is the part no amount of reading the
+decompile would have suggested: **an alias that uniquely names an earlier
+object is unreachable whenever a later object shares any alias with it.**
+
+| typed | run400 | why, under the rule |
+| --- | --- | --- |
+| `open second valve` | opens it | pass 1, Short `second valve` |
+| `x first valve`, `x fifth valve`, `x sixth valve` | resolves | pass 1 |
+| `x valve` | ambiguous | obj5 writes last: term `valve`, present 6 |
+| `x valve one`, `x valve 1` | **ambiguous** | obj0 has alias `valve one`, but obj5 writes last and its only hit is `valve` |
+| `x valve two`, `x valve 2`, `x valve 3`, `x valve four` | ambiguous | same |
+| `x valve five`, `x valve 5` | **ambiguous** | obj4 has alias `valve five`, obj5 still writes last |
+| `x valve six`, `x valve 6` | sixth valve | obj5's last hit is `valve six` / `valve 6`, present 1 |
+| `x safety`, `x safety valve` | sixth valve | obj5's last hit, present 1 |
+| `x sixth`, `x six`, `x 6`, `x 6th` | sixth valve | only obj5 hits at all |
+| `x one`, `x first` | first valve | only obj0 hits |
+| `x 2nd` | second valve | only obj1 hits |
+
+`x valve five` against `x valve six` is the decisive pair: obj4 and obj5 carry
+the identical alias shape (`fifth, valve, 5th, 5, five, valve 5, valve five`
+vs `sixth, valve, 6th, 6, six, valve 6, valve six, safety, safety valve`) and
+only the *later* one resolves.  That kills every "best match wins" reading.
+
+### Two footguns, either of which invalidates a measurement
+
+**run400 has a disambiguation follow-up prompt.**  After `Which ...?` the
+*next* line is consumed as the answer, not as a fresh command, so a probe file
+of back-to-back ambiguous commands measures nothing at all:
+
+```
+x valve one   -> Which valve?  The first valve, ... or the sixth valve?
+x valve 2     -> That is still ambiguous!            <- eaten as the ANSWER
+x valve three -> Which valve?  ...
+x valve 4     -> That is still ambiguous!            <- eaten
+```
+
+The alternation is the tell.  Put a neutral `look` between probes.  The answer
+is re-joined with the pending verb (`first` examines the first valve,
+`sixth valve` the sixth); an answer naming nothing falls through to the
+ordinary parser (`xyzzy` gets the XYZZY refusal, and the prompt is dropped);
+an answer that is itself ambiguous gets `That is still ambiguous!`, a wrong
+one `That wasn't one of the options!`.  Scarier has none of this -- it prints
+its message and forgets.
+
+**Read the game's own ALR table before recording any library wording.**
+asteroid_after carries `ALR [Which valve.] -> [Which valve?]`, so the live
+Runner prints `Which valve?  The first valve, ...` and the raw run400 message
+is `Which valve.  The first valve, ...`, with a period.  Measuring the
+punctuation off that screen would have recorded the game's rewrite as the
+Runner's wording.
+
+### The ALR tables are a free, offline oracle for Runner wording
+
+An ALR's *Original* is the author's own transcription of Runner output, typed
+while looking at the real thing.  `scdump.cpp` now dumps them one per line as
+`ALR [orig] -> [repl]` under `SCR_DUMP_TASKS`.  Across the 253 v4-era corpus
+games, 38,582 ALRs:
+
+| shape | rows |
+| --- | --- |
+| `Which <term>.  <list>?` | 92 |
+| `It is not clear which <term> you are referring to.` | 18 |
+| `That is still ambiguous!` | 8 |
+| `That wasn't one of the options!` | 1 |
+| `Please be more clear...` (ours) | **0** |
+
+Message shape, read off those 92 rows: `"Which " & term & ".  " & list & "?"`
+-- two spaces after the period, items `tense(Prefix) & " " & Short` joined
+`", "` with `" or "` before the last, first item sentence-capitalised.  An
+empty Prefix leaves its space in, which is why asteroid_after transcribed
+`Which satellite.   satellite,  satellite or  satellite?` (three spaces) and
+Vendetta `Which girl.   girl or  girl?`.
+
+The term is whatever *matched*, not a noun.  `cursed` alone supplies
+`Which fallen.`, `Which broken.`, `Which small.`, `Which loose.`,
+`Which metal.` and `Which red.` -- adjectives lifted straight out of the alias
+lists, exactly as pass 2 predicts, alongside the ordinary
+`Which armour.  The silver suit of armour or the gold suit of armour?`.
+
+### The version split, read out of the four exes
+
+VB6 keeps these as UTF-16LE literals, so `strings` misses them; extract with
+`re.finditer(rb'(?:[\x20-\x7e]\x00){3,}', exe)`.
+
+| literal | 370 | 380 | 390 | 400 |
+| --- | --- | --- | --- | --- |
+| `Which ` | yes | yes | yes | yes |
+| ` would you like to take.  ` | yes | yes | yes | yes |
+| ` would you like to drop.  ` | yes | yes | yes | yes |
+| ` would you like to examine.  ` | yes | yes | -- | -- |
+| `That wasn't one of the options!` | -- | -- | yes | yes |
+| `That is still ambiguous!` | -- | -- | -- | yes |
+| `It is not clear which ` + ` referring to.` | -- | -- | -- | yes |
+| `It is not clear which object you are referring to.` | -- | -- | -- | yes |
+| `Sorry, I'm not sure which object you're referring to.` | -- | -- | -- | yes |
+| anything with *who*, *character* or *person* | -- | -- | -- | -- |
+
+So the answer state machine arrives at 3.9 and grows `That is still
+ambiguous!` at 4.0; the whole `It is not clear which ...` family is 4.0-only.
+`Please be more clear` is in no Runner and in no ALR: SCARE invented it.
+
+### NPCs are disambiguated -- by the same message, and by alias
+
+There is no "who" message in any Runner because characters go through the
+*object* builder.  Vendetta's `ALR [Which girl.   girl or  girl?]` is two
+**characters** sharing a room: Chloe (room 5, aliases `girl, lady, woman,
+female, friend`) and Sally (room 5, aliases `sal, woman, girl, female`), both
+with an empty Prefix.  Note what is printed -- the *matched alias*, not the
+character's Name -- confirmed independently by the same game's
+`ALR [I don't think girl would appreciate being handled.] ->
+[I don't think she would appreciate being handled.]`, the Runner's NPC-touch
+refusal naming the character "girl".
+
+`lib_disambiguate_npc()` is therefore wrong twice: the wording, and rendering
+the Name where the Runner renders the matched alias.  The three
+`Please be more clear, who do you want to attack?  Red Riven or Blue Riven?`
+lines in `light_up_solution.expected.txt` are both.
+
+### `get scammin's ring` turns out to be a non-test
+
+mysteryofcaves obj9 `Blocker's Ring` (aliases `Blockers Ring`, `ring`) is
+behind the boulder door in the hidden grotto; obj10 `Scammin's Ring` (aliases
+`Scammins Ring`, `ring`) is in the chest on the island.  They are never in the
+same room on the walkthrough's path, so the shared `ring` alias never
+collides and nothing narrows.  (That the author supplied apostrophe-free
+aliases for both is a separate hint -- that run400 strips the apostrophe out
+of typed input.)  The valve set already supplies the co-present case the ring
+pair was meant to.
+
+### Why it is *still* not ported -- a better reason than before
+
+run400's disambiguation is **per-handler**, and only two handlers have it
+(measured the same day, same live Runner):
+
+| typed | run400 |
+| --- | --- |
+| `x valve`, `read valve`, `look in valve` | `Which valve.  ...?` |
+| `take valve`, `drop valve` | `It is not clear which valve you are referring to.` |
+| `open valve`, `close valve` | `You can't open/close that.` |
+| `turn/move/sit on/touch valve` | `You can't <verb> that.` |
+| `wear valve` | binds the FIRST candidate silently: `You are not holding the first valve.` |
+| `push valve`, `pull valve` | `You push/pull, but nothing happens.` |
+| `eat valve`, `put valve in X` | `I don't understand...` |
+
+Scarier prints its ambiguity message at roughly 25 call sites.  Matching
+run400 means deleting it from most of them, adding the two 4.0 messages and
+the follow-up-prompt state machine, and version-splitting the lot against
+3.7/3.8's `Which X would you like to examine.`  Every corpus walkthrough
+passes today (303/303) precisely because they name objects by their Short.
+Left unported deliberately -- but this section is now the specification for
+doing it, and nothing above needs Wine again.
 
 ## DIAGNOSED 2026-08-24 -- the run370 double matcher pass (arlo)
 
