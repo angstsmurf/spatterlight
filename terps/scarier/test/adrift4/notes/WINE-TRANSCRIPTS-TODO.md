@@ -657,16 +657,38 @@ into a walk-related change.
   this is the *selector*, not the walk state, and it is a different question
   from the ChangedDesc pick that `donuts_intro`/`maincourse`/`orient_express`
   already pin down.
-- **A task with an EMPTY CompleteText does not match in Scarier** (noticed
-  2026-08-25 while building `make_400_walkcapprobe.py`).  A probe task whose
-  CompleteText is `""` and whose only content is its actions gets
-  "I don't understand." from Scarier -- the command never reaches the task.
-  The Runner runs such tasks happily; `make_400_walkcountprobe.py`'s silent
-  `romeo`/`sil1`/`sil2`/`sil3` are exactly that shape and they completed in
-  run400 (their ALR walks were counted).  Those, though, were reached by
-  another task's *execute-task* action, not typed -- so what is untested is
-  the typed path.  Whether the gate is in the matcher or in the printer is
-  unknown; the probe worked around it by giving each cell a real CompleteText.
+- **NOT A BUG 2026-08-25: a typed task that prints nothing is refused, and
+  run400 refuses it too.**  Noticed while building
+  `make_400_walkcapprobe.py`: typing `sil1` at `p4WC.taf` (the walk-count
+  probe, whose `romeo`/`sil1`/`sil2`/`sil3` have empty CompleteText, no
+  ShowRoomDesc and no AdditionalMessage) gets "I don't understand." from
+  Scarier, while `kilo` next to it answers "K qqqball."  That looked like a
+  matcher gate.  It is not: the Runner's own typed-command task dispatcher,
+  `Proc_19_24_44CCE0` (run400 `mdlSpreadTheLoad.bas:21595`, called as `tasks`
+  from `generaltasks`), ends
+
+      loc_44CCC0:  If MemVar_4941B0 = "" Then  Result = 0        ' FALSE
+                   Else  MemVar_4941B0 = Proc_21_18_47A3DC(MemVar_4941B0)
+                         Result = var_86
+
+  -- so however the match went, a turn that left the output buffer empty is
+  reported as *not handled*, and the caller falls through to the library and
+  then to the unknown-command message.  The match itself does happen
+  (`Proc_19_66_454EF0` returns the task index at `loc_44CBDB`, and
+  `Proc_19_11_45A3EC` = `execute_task` runs it at `loc_44CC3C`), so the
+  task's ACTIONS still run before the refusal is printed.  Scarier's
+  `task_run_task_unrestricted()` (`sctasks.cpp`) returns the same FALSE by
+  accumulating a per-print `status`, which is why the probe's silent cells
+  behaved the way they did; giving each cell a real CompleteText was the
+  right workaround, not a workaround for a bug.
+
+  One difference is worth keeping in view and is **not** measured: run400
+  tests the WHOLE turn buffer, Scarier tests the task's own output.  They
+  differ only if something has already written to the buffer before the verb
+  dispatch runs -- `generaltasks` does have the References-in-brackets echo
+  ahead of it -- in which case run400 would answer TRUE where Scarier answers
+  FALSE.  It needs a command that both triggers that echo and matches a
+  silent task; no corpus row is known to.
 - **Timed events run a turn out of step** in `the_pk_girl` (2026-08-24), the
   same class already noted on `orient_express`.  Of the 470 replayed commands
   138 differ, and the great majority are an event line landing one command

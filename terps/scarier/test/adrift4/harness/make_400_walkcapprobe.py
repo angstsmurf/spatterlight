@@ -52,8 +52,13 @@ mean the capitaliser is conditional on something this reading has missed.
     LOAD_SLEEP=22 sh measure.sh p4WALKCAP.taf cmdfile_walkcap.txt
 
 Note: a task with an EMPTY CompleteText was the first shape tried for the
-pb/pa cells, and Scarier answers "I don't understand." to its command -- worth
-a probe of its own, since nothing says the Runner refuses to match one.
+pb/pa cells, and Scarier answers "I don't understand." to its command.  That
+is FAITHFUL, settled from the listings 2026-08-25: run400's typed-command task
+dispatcher Proc_19_24_44CCE0 (mdlSpreadTheLoad.bas:21595) matches and runs the
+task, then ends with "If MemVar_4941B0 = "" Then Result = 0" at loc_44CCC0 --
+a turn that leaves the buffer empty is reported as not handled, and the caller
+falls through to the unknown-command message.  See the Open leads entry in
+notes/WINE-TRANSCRIPTS-TODO.md.  Hence the real CompleteText on pb/pa.
 
 Usage:
     python3 make_400_walkcapprobe.py p4WALKCAP.plain
