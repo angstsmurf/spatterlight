@@ -1,26 +1,70 @@
+# The Town of Azra (ADRIFT 3.90, the spaced adrift.co build) -- 5 of the
+# author's 6 goals.  SCR_SEED=26 SCR_SKIP_WAITKEY=1.
+#
+# RE-DERIVED 2026-08-24 for the dead-NPC port (battle death is permanent).
+# The old 505-turn route sold the deer carcass FIFTEEN times and searched two
+# bandit corpses; it could only do that because Scarier used to let a
+# battle-killed NPC keep walking, so the Bandit and the Deer respawned on
+# every lap of their patrol.  The real Runner does not: killchar (run390
+# @42D410, run400 @44B13C) runs the NPC's KilledTask and then unconditionally
+# stamps room = &HFB (= -5, LitI2_Byte sign-extended) into the NPC record, and
+# the walk ticker breaks out of the walk loop for any NPC sitting at -5
+# (run390 loc_45A4BC -> loc_45ABD0; run400 loc_4685B6 -> loc_468D61).  The
+# ADRIFT 4 manual says the same in prose: "The default behaviour for when a
+# character is killed (i.e. its stamina reaches zero) is for the character to
+# disappear, and any objects it was holding are moved to the current room."
+#
+# So Azra's designed economy is a GAME bug, not an engine one.  Both
+# #banditkristdies (task 19) and #deerdies (task 37) move their NPC to hidden
+# and hand back stamina, plainly expecting the walk to bring it round again --
+# and it never did in the real Runner.  The author's intro remark ("you can
+# continue to kill more bandits and sell more carcasses") is untested.
+#
+# Measured budget at this seed (one bandit, one deer, once each):
+#   after the shops + the inn ......... $246.50
+#   + bandit purse (search for money) . $459.68   (10 attacks kill it; extra
+#                                                  attacks on a dead/absent
+#                                                  NPC cost no turn)
+#   + deer carcass sold to Drako ...... $959.68   (4 attacks kill the deer)
+#   - learn stealth from ormulus ...... $159.68
+# GOAL 5 (purchase a house, $7500) IS THEREFORE UNREACHABLE and is dropped
+# from this route.  Goals 1, 2, 3, 4 and 6 all still land:
+#   1 kill a bandit and get his money            5 buy a house      <- NOT
+#   2 kill a deer, sell the carcass to Drako        possible
+#   3 buy from Harthro's, Calado's and Golapho's
+#   4 stay at Gralle's Inn
+#   6 learn Stealth Tactics
+# The copper armor of the old route is dropped too -- it is pure spend, and
+# the $800 stealth lesson is the tighter constraint.
+# See The_Town_Of_Azra_walkthrough.md.
+#
+# Lines beginning with '#' are comments (harness skips them); one command/line.
 Hero
 
 
 
-
+# --- goal 3a: Harthro's Golden Tavern (coffee + steak) ---
 e
 change a dollar into cents
 buy a coffee
 take the mug of coffee
 gulp the coffee
-sip the coffee
 buy a steak
 take a bite out of the steak
+# --- goal 3b: Calado's (helmet + armor) ---
 w
 w
 buy a bronze helmet
 buy rawhide armor
 wear the rawhide armor
+wear the bronze helmet
+# --- goal 3c: Golapho's (the hunting sword -- combat is Azra's only income) ---
 e
 s
 s
 buy a hunting sword
 wield the hunting sword
+# --- goal 4: Gralle's Inn ---
 n
 se
 rent a room
@@ -29,386 +73,40 @@ lie on the bed
 nap on the bed
 out
 nw
-wear the bronze helmet
+# --- goal 1: the bandit on the Bandit Trail (10 attacks; he is dead for good) ---
 n
+n
+n
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+search for money
+# --- goal 2: the deer in the Northern Forest (present on arrival at this seed) ---
+n
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+s
+s
+s
+s
 w
-buy copper armor
-wear the copper armor
-e
-n
-n
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-z
-z
-z
-z
-z
-z
-z
-attack bandit
-attack bandit
-search for money
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-attack bandit
-search for money
+s
+show the deer carcass to Drako
+sell the deer carcass to Drako for 500 dollars
+wealth
+# --- goal 6: Stealth Tactics from Ormulus ($800) ---
 learn stealth from ormulus
 go stealth
-n
-z
-z
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-z
-z
-z
-z
-z
-z
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-z
-z
-z
-z
-z
-z
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-z
-z
-z
-z
-z
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-z
-z
-z
-z
-z
-z
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-z
-z
-z
-z
-z
-z
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-z
-z
-z
-z
-z
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-n
-n
-n
-n
-z
-z
-z
-z
-z
-z
-attack deer
-attack deer
-attack deer
-attack deer
-take the deer carcass
-s
-s
-s
-s
-w
-s
-show the deer carcass to Drako
-sell the deer carcass to Drako for 500 dollars
-n
-e
-e
-wealth
-buy house
-unlock the front door
-in
-sit on the large sofa
-relax on the large sofa
-lie on the small sofa
-nap on the small sofa
-u
-lie on the bed
-nap on the bed
-sit on the chair
-relax on the chair
-d
-in
-out
 status
 stats
 wealth

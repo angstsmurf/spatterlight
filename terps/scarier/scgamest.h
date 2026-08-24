@@ -45,6 +45,17 @@ enum
   OBJ_PART_PLAYER = -30, OBJ_PART_NPC = -30,
   OBJ_ON_OBJECT = -20, OBJ_IN_OBJECT = -10
 };
+
+/*
+ * The Runner's corpse marker as it appears in an NPC's room field, and so in
+ * the .tas stream.  The decompiler renders it `push &HFB 'Byte`, but the
+ * opcode is P32Dasm's LitI2_Byte, which SIGN-EXTENDS its one-byte operand --
+ * the same encoding gives &HFF for True (-1) and, right above, &HF6/&HEC/&HE2
+ * for the -10/-20/-30 object positions.  So the marker is -5, not 251.  In
+ * memory we keep the corpse at location 0 with the `dead` flag below set;
+ * this constant exists for the save format alone.
+ */
+enum { NPC_DEAD_LOCATION = -5 };
 typedef struct scr_objectstate_s
 {
   scr_int position;
@@ -144,6 +155,23 @@ typedef struct scr_npcstate_s
    * hidden walker reads back as never-placed at either engine.
    */
   scr_bool walk_hidden;
+  /*
+   * TRUE for an NPC the battle system has killed.  The Runner spends a third
+   * "not a room" value on this -- -5, see NPC_DEAD_LOCATION above -- writing
+   * it into the NPC's room field as the last thing battle death does
+   * (run400 Battles.bas @44B127,
+   * run390 @42D3FA), and reading it back in exactly two places: the walk
+   * ticker skips every walk of an NPC carrying it (run400 @4685B6,
+   * run390 @45A4BC), and `where <name>` answers "<Name> is dead!" (run400
+   * @47FDB9, run390 @459D68).  We store the corpse at location 0 like any
+   * other hidden NPC and carry the distinction here, because the Runner does
+   * keep ticking the walks of a merely hidden one -- that is how a hidden
+   * walker comes back.  Any other placement clears it, since it clears the
+   * Runner's room field too, so a task that moves a corpse revives its walks
+   * at both engines.  3.7 and 3.8 have no battle system, so neither reader
+   * exists there.
+   */
+  scr_bool dead;
   scr_int position;
   scr_int parent;
   scr_int walkstep_count;

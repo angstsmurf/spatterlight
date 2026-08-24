@@ -850,8 +850,11 @@ gs_set_npc_location (scr_gameref_t gs, scr_int npc, scr_int location)
   gs->npcs[npc].location = location;
 
   /* Any placement at all clears the walk-hidden marker; npc_tick_npc_walk()
-     sets it again immediately after stamping a Hidden stop. */
+     sets it again immediately after stamping a Hidden stop.  It clears the
+     dead marker for the same reason: both stand in for a value the Runner
+     keeps in the room field this call overwrites. */
   gs->npcs[npc].walk_hidden = FALSE;
+  gs->npcs[npc].dead = FALSE;
 }
 
 void
@@ -866,6 +869,20 @@ gs_npc_walk_hidden (scr_gameref_t gs, scr_int npc)
 {
   assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
   return gs->npcs[npc].walk_hidden;
+}
+
+void
+gs_set_npc_dead (scr_gameref_t gs, scr_int npc, scr_bool dead)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
+  gs->npcs[npc].dead = dead;
+}
+
+scr_bool
+gs_npc_dead (scr_gameref_t gs, scr_int npc)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (npc, gs->npc_count));
+  return gs->npcs[npc].dead;
 }
 
 scr_int
@@ -1651,6 +1668,7 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
     {
       to->npcs[npc].location = from->npcs[npc].location;
       to->npcs[npc].walk_hidden = from->npcs[npc].walk_hidden;
+      to->npcs[npc].dead = from->npcs[npc].dead;
       to->npcs[npc].position = from->npcs[npc].position;
       to->npcs[npc].parent = from->npcs[npc].parent;
       to->npcs[npc].seen = from->npcs[npc].seen;

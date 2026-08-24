@@ -10553,6 +10553,19 @@ lib_cmd_locate_npc (scr_gameref_t game)
       return TRUE;
     }
 
+  /*
+   * A corpse gets its own answer, ahead of the room search.  The Runner
+   * reaches it only after the seen test and only when the room field is not a
+   * real room -- the -5 it stamps there fails the `> 0` gate -- at run400
+   * @47FDB9 and run390 @459D68.  3.7 and 3.8 have no battle system and no such
+   * branch or string at all, so there is nothing to gate on version.
+   */
+  if (gs_npc_dead (game, npc))
+    {
+      lib_print_wrapped_npc (game, "", npc, " is dead!\n");
+      return TRUE;
+    }
+
   /* Check each room for the NPC, stopping on first found. */
   for (room = 0; room < gs_room_count (game); room++)
     {

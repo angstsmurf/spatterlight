@@ -872,8 +872,15 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
       pf_buffer_string (filter, " falls down, dead.\n");
     }
 
-  /* Remove the dead NPC from play (location zero is "hidden"). */
+  /*
+   * Remove the dead NPC from play.  The Runner stamps -5 into the room field
+   * (run400 Battles.bas @44B127) -- "not a room", like the 0 we use, but with
+   * two readers of its own; see the `dead` flag in scgamest.h.  This runs
+   * after the KilledTask, so a task that moved the corpse is overwritten at
+   * both engines.
+   */
   gs_set_npc_location (game, npc, 0);
+  gs_set_npc_dead (game, npc, TRUE);
 }
 
 /*

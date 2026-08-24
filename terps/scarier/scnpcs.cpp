@@ -948,6 +948,17 @@ npc_tick_npc (scr_gameref_t game, scr_int npc)
       scr_int total, other;
       scr_bool enabled;
 
+      /*
+       * A corpse takes no more steps.  The Runner opens the walk loop body
+       * with this test and jumps clear of the loop -- run400 @4685B6 to
+       * @468D61, one past the Next at @468D5C, and run390 @45A4BC to
+       * @45ABD0 -- so a dead NPC's counters do not even run down.  It is
+       * tested per walk rather than once, because the loop body can run a
+       * meet task.
+       */
+      if (gs_npc_dead (game, npc))
+        break;
+
       /* Count the walk down, and mark a finished 4.0 walk. */
       if (gs_npc_walkstep (game, npc, walk) > 0)
         {

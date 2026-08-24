@@ -91,10 +91,10 @@ water in the distance.
 
 You can also see the Tonerith stone.
 There is a grey wolf circling you.
-Wolf hits you.
 
 > attack wolf
 You hit Wolf with the magic cube.
+Wolf hits you.
 
 > attack wolf
 You hit Wolf with the magic cube.
@@ -268,7 +268,7 @@ blocked by a large troll.
 Narfild is here.
 
 Serond follows you.
-Narfild hits Serond with the large club.
+Narfild hits you with the large club.
 
 > attack narfild
 You hit Narfild with the magic cube.
@@ -459,7 +459,6 @@ direction.
 The Longmore marsh king is here.
 
 Serond follows you.
-Serond shoots Longmore king with the oak staff.
 Longmore king stabs you with the pointy stick.
 
 > se
@@ -695,18 +694,12 @@ There is a Forester Goblin hanging from a tree here.
 
 Serond follows you.
 Serond shoots Forester Goblin with the oak staff.
-Forester Goblin shoots you with the bow and arrow.
+Forester Goblin shoots Serond with the bow and arrow.
 
 > attack goblin
 You hit Forester Goblin with the magic cube.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
-
-> attack goblin
-You hit Forester Goblin with the magic cube.
-
-> attack goblin
-You hit Forester Goblin with the magic cube.
 
 > take kedarn stone
 You pick up the Kedarn stone.
@@ -763,12 +756,11 @@ direction.
 The Longmore marsh king is here.
 
 Serond follows you.
-Serond shoots Longmore king with the oak staff.
-Longmore king stabs you with the pointy stick.
 
 > attack monster
 You hit Longmore king with the magic cube.
-Longmore king stabs Serond with the pointy stick.
+Serond shoots Longmore king with the oak staff.
+Longmore king stabs you with the pointy stick.
 
 > attack monster
 You hit Longmore king with the magic cube.
@@ -845,7 +837,8 @@ will take you along a path.
 There is an eagle above you circling around your head.
 
 Serond follows you from the west.
-Eagle hits Serond.
+Serond shoots Eagle with the oak staff.
+Eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You hit Eagle with the magic cube.
@@ -905,7 +898,7 @@ There is a Narn here.
 
 Serond follows you.
 Serond shoots Kerfald with the oak staff.
-Kerfald hits Serond.
+Kerfald hits you, but it doesn't seem to do any damage.
 
 > e
 You move east.
@@ -988,6 +981,7 @@ the path. West will take you towards the bridge. Northeast will take you
 further up the mountain.
 
 Serond follows you from the west.
+You drop to the floor feeling very ill.
 
 > ne
 You move northeast.
@@ -1000,7 +994,6 @@ There is a large Narn here.
 
 Serond follows you.
 Serond shoots Karurn with the oak staff.
-Karurn hits Serond.
 
 > nw
 You move northwest.
@@ -1057,6 +1050,7 @@ Larnt is here.
 Serond follows you from the south.
 
 Haron follows you from the south.
+Larnt cuts you with the blade from Uron.
 
 > attack larnt
 You hit Larnt with the magic cube.
@@ -1240,6 +1234,7 @@ Serond shoots Urgorn with the oak staff.
 > attack urgorn
 You hit Urgorn with the magic cube.
 Haron cuts Urgorn with the elven sword.
+Urgorn shoots Serond with the ball of fire.
 
 > attack urgorn
 You hit Urgorn with the magic cube.

@@ -87,7 +87,15 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=48
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
-alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn
+# The Forester Goblin fight lost two of its three `attack goblin` commands, and
+# the row gained SCR_SEED=4, when the dead-NPC walk skip landed (2026-08-24,
+# see notes/WINE-TRANSCRIPTS-TODO.md): the goblin's corpse used to keep
+# walking and so stayed attackable, and every kill in the game now consumes
+# one `scr_randomint` less per turn (a room-group walk draws a random
+# adjacent member), which moves the combat rolls under the old seed far
+# enough that Urgorn wins.  Seed 4 is the lowest at which the trimmed route
+# beats him with no unparsed command anywhere in the replay.
+alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=4
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
 topaz_solution.txt|topaz.taf|The two of you set out into the forest.|SCR_SKIP_WAITKEY=1
 thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
@@ -252,11 +260,21 @@ the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 27
 # Combat is Azra's only income, so that build caps at the shops and the inn,
 # which is all the 27-turn row above can reach.  The spaced adrift.co build is
 # the untouched 3.90 file, gets battle_legacy (strength - defence, every blow
-# connects), and plays through all six goals the author lists in the intro:
+# connects), and plays five of the six goals the author lists in the intro:
 # kill a bandit, sell a deer carcass to Drako, buy from all three shops, stay at
-# Gralle's Inn, learn Stealth Tactics, purchase the house.  See
+# Gralle's Inn, learn Stealth Tactics.
+#   RE-DERIVED 2026-08-24 (505 -> 58 turns) for the dead-NPC port.  Azra's
+# economy assumes a battle-killed NPC respawns on the next lap of its patrol
+# walk -- tasks 19 (#banditkristdies) and 37 (#deerdies) both hide their NPC
+# and hand back stamina -- and it never did in the real Runner: killchar
+# (run390 @42D410, run400 @44B13C) stamps room = &HFB (-5) after running the
+# KilledTask, and the walk ticker breaks out of the walk loop at -5 (run390
+# loc_45A4BC, run400 loc_4685B6).  The ADRIFT 4 manual agrees in prose (l.2659,
+# "the character to disappear").  So the old route's fifteen carcass sales were
+# bought with an engine bug, and GOAL 5 (a $7500 house) is unreachable: one
+# bandit purse + one carcass tops out at $959.68, and Stealth costs $800.  See
 # The_Town_Of_Azra_walkthrough.md.
-the_town_of_azra_v390_solution.txt|The Town Of Azra.taf|Number of turns passed: 505|SCR_SEED=26 SCR_SKIP_WAITKEY=1
+the_town_of_azra_v390_solution.txt|The Town Of Azra.taf|Number of turns passed: 58|SCR_SEED=26 SCR_SKIP_WAITKEY=1
 thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.|SCR_SKIP_WAITKEY=1
 # thetest IS winnable (2026-08-01, verified live in run390 to "Well done!  You
 # won!" at 20/25): the colour-door needs addything==3, i.e. two consecutive

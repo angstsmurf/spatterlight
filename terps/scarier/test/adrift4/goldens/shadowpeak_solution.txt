@@ -1,11 +1,17 @@
-# Shadowpeak ADRIFT 4.0 walkthrough: deterministic WIN, 700/790 under
-# SCR_LEGACY_RANDMAP=1 SCR_SEED=7 (2026-08-23: re-derived after the exclusive
-# event-length roll and the 4.0 put/implicit-take + carried-total fixes, each of
-# which re-threads every walker's RNG. Three `x table` / `x rubble` / `x shrine`
-# lines are new: the venison, the chisel and the scroll are container contents
-# that only exist once their container has been examined -- the same rule the
-# Goldilocks run400 transcript shows. The Damastus maze chase is re-derived
-# below with harness/shadowpeak_chase.py.)
+# Shadowpeak ADRIFT 4.0 walkthrough: deterministic WIN, 710/790 under SCR_SEED=7
+# (2026-08-24: re-derived after the dead-NPC walk skip -- the Runner's walk ticker
+# breaks out of the walk loop for an NPC the battle system has killed, so every
+# corpse stops consuming the `scr_randomint` that a room-group walk draws each
+# turn, which re-threads every downstream walker and battle roll.  The village
+# focus blocks shrank from 12/18/24/16 attack-pairs to 12/28/3/8, the two `e`
+# steps to the blacksmith became one `e` before Arthur and one after, and the
+# Damastus maze chase was re-derived with harness/shadowpeak_chase.py.
+# 2026-08-23: re-derived after the exclusive event-length roll and the 4.0
+# put/implicit-take + carried-total fixes, each of which re-threads every
+# walker's RNG. Three `x table` / `x rubble` / `x shrine` lines are new: the
+# venison, the chisel and the scroll are container contents that only exist once
+# their container has been examined -- the same rule the Goldilocks run400
+# transcript shows.)
 # Full prose notes: terps/scarier/test/adrift4/notes/Shadowpeak_walkthrough.md
 # Lines whose first non-blank character is '#' are COMMENTS: the harness skips
 # them (os_ansi.c, gated by -DSCARE_DUMP_TOOLS), so inline notes no longer leak
@@ -129,8 +135,9 @@ fly
 # which the boots detour desynced. Instead use a SELF-SYNCING single-target focus:
 # `attack X; z` does nothing (no turn) when X is absent and only `z` advances time,
 # so we step one turn at a time and hit X whenever it wanders in. Holga (12), then
-# Jarris (18, 100 stamina = many hits), then Boris last (24, he roams in slowly
-# from room 42). +40 -> 130.
+# Jarris (28, 100 stamina = many hits), then Boris last (3, he roams in slowly
+# from room 42, and with the dead-NPC walk skip in place the first three zombies'
+# corpses no longer draw walk randoms, so he arrives almost at once). +40 -> 130.
 s
 attack holga
 z
@@ -192,7 +199,25 @@ attack jarris
 z
 attack jarris
 z
-attack boris
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
 z
 attack boris
 z
@@ -200,48 +225,8 @@ attack boris
 z
 attack boris
 z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-# Phase B: walk east to the blacksmith/breastplate (40-41) where Arthur lives.
-e
+# Phase B: one step east to room 40 (outside the blacksmith's), where Arthur now
+# turns up on his own -- 8 attack-pairs suffice -- then the second `e` into 41.
 e
 attack arthur
 z
@@ -259,21 +244,10 @@ attack arthur
 z
 attack arthur
 z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
+e
+# One turn's pad in room 41.  It re-rolls EVENT 92, the Morac death timer: with
+# no pad here the timer lands on its 40-turn value and Morac reaches the
+# pentagram room exactly on `chip pentagram with chisel`, which is instant death.
 z
 # ===== SESSION 7: village scoring cluster 130 -> 230/790 =====
 # We end the zombie phase at room 41 (blacksmith breastplate). Grab the
@@ -786,20 +760,25 @@ n
 n
 n
 press stone button
-# chase re-derived by shadowpeak_chase.py (k=5 pre-timer pads, SCR_SEED=7): Damastus dies in room 151, stamina 50
+# chase re-derived by shadowpeak_chase.py (SCR_SEED=7, after the dead-NPC walk
+# skip): Damastus dies in room 149, stamina 46; the tail walks 149->151.
 e
 e
 e
 e
 e
-attack damastus
-attack damastus
 w
 attack damastus
 e
 attack damastus
 e
 attack damastus
+s
+attack damastus
+s
+attack damastus
+n
+n
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
 # greaves (obj170) here in the Minotaur's lair and WEAR them - they are required

@@ -719,28 +719,28 @@ The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
 > attack goblin
-You cut Forester Goblin with the small sword.
+Command not understood
 
 > attack goblin
-You cut Forester Goblin with the small sword.
+Command not understood
 
 > attack goblin
-You cut Forester Goblin with the small sword.
+Command not understood
 
 > attack goblin
-You cut Forester Goblin with the small sword.
+Command not understood
 
 > attack goblin
-You cut Forester Goblin with the small sword.
+Command not understood
 
 > attack goblin
-You cut Forester Goblin with the small sword.
+Command not understood
 
 > attack goblin
-You cut Forester Goblin with the small sword.
+Command not understood
 
 > attack goblin
-You cut Forester Goblin with the small sword.
+Command not understood
 
 > take kedarn stone
 You pick up the Kedarn stone.
@@ -787,6 +787,11 @@ through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.
 The Longmore marsh king is here.
+Longmore king stabs you with the pointy stick, but it doesn't seem to do any
+damage.
+
+> attack monster
+You cut Longmore king with the small sword.
 
 > attack monster
 You cut Longmore king with the small sword.
@@ -802,9 +807,6 @@ damage.
 You cut Longmore king with the small sword.
 Longmore king stabs you with the pointy stick, but it doesn't seem to do any
 damage.
-
-> attack monster
-You cut Longmore king with the small sword.
 
 > attack monster
 You cut Longmore king with the small sword.
@@ -894,6 +896,7 @@ about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.
 There is an eagle above you circling around your head.
+Eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You cut Eagle with the small sword.
@@ -1049,7 +1052,6 @@ The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.
 There is a large Narn here.
-Karurn hits you, but it doesn't seem to do any damage.
 
 > nw
 You move northwest.
@@ -1058,7 +1060,6 @@ Uron Dark Path
 The air is very dense now, the smog fills your nostrils with foul air. There
 are pools of slime and mud all around here. Southeast will take you down the
 mountain. Northeast will take you up.
-You start to stagger along the path.
 
 > ne
 You move northeast.
@@ -1099,15 +1100,15 @@ corridor. East will take you into a smaller room.
 Larnt is here.
 
 Haron follows you from the south.
-Larnt cuts Haron with the blade from Uron.
 
 > attack larnt
 You cut Larnt with the small sword.
 Haron cuts Larnt with the elven sword.
+Larnt cuts you with the blade from Uron, but it doesn't seem to do any
+damage.
 
 > attack larnt
 You cut Larnt with the small sword.
-Larnt cuts Haron with the blade from Uron.
 
 > attack larnt
 You cut Larnt with the small sword.
@@ -1301,8 +1302,7 @@ Haron follows you from the south.
 > attack urgorn
 You cut Urgorn with the small sword.
 Haron cuts Urgorn with the elven sword.
-Urgorn shoots you with the ball of fire, but it doesn't seem to do any
-damage.
+Urgorn shoots Haron with the ball of fire.
 
 > attack urgorn
 You cut Urgorn with the small sword.

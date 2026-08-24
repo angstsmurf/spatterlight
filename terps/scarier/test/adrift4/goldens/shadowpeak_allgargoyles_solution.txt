@@ -1,5 +1,12 @@
 # Shadowpeak "all four gargoyles" variant: deterministic WIN, 715/790 under
-# SCR_LEGACY_RANDMAP=1 SCR_SEED=83 (2026-08-23: the 4.0 put/implicit-take and
+# SCR_SEED=83 (2026-08-24: re-derived after the dead-NPC walk skip -- a corpse
+# no longer draws the room-group walk random each turn, which re-threads every
+# downstream walker and battle roll.  The village focus blocks went from
+# 11/17/23/15 attack-pairs to 10/30/7/2 and now all run in the square (Arthur
+# wanders in on his own, so the two `e` steps to the blacksmith moved after the
+# phase); Bambi needs a second stab; a three-turn pad keeps the Morac timer off
+# the chisel turn; and the Damastus chase is re-derived below.  715 unchanged.
+# 2026-08-23: the 4.0 put/implicit-take and
 # carried-total fixes re-threaded every walker, so the seed, the ballista
 # gargoyle-#1 kill and the Damastus chase are all re-derived below; the three
 # `x table` / `x rubble` / `x shrine` lines are new too -- the venison, chisel
@@ -141,6 +148,11 @@ fly
 # Jarris (18, 100 stamina = many hits), then Boris last (24, he roams in slowly
 # from room 42). +40 -> 130.
 s
+# Re-tuned 2026-08-24 for the dead-NPC walk skip (see the header): with the
+# corpses no longer drawing a walk random each turn the zombies converge on
+# the square much sooner, and Arthur now wanders in himself, so the whole
+# phase happens in room 37 and the two `e` steps to the blacksmith come
+# after it. Holga 10, Jarris 30, Boris 7, Arthur 2 attack-pairs.
 attack holga
 z
 attack holga
@@ -161,10 +173,6 @@ attack holga
 z
 attack holga
 z
-attack holga
-z
-attack holga
-z
 attack jarris
 z
 attack jarris
@@ -201,7 +209,29 @@ attack jarris
 z
 attack jarris
 z
-attack boris
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
 z
 attack boris
 z
@@ -217,76 +247,21 @@ attack boris
 z
 attack boris
 z
-attack boris
+attack arthur
 z
-attack boris
+attack arthur
 z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-# Phase B: walk east to the blacksmith/breastplate (40-41) where Arthur lives.
 e
 e
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
-attack arthur
-z
 # ===== SESSION 7: village scoring cluster 130 -> 230/790 =====
 # We end the zombie phase at room 41 (blacksmith breastplate). Grab the
 # tinderbox from the cupboard here (needed later to light the pipe).
+# Three turns' pad: without them EVENT 92, the Morac death timer, lands on a
+# value that brings him into the pentagram room on the chisel turn (instant
+# death).  Same pad as the canonical route, three turns rather than one.
+z
+z
+z
 open cupboard
 take tinderbox
 # --- Inn (44): the bottle is high on a shelf, stand on the bar to reach it.
@@ -307,6 +282,9 @@ d
 w
 open wooden box
 take lamb
+attack bambi
+# Two hits now: the walk-skip re-thread moved the combat rolls and the first
+# stab no longer finishes her.
 attack bambi
 # T71 Bambi dies +10.
 # --- Well bottom (38, down from the square): empty the poison, fill with water.
@@ -844,36 +822,24 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED 2026-08-23 at SCR_SEED=83 (upstream clean: room
-# 157, score 575, all four gargoyles dead, Damastus alive).
-# Greedy BFS from the stone button (room 157): attack when co-located, else
-# BFS-step toward him.  Damastus dies in room 146, stamina 50
+# DAMASTUS chase RE-DERIVED 2026-08-24 at SCR_SEED=83, after the dead-NPC walk
+# skip re-threaded the walkers.  Greedy BFS from the stone button (room 157):
+# attack when co-located, else BFS-step toward him.  Damastus dies in room 162,
+# stamina 14; the tail walks 162->151.
 # Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
 e
 e
 e
+attack damastus
+w
+attack damastus
 e
+attack damastus
 e
+attack damastus
 e
-s
-s
-s
-s
-n
 attack damastus
-s
-attack damastus
-n
-attack damastus
-s
-attack damastus
-s
-attack damastus
-n
-n
-n
-n
-n
+e
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
 # greaves (obj170) here in the Minotaur's lair and WEAR them - they are required

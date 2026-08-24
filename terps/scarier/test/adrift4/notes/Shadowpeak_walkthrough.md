@@ -1,4 +1,4 @@
-# Shadowpeak — walkthrough (★ COMPLETE — WON @ 700/790, 0 deaths)
+# Shadowpeak — walkthrough (★ COMPLETE — WON @ 710/790, 0 deaths)
 
 Current blessed state (all three routes 0 deaths, marker `completed the
 adventure Shadowpeak`, all under the FIXED `scr_randomint` mapping — the
@@ -6,9 +6,35 @@ adventure Shadowpeak`, all under the FIXED `scr_randomint` mapping — the
 
 | solution | seed | score |
 | --- | --- | --- |
-| `shadowpeak_solution.txt` | 13 | **700**/790 |
-| `shadowpeak_allgargoyles_solution.txt` | 87 | **715**/790 |
-| `shadowpeak_killwraith_solution.txt` | 657 | **735**/790 |
+| `shadowpeak_solution.txt` | 7 | **710**/790 |
+| `shadowpeak_allgargoyles_solution.txt` | 83 | **715**/790 |
+| `shadowpeak_killwraith_solution.txt` | 48 | **735**/790 |
+
+## ✅ SESSION 26 (2026-08-24): re-derived for the dead-NPC walk skip (710/715/735)
+
+A battle-killed NPC now stops walking for good — the Runner's walk ticker
+breaks out of the walk loop for any NPC whose room field the battle system has
+stamped to −5 (`killchar`, run390 `@42D410` / run400 `@44B13C`; see the
+`FIXED 2026-08-24 -- a battle-killed NPC is dead for good` section of
+`WINE-TRANSCRIPTS-TODO.md`).  Shadowpeak is the corpus's heaviest battle game,
+so this re-threads everything downstream: a corpse no longer draws the
+`scr_randomint` that a room-group walk consumes each turn, and every later
+walker arrival and combat roll shifts with it.
+
+All three routes were re-derived at new seeds:
+
+- **main (seed 7, 710/790)** — village focus blocks 12/18/24/16 → 12/28/3/8
+  attack-pairs; the two `e` steps to the blacksmith split around Arthur;
+  Damastus maze chase re-run through `harness/shadowpeak_chase.py`.
+- **allgargoyles (seed 83, 715/790)** — blocks 11/17/23/15 → 10/30/7/2, all in
+  the square now that Arthur wanders in himself; Bambi needs a second stab; a
+  three-turn pad keeps the Morac timer off the chisel turn.
+- **killwraith (seed 48, 710 → 735/790)** — blocks 11/17/23/15 → 10/45/7/6; a
+  fifteen-turn pad at the blacksmith keeps Morac off the stairs.  The
+  wandering-NPC kills that the 2026-08-01 walk-timing fix had knocked out of
+  line land again, which is where the +25 comes from.
+
+Each golden's own header carries the per-route detail.
 
 ## ✅ SESSION 25 (2026-08-02): re-derived under the fixed randint mapping — SCR_LEGACY_RANDMAP retired (700/715/735)
 

@@ -86,8 +86,6 @@ w
 s
 se
 attack goblin
-attack goblin
-attack goblin
 take kedarn stone
 nw
 n

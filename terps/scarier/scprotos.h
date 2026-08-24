@@ -454,6 +454,8 @@ extern scr_int gs_npc_location (scr_gameref_t gs, scr_int npc);
 extern void gs_set_npc_walk_hidden (scr_gameref_t gs, scr_int npc,
                                     scr_bool hidden);
 extern scr_bool gs_npc_walk_hidden (scr_gameref_t gs, scr_int npc);
+extern void gs_set_npc_dead (scr_gameref_t gs, scr_int npc, scr_bool dead);
+extern scr_bool gs_npc_dead (scr_gameref_t gs, scr_int npc);
 extern void gs_set_npc_position (scr_gameref_t gs, scr_int npc, scr_int position);
 extern scr_int gs_npc_position (scr_gameref_t gs, scr_int npc);
 extern void gs_set_npc_parent (scr_gameref_t gs, scr_int npc, scr_int parent);

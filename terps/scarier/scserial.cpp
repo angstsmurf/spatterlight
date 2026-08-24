@@ -955,7 +955,15 @@ ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
     {
       scr_int walk;
 
-      ser_buffer_int (gs_npc_location (game, index_));
+      /*
+       * A dead NPC goes out as NPC_DEAD_LOCATION, the Runner's corpse
+       * marker: its own save loop prints the room field raw (run400
+       * Form1.frm @476F72, right before the seen byte at @476FA3), and
+       * battle death is the only thing that ever puts the marker there.
+       * See the `dead` flag in scgamest.h.
+       */
+      ser_buffer_int (gs_npc_dead (game, index_)
+                      ? NPC_DEAD_LOCATION : gs_npc_location (game, index_));
       ser_buffer_boolean (gs_npc_seen (game, index_));
 
       /* The NPC's interleaved battle block sits after "seen", before walks. */
@@ -1605,8 +1613,18 @@ ser_load_game (scr_gameref_t game,
 
       {
         const scr_int location = ser_get_int ();
-        ser_reject_if (location < 0 || location > gs_room_count (new_game));
-        gs_set_npc_location (new_game, index_, location);
+
+        if (location == NPC_DEAD_LOCATION)
+          {
+            gs_set_npc_location (new_game, index_, 0);
+            gs_set_npc_dead (new_game, index_, TRUE);
+          }
+        else
+          {
+            ser_reject_if (location < 0
+                           || location > gs_room_count (new_game));
+            gs_set_npc_location (new_game, index_, location);
+          }
       }
       gs_set_npc_seen (new_game, index_, ser_get_boolean ());
 

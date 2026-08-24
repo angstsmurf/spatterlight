@@ -1,11 +1,18 @@
 # Shadowpeak ADRIFT 4.0 - ALTERNATIVE walkthrough: KILL THE WRAITH FIRST.
-# Deterministic 0-death WIN, 710/790 under SCR_LEGACY_RANDMAP=1 SCR_SEED=48
-# (2026-08-23: the 4.0 put/implicit-take and carried-total fixes re-threaded the
+# Deterministic 0-death WIN, 735/790 under SCR_SEED=48
+# (2026-08-24: re-derived after the dead-NPC walk skip -- a corpse no longer
+# draws the room-group walk random each turn, so every downstream walker and
+# battle roll is re-threaded.  The village focus blocks went from 11/17/23/15
+# attack-pairs to 10/45/7/6 and now all run in the square (Arthur wanders in on
+# his own, so the two `e` steps to the blacksmith moved after the phase); a
+# fifteen-turn pad at the blacksmith keeps Morac off the stairs; the Damastus
+# chase is re-derived below.  The wandering-NPC kills that the 2026-08-01
+# walk-timing fix had knocked out of line now land again: 710 -> 735.
+# 2026-08-23: the 4.0 put/implicit-take and carried-total fixes re-threaded the
 # walkers again, so the seed and the Damastus chase are re-derived below.  Three
 # `x table` / `x rubble` / `x shrine` lines were also added: the venison, the
 # chisel and the scroll are container contents that only exist once their
-# container has been examined.  735 -> 710: like the Fang +5 lost to the
-# 2026-08-01 walk-timing fix, some wandering-NPC kills no longer line up.)
+# container has been examined.)
 #
 # Variant of the canonical 710/790 win that ALSO:
 #   * kills the wraith Alam Nadeer at the sarcophagus (room 119) the moment he
@@ -143,6 +150,11 @@ wear boots
 se
 fly
 s
+# Re-tuned 2026-08-24 for the dead-NPC walk skip (see the header): with the
+# corpses no longer drawing a walk random each turn the zombies converge on
+# the square much sooner, and Arthur now wanders in himself, so the whole
+# phase happens in room 37 and the two `e` steps to the blacksmith come
+# after it. Holga 10, Jarris 45, Boris 7, Arthur 6 attack-pairs.
 attack holga
 z
 attack holga
@@ -163,9 +175,41 @@ attack holga
 z
 attack holga
 z
-attack holga
+attack jarris
 z
-attack holga
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
 z
 attack jarris
 z
@@ -203,7 +247,23 @@ attack jarris
 z
 attack jarris
 z
-attack boris
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
+z
+attack jarris
 z
 attack boris
 z
@@ -219,71 +279,38 @@ attack boris
 z
 attack boris
 z
-attack boris
+attack arthur
 z
-attack boris
+attack arthur
 z
-attack boris
+attack arthur
 z
-attack boris
+attack arthur
 z
-attack boris
+attack arthur
 z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
-z
-attack boris
+attack arthur
 z
 e
 e
-attack arthur
+# Fifteen turns' pad.  EVENT 92 is the Morac death timer, and after the dead-NPC
+# walk skip re-threaded the stream the castle race is only survivable on a few
+# of its values: at SCR_SEED=48 pads 15, 20, 23 and 29 live and everything below
+# 15 has Morac reach the top of the stairs on top of us.  15 is the cheapest.
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
 z
-attack arthur
-z
-attack arthur
 z
 open cupboard
 take tinderbox
@@ -724,25 +751,20 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED 2026-08-23 after the 4.0 put/implicit-take and
-# carried-total fixes re-threaded the walkers' RNG again.  Now at SCR_SEED=48
-# (upstream clean: room 157, score 570, Damastus alive).
-# Greedy BFS from the stone button (room 157): attack when co-located, else
-# BFS-step toward him.  Damastus dies in room 156, stamina 37
+# DAMASTUS chase RE-DERIVED 2026-08-24 at SCR_SEED=48, after the dead-NPC walk
+# skip re-threaded the walkers.  Greedy BFS from the stone button (room 157):
+# attack when co-located, else BFS-step toward him.  Damastus dies in room 157,
+# stamina 39; the tail walks 157->151.
 # Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
-s
-s
-s
 attack damastus
 s
 attack damastus
 n
 attack damastus
-n
+e
 attack damastus
-n
+w
 attack damastus
-n
 e
 e
 e

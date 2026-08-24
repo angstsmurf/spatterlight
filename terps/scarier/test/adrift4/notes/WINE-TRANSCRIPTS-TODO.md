@@ -545,8 +545,10 @@ into a walk-related change.
   gen400 and there is no script that regenerates them.  Note that RNG-timed
   lines do not by themselves make a game unmeasurable -- see `the_pk_girl`
   below, where the diff is noisy but the *outcome* lines are not.
-- **A dead NPC still walks in Scarier** (read out of run400 while chasing the
-  PK Girl walk counters, 2026-08-24).  run400's walk ticker opens with
+- **FIXED 2026-08-24: a dead NPC still walks in Scarier** -- ported; see the
+  section at the end of this file for the full P-code case and the Azra
+  fallout.  Original note (read out of run400 while chasing the
+  PK Girl walk counters, 2026-08-24):  run400's walk ticker opens with
   `Proc_19_1_468DA0` @0004685B6: `If npc.Room = &HFB Then GoTo 468D61`, i.e.
   it skips *every* walk of an NPC whose room is 251.  251 is the battle
   system's "dead" marker (`Battles.bas` @00044B127, right after the
@@ -556,7 +558,7 @@ into a walk-related change.
   NPC back into play.  A faithful fix needs a *separate* dead flag, because
   run400 does keep ticking the walks of a merely hidden NPC (that is how a
   hidden walker comes back); reusing location 0 for both would break that.
-  Only battle games can reach it, so it is parked rather than fixed here.
+  (`&HFB` is really **-5**, not 251: `LitI2_Byte` sign-extends.)
 - **FIXED 2026-08-24: "On X is", never "On X are"** (measured on `humbug`,
   4.00, then confirmed in P-code for 3.90 as well).  run400 prints
   "On the triangular table **is** some swimming goggles, a watch, a musket and
@@ -1500,8 +1502,10 @@ does.
   tests case-sensitive in a way SCARE's `scr_compare_word()` is not.  Wants a
   live probe on an object with a blank prefix and a plural short name before
   anyone touches it.
-- **"<Name> is dead!"** -- run390 @459D74 and run400 @47FDB9 answer `where` for
-  a character whose room field is `&HFB` (251) with that line; run370 and
+- **"<Name> is dead!"** -- **FIXED, see the section at the end of this file.**
+  run390 @459D74 and run400 @47FDB9 answer `where` for
+  a character whose room field is `&HFB` (which is **-5**, sign-extended, not
+  251 -- `LitI2_Byte`) with that line; run370 and
   run380 have no such branch and no such string.  251 is the battle system's
   corpse marker (run400 sets it at Battles.bas @44B127, right after the
   " falls down, dead." line, and the walk ticker skips every NPC carrying it at
@@ -1510,3 +1514,97 @@ does.
   parked *dead NPC still walks* lead above.  Both want the same fix: a separate
   dead flag, because the Runner does keep ticking the walks of a merely hidden
   NPC.
+
+---
+
+## FIXED 2026-08-24 -- a battle-killed NPC is dead for good (the parked *dead NPC still walks* lead)
+
+Closes both halves of the pair above: the `where` answer "<Name> is dead!" and
+the corpse that kept walking.  Done from P-code alone -- the console is still
+locked, so no live Runner was needed or available.
+
+### What the Runner does
+
+`killchar` -- run390 `run390_3.bas` `@42D410`, run400 `Project/Battles.bas`
+`@44B13C`, the same routine either side of the 4.0 rewrite -- does three things
+in this order:
+
+1. drops everything the NPC held or wore into the room it died in;
+2. **if it has a KilledTask, runs it**, then suppresses the default
+   " falls down, dead." line (run390 gates on `var_90(124) > 0` and dispatches
+   through the matcher: `MemVar_468118 = tasks(idx-1).cmd(0)` then `tasks(1)`;
+   run400 gates on `var_90(206) > 0` and calls the task directly.  `var_90(206)`
+   is the **KilledTask index**, not a lives counter -- that was the open
+   question from the previous pass and it is now answered);
+3. **unconditionally** stamps the NPC's room field:
+
+       loc_42D3FA: push &HFB 'Byte
+       loc_42D3FC: var_90(12) = from_stack_1        ' run390, field 12
+       loc_44B127: push &HFB 'Byte  ->  var_90(14)  ' run400, field 14
+
+`&HFB` here is **−5**, not 251: it is pushed by `LitI2_Byte`, which
+sign-extends.  Same family as the `push &HFF` = −1 already recorded in
+`adrift-decompile-signed-byte-literals`.  −1 is the Runner's "hidden"; −5 is
+its "dead".
+
+Three independent sites confirm the field is the NPC's room in each build:
+the walk-to-hidden write `var_16C(12) = &HFF` (run390 `loc_45ABBA`), the
+compare against the player's room `If (var_16C(12) = unk_4082E6.global_0)`
+(`loc_45AC74`), and the `where` compare at `loc_459D60`.
+
+Exactly two readers of −5:
+
+* **the walk ticker breaks out of the walk loop** --
+  run390 `loc_45A4BC: If (var_16C(12) = &HFB) Then GoTo loc_45ABD0`, and
+  `loc_45ABD0` is *after* `Next var_2D4` but before the per-NPC tail, so the
+  same NPC still goes through `charbattle`; run400 `loc_4685B6 -> loc_468D61`,
+  likewise past `Next var_A0` and before `Next var_94`.  A **break**, not a
+  continue -- that distinction was checked, because it decides whether the
+  walk's step counter keeps advancing.
+* **`where <name>`** -- run390 `loc_459D74`, run400 `@47FDB9`.
+
+And the ADRIFT 4 manual (`~/adrift-battle/runner/manual.txt` l. 2659) states it
+outright:
+
+> The default behaviour for when a character is killed (i.e. its stamina
+> reaches zero) is for the character to disappear, and any objects it was
+> holding are moved to the current room.  Typically you would want to create a
+> dead body and have some message notifying the player of the recently
+> deceased.
+
+### The port
+
+`NPC_DEAD_LOCATION = -5` in `scgamest.h` plus a `dead` flag on
+`scr_npcstate_t`, cleared by `gs_set_npc_location()` so any later move revives:
+
+* `scbattle.cpp` -- `battle_kill()` sets location 0 **and** the dead flag, in
+  that order and *after* the KilledTask, matching killchar;
+* `scnpcs.cpp` -- `npc_tick_npc()` breaks out of the walk loop on the flag;
+* `sclibrar.cpp` -- `lib_cmd_locate_npc()` early-returns "<Name> is dead!";
+* `scserial.cpp` -- saves write `NPC_DEAD_LOCATION` and restore special-cases it
+  ahead of the range guard, so `.tas` round-trips.
+
+### Fallout: The Town of Azra's economy was never real
+
+Azra (3.90 build) is designed as a renewable hunting sandbox: tasks 19
+`#banditkristdies` and 37 `#deerdies` each drop a corpse object, move their NPC
+to hidden, and restore its stamina (+30 / +20), plainly expecting the looping
+walk (`step0 dest=0`) to bring it back.  It never did in the Runner, so the
+author's intro remark -- "you can continue to kill more bandits and sell more
+carcasses to gain more money, of course. :)" -- is untested, and **goal 5, the
+$7,500 house, is unreachable**: one bandit purse plus one $500 carcass tops out
+at $959.68, and Stealth alone costs $800.
+
+The old golden ran 505 turns and sold fifteen carcasses; that route existed only
+because Scarier let the corpse keep walking.  Re-derived at `SCR_SEED=26` to
+**58 turns**, goals 1/2/3/4/6, wealth $159.68.  Measured en route: 10 attacks
+kill the bandit and 4 the deer, and overshooting is free -- `attack` at an
+absent or dead NPC is a parser rejection that costs no turn, so the blocks are
+self-syncing (11–15 bandit attacks give a byte-identical transcript).
+
+`notes/The_Town_Of_Azra_walkthrough.md` rewritten to match; the harness row
+carries the measurement.  Shadowpeak's two routes were re-derived in the same
+pass (corpses no longer draw a walk random each turn, which re-threads every
+downstream walker and battle roll): `shadowpeak_killwraith` 710 -> **735/790**.
+
+v4 corpus after the port: **303/303**.

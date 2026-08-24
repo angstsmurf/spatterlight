@@ -514,8 +514,6 @@ laboratory floor, a stairwell leads up.  The lab floor is to the north.
 
 Also here is a dead Orgaan soldier and a dead Jeriah.
 
-Mark Eridian walks in from the north.
-
 Skyrv runs in from the north.
 
 Skynd runs in from the north.
@@ -546,8 +544,6 @@ west is the entrance door and a steel stairway leads downwards.
 A large white, polymer patio table appears cheesily inexpensive but lends
 itself to the informal and laid back atmosphere of the patio.
 
-Mark Eridian walks in from below.
-
 Skyrv runs in from below.
 
 Skynd runs in from below.
@@ -565,8 +561,6 @@ floor.  The control room door is east.
 A massive I beam that held up a portion of the laboratory ceiling now forms a
 natural and treacherous walkway from the laboratory control room to the
 breached cafeteria.  The code red warning light is on.
-
-Mark Eridian walks in from the east.
 
 Skyrv runs in from the east.
 
@@ -661,8 +655,6 @@ intersection to the east.  From here it appears that the main entrance is
 unblocked.  However, if you walk into the hallway, they'll see you long
 before you can escape past them.
 
-Mark Eridian walks in from the east.
-
 Skyrv runs in from the east.
 
 Skynd runs in from the east.
@@ -690,8 +682,6 @@ Green and greyish Orgaan goo is spilt over the orange carpet and stone tiles
 in the hall. The reception area to the west of here appears destroyed.  To
 the south is the laboratory cafeteria.
 
-Mark Eridian walks in from the south.
-
 Skyrv runs in from the south.
 
 Skynd runs in from the south.
@@ -707,8 +697,6 @@ is blocked by a collapsed ceiling.  To the south is the south/west hallway.
 An open door to the east is labelled, "Security."
 
 Also here is a dead Nadine.
-
-Mark Eridian walks in from the west.
 
 Skyrv runs in from the west.
 
@@ -732,8 +720,6 @@ monitors and computer terminals allow checking in on any area of the grounds.
  Security was the nerve center of the laboratory.  The ensuing fighting after
 the attack has destroyed all of the electronic equipment in the room.
 Malthew stands here at attention.
-
-Mark Eridian walks in from the west.
 
 Skyrv runs in from the west.
 
@@ -787,8 +773,6 @@ An open door to the east is labelled, "Security."
 
 Also here is a dead Nadine.
 
-Mark Eridian walks in from the east.
-
 Skyrv runs in from the east.
 
 Skynd runs in from the east.
@@ -804,8 +788,6 @@ East/West Hall
 Green and greyish Orgaan goo is spilt over the orange carpet and stone tiles
 in the hall. The reception area to the west of here appears destroyed.  To
 the south is the laboratory cafeteria.
-
-Mark Eridian walks in from the east.
 
 Skyrv runs in from the east.
 
@@ -832,8 +814,6 @@ discern no movement from the reception area.  Your grenade has taken out most
 of the desk.  Small pieces of Orgaan are blown everywhere in the reception
 area and the east/west hall.  Now you can see that the main entrance is
 blocked by a collapse of the ceiling.
-
-Mark Eridian walks in from the north.
 
 Skynd runs in from the north.
 
