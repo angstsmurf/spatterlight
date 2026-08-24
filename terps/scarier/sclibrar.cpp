@@ -3613,6 +3613,183 @@ lib_disambiguate_npc (scr_gameref_t game,
 }
 
 
+#ifdef SCARIER_DUMP_TOOLS
+/*
+ * lib_co_contains()
+ * lib_co_lastword()
+ * lib_trace_runner_co()
+ *
+ * SCR_TRACE_CO: reproduce the real Runner's object-ambiguity test and report
+ * where it disagrees with ours.  This is a measurement harness, not engine
+ * behaviour -- nothing here changes what the interpreter does.
+ *
+ * The Runner matches an object by scanning the *whole* typed command for its
+ * Short name or, failing that, its Alias (run380 `c()` @429048: a
+ * case-insensitive InStr whose hit must start at the string start or after a
+ * space, and end at the string end, a space or a comma).  Its `co()`
+ * @42DE60 then takes the term that matched, counts every object *present*
+ * whose Short or Alias is exactly that term, and if more than one is present
+ * -- and the player did not also type the last word of the object's Prefix --
+ * flags the command ambiguous, replacing the whole turn's output with
+ * "Which <term>.  The X or the Y?".
+ *
+ * Ours is a positional matcher, so `take truck keys` binds only the truck
+ * keys; the Runner also sees the mustang keys through their shared alias
+ * "keys" and asks.  mikes.taf cmd 27 is the live case (Adven_8.rtf).
+ */
+static scr_bool
+lib_co_contains (const scr_char *command, const scr_char *term)
+{
+  scr_int term_length, index_;
+
+  if (!command || !term || term[0] == NUL)
+    return FALSE;
+
+  term_length = strlen (term);
+  for (index_ = 0; command[index_] != NUL; index_++)
+    {
+      scr_char after;
+
+      if (scr_strncasecmp (command + index_, term, term_length) != 0)
+        continue;
+      if (index_ > 0 && command[index_ - 1] != ' ')
+        continue;
+
+      after = command[index_ + term_length];
+      return after == NUL || after == ' ' || after == ',';
+    }
+  return FALSE;
+}
+
+static const scr_char *
+lib_co_lastword (const scr_char *string)
+{
+  const scr_char *space;
+
+  if (!string)
+    return NULL;
+  space = strrchr (string, ' ');
+  return space ? space + 1 : string;
+}
+
+static void
+lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
+{
+  static const scr_bool trace_co = getenv ("SCR_TRACE_CO") != NULL;
+
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *command;
+  scr_int object, room;
+
+  const scr_char *ambig_term = NULL;
+  scr_int ambig_present = 0;
+  scr_bool resolved = FALSE;
+
+  if (!trace_co)
+    return;
+  command = run_get_dispatch_input ();
+  if (!command)
+    return;
+  room = gs_playerroom (game);
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *shortname, *prefix, *term;
+      scr_int alias_count, alias, other, present;
+
+      shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+      prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
+
+      /* Pick the term the Runner would have matched on: Short, then Alias. */
+      term = NULL;
+      if (lib_co_contains (command, shortname))
+        term = shortname;
+      else
+        {
+          scr_vartype_t vt_key[4];
+
+          vt_key[0].string = "Objects";
+          vt_key[1].integer = object;
+          vt_key[2].string = "Alias";
+          alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+          for (alias = 0; alias < alias_count; alias++)
+            {
+              const scr_char *alias_name;
+
+              vt_key[3].integer = alias;
+              alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
+              if (lib_co_contains (command, alias_name))
+                {
+                  term = alias_name;
+                  break;
+                }
+            }
+        }
+      if (!term)
+        continue;
+
+      /* Count present objects whose Short or Alias is exactly that term. */
+      present = 0;
+      for (other = 0; other < gs_object_count (game); other++)
+        {
+          const scr_char *other_short;
+          scr_vartype_t vt_key[4];
+          scr_bool matches;
+
+          if (!obj_indirectly_in_room (game, other, room))
+            continue;
+
+          other_short = prop_get_indexed_string (bundle, "Objects",
+                                                 other, "Short");
+          matches = other_short && scr_strcasecmp (other_short, term) == 0;
+
+          vt_key[0].string = "Objects";
+          vt_key[1].integer = other;
+          vt_key[2].string = "Alias";
+          alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+          for (alias = 0; alias < alias_count && !matches; alias++)
+            {
+              const scr_char *alias_name;
+
+              vt_key[3].integer = alias;
+              alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
+              if (alias_name && alias_name[0] != NUL
+                  && scr_strcasecmp (alias_name, term) == 0)
+                matches = TRUE;
+            }
+          if (matches)
+            present++;
+        }
+
+      /*
+       * More than one present object answers to the term.  The Runner then
+       * lets the object's own Prefix rescue it: if the player also typed the
+       * Prefix's last word ("take *silver* key"), co() stamps its resolved
+       * marker &HFE, and that marker outranks any ambiguity flagged by any
+       * other object in the same scan (run380 @42DD4C sets it
+       * unconditionally, while @42DDC1 only writes an object number when the
+       * marker is not already set).  So one resolvable object suppresses the
+       * prompt for the whole command.
+       */
+      if (present > 1)
+        {
+          if (lib_co_contains (command, lib_co_lastword (prefix)))
+            resolved = TRUE;
+          else if (!ambig_term)
+            {
+              ambig_term = term;
+              ambig_present = present;
+            }
+        }
+    }
+
+  if (ambig_term && !resolved)
+    fprintf (stderr, "CO-AMBIG verb=[%s] input=[%s] term=[%s]"
+             " present=%ld ours=%ld\n",
+             verb ? verb : "", command, ambig_term, ambig_present, count);
+}
+#endif
+
 /*
  * lib_disambiguate_object_common()
  * lib_disambiguate_object()
@@ -3660,6 +3837,10 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
       else
         game->object_references[index_] = FALSE;
     }
+
+#ifdef SCARIER_DUMP_TOOLS
+  lib_trace_runner_co (game, verb, count);
+#endif
 
   /*
    * If this reference is ambiguous and a resolver was supplied, try to

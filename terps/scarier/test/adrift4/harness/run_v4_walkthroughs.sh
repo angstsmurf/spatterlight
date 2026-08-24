@@ -1432,6 +1432,56 @@ duck_mccloud_solution.txt|duck.taf|You jump from the plane just in time and you 
 fistandantalus_solution.txt|first.taf|Congradulations you have won the game
 james_bond_solution.txt|jb2000.taf|YOU COMPLEATED THE MISSION! YOU LANDED WELL
 microwave_man_solution.txt|microwaveman.taf|You scored 100 out of the maximum 100!
+# DIAGNOSED 2026-08-24, deliberately not ported -- cmd 27 `take truck keys`.
+# run380 (Adven_8.rtf line 207) answers "Which keys.  The mustang keys or the
+# truck keys?" and does NOT take them; scarier binds the truck keys silently,
+# and every difference from cmd 53 on is downstream of that.
+#
+# The mechanism is the Runner's `co(obnum)` (run380 @42DE60, run370 @4261B4,
+# run390 `co(obnum, mode)` @43B6BC -- one routine, same shape in all three).
+# Where our %object% matcher is positional, the Runner scans the WHOLE typed
+# command for each object's Short name and, failing that, its Alias (`c()`
+# @429048: case-insensitive InStr whose hit must start at the string start or
+# after a space and end at the string end, a space or a comma).  It then takes
+# the term that matched, counts every object PRESENT whose Short or Alias is
+# exactly that term, and if more than one is present flags the command
+# ambiguous -- the flag (MemVar_44F124) is read at the end of the turn
+# @4431B0 and REPLACES the whole turn's output with "Which <term>.  <list>?".
+# One escape hatch: if the player also typed the last word of the object's own
+# Prefix ("take *silver* key"), @42DD4C stamps the resolved marker &HFE
+# instead, and that marker outranks any ambiguity raised by any other object
+# in the same scan (@42DDC1 only writes an object number when the marker is
+# not already set).  mikes' two key objects have an empty Prefix, so nothing
+# rescues them: Short "mustang keys"/Alias "keys" and Short "truck keys"/Alias
+# "keys", both present at cmd 27 because the mustang keys were taken at cmd 8.
+# `take mustang keys` at cmd 8 is NOT ambiguous only because the truck keys
+# were not yet in scope.
+#
+# Measured across the corpus with the SCR_TRACE_CO diagnostic added to
+# sclibrar.cpp for this (it reproduces co() alongside our own matcher and
+# prints CO-AMBIG when the Runner would have asked and we did not):
+#   `for row; do SCR_TRACE_CO=1 scare games/$taf < goldens/$sol; done`
+# 31 commands in 14 games trip the Runner's test.  19 of them are commands our
+# own disambiguator already calls ambiguous, so only the wording differs.  Of
+# the remaining 12, ELEVEN are in 4.00 games -- and 4.00 is exactly the
+# generation where the model is not established, because `[1]$Alias` becomes
+# `V$Alias` there (3.7/3.8/3.9 objects carry exactly one alias, which is why
+# co() can read a single field 8; a 4.00 object carries a list).  Taking all
+# of a 4.00 object's aliases as co() terms would make `open second valve`
+# ambiguous in asteroid_after (six valves, each aliased "valve", Prefix "the"),
+# i.e. would make that game unplayable -- which is good evidence that run400
+# does something else.  run400 keeps its messages in a table, so neither
+# run400.bas nor run400.p32dasm.txt resolves the "Which " literal (it is in
+# the .exe at file offset 0x17a2c), and this cannot be read off the decompile.
+#
+# So at 3.7/3.8/3.9, where the rule IS established, mikes cmd 27 is the corpus'
+# ONLY divergence -- one row, whose walkthrough would then need re-deriving
+# (drop the mustang keys first, presumably).  Porting on that alone would mean
+# writing a rule for 4.00 games we have not measured.  NEXT STEP: one live
+# command settles it -- run asteroid_after in run400 under Wine and type
+# `open second valve`.  A prompt means the 4.00 rule is the same and the port
+# is one code path; a normal answer means 4.00 narrows by the longest match
+# and the port has to be version-split.
 life_of_mike_solution.txt|mikes.taf|Ypu ask her out
 super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 # The 3.7 confirmation of the empty-M1 room-alt start rule (see the

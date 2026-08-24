@@ -1222,6 +1222,19 @@ run_pattern_names_verb (const scr_char *pattern, const scr_char *string)
 static const scr_char *run_dispatch_input = NULL;
 
 /*
+ * run_get_dispatch_input()
+ *
+ * Expose the stashed command element to other modules.  sclibrar's
+ * SCR_TRACE_CO diagnostic needs the player's own words to reproduce the
+ * Runner's whole-command containment test.
+ */
+const scr_char *
+run_get_dispatch_input (void)
+{
+  return run_dispatch_input;
+}
+
+/*
  * Tasks that have already been run by the current command element, reset by
  * run_all_commands() alongside run_dispatch_input.
  *

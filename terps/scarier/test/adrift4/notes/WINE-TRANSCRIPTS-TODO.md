@@ -841,8 +841,9 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
 - **mikes replay desync**, for anyone re-running it: cmd 27 `take truck keys`
   hits a disambiguation prompt ("Which keys. The mustang keys or the truck
   keys?") that scarier resolves silently, and everything from cmd 53 on is a
-  consequence.  Only commands before 27 are evidence.  Worth a second look on
-  its own account -- the disambiguation itself is a real divergence.
+  consequence.  Only commands before 27 are evidence.  **Diagnosed 2026-08-24,
+  not ported -- blocked on one live 4.00 command**; see "DIAGNOSED ... the
+  Runner's co() object-ambiguity test" below.
 - **Humbug via SAVE points** (user's suggestion, untried): checkpoint the
   replay with the Runner's own `save`/`restore` so the three randomised
   secrets -- dial combination, magic word at cmd 209, keypad code at cmd 344
@@ -854,6 +855,143 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
 - **Next candidates** down the list: `goldilocks`, `cibass`, `sophie`/`sa.taf`.
   With the pre-3.9 pool now clean, the remaining 3.90 and 4.00 candidates are
   where the next divergences will come from.
+
+## DIAGNOSED 2026-08-24 -- the Runner's co() object-ambiguity test (mikes)
+
+The second pre-3.9 divergence, and the only one left in the pre-3.9 pool.
+run380 answers mikes cmd 27 `take truck keys` with
+
+    Which keys.  The mustang keys or the truck keys?
+
+and does not take them (`Adven_8.rtf` line 207).  Scarier binds the truck
+keys silently, which is where the replay desyncs.
+
+### What the Runner does
+
+Our `%object%` matcher is positional: `uip_match_entity()` walks the pattern
+and only considers a candidate that starts where the pattern's `%object%`
+starts, so `take truck keys` can only ever bind the truck keys.
+
+The Runner has no positional matcher at all.  `co(obnum)` -- run380 @42DE60,
+run370 @4261B4, run390 `co(obnum, mode)` @43B6BC, one routine with the same
+shape in all three -- does this instead:
+
+1. Scan the **whole typed command** for the object's Short name; failing
+   that, for its Alias.  The scanner is `c(search)` (run380 @429048): a
+   case-insensitive `InStr` whose hit must begin at the string start or just
+   after a space, and must end at the string end, a space, or a comma.  (No
+   retry on a failed trailing boundary -- only a failed *leading* boundary
+   loops, @42902F.  And `c("")` is False, because the zero-length hit fails
+   every trailing test.)
+2. Call whichever of the two matched `term`.
+3. Count every object **present** (`obhere`) whose Short **or** Alias is
+   *exactly* `term` -- string equality, not containment.
+4. If that count is > 1, flag the command ambiguous by stamping the object's
+   number into `MemVar_44F124` (@42DDC7).  That flag is read at the very end
+   of the turn (@4431B0) and **replaces the whole turn's output** with
+   `"Which " & term & ".  " & list & "?"` (@443303; the sibling @4432AA uses
+   the Short name instead when the player typed it).  The list is built at
+   @42DC1E from every present object with that term, `tense(Prefix) & " " &
+   Short`, joined with ", " and " or ".
+5. One escape hatch: if the player *also* typed the last word of that
+   object's own Prefix -- "take **silver** key" -- @42DD4C stamps the
+   resolved marker `&HFE` instead.  That marker outranks any ambiguity raised
+   by any other object in the same scan, because @42DDC1 only writes an
+   object number when the marker is not already set, while @42DD51 writes
+   `&HFE` unconditionally.  So one resolvable object suppresses the prompt
+   for the whole command.
+
+mikes has no Prefix on either object -- Short "mustang keys"/Alias "keys" and
+Short "truck keys"/Alias "keys", both Prefix "" -- so nothing rescues them.
+At cmd 27 both are present (the mustang keys were taken at cmd 8 and are
+carried), the mustang-keys object matches on its alias "keys", two present
+objects answer to "keys", and the Runner asks.  Cmd 8 `take mustang keys` is
+*not* ambiguous only because the truck keys were not yet in scope, which is
+the transcript's own control.
+
+### The measurement harness
+
+`SCR_TRACE_CO` was added to `sclibrar.cpp` for this and is worth keeping.  It
+reproduces `co()` from the player's raw command (via the new
+`run_get_dispatch_input()`) at each `lib_disambiguate_object_common()` call
+and prints
+
+    CO-AMBIG verb=[take] input=[take truck keys] term=[keys] present=2 ours=1
+
+whenever the Runner's test fires; `ours=` is our own post-filter reference
+count, so `ours=1` is a real divergence and `ours>1` means only the *wording*
+of the prompt differs.  It changes no behaviour.  Sweep the corpus with
+
+    while IFS='|' read -r sol taf marker envs; do
+      env $envs SCR_TRACE_CO=1 harness/scare "games/$taf" < "goldens/$sol" \
+        2>&1 >/dev/null | grep '^CO-AMBIG'
+    done < <(grep -E '^[A-Za-z0-9_.-]+\.txt\|' harness/run_v4_walkthroughs.sh)
+
+It is a *lower* bound: a command claimed by a task never reaches the library
+disambiguator at all, and the Runner's flag can be set from handlers we do
+not model.
+
+### Corpus exposure, measured 2026-08-24
+
+**31 commands in 14 games.**  19 of them are commands our own disambiguator
+already calls ambiguous (`ours>1`), so only the prompt's wording differs
+there -- and that wording is wrong too: no Runner anywhere contains the
+string "Please be more clear" (which is SCARE's invention), and only four
+lines in the whole corpus print it (`cybercow` x3, `light_up` x1).  The three
+Runners spell it "Which <term> would you like to take/drop/examine.  <list>?"
+from the take/drop/examine handlers (run380 @43DE41/@438A8B/@43D2F6) and
+"Which <term>.  <list>?" from everywhere else.
+
+Of the remaining 12 genuine divergences, **eleven are in 4.00 games**:
+
+| game | version | commands |
+|---|---|---|
+| mikes | 3.80 | `take truck keys` |
+| mysteryofcaves | 4.00 | `get scammin's ring`, `wear scammin's ring` |
+| A_Spot_of_Bother | 4.00 | `get metal bar` |
+| ShadricksTravels | 4.00 | `x wood` |
+| Witness_Demon_vs_Vampire | 4.00 | `get red bottle` |
+| easter | 4.00 | `put egg/eggs/chicks in basket` |
+| asteroid_after | 4.00 | `open/close {first..fifth} valve` x6 |
+
+### Why it is not ported
+
+4.00 is exactly the generation where the rule is *not* established.  Objects
+carry `[1]$Alias` -- one alias, full stop -- in 3.7, 3.8 and 3.9, which is why
+`co()` can read a single struct field 8; a 4.00 object carries `V$Alias`, a
+list (see `V400_...` vs `V390_...` in `sctafpar.cpp`).  If a 4.00 object's
+*every* alias were a `co()` term, `open second valve` would be ambiguous in
+asteroid_after -- six valves, each aliased "valve", each with Prefix "the" so
+the escape hatch never fires -- and the game would be unplayable.  That is
+good evidence run400 does something else (narrowing on the longest match is
+the obvious candidate).  It cannot be read off the decompile: run400 keeps
+its messages in a table, so neither `run400.bas` nor `run400.p32dasm.txt`
+resolves the "Which " literal, although the literal really is in the binary
+(UTF-16LE at file offset 0x17a2c in run400.exe, and likewise at 0x9568 /
+0xb270 / 0xee08 in run370/run380/run390).
+
+At 3.7/3.8/3.9, where the rule *is* established, mikes cmd 27 is the corpus'
+only divergence -- one row, whose walkthrough would then need re-deriving
+(drop the mustang keys before taking the truck keys, presumably; there is no
+adjective that would disambiguate).  Porting on that alone would mean
+inventing a 4.00 rule.
+
+### The one command that unblocks it
+
+Run `asteroid_after.taf` in run400 under Wine and type `open second valve`.
+
+* A "Which valve." prompt means the 4.00 rule is the same one and the port is
+  a single code path (and asteroid_after's walkthrough is wrong).
+* A normal answer means 4.00 narrows by the longest matching name, and the
+  port has to be version-split -- in which case also check
+  `get scammin's ring` in mysteryofcaves, whose two rings share the alias
+  "ring" and differ only in their Short names, to see which way it narrows.
+
+Also worth measuring while the Runner is up: the disambiguation *wording*,
+since ours matches no Runner at all, and whether the Runner disambiguates
+**NPCs** -- there is no "which character" message anywhere in run370/run380/
+run390, so scarier's "Please be more clear, who do you want to attack?"
+(3 lines in `cybercow`'s golden) may have no counterpart at all.
 
 ## DIAGNOSED 2026-08-24 -- the run370 double matcher pass (arlo)
 
