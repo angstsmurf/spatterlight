@@ -831,7 +831,9 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
   roomgroup stop *does* re-run every tick.
 - **arlo, `get out of bus` at the church** (cmds 37 and 64): run370 ends with
   the task's "You are no longer in the bus." and prints no exits list;
-  scarier prints the exits and drops the task line.
+  scarier prints the exits and drops the task line.  **Diagnosed 2026-08-24,
+  deliberately not ported** -- see "DIAGNOSED ... the run370 double matcher
+  pass" below.
 - **mikes replay desync**, for anyone re-running it: cmd 27 `take truck keys`
   hits a disambiguation prompt ("Which keys. The mustang keys or the truck
   keys?") that scarier resolves silently, and everything from cmd 53 on is a
@@ -850,6 +852,157 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
 - **Next candidates** down the list: `goldilocks`, `cibass`, `sophie`/`sa.taf`.
   With the pre-3.9 pool now clean, the remaining 3.90 and 4.00 candidates are
   where the next divergences will come from.
+
+## DIAGNOSED 2026-08-24 -- the run370 double matcher pass (arlo)
+
+The one remaining pre-3.9 divergence, read out of the run370 p-code and
+matched line for line against `Adven_10.rtf`.  **Understood in full, and
+deliberately not ported** -- see "Why it is not ported" at the end.
+
+### What the transcript shows
+
+    > get out of bus                                     (arlo, at the church)
+    You're on foot.  You are in front of a gothic wooden church. ...
+    There is a mailbox here.  You are no longer in the bus.
+
+One RTF paragraph, one `\par`.  Scarier instead prints
+
+    You're on foot.
+    You are in front of a gothic wooden church. ... There is a mailbox here.
+
+    You can move north and east.
+
+so two things differ at once: the Runner *loses the exits sentence* and
+*gains a second task's CompleteText*.  Both come from one mechanism.
+
+### The mechanism
+
+`generaltasks` runs, in this order (run370 @0003B935 onwards):
+
+    takes()  drops()  inventory()  tasks(0)  wears()  removes()
+    ... insides() sitstand() openclose() ... moves(playerroom) ... examines()
+
+`takes()` is entered whenever the command contains `get`, `take`, `pick` or
+the game's own take-verb **and does not contain `from`** (@00035D8C-35E28).
+Its object scan then walks every object and, on the *first* one whose Short
+name or an Alias appears in the command, calls the task matcher with
+**mode 1 and the player's original command still in place** and `Exit For`
+(@00036CA2-36CB5).  arlo's object 29 is `microbus` with the alias **`bus`**,
+so `get out of bus` reaches that call.
+
+The crucial bit: **`takes()` never stores a return value.**  Its p-code opens
+with `ZeroRetValVar` and there is no store to the result slot anywhere in the
+body -- the `takes = MemVar_4460E4` that VB Decompiler prints at
+`loc_436D17` is its rendering of the `ExitProcCbHresult` opcode, not a
+statement.  So `takes()` always returns Empty, `CBoolVarNull` is False, and
+`generaltasks` **falls through to `tasks(0)` anyway**.  The matcher therefore
+runs a second time on the same command, this time in **mode 0**.
+
+Mode is the whole story for the buffer (@00041B90):
+
+    If mode = 1 Then  buffer = <buffer as at this call's entry> & CompleteText
+    Else              buffer = CompleteText            ' CLOBBER
+
+So in arlo:
+
+1. `takes()` -> matcher(mode 1) -> **task 72** (`get out of *bus*`,
+   Where = room 7 = the bus, Repeatable) completes.  Buffer becomes
+   "You're on foot.", then its `ShowRoomDesc = 1` runs `viewroom(room 0)`.
+2. `viewroom`'s exits block (@000330FF) sets `command = "exits"`, calls
+   `moves(broom)` -- which *replaces* the buffer with the exits sentence --
+   and then, because the answer is not "... any direction!", **prints
+   everything accumulated so far immediately and with no newline**
+   (`Sub_3_27(saved & "  ")`, @0003315C) and leaves the buffer holding
+   **only** "You can move north and east."
+3. Task 72's Movements then put the player in room 0.
+4. `tasks(0)` runs the matcher again.  Task 72's Where gate now fails (the
+   player is no longer in the bus); **task 107** -- same five patterns,
+   Where = room 0, CompleteText "You are no longer in the bus." -- matches
+   instead, and mode 0 **clobbers** the buffer.  The exits sentence is
+   destroyed before it is ever flushed.
+5. The turn's final flush prints the clobbered buffer plus a newline.
+
+Net screen text: the accumulated prefix (already printed in step 2) followed
+by task 107's line, in one paragraph, with no exits.  Exactly the transcript.
+
+Every other `get out of bus` in the same transcript corroborates it:
+
+* at the Dump and at the Parking area the second pass finds nothing (task 107
+  needs room 0), so only the first task's text survives -- and the exits are
+  still missing there for the *other* reason, `viewroom` running before the
+  Movements;
+* `take garbage` (task 95, structurally identical to task 72, SRD room 0,
+  Movements to room 0) keeps "You can move north and east." because nothing
+  matches on the second pass;
+* probing `get out of bus` while already on foot at the church prints
+  "You are no longer in the bus." alone.
+
+### Why it is not ported
+
+Scarier's turn is "matcher once, then the library".  Reproducing this would
+mean running the matcher a second time for every take-family command and
+giving the second run clobber-the-buffer semantics that scarier's filter has
+no equivalent for.  The preconditions are narrow -- a `get`/`take`/`pick`
+command with no `from`, naming an object, matching a **repeatable** task whose
+own effects then make a **different** task match -- and arlo is the only game
+in a 303-row corpus that hits them.  The golden keeps scarier's single-pass
+output; the row in `harness/run_v4_walkthroughs.sh` carries the measurement.
+
+## REFERENCE -- run370 facts established while chasing arlo
+
+Recorded here because two of them reverse working models earlier sessions
+were built on.
+
+- **The .bas decompile silently DROPS statements.**  Proven twice above and
+  once more below.  `run370.bas` has neither the `var_A4 = 0` at
+  `00040B7A` nor the whole `If var_A4 = 0 Then` gate at `00040BE5`, and it
+  invents a `takes = MemVar_4460E4` where the p-code has only `ExitProc`.
+  It also mis-attributes `Left()`/`Right()`/`InStr()` arguments and prints
+  `For i = 0 To 0` where the real limit is a variable.  **Always confirm
+  against `run370.p32dasm.txt`** (addresses there are VA - 0x400000; use
+  `LC_ALL=C`, and find line numbers with `grep -n '^0004...'` rather than
+  `sed -n '/^ADDR:/,/^ADDR:/p'`, which silently matches nothing).
+- **One ordinary task per matcher call -- `var_A4` is the latch.**  Zeroed
+  once *before* the outer task loop (`00040B7A`), tested at the top of every
+  pattern iteration (`00040BE5`, `BranchF 00040ED7` when set), set to 1 the
+  instant any task completes (`00041DE7`).  The single exception is the
+  landing site itself: a `&&` ("always") pattern with mode 0 and an empty
+  entry buffer still matches at `00040ED7`, so `&&` tasks are not latched
+  out.  arlo has none.  **This retires the "exhaustive task loop" model**
+  that earlier sessions inferred from the .bas, and with it the parked
+  multi-task patch -- scarier's existing one-task-per-call behaviour is
+  correct.  The two CompleteTexts in arlo come from two *calls*, not one.
+- **Room-number offsets.**  `playerroom` is 1-based (scarier room `r` is
+  `r+1`), and the rooms array `MemVar_446008` is indexed by that 1-based
+  value, while `roombitmap` is indexed by the scarier index.  In a task,
+  **`ShowRoomDesc` = scarier room + 1** and a Movement's **`Var2` = scarier
+  room + 3**; a Movement moves the player when `Var1 = 1 And Var2 > 1`.
+- **`viewroom`'s exits block** (`000330FF`) is gated by a game-header byte,
+  `MemVar_44613D`, read at load (`0003F313`) -- game-wide "show exits", not a
+  per-call flag.  When on, it stashes the buffer, calls `moves(broom)` (which
+  *overwrites* the buffer with the exits sentence), then either restores the
+  stash and prints nothing at all (answer ends "any direction!") or prints
+  the stash immediately without a newline and leaves the exits sentence in
+  the buffer for the turn's final flush.  Note the consequence: after a
+  successful `viewroom`, the buffer contains **only** the exits sentence.
+- **`moves()` counts the exits of `broom`, not of the player's room**
+  (`00033F01`), and counts an exit when its task gate is 0 or when
+  `tasks(gate-1).done = 1 - flag`.
+- **`tasks(0)` returns the endgame flag**, so `generaltasks` normally *falls
+  through* it to `wears`/`removes`/`insides`/`sitstand`/`openclose`/
+  `moves(playerroom)`/`examines` before the `characters()` + `events()` tail
+  -- those are not alternative branches.
+- **`checktask(text)` is a pure predicate** ("would a task matching this text
+  pass its restrictions").  It never executes a task.
+- **Only ten call sites reach the matcher**: `characters()` x2 (CharTask,
+  ObjectTask), `generaltasks` x1 (**the only mode-0 call**), `takes()` x3,
+  `drops()` x3, `events()` x1.  Eight of them substitute
+  `tasks(N-1).Command[0]` for the command first; the two that do not are
+  `takes()` `@00036CAD` and `drops()` `@00030D38`, which re-match the
+  player's original words.
+- **Retraction: `break *garbage*` does match `break garbage with implement of
+  destruction`.**  An earlier session used that command as a single-task
+  probe; it never was one.
 
 ## CLOSED 2026-08-24 -- the not-a-room-zero arrival gate
 

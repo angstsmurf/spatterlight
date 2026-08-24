@@ -1506,6 +1506,36 @@ super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 # hidden; Scarier collapses both into one marker, so it cannot tell them
 # apart.  orient_express is the live proof this matters: Scarier prints
 # "Gimme Atip enters." where run400 prints nothing.
+# arlo.taf (3.70) -- one measured, deliberate deviation, diagnosed 2026-08-24
+# against run370.exe under Wine (Adven_10.rtf) and the run370 p-code.
+#
+#     > get out of bus                                    (at the church)
+#     run370:  You're on foot.  <room 0 description> ... There is a mailbox
+#              here.  You are no longer in the bus.        [one paragraph]
+#     scarier: You're on foot. / <room 0 description> ... There is a mailbox
+#              here. / <blank> / You can move north and east.
+#
+# The Runner runs the task matcher TWICE for this command.  takes() is entered
+# for anything containing get/take/pick without "from" (@00035D8C), and on the
+# first object whose name or alias is in the command -- object 29 "microbus",
+# alias "bus" -- it calls the matcher with mode 1 and the player's ORIGINAL
+# command (@00036CAD).  That completes task 72, whose ShowRoomDesc runs
+# viewroom(room 0); viewroom prints everything accumulated immediately and
+# without a newline and leaves ONLY the exits sentence in the buffer
+# (@0003315C).  takes() then returns Empty -- it has no store to its result
+# slot at all, the "takes = MemVar_4460E4" in run370.bas is VB Decompiler's
+# rendering of ExitProc -- so generaltasks falls through to its own matcher
+# call, mode 0 (@0003B972).  Task 72's Where gate now fails (its Movements
+# moved the player to room 0) and task 107 matches instead, and mode 0
+# CLOBBERS the buffer with its CompleteText (@00041C21).  The exits sentence
+# is destroyed before it is ever flushed.
+#
+# Not ported: scarier runs the matcher once, and the second pass would need
+# clobber-the-buffer semantics its filter has no equivalent for.  The
+# preconditions -- a take-family command naming an object, matching a
+# REPEATABLE task whose own effects make a DIFFERENT task match -- are hit by
+# no other game in this corpus.  Full write-up in
+# notes/WINE-TRANSCRIPTS-TODO.md, "the run370 double matcher pass".
 alices_restaurant_solution.txt|arlo.taf|recording an album that will be that hit record
 castle_quest_solution.txt|castle.taf|Thanks for playing!
 # ---------------------------------------------------------------------------
