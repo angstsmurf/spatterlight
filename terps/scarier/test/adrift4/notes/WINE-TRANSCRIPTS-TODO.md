@@ -256,7 +256,7 @@ ratio is the argument for sweeping a transcript the moment it is captured,
 rather than only when its own lead is being chased -- both finds here sat on
 disk unread for two days.
 
-### OPEN 2026-08-25 -- the inverse census, and an empty room description
+### FIXED 2026-08-25 -- the inverse census, and an empty room description
 
 Run the census backwards -- every Runner string that Scarier never prints --
 and most of what comes back is dialogue boxes, registry errors and map-zoom
@@ -288,9 +288,28 @@ sentence" moves exactly two goldens, `yeh` and `richard`, both 3.90, and
 nothing else in the 303 rows.  (The naive placement -- an `else` on the Long
 itself -- moves sixteen, because it fires ahead of every alt and LastDesc.
 That difference is the whole content of the run390 branch, and it is a good
-reminder to read the guard, not just the literal.)  Neither game has a Wine
-transcript, so this is decompile-only and is NOT ported.  `p39EXAM.taf` now
-has a third room with an empty Long to settle it: `e`, `look`, `w`.
+reminder to read the guard, not just the literal.)
+
+**Measured 2026-08-25**, `p39EXAM.taf`'s third room -- an empty Long, no alts,
+no objects.  run390, `Adrift_41_p39exam.txt` and `Adrift_43_p39exam.txt`, all
+19 + 29 commands echoed:
+
+    e
+    You move east.
+    Void Room
+    There is nothing of interest here.  You can only move west.
+
+and `look` repeats it.  The sentence is joined to the exits with the ordinary
+two-space clause gap -- the Runner appends it to the message with no `pspace()`
+of its own, so the exits sentence supplies the separator (contrast `4478AB`,
+where the LastDesc branch *does* call `pspace()` first).  The 4.00 twin
+`p4EXAM.taf`, `Adrift_1_p4exam.txt`, prints the exits alone, confirming 4.0
+dropped it.
+
+**Ported** in `lib_print_room_description()`, gated `version == TAF_VERSION_380
+|| version == TAF_VERSION_390` and on `!is_described` -- exactly the guard
+above, not the Long alone.  `yeh` and `richard` moved and were re-blessed; the
+corpus is back to 303 PASS.
 
 ### The four-exe string census, 2026-08-25
 
@@ -478,6 +497,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `sa.taf` (`sophie`) | 4.00 | live run400 replay, `Adrift_41_sophie.txt`..`Adrift_45_sophie.txt` (five runs of the solution's first fifty commands), plus the game's own 488-entry ALR table | the walk announcement is **joined into the turn's paragraph**, so 12 of sa.taf's 65 join-spanning ALRs fire and delete the arrivals they match -- see the FIXED section below |
 | `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
 | `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased**, and **what is *on* an object is listed before what is *in* it, in one sentence** -- see the two FIXED sections below.  Also closed the `knock` lead (a feed artefact) and left `burn memo` open |
+| `p39EXAM` / `p4EXAM` (built probes) | 3.90 + 4.00 | run390 replays `Adrift_41/43_p39exam.txt` (29 + 19 commands) and the run400 twin `Adrift_1_p4exam.txt` (32) | the whole **examine / read / open / close refusal family**, plus the empty room description: four splits found and ported, and 3.90 now agrees with Scarier on all 48 rows.  See the FIXED sections below |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -2311,10 +2331,79 @@ the object is not present:
 | -1 | -- | `You can't open that.` | `Exit Sub` 4756BC, then therest 488818 | `Open what?` |
 
 The third row is the one hauntedhouse measures (`open door`, turn 3, no `door`
-object in the game).  Scarier reaches all three through
-`{"open *", lib_cmd_open_what}` (scrunner.cpp:658), because `%object%` is
-seen-gated *and* `lib_disambiguate_object()` is room-gated, so a seen-but-absent
-object never reaches `lib_cmd_open_object()`.
+object in the game).  Scarier reaches all three through the single `{"open *",
+...}` row (scrunner.cpp:658), because `%object%` is seen-gated *and*
+`lib_disambiguate_object()` is room-gated, so a seen-but-absent object never
+reaches `lib_cmd_open_object()`.  The **third** row is therefore now right --
+see the FIXED entry below -- and the first two are still the resolver gap.
+
+#### FIXED 2026-08-25 -- no Runner has ever said `Open what?`
+
+Upstream SCARE routed `open *` to `lib_what()`.  Nothing prints that.  Every
+Runner composes the same flat refusal its `close` twin does, and `close *` was
+already routed to `lib_cant_do_other()` on the line directly below -- a
+one-line asymmetry, not a version split.
+
+Measured on both sides, all commands echoed:
+
+| taf | transcript | `open` | `open door` | `open <seen, absent>` |
+|---|---|---|---|---|
+| `p39EXAM.taf` 3.90 | `Adrift_41/43_p39exam.txt` | `You can't open that.` | `You can't open that.` | `You can't open that.` |
+| `p4EXAM.taf` 4.00 | `Adrift_1_p4exam.txt` | `You can't open that.` | `You can't open that.` | `You can't see the statue.` |
+
+Only the last cell differs, and that is the 4.0 resolver in the table above
+speaking one layer up -- not this handler.
+
+Confirmed a **third** way, offline and for free, by the ALR Originals table in
+`panic.taf` (the oracle described under "The ALR tables are a free, offline
+oracle").  Its author enumerated the library messages exhaustively; the list
+carries `Block what?`, `Drop what?`, `Take what?`, `Lock what?`, `Unlock
+what?`, `Press what?`, `Pull what?` and twenty-six more -- and **no `Open
+what?` and no `Close what?`**.  What it carries instead, at the alphabetical
+position where `Open what?` would sit:
+
+    You can't open that.
+    {#}[I do not discern the object you want to open.]
+
+`Open what?` / `Close what?` are in the run380/390/400 pools, but reaching them
+needs the noun to match an object that is elsewhere *and* that object's byte at
++44 (390) / +40 (380) to be 0 -- run390 `43A266`, run380 `42F1D1`.  No probe row
+has ever got there; in 3.90 `co()` did not match the absent statue at all, so
+the command fell straight to the generic tail at `45D454` (`push "that"`).
+
+**Ported**: `lib_cmd_open_what()` is gone, replaced by `lib_cmd_open_other()`
+next to `lib_cmd_close_other()`, and scrunner.cpp:658 points at it.  All
+versions, no gate.  Two goldens moved and were re-blessed, both 4.00:
+`xfiles` (`open phone book`) and `cellar` (`open satchel`).  Neither is *right*
+yet -- run400 answers `open phone book` with `Your Cell Phone is already
+open!`, because its matcher takes `phone` as a partial match on `Your Cell
+Phone` where Scarier's does not (`Adrift_22_xfiles.txt` lines 226-231, already
+logged under the matcher entries) -- but the library half of both is now the
+Runner's.
+
+#### FIXED 2026-08-25 -- `close <present, not closeable>` loses its bang before 4.0
+
+The probe caught a punctuation split inside a pair that looks symmetric and is
+not:
+
+    run390, Adrift_43_p39exam.txt        run400, Adrift_1_p4exam.txt
+    > open stone                         > open stone
+    You can't open the stone!            You can't open the stone!
+    > close stone                        > close stone
+    You can't close the stone.           You can't close the stone!
+
+The decompile says why.  `openclose()` gives `open` a not-openable branch of
+its own, ending in `"!"` (run380 `42F071`, run390 `43A0C5`/`43A0F3`).  It gives
+`close` **none at all**: run380 `42F25C..42F322` and run390 `43A2xx` test only
+openness 6 and 5, so a present-but-not-closeable object falls out of
+`openclose()` with the message still empty and is answered by the generic
+can't-do tail further down -- which ends in `"."` (run370 `43D231`, run380
+`443D31`, run390 `45D4BE`/`45D4CF`).  Same sentence as `close <nothing>`, same
+period.  4.0 finally gave close its own message, with a bang (run400 `475A31`,
+`"!"` at `475A5F`).
+
+Ported in `lib_cmd_close_object()`'s tail, gated on `lib_is_version_400()`.
+No golden moved.
 
 `examine` -- run400 `Proc_19_87_471F94` @471340, readable verbatim as run370
 `examines` (Form1.frm:6892-6949):
@@ -2380,10 +2469,10 @@ flag beside this message (`MemVar_494281` at `loc_471F02`), and Scarier has no
 darkness examine answers at all (`... can't see that very clearly.`, `... can
 just make out that ...`, `loc_471F41`).
 
-### OPEN 2026-08-25 -- the OTHER half of that rewrite: `x <object with no description>`
+### FIXED 2026-08-25 -- the OTHER half of that rewrite: `x <object with no description>`
 
-Same routine, one branch earlier, and it is **decompile-pinned on both sides
-but not yet measured**, so it is not ported.
+Same routine, one branch earlier.  Measured on `p39EXAM.taf` / `p4EXAM.taf`
+2026-08-25 and ported; the reading below was right.
 
 When the object *is* found and its Description is empty, pre-4.0 leaves the
 Runner's message string empty and the empty string falls through to the very
@@ -2411,7 +2500,20 @@ wording; it is not, and porting it would have been wrong.
 **Corpus exposure**: `ms_mobius_solution` (ms_mobius.taf, 3.90) is the only
 pre-4.0 golden that reaches the line.
 
-The measurement is the first command of the probe below.
+**Measured 2026-08-25.**  run390, `Adrift_41_p39exam.txt` (29/29 echoed), first
+command:
+
+    x stone
+    Nothing special.
+
+and `Adrift_43_p39exam.txt` repeats it with the stone **held** (`take stone` /
+`i` / `x stone`) -- same answer, so being carried makes no difference.  The
+4.00 twin, `Adrift_1_p4exam.txt`, answers `You see nothing special about the
+stone.`  `x crate` behaves as predicted on both: the contents sentence counts
+as a description and the tail never fires.
+
+Ported in `lib_cmd_examine_object()`, gated on `lib_is_version_400()`.
+`ms_mobius` moved by exactly one line and was re-blessed.
 
 **`read <noun that names nothing>` is the same tail again.**  Pre-4.0 there is
 no separate read verb for an unmatched noun: `read` is one of the words that
@@ -2421,10 +2523,22 @@ in run390's p-code at `44B7FF`.  So `read eye` with no `eye` object falls
 through to the very line `x pocket` measured: `Nothing special.`  4.0 answers
 `<player> see no such thing.`, which is what Scarier prints for both.
 `cybercow_win` (`read notation`) and `panic` (`read eye`) are the two exposed
-3.90 goldens.  This one needs only the `read zzzz` row of the probe to be
-measured -- the tail itself already is.
+3.90 goldens.
 
-**Staged probe -- BUILT 2026-08-25, `harness/make_39_examprobe.py`.**  A
+**Measured 2026-08-25**, `Adrift_41_p39exam.txt`: `read zzzz` -> `Nothing
+special.`, against `Adrift_1_p4exam.txt`'s `You see no such thing.`  The
+matching `read stone` (present, not Readable) answers `You can't read the
+stone!` in both, so only the unmatched-noun tail splits.  Ported in
+`lib_cmd_read_other()`.
+
+Both exposed goldens moved -- and both moved to a **game-supplied** wording,
+because each game ALRs the sentence: `cybercow_win` line 690 now reads `I can
+tell you nothing about that.` and `panic` line 470 `[I do not discern the
+object you want to examine.]`  That is the fix landing correctly, not a second
+divergence: the ALR only fires because Scarier finally emits the string the
+Runner emits.
+
+**Staged probe -- BUILT and RUN 2026-08-25, `harness/make_39_examprobe.py`.**  A
 purpose-built 3.9 file, `p39EXAM.taf`, one 24-command session, one row per
 open question.  Two rooms wired north/south; four dynamic objects, so the room
 listing SEES all of them (a static is never listed, and an unlisted object is
@@ -2446,6 +2560,58 @@ line, so the run is a straight diff.  Read all of it off the echo.
 This supersedes the earlier hauntedhouse staging for 3.9 -- but hauntedhouse
 (3.80) is still the cheapest 3.8 replay of the same rows, and settles the
 `open door` half of the hauntedhouse measurement left open below.
+
+**RUN 2026-08-25.**  Two run390 sessions, `Adrift_41_p39exam.txt` (29 commands,
+all echoed) and `Adrift_43_p39exam.txt` (19 commands, all echoed -- the second
+feed adds the open/close-a-real-object rows, the held-object `x`, and a second
+reading of the Void Room).  Feeds are `cmdfile_p39exam.txt` and
+`cmdfile_p39exam2.txt` in `~/adrift-battle/runner/wine/`.
+
+After the four fixes above, **run390 and Scarier agree on every one of the 48
+rows, word for word.**  That is the whole probe closed for 3.90.
+
+**The 4.00 twin -- BUILT and RUN 2026-08-25, `harness/make_400_examprobe.py`.**
+run400 will not load a 3.90 file: it puts up a red `Loading... Incorrect
+version.` and never starts, and `measure.sh` reports it only as "first command
+never reached the game".  Each Runner plays its own file version and no other,
+which is itself the argument for keying every split on
+`prop_get_taf_version()`.  So the probe was rebuilt against the 4.0 OBJECT
+schema (`sctafpar.cpp:115-123`) and packed with `taftool.py` onto a 4.00 donor.
+`p4EXAM.taf`, 32 commands, `cmdfile_p4exam.txt`, transcript
+`Adrift_1_p4exam.txt`, all echoed.
+
+Two footguns worth keeping:
+
+* **`Capacity 99` is invalid and hangs run400 at "Loading...".**  Capacity packs
+  as tens = object count, units = size index (`scobjcts.cpp:674-706`), and size
+  index 9 is out of range.  Use `52`.  Bisected with a new
+  `~/adrift-battle/runner/wine/loadtest.sh <taf> [exe] [png]`, which launches,
+  waits, prints the window title (the title carries the game name only if the
+  file actually loaded) and screenshots the top of the window -- the cheap way
+  to tell "the .taf is malformed" from "the replay went wrong".
+* That same bisect found **`p4INON.taf` has never been loadable** for the same
+  reason.  Its queued probe was blocked by a malformed file, not by Wine.
+  `make_400_inonprobe.py` still writes `capacity = 99`; fix it to `52` and
+  rebuild before re-queueing that row.
+
+What `p4EXAM.taf` leaves open is only the 4.0 resolver family, unchanged by
+this round:
+
+    x statue      You can't see the statue from here!   (scarier: You see no such thing.)
+    open statue   You can't see the statue.             (scarier: You can't open that.)
+    close statue  You can't see a statue.               (scarier: You can't close that.)
+    buy statue    You can't see the statue.             (scarier: I don't think that is for sale.)
+
+Note the article: `open` takes the definite, `close` the indefinite.  All four
+are one port -- the seen-but-absent resolver -- and they are now **measured**,
+which they were not before.
+
+**Still unmeasured**: the 3.70 and 3.80 halves of every row here.  That needs
+3.7/3.8 twins of the probe, i.e. a further taf-format port.  The decompiles say
+3.8 tracks 3.9 throughout except that its "nothing of interest" substitution
+happens at LOAD; 3.7 differs on at least one row (`open <present, not
+openable>` composes with a period at `43D1E0`, where 3.8 and 3.9 have grown a
+separate branch ending in a bang).
 
 ## OPEN 2026-08-25 -- `burn memo`  (probe built, waiting on Wine)
 

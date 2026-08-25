@@ -220,6 +220,23 @@ cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 # below), 3.9 (here), 4.0 (unravel, below).  19 goldens across 13 games were
 # blessed from the old model and were re-blessed for this.
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# Re-blessed 2026-08-25 for the pre-4.0 examine/read refusal wording, measured
+# on the purpose-built probes p39EXAM.taf (3.90) and p4EXAM.taf (4.00) --
+# harness/make_39_examprobe.py and harness/make_400_examprobe.py, driven under
+# Wine as Adrift_41/43_p39exam.txt and Adrift_1_p4exam.txt, every command
+# echoed.  Pre-4.0 `read <noun that names nothing>` answers the flat, person-
+# free "Nothing special." -- `read` is not a verb of its own before 4.0, it is
+# ORed into the words that enter examines() (run370 434E2A, run380 43C69D,
+# run390 44B7FF), so an unmatched noun falls to the same tail `x` does.  4.0
+# gave read its own "You see no such thing."
+#
+# Line 690 (`read notation`) does not show that sentence, because this game
+# ALRs it: the .taf maps [Nothing special] -> [I can tell you nothing about
+# that].  The ALR fires only now that scarier finally emits the string the
+# Runner emits -- the rewrite is the fix landing, not a second divergence.
+# panic_solution.txt below moves the same way, to its own ALR.
+# ---------------------------------------------------------------------------
 cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of the CyberCow.
 cybercow_solution.txt|lair-of-the-cybercow.taf|Your score is 6 out of a maximum of 10.
 deaths_solution.txt|deaths.taf|crumbles into dust
@@ -407,6 +424,18 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 # Adrift_31_xfiles.txt, so it is not a feed artefact; run400's type=3
 # restriction dispatch is now decoded in the notes and clears Var3 = -1 of any
 # part in it, which leaves the probe's `pc` cell as the whole question.
+# Re-blessed 2026-08-25, one line (589, `open phone book`): no Runner has ever
+# printed "Open what?".  scrunner.cpp's `open *` row was asymmetric with the
+# `close *` row directly beneath it, and now routes to lib_cmd_open_other() for
+# the Runner's "You can't open that."  Measured on both probes (run390
+# Adrift_41/43_p39exam.txt, run400 Adrift_1_p4exam.txt: bare `open` and `open
+# door` answer "You can't open that." in both), and confirmed a third way by
+# panic.taf's exhaustive ALR Originals table, which lists thirty-three
+# "<Verb> what?" library messages and neither "Open what?" nor "Close what?".
+# This line is still not what run400 prints -- run400 matches `phone` against
+# "Your Cell Phone" and answers "Your Cell Phone is already open!"
+# (Adrift_22_xfiles.txt lines 226-231), which is the matcher gap logged above --
+# but the library half of it is now the Runner's.
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
@@ -532,6 +561,19 @@ Tear_solution.txt|Tear.taf|Suddenly the world seems a brighter place, and you fe
 tq3_solution.txt|tq3.taf|Please forward your comments to chris@jons.org.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
+# Re-blessed 2026-08-25, four lines: a room with no description of its own says
+# "There is nothing of interest here." in 3.8 and 3.9.  run390 appends it while
+# rendering, only when the branch's own alternative text is empty AND the Long
+# is empty (4478CA, and the same guarded shape at 4479A5/447A3A/447ACF, each
+# preceded by a branch that takes the LastDesc instead and jumps clean past it);
+# run380 substitutes it into the empty Long at LOAD (447FEE) and arrives at the
+# same output.  3.7 has no such string; 4.0 dropped it.  Read the guard, not the
+# literal -- hanging it off an empty Long alone moves sixteen goldens, gating it
+# on "nothing has described this room yet" moves exactly two, this one and
+# richard_solution.txt, both 3.90.  Measured on p39EXAM.taf's third room, an
+# empty Long with no alts and no objects: Adrift_41/43_p39exam.txt answer
+# "There is nothing of interest here.  You can only move west." to both `e` and
+# `look`, while the 4.00 twin (Adrift_1_p4exam.txt) prints the exits alone.
 yeh_solution.txt|yeh.taf|Your score is 3100 out of a maximum of 3400.
 # Re-blessed 2026-08-25 for the on-before-in joined listing (see item 4 in the
 # xfiles_solution.txt block above): the wardrobe is both a surface and an open
@@ -2199,6 +2241,8 @@ chosen_solution.txt|Chosen.taf|You plug the T-shaped block into the final socket
 # wired because it is the downloaded file and it reaches far more of the game's
 # 141 tasks.  No score and no ACT type=6 -- the game ends via VAR 12
 # [game over], so the marker is the ending line.
+# Re-blessed 2026-08-25, one line (859, `open satchel`): the same "Open what?"
+# -> "You can't open that." fix recorded on the xfiles_solution.txt row above.
 cellar_solution.txt|TheCellar.taf|And so The Cellar has ended. Many thanks for playing.|SCR_SKIP_WAITKEY=1
 # Panic! (Stewart J. McAbney, ADRIFT 3.90): the author's own walkthrough
 # transcript replayed verbatim, all 69 commands, no repairs.  The first command
@@ -2210,6 +2254,13 @@ cellar_solution.txt|TheCellar.taf|And so The Cellar has ended. Many thanks for p
 # and scarier printed each of them exactly once instead of every turn.  Fixed
 # 2026-08-04 in scevents.cpp; see the solution header and RUNNER_TESTS_TODO.md
 # section 8.
+# Re-blessed 2026-08-25, one line (470, `read eye`): the pre-4.0 read-refusal
+# wording recorded on the cybercow_win_solution.txt row above.  As there, the
+# visible line is the game's own ALR -- panic.taf maps [Nothing special.] ->
+# [I do not discern the object you want to examine.]  That ALR table is the
+# corpus's most complete offline oracle for Runner wording: 200-odd Originals,
+# enumerated by the author, and it is what independently confirmed that no
+# Runner says "Open what?".
 panic_solution.txt|panic.taf|Your rating is Messiah.|SCR_SKIP_WAITKEY=1
 # --- 2026-08-11: unwired 3.9 games, smallest first -------------------------
 # I... (Christopher Cole) -- one-room, no scoring system.  The whole game is a
@@ -2282,6 +2333,15 @@ impulso_solution.txt|impulso.taf|Solo una cosa. Me di cuenta hace un cuarto de h
 # must be asked about the communicator BEFORE Virgil fixes it, and the
 # shuttle T8 summons starts a 15-turn countdown (EVENT 1 -> T15, -1 point
 # and ACT type=6 v1=2) that the flavour block below sits safely inside.
+# Re-blessed 2026-08-25, one line (151, `x hole`): pre-4.0, an object whose
+# Description is empty leaves the Runner's message string empty and falls
+# through to the same tail an unmatched noun does -- "Nothing special." (run370
+# 435BF4, run380 43D545, run390 44C3DC).  4.0 fills it in one branch earlier
+# with "You see nothing special about <obj>." (run400 471A08/471A1C), which is
+# what scarier printed for every version.  Measured on p39EXAM.taf's `x stone`,
+# in the room (Adrift_41_p39exam.txt) and held (Adrift_43_p39exam.txt) -- same
+# answer both ways -- against the 4.00 twin's (Adrift_1_p4exam.txt).  This is
+# the corpus's only pre-4.0 exposure.
 ms_mobius_solution.txt|ms_mobius.taf|That little TV screen for the inside of your hat was a good investment.
 # A Morning with a Headache: 115/115, the game's own maximum.  Four fatal
 # deadlines on a fixed global clock -- the buzzing alarm evicts you at turn
@@ -2541,6 +2601,8 @@ hhorror_solution.txt|hhorror.taf|It has been a long and frightful night|SCR_SKIP
 # entirely.  `eat cupcake` is the trap: it poisons you (VAR 5 Health) and
 # EVENT 10 keeps incrementing it, which locks out the washer, the rope, the
 # pail and the pick.
+# Re-blessed 2026-08-25, fourteen lines: the empty room description recorded on
+# the yeh_solution.txt row above.  These two are the corpus's only exposure.
 richard_solution.txt|Richard.taf|You scored 1000 out of the maximum 1000!|SCR_SKIP_WAITKEY=1
 # Camp Windy Lake : Part 2 is AIF (Christopher Cole again, the author of
 # diarystrip.taf), so like Diary of a Stripper and Archie's Birthday its

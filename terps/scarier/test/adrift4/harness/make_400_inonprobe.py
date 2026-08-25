@@ -116,7 +116,12 @@ def obj(short, container=0, surface=0, position=4, parent=0, openable=0):
     s(0); s(0); s("")    # Task, TaskNotDone, AltDesc
     s(container)         # Container
     s(surface)           # Surface
-    s(99 if container else 0)      # Capacity
+    s(52 if container else 0)      # Capacity: tens = object count, units =
+                         # SIZE INDEX, and 9 is out of range -- a 99 here
+                         # makes run400 hang for ever at "Loading..."
+                         # (bisected 2026-08-25 with loadtest.sh; this
+                         # file had never once loaded).  See
+                         # scobjcts.cpp:674-706.
     s(0)                 # Wearable
     s(0)                 # SizeWeight
     s(parent)            # Parent

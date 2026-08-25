@@ -1,82 +1,72 @@
-#!/usr/bin/env python3
 """ADRIFT 3.9 probe: every absent-object / no-description refusal in examines().
 
-Scarier answers this whole family with strings taken from run400, because
-upstream SCARE was written against 4.0.  The 3.7/3.8 decompiles are readable
-VB and say otherwise; run390's p-code agrees with them.  One row of the family
--- `x <noun that names nothing>` -- has since been measured off a run390
-transcript (Merry_Murders, `x pocket` -> "Nothing special.") and fixed.  This
-probe is built to measure the rest in a single 3.9 session.
+MEASURED AND CLOSED 2026-08-25.  Two run390 sessions -- Adrift_41_p39exam.txt
+(the 29-command feed below) and Adrift_43_p39exam.txt (a 19-command follow-up,
+cmdfile_p39exam2.txt, adding the open/close-a-real-object rows, the held-object
+`x`, and a second reading of the Void Room).  Every command echoed in both.  A
+4.00 twin, make_400_examprobe.py / p4EXAM.taf, was built to answer the same
+rows one Runner up (run400 refuses to load a 3.90 file outright).
 
-What the decompiles predict, row by row, with the command that reads it:
+Four splits came out of it and are ported; after them **run390 and Scarier
+agree on all 48 rows, word for word**:
 
-    x stone      empty Description, object present
-                 pre-4.0  "Nothing special."     (run370 435BF4, run380
-                          43D545, run390 44C3DC -- all three are the SAME
-                          `If msg = vbNullString` tail that the measured
-                          `x pocket` row falls through to)
-                 4.0      "You see nothing special about the stone."
-                          (run400 471A08/471A1C fills the empty message in
-                          before the tail can see it)
-                 scarier  the 4.0 wording, for every version (sclibrar.cpp
-                          lib_cmd_examine_object)
+    x <object, empty Description>   pre-4.0 "Nothing special."      lib_cmd_examine_object
+    read <noun naming nothing>      pre-4.0 "Nothing special."      lib_cmd_read_other
+    open <anything unresolvable>    all     "You can't open that."  lib_cmd_open_other
+    close <present, not closeable>  pre-4.0 ends in "." not "!"     lib_cmd_close_object
+    room with no description        3.8/3.9 "There is nothing of interest here."
 
-    x crate      empty Description but a listed content -- does the contents
-                 sentence count as "described"?  Both generations append to
-                 the message, so the tail should never fire: expect
-                 "Inside the crate is a coin." alone.
+What was measured, row by row -- run390 on the left, run400 (p4EXAM.taf) right:
 
-    x statue     seen in the North Room, then absent
-                 pre-4.0  "You can't see the statue from here!" (435937)
-                 scarier  "You see no such thing."
-    open statue  pre-4.0  "You can't see the statue."   (run400 475966)
-    close statue pre-4.0  "You can't see the statue."   (run400 475C10)
-                 scarier  "Open what?" / "Close what?" for both
+    x stone       Nothing special.        | You see nothing special about the stone.
+    x crate       (contents sentence; the tail never fires, as predicted)
+    x zzzz        Nothing special.        | You see no such thing.
+    x statue      Nothing special.        | You can't see the statue from here!
+    x statues     Nothing special.        | You see no such thing.
+    x door        Nothing special.        | You see no such thing.
+    open          You can't open that.    | You can't open that.
+    open door     You can't open that.    | You can't open that.
+    open statue   You can't open that.    | You can't see the statue.
+    close         You can't close that.   | You can't close that.
+    close statue  You can't close that.   | You can't see a statue.
+    open stone    You can't open the stone!  | You can't open the stone!
+    close stone   You can't close the stone. | You can't close the stone!
+    read stone    You can't read the stone!  | You can't read the stone!
+    read coin     You can't read the coin!   | You see no such thing.   (in the closed crate)
+    read zzzz     Nothing special.        | You see no such thing.
+    buy statue    I don't think that is for sale. | You can't see the statue.
+    get off       You are not standing on anything!   (both)
+    x all         Please examine one object at a time. (both)
+    x me          A test subject.                     (both)
+    take door     Take what?  /  take, drop: Take what? / Drop what?   (both)
+    e / look      Void Room: "There is nothing of interest here.  You can only
+                  move west." | run400 prints the exits alone.
 
-    x statues    the plural row: "You can't see any statues here." (435A13),
-                 a string that exists in run370.exe and run380.exe only
+Two predictions in the earlier draft of this docstring were WRONG, and are worth
+keeping as warnings:
 
-    x door       no such object at all, never seen
-    open door    pre-4.0  "You can't open that."
-    take door
-    x zzzz       CONTROL: the measured row, expect "Nothing special."
+  * `x <seen but absent object>` was predicted to answer "You can't see the
+    statue from here!" in 3.9, from run370 435937.  It does not -- 3.9 answers
+    the flat tail.  In run390 `co()` never matches the absent statue at all, so
+    the command falls to the generic handler at 45D454 (`push "that"`).  The
+    "You can't see ..." family is 4.0 behaviour, and needs the seen-but-absent
+    resolver, which is still unported.
+  * `read coin` was predicted to expose a scarier bug.  It does not: scarier
+    already answered "You can't read the coin!", which is what run390 says.
+    Re-run ./scare before trusting any "what scarier answers today" block.
 
-    open         bare verb -- the row that decides whether SCARE's
-    close        "<Verb> what?" survives anywhere
-    take
-    drop
+Still open after this probe (all four are one port -- the 4.0 resolver):
 
-    read stone   pre-4.0 `read` is not a verb of its own: it is ORed into
-    read coin    the words that ENTER examines (run370 434E2A, run380
-    read zzzz    43C69D, run390 44B7FF), so all three of these should answer
-                 exactly as the matching `x` does.  Scarier disagrees twice:
-                 `read coin` (in the open crate, and `x coin` finds it) says
-                 "You see no such thing.", and `read zzzz` says the same
-                 instead of falling to the measured "Nothing special." tail.
-                 That last one is lib_cmd_read_other, a 400-only string.
-    buy statue   the literal "that is for sale." is in run370/380.exe only,
-                 but 390/400 compose the same sentence from the else arm
-                 (run390 45E68F) -- so this row is a CONTROL too: it should
-                 come back word for word.
-    get off      "You are not standing on anything!" is in run390/400.exe only
-    x all        "Please examine one object at a time." (435A43)
-    x me         the self row
+    x statue      You can't see the statue from here!
+    open statue   You can't see the statue.        (definite article)
+    close statue  You can't see a statue.          (indefinite!)
+    buy statue    You can't see the statue.
 
-    e            a room with NO long description, no alt and no LastDesc.
-                 run390 4478CA appends "There is nothing of interest here."
-                 when both the Long and the LastDesc are empty and nothing
-                 else has described the room; run380 substitutes the same
-                 sentence into the Long at LOAD time (447FEE), so 3.8 and 3.9
-                 arrive at it by different routes.  run370 has no such string
-                 and leaves the room blank.  Scarier prints nothing, for every
-                 version.  Two goldens ride on this: yeh and richard, both
-                 3.90 -- a local patch that adds the sentence when nothing
-                 else described the room moves those two and nothing else in
-                 the 303-row corpus, which is the shape a correct fix should
-                 have.  `look` re-reads it, `w` returns.
-
-Read every answer off the echo, and check that all 29 commands echoed before
-believing any of it.
+Still unmeasured: the 3.70 and 3.80 halves.  The decompiles say 3.8 tracks 3.9
+throughout except that it substitutes "There is nothing of interest here." into
+the empty Long at LOAD (447FEE) rather than at print; 3.7 differs on at least
+one row, composing `open <present, not openable>` with a period at 43D1E0 where
+3.8 (42F071) and 3.9 (43A0C5) have a separate branch ending in a bang.
 
 The feed, in order (cmdfile_p39exam.txt; CRLF, and mind the bare-Return rule):
 
@@ -85,29 +75,16 @@ The feed, in order (cmdfile_p39exam.txt; CRLF, and mind the bare-Return rule):
     open door / take door / open / close / take / drop / read stone /
     read coin / read zzzz / buy statue / get off / x all / probe / e / look / w
 
-What scarier answers today, for the diff (harness/scare, SCR_SKIP_WAITKEY=1):
+and the follow-up (cmdfile_p39exam2.txt):
 
-    x stone       You see nothing special about the stone.
-    x crate       The crate is open.  A coin is inside the crate.
-    x zzzz        Nothing special.          <- the fixed row, a control
-    x statue      Nothing special.          (absent; no "from here!")
-    open statue   Open what?
-    close statue  You can't close that.
-    x statues     Nothing special.
-    x door        Nothing special.
-    open door     Open what?                (run400 says "You can't open that.")
-    take door     Take what?
-    open/close    Open what? / You can't close that.
-    take/drop     Take what? / Drop what?
-    read stone    You can't read the stone!   (matches run370 6825 /
-                                              run380 7217 -- not a split)
-    read coin     You see no such thing.      (but `x coin` -> A gold coin.)
-    read zzzz     You see no such thing.
-    buy statue    I don't think that is for sale.
-    get off       You are not standing on anything!
-    x all         Please examine one object at a time.
-    e             Void Room  (the heading and the exit line, no description
-                  sentence at all)
+    e / open / close / take / drop / open door / w / open stone / close stone /
+    open crate / close crate / x crate / open crate / take stone / i /
+    x stone / read stone / drop stone / probe
+
+`x zzzz` is a control -- the row already measured off Merry_Murders -- and
+`probe` is a repeatable no-restriction task that must answer "PROBE OK.",
+proving the file is wired.  Read every answer off the echo, and check that all
+commands echoed before believing any of it.
 
 Usage:   python3 make_39_examprobe.py [out.taf]
 Session: sh runner_savetranscript.sh p39EXAM.taf cmdfile_p39exam.txt run390.exe
