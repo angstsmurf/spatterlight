@@ -467,7 +467,7 @@ old cleric holds a hand to his mouth, trying to suppress a painful cough.
 You don't have any eye that you can wash.
 
 > read eye
-You see no such thing.
+[I do not discern the object you want to examine.]
 
 > x wall
 The wall is covered in loose dust, the soft cobwebs that cover it wrap

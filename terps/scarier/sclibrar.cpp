@@ -4840,31 +4840,39 @@ lib_cmd_examine_object (scr_gameref_t game)
   /*
    * If nothing yet said, print a default response.
    *
-   * This is the other half of the 4.0 rewrite of the Runner's examines() --
-   * the half that has NOT been measured yet, so it is not gated.  In 3.7, 3.8
-   * and 3.9 an object whose Description is empty leaves the Runner's message
-   * string empty, and the empty string falls all the way through to the same
-   * tail that answers an unmatched noun: a flat "Nothing special." (run370
-   * 435BF4, run380 43D545, run390 44C3DC, all reached from `If msg =
+   * This is the other half of the 4.0 rewrite of the Runner's examines().  In
+   * 3.7, 3.8 and 3.9 an object whose Description is empty leaves the Runner's
+   * message string empty, and the empty string falls all the way through to
+   * the same tail that answers an unmatched noun: a flat "Nothing special."
+   * (run370 435BF4, run380 43D545, run390 44C3DC, all reached from `If msg =
    * vbNullString`).  4.0 fills the message in here instead, one branch before
    * that tail can see it, with "<player> see nothing special about <obj>."
-   * (run400 471A08/471A1C) -- and it is that 4.0 wording Scarier prints for
-   * every version.  Beware the near-miss: "There's nothing special about
-   * <obj>." (run380 440D4C, run390 459EC1, run400 480041) is the CHARACTER
-   * default, not this one; Scarier already prints it, at lib_cmd_examine_npc.
+   * (run400 471A08/471A1C).  Beware the near-miss: "There's nothing special
+   * about <obj>." (run380 440D4C, run390 459EC1, run400 480041) is the
+   * CHARACTER default, not this one; Scarier already prints it, at
+   * lib_cmd_examine_npc.
    *
-   * ms_mobius_solution is the corpus's only pre-4.0 exposure.  The probe that
-   * settles it is harness/make_39_examprobe.py (`x stone`, first command).
+   * Measured on p39EXAM.taf (3.90), Adrift_41_p39exam.txt: `x stone` -- the
+   * stone is in the room, has an empty Description, and answers "Nothing
+   * special."  Adrift_43_p39exam.txt repeats it with the stone held, and
+   * answers the same, so being carried makes no difference.  The 4.0 twin
+   * p4EXAM.taf, Adrift_1_p4exam.txt, answers "You see nothing special about
+   * the stone."  ms_mobius_solution is the corpus's only pre-4.0 exposure.
    */
   if (!is_described)
     {
-      pf_buffer_string (filter,
+      if (!lib_is_version_400 (game))
+        pf_buffer_string (filter, "Nothing special.");
+      else
+        {
+          pf_buffer_string (filter,
                         lib_select_response (game,
                                        "You see nothing special about ",
                                        "I see nothing special about ",
                                        "%player% sees nothing special about "));
-      lib_print_object_np (game, object);
-      pf_buffer_character (filter, '.');
+          lib_print_object_np (game, object);
+          pf_buffer_character (filter, '.');
+        }
     }
 
   pf_buffer_character (filter, '\n');
