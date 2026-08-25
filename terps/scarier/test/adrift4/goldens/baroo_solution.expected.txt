@@ -1024,8 +1024,7 @@ Ravine River
 The river performs a gradual bend from west to south.  The cliffs of the
 ravine are unclimbable.  The narrow river banks have some vegetation, with an
 occasional burst of color from blooming plants.  The river is moving slowly
-allowing you to drift down, however you don't want to move that slow.  You
-are drifting along the river.
+allowing you to drift down, however you don't want to move that slow.
 
 > s
 A few strokes of the paddle pushes the canoe faster down the river, with most
@@ -1034,8 +1033,7 @@ Ravine River
 The ravine slightly widens and a rocky beach on the eastern side is wide
 enough for the occasional river wake to lap only a small portion of the sand.
  The river twists slightly in different directions, but overall continues to
-drift south, however you don't want to move that slow.  You are drifting
-along the river.
+drift south, however you don't want to move that slow.
 Some catfish were lingering on the river bed, when the shadow of the canoe
 causes them to swim away.
 
@@ -1045,8 +1043,7 @@ You paddle a little bit faster down this stretch of the river.
 Ravine River
 The river slightly widens and you see a dilapidated hotel approaching on the
 east.  Tucked under a concrete wall is a boat dock.  Further south the river
-drops several meters down a waterfall.  Several butterflies flitter amongst
-the vegetation.  You are drifting along the river.
+drops several meters down a waterfall.
 
 > e
 A couple strokes brings you right next to the dock.
@@ -1054,7 +1051,6 @@ A couple strokes brings you right next to the dock.
 Boat Dock
 A solitary dock extends into the river.  It is sheltered by a concrete wall
 and ceiling.  The dock connects to a door in the east wall.
-You are drifting along the river.
 
 > exit canoe
 You leave the canoe, which floats nearby the dock.

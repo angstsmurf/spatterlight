@@ -989,7 +989,6 @@ Windthrush.
 You stand at the entrance of Windthrush Village. The village looks deserted.
 There’s not a soul to be seen in the Village Square, to the south. The chasm
 is to the north.
-It is raining...
 
 You can only move south.
 You feel weak, and very tired. Your strength starts to ebb away. You
@@ -3773,7 +3772,7 @@ leads south, away from the henge, while another leads north into the forest.
 
 Also here is a body.
 Fetlar the overly fetid is here.  Morac is here.
-Rossi, the muck dweller, is here.  There is a portal here.
+Rossi, the muck dweller, is here.  It is raining...  There is a portal here.
 
 You can move north, east, south and west.
 It stops raining...

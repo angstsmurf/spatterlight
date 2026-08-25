@@ -273,8 +273,14 @@ def main():
             break
         flag = "  (past the first lost command)" if index > first_loss else ""
         print("turn %d  %s%s" % (index, feed[index], flag))
-        print("  run400   %s" % runner_text[:400])
-        print("  scarier  %s" % scarier_text[:400])
+        # Print the turn whole.  These used to be cut at 400 characters, which
+        # is shorter than a single ADRIFT room block once the object list, the
+        # character lines and an event's look text are all run together -- and
+        # the difference is as often as not in the tail (goldilocks turn 243
+        # was 380 characters in before it diverged).  A truncated diff sends
+        # you looking for a divergence that the tool has hidden.
+        print("  run400   %s" % runner_text)
+        print("  scarier  %s" % scarier_text)
         print()
 
     if normalise(runner_intro) != normalise(scarier_intro):

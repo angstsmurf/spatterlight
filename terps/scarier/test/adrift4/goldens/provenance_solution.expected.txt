@@ -2994,6 +2994,9 @@ grid such that when mature, fifty percent sunlight would reach the canopy.  A
 small footpath leads from the grove south towards a small wooden structure.
 A thick, impassable forest lines the grove to the east.
 
+The ground is covered in a miasma of grey mist; the nebulous fog shrouding
+all around you.
+
 > n
 You move north.
 
@@ -3304,8 +3307,6 @@ pantry to the west.  The main parlor and entrance to the house lies through
 an archway to the south.  There is also a small broom closet that you could
 step into.
 
-Flames from the fireplace cast long shadows across the darkened parlor.
-
 > x sideboard
 
 This glorious sideboard is the centrepiece of the room.  Made from Mahogany
@@ -3464,6 +3465,8 @@ photographs.  In one corner stands an old phonograph.  The dining room is to
 the north while the main hall lies to the west through a large archway.  The
 foyer and front door are visible to the south.
 The butler is here.
+
+Flames from the fireplace cast long shadows across the darkened parlor.
 The butler exits to the west.
 
 > s
@@ -3479,8 +3482,6 @@ first entering the home.  Keeping in accordance with the opulent nature of
 Victorian decor, matte-finished tiles with hand carved tulips have been laid
 on the floor in place of a traditional welcome mat.  The main portion of the
 house lies to the north.
-
-Flames from the fireplace cast long shadows across the darkened parlor.
 
 > climb out
 You climb through the window onto the veranda.
@@ -3587,6 +3588,9 @@ planting of the trees as they appear to be spaced on a 20-foot-by 20-foot
 grid such that when mature, fifty percent sunlight would reach the canopy.  A
 small footpath leads from the grove south towards a small wooden structure.
 A thick, impassable forest lines the grove to the east.
+
+The ground is covered in a miasma of grey mist; the nebulous fog shrouding
+all around you.
 
 > n
 You move north.
@@ -4808,6 +4812,9 @@ planting of the trees as they appear to be spaced on a 20-foot-by 20-foot
 grid such that when mature, fifty percent sunlight would reach the canopy.  A
 small footpath leads from the grove south towards a small wooden structure.
 A thick, impassable forest lines the grove to the east.
+
+The ground is covered in a miasma of grey mist; the nebulous fog shrouding
+all around you.
 
 > n
 You move north.

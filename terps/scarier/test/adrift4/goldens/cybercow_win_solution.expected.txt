@@ -460,6 +460,7 @@ You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
 chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
+It is daytime.
 
 You can move north, east, south, west and down.
 
@@ -647,9 +648,7 @@ Lair Entrance
 This is the narrow entrance to the CyberCow's underground lair.  You are
 standing here fighting off the pricker bushes on both sides.  Sounds of
 battle still rage to the east.  To the west you seem to see a light of some
-kind.  The CyberCow and the Robot face each other squarely.
-The Robot's ray weapon is charging.  There's no good place here to be
-standing when that thing fires.
+kind.
 
 You can move east and west.
 Just as you reach the lair entrance, behind you there is a bellow and a flash

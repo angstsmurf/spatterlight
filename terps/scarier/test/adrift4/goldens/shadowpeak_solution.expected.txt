@@ -994,7 +994,6 @@ Windthrush.
 You stand at the entrance of Windthrush Village. The village looks deserted.
 There’s not a soul to be seen in the Village Square, to the south. The chasm
 is to the north.
-It is raining...
 
 You can only move south.
 You feel weak, and very tired. Your strength starts to ebb away. You

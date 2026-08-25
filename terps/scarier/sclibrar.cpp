@@ -1723,12 +1723,18 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
    * run on with its two-space separator (probed live in both runners,
    * 2026-08-02).  Join onto the description block only if this call printed
    * one, so an event's text can't migrate up onto the room name line.
+   *
+   * The visibility test asks about `room`, the room being described, not
+   * about the player -- run400's viewroom indexes the event's room list with
+   * its own room argument (loc_472B53) and the two differ whenever a task
+   * with ShowRoomDesc displays a room before its actions have moved anyone.
+   * See evt_can_see_event_in_room().
    */
   looked = FALSE;
   for (event = 0; event < gs_event_count (game); event++)
     {
       if (gs_event_state (game, event) == ES_RUNNING
-          && evt_can_see_event (game, event))
+          && evt_can_see_event_in_room (game, event, room))
         {
           const scr_char *looktext;
 

@@ -504,6 +504,8 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `p4PALR` (built probe) | 4.00 | run400 replay, `Adrift_1_p4palr.txt` (8 commands) | **punctuation in an ALR changes nothing**: all seven cells fire, leading `, `/` `/`: ` Originals and pure-punctuation Replacements alike.  Confirmed `sophie.taf`'s `[, and] -> [:]`; no change |
 | `p39EXAM` / `p4EXAM` (built probes) | 3.90 + 4.00 | run390 replays `Adrift_41/43_p39exam.txt` (29 + 19 commands) and the run400 twin `Adrift_1_p4exam.txt` (32) | the whole **examine / read / open / close refusal family**, plus the empty room description: four splits found and ported, and 3.90 now agrees with Scarier on all 48 rows.  See the FIXED sections below |
 | `hauntedhouse.taf` | 4.00 | run400 replay of the game's **own** 42-command solution, `Adrift_1_hauntedhouse.txt`, Verbose ON, all 42 echoed | **clean: 41 of 42 turns identical, and the 42nd differs only by the Runner's `[Press any key to end]` tail**, which Scarier emits as a waitkey pause rather than as text.  Supersedes the mispaired `Adrift_16/17` run except for the two engine bugs that one found |
+| `goldilocks.taf` | 4.00 | run400 replay of the full 252-command solution, `Adrift_1_goldilocks.txt`, Verbose ON, all 252 echoed | one real divergence in 252 turns, and it was an engine bug: **an event's look text is gated on the room being described, not on the room the player is standing in** -- see the FIXED section below.  After the fix, 251 of 252 identical, the 252nd only the `[Press any key to end]` tail |
+| `lair-of-the-cybercow.taf` | 3.90 | run390 replay, `Adrift_1_cybercow.txt` (127 commands, 3 lost) | the *other* direction of the same rule: the Runner **does** print the day/night event's look text in the Chapel Yard a ShowRoomDesc task shows, while the player is still at the bottom of the well.  Not a clean row -- see its comment block for the three feed problems it exposed |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -2655,6 +2657,108 @@ see the entry immediately below.
 happens at LOAD; 3.7 differs on at least one row (`open <present, not
 openable>` composes with a period at `43D1E0`, where 3.8 and 3.9 have grown a
 separate branch ending in a bang).
+
+## FIXED 2026-08-25 -- an event's look text belongs to the room being DESCRIBED
+
+**Found by** the goldilocks measurement (`Adrift_1_goldilocks.txt`, run400,
+Verbose ON, 252 commands, all 252 echoed).  It was the only real divergence in
+the whole run, and it was ours.
+
+**The turn.**  Command 243 is `u`, the escape from the cellar as it fills with
+porridge.  The task that lifts you out has ShowRoomDesc pointing at the hall:
+
+```
+turn 243  u
+  run400   ...front door is an open trapdoor.  I can move north, west, up,
+           down and out.
+  scarier  ...front door is an open trapdoor.  Extremely hot porridge is
+           gushing down the sides of the porridge pot.  The room is steadily
+           beginning to fill up with the stuff.  I can move north, west, up,
+           down and out.
+```
+
+That sentence is EVENT 4 `[Cellar fills with porridge]`, whose Where is a
+some-rooms list of {cellar, dark passage, dungeon}.  The hall is not in it.
+
+**Why we printed it.**  Two rules meet.  A ShowRoomDesc room is displayed
+*before* the task's own actions run (`task_show_room_desc()`, and the
+ShowRoomDesc-before-actions note), so when the hall was composed the player was
+still standing in the cellar.  And the event look-text loop in
+`lib_print_room_description()` asked `evt_can_see_event()`, which has only ever
+consulted `gs_playerroom()`.  So the room the player was *leaving* decided what
+the room they were being *shown* said.  A one-line `SCR_TRACE_LOOKTEXT` over
+the whole 252-command run turned up exactly one qualifying event:
+`LOOKTEXT ev=4 cansee=1 room=11`.
+
+**What the Runners do.**  Both room listers take the room to describe as an
+argument and index the event's room array with *that*:
+
+* run400 `viewroom` (`Proc_19_63_472CA4`), loop at `loc_472B34`: the state byte
+  `var_198(74) = 1` ANDed with `var_198(20)(arg_C - 1) = 1`, then the LookText
+  `var_198(12)` is appended at `loc_472B7F`.
+* run390 `viewroom` (`4481AC`), loop at `loc_448056`: `var_184(70) = 1` -- the
+  state byte sits at 70 in 3.9, not 74 -- ANDed with `var_184(20)(broom - 1) = 1`
+  at `loc_448075`, LookText appended at `loc_4480A1`.
+
+`arg_C` and `broom` are the room arguments.  Neither routine looks at the
+player at all.
+
+**The fix.**  `evt_can_see_event_in_room (game, event, room)` in `scevents.cpp`
+carries the whole room list test; `evt_can_see_event()` stays as a
+`gs_playerroom()` wrapper, which is the right question for its four tick-path
+callers (`scevents.cpp` 454, 546, 1017, 1090 -- those really are asking whether
+the player can see it).  Only the description loop passes its own `room`.
+
+**Corroborated in the other direction** on run390, `Adrift_1_cybercow.txt`:
+`up` out of the well is a ShowRoomDesc task naming Chapel Yard, and the Runner
+prints the day/night event with it --
+
+```
+Chapel Yard
+You are at the well.   The rope, which is tied to the well quite securely,
+leads down. ... Down the hill to the north there is the bus stop.
+Vluurinik flits around.
+It is daytime.  You can move north, east, south, west and down.
+```
+
+-- where Scarier used to print nothing, the player being at the bottom of the
+well and outside the event's list.  The correct gate prints *more* here and
+*less* in goldilocks; it is the same single condition.
+
+**Corpus fallout**: 11 rows across 9 games, all re-blessed after reading each
+hunk -- Shadowpeak x3 and mangiasaur and wax_worx lose an event line from a
+task-shown room; cybercow, timmy_reid, fugitive, provenance and baroo gain one;
+goldilocks does both.  303 PASS, `scproj_regress.sh` PASS, the a5 suite
+untouched at DIVERGE=17.
+
+**Three feed lessons from the cybercow run**, none of them engine differences,
+recorded so the row can be driven cleanly one day:
+
+1. A game that asks the player's **name or gender asks it in an InputBox**, not
+   at the game prompt.  The answers are the first lines of the walkthrough for
+   Scarier -- which prints the questions inline -- but under the Runner they
+   must be typed into dialogs before the transcript exists and must NOT be in
+   the command file.  `measure.sh` grew `POPUP_ANSWERS="Hero|male"` for this.
+   An empty Return is rejected and the box comes back with a **new window id**,
+   which the startup-alert dismissal loop mistakes for a stubborn alert, so
+   that loop is now skipped when answers are supplied -- and the window
+   geometry is re-read afterwards, because the main window is not necessarily
+   where it was before the dialogs (the first cybercow run clicked 480 px away
+   from its menu bar and reported "Save-transcript dialog never appeared"
+   while the menu was perfectly reachable).
+2. `measure.sh` now forces **Options -> Sound OFF** in the registry the same
+   way it forces Verbose ON.  With `mmdevapi=d` -- which is what keeps Wine
+   audio from soft-locking the desktop -- any game that plays a sound raises a
+   "Cannot play sounds" modal, and a game that plays one every turn raises it
+   again the instant it is dismissed; that modal is indistinguishable from the
+   Save-transcript dialog to a window counter.  Sound OFF stops playback and
+   changes no text.
+3. `catch fairy` is a **random roll** and the walkthrough spams it.  A fixed
+   command file cannot be replayed turn for turn against an unseeded Runner,
+   so cybercow needs the same treatment as the other RNG rows before it can be
+   quoted as a clean measurement.
+
+---
 
 ## FIXED 2026-08-25 -- the 4.0 seen-but-absent resolver
 

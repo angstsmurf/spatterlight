@@ -231,12 +231,33 @@ evt_any_task_in_state (scr_gameref_t game, scr_bool state)
 
 
 /*
+ * evt_can_see_event_in_room()
  * evt_can_see_event()
  *
- * Return TRUE if player is in the right room for event text.
+ * Return TRUE if the given room is one the event's text shows in.
+ *
+ * The room matters, and it is not always the player's.  run400's room lister
+ * (`viewroom`, Proc_19_63_472CA4) takes the room to describe as an argument
+ * and tests the event's list against *that*: the loop at loc_472B34 reads the
+ * event's state byte (var_198(74) = 1, running) and then indexes the event's
+ * room array with `arg_C - 1` -- the argument, not the player -- before it
+ * appends the LookText at loc_472B7F.  A task with ShowRoomDesc set names the
+ * room it displays and prints it *before* its own actions run (see
+ * task_show_room_desc() and the "ShowRoomDesc prints BEFORE the actions"
+ * note), so at that moment the player is still standing wherever the task
+ * found them.  Gating on gs_playerroom() there spliced the room the player
+ * was *leaving* into the description of the room they were being shown.
+ *
+ * Measured 2026-08-25 on goldilocks.taf, run400, Adrift_1_goldilocks.txt,
+ * turn 243: the escape from the flooding cellar shows the hall, and the
+ * Runner prints no porridge line with it, because event 4 [Cellar fills with
+ * porridge] lists rooms 11-13 (cellar, dark passage, dungeon) and the hall is
+ * room 1.  Scarier printed it.
+ *
+ * The tick paths keep the player's room, which is what they are asking about.
  */
 scr_bool
-evt_can_see_event (scr_gameref_t game, scr_int event)
+evt_can_see_event_in_room (scr_gameref_t game, scr_int event, scr_int room)
 {
   scr_int type;
 
@@ -251,16 +272,21 @@ evt_can_see_event (scr_gameref_t game, scr_int event)
 
     case ROOMLIST_ONE_ROOM:
       return evt_cached_where_integer (game, event, EVT_WHERE_ROOM, "Room")
-             == gs_playerroom (game);
+             == room;
 
     case ROOMLIST_SOME_ROOMS:
-      return evt_cached_where_room_boolean (game, event,
-                                            gs_playerroom (game));
+      return evt_cached_where_room_boolean (game, event, room);
 
     default:
       scr_fatal ("evt_can_see_event: invalid type, %ld\n", type);
       return FALSE;
     }
+}
+
+scr_bool
+evt_can_see_event (scr_gameref_t game, scr_int event)
+{
+  return evt_can_see_event_in_room (game, event, gs_playerroom (game));
 }
 
 

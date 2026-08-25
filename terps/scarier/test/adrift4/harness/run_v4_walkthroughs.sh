@@ -156,6 +156,31 @@ thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
 # Renegade Brainwave: `west` is a task move with ShowRoomDesc off, so the yew
 # tree's crowbar is never listed; the route gained one `look`.
 renegade_brainwave_solution.txt|Renegade_Brainwave.taf|planet Earth has been averted!
+# ---------------------------------------------------------------------------
+# MEASURED 2026-08-25 on run400 (Adrift_1_goldilocks.txt), 252 commands, all
+# 252 echoed, and it found the event look-text room gate.
+#
+# Turn 243, `u` -- the escape from the flooding cellar.  The task that lifts
+# you out has ShowRoomDesc set to the hall, and a ShowRoomDesc room is printed
+# BEFORE the task's own actions run (see adrift4-showroomdesc-before-actions),
+# so at print time the player is still standing in the cellar.  Scarier gated
+# the event look-text loop on the player's room and spliced EVENT 4 [Cellar
+# fills with porridge] -- Where = some rooms {cellar, dark passage, dungeon} --
+# into the description of the hall:
+#
+#   run400   ...front door is an open trapdoor.  I can move north, west, up,
+#            down and out.
+#   scarier  ...front door is an open trapdoor.  Extremely hot porridge is
+#            gushing down the sides of the porridge pot.  The room is steadily
+#            beginning to fill up with the stuff.  I can move north, west, up,
+#            down and out.
+#
+# Both Runners index the event's room list with the room they were ASKED to
+# describe: run400 viewroom at loc_472B53 (`arg_C - 1`), run390 viewroom at
+# loc_448075 (`broom - 1`), each ANDed with the running-state byte (74 in 4.0,
+# 70 in 3.9).  Fixed with evt_can_see_event_in_room(); after it, 251 of the 252
+# turns are byte-identical and the 252nd differs only by [Press any key to end],
+# which is a waitkey mark by design.
 goldilocks_solution.txt|goldilocks.taf|Three Bears are no more
 masochists_heaven_solution.txt|1HRGAME.taf|You scored 15 out of the maximum 15!
 griswold_solution.txt|Griswold.taf|And there you have it: the intro|SCR_SKIP_WAITKEY=1
@@ -237,6 +262,34 @@ cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 # Runner emits -- the rewrite is the fix landing, not a second divergence.
 # panic_solution.txt below moves the same way, to its own ALR.
 # ---------------------------------------------------------------------------
+# MEASURED 2026-08-25 on run390 (Adrift_1_cybercow.txt) as the other half of
+# the goldilocks event-room fix -- the half where the correct gate prints MORE,
+# not less.  `up` out of the well is a ShowRoomDesc task naming Chapel Yard,
+# and the Runner prints the day/night event's look text with it:
+#
+#   up
+#   That's a bit of a trick carrying a warm bowl of ... but you manage it.
+#
+#   Chapel Yard
+#   You are at the well.   The rope, which is tied to the well quite securely,
+#   leads down. ... Down the hill to the north there is the bus stop.
+#   Vluurinik flits around.
+#   It is daytime.  You can move north, east, south, west and down.
+#
+# Scarier printed no "It is daytime." there, because the player was still at
+# the bottom of the well -- outside the event's room list -- when the hall
+# above was composed.  The same one-line fix supplies it.
+#
+# The run itself is NOT a clean row and must not be quoted as one: three of the
+# 127 commands never reached the Runner (feed[23] `look`, and two later), so
+# everything after the first loss is a turn out of step, which is why the
+# comparison also shows Vluurinik in the wrong place and the weather event out
+# of phase.  Driving this game properly needs, in addition: POPUP_ANSWERS for
+# its name and gender InputBoxes (the first two lines of the solution answer
+# dialogs, not the game prompt, so they must be stripped from the command
+# file), and a `catch fairy` that is spammed rather than typed once -- the
+# catch is a random roll, so a fixed feed cannot be replayed turn for turn
+# against the Runner without seeding it.
 cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of the CyberCow.
 cybercow_solution.txt|lair-of-the-cybercow.taf|Your score is 6 out of a maximum of 10.
 deaths_solution.txt|deaths.taf|crumbles into dust
