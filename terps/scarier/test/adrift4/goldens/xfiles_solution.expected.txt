@@ -586,7 +586,7 @@ Zzzzz.  Bored are you?
 Take what?
 
 > open phone book
-Open what?
+You can't open that.
 
 > look up byers
 Have X-Ray vision, do you?

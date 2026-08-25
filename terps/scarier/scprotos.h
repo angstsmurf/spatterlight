@@ -661,7 +661,7 @@ extern scr_bool lib_cmd_score (scr_gameref_t game);
 extern scr_bool lib_cmd_status_player (scr_gameref_t game);
 extern scr_bool lib_cmd_status_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_get_what (scr_gameref_t game);
-extern scr_bool lib_cmd_open_what (scr_gameref_t game);
+extern scr_bool lib_cmd_open_other (scr_gameref_t game);
 extern scr_bool lib_cmd_close_other (scr_gameref_t game);
 extern scr_bool lib_cmd_lock_other (scr_gameref_t game);
 extern scr_bool lib_cmd_lock_what (scr_gameref_t game);

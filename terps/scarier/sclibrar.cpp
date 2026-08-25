@@ -11950,6 +11950,34 @@ lib_cmd_close_other (scr_gameref_t game)
   return lib_cant_do_other (game, "close");
 }
 
+/*
+ * lib_cmd_open_other()
+ *
+ * `open <anything the parser could not resolve to an object>`.  SCARE routed
+ * this to lib_what(), for "Open what?", but no Runner has ever printed that
+ * for an open: every version composes the same flat refusal its `close` twin
+ * does.  Measured, not argued, on the examine-refusal probes:
+ *
+ *   run390, p39EXAM.taf (3.90), Adrift_41_p39exam.txt / Adrift_43_p39exam.txt --
+ *     bare `open`, `open door` (a noun no object bears) and `open statue`
+ *     (an object seen in another room, absent from this one) all answer
+ *     "You can't open that."
+ *   run400, p4EXAM.taf (4.00), Adrift_1_p4exam.txt -- bare `open` and
+ *     `open door` answer "You can't open that." too.  (4.0's `open statue`
+ *     answers "You can't see the statue." instead, but that is the 4.0
+ *     absent-object resolver speaking one layer up, not this handler.)
+ *
+ * So this is not a version split: it is scrunner.cpp's `open *` row having
+ * been asymmetric with the `close *` row sitting directly beneath it.
+ * "Open what?" is in run380/390/400's constant pools, but no probe row has
+ * ever reached it.
+ */
+scr_bool
+lib_cmd_open_other (scr_gameref_t game)
+{
+  return lib_cant_do_other (game, "open");
+}
+
 scr_bool
 lib_cmd_lock_other (scr_gameref_t game)
 {
@@ -12362,12 +12390,6 @@ scr_bool
 lib_cmd_give_what (scr_gameref_t game)
 {
   return lib_what (game, "Give");
-}
-
-scr_bool
-lib_cmd_open_what (scr_gameref_t game)
-{
-  return lib_what (game, "Open");
 }
 
 scr_bool

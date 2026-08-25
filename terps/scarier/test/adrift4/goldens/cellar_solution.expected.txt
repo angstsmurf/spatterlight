@@ -856,7 +856,7 @@ childhood.
 Time passes...
 
 > open satchel
-Open what?
+You can't open that.
 
 > x cabinets
 "Leave the cabinets be, nephew," says your uncle. "There is nothing for you

@@ -655,7 +655,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
 
   /* Standard response commands; no real action, just output. */
   {"[get/take/pick up/pick] *", lib_cmd_get_what},
-  {"open *", lib_cmd_open_what},
+  {"open *", lib_cmd_open_other},
   {"close *", lib_cmd_close_other},
   {"give %object% *", lib_cmd_give_object},
   {"give *", lib_cmd_give_what},
