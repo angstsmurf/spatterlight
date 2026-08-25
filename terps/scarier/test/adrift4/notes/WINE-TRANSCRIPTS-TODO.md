@@ -2714,3 +2714,50 @@ and the music in the Kitchen, where she stands for the whole game, and is 44
 lines shorter. Score unchanged, 38/41. Suite **303/303 PASS** -- no other row
 in the corpus moved, which is the strongest evidence the wide rule is right.
 
+## FIXED 2026-08-25 -- a catch-all `*` task clears the room refusal
+
+Fixing the walk moved the melbourne replay off-route in two places, which
+exposed a second difference the old feed had hidden: `play volleyball` and
+`use shower` typed outside their rooms get "I don't understand what you mean!"
+from run390 and "You can't do that here!" from Scarier.
+
+run390's `checktask` (run390_3.bas) is the answer. For each task whose command
+matched:
+
+    If cmd_matched Then
+      If room_ok Then ... GoTo done_with_task        ' the FLAG block is skipped
+      If running = 1 And OUT = "" Then               ' loc_44B681
+        FLAG = 1                                     ' loc_44B688
+        For i = 0 To &H18                            ' the task's 25 command slots
+          If task.Command(i) = "*" Then FLAG = 0 : GoTo done_with_task
+        Next
+      End If
+    End If
+
+and at the end of the turn, `If OUT = "" And FLAG = 1 Then OUT = "... can't do
+that here!"` (loc_45FFE8/45FFF4). Three things follow, and Scarier had none of
+them:
+
+- the scan does **not** stop at the first refusable task. FLAG is overwritten
+  by every later out-of-room match, so it is the **last** one that decides.
+- a task with a bare `*` in its command list clears FLAG for good. Only the
+  forward `Command` list is walked, not `ReverseCommand`.
+- the already-done half writes `OUT` as it goes, so the first such task wins
+  and ends the scan -- and because the final room message is gated on
+  `OUT = ""`, an already-done refusal beats a room refusal raised *earlier* in
+  the scan. (The probe-task "theta" ordering still holds: within one task the
+  room test comes first, since the done branch sits inside `If room_ok`.)
+
+*Melbourne Beach* has task 94 = `*` confined to room 0, so the room refusal is
+suppressed everywhere except room 0.
+
+`run_task_refusal()` now scans every task and `run_task_has_catchall_command()`
+does the `*` test. Suite **303/303 PASS** -- nothing else in the corpus has a
+catch-all task on a refusal path.
+
+**Where melbourne stands.** With both fixes the 128-command replay is down from
+88 differing turns to **29**, and every one of the 29 is rule 1 or RNG: this
+Wine run had Verbose OFF, so re-entry is brief ("Entrance hall." against the
+full description), `$randwalks` (task 85) picks the NPC enter/exit verb at
+random ("Kitty comes in" / "saunters in" / "enters" / "slinks in"), and `play
+chess` picks a winner. Nothing left to chase.

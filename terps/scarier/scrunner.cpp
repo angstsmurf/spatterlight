@@ -2203,6 +2203,32 @@ run_defer_loud_tasks_to_movement (scr_gameref_t game, const scr_char *string)
 
 
 /*
+ * run_task_has_catchall_command()
+ *
+ * TRUE if any of the task's forward command patterns is a bare "*".
+ *
+ * Such a task matches every line the player types, and the Runner treats it as
+ * a deliberate catch-all rather than as something the player got into the wrong
+ * room for: run390's checktask sets the room flag for an out-of-room match and
+ * then walks the task's own 25 command slots, clearing it again the moment one
+ * of them is exactly "*" (loc_44B684 sets it, loc_44B6BC clears it).  Only the
+ * forward Command list is walked, not ReverseCommand.
+ */
+static scr_bool
+run_task_has_catchall_command (scr_gameref_t game, scr_int task)
+{
+  const std::vector<const scr_char *> &patterns =
+      run_task_command_patterns (game, task, TRUE);
+
+  for (const scr_char *pattern : patterns)
+    {
+      if (strcmp (pattern, "*") == 0)
+        return TRUE;
+    }
+  return FALSE;
+}
+
+/*
  * run_task_refusal()
  *
  * The Runners have two answers of their own for a command that matches a task
@@ -2234,6 +2260,17 @@ run_defer_loud_tasks_to_movement (scr_gameref_t game, const scr_char *string)
  * do that here!", so the room half is tested first.  That is why the
  * already-done test carries the room condition with it (task_is_done_refused()).
  *
+ * Within one command the Runner scans every task and does not stop at the first
+ * refusable one.  The already-done half writes its message as it goes, so the
+ * first such task wins and ends the scan; the room half only raises a flag, and
+ * each later out-of-room match overwrites it -- so it is the LAST matching
+ * out-of-room task that decides, and a catch-all "*" task clears the flag for
+ * good (run_task_has_catchall_command()).  Melbourne Beach (3.90) is the
+ * measured case: its task 94 is `*` confined to room 0, so run390 answers "I
+ * don't understand what you mean!" and not "You can't do that here!" for `play
+ * volleyball` and `use shower` typed outside their rooms
+ * (Adrift_37_melbourne_beach.txt).
+ *
  * Both count as a turn, unlike DontUnderstand: in the probe, an event ticking
  * once a turn fires on either refusal and not on the parser complaint, matching
  * the `handled = 1` the Runner sets alongside the message.  Hence the TRUE
@@ -2256,6 +2293,7 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int version, perspective, task_count, task, direction;
   scr_int refusal, refused_task;
+  scr_bool is_room_refused;
   const scr_char *repeattext;
 
   /*
@@ -2270,14 +2308,16 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
   version = run_get_version (bundle);
 
   /*
-   * Look for the first task in list order whose command matches the input and
-   * that the dispatcher passed over for one of the two refusable reasons.  A
-   * task blocked by anything else can never raise a refusal.
+   * Walk every task, looking for ones whose command matches the input and that
+   * the dispatcher passed over for one of the two refusable reasons.  A task
+   * blocked by anything else can never raise a refusal.  The already-done half
+   * stops the scan where it fires; the room half keeps going, last one wins.
    */
   refusal = REFUSAL_NONE;
   refused_task = -1;
+  is_room_refused = FALSE;
   task_count = gs_task_count (game);
-  for (task = 0; task < task_count && refusal == REFUSAL_NONE; task++)
+  for (task = 0; task < task_count; task++)
     {
       /* The room half first -- see the note above on probe task "theta". */
       if (version < TAF_VERSION_400)
@@ -2290,8 +2330,8 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
                   && run_match_task_commands (game, task, string,
                                               is_forwards, FALSE))
                 {
-                  refusal = REFUSAL_ROOM;
-                  refused_task = task;
+                  is_room_refused =
+                      !run_task_has_catchall_command (game, task);
                   break;
                 }
             }
@@ -2303,15 +2343,17 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
        * prints nothing, and run390 then answers "I don't understand." rather
        * than "You have already done that." (Adrift_18.txt 2026-08-23).
        */
-      if (refusal == REFUSAL_NONE
-          && !run_task_ran_this_command (task)
+      if (!run_task_ran_this_command (task)
           && task_is_done_refused (game, task)
           && run_match_task_commands (game, task, string, TRUE, FALSE))
         {
           refusal = REFUSAL_DONE;
           refused_task = task;
+          break;
         }
     }
+  if (refusal == REFUSAL_NONE && is_room_refused)
+    refusal = REFUSAL_ROOM;
   if (refusal == REFUSAL_NONE)
     return FALSE;
 

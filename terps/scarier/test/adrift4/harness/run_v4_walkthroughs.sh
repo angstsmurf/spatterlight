@@ -233,7 +233,7 @@ maincourse_solution.txt|Main Course.taf||SCR_SEED=17
 # The 3.9 half of the walk-announcement rewrite was measured on this game --
 # run390 under Wine, Adrift_37_melbourne_beach.txt, 2026-08-24.  See the arlo block.
 # The same transcript then pinned two more pre-4.0 rules, and this walkthrough
-# was re-derived for it (2026-08-25):
+# was re-derived for both (2026-08-25):
 #
 #   * a non-looping walk with StartTask 0 never runs before 4.0.  Judy's walk
 #     is six stops (Kitchen 10, Eating area 10, Den 5, Judy's bedroom 15,
@@ -248,6 +248,16 @@ maincourse_solution.txt|Main Course.taf||SCR_SEED=17
 #     npc_start_walk_is_390_noop().  The walkthrough now gives Judy the trumpet
 #     and the music in the Kitchen, where she stands, and the two twenty-turn
 #     waits are gone; the score is unchanged at 38/41.
+#   * a task whose command list holds a bare "*" clears the room refusal.  This
+#     game's task 94 is `*` confined to room 0, so run390 answers "I don't
+#     understand what you mean!" -- not "You can't do that here!" -- for `play
+#     volleyball` and `use shower` typed outside their rooms.  See
+#     run_task_has_catchall_command().
+#
+# With both fixes the 128-command replay is down to 29 differing turns, and
+# every one of them is rule 1 (this Wine run had Verbose OFF, so re-entry is
+# brief) or RNG: $randwalks picks the NPC enter/exit verb, and `play chess`
+# picks a winner.
 melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the original game Melbourne Beach
 # Measured live in run400 under Wine (2026-08-24).  At command 38, `n` into
 # the Dining Car, the Runner prints "The waiter saunters over." -- the same
