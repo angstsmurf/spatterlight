@@ -256,6 +256,59 @@ ratio is the argument for sweeping a transcript the moment it is captured,
 rather than only when its own lead is being chased -- both finds here sat on
 disk unread for two days.
 
+### The four-exe string census, 2026-08-25
+
+An offline substitute for a Wine run, and the thing that found the `x <unknown
+noun>` split.  Every wording Scarier prints is a literal in `sclibrar.cpp`;
+every wording a Runner prints is a literal in its `.exe`.  Dumping all four
+constant pools and asking which of Scarier's phrases no Runner carries turns a
+1,300-line source file into a short, ranked list of candidate version splits --
+no game, no transcript, no desktop needed.
+
+**Dumping a pool.**  VB6 stores each string as a **uint32 little-endian byte
+length** immediately followed by the UTF-16LE bytes.  Regex-scan the image for
+runs of `(?:[\x20-\x7e]\x00){3,}` and keep a run only when the four bytes
+before it equal its length; that validation is what makes the dump clean (an
+unvalidated scan mis-anchors and truncates -- it was returning `see no such
+thin` before the prefix check went in).  run370 753 strings, run380 864,
+run390 1119, run400 1309.
+
+**Matching.**  Compare *fragments*, not sentences: the Runners build a line out
+of pieces (`<player>` + `" see no such thing."`), and the older ones build more
+of it than the newer ones.  For each Scarier phrase, find the longest
+contiguous word-run that appears verbatim in some pool, and record which exes
+carry it.  A run of three or more words missing from at least one exe is a
+candidate.
+
+**Two false-positive modes, both real:**
+
+* *Composition.*  `"You can't read "` is in run370.exe alone, but run380 says
+  the same thing as `MemVar & " can't read " & obj` (`43CEFA`) -- the phrase
+  exists, just not as one string.  Anything whose missing half is a pronoun or
+  a name is suspect.
+* *Already gated.*  `"There is nothing worth taking here."` is run400-only and
+  Scarier prints it -- correctly, from inside the `lib_is_version_400()` arm
+  that the take-wording split already added.  Skip any phrase whose enclosing
+  function already mentions `lib_is_version_400`.
+
+After both filters, 74 phrases remain, and cross-referencing them against the
+goldens (golden -> `.taf` signature -> Runner generation) leaves the handful
+that a pre-4.0 game actually reaches today:
+
+| sclibrar | phrase | exes carrying it | exposed golden |
+|---|---|---|---|
+| `lib_cmd_examine_object` | `You see nothing special about ` | 400 | `ms_mobius` (3.90) |
+| `lib_cmd_read_other` | `You see no such thing.` | 400 | `cybercow_win`, `panic` (3.90) -- written up above |
+| `lib_cmd_locate_object` | ` a part of you!` | 400 | `asylum`, `i`, `secret_of_lost_world`, `textident_evil` (3.90) |
+| `lib_cmd_buy_other` | `I don't think that is for sale.` | 370, 380 | `circus` (3.90) |
+| `lib_put_in_is_valid` | `You can't put anything inside ` | 370, 380 | `sophie_comp` (4.00) |
+
+The first two are written up above and share a probe.  The rest are unexamined leads,
+in rough order of how many goldens would move.  Everything else on the 74-row
+list is either unreached by any golden or reached only by a game of the right
+generation, so it costs nothing today -- but it is still the map of where 4.0
+reworded the library, and the `x` row proves the map is worth reading.
+
 ## Before measuring anything
 
 - **Turn Verbose ON** (Options → Verbose, Ctrl+V). It resets to OFF on every
@@ -2221,7 +2274,7 @@ the refusal strings.  4.0 rewrote the last line of `examines`:
   Neither `camera` nor `byers` is an object.
 
 The exes date the change independently.  Scanning the VB6 constant pools
-(uint16 byte-length + UTF-16LE) for `such thing`:
+(uint32 byte-length, little-endian, then the UTF-16LE bytes) for `such thing`:
 
     run370.exe 0    run380.exe 0    run390.exe 0
     run400.exe 1    ' see no such thing.'
@@ -2238,28 +2291,76 @@ thing.`  Three 3.90 goldens moved and were re-blessed -- `veteran` (1 line),
 changed and no win marker was lost; corpus back to full PASS.
 
 Deliberately **not** ported, because nothing has measured them: 4.0 also sets a
-flag beside this message (`MemVar_494281` at `loc_471F02`); the
-object-found-but-silent default one branch up splits three ways (`Nothing
-special.` in 3.7, `There's nothing special about <obj>.` in 3.8/3.9, `<player>
-sees nothing special about <obj>.` in 4.0, where Scarier prints the 4.0 form
-for every version); and Scarier has no darkness examine answers at all
-(`... can't see that very clearly.`, `... can just make out that ...`,
-`loc_471F41`).
+flag beside this message (`MemVar_494281` at `loc_471F02`), and Scarier has no
+darkness examine answers at all (`... can't see that very clearly.`, `... can
+just make out that ...`, `loc_471F41`).
 
-**Staged probe.**  On any lit game with a static in a *neighbouring* room --
-hauntedhouse's statue in the Entrance does it -- walk in, walk out, then feed:
+### OPEN 2026-08-25 -- the OTHER half of that rewrite: `x <object with no description>`
 
-    open statue / close statue / x statue      (seen, absent)
-    open door / x door / take door             (no such object at all)
-    open / close / take / drop                 (bare verb -- the row that
-                                                decides whether `<Verb> what?`
-                                                survives anywhere)
-    x statues                                  (the plural row)
+Same routine, one branch earlier, and it is **decompile-pinned on both sides
+but not yet measured**, so it is not ported.
 
-(`x <unknown noun>` is no longer on this list -- the transcripts answered it.)
+When the object *is* found and its Description is empty, pre-4.0 leaves the
+Runner's message string empty and the empty string falls through to the very
+tail measured above -- so `x stone` and `x fjkdlsj` give the same flat answer:
 
-Read all of it off the echo.  The same run settles the `open door` half of the
-hauntedhouse measurement, left open below.
+| | pre-4.0 | 4.0 |
+|---|---|---|
+| where | the `If msg = vbNullString` tail: run370 `435BF4`, run380 `43D545`, run390 `44C3DC` | filled in one branch earlier, run400 `loc_471A08` / `loc_471A1C` |
+| answer | `Nothing special.` | `<player> see nothing special about <obj>.` |
+| scarier | the 4.0 wording, every version (`lib_cmd_examine_object`) | correct |
+
+run370 and run380 decompile to readable VB and can be read straight off:
+`Project/Form1.frm` 6943 and 7339 are both `MemVar_...E8 = "Nothing special."`,
+inside the same `If ... = vbNullString` / `If Not c("me")` tail the measured
+`x pocket` row lands in.  run390's p-code pushes the same literal at
+`loc_44C3DC` in the same position.
+
+**Beware the near-miss.**  `There's nothing special about <obj>.` -- run380
+`440D4C`, run390 `459EC1`, run400 `480041`, and in run380/390/400.exe but not
+run370.exe -- is the **character** default, reached from the `locate`/`x`
+character block, *not* from `examines`.  Scarier already prints it, in
+`lib_cmd_examine_npc`.  An earlier note here had it as the 3.8/3.9 object
+wording; it is not, and porting it would have been wrong.
+
+**Corpus exposure**: `ms_mobius_solution` (ms_mobius.taf, 3.90) is the only
+pre-4.0 golden that reaches the line.
+
+The measurement is the first command of the probe below.
+
+**`read <noun that names nothing>` is the same tail again.**  Pre-4.0 there is
+no separate read verb for an unmatched noun: `read` is one of the words that
+*enters* `examines`, ORed in with `x`/`examine`/`look at`/`ex`/`exam` --
+readable verbatim in run370 `434E2A` and run380 `43C69D`, and pushed one by one
+in run390's p-code at `44B7FF`.  So `read eye` with no `eye` object falls
+through to the very line `x pocket` measured: `Nothing special.`  4.0 answers
+`<player> see no such thing.`, which is what Scarier prints for both.
+`cybercow_win` (`read notation`) and `panic` (`read eye`) are the two exposed
+3.90 goldens.  This one needs only the `read zzzz` row of the probe to be
+measured -- the tail itself already is.
+
+**Staged probe -- BUILT 2026-08-25, `harness/make_39_examprobe.py`.**  A
+purpose-built 3.9 file, `p39EXAM.taf`, one 24-command session, one row per
+open question.  Two rooms wired north/south; four dynamic objects, so the room
+listing SEES all of them (a static is never listed, and an unlisted object is
+not referenceable -- that alone would have wrecked a hand-built probe): a
+`stone` and an open `crate` with no Description at all, a `coin` inside the
+crate, and a `statue` in the North Room, to be seen and then walked away from.
+
+    x stone / x crate / x coin / x zzzz / x me / n / x statue / s /
+    x statue / open statue / close statue / x statues / x door /
+    open door / take door / open / close / take / drop / read zzzz /
+    buy statue / get off / x all / probe
+
+`x zzzz` is a control: it is the row already measured, and it must come back
+`Nothing special.` for the rest of the session to be worth reading.  `probe` is
+a repeatable no-restriction task that must answer `PROBE OK.`, proving the file
+is wired.  The builder's docstring carries what Scarier answers today for each
+line, so the run is a straight diff.  Read all of it off the echo.
+
+This supersedes the earlier hauntedhouse staging for 3.9 -- but hauntedhouse
+(3.80) is still the cheapest 3.8 replay of the same rows, and settles the
+`open door` half of the hauntedhouse measurement left open below.
 
 ## OPEN 2026-08-25 -- `burn memo`  (probe built, waiting on Wine)
 

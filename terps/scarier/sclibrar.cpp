@@ -4837,7 +4837,25 @@ lib_cmd_examine_object (scr_gameref_t game)
   /* List out what's on and what's inside the object. */
   is_described |= lib_list_in_on_object (game, object, is_described);
 
-  /* If nothing yet said, print a default response. */
+  /*
+   * If nothing yet said, print a default response.
+   *
+   * This is the other half of the 4.0 rewrite of the Runner's examines() --
+   * the half that has NOT been measured yet, so it is not gated.  In 3.7, 3.8
+   * and 3.9 an object whose Description is empty leaves the Runner's message
+   * string empty, and the empty string falls all the way through to the same
+   * tail that answers an unmatched noun: a flat "Nothing special." (run370
+   * 435BF4, run380 43D545, run390 44C3DC, all reached from `If msg =
+   * vbNullString`).  4.0 fills the message in here instead, one branch before
+   * that tail can see it, with "<player> see nothing special about <obj>."
+   * (run400 471A08/471A1C) -- and it is that 4.0 wording Scarier prints for
+   * every version.  Beware the near-miss: "There's nothing special about
+   * <obj>." (run380 440D4C, run390 459EC1, run400 480041) is the CHARACTER
+   * default, not this one; Scarier already prints it, at lib_cmd_examine_npc.
+   *
+   * ms_mobius_solution is the corpus's only pre-4.0 exposure.  The probe that
+   * settles it is harness/make_39_examprobe.py (`x stone`, first command).
+   */
   if (!is_described)
     {
       pf_buffer_string (filter,
@@ -11157,12 +11175,13 @@ lib_cmd_examine_all (scr_gameref_t game)
  *     an object: "You see no such thing."
  *
  * Not ported, because nothing has measured them: 4.0 also sets a flag beside
- * this message (MemVar_494281 at 471F02), the object-found-but-silent default
- * one branch up splits three ways ("Nothing special." in 3.7, "There's
- * nothing special about <obj>." in 3.8/3.9, "<player> see nothing special
- * about <obj>." in 4.0 -- Scarier prints the 4.0 form for all of them at
- * :4845), and no Runner's darkness answers ("<player> can't see that very
- * clearly.", "<player> can just make out that ...") exist here at all.
+ * this message (MemVar_494281 at 471F02), and no Runner's darkness answers
+ * ("<player> can't see that very clearly.", "<player> can just make out that
+ * ...") exist here at all.
+ *
+ * The object-found-but-silent default one branch up is the SAME 4.0 rewrite
+ * and splits the same way, but it is decompile-only so far -- see
+ * lib_cmd_examine_object() and harness/make_39_examprobe.py.
  */
 scr_bool
 lib_cmd_examine_other (scr_gameref_t game)
