@@ -173,6 +173,13 @@ the golden solutions; the synthetic probes (`pET*`, `srd`, `p39*`, `pwear400`)
 by the `.taf` whose mtime immediately precedes the transcript's. Keep the
 convention for new captures: `Adrift_<N>_<slug>.txt`.
 
+The slug names the **game**, not the `.taf` that was loaded. Where a game has
+two releases, or where a run used a doctored copy, the slug does not say which
+-- all six `_sophie` transcripts were recorded from `sa.taf` and its `saF*`
+variants, none from `sophie.taf` (see the CLOSED 2026-08-25 sophie section).
+The `.taf` is recoverable from the `measure.sh <taf> <cmdfile>` invocation that
+produced the run; check it before quoting a transcript at a golden.
+
 Citations in the tree that still resolve were updated to the new names. These
 ones were **not** -- their files have since been overwritten by a later run and
 the measurement they describe is no longer reproducible from disk:
@@ -2148,6 +2155,51 @@ normalise the header would have the player at room 0 until the first move --
 colliding with the nowhere NPC and making "alone" false in the start room only.
 xfiles burns the memo in its start room.  If `pc` fails before the round trip
 and passes after it, that is the whole bug.
+
+## CLOSED 2026-08-25 -- sophie's `[, and] -> [:]`, and a transcript-naming trap
+
+**A Wine transcript is named after the GAME, not the `.taf`.**  Every sophie
+run under run400 -- `Adrift_41_sophie.txt` .. `Adrift_46_sophie.txt` -- was
+launched on `sa.taf` or one of its doctored `saF*` variants
+(`measure.sh saF577.taf cmdfile_soph14.txt run400.exe` and friends).  The comp
+release `sophie.taf` has **never** been run under a Runner.  Before quoting a
+transcript against a golden, check which `.taf` the run actually used; the two
+sophie rows point at two different games.
+
+That trap cost a diagnosis.  `sophie.taf` carries ALR **#418 `[, and] -> [:]`**,
+`sa.taf` does not, and the string `, and` is common enough that the rule wrecks
+eight sentences.  Scarier applies it, six `, and`s survive in the run400
+transcripts, and it *looks* like a clean divergence -- but the transcripts are
+`sa.taf`'s, where no such rule exists, and they agree with
+`goldens/sophie_solution.expected.txt` line for line.  Nothing was measured
+against `sophie.taf` at all.
+
+Scarier is nevertheless right to apply #418, on the author's own evidence:
+
+- `sophie.taf` also carries two fixup rules, #455
+  `[of the moment: throw yourself at Smunch.] -> [of the moment and throw
+  yourself at Smunch.]` and #458 `[inventory: so on] -> [inventory, and so]`.
+  Both Originals contain a **colon** at a spot where the raw game text reads
+  `, and` (confirmed straight out of the game text: `...on the spur of the
+  moment, and throw yourself at Smunch.` and `...look, inventory, and so
+  on.`).  The author can only have seen those colons in a Runner, so run400
+  does apply #418.
+- The fixups are 40 and 16 characters long against #418's 5, so a single
+  length-descending pass would run them *first*, find no colon, and leave them
+  dead.  They only do anything under 4.0's repeat-until-stable pass -- which is
+  what `pf_filter_internal()` (`scprintf.cpp:833`) already implements, and
+  which is therefore corroborated here a second time.
+- `sa.taf`, the later author release, **deletes #418 and keeps #455/#458**,
+  now dead rules.  That is what cleaning up a mistake looks like.
+
+No engine change; both goldens stand; corpus **303/303**.  The reasoning is
+recorded on the `sophie_solution.txt|sa.taf` row in
+`harness/run_v4_walkthroughs.sh` so it is not re-derived a third time.  If
+`sophie.taf` is ever staged under Wine, `harness/make_400_punctalrprobe.py`
+(built, unrun) isolates the general question this raised: whether an ALR whose
+Original starts with punctuation (`, `, ` `, `: `) or whose Replacement is pure
+punctuation behaves any differently from a word-for-word rule.  Scarier fires
+all seven of its cells.
 
 ## CLOSED 2026-08-24 -- empty-M1 room alts, and recursive holding
 

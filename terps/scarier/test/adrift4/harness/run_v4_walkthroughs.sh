@@ -527,6 +527,28 @@ fantasyworld_solution.txt|fantasyworld.taf|You scored 0 out of the maximum 500!
 # and re-derived with harness/make_400_walkalrprobe.py; see the 2026-08-25
 # block further down.  Never "fix" a missing walker line here without checking
 # the ALR list first.
+# The comp release sophie.taf carries one ALR the author later deleted: #418
+# [, and] -> [:].  ", and" is a very common string, so it wrecks eight
+# sentences, and it is the ONLY difference between these two goldens over the
+# stretch they share -- sophie_comp reads "near the walls: a light fitting"
+# where sophie reads "near the walls, and a light fitting".  Scarier applies
+# it, and that is right.  Do not "fix" it:
+#   * the author's own two fixup rules, #455 [of the moment: throw yourself at
+#     Smunch.] -> [of the moment and throw yourself at Smunch.] and #458
+#     [inventory: so on] -> [inventory, and so], have a COLON in their
+#     Originals where the raw game text has ", and".  He can only have seen
+#     those colons in a Runner, so run400 does apply #418 -- and applies it
+#     BEFORE the two longer fixups get their turn, which is exactly what 4.0's
+#     repeat-until-stable pass buys (a single length-descending pass would run
+#     the fixups first and leave them dead).
+#   * sa.taf, the later author release, DELETES #418 and keeps #455/#458, now
+#     dead rules: the cleanup of a mistake.
+# 2026-08-25: the Wine transcripts named Adrift_41..46_sophie.txt do NOT
+# contradict this.  Every sophie run under run400 used sa.taf or one of its
+# doctored saF* variants -- sophie.taf has never been run -- so the ", and"s
+# that survive in them are sa.taf's untouched text, and they agree with
+# sophie_solution.expected.txt line for line.  The transcripts are named after
+# the GAME, not the .taf; check the row below before quoting one.
 sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1
