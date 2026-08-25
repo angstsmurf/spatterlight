@@ -1289,21 +1289,23 @@ run_task_ran_this_command (scr_int task)
  * scr_strict_reference_guard
  *
  * Turns strict %object% matching on for the lifetime of the guard, and off
- * again however the scope is left.
+ * again however the scope is left.  match_case separates the two Runners that
+ * bind strictly: 4.0 substitutes the name as authored, 3.90 lower-cases it.
  */
 class scr_strict_reference_guard
 {
 public:
-  explicit scr_strict_reference_guard (scr_bool strict) : strict_ (strict)
+  scr_strict_reference_guard (scr_bool strict, scr_bool match_case)
+    : strict_ (strict)
   {
     if (strict_)
-      uip_set_strict_reference (TRUE);
+      uip_set_strict_reference (TRUE, match_case);
   }
 
   ~scr_strict_reference_guard ()
   {
     if (strict_)
-      uip_set_strict_reference (FALSE);
+      uip_set_strict_reference (FALSE, FALSE);
   }
 
   scr_strict_reference_guard (const scr_strict_reference_guard &) = delete;
@@ -1335,11 +1337,12 @@ run_match_task_commands (scr_gameref_t game,
   scr_int command;
   scr_bool is_matched;
 
-  /* 4.0 binds %object% strictly -- see the note above
-   * uip_compare_reference_strict().  Task commands only; the library's own
-   * patterns keep the tolerant matcher. */
+  /* 3.90 and up bind %object% strictly, and only 4.0 binds it case-
+   * sensitively -- see the note above uip_compare_reference_strict().  Task
+   * commands only; the library's own patterns keep the tolerant matcher. */
+  const scr_int version = run_get_version (gs_get_bundle (game));
   const scr_strict_reference_guard strict_reference
-      (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400);
+      (version >= TAF_VERSION_390, version >= TAF_VERSION_400);
 
   /* Iterate over commands, looking for patterns that match string. */
   is_matched = FALSE;

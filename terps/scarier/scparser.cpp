@@ -1450,6 +1450,28 @@ uip_skip_article (const scr_char *string, scr_int start)
  * bug, and it is one-sided -- ADRIFTMAS Party's `[kiss {the} %character%]`
  * over an NPC named "Mystery" runs in the Runner, and still runs here.
  *
+ * MEASURED 2026-08-25 on p39CASE.taf under run390 (Adrift_1_p39case.txt, all
+ * 19 commands echoed): 3.90 substitutes just as strictly, but it DOES fold
+ * case.  The same cells, one Runner down --
+ *
+ *   task "pa %object%", Short "Widget"          pa widget -> runs
+ *                                               pa Widget -> runs
+ *   task "pa %object%", Short "brass key",      pa brass key       -> runs
+ *                       Prefix "a small"        pa key             -> no
+ *                                               pa a brass key     -> no
+ *                                               pa the brass key   -> no
+ *                                               pa small brass key -> no
+ *   task "pa %object%", Short "gem",            pa gem   -> runs
+ *                       Alias "jewel"           pa jewel -> runs
+ *                                               pa a gem / pa the gem -> no
+ *
+ * -- so strict binding starts at 3.90, and only the case fold is lost at 4.0.
+ * run390 does it in Form1.frm:13991ff, through c() and the seen byte at
+ * .global_44, rewriting the task command in place.  Neither run370.exe nor
+ * run380.exe contains the string "%object%" at all, so before 3.90 such a
+ * pattern matches nothing whatever the player types, and the tolerant matcher
+ * there is harmless.
+ *
  * This is task-command matching only.  The library's own patterns and the
  * variable functions go through the Runner's noun resolver, which is
  * prefix- and case-tolerant, so the flag is set only around
@@ -1457,14 +1479,18 @@ uip_skip_article (const scr_char *string, scr_int start)
  */
 static scr_bool uip_strict_reference = FALSE;
 
+/* Cleared for 3.90, which lower-cases the name it substitutes. */
+static scr_bool uip_strict_case = FALSE;
+
 /* Set for the duration of one uip_match_entity() call, because
  * uip_compare_candidate() cannot otherwise tell an NPC from an object. */
 static scr_bool uip_strict_is_character = FALSE;
 
 void
-uip_set_strict_reference (scr_bool strict)
+uip_set_strict_reference (scr_bool strict, scr_bool match_case)
 {
   uip_strict_reference = strict;
+  uip_strict_case = match_case;
 }
 
 
@@ -1472,8 +1498,9 @@ uip_set_strict_reference (scr_bool strict)
  * uip_compare_reference_strict()
  *
  * The strict comparator described above: the name must appear at the current
- * position exactly as authored, against a lowercased view of the input, and
- * must end on a word boundary.  Returns the new position on match, else zero.
+ * position exactly as authored -- 4.0 -- or bar its case -- 3.90 -- against a
+ * lowercased view of the input, and must end on a word boundary.  Returns the
+ * new position on match, else zero.
  */
 static scr_int
 uip_compare_reference_strict (const scr_char *name)
@@ -1483,7 +1510,10 @@ uip_compare_reference_strict (const scr_char *name)
   posn = uip_posn;
   for (wpos = 0; name[wpos] != NUL; wpos++, posn++)
     {
-      if (name[wpos] != scr_tolower (uip_string[posn]))
+      const scr_char wanted = uip_strict_case
+                              ? name[wpos] : scr_tolower (name[wpos]);
+
+      if (wanted != scr_tolower (uip_string[posn]))
         return 0;
     }
 

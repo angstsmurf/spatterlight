@@ -92,11 +92,12 @@ TAF_VERSION_400 and on the reference being an object.  Corpus: 64 of the 432
 exactly one golden line -- xfiles' `burn memo`, which now answers what the two
 Wine transcripts answer.
 
-STILL UNMEASURED: the 3.90 half.  run390 implements `%object%` elsewhere
-(Form1.frm:13991ff), via c() plus the seen byte at .global_44, and REWRITES the
-task command in place with the substituted name; whether it lowers anything is
-unknown, hence the 4.0-only gate.  run370/run380 have no `"%object%"` literal
-at all.
+THE 3.90 HALF, measured the same day by make_39_caseprobe.py / p39CASE.taf
+(Adrift_1_p39case.txt): 3.90 binds just as strictly -- no article, no Prefix,
+no partial name -- but it DOES fold case, so `pa Widget` and `pa widget` both
+run there.  The port is therefore gated at 3.90 for the binding and at 4.0 for
+the case sensitivity.  run370/run380 have no `"%object%"` literal at all, so
+before 3.90 a `%object%` pattern matches nothing at all.
 
 FOOTGUN: Capacity packs as tens = object count, units = size index, so
 Capacity 99 is invalid and hangs run400 for ever at "Loading...".  Use 52.

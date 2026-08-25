@@ -498,6 +498,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
 | `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased**, and **what is *on* an object is listed before what is *in* it, in one sentence** -- see the two FIXED sections below.  Also closed the `knock` lead (a feed artefact) and pinned `burn memo` on the 4.0 `%object%` case rule (FIXED) |
 | `p4BURN` (built probe) + an `xfiles` bisect | 4.00 | four run400 probe replays (`Adrift_6_p4burn.txt` thirteen restriction cells, `Adrift_2_p4burn.txt` Repeatable, `Adrift_12/13_p4burn.txt` case) and nine replays of edited `xfiles` builds (`Adrift_1/3/4/5/7/8/9/10/11_xfilesbisect.txt`) | **4.0 substitutes an object's Short or Alias into a `%object%` task command verbatim** and compares it to the lower-cased input, so a capitalised Short can never bind and no article, Prefix or partial name binds either.  `%character%` lowers the name first and is unaffected.  See the FIXED section below |
+| `p39CASE` (built probe) | 3.90 | run390 replay, `Adrift_1_p39case.txt` (19 commands) | the 3.90 half of the same rule: **strict binding starts at 3.90, the case fold is only lost at 4.0**.  Moved five rows in Scarier and no goldens |
 | `p39EXAM` / `p4EXAM` (built probes) | 3.90 + 4.00 | run390 replays `Adrift_41/43_p39exam.txt` (29 + 19 commands) and the run400 twin `Adrift_1_p4exam.txt` (32) | the whole **examine / read / open / close refusal family**, plus the empty room description: four splits found and ported, and 3.90 now agrees with Scarier on all 48 rows.  See the FIXED sections below |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
@@ -2749,14 +2750,34 @@ moved exactly one golden line.
 Wine transcripts do, and the score falls 296 -> 295, "3 points short" -> "4
 points short".
 
-### Version scope
+### Version scope -- MEASURED 2026-08-25, and the split is only half a split
 
-`"%object%"` does not appear in run370.exe or run380.exe at all -- the
-substitution does not exist before 3.9.  run390 implements it somewhere else
-entirely (`Form1.frm:13991ff`), through `c()` plus the seen byte at
-`.global_44`, and **rewrites the task command in place** with the substituted
-name.  Whether it lowers anything is unmeasured, which is why the split is
-pinned at 4.0 and not lower.  Measuring the 3.90 half is the follow-up.
+`"%object%"` does not appear in run370.exe or run380.exe at all, so before
+3.90 such a pattern matches nothing whatever the player types and the tolerant
+matcher there is harmless.  run390 implements it somewhere else entirely
+(`Form1.frm:13991ff`), through `c()` plus the seen byte at `.global_44`, and
+**rewrites the task command in place** with the substituted name.
+
+`p39CASE.taf` (`harness/make_39_caseprobe.py`) is the 4.0 cell table in the
+3.90 layout.  `Adrift_1_p39case.txt`, all 19 commands echoed:
+
+| typed | run390 | run400 |
+| --- | --- | --- |
+| `pa widget`, `pa Widget` (Short `Widget`) | **PASS, PASS** | refused, refused |
+| `pa brass key` (Short `brass key`, Prefix `a small`) | PASS | PASS |
+| `pa key` | `I don't understand.` | `I don't understand.` |
+| `pa a brass key`, `pa the brass key`, `pa small brass key` | refused | refused |
+| `pa gem`, `pa jewel` (Alias `jewel`) | PASS, PASS | PASS, PASS |
+| `pa a gem`, `pa the gem` | refused | refused |
+| `px coin` / `PX coin`, `py` / `PY`, `pz coin` / `PZ coin` | PASS | PASS |
+
+So **strict binding starts at 3.90 and only the case fold is lost at 4.0**.
+3.90 refuses the article, the Prefix and the partial name exactly as 4.0 does;
+it just lower-cases the name it substitutes first.  Scarier passed five of
+those rows, so the port is now gated at `TAF_VERSION_390` for the binding and
+at `TAF_VERSION_400` for the case sensitivity -- one `match_case` flag through
+`uip_set_strict_reference()`.  **The corpus did not move at all** on the 3.90
+half: still 303 PASS.
 
 ### By-product, not yet ported
 
