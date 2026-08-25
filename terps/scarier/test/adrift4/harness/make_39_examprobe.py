@@ -62,7 +62,20 @@ What the decompiles predict, row by row, with the command that reads it:
     x all        "Please examine one object at a time." (435A43)
     x me         the self row
 
-Read every answer off the echo, and check that all 26 commands echoed before
+    e            a room with NO long description, no alt and no LastDesc.
+                 run390 4478CA appends "There is nothing of interest here."
+                 when both the Long and the LastDesc are empty and nothing
+                 else has described the room; run380 substitutes the same
+                 sentence into the Long at LOAD time (447FEE), so 3.8 and 3.9
+                 arrive at it by different routes.  run370 has no such string
+                 and leaves the room blank.  Scarier prints nothing, for every
+                 version.  Two goldens ride on this: yeh and richard, both
+                 3.90 -- a local patch that adds the sentence when nothing
+                 else described the room moves those two and nothing else in
+                 the 303-row corpus, which is the shape a correct fix should
+                 have.  `look` re-reads it, `w` returns.
+
+Read every answer off the echo, and check that all 29 commands echoed before
 believing any of it.
 
 The feed, in order (cmdfile_p39exam.txt; CRLF, and mind the bare-Return rule):
@@ -70,7 +83,7 @@ The feed, in order (cmdfile_p39exam.txt; CRLF, and mind the bare-Return rule):
     x stone / x crate / x coin / x zzzz / x me / n / x statue / s /
     x statue / open statue / close statue / x statues / x door /
     open door / take door / open / close / take / drop / read stone /
-    read coin / read zzzz / buy statue / get off / x all / probe
+    read coin / read zzzz / buy statue / get off / x all / probe / e / look / w
 
 What scarier answers today, for the diff (harness/scare, SCR_SKIP_WAITKEY=1):
 
@@ -93,6 +106,8 @@ What scarier answers today, for the diff (harness/scare, SCR_SKIP_WAITKEY=1):
     buy statue    I don't think that is for sale.
     get off       You are not standing on anything!
     x all         Please examine one object at a time.
+    e             Void Room  (the heading and the exit line, no description
+                  sentence at all)
 
 Usage:   python3 make_39_examprobe.py [out.taf]
 Session: sh runner_savetranscript.sh p39EXAM.taf cmdfile_p39exam.txt run390.exe
@@ -150,9 +165,10 @@ def room(short, long_, exits=()):
     s(""); s(0); s(""); s(0); s(0); s(""); s(0)
     s(0)                             # HideOnMap (NoMap == 0)
 
-s(2)
-room("Test Room", "A bare room.", {0: 2})     # north -> North Room
+s(3)
+room("Test Room", "A bare room.", {0: 2, 1: 3})   # north -> North, east -> Void
 room("North Room", "Another bare room.", {2: 1})
+room("Void Room", "", {3: 1})                     # NO long description at all
 
 # OBJECTS -- all dynamic and loose, so the room listing SEES them (a static is
 # never listed, and an unlisted object is not referenceable; see the object

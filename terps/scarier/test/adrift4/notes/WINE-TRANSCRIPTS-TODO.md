@@ -256,6 +256,42 @@ ratio is the argument for sweeping a transcript the moment it is captured,
 rather than only when its own lead is being chased -- both finds here sat on
 disk unread for two days.
 
+### OPEN 2026-08-25 -- the inverse census, and an empty room description
+
+Run the census backwards -- every Runner string that Scarier never prints --
+and most of what comes back is dialogue boxes, registry errors and map-zoom
+chatter.  Strip those and two groups remain.  The larger one is the
+disambiguation family (` would you like to take.  `, `That is still
+ambiguous!`, `It is not clear which object you are referring to.`, `Who do you
+want to attack?`, `Where do you want to put that?`), which is already the
+biggest known gap and has its own TODO entry.  The other is one sentence:
+
+> There is nothing of interest here.
+
+**What the Runners do.**  It is what a room with no description of its own
+says.  run380 does it at LOAD: `447FEE` reads the room's Long line and, if it
+is empty, substitutes the sentence, so the room simply *has* that description
+from then on.  run390 does it at PRINT: `4478CA` appends it when the LastDesc
+is empty and the Long is empty and nothing else has described the room (the
+branch two lines up at `4478A8` takes the LastDesc instead and skips it).
+run370 does not have the string at all and leaves such a room blank.  run400
+carries the constant in its pool but no call site references it anywhere in
+the decompile.
+
+**What Scarier does.**  Nothing -- `lib_print_room_description()` prints the
+Long only `if (!scr_strempty (description))` and has no fallback, for any
+version.
+
+**Exposure, measured against the corpus.**  Patching it in locally as "if
+nothing described the room and the version is 3.80 or 3.90, print the
+sentence" moves exactly two goldens, `yeh` and `richard`, both 3.90, and
+nothing else in the 303 rows.  (The naive placement -- an `else` on the Long
+itself -- moves sixteen, because it fires ahead of every alt and LastDesc.
+That difference is the whole content of the run390 branch, and it is a good
+reminder to read the guard, not just the literal.)  Neither game has a Wine
+transcript, so this is decompile-only and is NOT ported.  `p39EXAM.taf` now
+has a third room with an empty Long to settle it: `e`, `look`, `w`.
+
 ### The four-exe string census, 2026-08-25
 
 An offline substitute for a Wine run, and the thing that found the `x <unknown
