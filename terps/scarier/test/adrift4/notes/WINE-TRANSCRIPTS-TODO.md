@@ -2831,13 +2831,20 @@ The train-stop texts move with the seed -- event 0 rolls 10..19, events 1..3
 roll 1..7 -- so where they land is RNG, not an engine difference. Turns 43 and
 46 now match.
 
-**Still open, from the same reading of `checkevent()`.** The clock-started
-path takes no `+1`, yet the Runner still decrements on the start turn, so a
-`StartType 2` event ought to end `roll - 1` turns after its delay expires,
-where we end it at `roll`. Our ES_WAITING branch starts the event and
-`break`s, exactly the shape that was wrong for task-started events, and the
-immediate-start hack a few lines above adds 1 to the roll to compensate for a
-tick we then never take. Nothing in any transcript on file exercises a
-clock-started event with a `PrefTime`, so this is decompile-only for now; the
-probe is a `StartType 2` event with `Time1 == Time2` and `PrefTime1` equal to
-that length, driven under Wine.
+**Why only the task-started path was wrong.** `evt_tick_events()` already
+re-ticks an event that has just gone from waiting or paused to running -- "a
+bit of laziness", as the comment there puts it -- so the clock-started and
+resumed paths have always had their start turn's decrement, pref-time tests
+and end test, and the ES_WAITING immediate-start hack's `+ 1` exists to
+compensate for exactly that re-tick. ES_AWAITING is the one transition the
+re-tick does not cover, which is why it alone needed the block added here, and
+why it must not be re-ticked: our clock already holds the roll, the value the
+Runner reaches only after its start-turn decrement.
+
+The same reading explains the parking rule the EV4 probe measured. The Runner
+tests `time = 0`, not `time <= 0`. A clock-started event with `Time1 = Time2 =
+0` rolls 0, is decremented to -1 on its start turn and never equals 0 again,
+so it runs on forever with its LookText in every room description -- while a
+task-started one rolls 0 and then takes the `+ 1`, is decremented to 0, and
+finishes on the spot. Two behaviours that had to be special-cased out of the
+transcripts fall straight out of that one `+ 1`.

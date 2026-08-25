@@ -1070,6 +1070,14 @@ evt_tick_event (scr_gameref_t game, scr_int event)
              * i.e. the roll itself, on the start turn, and we never
              * compared anything on the start turn at all.
              *
+             * Only this transition needs the block: evt_tick_events()
+             * re-ticks an event that has just gone from waiting or paused
+             * to running, so those paths have always had their start
+             * turn's tick, and the ES_WAITING immediate-start hack's +1 is
+             * there to compensate for that re-tick.  Do not re-tick here as
+             * well -- our clock already holds the roll, which is the value
+             * the Runner only reaches after its start-turn decrement.
+             *
              * Measured in run400 under Wine, Orient_Express.taf, transcript
              * Adrift_36_orient_express.txt (2026-08-25).  Turn 43 `use
              * phone' starts event 2 [Phone rings] (Time1 = 1, Time2 = 8,
