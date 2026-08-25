@@ -2271,6 +2271,13 @@ chosen_solution.txt|Chosen.taf|You plug the T-shaped block into the final socket
 # [game over], so the marker is the ending line.
 # Re-blessed 2026-08-25, one line (859, `open satchel`): the same "Open what?"
 # -> "You can't open that." fix recorded on the xfiles_solution.txt row above.
+# Re-blessed again 2026-08-25, two lines, by the 4.0 seen-but-absent resolver
+# (`x dust` -> "You can't see the dust from here!", `open satchel` -> "You
+# can't see the satchel."): TheCellar.taf is a 4.00 file, and both nouns name
+# an object the player has seen but is no longer in the room with, so 4.0's
+# second binding pass finds it where 3.9's never looks.  Measured on p4EXAM.taf
+# under run400 and on p39EXAM.taf under run390; see notes/WINE-TRANSCRIPTS-TODO.md,
+# "FIXED 2026-08-25 -- the 4.0 seen-but-absent resolver".
 cellar_solution.txt|TheCellar.taf|And so The Cellar has ended. Many thanks for playing.|SCR_SKIP_WAITKEY=1
 # Panic! (Stewart J. McAbney, ADRIFT 3.90): the author's own walkthrough
 # transcript replayed verbatim, all 69 commands, no repairs.  The first command
@@ -3318,6 +3325,12 @@ provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2
 # No name prompt, no <waitkey>, so the row needs no env.  Ends the same way
 # the author's own walkthrough does -- Burton gets the IOCC board seat --
 # 151/229, 65%: this is the walkthrough's intended finish, not a shortfall.
+# Re-blessed 2026-08-25, one line (`examine contraption` -> "You can't see the
+# flying contraption from here!"): the 4.0 seen-but-absent resolver, measured
+# on p4EXAM.taf/run400 vs p39EXAM.taf/run390.  Note the article and the "from
+# here!" tail are examine's alone -- open and buy take "the ...", close takes
+# the object's own Prefix.  See notes/WINE-TRANSCRIPTS-TODO.md, "FIXED
+# 2026-08-25 -- the 4.0 seen-but-absent resolver".
 professor_solution.txt|Professor.taf|You scored 151 out of the maximum 229!
 # The Wingman (AIF), by Dark Horse, 2011 minicomp.  The game ships its own
 # walkthrough.txt (bar-scene command list plus a topic-list of body-part

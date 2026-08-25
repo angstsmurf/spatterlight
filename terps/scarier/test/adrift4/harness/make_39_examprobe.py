@@ -50,17 +50,26 @@ keeping as warnings:
     the flat tail.  In run390 `co()` never matches the absent statue at all, so
     the command falls to the generic handler at 45D454 (`push "that"`).  The
     "You can't see ..." family is 4.0 behaviour, and needs the seen-but-absent
-    resolver, which is still unported.
+    resolver, ported 2026-08-25.
   * `read coin` was predicted to expose a scarier bug.  It does not: scarier
     already answered "You can't read the coin!", which is what run390 says.
     Re-run ./scare before trusting any "what scarier answers today" block.
 
-Still open after this probe (all four are one port -- the 4.0 resolver):
+PORTED 2026-08-25 -- the four 4.0 cells this probe opened were one port, the
+seen-but-absent resolver (sclibrar.cpp `lib_absent_seen_object()` /
+`lib_cant_see_absent_object()`, four `_absent` handlers registered directly
+above the catch-all `*` rows so NPC rows still win):
 
     x statue      You can't see the statue from here!
     open statue   You can't see the statue.        (definite article)
     close statue  You can't see a statue.          (indefinite!)
     buy statue    You can't see the statue.
+
+The indefinite `close` really is `Prefix & " " & Short`, not a typo; and `buy`
+has no branch of its own -- the sentence comes from therest()'s leading
+obhere() clause, which runs before every verb branch.  See
+notes/WINE-TRANSCRIPTS-TODO.md, "FIXED 2026-08-25 -- the 4.0 seen-but-absent
+resolver".
 
 Still unmeasured: the 3.70 and 3.80 halves.  The decompiles say 3.8 tracks 3.9
 throughout except that it substitutes "There is nothing of interest here." into

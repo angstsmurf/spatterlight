@@ -306,7 +306,7 @@ he leaves your lab. You thank him and agree. "I'll just release these bees.
 See you later, Professor." Milo leaves your lab with the Pollen Popper Upper.
 
 > examine contraption
-You see no such thing.
+You can't see the flying contraption from here!
 
 > look
 

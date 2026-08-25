@@ -271,7 +271,7 @@ It seems your father has found a better hiding place for the key to the
 cellar.
 
 > x dust
-You see no such thing.
+You can't see the dust from here!
 
 > close box
 You close the dusty box up.
@@ -856,7 +856,7 @@ childhood.
 Time passes...
 
 > open satchel
-You can't open that.
+You can't see the satchel.
 
 > x cabinets
 "Leave the cabinets be, nephew," says your uncle. "There is nothing for you

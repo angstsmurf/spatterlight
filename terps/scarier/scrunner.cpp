@@ -655,7 +655,14 @@ static scr_commands_t STANDARD_COMMANDS[] = {
 
   /* Standard response commands; no real action, just output. */
   {"[get/take/pick up/pick] *", lib_cmd_get_what},
+  /*
+   * The two 4.0-only absent-object rows sit directly above the catch-alls
+   * they pre-empt, because the Runner's clause fires only when nothing
+   * else in the turn has spoken; see lib_absent_seen_object().
+   */
+  {"open %object%", lib_cmd_open_absent},
   {"open *", lib_cmd_open_other},
+  {"close %object%", lib_cmd_close_absent},
   {"close *", lib_cmd_close_other},
   {"give %object% *", lib_cmd_give_object},
   {"give *", lib_cmd_give_what},
@@ -681,6 +688,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    lib_cmd_profanity},
   {"bugger *", lib_cmd_profanity_390},
   {"bloody *", lib_cmd_profanity_pre_400},
+  {"[x/examine/look {at}] %object%", lib_cmd_examine_absent},
   {"[x/examine/look {at}] *", lib_cmd_examine_other},
   {"[locate/where {is/are}/find] *", lib_cmd_locate_other},
   {"[cp/mv/ln/ls] *", lib_cmd_unix_like},
@@ -697,6 +705,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"destroy", lib_cmd_destroy_what},
   {"smash", lib_cmd_smash_what},
   {"buy %object% *", lib_cmd_buy_object},
+  {"buy %object% *", lib_cmd_buy_absent},
   {"buy %text%", lib_cmd_buy_other},
   {"buy", lib_cmd_buy_what},
   {"clean %object% *", lib_cmd_clean_object},

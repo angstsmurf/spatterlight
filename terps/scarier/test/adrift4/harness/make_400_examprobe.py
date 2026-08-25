@@ -34,13 +34,19 @@ Runners say "You can't open that.", so scrunner.cpp's `open *` row was simply
 asymmetric with the `close *` row beneath it, and "Open what?" -- which upstream
 SCARE printed -- is a sentence no Runner has ever produced.
 
-What this probe leaves open is the 4.0 seen-but-absent resolver, which it also
-measured for the first time:
+This probe also measured the 4.0 seen-but-absent resolver for the first time,
+and it is now PORTED (2026-08-25):
 
     x statue      You can't see the statue from here!
     open statue   You can't see the statue.      (definite article)
     close statue  You can't see a statue.        (indefinite article!)
     buy statue    You can't see the statue.
+
+run390 answers all four with the ordinary flat refusals, so this is a version
+split like the rest.  The article split is real: `close` composes with the
+object's own Prefix.  See notes/WINE-TRANSCRIPTS-TODO.md, "FIXED 2026-08-25 --
+the 4.0 seen-but-absent resolver", for the placement footgun (five regressions
+from calling it too early) and the deliberate empty-Prefix deviation.
 
 FOOTGUN, cost half an hour: **Capacity 99 is invalid** and makes run400 hang for
 ever at "Loading...", indistinguishable from a broken feed (measure.sh reports

@@ -4108,6 +4108,121 @@ lib_disambiguate_object (scr_gameref_t game,
 
 
 /*
+ * lib_absent_seen_object()
+ * lib_cant_see_absent_object()
+ *
+ * 4.0's matcher runs a second pass.  When nothing the noun names is in the
+ * room, it looks again over everything the player has *seen*, and the
+ * handlers above it then answer "<player> can't see <it>" instead of their
+ * own generic refusal.  Pre-4.0 has no such pass: run390's co() simply fails
+ * to match an object that is elsewhere, and the command falls through to the
+ * flat can't-do tail.
+ *
+ * Measured on p4EXAM.taf, one statue seen in the North Room and examined
+ * from the Test Room (Adrift_1_p4exam.txt, all 32 commands echoed) against
+ * p39EXAM.taf under run390 (Adrift_41/43_p39exam.txt):
+ *
+ *     command        run400                              run390
+ *     x statue       You can't see the statue from here! Nothing special.
+ *     open statue    You can't see the statue.           You can't open that.
+ *     close statue   You can't see a statue.             You can't close that.
+ *     buy statue     You can't see the statue.           I don't think that
+ *                                                          is for sale.
+ *
+ * Note the article: `close` alone is indefinite.  That is not a stylistic
+ * choice, it is a different piece of code -- run400's openclose() composes
+ * the open half from the definite-name helper Proc_21_31_448710 (475966) and
+ * the close half by hand, Prefix & " " & Short (475C10-475C2D).  `examine`
+ * uses the definite helper and appends " from here!" (471958-471975), and
+ * `buy` never reaches its own branch at all: therest()'s very first clause
+ * (4887A0-4887F5) prints the definite form and exits before the whole verb
+ * chain below it.
+ *
+ * Only those four verbs are measured, so only those four call this.  The
+ * therest() clause is verb-wide in the Runner, and the tail of
+ * lib_cmd_verb_object() already models the same sentence for anything that
+ * reaches it; what is unmeasured is which of the other therest() verbs 4.0
+ * intercepts on the way in.
+ *
+ * WHERE THE CALLS GO MATTERS.  Every one of the Runner's four sites is
+ * guarded by "the output buffer is still empty" (471933, 475952, 475BFC,
+ * 4887A0 all test MemVar_4941B0 = vbNullString), i.e. the clause speaks only
+ * when nothing else in the turn has.  So the callers are four thin handlers
+ * sitting immediately above the catch-all `*` rows in scrunner.cpp, not the
+ * `%object%` handlers at the top of the table: humbug names an NPC and an
+ * absent object both "robot", and unraveling_god an NPC and an absent object
+ * both "people", and in each case the Runner and the golden print the NPC's
+ * description.  Checking inside lib_cmd_examine_object() would have stolen
+ * the turn from lib_cmd_examine_npc() one row below it.  Each `_absent` row
+ * re-matches %object%, which repopulates the references that
+ * lib_disambiguate_object_common() cleared on the way past.
+ *
+ * One deliberate deviation: the close half is spelled Prefix & " " & Short
+ * with no fallback, so an object with an empty Prefix would give the Runner
+ * "You can't see  statue."  lib_print_object() substitutes the usual "a "
+ * there instead.  Nothing has measured an empty-Prefix object in this
+ * position, and the double space is almost certainly not what 4.0 meant.
+ *
+ * The gate is the object's seen byte, +48 in the Runner's object record,
+ * written the moment an object is listed or described (run400 471749,
+ * 46A142) and read by every one of the four sites above.  It is Scarier's
+ * gs_object_seen(), so this needs no new state.
+ */
+static scr_int
+lib_absent_seen_object (scr_gameref_t game)
+{
+  scr_int index_, count, object;
+
+  if (!lib_is_version_400 (game))
+    return -1;
+
+  count = 0;
+  object = -1;
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      if (!game->object_references[index_])
+        continue;
+
+      /* Something the noun names is here; the ordinary path handles it. */
+      if (obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+        return -1;
+
+      if (!gs_object_seen (game, index_))
+        continue;
+
+      count++;
+      object = index_;
+    }
+
+  return count == 1 ? object : -1;
+}
+
+static scr_bool
+lib_cant_see_absent_object (scr_gameref_t game,
+                            const scr_char *suffix, scr_bool is_definite)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_var_setref_t vars = gs_get_vars (game);
+  const scr_int object = lib_absent_seen_object (game);
+
+  if (object == -1)
+    return FALSE;
+
+  var_set_ref_object (vars, object);
+  pf_buffer_string (filter,
+                    lib_select_response (game, "You can't see ",
+                                         "I can't see ",
+                                         "%player% can't see "));
+  if (is_definite)
+    lib_print_object_np (game, object);
+  else
+    lib_print_object (game, object);
+  pf_buffer_string (filter, suffix);
+  return TRUE;
+}
+
+
+/*
  * lib_list_npc_inventory()
  *
  * List objects carried and worn by an NPC.
@@ -9979,6 +10094,19 @@ lib_cmd_buy_other (scr_gameref_t game)
   return lib_print_message (game, "I don't think that is for sale.\n");
 }
 
+/*
+ * lib_cmd_buy_absent()
+ *
+ * 4.0's therest() opens with the same clause, before any of its verb
+ * branches; `buy` is the one that has been measured.  See
+ * lib_absent_seen_object().
+ */
+scr_bool
+lib_cmd_buy_absent (scr_gameref_t game)
+{
+  return lib_cant_see_absent_object (game, ".\n", TRUE);
+}
+
 
 /*
  * lib_cmd_break_object()
@@ -11270,6 +11398,18 @@ lib_cmd_examine_other (scr_gameref_t game)
                                      "%player% sees no such thing.\n");
 }
 
+/*
+ * lib_cmd_examine_absent()
+ *
+ * `x <object seen elsewhere>`, once every other examine row has declined it.
+ * 4.0 only; see lib_absent_seen_object() for the measurement.
+ */
+scr_bool
+lib_cmd_examine_absent (scr_gameref_t game)
+{
+  return lib_cant_see_absent_object (game, " from here!\n", TRUE);
+}
+
 scr_bool
 lib_cmd_locate_other (scr_gameref_t game)
 {
@@ -12023,6 +12163,26 @@ scr_bool
 lib_cmd_close_other (scr_gameref_t game)
 {
   return lib_cant_do_other (game, "close");
+}
+
+/*
+ * lib_cmd_open_absent()
+ * lib_cmd_close_absent()
+ *
+ * 4.0's openclose() answers for an object it has seen but cannot see now --
+ * the open half with the definite name, the close half with the object's own
+ * Prefix.  See lib_absent_seen_object().
+ */
+scr_bool
+lib_cmd_open_absent (scr_gameref_t game)
+{
+  return lib_cant_see_absent_object (game, ".\n", TRUE);
+}
+
+scr_bool
+lib_cmd_close_absent (scr_gameref_t game)
+{
+  return lib_cant_see_absent_object (game, ".\n", FALSE);
 }
 
 /*

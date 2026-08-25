@@ -2370,11 +2370,12 @@ the object is not present:
 | -1 | -- | `You can't open that.` | `Exit Sub` 4756BC, then therest 488818 | `Open what?` |
 
 The third row is the one hauntedhouse measures (`open door`, turn 3, no `door`
-object in the game).  Scarier reaches all three through the single `{"open *",
-...}` row (scrunner.cpp:658), because `%object%` is seen-gated *and*
-`lib_disambiguate_object()` is room-gated, so a seen-but-absent object never
-reaches `lib_cmd_open_object()`.  The **third** row is therefore now right --
-see the FIXED entry below -- and the first two are still the resolver gap.
+object in the game).  Scarier used to reach all three through the single
+`{"open *", ...}` row (scrunner.cpp:658), because `%object%` is seen-gated
+*and* `lib_disambiguate_object()` is room-gated, so a seen-but-absent object
+never reached `lib_cmd_open_object()`.  All three rows are now right: the third
+by the FIXED entry below, the first two by the seen-but-absent resolver, ported
+2026-08-25 -- see "FIXED 2026-08-25 -- the 4.0 seen-but-absent resolver".
 
 #### FIXED 2026-08-25 -- no Runner has ever said `Open what?`
 
@@ -2460,8 +2461,10 @@ Scarier used to print `You see no such thing.` for every one of them
 one that most needed measuring, because `Nothing special.` is a startlingly
 different answer to `x fjkdlsj`, and because it is exactly the string run370's
 own darkness check searches for at 438F2F -- is now measured on **both** sides
-and ported.  See the FIXED entry immediately below.  The four rows above it are
-still unmeasured and still unported.
+and ported.  See the FIXED entry immediately below.  The **first** row is
+measured and ported too (the seen-but-absent resolver, 2026-08-25).  The three
+rows between them -- never-seen, plural, dark -- are still unmeasured and still
+unported.
 
 ### FIXED 2026-08-25 -- `x <noun that names nothing>` splits at 4.0
 
@@ -2634,17 +2637,16 @@ Two footguns worth keeping:
   title `ADRIFT Runner - In-On Probe 400`).  That probe is **run and closed**
   -- see "the unreachable arms really are unreachable" above.
 
-What `p4EXAM.taf` leaves open is only the 4.0 resolver family, unchanged by
-this round:
+What `p4EXAM.taf` left open was only the 4.0 resolver family:
 
-    x statue      You can't see the statue from here!   (scarier: You see no such thing.)
-    open statue   You can't see the statue.             (scarier: You can't open that.)
-    close statue  You can't see a statue.               (scarier: You can't close that.)
-    buy statue    You can't see the statue.             (scarier: I don't think that is for sale.)
+    x statue      You can't see the statue from here!   (scarier then: You see no such thing.)
+    open statue   You can't see the statue.             (scarier then: You can't open that.)
+    close statue  You can't see a statue.               (scarier then: You can't close that.)
+    buy statue    You can't see the statue.             (scarier then: I don't think that is for sale.)
 
 Note the article: `open` takes the definite, `close` the indefinite.  All four
-are one port -- the seen-but-absent resolver -- and they are now **measured**,
-which they were not before.
+were one port -- the seen-but-absent resolver -- and all four are **FIXED**;
+see the entry immediately below.
 
 **Still unmeasured**: the 3.70 and 3.80 halves of every row here.  That needs
 3.7/3.8 twins of the probe, i.e. a further taf-format port.  The decompiles say
@@ -2652,6 +2654,78 @@ which they were not before.
 happens at LOAD; 3.7 differs on at least one row (`open <present, not
 openable>` composes with a period at `43D1E0`, where 3.8 and 3.9 have grown a
 separate branch ending in a bang).
+
+## FIXED 2026-08-25 -- the 4.0 seen-but-absent resolver
+
+The last unported thing `p4EXAM.taf` measured, and the largest of the round.
+4.0's noun binder makes a **second pass**: when nothing the noun names is in
+the player's room, it looks again over every object the player has *seen*
+(the +48 byte, written at run400 `471749` / `46A142`), and if exactly one
+matches it answers "can't see" instead of falling through to the flat refusal.
+Pre-4.0 Runners have no second pass at all -- `p39EXAM.taf` answers all four
+rows with the ordinary library refusals -- so this is a version split, keyed on
+the .taf version as always.
+
+Measured on both sides, all commands echoed:
+
+| command | run390 (`Adrift_41/43_p39exam.txt`) | run400 (`Adrift_1_p4exam.txt`) |
+|---|---|---|
+| `x statue` | `Nothing special.` | `You can't see the statue from here!` |
+| `open statue` | `You can't open that.` | `You can't see the statue.` |
+| `close statue` | `You can't close that.` | `You can't see a statue.` |
+| `buy statue` | `I don't think that is for sale.` | `You can't see the statue.` |
+
+**The article is not a typo.**  `open`, `examine` and `buy` compose with
+`the`; `close` composes with the object's own Prefix, i.e. `Prefix & " " &
+Short`.  In the decompiles that is the definite path at run400 `475966` vs the
+indefinite one at `475C10`, and the split survives because the definite
+composer is a separate helper -- it is not the same call with a flag.  Scarier
+mirrors it exactly: `lib_print_object_np()` for the definite three,
+`lib_print_object()` for `close`.
+
+**Where the calls go matters, and cost five regressions.**  Putting the check
+at the top of `lib_cmd_examine_object()` and friends steals the turn from
+`lib_cmd_examine_npc()`: humbug's `X robot` (there is a *static* object named
+`robot` in the cellar, and a separate bus-stop NPC) and unraveling_god's
+`x people` both lost their NPC descriptions, five goldens went red.  The
+Runner does not have that problem because its clause is gated on the output
+buffer still being empty (`MemVar_4941B0 = vbNullString`, tested at `471933`,
+`475952`, `475BFC`, `4887A0`) -- it fires only when nothing else in the whole
+turn has spoken.  Scarier reproduces that ordering structurally instead: four
+new `_absent` handlers sit in `STANDARD_COMMANDS` **directly above the
+catch-all `*` rows they pre-empt**, so every more specific row -- NPCs
+included -- still gets first refusal.
+
+`buy` is the odd one out: it has no `_absent` branch of its own in run400.
+The sentence comes from `therest()`'s leading `obhere()` clause, which runs
+**before** every verb branch, which is why `buy <seen, absent>` never reaches
+"is for sale" at all.  Scarier registers `{"buy %object% *", ...}` above
+`{"buy %text%", ...}` to the same effect.
+
+**Deliberate deviation**: an object with an empty Prefix.  run400 composes
+`" " & Short` and prints a double space; scarier prints the Short alone.  No
+corpus game has an empty-Prefix object that can reach this clause, so nothing
+measures it, and reproducing a stray space is not worth a special case.
+
+Ported in `sclibrar.cpp` as `lib_absent_seen_object()` (the second pass, which
+returns -1 unless *exactly one* seen object matches and none is present) plus
+`lib_cant_see_absent_object()` (the composer), with four thin handlers
+`lib_cmd_{examine,open,close,buy}_absent()`.  Two goldens moved and were
+re-blessed:
+
+* `cellar_solution` -- `x dust` -> `You can't see the dust from here!`,
+  `open satchel` -> `You can't see the satchel.`
+* `professor_solution` -- `examine contraption` ->
+  `You can't see the flying contraption from here!`
+
+Corpus 303/303, `scproj_regress.sh` PASS, a5 suite at its documented
+17-DIVERGE baseline.
+
+Still open in the same family, and reached by no probe row yet: the 4.0
+"You can't see that." branch at `471995` for a named object the player has
+**never** seen, run400's `%object%` two-pass scope filter proper (present-first
+then absent-but-seen, tail self-call at `loc_458E64`), and the NPC seen gate
+(`npc.global_26`) for `%character%` matching.
 
 ## FIXED 2026-08-25 -- `burn memo`: 4.0 binds `%object%` case-sensitively
 
