@@ -232,6 +232,22 @@ light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=16
 maincourse_solution.txt|Main Course.taf||SCR_SEED=17
 # The 3.9 half of the walk-announcement rewrite was measured on this game --
 # run390 under Wine, Adrift_37_melbourne_beach.txt, 2026-08-24.  See the arlo block.
+# The same transcript then pinned two more pre-4.0 rules, and this walkthrough
+# was re-derived for it (2026-08-25):
+#
+#   * a non-looping walk with StartTask 0 never runs before 4.0.  Judy's walk
+#     is six stops (Kitchen 10, Eating area 10, Den 5, Judy's bedroom 15,
+#     follow 5, Outside den 1) and non-looping, and run390 leaves her standing
+#     in the Kitchen for the whole game: she is still there at turn 18, and all
+#     twenty `give trumpet to judy` typed in her bedroom on turns 36-55 answer
+#     with task 17's third restriction, "You can't do that in your present
+#     company."  No shift of the walk's start fits both observations, so the
+#     walk simply never starts -- the Runner has no game-start seeding, and the
+#     ticker's restart-a-spent-walk branch is gated on the walk looping before
+#     4.0 (run380 441389, run390 45A585) and unconditional in 4.0.  See
+#     npc_start_walk_is_390_noop().  The walkthrough now gives Judy the trumpet
+#     and the music in the Kitchen, where she stands, and the two twenty-turn
+#     waits are gone; the score is unchanged at 38/41.
 melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the original game Melbourne Beach
 # Measured live in run400 under Wine (2026-08-24).  At command 38, `n` into
 # the Dining Car, the Runner prints "The waiter saunters over." -- the same

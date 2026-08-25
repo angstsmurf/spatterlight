@@ -2675,3 +2675,42 @@ unchanged.
 - What run400 does with a mutual `A -> B` / `B -> A` ALR pair.  The repeat loop
   is bounded by the ALR count so it terminates; that bound is a guard, not a
   model of the Runner.
+
+## FIXED 2026-08-25 -- a non-looping walk with StartTask 0 never runs before 4.0
+
+`Adrift_37_melbourne_beach.txt` again, this time for the walk itself rather
+than its announcement.
+
+*Melbourne Beach* (3.90) gives Judy a **six-stop, non-looping** walk with
+StartTask 0 -- Kitchen 10, Eating area 10, Den 5, Judy's bedroom 15, follow 5,
+Outside den 1. Scarier walked her: room 8 on turns 1-10, 14 on 11-20, 5 on
+21-25, 3 on 26-40 (`SCR_TRACE_JUDY=1` confirms the suffix-sum arithmetic
+exactly). run390 does not. In its transcript Judy is still standing in the
+Kitchen at turn 18, and all twenty `give trumpet to judy` typed in her bedroom
+on turns 36-55 are refused by task 17's third restriction, "You can't do that
+in your present company." (the restriction is *player in the same room as NPC
+2*).
+
+Those two observations cannot both be a phase shift. Judy in the Kitchen at
+turn 18 needs the walk to start at `s` with 9 <= s <= 18; the bedroom window is
+then `s+25 .. s+39`, which always intersects [36, 55]. There is no `s`. The
+walk never starts at all.
+
+That matches the P-code. Nothing in run370/380/390/400 seeds a walk counter at
+game start; the only thing that ever puts a counter on a walk no task started
+is the ticker's *restart a spent walk* branch, and pre-4.0 that branch is
+gated on the walk **looping** (run380 441389, run390 45A585). 4.0 made it
+unconditional -- which is exactly the version split Scarier already had, but
+far too narrowly drawn.
+
+`npc_start_walk_is_390_noop()` used to be `stops == 1 && !loop`, with a comment
+naming this very game as the counterexample that proved it could not be wider.
+The comment was wrong and the measurement says so: the rule is simply `!loop`,
+which subsumes the old one-stop probe result as a special case.
+
+**Cost:** one golden. `melbourne_beach_solution.txt` waited out Judy's walk
+with two twenty-turn `give` loops in her bedroom; it now hands her the trumpet
+and the music in the Kitchen, where she stands for the whole game, and is 44
+lines shorter. Score unchanged, 38/41. Suite **303/303 PASS** -- no other row
+in the corpus moved, which is the strongest evidence the wide rule is right.
+

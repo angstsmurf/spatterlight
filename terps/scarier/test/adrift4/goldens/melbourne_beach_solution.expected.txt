@@ -122,6 +122,7 @@ south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
+Judy is here, whistling happily.
 
 > s
 You move south.
@@ -134,7 +135,6 @@ the east, where there television can plainly be seen.  To the north is the
 kitchen.
 
 Also here is a leather purse.
-Judy is here, whistling happily.
 
 > open purse
 You open the leather purse.  A set of car keys is inside the leather purse.
@@ -152,6 +152,7 @@ south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
+Judy is here, whistling happily.
 
 > e
 You move east.
@@ -217,7 +218,22 @@ the floor.  There are a variety of small appliances on the counter.  To the
 south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
-good.  David comes in.
+good.
+Judy is here, whistling happily.  David comes in.
+
+> give trumpet to judy
+You give the trumpet to Judy. She thanks you.
+
+Putting the horn to her lips she plays a little ditty.
+
+> give music to judy
+Judy says: "You found my music! Now I can go practice!" She sets her music on
+a music stand you hadn't noticed before and proceeds to practice.
+
+After she practices a few minutes, she looks at you and says, "Why don't you
+take the car down to the beach?"
+
+She gives you directions and goes back to practicing.
 
 > ne
 You move northeast.
@@ -246,153 +262,6 @@ This is a long, white-tiled hallway lined with photographs. The guest room is
 to the east, David's room is to the north-east, a bathroom is to the north,
 Judy's bedroom is to the west. The hallway continues to the south.
 
-> w
-You move west.
-
-Judy's bedroom
-This is Judy's bedroom.  She practices her trumpet in this room.  There is a
-waterbed here, with a bedside table.  Two windows are on the north wall.
-There is a bathroom to the west, and the hallway is to the east.
-
-Also here is an instrument case.
-Judy is here, whistling happily.
-
-> give trumpet to judy
-You give the trumpet to Judy. She thanks you.
-
-Putting the horn to her lips she plays a little ditty.
-
-> give trumpet to judy
-You don't have the Monette trumpet!
-
-> give trumpet to judy
-You don't have the Monette trumpet!
-
-> give trumpet to judy
-You don't have the Monette trumpet!
-
-> give trumpet to judy
-You don't have the Monette trumpet!
-
-> give trumpet to judy
-You don't have the Monette trumpet!
-
-> give trumpet to judy
-You don't have the Monette trumpet!
-
-> give trumpet to judy
-You don't have the Monette trumpet!
-
-> give trumpet to judy
-You don't have the Monette trumpet!
-
-> give trumpet to judy
-You don't have the Monette trumpet!
-
-> give trumpet to judy
-You don't have the Monette trumpet!
-
-> give trumpet to judy
-Give what?
-
-> give trumpet to judy
-Give what?
-
-> give trumpet to judy
-Give what?
-
-> give trumpet to judy
-Give what?
-
-> give trumpet to judy
-Give what?
-
-> give trumpet to judy
-Give what?
-
-> give trumpet to judy
-Give what?
-
-> give trumpet to judy
-Give what?
-
-> give trumpet to judy
-Give what?
-
-> give music to judy
-Judy says: "You found my music! Now I can go practice!" She sets her music on
-a music stand you hadn't noticed before and proceeds to practice.
-
-After she practices a few minutes, she looks at you and says, "Why don't you
-take the car down to the beach?"
-
-She gives you directions and goes back to practicing.
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> give music to judy
-Give what?
-
-> e
-You move east.
-
-Outside Bedrooms
-This is a long, white-tiled hallway lined with photographs. The guest room is
-to the east, David's room is to the north-east, a bathroom is to the north,
-Judy's bedroom is to the west. The hallway continues to the south.
-
 > s
 You move south.
 
@@ -400,7 +269,6 @@ Outside den
 You're in a north-south hallway with a white tiled floor. To the east is the
 den, or computer room. To the west is the living room, and the hallway
 proceeds north and south.
-Judy is here, whistling happily.
 
 > e
 You move east.
@@ -425,8 +293,6 @@ Outside den
 You're in a north-south hallway with a white tiled floor. To the east is the
 den, or computer room. To the west is the living room, and the hallway
 proceeds north and south.
-Kitty is here. You're not allergic, are you?  Judy is here, whistling
-happily.  Kitty retreats to inside.
 
 > s
 You move south.
@@ -450,6 +316,7 @@ and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
 David is here.
+Judy is here, whistling happily.
 
 > e
 You move east.
@@ -513,13 +380,14 @@ and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
 David is here.
+Judy is here, whistling happily.
 
 > get pot
 Take what?
 
 > pour coffee
 You pour the coffee into the yellow coffee cup and pick it up. Mmm, it's nice
-and warm and smells nice.
+and warm and smells nice.  Kitty saunters in.
 
 > drink coffee
 Mmm!  That sure tasted good.  You feel all warm inside.
@@ -551,19 +419,18 @@ Also here is a chess table.
 David strolls into the room.  You two sit down and play chess. You lost the
 game.  Too bad.  Better luck next time!
 
+Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
+
+> play chess
+You and David play a game of chess. You won the game.  Congratulations!
+
+Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
+
+> play chess
+You and David play a game of chess. You lost the game.  Too bad.  Better luck
+next time!
+
 Dave shakes your hand and says, "Good game. Next time, I'll be black, OK?"
-
-> play chess
-You and David play a game of chess. You lost the game.  Too bad.  Better luck
-next time!
-
-Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
-
-> play chess
-You and David play a game of chess. You lost the game.  Too bad.  Better luck
-next time!
-
-Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
 
 > se
 You move southeast.
@@ -586,6 +453,7 @@ south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
+Judy is here, whistling happily.
 
 > e
 You move east.

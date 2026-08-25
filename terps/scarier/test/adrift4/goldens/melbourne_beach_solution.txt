@@ -30,51 +30,11 @@ get folder
 out
 w
 w
+give trumpet to judy
+give music to judy
 ne
 n
 n
-w
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give trumpet to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-give music to judy
-e
 s
 e
 read book

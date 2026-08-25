@@ -274,41 +274,54 @@ npc_walk_preempts (scr_gameref_t game, scr_int npc, scr_int walk)
 /*
  * npc_start_walk_is_390_noop()
  *
- * The 3.9 Runner never runs a one-stop, non-looping, game-start walk at all:
- * the NPC stays put and the walk's CharTask never fires (walk probe C, live
- * 2026-08-01 -- Bob never arrives, "You cannot see Bob from here.").  The
- * 4.0 Runner runs the same walk: it arrives on turn one and fires its
- * CharTask once -- a genuine version split, like the walk-task dispatch.
- * Only the game-start (StartTask 0) case was probed live, and the corpus
- * wants the narrow rule: "deaths" (3.9) ends with a demon walked in by a
- * task-triggered one-stop walk, so those keep running.
+ * Pre-4.0 Runners never run a NON-LOOPING game-start walk at all: the NPC
+ * stays in its start room for the whole game and the walk's CharTask never
+ * fires.  The 4.0 Runner runs the same walk: it arrives on turn one and
+ * fires its CharTask once -- a genuine version split, like the walk-task
+ * dispatch.
  *
- * The decompiled ticker suggests a wider rule -- pre-4.0 it reseeds a spent
- * counter only for a *looping* walk (run380 441389, run390 45A585), so on the
- * face of it no non-looping game-start walk should ever run.  It cannot be
- * that wide: "Melbourne Beach" (3.90) walks Judy round a six-stop
- * non-looping game-start walk, and the game is not completable without it.
- * Something outside the ticker therefore seeds a game-start walk, and the
- * one live probe we have only pins down what happens with a single stop.
- * Until that is measured, keep the narrow rule.
+ * This is what the decompiled ticker says.  There is no game-start seeding
+ * anywhere in the Runner; the ONLY thing that ever puts a counter on a walk
+ * that no task has started is the ticker's own "restart a spent walk"
+ * branch, and pre-4.0 that branch is gated on the walk looping (run380
+ * 441389, run390 45A585) while 4.0 takes it unconditionally.  A non-looping
+ * game-start walk therefore sits on a zero counter for ever before 4.0.
+ * npc_setup_initial() below seeds one turn more than the walk's total so
+ * that the first tick lands exactly on stop zero, which is the same arrival
+ * the ticker's own restart branch produces -- so for the walks that DO run
+ * the seeding is redundant, and this predicate takes out the ones that do
+ * not.
+ *
+ * Measured twice, both live:
+ *
+ *   - walk probe C (2026-08-01, run390) -- a one-stop non-looping game-start
+ *     walk: Bob never arrives, "You cannot see Bob from here.", and the
+ *     CharTask never fires.  run400 walks the same NPC in on turn one.
+ *
+ *   - "Melbourne Beach" (3.90) under run390, Adrift_37_melbourne_beach.txt
+ *     (2026-08-25) -- Judy's walk is a SIX-stop non-looping game-start walk
+ *     (Kitchen 10, Eating area 10, Den 5, Judy's bedroom 15, follow 5,
+ *     Outside den 1).  Scarier used to walk her, which put her in her
+ *     bedroom on turns 26-40; the Runner still has her in her start room
+ *     (the Kitchen) on turn 18, and all twenty `give trumpet to judy` in the
+ *     bedroom on turns 36-55 answer with task 17's third restriction, "You
+ *     can't do that in your present company." -- the "player in the same
+ *     room as Judy" test, failing.  No shift of the walk's start can fit
+ *     both observations; the walk simply never runs.
+ *
+ * So the rule is the wide one after all.  Only the game-start (StartTask 0)
+ * case is covered: a walk a TASK starts is seeded by npc_start_npc_walk()
+ * when that task completes, whatever its version and whether or not it
+ * loops, and "deaths" (3.9) ends with a demon walked in by exactly such a
+ * one-stop walk.
  */
 static scr_bool
 npc_start_walk_is_390_noop (scr_gameref_t game, scr_int npc, scr_int walk)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[5];
-  scr_int stops;
-
   if (npc_version (game) >= TAF_VERSION_400)
     return FALSE;
 
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Walks";
-  vt_key[3].integer = walk;
-  vt_key[4].string = "Times";
-  stops = prop_get_child_count (bundle, "I<-sisis", vt_key);
-  return stops == 1 && !npc_walk_is_loop (game, npc, walk);
+  return !npc_walk_is_loop (game, npc, walk);
 }
 
 
