@@ -54,7 +54,10 @@ What the decompiles predict, row by row, with the command that reads it:
                  "You see no such thing.", and `read zzzz` says the same
                  instead of falling to the measured "Nothing special." tail.
                  That last one is lib_cmd_read_other, a 400-only string.
-    buy statue   "I don't think that is for sale." is in run370/380.exe only
+    buy statue   the literal "that is for sale." is in run370/380.exe only,
+                 but 390/400 compose the same sentence from the else arm
+                 (run390 45E68F) -- so this row is a CONTROL too: it should
+                 come back word for word.
     get off      "You are not standing on anything!" is in run390/400.exe only
     x all        "Please examine one object at a time." (435A43)
     x me         the self row

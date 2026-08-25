@@ -280,7 +280,7 @@ contiguous word-run that appears verbatim in some pool, and record which exes
 carry it.  A run of three or more words missing from at least one exe is a
 candidate.
 
-**Two false-positive modes, both real:**
+**Three false-positive modes, all real:**
 
 * *Composition.*  `"You can't read "` is in run370.exe alone, but run380 says
   the same thing as `MemVar & " can't read " & obj` (`43CEFA`) -- the phrase
@@ -290,24 +290,57 @@ candidate.
   Scarier prints it -- correctly, from inside the `lib_is_version_400()` arm
   that the take-wording split already added.  Skip any phrase whose enclosing
   function already mentions `lib_is_version_400`.
+* *Prose, not output.*  The exposure half of the census greps the goldens, and
+  a golden is mostly the **game's** text.  ` a part of ` matched eleven lines
+  across seven goldens and every one of them was authored prose ("I am a part
+  of your mind", "a part of the coast") -- the Runner message it belongs to is
+  reached by none of them.  Only count a hit that stands alone on its line as
+  a whole Runner sentence.
 
 After both filters, 74 phrases remain, and cross-referencing them against the
 goldens (golden -> `.taf` signature -> Runner generation) leaves the handful
 that a pre-4.0 game actually reaches today:
 
-| sclibrar | phrase | exes carrying it | exposed golden |
-|---|---|---|---|
-| `lib_cmd_examine_object` | `You see nothing special about ` | 400 | `ms_mobius` (3.90) |
-| `lib_cmd_read_other` | `You see no such thing.` | 400 | `cybercow_win`, `panic` (3.90) -- written up above |
-| `lib_cmd_locate_object` | ` a part of you!` | 400 | `asylum`, `i`, `secret_of_lost_world`, `textident_evil` (3.90) |
-| `lib_cmd_buy_other` | `I don't think that is for sale.` | 370, 380 | `circus` (3.90) |
-| `lib_put_in_is_valid` | `You can't put anything inside ` | 370, 380 | `sophie_comp` (4.00) |
+| sclibrar | phrase | exes carrying it | exposed golden | verdict |
+|---|---|---|---|---|
+| `lib_cmd_examine_object` | `You see nothing special about ` | 400 | `ms_mobius` (3.90) | **live lead**, written up above |
+| `lib_cmd_read_other` | `You see no such thing.` | 400 | `cybercow_win`, `panic` (3.90) | **live lead**, written up above |
+| `lib_cmd_locate_object` | ` a part of you!` | 400 | -- | prose false positive |
+| `lib_cmd_buy_other` | `I don't think that is for sale.` | 370, 380 | `circus` (3.90) | composition, not a split |
+| `lib_put_in_is_valid` | `You can't put anything inside ` | 370, 380, 390 | `sophie_comp` (4.00) | composition, not a split |
 
-The first two are written up above and share a probe.  The rest are unexamined leads,
-in rough order of how many goldens would move.  Everything else on the 74-row
-list is either unreached by any golden or reached only by a game of the right
+Three of the five are closed already, and closing them is most of what the
+census is for -- each is a wording someone would otherwise have "fixed":
+
+* **buy.**  run370 `43E515` and run380 `445037` write `"I don't think "` then
+  branch: `If var_88 = "that"` append `"that is for sale."`, else append
+  `var_88 & " is for sale."`.  run390 (`45E68F`) and run400 (`489A09`) dropped
+  the branch and keep only the else arm -- which, when the noun *is* `that`,
+  produces the identical sentence.  The constant vanished; the output did not.
+* **put in.**  run400 `46DE47` pushes `" can't put anything "` and then
+  concatenates `var_98` (`inside` / `on`), a space, the object and `"!"`.
+  Same sentence as run370/380/390's one-piece literal.  `sophie_comp` is safe.
+* **locate.**  The four "exposed" goldens are the prose false positive above.
+  ` is a part of ` really is run400-only -- run370's locate routine
+  (`42F9FF`) branches on the object's position with no part-of arm at all --
+  but no golden reaches it, so there is nothing to measure and nothing at
+  risk.  Left ungated deliberately.
+
+The two live leads share one probe.  Everything else on the 74-row list is
+either unreached by any golden or reached only by a game of the right
 generation, so it costs nothing today -- but it is still the map of where 4.0
 reworded the library, and the `x` row proves the map is worth reading.
+
+**The pre-4.0 exposure, exhaustively.**  Re-grepping every golden for the
+whole-line Runner sentences in this family, then resolving each golden to its
+`.taf` signature, the complete list of pre-4.0 games that reach any of them is
+three: `ms_mobius` (3.90) for `You see nothing special about the hole.`, and
+`cybercow_win` + `panic` (3.90) for `You see no such thing.` -- both of those
+from a `read`, not an `x`.  Every other sighting (`cellar`, `trabula`,
+`yak_shaving`, `goldilocks`, `man_overboard`, `princess_in_the_tower`,
+`professor`, `sandy`, `topaz`, `valley`) is a 4.00 game printing the 4.00
+wording correctly.  So the whole open family is worth exactly three golden
+lines -- which is the point: it is cheap to be wrong here for a long time.
 
 ## Before measuring anything
 
