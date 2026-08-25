@@ -500,6 +500,8 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `p4BURN` (built probe) + an `xfiles` bisect | 4.00 | four run400 probe replays (`Adrift_6_p4burn.txt` thirteen restriction cells, `Adrift_2_p4burn.txt` Repeatable, `Adrift_12/13_p4burn.txt` case) and nine replays of edited `xfiles` builds (`Adrift_1/3/4/5/7/8/9/10/11_xfilesbisect.txt`) | **4.0 substitutes an object's Short or Alias into a `%object%` task command verbatim** and compares it to the lower-cased input, so a capitalised Short can never bind and no article, Prefix or partial name binds either.  `%character%` lowers the name first and is unaffected.  See the FIXED section below |
 | `p4STATE` (built probe) | 4.00 | run400 replay, `Adrift_1_p4state.txt` (29 commands) | **only `%state_<obj>%` lower-cases an object's state name, and it folds the whole string**; the examine lister and `%obstate%` print it verbatim.  One golden, three lines |
 | `p39CASE` (built probe) | 3.90 | run390 replay, `Adrift_1_p39case.txt` (19 commands) | the 3.90 half of the same rule: **strict binding starts at 3.90, the case fold is only lost at 4.0**.  Moved five rows in Scarier and no goldens |
+| `p4WALKCAP` (built probe) | 4.00 | run400 replay, `Adrift_1_p4walkcap.txt` (4 commands) | **4.0 capitalises a walk announcement's Name wherever the sentence lands** -- joined mid-paragraph and opening a line both print `Bob` for an NPC named `bob`.  Confirmed the ported reading; no change |
+| `p4PALR` (built probe) | 4.00 | run400 replay, `Adrift_1_p4palr.txt` (8 commands) | **punctuation in an ALR changes nothing**: all seven cells fire, leading `, `/` `/`: ` Originals and pure-punctuation Replacements alike.  Confirmed `sophie.taf`'s `[, and] -> [:]`; no change |
 | `p39EXAM` / `p4EXAM` (built probes) | 3.90 + 4.00 | run390 replays `Adrift_41/43_p39exam.txt` (29 + 19 commands) and the run400 twin `Adrift_1_p4exam.txt` (32) | the whole **examine / read / open / close refusal family**, plus the empty room description: four splits found and ported, and 3.90 now agrees with Scarier on all 48 rows.  See the FIXED sections below |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
@@ -2040,21 +2042,23 @@ canonical write-up is the dated block above the `arlo.taf` row in
 `harness/run_v4_walkthroughs.sh`, with pointer comments on the `circus`,
 `sophie`, `sophie_comp` and `baroo` rows.
 
-### Still to do
+### Confirmed live 2026-08-25
 
-`harness/make_400_walkcapprobe.py` is the live confirmation of the 4.0-only
-capitaliser -- **built and not yet run**: the Mac's screen was locked and the
-Wine harness drives the Runner's menus through System Events, so it cannot run
-without an unlocked desktop.  It packs two rooms and one NPC named `"bob"` on
-sophie's walk, and four cells: `e`/`w` (a mid-paragraph join) and `pb`/`pa`
+`harness/make_400_walkcapprobe.py` / `p4WALKCAP.taf` ran under run400
+(`Adrift_1_p4walkcap.txt`, all four commands echoed).  It packs two rooms and
+one NPC whose Name on disk is the lower-case `"bob"`, and four cells: `e`/`w`
+(the announcement joined mid-paragraph onto the exits sentence) and `pb`/`pa`
 (a task whose CompleteText ends in `<br><br>`, so pspace adds nothing and the
-Name opens a line).  Expectation, from the listings: `"bob"` -> `"Bob"` in all
-four.  Run it with
+Name opens a line).  run400 prints **`Bob` in all four** --
 
-    LOAD_SLEEP=22 sh measure.sh p4WALKCAP.taf cmdfile_walkcap.txt
+    e    The second room.  You can only move west.  Bob wanders in from the west.
+    pb   PB.
+         (blank)
+         Bob wanders in from the west.
 
-and replace the probe's "ANSWERED FROM THE LISTINGS 2026-08-25" docstring with
-the live transcript.
+-- so the capitalisation is not positional, and the listings' reading (4.0
+capitalises at both `npc_announce()` sites, 3.7/3.8/3.9 never do) is right as
+written.  Scarier reproduces all four cells verbatim; no change came out of it.
 
 Two harness facts fell out of the failed attempts, both worth keeping:
 
@@ -2906,12 +2910,27 @@ Scarier is nevertheless right to apply #418, on the author's own evidence:
 
 No engine change; both goldens stand; corpus **303/303**.  The reasoning is
 recorded on the `sophie_solution.txt|sa.taf` row in
-`harness/run_v4_walkthroughs.sh` so it is not re-derived a third time.  If
-`sophie.taf` is ever staged under Wine, `harness/make_400_punctalrprobe.py`
-(built, unrun) isolates the general question this raised: whether an ALR whose
-Original starts with punctuation (`, `, ` `, `: `) or whose Replacement is pure
-punctuation behaves any differently from a word-for-word rule.  Scarier fires
-all seven of its cells.
+`harness/run_v4_walkthroughs.sh` so it is not re-derived a third time.
+
+The general question this raised -- whether an ALR whose Original starts with
+punctuation (`, `, ` `, `: `) or whose Replacement is pure punctuation behaves
+any differently from a word-for-word rule -- is now **measured and closed**.
+`harness/make_400_punctalrprobe.py` / `p4PALR.taf` ran under run400 on
+2026-08-25 (`Adrift_1_p4palr.txt`, all eight commands echoed).  Every cell
+fires, and Scarier's output is identical character for character:
+
+    ping     PING FIRED.       (control -- no ALR)
+    alpha    AA: BB.           [, zz]  -> [:]     the sophie shape exactly
+    beta     CC :.             [zz DD] -> [:]
+    gamma    EEGOT3 FF.        [, yy]  -> [GOT3]
+    delta    GG GOT4.          [yy HH] -> [GOT4]  control, plain both ends
+    epsilon  IIGOT5 JJ.        [ ww]   -> [GOT5]
+    zeta     KKGOT6 LL.        [: vv]  -> [GOT6]
+    eta      MM , NN.          [tt]    -> [,]
+
+So `Proc_21_20_44C7DC` really is the character-blind `Replace()` walk the
+listing shows, punctuation and all, and #418 firing on `sophie.taf` needs no
+further defence.  No engine change.
 
 ## CLOSED 2026-08-24 -- empty-M1 room alts, and recursive holding
 

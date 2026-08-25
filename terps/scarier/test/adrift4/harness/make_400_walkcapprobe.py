@@ -8,7 +8,7 @@ disagree for any NPC whose Name starts lower-case -- baroo.taf (4.00) has two,
 Name "wizard" and Name "warlock", both with Prefix "the", and its golden read
 "Wizard strides off to the east."
 
-ANSWERED FROM THE LISTINGS 2026-08-25, and it is a version split:
+MEASURED 2026-08-25 (see below), and it is a version split; the listings say:
 
     run370 loc_43961A   buf = buf & Name & " " & EnterText & " from " & dir
     run380 loc_4417B0   the same
@@ -33,21 +33,28 @@ its author wrote the ALR pair
 i.e. supplied the capital by hand for exactly the position the two-space join
 puts the Name in.
 
-This probe is the live confirmation of that reading and has NOT been run yet
-(the Mac's screen was locked, and the Wine harness drives the Runner's menus
-through System Events).  Run it when the desktop is available:
+CONFIRMED LIVE 2026-08-25, Adrift_1_p4walkcap.txt, all four commands echoed.
+The NPC's Name on disk is the lower-case "bob"; run400 prints "Bob" in every
+cell, and the two shapes land the sentence in two different places:
 
-    e / w     the library's own go handler -- the announcement joins onto the
-              exits line, mid-paragraph.  "...west.  bob wanders in..." says
-              the Name is concatenated verbatim; "  Bob" says 4.0 capitalises.
-    pb / pa   a task whose CompleteText ends in "<br><br>" and whose one action
-              moves the player.  pspace adds no separator to text that already
-              ends in a break, so here the Name OPENS a line -- the case
-              SCARE's old unconditional pf_new_sentence() was really modelling.
+    e     Bravo
+          The second room.  You can only move west.  Bob wanders in from the west.
+    w     Alpha
+          The first room.  You can only move east.  Bob wanders in from the east.
+    pb    PB.
+          <blank>
+          Bob wanders in from the west.
+    pa    PA.
+          <blank>
+          Bob wanders in from the east.
 
-Expected from the listings: "bob" -> "Bob" in all four cells, since 4.0
-capitalises wherever the sentence lands.  A lower-case "bob" anywhere would
-mean the capitaliser is conditional on something this reading has missed.
+so the `e`/`w` pair is the mid-paragraph join (pspace's two spaces after the
+exits sentence) and the `pb`/`pa` pair is the Name opening a line, because the
+CompleteText already ends in "<br><br>" and pspace adds nothing to a break.
+The capital survives both -- 4.0 capitalises wherever the sentence lands, so
+the listings' reading was right and nothing about it is positional.
+
+Scarier reproduces all four cells verbatim; no change came out of this round.
 
     LOAD_SLEEP=22 sh measure.sh p4WALKCAP.taf cmdfile_walkcap.txt
 

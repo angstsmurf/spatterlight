@@ -58,6 +58,21 @@ Output is the PLAIN body only; produce a Runner-valid .taf with:
 trailer run400 validates.)  Staged for Wine as
 ~/adrift-battle/runner/wine/pfx/drive_c/adrift/p4PALR.taf, driven by the
 existing cmdfile_alr.txt, which already lists these eight cells in order.
+
+MEASURED 2026-08-25, Adrift_1_p4palr.txt, all eight commands echoed.  Every
+cell fires, and Scarier's output is identical character for character:
+
+    ping     PING FIRED.
+    alpha    AA: BB.
+    beta     CC :.
+    gamma    EEGOT3 FF.
+    delta    GG GOT4.
+    epsilon  IIGOT5 JJ.
+    zeta     KKGOT6 LL.
+    eta      MM , NN.
+
+The listing's reading holds: the ALR walk never inspects a character, so
+punctuation in either half of a rule changes nothing.  No engine change.
 """
 import sys
 
