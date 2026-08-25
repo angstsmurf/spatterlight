@@ -2106,6 +2106,61 @@ desk.` as a second sentence rather than `..., and inside is a crystal.`, the
 inner arms are live after all and the guard order in `lib_list_in_object()`
 has to move.
 
+## OPEN 2026-08-25 -- the rest of the absent-object refusals (P-code only)
+
+Found while chasing hauntedhouse's `melt statue` (CLOSED below).  Everything
+here is pinned in the decompiles but **not yet measured**, so none of it is
+ported.  Scarier answers all of it with one of two upstream-SCARE strings that
+no Runner ever prints: `<Verb> what?` and `You see no such thing.`
+
+`open` / `close` -- run400 `Proc_19_3_476468`, the `open` branch at 475694 and
+the `close` branch at 4759BE.  The noun is resolved by `Sub_22_66` @463640,
+which unlike `co()` does **not** require the seen byte.  Three outcomes when
+the object is not present:
+
+| resolver | seen byte (+48) | run400 | where | scarier today |
+|---|---|---|---|---|
+| object | 1 | `You can't see the statue.` | 475966 / 475C10 | `Open what?` |
+| object | 0 | `Open what?` / `Close what?` | 4759AC / 475C51 | `Open what?` |
+| -1 | -- | `You can't open that.` | `Exit Sub` 4756BC, then therest 488818 | `Open what?` |
+
+The third row is the one hauntedhouse measures (`open door`, turn 3, no `door`
+object in the game).  Scarier reaches all three through
+`{"open *", lib_cmd_open_what}` (scrunner.cpp:658), because `%object%` is
+seen-gated *and* `lib_disambiguate_object()` is room-gated, so a seen-but-absent
+object never reaches `lib_cmd_open_object()`.
+
+`examine` -- run400 `Proc_19_87_471F94` @471340, readable verbatim as run370
+`examines` (Form1.frm:6892-6949):
+
+| case | run370/run400 | where (run370 / run400) |
+|---|---|---|
+| named object, seen, absent | `You can't see the statue from here!` | 435937 / 471958 |
+| named object, never seen | `You can't see that.` | 435956 / 47199E |
+| plural, none here | `You can't see any statues here.` | 435A13 |
+| nothing matched, lit | `Nothing special.` | 435BF4 |
+| nothing matched, dark | `You can't see that very clearly.` | 435C8F |
+
+Scarier prints `You see no such thing.` for every one of them
+(`lib_cmd_examine_other`, sclibrar.cpp:11142).  `Nothing special.` is the row
+that most needs measuring before anything is ported -- it is a startlingly
+different answer to `x fjkdlsj`, and it is exactly the string run370's
+own darkness check searches for at 438F2F, so it is load-bearing inside the
+Runner too.
+
+**Staged probe.**  On any lit game with a static in a *neighbouring* room --
+hauntedhouse's statue in the Entrance does it -- walk in, walk out, then feed:
+
+    open statue / close statue / x statue      (seen, absent)
+    open door / x door / take door             (no such object at all)
+    open / close / take / drop                 (bare verb -- the row that
+                                                decides whether `<Verb> what?`
+                                                survives anywhere)
+    x statues                                  (the plural row)
+
+Read all of it off the echo.  The same run settles the `open door` half of the
+hauntedhouse measurement, left open below.
+
 ## OPEN 2026-08-25 -- `burn memo`  (probe built, waiting on Wine)
 
 **run400 refuses a task Scarier runs.**  Task 24, `Burn %object%`, restr=2,
