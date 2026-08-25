@@ -180,6 +180,35 @@ variants, none from `sophie.taf` (see the CLOSED 2026-08-25 sophie section).
 The `.taf` is recoverable from the `measure.sh <taf> <cmdfile>` invocation that
 produced the run; check it before quoting a transcript at a golden.
 
+`~/adrift-battle/runner/wine/transcript_provenance.py` does that recovery for
+every transcript at once: `measure.sh` prints `transcript=<file>` for the run it
+just made, so the session logs hold the true pairing, and the script binds each
+`measure.sh <taf> <cmdfile>` to the `transcript=` line that followed it and
+matches the runs to the files on disk by mtime.  Run 2026-08-25, 60 files:
+
+- **44 verified**, including every transcript a landed port rests on --
+  `Adrift_22_xfiles.txt` and `Adrift_31_xfiles.txt` <- `xfiles.taf` (the object
+  `seen` model), `Adrift_36_orient_express.txt` <- `orient.taf` (the battle
+  alias rule), `Adrift_37_melbourne_beach.txt` <- `melb.taf` and
+  `Adrift_38_stardust.txt` <- `stardust.taf` (the walk join),
+  `Adrift_27_thepkgirl.txt` <- `pkgirl.taf`, `Adrift_47_p4walkalr.txt` <-
+  `p4WALKALR.taf`, `Adven_9_timmy_reid.rtf` <- `tra.taf` (which really is *The
+  Timmy Reid Adventure*, and is the `.taf` on that corpus row).
+- **1 corrected**: `Adrift_41..46_sophie.txt` <- `saF570/saF575/saFXYZ/saF576/
+  saF577/sanoalr.taf`, i.e. doctored copies of `sa.taf`.  See the CLOSED
+  2026-08-25 sophie section.
+- **16 unverified** -- no `measure.sh` record survives, because they predate it
+  or were driven by `drive_ckpt.sh`/`runcmds.sh` by hand: `Adrift_1`,
+  `Adrift_9_pET3`, `Adrift_10_pET4`, `Adrift_14_relojero`,
+  `Adrift_15_relojero`, `Adrift_16_hauntedhouse`, `Adrift_17_hauntedhouse`,
+  `Adrift_18_funhouse`, `Adrift_19_the_cat_in_the_tree`,
+  `Adrift_20_maincourse`, `Adrift_28_humbug`, `Adrift_30`, `Adven_1_marooned`,
+  `Adven_3_castle_quest`, `Adven_4_superliam`, `Adven_5_arlo`.  Their slugs are
+  probably right -- they were assigned by matching the opening prose -- but
+  "probably" is not a measurement.  Two of these are already on the candidate
+  list for re-running (`hauntedhouse`, whose cmdfile pairing was wrong anyway,
+  and `humbug`); re-measure before quoting any of the others.
+
 Citations in the tree that still resolve were updated to the new names. These
 ones were **not** -- their files have since been overwritten by a later run and
 the measurement they describe is no longer reproducible from disk:
