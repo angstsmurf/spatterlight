@@ -203,11 +203,21 @@ matches the runs to the files on disk by mtime.  Run 2026-08-25, 60 files:
   `Adrift_15_relojero`, `Adrift_16_hauntedhouse`, `Adrift_17_hauntedhouse`,
   `Adrift_18_funhouse`, `Adrift_19_the_cat_in_the_tree`,
   `Adrift_20_maincourse`, `Adrift_28_humbug`, `Adrift_30`, `Adven_1_marooned`,
-  `Adven_3_castle_quest`, `Adven_4_superliam`, `Adven_5_arlo`.  Their slugs are
-  probably right -- they were assigned by matching the opening prose -- but
-  "probably" is not a measurement.  Two of these are already on the candidate
-  list for re-running (`hauntedhouse`, whose cmdfile pairing was wrong anyway,
-  and `humbug`); re-measure before quoting any of the others.
+  `Adven_3_castle_quest`, `Adven_4_superliam`, `Adven_5_arlo`.
+
+`transcript_identify.py`, next to it, is the independent second opinion for
+those: it scores a transcript's first 6 KB against the opening of every
+`goldens/*.expected.txt` by shared vocabulary.  Run over all sixteen, **every
+slug holds** -- each names its own golden at 0.62-1.00 with the runners-up at
+0.12-0.37, and the only ones it cannot speak for are the synthetic probes
+(`Adrift_9_pET3`, `Adrift_10_pET4`), which are named after their `.taf` to
+begin with.  Two useful specifics fall out: `Adrift_16/17_hauntedhouse` really
+are *Haunted House* (`hauntedhouse.taf`, **not** `haunted.taf` -- see the
+pairing warning above; only their **cmdfile** pairing was wrong), and
+`Adven_5_arlo.rtf` is `alices_restaurant_solution`, which is the `arlo.taf`
+row.  What the score cannot tell you is which RELEASE was loaded -- that is
+precisely what the sophie mispairing turned on -- so it confirms a slug, never
+a `.taf`.
 
 Citations in the tree that still resolve were updated to the new names. These
 ones were **not** -- their files have since been overwritten by a later run and
