@@ -44,10 +44,43 @@ The cells, all examined in one room:
     bag     held, on 1, in 1         the same, reached from `i` (inventory
                                      passes the both-halves mode too, @45C2C8)
 
-Reading the transcript: if desk1 answers ", and inside is a cog1." the guard
-order in lib_list_in_object() is right; if it answers a second sentence,
-"A cog1 is inside desk1.", the inner arms are live after all and the version
-check has to move above the joined one.
+MEASURED AND CLOSED 2026-08-25, run400 on p4INON.taf, Adrift_1_p4inon.txt,
+all 10 commands echoed.  Scarier matches every row word for word:
+
+    x desk1   Furniture.  A pin1 is on the desk1, and inside is a cog1.
+    x desk2   ... A pin2 is on the desk2, and inside is a cog2a and a cog2b.
+    x desk3   ... A pin3 is on the desk3, and inside is a cog3a, a cog3b and
+              a cog3c.
+    x desk4   ... A pin4a and a pin4b are on the desk4, and inside is a cog4.
+    x desk5   Furniture.  A cog5 is inside the desk5.
+    x box     Furniture.  A cogbox is inside the box.
+    x tray    Furniture.  A pintray is on the tray.
+    open crate  You open the crate.  A cogcrate is inside the crate.
+    x crate   Furniture.  The crate is open.  A pincrate is on the crate, and
+              inside is a cogcrate.
+    i         You are carrying a crate and a bag.  A pincrate is on the crate,
+              and inside is a cogcrate.  A pinbag is on the bag, and inside is
+              a cogbag.
+
+desk1 settles it: at in-count 1 with a surface listing already printed, the
+Runner says ", and inside is a cog1." and NOT a second sentence, so the
+`If var_9E = 1` arms nested inside the count-1 and count-2 branches really
+are dead code and lib_list_in_object()'s guard order is right.  desk5 is the
+other side of the same flag -- surface flag set, nothing on it, var_9E stays
+0, and the unjoined "A cog5 is inside the desk5." comes back.  ADRIFTMAS_Party
+(in-count 2) and yonastoundingcastle (in-count 1) now rest on measurement.
+
+`open crate` confirms the containers-only mode prints the in-half alone and
+unjoined, and `i` confirms inventory passes the both-halves mode.
+
+FOOTGUN, cost half an hour: this generator used to write **Capacity 99**, and
+that is invalid -- run400 hangs for ever at "Loading...", which measure.sh
+reports as "first command never reached the game", indistinguishable from a
+broken feed.  Capacity packs tens = object count, units = SIZE INDEX
+(scobjcts.cpp:674-706), and size index 9 is out of range; 52 is what to write.
+p4INON.taf had never once loaded before 2026-08-25 for this reason.  Bisect a
+suspect .taf with loadtest.sh: the window title carries the game name only if
+the file actually loaded.
 
 Usage:
     python3 make_400_inonprobe.py p4INON.plain

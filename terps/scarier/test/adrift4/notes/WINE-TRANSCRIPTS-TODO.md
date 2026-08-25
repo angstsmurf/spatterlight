@@ -2300,14 +2300,43 @@ Three goldens move, corpus back to **303/303 PASS**:
 | `ADRIFTMAS_Party_solution` | 2 | `The suitcase is on the wardrobe, and inside is a leather jacket and an assortment of shoes.` |
 | `yonastoundingcastle_solution` | 1 | `Ye olde desk clutter is on ye alchymist's desk, and inside is ye magic crystal.` |
 
-Only the first is *measured*; the other two are the unreachable-arm cases and
-rest on the disassembly alone.  **Probe still wanted** once the desktop is
-unlocked: one .taf with a desk that is both a surface and an open container,
-one object on it, and one, two and three objects inside across three cells,
-`x desk` each time.  If the count-1 cell answers `A crystal is inside the
-desk.` as a second sentence rather than `..., and inside is a crystal.`, the
-inner arms are live after all and the guard order in `lib_list_in_object()`
-has to move.
+### MEASURED 2026-08-25 -- the unreachable arms really are unreachable
+
+The other two goldens rested on the disassembly alone, so `p4INON.taf`
+(`harness/make_400_inonprobe.py`) was built to settle them: nine cells in one
+room covering every combination of on-count and in-count that matters, plus a
+closed held crate and a held bag.  run400, `Adrift_1_p4inon.txt`, all ten
+commands echoed -- **and scarier matches every row word for word**:
+
+| cell | on / in | run400 |
+| --- | --- | --- |
+| `desk1` | 1 / 1 | `A pin1 is on the desk1, and inside is a cog1.` |
+| `desk2` | 1 / 2 | `A pin2 is on the desk2, and inside is a cog2a and a cog2b.` |
+| `desk3` | 1 / 3 | `A pin3 is on the desk3, and inside is a cog3a, a cog3b and a cog3c.` |
+| `desk4` | 2 / 1 | `A pin4a and a pin4b are on the desk4, and inside is a cog4.` |
+| `desk5` | 0 / 1 | `A cog5 is inside the desk5.` |
+| `box` | container only, 1 | `A cogbox is inside the box.` |
+| `tray` | surface only, 1 | `A pintray is on the tray.` |
+
+`desk1` is the row the whole probe was for: at in-count **1**, with a surface
+listing already printed, run400 says `, and inside is a cog1.` and not a
+second sentence.  The inner `If var_9E = 1` arms are dead code after all, the
+guard order in `lib_list_in_object()` is right, and `ADRIFTMAS_Party` and
+`yonastoundingcastle` now rest on measurement rather than on a reading.
+`desk5` is the same flag from the other side -- surface flag set, nothing on
+it, `var_9E` stays 0, unjoined wording.
+
+The two mode rows check out as well:
+
+    open crate   You open the crate.  A cogcrate is inside the crate.
+    x crate      Furniture.  The crate is open.  A pincrate is on the crate,
+                 and inside is a cogcrate.
+    i            You are carrying a crate and a bag.  A pincrate is on the
+                 crate, and inside is a cogcrate.  A pinbag is on the bag,
+                 and inside is a cogbag.
+
+`open` passes mode 0 and prints the in-half alone, unjoined; `x` and `i` pass
+mode 2 and join.  Nothing left open in this family.
 
 ## OPEN 2026-08-25 -- the rest of the absent-object refusals (P-code only)
 
@@ -2591,8 +2620,9 @@ Two footguns worth keeping:
   to tell "the .taf is malformed" from "the replay went wrong".
 * That same bisect found **`p4INON.taf` has never been loadable** for the same
   reason.  Its queued probe was blocked by a malformed file, not by Wine.
-  `make_400_inonprobe.py` still writes `capacity = 99`; fix it to `52` and
-  rebuild before re-queueing that row.
+  `make_400_inonprobe.py` now writes `52`; rebuilt, and the file loads (window
+  title `ADRIFT Runner - In-On Probe 400`).  That probe is **run and closed**
+  -- see "the unreachable arms really are unreachable" above.
 
 What `p4EXAM.taf` leaves open is only the 4.0 resolver family, unchanged by
 this round:
