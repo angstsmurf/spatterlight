@@ -2289,6 +2289,21 @@ farfromhome_solution.txt|FarFromHome.taf|You scored 50 out of the maximum 50!|SC
 # goldens gained one to 45 lines apiece, all purely added and no route moved
 # -- a blank line in a solution file is a turn like any other, and the ones
 # that are only layout now say so out loud.
+#
+# NOT ported, and this row is where it bites: with the two above set aside and
+# the Verbose brief-mode headings discounted, the 117-command run390 replay
+# holds exactly ONE engine divergence left, and it decides the game.  cmd 38
+# `take needle box` -- obj3 Short `needle`, obj12 Short `needle box`, both on
+# the desk, the needle already taken -- answers "You've already got the sharp
+# needle!" in run390 and takes the box here: the Runner resolves a reference to
+# the LOWER-NUMBERED object whose Short is merely contained in the command, not
+# to the longest match (the 3.90 twin of the run400 asteroid_after measurement).
+# Without the box, cmd 99 `put needle in box` fails TASK 4's first restriction,
+# so the `sw` at cmd 116 misses ending T35 and the real Runner falls through to
+# T36, the LOSS.  This golden's win is therefore Scarier-only.  When the
+# reference-resolution port lands, the route's repair is `take box` (obj12's own
+# alias; verified offline to still reach T35).  Write-up:
+# notes/WINE-TRANSCRIPTS-TODO.md, "run390 is not longest-match either".
 stardust_solution.txt|S_Tar_Dus.taf|You decide to go with the plant lady and
 # Diary of a Stripper is AIF: the game's text is sexually explicit, so its
 # solution and golden are deliberately NOT committed (they are in .gitignore).

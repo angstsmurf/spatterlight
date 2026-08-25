@@ -1217,6 +1217,53 @@ the identical alias shape (`fifth, valve, 5th, 5, five, valve 5, valve five`
 vs `sixth, valve, 6th, 6, six, valve 6, valve six, safety, safety valve`) and
 only the *later* one resolves.  That kills every "best match wins" reading.
 
+### MEASURED 2026-08-25 -- run390 is not longest-match either, and it costs stardust the game
+
+The 117-command `S_Tar_Dus.taf` / run390 replay (`Adrift_38_stardust.txt`)
+was re-read against today's engine.  Once the Verbose brief-mode headings are
+set aside (rule 1 -- that session had Verbose OFF, so every re-entry reads
+"You move west.  Open Area." against our full description) the whole
+transcript holds **exactly one** engine divergence, and it decides the game:
+
+    turn 38  take needle box
+      run390   You've already got the sharp needle!
+      scarier  You take a needle box from the desk.
+
+The game has `obj3` Short `needle` Prefix `a sharp` and `obj12` Short
+`needle box` Alias `box`, both on the desk, and `take needle` at turn 37 has
+already taken the needle.  No task matches `take needle box` (the only needle
+task is TASK 4 `put needle in box`), so this is the library's own reference
+resolution: run390 resolved `needle box` to the **lower-numbered obj3**, whose
+Short is merely *contained* in the command, over obj12, whose Short is the
+whole of it.  It never prompts -- only one present object answers to the term
+`needle`, so the ambiguity count of step 4 above is 1 -- which makes this a
+measurement of the *resolution* order rather than of the prompt.  It is the
+3.90 twin of the run400 asteroid_after finding: **neither generation takes the
+longest match.**
+
+The cost is the ending.  Without the box:
+
+    turn 99  put needle in box
+      run390   You don't have the box.  Put the sharp needle inside what?
+      scarier  You put the needle in the box.  Smart move. ...
+
+-- TASK 4's first restriction fails with its own message and the command then
+falls through to the library, which is the pre-4.0 "library wins over a
+restricted task" rule already pinned elsewhere in this file.  TASK 4 stays
+unspent, so the `sw` at turn 116 misses T35's gate and falls through to T36:
+the Runner's transcript ends "You step through the portal...  Better luck next
+time.", where our golden ends "You decide to go with the plant lady and ...
+Well done - you scored maximum points!"  **`stardust` is therefore the first
+corpus row where this item changes an OUTCOME and not just a line**, and the
+walkthrough's starred WIN is, as things stand, a Scarier-only win.
+
+The repair is known and cheap, which is worth recording now so that the port
+is not blocked on re-deriving a route: `take box` -- obj12's own alias, which
+no other object answers to -- takes the needle box, and the route still
+reaches T35 (verified offline, one `sed` over the solution file).  It is
+deliberately NOT applied yet: the walkthrough is only wrong once the engine is
+right.
+
 ### Two footguns, either of which invalidates a measurement
 
 **run400 has a disambiguation follow-up prompt.**  After `Which ...?` the
