@@ -503,6 +503,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `p4WALKCAP` (built probe) | 4.00 | run400 replay, `Adrift_1_p4walkcap.txt` (4 commands) | **4.0 capitalises a walk announcement's Name wherever the sentence lands** -- joined mid-paragraph and opening a line both print `Bob` for an NPC named `bob`.  Confirmed the ported reading; no change |
 | `p4PALR` (built probe) | 4.00 | run400 replay, `Adrift_1_p4palr.txt` (8 commands) | **punctuation in an ALR changes nothing**: all seven cells fire, leading `, `/` `/`: ` Originals and pure-punctuation Replacements alike.  Confirmed `sophie.taf`'s `[, and] -> [:]`; no change |
 | `p39EXAM` / `p4EXAM` (built probes) | 3.90 + 4.00 | run390 replays `Adrift_41/43_p39exam.txt` (29 + 19 commands) and the run400 twin `Adrift_1_p4exam.txt` (32) | the whole **examine / read / open / close refusal family**, plus the empty room description: four splits found and ported, and 3.90 now agrees with Scarier on all 48 rows.  See the FIXED sections below |
+| `hauntedhouse.taf` | 4.00 | run400 replay of the game's **own** 42-command solution, `Adrift_1_hauntedhouse.txt`, Verbose ON, all 42 echoed | **clean: 41 of 42 turns identical, and the 42nd differs only by the Runner's `[Press any key to end]` tail**, which Scarier emits as a waitkey pause rather than as text.  Supersedes the mispaired `Adrift_16/17` run except for the two engine bugs that one found |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -2922,7 +2923,7 @@ in-room test and prints "You can't see ..." instead of returning FALSE.  The
 two outcomes are disjoint, so the order of the checks doesn't matter.  Corpus
 303/303, no golden moved.
 
-**turn 3, `open door` -- still open.**  There is no `door` object in
+**turn 3, `open door` -- CLOSED 2026-08-25 by the p39EXAM/p4EXAM probes.**  There is no `door` object in
 hauntedhouse.taf at all (objects 0-20 are knife, sink, severed head, oven,
 fridge, meat cleaver, ghostly bomb, comb, statue, key, coffin, light switch,
 marble pedestal, fences, trees, chandelier, bed, window, toilet, dust,
@@ -2942,7 +2943,19 @@ at 4759AC -- but only on a path that needs the noun to have resolved, and it
 run at all.  Second, the transcript answers `take guttering` with "Take what?"
 and `drop fags` with "Drop what?", both unknown nouns, so the rule is not a
 blanket "unknown noun -> can't <verb> that".  What run400 says to a bare
-`open`, `close`, `take` and `drop` decides it, and that needs a live probe.
+`open`, `close`, `take` and `drop` decides it, and that needed a live probe.
+
+The probe answered it.  On **both** run390 and run400 a bare `open` and
+`open door` alike print "You can't open that.", so `open` was simply
+asymmetric with the `close *` row beneath it in `STANDARD_COMMANDS` and no
+Runner has ever printed "Open what?" -- corroborated a third way by the
+`panic.taf` ALR Originals table, which enumerates thirty of these refusals
+and has no `Open what?` in it.  `take` and `drop` keep their "<Verb> what?"
+forms, which the same transcript shows (`take guttering`, `drop fags`), so
+the rule really is per-verb and not a class.  Ported, and `hauntedhouse.taf`
+has since been re-driven with its own solution: 42 of 42 commands echoed and
+41 of 42 turns identical (the 42nd is only the `[Press any key to end]`
+tail).
 **Staged**: drive any game with `open` / `open door` / `take` / `take
 guttering` / `drop` / `drop fags` and read the four answers off the echo.
 

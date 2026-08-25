@@ -662,11 +662,24 @@ endgame_solution.txt|endgame.taf|Really really.
 #     therest() resolves the noun before it dispatches the verb; ported to
 #     lib_cmd_verb_object().
 #   turn 3 "open door", no door object in the game at all -- run400 "You
-#     can't open that.", scarier "Open what?".  Still open: therest() builds
-#     that line from var_88 = "that" and never consults checkverb(), so it is
-#     not clear what run400 answers to a bare "open".  Needs a live probe.
+#     can't open that.", scarier "Open what?".  CLOSED by the p39EXAM/p4EXAM
+#     probes: bare "open" and "open door" both answer "You can't open that."
+#     on run390 AND run400, so it was a one-line asymmetry with the "close *"
+#     row beneath it, not a version split.  No Runner has ever said "Open
+#     what?".
 # The brief re-entry headings at turns 21/27/41 are rule 1, not an engine
 # difference: this run predates measure.sh, so Verbose was OFF.
+# RE-DRIVEN CORRECTLY 2026-08-25, run400, Adrift_1_hauntedhouse.txt: this
+# game's OWN 42-command solution, Verbose ON via measure.sh, all 42 echoed.
+# compare_wine_transcript.py reports ONE differing turn, the last, and the
+# whole of the difference is the Runner's `[Press any key to end]` tail --
+# which scarier emits as a SCR_TAG_WAITKEY pause rather than as text, by
+# design (os_ansi.cpp).  41 of 42 turns are identical text; the remaining
+# blank-line differences the raw files show are the transcript writer's, not
+# the engine's (the Runner writes a room block as consecutive lines with no
+# blank between them, and blank lines only between turns).  So this row is
+# now measured clean end to end, and the mispaired Adrift_16/17 run above is
+# superseded except for the two engine bugs it found.
 hauntedhouse_solution.txt|hauntedhouse.taf|you congraulate yourself on a job well done.
 microbe_willie_solution.txt|microbe_willie.taf|pestilence (basically, more of your kind) throughout the world.
 amonkeytoomany_solution.txt|amonkeytoomany.taf|Hooray! You've made it through the game!
