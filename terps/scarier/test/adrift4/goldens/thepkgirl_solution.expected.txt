@@ -1263,6 +1263,8 @@ Even the things I would never tell him in a million years."
 sisters quite like this before.  But it is a good sign that the both of them
 are able to laugh at all after last night's events.
 
+   "So anyways, I'll tell you how to get to his place."  Laurie does so.
+
 > north
 You move north.
 

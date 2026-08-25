@@ -213,6 +213,8 @@ the window to the pet shop.
 > in
 You enter the pet shop.
 
+That dog is SO ready to pounce and eat you.
+
 > look
 
 Pet Shop

@@ -235,6 +235,7 @@ conductor and the waiter to dump Igotta Bigbottom in the bathroom that is out
 of order.
 The train begins to slow. You are sure that you must be arriving in
 Hopeimakeit.
+The train whistle blows loudly, causing a slight ringing in your ears.
 
 > n
 You move north.
@@ -351,6 +352,8 @@ back to him. He hands you the bag and says "There's a little something in it
 for you, sweetie." as he pats Ivanna on the buns.
 You hear a car approaching. You assume that some one is coming to make a
 purchase.
+You look at Ivanna, and shove her to the ground. She screams in horror as the
+bullets leave holes in the side of the Booze barn.
 
 > examine ivanna
 You quickly check to se if Ivanna is alright. You can tell right away that

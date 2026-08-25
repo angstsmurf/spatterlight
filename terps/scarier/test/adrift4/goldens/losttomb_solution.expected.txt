@@ -404,6 +404,9 @@ The northern door is open enough for you to escape!
 An alarm clock rings from inside Rupert's bag.
 "Ah! Time for tiffin!" He exclaims, looking at the clock.
 
+He unpacks a teapot, some scones and a selection of different flavoured jams,
+all of which he holds haphazardly with his arms.
+
 > n
 
 You and Rupert quickly dash for the door and squeeze under, moments before

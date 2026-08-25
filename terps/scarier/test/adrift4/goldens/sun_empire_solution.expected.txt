@@ -364,6 +364,7 @@ With that the voice is gone, there is a moment of silence broken finally by a
 siren wail in the distance.  Jeriah Eldon exits to the south.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
+The code red warning light blinks urgently.
 
 > z
 Time passes...

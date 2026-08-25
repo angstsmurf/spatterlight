@@ -863,6 +863,7 @@ sound of the crash, however, was louder than you had hoped for and alerts
 several people in the street outside. You may not have much time to make good
 your escape.
 A distant siren sounds...
+The siren is getting much closer...
 
 > drive
 You turn the key and start the car. You speed off, a sense of speed and

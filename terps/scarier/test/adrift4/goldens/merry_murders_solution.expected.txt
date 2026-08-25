@@ -831,6 +831,7 @@ framing you! The police will find your dead body with all the evidence,
 they'll pin it all on you!  Meanwhile, I'll be back in my firm, with all the
 money I stole. So, any last requests before I send you back to your maker?"
 Eric asks, both hands grasping onto the pipe tightly.
+Eric gets annoyed, he's about to attack...
 
 > score
 My score is 125 out of a maximum of 135.  (92%)

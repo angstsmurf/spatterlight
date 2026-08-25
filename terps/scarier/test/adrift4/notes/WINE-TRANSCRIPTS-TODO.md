@@ -2761,3 +2761,83 @@ Wine run had Verbose OFF, so re-entry is brief ("Entrance hall." against the
 full description), `$randwalks` (task 85) picks the NPC enter/exit verb at
 random ("Kitty comes in" / "saunters in" / "enters" / "slinks in"), and `play
 chess` picks a winner. Nothing left to chase.
+
+## FIXED 2026-08-25 -- the turn an event starts is also a tick
+
+*Orient Express*, run400, `Adrift_36_orient_express.txt`, 53 commands and all
+53 echoed. Two turns carried a line we never printed at all:
+
+    turn 43  use phone
+      run400   ...  Just as you put the receiver down, the phone rings. [...]
+               You tell the man not to hurt Anita, and you want proof that
+               she isn't already dead.
+      scarier  ...  Just as you put the receiver down, the phone rings. [...]
+
+    turn 46  give card to habibo
+      run400   ...  You hear a car approaching. [...]
+               You look at Ivanna, and shove her to the ground. She screams
+               in horror as the bullets leave holes in the side of the Booze
+               barn.
+      scarier  ...  You hear a car approaching. [...]
+
+Both extra lines are a `PrefText1`, and both land on the very turn the event
+starts:
+
+    EVENT 2 [Phone rings]      starter=3 startTask=16 time1=1 time2=8
+       Where type=1 room=16  PrefTime1=2 PrefTime2=1
+    EVENT 3 [Driveby Shooting] starter=3 startTask=20 time1=1 time2=5
+       Where type=1 room=18  PrefTime1=3 PrefTime2=0
+
+Our `evt_tick_event()` could not print them on any turn. The ES_AWAITING
+branch started the event and `break`ed, so the first pref-time comparison
+happened a turn later -- and in this game the player leaves the event's single
+`Where` room on that next turn, so `evt_can_see_event()` was false and the
+text was lost for good.
+
+`checkevent()` settles it, and all four Runners agree. It is one straight run
+of `If state = ...` tests over a single event, not a switch, so an event that
+moves from "awaiting task" to "running" falls into the running block in the
+**same call**: StartText, then decrement, then the two pref-time tests, then
+the end-of-event test. The task-started path compensates by rolling the clock
+one high --
+
+    run370  431BF0    time = t1 + Int(Rnd * (t2 - t1)) + 1
+    run380  439E78    "
+    run390  448428    "
+    run400  46FE49    "
+
+-- and only that path adds the 1 (the clock-started path, run380 439DE5 and
+run400 46FD31, does not). So the +1 and the start turn's decrement cancel, the
+event still ends `roll` turns after it started, and our start-turn-does-not-
+tick model has always produced the right *end* time. What it could not produce
+is a notification whose `PrefTime` equals the whole rolled length: the Runner
+compares the post-decrement clock -- the roll itself -- on the start turn, and
+we compared nothing at all there.
+
+The ES_AWAITING branch now runs the pauser test first (the Runner tests it
+before the decrement and leaves `checkevent()` if it pauses, so a pause on the
+start turn suppresses both later tests), then the pref-time notifications,
+then the finish test. The clock still holds the plain roll, since our model
+never took the +1.
+
+Seven goldens gained a line, every one of them a pref text on an event's start
+turn: zombies, orient_express, sun_empire, thepkgirl, great_escape, losttomb,
+merry_murders. Suite **303/303 PASS**.
+
+**What is left in the orient replay.** At `SCR_SEED=424242` the run is down to
+8 differing turns: 21, 22 and 37-41 are rule 1 (Verbose was OFF, so re-entry
+is one brief line), and 52 is the harness eating "[Press any key to end]".
+The train-stop texts move with the seed -- event 0 rolls 10..19, events 1..3
+roll 1..7 -- so where they land is RNG, not an engine difference. Turns 43 and
+46 now match.
+
+**Still open, from the same reading of `checkevent()`.** The clock-started
+path takes no `+1`, yet the Runner still decrements on the start turn, so a
+`StartType 2` event ought to end `roll - 1` turns after its delay expires,
+where we end it at `roll`. Our ES_WAITING branch starts the event and
+`break`s, exactly the shape that was wrong for task-started events, and the
+immediate-start hack a few lines above adds 1 to the roll to compensate for a
+tick we then never take. Nothing in any transcript on file exercises a
+clock-started event with a `PrefTime`, so this is decompile-only for now; the
+probe is a `StartType 2` event with `Time1 == Time2` and `PrefTime1` equal to
+that length, driven under Wine.

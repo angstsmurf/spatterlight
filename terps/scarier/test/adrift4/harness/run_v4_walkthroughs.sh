@@ -280,6 +280,25 @@ melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the 
 orient_express_solution.txt|Orient_Express.taf|You successfully complete your assignment.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
+#
+# Re-blessed again 2026-08-25 for the event start-turn tick.  Measured in
+# run400 under Wine, transcript Adrift_36_orient_express.txt, 53 commands, all
+# 53 echoed.  Turn 43 `use phone' starts event 2 [Phone rings] (Time1 = 1,
+# Time2 = 8, PrefTime1 = 2, one Where room) and the Runner prints its StartText
+# *and* its PrefText1 on that single turn; turn 46 `give card to habibo' does
+# the same with event 3 [Driveby Shooting] (PrefTime1 = 3).  We printed
+# neither: our start turn consumed no tick, so the first pref-time comparison
+# only happened a turn later, by which time the player had left the room and
+# evt_can_see_event() was false.  checkevent() is one straight run of state
+# tests -- start and tick happen in the same call, and the task-started path
+# adds 1 to the roll so the end time still comes out at start + roll.  See
+# scevents.cpp's ES_AWAITING branch and the WINE-TRANSCRIPTS-TODO entry.
+#
+# What is left in that replay, at SCR_SEED=424242: turns 21, 22 and 37-41 are
+# rule 1 (this Wine run had Verbose OFF, so re-entry is one brief line), and
+# turn 52 is the harness eating the Runner's "[Press any key to end]".  The
+# train-stop event texts move with the seed -- event 0 rolls 10..19 and events
+# 1..3 roll 1..7 -- so their turn numbers are RNG, not an engine difference.
 screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to get everyone to the set!
 secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
 space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCITING EPISODES

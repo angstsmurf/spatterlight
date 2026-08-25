@@ -1036,35 +1036,55 @@ evt_tick_event (scr_gameref_t game, scr_int event)
           {
             evt_start_event (game, event, FALSE);
 
+            /*
+             * If the pauser has completed, but resumer not, immediately
+             * also pause this event.  The Runner tests this before the
+             * start turn's decrement and leaves checkevent() there, so a
+             * pause on the start turn suppresses the notification and
+             * finish checks below.
+             */
+            if (evt_pauser_task_is_complete (game, event)
+                && !evt_resumer_task_is_complete (game, event))
+              {
+                if (evt_trace)
+                  scr_trace ("Event: pause complete, immediate pause\n");
+
+                gs_set_event_state (game, event, ES_PAUSED);
+                break;
+              }
+
+            /*
+             * The start turn is also a tick.  checkevent() is one straight
+             * run of state tests, so an event that goes from "awaiting" to
+             * "running" here falls into the running block in the very same
+             * call: it prints its StartText, then decrements and runs the
+             * two pref-time notifications and the end-of-event test.  The
+             * Runner compensates by setting the clock to the roll plus one
+             * (run370 431BF0, run380 439E78, run390 448428, run400 46FE49
+             * all add the 1; only the task-started path does), so the +1
+             * and the decrement cancel and the event still ends `roll'
+             * turns after it started -- which is why our start-turn-does-
+             * not-tick model has always given the right end time.  What it
+             * cannot give is a notification whose PrefTime equals the whole
+             * rolled length: the Runner compares the post-decrement clock,
+             * i.e. the roll itself, on the start turn, and we never
+             * compared anything on the start turn at all.
+             *
+             * Measured in run400 under Wine, Orient_Express.taf, transcript
+             * Adrift_36_orient_express.txt (2026-08-25).  Turn 43 `use
+             * phone' starts event 2 [Phone rings] (Time1 = 1, Time2 = 8,
+             * PrefTime1 = 2) and the Runner prints its StartText and its
+             * PrefText1 on that one turn; the player leaves the event's
+             * single room next turn, so we printed the PrefText1 never.
+             * Turn 46 `give card to habibo' is the same shape with event 3
+             * [Driveby Shooting] (PrefTime1 = 3).
+             */
+            if (evt_can_see_event (game, event))
+              evt_handle_preftime_notifications (game, event);
+
             /* If the event time was set to zero, finish immediately. */
             if (gs_event_time (game, event) <= 0)
               evt_finish_event (game, event);
-            else
-              {
-                /*
-                 * The start turn itself must not consume a tick.  Measured
-                 * against run400 with Provenance's fixed-length "Air Runs
-                 * Out In Lab" event (task-started, Time1 = Time2 = 15,
-                 * mid-texts at 10 and 5 remaining): the Runner prints the
-                 * StartText on the turn the starter task completes, but its
-                 * 10-left, 5-left and finish texts each landed one turn
-                 * after ours did.  Adding one here, the same adjustment the
-                 * ES_WAITING immediate-start hack above makes, reproduces
-                 * the Runner's timing exactly.
-                 */
-                /*
-                 * If the pauser has completed, but resumer not, immediately
-                 * also pause this event.
-                 */
-                if (evt_pauser_task_is_complete (game, event)
-                    && !evt_resumer_task_is_complete (game, event))
-                  {
-                    if (evt_trace)
-                      scr_trace ("Event: pause complete, immediate pause\n");
-
-                    gs_set_event_state (game, event, ES_PAUSED);
-                  }
-              }
           }
       }
       break;
