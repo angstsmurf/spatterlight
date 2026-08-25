@@ -581,12 +581,12 @@ gradually takes shape into a frightening sight: a transparent form of a man
 with red gleaming eyes, dressed in old robes and wielding a smoky sword now
 stands in front of you!!! This be Alam Nadeer, the dreaded wraith.
 Seeker hums!
-Alam Nadeer hits you, but it doesn't seem to do any damage.
+wraith hits you, but it doesn't seem to do any damage.
 
 > take vial
 You take the vial from the sarcophagus.
 Seeker hums!
-Alam Nadeer hits you, but it doesn't seem to do any damage.
+wraith hits you, but it doesn't seem to do any damage.
 
 > stand on sarcophagus
 You stand on the sarcophagus.
@@ -596,7 +596,7 @@ Seeker hums!
 As you reach up and turn the handle, it jams into position, and a secret
 passage is revealed in the northern wall.
 Seeker hums!
-Alam Nadeer hits you, but it doesn't seem to do any damage.
+wraith hits you, but it doesn't seem to do any damage.
 
 > n
 You move north.
@@ -1048,7 +1048,7 @@ rephrasing your command.
 > z
 Time passes...  Boris lumbers in from the south.
 Seeker hums!
-Boris hits you, but it doesn't seem to do any damage.
+zombie hits you, but it doesn't seem to do any damage.
 
 > attack holga
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1060,7 +1060,7 @@ in from the south.
 You see a horrible sight. Arthur, one of the village zombies, is pulling
 himself along by his arms, as his legs have long since been eaten away.
 Seeker hums!
-You manage to avoid Arthur's attack.
+You manage to avoid zombie's attack.
 
 > attack holga
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1087,7 +1087,7 @@ Jarris staggers in from the south.
 Seeker hums!
 
 > attack holga
-You stab Holga with the sword.
+You stab zombie with the sword.
 Holga keels over and is at last put to rest. Her undead hand is loosely
 holding a garlic bud.  Jarris lumbers off to the south.
 
@@ -1186,7 +1186,7 @@ rephrasing your command.
 > z
 Time passes...  Boris lumbers in from the south.
 Seeker hums!
-Boris hits you, but it doesn't seem to do any damage.
+zombie hits you, but it doesn't seem to do any damage.
 
 > attack jarris
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1275,7 +1275,7 @@ rephrasing your command.
 > z
 Time passes...  Boris lumbers in from the south.
 Seeker hums!
-Boris hits you, but it doesn't seem to do any damage.
+zombie hits you, but it doesn't seem to do any damage.
 
 > attack jarris
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1295,7 +1295,7 @@ Boris lumbers in from the east.
 Seeker hums!
 
 > attack jarris
-You stab Jarris with the sword.  Jarris lumbers off to the south.  Boris
+You stab zombie with the sword.  Jarris lumbers off to the south.  Boris
 drags himself off to the east.
 
 > z
@@ -1317,14 +1317,14 @@ rephrasing your command.
 Time passes...  Jarris staggers in from the south.
 Seeker hums!
 Arthur pulls himself away to the east.
-You manage to avoid Jarris's attack.
+You manage to avoid zombie's attack.
 
 > attack jarris
-You stab Jarris with the sword.
+You stab zombie with the sword.
 Jarris slumps to the floor and dies with his toothy grin still imprinted on
 his face.  Arthur pulls himself in from the east.
 Seeker hums!
-You manage to avoid Arthur's attack.
+You manage to avoid zombie's attack.
 
 > z
 Time passes...  Arthur pulls himself away to the west.
@@ -1351,7 +1351,7 @@ rephrasing your command.
 > z
 Time passes...  Arthur pulls himself in from below.
 Seeker hums!
-You manage to avoid Arthur's attack.
+You manage to avoid zombie's attack.
 
 > attack boris
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1378,7 +1378,7 @@ Seeker hums!
 Arthur pulls himself away to the east.
 
 > attack boris
-You stab Boris with the sword.
+You stab zombie with the sword.
 Boris falls down, quite dead.
 
 > z
@@ -1393,7 +1393,7 @@ Time passes...  Arthur pulls himself in from the east.
 Seeker hums!
 
 > attack arthur
-You stab Arthur with the sword.
+You stab zombie with the sword.
 Arthur falls face down as he his finally put out of his misery.
 
 > z
@@ -1550,17 +1550,17 @@ You can only move east.
 > open wooden box
 You open the large wooden box.  A leg of lamb is inside the large wooden box.
 Seeker hums!
-Bambi hits you, but it doesn't seem to do any damage.
+zombie hits you, but it doesn't seem to do any damage.
 
 > take lamb
 You take the leg of lamb from the large wooden box.
 Bambi, a child zombie, climbs out of the box. Covered in salt, she edges
 towards you.
 Seeker hums!
-You manage to avoid Bambi's attack.
+You manage to avoid zombie's attack.
 
 > attack bambi
-You stab Bambi with the sword.
+You stab zombie with the sword.
 The poor child keels over and finally dies.
 
 > attack bambi
@@ -1829,24 +1829,24 @@ Haraxis, the giant spider, is here.
 
 You can only move down.
 Seeker hums!
-Haraxis hits you.
+giant spider hits you.
 
 > attack haraxis
-You stab Haraxis with the sword.
+You stab giant spider with the sword.
 
 > z
 Time passes...
-Haraxis hits you.
+giant spider hits you.
 
 > attack haraxis
-You stab Haraxis with the sword.
+You stab giant spider with the sword.
 
 > z
 Time passes...
-Haraxis hits you.
+giant spider hits you.
 
 > attack haraxis
-You stab Haraxis with the sword.  Haraxis skitters off to below.
+You stab giant spider with the sword.  Haraxis skitters off to below.
 
 > z
 Time passes...
@@ -1860,29 +1860,29 @@ Time passes...  Haraxis skitters in.
 Seeker hums!
 
 > attack haraxis
-You stab Haraxis with the sword.
+You stab giant spider with the sword.
 Seeker hums!
-Haraxis hits you.
+giant spider hits you.
 
 > z
 Time passes...
 
 > attack haraxis
-You stab Haraxis with the sword.
-Haraxis hits you.
+You stab giant spider with the sword.
+giant spider hits you.
 
 > z
 Time passes...
 
 > attack haraxis
-You stab Haraxis with the sword.
-Haraxis hits you.
+You stab giant spider with the sword.
+giant spider hits you.
 
 > z
 Time passes...
 
 > attack haraxis
-You stab Haraxis with the sword.
+You stab giant spider with the sword.
 The giant spider slumps to the ground with a loud squelch. The horrible
 creature is dead.
 
@@ -2842,7 +2842,7 @@ Seeker hums!
 Seeker hums!
 
 > attack cat with sword
-You stab Shadow with the sword.
+You stab cat with the sword.
 As you kill the cat, the witch drops to the floor in a heap, screaming in
 agony. Slowly she decays away to nothing.
 Seeker hums!
@@ -3016,29 +3016,29 @@ Seeker hums!
 You hear Melvin singing. He must be somewhere nearby.
 
 > attack golem
-You stab Colos with the sword.
+You stab golem with the sword.
 Seeker hums!
 Seeker hums!
 
 > attack golem
-You stab Colos with the sword.
+You stab golem with the sword.
 Seeker hums!
 Seeker hums!
 
 > attack golem
-You stab Colos with the sword.
+You stab golem with the sword.
 Seeker hums!
 "What is the password?" booms the golem again.
 Seeker hums!
 
 > attack golem
-You stab Colos with the sword.
+You stab golem with the sword.
 Seeker hums!
 The golem looks like it’s getting impatient.
 Seeker hums!
 
 > attack golem
-You stab Colos with the sword.
+You stab golem with the sword.
 Seeker hums!
 Colos seems to have gotten sick of waiting. Deciding you don't know the
 password after all, the golem attempts to squash you with its huge fists.
@@ -3270,10 +3270,10 @@ transformed before you. Margo, the village maid, is a werewolf.
 Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
-Margo hits you.
+werewolf hits you.
 
 > attack margo with sword
-You stab Margo with the sword.
+You stab werewolf with the sword.
 Margo falls backward, and her eyes roll up into her head. Phew, she is dead.
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
@@ -4099,24 +4099,24 @@ if you defeat me the way shall be revealed."
 
 > z
 Time passes...
-You manage to avoid Edna's attack.
+You manage to avoid construct's attack.
 
 > sleep
 You do so, and wake up feeling rather refreshed.
 
 > attack edna
-You stab Edna with the sword.
-You manage to avoid Edna's attack.
+You stab construct with the sword.
+You manage to avoid construct's attack.
 
 > attack edna
-You stab Edna with the sword.
+You stab construct with the sword.
 
 > attack edna
-You stab Edna with the sword.
-You manage to avoid Edna's attack.
+You stab construct with the sword.
+You manage to avoid construct's attack.
 
 > attack edna
-You stab Edna with the sword.
+You stab construct with the sword.
 Edna keels over and collapses to the floor. The magical energy that held its
 body together pours out, leaving only a fleshy mound of rotten flesh.
 The northern passage suddenly glows momentarily.
@@ -4447,10 +4447,10 @@ Damastus, the minotaur, is here!
 
 You can move east and west.
 Seeker Hums!
-You manage to avoid Damastus's attack.
+You manage to avoid minotaur's attack.
 
 > attack damastus
-You stab Damastus with the sword.  Damastus lumbers off to the west.
+You stab minotaur with the sword.  Damastus lumbers off to the west.
 
 > w
 You move west.
@@ -4461,10 +4461,10 @@ Damastus, the minotaur, is here!
 
 You can move east, south and west.
 Seeker Hums!
-You manage to avoid Damastus's attack.
+You manage to avoid minotaur's attack.
 
 > attack damastus
-You stab Damastus with the sword.  Damastus lumbers off to the east.
+You stab minotaur with the sword.  Damastus lumbers off to the east.
 
 > e
 You move east.
@@ -4475,10 +4475,10 @@ Damastus, the minotaur, is here!
 
 You can move east and west.
 Seeker Hums!
-You manage to avoid Damastus's attack.
+You manage to avoid minotaur's attack.
 
 > attack damastus
-You stab Damastus with the sword.  Damastus lumbers off to the east.
+You stab minotaur with the sword.  Damastus lumbers off to the east.
 You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
 
@@ -4491,10 +4491,10 @@ Damastus, the minotaur, is here!
 
 You can move east and west.
 Seeker Hums!
-You manage to avoid Damastus's attack.
+You manage to avoid minotaur's attack.
 
 > attack damastus
-You stab Damastus with the sword.  Damastus lumbers off to the east.
+You stab minotaur with the sword.  Damastus lumbers off to the east.
 
 > e
 You move east.
@@ -4505,10 +4505,10 @@ Damastus, the minotaur, is here!
 
 You can move east, south and west.
 Seeker Hums!
-You manage to avoid Damastus's attack.
+You manage to avoid minotaur's attack.
 
 > attack damastus
-You stab Damastus with the sword.
+You stab minotaur with the sword.
 Damastus screams in pain, and, with that, falls to the ground with a loud
 thud!
 
@@ -4755,33 +4755,33 @@ sears you with its blistering heat.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker Hums!
-Cerberus hits you, but it doesn't seem to do any damage.
+hound of hades hits you, but it doesn't seem to do any damage.
 
 > attack cerberus
-You stab Cerberus with the sword.
+You stab hound of hades with the sword.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker Hums!
-You manage to avoid Cerberus's attack.
+You manage to avoid hound of hades's attack.
 
 > attack cerberus
-You stab Cerberus with the sword.
+You stab hound of hades with the sword.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker Hums!
-You manage to avoid Cerberus's attack.
+You manage to avoid hound of hades's attack.
 
 > attack cerberus
-You stab Cerberus with the sword.
+You stab hound of hades with the sword.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker Hums!
 Cerberus' serpent tail lashes round and bites your arm with its poisonous
 fangs, but your arm greaves deflect the blow.
-You manage to avoid Cerberus's attack.
+You manage to avoid hound of hades's attack.
 
 > attack cerberus
-You stab Cerberus with the sword.
+You stab hound of hades with the sword.
 Cerberus yelps, and falls to the hot cavernous floor, dead. Its body slowly
 fades away.
 

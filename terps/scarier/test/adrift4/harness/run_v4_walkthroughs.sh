@@ -237,9 +237,18 @@ melbourne_beach_solution.txt|Melbourne Beach.taf|You successfully completed the 
 # the Dining Car, the Runner prints "The waiter saunters over." -- the same
 # line the fixed engine now prints.  The old golden had "Gimme Atip is here.",
 # i.e. the plain NPC name rather than the walk's ChangedDesc.  (Unrelated and
-# still-open run400 differences in this game: timed-event turn offsets, NPCs
-# named "the large man"/"BIG BOSS" instead of in full, and one spurious
-# "Gimme Atip enters." -- the not-a-room-zero arrival gate.)  The walk
+# still-open run400 differences in this game: timed-event turn offsets, and one
+# spurious "Gimme Atip enters." -- the not-a-room-zero arrival gate.)
+#
+# The battle narration naming, re-measured off the same transcript 2026-08-25
+# and now fixed: run400 fights "the large man" and "BIG BOSS", never "Igotta
+# Bigbottom" or "Ivill Getyou".  Both attack procedures name an NPC by
+# "<Prefix> <Alias[0]>" when it has a first alias -- Proc_11_1 (the player's
+# blow) from any NPC, Proc_11_2 (an NPC's blow) only from one whose current
+# attitude is enemy.  "Thug " has no alias and keeps its Name, trailing space
+# and all, in the very same transcript.  See battle_print_npc_name() in
+# scbattle.cpp; the goldens that moved with it are trabula, shadowpeak (x3),
+# cyber2 and light_up.  The walk
 # direction suffixes such as "wobbles in from the east" were the 4.0 half of
 # the walk-announcement rewrite; see the arlo block for the full measurement.
 orient_express_solution.txt|Orient_Express.taf|You successfully complete your assignment.

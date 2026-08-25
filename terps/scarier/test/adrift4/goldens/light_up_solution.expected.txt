@@ -2671,18 +2671,18 @@ is spreading all over my body.
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
-Lina hits Red Riven.
-Scotty hits Blue Riven, but it doesn't seem to do any damage.
-Chip hits Blue Riven, but it doesn't seem to do any damage.
+Lina hits Red riven.
+Scotty hits Blue riven, but it doesn't seem to do any damage.
+Chip hits Blue riven, but it doesn't seem to do any damage.
 
 > attack riven
 Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
-Lina hits Red Riven.
-Scotty hits Red Riven.
-Donna hits Blue Riven.
-Blue Riven manages to avoid Chip's attack.
-You manage to avoid Red Riven's attack.
-Blue Riven hits Donna.
+Lina hits Red riven.
+Scotty hits Red riven.
+Donna hits Blue riven.
+Blue riven manages to avoid Chip's attack.
+You manage to avoid Red riven's attack.
+Blue riven hits Donna.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -2692,20 +2692,20 @@ toothpicks are trying to make their way into my body.
 
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
-Lina hits Red Riven.
-Scotty hits Blue Riven.
+Lina hits Red riven.
+Scotty hits Blue riven.
 
 > take lighter
 I am already carrying the lighter.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
-Scotty hits Red Riven, but it doesn't seem to do any damage.
-Red Riven manages to avoid Tippant's attack.
-Donna hits Blue Riven, but it doesn't seem to do any damage.
-Chip hits Red Riven, but it doesn't seem to do any damage.
-Scotty manages to avoid Red Riven's attack.
-Blue Riven hits Lina.
+Scotty hits Red riven, but it doesn't seem to do any damage.
+Red riven manages to avoid Tippant's attack.
+Donna hits Blue riven, but it doesn't seem to do any damage.
+Chip hits Red riven, but it doesn't seem to do any damage.
+Scotty manages to avoid Red riven's attack.
+Blue riven hits Lina.
 
 > attack riven
 Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
@@ -2718,16 +2718,16 @@ floating. I am lifted almost two meters off of the ground before I stop
 floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
-Lina hits Red Riven.
-Scotty hits Blue Riven.
+Lina hits Red riven.
+Scotty hits Blue riven.
 
 > take double-lighter
 I am already carrying the double-lighter.
-Scotty hits Red Riven.
-Donna hits Blue Riven, but it doesn't seem to do any damage.
-Red Riven manages to avoid Chip's attack.
-Red Riven hits you.
-Blue Riven hits you.
+Scotty hits Red riven.
+Donna hits Blue riven, but it doesn't seem to do any damage.
+Red riven manages to avoid Chip's attack.
+Red riven hits you.
+Blue riven hits you.
 
 > take lighter
 I am already carrying the lighter.
@@ -2736,8 +2736,8 @@ The sound of knives scraping against glass reverberate across the landscape.
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
-Lina hits Blue Riven.
-Scotty hits Red Riven.
+Lina hits Blue riven.
+Scotty hits Red riven.
 
 > attack riven
 Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
@@ -2747,33 +2747,33 @@ is spreading all over my body.
 
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
-Lina hits Red Riven.
-Scotty hits Red Riven.
+Lina hits Red riven.
+Scotty hits Red riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
-Tippant hits Blue Riven.
-Blue Riven manages to avoid Donna's attack.
-Chip hits Blue Riven, but it doesn't seem to do any damage.
-Blue Riven hits Donna.
+Tippant hits Blue riven.
+Blue riven manages to avoid Donna's attack.
+Chip hits Blue riven, but it doesn't seem to do any damage.
+Blue riven hits Donna.
 
 > take double-lighter
 I am already carrying the double-lighter.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
-Scotty hits Blue Riven, but it doesn't seem to do any damage.
+Scotty hits Blue riven, but it doesn't seem to do any damage.
 
 > take lighter
 I am already carrying the lighter.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
-Lina hits Blue Riven.
-Scotty hits Blue Riven.
-Donna hits Blue Riven, but it doesn't seem to do any damage.
-Chip hits Blue Riven.
-Blue Riven hits Donna.
+Lina hits Blue riven.
+Scotty hits Blue riven.
+Donna hits Blue riven, but it doesn't seem to do any damage.
+Chip hits Blue riven.
+Blue riven hits Donna.
 
 > attack riven
 What do you want to attack Blue Riven with?
@@ -2787,9 +2787,9 @@ sand-like nature. I barely avoid it.
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
-Lina hits Blue Riven.
-Scotty hits Blue Riven.
-Chip hits Blue Riven.
+Lina hits Blue riven.
+Scotty hits Blue riven.
+Chip hits Blue riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.

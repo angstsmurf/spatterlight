@@ -623,6 +623,33 @@ into a walk-related change.
   overstates the case: the `look` on the next line would have listed the knife,
   and the Runner simply never saw it.
   `burn memo` is still open, but is narrowed -- see the OPEN section below.
+- **FIXED 2026-08-25: the 4.0 battle narration names an NPC by its alias,
+  not by its Name.**  Found by re-running `compare_wine_transcript.py` over
+  `Adrift_36_orient_express.txt`, a transcript that was measured for the walk
+  work and whose battle lines had been written off as noise.  run400 fights
+  "the large man" and "BIG BOSS"; Scarier printed "Igotta Bigbottom" and
+  "Ivill Getyou".  The rule, from `Battles.bas`: given a first alias, a blow
+  names the NPC `"<Prefix> <Alias[0]>"` -- the player's blow (Proc_11_1,
+  @45E1CE) from any NPC, an NPC's blow (Proc_11_2, @464F20 attacker /
+  @464FF2 target) only from a combatant whose **current** `Battle.Attitude`
+  is enemy (the record byte at +172, tested `= 2`).  Nothing else follows it:
+  the corpse line reads the Name field raw (@44B115), and so does every room
+  listing -- the very same transcript says "Igotta Bigbottom is here." one
+  line above "You manage to avoid the large man's attack."  The dump confirms
+  each name it produces (`SCR_DUMP_TASKS=1 SCR_DUMP_BATTLE=1`, which now
+  prints an NPC's prefix and aliases): npc 3 `prefix=[the large] alias=[man]
+  attitude=2`, npc 6 `prefix=[BIG] alias=[BOSS] attitude=2`, and npc 5
+  `Thug ` with no alias at all -- which run400 duly fights as "Thug ",
+  trailing space and all.  Ported as `battle_print_npc_name()` in
+  `scbattle.cpp`, guarded by `battle_legacy` because the pre-4.0 battle
+  system is a different set of strings and names by Name (run390 `Form1.frm`
+  @4595DB).  Seven goldens moved: `orient_express` (now matching the Runner
+  transcript on every battle line), `trabula`, `shadowpeak` x3, `cyber2` and
+  `light_up`.  **Still unmeasured:** whether run400 capitalises a battle line
+  that now *starts* with a lowercase alias -- `trabula` gives "a soldier
+  attacks you with the rapier", and no saved transcript has an NPC-initiated
+  blow to check it against.  The decompile concatenates raw, so the port does
+  too; a probe on a game with a lowercase-prefixed enemy would settle it.
 - **Games whose transcripts carry RNG-timed lines** (`xfiles`, `wamk`) need a
   *targeted* Runner probe rather than a full replay.  There is no harness for
   that yet; the p4WK* probe .taf files in

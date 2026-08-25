@@ -202,24 +202,24 @@ at the far end. There are many cocktail tables and chairs.
 Igotta Bigbottom is here.
 
 You can only move north.
-You manage to avoid Igotta Bigbottom's attack.
+You manage to avoid the large man's attack.
 
 > z
 Time passes...
-You manage to avoid Igotta Bigbottom's attack.
+You manage to avoid the large man's attack.
 
 > z
 Time passes...
-You manage to avoid Igotta Bigbottom's attack.
+You manage to avoid the large man's attack.
 
 > z
 Time passes...
 Ivanna Stiffdrink walks towards you from the north.
-You manage to avoid Igotta Bigbottom's attack.
+You manage to avoid the large man's attack.
 
 > z
 Time passes...
-You manage to avoid Igotta Bigbottom's attack.
+You manage to avoid the large man's attack.
 
 > buy ivanna a drink
 You get a drink from the bar, and hand it to Ivanna. She swallows it in one
@@ -374,7 +374,7 @@ Thug , Ivill Getyou and Anita Fortune are here.
 
 You can only move east.
 You manage to avoid Thug 's attack.
-You manage to avoid Ivill Getyou's attack.
+You manage to avoid BIG BOSS's attack.
 
 > examine anita
 You run over to Anita and untie her. She hugs you gratefully. "Thank you Mr.
@@ -384,19 +384,19 @@ can see you were true on your word. I will pay you when we return to
 Destination."
 You help her to her feet and go retrieve the jewel.
 You manage to avoid Thug 's attack.
-You manage to avoid Ivill Getyou's attack.
+You manage to avoid BIG BOSS's attack.
 
 > shoot thug
 You take aim at the thug, and shoot him in the chest. He tries one last
 attempt to hit you, and you shoot him a second time in the shoulder. He falls
 to the cement with a thud.
-You manage to avoid Ivill Getyou's attack.
+You manage to avoid BIG BOSS's attack.
 
 > examine ivill getyou
 The large man falls to the ground with a crash. You can almost hear the waves
 of blubber echo in the empty warehouse. You take a closer look and see the
 J.O.B. inside his belly button.
-You manage to avoid Ivill Getyou's attack.
+You manage to avoid BIG BOSS's attack.
 
 > use spoon to get jewel
 You go over to the dead boss. His massive stomach is hypnotic as you touch

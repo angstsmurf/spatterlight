@@ -842,7 +842,30 @@ scr_dump_structure_once (scr_gameref_t game)
         nk[1].integer = n;
         nk[2].string = "Name";      if (prop_get (bundle, "S<-sis", &nv, nk)) nm = nv.string;
         nk[2].string = "StartRoom"; if (prop_get (bundle, "I<-sis", &nv, nk)) sr = nv.integer;
-        fprintf (stderr, "NPC %ld [%s] startRoom=%ld\n", n, nm ? nm : "", sr - 1);
+        fprintf (stderr, "NPC %ld [%s] startRoom=%ld", n, nm ? nm : "", sr - 1);
+
+        /* Prefix and aliases: the 4.0 battle narration names an NPC by
+         * "<Prefix> <Alias[0]>" rather than by Name (see battle_print_name()
+         * in scbattle.cpp), so a battle diff wants them visible. */
+        {
+          scr_int alias_count, a;
+
+          nk[2].string = "Prefix";
+          if (prop_get (bundle, "S<-sis", &nv, nk) && nv.string
+              && nv.string[0] != '\0')
+            fprintf (stderr, " prefix=[%s]", nv.string);
+
+          nk[2].string = "Alias";
+          alias_count = prop_get_child_count (bundle, "I<-sis", nk);
+          for (a = 0; a < alias_count; a++)
+            {
+              nk[3].integer = a;
+              if (prop_get (bundle, "S<-sisi", &nv, nk) && nv.string
+                  && nv.string[0] != '\0')
+                fprintf (stderr, " alias=[%s]", nv.string);
+            }
+        }
+        fprintf (stderr, "\n");
 
         /* Battle System configuration for this NPC, read straight from the
          * bundle (NPCs[n].Battle.<attr>).  4.0 games store <attr>Lo/<attr>Hi
