@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""ADRIFT 4.0 probe: which of a task's restrictions refused, and whose message?
+"""ADRIFT 4.0 probe: why does run400 refuse a `%object%` task Scarier runs?
+
+CLOSED 2026-08-25, in four Wine rounds (Adrift_11/12/13 plus the first
+thirteen-cell run).  The answer is in the last section; the earlier rounds are
+kept because each one killed a hypothesis, and a killed hypothesis is the only
+thing that stops the next session re-testing it.
 
 The_X-Files_A_New_Beginning.taf (4.00) has task 24, `Burn %object%`, restr
 mask `#A#`:
@@ -8,50 +13,89 @@ mask `#A#`:
     RESTR type=3 v1=0 v2=2 v3=-1 fail=[]
 
 i.e. "any object is visible to the player" AND "the player is alone".  Scarier
-passes both and prints the CompleteText; run400 answers
+passed both and printed the CompleteText; run400 answers
 
     I don't understand what you want me to do with The Memo.
 
 which is generaltasks' end-of-turn fallback -- so run400 refused the task and
-printed NOTHING.  Restriction 1's message is not empty, restriction 2's is, so
-the natural reading is "restriction 2 failed and its silence fell through".
-But that reading rests on an undecoded detail: run400's fail path does a
-non-empty-message test before printing, and whether it takes the FIRST failing
-restriction that has a message or simply the LAST failing one is not readable
-from the listing.  If it is the latter, restriction 1 could have been the
-failing one all along and its message was never a candidate.
+printed NOTHING.
 
-So measure both halves at once.  Two rooms, one nowhere NPC, one trinket each
-side, and a cell per shape:
+ROUND ONE -- thirteen restriction shapes.  Two rooms, one nowhere NPC, a
+trinket each side, and a cell per shape:
 
-    pa   no restrictions at all -- the baseline that the command matches
-    burn no restrictions, on the verb xfiles uses -- is `burn` intercepted?
-    pb   restriction 1 alone            ("any object visible to the player")
-    pc   restriction 2 alone            ("the player is alone")
-    pd   both, xfiles' EXACT shape: message on 1, none on 2
-    pe   both, a message on each
-    pf   a sure-failing 1 ("NO object is visible"), message
-    pg   a sure-failing 2 ("the player is NOT alone"), message
-    ph   sure-fail 1 with a message AND a passing 2 with a message
-    pi   a passing 1 with a message AND sure-fail 2 with a message
-    pj   sure-fail 1 with NO message, sure-fail 2 with one
-    pk   sure-fail 1 with a message, sure-fail 2 with NONE
-    pl   a single sure-failing restriction with no message at all
+    pa   no restrictions at all              pf   sure-fail 1, message
+    burn ditto, on xfiles' own verb          pg   sure-fail 2, message
+    pb   restriction 1 alone                 ph   sure-fail 1 + passing 2
+    pc   restriction 2 alone                 pi   passing 1 + sure-fail 2
+    pd   xfiles' EXACT shape (msg on 1 only) pj   sure-fail 1 no msg + 2 msg
+    pe   both, a message on each             pk   sure-fail 1 msg + 2 none
+                                             pl   one sure-failer, no message
 
-pb and pc say which of xfiles' two restrictions run400 disagrees with.  ph/pi
-say which failing restriction's message the Runner picks when only one has
-failed; pj/pk say whether it skips an empty message to reach a later one or
-just prints nothing; pl is the pure silent refusal, and should produce the
-"I don't understand what you want me to do with the coin." fallback verbatim.
+**Every one of the thirteen agreed with scarier, `pd` included.**  So the
+restrictions are not the refusal, and neither is `burn` being intercepted.
+Two by-products worth keeping:
 
-The one NPC starts NOWHERE (StartRoom 0), exactly as xfiles' NPC 12 does, and
-the command file runs the alone cells in the START room, then again after a
-round trip east and back.  That is deliberate: the .taf stores the header's
-StartRoom 0-based but every exit Dest 1-based, so if run400 fails to normalise
-the header the player's room number is 0 until the first move -- which would
-collide with the nowhere NPC's 0 and make "alone" false in the start room only.
-xfiles burns the memo in its start room.  If pc fails before the round trip and
-passes after it, that is the whole bug.
+  * run400 prints the FIRST failing restriction's message and stops; an empty
+    message is still "the message" -- it does not skip forward to a later
+    failing restriction that has one (pj is silent, pk prints A).
+  * the nowhere NPC does NOT collide with an unnormalised StartRoom 0: `pc`
+    passed in the start room and after a round trip alike.
+
+ROUND TWO -- Repeatable.  Task 24 has Repeatable OFF and every round-one cell
+had it ON.  `pm`/`pn`/`po` re-run the interesting shapes with it OFF.  All
+three ran.  Not it either.
+
+ROUND THREE/FOUR -- case, and it is the whole answer.  The one thing task 24
+has that no probe cell had is CAPITAL LETTERS: its command is `Burn %object%`
+and its objects are `Memo`, `Coffee Mug`, `Gun Holster`.  Bisecting the game
+itself (lowering the verb at plain line 5929 and the Memo's Short at 2376,
+separately and together) showed the task only fires when BOTH are lowered.
+The probe pins each half:
+
+    pattern `PX %object%`, Short `coin`     px coin      -> PASS
+                                            PX coin      -> PASS
+    pattern `PY`   (literal)                py           -> PASS
+    pattern `PZ *` (wildcard)               pz anything  -> PASS
+    pattern `pa %object%`, Short `Widget`   pa widget    -> refused
+                                            pa Widget    -> refused
+    pattern `pa %object%`, Short `brass key`, Prefix `a small`
+                                            pa brass key -> PASS
+                                            pa key       -> "I don't understand."
+                                            pa a brass key / pa the brass key
+                                            pa small brass key -> refused
+    pattern `pa %object%`, Short `gem`, Alias `jewel`
+                                            pa gem       -> PASS
+                                            pa jewel     -> PASS
+                                            pa a gem / pa the gem -> refused
+
+So run400 matches a `%object%` task command as:
+
+    LCase(pattern) with %object% textually Replace()d by the object's Short or
+    one of its Aliases VERBATIM, compared for exact equality to LCase(input).
+
+Verb case is irrelevant (both sides are lowered); literals and wildcards are
+case-insensitive; but a capitalised Short can never bind, and no article, no
+Prefix and no partial name is tolerated.  The listing is
+mdlSpreadTheLoad.bas Proc_19_37_458E6C (loc_458BBC-loc_458E69) and there is no
+LCase() anywhere on the substituted name.  Its `%character%` twin at loc_46918C
+DOES lower the Name (4691B4) and each Alias (469207) before the Replace(), so
+the asymmetry is one-sided and `%character%` stays tolerant -- ADRIFTMAS
+Party's `[kiss {the} %character%]` over an NPC named "Mystery" runs in both.
+
+Ported as uip_compare_reference_strict() in scparser.cpp, gated on
+TAF_VERSION_400 and on the reference being an object.  Corpus: 64 of the 432
+.taf are 4.0 games with `%object%` in a task command, and the change moved
+exactly one golden line -- xfiles' `burn memo`, which now answers what the two
+Wine transcripts answer.
+
+STILL UNMEASURED: the 3.90 half.  run390 implements `%object%` elsewhere
+(Form1.frm:13991ff), via c() plus the seen byte at .global_44, and REWRITES the
+task command in place with the substituted name; whether it lowers anything is
+unknown, hence the 4.0-only gate.  run370/run380 have no `"%object%"` literal
+at all.
+
+FOOTGUN: Capacity packs as tens = object count, units = size index, so
+Capacity 99 is invalid and hangs run400 for ever at "Loading...".  Use 52.
 
 Usage:
     python3 make_400_burnprobe.py p4BURN.plain
@@ -110,10 +154,12 @@ room("Bravo", "The second room.", {3: 1})
 
 # OBJECTS -- one trinket each side, so "any object is visible to the player"
 # has something to see in either room and every command has a real referent.
-def obj(short, pos):
-    s("a")               # Prefix
+def obj(short, pos, prefix="a", aliases=()):
+    s(prefix)            # Prefix
     s(short)             # Short
-    s(0)                 # V$Alias count
+    s(len(aliases))      # V$Alias count
+    for a in aliases:
+        s(a)
     s(0)                 # Static
     s("A trinket.")      # Description
     s(pos)               # InitialPosition: 4 + the 0-based room
@@ -124,9 +170,15 @@ def obj(short, pos):
     s(0); s(0)           # CurrentState, ListFlag
     s(""); s(0)          # InRoomDesc, OnlyWhenNotMoved
 
-s(2)
+s(5)
 obj("coin", 4)           # Alpha
 obj("ring", 5)           # Bravo
+obj("Widget", 4)         # Alpha -- a CAPITALISED Short name (round three)
+# Round four: a two-word Short behind a two-word Prefix, and an alias, both
+# all-lowercase, to pin what else the substituted string will and will not
+# tolerate -- a partial name, an article, the Prefix itself.
+obj("brass key", 4, prefix="a small")
+obj("gem", 4, aliases=("jewel",))
 
 # RESTRICTIONS -- (Type, Var1, Var2, Var3, FailMessage).  Types 0 and 3 both
 # serialise as #Type #Var1 #Var2 #Var3 $FailMessage.
@@ -163,7 +215,7 @@ def task(cmd, text, restrs=(), mask="", repeat=1):
     s(0)                 # Actions
     s(mask)              # RestrMask
 
-s(13)
+s(20)
 task("pa %object%",   "PA PASS.")
 task("burn %object%", "BURN PASS.")
 task("pb %object%",   "PB PASS.", [VIS("PB FAIL.")],   "#")
@@ -185,6 +237,26 @@ task("pj %object%",   "PJ PASS.", [NOVIS(""), NOTALONE("PJ FAIL B.")],
 task("pk %object%",   "PK PASS.", [NOVIS("PK FAIL A."), NOTALONE("")],
      "#A#")
 task("pl %object%",   "PL PASS.", [NOVIS("")], "#")
+# The second round, added 2026-08-25 after the first thirteen cells came back
+# with every restriction shape AGREEING between run400 and scarier -- including
+# `pd`, xfiles task 24's exact shape.  So the refusal is not the restrictions.
+# The one field left that differs is Repeatable, which task 24 has OFF and
+# every cell above has ON.
+task("pm %object%",   "PM PASS.", (), "", repeat=0)
+task("pn %object%",   "PN PASS.", [VIS("PN FAIL A."), ALONE("")], "#A#",
+     repeat=0)
+task("po %object%",   "PO PASS.", [VIS("PO FAIL A.")], "#", repeat=0)
+# Round three, added 2026-08-25.  Repeatable is not it either -- `pm`/`pn`/`po`
+# all ran.  The one thing left that xfiles' task 24 has and no probe cell had is
+# CAPITAL LETTERS: its command is `Burn %object%` and its objects are `Memo`,
+# `Coffee Mug`, `Gun Holster`.  Bisecting the game itself showed that lowering
+# BOTH the verb and the object's Short makes the task fire, so measure each
+# half here: a capitalised verb (px), a capitalised literal (PY), a capitalised
+# wildcard (PZ), and a capitalised object Short behind a lowercase verb (pq).
+task("PX %object%",   "PX PASS.")
+task("PY",            "PY PASS.")
+task("PZ *",          "PZ PASS.")
+task("pq %object%",   "PQ PASS.")
 
 # EVENTS -- none.
 s(0)

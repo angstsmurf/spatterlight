@@ -503,6 +503,7 @@ extern void gs_clear_multiple_references (scr_gameref_t gs);
 /* Pattern matching functions. */
 extern scr_bool uip_match (const scr_char *pattern,
                           const scr_char *string, scr_gameref_t game);
+extern void uip_set_strict_reference (scr_bool strict);
 extern scr_char *uip_replace_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_assign_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_forget_game (const void *game);

@@ -244,7 +244,7 @@ sweep is finished -- do not redo it:
 | transcript | rule 2 | verdict |
 |---|---|---|
 | `Adrift_34_unraveling_god` | all echoed | **clean pass, identical on every turn** -- already in the corpus row |
-| `Adrift_31_xfiles` | all echoed | 19 of 20 turns byte-identical after the constant one-turn `Nope!` shift; the 20th is `burn memo`, see its OPEN section |
+| `Adrift_31_xfiles` | all echoed | 19 of 20 turns byte-identical after the constant one-turn `Nope!` shift; the 20th is `burn memo`, since FIXED (the 4.0 `%object%` case rule) |
 | `Adrift_30_humbug` | all echoed | ten differing turns, **all rule 3** -- see the humbug "Still open" list |
 | `Adrift_35_cybercow` | 1 lost | no divergence before the loss |
 | `Adrift_32/33_unraveling_god` | 2 lost / 1 lost | earlier attempts at the run `Adrift_34` completed; superseded |
@@ -496,7 +496,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `3monkeys.taf` | 4.00 | live run400 replay of the solution's first 36 commands, `Adrift_16.txt` | the Runner really does print the raw `CHIMPSIGNAL=0`; the variable freeze is not a port artefact |
 | `sa.taf` (`sophie`) | 4.00 | live run400 replay, `Adrift_41_sophie.txt`..`Adrift_45_sophie.txt` (five runs of the solution's first fifty commands), plus the game's own 488-entry ALR table | the walk announcement is **joined into the turn's paragraph**, so 12 of sa.taf's 65 join-spanning ALRs fire and delete the arrivals they match -- see the FIXED section below |
 | `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
-| `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased**, and **what is *on* an object is listed before what is *in* it, in one sentence** -- see the two FIXED sections below.  Also closed the `knock` lead (a feed artefact) and left `burn memo` open |
+| `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased**, and **what is *on* an object is listed before what is *in* it, in one sentence** -- see the two FIXED sections below.  Also closed the `knock` lead (a feed artefact) and pinned `burn memo` on the 4.0 `%object%` case rule (FIXED) |
 | `p39EXAM` / `p4EXAM` (built probes) | 3.90 + 4.00 | run390 replays `Adrift_41/43_p39exam.txt` (29 + 19 commands) and the run400 twin `Adrift_1_p4exam.txt` (32) | the whole **examine / read / open / close refusal family**, plus the empty room description: four splits found and ported, and 3.90 now agrees with Scarier on all 48 rows.  See the FIXED sections below |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
@@ -848,7 +848,11 @@ into a walk-related change.
   does mean the walkthrough's own comment at `goldens/xfiles_solution.txt:25`
   overstates the case: the `look` on the next line would have listed the knife,
   and the Runner simply never saw it.
-  `burn memo` is still open, but is narrowed -- see the OPEN section below.
+  **CLOSED 2026-08-25: `burn memo` is a capital letter.**  4.0 substitutes an
+  object's Short into a `%object%` task command **verbatim** and compares it to
+  the lower-cased input, so a capitalised Short can never bind -- and every
+  object in xfiles is capitalised.  Ported, and the golden re-blessed; see the
+  FIXED section below.
 - **FIXED 2026-08-25: the 4.0 battle narration names an NPC by its alias,
   not by its Name.**  Found by re-running `compare_wine_transcript.py` over
   `Adrift_36_orient_express.txt`, a transcript that was measured for the walk
@@ -2643,146 +2647,131 @@ happens at LOAD; 3.7 differs on at least one row (`open <present, not
 openable>` composes with a period at `43D1E0`, where 3.8 and 3.9 have grown a
 separate branch ending in a bang).
 
-## OPEN 2026-08-25 -- `burn memo`  (probe built, waiting on Wine)
+## FIXED 2026-08-25 -- `burn memo`: 4.0 binds `%object%` case-sensitively
 
-**run400 refuses a task Scarier runs.**  Task 24, `Burn %object%`, restr=2,
-mask `#A#`:
+**run400 refused a task Scarier ran, and the reason is neither the
+restrictions nor Repeatable -- it is a capital letter.**
+
+The_X-Files_A_New_Beginning.taf task 24 is `Burn %object%`, restr=2, mask
+`#A#`:
 
     RESTR type=0 var1=1 var2=3 var3=0    "any object visible to the player"
     RESTR type=3 var1=0 var2=2 var3=-1   "the player is alone"
 
-`SCR_TRACE_TASKS=1` shows both PASS in Scarier and the task running, printing
-its CompleteText (`You incinerate the The Memo with a Zippo ...`).  run400
-answers `I don't understand what you want me to do with The Memo.`, which is
-`generaltasks`' end-of-turn fallback at `loc_48B1F5`
-(`mdlSpreadTheLoad.bas:33899`; the other copy of the string is in `therest`,
-`Proc_19_85_489F4C`, at `loc_488706`).  So run400 refused the task **and
-printed nothing at all**.  It is not the empty-CompleteText refusal (see Open
-leads) -- the CompleteText is not empty.
+`SCR_TRACE_TASKS=1` showed both PASS in Scarier and the task running, printing
+`You incinerate the The Memo with a Zippo ...`.  run400 answered `I don't
+understand what you want me to do with The Memo.` -- `generaltasks`' end-of-turn
+fallback at `loc_48B1F5` (`mdlSpreadTheLoad.bas:33899`) -- so it refused the
+task and printed **nothing at all**.  Reproduced in two independent sessions
+(`Adrift_22_xfiles.txt:17-18`, `Adrift_31_xfiles.txt:32-33`), so not a feed
+artefact.
 
-**Corroborated by a second, independent run (2026-08-25).**
-`Adrift_31_xfiles.txt` is a different 20-command run of the same game, and it
-reproduces the refusal exactly.  It also turns out to be *measurable*, which
-`Adrift_22` was not: xfiles is on the "RNG-timed event lines" list above
-because its `Nope!` event cannot be aligned command for command -- but in this
-run the misalignment is a **constant one-turn shift**, because the CRLF feed
-drove an extra empty Return after every command and each of those printed a
-bare `Nope!` (see the FIXED bare-Return section).  Strip the trailing ` Nope!`
-from each run400 turn and compare run400 turn *N* against scarier turn *N+1*:
+### What it took to get there
 
-    aligned-by-one mismatches: 1
-    4  burn memo
-      run400   I don't understand what you want me to do with The Memo.
-      scarier  You incinerate the The Memo with a Zippo you found somewhere.
+Four Wine rounds on the synthetic `p4BURN.taf`
+(`harness/make_400_burnprobe.py`, whose docstring carries the full cell table):
 
-**19 of the 20 turns are byte-identical**, `take all from desk`,
-`x desk`, the three `ask cancerman about N` topics and both parking-garage room
-descriptions included.  So the divergence is not a one-off hiccup in the
-`Adrift_22` feed, and nothing else in either replay is wrong -- `burn memo` is
-the only thing left in xfiles.
+  1. **Thirteen restriction shapes** -- one restriction, two restrictions,
+     sure-failers, messages present and absent, and `pd`, xfiles task 24's
+     *exact* shape.  **All thirteen agreed with Scarier.**  The restrictions
+     are not the refusal, and `burn` is not intercepted.  Two facts fell out
+     for free: run400 prints the **first** failing restriction's message and
+     stops, an empty message included (it does not skip ahead to a later
+     failing restriction that has one) -- which is what `restr_lowest_fail`
+     (`screstrs.cpp:906`, consumed at `:1176`) already does; and the nowhere
+     NPC does not collide with an unnormalised `StartRoom` 0 (`pc` passed both
+     before and after the round trip).
+  2. **Repeatable** -- task 24 has it OFF, every round-one cell had it ON.
+     `pm`/`pn`/`po` re-ran the interesting shapes with it OFF.  All ran.
+  3. **Case, verb half and object half.**  Bisecting the game itself -- lower
+     the verb at plain line 5929, lower the Memo's Short at 2376, separately
+     and together, repack, replay -- showed the task fires only when **both**
+     are lowered (`Adrift_11.txt`).
+  4. **Case, pinned cell by cell** (`Adrift_12.txt`, `Adrift_13.txt`).
 
-    python3 harness/compare_wine_transcript.py \
-        --taf games/The_X-Files_A_New_Beginning.taf \
-        --feed ~/adrift-battle/runner/wine/cmdfile_xfiles.txt \
-        --runner ~/adrift-battle/runner/wine/pfx/drive_c/adrift/Adrift_31_xfiles.txt
+### The rule, measured
 
-(The comparator drops blank feed lines, so it cannot see the empty Returns and
-reports the shift as 20 differing turns.  Do the realignment by hand.)
+    LCase(pattern), with %object% textually Replace()d by the object's Short or
+    one of its Aliases VERBATIM, compared for exact equality to LCase(input).
 
-**run400's type=3 restriction dispatch, decoded** (`mdlSpreadTheLoad.bas`,
-`loc_48118D` where `var_9E = 3`, through `loc_481523`).  This is what the probe
-is testing, written out so the probe's answers can be read against it:
+| probe cell | typed | run400 |
+| --- | --- | --- |
+| `PX %object%`, Short `coin` | `px coin` | PASS |
+| `PX %object%`, Short `coin` | `PX coin` | PASS |
+| `PY` (literal) | `py` | PASS |
+| `PZ *` (wildcard) | `pz anything` | PASS |
+| `pa %object%`, Short `Widget` | `pa widget` | refused |
+| `pa %object%`, Short `Widget` | `pa Widget` | refused |
+| `pa %object%`, Short `brass key`, Prefix `a small` | `pa brass key` | PASS |
+| ditto | `pa key` | `I don't understand.` |
+| ditto | `pa a brass key` / `pa the brass key` / `pa small brass key` | refused |
+| `pa %object%`, Short `gem`, Alias `jewel` | `pa gem` | PASS |
+| ditto | `pa jewel` | PASS |
+| ditto | `pa a gem` / `pa the gem` | refused |
 
-| | |
-|---|---|
-| `Var1 = 0` | the branch xfiles uses -- a *character* test |
-| `Var2 = 0` | that character is in the player's room (`loc_4812A1`) |
-| `Var2 = 1` | that character is **not** in the player's room (`loc_4812CA`) |
-| `Var2 = 2` | the player is alone (`loc_4812F0`) |
-| `Var2 = 3` | the player is not alone (`loc_48132E`) |
-| `Var3` | read **only when `Var2 < 2`** (`loc_4811D3`): 0 = the player itself, so the test short-circuits to `Var2 = 0` at `loc_4811F0` and returns; 1 = the referenced character, and if none is referenced (`MemVar_49420A = 255`) the restriction fails outright at `loc_48123D`; anything else = NPC `Var3 - 2` |
+So the **verb**'s case never matters (both sides are lowered), literals and
+wildcards are case-insensitive, but a **capitalised Short can never bind**, and
+no article, no Prefix and no partial name is tolerated.  xfiles' objects are
+`Memo`, `Coffee Mug`, `Gun Holster` -- every one capitalised -- so task 24 is
+dead code in the real Runner, and so is every other `%object%` task in that
+game.
 
-Two consequences.  First, xfiles' `Var3 = -1` is *never read*, so it cannot be
-what breaks -- `Var2 = 2` jumps straight to the alone loop.  Second, that loop
-is `var_86 = TRUE; For var_8E = 0 To NumberOfNPCs - 1: If playerroom =
-NPCs(var_8E).global_14 Then var_86 = FALSE` (`loc_481303`, whose real counter
-is `var_8E` -- the p-code pushes the counter's address between the start and
-the limit, so the decompiler's `var_CC` is a synthesized temp), which is
-Scarier's `!(npc_count_in_room (playerroom) > 1)` exactly.  The probe's `pc`
-cell is therefore the whole question, and if `pc` passes in run400 too then the
-task never matched and restriction 2 is innocent.
+### Why it is a Runner bug, and a one-sided one
 
-**The FailMessages narrow it to restriction 2.**  `scdump.cpp`'s RESTR line now
-prints each restriction's `FailMessage`, because that is what decides how a
-failure *looks* from outside:
+The listing is `Proc_19_37_458E6C` (`mdlSpreadTheLoad.bas:26591-26845`, body
+`loc_458BBC`-`loc_458E69`): guard `InStr(pattern, "%object%") > 0`, loop the
+object array, gate on the seen byte `CInt(obj.global_48) = 1`, prefilter
+`Proc_21_38_454CB0`, scope-test `Proc_21_53_44B578(i) = arg_14`, then
+`Replace(pattern, "%object%", obj.global_4, 1, -1, 0)` and compare.  **There is
+no `LCase()` anywhere on the substituted name.**
 
-    RESTR type=0 v1=1 v2=3 v3=0 fail=[There's nothing here to burn!]
-    RESTR type=3 v1=0 v2=2 v3=-1 fail=[]
+Its `%character%` twin, `loc_46918C`-`loc_469264` in the same file, is written
+the same way but *does* lower the NPC's Name (`loc_4691B4`) and each Alias
+(`loc_469207`) before the `Replace()`.  The asymmetry is the whole bug, and it
+is one-sided: ADRIFTMAS Party's `[kiss {the} %character%]` over an NPC named
+`Mystery` runs in the Runner, and must keep running here.
 
-Whatever rule run400 uses to pick which failing restriction's message to print
--- first-failing, first-failing-with-a-message, last-failing -- they all agree
-when only *one* restriction fails, because then there is only one candidate.
-So if restriction 1 had failed, `There's nothing here to burn!` would have been
-printed.  It was not.  Restriction 1 passed in run400; the silence is
-restriction 2's empty message, or the task never matched at all.
+### Ported
 
-**No mechanism found in the listings.**  Ruled out, in order:
+`uip_compare_reference_strict()` in `scparser.cpp`, reached through the
+`uip_set_strict_reference()` flag that `run_match_task_commands()` raises with
+an RAII guard for `>= TAF_VERSION_400` only, and only for objects (the
+`%character%` branch keeps the tolerant matcher, along with its lead-character
+prefilter).  Corpus exposure is wide and the blast radius was not: **64 of the
+432 .taf are 4.0 games with `%object%` in a task command**, and the change
+moved exactly one golden line.
 
-- the feed -- every command in `Adrift_22_xfiles.txt` lines 5-21 echoes
-  correctly, `burn memo` included;
-- an NPC actually being present -- no NPC starts in Your Office (room 0); Ruth
-  is prose only; the 16 NPC start rooms are 3, 15, 9, 9, 9, 9, 25, 24, 24, 5,
-  28, 34, -1, 30, 17, 19;
-- a hidden-NPC collision on room 0 -- run400's player room is 1-based
-  (`Proc_19_27_4430F0`, `mdlSpreadTheLoad.bas:22660`, returns a room index
-  unchanged while it is `< NumberOfRooms + 1`, which is only right for 1-based
-  rooms; exit `Dest`s go into `unk_409011.global_0` raw), in the same space as
-  NPC `global_14`, so a nowhere NPC at 0 can never match;
-- an off-by-one in run400's Alone loop -- `loc_4812F0` is `var_86 = TRUE; For i
-  = 0 To NumberOfNPCs-1: If playerroom = NPCs(i).global_14 Then var_86 = FALSE`,
-  semantically identical to Scarier's `!(npc_count_in_room(playerroom) > 1)`;
-- task 24 being spent -- xfiles has **no** `ACT type=5` (execute task) anywhere,
-  and all six of its events are `starter=3`;
-- another task claiming the command -- task 25's `Burn *Car` cannot match.
+`xfiles_solution.expected.txt` re-blessed, three lines: `burn memo` now answers
+`I don't understand what you want me to do with The Memo.` verbatim as the two
+Wine transcripts do, and the score falls 296 -> 295, "3 points short" -> "4
+points short".
 
-Task 24 carries the game's **only** `type=3 Var2=2` restriction, so nothing
-else in the transcript can corroborate or refute it.
+### Version scope
 
-**The probe is built and staged**:
-`harness/make_400_burnprobe.py` -> `p4BURN.taf`, with
-`~/adrift-battle/runner/wine/cmdfile_burn.txt`.  Two rooms, one trinket each
-side, and exactly one NPC, which starts **nowhere** (`StartRoom` 0) as xfiles'
-NPC 12 does.  Thirteen cells: a restriction-free baseline, a restriction-free
-`burn %object%` (is the verb intercepted before task matching?), each of
-xfiles' two restrictions alone, xfiles' exact two-restriction shape, and
-sure-failing twins (`no object is visible`, `the player is not alone`) in every
-combination of empty and non-empty FailMessage.  Scarier's own answers, which
-are what the Wine run is measured against, are:
+`"%object%"` does not appear in run370.exe or run380.exe at all -- the
+substitution does not exist before 3.9.  run390 implements it somewhere else
+entirely (`Form1.frm:13991ff`), through `c()` plus the seen byte at
+`.global_44`, and **rewrites the task command in place** with the substituted
+name.  Whether it lowers anything is unmeasured, which is why the split is
+pinned at 4.0 and not lower.  Measuring the 3.90 half is the follow-up.
 
-    pa coin   PA PASS.        burn coin  BURN PASS.
-    pb coin   PB PASS.        (restriction 1 alone)
-    pc coin   PC PASS.        (restriction 2 alone -- THE test)
-    pd coin   PD PASS.        (xfiles' exact shape)
-    pe coin   PE PASS.
-    pf coin   PF FAIL.        pg coin  PG FAIL.
-    ph coin   PH FAIL A.      pi coin  PI FAIL B.
-    pj coin   I don't understand what you want me to do with the coin.
-    pk coin   PK FAIL A.
-    pl coin   I don't understand what you want me to do with the coin.
+### By-product, not yet ported
 
-`pb`/`pc` say which of xfiles' restrictions run400 disagrees with; `pa`/`burn`
-say whether matching itself is the problem; `ph`/`pi`/`pj`/`pk` decode the
-message-selection rule as a by-product (Scarier takes the *first* failing
-restriction's message even when it is empty -- `restr_lowest_fail`,
-`screstrs.cpp:906`, consumed at `:1176`).
+The same listing shows run400 trying the match **twice**: `arg_14` is the
+scope answer it demands from `Proc_21_53_44B578`, and the tail self-call at
+`loc_458E64` re-runs the whole loop with `arg_14 = 0`.  Present objects bind
+first, absent-but-seen objects only if no present object matched.  Still
+unported; see the `SCR_TRACE_SCOPE` note.
 
-The command file runs the alone cells in the start room, then again after `e`
-and `w`.  That round trip is deliberate: the .taf stores the header's
-`StartRoom` 0-based but every exit `Dest` 1-based, so a Runner that failed to
-normalise the header would have the player at room 0 until the first move --
-colliding with the nowhere NPC and making "alone" false in the start room only.
-xfiles burns the memo in its start room.  If `pc` fails before the round trip
-and passes after it, that is the whole bug.
+The `%character%` half gates on `CInt(npc.global_26) = 1`, the NPC's own seen
+byte -- set exactly like an object's `global_48` (`General.bas:452E4E` sets an
+object's seen byte when the NPC holding it is seen).  That is why
+`Adrift_22_xfiles.txt:232` answers `look up byers` with `You see no such
+thing.`: at the FBI parking garage the Lone Gunmen have not been met yet, so
+`Look up *%character%*` cannot bind.  The golden reaches that command long
+after Byers has been listed, so it is not a divergence -- but porting the NPC
+seen gate is still open.
+
 
 ## CLOSED 2026-08-25 -- an unhandled command names an object it can't see
 

@@ -417,13 +417,30 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 #     N+1 and 19 of the 20 turns are byte-identical; the 20th is `burn memo`.
 #     This is the run that says the four rules above hold outside the one
 #     transcript they were read from.
-# Still divergent and NOT fixed here, logged in
-# notes/WINE-TRANSCRIPTS-TODO.md: `burn memo` is refused by run400 -- task 24
-# matches but one of its two restrictions fails silently there, and which one
-# needs a single-restriction probe.  Reproduced independently in
-# Adrift_31_xfiles.txt, so it is not a feed artefact; run400's type=3
-# restriction dispatch is now decoded in the notes and clears Var3 = -1 of any
-# part in it, which leaves the probe's `pc` cell as the whole question.
+# Re-blessed 2026-08-25, three lines (`burn memo`, and the two score lines it
+# moves), for the 4.0 `%object%` case rule.  run400 substitutes an object's
+# Short (or an Alias) into a `%object%` task command VERBATIM and compares the
+# result to the lower-cased input -- Proc_19_37_458E6C, mdlSpreadTheLoad.bas
+# loc_458BBC-loc_458E69, which has no LCase() on the substituted name, unlike
+# its `%character%` twin at loc_46918C which lowers the Name and every Alias.
+# So a capitalised Short can never bind, and xfiles' objects are all
+# capitalised ("Memo", "Coffee Mug", "Gun Holster"): task 24, `Burn %object%`,
+# is dead code in the real Runner.  Measured on the synthetic p4BURN.taf over
+# four Wine rounds (harness/make_400_burnprobe.py carries the cell table):
+# thirteen restriction shapes all AGREED, Repeatable OFF agreed, and then
+# `pa %object%` + Short "Widget" refused `pa widget` AND `pa Widget`, while
+# `PX %object%` + Short "coin" took both `px coin` and `PX coin`.  No article,
+# no Prefix and no partial name binds either.  Ported as
+# uip_compare_reference_strict() in scparser.cpp, gated on TAF_VERSION_400 and
+# on the reference being an object.  64 of the 432 corpus .taf are 4.0 games
+# with `%object%` in a task command; this moved one golden line, and it moved
+# it onto what Adrift_22_xfiles.txt:17-18 and Adrift_31_xfiles.txt:32-33 both
+# print.  Score 296 -> 295, "3 points short" -> "4 points short".
+# `look up byers` (Adrift_22_xfiles.txt:232) is NOT a divergence: the
+# `%character%` matcher gates on the NPC's seen byte (npc.global_26) and the
+# Runner had not met the Lone Gunmen yet at the parking garage, where this
+# golden reaches the line long after Byers has been listed.  Porting the NPC
+# seen gate is still open.
 # Re-blessed 2026-08-25, one line (589, `open phone book`): no Runner has ever
 # printed "Open what?".  scrunner.cpp's `open *` row was asymmetric with the
 # `close *` row directly beneath it, and now routes to lib_cmd_open_other() for

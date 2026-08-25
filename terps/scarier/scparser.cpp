@@ -1414,6 +1414,86 @@ uip_skip_article (const scr_char *string, scr_int start)
 
 
 /*
+ * Strict %object% / %character% matching.
+ *
+ * MEASURED 2026-08-25 on p4BURN.taf under run400 (Adrift_12.txt and
+ * Adrift_13.txt, every command echoed).  A task command pattern is matched
+ * by the Runner at 458BBC: it takes the lowercased pattern, does a binary
+ * Replace() of "%object%" with the object's Short -- or, in the loop just
+ * below, one of its Aliases -- VERBATIM, and compares the result for exact
+ * equality with the lowercased input.  Nothing else takes part: no Prefix,
+ * no article, no partial name, and no case folding of the name itself.
+ *
+ *   task "PX %object%", object Short "coin"        px coin  -> runs
+ *                                                  PX coin  -> runs
+ *   task "pa %object%", object Short "Widget"      pa widget -> no
+ *                                                  pa Widget -> no
+ *   task "pa %object%", Short "brass key",         pa brass key       -> runs
+ *                       Prefix "a small"           pa key             -> no
+ *                                                  pa a brass key     -> no
+ *                                                  pa the brass key   -> no
+ *                                                  pa small brass key -> no
+ *   task "pa %object%", Short "gem", Alias "jewel" pa gem   -> runs
+ *                                                  pa jewel -> runs
+ *                                                  pa a gem -> no
+ *
+ * So an object whose Short carries a capital letter can never bind a bare
+ * %object% -- which is why The X-Files' task 24, `Burn %object%` over objects
+ * named "Memo", "Coffee Mug" and "Gun Holster", never fires in the Runner
+ * however the player phrases it.  Bisecting the game itself confirmed it:
+ * lowering the verb and the Short together makes `burn memo` run and print
+ * the CompleteText (Adrift_11.txt).
+ *
+ * %character% is NOT affected: its half of the same matcher (46918F) runs the
+ * NPC Name and each Alias through LCase() before the Replace(), where the
+ * object half (458BF4) substitutes the Short raw.  The asymmetry is the whole
+ * bug, and it is one-sided -- ADRIFTMAS Party's `[kiss {the} %character%]`
+ * over an NPC named "Mystery" runs in the Runner, and still runs here.
+ *
+ * This is task-command matching only.  The library's own patterns and the
+ * variable functions go through the Runner's noun resolver, which is
+ * prefix- and case-tolerant, so the flag is set only around
+ * run_match_task_commands().
+ */
+static scr_bool uip_strict_reference = FALSE;
+
+/* Set for the duration of one uip_match_entity() call, because
+ * uip_compare_candidate() cannot otherwise tell an NPC from an object. */
+static scr_bool uip_strict_is_character = FALSE;
+
+void
+uip_set_strict_reference (scr_bool strict)
+{
+  uip_strict_reference = strict;
+}
+
+
+/*
+ * uip_compare_reference_strict()
+ *
+ * The strict comparator described above: the name must appear at the current
+ * position exactly as authored, against a lowercased view of the input, and
+ * must end on a word boundary.  Returns the new position on match, else zero.
+ */
+static scr_int
+uip_compare_reference_strict (const scr_char *name)
+{
+  scr_int wpos, posn;
+
+  posn = uip_posn;
+  for (wpos = 0; name[wpos] != NUL; wpos++, posn++)
+    {
+      if (name[wpos] != scr_tolower (uip_string[posn]))
+        return 0;
+    }
+
+  if (scr_isspace (uip_string[posn]) || uip_string[posn] == NUL)
+    return posn;
+  return 0;
+}
+
+
+/*
  * uip_compare_reference()
  *
  * Helper for %character% and %object% matchers.  Matches multiple words
@@ -1674,6 +1754,10 @@ uip_compare_candidate (const scr_uip_candidate_t &candidate)
 {
   size_t form;
 
+  /* 4.0 task commands substitute the bare name, and nothing else. */
+  if (uip_strict_reference && !uip_strict_is_character)
+    return uip_compare_reference_strict (candidate.plain);
+
   for (form = 0; form < candidate.forms.size (); form++)
     {
       scr_int extent = uip_compare_reference (candidate.forms[form].c_str ());
@@ -1760,6 +1844,8 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
     scr_trace ("UIParser: attempting to match %s\n",
                is_character ? "%character%" : "%object%");
 
+  uip_strict_is_character = is_character;
+
   /* Clear all current references. */
   if (is_character)
     gs_clear_npc_references (game);
@@ -1802,7 +1888,8 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
             scr_trace ("UIParser: trying %s%s\n",
                        alias < 0 ? "" : "alias ", candidate.plain);
 
-          if (candidate.leads.find (input_lead) == std::string::npos)
+          if (!(uip_strict_reference && !is_character)
+              && candidate.leads.find (input_lead) == std::string::npos)
             continue;
 
           extent = uip_compare_candidate (candidate);

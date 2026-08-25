@@ -1286,6 +1286,36 @@ run_task_ran_this_command (scr_int task)
  */
 
 /*
+ * scr_strict_reference_guard
+ *
+ * Turns strict %object% matching on for the lifetime of the guard, and off
+ * again however the scope is left.
+ */
+class scr_strict_reference_guard
+{
+public:
+  explicit scr_strict_reference_guard (scr_bool strict) : strict_ (strict)
+  {
+    if (strict_)
+      uip_set_strict_reference (TRUE);
+  }
+
+  ~scr_strict_reference_guard ()
+  {
+    if (strict_)
+      uip_set_strict_reference (FALSE);
+  }
+
+  scr_strict_reference_guard (const scr_strict_reference_guard &) = delete;
+  scr_strict_reference_guard &
+  operator= (const scr_strict_reference_guard &) = delete;
+
+private:
+  const scr_bool strict_;
+};
+
+
+/*
  * run_match_task_commands()
  *
  * Helper for run_game_commands_common().
@@ -1304,6 +1334,12 @@ run_match_task_commands (scr_gameref_t game,
   const scr_int command_count = (scr_int) patterns.size ();
   scr_int command;
   scr_bool is_matched;
+
+  /* 4.0 binds %object% strictly -- see the note above
+   * uip_compare_reference_strict().  Task commands only; the library's own
+   * patterns keep the tolerant matcher. */
+  const scr_strict_reference_guard strict_reference
+      (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400);
 
   /* Iterate over commands, looking for patterns that match string. */
   is_matched = FALSE;

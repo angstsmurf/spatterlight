@@ -103,8 +103,7 @@ Your Badge and The Memo from Your Desk.
 Oh, good for you, Agent Mulder!
 
 > burn memo
-You incinerate the The Memo with a Zippo you found somewhere.  It gives you a
-warm feeling inside.
+I don't understand what you want me to do with The Memo.
 
 > strip
 You're now naked.  Congratulations, you're a rip snortin' hottie, woof!
@@ -827,6 +826,6 @@ to be such a strong and smart young man, or to be sad that I can't protect
 you anymore.  Either way," your father says as he extends his hand to you,
 "Welcome to the Resistance."  You smile without knowing why as you grip it in
 return.
-You scored 296 out of the maximum 299!
+You scored 295 out of the maximum 299!
 That is 98% of the game!
-You finished 3 points short.
+You finished 4 points short.
