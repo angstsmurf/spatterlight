@@ -714,9 +714,20 @@ unauthorized_termination_solution.txt|unauthorized.taf|Assignment Status: You ha
 # so it is probably not a good idea to go just yet."), so the game does not
 # finish there.  Two engine-wide divergences this replay exposed, both also
 # visible in xfiles: run400 lower-cases object state names ("switched off",
-# "switch in the on position") where we capitalise them -- still open, only
-# first-character evidence exists so LCase-whole-string cannot be told apart
-# from lowering the first letter -- and %in_<obj>% / %on_<obj>% pick their
+# "switch in the on position") where we capitalised them -- FIXED and
+# re-blessed 2026-08-25, three lines here (two "in the On position" -> "in the
+# on position", one "switched Off." -> "switched off."), each of which the
+# transcript itself prints at Adrift_23_where_are_my_keys.txt lines 34, 50 and
+# 64.  The rule is narrower than "run400 lower-cases states": ONLY
+# %state_<obj>% is folded, and it is folded whole
+# ("R1" -> "r1", "In the UP position" -> "in the up position", mid-sentence
+# too), while the examine lister and %obstate% print the States entry
+# verbatim.  Measured on the synthetic p4STATE.taf, six objects x four readers
+# x two states, Adrift_1_p4state.txt, all 29 commands echoed -- the corpus's
+# destructive shapes ("Facing South", "Sur la gauche", "Locked Off", "R1")
+# were chosen precisely so a whole-string fold could be told apart from a
+# first-letter one.  Ported in scvars.cpp's state_ branch alone.
+# -- and %in_<obj>% / %on_<obj>% pick their
 # listing format by content count, exactly as the library listers already do.
 # The latter is FIXED (var_use_alternate_format() in scvars.cpp).  Measured in
 # Adrift_23_where_are_my_keys.txt: `open fridge` (CompleteText "...%in_fridge%", three objects

@@ -78,7 +78,7 @@ Under the Stairs
 You are in the tiny cupboard under the stairs.  Although it is tiny, very
 cramped and dark it seems to be the nicest place you have been in so far.
 Some of the floorboards seem to be loose and you can see a hole.  On the wall
-you can see a fuse box with a single switch in the On position.   You can
+you can see a fuse box with a single switch in the on position.   You can
 only really go northwest back to the kitchen.
 
 > pull floorboards
@@ -107,7 +107,7 @@ Under the Stairs
 You are in the tiny cupboard under the stairs.  Although it is tiny, very
 cramped and dark it seems to be the nicest place you have been in so far.
 Some of the floorboards seem to be loose and you can see a hole.  On the wall
-you can see a fuse box with a single switch in the On position.   You can see
+you can see a fuse box with a single switch in the on position.   You can see
 a very large hole in the floor, big enough to get through.  You can down the
 hole or northwest back to the kitchen.
 
@@ -134,7 +134,7 @@ You put on the pair of gloves.
 
 > x cooker
 It is an electric cooker.  At the moment the cooker appears to be switched
-Off.  A saucepan and a frying pan are on the cooker.
+off.  A saucepan and a frying pan are on the cooker.
 
 > x saucepan
 It is a well used (and little cleaned) metal saucepan.  A bone is inside the

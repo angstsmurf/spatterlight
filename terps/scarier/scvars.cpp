@@ -1227,6 +1227,25 @@ var_get_system (scr_var_setref_t vars,
       memcpy (vars->temporary, state, strlen (state) + 1);
       scr_free (state);
 
+      /*
+       * MEASURED 2026-08-25, run400 on p4STATE.taf (Adrift_1_p4state.txt, all
+       * 29 commands echoed): %state_<obj>% comes back LOWER-CASED, over the
+       * whole string, wherever it sits in the sentence --
+       *
+       *   st panel   ST=[r1]                       (States "R1")
+       *   st sign    ST=[sur la gauche]            ("Sur la gauche")
+       *   st lever   ST=[in the up position]       ("In the UP position")
+       *   mid lever  MID: the lever reads in the up position today.
+       *
+       * and it is not a first-letter rule: "UP" and "R1" both lose their
+       * capitals.  The other two readers of the same States list do NOT --
+       * the examine lister prints "The lever is In the UP position." and
+       * %obstate% answers "OB=[In the UP position]", both verbatim, in the
+       * same transcript.  So the fold belongs here and nowhere else.
+       */
+      for (scr_char *cursor = vars->temporary; *cursor != NUL; cursor++)
+        *cursor = scr_tolower (*cursor);
+
       /* Restore saved referenced object and return. */
       vars->referenced_object = saved_ref_object;
       return var_return_string (vars->temporary, type, vt_rvalue);

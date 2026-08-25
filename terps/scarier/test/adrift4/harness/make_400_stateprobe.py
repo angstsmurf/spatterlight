@@ -50,6 +50,26 @@ sites in run400 too and need not agree:
 and `flip` then moves the lever to its second state so the same three reads
 can be repeated on a state the game switched to rather than started in.
 
+MEASURED AND CLOSED 2026-08-25, Adrift_1_p4state.txt, all 29 commands echoed.
+The answer is that the three callers do NOT agree, and only one of them folds:
+
+    States entry           x <obj>              %obstate%            %state_X%
+    In the UP position     In the UP position   In the UP position   in the up position
+    Facing South           Facing South         Facing South         facing south
+    Locked Off             Locked Off           Locked Off           locked off
+    R1                     R1                   R1                   r1
+    Sur la gauche          Sur la gauche        Sur la gauche        sur la gauche
+    switched off           switched off         switched off         switched off
+    In the DOWN Position   In the DOWN Position In the DOWN Position in the down position
+
+`mid <obj>` answers the same as `st <obj>` on every row, so it is not a
+line-opening rule; and "UP" and "R1" both lose their capitals, so it is not a
+first-letter rule either.  %state_<obj>% is LCase()d whole and nothing else
+is.  So obj_state_name() in scobjcts.cpp was the WRONG place to change --
+the fold went into the state_ branch of scvars.cpp, its only caller that
+wants it.  where_are_my_keys_solution.txt re-blessed, three lines, all three
+independently visible in Adrift_23_where_are_my_keys.txt.
+
 Usage:
     python3 make_400_stateprobe.py p4STATE.plain
     python3 taftool.py pack p4STATE.plain <donor.taf> p4STATE.taf

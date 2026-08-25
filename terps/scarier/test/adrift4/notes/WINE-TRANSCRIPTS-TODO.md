@@ -498,6 +498,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
 | `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased**, and **what is *on* an object is listed before what is *in* it, in one sentence** -- see the two FIXED sections below.  Also closed the `knock` lead (a feed artefact) and pinned `burn memo` on the 4.0 `%object%` case rule (FIXED) |
 | `p4BURN` (built probe) + an `xfiles` bisect | 4.00 | four run400 probe replays (`Adrift_6_p4burn.txt` thirteen restriction cells, `Adrift_2_p4burn.txt` Repeatable, `Adrift_12/13_p4burn.txt` case) and nine replays of edited `xfiles` builds (`Adrift_1/3/4/5/7/8/9/10/11_xfilesbisect.txt`) | **4.0 substitutes an object's Short or Alias into a `%object%` task command verbatim** and compares it to the lower-cased input, so a capitalised Short can never bind and no article, Prefix or partial name binds either.  `%character%` lowers the name first and is unaffected.  See the FIXED section below |
+| `p4STATE` (built probe) | 4.00 | run400 replay, `Adrift_1_p4state.txt` (29 commands) | **only `%state_<obj>%` lower-cases an object's state name, and it folds the whole string**; the examine lister and `%obstate%` print it verbatim.  One golden, three lines |
 | `p39CASE` (built probe) | 3.90 | run390 replay, `Adrift_1_p39case.txt` (19 commands) | the 3.90 half of the same rule: **strict binding starts at 3.90, the case fold is only lost at 4.0**.  Moved five rows in Scarier and no goldens |
 | `p39EXAM` / `p4EXAM` (built probes) | 3.90 + 4.00 | run390 replays `Adrift_41/43_p39exam.txt` (29 + 19 commands) and the run400 twin `Adrift_1_p4exam.txt` (32) | the whole **examine / read / open / close refusal family**, plus the empty room description: four splits found and ported, and 3.90 now agrees with Scarier on all 48 rows.  See the FIXED sections below |
 
@@ -1842,47 +1843,46 @@ prints a prefixed ", and inside is `<list>`", which scarier did not model.
 **Ported 2026-08-25** off the xfiles replay, which does exercise it -- see
 "what is ON an object is listed before what is IN it" below.
 
-Still open from the same replay: run400 **lower-cases object state names**
-("switched off", "switch in the on position") where we print the `States`
-pipe-list verbatim.  Only first-character evidence exists, so `LCase` over
-the whole string cannot be told apart from lowering the first letter, and the
-corpus has states where the difference is destructive -- `in the UP position`
-(TheADRIFTProject), `facing South` (The_Hunter), `Sur la gauche` (Les Feux de
-l'enfer), `R1..R7` (Oh_Human), `Locked off` (baroo).  No saved transcript
-covers any of them; `%state_` / `%obstate` are 4.00-only (UTF-16LE at
-run400.exe 0x1d1cc and 0x1d108, absent from run370/380/390) and run400's
-game-logic literals live in a runtime table that neither `run400.p32dasm.txt`
-nor `run400-analysed/Form1.frm` resolves.  If it is ever measured, the single
-place to change is `obj_state_name()` in `scobjcts.cpp`: its three callers
-(`lib_list_object_state`, `%obstate%`, `%state_X%`) are all print sites and
-nothing compares state names.
+**FIXED 2026-08-25 -- and the rule is narrower than it looked.**  run400 was
+seen to print "switched off" and "switch in the on position" where Scarier
+capitalised them, but only first-character evidence existed, so `LCase` over
+the whole string could not be told apart from lowering the first letter -- and
+the corpus has states where the difference is destructive: `in the UP
+position` (TheADRIFTProject), `facing South` (The_Hunter), `Sur la gauche`
+(Les Feux de l'enfer), `R1..R7` (Oh_Human), `Locked off` (baroo).
 
-**Probe built 2026-08-25, waiting on Wine.**
-`harness/make_400_stateprobe.py` -> `p4STATE.taf`, staged in
-`~/adrift-battle/runner/wine/pfx/drive_c/adrift/` with `cmdfile_state.txt`
-next to it.  Six stateful objects in one room, each carrying one of the
-corpus's destructive shapes -- `In the UP position`, `Facing South`,
-`Locked Off`, `R1`, `Sur la gauche` -- plus `switched off` as the control,
-which is already lower case and so must come back unchanged under either
-rule.  Each is read through all three callers, because they are three
-separate sites in run400 too and need not agree: `x <obj>` (the examine
-lister, `BStateListed` on), `ob <obj>` (a task printing `OB=[%obstate%]`) and
-`st <obj>` (one printing `ST=[%state_<obj>%]`); a fourth cell, `mid <obj>`,
-puts the same name mid-sentence in case run400 only lower-cases what opens a
-line.  `flip` then moves the lever to `In the DOWN Position` so all four reads
-repeat on a state the game switched to rather than started in.  Scarier's
-answers, for the diff:
+`harness/make_400_stateprobe.py` -> `p4STATE.taf` settles it: six stateful
+objects in one room carrying exactly those destructive shapes plus `switched
+off` as the already-lower-case control, each read through all three callers --
+`x <obj>` (the examine lister, `BStateListed` on), `ob <obj>`
+(`OB=[%obstate%]`) and `st <obj>` (`ST=[%state_<obj>%]`) -- plus `mid <obj>`,
+which puts `%state_<obj>%` mid-sentence in case only a line-opening name is
+folded.  `flip` then moves the lever to `In the DOWN Position` so all four
+reads repeat on a state the game switched to rather than started in.
+`Adrift_1_p4state.txt`, all 29 commands echoed:
 
-    x lever    A test object.  The lever is In the UP position.
-    ob panel   OB=[R1]
-    st sign    ST=[Sur la gauche]
-    mid lever  MID: the lever reads In the UP position today.
-    flip / x lever   A test object.  The lever is In the DOWN Position.
+| States entry | `x <obj>` | `%obstate%` | `%state_<obj>%` | mid-sentence |
+| --- | --- | --- | --- | --- |
+| `In the UP position` | `In the UP position` | `In the UP position` | `in the up position` | `in the up position` |
+| `Facing South` | `Facing South` | `Facing South` | `facing south` | `facing south` |
+| `Locked Off` | `Locked Off` | `Locked Off` | `locked off` | `locked off` |
+| `R1` | `R1` | `R1` | `r1` | `r1` |
+| `Sur la gauche` | `Sur la gauche` | `Sur la gauche` | `sur la gauche` | `sur la gauche` |
+| `switched off` | `switched off` | `switched off` | `switched off` | `switched off` |
+| `In the DOWN Position` (after `flip`) | `In the DOWN Position` | `In the DOWN Position` | `in the down position` | `in the down position` |
 
-Run it with
+So **only `%state_<obj>%` is folded, and it is folded whole** -- "UP" and "R1"
+both lose their capitals, and it happens mid-sentence too.  The examine lister
+and `%obstate%` print the States entry verbatim, in the same transcript, on
+the same objects.  `obj_state_name()` in `scobjcts.cpp` is therefore NOT the
+place to change: the fold went into the `state_` branch of `scvars.cpp`, which
+is the only one of its three callers that wants it.
 
-    cd ~/adrift-battle/runner/wine
-    LOAD_SLEEP=22 sh measure.sh p4STATE.taf cmdfile_state.txt
+Confirmed a second way on a real game: `where_are_my_keys_solution.txt`
+re-blessed, three lines, and all three are printed by
+`Adrift_23_where_are_my_keys.txt` itself -- "a fuse box with a single switch
+in the on position" (lines 34 and 50) and "the cooker appears to be switched
+off." (line 64).  Corpus 303 PASS.
 
 ## CLOSED 2026-08-24 -- the not-a-room-zero arrival gate
 
