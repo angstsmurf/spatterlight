@@ -75,8 +75,22 @@ yak_shaving_solution.txt|yak_shaving.taf|completed the Odd Competition|SCR_SKIP_
 buried_alive_solution.txt|buried.taf|Well done. You got to the end
 confession_solution.txt|Confession(1).taf|Striking a plea deal|SCR_SKIP_WAITKEY=1
 snakes_and_ladders_solution.txt|sandl.taf|made it to the end of the game|SCR_SEED=2
+# Re-blessed 2026-08-25, one line, for the pre-4.0 `x <unknown noun>` answer.
+# 4.0 rewrote the last line of the Runner's examines(): pre-4.0 answers the
+# flat, person-free "Nothing special." (run370 435BF4, verbatim in run370's
+# Form1.frm), 4.0 answers "<player> see no such thing." (run400 471EF6).  The
+# exes date it -- ' see no such thing.' is in run400.exe and in none of
+# run370/380/390.exe, while 'Nothing special.' is in all four.  Both halves are
+# measured live: run390 on Merry_Murders.taf (3.90), Adrift_39_merry_murders.txt
+# line 38, `x pocket` in the lit Plaza with no `pocket` object -> "Nothing
+# special."; run400 on The_X-Files_A_New_Beginning.taf (4.00),
+# Adrift_22_xfiles.txt lines 187/233, `look at camera` / `look up byers` ->
+# "You see no such thing."  veteran, zombies and everything are the only three
+# goldens in the corpus that reach the line, and all three are 3.90.
 veteran_solution.txt|veteran.taf|fulfilling your destiny
 togetyou_solution.txt|togetyou.taf|another flesh-sack|SCR_SKIP_WAITKEY=1
+# Re-blessed 2026-08-25, two lines, for the pre-4.0 `x <unknown noun>` answer
+# measured on the veteran row above.
 zombies_solution.txt|ZAC.taf|you and Stu were eaten by zombies|SCR_SKIP_WAITKEY=1
 adrift_maze_solution.txt|ADRIFTMaze.taf|You WIN!
 cruel_solution.txt|CAH.taf|destroyed our reality
@@ -2246,6 +2260,9 @@ chicago_solution.txt|chicago.taf|Daisy was found guilty of double homicide
 # the ENDING -- %opinion%==5, the last of the four written ALTs.  Reading the
 # diary sets %opinion% to 5 (it does not add), so 6/7 are reachable and print
 # the author's unwritten "ending6"/"ending7" placeholders.
+# Re-blessed 2026-08-25, two lines, for the pre-4.0 `x <unknown noun>` answer
+# measured on the veteran row far above -- this is the corpus's only sighting of
+# the first-person form, "I see no such thing." -> "Nothing special."
 everything_solution.txt|everything.taf|I'll smile as I curse her name and everything Emanuelle.|SCR_SKIP_WAITKEY=1
 # Textident Evil: 100/100 (the game's own stated maximum).  TURN-CRITICAL --
 # four monster events run on a fixed global cadence and the zombie's WALKs

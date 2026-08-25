@@ -165,7 +165,7 @@ you once saw him being nice to some kids. Of course this could just be his
 childlike temperament.  The Monster is carrying a bottle of acid.
 
 > x light
-You see no such thing.
+Nothing special.
 
 > x candles
 These are the only light source in the room.

@@ -2155,8 +2155,11 @@ has to move.
 
 Found while chasing hauntedhouse's `melt statue` (CLOSED below).  Everything
 here is pinned in the decompiles but **not yet measured**, so none of it is
-ported.  Scarier answers all of it with one of two upstream-SCARE strings that
-no Runner ever prints: `<Verb> what?` and `You see no such thing.`
+ported -- except the `x <unknown noun>` row, which the captured transcripts
+turned out to answer on both sides, and which is now FIXED below.  Scarier
+answers the rest with one of two upstream-SCARE strings: `<Verb> what?`, which
+no Runner prints at all, and `You see no such thing.`, which run400 does print
+-- that string is in run400.exe and in **none** of run370/380/390.exe.
 
 `open` / `close` -- run400 `Proc_19_3_476468`, the `open` branch at 475694 and
 the `close` branch at 4759BE.  The noun is resolved by `Sub_22_66` @463640,
@@ -2186,12 +2189,62 @@ object never reaches `lib_cmd_open_object()`.
 | nothing matched, lit | `Nothing special.` | 435BF4 |
 | nothing matched, dark | `You can't see that very clearly.` | 435C8F |
 
-Scarier prints `You see no such thing.` for every one of them
-(`lib_cmd_examine_other`, sclibrar.cpp:11142).  `Nothing special.` is the row
-that most needs measuring before anything is ported -- it is a startlingly
-different answer to `x fjkdlsj`, and it is exactly the string run370's
-own darkness check searches for at 438F2F, so it is load-bearing inside the
-Runner too.
+Scarier used to print `You see no such thing.` for every one of them
+(`lib_cmd_examine_other`, sclibrar.cpp).  The last row of that table -- the
+one that most needed measuring, because `Nothing special.` is a startlingly
+different answer to `x fjkdlsj`, and because it is exactly the string run370's
+own darkness check searches for at 438F2F -- is now measured on **both** sides
+and ported.  See the FIXED entry immediately below.  The four rows above it are
+still unmeasured and still unported.
+
+### FIXED 2026-08-25 -- `x <noun that names nothing>` splits at 4.0
+
+Measured without a Wine run, by mining the 102 transcripts already captured for
+the refusal strings.  4.0 rewrote the last line of `examines`:
+
+* **run390**, `Merry_Murders.taf` (3.90 -- .taf bytes 8-10 are `\x94E7`),
+  `Adrift_39_merry_murders.txt` lines 37-38, and again in the second replay
+  `Adrift_40_merry_murders.txt`:
+
+      > x pocket
+      Nothing special.
+
+  `pocket` is no object in that game and the Plaza is lit.  Scarier answered
+  `I see no such thing.`
+
+* **run400**, `The_X-Files_A_New_Beginning.taf` (4.00 -- `\x93E>`),
+  `Adrift_22_xfiles.txt` lines 186-187 and 232-233:
+
+      > look at camera
+      You see no such thing.
+
+  Neither `camera` nor `byers` is an object.
+
+The exes date the change independently.  Scanning the VB6 constant pools
+(uint16 byte-length + UTF-16LE) for `such thing`:
+
+    run370.exe 0    run380.exe 0    run390.exe 0
+    run400.exe 1    ' see no such thing.'
+
+while `Nothing special.` is present in all four -- in run400 only outside
+`examines` (`loc_48A65C`, `loc_488ECB`).  run370's `examines` reaches it
+verbatim at 435BF4, readable in `Project/Form1.frm`; run400's tail branches to
+` see no such thing.` at `loc_471EF6`.
+
+Ported in `lib_cmd_examine_other()`: pre-4.0 prints the flat, person-free
+`Nothing special.`, 4.0 keeps the person-inflected `You/I/%player% sees no such
+thing.`  Three 3.90 goldens moved and were re-blessed -- `veteran` (1 line),
+`zombies` (2), `everything` (2, the `I see` first-person form).  No route
+changed and no win marker was lost; corpus back to full PASS.
+
+Deliberately **not** ported, because nothing has measured them: 4.0 also sets a
+flag beside this message (`MemVar_494281` at `loc_471F02`); the
+object-found-but-silent default one branch up splits three ways (`Nothing
+special.` in 3.7, `There's nothing special about <obj>.` in 3.8/3.9, `<player>
+sees nothing special about <obj>.` in 4.0, where Scarier prints the 4.0 form
+for every version); and Scarier has no darkness examine answers at all
+(`... can't see that very clearly.`, `... can just make out that ...`,
+`loc_471F41`).
 
 **Staged probe.**  On any lit game with a static in a *neighbouring* room --
 hauntedhouse's statue in the Entrance does it -- walk in, walk out, then feed:
@@ -2202,6 +2255,8 @@ hauntedhouse's statue in the Entrance does it -- walk in, walk out, then feed:
                                                 decides whether `<Verb> what?`
                                                 survives anywhere)
     x statues                                  (the plural row)
+
+(`x <unknown noun>` is no longer on this list -- the transcripts answered it.)
 
 Read all of it off the echo.  The same run settles the `open door` half of the
 hauntedhouse measurement, left open below.

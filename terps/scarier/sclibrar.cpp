@@ -11138,9 +11138,38 @@ lib_cmd_examine_all (scr_gameref_t game)
   return lib_print_message (game, "Please examine one object at a time.\n");
 }
 
+/*
+ * lib_cmd_examine_other()
+ *
+ * `x <noun>` where the noun names nothing at all, in a lit room.  This is the
+ * last line of the Runner's examines(), and 4.0 rewrote it.  Pre-4.0 answers
+ * the flat, person-free "Nothing special." (run370 435BF4, readable verbatim
+ * in run370's Form1.frm; the string is in all four exes).  4.0 answers
+ * "<player> see no such thing." (run400 471EF6) -- and that string is in
+ * run400.exe alone, which is what dates the change.
+ *
+ * Both halves are measured, not argued:
+ *   run390, Merry_Murders.taf (3.90), Adrift_39_merry_murders.txt line 38 --
+ *     `x pocket` in the lit Plaza, no `pocket` object in the game:
+ *     "Nothing special."
+ *   run400, The_X-Files_A_New_Beginning.taf (4.00), Adrift_22_xfiles.txt
+ *     lines 187 and 233 -- `look at camera` and `look up byers`, neither noun
+ *     an object: "You see no such thing."
+ *
+ * Not ported, because nothing has measured them: 4.0 also sets a flag beside
+ * this message (MemVar_494281 at 471F02), the object-found-but-silent default
+ * one branch up splits three ways ("Nothing special." in 3.7, "There's
+ * nothing special about <obj>." in 3.8/3.9, "<player> see nothing special
+ * about <obj>." in 4.0 -- Scarier prints the 4.0 form for all of them at
+ * :4845), and no Runner's darkness answers ("<player> can't see that very
+ * clearly.", "<player> can just make out that ...") exist here at all.
+ */
 scr_bool
 lib_cmd_examine_other (scr_gameref_t game)
 {
+  if (!lib_is_version_400 (game))
+    return lib_print_message (game, "Nothing special.\n");
+
   return lib_print_response_message (game,
                                      "You see no such thing.\n",
                                      "I see no such thing.\n",

@@ -126,10 +126,10 @@ It seems that when the zombie came out of the shed, he dragged out your
 chainsaw too, because it's now lying on the ground.
 
 > x zombie
-You see no such thing.
+Nothing special.
 
 > x chainsaw
-You see no such thing.
+Nothing special.
 
 > take chainsaw
 As you raise the chainsaw into the air, you feel as if your life is complete.
