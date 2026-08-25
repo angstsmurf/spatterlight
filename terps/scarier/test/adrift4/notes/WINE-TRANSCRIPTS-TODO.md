@@ -296,6 +296,10 @@ candidate.
   of your mind", "a part of the coast") -- the Runner message it belongs to is
   reached by none of them.  Only count a hit that stands alone on its line as
   a whole Runner sentence.
+* *Prefix.*  Matching a phrase against the *start* of a golden line catches
+  longer sentences that merely begin the same way -- `sommeril` L706 "You
+  can't read it from here." is not Scarier's `"You can't read "`, it is the
+  game's own text.  Check that what follows the phrase is the object name.
 
 After both filters, 74 phrases remain, and cross-referencing them against the
 goldens (golden -> `.taf` signature -> Runner generation) leaves the handful
@@ -326,9 +330,21 @@ census is for -- each is a wording someone would otherwise have "fixed":
   but no golden reaches it, so there is nothing to measure and nothing at
   risk.  Left ungated deliberately.
 
-The two live leads share one probe.  Everything else on the 74-row list is
-either unreached by any golden or reached only by a game of the right
-generation, so it costs nothing today -- but it is still the map of where 4.0
+**The rest of the list is swept.**  Re-running the exposure pass over every
+candidate -- substituting `You`/`I`/`%player%` into each phrase, requiring a
+whole-line or object-name-followed match, and skipping any golden whose `.taf`
+signature names an exe that *does* carry the phrase -- leaves seven hits, and
+five of them are the closures above plus two more of the same kind:
+
+* `lib_cmd_read_object`'s `"You can't read "` is run370-only as one literal;
+  380/390/400 build it from `" can't read "` (run380 `43CEFA`).  The `sommeril`
+  hit is the prefix false positive.
+* `"You are not holding "` is 370/380-only as one literal; run390 `45D5C0` and
+  run400 `463B1D` push `" not holding "` and prepend the player and `is`/`are`
+  separately.  `colony` (3.90) and `adriftorama` (4.00) are safe.
+
+So the whole 74-row list reduces to the two live leads, and both are answered
+by the one probe.  The list is still worth keeping: it is the map of where 4.0
 reworded the library, and the `x` row proves the map is worth reading.
 
 **The pre-4.0 exposure, exhaustively.**  Re-grepping every golden for the
