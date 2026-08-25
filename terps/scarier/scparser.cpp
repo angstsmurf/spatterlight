@@ -1416,8 +1416,8 @@ uip_skip_article (const scr_char *string, scr_int start)
 /*
  * Strict %object% / %character% matching.
  *
- * MEASURED 2026-08-25 on p4BURN.taf under run400 (Adrift_12.txt and
- * Adrift_13.txt, every command echoed).  A task command pattern is matched
+ * MEASURED 2026-08-25 on p4BURN.taf under run400 (Adrift_12_p4burn.txt
+ * and Adrift_13_p4burn.txt, every command echoed).  A task command pattern is matched
  * by the Runner at 458BBC: it takes the lowercased pattern, does a binary
  * Replace() of "%object%" with the object's Short -- or, in the loop just
  * below, one of its Aliases -- VERBATIM, and compares the result for exact
@@ -1442,7 +1442,7 @@ uip_skip_article (const scr_char *string, scr_int start)
  * named "Memo", "Coffee Mug" and "Gun Holster", never fires in the Runner
  * however the player phrases it.  Bisecting the game itself confirmed it:
  * lowering the verb and the Short together makes `burn memo` run and print
- * the CompleteText (Adrift_11.txt).
+ * the CompleteText (Adrift_11_xfilesbisect.txt).
  *
  * %character% is NOT affected: its half of the same matcher (46918F) runs the
  * NPC Name and each Alias through LCase() before the Replace(), where the

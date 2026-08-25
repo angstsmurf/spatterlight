@@ -497,6 +497,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `sa.taf` (`sophie`) | 4.00 | live run400 replay, `Adrift_41_sophie.txt`..`Adrift_45_sophie.txt` (five runs of the solution's first fifty commands), plus the game's own 488-entry ALR table | the walk announcement is **joined into the turn's paragraph**, so 12 of sa.taf's 65 join-spanning ALRs fire and delete the arrivals they match -- see the FIXED section below |
 | `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
 | `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased**, and **what is *on* an object is listed before what is *in* it, in one sentence** -- see the two FIXED sections below.  Also closed the `knock` lead (a feed artefact) and pinned `burn memo` on the 4.0 `%object%` case rule (FIXED) |
+| `p4BURN` (built probe) + an `xfiles` bisect | 4.00 | four run400 probe replays (`Adrift_6_p4burn.txt` thirteen restriction cells, `Adrift_2_p4burn.txt` Repeatable, `Adrift_12/13_p4burn.txt` case) and nine replays of edited `xfiles` builds (`Adrift_1/3/4/5/7/8/9/10/11_xfilesbisect.txt`) | **4.0 substitutes an object's Short or Alias into a `%object%` task command verbatim** and compares it to the lower-cased input, so a capitalised Short can never bind and no article, Prefix or partial name binds either.  `%character%` lowers the name first and is unaffected.  See the FIXED section below |
 | `p39EXAM` / `p4EXAM` (built probes) | 3.90 + 4.00 | run390 replays `Adrift_41/43_p39exam.txt` (29 + 19 commands) and the run400 twin `Adrift_1_p4exam.txt` (32) | the whole **examine / read / open / close refusal family**, plus the empty room description: four splits found and ported, and 3.90 now agrees with Scarier on all 48 rows.  See the FIXED sections below |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
@@ -2668,7 +2669,9 @@ artefact.
 
 ### What it took to get there
 
-Four Wine rounds on the synthetic `p4BURN.taf`
+Four Wine rounds on the synthetic `p4BURN.taf` (`Adrift_2_p4burn.txt`,
+`Adrift_6_p4burn.txt`, `Adrift_12_p4burn.txt`, `Adrift_13_p4burn.txt`) and one
+on the game itself (`Adrift_1/3/4/5/7/8/9/10/11_xfilesbisect.txt`)
 (`harness/make_400_burnprobe.py`, whose docstring carries the full cell table):
 
   1. **Thirteen restriction shapes** -- one restriction, two restrictions,
@@ -2686,8 +2689,8 @@ Four Wine rounds on the synthetic `p4BURN.taf`
   3. **Case, verb half and object half.**  Bisecting the game itself -- lower
      the verb at plain line 5929, lower the Memo's Short at 2376, separately
      and together, repack, replay -- showed the task fires only when **both**
-     are lowered (`Adrift_11.txt`).
-  4. **Case, pinned cell by cell** (`Adrift_12.txt`, `Adrift_13.txt`).
+     are lowered (`Adrift_11_xfilesbisect.txt`).
+  4. **Case, pinned cell by cell** (`Adrift_12_p4burn.txt`, `Adrift_13_p4burn.txt`).
 
 ### The rule, measured
 

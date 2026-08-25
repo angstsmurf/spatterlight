@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """ADRIFT 4.0 probe: why does run400 refuse a `%object%` task Scarier runs?
 
-CLOSED 2026-08-25, in four Wine rounds (Adrift_11/12/13 plus the first
-thirteen-cell run).  The answer is in the last section; the earlier rounds are
+CLOSED 2026-08-25, in four Wine rounds: Adrift_6_p4burn.txt (thirteen restriction
+cells), Adrift_2_p4burn.txt (Repeatable), Adrift_12_p4burn.txt and
+Adrift_13_p4burn.txt (case), plus the bisect of the game itself in
+Adrift_1/3/4/5/7/8/9/10/11_xfilesbisect.txt.  The answer is in the last
+section; the earlier rounds are
 kept because each one killed a hypothesis, and a killed hypothesis is the only
 thing that stops the next session re-testing it.
 
@@ -49,7 +52,8 @@ ROUND THREE/FOUR -- case, and it is the whole answer.  The one thing task 24
 has that no probe cell had is CAPITAL LETTERS: its command is `Burn %object%`
 and its objects are `Memo`, `Coffee Mug`, `Gun Holster`.  Bisecting the game
 itself (lowering the verb at plain line 5929 and the Memo's Short at 2376,
-separately and together) showed the task only fires when BOTH are lowered.
+separately and together) showed the task only fires when BOTH are lowered
+(Adrift_11_xfilesbisect.txt line 11).
 The probe pins each half:
 
     pattern `PX %object%`, Short `coin`     px coin      -> PASS
