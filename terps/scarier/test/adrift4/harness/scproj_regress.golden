@@ -133,84 +133,84 @@ enemy : 'Ninja Chef' Stamina=50 Str=40 Def=50 Acc=0 Agi=0
 default_weapon after wield = 3 (weapon obj = 3)
 --- fight (player attacks; stamina kept up so we can watch enemy fall) ---
 round  1: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round  2: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round  3: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round  4: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round  5: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round  6: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round  7: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round  8: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round  9: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 10: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 11: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 12: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 13: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 14: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 15: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 16: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 17: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 18: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 19: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 20: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 21: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 22: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 23: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 24: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 25: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 26: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 27: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 28: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 29: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 30: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 31: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 32: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 33: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 34: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 35: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 36: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 37: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 38: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 39: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 round 40: enemy stamina   50 ->   50  (dmg 0)
-    | Ninja Chef manages to avoid your attack with Wave Motion Cannon.
+    | The Ninja Chef manages to avoid your attack with Wave Motion Cannon.
 RESULT: enemy stamina=50 location=1 after 40 rounds
 
