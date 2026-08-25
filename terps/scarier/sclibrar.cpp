@@ -1644,6 +1644,42 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
     }
 
   /*
+   * A room that ends up with no description at all.
+   *
+   * 3.8 and 3.9 both supply one.  3.9 does it while rendering: viewroom()
+   * appends "There is nothing of interest here." when the branch's own
+   * alternative text is empty AND the room's Long is empty -- the same
+   * guarded shape at all four of its exits (run390 4478CA/4479A5/447A3A/
+   * 447ACF, each preceded by a `<alt string> <> vbNullString` branch that
+   * jumps clean past it).  3.8 does it at LOAD time instead, substituting the
+   * sentence into the empty Long itself (run380 447FEE), so it arrives at the
+   * same output by a different route.  3.7 has no such string and leaves the
+   * room blank; 4.0 dropped it again.
+   *
+   * Read the guard, not the literal: hanging the sentence off an empty Long
+   * alone moves 16 of the 303 corpus goldens.  Gating it on "nothing has
+   * described this room yet" moves exactly two, yeh and richard, both 3.90 --
+   * which is the shape a correct fix should have.
+   *
+   * Measured on p39EXAM.taf (3.90), Adrift_41_p39exam.txt and
+   * Adrift_43_p39exam.txt: the Void Room has an empty Long, no alts and no
+   * objects, and both `e` and `look` answer "There is nothing of interest
+   * here.  You can only move west." -- the sentence joined to the exits line
+   * with the ordinary two-space clause gap.  The 4.0 twin p4EXAM.taf,
+   * Adrift_1_p4exam.txt, prints the exits alone.
+   */
+  if (!is_described)
+    {
+      const scr_int version = prop_get_taf_version (bundle);
+
+      if (version == TAF_VERSION_380 || version == TAF_VERSION_390)
+        {
+          pf_buffer_string (filter, "There is nothing of interest here.");
+          is_described = TRUE;
+        }
+    }
+
+  /*
    * Terminate the description block with a single line break.  Many ADRIFT
    * room descriptions already end with a trailing "<br>" of their own; if we
    * unconditionally added a newline here it would double up with that break

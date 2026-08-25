@@ -25,6 +25,7 @@ You drink it.
 You move south.
 
 Outside
+There is nothing of interest here.
 
 You can move north and west.
 
@@ -32,6 +33,7 @@ You can move north and west.
 You move west.
 
 Woods
+There is nothing of interest here.
 
 You can move north, east and south.
 
@@ -39,6 +41,7 @@ You can move north, east and south.
 You move south.
 
 A dirt path
+There is nothing of interest here.
 Ugly thing is here.
 
 You can move north, east and west.
@@ -49,6 +52,7 @@ Leon hits Ugly thing.
 You move east.
 
 Spooky area.
+There is nothing of interest here.
 
 You can move east, south and west.
 

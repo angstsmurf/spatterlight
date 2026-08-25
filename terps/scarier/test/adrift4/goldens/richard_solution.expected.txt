@@ -237,6 +237,7 @@ appears to be an old ore cart in one corner of the cavern.
 You move west.
 
 In the mining tunnels
+There is nothing of interest here.
 
 You can go north, east and west.
 
@@ -244,6 +245,7 @@ You can go north, east and west.
 You move north.
 
 In the mining tunnels
+There is nothing of interest here.
 
 You can go north, east, south and west.
 
@@ -264,6 +266,7 @@ The mat sizzles and melts, but it looks like you could get past the fire now.
 You move north.
 
 In the mining tunnels
+There is nothing of interest here.
 
 You can go south and west.
 
@@ -271,6 +274,7 @@ You can go south and west.
 You move west.
 
 In the mining tunnels
+There is nothing of interest here.
 
 You can go east and west.
 
@@ -389,6 +393,7 @@ You can only go north.
 You move north.
 
 In the swamp
+There is nothing of interest here.
 
 You can go north, east, south and west.
 
@@ -396,6 +401,7 @@ You can go north, east, south and west.
 You move north.
 
 In the swamp
+There is nothing of interest here.
 
 You can go north, east, south and west.
 
@@ -403,6 +409,7 @@ You can go north, east, south and west.
 You move east.
 
 In the swamp
+There is nothing of interest here.
 
 You can go north, south and west.
 
@@ -410,6 +417,7 @@ You can go north, south and west.
 You move north.
 
 In the swamp
+There is nothing of interest here.
 
 You can go north, south and west.
 
@@ -450,6 +458,7 @@ You can go east, south and west.
 You move south.
 
 In the swamp
+There is nothing of interest here.
 
 You can go north and south.
 
@@ -468,6 +477,7 @@ You pick the berries.
 You move north.
 
 In the swamp
+There is nothing of interest here.
 
 You can go north and south.
 
@@ -551,6 +561,7 @@ You can go north and south.
 You move south.
 
 In the swamp
+There is nothing of interest here.
 
 You can go north, south and west.
 
@@ -558,6 +569,7 @@ You can go north, south and west.
 You move south.
 
 In the swamp
+There is nothing of interest here.
 
 You can go north, south and west.
 
@@ -565,6 +577,7 @@ You can go north, south and west.
 You move west.
 
 In the swamp
+There is nothing of interest here.
 
 You can go north, east, south and west.
 
@@ -572,6 +585,7 @@ You can go north, east, south and west.
 You move south.
 
 In the swamp
+There is nothing of interest here.
 
 You can go north, east, south and west.
 
