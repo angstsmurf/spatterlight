@@ -2273,6 +2273,22 @@ farfromhome_solution.txt|FarFromHome.taf|You scored 50 out of the maximum 50!|SC
 # one to three lines per game, and no game lost a *directional* arrival --
 # which is the shape you would expect and a useful check if this is ever
 # revisited.
+#
+# 2026-08-25, off the SAME transcript and its xfiles twin: an EMPTY command
+# line -- a bare Return -- is a parser complaint too, not silence.
+# `cmdfile_stardust.txt` and `cmdfile_xfiles.txt` are the only CRLF feeds in
+# the Wine harness, so every command in them went in followed by an extra
+# empty Return, and both Runners answered every one: run390 with S_Tar_Dus's
+# own ALR for DontUnderstand ("I are confused.  DURHH!", 115 of them in
+# Adrift_38_stardust.txt), run400 with xfiles' ("Nope!", 22 in
+# Adrift_31_xfiles.txt).  Nothing follows the message -- no walk line, no
+# event line -- so an empty command does not tick the turn either, which
+# falls out of the complaint returning FALSE (the same rule the Diary of a
+# Stripper note below pins for gibberish).  Upstream SCARE guarded the
+# complaint with `if (!scr_strempty (command))`; that guard is gone.  38
+# goldens gained one to 45 lines apiece, all purely added and no route moved
+# -- a blank line in a solution file is a turn like any other, and the ones
+# that are only layout now say so out loud.
 stardust_solution.txt|S_Tar_Dus.taf|You decide to go with the plant lady and
 # Diary of a Stripper is AIF: the game's text is sexually explicit, so its
 # solution and golden are deliberately NOT committed (they are in .gitignore).

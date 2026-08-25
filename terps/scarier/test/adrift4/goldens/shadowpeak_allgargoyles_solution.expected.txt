@@ -3927,6 +3927,8 @@ You take the The horn of the angels.
 Seeker hums!
 
 >
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
 
 > w
 You move west.

@@ -8,6 +8,7 @@ battle system will be completed and sent out ASAP. As for now, this mainly
 just tests to see that the basics work right.
 
 >
+That is not a command recognized by this Battle System.
 
 > down
 You move down.

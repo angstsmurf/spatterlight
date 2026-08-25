@@ -33,6 +33,7 @@ emptiness displays what people think of its usefulness.  Your diligence is
 the only thing keeping it from being overrun with rats and spiders.
 
 >
+Please try something different.
 
 > up
 You move up.

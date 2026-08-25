@@ -27,6 +27,7 @@ books."
 Passages in the ruined walls of this place lie to the north and west.
 
 >
+Are you senile?  Try another command!
 
 > climb statue
 You reach the crown of the statue without incident.  It was touch and go for

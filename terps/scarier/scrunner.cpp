@@ -2641,30 +2641,43 @@ run_player_input (scr_gameref_t game)
   status = run_all_commands (game, command);
   if (!status)
     {
-      /* Only complain on non-empty command input line elements. */
-      if (!scr_strempty (command))
-        {
-          const scr_char *message;
+      const scr_char *message;
 
-          /*
-           * Command line element not understood.  Own the escaped copy with
-           * RAII (as the sibling code above does): var_set_ref_text() can throw
-           * (scr_fatal_error), and the old manual scr_free() after it leaked on
-           * the throw.
-           */
-          scr_owned_string escaped (pf_escape (scr_normalize_string (line_element)));
-          var_set_ref_text (vars, escaped.get ());
-          message = prop_get_global_string (bundle, "DontUnderstand");
-          pf_buffer_string (filter, message);
-          pf_buffer_character (filter, '\n');
+      /*
+       * An EMPTY line element complains too.  Upstream SCARE guarded this
+       * whole block with `if (!scr_strempty (command))`, so a bare Return
+       * printed nothing.  Both Runners answer one with DontUnderstand:
+       * `cmdfile_stardust.txt` and `cmdfile_xfiles.txt` are the only CRLF
+       * feeds in the Wine harness, so every command in those two runs went in
+       * followed by an extra empty Return, and run390 answered all 115 of
+       * them with S_Tar_Dus's ALR for the message ("I are confused.  DURHH!",
+       * Adrift_38_stardust.txt) and run400 all 22 of xfiles' ("Nope!",
+       * Adrift_31_xfiles.txt).  No walk or event line follows one, so the
+       * turn does not tick either -- which the FALSE return below already
+       * gives us, run_main_loop() ticking only on TRUE.  Only a genuinely
+       * empty input line gets here: the splitter above takes the first
+       * character even when it is a separator, so "." and "i. ." were
+       * complaints before this and still are.
+       */
 
-          /*
-           * On a line element that's not understood, throw out any remaining
-           * input line elements.
-           */
-          line_buffer[0] = NUL;
-          return status;
-        }
+      /*
+       * Command line element not understood.  Own the escaped copy with
+       * RAII (as the sibling code above does): var_set_ref_text() can throw
+       * (scr_fatal_error), and the old manual scr_free() after it leaked on
+       * the throw.
+       */
+      scr_owned_string escaped (pf_escape (scr_normalize_string (line_element)));
+      var_set_ref_text (vars, escaped.get ());
+      message = prop_get_global_string (bundle, "DontUnderstand");
+      pf_buffer_string (filter, message);
+      pf_buffer_character (filter, '\n');
+
+      /*
+       * On a line element that's not understood, throw out any remaining
+       * input line elements.
+       */
+      line_buffer[0] = NUL;
+      return status;
     }
   else
     {

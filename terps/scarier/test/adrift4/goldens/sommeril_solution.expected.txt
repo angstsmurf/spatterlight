@@ -47,12 +47,16 @@ Also here is a BOOK COVER.
 You can move north, south, northeast and northwest.
 
 >
+Much like a dream, that never happened.
 
 >
+Much like a dream, that never happened.
 
 >
+Much like a dream, that never happened.
 
 >
+Much like a dream, that never happened.
 
 > get book cover
 You take the BOOK COVER.

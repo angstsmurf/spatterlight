@@ -52,12 +52,36 @@ agitated to waste time on such things now.
    Exits lie: east (inside the building) and west (to your home).
 
 >
+Clueless Bob is confused! While this is, admittedly, the normal state of
+affairs when playing any game he's involved with in any way, shape or form,
+this time the confusion is pretty down to you. Yep, you entered a command the
+writer couldn't be bothered to implement a clever response for. Hence you got
+this message. Try it again if you like. It gets more interesting each time
+you see it.
 
 >
+Clueless Bob is confused! While this is, admittedly, the normal state of
+affairs when playing any game he's involved with in any way, shape or form,
+this time the confusion is pretty down to you. Yep, you entered a command the
+writer couldn't be bothered to implement a clever response for. Hence you got
+this message. Try it again if you like. It gets more interesting each time
+you see it.
 
 >
+Clueless Bob is confused! While this is, admittedly, the normal state of
+affairs when playing any game he's involved with in any way, shape or form,
+this time the confusion is pretty down to you. Yep, you entered a command the
+writer couldn't be bothered to implement a clever response for. Hence you got
+this message. Try it again if you like. It gets more interesting each time
+you see it.
 
 >
+Clueless Bob is confused! While this is, admittedly, the normal state of
+affairs when playing any game he's involved with in any way, shape or form,
+this time the confusion is pretty down to you. Yep, you entered a command the
+writer couldn't be bothered to implement a clever response for. Hence you got
+this message. Try it again if you like. It gets more interesting each time
+you see it.
 
 > open door
 Utilising your years of adventure game writing, you reach out your hand

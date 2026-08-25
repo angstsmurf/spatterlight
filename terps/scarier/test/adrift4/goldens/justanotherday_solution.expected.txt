@@ -117,16 +117,22 @@ Press any key to continue.
 The next day, I awaken in my room.
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 > e
 I move east.
@@ -188,16 +194,22 @@ Press any key to continue.
 The next day, I awaken in my room.
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 > e
 I move east.
@@ -264,16 +276,22 @@ Press any key to continue.
 The next day, I awaken in my room.
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 > e
 I move east.
@@ -337,16 +355,22 @@ The old man takes me to a graveyard, and we both stand at the iron gates.
 Silently waiting. The old man says that I can leave whenever I want.
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 > leave
 I leave the graveyard...
@@ -355,16 +379,22 @@ Press any key to continue
 The next day, I awaken in my room.
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 > e
 I move east.
@@ -444,16 +474,22 @@ Press any key to continue.
 The next day, I awaken in my room.
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 > e
 I move east.
@@ -561,16 +597,22 @@ I open my eyes and see that I'm in my room. I seem to be fully clothed...it
 also seems so quiet.
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 >
+I don't understand what you mean!
 
 > e
 I move east.

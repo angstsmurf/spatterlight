@@ -35,8 +35,10 @@ murky depths. At your back is the world of the surface. Exits lie: north,
 south.
 
 >
+Unfortunately that command wasn't recognised. Try typing something else.
 
 >
+Unfortunately that command wasn't recognised. Try typing something else.
 
 > n
 To the north you go.

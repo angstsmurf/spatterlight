@@ -42,6 +42,7 @@ Against one wall you can see one of those wire frame rubbish bins.
 To the north you can see the station entrance.
 
 >
+I have no idea what you mean!
 
 > x bin
 You can see a wire rubbish (trash) basket and unusually for Coltby it is not
@@ -2599,6 +2600,7 @@ You appear to be able to move northeast and southeast.
 You can see that the Thrumpton train is at platform 2.
 
 >
+I have no idea what you mean!
 
 > se
 You move southeast.

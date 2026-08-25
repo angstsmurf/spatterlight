@@ -38,6 +38,7 @@ swearing starts off)
 (For tips to the game, type tips)
 
 >
+Grunt.
 
 > look
 
@@ -421,6 +422,7 @@ Cameron the Cat is standing around, looking out to trade something.
 You can move north, east, south, west and in.
 
 >
+Grunt.
 
 > e
 You move east.
@@ -533,6 +535,7 @@ large skyscraper called Dark Baron enterprises.
 You can move north, east, south and west.
 
 >
+Grunt.
 
 > s
 You move south.
@@ -748,6 +751,7 @@ You can move north, east, south and west.
 You remove the gas mask.
 
 >
+Grunt.
 
 > e
 You move east.
@@ -861,6 +865,7 @@ would be mangled all over the floor, but since Thumper is the official
 "Wonder Wombat", it only broke his spine.
 
 >
+Grunt.
 
 > w
 You move west.
@@ -930,6 +935,7 @@ Roger the Rhino is here, admiring his maze.  Your spine is killing you.
 You can move north, south and west.
 
 >
+Grunt.
 
 > w
 You move west.
@@ -1074,6 +1080,7 @@ A garbage truck is parked next to you.  Your spine is killing you.
 You can move north, east, south and west.
 
 >
+Grunt.
 
 > w
 You move west.
@@ -1277,6 +1284,7 @@ A garbage truck is parked next to you.  Your spine is killing you.
 You can move north, east, south and west.
 
 >
+Grunt.
 
 > w
 You move west.
@@ -1457,6 +1465,7 @@ your skull rapidly. You just had a hangover! Back to the real world...
 Time passes...
 
 >
+Grunt.
 
 > e
 You move east.
@@ -1582,6 +1591,7 @@ spine is killing you.  It is raining heavily.
 You can move north, east, south, west and in.
 
 >
+Grunt.
 
 > n
 You move north.
@@ -1676,6 +1686,7 @@ Bob the Bull is sitting at the drivers seat.  Your spine is killing you.
 You can only move south.
 
 >
+Grunt.
 
 > buy ticket
 "I'd like one ticket to WoopWoop," you say. "Sure, here you go," says Bob. You hand him $2. The engine starts up and the bus starts moving. You sit down in a seat and

@@ -245,6 +245,7 @@ anything of interest for some distance (north).
 It's unusally hard to breathe here. It's like the air is clogging my throat.
 
 >
+I don't understand what you mean.
 
 > north
 I move north.
@@ -663,6 +664,7 @@ into the north wall. There is no visible door.
 A voice out of thin air: "I didn't expect this at all."
 
 >
+I don't understand what you mean.
 
 > look
 
@@ -844,12 +846,16 @@ into the north wall. There is no visible door.
 I hear a beeping noise.
 
 >
+I don't understand what you mean.
 
 >
+I don't understand what you mean.
 
 >
+I don't understand what you mean.
 
 >
+I don't understand what you mean.
 
 > look
 

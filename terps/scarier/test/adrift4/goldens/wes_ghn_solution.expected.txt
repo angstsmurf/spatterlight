@@ -72,14 +72,19 @@ doors are in front of you. A woman is there, but first you'd better establish
 your bearings and look around you.
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 > talk to charity
 You stride down the long length of the foyer avoiding the injured as you go.
@@ -149,10 +154,13 @@ jaws. All about you innumerable eyes slowly begin to turn in your direction.
 This doesn't feel right.
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 > n
 You move north.
@@ -184,8 +192,10 @@ You have no way to go but deeper into the hospital...
 The doorway in front of you has clicked open and is now clear.
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 > n
 You move north.
@@ -209,6 +219,7 @@ You ring the bell but nothing appears to happen.
 From somewhere far off you can hear the sound of inhuman laughter...
 
 >
+Your words... they're so unclear
 
 > z
 Time passes...
@@ -329,34 +340,49 @@ disintegrate. Pushing it from your mind you start to contemplate your next
 move.
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 > e
 You move east.
@@ -422,14 +448,19 @@ answering a question or two?"
 as peaches to help ya."
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 > take candle
      "Why, Wes, shugah, what do you think you are doin'?" Hope says with a
@@ -529,6 +560,7 @@ sound of stone grinding against stone and when the noise stops you open your
 eyes to find the fountain has changed.
 
 >
+Your words... they're so unclear
 
 > take vial
 You take the vial.
@@ -599,8 +631,10 @@ ask. Now you're getting somewhere...
 you want to get passed that optical scanner."
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 > s
 You move south.
@@ -635,8 +669,10 @@ and a small space is revealed behind the frame. You reach inside and pull out
 a small bundle. It seems that is all there is inside of the hole.
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 > unlock door with eyeball
 You unlock the grand corridor door with the eyeball.
@@ -741,10 +777,13 @@ Hope kin do..."
 She smiles from ear to ear as she lunges at the both of you...
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 > attack hope
 You cut Hope with the Soul Scythe.
@@ -801,6 +840,7 @@ And with a jaunty flip of her hair Charity walks out of the room and leaves
 you alone to contemplate the challenges ahead of you.
 
 >
+Your words... they're so unclear
 
 > unlock door with vial
 You unlock the medicine cabinet door with the vial.
@@ -830,8 +870,10 @@ You knock on the door and hear cacophonous splashing echoing down the hall
 from the medicine cabinet.
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 > s
 You move south.
@@ -1188,10 +1230,13 @@ Luck'.
 floor...the final answer to Mercy.
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 >
+Your words... they're so unclear
 
 > take spirit
 You take Hope's Spirit.

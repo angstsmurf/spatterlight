@@ -24,6 +24,8 @@ the mansion and look quite ominous.
 Rancid the butler is here.
 
 >
+Well, look at that! You actually went and typed in something the programmer
+didn't account for! Aren't you clever?
 
 > n
 You move north.

@@ -21,6 +21,7 @@ the south wall of the cottage is a small squage window.
 Crystal is here.
 
 >
+I don't understand what you mean!
 
 > out
 You move out.

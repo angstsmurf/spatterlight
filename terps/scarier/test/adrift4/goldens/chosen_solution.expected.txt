@@ -54,6 +54,7 @@ no other exits.  The walls are also metal, but have a slight blue tinge to
 them.  Other than that, the room is bare.
 
 >
+What?
 
 > x trousers
 These are your trousers - black, tough and warm.  Your belt is on your

@@ -650,6 +650,37 @@ into a walk-related change.
   attacks you with the rapier", and no saved transcript has an NPC-initiated
   blow to check it against.  The decompile concatenates raw, so the port does
   too; a probe on a game with a lowercase-prefixed enemy would settle it.
+- **FIXED 2026-08-25: a bare Return is a parser complaint, not silence.**
+  Found by rule 2 rather than in spite of it.  `cmdfile_stardust.txt` and
+  `cmdfile_xfiles.txt` are the only CRLF feeds in
+  `~/adrift-battle/runner/wine/` (`grep -c $'\r'`: 117 of 117 lines and 21 of
+  21), so every command in those two runs was driven in followed by an extra
+  empty Return -- and both Runners answered every one of them.  run390's
+  `Adrift_38_stardust.txt` carries 115 copies of that game's ALR for
+  DontUnderstand, "I are confused.  DURHH!"; run400's `Adrift_31_xfiles.txt`
+  carries 22 of xfiles' "Nope!", two of them before the first command is even
+  echoed.  Nothing else comes with the message -- no walk line, no event line
+  -- so an empty command does **not** tick the turn.  Scarier printed nothing
+  at all: upstream SCARE guarded the not-understood block with
+  `if (!scr_strempty (command))`.  That guard is gone (`scrunner.cpp`); the
+  no-tick half was already right, since the complaint returns FALSE and
+  `run_main_loop()` ticks only on TRUE.  An empty `line_element` can only come
+  from a genuinely empty input line -- the element splitter already takes the
+  first character even when it is a separator, so `.` and `i. .` were
+  complaining before this and still are.
+  **38 goldens moved, every one of them purely additive** (192 lines added, 0
+  removed, no route change, no win marker lost), because a blank line in a
+  solution file is a turn like any other.  Two kinds of blank line turn out to
+  live in the corpus, and the corpus now shows which is which: real
+  empty-command turns (`cbn`'s five leading blanks, whose header already
+  carried a FOOTGUN saying so -- one of them is what a `*` task turns into the
+  move out of room 0) and mere layout (`iachini` and `wonderwombat` separate
+  their commented sections with blanks; `wes_ghn` has 77 blank lines, 45 of
+  which reach the parser).  The layout ones now print the game's complaint,
+  which is faithful to that feed and is *why* they are worth seeing.  Cleaning
+  them out of the solution files is optional and was NOT done: for a row
+  without `SCR_SKIP_WAITKEY=1` the blanks are load-bearing -- the `<waitkey>`
+  read eats them in file order -- so deleting the wrong one desyncs the route.
 - **Games whose transcripts carry RNG-timed lines** (`xfiles`, `wamk`) need a
   *targeted* Runner probe rather than a full replay.  There is no harness for
   that yet; the p4WK* probe .taf files in

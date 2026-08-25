@@ -23,6 +23,7 @@ here.  The garage is to the north, and the front porch is up the stairs.  The
 garage door is closed.
 
 >
+I don't understand what you mean!
 
 > u
 You move up.
@@ -157,6 +158,7 @@ glass table.
 You take the index card from the round glass table.
 
 >
+I don't understand what you mean!
 
 > e
 You move east.
@@ -291,6 +293,7 @@ the bedrooms here.  In addition, this hall continues to the north, heading
 toward the powder room and the kitchen.
 
 >
+I don't understand what you mean!
 
 > s
 You move south.
@@ -356,6 +359,7 @@ With much grunting and sweating, you manage to shove the massive tool chest
 off to the side.  The doorway is now clear.
 
 >
+I don't understand what you mean!
 
 > e
 You move east.
@@ -453,6 +457,7 @@ family room is to the east, and the hallway is to the south.   There is also
 a stairway leading down to the basement.
 
 >
+I don't understand what you mean!
 
 > e
 You move east.
@@ -550,6 +555,7 @@ the bedrooms here.  In addition, this hall continues to the north, heading
 toward the powder room and the kitchen.
 
 >
+I don't understand what you mean!
 
 > u
 You move up.
@@ -733,6 +739,7 @@ the bedrooms here.  In addition, this hall continues to the north, heading
 toward the powder room and the kitchen.
 
 >
+I don't understand what you mean!
 
 > e
 You move east.
@@ -852,6 +859,7 @@ You close the washing machine.
 The washing machine comes to life.
 
 >
+I don't understand what you mean!
 
 > s
 You move south.
@@ -1055,6 +1063,7 @@ machine and a dryer here.  The rest of the basement lies to the south.
 You can also see a bottle of laundry soap and a handwritten note.
 
 >
+I don't understand what you mean!
 
 > open machine
 You open the washing machine.  A wet, comfortable-looking afghan is inside
@@ -1106,6 +1115,7 @@ clothes dryer.
 You take the comfortable-looking afghan from the clothes dryer.
 
 >
+I don't understand what you mean!
 
 > s
 You move south.

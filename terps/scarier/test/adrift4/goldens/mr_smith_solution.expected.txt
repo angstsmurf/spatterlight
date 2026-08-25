@@ -49,6 +49,7 @@ This is the back enterence to the house. It is where you begin your
 adventure.
 
 >
+I don't understand what you mean!
 
 > n
 You move north.

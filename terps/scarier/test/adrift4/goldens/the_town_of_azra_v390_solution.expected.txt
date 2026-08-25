@@ -59,10 +59,13 @@ talking.
 You can move north, east, south and west.
 
 >
+That is not an option or command.
 
 >
+That is not an option or command.
 
 >
+That is not an option or command.
 
 > e
 You move east.

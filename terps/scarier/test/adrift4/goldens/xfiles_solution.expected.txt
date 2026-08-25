@@ -84,6 +84,7 @@ Please direct any questions, comments, or bugs you may find to
 superbone_ali@yahoo.com.
 
 >
+Nope!
 
 > open desk
 You open Your Desk.  Inside Your Desk is Gun Holster, Your Cell Phone, Neatly
@@ -413,6 +414,7 @@ Volunteer is here.
 You can move north, east, south, in and southwest.
 
 >
+Nope!
 
 > sw
 You move southwest.

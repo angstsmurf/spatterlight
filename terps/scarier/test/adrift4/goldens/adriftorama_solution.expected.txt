@@ -18,8 +18,10 @@ You are carrying a token and a golf club.
 .....Continue.....
 
 >
+Run that by me again, I didn't understand what you meant.
 
 >
+Run that by me again, I didn't understand what you meant.
 
 > buy ball
         You slide the gold token in the slot and the machine begins to rumble
