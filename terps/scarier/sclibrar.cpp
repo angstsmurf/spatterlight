@@ -12374,7 +12374,48 @@ lib_cmd_verb_object (scr_gameref_t game)
         }
     }
   if (count != 1)
-    return FALSE;
+    {
+      /*
+       * No object of that name is here.  Before giving up on the command --
+       * which hands it to the game's DontUnderstand text -- see whether the
+       * name refers unambiguously to an object that is simply elsewhere, and
+       * if it does, say so.  Every Runner from 3.7 to 4.0 answers an
+       * otherwise unhandled command this way: therest() resolves a noun,
+       * and when obhere() says the object is not present it prints
+       * "<player> can't see <the object>." and returns without running any
+       * of the verb branches below it (run370 43D169 @Form1.frm:3336,
+       * run380 443C6A, run400 4887C1 @mdlSpreadTheLoad.bas:41196).  The
+       * clause is reached only when nothing else produced output, which is
+       * exactly where we are.
+       *
+       * Measured on hauntedhouse.taf (Adrift_16_hauntedhouse.txt, turn 34):
+       * "melt statue" from the Front porch, with the statue in the Entrance,
+       * answers "You can't see the statue." and not the game's own
+       * DontUnderstand text.
+       */
+      count = 0;
+      object = -1;
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (game->object_references[index_]
+              && (gs_object_seen (game, index_)
+                  || !lib_matcher_requires_seen (game)))
+            {
+              count++;
+              object = index_;
+            }
+        }
+      if (count != 1)
+        return FALSE;
+
+      var_set_ref_object (vars, object);
+      lib_print_response_object (game,
+                                 "You can't see ",
+                                 "I can't see ",
+                                 "%player% can't see ",
+                                 object, ".\n");
+      return TRUE;
+    }
 
   /* Save in variables. */
   var_set_ref_object (vars, object);

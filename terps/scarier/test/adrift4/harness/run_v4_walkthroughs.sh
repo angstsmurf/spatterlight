@@ -566,6 +566,22 @@ yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR
 frog_solution.txt|frog.taf|So you hop away with your fairy princess, to live hoppily ever after.
 chicken_solution.txt|chicken.taf|That was the last time either of you threw a brick at something.
 endgame_solution.txt|endgame.taf|Really really.
+# Wine 2026-08-23, run400, Adrift_16/17_hauntedhouse.txt.  The feed was
+# haunted.taf's solution driven at hauntedhouse.taf -- a mispairing (see
+# notes/WINE-TRANSCRIPTS-TODO.md) -- but both engines were fed the same
+# nonsense, so the turns still compare: 115 of the 116 commands echoed, the
+# first loss at feed[43] "w".  Before that loss, two divergences, and one of
+# them is an engine bug we now fix:
+#   turn 34 "melt statue" from the Front porch, statue in the Entrance --
+#     run400 "You can't see the statue.", scarier the game's DontUnderstand.
+#     therest() resolves the noun before it dispatches the verb; ported to
+#     lib_cmd_verb_object().
+#   turn 3 "open door", no door object in the game at all -- run400 "You
+#     can't open that.", scarier "Open what?".  Still open: therest() builds
+#     that line from var_88 = "that" and never consults checkverb(), so it is
+#     not clear what run400 answers to a bare "open".  Needs a live probe.
+# The brief re-entry headings at turns 21/27/41 are rule 1, not an engine
+# difference: this run predates measure.sh, so Verbose was OFF.
 hauntedhouse_solution.txt|hauntedhouse.taf|you congraulate yourself on a job well done.
 microbe_willie_solution.txt|microbe_willie.taf|pestilence (basically, more of your kind) throughout the world.
 amonkeytoomany_solution.txt|amonkeytoomany.taf|Hooray! You've made it through the game!

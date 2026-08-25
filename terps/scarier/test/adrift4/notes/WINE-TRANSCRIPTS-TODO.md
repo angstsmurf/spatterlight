@@ -2195,6 +2195,77 @@ colliding with the nowhere NPC and making "alone" false in the start room only.
 xfiles burns the memo in its start room.  If `pc` fails before the round trip
 and passes after it, that is the whole bug.
 
+## CLOSED 2026-08-25 -- an unhandled command names an object it can't see
+
+`Adrift_16/17_hauntedhouse.txt` are `hauntedhouse.taf` driven with
+`haunted.taf`'s solution -- the mispairing the section above warns about.  The
+*feed* is wrong, but both engines were given the same nonsense, so the run is
+still a valid engine-vs-engine comparison, and 115 of its 116 commands echoed
+(first loss at `feed[43] w`).  Two divergences sit before that loss.
+
+**turn 34, `melt statue`.**  The player is on the Front porch; the statue is a
+static in the Entrance, seen a dozen turns earlier.  `melt` is not a verb, a
+synonym or a task command anywhere in the game.
+
+    run400   You can't see the statue.
+    scarier  Hmmm.  Interesting.  No doubt it means something of resounding
+             importance where you come from.  ...   <- the game's DontUnderstand
+
+Pinned in the decompiles.  When nothing else has produced output the Runner
+falls into `therest()` (run400 `Proc_19_85_489F4C` @4883A0, called from
+48AFE4 under `If MemVar_4941B0 = ""`).  Its first act is to resolve a noun --
+`Sub_22_66` @463640, then a loop over `co()` -- and *before* it dispatches any
+verb it asks `obhere()`:
+
+    If (var_C0 > -1) Then
+      If (CInt(obhere(CInt(var_C0))) = 0) Then
+        MemVar_4460E4 = Player & " can't see " & tense(prefix) & " " & name & "."
+        Exit Sub                                   ' run370 43D169, Form1.frm:3336
+      End If
+    Else
+      var_88 = "that"                              ' run370 43D199
+    End If
+    If CBool(c("open")) Then ...                   ' the verb chain starts here
+
+So a command the library never handled still answers "<player> can't see <the
+object>." whenever it names a resolvable object that is somewhere else, and
+the game's DontUnderstand never gets a look in.  The clause is the same in
+every Runner -- run370 43D169, run380 443C6A, run400 4887C1
+(`mdlSpreadTheLoad.bas:41196) -- so no version gate.  The resolver *is*
+version-gated (3.9+ `co()` also requires the seen byte), which is the gate
+`lib_matcher_requires_seen()` already applies.
+
+Ported into `lib_cmd_verb_object()`: the existing scan, which requires the
+object to be in the player's room, still prints "I don't understand what you
+want me to do with ..."; when it finds nothing, a second scan drops the
+in-room test and prints "You can't see ..." instead of returning FALSE.  The
+two outcomes are disjoint, so the order of the checks doesn't matter.  Corpus
+303/303, no golden moved.
+
+**turn 3, `open door` -- still open.**  There is no `door` object in
+hauntedhouse.taf at all (objects 0-20 are knife, sink, severed head, oven,
+fridge, meat cleaver, ghostly bomb, comb, statue, key, coffin, light switch,
+marble pedestal, fences, trees, chandelier, bed, window, toilet, dust,
+footprints; only the oven is openable), and `door` appears in the whole file
+only inside "a series of doors leading off".
+
+    run400   You can't open that.
+    scarier  Open what?
+
+`therest()` builds that from `var_88 = "that"` and the `c("open")` branch at
+run400 488818, setting the message directly rather than through `checkverb()`
+(`Proc_19_86_4455F8` @4455F8), which is what turns a *bare* verb into "<Verb>
+what?".  Two facts stop the port here.  First, run400's own open handler
+(`Proc_19_3_476468`, the `open` branch at 475694) does contain "Open what?"
+at 4759AC -- but only on a path that needs the noun to have resolved, and it
+`Exit Sub`s outright when it hasn't (4756BC), which is what lets `therest()`
+run at all.  Second, the transcript answers `take guttering` with "Take what?"
+and `drop fags` with "Drop what?", both unknown nouns, so the rule is not a
+blanket "unknown noun -> can't <verb> that".  What run400 says to a bare
+`open`, `close`, `take` and `drop` decides it, and that needs a live probe.
+**Staged**: drive any game with `open` / `open door` / `take` / `take
+guttering` / `drop` / `drop fags` and read the four answers off the echo.
+
 ## CLOSED 2026-08-25 -- sophie's `[, and] -> [:]`, and a transcript-naming trap
 
 **A Wine transcript is named after the GAME, not the `.taf`.**  Every sophie
