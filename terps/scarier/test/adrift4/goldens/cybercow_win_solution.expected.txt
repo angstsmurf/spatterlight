@@ -687,7 +687,7 @@ Different countries and regions are color-coded and there are many notations
 all over.
 
 > read notation
-You see no such thing.
+I can tell you nothing about that.
 
 > x desk
 A fine rolltop desk (not made of teak).  The rolltop desk is closed.

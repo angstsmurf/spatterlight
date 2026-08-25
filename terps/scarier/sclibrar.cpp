@@ -9335,6 +9335,20 @@ lib_cmd_read_object (scr_gameref_t game)
 scr_bool
 lib_cmd_read_other (scr_gameref_t game)
 {
+  /*
+   * Pre-4.0 `read` is not a verb of its own: it is ORed into the words that
+   * ENTER examines() (run370 434E2A, run380 43C69D, run390 44B7FF), so a noun
+   * that names nothing answers exactly as `x` does -- the flat, person-free
+   * "Nothing special." tail, the same one lib_cmd_examine_other prints.  4.0
+   * gave read its own handler and its own "<player> see no such thing."
+   *
+   * Measured: p39EXAM.taf (3.90), Adrift_41_p39exam.txt, `read zzzz` ->
+   * "Nothing special."; p4EXAM.taf (4.00), Adrift_1_p4exam.txt, the same
+   * command -> "You see no such thing."
+   */
+  if (!lib_is_version_400 (game))
+    return lib_print_message (game, "Nothing special.\n");
+
   /* Reject the attempt. */
   return lib_print_response_message (game,
                                      "You see no such thing.\n",
