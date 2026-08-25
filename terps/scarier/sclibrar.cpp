@@ -7792,12 +7792,29 @@ lib_cmd_close_object (scr_gameref_t game)
       break;
     }
 
-  /* The object isn't closeable. */
+  /*
+   * The object isn't closeable.
+   *
+   * 4.0 has a dedicated message for this, ending in a bang (run400 475A31,
+   * with "!" appended at 475A5F).  No earlier Runner does: openclose() gives
+   * `open` a not-openable branch but gives `close` none at all (run380
+   * 42F25C..42F322 tests only openness 6 and 5, run390 43A2xx the same), so a
+   * present-but-not-closeable object falls out of openclose() with the
+   * message still empty and is answered by the generic can't-do tail further
+   * down -- which ends in a period (run370 43D231, run380 443D31, run390
+   * 45D4BE/45D4CF).  Same sentence, different punctuation.
+   *
+   * Measured on p39EXAM.taf (3.90), Adrift_43_p39exam.txt:
+   *   `open stone` -> "You can't open the stone!"
+   *   `close stone` -> "You can't close the stone."
+   * and on p4EXAM.taf (4.00), Adrift_1_p4exam.txt, where both end in "!".
+   */
   lib_print_response_object (game,
                              "You can't close ",
                              "I can't close ",
                              "%player% can't close ",
-                             object, "!\n");
+                             object,
+                             lib_is_version_400 (game) ? "!\n" : ".\n");
   return TRUE;
 }
 
