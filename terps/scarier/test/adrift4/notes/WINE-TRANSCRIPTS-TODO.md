@@ -234,6 +234,28 @@ the measurement they describe is no longer reproducible from disk:
 
 Re-measure before relying on any of them.
 
+### The back-catalogue sweep, 2026-08-25
+
+Once the provenance table existed, every verified (`.taf`, cmdfile,
+transcript) triple that had **never been through
+`compare_wine_transcript.py`** was swept offline.  Eight of them, and the
+sweep is finished -- do not redo it:
+
+| transcript | rule 2 | verdict |
+|---|---|---|
+| `Adrift_34_unraveling_god` | all echoed | **clean pass, identical on every turn** -- already in the corpus row |
+| `Adrift_31_xfiles` | all echoed | 19 of 20 turns byte-identical after the constant one-turn `Nope!` shift; the 20th is `burn memo`, see its OPEN section |
+| `Adrift_30_humbug` | all echoed | ten differing turns, **all rule 3** -- see the humbug "Still open" list |
+| `Adrift_35_cybercow` | 1 lost | no divergence before the loss |
+| `Adrift_32/33_unraveling_god` | 2 lost / 1 lost | earlier attempts at the run `Adrift_34` completed; superseded |
+| `Adrift_29_humbug` | 2 lost | superseded by the two-phase splice (`Adrift_30`) |
+| `Adrift_27_thepkgirl` | known feed-broken | already recorded as such |
+
+Two of the eight carried something new; the other six carried nothing.  That
+ratio is the argument for sweeping a transcript the moment it is captured,
+rather than only when its own lead is being chased -- both finds here sat on
+disk unread for two days.
+
 ## Before measuring anything
 
 - **Turn Verbose ON** (Options → Verbose, Ctrl+V). It resets to OFF on every
@@ -973,6 +995,29 @@ of step.
   328; the Runner has none after that, and at command 583 `Blow trombone` it
   answers "But I am not carrying the trombone.", so his pub sequence never
   fired and his walk was never started.  The absence proves nothing.
+- **The phase-A transcript sweeps clean, 2026-08-25.**  `Adrift_30_humbug.txt`
+  had never been through `compare_wine_transcript.py`.  It comes out at 165 of
+  165 commands echoed and **ten differing turns, all of them rule 3**:
+  * nine are Schrodinger the cat -- eight presence/departure lines (turns 41,
+    43, 44, 46, 74, 79, 80, 154) and the room descriptions that do or do not
+    carry "There is a small tabby cat here".  This is the divergence the Wine
+    warning at the top of this file says is indistinguishable from a swallowed
+    first command, and it is *not* that here: rule 2 passes, and `measure.sh`
+    drove this run with `FIRSTCHECK`.  It is RNG.  Re-run the feed under
+    `SCR_SEED=1/2/3/12345/999` and the cat's **destinations** change every time
+    (`to above`/`to the east`/`to the west`/`to the south`/`to the north` in
+    the second slot), while the first announced step stays on turn 42 in all
+    five.  So the walk *tick* is deterministic and agrees with run400; the
+    destination is a die roll, and every visible difference downstream --
+    which room the cat is in, and therefore which turns announce it at all --
+    follows from that one roll.  Nothing here is measurable without an
+    RNG-matched Runner.
+  * one is the slate at turn 103, `MMMMCMXXXVII` in run400 against
+    `MMMCDXLVI` in Scarier -- the same seed sweep gives four more numerals, so
+    it is one of the three randomised secrets above, seen from the other side.
+  The turn-164 block, where run400's last chunk carries `Turn dial to 4`, `E`
+  and more, is the phase-B drive continuing into the same live process; the
+  feed is phase A only.  Expected, not a difference.
 - **Three RNG-independent `humbug` divergences, found but not chased.**  All
   three are inside the replayed prefix, so they are real and re-measurable
   cheaply:
@@ -2177,6 +2222,58 @@ answers `I don't understand what you want me to do with The Memo.`, which is
 `Proc_19_85_489F4C`, at `loc_488706`).  So run400 refused the task **and
 printed nothing at all**.  It is not the empty-CompleteText refusal (see Open
 leads) -- the CompleteText is not empty.
+
+**Corroborated by a second, independent run (2026-08-25).**
+`Adrift_31_xfiles.txt` is a different 20-command run of the same game, and it
+reproduces the refusal exactly.  It also turns out to be *measurable*, which
+`Adrift_22` was not: xfiles is on the "RNG-timed event lines" list above
+because its `Nope!` event cannot be aligned command for command -- but in this
+run the misalignment is a **constant one-turn shift**, because the CRLF feed
+drove an extra empty Return after every command and each of those printed a
+bare `Nope!` (see the FIXED bare-Return section).  Strip the trailing ` Nope!`
+from each run400 turn and compare run400 turn *N* against scarier turn *N+1*:
+
+    aligned-by-one mismatches: 1
+    4  burn memo
+      run400   I don't understand what you want me to do with The Memo.
+      scarier  You incinerate the The Memo with a Zippo you found somewhere.
+
+**19 of the 20 turns are byte-identical**, `take all from desk`,
+`x desk`, the three `ask cancerman about N` topics and both parking-garage room
+descriptions included.  So the divergence is not a one-off hiccup in the
+`Adrift_22` feed, and nothing else in either replay is wrong -- `burn memo` is
+the only thing left in xfiles.
+
+    python3 harness/compare_wine_transcript.py \
+        --taf games/The_X-Files_A_New_Beginning.taf \
+        --feed ~/adrift-battle/runner/wine/cmdfile_xfiles.txt \
+        --runner ~/adrift-battle/runner/wine/pfx/drive_c/adrift/Adrift_31_xfiles.txt
+
+(The comparator drops blank feed lines, so it cannot see the empty Returns and
+reports the shift as 20 differing turns.  Do the realignment by hand.)
+
+**run400's type=3 restriction dispatch, decoded** (`mdlSpreadTheLoad.bas`,
+`loc_48118D` where `var_9E = 3`, through `loc_481523`).  This is what the probe
+is testing, written out so the probe's answers can be read against it:
+
+| | |
+|---|---|
+| `Var1 = 0` | the branch xfiles uses -- a *character* test |
+| `Var2 = 0` | that character is in the player's room (`loc_4812A1`) |
+| `Var2 = 1` | that character is **not** in the player's room (`loc_4812CA`) |
+| `Var2 = 2` | the player is alone (`loc_4812F0`) |
+| `Var2 = 3` | the player is not alone (`loc_48132E`) |
+| `Var3` | read **only when `Var2 < 2`** (`loc_4811D3`): 0 = the player itself, so the test short-circuits to `Var2 = 0` at `loc_4811F0` and returns; 1 = the referenced character, and if none is referenced (`MemVar_49420A = 255`) the restriction fails outright at `loc_48123D`; anything else = NPC `Var3 - 2` |
+
+Two consequences.  First, xfiles' `Var3 = -1` is *never read*, so it cannot be
+what breaks -- `Var2 = 2` jumps straight to the alone loop.  Second, that loop
+is `var_86 = TRUE; For var_8E = 0 To NumberOfNPCs - 1: If playerroom =
+NPCs(var_8E).global_14 Then var_86 = FALSE` (`loc_481303`, whose real counter
+is `var_8E` -- the p-code pushes the counter's address between the start and
+the limit, so the decompiler's `var_CC` is a synthesized temp), which is
+Scarier's `!(npc_count_in_room (playerroom) > 1)` exactly.  The probe's `pc`
+cell is therefore the whole question, and if `pc` passes in run400 too then the
+task never matched and restriction 2 is innocent.
 
 **The FailMessages narrow it to restriction 2.**  `scdump.cpp`'s RESTR line now
 prints each restriction's `FailMessage`, because that is what decides how a

@@ -377,10 +377,22 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 #     separate, and examines @43D5EC prints "  Inside <obj>" or "  On <obj>",
 #     never both), and ", and inside is " is absent from run370.exe and
 #     run380.exe.
+#  5. 2026-08-25 -- THE SECOND REPLAY AGREES ON EVERYTHING ELSE.
+#     Adrift_31_xfiles.txt is a separate 20-command run of the same game and
+#     the same Runner.  Its feed is CRLF, so an empty Return followed every
+#     command and each printed a bare "Nope!" (see the bare-Return section in
+#     the notes) -- which shows up as a constant one-turn shift, not as noise.
+#     Realign run400 turn N (minus its trailing " Nope!") against scarier turn
+#     N+1 and 19 of the 20 turns are byte-identical; the 20th is `burn memo`.
+#     This is the run that says the four rules above hold outside the one
+#     transcript they were read from.
 # Still divergent and NOT fixed here, logged in
 # notes/WINE-TRANSCRIPTS-TODO.md: `burn memo` is refused by run400 -- task 24
 # matches but one of its two restrictions fails silently there, and which one
-# needs a single-restriction probe.
+# needs a single-restriction probe.  Reproduced independently in
+# Adrift_31_xfiles.txt, so it is not a feed artefact; run400's type=3
+# restriction dispatch is now decoded in the notes and clears Var3 = -1 of any
+# part in it, which leaves the probe's `pc` cell as the whole question.
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
@@ -1203,6 +1215,14 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # commands of the solution, every one echoed).  the_town_of_azra's win marker
 # moved with it, 27 turns -> 26: its end-of-game summary freezes the turn
 # counter at the completing task, before that turn's event bumps it.
+# 2026-08-25 -- the phase-A transcript (Adrift_30_humbug.txt, solution lines
+# 1..165) was swept with compare_wine_transcript.py: 165 of 165 commands
+# echoed, ten differing turns, and ALL TEN are RNG.  Nine are Schrodinger the
+# cat and one is the slate's roman numerals.  The cat looks exactly like a
+# walk-tick divergence and is not one: SCR_SEED=1/2/3/12345/999 all announce
+# the first step on the same turn, but each picks a different DESTINATION, so
+# which rooms the cat is in -- and therefore which turns mention it at all --
+# is a die roll.  Nothing to chase; do not re-sweep this transcript.
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
 # WIN with the FULL 95/95 in 90 commands.  downloaded/CrimeAdventure_walkthrough.sol
