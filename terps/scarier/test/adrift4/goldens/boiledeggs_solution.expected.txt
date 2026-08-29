@@ -188,6 +188,7 @@ There's a stone here too, lying inconspicuously in the middle of the grass.
 There's no sign of the dog...
 
 > open box
+You open the box.
 You summon the willpower to keep the box shut until you get home.Back in your
 bedroom, you open the box, and are filled with joy at the prospect of as many
 boiled eggs as you want for the rest of your life! Finally, there will be no

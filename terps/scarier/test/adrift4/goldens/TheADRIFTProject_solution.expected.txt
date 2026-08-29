@@ -135,6 +135,7 @@ the charger flashes red three times and the battery falls.  You manage to
 catch it, but lose your balance in the process and fall from the Drift-O-Com.
 
 > n
+(Standing up first)
 You move north.
 
 The ADRIFT-O-Lift
@@ -284,6 +285,7 @@ You can't open the black box as it is locked!
 You unlock the black box with the silver key.
 
 > open it
+(the black box)
 You open the black box.  The remote control is inside the black box.
 
 > take remote
@@ -673,7 +675,8 @@ Time passes...
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > z
-Time passes...  ADRIFT-O-Sweep zooms out through the vent to the south-east.
+Time passes...
+ADRIFT-O-Sweep zooms out through the vent to the south-east.
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
@@ -685,19 +688,21 @@ Time passes...
 activated it yet."
 
 > z
-Time passes...  ADRIFT-O-Sweep zooms in through the vent from the south-east.
+Time passes...
+ADRIFT-O-Sweep zooms in through the vent from the south-east.
 
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > z
-Time passes...  DARWIN enters from the south.
+Time passes...
+DARWIN enters from the south.
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
 
 > z
-Time passes...  ADRIFT-O-Sweep zooms out through the vent to the south-west.
-DARWIN exits.
+Time passes...
+ADRIFT-O-Sweep zooms out through the vent to the south-west.  DARWIN exits.
 
 > where is darwin
 DARWIN is
@@ -713,7 +718,8 @@ activated it yet."
 Run that by me agian- I didn't understand what you meant!
 
 > z
-Time passes...  ADRIFT-O-Sweep zooms in through the vent from the south-west.
+Time passes...
+ADRIFT-O-Sweep zooms in through the vent from the south-west.
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > where is darwin
@@ -728,7 +734,8 @@ Time passes...
 it."
 
 > z
-Time passes...  ADRIFT-O-Sweep zooms out through the vent to the north.
+Time passes...
+ADRIFT-O-Sweep zooms out through the vent to the north.
 
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."

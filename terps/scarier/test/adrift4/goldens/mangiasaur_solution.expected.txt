@@ -559,7 +559,7 @@ The hut dweller's food is sitting here waiting for you.
 A hut dweller is standing in here, wondering what you are.
 
 > d
-You can't go in that direction (at present).
+You can only move out.
 
 > eat shrimp
 I don't understand what you are trying to eat.

@@ -66,6 +66,7 @@ talk to tramp
 give note to tramp
 kill tramp with knife
 exam tramp
+i
 get artemis
 get radio
 open door
@@ -120,4 +121,5 @@ west
 west
 north
 exam guard
+i
 exam ticket

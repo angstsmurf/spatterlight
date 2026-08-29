@@ -337,6 +337,10 @@ unsmiling face he appears a very serious individual. On his uniform you
 notice a 'post horn' badge. He has dark rings around his eyes and looks
 tired.  The postal clerk is carrying a coin.
 
+> i
+You are wearing a uniform, and you are carrying a luggage slip, a ticket, a
+parcel and a suitcase.
+
 > get coin
 The postal clerk has his back to you so you carefully pick his pocket. It
 will probably be a good idea not to be seen carrying it about the ship.
@@ -561,6 +565,11 @@ the stand.
 In one of the pockets of the long winter overcoat you find a piece of paper
 and some identification.  You pocket both.
 
+> i
+You are carrying a luggage slip, a ticket, a piece of paper, some
+identification papers, a suitcase and a brass key.  Master-at-Arms King
+enters from the north-west.
+
 > northwest
 You move northwest.
 
@@ -572,8 +581,8 @@ panelled in two contrasting veneers of maple and mahogany (you spent a couple
 of years working as a carpenter). The decorative mouldings and all the
 handrails look like they are bronze.  You can go west to a corridor, east to
 the forward staircase and to the southeast is a barber shop.
-The Master-at-Arms is stood watching you very carefully.  The concerned
-looking ship's barber is here.  Master-at-Arms King leaves to the south-east.
+The concerned looking ship's barber is here.
+The barber is giving you a very firm look.
 
 > east
 You move east.
@@ -586,6 +595,8 @@ silver-plated metal brackets holding oak handrails. You can go either up to
 known as 'Scotland Road' and heading west will take you to the second class
 entrance.
 
+You feel a very slight tremble and a distant noise.
+
 > up
 You move up.
 
@@ -594,8 +605,6 @@ The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'C' deck or down the staircase to 'E'
 deck.  To the west is the door into the Dining Room and east is the
 Infirmary.
-
-You feel a very slight tremble and a distant noise.
 
 > east
 You move east.
@@ -620,6 +629,8 @@ is inside the desk.
 > get all from desk
 You take the bottle from the desk.
 
+You notice that the engines seem to have stopped.
+
 > ask doctor about bottle
 The doctor looks very worried, "Where, where did you get that from? No, it
 doesn't matter. Look, I need a drink to get me through the day. Please don't
@@ -632,8 +643,6 @@ sack. Just let me have the bottle back."
 Spotting an opportunity you ask, "What will be in it for me?"
 Pausing for a moment, he shows you a small silver hip flask, "Will this do?"
 You reply with a nod.
-
-You notice that the engines seem to have stopped.
 
 > give bottle to doctor
 You hand the bottle to the doctor, who taking it gives you a small silver hip
@@ -1089,7 +1098,6 @@ The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.  The room has developed quite a slope.
 The postal clerk is looking around and appears very worried.
-The postal clerk wipes his face with the back of his hand.
 
 > down
 You move down.
@@ -1118,7 +1126,6 @@ The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.  The room has developed quite a slope.
 The postal clerk is looking around and appears very worried.
-The postal clerk drags a mail bag to the door.
 
 > west
 You move west.
@@ -1298,6 +1305,11 @@ silver-plated metal brackets holding oak handrails. You can go either up to
 'D' deck or down the staircase to 'F' deck.  To the east is a crew corridor
 known as 'Scotland Road' and heading west will take you to the second class
 entrance.  The staircase has developed quite a slope.
+The Master-at-Arms is stood watching you very carefully.
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
 
 > east
 You move east.
@@ -1377,7 +1389,10 @@ The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'C' deck or down the staircase to 'E'
 deck.  To the west is the door into the Dining Room and east is the
 Infirmary.  The staircase has developed quite a slope.
-The worried looking ship's purser is here.
+The worried looking ship's purser is here.  Master-at-Arms King enters from
+the west.
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
 
 > give key to purser
 Coughing once you say to the Purser, "Excuse me, I think this belongs to
@@ -1386,6 +1401,8 @@ face his replies, "Thank you! I thought I had lost this in all the
 excitement."
 You look away for only a second and the purser has gone. "Blimey," you think
 to yourself, "Now he would make a good sneak thief!"
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
 
 > up
 You move up.
@@ -1394,7 +1411,7 @@ Forward Staircase, C Deck
 The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'B' deck or down the staircase to 'D'
 deck.  To the west is the entrance to the Library.  The staircase has
-developed quite a slope.  Master-at-Arms King enters from above.
+developed quite a slope.
 Some people wearing lifebelts push passed and head up the stairs. You hear
 one of them say, "I overheard someone say that the ship has hit an iceberg."
 
@@ -1569,6 +1586,11 @@ You are on the second-class forward staircase, 'B' Deck.  Heading up the
 staircase will lead you to 'A' deck and down will take you to 'C' deck.  The
 western exit leads to the Smoking Room.  The staircase has developed quite a
 slope.
+The Master-at-Arms is stood watching you very carefully.
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
 
 > up
 You move up.

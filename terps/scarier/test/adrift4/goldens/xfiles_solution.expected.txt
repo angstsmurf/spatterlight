@@ -116,6 +116,7 @@ Gross . . . you drank the half-solidified, week-old coffee.  Just goes to
 prove that drummers will drink or eat anything for . . .  no reason at all.
 
 > d
+(Standing up first)
 You move down.
 
 Lobby
@@ -333,6 +334,7 @@ classic,  "One" by Filter starts drifting through the air and you return to a
 seat at the bar.
 
 > u
+(Getting off the Stool first)
 You move up.
 
 Your Apartment
@@ -599,7 +601,8 @@ You can't go in that direction, but you can move east, south, west,
 northeast, southeast, southwest and northwest.
 
 > n
-You can't go in that direction (at present).
+You can't go in that direction, but you can move east, south, west,
+northeast, southeast, southwest and northwest.
 
 > se
 You move southeast.
@@ -821,6 +824,7 @@ Your mother looks at you.  "Do you believe in fate?" she says.  "Only when I
 want to," you say.
 
 > the end
+Nope!
 "I'm not sure how I should feel saying this, Nathan, to be glad you've grown
 to be such a strong and smart young man, or to be sad that I can't protect
 you anymore.  Either way," your father says as he extends his hand to you,

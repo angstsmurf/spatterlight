@@ -39,6 +39,7 @@ the shelter.
 Ridiculous isn't it.  Who writes this stuff?
 
 > read it
+(the graffiti)
 JD fancies me!  Up the Celts.  SFD rules!  Phone 4388 for a good time.  My
 other bus shelter's a Porsche.
 
@@ -81,6 +82,7 @@ brown colour.  On the bench is a tweed jacket.
 I take a tweed jacket from the bench.
 
 > x it
+(a tweed jacket)
 The tweed jacket is a delightful brown colour.  It looks a bit worn,
 especially at the elbows.  Inside the tweed jacket is a small key.
 
@@ -97,10 +99,12 @@ locking mechanism in the locker requires a coin to lock it.  The red locker
 is open.
 
 > close it
+(the red locker)
 As I close the red locker, I hear a clunking noise, as though something has
 fallen out of the locking mechanism.  I open the door again.
 
 > x it
+(the red locker)
 The bright red locker appears to be the only one which isn't locked.  The
 locking mechanism in the locker requires a coin to lock it.  The red locker
 is open.  Inside the red locker is a small silver coin.
@@ -151,7 +155,7 @@ I take a pint of lager from the bar.
 I move out.
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-Biff and Boff are here.
+Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
 
@@ -161,7 +165,6 @@ Boff says, "Wow!  I wish I had half the stuff you've got."
 > give pint to boff
 "Oh cheers mate.  What was it you wanted - a pen.  Here ya go.  It's nearly
 run out anyway."  Boff hands me a rather used looking marker pen.
-It starts to rain.
 
 > west
 I move west.
@@ -170,7 +173,6 @@ fence.  Through the fence, I can see a scrapyard with lots of old cars.
 There is a closed gate here.  It is raining.
 
 I can move north, east, west and in.
-A couple of seagulls fly about aimlessly.
 
 > north
 I move north.
@@ -198,10 +200,12 @@ the leaflet rack is an application form.
 I take an application form from the leaflet rack.
 
 > x it
+(an application form)
 The form appears to be an application form for a Gold card.  It has the
 address of some company written on it.
 
 > fill it out
+(an application form)
 I fill out the application form.
 
 > out
@@ -211,8 +215,10 @@ low.  There is a bright red post box set outside the door of the post office.
  It is raining.
 
 I can move north, east, south and in.
+The rain eases slightly.
 
 > post it
+(an application form)
 I post the application form into the post box.
 
 > east
@@ -221,13 +227,14 @@ I am in the village centre.  There is a large statue here, set upon a tall
 pillar.  It is raining.
 
 I can move north, east, south and west.
+The rain stops.
 
 > east
 I move east.
 I am next to a large dog kennel, bizarrly in the middle of nowhere.
 
 Also here is a large shark hook.
-There is a very large dog here, tied up by the kennel.  It is raining.
+There is a very large dog here, tied up by the kennel.
 
 I can move north, east, south, west and in.
 
@@ -235,7 +242,7 @@ I can move north, east, south, west and in.
 I move east.
 I am at the bus stop.  The main road runs in a north-south direction.  There
 is a rather flimsy looking bus shelter here, with a plastic bench which looks
-like it's seen better days.  It is raining.
+like it's seen better days.
 
 I can only move west.
 
@@ -250,15 +257,14 @@ I move west.
 I am next to a large dog kennel, bizarrly in the middle of nowhere.
 
 Also here is a large shark hook.
-There is a very large dog here, tied up by the kennel.  It is raining.
+There is a very large dog here, tied up by the kennel.
 
 I can move north, east, south, west and in.
-The rain eases slightly.
 
 > south
 I move south.
 I am outside a spanking new building.  There is a large sign over the door
-telling me that this is a swimming pool.  It is raining.
+telling me that this is a swimming pool.
 
 I can move north, west and in.
 
@@ -266,10 +272,9 @@ I can move north, west and in.
 I move west.
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-Biff and Boff are here.  It is raining.
+Biff and Boff are here.
 
 I can move north, east, west and in.
-The rain stops.
 
 > west
 I move west.
@@ -336,6 +341,7 @@ Time passes...
 "No ticket eh?  Well, I'm sorry, but we don't take stowaways on my train!"
 Boris yanks open the doors, and kicks me out of the moving train.
 I am on some barren wasteland.  There is a railway line running past here.
+It is raining.
 
 I can only move east.
 
@@ -344,9 +350,10 @@ I move east.
 I am inside the village scrapyard.  There are lots of old rusty cars lying
 about here.  To the north is a tall wire fence, with a gate built into the
 fence.  There is a panel near the fence with a large red button in it.  The
-gate is closed.
+gate is closed.  It is raining.
 
 I can only move west.
+The rain stops.
 
 > push button
 I push the red button firmly.  Slowly, the wire gate swings open.
@@ -387,9 +394,11 @@ manilla envelope.
 I take a manilla envelope from the post office tray.
 
 > open it
+(a manilla envelope)
 I tear open the envelope.  Inside, I find a Gold card.
 
 > drop it
+(a manilla envelope)
 I drop the manilla envelope.
 
 > out
@@ -424,7 +433,6 @@ front of the shop.  One thing in particular that catches your eye is a scuba
 outfit.
 
 I can move south, west and in.
-It starts to rain.
 
 > in
 I move in.
@@ -443,28 +451,28 @@ you.  He walks around to the window, and hands you the scuba outfit.  "Hope
 it fits!"
 
 > ask him about pens
+(Harold)
 "No, I'm sorry.  We don't sell those any more - we're trying to cut down on
 all the graffiti around here."
 
 > out
 I move out.
 I am outside the one and only village shop.  There is a large window in the
-front of the shop.  It is raining.
+front of the shop.
 
 I can move south, west and in.
 
 > west
 I move west.
 I am in the middle of a paved area.  There is a drain in the middle of the
-pavings, sticking out like a sore thumb.  The drain is closed.  It is
-raining.
+pavings, sticking out like a sore thumb.  The drain is closed.
 
 I can move north, east, south and west.
 
 > south
 I move south.
 I am in the village centre.  There is a large statue here, set upon a tall
-pillar.  It is raining.
+pillar.
 
 I can move north, east, south and west.
 
@@ -473,9 +481,9 @@ The plaque is set into the pillar, and is made from brass.  It protrudes
 slightly.
 
 > push it
+(the small plaque)
 I push the plaque firmly.  The plaque clicks, and then springs open,
 revealing a juicy pork chop.
-The rain eases slightly.
 
 > get chop
 I take a juicy pork chop from the small plaque.
@@ -485,12 +493,12 @@ I move east.
 I am next to a large dog kennel, bizarrly in the middle of nowhere.
 
 Also here is a large shark hook.
-There is a very large dog here, tied up by the kennel.  It is raining.
+There is a very large dog here, tied up by the kennel.
 
 I can move north, east, south, west and in.
-The rain stops.
 
 > drop it
+(a juicy pork chop)
 I drop the pork chop.  Angus immediately pounces on the chop, and starts
 chewing away.
 
@@ -512,6 +520,7 @@ pavings, sticking out like a sore thumb.  The drain is closed.
 I can move north, east, south and west.
 
 > open drain with it
+(a large shark hook)
 With a bit of effort, I manage to get the drain open with the shark hook.
 
 > drop hook
@@ -538,6 +547,7 @@ I am outside a spanking new building.  There is a large sign over the door
 telling me that this is a swimming pool.
 
 I can move north, west and in.
+It starts to rain.
 
 > in
 I move in.
@@ -602,7 +612,7 @@ I can move in and out.
 > out
 I move out.
 I am outside a spanking new building.  There is a large sign over the door
-telling me that this is a swimming pool.
+telling me that this is a swimming pool.  It is raining.
 
 I can move north, west and in.
 
@@ -610,7 +620,7 @@ I can move north, west and in.
 I move west.
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-Biff and Boff are here.
+Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
 
@@ -646,6 +656,7 @@ the youth of Ambersville.
 Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
+The rain eases slightly.
 
 > drink lager
 I take the pint, and down it in one (like I do back home - you know - to
@@ -658,13 +669,14 @@ fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
 wire gate is open.  Everything looks a bit wobbly.  It is raining.
 
 I can move north, east, south, west and in.
+The rain stops.
 
 > south
 I move south.
 I am inside the village scrapyard.  There are lots of old rusty cars lying
 about here.  To the north is a tall wire fence, with a gate built into the
 fence.  There is a panel near the fence with a large red button in it.  The
-gate is open.  Everything looks a bit wobbly.  It is raining.
+gate is open.  Everything looks a bit wobbly.
 
 I can move north and west.
 I'm feeling rather drunk.
@@ -679,7 +691,7 @@ I place the empty glass under the dripping car, and fill it with petrol.
 I move north.
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
-wire gate is open.  Everything looks a bit wobbly.  It is raining.
+wire gate is open.  Everything looks a bit wobbly.
 
 I can move north, east, south, west and in.
 
@@ -736,6 +748,7 @@ The toilet looks extremely unhygenic.  There appears to be something stuck in
 the toilet.
 
 > flush it
+(the toilet)
 I flush the toilet.  It gurgles a lot, then suddenly, whatever it is that is
 stuck inside gets sucked down and away.
 
@@ -761,10 +774,12 @@ goat's with goat's hoofs for feet.  He looks quite cold.  Mr Tumnus is
 carrying a small flute.
 
 > give him the jacket
+(Mr Tumnus)
 I hand Mr Tumnus the tweed jacket.  "Thanks very much.  You are very kind.
 Here, take this flute."
 
 > give him the flowers
+(Mr Tumnus)
 "Oh, thanks!  I've not seen flowers for years - not since the Witch turned
 everything to snow."  Mr Tumnus turns around.  "Hey, Aslan!"  Out of the
 bushes, a large lion appears.  "Look at what I've been given!"  Aslan looks
@@ -776,6 +791,7 @@ better have this."
 I pick up the witch's magic wand.
 
 > ask aslan about it
+(the witch's magic wand)
 "Sorry, I don't know anything about that."
 
 > out
@@ -820,7 +836,7 @@ door."
 I move out.
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
-wire gate is open.
+wire gate is open.  It is raining.
 
 I can move north, east, south, west and in.
 
@@ -828,14 +844,14 @@ I can move north, east, south, west and in.
 I move east.
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-Biff and Boff are here.
+Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
 
 > north
 I move north.
 I am in the village centre.  There is a large statue here, set upon a tall
-pillar.
+pillar.  It is raining.
 
 I can move north, east, south and west.
 
@@ -848,18 +864,20 @@ Somehow, he manages to scramble off the pillar.
 I move west.
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
+ It is raining.
 
 I can move north, east, south and in.
 
 > wait
 Time passes...
+The rain eases slightly.
+The rain stops.
 
 > wait
 Time passes...
 
 > wait
 Time passes...
-It starts to rain.
 
 > wave wand
 I wave the wand about.  Apart from looking like a conductor, nothing appears
@@ -870,6 +888,7 @@ I wave the wand about.  Porkie suddenly slows down.  Slowly, his pinkiness
 turns to grey, and he turns back into a statue.
 
 > drop it
+(the witch's magic wand)
 I drop the witch's magic wand.
 
 > stand on statue
@@ -881,7 +900,7 @@ I move up.
 I am on the flat roof of the Post Office.  From here, I can see all the way
 out to sea.
 
-Also here is a small black cat.  It is raining.
+Also here is a small black cat.
 
 I can only move down.
 
@@ -893,7 +912,7 @@ I move down.
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
 
-Also here is the witch's magic wand and a statue of a pig.  It is raining.
+Also here is the witch's magic wand and a statue of a pig.
 
 I can move north, east, south, up and in.
 
@@ -909,6 +928,7 @@ Madge watches me intently from behind the glass screen.
 I can only move out.
 
 > give it to madge
+(a small black cat)
 I hand Madge her cat.  "Oh, my baby!"  Madge cuddles the cat tightly - the
 cat's eyes bulge out slightly.  "I'm so grateful, here, take this."  Madge
 removes the amulet from around her neck, and gives it to me
@@ -918,17 +938,16 @@ I move out.
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
 
-Also here is the witch's magic wand and a statue of a pig.  It is raining.
+Also here is the witch's magic wand and a statue of a pig.
 
 I can move north, east, south, up and in.
 
 > east
 I move east.
 I am in the village centre.  There is a large statue here, set upon a tall
-pillar.  It is raining.
+pillar.
 
 I can move north, east, south and west.
-The rain stops.
 
 > north
 I move north.
@@ -970,13 +989,14 @@ I am on a wooden pier, which stretches out into the water.  There is a small
 boat beside the pier.
 
 I can move south and in.
+It starts to rain.
 
 > in
 I move in.
 I am in the small white speedboat.  At the front of the boat is the
 dashboard, and there is a large engine at the back.  There is a throttle
 lever set to one side.  The boat is docked at the pier.  There is a line of
-rope attached to the back of the boat here.
+rope attached to the back of the boat here.  It is raining.
 
 I can only move out.
 
@@ -985,6 +1005,7 @@ The engine looks very powerful.  There is a cap in the top of the engine.
 There is a dial on the side of the engine.  The needle points to empty.
 
 > put petrol in it
+(the engine)
 I pour the petrol from the glass into the engine.
 
 > put key in ignition
@@ -1012,9 +1033,10 @@ I put on a scuba outfit.
 
 > out
 I move out.
-I am swimming in the sea.  There is a speedboat here.
+I am swimming in the sea.  There is a speedboat here.  It is raining.
 
 I can move down and in.
+The rain eases slightly.
 
 > down
 I swim down.
@@ -1044,6 +1066,7 @@ have thought.  The door is open.  Inside the old wooden cabinet is an old log
 book and a large bronze key.
 
 > get all from it
+(the old wooden cabinet)
 I take an old log book and a large bronze key from the old wooden cabinet.
 
 > out
@@ -1085,21 +1108,20 @@ I am on a wooden pier, which stretches out into the water.  There is a small
 boat beside the pier.
 
 I can move south and in.
-It starts to rain.
 
 > south
 I move south.
 I am in the middle of a paved area.  There is a drain in the middle of the
 pavings, sticking out like a sore thumb.  The drain is open.
 
-Also here is a gold card and a large shark hook.  It is raining.
+Also here is a gold card and a large shark hook.
 
 I can move north, east, south, west and down.
 
 > south
 I move south.
 I am in the village centre.  There is a large statue here, set upon a tall
-pillar.  It is raining.
+pillar.
 
 I can move north, east, south and west.
 
@@ -1107,7 +1129,7 @@ I can move north, east, south and west.
 I move south.
 I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.
-Biff and Boff are here.  It is raining.
+Biff and Boff are here.
 
 I can move north, east, west and in.
 
@@ -1115,16 +1137,23 @@ I can move north, east, west and in.
 I move west.
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
-wire gate is open.  It is raining.
+wire gate is open.
 
 I can move north, east, south, west and in.
 
 > west
 I move west.
 I am at the Ambersville railway station.  The platform is very small, and
-there's not a lot around here.  There is a large sign here.  It is raining.
+there's not a lot around here.  There is a large sign here.
 
 I can only move east.
+
+> wait
+Time passes...
+It starts to rain.
+
+> wait
+Time passes...
 
 > wait
 Time passes...
@@ -1135,9 +1164,6 @@ Time passes...
 > wait
 Time passes...
 The rain eases slightly.
-
-> wait
-Time passes...
 The rain stops.
 
 > wait
@@ -1151,14 +1177,10 @@ Time passes...
 
 > wait
 Time passes...
-
-> wait
-Time passes...
-
-> wait
-Time passes...
 The train pulls in to a stop at Ambersville.
-It starts to rain.
+
+> wait
+Time passes...
 
 > in
 I move in.
@@ -1189,10 +1211,10 @@ Time passes...
 
 > wait
 Time passes...
+The train pulls in to a stop at Redstown.
 
 > wait
 Time passes...
-The train pulls in to a stop at Redstown.
 
 > out
 I step out of the train.
@@ -1230,9 +1252,11 @@ adventure.
 I'd say ADRIFT is by far the best."
 
 > ask her about good time
+(Suzie)
 "Oh, that.  That'll be referring to my musical talents."
 
 > give her the flute
+(Suzie)
 I hand the small flute to Suzie.  Her eyes light up.  "A flute!  I've been
 wanting to play one for ages."  She takes it off me, and begins to play a
 beautiful tune.
@@ -1266,11 +1290,11 @@ is a cubicle near the rear of the carriage.
 Boris is here.
 
 I can move in and out.
+There is a loud tooting sound, and the train slowly moves away from the
+station.
 
 > wait
 Time passes...
-There is a loud tooting sound, and the train slowly moves away from the
-station.
 
 > wait
 Time passes...
@@ -1405,6 +1429,7 @@ The slot looks as though something should be inserted into it.  I think it's
 connected to the portcullis.
 
 > put stick in it
+(the slot)
 I put the stick into the slot.  It fits perfectly, creating a lever.
 
 > pull lever
@@ -1423,6 +1448,7 @@ The chest is huge.  The name The Unsinkable is stensilled on the lid.  The
 chest is closed.
 
 > open it
+(the large wooden chest)
 I carefully open the chest.  Suddenly, a stream of poisonous gas ejects from
 inside the chest, filling the room.  Luckily, I'm wearing the scuba outfit,
 and it appears to be working, because the gas has no effect on me.  It takes

@@ -9,6 +9,7 @@ ask harris about picklock
 open door
 open door
 x vardo
+z
 ask vardo about crucifix
 east
 se
@@ -260,6 +261,7 @@ say at the end of life lies only death
 down
 open coffin
 x coffin
+z
 get globe
 talk to man
 ask mordrel about garrick
@@ -273,6 +275,7 @@ smash door
 se
 x sacks
 x shelves
+z
 nw
 west
 west

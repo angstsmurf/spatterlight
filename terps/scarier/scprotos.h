@@ -331,6 +331,7 @@ extern void pf_buffer_join (scr_filterref_t filter,
                             const scr_char *string);
 extern void pf_buffer_join_always (scr_filterref_t filter,
                                   const scr_char *string);
+extern void pf_buffer_hard_break (scr_filterref_t filter);
 extern void pf_prepend_string (scr_filterref_t filter,
                                const scr_char *string);
 extern void pf_new_sentence (scr_filterref_t filter);
@@ -356,6 +357,8 @@ extern const scr_char *pf_get_buffer (scr_filterref_t filter);
 extern scr_char *pf_transfer_buffer (scr_filterref_t filter);
 /* Hide the buffer from the paragraph-spacing helpers while version 4.0 task
    actions run, the way pf_transfer_buffer() does for pre-4.0. */
+extern void pf_buffer_reference (scr_filterref_t filter,
+                                 const scr_char *text);
 extern size_t pf_hide_prefix (scr_filterref_t filter);
 extern void pf_reveal_prefix (scr_filterref_t filter, size_t previous);
 extern void pf_empty (scr_filterref_t filter);
@@ -504,8 +507,12 @@ extern void gs_clear_multiple_references (scr_gameref_t gs);
 extern scr_bool uip_match (const scr_char *pattern,
                           const scr_char *string, scr_gameref_t game);
 extern void uip_set_strict_reference (scr_bool strict, scr_bool match_case);
+extern void uip_set_containment (scr_bool enabled);
 extern scr_char *uip_replace_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_assign_pronouns (scr_gameref_t game, const scr_char *string);
+extern void uip_note_definite_reference (void);
+extern scr_char *uip_rewrite_references (scr_gameref_t game, const scr_char *string);
+extern void uip_note_named_npcs (scr_gameref_t game, const scr_char *string);
 extern void uip_forget_game (const void *game);
 extern void uip_debug_trace (scr_bool flag);
 extern void task_forget_game (const void *game);
@@ -677,6 +684,7 @@ extern scr_bool lib_cmd_give_object (scr_gameref_t game);
 extern scr_bool lib_cmd_give_what (scr_gameref_t game);
 extern scr_bool lib_cmd_remove_what (scr_gameref_t game);
 extern scr_bool lib_cmd_drop_what (scr_gameref_t game);
+extern scr_bool lib_cmd_put_unclear (scr_gameref_t game);
 extern scr_bool lib_cmd_wear_what (scr_gameref_t game);
 extern scr_bool lib_cmd_profanity (scr_gameref_t game);
 extern scr_bool lib_cmd_profanity_390 (scr_gameref_t game);

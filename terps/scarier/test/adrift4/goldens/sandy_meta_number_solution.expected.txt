@@ -61,7 +61,7 @@ You see no such thing.
 These are your most recent game commands:
 
    8 -- Time 0m 00s, turn 6 : look in toilet
-   9 -- Time 0m 00s, turn 7 : [history]
+   9 -- Time 0m 00s, turn 6 : [history]
 
 > look in toilet
 You see no such thing.

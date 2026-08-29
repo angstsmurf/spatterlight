@@ -39,12 +39,12 @@ You need to state which place you are going to.
 > x tube
 On either side of the throat you can see the tonsils.
 
-It sounds like something is being eaten or maybe the flesh-sack is taking a
-drink?
-
 > x tonsils
 The tonsils help to catch germs entering through the throat.  "Well, they are
 going to catch something today!" you think to yourself.
+
+It sounds like something is being eaten or maybe the flesh-sack is taking a
+drink?
 
 > infect tonsils
 They are now Infected!

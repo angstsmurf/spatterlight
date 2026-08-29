@@ -189,7 +189,7 @@ to you.
 You see no such thing.
 
 > look under papers
-You see no such thing.
+Numerous papers, marked by your father's meticulous handwriting.
 
 > x window
 The window is nailed shut (making the room unbearably stuffy in summer), as
@@ -588,6 +588,7 @@ An edible sandwich left for you by your father. You don't know what he puts
 in the sandwiches he makes, but they all carry an unpleasant smell.
 
 > smell it
+(a sandwich)
 The sandwich smells normal.
 
 > take sandwich
@@ -763,6 +764,7 @@ The satchel is old and worn, though still whole. It was once white, yet the
 years have treated it unkindly, leaving it now a filthy brown colour.
 
 > open it
+(a satchel)
 You fumble with the satchel but can find no way of opening it.
 
 > sit on chair

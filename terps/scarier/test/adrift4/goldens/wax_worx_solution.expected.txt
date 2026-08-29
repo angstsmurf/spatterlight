@@ -374,6 +374,7 @@ teeth.
 "Do not betray me, monsieur!"
 
 > g
+(give marie to dog)
 Ignoring her pleas,  you yank Marie's head free of your shirt..  Holding it
 by the beehive wig, you dangle the whimpering head in front of the black dog.
 The head jerks and turns. The dog's monstrous jaws open.
@@ -381,6 +382,7 @@ The head jerks and turns. The dog's monstrous jaws open.
 "Non! Non! Do not do this terrible thing! I beg of you!"
 
 > g
+(give marie to dog)
 You drop the head.  What is it, after all, but a wax head?
 
 It appears almost to float downward.  You can see Marie's glass eyes staring

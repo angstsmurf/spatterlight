@@ -36,6 +36,7 @@ get receipt
 close suitcase
 give receipt to clerk
 exam clerk
+i
 get coin
 open suitcase
 put coin in suitcase
@@ -64,6 +65,7 @@ give note to barber
 southeast
 exam stand
 exam overcoat
+i
 northwest
 east
 up

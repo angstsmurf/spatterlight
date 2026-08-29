@@ -644,6 +644,10 @@ It is the body of a dead, smelly old tramp.  The dead tramp is wearing a
 filthy camel brown jacket, a pair of trainers and a pair of old corduroy
 trousers, and carrying some artemis and a police radio.
 
+> i
+You are carrying some paper, a handbill, an axe, a wallet and an old
+magazine.
+
 > get artemis
 As you pickup the Artemis it triggers a memory.  You hand the jar filled with
 Artemis to the Lab Assistant. He shouts, "Artemis!" before gulping the
@@ -1225,6 +1229,9 @@ one pulls out of the station.
 
 > exam guard
 The Guard is a short man wearing a loose fitting uniform.
+
+> i
+You are carrying a ticket.
 
 > exam ticket
 A standard ticket to Colesworth only valid for travel today.

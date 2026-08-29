@@ -546,6 +546,9 @@ evt_is_zero_length (scr_gameref_t game, scr_int event)
 }
 
 
+static void evt_tick_event_and_settle (scr_gameref_t game, scr_int event);
+static scr_bool evt_has_starter_task (scr_gameref_t game, scr_int event);
+
 /*
  * evt_finish_event()
  *
@@ -659,6 +662,40 @@ evt_finish_event (scr_gameref_t game, scr_int event)
         {
           if (evt_trace)
             scr_trace ("Event: event can't run task %ld forwards\n", task);
+        }
+
+      /*
+       * Both Runners' checkevent (run390 448EB8 at 448D99, run400 470754 at
+       * 47059C) follow the affected task with a loop over every event of a
+       * LOWER index whose starter TaskNum is that task, calling checkevent on
+       * each one again -- while the game is still running -- so an event
+       * that this finish starts is not left to the next tick merely because
+       * the ordered pass had already been past it.  Vardock Bates pins it:
+       * "Movimiento Barcelona-Museo" (event 2) finishes on the first
+       * `esperar` outside the airport, runs the arrival task, and "Mordedura
+       * Taxista" (event 1, started by that task) prints its StartText in the
+       * SAME turn (Adrift_1_vardock_bates.txt, twice).  Without this loop
+       * Scarier printed it a turn later.  Events of a higher index need no
+       * help: the pass reaches them after the task has completed.
+       */
+      if (!taskfinished)
+        {
+          scr_int other;
+
+          for (other = 0; other < event; other++)
+            {
+              if (evt_has_starter_task (game, other)
+                  && evt_cached_integer (game, other, EVT_TASK_NUM, "TaskNum")
+                         == task + 1
+                  && run_is_running (game))
+                {
+                  if (evt_trace)
+                    scr_trace ("Event: re-checking event %ld started by"
+                               " task %ld\n", other, task);
+
+                  evt_tick_event_and_settle (game, other);
+                }
+            }
         }
     }
 
@@ -911,8 +948,11 @@ evt_handle_preftime_notifications (scr_gameref_t game, scr_int event)
 
 /*
  * evt_tick_event()
+ * evt_tick_event_and_settle()
  *
- * Attempt to advance an event by one turn.
+ * Attempt to advance an event by one turn.  The second form is one event's
+ * share of evt_tick_events(): tick, and tick once more if that moved the
+ * event from paused or waiting into running.
  */
 static void
 evt_tick_event (scr_gameref_t game, scr_int event)
@@ -1197,26 +1237,30 @@ evt_tick_events (scr_gameref_t game)
    * paused or waiting state, tick that event again.
    */
   for (event = 0; event < gs_event_count (game); event++)
-    {
-      scr_int prior_state, state;
+    evt_tick_event_and_settle (game, event);
+}
 
-      /* Note current state, and tick event forwards. */
-      prior_state = gs_event_state (game, event);
-      evt_tick_event (game, event);
+static void
+evt_tick_event_and_settle (scr_gameref_t game, scr_int event)
+{
+  scr_int prior_state, state;
 
-      /*
-       * If the event went from paused or waiting to running, tick again.
-       * This looks dodgy, and probably is, but it does keep timers correct
-       * by only re-ticking events that have transitioned from non-running
-       * states to a running one, and not already-running events.  This is
-       * in effect just adding a bit of turn processing to a tick that would
-       * otherwise change state alone; a bit of laziness, in other words.
-       */
-      state = gs_event_state (game, event);
-      if (state == ES_RUNNING
-          && (prior_state == ES_PAUSED || prior_state == ES_WAITING))
-        evt_tick_event (game, event);
-    }
+  /* Note current state, and tick event forwards. */
+  prior_state = gs_event_state (game, event);
+  evt_tick_event (game, event);
+
+  /*
+   * If the event went from paused or waiting to running, tick again.
+   * This looks dodgy, and probably is, but it does keep timers correct
+   * by only re-ticking events that have transitioned from non-running
+   * states to a running one, and not already-running events.  This is
+   * in effect just adding a bit of turn processing to a tick that would
+   * otherwise change state alone; a bit of laziness, in other words.
+   */
+  state = gs_event_state (game, event);
+  if (state == ES_RUNNING
+      && (prior_state == ES_PAUSED || prior_state == ES_WAITING))
+    evt_tick_event (game, event);
 }
 
 

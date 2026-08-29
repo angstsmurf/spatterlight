@@ -226,16 +226,16 @@ You take a branch by the cool end.
 > wait
 Time passes...
 
-> wait
-Time passes...
-
-> wait
-Time passes...
-
-> wait
-Time passes...
-
 Glum suddenly turns and heads south.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
 
 > take cushion
 You take the large pink, tasseled cushion.

@@ -291,7 +291,8 @@ The spyhole is open.
 No more soup...
 
 > wait
-Time passes...  A little mouse exits. It's maybe back in its hole..
+Time passes...
+A little mouse exits. It's maybe back in its hole..
 
 The spyhole closes...
 
@@ -317,13 +318,15 @@ Time passes...
 Time passes...
 
 > wait
-Time passes...  A little mouse enters in the cell and moves along walls..
+Time passes...
+A little mouse enters in the cell and moves along walls..
 
 > wait
 Time passes...
 
 > wait
-Time passes...  A little mouse exits. It's maybe back in its hole..
+Time passes...
+A little mouse exits. It's maybe back in its hole..
 
 > wait
 Time passes...
@@ -333,6 +336,9 @@ Take what?
 
 > x knife
 I see no such thing.
+
+> z
+Time passes...
 "Hey Howell! It seems you've got a friend..."
 Someone throws an object in from the window.
 A little knife squeezes out from a folded letter.
@@ -349,8 +355,12 @@ Just wait for me...
 
 A brother
 
+> z
+Time passes...
+A little mouse enters in the cell and moves along walls..
+
 > write on southern wall
-With what...  A little mouse enters in the cell and moves along walls..
+With what...
 
 > enlarge hole with knife
 No way. Need something to enlarge it.
@@ -358,14 +368,17 @@ No way. Need something to enlarge it.
 > x photo
 I see no such thing.
 
+> z
+Time passes...
+
 > x hole
 It's a little crack in the wall. There's something in it.
 
 > eat soup
-No more soup...
+No more soup...  A little mouse exits. It's maybe back in its hole..
 
 > eat soup
-No more soup...  A little mouse exits. It's maybe back in its hole..
+No more soup...
 
 > eat soup
 No more soup...
@@ -390,9 +403,6 @@ Time passes...
 > ask sly about interrogation
 Use the format "ask [character] about [subject]".
 
-> ask sly about murder
-Use the format "ask [character] about [subject]".
-
 Sly is knocking on the other side of the wall...
 "Carl! Are you there?"
 
@@ -403,6 +413,12 @@ Sly is knocking on the other side of the wall...
 "What's this bullsh*t? What are they talking about?"
 "Don't know Jim. We'll get away from here."
 Jim starts to cry, on the other side of the wall...
+
+> ask sly about murder
+
+"Jim, do you think that we'll be executed?"
+Jim cries on the other side of the wall...
+"Don't know, Carl. Don't know."
 
 > ask sly about him
 
@@ -456,9 +472,6 @@ Time passes...
 
 > wait
 Time passes...
-
-> wait
-Time passes...
 Hear some rumors from the cell in the North...
 "What you want from me?"
 Other voices...
@@ -476,7 +489,8 @@ Time passes...
 Time passes...
 
 > wait
-Time passes...  A little mouse enters in the cell and moves along walls..
+Time passes...
+A little mouse enters in the cell and moves along walls..
 
 > wait
 Time passes...
@@ -485,13 +499,15 @@ Time passes...
 Time passes...
 
 > wait
-Time passes...  A little mouse exits. It's maybe back in its hole..
+Time passes...
+A little mouse exits. It's maybe back in its hole..
 
 > wait
 Time passes...
 
 > wait
-Time passes...  A little mouse enters in the cell and moves along walls..
+Time passes...
+A little mouse enters in the cell and moves along walls..
 
 > wait
 Time passes...
@@ -515,7 +531,8 @@ The priest exits and the guard locks the door.
 Time passes...
 
 > wait
-Time passes...  A little mouse exits. It's maybe back in its hole..
+Time passes...
+A little mouse exits. It's maybe back in its hole..
 
 > wait
 Time passes...
@@ -539,19 +556,15 @@ Time passes...
 Time passes...
 
 > wait
-Time passes...  A little mouse enters in the cell and moves along walls..
-
-> wait
 Time passes...
-
-> wait
-Time passes...  A little mouse exits. It's maybe back in its hole..
+A little mouse enters in the cell and moves along walls..
 
 > wait
 Time passes...
 
 > wait
 Time passes...
+A little mouse exits. It's maybe back in its hole..
 
 > wait
 Time passes...
@@ -560,7 +573,14 @@ Time passes...
 Time passes...
 
 > wait
-Time passes...  A little mouse enters in the cell and moves along walls..
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+A little mouse enters in the cell and moves along walls..
 
 > wait
 Time passes...

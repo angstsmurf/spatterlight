@@ -1478,10 +1478,34 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   vt_key[1].string = "StartRoom";
   game->playerroom = prop_get_integer (bundle, "I<-ss", vt_key);
   vt_key[0].string = "Globals";
-  vt_key[1].string = "ParentObject";
-  game->playerparent = prop_get_integer (bundle, "I<-ss", vt_key) - 1;
   vt_key[1].string = "Position";
   game->playerposition = prop_get_integer (bundle, "I<-ss", vt_key);
+  vt_key[1].string = "ParentObject";
+  {
+    /*
+     * ParentObject is not an object index.  It is the 1-based ordinal the
+     * Generator's position combo holds -- the n-th standable object for a
+     * standing or sitting start, the n-th lieable object for a lying one,
+     * 0 for the floor -- exactly the encoding the "Move player to standing/
+     * sitting/lying on" task action uses (sctasks.cpp task_run_move_player_
+     * action), and the restriction "Player must be sitting on" tests.  We
+     * used to read it as a raw 1-based object index, so CIBASS.taf (lying,
+     * ParentObject 1) started the player on object 0, the window, and
+     * `stand` answered "I stand up from the window."  run400 answers "I
+     * stand up from the bed." (measured 2026-08-29): the bed is the first
+     * lieable object.  Fugitive.taf (lying, 1) is the same shape and its
+     * golden used to read "You stand up from your watch."; 3monkeys.taf
+     * (sitting, 4) has "sheet" as object 3 but "bed" as the 4th standable.
+     */
+    scr_int ordinal = prop_get_integer (bundle, "I<-ss", vt_key);
+
+    if (ordinal <= 0)
+      game->playerparent = -1;
+    else if (game->playerposition == 2)
+      game->playerparent = obj_lieable_object (game, ordinal - 1);
+    else
+      game->playerparent = obj_standable_object (game, ordinal - 1);
+  }
   game->playerstamina = 0;
   game->playerstaminacounter = 0;
   game->playerwield = -1;
@@ -1535,9 +1559,11 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->npc_references.assign (game->npc_count, FALSE);
 
   game->it_object = -1;
+  game->it_definite = FALSE;
   game->him_npc = -1;
   game->her_npc = -1;
   game->it_npc = -1;
+  game->last_npc = -1;
 
   /*
    * Seed the carried-load totals from the starting inventory.  run400 zeroes
@@ -1767,9 +1793,11 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->npc_references = from->npc_references;
 
   to->it_object = from->it_object;
+  to->it_definite = from->it_definite;
   to->him_npc = from->him_npc;
   to->her_npc = from->her_npc;
   to->it_npc = from->it_npc;
+  to->last_npc = from->last_npc;
 
   /*
    * Carry the running totals over verbatim: run400's undo snapshot restores

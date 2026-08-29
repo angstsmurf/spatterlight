@@ -5,6 +5,7 @@ Open satchel
 W
 In
 X Horace
+i
 Hug Horace
 Get shovel
 Look in dustbin
@@ -87,6 +88,7 @@ Sit in chair
 E
 E
 X miner
+i
 Kick miner
 Get lamp
 Get ladder
@@ -213,6 +215,7 @@ Y
 Turn off torch
 Read sign
 X octopus
+i
 Drop amphora
 Put sweet on plinth
 Drop watch
@@ -319,6 +322,7 @@ Drop all
 E
 E
 X Grandad
+i
 Get Document
 Read it
 Drop it
@@ -406,6 +410,7 @@ Open casket
 W
 X kennel
 X dog
+i
 Give bone to dog
 X table
 Get pot
@@ -428,11 +433,13 @@ Get lump
 X table
 Get bag
 X viking
+i
 Give jigsaw to viking
 Get filofax
 S
 D
 X sealion
+i
 Give fish to sealion
 Get tuck
 Open Tuck
@@ -631,6 +638,7 @@ S
 Y
 S
 X robot
+i
 Push button
 X coach
 Enter coach
@@ -721,7 +729,9 @@ Wait
 Wait
 Wait
 X Jasper
+i
 X teeth
+i
 Give toffee to Jasper
 Ask Jasper about wumpus
 Wait
@@ -759,6 +769,7 @@ S
 S
 Turn off torch
 X Olaf
+i
 Ask Olaf about story
 Pop balloon
 Ask Olaf about story
@@ -768,6 +779,7 @@ S
 E
 E
 X hacker
+i
 Give package to hacker
 X computer
 Read filofax
@@ -798,6 +810,7 @@ Sit on pedestal
 Push button
 Get powder
 X fairy
+i
 X wand
 Ask fairy about wand
 Give plaster to fairy
@@ -851,12 +864,14 @@ E
 Turn off torch
 Wait
 X Dennis
+i
 Give mug to Dennis
 Hit Dennis
 Get helmet
 Get uniform
 Tie Dennis with sheets
 X Dennis
+i
 X underwear
 Smell underwear
 Sign form

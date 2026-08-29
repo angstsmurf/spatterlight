@@ -131,6 +131,22 @@ os_print_tag (scr_int tag, const scr_char *argument)
         append_character ('\n');
       break;
 
+    case SCR_TAG_WAIT:
+      /*
+       * A timed pause.  Nothing to wait for headless, but SCR_MARK_WAIT=1
+       * notes it on stderr in transcript order, the way SCR_MARK_WAITKEY
+       * does below: the real Runner drops every keystroke typed while one
+       * runs, so a Wine replay has to sleep through it (see
+       * test/adrift4/harness/make_wine_cmdfile.py).
+       */
+      if (getenv ("SCR_MARK_WAIT"))
+        {
+          full_flush ();
+          fflush (stdout);
+          fprintf (stderr, "[WAIT %s]\n", argument ? argument : "");
+        }
+      break;
+
     case SCR_TAG_WAITKEY:
       {
         scr_char dummy[256];
@@ -263,6 +279,9 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
  * os_read_line()
  * os_read_line_debug()
  */
+/* Solution-file line counter for the SCR_TRACE_ADMIN derivation aid. */
+static long os_ansi_input_line = 0;
+
 scr_bool
 os_read_line (scr_char *buffer, scr_int length)
 {
@@ -302,6 +321,7 @@ os_read_line (scr_char *buffer, scr_int length)
   if (echo_input)
     putchar (' ');
   fflush (stdout);
+  os_ansi_input_line++;
   if (!fgets (buffer, length, stdin))
     {
       /* EOF (or error) on this read with no data; quit cleanly as above. */
@@ -328,12 +348,26 @@ os_read_line (scr_char *buffer, scr_int length)
    */
   while (buffer[strspn (buffer, " \t")] == '#')
     {
+      os_ansi_input_line++;
       if (!fgets (buffer, length, stdin))
         {
           scr_quit_game (game);
           exit (EXIT_SUCCESS);
         }
     }
+
+#ifdef SCARIER_DUMP_TOOLS
+  /*
+   * Derivation aid, paired with SCR_TRACE_ADMIN in run_main_loop(): name the
+   * line just read (1-based, comments counted) so an "ADMIN" trace line can
+   * be tied to the solution-file line that produced it.
+   */
+  {
+    static const bool trace_admin = getenv ("SCR_TRACE_ADMIN") != NULL;
+    if (trace_admin)
+      fprintf (stderr, "INPUT line=%ld %s", os_ansi_input_line, buffer);
+  }
+#endif
 
   /* The other half of the echo above: the command itself. */
   if (echo_input)

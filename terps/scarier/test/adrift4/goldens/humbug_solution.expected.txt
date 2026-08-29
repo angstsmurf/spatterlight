@@ -97,6 +97,10 @@ Horace is Grandad's tubby gardener.  He is wrapped up warmly against the
 cold.  Grandad says he's a genius.  Frankly, I think he's a few coupons short
 of a toast rack.
 
+> i
+I am wearing some trousers and a shirt, and I am carrying a satchel.  A
+manuscript and a paper aeroplane are inside the satchel.
+
 > Hug Horace
 Don't be daft!
 
@@ -123,6 +127,7 @@ Heh heh.  I think not.
 Okay.  I have taken the paper aeroplane from the satchel.
 
 > Drop it
+(the paper aeroplane)
 Okay.  I have dropped the paper aeroplane.
 
 > Out
@@ -168,6 +173,7 @@ inside the letterbox.
 Okay.  I have taken the envelope from the letterbox.
 
 > Read it
+(the envelope)
 Addressed to Grandad Widdershins, Attervist Manor, Windmill Lane, Kent.  It
 is still sealed.
 
@@ -679,6 +685,9 @@ Exits are east and west.
 The miner is a small, hunched man with a wild red beard.  Warts cover his
 face.  Blood trickles from his forehead.  He seems to be unconcious.  The
 miner is carrying a lamp.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying nothing.
 
 > Kick miner
 I kick the miner's unconscious body.  It doesn't achieve very much but it
@@ -1505,6 +1514,10 @@ The octopus is rather hefty, and is wearing a green tinted croupier eye
 shield.  Beneath the shield I can see the octopus's large protruding eyes.
 The octopus is carrying a jigsaw and a dweezil.
 
+> i
+I am wearing some trousers, a shirt, some swimming goggles and a swimming
+cap, and I am carrying a torch, an amphora, a watch and a sweet.
+
 > Drop amphora
 Okay.  I have dropped the amphora.  The amphora shatters into thousands of
 tiny pieces.  A thick black fog blows like a tornado out of the amphora's
@@ -1729,6 +1742,7 @@ Okay.  There is a harsh grating noise from the east.  Slowly but surely the
 metal door begins to slide open.
 
 > W
+(Getting off the stool first)
 
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
@@ -2269,10 +2283,15 @@ Grandad has always had this thing about Napoleon Bonaparte, and is dressed
 accordingly, as the first Emperor of France.  Well, at least it keeps him
 happy.  Grandad is wearing a hat, and carrying a document.
 
+> i
+I am wearing some trousers, a shirt and a swimming cap, and I am carrying
+nothing.
+
 > Get Document
 Okay.  I have taken the document from Grandad.
 
 > Read it
+(a document)
 It is addressed to Grandad, and is from the solicitors of Grandad's neighbour
 Jasper Slake:
 
@@ -2306,6 +2325,7 @@ Grandad has scrawled a very rude word over the document.  He doesn't like his
 neighbour very much.
 
 > Drop it
+(a document)
 Okay.  I have dropped the document.
 
 > Get hat
@@ -2796,6 +2816,11 @@ a dog.
 The vicious-looking bulldog bears an uncanny resemblance to Lord Lucan.  I
 don't think it can be him though.  If it is, it's not a very good disguise.
 
+> i
+I am wearing some trousers, a shirt and a swimming cap, and I am carrying a
+torch, a mousse, a golden casket, a fish and a bone.  Some pepper is inside
+the golden casket.
+
 > Give bone to dog
 The dog howls with delight and clamps its jaws into the bone.
 From inside the kennel there is a contented gnawing.
@@ -2940,6 +2965,11 @@ This particular Viking doesn't look overtly menacing.  The Viking's coat (a
 rather natty number he picked up at the local Marks and Sparks) is coloured a
 mushy mix of white and chocolate brown.  Sven is carrying a filofax.
 
+> i
+I am wearing some trousers, a shirt and a swimming cap, and I am carrying a
+coin, a jigsaw, a fish, a mug, a sugar lump and a bag of porridge.  The mug
+contains some tea.
+
 > Give jigsaw to viking
 With a hearty roar of delight Sven snatches the jigsaw off me.  He turns to
 put the pieces on the table.  Busy assembling the jigsaw, Sven doesn't seem
@@ -2973,6 +3003,11 @@ Exits are north and up.
 > X sealion
 The podgy sea-lion has rather a large squidgy tummy.  It looks rather hungry.
  The sea-lion is carrying a tuck box.
+
+> i
+I am wearing some trousers, a shirt and a swimming cap, and I am carrying a
+coin, a jigsaw, a fish, a filofax, a mug, a sugar lump and a bag of porridge.
+ The mug contains some tea.
 
 > Give fish to sealion
 The sea-lion puts his tuck box on the ground and happily chomps at the fish.
@@ -3946,16 +3981,19 @@ Okay.  I have taken the envelope.  Schrodinger wanders towards me from the
 north.
 
 > Read it
+(the envelope)
 Addressed to Grandad Widdershins, Attervist Manor, Windmill Lane, Kent.  It
 is still sealed.  Schrodinger wanders to above.
 
 > Open it
+(the envelope)
 I tear open the envelope.  The envelope contains a Christmas card.
 
 > Get card
 Okay.  I have taken the Christmas card from the envelope.
 
 > Read it
+(the Christmas card)
 Two robins are perched on the front of the Christmas card.  Inside a message
 is written in mum's familiar handwriting:  "Grandad, have a Happy Xmas, love
 from all the family.  xxx.  PS. Don't forget young Sidney is visiting for a
@@ -4534,8 +4572,12 @@ east.
 > X robot
 The robot is made out of a curious arrangement of angular coat hangers and
 digestive biscuits.  It doesn't look very friendly.  In the middle of the
-robot's chest area there is a small turquoise button.  Grandad enters from
-the north.
+robot's chest area there is a small turquoise button.
+
+> i
+I am wearing some trousers, a shirt and a hat, and I am carrying a shovel, a
+torch, a claw, a sugar lump, a ticket, a bus pass and a package.  Grandad
+enters from the north.
 
 > Push button
 I press the button.  The robot's x-ray eyes scan me and my belongings.  The
@@ -4907,6 +4949,7 @@ Exits are north, east, south, west and up.
 Okay.  I have taken the gloves.
 
 > Wear it
+(the gloves)
 Okay.  I am now wearing the gloves.
 
 > Get hedgehog
@@ -5143,11 +5186,17 @@ Jasper is Grandad's evil neighbour.  I don't like him.  He's a dentist.
 Jasper has an untidy thatch of ginger hair, and is wearing jodphurs and a
 long cloak.  His snarling face reveals a row of golden teeth.  He seems to be
 searching for something.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying some toffee.
 Jasper looks at me, "Do you know where it is?  You better not be hiding it
 from me.."
 
 > X teeth
 Nothing Special.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying some toffee.
 
 > Give toffee to Jasper
 Jasper pops the toffee in his mouth and begins to chew.
@@ -5411,6 +5460,10 @@ powered circular saws, and a copy of Norton Utilities.
 Olaf is very very drunk.  He looks a shade depressed.  Olaf is carrying a
 rucksack.
 
+> i
+I am wearing some trousers and a shirt, and I am carrying a torch, a filofax,
+a bag of porridge, a balloon, a plaster, a package, a wumpus and a tooth.
+
 > Ask Olaf about story
 Olaf sniffs, "Oh it's so stupid.  I was going to Hic! ring up my aunty to
 tell her I'd be late home for my porridge, but I can't remember her telephone
@@ -5482,6 +5535,10 @@ Exits are north and west.
 The hacker's name is Alex.  He looks a bit of a computer junkie.  I'd best be
 careful, they're a dangerous breed.  Alex is wearing an anorak, and carrying
 a stanley knife.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying a torch, a filofax,
+a bag of porridge, a plaster, a package, a wumpus and a tooth.
 
 > Give package to hacker
 The hacker smiles, "Cor thanks!  How did you know it was my birthday?".  The
@@ -5678,6 +5735,10 @@ Okay.  I have taken the white powder.
 A diaphanous fairy with wings made out of wire gauze.  She looks very
 beautiful.  She looks as if she has been crying.  The fairy is carrying a
 magic wand.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying a torch, a bag of
+porridge, a plaster, a rucksack, a wumpus, a tooth and some white powder.
 
 > X wand
 A magic wand.  It has a silver star on the end.  The wand is broken.
@@ -6066,6 +6127,10 @@ and a biro.
 Dennis is a rather overweight fireman.  Dennis is wearing a uniform and a
 helmet, and carrying a pelican.
 
+> i
+I am wearing some trousers and a shirt, and I am carrying a torch, a mug,
+some sheets, a biro and a form.  The mug contains some tea.
+
 > Give mug to Dennis
 Dennis takes his helmet off, "Don't mind if I do.. thanks very much."  He
 sips thoughtfully on the tea.
@@ -6087,6 +6152,10 @@ Okay.  I tie Dennis up with the sheets.
 > X Dennis
 Dennis is a rather overweight fireman.  He is lying unconscious on the
 ground.  Dennis is wearing his underwear, and carrying a mug.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying a torch, some
+sheets, a biro, a uniform, a helmet and a form.
 
 > X underwear
 I couldn't even begin to describe Dennis's underwear.
@@ -6310,6 +6379,7 @@ Okay.  I have taken the diamond.
 Okay.  I have taken the gloves.
 
 > Wear it
+(the gloves)
 Okay.  I am now wearing the gloves.  Schrodinger wanders towards me from
 above.
 
@@ -6720,6 +6790,7 @@ Exits are north, east and south.
 Okay.  I have taken the monocle.
 
 > Wear it
+(the monocle)
 Okay.  I am now wearing the monocle.  As soon as I put on the monocle my
 eyesight is dramatically distorted.  All I can see now is a menagerie of
 distorted shapes and squiggles.  No wonder Grandad has such a strange view of
@@ -7431,6 +7502,7 @@ Okay.  I have taken the tin from horace's workbench.
 Horace bounds after the paper aeroplane, trying to catch it.
 
 > Open it
+(the tin)
 I open the tin.  Some snuff is inside the tin.
 Horace bounds after the paper aeroplane, trying to catch it.
 

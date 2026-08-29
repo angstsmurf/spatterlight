@@ -121,9 +121,18 @@ typedef struct scr_filter_s
      newline of its own; -1 if the last one did not, or if anything has been
      buffered since.  See pf_undo_auto_break(). */
   scr_int auto_break_at;
+  /* Buffer length just after a newline that a Runner really stores in its
+     output string (4.0's "Time passes..." & vbCrLf), so that a join keeps it
+     instead of popping it; -1 otherwise.  See pf_buffer_hard_break(). */
+  scr_int hard_break_at;
   /* Length of a prefix of the buffer that the paragraph-spacing helpers are
      to treat as if it were not there.  See pf_hide_prefix(). */
   size_t hidden;
+  /* Buffer length just after pf_buffer_reference() buffered one of the 4.0
+     Runner's bracketed reference lines; -1 otherwise.  While the line is
+     still the last thing buffered, pf_buffer_paragraph() leaves a leading
+     break on the next text alone. */
+  scr_int reference_at;
 } scr_filter_t;
 
 
@@ -305,7 +314,9 @@ pf_create (void)
   filter->is_muted = FALSE;
   filter->needs_filtering = FALSE;
   filter->auto_break_at = -1;
+  filter->hard_break_at = -1;
   filter->hidden = 0;
+  filter->reference_at = -1;
 
   return filter;
 }
@@ -641,6 +652,10 @@ pf_output_tag (const scr_char *contents)
    * Search for the name in the HTML tags table.  It should be a full match,
    * that is, the character after the matched name must be space or NUL.
    * The <bgcolour="xyz"> tag is the exception; here the terminator is '='.
+   * So is <wait>: run400 (Proc at 47A82C) tests Left(LCase(tag), 5) =
+   * "<wait" and takes Val() of the rest, so "<wait3>" is a three-second
+   * pause exactly like "<wait 3>" (Through time writes the spaceless form
+   * throughout).  <waitkey> sits earlier in the table and still wins.
    */
   for (entry = HTML_TAGS_TABLE; entry->name; entry++)
     {
@@ -649,8 +664,23 @@ pf_output_tag (const scr_char *contents)
           scr_char next;
 
           next = contents[entry->length];
+          /*
+           * <waitkey> is an exact-string test in run400 (47A779 compares
+           * the whole tag with "<waitkey>"); anything else starting "<wait"
+           * is a timed <wait> whose Val() of the remainder decides the
+           * delay, so "<waitkey 4>" is a zero-second wait and NOT a
+           * keypress pause.  Vardock Bates (4.00) writes one after the
+           * Jhave wall; run400 does not stop there (transcript 2026-08-29).
+           */
+          if (entry->tag == SCR_TAG_WAITKEY)
+            {
+              if (next == NUL)
+                break;
+              continue;
+            }
           if (next == NUL || scr_isspace (next)
-              || (entry->tag == SCR_TAG_BGCOLOUR && next == '='))
+              || (entry->tag == SCR_TAG_BGCOLOUR && next == '=')
+              || entry->tag == SCR_TAG_WAIT)
             break;
         }
     }
@@ -1305,7 +1335,37 @@ pf_empty (scr_filterref_t filter)
   filter->is_muted = FALSE;
   filter->needs_filtering = FALSE;
   filter->auto_break_at = -1;
+  filter->hard_break_at = -1;
   filter->hidden = 0;
+  filter->reference_at = -1;
+}
+
+
+/*
+ * pf_buffer_reference()
+ *
+ * Buffer one of the 4.0 Runner's bracketed reference lines -- "(a trophy)"
+ * for a pronoun, "(look)" for "again" -- as its own line, and note where it
+ * ends.  The Runner builds each of these as
+ * "(" & text & ")" & vbCrLf and appends the turn's response after it
+ * unchanged, so a task text that opens with "<br>" still puts a blank line
+ * between the reference and itself.  Unmarked, the line's newline would make
+ * pf_buffer_paragraph() swallow that leading break as if it were one of
+ * SCARIER's own terminators.  Only that one collapse is switched off: the
+ * hidden-prefix barrier would also stop a walk announcement joining the
+ * paragraph (see pf_buffer_paragraph_join()), which the Runner still does.
+ */
+void
+pf_buffer_reference (scr_filterref_t filter, const scr_char *text)
+{
+  assert (pf_is_valid (filter));
+  assert (text);
+
+  pf_buffer_string (filter, "(");
+  pf_buffer_string (filter, text);
+  pf_buffer_string (filter, ")\n");
+  if (!filter->is_muted)
+    filter->reference_at = (scr_int) filter->buffer.size ();
 }
 
 
@@ -1459,7 +1519,9 @@ pf_buffer_paragraph (scr_filterref_t filter, const scr_char *string)
   buffered = pf_get_buffer (filter);
   if (buffered
       && pf_text_ends_with_break (buffered)
-      && pf_text_leads_with_break (string))
+      && pf_text_leads_with_break (string)
+      && !(filter->reference_at >= 0
+           && (size_t) filter->reference_at == filter->buffer.size ()))
     {
       /* Skip exactly one leading break -- a literal newline or a "<br>" tag. */
       string += (*string == '\n') ? 1 : 4;
@@ -1690,7 +1752,17 @@ pf_buffer_join_internal (scr_filterref_t filter, const scr_char *string,
   if (!filter->is_muted && filter->buffer.size () > filter->hidden)
     {
       if (filter->buffer.back () == '\n')
-        filter->buffer.pop_back ();
+        {
+          /* A newline the Runner's own string carries stays, and pspace
+             then adds no separator to text ending in Chr(10). */
+          if (filter->hard_break_at >= 0
+              && (size_t) filter->hard_break_at == filter->buffer.size ())
+            {
+              pf_buffer_string (filter, string);
+              return;
+            }
+          filter->buffer.pop_back ();
+        }
 
       if (filter->buffer.size () > filter->hidden
           && !pf_text_ends_with_break (filter->buffer.c_str ())
@@ -1710,6 +1782,25 @@ void
 pf_buffer_join_always (scr_filterref_t filter, const scr_char *string)
 {
   pf_buffer_join_internal (filter, string, FALSE);
+}
+
+
+/*
+ * pf_buffer_hard_break()
+ *
+ * Note that the newline the buffer currently ends with is one the Runner
+ * keeps in its output string, not a section terminator of ours, so that
+ * pf_buffer_join() runs the joined text on after it rather than in place of
+ * it.  Anything buffered afterwards makes the note stale by position.
+ */
+void
+pf_buffer_hard_break (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  if (!filter->is_muted && !filter->buffer.empty ()
+      && filter->buffer.back () == '\n')
+    filter->hard_break_at = (scr_int) filter->buffer.size ();
 }
 
 
@@ -2059,93 +2150,65 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
     pf_synonym_cache_build (bundle, synonym_count);
 
   /*
-   * 'current' is the active string -- the input until a synonym fires, then
-   * the 'buffer' copy (basic copy-on-write).  'offset' is our position within
-   * it; we work by offset because std::string edits may reallocate.
+   * The Runner applies the table as a SEQUENCE OF WHOLE-STRING REWRITES, in
+   * table order: synonym 0 replaces every whole-word occurrence of its
+   * original in the input, synonym 1 does the same to synonym 0's output,
+   * and so on.  A later synonym therefore sees -- and rewrites -- the words
+   * an earlier one wrote, and an earlier synonym never sees a later one's.
+   *
+   * Vardock Bates pins this (run400 under Wine, Adrift_3_vardock_bates.txt 2026-08-29).
+   * Its table has hablar->talk [101], then jason->"jason dhirco" [160], then
+   * dhirco->"jason dhirco" [161], and the task is
+   * [talk]{con}[dhirco/jason/jason dhirco]:
+   *
+   *   hablar con dhirco        -> talk con jason dhirco          task runs
+   *   hablar con jason         -> talk con jason jason dhirco    generic
+   *   hablar con jason dhirco  -> talk con jason dhirco jason dhirco  generic
+   *   talk con jason dhirco    -> (the same as the line above)   generic
+   *
+   * Only the spelling that reaches the table AFTER [160] has done its work
+   * survives; the other three double the surname and fall to "Nadie escucha
+   * tus delirios."  Lair of the Vampire (harris->steve then steve->harris:
+   * "ask harris" ends as harris) and Yak Shaving (flags->"clothes line",
+   * then line and clothes -> "clothes line": "x flags" grows to "x clothes
+   * line clothes line line", which the containment matcher still resolves)
+   * both fit, and were the two games the previous first-match-then-whole-
+   * only rule was built around.
    */
   modified = FALSE;
   current = string;
 
-  /* Loop over each word in the string. */
-  offset = strspn (current, WHITESPACE);
-  while (current[offset] != NUL)
+  for (index_ = 0; index_ < synonym_count; index_++)
     {
-      scr_int span;
+      const pf_str_pair_t &entry = pf_synonym_cache[index_];
 
-      /*
-       * Look for a synonym match at this point.  The first one to match fires;
-       * every synonym after it in the list gets a look at the text that one
-       * just wrote, but only as a whole -- a later synonym fires again only if
-       * its original is the entire replacement.  'span' is the length of that
-       * replacement region, or zero while nothing has fired yet.
-       *
-       * Both halves of that rule are needed, and each is pinned by a game:
-       *
-       *  o Lair of the Vampire maps "harris" to "steve" *and* "steve" back to
-       *    "harris", so that both spellings reach one NPC.  run400 accepts
-       *    "ask harris about key" -- the game's own walkthrough opens with it
-       *    -- so the second synonym must fire on the first one's output.
-       *    Stopping at the first match, as we used to, left a "steve" the
-       *    character has no alias for and made the cellmate unaddressable.
-       *
-       *  o Yak Shaving maps "flags", then "line", then "clothes" all onto
-       *    "clothes line".  run400 answers "x flags" with the laundry
-       *    description, so the "line" and "clothes" synonyms must *not* fire
-       *    on the words inside the "clothes line" the first one wrote --
-       *    neither is the whole of it.  Letting them would spiral: "x flags"
-       *    grows a "clothes line" per pass without bound.
-       *
-       * Both behaviours were read off the real Runner under Wine.
-       */
-      span = 0;
-      for (index_ = 0; index_ < synonym_count; index_++)
+      /* Walk the current string a word at a time, replacing each match. */
+      offset = strspn (current, WHITESPACE);
+      while (current[offset] != NUL)
         {
-          const pf_str_pair_t &entry = pf_synonym_cache[index_];
           scr_int extent;
 
-          /* Compare the synonym original at this point. */
           extent = pf_compare_words (current + offset, entry.original);
-          if (extent == 0)
-            continue;
-
-          /* Once something has fired, only an exact re-match counts. */
-          if (span > 0 && extent != span)
-            continue;
-
-          /*
-           * If not yet copied, copy the input string into the buffer now and
-           * switch 'current' to it.  The offset is unchanged since the buffer
-           * starts as an exact copy.  More basic copy-on-write.
-           */
-          if (!modified)
+          if (extent > 0)
             {
-              buffer = string;
-              modified = TRUE;
+              if (!modified)
+                {
+                  buffer = string;
+                  modified = TRUE;
+                }
+              buffer.replace (offset, extent, entry.replacement,
+                              entry.replacement_length);
+              current = buffer.c_str ();
+              offset += entry.replacement_length;
+
+              if (pf_trace)
+                scr_trace ("Printfilter: synonym \"%s\"\n", buffer.c_str ());
             }
+          else
+            offset += strcspn (current + offset, WHITESPACE);
 
-          /* Splice the replacement in for the matched extent. */
-          buffer.replace (offset, extent, entry.replacement,
-                          entry.replacement_length);
-          current = buffer.c_str ();
-          span = entry.replacement_length;
-
-          if (pf_trace)
-            scr_trace ("Printfilter: synonym \"%s\"\n", buffer.c_str ());
+          offset += strspn (current + offset, WHITESPACE);
         }
-
-      if (span > 0)
-        {
-          /* Adjust offset to skip over the replacement region. */
-          offset += span;
-        }
-      else
-        {
-          /* If no match, advance over the unmatched word. */
-          offset += strcspn (current + offset, WHITESPACE);
-        }
-
-      /* Set offset to the next word start. */
-      offset += strspn (current + offset, WHITESPACE);
     }
 
   /* Return the final string, or NULL if no synonym replacements. */

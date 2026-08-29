@@ -53,6 +53,7 @@ A hoarse whisper calls from the closet, "Chloe, come here.  Come into the
 closet...  Chloe, I've got something for you..."
 
 > in
+(Getting off Sissy's four poster bed first)
 I move in.
 
 Under My Bed
@@ -168,6 +169,7 @@ I stand on the pink plastic chair.
 Standing on the chair, I'm able to reach, unlock and open the bedroom door.
 
 > ne
+(Getting off the pink plastic chair first)
 I move northeast.
 
 South End of Hallway

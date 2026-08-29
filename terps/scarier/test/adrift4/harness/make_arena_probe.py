@@ -83,7 +83,10 @@ def build(cfg):
         # actions run -- see probe SRD below.
         s(t.get('showroomdesc', 0)); s(t.get('repeatable', 1)); s(0)
         s(0)                                    # ReverseCommands
-        s(3)                                    # Where: all rooms
+        twhere = t.get('where', (3, 0))         # Where: default all rooms
+        s(twhere[0])
+        if twhere[0] == 1:
+            s(twhere[1])                        # one room, 0-based on disk
         q = t.get('question', "")
         s(q)                                    # Question (+2 hints if set)
         if q:
@@ -130,7 +133,10 @@ def build(cfg):
             s(e.get('finishtext', ""))
         else:
             s(""); s(""); s("")             # Start/Look/FinishText
-        s(3)                                # Where: all rooms
+        where = e.get('where', (3, 0)) if isinstance(e, dict) else (3, 0)
+        s(where[0])                         # Where.Type (3 = all rooms)
+        if where[0] == 1:                   # one room: arg is 0-based, the
+            s(where[1])                     # file stores it 0-based (ROOM_LIST0)
         s(0); s(0)                          # PauseTask PauserCompleted
         s(0); s("")                         # PrefTime1 PrefText1
         s(0); s(0)                          # ResumeTask ResumerCompleted
@@ -157,8 +163,29 @@ def build(cfg):
         # and "" drops the NPC from the room description altogether.
         inroom = n[16] if len(n) > 16 else name + " is here, looking dangerous."
         s(name); s("a"); s(0)
-        s("A probe NPC."); s(room + 1); s(""); s(0)
-        s(0); s(0); s(0)                    # topics walks showenterexit
+        descr = n[19] if len(n) > 19 else "A probe NPC."   # "" = Runner default
+        s(descr); s(room + 1); s(""); s(0)
+        s(0)                                # topics
+        # n[17]: walks, each dict(stops=[(room0based, time)], loop=1,
+        # starttask=0, chartask=0, meetobject=0, objecttask=0,
+        # stoppingtask=0, meetchar=0, changeddesc="").  Stop rooms are stored
+        # +2 (0 = hidden, 1 = follow player), as the Runner reads them.
+        walks = n[17] if len(n) > 17 else []
+        s(len(walks))
+        for w in walks:
+            stops = w['stops']
+            s(len(stops)); s(w.get('loop', 1)); s(w.get('starttask', 0))
+            s(w.get('chartask', 0)); s(w.get('meetobject', 0))
+            s(w.get('objecttask', 0)); s(w.get('stoppingtask', 0))
+            s(w.get('meetchar', 0)); s(w.get('changeddesc', ""))
+            for (r, t) in stops:
+                s(r + 2); s(t)
+        # n[18]: (EnterText, ExitText) turns ShowEnterExit on.
+        ee = n[18] if len(n) > 18 else None
+        if ee:
+            s(1); s(ee[0]); s(ee[1])
+        else:
+            s(0)
         s(inroom); s(0)
         s(att)
         s(stam); s(stam)
@@ -562,6 +589,184 @@ CONFIGS = {
     tasks=[dict(commands=["zzpillcheck"], complete="PILLCHECK FIRED.",
                 restrs=[(3,4,1,"")])],
     events=[("Pill Check", 1)]),
+ # Beanstalk (Beanstalk.taf) event 0 "greeting the stranger": StarterType 3
+ # after task 22, Time1=Time2=1, RestartType 0, FinishText only, one-room
+ # Where.  run400 (Adrift_1_beanstalk.txt, 2026-08-29) never printed the
+ # FinishText although the player stood in that room on the finishing turn;
+ # scarier printed it on the turn after the starter task.  EV10 isolates the
+ # shape without the room gate (Where: all rooms):
+ #   G1  starter=3 after task 1, len 1..1, FinishText only  -> the Beanstalk cell
+ #   G2  starter=3 after task 1, len 2..2, FinishText only  -> control (vardock
+ #                                        ev 2, len 3, is measured to print)
+ #   G3  starter=3 after task 1, len 1..1, StartText+FinishText
+ # Session: zztrigger, z, z, z, z.
+ 'EV10': dict(name="Probe EV10",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    tasks=[dict(commands=["zztrigger"], complete="TRIGGER DONE.")],
+    events=[dict(short="G1", affected=0, starter=3, restart=0, tasknum=1,
+                 time1=1, time2=1, finishtext="G1 FINISH."),
+            dict(short="G2", affected=0, starter=3, restart=0, tasknum=1,
+                 time1=2, time2=2, finishtext="G2 FINISH."),
+            dict(short="G3", affected=0, starter=3, restart=0, tasknum=1,
+                 time1=1, time2=1, starttext="G3 START.",
+                 finishtext="G3 FINISH.")]),
+ # EV10 measured 2026-08-29 (Adrift_1_ev10.txt): G1 FINISH and G3 FINISH on
+ # the turn after zztrigger, G2 FINISH one later, G3 START with the trigger --
+ # scarier identical.  So the Beanstalk shape prints; what is left is the
+ # one-room Where.  EV11 isolates that: two rooms, the same event twice with
+ # Where = room 0 and Where = room 1, triggered from each room.
+ #   P1/P2 after task 1 (zzone), len 1, FinishText, Where room 0 / room 1
+ #   P3/P4 after task 2 (zztwo), same, Where room 0 / room 1
+ # Session: zzone, z, e, zztwo, z.  0-based Where => P1 then P4.
+ 'EV11': dict(name="Probe EV11",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Room A","Room A, exit east.",{1:1}),
+           ("Room B","Room B, exit west.",{3:0})],
+    npcs=[],
+    tasks=[dict(commands=["zzone"], complete="ONE DONE."),
+           dict(commands=["zztwo"], complete="TWO DONE.")],
+    events=[dict(short="P1", affected=0, starter=3, restart=0, tasknum=1,
+                 time1=1, time2=1, finishtext="P1 FINISH (Where room 0).",
+                 where=(1,0)),
+            dict(short="P2", affected=0, starter=3, restart=0, tasknum=1,
+                 time1=1, time2=1, finishtext="P2 FINISH (Where room 1).",
+                 where=(1,1)),
+            dict(short="P3", affected=0, starter=3, restart=0, tasknum=2,
+                 time1=1, time2=1, finishtext="P3 FINISH (Where room 0).",
+                 where=(1,0)),
+            dict(short="P4", affected=0, starter=3, restart=0, tasknum=2,
+                 time1=1, time2=1, finishtext="P4 FINISH (Where room 1).",
+                 where=(1,1))]),
+ # EV11 measured 2026-08-29 (Adrift_1_ev11.txt): P1 then P4, i.e. the one-room
+ # Where is 0-based and the finish prints in that room -- scarier identical.
+ # So neither the event shape nor its Where explains Beanstalk; what is left
+ # is the starter TASK.  Beanstalk task 21 `sell cow` is Repeatable 0, has a
+ # one-room Where and moves objects.  EV12 splits those three:
+ #   zzone   Repeatable 0                         -> P1
+ #   zztwo   moves object 1 to the player (0,1,4,0) -> P2
+ #   zzthree one-room Where                       -> P3
+ # Session: zzone, z, zztwo, z, zzthree, z (all in room A).
+ 'EV12': dict(name="Probe EV12",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Room A","Room A, exit east.",{1:1}),
+           ("Room B","Room B, exit west.",{3:0})],
+    objects=[("a","pebble",4,0,0,0,0,0,0)],
+    npcs=[],
+    tasks=[dict(commands=["zzone"], complete="ONE DONE.", repeatable=0),
+           dict(commands=["zztwo"], complete="TWO DONE.",
+                actions=[(0,1,4,0)]),
+           dict(commands=["zzthree"], complete="THREE DONE.", where=(1,0))],
+    events=[dict(short="P1", affected=0, starter=3, restart=0, tasknum=1,
+                 time1=1, time2=1, finishtext="P1 FINISH (after zzone).",
+                 where=(1,0)),
+            dict(short="P2", affected=0, starter=3, restart=0, tasknum=2,
+                 time1=1, time2=1, finishtext="P2 FINISH (after zztwo).",
+                 where=(1,0)),
+            dict(short="P3", affected=0, starter=3, restart=0, tasknum=3,
+                 time1=1, time2=1, finishtext="P3 FINISH (after zzthree).",
+                 where=(1,0))]),
+ # EV12 measured 2026-08-29 (Adrift_1_ev12.txt): P1, P2, P3 all print --
+ # scarier identical.  The starter task's shape is not it either.  What is:
+ # run390 checkevent's awaiting-task block (P32Dasm 00048258..0004834A, VB
+ # Decompiler loc_448258) fires on task[TaskNum - 2].done == 1 - TaskFinished,
+ # and TaskNum 1 means ANY task.  Scarier reads TaskNum - 1 with 0 = any, so
+ # every probe above (tasknum=1) fired for both reasons at once and never
+ # told them apart.  Beanstalk's TaskNum 22 is task 20 `give beans to mother`
+ # in the Runner and task 21 `sell cow` in Scarier.  EV13 separates them:
+ #   Q1 tasknum=2, all rooms  -> Runner: after zzone (task 0);
+ #                               Scarier: after zztwo (task 1)
+ #   Q2 tasknum=3, Where room B -> Runner: after zztwo, finishing on the `e`
+ #                               that moves the player into room B (does a
+ #                               finish on a move turn see the new room?);
+ #                               Scarier: after zzthree, never typed
+ # Session: zzone, z, zztwo, e, z.
+ 'EV13': dict(name="Probe EV13",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Room A","Room A, exit east.",{1:1}),
+           ("Room B","Room B, exit west.",{3:0})],
+    npcs=[],
+    tasks=[dict(commands=["zzone"], complete="ONE DONE."),
+           dict(commands=["zztwo"], complete="TWO DONE."),
+           dict(commands=["zzthree"], complete="THREE DONE.")],
+    events=[dict(short="Q1", affected=0, starter=3, restart=0, tasknum=2,
+                 time1=1, time2=1, finishtext="Q1 FINISH (tasknum 2)."),
+            dict(short="Q2", affected=0, starter=3, restart=0, tasknum=3,
+                 time1=1, time2=1, finishtext="Q2 FINISH (tasknum 3, room B).",
+                 where=(1,1))]),
+ # EV13 measured 2026-08-29 (Adrift_1_ev13.txt): Q1 fired after zztwo, Q2
+ # never -- run400 reads TaskNum - 1 exactly as scarier does (the - 2 above is
+ # the run390 listing; unconfirmed live for 3.9).  So Beanstalk's event does
+ # start on `sell cow` in both, and the finishing turn is `x stranger`.  EV14
+ # asks whether an examine / look / inventory turn ticks events at all:
+ #   R1 after zzone   -> the next turn is `x pebble`
+ #   R2 after zztwo   -> the next turn is `look`
+ #   R3 after zzthree -> the next turn is `i`
+ #   R4 after zzfour  -> the next turn is `x bob` (an NPC)
+ # each followed by a `z`.  A finish on the examine turn = it ticks; on the z
+ # = it does not.
+ # Session: zzone, x pebble, z, zztwo, look, z, zzthree, i, z, zzfour, x bob, z.
+ 'EV14': dict(name="Probe EV14",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Room A","Room A, exit east.",{1:1}),
+           ("Room B","Room B, exit west.",{3:0})],
+    objects=[("a","pebble",4,0,0,0,0,0,0)],
+    npcs=[("Bob",0,0,100,1,1,1,1,1,1,1,1,1,1)],
+    tasks=[dict(commands=["zzone"], complete="ONE DONE."),
+           dict(commands=["zztwo"], complete="TWO DONE."),
+           dict(commands=["zzthree"], complete="THREE DONE."),
+           dict(commands=["zzfour"], complete="FOUR DONE.")],
+    events=[dict(short="R1", affected=0, starter=3, restart=0, tasknum=1,
+                 time1=1, time2=1, finishtext="R1 FINISH (after zzone)."),
+            dict(short="R2", affected=0, starter=3, restart=0, tasknum=2,
+                 time1=1, time2=1, finishtext="R2 FINISH (after zztwo)."),
+            dict(short="R3", affected=0, starter=3, restart=0, tasknum=3,
+                 time1=1, time2=1, finishtext="R3 FINISH (after zzthree)."),
+            dict(short="R4", affected=0, starter=3, restart=0, tasknum=4,
+                 time1=1, time2=1, finishtext="R4 FINISH (after zzfour).")]),
+ # EV14 measured 2026-08-29 (Adrift_1_ev14.txt): R1/R2/R3 fired on the
+ # `x pebble` / `look` / `i` turns, R4 only on the `z` AFTER `x bob` -- an
+ # NPC examine does not tick events in run400 (scarier ticks on all four).
+ # That is Beanstalk turn 45 (`x stranger`).  EV15 separates "no tick" from
+ # "deferred finish" with 2-turn events, and asks whether NPC walks are
+ # skipped on that turn too (Walker loops A->B->A every turn with
+ # enter/exit lines).
+ # Session: zzone, x bob, z, z, zztwo, x pebble, z, z.
+ 'EV15': dict(name="Probe EV15",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Room A","Room A, exit east.",{1:1}),
+           ("Room B","Room B, exit west.",{3:0})],
+    objects=[("a","pebble",4,0,0,0,0,0,0)],
+    npcs=[("Bob",0,0,100,1,1,1,1,1,1,1,1,1,1),
+          ("Walker",0,0,100,1,1,1,1,1,1,1,1,1,1,0,0,"#",
+           [dict(stops=[(1,1),(0,1)], loop=1)], ("arrives","leaves"))],
+    tasks=[dict(commands=["zzone"], complete="ONE DONE."),
+           dict(commands=["zztwo"], complete="TWO DONE.")],
+    events=[dict(short="T1", affected=0, starter=3, restart=0, tasknum=1,
+                 time1=2, time2=2, finishtext="T1 FINISH (2 ticks after zzone)."),
+            dict(short="T2", affected=0, starter=3, restart=0, tasknum=2,
+                 time1=2, time2=2, finishtext="T2 FINISH (2 ticks after zztwo).")]),
+ # EV15 measured 2026-08-29 (Adrift_1_ev15.txt): on the `x bob` turn the
+ # Runner ran NEITHER the walk nor the event tick (Walker's line is missing
+ # and T1 fired on the second z), so an NPC examine is an administrative
+ # turn in run400, like `turns` or `score`.  EV16 pins the edges with the
+ # Runner's own turn counter ("You have taken N turns so far."):
+ #   x bob (has a description), x carl (empty description -> "nothing
+ #   special"), look at bob, examine bob, x me, x dave (Dave is in Room B,
+ #   so a refusal).
+ # Session: turns, x bob, turns, x carl, turns, look at bob, turns,
+ #          examine bob, turns, x me, turns, x dave, turns, z, turns.
+ 'EV16': dict(name="Probe EV16",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Room A","Room A, exit east.",{1:1}),
+           ("Room B","Room B, exit west.",{3:0})],
+    objects=[("a","pebble",4,0,0,0,0,0,0)],
+    npcs=[("Bob",0,0,100,1,1,1,1,1,1,1,1,1,1),
+          ("Carl",0,0,100,1,1,1,1,1,1,1,1,1,1,0,0,"#",[],None,""),
+          ("Dave",1,0,100,1,1,1,1,1,1,1,1,1,1)],
+    tasks=[dict(commands=["zzone"], complete="ONE DONE.")],
+    events=[]),
  # EV follow-up: the zero-length shapes the 2026-08-02 one-shot gate does NOT
  # cover.  EV settled RestartType=1 (restart immediately) -- fires once at
  # game start, never again.  Here every event has Time1=Time2=0 and

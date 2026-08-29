@@ -107,6 +107,7 @@ A small wooden cupboard in the corner of your room. All your wordly
 possessions lie within...  The Cupboard is closed.
 
 > open it
+(a Cupboard)
 You open the Cupboard.  A Fake beard and the Captain's log are inside the
 Cupboard.
 
@@ -141,7 +142,9 @@ many clothes on). You wipe away the drool from your mouth and vow to leave
 behind these distractions.
 
 > take poster
-You can't take the kelly brook poster!
+As much as you would like to take the poster, and have Kelly Brook accompany
+you on your quest, you cannot pull the poster from the blu-tac, and anyway,
+Kelly looks quite happy where she is.
 
 > x window
 You peer out of the window and start to feel violently ill from staring at
@@ -200,7 +203,7 @@ An uncomfy well worn bed that could do with a change.
 > x drawers
 The drawers are made of a dark, red wood, and look expensive. You consider
 scratching the surface of the drawers as you don't like the first mate very
-much, but decide against it.  The set of drawers are closed.
+much, but decide against it.  The set of drawers is closed.
 
 > open drawers
 The set of drawers are locked.
@@ -245,12 +248,14 @@ A large wooden wardrobe that is attached to the wall.  The wardrobe is
 closed.
 
 > open it
+(a wardrobe)
 You open the wardrobe.  A bar of chocolate is inside the wardrobe.
 
 > x chocolate
 A small bar of chocolate., that smells yummy!
 
 > take it
+(a bar of chocolate)
 You take the bar of chocolate from the wardrobe.
 
 > x bulb
@@ -258,6 +263,7 @@ You look up at the bulb in the ceiling. Its a small glass bulb hanging from
 the ceiling.
 
 > take it
+(the bulb)
 You reach up to grab the bulb, but you are not tall enough to get it. (Plus
 your back hurts when you stretch).
 
@@ -307,6 +313,7 @@ A grey steel pantry. It is filthy and covered in handprints and dirt. You
 assume that food was kept here once. The door to the pantry is closed.
 
 > open it
+(a pantry)
 You try opening the pantry door, but it is jammed shut. There is no lock, so
 you guess it must just be too stiff to open with just your puny arms.
 
@@ -374,9 +381,10 @@ back gives in, and you have to stand up again. Ah well, I don't think the box
 would assist your plight anyway.
 
 > x silver key
-You see no such thing.
+A small metal key that appears to have fallen out of the first Mate's pocket.
 
 > take it
+(a key)
 You take the key.
 
 > x first mate
@@ -431,7 +439,7 @@ You use the key to unlock and open the drawer.
 > look in drawers
 The drawers are made of a dark, red wood, and look expensive. You consider
 scratching the surface of the drawers as you don't like the first mate very
-much, but decide against it.  The set of drawers are open.  A deflated rubber
+much, but decide against it.  The set of drawers is open.  A deflated rubber
 boat and a pair of fluffy pink handcuffs are inside the set of drawers.
 
 > take all from drawers
@@ -480,6 +488,7 @@ A long white container that holds the life raft to the ship.  The container
 is closed.
 
 > open it
+(a container)
 You open the container.  A note is inside the container.
 
 > read note
@@ -570,6 +579,7 @@ The ship's flag is attached to the mast, flying and blowing in the wind.
 A small metal toolbox.  The toolbox is closed.
 
 > open it
+(a toolbox)
 You open the toolbox.  A crowbar is inside the toolbox.
 
 > x crowbar

@@ -537,26 +537,25 @@ cage.  There is also a stable here.  The rear entrance to the big top is to
 your south, as are the dressing rooms.
 
 > ask barb about tape
-Use the format "ask [character] about [subject]".
+You get no reply from the videotape.
 
 > ask barb about tape
-Use the format "ask [character] about [subject]".
+You get no reply from the videotape.
 
 > ask barb about tape
-Use the format "ask [character] about [subject]".
+You get no reply from the videotape.
 
 > ask barb about tape
-Use the format "ask [character] about [subject]".
+You get no reply from the videotape.
 
 > ask barb about tape
-Use the format "ask [character] about [subject]".
+You get no reply from the videotape.
 
 > ask barb about tape
-Use the format "ask [character] about [subject]".
+You get no reply from the videotape.
 
 > ask barb about tape
-Use the format "ask [character] about [subject]".  Barb walks toward you from
-the south.
+You get no reply from the videotape.  Barb walks toward you from the south.
 
 > ask barb about tape
 "Oh, what's that doing there?" Barb says. She reaches into the lion cage and
@@ -574,7 +573,7 @@ Barb does not respond to your question.
 Barb does not respond to your question.  Barb departs to the south.
 
 > ask barb about tape
-Use the format "ask [character] about [subject]".
+You get no reply from the videotape.
 
 > s
 You move south.

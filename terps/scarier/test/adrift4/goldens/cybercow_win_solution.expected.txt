@@ -351,7 +351,6 @@ It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
-The rain seems to be letting up.
 
 > e
 You move east.
@@ -416,6 +415,7 @@ You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
 chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
+It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
@@ -428,8 +428,10 @@ You are standing at the bottom of the town well.  The ground is slightly
 moist here.  The end of the rope dangles here, providing you with a way back
 up.  To the west you can see the narrow entrance to the CyberCow's lair.
 The CyberCow is here.
+It is raining quite heavily.
 
 You can move west and up.
+The rain seems to be letting up.
 
 > x cow
 The CyberCow's right eye has been replaced by a redly glowing lense deeply
@@ -437,10 +439,13 @@ embedded in its skull -- probably night vision, or infrared, you'd guess.
 You can tell by this and a thousand other indicators that this is no ordinary
 CyberCow; just as you can tell by the "I (heart) snailz" tattoo that it has
 been radically customized.
+The warm seasonable rain is nearly over.
+The rain has stopped.
 
 > milk cow
 The CyberCow dances away skittishly.  Perhaps if you could make friends or
 distract it somehow...
+A warm, gentle rain begins.
 
 > give snail to cow
 The CyberCow sticks out its tongue and snatches up the snail, which it
@@ -460,18 +465,22 @@ You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
 chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
+It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
 
 > drop milk
 You drop the bowl.
+The rain seems to be letting up.
 
 > z
 You pause a moment...
+The warm seasonable rain is nearly over.
 
 > z
 You pause a moment...
+The rain has stopped.
 
 > z
 You pause a moment...
@@ -611,6 +620,7 @@ outside.  There is a cupboard here, which you recall generally not having
 cookies.  There is a couch here, which used to cleverly hide a trapdoor.
 
 You can move west and down.  The Robot marches in  from below.
+-COME. COME. PATHETIC. HUMAN.- The Robot grates.  -STOP. SCREWING. AROUND.-
 
 > w
 You move west.
@@ -705,12 +715,14 @@ Surely your friend wasn't so foolish as to forget that CyberCows cannot read?
 
 > read envelope
 "Hero."
+A trickle of water runs past your feet from the direction of the well.
 
 > open envelope
 You open the envelope.  A new letter is inside the envelope.
 
 > take new letter
 You take a new letter from the envelope.
+Your feet are soaked.
 
 > read new letter
 
@@ -734,7 +746,7 @@ Double check the robot's programming before you activate it -- or better yet
 just trash the damn thing.
 
 Take care, my friend.
-A trickle of water runs past your feet from the direction of the well.
+The furniture here is getting a little wobbly on account of all this water.
 
 > x fridge
 The fridge has shorted out.  (The microwave seems still to be going, though.)

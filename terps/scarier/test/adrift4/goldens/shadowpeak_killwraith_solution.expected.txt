@@ -634,6 +634,7 @@ As you reach up and turn the handle, it jams into position, and a secret
 passage is revealed in the northern wall.
 
 > n
+(Getting off the sarcophagus first)
 You move north.
 
 Secret room.
@@ -883,7 +884,8 @@ You hear the flutter of batlike wings.
 Time passes...
 
 > z
-Time passes...  Grumski stomps over from the east.
+Time passes...
+Grumski stomps over from the east.
 
 > say move boulder
 Grumski pushes the large boulder to one side, revealing a passage going
@@ -1052,7 +1054,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Lazaraz rides over from the east.
+Time passes...
+Lazaraz rides over from the east.
 You feel a tremble down your spine, and a cold, unholy chill fills the air.
 Lazaraz seems to be looking for someone. He pulls his steed to and fro, but
 the eyes of Lazaraz must be very poor, as they seem to overlook you. Maybe
@@ -1072,7 +1075,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from the east.
+Time passes...
+Boris lumbers in from the east.
 Seeker hums!
 Lazaraz rides away to the north.
 zombie hits you, but it doesn't seem to do any damage.
@@ -1082,7 +1086,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Jarris staggers in from the east.
+Time passes...
+Jarris staggers in from the east.
 Seeker hums!
 Boris drags himself off to the east.
 
@@ -1091,8 +1096,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Jarris lumbers off to the south.  Lazaraz rides over from the
-north.
+Time passes...
+Jarris lumbers off to the south.  Lazaraz rides over from the north.
 Seeker Hums!
 
 > attack holga
@@ -1108,7 +1113,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Lazaraz rides away to the south.
+Time passes...
+Lazaraz rides away to the south.
 
 > attack holga
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1122,7 +1128,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Holga stumbles in from the south.
+Time passes...
+Holga stumbles in from the south.
 Seeker hums!
 Boris lumbers in from the east.
 Seeker hums!
@@ -1134,7 +1141,8 @@ Holga keels over and is at last put to rest. Her undead hand is loosely
 holding a garlic bud.  Boris drags himself off to below.
 
 > z
-Time passes...  Boris lumbers in from below.
+Time passes...
+Boris lumbers in from below.
 Seeker hums!
 
 > attack jarris
@@ -1142,7 +1150,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris drags himself off to the east.
+Time passes...
+Boris drags himself off to the east.
 
 > attack jarris
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1163,7 +1172,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Lazaraz rides over from the south.
+Time passes...
+Lazaraz rides over from the south.
 Seeker Hums!
 
 > attack jarris
@@ -1179,7 +1189,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Lazaraz rides away to the east.
+Time passes...
+Lazaraz rides away to the east.
 
 > attack jarris
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1193,7 +1204,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Lazaraz rides over from the east.
+Time passes...
+Lazaraz rides over from the east.
 Seeker Hums!
 
 > attack jarris
@@ -1209,7 +1221,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from the east.
+Time passes...
+Boris lumbers in from the east.
 Seeker hums!
 Lazaraz rides away to the north.
 zombie hits you, but it doesn't seem to do any damage.
@@ -1219,14 +1232,16 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris drags himself off to the south.
+Time passes...
+Boris drags himself off to the south.
 
 > attack jarris
 I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from the south.
+Time passes...
+Boris lumbers in from the south.
 Seeker hums!
 Lazaraz rides over from the north.
 Seeker Hums!
@@ -1236,7 +1251,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris drags himself off to the west.
+Time passes...
+Boris drags himself off to the west.
 Seeker Hums!
 
 > attack jarris
@@ -1244,7 +1260,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from the west.
+Time passes...
+Boris lumbers in from the west.
 Seeker hums!
 Lazaraz rides away to the south.
 
@@ -1253,14 +1270,16 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris drags himself off to the south.
+Time passes...
+Boris drags himself off to the south.
 
 > attack jarris
 I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Lazaraz rides over from the south.
+Time passes...
+Lazaraz rides over from the south.
 Seeker Hums!
 
 > attack jarris
@@ -1276,14 +1295,16 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Lazaraz rides away to the north.
+Time passes...
+Lazaraz rides away to the north.
 
 > attack jarris
 I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Arthur pulls himself in from the south.
+Time passes...
+Arthur pulls himself in from the south.
 You see a horrible sight. Arthur, one of the village zombies, is pulling
 himself along by his arms, as his legs have long since been eaten away.
 Seeker hums!
@@ -1293,8 +1314,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Arthur pulls himself away to the east.  Lazaraz rides over
-from the north.
+Time passes...
+Arthur pulls himself away to the east.  Lazaraz rides over from the north.
 Seeker Hums!
 
 > attack jarris
@@ -1310,7 +1331,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Lazaraz rides away to the south.
+Time passes...
+Lazaraz rides away to the south.
 
 > attack jarris
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1331,7 +1353,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Arthur pulls himself in from the east.
+Time passes...
+Arthur pulls himself in from the east.
 Seeker hums!
 You manage to avoid zombie's attack.
 
@@ -1340,7 +1363,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Arthur pulls himself away to the east.
+Time passes...
+Arthur pulls himself away to the east.
 
 > attack jarris
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -1361,7 +1385,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Arthur pulls himself in from the east.
+Time passes...
+Arthur pulls himself in from the east.
 Seeker hums!
 zombie hits you, but it doesn't seem to do any damage.
 
@@ -1370,7 +1395,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from the south.
+Time passes...
+Boris lumbers in from the south.
 Seeker hums!
 Arthur pulls himself away to the west.
 
@@ -1379,8 +1405,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris drags himself off to below.  Arthur pulls himself in
-from the west.
+Time passes...
+Boris drags himself off to below.  Arthur pulls himself in from the west.
 Seeker hums!
 
 > attack jarris
@@ -1388,7 +1414,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from below.
+Time passes...
+Boris lumbers in from below.
 Seeker hums!
 Arthur pulls himself away to below.
 
@@ -1397,8 +1424,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris drags himself off to below.  Arthur pulls himself in
-from below.
+Time passes...
+Boris drags himself off to below.  Arthur pulls himself in from below.
 Seeker hums!
 You manage to avoid zombie's attack.
 
@@ -1407,7 +1434,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from below.
+Time passes...
+Boris lumbers in from below.
 Seeker hums!
 Arthur pulls himself away to the east.
 zombie hits you, but it doesn't seem to do any damage.
@@ -1417,14 +1445,16 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris drags himself off to the west.
+Time passes...
+Boris drags himself off to the west.
 
 > attack jarris
 I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from the west.
+Time passes...
+Boris lumbers in from the west.
 Seeker hums!
 
 > attack jarris
@@ -1432,8 +1462,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris drags himself off to the south.  Arthur pulls himself
-in from the east.
+Time passes...
+Boris drags himself off to the south.  Arthur pulls himself in from the east.
 Seeker hums!
 zombie hits you, but it doesn't seem to do any damage.
 
@@ -1442,7 +1472,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from the south.
+Time passes...
+Boris lumbers in from the south.
 Seeker hums!
 Arthur pulls himself away to the west.
 
@@ -1451,8 +1482,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris drags himself off to below.  Arthur pulls himself in
-from the west.
+Time passes...
+Boris drags himself off to below.  Arthur pulls himself in from the west.
 Seeker hums!
 
 > attack jarris
@@ -1460,7 +1491,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from below.
+Time passes...
+Boris lumbers in from below.
 Seeker hums!
 Arthur pulls himself away to below.
 zombie hits you, but it doesn't seem to do any damage.
@@ -1470,7 +1502,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Jarris staggers in from the south.
+Time passes...
+Jarris staggers in from the south.
 Seeker hums!
 Boris drags himself off to the east.  Arthur pulls himself in from below.
 Seeker hums!
@@ -1483,7 +1516,8 @@ Seeker hums!
 Arthur pulls himself away to the south.
 
 > z
-Time passes...  Jarris staggers in from the east.
+Time passes...
+Jarris staggers in from the east.
 Seeker hums!
 Boris drags himself off to the west.  Arthur pulls himself in from the south.
 Seeker hums!
@@ -1496,7 +1530,8 @@ Seeker hums!
 Arthur pulls himself away to below.
 
 > z
-Time passes...  Jarris staggers in from the west.
+Time passes...
+Jarris staggers in from the west.
 Seeker hums!
 Boris drags himself off to the west.  Arthur pulls himself in from below.
 Seeker hums!
@@ -1510,7 +1545,8 @@ Arthur pulls himself away to the west.
 zombie hits you, but it doesn't seem to do any damage.
 
 > z
-Time passes...  Jarris staggers in from below.
+Time passes...
+Jarris staggers in from below.
 Seeker hums!
 Boris drags himself off to below.  Arthur pulls himself in from the west.
 Seeker hums!
@@ -1523,8 +1559,8 @@ Seeker hums!
 Arthur pulls himself away to below.
 
 > z
-Time passes...  Boris drags himself off to the east.  Arthur pulls himself in
-from below.
+Time passes...
+Boris drags himself off to the east.  Arthur pulls himself in from below.
 Seeker hums!
 zombie hits you, but it doesn't seem to do any damage.
 
@@ -1533,14 +1569,16 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Arthur pulls himself away to below.
+Time passes...
+Arthur pulls himself away to below.
 
 > attack boris
 I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Arthur pulls himself in from below.
+Time passes...
+Arthur pulls himself in from below.
 Seeker hums!
 
 > attack boris
@@ -1548,7 +1586,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from the east.
+Time passes...
+Boris lumbers in from the east.
 Seeker hums!
 Arthur pulls himself away to the south.
 zombie hits you, but it doesn't seem to do any damage.
@@ -1571,7 +1610,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Boris lumbers in from the south.
+Time passes...
+Boris lumbers in from the south.
 Seeker hums!
 
 > attack boris
@@ -1607,7 +1647,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Lazaraz rides over from the south.
+Time passes...
+Lazaraz rides over from the south.
 Seeker Hums!
 
 > attack arthur
@@ -1615,7 +1656,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Arthur pulls himself in from the south.
+Time passes...
+Arthur pulls himself in from the south.
 Seeker hums!
 Seeker Hums!
 
@@ -1755,6 +1797,7 @@ You stand on the bar.
 You take hold of the bottle.
 
 > u
+(Getting off the bar first)
 You move up.
 
 Inn’s stairs.
@@ -2125,7 +2168,8 @@ giant spider hits you, but it doesn't seem to do any damage.
 You stab giant spider with the sword.
 
 > z
-Time passes...  Haraxis skitters off to below.
+Time passes...
+Haraxis skitters off to below.
 
 > attack haraxis
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -2139,7 +2183,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Haraxis skitters in.
+Time passes...
+Haraxis skitters in.
 Seeker hums!
 giant spider hits you, but it doesn't seem to do any damage.
 
@@ -3398,7 +3443,8 @@ I don't understand what you mean. I'm only a text adventure, you know! Try
 rephrasing your command.
 
 > z
-Time passes...  Gargoyle #1 flies in.
+Time passes...
+Gargoyle #1 flies in.
 Seeker hums!
 
 > attack woody
@@ -4166,6 +4212,9 @@ Also here is an enormous stack of boulders.
 
 You can move east and west.
 Seeker hums!
+The sky is filled with arrows and crossbow bolts. Men and undead alike fall
+like flies below on the battlefield, while dark shapes like dragons fly above
+in the sky, taking care not to be hit by the missiles.
 Seeker hums!
 
 > move tree trunk
@@ -4181,13 +4230,11 @@ stalemate has taken place.
 You stare, stunned, at the devastation below, for what seems like ages, and
 think it would be dangerous to move any further east.
 Seeker hums!
-The sky is filled with arrows and crossbow bolts. Men and undead alike fall
-like flies below on the battlefield, while dark shapes like dragons fly above
-in the sky, taking care not to be hit by the missiles.
 Seeker hums!
 
 > z
-Time passes...  Quentis rides over from the east.
+Time passes...
+Quentis rides over from the east.
 Quentis is an imposing fellow with lance in hand. He wears full plate armour,
 and is dressed in the colours of Tesslesar. Dents and bloodstains mar his
 armour.
@@ -4316,12 +4363,14 @@ Time passes...
 Seeker hums!
 
 > z
-Time passes...  Gargoyle #1 flies in.  Rossi creeps in from the east.
+Time passes...
+Gargoyle #1 flies in.  Rossi creeps in from the east.
 Seeker hums!
 Rossi looks nervously about with its large goggle eyes. It looks frightened.
 
 > z
-Time passes...  Rossi stalks off to the south-west.
+Time passes...
+Rossi stalks off to the south-west.
 You hear the flutter of batlike wings.
 Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
@@ -4355,7 +4404,8 @@ Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 > z
-Time passes...  Fang darts into the area from the north.
+Time passes...
+Fang darts into the area from the north.
 Seeker hums!
 You catch a faint whiff of Fetlar. He must be somewhere nearby.
 Seeker hums!
@@ -4373,7 +4423,8 @@ avoid it.
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > z
-Time passes...  Fang darts off to the north.
+Time passes...
+Fang darts off to the north.
 Seeker hums!
 
 > z
@@ -4586,7 +4637,8 @@ Time passes...
 Seeker hums!
 
 > z
-Time passes...  Gargoyle #1 flies in.
+Time passes...
+Gargoyle #1 flies in.
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
@@ -5358,34 +5410,23 @@ Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker hums!
 Seeker Hums!
-You manage to avoid hound of hades's attack.
-
-> attack cerberus
-You stab hound of hades with the sword.
-Cerberus' serpent tail lashes round and tries to bite you with its poisonous
-fangs, but you manage to deflect the blow with the shield you are wearing.
-Seeker hums!
-Seeker Hums!
 Cerberus' serpent tail lashes round and bites your arm with its poisonous
 fangs, but your arm greaves deflect the blow.
-You manage to avoid hound of hades's attack.
-
-> attack cerberus
-You stab hound of hades with the sword.
-Seeker Hums!  Gargoyle #1 flies in.
-Cerberus' serpent tail lashes round and tries to bite you with its poisonous
-fangs, but you manage to deflect the blow with the shield you are wearing.
-Seeker hums!
-Seeker Hums!
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-You manage to avoid hound of hades's attack.
+hound of hades hits you, but it doesn't seem to do any damage.
 
 > attack cerberus
 You stab hound of hades with the sword.
 Cerberus yelps, and falls to the hot cavernous floor, dead. Its body slowly
 fades away.
 Seeker hums!
+
+> attack cerberus
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
+
+> attack cerberus
+I don't understand what you mean. I'm only a text adventure, you know! Try
+rephrasing your command.
 
 > attack cerberus
 I don't understand what you mean. I'm only a text adventure, you know! Try
@@ -5409,9 +5450,10 @@ lava. Swimming, fighting, and generally causing havoc with each other, they
 look very evil and dangerous. You notice the tunnel of the underdark carries
 on to the north, past the demons.
 
-You can move north and south.
+You can move north and south.  Gargoyle #1 flies in.
 Seeker hums!
 Seeker Hums!
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > n
 You move north.

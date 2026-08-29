@@ -2918,7 +2918,17 @@ lib_cmd_wait (scr_gameref_t game)
   /* Reset the wait counter to the current waitturns setting. */
   game->waitcounter = game->waitturns;
 
+  /*
+   * 4.0 stores "Time passes..." with a vbCrLf of its own (run400 48ABDA:
+   * the literal, then Proc_21_4_442418 which returns vbCrLf), so a walk
+   * announcement in the same turn starts a new line instead of joining
+   * with two spaces; 3.9 stores the bare literal (run390 45E636) and joins.
+   * Measured run400, EV15, Adrift_1_ev15.txt: "Time passes..." / "Walker
+   * arrives from the east." on separate lines.
+   */
   pf_buffer_string (filter, "Time passes...\n");
+  if (lib_is_version_400 (game))
+    pf_buffer_hard_break (filter);
   return TRUE;
 }
 
@@ -3168,7 +3178,22 @@ lib_go (scr_gameref_t game, scr_int direction)
    * Check for the exit, and if it doesn't exist, refuse, and list the possible
    * options.
    */
-  if (!lib_room_exit_destination (game, direction, &destination))
+  /*
+   * A blocked exit is refused exactly like a missing one.  The Runner's
+   * movement refusal (run400 Proc_19_29_475638) knows nothing about why a
+   * direction failed: it recounts the exits with Proc_19_28_454684 -- the
+   * same restriction-aware test as is_exitable[] above, reading the exit's
+   * door state and task gate at 45459A-45463C -- and prints " can only
+   * move X." or " can't go in that direction, but ... can move ..." from
+   * that count.  No Runner from 3.7 to 4.0 carries an "(at present)"
+   * string at all; Scarier's old "can't go in that direction (at present)"
+   * for an exit that exists but is currently shut was an invention.
+   * Measured on humbug (4.00, Adrift_4_humbug.txt): `W` into the keypad
+   * door, an exit gated on a task, answers "I can't go in that direction,
+   * but I can move north, east and south."
+   */
+  if (!lib_room_exit_destination (game, direction, &destination)
+      || !lib_can_go (game, gs_playerroom (game), direction))
     {
       lib_list_t list;
 
@@ -3209,20 +3234,6 @@ lib_go (scr_gameref_t game, scr_int direction)
       return TRUE;
     }
 
-  /* Check for any movement restrictions. */
-  if (!lib_can_go (game, gs_playerroom (game), direction))
-    {
-      if (lib_movement_probe)
-        return FALSE;
-
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                        "You can't go in that direction (at present).\n",
-                        "I can't go in that direction (at present).\n",
-                        "%player% can't go in that direction (at present).\n"));
-      return TRUE;
-    }
-
   /* The move would go through; that is all a probe wants to know. */
   if (lib_movement_probe)
     return TRUE;
@@ -3234,23 +3245,24 @@ lib_go (scr_gameref_t game, scr_int direction)
     }
 
   /*
-   * Indicate if getting off something or standing up first -- but only for
-   * pre-3.9 games.  Both lines are bracketed *references*, and from 3.9 on
-   * the Runner puts them behind Options -> Display & Media... -> Appearance
-   * -> "References in brackets", the checkbox that also gates the pronoun
-   * echo.  That box starts unticked on every launch and is never restored
-   * from the registry, so the default Runner prints neither line:
+   * Indicate if getting off something or standing up first.  Both lines are
+   * bracketed *references*: 3.7 and 3.8 print them unconditionally (run370
+   * loc_42303C / loc_423078, run380 loc_428244 / loc_428280), 3.9 dropped
+   * them altogether (run390 has no "Getting off" literal), and 4.0 brought
+   * them back behind Options -> Display & Media... -> Appearance ->
+   * "References in brackets" (run400 loc_450339 / loc_4503BF test
+   * MemVar_4942BA, saved as "showbrackets" @4679A1).
    *
-   *   run390 loc_431911 / loc_4319A0   test m_showbrackets.Checked
-   *   run400 loc_450339 / loc_4503BF   test the same byte (MemVar_4942BA,
-   *                                    saved as "showbrackets" @4679A1)
-   *
-   * 3.7 and 3.8 have no such menu and print both lines unconditionally
-   * (run370 loc_42303C / loc_423078, run380 loc_428244 / loc_428280).
-   * Measured on humbug (4.00) command 254, where run400 answers a bare "W"
-   * from a stool with no "(Getting off the stool first)" at all.
+   * Scarier models the 4.0 Runner with that box ticked -- the reference
+   * setting the transcripts are measured under -- so 4.0 games print the
+   * lines too.  Measured on monsters (4.00) commands 5 and 23, where run400
+   * with brackets on answers "in" from the bed with "(Getting off Sissy's
+   * four poster bed first)" on its own line before "I move in." (and later
+   * "(Getting off the pink plastic chair first)"); with the box unticked
+   * (humbug command 254, 2026-08-24) it prints nothing.
    */
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
+      || prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     {
       if (gs_playerparent (game) != -1)
         {
@@ -4174,18 +4186,98 @@ lib_disambiguate_object (scr_gameref_t game,
  * 46A142) and read by every one of the four sites above.  It is Scarier's
  * gs_object_seen(), so this needs no new state.
  */
+/*
+ * Whole-word containment of a single name word in the typed line, run400
+ * Proc_21_38_454CB0: case-insensitive, and a hit only where the word is
+ * bounded by the line's ends or spaces.
+ */
+static scr_bool
+lib_input_contains_word (const scr_char *input, const scr_char *word)
+{
+  const scr_int length = strlen (word);
+  const scr_char *scan;
+
+  if (length == 0)
+    return FALSE;
+
+  for (scan = input; *scan != NUL; scan++)
+    {
+      if ((scan == input || scan[-1] == ' ')
+          && scr_strncasecmp (scan, word, length) == 0
+          && (scan[length] == NUL || scan[length] == ' '))
+        return TRUE;
+    }
+
+  return FALSE;
+}
+
+/*
+ * The Runner's tie-break for a noun that several seen-but-absent objects
+ * answer to: how many of the object's Short-name words the player typed.
+ */
+static scr_int
+lib_absent_object_word_score (scr_gameref_t game,
+                              scr_int object, const scr_char *input)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *shortname;
+  scr_char *copy, *word, *next;
+  scr_int score;
+
+  shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  copy = (scr_char *) scr_malloc (strlen (shortname) + 1);
+  strcpy (copy, shortname);
+
+  score = 0;
+  for (word = copy; word; word = next)
+    {
+      next = strchr (word, ' ');
+      if (next)
+        *next++ = NUL;
+      if (lib_input_contains_word (input, word))
+        score++;
+    }
+
+  scr_free (copy);
+  return score;
+}
+
 static scr_int
 lib_absent_seen_object (scr_gameref_t game)
 {
-  scr_int index_, count, object;
+  const scr_char *input;
+  scr_int index_, object, best, best_count;
 
   if (!lib_is_version_400 (game))
     return -1;
 
-  count = 0;
+  /*
+   * Several seen candidates are not an ambiguity prompt: co() (run400
+   * Proc_21_39_46486C) counts only PRESENT matches towards "Which ...?"
+   * (464355-46437E: obhere OR mode 4, AND seen).  The examine handler
+   * instead calls the resolver Proc_19_88_457034, which after the present
+   * (co(i,3)) and unique-seen (co(i,4)) passes falls to a third one
+   * (456F5D-45702E): split each candidate's Short name on " ", count the
+   * words whole-word-present in the typed line (Proc_21_38_454CB0), and
+   * take the unique maximum; a tie yields &HFE, which examine treats as
+   * nothing found ("<player> see no such thing.").  A single seen candidate
+   * wins outright.
+   *
+   * Measured on humbug (4.00, Adrift_4_humbug.txt lines 1602-1604): `X
+   * machine` with the washing machine (81, Short "machine") and two
+   * "dispenser" objects aliased "machine" (110, 135) all seen and all
+   * elsewhere answers "I can't see the washing machine from here!", while
+   * `X chute` against six seen chutes all with Short "chute" ties and
+   * prints the game's ALR'd "Nothing Special.".
+   */
+  input = run_get_dispatch_input ();
   object = -1;
+  best = -1;
+  best_count = 0;
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     {
+      scr_int score;
+
       if (!game->object_references[index_])
         continue;
 
@@ -4196,11 +4288,18 @@ lib_absent_seen_object (scr_gameref_t game)
       if (!gs_object_seen (game, index_))
         continue;
 
-      count++;
-      object = index_;
+      score = input ? lib_absent_object_word_score (game, index_, input) : 0;
+      if (object == -1 || score > best)
+        {
+          object = index_;
+          best = score;
+          best_count = 1;
+        }
+      else if (score == best)
+        best_count++;
     }
 
-  return count == 1 ? object : -1;
+  return best_count > 1 ? -1 : object;
 }
 
 static scr_bool
@@ -4383,6 +4482,28 @@ lib_cmd_examine_npc (scr_gameref_t game)
   lib_list_npc_inventory (game, npc, TRUE);
 
   pf_buffer_character (filter, '\n');
+
+  /*
+   * In 4.0 examining a character is not a turn: run400 counts no turn,
+   * moves no walker and ticks no event after it, exactly as it treats its
+   * own `turns` and `score`.  3.9 counts it like any other command.
+   *
+   * Measured 2026-08-29 under Wine.  run400, arena probes EV14/EV15/EV16
+   * (harness/make_arena_probe.py; Adrift_1_ev14.txt, _ev15.txt, _ev16.txt):
+   * a one-turn event started by the previous command finishes on the `z`
+   * AFTER `x bob`, not on `x bob` itself; a looping walker with enter/exit
+   * lines prints nothing on that turn; and `turns` reads 0 after `x bob`,
+   * `x carl` (empty description), `look at bob` and `examine bob`, while
+   * `x me` and `x pebble` count.  run390, BobBobsly.taf (3.90),
+   * Adrift_1_bob390.txt: `turns` climbs by one across `x bouncer`.
+   *
+   * This is Beanstalk turn 45: the stranger's greeting is a one-turn event
+   * started by `sell cow`, the player examines him and walks east, and by
+   * the time the Runner ticks the event again the player is no longer on
+   * the road it is restricted to.
+   */
+  if (lib_is_version_400 (game))
+    game->is_admin = TRUE;
   return TRUE;
 }
 
@@ -4958,19 +5079,22 @@ lib_cmd_examine_object (scr_gameref_t game)
     case OBJ_CLOSED:
     case OBJ_LOCKED:
       {
-        /* Singular and plural state, indexed by openness from OBJ_OPEN. */
-        static const scr_char *const states[][2] = {
-          {" is open.", " are open."},
-          {" is closed.", " are closed."},
-          {" is locked.", " are locked."}
+        /*
+         * Openness state, indexed by openness from OBJ_OPEN.  Always " is ":
+         * no Runner inflects this one.  run370, run380, run390 and run400
+         * each carry only " is open." / " is closed." / " is locked."
+         * (run400 examine at 47395C and 4717F5/47183E/471887), with no
+         * " are " variant anywhere in their string pools, and man_overboard
+         * (4.00) measures `x drawers` as "The set of drawers is closed."
+         * where we used to select "are" from the "some"-ish prefix.
+         */
+        static const scr_char *const states[] = {
+          " is open.", " is closed.", " is locked."
         };
-        const scr_char *const *state = states[openness - OBJ_OPEN];
 
         lib_new_clause (game, is_described);
         lib_print_object_np (game, object);
-        pf_buffer_string (filter,
-                          lib_select_plurality (game, object,
-                                                state[0], state[1]));
+        pf_buffer_string (filter, states[openness - OBJ_OPEN]);
         is_described |= TRUE;
       }
       break;
@@ -5861,6 +5985,7 @@ lib_cmd_take_npc (scr_gameref_t game)
 /* Set when the take command named exactly one object; cleared by the
    backend.  Selects the single-take "already carrying" refusal wording. */
 static scr_bool lib_take_single_named = FALSE;
+static scr_bool lib_take_refusal_claimed = FALSE;
 
 /* Set when a "take from <object>" command named exactly one object; cleared
    by the backend.  Only that single-named form echoes the taken object's
@@ -6332,7 +6457,45 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       game->multiple_references[object] = FALSE;
     }
 
-  lib_print_object_list (game, has_printed, list, " and ", '!',
+  /*
+   * Only the 4.0 single-take handler ends this with "!" (run400 @47329D
+   * builds " can't take " + name + "!"); its multi-take processor
+   * (run400 @47C172) and both of 3.9's (run390 @4551A6, @455533) end it
+   * with ".".  Measured 2026-08-29 in run390 on CAH.taf (cruel), `take it`
+   * after `x jacket` -> "(a jacket)" / "You can't take the jacket.".
+   */
+  /*
+   * 4.0 gives the tasks one more look at each object it is about to refuse:
+   * run400's per-piece take handler (Proc_19_23_473A34) calls the task
+   * pre-matcher Proc_19_35_453C50 at @473241, directly ahead of the loop
+   * that builds " can't take " (@47329D), and a hit re-dispatches to the
+   * task dispatcher Proc_19_24_44CCE0, restriction-failure pass included.
+   * The match is by the resolved object's name, not by the typed words:
+   * `take kelly` -- an alias, with no "poster" anywhere in the line -- still
+   * runs "Get * poster", as do `take poster`, `pick up poster`, `take the
+   * poster` and `take bed` ("Get * bed"); `grab poster` is no take verb at
+   * all and gets "I don't understand what you want me to do with the kelly
+   * brook poster."  (man overboard.taf, run400, Adrift_1_moprobe.txt and
+   * Adrift_1_man_overboard.txt line 39-40, measured 2026-08-29.)  The loop
+   * at the top of this function does the same for take-able objects; the
+   * static ones never reach it, so they get their turn here instead.
+   */
+  if (!has_printed && !list.empty () && lib_is_version_400 (game))
+    {
+      lib_list_t refused;
+      for (const scr_int object : list)
+        {
+          if (!lib_try_game_command_short (game, "get", object))
+            refused.push_back (object);
+        }
+      list.swap (refused);
+      /* The tasks' text is complete in itself; no refusal line follows. */
+      lib_take_refusal_claimed = list.empty ();
+    }
+  lib_print_object_list (game, has_printed, list, " and ",
+                         lib_is_version_400 (game)
+                         && lib_take_single_named && list.size () == 1
+                         ? '!' : '.',
                          "You can't take ",
                          "I can't take ",
                          "%player% can't take ");
@@ -6516,7 +6679,9 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
     }
   lib_take_single_named = FALSE;
 
-  pf_buffer_character (filter, '\n');
+  if (!lib_take_refusal_claimed)
+    pf_buffer_character (filter, '\n');
+  lib_take_refusal_claimed = FALSE;
   return TRUE;
 }
 
@@ -6678,9 +6843,8 @@ lib_take_from_empty (scr_gameref_t game, scr_int associate, scr_bool is_except)
             {
               pf_new_sentence (filter);
               lib_print_object_np (game, associate);
-              pf_buffer_string (filter,
-                                lib_select_plurality (game, associate,
-                                                      " is ", " are "));
+              /* Always " is ": see lib_cmd_examine_object(). */
+              pf_buffer_string (filter, " is ");
               if (gs_object_openness (game, associate) == OBJ_LOCKED)
                 pf_buffer_string (filter, "locked.");
               else
@@ -6728,10 +6892,8 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
     {
       pf_new_sentence (filter);
       lib_print_object_np (game, associate);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, associate,
-                                             " is closed.\n",
-                                             " are closed.\n"));
+      /* Always " is ": see the openness table in lib_cmd_examine_object(). */
+      pf_buffer_string (filter, " is closed.\n");
       return FALSE;
     }
 
@@ -7833,10 +7995,8 @@ lib_cmd_open_object (scr_gameref_t game)
     case OBJ_OPEN:
       pf_new_sentence (filter);
       lib_print_object_np (game, object);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, object,
-                                              " is already open!\n",
-                                              " are already open!\n"));
+      /* run400 has only " is already open!" (no " are " form). */
+      pf_buffer_string (filter, " is already open!\n");
       return TRUE;
 
     case OBJ_CLOSED:
@@ -7947,10 +8107,8 @@ lib_cmd_close_object (scr_gameref_t game)
     case OBJ_LOCKED:
       pf_new_sentence (filter);
       lib_print_object_np (game, object);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, object,
-                                              " is already closed!\n",
-                                              " are already closed!\n"));
+      /* run400 has only " is already closed!" (no " are " form). */
+      pf_buffer_string (filter, " is already closed!\n");
       return TRUE;
 
     default:
@@ -9531,11 +9689,12 @@ lib_cmd_read_other (scr_gameref_t game)
   if (!lib_is_version_400 (game))
     return lib_print_message (game, "Nothing special.\n");
 
-  /* Reject the attempt. */
+  /* Reject the attempt -- the same "<name> see no such thing." literal as
+     lib_cmd_examine_other(), unconjugated in the third person. */
   return lib_print_response_message (game,
                                      "You see no such thing.\n",
                                      "I see no such thing.\n",
-                                     "%player% sees no such thing.\n");
+                                     "%player% see no such thing.\n");
 }
 
 
@@ -11090,12 +11249,13 @@ lib_cmd_turns (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
+  /* "1 turns" -- no Runner singularises it (run400 48ACA1 concatenates the
+     one literal; measured run400 EV16 Adrift_1_ev16.txt and run390
+     BobBobsly.taf Adrift_1_bob390.txt, both "You have taken 1 turns so
+     far."). */
   pf_buffer_string (filter, "You have taken ");
   pf_buffer_integer (filter, game->turns);
-  if (game->turns == 1)
-    pf_buffer_string (filter, " turn so far.\n");
-  else
-    pf_buffer_string (filter, " turns so far.\n");
+  pf_buffer_string (filter, " turns so far.\n");
 
   game->is_admin = TRUE;
   return TRUE;
@@ -11398,10 +11558,21 @@ lib_cmd_examine_other (scr_gameref_t game)
   if (!lib_is_version_400 (game))
     return lib_print_message (game, "Nothing special.\n");
 
-  return lib_print_response_message (game,
-                                     "You see no such thing.\n",
-                                     "I see no such thing.\n",
-                                     "%player% sees no such thing.\n");
+  /*
+   * The 4.0 text is the player's name and the literal " see no such thing."
+   * (471EF6), so a named third-person player gets "Player see no such
+   * thing." -- measured run400, EV16, Adrift_1_ev16.txt (`x dave`, Dave
+   * being in the next room).  The same probe reads `turns` unchanged across
+   * it: the flag 4.0 sets beside the message (MemVar_494281 at 471F02, and
+   * at 4801E1 for the character handler's copy) is the Runner's "not a
+   * turn" flag, the one `turns` and `score` set.
+   */
+  lib_print_response_message (game,
+                              "You see no such thing.\n",
+                              "I see no such thing.\n",
+                              "%player% see no such thing.\n");
+  game->is_admin = TRUE;
+  return TRUE;
 }
 
 /*
@@ -12615,10 +12786,89 @@ lib_cmd_wash_what (scr_gameref_t game)
   return lib_what (game, "Wash");
 }
 
+/*
+ * 4.0's put/drop list parser (run400 Proc_19_40_459DB4, entered when the
+ * line holds the whole word "put" or "drop") names each piece with
+ * name_object (Proc_19_41_46E5D8), which resolves it against the objects
+ * PRESENT (463640 mode 2) and, when that finds nothing and no task pattern
+ * pre-matches the line (453C50), speaks at 46E165-46E18B: "Drop what?" if
+ * the line holds the whole word "drop", else "It is not clear which object
+ * you are referring to."  Pre-4.0 Runners have no such literal; their
+ * `put <absent> in X` stays the flat can't-do tail.  Measured on humbug
+ * (Adrift_4_humbug.txt 3407 `Put powder in chute`, powder never taken,
+ * the D chute present; 3538 `Put powder in machine`; 3903 `Put sapphire in
+ * chute`).  The seen-but-absent clause of lib_cant_see_absent_object()
+ * runs first in the Runner too, which is why p4EXAM's `put xyzzy in statue`
+ * still answers "You can't see the statue.".
+ */
+static scr_bool
+lib_cmd_unclear_object (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  pf_buffer_string (filter,
+                    "It is not clear which object you are referring to.\n");
+  return TRUE;
+}
+
 scr_bool
 lib_cmd_drop_what (scr_gameref_t game)
 {
+  const scr_char *input = run_get_dispatch_input ();
+
+  if (lib_is_version_400 (game)
+      && input && !lib_input_contains_word (input, "drop"))
+    return lib_cmd_unclear_object (game);
+
   return lib_what (game, "Drop");
+}
+
+scr_bool
+lib_cmd_put_unclear (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int index_;
+
+  if (!lib_is_version_400 (game) || !input)
+    return FALSE;
+
+  /*
+   * A first noun that names something present is name_object's success
+   * path, and the command belongs to the put handlers and the "I don't
+   * understand what you want me to do with" catch-all below (measured:
+   * TheADRIFTProject `put batter in remote`, thelasthour `put bowl near
+   * spyhole`, both with the first object held).
+   */
+  if (uip_match ("put %object% *", input, game)
+      || uip_match ("put %object%", input, game))
+    {
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (game->object_references[index_]
+              && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+            return FALSE;
+        }
+    }
+
+  /*
+   * The seen-but-absent clause speaks first: p4EXAM `put xyzzy in statue`
+   * from the room next door is "You can't see the statue.", not this.
+   * Whether a seen-but-absent FIRST noun also gets that clause is
+   * unmeasured (humbug's powder had never been seen); the same rule is
+   * applied to both.
+   */
+  if (uip_match ("* %object% *", input, game)
+      || uip_match ("* %object%", input, game))
+    {
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (game->object_references[index_]
+              && gs_object_seen (game, index_))
+            return FALSE;
+        }
+    }
+
+  return lib_cmd_unclear_object (game);
 }
 
 scr_bool
@@ -12731,7 +12981,13 @@ lib_cmd_verb_object (scr_gameref_t game)
   /* Save in variables. */
   var_set_ref_object (vars, object);
 
-  /* Print don't understand message. */
+  /*
+   * Print don't understand message.  run400's generaltasks composes this
+   * object as the antecedent in the definite form (loc_48A409-48A42E):
+   * `throw shovel` then `x it` echoes "(the shovel)" -- see
+   * uip_definite_form() in scparser.cpp.
+   */
+  uip_note_definite_reference ();
   lib_print_wrapped_object (game, "I don't understand what you want me to do with ",
                             object, ".\n");
   return TRUE;

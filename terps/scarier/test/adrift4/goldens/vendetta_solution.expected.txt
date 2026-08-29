@@ -54,6 +54,7 @@ adjacent to your bed. On the opposite side of the room is a wardrobe, where
 your clothes are kept. To the east is the lounge.
 
 > e
+(Getting off the bed first)
 You move east.
 
 Lounge
@@ -95,6 +96,9 @@ Time passes...
 
 > wait
 Time passes...
+
+There is a bleeping sound coming from the videocom, indicating an incoming
+call.
 
 > answer videocom
 (You switch on the videocom.)
@@ -179,11 +183,11 @@ here other than yourself. At this altitude, the freezing wind is
 exceptionally strong and cuts through you like a knife. Looking up, you
 notice that the sky is clear and the stars are twinkling brightly overhead;
 it looks like there is going to be a frost up here tonight...
-An unexpectedly strong gust of wind roars across the landing pad, almost
-knocking you over.
 
 > open cargo hold
 You open the cargo hold.  Sally's suitcase is inside the cargo hold.
+An unexpectedly strong gust of wind roars across the landing pad, almost
+knocking you over.
 
 > get suitcase
 You take Sally's suitcase from the cargo hold.
@@ -263,6 +267,7 @@ overhead, which looks a little ominous. There is a nightclub some distance to
 the east, outside which a large group of youths are congregating. To the
 south lies the entrance to the Dragon. To the north lies the main road,
 through which heavy traffic is flowing.
+A tiny white snowflake flutters down from the sky and lands on your cheek.
 
 > e
 You move east.
@@ -279,8 +284,6 @@ A taxi post is just a small electronic box with a single button on top,
 mounted on a post. They are used to call taxis and autocabs. These posts are
 located next to the roadside and each one has their own dedicated parking
 space for a taxi to stop.
-The freezing wind howls around you.
-A tiny white snowflake flutters down from the sky and lands on your cheek.
 A young man squeezes his way through the crowd and walks up to the roadside,
 where he stands with is hands in his pockets, jigging up and down to keep
 warm. This was not the man who was spying on you; he is far too young.
@@ -288,6 +291,8 @@ Whoever it was would have been long gone by now.
 
 > push button
 You press the button on the taxi post and wait for something to show up.
+Several snowflakes drift down from the heavens. There could be many more
+where these came from.
 
 > wait
 Time passes...
@@ -296,21 +301,21 @@ watching the traffic as it rushes past.
 
 > wait
 Time passes...
-Several snowflakes drift down from the heavens. There could be many more
-where these came from.
 
 > wait
 Time passes...
+It is beginning to snow quite heavily, now.
 A green autocab pulls over near the young man and he hops inside. A few
 seconds later, the autocab starts moving again and rejoins the rest of the
 traffic.
 
 > wait
 Time passes...
+It is snowing.
 
 > wait
 Time passes...
-It is beginning to snow quite heavily, now.
+It is snowing.
 
 > wait
 Time passes...
@@ -485,7 +490,6 @@ your hand and disappears into the changing rooms.
 
 > wait
 Time passes...
-A hubbub of laughter erupts from the corner of the room.
 Chloe remains silent, deep in thought, glancing at you every now and again.
 
 > wait
@@ -724,9 +728,6 @@ Time passes...
 Sally stands up and walks towards the bedroom, unzipping her trousers as she
 does so. Just then, the door buzzer sounds. Sally stops dead in her tracks
 and goes over to answer it...
-
-> wait
-Time passes...
 Sally opens the door and three men dressed in dark grey coats and wearing
 dark glasses charge into the room carrying handguns, each one pointed at you.
 Sally backs away and falls backwards on to the sofa, clinging to you in
@@ -834,7 +835,7 @@ must have been set on maximum power, because everything goes black...
 
  * Press Enter *
 
->
+> wait
 
 You are standing in front of a old, balding man with a cheerful smile on his
 face, offering him a pile of computer disks. "Here you go," you say to him.
@@ -872,6 +873,9 @@ You are in a dark and musty store room, the only light source being a small,
 open window to the north. There is no furniture in this room and it has no
 decoration, just bare concrete walls. The only exit lies to the west; an old
 fashioned wooden door with a lever-like handle.
+
+>
+Command not understood.
 
 > x door
 The door is made of wood. Knocking on it suggests that it is fairly thick,
@@ -1505,7 +1509,8 @@ Time passes...
 Time passes...
 
 > wait
-Time passes...  Short Guard walks in from the south.
+Time passes...
+Short Guard walks in from the south.
 As the guard enters the room, he walks over to the control panel and begins
 pressing buttons and flipping various switches, muttering to himself as he
 does so.

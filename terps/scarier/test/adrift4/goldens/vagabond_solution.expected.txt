@@ -37,6 +37,7 @@ back to the spaceport is West.
 I don't understand what you mean!
 
 > west
+(Getting off the chair first)
 You move west.
 
 Starport Lobby

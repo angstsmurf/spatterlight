@@ -57,10 +57,12 @@ The niche has a holographic image of a ceremonial knife.  Gold and silver
 touch pads are on the side of the niche.
 
 > again
+(press silver pad)
 The niche has a holographic image of a glock pistol.  Gold and silver touch
 pads are on the side of the niche.
 
 > again
+(press silver pad)
 The niche has a holographic image of a plastic gun.  Gold and silver touch
 pads are on the side of the niche.
 
@@ -1284,6 +1286,7 @@ You take the backpack from the capsule.
 You put on the backpack.
 
 > e
+(Getting off the capsule first)
 You move east.
 
 Base of Climb

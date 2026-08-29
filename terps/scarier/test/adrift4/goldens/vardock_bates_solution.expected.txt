@@ -480,7 +480,7 @@ Parece hacer las funciones de una puerta, puedes ver una palanca en un
 lateral de ella.
 
 > tirar de la palanca
-Tiras de, pero no pasa nada.
+Tiras de  la palanca, pero no pasa nada.
 
 > norte
 Vas al norte.
@@ -493,7 +493,7 @@ pero completo laboratorio, donde realizar cualquier estudio.
 También hay  un maletín.
 
 > examinar el maletin
-No ves tal cosa.
+Un maletín de cuero marrón,  con   un cierto aire artesanal.
 
 > coger el maletin
 Coges el curioso maletín.
@@ -544,7 +544,8 @@ momento.
 También hay  un caballo.
 
 > examinar el caballo
-No ves tal cosa.
+Es tu caballo, se trata de un caballo mestizo de sangre caliente, de color
+oscuro y de pintas blancas de lomo fuerte.
 
 > montar en el caballo
 Rápidamente y dando un ágil salto subes a tu caballo.
@@ -640,11 +641,11 @@ El tiempo pasa...
 El coche se detiene delante de tu destino.
 Una pequeña escalinata te conduce al interior del museo. En la entrada puedes
 ver un gran cartel donde se anuncia la exposición: "Tesoros Egipcios".
+Tu mirada se fija en el cuello del taxista, puedes sentir el latido de su
+corazón y oler su sangre caliente...estás hambriento....¡de...sangre!
 
 > esperar
 El tiempo pasa...
-Tu mirada se fija en el cuello del taxista, puedes sentir el latido de su
-corazón y oler su sangre caliente...estás hambriento....¡de...sangre!
 
 > morder al taxista en el cuello
 
@@ -758,7 +759,7 @@ Hay alguien más en el mirador...
 Jason Dhirco está aquí, lleva un bastón en su mano izquierda. Deberías hablar
 con él.
 
-> hablar con jason
+> hablar con dhirco
 
 Dhirco.- ...¡Miren en que se ha convertido!...El famoso cazavampiros....
 

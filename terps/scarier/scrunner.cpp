@@ -653,7 +653,19 @@ static scr_commands_t STANDARD_COMMANDS[] = {
 
   {"[count/num]", lib_cmd_count},
 
-  /* Standard response commands; no real action, just output. */
+  {NULL, NULL}
+};
+
+/*
+ * Standard response commands; no real action, just output.  A separate
+ * table because run_standard_commands() only reaches it after the table
+ * above has had both its positional and its containment pass: the Runner's
+ * per-verb co() finds an object named anywhere in the line before any
+ * "You see no such thing." can fire, so `x silver key` must examine "a key"
+ * (man_overboard, 4.00, run400 transcript line 170) rather than fall to
+ * lib_cmd_examine_other.
+ */
+static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"[get/take/pick up/pick] *", lib_cmd_get_what},
   /*
    * The two 4.0-only absent-object rows sit directly above the catch-alls
@@ -676,6 +688,9 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[remove/take off/doff] *", lib_cmd_remove_what},
   {"[drop/put down] *", lib_cmd_drop_what},
   {"[wear/put on/don] *", lib_cmd_wear_what},
+  /* 4.0 only, below the wear row so `put on X` keeps its own refusal; see
+   * lib_cmd_put_unclear(). */
+  {"put *", lib_cmd_put_unclear},
   /*
    * The swearing list is version-split at both ends.  `piss` has been in it
    * since 3.7 and was simply missed here; `bugger` arrived in 3.9 and is not
@@ -857,6 +872,11 @@ static scr_commands_t STANDARD_COMMANDS[] = {
  * task pass then gets its chance, and the duplicate rows in
  * STANDARD_COMMANDS print the refusal when no task claims it.
  */
+#ifdef SCARIER_DUMP_TOOLS
+/* SCR_TRACE_ADMIN: the last command dispatched, for the ADMIN trace line. */
+static std::string run_trace_last_input;
+#endif
+
 static scr_bool run_priority_pass_active = FALSE;
 static scr_bool run_priority_deferred = FALSE;
 
@@ -1025,6 +1045,38 @@ run_standard_commands (scr_gameref_t game, const scr_char *string)
     return TRUE;
 
   if (run_try_command_table (STANDARD_COMMANDS, game, string))
+    return TRUE;
+
+  /*
+   * The same commands again with whole-word containment for a trailing
+   * %object% (uip_match_entity()): the Runner's co() finds an object named
+   * anywhere in the line, so `x silver key` examines "a key" (man_overboard,
+   * 4.00).  A separate pass, so that every pattern's positional match has
+   * had its turn first, and before the catch-alls below so that they never
+   * pre-empt an object the line does name.
+   */
+  uip_set_containment (TRUE);
+  const scr_bool contained =
+      run_try_command_table (STANDARD_COMMANDS, game, string);
+  uip_set_containment (FALSE);
+  if (contained)
+    return TRUE;
+
+  /*
+   * The fallback verbs resolve their noun the Runner's way too: generaltasks
+   * (Proc_19_85_489F4C) runs co() once, up front, and every generic verb
+   * after it sees the object it found -- `pull de la palanca` (Vardock
+   * Bates, 4.00, a `tirar`->`pull` synonym leaving the "de" in place) is
+   * "You pull la palanca, but nothing happens." in run400 (transcript
+   * 2026-08-29), not the object-less "You pull, but nothing happens.".
+   * Containment stays a per-row fallback (positional first), so a row's
+   * "%object% *" form still wins over the "%text%" catch-all beneath it.
+   */
+  uip_set_containment (TRUE);
+  const scr_bool fallback =
+      run_try_command_table (STANDARD_FALLBACK_COMMANDS, game, string);
+  uip_set_containment (FALSE);
+  if (fallback)
     return TRUE;
 
   /* Nothing matched the string.  Or if it did, its handler failed. */
@@ -2546,6 +2598,9 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * interpreter, so there is no administrative meta-command to match here.
    */
   run_dispatch_input = string;
+#ifdef SCARIER_DUMP_TOOLS
+  run_trace_last_input = string;
+#endif
   run_tasks_ran_this_command.assign (gs_task_count (game), FALSE);
   status = run_game_commands_in_parser_context (game, string, FALSE, TRUE);
   if (!status)
@@ -2555,9 +2610,36 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   if (!status && !run_defer_loud_tasks_to_movement (game, string))
     status = run_game_commands_in_parser_context (game, string, TRUE, FALSE);
   if (!status)
-    status = run_standard_commands (game, string);
-  if (!status)
-    status = run_task_refusal (game, string);
+    {
+      /*
+       * Only now, with every task pass declined, does the Runner rewrite a
+       * "give X" with no "to", or an "ask about" / "talk about", around the
+       * last character a library command named (uip_rewrite_references()).
+       * The order matters: run400's input routine dispatches typed-command
+       * tasks at 48A481 (Proc_19_24_44CCE0), well before the give rewrite at
+       * loc_48A98A and the Proc_19_0_480674 call at 48B56E that holds the
+       * ask/talk rewrite, and a matched task jumps past both (GoTo 48B4E3).
+       * run370's generaltasks() is the same shape: tasks(0) at 43B97F, the
+       * "(to " rewrite at 43BED8.  So "Sommeril"'s literal task "ask about
+       * glass framed page" keeps answering even with the Gargoyle as the
+       * last-named character; rewriting first turned it into "ask gargoyle
+       * about ..." and lost the task to the library's generic reply.
+       *
+       * The Runner also records the characters a line names inside
+       * Proc_19_0 (loc_47F3A2), i.e. only on lines that reach the library
+       * fallback; a task-answered "give orb to gargoyle" leaves the register
+       * alone.  Noting happens after the rewrite there too, so a rewrite
+       * always sees the register as the previous library line left it.
+       */
+      scr_owned_string rewritten (uip_rewrite_references (game, string));
+      const scr_char *const library_string =
+          rewritten ? rewritten.get () : string;
+      uip_note_named_npcs (game, library_string);
+      run_dispatch_input = library_string;
+      status = run_standard_commands (game, library_string);
+      if (!status)
+        status = run_task_refusal (game, library_string);
+    }
   run_dispatch_input = NULL;
   run_tasks_ran_this_command.clear ();
 
@@ -2648,6 +2730,17 @@ run_player_input (scr_gameref_t game)
           return FALSE;
         }
 
+      /*
+       * 4.0 with "References in brackets" ticked (the setting Scarier
+       * models) echoes the command it is about to repeat, in round brackets
+       * on its own line: run400 generaltasks loc_48A058 walks the history
+       * past the "again"s, then at loc_48A095 tests MemVar_4942BA and prints
+       * "(" & command & ")" & vbCrLf through Proc_21_19_47B568.  Earlier
+       * Runners have no "(" literal.
+       */
+      if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+        pf_buffer_reference (filter, prior_element);
+
       /* Make the last element the current input element. */
       strncpy (line_element, prior_element, LINE_BUFFER_SIZE);
     }
@@ -2709,22 +2802,28 @@ run_player_input (scr_gameref_t game)
       filtered ? filtered.get () : line_element));
 
   /*
-   * If filtering didn't replace synonyms, or no pronouns were replaced, use
-   * the original line element.
+   * If filtering didn't replace synonyms, and no pronouns were replaced, use
+   * the original line element.  The "(to Nobody)" / "(GARGOYLE)" reference
+   * rewrites are NOT applied here: the Runner applies them only once its
+   * typed-command task dispatcher has declined the line -- see
+   * run_all_commands().
    */
   command = replaced ? scr_normalize_string (replaced.get ())
             : (filtered ? scr_normalize_string (filtered.get ()) : line_element);
 
   /*
-   * Upstream SCARE echoed the rewritten command in italic brackets, for
-   * synonyms and for pronouns alike.  No Runner does: run370 and run380 have
-   * no "[" string literal at all, run390's only one is the "[More]" pager, and
-   * run400 was measured live on humbug (2026-08-24) answering "Drop it" with a
-   * bare "Okay.  I have dropped the paper aeroplane."  The echo also exposed
-   * authoring the player is not meant to see -- "The Warlord, The Princess &
-   * The Bulldog" routes "i"/"inv"/"inventory" through a synonym to the keyword
-   * its inventory task listens for, so every "i" answered with a bare "[iii]".
-   * Both halves are gone; the substitution itself still happens.
+   * Upstream SCARE echoed the rewritten command in italic square brackets,
+   * for synonyms and for pronouns alike.  No Runner does that: run370 and
+   * run380 have no "[" string literal at all, run390's only one is the
+   * "[More]" pager, and 4.0's synonym substitution is silent too.  The echo
+   * also exposed authoring the player is not meant to see -- "The Warlord,
+   * The Princess & The Bulldog" routes "i"/"inv"/"inventory" through a
+   * synonym to the keyword its inventory task listens for, so every "i"
+   * answered with a bare "[iii]".
+   *
+   * What 4.0 does print, with "References in brackets" ticked, is the
+   * pronoun's antecedent in round brackets on its own line -- "(a trophy)";
+   * uip_replace_pronouns() buffers that as it substitutes.
    */
 
   /* Try the command line element against command matchers. */
@@ -3229,6 +3328,14 @@ run_main_loop (scr_gameref_t game)
        * last command didn't match, or the last command did match but was
        * administrative.
        */
+#ifdef SCARIER_DUMP_TOOLS
+      {
+        static const scr_bool trace_admin = getenv ("SCR_TRACE_ADMIN") != NULL;
+        if (trace_admin && status && game->is_admin)
+          fprintf (stderr, "ADMIN turn=%ld after [%s]\n", game->turns,
+                   run_trace_last_input.c_str ());
+      }
+#endif
       if (status && !game->is_admin)
         {
           /* Increment turn counter, and clear notifications done flag. */

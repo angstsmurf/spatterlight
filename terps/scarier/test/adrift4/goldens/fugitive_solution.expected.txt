@@ -20,7 +20,7 @@ For info and contacts you can type "info" or "about" anytime during the game.
 Type "money" to see the current amount of dollars in your pockets.
 
 > stand up
-You stand up from your watch.
+You stand up from the bed.
 
 > get clothes
 You take your clothes.
@@ -1603,7 +1603,7 @@ You attempt to open the library's door, but it's closed and locked as it's
 night. But then Thel appears so silently as if she came from heavens.
 
 > in
-You can't go in that direction (at present).
+You can't go in that direction, but you can move north and east.
 
 > talk to thel
 You ask her:
@@ -1834,7 +1834,7 @@ You can only go out.
 
 > play
 You pull the lever and watch various images of fruit roll in the slots. Then
-they stop... After this game you have 204 dollars.
+they stop... After this game you have 496 dollars.
 
 > out
 You walk out.

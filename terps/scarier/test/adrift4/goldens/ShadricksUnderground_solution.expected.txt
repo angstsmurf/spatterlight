@@ -248,6 +248,7 @@ I pull as hard as I can and the lever moves half way down, but nothing
 happens.
 
 > again
+(pull lever)
 I again pull as hard as I can and the lever moves into the down position and
 the grate slowly swings open.
 
@@ -277,6 +278,7 @@ climbing over each other to get a piece.
 There are still too many rats to pass.  They look very hungry.
 
 > again
+(feed rats)
 I throw the pickled pigs foot down the tunnel a little ways, and the rats
 race over to it as quickly as they can.
 

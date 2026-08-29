@@ -48,6 +48,12 @@ nothing is thine!"
 For help with game commands, type "help" and press enter; for help with
 puzzles, type "hint" and press enter.
 
+Some of the rabbits begin to stare you: suspiciously or fearfully, you cannot
+tell.
+
+The wretched spirit continues to scare the rabbits.  "Here, rabbity,
+rabbity... I will devour your souls!"
+
 > d
 You descend into deeper absurdity.
 

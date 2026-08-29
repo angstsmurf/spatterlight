@@ -75,7 +75,7 @@ Light coming from a window beside the bed is the only thing keeping me from
 being in complete darkness.
 
 > stand
-I stand up from the window.
+I stand up from the bed.
 
 > turn on lights
 I fumble around a bit until my hands find the light switch and I flick it on.
@@ -141,6 +141,7 @@ of the original ever made.  A knife is on the marble counter.
 I take the knife from the marble counter.
 
 > north
+(Getting off the chair first)
 I move north.
 
 Downstairs Hall

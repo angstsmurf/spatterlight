@@ -103,6 +103,9 @@ set of false teeth. There's an ENTIRELY HETEROSEXUAL guard sitting behind the
 desk, keeping an eye on the exit to the west (a.k.a your freedom).
 
 > w
+I move west.
+
+Freedom
 I'm free. After many testing trials, I'm finally free. But who is this
 mysterious 'Father' who delivered the key to my cell in my dream? There's
 something strange about this. I must investigate. I will find you 'Father',

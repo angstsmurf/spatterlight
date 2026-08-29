@@ -59,10 +59,13 @@ wait
 wait
 take knife
 x knife
+z
 x letter
+z
 write on southern wall
 enlarge hole with knife
 x photo
+z
 x hole
 eat soup
 eat soup

@@ -155,18 +155,6 @@ to off me all damn week!"
 Jonah growls. "The best we can do is wait them out, and hope they starve out
 there in the hallway!"
 
-!!!
-The pounding of the bathroom door stops momentarily.
-
-"Brendle, we're going to need something more sturdy to knock down this door.
-I saw a fire extinguisher at the other end of the hallway. Let's go get that
-instead."
-
-"Ok, you go get it then. If they come out then it's beating time!" Brendle
-cracks his knuckles.
-
-You can hear hurrying footsteps fade away.
-
 > talk to gamble
 !!!
 A deep male voice yells from the other side of the door. "What we want? We
@@ -181,6 +169,18 @@ side of the door.
 next to me is Gamble!"
 
 "Introductions aside, it's time to die!" yelled Gamble.
+
+!!!
+The pounding of the bathroom door stops momentarily.
+
+"Brendle, we're going to need something more sturdy to knock down this door.
+I saw a fire extinguisher at the other end of the hallway. Let's go get that
+instead."
+
+"Ok, you go get it then. If they come out then it's beating time!" Brendle
+cracks his knuckles.
+
+You can hear hurrying footsteps fade away.
 
 > talk to brendlebun
 !!!
@@ -213,11 +213,6 @@ almost maddening looking work.
 tried to off us." Jonah stops suddenly, and flashes a pistol. "Lucky I had
 this on me, or I woulda been dead. Dead by the hands of the damn anti-christ
 too!"
-!!!
-"You two are going to be sorry, real soon! It's already too late for you
-Jonah, but you in there! Open up this door or get rid of Jonah, and we'll
-overlook all this!" Brendlebun said through the door, malice growing in his
-voice.
 
 > talk to jonah
 !!!
@@ -250,6 +245,11 @@ didn't get better, and I just had to kept doling out the big ones!"
 
 Jonah turns his back on you and angrily pounds the door, ignoring any
 response you might make and set on the truthfulness of his statements.
+!!!
+"You two are going to be sorry, real soon! It's already too late for you
+Jonah, but you in there! Open up this door or get rid of Jonah, and we'll
+overlook all this!" Brendlebun said through the door, malice growing in his
+voice.
 
 > talk to jonah
 !!!

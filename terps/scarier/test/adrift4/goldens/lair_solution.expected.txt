@@ -93,6 +93,9 @@ dressed in deep brown robes which are torn and bloodied in numerous places.
 Clutched in his left hand, the fingers curled around it so tight the knuckles
 are bony white, is a crucifix.
 
+> z
+Time passes...
+
 > ask vardo about crucifix
    He glances towards the open door, looks at you, and hands you the
 crucifix. "Be careful with it," he says. "Without it, we are lost..."
@@ -3637,6 +3640,9 @@ the heavy coffin open.
 robes of darkest velvet. His head rests on a golden pillow and in his hands
 is clutched a globe of dark metal.
 
+> z
+Time passes...
+
 > get globe
    The moment you reach out your hand, the man's eyes slowly open.
    "Ah," he says. "I wondered when you would get here."
@@ -3864,8 +3870,8 @@ here."
    "An amulet of protection from the undead." Gragor puts it around his neck.
 "Now I feel a bit better prepared."
 
-   "And there should be something under that pile of broken shelves," Gragor
-adds.
+> z
+Time passes...
 
 > nw
 You move northwest.

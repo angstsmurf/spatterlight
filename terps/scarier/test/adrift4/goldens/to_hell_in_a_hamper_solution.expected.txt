@@ -244,9 +244,9 @@ Sitting on the floor of the basket is the most enormous carpetbag I have ever
 seen.
 
 Also here is a boomerang and a smudge stick.
-Hubert Booby stands in the corner of the basket, peering at me suspiciously.
-A St. Bernard dog is lying fast asleep on the floor of the basket, oblivious
-to the drama unfolding before him.
+Hubert Booby stands on the other side of the basket, watching me closely.  A
+St. Bernard dog is lying fast asleep on the floor of the basket, oblivious to
+the drama unfolding before him.
 
 > put ear-trumpet in dog's ear
 I put the ear-trumpet in the Saint Bernard's ear.
@@ -455,8 +455,9 @@ I toss the burning smudge stick over the side of the balloon.
 The equilibrium of a balloon in the air is so sensitive that the loss of an
 almost  insignificant weight can produce a very appreciable displacement. In
 this instance, the balloon gains around one hundred feet in altitude.
-'We ought to have more manure...' says Aunt Gertie, cryptically. She gives me
-a crack across the shins with her cane, just for the hell of it.
+'A man of your years,' says Aunt Gertie cryptically, 'you ought to be
+ashamed!' She gives me a crack across the shins with her cane, just for the
+hell of it.
 
 > tie parachute to apron
 I wait 'til her back is turned, and swiftly tie the parachute to her apron

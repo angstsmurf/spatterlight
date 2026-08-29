@@ -67,6 +67,7 @@ ask mrs peters about sister
 ask mrs peters about husband
 ask mrs peters about bill peters
 x mrs peters
+i
 ask mrs peters about baby
 ask mrs peters about rattle
 give rattle to mrs peters
@@ -86,6 +87,7 @@ ask mrs peters about money
 west
 nw
 x trainspotter
+i
 ask trainspotter about grantby
 ne
 east
@@ -236,6 +238,7 @@ west
 sw
 se
 x drunk
+i
 time
 east
 ask business man about cats
@@ -243,6 +246,7 @@ ask business man about john tailer
 ask business man about beard
 ask business man about theft
 x business man
+i
 x left pocket
 x right pocket
 ask business man about pocket

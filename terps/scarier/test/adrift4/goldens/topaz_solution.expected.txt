@@ -194,6 +194,7 @@ No! cries Topaz, You will leave him! Paragon, my dear, my love... what's
 this? Our ring? Yes... Mortal, take the ring, we may yet live.
 
 > g
+(take silver ring)
 The ring comes away from the bone easily, which crumbles to dust upon your
 touch.
 

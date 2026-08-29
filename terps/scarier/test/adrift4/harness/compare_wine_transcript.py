@@ -68,7 +68,7 @@ def normalise(text):
     return re.sub(r"\s+", " ", text).strip()
 
 
-def split_runner(lines, feed, lookahead):
+def split_runner(lines, feed, lookahead, start=0):
     """Split the Runner transcript on its echoed command lines.
 
     Returns (turns, losses).  turns[i] is the output the Runner printed for
@@ -81,10 +81,33 @@ def split_runner(lines, feed, lookahead):
     losses = []
     pending = []
     intro = None
-    index = 0
+    index = start
+    # A drive checkpointed with drive_ckpt_safe.sh's "#save NAME" /
+    # "#restore NAME" carries "> save" / "> restore" echoes and their
+    # "Saving current game... done." lines; neither is a game turn, so drop
+    # them (a restore's "Loading game..." plus the room description that
+    # follows land in the intro, which is never compared).
+    skipping = False
+    # "Prompt for typed commands" (registry showgt) makes the Runner echo
+    # every command as "> cmd".  When the transcript shows that prompt, ONLY
+    # prompt lines can be echoes: game text that happens to equal a feed
+    # entry ("Zenes" against feed "zenes", whitterscap 2026-08-29) otherwise
+    # matches through the lookahead and reports four commands as lost.
+    prompted = any(l.lstrip().startswith("> ") for l in lines)
 
     for line in lines:
         stripped = line.strip()
+        if stripped.startswith(">"):
+            stripped = stripped[1:].strip()
+            if stripped.lower() in ("save", "restore"):
+                skipping = True
+                continue
+            skipping = False
+        elif skipping:
+            continue
+        elif prompted:
+            pending.append(line)
+            continue
         hit = None
         if stripped:
             for ahead in range(0, lookahead + 1):
@@ -173,7 +196,8 @@ def main():
     parser.add_argument("--env", action="append", default=[],
                         help="NAME=VALUE for the scarier replay, repeatable")
     parser.add_argument("--start", type=int, default=0,
-                        help="first feed index to diff")
+                        help="first feed index to diff (a checkpointed drive"
+                             " that opened with #restore starts here)")
     parser.add_argument("--offset", type=int, default=None,
                         help="scarier turn holding feed[0]; auto-detected")
     parser.add_argument("--limit", type=int, default=40,
@@ -187,7 +211,7 @@ def main():
 
     feed = read_feed(args.feed)
     runner_intro, runner_turns, losses = split_runner (
-        read_lines(args.runner), feed, args.lookahead)
+        read_lines(args.runner), feed, args.lookahead, args.start)
 
     if args.scarier:
         scarier_lines = read_lines(args.scarier)

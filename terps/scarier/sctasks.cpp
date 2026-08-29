@@ -1623,8 +1623,31 @@ task_run_end_game_action (scr_gameref_t game, scr_int var1)
   game->is_running = FALSE;
   game->has_completed = TRUE;
 
-  /* "Just stop" prints nothing, so it reports nothing done. */
-  return var1 != 3;
+  /*
+   * Nothing is printed here, whatever the ending, so this reports nothing
+   * done -- and in the Runner that is what decides whether the command is
+   * finished.  run400's task dispatcher (Proc_19_24_44CCE0, the `tasks()`
+   * of the older source) returns True only when the turn's output buffer
+   * (MemVar_4941B0) is non-empty once the task has run (loc_44CCC0..44CCCD);
+   * an End-Game action only sets the gameover byte, so a task whose only
+   * output would be the ending falls through to the library like any other
+   * silent task, and the ending is composed after that.  Measured 2026-08-29
+   * on relojero.taf (4.00), Adrift_1_relojero.txt: task 5 `arreglar *fenix`
+   * has no text and one End-Game (win) action, and run400 answers
+   * "Disculpa pero no te entiendo." (the game's DontUnderstand) and THEN the
+   * WinText.  Returning TRUE for a win or a loss here hid that refusal.
+   *
+   * This is a 4.0 rule only.  run390's tasks() (run390_3.bas 42BDC4) sets
+   * its result to True the moment checktask() finds a task and
+   * execute_task() has run it, with no look at what was printed, and
+   * run370's (run370.bas 4426B8; run380.bas 44E6AD) reports the gameover status byte; neither
+   * consults the output buffer, so the older Runners treat a silent End-Game
+   * task as a finished command -- no refusal before the ending.  Before 4.0
+   * the old rule stands: every ending but "Just stop" reports done.
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    return var1 != 3;
+  return FALSE;
 }
 
 

@@ -308,6 +308,7 @@ You try looking up, and see that a portal of light has appearead above your
 head, the ceiling of the attic completely obscured by its brilliance...
 
 > up
+(Getting off the chair first)
 You move up.
 
 In light

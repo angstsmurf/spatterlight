@@ -126,15 +126,12 @@ pair of chopsticks.
 > x chopsticks
 You see nothing special about the pair of chopsticks.
 
-The acolyte attempts to catch a passing fly with his chopsticks. They say
-that a man who can catch a fly with chopsticks can do anything.
-
 > ask acolyte about lama
 'His holiness the Lama will be able to answer all your questions.' says the
 acolyte dismissively.
 
-The acolyte attempts to clap with one hand, cupping the other hand over his
-ear the better to hear the sound it makes.
+The acolyte attempts to catch a passing fly with his chopsticks. They say
+that a man who can catch a fly with chopsticks can do anything.
 
 > in
 Sanctum Sanctorum
@@ -517,6 +514,7 @@ contains, apart from a few dust-bunnies, is an electric hairdryer.
 You take the hairdryer from the seat.
 
 > x it
+(the hairdryer)
 Quite what the Dada Lama wants with a hairdryer is beyond you - the man is as
 bald as a coot. Perhaps it belongs to one of his 'disciples'. It appears to
 be powered by cosmic energy, which is handy as there doesn't seem to be

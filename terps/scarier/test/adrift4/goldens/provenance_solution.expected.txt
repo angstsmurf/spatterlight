@@ -102,6 +102,7 @@ what appears to be a well and a gazebo.
 A trail of blood drops follows along the brick path towards the house.
 
 > g
+(follow the blood)
 You follow the drops of blood northwest along the brick path.
 
 On A Brick Walkway
@@ -119,6 +120,7 @@ As the late autumn afternoon light begins to fade, distant church bells
 announce four o'clock in the afternoon.
 
 > g
+(follow the blood)
 The trail of blood takes you northwest along the brick walkway towards the
 house.
 
@@ -132,6 +134,7 @@ along the hedges and leads out to the road.
 Large drops of blood form a trail that leads northwest towards the house.
 
 > g
+(follow the blood)
 You continue to follow the trail of blood onto a cobblestone footbridge.
 
 On A Small Foot Bridge
@@ -152,6 +155,7 @@ of thunder that seems too close for comfort.  Almost instantly the sound of
 sporadic rain drops hitting the ground turns into a steady rain.
 
 > g
+(follow the blood)
 The blood trail leads north toward the front door of the house.  You follow
 it with apprehension.
 
@@ -167,6 +171,7 @@ A trail of large blood drops leads up the stairs to the front door of the
 house.
 
 > g
+(follow the blood)
 You follow the trail of fresh blood up the stairs and onto the veranda.  The
 blood drops lead right to the front door.
 
@@ -370,6 +375,7 @@ heart racing, you take a moment to regain your composure.
 Was there something else up on that ledge...
 
 > g
+(x the ledge)
 
 You stand on your tip-toes and reach up to feel along the edge of the
 transom.
@@ -387,21 +393,25 @@ has the word "LETTERS" embossed on the front.
   The mailbox is locked.
 
 > unlock it
+(the mailbox)
 
 You unlock the mailbox with the skeleton key.
 
 > open it
+(the mailbox)
 You open the mailbox.  A large manila envelope is inside the mailbox.
 
 > get the envelope
 You take the large manila envelope from the mailbox.
 
 > x it
+(the large manila envelope)
 
 This is just a standard manila coloured envelope.
   The large manila envelope is closed.
 
 > open it
+(the large manila envelope)
 You open the large manila envelope.  A parchment is inside the large manila
 envelope.
 
@@ -409,6 +419,7 @@ envelope.
 You take the parchment from the large manila envelope.
 
 > read it
+(the parchment)
 
 LAST WILL AND TESTAMENT OF ISAAC ROURKE
 
@@ -612,6 +623,7 @@ You put the large manila envelope inside the mailbox.
 The front door is now unlocked.
 
 > open it
+(the front door)
 
 The front door is now open.
 
@@ -685,6 +697,7 @@ and for a fleeting moment catch the movement of...something...a shadow.  You
 quickly turn to get a better look but whatever was there is now gone.
 
 > open it
+(the resplendent armoire)
 You open the resplendent armoire.  A rugged rucksack is inside the
 resplendent armoire.
 
@@ -1029,10 +1042,12 @@ finish.  The gate stands about seven feet high and two-and-half feet wide.
 Its double door design adds an air of majesty to its presence.
 
 > open it
+(the rose arbor)
 
 The rose arbor gate is locked.
 
 > unlock it
+(the rose arbor)
 
 The rose arbor gate is now unlocked.
 The lonely cry of a wolf in the distance catches your attention.
@@ -1041,6 +1056,7 @@ Though the cloud cover overhead is still quite thick, it does appear that the
 weather may finally be breaking.
 
 > open it
+(the rose arbor)
 
 You open the rose arbor gate.
 
@@ -1072,6 +1088,7 @@ if required.
   The pup tent is set up on the ground.
 
 > get it
+(the pup tent)
 
 You try to approach the tent but the bulldog intervenes.  He barks at you
 loudly, showing his teeth and salivating excessively as he does so.  You
@@ -1830,6 +1847,7 @@ You take the large stone from the large bucket.
 You take the full wooden canteen from the large bucket.
 
 > close it
+(the full wooden canteen)
 You close the full wooden canteen.
 
 > get rope
@@ -2470,6 +2488,7 @@ entranceway to a basement or cellar of some kind.
 You can't open the cellar door as it is locked with a padlock.
 
 > unlock it
+(the cellar door)
 The cellar door is not locked!
 
 > n
@@ -2655,9 +2674,11 @@ accumulated a significant layer of rust.  There is a small door with a single
 hinge on the front of the stove.
 
 > open it
+(the rusty woodstove)
 You open the rusty woodstove.
 
 > x it
+(the rusty woodstove)
 
 You feel around inside the cavity of the old woodstove.  Surprisingly, there
 is still ash and charcoal inside.  As you sift the ashes with your fingers
@@ -3031,6 +3052,7 @@ special stone key.
 The bronze gate is locked.
 
 > unlock it
+(the tarnished bronze gate)
 
 (using the key)
 You insert the key into the rusty padlock and turn it a few times to loosen
@@ -3384,7 +3406,8 @@ Time passes...
 Time passes...
 
 > z
-Time passes...  The butler enters.
+Time passes...
+The butler enters.
 
 > get china
 
@@ -3429,7 +3452,8 @@ Time passes...
 Time passes...
 
 > z
-Time passes...  The butler exits to the south.
+Time passes...
+The butler exits to the south.
 
 > z
 Time passes...
@@ -4414,9 +4438,11 @@ bust.
   The large desk is locked.
 
 > unlock it
+(the large desk)
 You unlock the large desk with the skeleton key.
 
 > open it
+(the large desk)
 You open the large desk.  A brass key is inside the large desk.
 
 > get brass key
@@ -4527,6 +4553,7 @@ magnificent model train set.  The hallway is visible to the southwest.
 You unlock the large pullout drawer with the brass key.
 
 > open it
+(the large pullout drawer)
 You open the large pullout drawer.  A pair of hiking boots is inside the
 large pullout drawer.
 
@@ -4596,9 +4623,11 @@ accentuates that fact.
   The vintage redwood storage chest is locked.
 
 > unlock it
+(the vintage redwood storage chest)
 You unlock the vintage redwood storage chest with the brass key.
 
 > open it
+(the vintage redwood storage chest)
 You open the vintage redwood storage chest.  A caving helmet and a headlamp
 are inside the vintage redwood storage chest.
 
@@ -4925,6 +4954,7 @@ iron.  It has slots in to allow rain water through.
   The storm drain is closed.
 
 > open it
+(the storm drain)
 
 You push and pull at the storm drain but it just won't budge.  It might be
 locked from above.
@@ -5351,6 +5381,7 @@ provide ambient light for reading.
 You unlock the trap door with the brass key.
 
 > open it
+(the trap door)
 You open the trap door.
 
 > d
@@ -5407,6 +5438,7 @@ quickly running out.
 You take the leather bound book from the small table.
 
 > read it
+(the leather bound book)
 
 The central tenet of alchemy is that the cosmos is a unity of interdependent
 parts, that man is therefore connected to the cosmos, and that, if the nature
@@ -5488,6 +5520,7 @@ the good of my family; blind to the crimes I was committing against the name
 of God.  For heaven's sake, please forgive me for what I am about to do.
 
 > drop it
+(the leather bound book)
 You drop the leather bound book.
 
 > l
@@ -5570,6 +5603,7 @@ room appears to be 'lived in'.  All kinds of artifacts used for personal
 grooming are atop the dresser.
 
 > g
+(wait)
 Time passes...
 
 > n
@@ -6237,9 +6271,11 @@ place are not rusty.
   The large wooden chest is locked.
 
 > unlock it
+(a large wooden chest)
 You unlock the large wooden chest with the brass key.
 
 > open it
+(a large wooden chest)
 You open the large wooden chest.  A bellows is inside the large wooden chest.
 
 > get bellows

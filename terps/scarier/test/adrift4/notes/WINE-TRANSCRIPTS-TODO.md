@@ -363,7 +363,7 @@ that a pre-4.0 game actually reaches today:
 | sclibrar | phrase | exes carrying it | exposed golden | verdict |
 |---|---|---|---|---|
 | `lib_cmd_examine_object` | `You see nothing special about ` | 400 | `ms_mobius` (3.90) | **live lead**, written up above |
-| `lib_cmd_read_other` | `You see no such thing.` | 400 | `cybercow_win`, `panic` (3.90) | **live lead**, written up above |
+| `lib_cmd_read_other` | `You see no such thing.` | 400 | `cybercow_win`, `panic` (3.90) | **closed 2026-08-29** -- run400 prints it third-person (`<name> see no such thing.`, 471F02/4801E1); ported with the `is_admin` flag |
 | `lib_cmd_locate_object` | ` a part of you!` | 400 | -- | prose false positive |
 | `lib_cmd_buy_other` | `I don't think that is for sale.` | 370, 380 | `circus` (3.90) | composition, not a split |
 | `lib_put_in_is_valid` | `You can't put anything inside ` | 370, 380, 390 | `sophie_comp` (4.00) | composition, not a split |
@@ -442,6 +442,18 @@ lines -- which is the point: it is cheap to be wrong here for a long time.
   differ). Verbose is the only box that really does reset every launch.
   Read the key out of `user.reg` before a measurement rather than trusting
   either claim.
+- **Policy since 2026-08-29: measure with all three Appearance boxes ON and
+  Verbose ON, and Scarier models that Runner.**  "References in brackets"
+  (`showbrackets`), "Prompt for typed commands" (`showgt`) and "Room names in
+  descriptions" (`showshortroom`) are forced to `1` in `pfx/user.reg` by
+  `measure.sh` before every launch, and Verbose is forced `True` the same way
+  (plus the Ctrl+V belt-and-braces).  The consequence for the engine is that
+  every line the 4.0 Runner gates on `showbrackets` is now printed: the
+  `(Getting off X first)` / `(Standing up first)` pair, the pronoun echo
+  `(a trophy)`, the `again` echo, and -- still to port -- the `ask about` /
+  `talk about` and `give X` rewrites.  See FIXED 2026-08-29 below; the CLOSED
+  2026-08-24 section further down describes the brackets-OFF world it
+  replaced.
 - **Look for randomised puzzle state before splicing a command file.**  The
   Runner rolls its own numbers, so any walkthrough that types a combination,
   a code or a count back at the game will break in the Runner even when the
@@ -480,12 +492,19 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `Professor.taf` | 4.00 | full run400 replay | the worked example; walk phase, arrival lines, presence lines |
 | `FunHouse.taf` | 4.00 | full run400 replay, 0/18 commands differ | an **empty game-start walk preempts for ever**: NPC 3 WALK 1 and NPC 5 WALK 1 stay shut all game |
 | `TheCatintheTree.taf` | 4.00 | full run400 replay | corroborates the same rule -- the boy (NPC 2 WALK 1) never arrives |
-| `humbug.taf` | 4.00 | run400 P-code, room lister `Proc_19_63_472CA4`; then a two-phase replay that reaches command 373 of 1050 | ChangedDesc pick is task-state only, ascending, non-empty wins; the partial replay added the `On X is`, `and carrying` and pronoun-echo findings below.  **Not fully replayable** -- three randomised secrets, see "Still open" |
+| `humbug.taf` | 4.00 | run400 P-code, room lister `Proc_19_63_472CA4`; a two-phase replay to command 373; then (2026-08-29) a **full checkpointed replay** (`#save`/`#restore` in the cmdfile, `Adrift_4_humbug.txt`, secrets 7628 / Pakiwagag / 7076) plus 76 pronoun probes (`Adrift_5_humbug.txt`) | ChangedDesc pick is task-state only, ascending, non-empty wins; the partial replay added the `On X is`, `and carrying` and pronoun-echo findings below.  **Not fully replayable** -- three randomised secrets, see "Still open" |
 | `lair-of-the-cybercow.taf` | 3.90 | run390 P-code, viewroom `loc_447D1D` | same lister rule one Runner down; one line changes |
 | `great.taf` | 3.80 | run380 P-code, `characters() '441928` | no expiry stamp at all, restart needs `Loop = 1`, preempt has no StoppingTask test |
 | `maincourse`, `orient`, `xfiles`, `wamk` | 4.00 | re-blessed under the same two rules | `maincourse` lost its win marker to a faithful preemption |
 | `iqsfot.taf` | 4.00 | see the row's comment block | NPC 16 WALK 2 is an empty game-start walk with no stops; it pins the patrol shut and the game cannot be won in run400 |
 | `the_pk_girl.taf` | 4.00 | full run400 replay with a 96-command peddler hunt spliced in | the Runner WINS -- and that is what proved a finished 4.0 walk is stamped **-1**, not 255 |
+| arena probes EV14/EV15/EV16 | 4.00 | run400, `harness/make_arena_probe.py` (Adrift_1_ev14..16.txt) | **`x <npc>` and a nothing-found examine are administrative turns** -- no turn count, no walk, no event tick; `x me`, `x <object>`, `look`, `i` are normal; "Time passes..." carries its own vbCrLf; "1 turns so far" never singularised |
+| `BobBobsly.taf` | 3.90 | run390 (Adrift_1_bob390.txt) | 3.9 counts NPC examine, failed examine and `turns` as turns; `z` = 1 turn under WaitTurns 3 -- see Open leads |
+| `CAH.taf` (cruel) | 3.90 | run390 probe (Adrift_1_cruelprobe.txt) | `take it` -> "You can't take the jacket." |
+| `man overboard.taf` | 4.00 | full run400 replay, 99/99 identical but the tail | settles the `again` echo, the give/ask rewrites and "(a Cupboard)" |
+| `princess1.taf`, `Tear.taf`, `lobster.taf`, `PTGOOD.taf` | 4.00 | full run400 replays | 78/78, 36/36, 54/54, 6/6 (+7/7 ptgood_again) identical |
+| `Beanstalk.taf` | 4.00 | full run400 replay, 49/49 | the turn-45 stranger greeting is one command later because `x stranger` is administrative |
+| `CIBASS.taf` | 4.00 | partial run400 replay | identical to turn 16, then waitkey prompts desync the script |
 | `arlo.taf` | 3.70 | full run370 replay, `Adven_6_arlo.rtf` | the 3.7 walk departure lines, incl. "walks off to not moved."; 3 differing of 85 |
 | `tra.taf` | 3.80 | full run380 replay, `Adven_9_timmy_reid.rtf` | "outside" takes no "to" in a departure line |
 | `Melbourne Beach.taf` | 3.90 | full run390 replay, `Adrift_37_melbourne_beach.txt` | the 3.9 walk directions, incl. the diagonal a pre-4.0 8-exit scan cannot name |
@@ -506,6 +525,14 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `hauntedhouse.taf` | 4.00 | run400 replay of the game's **own** 42-command solution, `Adrift_1_hauntedhouse.txt`, Verbose ON, all 42 echoed | **clean: 41 of 42 turns identical, and the 42nd differs only by the Runner's `[Press any key to end]` tail**, which Scarier emits as a waitkey pause rather than as text.  Supersedes the mispaired `Adrift_16/17` run except for the two engine bugs that one found |
 | `goldilocks.taf` | 4.00 | run400 replay of the full 252-command solution, `Adrift_1_goldilocks.txt`, Verbose ON, all 252 echoed | one real divergence in 252 turns, and it was an engine bug: **an event's look text is gated on the room being described, not on the room the player is standing in** -- see the FIXED section below.  After the fix, 251 of 252 identical, the 252nd only the `[Press any key to end]` tail |
 | `lair-of-the-cybercow.taf` | 3.90 | run390 replay, `Adrift_1_cybercow.txt` (127 commands, 3 lost) | the *other* direction of the same rule: the Runner **does** print the day/night event's look text in the Chapel Yard a ShowRoomDesc task shows, while the player is still at the bottom of the well.  Not a clean row -- see its comment block for the three feed problems it exposed |
+| `Monsters_r2.taf` | 4.00 | full run400 replay, `Adrift_1_monsters.txt`, Verbose + brackets ON, 38/38 echoed | **brackets ON prints `(Getting off Sissy's four poster bed first)` on its own line** (turns 5, 23); after the port 37/38 identical, the 38th is the `[Press any key to end]` tail |
+| `ADRIFTMaze.taf` | 4.00 | run400 replay, `Adrift_1_adrift_maze.txt`, name via `POPUP_ANSWERS`, 26/26 echoed | **the 4.0 pronoun echo `(a trophy)`** on turns 24-25; otherwise identical bar the echoed name |
+| `BlackSheepsGold.taf` | 4.00 | full run400 replay, `Adrift_1_black_sheeps_gold.txt`, 99/99 echoed | clean: 98/99 identical, the 99th cut off at the Runner's last `(press any key to continue)`.  Needs `--offset 0` |
+| `Space Boy's First Adventure.taf` | 4.00 | full run400 replay, 133/133 echoed | clean: 132/133, the tail only |
+| `angeldevilhuman`, `cyber`, `demonhunter`, `plunder_gargoyle`, `renegade_brainwave`, `ptgood`, `srsintro`, `imagination` | 4.00 | full run400 replays, every command echoed | clean: all turns identical except the `[Press any key to end]` tail (and the echoed name for `imagination`) |
+| `cyber2.taf` | 4.00 | full run400 replay, 29/29 echoed | 26/29; turns 15 and 26 differ by one **battle roll** line each (rule 3), 28 is the tail |
+| `dragonshrine`, `through_time`, `invasion_shirts`, `qui_a_tue_dana`, `whitterscap`, `hyper_b_s`, `cibass`, `allhallowseve` | 4.00 | partial run400 replays -- a cutscene, real-time pause or waitkey eats a fed command part-way (rule 2) | identical up to the loss (105, 12, 13, 15, 13, 3, 3 and 3 turns respectively); nothing after it is comparable |
+| `Vardock Bates.taf` | 4.00 | full run400 replay (Adrift_1_vardock_bates.txt), then a checkpointed probe (Adrift_3_vardock_bates.txt) | `<waitkey 4>` is a zero-second wait; co() feeds the generic verbs; a finishing event's task re-checks LOWER-indexed events in the same tick; the SYNONYM table is a sequence of whole-string rewrites -- see the two FIXED 2026-08-29 sections |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -822,6 +849,14 @@ Things a measurement turned up that are **not** walk bugs and have not been
 chased yet.  Each needs its own investigation; none of them should be folded
 into a walk-related change.
 
+- **run390 turn accounting** (BobBobsly.taf, Adrift_1_bob390.txt, 2026-08-29):
+  3.9 counts an NPC examine, a failed examine and `turns` itself as turns, and
+  `z` advances one turn under WaitTurns 3 where 4.0 loops WaitTurns times
+  (48ABFB).  Scarier keeps the 4.0 behaviour for 4.0 games only; which 3.9
+  commands are administrative is unmeasured.
+- **`lib_cmd_examine_absent` admin status** is unmeasured; `look in <absent>`
+  going through the administrative `examine_other` refusal is inferred from
+  the 4801E1/471F02 flag, not measured (sandy_meta_number "turn 6").
 - **run400 refuses commands Scarier accepts** (found while replaying
   `The_X-Files_A_New_Beginning`, 4.00, 2026-08-23).  `take knife` and
   `take directions` get "Take what?" from run400 while Scarier takes the
@@ -972,6 +1007,22 @@ into a walk-related change.
   (all 4.00); no 3.80 golden exercises the lister, so that branch rests on the
   P-code alone.
 
+- **FIXED 2026-08-29: the pronoun echo's article** (measured on `humbug`,
+  4.00, `Adrift_5_humbug.txt`).  The 4.0 antecedent is a string, and its article is
+  whichever handler last composed it: examine gives "(a shovel)", `get`/`drop`/
+  `open`/`close`/`unlock` and the generic "I don't understand what you want me
+  to do with" give "(the shovel)" ("some gloves" -> "the gloves", "an envelope"
+  -> "the envelope"); a take from a character keeps "(a document)"; `put` and
+  a failed `get X from Y` leave it alone; `look in <room object>` gives "the"
+  through co() itself while a held one is left untouched; and a command that
+  used the pronoun never changes it (`drop it`, `x it`).  P-code: composer
+  `Proc_21_31_448710` mode 1 vs mode 0 (tense), setter `Proc_21_41_448C24`
+  sites listed in `uip_definite_form()` (scparser.cpp).  Re-blessed `humbug`,
+  `yak_shaving`, `shred_em`, `provenance`; every changed line is an echo after
+  a take or an unlock.  The full checkpointed humbug replay (`Adrift_4_humbug.txt`)
+  ended at 1810/2000 -- the Runner's `x chute` after a `#restore` hit a
+  "Which chute" ambiguity that a fresh game does not, which is the open
+  "restore marks everything seen" lead below.
 - **FIXED 2026-08-24: the bracketed pronoun echo is gone** (measured on
   `humbug`, 4.00).  `Drop it` gets a bare "Okay.  I have dropped the paper
   aeroplane." from run400, where Scarier printed an italic
@@ -1146,6 +1197,13 @@ of step.
   corpus depends on it.  Unresolved, not urgent.
 - Scarier has no equivalent of run400's dead-NPC walk gate; see the open lead
   above.
+- **`humbug` WAS fully replayed on 2026-08-29** with checkpoint saves
+  (`#save NAME` / `#restore NAME` directives in the cmdfile, see
+  `drive_ckpt_safe.sh`): each randomised secret is read off the transcript,
+  the cmdfile edited, and the run resumed from the last save.  The paragraph
+  below is kept for the record of why a plain replay cannot work.  The
+  seen-after-restore lead from that replay was chased on 2026-08-29 and
+  disproved; the three real splits it hid are in the FIXED section at the end.
 - **`humbug` is not measurable by full replay** -- it joins `xfiles` and `wamk`.
   The two-phase splice below gets the dial combination right, but the game
   randomises *three* secrets, not one, and the other two are unreachable the
@@ -3502,6 +3560,12 @@ v4 corpus after the port: **303/303**.
 
 ## CLOSED 2026-08-24 -- the bracket checkbox governs three more lines
 
+> **Superseded 2026-08-29.**  The measurement policy changed to brackets ON
+> (see *Before measuring anything*), so the lines this section removed are
+> back for 4.0 and the pre-3.9 echo it declined to restore is restored.  The
+> P-code inventory below is still the reference for *which* lines the box
+> governs.
+
 The humbug cmd 254 lead ("Scarier prints `(Getting off the stool first)`,
 run400 prints nothing") was logged as an engine divergence.  It is not one.
 It is rule 1 of *What to do with a diff* -- rule out the Appearance
@@ -3822,3 +3886,324 @@ so it runs on forever with its LookText in every room description -- while a
 task-started one rolls 0 and then takes the `+ 1`, is decremented to 0, and
 finishes on the spot. Two behaviours that had to be special-cased out of the
 transcripts fall straight out of that one `+ 1`.
+
+## FIXED 2026-08-29 -- the brackets-ON Runner: `(Getting off ...)`, the pronoun echo, the `again` echo, `<waitN>`
+
+The measurement policy is now "References in brackets", "Prompt for typed
+commands" and "Room names in descriptions" ON, Verbose ON (all four forced
+into `pfx/user.reg` by `measure.sh`), and Scarier models that Runner.  Four
+things changed to match it; 33 goldens were re-blessed, every diff a pure
+added line.  Suite 343/343.
+
+**`(Getting off X first)` / `(Standing up first)` at 4.0.**  `Monsters_r2.taf`
+turns 5 and 23: run400 with the box ticked answers `in` from the bed with
+`(Getting off Sissy's four poster bed first)` on its own line before `I move
+in.`  `lib_go()`'s gate is now `< 3.90 || >= 4.00` -- 3.7/3.8 print the pair
+unconditionally, run390 has no `Getting off` literal at all (its
+`showbrackets` tests at `loc_459036/459107` guard only the `ask about` /
+`talk about` rewrite), 4.0 prints it behind `MemVar_4942BA`.  28 `Getting
+off` and 5 `Standing up` lines came back across the 4.0 rows.
+
+**The pronoun echo.**  `ADRIFTMaze.taf` turns 24-25: `read it` prints
+`(a trophy)` on its own line, then the response.  run400
+`Proc_19_49_461F38` (him/he/her/she/it/them) tests `MemVar_4942BA` and prints
+`"(" & antecedent & ")" & vbCrLf` via `Proc_21_19_47B568`; the antecedent is
+the NPC's Name or `tense(Prefix) & " " & Short`, which is exactly the
+`replacement` `uip_replace_pronouns()` already builds.  run370 `Sub
+Form1.its` @2CA9C and run380 @326B4 print the same line with no gate, so the
+echo is gated `< 3.90 || >= 4.00` -- which puts back the 25 `wrecked` (3.80)
+lines that `7f7349c7` removed, this time in round brackets.  3.9 prints
+nothing.
+
+**The `again` echo.**  run400 `loc_48A058/48A095` prints the recalled command
+in the same round brackets behind the same byte; `run_player_input()`'s
+`do_again` branch does the same for 4.0.  From P-code only -- no replay has
+typed `again` under brackets ON yet (the man_overboard row, 5 echoes, is
+staged for it).
+
+**The plumbing: `pf_buffer_reference()`.**  The echo is a paragraph of its
+own, and the print filter collapses one leading break when the buffer already
+ends in one -- so a task whose text opens with `<br>` lost its blank line
+after an echo, and using the `hidden` prefix barrier instead broke the walk
+announcement join ("Time passes...  DARWIN enters." split in two).  The fix
+is a one-field note, `reference_at`, set by `pf_buffer_reference()` to the
+buffer length right after the `)\n`; `pf_buffer_paragraph()` refuses to
+collapse when the buffer still ends exactly there.  Nothing else reads it.
+
+**`<wait3>` is a wait tag.**  run400 `loc_47A82C` tests `Left(LCase(tag), 5)
+= "<wait"` and takes `Val()` of the rest, in tenths of a second times ten;
+`pf_output_tag()` treated `<wait3>` as an unknown tag, so `SCR_MARK_WAIT=1`
+never emitted a `[WAIT 3]` mark for it and `make_wine_cmdfile.py` could not
+place its `#sleep`.  Now matched by the tag's leading `<wait`, and the
+generator reads `[WAIT n]` anywhere on a line.
+
+### Ported 2026-08-29 from the P-code (still unmeasured live): the NPC rewrites
+
+`uip_rewrite_references()` / `uip_note_named_npcs()` in `scparser.cpp`, with a
+`last_npc` register in `scr_game_t` (the Runner's `MemVar_494180`, seeded
+"Nobody" at `45A7F5`):
+
+- `ask about X` / `talk about X`: `(<npc>)` then a rewrite to `ask <npc>
+  about X` (`47F134..47F2BA` in `Proc_19_0_480674`; run390 `459036/459107`
+  behind `m_showbrackets`; run370/run380 ungated).
+- `give X` with no `to` and no NPC named: `(to <npc>)` then ` to <npc>`
+  appended (`48A98A..48AA38`, via `Proc_21_40_45E99C`; run370 `43BED8`;
+  NOT in run390, which has no `"(to "` literal).
+- The register is assigned at `47F3A2`, inside `Proc_19_0`, for every NPC
+  the line names by Name or alias (highest index wins, no presence test),
+  AFTER the ask rewrite -- so a rewrite always sees the previous library
+  line's character.
+- **Ordering is what matters.**  The typed-command task dispatcher
+  (`Proc_19_24_44CCE0`, called at `48A481`; run370 `tasks(0)` at `43B97F`)
+  runs BEFORE both rewrites, and a matched task jumps past them (`GoTo
+  48B4E3`).  So the rewrite lives in `run_all_commands()` after the last task
+  pass, and only lines the library answers are noted.  Applying it up front
+  cost `sommeril`'s literal task `ask about glass framed page` (rewritten to
+  `ask gargoyle about ...`, the task no longer matched) and added echoes to
+  seven task-answered give/ask lines (spam, mysteryofcaves, sophie x2,
+  sophie_comp, cbn2, asdfa, dayattheoffice); moved, the suite is unchanged
+  (343/343), which also means no golden yet exercises a *library* give/ask
+  rewrite.  `vardock_bates` turn 16 showed `(to Vagabundo)` live, after a
+  lost command; `man_overboard` is staged to measure both rewrites.
+- Settled 2026-08-29 by `man_overboard` (Adrift_1_man_overboard.txt): the
+  prefix-less object antecedent prints as `(a Cupboard)` (Proc_21_31_448710),
+  and the `again` echo and both give/ask rewrites print as Scarier does.
+
+### Tooling
+
+- `harness/make_wine_cmdfile.py <slug> <out>` writes the Runner command file
+  from a golden, turns `[WAITKEY]` marks into the PRE count and `[WAIT n]`
+  marks into `#sleep n` lines (`drive_ckpt_safe.sh` honours `#sleep N` and
+  `#` comments), and prints the `PRE=` to pass to `measure.sh`.
+- `harness/compare_wine_transcript.py` in prompted mode; pass `--offset 0`
+  when the auto-detect picks a later turn (black_sheeps_gold), and remember a
+  room name that equals a later feed command (`Zenes`) is mis-read as an echo.
+- `harness/scare` prints no commands without `SCR_ECHO_INPUT=1`.
+
+## FIXED 2026-08-29 -- round two: administrative turns, the take retry, containment before catch-alls
+
+**NPC examine and the nothing-found examine are administrative in 4.0.**
+Arena probes EV14/EV15/EV16 in run400 (Adrift_1_ev14..16.txt): `x <present
+npc>`, `look at <npc>`, and the "<name> see no such thing." refusal print and
+return without a turn count, an NPC walk or an event tick.  In the P-code the
+end-of-turn tick at 48B599-48B5C9 runs only when MemVar_494281 = 0 -- the
+not-a-turn flag every exit of the NPC block of Proc_19_0_480674 sets, as do
+471F02/4801E1 (refusals), `turns`, `score`, "With what?" and open/save.
+`x me`, `x <object>`, `look` and `i` are normal turns.  Ported as
+`game->is_admin` (sclibrar `examine_npc`/`examine_other`, version 4.0 only;
+scrunner skips turns++, NPC/event/battle ticks and updates).  Debug aid:
+`SCR_TRACE_ADMIN=1` on the DUMP_TOOLS build prints `ADMIN turn=N after [cmd]`
+and the input-line counter.
+
+Seven walkthroughs depended on the extra tick: `humbug` (15 lines), `ticket`
+(4), `vague` (2), `escape_to_new_york` (2), `lair` (3),
+`yonastoundingcastle` (1), `thelasthour` (3).  Each got a no-op turn after
+the administrative examine -- `z` in WaitTurns-1 games, `i` where WaitTurns
+is 3 (a `z` there ticks three times).  All seven win again.  Eighteen more
+goldens were re-blessed for the event/RNG shift after an admin examine
+(yak_shaving, togetyou, confession, trabula, to_hell_in_a_hamper, thepkgirl,
+target, perspectives, beanstalk, sandy_meta_number) or for the wait-turn line
+break below; the rows carry the evidence.
+
+**"Time passes..." breaks the line in 4.0.**  48ABDA stores the literal
+concatenated with Proc_21_4_442418 (vbCrLf), so a walk announcement in the
+same turn starts on its own line; run390 45E636 stores the bare literal and
+joins.  `pf_buffer_hard_break()` in scprintf keeps that stored newline
+through the join filter (4.0 only).  "You have taken N turns so far." is never
+singularised (48ACA1).
+
+**Third-person "see no such thing."** -- `lib_cmd_read_other` and the
+examine refusals print `<player name> see no such thing.` at 4.0, closing the
+two "live lead" rows above.
+
+**The 4.0 take retries per object; the refusal ends in ".".**  `fugitive`
+("You stand up from the bed") and `panic` ("You can't take ...", not "!") --
+run400 literals.
+
+**Containment before the catch-alls.**  `cellar` `x papers`: run400 finds an
+object inside a present container before any catch-all task or "see no such
+thing" refusal; the containment pass now runs first.
+
+**3.9 pronoun.**  `cruel` (CAH.taf is 3.90, run390): `take it` answers
+"You can't take the jacket." -- the pronoun resolves to the last referenced
+object.
+
+Suite re-run after blessing: see the harness row comments for the 25 rows.
+
+## FIXED 2026-08-29 -- Vardock Bates re-drive: `<waitkey 4>` is not a pause, and co() feeds the generic verbs
+
+Third run400 drive of `Vardock Bates.taf` (Adrift_1_vardock_bates.txt; the
+first two lost a keystroke each -- feed[26] `examinar el crucifijo` arrived as
+`xaminar ...` when typed straight after two keypress pauses, so the cmdfile
+now carries a `#sleep 3` there).  Two engine findings came out of the second
+drive, before the lost command:
+
+**`<waitkey 4>` is a zero-second `<wait>`, not a keypress pause.**  run400
+47A779 compares the whole tag with the literal `<waitkey>`; anything else
+whose `Left(LCase(tag), 5)` is `<wait` goes to the timed pause at 47A82C
+with `Val()` of the remainder -- `Val("key 4>")` = 0.  The Runner did not
+stop after the Jhave wall; Scarier's tag table matched "waitkey" followed by
+a space and asked for a key (which is what put a stray blank line, and an
+empty-command turn, into the cmdfile).  `scprintf.cpp` now takes `waitkey`
+only when nothing follows it; `<waitkey 4>` falls through to the `wait`
+entry and the handlers' `sscanf` yields no delay, matching `Val()`.
+
+**The generic verbs see the co() object.**  `tirar de la palanca` is
+rewritten by the game's `tirar`->`pull` synonym to `pull de la palanca`; the
+`[take/pull/press/move/push]{la}[palanca]` task misses on the "de", and run400
+answers `Tiras de  la palanca, pero no pasa nada.` -- "You pull " & prefix &
+name (the double space is the game's ` la` prefix), i.e. the generic-verb
+routine's object form (48946B, via Proc_19_86_4455F8) with the lever found by
+co() up front in generaltasks (Proc_19_85_489F4C, 488478).  Scarier fell to
+`lib_cmd_pull_other`.  Two changes: `uip_nothing_follows()` treats a trailing
+` *` as nothing (so "pull %object% *" can contain), and
+`run_standard_commands()` runs the fallback verb table with containment on,
+per row, positional first.  Five other goldens moved by the same rule
+(circus, lifesimulation, the_hangover, iachini, foresthouse3 -- see their
+row comments); 343 of the suite's 344 rows passed after blessing -- the
+remaining one, `vardock_bates` itself, is the next section.
+
+## FIXED 2026-08-29 -- Vardock Bates, round two: the same-turn event re-check, and the SYNONYM table as sequential rewrites
+
+Two more divergences from the full run400 replay of `Vardock Bates.taf`
+(Adrift_1_vardock_bates.txt), both now ported; suite 343/344 before, and
+the one remaining row is `cursed` (below).
+
+**A finishing event's task re-checks every lower-indexed event it starts,
+in the same tick.**  After `decir museo` (TASK 22 pauses EVENT 0 [Jinetes])
+the walkthrough's `esperar` printed, in the Runner, the start text of a
+second event in the SAME turn, where Scarier printed it a turn later.  The
+Runners' checkevent (run400 470754 at 47059C; run390 448EB8 at 448D99) ends
+its finish path with
+
+    For i = 0 To n-1
+      If events(i).TaskNum = TaskAffected And <game running> Then checkevent i
+
+after running TaskAffected -- so an event of LOWER index whose StarterType-3
+task is the one just executed is advanced again inside the finishing
+event's own tick, and its start text lands on the same turn.  Higher-indexed
+starters see it in the ordinary loop anyway.  `evt_finish_event()` in
+scevents.cpp now runs the same loop (through the new
+`evt_tick_event_and_settle()`, which is the per-event body the main tick
+loop also uses), guarded on `!taskfinished` and on the event having a
+starter task at all ("TaskNum" is only present for StarterType 3; reading
+it blindly broke every game at load).
+
+Fourteen other goldens moved and were re-blessed, each with a row comment:
+ticket, mishmash, fugitive (RNG order), cybercow / cybercow_win (the rain
+chain), Glum_Fiddle (one walk line), vendetta (the buzzer cutscene and
+"Sally opens the door" now share a turn, so a trailing `wait` is spare),
+thepkgirl (filler lines and pauses move; still 55/60), losttomb (the wall
+chain), gorxungula (two rabbit lines a turn earlier), shadowpeak and
+shadowpeak_killwraith (battle rolls).  Two seed-tuned rows lost their win
+and were re-seeded rather than re-derived: `wrecked` (the four train legs
+each roll Time 15-20; 234 -> 95, from a 1-700 scan that also found 429, 433,
+681) and `shadowpeak_allgargoyles` (Damastus is a random walker the route
+waits on; 83 -> 2326, the first win in 1-3000).
+
+**The SYNONYM table is applied as sequential whole-string rewrites.**
+`hablar con jason` on the museum terrace got "Nadie escucha tus delirios."
+from the Runner (run400 488DB6 via generaltasks, ALR [409]) where Scarier
+ran TASK 28 `[talk]{con}[dhirco/jason/jason dhirco]`.  A probe from the
+taxi-rank checkpoint (Adrift_3_vardock_bates.txt) settled it:
+
+| input | Runner |
+|---|---|
+| `hablar con jason` | generic |
+| `talk con jason dhirco` | generic |
+| `hablar con dhirco` | **TASK 28**, the bastón event starts |
+| `hablar con jason dhirco` | generic |
+
+which is exactly what you get if synonym 0 rewrites every whole-word
+occurrence of its original in the input, synonym 1 rewrites synonym 0's
+output, and so on down the table: with hablar->talk [101],
+jason->"jason dhirco" [160] and dhirco->"jason dhirco" [161], only an input
+that still lacks "jason" when [160] runs survives; the other three double
+the surname.  `pf_filter_input()` used to fire the first matching synonym
+per word and let later ones re-match only the whole replacement -- a rule
+inferred from Lair of the Vampire (harris<->steve) and Yak Shaving (flags,
+line, clothes -> "clothes line").  It is now the sequential rewrite; both
+of those games still pass under it (Yak's `x flags` becomes
+`x clothes line clothes line line`, which the containment matcher resolves).
+The walkthrough's line 93 is now `hablar con dhirco`, the only spelling the
+Runner accepts, and the golden was re-blessed; suite 341/344 before the
+vardock bless, 342/344 after, with `cursed` still out.
+
+**Harness:** run400 shows the Save dialog only for the first `#save` of a
+session and silently re-saves the remembered file after that -- which is
+why `ck_vb25.tas` turned out to hold the command-74 state.  `drive_ckpt_safe.sh`
+now backs the previous checkpoint up before each save and copies a silent
+re-save to its own `ck_NAME.tas`.
+
+**FIXED 2026-08-29 -- `cursed`:** no seed of its own (the row runs unseeded);
+a SCR_SEED 1-24 scan found no winning seed, and the earlier diffs (the
+shopkeeper's facing for `drag rake`, the king's yes/no order, the
+"Nothing seems to make sense" `z`) all turned out harmless.  The real
+break was in the mill: the re-check turns warrior 2's seven-room circuit
+(events 99-105; 105 -> 99 is the downward step, so event 99 loses a tick)
+from 14 ticks into 13, he now leaves the Mill (room 77) the tick before
+the third `jump on tray` succeeds, and `bark` found nobody -- task 0b 1523
+(`#O#`: warrior 2 next to marker NPC 56 at 77) failed, so `chew rope` gave
+"You consider chewing".  Barking from the wheel is not an option (task 1534
+kills a player with var 92 == 0), so the walkthrough now waits one lap on
+the tray (4 x `z`; WaitTurns is 3, so 12 ticks, bark on tick 13 while he is
+outside again), then barks and chews as before.  Re-blessed, 93 points as
+before, suite 343/343.  The engine is untouched: run400's checkevent
+finish sets state 2 immediately for a task-started event (470747/4706C5/
+470734), which is exactly what the port does.
+
+
+## FIXED 2026-08-29 -- the humbug "seen after restore" lead, and what it was hiding
+
+The lead: after a `#restore` in the checkpointed humbug replay, `x chute`
+appeared to behave as if every object had been seen.  It had not.  run400's
+loader (46C6BC) restores the seen byte with the rest of the object record,
+and no "Which chute" prompt exists anywhere in Adrift_4_humbug.txt.  Lining
+the golden up against the transcript instead found three genuine engine
+splits, all 4.0, all now ported (`sclibrar.cpp`, `scrunner.cpp`):
+
+1. **Examine of a seen-but-absent noun with several candidates.**  Scarier
+   answered only when exactly one seen object matched.  run400's examine
+   resolver (Proc_19_88_457034) has a third pass after the present and
+   unique-seen ones (456F5D-45702E): split each candidate's Short name on
+   spaces, count the words whole-word-present in the typed line
+   (Proc_21_38_454CB0), take the unique maximum; a tie is nothing found.
+   humbug 1604: `X machine` against the washing machine (Short "machine")
+   and two dispensers aliased "machine" -> "I can't see the washing machine
+   from here!"; 1602: `X chute` against six chutes all Short "chute" ->
+   "I see no such thing." -> ALR'd "Nothing Special.".  Scarier:
+   `lib_absent_seen_object()`.
+2. **Blocked-exit refusal.**  "You can't go in that direction (at present)."
+   is a Scarier invention; no Runner 3.7-4.0 has the literal.  run400's
+   movement refusal (475638) counts exits with the door/task gates applied
+   (454684, 45459A-45463C) and lists what is open: humbug 1596 `W` -> "I
+   can't go in that direction, but I can move north, east and south."
+   Scarier `lib_go()`.  Re-blessed xfiles, mangiasaur, fugitive, panic (one
+   line each).
+3. **`put <unresolvable> ...`.**  The 4.0 put/drop list parser (459DB4,
+   entered when the line holds whole-word "put" or "drop") names each piece
+   with name_object (46E5D8): the piece is resolved against the objects
+   present (463640 mode 2); if nothing, and no task pattern pre-matches the
+   line (453C50), it prints "Drop what?" when the line holds "drop", else
+   "It is not clear which object you are referring to." (46E165-46E18B).
+   humbug 3407/3538/3903.  Scarier printed 'I don't know how to "..."'.
+   Ported as the `put *` fallback row `lib_cmd_put_unclear()` (below the
+   wear row; defers when the first noun is present -- TheADRIFTProject `put
+   batter in remote`, thelasthour `put bowl near spyhole` keep "I don't
+   understand what you want me to do with" -- and when a seen-but-absent
+   object is named anywhere, which is the p4EXAM `put xyzzy in statue` ->
+   "You can't see the statue." control), and `lib_cmd_drop_what()` now
+   gives the "not clear" form for 4.0 `put down <unresolvable>`.  The
+   literal is 4.0-only (only run400's decompile has it); pre-4.0 unchanged.
+   Unmeasured: a seen-but-absent FIRST noun, and an unknown first noun with
+   an ambiguous seen-absent second one.
+
+Not splits: every later divergence in the transcript is the game's RNG.
+The Viking Contact Society number is `01047%phoneno_bb%` with phoneno_bb
+randomised (transcript 010472195080, golden 010473736401), so the golden's
+`Type 010473736401 on computer` hits the `type * on * computer` catch-all
+("Not numeric format") in the Runner; likewise Olaf's aunty's number, and
+from the failed `Say` onwards Olaf stays put, `Get rucksack` is refused and
+every later `Put powder ...` lands on split 3.  Suite 344/344 after the
+port.  Housekeeping the same day: the Wine transcripts were renamed
+`Adrift_N_<game>.txt`.

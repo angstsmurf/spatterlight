@@ -193,6 +193,14 @@ climb wheel
 jump on tray
 jump on tray
 jump on tray
+# Warrior 2 left the mill: with the same-tick lower-event re-check (run400
+# 47059C) his 7-room circuit is 13 ticks, not 14, and the tray is only
+# reachable on the third jump, after he has gone.  Wait one lap (z = 3 ticks,
+# WaitTurns 3) so the bark lands while he is outside again.
+z
+z
+z
+z
 bark
 chew rope
 # --- Part Two: the mountain ---

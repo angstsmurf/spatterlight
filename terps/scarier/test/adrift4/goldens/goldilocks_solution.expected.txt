@@ -650,6 +650,7 @@ under me! I guess that's what happens if you buy self-assembly.
 I take the pile of firewood.
 
 > s
+(Getting up off the floor first)
 I move south.
 
 In the hall

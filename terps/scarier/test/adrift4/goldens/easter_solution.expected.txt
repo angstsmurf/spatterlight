@@ -134,9 +134,11 @@ umbrella is closed.  The umbrella is closed.
 "Ah... I think you're on the right track, there" the shopkeeper encourages.
 
 > g
+(hit pinata with umbrella)
 (with umbrella)  A strip of candy dots flutters to the floor.
 
 > g
+(hit pinata with umbrella)
 (with umbrella)  JACKPOT!  A deluge of candy comes raining down from the
 burst pinata.  The stash that has fallen from the pinata includes a creme
 egg, tiny chocolate eggs wrapped in pastel-colored foil, yellow marshmallow
@@ -426,6 +428,7 @@ tiny chocolate eggs
 yellow marshmallow chicks
 
 > show basket to shopkeeper
+I don't understand what you want me to do with the Easter basket.
 Congratulations!  You have put together a marvelous Easter basket that will
 undoubtedly please Max greatly.  The shopkeeper wraps it beautifully in
 cellophane and attaches a festive bow.  You carry the basket back to your

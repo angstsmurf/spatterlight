@@ -743,27 +743,6 @@ of the cart.
    With a flick of the reins, the cart driver urges his horse on, and the
 cart makes its way north.
 
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
-
-> z
-You wait for something to happen.
-
-   Your vulpine hearing detects some sounds -- movement to the south.
-
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
-
-   Your vulpine hearing detects some sounds -- movement to the south.
-
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
-
-   Your vulpine hearing detects some sounds -- movement to the south.
-
-   You hear the sound of the portcullis being raised.
-
    You can hear a horse neighing in distress coming from the northern end of
 the courtyard. You also hear hooves beating on the flagstones.
 
@@ -772,29 +751,39 @@ You wait for something to happen.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
 
    Your vulpine hearing detects some sounds -- movement to the south.
+
+   You hear the sound of the portcullis being raised.
+
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
+
+> z
+You wait for something to happen.
+
+   Your vulpine hearing detects some sounds -- movement to the south.
+
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
+
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
 
    You hear the sound of the portcullis being lowered.
 
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
 
 > z
 You wait for something to happen.
-
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
@@ -803,49 +792,42 @@ whinnying in distress.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
-
-> z
-You wait for something to happen.
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
    You can hear a horse neighing in distress coming from the northern end of
 the courtyard. You also hear hooves beating on the flagstones.
 
-   Your vulpine hearing detects some sounds -- movement to the south.
-
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
-
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
-
 > z
 You wait for something to happen.
+
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
+
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
 
    You hear the sound of the portcullis being raised.
 
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
-
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
-
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
 
 > z
 You wait for something to happen.
 
-   To your ears comes the sound of a horse in distress, along with a few
-shouts of someone trying to calm the horse. The sounds are coming from the
-northern end of the courtyard.
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
+
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
+
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
+
+> z
+You wait for something to happen.
 
    A cart, pulled by a large grey horse, arrives from the northern end of the
 courtyard.
@@ -860,6 +842,12 @@ storeroom.
    To your ears comes the sound of a horse in distress, along with a few
 shouts of someone trying to calm the horse. The sounds are coming from the
 northern end of the courtyard.
+
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
+
+   A servant appears from the west, grabs a sack from the cart and takes it
+away. He appears so focused on his work he doesn't seem to see you at all.
 
    To your ears comes the sound of a horse in distress, along with a few
 shouts of someone trying to calm the horse. The sounds are coming from the
@@ -883,12 +871,13 @@ meeting hall.
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
 
-   A servant appears from the west, grabs a sack from the cart and takes it
-away. He appears so focused on his work he doesn't see you cowering under the
-cart.
+   A servant arrives from the west and grabs a sack from the cart, before
+heading back towards the storage room. Your presence under the cart goes
+unnoticed.
 
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
 > follow cart
 Knowing that timing is everything, you wait for the cart to move. If you can
@@ -915,23 +904,27 @@ is down.
    From behind you, at the northern end of the courtyard, comes the sound of
 a horse whinnying in distress.
 
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
 > z
 You wait for something to happen.
 
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
    With an enormous groan and the clanking of gears and chains, the
 portcullis slowly rises up.
 
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
 > n
 With the portcullis up, you leave the cover of the cart behind and dash out
@@ -1078,12 +1071,6 @@ momentarily.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
-> drag rake se
-You notice the shopkeeper is facing this way. Attempting to move in such an
-obvious way is bound to attract his unwanted attention.
-
-   Your vulpine hearing detects some sounds -- movement to the east.
-
    The shopkeeper turns his head and looks to the east.
 
 > drag rake se
@@ -1102,6 +1089,9 @@ the south.
 
    Lying on the ground nearby is a rake.
 
+> drag rake se
+You are unable to drag the rake in that direction.
+
 > nw
 You trot northwest.
 
@@ -1119,8 +1109,6 @@ it is an ragged, burlap sack, full to bursting with leaves.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
-   The shopkeeper turns his head and faces the alley.
-
 > rip open sack
 Making any obvious movements will alert the shopkeeper to your presence.
 
@@ -1131,19 +1119,6 @@ momentarily.
 
 > rip open sack
 Making any obvious movements will alert the shopkeeper to your presence.
-
-   Your vulpine hearing detects some sounds -- movement to the east.
-
-> rip open sack
-Making any obvious movements will alert the shopkeeper to your presence.
-
-   Your vulpine hearing detects some sounds -- movement to the east.
-
-> rip open sack
-Making any obvious movements will alert the shopkeeper to your presence.
-
-   A cold, northerly wind rushes down the alley and makes you shiver
-momentarily.
 
    Your vulpine hearing detects some sounds -- movement to the east.
 
@@ -1159,9 +1134,26 @@ the leaves and debris inside around the general area.
 The sack is already torn open. It would seem impossible to damage it any
 further.
 
+   A cold, northerly wind rushes down the alley and makes you shiver
+momentarily.
+The gust of wind catches the leaves lying on the ground and sends flurries of
+them whirling along the alley.
+
    Your vulpine hearing detects some sounds -- movement to the east.
 
    The shopkeeper turns his head and faces the alley.
+
+> rip open sack
+The sack is already torn open. It would seem impossible to damage it any
+further.
+
+   Your vulpine hearing detects some sounds -- movement to the east.
+
+> rip open sack
+The sack is already torn open. It would seem impossible to damage it any
+further.
+
+   Your vulpine hearing detects some sounds -- movement to the east.
 
 > se
 You trot southeast.
@@ -1176,6 +1168,7 @@ stains near at the base. The alley continues to the northwest, and narrows to
 the south.
 
    Lying on the ground nearby is a rake.
+   The ground here is covered with autumn coloured leaves.
 
    A cold, northerly wind rushes down the alley and makes you shiver
 momentarily.
@@ -1255,11 +1248,11 @@ against the building. He looks nervous.
 
    A harsh, cold wind whistles by, making you shiver.
 
-   Somewhere in the distance you hear the sound of voices raised in
-excitement, mingled with a few bleats from excited sheep.
-
    The scaffolding shakes alarmingly, and the workman, as if sensing imminent
 danger, begins his descent.
+
+   Somewhere in the distance you hear the sound of voices raised in
+excitement, mingled with a few bleats from excited sheep.
 
    With a sickening creak, the scaffolding pulls away from the building. The
 workman, unable to reach the ground in time, grabs hold of a window ledge and
@@ -1275,9 +1268,6 @@ You wait for something to happen.
    A harsh, cold wind whistles by, making you shiver.
 
    "Help!" the workman cries, as he dangles from the window ledge. "Help!"
-
-   Somewhere in the distance you hear the sound of voices raised in
-excitement, mingled with a few bleats from excited sheep.
 
    Guards from the city gates rush to assist the man hanging from the window
 ledge. They don't even glance in your direction.
@@ -1310,6 +1300,9 @@ the east, past a line of shops and houses, you can see the city gates.
    An old maple tree stands at the corner of the alley, looking a little sad
 and neglected, particularly with most of its foliage lost to autumn. Beneath
 it is the remains of an old, burlap sack, lying on the ground in tatters.
+
+   Somewhere in the distance you hear the sound of voices raised in
+excitement, mingled with a few bleats from excited sheep.
 
    Your vulpine hearing detects some sounds -- movement to the west.
 
@@ -1412,16 +1405,20 @@ You suspect the king might want to talk about some of the following things:
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
+   An soft, eerie sound reaches your ears as the wind blows across the top of
+the chimney.
+
 > yes
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
-   An soft, eerie sound reaches your ears as the wind blows across the top of
-the chimney.
-
    The king glances quickly at your glass of wine.
    "Don't forget your wine, Rixomas," he says with a small smile. He then
 turns his attention back to the fire.
+
+> yes
+A strange thought comes to your mind, but you quickly dismiss it. It really
+made no sense.
 
    A silence had fallen, but the king breaks it by asking in a whisper, "What
 have I done?"
@@ -1457,9 +1454,15 @@ made no sense.
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
-> yes
+   You feel a draft from under the door and it makes you shiver. You pull
+your cloak around yourself even tighter.
+
+> no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
+
+   "Please enjoy your wine," Rithusar reminds you. "Don't let it go to
+waste." He then returns his gaze to the fire.
 
    You are almost cut in half by a sudden coughing fit that lasts a couple of
 minutes and leaves you feeling light-headed and weak. Rithusar looks at you
@@ -1473,11 +1476,6 @@ clearly on his mind, but he doesn't pursue it.
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
-   One of the logs in the fire settles into the ash softly.
-
-   "Please enjoy your wine," Rithusar reminds you. "Don't let it go to
-waste." He then returns his gaze to the fire.
-
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
@@ -1490,12 +1488,8 @@ made no sense.
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
-   The fire pops loudly, sending a few embers and ash whirling around the
-hearth.
-
-> no
-A strange thought comes to your mind, but you quickly dismiss it. It really
-made no sense.
+   An soft, eerie sound reaches your ears as the wind blows across the top of
+the chimney.
 
    You are lost in contemplation of the fire when Rithusar breaks into your
 thoughts.
@@ -1546,8 +1540,6 @@ made no sense.
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
-   One of the logs in the fire settles into the ash softly.
-
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
@@ -1556,25 +1548,19 @@ made no sense.
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
-> no
-A strange thought comes to your mind, but you quickly dismiss it. It really
-made no sense.
+   You feel a draft from under the door and it makes you shiver. You pull
+your cloak around yourself even tighter.
 
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
 
-   The wind rattles against the windows, making both you and the king jump
-slightly.
+> no
+A strange thought comes to your mind, but you quickly dismiss it. It really
+made no sense.
 
 > z
 You wait for something to happen.
-
-> z
-You wait for something to happen.
-
-   The fire pops loudly, sending a few embers and ash whirling around the
-hearth.
 
    A silence descends on the room. The logs in the fire continue to burn, the
 flames biting into the wood greedily.
@@ -1645,6 +1631,9 @@ uncontrollable...
 
 Forest
 All you can see are trees.
+
+> z
+Nothing seems to make sense at the moment...
 
 Your vulpine hearing detects some sounds nearby.
 
@@ -1866,6 +1855,8 @@ of the wind can be felt below.
 Your score is 27 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
 
+   Your fur coat dries out completely.
+
 > n
 You trot north towards the rise, but stop suddenly when your vulpine senses
 detect movement ahead. You creep forward and peer carefully over the rise.
@@ -1933,8 +1924,6 @@ building, which resembles a mill, can also be seen to the north. A well-worn
 path leads west, up a small incline, to what seems to be an inn.
    The village appears to be protected from the howling wind somewhat, with
 only a few light gusts reaching ground level.
-
-   Your fur coat dries out completely.
 
    Your vulpine hearing detects some sounds -- movement to the west.
 
@@ -2270,8 +2259,6 @@ You grab one of the handles with your teeth and pull back with all your
 might. The barrow resists your efforts at first, but slowly it begins to
 swing around until at last it is clear of the mill door.
 
-   Your vulpine hearing detects some sounds -- movement to the southwest.
-
 > sw
 You trot southwest.
 
@@ -2305,7 +2292,7 @@ And after a moment or two you hear a crashing sound in that direction.
 
 [ Your score just went up by one. ]
 
-   Your vulpine hearing detects some sounds -- movement to the south.
+   Your vulpine hearing detects some sounds -- movement to the east.
 
 > ne
 You trot northeast.
@@ -2332,8 +2319,6 @@ mill, and head east towards the fields. But on closer inspection, however,
 you see that the stream actually flows around the rear of the mill, and a
 man-made culvert has been dug which leads into the mill. Water flows into
 this channel by means of a small gate.
-
-   Your vulpine hearing detects some sounds -- movement to the south.
 
 > open gate
 You place your paws on top of the gate and swing it into the open position.
@@ -2375,6 +2360,8 @@ comfortable position.
 You ready yourself to jump from the paddle wheel and onto the metal tray, but
 you feel it is just out of reach. You decide to wait for a moment longer.
 
+   Your vulpine hearing detects some sounds -- movement outside the mill.
+
    The paddle wheel turns and takes you higher. It is getting close to the
 top now.
 
@@ -2391,6 +2378,18 @@ mill. Below you the paddle wheel continues to turn as water flows through the
 channel.
 
    Your vulpine hearing detects some sounds -- movement outside the mill.
+
+> z
+You wait for something to happen.
+
+> z
+You wait for something to happen.
+
+> z
+You wait for something to happen.
+
+> z
+You wait for something to happen.
 
 > bark
 You bark fiercely.
@@ -3473,6 +3472,8 @@ than the stairs that lead back down.
 
    Your vulpine hearing detects some sounds -- movement to the north.
 
+   Lord Vonisor crosses his arms and sighs deeply as he looks at you.
+
 > n
 You move forward as if to enter the northern archway, but Lord Vonisor stops
 you.
@@ -3506,9 +3507,6 @@ the crown prince of Rylane.
 "Lord Vonisor," you begin, "would you open this door?"
    "Absolutely," Lord Vonisor says, before stepping forward and opening the
 door.
-
-   Lord Vonisor pulls out his sword and checks the blade for any marks and
-flaws. He returns the blade to the scabbard.
 
 > n
 As you move to enter the door, Lord Vonisor steps forward and says, "It looks
@@ -3572,7 +3570,8 @@ polished stone, running the entire length of the corridor, is a plush carpet.
 No features of any sort mark the corridor walls here.
    Lord Vonisor enters from the east.
 
-   Lord Vonisor crosses his arms and sighs deeply as he looks at you.
+   Lord Vonisor pulls out his sword and checks the blade for any marks and
+flaws. He returns the blade to the scabbard.
 
 > w
 You trot west.

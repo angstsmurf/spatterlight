@@ -1164,6 +1164,7 @@ You sit down on the comfy couch.
 Your score is 115 out of a maximum of 115.  (100%)
 
 > turn on tv
+You can't turn the 32-inch television.
 
 You settle down in front of the TV.  Wrapped in your freshly-washed afghan
 and snuggled into the comfy couch, you finally feel yourself relax.  The list

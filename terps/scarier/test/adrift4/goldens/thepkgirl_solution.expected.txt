@@ -138,9 +138,6 @@ Time passes...
 > wait
 Time passes...
 
-> wait
-Time passes...
-
     Three girls enter the ice cream parlor and take a table a little ways
 off.  One of them is the girl you saw sitting by the fountain earlier.
 
@@ -161,18 +158,15 @@ Time passes...
 
     The three girls are chatting and giggling away.
 
+> wait
+Time passes...
+
     The shopkeeper is wiping the counter.
 
 > wait
 Time passes...
 
-> wait
-Time passes...
-
     The girls are still giggling but they seem to have quieted a bit.
-
-> wait
-Time passes...
 
 > wait
 Time passes...
@@ -197,9 +191,6 @@ Time passes...
 > wait
 Time passes...
 
-    The shopkeeper is pacing back and forth behind the counter, performing
-various tasks.
-
     Suddenly there is a flurry of noise.  Two men dressed in dark raincoats
 burst into the parlor and rush towards the table where the girls are sitting.
  In an instant they have the younger girl by her arms and are hauling her
@@ -218,6 +209,12 @@ The golden-haired girl comes running up to you and grabs hold of your arm.
 1) "I'll do my best."
 2) "I'm sorry.  There's nothing I can do for you."
 3) "No time to chat, we've got to go after those men!"
+
+> wait
+Time passes...
+
+> wait
+Time passes...
 
 > wait
 Time passes...
@@ -335,6 +332,7 @@ the air.  Langston Bridge, which you recently passed over, is to the east.
 Your motorcycle is parked here.
 
 > east
+(Getting off your motorcycle first)
 You move east.
 
 Bridge Landing
@@ -1049,9 +1047,6 @@ tomorrow....If you don't mind, that is..."
 
 > 2
     "Thank you so much", says Laurie.
-
-> wait
-Time passes...
     "You're going to stay then?  Right on!", says Cassie.
     "Is it really okay?", asks Laurie.
     "Of course it's no problem, Laur!  You and Cassie can stay in that extra
@@ -1077,6 +1072,9 @@ Time passes...
     Laurie walks away to the east.
 
     Cassie walks away to the east.
+
+> wait
+Time passes...
 
 > sleep
 You lie down on the couch and try to fall asleep.  Although you are tired
@@ -1108,6 +1106,7 @@ east.  The front door is west.
     You become aware of the sounds and smells of....yes, breakfast.
 
 > south
+(Getting off the couch first)
 You move south.
 
 Dining Room
@@ -1566,6 +1565,7 @@ It seems to be the fountain from which much of the traffic flows to or from.
 Your motorcycle is parked along the street.
 
 > north
+(Getting off your motorcycle first)
 You move north.
 
 Intersection
@@ -1747,8 +1747,6 @@ Time passes...
 
 > wait
 Time passes...
-
-    A nice breeze touches your face.
 
 > wait
 Time passes...
@@ -2301,6 +2299,7 @@ minutes, Monika."
 another toss.
 
 > north
+(Getting off the chairs first)
 You move north.
 
 Living Room
@@ -2467,9 +2466,6 @@ It's rather dark in here.
 > wait
 Time passes...
 
-> wait
-Time passes...
-
     Your eyes are beginning to adjust to the dim lighting.
     "And there you are.  Like a rat come to collect the cheese.  Yet you will
 find no cheese here."  This strong male voice is heard from the far end of
@@ -2485,6 +2481,9 @@ experience, my friend rat."
 
 1) "Who are you?"
 2) "What are you going to do?"
+
+> wait
+Time passes...
 
 > 1
     "I am Octalus Percy Defoe, head of the organization known as R.O.S.A, an
@@ -2858,6 +2857,7 @@ It seems to be the fountain from which much of the traffic flows to or from.
 Your motorcycle is parked along the street.
 
 > north
+(Getting off your motorcycle first)
 You move north.
 
 Intersection
@@ -2889,7 +2889,6 @@ stand to the south.
 
 A statue in the likeness of a man stands here.
     An umbrella peddler is here.
-    A pervert is standing here.
 
 > give money to peddler
 A dollar passes between you and the old peddler.  He pockets the money and
@@ -2939,6 +2938,13 @@ Intersection
 only.  Numerous people walk past you in every which direction, their
 destinations not deducible from reading only their faces.  The patter of feet
 on pavement is heard continually.
+
+    Some youngsters brush past you in a hurry to get somewhere.
+
+    As you are walking through the intersection, somebody passing by slips
+you a buck.  Naturally, you didn't get a good look at the benefactor.  Might
+it have been Katryn's man sent out to assist you?  You may never know.  You
+add the money to your pocket.
 
 > south
 You move south.
@@ -3726,9 +3732,6 @@ a pretty sight to see.
 > wait
 Time passes...
 
-> wait
-Time passes...
-
     In due time Octal gives his full attention to the three of you standing
 in the distance.  "I am not surprised to see you hear, Katryn.  Are these
 friends of yours, then?  I knew you had a thing for the ratboy.  But why do
@@ -3823,35 +3826,33 @@ sight.
     Octal advances on Laurie, his eyes broiling with wrath.
     "Help me!", she calls.
 
+> wait
+Time passes...
+
+    Octal calls his knives to him again.  They gather in the air like bees
+bent on stinging you
+    "Use the battery!", yells Katryn.  "Put your hands on it!'
+    "The battery?  Oh!"
+
+    Laurie quickly locates the device lying near the edge of the silo.  She
+lays her hands upon it meditatively.  The globe within the pyramid begins to
+shimmer and a sound like crackling can be heard.  Octal's knives have already
+started towards you and towards Laurie, but abruptly, before they can pierce
+any flesh, they change course in midair and begin flying towards Octal.
+Octal stands his ground at first, staring his own knives down.  They refuse
+to turn from him!  With horror, he begins running towards the helicopter.
+The knives that do not embed themselves in the steel of the helicopter shoot
+off beyond the building like missiles.  With the PK battery fueling her,
+Laurie's power has been magnified enormously!
+
 > punch octal
-You lunge at Octal with the clear intention of pummeling him into submission.
- Your first blow misses him wildly, while his connects with a portion of your
-jaw.  Regaining your footing you come at him again, more carefully this time.
- You land a blow beneath his right ear, but receive one in your belly.  The
-man can fight.  If he had not been weakened already it would not even be as
-close as it is.
-    You circle each other again.  You are barely conscious of the concerned
-faces of Laurie and Katryn at the perimeter of the struggle.  When next you
-join, Octal goes for your body.  You make him pay for that, but at the cost
-of getting knocked backwards and finding yourself pinned against the ground
-face up.  Octal's bruised, but ever spiteful face leers over you.  His arms
-restrain your own, his knee presses above your groin.  This could be bad.
-
-> head butt octal
-You thrust your head upwards, smashing his face.  He reels backwards and
-releases his grip on you.  And that becomes the turning point of the
-struggle.  For the next few minutes you give more than you receive.  It gets
-to where Octal is so weakened that he can't connect with you at all.
-Realizing that he is beaten, he flees towards the helicopter.
-
-> get band
-You take the inhibitor band.
+He has too much of a lead for you to catch him now.
 
     Octal runs around to the side of the helicopter and climbs into the
 cockpit.
 
-> kiss katryn
-I'm not sure she would appreciate that!
+> head butt octal
+You aren't close enough to him yet.
 
     The helicopter begins to lift off from the ground.
 The helicopter then begins to turn in air until the cockpit is facing you.
@@ -3885,18 +3886,15 @@ seems regretful of the events she just participated in.  "What will we do
 with him?   We cannot leave him like this and we cannot allow him to escape
 either.  Petter, what will we do?"
 
-> hug katryn
-You embrace Katryn.  She wraps your arms around her body compactly, as if
-that is the natural place for them to be.
+> get band
+You take the inhibitor band.
 
-    Laurie tries to look the other way.
+> kiss katryn
+I'm not sure she would appreciate that!
 
-> put band on octal
-You strap the inhibitor band onto Octal's head.  He eyes open as you do so,
-and he glares upwards at you with the indignation of defeat.  But you know
-that he will not be harming anyone while the band is on him.  His PK power is
-in check.
-    "That is the perfect solution", Katryn agrees.
+    Seeing that you haven't a solution yourself, Katryn speaks to Laurie.
+"Put him in the same cell that he held you in.  Would that not be justice?
+What becomes of him after--leave it to me."
 
     With the helicopter gone and the conflict over, the roof of the silo that
 was the R.O.S.A. research complex is silent as an autumn night.  The last
@@ -3906,13 +3904,13 @@ first of many sunsets in a new world of hope for her and her sister.
 
 Press enter to continue
 
-> wait
+> hug katryn
 
 EPILOGUE
 
 One week later . . .
 
-> wait
+> put band on octal
 
     "You could have come sooner, Laurie.  I had the hardware replaced
 yesterday.  Everything was set up and ready for you."  Ethan can't seem to
@@ -4035,12 +4033,12 @@ THE END
 > wait
 
 YOUR SCORES THIS GAME
-                  Laurie                          11
+                  Laurie                          8
                  Cassie                          0
             -------NA-------                 --NA--
                  Monika                          0
             -------NA-------                 --NA--
-                  Katryn                          55
+                  Katryn                          43
              unknown girl                      0
             -------NA-------                 --NA--
 
@@ -4048,4 +4046,4 @@ Congratulations!  You got Katryn's ending.
 
 Your Secret Letter is: E
 
-> quit
+> wait

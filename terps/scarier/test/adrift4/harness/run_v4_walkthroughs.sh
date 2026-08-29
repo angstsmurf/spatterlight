@@ -67,12 +67,40 @@ icecream_solution.txt|IceCream.taf||SCR_SKIP_WAITKEY=1
 # was wrong; every other line of the replay matched.  See the NPC walk-ticker
 # rules in scnpcs.cpp npc_tick_npc().
 the_cat_in_the_tree_solution.txt|TheCatintheTree.taf|You scored 50 out of the maximum 50!|SCR_SKIP_WAITKEY=1
+# Measured 2026-08-29 in run400 under Wine, full 99-command replay identical but
+# for the tail (Adrift_1_man_overboard.txt).  Settles: the `again` echo and the give/ask
+# rewrites print as Scarier does, and the prefix-less object antecedent echoes as
+# "(a Cupboard)" (Proc_21_31_448710).
 man_overboard_solution.txt|man overboard.taf|Maybe it wasn't all a waste of time|SCR_SKIP_WAITKEY=1
 pieces_of_eden_solution.txt|Pieces of eden.taf|END OF PART ONE
+# Measured 2026-08-29 in run400 under Wine: 78/78 commands identical (Adrift_1_princess.txt).
 princess_in_the_tower_solution.txt|princess1.taf|It seems you've won.
+# Measured 2026-08-29: run400 replay, all 48 commands echoed, 48 of 48 turns
+# identical bar the [Press any key to end] tail on the last.
 too_much_exercise_solution.txt|exercise.taf|much prefer that Sweet Shop option one of your work colleagues took.
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# Re-blessed 2026-08-29: `x acolyte` no longer ticks, so the events/RNG after it shift by one turn.
+# Re-blessed 2026-08-29: the 4.0 pronoun echo carries the ARTICLE of whichever handler
+# last set the antecedent -- examine composes "a X" (run400 mode 1 @471749), take/drop/
+# open/close/unlock and "I don't understand what you want me to do with" compose
+# "the X" (mode 0: takes? @462AAC, drop helper @465F5E, openclose @47585A, generaltasks
+# @48A409); a command that used the pronoun leaves it untouched; put never sets it.
+# Measured on humbug (Adrift_5_humbug.txt, 76 prompts; Adrift_4_humbug.txt full replay).  Scarier:
+# uip_definite_form() in scparser.cpp.
 yak_shaving_solution.txt|yak_shaving.taf|completed the Odd Competition|SCR_SKIP_WAITKEY=1
 buried_alive_solution.txt|buried.taf|Well done. You got to the end
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# Re-blessed 2026-08-29: `x lawyer` no longer ticks, so the events/RNG after it shift by one turn.
 confession_solution.txt|Confession(1).taf|Striking a plea deal|SCR_SKIP_WAITKEY=1
 snakes_and_ladders_solution.txt|sandl.taf|made it to the end of the game|SCR_SEED=2
 # Re-blessed 2026-08-25, one line, for the pre-4.0 `x <unknown noun>` answer.
@@ -88,16 +116,60 @@ snakes_and_ladders_solution.txt|sandl.taf|made it to the end of the game|SCR_SEE
 # "You see no such thing."  veteran, zombies and everything are the only three
 # goldens in the corpus that reach the line, and all three are 3.90.
 veteran_solution.txt|veteran.taf|fulfilling your destiny
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# Re-blessed 2026-08-29: `x relative` no longer ticks, so the events/RNG after it shift by one turn.
 togetyou_solution.txt|togetyou.taf|another flesh-sack|SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-25, two lines, for the pre-4.0 `x <unknown noun>` answer
 # measured on the veteran row above.
 zombies_solution.txt|ZAC.taf|you and Stu were eaten by zombies|SCR_SKIP_WAITKEY=1
+# Measured 2026-08-29: run400 replay of all 26 commands (Adrift_1_adrift_maze.txt,
+# name prompt answered through POPUP_ANSWERS, Verbose + brackets ON).  Turns
+# 24-25, "read it" / "x it", print "(a trophy)" on a line of its own before the
+# response -- the 4.0 pronoun echo now in uip_replace_pronouns().  Turn 0
+# differs only by the name the Runner echoes back; every other turn identical.
 adrift_maze_solution.txt|ADRIFTMaze.taf|You WIN!
+# Measured 2026-08-29 in run390 under Wine (CAH.taf is 3.90, Adrift_1_cruelprobe.txt):
+# `take it` answers "You can't take the jacket." -- the 3.9 pronoun resolves to the
+# last referenced object, as ported.
 cruel_solution.txt|CAH.taf|destroyed our reality
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# Re-blessed 2026-08-29: `x trabula / x soldier / x troll (battle rolls move)` no longer ticks, so the events/RNG after it shift by one turn.
 trabula_solution.txt|Trabula.taf|given the gold coins to Trabula
+# Re-blessed 2026-08-29: the 4.0 pronoun echo carries the ARTICLE of whichever handler
+# last set the antecedent -- examine composes "a X" (run400 mode 1 @471749), take/drop/
+# open/close/unlock and "I don't understand what you want me to do with" compose
+# "the X" (mode 0: takes? @462AAC, drop helper @465F5E, openclose @47585A, generaltasks
+# @48A409); a command that used the pronoun leaves it untouched; put never sets it.
+# Measured on humbug (Adrift_5_humbug.txt, 76 prompts; Adrift_4_humbug.txt full replay).  Scarier:
+# uip_definite_form() in scparser.cpp.
 shred_em_solution.txt|shreddem.taf|Due to lack of evidence
+# Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
+# (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
+# line (pf_buffer_hard_break); run390 joins it (45E636).
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  Battle rolls reorder.
 shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=7
-shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=83
+# Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
+# (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
+# line (pf_buffer_hard_break); run390 joins it (45E636).
+shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=2326
+# Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
+# (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
+# line (pf_buffer_hard_break); run390 joins it (45E636).
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  Battle rolls reorder.
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=48
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
@@ -155,6 +227,8 @@ thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
 # ---------------------------------------------------------------------------
 # Renegade Brainwave: `west` is a task move with ShowRoomDesc off, so the yew
 # tree's crowbar is never listed; the route gained one `look`.
+# Measured 2026-08-29: run400 replay, all 26 commands echoed, 25 of 26 turns
+# identical, the last differs only by the [Press any key to end] tail.
 renegade_brainwave_solution.txt|Renegade_Brainwave.taf|planet Earth has been averted!
 # ---------------------------------------------------------------------------
 # MEASURED 2026-08-25 on run400 (Adrift_1_goldilocks.txt), 252 commands, all
@@ -198,11 +272,25 @@ bomb_threat_solution.txt|Bomb Threat.taf|Or have you...
 # announcement is joined into the turn's paragraph: the author carries the ALR
 # pair '  Joe' -> '  The vendor' / 'Joe' -> 'the vendor', and only the joined
 # form gets the capital.  See the 2026-08-25 block further down.
+# Re-blessed 2026-08-29: the Runner's generaltasks (run400 Proc_19_85_489F4C) resolves
+# the noun once, up front, with co() whole-word containment, and every generic verb
+# after it sees that object; Scarier's fallback verb table now gets the same
+# containment pass (positional first, per row).  Measured on Vardock Bates
+# `tirar de la palanca` -> `pull de la palanca` (Adrift_1_vardock_bates.txt); this row
+# follows by the same rule, unmeasured:
+# `ask barb about tape` with Barb absent now reaches the videotape ("You get no reply
+# from the videotape.") instead of the ask-format hint.
 circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=12 SCR_SKIP_WAITKEY=1
 colony_solution.txt|Colony.taf|You scored 200 out of the maximum 200!
+# Measured 2026-08-29: run400 replay, all 20 commands echoed, 19 of 20 turns
+# identical, the last differs only by the [Press any key to end] tail.
 cyber_solution.txt|cyber.taf|THE END,or is it?
 # 2026-08-25: one line moves with the "The"-prefix fix (the Runner's tense
 # has no "the" branch -- see the xfiles block below).
+# Measured 2026-08-29: run400 replay, all 29 commands echoed, 26 of 29 turns
+# identical.  Turns 15 and 26 differ by one battle line each (the Ninja Chef's
+# opening attack, the Elemental Master's counter) -- battle rolls, rule 3, not
+# comparable across RNGs; turn 28 is the [Press any key to end] tail.
 cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 # 3.90.  Re-blessed 2026-08-24 for one line: Vluurinik's room description at
 # command ~185 goes from "Vluurinik flits around." to "Vluurinik darts in
@@ -290,7 +378,13 @@ cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 # file), and a `catch fairy` that is spammed rather than typed once -- the
 # catch is a random roll, so a fixed feed cannot be replayed turn for turn
 # against the Runner without seeding it.
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  The rain event chain shifts a turn; RNG order.
 cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of the CyberCow.
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  Rain chain, as on cybercow_win.
 cybercow_solution.txt|lair-of-the-cybercow.taf|Your score is 6 out of a maximum of 10.
 deaths_solution.txt|deaths.taf|crumbles into dust
 donuts_intro_solution.txt|donuts_intro.taf|To be continued (maybe)..
@@ -304,6 +398,9 @@ donuts_intro_solution.txt|donuts_intro.taf|To be continued (maybe)..
 # the_pk_girl instead; see that row.
 funhouse_solution.txt|FunHouse.taf|thank you for bravely protecting this important information
 gateway_solution.txt|gateway.taf|THE END
+# Measured 2026-08-29: run400 replay; identical up to the first battle round
+# (turn 4, damage numbers are battle rolls, rule 3), after which a fed command
+# is lost.
 hyper_b_s_solution.txt|hyper_b_s.taf|The Flare Rat is dead! Mission complete!
 jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=11
 light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=16
@@ -385,7 +482,12 @@ orient_express_solution.txt|Orient_Express.taf|You successfully complete your as
 # 1..3 roll 1..7 -- so their turn numbers are RNG, not an engine difference.
 screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to get everyone to the set!
 secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
+# Measured 2026-08-29: run400 replay, all 133 commands echoed, 132 of 133
+# turns identical, the last differs only by the [Press any key to end] tail.
 space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCITING EPISODES
+# Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
+# (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
+# line (pf_buffer_hard_break); run390 joins it (45E636).
 sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 135 out of the maximum 145!
 tcom_solution.txt|tcom.taf|the file entitled "tcom2"
 think2_solution.txt|Theannihilationofthink2.taf|Think.com has been restored
@@ -506,21 +608,41 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 # "Your Cell Phone" and answers "Your Cell Phone is already open!"
 # (Adrift_22_xfiles.txt lines 226-231), which is the matcher gap logged above --
 # but the library half of it is now the Runner's.
+# 2026-08-29: one line, "Nope!", now precedes the ending: the winning task is
+# silent bar its End-Game action, and run400 finishes such a command through
+# the library (silent-End-Game rule, sctasks.cpp; measured on relojero).
+# Re-blessed 2026-08-29: the "(at present)" refusal for a blocked exit is a
+# Scarier invention -- no Runner 3.7-4.0 has the literal; run400's movement
+# refusal (475638) counts the exits it can take right now (454684 reads the
+# door/task gates) and lists them, "can't go in that direction, but ...".
+# Measured on humbug (Adrift_4_humbug.txt line 1596, `W`).
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
 les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.|SCR_SEED=138 SCR_SKIP_WAITKEY=1
+# Re-blessed 2026-08-29: the Runner's generaltasks (run400 Proc_19_85_489F4C) resolves
+# the noun once, up front, with co() whole-word containment, and every generic verb
+# after it sees that object; Scarier's fallback verb table now gets the same
+# containment pass (positional first, per row).  Measured on Vardock Bates
+# `tirar de la palanca` -> `pull de la palanca` (Adrift_1_vardock_bates.txt); this row
+# follows by the same rule, unmeasured:
+# `turn off tv` -> "You can't turn your tv." (was "... turn that.").
 lifesimulation_solution.txt|lifesimulation.taf|Your score is 0 out of a maximum of 0.
 matts_house_solution.txt|Matt's House.taf|Your score is 5 out of a maximum of 5.
 mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|You scored 90 out of the maximum 100!
 phoenix_destiny_solution.txt|Phoenix_Destiny.taf|Gold: 100
 questi_solution.txt|QuestI.taf|Your score is 10 out of a maximum of 10.
+# 2026-08-29: the silent End-Game task on `ne` no longer swallows the move;
+# the walk into Outside (whose description carries the author's own
+# "Congratulations") now precedes the WinText (silent-End-Game rule).
 shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the statue was you from a past life.
 # 3.90.  2026-08-25: nine lines move with the "The"-prefix fix -- The Spirit
 # Dagger, The Orb of Storms and The Amber of Flames all carry a "The" Prefix.
 # The run390 decompilation does not reach its normalizer, so 3.9 is bracketed
 # by the measured 3.8 and 4.0 behaviour rather than read.  See the xfiles block.
 spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a maximum of 95.
+# Measured 2026-08-29: run400 replay, all 12 commands echoed, 12 of 12 turns
+# identical.
 srsintro_solution.txt|SRSintro.taf|
 the_nonsense_machine_6000_solution.txt|The_Nonsense_Machine_6000.taf|
 # Marker 27 -> 26 on 2026-08-24 with the 4.0 output filter (see the humbug
@@ -558,6 +680,9 @@ thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.|SCR_SKI
 # addything, not robot2).  The route's unlock/shout spam is RNG-timing under
 # the fixed seed; see thetest_walkthrough.md for the mechanism.
 thetest_win_solution.txt|thetest.taf|Well done!  You won!|SCR_SKIP_WAITKEY=1
+# Measured 2026-08-29: run400 replay, 12 commands echoed and all 12 identical
+# before a real-time <wait> pause ate the next one; a cmdfile with #sleep lines
+# for those pauses is the follow-up.
 through_time_solution.txt|Through time.taf|This is as far as this adventure will take you at this point.
 to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town of Oran.
 # The assisted To-Hell row needs BOTH aids: the game's combat data is all-zero
@@ -612,21 +737,45 @@ woof_solution.txt|Woof.taf|I'm back.
 undefined_solution.txt|Undefined1.taf|An end is defined.
 ecod3_solution.txt|ECOD3.taf|In an alley behind Denny's.
 goblinhunt_solution.txt|goblinhunt.taf|Tomorrow is the next goblin hunt.|SCR_SKIP_WAITKEY=1
+# 2026-08-29: "Time passes..." now precedes the ending (silent-End-Game rule).
 agent4f_solution.txt|agent_4F[1].A.taf|You wake with a start.  What a terrible dream!
+# Measured 2026-08-29: run400 replay, 13 commands echoed and all 13 identical
+# before a real-time <wait> pause ate the next one; a cmdfile with #sleep lines
+# for those pauses is the follow-up.
 invasion_shirts_solution.txt|Invasion of the Second-Hand Shirts.taf|You're floating through the air above the trees.
 adriftorama_solution.txt|adriftorama.taf|*****You Win!*****|SCR_SEED=18 SCR_SKIP_WAITKEY=1
 # The seventeen games swept out of the Key & Compass ADRIFT index (2026-08-02);
 # see the per-game notes/*_walkthrough.md for where each .taf came from.
 wax_worx_solution.txt|wax_worx.taf|[PRESS ANY KEY TO DIE]
 sommeril_solution.txt|sommeril.taf|www.angelfire.com/games5/sommeril
+# Measured 2026-08-29: run400 replay of 116 commands; the first 105 turns are
+# identical, then the long cutscene after "read incantation" (turn 106)
+# swallows the next fed command (rule 2, see wine-runner-soundalert-desync) and
+# nothing after it is comparable.
 dragonshrine_solution.txt|DragonShrineR43.taf|ended the Curse of Dragon Shrine|SCR_SKIP_WAITKEY=1
 shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in victory besides|SCR_SKIP_WAITKEY=1
+# Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
+# (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
+# line (pf_buffer_hard_break); run390 joins it (45E636).
 TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you|SCR_SKIP_WAITKEY=1
 ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caught red handed in the vault|SCR_SKIP_WAITKEY=1
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# This walkthrough was re-derived for it: 4 `i` lines after x mrs peters, x trainspotter, x drunk, x business man.  Each
+# added line restores the old tick sequence (`i` because WaitTurns 3).  Trace with
+# SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  RNG order only.
 ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SEED=10 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
 cleft_solution.txt|cleft.taf|You scored 100 out of the maximum 100!
+# Measured 2026-08-29 in run400 under Wine: 36/36 commands identical (Adrift_1_Tear.txt).
 Tear_solution.txt|Tear.taf|Suddenly the world seems a brighter place, and you feel there is a good
 tq3_solution.txt|tq3.taf|Please forward your comments to chris@jons.org.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
@@ -653,6 +802,9 @@ yeh_solution.txt|yeh.taf|Your score is 3100 out of a maximum of 3400.
 # in-count is 2 -- so it is the literal disassembly that is blessed, not a
 # measurement.
 ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And to all a good night!"|SCR_SKIP_WAITKEY=1
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  One walk line moves a turn.
 Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.|SCR_SKIP_WAITKEY=1
 JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH|SCR_SKIP_WAITKEY=1
 mysteryofcaves_solution.txt|mysteryofcaves.taf|Your finishing rank is: Godlike Adventurer.|SCR_SKIP_WAITKEY=1
@@ -689,11 +841,29 @@ fantasyworld_solution.txt|fantasyworld.taf|You scored 0 out of the maximum 500!
 # the GAME, not the .taf; check the row below before quoting one.
 sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
+# cursed: no seed of its own.  The same-tick lower-event re-check (run400
+# 47059C) shortens warrior 2's seven-room mill circuit (events 99-105,
+# 105 -> 99 is the downward step) from 14 ticks to 13, so he has left the
+# Mill by the time the third `jump on tray` succeeds and the bark found
+# nobody.  Barking from the wheel instead is instant death (task 1534,
+# var 92 == 0), so the walkthrough waits one lap on the tray (4 x z, WaitTurns
+# 3 = 12 ticks; bark on tick 13 while he is outside again).  Re-blessed
+# 2026-08-29; still 93 points.
 cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1
+# 2026-08-29: the basket refusal now precedes the ending (silent-End-Game rule).
 easter_solution.txt|easter.taf|***You have won***|
 # Re-blessed 2026-08-25 for the same on-before-in joined listing, with an
 # in-count of 1: "Ye olde desk clutter is on ye alchymist's desk, and inside is
 # ye magic crystal."
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# This walkthrough was re-derived for it: 1 `z` after x hamish.  Each
+# added line restores the old tick sequence (WaitTurns 1).  Trace with
+# SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
 yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SKIP_WAITKEY=1
 # The twenty-one entries of the 1st, 2nd and 3rd ADRIFT One-Hour Game
 # Competitions (2003), swept in on 2026-08-03 -- see the per-game
@@ -745,11 +915,21 @@ cbn_solution.txt|CBN.taf|you excelled yourself|SCR_SKIP_WAITKEY=1
 cbn2_solution.txt|cbn2.taf|the archives room goes up in flames|SCR_SKIP_WAITKEY=1
 crm_solution.txt|CRM.taf|You take a long bow as the curtains close for the show, and the dead body
 ecod2_solution.txt|ECOD2.taf|has been captured|SCR_SKIP_WAITKEY=1
+# Measured 2026-08-29: run400 replay (name prompt via POPUP_ANSWERS), all 14
+# commands echoed, 12 of 14 identical: turn 0 is the echoed name, turn 13 the
+# [Press any key to end] tail.
 imagination_solution.txt|Imagination.taf|Was this all just in your imagination?
 asdfa_solution.txt|asdfa.taf|bottle of Nightmare Inducer fluid back in his pocket|SCR_SKIP_WAITKEY=1
+# Measured 2026-08-29: run400 replay, all 18 commands echoed, 17 of 18 turns
+# identical, the last differs only by the [Press any key to end] tail.
 demonhunter_solution.txt|demonhunter.taf|journey to the beginning of your new life. You're a demonhunter.
 forum2_solution.txt|forum2.taf|***You have won!***|SCR_SKIP_WAITKEY=1
 pyramid_solution.txt|pyramid.taf|moves out of your way allowing you to make a hasty retreat.|SCR_SKIP_WAITKEY=1
+# Measured 2026-08-29: run400 replay, all 16 commands echoed, 15 of 16 turns
+# identical.  The Runner's transcript stops dead at the echo of the final
+# "press 1" -- the winning paragraph never reaches Adrift_1.txt (end-of-game
+# flush loss in the harness, seen before), so that turn is unmeasured, not
+# different.
 saffire_solution.txt|saffire.taf|you reach heaven
 shore_solution.txt|shore.taf|an island shrouded in a steel fog.
 ticktick_solution.txt|ticktick.taf|I'm afraid you are dead!
@@ -762,7 +942,25 @@ ptbad_solution.txt|ptbad.taf|You Win! Yay!
 # own walkthrus; each needs a leading "1" for the game's title menu (the
 # published lists start at the first in-game command) and SCR_SKIP_WAITKEY for
 # the "[Press ENTER to continue]" splash.
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# This walkthrough was re-derived for it: 2 `i` lines after exam tramp and exam guard.  Each
+# added line restores the old tick sequence (`i` because WaitTurns 3).  Trace with
+# SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
 vague_solution.txt|vague.taf|You have won!|SCR_SKIP_WAITKEY=1
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# This walkthrough was re-derived for it: 2 `i` lines after exam clerk and exam overcoat (the overcoat examine is a nothing-found refusal).  Each
+# added line restores the old tick sequence (`i` because WaitTurns 3).  Trace with
+# SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
 escape_to_new_york_solution.txt|EscapeToNewYork.taf|You managed to score 100 out of 100 and completed all of your objectives.|SCR_SKIP_WAITKEY=1
 unauthorized_termination_solution.txt|unauthorized.taf|Assignment Status: You have been successful.|SCR_SKIP_WAITKEY=1
 # Where Are My Keys? needed one derivation step the shipped walkthru omits: it
@@ -814,6 +1012,13 @@ where_are_my_keys_solution.txt|WhereAreMyKeys.taf|You start the car and head hom
 # relit with the lighter from the inside pocket.  Finally `push gertie` grants
 # exactly ONE turn, and it must be `pull gas valve rope`; the boomerang is a
 # trap that returns and knocks you out.
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# Re-blessed 2026-08-29: `x hubert` no longer ticks, so the events/RNG after it shift by one turn.
 to_hell_in_a_hamper_solution.txt|Hamper.taf|reached the incredible altitude of 37,000 feet|SCR_SKIP_WAITKEY=1
 # Lost has no score and two mutually exclusive endings, so both are wired.  The
 # shipped walkthru's endgame ("z / g / g / g / follow ghost / g / talk to ghost
@@ -841,6 +1046,13 @@ marika_solution.txt|marika.taf|I plan to enjoy every second of it.|SCR_SKIP_WAIT
 # scene is an eight-round numbered-choice duel with the griffon: the winning
 # line without any of the optional weapons is `kill griffon` then 3 / 2 / 1 / 2
 # (round 1 dodge-and-counter is exactly the lesson from the opening dream).
+# Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
+# (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
+# line (pf_buffer_hard_break); run390 joins it (45E636).
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  The door-buzzer cutscene and "Sally opens the door"
+# now share a turn, so the walkthrough's trailing `wait` is a spare turn.
 vendetta_solution.txt|Vendetta.taf|The End|SCR_SKIP_WAITKEY=1
 # Unraveling God is puzzleless and ends on a two-way choice ("Pressing either 1
 # or 2 will be the end of the story, but the results are very different"), so
@@ -864,6 +1076,12 @@ unraveling_god_lou_solution.txt|unravel.taf|smile fades and you feel the beginni
 # unknown number of waits into a single `z`, and on this release the alien
 # ship's laser only swings round on the SECOND wait -- so it is `rc`, `z`, `z`,
 # `wc` (put the cap back on and the laser blows the mine door instead of you).
+# Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
+# (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
+# line (pf_buffer_hard_break); run390 joins it (45E636).
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  RNG order only.
 mishmash_solution.txt|mishmash.taf|You have lived up to your name and survived again!|SCR_SKIP_WAITKEY=1
 # The Hangover is UNWINNABLE as shipped, and the two dead ends are the author's,
 # not ours.  Both of the tasks the walkthrough's endgame turns on carry
@@ -885,6 +1103,14 @@ mishmash_solution.txt|mishmash.taf|You have lived up to your name and survived a
 # fries` lands on the library's "Give what?" here where run390 prints its
 # wrong-room message -- SCARE has no "You can't do that here!" at all.  See
 # the Hangover entry in notes/WALKTHROUGH_TODO.md for that divergence.
+# Re-blessed 2026-08-29: the Runner's generaltasks (run400 Proc_19_85_489F4C) resolves
+# the noun once, up front, with co() whole-word containment, and every generic verb
+# after it sees that object; Scarier's fallback verb table now gets the same
+# containment pass (positional first, per row).  Measured on Vardock Bates
+# `tirar de la palanca` -> `pull de la palanca` (Adrift_1_vardock_bates.txt); this row
+# follows by the same rule, unmeasured:
+# `give the doctor some french fries` -> "Give the french fries to who?" (was "Give
+# what?"; run390 itself answers with the task's wrong-room message, see the note above).
 the_hangover_solution.txt|hangover.taf|Your score is 5 out of a maximum of 7.
 # Troll! is WINNABLE and this route reaches the ending with zero parser errors,
 # but its ceiling is 185/190, not 190.  The game has 38 scoring tasks worth 5
@@ -942,6 +1168,15 @@ spot_of_bother_solution.txt|A_Spot_of_Bother.taf|a grand total of 100 out of 100
 # `chop beanstalk` and ends with Jack waking up); that is the game, not a
 # scrambled walkthrough.  No waitkeys: the transcript is byte-identical with and
 # without SCR_SKIP_WAITKEY, so the row carries no env.
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# Measured 2026-08-29 in run400 under Wine: 49/49 identical (Adrift_1_beanstalk.txt) once
+# the admin `x stranger` was modelled -- the turn-45 stranger greeting fires one command
+# later than the old golden had it because the examine did not tick the event.
 beanstalk_solution.txt|Beanstalk.taf|*** You have won ***
 # Three more delron command lists that replay verbatim -- no repairs at all:
 #   Black Sheep's Gold (Kent Tessman-style tall tale, 2004) -- 99 commands.  It
@@ -952,6 +1187,11 @@ beanstalk_solution.txt|Beanstalk.taf|*** You have won ***
 #   Dancing Even Him? (Richard Otter, 2006) -- 17 commands; the title is an
 #     anagram of "Vending Machine", which the ending text spells out, so that
 #     line is the win marker.
+# Measured 2026-08-29: full run400 replay of all 99 commands
+# (Adrift_1_black_sheeps_gold.txt, Verbose + brackets ON), all 99 echoed: 98 of
+# 99 turns identical, the 99th only because the Runner's transcript ends at its
+# final "(press any key to continue)".  compare_wine_transcript.py needs
+# --offset 0 for this row; its auto-detect picked scarier turn 6.
 black_sheeps_gold_solution.txt|BlackSheepsGold.taf|You've beaten Black Sheep's Gold!|SCR_SKIP_WAITKEY=1
 doomed_xycanthus_solution.txt|xycanthus.taf|Then the gem flickers like a guttering candle and goes
 dancing_even_him_solution.txt|dancingevenhim.taf|it is an anagram of Vending Machine|SCR_SKIP_WAITKEY=1
@@ -1004,6 +1244,8 @@ the_demon_hunter_solution.txt|TheDemonHunter.taf|"Well done, my good and faithfu
 # Needs SCR_SKIP_WAITKEY (the epilogue paginates on "[Appuyer sur une touche
 # pour continuer]").  Marker is the programmer's sign-off, the only pure-ASCII
 # single line in the ending.
+# Measured 2026-08-29: run400 replay; the first 15 turns are identical, then a
+# waitkey cutscene eats a fed command and the streams never re-align.
 qui_a_tue_dana_solution.txt|QuiATueDana.taf|MERCI A TOI CHRISTOPHE SANS QUI CE JEU N'AURAIT JAMAIS VU LE JOUR!|SCR_SKIP_WAITKEY=1
 # Enquete a hauts risques -- WIN, 59/59 ("Votre score est 58 sur un maximum de
 # 59" one command before the end, and `se coucher` is the 59th point).  Another
@@ -1062,6 +1304,14 @@ shadricks_travels_solution.txt|ShadricksTravels.taf|You scored 100 out of the ma
 #     Shadrick's Travels, whose transcript shows `climb oak tree` answered
 #     "You can't climb the old oak tree." -- SCARE used to say "that".
 # Neither change moved any other golden in this suite.
+# Measured 2026-08-29: full run400 replay of all 38 commands, Verbose ON and
+# "References in brackets" ON (Adrift_1_monsters.txt), all 38 echoed.  Turns
+# 5 and 23 -- "in" from Sissy's four poster bed, "s" from the pink plastic
+# chair -- print "(Getting off ... first)" on a line of its own before "I move
+# ...", which is what put the 4.0 half of the lib_go() bracket lines back
+# (FIXED 2026-08-29 in notes/WINE-TRANSCRIPTS-TODO.md).  After the port 37 of
+# 38 turns are identical; the 38th differs only by the [Press any key to end]
+# tail the Runner prints as text.
 monsters_solution.txt|Monsters_r2.taf|You scored 40 out of the maximum 40!
 # The Amulet (3-hour comp), Daniel Hiebert -- WIN, and a **verbatim** replay of
 # the author's transcript: all 12 commands, no repairs, including the two pure
@@ -1130,7 +1380,16 @@ marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!
 # comment block above the akron row below.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
-wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.|SCR_SEED=234
+# Re-blessed 2026-08-29: the pre-3.9 pronoun echo is back, in ROUND brackets
+# -- "(the graffiti)", "(Harold)" -- 25 lines, the exact set 7f7349c7 took out.
+# run370 Sub Form1.its @2CA9C / run380 @326B4 print it with no Appearance gate;
+# from P-code, no 3.8 replay has measured it yet.
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  The train legs roll Time 15-20 each, so the
+# author's fixed wait counts are seed-tuned: 234 no longer wins and a 1-700
+# scan gave 95, 429, 433, 681; the row now uses 95.
+wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.|SCR_SEED=95
 # Mortality (David Whyld, 2004).  A VERBATIM replay of the author's own session
 # transcript shipped inside the game's doc file: all 78 commands, no repairs,
 # word-for-word identical responses, ending on one of the two good endings.
@@ -1373,6 +1632,37 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # the first step on the same turn, but each picks a different DESTINATION, so
 # which rooms the cat is in -- and therefore which turns mention it at all --
 # is a die roll.  Nothing to chase; do not re-sweep this transcript.
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# This walkthrough was re-derived for it: 15 `i` lines after X Horace, X miner, X octopus, X Grandad, X dog, X viking, X sealion, X robot, X Jasper, X teeth, X Olaf, X hacker, X fairy and X Dennis x2.  Each
+# added line restores the old tick sequence (`i`, not `z`: WaitTurns is 3 here and `z` would tick three times (48ABFB loop)).  Trace with
+# SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
+# Re-blessed 2026-08-29: the 4.0 pronoun echo carries the ARTICLE of whichever handler
+# last set the antecedent -- examine composes "a X" (run400 mode 1 @471749), take/drop/
+# open/close/unlock and "I don't understand what you want me to do with" compose
+# "the X" (mode 0: takes? @462AAC, drop helper @465F5E, openclose @47585A, generaltasks
+# @48A409); a command that used the pronoun leaves it untouched; put never sets it.
+# Measured on humbug (Adrift_5_humbug.txt, 76 prompts; Adrift_4_humbug.txt full replay).  Scarier:
+# uip_definite_form() in scparser.cpp.
+# 2026-08-29 (Adrift_4_humbug.txt, full checkpointed replay): the "restore marks
+# everything seen" lead is dead -- the loader restores the seen byte and no
+# "Which chute" ever appeared.  What the replay did turn up, all ported:
+#   * `X machine` with three seen-but-absent candidates is "I can't see the
+#     washing machine from here!" (line 1604) while `X chute` against six
+#     seen chutes is the ALR'd "Nothing Special." (1602): the examine resolver
+#     (457034) scores each candidate by Short-name words present in the typed
+#     line and takes a unique maximum, a tie being nothing found.
+#   * `W` into a blocked exit lists the open ones (1596), see the row notes
+#     above on xfiles/mangiasaur/fugitive/panic.
+#   * `Put powder in chute` with the powder never taken is "It is not clear
+#     which object you are referring to." (3407, 3538, 3903; name_object 46E5D8).
+# The transcript's later divergences are RNG, not engine: the filofax number
+# (010472195080 there, 010473736401 here), Olaf's aunty's number, and the
+# `Get rucksack` refusal that follows from the failed `Say`.
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
 # WIN with the FULL 95/95 in 90 commands.  downloaded/CrimeAdventure_walkthrough.sol
@@ -1523,6 +1813,17 @@ thesisters_solution.txt|TheSisters.taf|lifeless body of Trisha Seabourne.|SCR_SK
 # the same offset class already noted on orient_express.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# Re-blessed 2026-08-29: `x <npc>` no longer ticks, so the events/RNG after it shift by one turn.
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  NPC filler lines and keypress pauses move; the
+# scored route is unchanged (55/60).
 thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SKIP_WAITKEY=1
 # Second Chance (David Whyld, 2005) replays its shipped Walkthrough.pdf
 # VERBATIM -- 49 commands, not one repair, straight to the good ending.  The
@@ -1606,6 +1907,8 @@ private_eye_solution.txt|Private Eye.taf|You achieved a score of 4.|SCR_SKIP_WAI
 # is what counts the money -- `count coins` is not a verb here.  There is no
 # score system at all (`score` prints the game's "notes" text), so the marker
 # is the dead end itself.
+# 2026-08-29: "I couldn't open the door!" now precedes the ending
+# (silent-End-Game rule).
 plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- IRVINE QUIK & THE SEARCH FOR THE FISH OF TRAGLEA (Duncan
@@ -1743,6 +2046,11 @@ iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SC
 #   * `burp on sap` (TASK 162) is not a door-opener, it is the ride: it moves
 #     the player straight to the Mesa Top.  It needs canBurp, which comes
 #     from eating the hut's lit torch.
+# Re-blessed 2026-08-29: the "(at present)" refusal for a blocked exit is a
+# Scarier invention -- no Runner 3.7-4.0 has the literal; run400's movement
+# refusal (475638) counts the exits it can take right now (454684 reads the
+# door/task gates) and lists them, "can't go in that direction, but ...".
+# Measured on humbug (Adrift_4_humbug.txt line 1596, `W`).
 mangiasaur_solution.txt|Mangiasaur.taf|Thanks for playing Mangiasaur!|
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- A FINE DAY FOR REAPING (James Webb / revgiblet, IFComp 2007).
@@ -2187,6 +2495,15 @@ baroo_solution.txt|baroo.taf|You scored 16 out of the maximum 16!
 # are not required to complete the game"), so this is a winning, not a maximal,
 # route.  Needs SCR_SKIP_WAITKEY=1: the intro, the Deathly Chamber archway and
 # the ending all paginate.
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# This walkthrough was re-derived for it: 3 `z` lines after x vardo, x coffin, x shelves (nothing-found refusals).  Each
+# added line restores the old tick sequence (WaitTurns 1, so `z` = one tick).  Trace with
+# SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
 lair_solution.txt|Lair of the Vampire.taf|the lord of the vampires, lies dead|SCR_SKIP_WAITKEY=1
 
 # The Fugitive -- derived from scratch (the downloaded walkthrough is prose-only
@@ -2221,6 +2538,16 @@ lair_solution.txt|Lair of the Vampire.taf|the lord of the vampires, lies dead|SC
 #     the library for `x thel` (+10) before moving on.
 #   * Do the church interior BEFORE `unlock`: unlocking arms EVENT 46, which
 #     kills you in the cemetery five turns later, and shovel/dig/seal is four.
+# Measured 2026-08-29: "You stand up from the bed" comes from the object-name matching
+# fix (4.0 retries take per object; see FIXED 2026-08-29 round two in the TODO).
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  RNG order only.
+# Re-blessed 2026-08-29: the "(at present)" refusal for a blocked exit is a
+# Scarier invention -- no Runner 3.7-4.0 has the literal; run400's movement
+# refusal (475638) counts the exits it can take right now (454684 reads the
+# door/task gates) and lists them, "can't go in that direction, but ...".
+# Measured on humbug (Adrift_4_humbug.txt line 1596, `W`).
 fugitive_solution.txt|Fugitive.taf|This is the proof of innocence|SCR_SKIP_WAITKEY=1
 
 # --- 2026-08-04: the six games whose downloaded/ source is a ClubFloyd log or
@@ -2233,6 +2560,8 @@ fugitive_solution.txt|Fugitive.taf|This is the proof of innocence|SCR_SKIP_WAITK
 # and the whole game is one joke: `strip` (yourself) and `strip guard` are two
 # different tasks and you need both, because the guard's uniform is the only
 # way past the foyer.  SCR_SKIP_WAITKEY=1 for the dream intro and the ending.
+# 2026-08-29: the silent End-Game task on `w` no longer swallows the move into
+# Freedom; the walk now precedes the ending (silent-End-Game rule).
 mammoth_solution.txt|MammothVacuum.taf|After many testing trials|SCR_SKIP_WAITKEY=1
 # I Was a Teenage Headless Experiment (Duncan Bowsman, EctoComp 2010, 4th).  Ten commands.  The
 # waitkey flag is mandatory for a reason that is easy to misread: the game
@@ -2344,6 +2673,8 @@ chosen_solution.txt|Chosen.taf|You plug the T-shaped block into the final socket
 # second binding pass finds it where 3.9's never looks.  Measured on p4EXAM.taf
 # under run400 and on p39EXAM.taf under run390; see notes/WINE-TRANSCRIPTS-TODO.md,
 # "FIXED 2026-08-25 -- the 4.0 seen-but-absent resolver".
+# Measured 2026-08-29: `x papers` is found through containment (the containment pass now
+# runs before the catch-all refusals, as run400 does).
 cellar_solution.txt|TheCellar.taf|And so The Cellar has ended. Many thanks for playing.|SCR_SKIP_WAITKEY=1
 # Panic! (Stewart J. McAbney, ADRIFT 3.90): the author's own walkthrough
 # transcript replayed verbatim, all 69 commands, no repairs.  The first command
@@ -2362,6 +2693,12 @@ cellar_solution.txt|TheCellar.taf|And so The Cellar has ended. Many thanks for p
 # corpus's most complete offline oracle for Runner wording: 200-odd Originals,
 # enumerated by the author, and it is what independently confirmed that no
 # Runner says "Open what?".
+# Measured 2026-08-29: the 4.0 take refusal ends in "." not "!" (run400 literal).
+# Re-blessed 2026-08-29: the "(at present)" refusal for a blocked exit is a
+# Scarier invention -- no Runner 3.7-4.0 has the literal; run400's movement
+# refusal (475638) counts the exits it can take right now (454684 reads the
+# door/task gates) and lists them, "can't go in that direction, but ...".
+# Measured on humbug (Adrift_4_humbug.txt line 1596, `W`).
 panic_solution.txt|panic.taf|Your rating is Messiah.|SCR_SKIP_WAITKEY=1
 # --- 2026-08-11: unwired 3.9 games, smallest first -------------------------
 # I... (Christopher Cole) -- one-room, no scoring system.  The whole game is a
@@ -2773,6 +3110,14 @@ salutations_solution.txt|salutations.taf|you'll decline to answer.|SCR_SKIP_WAIT
 # the plural misses) and quietly strands the run one task short of the dryer,
 # and the remote lands *inside* the closed piano, so `push key 80` has to be
 # followed by `open piano`.
+# 2026-08-29: the turn refusal now precedes the ending (silent-End-Game rule).
+# Re-blessed 2026-08-29: the Runner's generaltasks (run400 Proc_19_85_489F4C) resolves
+# the noun once, up front, with co() whole-word containment, and every generic verb
+# after it sees that object; Scarier's fallback verb table now gets the same
+# containment pass (positional first, per row).  Measured on Vardock Bates
+# `tirar de la palanca` -> `pull de la palanca` (Adrift_1_vardock_bates.txt); this row
+# follows by the same rule, unmeasured:
+# `turn on tv` -> "You can't turn the 32-inch television." (was the I-don't-understand line).
 iachini_solution.txt|iachini.taf|You settle down in front of the TV.
 # La hija del relojero ("Nano", Spanish, 4.00) is the smallest 4.00 file left
 # after Salutations: ONE room, 8 tasks, 12 objects, no NPCs, and no score at
@@ -2791,6 +3136,13 @@ iachini_solution.txt|iachini.taf|You settle down in front of the TV.
 # `hablar hija` work (`SYNONYM [Hija] -> [Maria]` -> T0's `hablar maria`
 # alternate), which is how it was pinned: `SCR_TRACE_MATCH=1` echoes the
 # post-substitution input.
+# Measured 2026-08-29 under run400 (Adrift_1_relojero.txt): 10/11 turns
+# identical; the last, `arreglar fenix`, hits a task with no text and only an
+# End-Game action, and the Runner prints the game's DontUnderstand ("Extranos
+# pensamientos...") BEFORE the WinText -- a silent task never finishes the
+# command in 4.0 (Proc_19_24_44CCE0 returns True only on a non-empty output
+# buffer).  Ported in sctasks.cpp task_run_end_game_action, 4.0 only; the
+# ending's [Press any key to end] tail is the transcript's only other extra.
 relojero_solution.txt|relojero.taf|Cierro los ojos y lloro.
 # Veteran Knowledge (Robert Street, 4.00, 43 rooms / 359 tasks / 83 objects /
 # 15 NPCs / 38 events) is the full-length rewrite of Veteran Experience, which
@@ -2883,6 +3235,9 @@ vetknow2_solution.txt|vetknow2.taf|AND THE NEW WORLD CHAMPION IS|SCR_SKIP_WAITKE
 # Plus one losing ending that looks like the obvious move: climbing out of the
 # well while holding the death mask is T33, `ACT type=6 v1=1`.  The mask goes
 # up inside the rucksack tied to the rope (T32) with Rupert winding (T36).
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  The wall events chain in one turn.
 losttomb_solution.txt|losttombv2.taf|you and Rupert start the trek back to camp.
 # The Long Journey Home (Danny Chabino, 20 June 2001) is UNFINISHABLE, and the
 # row is anchored on the score line for the same reason The Hangover's is.
@@ -3108,6 +3463,25 @@ wonderwombat_solution.txt|wonderwombat.taf|THUMPER KICKS ASS!!!|SCR_SKIP_WAITKEY
 # `lanzar * brazalete *` (take the Committee's offer).  TASK 35 additionally
 # requires 36 UNdone plus 37/38/39 done, i.e. the maletin opened and the
 # document taken and read -- so the fuller of the two endings is the one wired.
+# Re-driven 2026-08-29 in run400 under Wine, in full (Adrift_1_vardock_bates.txt,
+# with ck_vb25.tas checkpointed at command 50 and Adrift_1_vardock_tail.txt
+# from it).  Two findings.  (1) The `esperar` after `decir museo`: run400
+# prints the Lanzamiento event's start text in the SAME turn the pausing
+# event finishes, because checkevent (run400 470754 at 47059C, run390 448EB8
+# at 448D99) follows TaskAffected with a loop re-checking every LOWER-indexed
+# event whose starter TaskNum is that task; evt_finish_event() now does the
+# same, and fourteen other goldens moved with it (each row says so).
+# (2) `hablar con jason` gets the generic "Nadie escucha tus delirios."
+# (run400 488DB6, ALR [409]) from the Runner, and so do `talk con jason
+# dhirco` and `hablar con jason dhirco`; only `hablar con dhirco` reaches
+# TASK 28 `[talk]{con}[dhirco/jason/jason dhirco]` (Adrift_3_vardock_bates.txt, probed
+# from the taxi-rank checkpoint).  The SYNONYM table is applied as
+# sequential whole-string rewrites in table order, so jason->"jason dhirco"
+# [160] fires before dhirco->"jason dhirco" [161] and any input holding
+# "jason" ends up with the surname doubled; pf_filter_input() now does the
+# same (the previous first-match rule was inferred from Lair of the Vampire
+# and Yak Shaving, both of which still pass).  The feed's line 93 is now
+# `hablar con dhirco`, the one spelling that works in the Runner.
 vardock_bates_solution.txt|Vardock Bates.taf|HAS ELEGIDO LA INMORTALIDAD PARA SIEMPRE|SCR_SKIP_WAITKEY=1
 
 # Lara Croft : The Sun Obelisk -- ADRIFT 3.90, Christopher Cole, Fall 2002,
@@ -3252,6 +3626,8 @@ gamma_solution.txt|gamma.taf|You scored 150 out of the maximum 150!
 # cliff, which only works after `cut brambles` has opened the marsh's east path.
 # The chest then goes back the same way and `set sail` ends it at 10/10.  The
 # riddle scroll's "toward ye end don't celebrate!" is a real trap (TASK 10).
+# Measured 2026-08-29: run400 replay, all 43 commands echoed, 42 of 43 turns
+# identical, the last differs only by the [Press any key to end] tail.
 plunder_gargoyle_solution.txt|plunder_gargoyle.taf|Ye scored 10 out of the maximum 10!
 # Albert is Lost!: three questions, full three tiers.  The game has no score, so
 # the marker is the closing line.  Its two randomised facts are re-rolled off the
@@ -3285,6 +3661,13 @@ albert_is_lost_solution.txt|Albert is Lost! An Adventure in Real Life.taf|Tiberi
 # policeman; killing him yields the badge and the police radio, and answering
 # `y` on the radio is what reveals the camera hidden on the air conditioning.
 # The row opens with `1` to pick "Play the game" out of the title menu.
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# Re-blessed 2026-08-29: `x tramp / x man` no longer ticks, so the events/RNG after it shift by one turn.
 target_solution.txt|target.taf|You managed to score 100 out of 100.
 # The next three are replays of walkthroughs the authors bundled INSIDE the comp
 # archives rather than publishing separately, which is why the IFDB harvest never
@@ -3312,6 +3695,8 @@ marlin_affair_solution.txt|marlin_affair.taf|The Marlin Affair: Chapter One|SCR_
 # "monsters" were the narrator's family), and the author signs it off with
 # "[Press any key to discontinue]", which is what the marker greps for.  Needs
 # SCR_SKIP_WAITKEY for the same reason as the Marlin Affair.
+# Partly measured 2026-08-29 in run400 under Wine: identical to turn 16, then the Runner
+# waitkey prompts desync the scripted input (Adrift_1_cibass.txt); nothing engine-side.
 cibass_solution.txt|CIBASS.taf|[Press any key to discontinue]|SCR_SKIP_WAITKEY=1
 # Pestilence: Richard Otter's own bundled `Walkthru` (copy in `downloaded/`),
 # eighty-five commands replayed verbatim.  The solution opens with `1` to pick
@@ -3367,6 +3752,16 @@ gmylm_solution.txt|GMYLM_2010.taf|Victory! - - -|SCR_SKIP_WAITKEY=1
 # to win the game without scoring all the possible points ... the goal of the game
 # is not to score the maximum number of points".  The stray `a cauldron` line is
 # the author's own typo, kept verbatim; it is a parse error and costs no turn.
+# Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
+# (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
+# line (pf_buffer_hard_break); run390 joins it (45E636).
+# Re-blessed 2026-08-29: the 4.0 pronoun echo carries the ARTICLE of whichever handler
+# last set the antecedent -- examine composes "a X" (run400 mode 1 @471749), take/drop/
+# open/close/unlock and "I don't understand what you want me to do with" compose
+# "the X" (mode 0: takes? @462AAC, drop helper @465F5E, openclose @47585A, generaltasks
+# @48A409); a command that used the pronoun leaves it untouched; put never sets it.
+# Measured on humbug (Adrift_5_humbug.txt, 76 prompts; Adrift_4_humbug.txt full replay).  Scarier:
+# uip_definite_form() in scparser.cpp.
 provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2006!!!|SCR_SKIP_WAITKEY=1
 
 # Professor Von Witt's Fabulous Flying Machine, from the game's own bundled
@@ -3541,6 +3936,7 @@ zacksmackfoot_solution.txt|zacksmackfoot.taf|THE END . . . . . for now!|SCR_SKIP
 # Boiled Eggs (no scoring, single win ending): pump Louise's dialogue tree
 # for the spare-key location and Joe's box, unlock the front door, hide
 # under the bed until Joe falls asleep, then take the box and climb out.
+# 2026-08-29: "You open the box." now precedes the ending (silent-End-Game rule).
 boiledeggs_solution.txt|boiled eggs.taf|You summon the willpower to keep the box shut until you get home.
 # The Shuffling Room (horror vignette, no scoring): release shoulders before
 # hands, feel the dark for a hidden lightswitch (needs "use switch" twice),
@@ -3549,6 +3945,8 @@ shufflingroom_solution.txt|The_Shuffling_Room.taf|your powerful discovery.
 # The Angel the Devil and the Human (river-crossing puzzle, no scoring):
 # never leave the Devil unsupervised with the Angel or the Human; ferry
 # them to Heaven one at a time via a "predator conflicts with both" swap.
+# Measured 2026-08-29: run400 replay, all 25 commands echoed, 24 of 25 turns
+# identical, the last differs only by the [Press any key to end] tail.
 angeldevilhuman_solution.txt|The Angel the Devil and the Human.taf|Have a peanut.
 # herrdoktor (3-room comedy puzzle, no scoring): bait a fishing pole with an
 # acorn to lure a squirrel, strap on a jetpack fueled by a de-linted
@@ -3565,10 +3963,16 @@ murdermansionntro_solution.txt|MurderMansionntro.taf|Thank you for trying my Int
 # Whitterscap's Key (Q-key running-gag comedy, 2/2 max): give the button to
 # Charles, decode Brelgan's runes, pick the Zenes spell, steal the key from
 # Whitterscap, then type a Q-word for the score bonus before quitting to win.
+# Measured 2026-08-29: run400 replay; 13 of the first 13 turns identical (the
+# compare tool flags turn 13 because the room name "Zenes" looks like an echo
+# of the later "zenes" command -- the transcripts themselves agree), then a
+# fed command is lost.
 whitterscap_solution.txt|whitterscap.taf|You win with the best score and stuff, yeah!
 # The Dangers of Driving at Night (unscored horror vignette): drive north
 # through the accident event, pay the gas station clerk, spare Chris some
 # change, refuse trucker Harold's ride, then let Chris reveal the back exit.
+# 2026-08-29: "You can't go in any direction!" now precedes the ending
+# (silent-End-Game rule).
 dangersdrivingnight_solution.txt|The Dangers of Driving at Night.taf|no longer bothering to hide his long, curved fangs|SCR_SKIP_WAITKEY=1
 # All Hallows Eve (3-room Halloween vignette, 23/26 true max -- 3 pts belong
 # to a mutually exclusive alternate ending): brew a love potion from toad
@@ -3577,10 +3981,15 @@ allhallowseve_solution.txt|All Hallows Eve.taf|You scored 23 out of the maximum 
 # Gorxungula's Curse (unscored surreal fantasy): deliberately die walking west
 # to seed a gold coin on restart, trade the tub's tome to Clathering for
 # spirits, then offer both the coin and spirits to Elder Moose's tub to win.
+# Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
+# started by a finishing event's task (evt_finish_event); measured on the
+# vardock_bates row.  Two rabbit lines arrive a turn earlier.
 gorxungula_solution.txt|gorxungula.taf|Elder Moose rouses from the depths of thought once the offering is in place.|SCR_SKIP_WAITKEY=1
 # Attack of Doc Lobster's Mutant Menagerie of Horror (unscored monster-factory
 # sim): repeat the scalpel+sprinkles+envenomator+serum combo across 6 named
 # species to deterministically push the hidden death counter past 6000.
+# Measured 2026-08-29 in run400 under Wine: 54/54 identical (Adrift_1_lobster.txt); the
+# only differences are waitkey-prompt paragraph merges, which the transcript flattens.
 lobster_solution.txt|lobster.taf|Next: WORLD DOMINATION!
 # Business As Usual (unscored museum tidy-up puzzle): wait out the scripted
 # NPC thefts through turn 16, then shuttle Book/Lamp/Shoe home one at a time
@@ -3604,10 +4013,21 @@ sandy_solution.txt|Sandy.taf|You see no such thing.
 # run400 never sets its referenced number outside a %number% pattern expansion
 # and this .taf has no wildcard at all, so the third `look in toilet` must
 # still be refused after both meta commands.
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# Re-blessed 2026-08-29: `look in toilet` is a nothing-found examine_other refusal, so hist
+# reports "turn 6" instead of "turn 7" (inferred from the rule, not measured on Sandy).
 sandy_meta_number_solution.txt|Sandy.taf|You see no such thing.
 # PTGOOD 8*10^23 (2006 minicomp, 4.00, 9 rooms, 2 tasks, no score). Open the
 # Front Desk window to unlock a room-exit shortcut, reach Slan's Bench,
 # `open vial` to win. 6 commands.
+# Measured 2026-08-29: run400 replay, all 6 commands echoed, 5 of 6 identical,
+# the last differs only by the [Press any key to end] tail.
+# Measured 2026-08-29 in run400 under Wine: 6/6 identical (and ptgood_again 7/7).
 ptgood_solution.txt|competition2006__adrift__ptgood__PTGOOD.taf|You win! Yay!
 # Pick up the phone booth and Cry (1372 bytes, 4.00): one room, no score.
 # `x me` silently completes the hidden "cried yet" gate, then `take phone
@@ -3696,6 +4116,13 @@ secidenoddcomp_solution.txt|seciden_oddcomp.taf|You scored 102 out of the maximu
 # whole branch. 17 commands, `SCR_SKIP_WAITKEY=1` (intro pagination eats the
 # first ~3 commands otherwise, even though the file's only literal
 # `<waitkey>` sits in the unreached death text).
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# Re-blessed 2026-08-29: `examine jonah` no longer ticks, so the events/RNG after it shift by one turn.
 perspectives_solution.txt|perspectives.taf|Congratulations, you achieved the Negotiation Style Ending!|SCR_SKIP_WAITKEY=1
 # Big City Laundry (8088 bytes, 4.00): WON, no score system at all (zero
 # ACT type=4 across 30 tasks) -- the game's one good ending (TASK 26; TASK 28
@@ -3924,6 +4351,18 @@ choosethreehour_solution.txt|Choose_Your_Own_Three_Hour_Adventure.taf|Overall, y
 # subject matter (a scripted execution, racist dialogue, and real
 # historical KKK/MLK excerpts) -- proceeds under normal wiring, not AIF
 # treatment. 121 commands, no env vars.
+# Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
+# tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
+# examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
+# in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
+# NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
+# Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
+# This walkthrough was re-derived for it: 3 `z` lines after x knife, x letter and a third examine refusal.  Each
+# added line restores the old tick sequence (WaitTurns 1).  Trace with
+# SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
+# Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
+# (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
+# line (pf_buffer_hard_break); run390 joins it (45E636).
 thelasthour_solution.txt|thelasthour.taf|"Here we are... MY BROTHER."|
 # Sex is Mental.taf (AIF, 8373 bytes, 4.00): comedic explicit content between
 # two apparent adults (a psychiatric-ward patient and a nurse), a third
@@ -4066,6 +4505,14 @@ firstpug_solution.txt|The First To Arise Alone With A Pug.taf|You scored 100 out
 # contains a childhood-death backstory revealed through dialogue -- serious/
 # dark theme, no sexual content, proceeds under normal wiring per the
 # thelasthour precedent, not AIF treatment. 72 commands, no env vars.
+# Re-blessed 2026-08-29: the Runner's generaltasks (run400 Proc_19_85_489F4C) resolves
+# the noun once, up front, with co() whole-word containment, and every generic verb
+# after it sees that object; Scarier's fallback verb table now gets the same
+# containment pass (positional first, per row).  Measured on Vardock Bates
+# `tirar de la palanca` -> `pull de la palanca` (Adrift_1_vardock_bates.txt); this row
+# follows by the same rule, unmeasured:
+# `open case with screwdriver` -> the seen-but-absent trophy case: "You can't see the
+# trophy case." (was "You can't open that.").
 foresthouse3_solution.txt|ForestHouse3.taf|between your gorgeous wife and beautiful son, you find that you are|
 # DayAtTheOffice.taf (4.00): WON, an intentional overachievement ending --
 # the in-game `score` command tops out at "47/52 out of a possible of 60"

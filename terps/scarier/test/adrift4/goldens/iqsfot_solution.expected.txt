@@ -118,9 +118,11 @@ A simple pair of glasses used to correct visual impairments, such as Irvine's
 reading-specific astigmatism.
 
 > take it
+(a pair of glasses)
 HiRBy takes the pair of glasses in its pincers.
 
 > take it
+(a pair of glasses)
 Irvine plucks the pair of glasses from HiRBy's pincers.
 Irvine mumbles something and dons his glasses again quickly, hoping he won't
 lose them.
@@ -692,6 +694,7 @@ north.
 Irvine bangs his shin on a stalagmite and falls over, cursing.
 
 > w
+(Standing up first)
 Irvine goes west.
 
 CROOKED TREES
@@ -830,6 +833,7 @@ The HiRBy droid continues to hover with its arms deployed, bobbing up and
 down in the air contentedly.
 
 > get it
+(a pack)
 Irvine plucks the pack from HiRBy's pincers.
 
 > deploy
@@ -839,6 +843,7 @@ Irvine presses HiRBy's deploy button.  HiRBy's arms fold back in.
 Irvine picks up the tiger coat from the pack.
 
 > e
+(Getting off the crate first)
 Irvine goes east.
 
 OUTSIDE CITY GATE
@@ -930,6 +935,7 @@ Irvine feebly pushes at the dummy with his feet, smacking at it uselessly
 with all his sole.
 
 > sweep him
+(Practice Dummy)
 Irvine struggles at the resiliently balanced practice dummy.  Eventually, it
 turns a little flip over his leg and falls over.
 
@@ -939,6 +945,7 @@ Sproing!  It stands back up.
 will not teach you to block."
 
 > throw him
+(Practice Dummy)
 Irvine grapples the practice dummy and stumbles around with it, eventually
 sending it to the floor with a thud.
 
@@ -1083,6 +1090,7 @@ Irvine stands there looking at the flower in his hand.  He looks at HiRBy... and
 "Back to the spaceship, I guess."
 
 > s
+(Standing up first)
 Irvine goes south.
 
 CROOKED TREES

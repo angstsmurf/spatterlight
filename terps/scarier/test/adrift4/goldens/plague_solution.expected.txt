@@ -2930,6 +2930,7 @@ wanted to get home to Stuart.
 The corridor ended at another door. We could head west (door).
 
 > open door
+I couldn't open the door!
 I looked at Ray. He nodded. I looked at Candice. She shrugged. Sucking down a
 lungful of oxygen, weapon at the ready, I nudged the door open and peered
 into a deserted ticket hall. Everything was wrecked. Machines, benches, child

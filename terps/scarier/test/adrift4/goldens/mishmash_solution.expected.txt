@@ -587,10 +587,12 @@ People's Shareholdings. The hallway continues to the west and south.
 The sound of footsteps is approaching.
 
 > z
-Time passes...  The security guard marches in from the west.
+Time passes...
+The security guard marches in from the west.
 
 > z
-Time passes...  The security guard marches out to the south.
+Time passes...
+The security guard marches out to the south.
 
 > rc
 You remove the ghost cap.
@@ -2250,7 +2252,7 @@ later. I'll be waiting."
 > z
 Time passes...
 
-You hear memoryblam call out from the west, "Stop hiding."
+You hear memoryblam call out from the west, "Let's finish this."
 
 > z
 Time passes...
@@ -2258,8 +2260,7 @@ Time passes...
 > z
 Time passes...
 
-You hear memoryblam call out from the southwest, "I know you're still down
-there."
+You hear memoryblam call out from the southwest, "Let's finish this."
 
 > w
 You move west.

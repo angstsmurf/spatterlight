@@ -64,22 +64,23 @@ You move east.
 Middle Bridge
 The bridge is no more stable here.  It continues east and west.
 A soldier is here.
+a soldier attacks you with the rapier, but you manage to avoid it.
 
 > x soldier
 The old warrior looks like he's seen one too many battles.  Soldier is
 carrying a silver key and a rapier.
+
+> attack soldier
+You stab a soldier with the sword.
+
+> attack soldier
+You stab a soldier with the sword.
 a soldier attacks you with the rapier, but you manage to avoid it.
 
 > attack soldier
 You stab a soldier with the sword.
 
-> attack soldier
-You stab a soldier with the sword.
-
 Soldier falls down, dead.
-
-> attack soldier
-I don't understand what you mean!
 
 > attack soldier
 I don't understand what you mean!
@@ -158,20 +159,19 @@ Directly under the bridge is cold and muddy.  Your feet sink at least a
 couple of inches with each step, leading you to believe it's not so dry of a
 creek after all.  You can cross the creek to the east or west.
 A big fat ugly troll is here.
-a Troll attacks you with the bar, but you manage to avoid it.
 
 > x troll
 The Troll is uglier than most, and seems very nasty.  Troll is carrying a
 rusty key and a bar.
+
+> attack troll
+You stab a Troll with the sword.
 a Troll attacks you with the bar, but you manage to avoid it.
 
 > attack troll
 You stab a Troll with the sword.
 
 Troll falls down, dead.
-
-> attack troll
-I don't understand what you mean!
 
 > attack troll
 I don't understand what you mean!

@@ -376,6 +376,7 @@ It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
+The rain seems to be letting up.
 
 > s
 You move south.
@@ -424,21 +425,19 @@ You can only move in.
 
 > drop milk
 You drop the bowl.
+
+> z
+You pause a moment...
+
+> z
+You pause a moment...
+
+> z
+You pause a moment...
+
+> z
+You pause a moment...
 The rain seems to be letting up.
-
-> z
-You pause a moment...
-
-> z
-You pause a moment...
-The warm seasonable rain is nearly over.
-
-> z
-You pause a moment...
-The rain has stopped.
-
-> z
-You pause a moment...
 
 > in
 You move in.
@@ -478,6 +477,7 @@ You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
 chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
+It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
@@ -492,6 +492,7 @@ the hill, southeast of you, you can see the chapel with its steeple, and at
 the foot of the hill, northeast of you, you can just make out the sign of the
 bus stop.
 Vluurinik flits around.
+It is raining quite heavily.
 It is daytime.
 
 You can only move east.
@@ -499,9 +500,12 @@ You can only move east.
 > catch Vluurinik
 OW!
 --She *bit* you!
+The rain seems to be letting up.
 
 > eat fairy
 You don't have the fairy!  Vluurinik flies off to the east.
+The warm seasonable rain is nearly over.
+The rain has stopped.
 
 > e
 You move east.
@@ -515,6 +519,7 @@ Vluurinik flits around.
 It is daytime.
 
 You can move north, east, south, west and down.
+A warm, gentle rain begins.
 
 > e
 You move east.
@@ -559,9 +564,11 @@ You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
 chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
+It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
+The warm seasonable rain is nearly over.
 
 > d
 You move down.
@@ -571,8 +578,10 @@ You are standing at the bottom of the town well.  The ground is slightly
 moist here.  The end of the rope dangles here, providing you with a way back
 up.  To the west you can see the narrow entrance to the CyberCow's lair.
 The CyberCow is here.
+It is raining quite heavily.
 
 You can move west and up.
+The rain has stopped.
 
 > score
 Your score is 6 out of a maximum of 10.  (60%)

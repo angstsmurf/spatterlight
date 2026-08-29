@@ -103,7 +103,6 @@ You take the badge.
 
 > x badge
 It is a police badge, the tramp must have been an undercover policeman.
-Somewhere in the distance you can hear a fire engine.
 
 > get radio
 You take the radio.
@@ -115,6 +114,7 @@ Suddenly a voice says, "Echo Three to Echo Four, Echo Three to Echo Four,
 come in, over."
 
 Do you answer Y or N?
+Somewhere in the distance you can hear a fire engine.
 
 > y
 Speaking into the radio you say, "Echo Four to Echo Three, over."
@@ -151,8 +151,6 @@ light brown hair cut short to disguise a hint of baldness and an oblong
 shaped face. With light stubble, he is a thin and wiry build and you notice
 that he wears an eye patch. He is holding a brown parcel. At the moment he
 staring at the building opposite.
-You can hear a police car; you stand still for a moment as it seems to be
-heading this way.
 
 > shoot man
 Using the scope of the gun you target the man, at the same time moving your
@@ -173,11 +171,7 @@ Someone has stopped and is looking at the body.
 > throw radio
 You throw the radio over the wall and it disappears out of sight.
 Someone has stopped and is looking at the body.
-
-In a moment of weakness you let your mind wander, and a piece of information
-from your training surfaces -
-"Line of departure - this is the path the bullet would take without gravity."
-You shake your head and tell yourself to concentrate.
+A large airplane roars overhead, you are very close to the airport here.
 
 > n
 You move north.
@@ -193,7 +187,6 @@ southeast, south, southwest, west, northwest and down.
 The body of a dead undercover policeman is lying here.
 
 Something hits the roof making a 'ffutt' sound.
-Somewhere in the distance you can hear a fire engine.
 
 > sw
 You move southwest.
@@ -209,6 +202,11 @@ Below you, is a man standing in the street.
 
 > get bullet
 You pickup the 9mm round and load it into your weapon.
+
+In a moment of weakness you let your mind wander, and a piece of information
+from your training surfaces -
+"Point of impact - this is the point that a bullet strikes the target."
+You shake your head and tell yourself to concentrate.
 
 > ne
 You move northeast.
@@ -234,11 +232,12 @@ In front of you is a low brick wall and as you examine below it seems to be
 the insurance part of town. About 300m away you can see the slightly taller
 Appleton Tower. From here you can go southeast.
 Below, you can see a man standing in the street.
-You can hear the sounds of the traffic below.
 
 > x sniper
 The sniper is too far away, all you can see clearly through your gun sight is
 his head.
+
+Something hits the roof making a 'ffutt' sound.
 
 > shoot sniper
 Using the scope of the gun you target the sniper, at the same time moving
@@ -247,6 +246,8 @@ you exhale, and then pause. Gently, you increase the tension on the trigger
 until the rifle fires. Waiting until the recoil of the weapon has stopped you
 then release the trigger. The sniper disappears from view, it looks like it
 is time to leave.
+You can hear a police car; you stand still for a moment as it seems to be
+heading this way.
 
 > se
 You move southeast.

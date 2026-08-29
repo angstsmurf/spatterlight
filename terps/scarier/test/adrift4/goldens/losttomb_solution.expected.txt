@@ -347,6 +347,7 @@ exclaims, then pushes it down, making it flush with the rest of the bricks.
 Both entrances to the room suddenly close with stone doors, and the east and
 west walls begin to slowly move together.
 "Oops!" Says Rupert.
+The walls are 12 feet apart.
 
 > ask rupert to put hand in hole
 "Need my help again what! Looks like a good thing I came along then doesn't
@@ -354,10 +355,6 @@ it!" He says, crouching down to the hole and putting his arm in, up to his
 shoulder.
 "I can feel a something, yes, a wheel. I can turn it clockwise."He says.
 As he does so, you notice the northern door inching open.
-The walls are 12 feet apart.
-
-> z
-Time passes...
 
 > z
 Time passes...
@@ -369,10 +366,10 @@ Time passes...
 > z
 Time passes...
 The walls are 8 feet apart.
-The northern door is about half a foot open.
 
 > z
 Time passes...
+The northern door is about half a foot open.
 
 > z
 Time passes...
@@ -384,10 +381,14 @@ Time passes...
 > z
 Time passes...
 The walls are 4 feet apart.
+
+> z
+Time passes...
 The northern door is about a foot open.
 
 > z
 Time passes...
+The walls are 2 feet apart!
 
 > jam spear in walls
 You wedge the spear between the walls, stopping them in their tracks.
@@ -396,16 +397,16 @@ The spear seems to be holding (for now).
 > z
 Time passes...
 
-> z
-Time passes...
-The spear begins to bend.
-The northern door is open enough for you to escape!
-
 An alarm clock rings from inside Rupert's bag.
 "Ah! Time for tiffin!" He exclaims, looking at the clock.
 
 He unpacks a teapot, some scones and a selection of different flavoured jams,
 all of which he holds haphazardly with his arms.
+
+> z
+Time passes...
+The spear begins to bend.
+The northern door is open enough for you to escape!
 
 > n
 
@@ -422,16 +423,16 @@ large and impressive statue of a jackal.
 Three gold rimmed archways lead off in three directions, northwest, north and
 northeast.   Rupert is having 'tiffin'
 
-> put cork in mouth
-You poke it in with your thumb. It makes a tight fit.
-
 Rupert slurps some tea, eats the scones and burps.
 "Oops, pardon me!" He says, brushing crumbs from his moustache.
 
-> ask rupert to open sarcophagus
-"Another one eh? Very well."
+> put cork in mouth
+You poke it in with your thumb. It makes a tight fit.
 
 He packs it all back up and looks ready for more adventuring.
+
+> ask rupert to open sarcophagus
+"Another one eh? Very well."
 
 > ask rupert to open sarcophagus
 "Another one eh? Very well."

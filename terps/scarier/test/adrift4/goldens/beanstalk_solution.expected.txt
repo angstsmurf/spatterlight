@@ -503,25 +503,6 @@ The stranger is a strange little man with a large nose and a friendly smile.
 He's dressed all in brown, even to his hat.  Stranger is carrying some magic
 beans.
 
-"Hello, young man," says the stranger. "That's a fine looking cow you have
-there. I wish I had a cow like that. I don't suppose you'd be willing to sell
-her?"
-
-"Why, I am just taking her to market to do that very thing. Sell her, I
-mean."
-
-"Oh, you needn't go all that way. Sell her to me."
-
-"Perhaps I will. How many rounds will you pay me?" you ask.
-
-"Oh, not money, young man. No, no, no. I can offer you something much much
-better than that. I can offer you magic, boy. What would you say about some
-magic beans? Beans that were enchanted when the Earth was young! Look at
-them, my lad!" he says, holding them in front of your eyes. "Are they not
-fine? Have you ever seen any beans so wondrous? Are they not worth the price
-of a cow? Sell your cow to me. Sell her! And these fabulous beans shall be
-yours!"
-
 > e
 You went east.
 

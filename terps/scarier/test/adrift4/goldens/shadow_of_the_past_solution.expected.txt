@@ -237,6 +237,16 @@ to the northeast.
 There is a small dagger lying on the stone floor.
 
 > ne
+You move northeast.
+
+Outside
+You have fallen through a portal.  You are now lying on the sidewalk next to
+your bicycle.  As you look over your body, you notice that you are a
+ten-year-old boy again.  Your head hurts and is bleeding from where you hit
+it on the sidewalk.  Was that a dream?  Did I really save those souls from
+damnation?  It does not matter what the answer is.  In your heart, you know
+you did something good.  Congratulations, you have won the game.
+
 You now realize that the statue was you from a past life.  You were indeed
 reborn and fate allowed you to finish what you could not.  You now know what
 was missing in your life.  It was the unfinished business.  Will this ever

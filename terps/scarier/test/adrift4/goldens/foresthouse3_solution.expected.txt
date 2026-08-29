@@ -139,7 +139,7 @@ Take what?
 You can't go in any direction!
 
 > open case with screwdriver
-You can't open that.
+You can't see the trophy case.
 
 > x case
 You can't see the trophy case from here!

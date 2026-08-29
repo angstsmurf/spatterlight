@@ -219,7 +219,7 @@ Inside, awash with cobwebs an old tin of grease begs to be taken.
 Reaching into the rotten cabinet you retrieve the tin of grease.
 
 > get tins
-You can't take the tins!
+You can't take the tins.
 
 > u
 You move up.
@@ -397,7 +397,7 @@ upwards in the hope that the loop will latch onto the statue. During this
 attempt you are unlucky in your endeavour.
 
 > u
-You can't go in that direction (at present).
+You can't go in that direction, but you can move north and west.
 
 > x eyes
 High above, burning in an electric white, the marble eyes of the Christ
@@ -428,7 +428,7 @@ behind the altar, accepting you without comment.  The old cleric holds a hand
 to his mouth, trying to suppress a painful cough.
 
 > get eye
-You can't take the eye!
+You can't take the eye.
 
 > w
 You move west.

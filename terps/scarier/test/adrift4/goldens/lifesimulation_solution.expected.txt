@@ -77,7 +77,7 @@ Episode 1 right now.
 You switch to channel 7. It is playing the game show right now. [TV=0].
 
 > turn off tv
-You can't turn that.
+You can't turn your tv.
 
 > west
 You move west.
