@@ -10,4 +10,5 @@ a5_disambig_test
 a5_walk_test
 a5_objects_test
 a5_save_test
+a5_exprdup_test
 a5_randomness.o

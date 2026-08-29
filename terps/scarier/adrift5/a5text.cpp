@@ -19,6 +19,7 @@
 #include "a5sexpr.h"
 #include "a5text.h"
 #include "a5util.h"
+#include <unordered_map>
 
 /* strndup() where the toolchain has none; empty everywhere else. */
 #include "../common_utils/sc_garglk.h"
@@ -3068,6 +3069,16 @@ expr_sub_draws_random (const char *body)
   return 0;
 }
 
+/* `\005<orig>\005` prefix for a display_defers entry that repeats entry
+   <orig>'s `<#..#>` body within one block (see replace_expressions). */
+static std::string
+defer_dup_prefix (size_t orig)
+{
+  char buf[32];
+  snprintf (buf, sizeof buf, "\005%d\005", (int) orig);
+  return std::string (buf);
+}
+
 /* Evaluate every `<#...#>` expression in `src` (the Adrift 5 runner ReplaceExpressions:
    substitute the body, then reduce it to its string value). */
 static char *
@@ -3075,6 +3086,22 @@ replace_expressions (a5_state_t *st, const char *src)
 {
   sb_t sb;
   const char *p = src;
+  /* Identical `<#..#>` bodies in ONE block show ONE value.  The runner's
+     ReplaceExpressions (Global.vb:510) collects its regex matches up front
+     and then does `sText = sText.Replace(m.Value, EvaluateExpression(..))`
+     per match -- a replace-ALL, so the first match's value lands in every
+     identical slot, while the later matches still call EvaluateExpression
+     (their OneOf/Rand/URand DRAW, keeping the RNG stream in step) and have
+     nowhere left to land.  The Last Expedition's "<#oneOf("Eight","Seven",..)#>
+     minutes later they both came to. .. <#same#> minutes later they both came
+     to their sense again" and Lost Coastlines' "<# Oneof("two","three","four")#>
+     return empty handed...<#same#> do not return at all" print the same number
+     twice in the runner.  Keyed on the raw body (the substituted text is
+     identical for identical raw bodies within one block); a deferred repeat
+     is pushed as `\005<orig>\005body` so the flush draws it but displays
+     entry <orig>'s value (a5run_draw_defer_entry). */
+  std::unordered_map<std::string, std::string> seen_val;
+  std::unordered_map<std::string, size_t> seen_slot;
 
   if (strstr (src, "<#") == NULL)
     return strdup (src);
@@ -3088,6 +3115,8 @@ replace_expressions (a5_state_t *st, const char *src)
           if (end != NULL)
             {
               char *inner = strndup (p + 2, (size_t) (end - (p + 2)));
+              const std::string key (inner);
+              const bool repeat = seen_val.count (key) || seen_slot.count (key);
               if (st->expr_defer != NULL && expr_sub_draws_random (inner))
                 {
                   /* Raw-body deferral (see expr_sub_draws_random): push the
@@ -3098,7 +3127,12 @@ replace_expressions (a5_state_t *st, const char *src)
                       (std::vector<std::string> *) st->expr_defer;
                   char mark[24];
                   snprintf (mark, sizeof mark, "\004%d\004", (int) sink->size ());
-                  sink->push_back (std::string ("\003") + inner);
+                  std::string body = std::string ("\003") + inner;
+                  if (repeat && seen_slot.count (key))
+                    body = defer_dup_prefix (seen_slot[key]) + body;
+                  else
+                    seen_slot[key] = sink->size ();
+                  sink->push_back (body);
                   sb_puts (&sb, mark);
                   free (inner);
                   p = end + 2;
@@ -3133,14 +3167,22 @@ replace_expressions (a5_state_t *st, const char *src)
                       (std::vector<std::string> *) st->expr_defer;
                   char mark[24];
                   snprintf (mark, sizeof mark, "\004%d\004", (int) sink->size ());
-                  sink->push_back (oo);
+                  std::string body (oo);
+                  if (repeat && seen_slot.count (key))
+                    body = defer_dup_prefix (seen_slot[key]) + body;
+                  else
+                    seen_slot[key] = sink->size ();
+                  sink->push_back (body);
                   sb_puts (&sb, mark);
                   free (inner); free (sub); free (oo);
                   p = end + 2;
                   continue;
                 }
-              char *val = a5_eval_sexpr (oo);
-              sb_puts (&sb, val);
+              char *val = a5_eval_sexpr (oo);     /* draws even on a repeat */
+              if (repeat && seen_val.count (key))
+                sb_puts (&sb, seen_val[key].c_str ());
+              else
+                { seen_val[key] = val; sb_puts (&sb, val); }
               free (inner); free (sub); free (oo); free (val);
               p = end + 2;
               continue;
