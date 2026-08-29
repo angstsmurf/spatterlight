@@ -1,0 +1,651 @@
+Loading game...
+
+Station XIII (The sequel to "The Shetland Enigma")
+
+> remove jacket
+You remove your flak jacket.
+
+> drop jacket
+You drop your flak jacket.
+
+> drop backpack
+You drop your backpack.
+
+> press button
+You press the red button beside the main door, and the slab slides open with
+a hiss.  This is suddenly accompanied by a deafening blast from behind you.
+Spinning around, you see the burning wreckage of your transport shuttle.  The
+left flank has blown out and demolished the smaller jumpship as well.  Who
+the hell did that?!  You dash over and look around, but see nothing.
+
+> e
+You move east.
+
+In Station 13's central passage
+You are in a long corridor.  The docks are to the west, while doors lead
+north and south.  The corridor bends north at the east end, where there is
+another door in the east wall.    The door in the north wall is locked with
+an old-fashioned key mechanism.
+
+> s
+You move south.
+
+In the docking manager's office
+You are in a small, plain office.  In the middle of the room is a table with
+several objects on it.  There is a large framed picture of Earth on the south
+wall.  A set of shelves is on the east wall, filled with data-tapes.
+
+> examine table
+This table is covered with soft green cloth, like a snooker table.  A
+passcard is on the docking manager's table.
+
+> take passcard
+You take the passcard from the docking manager's table.
+
+> n
+You move north.
+
+In Station 13's central passage
+You are in a long corridor.  The docks are to the west, while doors lead
+north and south.  The corridor bends north at the east end, where there is
+another door in the east wall.    The door in the north wall is locked with
+an old-fashioned key mechanism.
+
+> e
+You move east.
+
+At a bend in the central passage
+You are at a bend in the central corridor.  From here, the corridor leads
+north and west.  There is a door in the east wall.
+
+> n
+You move north.
+
+In a section of corridor
+You are in a section of north-south corridor.  At the south end, it curves
+around to head west.  There is a door in the east wall, and another in the
+north, which seems to be an elevator.  The door in the east wall is locked,
+and seems to have a swipe-card mechanism.
+
+> unlock door
+You pass the card through the swipe lock, and the door unlocks with a click.
+
+> drop passcard
+You drop the passcard.
+
+> e
+You move east.
+
+In the maintenance and docking staffroom
+You are in a small, cosy little room with two soft couches and a pool-table.
+There is a key rack on the north wall.
+
+> examine rack
+This is a board covered with hooks.  A small key is on the key-rack.
+
+> take key
+You take the small key from the key-rack.
+
+> examine pool table
+This is a rather nice table.  You used to be quite good at pool, back when
+you were a private.  A pool cue and a black '8' ball are on the pool-table.
+
+> take cue
+You take the pool cue from the pool-table.
+
+> w
+You move west.
+
+In a section of corridor
+You are in a section of north-south corridor.  At the south end, it curves
+around to head west.  There is a door in the east wall, and another in the
+north, which seems to be an elevator.
+
+Also here is a passcard.
+
+> s
+You move south.
+
+At a bend in the central passage
+You are at a bend in the central corridor.  From here, the corridor leads
+north and west.  There is a door in the east wall.
+
+> w
+You move west.
+
+In Station 13's central passage
+You are in a long corridor.  The docks are to the west, while doors lead
+north and south.  The corridor bends north at the east end, where there is
+another door in the east wall.    The door in the north wall is locked with
+an old-fashioned key mechanism.
+
+> unlock door
+You use the little key from the staffroom to unlock the door.
+
+> drop key
+You drop the small key.
+
+> n
+You move north.
+
+In the maintenance supply cupboard
+You are in a small, dark cupboard.  Why isn't there any lighting in here?
+There are various maintenance implements here.
+
+Also here is a stepladder and a laser cutter.
+
+> take stepladder
+You take the stepladder.
+
+> take laser cutter
+You take the laser cutter.
+Something wet lands on your nose...
+
+> look up
+Looking up, you see about the most grisly thing you could imagine...  Above
+you, a horribly mutilated corpse is impaled on one of the blades of a large
+rotating fan.  Blood drips down to a dark puddle on the floor.  Why on Earth
+would anyone do that to someone?!  Suddenly, you feel cold all over.
+
+> climb ladder
+You set up the ladder and climb up to the corpse that is slowly rotating on
+the fan.
+
+Up a ladder
+You are up a ladder in the maintenance supply cupboard.  Beside you, a
+horribly mutilated corpse dangles from a slowly rotating fan...
+
+> examine corpse
+This corpse is horribly mutilated.  Its face has been slashed repeatedly, so
+it is barely recognisable.  Its entrails are visible through its torn belly.
+It is slowly rotating as it is impaled on one of the three blades of a large
+ceiling fan.  It looks like the dead man is wearing a boiler suit, but it's
+impossible to be sure as the room is so dark.  A hatchet is on the hanging
+corpse.
+
+> take hatchet
+You take the hatchet from the hanging corpse.
+
+> d
+You move down.
+
+In the maintenance supply cupboard
+You are in a small, dark cupboard.  Why isn't there any lighting in here?
+There are various maintenance implements here.
+
+Also here is a stepladder.
+Something wet lands on your nose...
+
+> s
+You move south.
+
+In Station 13's central passage
+You are in a long corridor.  The docks are to the west, while doors lead
+north and south.  The corridor bends north at the east end, where there is
+another door in the east wall.    The door in the north wall is locked with
+an old-fashioned key mechanism.
+
+Also here is a small key.
+
+> e
+You move east.
+
+At a bend in the central passage
+You are at a bend in the central corridor.  From here, the corridor leads
+north and west.  There is a door in the east wall.
+
+> e
+You move east.
+
+In the maintenance manager's office
+You are in a small room, obviously an office.  There is a wooden worktop in
+the middle, and a filing cabinet against the north wall.  The door is in the
+west wall.
+
+> examine worktop
+This is a fairly normal, clean worktop.  It is painted white and made of
+metal.  A hammer is on the maintenance manager's worktop.
+
+> take hammer
+You take the hammer from the maintenance manager's worktop.
+
+> w
+You move west.
+
+At a bend in the central passage
+You are at a bend in the central corridor.  From here, the corridor leads
+north and west.  There is a door in the east wall.
+
+> n
+You move north.
+
+In a section of corridor
+You are in a section of north-south corridor.  At the south end, it curves
+around to head west.  There is a door in the east wall, and another in the
+north, which seems to be an elevator.
+
+Also here is a passcard.
+
+> n
+You move north.
+
+In an elevator, on floor IV
+You are in an elevator, with thick, metal doors.  On the wall is a panel with
+four buttons, labelled "1", "2", "3", and "4".  The button labelled "4" is
+currently lit up.
+
+> d
+You move down.
+
+In an elevator on floor III
+You are in an elevator.  Buttons on the wall are marked with the numbers IV,
+III, II and I.  The door is in the south wall.
+
+> s
+You move south.
+
+In Floor III's central corridor
+You are in a long corridor.  The wall on your right has three large windows
+in it, through which you can see a spacious laboratory.  There are doors in
+the east and west walls, and the corridor leads south, where you can see a
+third door.
+
+> e
+You move east.
+
+In a small laboratory
+You are in a small lab.  In the middle of the room is a metal worksurface,
+and at the back of the room, on the east wall, is a large blackboard on which
+are scrawled some chemical equations.  There is a glass case against the
+north wall in which are stored many different bottles of liquid.
+
+> examine worksurface
+This is a metal laboratory worksurface.  A bottle of green liquid is on the
+worksurface.
+
+> take green liquid
+You take the bottle of green liquid from the worksurface.
+
+> w
+You move west.
+
+In Floor III's central corridor
+You are in a long corridor.  The wall on your right has three large windows
+in it, through which you can see a spacious laboratory.  There are doors in
+the east and west walls, and the corridor leads south, where you can see a
+third door.
+
+> n
+You move north.
+
+In an elevator on floor III
+You are in an elevator.  Buttons on the wall are marked with the numbers IV,
+III, II and I.  The door is in the south wall.
+
+> d
+You move down.
+
+In an elevator on floor II
+You are in an elevator.  Buttons on the wall are labelled IV, III, II and I.
+You are on floor II.
+
+> s
+You move south.
+
+In a section of corridor on floor II
+You are in floor II's central passage.  There are doors in the east and west
+walls.  Both are marked with caution markings.
+
+> w
+You move west.
+
+In the vehicle design lab
+You are in a large laboratory.  Various large sections of light-vehicle are
+propped against the walls.  In the middle of the room, a pod bike is
+suspended above the ground by a thick rope.
+
+> examine pod-bike
+This is a pod-bike in the works.  When finished, it would have been a nice
+model.  It is suspended about a meter from the ground by a thick rope.
+
+> take rope
+You lower the pod-bike to the ground and take the thick length of rope that
+had been holding it.
+
+> e
+You move east.
+
+In a section of corridor on floor II
+You are in floor II's central passage.  There are doors in the east and west
+walls.  Both are marked with caution markings.
+
+> e
+You move east.
+
+In a weapons lab
+You are in a small lab.  There is a large table in the centre, on which lies
+the unmistakable bulk of a large bomb.  A small metal workbench stands beside
+this, and a whiteboard on the east wall displays what appears to be a diagram
+of the bomb, but it makes little sense to you.  You're trained to use the
+weapons, not make them.
+
+> examine workbench
+This is a small metal workbench, designed to hold tools.  There are several
+saws and other not-so-useful items in it.  A large nail is inside the
+workbench.
+
+> take nail
+You take the large nail from the workbench.
+
+> w
+You move west.
+
+In a section of corridor on floor II
+You are in floor II's central passage.  There are doors in the east and west
+walls.  Both are marked with caution markings.
+
+> n
+You move north.
+
+In an elevator on floor II
+You are in an elevator.  Buttons on the wall are labelled IV, III, II and I.
+You are on floor II.
+
+> u
+You move up.
+
+In an elevator on floor III
+You are in an elevator.  Buttons on the wall are marked with the numbers IV,
+III, II and I.  The door is in the south wall.
+
+> u
+You move up.
+
+In an elevator, on floor IV
+You are in an elevator, with thick, metal doors.  On the wall is a panel with
+four buttons, labelled "1", "2", "3", and "4".  The button labelled "4" is
+currently lit up.
+
+> s
+You move south.
+
+In a section of corridor
+You are in a section of north-south corridor.  At the south end, it curves
+around to head west.  There is a door in the east wall, and another in the
+north, which seems to be an elevator.
+
+Also here is a passcard.
+
+> s
+You move south.
+
+At a bend in the central passage
+You are at a bend in the central corridor.  From here, the corridor leads
+north and west.  There is a door in the east wall.
+
+> w
+You move west.
+
+In Station 13's central passage
+You are in a long corridor.  The docks are to the west, while doors lead
+north and south.  The corridor bends north at the east end, where there is
+another door in the east wall.    The door in the north wall is locked with
+an old-fashioned key mechanism.
+
+Also here is a small key.
+
+> n
+You move north.
+
+In the maintenance supply cupboard
+You are in a small, dark cupboard.  Why isn't there any lighting in here?
+There are various maintenance implements here.
+
+Also here is a stepladder.
+Something wet lands on your nose...
+
+> take stepladder
+You take the stepladder.
+
+> s
+You move south.
+
+In Station 13's central passage
+You are in a long corridor.  The docks are to the west, while doors lead
+north and south.  The corridor bends north at the east end, where there is
+another door in the east wall.    The door in the north wall is locked with
+an old-fashioned key mechanism.
+
+Also here is a small key.
+
+> w
+You move west.
+
+In the spaceport
+You are in Station XIII's docking area.  It is a huge hangar.  The lights are
+on far above you.  Behind you, to the west, is the hangar airlock, leading
+out into space.  To the south is a command booth, to the north, a corridor
+leads around a corner, and in the east of the bay is a large door leading
+into the rest of the station.  The wreckage of your transport ship and a red
+Astermoth jumpship are here.  The former is burning fiercely, and will be for
+a long time to come.
+
+Also here is your flak jacket and your backpack.
+
+> n
+You move north.
+
+In a short corridor
+You are in a short corridor leading off from the docking bay, to the south.
+There are two doors here, one at the north end of the corridor, which is
+marked with a small icon of a man, and one in the east wall, which is marked
+with an icon representing a woman.
+
+> n
+You move north.
+
+In the gents' toilets
+You are in a small room.  There are two urinals built into the north wall,
+and there's a cubicle to the east.
+
+Also here is a marine's beret.
+
+> e
+You move east.
+
+In the gents' cubicle
+You are in a small cubicle, in which there is a toilet.  There is a small
+air-vent in the ceiling.
+
+> climb ladder
+Using the telescopic ladder you clamber up into the airvent...
+
+In an airvent above a gents' toilet cubicle
+You are in an airvent, above a gents' toilet cubicle.  This vent leads south.
+
+> d
+You move down.
+
+In the gents' cubicle
+You are in a small cubicle, in which there is a toilet.  There is a small
+air-vent in the ceiling.
+
+Also here is a stepladder.
+
+> take stepladder
+You take the stepladder.
+
+> w
+You move west.
+
+In the gents' toilets
+You are in a small room.  There are two urinals built into the north wall,
+and there's a cubicle to the east.
+
+Also here is a marine's beret.
+
+> s
+You move south.
+
+In a short corridor
+You are in a short corridor leading off from the docking bay, to the south.
+There are two doors here, one at the north end of the corridor, which is
+marked with a small icon of a man, and one in the east wall, which is marked
+with an icon representing a woman.
+
+> e
+You move east.
+
+In the ladies' toilets
+You are in a small room with white tiles.  Three female-pattern urinals line
+the east wall, and there's a cubicle built into the south wall.
+
+> s
+You move south.
+
+In the ladies' cubicle
+You are in a toilet cubicle.  Apart from the toilet, it's empty.  There is an
+air-vent in the ceiling.
+
+> climb ladder
+Using the telescopic stepladder, you climb up into the vent above the
+toilet...
+
+In an airvent above the ladies' toilet cubicle
+You are in a narrow airvent above a toilet cubicle.  This vent leads north
+from here.  There is a trail of red liquid leading north from here...
+
+> n
+You move north.
+
+In a four-way junction in an airvent
+You are at a four way junction in an airvent.  The walls of the vent are made
+of metal, and have been painted blue.  Dim light comes from small holes in
+the floor, each a couple of centimeters in diameter.  With this illumination,
+you can make out a trail of red liquid leading to the south and the west.
+
+> taste liquid
+You taste the red liquid.  It tastes like iron...  This confirms it.  This is
+a trail of blood.
+
+> e
+You move east.
+
+In a long airvent
+You are in a long stretch of airvent, leading from east to west.  At the east
+end, a thick, slatted vent reveals a cosy looking room with a pool table.  To
+the right, as you face east, half way along the vent is a small alcove where
+a verticle vent from below joins the main vent.
+
+> s
+You move south.
+
+Above a vertical drop
+You are in an alcove,  looking down a long, dark hole where a vertical
+airvent meets the horizontal one that you're in.  There are scratch marks
+around this hole, and dried blood stains the floor.  There seems to be no way
+down, however.
+
+> hammer nail
+Using your hammer, you fix the large nail into the wall of the airvent.
+
+> tie rope to nail
+You tie the length of strong rope to the nail you hammered into the wall of
+the airvent.  It dangles down the drop.
+
+> d
+You move down.
+
+About halfway down a vertical airvent
+You are about halfway down a vertical airvent, hanging from a strong rope.
+You have stopped because a grate of thick bars blocks your way.
+
+> pour acid on grate
+You pour the bottle of green liquid onto the grate.  The bars sizzle for a
+moment and seem to weaken...
+
+> hit grate with hatchet
+You chop easily through the grate's bars with the hatchet.
+
+> d
+You move down.
+
+In a north-south airvent
+You are in a short section of airvent, leading north-south.  At the north
+end, a rope dangles down from above, and at the south end, a thin grate leads
+out.
+
+> s
+You move south.
+
+In a large room full of corpses
+You are in a large room.  There are butchered corpses all around you.  Doors
+lead east and south, and an airvent is set into the north wall.
+
+> s
+You move south.
+
+In a small room
+You are in a small room in which there is a short, metal chair.  On the south
+wall is a blackboard.  There is a door in the north wall.
+
+> write board with cue
+You use the chalked end of the pool cue to write a brief report on the
+blackboard.  You hope these won't be your final words...
+
+> n
+You move north.
+
+In a large room full of corpses
+You are in a large room.  There are butchered corpses all around you.  Doors
+lead east and south, and an airvent is set into the north wall.
+
+> e
+You move east.
+
+In a small, dark room
+You are in a small, very dark room.  Looking to find a lightswitch, you see
+that it has been smashed.  There is a door in the west wall leading back into
+the room with the corpses, and a door in the east wall.  This latter is
+locked with a massive bolt of iron, a crude but effective locking mechanism.
+Unfortunately, you do not have the strength to lift it.  You can hear sounds
+from the other side...
+
+> cut bolt with laser
+You scythe through the heavy metal bolt with your laser cutter.  It falls
+away with a clang, and suddenly, the door slams open.  Suddenly, a blur of
+lightning fast motion shoots from the darkness beyond.  Acting out of
+instinct, you rip out your Reiker and open fire...  Just as something slams
+into you, knocking you out...
+You wake up with a terrible pain in your head.  Looking down at you is a
+tall, black-suited man who you immediately recognize as the Director of the
+Space Corps.  Relieved, you smile at him and stand up, smartly saluting once
+you are on your feet.
+   "There's no need for that," he assures you.  "The pleasure is all mine.
+You see, you were just attacked by a warrior of an alien race.  Yes, that's
+right, an alien being.  Luckily, you managed to kill it before it killed you.
+ It seems that it was in our part of the galaxy to rescue another member of
+its race which my agents managed to capture about two years ago.
+Unfortunately, that specimen was killed when the transport ship it was on
+crashed.  When I came here, I fully expected to find you and all your squad
+dead...  It's very impressive indeed that you managed to kill a Kentaur
+warrior.  It's also unfortunate, because I would rather have captured it.
+One good thing about this is that I have just managed to contact a
+high-ranking Kentaur, who is willing to give me warriors and technology, with
+which I can finally wipe out the Confederation...  Finally, the Space Corps
+will be the only political force in human space."
+   You stare at him, shocked.  "I've seen what their warriors can do," you
+say.  "You'd let that loose on the 'Fed?"
+   "Why not?  It would solve a lot of problems."
+   "And what are you giving this Kentaur in return?"
+   "Ah," he smiles.  "That's the good part.  You see, the Kentauri want a
+live human to experiment on.  They're as curious of us as I am of them.  So,
+my part of the trade is to give the Kentauri... yourself."
+   You gasp in shock, but are too weak to lash out.  Suddenly, two men grab
+you from behind, and you are manhandled out of the chamber.
+   "You bastard!" you shout at the Director, but he just laughs.
+
+To be continued...
+You scored 200 out of the maximum 9!
+That is 2222% of the game!
+You finished -191 points short.

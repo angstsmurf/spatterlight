@@ -1,0 +1,283 @@
+Loading game...
+
+ESS Chance: Reactor 1
+
+by Justahack
+02.22.09
+v 1.0
+more ...
+
+Introduction
+        It's 2392. The Earth Space Ship (ESS) Chance is one of the last
+colony ships launched from Earth. It's mission, along with the rest of her
+fellow colony ships, is to land on a habitable planet in the Alpha Centauri
+system in order to escape the growing inhospitable environment on Earth.
+Pollution and a heavy greenhouse affect has run rampant for centuries on
+Earth, and at the current rate of degradation, it is predicted that within a
+mere handful of years the planet will lose its ability to support all life.
+Earth will then become a barren wasteland comparable to its nearby sister
+planets.
+
+        While there is much relief aboard the ESS Chance at having escaped an
+unavoidable death sentence on Earth, there is much trepidation about the
+journey to the Alpha Centauri system. Least of concerns is the length of the
+journey estimated to be a minimum of two-hundred years. There will be many
+difficult challenges in store for the ESS Chance on its long voyage. Problems
+ranging from having to deal with ethical dillemas to potentially having to
+deal with mutinous colonists or crew. However, while such complex challenges
+seem far in the future, one such challenge has already risen for the ESS
+Chance. One that may prove to be fatal. There is a problem with one of the
+ESS Chance's nuclear reactors: Reactor 1.
+
+more ...
+
+Gameplay
+        Reactor 1 is laid out as something akin to a simulation or scenario.
+There are different ways to accomplish the end goal, and the user is free to
+pick any method they may find appropriate. However, some methods the user
+will find to work in one game may not necessarily work in a new game. Vice
+versa, while some methods that may not work in one game, may very well work
+in a new game. Keep in mind, there is always a way to reach the end. Enjoy!
+more ...
+
+Slowly Waking Up
+        It's the blaring klaxon you hear first as you groggily regain
+consciousness. Pain wracks every inch of your body, as you awaken face first
+on the cold steel floor. You struggle to get back on your feet and survey
+your surroundings. ("look") You struggle to remember what happened: the
+horrific and jarring explosion at your terminal, but how it happened ...
+that, you don't remember.
+
+> look
+
+Engineering Station
+
+This is the Chief Engineer's station; A half-meter booth ordinately fed all
+manner of data and readings taken in real time from the Reactor's Den. The
+booth's back is facing the Reactor Den, allowing the Chief Engineer physical
+view of the on-going reaction within the chamber. Normally, the inside of
+this booth would be comprised of shiny buttons, switches, and various
+consoles all beeping and blooping in tandem.
+
+However, the recent explosion has caused a large portion of the functioning
+widgets to rupture and smoke dangerously. Suffice it to say, a large portion
+of this station's monitoring instruments are currently inoperable. The only
+thing which seems to have survived the blast is the main computer at the
+center of the booth. There is a hatch on the right side of the booth that
+seems to lead down through the floor. Also, there is a ladder on the left
+side of the booth that leads to a balcony overlooking the Reactor Den. To
+access the computer here, type "access computer."
+
+You hear a communications ping coming from the Engineering Station. To answer
+the incoming call, type "receive communications" at the Engineering Station.
+
+> receive communications
+
+Chief Engineer Neeson
+        The face of a grizzled man in a black naval uniform appears on the
+screen. He appears vaguely familiar to you, but you can't quite place him.
+The incessant throbbing pain in your head robs you of the momentary
+recognition. "Crewman, this is Chief Engineer Neeson! What the blazes is
+going on down there?" Chief Engineer Neeson looks around behind you a moment
+as he takes in the completely empty Engineer Bay. "... Are you the only one
+in Engineering? Where is everyone else? Why are we reading a radiation leak
+down there?"
+
+        1)  "Chief ... I ... I don't know what happened. There was some kind
+of explosion down here, and I only just regained consciousness."
+
+> 1
+Chief Engineer Neeson
+"Crewman, we're going to have to deal with your missing shipmates at another
+more convenient time. We have more pressing matters!" Chief Engineer Neeson
+scowls before continuing. "Right now, we are reading that Reactor-1 is
+venting lethal amounts of radiation into the ship. At the rate that Reactor 1
+is leaking, everyone on the ship will be glowing green in thirty minutes, and
+not in a good way. Suffice it to say, none of us will be alive to compliment
+the other on our new mascara." Chief Engineer Neeson looks you squarely in
+the eyes.
+
+"That's not all that's going wrong, crewman. This couldn't have been
+coincidence, but right now the ship computers are being erratic. We've run a
+diagonistics and detected a very contagious polymorphic computer virus that's
+running amok and attempting to completely lock us out of all vital controls
+pertaining to the reactors."  Chief Engineer Neeson pauses, and looks off
+screen a moment, apparently checking a console.
+
+"It looks like you're the only one who can fix this mess for us, as you are
+the only one at the Engineering Station. The virus has also managed to engage
+a fail safe that isolates the engineering bay you are in from the rest of the
+ship. As of right now, you're the only one near the Reactor Den. We're
+sending a maintenance team to start cutting a path through the fail safe
+doors, but there is no way we're going to be able to reach any system that
+will allow us to contain the radiationa leak before Reactor-1 kills us all."
+
+        1) "I understand. What do you need me to do, Chief?"
+
+> 1
+Chief Engineer Neeson
+"Right, good lad." Chief Engineer nods grimly before continuing. "Well, there
+are a number of things you can do to contain the leak. The most desirable
+would be to raise the Reactor Shields; Let the radiation leak run its course
+in a confined space so that we can later vent it safely. This will allow us
+to preserve the reactor and investigate the cause of all this. However," the
+Chief Engineer again looks off-screen and pauses a moment before continuing.
+"The virus has severely interfered with any and all systems that relate to
+safeguarding the reactor. That includes the Reactor Shields. The shields may,
+or may not take hold. I don't know for sure."
+
+"If the shields don't work we have another option. We could also try to stop
+the reaction by venting cobalt coolant into the reactor den." The Chief
+Engineer arches an eyebrow. "I'm sure you remember from your classes dealing
+with reactor physics, that all we need to do to stop the reaction from
+progressing is to just pump a neutralizing agent into the chamber. In this
+case, there is a computer in Engineering that will feed cobalt coolant into
+the Reactor Den. That will effectively halt the reaction and with it, the
+leak." Chief Engineer Neeson straightens up. "But, again, that system might
+have been affected by the virus. I'm not sure if the pumps will obey any
+release commands. There's a chance you won't get any coolant into the Reactor
+Den. Which leaves us the last option."
+
+"If all else fails, jettisoning the Reactor Den is our only other option. I'd
+rather not have to since it's going to make things difficult for the next few
+hundred years without a spare reactor, but ... we might not have a choice in
+the matter."
+
+                1) "How do I raise the shields?"
+                2) "I'm going to try to vent coolant into the reactor den"
+                3) "I'm going to jettison the reactor."
+                4) "I understand. I'm going to see what I can do."
+
+> 4
+Chief Engineer Neeson
+"All right, crewman. We'll try to monitor your progress from the bridge. But,
+remember, we're very limited in what help we can render. You're on your own
+for the most part. Also, remember that the systems I just mentioned may or
+may not work. It all depends on how far the virus has progressed through our
+system. We'll try to slow it as much we can, but don't count on it."
+
+The Chief Engineer looks at you grimly before nodding. "Ok, then. Good luck,
+crewman. Chief, out."
+
+> access computer
+Yumikato Corp (c) 2132.
+Loading OS from ESS Chance Network.
+Booting ...
+Engineering Terminal, linked to ESS Chance Network.
+All unauthorized access shall be prosecuted.
+Authenticating login ...
+
+Welcome, Crewman. What would you like to do today?
+<You try to access other commands, but it seems the virus is spreading
+faster. You only have one chance at executing the command to raise the
+Reactor Shields.>
+
+1) Raise Reactor Shielding
+
+> 1
+Quickly and with a cool head, you access the option to raise the reactor
+shields. A moment passes, while the computer executes your command. Suddenly
+on the screen ...
+
+Computer
+Shield PCB Status: Initializing ... did not start!
+Shield Bootsector Scanning: Errors found in 69105 terrabyte sectors.
+Checking Reactor Status: Warning! Reactor is currently running!
+Running Shield Program ... Unable to raise shields!
+
+!!! Raising Shields Failed !!!
+Shield status: You do not have the proper privilege to raise the Reactor
+Shields. Please contact the nearest Security Officer for detainment and
+questioning.
+
+more ...
+
+A moment later, you receive a communique from the bridge. You access the com,
+and see the Chief Engineer's face on the screen.
+
+Chief Engineer Neeson
+"Well, it was a shot in the dark at best, crewman. You're going to have to
+find another way to stop the radiation venting. We're getting reports of
+moderate radiatian sickness on board. Chief Engineer, out."
+A distant klaxon can be heard blaring its warning ominously, before dying
+away.
+
+> u
+You move up.
+
+Balcony
+
+This is the balcony overlooking the Engineering Station. The balcony is
+nothing more than a glorified scaffold attatched to the Reactor Den's outer
+walls. A series of pipes and tubing snake around the top of the Reactor Den,
+disappearing into the ceiling and presumably somewhere into the Reactor Den
+itself. From here, you're able to observe the on-going nuclear reactions from
+the top and also access the cobalt venting mechanisms should they need
+repair. To the west is another Engineering station.
+
+> w
+You move west.
+
+Balcony Engineering Station
+
+This is the Balcony Engineer's station. From this booth, the Balcony engineer
+ensures that various safety devices and backups for the Reactor Den are in
+working order. While the station is similar in appearance to the Chief
+Engineer's station this booth is nowhere near as prestigious, of course.
+Similarily, there appears to be massive damage to the instruments. A majority
+of the widgets in here are beyond repair. The only thing left relatively
+intact is the computer. To access the computer, type "access computer."
+The lights flicker momentarily, dimming at first then slowly regainning
+luminance. You speculate the reactor output is becoming erratic.
+
+> access computer
+Yumikato Corp (c) 2132.
+Loading OS from ESS Chance Network.
+Booting ...
+Balcony Engineering computer, linked to ESS Chance Network.
+All unauthorized access shall be prosecuted. Have a nice day!
+Authenticating ...
+
+Welcome, Crewman. What would you like to do today?
+<You try to access other commands, but it seems the virus is spreading
+faster. You only have one chance at executing the command to release the
+coolant.>
+
+1) Release Cobalt Coolant
+
+> 1
+A quick glance at the console tells you that the vent mechanism has been
+acting erratically. There is a chance that the cobalt coolant valve might not
+even have opened. But, you're going to find out soon enough as you enter the
+command to start venting the coolant into the Reactor Den.
+
+Computer
+Vent PCB Status: Initializing ... done!
+Vent Bootsector Scanning: No errors found in 69105 terrabyte sectors.
+Checking Valve Embed: Received Embed ACK.
+Cobalt Coolant Program ... done! Venting Cobalt Coolant in progress.
+Coolant Rate: 1 cubic meter.
+Status: No problems currently detected.
+
+!!! Venting Cobalt Coolant Successful !!!
+Please vacate the Reactor Den. ESS Chance can not be held responsible for any
+mutations, growth defects, cancer, DNA alterations, loss of hair, increase in
+undesirable body odour, or loss of IQ caused by long exposure to Cobalt
+Coolant. May also cause death. Have a nice day.
+
+more ...
+
+You walk out onto the balcony and sigh in relief as you watch as cobalt
+coolant begins flooding the Reactor Den. Just then, you hear a communications
+ping from the Engineering Station. Climbing down, you receive the communique
+and see the face of the Chief Engineer on the screen.
+
+Chief Engineer Neeson
+"Well, it looks like that problem is solved. Good work crewman. When the
+Reactor Den is sufficiently filled, that will cause all reactions to stop. We
+can then drain the Den, and begin investigations into what exactly caused the
+malfunctions. Both in the den and the command lockouts. But, for the moment,
+you can relax now. The ship owes you, crewman." The Chief Engineer smiles at
+you, as you hear the bridge crew in the background cheer.
+
+Congratulations, You saved the ship!

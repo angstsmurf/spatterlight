@@ -1,0 +1,52 @@
+open backpack
+x pockets
+# Fix the quilt with the SHOELACES route (task 13), not the yarn route
+# (task 14): both fire off the identical "use key on quilt" pattern, but
+# task 13 is the lower-indexed sibling so it wins whenever its restriction
+# (key-or-keys AND quilt AND shoelaces) passes.  Taking this branch keeps
+# the ball of yarn in hand, and the yarn is the one thing that satisfies
+# task 17's "tie string to parachute" restriction on its own (an OR
+# clause) -- the bottle-top branch of that same restriction is dead (see
+# below), so the yarn is the only way through.
+tie shoelaces
+# The ton of bricks must be gone before turn 20-23 (Event 0, "Death By
+# Bricks", only fires its death task while the bricks are held) or before
+# turn 40-43 regardless (Event 1, "Death by falling", is unconditional).
+drop the bricks
+# The Pelican NPC is hidden for its first 15 turns and only becomes
+# present (and referenceable) for a 10-turn window starting turn 16; the
+# "* keys * pelican" task's restriction is literally "Pelican in room
+# with player" and fails silently (falling through to the library's
+# generic "I don't understand what you want me to do with X") outside
+# that window.
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+throw keys at pelican
+take shark's teeth
+drink bottle
+use key on quilt
+tie coat to quilt
+# tie coat to quilt fires task 5 without ever needing the dictionary
+# broken into paper: its restriction list ORs the paper-held clause away,
+# so the "x dictionary" / accidental-destruction subplot is a pure red
+# herring for scoring purposes.
+tie yarn to parachute
+# task 16 "unscrew bottle" (which would create the bottle top) is dead:
+# its sole restriction checks object 17 ("empty glue bottle") held, and
+# nothing in the task graph ever moves that object into the player's
+# hands -- it can only be produced by this same task's own action, a
+# chicken-and-egg author bug.  That silently kills the bottle-top/key/
+# shoelaces branch of task 17's restriction, but task 17's restriction is
+# an OR, and yarn alone satisfies the whole thing, so the string-tying
+# step still succeeds.
+inflate parachute

@@ -1,0 +1,290 @@
+Loading game...
+
+Alias: Undercover Agent
+DISCLAIMER:  Alias is the property of ABC, JJ. Abrams and Bad Robot.  This
+work is an interactive fanfiction and is created for free entertainment
+purposes only. Spoilers for episode ATY.
+
+IN A TOP SECRET LOCATION
+
+"I'm glad you could answer our call so promptly," says Weiss.  "As you have
+been informed, we've lost touch with two very valuable agents of ours.
+Sydney Bristow and Michael Vaughn."
+
+A stern-looking man is seated in the chair next to Weiss.  "Their mission was
+unofficial.  That's why you and your special abilities were needed, Player.
+ You will report only to us, using this SATELLITE PHONE.  Your job will be to
+pinpoint the exact whereabouts of my daughter and her handler.  We think
+Sydney is being held in a compound in Taipei.  Vaughn's whereabouts, if he is
+still alive, are unknown.  You'll have access to The Man's compound.  We've
+forged you an identity as one of their accountants.  That status will give
+you access to their file room.  But you must be careful, the slightest out of
+the norm behavior could place your life in jeopardy."
+
+Weiss slides the details of the location across the desk to you, telling you
+to memorize it.  Once you're done, he continues.  "When you find Sydney, you
+must give her the code phrase.  It's AMPULE.  Don't forget that.  It's very
+important."
+
+The stern-looking man who you at last recognize as Jack Bristow gives a short
+nod.  "I'm counting on you, Player.  Don't drop the ball on this one."
+
+As soon at this top secret meeting ends, a taxi arrives to take you the
+airport.  Almost before you know it, you're in Taipei, Taiwan, comfortably
+installed into your new job, balancing the accounts for The Man.
+
+Well...at least as comfortable as anyone in your circumstances could be...
+Please enter your name:
+
+> Player
+
+> open desk
+You open the wooden desk.  Your briefcase is inside the wooden desk.
+
+> take briefcase
+You take your briefcase from the wooden desk.
+
+> open briefcase
+You open your briefcase.  The bottom  and some sticky tape are inside your
+briefcase.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+Nerisa walks briskly away outside.
+
+> take bottom of briefcase
+You fiddle with the bottom of your briefcase and yes, its false! You've
+concealed a very important item in your briefcase.
+
+> out
+You move out.
+
+Out in the Main Hall
+The floor is made of hard cement and the ceiling is very high above your
+head.  The walls are cement blocks painted a pale green.  There's a small
+doorway on the eastern wall of the hall.   North the hall branches off into a
+confusing maze of passages.
+Nerisa is here.
+
+> e
+You move east.
+
+The Kitchen
+The kitchen is obviously used to prepare meals for the occupants of this
+compound.  The usual accessories of kitchen tools are in this room.  Most
+prominent is a long table marked by a wooden sign which reads, "PICK UPS."
+Charlie is bustling about, putting food on trays.
+
+> look under table
+At first, you see nothing extraordinary about the table but you pick up one
+end of it and something rolls out from under it.  Nerisa walks briskly in
+from the west.
+"CHARLIE!" Nerisa barks at the unsuspecting cook.  "Have you been talking too
+much again?"
+
+"Who me?" asks Charlie.  "Well, I never!" The two are so absorbed in their
+exchange of word that they don't realize you can hear them from across the
+room.
+
+Nerisa frowns at Charlie.  "I told you that if something like this happened
+again I would not fail to report you to The Man.  The Man doesn't tolerate
+nonsense like this.  Not a smart move, Charlie!"
+
+> take screwdriver
+You take the handy screwdriver.
+
+> wait
+Time passes...
+
+With a emphatic gesture, Charlie shakes his head and his pencil sails from
+behind his ear and rolls onto the floor.  "I'm telling you!  Didn't tell
+anyone a thing about the V fellow or any of the others.  I just make the
+food. That's all."
+
+"That's just about enough out of you, Charlie!" Nerisa exclaims.  "Go take 5
+and then get back here and make your deliveries."  Charlie throws food down
+on one last tray and rushes to follow her instructions.  Nerisa storms out
+after him.
+You're left alone in the room.  You know you have at least ten minutes (10
+turns) to use what's here to SEND a MESSAGE to Sydney.
+
+> wait
+Time passes...
+
+> examine table
+The table is made of yellow oak with a hard stone surface on top.  A dinner
+tray and a white napkin are on the long table.
+
+> take pencil
+You take the red pencil.
+
+> take napkin
+You take the white napkin from the long table.
+
+> take plate
+You take the plate from the dinner tray.
+
+> take tape
+You take the sticky tape from your briefcase.
+
+> write message to sydney
+You take your pencil and  the napkin, using it to  scribble a short message
+including the word, "Ampule."  Then, you take the sticky tape, and, balancing
+the plate carefully, stick the napkin to the underside of  plate out of
+sight..
+
+Whew!  Sure hope that works, you think.  Better put the plate back on the
+tray before Charlie takes the tray to its destination!
+You hear Charlie's whistle coming down the hall.
+
+> put plate on tray
+You put the plate onto the dinner tray.
+
+> w
+You move west.
+
+Out in the Main Hall
+The floor is made of hard cement and the ceiling is very high above your
+head.  The walls are cement blocks painted a pale green.  There's a small
+doorway on the eastern wall of the hall.   North the hall branches off into a
+confusing maze of passages.
+Charlie's come to pick up the trays.  Charlie sidles off to the east.
+Charlie picks up the dinner trays.
+
+> in
+You move in.
+
+A Small Office Area
+An entirely too cheerful calendar hangs on the far wall.  A desk seems to
+take up half of this narrow space and filing cabinets make up the entire left
+wall.  The space is simply too cramped for comfort.
+
+Fresh air ventilates the room from the overhead grate.
+
+> stand on desk
+You stand on the wooden desk.
+
+> unscrew grate
+You pry open the grate with your screwdriver, take a small leap, and pull
+yourself up into the air vents.
+
+Inside the Air Vents
+The ventitlation ducts are only one inch wider than your shoulders.  This
+makes turning around impossible.  Alternating between shimmying and crawling
+you see the vent branches off to the south.
+The ceiling is so low in here that in order to move you have to crawl.
+
+> s
+You move south.
+
+Fork in the Air Vents
+Soft light from a grate just ahead shines on the wall here.
+
+> unlock grate with screwdriver
+You unlock the grate with the handy screwdriver.
+
+> open grate
+You open the grate.
+
+> out
+You move out.
+
+Windowless Cell
+A sparse collection of lightbulbs cast illumination into the gloom.  There is
+a single chair here alongside an uncomfortable looking cot.
+Sydney Bristow is here.
+
+> ampule
+Sydney looks at you and smiles.  Sydney is sitting on the edge of her cot
+relating her story to you.  There are dark circles under her eyes, signs of
+the emotional strain this captivity has caused her.  She doesn't look like
+she's had much sleep.
+
+ "Dad must have called in the calvary.  You probably know why I'm here...but
+if you don't...let me fill you in on a few details."
+
+"I completed most of my mission as planned.  All accept the getting captured
+part.  The circumference has been destroyed.  We also came here to rescue
+Will...but, if my moth--my captor is to be believed, then at least he's safe.
+  I also discovered the identity of The Man."  Sydney takes a deep breath and
+then shakes her head. "I suppose we can leave the debriefing for later.
+What's your name, by the way?"
+
+"Player" you reply.
+
+Sydney repeats the name once to herself and nods.  Then, she continues her
+story.
+
+"She came after Will because he was vulnerable.  She knew she could use him
+to get to me.  The Man is Laura Bristow, yes...my mother."
+
+She pauses to let that sink in for a moment and then continues.  "She had
+some idea that I was destined to work with her to fulfill that stupid
+prophecy.  I played along for awhile but when she realized I was trying to
+escape, I was thrown in here.
+
+ "So...was this mission just to rescue me or was it also for Agent Vaughn?
+Do you know about Vaughn?  Is he...alive?  I leave it up to you.  We can FIND
+VAUGHN or EXTRACT."  Charlie sidles in .  Charlie sidles off.
+
+> find vaughn
+"Okay," says Sydney.  "Here's the plan.  I'm coming with you now and we're
+going to break into The Man's Office.  You couldn't get there by yourself,
+but I know where it is.  Just go to the Main Hall. No time to waste.  Let's
+move!"
+
+> in
+You move in.
+
+Inside the Air Vents
+The ventitlation ducts are only one inch wider than your shoulders.  This
+makes turning around impossible.  Alternating between shimmying and crawling
+you see the vent branches off to the south.
+
+> d
+You move down.
+
+A Small Office Area
+An entirely too cheerful calendar hangs on the far wall.  A desk seems to
+take up half of this narrow space and filing cabinets make up the entire left
+wall.  The space is simply too cramped for comfort.
+
+Fresh air ventilates the room from the overhead grate.
+
+> turn dial to 17
+You turn the dial.
+
+> examine dial
+Click!  You've got the first number in the combination correct.
+
+> turn dial to 29
+You turn the dial.
+
+> examine dial
+Click!  You've got the second number in the combination correct.
+
+> turn dial to 47
+You turn the dial.
+
+> examine dial
+Click!  You've figured out all the numbers in the combination!  The safe
+unlocks.
+
+> open safe
+The safe's tumblers click into the correct places revealing the long awaited
+file.
+Sydney pulls out the file which will reveal Vaughn's location and smiles.
+"Good work, Player.  I can't thank you enough for your help."
+
+Will Sydney be able to rescue Vaughn ?  Will she need your help?  Find out
+when you play the next Alias adventure.   And keep that combination in your
+head.
+You scored 35 out of the maximum 35!
+That is 100% of the game!
+Well done - you scored maximum points!

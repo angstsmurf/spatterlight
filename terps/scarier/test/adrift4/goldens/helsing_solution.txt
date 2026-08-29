@@ -1,0 +1,8 @@
+show badge to the peephole
+look
+take beads
+play 4
+east
+ask frankenstein about wolfman
+west
+put beads on dance floor

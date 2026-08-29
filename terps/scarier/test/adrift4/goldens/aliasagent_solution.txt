@@ -1,0 +1,41 @@
+Player
+open desk
+take briefcase
+open briefcase
+wait
+wait
+wait
+take bottom of briefcase
+out
+e
+look under table
+take screwdriver
+wait
+wait
+examine table
+take pencil
+take napkin
+take plate
+take tape
+write message to sydney
+put plate on tray
+w
+in
+stand on desk
+unscrew grate
+s
+unlock grate with screwdriver
+open grate
+out
+ampule
+find vaughn
+in
+d
+turn dial to 17
+examine dial
+turn dial to 29
+examine dial
+turn dial to 47
+examine dial
+open safe
+score

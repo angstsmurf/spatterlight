@@ -1,0 +1,455 @@
+Loading game...
+
+Untitled
+Big City Laundry
+A Non-Fiction Adventure by DCBSupafly
+
+Presented for
+March Writing Spiel 2009
+
+If at any time you need help, then too bad.  This is Big City and laundry is
+up to you.
+
+It's Sunday, and you've slept all the way to 8:15!  It's a glorious day
+because on Sunday, the time is yours!  You roll out of bed, excited to make
+breakfast and coffee, and spend the day playing video games!  First things
+first, though!  The floor in here is FREEZING!  Put on some socks!
+
+Your Big City Apartment
+Home Sweet Home!  These four walls may not hold everything you own, but they
+hold everything you own that will fit inside a Big City Apartment!  Besides
+all your video game junk, there's a bed, a desk, and a closet!
+
+The back door leads south to the alley and the front door leads down to the
+street.
+
+> open closet
+You open your closet.  Pair of socks and dirty laundry are inside your
+closet.
+
+> get socks
+You take pair of socks from your closet.
+
+Your feet are freezing!  Put some socks on!
+
+> wear socks
+You slip into your socks just in time!  You almost had frostbite you laggard!
+ You put on the rest of your clothes before those parts freeze too.
+
+Anyway, now you can make breakfast & cof... oh no, hold on.  It's your last
+pair of socks.  Oh well, no matter, it's SUNDAY!  You can do laundry!
+
+It's so easy!  All you've got to do is take the laundry out the southern exit
+of your apartment, down to the basement where the laundry machine for your
+building is conveniently located!
+
+> x desk
+This desk is basically a table.  It has no drawers or shelves or anything,
+but hey, it was free!  Your video game stuff is on your desk, staring at you,
+whispering "play..... plaaaaayyyyyyy...plaaaayyyyyy...."  A pile of quarters
+is on your desk.  Your keys are on your desk.
+
+> get quarters
+You grab the quarters and shove 'em in your pocket.
+
+> get laundry
+You take dirty laundry from your closet.
+
+> get keys
+You take your keys from your desk.
+
+> unlock back door
+The back door gets stuck a lot.  After a minute of jiggling the key, you get
+the door unlocked.
+
+> south
+You move south.
+
+Your Big City Back Alley
+It's not as gross as most back alleys in the Big City!  It may be freezing
+cold, but it's got no rotting stuff or bodily waste!  That's why you love
+this neighborhood so much!
+
+From here you can go north through the back door into your apartment or down
+into the laundry room.  The back door is unlocked.
+
+> close back door
+You close your back door.
+
+> down
+You move down.
+
+The Laundry Room
+The laundry room is south of your apartment, down in the basement.  It's got
+a washer and a dryer.  It's also got a nice little spot to put your soap and
+fabric softener so you don't have to carry them back and forth!
+
+The laundry room is a basement room, so it's freezing cold and the cement
+floor is covered in a 1 inch thick layer of Big City sludge that comes up
+from one of the drains in the floor.
+
+Your detergent is conveniently stored in here as well!
+
+> get detergent
+You take clothes detergent.
+
+> open washer
+You open clothes washer.
+
+> put laundry in washer
+You put dirty laundry inside clothes washer.
+
+> pour detergent in washer
+Your pour a capful of detergent in the washer.
+
+> close washer
+You close clothes washer.
+
+> put quarter in washer
+You place a quarter in the machine.  It's got 1 quarters loaded.
+
+> put quarter in washer
+You place a quarter in the machine.  It's got 2 quarters loaded.
+
+> put quarter in washer
+You place a quarter in the machine.  It's got 3 quarters loaded.
+
+> put quarter in washer
+You place a quarter in the machine.  It's got 4 quarters loaded.
+
+> start machine
+You push the little quarter slider in and hear the coins clink, clink,
+clinking down into its mechanical bowels.  It turns on, swishing your clothes
+about in suds!  It will take an undisclosed amount of time.  Your personal
+experience is that it's some amount under 50 minutes.
+
+You could pass the time here, but you'd have to be insane.  Back in your
+apartment there's a bunch of other chores to ignore and video games to play.
+
+> up
+You move up.
+
+Your Big City Back Alley
+It's not as gross as most back alleys in the Big City!  It may be freezing
+cold, but it's got no rotting stuff or bodily waste!  That's why you love
+this neighborhood so much!
+
+From here you can go north through the back door into your apartment or down
+into the laundry room.  The back door is unlocked.
+
+> unlock back door
+The back door gets stuck a lot.  After a minute of jiggling the key, you get
+the door unlocked.
+
+> north
+You move north.
+
+Your Big City Apartment
+Home Sweet Home!  These four walls may not hold everything you own, but they
+hold everything you own that will fit inside a Big City Apartment!  Besides
+all your video game junk, there's a bed, a desk, and a closet!
+
+The back door leads south to the alley and the front door leads down to the
+street.
+
+> close back door
+You close your back door.
+
+> play video games
+What better way to pass the time?  You kick off your shoes and get ready
+but....wow, those shoes are caked in Big City sludge and need to be cleaned
+immediately!  You take them to the bathroom and bust out the bleach.  When
+you are done cleaning the human waste cake, you look up at your clock and see
+it's time to collect the laundry.  No matter, you can play video games when
+your laundry is done. Time to go switch the clothes to the dryer.
+
+> unlock back door
+The back door gets stuck a lot.  After a minute of jiggling the key, you get
+the door unlocked.
+
+> south
+You move south.
+
+Your Big City Back Alley
+It's not as gross as most back alleys in the Big City!  It may be freezing
+cold, but it's got no rotting stuff or bodily waste!  That's why you love
+this neighborhood so much!
+
+From here you can go north through the back door into your apartment or down
+into the laundry room.  The back door is unlocked.
+
+> close back door
+You close your back door.
+
+> down
+You move down.
+
+The Laundry Room
+The laundry room is south of your apartment, down in the basement.  It's got
+a washer and a dryer.  It's also got a nice little spot to put your soap and
+fabric softener so you don't have to carry them back and forth!
+
+The laundry room is a basement room, so it's freezing cold and the cement
+floor is covered in a 1 inch thick layer of Big City sludge that comes up
+from one of the drains in the floor.
+
+> open washer
+You open the washing machine, but it appears to be full of soapy water.
+Reaching into the water shoots freezing pain through your fingers.  Before
+you dry this you're definitely going to have to wring it out some.
+
+> wring clothes
+You grab a handful of the sopping wet clothes and start squeezing.  The cold
+soap runs down your arms each time you twist the laundry.  After 15 minutes
+of wringing clothes, loading into the dryer, and blowing on your hands so
+they don't freeze, you manage to get your soapy laundry wrung out a bit and
+loaded into the dryer.
+
+> put quarter in dryer
+You place a quarter in the machine.  It's got 1 quarters loaded.
+
+> put quarter in dryer
+You place a quarter in the machine.  It's got 2 quarters loaded.
+
+> put quarter in dryer
+You place a quarter in the machine.  It's got 3 quarters loaded.
+
+> put quarter in dryer
+You place a quarter in the machine.  It's got 4 quarters loaded.
+
+> put quarter in dryer
+You place a quarter in the machine.  It's got 5 quarters loaded.
+
+> close dryer
+You close clothes dryer.
+
+> start clothes dryer
+You push the little quarter slider in and hear the coins clink, clink,
+clinking down into its mechanical bowels.  It turns on, swishing your clothes
+about in suds!  It will take an undisclosed amount of time.  Your personal
+experience is that it's some amount under 50 minutes.
+
+You could pass the time here, but you'd have to be insane.  Back in your
+apartment there's a bunch of other chores to ignore and video games to play.
+
+> up
+You move up.
+
+Your Big City Back Alley
+It's not as gross as most back alleys in the Big City!  It may be freezing
+cold, but it's got no rotting stuff or bodily waste!  That's why you love
+this neighborhood so much!
+
+From here you can go north through the back door into your apartment or down
+into the laundry room.  The back door is unlocked.
+
+> unlock back door
+The back door gets stuck a lot.  After a minute of jiggling the key, you get
+the door unlocked.
+
+> north
+You move north.
+
+Your Big City Apartment
+Home Sweet Home!  These four walls may not hold everything you own, but they
+hold everything you own that will fit inside a Big City Apartment!  Besides
+all your video game junk, there's a bed, a desk, and a closet!
+
+The back door leads south to the alley and the front door leads down to the
+street.
+
+> close back door
+You close your back door.
+
+> play video games
+Well, this would be a great time to sit down and relax.  Play a few minutes
+of video games, but you've lost feeling in you fingers, and worse, they're
+too stiff to use a keyboard, mouse, or even a controller.  You go to warm
+your hands in the bathroom, but the hot water is in one of its moods...
+
+About 45 minutes later, your hands are warmed up, your shoes clean, your
+dryer cycle complete.  Time to go see if that ridiculous laundry is dry.
+Video games soon.
+
+> unlock back door
+The back door gets stuck a lot.  After a minute of jiggling the key, you get
+the door unlocked.
+
+> south
+You move south.
+
+Your Big City Back Alley
+It's not as gross as most back alleys in the Big City!  It may be freezing
+cold, but it's got no rotting stuff or bodily waste!  That's why you love
+this neighborhood so much!
+
+From here you can go north through the back door into your apartment or down
+into the laundry room.  The back door is unlocked.
+
+> close back door
+You close your back door.
+
+> down
+You move down.
+
+The Laundry Room
+The laundry room is south of your apartment, down in the basement.  It's got
+a washer and a dryer.  It's also got a nice little spot to put your soap and
+fabric softener so you don't have to carry them back and forth!
+
+The laundry room is a basement room, so it's freezing cold and the cement
+floor is covered in a 1 inch thick layer of Big City sludge that comes up
+from one of the drains in the floor.
+
+> open dryer
+You open the dryer, and as you expected, the clothes are now somewhat dry.
+They are, however, not even somewhat clean.  They are saturated with soap.
+Since the washer is out of commission, you'll have to go to the laundromat.
+
+> x dryer
+The Dryer costs 5 quarters and requires a mysterious quantity of minutes.
+Clothes dryer is open.  Clothes dryer is Off.  Cold and soapy but sort of dry
+clothes are inside clothes dryer.
+
+> get clothes
+You take cold and soapy but sort of dry clothes from clothes dryer.
+
+> up
+You move up.
+
+Your Big City Back Alley
+It's not as gross as most back alleys in the Big City!  It may be freezing
+cold, but it's got no rotting stuff or bodily waste!  That's why you love
+this neighborhood so much!
+
+From here you can go north through the back door into your apartment or down
+into the laundry room.  The back door is unlocked.
+
+> unlock back door
+The back door gets stuck a lot.  After a minute of jiggling the key, you get
+the door unlocked.
+
+> north
+You move north.
+
+Your Big City Apartment
+Home Sweet Home!  These four walls may not hold everything you own, but they
+hold everything you own that will fit inside a Big City Apartment!  Besides
+all your video game junk, there's a bed, a desk, and a closet!
+
+The back door leads south to the alley and the front door leads down to the
+street.
+
+> unlock front door
+This door has 3 locks, which makes it as secure as the back door, with its
+one sticky lock.
+
+> down
+You move down.
+
+Your Big City Street
+This is a nice enough street.  Fewer cops and infirm, destitute crazies than
+other streets you've lived on in the Big City.  Around lunch time, all the
+unaffordable restaraunts fill the street with lovely aromas of tortillas,
+barbecue, curry, or sesame oil.
+
+To the west is a laundromat, or you can go up to your Big City apartment.
+
+> west
+You move west.
+
+Big City Laundromat
+The Laundromat is big and smells like fabric softener.  "Aire Libre" scent
+most likely.  There are tons of serious laundry machines here, and even a
+folding area.  There is a note on the back wall, and a clock up on the wall.
+
+From here you can go east to your street.
+Old Foreign Lady is here, doing her laundry.
+
+> put clothes in washing machine
+You put cold and soapy but sort of dry clothes inside Industrial Washing
+Machine.
+
+> pour detergent in washing machine
+Your pour a capful of detergent in the little compartment on top of the
+washer.
+
+> close washing machine
+You close Industrial Washing Machine.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 1 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 2 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 3 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 4 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 5 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 6 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 7 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 8 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 9 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 10 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 11 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 12 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 13 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 14 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 15 quarters loaded.
+
+> put quarter in washing machine
+You place a quarter in the machine.  It's got 16 quarters loaded.
+
+> start machine
+You push the button on the industrial washer.  Nothing happens.
+
+After 5 minutes of fighting with it, carefully reclosing the door, examining
+the power cord, and more, you cannot determine the cause.  And now you have
+not enough quarters to use another machine...
+
+Understanding your plight, the old hispanic lady approaches, sack of quarters
+in hand.  She nods as she fills the machine next to yours with quarters and
+says "issokay."
+
+Looks like you'll complete your laundry today afterall.  After waiting about
+2 more hours for the wash and dry, walking back outside in the freezing cold
+Big City Air, you find yourself back in your Big City Apartment with unfolded
+laundry, ready to ignore the threat of wrinkles and play video games.
+
+Your Big City Apartment
+Home Sweet Home!  These four walls may not hold everything you own, but they
+hold everything you own that will fit inside a Big City Apartment!  Besides
+all your video game junk, there's a bed, a desk, and a closet!
+
+The back door leads south to the alley and the front door leads down to the
+street.
+
+> play video games
+Congratulations!  You've done it.  It's no small task to stay on top of your
+laundry in Big City and you have triumphed.  Now it's time to pla....start
+cooking dinner.

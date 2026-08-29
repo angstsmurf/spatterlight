@@ -1,0 +1,412 @@
+Loading game...
+
+For3st House: Sacrifice
+
+Warning: This game contains scenes that may be considered violent or cruel.
+
+[Press a key]
+
+Seciden Mencarde's
+Forest House 3
+S a c r i f i c e
+
+Written for the ADRIFT Ectocomp 2008
+[Three-Hour Version]
+
+[Press a key to begin]
+
+With a gorgeous wife to your left and beautiful son to your right, your
+breakfast feels rather heavenly. You cannot help but smile. Susie returns the
+smile. Your son, Terrence, is too busy downing his cereal to notice, but you
+forgive him for being nine. When he has licked the bowl clean, he says, "Dad,
+I saw the weirdest thing last night."
+
+"Oh?" you say, raising an eyebrow.
+
+"Yeah." He fiddles around with his spoon. "I got up and looked out the window
+- there was some weird house out there. I thought there weren't any houses in
+the woods so I checked this morning and it was gone!"
+
+At first your conscious mind dismisses his story as childish imagination. You
+let out an instinctive laugh. Then, however, your subconscious mind breaks
+through a barrier it had been building for the past twenty years. The stern
+look on your wife's face only strengthens the intrusion. You swallow and say,
+"Well that's silly." But you can feel the lie coming out through your words.
+
+~
+
+Once Terrence has left the house to play with neighbourhood friends, Susie
+brings up the breakfast conversation. "I think I know what it is," she says.
+"And I know you have some idea."
+
+You nod, unable to find words to respond.
+
+"Uncle is calling me back, John. It can't mean anything else."
+
+You sigh. "Yes, that would make sense. Will you go?"
+
+"Of course I will. I've missed my poor old uncle. It's good to know he's
+still alive, and I'd love to see him again."
+
+"All right. Can I go with you?"
+
+"Yes, of course."
+
+~
+
+Night has fallen. You and Susie tuck Terrence into bed. "You know that house
+you talked about?" you ask him.
+
+He nods.
+
+"Well, your mother and I are going to visit it. We want you to stay in bed,
+O.K.?"
+
+He nods again. You and Susie take turns kissing his forehead and then shut
+the door behind you. Equipped with flashlights, the two of you trek out into
+the back yard. Destination: the Forest House.
+
+Porch
+The porch is a simple cement slab in the forest ground. You don't remember it
+being there before, but it adds a nice touch to the house. A welcome mat
+beckons you into the front door here.
+Susie is here.
+
+> open door
+You can't open the front door as it is locked!
+
+> n
+You can't go in any direction!
+
+> u
+You can't go in any direction!
+
+> w
+You can't go in any direction!
+
+> n
+You can't go in any direction!
+
+> n
+You can't go in any direction!
+
+> s
+You can't go in any direction!
+
+> e
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> e
+You can't go in any direction!
+
+> n
+You can't go in any direction!
+
+> s
+You can't go in any direction!
+
+> open cabinet
+You can't see the china cabinet.
+
+> take knife
+Take what?
+
+> n
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> x workbench
+You can't see the workbench from here!
+
+> take toolbox
+Take what?
+
+> open toolbox with knife
+You have no toolbox.
+
+> x toolbox
+Either it's not here or it isn't anything out of the ordinary.
+
+> take screwdriver
+Take what?
+
+> u
+You can't go in any direction!
+
+> open case with screwdriver
+You can't open that.
+
+> x case
+You can't see the trophy case from here!
+
+> take book
+Take what?
+
+> read book
+You have no book.
+
+> w
+You can't go in any direction!
+
+> s
+You can't go in any direction!
+
+> u
+You can't go in any direction!
+
+> n
+You can't go in any direction!
+
+> read symbols
+Either it's not here or it isn't anything out of the ordinary.
+
+> s
+You can't go in any direction!
+
+> w
+You can't go in any direction!
+
+> n
+You can't go in any direction!
+
+> n
+You can't go in any direction!
+
+> s
+You can't go in any direction!
+
+> s
+You can't go in any direction!
+
+> e
+You can't go in any direction!
+
+> n
+You can't go in any direction!
+
+> s
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> e
+You can't go in any direction!
+
+> n
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> e
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> d
+You can't go in any direction!
+
+> u
+You can't go in any direction!
+
+> attack beast
+I don't understand what you mean!
+
+> attack beast
+I don't understand what you mean!
+
+> attack beast
+I don't understand what you mean!
+
+> push beast into furnace
+You push, but nothing happens.
+
+> get key
+Take what?
+
+> u
+You can't go in any direction!
+
+> w
+You can't go in any direction!
+
+> u
+You can't go in any direction!
+
+> s
+You can't go in any direction!
+
+> w
+You can't go in any direction!
+
+> unlock door with key
+Please be more clear, what do you want to unlock that with?
+
+> open door
+You can't open the front door as it is locked!
+
+> s
+You can't go in any direction!
+
+> shoot self
+You put the gun against your head and pull the trigger. Before you can
+register the sound of the bullet firing, your world is gone.
+
+[Press a key]
+
+Ending IV: Sacrifice
+
+You wake to the steady sound of a heart monitor. Tubes are being fed into
+you. Susie is there, holding your arm and smiling as your eyes flicker open.
+You are lying on a hospital bed, clothed in hospital sheets. Your head feels
+a little numb and you have trouble formulating thoughts, let alone words.
+
+"Hi," Susie says. Her tone tells you she has not said that to you in some
+time. Tears well up in her eyes and she wipes them away. "I was worried about
+you."
+
+"Wha-" you say. The full sentence formed in your brain, but your body refused
+to respond.
+
+"Shhh." Susie puts a finger to your lips. "The doctor says you'll need rest
+even after you wake."
+
+You nod and close your eyes. It seems the best thing to do, or so your body
+tells you.
+
+When you wake some indefinite time later, Susie is gone, so you sleep again.
+
+The third time you wake, she's at your side again. Terrence is standing next
+to her, his face expressionless. "Hey," you say to him when you can. Then to
+Susie, "How long was I out?"
+
+She clears her throat. "It's been several weeks. The accident... well, we're
+lucky that all of us survived.The truck driver lost control when he hit a
+sheet of ice. We just happened to be in the wrong place at the wrong time."
+
+You nod. Funny how life goes full-circle sometimes. The last thing you
+remember is going to sleep last night. Or, several weeks ago, as Susie said.
+This incident reminds you of one in your childhood, though. Accidents can
+cause terrible things, and no one is at fault.
+
+~
+
+Months later, with a gorgeous wife to your left and beautiful son to your
+right, your breakfast feels rather heavenly. You cannot help but smile. Susie
+returns the smile. Terrence, is too busy downing his cereal to notice, but
+you forgive him for being nine. When he has licked the bowl clean, he says,
+"Dad, I saw the weirdest thing last night."
+
+"Oh?" you say, raising an eyebrow.
+
+"Yeah." He fiddles around with his spoon. "I got up and looked out the window
+- there was some weird house out there. I thought there weren't any houses in
+the woods so I checked this morning and it was gone!"
+
+Your first instinct is the feeling of deja-vu, as though you had heard this
+before. You swallow and say, "That's interesting, Terrence. When I was your
+age, or maybe a little older, --"
+
+A knock at the door interrupts you. "I'll get it," you say. "Wonder who it
+could be this early..."
+
+You open the door to find a familiar, elderly man standing on your porch.
+"Don't tell Susie I'm here," Uncle says. "We need to talk."
+
+You look behind you to make sure Susie can't see from the kitchen and nod.
+"Come in," you say, inviting him upstairs. You take a moment to tell Susie
+and Terrence that a business call has come up and you need to talk to this
+man, then go up to meet with him.
+
+"You were dead," you say, flooded with memories you could not have had.
+
+Uncle says, "Was I? Or did you merely perceive that I was dead."
+
+You ponder this for a moment, but give no response.
+
+"To tell you the truth, all of this was your making. I think you understand
+this now."
+
+"Yes. My buried emotions caused it. But how?"
+
+He sighs and begins pacing. "Like I told you long ago, the infinite
+vibrations of the multiverse create infinite dimensions. However, these
+vibrations do not go unaffected by certain fifth-dimensional effects."
+
+"Fifth dimension?"
+
+"Yes. The realm of emotion, idea, and thought. These things cause strong
+inter-vibrational communications, sometimes changing the events of another
+dimension."
+
+"So you're saying my buried emotions caused something in another dimension?"
+
+"More than caused." He stops pacing and looks at you. "Your emotions created
+something, namely, the dark twin of you which invaded my home."
+
+"Right. So I killed the Master, which brought you and me back."
+
+"Again, more than you say. Time flows differently between the vibrations, so
+you have made it such that the Master never existed. Anything he affected has
+been undone."
+
+"So Terrence..."
+
+"Never saw the house. Well, at least until I decided to visit."
+
+"And Susie?"
+
+"She never saw me die."
+
+"So then, how did I see you die? Why do I still have these memories?"
+
+He sighs again, longer this time. "You are the one who caused this chain of
+events. In the time continuum of what is you, these events have a certain
+permanence which cannot be erased. Your time, however, must still match up
+with the rest of your dimension."
+
+"Hence, the coma."
+
+"Precisely. All of this is a direct result of your sacrifice. Rather than
+choose between those you love, as only an Evil man would, you chose to
+sacrifice yourself." He falls silent for a moment. "So then, have you all the
+answers you need?"
+
+"More than, I think."
+
+You see him off secretly, Susie still unaware of his visit. You return to
+breakfast.
+
+There, between your gorgeous wife and beautiful son, you find that you are
+happy.

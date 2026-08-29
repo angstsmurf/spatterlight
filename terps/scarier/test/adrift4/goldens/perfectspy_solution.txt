@@ -1,0 +1,84 @@
+# The Perfect Spy (The Perfect Spy.taf) -- ADRIFT 4.00, ~8.0KB.  You are
+# Stephen Rogers, a scientist strapped with a wrist device (the "Perfect
+# Spy") that turns you into a tiger, mouse or German shepherd on command,
+# about to be forced to demonstrate it to your employers.  Instead, you use
+# it to escape the facility.
+#
+# WON 10/10 -- the game's own end-of-game summary says "10 out of the
+# maximum 10", and this route fires all four ACT type=4 (SCR_DUMP_TASKS):
+#   TASK  0  change into a tiger      1
+#   TASK  8  climb guard's leg        1
+#   TASK 10  take blue keycard        5
+#   TASK 11  throw ball of yarn north 3
+#
+# No env vars needed -- the game has no <waitkey> pauses (checked the
+# deobfuscated text) and the RNG is fixed by the harness anyway.
+#
+# Route, phase by phase:
+#  1. `turn into a tiger` in the End of Hall (room 0, no normal exits at
+#     all) scares the scientists into fleeing and auto-moves the player
+#     north to the 3-Way Intersection -- an EVENT (Scaredy Scientists),
+#     not a player-typed exit.
+#  2. West to West Hall, `change into human` (transformation "done" flags
+#     are cleared on reverting to human -- ACT type=5 in TASK 3 -- so every
+#     later exit gated on "task N done" really means "currently in form
+#     N"), then `turn into mouse`.
+#  3. West into the Intersection (its N/E/W exits are gated on the "change
+#     into mouse" task being done) and north into the Security Checkpoint;
+#     `climb guard's leg` then `take blue keycard` (the guards never
+#     notice a mouse).
+#  4. South, west into West End of Hall; `change into human` again (a
+#     mouse can't reach the card slot -- confirmed by testing: as a mouse
+#     `use blue keycard on door` fails with a generic parser message, as
+#     human it succeeds) and `use blue keycard on door`, opening the gate
+#     west into the Round Room.
+#  5. West into the Round Room (the toolbox here is a dead end -- `take
+#     tool box` always answers "you can't pick it up", and there is no
+#     task anywhere that opens or empties it); `turn into mouse` again
+#     (the hole north is gated on mouse form, same "done" mechanic as
+#     step 3), north into Inside a Hole.
+#  6. `take ball of yarn`, `throw ball of yarn north` (distracts the cat
+#     outside -- this also satisfies the restriction that gates the
+#     *escape* "go n" task over the *unconditional death* "go n" task in
+#     the same room; see note below), then `n` twice: first out of the
+#     hole into the Side Alley, second out of the alley to freedom.
+#
+# Trap noted, not taken: room "Inside a Hole" has two rival tasks on the
+# same command `go n` -- TASK 12 (no restrictions at all, ACT type=6
+# death: electrocuted on the field "since you got shocked as a mouse")
+# at index 12, and TASK 13 (restricted on TASK 11/throw-yarn being done,
+# the real escape) at index 13.  Two-tasks-same-pattern order rules would
+# make the lower-index, unconditional TASK 12 win every time -- but the
+# `throw ball of yarn north` step must in fact happen before either `go n`,
+# and playing it out live shows TASK 13 fires correctly once the yarn is
+# thrown; the ordering worked as intended in this pair, not backwards.
+#
+# Content-vocabulary note: the title's spy-thriller premise (secret human-
+# to-animal transformation project) triggered a scan for words like
+# "strip"/"naked".  All 6 hits are "striped"/"stripes" describing the
+# tiger's black-and-orange fur in the transformation text (TASK 0/4
+# COMPLETE text) -- a pure substring false positive, nothing sexual and
+# no depiction of minors anywhere in the ~8KB of game text.
+#
+# Win marker: "Congratulations!  You have successfully escaped from the
+# facility!" (WINTEXT, printed once, at the very end).
+
+turn into a tiger
+w
+change into human
+turn into mouse
+w
+n
+climb guard's leg
+take blue keycard
+s
+w
+change into human
+use blue keycard on door
+w
+turn into mouse
+n
+take ball of yarn
+throw ball of yarn north
+n
+n

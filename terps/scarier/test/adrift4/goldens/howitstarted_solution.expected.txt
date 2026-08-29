@@ -1,0 +1,367 @@
+Loading game...
+
+How It All Started
+It all started with a goblin and a room. In a way, it always starts with a
+goblin in a room; metaphorically, I mean.
+
+See, there was this stick and -- hm. I don't think this is sounding the way I
+intended. It's not coming out right. Look...just try and visualize this,
+okay? Try to see it in your head. It all started with a goblin and a room. Oh
+yeah, and a stick...
+
+You find youself in a cold cell. A small lamp casts a grid of thick
+flickering shadows all around you. This is a stone cell made of tightly
+fitted flagstones (something about it makes you think it's deep underground).
+The room is divided into two halves seperated by a thick iron grate. The only
+furnishing on your side seems to be a handful of musty straw. The other half
+didn't fare much better, getting only a crude table, chair, and the lamp --
+but it does have a door, which is more than you can say for the northern part
+of the room. The only obvious exit here is a narrow hole in the ceiling. A
+thin stick leans against one wall.
+
+A small, impish goblin sits sprawled in the chair, snoring loud enough to
+make normal conversation impossible. He's wearing only rags -- but they go
+well with his green, flaky flesh. A small brass nametag pinned to the rags
+reads "Nurgle."
+
+> look
+
+Bare Cell (Northern Half)
+A small lamp casts a grid of thick flickering shadows all around you. This is
+a cold stone cell made of tightly fitted flagstones (something about it makes
+you think it's deep underground). The cell is divided into two halves
+seperated by a thick iron grate. The only furnishing on your side seems to be
+a handful of musty straw. The other half didn't fare much better, getting
+only a crude table, chair, and the lamp -- but it does have a door, which is
+more than you can say for the northern part of the room. The only obvious
+exit here is a narrow hole in the ceiling.
+
+A thin stick leans against one wall.
+Nurgle is here, snoring loudly.
+
+> take stick
+You take the thin stick.
+
+> poke goblin with stick
+Stretching through the bars...you can just manage to poke the tiny goblin
+right...between...the eyes...!
+
+**PROD**
+
+Nurgle's eyes snap open and he suddenly flails about swatting at the stick.
+In the process he falls to the floor with a satisfying thud.
+
+You have gained a point.
+
+Getting quickly to his feet, the small creature quickly moves out of reach
+and glares at you in some surprise. "What's this?!" he sqeaks annoyingly, "A
+new prisoner?!" He leans in (but not far enough) to get a good look at you.
+"We 'aven't 'ad a new prisoner in..." He looks upward as if trying to spot
+his brain "...well, years anyway."
+
+Nurgle quickly moves to the door, jumps a few times to catch the heavy pull
+ring, and swings it open. He pauses and glares at you with a nasty
+expression. "Thanks fer wakin' me up. Now I get to do my job. 'Ave a nice
+trip!" With that he moves through the door. Several seconds pass.
+
+**Ka-THUNK**
+
+A strong vibration passes through the floor. This probably isn't a positive
+sign. A few more seconds pass.
+With a much more pronounced rumble, the floor on this side of the room begins
+to slide back into the wall! Yawning blackness lies beneath you!
+
+> z
+Time passes...
+
+Half the floor is gone now! Maintaining your balance with the shaking is
+becoming more and more difficult!
+
+> z
+Time passes...
+
+You're now reduced to perching on a small ledge above a seemingly bottomless
+pit. There's no doubt that this truly sucks.
+
+With a final scrape there's no floor in this half of the room. An instant
+later there's no you in the room either. You find yourself tumbling into
+darkness! Disoriented  and spinning, you can probably expect to meet very
+shortly with a hard and cold surface...
+
+Well you don't, so don't give me that look.
+
+I was right about the cold part, though. Your breath is sucked from your body
+by an intensely cold plunge into water!  Instinctively struggling with limbs
+numbed by the temperature and the shock of the fall, you swim towards what
+you hope is the surface... Agonizing seconds later, you break through,
+gasping and spluttering! With more luck than anything else, you eventually
+manage to flounder onto dry ground. There you rest for several minutes,
+slowly regaining your strength.
+
+All right, that's enough! Come on, get up! Your body temperature isn't
+getting any higher! Let's go!
+
+Damp Cavern
+The sound of dripping water forms a constant backdrop to this massive
+chamber. The light here is feeble, emanating from several phospherant
+mushrooms growing from the walls, but you're still able to discern a murky
+pool of water and the thin stone "shore" that you're on now. Oh, and the
+bones. Lots and lots of bones. A twisty passage leads off to the south.
+
+> take mushroom
+You take the glowing mushroom.
+
+> south
+Using the fungus as a light, you cautiously head into the small tunnel.
+
+Twisty Passage
+This is a claustrophobic passage that bores deep into the earth. Water
+glistens on every surface and the footing is trecherous at best. The tunnel
+heads steadily downward to the south.
+
+> south
+You move south.
+
+Grotto (Northern Half)
+The sound of running water echoes throughout this expansive cave. Its source
+is a turbulent brook that runs from west to east through the middle of the
+cavern. Its power has been harnessed for an unknown purpose by a large
+waterwheel connected to a shack. This man-made (or possibly goblin-made)
+structure dominates the center of the grotto, but a few other objects catch
+your eye as well: the massive gate hanging above the stream on the west wall,
+the crude bridge that spans the stream to the south, and the heavy iron
+lantern hanging from a nearby pole. A tunnel to the north snakes upward.
+
+> put stick in slot
+You carefully push the stick into the slot. After moving it around for a few
+moments, you feel it slide into a hole deeper within the slot! You now have
+an improvised lever. It seems to be in the "up" position.
+
+You have gained a point.
+
+> flip lever
+Gripping the stick, you gently pull downward. Nothing. Exerting more
+pressure, you pull harder. The stick begins to bend and creak...
+
+*CHUNG*
+
+Then the improvised lever suddenly switches over! Almost immeadiatly, the
+large water gate lowers with a loud clanking sound. You're splattered with
+droplets of icy water as the raging brook is squeezed...and at last choked
+off completey. The everpresent sound of rushing water has now been reduced to
+a whisper-quiet trickle.
+
+> east
+You carefully lower yourself onto the slippery floor of the trench. Moving
+cautiously, you duck under the rock overhang and head east into the low
+tunnel beyond.
+
+River Tunnel
+The air seems cloying and hard to breath. You have to stoop just to be here
+and the sense of thousands of tons of rock pressing down on you doesn't
+inspire a calm state of mind. Then there's that water gate. It'll probably
+hold. I mean, it probably won't just suddenly snap and send the entire stream
+rushing through this space and washing you deep into the bowels of the earth
+and -- you know what, let's just not think about it. After moving twenty feet
+into the east tunnel, the floor suddenly tilts downward sharply. You keep
+your distance, as this slippery floor would undoubtably send you tumbling to
+a painful death. Even though you can't explore further, at least you have
+some company here: a tangled  human skeleton lies snagged on a sharp
+outcropping of rock.
+
+A crumbling wooden shield is attached to the skeleton's arm.
+
+> take shield
+You take the rotting shield.
+
+> wear shield
+You put on the rotting shield.
+
+> west
+You're only too happy to leave this claustrophobic space behind!
+
+Grotto (Northern Half)
+The sound of trickling water echoes throughout this expansive cave. It's
+source is a five-foot deep trench that runs from west to east through the
+middle of the cavern. A large waterwheel connected to a shack is hanging in
+air over the depression. This man-made (or possibly goblin-made) structure
+dominates the center of the grotto, but a few other objects catch your eye as
+well: the massive gate on the west wall resting on the bottom of the trench,
+the crude bridge that spans it to the south, and the heavy iron lantern
+hanging from a nearby pole. A tunnel to the north snakes upward while a low
+passage is visible to the east where the trench continues past the wall.
+
+> flip lever
+Again utilizing careful pressure, you eventually manage to return the lever
+to its "up" position. There's a pause, and then the water-gate slowly clanks
+back up. Once more the frothing underground stream is released to travel
+along its path!
+
+> south
+You move south.
+
+Grotto (Southern Half)
+This side of the grotto is nearly as big as the northern side. A bridge leads
+over the brook to the north while a simple door marks the entrance to the
+shack. The southern wall presents a markedly different contrast from the
+other walls here. At some point it consisted of a barrier of thick granite
+slabs, but now it's tumbled about like a giant's toy blocks, revealing a
+carved passage south. Perhaps it was caused by a recent earthquake?
+
+> south
+You move south.
+
+Carved Passage
+There's a sense of time having stopped here; a certain hush in the air. This
+expansive, ten foot high, ten foot wide corridor travels perfectly straight
+from north to south. Dust lies thick on the ground here and the air is quite
+musty.
+
+> south
+You move south.
+
+Ancient Edifice
+The passage from the south widens into a large room of dizzying height. The
+staleness of the air attests to how long this area has been sealed. A shame
+too, as an amazing wonder from ancient times fills this space. The ornate
+exterior of a temple rises before you. Replete with columns, false windows,
+and intricate etchings, the entire facade was carved directly from the rock
+of the southern wall. It almost seems to move in the shimmering orange light
+that emanates from two globes set on marble columns. The columns themselves
+flank the temple's entrance. Why is it that so many great leaders seal the
+most beautiful creations away with them when they go? Seems awful selfish.
+
+> south
+You move south.
+
+Tomb of the Elder King
+Considering the grandure of the exterior, the interior of the temple is
+rather understated. From the orange glow outside, you can make out a simple
+rectangular room made of mostly unadorned stone (the only decoration is a few
+phrases of ancient writing on the southern wall). The sarcophagus is likewise
+minimalist: a plain rectangular block fitted with a simple cover. This style
+seems familiar. The false modesty on the inside combined with the impressive
+arrogance on the outside has all the hallmarks of the Kings of Giir. If this
+really is one of the legendary tombs of a Girran King...well, you better not
+touch his stuff. You dwell briefly on all the hallmarks of the Kings of Giir:
+false modesty on the inside, impressive arrogance on the outside -- and
+enough death-traps to kill all tomb-robbers and their descendents.
+
+An ancient Girran blade rests on top of the sarcophagus. Unlike everything
+else here, there's not a speck of dust on it.
+
+> get blade
+With a trembling hand, you carefully reach out...and grip the blade. The
+handle feels warm to the touch. Pause. Deep breath. Slowly...you lift the
+blade off of the tomb, and...!
+
+...
+
+Well.
+
+So much for the dire warning.
+
+You have gained a point.
+
+> north
+You move north.
+
+Ancient Edifice
+The passage from the south widens into a large room of dizzying height. The
+staleness of the air attests to how long this area has been sealed. A shame
+too, as an amazing wonder from ancient times fills this space. The ornate
+exterior of a temple rises before you. Replete with columns, false windows,
+and intricate etchings, the entire facade was carved directly from the rock
+of the southern wall. It almost seems to move in the shimmering orange light
+that emanates from two globes set on marble columns. The columns themselves
+flank the temple's entrance. Why is it that so many great leaders seal the
+most beautiful creations away with them when they go? Seems awful selfish.
+
+> north
+You move north.
+
+Carved Passage
+There's a sense of time having stopped here; a certain hush in the air. This
+expansive, ten foot high, ten foot wide corridor travels perfectly straight
+from north to south. Dust lies thick on the ground here and the air is quite
+musty.
+
+> north
+You move north.
+
+Grotto (Southern Half)
+This side of the grotto is nearly as big as the northern side. A bridge leads
+over the brook to the north while a simple door marks the entrance to the
+shack. The southern wall presents a markedly different contrast from the
+other walls here. At some point it consisted of a barrier of thick granite
+slabs, but now it's tumbled about like a giant's toy blocks, revealing a
+carved passage south. Perhaps it was caused by a recent earthquake?
+
+> enter shack
+You move to enter the shack...
+
+Just as you start to push at the door, the hinges give off a sharp squeak and
+from inside you suddenly hear a frightened gasp! It sounds vaguely
+familiar... The next sound you hear also sounds familiar: the *CLICK* of a
+crossbow being cocked. This could be an awkward situation in the making.
+
+> enter shack
+Preparing yourself for what lays beyond, you enter the shack...
+
+Like the outside, the interior of this building is poorly constructed, drafty
+and slipshod, but at long last, you've found a place that actually feels dry.
+Light is coming from a small lantern hanging from the ceiling. It illuminates
+a simple wooden table and (overturned) chair, but another item of interest
+instantly draws your gaze: a sturdy basket framework with a rope attached.
+The line disappears through a gap in the roof.
+
+Of course, all this is secondary to the nasty little goblin wielding a nasty
+little crossbow. He's dressed in rags. He's wearing a nametag. He's pointing
+the weapon at your face. Great. Why can't you seem to escape this little
+twerp?!  You have only a second to act before Nurgle fires. Your next action
+will decide whether you live or die.
+
+> attack goblin with sword
+You raise the sword and move forward to attack!
+
+*THUNK*
+
+The crossbow bolt embeds itself into your shield, which promptly crumbles to
+dust! You throw the remnants away and glare at your diminutive foe. He looks
+dismayed. You swing the sword in an overhead arc...!
+
+Nurgle brings up the crossbow to block -- and only succeeds in getting it
+smashed. To spare you the gory details, let's just say: "you cleave your foe
+in twain." Yeah. You really twained him. Nice follow through!
+
+You have gained a point.
+
+> enter basket
+With some difficulty, you manage to wedge yourself into the basket.
+
+> flip lever
+Reaching through a gap in the basket, you just manage to flip the small lever
+on the outside. There's a distinct click, and then the basket begins to jerk
+upward! You head through the roof in the shack, and out of these damp and
+forgotten caverns!
+
+You have gained a point.
+
+And...that's it.
+
+Sorry. I mean, I know this isn't the end of the story, but that wasn't what I
+promised, was it? I just wanted to tell you how it all started. I'm afraid
+you won't get to hear about the dread Dragon. Or the enormous bat with the
+lute. Or Nurgle's twin brother Flurf. Not even how that sword you took was
+cursed after all. Maybe some other time?
+
+Hey, don't give me that look. You won! Right? Right.
+
+(ahem)
+
+Can you loan me a shilling for the stage wagon?
+
+You have won the game! With little help from me, I might add.
+You scored 6 out of the maximum 6!
+That is 100% of the game!
+Well done - you scored maximum points!

@@ -1,0 +1,121 @@
+remember
+remember
+remember
+remember
+remember
+x northern
+x southern
+x eastern
+x western
+talk
+talk
+talk
+talk
+talk
+talk
+talk
+talk
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+move straw
+x hole
+put hands into hole
+search bundle
+get straw
+x thread
+throw thread through window
+sing
+jump through window
+climb
+escape
+knock on door
+call
+sleep
+listen
+spit
+xyzzy
+x bowl
+x door
+x window
+x straw bundle
+put bowl near spyhole
+eat soup
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+take knife
+x knife
+x letter
+write on southern wall
+enlarge hole with knife
+x photo
+x hole
+eat soup
+eat soup
+eat soup
+eat soup
+put knife in hole
+x door
+x window
+wait
+ask sly about interrogation
+ask sly about murder
+ask sly about him
+ask sly about hover
+ask sly about cell
+ask sly about hunt
+ask sly about knife
+ask sly about others
+listen
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait

@@ -1,0 +1,213 @@
+Loading game...
+
+Take One
+
+TAKE ONE
+by Robert Street (Rafgon)
+
+Filming begins today on your new action movie, "Indianette Jones and the Orb
+of One." First off is one of the film's main action scenes. The actress
+playing the title character is on set and you can see her through the
+monitors. You are not sure that she is a good fit for the role. She looks
+great, with her blonde hair and the way she fills out her skimpy explorer
+outfit, but her acting skills are non-existent. Actually, having talked to
+her, her intelligence is also non-existent.
+
+You will have to give her directions on the set. It is a simple set of tasks.
+To open the crystal she will have to read the book aloud and rub the ring.
+She will then have two and a half minutes to grab the orb and set a trap for
+the demon. You are not quite sure yourself yet what you want for some of the
+other details. You never did read the storyline you were given by the studio
+in much detail. You will just have to watch and make it up as you go along.
+She won't be able to improvise, so you will have to.
+
+(Press a key)
+
+TAKE 1
+
+(Press a key)
+
+[Type info for more information about the game. To command the actress, just
+type in actions as you would in most other IF games, i.e. north will tell the
+actress to move north.]
+
+Passage (on screen 1)
+The broken bones of tiny rodents crunch underfoot as Indianette Jones makes
+her way along this passage. It is dark and shadowy for the most part,
+illuminated poorly by the pale daylight at the end.
+
+The passage extends northeast to the outside world and southwest to an
+ancient gallery.
+
+Indianette Jones is standing around, looking bored and waiting for her next
+order.
+
+> sw
+Indianette Jones moves southwest.
+
+Ancient Gallery (on screen 2)
+The walls about Indianette Jones are ancient and crumbling, yet modern
+looking portraits hang from them all the same. The faces depicted twist and
+writhe in torment. It is almost possible to hear their cries and imagine that
+it is a warning for anyone wishing to open up the crystal.  Against one wall
+lies a large crystal, as tall as a man and wide as a chariot, in which is
+imprisoned the form of… something.
+
+A passage lies away to the south and another to the northeast, at the end of
+which a light shines faintly.
+
+Indianette Jones is standing around, looking bored and waiting for her next
+order.
+
+> read journal aloud
+Indianette Jones flicks through the journal until she comes to the right
+passage. She then begins intoning the spell. It is some ancient language, but
+it really just sounds like gibberish. It could just be the way she is
+pronouncing it though. The journal crumbles into dust after Indianette Jones
+is finished. Now all that is left is to rub the ring.
+
+> rub ring
+Indianette Jones rubs the ring vigorously. Nothing happens for a few seconds
+until a few drips start to appear on the outside of the crystal. Soon these
+drips multiply, as the crystal dissolves into a puddle on the floor. The
+puddle starts to evaporate, revealing the orb of one. However, the
+evaporating black steam from the puddle is beginning to take a physical form.
+This is the demon, who will kill whoever released him and eat the orb after
+becoming fully formed. He should appear in about two and a half minutes.
+
+> take orb
+Indianette Jones takes the orb of one.
+
+> s
+Indianette Jones moves south.
+
+Ruined Statue (on screen 3)
+Above Indianette Jones towers a broken statue, ravaged by the passage of
+time. A crown of stone rests upon its brow, a glittering spherical jewel its
+centrepiece.  About the actress lurks malevolent shadows, seeming to move
+with a life of their own, although this is an illusion that vanishes the
+moment anyone looks closely at them.
+
+Passages in the ruined walls of this place lie to the north and west.
+
+Indianette Jones is all ready to get moving in this chase scene, but she is
+waiting for her next order.
+
+On the ground is a jewel.
+
+> use whip on jewel
+Indianette Jones cracks her whip at the jewel and misses. The second time she
+also misses, but on the third time the jewel is hit and it comes tumbling
+down into the arms of Indianette Jones.
+
+> w
+Indianette Jones moves west.
+
+Cage (on screen 4)
+At the centre of this circular chamber is a cage, sunken into the floor, in
+which the remains of some beast lie decomposing. Claw marks on the bars of
+the cage indicate the beast fought ferociously to escape its imprisonment,
+yet failed. And died. The bars of the cage reach from the floor to the
+ceiling. Indianette Jones can just fit through the thin path around the side
+of the cage.
+
+To the west there is a large chamber from which a humming sound emanates; to
+the east there is a statue.
+
+Indianette Jones is all ready to get moving in this chase scene, but she is
+waiting for her next order.
+
+> drop jewel in cage
+Indianette Jones throws the jewel through the cage bars into the depression.
+
+> w
+Indianette Jones moves west.
+
+Humming Chamber (on screen 5)
+Once this was doubtless some kind of meeting hall. Rows of seats spiral
+outwards from a central podium where a speaker once stood to deliver speeches
+to a waiting audience. Many of the seats are smashed and little but splinters
+remain. Burn marks scar the floor and walls; in one place there is what
+appears to be a large quantity of books and scrolls that someone has
+attempted to burn but abandoned partway through. A faded tapestry is hanging
+on the section of wall furthest from the entrances.  A faint humming sound
+can be heard, emanating from somewhere in the chamber. It sounds like there
+is a machine operating in here.
+
+A passage extends northwest and another to the east.
+
+Indianette Jones is all ready to get moving in this chase scene, but she is
+waiting for her next order.
+
+> listen
+When Indianette Jones listens carefully, she pinpoints the noise to behind
+the tapestry, which she then moves to reveal a machine.
+
+> turn off switch
+As Indianette Jones turns the switch off, a creaking noise can be heard to
+the east.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+The demon lets out a scream, as it finally emerges somewhere behind
+Indianette Jones. It moves towards Indianette Jones, but then pauses
+momentarily. A horrible crunching sound can be heard, with the demon eating
+something.
+
+> turn on switch
+As Indianette Jones turns the switch on, a creaking noise can be heard to the
+east. Soon a scream of rage can also be heard, with something then thumping
+against metal several times before giving up.
+
+> nw
+Indianette Jones moves northwest.
+
+Blocked Passage (on screen 6)
+The ceiling has collapsed, blocking further access along this passage. On one
+wall is an opening that overlooks the outside world, with a window of a
+nearby building almost within jumping distance, but not quite. Unfortunately,
+the drop looks formidable and difficult to survive, so it is not a good idea
+to experiment. A roof overhangs the gap, with a horizontal beam that is
+supporting it also not quite within reach.
+
+The passage leads back to the southeast.
+
+Indianette Jones is standing around, looking bored and waiting for her next
+order.
+
+> whip beam
+Indianette Jones swings the end of her whip towards the beam, which it wraps
+around. Holding tightly to the whip she then swings across the gap straight
+through the window of the other building. She has escaped the demon and
+carried off the orb of one, but the action in the movie is not over yet. It
+is over for now though.
+
+Finally this scene is finished and it only took 1 take. You've had enough for
+one day. Maybe it will go better tomorrow, but you have the feeling that this
+is going to be a long process, especially with all the editing that will
+probably be needed. You are going to be very tired soon if you have to keep
+specifically ordering the actress around as well as your other duties.
+
+Why are good actresses so expensive?

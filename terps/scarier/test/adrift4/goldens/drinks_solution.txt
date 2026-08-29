@@ -1,0 +1,45 @@
+# Drinks With Lord Hansom (Drinks.taf) -- revgiblet, Ectocomp 2008.  ADRIFT 4.00.
+# A one-scene frame story: Rupert Hansom's dinner guests badger him into
+# telling his ghost story, which is a flashback confined to two rooms (The
+# Attic north/south).  There is no score anywhere in the file (zero
+# ACT type=4) and exactly one ACT type=6 (EndGame win, on TASK 0 "open
+# casket"), so there is only one ending -- WIN, 0/0.
+#
+# No author walkthrough exists; the route was derived from SCR_DUMP_TASKS.
+# "go down" (TASK 1) is permanently refused ("I did not leave the attic
+# until later.") -- the only way out is to solve the casket.
+#
+# The casket (TASK 0) needs its three tumbler dials set to 3/6/7 (RESTR
+# type=4 v3=3,6,7 on the three dial variables) before "open casket" succeeds;
+# each "turn Nth dial" wraps 0-9 and starts at 0.  The dial code is echoed in
+# flavour text as a cipher (paper found via the wall lamp: 3=Apple, 6=Rope,
+# 7=Grass) and again as a journal-margin riddle ("one = virgins, two =
+# riddle, three = doves") tied to the sheet-covered stained-glass window in
+# the south room -- neither is needed to solve it since the restriction
+# values are explicit in the dump; both are red herrings/atmosphere, not
+# gates.
+#
+# The casket is a dynamic object sitting in the south room from the start
+# but not listed until the room is entered (object *seen* model); going
+# south is therefore the first command.
+#
+# The intro has three "[Press a Key]" <waitkey> pauses; the row needs
+# SCR_SKIP_WAITKEY=1 or they eat the first commands and desync the run.
+s
+turn first dial
+turn first dial
+turn first dial
+turn second dial
+turn second dial
+turn second dial
+turn second dial
+turn second dial
+turn second dial
+turn third dial
+turn third dial
+turn third dial
+turn third dial
+turn third dial
+turn third dial
+turn third dial
+open casket

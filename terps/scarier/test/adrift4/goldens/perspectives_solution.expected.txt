@@ -1,0 +1,302 @@
+Loading game...
+
+Perspectives
+
+by Justahack
+
+Introduction
+
+As you walked down your hallway to your room at the resort complex, you
+suddenly heard an angry commotion behind you. Before you could turn around
+and see what was going on, you suddenly felt a sharp pain strike the back of
+your head and then blacking out.
+
+When you came to you found yourself locked in a bathroom with another person
+barricading the entrance. Before you could get your bearings, you noticed a
+badly injured person on the floor next to you. Almost immediately, there was
+a loud angry pounding from outside the bathroom door, with equally angry
+voices demanding the door be opened up.
+
+What to do?
+
+Gameplay
+
+This is a semi-dynamic game, and a departure from standard puzzle style
+problems. Here, most actors have their own agenda and are actively trying to
+achieve their goals. This means that just by doing nothing but simple waiting
+allows other actors to get one step closer to their goal.
+
+Events which occur in-game will be preceded by three exclamation marks, like
+so to distinguish them from action feedback.
+
+!!!
+
+Please keep this in mind, and enjoy!
+
+Locked In A Bathroom
+
+It's a terribly small bathroom, with scarcely much room to move around.
+Behind you is a [b]tub[/b]. In front of you is a medicine cabinet. On the
+floor is a number of curiously strewn items. A hammer, a toolbox, a number of
+nails, and a small pile of wooden planks.
+
+Also here is a gun.
+On the floor, bleeding profusely is a dark haired male.
+Jonah is here, hammering nails desperately into planks of wood onto the
+bathroom door.
+
+> look
+
+Locked In A Bathroom
+
+It's a terribly small bathroom, with scarcely much room to move around.
+Behind you is a [b]tub[/b]. In front of you is a medicine cabinet. On the
+floor is a number of curiously strewn items. A hammer, a toolbox, a number of
+nails, and a small pile of wooden planks.
+
+Also here is a gun.
+On the floor, bleeding profusely is a dark haired male.
+Jonah is here, hammering nails desperately into planks of wood onto the
+bathroom door.
+
+!!!
+With a morbid sounding gurgle, the body on the floor begins to thrash about
+uncontrollably then finally lays still.
+
+> examine gun
+
+While Jonah seems engrossed in his pursuit of self preservation, you take a
+look at the gun on the sink counter top. While you do not recognize the
+model, you do notice that the gun appears fairly new. Furthermore, the area
+which you'd expect to find the serial number appears to have been filed away.
+
+!!!
+"Damnit, open this door right now you evil gun toting bald man!" yells
+Gamble.
+
+"Yeah! Before we put a cap in you!" yells Brendlebun.
+
+"But, if I don't open the door ..." yells Jonah. "How are you going to do
+that?"
+
+You hear nothing but silence for a few moments.
+
+"You morons!" yells Jonah angrily.
+
+> examine hammer
+
+A spare hammer lays on the ground, looking rather bored.
+
+> examine toolbox
+
+An orange and mediocre looking tool box. There is a name plate, welded onto
+the side of the thing which reads, "Property of Jonah Jonas."
+
+> examine nails
+
+A small mountain of nails lays haphazardly discarded here, waiting for
+someone to accidentally step on them and require a tetanus shot.
+
+!!!
+"Open this damn door right now!" yells Brendlebun.
+
+"I can't!" yells Jonah anxiously.
+
+"Why the heck not?" yells Gamble from the other side.
+
+"Because ... Because I put up wood planks across the door, that's why!"
+retorts Jonah.
+
+"Well, then take them down!" Brendlebun pounded angrily.
+
+"Yeah right, suckers!" yells Jonah indignantly.
+
+> examine planks
+
+A small mountain of wooden planks, lays here waiting to be used inefficiently
+for things such as boarding up bathroom doors.
+
+> examine tub
+
+A non descript looking bath tub, with floral shower curtains.
+
+> examine medicine cabinet
+
+The mirror hasn't been cleaned in years, and the metallic frame is rusting
+heavily. You try to open the thing, but find that the thing is stuck closed.
+
+!!!
+"Brendle, we need another plan. We just can't break through this door with
+our fists alone. We're going to need something a bit more substantial."
+Gamble pondered outloud.
+
+> examine damien
+
+The body is utterly still now, and there are no signs of life whatsoever.
+Upon closer inspection, you note what appears to be some kind of ballistic
+exit wound on his back.
+
+> examine jonah
+
+A middle aged man with a severe case of hair loss. Dressed in an eccentric
+attire of a tuxedo top and Hawaiian print shorts, the man desperately hammers
+wooden planks to the bathroom door in an attempt to keep the intruders
+outside and himself inside.
+
+(To talk to Jonah or any other person, try typing [b]talk to (person)[/b]. In
+this case, [b]talk to jonah[/b])
+
+> talk to brendlebun
+!!!
+Before you can say anything, Jonah interrupts you. "Hey! What are you doing?!
+Don't waste your breath with those monsters! They've been chasing me, trying
+to off me all damn week!"
+
+Jonah growls. "The best we can do is wait them out, and hope they starve out
+there in the hallway!"
+
+!!!
+The pounding of the bathroom door stops momentarily.
+
+"Brendle, we're going to need something more sturdy to knock down this door.
+I saw a fire extinguisher at the other end of the hallway. Let's go get that
+instead."
+
+"Ok, you go get it then. If they come out then it's beating time!" Brendle
+cracks his knuckles.
+
+You can hear hurrying footsteps fade away.
+
+> talk to gamble
+!!!
+A deep male voice yells from the other side of the door. "What we want? We
+want you to hand over that balding dude and our friend! We know you have him
+behind the door, doing who knows what! He shot up our friend and we're going
+to pay him the hell back!"
+
+"By 'him', we mean the balding guy!" yells another male voice from the other
+side of the door.
+
+"By the way!" yelled the first deep male voice. "I'm Brendlebun, and the guy
+next to me is Gamble!"
+
+"Introductions aside, it's time to die!" yelled Gamble.
+
+> talk to brendlebun
+!!!
+"Shut up and listen!" interrupts Gamble, before you can make can garner any
+more information from the other two. "We have no beef with you, dude. If you
+open this door or cap the balding dude, we'll let you go."
+
+"However!" yells Brendlebun.
+
+"Yes, however! If you don't let us in by the time we break down this door ...
+we'll assume you're in cahoots with the balding dude. We will have no mercy
+for you then."
+
+> talk to jonah
+!!!
+The man does not stop a moment as he madly hammers wooden planks across the
+door in an effort to strengthen the barricade. He glances at you, relief
+washing over his face, before returning to his work and speaking.
+
+"Guy, am I glad you're awake! I could really use some help around here
+boarding these damn doors." The man stops suddenly and turns to face you,
+using his pointer and thumb to approximate a rather short thing.
+
+"Those damn crazies were this close ... this close! Before they woulda had
+us! You and I were lucky. Damn lucky, we were able to find this sturdy little
+bathroom!" The man returns to work, engaging once more in the unceasing and
+almost maddening looking work.
+
+"By the way, my name's Jonah. The guy on the floor is one of those guys who
+tried to off us." Jonah stops suddenly, and flashes a pistol. "Lucky I had
+this on me, or I woulda been dead. Dead by the hands of the damn anti-christ
+too!"
+!!!
+"You two are going to be sorry, real soon! It's already too late for you
+Jonah, but you in there! Open up this door or get rid of Jonah, and we'll
+overlook all this!" Brendlebun said through the door, malice growing in his
+voice.
+
+> talk to jonah
+!!!
+Jonah cocks an incredulous eyebrow at you as you try to get to know him via
+the mystical use of small talk.
+
+"What the hell man? There are two dudes out there ready to cap us, and you
+want to know my life story? Don't you have better things to worry about?
+Like, oh I don't know, how we're going to escape from the damn crazies
+outside?!"
+
+Before Jonah can berate you further about your misplaced priorities, he
+suddenly lurches forward and lets out a pain filled cry. "Argh!... this damn
+headache!" Jonah gasps for breath as he suffers through his horrible
+migraine. Within a few moments, the pain subsides and Jonah leans against the
+medicine cabinet.
+
+"I'm sorry you had to see that, guy. Truth be told, I've been having this
+horrible headaches a week or so ago. About the same time I stopped taking my
+medication."
+
+"My shrink, he's a crook. Had me doped up on these pills and said they were
+good for me. Said I needed to else I would start having these crazy paranoid
+ideas." Jonah spits. "I'm not crazy! What's crazy was that he got to keep his
+license even after I sued him for malpractice!"
+
+"I stopped taking my pills, yeah. But so would have anyone else if they had
+to pay 300 bug ones per session! Every damn session was 300 big ones! I
+didn't get better, and I just had to kept doling out the big ones!"
+
+Jonah turns his back on you and angrily pounds the door, ignoring any
+response you might make and set on the truthfulness of his statements.
+
+> talk to jonah
+!!!
+"Crazy?! Youse saying I'm the crazy one?" Jonah eyes become dangerous slits
+as he peers closer at you. "So youse saying that just because I stopped
+taking themse eensy white pills, that I became this whack job who goes around
+shooting people because he suspects that they're after his life?!"
+
+Jonah's face twists into a look of extreme disbelief. "Are you out of your
+mind? Those crazies are right outside waiting to cap us! And you're saying
+I'm the crazy one?!"
+
+Jonah stomps around the bathroom angrily at your words before turning finally
+to confront you. "If I didn't know any better, I'd say youse with those
+crazies. For all I know, youse just waiting for a chance to off me!"
+
+Jonah leans menacingly closer to you. "You better watch yourself, or I might
+have to defend myself again! Not another damn word out of you!"
+
+As you stand there quietly, uncertain of what to say next, Jonah continues.
+"Now do us both a damn favour and hammer the door shut with more planks of
+wood to help out with the survival effort and keep the crazies out!"
+
+(If you wish to help out as Jonah suggests, you may type [b]hammer the
+door[/b] at any time.)
+
+> talk to jonah
+!!!
+You explain to Jonah that while you understand that he doesn't want to hear
+from you and that you have no desire of being "offed", your intentions are
+that everyone gets out of here safely with the minimal amount of damage to
+anyone.
+
+In fact, if you truly wanted to off Jonah, you could have just played along
+and waited for an opportune time. Yet, here you are trying to plead your case
+that perhaps the lack of medication is having an adverse affect on him and
+that the best course of action would be to surrender before anyone else gets
+hurt.
+
+"I ... well ... " Jonah seems lost in thought at your words, as he weighs the
+truthfulness. "You have a point there. I suppose deep down inside, I always
+knew it was the drugs. I just didn't want to admit it. Ok, look, we'll get
+out of here."
+
+Smiling at you, Jonah turns to the door and yells out. "Hey, look! I'm coming
+out now youse guys. So don't try to cap me or anything. I'm surrendering!
+I'll put the gun on the floor, and then open the door slowly, ok?"
+
+***
+Congratulations, you achieved the Negotiation Style Ending!

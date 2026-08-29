@@ -1,0 +1,27 @@
+e
+take knife
+s
+in
+take shovel
+out
+s
+take soda bottle
+n
+n
+n
+n
+talk to rinda
+n
+dig
+s
+s
+s
+w
+put knife in machine
+pull crank
+put soda bottle in machine
+pull crank
+put dragon breath in machine
+pull crank
+put skull in machine
+pull crank

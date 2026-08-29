@@ -1,0 +1,89 @@
+# The Road Leads to Nowhere -- The Dominant Species (Hourglass Competition,
+# a "write it in 3 hours" comp).  ADRIFT 4.00, ~7.9KB.
+# NO-SCORE ending -- SCR_DUMP_TASKS shows score=0 on every one of the 32
+# tasks (no ACT type=4 anywhere in the dump), so there is no max to chase;
+# this is a single linear story with exactly one non-death conclusion.  Row
+# needs SCR_SKIP_WAITKEY=1 (three <waitkey> pauses: the forehead injury, the
+# cabin collapse, and the closing narration).
+# Map: Woods(1) -nw-> Woods(2) -w[unless holding sticks]-> Woods(4, sticks on
+# the ground) -e-> back to (2) -se-> (1) -se[only once holding sticks]->
+# Camp(5).  "x logs" is mandatory there -- the backpack is Hidden and its
+# *first* examine-text is the only thing that lists it ("Beside one log is a
+# backpack"); "get pack" beforehand answers "Take what?" as does anything
+# from inside it, since a Hidden dynamic is unseen until something lists it
+# (the same seen-model as scarier-adrift4-object-seen-model.md).  Built-in
+# verbs (open/get) need the object's real name -- "open pack"/"look in pack"
+# both fail with generic refusals; it is "backpack" or nothing, even though
+# the *task* pattern "get *pack" (a wildcard) matches "get pack" literally.
+# Camp -e-> Woods(7), get the vine, back -w-> Camp -nw-> (1) -nw-> (2) -ne->
+# Woods(3, the pit).  "tie vine to branch" swings across (no flashlight
+# check fires despite the room's dark/lit ALT text -- turning the flashlight
+# on is pure flavour, never gated on) to Woods(8) -e-> In Front of Cabin(9)
+# -e-> Cabin(10), gated on the door: "unlock door with card" (student ID
+# card from the backpack) then "open door".
+# In the cabin: "open desk" (unlocked, just closed) for the match; "put
+# sticks in fireplace" THEN "light fire" -- lighting with the sticks merely
+# held (not inside the fireplace) fails "It's hard to do that without
+# firewood," which reads like a plain holding-restriction but is actually
+# RESTR type=0 v2=4 (Inside container-sublist index 3, i.e. obj 30 the
+# fireplace) -- see screstrs.cpp:244-254, confirmed against run400 in
+# scarier-adrift4-restrmask.md's sibling notes.  The fire injures you
+# (<waitkey>) and reveals the four paintings' hidden digits, only once
+# task 13 (light fire) has completed: "move city/mountain/wood/shadow" ->
+# 1:1, 2:4, 3:0, 4:8 -- the SECOND digit of each is the trapdoor code, in
+# painting order: 1-4-0-8.  "type 1408" drops you into the Cellar; "open
+# box" starts an 11-turn cabin-collapse timer (EVENT 0, fixed, not random)
+# that only a #death-by-collapse ending can end early -- "stand on couch"
+# (climbs out through the caving roof) then "n" (onto the Road) both fire
+# well inside the budget and the north exit is itself the event's declared
+# pause task, so the timer never needs to be watched once you're moving.
+# Arriving on the Road starts EVENT 1, a second fixed timer (8 turns, not
+# random): "wait" x8 (confirmed by direct count -- the 8th wait is what
+# prints the closing narration, not the 7th or 9th) lets it fire on its own;
+# "e"/"w" on the Road are red herrings that just burn a turn identically
+# ("You move east but it doesn't look like you've advanced at all").
+# Win marker: "the knowledge of oblivion" (unique to this game's closing
+# paragraph; the generic "The End / The game is over." banner that follows
+# is shared with every other SCARE ending and is not distinctive alone).
+nw
+w
+get sticks
+e
+se
+se
+x logs
+get pack
+open backpack
+get flashlight
+get card
+e
+get vine
+w
+nw
+nw
+ne
+tie vine to branch
+e
+unlock door with card
+open door
+e
+open desk
+get match
+put sticks in fireplace
+light fire
+move city
+move mountain
+move wood
+move shadow
+type 1408
+open box
+stand on couch
+n
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait

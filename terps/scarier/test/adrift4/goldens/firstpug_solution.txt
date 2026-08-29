@@ -1,0 +1,31 @@
+make bed
+take lockpick
+e
+d
+n
+take broom
+take teapot
+s
+w
+n
+light stove
+open cupboard
+take bacon
+fry bacon
+feed flash
+fill teapot
+boil water
+e
+u
+s
+search nightstand
+sweep floor
+n
+n
+pick lock on chest
+open chest
+examine chest
+s
+d
+unlock front door
+open front door with danthil

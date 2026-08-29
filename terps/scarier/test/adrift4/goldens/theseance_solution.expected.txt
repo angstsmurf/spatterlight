@@ -1,0 +1,331 @@
+Loading game...
+
+Seance
+
+The Seance
+
+by quantumsheep
+
+Press any key to continue.
+
+Copyright 2008
+
+October 3rd, 1856
+
+Dear cousin,
+
+It's been almost a year now, as you know, since I lost my dear, beloved
+Emily. The war took its toll on me, and to return in time only to see my
+beloved wife die after falling into a coma, I cannot help feel that my heart
+is forever broken.
+
+Robert, I cannot impress upon you enough my awareness of an Englishman's
+duty, especially that of an officer.
+
+However, having served her majesty, I feel that I let my dear Emily down.
+
+I was here only at the end, cousin, and if I had to live that time again, I
+have no doubt I would have deserted.
+
+Obnoxious a thought as it may seem to a fellow military man, I would have
+come back to be at her side, before she slipped away from this conscious
+realm we live in. Before I had to bury her.
+
+Though you will no doubt think it quite mad, over the past few months I have
+felt her presence here, cousin. The attic has become my sanctuary now. It is
+colder than the rest of the house (even during the summer months) and I
+cannot help but think that she is trying to send me a message from beyond the
+grave.
+
+In addition, several objects have mysteriously moved around the estate, and I
+seldom look in the mirror anymore. I see things that aren't there, Robert!
+
+I know you will think this a foolish endeavour, cousin, but I simply must try
+and contact Emily. I must tell her how much I miss her and love her still.
+Moreover, even though I will never forgive myself for not being here for her
+in her time of need, I want to beg her for her forgiveness.
+
+I do so need her forgiveness, cousin. I cannot go on living like this. Often
+I have contemplated joining her on the other side, but alas I lack the
+courage.
+
+I will write to you again after the seance has been completed. Please do not
+worry. It will be just myself and Madame Sousa, the famous medium. I will
+give the staff the week off in preperation for the event.
+
+Yours,
+
+Henry Smith
+
+Press any key to continue...
+
+Hallway
+
+Marble floors pave the hallway, and there are paintings adorned on the plush
+walls.
+
+Through the massive windows on the west wall you can see that it is starting
+to rain lightly. A storm is no doubt on the way.
+
+A mirror hangs near the main door, with an elaborate carved frame. You seldom
+look in it these days. Mainly because it reminds you of how diminished you've
+become, but also because sometimes, just sometimes, you catch something
+moving behind you that isn't there, if only for an instant.
+
+A stairway at the end of the hallway leads up to the landing, and to the rest
+of the house.
+
+You can only move up.
+Though expecting a visitor, your heart still jumps when you hear a loud knock
+against the glass of the main door...
+
+> open door
+
+Nervously you walk towards the main door, stopping for a brief moment to
+adjust your appearance in the mirror and gain some measure of decorum.
+
+Presently you open the door, it creaks open loudly, and before you stands the
+infamous Madame Sousa, medium only to those of wealth and prominence in
+society.
+
+Though she dresses in the finest garments, Madame Sousa looks uncomfortable
+in her clothes, as though she'd be far happier dressed in rags. She speaks
+with a thick French accent, and her wild red hair and sparkling eyes betray
+an almost unmistakable gypsy heritage.
+
+"Ah! Monsieur Smith?" she enquires as she first catches sight of you.
+
+"Please, madame, do come in!"
+
+Madame Sousa curtseys slightly and you take her hand to guide her into your
+home.
+
+A Presence , unseen, follows you from above.
+"Monsieur, we should head to the attic I think, non?"
+
+You nod your head in agreement with Madame Sousa.
+
+"Of course, Madame."
+
+> up
+You move up.
+
+Landing
+
+The first floor landing of your home.
+
+At the end of the corridor to the north lies the master bedroom.
+
+In preperation for the Seance, and under Madame Sousa's strict instructions,
+all doors, except that of the Master Bedroom and the attic, have been locked.
+
+  On closer inspection, the attic door appears to be closed, much to your
+annoyance, as you had expressly asked your staff to leave it open.
+
+You can move north and down.
+
+> north
+You move north.
+
+The Master Bedroom
+
+The Master Bedroom used to be such a happy place for you and your wife. Now
+it seems lifeless and drab.
+
+The bed is a beautiful four poster, though you feel restless around it these
+days.
+
+You notice the dresser still looks magnificent, and remember Emily used to
+brush her hair in front of its mirror before bed.
+
+The door leads out to the landing to the south.
+
+You feel sure that the dresser moved slightly, but pass it off as your
+imagination playing tricks on you.
+
+You can only move south.
+Suddenly, Madame Sousa freezes and places a shaking hand to her temple.
+
+"Are you quite alright?" you enquire in a concerned tone.
+
+Madame Sousa shoos you away briefly, her head moving slightly as if she
+strains to hear something...
+
+After a moment she composes herself and smiles weakly at you.
+
+"I am quite alright... " she begins.
+
+"I feel, though, that we should explore the bedroom you and your wife shared,
+monsieur. I am getting a strong feeling that something useful will be found
+there..."
+
+> open dresser
+You open the dresser.  The Attic Key is inside the dresser.
+
+> take key
+You take The Attic Key from the dresser.
+
+> south
+You move south.
+
+Landing
+
+The first floor landing of your home.
+
+At the end of the corridor to the north lies the master bedroom.
+
+In preperation for the Seance, and under Madame Sousa's strict instructions,
+all doors, except that of the Master Bedroom and the attic, have been locked.
+
+  On closer inspection, the attic door appears to be closed, much to your
+annoyance, as you had expressly asked your staff to leave it open.
+
+You can move north and down.
+
+> unlock attic door with key
+You unlock attic door with The Attic Key.
+
+> open attic door
+You open attic door.
+
+> up
+
+You walk up the winding iron stairs and enter the attic. Madame Sousa follows
+you.
+
+Attic
+
+You shiver at the sudden drop in temperature as you enter the attic.
+
+In the centre of the room is a small table, which, at Madame Sousa's request,
+has a candle at its centre and two chairs at either end.
+
+The floorboards seem to creek with very little effort, and you can't help but
+have an empty feeling inside you, probably because you've removed nearly
+everything that was in here as per Madame Sousa's instructions.
+
+You can see the storm has intensified through the attic windows, and wonder
+just how bad it will be...
+
+A single candle sits upon the table.
+
+You can only move down.
+On entering the room, Madame Sousa surveys the attic briefly, then breathes
+in deeply and nods in satisfaction.
+
+"Monsiuer, before we proceed I have to ask you to give me the key to this
+room.
+
+> give key to sousa
+
+You give the key to Madame Sousa, thinking its connection to Emily might be
+an important tool in summoning her here.
+
+You are vaguely suprised when Madame Sousa makes sure the door is locked.
+
+"Though we are here to speak to Emily, we must be cautious monsieur," the
+clairvoyant explains.
+
+"One can never tell 'who' or 'what' will come through from the other side.
+And we don't want to let them out now, do we?"
+
+Madame Sousa walks towards the table, her fingers flowing lightly over the
+white cloth place upon it, and lighting the candle that sits in the centre of
+the table.
+
+She sits at the table and motions to the empty chair opposite her.
+
+"Won't you please join me, monsieur?" she asks warmly.
+
+> sit at table
+
+Nervously you pull back a chair and sit at the table with Madame Sousa...
+
+Madame Sousa holds your hands tightly, shuts her eyes and takes a deep
+breath...
+
+You hear her whispering, small and fast mouth movements caught in the flicker
+of the candlelight.
+
+It sounds like some form of invocation or divine blessing, but you struggle
+to catch the words...
+
+> chant
+
+You begin to chant with Madame Sousa, slowly and unsure at first. Soon, your
+voice is louder than hers...
+
+The candle begins to flicker wildly...
+
+Madame Sousa's eyebrows raise in surprise at your fervour, but she continues.
+
+You feel nervous, perhaps even a little sick. How inconvenient. Yet you know
+you must go on. You know you must ask Emily for forgiveness...
+
+> wait
+Time passes...
+Suddenly Madame Sousa breathes in sharply... You're startled by the sudden
+intake of breath...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+Madame Sousa's head moves back into the darkness, then re-emerges into the
+shallow light of the now blue burning candle...
+
+"Someone's here," she whispers, breathlessly.
+
+You see Madame Sousa wince briefly, her eyes shut with even more intensity
+for the briefest of moments.
+
+"Someone is here, monsiuer. They have a gift for you... Are you carrying
+anything new about your person?"
+
+> open locket
+
+You gently prise the heart shaped locket open... inside are two tiny
+photographs... one half holds a photo of yourself, the other, of your dear
+Emily...
+
+You shut your eyes, and hear a whisper on the wind...
+
+"...Henry..."
+
+Opening your eyes quickly, you notice Madame Sousa appears to be in some sort
+of trance.
+
+She mouths the words, but the voice you hear is not hers.
+
+Impossibly, the voice you hear is Emily's.
+
+"Henry, my handsome, wonderful man. I have missed you so much..."
+
+A sudden wind blasts through the attic from nowhere, blowing the candle out.
+
+You try looking up, and see that a portal of light has appearead above your
+head, the ceiling of the attic completely obscured by its brilliance...
+
+> up
+You move up.
+
+In light
+
+There is literally nothing here. It is as if you are in a great white expanse
+of light. No sky. No floor. There is just emptiness here...
+
+Emily is here.
+
+> yes
+
+"I am so happy my love"
+
+Emily asks for your hand, and taking one final look down at your physical
+form lying in the attic, you whisper a silent thank you to Madame Sousa.
+
+Taking Emily's hand in yours, you walk together towards the pure white
+horizon.
+Towards eternity with your love...
+
+Press any key to continue

@@ -1,0 +1,22 @@
+sw
+read journal aloud
+rub ring
+take orb
+s
+use whip on jewel
+w
+drop jewel in cage
+w
+listen
+turn off switch
+z
+z
+z
+z
+z
+z
+z
+z
+turn on switch
+nw
+whip beam

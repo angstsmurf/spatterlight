@@ -1,0 +1,475 @@
+Loading game...
+
+Bringing the Rain
+It hasn't rained in almost three years.
+
+Times are desperate, people are getting hungrier and hungrier, and in the
+village proper there's been a great deal of muttering against the mayor.
+
+Rain used to come from the cloud-wreathed Feather Mountain, to the east, but
+something has changed. Something has gone terribly wrong. People fear that
+they've angered God, or at least angered the storm spirits. All the villages
+and surrounding farms receive now are dry lightning storms and dust and hot,
+terrible winds that destroy what little remains in the parched fields.
+
+You are still not technically old enough to be considered a man, but you've
+decided to leave home to take some of the burden off your parents, who have
+your younger siblings to think of. Furthermore, you've had enough of this
+drought; you're going to the top of Feather Mountain to find out the cause.
+
+Village Square
+Fitful winds swirl around your feet and all about the cobblestoned square in
+the center of town, coating every available surface with dust from last
+night's storm. A scrawny chicken pecks half-heartedly at the ground next to
+the town's main well, long dry; people wanting water have had to travel miles
+to what's left of the river for nearly half a year now.
+
+The road to the mountains now turns and leads east out of town, past the
+dejected looking houses, all withered boards and cracked and peeling paint.
+The only home that has escaped this fate sits to the south and belongs to
+Melda, the self-proclaimed witch who insists she can end the drought if only
+the mayor would give in to her demands.
+
+> sw
+You move southwest.
+
+Behind Melda's House
+An expansive lawn--shockingly green against its drab and desperately thirsty
+surroundings--stretches before you here, bordered by blooming roses. A gap in
+the thorny bushes that grow against the house itself draws your eye to a
+trapdoor nearly hidden there.
+
+You are painfully aware that you're trespassing on a witch's property, and
+wonder if you should go back to the square northeast of here before you're
+noticed.
+
+> get feather
+You carefully untangle the feather from the imprisoning bramble.
+
+> ne
+You move northeast.
+
+Village Square
+Fitful winds swirl around your feet and all about the cobblestoned square in
+the center of town, coating every available surface with dust from last
+night's storm. A scrawny chicken pecks half-heartedly at the ground next to
+the town's main well, long dry; people wanting water have had to travel miles
+to what's left of the river for nearly half a year now.
+
+The road to the mountains now turns and leads east out of town, past the
+dejected looking houses, all withered boards and cracked and peeling paint.
+The only home that has escaped this fate sits to the south and belongs to
+Melda, the self-proclaimed witch who insists she can end the drought if only
+the mayor would give in to her demands.
+
+> e
+You move east.
+
+Road to Mountains
+Before the village was even out of sight to the west, your clothes and boots
+were filled with the ever-present dust. Before the last of the parched, empty
+fields were behind you, your lips were dry and cracked, and the occasional
+small sip you allowed yourself from your bottle of precious water did little
+to assuage your thirst.
+
+But you pressed on and now, here you are, almost at the very foot of the
+towering Feather Mountain itself, the narrow, ancient path that leads to its
+peak clearly visible as it starts its ascent to the east. Though you can't
+see the top from here, you've been watching it somewhat apprehensively as you
+approached--from the rumbles of thunder and occasional flash of lightning,
+another terrible dry storm is brewing, and you'll be walking right into it.
+
+> e
+You're continuing up the path when the thickening clouds ahead, no longer
+content with subdued flashes and rumblings, split the sky with a terrific
+bolt of lightning, followed a fraction of a second later by a deafening CRACK
+that rattles you to your core. Clapping your hands over your ears, you almost
+drop your beautiful feather--taking a more secure hold on it, you notice with
+some alarm that it has begun to shimmer softly and quiver in a way that can't
+be explained by the wind.
+
+Absorbed by your contemplation of the apparently magical feather, you don't
+at first realize that the rumbling you hear is not all from the gathering
+storm. Something makes you look up, however, just as a portion of the
+mountain further ahead suddenly seems to just collapse, shattering and
+sending up a cloud of choking dust that rolls down the path to engulf you,
+though thankfully the rubble itself doesn't reach so far. When the air clears
+enough so that you can stop gasping and coughing, you stare around in dismay.
+
+> look
+
+Road to Mountains
+You are at the very foot of the towering Feather Mountain, the narrow,
+ancient path that leads to its peak now clogged with a pile of heavy stones
+that block all access to the east. Above, dark clouds are gathered, letting
+out low guttural growls as they are sporadically lit by splashes of light
+from within.
+
+The feather in your hand seems to flicker and pulse with power in time with
+the storm. If there was ever any doubt in your mind that the thing was
+magical, its long gone now...yet the way the rising winds tug at it so
+eagerly makes you nervous, and you have a sudden urge to grip the feather
+tightly to keep it from flying away.
+
+> grab the feather
+Closing your hand around the end of the magic feather you gasp and then laugh
+out loud as a quick, light burst of energy goes through you. The sensation is
+cool and wonderful and somehow liquid; all your weariness vanishes in an
+instant.
+
+A gust of wind tugs at the feather, the feather tugs at you, and then you are
+leaping, tumbling...no, flying through the air, up and around in a dizzying
+spiral, dropped with the dying of one wild gust and then caught and spun
+around by another, until near the end of one spectacular swoop, low to the
+ground, you accidentally lose your grip, and the feather continues flying on
+its own, sending you crashing to the ground with an "Oof!"
+
+> look
+
+Mountain Path
+Heart still pounding from your wild flight, you look around breathlessly; you
+are safely on solid ground now, though the wind howls just as loudly in your
+ears. Whether through sheer luck or because it somehow sensed where you
+wanted to go, the magical feather has deposited you on the other side of the
+blocked path, well away from the piles of rocks and rubble left by the
+avalanche. From here the path takes a steep turn upwards, shortly before
+winding out of sight.
+
+> u
+You move up.
+
+Top of Mountain
+Fighting the increasingly strong winds all the way up, knowing that any
+misstep could lead to a plunge to your doom, you finally reach the place
+where the steep path levels out, at the very top of the mountain, and behold
+your destination and the place where you hope to find relief for your
+village. Tall stone pillars that look as ancient as the mountain itself form
+a sort of long, roofless hall directly to the east. At the very end of it
+shines a bright light, and somewhere there is a low, deep rumble you can
+almost feel in your bones.
+
+> e
+Shielding your eyes to keep from being blinded, you stand as close as you
+dare to the source of the intensely bright light--a long, low form resting on
+a stone dais. To its right is another dais, this one empty, and further still
+is a third. As your gaze falls on this last one you startle and feel your
+heart skip a beat, your eyes only just now adjusting enough to notice the
+large, dark creature with woolly fur and long, grey feathers that silently
+regards you--a gryphon!
+
+"You've finally arrived, I see." You peek out from behind your hands at the
+strong, clear voice, watching two broad streaks of light, like sails suddenly
+bloom out from the back of the bright one--wings, you realize, in the brief
+moment before they settle back against him. Even that was to much for you,
+however, and you squeeze your eyes shut again, the image seemingly burned
+even on the backs of your eyelids.
+
+The voice continues. "Very few humans have the dedication to make it this
+far, which is good, because there are even fewer that we wish to see.
+But...we can tell that you at least intend no evil, so you will not be
+harmed, so long as you do not linger."
+
+He pauses then, seeming to notice your discomfort. "Here, let me veil myself
+so that you may see."
+
+Opening your eyes just the tiniest crack, you realize gratefully that the
+light is no longer so painful, and gradually you can actually make out the
+shape of a gryphon, though it's still more like you're looking at molten gold
+in a smithy than a living creature with fur and feathers.
+
+"I am Lightning," the gryphon continues, his voice now somewhat muffled, as
+though it came from a distance. "And the other here is my brother Thunder.
+You have come to ask us a question? Speak, then."
+
+> look
+
+Hall of the Storm Lords
+Lightning rests here on his stone dais, still bright enough to make you
+squint. To the right of him is another empty dais, and further still is a
+third. On this last one is the dark, woolly gryphon that must be Thunder,
+silently regarding you. The pillars form a circle around the gryphons, and a
+line of them leads westward back the way you came.
+
+> ask lightning about drought
+Awed and frightened as you are, you remember the importance of your mission,
+and somehow manage to stammer out a question about the drought.
+
+Lightning is silent a long moment. "Our sister Rain, she has been taken from
+us," he finally says with a sigh. "A mortal strong in the dark arts holds her
+captive, that much we sense, but we don't know who or where. And even if we
+did, there are...certain rules, which would keep us from interfering too
+much."
+
+"The lands below yearn for Rain's return almost as much as we do, we know
+this, but without her we can do nothing to help, even if we wished it...as
+heavy as our hearts are, even all our tears will not be enough to bring life
+to your crops. So I'm sorry, but I'm afraid you've wasted your time in coming
+here."
+
+"But here...you faced a difficult journey in reaching us, so let me at least
+make your return a little easier." As the gryphon finishes speaking, he
+raises one wing and twists his head around to pluck out a long feather, the
+movement of his bright beak leaving an afterimage hovering in the air.
+Reaching out, you gingerly take the proffered gift, and it shines brightly in
+your hand.
+
+"There is enough power in that feather to grant you the gift of flight, for a
+short time. If you come to an obstacle, just grip it tightly and think of
+where you would like to go. Be careful though, flight can apparently be a
+bit...overwhelming for those who have never experience it."
+
+Deciding not to mention that you already know this first hand, you thank
+Lightning with as much gratitude as you can muster, your mind elsewhere as
+you contemplate what you've learned about his sister Rain.
+
+> w
+You move west.
+
+Top of Mountain
+With a renewed sense of purpose you step out into the open. The tall stone
+pillars that line the dwelling place of the Gryphons is to the east, but it
+is the sharply slanting downward path that leads to back toward the village
+that you now turn your gaze, a plan slowly forming in your mind.
+
+> d
+You move down.
+
+Mountain Path
+Standing before the pile of rocks left by the avalanche, you find yourself
+smiling a little with the knowledge that with the shining feather in your
+possession they're no longer an obstacle. Indeed, even now it glows brighter
+and sends tingles through your fingers, as though eager to do its work.
+Behind you the path takes a steep turn upwards, shortly before winding out of
+sight.
+
+> hold the feather
+Though the magic from this feather has a much different feel--a jolt that
+sets your heart racing as a strange tingling sensation runs all through your
+body--you are at least more prepared for the result, and this time around are
+able to fully appreciate all the giddy joys of flying without the fear and
+bewilderment.
+
+As regretful as you are when it comes time to let go of Lightning's gift, you
+are still grinning from ear to ear long after you make your landing, much
+more gracefully than before.
+
+> look
+
+Road to Mountains
+You have been deposited at the very foot of the towering Feather Mountain,
+the narrow, ancient path that leads to its peak still clogged with a pile of
+heavy stones that block all access to the east. Above, the sky is clear,
+devoid of a single cloud. Your village lies to the west.
+
+An oddly colored rock lying at your feet catches your eye.
+
+> take rock
+You take the rock.
+
+> w
+You move west.
+
+Village Square
+Fitful winds swirl around your feet and all about the cobblestoned square in
+the center of town, coating every available surface with dust from last
+night's storm. A scrawny chicken pecks half-heartedly at the ground next to
+the town's main well, long dry; people wanting water have had to travel miles
+to what's left of the river for nearly half a year now.
+
+The road to the mountains now turns and leads east out of town, past the
+dejected looking houses, all withered boards and cracked and peeling paint.
+The only home that has escaped this fate sits to the south and belongs to
+Melda, the self-proclaimed witch who insists she can end the drought if only
+the mayor would give in to her demands.
+
+> sw
+You move southwest.
+
+Behind Melda's House
+An expansive lawn--shockingly green against its drab and desperately thirsty
+surroundings--stretches before you here, bordered by blooming roses. A gap in
+the thorny bushes that grow against the house itself draws your eye to a
+trapdoor nearly hidden there.
+
+You are painfully aware that you're trespassing on a witch's property, and
+wonder if you should go back to the square northeast of here before you're
+noticed.
+
+> break the lock
+Hefting the pale blue rock in your hand, you bring it crashing down on the
+lock. Once, twice, three times! At the last blow the rusted old metal finally
+gives up the battle, and you free the cellar door from its chains.
+
+> d
+You move down.
+
+Melda's Cellar
+Light streams in from the open trapdoor above, dimly illuminating the room
+you stand in. Of course, your eyes can spare only the briefest glance at the
+cold stone walls, bare except for the occasional cobweb, and the old mop
+leaning against the stairs to the east. Your attention is instead drawn to
+the piteous sight in the middle of the room--Rain herself, a beautiful
+creature, her fur and feathers a soft blue grey, seeming to shimmer and
+ripple constantly like river stones viewed through a bubbling stream. Heavy
+chains hold her almost immobile, and she's encircled by strange symbols
+scratched onto the ground with charcoal. A short length of rope is wrapped
+around her beak, and she regards you with a silently pleading look, her dark
+eyes clouded and sorrowful.
+
+> look
+
+Melda's Cellar
+Light streams in from the open trapdoor above, dimly illuminating the room
+you stand in. Of course, your eyes can spare only the briefest glance at the
+cold stone walls, bare except for the occasional cobweb, and the old mop
+leaning against the stairs to the east. Your attention is instead drawn to
+the piteous sight in the middle of the room--Rain herself, a beautiful
+creature, her fur and feathers a soft blue grey, seeming to shimmer and
+ripple constantly like river stones viewed through a bubbling stream. Heavy
+chains hold her almost immobile, and she's encircled by strange symbols
+scratched onto the ground with charcoal. A short length of rope is wrapped
+around her beak, and she regards you with a silently pleading look, her dark
+eyes clouded and sorrowful.
+
+> knock
+You lift the heavy brass knocker and then let it fall with a satisfying bang.
+
+There is a pause and then you here an annoyed voice grumbling, "This better
+be important..." You here the tromp of feet nearing the door and quickly race
+around the side of the house before it can be opened. That ought to keep her
+guessing for awhile!
+
+Behind Melda's House
+An expansive lawn--shockingly green against its drab and desperately thirsty
+surroundings--stretches before you here, bordered by blooming roses. A gap in
+the thorny bushes that grow against the house itself draws your eye to a
+trapdoor nearly hidden there.
+
+You are painfully aware that you're trespassing on a witch's property, and
+wonder if you should go back to the square northeast of here before you're
+noticed.
+
+> d
+You move down.
+
+Melda's Cellar
+Light streams in from the open trapdoor above, dimly illuminating the room
+you stand in. Of course, your eyes can spare only the briefest glance at the
+cold stone walls, bare except for the occasional cobweb, and the old mop
+leaning against the stairs to the east. Your attention is instead drawn to
+the piteous sight in the middle of the room--Rain herself, a beautiful
+creature, her fur and feathers a soft blue grey, seeming to shimmer and
+ripple constantly like river stones viewed through a bubbling stream. Heavy
+chains hold her almost immobile, and she's encircled by strange symbols
+scratched onto the ground with charcoal. A short length of rope is wrapped
+around her beak, and she regards you with a silently pleading look, her dark
+eyes clouded and sorrowful.
+
+> look
+
+Melda's Cellar
+Light streams in from the open trapdoor above, dimly illuminating the room
+you stand in. Of course, your eyes can spare only the briefest glance at the
+cold stone walls, bare except for the occasional cobweb, and the old mop
+leaning against the stairs to the east. Your attention is instead drawn to
+the piteous sight in the middle of the room--Rain herself, a beautiful
+creature, her fur and feathers a soft blue grey, seeming to shimmer and
+ripple constantly like river stones viewed through a bubbling stream. Heavy
+chains hold her almost immobile, and she's encircled by strange symbols
+scratched onto the ground with charcoal. A short length of rope is wrapped
+around her beak, and she regards you with a silently pleading look, her dark
+eyes clouded and sorrowful.
+
+> east
+Taking the rickety steps two at a time, you pause at the top just long enough
+to assure yourself the coast is clear before clambering into the room above.
+
+Melda's House
+Bundles of unknown herbs hang from the rafters, their fragrance wafting
+through the air and joining that of the stew bubbling in the cauldron over
+the fire. On the mantel above it lie several strange, twisted figurines, and
+on the other side of the room a cluttered table sits beneath a shelf of
+expensive dishes. The trapdoor leading to the cellar is on the western side
+of the room.
+
+> look
+
+Melda's House
+Bundles of unknown herbs hang from the rafters, their fragrance wafting
+through the air and joining that of the stew bubbling in the cauldron over
+the fire. On the mantel above it lie several strange, twisted figurines, and
+on the other side of the room a cluttered table sits beneath a shelf of
+expensive dishes. The trapdoor leading to the cellar is on the western side
+of the room.
+
+> x shelf
+The shelf is tacked to the wall, too high for you to see everything on it, so
+you reach up and carefully feel along its surface. Well...perhaps not so
+carefully after all, as the whole thing suddenly tilts sharply to the left,
+leaving you desperately trying to straighten it with one hand and grabbing to
+catch the pieces of china that are attempting to slide to the floor with the
+other.
+
+In the midst of all this, something small and metallic clatters to the floor
+at your feet. Once all the dishes are safe, you go to look for it.
+You hear a door slam, followed by angry grumbling and approaching footsteps.
+
+> take key
+You take the iron key.
+
+> look
+
+Melda's House
+Bundles of unknown herbs hang from the rafters, their fragrance wafting
+through the air and joining that of the stew bubbling in the cauldron over
+the fire. On the mantel above it lie several strange, twisted figurines, and
+on the other side of the room a cluttered table sits beneath a shelf of
+expensive dishes. The trapdoor leading to the cellar is on the western side
+of the room.
+
+Just before Melda enters the room, you quickly scramble back to the cellar,
+praying you weren't heard or seen.
+
+> take mop
+You take the rag mop.
+
+> wipe the runes
+Brandishing the old mop, you scrub vigorously at the runes for several
+moments, until all that's left are a few black smudges. Rain's eyes clear
+momentarily, flashing like the early morning dew; she seems quite pleased.
+
+> unlock the shackles
+Rain gazes at you with renewed hope, her eyes now clear and gleaming as you
+approach, the nasty runes wiped away and the key in your hand. The little key
+fits smoothly into the lock, there is a quiet click...
+
+The gryphon straightens to stand on all fours and shakes herself joyfully,
+the chains and rope slipping off and clattering to the ground. Before you can
+even react she tackles you like an overgrown kitten and gives you an
+affectionate headbutt--leaving you thoroughly soaked in cool water from head
+to toe--and then she is leaping upward, smashing through to the house above
+and then through the roof with the sound that the river used to make when it
+flooded in the spring with a force that uprooted trees and tossed them around
+like matchsticks.
+
+Soon that sound is joined by a mighty roar of thunder as the black clouds
+come rolling down from the mountain with never before seen speed, lightning
+flashing within them. Only instead of another dry storm whipping up the
+stinging dust, this time the sky opens up and there is rain! Blessed Rain!
+
+You waste no time in clambering out of the cellar and running out into the
+street, knowing you need have no fear of the lightning. All around you in the
+village, lamps are going on, and people are rushing outside in their
+nightclothes to join you, talking excitedly, hugging each other and laughing
+with joy...
+
+...all except one person. Melda rushes out of her ruined house, her face
+twisted in fury as she screams obscenities at the sky, swearing revenge on
+whoever freed Rain after 'her three years of hard work, all for nothing'.
+
+Everyone has stopped now, staring, and in that moment there is a blinding
+streak of brightness from the heavens, almost too quick to follow (indeed,
+most witnesses said afterwards they only had the briefest impression of
+wings) and the witch's body is left smouldering on the ground, a deep wound
+as though from a fiery spear--or beak--later to be found in her heart, as
+Lightning bolts away to Thunder's earsplitting roar of triumph.

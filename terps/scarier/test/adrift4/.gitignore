@@ -38,6 +38,15 @@
 /goldens/wingman1_solution.txt
 /goldens/wingman1_solution.expected.txt
 
+# The Worst Game In The World... Ever!!! (AIF): comedic adult content,
+# deliberately not committed.
+/goldens/worstgame_solution.txt
+/goldens/worstgame_solution.expected.txt
+
+# Sex is Mental (AIF): explicit text, deliberately not committed.
+/goldens/sexismental_solution.txt
+/goldens/sexismental_solution.expected.txt
+
 # The croft.taf SYNONYM-precedence probe generator.  It is a faithful
 # reduction of an AIF file and is built from that game's own vocabulary, so
 # it stays local like the solutions above; the finding it measured is

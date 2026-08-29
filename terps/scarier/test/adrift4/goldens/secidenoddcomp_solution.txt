@@ -1,0 +1,74 @@
+# Return to the Forest House -- Seciden Mencarde, ADRIFT 4.00
+# (seciden_oddcomp.taf, ~8.0 KB, written for "the Odd Comp", (c)2008).
+# ONE small house: Kitchen - Living Room - Basement on one side, Playroom -
+# Bedroom - Bathroom - Secret Room on the other, joined only by the Kitchen's
+# window (shoot it out to open the Kitchen<->Playroom Up/Down link -- there
+# is no other way across). 11 tasks, 5 events, 3 NPCs (Susie, the Beast,
+# Uncle), 9 objects. Everything in the "Great Number 17" gimmick the closing
+# credits point out: six `ACT type=4` awards of 17 points each (load shotgun,
+# get shotgun, shoot window, kill beast, drain the fang, step into the void),
+# summing to the declared maximum of 102 -- confirmed by `SCR_DUMP_TASKS` and
+# by the engine's own "You scored 102 out of the maximum 102!" on this route.
+#
+# WIN, 102/102 (the true, exactly-reachable maximum) -- the GOOD ending
+# ("THE END..?"). Win marker: "You scored 102 out of the maximum 102!"
+#
+# THE CLOCK. EVENT 0 ("Beast Kills Susie") is a silent, unconditional 17-turn
+# timer running from turn 0; if it ever fires it costs -17 (an `ACT type=4
+# v1=-17`) and permanently locks the BAD ending (T10's restriction requires
+# that task *done*; T9's Good-ending restriction requires it *undone* --
+# `RESTR type=2`, task-state). The Beast, however, is already standing in
+# the Playroom from the very start (`NPC 1 [the Beast] startRoom=3`) -- the
+# "bad feeling... a beast appears" text is just the timer's own narration,
+# not the Beast's actual entrance. So the real puzzle is speed: solve the
+# shotgun chain and shoot the Beast in the Playroom, then drain its fang in
+# the bathroom sink -- draining the fang is the event's own `pauseTask` and
+# cancels the 17-turn clock before it ever reads out. This route does it in
+# well under 17 turns, so the -17 never applies and the full 102 is banked.
+#
+# THE CHAIN. Basement box of nails must be opened before its shells can be
+# taken (`take nails` alone leaves them inert -- "That does not appear
+# important."); the stool must be dropped, not held, before you can stand on
+# it ("You can't stand on the stool" -> "It's rather difficult to stand on
+# something while holding it."); the loaded shotgun stays loaded for BOTH
+# the window and the Beast shots -- no second load is scripted or needed.
+# The ornate key (a "Way") sits in the Secret Room from the start and must
+# be carried before the final `east` into the void, or Uncle blocks you
+# ("No! Do not depart into the void without a Way.").
+#
+# No `<waitkey>` is reachable mid-route (both instances sit inside the two
+# ending texts, after the win is already decided), but the row still sets
+# SCR_SKIP_WAITKEY=1 per the standing convention for any game containing the
+# tag at all.
+#
+# Content note: a vocabulary scan flagged 5 hits in this file for
+# explicit-content terms. All 5 are substring false positives, verified in
+# context: "sex" is only "a member of the fairer sex" (idiom); the 3 "lick"
+# hits are all inside "click"/"clicks" (the shotgun's empty-click messages
+# and the drain's lever "click"); the 1 "ass" hit is inside "glass" (the
+# kitchen window is "a solid glass window"). Susie is described as
+# sixteen-or-seventeen, but never in any sexual context anywhere in the
+# file -- the game is a bloodless-on-page horror vignette (a corpse, a
+# beast, a death timer), not AIF.
+
+e
+d
+take nails
+open box
+take shells
+take stool
+n
+drop stool
+stand on stool
+take shotgun
+load shotgun with shells
+w
+shoot window with shotgun
+u
+shoot beast
+n
+n
+put fang in sink
+e
+take key
+e

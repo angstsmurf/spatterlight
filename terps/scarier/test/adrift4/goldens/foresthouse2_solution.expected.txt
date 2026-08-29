@@ -1,0 +1,248 @@
+Loading game...
+
+The Forest House
+
+Forest House
+[A Text Adventure Mini-Game, v.2]
+Originally Written for the ADRIFT Ectocomp
+(c)2007 Seciden Mencarde
+
+Press a key to begin...
+
+The house in the forest has always evoked a strange desire in your heart. Not
+once have you considered it beautiful, inviting, or even pleasant, but you
+have been drawn to it since childhood. This night you are going to the house.
+
+Why night? Any vigilant man, woman, or child would scoff at this idea. But
+given that the house only appears at night, this is your only choice.
+
+You see that house tonight in the moonlit forest. It invites you again,
+calling to you like a friend in trouble. This time, you're going to help.
+This time, nothing will stop you.
+
+But you must be aware of your elder sister and your parents who wake at the
+slightest disturbance. They do not understand how you can see the house and
+they cannot. It makes little difference whether they can see it since you
+can. But if they catch you - a child of twelve years - are sneaking out to
+explore some imaginary house in the woods, they will certainly punish you.
+And punishment is something you try to avoid.
+
+> turn on lamp
+You turn on the lamp, illuminating your room.
+
+> open dresser
+You open the dresser.  Inside the dresser is the socks, the thick sweater and
+mother's desk key.
+
+> take socks
+You take the socks from the dresser.
+
+> take sweater
+You take the thick sweater from the dresser.
+
+> take key
+You take mother's desk key from the dresser.
+
+> wear socks
+You put on the socks.
+
+> north
+You move north.
+
+Your House / The Hallway
+This main connecting area of your house leads southward to your room and
+westward to your sister's room. Her door is shut, as usual. You don't
+understand how she can sleep that way. To the north is the kitchen, just
+beyond your parents' room to the northeast. Their door lies open.
+
+> north
+You move north.
+The socks cushion your steps as you tiptoe over the normally creaky
+floorboards. You make it to the kitchen without a sound, but stop to listen
+for any rustling in your parents' room. You hear a sound, but it is only a
+snore.
+
+Your House / The Kitchen
+The kitchen is full of the appliances you would expect. The stove and oven
+are set into the eastern wall, the dishwasher to the south. The cabinets are
+full of pots and pans, dishes and silverware, but a drawer on the west side
+contain your mother's collection of office supplies. She keeps them here for
+anyone to take. Southward is the hallway leading back into the danger zone,
+past your parents' bedroom. A door to the west leads to the back yard.
+
+> unlock desk with key
+You unlock mother's desk with mother's desk key.
+
+> open desk
+You open mother's desk.  The flashlight and a new battery are inside mother's
+desk.
+
+> take flashlight
+You take the flashlight from mother's desk.
+
+> take new battery
+You take the new battery from mother's desk.
+
+> open flashlight
+You open the flashlight.  A dead battery is inside the flashlight.
+
+> take dead battery from flashlight
+You take the dead battery from the flashlight.
+
+> put new battery in flashlight
+You put the new battery inside the flashlight.
+
+> close flashlight
+You close the flashlight.
+
+> turn on flashlight
+You turn on the flashlight, illuminating the area about you.
+
+> open kitchen door
+You open the kitchen door.
+
+> west
+You move west.
+
+Your House / Back Porch
+The small cement porch here features two chairs looking out into the woods
+which lie west of here. Your parents spend their free time out here chatting
+over drinks, gazing out into the woods. Parents are so boring. You're usually
+out near the edge of the woods swinging your stick around.
+
+Next to one of the chairs is a glass your father must have forgotten out
+here.  The long stick that you pretend is a sword lies against the wall next
+to the kitchen door.
+
+> take stick
+You take the long stick.
+
+> wear sweater
+You put on the thick sweater.
+
+> west
+You move west.
+
+Outside / Edge of the Woods
+You can see both your house and the mysterious forest house from here but a
+long wall of thorns blocks your travel westward. If you had some kind of
+tool, you could probably navigate the thorns safely. Then again, you might be
+able to push through them.
+
+> west
+You move west.
+You slash your way through the thorn bushes with your sword-stick, the few
+spare thorns brushing against your sweater and failing to penetrate. After
+some time you reach the forest floor unharmed.
+
+Outside / In the Woods
+You stand before the house in the woods now, the hill of thorn bushes behind
+you to the east. The front doorway of the house lies at the top of three
+stone stairs. Its door is missing entirely; not even hinges remain. A lot of
+the trees around the house work their way into and out of it as if it is not
+even there.
+
+> north
+You move north.
+
+Woods House / Foyer
+The air in here seems thicker, blurred somehow, but you still breathe
+regularly. The ceiling lies two floors above you, covering both this foyer
+and the mezzanine at the top of the stairs. Wide openings around the grand
+stairs lead deeper into the house, but gaping holes in the floor prevent your
+passage in either direction. The stairs, however, are still in prime
+condition. Up them you can see a pair of doorways. The exit lies south.
+
+> up
+You move up.
+
+Woods House / Mezzanine
+The dust in the air almost chokes you at this height. The open hallway here
+is closed by a rickety railing on the south side. You will have to watch your
+step here: a lot of the wood is decayed and full of holes. Two doors lie open
+from here, one to the east and one to the west.
+
+> west
+Woods House / Playroom
+A long time ago, children had no video games. You have been generally
+appalled at this idea, but the room in which you stand shows evidence of
+such. The centerpiece of the room is a magnificent rocking horse. A doorway
+to the mezzanine lies east.
+
+Scattered wooden blocks in one corner must have entertained some child long,
+long ago.
+As you enter, the rocking horse begins tilting back and forth on its own. You
+comfort yourself with the thought that it was just the floor vibrating under
+your weight...
+
+> examine horse
+Most of the paint has faded and chipped away, but that which is left still
+gives honor to the craftsmen who carved the masterpiece.  The forest house
+key is on the rocking horse.
+
+> take forest house key
+You take the forest house key from the rocking horse.
+
+> east
+You move east.
+
+Woods House / Mezzanine
+The dust in the air almost chokes you at this height. The open hallway here
+is closed by a rickety railing on the south side. You will have to watch your
+step here: a lot of the wood is decayed and full of holes. Two doors lie open
+from here, one to the east and one to the west.
+
+> east
+You move east.
+
+Woods House / Bedroom
+The dilapidated remnants of this room remind you of your own some hundred
+years in the future. The rusted frame of a bed with a few remaining decayed
+feathers lies against the south wall. Next to it is an upturned dresser, most
+of the drawers having long turned to dirt which covers the floor. The open
+door to the west leads into the mezzanine.  Another door to the north is
+closed.
+
+> unlock door with forest house key
+You unlock the door with the forest house key.
+
+> open door
+You open the door.
+
+> north
+You move north.
+
+Woods House / Bathroom
+The thick air continues here but all of the objects in the room are
+surrounded with an aura of strange clarity. A sink is installed in one
+corner, a mirror above it. The rusted toilet is in another corner opposite a
+small tub. South of here is the bedroom.
+
+> examine mirror
+The mirror is covered in dust. You wipe the dust away with your sleeve,
+slowly uncovering your own reflection. You don't see the moon through the
+doorway. Instead, a dark spot covers the area of the mirror reflecting over
+your shoulder. You rub this away and stare.
+A figure is in the doorway, the silhouette of a man against the moonlight.
+You find that you cannot move, not even to take your hand down from the
+mirror. The figure lets out a groan and you hear it take a step. In the
+mirror, its head tilts to the side and its eyes begin to glow...
+
+The moonlight steadily grows brighter as the figure continues to step
+forward. You find it blinding and, still unable to move, force your eyes shut
+before you lose them.
+
+When the light fades, you open your eyes and find yourself facing a tree. The
+sun is shining in the sky. Your father, standing behind you, says, "You've
+gone far enough, son."
+You turn to face him. He has his head tilted to the side and one knee
+forward. "Far enough?" you repeat, not understanding.
+"You're almost on the neighbors' land now. Let's go back to the porch."
+You nod and take your father's hand.
+
+Sunlight? Did your imagination really take so much control? Seems you'll
+never know...
+
+You scored 13 out of the maximum 12!
+That is 108% of the game!
+You finished -1 points short.

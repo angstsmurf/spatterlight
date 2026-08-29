@@ -1,0 +1,468 @@
+Loading game...
+
+A Day At The Office
+
+My boss, Stigers, was waiting for me when I arrived at work. This could mean
+one of two things: a promotion or deep trouble. From the way he was
+alternatively cursing and punching the filing cabinet, I was guessing it
+wasn't the former.
+
+"We've got trouble, Bob," he spat as soon as he saw me.
+
+"I'm not Bob," I told him.
+
+"That's the trouble! Our best employee, Bob Newbold, has been killed in a
+tragic car accident."
+...press a key to continue...
+
+"Killed? That's terrible!"
+
+Stigers shrugged. "Well, not killed as such. Just knocked down. But he'll
+wish he'd been killed when I get my hands on him. I mean, fancy getting run
+over on a day like this."
+
+"What's so special about today?"
+
+"We've got the businessmen from Japan coming over to look over the files for
+the new Rolls Royce we're designing. Bob was in charge of the files and with
+him getting himself run over this morning, the files aren't finished."
+Stigers grins nastily and points at me. "Which is where you come in."
+...press a key to continue...
+
+I have a sinking feeling in the pit of my stomach. "M-me?"
+
+"You," confirms Stigers. "I'm going to put you on the RR project and you're
+going to get those files in mint condition before the Jap chaps get here or
+you'll be out of a job."
+
+"But I've never worked on the RR project in my life," I say. "I'm the factory
+teaboy."
+
+"Indeed," says Stigers. "And as a result you're the most expendable member of
+the team. When the boys from London hear about this cockup, they're going to
+be coming down on whoever's in charge of the RR project like a tonne of
+bricks. Which will be you." Stigers punches the filing cabinet a few more
+times then heads for the door, stopping only to say, "I'll be sending my
+secretary, Debi, in with the first batch of files soon. I suggest you get
+yourself ready."
+
+I wait for him to leave the office then spend a while cursing myself.
+
+MY OFFICE
+My office is the usual ramshackle mess that I've come to know and love (or
+hate actually, I'm just too darn lazy to tidy it). A broad oak desk where I
+do all my work sits beneath the window, a comfortable armchair behind it.
+Over in one corner is a filing cabinet, home to the many hordes of files I
+deal with on a daily basis. Through the open door to the north I can see the
+workers scurrying back and forth on the factory floor. The coatstand is by
+the door.
+
+> x lower drawer
+I rummage through the lower drawer and - lo and behold! - find my calculator.
+
+> x lower drawer
+A further rummage and I come across the key to the upper drawer.
+
+> open upper drawer
+Using the key, I do just that. After all the hassle I went through getting
+the drawer open (well, looking in the bottom drawer and then typing "open
+upper drawer" but it seemed like a lot of hassle at the time) there isn't
+really a lot in the upper drawer. Just my pencil and some crisps. I take both
+for no other reason than they're there.
+
+Through the doorway walks Debi, the stunning secretary of Stigers.
+
+"Where do you want me?" she asks.
+
+"Er... what?" I gasp, wondering if all of my dreams have come true.
+
+She sighs. "The files, teaboy. The files. If you'd stop trying to catch a
+glimpse of certain other parts of my anatomy which you're not going to catch
+a glimpse of if you live to be a hundred you'd see I was carrying a great
+load of very heavy files."
+
+I pull my eyes off the certain other parts of her anatomy and notice the
+files. "Ah," I say. "Put them on my desk."
+
+She dumps them there with enough weight to make the room shake. "Best of
+luck," Debi adds.
+
+"Do you really mean that?"
+
+She shrugs. "Nah. But rather you than me."
+
+She turns and walks away and such is the size of the files on my desk that I
+don't get to see the parts of her anatomy that I'm always trying to look at.
+
+> x files
+The files are in an ungodly mess. How Bob Newbold worked on them I don't know
+because they aren't even in the correct page order. Something tells me that
+during my college years I might have been better off paying more attention to
+what the tutor was saying in maths class instead of drawing graffiti on my
+desktop to amuse the cute girls in my class.
+
+When I'm ready, I'd better start work on the files.
+
+> start work
+Pencil at the ready, I go at the files.
+
+Hard work it is (complex theories about car engines and jet powered fuel
+aren't quite as simple as remembering how many spoons of sugar Stigers has in
+his tea) but I get there in the end. Maybe not everything is 100% correct but
+I'm sure the Japanese businessmen will be hard pressed to find fault with my
+work.
+
+> x business card
+In elegant print, the business card advises: "Got a problem - call the
+Samaritans on 0181 GOT OH ELL"
+
+Maybe I should take them up on the offer.
+
+> x cabinet
+The filing cabinet contains all the files I work with on a daily basis. Being
+a teaboy, this isn't a whole lot of files but when you've got to make tea for
+118 different people three times a day, it pays to keep notes.
+
+A telephone is on top of the filing cabinet.
+
+Through the doorway walks none other than Stavros, one of the workers from
+the factory floor.
+
+"Hey, teaboy," he grunts. "I want a tea and I want it now."
+
+"But I'm working on a special project for Stigers," I say. "I haven't got
+time to make tea now."
+
+Stavros looks about ready to take a swing for me but glances back out of the
+office then sighs. "Hell with it then. I'm not having the swine come down on
+me for making you waste your time."
+
+> move cabinet
+Exercising the muscles I have had cause to use during my many trips across
+the factory floor with heavy cups of tea, I strain and struggle and
+eventually move the filing cabinet several inches across the floor. Situated
+behind it, I find (of all things) the socket for the telephone. Now why would
+someone put a filing cabinet in front of a telephone socket?
+
+> plug telephone
+I plug the telephone cord into the socket and, sure enough, hear the
+wonderful dialling tone.
+
+> kick cabinet
+Realising that brute force is needed here, I summon up all the strength I've
+amassed over years of carrying heavy cups of tea around the factory and
+unleash it all in one direct assault on the filing cabinet.
+
+RAAAAARRRGGG-HHHHHHHHHH-HHHHHH!!!
+
+The filing cabinet gives away before my strength and a pile of files and some
+tablets fall out onto the floor. Suddenly realising that I might well have
+damaged company property (punishable by no sugar in your tea for the next two
+months), I hastily gather the files up, shove them back in the cabinet and
+shove the tablets in my pocket before anyone notices what I've done.
+
+> give tablets
+Stavros takes the tablets, swallows them and sighs in relief. "Amazing," he
+says. "Me headache's gone!"
+
+"Really?" I say, being quite relieved that the tablets didn't outright kill
+him.
+
+"Really," he confirms. "Say, maybe you're not so bad after all, Martin. I'll
+be sure to mention how swell you are to the Jappo guys. Oh, and I see you've
+got some crisps. Ta." He swipes them out of my hand. "I'll be sure to hand
+these out to the lads. Not often we have any food these days. You'll be
+really popular after all this, Martin."
+
+He turns and wanders off, leaving me speaking to empty air as I say, "my
+name's not Martin."
+
+Debi enters.
+
+I spend a few surreptitious moments trying to catch a glimpse of those areas
+I'm not supposed to be looking at before saying, "that was quick."
+
+She shrugs. "Stigers is impatient to get the files to his technical people so
+they can give them the once over before the Japs get here. I hope for your
+sake you've made a good job with them. I'll be back with the next lot soon."
+
+She struggles to pick the files up, muttering as she does so that "a
+gentleman would offer to help me" and then goes staggering to the door with
+them.
+
+I'm so nervous with worry over whether I made a good job with them or not
+that my mind, for once, is on other things than her posterior as it wends its
+way through my door.
+
+> x coatstand
+The coatstand is pretty much empty of coats (on a teaboy's salary I'm still
+saving for my first coat) and all I find on the base is a piece of paper
+which I decide to take with me.
+
+> read paper
+It contains the numbers for the local hospital though why I'd have this
+information in the coatstand I'm not sure.
+
+> call hospital
+Acting on a hunch, I dial the hospital and ask to be put through to Bob
+Newbold's room.
+
+"Harry!" he cries.
+
+"Er, no, my name's-"
+
+"Not to worry. I'm terrible at remembering people's names. Surgery does that
+to you. So, are you the poor schmuck Stigers has dumped with all my files?"
+
+I admit that I am.
+
+"Listen, Harry, and listen good..." Bob goes on to relate a few secrets
+relating to the files to me. "I always wanted my files to look such an
+ungodly mess that the company'd never be able to fire me because no one else
+would ever be able to figure out what they meant. But I know how important
+this Japanese deal is and I doubt I'll have a job left if you mess things up.
+So best of luck."
+
+"Thanks, and get well soon, Bob."
+
+"Likewise, Harry."
+
+And on those puzzling last two words, the telephone goes dead.
+
+> sit in chair
+I decide to have a quick rest in the chair - and come to with a start to see
+Evans, one of the company stockholders standing in the doorway.
+
+"Ah," he says, "you must be Tim."
+
+"Er, my name's not-" I say.
+
+"Good, Tim. Listen, I've been thinking about some of the suggestions the
+workers have come up with for improving conditions on the factory floor: no
+chains, whipping no more than twice an hour unless they really deserve it and
+a maximum working day of 22 hours. What do you think?"
+
+   1)  I think that's a great idea.
+   2)  I think that's a terrible idea.
+   3)  I think the stockholders should take a cut in pay so we can pay the
+workers more than 35p an hour.
+
+> 1
+"Me, too," agrees Evans. "Okay, tell you what: I'll run these ideas by the
+rest of the stockholders and we'll see how things go from there. Nice talking
+to you, Tim, and I'll be sure to put a good word in with Stigers to let him
+know what a great ideas man you are."
+
+Evans departs my office.
+
+> score
+My score so far is 47 out of a possible of 60.
+
+> score
+My score so far is 47 out of a possible of 60.
+
+> score
+My score so far is 47 out of a possible of 60.
+
+Again Debi comes staggering through the doorway with some files. She drops
+them on my desk with a thud and mops her brow. "Ooh, a girl can sure work up
+a sweat carrying all those files," she gasps.
+
+"I've noticed," I say.
+
+My reply to this is a sigh and a slap across the face. Normally a slap across
+the face would be a bad thing but as this is the most intimate contact I've
+yet had with Debi I consider it a positive boon.
+
+She doesn't wait for me to make another comment but nips out of the door
+instead.
+
+> score
+My score so far is 47 out of a possible of 60.
+
+> x files
+This set of files look in even worse condition than the first lot. Bob
+Newbold seems to have made an effort to makes things as untidy and hard to
+follow as possible, maybe in the hopes of keeping his job no matter what.
+After all, if no one else could understand his files then there was no chance
+of him being fired. Although I imagine getting run over this morning didn't
+figure into his plans.
+
+When I'm ready, I'd better start work on the files.
+
+> start work
+Although this set of files is quite a bit harder than the first, I soon have
+the basics of it cracked thanks to my pencil and calculator. All said and
+done, it wasn't a lot harder than my usual morning tea-round.
+
+> score
+My score so far is 52 out of a possible of 60.
+
+> score
+My score so far is 52 out of a possible of 60.
+
+> score
+My score so far is 52 out of a possible of 60.
+
+> score
+My score so far is 52 out of a possible of 60.
+
+> score
+My score so far is 52 out of a possible of 60.
+
+> score
+My score so far is 52 out of a possible of 60.
+
+> score
+My score so far is 52 out of a possible of 60.
+
+Debi wanders in.
+
+"You finished working on the files?" she asks, and scoops them up before I
+can answer. "Stigers has only got one more set of files and he's bringing
+them in himself so if you want to look at someone, look at him."
+
+"It's not quite the same thing," I say.
+
+Debi shrugs. "Tough."
+
+She goes staggering out with the files.
+
+> score
+My score so far is 52 out of a possible of 60.
+
+> score
+My score so far is 52 out of a possible of 60.
+
+> score
+My score so far is 52 out of a possible of 60.
+
+> score
+My score so far is 52 out of a possible of 60.
+
+Through the door this time walk not the delectable Debi but instead my boss,
+Stigers. Believe me, there's just no comparison.
+
+"Glad to see you're still alive, Steve," he says.
+
+"My name's not Steve," I say.
+
+Stigers waves that away. "Whatever. Only one set of files left now and these
+are the worst of the lot. Not even written in English."
+
+"But I only speak English!" I protest.
+
+"So did Bob Newbold but the awkward sod decided he'd be different with this
+lot of files and write the entire thing in an ancient form of Latin that
+hasn't been used for at least four thousand years." Stigers dumps the files
+on my desk (which groans under the weight). "Anyway, best of luck. Just give
+me a call when you're finished and I'll come fetch 'em. No rush. No
+pressure." He considers this then amends it to, "well, the only pressure is
+that you're fired if you don't get 'em done on time. Definitely no rush
+though." He considers again then amends it to, "actually there's a rush as
+well but the Jap businessmen ran into a spot of bother at the airport and so
+you'll have longer to figure things out than you did before. Best of luck."
+
+Stigers leaves.
+
+> dial 0181
+"Hello," says a strange voice. "You have reached the Samaritans. What seems
+to be your problem?"
+
+I relate my problems to the strange voice.
+
+"So you need to be taught an ancient form of Latin in the space of a few
+minutes that hasn't been spoken in over four thousand years?"
+
+"That's about it."
+
+"Well, you're in luck there," says the strange voice, "because I happened to
+have studied under a wise sage in Africa for most of the past year and one of
+the languages he specialised in was ancient Latin from just over four
+thousand years ago. Isn't that a remarkable coincidence?"
+
+"Not in an adventure game."
+
+"Okay, listen carefully. I'll tell you what you need to know..."
+
+The strange voice does that and afterwards I can speak fluent Latin from over
+four thousand years ago.
+
+> start work
+The third set of files turns out to be the hardest of the lot. But the
+ancient Latin I was tutored in by the strange voice from the Samaritans
+proves a real bonus and in no time I've completed the files to my
+satisfaction.
+
+> call stigers
+I shout and a moment later Stigers comes bursting in.
+
+"You'd better have done a good job here, Jim," he says, "because you'll be
+looking for another teaboy job if you haven't."
+
+"My name's not Jim," I say.
+
+"It will be if you've messed these files up," Stigers says.
+
+With that strange threat hanging over me, Stigers grabs the files and rushes
+out.
+
+> n
+As I approach the door, Stigers' voice calls out, "you'd better not be
+leaving that office until you've done all the work I asked you to do, Mike!"
+
+"My name's not Mike," I call back but Stigers doesn't seem to be listening.
+
+> n
+As I approach the door, in comes Stigers.
+
+"Sit down, Andy," he says, "and let's review how well you did with the
+files."
+
+I consider telling him my name's not Andy but I'd probably be just wasting my
+time.
+
+Stigers sits in my seat and I sit on the floor while he goes over the notes
+from the meeting with the Japanese businessmen.
+
+"How did it go?" I venture.
+
+"Hmm... Let's see. Mr Yoshi said he wanted to buy our plans for the RR
+project and handed us a sizeable cash payment up front to get the ball
+rolling. The total payment was somewhere in the region of £170,000,000 and so
+here's your share for your sterling work on the files." Stigers drops a
+couple of pound coins on my desk with the proviso: "don't spend it all at
+once. What else? Ah yes, Mr Tanoko said he thought our designs were the best
+he had ever seen and wanted to merge his own company with ours. Mr Roshani
+said he'd never been so impressed in his life and offered to marry you."
+Stigers winces a little. "I tried pointing out that you weren't his type but
+he wouldn't take no for an answer. He also insisted that when our companies
+merge, he wanted you to be put in charge."
+
+"But isn't that your job, sir?" I ask.
+
+Stigers sighs. "Not any more it seems. I've now been officially designated
+the new teaboy. On top of that, the boys down in London want to elect you as
+the new God on account of the fact that you did so well that you actually
+beat the best score. Amazing. Unless you cheated, of course. I think this
+concludes our meeting."
+
+"Not quite," I say.
+
+Stigers looks at me.
+
+"I'll have a tea, black with two sugars and don't stinge on the water."
+
+Stigers looks about to protest but remembers the abrupt shift in our
+positions and instead gives me a cringing nod and a "...yessir..."
+
+Teaboy to head of the company in the space of one day. It doesn't come much
+better than this. On a scale of 1 to 7, I managed a rather impressive 8. I'm
+now in charge of the whole company and soon to be elected God. I think I did
+pretty well.
+
+Well done, you finished the game and achieved a score 1 better than the
+maximum. You really did do well.
+
+> quit
+Do you really want to quit? [Y/N]

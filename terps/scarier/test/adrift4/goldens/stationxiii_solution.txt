@@ -1,0 +1,93 @@
+remove jacket
+drop jacket
+drop backpack
+press button
+e
+s
+examine table
+take passcard
+n
+e
+n
+unlock door
+drop passcard
+e
+examine rack
+take key
+examine pool table
+take cue
+w
+s
+w
+unlock door
+drop key
+n
+take stepladder
+take laser cutter
+look up
+climb ladder
+examine corpse
+take hatchet
+d
+s
+e
+e
+examine worktop
+take hammer
+w
+n
+n
+d
+s
+e
+examine worksurface
+take green liquid
+w
+n
+d
+s
+w
+examine pod-bike
+take rope
+e
+e
+examine workbench
+take nail
+w
+n
+u
+u
+s
+s
+w
+n
+take stepladder
+s
+w
+n
+n
+e
+climb ladder
+d
+take stepladder
+w
+s
+e
+s
+climb ladder
+n
+taste liquid
+e
+s
+hammer nail
+tie rope to nail
+d
+pour acid on grate
+hit grate with hatchet
+d
+s
+s
+write board with cue
+n
+e
+cut bolt with laser

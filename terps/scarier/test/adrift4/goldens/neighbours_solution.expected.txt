@@ -1,0 +1,550 @@
+Loading game...
+
+Neighbours From Hell
+Everyone has bad neighbours. It's just one of those things. But surely no one
+- no one in the whole wide world - had neighbours as bad as yours.
+
+For you live next door to the Crumms.
+Press a key to continue
+
+They're not nice people the Crumms. They're loud and they're crude and
+they're vicious and foul-mouthed and bear such a resemblance to your
+mother-in-law that you'd swear they were related.
+Press a key to continue
+
+Worse still, you've recently suspected them of murdering a nice couple from
+across the street - the Carmichaels - and there have been stories in the
+papers about homeless people in the neighbourhood going miss. You're sure the
+Crumms are guilty of all this but you have no proof and no way to convince
+the police.
+
+Until now that is.
+Press a key to continue
+
+Whilst doing the gardening the other day you overheard Mull Crumms and Dinb
+Crumms talking in their back garden about a "little trip" they were planning
+to "meet some old friends". They were likely to be gone for the whole
+weekend. The perfect opportunity, you realised, to conduct some snooping
+around their house and find what you needed to prove their guilt to the
+police. Even better, the wife and kids had a shopping trip planned so you
+won't be slowed down by them.
+
+All you have to do is wait for the weekend…
+Press a key to continue
+
+Neighbours From Hell - find enough evidence around the Crumms' house to
+ensure they serve a lengthy prison sentence. When you think you've found
+enough - or decide that staying too long might lead to the Crumms' returning
+and discovering you in their house - simply head back to the start location
+and "call the police".
+
+Check your evidence from time to time by typing "score" or "evidence".
+
+Best of luck!
+Press a key to continue
+
+Hallway
+The hallway of your house, a small, cluttered place that hasn't been cleaned
+in way too long. The wife actually "ordered" you to clean it this weekend but
+you've now got more important things to attend to. There is a table here with
+a telephone on it, several doorways leading to the rest of the house, and the
+front door to the east.
+   Exits lie: northwest, north, east and up.
+
+> e
+You move east.
+
+Alley
+You're in a grimy alley between your house and the Crumm's property. The
+alley is full of garbage bags that the dustbin men have refused to collect
+due to their stench.
+   Exits lie: west, south and east.
+
+> open garbage
+You have a rummage through the garbage and find several photos of Mull Crumms
+in the nude. Normally the idea of a woman in the nude would be an exciting
+prospect but with Mull Crumbs you kind of wished she'd retained her dignity
+and kept her clothes on.
+
+> s
+You move south.
+
+Garden
+Your garden is a tangled overgrown mess full of tools and equipment that
+never get used. But it's still better than the Crumms' garden next door.
+   Exits lie: north and east.
+
+Also here is a pole.
+
+> get pole
+You take the pole.
+
+> x equipment
+It's most broken stuff that's been sitting here for years but you manage to
+come across a hammer that you take.
+
+> e
+You move east.
+
+Crumm's Garden
+It's like a jungle over here. You shudder to think what might be buried under
+the straggly bushes and weeds and what lies at the bottom of the sandpit you
+wouldn't like to think.
+   Exits lie: west.
+
+> w
+You move west.
+
+Garden
+Your garden is a tangled overgrown mess full of tools and equipment that
+never get used. But it's still better than the Crumms' garden next door.
+   Exits lie: north and east.
+
+> n
+You move north.
+
+Alley
+You're in a grimy alley between your house and the Crumm's property. The
+alley is full of garbage bags that the dustbin men have refused to collect
+due to their stench.
+   Exits lie: west, south and east.
+
+> e
+You move east.
+
+Kitchen
+You've never seen such an untidy kitchen before. Not even your own kitchen is
+this bad. There's food scattered all over the floor, rats running about and
+you cringe to see that the Crumms have even installed a toilet beside their
+sink! If this isn't enough to get them thrown in prison then nothing is. A
+flight of steps lead down into the cellar.
+   Exits lie: west, northeast and down.
+
+> tidy
+You make a start on it but realise that if you tidy up too much the Crumms'
+will know someone has been here. So you just sift through all the junk in
+here and leave things as they are. On the plus side you come across someone's
+nose inside an old sandwich which might come in handy when the police are
+called.
+
+> flush toilet
+You give it a flush, intending to drive away the smell that's lingering - and
+are quite surprised when an ear comes flying out of the bowl, misses you by
+an inch and lands on the floor behind you!
+   Did the Crumms try to murder someone by drowning them in the toilet and
+only their ear remains?
+
+> x sink
+The sink is full of dirty pots and pans and saucers and some teeth and a cup
+and-
+   Hang on! Some teeth?
+   You fish through the grimy water until you find the teeth. Evidence!
+
+> d
+You move down.
+
+Cellar
+The cellar is knee-deep in filthy water and filled with boxes of junk. There
+are strange, indistinct... lumps in one corner that your overactive
+imagination is sure are corpses. A rancid smell hangs in the air, making your
+curl your nose in disgust. Whatever it is, it's sure ripe!
+   Exits lie: up.
+
+> x lump
+You peer through the darkness and discover that one of the lumps is actually
+a large cabinet.
+
+> x boxes
+Rummaging through them you come across a newspaper clipping relating to the
+time Dinb Crumms was arrested on suspicion of murder several years back.
+Interesting. You'll definitely be wanting to show this to the police.
+
+> x boxes
+The boxes seem to be pretty empty now you've taken the evidence.
+
+> x boxes
+The boxes seem to be pretty empty now you've taken the evidence.
+
+> smash cabinet
+Wielding the hammer you bash the cabinet several times until the door comes
+flying open.
+   Out of the cabinet flies a severed head! It hits the floor, bounces a few
+times then comes to a rest against the far wall.
+   You're suddenly glad you haven't had anything to eat yet today because
+this is the sort of thing that is just crying out for a vomiting session.
+
+> u
+You move up.
+
+Kitchen
+You've never seen such an untidy kitchen before. Not even your own kitchen is
+this bad. There's food scattered all over the floor, rats running about and
+you cringe to see that the Crumms have even installed a toilet beside their
+sink! If this isn't enough to get them thrown in prison then nothing is. A
+flight of steps lead down into the cellar.
+   Exits lie: west, northeast and down.
+
+Also here is an ear.
+
+> ne
+You move northeast.
+
+Lounge
+Several rickety chairs are arranged around a hole in the floor (no doubt the
+Crumms equivalent of television). On the walls hang paintings of the members
+of the Crumms family: Mull and Dinb and several others who you've never seen
+before - and hope never to considering the state of some of them.
+   Exits lie: north, southwest and east.
+
+> use pole
+Using the pole, you reach down into the hole and hook the something which
+turns out to be someone's foot. Realising this grisly item will be necessary
+for convincing the police what you know about the Crumms, you keep hold of
+it.
+
+> n
+You move north.
+
+Dining Room
+You doubt much dining goes on here considering the smell of the place. There
+is a filthy table running through the centre of the room with some rotted
+food on top of it. A large filing cabinet, obviously stolen, has been placed
+at one end of the table.
+   Exits lie: south.
+
+> look under table
+A-ha! What's this? You rummage under the table and come across a ball.
+Knowing this might come in handy, you take it with you.
+
+> s
+You move south.
+
+Lounge
+Several rickety chairs are arranged around a hole in the floor (no doubt the
+Crumms equivalent of television). On the walls hang paintings of the members
+of the Crumms family: Mull and Dinb and several others who you've never seen
+before - and hope never to considering the state of some of them.
+   Exits lie: north, southwest and east.
+
+> e
+You move east.
+
+Hallway
+The wallpaper is peeling off the walls here, revealing cheap, crumbly brick
+underneath. A light bulb overhead swings back and forth casting eerie shadows
+over everything. There is a small cabinet jammed into a corner here.
+   Exits lie: west and up.
+
+> throw ball
+Taking aim, you throw the ball at the light bulb. It hits with a cracking
+sound and, while the light bulb itself doesn't shatter, something hidden
+behind it falls to the floor.
+
+> u
+You move up.
+
+Landing
+You're on the landing which winds around the upper floor of the Crumms'
+house. Several doorways open away from here whereas above you is a
+chandelier.
+   Exits lie: north, south, east and down.
+
+> n
+You move north.
+
+Mull Crumms Room
+The only item in this room is a small, unmade bed in the middle of the floor.
+There are no decorations, no wardrobe and nothing else that you might expect
+to see in a bedroom. A curtainless window in one wall overlooks the Crumms
+garden.
+   Exits lie: south.
+
+> look under bed
+You peer under it - and find a spade! You're not sure why Mull Crumms has got
+a spade under her bed but you've heard of people sleeping with knives under
+their pillows so maybe this is her equivalent of that.
+   You take the spade all the same.
+
+> look under bed
+You look under the bed again and this time see a few words scrawled there.
+Peering closely at them you make them out to be a confession from Mull Crumms
+for "eatin one of the naybours. Soz. But he was tasty."
+   This is one thing you'll definitely have to show the police.
+
+> x window
+It overlooks the Crumms' garden - and what's that you see in one corner of
+it?
+
+> s
+You move south.
+
+Landing
+You're on the landing which winds around the upper floor of the Crumms'
+house. Several doorways open away from here whereas above you is a
+chandelier.
+   Exits lie: north, south, east and down.
+
+> e
+You move east.
+
+Corridor
+This short corridor links the landing and a small room.
+   Exits lie: west and east.
+Bob the alsatian is here.
+
+> show photo
+Bob takes one at the photos of Mull Crumms and starts howling in disgust! He
+runs around, chases his tail for a bit, then goes charging past you, down the
+stairs and out of the house.
+   You guess even a dumb animal knows a frightening sight when it sees it.
+
+> e
+You move east.
+
+Small Room
+This place looks like a bomb site. Furniture is scattered across the floor,
+the walls are raked as if by talons and there are bits of food hanging from
+the ceiling. You've never seen such an unholy mess in your life before.
+   Exits lie: west.
+
+> x wall
+In a deep gash in one wall you find a key which someone has hidden.
+
+> x wall
+In a particularly deep gash you find someone's skull. Part of you secretly
+wonders how a skull could have made its way into a gash in the wall but you
+decide to ignore this fact and just concentrate on the nice little boost to
+your evidence instead.
+
+> w
+You move west.
+
+Corridor
+This short corridor links the landing and a small room.
+   Exits lie: west and east.
+
+> w
+You move west.
+
+Landing
+You're on the landing which winds around the upper floor of the Crumms'
+house. Several doorways open away from here whereas above you is a
+chandelier.
+   Exits lie: north, south, east and down.
+
+> d
+You move down.
+
+Hallway
+The wallpaper is peeling off the walls here, revealing cheap, crumbly brick
+underneath. A light bulb overhead swings back and forth casting eerie shadows
+over everything. There is a small cabinet jammed into a corner here.
+   Exits lie: west and up.
+
+Also here is a ball and a glass eye.
+
+> open cabinet
+Using the key you open the cabinet. Inside there is a wig which you take with
+you.
+
+> u
+You move up.
+
+Landing
+You're on the landing which winds around the upper floor of the Crumms'
+house. Several doorways open away from here whereas above you is a
+chandelier.
+   Exits lie: north, south, east and down.
+
+> s
+You move south.
+
+South Landing
+The landing curves around here and there are doors to the northwest and
+southeast.
+   Exits lie: north, northwest, southeast and south.
+
+> nw
+You move northwest.
+
+Guest Room
+It seems even the Crumms' have guests judging from the sign on one wall which
+states "gest roome" but you pity the poor soul who has to stay here. A
+motheaten bed takes up almost half the space and the rest is given over to
+boxes and crates.
+   Exits lie: southeast.
+
+> get sign
+You nudge it slightly - and a severed finger drops down onto the floor! Yuk!
+The Crumms' really are twisted!
+
+> push bed
+You give it a shove and it slides through the doorway out onto the landing.
+
+> se
+You move southeast.
+
+South Landing
+The landing curves around here and there are doors to the northwest and
+southeast. A motheaten bed is situated in the middle of the landing.
+   Exits lie: north, northwest, southeast and south.
+
+> push bed
+You give it a shove and it slides north along the landing.
+
+> s
+You move south.
+
+Dinb Crumms Room
+This looks more like a jungle than a bedroom. Plants are growing between the
+floorboards and bushes have been planted around the skirting board. A small
+television has been mounted on one wall and is showing a documentary about
+pigs.
+   Exits lie: north.
+
+> lift floorboard
+You manage to grab one end of a floorboard and lift it up a few inches -
+enough for a horrible rat to come bursting out!
+   The rat runs around the room in a panic before bolting for the door,
+leaving behind it a small collection of turds and what looks like someone's
+tongue.
+
+> n
+You move north.
+
+South Landing
+The landing curves around here and there are doors to the northwest and
+southeast.
+   Exits lie: north, northwest, southeast and south.
+
+> n
+You move north.
+
+Landing
+You're on the landing which winds around the upper floor of the Crumms'
+house. Several doorways open away from here whereas above you is a
+chandelier. A motheaten bed is situated in the middle of the landing.
+   Exits lie: north, south, east and down.
+
+> stand bed
+You stand on top of the bed. The chandelier looks a bit closer now and you
+reach up and nudge it with your hand. Nothing seems to happen at first then,
+when you nudge it a little harder, a hand falls over the side and drops with
+a soft thud to the ground!
+
+> d
+You move down.
+
+Hallway
+The wallpaper is peeling off the walls here, revealing cheap, crumbly brick
+underneath. A light bulb overhead swings back and forth casting eerie shadows
+over everything. There is a small cabinet jammed into a corner here.
+   Exits lie: west and up.
+
+Also here is a ball and a glass eye.
+
+> w
+You move west.
+
+Lounge
+Several rickety chairs are arranged around a hole in the floor (no doubt the
+Crumms equivalent of television). On the walls hang paintings of the members
+of the Crumms family: Mull and Dinb and several others who you've never seen
+before - and hope never to considering the state of some of them.
+   Exits lie: north, southwest and east.
+
+> sw
+You move southwest.
+
+Kitchen
+You've never seen such an untidy kitchen before. Not even your own kitchen is
+this bad. There's food scattered all over the floor, rats running about and
+you cringe to see that the Crumms have even installed a toilet beside their
+sink! If this isn't enough to get them thrown in prison then nothing is. A
+flight of steps lead down into the cellar.
+   Exits lie: west, northeast and down.
+
+Also here is an ear.
+
+> w
+You move west.
+
+Alley
+You're in a grimy alley between your house and the Crumm's property. The
+alley is full of garbage bags that the dustbin men have refused to collect
+due to their stench.
+   Exits lie: west, south and east.
+
+> s
+You move south.
+
+Garden
+Your garden is a tangled overgrown mess full of tools and equipment that
+never get used. But it's still better than the Crumms' garden next door.
+   Exits lie: north and east.
+
+> e
+You move east.
+
+Crumm's Garden
+It's like a jungle over here. You shudder to think what might be buried under
+the straggly bushes and weeds and what lies at the bottom of the sandpit you
+wouldn't like to think.
+   Exits lie: west.
+
+> x garden
+Remembering what you saw from Mull Crumms' window, you have a good look
+around the garden - and find some ash which looks suspiciously like someone
+has been burnt. Evidence you'll have to remember when you call the police.
+
+> w
+You move west.
+
+Garden
+Your garden is a tangled overgrown mess full of tools and equipment that
+never get used. But it's still better than the Crumms' garden next door.
+   Exits lie: north and east.
+
+> n
+You move north.
+
+Alley
+You're in a grimy alley between your house and the Crumm's property. The
+alley is full of garbage bags that the dustbin men have refused to collect
+due to their stench.
+   Exits lie: west, south and east.
+
+> w
+You move west.
+
+Hallway
+The hallway of your house, a small, cluttered place that hasn't been cleaned
+in way too long. The wife actually "ordered" you to clean it this weekend but
+you've now got more important things to attend to. There is a table here with
+a telephone on it, several doorways leading to the rest of the house, and the
+front door to the east.
+   Exits lie: northwest, north, east and up.
+
+> call police
+Deciding that you have enough evidence, you quickly call the police. An
+Officer Moharty, who has been assigned to investigate the mysterious
+disappearance of people in your area, agrees to come over immediately and
+says he'll probably arrive before you've even put the phone down.
+
+Three hours later Moharty shows up with several uniformed cops in tow.
+   "Okay, fellow," he says. "Tell me what you know."
+Press a key to continue
+"I'm speechless," says Moharty, clearly lying as he's able to speak. "You've
+found enough evidence to convict the Crumms for over four thousand years! I'm
+not sure how you did that but the words 'cheating swine' just keep springing
+to mind. But enough of that! You did well, my friend, you did unbelievably
+well!"
+
+Officer Moharty and co head out to the Crumms' house to lie in wait for them
+with an arrest warrant at the ready, leaving you to contemplate your
+remarkable skill in getting 100 out of 100.
+
+Well done indeed!
+
+> quit
+Do you really want to quit? [Y/N]

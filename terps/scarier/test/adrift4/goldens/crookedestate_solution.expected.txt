@@ -1,0 +1,452 @@
+Loading game...
+
+The Crooked Estate
+
+The Crooked Estate
+        by Duncan Bowsman
+
+No-one lives in the crooked estate, yet one may wander alone in it without
+feeling alone. Something, one might feel, must lurk in this thing, on the
+other side of the door or behind its terrible wallpaper-- but one would be
+wrong. A different kind of haunting infests it.
+
+I first came in search of a higher place, but the estate's staircase never
+ends. Countless rooms fill the crooked estate, but they only occur at
+intervals between ascending and descending staircases. Every room is an
+identical gallery filled with peeling wallpaper and forgotten puppets. By
+staying, one might infuse the estate with secrets banal or awful, yet the
+stagnant place cannot change and yields nothing. Where once I could hear the
+promise of a morbid whispering, I strain my ear for the slightest of echoes,
+hearing nothing but the occasional... slow... soft... crackling of a faded,
+artificial wallpaper in the cold, cobwebbed shadows.
+
+Here everything is lost forever. There is no thought and no solution, but
+only the lurking sense of a meticulous, blank watchfulness and slow, certain
+decay...
+
+Gallery.
+An empty box of flaking wallpaper, marked by human abandonment. Torn sheets
+of dust lie across the walls hung with twisted frames. In the centre lie dead
+puppets. I could flee up or down the stairs. The door is closed and though I
+feel vaguely safer for it, it does not calm my interior sense of bizarre
+misplacedness.
+
+I shiver.
+
+If this is your first time playing interactive fiction, type help and press
+enter.
+
+> look
+
+Gallery.
+I am in a room which I believe to be an empty gallery. I had a plan when I
+arrived, but cannot say what has happened to it, nor how long I have haunted
+these halls in total. All about me in the unsettling shadow lie scattered the
+disused bodies of clothy puppets & ragged cobwebs. Upon the faded, leaning
+walls are hung empty frames, and etched tiny, tiny words. A crooked stairway
+leads into darkness. Also here is a door (closed).
+
+> examine puppets
+There is a sneaking suspicion of unreal life in the puppets strewn across the
+floor. One may wonder if it was they who wrote the words in the dust upon the
+wall in their tiny handwriting. When in eternity might they stir from beneath
+the weight of their dusty cobwebs?
+
+1 puppet's jaw has fallen open, giving it a vacantly morbid expression. What
+are they trying to say?
+
+> examine words
+Tiny etchings in the wall, in uniform shapes, half-drawn in cobwebs.
+
+The writing on the wall speaks of conflicted delusions... some parts suggest
+the creature will come soon... others that it never will... some that it
+already has, and all that are left are threadbare puppets, their empty
+frames, and the choking weeds of the estate's foundation, which has always
+been crooked.
+
+> examine frames
+Presumably once regular frames contorted into twisted wrecks of brass,
+scourged by erosion and verdigris. I cannot remember if they once or ever
+held anything at all.
+
+> examine stairway
+The stairway leans at strange, uneven & dizzying angles as it climbs away
+into dark spaces I cannot see.
+
+I once had a plan for this place. Now nothing, I feel, remembers it.
+
+> examine walls
+Hoary, wrinkled paper with weird, sprawling designs (here & there, they look
+like wilted peacock feathers, over there some bulbous fungal growth or a
+rotting wheel) covers over the walls. In a few spots,the wallpaper hangs in
+ribbons, in others it is either faded or stained by mysterious dark blotches.
+
+Empty, twisted frames hang on the walls. In the dust are written tiny words.
+
+> examine shadows
+The shadows make every surface look pitted & sinister.
+
+> examine cobwebs
+I see nothing special about the cobwebs, except that they are everywhere and
+cover over everything and there is no getting rid of them ever no matter how
+hard I try. They hide & fill the crevices in everything.
+
+The damn wallpaper crackles softly, verminously.
+
+> examine designs
+Blemished with hideous inconsistencies... and those regularities that I can
+conceive of strain at nauseous, fleeting things which I cannot properly name
+or order in any significant way.
+
+> examine ribbons
+They hang off the wall like the wilted dead. Shadow conceals the surface of
+the wall behind them.
+
+Some vague thing brushes by in my mind, but slips by when I attempt to grasp
+it.
+
+> examine blotches
+I can neither tell what made these stains in such odd shapes nor what the
+stains signify. They just don't look healthy.
+
+> examine jaws
+They hang open... clothy, listless, dusty.
+
+> examine crevices
+Filled with the bony dust of cobwebbed cloth. Across the walls. Upstairs.
+Forever.
+
+> examine flakes
+Crumbled, brittle and dry as old leaves.
+
+> examine door
+An ancient & little used door. Most of its pale paint has peeled off, and the
+latch appears to be missing. The door is closed and though I feel vaguely
+safer for it, it does not calm my interior sense of bizarre misplacedness.
+
+I once had a plan for this place. Now nothing, I feel, remembers it.
+
+> smell
+I have been in the estate too long and do not notice any of its smells.
+
+> listen
+I hear nothing... nothing... the wallpaper crackles whisperingly at me.
+
+> remember
+Something burbles to the surface of my thoughts, but it is not a memory, just
+an irritating & ineffectual wishfulness.
+
+The damn wallpaper crackles softly, verminously.
+
+> puke
+I retch, but nothing comes up. A creeping tightness grips me and crawls into
+my head. It is not comfortable there.
+
+> ask puppets about plan
+I ask the puppets, and wait. After another tense silence, they slowly swivel
+their heads to face me. They speak somehow directly into my brain, as if
+their hoarse whispers exist in my own thoughts, though they sound and feel
+outside:
+
+"We all had plans when we arrived, but eternity has taught us better. Now we
+see our folly. Now we only do one thing, which is never real when it is
+planned."
+
+From somewhere I hear a faint laughter... and that damn wallpaper!
+
+I feel an overwhelming urge to escape this place.
+
+> ask puppets
+I ask, but only my echo answers.
+
+> ask puppets
+I ask, and for a moment believe a puppet has answered in a hoarse, tiny
+whisper.
+
+But I soon realise it is only the sound of the wallpaper crackling.
+
+> ask puppets
+I ask, but silence answers nothing.
+
+> ask puppets
+Talking to puppets... I must be mad.
+
+> hide
+I scramble into the darkness and wait, holding my breath as best I can, but
+the terrible sense of malignancy does not dissipate. It only makes me more
+wretched.
+
+> flee
+Which way? I could go up or down.
+
+> up
+I ascend the stairway, feeling my way with my hands through utter blackness,
+but after a tedious while of apparently normal progress I find that you must
+have taken a misstep or wrong turn on its weirdly angled slats in the
+impenetrable dark-- and this continues until the path of the staircase ceases
+to make any sense at all and I finally emerge with a blind, jarring step in
+what seems to be the same gallery I left.
+
+The puppets all seem to look blankly upward for a moment, as if rolling their
+tiny eyes. The head of another seems to shift and stare at me expectantly
+from the shadows.
+
+Did it whisper something? Does it know my plan? Or was that just the
+wallpaper...?
+
+> up
+I feel my way up the staircase, but must have taken a misstep or wrong turn.
+I finally emerge with a blind, jarring step in what seems to be the same
+gallery I left.
+
+The puppets all seem to look blankly upward for a moment, as if rolling their
+tiny eyes. The head of another seems to shift and stare at me expectantly
+from the shadows.
+
+Did it whisper something? Does it know my plan? Or was that just the
+wallpaper...?
+
+I feel an overwhelming urge to escape this place.
+
+> down
+I only make it down the darkness of the uneven steps by sense of touch. The
+stairway has no consistent width, and I must wedge myself through narrow
+passages. Here and there, I feel odd, triangular shapes etched into the
+walls. Just as I feel it might mean something, I emerge back into another
+gallery.
+
+> down
+I feel my way down. Strange etching on the walls. I wedge myself through a
+narrow opening, and emerge where I had started.
+
+> n
+Crumbling walls, rotted wallpaper, and broken frames meet me at all sides.
+The only apparent way out is up or down the stairway, or else through the
+door.
+
+> open door
+I open the door again, with inexplicable trepidation. Nothing has changed.
+
+> go door
+
+Gallery.
+I am in a room which I believe to be an empty gallery. All about me in the
+unsettling shadow lie scattered the disused bodies of clothy puppets & ragged
+cobwebs. Upon the faded, crackling walls are hung empty frames, and etched
+tiny, tiny words. A crooked stairway leads into darkness. A warped, open door
+stands in the center of the room on its own weird power, showing a way in and
+out to the same space.
+
+> close door
+I close the door.
+
+I feel an overwhelming urge to escape this place.
+
+> open door
+I open the door again, with inexplicable trepidation. Nothing has changed.
+
+> go door
+
+Gallery.
+I am in a room which I believe to be an empty gallery. All about me in the
+unsettling shadow lie scattered the disused bodies of clothy puppets & ragged
+cobwebs. Upon the faded, crackling walls are hung empty frames, and etched
+tiny, tiny words. A crooked stairway leads into darkness. A warped, open door
+stands in the center of the room on its own weird power, showing a way in and
+out to the same space.
+
+> write on wall
+I agonise over what should be a simple message, but orthography fails me
+every time as a medium. Always parts are missing or misleading or not quite
+right. The depravity of the estate has inexplicably melded with my own
+writing.
+
+I scratch the whole thing out, although this, too, leaves me with an
+unfulfilled pit in myself that I don't know how to purge. In the end, it just
+looks like all of the wall's words. Yes, the wall's-- the wall's.
+
+These words are not my own.
+
+> write on wall
+I don't understand what you want me to do with the walls.
+
+> peel wallpaper
+I peel a sheaf of that nauseating, cobwebbed paper off the wall, only to
+reveal a further layer of it awaiting behind the shadows.
+
+Something inside me feels desperately tangled & unravelling all at once.
+
+> peel wallpaper
+I rip another, but another layer hides behind that. And another. And another.
+
+I feel my insides balling up tight.
+
+> peel wallpaper
+I don't understand what you want me to do with the walls.
+
+> close jaw
+I reach out and gingerly tilt a puppet's jaw shut, yet upon removing my
+finger, it falls mutely open again. Then the jaw of another falls open next
+to it.
+
+I feel an overwhelming urge to escape this place.
+
+> save
+The estate is decayed beyond saving. No memory lasts in here.
+
+> scream
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+  > scream
+  AAAAAAHHHHH!
+
+...and I scream uncontrollably, unceasingly until my joints unravel and my
+jaw falls open, a final unspeakable syllable lingering there forever like
+those on the lips of the puppets in all the other dead galleries of the
+crooked estate.
+
+The Crooked Estate
+        by Duncan Bowsman
+
+No-one lives in the crooked estate, yet one may wander alone in it without
+feeling alone. Something, one might feel, must lurk in this thing, on the
+other side of the door or behind its terrible wallpaper-- but one would be
+wrong. A different kind of haunting infests it.
+
+I first came in search of a higher place, but the estate's staircase never
+ends. Countless rooms fill the crooked estate, but they only occur at
+intervals between ascending and descending halls. Every room is an identical
+gallery filled with peeling wallpaper and forgotten puppets. By staying, one
+might infuse the estate with secrets banal or awful, yet the stagnant place
+cannot change and yields nothing. Where once I could hear the promise of a
+morbid whispering, I strain my ear for the slightest of echoes, hearing
+nothing but the occasional... slow... soft... crackling of a faded,
+artificial wallpaper in the cold, cobwebbed shadows.
+
+Here everything is lost forever. There is no thought and no solution, but
+only the lurking sense of a meticulous, blank watchfulness and slow, certain
+decay...
+
+Gallery.
+An empty box of flaking wallpaper, marked by human abandonment. Torn sheets
+of dust lie across the walls hung with twisted frames. In the centre lie dead
+puppets. I could flee up or down the stairs. The door is closed and though I
+feel vaguely safer for it, it does not calm my interior sense of bizarre
+misplacedness.
+
+> look
+
+Gallery.
+I am in a room which I believe to be an empty gallery. All about me in the
+unsettling shadow lie scattered the disused bodies of clothy puppets & ragged
+cobwebs. Upon the faded, crackling walls are hung empty frames, and etched
+tiny, tiny words. A crooked stairway leads into darkness. The door is closed,
+thankfully.
+
+> quit
+I quit momentarily, lying motionless, without any will. But, still, something
+inside me will not accept this.
+
+> y
+
+>

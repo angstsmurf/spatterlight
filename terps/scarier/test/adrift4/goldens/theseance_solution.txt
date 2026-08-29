@@ -1,0 +1,18 @@
+open door
+up
+north
+open dresser
+take key
+south
+unlock attic door with key
+open attic door
+up
+give key to sousa
+sit at table
+chant
+wait
+wait
+wait
+open locket
+up
+yes

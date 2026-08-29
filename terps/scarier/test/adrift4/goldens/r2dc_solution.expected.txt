@@ -1,0 +1,219 @@
+Loading game...
+
+Return to Dracula's Castle II: Revenge of Dracula's Castle
+
+In 1987, during the great text adventure boon, Infocom released the immortal
+classic "Return to Dracula's Castle", a harrowing and sexy text adventure
+written and designed by the now infamous Arthur Winslow. The game recieved
+critical raves across the board and would go on to sell well over 19 million
+copies in it's first week of release. Due to the sudden and enormous success,
+Arthur soon found himself thrust into the world of celebrity, a world which
+did not suit him at all. He quickly developed severe addictions to alcohol,
+cocaine, heroin, peyote, opium, PCP, and paint varnish leaving him in a
+constant drugged out stupor. In 1988 Infocom came knocking and demanded he
+make a sequel to his hit game, knowing full well of his ridiculous amounts of
+addictions and choosing to ignore them. That decision would come back to
+haunt them. In late 1988, showing up at their offices wearing nothing but a
+stained wifebeater and a massive stovepipe hat, Arthur handed them the disk
+which contained his self-proclaimed magnum opus and then prompty died three
+seconds later. After playing the awful mess that the drug addled lunatic
+handed them, Infocom decided that it was best not to tarnish the memory of
+the late designer and buried the only copy of the game in a hole far off in
+the Gobi Desert, secluded from man's reach.
+
+Until now. A crew of excavaters recently unearthed the game from it's long
+lost tomb and returned it to it's rightful owners, the Natural Text Adventure
+Preservation Society, who managed to save the data on the disk which is why
+you are here today. That's right, you are about to experience the long lost
+text adventure "Return to Dracula's Castle II: Revenge of Dracula's Castle",
+Arthur Winslow's so-called magnum opus. Is it a long lost classic or the
+final deranged work of a mentally unstable peyote addict?
+
+You are about to find out!
+
+INFOCOM PROUDLY PRESENT...
+
+RETURN TO DRACULA'S CASTLE II: REVENGE OF DRACULA'S CASTLE
+
+WRITTEN BY ARTHUR WINSLOW
+
+BASED OFF AN ORIGINAL IDEA BY ARTHUR WINSLOW
+
+PRODUCED BY ARTHUR WINSLOW
+
+PLAYTESTED BY ARTHUR WINSLOW
+
+DESIGNED BY ARTHUR WINSLOW
+
+"Neither man nor animal, he inhabits the space between. His thirst for blood
+can never be quenched, his desire for love can never be fulfilled. He goes by
+many names but only answers to one...Dracula."
+                                             - Arthur Winslow
+
+It had been 3 years since that fateful night when you returned to Dracula's
+castle and pushed him into a vat of boiling lava...3 very long and very
+uneventful years where you worked in the service industry. But now here you
+were in the back of a carriage heading up the Transylvanian countryside to
+return...to return to Dracula's castle...again.
+
+"I'm not going to let you get away this time," you said as you lit up a
+cigarette and looked out in slow motion at the castle looming off in the
+distance. "Me and you are gonna tango so I hope you brought your dancing
+shoes."
+
+You quickly thought of your deceased wife...Maria...gunned down in cold blood
+by Dracula with a .44 magnum in a strip mall parking lot. The courts had
+found him innocent and he was never convicted of a single charge and for that
+he would pay. He'd also pay for being a deadly vampire but mostly because he
+gunned down your wife in a parking lot. That was a pretty bad thing to do,
+vampire or not.
+
+Suddenly and without warning, a large bat hit the side of the carriage
+causing it to do three flips in the air and then skid to a stop on the side
+of the road. Ay carumba! You let out a sigh and clenched your fist..."Time to
+pay the piper, Dracula" you muttered. "And I'm the piper." A gritty guitar
+solo played in the background as you said that last line.
+
+Carriage
+
+You are standing in a tipped over carriage. There is a bunch of luggage
+scattered everywhere as well as high powered rocket launcher which leans
+against your seat. The door out of the carriage is to the East and through
+it's window you can see Dracula's castle off in the distance. That's the
+castle where Dracula lives. You should go there and kill Dracula.
+
+> take rocket launcher
+You grin and pick up the rocket launcher, firing a few celebratory rockets up
+into the air.
+
+> smoke peyote
+I'm going to give you a million points for saying that because I like people
+who support peyote. Any friend of peyote is a friend of Arthur Winslow.
+
+> e
+You move east.
+
+Road to Dracula's Castle
+
+Holy shit! Dracula is in an F-15 Eagle Fighter Jet firing missles at you as
+you stand next to the tipped over carriage on the road to his castle! You
+could continue North to reach the castle but it's too dangerous because
+Dracula's F-15 Eagle Fighter Jet is firing those missles at you. You could
+hide West in the carriage because it's safe from jet missles.
+
+> fire rocket launcher at jet
+You lift the rocket launcher up and fire it at Dracula's F-15 Eagle Fighter
+Jet. It hits the jet's wing and sends it spiralling down, flames shooting out
+of the cockpit as Dracula's ejection seat flies out and floats down onto the
+top of his castle.
+
+"Dracula!!!!" you scream as the jet hits the ground next to you, causing a
+huge and badass explosion that sends you hurtling through a window into
+Dracula's castle where you land comfortably on a bed. That was lucky. And
+cool. Someone should adapt this into a movie, hint hint.
+
+> push bed
+You push the cot out of the way and reveal a trapdoor in the floor
+underneath. It must be a hassle for Dracula to move the bed everytime he has
+to get under there, it'd probably be easier just to put the cot in the other
+corner of the room so it doesn't cover up the door in the floor.
+
+> open trapdoor
+Dracula's Recording Studio
+
+You have just stumbled into Dracula's personal recording studio! A large
+mixing board dominates half of the room which is filled with a wide variety
+of knobs, buttons and levers.   Opposite it is a set of large speakers which
+are covered with stacks of tapes, a large cable connects from the speakers to
+a guitar in the corner of the room which leans against a ladder that leads
+back up to Dracula's bedroom.
+
+> take cable
+You take the long piece of cable.
+
+> u
+You move up.
+
+Dracula's Bedroom
+
+You are in Dracula's bedroom which is a room where people tend to sleep.
+Dracula's cot rests ajar in the corner of the room, a trapdoor leading Down
+underneath where it used to sit next to a large poster of famed text
+adventure designer Arthur Winslow. A small desk in the corner of the room
+holds a typewriter which Dracula uses to answer all of his fan mail and
+there's a door to the North which leads deeper into the terrifyingly scary
+castle.
+
+> n
+You move north.
+
+Destroyed Hallway
+Ack! Darn that Dracula! Darn him to heck! The upper hallway of his castle
+where you stand has been considerably demolished, most definitely by the
+vampire himself in order to prevent you from getting any further into his
+home. The stone floor in front of you has crumbled away leaving only some
+metallic bars jutting out and a view of the great hall down below . The door
+to the South leads back to Dracula's Bedroom.
+
+> tie cable to metal bar
+You tie the cable around the metal bar poking out of the demolished cement
+making a snazzy little rope to get down. Good job, you!
+
+> climb down cable
+You grab a hold of the cable and slide down to the great hall below in a very
+cool manner.
+
+The sound of two hands slowly clapping soon distracts you from any other
+thoughts. "Well done," Dracula says as he slowly walks out of the shadows
+giving you a round of ironic applause. "You have once again returned to my
+castle...not many people can do that, you are indeed a worthy adversary."
+
+You pull out your 9mm handgun and hold it sideways with the barrel aimed
+straight at Dracula's forehead. "Give me a reason not to blow you away right
+here, cochise," you say like a loose cannon with nothing to lose. "I swear to
+Ra I'll do it. I'll pump you full of so much lead I'll be able to use your
+corpse as a pencil to write down my grocery list."
+
+Dracula grins and in the blink of an eye raises his right hand revealing a
+massive .44 magnum pointed in your direction. "A mexican standoff. We both
+knew it would end like this."
+
+Your eyes open wide in shock as you see the magnum...it's the same gun he
+gunned down your wife with in front of the Kinko's in the strip mall parking
+lot! "You son of a B," you scream in mad angry anger. "I'm gonna shoot you
+now. You are so shot."
+
+You both pull the trigger on your respective guns at the same time and wait
+for the dust to settle to see who was left standing. There was no dust as it
+was a surprisingly clean castle so it didn't take long at all. You opened
+your eyes and looked down...he had missed. You were fine. Dracula was not so
+lucky.
+
+"Argh, a bullet to the stomach, how did you know my only weakness," Dracula
+mumbled as he stumbled forward and then fell to the ground. "Come closer...I
+have...something I need to tell you..."
+
+You stepped forward and bent down on one knee to hear the dying man's last
+words. "I want you to know," he said coughing up some blood. "I'm...your
+son."
+
+"Nooooooo!" you screamed as your newly found out son Dracula closed his
+eyes...forever. "What a shocking twist! No one saw this coming!" you cried
+out as you raised your arms in defeat and then began to cry tears. Tears of
+sadness.
+
+THE END?
+
+THANKS FOR PLAYING RETURN TO DRACULA'S CASTLE II: REVENGE OF DRACULA'S CASTLE
+
+THE DESIGNER WOULD LIKE TO THANK THE FOLLOWING PEOPLE: ARTHUR WINSLOW, BRAM
+STOKER, THE STAFF AT THE HARD ROCK CAFE IN DETROIT, GOD, CHEECH MARIN, AND
+MOST IMPORTANTLY YOU...THE PLAYER...FOR PLAYING.
+
+COMING IN 1990:
+
+RETURN TO DRACULA'S CASTLE III: DRACULA'S CASTLE GOES HAWAIIAN
+
+You scored 1000000 out of the maximum 1000000!
+That is 100% of the game!
+Well done - you scored maximum points!

@@ -1,0 +1,198 @@
+Loading game...
+
+Briefcase
+
+"You get into the house. You go up to the study. You look on the top shelf of
+the cupboard. You take the briefcase. You bring me the briefcase. I give you
+the money. You do not, under any circumstances, try to open the briefcase.
+Okay? Good."
+BRIEFCASE
+by Woodfish
+
+Type 'about' for details
+ Distant church bells are chiming midnight above the rooftops as you make
+your way through the thin cobbled streets, ducking between alleyways and
+leaping over rooftops while the large moon shines down, casting long shadows
+over the city. To others, you are just another of these fleeting shadows, a
+patch of moving darkness in the night. But the truth is this - you are
+Julius, master thief of the Southbanks. The brickwork is cold on your hands
+as you flit from building to building, slipping through the darkness. This is
+what you really enjoy - darting through the city streets at night, the
+streaming wind in your hair, and fresh air in your lungs. It is all too soon
+when you finally reach the target house, and drop down to perch on a
+window-sill at the back.
+
+ Acting quickly, you pull out a long golden rod, and push it steadily into
+the lock on the window. With a sharp click and a whirr, the lock snaps open,
+leaving you to slide open the window and climb silently inside...
+
+Short Corridor
+Moonlight glows through the window behind you, giving light to the short
+corridor. A small, antique table sits along one wall, decorated with a vase
+of tulips. Above it hangs a small mirror, through which you can see your face
+half vieled by darkness. The short stretch of cream carpet leads north along
+the corridor and deeper into the house, or east into what appears to be the
+dining room.
+
+> north
+You move north.
+
+Hall
+Further into the heart of the house, there is much less light, and the sounds
+of the street outside seem strangely muted. Across the hall, there stands a
+large grandfather clock, and next to it an umbrella stand. In the wall
+opposite is a doorway leading west to the rest of the house. Taking up most
+of the hall, however, is a wide staircase, leading to the upper-floor of the
+house. A short corridor leads back south.
+
+The ticking of the grandfather clock echoes through the hall.
+
+> up
+You climb the stairs slowly, one step at a time. As you ascend, your
+surroundings seem to get darker, and the sounds of the old grandfather clock
+get more distant.
+
+Your heart skips a beat as there is a sudden creeeeak! from the stair beneath
+your foot - a loose floorboard. You freeze, standing absolutely still, your
+heart pounding, straining to hear the opening of a door, or the padding of
+moving feet. But no, everything stays quiet. After a good three minutes have
+passed, you are certain that no-one is aware of your presence, and you
+continue on your way.
+
+Upstairs Landing
+The landing consists of a wide area of carpet, taken up by a large, grand
+piano - its looming shape only just visible in the darkness, despite it being
+only a few feet away from you. There is a closed door in the north wall,
+beside a long corridor stretching west. The wide staircase leads back down
+beneath you.
+
+> west
+You move west.
+
+Long Corridor
+A large window at the end of the corridor spills light onto this corridor,
+glittering across the walls of exquisite paintings. Opposite them stands a
+wall of three doors, each leading to a bedroom, as evidenced by the fact that
+there are very gentle snores drifting out of each. The corridor diverts its
+course to the north-west, or leads back to the landing to the east.
+
+There is a large golden retriever lying asleep in the corridor.
+
+> wake dog
+Not completely sure of yourself, you bend down and stroke the dog's glossy
+coat. It stirs, and looks at you with sleepy eyes, before rising to its feet.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> nw
+You take a few cautious steps along the corridor, but pause. There's no way
+you can get to the other end without disturbing the dog some way.
+
+A whine escapes the mouth of the dog - he seems to be bored with you now, and
+turns around to wander downstairs. You listen to his paw-steps padding down
+the stairs, and then let out the breath you've been holding. Now - back to
+business.
+
+> nw
+You follow the corridor around the corner.
+
+End of Corridor
+The corridor finishes at a closed wooden door, leading further north-west.
+Behind you, the corridor leads back to the south-east.
+
+> pick lock
+You insert the pick into the keyhole, and it clicks into place. There is a
+click as the lock mechanism is released, and then you withdraw the lock-pick,
+the door now unlocked.
+
+> open door
+The door swings open, revealing the study to the north-west.
+
+> nw
+You step into the study.
+
+Study
+The study, in contrast to the rest of the house, is fairly bare, with
+varnished wooden floorboards decking the floor. A simple wooden desk takes up
+one wall of the small room, with a heavily-curtained window above it. A chair
+is pulled up in front of the desk. The rest of the study is occupied by a
+large bookshelf. A door (open) leads out to the south-east.
+
+> open curtains
+You pull open the curtains, and soft moonlight ripples in.
+
+> stand on chair
+You stand on the chair.
+
+> stand on desk
+You climb onto the desk from the chair.
+
+> take briefcase
+You pull down the briefcase, and hop back to the floor. As you do, you
+suddenly hear the sound of a siren - very faint - but a siren nonetheless. It
+takes you a moment to realise that the sound is coming from within the
+briefcase.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+You freeze suddenly, as there is movement at the doorway, and the door swings
+shut. There is a sharp click of a key turning in the lock - someone has
+locked you in! A clear voice then calls out from the corridor outside.
+
+"I know you're in there, thief, the dog woke me," it says, a male voice -
+probably the owner of the house. "The police will be here in seconds. Don't
+think of escaping, that window is unbreakable."
+
+Damn! How could this happen to you, Julius, the uncatchable master-thief?
+There's got to be some way out of this one...
+
+> open case
+Desperate, you open the briefcase to see if there is anything useful inside.
+
+At first, you think it is empty - just a dark, hollow interior. But looking
+closer, you begin to pick out details in the darkness - the glinting of the
+moonlight on tarmac, and cigarette-end in the gutter. A breeze gusts up from
+inside the briefcase, cooling your face. You peer down into the briefcase, in
+wonder. This is some kind of - some kind of window, leading out onto the
+street!
+
+You put a hand into the briefcase, and sure enough, you feel a tangible
+breeze as it enters the street the other side of the briefcase. The siren
+gets louder, this time clearly coming from the street within the briefcase.
+This could be the escape you've been looking for!
+
+Nervously, you set the briefcase onto the ground.
+
+> in
+Taking one last desperate look at the door, you stand over the briefcase, and
+gently lower youself down. There is a curious moment half-way down when your
+feet make contact with the ground below and your head is still level with the
+study floor, and you wonder what passers by would think if they saw half your
+body on a London pavement. But then you are through, onto the road the
+otherside, shivering with the night's chill.
+
+The siren is now louder, almost deafening. Headlights shine in front of you,
+and you have to dive out of the way to miss the oncoming police car, which
+speeds down the road behind you. As it drives into the misty distance, the
+siren fades into silence, and you are left alone on the road.
+
+No wonder your client didn't want you to open the briefcase. It has remained
+floating in the air, the study ceiling still visible inside. You pull it out
+of the air, and snap it shut. A magic briefcase, then? You open it once more,
+and this time see a patch of lighter ground inside, which you recognise as
+being your home, next to the river. No amount of money is going to make you
+hand it back to your client now, and clutching it firmly in one hand, you
+walk into the distance, while the moon shines down above...
+
+Life has just got more interesting for Julius, master-thief of the
+Southbanks.
+
+[The end]

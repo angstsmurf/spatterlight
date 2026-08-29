@@ -1,0 +1,267 @@
+Loading game...
+
+Regrets
+
+Regrets
+
+An Interactive Text Adventure
+By David Whyld
+Written with ADRIFT Version 4, Release 45
+
+People playing the game for the first time should type INFO or ABOUT. A
+walkthrough is in the accompanying PDF file or can be accessed during the
+game by typing walkthrough.
+
+The latest version of this game can always be found at
+http://www.shadowvault.net/regrets.htm
+
+...press a key...
+
+Of course, I never expected to come back here. When Marie died, I locked up
+the old cabin, threw away the key and left. I intended to sell it. I never
+wanted to set foot in the place again.
+
+But then…
+
+Then I had the dream.
+
+It was a strange dream, and this is from someone who has spent his life
+having strange dreams. As a child, I saw people with no heads; as a teenager,
+I watched a tramp die under the wheels of a moving truck several minutes
+before the actual event; as an adult… and then, later in my life, I had a
+dream in which I believed Marie was at the cabin. Pure nonsense of course.
+The desperate hopes of a lonely old man. And yet…
+
+And yet here I am all the same, the key (retrieved from where I had thrown it
+on the garden back home) poised to open the door.
+
+"Are you in there, Marie?" I ask softly as I step into the cabin.
+
+...press a key...
+
+It is not a large place, the cabin. A couple of simple rooms - one we used as
+a bedroom when we came here, another as a kitchen - but it is here, the main
+area, where I am convinced I saw Marie. Standing by the bookcase, a glass of
+sherry in one hand. She had her other hand resting on the back of the ancient
+armchair.
+
+> l
+
+The main area of the cabin: not a large place but cosy. Very cosy. Or once it
+was. Now it's cold and somewhat drafty. It carries the smell of misuse. An
+armchair sits before the currently unlit fire; on one side of it is a
+bookcase; on the other a desk where either myself or Marie used to sit to pen
+letters. The door to my back leads out of here but that doesn't concern me
+right now. Two other doors, to the west and north, lead to the bedroom and
+kitchen respectively. The east wall is given over to a window which shows me
+trees and, peering through them, a lake.
+
+> x bookcase
+I peruse a few of the books on the case. Marie liked to read romance; I was
+more a horror fan. Strange, then, that most of the books here seem to be
+historical sagas. Perhaps Marie liked to vary her reading from time to time.
+   But no. That doesn't strike me as correct. Marie read romance and little
+else. She made a point of telling me. So the historical sagas-
+
+...press a key...
+
+As I crouch by the bookcase, I have a sudden flashback to a bookstore I
+visited many years ago. An argument with the clerk. I stormed out in rage. He
+followed me, offering placations. I slapped him across the face then threw
+him into a wall and kicked him several times until he was unconscious.
+
+...press a key...
+
+I let go of the bookcase and stagger back a few feet. Why did I think of that
+unpleasant incident just then? It must have been… what? Twenty? Twenty-five
+years ago? Maybe thirty. I'm not even sure what the argument was about.
+
+> x window
+It's not a feature that was present in the cabin when I bought it ten years
+ago but I decided that double-glazing was a necessity so I-
+   No, wait. Marie decided to have a double-glazed window fitted. Of course.
+I was quite happy with the window as it was but Marie thought it might become
+cold around winter time so we had this one fitted.
+   I wonder how I forgot it was Marie who decided on double-glazing.
+
+> look through window
+I see… not the woods that I normally see, with the lake beyond that so
+captivated Marie when we first came up here… but instead a field. Marie is
+there, seated upon a bench, reading a book, an umbrella shielding her from
+the sun. I raise a hand as if to wave to her but something stops me.
+Something…
+   I see her hands. They are thin, bony. Almost skeletal. Then she looks at
+me and I see her face: not the face of a living, breathing woman but a death
+mask.
+
+...press a key...
+
+"You shouldn't have come back, Walt," she says, her words travelling easily
+to me though the distance between us is great. "You aren't ready to accept
+what happened."
+   "It was terrible, Marie," I say, speaking my words to the glass of the
+window. "I couldn't bear seeing you like that. I couldn't just-"
+   "You were a selfish man, Walter Brannak, and you never stopped to consider
+what impact your actions would have on everyone else. I hate you, Walter. I
+hate you."
+   Her words cut deeply into me, worse than a knife wound.
+   "You shouldn't have done it, Walter," she says.
+   "Marie-"
+   She turns away from me. "You shouldn't have done it," she repeats again,
+but this time her voice is distant, the words fading away as-
+
+...press a key...
+
+I blink. Come awake. I am standing, half asleep, with my face pressed against
+the window. Beyond it there is no field, no Marie. Just the trees and the
+lake. As always.
+
+> sit in armchair
+I sit back in the armchair and close my eyes, trying to picture the cabin as
+it was when Marie was alive. I relax my breathing, sink back into the chair,
+concentrate on remembering everything as it used to be…
+
+Then I open and my eyes and see…
+
+...press a key...
+
+Marie.
+   "Hello, Walter," she says. She's standing by the window, a hand resting on
+the frame. "I was wondering how long it would be before you came back to
+gloat."
+   "… gloat?" I say. My mouth seems sluggish. Am I dreaming? I must be. But
+what a glorious dream! Marie, alive!
+   "Gloat." She looks out the window and then she looks back. Her face is
+wan, pale, almost ghostly. "It hurt what you did, Walt. Hurt me bad."
+   "I didn't… mean…"
+   "No. You never do. That's your problem. You go through life doing as you
+damn well please, never stopping for a moment to consider what effect your
+actions are having on those around you. And then, one day, something happens.
+Something big. And you finally realise what a fool you are."
+   I can't say anything. My mouth is frozen.
+   "Goodbye, Walt," says Marie and fades away.
+   I try to reach a hand out to her but-
+
+...press a key...
+
+But, instead, I awaken.
+   I am alone once more in the cabin.
+
+> x desk
+It was close to the desk where Marie was standing when I saw her. Has she
+left something for me on the desk, something I need to find? Or, more likely,
+am I just missing her so much that I gave myself the vision as an excuse to
+think about her some more? It could be either, it could be neither. I have no
+way of knowing.
+   The surface of the desk is bare aside from a series of scratches and a
+small diary, a journal I used to keep. Why it is here, at the cabin, and not
+at home I can't say for certain. There is a drawer, locked, in the left hand
+side.
+
+> touch scratches
+I lay a hand on them. As I do, I remember the first time I met Marie. She was
+so beautiful. So young and full of life. I was twenty years her senior and
+yet she made the age difference between us seem like nothing more than mere
+days. In a way, I was glad to be older than her as I could never bear the
+idea of her dying before me and leaving me alone with her death. Now that
+unfortunate event has come to pass, I find being without her more painful
+than physical torture.
+
+> read diary
+I hesitate as I reach for the journal. Something tells me not to read it, yet
+another part of me tells me that I have to read it. That it is the reason I
+came here.
+   Yes I hesitate…
+
+> read diary
+I open the journal and read a few entries:
+
+June 15
+Marie grows steadily worse. How I hate seeing her like this. I wish there was
+something - anything - I could do. But there isn't. There isn't. The doctors
+have told me they can't cure what she has and even trying to would just make
+her worse, shorten the precious time she has left. I can do nothing but wait.
+And watch her die.
+
+...press a key...
+
+June 25
+I was never a believer in euthanasia. Never. It is a sin to end someone's
+life before their allotted time, a blasphemous act and I would have struck
+down any man who dared to suggest otherwise or, worse, to champion its
+course. Yet I think about it more and more. This morning, Marie vomited for
+half an hour. She lay in bed for an hour after that, so weak she could barely
+move. I called the hospital but they said there was nothing they could do.
+She should sleep. And pray. Pray? Pray!
+
+...press a key...
+
+July 5
+I didn't reach the decision easily. I debated it long and hard. I even
+considered talking it over with Marie a time or two but she was never lucid
+enough to understand what I was proposing. In the end, as I lay there and
+held her painfully thin hand, I came to a decision. I would do it. To hell
+with the consequences. If I spent the rest of my life in prison for my
+actions, it would be a small price to pay for easing her suffering.
+
+...press a key...
+
+July 6
+It is done. It was surprisingly easy. Marie was so weak she didn't even
+struggle. I tried to explain to her as I was doing it my reasons but I was
+never sure she understood what I was saying. When I removed the pillow, she
+was gone.
+
+...press a key...
+
+June 7
+Another letter. I sat on the front porch and read it and felt my world
+shatter. The sheer injustice of it all tore me apart and I think I cried like
+a baby. Several people passing by the house stopped and asked me if I was
+alright. I swore at them. I threw things at them until I left. Then I stormed
+inside the house and smashed my hand into a wall until I was so exhausted I
+passed out. Even then, the contents of the letter passed through my mind and
+would not leave me be: "good news… extensive surgery… believe cure is found…"
+
+> kick drawer
+Normally I would not dream of doing such a thing, but a strange desire to see
+just what lies within the drawer overcomes me and I take a step back then
+kick it as hard as I can. The drawer bursts open, spilling onto the floor a
+letter. I stoop, pick it up, and read the name and address on the cover:
+
+"Marie Brannak, 425 Malvin Square, Chester Grove, Berkshire"
+
+The letter from the surgery.
+
+> read letter
+I tear it open. I seem eager even though I know what the contents of the
+letter are. After all, I read them a hundred times that first day and a
+hundred more after that. And then a hundred more as I struggled to find some
+way to disbelieve what I was reading. I know the letter off heart but, even
+so, I sit and read it through once more: "… regret to inform… inoperable…
+perhaps 6 months… very sorry…"
+   Marie. My poor Marie.
+
+> s
+Wearily, I stagger from the cabin and make my way down to my car. I feel…
+tired. So very tired. Part of me wonders if my coming to the cabin served any
+purpose at all other than to reopen old wounds. Eighteen years in a small,
+cold cell gave me a lot of time to think, and brood, and regret my actions,
+and even though I believed at the time that what I was doing was the correct
+course of action… now, years later, I wonder. I still talk to Marie
+sometimes. I try to wait until no one else is around because they give me
+funny looks and make gestures indicating they suspect I am mad. But I talk to
+her and she answers me. She condemns me for my actions. But not nearly as
+much as I condemn myself.
+
+...press a key...
+
+The game has ended.
+
+> quit
+The game has ended.
+
+> y
+The game has ended.
+
+>

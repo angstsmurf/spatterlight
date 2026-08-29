@@ -1,0 +1,268 @@
+Loading game...
+
+The Perfect Spy
+You are Stephen Rogers, a scientist in a top secret project being carried on
+in a hidden laboratory, somewhere in the central US.  The location is known
+only to the precious few contacts that your superiors allow.  Your life
+consists solely of doing their dirty work, sleeping for a maximum of four
+hours a day, getting massive doses of caffeine, and repeating.
+
+You never wanted this.  When it all started, you were only told that you
+would be working on a scientific project, if you would only do anything
+without questioning your employers.  You thought it sounded strange, but were
+desperate for the cash, and it was high time that you put your hard-earned
+degree to some use.
+
+It was only when the work began and you were told that you were not to be
+allowed to leave the facility without express consent from your superiors,
+and that they were highly unlikely to give you such leave that you began to
+feel nervous.  Then, when your routine started, it became a nightmare.  You
+quickly realized that you couldn't function in this sort of environment, and
+requested release from your employment.  Unfortunately, you had somehow stood
+out among your fellow researchers as being the most efficient, and so you
+were denied your request.  You tried to quit, but they wouldn't let you.
+When you told them that you would no longer continue to work, they threatened
+you with death.  The project was too important.
+
+The project itself made no sense to you.  It attempted to somehow change the
+form of a human into that of an animal through genetic manipulation.  It
+seemed to you to be not only impossible, but incredibly clichéd.  When they
+finally revealed to you their plan for this project, you saw why it was
+important to them.  They were attempting to create the perfect spy.
+Disguised as an animal, a man would retain his human mind, allowing him to
+use whatever form to his advantage.  Still, it was impossible, was it not?
+
+After months of working, you have somehow become convinced that it is not.
+You and the others who are working alongside you have successfully performed
+tests on several test subject who were to be paid several thousand dollars
+for just allowing themselves to be injected with the potentially deadly
+serum.  For some reason, you found that there were crazy people willing top
+do this, to whom money was more important than life.  You yourself tried to
+convince them not to go, and several of them did succumb to the deadly
+effects of the early prototypes.  As each one failed, your conscience
+screamed that this wasn’t right, yet you continued, thoroughly convinced that
+it would be better to continue and somehow stop the project than getting
+killed.
+
+Then dozens of tests later, you completed your first successful test.  A man
+was changed into a tiger, yet retained his mind, and was completely without
+side-effects several weeks later.
+
+With the first success, you learned  lot about how it had to be done.  You
+and your colleagues successfully completed two more forms soon afterwards,
+and then you completed the final step that your employers had intended.
+
+Strapped to your wrist, the device that you designed contained concentrated
+doses of each of the serums, tiger, mouse, German shepherd, and human.
+Through the use of hypodermic needles, it would inject the wearer with the
+proper amount of whichever of the serums he required, prompting the quick
+change into the form of his choice.  This would be used by the so-called
+Perfect Spy to allow him to make use of the abilities of all four forms in
+relatively short time period.
+
+Now you are about to reveal to your superiors the success that you have had.
+Around you, your partners in this project wait, each of them having defaulted
+on the honor that you now were forced to perform.  You were to demonstrate
+the device on yourself for your employers, but you weren't about to
+cooperate.  With the device that was project Perfect Spy on your wrist, you
+have never been more equipped to escape, and that is just what you intend to
+do...
+
+To use the device, type 'Turn into (animal)' or 'Change into (animal).'
+
+End of Hall
+You are standing at the end of one of the many winding halls in this
+facility.  You stand in front of a door which is to your south.  This leads
+into the room where you are to show your employers the device.  Several of
+your fellow scientists stand, waiting for you to go through the door.  The
+hallway leads back to the north, before turning west and east a few feet
+behind you.  The scientists around you fidget nervously.
+
+>
+I don't understand what you mean, please rephrase.
+
+> turn into a tiger
+You press the appropriate buttons for this transformation, and it begins
+immediately.
+
+Suddenly unable to stand, you fall onto your hands and knees, then notice
+that your fingers are beginning to shorten.  They continue to shorten, until
+they are much smaller than their original forms.  Also, orangish hair has
+grown on them, and your palms have seemingly inflated.  You try to cry out as
+a sudden pain from your changing fingers shocks you, but a growl is all that
+is heard.  From the tips of your fingers, right where your fingernails used
+to be, come long, black claws.  The orange hair is also growing farther up
+your arm.  As it rises farther, it is broken by long stripes of black hair
+that cross into it.  Your arms are also changing, becoming stronger.  The fur
+runs into your sleeves, disappearing behind the cloth.  You can't see the
+changes now, but you can feel more occurring.  You gain weight as the changes
+continue back towards your rear, but little of the new weight is fat, most
+being lean muscle.  Looking at the reflective surface of the metal walls, you
+can see that your entire body from the hips forward is covered in striped
+fur, with the orange fur changed to white on your chest and stomach.  Your
+head also begins to ache as it changes, your face seemingly on fire as the
+striped fur grows there as well, masking your former features.  Your ears
+become rounder and move to the top of you head, and your nose and mouth both
+move off in front of the rest of your face, forming a small feline muzzle,
+filled with sharp teeth that have replaced your old human equivalents.  You
+give a very animalistic growl as a pain at your rear end is felt through your
+body.  You look back to see a long, striped tail has ripped through the back
+of your pants, and your pant legs are bulging with your wider legs as they go
+through the change.  Your hips suddenly change positions with an agonizing
+feeling that makes you growl loudly.  Instead of hands and knees, you're now
+on your hands and feet, or rather, on all four paws.  Your legs succumb to
+the change slowly, your knees for all purposes disappearing, leaving only a
+slight curve to your leg.  Your feet get longer, and you find yourself
+standing on your toes, with the aid of the pads that now cover the balls of
+your feet.  As the changes come to an end, you turn your body to look
+yourself over.  Your clothes are mysteriously gone, now, leaving you standing
+in full tiger form.
+
+Though it seemed to take a while for you, you know that the change was rather
+quick.  As you finish changing, the scientists take off running in panic,
+leaving you alone.  Taking the opportunity, you move north quickly, leaving
+the door behind.
+
+3-Way Intersection
+You are standing at an intersection of three halls.  One leads back south
+towards the door which contains your employers.  The other two choices are
+east and west, both of which lead down the empty halls of the facility.
+
+> w
+You move west.
+
+West Hall
+You have turned west from the intersection, and are now standing in the
+middle of a hall.  Like the other halls here, this corridor is plain metal,
+featureless except for the fluorescent tubes above you that illuminate the
+entire system of hallways.  Around you there is little of note except for a
+locked door just south of you.  It is uninteresting to you, though, as you
+know that it only leads to a broom closet.  The hall continues back east and
+in front of you to the west.
+
+> change into human
+You begin to lose your fur, and then your tail.  Your hands turn back to
+their original form, as do your feet, and your face becomes human.  Your
+clothes reappear, as you become completely human again.
+
+> turn into mouse
+You press the buttons on your device for the change, which begins
+immediately.
+
+The change moves like a whirlwind, making you dizzy as you shrink down
+quickly from almost six feet tall to only an inch or so.  Your body becomes
+covered in brown fur, and your hands become furless claws.  Your head
+stretches out into a muzzle, tipped with a sensitive nose.  You gain a
+furless tail behind you, and your clothes, which had begun to swamp you,
+mysteriously disappear.  You have become a brown mouse.
+
+> w
+You move west.
+
+Intersection
+You now stand at an intersection between the hall you currently occupy and a
+hall that leads off to the north.  Looking down the hall, you see a security
+checkpoint, where two guards stand.  Since they will be on alert, you
+seriously doubt your chances of getting past them.  Your only other
+alternatives are returning to the east or continuing to the west.
+
+> n
+You move north.
+
+Security Checkpoint
+You stand in front of a security checkpoint, watching the two guards as they
+watch for people to check.  As a mouse, you walk quietly against the wall,
+unnoticed thus far by the guards.  Still, it would be relatively useless to
+try to get past them, as the hallway is guarded by an electric field which
+would shock anyone that goes through them.  Still, you notice something on
+one of them that might be useful: a blue keycard!
+
+> climb guard's leg
+You climb up the guard's leg, moving towards the blue keycard.  You might be
+able to get it now...
+
+> take blue keycard
+You reach carefully for the keycard, grabbing it with the tips of your claws.
+ As it comes free, you climb quickly down.  The guards still haven't noticed!
+
+> s
+You move south.
+
+Intersection
+You now stand at an intersection between the hall you currently occupy and a
+hall that leads off to the north.  Looking down the hall, you see a security
+checkpoint, where two guards stand.  Since they will be on alert, you
+seriously doubt your chances of getting past them.  Your only other
+alternatives are returning to the east or continuing to the west.
+
+> w
+You move west.
+
+West End of Hall
+You are at the far western end of the hall, facing a keycard door.  You have
+sufficient clearance for this door, so all you should have to do is use your
+keycard to get through and into the next room.  The only other way out is to
+the east, which returns back the way you came.
+
+> change into human
+You begin to lose your fur, and then your tail.  Your hands turn back to
+their original form, as do your feet, and your face becomes human.  Your
+clothes reappear, as you become completely human again.
+
+> use blue keycard on door
+You push the blue keycard into the slot beside the door, and the door slides
+open.  You're now free to go west.
+
+> w
+You move west.
+
+Round Room
+A large, round room with seemingly nothing in it.  You suppose it is one of
+the parts of the facility that is still under construction.  Still, you might
+find something helpful here.
+
+There is a toolbox here.
+
+> turn into mouse
+You press the buttons on your device for the change, which begins
+immediately.
+
+The change moves like a whirlwind, making you dizzy as you shrink down
+quickly from almost six feet tall to only an inch or so.  Your body becomes
+covered in brown fur, and your hands become furless claws.  Your head
+stretches out into a muzzle, tipped with a sensitive nose.  You gain a
+furless tail behind you, and your clothes, which had begun to swamp you,
+mysteriously disappear.  You have become a brown mouse.
+
+> n
+You move north.
+
+Inside a Hole
+You are inside a hole, surounded by wires, which are, luckily, insulated.
+Better not be chewing on them, though.  From here, you can see out a hole in
+the opposite wall.  Out there, you see...  Freedom!  The hole leads outside!
+From here, you are able to go north or south, back into the round room.
+
+> take ball of yarn
+You take the ball of yarn.
+
+> throw ball of yarn north
+You toss the ball of yarn out, and the curious cat outside follows after,
+batting at it and playing around with it.
+
+> n
+You move north while the cat is distracted.
+
+Side Alley
+You are standing outside of the facility, with nothing between you and
+freedom but getting out of this alleyway.  You're almost there!
+A cat is here.
+
+> n
+You run away from the cat and out of the alley.  For the first few moments,
+you're sure that you're being followed, but this proves to be false.  You're
+out!
+Congratulations!  You have successfully escaped from the facility!
+You scored 10 out of the maximum 10!
+That is 100% of the game!
+Well done - you scored maximum points!

@@ -1,0 +1,333 @@
+Loading game...
+
+Drinks With Lord Hansom
+
+Drinks With Lord Hansom
+
+By revgiblet, for Ectocomp 2008.
+
+[Press a Key]
+
+"...and so he saved my life," concluded the Captain, "But it was the most
+damnable thing.  When I asked around the regiment that he told me that he was
+from, the fellows there told me that the only soldier matching the
+description that I gave had been killed by a French gun battery three months
+ago."
+
+Captain Weathers took a draught from his brandy and sat back, shaking his
+head at the memory.
+
+"Really, my dear Captain," Huntsley laughed, "I don't think that your story
+proves the existence of the supernatural.  Rather, it merely provides
+evidence for the dull intellect of the average Redcoat."
+
+"Ignore him, Captain," the Reverend interjected, "It has always been the
+recourse of the foolish to mock that which they don't understand."
+
+"Oh, and I suppose there's no point in asking you if you believe in the
+supernatural, is there Reverend?" Huntsley grinned, winking at me.
+
+"If I rejected things simply on the basis of me never having seen them then I
+would have given up taking in air a long time ago, Albert." the Reverend
+Smythe responded.
+
+"And I imagine we'd all be the better off for it." Huntsley retorted,
+bringing a wry smile from Smythe and appreciative guffaws from the rest of
+us.
+
+I risked a glance at our host, Lord Rupert Hansom.  He had been silent and
+pensive all evening.  It was most unlike him and somewhat troubling.
+
+"And what of you, Rupert," I attempted to bring him into the conversation,
+"Do you believe in phantoms and will-o'-the-wisps?"
+
+He looked up, as though he were registering our presence for the first time
+this evening.  He said nothing, but a stormy look crossed his face.
+
+"Is something vexing you, Rupert?" asked Doctor Mudford.
+
+"It has not been a good day," Rupert replied, "And I find that you have
+chosen a highly disconcerting topic of conversation."
+
+"Tell us what troubles you.  Perhaps we may help?" Huntsley probed, concern
+on his face.
+
+"I think it unlikely that you can aid me, Albert," Rupert replied, rather
+sharply in my opinion, "For you have already made your views on such matters
+abundently clear."
+
+"Rupert?  What is it?" the Reverend was clearly anxious for our mutual
+friend.
+
+Hansom made no reply for some time, but then he began to speak...
+
+[Press a Key]
+
+"As you know," Rupert began, "My brother and I inherited the Hansom title and
+property when our Uncle John met his untimely end.  He had never married, and
+as his only living relatives we were the ones to benefit from his rather
+tragic death."
+
+"Upon receving the deeds to this property, my brother and I decided to spend
+a couple of days making this place comfortable.  Uncle John had a habit of
+employing the most terrible housekeepers either of us had ever known.  On our
+second day here, early in the morning, my brother took a cab into town.  I
+ventured into the attic to see what treasures I could find."
+
+"Almost instantly I was rewarded when I came across the most exquisite little
+silver music box.  It was just sitting there in the middle of the floor,
+stored most carelessly - though that didn't seem to have harmed it any.  I
+was quite taken with my find and returned downstairs to get a better look at
+it.  But I was damned if I could get it to work.  It wouldn't make a sound.
+I shook it and prodded it, but nothing, not even a chime.  So I put it on the
+table in the kitchen and resolved to ask my brother about it.  He had an eye
+for mechanics, you understand.  He would know whether it was broken beyond
+repair, and had the contacts in London to ensure that any work that was
+needed would be done well."
+
+"But I was curious about the music box.  Clearly it was valuable and I
+wondered how it had come into my Uncle's possession and why he had never
+mentioned it.  I returned to the attic to see if I could find some paperwork
+or manuscript that would give me more details about the piece..."
+
+[Press a Key]
+
+The Attic (north)
+
+I stood in the north end of the attic, where the ladder led down to the
+landing below me.  The attic itself stretched to the south.  I was surrounded
+by a collection of flotsam and jetsam; the fruit of my Uncle's travels and
+the consequence of a heritage of material wealth.  Against one of the walls,
+a sheet covered some unidentifiable object.
+
+Against the east wall stood a thin bookcase, crammed with papers and books.
+If I recall correctly, just by the entrance to the attic there was a pile of
+mouldy and rotting rags.
+
+> s
+I move south.
+
+The Attic (south)
+
+The piles of clutter were scarcer this end of the attic, but no less
+intimidating.  A small lamp on the wall offered enough light by which I could
+find my way and investigate this area.  The attic stretched back to the
+north, where the ladder led down to the landing.
+
+An interesting looking casket rested on the floor.  Resting just underneath
+the lamp was a large painting.  A small packing crate was located here.  A
+tall, portrait mirror was also propped up here.
+
+> turn first dial
+I turned the first dial.  With a click, the number changed to 1.
+
+> turn first dial
+I turned the first dial.  With a click, the number changed to 2.
+
+> turn first dial
+I turned the first dial.  With a click, the number changed to 3.
+
+> turn second dial
+I turned the second dial.  With a click, the number changed to 1.
+
+> turn second dial
+I turned the second dial.  With a click, the number changed to 2.
+
+> turn second dial
+I turned the second dial.  With a click, the number changed to 3.
+
+> turn second dial
+I turned the second dial.  With a click, the number changed to 4.
+
+> turn second dial
+I turned the second dial.  With a click, the number changed to 5.
+
+> turn second dial
+I turned the second dial.  With a click, the number changed to 6.
+
+> turn third dial
+I turned the third dial.  With a click, the number changed to 1.
+
+> turn third dial
+I turned the third dial.  With a click, the number changed to 2.
+
+> turn third dial
+I turned the third dial.  With a click, the number changed to 3.
+
+> turn third dial
+I turned the third dial.  With a click, the number changed to 4.
+
+> turn third dial
+I turned the third dial.  With a click, the number changed to 5.
+
+> turn third dial
+I turned the third dial.  With a click, the number changed to 6.
+
+> turn third dial
+I turned the third dial.  With a click, the number changed to 7.
+
+> open casket
+
+The lock of the casket quietly clicked open, and I lifted the lid curious as
+to what I would find.
+
+As the diary had suggested, the casket contained a selection of papers and
+notes - including the missing pages that had been torn from my Uncle's
+journal.  I began to read....
+
+[Press a Key]
+
+I must confess that I didn't really understand much of what I read.  It
+seemed that my Uncle had inherited the music box, just as I had.  It also
+seems that it held a fascination for him as it did for me.  He had attempted
+to research its roots, and recorded things that puzzled and disturbed me.
+
+He claimed that the music box had first come into our possession during the
+17th century.  Our title and land comes from James Hansom, a privateer who
+plundered shipping and ports in the New World, all in the name of Charles II.
+ His success earned him much favour and when he returned to England it was as
+a rich man.  My Uncle wrote that he had discovered a strange story about
+James Hansom's first dealings with the box.
+
+Apparently, James had purchased the box at a market in Genoa sometime in the
+1670s.  My Uncle drew particular attention to this point, writing that this
+was unusual in itself, for the art of making such trinkets had not really
+developed until this very century.  The story went that James assumed that it
+did something, for it appeared to be mechanical, but was most vexed by the
+fact that it - in fact - appeared to do nothing.  Allegedly he took it to a
+craftsman in London, asking for him to take a look at it and fix it if he
+could.
+
+About a week later the box was returned to James, with an angry letter from
+the craftsman stating that there was nothing wrong with the box.  He wrote
+that it appeared to be a quite ingenious mechanism that simply involved small
+pins hitting bells that resulted in a charming tune being played when the box
+was open.  In other words, there was nothing wrong with the box and he would
+thank Mr. Hansom to not waste his time in the future.
+
+But James could still not get the box to work.  Two weeks later, he travelled
+to London himself to speak with the craftsman.  Upon reaching the craftsman's
+workshop he was astonished to find that three days before his arrival, the
+artificer had been taken by a fit of lunacy and had thrown himself from the
+second floor of his home, sustaining fatal injuries.
+
+James thought nothing of it, other than it was a tragic event, and took the
+box to a different craftsman.  This craftsman declared that, whilst amazingly
+intricate and clever, the device appeared to be broken beyond repair.  It
+seems that following this, the box vanished until my Uncle found it amongst
+some belongings that he inherited.
+
+[Press a Key]
+
+Apparently, my Uncle thought it was nothing more than a beautiful piece for -
+like James before him - he could not get it to work.  Then one day a friend
+of his was visiting and opened the box.  He declared it to be playing the
+most wonderful tune that he had ever heard but my Uncle, who was in the room
+at the time, claimed that he heard nothing.  A week later my Uncle's friend
+leapt into the River Tees for no apparent reason and was drowned.
+
+At this point, it appears that my Uncle began to suspect that the music box
+was not all that it appeared to be.  He began to write more and more frantic
+missives on his research.  He could find nothing about the origins of the
+box, but he became more and more convinced that it was cursed.  Eventually,
+he came to believe that those who heard it play music were doomed to insanity
+in the near future.
+
+He became obsessed and decided to try and rid himself of the box.  He tells
+of a time when he travelled to Dover to take a ship to France.  Whilst in the
+middle of the English Channel he claims that he pitched the box overboard and
+watched it sink beneath the waves.  Yet, he also wrote that when he returned
+home from his trip, the box was sitting on his dining room table as though
+nothing had happened.
+
+Perhaps the most disturbing record was the final page that he had clearly
+torn from his journal - dated just days before he took his own life.
+
+"My worst fears have been confirmed.  I have decided to take all of my notes
+and lock them - along with the wretched box - inside my trick casket.  God
+willing, that will be enough for now.  I know that I have not much time, for
+this morning I heard the music."
+
+[Press a Key]
+
+I was pondering these notes for some time.  I was not sure what to make of
+them.  Was there really something sinister about the music box that I had
+found, or was this simply proof of my Uncle's deteriating mental state.  It
+certainly seemed like a story that was too fantastic to be true, and God
+knows that my Uncle had not been himself for some time.
+
+I do not know how long I had been alone in the attic, but I was eventually
+brought out of my stupour by the sound of someone calling my name.  It was my
+brother.  He had returned from town.  I clambered out of the attic and met
+him on the stairs, where he had been ascending to find me.  I noticed, as he
+came up the stairs, that in his hand he held the music box that I had left in
+the kitchen.  It was open.  He smiled at me.
+
+"Rupert, where did you find this exquisite toy?  Did it belong to Uncle John?
+ Isn't it playing the most delightful tune that you have ever heard?"
+
+My heart almost stopped right there on those stairs.  For I, and I swear on
+my own life that this is true, I could hear no music.
+
+[Press a Key]
+
+There was silence in the room as Rupert concluded his story.  It was a most
+uncomfortable silence, for not a man of us did not know that his brother was
+in the Bedlam across town.  He had been taken by insanity a few years ago.
+The silence was clearly too much for Huntsley to bear, and he was the first
+to break it.
+
+"Rupert...surely you don't think...listen, your brother..."
+
+"My brother is dead." Rupert snapped.  "This morning I was called to the
+Sanitorium to see his body.  He died in his sleep last night.  The doctors do
+not know what happened, but I saw his face.  It was twisted in terror.  He
+died of fear.  That box took his mind and then it took his life last night."
+
+Silence again, only broken by the dull rhythm of the clock on the wall.
+After about a minute, I spoke.  I asked the question that all of us had been
+thinking.
+
+"What did you do with the box?"
+
+Rupert seemed to slump in his chair, defeated.
+
+"What could I do?  When my brother was taken ill I feared that my Uncle was
+right.  But what choice did I have?  I could not, in good conscience, sell it
+or pass it on.  Neither could I discard it.  If my Uncle was right then not
+even throwing it into the ocean would rid me of it.  Somehow it had found its
+way out of the casket so that I would find it that morning in the attic.
+Perhaps I could destroy it, but how?  I knew that I could not find a
+blacksmith in the world who could be convinced to melt the damned thing down
+into silver and then discard it as though it were worthless.  Who would do
+that but a madman?  No.  I only had one option.  I locked it back in that
+casket and buried it under rags in the attic."
+
+This time it was the Reverend who asked the question.
+
+"And...is it still there?"
+
+"I assumed that it was," Rupert answered, "Until I returned from visiting my
+brother's corpse this morning.  You can probably imagine my horror when I
+returned home and saw that."
+
+He gestured to the fireplace on the far wall, and the air in the room chilled
+as we all looked.
+
+There, on the mantel above the fire, previously unnoticed by any of us was a
+small, beautiful, silver box.  It was some time before any of us looked away,
+and again it was Huntsley who spoke first.
+
+"Surely this is just a jest, Rupert?  Just a captial joke at our expense?"
+
+"You think this is a fanciful jape?" Hansom raised his eyebrow.  "Well, go
+and open the box.  Surely at least one of you gentlemen is in the mood for a
+little music."
+
+Unsurprisingly, none of us were.
+
+[Press a Key]
+
+THE END.
+
+Thank you for playing.

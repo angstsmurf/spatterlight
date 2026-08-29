@@ -1,0 +1,12 @@
+l
+x bookcase
+x window
+look through window
+sit in armchair
+x desk
+touch scratches
+read diary
+read diary
+kick drawer
+read letter
+s

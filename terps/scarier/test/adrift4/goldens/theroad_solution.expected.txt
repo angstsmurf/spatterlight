@@ -1,0 +1,312 @@
+Loading game...
+
+The Road Leads to Nowhere
+
+Leaves crush underfoot as you move through the woods. You've volunteered to
+gather wood for the campfire as a show of goodwill toward your new friends
+Jack, Travis, Susan, and Kelly. You originally planned to camp out here as a
+getaway from the city life, but you met those four college kids and they've
+been nothing but kind to you. They're really fun to hang around; you wish
+there were people like this when you were in college.
+
+You look around the woods, searching for suitable firewood.
+
+The Road Leads to Nowhere
+An Interactive Crux
+by The Dominant Species
+Type 'about' for more information
+
+Woods
+This part of the Oakville wood isn't too dense. Trees are spaced out well
+enough for you to see in between them. It spreads out even more southeast,
+while more shrubs and bushes can be seen northwest.
+
+> nw
+You move northwest.
+
+Woods
+Trees circle you and bushes get higher and higher at this point. The ground
+is littered with leaves and rocks. Moonlight creeps through the branches many
+trees surrounding you, and it has a hard time because of their density. It's
+more open southeast, and gets worse northwest.
+
+> w
+You spot an exit to the west that you didn't see before. You step between two
+trees and continue west.
+
+Woods
+It's really dark here, but trees can still be seen all around you. The only
+visible exit is east.
+
+A bunch of sticks, perfectly suitable for firewood, sit on the ground.
+
+> get sticks
+You take the bunch of sticks.
+
+> e
+You move east.
+
+Woods
+Trees circle you and bushes get higher and higher at this point. The ground
+is littered with leaves and rocks. Moonlight creeps through the branches many
+trees surrounding you, and it has a hard time because of their density. It's
+more open southeast, and gets worse northwest.
+
+> se
+You move southeast.
+
+Woods
+This part of the Oakville wood isn't too dense. Trees are spaced out well
+enough for you to see in between them. It spreads out even more southeast,
+while more shrubs and bushes can be seen northwest.
+
+> se
+Camp
+Three long logs surround a heap of sticks and ashes that used to be the
+campfire. Without the fire, darkness takes over this part of the woods like
+it does other parts. The only exit is northwest, but there used to be an
+opening in every direction. Something has happened to this place...or maybe
+you've forgotten how it was structured that quickly. Northwest and east are
+the only places you can move.
+
+None of your new friends in sight. Is this a cruel joke? Maybe they went off
+exploring without you. You must find them.
+
+> x logs
+You remembering sitting on the logs and laughing at the crazy jokes Travis
+came up with. Beside one log is a backpack.
+
+> get pack
+You take the backpack.
+
+> open backpack
+You open the backpack.  Inside the backpack is a note, a flashlight and a
+student ID card.
+
+> get flashlight
+You take the flashlight from the backpack.
+
+> get card
+You take the student ID card from the backpack.
+
+> e
+You move east.
+
+Woods
+The trees are so close together here you're surprised they don't die off from
+overcrowding (if that's even possible). You have about as much space to move
+around as your bedroom closet at home. Leaves are all over the ground; you
+can't even see any dirt or grass. West is the camp site and there's nowhere
+else to go.
+
+> get vine
+You pick up the vine.
+
+> w
+You move west.
+
+Camp
+Three long logs surround a heap of sticks and ashes that used to be the
+campfire. Without the fire, darkness takes over this part of the woods like
+it does other parts. The only exit is northwest, but there used to be an
+opening in every direction. Something has happened to this place...or maybe
+you've forgotten how it was structured that quickly. Northwest and east are
+the only places you can move.
+
+> nw
+You move northwest.
+
+Woods
+This part of the Oakville wood isn't too dense. Trees are spaced out well
+enough for you to see in between them. It spreads out even more southeast,
+while more shrubs and bushes can be seen northwest.
+
+> nw
+You move northwest.
+
+Woods
+Trees circle you and bushes get higher and higher at this point. The ground
+is littered with leaves and rocks. Moonlight creeps through the branches many
+trees surrounding you, and it has a hard time because of their density. It's
+more open southeast, and gets worse northwest.
+
+> ne
+You move northeast.
+
+Woods
+It is almost completely black here, due to the amount of greenery making it
+hard to see. The scenery is a mosaic of black and green; the only clear exit
+that can be seen is southwest.
+
+> tie vine to branch
+You loop the rope around the tree branch and tug on it to see if it's as
+sturdy as it looks. It is.
+
+You take a step back to get a running start. You run to the edge of the hole,
+jump, catch hold of the vine, and swing across to the area northeast.
+
+Woods
+Moonlight strikes down on this area, moreso than any other part of the wood
+you've been in. It illuminates the shrubs and greenery around you, along with
+a clearing where a cabin can be seen east. Trees droop down southwest, making
+the way you came impossible to pass through.
+
+> e
+You move east.
+
+In Front of Cabin
+A nearly crumbling wooden structure stands to the east, sitting under
+surrounding trees and brush that seek to devour it. Grass reaches up and
+scratches your bare knees from the neglect lawn, as if calling on you or
+anyone else that crosses it to mow it. West is more woodland, and you can
+barely make out the path to a road north.
+
+> unlock door with card
+Using the student ID card, you manage to unlock the door.
+
+> open door
+You open the door.
+
+> e
+You move east.
+
+Cabin
+Everything in the cabin -- the couch, desk, paintings, fireplace -- are all
+covered in dust. The logs that hold the cabin together are aged, looking like
+they could crumble at any time. There's a peculiar trapdoor on the floor
+which has a combination lock. The only exit is west to the outside of the
+cabin.
+
+> open desk
+You open the desk.  A match and a scrap of paper are inside the desk.
+
+> get match
+You take the match from the desk.
+
+> put sticks in fireplace
+You put the bunch of sticks inside the fireplace.
+
+> light fire
+You strike the match on the wall and surprisingly it catches flame. You toss
+it into the fireplace and the wood inside doesn't just burn...it bursts.
+Pieces of wood fly out the fireplace and one large piece hits you in your
+forehead.
+
+You feel warm blood trickling down your forehead and everything around you
+begins to spin. You stagger to keep your balance, to keep from falling off
+the face of the earth, but eventually fall to the floor...unconscious.
+
+[Press any key to continue]
+
+You awake an unknown amount of time later.
+
+Cabin
+Everything in the cabin -- the couch, desk, paintings, fireplace -- are all
+covered in dust. The logs that hold the cabin together are aged, looking like
+they could crumble at any time. There's a peculiar trapdoor on the floor
+which has a combination lock. The only exit is west to the outside of the
+cabin.
+
+> move city
+You move the painting to see the numbers 1:1 on the wall behind it. It stays
+tilted regardless of your efforts to straighten it.
+
+> move mountain
+You move the painting to see the numbers 2:4 on the wall behind it. It stays
+tilted regardless of your efforts to straighten it.
+
+> move wood
+You move the painting to see the numbers 3:0 on the wall behind it. It stays
+tilted regardless of your efforts to straighten it.
+
+> move shadow
+You move the painting to see the numbers 4:8 on the wall behind it. It stays
+tilted regardless of your efforts to straighten it.
+
+> type 1408
+Upon entering the numbers 1408 the lock falls off and crumbles into dust.
+Before you can collect yourself over the fantastical thing that just
+happened, the trapdoor flies open and you fall into it headfirst.
+
+The fall is a short one and you land on the floor of a cellar with very dim
+lighting.
+
+Cellar
+In the darkness you can only make out a single light bulb and a small box
+directly under it.
+
+> open box
+You open the box and inside are photographs of your new friends. The odd
+thing is that they're all in black and white and your friends are dressed in
+stuff any normal person wouldn't be caught dead wearing.
+
+You look on the back on one photo and see the words Mirkwood Forest - 8
+August 1915. You hear a loud crack from above as you look at it, and climb up
+the steps through the trapdoor to the cabin.
+
+Cabin
+The cabin is crumbling rapidly, the logs which was held it up slipping from
+their designated positions. The paintings are strewn all over the floor and
+the shoddy couch sits vertically underneath a large hole in the ceiling. A
+myriad of wooden pieces that used to make up a desk blanket the floor. The
+door that once led outside has buckled under the pressure of the sagging
+architecture above it, and doesn't look like it can be opened anymore.
+
+The place is going to fall onto itself soon.
+
+> stand on couch
+You climb atop the vertically standing couch and leap out through the hole
+just as the entire foundation collapses.
+
+You land on the ground outside the caved in structure.
+
+In Front of Cabin
+The woods surround you and the heap of wood that used to be a cabin. The only
+exit you see through the tightly packed trees is a path north.
+
+> n
+You slip through the trees and hear a lurching sound, as if the trees behind
+you moved to prevent you from going back that way. You travel the path until
+you reach a road that stretches east and west for a large distance.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+As you walk on the road you realize something.
+
+Your new friends weren't friends at all. They weren't even alive. Perhaps not
+even human or of this world.
+
+The woods aren't ones of a natural and orderly world. They've changed behind
+your back and as you moved forward on your quest to find your "friends".
+
+The walk down this road is an enlightening one; for the road you walk is a
+road to nowhere, and along it comes the knowledge of oblivion.
+
+[Press any key to continue]
+
+The End
+The game is over. You may restart, restore, quit, or undo your last move.
+
+> quit
+Do you really want to quit? [Y/N]

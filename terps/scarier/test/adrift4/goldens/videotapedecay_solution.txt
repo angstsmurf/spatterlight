@@ -1,0 +1,139 @@
+drop paper
+east
+east
+east
+south
+search trash
+north
+east
+east
+east
+east
+north
+look in can
+take green relic
+south
+west
+west
+north
+west
+north
+east
+examine desk
+take knife
+west
+south
+south
+south
+south
+east
+take volleyball
+break ball
+drop knife
+west
+south
+west
+take shovel
+east
+north
+west
+examine tombstone
+dig ground
+drop shovel
+east
+north
+north
+east
+east
+north
+take money
+south
+west
+west
+west
+west
+west
+south
+play jukebox
+north
+east
+east
+east
+east
+east
+south
+take briefcase
+1850
+look in briefcase
+take blue relic
+drop briefcase
+north
+west
+south
+take orange relic
+north
+north
+west
+north
+north
+east
+examine table
+take transparent relic
+west
+south
+south
+west
+take bat
+south
+west
+west
+north
+kill monster
+drop bat
+south
+east
+east
+east
+east
+east
+east
+south
+take food
+north
+west
+west
+west
+west
+west
+north
+give food to woman
+south
+south
+take syringe
+north
+east
+east
+south
+south
+south
+east
+give syringe to gambler
+west
+north
+north
+north
+north
+north
+west
+put black relic in bowl
+put green relic in bowl
+put red relic in bowl
+put gray relic in bowl
+put blue relic in bowl
+put orange relic in bowl
+put transparent relic in bowl
+put purple relic in bowl
+put yellow relic in bowl
+put white relic in bowl
+pray
+north

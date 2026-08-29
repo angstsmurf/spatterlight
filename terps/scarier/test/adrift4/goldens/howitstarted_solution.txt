@@ -1,0 +1,29 @@
+look
+take stick
+poke goblin with stick
+z
+z
+take mushroom
+south
+south
+put stick in slot
+flip lever
+east
+take shield
+wear shield
+west
+flip lever
+south
+south
+south
+south
+get blade
+north
+north
+north
+enter shack
+enter shack
+attack goblin with sword
+enter basket
+flip lever
+score

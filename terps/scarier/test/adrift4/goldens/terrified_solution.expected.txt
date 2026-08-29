@@ -1,0 +1,431 @@
+Loading game...
+
+Terrified
+A traditional text adventure by Eric T. Dorrath
+
+Written for the NaAdWriMo (National ADRIFT Writing Month) Competition 2007.
+
+Pausing in the middle of the street, nearly bent double, hands resting on
+your knees, you try to catch your breath.
+
+Pounding hard and irregular your heart feels as if it is going to explode
+from your chest.  Light-headed and slightly disorientated, it feels as if you
+are going to be sick.
+
+You seem to have been running forever and have lost all knowledge of time.
+
+Bailey Road
+Being one of the more run down areas, Bailey Road is a rough, crime-ridden
+part of the town. Lining both sides of the road are a series of rundown
+houses, and although not that old they are showing years of neglect.
+Depressingly the road runs southeast and west. Just to the north is an
+alleyway called Thompson's Alley.
+
+> n
+You move north.
+
+Thompson's Alley
+The alley is just wide enough for two people to side by side, if they are
+thin. Lined on either side by high sided plain brick walls, you can see no
+windows, doorways or other openings. The ground is rough, broken concrete and
+in the dark you would need to be very careful walking along here. The air
+feels damp and has an unpleasant smell. The alleys leads north onto Devon
+Road. To the south is a lonely street and east is a passageway known locally
+as the Pit.
+
+> e
+You move east.
+
+The Pit
+As wide as one person the Pit has brick walls and an arched roof. A scary
+place at the best of times it seems even more frightening today for some
+reason. Used as a public toilet by the local drunks, it is pitch black.  The
+light from the alleyway to the west and the small park to the east just does
+not seem to penetrate very far.
+
+> e
+You move east.
+
+Small Park
+The park would probably once have been a pretty little place for a picnic or
+a Sunday walk.  It is now overgrown and derelict, a dangerous place with any
+original features such as the fountains and walks lost to decay. To the west
+is the dark passageway and the south is a courtyard. You can still make out
+an old gravel path to the north.
+
+> s
+You move south.
+
+Courtyard
+The courtyard is enclosed on the three sides by various buildings and is open
+to the sky. To the north is a small park. You can see a sad looking bench.
+The building on the eastern side of the courtyard has a window, which has
+been boarded up.
+
+You can also see an old brick.
+An old man is here.
+
+An old man with a dog resting on a bench, stands up for a moment and looks at
+you. His face changes from a blank expression to something like terror. He
+leaves to the west as quickly as he can.
+
+He did not like something about your appearance.
+
+> x bench
+The wooden park bench has a back and arms.  A key is on the bench.
+
+> take key
+You take the key from the bench.
+
+> take brick
+You take the old brick.
+
+> x knife
+It is a large bread knife which seems to have the tip broken off. More
+importantly it is covered in blood.
+
+Seeing the knife, and blood, reminds you of Jenny.  You can picture Jenny
+now, as you saw her only an hour ago, lying in a pool of her own blood.
+
+> remove boots
+You remove the leather boots.
+
+> n
+You move north.
+
+Small Park
+The park would probably once have been a pretty little place for a picnic or
+a Sunday walk.  It is now overgrown and derelict, a dangerous place with any
+original features such as the fountains and walks lost to decay. To the west
+is the dark passageway and the south is a courtyard. You can still make out
+an old gravel path to the north.
+
+> n
+You move north.
+
+Gravel Path
+The gravel path is very overgrown and lining by nasty looking thorn bushes.
+To the south is a small park.
+
+You can hear raised voices, from what sounds like a large group of people.
+From what you can hear they seem to be searching for something or someone.
+It is difficult to tell, but from the direction of the sound, it that this
+group are in the Pit.
+
+> n
+You move north.
+
+Gravel Path
+The gravel path is very overgrown and lining by nasty looking thorn bushes.
+The path continues north and south.
+
+> x bush
+Hanging on the nasty looking thorn bush is an old rag.  You carefully take
+it.
+
+> use rag with brick
+You tie the rag to the brick.  The brick is now cushioned.
+
+> s
+You move south.
+
+Gravel Path
+The gravel path is very overgrown and lining by nasty looking thorn bushes.
+To the south is a small park. You can hear raised voices, from what appears
+to be a large group of people looking for something.
+
+> s
+You move south.
+
+Small Park
+The park would probably once have been a pretty little place for a picnic or
+a Sunday walk.  It is now overgrown and derelict, a dangerous place with any
+original features such as the fountains and walks lost to decay. To the west
+is the dark passageway and the south is a courtyard. You can still make out
+an old gravel path to the north. You can hear raised voices, from what
+appears to be a large group of people looking for something.
+
+> s
+You move south.
+
+Courtyard
+The courtyard is enclosed on the three sides by various buildings and is open
+to the sky. To the north is a small park. You can see a sad looking bench.
+You can hear raised voices, from what appears to be a large group of people
+looking for something.   The building on the eastern side of the courtyard
+has a window, which has been boarded up.
+
+> smash window
+The old rag muffles the sound as you smash open the window.
+
+> e
+You move east.
+
+Bare Room
+The floor is covered by an old stained carpet. You can only go west to the
+small courtyard.
+
+You can also see a spade.
+
+> take spade
+You take the spade.
+
+> x carpet
+The carpet has now colour, being just completely covered in stains.
+
+Seeing the carpet, reminds you of Jenny.  You are carrying her in one arm and
+a knife in the other. Her small body is covered in stab wounds.
+
+> w
+You move west.
+
+Courtyard
+The courtyard is enclosed on the three sides by various buildings and is open
+to the sky. To the north is a small park. You can see a sad looking bench.
+You can hear raised voices, from what appears to be a large group of people
+looking for something.   The building on the eastern side of the courtyard
+has a window, which was boarded up but is now open.
+
+> n
+You move north.
+
+Small Park
+The park would probably once have been a pretty little place for a picnic or
+a Sunday walk.  It is now overgrown and derelict, a dangerous place with any
+original features such as the fountains and walks lost to decay. To the west
+is the dark passageway and the south is a courtyard. You can still make out
+an old gravel path to the north. You can hear raised voices, from what
+appears to be a large group of people looking for something.
+
+> n
+You move north.
+
+Gravel Path
+The gravel path is very overgrown and lining by nasty looking thorn bushes.
+To the south is a small park. You can hear raised voices, from what appears
+to be a large group of people looking for something.
+
+> n
+You move north.
+
+Gravel Path
+The gravel path is very overgrown and lining by nasty looking thorn bushes.
+The path continues north and south.
+
+> n
+You move north.
+
+Gravel Path
+The gravel path ends at a high brick wall, which stretches off in all
+directions. In the wall, to the west, is a large solid wooden gate. The
+gravel path leads south.
+
+> unlock gate
+You unlock and open the gate.
+
+> w
+You move west.
+
+Field
+You are in a small field which seems to be surrounded by farm land and woods.
+On the eastern side is a high brick wall with a wooden gate.  To the north is
+a miserable looking wood and a depressing little field can be seen to the
+west. To the west you can see a column of smoke, as if someone has lit a
+bonfire.
+
+> dig
+You dig a small hole and burying the knife.
+
+Seeing the small hole, reminds you of Jenny.  You have arrived home from
+work, receiving no reply when you call 'Jenny' you head upstairs.  To
+everyone's surprise you discover Jenny and some man in bed together.
+
+You throw the spade away.
+
+> n
+You move north.
+
+Wood
+The miserable looking wood is even more depressing once inside. You can see a
+few tired looking trees and plenty of thorn bushes. Through the trees you can
+see an old hut to the east. A small field is south and a path leads west out
+of the wood.
+
+> e
+You move east.
+
+Outside the Hut
+The miserable looking wood is even more depressing once inside. You can see a
+few tired looking trees and plenty of thorn bushes. The miserable wood
+continues to the west and east is the old hut.
+
+> smash door
+You smash open the door to the hut.
+
+> e
+You move east.
+
+Hut
+The hut would probably been used as a shelter, store and resting place for
+men working on in the fields or maybe the wood.  At one time it would have
+had a stove, tables and cupboards but now only an old metal bench survives.
+The door is to the west.
+
+> x bench
+The metal bench seems to have been made from odd bits of scrap metal welded
+together.  A pair of leather gloves is on the old metal bench.
+
+> take gloves
+You take the pair of leather gloves from the old metal bench.
+
+> w
+You move west.
+
+Outside the Hut
+The miserable looking wood is even more depressing once inside. You can see a
+few tired looking trees and plenty of thorn bushes. The miserable wood
+continues to the west and east is the old hut.
+
+> w
+You move west.
+
+Wood
+The miserable looking wood is even more depressing once inside. You can see a
+few tired looking trees and plenty of thorn bushes. Through the trees you can
+see an old hut to the east. A small field is south and a path leads west out
+of the wood.
+
+> w
+You move west.
+
+Old Path
+The rutted and overgrown path leads east into the wood and west. Blocking
+your way west is a barbed wire fence.
+
+> x fence
+It is a wire fence with small pieces of sharply pointed wire twisted around
+it at short intervals.
+
+Finding Jenny and some man in bed together was a shock. How the knife got
+into your hand is something you cannot work out.  Maybe you took it upstairs
+with you, who can say.  But, you put it to very good use.
+
+> wear gloves
+You put on the pair of leather gloves.
+
+> w
+The gloves help you to carefully climb over the fence and move west.
+
+Path
+The rutted and overgrown path continues to the east. Blocking your way east
+is a barbed wire fence. To the south is a yard.
+
+> s
+You move south.
+
+Yard
+About 10m square it has a high wall all the way around and the floor is
+concrete. The only exit is to the north. A line of washing is hanging out to
+dry.
+
+> x line
+It is a length of nylon cord tie to nails either side of the yard.  A pair of
+jeans and a polo-neck sweater are on the washing line.
+
+> take jeans
+You take the pair of jeans from the washing line.
+
+> take sweater
+You take the polo-neck sweater from the washing line.
+
+> n
+You move north.
+
+Path
+The rutted and overgrown path continues to the east. Blocking your way east
+is a barbed wire fence. To the south is a yard.
+
+> e
+The gloves help you to carefully climb over the fence and move east.
+
+Old Path
+The rutted and overgrown path leads east into the wood and west. Blocking
+your way west is a barbed wire fence.
+
+> e
+You move east.
+
+Wood
+The miserable looking wood is even more depressing once inside. You can see a
+few tired looking trees and plenty of thorn bushes. Through the trees you can
+see an old hut to the east. A small field is south and a path leads west out
+of the wood.
+
+> s
+You move south.
+
+Field
+You are in a small field which seems to be surrounded by farm land and woods.
+On the eastern side is a high brick wall with a wooden gate.  To the north is
+a miserable looking wood and a depressing little field can be seen to the
+west. To the west you can see a column of smoke, as if someone has lit a
+bonfire.
+
+> w
+You move west.
+
+Field
+You are in a small field which seems to be surrounded by farm land and woods.
+You can see another field to the east. To the south is a road which you
+recognise, Devon Road.  You can see a blue flashing light at the end of Devon
+Road.  Someone has lit a bonfire.
+
+> x bonfire
+Someone has lit a large bonfire. Since child hood you have been fascinated by
+bonfires.
+
+Maybe it is the heat or the flames.  It reminds you of a white-hot moment of
+finding Jenny and some man in bed together. All you remember is the anger,
+the blind rage, the screams and the blood.
+
+One thing is for sure, she will never cheat on you again!
+
+> put trousers on fire
+You put the trousers onto the fire. Soon they are well alit and before long
+are nothing but ashes.
+
+> put shirt on fire
+You put the shirt onto the fire. Soon they are well alit and before long are
+nothing but ashes.
+
+> wear jeans
+You put on the pair of jeans.
+
+> wear sweater
+You put on the polo-neck sweater.
+
+> s
+You move south.
+
+End of Devon Road
+One of the more run down parts of town, Devon Road has rundown houses lining
+both sides of the road. The road runs south. The police have setup a road
+block and are busying checking everyone passing through.
+
+The police examine you closely but find nothing.  It looks like the killer of
+your wife will get away with it.
+
+You have escaped.
+
+The game has ended and you have won!
+
+You now have the option to either restart the game, undo your last move,
+restore a previous saved game position or quit.
+
+A text adventure by Eric T. Dorrath (erictdorrath@delron.org.uk).
+
+> score
+Your score is 60 out of a maximum of 65.  (92%)
+
+> quit
+Do you really want to quit? [Y/N]

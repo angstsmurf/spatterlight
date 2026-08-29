@@ -1,0 +1,251 @@
+Loading game...
+
+The First to Arise: Alone with a Pug
+It was a long restless night. Greg was busy preparing for today's journey,
+and Selana was as well. You woke up late to find the house sounding
+completely abandoned. Where is everybody? Where did they go?
+
+As you haul yourself out of bed, you wonder what's going to happen to you
+today.
+
+In your bedroom
+This is your bedroom. It's a fairly nice little room, cramped but homey. In
+true Alex Thassylian style, the walls are almost bare and scarcely any of
+your personal effects are out on display. A window in the north wall admits
+midmorning sunlight from outside, and a door to the east opens onto the
+second floor landing.  Your bed is still rumpled from a restless night,
+sheets tangled and pillows astray.
+
+> make bed
+Sighing, you set to, trying to bring order to the bed. After a few minutes,
+you've fluffed up the pillows, tucked the sheets in and smoothed out the
+coverlet. Checking under the bed, you notice an old lockpick lying there that
+you thought you'd lost weeks ago.  Flash trots in from the east.
+
+> take lockpick
+You take the lockpick.
+
+> e
+You move east.
+
+On the second floor landing
+Greg's house is fairly extravagant, as Trendorian residences go. There are
+three rooms on the second floor: your room, to the west; the spare room, to
+the north, and Greg's bedroom, to the south. Nearby, a set of stairs leads to
+the ground floor.
+
+> d
+You move down.
+
+In the foyer
+This is the entrance chamber to Greg's house. A set of large double doors
+lead south to the courtyard. The sitting room is to the west, and a small
+door leads north to the scullery. Stairs lead up to the second floor landing
+from here.
+
+> n
+You move north.
+
+In the scullery
+The scullery is small and cramped, a place for storing things out of the way.
+The main feature here is a dresser, set against the wall. The kitchen is west
+of here, and the foyer is south.
+
+Also here is a little teapot, a frying pan and a broom.
+
+> take broom
+You take the broom.
+
+> take teapot
+You take the little teapot.
+
+> s
+You move south.
+
+In the foyer
+This is the entrance chamber to Greg's house. A set of large double doors
+lead south to the courtyard. The sitting room is to the west, and a small
+door leads north to the scullery. Stairs lead up to the second floor landing
+from here.  Flash trots in from above.
+
+> w
+You move west.
+
+In the sitting room
+This is Greg's sitting room, dominated by an impressive fireplace in the east
+wall. A comfortable sofa stands next to the coffee table, which is decorated
+with an empty flowerpot. An ornate tapestry hangs over the fireplace, a fire
+hazard if ever you've seen one. Doors lead north, to the kitchen, and east,
+to the foyer.
+
+> n
+You move north.
+
+In the kitchen
+The kitchen. You don't often come in here -- to you, this is really just the
+place from which the servants magically produce food. It's fairly standard,
+as kitchens go. There's a magically-activated stove, a workbench for
+preparing food, a cupboard built into the wall, and a water barrel. The
+sitting room is through the door to the south, and the scullery is to the
+east.
+
+> light stove
+You speak the simple magic word that turns the stove on. The hotplates start
+to heat up, giving off a pleasant warmth.
+
+> open cupboard
+You open the cupboard.  Some raw bacon is inside the cupboard.
+
+> take bacon
+You take the raw bacon from the cupboard.
+
+> fry bacon
+You place the frying pan on the stovetop, giving it time to heat up, then
+carefully slip the rashers of bacon in. The bacon fat sizzles and spatters.
+Gingerly, you reach in and turn the rashers over. There, they're done. You
+fish the bacon out of the pan and turn off the stove.  Flash trots in from
+the south.
+Her ears suddenly prick forward, and she sniffs the air intently. Uncannily,
+she zooms right in on you and plonks herself on the ground right in your
+path, gazing up at you soulfully. I love you, Alex, she says, hopefully.
+
+> feed flash
+Flash holds very, very still as you dangle a rasher of bacon over her head.
+Her eyes follow it back and forth, making you feel like a hypnotist in a
+street show. Then she springs up and neatly snatches it from your hand. The
+other two rashers aren't far behind. Flash blinks, looking noticeably more
+alert now that she's had breakfast. Oh yes, now I remember! Greg said that he
+left the front door key on the nightstand in his room!  Flash runs out to the
+south.
+
+> fill teapot
+You dip the little teapot into the water barrel, filling it to the brim.
+
+> boil water
+You put the teapot on the stove, and wait. After a few minutes, steam starts
+to rise from the teapot's spout, and you can hear the water starting to
+bubble inside. And then you jump, startled, as the teapot squeaks, "Hey, it's
+getting hot on this stove! Tip me over! Pour me out!" You hastily grab the
+teapot and carry it into the sitting room, where you plonk it down on the
+coffee table.
+
+> e
+You move east.
+
+In the foyer
+This is the entrance chamber to Greg's house. A set of large double doors
+lead south to the courtyard. The sitting room is to the west, and a small
+door leads north to the scullery. Stairs lead up to the second floor landing
+from here.
+
+> u
+You move up.
+
+On the second floor landing
+Greg's house is fairly extravagant, as Trendorian residences go. There are
+three rooms on the second floor: your room, to the west; the spare room, to
+the north, and Greg's bedroom, to the south. Nearby, a set of stairs leads to
+the ground floor.
+
+> s
+You move south.
+
+In the master bedroom
+This is the largest bedroom in the house; windows facing west and south allow
+sunlight inside. The large double bed is neatly made, and the nightstand next
+to the bed is bare. The only exit leads back out onto the second floor
+landing, to the north.
+
+Also here is a scroll.
+
+> search nightstand
+Remembering what Flash said, you hesitantly run the tips of your fingers
+across the nightstand's surface, expecting to find nothing but cool polished
+wood. But then your finger touches metal! Startled, you jerk involuntarily,
+knocking the stand, and an invisible something goes tinkling to the floor!
+
+> sweep floor
+Stepping carefully across the floor, you move to the far corner of the room
+and start sweeping in the corner. With long, methodical strokes, you sweep
+the entire floor until you hear something catch in the bristles. You crouch
+down and feel around at the broom's base until your fingers finally connect
+with the small invisible object -- a key, by the shape and feel of it. You
+put the key in your pocket.
+
+> n
+You move north.
+
+On the second floor landing
+Greg's house is fairly extravagant, as Trendorian residences go. There are
+three rooms on the second floor: your room, to the west; the spare room, to
+the north, and Greg's bedroom, to the south. Nearby, a set of stairs leads to
+the ground floor.  Flash trots in from below.
+
+> n
+You move north.
+
+In the spare room
+This is the spare room, once Selana's convalescent room, and then her
+bedroom, when she was still staying here. Now the room is bare; the bed has
+been stripped and the mattress stood on its side to air. The only door from
+this room leads south to the second floor landing.  A clothes chest stands
+beside the bed, its lid closed.
+
+> pick lock on chest
+You take the lockpick from your pocket and crouch down next to the chest.
+Listening carefully, you insert the length of wire into the lock and twist it
+carefully. The first tumbler falls... A couple of moments later, the lock is
+open.
+
+> open chest
+You open the chest.  Flash trots in from the south.
+
+> examine chest
+Hmm. Anyone even slightly less perceptive than you might have missed it, but
+the bottom of the chest's interior is a couple of inches higher than the
+floor. You search the rest of the chest interior thoroughly and find the
+catch that releases the false bottom! Sitting in the hidey hole underneath is
+Danthil. You scoop him up.
+As you do, you remember Danthil's powers -- the ability to heal, to make
+things grow, and to enhance the physical prowess of whoever carries him.
+Images of Selana tearing holes in practice dummies with her bare hands spring
+back to mind.
+
+> s
+You move south.
+
+On the second floor landing
+Greg's house is fairly extravagant, as Trendorian residences go. There are
+three rooms on the second floor: your room, to the west; the spare room, to
+the north, and Greg's bedroom, to the south. Nearby, a set of stairs leads to
+the ground floor.
+
+> d
+You move down.
+
+In the foyer
+This is the entrance chamber to Greg's house. A set of large double doors
+lead south to the courtyard. The sitting room is to the west, and a small
+door leads north to the scullery. Stairs lead up to the second floor landing
+from here.
+
+> unlock front door
+You slide the invisible key into the lock by feel and give it a good twist.
+The door unlocks.
+
+> open front door with danthil
+Summoning Danthil's power to enhance your strength, you tug at the jammed
+door hard. With a screech of protest, the door unjams and swings open,
+letting you feel the wind on your face for the first time today!
+
+Patting yourself down, you make sure that you've got everything you need.
+Your purse is in your pocket, and Greg has left your pack on the front step.
+Pulling the front door closed behind you (and slamming it quite
+vindictively), you shrug your pack on, double check that Danthil is in your
+belt pouch, and head off down the street to your next adventure.
+
+Congratulations! You've finished the first chapter of The First to Arise.
+
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!

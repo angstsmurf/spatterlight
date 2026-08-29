@@ -1,0 +1,57 @@
+n
+e
+e
+s
+x bench
+take key
+take brick
+x knife
+remove boots
+n
+n
+n
+x bush
+use rag with brick
+s
+s
+s
+smash window
+e
+take spade
+x carpet
+w
+n
+n
+n
+n
+unlock gate
+w
+dig
+n
+e
+smash door
+e
+x bench
+take gloves
+w
+w
+w
+x fence
+wear gloves
+w
+s
+x line
+take jeans
+take sweater
+n
+e
+e
+s
+w
+x bonfire
+put trousers on fire
+put shirt on fire
+wear jeans
+wear sweater
+s
+score

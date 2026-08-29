@@ -1,0 +1,66 @@
+look
+take ice
+east
+swim down
+press button
+east
+east
+take laser cutter
+take welding torch
+east
+examine man
+take canister
+west
+south
+fill small canister from tank
+refill torch
+north
+west
+north
+north
+examine maintenance manager
+take power cell
+examine desk
+take rope
+power laser with cell
+south
+south
+east
+south
+cut door with laser
+north
+west
+north
+east
+cut panel with laser
+tie rope to spike
+down
+east
+east
+examine dead officer
+take whiskey
+take grenade
+examine table
+examine bookcase
+take key
+put ice in whiskey
+drink whiskey
+pluck officer's eye
+west
+north
+north
+examine box
+unlock box with key
+charge scanner with cell
+hold eye in front of scanner
+north
+north
+east
+move picture
+west
+north
+down
+throw grenade
+east
+weld bike
+mount bike

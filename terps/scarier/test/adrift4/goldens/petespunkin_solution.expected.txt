@@ -1,0 +1,354 @@
+Loading game...
+
+Untitled
+It is complete!  For months you have looked forward to this day, toiling on
+your punkin-growing invention, and now you have only a day left to reap the
+reward, for tomorrow is HALLOWEEN!
+
+All day today, October 30th, customers will wait in line at your porch to buy
+Pete's Premium Punkins, and you Pete, will be growing one-of-a-kind plants
+for them with your brand new (patent pending) Universal Insta-grow Punkin
+Junkinator.
+
+With the help of Rinda, the creepy witch lady who lives next door, you have
+developed a fertilizer machine that grows carved jack-o-lanterns from punkin
+sprouts in just minutes, using *almost* household ingredients.  Now it's time
+to look around and see what you can find to fuel your crops!
+
+> e
+You move east.
+
+Front Porch
+If you aren't out working the fields or working on Pete's Punkin Junkinator,
+you're probably sitting on the front porch.  The front door leads inside the
+house, and your rocking chair faces north for a good view of the street.
+Today, last-minute customers are lined up outside your porch eager to get
+their hands on Pete's Premium Punkins.
+
+From here, you can go north across the street, south to the backyard, west to
+the punkin field, or east to your neighbor's cow pasture (but hold your
+nose).
+
+Your shotgun is lying on the porch under your rocking chair.  Your punkin
+carving knife is lying on the porch railing.
+A bunch of customers are standing around waiting for punkins.
+
+> take knife
+You take carving knife.
+
+> s
+You move south.
+
+The Backyard
+For all the careful work you do on your punkin field, your backyard is left
+to the elements.  Local codes probably forbid grass this high, then again,
+they probably prohibit most of the think people do on their properties on
+this dirt road, so you don't worry about it.  Grass won't even grow in the
+front, so that's not really an issue.
+
+Your old run-down shed stands among the grass, door hanging open as if the
+*useful* implements inside were competing with the undergrowth for sunlight.
+
+Besides that, you can head north around the house up to the front porch, or
+south down into the creek if you don't mind the mosquitos.
+
+> in
+You move in.
+
+Shed
+Light pours in from the open door and is devoured instantly by the creepiness
+of the shed's interior.  Any useful implements lean against the front door,
+everything is actually being consumed by the spiders that have webbed the
+place.
+
+A shovel leans on the shed among the spider webs and dust.
+
+> take shovel
+You take the shovel.
+
+> out
+You move out.
+
+The Backyard
+For all the careful work you do on your punkin field, your backyard is left
+to the elements.  Local codes probably forbid grass this high, then again,
+they probably prohibit most of the think people do on their properties on
+this dirt road, so you don't worry about it.  Grass won't even grow in the
+front, so that's not really an issue.
+
+Your old run-down shed stands among the grass, door hanging open as if the
+*useful* implements inside were competing with the undergrowth for sunlight.
+
+Besides that, you can head north around the house up to the front porch, or
+south down into the creek if you don't mind the mosquitos.
+
+> s
+You move south.
+
+The Creek
+There is a pleasant gurgling noise from the shallow water flowing over
+stones, in one spot.  Mostly though it's pretty stagnant, which is why you're
+getting bitten so much.  Mosquitos, however, are not the only creatures
+around.  This place has everything from frogs to wood-peckers to newts to
+Mountain Sap Soda bottles.
+
+From here, you can head north to the backyard, and you better soon, or you'll
+run out of blood.
+
+> take soda bottle
+You take Mountain Sap soda bottle.
+
+> n
+You move north.
+
+The Backyard
+For all the careful work you do on your punkin field, your backyard is left
+to the elements.  Local codes probably forbid grass this high, then again,
+they probably prohibit most of the think people do on their properties on
+this dirt road, so you don't worry about it.  Grass won't even grow in the
+front, so that's not really an issue.
+
+Your old run-down shed stands among the grass, door hanging open as if the
+*useful* implements inside were competing with the undergrowth for sunlight.
+
+Besides that, you can head north around the house up to the front porch, or
+south down into the creek if you don't mind the mosquitos.
+
+> n
+You move north.
+
+Front Porch
+If you aren't out working the fields or working on Pete's Punkin Junkinator,
+you're probably sitting on the front porch.  The front door leads inside the
+house, and your rocking chair faces north for a good view of the street.
+Today, last-minute customers are lined up outside your porch eager to get
+their hands on Pete's Premium Punkins.
+
+From here, you can go north across the street, south to the backyard, west to
+the punkin field, or east to your neighbor's cow pasture (but hold your
+nose).
+
+Your shotgun is lying on the porch under your rocking chair.
+A bunch of customers are standing around waiting for punkins.
+
+> n
+You move north.
+
+County Road 3
+County Road 3 doesn't show up on new-fangled (printed) maps, but you know
+it's there because you can see it from your porch.
+
+With no street lamps, the treetops around this road are dark at night, and
+serve as home to pretty much all brands of critters not found in your
+backyard creek.
+
+From here you travel east or west to pretty much nowhere, south to your front
+porch, or north to Rinda's house, which is creepy, so you should probably
+head south.
+
+> n
+You move north.
+
+Rinda's House
+You walk right in, since the front yard is just where she buries her failed
+experiments.  Actually, she buries the human ones in the graveyard in back.
+You don't worry about this because Rinda's told you they were all volunteers.
+
+Rinda's home is a nightmare, or at least it was for a few nights after you
+first visited, but now that you've gotten used to it you're back to dreaming
+of a career in NASCAR.
+
+Innumerable jars of animal (animal?) parts line her walls, and dried plants
+dangle from the ceiling to the point where you're pretty sure they've
+actually replaced the original thatch.  Rinda sits in chair, reading an
+ancient tome, sipping a sketchy potion.  She looks over her glasses and wart
+at you, grinning.
+
+"How's business, Pete?"
+
+From here you can move north into Rinda's backyard cemetery, or south to the
+county road.
+Rinda is here.
+
+> talk to rinda
+Rinda looks up from her book.  "I guess you're ready for a little help on
+your fertilizer device thingy.  Give this a shot sweetheart."
+
+She reaches up to a bottle on a shelf.  Rinda hands you a bottle of dragon
+breath.  "Don't open it, mkay?  Just stick it right on in, glass and
+everything."
+
+> n
+You move north.
+
+Rinda's Back(Grave)Yard
+Rinda's backyard has as much tombstone as yours has grass.  None of them are
+marked.
+
+From here you can go south back through Rinda's house, or underground,
+forever.
+
+> dig
+You get to work.  A few minutes later, you are exhausted from all the hard
+work, and you've moved a little dirt.
+
+About 20 minutes after that, you hit ... a body!  Where is the coffin?!  Geez
+Rinda!
+
+Holding your nose as you do so, you yank off the poor guy's skull.
+
+> s
+You move south.
+
+Rinda's House
+You walk right in, since the front yard is just where she buries her failed
+experiments.  Actually, she buries the human ones in the graveyard in back.
+You don't worry about this because Rinda's told you they were all volunteers.
+
+Rinda's home is a nightmare, or at least it was for a few nights after you
+first visited, but now that you've gotten used to it you're back to dreaming
+of a career in NASCAR.
+
+Innumerable jars of animal (animal?) parts line her walls, and dried plants
+dangle from the ceiling to the point where you're pretty sure they've
+actually replaced the original thatch.  Rinda sits in chair, reading an
+ancient tome, sipping a sketchy potion.  She looks over her glasses and wart
+at you, grinning.
+
+"How's business, Pete?"
+
+From here you can move north into Rinda's backyard cemetery, or south to the
+county road.
+Rinda is here.
+
+> s
+You move south.
+
+County Road 3
+County Road 3 doesn't show up on new-fangled (printed) maps, but you know
+it's there because you can see it from your porch.
+
+With no street lamps, the treetops around this road are dark at night, and
+serve as home to pretty much all brands of critters not found in your
+backyard creek.
+
+From here you travel east or west to pretty much nowhere, south to your front
+porch, or north to Rinda's house, which is creepy, so you should probably
+head south.
+
+> s
+You move south.
+
+Front Porch
+If you aren't out working the fields or working on Pete's Punkin Junkinator,
+you're probably sitting on the front porch.  The front door leads inside the
+house, and your rocking chair faces north for a good view of the street.
+Today, last-minute customers are lined up outside your porch eager to get
+their hands on Pete's Premium Punkins.
+
+From here, you can go north across the street, south to the backyard, west to
+the punkin field, or east to your neighbor's cow pasture (but hold your
+nose).
+
+Your shotgun is lying on the porch under your rocking chair.
+A bunch of customers are standing around waiting for punkins.
+
+> w
+You move west.
+
+Punkin FIeld
+The punkin field has row after row of punkin plants.  Most were planted in
+the warmer months, to be harvested as standard punkin crop, but two rows were
+planted late, and have only grown a few inches.  With the help of your
+Universal Insta-grow Punkin Junkinator, you should be harvest them today.
+
+The Punkin Junkinator, which one day you hope to make portable (and
+gas-powered), stands 5 feet tall at the edge of your field, ready to spray a
+punkin once loaded.
+
+> put knife in machine
+You put carving knife inside Universal Insta-grow Punkin Junkinator.
+
+> pull crank
+Maybe this wasn't a good idea, you think to yourself as you hear the knife
+battling the Junkinator's internal grinding stones.  You decide that the
+machine itself is probably a bad idea, but just as you are wondering why you
+neglected to put a "cancel" button on the thing, it spits out its fertilizer.
+ A punkin is covered and within moments, has grown into a huge, beautiful
+punkin.  When you retrieve it, you realize it's the roundest, biggest,
+plumpest, orangest punkin ever to come from Pete's Premium Punkin Patch, but
+it's uncarved.
+
+Apparently the knife-fertilizer is a dud.  "I'll sell it for ten bucks!" you
+call out, and a customer steps up.
+
+"It's beautiful," he says as he takes the punkin from your arms.  "It's the
+most carveable punkin in ever saw!  Here you go, ten b......aaarragklallagl."
+
+Customers scream in horror as they are covered in the poor man's blood.  When
+the carnage is over, the punkin lies unharmed next to the man, who is lying
+face up on the ground, a huge, gap-toothed smile carved across his entire
+skull.
+
+"Punkin's Revenge, starting at just seventy-five dollars!" You shout, as you
+box the punkin carefully in a crate to sell to any one of the customers with
+thick enough stomach to still be here.
+
+> put soda bottle in machine
+You put Mountain Sap soda bottle inside Universal Insta-grow Punkin
+Junkinator.
+
+> pull crank
+There is a horrible grinding noise as the machine processes glass, metal, and
+soda at once, but moments later, it jetisons its magic all over the punkin
+patch.
+
+The result is a fully-carved punkin with a Mountain Sap faucet on the front.
+And it doesn't even take quarters!  You pour everyone a drink before selling
+the thing for $200 to a group of teenagers!  It even has that glass-bottle,
+cane-sugar flavoring that you love so much!
+
+> put dragon breath in machine
+You put bottle of dragon breath inside Universal Insta-grow Punkin
+Junkinator.
+
+> pull crank
+The bottle crackles as the Universal Insta-grow Punkin Junkinator crushes it.
+ Then the machine actually glows with heat.  Will it melt?  Will it blow up?
+You curse Rinda under your breath and turn to run just as the machine sprays
+its magical plant food all over your premium punkin patch.
+
+Within a few moments, a Jack-o-Lantern is grown, only this one's not just lit
+on the inside.  The whole thing is on fire, bright orange flames leaping four
+or five feet into the air.
+
+Your neighbor Al has to go get a shovel to take it home, but you squeeze 130
+bucks out of him for it!  Maybe Rinda isn't so bad after all.
+
+> put skull in machine
+You put the skull of man inside Universal Insta-grow Punkin Junkinator.
+
+> pull crank
+The sound makes you nervous, like stepping on broken glass, and the
+fertilizer that sprays out is pretty dry.  In fact, it doesn't look like it
+worke... Just took a second.  A full-grown punkin-head springs out of the
+patch and runs at the customers.
+
+"BLAAARGHHH.   BLLLAAAAAAAAGGGGGGG!!!! BLAAAAAAA!" shouts the monster, while
+the lady it tackles screams "OH MY GOD! OH MY GOD GET IT OFF ME!"
+
+Once you restrain the punkin-head, whose face is carved out in the shape of a
+skull, you find the woman beneath has died of a heart attack.  "I'll buy it
+off you for a hundred dollars," says your neighbor Jimbo.
+
+"Put 'em both in your pickup and you got a deal," you reply.
+
+Easiest hundred you ever made!
+Tired from your long month of work on Punkins, you decide that both you and
+the Junkinator have done enough work this year.  You send the customers home
+and power down the machine, content just knowing that next year, you'll be
+rolling in dough.
+
+You scored 505 out of the maximum 575!
+That is 87% of the game!
+You finished 70 points short.

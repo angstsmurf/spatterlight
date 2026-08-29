@@ -1,0 +1,45 @@
+look
+examine puppets
+examine words
+examine frames
+examine stairway
+examine walls
+examine shadows
+examine cobwebs
+examine designs
+examine ribbons
+examine blotches
+examine jaws
+examine crevices
+examine flakes
+examine door
+smell
+listen
+remember
+puke
+ask puppets about plan
+ask puppets
+ask puppets
+ask puppets
+ask puppets
+hide
+flee
+up
+up
+down
+down
+n
+open door
+go door
+close door
+open door
+go door
+write on wall
+write on wall
+peel wallpaper
+peel wallpaper
+peel wallpaper
+close jaw
+save
+scream
+look

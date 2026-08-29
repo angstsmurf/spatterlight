@@ -1,0 +1,72 @@
+look under mat
+unlock door with key
+open door
+n
+u
+w
+n
+n
+s
+e
+d
+e
+n
+s
+open cabinet
+take knife
+n
+d
+x workbench
+take toolbox
+open toolbox with knife
+x toolbox
+take screwdriver
+u
+open case with screwdriver
+x case
+take book
+read book
+w
+s
+u
+n
+read symbols
+s
+w
+n
+n
+s
+s
+e
+n
+s
+d
+e
+n
+d
+e
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+u
+attack beast
+attack beast
+attack beast
+push beast into furnace
+get key
+u
+w
+u
+s
+w
+unlock door with key
+open door
+s
+shoot self

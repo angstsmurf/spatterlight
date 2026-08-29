@@ -1,0 +1,64 @@
+e
+open garbage
+s
+get pole
+x equipment
+e
+w
+n
+e
+tidy
+flush toilet
+x sink
+d
+x lump
+x boxes
+x boxes
+x boxes
+smash cabinet
+u
+ne
+use pole
+n
+look under table
+s
+e
+throw ball
+u
+n
+look under bed
+look under bed
+x window
+s
+e
+show photo
+e
+x wall
+x wall
+w
+w
+d
+open cabinet
+u
+s
+nw
+get sign
+push bed
+se
+push bed
+s
+lift floorboard
+n
+n
+stand bed
+d
+w
+sw
+w
+s
+e
+x garden
+w
+n
+w
+call police

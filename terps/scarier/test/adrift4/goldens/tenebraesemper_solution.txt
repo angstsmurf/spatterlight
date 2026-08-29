@@ -1,0 +1,34 @@
+open desk
+take pens
+examine my dresser
+take wallet
+examine bookshelf
+take math book
+examine steve's dresser
+set steve's clock hour to 7
+set steve's clock minute to 42
+open steve's dresser
+look in steve's dresser
+take gold key
+north
+down
+north
+unlock stairwell door with gold key
+open stairwell door
+up
+south
+sit chair
+get notebook
+open door
+north
+pull sheet
+south
+down
+take gold key
+north
+west
+up
+north
+unlock lauren's dresser with gold key
+open lauren's dresser
+take pistol

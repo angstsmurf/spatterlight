@@ -1,0 +1,71 @@
+# Over the Edge (Over the Edge1.0.taf) -- Ren, Hourglass competition,
+# 6th August 2006, 4.00.  43 tasks, no ACT type=4 (ChangeScore) anywhere and
+# no ACT type=6 (EndGame) either -- the game keeps no score and ends by
+# reaching TASK 40's [%text%] credits screen, not a formal EndGame call.
+# Env: SCR_SKIP_WAITKEY=1 -- the title screen ("6th August 2006<waitkey>")
+# eats the first typed command otherwise and desyncs the whole run.
+#
+# Structure: TASK 0 (where=1 room=3, ALTCMD=[*]) is a repeatable "wake up"
+# task that fires on ANY command while the player sits in room 3 (the
+# "eyes closed" limbo room) -- it claims the very first command silently
+# (no echo) the way ADRIFTMAS_Party's TASK 12 claims its first command.
+# That is the throwaway `look` below.
+#
+# The route:
+#  * `in` (TASK 17, Trench -> Quarters) is gated by a restriction that the
+#    Captain (NPC 0) be in the same room as the Body (NPC 8) -- normally
+#    false, fail message "there's no time for sleeping now."  `pull arm` in
+#    End of the Trench (TASK 15) topples a corpse out of the wall and sends
+#    the Captain to it, satisfying the gate; `in` then succeeds.
+#  * Inside Quarters (room 2), the examine chain is order-gated: TASK 21
+#    ("x captain") requires TASK 23 ("x shapes") already done, so `x shapes`
+#    must come before `x captain`; then `x something` needs TASK 21 done,
+#    `x pillow` needs TASK 24 done.  This chain reveals the game's real
+#    subject -- the Captain is smothering his sleeping men with a pillow,
+#    one soft 'thud' at a time.  `x your bed` (not "my bed" -- the object's
+#    phrasing is literally {your} [cot/bed]) needs two calls to progress
+#    from "someone is sleeping in your bed" to "Billy Saffman lies in the
+#    bed."
+#  * The literal command `open your eyes` (TASK 35, exact-text match, only
+#    valid where=1 room=2) is the REAL awakening: it moves the player to
+#    room 4 ("Quarters <2>", the same tent redescribed with "Bodies lie in
+#    cots" instead of "Men sleep in cots").  This is distinct from TASK 0's
+#    ordinary Groundhog-Day loop back to the Trench, which is what happens
+#    if you instead go `out` of Quarters and let the "Going Over the Top"
+#    cutscene run its course (never taken on this route).
+#  * In room 4, waiting (`z`) is required: turn 3 gives "a voice calling
+#    your name", turn 5 fires TASK 37 ("the gloom lightens... to the east
+#    you can make out a light"), opening the east exit.
+#  * `e` the first time triggers TASK 38: the Captain rises with his
+#    revolver, blocking the way ("You can't leave Billy").  `e` again is
+#    TASK 39, the true ending: you walk through anyway, the Captain's final
+#    shot ("one final, loud 'thud'") is heard behind you, and the scene
+#    cuts to a WWI field hospital -- shell-shock, "You're back."
+#  * One more command (any input matches TASK 40's [%text%]) prints the
+#    "the End" credits screen, the game's one and only conclusion.
+#
+# No alternate/bad ending exists in the data: no ACT type=6 anywhere in the
+# dump, so there is nothing to lose other than never finding this route.
+look
+x men
+e
+x arm
+pull arm
+w
+in
+x shapes
+x captain
+x something
+x pillow
+x cots
+x your bed
+x your bed
+open your eyes
+z
+z
+z
+z
+z
+e
+e
+look

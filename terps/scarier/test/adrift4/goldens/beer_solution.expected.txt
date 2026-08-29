@@ -1,0 +1,674 @@
+Loading game...
+
+When Beer Isn't Enough v2
+The story so far...
+Kuel was an ordinary kangaroo.  Normal for eating pizza, drinking beer and
+the occasional killing spree - the Australian Dream.  A perfect life. But it
+was too simple, too dang ordinary to stay that way and fate made sure his
+life shattered into pieces.
+Yes, Kuel's pouch broke...
+Maybe it was the giant pack of beer, maybe it was the firearms or maybe it
+was the cannon balls...
+But, Kuel didn't know how to sew...
+The ultimate humiliation, Kuel became a reject of society.
+Kuel arrives in town, hoping to find an answer...
+You are Kuel...
+
+> south
+You move south.
+
+Fountain Avenue
+You are at Fountain Avenue.  You can go north to the town center, west to the
+water fountain, south to the gun shop and east to a small hut.
+
+> south
+You move south.
+
+Joey's Firearms
+You are in Joey's armoury. He specialises in guns of which there are plenty
+on display but there are still numerous amounts of grenades, body armour and
+bloody big bazookoids.  You can leave to the north.
+Joey is lounging about currently, waiting for a potential customer.  He seems
+to know you can't afford anything he sells.
+
+> buy gun
+Despite the fact you're skint you pick up the dirty shotgun and ask Jo if you
+can buy it.  Joey says, "Hang on, I'll polish it".
+
+> pull trigger
+Joey is just finishing off cleaning the end of the barrels when you pull the
+trigger.  Two cartridges fire out the barrels and into his face.  As he falls
+over, his hand hits a button.  Jo is now dead and gone.  You run outside with
+the body and throw it into a nearby pit of acid before returning to the
+gunshop.
+
+> take shotgun
+You take the dirty shotgun.
+
+> north
+You move north.
+
+Fountain Avenue
+You are at Fountain Avenue.  You can go north to the town center, west to the
+water fountain, south to the gun shop and east to a small hut.  The hut door
+is open.
+
+> east
+You move east.
+
+Filter Hut
+You are in the filter hut.  There are masses of pipes here and a small panel
+with a diagram on it.  You can return to Fountain Avenue to the west.
+
+> pull switch
+You pull the switch and the diagram changes.
+
+> west
+You move west.
+
+Fountain Avenue
+You are at Fountain Avenue.  You can go north to the town center, west to the
+water fountain, south to the gun shop and east to a small hut.  The hut door
+is open.
+
+> west
+You move west.
+
+Fountain
+You are at the public water fountain.  You can go east to Fountain Avenue.
+The water coming out the fountain is yellow.  Several people are choking and
+blue bodies are all over the ground.
+
+Also here is a woolly jumper.
+
+> take jumper
+You take the woolly jumper.
+
+> wear jumper
+You put on the woolly jumper.
+
+> east
+You move east.
+
+Fountain Avenue
+You are at Fountain Avenue.  You can go north to the town center, west to the
+water fountain, south to the gun shop and east to a small hut.  The hut door
+is open.
+
+> north
+You move north.
+
+Town Centre
+You are in the town centre.  The sweltering heat makes everybody leave trails
+of sweat behind them, but they soon evaporate.  An ice cream stall is selling
+good stuff.  You can go north to Broad Street, east to the Barry's Bar and
+south to Fountain Avenue.
+
+> east
+You move east.
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.
+Barry the barkeeper is serving behind the bar.
+
+> north
+You move north.
+
+Public Toilets
+You are at the public toilets.  You can go west to Broad Street and south to
+the bar.  The locals are having a comp to see how high they can piss.  The
+water here is sparkling clean.
+
+A plump cushion is here to make your stay more comfortable.
+The locals cheer as a competitor sets a new record.
+
+> take cushion
+You take the big plump cushion.
+
+> use toilet
+Your bladder refuses to obey your commands.
+
+> hide cushion in jumper
+You hide in a doorway before stuffing the cushion up your jumper.  You now
+look really fat.
+
+> south
+You move south.
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.
+Barry the barkeeper is serving behind the bar.
+
+> west
+You move west.
+
+Town Centre
+You are in the town centre.  The sweltering heat makes everybody leave trails
+of sweat behind them, but they soon evaporate.  An ice cream stall is selling
+good stuff.  You can go north to Broad Street, east to the Barry's Bar and
+south to Fountain Avenue.
+
+> south
+You move south.
+
+Fountain Avenue
+You are at Fountain Avenue.  You can go north to the town center, west to the
+water fountain, south to the gun shop and east to a small hut.  The hut door
+is open.
+
+> west
+You move west.
+
+Fountain
+You are at the public water fountain.  You can go east to Fountain Avenue.
+The water coming out the fountain is yellow.  Several people are choking and
+blue bodies are all over the ground.
+
+> drink water
+You take a sip of what was water and you topple over.  When you wake up, you
+are really hot and not amused.
+
+> kill chris
+You pick up the shotgun and shoot Chris.  He vanishes in a puff of smoke but
+you can still hear his voice.  I am already dead, so you cannot kill me.  You
+have merely destroyed my vanilla essence.  But I shall find a body to share
+myself with and then I shall return.  Mu Ha Ha Ha!
+
+> take pitchfork
+You take the devil's pitchfork.
+
+> i
+You are wearing a woolly jumper, and you are carrying a dirty shotgun and the
+devil's pitchfork.
+Suddenly, you feel a pain in your chest and wake up by the fountain.
+
+> look
+
+Fountain
+You are at the public water fountain.  You can go east to Fountain Avenue.
+The water coming out the fountain is yellow.  Several people are choking and
+blue bodies are all over the ground.
+
+> east
+You move east.
+
+Fountain Avenue
+You are at Fountain Avenue.  You can go north to the town center, west to the
+water fountain, south to the gun shop and east to a small hut.  The hut door
+is open.
+
+> north
+You move north.
+
+Town Centre
+You are in the town centre.  The sweltering heat makes everybody leave trails
+of sweat behind them, but they soon evaporate.  An ice cream stall is selling
+good stuff.  You can go north to Broad Street, east to the Barry's Bar and
+south to Fountain Avenue.
+
+> north
+You move north.
+
+Broad Street
+You are in Broad Street.  Being part of the less popular part of town, there
+are fewer people here.  You can return to the town centre to the south, visit
+the public toilets to the east and a dark alley is to the north as well as
+fat club to the west.  An information board is concreted into the road.
+
+> north
+You move north.
+
+Dark Alleyway (Turnagain Lane)
+You are in a dark alleyway between two big buildings.  There is a wall at the
+end so you can only return to the south.
+"K" the Kayote is here, smoking pot and selling grass.
+
+> buy drugs
+K gives you some free speed.  You take some of it and feel much more lively.
+The police find you, kick you about then throw you over a fence.
+
+> open dustbin
+You open the dustbin.  A spade is inside the dustbin.
+
+> take spade
+You take the spade from the dustbin.
+
+> west
+You move west.
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+You really need to empty your bladder.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+Barry the barkeeper is serving behind the bar.
+Without warning your bladder explodes and pops onto the floor in front of
+you.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+
+Lying deflated on the ground is a bladder.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+
+Lying deflated on the ground is a bladder.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+
+Lying deflated on the ground is a bladder.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+
+Lying deflated on the ground is a bladder.
+Barry the barkeeper is serving behind the bar.
+
+> take bladder
+You take the broken bladder.
+
+> west
+You move west.
+
+Town Centre
+You are in the town centre.  The sweltering heat makes everybody leave trails
+of sweat behind them, but they soon evaporate.  An ice cream stall is selling
+good stuff.  You can go north to Broad Street, east to the Barry's Bar and
+south to Fountain Avenue.
+
+> north
+You move north.
+
+Broad Street
+You are in Broad Street.  Being part of the less popular part of town, there
+are fewer people here.  You can return to the town centre to the south, visit
+the public toilets to the east and a dark alley is to the north as well as
+fat club to the west.  An information board is concreted into the road.
+
+> west
+You move west.
+
+Fat Club
+You are in fat club.  It seems like any club, but it's specifically for fat
+people.  They all seem to look the same, but you can't really see anything of
+them properly.  You can go south or east back to Broad Street.  Leaning
+against the side of the far wall, is a gas canister.
+
+> inflate bladder
+The bloke who wanted the devil's pitchfork seems to have disappeared.  Ah,
+well never mind.
+You tie the bladder to some entrails then fill in up with hydrogen.  It
+inflates to an enormous size and you run outside to avoid hitting the
+ceiling.  You rise higher and higher until you come to rest on a cloud.
+Suddenly, a match falls down and the bladder catches fire.  It then floats
+down to the ground.
+
+> talk to god
+God sees you and shouts out, "Heaven?  One ticket each, line on the left."
+"Actually..." you begin.
+"Sorry, I'm very busy, tidy waves in Japan".
+"I'm not dead."
+"What do you mean you're not dead?  What you doing here then?"
+"School trip", you reply quickly.
+"Of course," agrees God.  "Hang on...." God pauses, "Weren't you the one who
+shot Joey?"
+"No!" you shout, "That must have been my cousin!"
+"I don't think so, buster!" God replies.
+"Maybe we can do a deal," you suggest.
+"Yes, but on my terms...."
+Taking time to look behind you, you discover you are surrounded by
+heavily-armed angels.  You are about to reluctantly agree when you remember,
+"Wait!  I killed the devil, remember?"
+"You can never truly kill Chris, but is powers must be weakened.  He will
+come looking for you, and then not even I can help you then."
+You shiver.
+"Very well," God continues, "I see you must return to the Fat Club, but Chris
+must not know about our meeting, this conversation never happened".
+The hushed miltary radio voices behind you give you a clear idea of what is
+about to happen.  You jump off the cloud, just in time to see bullets flying
+overhead.  The angels follow, guns blazing, but you manage to dodge the
+bullets.  The angels turn back, before they like you end up falling onto a
+very fat person.  Luckily, the fat person breaks the fall.
+Lucky to be alive you stand up, only to be knocked out by a valve landing on
+your head.
+
+> inflate self
+You attach the valve to the canister and inflate yourself up.  Now you're
+really fat.
+
+> south
+You move south.
+
+Mingling with the fattest of the fat
+Now you are extra extra large, you can squeeze out to the west.
+
+> look
+
+Mingling with the fattest of the fat
+Now you are extra extra large, you can squeeze out to the west.
+
+> west
+You move west.
+
+In The Bush
+You are deep in the Australian bush (outback).  You can return east to fat
+club though.  A huge X is marked on the ground.
+
+> look
+
+In The Bush
+You are deep in the Australian bush (outback).  You can return east to fat
+club though.  A huge X is marked on the ground.
+
+> dig
+You dig and dig and dig but you find nothing.  Eventually you hit rock and
+can't dig any further.
+
+> score
+Your score is 45 out of a maximum of 50.  (90%)
+
+> search dirt
+You search the dirt and find a pouch.  You put on the pouch and win the game.
+ You then go on to win the competition in the toilets.
+To be continued...
+(There are will be a sequel for each of the possible two endings...)
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

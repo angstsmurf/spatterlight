@@ -1,0 +1,112 @@
+# Big City Laundry (Big City Laundry.taf) -- DCBSupafly, March Writing Spiel
+# 2009.  ADRIFT 4.00, 5 rooms, 25 objects, 30 tasks, 1 NPC, 3 events, no
+# scoring system (zero ACT type=4 anywhere in SCR_DUMP_TASKS) and no HINT2=
+# entries.  The win is TASK 26 [play * game *] in the apartment (ACT type=6
+# v1=0 v2=2 v3=2); the only other type=6 is TASK 28's robbery-loss ending
+# (ACT type=6 v1=1 v2=0 v3=0).  Route derived from SCR_DUMP_TASKS + the
+# `objects *`/`rooms *` debugger dump.  Result: WON (no-score ending) in 78
+# commands.  No env vars needed (no <waitkey> tag in the plaintext; a plain
+# `./scare "games/Big City Laundry.taf" < solution` replays it exactly).
+#
+# Win marker: grep for "Congratulations!  You've done it." near EOF.
+#
+# Story: it's Sunday, you wake up, and the only thing between you and video
+# games is doing your laundry.  Objects are only referenceable once
+# something LISTS them (the object-seen model) -- `x desk` before `get
+# keys`/`get quarters`, and `x dryer` before `get clothes` on the second
+# trip, are both required or the parser answers "Take what?"/"You see no
+# such thing."  The in-building washer/dryer cycle is a scripted RED HERRING:
+# the washer text explicitly says it comes out "out of commission" and sends
+# you to the laundromat regardless of how carefully you run it -- you still
+# have to spend all 9 quarters (4+5) and the wash/dry actions to advance the
+# plot, then carry the resulting damp-but-dirty clothes out to a laundromat
+# and feed its industrial washer 16 more quarters (of the 42 the game hands
+# you) before an NPC (the old lady) bails you out and auto-teleports you
+# home -- no `east`/`up` needed after `start machine` there.
+#
+# FOOTGUN: EVENT 1 "get robbed" is a real-time window (turns 7-75) keyed on
+# the BACK DOOR's open/closed state, not its lock state -- leaving it
+# unlocked-but-open across a `play video games` timeskip fires a silent
+# robbery loss ("...because you left your back door open") with no parser
+# warning beforehand.  `close back door` after every south/north crossing
+# (re-`unlock back door` before the next one; unlocking also opens it, no
+# separate `open` needed) avoids it entirely; the front door has no such
+# timer.
+open closet
+get socks
+wear socks
+x desk
+get quarters
+get laundry
+get keys
+unlock back door
+south
+close back door
+down
+get detergent
+open washer
+put laundry in washer
+pour detergent in washer
+close washer
+put quarter in washer
+put quarter in washer
+put quarter in washer
+put quarter in washer
+start machine
+up
+unlock back door
+north
+close back door
+play video games
+unlock back door
+south
+close back door
+down
+open washer
+wring clothes
+put quarter in dryer
+put quarter in dryer
+put quarter in dryer
+put quarter in dryer
+put quarter in dryer
+close dryer
+start clothes dryer
+up
+unlock back door
+north
+close back door
+play video games
+unlock back door
+south
+close back door
+down
+open dryer
+x dryer
+get clothes
+up
+unlock back door
+north
+unlock front door
+down
+west
+put clothes in washing machine
+pour detergent in washing machine
+close washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+put quarter in washing machine
+start machine
+play video games

@@ -1,0 +1,34 @@
+examine desk
+take folder
+open folder
+take article
+examine article
+take bipod
+answer phone
+north
+east
+give bipod to dem
+z
+z
+z
+z
+north
+south
+south
+examine can
+take paper from can
+uncrumple paper
+north
+north
+north
+talk to sam
+ask sam about article
+give article to sam
+give paper to sam
+south
+south
+west
+west
+talk to lydia
+talk to joe
+push red button

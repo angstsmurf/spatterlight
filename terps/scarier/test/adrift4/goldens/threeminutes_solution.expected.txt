@@ -1,0 +1,281 @@
+Loading game...
+
+3 Minutes to Live
+
+Last thing you remember you were in the casino playing craps. The girl in the
+black dress flashed you a wide, white smile. Then cocktails on the terrace .
+and it all went dark.
+
+You wake up on a cold hard slab. The first thing you do is try and sit up,
+but the ropes wrapped around your wrists and ankles barely let you move.
+Fabric is fastened tightly around your eyes, cutting out all traces of light.
+
+'Awake at last?'
+
+It's a voice you never thought you'd hear again.
+
+'Surprised? Some of us are hard to kill, harder to kill than you, at least.'
+And he laughs, long and cold. You struggle to speak but the gag muffles any
+sound. 'No last words? Well, you have three minutes. One hundred and eighty
+seconds until you, and everyone else in this accursed city, won't be speaking
+ever, ever again.'
+
+Footsteps drift away and you realise that you're alone. Somewhere far behind
+your head you can hear a soft ticking and there is a loud buzzing noise that
+sounds much, much  closer.
+
+You need to think but you don't have time.
+You're tied up, gagged, blindfolded, and you've got .
+
+Three Minutes to Live
+
+> look
+
+Darkness
+A cold slab presses into your back and rope bites into your wrists and
+ankles. You can't move more than a few inches and with the blindfold pulled
+tight across your eyes you can't see a thing.
+
+Something buzzes somewhere behind you.
+
+> pull rope real hard right
+You pull you body as hard as you can to the right, arms straining. The saw
+whines somewhere behind you. You hear a snap and feel the rope on your wrists
+starting to loosen and then, suddenly, they come away and you work your hands
+free.
+
+> remove blindfold
+You pull the blindfold away from your eyes and squint in the bright light.
+
+Morgue
+The city morgue is state of the art. White and smooth, is has everything from
+electric operating tables - moveable slabs set on casters and turntables,
+controlled by a complex system of levers and buttons - to an enormous
+demonstration screen the length of one wall and a sealed, refridgeration
+locker for storing bodies. The main door out of the morgue is a solid block
+of metal, firmly locked, and there is also a smaller closed inner panel
+leading to the locker.
+
+A large clock flashes its countdown warning. The huge wall screen is
+currently dead. The saw spins away to the right of the head of the slab.
+A dead coroner lies slumped in the corner.
+
+Things don't look good.
+
+> push lever
+You push the lever down. The slab rotates 45 degrees to the right.
+ The saw spins happily away to the right middle side of the slab.
+
+> push lever
+You push the lever down. The slab rotates 45 degrees to the right.
+ The saw spins happily away to the bottom right of the slab.
+
+> press button
+You reach out and press the blue button. The saw whines loudly, then rolls
+forward.
+The saw cuts through the air. It rips through the rope tying down your right
+ankle - your foot is free!
+
+> push lever
+You push the lever down. The slab rotates 45 degrees to the right.
+ The saw spins happily directly at the foot of the slab.
+
+> push lever
+You push the lever down. The slab rotates 45 degrees to the right.
+ The saw spins happily away to the bottom left of the slab.
+
+> press button
+You reach out and press the blue button. The saw whines loudly, then rolls
+forward.
+The saw cuts through the air. It rips through the rope tying down your left
+ankle - your foot is free!
+Both of your feet are now free and you hop down from the slab. The red
+numbers on the large clock flash 2:53.
+
+You don't have much time left.
+
+> move coroner to slab
+You drag the coroner's body to the hard slab, heaving the stiff corpse on top
+of the table.
+
+> press button
+You hold the body firmly in place, and press the button. As the saw snakes
+out, scraping against bone all you can think is I'm a hero, it shouldn't be
+like this.  The saw slicing through flesh and the severed hand rolls across
+the edge of the slab and drops to the floor. The saw returns to its place.
+
+The large screen flickers into life, and he's there, huge and smiling.
+
+'Good. You're up. But you do realise that was always part of the plan? If I'd
+wanted you to die easily, I would have had you shot, or poisoned. I want you
+to see your death, to see everyone's death.'
+
+He laughs again, and the screen goes dead once more.
+
+> take hand
+You take the severed hand.
+
+> put severed hand on scanner
+You press the severed hand against the scanner pad: authorisation granted
+flashes up on screen.
+
+'Welcome to the storage room, Dr Quincy,' a smooth female voice informs you.
+
+The inner panel door wooshes upwards and disappears from view. You gladly
+toss the severed hand aside.
+
+> go in
+You step through the inner door and into a nightmare.
+Locker
+The Locker is smaller than the main morgue room but just as white. A long,
+deep wall of storage drawers faces another wall-length video screen,
+currently 0. Someone has decked the room out like a sick joke, a macabre
+recreation of the casino you spent the previous night in. A woman leans on a
+craps table, a croupier stands before a roulette wheel, a group of men sit
+around a poker table. All are dead, in various stages of decomposition, posed
+like ghoulish waxworks.
+
+A large bronze case stands under the screen. On top of the case rests a clock
+that flashes: 2:48. The only exit is back out through the now raised panel.
+
+For a split second he's back on the screen, looming, smiling. 'Do you like
+what I've done with the place?' he asks, and then not waiting for an answer,
+he continues, '168 seconds left, my friend. Tick-tock.'
+
+> x table
+Three players and the dealer sit around the table, paused midgame. Cards are
+scattered in front of the players, but there is a circular divot in front of
+the dealer.  On the pontoon table is the jack of diamonds, the king of clubs,
+the queen of hearts, the queen of spades, the ace of spades, the four of
+diamonds, the seven of clubs, the two of hearts and the nine of clubs.
+
+> take jack
+You take the jack of diamonds from the pontoon table.
+
+> take ace
+You take the ace of spades from the pontoon table.
+
+> put jack in divot
+You put the jack of diamonds inside the circular divot.
+
+> put ace in divot
+You put the ace of spades inside the circular divot.
+
+'Click,' says the bronze cupboard.
+
+> take ball
+You lift the tiny white ball up from the roulette wheel.
+
+> put ball on 18
+You place the ball on the number 18 groove.
+
+A high-pitched click eminates from within the cupboard.
+
+> take blue die
+You collect the blue die from the craps table.
+
+> take green die
+You collect the green die from the craps table.
+
+> put blue die on 2
+You set the blue die down on the number 2. The number 5 stares back up at
+you.
+
+> put green die on 4
+You set the green die down on the number 4. The number 3 stares back up at
+you.
+
+You hear a loud 'click'. It sounds like it came from within the bronze
+cupboard.
+
+The bronze cabinet creaks and opens revealing an enormous red button
+labelled:
+
+STOP
+
+A low laugh echoes quietly around the room.
+
+> press button
+You press the large red button. The timer freezes. You've stopped the bomb.
+You look up at the screen, and he's there, eyes blazing.
+
+'I win.' You're defiant.
+
+A smiling face beams back down at you.
+
+'Did you really think it would be this simple? Did you really think you were
+going to win.' He laughs again. 'I wanted this. I don't want to kill you, I
+want to destroy you. So I'm going to give you a choice.'
+
+A large red 10 flashes up in the centre of the screen.
+
+'The door is open. You're free if you want. You have ten seconds to make up
+your mind, and then the door will lock again, forever. Shortly after that the
+bomb you've worked so hard to prime, will explode. The bomb you've shut down
+was a small, local affair, it would have taken out the building and those
+nearby. The bomb you've just set is nuclear. It will destroy the city.'
+
+He pauses, but you do not speak.
+
+'Here is your choice. Leave in the next ten seconds, run like a coward, and
+you might even make it. Stay here, and try and stop the bomb, and you'll
+almost certainly die. And you'll get to watch as the bomb takes out the rest
+of the city.'
+
+You look around the room.
+
+'One more thing. Every thing you've done, every move you've made, every move
+you will make is being broadcast to every tv in this city. There's a two
+minute delay, of course.'
+
+He laughs one last time.
+
+'Still think you're a hero?'
+
+The screen fades, although the countdown remains.
+
+> out
+You move out.
+
+Morgue
+The city morgue is state of the art. White and smooth, is has everything from
+electric operating tables - moveable slabs set on casters and turntables,
+controlled by a complex system of levers and buttons - to an enormous
+demonstration screen the length of one wall and a sealed, refridgeration
+locker for storing bodies. The main door out of the morgue is a solid block
+of metal, standing wide open, and there is also a smaller open inner panel
+leading to the locker.
+
+A large clock flashes its countdown warning. The huge wall screen is
+currently dead. The saw spins away to the bottom left of the slab.
+
+Also here is a severed hand.
+A dead coroner lies slumped in the corner.
+
+> out
+You make your choice, and run. Out of the room, out of the building, as fast
+as you can. On the street, you grab the first car you see. You pull wires
+till they spark, then drive. Left side, right side, pavement, anyway you can.
+You drive away, out of the city. You're clearing the limits when you hear it.
+You see it in the rear view mirror next, a huge cloud racing you, chasing
+you. It's fast, but it's weaker when it hits you. The car flips rolls, as do
+you. You're thrown clear, you hit the ground hard, but you're alive.
+
+You're alive.
+
+But not a hero anymore.
+
+[Press a Key]
+
+Three Minutes to Live
+by Ren
+
+A Game Submitted for the Hourglass Competition
+Completed in: 179minutes
+
+[Press a Key]
+
+It's over. Restart, Restore or Quit?
+
+> quit
+Do you really want to quit? [Y/N]

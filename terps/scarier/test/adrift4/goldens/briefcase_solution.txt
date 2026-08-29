@@ -1,0 +1,19 @@
+north
+up
+west
+wake dog
+z
+z
+nw
+nw
+pick lock
+open door
+nw
+open curtains
+stand on chair
+stand on desk
+take briefcase
+z
+z
+open case
+in

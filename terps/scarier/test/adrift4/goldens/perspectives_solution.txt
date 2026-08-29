@@ -1,0 +1,45 @@
+# Perspectives -- Justahack, 4.00.  No ACT type=4 anywhere in the file, so no
+# score to maximize; multiple endings are reachable and this is the richest of
+# them (a full four-line conversation with Jonah), per the "richest/fullest
+# ending" convention used for other no-score multi-ending games (Everything
+# Emanuelle, S Tar Dus T).
+# Route derived from SCR_DUMP_TASKS (14 tasks, 12 events, 2 rooms).  No hint
+# menu.  No author walkthrough exists.
+# Endings found: "Paranoia Ending" (TASK 8, "hammer the door", unconditional,
+# 1 command), "Fight Club ending" (TASK 9, attack Jonah, unconditional, 1
+# command), "Negotiation Style Ending" (TASK 3, the 4th "talk to jonah",
+# richest -- chosen here), and "the worst possible outcome" (TASK 12, #Death,
+# reached passively if Brendlebun/Gamble's door-breaking countdown runs out
+# around turn 27).
+# TASK 10 ("Heroic Actions Ending", attack Jonah while VAR Gun_Scenario==1,
+# reached via "get gun") is DEAD: TASK 9 has the identical command pattern,
+# no restriction, and a lower task index, so the engine's first-match-wins
+# scan always intercepts "attack jonah" at TASK 9 regardless of game state --
+# confirmed live (get gun; attack jonah still prints "Fight Club ending").
+# Classic sibling-task-order footgun, this time leaving an ending unreachable
+# rather than a score.
+# Talking to Brendlebun/Gamble runs an independent 4-step dialogue (its own
+# variable, BG_Conversation) with no ending of its own; included here purely
+# for content, before finishing the Jonah conversation for the win.
+# No <waitkey> tag lies on this route (the game's only one is inside the
+# unreached #Death text), but the intro's own pagination still eats the first
+# typed line as a page-turn unless SCR_SKIP_WAITKEY=1 is set -- confirmed by
+# comparing a run with and without the env var (without it, SCR_DUMP_TASKS
+# never fires because the task loop is never reached).
+look
+examine gun
+examine hammer
+examine toolbox
+examine nails
+examine planks
+examine tub
+examine medicine cabinet
+examine damien
+examine jonah
+talk to brendlebun
+talk to gamble
+talk to brendlebun
+talk to jonah
+talk to jonah
+talk to jonah
+talk to jonah

@@ -1,0 +1,200 @@
+Loading game...
+
+Over the Edge
+
+Over the Edge
+
+A game submitted for the Hourglass competition.
+6th August 2006
+
+You knew as soon as you saw the advert. It was your duty. You didn't tell
+anyone, you just went. You were surprised how quick it all was. Sign here,
+shake here, forty-eight hours later and you're in France.
+
+That was five months ago.
+
+It isn't what you were expected. It's different to the poem. Maybe glory and
+heroism is about mud and inches and death. But it isn't what you expected.
+
+You are Billy Saffman. You lied about your age when you signed up. You're
+fifteen years old.
+
+> look
+
+You open your eyes.
+
+Trench
+The early morning light is as grey and cold as the Trench itself. Mist clings
+to everything. The mud that surrounds you has turned to slush and your feet
+are soaked where your boots leak. Eight feet high and half that wide, the
+trench is long, narrow and continues to the east. Behind you, through a
+dirty-green canopy, lie the beds. The men mill around you, leaning on their
+rifles, talking in quiet whispers.
+
+The Captain rests his hand gently on your shoulder. 'Not long now Billy.'
+
+> x men
+The men mill around, leaning on their rifles, talking in low voices. They are
+all here - Jones, Simpson, Johnson, Winstanley, Phillips, Howarth, Smith, and
+others that you do not recognise. Sometimes you wonder how they fit them all
+in.
+
+The Captain rests his hand gently on your shoulder. 'Not long now Billy.'
+
+> e
+You move east.
+
+End of the Trench
+The trench walls have collapsed, mud sinking into mud, cutting off the rest
+of the trench to the east. A pale arm protrudes from the trench wall.
+
+> x arm
+An arm sticks out from the trench wall, pale with green sleeves.
+
+> pull arm
+You pull hard on the arm. At first it does not move, but then it gradually
+gives way. A body topples out of the wall in front of you, knocking you to
+the floor.
+
+The Captain rushes over to the body, pulling it off of you. 'What have you
+done?' he cries, eyes wild, as he desperately tries to push the body back
+into the trench wall.
+
+> w
+You move west.
+
+Trench
+The early morning light is as grey and cold as the Trench itself. Mist clings
+to everything. The mud that surrounds you has turned to slush and your feet
+are soaked where your boots leak. Eight feet high and half that wide, the
+trench is long, narrow and continues to the east. Behind you, through a
+dirty-green canopy, lie the beds. The men mill around you, leaning on their
+rifles, talking in quiet whispers.
+
+At the far end of the trench, the Captain scrabbles wildly in the dirt.
+
+> in
+You duck through the dark tent folds and into the blackness of your living
+quarters.
+
+Quarters
+It's dark, too dark to really see. Occasionally the red light of a flare or
+shell sneaks through the thin canopy covering and you make out shapes and
+shadows. Men sleep in cots all around you, surrounded by their trunks and
+possessions. Your own bed is directly in front of you, and the only exit is
+back out through the flap of material.
+
+> x shapes
+A shell flares red light into the room, and for a second you catch a glimpse
+of the largest shape in silhouette. It is the Captain.
+
+> x captain
+The Captain moves about the room, checking on his men. He leans down low over
+the beds, one by one. Something glints in one of his hands.
+
+> x something
+A darker shape rests in the Captain's dark hand. It glints whenever it
+catches the light. The Captain lowers it every time he bends over one of his
+sleeping men.
+
+In his other hand the Captain carries a pillow.
+
+> x pillow
+Everytime the Captain leans above a cot, he moves the pillow in his right
+hand over the glinting something in his left.
+
+You hear a soft 'thud'.
+
+> x cots
+Each of the men lies on his bed, not moving. You don't look too closely but
+you think they are sleeping, or . . . yes. They are sleeping.
+
+You hear a soft 'thud'.
+
+> x your bed
+Someone is sleeping in your bed. They don't move, they hardly breathe, and
+their eyes are clenched tightly shut.
+
+A photograph lies on your bed.
+
+> x your bed
+You creep closer towards your cot and look down.
+
+Billy Saffman lies in the bed, fifteen years old. His eyes are tightly shut.
+
+> open your eyes
+You open your eyes.
+
+Quarters
+It's dark, but you can make out enough to see in the gloom. Bodies lie in
+cots all around you, surrounded by their trunks and possessions. Your own bed
+is directly in front of you, and the only exit is back out through the flap
+of material.
+
+A pillow rests against one wall.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+You hear a voice calling your name, a voice you only half-recognise.
+
+> z
+Time passes...
+
+> z
+Time passes...
+The gloom lightens. Suddenly, to the east you can make out a light, a warm
+glow of some kind.
+
+> e
+You turn towards the east, towards the light, but the Captain rises behind
+you.
+
+'Billy,' he calls, his voice tired and ragged, 'I'm, I'm sorry Billy. I had
+to, you see, don't you? I had to, I couldn't. . .' the voice tails off. The
+Captain holds his revolver low in one hand.
+
+Slowly, Captain Harrison raises his gun until it is level with you. 'You
+can't leave Billy, we're all in this together. Aren't we men?' he adds
+loudly, encouragingly. No-one answers him.
+
+> e
+You walk to the east.
+
+No!' calls the Captain, 'Billy, you can't-' but you ignore him.
+
+You feel the warmth run over you.
+
+There is one final, loud 'thud' behind you, and then there is nothing.
+
+You look up, into the face of a young man with horn-rimmed glasses, a
+clipboard and a pen. He shines a small light in your eyes.
+
+'Billy Saffman?' has asks, but you don't answer. 'You can hear me, can't you
+Billy?'
+
+You look around the plain, pale surgery. At the other patients, the men who
+stare without seeing. You blink.
+
+'You're in hospital Billy. You went over the edge, shell-shock we call it,
+but you're back now, aren't you Billy?' The doctor smiles, and somewhere,
+somehow, you find a smile to answer it. You're back.
+
+> look
+
+the End
+
+Submitted for the Hourglass competition.
+6th August 2006
+Over the Edge
+By Ren
+
+- Restart, Restore or Quit?
+
+> quit
+Do you really want to quit? [Y/N]

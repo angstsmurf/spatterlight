@@ -1,0 +1,856 @@
+Loading game...
+
+A View to a Home
+Welcome to A View to a Home. Your mission in this adventure should you choose
+to accept it is to collect the gold, silver, and bronze medals and place them
+in the trophy case. One word of advice, if in doubt, use the 'examine or x'
+command to obtain tutorial advice on object usage and 'look or l' command to
+get location and movement directions. Also, all the verbs and subjects used
+in this adventure are mentioned in the adventure text in one form or another.
+
+Outside House
+ You are standing in front of the entrance to your house.
+
+You can move north and east.
+
+> east
+You move east.
+
+Clean Aire
+You have stepped beside a picnic table and gas grille.
+
+Also here is a shovel.
+
+You can move north and west.
+
+> take shovel
+You take the shovel.
+
+> west
+You move west.
+
+Outside House
+ You are standing in front of the entrance to your house.
+
+You can move north and east.
+
+> north
+You move north.
+
+Foyer
+You are currently under a cathedral ceiling. There is a large rectangular
+opening on the left wall affording you a view of the living room. On the
+right wall is a set of stairs leading downward and right next to it a wooden
+closet.
+
+You can move north, south, down and in.
+
+> down
+You move down.
+
+Bottom of Main Stairway
+You are standing next to an ironing board on top of which is an Iron.
+
+You can move north and up.
+
+> north
+You move north.
+
+Passage
+You are in a junction of many passageways.
+
+You can move north, east, south and west.
+You hear the sound of water running.
+
+> east
+You move east.
+
+Electrical Area
+You are in between a large fuse box and the utility room.
+
+You can move east, south and west.
+You hear the sound of water being shut off abruptly.
+
+> open box
+You open the metal box and look at the various circuit breakers. On the side
+of the door is clipped a flashlight.
+You hear the sound of water running.
+
+> take flashlight
+You take the flashlight.
+
+> turn flashlight on
+The flashlight is now on.
+You hear the sound of water being shut off abruptly.
+
+> east
+You move east.
+
+Bottom of Stairs
+There is a shelf containing camping equipment. You search the shelf and find
+more items like ski boots but eventually turn up nothing of interest.
+
+You can move west and up.
+You hear the sound of water running.
+
+> up
+You move up.
+
+Top Of Stairs
+You are at the top of the stairs. To your right is a door leading outside.
+
+You can move east, south and down.
+You hear the sound of water being shut off abruptly.
+
+> east
+You move east.
+
+Barbeque Area
+You have stepped onto a cement patio. There is a small hibachi on the patio.
+On the ground, a few feet  in front of the patio,  is a brown fence. There is
+a ladder against the fence.
+
+You can only move west.
+
+> climb ladder
+You climb the ladder and immerse yourself in a headful of branches.
+
+> x branches
+You search the branches and find a useful stick.
+
+> dig in the ground with the shovel
+Using the shovel, you frantically dig in the earth. You uncover a book.
+
+> take religious book
+You take the religious book.
+
+> west
+You move west.
+
+Top Of Stairs
+You are at the top of the stairs. To your right is a door leading outside.
+
+You can move east, south and down.
+
+> south
+You move south.
+
+Garage
+You are in a huge, cavernous garage. It is occupied by a Mercedes Benze and
+Audi.
+
+You can move north and west.
+You hear the sound of water running.
+
+> west
+You move west.
+
+Mud Room
+There are a multitude of shoes on the floor and coats on their hangers. You
+search diligently and find nothing.
+
+You can move north, east and south.
+You hear the sound of water being shut off abruptly.
+
+> north
+You move north.
+
+Kitchen
+
+There is a tidy kitchen faucet here.  There is an even tidier kitchen sink
+here.
+
+You can move south and west.
+
+> west
+You move west.
+
+Family Dining Table
+You have entered a heavy traffic area. Dinner is served here daily.
+
+You can move north and east.
+You hear the sound of water running.
+
+> north
+You move north.
+
+End of Short Passageway
+The passageway divides the TV Room and Family Dining Room here.
+
+You can move north, south and west.
+You hear the sound of water being shut off abruptly.
+
+> west
+You move west.
+
+Short Passageway
+You are in a junction of many passageways.
+
+You can move north, east, south and west.
+
+> west
+You move west.
+
+Living Room Stairway
+You are at the foot of a stairway going up to the top floor.
+
+There is a young girl sitting on the stairs.
+
+You can move east and south.
+
+> x girl
+She is seriously considering killing herself . She needs words of hope and
+promise.
+You hear the sound of water running.
+
+> read book
+The girl becomes inspired and hugs you.
+
+> up
+The girl lets you pass.
+
+> south
+You move south.
+
+TopFloorPassage(South)
+You are in between Ajoy's bedroom and the prayer, computer and study room.
+
+You can move north, east and west.
+
+> west
+You move west.
+
+Ajoy's Bedroom
+This is the bedroom of Lungu's brother and Lungu is Anjan the brother of
+Ajoy.
+
+You can move east and south.
+You hear the sound of water being shut off abruptly.
+
+> south
+You move south.
+
+Balcony(West)
+You are on the west end of the balcony. A hugh tree blocks what is otherwise
+a magnificient view of the circular driveway and the rest of the
+neighborhood.
+
+You can move north and east.
+
+> x hugh tree
+Upon closer examination, you spot a bird's nest.
+
+> x bird's nest
+You notice something shiny in the nest. Unfortunately, the nest is outside of
+hand's reach.
+
+> poke bird's nest with stick
+You poke the bird's nest with the stick. The shiny object tumbles from the
+nest onto the balcony with a thud.
+
+> take key
+You take the metal key.
+
+> north
+You move north.
+
+Ajoy's Bedroom
+This is the bedroom of Lungu's brother and Lungu is Anjan the brother of
+Ajoy.
+
+You can move east and south.
+You hear the sound of water running.
+
+> east
+You move east.
+
+TopFloorPassage(South)
+You are in between Ajoy's bedroom and the prayer, computer and study room.
+
+You can move north, east and west.
+
+> north
+You move north.
+
+TopFloorPassage(Center)
+There are other rooms north and south of you.
+
+You can move north, south and down.
+You hear the sound of water being shut off abruptly.
+
+> down
+You move down.
+
+Living Room Stairway
+You are at the foot of a stairway going up to the top floor.
+
+There is a young girl sitting on the stairs.
+
+You can move east, south and up.
+
+> east
+You move east.
+
+Short Passageway
+You are in a junction of many passageways.
+
+You can move north, east, south and west.
+You hear the sound of water running.
+
+> south
+You move south.
+
+Foyer
+You are currently under a cathedral ceiling. There is a large rectangular
+opening on the left wall affording you a view of the living room. On the
+right wall is a set of stairs leading downward and right next to it a wooden
+closet.
+
+You can move north, south, down and in.
+
+> unlock closet with key
+You unlock the wooden closet with the metal key.
+You hear the sound of water being shut off abruptly.
+
+> open closet
+You open the wooden closet.
+You hear the sound of water running.
+
+> in
+You move in.
+
+Inside Closet
+There are shoes at  your feet, clothes on hangers, and hats on the top rack.
+You are somewhat confused by the size of the closet and try to explore some
+more.
+
+You can only move out.
+
+> x hats
+You hop up and try on each hat and there is not a single one you like.
+However, you shake one hated hat and a bronze medal drops drops unto your
+hand.
+
+> take medal
+You are already carrying the bronze medal.
+You hear the sound of water being shut off abruptly.
+
+> i
+You are carrying a religious book, a shovel, a stick, a metal key, a
+flashlight and a bronze medal.
+
+> out
+You move out.
+
+Foyer
+You are currently under a cathedral ceiling. There is a large rectangular
+opening on the left wall affording you a view of the living room. On the
+right wall is a set of stairs leading downward and right next to it a wooden
+closet.
+
+You can move north, south, down and in.
+You hear the sound of water running.
+
+> north
+You move north.
+
+Short Passageway
+You are in a junction of many passageways.
+
+You can move north, east, south and west.
+
+> east
+You move east.
+
+End of Short Passageway
+The passageway divides the TV Room and Family Dining Room here.
+
+You can move north, south and west.
+
+> north
+You move north.
+
+TV Room
+The television is surrounded by brown sofa and two recliners, one orange and
+one matching the brown sofa. Two lovely panaramic windows gives you the view
+of a beautiful golf course across a major highway.
+
+Here is Father's Closet.
+
+You can only move south.
+
+> enter father's closet
+You open the doors and enter father's closet...
+
+> x safe
+The safe is locked. To unlock safe, type 'try' followed by a four digit
+number. For example, 'try 1234'.
+You hear the sound of water being shut off abruptly.
+
+> out
+You move out.
+
+TV Room
+The television is surrounded by brown sofa and two recliners, one orange and
+one matching the brown sofa. Two lovely panaramic windows gives you the view
+of a beautiful golf course across a major highway.
+
+Here is Father's Closet.
+
+You can only move south.
+You hear the sound of water running.
+
+> south
+You move south.
+
+End of Short Passageway
+The passageway divides the TV Room and Family Dining Room here.
+
+You can move north, south and west.
+
+> south
+You move south.
+
+Family Dining Table
+You have entered a heavy traffic area. Dinner is served here daily.
+
+You can move north and east.
+
+> east
+You move east.
+
+Kitchen
+
+There is a tidy kitchen faucet here.  There is an even tidier kitchen sink
+here.
+
+You can move south and west.
+
+> x sink
+The kitchen sink is three quarters full of water.
+
+> search sink water
+You pick up a dripping wet hand-written note from the sink.
+
+> i
+You are carrying a religious book, a shovel, a stick, a metal key, a
+flashlight, a bronze medal and a water-logged note.
+
+> x note
+You see nothing special about the water-logged note.
+
+> west
+You move west.
+
+Family Dining Table
+You have entered a heavy traffic area. Dinner is served here daily.
+
+You can move north and east.
+
+> north
+You move north.
+
+End of Short Passageway
+The passageway divides the TV Room and Family Dining Room here.
+
+You can move north, south and west.
+
+> west
+You move west.
+
+Short Passageway
+You are in a junction of many passageways.
+
+You can move north, east, south and west.
+
+> south
+You move south.
+
+Foyer
+You are currently under a cathedral ceiling. There is a large rectangular
+opening on the left wall affording you a view of the living room. On the
+right wall is a set of stairs leading downward and right next to it a wooden
+closet.
+
+You can move north, south, down and in.
+
+> down
+You move down.
+
+Bottom of Main Stairway
+You are standing next to an ironing board on top of which is an Iron.
+
+You can move north and up.
+
+> use iron on note
+You pass the iron over the note and  find you can read the paper more
+clearly.
+
+> x note
+You see nothing special about the dry note.
+
+> read note
+'2964'  'in-in-w-w-w'   The note has divulged all its secrets.
+
+> i
+You are carrying a religious book, a shovel, a stick, a metal key, a
+flashlight, a bronze medal and a dry note.
+
+> up
+You move up.
+
+Foyer
+You are currently under a cathedral ceiling. There is a large rectangular
+opening on the left wall affording you a view of the living room. On the
+right wall is a set of stairs leading downward and right next to it a wooden
+closet.
+
+You can move north, south, down and in.
+
+> north
+You move north.
+
+Short Passageway
+You are in a junction of many passageways.
+
+You can move north, east, south and west.
+
+> east
+You move east.
+
+End of Short Passageway
+The passageway divides the TV Room and Family Dining Room here.
+
+You can move north, south and west.
+
+> north
+You move north.
+
+TV Room
+The television is surrounded by brown sofa and two recliners, one orange and
+one matching the brown sofa. Two lovely panaramic windows gives you the view
+of a beautiful golf course across a major highway.
+
+Here is Father's Closet.
+
+You can only move south.
+
+> enter father's closet
+You open the doors and enter father's closet...
+
+> try 2964
+Correct. You open the safe and pull out a silver medal.
+
+> i
+You are wearing a silver medal, and you are carrying a religious book, a
+shovel, a stick, a metal key, a flashlight, a bronze medal and a dry note.
+
+> out
+You move out.
+
+TV Room
+The television is surrounded by brown sofa and two recliners, one orange and
+one matching the brown sofa. Two lovely panaramic windows gives you the view
+of a beautiful golf course across a major highway.
+
+Here is Father's Closet.
+
+You can only move south.
+
+> south
+You move south.
+
+End of Short Passageway
+The passageway divides the TV Room and Family Dining Room here.
+
+You can move north, south and west.
+
+> west
+You move west.
+
+Short Passageway
+You are in a junction of many passageways.
+
+You can move north, east, south and west.
+
+> west
+You move west.
+
+Living Room Stairway
+You are at the foot of a stairway going up to the top floor.
+
+There is a young girl sitting on the stairs.
+
+You can move east, south and up.
+
+> south
+You move south.
+
+Living Room (East End)
+You see a maroon couch in front of which is a glass table. There is nothing
+special about either items.
+
+You can move north and west.
+
+> west
+You move west.
+
+Living Room (Center)
+While standing on the oriental rug, you have a clear view of the circular
+driveway through the bay windows. There is nothing special about the rug
+while the view is spectacular.
+
+You can move north, east and west.
+
+> north
+You move north.
+
+Hallway(South)
+The hallway continues toward the north.
+
+You can move north, east and south.
+
+> north
+You move north.
+
+Hallway(North)
+In front of you is the bedroom of Lungu and to your right is the guest
+bathroom.
+
+You can move north and south.
+
+> north
+You move north.
+
+Bedroom of Lungu
+This is the endall and beall of Lungu. Lungu is Anjan, the brother of Ajoy
+whose bedroom is upstairs. On the rear corner of the room is a bed. Opposite
+the bed is a desk which is attached to shelves which extend with incredible
+depth into the wall.
+
+You can move east and south.
+
+> search shelves
+You choose to examine the middle shelf. The volume of books is staggering.
+Your hands are up to the task. Command your hands to search  in, out, (e)ast,
+ or (w)est. If you are wringing your hands in despair, type 'escape' and you
+will yank your hands from the shelf.
+
+> in
+You move in.
+
+Somebooks
+Your hands search through some books and find nothing
+
+You can move east, west, in and out.
+
+> in
+You move in.
+
+Somebooks
+You hands search through some books and find nothing.
+
+You can move east, west, in and out.
+
+> west
+You move west.
+
+Fewbooks
+Your hands search through few books and find nothing.
+
+You can move east and west.
+
+> west
+You move west.
+
+Fewbooks
+Your hands search through few books and find nothing.
+
+You can move east and west.
+
+> west
+You move west.
+
+Fewbooks
+Your hands search through few books.
+
+You can move east and west.
+Your searching pays off as you find a Rubik's Cube. You take the cube and
+stop searching.
+
+> i
+You are wearing a silver medal, and you are carrying a religious book, a
+shovel, a stick, a metal key, a flashlight, a bronze medal, a Rubik's cube
+and a dry note.
+
+> look
+
+Bedroom of Lungu
+This is the endall and beall of Lungu. Lungu is Anjan, the brother of Ajoy
+whose bedroom is upstairs. On the rear corner of the room is a bed. Opposite
+the bed is a desk which is attached to shelves which extend with incredible
+depth into the wall.
+
+You can move east and south.
+
+> x cube
+You can achieve four faces with the cube: blue,black,white, and red. The cube
+starts off in a 'chaos' state. You can achieve each of the four faces in turn
+by typing 'turn cube'. Once, you have achieved the four faces, you have
+solved the cube.  The Rubik's cube is chaos.
+
+> south
+You move south.
+
+Hallway(North)
+In front of you is the bedroom of Lungu and to your right is the guest
+bathroom.
+
+You can move north and south.
+
+> south
+You move south.
+
+Hallway(South)
+The hallway continues toward the north.
+
+You can move north, east and south.
+
+> south
+You move south.
+
+Living Room (Center)
+While standing on the oriental rug, you have a clear view of the circular
+driveway through the bay windows. There is nothing special about the rug
+while the view is spectacular.
+
+You can move north, east and west.
+
+> west
+You move west.
+
+Living Room (West End)
+Here is an orange sectional sofa in front of which is an onyx table. Behind,
+the sofa is a grand piano. There is nothing special about the sofa and table.
+
+You can move north and east.
+
+> north
+You move north.
+
+Stereo Area
+You see a CD player system which provides sound throughout the house. There
+is a trophy case here.
+
+You can move south and west.
+
+> west
+You move west.
+
+Jacuzzi Room
+Moisture is dripping on the windows. The water in the Jacuzzi is churning.
+You are welcome to go 'in' the jacuzzi.
+
+You can move east and in.
+
+> in
+You move in.
+
+Inside Jacuzzi
+You submerge yourself in the jacuzzi and find a seat and relax. You reach in
+the water and find a pushable button.
+
+You can only move out.
+
+> push button red
+The water churns and whirls in motion and then reforms itself into a
+consistent color.
+
+> push button white
+The water churns and whirls in motion and then reforms itself into a
+consistent color.
+
+> push button black
+The water churns and whirls in motion and then reforms itself into a
+consistent color.
+
+> push button blue
+The water churns and whirls in motion and then reforms itself into a
+consistent color.
+
+> push button perfect
+The water churning and you are in perfect harmony. You relax deeply and
+nearly drown yourself.
+
+> i
+You are wearing a silver medal, and you are carrying a religious book, a
+shovel, a stick, a metal key, a flashlight, a bronze medal, a Rubik's cube
+and a dry note.
+
+> turn cube blue
+You twirl the cube and achieve a blue face.
+
+> turn cube black
+You twirl the cube and achieve a black face.
+
+> turn cube white
+You twirl the cube and achieve a white face.
+
+> turn cube red
+You twirl the cube and achieve a red face.
+
+> turn cube perfect
+You have solved the cube. The cube is in perfect shape.
+In a spectacular explosion of water,  you find a gold medal around your neck.
+
+> i
+You are wearing a gold medal and a silver medal, and you are carrying a
+religious book, a shovel, a stick, a metal key, a flashlight, a bronze medal,
+a Rubik's cube and a dry note.
+
+> look
+
+Inside Jacuzzi
+You submerge yourself in the jacuzzi and find a seat and relax. You reach in
+the water and find a pushable button.
+
+You can only move out.
+
+> out
+You move out.
+
+Jacuzzi Room
+Moisture is dripping on the windows. The water in the Jacuzzi is churning.
+You are welcome to go 'in' the jacuzzi.
+
+You can move east and in.
+
+> east
+You move east.
+
+Stereo Area
+You see a CD player system which provides sound throughout the house. There
+is a trophy case here.
+
+You can move south and west.
+
+> x case
+It is a glass trophy case. You can see three plinths  of increasing size from
+left to right. The case can be opened or closed.  The trophy case is closed.
+
+> open case
+You open the trophy case.
+
+> put gold medal in case
+You put the gold medal inside the trophy case.
+
+> put silver medal in case
+You put the silver medal inside the trophy case.
+
+> put bronze medal in case
+You put the bronze medal inside the trophy case.
+Congratulations! You have collected all three medals! You have completed the
+adventure.
+
+> quit
+Do you really want to quit? [Y/N]

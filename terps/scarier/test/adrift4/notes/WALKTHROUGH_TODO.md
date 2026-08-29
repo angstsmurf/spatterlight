@@ -1071,6 +1071,431 @@ titles by file size; genuine AIF-flagged titles remain deferred, untouched.
 
 **139 unwired files remain** after this batch.
 
+**Sixth batch, 2026-08-29: 8 more wired, suite 303 → 311 rows, all PASS.**
+Continuing smallest-first (7,631–8,458 bytes, all 4.00), skipping
+`Sex is Mental.taf` (8,373 bytes, 82 vocabulary hits — genuinely flagged,
+left for a separate content triage rather than derived). Derived in parallel,
+one background agent per game as in the fourth-wave batches, then merged and
+re-blessed centrally through the real harness (`sh run_v4_walkthroughs.sh
+--bless <name>` per row, then a full clean run — no NEEDGOLD, no FAIL).
+
+- **The Skydiver** (7,631 bytes) — **WON 1000/1000**, the true maximum: eight
+  `ACT type=4` awards on the taken path sum to exactly 1000, dominated by a
+  single +900 for `inflate parachute`. TASK13/TASK14 are two identically-
+  scored (+15) mutually exclusive quilt-fix branches on the same state; the
+  lower-indexed one always wins, so the route must go through the shoelace
+  branch to keep the yarn a later step needs. TASK16 (unscrew bottle) is a
+  dead author bug — its restriction wants an object nothing in the game ever
+  creates — invisible only because the later task's `RestrMask` ORs the
+  working branch in without it. No score summary prints at all (`MaxScore`
+  is 0 in the authored file even though the engine score reaches 1000), so
+  the row's win marker is the game's own darkly-comic truncated closing
+  line, not a score string. 23 commands, no env.
+- **the_road** ("The Road Leads to Nowhere", Hourglass comp, 7,903 bytes) —
+  no score anywhere in the file (all 32 tasks score=0), a single linear
+  story reaching its one non-death ending. Two object-*seen*-model gates
+  (the backpack, the fireplace sticks) and a four-painting digit cipher for
+  the trapdoor code. Two fixed turn-timers pace the endgame — an 11-turn
+  cabin collapse and an exact 8-turn walk-to-realization once on the Road.
+  42 commands, `SCR_SKIP_WAITKEY=1`.
+- **The Perfect Spy** (7,988 bytes) — **WON 10/10**, the true maximum (four
+  `ACT type=4` awards, all fired). Transformation "done" flags are
+  *transient*: an exit gated on "change into mouse" done really means
+  "currently in mouse form", because turning human again unsets the flag
+  with its own `ACT type=5` — so the route must re-transform immediately
+  before each mouse-only transit rather than relying on an earlier
+  transformation. The keycard and the guard's-leg climb are form-gated in
+  opposite directions on purpose. 19 commands, no env.
+- **seciden_oddcomp** ("Return to the Forest House", Seciden Mencarde, Odd
+  Comp 2008, 8,019 bytes) — **WON 102/102**, the true maximum (six
+  `ACT type=4` awards of 17 each, the GOOD ending). A silent, unconditional
+  17-turn "Beast Kills Susie" timer runs from turn 0 (the Beast is already
+  in the room; its "appears" text is misleading flavour), and draining its
+  fang after the kill is literally the timing event's own `pauseTask`,
+  cancelling the clock. 21 commands, `SCR_SKIP_WAITKEY=1`.
+- **Perspectives** (Justahack, 8,043 bytes) — no score anywhere in the file
+  (zero `ACT type=4` across 14 tasks), a four-ending no-score game; this
+  route reaches the richest, the "Negotiation Style Ending" (same convention
+  as *Everything Emanuelle*/*S Tar Dus T*). **TASK 10, the "Heroic Actions
+  Ending", is provably dead**: TASK 9 has the byte-identical attack pattern
+  with no restriction and a lower index, so the first-match scan always
+  intercepts it regardless of game state — a whole ending lost to task
+  ordering, not just points. 17 commands, `SCR_SKIP_WAITKEY=1`.
+- **Big City Laundry** (8,088 bytes) — **WON**, no score system at all (zero
+  `ACT type=4` across 30 tasks), the game's one good ending. Real
+  engine-fidelity witness: the robbery event is a real-time window keyed on
+  the back door's **open/closed** state, not its lock state — leaving it
+  unlocked-but-open across a timeskip fires a silent loss with no parser
+  warning, the fourth silent-loss shape catalogued in this corpus. 78
+  commands, no env.
+- **Over the Edge** (Ren, Hourglass comp, 6 Aug 2006, 8,128 bytes) — a WWI
+  shell-shock vignette with no score and no formal `ACT type=6` anywhere;
+  ends by reaching a literal credits-screen task rather than a win/lose
+  call, so there is nothing to lose, only a route to find. The literal
+  command `open your eyes` (not the passive Groundhog-Day loop TASK 0
+  otherwise runs) is the true awakening. 23 commands, `SCR_SKIP_WAITKEY=1`.
+- **Drinks** (8,458 bytes) — **WON**, no score system at all (zero
+  `ACT type=4`, one `ACT type=6` win on "open casket"), a Victorian
+  post-dinner ghost story, one puzzle, one ending. The casket is a dynamic
+  object seated in the room from the start but tagged unseen until entry —
+  another object-*seen*-model instance, so `go south` must be the very first
+  command. 18 commands, `SCR_SKIP_WAITKEY=1`.
+
+Two vocabulary-scanner false positives worth recording since they came up
+twice this batch: "sex" as the idiom "the fairer sex" (seciden_oddcomp), and
+"strip"/"striped" describing tiger fur after a transformation (The Perfect
+Spy) — both read in full context before deriving, per the standing content
+policy.
+
+**134 unwired files remain** after this batch (recomputed via the set-
+difference recipe below, not carried forward by hand).
+
+**Seventh batch, 2026-08-29: 8 more wired, suite 311 → 319 rows, all PASS.**
+Continuing smallest-first (8,861–9,909 bytes, all 4.00). Vocabulary-scanned
+first as always; seven were clean false-positives (cockpit/strip
+mall/thrust-into-celebrity, click-not-lick, Abstract-Algebra-not-bra, etc.)
+and one, *The Worst Game In The World... Ever!!!*, was genuinely flagged —
+read in full before deriving, confirmed comedic/parody with no underage or
+non-consent indicators, and wired on the *Diary of a Stripper* terms (row
+committed, solution/golden gitignored). Derived in parallel, one background
+agent per game, merged and re-blessed centrally as usual. **Caught a real
+merge-time bug this round**: two of the eight agents (foresthouse2, takeone)
+wrote a `#`-commented documentation header into their `_solution.txt` files
+despite being told to write a plain command list — harmless-looking, but
+`transcript()` does a bare `cat "$2"` into the engine's stdin, so every
+comment line would have been typed as a literal (nonsense) command and
+silently desynced the whole transcript. Caught by inspecting file sizes
+(3.8–4.2 KB for 22–34 short commands, obviously too large) before blessing,
+not by the bless step itself, which would have "passed" against its own
+wrong golden. Stripped to bare command lists and re-verified against the
+agents' own reported command counts before proceeding.
+
+- **R2DC** ("Return to Dracula's Castle II: Revenge of Dracula's Castle",
+  comedy by "Arthur Winslow", 8,861 bytes) — **WON 1,000,000/1,000,000**,
+  the true maximum (a single `ACT type=4` in the whole file). TASK 24
+  (`climb ladder`) has no `COMPLETE=` text at all, so a task that actually
+  fires and moves the player still prints the library's generic
+  verb-failure line — a task that *works* while *looking* like a failure,
+  the inverse of the usual silent-loss shape; score-neutral, sidestepped
+  by using the plain `u` exit. 11 commands, `SCR_SKIP_WAITKEY=1`.
+- **The Forest House [Mini-Game, v.2]** (Seciden Mencarde, 2007 Ectocomp,
+  9,476 bytes) — **WON 13/13**, the true maximum; the game's own
+  `Globals.MaxScore` is 12, one short of what its own tasks actually pay
+  out, an authoring bug the engine faithfully reproduces ("You scored 13
+  out of the maximum 12!"). Both endings gate on a single `injured`
+  variable set only by the inferior thorn-crossing branch, so the
+  sweater+stick combo is the only route that both scores and survives.
+  34 commands, `SCR_SKIP_WAITKEY=1`.
+- **The Shetland Enigma** (9,485 bytes) — **WON, score 210** — provably the
+  ceiling (18 non-exclusive awards summing to 210, all fired); the game's
+  own declared "maximum of 100" undercounts its own scoring by 110, another
+  authoring quirk reproduced verbatim. A startup-screen variant of the
+  object-*seen* model: the boot room description lists the ice chunk but
+  doesn't mark it seen, so `take ice` as the literal first command fails
+  until an explicit `look` re-seeds it. 66 commands, no env.
+- **Take One** (Robert Street/"Rafgon", finish-the-game-comp-2005, 9,547
+  bytes) — **WON**, no score system, the game's only ending. A demon-arrival
+  turn-counter must land on exactly 16 while the jewel sits caged and the
+  switch is off, routing the demon to eat the jewel rather than catch the
+  player — 8 explicit waits hit the threshold. 22 commands,
+  `SCR_SKIP_WAITKEY=1`.
+- **Tenebrae Semper** (Seciden Mencarde, EctoComp 2010 "3 Hours", 9,757
+  bytes) — **confirmed unwinnable**, not merely unreached: all three
+  authored endings are dead by construction (one task has zero `ALTCMD`
+  entries and can never match input; the sole door to the other two
+  endings' shared prerequisite room is gated by a task with no `ACT`
+  entries at all, so its `CompleteText` alone marks the command handled
+  and the engine never falls through to real movement) — verified against
+  `run_all_commands()`/`task_run_task_unrestricted()` as faithful Runner
+  behaviour, a genuine author defect. Row demonstrates the fullest
+  reachable content instead. 34 commands, `SCR_SKIP_WAITKEY=1`.
+- **Helsing** ("Steve Van Helsing: Process Server", 9,776 bytes) — **WON**,
+  no score system, the game's only ending. A flavor-only jukebox command
+  (`play [track] #4`) turns out to be a silent hard prerequisite for two
+  unrelated-looking later tasks, with no in-game hint connecting them
+  except a callback in the win text. 8 commands, `SCR_SKIP_WAITKEY=1`.
+- **The Worst Game In The World... Ever!!!** (9,858 bytes) — **AIF,
+  solution/golden gitignored**; comedic, deliberately misspelled,
+  non-explicit content between consenting adults, confirmed clean on a
+  full-transcript read. No score, no formal `EndGame` action anywhere — a
+  branching scene-selector tree, so the row takes the richest single
+  reachable path (the *S Tar Dus T* convention) rather than enumerating
+  every branch. Two real engine-faithful author bugs: the game's own
+  `SYNONYM` table rewrites "shoot" to "fire" before task matching, but the
+  intended win task is authored on the literal pre-synonym verb and can
+  now never match anything — permanently dead code that also seals off
+  four otherwise-unreachable rooms; and a copy/paste room-mismatch bug
+  turns one of three sibling sub-branches into a genuine soft-lock. 17
+  commands, `SCR_SKIP_WAITKEY=1`.
+- **Spooked! The Wonders of Science** (T.D.S., 9,909 bytes) — **WON 8/8**,
+  the true maximum, matching the game's own printed maximum exactly. One
+  room is genuinely unreachable by design (its only entrance and its exits
+  gate on the same task's done-state in opposite directions) — the ending
+  text explicitly lists it as an unanswered episode-2 hook, so this isn't
+  a missed puzzle. 34 commands, `SCR_SKIP_WAITKEY=1`.
+
+**126 unwired files remain** after this batch.
+
+**Eighth batch, 2026-08-29: 8 more wired, suite 319 → 327 rows, all PASS.**
+Continuing smallest-first (2,860–9,909 bytes, all 4.00). Vocabulary-scanned
+first as always; one hit worth a closer look — *Video Tape Decay*'s
+"incest" — read in context and confirmed to be abstract, non-explicit
+theological backstory dialogue with no minors, proceeding under normal
+wiring. *thelasthour* ships its own in-game content-warning screen for a
+scripted hate-crime execution narrative (real historical KKK/MLK excerpts);
+serious and dark, but no sexual content, so it likewise proceeds under
+normal wiring rather than the AIF treatment. Derived in parallel, one
+background agent per game, merged and re-blessed centrally as usual.
+
+**Caught two real derivation failures this round, both by re-running the
+literal harness invocation before blessing rather than trusting the
+agents' self-reports** — the project's standing discipline paid off twice
+in one batch:
+- *Choose Your Own Three Hour Adventure*'s first-pass solution was
+  reported "WON 14/14 (true max)" but the game has **no score at all** in
+  its `SCR_DUMP_TASKS` field (that field is always 0 there — the real
+  running score lives in a separate variable, only visible in the ending
+  text). Worse, replaying the file verbatim showed it didn't even finish:
+  it stalled mid-tree at a fresh menu, and one of the 14 commands had
+  actually been an out-of-range menu number that wasted a turn on an error
+  message. Re-derived from the task graph's path-gating variables into a
+  genuine ending with a real score line.
+- *thelasthour*'s first-pass solution (119 commands, mostly `wait`) was
+  reported as reaching "the game's only ending" but replaying it verbatim
+  showed it stuck forever on trailing `wait`s, never ending. The sole win
+  action turns out to be gated by nothing but a pure turn-count `EVENT`
+  (fires automatically at turn 120) — the file was exactly 2 turns short
+  of that threshold. Fixed by extending the trailing wait block; confirmed
+  1 extra `wait` still isn't enough and 2 is the tight minimum.
+
+- **video.tape** (*Video_Tape_Decay.taf*, T.D.S., EctoComp three-hour
+  speed-IF) — **WON**, the game's only ending, no score system. `RESTR type=0 v2=4` on the ten sacred-relic prayer
+  restrictions means "inside container idx `v3-1`", i.e. every relic must
+  be placed *inside* the church bowl, not merely carried — the failure
+  text gives no hint of this. The unlock combination "1850" is on the
+  cemetery tombstone, not the more obvious Cinema note (a decoy). Weight
+  cap is exactly tight (10 relics × 9 = 90 = maxwt), so every one-time tool
+  must be dropped immediately after use. 139 commands, `SCR_SKIP_WAITKEY=1`.
+- **Regrets** (2,860 bytes) — **WON**, the game's only ending, no score
+  system (every task's score field reads 0 — a first-pass agent
+  misreported this as "9/9"). `SCR_SKIP_WAITKEY=1` is required: without it
+  a late `...press a key...` prompt silently swallows the harness's
+  terminating `quit`, desyncing the transcript instead of reaching "The
+  game has ended." 12 commands.
+- **Terrified** (Eric T. Dorrath, NaAdWriMo 2007) — **WON, 60/65 (92%)**,
+  the true reachable maximum. TASK89 (a "crossed the fence" +5 bonus) is
+  structurally unreachable: it's invoked via `ACT type=5` from the
+  west-crossing tasks, but by the time it runs, that same task's own `ACT
+  type=1` has already changed the player's room, so TASK89's `where=1
+  room=19` check always fails against the *new* room — a genuine
+  authoring bug in the original game, faithfully reproduced. Wearing the
+  starting boots on the Gravel Path triggers a fatal noise-capture in one
+  room; `remove boots` before that leg. 57 commands, no env.
+- **Bringing the Rain** (*rain.taf*, 3,157 bytes) — **WON**, the game's
+  only ending, no score system. A newly-seen inconsistency: `ACT type=0`
+  (move-object) uses a 1-based/raw−1 room index while `ACT type=1`
+  (move-character) uses a plain 0-based index, in the same file. Also: a
+  task that only matches its pattern a full turn after the triggering
+  event, not immediately; an `ALTCMD` list where only one of three
+  candidate strings actually matches at runtime; and a strict, no-slack
+  7-turn "about to be caught" countdown. 33 commands, `SCR_SKIP_WAITKEY=1`.
+- **howitstarted** (2,860 bytes) — **WON 6/6**, the true maximum (100%). A
+  short, linear, fourth-wall-breaking prequel vignette ("And...that's it.
+  Sorry, I mean, I know this isn't the end of the story...") that still
+  formally wins via its own `EndGame`/score summary. 29 commands, no env.
+- **Station XIII** (sequel to *The Shetland Enigma*) — **WON 200/200
+  raw**, every one of 14 `ACT type=4` awards fires, no mutually-exclusive
+  or unreachable points. The declared `Globals.MaxScore` field is a stale
+  9, so the engine reports "You scored 200 out of the maximum 9! That is
+  2222% of the game!" — another genuine authoring bug faithfully
+  reproduced. The stepladder is dropped in-room by each of three separate
+  `climb ladder` tasks, so it must be re-fetched and hauled back for two
+  of the three climbs rather than carried once; seven distinct
+  object-*seen* surfaces gate key items; weight cap `wt<=108` is hit
+  exactly at the route's peak. 93 commands, no env.
+- **Choose Your Own Three Hour Adventure** (100-task branching CYOA) —
+  **WON, score 9/14** (see re-derivation note above for why the first pass
+  was wrong on both the score mechanism and the ending). `SCR_SKIP_WAITKEY=1`
+  is required — a `[MORE]`/wait pause otherwise eats the next menu choice
+  and desyncs into a death. 13 commands.
+- **thelasthour** (Roberto Grassi, 2004) — **WON**, the game's only
+  ending, no score system; win is gated purely by a turn-count `EVENT`
+  (fires at turn 120, no other restrictions) — see re-derivation note
+  above. 121 commands, no env.
+
+**116 unwired files remain** after this batch.
+
+**Ninth batch, 2026-08-29: 8 more wired, suite 327 → 335 rows, all PASS.**
+Continuing smallest-first (8,373–11,380 bytes, all 4.00). *Sex is Mental* is
+the smallest remaining file and the long-deferred, heavily-flagged title
+noted in earlier project notes; read in full and confirmed comedic explicit
+content between two apparent adults (a psychiatric-ward patient and an
+on-site nurse), no minors, a third character's rape threat used only as a
+narrative danger to avoid, never depicted — wired under the AIF treatment
+(solution/golden gitignored), matching the *Diary of a Stripper* precedent.
+A vocabulary scan of the next 7 candidates flagged four more hits, all
+resolved as false positives on close reading: "teen" in *Pete's Punkin
+Junkinator* ("teeny tiny", "group of teenagers" buying junk food), "cock" in
+*The Crooked Estate* (three "peacock feathers" hits), "rape" in *Alias
+Undercover Agent* (a substring of "scraped"), and "minor" in *reactor_1*
+("minor bombardments", a shield-status readout). *A View to a Home* has a
+"young girl...suicidal" NPC vignette (resolved via a religious book/hope
+gesture) — dark subject matter, no sexual content, proceeds under normal
+wiring per the *thelasthour* precedent. Derived in parallel, one background
+agent per game, merged and re-blessed centrally as usual; all 8 self-reports
+were independently re-verified against the literal harness invocation
+before blessing (no fabricated claims caught this round).
+
+One tooling footgun hit during the merge: `Edit` on
+`harness/run_v4_walkthroughs.sh` silently dropped the script's executable
+bit both times it was written this batch, breaking the very next `--bless`
+invocation with a plain shell "permission denied" — fixed with `chmod +x`
+before each bless pass. Also, two of this batch's win markers
+(*The Crooked Estate*, *A View to a Home*) were drafted as the full closing
+sentence, but the game's own line-wrap split each one across two lines,
+so the harness's `grep -F` (line-oriented) never matched — both were
+re-blessed after trimming the marker down to only the text that stays on
+one line, per the project's existing "closing line wraps" convention.
+
+- **Sex is Mental** (AIF, 8,373 bytes) — **no score system** (`MaxScore=0`,
+  zero `ACT type=4`). The sole `ACT type=6` win is a comedic twist ending
+  (the "nurse" the next morning turns out to be someone else entirely). 33
+  commands, no env. Solution/golden gitignored.
+- **Pete's Punkin Junkinator** — **WON 505/575** — six one-time production
+  tasks sum to a declared max of 575, but an internal auto-task ends the
+  game the instant a 4th punkin is produced, so only the best 4-of-6 subset
+  is ever reachable in one playthrough; 505 is the true, provably
+  unreachable-beyond ceiling, not a missed-content gap. 27 commands, no env.
+- **The Crooked Estate** (8,745 bytes, Duncan Bowsman) — **unfinishable by
+  design**: a one-room literary/atmospheric horror piece with zero `ACT
+  type=4` and zero `ACT type=6` anywhere in its 58 tasks, and an empty
+  `WINTEXT`. Screaming triggers a cascading sequence that resets the game's
+  completed-task flags back to the opening state — the mechanical
+  embodiment of the game's inescapable-loop theme, not an ending. `quit` is
+  overridden by a custom in-fiction refusal rather than the engine's real
+  meta-quit. Golden is a demonstration route exercising every implemented
+  verb/scenery noun once. 45 commands, `SCR_SKIP_WAITKEY=1`.
+- **Alias Undercover Agent** — **WON 35/35**, the true and declared
+  maximum. Object-*seen* gate on the kitchen napkin; two distinct,
+  separately-locked grate objects needing different verbs (`unscrew` vs.
+  `unlock`+`open`); a safe combination that only registers via `examine
+  dial` after each `turn dial to N`. 41 lines (name-prompt response + 40
+  commands), no env.
+- **A View to a Home** — **completed** (all three medals collected) — no
+  scoring system at all, so completion is defined by the collection goal.
+  Puzzle chain: bird's-nest key opens a locked closet for the bronze medal;
+  a water-logged kitchen note (readable only once a background random
+  event leaves the sink non-full) gives a safe combination for the silver
+  medal and a text-maze route for a Rubik's cube; solving the cube against
+  a second randomly-cycling jacuzzi state yields the gold medal. 122
+  commands, no env.
+- **briefcase** (Julius the master-thief) — **WON**, the game's only
+  ending, no score system. A tight two-hidden-event timing puzzle: taking
+  the briefcase only sets a flag, with a 1-turn-delayed event actually
+  moving it into inventory and a 2-turn-delayed event locking the study
+  door (which blocks the win task once fired) — `open case` must land in
+  the exact 2-filler-turn window between the two. 19 commands, no env.
+- **The_Seance** — **WON 100/100**, the true maximum — the game's own
+  declared max is a stale 0. A hard real-time trap requires `open door` as
+  literally the first command (dawdling 3 turns loses the game). The game's
+  own SYNONYM table maps bare `n` to the yes/no verb before movement, so
+  full direction words are required. Two alternate win endings (`yes`/`no`
+  to join a ghost) both fire `ACT type=6`; `yes` scores higher. 18
+  commands, `SCR_SKIP_WAITKEY=1`.
+- **reactor_1** (ESS Chance: Reactor 1, Justahack) — **WON**, one of two
+  endings (a heroic-sacrifice death ending also exists), no score system.
+  Each of three mutually-exclusive repair attempts rolls a random outcome;
+  this seed's first attempt locks out, the second succeeds. Closing out an
+  NPC's radio conversation with a plain reply is required before `access
+  computer` — leaving it open makes a bare menu choice resolve to the
+  conversation instead. 11 commands, `SCR_SKIP_WAITKEY=1`.
+
+**112 unwired files remain** after this batch.
+
+**Tenth batch, 2026-08-29: 8 more wired, suite 335 → 343 rows, all PASS.**
+Continuing smallest-first (11,579–14,070 bytes, all 4.00). A vocabulary scan
+of the 8 candidates found no genuine hits requiring the AIF treatment this
+round — all 8 proceed under normal wiring. *A View to a Home*'s "young
+girl...suicidal" precedent recurs once more: *ForestHouse3* has a
+childhood-death backstory revealed through dialogue in a time-travel/coma
+narrative, dark theme with no sexual content, wired normally per the
+*thelasthour* precedent. Derived in parallel, one background agent per game,
+merged and re-blessed centrally as usual; all 8 self-reports were
+independently re-verified against the literal harness invocation (byte-
+identical md5 across 3 runs each) before blessing — no fabricated claims
+caught this round.
+
+One win marker (*ForestHouse3*) was first drafted as a full closing sentence
+that the game's own line-wrap split across two lines, so the harness's
+line-oriented `grep -F` never matched (`--bless` reported REFUSED); fixed by
+trimming the marker down to the portion that stays on one line, same fix
+pattern as the ninth batch's two wrapped markers. The executable-bit-
+stripping `Edit` footgun from the ninth batch did not recur this time — the
+script kept its `+x` bit after both edits, so the bit was only defensively
+re-checked (`chmod +x`) rather than needed.
+
+Re-running the unwired-file count via `comm -23` after this batch (comparing
+all `games/*.taf` basenames against every distinct `.taf` named in the
+manifest) gives **98 unwired files remain**, not the expected 112−8=104 —
+the corpus itself is 427 `.taf` files, not the 433 implied by an earlier,
+less rigorous count in these notes; trusting the freshly recomputed figure
+over the stale one, as usual.
+
+- **Motion** — **WON 100/100**, the true maximum (three `ACT type=4` awards
+  of 25+25+50 across 68 tasks). A three-stage rocket minigame (launch, land,
+  drive-to-recover) driven almost entirely by bare-Enter "wait" moves plus a
+  handful of `f`(orward)/`next`/`r`/`l` commands. Win-check tasks run one
+  turn behind each stage's own state-update task, so one extra confirming
+  turn is needed once a threshold is first reached, and Stages 1-2 (not the
+  final Stage 3) need a second `next` to advance past the shared "Won!"
+  room. 137 commands (115 blank Enter presses + 10 `f` + 8 `next` + 2 `r` +
+  2 `l`), `SCR_SKIP_WAITKEY=1`.
+- **tophat** — the game's only ending, reached in three commands — no
+  scoring system. A one-room vignette narrated from inside a magician's top
+  hat; the assistant pops up (`up`) three times in a row, each with
+  different flavor text, before being sent back down for good.
+- **3 minutes1.0** ("Three Minutes to Live" by Ren, Hourglass Competition) —
+  reaches the best of four possible endings (one survival, three death) —
+  no scoring system. Free arms via `pull rope real hard right` (an
+  RNG-fixed variable deterministically resolves to 1, making "right"
+  correct); steer a rotating saw to cut both ankle ropes; saw off a
+  coroner's hand to open a scanner-locked locker; solve a combination
+  entirely via direct-placement commands (roulette ball, dice, cards), with
+  zero reliance on RNG. Reconfirms the object-*seen* model: `take
+  jack`/`take ace` fail until `x table` first makes them referenceable. 28
+  commands, `SCR_SKIP_WAITKEY=1`.
+- **neighbours** — **WON 100/100** via a custom evidence variable (no
+  built-in ADRIFT score/EndGame actions) — six score-band `call police`
+  tasks dispatch on the final tally. An old-bones dig task (+3) is
+  permanently shadowed by an earlier wildcard `*dig*` task sharing the same
+  restriction, so it never fires (an authoring bug, confirmed live) —
+  skipped in the golden. All guaranteed one-time evidence sums to 94, so the
+  golden repeats `x boxes` in the Cellar (an uncapped, likely-unintended +3
+  each time past the first) twice more to land on exactly 100; a fifth
+  evidence source (Crumm's-Garden dig, +5) is deliberately left untouched
+  since taking it would overshoot 100 and soft-lock the ending. 64 commands,
+  `SCR_SKIP_WAITKEY=1`.
+- **The First To Arise Alone With A Pug** — **WON 100/100**, the true
+  maximum. First chapter of a larger series — unlocking and opening the
+  front door (the latter requires summoning an in-fiction power, `open
+  front door with danthil`) ends the chapter. 40 commands, no env.
+- **ForestHouse3** — reaches the game's only ending — no scoring system at
+  all. A time-travel/coma narrative resolving a family tragedy; contains a
+  childhood-death backstory revealed through dialogue — dark theme, no
+  sexual content, proceeds under normal wiring per the *thelasthour*
+  precedent. 72 commands, no env.
+- **DayAtTheOffice** — **WON**, an intentional overachievement ending — the
+  in-game `score` command tops out at 60, but the closing narrative
+  separately tracks a 1-7 "performance" scale and this playthrough reaches
+  8, one better than that scale's own maximum. 38 commands,
+  `SCR_SKIP_WAITKEY=1`.
+- **beer** — **WON 50/50**, the true maximum, one of at least two possible
+  endings. Digging in the outback Bush comes up empty; the win path is
+  `search dirt` there instead, finding a pouch that wins the game outright.
+  80 commands, no env.
+
+**98 unwired files remain** after this batch.
+
 ## Camp Windy Lake : Part 2 (2026-08-12) — the AIF treatment, done once
 
 Wired out of the smallest-first order because the user asked for it by name.

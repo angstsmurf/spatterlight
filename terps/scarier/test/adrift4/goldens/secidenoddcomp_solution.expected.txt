@@ -1,0 +1,222 @@
+Loading game...
+
+Return to the Forest House
+
+Return to the Forest House
+[A Text Adventure Mini-Game]
+Written for the Odd Comp
+(c)2008 Seciden Mencarde
+
+Five years have passed since the day you saw the house in the forest. It
+appeared only in full moonlight until you visited in. Thereafter it had
+vanished, perhaps just a figment of your imagination.
+
+But now, standing in the kitchen of the same house, you begin to believe it
+is real after all. Your first instinct is to run outside, but a gaping hole
+in the foyer to the south prevents you from reaching the front door. How will
+you escape?
+
+>
+You don't need to do that.
+
+> e
+You move east.
+
+Living Room
+Though it still retains a feeling of emptiness, this room is far from empty.
+A chair, loveseat, and couch encircle a large oriental rug in the middle of
+the floor. Despite this, you feel no comfort in this room. All of the
+cushions are missing on the furniture, revealing mangled beds of rusted
+springs within, certainly not something you would want to sit on.  Flush
+against the north wall is a bookshelf on which lies the twenty-volume edition
+of some famous encyclopedia, though three volumes are missing. Over the
+bookshelf, just out of reach, a shotgun is prominently displayed. To the west
+lies a doorway into the kitchen, while to the south stairs descend into the
+basement.
+
+> d
+You move down.
+
+Basement
+The large, empty area with cement walls and floor make this unfinished
+basement feel more like a dungeon. You expect to see rusted manacles chained
+to the wall. Against the south wall is a workbench, the only furniture here.
+Stairs to the north lead up into the living room.
+
+A box of nails is resting on the workbench.  Under the workbench is a small,
+wooden stool.
+
+> take nails
+You take the box of nails.
+
+> open box
+You open the box of nails.  The shotgun shells are inside the box of nails.
+
+> take shells
+You take the shotgun shells from the box of nails.
+
+> take stool
+You take the stool.
+
+> n
+You move north.
+
+Living Room
+Though it still retains a feeling of emptiness, this room is far from empty.
+A chair, loveseat, and couch encircle a large oriental rug in the middle of
+the floor. Despite this, you feel no comfort in this room. All of the
+cushions are missing on the furniture, revealing mangled beds of rusted
+springs within, certainly not something you would want to sit on.  Flush
+against the north wall is a bookshelf on which lies the twenty-volume edition
+of some famous encyclopedia, though three volumes are missing. Over the
+bookshelf, just out of reach, a shotgun is prominently displayed. To the west
+lies a doorway into the kitchen, while to the south stairs descend into the
+basement.
+
+> drop stool
+You drop the stool.
+
+> stand on stool
+You stand on the stool.
+
+> take shotgun
+You reach up and grab the shotgun.
+You hear the faint sound of cackling laughter - is it real?
+
+> load shotgun with shells
+You crack open the shotgun, push in the two shells, and snap it shut.
+Something howls in the distance.
+
+> w
+You move west.
+
+Kitchen
+The feeling of dread and displacement here is enough to convince you that it
+is the Forest House, but a quick glance to the south confirms it. There,
+holes in the floor block your exit to the foyer. The kitchen itself is rather
+traditional. A counter-top runs along the northern and western sides, the
+former of which ends at an old iron stove. All of the drawers and cabinet
+doors are missing, their interiors empty and decaying. Even the stove and a
+doorway to the east are without doors. Above the western counter lies a
+window from which the moon's rays light the room, illuminating the many holes
+in the floor.
+
+> shoot window with shotgun
+You pull the trigger and unleash a blast of force, shattering the window.
+Peeking out the newly-made hole you see to your dismay that the forest is
+thick with thorn bushes in that direction. You see no path you could take to
+get out of the house. Looking upward, however, you see that it's an easy
+climb to an ajar window on the second floor. Perhaps that will lead to an
+exit.
+
+> u
+You move up.
+
+Playroom
+Most of the paint on the walls here is chipped off or peeling, but there are
+still spots of pale pink. Between this coloration and a magnificent rocking
+horse in the middle of the room you assume it was once a girl's playroom. You
+cannot help but feel appreciation for the horse, as it is a beautiful statue,
+more artwork than toy. To the north lies a doorway into a bedroom. The open
+window provides a way down to the kitchen.
+A girl about your age - sixteen, maybe seventeen - is standing here with a
+smile on her face.  A black-furred monstrosity with razor sharp fangs stands
+on four legs here, snarling at you.
+
+> shoot beast
+You pull the trigger and a shell unleashes in the beast's face, cutting
+through its living darkness. The creature dissolves as light replaces it. A
+single white fang remains, hanging in the air for a moment before it drops to
+the ground. Mesmerized by its beauty, you pick it up.
+
+> n
+You move north.
+
+Bedroom
+The three windows here are boarded up but thin rays of moonlight shine
+through the cracks. The only points of interest are a bedframe which has long
+lost any use and an upturned dresser in one corner. To the north is a
+bathroom while to the south lies the play room.
+
+> n
+You move north.
+
+Bathroom
+You can barely stand in this small bathroom. The tiled floor area is at most
+three feet wide, squeezed between a toilet and what must have once passed for
+a bath tub. The tub is no more than a metal bin. Both it and the toilet are
+rusted from apparent lack of use, the tub missing a faucet and the toilet
+missing a seat. A porcelain sink takes up the northern half of the room. A
+large, circular object hangs over it. It must have once been a mirror, but
+now gives no reflection save an obsidian blackness. To the south is the
+bedroom.
+
+> put fang in sink
+You slide the fang into the drain - it's a perfect fit - and push it down.
+You hear the lever mechanism within click. The eastern wall begins to shake
+before sliding southward, opening a passage to the east.
+You hear the faint sound of cackling laughter - is it real?
+
+> e
+You move east.
+
+Secret Room
+An empty void to the east fills the room with darkness, sucking light from
+the bathroom to the west. The wall there is wooden, though it would fit the
+outside of a house better than the inside of a room - perhaps you have gone
+outside? The floor is some kind of unbroken stone which fades eastward and
+disappears into the void. You've never seen darkness of this kind outside.
+You must still be inside the house...
+
+A small, black key is lying on the floor here.
+An old man is standing flush against the wall. Only his eyes move, following
+your every motion.
+
+> take key
+You take the ornate key.
+
+> e
+You venture out into the void, the ornate key clasped strongly in your fist.
+After a few seconds you get the urge to look back, but when you try to do so,
+you find there's no "back" toward which you can look: the void has entirely
+encompassed you.
+
+The floor falls out from under you and you find yourself jolting awake in
+bed. Was it a dream? You toss the covers off and step across your bedroom to
+look out the window. The moon is shining full, illuminating the forest out
+back, but you see no house. Perhaps both times were dreams. Then, why such a
+long time before the recurrence?
+
+A green display across the room shows 3:17. You've got to get up for school
+in less than four hours, so you get yourself back into bed. Still, memories
+of the dream on your mind, it is very difficult to sleep. Before you realize
+you'd fallen asleep, the alarm wakes you up. The sun is shining and the clock
+shows 7:00. How did the time go so quickly?
+
+In school you notice the previously vacant locker next to yours (its owner
+had moved near the beginning of the year) is now decorated with glittery
+butterfly stickers. You immediately leap to the conclusion of a new girl in
+school. Since you had made friends with the locker's previous owner, you're
+happy to conclude that this will be a good way to befriend a member of the
+fairer sex.
+
+The next time you visit your locker, the girl is there, shuffling through her
+locker. You wait patiently for her to close it and notice you. When she does,
+you brace yourself against the wall. "Oh hi," she says. You know what she is
+going to say next.
+
+"I'm Susie."
+
+THE END..?
+
+[Press a key...]
+
+You may or may not have noticed the prevelance of the Great Number 17 in this
+work. Well, here's just one more instance. The sum of items used to create an
+odd comp game (3 + 5 + 7 + 9 + 11) is equal to 35. This number can be proven
+to be odd by breaking it apart into the expression 2 x 17 + 1. Eerie, yes? -
+The Author
+
+You scored 102 out of the maximum 102!
+That is 100% of the game!
+Well done - you scored maximum points!

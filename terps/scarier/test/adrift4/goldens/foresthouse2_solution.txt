@@ -1,0 +1,34 @@
+turn on lamp
+open dresser
+take socks
+take sweater
+take key
+wear socks
+north
+north
+unlock desk with key
+open desk
+take flashlight
+take new battery
+open flashlight
+take dead battery from flashlight
+put new battery in flashlight
+close flashlight
+turn on flashlight
+open kitchen door
+west
+take stick
+wear sweater
+west
+west
+north
+up
+west
+examine horse
+take forest house key
+east
+east
+unlock door with forest house key
+open door
+north
+examine mirror

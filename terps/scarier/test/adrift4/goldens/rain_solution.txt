@@ -1,0 +1,33 @@
+sw
+get feather
+ne
+e
+e
+look
+grab the feather
+look
+u
+e
+look
+ask lightning about drought
+w
+d
+hold the feather
+look
+take rock
+w
+sw
+break the lock
+d
+look
+knock
+d
+look
+east
+look
+x shelf
+take key
+look
+take mop
+wipe the runes
+unlock the shackles

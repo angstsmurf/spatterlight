@@ -1,0 +1,346 @@
+Loading game...
+
+Spooked! The Wonders of Science
+
+Spooked!
+The Wonders of Science
+by T.D.S.
+
+Press any key to continue
+
+All around you is desolation, torture, and...
+
+[More]
+
+Boredom.
+
+Office
+The small corner office of the prestigious Cocan University has been reserved
+for you and your specialty for diamagnetic research. It's supposed to be the
+best office and if that really is the case you'd hate to see the others. Not
+that it's run-down it's just that all you have is a desk and a book shelf
+with barely enough room for yourself. The office is so small it's about five
+steps between opposing walls. To the north is the door out of this
+claustrophobic nightmare.
+
+> examine desk
+This desk has stuck with you ever since your breakthrough article on why most
+scientists are all destined to burn in hell. It has a reddish-brown shade
+which is typical of desks made from mahogany. On it is your computer and
+telephone.  A biPod and a manilla folder are on the desk.
+
+> take folder
+You take the manilla folder from the desk.
+
+> open folder
+You open the manilla folder.  Draft article is inside the manilla folder.
+
+> take article
+You take draft article from the manilla folder.
+
+> examine article
+You have created a draft under the pressure of people telling you to publish
+your studies. You normally like to keep it in your head but you give one guy
+the ability to fly for a couple days and all of a sudden people want to know
+how it's done.
+
+Sex, Drugs, and The Meaning of Life
+by Professor X
+
+I'm not one to prolong peoples' time with irrelavant crap that happened to me
+on the way to the conclusion. I'm just going to hit you up with what I've
+learned. The following is about the meaning of life and how I discovered the
+key to existance and how diamagnetic fields--
+
+The rest of the writing has been rendered illegible by many mustard blotches.
+You must've accidently ate an incredibly mustardy hotdog with the folder
+being open at the same time while being positioned in such a way to let it
+spill over all the important content of the article without noticing.
+
+In addition your backup article on the computer is lost and you've forgotten
+what you originally wrote and it's due very soon.
+
+The phone rings.
+
+> take bipod
+You take the biPod from the desk.
+
+> answer phone
+You pick up the receiver and greet whoever is on the other line with a
+"Wasssuupppp! X here."
+"Ben, cut the crap. How's the article doing?" That has to be Joe, the
+director of research and development and scientific stuff.
+"It's going just fine...just need a couple...finishing touches...."
+"Good. Because it's Spice's big day and we need that article to confirm a
+very important equation." he says.
+"Okay...I'll bring the article to the labs in a couple...."
+"Seconds. Got it? I better be able to read it too. I know how you are
+scientific researcher guys are."
+
+You hang up the phone. You should go see Spices but if you don't do something
+about those mustard stains you are certain to be killed upon going into the
+lab by the research director.
+
+> north
+You move north.
+
+Hallway
+The hallway runs for a little distance east and west. To your immediate west
+lies the Field Lab, where all the good stuff goes on. Eastward lies more labs
+along with a classroom and the exit out of this building. South is your
+office.
+
+> east
+You move east.
+
+End of Hallway
+To the west lies your office and the Field Lab. Through the door to your
+north are a series of smaller labs filled with buzzing scientists. To the
+south is an empty classroom. The exit from the building is east.
+Dem, the robotic guard, stands on duty in front of the door to the other
+labs.
+
+> give bipod to dem
+You wave the biPod in front of Dem as if to tempt him.
+"Nac software detected. Uploading." he says and snatch the device from you
+and hooks it into his YSB port on its mechanical body.
+
+> z
+Time passes...
+
+At the moment Dem is receiving about 20 Zigawatts worth of boring lecture
+material per second and he doesn't look like he's enjoying it.
+
+> z
+Time passes...
+
+As more and more information pores in Dem begins to move in a disconnected
+manner(for a robot). Don't think he'll be able to take it much longer.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+"Lectures...theories...too much...shutting down...." Dem finally cracks under
+the pressure of a thousand professors giving their opinion on how things
+work. Dem crumples to the floor leaving the door unrestricted.
+
+> north
+With your newfound freedom now that Dem is taken care of, you step through
+the door to the labs hub.
+
+Labs Hub
+The labs hub is the point where divisions of science and scientific
+specialties come into play. Here there are three doors leading to three
+different labs. Door one to your northwest leads to the Glory Hound labs.
+Those are the jerks that try to cure cancer and AIDS for obviously selfish
+personal reasons. Straight ahead of you to the north are the Useless
+Endeavors crowd. That's pretty self-explanatory. To the northeast are the Mad
+Scientist labs. And that isn't an exaggeration. The door to your south leads
+back to the hall.
+
+> south
+You move south.
+
+End of Hallway
+To the west lies your office and the Field Lab. Through the door to your
+north are a series of smaller labs filled with buzzing scientists. To the
+south is an empty classroom. The exit from the building is east.
+Dem now lies folded over on the floor.
+
+> south
+You move south.
+
+Classroom
+A bunch of desks lined up in neat little rows with a big desk in front of
+class and a chalkboard behind it remind you of most your high school
+classrooms. Although many universities have gotten with the time and gotten
+dry-erase boards and all that nonsense, we keep it old school. North is the
+door that goes to the hall.
+
+> examine can
+The trash can is one of those plastic ones and it's red. Very interesting.  A
+crumped piece of paper is inside the trash can.
+
+> take paper from can
+You take the crumped piece of paper from the trash can.
+
+> uncrumple paper
+You smooth the piece of paper to find that it's blank(no words on it).
+
+> north
+You move north.
+
+End of Hallway
+To the west lies your office and the Field Lab. Through the door to your
+north are a series of smaller labs filled with buzzing scientists. To the
+south is an empty classroom. The exit from the building is east.
+Dem now lies folded over on the floor.
+
+> north
+You move north.
+
+Labs Hub
+The labs hub is the point where divisions of science and scientific
+specialties come into play. Here there are three doors leading to three
+different labs. Door one to your northwest leads to the Glory Hound labs.
+Those are the jerks that try to cure cancer and AIDS for obviously selfish
+personal reasons. Straight ahead of you to the north are the Useless
+Endeavors crowd. That's pretty self-explanatory. To the northeast are the Mad
+Scientist labs. And that isn't an exaggeration. The door to your south leads
+back to the hall.
+
+> north
+You move north.
+
+Useless Endeavors Lab
+Here is where the most useless ideas and inventions are born and some of the
+most creative minds in the world waste their talents. There are scientifc
+experiments going on all over the lab. On each of the many tables there are
+glass beakers, tubes, flasks, and other scientifical stuff you couldn't care
+less about. Around them are scientists in lab coats working hard at the
+newest impractical gizmo.
+Samuel, your scientist pal, is here.
+
+> talk to sam
+"How's it going Sam?" you ask.
+"What kind of question is that? You know how I'm doing. I'm doing bad you
+asshole! And it's all your fault!" he exclaims.
+"Sam I told you we need results for gods' sake!" you say.
+"Results? I've given you the Nose Picker 2000, the computer made completely
+of candy, and the glass playing cards...."
+"What can we use any of that for? Find something I can use and I'll talk to
+Joe about not shutting you guys down."
+
+Sam grunts.
+
+> ask sam about article
+You show Sam your article and explain the situation.
+
+"Oh, I could easily get that out with the mustard stain from paper
+remover..." he says.
+"Great!" you say.
+"...but since we're getting shut down I may as well scrap it...."
+
+It's obvious what Sam wants and you have no choice but to give in.
+
+"Okay, remove the stain and I'll make sure you won't get shut down." you say.
+Yeah, as if they have a chance in hell of not getting shut down.
+"Sweet! All I need is a blank piece of paper to put in the machine along with
+your article and you're set." he says.
+
+He seems to believe there is hope for this sector. Well hope is what you'll
+give 'em...along with a blank sheet of paper.
+
+> give article to sam
+"Here you go." you say and hand the draft over to Sam.
+"Now just bring me back a blank sheet of paper and you're set to go." he
+says.
+
+> give paper to sam
+"There." you say as you hand Sam a blank sheet of paper.
+"I'll be right back!" he says and runs off to a table near the back of the
+room for a couple minutes. He comes back with an article that looks even
+better than the one before the mustard stains.
+"Sam, I could kiss you right now." you say.
+"Let's not. Just make sure I don't get shut down. Got it?"
+"Yeah...whatever." you say.
+
+> south
+You move south.
+
+Labs Hub
+The labs hub is the point where divisions of science and scientific
+specialties come into play. Here there are three doors leading to three
+different labs. Door one to your northwest leads to the Glory Hound labs.
+Those are the jerks that try to cure cancer and AIDS for obviously selfish
+personal reasons. Straight ahead of you to the north are the Useless
+Endeavors crowd. That's pretty self-explanatory. To the northeast are the Mad
+Scientist labs. And that isn't an exaggeration. The door to your south leads
+back to the hall.
+
+> south
+You move south.
+
+End of Hallway
+To the west lies your office and the Field Lab. Through the door to your
+north are a series of smaller labs filled with buzzing scientists. To the
+south is an empty classroom. The exit from the building is east.
+Dem now lies folded over on the floor.
+
+> west
+You move west.
+
+Hallway
+The hallway runs for a little distance east and west. To your immediate west
+lies the Field Lab, where all the good stuff goes on. Eastward lies more labs
+along with a classroom and the exit out of this building. South is your
+office.
+
+> west
+
+You are in the Field Lab.
+
+> talk to lydia
+"Lydia, I--"
+"Screw you Ben. I hope you burn in hell." she says.
+
+Lively conversation.
+
+> talk to joe
+"Hey Joe." you say.
+"Let's get this show on the road. Hit the red button to bring back Spices."
+he says.
+
+> push red button
+"Here goes nothing!" you say and push the red button.
+
+ZIP! You hear the whirring of the electrofield deactivating and shortly after
+it is done...Spices explodes. [More]
+
+1 day later in the field lab...
+
+"Okay so the experiment with Spices didn't go too well." Joe says.
+"Dude...he exploded." you remark.
+"Well, with great advances there must be great sacrifices. Which brings me to
+my next point..." he continues.
+"...whether we should stop to think should we do this instead of can we do
+it?" Lydia says.
+"...No. Ben should be the test subject for the next trial." he says.
+"Alright." Lydia agrees.
+"Wait a minute! Spices just friggin' exploded! You don't even know what
+triggered it!" you shout.
+"We figured out it there was a loose screw in the machine. Now get on the
+platform." he says.
+
+You hobble over to the platform and stand, watching Lydia and Joe as if
+they're the last thing you'll ever see. "Wait, who tightened the scre--"
+before you can finish Joe presses the red button and your voice is drowned
+out by the noise of the generator. "Hang on tight Ben!!!" Joe screams through
+the buzzing.
+
+You feel light-headed, then dizzy, then...nothing. [More]
+
+That concludes episode one!
+
+And it leaves many questions unanswered such as...
+
+* Will Ben explode just like Spices?
+
+* What's in the mad scientist labs?
+
+* Why is the game called Spooked?
+
+* What are the odds of there being an episode two?
+
+All this and more will be answered in episode two! [More]
+
+Congratulations you won!
+
+The game is over. You may restart, restore, undo, quit, go hang out with your
+friends, do whatever.
+
+> quit
+Do you really want to quit? [Y/N]

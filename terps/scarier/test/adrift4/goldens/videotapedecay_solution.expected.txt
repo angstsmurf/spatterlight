@@ -1,0 +1,1296 @@
+Loading game...
+
+video.tape / decay
+
+"Though there are very many nations all over the earth, ...there are no more
+than two kinds of human society, which we may justly call two cities, ...one
+consisting of those who live according to man, the other of those who live
+according to God ....To the City of Man belong the enemies of God, ...so
+inflamed with hatred against the City of God."
+
+-- Augustine of Hippo
+
+You enter the threshold of the first city, promptly step onto a random
+street, and feel alive with the pulse of Justice. Your mission to correct the
+wrongs of the town and its denizens is right and proper.
+
+Within the city, along with countless sin and evil, is your daughter. Your
+pure, innocent daughter that must be nearly dead by now.
+
+You must rescue her.
+
+video.tape
+by T.D.S.
+Type 'about' or 'tips' for more info
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> drop paper
+You drop the piece of paper.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> south
+You move south.
+
+Junk Yard
+Scraps of metal and plastic interwine in this trash utopia. It piles about
+five feet high off the ground, yet the uncut grass may account for much of
+this height.
+
+> search trash
+You search through the junk, throwing piece after piece of crap out of your
+way, until your hands finally latch onto a relic.
+
+> north
+You move north.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Noxious Intersection
+Call it an intersection. Call it a crossway. It's nothing like the modern
+intersection that bustles with traffic and insensitive citygoers--it has less
+feeling than that.
+
+Nothingness expands in four cardinal directions.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> north
+You move north.
+
+Office Building
+Four walls of white remain, out of all things. The deadly stillness of
+immortal order permeate the room, as if the stodgy corporate grave robbers
+that previously frequented the building wished it to be cursed with an almost
+sickening blandness. The room makes a person want to rip their irises out.
+
+Only a few chairs, a chair, and a trash can physically occupy the room.
+
+> look in can
+A small office trash can.  A green relic is inside the trash can.
+
+> take green relic
+You take the green relic from the trash can.
+
+> south
+You move south.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> north
+You move north.
+
+Store
+Chaotic mixture of broken shelves and countertops, and blood and broken glass
+with window shutters straggling along beside then, and the smell of some
+faint substance that creeps along the edges of the walls; most importantly,
+the strange way the light filters through the jagged fractures of glass,
+twisting and rotating to create a ghostly apparition in the middle of the
+store.
+
+Also here is a bookbag.
+
+> west
+You move west.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> north
+You move north.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> east
+You move east.
+
+School
+The days of the old classroom, where the students sat in chairs placed in
+neat rows and the teacher resided behind a desk in the front of the class,
+are gone. They have been replaced by broken chairs and desks alike. Paper and
+wood bits litter the floor and create a carpet of the destroyed.
+
+> examine desk
+The wooden desk is cracked in so many places, it's a wonder it still stands.
+A knife is on the desk.
+
+> take knife
+You take the knife from the desk.
+
+> west
+You move west.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> south
+You move south.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> south
+You move south.
+
+Noxious Intersection
+Call it an intersection. Call it a crossway. It's nothing like the modern
+intersection that bustles with traffic and insensitive citygoers--it has less
+feeling than that.
+
+Nothingness expands in four cardinal directions.
+
+> south
+You move south.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> south
+You move south.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> east
+You move east.
+
+Arcade
+The arcade is preserved. Except for the torn green carpet, there is little
+blood to be found on the arcade machines. There is little chaos to be found
+in this place.
+
+Also here is a volleyball.
+
+> take volleyball
+You take the volleyball.
+
+> break ball
+You stab the volleyball with the knife and it deflates, molding over the
+figure of a small man. You put your hand inside of the deflated ball and pull
+out a relic.
+
+> drop knife
+You drop the knife.
+
+> west
+You move west.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> south
+You move south.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> west
+You move west.
+
+Warehouse
+A plain bit of architecture. The warehouse is a large space with four walls
+and various windows. It appears to have been a factory of some sort (sweat
+shop most likely) and that accounts for its lack of personality. A myriad of
+cardboard boxes decorate the place.
+
+Also here is a shovel.
+
+> take shovel
+You take the shovel.
+
+> east
+You move east.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> north
+You move north.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> west
+You move west.
+
+Cemetery
+Graves and their markers are the new keepers of this place. The grass is
+quickly gaining rank, however. It creeps around tombstones and cracks them,
+slowly. The number of graves in this place is astounding. There is very
+little room between them. It is impossible for them to all have full-sized
+caskets. Simply impossible.
+
+> examine tombstone
+Out of all the tomb stones in the cemetery, Joyce's eyes spot one in
+particular that has no birth and death dates. It only states the name: Megell
+Carson, and the number 1850.
+
+> dig ground
+You plant the shovel until the ground and force soil from the earth.
+Eventually you uncover a relic, which you promptly put in your pocket.
+
+> drop shovel
+You drop the shovel.
+
+> east
+You move east.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> north
+You move north.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> north
+You move north.
+
+Noxious Intersection
+Call it an intersection. Call it a crossway. It's nothing like the modern
+intersection that bustles with traffic and insensitive citygoers--it has less
+feeling than that.
+
+Nothingness expands in four cardinal directions.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> north
+You move north.
+
+Bank
+Someone has shunned everything decent and orderly and civilized; there are
+blood on the walls! The vault is leaking open with traces of gray paper
+seeping from its wound. The counter where petrified clerks used to rest has
+been wiped clean of all the papers, documents, and insignificant items you
+would usually notice.
+
+Also here is paper money.
+
+> take money
+You take paper money.
+
+> south
+You move south.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Noxious Intersection
+Call it an intersection. Call it a crossway. It's nothing like the modern
+intersection that bustles with traffic and insensitive citygoers--it has less
+feeling than that.
+
+Nothingness expands in four cardinal directions.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> south
+You move south.
+
+Bar
+The Sinner's Tavern; Beer is nowhere to be found, but its bottles are. Plenty
+of bottles line the walls behind the counter. A jukebox is on the east wall,
+surprisingly lit up and appearing to function.
+
+> play jukebox
+You put money in the jukebox and begins to play...for three seconds.
+
+A bright light flashes within it and you suddenly feel dizzy, your stomache
+hurts, and the place stinks much more than it used to. Your spirit feels
+darker.
+
+Something has changed.
+
+> north
+You move north.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Noxious Intersection
+Call it an intersection. Call it a crossway. It's nothing like the modern
+intersection that bustles with traffic and insensitive citygoers--it has less
+feeling than that.
+
+Nothingness expands in four cardinal directions.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> south
+You move south.
+
+Police Department
+The difference now is that the corrupt policemen are gone, their desks and
+chairs and papers still remain on their desk. Little disorder has occurred in
+the transition from God to Man.
+
+Also here is a briefcase.
+
+> take briefcase
+You take the briefcase.
+
+> 1850
+You unlock the briefcase using the combination 1-8-5-0.
+
+> look in briefcase
+A shiny leather briefcase that should be attached to some professional arm.
+There is a spot of blood on it, but otherwise, it's clean.  The briefcase is
+open.  A blue relic is inside the briefcase.
+
+> take blue relic
+You take the blue relic from the briefcase.
+
+> drop briefcase
+You drop the briefcase.
+
+> north
+You move north.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> south
+You move south.
+
+Museum
+A gallery of death? Perhaps? The paintings have all been destroyed and lie on
+the floor in a pool of dried red and gray substance. Sculptures remain,
+however, a testament to the goodness of whatever has been looking over this
+forsaken place.
+
+Also here is an orange relic.
+
+> take orange relic
+You take the orange relic.
+
+> north
+You move north.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> north
+You move north.
+
+Store
+Chaotic mixture of broken shelves and countertops, and blood and broken glass
+with window shutters straggling along beside then, and the smell of some
+faint substance that creeps along the edges of the walls; most importantly,
+the strange way the light filters through the jagged fractures of glass,
+twisting and rotating to create a ghostly apparition in the middle of the
+store.
+
+Also here is a bookbag.
+
+> west
+You move west.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> north
+You move north.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> north
+You move north.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> east
+You move east.
+
+Community Center
+The great community center, as its many banners proclaim, is no more than an
+apartment-sized building with a few tables and many foldable chairs. There is
+a television screen built into a wall to give the illusion of
+professionalism. Dark red blood splotches have dried up on the tables.
+
+> examine table
+A plain wooden table.  A transparent relic is on the table.
+
+> take transparent relic
+You take the transparent relic from the table.
+
+> west
+You move west.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> south
+You move south.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> south
+You move south.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> west
+You move west.
+
+House
+Wooden boards strut where they shouldn't. Walls are stripped of their paint.
+In the den, a television has been smashed and its wiring hide in the carpet.
+A knocked over trash can overflows.
+
+Blood is everywhere. It is the uniting theme of this house.
+
+Also here is an aluminum bat.
+
+> take bat
+You take the aluminum bat.
+
+> south
+You move south.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> north
+You move north.
+
+Club
+Without the flashing lights and sinners in unholy attire, one could hardly
+recognize the place. It seems mellow, simple, reformed. If only that were
+true.
+
+The sound system is the sole remainder of the past; it echoes the cries of
+past rebels.
+A decaying monster is here.
+
+> kill monster
+You strike the monster with the bat, causing it collapse onto itself. It
+folds and green puss sprays everywhere. The floor is covered with the
+substance, and a purple statue flows free from its stomach acids.
+
+You pick it up.
+
+> drop bat
+You drop the aluminum bat.
+
+> south
+You move south.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Noxious Intersection
+Call it an intersection. Call it a crossway. It's nothing like the modern
+intersection that bustles with traffic and insensitive citygoers--it has less
+feeling than that.
+
+Nothingness expands in four cardinal directions.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> south
+You move south.
+
+Restaurant
+Moldy acid, corroded bodies--that is the feature smell of this restaurant. It
+burns the eyes to look at the chairs and tables that have been turned into
+expensive splinters, the plates and glasses that have been nearly deconverted
+to sand, and the foaming substances that used to be food covering whole
+stretches of the floor, creating an organic carpet of infection.
+
+Also here is a plate of moldy food.
+
+> take food
+You take the plate of moldy food.
+
+> north
+You move north.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Noxious Intersection
+Call it an intersection. Call it a crossway. It's nothing like the modern
+intersection that bustles with traffic and insensitive citygoers--it has less
+feeling than that.
+
+Nothingness expands in four cardinal directions.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> west
+You move west.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> north
+You move north.
+
+Motel
+Decorations have been scattered everywhere. Vases broken. Flowers thrown from
+them, lying in pools in a bloody muck. The immense marble counter has been
+split in half, its rock been sprayed in all directions. Hundreds of travel
+brochures litter the floor.
+An obese woman fills a lounge chair and says: Feed Me.
+
+> give food to woman
+You throw the food at the woman and she grabs in with both hands and devours
+it in seconds.
+
+You spot a look of discomfort on her face, and then she explodes. Blood spews
+from every orifice; green matters flies carelessly, streaming across the
+room.
+
+Out of it all you see a relic, which you grab.
+
+> south
+You move south.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> south
+You move south.
+
+Hospital
+The stink of the dead and dying aren't present here, instead, the antibiotic,
+detoxifying smell of man-made disinfectants rule the sphere. The floors are
+relatively clean; white tiles with the occassional splotch of blood on them.
+The windows and chairs are neat, untouched. Hell, the magazine rack is still
+full. It's almost as if a plague didn't occur here.
+
+Also here is a syringe.
+
+> take syringe
+You take the syringe.
+
+> north
+You move north.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Wing Street
+Decayed, decrepit. Wing Street is rotting faster than the bodies of mortals;
+cracks mark the street as if an earthquake had occurred, and the lines the
+used to designate the dividing line of the road are gone, faded by time, so
+far vanished there is little evidence they were there.
+
+The road goes in many directions, and leads to many places.
+
+> east
+You move east.
+
+Noxious Intersection
+Call it an intersection. Call it a crossway. It's nothing like the modern
+intersection that bustles with traffic and insensitive citygoers--it has less
+feeling than that.
+
+Nothingness expands in four cardinal directions.
+
+> south
+You move south.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> south
+You move south.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> south
+You move south.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> east
+You move east.
+
+Card Room
+The Sinner's Paradise; this card room has many poker tables. An abnormal
+amount of blood has been poured over each one, as if the sin flows heavier
+here, so much so that it is difficult to tell that they are poker tables.
+The spirit of a mad gambler is here.
+
+> give syringe to gambler
+You give the syringe to the gambler and he promptly disappears into thin air.
+
+Poof.
+
+In his wake is a white relic. You pick it up.
+
+> west
+You move west.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> north
+You move north.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> north
+You move north.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> north
+You move north.
+
+Noxious Intersection
+Call it an intersection. Call it a crossway. It's nothing like the modern
+intersection that bustles with traffic and insensitive citygoers--it has less
+feeling than that.
+
+Nothingness expands in four cardinal directions.
+
+> north
+You move north.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> north
+You move north.
+
+Acidene Street
+Acidene Street is of deadly countenance, less of a road or street than a dirt
+pile with rocks sprinkled over it. Holes are everywhere but no people or cars
+to be inconvenienced by them.
+
+It leads to many different paths.
+
+> west
+You move west.
+
+Church
+Holiness withstanding, the church is the calmest place in this Hellbound
+city. The artwork on the ceiling is a beatiful rendition of Jesus in the
+middle of his last words. Moving on, the pews and pulpit have been preserved
+perfectly. Not a single stain or speck of blood contaminate them.
+
+In the northeast corner of the room is a huge wooden bowl, about three feet
+wide. It rests atop a pedestal.
+
+> put black relic in bowl
+You put the black relic inside the bowl.
+
+> put green relic in bowl
+You put the green relic inside the bowl.
+
+> put red relic in bowl
+You put the red relic inside the bowl.
+
+> put gray relic in bowl
+You put the gray relic inside the bowl.
+
+> put blue relic in bowl
+You put the blue relic inside the bowl.
+
+> put orange relic in bowl
+You put the orange relic inside the bowl.
+
+> put transparent relic in bowl
+You put the transparent relic inside the bowl.
+
+> put purple relic in bowl
+You put the purple relic inside the bowl.
+
+> put yellow relic in bowl
+You put the yellow relic inside the bowl.
+
+> put white relic in bowl
+You put the white relic inside the bowl.
+
+> pray
+You have done well, son.
+
+A loud voice shatters the silence of the town, and you see everything before
+you fade to white. It's as if you were lifted into heaven itself.
+
+You are lifted somewhere. You feel like you're floating above the earth. Your
+stomach churns and your body feels so much lighter. You forget your name,
+your family, your history until now.
+
+The voice starts again.
+
+You have done as I have asked without question. I shall reward you for
+helping me cleanse that city, that evil city designed by Man. I'm sure you
+know Man's evils...and I am glad you have chosen to abandon them. Joyce
+Reveras is a name that will last throughout the ages, being echoed by angels
+in Heaven for eternity.
+
+The voice comes from nowhere, but is loud and dominating.
+
+And of your daughter, she is with me. I have kept my part of the bargain.
+Now, come receive your award. Come to Paradise. North.
+
+> north
+As you move north, you wonder what life will be like with your daughter. You
+haven't seen her in so long. She's been waiting for you for years.
+
+Come. Hurry.
+
+How happy she should be when she sees you.
+
+Why must you take your time? Your Paradise is waiting!
+
+Your daughter, your sweet water Lily, she is going to be your daughter again.
+
+Have you no respect?
+
+And you stop at the angry tone of God.
+
+"Where is my daughter?" you ask. He must think you've forgotten.
+
+I told you, she's with me.
+
+"And? That tells me nothing."
+
+Let me remind you who you are talking to. I am your Creator. I can just as
+easily destroy you. [More]
+
+"My daughter is with you, everything is with you. But where exactly is she,
+is she still in hell?"
+
+No...
+
+"Then where is she?" Your voice rises.
+
+I'm going to be nice. She's in that transparent relic. That was your
+daughter. Her soul was trapped in the relic because she was another of the
+unholy, just as with the other colored records, the other testaments of Man.
+They were symbols of what Man meant, and your daughter was one of them. She
+was entrapped after the Second Fall, after the Purge.
+
+"What? Her soul was in that statue because she was simply a sinner. We are
+all sinners. That was your mark of design."
+
+Yes, but she was a testament to Man. She was a visionary that showed
+everything that was wrong with the city of Man. She was a sexual deviant. She
+committed incest with her cousin. Not stopping there, however. She went on to
+spearhead a movement to legalize this abomination.
+
+"But...she is forgiven."
+
+You know, you should have been one of those relics. You are worse than her.
+
+"Then why didn't you make me one."
+
+Because you, Joyce Reveras, represent everything wrong with Man. You are the
+individualist, hard-nosed in effort and approach, constantly refusing the
+help of others, selfishly looking out for your own interests, never knowing a
+single sympathy for altruistic behavior. I thought you could redeem yourself.
+I thought you could redeem the human race.
+
+"I thought Jesus did that. Actually...I don't care. This is a bad deal. I
+want out."
+
+OUT? You want OUT? You got it!
+
+And fade to white.

@@ -1,0 +1,122 @@
+east
+take shovel
+west
+north
+down
+north
+east
+open box
+take flashlight
+turn flashlight on
+east
+up
+east
+climb ladder
+x branches
+dig in the ground with the shovel
+take religious book
+west
+south
+west
+north
+west
+north
+west
+west
+x girl
+read book
+up
+south
+west
+south
+x hugh tree
+x bird's nest
+poke bird's nest with stick
+take key
+north
+east
+north
+down
+east
+south
+unlock closet with key
+open closet
+in
+x hats
+take medal
+i
+out
+north
+east
+north
+enter father's closet
+x safe
+out
+south
+south
+east
+x sink
+search sink water
+i
+x note
+west
+north
+west
+south
+down
+use iron on note
+x note
+read note
+i
+up
+north
+east
+north
+enter father's closet
+try 2964
+i
+out
+south
+west
+west
+south
+west
+north
+north
+north
+search shelves
+in
+in
+west
+west
+west
+i
+look
+x cube
+south
+south
+south
+west
+north
+west
+in
+push button red
+push button white
+push button black
+push button blue
+push button perfect
+i
+turn cube blue
+turn cube black
+turn cube white
+turn cube red
+turn cube perfect
+i
+look
+out
+east
+x case
+open case
+put gold medal in case
+put silver medal in case
+put bronze medal in case

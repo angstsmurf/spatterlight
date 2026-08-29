@@ -1,0 +1,639 @@
+Loading game...
+
+The Last Hour
+The speeches and the setting
+of this IF could disturb sensible people.
+For this reason, this should be played
+only by adults.
+
+Press a key.
+
+"Com' on in, you dirty mot*fuc*!"
+I'm thrown inside my cell. My dirty cell. My fu**ing dirty cell.
+They've done a good job, this time. I mourn.
+A horrible, coarse, laugh from behind...
+"Suffer, you bas**rd! Get pain, as your victims did. If I had my fu***ng way
+I would have killed you since we got you."
+A spit on the floor. The door closes and lock.
+The pain is unbelievable. Unbelievable.
+Me and my cell. My dirty cell. My fu**ing dirty cell.
+
+Press a key.
+
+The Last Hour
+A short piece of IF by Roberto Grassi
+Started: 04-01-2004
+Version: 1.1, 20-02-2004
+Thanks for betatesting to: Woodfish, DavidW, Mystery, MorningStar, MyleStyle,
+Davide Centurione, Paolo Lucchesi and above all... Alberto Piva.
+
+The Cell
+A dirty, little, square cell.
+
+In the eastern wall there's a two-barred window.  A straw bundle for sleeping
+in one corner.  In the western wall there's a door.  On the floor, near the
+door, there's a little bowl.
+
+> remember
+"Hey Jack! Get that gun... Let's go to hunt!"
+"F*c*! A great idea!"
+"Let's call Billy and John..."
+
+> remember
+"Bill! John!"
+"Hey!"
+"What about an hunt?"
+Laugh...
+"Good. Jim and Tom are here... Hey guys wanna have some fun?"
+"Come on... Just get some game. And then go back to home..."
+
+> remember
+"A good night to hunt..."
+"Games are difficult to see in the night..."
+"Give me that whiskey, John."
+Drink...
+"Hey, LOOK! There's an animal here!"
+
+> x northern
+The northern wall borders Jim Sly's cell. There are some etchings on it.
+
+> x southern
+A bare wall with few writings on it and a straw bundle in one corner.
+
+> x eastern
+The eastern wall of my cell. There's a window that faces the main courtyard,
+and some writings on it.  A little mouse enters in the cell and moves along
+walls..
+
+> x western
+There's only the wooden door in the western wall.
+
+> talk
+No-one listens to my rabblings.
+
+> talk
+No-one listens to my rabblings.
+
+"Hey you, jailbird!"
+The door of the cell opens. A man enters...
+"Let me introduce myself. I'm John Hover."
+The stranger holds out his hand.
+"I'm your attorney at law. Mr.Frey is waiting for you to tell everything
+about the murder and cooperate..."
+I spit on the floor.
+"Don't need any fu***ng attorney at law, you schmuck! I'm innocent.
+INNOCENT!"
+
+> talk
+Point the finger at him.
+"Listen man, we didn't killed any f***ing man. We were hunting animals,
+games. Don't you agree?"
+Hover bows his head and says:
+"Listen. There's been a murder. You six have been arrested drunk near the
+crime scene. Don't you think you're in trouble?"
+"There must be a mistake, man! It was a hunt. Rifles, guns, bullets? You
+know? Didn't see a man. Only scared animals running. And when you got a
+game... you know... some whiskey could warm your heart."
+I smile.
+He raises his voice.
+"A MAN  HAS BEEN KILLED AND BURNED!"
+"F*c* you off! What the hell are you talking about? DON'T RAISE YOUR VOICE
+WITH ME, S**T! DON'T RAISE YOUR VOICE WITH ME!"
+Hover gets back.
+"Ok. Ok. I'm calm now."
+
+> talk
+"Hey, Mr.Hover. Do u really think i'm guilty?"
+Hover's silence.
+"Well I'm not! I'm innocent. Listen, man! Have you ever had an hunting
+party?"
+"Yes, i've had."
+"Well. That's exactly what we were doing. So what's up with this f*ck**g
+murder?"
+"You and your friends have been found drunk near the crime scene. There's
+nothing to joke! Mr.Frey has the power to execute you! So, please remember...
+'Coz i know you're innocent."
+
+  A little mouse exits. It's maybe back in its hole..
+
+> talk
+"Whose side are you on, John?"
+"I'm a lawyer. My side is the justice..."
+A noisy laugh.
+"You make me smile, John. THIS is justice? An innocent man, naked, in a
+sewer? Just because of some indication?"
+"If you could remember what really happened i could take your part with
+Mr.Frey."
+"There's NOTHING to remember! F*ck*!"
+
+> talk
+"What's about my friends?"
+"They are under questioning at the moment. Mr. Sly will be the last. He is
+weakling and could give in. Mr.Frey thinks he can give many clues to some of
+his suspects."
+"Which kind of suspects?"
+"Don't know."
+
+> talk
+"Well. Whatever Mr.Frey is thinking I know I'm innocent. INNOCENT!"
+"If you are innocent, i'm your attorney. Do you get it? There's no much time
+left! Is there anything I should know? Nothing particular  to remember?"
+"Nothing, Mr.Hover. Nothing. Just, hunters and games. It was an hunting
+party."
+
+> talk
+"Do you believe in something, Mr.Hover?"
+"Sure. I'm Christian."
+"A good choice. A good choice. John.""
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+"I don't believe you're guilty Mr. Howell. I'll ask for your pardon. You
+don't want to remember and tell me what you know?"
+Stupid guy. Guilty? Pardon? For what!
+
+> move straw
+There's a mouse hole in the corner behind the straw.
+John Hover leaves the room.
+"I know that you have been paid by those bastards! BASTARDS!"
+The guard enters.
+"You son of a b***h, put your fu***ng as***le on that straw and shut up!"
+I smile, defying.
+"So what?"
+"So 'll teach you little sh*t."
+He hits my legs with his club and I feel a hard pain.
+The guard exits and lock the door.
+
+> x hole
+It's a little crack in the wall. There's something in it.
+
+> put hands into hole
+Can't take the mouse. Too far.
+
+> search bundle
+There's nothing in the bundle. It's really a little bundle. Can't hide
+nothing in there.
+
+> get straw
+I get some straw from the bundle.
+
+> x thread
+A yellow straw thread.
+
+> throw thread through window
+Better not throw a straw thread through the window. It could attract the
+attention.
+
+"May I have your attention, you dirty bastards?"
+Mr. Frey, the governor. A little dribbling man. He is speaking from the
+courtyard. His voice gets in from the window.
+
+"It's now time for most of you to pay your debt to society!"
+Silence...
+"Do you know what justice is, you stupid?"
+Rumors from near cells... Some insult to the man...
+"It's how WE expect YOU to behave. In order for all the things to stay in the
+right order!"
+"F*ck you off, sch**ck!"
+This is "Fat" Madigan from the B wing.
+I smile... Mr. Frey deserves this.
+Ouch. My stomach. Their punches were...
+"And, in order...  will be executed:
+Mr. Madigan: guilty of murder.
+Mr. Ryan: guilty of murder.
+Mr. Smith: guilty of murder..."
+
+> sing
+Nothing to joke in here...
+
+"Mr. Kyer: guilty of murder.
+Mr. Sly: guilty of murder.
+Mr. Howell: guilty of murder."
+
+Executed for murder.
+MURDER? I'm INNOCENT!
+
+> jump through window
+Try to jump toward the window... No success.
+
+> climb
+I'm feeling like a mouse in a cage... No way to get out.
+
+> escape
+Nowhere to run.
+
+> knock on door
+No one on the other side. F*c*, i'm going crazy here! CRAZY!
+
+> call
+Nothing to call...
+
+> sleep
+No time for sleep, Carl. Gotta get out. Let my brain work.  A little mouse
+enters in the cell and moves along walls..
+
+> listen
+Nothing to listen...
+
+> spit
+I see you're inside the character... ;)
+Roberto Grassi
+
+> xyzzy
+Well.
+I could have set an "easter egg" here.
+But i prefer you to stay in this dirty cell.
+Just to "feel" like a prisoner.  A little mouse exits. It's maybe back in its
+hole..
+
+> x bowl
+A small wooden bowl.
+
+> x door
+It's a wooden door in the western wall.  The spyhole is in the door.  A
+little mouse enters in the cell and moves along walls..
+
+> x window
+It's a two barred window facing the main courtyard of the prison. Too high to
+reach.
+
+> x straw bundle
+Just straw to sleep on...
+
+> put bowl near spyhole
+I don't understand what you want me to do with the wooden bowl.
+
+"Supper! C'mon guys, supper!"
+
+The spyhole is open.
+"Hey You! Pi**e of *h*t! Put that bowl near the spyhole!"
+
+> eat soup
+No more soup...
+
+> wait
+Time passes...  A little mouse exits. It's maybe back in its hole..
+
+The spyhole closes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...  A little mouse enters in the cell and moves along walls..
+
+> wait
+Time passes...
+
+> wait
+Time passes...  A little mouse exits. It's maybe back in its hole..
+
+> wait
+Time passes...
+
+> take knife
+Take what?
+
+> x knife
+I see no such thing.
+"Hey Howell! It seems you've got a friend..."
+Someone throws an object in from the window.
+A little knife squeezes out from a folded letter.
+"Sh*t! Who are you?"
+No answer...
+Scream toward the window.
+"Who are you?"
+
+> x letter
+Ugly affair. We can still save you.
+Get this knife and store it in a safe place.
+Destroy this letter.
+Just wait for me...
+
+A brother
+
+> write on southern wall
+With what...  A little mouse enters in the cell and moves along walls..
+
+> enlarge hole with knife
+No way. Need something to enlarge it.
+
+> x photo
+I see no such thing.
+
+> x hole
+It's a little crack in the wall. There's something in it.
+
+> eat soup
+No more soup...
+
+> eat soup
+No more soup...  A little mouse exits. It's maybe back in its hole..
+
+> eat soup
+No more soup...
+
+> eat soup
+No more soup...
+
+> put knife in hole
+(Taking the little knife first)
+I put the little knife inside the little hole.
+
+> x door
+It's a wooden door in the western wall.  The spyhole is in the door.
+
+> x window
+It's a two barred window facing the main courtyard of the prison. Too high to
+reach.
+
+> wait
+Time passes...
+
+> ask sly about interrogation
+Use the format "ask [character] about [subject]".
+
+> ask sly about murder
+Use the format "ask [character] about [subject]".
+
+Sly is knocking on the other side of the wall...
+"Carl! Are you there?"
+
+"Those f*c*i*g bastards have beaten me up. What they want from us?"
+"Don't know, Jim. They blather something about justice..."
+"Justice?"
+"Exactly..."
+"What's this bullsh*t? What are they talking about?"
+"Don't know Jim. We'll get away from here."
+Jim starts to cry, on the other side of the wall...
+
+> ask sly about him
+
+"How are you..."
+"Fine. Beaten me up."
+"Good. Don't worry. The brotherhood has some powerful friends. We'd get out
+of this fu**ing cell."
+
+> ask sly about hover
+Jim answers from the other side of the wall.
+"Have you seen someone called John Hover?"
+"No."
+"Good. Did you receive an attorney?"
+"No."
+"Our friends will let us go out of here soon."
+
+> ask sly about cell
+"Hey Jim... What about your cell..."
+"Don't let me smile, Carl. It hurts me..."
+I smile.
+"No really."
+"Well, it's a sewer."
+
+> ask sly about hunt
+"F*ck, Carl. It was your idea? Don't you remember?"
+"Sure... We had fun, Jim."
+" Yes, we did."
+
+> ask sly about knife
+"Jim, do you think that the brotherhood will help us?"
+"I hope so, Carl. Hope so."
+
+> ask sly about others
+"What about the others?"
+"Don't know...  Don't know."
+
+> listen
+Jim is crying and coughing in his cell...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+Hear some rumors from the cell in the North...
+"What you want from me?"
+Other voices...
+Too low to hear.
+"No! NOOOO!"
+Jim's voice fades away...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...  A little mouse enters in the cell and moves along walls..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...  A little mouse exits. It's maybe back in its hole..
+
+> wait
+Time passes...
+
+> wait
+Time passes...  A little mouse enters in the cell and moves along walls..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+"Open this door, please..."
+The door unlocks, a priest enters.
+I kneel down.
+"In the name of the Father, of the Son and of the Holy Spirit."
+"Amen."
+"Would you like to confess your sins to the Lord?"
+"Nothing to confess, father. I'm a faithful and an honored family man."
+"Then, I bless you in the name of God."
+The priest exits and the guard locks the door.
+
+> wait
+Time passes...
+
+> wait
+Time passes...  A little mouse exits. It's maybe back in its hole..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...  A little mouse enters in the cell and moves along walls..
+
+> wait
+Time passes...
+
+> wait
+Time passes...  A little mouse exits. It's maybe back in its hole..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...  A little mouse enters in the cell and moves along walls..
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+"Open this door..."
+The door unlocks.
+Mr.Frey and a guard come in.
+"Here we are... MY BROTHER."
+"Brother? Mr. Frey?"
+"Did that 'nigger', as you call, scream? When you were crucifying him?"
+Silence.
+"Brother! And you call yourself BROTHERS? Brothers of the same b***h that
+gave life to you s**ts!"
+The guard winks at me.
+"You called that a HUNT. A hunt of a man! They're not beasts! They're MEN! Do
+you understand that?"
+One step back. Just the time to get the knife...
+"Don't waste your time with that knife. Just one of my sadic jokes. Guard.
+Take and execute this sack of sh*t!"
+
+Press a key.
+
+President Ulysses S. Grant ordered a Federal Grand Jury investigation into
+the Ku Klux Klan. The report was published in 1871.
+
+"There has existed since 1868, in many counties of the state, an organization
+known as the Ku Klux Klan, or Invisible Empire of the South, which embraces
+in its membership a large proportion of the white population of every
+profession and class. The Klan has a constitution and bylaws, which provides,
+among other things, that each member shall furnish himself with a pistol, a
+Ku Klux gown and a signal instrument. The operations of the Klan are executed
+in the night and are invariably directed against members of the Republican
+Party. The Klan is inflicting summary vengeance on the colored citizens of
+these citizens by breaking into their houses at the dead of night, dragging
+them from their beds, torturing them in the most inhuman manner, and in many
+instances murdering."
+
+Press a key.
+
+From the "I have a dream speech" by M.L.King - 1963
+
+"I say to you today, my friends, so even though we face the difficulties of
+today and tomorrow, I still have a dream. It is a dream deeply rooted in the
+American dream.
+I have a dream that one day this nation will rise up and live out the true
+meaning of its creed: We hold these truths to be self-evident: that all men
+are created equal.
+I have a dream that one day on the red hills of Georgia the sons of former
+slaves and the sons of former slave owners will be able to sit down together
+at the table of brotherhood.
+I have a dream that one day even the state of Mississippi, a state sweltering
+with the heat of injustice, sweltering with the heat of oppression, will be
+transformed into an oasis of freedom and justice.
+I have a dream that my four little children will one day live in a nation
+where they will not be judged by the color of their skin but by the content
+of their character.
+I have a dream today.
+I have a dream that one day, down in Alabama, with its vicious racists, with
+its governor having his lips dripping with the words of interposition and
+nullification; one day right there in Alabama, little black boys and black
+girls will be able to join hands with little white boys and white girls as
+sisters and brothers.
+I have a dream today.
+I have a dream that one day every valley shall be exalted, every hill and
+mountain shall be made low, the rough places will be made plain, and the
+crooked places will be made straight, and the glory of the Lord shall be
+revealed, and all flesh shall see it together."
+
+To all victims of ALL racisms.
+Roberto Grassi - © 2004
