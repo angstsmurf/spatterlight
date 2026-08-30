@@ -39,6 +39,7 @@ must accompany you."
 You can only move south.
 
 > south
+(Standing up first)
 You walk south.
 
 Path to Stone Circle
@@ -99,6 +100,7 @@ Strength, and Defense is now better..."
 You fall to the floor as the flavour overwhelms.
 
 > out
+(Standing up first)
 You move out.
 
 High Wizard'sTower

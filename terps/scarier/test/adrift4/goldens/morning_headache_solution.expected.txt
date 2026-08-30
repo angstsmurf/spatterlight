@@ -24,6 +24,7 @@ shirts, pants and sweaters.  The alarm clock is on the dresser.
 You take the alarm clock from the dresser.
 
 > w
+(Getting off the Bed first)
 You move west.
 
 Living room

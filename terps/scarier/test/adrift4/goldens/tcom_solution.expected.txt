@@ -30,6 +30,7 @@ right away...
 Also here is a letter from mom and a library book.
 
 > n
+(Getting off my bed first)
 I move north.
 
 Outside of My Dorm Room

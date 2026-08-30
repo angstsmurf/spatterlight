@@ -3247,32 +3247,34 @@ lib_go (scr_gameref_t game, scr_int direction)
   /*
    * Indicate if getting off something or standing up first.  Both lines are
    * bracketed *references*: 3.7 and 3.8 print them unconditionally (run370
-   * loc_42303C / loc_423078, run380 loc_428244 / loc_428280), 3.9 dropped
-   * them altogether (run390 has no "Getting off" literal), and 4.0 brought
-   * them back behind Options -> Display & Media... -> Appearance ->
+   * loc_42303C / loc_423078, run380 loc_428244 / loc_428280), and 3.9 AND
+   * 4.0 print them behind Options -> Display & Media... -> Appearance ->
    * "References in brackets" (run400 loc_450339 / loc_4503BF test
-   * MemVar_4942BA, saved as "showbrackets" @4679A1).
+   * MemVar_4942BA, saved as "showbrackets" @4679A1; run390 moveroom
+   * 431A4C tests m_showbrackets.Checked at loc_431911 for "(Getting off "
+   * and loc_4319A9 for "(Standing up first)").  An earlier census read
+   * run390 as having no "Getting off" literal at all and gated this
+   * `< 3.90 || >= 4.00`; the literal lives in run390_3.bas:9909, and the
+   * wingman1.taf (3.90) replay of 2026-08-30 (Adrift_3_wingman1.txt,
+   * brackets ON) prints "(Getting off the Barstool first)" before "You
+   * move in."
    *
-   * Scarier models the 4.0 Runner with that box ticked -- the reference
-   * setting the transcripts are measured under -- so 4.0 games print the
-   * lines too.  Measured on monsters (4.00) commands 5 and 23, where run400
-   * with brackets on answers "in" from the bed with "(Getting off Sissy's
-   * four poster bed first)" on its own line before "I move in." (and later
-   * "(Getting off the pink plastic chair first)"); with the box unticked
-   * (humbug command 254, 2026-08-24) it prints nothing.
+   * Scarier models the Runner with that box ticked -- the reference
+   * setting the transcripts are measured under -- so every version prints
+   * the lines.  Measured on monsters (4.00) commands 5 and 23, where
+   * run400 with brackets on answers "in" from the bed with "(Getting off
+   * Sissy's four poster bed first)" on its own line before "I move in."
+   * (and later "(Getting off the pink plastic chair first)"); with the box
+   * unticked (humbug command 254, 2026-08-24) it prints nothing.
    */
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
-      || prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+  if (gs_playerparent (game) != -1)
     {
-      if (gs_playerparent (game) != -1)
-        {
-          pf_buffer_string (filter, "(Getting off ");
-          lib_print_object_np (game, gs_playerparent (game));
-          pf_buffer_string (filter, " first)\n");
-        }
-      else if (gs_playerposition (game) != 0)
-        pf_buffer_string (filter, "(Standing up first)\n");
+      pf_buffer_string (filter, "(Getting off ");
+      lib_print_object_np (game, gs_playerparent (game));
+      pf_buffer_string (filter, " first)\n");
     }
+  else if (gs_playerposition (game) != 0)
+    pf_buffer_string (filter, "(Standing up first)\n");
 
   /* Confirm and then make move. */
   pf_buffer_string (filter,

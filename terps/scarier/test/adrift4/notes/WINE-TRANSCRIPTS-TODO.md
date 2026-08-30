@@ -514,6 +514,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `p4ALR` / `p4ALRSRC` / `p4WALKCOUNT` / `p4VARFREEZE` (built probes) | 4.00 + 3.90 | run400 and run390 replays of four packed probe games | the whole **4.0 output filter**: walk = repeat a length-descending pass until nothing changes, self-containing ALRs retired per walk, one walk per completing task plus the flush, variables frozen by each walk -- see the FIXED section below |
 | `3monkeys.taf` | 4.00 | live run400 replay of the solution's first 36 commands, `Adrift_16.txt` | the Runner really does print the raw `CHIMPSIGNAL=0`; the variable freeze is not a port artefact |
 | `Oh_Human.taf` | 4.00 | full run400 replay, `Adrift_1_ohhuman.txt` (feed `cmdfile_ohhuman.txt` -- no `_w_`, which is why the 2026-08-30 re-sweep missed it) | 9/9 identical on every turn; compared 2026-08-30 |
+| `wingman1.taf` | 3.90 | full run390 replay, `Adrift_3_wingman1.txt` (POPUP_ANSWERS name dialog, feed `cmdfile_wingman1.txt`) | 32/32 identical but the tail -- once the 3.9 `(Getting off ...)` correction below landed |
 | `sa.taf` (`sophie`) | 4.00 | live run400 replay, `Adrift_41_sophie.txt`..`Adrift_45_sophie.txt` (five runs of the solution's first fifty commands), plus the game's own 488-entry ALR table | the walk announcement is **joined into the turn's paragraph**, so 12 of sa.taf's 65 join-spanning ALRs fire and delete the arrivals they match -- see the FIXED section below |
 | `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
 | `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased**, and **what is *on* an object is listed before what is *in* it, in one sentence** -- see the two FIXED sections below.  Also closed the `knock` lead (a feed artefact) and pinned `burn memo` on the 4.0 `%object%` case rule (FIXED) |
@@ -3895,6 +3896,18 @@ commands" and "Room names in descriptions" ON, Verbose ON (all four forced
 into `pfx/user.reg` by `measure.sh`), and Scarier models that Runner.  Four
 things changed to match it; 33 goldens were re-blessed, every diff a pure
 added line.  Suite 343/343.
+
+**Correction 2026-08-30 (wingman1):** run390 does NOT lack the literal.
+`Adrift_3_wingman1.txt` (3.90, brackets ON) answers `in` from the Barstool
+with `(Getting off the Barstool first)`, and the decompile agrees: run390
+moveroom `431A4C` prints `"(Getting off "` (run390_3.bas:9909) behind
+`m_showbrackets.Checked` at `loc_431911`, and `"(Standing up first)"`
+behind the same check at `loc_4319A9` -- the same gate as 4.0's
+`MemVar_4942BA`.  The census that read 3.9 as having no literal looked in
+the wrong pool.  `lib_go()`'s version gate is gone: every version prints
+the pair (3.7/3.8 unconditionally, 3.9/4.0 behind the box, which Scarier
+models ON).  Nine goldens re-blessed, every diff a pure added line;
+suite 395/395.
 
 **`(Getting off X first)` / `(Standing up first)` at 4.0.**  `Monsters_r2.taf`
 turns 5 and 23: run400 with the box ticked answers `in` from the bed with
