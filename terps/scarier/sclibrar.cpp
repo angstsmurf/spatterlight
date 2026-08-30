@@ -5308,11 +5308,13 @@ lib_try_game_command_common (scr_gameref_t game,
                              const scr_char *preposition,
                              scr_int associate,
                              scr_bool is_associate_object,
-                             scr_bool is_associate_npc)
+                             scr_bool is_associate_npc,
+                             scr_bool use_typed_verb)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
-  verb = lib_typed_verb (verb);
+  if (use_typed_verb)
+    verb = lib_typed_verb (verb);
   scr_vartype_t vt_key[3];
   scr_char buffer[LIB_ALLOCATION_AVOIDANCE_SIZE];
   scr_bool references_buffer[LIB_ALLOCATION_AVOIDANCE_SIZE];
@@ -5419,7 +5421,23 @@ lib_try_game_command_short (scr_gameref_t game,
                             const scr_char *verb, scr_int object)
 {
   return lib_try_game_command_common (game, verb, object,
-                                      NULL, -1, FALSE, FALSE);
+                                      NULL, -1, FALSE, FALSE, TRUE);
+}
+
+/*
+ * The refusal-exit pre-match of run400's per-piece take (Proc_19_23_473A34
+ * @473241) is built from the RESOLVED object and the canonical "get", not
+ * from the typed words: `take poster` on man overboard.taf runs "Get *
+ * poster", a task with no take form at all (Adrift_1_man_overboard.txt:39,
+ * Adrift_1_moprobe.txt, 2026-08-29/30).  Only the pre-action retry above is
+ * verb-literal.
+ */
+static scr_bool
+lib_try_game_command_short_canonical (scr_gameref_t game,
+                                      const scr_char *verb, scr_int object)
+{
+  return lib_try_game_command_common (game, verb, object,
+                                      NULL, -1, FALSE, FALSE, FALSE);
 }
 
 static scr_bool
@@ -5429,7 +5447,8 @@ lib_try_game_command_with_object (scr_gameref_t game,
                                   scr_int other_object)
 {
   return lib_try_game_command_common (game, verb, object,
-                                      preposition, other_object, TRUE, FALSE);
+                                      preposition, other_object, TRUE, FALSE,
+                                      TRUE);
 }
 
 static scr_bool
@@ -5438,7 +5457,7 @@ lib_try_game_command_with_npc (scr_gameref_t game,
                                const scr_char *preposition, scr_int npc)
 {
   return lib_try_game_command_common (game, verb, object,
-                                      preposition, npc, FALSE, TRUE);
+                                      preposition, npc, FALSE, TRUE, TRUE);
 }
 
 
@@ -6542,7 +6561,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       lib_list_t refused;
       for (const scr_int object : list)
         {
-          if (!lib_try_game_command_short (game, "get", object))
+          if (!lib_try_game_command_short_canonical (game, "get", object))
             refused.push_back (object);
         }
       list.swap (refused);

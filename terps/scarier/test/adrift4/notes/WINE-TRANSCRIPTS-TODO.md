@@ -4247,7 +4247,7 @@ Three sessions (PRE=3, `SCR_SKIP_WAITKEY`-style intro pauses), all commands echo
 
 - `Adrift_1_cobl_probe.txt` — `look in rubbish`, `take medicine` → "You don't have any. And boy does it show." (TASK `[eat/take] {the} {mind} [medicine…]` matched, failed, and owns the command; no library take). Settles the sclibrar.cpp retry model: keep the prefix-less retry, use the typed verb. Golden `take medicine` → `get medicine`.
 - `Adrift_1_greek_probe.txt` (154/154 echoed) — `take exam` → "You'll need the test, first." Golden `take exam` → `get exam`.
-- man_overboard `take poster` → `get poster` by the same rule (unmeasured; TASK `Get * poster`).
+- man_overboard `take poster` → `get poster` by the same rule (unmeasured; TASK `Get * poster`). **Retracted 2026-08-30 (evening):** the archive re-sweep showed `Adrift_1_man_overboard.txt:39` running "Get * poster" for `take poster` — the 4.0 *refusal-exit* pre-match is canonical, not verb-literal; see the section at the end of this file. Golden back to `take poster`.
 
 ## Del Sol.taf (4.00) — 2026-08-30
 
@@ -4258,3 +4258,52 @@ No new run. The UNWINNABLE verdict already rests on live run400 probes recorded 
 - `Adrift_1_hangover_run390.txt` — old golden as-is: turn 2 `x closet` refused (player still on the bed: "can't reach … from your bed"), 4/7.
 - `Adrift_1_hangover_run390_standup.txt` (57/57 echoed) — golden with `stand up` prepended: **UNWINNABLE confirmed**, 5/7 like Scarier; both Where=0 endgame tasks answer "You can't do that here!". Golden re-derived with `stand up` first.
 - `Adrift_1_hangover_run390_cabinet.txt` (42/42) — `open filing cabinet` / `open cabinet` / `open the cabinet`: the first runs silent +1 TASK8 and prints the game's DontUnderstand text "What you typed doesn't work."; the rest say "You have already done that."; the cabinet stays closed and `take approval form` → "Take what?". Scarier opens it via the library after the task — deliberate deviation (same score), recorded on the harness row. Scarier also lacks the from-the-bed reach rule (not fixed).
+
+## 2026-08-30 (evening) — the archive wipe, the Time Machine restore, and the full re-sweep
+
+Housekeeping first: at 12:00:59 today a session hand-typed
+`rm -f pfx/drive_c/adrift/Adrift_*.txt` and wiped all 173 named Runner
+transcripts this note cites.  Restored the same evening from the Time
+Machine snapshot `2026-08-30-113451` (`tmutil listbackups -m`, `cp -p`, no
+clobber); the backup's unnamed `Adrift_1.txt` (a relojero `restore` probe
+from 2026-08-29) was kept as `Adrift_1_prewipe.txt`.  Rule going forward:
+never `rm` a glob in that directory — `measure.sh` names new files itself.
+
+Then every transcript that pairs with a cmdfile (63 pairs,
+`cmdfile_w_<slug>.txt` ↔ `Adrift_N_<slug>.txt`) was re-swept offline
+against the current engine with `harness/compare_wine_transcript.py`.
+Outcome of the sweep:
+
+- **Clean** (tail-only or zero diffs): the large majority, unchanged.
+- **Policy**: pre-08-29 captures ran brackets-OFF/Verbose-OFF
+  (goldilocks t94, unravel t11, melbourne/orient re-entry headings).
+- **RNG**: orient train events, melbourne walk verbs, cyber2 battle
+  rolls, humbug cat — all already recorded above.
+- **Feed artefacts**: black_sheeps_gold and cibass show "Do what?" /
+  "I don't understand." where the Runner cmdfile carries blank lines for
+  cutscene pauses; the goldens (which have no blanks) PASS in the harness.
+  Not engine differences.
+- **One real lead**, below.
+
+### The lead: `take poster` really does fire "Get * poster" — at the refusal exit
+
+`Adrift_1_man_overboard.txt:39` (`take poster` → the task's authored
+blu-tac text) contradicts the morning's re-verb of the man_overboard
+golden.  The reconciliation was already in the decompile annotations
+(get_piece 473A34 → task_prematch 453C50): run400's per-piece take
+consults the tasks **at its refusal exits** with the RESOLVED object and
+the canonical `get` — never the typed verb.  Tenebrae's `take pens` never
+reached a refusal (the pens are takeable; the library took them), so both
+of today's facts hold at once:
+
+- the **pre-action** task pass is verb-literal (`lib_typed_verb()`,
+  morning's port — Tenebrae, cobl, greekschool goldens keep `get`);
+- the **refusal-exit** pre-match (statics, absent objects) is canonical
+  `get <object>` (the 2026-08-29 port of 473A34).
+
+Fix: `lib_try_game_command_common()` gained a `use_typed_verb` flag;
+the refusal-exit retry in `lib_take_backend_common` now goes through
+`lib_try_game_command_short_canonical()`.  man_overboard's golden is back
+to `take poster`, and the full v4 suite is 395/395 PASS.  The
+man_overboard replay against its Runner transcript is again clean but for
+the expected `[Press any key to end]` tail.

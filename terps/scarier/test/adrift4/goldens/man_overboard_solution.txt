@@ -10,7 +10,7 @@ wear beard
 x log
 read log
 x poster
-get poster
+take poster
 x window
 n
 x puddle
