@@ -1,0 +1,62 @@
+Hunter
+male
+torch an flam
+west
+west
+candelabra an lor
+north
+window in hur
+window an hur
+south
+east
+east
+north
+crystal an lor
+northeast
+northeast
+tower in hur
+down
+get up
+stairs in flam
+ring kal lor
+west
+north
+west
+examine table
+take knife
+south
+kill rodent with knife
+get dead mouse
+north
+east
+my name hunter say
+south
+turn statue
+west
+west
+west
+west
+south
+take rope
+north
+northwest
+tie rope to wall
+down
+west
+south
+talk to master
+open door
+south
+down
+southwest
+south
+south
+west
+talk to master
+take rope
+examine crates
+take bolt
+up
+string ballista
+load ballista
+fire ballista

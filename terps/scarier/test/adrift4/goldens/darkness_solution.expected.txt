@@ -1,0 +1,854 @@
+Loading game...
+
+Darkness
+by Richard Otter, version 1.05
+
+A pocket adventure written during 2004, using ADRIFT version 4.00 Release 45
+
+At any time during the game you can type Intro, credits or details for more
+information.
+
+If you get stuck you could try hints which should give you a clue.
+
+[Press ENTER to read the Introduction]
+
+Darkness
+by Richard Otter, version 1.05
+
+For the first time in living memory the lighthouse on the Croxton Rock was in
+darkness.
+
+You have been the harbour master at Tolleth for over 10 years and have never
+seen anything like this; the light did not shine out through the night.  From
+the harbour wall you kept watch from early evening until very late into the
+night, but the lighthouse remained dark.
+
+When the morning finally came you tried calling the lighthouse on the radio,
+but received no answer. As the weather looked good and the water relatively
+calm you took the decision to go over to see what was wrong.  Care was needed
+as it is nearly five miles to Croxton Rock, with the fishing fleet away you
+only had your little rowing boat with the broken engine.
+
+The lighthouse is manned by three keepers at any one time and John Collins,
+Albert Taylor and William 'Tosh' Graham are the current keepers.  You saw
+them only last week when you took over mail and supplies.
+
+Now, after a very long row you have just tied up at the lighthouse jetty.
+
+[Press ENTER to start]
+
+Row Boat
+Your small row boat is a type known as a dory and is about 15 feet (4.5m)
+long and 4 feet (1.2m) wide. The narrow bottom and wide flaring sides makes
+for easy rowing. They are used the world over in all weather conditions,
+although you hope to be home long before you put that to the test. You can
+see a wooden ladder which leads up to the jetty. Your boat is currently tied
+to the ladder.
+
+> x boat
+It is a type known as a Dory and is about 15 feet long and 4 feet wide.  Her
+narrow bottom makes for rowing easy, while the wide flaring sides make the
+boat dry.  Fishermen the world over have used dories in all weather
+conditions, although you hope to be home long before you put that to the
+test.
+
+In the bottom of the boat you find your old rucksack.
+
+> get rucksack
+You take the rucksack.
+
+> open rucksack
+You open the rucksack.  Inside the rucksack is a torch (flashlight), a
+thermos flask and a notepad.
+
+> get torch
+You take the torch (flashlight) from the rucksack.
+
+> get notepad
+You take the notepad from the rucksack.
+
+> turn on torch
+You turn on your torch.
+
+Row Boat
+Your small row boat is a type known as a dory and is about 15 feet (4.5m)
+long and 4 feet (1.2m) wide. The narrow bottom and wide flaring sides makes
+for easy rowing. They are used the world over in all weather conditions,
+although you hope to be home long before you put that to the test. You can
+see a wooden ladder which leads up to the jetty. Your boat is currently tied
+to the ladder.
+
+> u
+You climb out of your boat onto the jetty.
+
+The Jetty
+The lighthouse jetty is made of stone with a metal handrail running around
+it.  You notice immediately that the handrail is damaged.  Down a wooden
+ladder you can see your boat and to the east is a path leading to the
+lighthouse.  In the water just below the jetty, you can see something
+floating. It appears to be a woollen hat.
+
+> e
+You move east.
+
+The Path
+You are on a narrow path leading from the jetty and from here you can see the
+main part of the Croxton Rock. The rock is only about 50 feet (15.2m) in
+length and no more than 20 feet (6m) wide; however a northern reef extends
+another 1000 feet (304.8m) beyond the main area.  You can go west to the
+jetty or east in the direction of the lighthouse.
+
+You look up at the sky.  It is an overcast sort of day and it will get dark
+early tonight.
+
+> e
+You move east.
+
+Outside the Lighthouse
+Before you is the granite structure of the Croxton Rock lighthouse. This part
+of the rock on which the lighthouse is built is no more than 10 feet (3m)
+above the water level. You ponder that it must be a frightening place during
+a high tide. To the east you can see the door into the lighthouse and west a
+path leads back to the jetty.  The door to the lighthouse is wide open and
+blowing in the wind.
+
+> e
+You move east.
+
+Entrance
+After the space outside the entrance of the lighthouse feels very enclosed
+and cramped.  A cupboard, which you guess contains wet weather gear, is just
+near the door. The exit out of the lighthouse is west and some worn stone
+steps lead up.  The door to the lighthouse is wide open and blowing in the
+wind.
+
+> open cupboard
+You open the cupboard. Inside the battered cupboard is a sou'wester hat, a
+weatherproof coat and some weatherproof boots.
+
+As you open the cupboard you notice immediately that it only contains one
+pair of wet weather clothing.  It should contain three, one for each of the
+crew.  Two of the crew must be outside?
+
+You make a note about this in your notepad.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Fuel Store
+The fuel store for the lighthouse is completely taken up by two storage
+tanks, one large and one small.  The lighthouse is a very claustrophobic
+place at the best of times, but it feels even worse in here.  The room seems
+to be filled with the faint smell of petrol or maybe it is diesel. You can
+see some stone steps leading up and down.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Generator Room
+The centre of the room is taken up by one enormous diesel engine, so you are
+obviously in the generator room.  It is in here that the electrical power is
+produced for the light and the rest of the lighthouse. You know from your
+last visit that this room can be an extremely noisy place. Some worn stone
+steps lead up and down.
+
+An old toolbox is sitting near the generator.
+
+> open toolbox
+You open the toolbox.  Inside the toolbox is a broken spark plug, a
+screwdriver and a spanner.
+
+> get spanner
+You take the spanner from the toolbox.
+
+> get spark plug
+You take the broken spark plug from the toolbox.
+
+You can hear something moving in the room above.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Store Room
+Although only having an internal diameter of 11 feet (3.3m) every square inch
+of this room is occupied. It packed with storage tanks and floor to ceiling
+racks, which contain everything you can think of. A large freezer stands just
+inside the door and is alongside some sacks of vegetables and boxes of
+foodstuffs.  Squeezed in between the racks is a petrol generator, although a
+much smaller unit than the one downstairs. Almost hidden in one corner is a
+battered old locker. Some stone steps lead up and down.
+
+You can also see a boat hook and a fire extinguisher.
+
+> open locker
+You open the old locker.  Inside the old locker is some ear defenders, a hard
+hat, some safety guidelines and a flare gun.
+
+> get flare gun
+You take the flare gun from the old locker.
+
+> get boat hook
+You take the boat hook.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Sleeping Quarters
+Looking around the sleeping quarters they seem to have three basic levels.
+The lowest level is a cupboard for storage of kit. The middle level consists
+of three bunk spaces, one of which seems to have been slept in. The top bunk
+also provides sleeping spaces, although you would need to be very agile to
+climb up and squeeze inside. Just inside the door is a wardrobe and nearby is
+a rusty panel heater.  Some stone steps lead up and down.
+
+You can also see a mattress and a vacuum cleaner.
+
+> open wardrobe
+You open the wardrobe.  A coat is inside the wardrobe.
+
+You hear the sound of running footsteps.
+
+> get coat
+You take the coat from the wardrobe.
+
+> x coat
+It is a warm looking, brown woollen coat.  In one of the pockets you find a
+small key which you take.
+
+> wear coat
+As you start to put the coat on someone to your right shouts, "It's John and
+Bert, they are in trouble!". You instantly drop the coat.
+
+> get coat
+You take the coat.
+
+> wear coat
+You put on the coat.
+
+> open cupboard
+You open the cupboard.  Inside the cupboard is a woolly jumper, some thermal
+underwear and a pair of socks.
+
+> x bunk
+Each bunk has a modesty curtain neatly tied to the side. None of the three
+are long enough to allow anyone to stretch out to their full extent.  Anyone
+sleeping in these bunks would need to do so in the foetal position.  The
+middle bunk is obviously the best accommodation as it has its own window.  A
+letter is on the bunk.
+
+> get letter
+You take the letter from the bunk.
+
+For a second that sounded like a television playing.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Living Quarters
+The quarters appear very small considering three people live here, but it
+contains all the items you would expect in a kitchen. There is a sink and
+drainer standing next to a kitchen unit and then a small cooker. On the unit
+you can see a microwave and a television. Three comfortable armchairs are in
+a strategic position in front of the television. Some stone steps lead up and
+down.
+
+> look on table
+The round metal table is just about large enough for three people to sit at.
+On the round table is the lighthouse log book, a plate and a mug.
+
+> get log book
+You take the lighthouse log book from the round table.
+
+> x plate
+It is a plate of half finished food, which after touching you discover is
+cold.
+Someone did not get the chance to finish their meal.
+
+You make a note about this in your notepad.
+
+> x mug
+The mug is nearly full of cold coffee.
+Someone did not get the chance to finish their coffee.
+
+You make a note about this in your notepad.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Radio Room
+On one side of the room is work bench on which sits a radio, the remaining
+space is taken up with a dozen of more bright red gas bottles. To your right,
+sitting on the floor, is a blue metal box.  Some stone steps lead up and
+down.
+
+You can also see an old bucket.
+
+You have the feeling you are not alone. You carefully examine the room, but
+find nothing.
+
+> x work bench
+You can see the work bench.  On the work bench is the weather journal, the
+radio and an ashtray.
+
+> get weather journal
+You take the weather journal from the work bench.
+
+> get rags
+You take the rags out of the bucket.  As you pull out the rags something
+drops from them back into the bucket - it is a spark plug. You take the spark
+plug.
+
+> unlock box with key
+You unlock and open the metal box. A battery is inside the metal box.
+
+> open box
+The metal box is already open!
+
+> look in box
+It is a blue metal box.  The metal box is open.  A battery is inside the
+metal box.
+
+> get battery
+You take the battery from the metal box.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Light Control Room
+One complete half of this room is taken up by loads of batteries, charged
+from some solar panels and the generators below. Near the door is a large
+lever in the off position and next to it is a noticeboard. Some stone steps
+lead up and down.
+
+> x noticeboard
+On the lighthouse noticeboard is the weather report for the 23rd.  It will
+basically be a fine day with a freshening wind.
+
+> x lever
+It is the lever which starts the light.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Lantern Room
+Compared to the rest of the lighthouse the lantern room is an uncluttered and
+light space.  It is from here that you have an uninterrupted, all round view
+of the ocean. In the centre of the room is the optic which consist of eight
+beautiful lense panels sitting on a pedestal, it truly is a magnificent
+sight. It is possible to go out onto a walkway which runs around the outside
+of the room, through a metal hatch which is closed at the moment. Just behind
+you are the stone steps leading down into the rest of the lighthouse.   The
+beautiful optics are still at the moment.
+
+> look
+
+Lantern Room
+Compared to the rest of the lighthouse the lantern room is an uncluttered and
+light space.  It is from here that you have an uninterrupted, all round view
+of the ocean. In the centre of the room is the optic which consist of eight
+beautiful lense panels sitting on a pedestal, it truly is a magnificent
+sight. It is possible to go out onto a walkway which runs around the outside
+of the room, through a metal hatch which is closed at the moment. Just behind
+you are the stone steps leading down into the rest of the lighthouse.   The
+beautiful optics are still at the moment.
+
+> read log book
+A quick flick through it does not reveal much and it all looks pretty normal.
+
+The crew had noticed a problem with the diesel generator and had planned some
+maintenance on the 23rd, "day before yesterday" you ponder.
+
+The log also contains the note, "The storm the other night has caused serious
+damage to the jetty handrail.  This will need looking at before it is carried
+away. Hopefully get this sorted out on the 24th."  Although, the page for the
+24th is actually missing.
+
+You make a note about this in your notepad.
+
+> read journal
+The log contains various recordings of wind speed, direction, cloud layer,
+type and cover, visibility, precipitation, barometric pressure and tendency,
+humidity, dew point and of course, wet and dry temperatures.
+
+It seems a couple of days again very strong wind and high waves hit the
+lighthouse.  Stormy conditions were expected again on the 24th. You look at
+the entries for the 24th and can see that a storm was indeed brewing on that
+day. The last entry in the journal is at 9.50am.
+
+You make a note about this in your notepad.
+
+> open hatch
+You open the metal hatch.
+
+> out
+You move out.
+
+Lantern Walkway
+The metal walkway runs right around the outside of the lantern room.  Looking
+over the side you can see down to the rocks below where the waves continually
+rise and fall in a boiling mass. You spot your little boat tied up to the
+jetty. As this is one of the few flat surfaces around is a favourite resting
+place for the sea gulls. The gulls do what gulls do with the result that the
+walkway is covered in bird droppings; you will need to watch you step. Your
+grip on the handrail tightens. It is possible to go back inside the
+lighthouse, through a metal hatch which is open at the moment.
+
+> ne
+You move northeast.
+
+Lantern Walkway
+You are on a metal walkway running around the outside of the lantern room.
+The panes of glass are covered by a thin layer of salt. Looking down to the
+rocks below the waves continually rise and fall in a boiling mass.  You can
+go northwest and southwest.
+
+> nw
+You move northwest.
+
+Lantern Walkway
+You are on a metal walkway running around the outside of the lantern room.
+The panes of glass are covered by a thin layer of salt. Looking down to the
+rocks below the waves continually rise and fall in a boiling mass.  Attached
+to the side of the lighthouse is a box with is closed.  You can go southeast
+and southwest.
+
+You can also see a fuel can.
+
+> get fuel can
+You take the fuel can.
+
+> sw
+You move southwest.
+
+Lantern Walkway
+You are on a metal walkway running around the outside of the lantern room.
+The panes of glass are covered by a thin layer of salt. Looking down to the
+rocks below the waves continually rise and fall in a boiling mass.  You can
+go northeast and southeast.  A sheet of paper is caught on the walkway
+handrail; it looks like it might blow away at anytime.
+
+> get paper
+You grab the sheet of paper before it is blown away.
+
+> read paper
+It is a missing page from the lighthouse log book for the 24th.  Reading
+through the entries, John Collins and Albert Taylor went outside to carry out
+repairs to the handrail. Tosh Graham was staying inside to look at the main
+generator.
+
+You make a note about this in your notepad.
+
+> se
+You move southeast.
+
+Lantern Walkway
+The metal walkway runs right around the outside of the lantern room.  Looking
+over the side you can see down to the rocks below where the waves continually
+rise and fall in a boiling mass. You spot your little boat tied up to the
+jetty. As this is one of the few flat surfaces around is a favourite resting
+place for the sea gulls. The gulls do what gulls do with the result that the
+walkway is covered in bird droppings; you will need to watch you step. Your
+grip on the handrail tightens. It is possible to go back inside the
+lighthouse, through a metal hatch which is closed at the moment.
+
+> open hatch
+You open the metal hatch.
+
+> in
+You move in.
+
+Lantern Room
+Compared to the rest of the lighthouse the lantern room is an uncluttered and
+light space.  It is from here that you have an uninterrupted, all round view
+of the ocean. In the centre of the room is the optic which consist of eight
+beautiful lense panels sitting on a pedestal, it truly is a magnificent
+sight. It is possible to go out onto a walkway which runs around the outside
+of the room, through a metal hatch which is open at the moment. Just behind
+you are the stone steps leading down into the rest of the lighthouse.   The
+beautiful optics are still at the moment.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Light Control Room
+One complete half of this room is taken up by loads of batteries, charged
+from some solar panels and the generators below. Near the door is a large
+lever in the off position and next to it is a noticeboard. Some stone steps
+lead up and down.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Radio Room
+On one side of the room is work bench on which sits a radio, the remaining
+space is taken up with a dozen of more bright red gas bottles. To your right,
+sitting on the floor, is a blue metal box.  Some stone steps lead up and
+down.
+
+You can also see an old bucket.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Living Quarters
+The quarters appear very small considering three people live here, but it
+contains all the items you would expect in a kitchen. There is a sink and
+drainer standing next to a kitchen unit and then a small cooker. On the unit
+you can see a microwave and a television. Three comfortable armchairs are in
+a strategic position in front of the television. Some stone steps lead up and
+down.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Sleeping Quarters
+Looking around the sleeping quarters they seem to have three basic levels.
+The lowest level is a cupboard for storage of kit. The middle level consists
+of three bunk spaces, one of which seems to have been slept in. The top bunk
+also provides sleeping spaces, although you would need to be very agile to
+climb up and squeeze inside. Just inside the door is a wardrobe and nearby is
+a rusty panel heater.  Some stone steps lead up and down.
+
+You can also see a mattress and a vacuum cleaner.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Store Room
+Although only having an internal diameter of 11 feet (3.3m) every square inch
+of this room is occupied. It packed with storage tanks and floor to ceiling
+racks, which contain everything you can think of. A large freezer stands just
+inside the door and is alongside some sacks of vegetables and boxes of
+foodstuffs.  Squeezed in between the racks is a petrol generator, although a
+much smaller unit than the one downstairs. Almost hidden in one corner is a
+battered old locker. Some stone steps lead up and down.
+
+You can also see a fire extinguisher.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Generator Room
+The centre of the room is taken up by one enormous diesel engine, so you are
+obviously in the generator room.  It is in here that the electrical power is
+produced for the light and the rest of the lighthouse. You know from your
+last visit that this room can be an extremely noisy place. Some worn stone
+steps lead up and down.
+
+An old toolbox is sitting near the generator.
+
+You hear the sound of running footsteps.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Fuel Store
+The fuel store for the lighthouse is completely taken up by two storage
+tanks, one large and one small.  The lighthouse is a very claustrophobic
+place at the best of times, but it feels even worse in here.  The room seems
+to be filled with the faint smell of petrol or maybe it is diesel. You can
+see some stone steps leading up and down.
+
+> turn tap
+You turn the tap on the fuel tank and fill the fuel can you are carrying.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Generator Room
+The centre of the room is taken up by one enormous diesel engine, so you are
+obviously in the generator room.  It is in here that the electrical power is
+produced for the light and the rest of the lighthouse. You know from your
+last visit that this room can be an extremely noisy place. Some worn stone
+steps lead up and down.
+
+An old toolbox is sitting near the generator.
+
+> x generator
+It appears that someone has been working on the very large diesel generator
+recently. The generator has two buttons marked start and stop.
+
+You do not know enough about diesel engines to work out what is missing, if
+anything.
+You make a note about this in your notepad.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Store Room
+Although only having an internal diameter of 11 feet (3.3m) every square inch
+of this room is occupied. It packed with storage tanks and floor to ceiling
+racks, which contain everything you can think of. A large freezer stands just
+inside the door and is alongside some sacks of vegetables and boxes of
+foodstuffs.  Squeezed in between the racks is a petrol generator, although a
+much smaller unit than the one downstairs. Almost hidden in one corner is a
+battered old locker. Some stone steps lead up and down.
+
+You can also see a fire extinguisher.
+
+> mend generator
+You fill the generator with the fuel you are carrying.
+You fit the battery you are carrying to the generator.
+You fit the spark plug you are carrying to the generator.
+
+> mend generator
+I don't think you can mend the small generator.
+
+> mend generator
+I don't think you can mend the small generator.
+
+> push start button
+You press the start button and the generator splutters to lift. You notice
+that the lighthouse lights do not come on, perhaps this little generator
+cannot run everything.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Sleeping Quarters
+Looking around the sleeping quarters they seem to have three basic levels.
+The lowest level is a cupboard for storage of kit. The middle level consists
+of three bunk spaces, one of which seems to have been slept in. The top bunk
+also provides sleeping spaces, although you would need to be very agile to
+climb up and squeeze inside. Just inside the door is a wardrobe and nearby is
+a rusty panel heater.  Some stone steps lead up and down.
+
+You can also see a mattress and a vacuum cleaner.
+
+You have the feeling that someone is standing behind you. Looking over both
+shoulders you see nothing.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Living Quarters
+The quarters appear very small considering three people live here, but it
+contains all the items you would expect in a kitchen. There is a sink and
+drainer standing next to a kitchen unit and then a small cooker. On the unit
+you can see a microwave and a television. Three comfortable armchairs are in
+a strategic position in front of the television. Some stone steps lead up and
+down.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Radio Room
+On one side of the room is work bench on which sits a radio, the remaining
+space is taken up with a dozen of more bright red gas bottles. To your right,
+sitting on the floor, is a blue metal box.  Some stone steps lead up and
+down.
+
+You can also see an old bucket.
+
+> u
+As you head up, your footsteps echo on the stone steps.
+
+Light Control Room
+One complete half of this room is taken up by loads of batteries, charged
+from some solar panels and the generators below. Near the door is a large
+lever in the off position and next to it is a noticeboard. Some stone steps
+lead up and down.
+
+> pull lever
+You pull the lever to the on position. Almost immediately you hear the sound
+of the light rotating above you.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Radio Room
+On one side of the room is work bench on which sits a radio, the remaining
+space is taken up with a dozen of more bright red gas bottles. To your right,
+sitting on the floor, is a blue metal box.  Some stone steps lead up and
+down.
+
+You can also see an old bucket.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Living Quarters
+The quarters appear very small considering three people live here, but it
+contains all the items you would expect in a kitchen. There is a sink and
+drainer standing next to a kitchen unit and then a small cooker. On the unit
+you can see a microwave and a television. Three comfortable armchairs are in
+a strategic position in front of the television. Some stone steps lead up and
+down.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Sleeping Quarters
+Looking around the sleeping quarters they seem to have three basic levels.
+The lowest level is a cupboard for storage of kit. The middle level consists
+of three bunk spaces, one of which seems to have been slept in. The top bunk
+also provides sleeping spaces, although you would need to be very agile to
+climb up and squeeze inside. Just inside the door is a wardrobe and nearby is
+a rusty panel heater.  Some stone steps lead up and down.
+
+You can also see a mattress and a vacuum cleaner.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+The Noisy Store Room
+Although only having an internal diameter of 11 feet (3.3m) every square inch
+of this room is occupied. It packed with storage tanks and floor to ceiling
+racks, which contain everything you can think of. A large freezer stands just
+inside the door and is alongside some sacks of vegetables and boxes of
+foodstuffs.  Squeezed in between the racks is a petrol generator, although a
+much smaller unit than the one downstairs. Almost hidden in one corner is a
+battered old locker. Some stone steps lead up and down.  With the generator
+running it is very noisy in here.
+
+You can also see a fuel can and a fire extinguisher.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Generator Room
+The centre of the room is taken up by one enormous diesel engine, so you are
+obviously in the generator room.  It is in here that the electrical power is
+produced for the light and the rest of the lighthouse. You know from your
+last visit that this room can be an extremely noisy place. Some worn stone
+steps lead up and down.
+
+An old toolbox is sitting near the generator.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Fuel Store
+The fuel store for the lighthouse is completely taken up by two storage
+tanks, one large and one small.  The lighthouse is a very claustrophobic
+place at the best of times, but it feels even worse in here.  The room seems
+to be filled with the faint smell of petrol or maybe it is diesel. You can
+see some stone steps leading up and down.
+
+You can also see a spanner.
+
+> d
+As you head down, your footsteps echo on the stone steps.
+
+Entrance
+After the space outside the entrance of the lighthouse feels very enclosed
+and cramped.  A cupboard, which you guess contains wet weather gear, is just
+near the door. The exit out of the lighthouse is west and some worn stone
+steps lead up.  The door to the lighthouse is wide open and blowing in the
+wind.
+
+You hear a ships siren.
+
+> w
+You move west.
+
+Outside the Lighthouse
+Before you is the granite structure of the Croxton Rock lighthouse. This part
+of the rock on which the lighthouse is built is no more than 10 feet (3m)
+above the water level. You ponder that it must be a frightening place during
+a high tide. To the east you can see the door into the lighthouse and west a
+path leads back to the jetty.  The door to the lighthouse is wide open and
+blowing in the wind.  You can see a ship passing the lighthouse.
+
+> w
+You move west.
+
+The Path
+You are on a narrow path leading from the jetty and from here you can see the
+main part of the Croxton Rock. The rock is only about 50 feet (15.2m) in
+length and no more than 20 feet (6m) wide; however a northern reef extends
+another 1000 feet (304.8m) beyond the main area.  You can go west to the
+jetty or east in the direction of the lighthouse.   You can see a ship
+passing the lighthouse.
+
+> w
+You move west.
+
+The Jetty
+The lighthouse jetty is made of stone with a metal handrail running around
+it.  You notice immediately that the handrail is damaged.  Down a wooden
+ladder you can see your boat and to the east is a path leading to the
+lighthouse.  In the water just below the jetty, you can see something
+floating. It appears to be a woollen hat.  You can see a ship passing the
+lighthouse.
+
+> fire flare
+Pointing the gun into the air, you fire the flare.  Hopefully someone on the
+ship is awake.
+
+The ship looks like it is turning and is heading towards the jetty.
+
+Captain Crawford shouts across, "We saw the flare and came over to see if
+everything is all right."
+
+> talk to captain
+You shout across to Captain Crawford, "Something has happened to the crew,
+can you call for help please?"
+Captain Crawford replies, "No problem." He then asks you what you want to do
+-
+
+1. Do you want to leave on the Saucy Sally?
+2. Are you going to wait for help?
+3. Will you make your own way home?
+
+> 2
+"Thanks Captain," you shout, "I'm thinking about waiting here until help
+arrives."
+"Ok, but I'll wait around for a bit. Let me know what you decide," shouts
+Captain Crawford.
+
+> talk to captain
+You shout across to Captain Crawford, "Captain?"
+Captain Crawford replies "Hello, back again!" He then asks, "Are you still
+going to wait for help?"
+
+1. "Yes, I am."
+2. "No, I am not."
+
+> 1
+"Thanks Captain," you shout, "I will wait for help to arrive."
+"OK, I'll get underway," shouts Captain Crawford. With that he disappears
+from sight and the ship gets underway.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+It is now starting to get dark, with the weather turning nasty it is unlikely
+you will be able to get off the rock until daybreak. It looks like you will
+have to settle down for the night and wait for rescue to come in the morning.
+Sleep is the last thing on your mind and you have a very unsettled night.
+Every time you are about to drop off to sleep someone calls your name.
+
+At the official hearing held later, you were called as a witness.  No one
+will ever know what happened on the 24th, but based on the available evidence
+and your observations a possible situation was put forward.
+
+John Collins and Albert Taylor had been carrying out repairs to the jetty
+handrail.  With worsening weather one or possibly both of the men got into
+trouble.  Tosh Graham, the keeper who had remained in the lighthouse came out
+to assist, despite the rules stating that one keeper should remain in the
+lighthouse at all times. All three must have been washed into the sea.
+
+As you observed at the time, "If you witnessed two of your friends in
+trouble, would you have thought about the rules?"
+
+Later that year, the village of Tolleth erected a monument to the brave crew
+of the Croxton Rock lighthouse.
+
+The End
+
+Feel free to report any bugs, send praise or give general feedback to
+trouble@rotter.freeserve.co.uk
+
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

@@ -1,0 +1,85 @@
+1
+look
+pull switch 1
+pull switch 2
+pull switch 3
+pull switch 4
+push switch 5
+push button
+move minute hand
+move minute hand
+move minute hand
+move minute hand
+move minute hand
+move minute hand
+move minute hand
+move minute hand
+move minute hand
+move minute hand
+move minute hand
+push button
+turn dial 1
+turn dial 1
+turn dial 1
+turn dial 1
+turn dial 2
+turn dial 2
+turn dial 2
+turn dial 2
+turn dial 2
+turn dial 3
+turn dial 3
+turn dial 3
+turn dial 3
+turn dial 3
+turn dial 3
+turn dial 5
+turn dial 6
+turn dial 6
+turn dial 7
+turn dial 7
+turn dial 7
+push button
+x weathercock
+push button
+push colesford button
+push donningworth button
+push stanly button
+push button
+turn dial 2
+turn dial 2
+turn dial 2
+turn dial 2
+turn dial 5
+turn dial 5
+turn dial 5
+push button
+x animal
+turn dial
+turn dial
+turn dial
+turn dial
+turn dial
+push button
+x ceiling
+turn dial
+push button
+turn dial 1
+turn dial 1
+turn dial 1
+turn dial 4
+turn dial 5
+turn dial 5
+turn dial 5
+turn dial 5
+turn dial 5
+push button
+turn dial 2
+turn dial 2
+turn dial 2
+turn dial 2
+turn dial 2
+turn dial 2
+turn dial 3
+turn dial 3
+push button

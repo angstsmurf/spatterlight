@@ -1,0 +1,434 @@
+Loading game...
+
+How Suzy Got Her Powers
+
+How Suzy Got Her Powers
+
+by David Whyld
+
+Written with ADRIFT Version 4, Release 51
+Version 1 Released: June 2011
+
+        (1)        Background.
+        (2)        About the game.
+        (3)        Game information.
+
+        (0)        Play How Suzy Got Her Powers.
+
+> 0
+
+“La-dddyyyyyyyy!”
+        You blink. Jeez, that was loud!  Does the kid have a pair of
+loudspeakers in his lungs or something?
+        “Lady, he-llllllllllllllllllllllllllllllp!” the kids screeches.
+        You're more inclined to cover your ears to block him out, but instead
+find yourself (cursing your ever helpful nature as you do) saying to him,
+“What's the problem, kiddo?”
+        The kid - is it a boy? A girl? (Something else?) - points towards a
+building at one end of the parking lot. Smoke is rising in thick clouds from
+it (how come you didn't notice that before?) and there are what look like
+flames licking at one of the upper windows.
+        The kid - apparently not one for keeping his/her voice down when
+he/she has the opportunity to screech instead - wails “My
+mummeeeeeeeeeeeeee!”  and points to the building. “She's insiddddddddddddde!”
+        Your usual response at this point would be to shrug your shoulders,
+say, “Yes? And?”  but this time you stop yourself. There's someone trapped in
+there. In a burning building. There's you and the kid here. And, as sheer bad
+luck would have it, the rest of the parking lot is empty.
+        “Hellllllllppppppp!!!”  wails the kid, tugging at your hand and
+trying to pull you towards the burning building when every instinct is
+prompting you to run in the other direction.
+
+West to the burning building, east to the rest of the world.
+
+> give mints to kid
+You offer the mints to the kid. He/she takes one look at them and you can see
+the indecision on his/her face: take the mints and quieten down a bit, or
+keep on wailing?
+        Fortunately, sheer greed overcomes the kid's desire to keep wailing
+and he/she snatches the mints and crams them all into his/her mouth in one
+go.
+        Your pleas to "go steady or you'll choke" go unheeded.
+
+[Your score has just increased by 1 point.]
+
+> w
+You start towards the burning building, the kid running alongside you then
+falling behind.
+        Thank heavens for that! The last thing you felt like doing was
+dragging a wailing kid into a burning building-
+        Actually, the last thing you feel like doing is going into a burning
+building full stop, but you're resigned to it now. You're determined, cool,
+calm and confident - and, above all, terrified.
+        Well done, Suzy Loman. You're about to become a hero after all.
+        Ignoring your shaking legs, you open the door to the building and
+hurry inside...
+
+[MORE]
+
+SSS Ground Floor SSS
+
+[Score: 1/22] [Turns: 2] [Locations visited: 1/5]
+
+The fire hasn't got down to this part of the building yet (you're guessing it
+must have started at the top), but it's still fiercely hot and the smoke is
+so bad you feel like you're damaging your lungs permanently just by being
+here.
+        This part of the building looks to be some kind of reception area
+judging from the desk and whatnot, but the smoke is making it hard to see.
+        A staircase against the north wall leads up to the first floor of the
+building; next to it yawns the mouth of an open elevator.
+
+EXITS: East, Up.
+
+With a clang!!! the door swings shut. Ouch! Don't they oil the hinges in this
+place?
+        Anyway, the reception area appears to be deserted. Is the building
+closed? Has everyone already abandoned ship? Either way, the only one here is
+you (and you're really wishing you weren't here).
+
+> wear tissue
+You quickly wrap the tissue around your head and tie it at the back of your
+neck. It probably makes you look like an urban terrorist or something similar
+but at least with the tissue covering your mouth and nose, it's keeping some
+of the smoke away.
+
+[Your score has just increased by 1 point.]
+
+> open door
+You open the door. You're not sure whether this will make much difference but
+it ought to at least let some of the horrible cloying smoke out.
+
+[Your score has just increased by 1 point.]
+
+> wave hands
+You wave your arms around frantically, making you appear to a) be mentally
+deficient and b) doing some impromptu dance routine, but it serves its
+purpose and clears the smoke for a few brief moments. Nothing much about the
+reception area has changed, however, aside from the vase you see perched on
+the edge of the desk. The smoke-coloured vase. Hmmm...
+
+[Your score has just increased by 1 point.]
+
+> get vase
+You take the vase.
+
+> x desk
+A receptionist's desk, complete with computer (currently off), telephone, a
+very uncomfortable looking chair and a cluttered mess of files. Attached to
+the wall behind it is a small fire extinguisher.
+
+> get fire extinguisher
+You take it from behind the desk.
+
+[Your score has just increased by 1 point.]
+
+> get chair
+You take the chair from behind the receptionist's desk.
+
+> u
+
+SSS First Floor SSS
+
+[Score: 5/22] [Turns: 10] [Locations visited: 2/5]
+
+The far end of this floor (some kind of large, open storage room by the look
+of things) is burning fiercely. Smoke and fire fight it out, unimpeded by the
+dismal spray of water coming from the overhead sprinklers. To one side,
+several boxes and sheets of papers are aflame. The stairs to the next floor
+look to be at the far end and you'll need to pass through the flames to reach
+them.
+
+EXITS: North, Down.
+
+No one here? From the general look of disuse, you're guessing no one has
+worked in this place for quite some time. Maybe years. Which begs the
+question: why is the kid's mother in here?
+
+> fill vase
+You hold it under the sprinklers for just long enough for it to fill with
+water.
+
+> x sprinklers
+For a guess, these are the cheapest, naffest sprinklers on the market. The
+sort of things bought by companies to reassure staff that health and safety
+is high on the agenda when in fact the only thing on the agenda is keeping
+spending down to a minimum (even if it means making offices a potential fire
+hazard). They're puttering along right now, emitting such a dismal amount of
+water that they'd be hard-pressed to put out  a candle, let alone a full
+blown fire. Could probably do with a good bash or two.
+
+> drop chair
+You drop the chair.
+
+> stand on chair
+You stand on the chair.
+
+> hit sprinkler
+You reach up and give the nearest sprinkler a good bash or two. This seems to
+have the effect of unblocking it and it shoots water out a bit faster than
+before. Still only just about powerful enough to douse a single candle flame
+but it's an improvement on before anyway.
+        As you do this, you notice a ceiling panel to one side appears to be
+loose.
+
+[Your score has just increased by 1 point.]
+
+> x panel
+A ceiling panel, now almost pulled right off the ceiling (sometimes, you're
+stronger than you look). Behind it, you can see a dark crawlspace.
+
+> open panel
+You grab hold of one edge of the panel and, without meaning to, give it a
+vicious wrench. It almost comes away in your hand.
+
+> put fire extinguisher in crawlspace
+Figuring that you might well need the fire extinguisher again, you shove it
+into the crawlspace above you (and then hold your breath for a few moments
+and thank your lucky stars that it doesn't come falling back out and brain
+you).
+
+> put vase in crawlspace
+Careful not to spill its contents, you push the vase up into the crawlspace.
+
+> enter crawlspace
+It's going to be quite a struggle getting into the crawlspace, even for
+someone as petite as you, but it's certainly safer than trying to pass by all
+those flames, so you grab hold of the edge of the panel, hoist yourself up
+and...
+        Several moments of struggling around in the dark crawlspace ensue.
+Moments mainly beset by worry that the fire might spread here, that you're
+taking one heck of a risk doing this sort of thing, that you're just asking
+for trouble by being here...
+        And then you push upwards and emerge from the crawlspace onto the
+second floor of the building, even managing to retrieve everything that you
+pushed into the crawlspace beforehand.
+        Phew! Wasn't so bad after all.
+
+[Your score has just increased by 3 points.]
+
+[MORE]
+
+SSS Second Floor SSS
+
+[Score: 9/22] [Turns: 20] [Locations visited: 3/5]
+
+The flames aren't as fierce on this floor as they were on the one below, but
+the entire west wall is still alight and the heat is enough to make you feel
+faint. A locked window nearby does little to help air the place out. Several
+desks comprise the main area of this floor and there are a row of filing
+cabinets lining the end of the room to the north. You don't see any sign of
+the woman who was screaming but she must be here somewhere. There are no
+other floors after this. Set into the floor, you see a crawlspace leading
+down to the first floor.
+
+EXITS: North, south, down
+
+Even before you reached this floor, you could hear the screams. And the
+crashes… Is there a fight going on up here? But why would anyone be fighting
+in a burning building?
+        The screams, and the crashing sounds, seem to be coming from the far
+end of the room, behind a group of filing cabinets. And then, between one
+moment and the next, they're gone. Deadly silence - aside from the fire -
+descends on the second floor.
+
+> use fire extinguisher on fire
+You aim the fire extinguisher at the flames, press the button and shoot a jet
+of foam from it.
+        The foam hits the flames and extinguishes a good number of them, but
+the extinguisher starts making a sad little spluttering sound before it's put
+them all out. The foam stops shooting and begins to dribble out, until in the
+end it's barely even dribbling.
+        But at least you've put some of the flames out.
+
+[Your score has just increased by 1 point.]
+
+> smash window with fire extinguisher
+You heft the fire extinguisher above your head and slam it into the window
+and
+
+ker-ack!!!
+
+it shatters!
+        (The window, that is, not the fire extinguisher.)
+        This lets in a much needed breeze and lets out some much unwanted
+smoke; on the down side, your grip on the fire extinguisher clearly wasn't
+tight enough and it continues on through the now broken window and drops down
+into the car park below with an audible thud. Just as well the kid has
+scarpered or he/she might well have a fire extinguisher-shaped dent in
+his/her head by now.
+
+[Your score has just increased by 1 point.]
+
+> n
+As you head to the north, there is a sudden flash of light, a cry of pain,
+and then a crash heay enough to shake the entire building.
+
+[MORE]
+
+SSS By The Filing Cabinets SSS
+
+[Score: 11/22] [Turns: 23] [Locations visited: 4/5]
+
+The fire (or maybe something more sinister) has caused the roof of the
+building to collapse and a huge beam has fallen, pinning to the floor…
+someone very strange indeed. For a start she's blue in colour. Not bright
+blue, but certainly like nothing you've ever seen before, and her eyes glow
+with some kind of inner light. And she's wearing glistening silver body
+armour with ragged tears in the side and burn marks down the front. The
+carpet about her is wet with a substance that, while green, you would bet
+your bottom dollar was blood.
+        The air is smoky here, though the fire has yet (fortunately) to
+spread this far.
+
+EXITS: South.
+
+A weapon - you once saw an historical film set in Atlantis so you recognise
+it as a trident - lies on the floor by the woman and crackles with electrical
+power, charring the carpet around it.
+
+"…help me…" gasps the woman, coughing up green blood (green?). "…free me…"
+        You hesitate. You didn't expect this at all. You expected the kid's
+mom, probably some stressed middle-aged woman with a permanently harassed
+look on her face who would carry an endless supply of tissues and sweeties
+for her darling son or daughter. She's probably also considering lying in a
+burning building pinned to the floor by a beam as a peaceful respite from the
+little brat. You didn't expect… this.
+        "What are you?" you ask, then wince a little at your rudeness and
+manage to change it to "Who are-"
+        "…no time…" the woman says. She gasps and a pendant at her throat,
+previously shining with a bright yellow light, begins to dim. "…i see my
+messenger found you… good..."
+        "Messenger?"
+        A sudden sharp pain, like an ice pick, strikes you in the head and
+you see the kid, then you see his/her features shifting and changing,
+becoming taller, older… bluer.
+        "…my messenger… found you… brought you to me…" The woman looks at
+you. "… now free me… there's no time to explain now… but later…"
+        You start to ask "free you how?" but the pendant dims further,
+becoming a dull brown in colour, and the woman's head sags to one side. She's
+either unconscious or just doing a really good impression of somebody who's
+unconscious. Considering she's in a burning building and pinned to the floor,
+you're betting the former.
+
+[footnote 1]
+
+> x pendant
+If you hadn't seen the pendant change from a bright yellow colour to a murky
+brown one, you'd probably just assume it was some kind of jewellery. But it's
+clearly more than that.
+        You wonder if it has anything to do with the woman being here... and
+that hole in the ceiling.
+
+[Your score has just increased by 1 point.]
+
+> x hole
+It's several feet wide and looks, in your humble opinion anyway, like
+something smashed through the ceiling from above. And if something did smash
+through the ceiling from above, they'd probably end up landing...
+        Right where the blue woman is lying.
+
+[Your score has just increased by 1 point.]
+
+> kiss woman
+Hopefully you're trying this to give her the Kiss of Life (if you're trying
+to kiss her for any other reason, shame on you), but unfortunately what's
+wrong with her - namely all the blood and the huge beam pinning her to the
+floor - isn't going to be fixed with a simple kiss. But at least you tried.
+
+[Your score has just increased by 1 point.]
+
+> put tissue on woman's face
+Realising the woman might well die of smoke inhalation before the flames get
+to her, you quickly cover her mouth with the tissue. Hardly ideal, but it
+should help a bit.
+
+[Your score has just increased by 1 point.]
+
+> give water to woman
+You lift the woman's head up slightly and pour some water into her mouth
+(hoping that she swallows it and doesn't start choking because if that
+happens, you have no idea what to do). Fortunately, she swallows some water
+without trouble.
+
+[Your score has just increased by 1 point.]
+
+> get trident
+You stretch your hand out for it, expecting to receive a nasty jolt of
+electricity the moment you touch it… but your hand closes around the shaft of
+the trident and aside from a tingling sensation, like pins and needles, you
+take it without trouble.
+
+[Your score has just increased by 1 point.]
+
+> lift beam
+You place one end of the trident under the beam and say to the woman, "I
+don't know if you can hear me or not but I'm going to try and lever this off
+you. Crawl out when it's up, okay?"
+        The woman doesn't respond on account of being unconscious but you
+decide to go ahead anyway. What with the flames beginning to get awful close,
+you don't have a whole lot of time to come up with another plan.
+        You start putting pressure on the trident, as much pressure as you
+can. This isn't a lot. While you're hardly skinny (you eat way too many
+donuts and chocolate to ever be considered skinny), you're not especially
+large either. Or heavy. Or strong. You're just over five feet tall and, as
+your dad is fond of saying, look like a strong gust of wind would blow you
+away. It'd be a fair assessment to say you're not exactly the ideal person to
+be levering a heavy beam off a trapped woman, but unfortunately you're here
+and no super strong weight lifters are lurking just around the corner, so
+it's got to be you.
+        You throw your weight (such as it is) against the trident, hoping you
+can shift the beam to one side enough to allow the woman the opportunity to
+crawl free. At first the trident makes a creaking sound, making you worry
+it's going to snap in two, but then it crackles with electricity, flares
+painfully hot for a brief moment, there is a sudden smell of charred wood…
+and the beam throws itself to one side! And with enough force to put a
+sizeable dent in the wall as well!
+        The woman's eyes fly open as the weight is lifted off her and she
+gives a cry, sucking in several deep breaths. Now the beam is out of the way,
+you can see more of her and what you see doesn't look positive. She's got
+green blood (yes, green) splattered all over her front and legs and there's a
+gash about two inches deep in her side from which more blood is oozing. Or
+gushing actually. You're no doctor but even you can tell this isn't someone
+who's going to be walking out of the building in one piece.
+        She looks at you as if seeing you for the first time. Her mouth opens
+and closes a few times, but no words come out. Her eyes are strange, too
+narrow to be human and, also, glowing ever so slightly. "…thank you…"
+        "We have to get out of here," you say, noticing it has got a lot
+hotter in the last few moments. "The fire-"
+        "…too late for me…" The woman coughs, blood dripping from her mouth
+and onto the floor. Her eyes briefly lose focus then lock onto yours with
+force. "…but you... you can get out of here... you can..." She smiles softly.
+"Avenge me..."
+        "Huh?"
+        She extends a shaking, bluish hand towards you. "…give me your… your
+hand…"
+        You take her hand, ready to help her to her feet, but instead she
+pulls you towards her - with surprising strength for someone so close to
+Death's Door she could practically reach out and knock on it. You stumble and
+fall to your knees, almost landing on top of her. Before you have chance to
+ask what the heck she's doing, before you even have chance to think about
+what she's doing, she seizes hold of your face with one hand, whispers a
+word, and a blinding light shoots from her eyes.
+        Into your eyes.
+        "What I am, now you are," she hisses. "Find him, Suzy. Find him and
+KILL HIM!"
+        The light blocks out everything else you can see - the woman, the
+fire, everything - and you feel yourself falling, falling, falling…
+
+[Your score has just increased by 5 points.]
+
+[MORE]
+
+If you're reading this: well done! You've successfully reached the end of How
+Suzy Got Her Powers…
+        You achieved this with a score of 22 out of a maximum possible of 22.
+Got less than 22? No need to worry. The main thing is that you reached the
+end of the game and you're now well on your way to becoming a fully fledged
+superhero. Give yourself a well-deserved clap on the back and break out the
+champagne. Whether you realise it or not, the world needs you.
+
+If you want to play the game again, type RESTART.
+
+> quit
+Do you really want to quit? [Y/N]

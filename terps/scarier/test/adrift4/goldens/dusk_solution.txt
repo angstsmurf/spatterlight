@@ -1,0 +1,33 @@
+w
+l
+e
+n
+n
+x fence
+get board
+x window
+e
+s
+x mud
+x pond
+n
+n
+drop board
+se
+x wire
+x sky
+x sky
+x sky
+x sky
+s
+s
+smell
+e
+sw
+sw
+x birch
+w
+x weeds
+x evergreen
+x sapling
+x sapling

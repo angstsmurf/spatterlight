@@ -1,0 +1,74 @@
+2
+go to the stables
+talk to Janai
+saddle Oxblood
+mount Oxblood
+west
+west
+buy blueback herring from the fisherman
+east
+east
+feed the blueback herring to Oxblood
+saddle Oxblood
+mount Oxblood
+east
+fly
+fly north
+land
+talk to sailor
+rescue the man
+west
+talk to Cayrith
+east
+untie Oxblood
+north
+examine netting
+get net
+mount Oxblood
+throw net at thief
+arrest the thieves
+down
+up
+talk to the Elder
+west
+buy blueback herring from the fisherman
+catch Havasa
+question Havasa
+up
+east
+call Oxblood
+mount Oxblood
+east
+up
+fly south
+mount Oxblood
+north
+swim
+untie the hook from the net
+throw the rope at the ship
+open hatch
+down
+i
+look
+pour the bucket on the gunpowder
+up to deck
+attack the man
+call Oxblood
+west
+down
+talk to Janai
+attack the guard
+examine corpse
+get key
+unlock second cell
+unlock first cell
+up
+look
+get horn
+east
+mount Oxblood
+east
+up
+fly e
+arrest the Elder
+use the horn on the wrist

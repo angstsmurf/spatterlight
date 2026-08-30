@@ -1,0 +1,111 @@
+x boat
+get rucksack
+open rucksack
+get torch
+get notepad
+turn on torch
+u
+e
+e
+e
+open cupboard
+u
+u
+open toolbox
+get spanner
+get spark plug
+u
+open locker
+get flare gun
+get boat hook
+u
+open wardrobe
+get coat
+x coat
+wear coat
+get coat
+wear coat
+open cupboard
+x bunk
+get letter
+u
+look on table
+get log book
+x plate
+x mug
+u
+x work bench
+get weather journal
+get rags
+unlock box with key
+open box
+look in box
+get battery
+u
+x noticeboard
+x lever
+u
+look
+read log book
+read journal
+open hatch
+out
+ne
+nw
+get fuel can
+sw
+get paper
+read paper
+se
+open hatch
+in
+d
+d
+d
+d
+d
+d
+d
+turn tap
+u
+x generator
+u
+mend generator
+mend generator
+mend generator
+push start button
+u
+u
+u
+u
+pull lever
+d
+d
+d
+d
+d
+d
+d
+w
+w
+w
+fire flare
+talk to captain
+2
+talk to captain
+1
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z

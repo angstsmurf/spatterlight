@@ -1,0 +1,665 @@
+Loading game...
+
+A Witch Tale
+
+A Witch Tale
+
+by Ðan (dan_blazquez@hotmail.com)
+with ADRIFT 4 (http://www.adrift.org.uk)
+
+version 1 / OddComp
+
+Before I begin my story...
+
+~
+
+Objects and characters that I can examine and interact with appear bold.
+
+I can [talk] to characters of course. I can ask specifically about something
+if I [ask (character) about (subject)]. I may have to [say (something)] out
+loud, although I hope not. Really though I would much rather be one of those
+silent protagonists. Ha! That would never happen.
+
+It's always a good idea to [examine myself] every now and then, as well as
+checking my [inventory] of collected stuff. It may help to [clear] the screen
+if things get a bit bogged down.
+
+So, ready then?
+
+Originally I wanted to become a painter. Something about the etching of
+lines, the blending of shades, the outpouring of soul... In actuality, I
+can't paint a thing. I won't even try. With my luck I'd drown in the paints
+or choke on the brush. Since I can remember, I've been doomed with my
+klutziness and general ability to create wild turmoil out of the most
+peaceful situations unintentionally. Everyone tells me it's because of my
+purple eyes.
+
+Things didn't quite turn out on the path of the artist, so after a long and
+arduous debate with myself I concluded that I was destined to take any job
+that came my way. So - I became a waitress.
+
+more >
+*   *   *
+
+Surely I looked ridiculous as I wobbled under the large stack of plates and
+silverware that I had balanced carefully on my head; with my hair falling
+down past my eyes and my hands unable to leave the stacks of china without
+sending it all down in a tumble. I blew a breath and my hair parted to create
+a little window so that I could see again.
+
+That was when I tripped. My heart jumped and I almost managed to catch myself
+until my hair dropped back over my face and I teetered off to one side,
+sending the enormous stack crashing down in a symphony of rattles and bangs.
+I fell against the wall, which caused a shelf of glasses and cups to smash on
+the floor and set off a rather interesting chain reaction of mass destruction
+that I thought was utterly totally completely impossible, leaving the entire
+pub in the nastiest state imaginable.
+
+I brushed the hair out of my face, surveyed the damage, and winced.
+
+more >
+
+Needless to say, there was trouble. The rosy-cheeked and hen-shaped owner,
+Lenna, had shed her fictional feathers and transformed into a rhinocerous
+with her rage. A great shouting ensued after which it was decided that my pay
+would be docked, I'd have to stay overnight to clean it all up, and I would
+still rather be a painter. Characteristic of my relentless streak of  bad
+luck, and probably caused by my cursed corneas.
+
+By the time the ruckus had subsided and I was left alone, a storm outside had
+kicked into full gear. I was in the pub with a crushing load of cleaning to
+do and in low spirits. On this night something peculiar will happen to me, as
+you will find out. It's a wonderful thing to happen, too, and really it
+changes everything! But anyway... where was I? Oh, yes -
+
+more >
+
+Lenna's Pub
+I'm in the pub in the wake of my latest mistake. Broken dishes are scattered
+across the floor. Shelves have unhinged from the walls and lay haphazardly
+among the tables, which along with the chairs are also upturned and spun
+around every which way. The floor is wet, too - soaking actually. I don't
+remember exactly why... something to do with a water leak in the kitchen, I
+think. The worst of it though is the silverware. Somehow silverware is
+everywhere, even in places I won't dare to look. I didn't think that much
+silverware could ever be contained in a kitchen, but apparently I'm wrong.
+
+There is a gloomy looking broom propped up against one of the tables, a
+dreadful reminder of the task on hand.
+
+> take broom
+There really is no point delaying the job any further, although I had spent
+the last few minutes trying to prove otherwise. I grab the broom.
+
+> clean floor
+Between the patting drops of rain I hear a distinct knocking at the front
+door. How unusual. I wait hesitantly, and there it is again – a distinct rap.
+I go to the door, hear the knock again, and promptly open it.
+
+At first I couldn't tell exactly what was standing in front of me. It looked
+like a lump in the dark, slightly shorter than myself. As my eyes adjust I
+see it's a short, stocky figure wearing some sort of cloak.
+
+“Hello, child,” the figure rasps in a croaky female voice that sounds like an
+old frog. “May I step in for a moment and dry off?”
+
+The figure raises her head and I see that it is indeed a woman, and an old
+one at that. A large, stocky nose protudes from a weather-worn face thats
+wrinkled like a prune. Her eyes seem small and I can't see her other features
+through the dark of the night and curtain of thick raindrops.
+
+I thought about it and decided I had nothing to lose: “Sure.”
+
+more >
+
+She comes inside and removes her cloak. I can see her face now, her large
+nose protruding from weathered skin is her greatest distinction, but its her
+eyes that catch my attention – they're purple. Like mine.
+
+“I apologize, dearie,” the old woman says, “But that rain is falling hard for
+a old hag like me.” She looks at me for a moment and continues, “Ah, the
+hexenmark is strong in you, but let me not get ahead of myself. My name is
+Ragoria Hobben. May I sit and rest my legs a moment, dearie?”
+
+She sits on one of the tables while I introduce myself and explain to her my
+hopeless situation. I stop mid sentence and, confused, ask her about the
+hexenmark.
+
+"Ha ha!" Ragoria bursts, "If you had known, I tell you what, then you would
+not be working at this boring old place!" Her laughter subsides, and I'm
+still baffled. "Well, someone has to tell you, dearie, and it may as well be
+me. I'm not crazy, and you are a witch."
+
+more >
+
+"It's that deep night in your eyes, the purple - It's witch's blood inside
+you. And I know, dearie, because I am one myself," Ragoria finishes proudly.
+I am still dumbfounded as she reaches into one of the many folds of her
+poncho and withdraws (of all things) a tiny lizard.
+
+"A skitterling," she explains, and quickly tosses it at me. I swing my arms
+wildly in clumsy attempt to dodge the whizzing thing and it hits the broom,
+bursting like a firecracker into a cloud of smoke. The broom, highly
+motivated by this act, began to work on sweeping the floor as if possessed.
+
+Just like that the situation went from downright dreary to literally magical.
+In a few moments, the kitchen tools were working on their own accord while
+Ragoria and I established a meeting the following day. I was going to become
+a witch!
+
+more >
+*   *   *
+
+The rest of the night was suitably boring in comparison. Mostly I sat and
+thought about what the old witch had told me and waited anxiously for the
+morning. The brooms and mops and rags had finished cleaning up long ago,
+exploding into shrapnel when they were done. Ragoria warned me about that
+pesky side effect of the skitterlings, but I didn't care about Lenna or the
+pub or any of that anymore.
+
+When morning finally comes, I'm out the door and on my way to Ragoria's Den
+deep within Reshtaum forest. That's all the witch had said, but it should be
+enough. I follow the trail into the forest between gaping roots and giant
+trees.
+
+Forest Path
+The path cuts through a dense forest. A log has fallen over the path, covered
+in moss. A bubbling river winds around the trees, the only means across it is
+a bridge to the north. The trail forks to the west and leads towards the
+water.
+
+> west
+I take the side path where the foliage becomes very dense and the trail less
+obvious.
+
+Water's Edge
+The trail gives way to a wide river that snakes around the forest. The water
+is calm and lily pads float lazily with the light current. The bank makes
+travelling any further impossible - the only way to go is east towards the
+main path. A group of frogs are leaping and croaking and having a merry time.
+
+> examine haystack
+I begin to dig through the hay stack and what do you know! I prick my finger
+on a tiny needle. I grab it, cursing the vague explanations of the recipe.
+Hopefully this brew comes out alright...
+
+> east
+I travel east through the tangled brush and arrive at the path again.
+
+Forest Path
+The path cuts through a dense forest. A log has fallen over the path, covered
+in moss. A bubbling river winds around the trees, the only means across it is
+a bridge to the north. The trail forks to the west and leads towards the
+water.
+
+> north
+Just as I near the bridge a squeaky voice bursts into my ears: "Wot!?"
+
+An atrociously ugly head pops out from beneath the bridge, upside down. The
+troll opens its mouth wide, revealing a few straggling teeth, yellow and
+fuzzy. It jumps up from beneath the bridge to block my path.
+
+"My name is Gorpi the great troll! Are you here for that old witcher? This is
+my bridge, wot.  You may not cross, not unless you solve my riddle, wot wot!"
+
+Well this is rather unexpected. I wonder what his riddle is?
+
+> say grue
+"WOT? You got it right, witcher. Hee hee! Gorpi loves grues - wonderful
+grues, slimy gross and mucky grues, fat ones even, wot. Adds flavor. I, the
+great Gorpi, will keep my end of the bargain, witcher, so you may pass now!
+Maybe Gorpi will have another riddle for you next time, yes? Wot wot!"
+
+I surely hope he doesn't. Looking back on my luck, however, makes me think
+that the troll will have another riddle soon enough.
+
+> north
+I move north.
+
+Reshtaum Forest
+The trees tower like giants and extend everywhere. There is barely a hint of
+a trail at all, just fallen logs and boulders and the sea of trees. I can
+hear the river gurgling to the south back at Gorpi's bridge. To the north the
+trees open up into a clearing. Ragoria's den is here buried underneath the
+foliage, so I can go in as well.
+A few birds glide by overhead, squawking.
+My hair falls in my face (I get so annoyed when that happens). I brush it out
+of the way.
+
+> in
+The old crazy broad may really be a witch, but an excellent housekeeper she's
+not. Her cozy hut had a thin layer of dust over every possible surface and
+item, and the gray film is impossibly undisturbed. Stuffy old tomes fill most
+of the nooks and crannies in her den, stacked high and ready to topple at the
+slightest breeze. In the center of the circular room that makes up almost the
+entire home hangs a dim lantern, which hides the dusty film and witchy quirks
+well enough for the witch to dismiss the dust.
+
+Ragoria is at a large black cauldron that rests on a fire at the chimney. I
+watched as Ragoria began to stir her concoction with a long spoon.
+
+“So I trust that old git of a troll didn't give you too much trouble on your
+way here?”
+
+I chose not to answer, and just then a bang on the door startles me.
+
+"Seems that little fairy dragon, what was his name...? Oh yes, Leif - he's
+here! He tries to come inside almost every day, but I don't like critters in
+the house, dearie. Anyways," she says, taking a long breath.
+
+more >
+
+"I have a task for you, dearie," she continued. "On that table is a recipe
+for a Heart's Enchanter elixir. I have started it here in my cauldron, but I
+don't have all the ingredients. Would you mind fetching them for me and
+finishing up this potion? I'm sure you can find all the items in the
+surrounding forest, dearie."
+
+I agreed. The proposition of making a witchy stew is enticing. When would I
+get to the good stuff, skitterlings and spells? That's what I would like to
+know. So much for becoming a painter, and forget being a waitress! A witch
+sounds so much more... mysterious.
+
+"I'm sure you have a lot of questions my dear, and I'll be here to answer
+them. What would you like to know about, hmm? Is it magic and witches? The
+cauldron recipe? The little fairy dragon, Leif? Or more about that tricky
+troll, Gorpi? Let's have a talk, unless you'd like to get on your quest right
+away. Just remember to stop by and talk to an old hag, okay dearie?"
+
+> look
+
+Ragoria's Den
+There's dust everywhere, and no use trying to brush it around - it's stuck
+onto everything. Stuffy old tomes fill most of the nooks and crannies in her
+den, stacked high and ready to topple at the slightest breeze. The only exit
+is the door that leads out to the forest.
+
+A recipe is rolled up like a scroll on the table, dusty as everything else.
+Ragoria the old witch is here, stirring the contents of her cauldron.
+
+> take recipe
+I take the dilapidated scroll from the table. Ah, my first foray in
+witchiness!
+
+> take thought
+Without thinking too much about it, I grab the idle thought right from
+Ragoria. I don't really know how I do it, but it works. I now have, of all
+things, and idle thought in my pocket.
+
+> ask ragoria about magic
+"Magic has been around since the world itself. It is a part of the world, in
+fact, tied to it just like the trees and mountains and sky. Much is known
+about magic now, but it was not always so. It took generations for it to
+emerge, and the first ones who figured out its existence became known as the
+magi.
+
+"The magi understood that the forces of nature could be controlled, summoned
+and bent to their will. It took many years of practice, but the magi began to
+use their knowledge to summon rain, speed the growth of crops, and heal the
+sick. It continued this way for many generations, with the older magi
+becoming more adept with their power.
+
+At first, it was not known exactly why certain people could use magic while
+others could not. Eventually it became understood that there was something
+inside the body, something that was used up after casting spells. This,
+dearie, is mana - some of us have it, and some of us don't. Those who don't
+couldn't do magic no matter how hard they tried. Now this mana runs through
+you like blood, and it is this mana that makes you a magi."
+
+more >
+
+"It was always a mystery in the olden days why magi would die earlier and age
+faster than the common folk, at least until the discovery of mana. The more
+magic you use, the more of your mana stock is drained. This mana is a part of
+you just like your heart and mind, so as the mana is drained it will take a
+toll on your body. Basically, in those days magic was a double edged sword -
+it's powers could cause wonderful things, but the price was a strain on life
+itself. And then, dearie, the magi discovered that mana was in everything -
+just like magic! Mana could be harvested and used, just like drinking or
+eating. In fact, the liquid in this cauldron here is pure mana."
+
+"The magi," Ragoria continued, "Could now recharge themselves, and so the
+magi lived more healthily and continued to explore their powers. One day, a
+magi was born with deep purple eyes. Her name was Deneb, and she became the
+most powerful magi of all. Deneb studied magic furiously, and stumbled on a
+new discovery - instead of spending years learning a handful of spells, she
+was able to craft magic into objects and potions and such. That was the
+beginning of witchcraft - the art of crafting magic into a physical, tangible
+form. Deneb was the witchmother, the ancestor of all witches today. That is
+why we have these lovely purple peepers, my dear.
+
+more >
+
+"Instead of calling upon the magic herself, draining much mana in the
+process, Deneb used her mana to activate these objects that already contained
+the essence of the spell. The only catch was that the other magi were unable
+to use Deneb's trinkets - only she possessed this ability, which was linked
+to her purple eyes, of course.
+
+"So witches are a rare breed. Only female descendants of the witchmother can
+have the hexenmark, and even then it does not happen all of the time. Either
+your mother or your father must have been related to Deneb. In fact," Ragoria
+paused and crinkled her brows, making her already wrinkled face even more
+weathered looking, "I have not seen another witch in over 30 years. You may
+very well be one of the last, if not the last, witch."
+
+Interesting. Now to make some magic!
+
+> ask ragoria about clearing
+"Oh yes, that place. Just remember that things aren't always as they seem.
+Let met tell you a secret about the clearing, dearie: there used to be
+something there, but now it's gone... so what does it mean? Magic, dearie!
+Look for 3 words (at the clearing, mind you) that appear different. Put it
+all together and [say] it to reveal the secret of the clearing."
+
+Ragoria winks at me. The old hag sure knows a lot.
+Breathing in the magical air of this place, I let out a sneeze.
+
+> ask ragoria about leif
+"Leif's a cutie, but so hyper! I could never have him in here, chewing on my
+books and leaving sprite dust everywhere. He always does that when you
+[tickle] him. Just make sure not to treat him too tough, dearie, he's a
+fragile little thing."
+
+> ask ragoria about gorpi
+"Yes, I forgot to mention Gorpi last night, didn't I? That fool is always
+bothering passerbys. Crazy troll! As a word of advice, never trust anything
+that likes to eat live spiders, or grues. It's just bad karma, dearie.
+
+> out
+I move out.
+
+Reshtaum Forest
+The trees tower like giants and extend everywhere. There is barely a hint of
+a trail at all, just fallen logs and boulders and the sea of trees. I can
+hear the river gurgling to the south back at Gorpi's bridge. To the north the
+trees open up into a clearing. Ragoria's den is here buried underneath the
+foliage, so I can go in as well.
+
+A large spider sits beside a displaced rock. What a frightful creature!
+A few birds glide by overhead, squawking.
+Leif the fairy dragon is here, resting on a high branch in a tree.
+
+> tickle leif
+I grab the flying fairy dragon and began to tickle him all over. His body
+begins vibrating, he begins to squeak violently, and he curls up and sneezes
+a powdery blast of sprite dust. Ha, that was fun!
+The sounds of the forest are soothing and the air is clear and light.
+Leif the fairy dragon is here, trying to crawl under a surfaced root.
+
+> take spider
+I grab the writhing spider and dump it into one of my pockets. I can feel it
+squirming around - nasty.
+I can hear animals rustling the foliage around me.
+Leif the fairy dragon is here, flying in wild loops.
+
+> south
+I move south.
+
+Forest Path
+The path cuts through a dense forest. A log has fallen over the path, covered
+in moss. A bubbling river winds around the trees, the only means across it is
+a bridge to the north. The trail forks to the west and leads towards the
+water.
+Gorpi the troll is here, rubbing his hairy belly and making a face that
+reminds me of a sickly raison. The little bugger must be hungry. I wounder
+what he likes to eat besides grues?
+I wish that I could just finish this already and get on to learning real
+spells...
+
+> west
+I take the side path where the foliage becomes very dense and the trail less
+obvious.
+
+Water's Edge
+The trail gives way to a wide river that snakes around the forest. The water
+is calm and lily pads float lazily with the light current. The bank makes
+travelling any further impossible - the only way to go is east towards the
+main path. A group of frogs are leaping and croaking and having a merry time.
+
+One frog is acting different than the rest.
+
+> take frog
+I reach down and scoop up the frog. He doesn't seem to mind at all.
+
+> east
+I travel east through the tangled brush and arrive at the path again.
+
+Forest Path
+The path cuts through a dense forest. A log has fallen over the path, covered
+in moss. A bubbling river winds around the trees, the only means across it is
+a bridge to the north. The trail forks to the west and leads towards the
+water.
+Gorpi the troll is here, rubbing his hairy belly and making a face that
+reminds me of a sickly raison. The little bugger must be hungry. I wounder
+what he likes to eat besides grues?
+
+> give spider to gorpi
+I take the foul looking spider and give it to Gorpi, who snatches it up
+quickly and wastes no time in shoving the whole arachnid in his crooked
+mouth. I flinch with disgust and Gorpi looks up at me, a twitching leg poking
+out of his mouth.
+
+"That is so gross!"
+
+"Gorpi loves spiders! Tasty and scrumptious, wot!" After he swallows the
+dreadful thing Gorpi quickly retreats under the bridge.
+
+"Hey where do you think you're -"
+
+Gorpi pops back up, holding something.
+
+"A bottle of dragon's blood, wot! A gift for the witcher for feeding great
+Gorpi!" He hands me the bottle and I put it away.
+A loud cackle of thunder signals that a storm is on the way.
+
+> north
+I move north.
+
+Reshtaum Forest
+The trees tower like giants and extend everywhere. There is barely a hint of
+a trail at all, just fallen logs and boulders and the sea of trees. I can
+hear the river gurgling to the south back at Gorpi's bridge. To the north the
+trees open up into a clearing. Ragoria's den is here buried underneath the
+foliage, so I can go in as well.
+
+Some sprite dust has fallen on the ground.  Rain is tumbling down, turning
+this place into a bog.
+I can hear animals rustling the foliage around me.
+Leif the fairy dragon is here, flying in wild loops.
+
+> take dust
+I grab the sprite dust and almost let go when the dust makes a noise: *SMACK*
+It wouldn't be so bad if that was it, but it's not - the smacking sounds
+continue as I place the dust into my pocket, muffling it.
+A few birds glide by overhead, squawking.
+Leif the fairy dragon is here, resting on a high branch in a tree.
+
+> north
+I move north.
+
+Clearing
+The thick wall of trees opens up into a grassy clearing.  There is nothing
+here except tall grass, although it feels magical here... maybe there's
+something missing? I should ask Ragoria about this clearing, it just doesn't
+feel right. I can only go south back into the forest.  Rain is tumbling down,
+turning this place into a bog.
+I spy a rabbit running across the field, half buried in the meadow.
+
+> say i spy a tall tower
+After uttering the words, it appears right before my eyes. It's so real that
+I don't understand why I didn't see it before. I knew something fishy was
+going on in this clearing, and now the secret is revealed!
+My hair falls in my face (I get so annoyed when that happens). I brush it out
+of the way.
+
+> in
+I move in.
+
+In the Tower
+The chiseled dark stones that make up the tower are cold to the touch.
+Although it is extremely tall, there's no ladder or staircase to reach the
+top, which strikes me as strange. The tower is bare, almost empty, except for
+a haystack that is piled against the farthest wall.
+
+> look
+
+In the Tower
+The chiseled dark stones that make up the tower are cold to the touch.
+Although it is extremely tall, there's no ladder or staircase to reach the
+top, which strikes me as strange. The tower is bare, almost empty, except for
+a haystack that is piled against the farthest wall.
+
+> out
+I move out.
+
+Clearing
+The thick wall of trees opens up into a grassy clearing.  In the center is a
+stone tower that jabs at the sky. The entrance to the tower is a large open
+archway which I could go in. I can also go south back into the forest.  Rain
+is tumbling down, turning this place into a bog.
+
+> south
+I move south.
+
+Reshtaum Forest
+The trees tower like giants and extend everywhere. There is barely a hint of
+a trail at all, just fallen logs and boulders and the sea of trees. I can
+hear the river gurgling to the south back at Gorpi's bridge. To the north the
+trees open up into a clearing. Ragoria's den is here buried underneath the
+foliage, so I can go in as well.  Rain is tumbling down, turning this place
+into a bog.
+A few birds glide by overhead, squawking.
+Leif the fairy dragon is here, resting on a high branch in a tree.
+
+> south
+I move south.
+
+Forest Path
+The path cuts through a dense forest. A log has fallen over the path, covered
+in moss. A bubbling river winds around the trees, the only means across it is
+a bridge to the north. The trail forks to the west and leads towards the
+water.
+Gorpi the troll is here, freshly fed and guarding his bridge proudly.  Rain
+is tumbling down, turning this place into a bog.
+The rain begins to ease up, and now there is nothing but a light drizzle
+dripping from the forest canopy.
+
+> look
+
+Forest Path
+The path cuts through a dense forest. A log has fallen over the path, covered
+in moss. A bubbling river winds around the trees, the only means across it is
+a bridge to the north. The trail forks to the west and leads towards the
+water.
+Gorpi the troll is here, freshly fed and guarding his bridge proudly.  Rain
+is tumbling down, turning this place into a bog.
+Breathing in the magical air of this place, I let out a sneeze.
+
+> wait
+Time passes...
+The raining stops. Everything has that wet smell (you know what I mean) and
+everything is slick and slippery.
+
+> wait
+Time passes...
+I wish that I could just finish this already and get on to learning real
+spells...
+
+> wait
+Time passes...
+
+> look
+
+Forest Path
+The path cuts through a dense forest. A log has fallen over the path, covered
+in moss. A bubbling river winds around the trees, the only means across it is
+a bridge to the north. The trail forks to the west and leads towards the
+water.
+
+Some mushrooms have grown near the bridge.
+Gorpi the troll is here, freshly fed and guarding his bridge proudly.
+
+> take mushroom
+I pluck the glowing, feminine mushrooms from the soil.
+
+> inventory
+I have fabulously constructed pockets that are very, very deep. Inside them I
+have the recipe, some lumin mushrooms, some sprite dust, a bored frog, an
+idle thought, a tiny needle and a bottle of dragon's blood.
+
+> north
+I move north.
+
+Reshtaum Forest
+The trees tower like giants and extend everywhere. There is barely a hint of
+a trail at all, just fallen logs and boulders and the sea of trees. I can
+hear the river gurgling to the south back at Gorpi's bridge. To the north the
+trees open up into a clearing. Ragoria's den is here buried underneath the
+foliage, so I can go in as well.
+A few birds glide by overhead, squawking.
+Leif the fairy dragon is here, resting on a high branch in a tree.
+
+> in
+I move in.
+
+Ragoria's Den
+There's dust everywhere, and no use trying to brush it around - it's stuck
+onto everything. Stuffy old tomes fill most of the nooks and crannies in her
+den, stacked high and ready to topple at the slightest breeze. The only exit
+is the door that leads out to the forest.
+Ragoria the old witch is here, stirring the contents of her cauldron.
+My hair falls in my face (I get so annoyed when that happens). I brush it out
+of the way.
+
+> look
+
+Ragoria's Den
+There's dust everywhere, and no use trying to brush it around - it's stuck
+onto everything. Stuffy old tomes fill most of the nooks and crannies in her
+den, stacked high and ready to topple at the slightest breeze. The only exit
+is the door that leads out to the forest.
+Ragoria the old witch is here, stirring the contents of her cauldron.
+
+> mix ingredients
+"Are you ready, dearie?"
+
+I dump all the strange ingredients into the cauldron and the concoction
+sizzles for a second, and then a cloud of purple smoke erupts from the
+cauldron, blinding me. I rub my itching eyes and open them to a very
+different situation.
+
+There really is no other way to put this - I have become a tree. I can see my
+trunk emerging from Ragoria's chimney, and my roots are entangled throughout
+the house. I know this because I can wiggle them, and when I do one of
+Ragoria's windows breaks and one of my tendrils pops out.
+
+"Oops! I'm sorry, Ragoria! And what's happening anyway? This doesn't seem
+right at all..."
+
+Ragoria bolts out of her front door and looks up at me, squinting. "You look
+pretty good, dearie, but I think you must have forgotten something."
+
+more >
+
+Forgotten something? Oh no.
+
+"Did you say the magic words before you mixed everything together?"
+
+"Um... no..." I didn't know anything about some magic words! I guess that's
+why you always have to read the fine print, even if it's really really really
+fine print.
+
+But things aren't so bad. I have plenty of water, thanks to Ragoria's well
+underneath her house. The sun feels great too! And Ragoria promised to find
+me an antidote soon...
+
+more >
+
+*   *   *
+
+That's not how my story truly ends, obviously! If I was still a tree, would I
+be telling you this wonderful story right now? Of course not. But that is
+another tale for another time...
+
+THE END

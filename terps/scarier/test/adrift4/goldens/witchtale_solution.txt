@@ -1,0 +1,44 @@
+take broom
+clean floor
+west
+examine haystack
+east
+north
+say grue
+north
+in
+look
+take recipe
+take thought
+ask ragoria about magic
+ask ragoria about clearing
+ask ragoria about leif
+ask ragoria about gorpi
+out
+tickle leif
+take spider
+south
+west
+take frog
+east
+give spider to gorpi
+north
+take dust
+north
+say i spy a tall tower
+in
+look
+out
+south
+south
+look
+wait
+wait
+wait
+look
+take mushroom
+inventory
+north
+in
+look
+mix ingredients

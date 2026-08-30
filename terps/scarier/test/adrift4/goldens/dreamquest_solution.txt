@@ -1,0 +1,187 @@
+Tester
+male
+n
+examine ground
+get pebble
+n
+throw pebble at bush
+get paper
+get dagger
+n
+examine fountain
+get coin
+n
+examine statue
+get eye with dagger
+w
+examine fireplace
+examine ashes
+w
+get spade
+get cane
+e
+e
+n
+w
+look
+turn tap
+d
+look
+get brandy
+se
+look
+se
+look
+get saw
+get lantern
+nw
+nw
+u
+cut cane with saw
+buy rum
+give rum to perry
+e
+s
+s
+s
+s
+s
+e
+open locker
+get sandwich
+get rod
+w
+w
+open lock with boat key
+w
+w
+w
+u
+look
+get oil
+d
+e
+e
+e
+fill lantern with oil
+e
+n
+n
+n
+e
+ne
+look
+use rod on handle
+sw
+w
+w
+look
+use cane on ladder
+u
+examine nest
+get sparrow
+d
+e
+n
+w
+u
+look
+open wardrobe
+get coat
+wear coat
+drink brandy
+d
+e
+e
+look
+give sparrow to gavin
+u
+look
+examine telescope
+get lens
+d
+w
+n
+e
+look
+dig grave with spade
+d
+look
+get shield
+u
+w
+n
+give sandwich to dork
+n
+fix bridge
+n
+w
+use monocle
+n
+n
+n
+get bar
+s
+put bar in lava
+n
+melt chains with bar
+s
+e
+n
+get horn
+s
+e
+blow horn
+e
+e
+give ruby to jeziah
+w
+n
+n
+north
+north
+open door
+n
+n
+w
+w
+w
+s
+get arrow shaft
+n
+use lens on ice
+e
+e
+n
+use arrow on sharpener
+e
+get cutter
+u
+e
+press bear tile
+w
+d
+s
+turn round dial
+turn round dial
+turn round dial
+turn round dial
+turn square dial
+turn square dial
+turn square dial
+turn triangle dial
+turn triangle dial
+pull handle
+d
+open coffin
+throw water at victor
+attack victor with arrow
+use cutter on finger
+w
+w
+w
+n
+examine sun
+point shield at sun
+e
+give finger to jeziah

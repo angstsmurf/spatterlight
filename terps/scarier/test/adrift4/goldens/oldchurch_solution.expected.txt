@@ -1,0 +1,188 @@
+Loading game...
+
+The Old Church
+
+It's a hot summer's day and you are out driving. Along the road you see an
+old church. The church-yard looks peaceful with old trees giving shadows and
+coolness. You stop to take a break.
+
+Churchyard
+You stand in front of an old stone church. The front door is open. Old
+gravestones are scattered in the grass. Under an oak in the corner of the
+churchyard there is a stone bench. It seems perfect for a picnic. You keep
+your provisions in a white plastic bag.
+
+> in
+You move in.
+
+Church Porch
+The porch is a cool room with stone floor and one small window. Here you meet
+a man repairing something in a corner. It's the sexton. To the north there is
+a toilet. You can go up to the tower, east to the nave and out to the
+churchyard.
+
+> u
+You move up.
+
+Tower
+You stand in a low room between the porch and the bells. The only light comes
+from a small window. Unfashionable or damaged furniture and movables are
+stored here. A door to the east leads to the gallery and the stairs down to
+the porch.
+
+> e
+You move east.
+
+Gallery
+The gallery is a balcony in the west part of the nave. From here you have a
+good view over the church interior. The gallery is dominated by a beautiful
+old organ for church music.
+
+> examine organ
+You read a sign telling: "Gift from Axel Gyllenpil 1684". Then you hear the
+sound of someone playing the organ. You didn't touch it - and there is noone
+else there.
+
+> w
+You move west.
+
+Tower
+You stand in a low room between the porch and the bells. The only light comes
+from a small window. Unfashionable or damaged furniture and movables are
+stored here. A door to the east leads to the gallery and the stairs down to
+the porch.
+
+> d
+You move down.
+
+Church Porch
+The porch is a cool room with stone floor and one small window. Here you meet
+a man repairing something in a corner. It's the sexton. To the north there is
+a toilet. You can go up to the tower, east to the nave and out to the
+churchyard.
+
+> e
+You move east.
+
+Nave
+The nave is a rather small room with walls plastered in white. Chandeliers
+are hanging from the vault. The pews and the pulpit are painted in blue with
+gilded decorations. Beside the door, under the gallery,  there is a table
+with souvenirs. To the east you see the choir. The door do the porch is to
+the west. There's also a door to the north.
+
+> e
+You move east.
+
+Choir
+The small choir is a narrow room dominated by a large altarpiece above the
+altar. The picture represents the crucifixion of Christ and is painted by an
+italian artist. It was donated to the church by Axel Gyllenpil in 1684,
+according to a small sign on the wall. From here you can go west to the nave
+or south to a chapel.
+
+> s
+You move south.
+
+Chapel
+You are in an chapel with aristocratic weapons and epitaphs. There's a
+tombstone lying on the floor. It's a 17th century tombstone made of
+limestone. A relief shows a man and a woman. Between them you can see an
+aristocratic shield showing two crossed arrows. In a corner there is a steep
+staircase.
+
+> examine tombstone
+A semi transparent creature appears - a ghost. It's a fat man in oldfashioned
+clothes. His embroidered shirt has a lace collar and he wears high leather
+boots. The ghost says: "My name is Axel Gyllenpil. Please help me to find my
+sword." (Before you ask anything else, it would be appropriate to ask him
+about family matters).
+
+> d
+You move down.
+
+Crypt
+The crypt is situated beneath the chapel. The room is filled with coffins
+piled up on each other. It's dark and musty here, but comparatively clean and
+tidy.
+
+Also here is a sword.
+
+> take sword
+You take the sword. By accident you drop the plastic bag and a piece of
+cheese falls out, the remains of your food. You take up the bag and the
+cheese too.
+
+> u
+You move up.
+
+Chapel
+You are in an chapel with aristocratic weapons and epitaphs. There's a
+tombstone lying on the floor. It's a 17th century tombstone made of
+limestone. A relief shows a man and a woman. Between them you can see an
+aristocratic shield showing two crossed arrows. In a corner there is a steep
+staircase.
+
+> n
+You move north.
+
+Choir
+The small choir is a narrow room dominated by a large altarpiece above the
+altar. The picture represents the crucifixion of Christ and is painted by an
+italian artist. It was donated to the church by Axel Gyllenpil in 1684,
+according to a small sign on the wall. From here you can go west to the nave
+or south to a chapel.
+
+> w
+You move west.
+
+Nave
+The nave is a rather small room with walls plastered in white. Chandeliers
+are hanging from the vault. The pews and the pulpit are painted in blue with
+gilded decorations. Beside the door, under the gallery,  there is a table
+with souvenirs. To the east you see the choir. The door do the porch is to
+the west. There's also a door to the north.
+
+> n
+You move north.
+
+Vestry
+The vestry is a kind of office in the church. Here the priest changes clothes
+and waits before the sermon begins. You see a table and chairs, and some
+chests and cupboards for storing silver and textiles. A mouse is sitting on
+the floor.
+
+> give cheese to mouse
+You offer a piece of cheese to the mouse. She comes towards you and eats the
+cheese. Now she starts to talk:
+
+"My parents told me that our ancestors remembered Axel Gyllengrip as a cruel
+man. Once he killed a servant with that damned sword. He can't stand the
+sword after that. It reminds him of the servant he once killed. That's why he
+haunts our church. Now he treats me and the staff in the church as his
+servants. So I put the sword in the organ, but Axel found it and throw it
+into the crypt. He wanted to get the sexton's attention, but got none. He
+needs blessing and forgiveness.
+
+ [Press any key to continue]
+
+The vicar and the sexton can't handle this. I must do something. Maybe I
+should tell the vicar everything. We could have a sermon in the chapel for
+Axel and the servant. Axel shouldn't see the sword anymore. We could send it
+to the Historical museum, where it could be kept forever. Then Axel might
+find peace at last."
+
+"What an excellent idea!", you say.
+"Then, please give me the sword!", the mouse says.
+
+> give sword to mouse
+You give the sword to the mouse. She says: "Thank you. Let's hope for the
+best. You will hear from me soon."
+You leave the church and go home. Some times later you get a letter and read:
+
+Dear church visitor,
+Axel Gyllenpil has come to peace after a sermon held in the chapel. We have
+sent the sword to the Historical Museum. Thank you for your kind help.
+
+Sincerely yours
+The church mouse

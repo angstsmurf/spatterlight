@@ -1,0 +1,112 @@
+look
+take tiger
+take chardonnay
+take whiskey
+x tv
+take bud
+x stand
+take walkers
+look under stand
+x sofa
+take fosters
+take becks
+take crumbs
+n
+put all in bin
+take bin
+s
+x stairs
+take tissues
+put tissues in bin
+up
+make bed
+look under bed
+look behind dresser
+read letter
+w
+sit on toilet
+take cleaner
+put cleaner in toilet
+take toilet brush
+clean toilet
+x shower
+pull knob
+push knob
+look
+take watch
+wear watch
+take t-shirt
+wear t-shirt
+take jeans
+wear jeans
+take socks
+wear socks
+take trainers
+wear trainers
+take bin
+take dirty clothes
+take unrolled toilet paper
+put paper in toilet
+flush toilet
+put dirty clothes in hamper
+e
+d
+look behind sofa
+put tile on shelf
+n
+x block
+x baskets
+take vegetables
+put vegetables in bin
+x counter
+x sink
+take fairy liquid
+take cloth
+turn on tap
+put fairy liquid in sink
+wash dirty dishes
+x right drawer
+take drying-up cloth
+dry clean dishes
+x lower right cupboard
+open lower right cupboard
+take saucepan
+x upper right cupboard
+open upper right cupboard
+take tin can
+x left drawer
+take can opener
+open tin can with can opener
+put soup in pan
+press on
+put saucepan on hob
+x hob
+x panel
+move pan
+press off
+w
+x table
+take paper towels
+x paper towels
+put paper towels in bin
+n
+take watering can
+e
+x hose
+turn on hose
+put water in watering can
+e
+take pizza
+x pizza
+put pizza in bin
+dump bin in wheelie
+x large box
+take hammock
+w
+w
+tie hammock to mulberry tree
+tie hammock to apple tree
+s
+water palm
+e
+water plants

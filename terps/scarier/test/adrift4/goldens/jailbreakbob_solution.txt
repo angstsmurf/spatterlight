@@ -1,0 +1,39 @@
+# jailbreakbob.taf (ADRIFT 4.00) -- WINNING walkthrough.
+# RUNNER-PROVED 2026-08-30: the real 4.00 Runner (run400.exe under Wine)
+# reaches the same "woo-hoo!" ending from this route; transcript
+# ~/adrift-battle/runner/wine/pfx/drive_c/adrift/Adrift_2_jailbreakbob_win.txt.
+# The earlier "UNWINNABLE" verdict (death golden) was a .taf-reading error:
+# task 35's NPC move index is 1-based, so leaving the dining hall westward
+# with the yard pass puts Hoggins in YOUR CELL, where events 0/1 then run
+# the comb request -> coin -> prank call -> disarmed guard -> gun -> gate.
+look under bed
+hold nose
+x bed
+n
+throw ferret
+ne
+smash drawer
+sw
+w
+e
+s
+z
+z
+z
+z
+z
+z
+give comb to hoggins
+talk hoggins
+talk hoggins
+get coin
+n
+w
+sw
+use phone
+insert coin
+4
+ne
+look
+get gun
+n

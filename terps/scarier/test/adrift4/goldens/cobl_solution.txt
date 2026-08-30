@@ -1,0 +1,107 @@
+3
+n
+take cup
+look in bin
+search rubbish
+look in rubbish
+take medicine
+s
+get water from pond
+e
+talk to mad cat lady
+give medicine to mad cat lady
+talk to mad cat lady
+give water to mad cat lady
+w
+s
+e
+e
+s
+take key
+n
+w
+w
+n
+e
+give key to mad cat lady
+score
+e
+look
+i
+take rope
+look in sofa
+look under sofa
+look behind sofa
+i
+w
+w
+w
+n
+x golden trolley
+s
+s
+s
+talk to scary mumbling man
+n
+n
+e
+look
+score
+talk to scary mumbling man
+i
+score
+n
+e
+open dumpster
+take candelabra
+tie rope to candelabra
+score
+i
+look
+look in dumpster
+x candelabra
+take candelabra
+i
+tie candelabra to rope
+score
+i
+w
+s
+talk to ollie
+look under bench
+give bindle to ollie
+score
+talk to hobo
+score
+s
+e
+e
+talk to shop guy
+w
+w
+w
+w
+talk to shop gal
+score
+e
+n
+e
+e
+e
+x cat
+talk to mad cat lady
+w
+w
+w
+n
+x cat
+s
+e
+e
+e
+score
+w
+w
+talk to scary mumbling man
+n
+score

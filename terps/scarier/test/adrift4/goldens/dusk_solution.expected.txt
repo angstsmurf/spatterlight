@@ -1,0 +1,361 @@
+Loading game...
+
+As you walk down the dirt road at dusk you hear the trilling of peepers. It's
+a familiar sound.  The sound of summer evenings in the northeast. The tree
+frogs that produce the noise might as well be magical creatures, however.
+You've heard them since you were a child, but never seen one.
+
+Sometimes you've tried to locate the sound, listened, walked, stopped to
+listen again. But as soon as you drew near, the peepers fell silent, leaving
+you to search dark branches in vain.
+
+Is this the evening you finally glimpse one of the mysterious singers? You
+decide that wil be your goal. To find one of the mysterious tree frogs.
+Tonight, amid the chorus, a single trilling voice seems to stand out.
+Listen.
+
+A WALK AT DUSK
+An interactive essay (c) 2005 by Eric Mayer [version2]
+Caution: If you haven't played this game before please type "About"
+
+The Dirt Road
+A country road.  Hard packed dirt. You can feel embedded pebbles beneath
+your worn out running shoes.  To the east the undergrowth is impassable but
+there is a field to the west. The road runs north and south.
+
+> w
+You move west.
+
+The Field
+The field, west of the road, is planted in timothy and forms a glimmering
+rectangle bounded on all sides by dark masses of trees.  Did a pale shape
+move, near the shadows at the edge of the field? Or was it a trick of your
+eyes. Perhaps your vision is not quite adjusted to the dark.
+
+> l
+The field, planted in timothy, forms a glimmering rectangle bounded on all
+sides by dark masses of trees.
+
+Now pale shapes separate themselves from the shadows. Three deer. One lifts
+its head from grazing, then all three leap  away, on legs which look
+impossibly long and fragile. They seem to bound in slow motion, yet they are
+gone in an instant.
+
+> e
+You move east.
+
+The Dirt Road
+A country road.  Hard packed dirt. You can feel embedded pebbles beneath
+your worn out running shoes.  To the east the undergrowth is impassable but
+there is a field to the west. The road runs north and south.
+
+> n
+There's just enough light left in the sky for you to see your way but the
+vegetation all around has been reduced to dark shapes.  You've never been any
+good at identifying wild flowers or plants or trees anyway, even though
+you've lived among them your whole life.
+
+For the most part, the shapes or leaves or petals, do not suggest a verbal
+label which you can place on what you're seeing. Plants don't care about
+their names, why should you?
+
+The Dirt Road
+The road is nothing more than a narrow passage, flanked by utility poles,
+running north and south between walls of dark undergrowth. The surface
+catches faint illumination from the fading light in the sky.
+
+> n
+You move north.
+
+The Dirt Road
+The north/south road turns east. To the west and north a plank fence which
+appears to be still under construction prevents you from wandering into
+someone's backyard. Undergrowth blocks movement in other directions.
+
+> x fence
+A shoulder high wooden fence. A formidable barrier.  Picket fences seem to be
+a thing of the past, let alone the unfenced yards you and your friends
+wandered through as children.
+
+On second glance the fence isn't under construction but merely falling apart.
+ Already a board has come loose.  You see it lying on the ground.
+
+> get board
+You manage to pick the board up. It's long but light and easily carried under
+one arm.
+
+> x window
+You squint at the window. You can make out a shape.  The silhouette of a cat,
+seated on the sill, no doubt oblivious to the television, looking out into
+the night instead, at you.
+
+> e
+You move east.
+
+The Dirt Road
+The road branches just before it meets a stream. You can only take the north
+branch, through a stand of hemlocks,  because what used to be a small bridge
+to the east has long since crumbled away.  To the south a footpath breaks
+through the undergrowth.
+
+> s
+As you step onto the path you hear the croaking of bullfrogs. Almost
+instantly followed by silence.  Your shoes squelch down into mud.
+
+Path
+The path diminishes to a rut before ending at a  pond. The stream which ran
+beside the road has vanished into a marsh filled with tall grass and
+cattails.
+
+You think about the trilling you heard earlier and realize that if you want
+to locate the hidden singer you'll have to listen often as you walk.
+
+Are you any nearer to it it now, or further away?
+
+Listen.
+
+> x mud
+Glancing toward your feet you see what look like paw prints in the mud.
+Bending down you can make out what you're pretty sure must be deer tracks.
+But you also see some much larger indentations. Made by large paws. Too
+large, you think, to have been made by a dog.
+
+A bear perhaps.
+
+You're not sure you like the idea of being out on a dark path frequented by
+bears.
+
+> x pond
+The surface of the water is a glistening black mirror which reflects nothing
+but the night. The bats are what draw your attention. They must be preying on
+insects near the surface. You see the bats circle, then swoop down, or glide,
+or simply fold their wings and plummet like broken kites. At the last instant
+their wings begin to flap, carrying them away from the water. You hear their
+strange, impossible high pitched squeaks.
+
+> n
+You move north.
+
+The Dirt Road
+The road branches just before it meets a stream. You can only take the north
+branch, through a stand of hemlocks,  because what used to be a small bridge
+to the east has long since crumbled away.  To the south a footpath breaks
+through the undergrowth.
+
+> n
+You move north.
+
+Dirt Road
+The road runs north and south. Dark hemlocks and mountain laurel crowd the
+roadside except to the southeast where the stream is just visible.
+
+> drop board
+You manage to lay the board across the stream.
+
+> se
+You step gingerly across the board. It wobbles, but you make it to the other
+side of the stream without falling in, and climb the bank beside the road.
+
+The Dirt Road
+The moonlight strikes long shadows from pebbles and whatever else might be on
+the roadway. The  road  ends to the east at a sturdy wooden gate in a
+farmer's fence. An untended meadow lies to the south. The stream runs to the
+west and to the northwest.
+
+As you step onto the asphalt, your shoe slides on something. It looks like a
+piece of wire.
+
+> x wire
+The stiff wire, maybe 8 inches long, appears burnt at the top. The remains of
+a sparkler left over from the Fourth of July.
+
+You suppose some kids must have come out to this secluded spot for a secret
+fireworks display.
+
+People weren't as overly concerned with safety when you were a kid. In your
+memory  hundreds of sparklers are arrayed on the back lawn, showering fire
+everywhere, sending crazy shadows flying. The dazzling light illuminates the
+smoke coiling up into the night.. You hold a sparkler at arms length,  hear
+it hiss and sputter. Stray sparks prick the back of your hand. When the
+sparks sputter to an end you wave the glowing stick, draw pictures in the air
+that cling to your eyes in after images. You slash out 'Z' for Zorro.  Yes,
+that was a long time ago.
+
+> x sky
+The half moon rising over the low mountains has washed all but a few bright
+stars from the sky.
+
+You never learned the constellations. As a kid you wanted to see meteors but
+were too impatient to look, and look again, and keep looking. One summer you
+got in the habit of taking a lawn chair and a transistor radio out into the
+backyard after dark so you could lie back and listen to the baseball game
+while scanning the sky. That was 1964. You did glimpse a few meteors but the
+most spectacular fireball you witnessed was the Phillies plummeting from
+first place in the final week of the season.
+
+> x sky
+The half moon rising over the low mountains has washed all but a few bright
+stars from the sky.
+
+> x sky
+The half moon rising over the low mountains has washed all but a few bright
+stars from the sky.
+
+> x sky
+The half moon rising over the low mountains has washed all but a few bright
+stars from the sky.
+
+There!
+
+A meteor.
+
+A fleeting spark. Flaring and fading so quickly you seem to see only the
+memory.
+
+> s
+You move south.
+
+The Meadow
+The edges of the meadow are defined by the fence to the east and mountain
+laurel to the west. Everywhere else you look, briars rise out of the
+knee-high grass.There seems to be a way through to the south.
+
+> s
+You move south.
+
+The Meadow
+Masses of briars block your path in most directions but you can go east and
+west, as well as to the north.    Amidst the odors of earth and vegetation,
+there is another smell. It comes to you faintly, then vanishes, leaving you
+unsure if you really smelled anything at all.
+
+> smell
+You recognize the smell of strawberries. Now, crouching down, you see a wild
+strawberry nestled in the weeds, near the ground. You can't resist picking
+and eating it.
+
+If you'd bought the strawberry in the grocery you'd have considered it small
+and none too sweet, but discovered out here, it tastes delicious.
+
+> e
+As you move east, the trilling of the peeper seems to fade.
+
+The Meadow
+The meadow extends to the west and southwest. The farm fence bars progress in
+any other directions.
+
+You think about the trilling you heard earlier and realize that if you want
+to locate the hidden singer you'll have to listen often as you walk.
+
+Are you any nearer to the sound now, or further away? If you "listen" at each
+location you might be able to find your way to the tree frog.
+
+Listen.
+
+> sw
+You walk between two dark masses of vegetation and without warning there's
+something clammy pressed across your face. A spider web.
+
+The web offers remarkable resistance.  You back up.
+
+Spiders aren't your favorite creatures and walking through a spider web isn't
+something you enjoy doing.
+
+> sw
+You take a deep breath and step forward again.
+
+The sticky strands wrap themselves around your face.
+
+The spider that made this must be huge.  You shake your head, flail your
+hands and the horrible thing falls away.
+
+Even after you're free, you can feel arachnoid feet skittering along your
+neck. Probably just sweat.
+
+The Meadow
+The meadow stretches to the west and  northeast. A fence blocks your way east
+while undergrowth and briars impede movement in other directions. Near the
+fence, in the corner of the meadow, a white birch glows in the twilight.
+You have to use your tongue to dislodge a strawberry seed that stuck between
+your teeth.
+
+> x birch
+Against the black backdrop of fields and bushes the  white birch appears
+luminous.
+
+You recall the twisted old birch at the corner of a field and a scrubby patch
+of woods near the house you lived in when you were growing up.  There was a
+mossy mound at the base of the tree.  All the neighborhood kids knew it was
+the grave of an Indian.
+
+As night fell, the Indian's ghost would emerge. In the twilight, you and your
+friends stood on the far side of the field and stared as the gnarled white
+form emerged from the deepening shadows.  The darker it got the brighter the
+tree seemed to glow.
+
+As you squinted at the white tree it began to grow misty, as if some
+ectoplasmic form were seeping out of the netherworld.
+
+At which point someone would scream, "There he is! I see him! The Indian's
+ghost!"
+
+And we'd all run like hell.
+
+> w
+You move west.
+
+The Meadow
+The meadow goes back east.  Progress in other directions is blocked by briars
+and undergrowth, except to the north where a patch of low growing plants
+glisten slightly in the night. From the surrounding undergrowth on the far
+side of this part of the meadow, extends a short line of closely spaced
+trees, perhaps the remains of a hedgerow between vanished fields.
+
+> x weeds
+Looking more closely at the low lying weeds you can make out the clusters of
+three, rough edged, glossy leaves. Poison ivy. You had better avoid that!
+
+> x evergreen
+The evergreen is about the size of a Christmas tree you might bring into the
+living room. You see that it has grown in such a way that its boughs are
+nearly wrapped around a slender sapling which you hadn't notice earlier, and
+one large bough, in particular, looks just right to be decorated by a tree
+frog.
+
+> x sapling
+At first glance you see nothing. Just a slender sapling. Easily dismissed as
+a perch for a magical creature.
+
+> x sapling
+You decide to look more closely, take another step toward the sapling. Where
+might a frog perch?
+
+You run your gaze down the sapling's trunk, checking where each shadowy
+branch joins.
+Then,  not much more than a yard from your face, you see movement -- a tiny
+frog's white neck pulsing in time with its singing.
+
+The peeper is no larger than the end of your thumb. You can make out little
+more than the pale neck but the sight is more amazing than anything you've
+seen in a zoo, let alone on any television nature show.
+
+For years you've listened to this sound and now, finally, you are looking at
+its source.
+
+Your walk at dusk has been a success.
+
+[Press any key to go home].
+
+You glimpsed some deer in the twilight.
+You've seen a shooting star.
+You spotted at a cat staring at you. You found some bear tracks, maybe.
+You've watched some bats. You ate a wild strawberry. You recalled the
+Indian's ghost.
+You remembered the Fourth of Julys of your childhood.
+You've recognized poison ivy.
+
+Unfortunately You got your shoes muddy.   You walked into a spider's web.
+
+You've done 10 of  the 10 things you would have wanted to do.
+
+Most importantly you finally saw a tree frog!

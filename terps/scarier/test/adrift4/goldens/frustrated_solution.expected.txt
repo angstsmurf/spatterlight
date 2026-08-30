@@ -1,0 +1,874 @@
+Loading game...
+
+Frustrated Interviewee
+
+FRUSTRATED INTERVIEWEE
+
+by Robert Rafgon
+
+Type:
+1 to start the game.
+2 to start the game without the introduction.
+
+Please type info at any time for more information on commands used in this
+game.
+
+> 2
+
+Computer room
+This room was designated as the computer room, so our network gaming
+experience could be enhanced by being close enough to yell at each other. Of
+course, we only yelled for encouragement, not to proclaim our dominance. The
+four computers in the room were situated on the tables, in between a tangle
+of interconnecting wires. The main room was to the northwest.
+
+> northwest
+I moved to the main room.
+
+Main room
+This room was the centre of the apartment, linking together all of the other
+rooms, which could be seen in every direction. The exit to the apartment was
+to the south. The main room was used for one main purpose, which was watching
+television. In a centralised rectangle, the television sat on a stand in
+front of a sofa.
+
+Daniel was here.
+
+As I entered the room, I could see from the way Daniel was sitting on the
+sofa that he had become entranced by the television. Once he started
+watching, he could be difficult to separate from the TV.
+
+So your friend did not want to play the computer? Initiative is not much use,
+unless it actually leads to something that people want.
+
+But he did want it. He just needed me to provide some motivation to get him
+out of the room. I suppose that this is a situation of mild conflict, but I
+have a better example later on.
+
+> west
+I moved to my bedroom.
+
+My bedroom
+To put it nicely, my bedroom was a little messy on that day. Ok, it was very
+messy. It wasn't normally that way, but I had been, um, sorting out my
+wardrobe. That is why there were clothes scattered everywhere. Not because I
+had not gotten around to washing them. The main room was to the east.
+
+I hope I do not get too penalised, as I am just trying to be honest here. You
+would not want to employ someone who was dishonest.
+
+Maybe if your initiative had included cleaning your room, I would be a little
+more happy.
+
+Well, you will just have to wait, as I have not finished my story yet.
+
+> clean room
+I finally decided that it was time for me to clean my room. I firstly cleared
+the desk of papers, by carefully filing them in their relevant section within
+the drawer of the desk. I then sorted the clothes on the floor, either
+putting them in the cupboard in a pile for washing or hanging them back up.
+With the room empty, I carefully cleaned until it was spotless. During this
+whole cleaning process I located a previously missing comic book and several
+pieces of chocolate.
+
+> east
+I moved to the main room.
+
+Main room
+This room was the centre of the apartment, linking together all of the other
+rooms, which could be seen in every direction. The exit to the apartment was
+to the south. The main room was used for one main purpose, which was watching
+television. In a centralised rectangle, the television sat on a stand in
+front of a sofa.
+
+Daniel was here.
+
+> give comic to daniel
+I decided that I should hand back the long-missing comic book to Daniel. As
+soon as he caught a glimpse of it, he quickly grabbed it from my hands, and
+held it carefully. Daniel looked relieved, and began to page through the
+comic to check whether it was all right. As he did so, he absently placed the
+remote control next to himself on the sofa.
+
+> get remote
+I took the remote control.
+
+> change channel
+Now that I had the remote control, I changed the channel to something I
+actually wanted to watch. There was an interesting professional wrestling
+match on one channel. The match between the Monster and the Masked Youngster
+was tightly balanced. With screaming from excited announcers instead of
+cartoon sounds, Daniel looked up and immediately complained. "Why are we
+watching this rubbish. I want both the cartoon and remote control given back
+to me immediately."
+
+Of course, I refused. Daniel looked annoyed, and tried to take the remote
+from me. After he failed at this, Daniel finally gave in and told me, "Oh,
+all right. I will do what you want and play your computer game. It has to be
+better than watching this, and I suppose you did finally give back my comic
+book."
+
+Daniel then left for the computer room.
+
+> southwest
+I moved to the bathroom.
+
+Bathroom
+This was an ordinary bathroom. I could see a toilet, sink, cabinet and
+shower, which is what you would normally expect in there. I'm not sure you
+need any more detail than that for this interview. The main room was to the
+northeast.
+
+> open cabinet
+When I searched through the cabinet, to my surprise I found two pieces of
+chocolate along with all of the other normal items. I closed the cabinet when
+I was finished.
+
+> northeast
+I moved to the main room.
+
+Main room
+This room was the centre of the apartment, linking together all of the other
+rooms, which could be seen in every direction. The exit to the apartment was
+to the south. The main room was used for one main purpose, which was watching
+television. In a centralised rectangle, the television sat on a stand in
+front of a sofa.
+
+> north
+I moved to the kitchen.
+
+Kitchen
+Our kitchen on the surface was fairly conventional. On the east side there
+was a fridge, sitting next to a counter. A sink and microwave were on the
+counter, with cabinets underneath. A stove was at the end. On the west side
+was a table and chairs. The problem with this kitchen was that despite all
+the cooking implements, there was not much food. Unfortunately we did not
+have enough money to fully stock the kitchen. The main room was to the south.
+
+> open cabinet
+When I looked inside the cabinet I found a couple of pieces of chocolate. I
+also took out a glass, as I was feeling thirsty. I closed the cabinet when I
+was finished.
+
+> open fridge
+I looked inside and took two pieces of chocolate out, before closing the
+fridge when I was finished.
+
+> fill cup
+I filled the glass with water from the sink.
+
+> drink water
+I drank the glass of water.
+
+> south
+I moved to the main room.
+
+Main room
+This room was the centre of the apartment, linking together all of the other
+rooms, which could be seen in every direction. The exit to the apartment was
+to the south. The main room was used for one main purpose, which was watching
+television. In a centralised rectangle, the television sat on a stand in
+front of a sofa.
+
+> northwest
+I moved to Michael's bedroom.
+
+Michael's bedroom
+My bedroom may at times be a little messy, but Michael's bedroom was always
+an absolute disgrace. It was difficult to walk in here without tripping over
+anything. I could tell by the dirt that this room had not been cleaned for
+way too long. Within the mess and almost hidden were a desk, bed, wardrobe
+and nightstand. The main room was to the southeast.
+
+Michael was here.
+
+Michael was lying fast asleep in his bed. He must have been up late again
+last night. This made it a little more difficult than I had expected.
+Normally he would be very willing to play my game, but this time, I had to
+wake him up, which was never easy.
+
+> shake michael
+I shook Michael aggressively, trying to wake him up. It looked like I was
+succeeding but as soon as I let go, he rolled over and went back to sleep.
+Maybe a different method would be more effective.
+
+> slap michael
+I slapped Michael's face, and when that did not work, I slapped him again.
+Michael responded better to the second slap, but in the end he just turned
+away from me, and slipped back into sleep. Maybe a different method would be
+more effective.
+
+> shout at michael
+I screamed "Wake up!" in one of Michael's ears. He slowly opened his eyes in
+response to the noise, and finally decided to wake up fully. When he was
+sufficiently awake to recognise my presence, Michael grumpily asked, "Now
+what do you want?"
+
+> talk to michael
+I explained to Michael that I needed another player in my game. Michael
+grumbled but eventually agreed. He stumbled out of bed, heading towards the
+computer room.
+
+> southeast
+I moved to the main room.
+
+Main room
+This room was the centre of the apartment, linking together all of the other
+rooms, which could be seen in every direction. The exit to the apartment was
+to the south. The main room was used for one main purpose, which was watching
+television. In a centralised rectangle, the television sat on a stand in
+front of a sofa.
+
+> east
+I moved to Jim's bedroom.
+
+Jim's bedroom
+Jim was the quietest person in the apartment, and this room was his refuge
+from the rest of us. The bookcase on one wall held enough books to keep
+anyone occupied for a long while. The comfortable chair next to it provided
+an ideal location to sit down. A bed, desk and wardrobe were also situated
+around the room. The main room was to the west.
+
+Jim was here.
+
+On entering I noticed that as expected Jim was sitting in the chair and
+reading a book. It is always difficult to persuade him to move his overweight
+body from there.
+
+> give chocolates to jim
+After I showed Jim the chocolate, he finally put down his book and told me,
+"Ok, if you want me to play your game that much, then I will, but not for too
+long."
+
+Jim quickly grabbed the chocolates and ate them all. He then wandered over to
+the computer room.
+
+So you basically bribed Jim in order to get your way?
+
+I feel it was a persuasive argument, not bribery.
+
+> west
+I moved to the main room.
+
+Main room
+This room was the centre of the apartment, linking together all of the other
+rooms, which could be seen in every direction. The exit to the apartment was
+to the south. The main room was used for one main purpose, which was watching
+television. In a centralised rectangle, the television sat on a stand in
+front of a sofa.
+
+> southeast
+With everyone in the computer room, it was time to start. We all sat down in
+front of our respective computers and loaded up the game….
+
+(Press a key)
+
+I have discussed how I used my initiative to get us started in playing
+Frustrated Looters. Now it is time to discuss our teamwork. TEAMWORK is when
+a group of people work together towards a common goal.
+
+You have not shown much teamwork so far. In fact everyone seemed to want to
+do something completely different, until you coerced them into following your
+plan instead. I hope it improves.
+
+The previous problems were just a few starting out issues. We knew how to
+work together, and we had to, if we wanted to progress in the game. Each of
+the characters in the game had different abilities that were important.
+
+(Press a key)
+
+The four characters were:
+Me = Warriyar the Warrior
+Jim = Fit the Fighter
+Daniel = Source the Sorcerer
+Michael = Tife the Thief
+
+We were not much better than novice adventurers, with very limited
+capabilities. So, we started an easy quest for the mystical Forgotten Jewel.
+The quest started outside a town where we had been healed and outfitted.
+
+Outside the gates
+A sturdy gate blocked the entrance to the town in the north. Apparently we
+were not allowed to go back until we had finished the quest. A guard standing
+in front of the gate added to the blocked off effect. To the south was a
+dark, foreboding forest. No nice, friendly woods in computer games.
+
+Fit the Fighter, Source the Sorcerer and Tife the Thief were here.
+
+> tife steal map
+Whilst I talked to the guard, Tife sneaked behind him and took the map. He
+then gave the map to me in plain sight of the guard, but the guard strangely
+did not seem to care. The map showed the layout of the forest, which I
+memorised.
+
+> south
+Having seen a map, we quickly reached the centre.
+
+The centre of the forest
+The most noticeable feature of this clearing was a tall tree. It was in fact
+an extremely tall tree, probably the tallest in the forest. It looked like on
+the map that this was the centre of the forest. The northern path led back to
+the town. There were also three other paths to the southeast, south and
+southwest. According to the map the southeast path exited the forest.
+
+Fit, Source and Tife moved towards me from the north.
+
+> southeast
+We followed the path and exited the forest. Unfortunately, we walked through
+a patch of poisonous weeds, and all suffered some damage.
+
+The oasis
+It is obvious that consistency was not a feature of this game's geography.
+The forest, which could be re-entered to the northwest, was for some reason
+next to a desert. The boring, dusty wasteland was easier to navigate than the
+forest maze, but unfortunately was very repetitive. A mountain range could be
+seen to the south, but it was still a long way off. We had stopped at the
+only distinctive landmark between the forest and the mountains, which was an
+oasis.   A lone tree, surrounded by the same poisonous weeds we had recently
+walked through on exiting the forest, appeared to survive from the pond's
+water.
+
+Fit, Source and Tife moved towards me from the northwest.
+
+> source burn weed
+Source burned away all the weeds with a fireball. The tree was unharmed,
+which could be through luck, skill or poor game design. I know that Source
+would say skill, but who knows?
+
+> fit cut tree
+Fit enthusiastically started chopping wildly at the tree. It soon fell over
+from the vicious assault. Fit cut off the branches, leaving some sticks next
+to the fallen trunk.
+
+I have noticed so far that each of your friends has contributed, but you have
+done nothing.
+
+I provide leadership and ideas. I have suggested most of the tactics used so
+far, even though I haven't specifically mentioned it.
+
+> get sticks
+I took the sticks.
+
+> get upper
+I lifted the upper half of the trunk.
+
+> fit get lower
+At my suggestion Fit lifted the lower half of the trunk.
+
+> south
+We walked south, carrying the trunk across the remainder of the desert.
+
+The ravine
+An almost hidden, deep ravine separated the desert to the north from the
+mountains to the south. It extended from east to west as far as could be
+seen.  There was no way to reach the mountains apart from by crossing the
+ravine.
+
+Fit, Source and Tife moved towards me from the north.
+
+> drop tree
+I told Fit that the trunk looked the right size to help us get across the
+ravine. We maneuvered the trunk until it was vertical, next to the edge. We
+then lowered it down to create a bridge across to the south.
+
+> south
+After crossing the bridge, we wandered along the other side of the ravine,
+until we found a path that led us to a distinctive mountain.
+
+The base of a mountain
+We were standing near the base of a huge mountain. This mountain stood out
+from the others, not only for its size, but because a bright light seemed to
+emanate from its peak. The path through the mountains continued from the
+north to the southeast. A cave leading into the mountain was to the
+southwest.
+
+Fit, Source and Tife moved towards me from the north.
+
+> southwest
+We entered the cave.
+
+Near the cave entrance
+The cave entrance to the northeast provided the only light for the cave. It
+was too dark to proceed any further inside.
+
+Fit, Source and Tife moved towards me from the northeast.
+
+> source burn stick
+Source carefully aimed a fireball to light up the sticks. This time he
+luckily did not burn me as well. I am now holding what is effectively a
+torch.
+
+> south
+We continued further into the cave until we stumbled upon the lair of a
+monster.
+
+The goblin's lair
+This was an easy quest, but I still expected a more intimidating monster than
+a goblin. He was standing in front of a corpse, but even that did not make
+him look dangerous. This lair was at a dead end in the cave, and we could
+only return back to the north.
+
+Fit, Source and Tife moved towards me from the north.
+
+> attack goblin
+I charged towards the goblin, waving my sword out in front of me. The goblin
+moved fast and leapt towards me, raking his claws on my armour. Luckily my
+armour held out, and even luckier he was now in perfect range for me to slash
+him with my sword. It only took one attempt for me to kill the goblin and
+have revenge for the dead anonymous NPC on the cave's floor.
+
+> turn corpse
+I searched the corpse and found that he was holding a long rope, but had no
+weapons. No wonder the goblin had been able to kill him. As he no longer
+needed the rope, I took it for myself.
+
+> north
+We walked back through the caves to the cavern near the entrance.
+
+Near the cave entrance
+The light from the torch showed that we were standing in a cavern. The cavern
+had lots of pointy stalagmites and stalactites, which we could have been
+impaled upon in the darkness. I'm sure that they were not that sharp in real
+life. The cave's exit was to the northeast, but it also continued to the
+south.
+
+Fit, Source and Tife moved towards me from the south.
+
+> northeast
+We exited the cave.
+
+The base of a mountain
+We were standing near the base of a huge mountain. This mountain stood out
+from the others, not only for its size, but because a bright light seemed to
+emanate from its peak. The path through the mountains continued from the
+north to the southeast. A cave leading into the mountain was to the
+southwest.
+
+Fit, Source and Tife moved towards me from the southwest.
+
+> southeast
+We continued down the path.
+
+The cliff
+The path ended at a steep cliff, leading up some of the mountain face. At the
+top I could see a boulder blocking another entrance inside the shining
+mountain. The path only led back to the northwest.
+
+Fit, Source and Tife moved towards me from the northwest.
+
+> tife climb cliff
+I offered the rope to Tife, and he took it, although he did ask me why he was
+getting a rope. I suggested that he could climb the cliff, tie the rope,
+lower it down and we could then follow him. Tife liked this idea, and quickly
+climbed the steep cliff face. Soon after he disappeared over the top, the
+rope was lowered down to us. I immediately followed Tife up, and when the
+rope did not break, Fit and Source followed as well.
+
+The blocked entrance
+A large boulder blocked a second cave leading into the mountain. Maybe this
+cave would lead us to the source of the bright light shining from mountain
+peak. We could also head back down the cliff, via the rope, which was tied to
+an outcropping.
+
+Fit and Source moved towards me from below.
+
+> push boulder
+I pushed against the boulder and moved it slightly. Slightly was not great
+but was good enough to open up the darkness of the cave. We then walked
+inside.
+
+(Press a key)
+
+I have discussed PROBLEM SOLVING in various aspects during the earlier parts
+of my speech, but I feel it is important to go into more detail and show how
+I solved some harder puzzles. The next section of the game is ideal for this
+purpose.
+
+I hope that you do not spend too long, as I don't need to hear that much
+detail.
+
+I'll try to be brief. After entering the cave a strong wind blew out the
+torch, leaving four sticks in reasonable condition. When Source tried to
+relight the sticks the wind started blowing again. It looked like we would
+have to find another light source.
+
+The sun room
+For a mountain so bright on the outside, it was really dark on the inside.
+There was light from the northern exit to the cave, but it only revealed this
+room. There was a darkened doorway to the south, but I could not see anything
+else in the next room. In this room there was a carving on one wall, with a
+picture of four suns at the top.
+
+> put stick in hat
+I put the stick in the hat's hole.
+
+> put stick in lamb
+I put the stick in the lamb's hole.
+
+> put stick in beach
+I put the stick in the beach's hole.
+
+> put stick in flower
+I put the stick in the flower's hole.
+
+Suddenly a loud click could be heard from behind the carving. A light shone
+down from the ceiling, illuminating the room. A chain reaction was set off,
+as the lights turned on all the way down the southern corridor, as far as
+could be seen. We could now progress further.
+
+Did your friends help you at all in finding this solution.
+
+No, I solved these puzzles by myself. They just stood around and waited for
+me.
+
+> south
+We walked down the corridor, until we reached the statues room.
+
+The statues room
+Twin statues guarded the door to the south. There were hooks on the ceiling
+above each statue. The corridor to the north led back to the sun room. On the
+east side of this room was a set of scales.
+
+I could also see a tiny rock, a small rock and a medium rock.
+
+Fit, Source and Tife moved towards me from the north.
+
+> put small rock on left pan
+I put the small rock on the left pan.
+
+> put medium rock on left pan
+I put the medium rock on the left pan.
+
+> put tiny rock on right pan
+I put the tiny rock on the right pan.
+
+> cut rope
+I cut the rope, by swinging down my sword hard on the block. The two pans
+crashed to the ground. I then took the two identical pieces of rope.
+
+> tie rope to statue
+I tied each rope around a hook and then a statue's neck. There was still a
+little slack in both ropes after doing this.
+
+> pull stool
+I pulled out each stool, letting both statues hang from their respective
+ropes. Suddenly I heard a click and the doorway to the south opened.
+
+> south
+We walked down the corridor, until we reached the picture room.
+
+The picture room
+A closed door prevented us from continuing further south, but we could return
+to the north. On the walls of this room were a series of pictures that
+appeared to show the history of this place. In the first panel a jewel was
+found. In the second panel the jewel was placed in a chamber. In the third
+panel the jewel was stolen. In the fourth panel the jewel was abandoned.
+
+Fit, Source and Tife moved towards me from the north.
+
+> push jewel
+I pushed the jewel in the fourth panel and the doorway to the south opened.
+
+> south
+We walked down the corridor, until we reached the lever room.
+
+The lever room
+There were levers everywhere in this room and they were all different
+colours. This included yellow, red, pink, green, purple, orange and blue. The
+closed door blocked off the path to the south. A corridor led back to the
+picture room to the north.
+
+More puzzles? I think I have seen your point by now.
+
+Well, just wait and see then.
+
+Fit, Source and Tife moved towards me from the north.
+
+> push lever
+I have no idea where to start with these levers, and I do not want to set off
+a pit trap.
+
+Fit leaned against one of the room's walls. Suddenly we all heard a loud
+click and were afraid that Fit had set off a trap. Luckily Fit was clever in
+his clumsiness, as the room changed around us.
+
+> push lever
+I pulled the sole remaining lever and the doorway to the south opened. That
+was not all, as we could hear more doorways open to the south. We must have
+stumbled upon a secret way for the builders of this place to return quickly
+to the centre.
+
+> south
+We walked through the remaining rooms and corridors, until we were near the
+end of the path.
+
+Outside the mirror room
+A blinding light emanated from the room to the south. It must be where the
+Forgotten Jewel was located. I did not think we could approach the room until
+there was less light and we could actually see in there. In this room was a
+control panel along one wall. A corridor led back to the north.
+
+Fit, Source and Tife moved towards me from the north.
+
+> push button
+Feeling relief that I did not have to solve an otherwise complicated to
+describe puzzle involving the dials and levers on the panel, I pressed down
+the red button. Immediately a grinding noise could be heard to the south. As
+it continued the light shining through the doorway dimmed, until it was the
+same brightness as the rest of this place.
+
+> south
+We walked inside the mirror room.
+
+The mirror room
+The Forgotten Jewel was the main feature of this room, where it was sitting
+on a pedestal in the centre. It lit up the room, and I really had no idea why
+it was called Forgotten, as anything that bright should be easy to spot and
+remember. On the walls of this room were mirrors. The only exit was to the
+north.
+
+Fit, Source and Tife moved towards me from the north.
+
+> get jewel
+I took the Forgotten Jewel from the pedestal. We had completed our quest,
+apart from the simple task of returning to the town. Or the not so simple
+task, as it turned out.
+
+(Press a key)
+
+So you are not finished yet?
+
+No. The final area I want to cover in this speech is CONFLICT, or when
+people's aims or opinions are different. The aims of the people in my group
+were very different. Back in the town we were due to receive a large monetary
+reward for completing our quest. We had previously decided to split this
+between us, but one member of my group had different plans.
+
+We were congratulating each other when suddenly I noticed that Tife the Thief
+had disappeared. A few seconds later, I realised that the Forgotten Jewel had
+disappeared from my inventory. It wasn't hard to figure out what had
+happened. Tife wanted the money for himself.
+
+The mirror room
+The pedestal was now bare and the room was much darker, following the
+disappearance of the Forgotten Jewel. The mirrored walls reflected images of
+ourselves looking disappointed. The only exit was to the north.
+
+> north
+We returned back north through all the rooms and corridors until we reached
+the ledge outside.
+
+The unblocked entrance
+A boulder partially blocked the southern entrance, but still allowed access
+to the cave. This small ledge was on the side of the mountain, overlooking a
+steep cliff. The location looked similar to when we entered, apart from one
+missing detail. Tife had untied the rope and taken it with him. None of us
+were good enough climbers to follow him down.
+
+Suddenly, a huge crashing noise echoed throughout the mountain. Taking the
+jewel must have set off a chain reaction that was starting to destroy this
+location. In surprise Fit almost fell off the cliff, before I grabbed him.
+However, this did not save Fit's axe, which slipped from his grasp. It fell
+all the way down, before finally smashing on the ground below. We would
+likely receive the same fate, if we tried to climb down. Even if the tunnels
+were collapsing, we would have more chance of surviving by trying to find an
+alternate exit inside.
+
+> south
+We looked through each room carefully, but could find no exit. Eventually we
+returned to the mirror room, where unfortunately, as we entered, the doorway
+collapsed behind us to trap us within the room.
+
+The mirror room
+As the noise continued to rumble around us, this room was not looking very
+stable. Many of the mirrors were broken and the northern doorway had
+collapsed. The only faint light left in the room came from the shafts in the
+ceiling. On one metal wall the damage had extended to a narrow crack. There
+looked like there was a gap behind the wall.
+
+Fit and Source moved towards me from the north.
+
+> put sword in crack
+I put my sword in the crack and tried to lever it further open. As I pulled
+harder and harder, it gradually widened until suddenly the sword snapped in
+two. The violence of the sword breaking made one last push to open up the gap
+far enough for us to pass through. Behind the wall was a path leading
+downwards. I threw away the broken sword, as it was no longer useful.
+
+> source burn staff
+Looking around, the only wood in the room was Source's staff. When I pointed
+this out, Source initially refused to burn it and lose his only weapon.
+However, there was no other option, and he knew it, so he eventually agreed.
+Source lit up his staff with a fireball and the room was suddenly lit up
+again.
+
+> down
+We climbed down the path until we found a secret way into the other cave
+systems. The caves soon looked familiar to those near the goblin's lair. As
+we ran trying to escape, the loud rumbling suddenly became very close and
+rocks started falling from the ceiling. One large rock landed on Fit,
+trapping him on the floor.
+
+Somewhere in the caves
+This location was unremarkable, apart from the fact that Fit was trapped
+under a large rock. It was within the caves under the mountain, with exits
+leading up and north.
+
+Source the Sorcerer moved towards me from above.
+
+> source levitate rock
+Source closed his eyes and concentrated. When I saw magical energies start to
+swirl around him, he suddenly opened his eyes and stared at the rock. It
+began to rise off the ground, freeing Fit. However, Fit was too injured to
+move himself out of the way. I grabbed and moved him, as the rock looked
+increasingly unsteady in mid-air. As soon as possible Source dropped the rock
+back on the ground. Fit could not walk, so I lifted him on my back.
+
+Now that we had rescued Fit, we continued through the caves until we reached
+back outside. It was just in time, as the mountain crumbled behind us.
+Source's staff also crumbled, leaving only a pile of ashes that were quickly
+blown away.
+
+(Press a key)
+
+The base of the mountain
+The mountain looked very different to earlier. The peak was no longer shining
+after the removal of the Forgotten Jewel. It was no longer as tall because
+the top had fallen down. The rockslides had blocked both the cave to the
+southwest and the path to the southeast. The only remaining path was to the
+north, back to the ravine.
+
+Fit told me to put him down, so I laid him upon the ground. I asked him what
+was wrong and he replied that he didn't want to be a burden. I would never
+catch Tife if I had to carry him. I protested at first, but in the end agreed
+to come back for him later.
+
+> north
+Source and I continued to the ravine.
+
+The ravine
+Unfortunately, Tife had managed to stall our progress again. The trunk was no
+longer over the ravine, probably having been pushed in after he crossed.
+There was no other way to walk across to the desert side.
+
+Source the Sorcerer moved towards me from the south.
+
+> source levitate me
+I hesitantly suggested to Source that maybe he could levitate me across the
+ravine. I was unsure about whether he could keep me in the air long enough,
+but I decided that I could trust Source to do his best. Source again focused
+his powers and levitated me off the ground. He then slowly moved me across
+the ravine. I could tell he was struggling by halfway, and his powers gave
+out entirely just before I reached the other side. Luckily I was close enough
+to grab the edge and pull myself up.
+
+I called back to Source that he should follow me and levitate himself. Source
+struggled, but he could not manage it. He eventually told me, "It looks like
+you are going to have to continue alone. I'll stay here and look after Fit.
+We'll wait for you to return and rescue us. You should be able to catch Tife
+in the maze. He has no sense of direction, and will struggle to find a way
+out. Good luck in stopping him from stealing his way to success."
+
+I walked by myself through the desert to the oasis.
+
+The oasis
+I was midway through the desert, next to the oasis. Tife was nowhere in
+sight. I hoped that Source was right and he was lost in the forest maze. The
+only way to find out was to walk northwest.
+
+> northwest
+I started to walk away from the oasis, but I suddenly noticed a glint in the
+water. I didn't have much time, but with no weapon, I needed any help I could
+get.
+
+> swim
+I searched through the oasis until I located the glint. It was a pointy piece
+of metal that would normally be associated with the end of a spear. The rest
+seemed to be missing though. Or maybe not. I could feel the shaft of the
+spear, although I could not see it. Apparently, I had discovered an invisible
+spear. I'm not sure what use that would be.
+
+With the spear in hand, I walked back to the maze. Soon after I entered I
+could hear someone walking around near me. I chased down the noise. It was
+Tife, just as I had hoped. At the first sight of me, Tife ran away as fast as
+possible, heading down the nearest path. I knew I could not catch him, as he
+was faster than me. However, if I remembered right, that path looped back to
+my current location. It was time to set a trap.
+
+Somewhere in the forest
+This location was within the forest maze. In this part there was a tree next
+to the east-west path. The tree was surrounded by low bushes, with a patch of
+poisonous weeds nearby on the path.
+
+> put spear in tree
+I jammed the spearhead into the trunk, so the invisible shaft was horizontal
+across the path and low to the ground.
+
+> hide
+I climbed over the bushes and used both the bushes and the tree trunk to hide
+myself from anyone wandering through the path.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+I heard someone approaching.
+
+> wait
+Time passes...
+
+Tife entered my location and tripped over the invisible spear. He landed in
+the poisonous weeds, immediately rolling out of the patch. However, Tife
+still looked dazed as he stood back up near my hiding spot, facing away from
+me.
+
+> attack tife
+I leapt from my hiding spot and jumped on Tife. I pinned him to the ground
+and took the knife from his inventory. Now I had him trapped where he would
+pay for his treachery. I raised the knife and…
+
+So, in a situation of conflict, I can expect you to kill your opponents?
+
+No! No! No! I haven't finished yet! I was only threatening Tife. When he
+apologised I let him back up, whilst taking the Forgotten Jewel from him for
+safekeeping. Tife agreed that he had been selfish, and it wouldn't happen
+again, as we were a team. And we were, as although we might disagree
+sometimes, we always came to an agreement by the end of the argument.
+
+With the team spirit restored we went back and rescued Fit and Source, before
+returning to the town and our big reward. We split the money equally, as
+originally planned, and did not penalise Tife. Unfortunately most of the
+reward was spent in replacing the lost equipment and healing ourselves from
+the damage caused in chasing Tife. We weren't as successful as we had
+originally hoped, but we were a little better off and had the satisfaction of
+having been able to find a solution to all of the puzzles. The quest was
+finally complete and so is my answer to your question.
+
+(Press a key)
+
+Well, that was definitely a long answer, although I will admit it was a
+difficult question. Unfortunately I don't have time to go through the
+remaining interview questions, so we will have to stop here. It was a
+pleasure having you here, and we will be back in contact with you in several
+weeks if you are successful in proceeding to the next stage. Thank you for
+your time.
+
+And with that, it was time to leave. Hopefully the answers were adequate or
+maybe even better. It is difficult to know though. Was the answer too strange
+or did it cover the areas well in an unorthodox manner? Did the answer take
+up too much time and important questions were missed? Will someone else have
+a better answer? Probably. Maybe. Who knows?
+
+The only thing left to do is to….
+
+>wait
+Time passes…
+
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

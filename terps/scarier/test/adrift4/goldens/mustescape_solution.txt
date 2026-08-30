@@ -1,0 +1,83 @@
+west
+punch
+punch
+punch
+punch
+punch
+punch
+search guard
+west
+take acid
+east
+north
+pour acid on cabinet
+turn on switch
+open door
+north
+open green door
+east
+open cabinet
+south
+push bookcase
+climb bookcase
+open vent
+up
+east
+east
+open vent
+down
+turn on switch
+up
+west
+north
+north
+open vent
+down
+open cabinet
+take medical kit
+up
+west
+open vent
+down
+kick
+kick
+kick
+kick
+kick
+kick
+kick
+kick
+kick
+open drawer
+take gun
+search guard
+west
+open door
+turn on switch
+south
+east
+south
+up
+east
+east
+down
+east
+take red keycard
+west
+up
+west
+west
+down
+north
+west
+open red door
+west
+shoot
+right
+right
+shoot
+right
+right
+right
+right
+right

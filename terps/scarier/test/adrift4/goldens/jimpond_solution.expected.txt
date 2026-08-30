@@ -1,0 +1,1533 @@
+Loading game...
+
+Jim Pond
+&
+The Agents Of F.A.R.T.
+I was just indulging in a little probing of the delectable Russian agent sent
+to kill me when the call came through. That it came through the Pondphone
+(which glows bright green and emits a sound when ringing not unlike a swan
+farting) somewhat ruined the mood of the proceedings and Anoushka - after
+cursing me for a "feelthy Britisher scum!" - promptly got dressed and
+departed my flat.
+...press a key...
+
+Dejected, I answered the Pondphone.
+   The call, unsurprisingly, was from P.
+   "Report to the office at once, Pond," he ordered, his fleshy jowls
+bouncing around his face like he had a couple of alsatians vying for
+dominance in there. "I have a little… job for you."
+   Knowing there was no point in arguing - P pays my wages after all and
+would send his rottweilers after me if I didn't do what he said - I dressed
+and was at the office three hours later, pausing only once on the way to
+drive my car through a market stall on screeching wheels (pays to keep my
+hand in).
+...press a key...
+
+P's office is the sort of large, hideously extravagant thing that I've always
+felt should be shot, strangled and buried at the bottom of the sea in a steel
+coffin with extra bolts driven into the lid for good measure. That my bedroom
+was partially modeled on it is just pure coincidence.
+   P was awaiting me behind his desk. To this day I have never seen him leave
+that desk or even stand. I suspect he might well have been born growing out
+of the desk and that, were I to suddenly push the desk to one side, P would
+be thrown aside as well. It's certainly something to bear in mind.
+   "I got here as fast as I could, P," I said. "What's the problem?"
+   "The problem, Pond," said P, "is that our best agent has been killed and
+we're in a bit of a crisis."
+   "I thought I was your best agent," I said a little tetchily.
+   P shrugged. "Whatever. The point is, 00000000001 has been killed and we
+need to find out why. He was investigating a ruthless gang of bank robbers
+who we believe have ties to the terrorist organisation known as F.A.R.T."
+   I gasped. "The Federation of American Redneck Terrorists!"
+...press a key...
+
+   P nodded. "None other. What we don't know is what 00000000001 had
+discovered before he was found face down in the local sewer with a bazooka
+hole in his head and 132 bullet holes in his back. So I propose sending you
+in to infiltrate the bank robbers and see what you can find."
+   I frowned. "But won't the robbers be suspicious of another new member
+infiltrating the group right after they murdered poor 00000000001?"
+   "Perhaps. But it's a risk we're prepared to take."
+   "Hang on!" I protested. "It's not a risk I'm prepared-"
+   "Meeting ended, 00000000365."
+   Before I could do anything, P pressed a button on his desk and a hole in
+the floor opened beneath me, plunging me down what seemed like half a mile to
+the underground parking lot of the spy organisation.
+...press a key...
+
+Underground Parking Lot
+I'm standing by my car in a parking lot which is both murky and far too
+large. As there are only three people who park here - myself, P and P's
+secretary, Mrs Assywassy - a parking lot the size of a football stadium is
+just a bit of overkill.
+   I find the following exits available to me: in (to my car) and north (to a
+more interesting bit of the parking lot).
+
+> in
+I enter my car.
+
+My Car
+The interior of my car differs from the exterior only that it's inside as
+opposed to outside. It's pretty gloomy in here as none of the lights work
+properly and it was also felt that a spy driving around in a well lit car
+might be too conspicuous.
+   The dash is a hideously complicated array of dials, buttons, knobs,
+switches and panels - I'm not really sure what it is any of them do but when
+I get a few spare hours I'm tempted to have a bash at figuring them out. The
+only things that interest me right now are the steering wheel and the
+ignition slot next to it.
+   I find the following exits available to me: out.
+
+> push knob
+I push one of the knobs experimentally - and out of a secret compartment pops
+my key!
+
+> get key
+I take my key.
+
+> read folder
+Ah! It seems Mrs Assywassy has helpfully divided it into three main sections
+for each of use:
+
+Mission Overview
+
+General Advice
+
+Things To Try
+
+I'd be better off reading the sections by themselves instead of trying to
+tackle the entire thing in one go.
+
+> read overview
+"Infiltrate the vicious gang of bank robbers. We believe they operate from a
+warehouse down by the docks but that a Mr Orinoko - strongly believed to be a
+member of the gang - has an office in Picador Lane. Once you have the
+robbers' trust, proceed at once to gain as much evidence as possible about
+F.A.R.T. then report to headquarters with your findings."
+
+> read try
+"As a member of a spy organisation, you've been trained in many hand-to-hand
+fighting techniques so if things turn sticky, don't hesitate to fight your
+way out of any situations. You also have a gun but we're a bit short of
+bullets right now - the government is notoriously stingy with our budget - so
+you'll just have to see if you can find some along the way. Be careful about
+penetrating too deep into the gang of robbers without adequate firepower -
+these aren't the sort of people you want to take on unarmed."
+
+> read advice
+"You'll need to find your key before you can drive your car. Have a hunt
+round, it won't be too far away. Drive to places by typing 'drive car' and a
+list of destinations will spring up.
+
+"There are no actual ways to render the game incompletable and few ways to
+actually die aside from downright stupidity. Generally, if something sounds
+like a disastrously bad idea that will lead to you getting killed, it most
+likely will lead to you getting killed."
+
+> out
+I exit my car.
+
+Underground Parking Lot
+I'm standing by my car in a parking lot which is both murky and far too
+large. As there are only three people who park here - myself, P and P's
+secretary, Mrs Assywassy - a parking lot the size of a football stadium is
+just a bit of overkill.
+   I find the following exits available to me: in (to my car) and north (to a
+more interesting bit of the parking lot).
+
+> n
+I move north.
+
+More Interesting Bit Of The Parking Lot
+This bit of the parking lot isn't really any more interesting than the other
+bit but there is a vending machine here which dispenses cans of coke so it's
+not a complete loss. There's also a door here but as might be expected in a
+game like this it's annoyingly locked and unless I'm very much mistaken the
+key to it won't be anywhere near to where I am.
+   I find the following exits available to me: south (back to my car).
+
+> insert 17p
+I do and the coin disappears from view. I wait, half expecting to receive
+nothing at all for my trouble but, surprisingly enough, a can of coke shoots
+from the vending machine and halfway across the parking lot before eventually
+smashing into my car with enough force to fell an ox.
+   Well, at least I got my drink.
+
+> s
+I move south.
+
+Underground Parking Lot
+I'm standing by my car in a parking lot which is both murky and far too
+large. As there are only three people who park here - myself, P and P's
+secretary, Mrs Assywassy - a parking lot the size of a football stadium is
+just a bit of overkill.
+   I find the following exits available to me: in (to my car) and north (to a
+more interesting bit of the parking lot).
+
+Also here is a can of coke.
+
+> get coke
+I take the can of coke.
+
+> in
+I enter my car.
+
+My Car
+The interior of my car differs from the exterior only that it's inside as
+opposed to outside. It's pretty gloomy in here as none of the lights work
+properly and it was also felt that a spy driving around in a well lit car
+might be too conspicuous.
+   The dash is a hideously complicated array of dials, buttons, knobs,
+switches and panels - I'm not really sure what it is any of them do but when
+I get a few spare hours I'm tempted to have a bash at figuring them out. The
+only things that interest me right now are the steering wheel and the
+ignition slot next to it.
+   I find the following exits available to me: out.
+
+> drive car
+I slam the key into the ignition and go tearing off out of the parking lot.
+There's a barrier blocking the way out but I don't let that bother me - a
+simple accelerator-to-the-floor manoeuvre and I'm through. Ignoring the
+frustrated cries of the barrier attendant, I drive up out of the parking lot
+to…
+
+Where exactly am I driving off to?
+
+   1)  The docks
+   2)  Picador Lane
+
+> 2
+Tearing off across town, I execute several short cuts I know and, twenty
+minutes later, come to a screeching halt in Picador Lane. After allowing the
+window cleaner to climb down off my bonnet, I study my surroundings and
+wonder what to do next.
+
+> out
+I exit my car.
+
+Picador Lane
+This is the heart of the city's financial district and almost everyone I can
+see for miles around looks to be wearing a smart business suit and shades.
+Clad in my Bahamas beach-ware I'm a little out of place.
+   I look around for the entrance to the building where Mr Orinoko works and
+catch sight of it to the west. Nothing else of interest springs to mind
+although the strip den on the corner is at least… appealing.
+   I find the following exits available to me: west (to the building),
+northeast (to the strip den) and in (to my car).
+
+> look
+
+Picador Lane
+This is the heart of the city's financial district and almost everyone I can
+see for miles around looks to be wearing a smart business suit and shades.
+Clad in my Bahamas beach-ware I'm a little out of place.
+   I look around for the entrance to the building where Mr Orinoko works and
+catch sight of it to the west. Nothing else of interest springs to mind
+although the strip den on the corner is at least… appealing.
+   I find the following exits available to me: west (to the building),
+northeast (to the strip den) and in (to my car).
+
+> w
+I move west.
+
+Lobby
+The lobby looks like a bomb went off in here although why anyone would choose
+to bomb such a dump I can't imagine. There are several doors on the north
+wall but only one of them looks like it's still in use. A sign attached to it
+draws my attention.
+   I find the following exits available to me: north (through the door) and
+east (to Picador Lane).
+
+As I step into the building, I hear the sounds of fighting coming from the
+north.
+
+> look
+
+Lobby
+The lobby looks like a bomb went off in here although why anyone would choose
+to bomb such a dump I can't imagine. There are several doors on the north
+wall but only one of them looks like it's still in use. A sign attached to it
+draws my attention.
+   I find the following exits available to me: north (through the door) and
+east (to Picador Lane).
+
+> n
+I move north.
+
+Mr Orinoko's Office
+From the overturned chairs and desks and smashed filing cabinets, I'd guess
+there has been a pretty big fight in here recently. A telephone buried under
+a pile of files is ringing to itself. The western part of the office is
+occupied by a large table on top of which is a detailed map of a bank vault.
+Behind this table, taking up most of the west wall, is a window with a rather
+large hole in the centre.
+   I find the following exits available to me: south (to the lobby).
+Orinoko is here.
+Bulgaria is here, a knife clutched in his hand.
+
+I see a couple of men here, both oriental in appearance, struggling by the
+far wall.
+   The moment I step into the room, the two battling men pull apart. One of
+them glances at me and cries, "help!" while the other grabs a knife from his
+pocket and presses it against the head of the first.
+   "Don't make any sudden moves!" the man with the knife snarls.
+   "Don't do this, Bulgaria!" the man with the knife pressed against his neck
+cries. "You don't want to-"
+   "Quiet, Orinoko!" says Bulgaria. "You do what I say and you won't get
+hurt." He considers this and amends it to, "well, you will get hurt 'cos I
+was sent here to kill you but if you cause me trouble things'll go a lot
+worse for you."
+   "A lot worse than death?" I ask, quite caught up by their wordplay.
+   Bulgaria glances at me. "Back off, buster, if you don't want your friend
+here to have another hole in his head. You step back into the lobby and
+wait."
+   "No-oooooooo!" cries Orinoko. "Don't leave me! He'll kill me the mom-"
+   Bulgaria shakes him a little till he shuts up. "Do it, buster. Go into the
+lobby or-" He smiles and waves the knife in front of Orinoko's face "-or he
+gets it."
+
+> throw can at bulgaria
+Knowing that even a hired killer like Bulgaria won't expect a can being
+thrown at him in a situation like this, I pitch the can of coke at him. Sure
+enough, it takes him by surprise and clonks him a solid blow right in the
+middle of his head. He staggers back, crashes against the broken window and
+then falls through. I rush over in time to see him land on the ground, spring
+to his feet as if unharmed and go rushing off. I consider chasing him but
+reason that he already has a massive lead over me and I'd never catch him.
+Instead I turn back to Orinoko.
+   "Thank-ee for saving me, kind sir secret agent," he cries, throwing his
+arms around me in a manner that, if I were in any way homophobic and not the
+paragon of kindness and consideration that I am, would find really
+distasteful. As it is I endure his thanks with gritted teeth and a fervent
+desire for a damn good shower at the first opportunity.
+   "I need some questions answering, Orinoko," I say.
+   "Ask your questions, kind sir secret agent," says Orinoko, alternatively
+kissing my fingers and bowing to me. "You saved my life and now I am your
+servant forever!"
+
+   1: "Why was that man trying to kill you?"
+   2: "What do you know about a ruthless gang of bank robbers?"
+   3: "Tell me everything you know about F.A.R.T."
+   4: "Are you really my servant for life? Hmmm. That's an interesting idea…"
+
+> 1
+"He bad man, kind sir secret agent," says Orinoko, wringing his hands
+together. "Since I left the ruthless bank robbers, they have been reluctant
+to let me speak to another human being. They have hounded me every step of
+the way, they have sent assassins to kill me, they have even poisoned my pet
+brick. It is all so tragic!"
+
+   1: "You say you've left the bank robbers?"
+   2: "They poisoned your pet brick?"
+   3: "What do you know about a ruthless gang of bank robbers?"
+   4: "Tell me everything you know about F.A.R.T."
+   5: "Are you really my servant for life? Hmmm. That's an interesting idea…"
+
+> 2
+Orinoko nods sadly. "They force fed it cyanide until it was so ill it died."
+He wipes away a tear. "I had that brick right from when it was a pebble until
+it was almost a paving stone. And they killed it without any more thought
+than you or I would about killing an inanimate object that was never even
+alive in the first place."
+
+   1: "You say you've left the bank robbers?"
+   2: "What do you know about a ruthless gang of bank robbers?"
+   3: "Tell me everything you know about F.A.R.T."
+   4: "Are you really my servant for life? Hmmm. That's an interesting idea…"
+
+> 3
+Orinoko shudders. "Oh, they are evil are the people from F.A.R.T. They have
+no morals of any kind and would kill a poor old Chinese man given half the
+chance. Robbing banks for profit is one thing but F.A.R.T…." He shakes his
+head. "They are evil and twisted through and through."
+
+   1: "I need to gather information to stop F.A.R.T. Can you help me,
+Orinoko?"
+
+> 4
+Orinoko shudders. "Oh, they are evil are the people from F.A.R.T. They have
+no morals of any kind and would kill a poor old Chinese man given half the
+chance. Robbing banks for profit is one thing but F.A.R.T…." He shakes his
+head. "They are evil and twisted through and through."
+
+   1: "I need to gather information to stop F.A.R.T. Can you help me,
+Orinoko?"
+
+> 1
+Orinoko shudders again. "It will mean certain death for me if I help you out
+and no doubt my reward will be nothing at all but…" He straightens. "I shall
+help you, kind sir secret agent. You saved my life, it is the least I can do.
+Lead the way and I shall do all that I can to assist you."
+   I seem to have gained an ally.
+
+> look
+
+Mr Orinoko's Office
+From the overturned chairs and desks and smashed filing cabinets, I'd guess
+there has been a pretty big fight in here recently. A telephone buried under
+a pile of files is ringing to itself. The western part of the office is
+occupied by a large table on top of which is a detailed map of a bank vault.
+Behind this table, taking up most of the west wall, is a window with a rather
+large hole in the centre.
+   I find the following exits available to me: south (to the lobby).
+
+Also here is a can of coke.
+Orinoko is here.
+
+> i
+I am wearing a badge, and I am carrying some loose change, my gun (unloaded),
+the mission folder and my key.
+
+> look under desk
+I peer under and find - a single bullet!
+   Knowing this will undoubtedly come in handy the next time I plan on
+shooting someone, I slip it into my gun.
+
+> look under desk
+Two desks, both of them smashed beyond repair. Whatever was on top of them is
+now beneath them and they look far too heavy to lift.
+
+> answer tele
+It's buried under all the carnage in here and so out of reach. It's probably
+not for me anyway.
+
+> x map
+It looks to be the bank on Percy Street. This must be where the bank robbers
+are planning to strike next.
+
+> get map
+The map is actually nailed to the top of the table and seemingly impossible
+to remove.
+
+> score
+My score is 25 out of a maximum of 352.  (7%)
+
+> s
+I move south.
+
+Lobby
+The lobby looks like a bomb went off in here although why anyone would choose
+to bomb such a dump I can't imagine. There are several doors on the north
+wall but only one of them looks like it's still in use. A sign attached to it
+draws my attention.
+   I find the following exits available to me: north (through the door) and
+east (to Picador Lane).  Orinoko enters from the north.
+
+> e
+I move east.
+
+Picador Lane
+This is the heart of the city's financial district and almost everyone I can
+see for miles around looks to be wearing a smart business suit and shades.
+Clad in my Bahamas beach-ware I'm a little out of place.
+   I look around for the entrance to the building where Mr Orinoko works and
+catch sight of it to the west. Nothing else of interest springs to mind
+although the strip den on the corner is at least… appealing.
+   I find the following exits available to me: west (to the building),
+northeast (to the strip den) and in (to my car).  Orinoko enters from the
+west.
+
+> ne
+I move northeast.
+
+Strip Den
+As a secret agent, quite a sizeable amount of my time has been spent in
+sleazy joints such as this. You might think the two aren't mutually exclusive
+but they are.
+   The atmosphere in here is smoky to the extent where seeing your hand in
+front of your face is quite a feat. Peering through the smoke I can make out
+a number of, er, "dancers" on a stage in the centre of the room. They don't
+appear to be doing a lot in the way of dancing and nor does it seem that
+clothes are a big issue here. A bar selling overpriced drinks is situated
+against the north wall.
+   I find the following exits available to me: southwest (to Picador Lane).
+Orinoko enters from the south-west.
+
+> look
+
+Strip Den
+As a secret agent, quite a sizeable amount of my time has been spent in
+sleazy joints such as this. You might think the two aren't mutually exclusive
+but they are.
+   The atmosphere in here is smoky to the extent where seeing your hand in
+front of your face is quite a feat. Peering through the smoke I can make out
+a number of, er, "dancers" on a stage in the centre of the room. They don't
+appear to be doing a lot in the way of dancing and nor does it seem that
+clothes are a big issue here. A bar selling overpriced drinks is situated
+against the north wall.
+   I find the following exits available to me: southwest (to Picador Lane).
+Orinoko is here.
+
+> sw
+I move southwest.
+
+Picador Lane
+This is the heart of the city's financial district and almost everyone I can
+see for miles around looks to be wearing a smart business suit and shades.
+Clad in my Bahamas beach-ware I'm a little out of place.
+   I look around for the entrance to the building where Mr Orinoko works and
+catch sight of it to the west. Nothing else of interest springs to mind
+although the strip den on the corner is at least… appealing.
+   I find the following exits available to me: west (to the building),
+northeast (to the strip den) and in (to my car).  Orinoko enters from the
+north-east.
+
+> in
+I enter my car.
+
+My Car
+The interior of my car differs from the exterior only that it's inside as
+opposed to outside. It's pretty gloomy in here as none of the lights work
+properly and it was also felt that a spy driving around in a well lit car
+might be too conspicuous.
+   The dash is a hideously complicated array of dials, buttons, knobs,
+switches and panels - I'm not really sure what it is any of them do but when
+I get a few spare hours I'm tempted to have a bash at figuring them out. The
+only things that interest me right now are the steering wheel and the
+ignition slot next to it.
+   I find the following exits available to me: out.  Orinoko enters.
+
+> drive car
+Where to?
+
+   1) The docks
+   2) Picador Lane
+   3) Percy Street
+
+> 1
+As we pull up at the docks, Orinoko glances out of the car window and sighs.
+"Ah, seldom have I seen such filth and decadence in one place. Why have you
+brought me here?"
+   I tell him.
+   "No idea, you're just clutching at straws?" He muses on this. "Is a good
+plan. Let us proceed."
+
+> out
+I exit my car.
+
+Docks
+I've been to the docks before and as with every sleazy dump I've acquainted
+they never change. The same lowlifes hang around outside every bar, the same
+hookers infest every street corner, the same cut-throats lurk in dark alleys
+waiting for an unwary victim to come along.
+   The docks themselves are far too big for me to search the entirety of to
+find the bank robbers so I narrow it down to a couple of possible start
+locations: the Alonzo Bar and a boat called The Corpse which is anchored
+nearby.
+   I find the following exits available to me: northwest (to the Alonzo Bar),
+southwest (to The Corpse) and in (to my car).
+
+Also here is a newspaper.  Orinoko enters.
+
+> look
+
+Docks
+I've been to the docks before and as with every sleazy dump I've acquainted
+they never change. The same lowlifes hang around outside every bar, the same
+hookers infest every street corner, the same cut-throats lurk in dark alleys
+waiting for an unwary victim to come along.
+   The docks themselves are far too big for me to search the entirety of to
+find the bank robbers so I narrow it down to a couple of possible start
+locations: the Alonzo Bar and a boat called The Corpse which is anchored
+nearby.
+   I find the following exits available to me: northwest (to the Alonzo Bar),
+southwest (to The Corpse) and in (to my car).
+
+Also here is a newspaper.
+Orinoko is here.
+
+> nw
+I move northwest.
+
+Alonzo Bar
+Crummy dives are all the same and the Alonzo Bar is no exception. Rough
+fellows who'd just as soon slit your throat as look at you crowd the bar,
+fighting with each for the privilege of being served a pint of swill first.
+The bartender is a scarred brute with only one eye who seems to be imbibing
+as much of the swill as serving it. Elsewhere in the place are several
+hookers plying their trade, an elderly man seated at a table looking a bit
+lost and a seriously shady looking character who keeps glancing at his watch
+as if expecting someone.
+   I find the following exits available to me: southeast (to the docks).
+Orinoko enters from the south-east.
+
+> look
+
+Alonzo Bar
+Crummy dives are all the same and the Alonzo Bar is no exception. Rough
+fellows who'd just as soon slit your throat as look at you crowd the bar,
+fighting with each for the privilege of being served a pint of swill first.
+The bartender is a scarred brute with only one eye who seems to be imbibing
+as much of the swill as serving it. Elsewhere in the place are several
+hookers plying their trade, an elderly man seated at a table looking a bit
+lost and a seriously shady looking character who keeps glancing at his watch
+as if expecting someone.
+   I find the following exits available to me: southeast (to the docks).
+Orinoko is here.
+
+> talk bartender
+"What the 'ell do you want, secret agent?" he grunts, spraying me with saliva
+as he does so.
+
+   1: "Er, I'm not a secret agent actually. I'm just a, er, fisherman looking
+for, er, information."
+   2: "I need information on a gang of ruthless bank robbers and as
+bartenders often know more than they should I figured I was best starting
+with you."
+   3: "Tell me about F.A.R.T."
+
+> 1
+The bartender shrugs. "Whatever. You want a glass of the swill I serve here?"
+
+   1: "Sure, why not?"
+   2: "I need information on a gang of ruthless bank robbers and as
+bartenders often know more than they should I figured I was best starting
+with you."
+   3: "Tell me about F.A.R.T."
+
+> 1
+"Sorry, we're right out."
+   I glance around the bar and see upwards of a hundred people drinking the
+swill served here.
+   "We're still out," the bartender grunts as he serves another customer.
+
+   1: "I need information on a gang of ruthless bank robbers and as
+bartenders often know more than they should I figured I was best starting
+with you."
+   2: "Tell me about F.A.R.T."
+
+> 1
+"Dunno nothin' 'bout that at all," says the bartender.
+   "Lies!" cries Orinoko suddenly. "I remember delivering messages to you
+about the planned robberies! You were a messenger boy for our leader!"
+   The bartender glances at him and blanches. "You? Well, well, so they
+didn't kill you after all?"
+   "How would you know about that if you didn't know about the bank robbers?"
+I ask, my efficient spy mind quickly latching onto this apparent slip.
+   The bartender looks at me and hesitates. "Ah, crap," he mutters. "Well,
+you got me. Fine. I know about the robbers. I used to deliver messages for
+them till they got themselves someone better." He punches the bar. "Huh! Just
+'cos I got drunk one time and told a local cop everything I knew about one of
+their robberies, they turned their back on me! What kinda loyalty's that
+supposed to be? Makes me shudder thinking of the way I was used and discarded
+by that bunch o' scum."
+   "How'd you like to get your own back on them?"
+   He frowns, then smiles. "Yeah, that'd be sweet. Tell you what, you head
+over to this sleazy strip den on Picador Lane I used to deliver messages to.
+Speak to Liza, she's one of the dancers but also a member of the robbers.
+She'll be able to lead you right to where they're staying."
+   I file this information away for future use knowing it will doubtless
+prove invaluable when I find Liza.
+
+> talk shady
+"The name's Gregor," remarks the seriously shady character. "Use it, but
+don't use it out."
+
+> talk gregor
+"Well, well, a secret agent unless I'm very much mistaken," Gregor says upon
+me addressing him by his proper name. "What you want, secret agent? Come to
+bust me for shady dealings?"
+
+   1: "I'm no secret agent!"
+   2: "You're under arrest for... er, shady dealing."
+   3: "I just need information."
+
+> 1
+"Whatever." Gregor shrugs. "What do you want?"
+
+   1: "You're under arrest for... er, shady dealing."
+   2: "I just need information."
+
+> 1
+Gregor snorts. "You're going to arrest me in a place like this? The scum in
+here would tear a lawman apart given half the chance. Come back when you've
+got some common sense, laddie."
+
+   1: "I just need information."
+
+> 1
+"I know the sort of info you're after," says Gregor. "You've been ordered to
+infiltrate a gang of ruthless bank robbers in order to gain information on
+the terrorist organisation commonly known as F.A.R.T. Right so far?"
+   "How do you know all that?" I gasp, momentarily loosing my usual icy cool
+reserve at this unexpected turn of events.
+   "It's my business to know. Also, there's generally one of you bozos around
+sooner or later demanding this or that, and it's always a doddle to deal with
+you." He gestures to the bar. "See the bartender there? Ugly fellow. Face
+like my backside on a bad day? That's who you need to speak to. He passes
+info to the robbers you're after and is probably your best bet. So you know
+what you need to do."
+   "Go over there and beat the crap out of him?"
+   Gregor considers that idea but shakes his head. "You could, if you were
+looking to get every lowlife scum in here to give you a lynching, but you
+might be better off trying voodoo magic on him instead."
+   "Voodoo... magic?"
+   Gregor nods. "Mighty superstitious is our resident bartender. The mere
+sight of a voodoo doll fashioned into his likeness... well, he'd be putty in
+your hands."
+   I consider that then ask the question just begging to be asked.
+   "I do as it happens." Gregor reaches into his pocket, has a good rummage
+around and eventually pulls out (not a part of his anatomy as I was expecting
+but instead) a voodoo doll which bears a remarkable likeness to the
+bartender. "Yours, for that nice shiny badge I know they gives secret agents
+these days."
+   "I'd sooner die than give up my badge."
+   "Fair enough with me," says Gregor. "Just let me know in your next life
+when you change your mind."
+
+> give badge to gregor
+"That'll do nicely," says Gregor, and hands me the voodoo doll in return.
+   "What are you planning to do with that badge?" I ask, wondering if I was
+right to hand it over so easily.
+   Gregor just smiles.
+
+> score
+My score is 35 out of a maximum of 352.  (9%)
+
+> show doll to bartender
+The moment he catches sight of the voodoo doll cunningly shaped like him, the
+bartender gives a high-pitched girlish cry and backs away from me.
+   No one else in the bar seems at all bothered by this and, armed with the
+doll and the kind of swagger in my stride Roger Moore would have killed for,
+I advance upon the hapless bartender.
+   "You know what I want," I say (this might or might not be true but it sure
+sounds impressive so I give it a try).
+   "They're meeting at the Balmoral Hotel! That's all I know!" the bartender
+wails.
+   "The robbers?"
+   "Yes! Yes! They're meeting a representative of F.A.R.T. there and he's
+going to offer them the chance the join the organisation!"
+   "And you know nothing else?"
+   "Nothing! Nothing at all!"
+   "Okay. Fair enough." Having learned everything I need, I toss the doll
+onto the floor and make my exit from the bar before the bartender recovers
+enough to come after me with a gun.
+
+Docks
+I've been to the docks before and as with every sleazy dump I've acquainted
+they never change. The same lowlifes hang around outside every bar, the same
+hookers infest every street corner, the same cut-throats lurk in dark alleys
+waiting for an unwary victim to come along.
+   The docks themselves are far too big for me to search the entirety of to
+find the bank robbers so I narrow it down to a couple of possible start
+locations: the Alonzo Bar and a boat called The Corpse which is anchored
+nearby.
+   I find the following exits available to me: northwest (to the Alonzo Bar),
+southwest (to The Corpse) and in (to my car).
+
+Also here is a newspaper.  Orinoko enters from the north-west.
+
+> score
+My score is 40 out of a maximum of 352.  (11%)
+
+> look
+
+Docks
+I've been to the docks before and as with every sleazy dump I've acquainted
+they never change. The same lowlifes hang around outside every bar, the same
+hookers infest every street corner, the same cut-throats lurk in dark alleys
+waiting for an unwary victim to come along.
+   The docks themselves are far too big for me to search the entirety of to
+find the bank robbers so I narrow it down to a couple of possible start
+locations: the Alonzo Bar and a boat called The Corpse which is anchored
+nearby.
+   I find the following exits available to me: northwest (to the Alonzo Bar),
+southwest (to The Corpse) and in (to my car).
+
+Also here is a newspaper.
+Orinoko is here.
+
+> nw
+After the scare I gave the bartender, I don't think it would be a good idea
+for me to venture in there any time soon. Bartenders offer carry grudges for
+a long time.
+
+> x newspaper
+I see nothing special about the newspaper.
+
+> get newspaper
+I take the newspaper.
+
+> sw
+I move southwest.
+
+The Corpse
+I seem to be standing on the deck of the good ship The Corpse. While an
+unfortunate name for a seafaring vessel, I can't help but think that it quite
+suits it, looking as it does somewhat like a large corpse, albeit one in the
+shape of a ship.
+   Aside from the pale, unwashed deck, the dead and rotting fish and several
+fishing nets, there's nothing to grab the attention here. Oh, aside from the
+cabin to the west.
+   I find the following exits available to me: west (to the cabin) and
+northeast (to the docks).  Orinoko enters from the north-east.
+
+> look
+
+The Corpse
+I seem to be standing on the deck of the good ship The Corpse. While an
+unfortunate name for a seafaring vessel, I can't help but think that it quite
+suits it, looking as it does somewhat like a large corpse, albeit one in the
+shape of a ship.
+   Aside from the pale, unwashed deck, the dead and rotting fish and several
+fishing nets, there's nothing to grab the attention here. Oh, aside from the
+cabin to the west.
+   I find the following exits available to me: west (to the cabin) and
+northeast (to the docks).
+Orinoko is here.
+
+> score
+My score is 40 out of a maximum of 352.  (11%)
+
+> ne
+I move northeast.
+
+Docks
+I've been to the docks before and as with every sleazy dump I've acquainted
+they never change. The same lowlifes hang around outside every bar, the same
+hookers infest every street corner, the same cut-throats lurk in dark alleys
+waiting for an unwary victim to come along.
+   The docks themselves are far too big for me to search the entirety of to
+find the bank robbers so I narrow it down to a couple of possible start
+locations: the Alonzo Bar and a boat called The Corpse which is anchored
+nearby.
+   I find the following exits available to me: northwest (to the Alonzo Bar),
+southwest (to The Corpse) and in (to my car).  Orinoko enters from the
+south-west.
+
+> in
+I enter my car.
+
+My Car
+The interior of my car differs from the exterior only that it's inside as
+opposed to outside. It's pretty gloomy in here as none of the lights work
+properly and it was also felt that a spy driving around in a well lit car
+might be too conspicuous.
+   The dash is a hideously complicated array of dials, buttons, knobs,
+switches and panels - I'm not really sure what it is any of them do but when
+I get a few spare hours I'm tempted to have a bash at figuring them out. The
+only things that interest me right now are the steering wheel and the
+ignition slot next to it.
+   I find the following exits available to me: out.  Orinoko enters.
+
+> drive car
+Where to?
+
+   1) The docks
+   2) Picador Lane
+   3) Percy Street
+   4) The Balmoral Hotel
+
+> 3
+As we arrive in Percy Street, Orinoko clutches my shoulder worriedly.
+   "I not like this at all!" he gasps. "The robbers will be here. They will
+see me! Death and mayhem will follow!" He hesitates then adds hopefully,
+"that strip den was nice. Maybe we should go back there."
+
+> out
+I exit my car.
+
+Percy Street
+Percy Street lies in the heart of the city. (Not a very well heart mind, but
+more one diseased and decaying and about to give up living as a waste of time
+and die quietly.) Several streets lead away from to other parts of the heart
+of the city but it's the bank not five feet away from my parked car that
+draws my attention. A broad flight of steps lead inside the bank.
+   I find the following exits available to me: north (into the bank), east
+and west (along Percy Street) and in (to my car).  Orinoko enters.
+
+> look
+
+Percy Street
+Percy Street lies in the heart of the city. (Not a very well heart mind, but
+more one diseased and decaying and about to give up living as a waste of time
+and die quietly.) Several streets lead away from to other parts of the heart
+of the city but it's the bank not five feet away from my parked car that
+draws my attention. A broad flight of steps lead inside the bank.
+   I find the following exits available to me: north (into the bank), east
+and west (along Percy Street) and in (to my car).
+Orinoko is here.
+
+> score
+My score is 40 out of a maximum of 352.  (11%)
+
+> in
+I enter my car.
+
+My Car
+The interior of my car differs from the exterior only that it's inside as
+opposed to outside. It's pretty gloomy in here as none of the lights work
+properly and it was also felt that a spy driving around in a well lit car
+might be too conspicuous.
+   The dash is a hideously complicated array of dials, buttons, knobs,
+switches and panels - I'm not really sure what it is any of them do but when
+I get a few spare hours I'm tempted to have a bash at figuring them out. The
+only things that interest me right now are the steering wheel and the
+ignition slot next to it.
+   I find the following exits available to me: out.  Orinoko enters.
+
+> drive car
+Where to?
+
+   1) The docks
+   2) Picador Lane
+   3) Percy Street
+   4) The Balmoral Hotel
+
+> 2
+As we arrive at Picador Lane, Orinoko glances out of the car window and asks,
+"why we return here? I have office here."
+   I tell him.
+   "Ah, is good plan."
+
+> out
+I exit my car.
+
+Picador Lane
+This is the heart of the city's financial district and almost everyone I can
+see for miles around looks to be wearing a smart business suit and shades.
+Clad in my Bahamas beach-ware I'm a little out of place.
+   I look around for the entrance to the building where Mr Orinoko works and
+catch sight of it to the west. Nothing else of interest springs to mind
+although the strip den on the corner is at least… appealing.
+   I find the following exits available to me: west (to the building),
+northeast (to the strip den) and in (to my car).  Orinoko enters.
+
+> look
+
+Picador Lane
+This is the heart of the city's financial district and almost everyone I can
+see for miles around looks to be wearing a smart business suit and shades.
+Clad in my Bahamas beach-ware I'm a little out of place.
+   I look around for the entrance to the building where Mr Orinoko works and
+catch sight of it to the west. Nothing else of interest springs to mind
+although the strip den on the corner is at least… appealing.
+   I find the following exits available to me: west (to the building),
+northeast (to the strip den) and in (to my car).
+Orinoko is here.
+
+> ne
+I move northeast.
+
+Strip Den
+As a secret agent, quite a sizeable amount of my time has been spent in
+sleazy joints such as this. You might think the two aren't mutually exclusive
+but they are.
+   The atmosphere in here is smoky to the extent where seeing your hand in
+front of your face is quite a feat. Peering through the smoke I can make out
+a number of, er, "dancers" on a stage in the centre of the room. They don't
+appear to be doing a lot in the way of dancing and nor does it seem that
+clothes are a big issue here. A bar selling overpriced drinks is situated
+against the north wall.
+   I find the following exits available to me: southwest (to Picador Lane).
+Liza is here, dancing seductively.
+
+"Ah, this must nicer than that horrible bank!" cries Orinoko. "Let's sit here
+all day and watch the lovely ladies!"
+   "I've got a ruthless gang of bank robbers to stop," I say, "I haven't got
+time for ogling semi-naked wome- wow, did you see..."I shake my head. "No
+time, Orinoko. Let's go."
+   But surprisingly he just shakes his head. "Not this time, kind sir secret
+agent. Orinoko fears that if he returns to the bank he will die. Orinoko much
+prefer to stay here."
+   And with those few despicable cowardly words, he trots off and starts
+chatting up one of the dancers.
+
+> talk liza
+"Oh, hel-lo," she says, practically purring the word. "And what I can do for
+you, big boy?"
+
+   1: "You can knock off the fake sexiness. It's about as convincing as a
+slap in the face with a rubber fish."
+   2: "I'm looking for a good time."
+   3: "What do you know about a gang of brutal bank robbers."
+   4: "I'm seeking information about F.A.R.T. and understood you were the
+girl to speak to."
+
+> 1
+She pouts in an altogether unconvincing manner. "Oh, dat is such a cruel
+thing to say! Oh, my little feelings are 'urt, dey are!"
+
+   1: "If that's the best you can do, don't give up the day job."
+   2: "I'm looking for a good time."
+   3: "What do you know about a gang of brutal bank robbers."
+   4: "I'm seeking information about F.A.R.T. and understood you were the
+girl to speak to."
+
+> 1
+"Crap," she mutters, her fake accent gone. "What you want, buster? I ain't
+got time for this crap an' that's no mistake."
+
+   1: "Why? Too busy robbing banks?"
+   2: "I'm looking for a good time."
+   3: "What do you know about a gang of brutal bank robbers."
+   4: "I'm seeking information about F.A.R.T. and understood you were the
+girl to speak to."
+
+> 1
+Her eyes widen. "But… but…"
+   Someone in the den suddenly pipes up with the classic line  "don't talk
+about it, love, show it!" which earns him a painful looking slap around the
+face from Liza. She turns back to me, her face hard. "Damn you! Who blabbed?
+Who told you about me? Who betrayed me?"
+   "I'd tell you it was the bartender at The Alonzo but I never divulge my
+sources."
+   Her eyes narrow. "The bartender, eh? Make that
+bartender-who-is-soon-to-be-a-corpse."
+   Damn! I might have been better off not saying anything there. Still, I was
+above worrying about the wellbeing of lowlife bartenders and if everything
+went according to plan today, the whole gang of bank robbers would be locked
+up before they could get around to whacking the owner of The Alonzo.
+   "Tell me what you know about the robbers and I'll make sure it goes better
+for you at trial," I say.
+   Liza glares hatred at me a few times but instead of trying to claw my eyes
+out - a very real possibility and a definite threat considering the length
+and sharpness of her nails - she says, "fine. If it means I get away with a
+smack on the wrist instead of a lifetime in prison. The gang are planning to
+hit a bank today, not sure where, but I know this is going to be the big one.
+They need money for induction into F.A.R.T. That's the Fed-"
+   "I've heard of them."
+   "Anyway, if they get this money they're to meet a F.A.R.T. representative
+at the Balmoral Hotel and give him the money and then he inducts them
+formally into the F.A.R.T. brotherhood. That's all I know."
+   "And why weren't you along?" I ask.
+   She sneers. "They thought it was too dangerous for a woman. Huh! Typical
+male chauvinist pig attitude there. And another thing-"
+   And then she is gone. Before I can make a grab for her, she is through the
+door and fleeing as fast as her sequinned-sandals can carry her. The last I
+see of her is a pair of scantily-clad buttocks disappearing around a corner.
+   I got what I came for though and that's the main thing.
+
+> look
+
+Strip Den
+As a secret agent, quite a sizeable amount of my time has been spent in
+sleazy joints such as this. You might think the two aren't mutually exclusive
+but they are.
+   The atmosphere in here is smoky to the extent where seeing your hand in
+front of your face is quite a feat. Peering through the smoke I can make out
+a number of, er, "dancers" on a stage in the centre of the room. They don't
+appear to be doing a lot in the way of dancing and nor does it seem that
+clothes are a big issue here. A bar selling overpriced drinks is situated
+against the north wall.
+   I find the following exits available to me: southwest (to Picador Lane).
+
+> sw
+I move southwest.
+
+Picador Lane
+This is the heart of the city's financial district and almost everyone I can
+see for miles around looks to be wearing a smart business suit and shades.
+Clad in my Bahamas beach-ware I'm a little out of place.
+   I look around for the entrance to the building where Mr Orinoko works and
+catch sight of it to the west. Nothing else of interest springs to mind
+although the strip den on the corner is at least… appealing.
+   I find the following exits available to me: west (to the building),
+northeast (to the strip den) and in (to my car).
+
+> in
+I enter my car.
+
+My Car
+The interior of my car differs from the exterior only that it's inside as
+opposed to outside. It's pretty gloomy in here as none of the lights work
+properly and it was also felt that a spy driving around in a well lit car
+might be too conspicuous.
+   The dash is a hideously complicated array of dials, buttons, knobs,
+switches and panels - I'm not really sure what it is any of them do but when
+I get a few spare hours I'm tempted to have a bash at figuring them out. The
+only things that interest me right now are the steering wheel and the
+ignition slot next to it.
+   I find the following exits available to me: out.
+
+> drive car
+Where to?
+
+   1) The docks
+   2) Picador Lane
+   3) Percy Street
+   4) The Balmoral Hotel
+
+> 3
+Knowing the robbers are planning to hit the bank sometime today, I drive
+across the time without my usual care for road safety. I get there in one
+piece but the less said about the state of my front bumper the better.
+
+> out
+I exit my car.
+
+Percy Street
+Percy Street lies in the heart of the city. (Not a very well heart mind, but
+more one diseased and decaying and about to give up living as a waste of time
+and die quietly.) Several streets lead away from to other parts of the heart
+of the city but it's the bank not five feet away from my parked car that
+draws my attention. A broad flight of steps lead inside the bank.
+   I find the following exits available to me: north (into the bank), east
+and west (along Percy Street) and in (to my car).
+
+> look
+
+Percy Street
+Percy Street lies in the heart of the city. (Not a very well heart mind, but
+more one diseased and decaying and about to give up living as a waste of time
+and die quietly.) Several streets lead away from to other parts of the heart
+of the city but it's the bank not five feet away from my parked car that
+draws my attention. A broad flight of steps lead inside the bank.
+   I find the following exits available to me: north (into the bank), east
+and west (along Percy Street) and in (to my car).
+
+> north
+I move north.
+
+Bank
+The interior of the bank is controlled chaos: customers jostling each other
+in desperate attempts to get served, tellers arguing vehemently with
+customers, security guards yelling incessantly to make themselves heard.
+Overlooking all this mayhem are several security cameras. I keep an eye on
+them and decide I'd be best keeping my face turned away from them during my
+time in the bank - as a secret agent I don't want to get caught on film.
+   I find the following exits available to me: south (to Percy Street).
+
+The moment I step into the bank, I catch sight of the several dodgy fellows
+lurking in the corner. Acting like I haven't noticed them, I sidle over to
+one queue of customers and do my best to mingle. If they're not the bank
+robbers I'll eat my hat.
+
+> score
+My score is 45 out of a maximum of 352.  (12%)
+
+> wait
+I wait, pretending to be engrossed in a small potted plant in one corner.
+Actually it is quite an interesting plant and if not for the fact that I was
+on a mission of utmost importance I might well be tempted to give up
+everything right there and then to become a florist.
+   A casual glance out of the corner of my eye indicates that the robbers
+look to be about to make their move.
+
+> score
+My score is 45 out of a maximum of 352.  (12%)
+
+> wait
+I study the plant some more. Above the hubbub of the bank - fighting
+customers, yellow security guards, tellers getting more and more frustrated -
+I notice the robbers starting to make their move.
+
+> score
+My score is 45 out of a maximum of 352.  (12%)
+
+> wait
+There is a sudden commotion as the robbers draw guns.
+   "Down onna floor!" yells one and everyone in the bank, myself included,
+throws themselves onto the floor.
+   "Give us yer cash," orders a second, thrusting a bag to a terrified
+cashier. "Fill it up sharpish if you don't want shooting!"
+   "Can I shoot a few of them, boss?" asks the third robber.
+   "Not unless they misbehave," answers the second robber.
+   "Oh, just a little shot, boss. Just-"
+   "Only if they misbehave."
+   "Awww..." The third robber stomps off into the corner and has a bit of a
+sulk. "...never get to have any fun... always getting picked on... never get
+chance to shoot anyone... no fair..."
+   The other robbers finish the robbery and flee the bank, the third one only
+pausing long enough to wave his gun around in a not very threatening display
+of menace, then they are gone. Silence descends over the bank.
+   "My god, they robbed us!" cries someone with a remarkable flare for
+stating the obvious. "They actually came into the goddamn bank and goddamn
+robbed us!"
+   "Why didn't a brave hero come along and rescue us, that's what I'd like to
+know," huffs a matronly woman who has a definite Mother-in-law look to her.
+"Huh! We never get any decent heroes these days. Bunch of yellow-bellied
+cowards they are who fear getting shot. Hah!"
+   I wisely keep quiet and wonder what my next move will be.
+
+> score
+My score is 50 out of a maximum of 352.  (14%)
+
+> get wallet
+I take the wallet.
+
+> i
+I am carrying some loose change, my gun (loaded), the mission folder, my key,
+a wallet and a newspaper.
+
+> south
+I move south.
+
+Percy Street
+Percy Street lies in the heart of the city. (Not a very well heart mind, but
+more one diseased and decaying and about to give up living as a waste of time
+and die quietly.) Several streets lead away from to other parts of the heart
+of the city but it's the bank not five feet away from my parked car that
+draws my attention. A broad flight of steps lead inside the bank.
+   I find the following exits available to me: north (into the bank), east
+and west (along Percy Street) and in (to my car).
+
+> in
+I enter my car.
+
+My Car
+The interior of my car differs from the exterior only that it's inside as
+opposed to outside. It's pretty gloomy in here as none of the lights work
+properly and it was also felt that a spy driving around in a well lit car
+might be too conspicuous.
+   The dash is a hideously complicated array of dials, buttons, knobs,
+switches and panels - I'm not really sure what it is any of them do but when
+I get a few spare hours I'm tempted to have a bash at figuring them out. The
+only things that interest me right now are the steering wheel and the
+ignition slot next to it.
+   I find the following exits available to me: out.
+
+> drive car
+Where to?
+
+   1) The docks
+   2) Picador Lane
+   3) Percy Street
+   4) The Balmoral Hotel
+
+> 4
+Knowing that time is of the essence - or maybe just suspecting it is - I make
+good time across town and soon arrive outside the Balmoral Hotel.
+
+> out
+I exit my car.
+
+Outside The Balmoral Hotel
+Without the doubt the Balmoral Hotel is the largest building I have ever
+seen… for at least a week anyway. It's an ancient, impressively-built
+structure roughly the size of a football stadium only with considerably less
+football hooligans inside. The reception area is visible from where I'm
+standing and it's fair to say it looks quite a bit better than my dining room
+back home.
+   I find the following exits available to me: west (into the Balmoral Hotel)
+and in (to my car).
+
+> look
+
+Outside The Balmoral Hotel
+Without the doubt the Balmoral Hotel is the largest building I have ever
+seen… for at least a week anyway. It's an ancient, impressively-built
+structure roughly the size of a football stadium only with considerably less
+football hooligans inside. The reception area is visible from where I'm
+standing and it's fair to say it looks quite a bit better than my dining room
+back home.
+   I find the following exits available to me: west (into the Balmoral Hotel)
+and in (to my car).
+
+> w
+I move west.
+
+Balmoral Hotel
+Standing in the cool interior of the Balmoral Hotel reception, I find my
+attention drawn - for reasons I can't quite understand - to a painting of a
+naked woman adorning the wall behind the reception counter. This bears
+absolutely no relation to the case I'm working on but I felt like mentioning
+it anyway.
+   Off to one side are a flight of stairs leading to the first floor of the
+hotel and off to the other side is the hotel bar, a welcome sight in any
+circumstances.
+   I find the following exits available to me: up (to the first floor), north
+(to the bar) and east (to outside the hotel).
+
+As I step into the reception area of the hotel, I catch sight of a very
+suspicious individual indeed heading north into the bar. A quick scan through
+my memory reveals him to be none other than Bungo, a known member of F.A.R.T.
+   I'd best be careful here. He's also known to be a deadly killer.
+
+> look
+
+Balmoral Hotel
+Standing in the cool interior of the Balmoral Hotel reception, I find my
+attention drawn - for reasons I can't quite understand - to a painting of a
+naked woman adorning the wall behind the reception counter. This bears
+absolutely no relation to the case I'm working on but I felt like mentioning
+it anyway.
+   Off to one side are a flight of stairs leading to the first floor of the
+hotel and off to the other side is the hotel bar, a welcome sight in any
+circumstances.
+   I find the following exits available to me: up (to the first floor), north
+(to the bar) and east (to outside the hotel).
+
+> n
+I move north.
+
+Bar
+The bar isn't your usual drinking establishment: it's got class. The
+clientele here are strictly upper class and no beer at all is served: instead
+it's martinis all round served in glasses so small that a stray beam of
+sunlight is enough to evaporate their contents. The prices look a little
+steep for someone on my secret agent budget and the woman serving behind the
+bar doesn't look the sort to be giving out freebies.
+   I find the following exits available to me: south (to the reception area).
+Bungo is here.
+
+I catch Bungo watching me as I enter the bar and suspect I might well have
+problems leaving.
+
+> look
+
+Bar
+The bar isn't your usual drinking establishment: it's got class. The
+clientele here are strictly upper class and no beer at all is served: instead
+it's martinis all round served in glasses so small that a stray beam of
+sunlight is enough to evaporate their contents. The prices look a little
+steep for someone on my secret agent budget and the woman serving behind the
+bar doesn't look the sort to be giving out freebies.
+   I find the following exits available to me: south (to the reception area).
+Bungo is here.
+
+> give wallet to bungo
+"Ah, my wallet is returned," says Bungo with obvious delight. "I was
+wondering where that had got to. No doubt one of thieving swine bank robbers
+had made off with it. Well, I shall certainly be having words with them when
+they return."
+
+> talk bungo
+"Ah, the fellow who returned my wallet," says Bungo, shaking my hand with his
+own which resembles a battering ram. "Ah, let us sit and discuss matters,
+shall we not."
+
+   1: "What was that you mentioned about some bank robbers a moment ago?"
+   2: "I'm a reporter doing an article on a terrorist organisation called
+F.A.R.T. - what do you know about it?"
+   3: "I'm looking for some guys to pull off a bank robbery. Any ideas where
+I should look?"
+   4: "You're under arrest!"
+
+> 2
+Bungo gives an uncomfortable laugh. "F.A.R.T.? Why, whoever heard of such a
+crazy name for a terrorist organisation? I mean, you'd have to be... er, a
+redneck to come up with... Oh, crap..."
+   Bungo trails off and pretends to be fascinated in a piece of wall near his
+head.
+
+   1: "Are you waiting here for some bank robbers?"
+   2: "I'm looking for some guys to pull off a bank robbery. Any ideas where
+I should look?"
+   3: "You're under arrest!"
+
+> 2
+"Er... in which case I cannot help you because I know nothing about bank
+robbers."
+
+   1: "Are you waiting here for some bank robbers?"
+   2: "I'm a reporter doing an article on a terrorist organisation called
+F.A.R.T. - what do you know about it?"
+   3: "You're under arrest!"
+
+> 2
+"You mention that crazy word again. I tell you, I know nothing of it. Nothing
+at all."
+   He seems to have clammed up on the subject.
+
+   1: "Are you waiting here for some bank robbers?"
+   2: "I'm looking for some guys to pull off a bank robbery. Any ideas where
+I should look?"
+   3: "You're under arrest!"
+
+> 2
+"Ah, you are persistent. I like that. Very well, maybe I can tell you a few
+details."
+   He proceeds to tell me a few very interesting tidbits of information which
+I file away for future reference.
+
+   1: "Are you waiting here for some bank robbers?"
+   2: "I'm a reporter doing an article on a terrorist organisation called
+F.A.R.T. - what do you know about it?"
+   3: "You're under arrest!"
+
+> 2
+"You mention that crazy word again. I tell you, I know nothing of it. Nothing
+at all."
+   He seems to have clammed up on the subject.
+
+   1: "Are you waiting here for some bank robbers?"
+   2: "I'm looking for some guys to pull off a bank robbery. Any ideas where
+I should look?"
+   3: "You're under arrest!"
+
+> 1
+"Er... only so I can wish them goodbye. As I said, they're... despicable and
+I wish nothing to do with them."
+   A lame story if ever I've heard one. Bungo might be a dab hand at stabbing
+people and burying their bodies in unmarked graves, but he's clearly out of
+his depth where lying is concerned.
+
+   1: "I'm here to meet some bank robbers myself. Isn't that a coincidence?"
+   2: "I'm a reporter doing an article on a terrorist organisation called
+F.A.R.T. - what do you know about it?"
+   3: "I'm looking for some guys to pull off a bank robbery. Any ideas where
+I should look?"
+   4: "You're under arrest!"
+
+> 1
+Bungo frowns. "I doubt that very much. They are... not nice people these
+robbers. They would have little to do with the likes of you."
+
+   1: "Oh really? I'm a secret agent I'll have you know!"
+   2: "Er, quite. After all, I'm a law abiding citizen and they wouldn't be
+seen dead talking to me."
+   3: "I'm a reporter doing an article on a terrorist organisation called
+F.A.R.T. - what do you know about it?"
+   4: "I'm looking for some guys to pull off a bank robbery. Any ideas where
+I should look?"
+   5: "You're under arrest!"
+
+> 5
+"Under... arrest?" he murmurs. "Then you must be..." He surges suddenly to
+his feet. "A FILTHY STINKING SECRET AGENT! A SPY!"
+
+As Bungo readies himself to attack, I quickly muster my strength and:
+
+1)  Headbutt Bungo.
+2)  Execute a dazzling flying kick to his groin.
+3)  Insult his heritage.
+4)  Make sarcastic comments about his dress sense.
+5)  Politely suggest he surrender himself or face a damn good kicking.
+
+> 2
+I throw myself forward in a dazzling display of gymnastics not seen since
+Torvill & Dean last took to the ice, and snap a kick into Bungo's groin. He
+doubles in pain and backs away, not defeated but clearly hurt.
+
+1)  Headbutt Bungo.
+2)  Execute another dazzling flying kick to his groin.
+3)  Insult his heritage.
+4)  Make sarcastic comments about his dress sense.
+5)  Politely suggest he surrender himself or face a damn good kicking.
+
+> 2
+Before Bungo can fully recover from our last bout of combat, I execute
+another dazzling flying kick into his groin. I really would have thought he'd
+be prepared for it this time but obviously not as the attack sends him
+crashing into the nearby wall and completely ruins any hopes he might once
+have had of fathering children.
+
+1)  Headbutt Bungo.
+2)  Execute yet another dazzling flying kick to his groin.
+3)  Insult his heritage.
+4)  Make sarcastic comments about his dress sense.
+5)  Politely suggest he surrender himself or face a damn good kicking.
+
+> 3
+"Your mother was a cleaner and your dad worked as a rent boy!" I start off
+with.
+   Bungo glares at me horribly then comes charging at me in a desperate
+attempt to make me stop. I duck nimbly to one side and get him with a good
+one - "and your sister has a face like an arse!" - and before long I can tell
+that my insults are having the desired effect.
+
+1)  Headbutt Bungo.
+2)  Execute a dazzling flying kick to his groin.
+3)  Insult his heritage again.
+4)  Make sarcastic comments about his dress sense.
+5)  Politely suggest he surrender himself or face a damn good kicking.
+
+> 3
+"Your aunt was the village idiot!" I cry.
+   This dazzling display of insult sends Bungo cursing into a corner. I feel
+I'm onto a winning streak here.
+
+1)  Headbutt Bungo.
+2)  Execute a dazzling flying kick to his groin.
+3)  Insult his heritage again.
+4)  Make sarcastic comments about his dress sense.
+5)  Politely suggest he surrender himself or face a damn good kicking.
+
+> 1
+Knowing that redneck terrorists are notoriously poor at defending themselves
+from headbutts, I launch a devastasting headbutt against Bungo.
+   Alas, there's always the odd exception to every rule and rather than
+connecting with Bungo's head, my attack connects with his fist!
+   "Plenty more where that came from!" he grunts with a smile.
+
+1)  Headbutt him again.
+2)  Execute a dazzling flying kick to his groin.
+3)  Insult his heritage.
+4)  Make sarcastic comments about his dress sense.
+5)  Politely suggest he surrender himself or face a damn good kicking.
+
+> 1
+Knowing that Bungo will not expect me to use the same attack method twice, I
+launch a headbutt at him - and find myself face-to-fist with his fist.
+   Needless to say, it hurts.
+   "Will you never learn?" he asks with a satisfied smile.
+
+1)  Headbutt him a third time.
+2)  Execute a dazzling flying kick to his groin.
+3)  Insult his heritage.
+4)  Make sarcastic comments about his dress sense.
+5)  Politely suggest he surrender himself or face a damn good kicking.
+
+> 1
+Clearly unable to understand just why I'm trying to headbutt him a third time
+when the previous two attempts were such dismal failures, Bungo is completely
+unprepared for my attack - it smashes into his face, shatters his nose, and
+sends him crashing back against the bar.
+   Even with the high resistance to pain that agents of F.A.R.T. are said to
+possess, that's still gotta hurt!
+
+1)  Headbutt him again.
+2)  Execute a dazzling flying kick to his groin.
+3)  Insult his heritage.
+4)  Make sarcastic comments about his dress sense.
+5)  Politely suggest he surrender himself or face a damn good kicking.
+
+A sudden glazed look goes over Bungo's face as my last blow proved to be the
+telling one. He staggers back, sags against a wall then collapses to his
+knees. A moment later the inevitable plummet facedown onto the floor occurs.
+   There is silence in the bar for a few seconds then all at once everyone is
+talking: "...cor, worra fight!..." "...did yer see that flying kick ter the
+groin..." "shouldn't someone call an ambulance?..."
+   Before anyone can stop me, I go through Bungo's pockets and come across a
+small diary which I shove into my own pocket before making a discreet exit
+from the bar.
+
+P's office is the sort of large, hideously extravagant thing that I've always
+felt should be shot, strangled and buried at the bottom of the sea in a steel
+coffin with extra bolts driven into the lid for good measure. That my bedroom
+was partially modeled on it is just pure coincidence.
+   P was awaiting me behind his desk. To this day I have never seen him leave
+that desk or even stand. I suspect he might well have been born growing out
+of the desk and that, were I to suddenly push the desk to one side, P would
+be thrown aside as well. It's certainly something to bear in mind.
+
+"Good of you to make it back so fast, 00000000365," says P, perusing a thick
+file before him. "Now, let's have a look at how you did, shall we?"
+
+"It seems you did very well on the information gathering front," says P.
+"Hmmm. Very impressive indeed. You questioned that despicable agent of
+F.A.R.T. and extracted every bit of information we needed. Well done."
+
+"On top of that," adds P, "you found a diary detailing a wide range of
+F.A.R.T. informants. No doubt information that will prove invaluable to
+rounding up those thugs."
+
+"And I also hear you managed to keep our undercover operative, Mr Orinoko,
+alive," says P.
+   "I never knew Orinoko was an undercover operative," I say.
+   "Well," says P, "if you knew that he wouldn't be much of an operative,
+would be?"
+
+"All in all," says P in summing up, "you did exceptional. Why, I'm almost
+tempted to recommend that you be upgraded to 00000000364 for this sterling
+effort."
+   "That would be a true honour, sir," I say.
+   "I said almost. But the fact of the matter, Pond, is that we need decent
+agents like you in the field. We'll be moving against F.A.R.T. in force soon
+and I'll be wanting you to lead the attack."
+   "Attack, sir?" I ask. "Er... you mean, bullets and bombs and people
+getting killed? That sort of attack?"
+   "Precisely! I can see by the glint in your eye that you're looking forward
+to it. I suggest you give yourself a few moments to cool off in the outer
+office and then I'll send you to Z for your mission briefing. Well done
+00000000365!"
+   I weakly shake his hand and then stagger from the room, wondering as I do
+just how I manage to get myself messed up with these things.
+
+Outer Office
+I don't think I've even been in such a drab and dismal little room. There is
+nothing here aside from a small sign affixed to the wall.
+
+> quit
+Do you really want to quit? [Y/N]

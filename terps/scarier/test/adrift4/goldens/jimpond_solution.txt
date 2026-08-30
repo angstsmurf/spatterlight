@@ -1,0 +1,127 @@
+in
+push knob
+get key
+read folder
+read overview
+read try
+read advice
+out
+n
+insert 17p
+s
+get coke
+in
+drive car
+2
+out
+look
+w
+look
+n
+throw can at bulgaria
+1
+2
+3
+4
+1
+look
+i
+look under desk
+look under desk
+answer tele
+x map
+get map
+score
+s
+e
+ne
+look
+sw
+in
+drive car
+1
+out
+look
+nw
+look
+talk bartender
+1
+1
+1
+talk shady
+talk gregor
+1
+1
+1
+give badge to gregor
+score
+show doll to bartender
+score
+look
+nw
+x newspaper
+get newspaper
+sw
+look
+score
+ne
+in
+drive car
+3
+out
+look
+score
+in
+drive car
+2
+out
+look
+ne
+talk liza
+1
+1
+1
+look
+sw
+in
+drive car
+3
+out
+look
+north
+score
+wait
+score
+wait
+score
+wait
+score
+get wallet
+i
+south
+in
+drive car
+4
+out
+look
+w
+look
+n
+look
+give wallet to bungo
+talk bungo
+2
+2
+2
+2
+2
+1
+1
+5
+2
+2
+3
+3
+1
+1
+1

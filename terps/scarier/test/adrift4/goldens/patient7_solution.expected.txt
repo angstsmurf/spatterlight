@@ -1,0 +1,643 @@
+Loading game...
+
+Patient 7
+
+by
+Justahack
+
+It is the 31st of October, and you are laying in bed. A hospital bed, that
+is. You are a child of seven years, and have been visiting the hospital for
+the past several years. When you were born, it was determined that you had a
+rather rare genetic disorder. A mitochondrial irregularity which would prove
+fatal in seven years time. Tonight, you experienced particularly violent
+symptons and were rushed to the hospital. You are going to die tonight, it
+seems.
+
+You are laying pitifully on your bed, your parents having left the room,
+unable to come to terms with your impending expiration. Even though you are a
+child, you are very much aware of what death is. What's more, that it is
+coming for you tonight.
+
+press any key to continue ...
+
+In a Room Somewhere
+
+You wake up to the overpowering smell of hospital disinfectant which lingers
+heavily in the air. You are laying upon a sterile cold bed in the near pitch
+darkness. Across from the foot of your bed, you can make out the image of a
+dresser, atop which is a mirror. On the right side of the bed sits an odd
+looking hospital machine. Presumably used for some kind of medical purpose.
+Beyond the strange contraption is an open window, letting in the elements of
+rain and cold air. To your left is the door to your room.
+
+> wait
+
+You move with collosal effort in an attempt to perform that action, but find
+you are far too weak to move. You fall back pathetically, your body wracked
+in pain.
+A crack of lightning illuminates your room through the open window.
+
+> wait
+
+You move with collosal effort in an attempt to perform that action, but find
+you are far too weak to move. You fall back pathetically, your body wracked
+in pain.
+You feel weak and cold.
+
+> wait
+
+You move with collosal effort in an attempt to perform that action, but find
+you are far too weak to move. You fall back pathetically, your body wracked
+in pain.
+
+> wait
+
+You move with collosal effort in an attempt to perform that action, but find
+you are far too weak to move. You fall back pathetically, your body wracked
+in pain.
+
+> wait
+
+You move with collosal effort in an attempt to perform that action, but find
+you are far too weak to move. You fall back pathetically, your body wracked
+in pain.
+A sudden violent fit of coughing suddenly possesses you. For a few moments,
+you are unable to draw breath.
+You blink your eyes, as for just a moment, you thought you saw "something" at
+the window.
+
+> wait
+
+You move with collosal effort in an attempt to perform that action, but find
+you are far too weak to move. You fall back pathetically, your body wracked
+in pain.
+There is someone sitting on the window sill, looking straight at you.
+
+> wait
+
+You move with collosal effort in an attempt to perform that action, but find
+you are far too weak to move. You fall back pathetically, your body wracked
+in pain.
+It is walking towards you, and is in between the window and your bed.
+
+> wait
+
+You move with collosal effort in an attempt to perform that action, but find
+you are far too weak to move. You fall back pathetically, your body wracked
+in pain.
+
+> wait
+
+You move with collosal effort in an attempt to perform that action, but find
+you are far too weak to move. You fall back pathetically, your body wracked
+in pain.
+
+> wait
+
+You move with collosal effort in an attempt to perform that action, but find
+you are far too weak to move. You fall back pathetically, your body wracked
+in pain.
+There is someone at the foot of your bed.
+
+It has an insane smile etched upon its face.
+"No ... no!" you scream madly at the top of your lungs.
+
+You wake up in a cold sweat. It's the same nightmare you had almost two
+decades ago.
+
+You calm down, and slowly get up from your bed into an unfamiliar
+surrounding.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+You hear the noise of a key unlocking your door.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+A woman in a white lab coat and carrying a clipboard walks inside, and
+examines you for a few moment. "I see you're finally awake."
+
+> wait
+Time passes...
+The doctor walks up closely to you and eyes you curiously. "Well, then. How
+are you feeling today?"
+
+press any key to continue...
+
+How will you respond? Press the number corresponding to your desired
+response.
+
+1) "I had a nightmare."
+
+2) "Who are you?"
+
+3) "Where am I?"
+
+4) <Stay silent>
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> 1
+
+"Yes, you were in a hospital when you were younger. According to the medical
+records, you had elected to undergo some kind of neurosurgery to treat a
+malignant cancer of the brain. While it had the desired effect of removing
+the malignant tumor, it had other neurological side effects. Inability to
+retain long term memory, and frequent episodic schizophrenia." The doctor
+pauses a moment, as if reflecting on something before continuing.
+
+"That appears to be the last thing you remember. You do not seem to remember,
+being told the news. Being moved here. Or the past twenty years. Every day,
+it has been the same thing. You wake up, you suffer schizophrenic episodes,
+and you forget. Only to repeat it all the next day."
+
+press any key to continue...
+
+How will you respond? Press the number corresponding to your desired
+response.
+
+1) "I had a nightmare."
+
+2) "Who are you?"
+
+3) "Where am I?"
+
+4) <Stay silent>
+
+> 2
+The doctor furrows her eyebrow and scribbles something onto her clipboard,
+before responding. "I am your current physician in charge of your care." The
+doctor smiles patiently a moment before elaborating.
+
+"We seem to go through this every day. You're a patient at the local asylum.
+You've been diagnosed with severe schizophrenia, and were confined here.
+In fact, you've been here for the past twenty years."
+
+press any key to continue...
+
+How will you respond? Press the number corresponding to your desired
+response.
+
+1) "I had a nightmare."
+
+2) "Who are you?"
+
+3) "Where am I?"
+
+4) <Stay silent>
+
+> 3
+
+The doctor sighs a moment, as if explaining this to you is some kind of old
+and tiring habit. "You're in an asylum. You've been in our care for the past
+twenty years. You require constant treatment, as your schizophrenic episodes
+are quite severe."
+
+The doctor flips through a few more pages on her clipboard until she reaches
+the page she was looking for.
+
+"In detail, you've been a long term sufferer. Um," the doctor flips back to a
+previous entry in her clipboard. "Hearing voices. Scenery discolorment, for
+example, walls melting or random changes of color. Sensation of being stalked
+by invisible creatures. Demons, you've mentioned." The doctor furrows her
+eyebrows, before continuing. "It is also not rare for you to hallucinate. One
+time you imagined a patient being impaled, when in fact, he was merely
+receiving
+an injection."
+
+The doctor looks up from her clipboard, and appraises your response.
+
+press any key to continue...
+
+How will you respond? Press the number corresponding to your desired
+response.
+
+1) "I had a nightmare."
+
+2) "Who are you?"
+
+3) "Where am I?"
+
+4) <Stay silent>
+
+> 4
+
+The doctor nods her head after a few moments, satisfied you have nothing
+further to ask.
+
+"Well, I see that not much has changed. So we will leave it at that for
+today. Besides, I need more coffee."
+The doctor smiles patiently at you before standing up, and heads out the
+door.
+
+You hear a click, as it is locked behind her.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+Some time later, you hear the sound of a key unlocking your door. An orderly
+steps inside with a plate of food. He tosses its contents onto your bed and
+walks back outside with little regard. It is definitely, not edible.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+A few moments later, you hear the sound of your door being opened once again.
+An orderly walks in, and informs you that you have a few hours of free time
+to exit your room.
+
+press any key to continue ...
+
+"Black ... white. Black ... white." repeats a patient, who seems engrossed in
+something imaginary.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+"Home ... I want to go home." says a thin frail man, on the dirty floor.
+
+> wait
+Time passes...
+A patient in a corner shivers.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+"I'm glad I found you." says someone, apparently addressing you.
+"I am glad to see you. very glad." says a shaggy looking man, who's facial
+hair has seen better days.
+press any key to continue...
+
+"I don't have much time. I am Father Francis, and I belong to the Jesuits. I
+am here
+to save you. The world. Us."
+
+How will you respond? Press the number corresponding to your desired
+response.
+
+1) "Are you crazy?"
+
+2) "What?"
+
+> 1
+"Listen, please. We don't have much time. You had your meeting with your
+'doctor', yes? She probably told you, that you're exhibiting symptons of
+schizophrenia, right? Don't believe her! It's all a lie. You, are just as
+sane as me!"
+
+Francis looks behind him in case of anyone overhearing, then continues.
+
+"I know this is crazy, but you have to believe me. You are currently sharing
+your body with a demon. It's an old demon. We don't know it's name. But, we
+know that it is planning on coming into this world. It is going to enter OUR
+WORLD! We ... the jesuits, have a plan on getting rid of the demon, but we
+need your cooperation. Your assistance. Please."
+
+"Look, I ... rec time is coming to an end. Meet me back here tomorrow."
+
+Francis looks about nervously, afraid to talk anymore.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Eventually the orderlies arrive and escort you back to your room, as well as
+the other patients.
+
+As you look outside the crudely cut hole in the wall, you're amazed at how
+quickly dark it had gotten.
+You hear the sound of a key unlocking your door, then two orderlies walking
+inside. One of them straps you down to your bed, while the other readies an
+injection of some sort. You are held down in what feels to be more prejudice
+than anything else, as the injection is forced into you through your neck.
+
+Within seconds you fall unconscious.
+
+press any key to continue ...
+
+> wait
+Time passes...
+
+As you dream ...
+You watch as a group of pig like creatures are tortured by another group of
+creatures which you can not compare to any you've seen before.
+
+The torturers seem to be taking joy in the painfilled squeals of their
+victims. You can do nothing but watch in fear, unable to flee. You are hoping
+that you are not noticed. As the torture continues, you feel something ... or
+someone, behind you.
+
+Turning around, you come face to face with a tall, demonic humanoid.
+
+"Good evening," it grins. "I trust you have ... enjoyed your stay, in the
+mortal world." The demonic figure lets out a cackling laugh, as if enjoying
+some cruel
+joke.
+
+"We are having this talk because soon, you will be dead. Our pact is nearly
+done and with it your end will come. It will happen soon, and when it does, I
+want you to know that I will enjoy being born into your world ... a human."
+
+> wait
+Time passes...
+
+The next morning...
+
+"You're up early, I see. How did you sleep?" The doctor smiles to herself,
+not expecting a real response. "Today is a special day, you know? Well, you
+wouldn't really know." The doctor scribbles something onto her clipboard.
+"Anyway, is there anything you want to discuss with me today? Or shall I go
+get more coffee? I believe someone brought donuts into the break room. Well,
+for us that is."
+
+The doctor appears lost in thought as she becomes distracted by the thought
+of the promise of the confectionaries, so nearby.
+How will you respond? Press the number corresponding to your desired
+response.
+
+1) <Tell her about Francis>
+
+2) <Tell her about the seemingly demonic dream.>
+
+3) <Stay silent>
+
+> 1
+
+You explain your incident with Francis at the recreation room yesterday. The
+doctor stares at you for a few moments, and blinks. "You ... remembered this
+Yesterday?" The doctor appears lost in thought as well as shocked. "That's
+... um, interesting." The doctor stops midsentence and looks towards you. "So
+Francis said all this, did he? Well, I am not surprised."
+
+press any key to continue ...
+
+"It is a sad story, really. Part of what Francis said is true." The doctor
+pauses a moment, seemingly reflecting before continuing.
+
+"Yes, he was a Jesuit priest, at one time. However, I suppose with age or
+some other combination of contributing factors, he began to develop symptons
+of schizophrenia. He began to ... see things. Hear things. He started
+believing that he was some chosen receptacle for God's instructions. Well."
+The doctor smiles at you. "Even now after all this time since schizophrenia
+was first identified, we know very little about what causes it. There does
+not appear to be any common ... characteristics. But, I digress."
+
+The doctor pauses a moment before continuing.
+
+It was ... sacriligeous to say the least. and so he was removed and placed in
+an institute. Here, to be exact. You're not the first one he has expressed
+this ... thesis, if you will ... that you're some kind of demonic receptacle.
+
+press any key to continue ...
+
+It seems I will have to have a little talk with Francis and re-evaluate his
+condition. You see, Francis too, also suffers from schizophrenia, like you."
+The doctor halts once more and appends her statement, "That is to say, a good
+majority of the patients here suffer from the same issues that you do. Well,
+anyhow ill take care of this, so you need not worry." The doctor takes a few
+long moments to write something down on her clipboard, then turns to look at
+you, before smiling. "Anything else you want to talk about?"
+
+How will you respond? Press the number corresponding to your desired
+response.
+
+2) <Tell her about the seemingly demonic dream.>
+3) <Stay silent>
+
+> 2
+
+You explain your dream regarding a demonic entity, and how your world began
+to melt from an intense heat. The doctor appears lost in thought, then looks
+slowly up at you. With a sad look on her face she begins to write down a few
+things on her clipboard. "Regressing ... will require further treatment." she
+seemed to be saying to herself.
+
+press any key to continue ...
+
+How will you respond? Press the number corresponding to your desired
+response.
+
+3) <Stay silent>
+
+> 3
+
+"Nothing, huh? Well, that's fine." The doctor pockets her pen and looks down
+upon you. "I wish I could say, that I will miss you. But that wouldn't be
+truthful."  The doctor turns around and walks out the door.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+You hear a commotion outside. It sounds like Francis, but he is yelling and
+struggling with something outside your door.
+
+> wait
+Time passes...
+You walk over to the door and look outside. On the dirty floor of the
+hallway, are three orderlies as they pin Francis down onto the floor.
+
+"Get off me! I didn't do anything wrong!" Francis yells, struggling with the
+orderlies.
+
+Francis spots you watching him and yells desperately, "You have to escape!
+You have to find some way of getting out of here, and then," Francis gasps
+for breath, his body tiring, "You must kill yourself! Do you understand me?
+You mustn't let it into our world! Kill yourself!"
+
+You watch as a new orderly arrives on the scene with a syringe in hand.
+Pressing it against Francis' jugular, the orderly depresses violently.
+Francis gags and begins to shake uncontrollably.
+
+Within a few moments, he lies still.
+
+> wait
+Time passes...
+The Orderlies pick up Francis and carry him away.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The walls have begun ... melting. The melted residue drips down, revealing a
+manical face hiding behind the cheap plastered paint.
+
+Horror grips you as you stare into the eyes of the face, apparently hidden
+behind your wall. You can not seem to look away from the unblinking gaze, the
+two eyes trained right on you.
+
+... Unblinking.
+
+> wait
+Time passes...
+Ysmiro, talor ... onirako. Ysmiro, talor ... onirako. Ysmiro, talor ...
+onirako.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+You hear the sound of a key unlocking your door, then two orderlies walking
+inside.
+
+"Time to go night, night." snickers one of the Orderlies, before the other
+grabs you and holds you down with prejudice.
+
+Within seconds, you fall unconscious.
+
+As you dream ...
+
+You're in an alien landscape, in a field of lava. A number of pig-like
+creatures are once again being tortured by other undescribable creatures of
+alien physiology. In the midst of all this, a vaguely humanoid creature walks
+towards you, surrounded by a darkened silhouette. You can not see its face.
+
+"Don't worry," the figure grins at you, and makes a sweeping gesture. "Soon,
+this will be your home. But for now, know this!"
+
+"The harlot doctor wishes to end your life. She has no reason now to keep you
+alive any further. You have been alive merely because she has benefacted from
+your continued mundane existence. But your time has run out, and she has no
+need for you."
+
+The demonic figure leans closer.
+
+"You know this to be true. Do what you will to wiggle your last few moments
+as you shed your mortal coil and become mine."
+
+press any key to continue ...
+
+You slowly wake up ...
+
+You blink back the drowsiness, and slowly wake up.
+
+Wait a second, why can't you move?
+
+Suddenly, you open your eyes wide and start thrashing about, quite aware that
+your limbs have been shackled to the floor. You're on your back on top of
+what appears to be some kind of strange drawing. The doctor is here, standing
+off to the side wielding a very sharp looking instrument.
+
+press any key to continue ...
+
+On A Surgery Table ... Or Is It A Sacrificial Altar?
+"Michael, it seems you did not use enough sedative." The doctor replies
+cooly, observing that you've awoken. "Well, it doesn't matter. Neurosurgery
+is rarely painful. Well, sometimes."
+
+"What are you doing with me?" You ask apprehensively.
+
+"You suffered another schizophrenic episode. It seems we are left with no
+other choice but to perform brain surgery. Anyhow, this should not take long.
+We are only interested in ..." The doctor's responses seem cut off, and
+garbled. You can not tell if she is doing it deliberately, or if your ears
+are not functioning.
+
+The doctor begins sharpening a tool.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+You hear a snickering coming from somewhere deep within your mind. An all too
+familiar voice. The voice from your dreams. But what's more the presence,
+that you felt so many years ago in the hospital bed.
+
+"The fools. They think they can glean my secrets? Control ... demons?! The
+arrogance!"
+
+The voice suddenly takes on a bartering tone. "We shall make a new pact,
+human. A pact, where I shall give you power beyond just mere death. Power to
+incinerate our worthless enemies. Take me ... and I will show you a new
+world. A world, without limits!"
+
+To give in to the demonic take over, type "demon" If you refuse, continue
+waiting.
+
+> demon
+
+Somewhere from deep inside, you realize you can not win. It is like that
+moment, many years ago when you felt the cold bony clutches of death reach
+out to you.  In that desperate moment, you understand that you must have
+reached out to some forbidden place where even the most desperate of pleas
+should not go.
+
+"It is done!"
+
+The doctor and the orderlies look around in confusion, trying to find the
+source of that voice. Fear grips them as they realize try to deny the
+undeniable source. The doctor quickly grabs the cutting tool and lifts up the
+heavy thing high above her head. With a sudden swing, she brings down the
+cutting device but is stopped midstroke by nothing more than a hand. Your
+hand. As if pushing back a mere blunt object, you have caught the cutting
+thing in your hand.
+
+With nothing more than a mere thought, the orderlies and doctor are
+incinerated all around you.
+
+press any key to continue ...
+
+It is from that day on, that you finally felt truly alive. Finally felt
+powerful, liberated, from the confines of your mortal existence. Your human
+soul was gone now. Gone, was the demonic soul. In their stead was a joined
+hybrid of human and demon. You ceased to exist at that moment you gave in,
+but were suddenly born again.
+
+For the aeons to come, you wandered the world, corrupting the hearts of
+people and fulfilling your selfish desires. A world ... completely overrun by
+demons.
+
+Your world.

@@ -1,0 +1,12 @@
+ask regin about fafner
+take sword
+north
+east
+kill dragon with the sword
+take heart
+south
+light fire
+roast heart
+listen to birds
+west
+kill regin

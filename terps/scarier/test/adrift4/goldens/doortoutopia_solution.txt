@@ -1,0 +1,59 @@
+1
+x body
+n
+e
+e
+x sand
+w
+n
+w
+wait
+w
+talk to horace
+1
+e
+ne
+fix swing
+fix roundabout
+drop sand
+get flowers
+s
+s
+se
+ask tom about receptionist
+nw
+talk to melissa
+2
+talk to melissa
+3
+u
+x bodies
+x shelf
+d
+give flowers to melissa
+se
+talk to tom
+1
+nw
+n
+ne
+open door
+e
+x table
+get boltcutters
+w
+sw
+w
+s
+open cupboard
+n
+e
+ne
+e
+u
+kill killer
+d
+w
+sw
+w
+w

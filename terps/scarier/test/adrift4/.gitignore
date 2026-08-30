@@ -38,6 +38,24 @@
 /goldens/wingman1_solution.txt
 /goldens/wingman1_solution.expected.txt
 
+# Temple Of The Sun (AIF): explicit text, deliberately not committed.
+/goldens/templeofthesun_solution.txt
+/goldens/templeofthesun_solution.expected.txt
+
+# Amy And The Raging Hormones (AIF): explicit text, deliberately not
+# committed.
+/goldens/amy_solution.txt
+/goldens/amy_solution.expected.txt
+
+# BSG TWENTY TWO Final (AIF): explicit text, deliberately not committed.
+/goldens/bsg22_solution.txt
+/goldens/bsg22_solution.expected.txt
+
+# The Strange Tale of Dr Wilkins (AIF): explicit text, deliberately not
+# committed.
+/goldens/wilkins_solution.txt
+/goldens/wilkins_solution.expected.txt
+
 # The Worst Game In The World... Ever!!! (AIF): comedic adult content,
 # deliberately not committed.
 /goldens/worstgame_solution.txt
@@ -46,6 +64,10 @@
 # Sex is Mental (AIF): explicit text, deliberately not committed.
 /goldens/sexismental_solution.txt
 /goldens/sexismental_solution.expected.txt
+
+# warlock.taf (AIF): explicit text, deliberately not committed.
+/goldens/warlock_solution.txt
+/goldens/warlock_solution.expected.txt
 
 # The croft.taf SYNONYM-precedence probe generator.  It is a faithful
 # reduction of an AIF file and is built from that game's own vocabulary, so

@@ -1,0 +1,8 @@
+satelite
+pulsa el boton azul
+gira
+agarrate a la antena
+pie derecha
+pie izquierda
+pie derecha
+golpear la antena

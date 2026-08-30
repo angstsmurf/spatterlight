@@ -1,0 +1,814 @@
+Loading game...
+
+Back Home
+
+(Version 2 by James Webb & Duncan Bowsman.  To see credits, type 'credits'.
+For hints, type 'hint'.)
+
+You jerk awake, head pressed up against the glass.  The rhythmic clacking of
+the train on the tracks no longer soothes and relaxes, but drums into your
+head through the vibrating window.
+
+Drawing your hand over your face, you glance at your watch.  How long have
+you been asleep?  It doesn't matter really.  The train is still on the move,
+meaning that you have yet to reach your destination.  Alcrow is the final
+stop and this is the last service of the night.
+
+On a train
+
+You are sitting on a window seat on a train to Alcrow.  The electric display
+above your head rolls through the stops on the journey, while your body jolts
+in time with each clickity clack you hear.  Behind you is the door to the
+next carriage.  There is a newspaper casually discarded on the seat next to
+you, while your bag rests at your feet.  Every now and then a light flashes
+past outside the window.  You are alone in the carriage.
+
+> z
+
+Some time passes...
+
+You are looking forward to getting away for a week or two.  You need this
+break.  It'll be great to see mum and dad again and spend some time with
+them.  It's been a while since you have been back to your childhood home, but
+you feel that its isolation and olde worlde charm are exactly what you need
+right now.
+
+> z
+
+Some time passes...
+
+A nasal voice drones out from the speakers.
+
+"Ladies and gentlemen, we'll shortly be arriving at Alcrow.  Alcrow is the
+final stop on our journey.  All change at Alcrow.  All change at Alcrow."
+
+> z
+
+Some time passes...
+
+Work has been a bit stressful recently, what with the new project.  It's hard
+not being able to talk to anyone about it, but there's a good reason for the
+rules - especially in light of the rumours you've been hearing about the
+interest certain people have been showing in this new venture.
+
+> z
+
+Some time passes...
+
+There is a familiar screech as the train begins to brake as it approaches
+Alcrow.
+
+> z
+
+Some time passes...
+
+> z
+
+Some time passes...
+
+The train slows to a stop as the dim glow of streetlights illuminate the
+empty platform of Alcrow station.
+
+You scoop up your bag, and exit the train onto the dark, deserted platform.
+Alone, you walk through the gloomy ticket office and leave the station.
+
+[MORE]
+
+Outside Alcrow Station
+
+You are standing outside Alcrow Station under the pale glow of a streetlight,
+waiting for your father to come and pick you up.  Although this is a main
+road, with houses stretching up the hill, the loneliness of the night makes
+it seem like a ghost town.  Its only denizens this hour are the High Street
+holy trinity of rubbish bins, a postbox and a payphone.  Behind you are the
+ticket office to the station and the train timetables.  You stamp your feet,
+trying to keep warm in the November cold.
+
+> z
+
+Some time passes...
+
+> z
+
+Some time passes...
+
+Alcrow has changed since you were a child; it too has grown up.  It's grimmer
+and dirtier.  People seem ruder.  You used to love this place, but not any
+more.  You feel like a disappointed father.
+
+> z
+
+Some time passes...
+
+> z
+
+Some time passes...
+
+Your attention is drawn by twin beams of light approaching from the distance.
+ You hold your bag tightly and shift your posture, anticipating the approach
+of your father's car.  As you do so, you hear a clattering noise behind you.
+
+You turn your head to see a man striding, with some speed, from the darkness
+of the ticket office.  You are taken aback, as you don't recall seeing anyone
+else get off the train when you did.  The man lowers his head, hiding his
+features under the brim of his hat, and pulls his overcoat tight around him
+to ward off the cold.  Without even acknowledging your existence, he turns
+and begins pacing up the hill as though he were on a mission of some
+importance.  Watching him go, you feel... uneasy.
+
+[MORE]
+
+You are pulled away from your thoughts by a car pulling up to the curb right
+beside you.  Sure enough, it is your father, here to collect you and take you
+to the family home.
+
+You open the door and slide into the car, throwing your bag onto the back
+seat.  You smile at your father and greet him, and he acknowledges you with a
+nod as you begin your journey to the house about seven miles outside Alcrow.
+
+The journey passes mostly in silence, your father always having been
+something of a taciturn figure.  There is a little small talk, but not much
+else.  You are used to this; besides your mother talks enough for all of you.
+ However, as the car motors through the dark country roads leading to your
+home, you can't help but feel as though your father is a little different.
+Awkward.  Nervous.  Perhaps something is wrong at home.
+
+[MORE]
+
+After a short while in the car you pull into the wide driveway of the house.
+You'll soon know if something is wrong.  Your mum would tell you.
+
+Again in silence, you and your father clamber out of the car and head towards
+the front door, the gravel crunching under your feet.  You make your way
+through the front door, turning slightly to avoid your bag knocking a picture
+off the wall, and move through the house to the kitchen.
+
+Sure enough, your mother greets you warmly with a hug and a kiss and directs
+you to sit down at the dining room table where a mug of tea is already
+waiting for you.  Your father moves over to stand by the stove, where the
+kettle has been boiling, trying to leech some of the remaining heat.  Your
+mother stands by the sink, smiling proudly at her son.
+
+[MORE]
+
+Kitchen
+
+The kitchen is probably the largest room in the house, also including a
+dining area where you sit now.  This is where your mother spent most of your
+childhood, and you remember its low ceiling and gloomy feel well.  The
+kitchen itself is well-stocked and cluttered.  There are two work surfaces,
+one of which has a sink built into it, and there are plenty of cupboards
+placed on the walls above them.  Cups and pans hang from hooks in the
+ceiling, as they have done for years.  On one of the work surfaces is a
+telephone.  Your smiling mother is standing at one of the work surfaces while
+your father stands facing you, with his back to the oven.  To the east, the
+stairs back up to your old room.
+
+Your mug is on the table, full of hot tea.
+
+> z
+
+Some time passes...
+
+> z
+
+Some time passes...
+
+"How was your journey, dear?" your mother asks.
+
+You explain to her that it was fine, but decide to leave out the information
+concerning the man you saw at the ticket office.
+
+> z
+
+Some time passes...
+
+> z
+
+Some time passes...
+
+"How is work going?" your mother probes.
+
+You tell her that work is going fine.
+
+"Not that you could tell us anything about it if you wanted to, eh?" adds
+your father.
+
+"It must be hard keeping those industrial secrets," your mother sympathises.
+
+You feel a little uncomfortable with the direction this conversation is going
+in.
+
+> z
+
+Some time passes...
+
+"Ask your mother what the doctor said," your dad suddenly comments.
+
+Your mother glowers at him.
+
+> z
+
+Some time passes...
+
+"You must be tired," your mother offers. "Your bed is made up and ready.  You
+can go anytime you like."
+
+You thank her.
+
+> z
+
+Some time passes...
+
+> z
+
+Some time passes...
+
+> z
+
+Some time passes...
+
+> z
+
+Some time passes...
+
+"I worry about you, you know.  You're a delicate fellow and your work seems
+so stressful," your mother comments.
+
+> e
+
+Holding your bag tightly, you stand and say goodnight to your parents.  Your
+mother and father respond warmly and tell you that they'll be up in a second.
+
+It's late and you are tired.
+
+You make your way on autopilot to your bedroom, go through your evening
+routine and slide under the duvet.
+
+Despite your exhaustion, sleep is a long time in coming.  You lie there in
+the darkness, listening to the noises of your parents going through their own
+nighttime rituals.  When all is silent and dark you are still awake.
+
+In desperation you turn on the bedside lamp, reach into your bag and pull out
+the papers that you bought from work and start reading.  That seems to do the
+trick.  The equations and figures begin to swim in front of your eyes, and
+shortly sleep follows.
+
+[MORE]
+
+You wake late.  For a few moments you lie there, wondering if you are tired
+enough to go back to sleep.
+
+When you have decided that you are not, you hurriedly clamber out of bed and
+pull some clothes out of your bag.  Soon you are dressed, the bed is made and
+you are ready to wander downstairs.
+
+Your parents should be up by now, and you could do with some breakfast.
+
+Strange that your mother didn't come to wake you.  Maybe she did and she let
+you sleep.
+
+[MORE]
+
+Your Bedroom
+
+Your bedroom is, as your mother promised, relatively unchanged from when you
+were last here.  Even the curtains, carpet and wallpaper bring flashbacks.
+Your bed, your desk and lamp, a wardrobe.  Everything is present and correct.
+ Your bag is the only new addition, pressed up against the foot of the bed.
+
+Exits:  East (Landing)
+
+> e
+You move east.
+
+Upstairs Landing
+
+You are standing on the west end of the narrow, claustrophobic upstairs
+landing.  Behind you is the door to your bedroom and beside you is the door
+to one of the guest rooms.  The carpet beneath your feet has worn
+considerably over the years and the pictures on the wall have not been
+changed either.  Above you, in the ceiling, you can see the outline of the
+hatch that leads up to the attic.
+
+Exits:  North, East and West (Landing, Guest Room and Your Bedroom)
+
+You can't believe you slept through your parents' morning routine.  Mum
+should be in the kitchen cooking breakfast.
+
+> n
+You move north.
+
+Upstairs Landing (Stairs)
+
+You are at the far end of the upstairs landing.  The descending stairs in
+front of you will take you to the ground floor.  The landing heads back south
+towards your bedroom, while to the east is your parents' bedroom.  The other
+doors will take you to the bathroom or the other guest room.
+
+Exits:  North, East, South, West and Down (Guest Room, Master Bedroom,
+Landing, Bathroom and Entrance)
+
+Normally you'd wake up to your father singing show tunes in the shower.
+
+> d
+You move down.
+
+Entrance
+
+The entrance hall.  Before you is the large door which will take you outside
+the front of the house.  A couple of pictures hang on the walls, one of which
+makes you feel a little uncomfortable.  Beside you is a small table, on which
+is a lamp and a pile of unopened mail.
+
+Exits:  North, East, South, West and Up (Outside, Living Room, Library,
+Kitchen and Upstairs)
+
+You don't see or hear anyone down here.
+
+"Hello?"
+
+It wouldn't be like your parents to play a joke on you.
+
+> get bulb
+
+You unscrew the bulb from the lamp.
+
+> u
+You move up.
+
+Upstairs Landing (Stairs)
+
+You are at the far end of the upstairs landing.  The descending stairs in
+front of you will take you to the ground floor.  The landing heads back south
+towards your bedroom, while to the east is your parents' bedroom.  The other
+doors will take you to the bathroom or the other guest room.
+
+Exits:  North, East, South, West and Down (Guest Room, Master Bedroom,
+Landing, Bathroom and Entrance)
+
+> e
+
+You knock politely.  No answer.  Gingerly, you swing the door open and stick
+your head in.  The scene that greets you immediately fills you with
+discomfort.
+
+Your parents' bed is unmade, the covers thrown back, but your parents are
+nowhere to be seen.  This by itself would merely be ususual, but the items
+that have been scattered from the dresser to the floor suggest something
+more.
+
+You step inside the room, and feel sick.  Everything about the room suggests
+that it has been the scene of a struggle, and you are struck with an urgent
+need to find out where your mother and father are.
+
+[MORE]
+
+Master Bedroom
+
+You are standing in your parents' bedroom, anxious at all that you see.
+The bed is in front of you, covers thrown back and sheet ruffled.  All around
+the floor are items which have been swept from the dresser and bedside tables
+as though a strong wind had swept through here.  The mirror in the corner is,
+mercifully, unbroken and the walk-in wardrobe also seems undamaged.
+
+Exits:  West (Landing)
+
+Amidst the chaos, your eyes catch a piece of string that looks strangely out
+of place.
+
+> get string
+
+You pick up the piece of string.
+
+> w
+You move west.
+
+Upstairs Landing (Stairs)
+
+You are at the far end of the upstairs landing.  The descending stairs in
+front of you will take you to the ground floor.  The landing heads back south
+towards your bedroom, while to the east is your parents' bedroom.  The other
+doors will take you to the bathroom or the other guest room.
+
+Exits:  North, East, South, West and Down (Guest Room, Master Bedroom,
+Landing, Bathroom and Entrance)
+
+> s
+You move south.
+
+Upstairs Landing
+
+You are standing on the west end of the narrow, claustrophobic upstairs
+landing.  Behind you is the door to your bedroom and beside you is the door
+to one of the guest rooms.  The carpet beneath your feet has worn
+considerably over the years and the pictures on the wall have not been
+changed either.  Above you, in the ceiling, you can see the outline of the
+hatch that leads up to the attic.
+
+Exits:  North, East and West (Landing, Guest Room and Your Bedroom)
+
+> open hatch
+
+You reach out and slowly open the hatch.  There's a knack to this.  As you
+pull the hatch down, a metal ladder slowly slides down to enable access to
+the attic.  The hatch and ladder combination was cobbled together by your
+father ages ago.  Opening the hatch too quickly can result in the ladder
+sliding neatly into your face.  It seems strange in today's
+litigation-conscious society, but your father has always considered Health
+and Safety as things that happen to other people.
+
+> u
+
+On the Ladder to the Attic
+
+You are perched on a ladder, half in and half out of the attic.  It is dark
+and you can hardly see at all.  Your feet are currently rooted in place; the
+musty smell, darkness and the memory of the cramped nature of the roof space
+triggering your claustrophobia.  You know that your father placed the light
+switch just within reach.
+
+Exits:  Up and Down (Attic and Landing)
+
+> replace bulb
+
+You remove the faulty bulb and replace it with the lamp bulb.
+
+> u
+You turn on the light-- it flickers briefly, but settles into a hazy,
+dust-filled glow-- and climb into the attic.
+
+Attic
+
+You don't remember the last time that you were in the attic.  Even as a child
+it seemed small and restrictive.  Your head is practically touching the beam
+at the top of the gloomy roof, which slopes sharply downwards to meet the
+floor about six feet in front of you.  The floor is covered with boxes and
+cases, each full to the brim with memories.  There, in the damp smelling air,
+you feel a tightness in your chest and a slight trembling in your hands.
+
+Exits:  Down (Landing)
+
+> examine boxes
+
+You are not sure where to begin.  As you survey the containers, your eye
+catches something out of place.  On top of one of the boxes, almost lost in
+the gloom, you see a photo album.
+
+> examine photo album
+
+The album sits there.  Your hand trembles as you reach for it.  You wish that
+you could just put it down to the cold.
+
+You begin to turn page after page, glossy and stiff from age, something
+outside of yourself driving you.
+
+Images taken by your father.
+
+You and your newborn baby brother.  Before he died.
+
+A photo of you in the back garden, standing by the drain.  You stare at the
+photo for a while.  Something about the drain...
+
+A photo of you in your room.  Standing there.  Holding a diary and smiling
+wanly at the camera.  The diary...
+
+The diary... that you used to hide.
+
+You had forgotten.  You don't know why you had forgotten.  The hiding place
+under your bed.
+
+You shut the album, shaken.
+
+> d
+You move down.
+
+On the Ladder to the Attic
+
+You are perched on a ladder, half in and half out of the attic.  It is dark
+and you can hardly see at all.  Your feet are currently rooted in place; the
+musty smell, darkness and the memory of the cramped nature of the roof space
+triggering your claustrophobia.  You know that your father placed the light
+switch just within reach.
+
+Exits:  Up and Down (Attic and Landing)
+
+> d
+You climb back down.
+
+Upstairs Landing
+
+You are standing on the west end of the narrow, claustrophobic upstairs
+landing.  Behind you is the door to your bedroom and beside you is the door
+to one of the guest rooms.  The carpet beneath your feet has worn
+considerably over the years and the pictures on the wall have not been
+changed either.  Above you, in the ceiling, you can see the open hatch that
+leads up to the attic.  An old ladder descends out of the darkness.
+
+Exits:  North, East, West and Up (Landing, Guest Room, Your Bedroom and
+Attic)
+
+You hear the telephone start ringing.
+
+> w
+You move west.
+
+Your Bedroom
+
+Your bedroom is, as your mother promised, relatively unchanged from when you
+were last here.  Even the curtains, carpet and wallpaper bring flashbacks.
+Your bed, your desk and lamp, a wardrobe.  Everything is present and correct.
+ Your bag is the only new addition, pressed up against the foot of the bed.
+
+Exits:  East (Landing)
+
+> examine under bed
+
+You're older now, and carrying a little more weight.  It's a tighter squeeze,
+but the moment you slide your top half under the bed, familiar feelings wash
+over you.  You could do this with your eyes closed.  One of the slats under
+the bed is loose, and it prises off easily.
+
+Holding the slat up with one hand, you feel around on top of it with the
+other.  Your hand soon closes around something small and metallic.  You pull
+your hand back and open it, to reveal a magnet.  With no small difficulty you
+place the magnet into your pocket and resume your search.
+
+After a while you replace the slat.  There is nothing there.  The diary that
+you saw in the photo is not here.
+
+> tie string to magnet
+
+You tie the magnet to the string.
+
+> e
+You move east.
+
+Upstairs Landing
+
+You are standing on the west end of the narrow, claustrophobic upstairs
+landing.  Behind you is the door to your bedroom and beside you is the door
+to one of the guest rooms.  The carpet beneath your feet has worn
+considerably over the years and the pictures on the wall have not been
+changed either.  Above you, in the ceiling, you can see the open hatch that
+leads up to the attic.  An old ladder descends out of the darkness.
+
+Exits:  North, East, West and Up (Landing, Guest Room, Your Bedroom and
+Attic)
+
+> n
+You move north.
+
+Upstairs Landing (Stairs)
+
+You are at the far end of the upstairs landing.  The descending stairs in
+front of you will take you to the ground floor.  The landing heads back south
+towards your bedroom, while to the east is your parents' bedroom.  The other
+doors will take you to the bathroom or the other guest room.
+
+You can hear the telephone ringing downstairs.
+
+Exits:  North, East, South, West and Down (Guest Room, Master Bedroom,
+Landing, Bathroom and Entrance)
+
+> d
+You move down.
+
+Entrance
+
+The entrance hall.  Before you is the large door which will take you outside
+the front of the house.  A couple of pictures hang on the walls, one of which
+makes you feel a little uncomfortable.  Beside you is a small table, on which
+is a lamp and a pile of unopened mail.
+
+You can hear the telephone ringing from the kitchen.
+
+Exits:  North, East, South, West and Up (Outside, Living Room, Library,
+Kitchen and Upstairs)
+
+Your heart races.  Your mind is numb.
+
+"Mother?  ... Dad?"
+
+You didn't know the house could echo like that.
+
+> w
+You move west.
+
+Kitchen
+
+The kitchen is probably the largest room in the house.  This is where your
+mother spent most of your childhood, and you remember it's low ceiling and
+gloomy feel well.  The kitchen itself is well-stocked and cluttered.  There
+are two work surfaces, one of which has a sink built into it, and there are
+plenty of cupboards placed on the walls above them.  Cups and pans hang from
+hooks in the ceiling, as they have done for years.  On one of the work
+surfaces is a telephone.
+
+The telephone is ringing loudly.
+
+Exits:  East, South and West (Entrance, Outside and Laundry)
+
+> s
+You move south.
+
+Outside the House (Back)
+
+You are standing outside the house, a dirt path moving through the grass into
+the garden.  The house facade is dirtier this side, with small pokey windows
+revealing the kitchen.  A drainpipe runs down beside the door frame and runs
+into a hole in the ground, above which is a red-handled tap.  To your left,
+attached to the wall, is a rough wooden coal bunker.
+
+You can hear the telephone ringing inside the house.
+
+Exits: North and South (Kitchen and Garden)
+
+> s
+You move south.
+
+Back Garden
+
+The dirt path ends at the garden, which is mostly lawn.  As you would expect
+for this time of year, the grass is showing signs of not having been cut for
+a while.  A flower bed runs around the edge of the lawn, showing a variety of
+pretty, but easy-to-care-for flowers.  To the left of the path you can see a
+small drain hole, covered by a thin mesh.
+
+Exits: North (Outside)
+
+> examine drain
+
+You stare through the mesh, down the drain hole.  The strange feeling that
+you had when looking at the photo in the attic resurfaces.  There is
+something down there... something.  It looks like a small key.  It is lying
+on a vertical stretch of concrete deep in the drain.  At the moment it is
+well beyond your reach.  Perhaps you could find some way of moving the key
+closer?
+
+> n
+You move north.
+
+Outside the House (Back)
+
+You are standing outside the house, a dirt path moving through the grass into
+the garden.  The house facade is dirtier this side, with small pokey windows
+revealing the kitchen.  A drainpipe runs down beside the door frame and runs
+into a hole in the ground, above which is a red-handled tap.  To your left,
+attached to the wall, is a rough wooden coal bunker.
+
+Exits: North and South (Kitchen and Garden)
+
+> turn on tap
+
+You turn the tap, but it groans and creaks like it's stuck.  You keep
+turning, the metal of the tap digging into your skin, until water gushes
+forth in a wild jet, spraying you.  You flinch, wiping yourself, and force
+the tap shut again.
+
+Your palm pulses with pain.  Some of the red from the handle has come off on
+your hands, and won't rub out no matter how hard you try.
+
+Water trickles noisily down the drain to the south, seeps into the earth, and
+finally quiets.
+
+> s
+You move south.
+
+Back Garden
+
+The dirt path ends at the garden, which is mostly lawn.  As you would expect
+for this time of year, the grass is showing signs of not having been cut for
+a while.  A flower bed runs around the edge of the lawn, showing a variety of
+pretty, but easy-to-care-for flowers.  To the left of the path you can see a
+small drain hole, covered by a thin mesh.
+
+Exits: North (Outside)
+
+> get key with magnet
+
+Carefully, you dangle the string through the mesh into the drain.  It doesn't
+take you long to snag the key, and bring it up to the surface.
+
+> n
+You move north.
+
+Outside the House (Back)
+
+You are standing outside the house, a dirt path moving through the grass into
+the garden.  The house facade is dirtier this side, with small pokey windows
+revealing the kitchen.  A drainpipe runs down beside the door frame and runs
+into a hole in the ground, above which is a red-handled tap.  To your left,
+attached to the wall, is a rough wooden coal bunker.
+
+Exits: North and South (Kitchen and Garden)
+
+> open coal bunker door
+You open the coal box.  It brings you back...
+
+[MORE]
+
+You're back in Michael's office.  It's last week.
+
+"Tom," he says, "how are you getting on?  How have you been sleeping?"
+
+"I've been sleeping well," you reply.
+
+It's the truth, but it's an incomplete truth.  Most of the time an incomplete
+truth is easier than a lie.  Don't tell him that you've been sleeping well,
+but that when you wake up the furniture has been moved, papers scattered.
+Don't tell him about the phone conversations.  And for God's sake, don't tell
+him that you've stopped taking the Xanax.
+
+Michael nods.
+
+"Listen Tom.  I've been... well, we've all been a bit worried about you
+lately.  I know this is a stressful project and there's a lot of interest
+from outside sources that, well, we'd rather kept their noses out of our
+business, but... I wonder if it's been a bit too much for you.  I wonder if
+we've been pushing you too hard."
+
+Michael studies your face, looking for a reaction, something that might give
+him a clue as to what's going on inside you.  You stay silent and passive.
+You forget how long you've been silent and passive.
+
+"We think you should take a couple of weeks off.  Take a break.  Maybe go and
+visit your parents or something.  Do something relaxing to take your mind off
+work."
+
+You nod.  It has been a while since you've seen mum and dad.  The thought of
+going to visit them seems to stir something within you.  Something you would
+rather remained buried.
+
+"I'm OK," you try. "I'm fine.  I'm enjoying this project.  I think I'm coping
+well."
+
+Michael is once again staring intently at you.
+
+"Tom.  Are you still taking your medication?"
+
+"Yes."
+
+Sometimes the lie is easier than the incomplete truth.
+
+[MORE]
+
+You're back.  In the kitchen.  You're six years old.  It's been about a year
+since Howard died.  Mum is screaming at you again.  You don't recall what
+it's about.  It doesn't seem to matter.  Muddy footprints; forgetting to
+flush the toilet; putting a plate back in the wrong place.  Anything and
+everything is a minefield.  Your life is one of intense volume, both inside
+and out.
+
+Your mother's red face and screaming mouth becomes your whole world.  Yet,
+out of the corner of your eye you see your father in the background.  Head
+bowed, silent, impotent as always.
+
+Tears streaming down your face, you lash out.
+
+"I hate you!  I hate both of you!  You killed Howard!"
+
+Instantly you regret your rebellion and ill-chosen words.  Your mother's
+crimson cheeks become as white as porcelain, but only for a second.  Then
+they flush even deeper and the next thing you know she has you by the hair.
+
+She's dragging you towards the garden.  You're kicking and pleading with her
+to let go.  Your father follows, mumbling something in your defense.
+
+She's got you at the coal bunker.  You're begging for her to stop and you're
+telling her that you're sorry and that you'll never do anything like that
+again.  She's telling you that after this you will never speak to her like
+that again.  She hurls you.
+
+Then darkness.  The sound of doors being locked.  The awareness of not having
+enough room to stretch out.  The jagged lumps of coal digging into your side.
+
+"We'll see if you've learnt some manners by tomorrow morning." Your mother's
+harsh voice breaks through the sound of your own screams, speaking words that
+are seared onto the soul of a child. "The only person that you should blame
+for Howard's death is yourself."
+
+After that, your howls and pounding are only met with silence.
+
+[MORE]
+
+You're back.  On your knees in the garden.
+
+The lifeless expressions of your mother and father look up at you from the
+ground, faces smeared with coal dust.  Lying beside them, sandwiched between
+two lumps of coal, is a book.  Your diary.  The diary in which you recorded
+all your memories, shame, hurt and fear.  The diary you hid in your room so
+that your parents would never find it.
+
+"I hate dad," it says on one page.  On another, "I hate mum."
+
+They can't hurt you any more.  They can't haunt you when you close your eyes
+and see only the pitch black of the coal bunker.  They can't torment you with
+their weakness and anger and guilt any longer.  They are gone.  You tell
+yourself this again and again.
+
+But the angry wound within you still throbs, and calls you a liar.
+
+You are back.  Back home.
+
+GAME OVER

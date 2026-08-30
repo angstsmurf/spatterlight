@@ -1,0 +1,1025 @@
+Loading game...
+
+Selma's Will
+
+     After all the nightmares and strange happenings over the past few weeks,
+you head out to your late, Great Aunt Selma's house, to search for her
+missing Will. It seems a number of family members came across a note, very
+much like the one you had found in the book, Monster in the Mirror. The note
+pretty much claimed that Selma's Will was hidden somewhere in her house.
+Luckily, your mom was able to stop the auction, in hopes that Selma's Will
+could be found. If it is not found by the end of the day, Aunt Selma's house
+will be auctioned off to the highest bidder.
+     It is fairly early in the morning, with the sun barely peeking above the
+horizon in the eastern sky. Relatives, who also found a similiar note,
+arrive randomly and give "fluff" hugs and kisses to all that arrived before
+them. It's kind of funny how they never seem to care about anyone, unless
+there is something in it for them. Others, like your mom, are genuine with
+their affections. Your mom called you this morning  to tell you that she
+wouldn't be able to make it. She also let you know that Mr. Lewis would be
+there later, and had to have the Will in his hands before sundown. Before
+long, about a dozen or so relatives arrive, along with Oswald Rupert
+   Now,  Oswald always took good care of Aunt Selma, but never was very
+friendly to anyone else. He seemed very uptight in her last few years, and
+rarely allowed Selma to have visitors. It seemed odd, since Selma always
+appeared to be in good health. Not good enough, evidently.
+ Coming around to the front , Mr. Rupert unlocks the tall iron gate, allowing
+everyone gathered to enter the front lawn of Aunt Selma's quaint little home.
+He climbs the front steps of the porch, and clears his throat.
+    "As you all know by now, Selma has reached out from the grave with a
+ridiculous notion that her Will is hidden somewhere in her house. Though I
+think this is a big waste of time, I was ordered by the state to allow access
+to family members in order to locate this imaginary Will. You will have until
+the end of the day to try and locate it. If nothing is found by sundown, the
+estate of Selma B. Castlebury will be sold at auction at 6 am tomorrow
+morning. You must give the Will to Mr. Lewis, who will be waiting in the
+front yard, at sundown."
+     With that said, Mr. Rupert, with a large loop of keys, turns and unlocks
+the front door to Aunt Selma's house. Like a stampede, your relatives waste
+no time shoving the caretaker aside and bolt through the door like a herd of
+wild buffalo. Not wanting to be left out, you follow behind  like the strayed
+calf. You glance over at Mr. Rupert, and notice him  returning your gaze with
+a cold stare, then you proceed in the house.
+
+> look
+
+Grand Entrance
+This is the Grand Entrance, if you can even call it that. Selma always liked
+to have fancy names for all the rooms in her house. It made her feel high
+class.  There really is nothing grand about the room. It has a staircase that
+leads to the second floor of the house, and open doorways lead off into other
+rooms.   A antique coat rack from the early 1900's stands near the bottom of
+the stairs, along with a small bench and a table. Selma often sat there to
+remove her shoes when she would return from outings, which wasn't often in
+her later years.
+Your relatives have scattered throughout the house, to search for Selma's
+Will.
+Bea is on the other side of the room, rummaging through Selmas' belongings.
+
+You can move north, south, west and up.
+
+> x coatrack
+Aunt Selma once told you that a gentlemen caller made the coatrack for her.
+It was a house warming gift, given just after she moved in. Selma never
+married, but had many gentlemen callers.   A green sweater is on the antique
+coatrack.
+
+> take sweater
+You take the green sweater from the antique coatrack.
+
+> w
+You move west.
+
+Great Room
+Great Room, Living room, it's all the same to you. This is where Selma spent
+most of her time. She didn't own a television, so she spent most of her time
+crocheting pot holders and appliance cozies. She even had a special basket
+next to her chair to keep her supplies in.  She once made a rooster cozy for
+Aunt Bea. It was rather silly looking, but Aunt Selma was very proud of it.
+She would sit in her arm chair for hours, while Mr. Rupert would sit on the
+sofa reading the paper and eating newtons.
+
+  You used to love sitting by the fireplace, playing with some old, wooden
+marbles that Aunt Selma dug out of the attic. It would drive Mr. Rupert crazy
+when you'd roll the marbles down the stairs, but good old Selma never minded.
+Fond memories rush back of trying to swipe a candy or two from the dish on
+the coffee table.
+Elsa is wondering about.
+
+You can move north and east.
+
+> x chair
+It is rather old fashioned looking, with light colored fabric. The seat is
+rather worn, and somewhat saggy.  A long piece of yarn is inside the old arm
+chair.
+
+> take yarn
+You take the long piece of yarn from the old arm chair.
+
+> x basket
+The basket doesn't look like it is in that good of condition. It used to be
+full of yarn for Selma's little projects. She once made your mom a beautiful
+afghan, that still hands over the back of your moms' couch.  The sewing
+needle is inside the old wicker basket.
+
+> take needle
+You take the sewing needle from the old wicker basket.
+
+> x dish
+The light pink colored, blown glass, candy dish was admired very much by
+Selma . She would tell stories of a gentlemen caller that made blown glass
+dishes and figurines. She said that he thought she was so sweet, he needed to
+make a dish just for her sweets.   A clump of hard candy is inside the candy
+dish.
+
+> take candy
+You take the clump of hard candy from the candy dish.
+
+> take brick
+Using the paperclip you found in the green sweater, you pry the brick loose.
+A moment later the brick falls into your hand, and a small key falls into the
+fireplace.
+
+> x fireplace
+There is an empty place where you removed a brick. Other than that, the
+fireplace is pretty clean.  Mr. Rupert must have cleaned it before he moved
+out, after Selma passed on. She thought he could care for her better if he
+lived here.   A small key is inside the fireplace.
+
+> take key
+You take the small key from the fireplace.
+
+> e
+You move east.
+
+Grand Entrance
+This is the Grand Entrance, if you can even call it that. Selma always liked
+to have fancy names for all the rooms in her house. It made her feel high
+class.  There really is nothing grand about the room. It has a staircase that
+leads to the second floor of the house, and open doorways lead off into other
+rooms.   A antique coat rack from the early 1900's stands near the bottom of
+the stairs, along with a small bench and a table. Selma often sat there to
+remove her shoes when she would return from outings, which wasn't often in
+her later years.
+Your relatives have scattered throughout the house, to search for Selma's
+Will.
+Bea is on the other side of the room, rummaging through Selmas' belongings.
+
+You can move north, south, west and up.
+
+> n
+You move north.
+
+Main Hall
+The hall is pretty plain, and poorly lit. Hardwood floors run all through the
+house. You can remember running through the house as a kid, and sliding
+across the floor in your socks.  The hall leads to a Lavatory to the east,
+the kitchen is to the north, and the Grand Entrance is to the south. The
+Cloak Room, Selmas' name for a closet, is to the west.
+
+You can move north, east, south and west.
+
+> w
+You move west.
+
+Cloak Room
+Cloak Room is a  fancy name for closet, which you are in. It definitely is
+bigger than you thought it would be.  There are a few coats, and several hat
+boxes. Selma loved to buy new hats. There are probably new hats in some of
+the boxes that have never even been worn. There isn't much else in here..
+
+You can only move east.
+
+> x box
+There are several hat boxes here. They all are unique. You look through a
+couple, and quickly close them, due to the smell of the moth balls. (The moth
+balls arn't important, so don't dwell on them)  Hat box is closed.
+
+> open box
+You open hat box.  A cowboy hat is inside hat box.
+
+> x box
+There are several hat boxes here. They all are unique. You look through a
+couple, and quickly close them, due to the smell of the moth balls. (The moth
+balls arn't important, so don't dwell on them)  Hat box is open.  A cowboy
+hat is inside hat box.
+
+> take hat
+You take the cowboy hat from hat box.
+
+> e
+You move east.
+
+Main Hall
+The hall is pretty plain, and poorly lit. Hardwood floors run all through the
+house. You can remember running through the house as a kid, and sliding
+across the floor in your socks.  The hall leads to a Lavatory to the east,
+the kitchen is to the north, and the Grand Entrance is to the south. The
+Cloak Room, Selmas' name for a closet, is to the west.
+
+You can move north, east, south and west.
+
+> n
+You move north.
+
+Kitchen
+This is the kitchen. Selma was still trying to think of a fancy name for it,
+the last time you saw her. The kitchen has several cabinets, and the usual
+appliances. Selma was never one for those fancy gadgets, like microwave ovens
+and blenders, and such. She was very simple in most ways.
+Ida is looking through the kitchen cabinets.
+
+You can move east, south and west.
+
+> e
+You move east.
+
+Sun Room
+You could never figure out why Selma called this the Sun Room. It never got
+any sun, and was surrounded by screens. I guess she needed to call the back
+porch something fancy. Boxes are piled up on the western wall, blocking the
+view of the west side of the house. There is a cabinet that Selma would keep
+her gardening tools in, over on the south wall. She'd spend hours in the
+garden, when she wasn't in the Great Room making cozies.
+Dale is over looking through the boxes on the west wall.
+
+You can move north and west.
+
+> look
+
+Sun Room
+You could never figure out why Selma called this the Sun Room. It never got
+any sun, and was surrounded by screens. I guess she needed to call the back
+porch something fancy. Boxes are piled up on the western wall, blocking the
+view of the west side of the house. There is a cabinet that Selma would keep
+her gardening tools in, over on the south wall. She'd spend hours in the
+garden, when she wasn't in the Great Room making cozies.
+Dale is over looking through the boxes on the west wall.
+
+You can move north and west.
+
+> x dale
+The least favorite of your cousins. Dale is a couple years older than you,
+and thinks he owns the world. He has about as many teeth as his dad does, and
+the IQ of a head of lettuce. He struts around like he's a rough ridin'
+cowboy.  Dale is carrying a bear.
+
+> give hat to dale
+You tell Dale that you will give him the hat, if he gives you CC's bear. He
+looks at you for a moment, with squinted eyes, then hands over the bear,
+while snatching the hat from your hands. He seems content for the moment and
+resumes looking through the boxes.
+
+> open cabinet
+You manage to open the cabinet with the key you found in the fireplace.
+
+> x cabinet
+The cabinet is made out of metal, and used to have various garden tools, at
+least you always thought that was what it was for.  Glass cleaner is inside
+the garden cabinet.
+
+> take cleaner
+You take glass cleaner from the garden cabinet.
+
+> sew bear
+You thread the yarn through the needle and sew the bear up. Your not a
+surgeon, but you think it will hold.
+
+> w
+You move west.
+
+Kitchen
+This is the kitchen. Selma was still trying to think of a fancy name for it,
+the last time you saw her. The kitchen has several cabinets, and the usual
+appliances. Selma was never one for those fancy gadgets, like microwave ovens
+and blenders, and such. She was very simple in most ways.
+Ida is looking through the kitchen cabinets.
+
+You can move east, south and west.
+
+> w
+You move west.
+
+Banquet Hall
+The dining room sports the name Banquet Hall. You remember coming here for
+Thanksgiving when you were a kid. There used to be a large dining table in
+here, but Selma has since replaced it with a smaller table. Various plant
+holders still hang, but contain no living plants. Selma liked to have plants
+in the eating area. She said it made her feel like she was dining at a
+tropical island resort.
+CC is sitting under the table.
+
+You can move east and south.
+
+> look
+
+Banquet Hall
+The dining room sports the name Banquet Hall. You remember coming here for
+Thanksgiving when you were a kid. There used to be a large dining table in
+here, but Selma has since replaced it with a smaller table. Various plant
+holders still hang, but contain no living plants. Selma liked to have plants
+in the eating area. She said it made her feel like she was dining at a
+tropical island resort.
+CC is sitting under the table.
+
+You can move east and south.
+
+> x cc
+CC is around seven years old, and has long dark hair. She sits under the
+table, and is sobbing.  CC is carrying a plunger.
+
+> give bear to cc
+You give the bear to CC, and she instantly perks up. Forgetting all about the
+plunger, she drops it on the floor.
+
+> take plunger
+You take the plunger.
+
+> e
+You move east.
+
+Kitchen
+This is the kitchen. Selma was still trying to think of a fancy name for it,
+the last time you saw her. The kitchen has several cabinets, and the usual
+appliances. Selma was never one for those fancy gadgets, like microwave ovens
+and blenders, and such. She was very simple in most ways.
+Ida is looking through the kitchen cabinets.
+
+You can move east, south and west.
+
+> s
+You move south.
+
+Main Hall
+The hall is pretty plain, and poorly lit. Hardwood floors run all through the
+house. You can remember running through the house as a kid, and sliding
+across the floor in your socks.  The hall leads to a Lavatory to the east,
+the kitchen is to the north, and the Grand Entrance is to the south. The
+Cloak Room, Selmas' name for a closet, is to the west.
+
+You can move north, east, south and west.
+
+> e
+You move east.
+
+Lavatory
+The bathroom is painted in a dark blue, with little yellow flowers. Selma
+must have liked yellow and blue, seeing as a few other rooms are decorated in
+the colors. You are glad to see that the lock has been removed from the door.
+You once got yourself locked in, and nobody knew it, until hours later when
+Selma came looking for you to wash up for supper. You spent a lot of time
+here, when you were a kid.  There are the usual fixtures in the bathroom,
+such as a tub, toilet, and sink.
+
+You can only move west.
+
+> look
+
+Lavatory
+The bathroom is painted in a dark blue, with little yellow flowers. Selma
+must have liked yellow and blue, seeing as a few other rooms are decorated in
+the colors. You are glad to see that the lock has been removed from the door.
+You once got yourself locked in, and nobody knew it, until hours later when
+Selma came looking for you to wash up for supper. You spent a lot of time
+here, when you were a kid.  There are the usual fixtures in the bathroom,
+such as a tub, toilet, and sink.
+
+You can only move west.
+
+> x sink
+The sink is filled with water. There must be a clog somewhere in the line. If
+only you had something to plunge the sink with.
+
+> use plunger on sink
+You plunge the sink several times with the plunger, and a force of water
+shoots up through the drain, dislodging a rusty key.
+
+> take key
+You take the rusty key from the sink.
+
+> w
+You move west.
+
+Main Hall
+The hall is pretty plain, and poorly lit. Hardwood floors run all through the
+house. You can remember running through the house as a kid, and sliding
+across the floor in your socks.  The hall leads to a Lavatory to the east,
+the kitchen is to the north, and the Grand Entrance is to the south. The
+Cloak Room, Selmas' name for a closet, is to the west.
+
+You can move north, east, south and west.
+
+> s
+You move south.
+
+Grand Entrance
+This is the Grand Entrance, if you can even call it that. Selma always liked
+to have fancy names for all the rooms in her house. It made her feel high
+class.  There really is nothing grand about the room. It has a staircase that
+leads to the second floor of the house, and open doorways lead off into other
+rooms.   A antique coat rack from the early 1900's stands near the bottom of
+the stairs, along with a small bench and a table. Selma often sat there to
+remove her shoes when she would return from outings, which wasn't often in
+her later years.
+Your relatives have scattered throughout the house, to search for Selma's
+Will.
+Bea is on the other side of the room, rummaging through Selmas' belongings.
+
+You can move north, south, west and up.
+
+> x bench
+The small wooden bench has been here as long as you can remember. It used to
+have little yellow flowers painted on the side, but those have since faded
+away.  Many times you would hide inside it, and wait for Aunt Selma to find
+you. You were very little at the time.  The small bench is closed.
+
+> open bench
+You open the small bench.  A small, round penny is inside the small bench.
+
+> x bench
+The small wooden bench has been here as long as you can remember. It used to
+have little yellow flowers painted on the side, but those have since faded
+away.  Many times you would hide inside it, and wait for Aunt Selma to find
+you. You were very little at the time.  The small bench is open.  A small,
+round penny is inside the small bench.
+
+> take penny
+You take the small, round penny from the small bench.
+
+> u
+You move up.
+
+The Grand Hall
+The upstairs hall leads to several other rooms. All the pictures that used to
+hang on the wall, seem to have been removed. The stairs lead down into the
+Grand Entrance. There is one of these old fashioned gumball machines. You
+would always make sure you had a handful of pennies when you came to visit,
+when you were a kid.  Buck and Henry are blocking your path to Selma's room,
+and won't let you pass.
+Buck looks like he is looking for trouble.  Henry looks like he's up to no
+good.
+
+You can move west and down.
+
+> look
+
+The Grand Hall
+The upstairs hall leads to several other rooms. All the pictures that used to
+hang on the wall, seem to have been removed. The stairs lead down into the
+Grand Entrance. There is one of these old fashioned gumball machines. You
+would always make sure you had a handful of pennies when you came to visit,
+when you were a kid.  Buck and Henry are blocking your path to Selma's room,
+and won't let you pass.
+Buck looks like he is looking for trouble.  Henry looks like he's up to no
+good.
+
+You can move west and down.
+
+> x machine
+It is one of those old fashioned gumball machines, that takes pennies. It
+still has gum inside.
+
+> buy gum
+You drop the penny in the machine and turn the lever. A  gumball drops into
+your hand.  A penny then falls out of the machine, but before you can grab
+it, it rolls down the stairs to the Grand Entrance.
+
+> eat gum
+You pop the gumball into your mouth and reluctantly begin to chew. The gum is
+so hard to chew, that you decide to spit it out.
+
+> score
+Your score is 35 out of a maximum of 200.  (17%)
+
+> d
+You stroll down the steps, into the Grand Entrance.
+
+> look
+
+Grand Entrance
+This is the Grand Entrance, if you can even call it that. Selma always liked
+to have fancy names for all the rooms in her house. It made her feel high
+class.  There really is nothing grand about the room. It has a staircase that
+leads to the second floor of the house, and open doorways lead off into other
+rooms.   A antique coat rack from the early 1900's stands near the bottom of
+the stairs, along with a small bench and a table. Selma often sat there to
+remove her shoes when she would return from outings, which wasn't often in
+her later years.
+Your relatives have scattered throughout the house, to search for Selma's
+Will.
+
+Also here is a small, round penny.
+Bea is on the other side of the room, rummaging through Selmas' belongings.
+
+You can move north, south, west and up.
+
+> take penny
+You take the small, round penny.
+
+> u
+You move up.
+
+The Grand Hall
+The upstairs hall leads to several other rooms. All the pictures that used to
+hang on the wall, seem to have been removed. The stairs lead down into the
+Grand Entrance. There is one of these old fashioned gumball machines. You
+would always make sure you had a handful of pennies when you came to visit,
+when you were a kid.  Buck and Henry are blocking your path to Selma's room,
+and won't let you pass.
+Buck looks like he is looking for trouble.  Henry looks like he's up to no
+good.
+
+You can move west and down.
+
+> buy gum
+You drop the penny in the machine and turn the lever. A  gumball drops into
+your hand.  A penny then falls out of the machine, but before you can grab
+it, it rolls down the stairs to the Grand Entrance.
+
+> d
+You stroll down the steps, into the Grand Entrance.
+
+> n
+You move north.
+
+Main Hall
+The hall is pretty plain, and poorly lit. Hardwood floors run all through the
+house. You can remember running through the house as a kid, and sliding
+across the floor in your socks.  The hall leads to a Lavatory to the east,
+the kitchen is to the north, and the Grand Entrance is to the south. The
+Cloak Room, Selmas' name for a closet, is to the west.
+
+You can move north, east, south and west.
+
+> n
+You move north.
+
+Kitchen
+This is the kitchen. Selma was still trying to think of a fancy name for it,
+the last time you saw her. The kitchen has several cabinets, and the usual
+appliances. Selma was never one for those fancy gadgets, like microwave ovens
+and blenders, and such. She was very simple in most ways.
+Ida is looking through the kitchen cabinets.
+
+You can move east, south and west.
+
+> e
+You move east.
+
+Sun Room
+You could never figure out why Selma called this the Sun Room. It never got
+any sun, and was surrounded by screens. I guess she needed to call the back
+porch something fancy. Boxes are piled up on the western wall, blocking the
+view of the west side of the house. There is a cabinet that Selma would keep
+her gardening tools in, over on the south wall. She'd spend hours in the
+garden, when she wasn't in the Great Room making cozies.
+Dale is over looking through the boxes on the west wall.
+
+You can move north and west.
+
+> n
+You move north.
+
+Back yard
+The back yard seems smaller, now that you're all grown up. The grass is
+brown, and patches of dirt are visible in several spots. There is no sign of
+the garden that Selma spent so much time in. Perhaps she just couldn't keep
+up with it, in her last few years. The clothesline still stands. Semla didn't
+like the idea of a clothes dryer. She said she loved the way the laundry
+smelled after being sun dried.
+Walter is swinging from the clothesline.
+
+You can only move south.
+
+> look
+
+Back yard
+The back yard seems smaller, now that you're all grown up. The grass is
+brown, and patches of dirt are visible in several spots. There is no sign of
+the garden that Selma spent so much time in. Perhaps she just couldn't keep
+up with it, in her last few years. The clothesline still stands. Semla didn't
+like the idea of a clothes dryer. She said she loved the way the laundry
+smelled after being sun dried.
+Walter is swinging from the clothesline.
+
+You can only move south.
+
+> x walter
+Walter is a very chubby nine year old. He always has a runny nose, and is
+always chewing gum, but doesn't seem to be chewing any right now.  Walter is
+carrying an earring.
+
+> give gum to walter
+Walter hangs by one arm from the clothesline, while he takes the gum and pops
+it in his mouth. He gives you something in return.
+
+> i
+You are carrying a green sweater, a clump of hard candy, a red brick, a rusty
+key, glass cleaner and an earring.
+
+> score
+Your score is 40 out of a maximum of 200.  (20%)
+
+> s
+You move south.
+
+Sun Room
+You could never figure out why Selma called this the Sun Room. It never got
+any sun, and was surrounded by screens. I guess she needed to call the back
+porch something fancy. Boxes are piled up on the western wall, blocking the
+view of the west side of the house. There is a cabinet that Selma would keep
+her gardening tools in, over on the south wall. She'd spend hours in the
+garden, when she wasn't in the Great Room making cozies.
+Dale is over looking through the boxes on the west wall.
+
+You can move north and west.
+
+> w
+You move west.
+
+Kitchen
+This is the kitchen. Selma was still trying to think of a fancy name for it,
+the last time you saw her. The kitchen has several cabinets, and the usual
+appliances. Selma was never one for those fancy gadgets, like microwave ovens
+and blenders, and such. She was very simple in most ways.
+Ida is looking through the kitchen cabinets.
+
+You can move east, south and west.
+
+> look
+
+Kitchen
+This is the kitchen. Selma was still trying to think of a fancy name for it,
+the last time you saw her. The kitchen has several cabinets, and the usual
+appliances. Selma was never one for those fancy gadgets, like microwave ovens
+and blenders, and such. She was very simple in most ways.
+Ida is looking through the kitchen cabinets.
+
+You can move east, south and west.
+
+> x ida
+Ida looks a bit ragged, after having six kids. Her hair is dark and straggly,
+and looks in need of a good washing. You seem to think she would have been
+much better off if she didn't marry Zeke. She looks rather cold, and is
+shivering.  Ida is carrying a paper towel.
+
+> give sweater to ida
+You toss the sweater to Ida, and she gives you a paper towel to hold while
+she slips it on. She doesn't bother to thank you, and returns to searching
+through the kitchen cabinets, and forgets about the paper towel.
+
+> i
+You are carrying a clump of hard candy, a red brick, a paper towel, a rusty
+key, glass cleaner and an earring.
+
+> s
+You move south.
+
+Main Hall
+The hall is pretty plain, and poorly lit. Hardwood floors run all through the
+house. You can remember running through the house as a kid, and sliding
+across the floor in your socks.  The hall leads to a Lavatory to the east,
+the kitchen is to the north, and the Grand Entrance is to the south. The
+Cloak Room, Selmas' name for a closet, is to the west.
+
+You can move north, east, south and west.
+
+> s
+You move south.
+
+Grand Entrance
+This is the Grand Entrance, if you can even call it that. Selma always liked
+to have fancy names for all the rooms in her house. It made her feel high
+class.  There really is nothing grand about the room. It has a staircase that
+leads to the second floor of the house, and open doorways lead off into other
+rooms.   A antique coat rack from the early 1900's stands near the bottom of
+the stairs, along with a small bench and a table. Selma often sat there to
+remove her shoes when she would return from outings, which wasn't often in
+her later years.
+Your relatives have scattered throughout the house, to search for Selma's
+Will.
+
+Also here is a small, round penny.
+Bea is on the other side of the room, rummaging through Selmas' belongings.
+
+You can move north, south, west and up.
+
+> u
+You move up.
+
+The Grand Hall
+The upstairs hall leads to several other rooms. All the pictures that used to
+hang on the wall, seem to have been removed. The stairs lead down into the
+Grand Entrance. There is one of these old fashioned gumball machines. You
+would always make sure you had a handful of pennies when you came to visit,
+when you were a kid.  Buck and Henry are blocking your path to Selma's room,
+and won't let you pass.
+Buck looks like he is looking for trouble.  Henry looks like he's up to no
+good.
+
+You can move west and down.
+
+> w
+You move west.
+
+Oswald's Room
+Oswald's room looks like it has already been cleaned out. There are only a
+few boxes that were left behind. Other than that, all the furniture is gone,
+the room is nearly empty.
+Tammi is sitting on the floor, looking through the boxes that were left
+behind.
+
+You can only move east.
+
+> look
+
+Oswald's Room
+Oswald's room looks like it has already been cleaned out. There are only a
+few boxes that were left behind. Other than that, all the furniture is gone,
+the room is nearly empty.
+Tammi is sitting on the floor, looking through the boxes that were left
+behind.
+
+You can only move east.
+
+> x tammi
+Tammi is in her mid teens, wears too much makeup, and thinks she's Gods gift
+to everyone. She doesn't look anything like the rest of Ida & Zeke's kids.
+She has curly blond hair and blue eyes. She is wearing one purple earring.
+
+> give earring to tammi
+You ask Tammi if she lost an earring, and she reaches up to check, as you
+toss it to her. She tosses a bag of marbles back to you.
+
+> i
+You are carrying a clump of hard candy, a red brick, a paper towel, a rusty
+key, glass cleaner and a bag of marbles.
+
+> score
+Your score is 50 out of a maximum of 200.  (25%)
+
+> e
+You move east.
+
+The Grand Hall
+The upstairs hall leads to several other rooms. All the pictures that used to
+hang on the wall, seem to have been removed. The stairs lead down into the
+Grand Entrance. There is one of these old fashioned gumball machines. You
+would always make sure you had a handful of pennies when you came to visit,
+when you were a kid.  Buck and Henry are blocking your path to Selma's room,
+and won't let you pass.
+Buck looks like he is looking for trouble.  Henry looks like he's up to no
+good.
+
+You can move west and down.
+
+> look
+
+The Grand Hall
+The upstairs hall leads to several other rooms. All the pictures that used to
+hang on the wall, seem to have been removed. The stairs lead down into the
+Grand Entrance. There is one of these old fashioned gumball machines. You
+would always make sure you had a handful of pennies when you came to visit,
+when you were a kid.  Buck and Henry are blocking your path to Selma's room,
+and won't let you pass.
+Buck looks like he is looking for trouble.  Henry looks like he's up to no
+good.
+
+You can move west and down.
+
+> x henry
+Henry is about 11, and is a future convict in the making. Everywhere this boy
+goes, he gets in so much trouble. He looks a bit funny, with his bowl
+haircut, and dirty face.
+
+> give marbles to henry
+You tell the boys about how you used to roll the marbles down the stairs, and
+what fun it was. They weren't very interested in it, until you mentioned that
+perhaps someone might fall on them. Then it was really cool, so they grab the
+bag of marbles and head for the stairs. Now you can enter Selma's bedroom, to
+the north.
+
+> slide down the banister
+You slide down the banister, and land with a thump on the hardwood floor
+below.
+
+> i
+You are carrying a clump of hard candy, a red brick, a paper towel, a rusty
+key and glass cleaner.
+
+> score
+Your score is 65 out of a maximum of 200.  (32%)
+
+> u
+You move up.
+
+The Grand Hall
+The upstairs hall leads to several other rooms. All the pictures that used to
+hang on the wall, seem to have been removed. The stairs lead down into the
+Grand Entrance. There is one of these old fashioned gumball machines. You
+would always make sure you had a handful of pennies when you came to visit,
+when you were a kid.  Buck and Henry are at the top of the stairs, rolling
+marbles downstairs, in hopes that someone may fall on them.
+Buck looks like he is looking for trouble.  Henry looks like he's up to no
+good.
+
+You can move north, west and down.
+
+> n
+You move north.
+
+Selma's Room
+Selma's room is decorated quite nicely. There are several decorations that
+she made herself. Even the afghan on her bed, she made herself. The dresser
+was given to you, after Selma died, so it is no longer here. There is also a
+table and chair on the far side of the room. Selma sometimes liked to read
+weird stories before she turned in for the night.   Zeke is standing in front
+of a door to the north.
+Zeke is looking around, lazily.
+
+You can only move south.
+
+> look
+
+Selma's Room
+Selma's room is decorated quite nicely. There are several decorations that
+she made herself. Even the afghan on her bed, she made herself. The dresser
+was given to you, after Selma died, so it is no longer here. There is also a
+table and chair on the far side of the room. Selma sometimes liked to read
+weird stories before she turned in for the night.   Zeke is standing in front
+of a door to the north.
+Zeke is looking around, lazily.
+
+You can only move south.
+
+> x zeke
+Zeke is truly a geek. He has the IQ of a head of lettuce, and is nearly
+toothless. He looks like some greasy gas station attendant, and he is. He
+sits around at the gas station, eating candy all day.
+
+> give candy to zeke
+You give the rock hard clump of candy to Zeke, and he starts gumming it right
+away. He moves aside so you can pass. You are ready to hurl at the sight of
+him.YUCK!
+
+> x door
+There is a door to the north. If it is unlocked, you may go that way.
+
+> unlock door
+You unlock the door with the key you plunged out from the Lavatory sink.
+
+> i
+You are carrying a red brick, a paper towel and glass cleaner.
+
+> score
+Your score is 75 out of a maximum of 200.  (37%)
+
+> n
+You move north.
+
+Attic
+The attic is fairly dark and has so much junk, you don't know where to begin
+looking for the will. You have been so busy just trying to get to this point,
+and now you have a big job. There are dozens of dusty boxes, old furniture,
+the missing pictures from the walls.  There are even things covered with
+cozies. There has to be something here, somewhere.
+
+You can only move south.
+
+> look
+
+Attic
+The attic is fairly dark and has so much junk, you don't know where to begin
+looking for the will. You have been so busy just trying to get to this point,
+and now you have a big job. There are dozens of dusty boxes, old furniture,
+the missing pictures from the walls.  There are even things covered with
+cozies. There has to be something here, somewhere.
+
+You can only move south.
+
+> x cozies
+There are a lot of things covered with cozies. You happen to notice that one
+of them is very large. You should remove it.
+
+> take cozies
+You remove the cozy and are stunned at what you find. Well, you thought you
+would be stunned.
+Dust flies up, and swirls around a bit, before it settles, once again.
+A large mirror was covered by a cozy. You get a little excited, you must be
+on the right track.
+
+> look
+
+Attic
+The attic is fairly dark and has so much junk, you don't know where to begin
+looking for the will. You have been so busy just trying to get to this point,
+and now you have a big job. There are dozens of dusty boxes, old furniture,
+the missing pictures from the walls.  There are even things covered with
+cozies. There has to be something here, somewhere.
+
+You can only move south.
+
+> x mirror
+The large mirror is on its own base, and swivels to and fro. The mirror is
+glass.
+
+> look me
+Not bad. You can't help but look at yourself.
+
+> x junk
+There is so much here, and much of it looks alike.
+
+> x furniture
+ Whatever furniture it used to be, it's in pieces now.  Things just don't
+last as long as they used to.
+
+> x pictures
+ There are pictures of dozens of family members, and some old paintings. You
+search through them, but still don't find the Will.
+
+> score
+Your score is 80 out of a maximum of 200.  (40%)
+
+> clean glass with towel
+You spray some of the cleaner on the mirror, and wipe it clean.
+
+> break glass
+You hurl the brick at the mirror, shattering it in a million pieces.
+A large piece of paper flies into your hands, and you nearly jump out of your
+skin, as you realize that it's Selma's Will. Just then you notice the sun is
+nearly set. You have to get this to Mr. Lewis before sundown, if you want to
+save Selma's house. HURRY!
+
+> i
+You are carrying Selma's Will.
+
+> score
+Your score is 95 out of a maximum of 200.  (47%)
+
+> s
+You move south.
+
+Selma's Room
+Selma's room is decorated quite nicely. There are several decorations that
+she made herself. Even the afghan on her bed, she made herself. The dresser
+was given to you, after Selma died, so it is no longer here. There is also a
+table and chair on the far side of the room. Selma sometimes liked to read
+weird stories before she turned in for the night.   Zeke is slobbering over
+the candy ball, and is no longer concerned with you.
+Zeke is looking around, lazily.  You can tell by the pinkish reflection on
+the walls that the sun is setting, FAST!
+
+You can move north and south.
+
+> s
+You move south.
+
+The Grand Hall
+The upstairs hall leads to several other rooms. All the pictures that used to
+hang on the wall, seem to have been removed. The stairs lead down into the
+Grand Entrance. There is one of these old fashioned gumball machines. You
+would always make sure you had a handful of pennies when you came to visit,
+when you were a kid.  Buck and Henry are at the top of the stairs, rolling
+marbles downstairs, in hopes that someone may fall on them.
+Buck looks like he is looking for trouble.  Henry looks like he's up to no
+good.  You can tell by the pinkish reflection on the walls that the sun is
+setting, FAST!
+
+You can move north, west and down.
+
+> slide down the banister
+You slide down the banister, and land with a thump on the hardwood floor
+below.
+
+> s
+You move south.
+
+Front Porch
+The front porch is fairly small, and only has room enough for a couple chairs
+and a small table, which still sit here. On a hot summers day, Aunt Selma
+would make up a pitcher of lemonade, and you'd sit in the chair, which seems
+a lot smaller than it used to. You were barely tall enough to see over the
+porch rails.
+Oswald Rupert is looking down his nose at you.  You can tell by the pinkish
+reflection on the walls that the sun is setting, FAST!
+
+You can move north and south.
+
+> s
+You move south.
+
+Front Yard
+This is the front yard of Selma's house. The grass is brown, and near dead.
+Mr. Lewis is waiting for the Will.  You can tell by the pinkish reflection on
+the walls that the sun is setting, FAST!
+
+> look
+
+Front Yard
+This is the front yard of Selma's house. The grass is brown, and near dead.
+Mr. Lewis is waiting for the Will.  You can tell by the pinkish reflection on
+the walls that the sun is setting, FAST!
+
+> give will to lewis
+You give Mr. Lewis the will, as the rest of the family, and Mr. Rupert, file
+out onto the front lawn. After a few moments, Mr. Lewis announces that the
+will is valid, and will be held up. You cheer in excitement.
+
+ You did it! A week later the Will was authenticated. You got the house and
+some cash. You did some remodeling, and investing, and now are quite wealthy.
+You married a school teacher from Vermont, and had three lovely children.
+ Bea & Elsa passed a few years later, while living in Bora Bora, where Selma
+had left them a time share condo. Zeke got some new teeth, and doesn't eat
+candy anymore. Ida got herself a new minivan, to haul the kids back and
+forth. Dale and Tammi moved away and went to collage. Henry & Buck were sent
+to military school. Walter and CC are still with Zeke & Ida.
+ Mr. Oswald Rupert was later tried and convicted for the Murder of Selma. He
+poisoned her because she wouln't sell him her property so he could build a
+shopping center. He had the bought the property adjacent to Selma's and
+needed hers too. So he is serving life in prison with a cell mate named
+Bubba.
+ You did a great job! I hope you enjoyed playing.
+
+You scored 200 out of the maximum 200!
+That is 100% of the game!
+Well done - you scored maximum points!

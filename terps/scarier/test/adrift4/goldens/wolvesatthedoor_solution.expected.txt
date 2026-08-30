@@ -1,0 +1,241 @@
+Loading game...
+
+Wolves At The Door
+
+There are wolves at the door!
+
+You'd just got home to your log cabin with a heavy load of wood weighing you
+down when you heard the beasts lapping around outside. Their vicious claws,
+their razor-sharp fangs, their evil eyes. Wolves. Hungry wolves, too.
+
+And, unfortunately for you, you're the only bit of edible food for miles
+around.
+
+Wolves  At  The  Door
+
+A game by David Whyld featuring
+one man, several wolves and lots of
+totally unnecessary violence and bloodshed.
+
+Written with ADRIFT Version 4, Release 51.
+Started and completed in April 2008.
+
+Playing the game for the first time? Be sure to type ABOUT.
+
+The latest version of this game can always be found at:
+
+http://www.shadowvault.net/wolves.htm
+
+Your Cabin
+
+The main (for main read only) room of your cabin is a fairly spacious affair
+which you, in your own special way, have nevertheless managed to make very
+cramped. The couch in the centre is entirely too large and is also far too
+close to the roaring log fire set into the cabin's only chimney, leaving you
+with overly warm legs when you sit down to watch the TV set on the bookcase
+in the corner. There is a window on one wall, the east one if you must know,
+overlooking a snowy field in which several unpleasantly large wolves are
+currently prowling. To one side of the window is the cabin's only door,
+situated to the northeast of where you currently are. Your coat stand is next
+to it.
+
+There is a small area built into the north wall, not far from your desk,
+where you prepare meals, though with the constant power blackouts up here in
+the mountains, most of your meals are eaten cold as soon as they're taken
+from the pantry. Then you have your telephone, sitting on its own little
+pedestal by the toilet (yes, in the same room as everything else) which is
+within stepping distance of the bed. There is no bath so bathing times tend
+to be whenever it happens to rain. Which isn't often.
+
+> x small area
+This comprises nothing more fancy than a simple board on which you prepare
+your meals. This is, in effect, your 'kitchen'. A fridge isn't needed when
+you live in a perpetually icy climate so anything that needs to be frozen is
+kept outside. Built into one side of the area is a grill to cook food on
+during those rare occasions when the electricity is working. Off to one side
+of this is your poorly-stocked pantry.  On the small area is a bottle of
+water, a sandwich and a dishrag.
+
+> get bottle of water
+You take the bottle of water from the small area.
+
+> extinguish fire
+The water puts out the flames in one go and a cloud of smoke shoots up, half
+choking you. When you can see again, and breathe again, you can see that the
+fire has gone out.
+
+> x fire
+Clearly you were mistaken as the 'roaring log fire' is actually the
+'smouldering log fire'. There is a lot of smoke here but precious little in
+the way of an actual fire set at the bottle of the chimney.
+   However, now that the flames have died down, you can see what looks to be
+a wedge lying at the back of the fire.
+
+> get wedge
+You retrieve the wedge from the back of the fire. It's a little warm to the
+touch but you just mutter "ohmygodthathurtsaghggghghghgh!!!!!!!" until the
+pain fades away.
+
+> wedge door
+Knowing that the best way to slow the wolves down is to place the wedge under
+the door, you do just that. It's not an especially sturdy wedge and certainly
+won't keep the wolves at bay for long, but hopefully it should buy you some
+time.
+
+> draw curtain
+You draw the curtain over the window. This is unlikely to convince the wolves
+outside that you have left, but it might give them pause for thought as they
+can no longer see you.
+
+> look behind bookcase
+Peering behind the bookcase, you see... a knife.
+   Frowning, you pick it up. Yep, it's your old knife, the one you thought
+you'd lost months back. Unfortunately, all the time it's spent behind your
+bookcase hasn't done it any favours as it's pretty blunt now.
+
+> x pantry
+It makes sense when you live isolated in the mountains, miles and miles away
+from anyone else, to have a well-stocked pantry. The sort of pantry that you
+could, if the circumstances warranted it, survive off for a long, long time.
+   Shame then that your pantry doesn't have any actual food in it.  There is
+a polished stone inside the pantry.
+
+> get stone
+You take the polished stone from the pantry.
+
+> sharpen knife
+You sharpen the knife to gleaming sharpeness with the stone.
+
+> cut blankets with knife
+The blankets are tough, but your knife is sharper and you cut through them
+quickly. You aren't really sure what you're cutting when you start but when
+you finish 8 seconds later (you learn to cut fast up in the mountains), you
+see you have fashioned for yourself a thick but comfortable jacket.
+
+> wear jacket
+You put on the jacket.
+
+> look under pillow
+Inching the pillow to one side, you find... a single sleeping pill. Ah, this
+must have got dropped here by accident a while back as you can't remember the
+last time you had one.
+   You take it with you all the same.
+
+> eat sleeping pill
+You expect to fall to sleep the moment you take the sleeping pill, but
+instead you feel your nerves calming down. The sleeping pill might ordinarily
+be enough to send you to the Land of Nod for a good eight hours, but with
+your heightened sense of nerves due to the wolves outside, it's only enough
+now to calm you down.
+
+> fix toilet
+With your nerves soothed by the sleeping pill, you calmly set about fixing
+the chain on the toilet. It's not a difficult job and you're finished in less
+than a minute.
+
+> flush toilet
+You tug the chain and the sound of a battleship firing its guns roars through
+the cabin, the cabin shakes and, outside, you hear the wolves retreating!
+   Excitedly, you rush to the window and peer out. Have the wolves left? Have
+they decided that a man in a cabin also containing a loud toilet is too much
+for them? Have they-
+   No, they're coming back. Once the initial shock had died down, they seem
+to have realised that the toilet, while loud, can't hurt them. Still, it's
+bought you a few extra seconds to plan your escape.
+
+> lock door
+You lock the door, hopefully buying you a little time.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+There is a horrifying growl and the door bursts open! Into your cabin rush
+the wolves! They surround you! They begin to close in!
+
+[MORE]
+
+Fortunately the first of the wolves is unable to get a decent grip on you due
+to the thick jacket of blankets you're wearing; after gnawing unconvincingly
+on your arm for a few seconds, it hisses and backs away. But the others?
+   They close in on you...
+
+[MORE]
+
+BANG!
+   No, that wasn't the gunshot of someone coming to rescue you. It was-
+   No, wait! It was the gunshot of someone coming to rescue you!
+   As you watch in disbelief, a rugged group of wolf hunters burst in through
+the shattered door and lay into the wolves. It's a vicious battle fought in
+close quarters and the outcome is in doubt until the very last moment when
+the leader of the wolf hunters smashes open the head of the largest wolf with
+a bayonet.
+   Silence descends on the cabin, punctuated by nothing more than the
+exhausted breathing of you and the hunters.
+   "Thank you," you say to the hunters. "Thank you for rescuing me!"
+   One of the hunters frowns and looks at the leader, who, you notice, still
+has his bayonet drawn.
+   "Rescue?" he asks.
+
+[MORE]
+
+Your funeral is a sombre affair. Your ex has affairs with the minister, one
+of the pallbearers and the old bloke who digs the grave in order to help her
+get over the shock of your death. In an act of unusual kindness on her part,
+she even buys a wreath to lay on your grave, though the inscription - "About
+damn time" - is perhaps a little unfortunate.
+   "And so we are gathered here today," begins the minister, "to lay into the
+ground the body of our dearly beloved Winston Grimes-"
+   "His name ain't Winston!" someone informs the minister.
+   "It isn't?"
+   "No."
+   "Oh, then I'm in the wrong church," says the minister and he, and the rest
+of the congregation, promptly depart.
+
+[MORE]
+
+Unfortunate, really, that you survived an attack by a vicious group of wolves
+only to fall prey to an even more vicious group of wolf hunters who also did
+a sideline in human scalps. But your last thought - apart from "No, not the
+scalp!" anyway - was that at least you had cheated the vicious hate-filled
+wolves out of their dinner.
+
+[MORE]
+
+And on that somewhat sombre note, Wolves At The Door is concluded. If you're
+reading this, you've either solved the game and all its puzzles (well done to
+you!), found yourself a walkthrough from somewhere or, perhaps, you're just
+especially good at hacking into ADRIFT. Whatever the truth of the matter, I
+hope you enjoyed the game and thanks for playing.
+
+Any updates to the game - bug fixes and the like - will be posted at:
+
+http://www.shadowvault.net/wolves.htm
+
+> quit
+That's a bit difficult when you're dead.
+
+> y
+That's a bit difficult when you're dead.
+
+>

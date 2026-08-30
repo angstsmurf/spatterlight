@@ -1,0 +1,337 @@
+Loading game...
+
+...
+
+[more]
+
+Prison life didn't agree with Clueless Bob Newbie - for a start he didn't
+have access to a computer 24 hours a day so his usual output of new games was
+cut down to a measly half a dozen or so a week. On top of that he had to put
+up with the indignity of sharing a cell with a man who thought farting should
+be considered a national pastime and, worse still, the prison warden didn't
+like his games! Sure, the guy was also a despicable thug who delighted in
+pounding prisoners into mush for any supposed insult but CBN expected that
+kind of treatment and would have felt there was something wrong if he didn't
+get it.
+
+[more]
+
+The final straw? An article in The Prison Herald denouncing text adventures
+as a thing of the past. It was all Clueless Bob Newbie could do not to throw
+himself on the prison authorities in a mad rage and cause them to implode
+(such a thing had happened in one of his games so there was every reason to
+assume it would happen in real life).
+
+He had to escape. He had to get out. The world was crying out for his
+freedom. Well, maybe not out loud but he was sure that someone, somewhere was
+missing his colossal output of two dozen high quality games per week.
+
+He had to escape. It shouldn't be that difficult. After all, he had written
+no less than fifteen separate games about escaping from jail, one involving a
+banana and another with an emphasis on short French monks with a penchant for
+swearing (the details escaped him right now but it had been a classic game
+for its time).
+
+It should be a doddle to escape.
+
+[more]
+
+YOUR CELL
+
+You're in the cell you share with Hoggins, an obnoxious fellow who would fart
+for the Olympics if they had such an event. Fortunately he's not here right
+now. You see his bed, the dusty patch in the corner where you spend your
+nights, a shelf containing nothing, and a door to the north.
+
+> look under bed
+Just a few motes of dust and… hold on! What's this? You ferret under the bed
+and come up with… a ferret!
+   Quite what Hoggins has got a ferret under his bed for you don't know but
+from writing several games about ferrets - Ferret PC: The Trials of Birdie,
+Alesian Ferret and Dark Ferret - you're well acquainted with such creatures.
+
+> hold nose
+You cover your nose as best you can.
+
+> x bed
+Hoggins' bed: even with your nose covered, it's still a strain to study the
+thing without being violently ill. But you persevere and come across, among
+other things, a comb. After picking away a few bits of Hoggins' scalp from
+between the tines, you slip it into your pocket (the comb, that is, not the
+bits of Hoggins' scalp).
+
+> n
+You move north.
+
+EXECUTIVE DINING HALL
+
+Executive dining hall is the official title of this room but the inmates more
+usually refer to it as "the craphole". It’s one long room with a table
+running down the middle at which are crouched several dozen inmates. Your
+cell lies to the south while the prison warden's office is northeast and the
+exercise yard to the west.
+
+   "Hey!" mutters an inmate. "That one's got a ferret!"
+   Save me! pleads the ferret silently.
+   Or maybe he doesn't and you've just started imagining things.
+
+> throw ferret
+The inmates throw themselves on the ferret in an orgy of despicable
+ferret-murdering. The ferret catches your eyes as it is forced down the
+throat of a particularly large-throated inmate - and then it is gone.
+   Every inmate in the room looks at the large-throated fellow who gives a
+dismayed cry as they barrel into him in a desperate attempt to have the
+ferret for themselves.
+   "Typical!" mutters a guard as he hurries from the warden's office. "Feed
+'em bread 'n' water for sixteen years and then show 'em a ferret and they all
+go crazy."
+
+> ne
+You move northeast.
+
+PRISON WARDEN'S OFFICE
+
+This pokey little room holds a desk and a filing cabinet (reputedly
+containing confidential details of everyone in the prison - guards included).
+It is the proverbial treasure trove as far as prisons are concerned. To the
+southwest is the executive dining hall.
+
+> smash drawer
+Drawing on your rage, you unleash it in a whirling tidal wave of retribution
+(a phrase featured in many of your best games) on the drawer. Normally
+nothing happens but here it seems you are in luck as the drawer's front
+shatters
+   Picking through the fragments of the drawer you come across an exercise
+yard pass which you swipe before anyone comes along to stop you.
+
+> sw
+You move southwest.
+
+EXECUTIVE DINING HALL
+
+Executive dining hall is the official title of this room but the inmates more
+usually refer to it as "the craphole". It’s one long room with a table
+running down the middle. A fight is raging around the table as several dozens
+attempt to kill each over a ferret. A guard is ineffectually trying to stop
+the fight. Your cell lies to the south while the prison warden's office is
+northeast and the exercise yard to the west.
+
+> w
+You move west.
+
+EXERCISE YARD
+
+Twenty feet of hard concrete surrounded by a high wall: that's the exercise
+yard for you. Several inmates are here, exercising or arguing with each
+other. A guard with a gun watches over the proceedings. This is Trigger Happy
+Terry, the most dangerous man in the prison. A door leading into the prison
+is to the east while the gates are to the north and a meeting room to the
+southwest.
+
+   THTerry has got his gun raised and his finger is squeezing on the trigger
+almost before you have time to show him the exercise yard pass.
+   "Damn!" he mutters, lowering the gun with obvious reluctance. "But I guess
+there'll be a day when you forget the pass." He chuckles. "Oh yeah, that'll
+be a good day."
+
+> e
+You move east.
+
+EXECUTIVE DINING HALL
+
+Executive dining hall is the official title of this room but the inmates more
+usually refer to it as "the craphole". It’s one long room with a table
+running down the middle. A fight is raging around the table as several dozens
+attempt to kill each over a ferret. A guard is ineffectually trying to stop
+the fight. Your cell lies to the south while the prison warden's office is
+northeast and the exercise yard to the west.
+
+> s
+You move south.
+
+YOUR CELL
+
+You're in the cell you share with Hoggins, an obnoxious fellow who would fart
+for the Olympics if they had such an event. Fortunately he's not here right
+now. You see his bed, the dusty patch in the corner where you spend your
+nights, a shelf containing nothing, and a door to the north.
+Your cellmate, Hoggins, is here.
+
+   "Wotcha, Bob," grunts Hoggins, letting off an enormously foul fart. "Cor!
+That wuz a stinker and no mistake! Whew!"
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+   Hoggins burps.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+   Hoggins farts.
+
+> z
+Time passes...
+
+   "Strewth!" says Hoggins, momentarily distracted from his scratching,
+farting, belching and burping by his hair. "Me hair ain't half a-" He pauses
+to burp "-mess. You seen me comb, Bob?"
+
+> z
+Time passes...
+
+   Hoggins scratches himself. You avert your eyes so as not to see exactly
+where.
+
+> give comb to hoggins
+"Ta, mate," says Hoggins. He runs the comb through his hair, dislodging a few
+centipedes, a cockroach and a small rat. "That feels better. You know, I
+could swear I felt something scuttling around in me hair a minute ago but it
+ain't there now." He belches. "Ah, better still."
+   "Don't I get something for finding your comb?" you say.
+   "Like what?"
+   "Like something. It's traditional to get a reward for giving something to
+someone. I've wrote 28 adventures in which-"
+   Hoggins scratches his backside. You guess that's the best answer you're
+going to get.
+
+> talk hoggins
+"Ah, sod it," mutters Hoggins. "You're gonna keep on botherin' me till I give
+you something, ain't you? Here." He tosses a coin on the floor. "Don't spend
+it all at once. Huh huh."
+
+   Hoggins grunts and then farts so loudly the cell is filled with the noise
+of it.
+   Not to mention the smell.
+
+> talk hoggins
+"Clear off!" snaps Hoggins, farting as he does so. "You ain't gettin'
+anything else! You think I'm made of money or something?"
+
+   "Bloody hell!" grunts Hoggins. "That last one was a right stinker!"
+
+> get coin
+You take the coin.
+
+> n
+You move north.
+
+EXECUTIVE DINING HALL
+
+Executive dining hall is the official title of this room but the inmates more
+usually refer to it as "the craphole". It’s one long room with a table
+running down the middle. A fight is raging around the table as several dozens
+attempt to kill each over a ferret. A guard is ineffectually trying to stop
+the fight. Your cell lies to the south while the prison warden's office is
+northeast and the exercise yard to the west.
+
+> w
+You move west.
+
+EXERCISE YARD
+
+Twenty feet of hard concrete surrounded by a high wall: that's the exercise
+yard for you. Several inmates are here, exercising or arguing with each
+other. A guard with a gun watches over the proceedings. This is Trigger Happy
+Terry, the most dangerous man in the prison. A door leading into the prison
+is to the east while the gates are to the north and a meeting room to the
+southwest.
+
+> sw
+You move southwest.
+
+MEETING ROOM
+
+This grimy little room is where prisoners get their once-a-decade five minute
+meeting with their nearest and dearest. The room is sectioned off into two
+halves by a pane of unbreakable glass. On the far side, a door leads out of
+here and into the free world. A telephone hanging on the wall allows those
+prisoners who can afford the charges to make calls. A door at your back, in a
+general northeasterly direction, leads back out to the exercise yard.
+
+> use phone
+You will need to insert a coin first.
+
+> insert coin
+You insert the coin and then dial...
+   Who?
+
+   1)  Games Review Magazine
+   2)  Your friends and family
+   3)  The police
+   4)  Trigger Happy Terry's wife
+
+> 4
+Acting on a hunch you call THTerry's wife (ignoring for a moment the fact
+that there's no way you could possibly have her number) and, putting on your
+best authority voice, say, "Madam, it is with great regret that I must inform
+you that your husband, Terry, has been sleeping with his secretary."
+   "What!" screeches the hellcat on the other end of the line. "But his
+secretary's a dog!"
+   "I'm sure she's not very pretty, madam-"
+   "No! An actual dog! Why, that lousy no good useless trigger happy stinking
+son of a gun! I'll rip his b-"
+   You hang up, satisfied you have done what you intended.
+
+> ne
+You move northeast.
+
+EXERCISE YARD
+
+Twenty feet of hard concrete surrounded by a high wall: that's the exercise
+yard for you. Several inmates are here, exercising or arguing with each
+other. A guard with a gun watches over the proceedings. This is Trigger Happy
+Terry, the most dangerous man in the prison. A door leading into the prison
+is to the east while the gates are to the north and a meeting room to the
+southwest.
+   "Terry!" is called across the exercise yard.
+   THTerry goes pale as his wife, four foot six and with a personality that
+makes his gun look friendly, comes running across the yard and slaps him
+across the face.
+   "You goddamn loser!" she screams, slapping him again. "Sleeping with your
+secretary! How could you?"
+   "But I didn't!" says THTerry, frantically trying to defend himself. But a
+trigger happy man with a gun is no match for an angry woman. "I swear, I've
+had sex with nothing but whores and the occasional inmate! I never touched
+the dog!"
+   "LIAR!!!" yells his wife.
+   She grabs the gun off him and belts him around the head with it before
+kicking him in a certain place that pretty much guarantees he won't be having
+sex again. Whether with whores, prostitutes or dogs.
+   As THTerry collapses facedown on the ground, his wife storms off. The
+other inmates clear a path for her.
+
+> look
+
+EXERCISE YARD
+
+Twenty feet of hard concrete surrounded by a high wall: that's the exercise
+yard for you. Several inmates are here, exercising or arguing with each
+other. THTerry lies unconscious on the ground. A door leading into the prison
+is to the east while the gates are to the north and a meeting room to the
+southwest.
+
+Lying on the ground is THTerry's gun.
+
+> get gun
+You take the gun.
+
+> n
+As you approach the gate with the gun, you experience a moment's worry that
+the guards might not respond to a gun being waved at them and might just
+shoot you down where you stand. But...
+   "Hey there, Terry," calls one guard.
+   "That ain't Terry," says another, peering at you suspiciously.
+   "He's got Terry's gun."
+   "Oh, so he has. Must be Terry then."
+   You watch in amazement as the guards swing open the gate and let you
+through, not even noticing the unconscious form of THTerry lying in the
+middle of the exercise yard.
+   You're halfway home, and several ideas for new games already forming in
+your mind, before you give a cry of "woo-hoo!"

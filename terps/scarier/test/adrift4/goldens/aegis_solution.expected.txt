@@ -1,0 +1,1543 @@
+Loading game...
+
+Aegis
+
+Introduction
+
+()
+|________ /((()))\ ________|
+|{}{}{}__\ \_*_/ /__{}{}{}|
+|.......--- )))---\.^./---((( ---.......|
+|......\\\...}..|..|..{...///.......|
+X....\\\..|.~}{~.|..///....X
+~/////|..............\\\.|..|.///..............|\\\\\~
+//\..............=[.V.]=............../\\
+\|{~}..........|..|..........{~}|/
+\}{..........|..|..........}{/
+`\(].......|..|.......[)/'
+`\{}..|..|..{}/'
+`\()| |()/'
+`-.*.-`
+'
+Aegis
+   by Jacqueline Huber
+
+1.) About the game.
+
+2.) Start playing now.
+
+> 2
+"...to hand out justice and mercy in balanced measures, to uphold the law of
+Greatwater and of its Council, and above all to never tarnish the honor of
+the Aegis that I hold and swear all this by."
+
+Still gripping the great, ancient shield that is the symbol of your order,
+you slowly rise from your knees to the applause of the assembled members of
+the Aegis Guard as you complete the last lines of the oath, beaming with
+pride in the knowledge that you have successfully completed your four years
+of apprenticeship and are now one of them.
+
+Elder Hanawi approaches in his usual careful, dignified manner, silencing the
+cheers with a glance and taking the shield from you, swaying unsteadily a
+moment under its weight and then handing it to Guardmaster Cayrith, who
+reverently returns it to its place on the wall. Then the Elder turns towards
+you once again, lifting the feathered bronze helm and buckler which are
+traditional of the Guard, making the wearer instantly recognizable as a force
+of good and justice wherever they go.
+
+"As the oldest living member of this Order, it is my...glad duty to welcome
+the newest. Celise Stonesong, take these, and wear them always with...with
+the pride befitting a member of the Aegis Guard."
+
+"I will, sir, and thank you."
+
+"Now that you have reached the rank of journeyman," Hanawi continues, "you
+will be issued a mount of your own. Go to the stables and speak to my nephew
+Janai when you are ready."
+
+Great Eyrie
+The Great Eyrie is a large circular platform surrounded by rails, resting on
+a pillar towering high over the water and looking more than anything like the
+crow's nest of a giant ship.  Drakes perch here and there along the rails,
+and if you look towards the shore you can see several more dotting the sandy
+cove before the Council Hall. Except for the shrine that houses the Aegis,
+this place is usually bare of furnishings, but it seems today someone
+actually managed to get a long table up here, laden with refreshments for
+after the ceremony.
+Elder Hanawi is here, seemingly lost in his thoughts.  Cayrith is here.
+Manaao is here.  Niowi is here.  Several of your fellow Guards are here.
+
+> go to the stables
+After some time spent enjoying small talk, congratulations, and toasts to
+your success, you catch a ride from the Great Eyrie--only accessible by
+air--down to the stables to finally receive your own drake, your head still
+whirling from the day's events.
+
+Drake Stables
+Sunlight streams in through the tall windows of these spacious stables,
+always kept open in good weather to catch the breeze off the cove. Ladders
+placed at intervals along the walls allow access to dozing drakes in
+hay-filled lofts, while you can see others playing on the shore through the
+open doors to the east. For drakes that may be needed more immediately by
+their riders, a row of tethering posts stands on each side of the west door
+leading to the Council Hall, saddles and gear hung nearby in neat rows.
+Janai is here humming a tune to himself while he works.
+
+> talk to Janai
+At the sound of your voice Janai looks up and flashes you his trademark grin.
+"Celise! Or is it Journeyman now? Er...Journeywoman? I didn't expect you back
+from the ceremony so soon. I don't blame you for being in a hurry to see your
+drake, though, so let me introduce you to Oxblood."
+
+Producing a shiny brass whistle from a pouch at his waist, he produces a
+clear, flute-like note on it, then tosses it to you. "I know you must have
+seen the other Guards use these, but this one's yours. Just blow on it to
+call your drake if you need to saddle him, or need him in a hurry for some
+other reason."
+
+He's barely finished speaking when there's a trilling sound at the door to
+the Cove, not unlike the one made by the whistle, and a large brownish-red
+drake comes bounding in, rubbing its head under Janai's hand and then coming
+over to sniff at you curiously.
+
+"And this is Oxblood," Janai says with a little laugh. "As you can see he's a
+big fellow, but perfectly friendly. I'm sure he'll warm up to you in no
+time."
+
+Gesturing at the gear hanging from the walls, he continues. "Why don't you go
+ahead and saddle Oxblood? And if he takes to that okay you could try a test
+flight."
+
+> saddle Oxblood
+You take the saddle from the wall and approach the big drake. Oxblood lays
+his ears back and eyes you uncertainly, starting to scoot backwards. "It's
+okay, boy," you say in a reassuring voice, grabbing at his halter and
+managing to sort of toss the saddle over his back. Immediately he collapses
+with a whuffing sound.
+
+Looking around for help from Janai, you instead find him red-faced from
+choking back laughter behind you, so you only roll your eyes and turn back to
+the stubborn drake, first tugging at the reins to try and get him to stand,
+and then when that fails half straddling him and struggling to get at the
+straps that need to be buckled at his stomach and chest while he twists his
+long neck around to eye you quizzically, then attempts to eat your hair.
+
+Finally managing to secure the last one, you give it a tug to make sure it's
+tight, at which point Oxblood stands up on his own, shaking himself all over
+and swishing his tail.
+
+"Good, good," says Janai, who finally seems to have managed to get ahold of
+himself. "Great job! You're a natural."
+
+Oxblood snorts loudly, pretty much summing up your thoughts on that as well.
+
+"Now, go ahead and mount Oxblood."
+
+> mount Oxblood
+This time Oxblood stands still and appears rather docile as you approach him,
+even lifting his wings out of your way. Relieved to finally get some
+cooperation (or at least not to be embarrassed further in front of Janai) you
+put your left boot in the stirrup and start to swing yourself up...only for
+the suddenly loose saddle to twist towards you and send you off balance, the
+seat ending up hanging from the drake's belly and your seat ending up
+painfully on the ground in an undignified manner.
+
+Janai is laughing hard now, and Oxblood gurgles and trills, arching his neck
+to examine you quizzically. Climbing to your feet, you dust yourself off and
+give an exasperated look first at one, then the other.
+
+"Those straps were tight just a minute ago! I checked them, I was sure--" you
+start to protest, but Janai interrupts, still chuckling in between gasps for
+air. "I know, I know you did...Oxblood must have held his breath to puff his
+sides out.  They have huge lungs you know, that's how they stay underwater so
+long when they're looking for food. I had a feeling he was going to do that,
+when he gave you so much trouble with the saddling..."
+
+You roll your eyes. "Thanks for the warning."
+
+"Sorry, sorry...I know I should have said something, but this is seriously my
+favorite thing about initiating new Guards." He laughs again, shaking his
+head and unbuckling the now tangled straps of the saddle and harness.
+"Seriously though, you've been a much better sport about it than they usually
+are, so I'll let you in on a secret. Drakes love fresh fish, and as you can
+see, Oxblood here loves them more than most." He pokes the drake's side
+affectionately to emphasize his point. "So if you were to run down to the
+Market and buy him a herring or something, I'm sure he'd warm right up to you
+and let you saddle him properly."
+
+> west
+You move west.
+
+Council Hall
+Your footsteps echo on the marble floor of this spacious meeting hall. Wooden
+benches and various historical paintings line the walls, and an enormous
+embroidered rug stretches from a fountain in the center of the room to a low
+platform and podium against the far wall, with an elaborate map of Greatwater
+pinned up behind it. The entire Council Hall building---formerly the Aegis
+Hall--is in fact much larger, encompassing the barracks and private living
+quarters in separate wings as well as the armory and dungeon just down the
+stairs, but this is the main room where the guardsmembers generally meet,
+discussing the latest news and receiving missions.
+
+A pair of wide double doors open out to the rest of the city to the west, and
+a long hall east leads to the stables.
+
+> west
+You move west.
+
+Market
+The market square is crowded with stalls of all kinds, their bright colors
+competing to draw the eye. The smells of fish, spices, and perfumes mingle
+here, and under it all the salty tang of the ocean, carried by a welcome,
+cooling breeze that swirls sand around the feet of the crowd and the base of
+the large central fountain. The Council Hall is back to the east.
+
+A fish seller has set up his cart near the entrance to the docks to the
+north.
+
+> buy blueback herring from the fisherman
+Taking a piece of copper from your purse, you buy the largest blueback from
+the smiling fisherman and wish him good day.
+
+> east
+You move east.
+
+Council Hall
+Your footsteps echo on the marble floor of this spacious meeting hall. Wooden
+benches and various historical paintings line the walls, and an enormous
+embroidered rug stretches from a fountain in the center of the room to a low
+platform and podium against the far wall, with an elaborate map of Greatwater
+pinned up behind it. The entire Council Hall building---formerly the Aegis
+Hall--is in fact much larger, encompassing the barracks and private living
+quarters in separate wings as well as the armory and dungeon just down the
+stairs, but this is the main room where the guardsmembers generally meet,
+discussing the latest news and receiving missions.
+
+A pair of wide double doors open out to the rest of the city to the west, and
+a long hall east leads to the stables.
+
+> east
+You move east.
+
+Drake Stables
+Sunlight streams in through the tall windows of these spacious stables,
+always kept open in good weather to catch the breeze off the cove. Ladders
+placed at intervals along the walls allow access to dozing drakes in
+hay-filled lofts, while you can see others playing on the shore through the
+open doors to the east. For drakes that may be needed more immediately by
+their riders, a row of tethering posts stands on each side of the west door
+leading to the Council Hall, saddles and gear hung nearby in neat rows.
+Janai is here humming a tune to himself while he works.  Oxblood is here.
+
+> feed the blueback herring to Oxblood
+Oxblood's head snaps forward and he gulps the fish down happily, shuffling at
+your fingers hopefully for more. He really seems to like you now!
+
+"See, what'd I tell you? Now go ahead and try saddling him again."
+
+> saddle Oxblood
+Lo and behold, the drake actually holds still and doesn't try and tricks
+while you strap the saddle on. It's amazing what a little bribery can do.
+
+> mount Oxblood
+Stepping again into the stirrup, you test it against your weight a moment and
+then swing into the saddle. Except for Oxblood being quite a bit wider in the
+middle, this time it's just like all those times you practiced on old retired
+drakes as an apprentice.
+
+"Great!" Janai exclaims, beaming. "Now..." Stepping closer, he starts to give
+you a couple of pointers, but the lesson is interrupted by Cayrith's arrival.
+
+"Ah, Journeyman Celise, already mounted up, I see?" The guardmaster smiles at
+the both of you. "That's good...in fact, I was hoping I could get you to fly
+out on a little mission for me."
+
+"A mission, already?"
+
+Cayrith nods. "Yes...I know normally I'd go out with you for the first few,
+but this is fairly straightforward, and I'm going to have my hands full for
+the next couple of days." He smiles without amusement. "For some reason the
+Council Lord thought it would be a good idea to send in an outland elf to act
+as a diplomat, and--"
+
+"Oh, that reminds me!" Janai breaks in. "All right, so an elf, a pirate, and
+a high-class whore walk into a pub, and the pirate starts--"
+
+This time it's Cayrith's turn to cut him off. "Yes, yes, thank you Janai. I
+can see you find elves amusing, but I can assure you your uncle does not, and
+neither do most of the other ranking Guards, and so it falls to me to sit on
+the nest and try and keep everyone's feathers as unruffled as possible."
+
+Sighing a little, he turns back to you. "Anyway, all this is is a simple
+search and rescue. There's apparently a man stranded on a rock out there.
+The, ahem...lady...sailor..." The way he phrased the last two words made it
+clear he was doubtful of both. "...who made the report gave pretty exact
+directions, so just fly due north from the Cove a ways and you ought to spot
+it."
+
+"Okay, so just fly north from the Cove, then land and rescue the man?" You
+shrug. "Sounds simple enough. Don't worry, I can handle it."
+
+Cayrith smiles. "Thanks Celise, I knew I could count on you."
+
+> east
+You move east.
+
+Drake Cove
+A wide, sandy cove where the Guards' drakes are often allowed loose to sun
+themselves, swim and play. The great white pillar of the Eyrie rises from the
+water to the east.
+
+> fly
+At your command Oxblood crouches down, powerful muscles tensing, then springs
+in the air with you clinging tightly to his halter, beating his wings rapidly
+and stretching his neck forward, huffing and puffing but slowly gaining
+altitude. Soon the clumsiness the drake exhibits on the ground is completely
+gone, and you're both gliding smoothly in a lazy circle high above the Cove,
+the Great Eyrie to the east and open ocean to the north and south.
+
+> fly north
+You fly north over the unchanging ocean for quite a ways, but finally spot
+what looks like the small island Cayrith described to you off to your left,
+and nudge Oxblood that way until you're circling over it.
+
+> land
+You indicate that you want to land, and Oxblood obliges by angling his wings
+back in a sudden dive, flapping them a few times to check your descent only
+when you're alarmingly close to the ground and landing with a bone-jarring
+whump.
+
+You shake your head to clear it, patting his neck absentmindedly as you look
+around.
+
+Rocky Island
+A bleak strip of rock and sand, hardly large enough to be called an island,
+without the hospitality of so much as a single scraggly palm. A barrel and a
+few other miscellaneous items have been strewn about next to a makeshift
+canvas tent.
+You hear loud snoring, and a man's booted feet are visible sticking out from
+a makeshift tent.
+
+> talk to sailor
+You clear your throat loudly. Then, "Hello, sir?"
+
+No response.
+
+"Ah, sir? WAKE UP!"
+
+You're just about to dismount and try something else, when Oxblood, ever
+helpful, extends his neck, curiously sniffs at the man's boots, then chomps
+down on one and gives it a vigorous shake.
+
+"Yeeeeow!" The sailor wakes kicking and cursing, for a moment becoming
+tangled up in his own tent as he sits bolt upright. Finally pulling himself
+free of the ragged canvas, he stares at you a moment in gape-mouthed
+astonishment, then scrambles to his feet, grinning widely.
+
+"Well I'll be blessed if it ain't a Guard! Never thought I'd be glad to see
+one o' you folks, even if ye are a right purty lass...for a moment there I
+thought you was one o' them hallucer'ations!" He shakes his head sadly,
+looking around. "Wouldn't surprise me one bit to find myself goin' off the
+deep end, what wit' being abandoned on this sorry rock wit' nuttin but water
+to drink. Bein' left to die sober is a 'orrible fate, just 'orrible! It must
+be 'Laasi's own luck you ever managed to find me out here, but you're here to
+rescue me, ain't ye?" He looks at you hopefully.
+
+You nod. "Yes sir, Mister...er..."
+
+"Gorrister, they call me! At your service, miss Guard lady!" He gives an
+enthusiastic salute.
+
+Unable to keep from smiling a little at that, you nod again. "Well, my name
+is Celise, and yes, I'm here to rescue you. It seems that one of your friends
+made a report about you being stranded here, and.."
+
+"Friends? Pah!" Gorrister spits on the ground distastefully. "The only one's
+that'd know I's out here is the bunch o' greedy thieves that marooned me in
+the first place! Wait till you hear what they're up to...serve them jus'
+right to get ratted out to the blasted Guard. But get me outta here first,
+won't ye lass?"
+
+> rescue the man
+It takes a little coaxing before Oxblood is willing to allow the man to
+clamber into the saddle behind you, but drakes are trained to carry two
+riders precisely for situations like this, so he doesn't give you that much
+trouble, which is just as well because you're a long way from anyone selling
+fresh herrings this time.
+
+"All right, flying can be a little unsettling at first if you're not used to
+it, but just stay still and hold on to me," you tell Gorrister as the three
+of you take off, then frown a bit as he seems almost a little too willing to
+oblige you on that last part...considering where his hands are, it's a good
+thing you're wearing armor.
+
+On the way back to the city, he's equally eager to talk about the two men and
+the woman who were his former companions, so you mostly remain silent and
+just listen while he tells you all about the "worthless no-good backstabbin'
+cowards", going into their past crimes in amazing detail considering his
+insistance that he was just "an honest sailor workin' hard fer his wages 'til
+those gold-grubbin' sharks tried to draw him into a bad business" the merest
+suggestion of which of course he was appalled by and refused to have any part
+of, leading to his marooning.
+
+"Aye, and make no mistake of it, they'll be strikin' again tonight! There's a
+warehouse in the old part o' the docks, and we---er, they got word there's
+gonna be a whole shipment o' fine steel blades there, and're all set to lift
+it. Got a buyer lined up an' everything...probably imag'nin how they're going
+to spend the gold right as we speak. I tell you lass, short of a bottle o'
+rum, right now there ain't nothin' I'd like better'n seein' those fools get
+their night ruined by you an' yer friends."
+
+The man's questionable motives aside, the information on the planned
+warehouse robbery sounds like it'd be worth passing on, and you suppose you'd
+better talk to Cayrith about the thieves as soon as you see him again.
+
+Finally reaching the city, you land at the marketplace at Gorrister's
+insistance, where he thanks you profusely, then scuttles off to the nearest
+pub, no doubt to make up for all that water he was forced to drink the last
+few days.
+
+Shaking your head and leading Oxblood to the stables, you hand him over to
+Janai to unsaddle and turn loose while you muse over the new information
+you've learned.
+
+> west
+You move west.
+
+Council Hall
+Your footsteps echo on the marble floor of this spacious meeting hall. Wooden
+benches and various historical paintings line the walls, and an enormous
+embroidered rug stretches from a fountain in the center of the room to a low
+platform and podium against the far wall, with an elaborate map of Greatwater
+pinned up behind it. The entire Council Hall building---formerly the Aegis
+Hall--is in fact much larger, encompassing the barracks and private living
+quarters in separate wings as well as the armory and dungeon just down the
+stairs, but this is the main room where the guardsmembers generally meet,
+discussing the latest news and receiving missions.
+
+A pair of wide double doors open out to the rest of the city to the west, and
+a long hall east leads to the stables.
+Cayrith is here.
+
+> talk to Cayrith
+The guardmaster wrinkles his brow thoughtfully as you relate the information
+you received from Gorrister.
+
+"Hmm, talkative fellow, wasn't he? I guess we shouldn't be surprised, though.
+You know what they say about honor among thieves." Cayrith sighs, frowning a
+little. "Since there are so many weapons involved I do think this warrants
+the Guard's attention, but we are just stretched so thin here at the
+moment...I'm stuck here with Council duties and babysitting that elf, and
+right after the ceremony this morning apparently the Elder felt the need to
+send most of our journeymen out on long missions, after he's already been
+keeping half the senior guardmasters busy with non-stop meetings for days.
+I'm sure he has his reasons, but I really wish he'd consulted with me or one
+of the others before..." Here he stops himself, biting his lip; you know that
+no one likes to openly criticize Elder Hanawi, or at any rate Cayrith
+probably feels it's innappropriate to do so in front of a mere journeyman.
+
+Shaking his head, he continues. "...anyway, the point is we barely have
+enough Guards available to cover the patrols right now. As much as it pains
+me to say it, we're probably going to have to let this warehouse thing go.
+Unless..." The guardmaster pauses, looking at you appraisingly. "Celise, do
+you think you'd be up to going to the docks tonight to arrest these thieves?
+Once again, I know you're not really supposed to be going on solo missions
+yet, and this could be significantly more dangerous than a simple rescue
+mission, but short of just looking the other way while those swords go off to
+who knows what sort of pirates I don't see that we have many other options."
+
+"Don't worry sir, I'm sure I can handle a few thieves," you say confidently.
+Or at least you hope you can...
+
+"Excellent Celise, and thank you. Now why don't you go get a little rest
+until nightfall, and I'll let Janai know you'll be picking up Oxblood."
+
+After cleaning up and taking a nap, you awake refreshed, strap on your armor
+and make your way back down to the Hall, excitement and a little nervousness
+coursing through your veins at the thought of your first real mission.
+
+> east
+You move east.
+
+Drake Stables
+Moonlight streams in through the tall windows of these spacious stables,
+always kept open in good weather to catch the breeze off the cove. Ladders
+placed at intervals along the walls allow access to dozing drakes in
+hay-filled lofts, while doors open to the cove to the east. For drakes that
+may be needed more immediately by their riders, a row of tethering posts
+stands on each side of the west door leading to the Council Hall, saddles and
+gear hung nearby in neat rows.
+Janai is here humming a tune to himself while he works.  Oxblood is here,
+tied to a post.
+
+> untie Oxblood
+"I went ahead and saddled him up," Janai says as you struggle to make your
+drake hold still long enough to untie him from the post. "Of course I suppose
+you won't need to actually ride him anywhere if all goes well, but better
+safe than sorry."
+
+The knot comes loose, and Oxblood shakes himself all over and makes a beeline
+for the open door to the Cove; you brace yourself and hang on with all your
+might to keep from being dragged along.
+
+"Those thieves are probably cowards, but just the same, be careful!" Giving a
+cheerful wave punctuated by a huge yawn, Janai starts towards the opposite
+set of doors. "Anyway, it's waaaay past my bedtime, so I'll see you in the
+morning. Just leave Oxblood in the stable when you get back, and good luck!"
+
+You barely have time to say acknowledge the sentiment before you're yanked
+outside. The frisky drake seems even more excited by the prospect of a solo
+nighttime mission than you are, and it takes some time to get him under
+control, but by the time you leave the Aegis grounds he follows you along the
+street towards the marketplace sedately enough.
+
+> north
+Leading Oxblood by the halter, you move quickly along from one dark pier to
+another, walking by a passed out drunk, and here and there a couple of shady
+characters doing business and a lady of...questionable virtue hanging outside
+the door of a houseboat turned gambling den, but as can be expected, no one
+going about their business this late wants to have anything to do with a
+member of the Guard and you are left well alone.
+
+Finally reaching the abandoned stretch of pier indicated by Gorrister, you
+hear quiet, urgent voices coming from the warehouse up ahead and quickly duck
+behind a pile of old crates, tugging Oxblood down next to you, before peeking
+back out to get an idea of where the thieves are and how to deal with them.
+
+You hear a splash behind you.
+
+> examine netting
+A tangled pile of netting, most of it damaged past repair.   An old net is
+inside the pile of netting.
+Oxblood raises his head from the water and tugs on the edge of your cloak.
+
+> get net
+You take the old net from the pile of netting.
+
+> mount Oxblood
+Slipping as silently as possible over the edge of the pier and into the
+water, you manuever yourself onto Oxblood's back and quietly urge him
+forward. He seems to get the general idea of what you want and obligingly
+swims along toward the anchored boat and its single guard, the water slapping
+against the wooden posts and echoing beneath the pier disguising the sound of
+his approach.
+
+Drawing up alongside the boat, right behind the thief keeping watch, you feel
+your muscles tensing as you prepare to make your move. At the moment the man
+is looking away from you, towards the warehouse, but you can't hope to stay
+undetected for long...
+
+> throw net at thief
+Springing into action, you hurl the net up and towards the thief, starting to
+clamber up onto the even before it lands. The man lets out a shout, dropping
+his lantern, which shatters on impact and flares up while he struggles to
+free himself. Wasting no time, you grab hold of one of the net's trailing
+cords and yank hard, sending him crashing to the ground.
+
+You hear cursing and footsteps pounding on the wood behind you, and though
+you fling yourself quickly to one side you still catch a blow against your
+right shoulder as the second thief swings a heavy board at you. Stunned a
+moment, you fumble for your sword with a momentarily numb and unresponsive
+hand. Luckily, the blow seems to have sent your attacker off balance as well,
+and before he can steady himself Oxblood explodes out of the water with a
+terrible snarl, hurling himself bodily onto the thief and pinning him to the
+ground...where he proceeds to lick his face, seemingly blissfully unaware
+that all the nasty words the man is uttering are directed at him.
+
+Recovering enough to draw your sword now, you whirl around to face the last
+thief, the girl, in the light from the burning lamp oil. She has a sword of
+her own, and looks like she'd started to follow her partner in charging at
+you, but draws up short as you lock eyes with her, apparently not liking the
+prospect of a fair fight now that any chance of surprise is gone. Taking in
+the state of her companions in a quick glance, she instead spins on her heels
+and is racing off through the dark, mazelike docks almost before you can
+react.
+
+Doing a little cursing of your own now, you start to give chase, then
+regretfully stop yourself and return your attention to the other two thieves,
+knowing it won't be long until at least the one in the net gets loose, and
+not wanting to leave Oxblood alone. It seems for now you'll just have to
+settle for arresting two out of three.
+
+> arrest the thieves
+Still muttering a bit under your breath about the one who got away, you
+quickly tie up the captured thieves, ignoring their insults while you move
+their stolen merchandise back into the warehouse, then knock a hole in the
+bottom of their boat for good measure. One of the crates inside has been
+cracked open, but you can't really tell if any of the swords are missing, so
+you scribble out a quick note to the owner and then block the door shut.
+
+Making your way slowly back to the Council Hall, prisoners in tow, you hand
+the two now sullen men over to the guard in the dungeon, then strip Oxblood
+of his gear in the stables, giving him a friendly pat goodnight before making
+your way to your own room where you immediately fall into an exhausted
+sleep...
+
+Something shines against the impossible blue of the heavens...
+
+...from far overhead, it begins its slow descent.
+
+Spinning and winking in the sunlight, a bright coin...
+
+...closer now. Larger. There's no denying what it is.
+
+It is the ancient shield...
+
+...the sky darkens. The earth rises up.
+
+The shield strikes the ground...
+
+...from somewhere in the deep, an unearthly cry.
+
+There is blood on the rocks...
+
+...the Aegis is sundered.
+
+Sundered
+
+the Aegis is
+
+Sundered
+
+You awaken with a start, drenched in sweat.
+
+The dream is vivid in your mind, and despite the late morning sun shining in
+through your window, it's difficult to shake the lingering feelings of dread
+and uneasiness.
+
+Shaking your head briskly in an attempt to clear it, you splash your face
+with water, get dressed and make your way downstairs.
+
+The Elder Hanawi is standing in a shaft of sunlight in the Council Hall,
+gazing at a painting and seemingly deep in thought. With half a mind to go
+down to the dungeon and check on your prisoners, you try to make your way
+past without disturbing him, but he glances up suddenly and stops you.
+"Celise. I have an important mission for you today. Be sure to speak to me
+about it in a bit."
+
+> down
+You move down.
+
+Dungeon
+A long hallway lined with torches leads past a row of holding cells where
+prisoners are kept to await their trials. This dungeon is very old, one of
+the only parts of the original building still remaining. The emergency armory
+is in a vault at the far end, and stairs lead up to the Council Hall.
+
+That's odd, you don't see the two thieves you arrested anywhere.
+Cayrith is here.
+
+> up
+You move up.
+
+Council Hall
+Your footsteps echo on the marble floor of this spacious meeting hall. Wooden
+benches and various historical paintings line the walls, and an enormous
+embroidered rug stretches from a fountain in the center of the room to a low
+platform and podium against the far wall, with an elaborate map of Greatwater
+pinned up behind it. The entire Council Hall building---formerly the Aegis
+Hall--is in fact much larger, encompassing the barracks and private living
+quarters in separate wings as well as the armory and dungeon just down the
+stairs, but this is the main room where the guardsmembers generally meet,
+discussing the latest news and receiving missions.
+
+A pair of wide double doors open out to the rest of the city to the west, and
+a long hall east leads to the stables.
+Elder Hanawi is here, seemingly lost in his thoughts.
+
+> talk to the Elder
+The Elder nods. "Yes Journeyman, I have a special task for you. I'd like you
+to fly out to the Spear Islands and look for signs of pirate activity or
+other threats. I don't expect you to actually confront any if you see them,
+of course...just make a note of it. Be sure to do a careful sweep of the
+area...oh, three times or so, just to be sure."
+
+"I, ah...of course, Elder," you say, hoping your lack of enthusiasm for what
+sounds like a very long, thankless job isn't too obvious. "But...won't that
+take several days?" And aren't there already Guards whose job it is to run
+patrols and make reports? Guards who might be better at spotting those sorts
+of problems in the first place? This last you can't help but think, but are
+too polite to say.
+
+"Yes, it will. There's a trading post one one of the islands...the man who
+runs it is a friend to the Guard, he'll be willing to set you up with a place
+to sleep. And go ahead and get a full report of any unusual happenings among
+the natives, as long as you're staying with him." He looks at you sharply.
+"You should be gone four or five days at least, is that understood?"
+
+"Yes... yes sir," you answer with a little sigh. Of course you knew being a
+defender of the Aegis wouldn't always be a glamorous or exciting job, but
+this just seems so pointlessly dull...and vague...and not to mention
+redundant, when you know for a fact there's already a regular patrol that
+goes out to the same area.
+
+> west
+You move west.
+
+Market
+The market square is crowded with stalls of all kinds, their bright colors
+competing to draw the eye. The smells of fish, spices, and perfumes mingle
+here, and under it all the salty tang of the ocean, carried by a welcome,
+cooling breeze that swirls sand around the feet of the crowd and the base of
+the large central fountain. The Council Hall is back to the east.
+
+A fish seller has set up his cart near the entrance to the docks to the
+north.
+
+> buy blueback herring from the fisherman
+Taking a piece of copper from your purse, you buy the largest blueback from
+the smiling fisherman, and are in the midst of wishing him good day when your
+gaze drifts past his shoulder and you freeze.
+
+On the dock behind him, the thief that escaped you last night is having an
+animated discussion with a boatseller. "--know it's not your fault, Havasa,
+just bad luck and all," the man is saying, "but I can't just set you up with
+another boat when you four still owed me for over half the first one,
+'specially when you tell me Gorrister and the others is out of the picture
+now...that'd just be bad business. Come back when you got a way to pay me."
+
+The thief--Havasa, you now know--leans over the stall and continues the
+argument in a low voice while you start to move towards her, hoping to catch
+her by surprise.
+
+> catch Havasa
+Luckily the two seem too engrossed in their discussion to notice your
+approach as you thread your way through the crowd.
+
+"--well, when you put it that way, how can I say no?" the boatseller is
+saying, seeming to have relented somewhat.
+
+You're almost within reach of the thief now, and the topic seems to have
+switched to what time the man's wife will be out of the house. Charming.
+
+"Sorry," you say sweetly, interrupting. "But Havasa here's got a date with
+the magistrate first."
+
+The man looks up, startled, but the thief doesn't even take the time to turn
+around before ducking around the stall and starting to dart away. After last
+night you were expecting her to run, however, and lunge after her, managing
+to get a grip on her collar before she has a chance to lose herself in the
+crowd. Kicking her hard on the back of one knee, you knock her to the ground
+and remove the sword from her belt, glancing up briefly to note that the man
+she was 'bargaining' with has disappeared, along with most of the crowd in
+the general vicinity.
+
+"Hey, hey, hold on now! I ain't done nothin' wrong, you're makin' a
+mistake..." the thief starts to protest as you tie her hands behind her back.
+
+"Really? You mean you weren't loading crates of stolen weapons onto your boat
+with two accomplices last night?"
+
+"Hmph. 'Course not. Why would I do a thing like that? I was nowhere 'round
+the docks at all."
+
+Smiling, you hold out her confiscated blade and twirl it a bit in front of
+her, making sure she can see the imprint on the handle, which of course
+matches the one on every other sword that had been in the open crate at the
+warehouse. "Are you sure about that, now?"
+
+She only glares at you sullenly, so you shrug and haul her to her feet.
+"Thought so."
+
+***********
+
+The lock of the cell door clicks in place, and Cayrith gives you a friendly
+slap on the shoulder. "Great job, Celise! Once again." He smiles. "Looks like
+we'll get to question this one, at least. Hopefully we can figure out who the
+buyer was supposed to be for those swords."
+
+> question Havasa
+"All right, ma'am," Cayrith says, turning to the prisoner. "The journeyman
+here has some questions she'd like to ask you, and I suggest you answer
+them."
+
+You're a little startled at that. Cayrith is the one with experience in these
+situations, you'd only expected to observe, and maybe assist. You suppose
+he's thinking it will be a good way for you to learn, though.
+
+"Who were you and your...friends intending to sell those blades to? You might
+as well talk, there's no point in protecting them now," you say, trying to
+sound confident and sure of yourself.
+
+Havasa, for her part, just looks bored.
+
+"Look, we don't care half as much about you stealing them as we do about who
+wanted them and why." You still get no answer, and steal a quick glance at
+Cayrith for help, but he seems content to let you continue handling things.
+
+"If you'll just cooperate, I'm sure we can convince the magistrate to go easy
+on you."
+
+"Oh, is that so?" Havasa finally says, sounding almost amused. "Why didn't
+you jus' say so then? 'Cause I've never heard that line before." Ignoring you
+and looking at Cayrith now, she continues, "I really would like to help, you
+know, but 'convincin' the magistrate' is a bit...vague, don't you think?"
+
+Cayrith nods, with a somewhat amused smile of his own. "Well, all right then,
+Miss, since you're just so eager to do the right thing here, how does this
+sound? You were arrested with a stolen sword in your possession. Tell me
+about the buyer--and I mean details--and I will have you charged with
+stealing exactly one sword. Believe me, it's a much better deal than any of
+your friends have gotten. So...do we have an agreement?"
+
+The thief smiles, catching your eye and nodding at Cayrith. "See, now this
+fellow is good at his job."
+
+***********
+
+Havasa spends some time telling the two of you all about the men who had
+hired her companions to steal a large number of weapons, though of course in
+her version she had absolutely nothing to do with locating the shipment
+they'd decided to target or making any of the plans. The buyers--a crew of
+pirates, unsurprisingly, and nasty ones that Cayrith said he'd had dealings
+with before--were supposed to have been met tonight out at a certain island
+they were anchored near to make the transaction, and apparently were planning
+something big for tomorrow just before dawn.
+
+"Something big? Like what?"
+
+"...I dunno."
+
+"I think you do. And don't expect me to keep up my end of the deal if you lie
+to me..."
+
+A deep sigh. "All right, look, I might've overheard somethin' about an attack
+on...someplace, that they were sayin' wasn't gonna be protected real well for
+the next few days...but I don't know where they meant, of course."
+
+Cayrith gives her a hard look. "You mean an attack on the city?"
+
+She looks away, her eyes narrowing. "I just said I don't know anything about
+that."
+
+"...of course you don't. But I happen to know this wouldn't be the first time
+their captain made plans for it. How many cannons did they have?"
+
+"I don't know...a lot. More than usual. They wanted powder too, but we never
+did find a good chance to get some."
+
+Cayrith turns to you. "Celise, I know you were given a mission by the Elder,
+but can you come and check this out with me first? Right now with the Guard
+stretched so thin, I feel like it would be dangerous to just wait and see
+with this."
+
+"I...sure, if you think they're actually planning on attacking here," you
+say, though you can hardly imagine such a thing. It's been years since a
+pirate was bold enough to target the city, protected as it is by the Aegis.
+
+"I don't know for certain, but I can't take any chances. I'd like to strike
+first and make sure they're not in any position to attack anyone, if we can.
+I'm going right now to try and round up anyone else who might be able to help
+on short notice...there's no time to waste though, so just fly south from the
+Cove, and I'll meet you on the way."
+
+Cayrith starts quickly for the stairs, then pauses and turns to the prisoner.
+"Oh, and Miss Havasa? Those pirates that wanted you all to meet them at an
+uninhabited island in the middle of nowhere? I know those pirates. They would
+have just killed you and friends taken the swords before they paid you a
+copper for them...or, well, I suppose they might have found a reason to keep
+you around for a little while, but eventually..." He shakes his head. "Just
+be a bit more careful who you deal with in the future, all right?"
+
+Turning again, he takes the stairs two at a time and is quickly out the door.
+You suppose you'd better hurry as well.
+
+> up
+You move up.
+
+Council Hall
+Your footsteps echo on the marble floor of this spacious meeting hall. Wooden
+benches and various historical paintings line the walls, and an enormous
+embroidered rug stretches from a fountain in the center of the room to a low
+platform and podium against the far wall, with an elaborate map of Greatwater
+pinned up behind it. The entire Council Hall building---formerly the Aegis
+Hall--is in fact much larger, encompassing the barracks and private living
+quarters in separate wings as well as the armory and dungeon just down the
+stairs, but this is the main room where the guardsmembers generally meet,
+discussing the latest news and receiving missions.
+
+A pair of wide double doors open out to the rest of the city to the west, and
+a long hall east leads to the stables.
+Elder Hanawi is here, seemingly lost in his thoughts.
+
+> east
+You move east.
+
+Drake Stables
+Sunlight streams in through the tall windows of these spacious stables,
+always kept open in good weather to catch the breeze off the cove. Ladders
+placed at intervals along the walls allow access to dozing drakes in
+hay-filled lofts, while you can see others playing on the shore through the
+open doors to the east. For drakes that may be needed more immediately by
+their riders, a row of tethering posts stands on each side of the west door
+leading to the Council Hall, saddles and gear hung nearby in neat rows.
+
+> call Oxblood
+You produce a clear note on the whistle, and a few of moments later Oxblood
+comes bounding up to just outside the door of the stable. He snuffles
+hopefully at your fingers, the locates the blueback and grabs it from you,
+momentarily distracted enough to let you grab him by the halter and lead him
+inside while he gobbles it down.
+
+> mount Oxblood
+You quickly strap on Oxblood's saddle and other gear while he sniffs around
+for more treats, taking a moment to double check everything before hopping
+onto his back.
+
+> east
+You move east.
+
+Drake Cove
+A wide, sandy cove where the Guards' drakes are often allowed loose to sun
+themselves, swim and play. The great white pillar of the Eyrie rises from the
+water to the east.
+
+> up
+You move up.
+
+Flying Above Cove
+Oxblood is gliding smoothly high above the Cove, the Great Eyrie to the east
+and open ocean to the north and south.
+
+> fly south
+You point Oxblood south in an easy glide, and soon enough Cayrith catches up
+to you, followed by Manaao and his Niowi.
+
+"I hope the four of us will be enough, if we run into any major trouble," he
+says, but a part of you is glad he only brought those two, since out of all
+guardmasters, other than Cayrith himself they're the only ones you would
+consider friends and are the most comfortable working with.
+
+"Do ye think we should have gotten young Janai to saddle up and join us?"
+Manaao asks.
+
+"I actually considered it, but I needed him to explain to the Elder where we
+were going, and to alert the leaders of the city militia to be on the lookout
+for trouble. And besides, you know how he is about flying..."
+
+"Aye, I suppose you're right."
+
+Making small talk over the sound of rushing wind and beating wings is
+difficult at best, so the rest of the flight is spent in silence. Gliding low
+over the water as you approach your destination, the three of you touch down
+in a small, heavily forested cove south of the island and make your way
+carefully to shore, scanning the trees for signs of ambush. After a bit of
+discussion, Niowi gets back in her saddle and takes to flight, following the
+curve of the shore around out of sight, and then quickly returning.
+
+"They're anchored just off shore, right across the island from us," she says.
+It's a good thing we came in low or we would have been spotted for sure."
+
+******
+
+After more discussion, the four of you make a sheltered, fireless camp to
+await the coming of night, where it's agreed the guardmasters will attack the
+ship, creating a diversion, while you sneak onboard to try and find more
+information or sabotage any attack plans.
+
+"I don't know about this," Cayrith says, frowning. "I should be the one going
+onto the ship, it's just too dangerous."
+
+"So is dodging flaming arrows and grapeshot," Manaao points out. "Do you have
+any experience with that, Celise?"
+
+"You know I don't," you say, going over to untie Oxblood and coiling up the
+long tethering rope as the three of you prepare to move out. "And for that
+matter I've never actually fired arrows from drakeback...or at least not real
+ones, and not outside a training exercise. Manaao's right, Cayrith, I
+wouldn't be much help at all in the attack, but I can snoop around as well as
+any of you."
+
+Cayrith sighs, swinging onto his drake. "I know, I know...just be careful."
+
+"I will, don't worry."
+
+Good byes and good lucks are exchanged, and a few moments later the three of
+them are winging quickly away, and you're left on the dark island
+contemplating your next move.
+
+> mount Oxblood
+You swing into the saddle, though you know you won't be doing any flying so
+as not to draw attention to yourself.
+
+> north
+You move north.
+
+Forested Island (North End)
+The trees thin out considerably here, but several large formations of
+volcanic rock allow you to move up to the very edge of the shore undetected.
+There is no gradually sloping beach here; the cove seems to drop off
+immediately into deep water. The vegetation become thicker to the south, and
+the pirate ship is anchored to the north, close enough that you can hear the
+men cursing Cayrith and the others in between the roaring and flashing of
+cannon fire.
+
+> swim
+You cling tightly to Oxblood as dives into the water, having a moment of near
+panic when you both go under. Whether or not he understands that humans can't
+hold their breath nearly as long as drakes, however, Oxblood soon surfaces
+and begins paddling quietly toward your destination.
+
+The two of you remain undetected, and you're soon right beside the ship.
+
+> untie the hook from the net
+You untie the large hook from the net.
+
+> throw the rope at the ship
+Hurling the rope upwards until the hook catches against the railing, you give
+it a sharp tug to make sure it will hold your weight. Quietly insisting,
+"Stay here, boy!" to a whimpering Oxblood, you clamber your way up and onto
+the deck of the ship, ducking out of sight and warily watching the pirates
+scramble to load their cannons while you try to get your bearings.
+
+> open hatch
+Glancing around quickly to make sure you're not noticed, you kneel down and
+pry open the hatch, revealing the pitch black entrance to what is probably
+the hold.
+
+> down
+You move down.
+
+Pirate Ship - Hold
+You bash your knee painfully against some heavy object. It's much too dark to
+see down here...
+
+> i
+You are carrying an old net, Oxblood's whistle and a heavy metal hook.
+
+> look
+
+Pirate Ship - Hold
+You bash your knee painfully against some heavy object. It's much too dark to
+see down here...
+
+> pour the bucket on the gunpowder
+Aha, that's it! Grabbing up the nearest bucket of filthy water, you drench
+the powder in the first barrel, then grab another bucket and repeat the
+process. It'll be several days at least before any of this stuff is usable
+again, and the way they're wasting so much of it overhead firing at a mere
+three Guards and their drakes, they won't have enough left for any serious
+attacks on anyone by dawn.
+
+Checking around one last time to make sure you got to every barrel, you nod
+with satisfaction at a job well done, and then turn your thoughts to
+escaping...
+
+> up to deck
+You listen at the hatch a moment, but with all the uproar overhead it's hard
+to tell anything for sure. Raising the door an inch, you peek around, then
+take a deep breath and quickly push it open the rest of the way, scrambling
+for your previous hiding place behind a stack of barrels.
+
+Just as you slide into place and sigh in relief, something moves in the
+darkness and you're hit by the stench of whiskey and rotten teeth. "I always
+wanted to murder one o' you dirty lizard-humpin' bastards," a man rasps out
+in a thickly slurred voice. Straightening quickly, you get a quick glimpse of
+an unkempt beard and filthy clothes in the dim light from your lantern as you
+back away.
+
+"Oh, so you're a woman? Even better. What's the matter sweetie, you fall off
+your dragon?" the man laughs, lurching forward and grabbing at you. Stepping
+quickly out of range, you draw your sword and move towards him...
+
+> attack the man
+The pirate lunges at you again and you throw yourself out of the way,
+thankful his extreme inebriation has made him so clumsy. However, if the two
+of you keep this up it'll be only a matter of time until the others notice
+and bring the whole ship down on your ears, so you grit your teeth and drive
+your sword forward. You've never killed a man before. He makes a gurgling
+sound as the tip of the blade enters his abdomen, and a wildly flailing arm
+strikes your lantern out of your hand as he falls.
+
+Flames leap up as you brace a boot against the corpse and jerk your sword
+free, then turn and run blindly for the railing while pirates race to contain
+the rapidly spreading fire. With no time for hesitation, you hurl yourself
+over the edge and into the darkness and the water, sucking in a quick breath
+as you fall.
+
+The sounds of the battle give way to echoing silence as the cold salt water
+engulfs you, stinging your eyes and rushing into your nostrils, and then
+you're sputtering to the surface.
+
+Once you regain your breath, it doesn't take long for you to realize that the
+place you jumped over is not the same as the place you climbed up, and that
+your drake is nowhere in sight.
+
+"Oxblood? Oxblood!" you hiss out into the darkness, clinging as best you can
+anywhere you can find even the tiniest grip on the sides of the ship. You
+don't dare to call out any louder, but you need to find him quickly.
+
+> call Oxblood
+Spitting out salt water, you shake the whistle clear, then blow a low note on
+it. For  a few long moments nothing happens, then just when you're about to
+try again, you hear an answering trill from nearby and a friendly snout
+nudges you in the back.
+
+"Oxblood!" Wrapping your arms around the drake's neck and almost crying in
+relief, you waste no time clambering into the saddle and getting him in the
+air.
+
+Once out of range of the ship, you signal the others. Cayrith is the first to
+arrive. "Oh, thank the Spirits, you're all right!" he exclaims with a
+surprising amount of feeling. "I mean...I was certain you would be, but it
+seemed like you were down there a long time, and then we weren't sure what to
+make of the fire."
+
+As you quickly relate your story you're joined by Niowi and Manaao, who both
+congratulate you on a job well done. Manaao's drake was grazed by a piece of
+grapeshot, so it's a slow trip home as no one wants to wear out the poor
+beast, and it's nearly dawn by the time you arrive at the docks.
+
+Niowi speaks up, "We'll wait here a little while so Hapo can rest, then walk
+him to the stables...you go on without us."
+
+"Actually, I suppose I'd better go and let the militia know there's nothing
+to worry about now, they've probably been up all night," Cayrith says.
+"Celise, will you go and fill in Janai and the Elder for me? I'm sure they've
+been worried too...though if the Elder's asleep don't wake him up, of
+course."
+
+"Sure, no problem," you say, stifling a yawn and feeling like you could use
+some sleep yourself now that the excitement's started to wear off.
+
+Taking Oxblood back to the stables, you give him a scratch on the head.
+"Wait here a moment, boy," you say, "I just need to go find Janai and then
+I'll take all that gear off so you can rest too."
+
+> west
+You move west.
+
+Council Hall
+Something's very wrong here.
+
+Your footsteps echo on the marble floor. The wooden benches and various
+paintings appear untouched, but the enormous embroidered rug has been slashed
+almost to pieces and rolled away to reveal an equally large mosaic. The
+fountain in the center of the room has been smashed, the unicorn's head lying
+on the ground, water bubbling out of the cracked basin up to the low platform
+and podium against the far wall, with the map of Greatwater pinned up behind
+it. The entire Council Hall building---formerly the Aegis Hall--is in fact
+much larger, encompassing the barracks and private living quarters in
+separate wings as well as the armory and dungeon just down the stairs, and
+you wonder if the vandalism has spread there too or been isolated to just
+this room.
+
+A pair of wide double doors open out to the rest of the city to the west, and
+a long hall east leads to the stables.
+
+Also here is a broken unicorn's horn.
+
+> down
+"Celise!"
+
+Janai scrambles to his feet as you enter the dungeon. "Oh thank Miwaani, I
+thought you were all dead! Look, you've got to get me out of here!"
+
+"Janai? What are you--what happened?" you ask, your disbelief quickly turning
+to outrage as you take in the sight of your friend beaten and bruised and
+locked in a cell like a common criminal.
+
+"Who did this to you? And who wrecked the Hall?" A fearful thought flits
+across your mind and you look worriedly toward the stairs. "The Elder, is he
+all right?"
+
+"Oh Celise, it is my uncle," Janai says, despair in his voice. "He's got some
+of the older Guards with him, and they..." He shakes his head. "We don't have
+a lot of time to talk, but they planned the whole thing...the pirates,
+everything. You've got to get me out of here and then we've got to warn
+Cayrith."
+
+> talk to Janai
+"Okay, okay, slow down a minute, please," you say, taking a deep breath.
+"Sorry, but this is all so...gah..." You shake your head, rubbing at your
+temples. "I mean, I've got to know what's going on here if I'm going to be of
+any use to anybody. Do you seriously mean to say the Elder's some kind of
+traitor?" Even as the words leave your mouth you have a hard time believing
+them. For as long as your can remember, Elder Hanawi's been almost as much of
+a symbol of the Guard as the Aegis itself is.
+
+"I know it sounds crazy, but it's the Council he hates. The others that are
+with him, they've killed some of the representatives already, and I think
+most of them are turned out now hunting that diplomat, the elf. And they want
+Cayrith dead too."
+
+"That is crazy. Unbelievable...doesn't he realize there'll be a war?"
+
+"Hey lady? Since you people are all goin' off the deep end and and killin'
+each other and such you think maybe you could let me outta here? I'd really
+rather not get caught up in all that, ye know?" You'd almost forgotten Havasa
+was in here, but at your look she shuts up, and you turn back to Janai.
+
+"The pirate attack was supposed to be blamed for the deaths. At least I think
+that was the plan...I went to warn Hanawi like Cayrith told me and he was
+furious, going on and on about how you would ruin everything. I've never seen
+him so unhinged! And then when he pulled himself together he told Vanoi and a
+couple of others lock me in here...I tried to run but they practically beat
+me unconscious."
+
+"But he's your kin!" you protest, stunned. Logically you know that betraying
+the Aegis and murdering several people and Spirits forbid, arranging an
+attack on the city the man has been sworn to protect for the better part of a
+century is far worse than having his nephew beat up and imprisoned, but
+somehow the thought of it just seems wrong on an entirely different level.
+
+"Which is probably the only reason I'm still alive," Janai sighs. "He let so
+many details slip while he was angry, then said I'd heard too much and he'd
+have to deal with me later..."
+
+"And now the same goes for the lady here," a voice says from the stairwell...
+
+...the prison guard, Vanoi, slowly walks down the stairs with sword in hand,
+fixing you with a cold stare.
+
+"Where are your friends, Celise? We've been waiting for you, you know...oh,
+and don't get any ideas," he adds, as you reach for your own sword. "I have
+absolutely no qualms about killing you if you put up a fight."
+
+As the sheer insanity of this situation continues sinks in, for a moment you
+can only stare at him as he approaches. "Are you even listening to yourself?
+We're all Aegis here, how can you--"
+
+"You're not one of us!" The man practically spits the words out. "You're an
+outlander, just like that fool Cayrith and the others the Council forced on
+us to make a mockery of our Oath."
+
+So that's the way it's going to be, then. You slowly draw your sword,
+standing straighter and meeting his icy gaze with one of your own. "You're
+right, I'm not one of you," you say calmly. "I'm not a murderer, or a
+traitor...but I am an Aegis Guard, and I'm sworn to honor an Oath that you
+seem to have forgotten."
+
+Vanoi's breath hitches, his face twisting into a mask of cold fury at your
+little speech, and you prepare yourself to meet his attack...
+
+> attack the guard
+Vanoi's continues his slow, measured approach for a moment longer as the two
+of you stare each other down, then he explodes into motion with a sudden
+powerful, sweeping swing designed to literally cut you in half. Throwing
+yourself to the ground more by instinct than any deliberate plan, you roll
+out of the way as his blade rakes violently across the iron bars you were
+just standing in front of, sending Havasa and Janai both jumping wide-eyed
+away from the doors while you scramble to your feet.
+
+Now on the other side of the room in the opening near the stairs and no
+longer pinned up against the cells, you have a bit more freedom to manuever,
+but it's still almost more than you can do to block the flurry of attacks
+Vanoi throws at you now. You get a moment of relief when you somehow manage
+to scratch him across the arm, and once Janai provides a life-saving
+distraction by grabbing at the man's coat when he moves too close to the
+bars, but for the most part you are finding yourself rather outclassed.
+
+Trying to dodge an unexpected jab, you slam your the your ankle against one
+of the steps behind you and stumble backwards, clutching desperately at the
+railing to try and regain your balance and realizing with a sinking feeling
+that there's no way you'll be fast enough...
+
+...a second later Vanoi's sword is whistling towards you, and you give up
+trying to steady yourself and instead shove your entire body back and to one
+side, glad you're wearing a helmet when your shoulder and head crack
+painfully on the stone of the steps as you go sprawling. Vanoi's sword
+bounces off the rails over your head with jarring impact, and before he can
+lift it for another swing you kick viciously at his knee, making it his turn
+to grab at the railing for balance now. Knowing you won't have enough time to
+climb to your feet, you take advantage of your elevated position, sitting up
+and bracing yourself with one hand while coming down with your sword in the
+other in a desperate overhand swing.
+
+You feel your blade carving through flesh, and there's a cry of agony and a
+shower of blood as you lay your opponent's shoulder open down to the bone.
+Shoving yourself to your feet now and determined not to let him recover, you
+hack at him again and again. Half your blows are glancing off his armor, but
+more than enough are still drawing blood as, wild-eyed and breathing hard,
+you force him away from the stairs and back against the row of cells, where
+you're finally able to drive home the killing blow.
+
+You stare down at the body of the second man you've killed tonight for what
+feels like a long time, letting your racing heartbeat slowly return to
+normal, and it's a few moments before you even realize Janai is speaking to
+you.
+
+"...the key. Celise, can you hear me? Get the key before the others show up!"
+
+> examine corpse
+Vanoi's corpse is covered with cuts and gashes, and his throat has been
+slashed.  The dungeon key is inside Vanoi's corpse.
+
+> get key
+You take the dungeon key from Vanoi's corpse.
+
+> unlock second cell
+Remembering you're in a hurry and thinking how absolutely not up to another
+fight you're feeling right now, you move quickly to unlock Janai's cell. He
+looks a little ill as he steps out and over Vanoi's corpse, and the bruises
+from the beating he took look terrible, but it's the same old Janai when he
+flashes you a grateful smile. "Thanks Celise. Now let's go find Cayrith and
+figure out what we can do about this...whole..." The smile fades and he
+shakes his head, "...well, everything."
+
+> unlock first cell
+Havasa's expression brightens as you walk over to grudgingly unlock her cell.
+"Heh, you mean you're actually...well all right then, you are now and forever
+my very most favorite Aegis, and I'm not jus' sayin' that 'cause the rest of
+'em went nuts."
+
+Sighing a little, you open the door to let the thief skip out. "Just so you
+know, I'm only doing this because there's a very real chance I might die
+tonight, in which case I feel morally obligated not to leave a prisoner in
+the care of murderers."
+
+ "That's very decent of you," Havasa answers cheerfully, pausing and stooping
+to pluck Vanoi's sword from his corpse. "And this is even nicer than the one
+I stole..."
+
+"Um," says Janai.
+
+"What? You ain't in any shape to use it...and I figure you folks need all the
+help you can get if it comes to another fight."
+
+"As much as I hate to say it she's probably right, Janai. Just let her hang
+onto it for now."
+
+> up
+The three of you make your way up the stairs and back to the vandalized
+Council Hall.
+
+"Any idea where Cayrith is?" Janai asks.
+
+"He was just supposed to go and let the militia know the pirates were no
+longer a threat."
+
+"Well, even accounting for the time it would take to get them out of bed,
+seeing how I never got a chance to warn them in the first place, shouldn't he
+be back by now?"
+
+"He may have run into trouble then," you say, biting your lip. "Come to think
+of it, Niowi and Manaao could be in danger too."
+
+"So what should we do?"
+
+"Let me think. All right, first thing, you two go down to the docks and see
+if you run into Niowi and Manaao. Explain what's going on and then you can
+all try to find out what happened to Cayrith. And be careful. We basically
+have to assume we can't trust any of the other Aegis at this point. If worst
+comes to worst, or you can't find any of the others, just find a place to lay
+low...I'm sure Havasa knows of a hiding spot or two."
+
+"Or three or four." She shrugs, glancing at Janai. "But if it comes to a
+fight you'd best be able to run fast enough to keep up with me, boy."
+
+"What about you, Celise?"
+
+"I'm going to take to the air and circle around a bit, see if I spot anything
+suspicious. It's not safe to leave Oxblood in the stable right now anyway."
+
+"All right. Well, good luck, and I'll see you soon...I hope," Janai says, and
+they head out the door.
+
+> look
+
+Council Hall
+Something's very wrong here.
+
+Your footsteps echo on the marble floor. The wooden benches and various
+paintings appear untouched, but the enormous embroidered rug has been slashed
+almost to pieces and rolled away to reveal an equally large mosaic. The
+fountain in the center of the room has been smashed, the unicorn's head lying
+on the ground, water bubbling out of the cracked basin up to the low platform
+and podium against the far wall, with the map of Greatwater pinned up behind
+it. The entire Council Hall building---formerly the Aegis Hall--is in fact
+much larger, encompassing the barracks and private living quarters in
+separate wings as well as the armory and dungeon just down the stairs, and
+you wonder if the vandalism has spread there too or been isolated to just
+this room.
+
+A pair of wide double doors open out to the rest of the city to the west, and
+a long hall east leads to the stables.
+
+Also here is a broken unicorn's horn.
+
+> get horn
+You take the broken unicorn's horn.
+
+> east
+You move east.
+
+Drake Stables
+Moonlight streams in through the tall windows of these spacious stables,
+always kept open in good weather to catch the breeze off the cove. Ladders
+placed at intervals along the walls allow access to dozing drakes in
+hay-filled lofts, while doors open to the cove to the east. For drakes that
+may be needed more immediately by their riders, a row of tethering posts
+stands on each side of the west door leading to the Council Hall, saddles and
+gear hung nearby in neat rows.
+Oxblood is here.
+
+> mount Oxblood
+"Sorry boy," you say, prodding Oxblood awake and climbing back into the
+saddle. The poor drake's probably as exhausted as you are by now, but, "We've
+got a job to do."
+
+> east
+You move east.
+
+Drake Cove
+A wide, sandy cove where the Guards' drakes are often allowed loose to sun
+themselves, swim and play, though it's mostly empty at night. The great white
+pillar of the Eyrie rises from the water to the east, shining in the
+moonlight.
+
+The Eyrie's lanterns have been lit, turning the platform into a beacon.
+Someone must be up there.
+
+> up
+You move up.
+
+Flying Above Cove
+Oxblood is gliding smoothly high above the Cove, the Great Eyrie to the east
+and open ocean to the north and south.
+
+The Eyrie's lanterns have been lit, turning the platform into a beacon.
+Someone must be up there.
+
+> fly e
+You send Oxblood winging toward the Great Eyrie. Banking in a wide circle
+around it, you see that the Elder Hanawi is there alone.
+
+At your urging Oxblood swoops in and latches onto the brass railing with his
+talons, and you use his forward momentum to leap out of the saddle and onto
+the platform, determined to put an end to this night's madness.
+
+The Elder turns slowly from his contemplation of the ancient Aegis, drawing
+himself up straight and gazing at you in stony silence.
+
+Great Eyrie
+The Great Eyrie is a large circular platform surrounded by rails, resting on
+a pillar towering high over the water and looking more than anything like the
+crow's nest of a giant ship.
+Elder Hanawi is here, standing in front of the shrine that houses the Aegis.
+
+> arrest the Elder
+"What do you think you're doing, child?" Hanawi asks, as you step
+determinedly towards him.
+
+"I'm placing you under arrest, Elder. For treason, murder, oathbreaking, and
+conspiracy."
+
+He laughs a dry, rasping little chuckle.  "And now the young outlander
+presumes to have a better grasp of the law than the eldest member of the
+Guard. Everything I've done I've done for the greater good, the honor of the
+Aegis and the freedom of Greatwater. But of course, I can't expect someone
+like you to understand."
+
+"Maybe you're right. Maybe I don't understand anything you're saying at
+all...but I'm sure the magistrate and the what's left of the Council will, so
+why don't you come with me an explain it them?" you say, starting to move
+forward again.
+
+The Elder steps back against the rails, his eyes flashing with contempt. "The
+Council has no right to judge the Aegis, and you have no right to arrest me.
+Don't you dare come any closer..."
+
+There is a sudden flurry of wings. "Technically he's right about that last
+part, Celise," Cayrith says, hopping down from his drake and eyeing Hanawi
+with a grim expression. Niowi lands an instant later, looking pale and
+shaken. They both appear as though they've been in battle since you last saw
+them. "It's really not a journeyman's place to make an arrest when there's a
+higher officer more than willing to do it around."
+
+"You!" Hanawi spits, and for the first time you see his calm demeanor melt
+away, replaced by pure hatred as he glares at the approaching guardmaster.
+"You're the one that started it all. The viper in the nest."
+
+"Fine words from a traitor." Cayrith shakes his head, looking pained. "You
+did such great things in your youth. I held you in the greatest respect...and
+now I've been forced to kill three of my former brethern tonight, all good
+men you put on an evil path with your bitterness and deceit. But no more..."
+
+"Respect? How can you speak of respect!" Hanawi's face is twisted hatred,
+almost unrecognizeable. " You've never even pretended to be anything other
+than a spy for the Council, and all these years...my last, most precious
+years, I've had to smile with my teeth and do nothing but watch as a Council
+puppet works to unsurp the power of the Aegis and undo everything I've lived
+for. But you're right...no more!"
+
+At this last exclamation, just as he's about to be grabbed by the arm, the
+Elder makes a sudden movement, and Cayrith staggers back, his face draining
+of color. Clutching at his wrist, he takes a step back, then another, swaying
+on his feet a moment before collapsing.
+
+You hear Niowi shriek behind you, and a moment later she's joining you at
+your friend's side. Lifting Cayrith's hand, you see a small scratch on his
+wrist. "You poisoned him!" Niowi shouts accusingly, glaring up at the
+Elder...
+
+...you look up too, and then freeze at an eerily familiar sensation of dread.
+Hanawi has taken the ancient Aegis from its shrine, clutching it to himself
+and caressing it almost lovingly as he gazes intently down at the rocks just
+visible in the water below. "Yes..." he says, though you can't tell if it's
+in answer to Niowi or just to himself. "One less thing to regret."
+
+Before either of you can react, he steps to the edge of the platform and
+simply leans forward, the weight of the heavy shield sending him toppling
+over the side.
+
+You don't need to look--you can picture them as they fall, the Aegis spinning
+and flashing like a bright coin in the first rays of the morning, and you
+know well enough what the final results will be. You remain with Cayrith,
+grasping his hand and listening to his labored breathing.
+
+"He won't last long," Niowi says, "We've got to do something..."
+
+> use the horn on the wrist
+Almost not daring to hope it will work, you press the broken horn to
+Cayrith's wound, mentally whispering prayers to Niolaasi and Miwaani and
+every other Spirit you can think of, both outlander and Islander.
+
+Nothing changes.
+
+At first.
+
+Then, he give a shuddering little gasp, and his breathing steadies. The color
+gradually returns to his face while the two of you watch him intently, and he
+soon has the look of a man in a peaceful slumber rather than a victim of
+poison gasping out his last breaths. You notice that the area of the horn
+that's near the wound has turned black.
+
+The three of you remain where you are for a long time, while the tide comes
+in and washes clean the rocks below...
+
+***********
+Epilogue
+***********
+
+The sky is dark the day of the funeral, with an approaching storm on the
+horizon. The Elder Hanawi is buried with the two halves of the Aegis he loved
+all his life, and more than his life. And more than others' lives.
+
+Some stories are told about the dedication, the heroism of his early days,
+but no one can find adequate words to heal the wounds of his last one. It
+seems equally difficult to speak of the future, though Cayrith and one or two
+of the remaining senior guardmasters make a valiant attempt.
+
+The mood is grim. With the Elder's final acts, the loyalty and trust the
+Aegis had for their fellows, long believed unshakeable, has been
+shaken...perhaps even sundered. There's no way of knowing how far Hanawi's
+influence reached. Some of those that were loyal to him have gone into
+hiding. And some could remain standing among you, smiling with their teeth.
+
+There is still no love for the Council. Some may even blame it for all that's
+come to pass. But the Council is a reality in Greatwater now, more than ever
+before. Good men died because the Aegis could not be trusted, and those that
+replaced them are wiser, warier, and watching always now for hidden vipers
+that need to be stamped out.
+
+You're only a Journeyman. You can't stop the coming storm. But in your heart
+you swear a new Oath that you will fight to fly steady, that you and those
+you love may come out intact and untarnished on the other side.
+
+***********
+ END
+***********
+
+> quit
+Do you really want to quit? [Y/N]

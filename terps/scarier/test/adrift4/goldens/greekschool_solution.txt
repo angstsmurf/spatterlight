@@ -1,0 +1,165 @@
+Player
+male
+get up
+turn on light
+west
+take shower
+examine sink
+take toothbrush
+take toothpaste
+brush teeth
+east
+examine desk
+open dresser
+take jeans
+take t-shirt
+wear jeans
+wear t-shirt
+take backpack
+take pen
+take mailbox key
+take wallet
+look under bed
+wear shoes
+open backpack
+take notebook
+open door
+south
+down
+down
+down
+east
+north
+open switchbox
+take simons-law key
+north
+unlock door
+go to thinking man's
+south
+buy jimmy a drink
+get jimmy's rules
+go home
+south
+south
+west
+open door
+east
+south
+south
+up
+south
+south
+open mailbox
+look in mailbox
+take envelope
+open envelope
+look in envelope
+take cheque
+north
+north
+up
+south
+give cheque to deedles
+west
+sit in seat
+take notes
+east
+flirt with Sarah
+copy Sarah's notes
+north
+up
+south
+west
+get practicum instructions
+east
+south
+west
+search clutter
+east
+north
+north
+down
+south
+south
+east
+sit on stool
+focus
+west
+north
+north
+down
+down
+north
+north
+west
+up
+up
+up
+north
+study for quiz
+south
+down
+down
+down
+east
+south
+south
+up
+up
+up
+south
+west
+take quiz
+drink tequila
+north
+give plenary notes
+north
+give practicum notes
+give study guide
+north
+west
+give Luther Jimmy's rules
+east
+south
+open door
+east
+south
+down
+down
+down
+east
+south
+south
+up
+south
+south
+open mailbox
+look in mailbox
+take Package
+open Package
+look in Package
+take Bibleworks
+north
+north
+down
+north
+north
+east
+east
+east
+north
+east
+east
+take exam
+west
+south
+west
+west
+west
+west
+up
+up
+up
+north
+install program
+use Bibleworks

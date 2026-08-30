@@ -1,0 +1,269 @@
+Loading game...
+
+Rock Band: Revenge of Gigantor!
+** by Rob Roy **
+
+Welcome to the adventure!
+
+(1) Jump straight to the game
+(2) Read the introduction to this adventure
+(3) Learn how to play interactive fiction titles
+
+Select a number: (1) (2) (3)
+
+> 1
+
+Living Room
+The living room is huge, but scarcely furnished. A ceiling fan whirs away
+overhead.
+
+> look
+
+Living Room
+The walls of the living room are a pasty white, textured to give the
+appearance that more than a spray gun was used. The kitchen lies to the
+north, separated by a bar-style counter. There are doors to both east and
+west bedrooms, and a bathroom is northwest, close to the front door.
+
+The only place to sit is a dingy white couch (ever since you discovered what
+that smell was in the matching sofa chair).  Your beautiful Xbox 360 Elite
+sits on the wood floor near the TV, and is turned off.  An awesome drum kit
+is set up near the TV.  Up in the ceiling is a fan, which you last left on.
+You left a pile of dirty dishes laying about, as usual.
+
+The hairs on the back of your neck stand up, as if being bombarded by an
+electron ray gun. Gigantor is watching. At the moment, it's off.
+
+Also here is a plastic guitar.
+
+> get guitar
+You take the plastic guitar.
+
+> turn on television
+Your 65" beast hums to life!
+
+> turn on xbox
+Game on!
+
+The Xbox powers up, loads up the start screen, then immediately loads Rock
+Band (a hack you picked up off the Rock Band forums). As if anything else was
+worth playing.
+
+The game is ready to play!
+
+> play the game
+All right! Rock Band loads up. As you start to thumb through your songlist, a
+strange hum starts to eminate from your television. Crap, it can't be
+dying...you just bought the thing!
+
+What the heck?! As you scroll through the songlist, only one song
+displays...(cont.)
+
+Oh god no... The only song showing over and over again is...
+
+Yep, you guessed it. Green Grass and High Tides.
+
+And it's locked into Expert!
+
+NOOOOOOOOOOO!!!
+
+(cont.)
+
+It's starting! Get ready!
+
+Score: 0
+
+You see a green note!
+
+> use green button
+You hit green!
+You got it!
+
+Score: 10
+
+You see a yellow note!
+
+> use yellow button
+You hit yellow!
+You nailed it!
+
+Score: 20
+
+You see a green note!
+
+> use green button
+You hit green!
+Superstar!!
+
+Score: 30
+
+You see a green note!
+
+> use green button
+You hit green!
+Superstar!!
+
+Score: 40
+
+You see a blue note!
+
+> use blue button
+You hit blue!
+Superstar!!
+
+Score: 50
+
+You see a blue note!
+
+> use blue button
+You hit blue!
+Perfect!
+
+Score: 60
+
+You see a blue note!
+
+> use blue button
+You hit blue!
+You're a star!
+
+Score: 70
+
+You see a yellow note!
+
+> use yellow button
+You hit yellow!
+You nailed it!
+
+Score: 80
+
+You see a yellow note!
+
+> use yellow button
+You hit yellow!
+You're a star!
+
+Score: 90
+
+You see a red note!
+
+> use red button
+You hit red!
+Perfect!
+
+......Ten hours later...
+
+The song finally finishes!
+
+Your score is 1000.
+Rock on!
+
+Hold on! Something's happening!!!
+
+The TV screen gets all wonky and starts to shake! Suddenly a huge, angry,
+kinda goofy face appears and fills the screen!
+
+(cont.)
+
+Gigantor speaks to you.
+
+"You there! The one who spends all his waking hours playing that infernal
+rhythm game! YOU shall be my first conquest! Thus begins the age of
+GIGANTOR!"
+
+Gigantor explains, "Thanks to you, Hu-man, I have almost reached the peak of
+my power capacity. Every time you played a song, I secretly built up my
+reserves...waiting for the day I would be powerful enough to RULE THE WORLD!"
+
+Gigantor continues his maniacal diatribe, "Soon I shall break free from these
+walls and wreak havoc! And best of all...I won't have to listen to you miff
+'Blackened' ever again!!!"
+
+You just know this isn't going to end well.
+
+(cont.)
+You have to find a way to defeat Gigantor and save the world!
+
+(plus you really paid a lot for that tv and you kinda wanna keep it!)
+
+> north
+You move north.
+
+Kitchen
+Good lord! What a disaster! The living room is south.
+
+A white refrigerator sits in the far corner.  You left a pile of dirty dishes
+laying about, as usual.  The door to the laundry closet is here and is
+currently closed.
+
+> look
+
+Kitchen
+Yikes. Was this always a kitchen, or did it begin life as a biohazard waste
+dump? The living room is south.
+
+A white refrigerator sits in the far corner.  You left a pile of dirty dishes
+laying about, as usual.  The door to the laundry closet is here and is
+currently closed.
+
+> open closet door
+You open the laundry closet door.  A mechanical finger is inside the laundry
+closet door.
+
+> look
+
+Kitchen
+My eyes! MY EYES! Don't make me look anymore! The living room is south.
+
+A white refrigerator sits in the far corner.  You left a pile of dirty dishes
+laying about, as usual.  The door to the laundry closet is here and is
+currently open.
+
+> get finger
+You take the mechanical finger from the laundry closet door.
+
+> south
+You move south.
+
+Living Room
+The walls of the living room are a pasty white, textured to give the
+appearance that more than a spray gun was used. The kitchen lies to the
+north, separated by a bar-style counter. There are doors to both east and
+west bedrooms, and a bathroom is northwest, close to the front door.
+
+The only place to sit is a dingy white couch (ever since you discovered what
+that smell was in the matching sofa chair).  Your beautiful Xbox 360 Elite
+sits on the wood floor near the TV, and is turned on.  An awesome drum kit is
+set up near the TV.  Up in the ceiling is a fan, which you last left on.  You
+left a pile of dirty dishes laying about, as usual.
+
+The hairs on the back of your neck stand up, as if being bombarded by an
+electron ray gun. Gigantor is watching. At the moment, it's on.
+
+> use finger on xbox
+You thrust the mechanical finger into the energy barrier and push the Xbox
+power button with the little claw. With another mighty pull you yank the disc
+tray open!
+
+The Rock Band disc goes flying into the air!
+
+With the swiftness of a gazelle, you pounce into the air and snatch the disc,
+seconds before it hits the floor and scratches!
+
+"NOOOOO!" screams Gigantor, utterly defeated.
+
+It worked! The barrier is down and the power cords are exposed!
+
+> unplug the power cord
+"NOOOO!", Gigantor screams in agony, his voice fading away into the blackness
+of the tv screen.
+
+(cont.)
+
+You did it! You stopped Gigantor and saved the world (and Rock Band!)
+
+woot! woot! woot! woot!
+
+What a completely ridiculous day this has been. Inane tech support issues, a
+draining session of 'Green Grass', a despotic television set, and worst of
+all, you're out of peanut butter.

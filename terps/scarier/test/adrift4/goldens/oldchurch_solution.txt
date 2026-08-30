@@ -1,0 +1,18 @@
+in
+u
+e
+examine organ
+w
+d
+e
+e
+s
+examine tombstone
+d
+take sword
+u
+n
+w
+n
+give cheese to mouse
+give sword to mouse

@@ -1,0 +1,873 @@
+Loading game...
+
+Back To Life... Unfortunately
+
+... a cold and dark place...
+
+Ah, peace and quiet at last. It feels good just to lie there and relax, put
+your feet up (or along anyway, it being a bit cramped in your current
+location to do anything but just assume a rigid posture) and just lie and do…
+nothing. Nothing at all.
+   'I could get used to this,' you think. 'Dark and a bit dank; probably
+smelly; not very warm (I'm guessing); but peaceful. Oh so peaceful. Makes
+such a nice change to-'
+   And then your peaceful relaxation came to an abrupt end as your
+sarcophagus was cranked open.
+
+[more]
+
+Back To Life... Unfortunately
+An ADRIFT text adventure by David Whyld
+Started: October 2004 / Finished: December 2004
+Written with ADRIFT V.4 R.45
+Comments to: me@dwhyld.plus.com
+Credits: thanks to Lumin for a glowing review of the game
+Version 2: the latest version of this game can always be found at
+http://www.shadowvault.net/backtolife.htm
+Typing "bugs" displays a list of fixes between this version and the previous
+one
+
+People playing the game for the first time should type INFO or ABOUT
+
+[more]
+
+You'd have complained at the time but on account of being dead your complaint
+options were somewhat limited. Later on, when your vocal chords had recovered
+enough to allow you to shout, you shouted. You really shouted. You let them
+feel the full brunt of your anger. You cursed them for all eternity. You
+threatened to send them to a horrible, painful, miserable, loathsome death.
+And they said:
+   "Ah, Your Highness. It is good to have you back."
+   "But I was dead!" you try to explain.
+   "Indeed, Your Highness," intones Verenor, your High Chancellor. "And we
+have brought you back."
+   "But how?" You shake your head, dislodging several maggots which are still
+desperately trying to cling to your recently restored flesh. "But… why?"
+   "These are grave times, Your Highness," says Verenor, face solemn and
+concerned. He stands with the rest of the Chancellors in your apartments in
+the Royal Palace. "The highland barbarians are massing on the western
+borders; the pygmies have attacked our merchants passing through the
+wastelands of the south; the pirates have taken a toll on our shipping; and,
+perhaps worst of all, the depredations of the foul assassin Gadrian are
+making themselves known once more."
+
+[more]
+
+   You groan.
+   "He was the one who killed you, Your Highness," adds Verenor as if you
+might have forgotten that minor detail.
+   "Yes thank you, Chancellor," you say testily. "I remember him and his
+blade-" you rub at your neck "-only too well. But," you add, "you still
+haven't said just why you have brought me back. Isn't Pri- er, King Toromin,"
+you amend hastily, "capable of ruling this fine nation of ours?"
+   Verenor and several of the other Chancellors glance at each other. They
+look solemn.
+   Finally, Verenor says, "Your Highness, it is with great regret that I
+inform you that Prince Toromin suffered an unfortunate…"
+   You hold your breath.
+   "… attack of irritable bowel syndrome several months ago and still has yet
+to make a full recovery."
+   You give a soft nod. That sounds like your son alright.
+   "So you brought me back," you say, not so much a question as a statement
+of fact. After all, you're here so it's pretty obvious they brought you back.
+   Verenor nods. "We did, Your Highness."
+   "Against my express wishes?"
+   Verenor has the decency to wince but he boldly says: "we asked you, Your
+Highness, but as you were dead at the time, no answer was forthcoming, and we
+debated on the subject and then decided that your silence was agreement.
+Hence, here you are. Ready to lead your people once more, Your Highness."
+   And that, it appears, is that.
+
+[more]
+
+BEDCHAMBER
+While somewhat more spacious than your previous quarters (the royal tomb),
+your bedchamber is even more charmless. A cold draft winds its way through
+the chamber, ruffling the sheets on your bed and stirring the papers
+scattered on the small table by its side. A bowl of fruit also rests atop the
+table, no doubt placed here when word of your resurrection reached the palace
+staff. A doorway to the east leads through into your laboratory while a
+balcony on the south wall is where you often stand to give speeches to your
+adoring populace.
+
+> i
+You have with you a quill.
+
+As you stare about your bedchamber, you experience a massive surge of
+disappointment to be here again. You were quite fond of this place at one
+time but death tends to change a man. While you weren't especially pleased to
+leave here with a knife protruding from your throat (not a nice way to go at
+all), at least where you wound up was nice and quiet. At least you weren't
+expected to do any ruling. After seven long years of peaceful solitude, a
+return to your place of rulership seems a jarring change indeed.
+
+> x sheets
+Something about the sheets… ah! You look closer and see a small, round object
+wrapped up in the sheets. Unwrapping them reveals a wooden ball, about the
+size of your hand. You pick it up, curious as to why it was wrapped up in the
+sheets.
+
+> look under bed
+You peer under the bed at the area of oppressive darkness. But rather than
+being the gateway to a nether dimension or something equally unpleasant, it's
+actually just an area of floor which has not been swept since your untimely
+demise...
+   Oh, hang on! What's that?
+   You crawl under the bed a few inches and find a match. An unused one as
+well. It looks like one of the servants must have been having a good smoke in
+here before you were brought back from your tomb. Well, well...
+   You decide to keep it with you as while you doubt it's possible to kill
+yourself with a single match, it's certainly worth keeping hold of.
+
+> x table
+It's elaborately carved from a single block of marble and costs… well, you're
+a king and not an expert on how much marble tables cost but you imagine you
+could pay your entire staff's wages for a month or two with a table like
+this. A pile of papers have been thrown untidily on the table and there is
+also a bowl of fruit here. There is also an unsightly ink stain on the table
+(no doubt some clumsy clerk making a mess and then failing to clean it up).
+
+Another wave of disappointment sweeps over you. In theory, this should be the
+happiest day of your life: you're alive again, free from the clutches of the
+Grim Reaper and given back to the calling you were born for. But instead you
+just feel… empty. Being King is a difficult job at the best of times but when
+you rule over a people who seem to think the idea of negotiating mean burning
+their neighbouring countries cities to the ground, you're just faced with an
+even more difficult job. The constant fear of war, of assassination attempts,
+of poison in every meal you eat…
+   Oh, it's so not good to be back.
+
+> dip quill in ink stain
+You dab the quill into the ink, wetting its tip. It is now ready to write
+with.
+
+An idea occurs to you. Just for a brief instant. Just fleetingly. Just… an
+idea.
+   What if you died again? It could happen easily enough. After all, you were
+assassinated before despite the best efforts of the palace guards to keep you
+safe. It could certainly happen again. Back to that lovely old tomb with its
+darkness and dankness and, best of all, no work. No worries. No fears. No
+nothing. All you have to do is lie there and… do nothing.
+
+> look under table
+Thrown under the table, you find, of all things, a coconut. Puzzled as to why
+a coconut has been thrown under the small table in your bedchamber, you pick
+it up.
+
+The idea has more and more appeal the longer you think about it. Yes. You
+will kill yourself. You will leave this horrible place behind once more and
+return to your lovely tomb. Damn Verenor and damn the rest! You did your duty
+for forty years and that's more than enough for any man. Let your son rule.
+   Now… all you have to do is find a way to kill yourself.
+
+> read papers
+You run your eyes over them, searching for something that takes your fancy.
+   Several of the papers bear headings that draw your attention:
+
+Q1)  Murder Most Foul
+Q2)  Committing Suicide The Easy Way
+Q3)  Security Procedures
+Q4)  Everything You Always Wanted To Know About Apples But Were Afraid To Ask
+
+> q4
+You glance at this peculiarly titled paper and read:
+
+'Recently it has come to be known that certain apples are highly poisonous
+and can be certain to kill anyone eating them in a matter of seconds. Safe
+apples are generally those of a green, orange, black or red colour. Anything
+else can be considered fatal if consumed.'
+
+> x bowl of fruit
+There are several apples in the bowl, each of a different colour: green, red,
+orange, purple and black. Now you've never encountered apples anything other
+than green or red before, but you have to admit that the other colours
+certainly look different.
+
+> eat purple apple
+You take a bite of the apple. Hmmm… not especially tasty but certainly the
+best apple you've eaten for the past seven ye-
+   Urk!!!
+
+You give a sudden cry as the poison contained in the apple explodes into your
+mouth but before you have the chance to do more than think yes, I succeeded
+in killing myself! the lights go out once more…
+
+[more]
+
+The first thing you see is Verenor's face looming over yours. This isn't the
+sort of thing you really want to see upon waking and if not for the fact that
+you have just been resurrected, you suspect the shock might well have killed
+you.
+   "Aaraagaahahaha!" you cry.
+   "Greetings, Your Highness," says Verenor, seemingly not put off by your
+reaction. "It is good to have you back."
+   "I was… poisoned," you say, clutching at your throat. You can almost feel
+the poisoned apple still in there. "The apple…"
+   "Indeed, Your Highness. It appears that a particularly virulent poison has
+found its way into a batch of apples and, as such, eating them is potentially
+fatal. As you have discovered for yourself, Your Highness. Fortunately, the
+High Arcanist's resurrection skills were equal to the task at hand. Fear not,
+I have had the delivery boy severely punished."
+   "The delivery boy? Why? What did he do?"
+   "Well, Your Highness, he delivered the poison apples."
+   "But did he know they were poisoned?"
+   "I doubt it very much, Your Highness."
+   "But you still had him punished?"
+   "Of course, Your Highness."
+   You will never understand Verenor. You order him out.
+
+> eat coconut
+You raise the coconut to your mouth and bite into it.
+   A second later you are dead.
+
+… you hear voices …
+… you experience a tugging sensation …
+… you feel something being pulled out of you …
+
+You awake.
+   "Your Highness!" cries Verenor. "It is good to have you back!"
+   You splutter a bit, still a little disorientated by your death and
+subsequent return, and struggle to regain your bearings. It seems you are in
+your bedchamber once more.
+   "Verenor," you gasp, feeling like death (which is quite apt as it
+happens). "What… happened?"
+   "A foul assassination attempt, Your Highness," says Verenor, face grave.
+"The coconut you ate was laced with a fell poison that delivered you once
+more into the realm of the dead; fortunately it was a simple matter for the
+High Arcanist to send the Grim Reaper from you and return you to life once
+more, Your Highness. Rest assured, the cook and his apprentices have been
+duly punished."
+   "Punished?" You recall the coconut and frown. "But that coconut had been
+lying there for months. Years even. Most likely Gadrian dropped it during the
+time he originally killed me."
+   Verenor nods. "Indeed, Your Highness. That was also the conclusion myself
+and the High Arcanist reached. But as Gadrian is not here to be punished, we
+had the cook and his apprentices killed instead. If there is nothing more you
+require from me, Your Highness, I shall depart and oversee their burial in
+unholy ground."
+   You order him out.
+
+> e
+
+LABORATORY
+You look around at your laboratory, noticing that little has changed in the
+years since you last used it. Your collection of scrolls are still stored on
+the shelf over the desk; your trunk (a wooden monstrosity purchased from a
+travelling merchant years before) rests in the corner; the alchemical table,
+where you practised your experiments, is as overloaded with potions as it
+ever was. And there, in the middle of the floor, is the very same pentagram
+you drew when you first assumed the mantle of kingship. Doorways lead west to
+your bedchamber and north to your throne room.
+
+> read scrolls
+You take a look at some of them and decide to read individual ones instead of
+all of them together:
+
+A1) Call Down The Wrath Of The Gods.
+A2) Demon Summonation.
+A3) Explosions & Mayhem In The Modern World.
+A4) Flower Arranging.
+
+> a1
+You peruse the scroll and see the following:
+
+'Calling down the wrath of the Gods is a dangerous enterprise indeed and many
+are the foolish people who have endeavoured to achieve this and become
+utterly destroyed as a result. Many things must be done to call down the
+wrath of the High Ones: the area must be purified; the one calling down the
+wrath must be holy of both mind and spirit; then, and only then, must the
+Words of Power be uttered. These Words are-'
+
+Here the scroll is torn.
+
+> open trunk
+You open your trunk, expecting to see an item of great personal value... and
+instead see a fuse.
+   Hmmm. You guess all the items of great personal value must have been
+removed while you were dead and unable to do anything about it. Well, you
+take the fuse anyway because there's no point in leaving it lying in the
+bottom of a trunk.
+
+> x potions
+These are dangerous potions, each and every last one of them. The deadliest
+assassins in the land probably have use potent stuff on their victims than
+what is contained in these potions. Even picking them up is considered
+tantamount to an invitation for peril and misfortune to come over the
+carrier. The potions, from left to right along the table, are red, green,
+purple, white and black. Aside from the difference in colours, they appear
+uniform in appearance.
+
+> drink green potion
+You take a sip from the green potion. At first it tastes of nothing, then a
+faint powdery taste creeps in, then it tastes of aniseed, then it starts to
+burn your throat and then, finally, your head explodes!
+
+[more]
+
+You have a headache. This is surprising because the last thing you were aware
+of was that you didn't even have a head. But, apparently, you now have a head
+again. And, worse, it's aching.
+   It seems you're alive again.
+   "Welcome back, Your Highness," says Verenor, standing at the side of your
+bed. "It is good to have you back."
+   You reach up gingerly and touch your face. It feels intact.
+   "The potion," you say. Your words come out sounding far too much like your
+own for you to entertain any real hope that you might be dead after all. "It
+exploded. My head exploded."
+   "Yes, Your Highness. It seems you were force fed one of your very own
+exploding potions. This behaviour on the behalf of the palace guards is
+unacceptable and I have had them thoroughly disciplined for allowing such a
+thing to happen."
+   You start to point out that you drank the potion of your own volition but
+your High Chancellor only hears what he wants to hear and that you tried to
+kill yourself is definitely not what he would want to hear.
+   "I shall leave you to recover your wits, Your Highness," says Verenor and
+departs.
+
+> e
+
+LABORATORY
+You look around at your laboratory, noticing that little has changed in the
+years since you last used it. Your collection of scrolls are still stored on
+the shelf over the desk; your trunk (a wooden monstrosity purchased from a
+travelling merchant years before) rests in the corner; the alchemical table,
+where you practised your experiments, is as overloaded with potions as it
+ever was. And there, in the middle of the floor, is the very same pentagram
+you drew when you first assumed the mantle of kingship. Doorways lead west to
+your bedchamber and north to your throne room.
+
+> drink purple potion
+The potion feels unpleasantly hot to the touch, although you can tell that
+drinking it would not kill you. However, the idea occurs to you that if you
+have found anything that might need heating up, this potion could well do the
+trick.
+
+> stand in pentagram
+As you step into the centre of the pentagram, you experience an unpleasant
+sinking feeling in the pit of your stomach. At the same time, something
+groans and seems to break free of its prison within the pentagram and fly
+away towards the ceiling. You can see it only vaguely, as a translucent
+shadow, before it disappears into the very ceiling itself.
+
+> x ceiling
+Of the strange creature that fled into the ceiling you can see no sign but
+the ceiling itself is marred with cracks, no doubt a remnant from all your
+experiments over the years. It's a miracle the whole thing has never come
+crashing down on you before now.
+
+> x cracks
+The cracks cover the entire ceiling and while some are little more than a few
+millimetres wide, several are inches thick and look like they are on the
+verge of collapsing. Hmmm… You wonder at the possibility of a well aimed
+throw with some item bringing the entire ceiling down.
+
+> throw wooden ball at cracks
+You throw the wooden ball. It hits the cracks in the ceiling and then drops
+back down into your hand. The ceiling groans - quite an audible groan as it
+happens - but remains in place. Maybe another go will do it.
+
+> throw wooden ball at cracks
+A second time the ball bounces off the ceiling and a second time the ceiling
+groans.
+   Louder this time.
+   But, frustratingly, the ceiling remains intact.
+
+> throw wooden ball at cracks
+The balls bounces off the ceiling and drops back down into your hand. But the
+ceiling, as before, does not collapse. Maybe it's not going to collapse at
+all. Or maybe…
+
+And then the ceiling falls on you!
+
+[more]
+
+"Ah, Your Highness," says the ever dulcet tones of your High Chancellor. "It
+is good to have you back."
+   You groan almost as loud as the ceiling groaned when it collapsed on top
+of you.
+   "The… ceiling…" you say, staring up at the ceiling above you which looks
+alarmingly intact. A lot more intact than it did a short while ago.
+   Verenor follows your gaze and nods. "The High Constructionist did an
+excellent job on the ceiling, Your Highness. The cracks have been shored up
+so that the possibility of it ever collapsing again is zero. But do not
+concern yourself, Your Highness. The builder who did such shoddy work has
+been severely punished."
+   You suppress a groan.
+   "It was for the best, Your Highness," says Verenor. "By the time his
+charred remains have cooled down, I suspect this whole sorry incident might
+well be put behind us."
+   You offer him a brief nod - indicative of precisely nothing - and he
+leaves you alone.
+
+> n
+
+THRONE ROOM
+This large room is open to the sky (and a real pain in the rainy season) to
+allow the majesty of the heavens to shine down upon you when you meet with
+important delegates. Your throne is set on a raised pedestal in the centre of
+the room and fairly glistens in the light from the overhead sun. The crown
+jewels themselves gleam in their display cases; each is worth a small kingdom
+and together they account for the largest amount of wealth in the known
+world. Southwards leads back to your laboratory while a smaller corridor
+leads away to the north and the rest of the royal palace.
+
+> call guards
+You let out a yell. A moment later a guard's voice calls: "yus, Your
+Highness?"
+   "Come in here, man!" you call. "I can't hold a conversation like this."
+   "It's against the High Chuncellor's orders, Your Highness! He said it wus
+a head-chopping offence to be present in the same room as Your Highness, Your
+Highness."
+   "But that's-" Ridiculous? Well, it is. But it's also the sort of thing you
+could well imagine Verenor decreeing, particularly after your assassination
+at the hands of Gadrian the assassin who got to within striking distance of
+you by posing as a common servant.
+   You sigh. "Very well," you call.
+   "What do yus want, Your Highness?" calls the servant.
+   What indeed?
+
+1)  I want some reading materials.
+2)  Bring me a weapon. Something really deadly.
+3)  How about a visit from some of my family.
+4)  I need to see Verenor.
+
+> 1
+"At unce, Your Highness!" cries the guard with the strange speech impediment.
+   Everything goes quiet for a few minutes then you hear the sound of
+footsteps and a moment later several items are thrown into the room.
+   "You could have walked in and dropped them there," you call testily.
+   "It is against urders, Your Highness!" calls the guard. "The High
+Chancellor has threatened to flay the flesh from the bones of anyone who
+dares set foot in the presence of Your Highness whilst delivering reading
+materials."
+   You have to hand it to Verenor. He certainly covers all the angles.
+
+> get all
+You take the tatty parchment, the mouldy parchment and the scabby parchment.
+
+> read tatty parchment
+The title of this parchment reads Kaboom! and it seems to detail precisely
+the steps needed to be followed to successfully build an explosive device. It
+seems gunpowder, a barrel, a fuse and a match must be gathered together and
+then the magic words - which look to be "make bomb" - are uttered and what
+happens next is pretty much the title of the parchment. It advises people of
+a nervous disposition to stand well clear and, preferably, to wear clothes
+that are blood red in colour.
+
+> read mouldy parchment
+You quickly peruse the parchment and find that it is, of all things, a coupon
+for ordering goods. There are six rows of items available, although the
+coupon only entitles you to three of them. It looks like you need to put a
+tick in the box next to the item you want then give it to the guards and they
+will fetch whatever you have ticked. A glance down the coupon lists: 1) vial
+of fiery poison (guaranteed to kill a man in five seconds flat or your money
+back); 2) some gunpowder; 3) a barrel; 4) a figurine of Yandalla the High
+Priestess; 5) an extra coupon; 6) a genie in a bottle.
+
+   At the moment, none of the boxes are ticked.
+
+> tick box 1
+You put a tick in box 1.
+
+> tick box 2
+You put a tick in box 2.
+
+> tick box 3
+You put a tick in box 3.
+
+> give parchment to guards
+You throw the coupon out into the corridor and hear the sounds of a guard
+scrambling for it.
+   "This shull be delivered immediately, Your Highness!" he calls and the
+sound of someone running off echoes briefly along the corridor. It seems all
+you can do now is wait.
+
+> wait
+Three items come flying into the room. You start to berate the guards for
+being so careless with your belongings but realise that they are simply
+obeying Verenor's wishes. Sighing, you bend down to see what you have had
+delivered.
+
+> get all
+You take the gunpowder, the barrel and the vial of fiery poison.
+
+> drink fiery poison
+You raise the vial to your lips and - could it really be this easy? you
+wonder - gulp it down in one go. Then you prepare yourself for the inevitable
+doom that is even now creeping its way along your veins, pulsing around your
+heart, clogging up your lungs, corroding…
+
+A minute later you're still alive. And not because Verenor has once again had
+the High Arcanist bring you back to life but simply because you never died.
+Annoyed, you look carefully at the vial, not empty, and notice the words on
+the bottom: "best before end 1287".
+   8 years ago!
+   Of all the cursed luck!
+
+> call guards
+"Whut can I do for you, Your Highness?" calls the guard.
+
+1)  I want some reading materials.
+2)  Bring me a weapon. Something really deadly.
+3)  How about a visit from some of my family.
+4)  I need to see Verenor.
+
+> 3
+There is a brief, whispered discussion and then: "I can ask if the Prince
+Toromin has a few moments to spare if you luke, Your Highness."
+   "What about my wife?" you call.
+   "She is… otherwise enguged, Your Highness!" is the reply.
+   Ah. It seems that your darling wife, the jewel of your eye, the love of
+your life, the shining light of your heart, is dead drunk. Well…
+   "Send Prince Toromin to me then," you order.
+
+[more]
+
+   A few minutes later a small object comes flying into the chamber. At the
+same time, there is an agonised squeal (although you're not entirely sure
+where it came from). You pick the item up, noticing that it is a ring.
+   "This doesn't look like Toromin," you say, staring at the ring. "He was
+taller than this. More man-like. I'm sure of it."
+   --put me on-- comes a voice speaking in your mind.
+   Confused you do.
+   --greeting, father-- says the voice. --it is I. Toromin--
+   "Toromin," you say. "What are you doing in that ring?"
+   --it's a communications device, father. High Chancellor Verenor believes
+it might be dangerous for us to be seen together in case assassins strike.
+Separate we are safer. Supposedly anyway, but being thrown onto the floor
+like that was painful to say the least--
+   "You can feel things even though you're not in the ring?"
+   --unfortunately it seems so. Verenor thought it might teach me to be more
+careful. What is it you wish, father?--
+   You bite down the urge to threaten to throttle Verenor but realise he
+might have a good point. After all, it was here, seven years ago, that
+Gadrian the assassin killed you. The last thing you want is a similar event
+occurring, and with the added nightmare of your son being present.
+   "Well, son," you say. "It's like this…"
+
+AA)  I want you to abdicate. You're not up to the task of ruling this great
+nation of ours.
+BB)  Tell me about yourself, son. What have you done in my absence?
+CC)  I need you to grow up and start acting responsibly, Toromin. You're the
+boss now. You need to start acting like it.
+DD)  Toromin, just out of curiosity… do you know any good ways to die?
+
+> smash ring
+Acting on a hunch, you bend down and bash the ring onto the floor. At once
+there is a terrified scream-
+   --OOOWWWWWWWWWWWW!!!
+   "Sorry, son," you say. "Did that hurt?"
+   --good grief, father! Have you any idea how painful that was? Oh, my head
+is splitting! What did you do that for?
+
+> cc
+"Toromin," you say, "it's time to start acting like a man and not like a
+boy."
+   --but I don't want-
+   You raise the ring as if considering bashing it on the floor again.
+   --NO! Not that! Okay, okay, maybe I was neglecting my duties just a tad. I
+mean, I can understand that some people were probably a bit miffed that I
+went off to the theatre while the barbarian hordes were invading but it was a
+good play- Okay, okay! Stop making the threatening hand gestures! I'll
+reform! I'll… er… I'll do whatever it is people in my position are supposed
+to do-
+   "Rule," you suggest.
+   --yes, that. I'll even ask Verenor for help if you want. You have my word
+on that. But don't threaten the ring again. I'm not good with anything that's
+not good for me.
+   You're not entirely sure whether Toromin's word is enough but it's the
+best you're going to get. Satisfied that you have turned your wayward son
+around, you throw the ring back to the guards.
+
+> s
+As you leave the throne room, your ears prick up at a sound. You hesitate,
+listening for it again, but hear nothing.
+
+> listen
+You listen again. This time, you detect the sound of someone moving around in
+your apartments. Verenor? A servant or guard?
+   Or someone else?
+   You had best be careful. Unpleasant visions of what happened in this very
+room seven years ago spring to mind and eager to die again though you may be,
+you don't particularly want it to be at the hands of an assassin like
+Gadrian. Not to mention the fact that the death he sent you to was hardly a
+permanent one.
+
+> s
+
+LABORATORY
+You look around at your laboratory, noticing that little has changed in the
+years since you last used it. Your collection of scrolls are still stored on
+the shelf over the desk; your trunk (a wooden monstrosity purchased from a
+travelling merchant years before) rests in the corner; the alchemical table,
+where you practised your experiments, is as overloaded with potions as it
+ever was. And there, in the middle of the floor, is the very same pentagram
+you drew when you first assumed the mantle of kingship. Doorways lead west to
+your bedchamber and north to your throne room.
+
+You step into your laboratory, eyes wide for the telltale signs of an
+intruder. You notice nothing out of the ordinary but sense a presence in your
+bedchamber to the west.
+   There is someone in there!
+
+> call guards
+You call for the palace guards and they come running.
+   "Assassin!" you tell them. "In my bedchamber!"
+   "Leave the swine to us, Your Highness!" the captain of the guard. "We'll
+make mincemeat of him!"
+   They rush into your bedchamber and there comes the sound of a tremendous
+fight taking place which lasts for several minutes. You keep well clear of
+the whole unpleasant incident.
+   The guards emerge after everything has fallen quiet. Several of them look
+bloodied but they are at least in one piece which is more than can be said
+for the poor unfortunate they are carrying between them.
+   "He resisted arrest, Your Highness," says the captain of the guard. "And
+so it was decided to use force." He has the decency to at least wince. "Quite
+a bit of force as it happens…"
+   "It was entirely necessary in the circumstances, Your Highness," says
+Verenor, appearing at your shoulder. "And we did recover these from the
+corpse of the assassin."
+   He hands you a knife and a leaf.
+   "The purpose of the knife is evident, Your Highness," Verenor says, "but
+the leaf is perhaps more puzzling. Would you like to keep them as a reminder
+of your victory over the foul assassin, Your Highness?"
+   You start to explain that you didn't actually do anything aside from call
+the palace guards but decide in the end to keep quiet, take the knife and the
+leaf, and let Verenor and the guards depart, the dead body of the assassin
+carried between them.
+
+> stab yourself with knife
+Having decided that life no longer holds any appeal for you, you raise the
+knife, grit your teeth, offer up a short prayer to whatever God it is that
+watches over kings about to commit suicide, then plunge the knife into your
+stomach.
+   It HURTS!!!!
+   Dear merciful God, it hurts!
+   While you guess you shouldn't be surprised by this - after all, you have
+just stabbed a knife into your body - you are still surprised by just how
+much it hurts. No wonder no one ever tries this sort of thing twice…
+   But finally - finally! - you see everything start to go dark, you feel a
+rushing wind, you see a tunnel and a light at the end of it and-
+
+[more]
+
+You come to, lying on your bed.
+   "Ah… hell," you mutter.
+   "It is good to have you back, Your Highness," says Verenor, who, quite
+predictably, is standing by the side of the bed, wearing an expression of joy
+that you have once more been brought back from beyond the veil of death.
+"Rest assured, the culprits behind this unfortunate incident have been
+severely punished."
+   "Punished…" You shake your head, trying to clear the fog. Returning from
+the grave kind of disorientates you. "Who did you punish, Verenor?"
+   "Why, the guards, Your Highness," replies your High Chancellor, seeming
+quite surprised at the question. "For their terrible lack of discipline in
+letting the assassin into your chambers."
+   "Assassin?"
+   "The one who stabbed you, Your Highness."
+   "But I stabbed myself, Verenor!"
+   The High Chancellor nods. "Indeed, Your Highness. It is good that you seek
+to protect your citizenry, even the ones who attempt to kill you in such a
+foul manner, but I am not gifted with the same kind of God-like forgiveness
+that you are. I have seen the guards punished and, I dare say, the assassin
+will soon follow a similar route."
+   You sigh. "The assassin who doesn't exist?"
+   "Quite, Your Highness. When the High Torturer is finished with him, he
+will, indeed, not exist."
+   You order Verenor out before he can start going into the details.
+
+> s
+
+BALCONY
+At one time you always found the balcony to be a lethal contraption, bolted
+as it is onto the side of the palace by bolts which you are sure are a little
+on the thin side. A drop of some fifty feet (calculated at just slightly
+further than a spear can be thrown by a strong man) below you is Steinmaster
+Plaza, the heart of the city. Back to the north is your bedchamber.
+
+   You avoided the balcony as often as you could during your reign. Despite
+Verenor's assurances that the fifty foot distance between here and the ground
+was too far for anybody to stand a chance of throwing a spear at you, you
+were always a little hesitant to put that to the test.
+
+> make bomb
+You put the gunpowder in the barrel, poke the fuse into the side and strike
+the match.
+   "If a more certain way of killing myself exists, I've not come across it,"
+you say and lower the burning match to the fuse.
+
+BOOM!!!!!
+
+[more]
+
+You blink.
+   It's not a nice blink. It means, for starters, that you are still alive.
+But how? How? You blew yourself up. You-
+   "Welcome back, Your Highness," says High Chancellor Verenor, standing in
+his usual place at the side of your bed. "It is good to have you back."
+   You suppress a groan. "How did you bring me back, High Chancellor?"
+   "It was fortunate indeed, Your Highness. It seems some foul miscreant -
+who I assure you has been punished to the full extent of our ability to
+punish miscreants - had smuggled some kind of explosive device into the
+palace."
+   You nod for him to go on.
+   "Good fortunate was with us, Your Highness, as it seems the miscreant who
+devised the explosive device was a blithering idiot."
+   You wince but nod again for him to continue.
+   "Indeed. Little did the blithering idiot miscreant realise, Your Highness,
+that gunpowder such as that is completely inadequate to destroy a human body.
+So while you did die, Your Highness, it was a simple matter for the High
+Arcanist to bring you back."
+   You offer a grumbled thanks to the High Arcanist and order Verenor out.
+
+> s
+
+BALCONY
+The explosion has pretty much put paid to the balcony and while it still
+clings precariously to the side of the palace, anyone with a wish to live
+really would be heading back inside right now. A drop of some fifty feet
+(calculated at just slightly further than a spear can be thrown by a strong
+man) below you is Steinmaster Plaza, the heart of the city. Back to the north
+is your bedchamber.
+
+> jump
+You climb up onto the balcony, give a cry of "goodbye, cruel world!" and
+throw yourself off into space.
+
+Your body is discovered, so you are told, by a couple of passersby, one of
+whom got a substantial bruise on his head from where you landed on him. After
+running around in a frenzied panic for a few moments, they came to their
+senses and ran to inform the palace guards of what had occurred. High
+Chancellor Verenor came himself and had your corpse carted inside the palace.
+He then had one of the passersby hung for daring to touch the royal presence
+and the other hung for not stopping the first passerby from touching the
+royal presence.
+
+This was all related to you by the High Chancellor after you were brought
+back from the dead.
+   "Those responsible have been punished, Your Highness," says Verenor. "Rest
+assured, their heads are even now adorning the Avenue of Kings aloft wooden
+spikes."
+   "But I threw myself off the balcony, Verenor!" you protest. "Those poor
+fellows didn't do a thing!"
+   Verenor nods. "Indeed, Your Highness. It is most gracious of you to try
+and protect those despicable scoundrels despite their deplorable actions.
+Perhaps a visit to the Avenue to gaze upon their severed heads would be an
+amusing diversion…"
+   You order Verenor out.
+
+> e
+
+LABORATORY
+You look around at your laboratory, noticing that little has changed in the
+years since you last used it. Your collection of scrolls are still stored on
+the shelf over the desk; your trunk (a wooden monstrosity purchased from a
+travelling merchant years before) rests in the corner; the alchemical table,
+where you practised your experiments, is as overloaded with potions as it
+ever was. And there, in the middle of the floor, is the very same pentagram
+you drew when you first assumed the mantle of kingship. Doorways lead west to
+your bedchamber and north to your throne room.
+
+> put leaf in purple potion
+The moment the leaf touches the potion, it emits a horrid, choky smell which
+quickly fills the laboratory. You gasp, splutter, cough, retch and shudder.
+All to no avail.
+   A minute later your corpse is lying stretched out on the floor.
+
+[more]
+
+But not, it seems, for long.
+   "It is good to have you back, Your Highness," says the voice of Verenor.
+   You open your eyes. It doesn't come as any great surprise to find that you
+are still alive. Or, rather, that you have been returned to life once more.
+It seems the High Arcanist is certainly getting a fair amount of practice at
+his art recently due to your deathly endeavours.
+   "I take it certain people have been punished, Verenor," you say with a
+sigh.
+   The High Chancellor nods. "Several of the palace guards for allowing
+whoever it was who poisoned you into the palace; some serving girls; one of
+the cooks; and some fellow who was passing by the palace at the moment you
+died and, thus, immediately became a suspect. Rest assured, Your Highness,
+none of them shall make an attempt on your life again."
+   Cursing bitterly, you order Verenor out so you can be alone with your
+thoughts.
+
+> e
+
+LABORATORY
+You look around at your laboratory, noticing that little has changed in the
+years since you last used it. Your collection of scrolls are still stored on
+the shelf over the desk; your trunk (a wooden monstrosity purchased from a
+travelling merchant years before) rests in the corner; the alchemical table,
+where you practised your experiments, is as overloaded with potions as it
+ever was. And there, in the middle of the floor, is the very same pentagram
+you drew when you first assumed the mantle of kingship. Doorways lead west to
+your bedchamber and north to your throne room.
+
+> x desk
+Your desk hunches beneath the shelf, appearing almost as if it is trying to
+hide itself away from prying eyes. It is a shoddy, battered little thing -
+the unfortunate result of its close proximity to your alchemical projects.
+When things that tend to go 'boom' go 'kaboom' in a most explosive manner,
+anything nearby is likely to not remain in mint condition for long. But you
+have fond memories of your desk. In the sole remaining drawer is stored your
+journal. Resting atop the desk is a bowl filled with holy water.
+
+> drink holy water
+You sip some holy water and immediately feel purified of mind and spirit.
+
+> fill vial with holy water
+You fill the vial with holy water.
+
+> n
+
+THRONE ROOM
+This large room is open to the sky (and a real pain in the rainy season) to
+allow the majesty of the heavens to shine down upon you when you meet with
+important delegates. Your throne is set on a raised pedestal in the centre of
+the room and fairly glistens in the light from the overhead sun. The crown
+jewels themselves gleam in their display cases; each is worth a small kingdom
+and together they account for the largest amount of wealth in the known
+world. Southwards leads back to your laboratory while a smaller corridor
+leads away to the north and the rest of the royal palace.
+
+> sprinkle holy water
+You sprinkle the holy water on the floor of the throne room, thus cleansing
+the area of any harmful influences.
+
+> say the words of power
+You invoke the ritual to call down the wrath of the Gods upon you. The sky
+above you flickers with storm clouds and then a face - a huge, God-like face
+- can be seen up there. You have a moment's grace in the viewpoint of one of
+the celestial beings and then a bolt from the blue comes tearing down upon
+you.
+
+"What do you mean," comes the ghostly voice of Verenor, your High Chancellor,
+"he can't be resurrected? Why, there's almost a bucketful left of him!"
+   "Indeed," comes the equally ghostly voice of the High Arcanist, "but
+resurrection here is a feat beyond my means."
+   You view all this from your vantage point near the ceiling where your
+current out of body experience is underway. Only this time you don't think
+you'll be going back.
+   A bucketful was a bit generous.
+   "Well…" Verenor prods what's left of you. "I guess it can't be helped. I
+was quite devastated when I first heard what had happened - struck down by
+the Gods of all things! - but I'm relieved that Prince - or, rather, King -
+Toromin seems to finally be assuming his royal duties. I doubt he shall be an
+adequate replacement for his father but he should suffice."
+   His words reassure you that while you won't be doing any ruling yourself,
+at least you have managed to leave a reasonable replacement in your stead.
+   Satisfied that everything has gone according to plan, you fade away.
+
+An ending to be sure - and the best one in the game to boot! You brought your
+wayward son around and succeeded in well and truly killing yourself in such a
+way that you can never be resurrected again. Well done!
+
+[more]
+
+GAME OVER
+The game has now ended. Either type "restart" to begin again or "load" to
+restore a previously saved game.
+
+> quit
+Do you really want to quit? [Y/N]

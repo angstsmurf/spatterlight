@@ -1,0 +1,1636 @@
+Loading game...
+
+Greek School Adventure
+Greek School Adventure
+
+"Let the Evil of the day be sufficient therunto..."
+
+---
+June 3rd, 20XX
+
+Dear Player:
+
+It is my great pleasure to welcome you to your Greek School Term at Columbia
+Theological Seminary. It is our hope and prayer that you will find this time
+to be a nourishing one spiritually, and that you and your classmates will
+become a part of what makes our school great.
+
+It is people like you who will one day be called as our Ministers of Word and
+Sacrament. Do Well. Learn Greek.
+
+Remember... Knowledge is good.
+
+President Mendenhall
+------------------
+
+If only you'd known then what you know now... (type "instructions" for
+playing instructions, and "verbage" for a list of recognized verbs)
+Please enter your name:
+
+> Player
+Please choose the player's gender (male or female):
+
+> male
+
+> get up
+You stand up from your bed.
+
+> turn on light
+Despite your hopes, your room looks much as it did before you turned the lamp
+off last night.
+
+Your Room
+Of all the nooks and crannies the business office could find for student
+housing, they had to stuff you into this one. Stuck on the third floor of
+Simons-Law with no fire-escape but the stairs, you are compensated for this
+lack of basic safety with cracking plaster walls, a heater on the fritz, and
+as little head-room as possible. Ah, the joys of Seminary housing.
+
+You can see your bed, your desk, your dresser, and two doors, one leading
+west to your bathroom and the other south to the main hallway. The south door
+has a large mirror on it.
+
+You can only move west.
+
+> west
+You move west.
+
+Your Bathroom
+This place is everything you could want from a bathroom, so long as you don't
+sweat hygiene. Here, the standard cracking plaster of Simons-Law has been
+partially covered by cracking tile, offering many dark little recesses for
+mold and critters. At least the water is clean, and occasionally hot, as
+well.  There is a small light fixture hanging from the ceiling, a bathrug on
+the floor, a shower, toilet, and a sink.
+
+You can only move east.
+
+> take shower
+Why not? Taking off everything, you hop into the shower, and then hop out
+again, slightly scalded but oddly refreshed.
+
+> examine sink
+It's a sink. You can get water from it and put things on it.  (What, did you
+think I was going to have a witty remark for each little bit of bathroom
+furniture? There's some sick desperation in your life, man.)
+  A tube of toothpaste is on your sink, and inside is a plain, red
+toothbrush.
+
+> take toothbrush
+You take the plain, red toothbrush from your sink.
+
+> take toothpaste
+You take the tube of toothpaste from your sink.
+
+> brush teeth
+Congratulations on your exemplary oral hygiene.
+
+> east
+You move east.
+
+Your Room
+Of all the nooks and crannies the business office could find for student
+housing, they had to stuff you into this one. Stuck on the third floor of
+Simons-Law with no fire-escape but the stairs, you are compensated for this
+lack of basic safety with cracking plaster walls, a heater on the fritz, and
+as little head-room as possible. Ah, the joys of Seminary housing.
+
+You can see your bed, your desk, your dresser, and two doors, one leading
+west to your bathroom and the other south to the main hallway. The south door
+has a large mirror on it.
+
+You can only move west.
+
+> examine desk
+Ostensibly a locale for your study habits, your desk came with the room,
+meaning that it was purchased on sale during the 1960's. It succeeds
+admirably in its main task, which is to keep your computer, lamp, and coffee
+maker off of the ground.  On your desk is Your green Backpack, a ballpoint
+pen, mailbox key and your wallet.
+
+> open dresser
+You open the old dresser.  A pair of blue jeans and a greek school t-shirt
+are inside the old dresser.
+
+> take jeans
+You take the pair of blue jeans from the old dresser.
+
+> take t-shirt
+You take the greek school t-shirt from the old dresser.
+
+> wear jeans
+You put on the pair of blue jeans.
+
+> wear t-shirt
+You put on the greek school t-shirt.
+
+> take backpack
+You take Your green Backpack from your desk.
+
+> take pen
+You take the ballpoint pen from your desk.
+
+> take mailbox key
+You take mailbox key from your desk.
+
+> take wallet
+You take your wallet from your desk.
+
+> look under bed
+Eureka! Rummaging about under your bed you find tons of junk you thought
+you'd lost. After a moment of sifting through it, you remember why exactly
+you lost it in the first place, and shove all of it back under your bed. Just
+before you do so, you see that your shoes have been kicked underneath as
+well, and so pull them out.
+
+> wear shoes
+You put on your shoes.
+
+> open backpack
+You open Your green Backpack.  Your notebook is inside Your green Backpack.
+
+> take notebook
+You take your notebook from Your green Backpack.
+
+> open door
+Very good! You are now ready to face the world! (Or, at least, you are going
+to face it.) As you pull the door open, a small note falls to the floor... it
+must have been shoved in the side. You pick it up nervously... it is from
+Chris, your Greek TA.
+
+> south
+You move south.
+
+3rd floor hallway
+This hallway is the only way into your room, and also the only way to the
+outside door downstairs. The sketchy lighting and cracked plaster captures
+the personality of Simons-Law perfectly. There are three doors and a
+staircase leading down.
+
+You can move north and down.
+
+> down
+You move down.
+
+2nd floor hallway
+Much like the 3rd floor, only lower. No one is living on this floor at the
+moment, which has left a thick layer of dust disturbed only by your
+footprints going up and down.
+
+You can move up and down.
+
+> down
+You move down.
+
+1st floor hallway
+Similar to the floors above it, except for the lone occupant and an exit
+outside. Sarah Peters lives on this floor, in room 212. The stairs leading up
+to the 2nd and 3rd floors are here, as well as some stairs leading down to
+the main (and only) exit.
+
+You can move west, up and down.
+
+> down
+You move down.
+
+Outside Simons-Law, Quad 2
+You are standing just outside of the humble quad that you call home. A
+sidewalk passes in front of the door that  goes in front of each of the
+quads. The 1st Quad is to the west, and the Arch is to the east. There is
+also a bench here for seminarians to sit on while talking to each other or
+meditating on the truths of the universe.
+Paul is here, grumbling to himself and looking somewhat perplexed.
+
+You can move east and west.
+Paul gives you a look over, then resumes his searching.
+
+> east
+You move east.
+
+In front of the Arch
+You are standing at the south end of the famous Simons-Law Arch, a typical
+meeting place for almost any off-campus occasion. A path heading towards
+Campell Hall leads to the South, and a walkway in front of Simons-Law goes
+west and east. To the north is the Arch itself.
+
+You can move north, east, south and west.
+
+> north
+You move north.
+
+Under the Arch
+You are standing under the Arch of Simons-Law. The air seems to shiver with a
+sense of history... or maybe that's just the wicked echoes the concrete
+makes, plus the occasional beeping from the metal switchbox on the wall. In
+any case, to the north is the Simons-Law parking lot. To the south there is a
+path that leads south towards Campbell hall, as well as a path that leads
+east and west in front of Simons-Law.
+
+You can move north and south.
+
+> open switchbox
+You open metal switchbox.  A rusty basement key and Simons-Law key are inside
+metal switchbox.
+
+> take simons-law key
+You take Simons-Law key from metal switchbox.
+
+> north
+You move north.
+
+Simons-Law Parking Lot
+The first part of the Seminary that you ever got to see, this parking lot
+holds about half of the student vehicles and can get quite full during the
+daytime. There is a stairwell that leads down to a basement underneath the
+building. To the south is the Arch, and a service door leads east into the
+Richards Center Kitchen.
+Jimmy is here.
+
+You can move south and down.
+
+> unlock door
+Trying to touch the rusty lock as little as possible, you unlock the basement
+door.
+
+> go to thinking man's
+Jimmy grins. "That's the spirit. Let's go and loosen our brains with some
+good drink and company." With a maniacal grin, he whips out his keys and
+jumps into his car. With a grin, you hop in for the ride.
+
+Thinking Man's parking lot
+It's the parking lot in front of Thinking Man's Tavern. It's really not that
+big of a mystery. To the south is tavern itself. To the north is the road
+that would take you home if you could drive, which you can't, but you did get
+a ride here, after all.
+
+You can only move south.
+
+> south
+You move south.
+
+Thinking Man's Tavern
+A great little place to get away from the seminary bubble, this little tavern
+has been a favorite of student's for years. The people are friendly, the
+chairs are comfortable, and the bar is stocked. What else could you want? The
+bathrooms are to the south, the parking lot is to the north, and there is a
+neat patio area to the west.
+Jimmy and Marie the bartender are here.
+
+You can move north, south and west.
+
+> buy jimmy a drink
+Jimmy grins at you, then raises his glass in a toast.  "Cheers, my favorite.
+We really need to hang out more, you know that?"
+
+> get jimmy's rules
+Jimmy looks at you, then shrugs. "Well, I suppose I could help out. Fine. Let
+me show you the rules we're working with, here..."
+
+ Pulling out a small sheet of paper, Jimmy sketches out some basic pointers
+that should be a great help later. After thanking him profusely, you put the
+paper in your pocket.
+
+> go home
+Jimmy nods his head, looking at his watch. "Well, I'd like to stay longer,
+but you do have a point. Yeah, let's go, I'm still good to drive."
+
+> south
+You move south.
+
+Under the Arch
+You are standing under the Arch of Simons-Law. The air seems to shiver with a
+sense of history... or maybe that's just the wicked echoes the concrete
+makes, plus the occasional beeping from the metal switchbox on the wall. In
+any case, to the north is the Simons-Law parking lot. To the south there is a
+path that leads south towards Campbell hall, as well as a path that leads
+east and west in front of Simons-Law.
+
+You can move north and south.
+
+> south
+You move south.
+
+In front of the Arch
+You are standing at the south end of the famous Simons-Law Arch, a typical
+meeting place for almost any off-campus occasion. A path heading towards
+Campell Hall leads to the South, and a walkway in front of Simons-Law goes
+west and east. To the north is the Arch itself.
+
+You can move north, east, south and west.
+
+> west
+You move west.
+
+Outside Simons-Law, Quad 2
+You are standing just outside of the humble quad that you call home. A
+sidewalk passes in front of the door that  goes in front of each of the
+quads. The 1st Quad is to the west, and the Arch is to the east. There is
+also a bench here for seminarians to sit on while talking to each other or
+meditating on the truths of the universe.
+Paul is here, grumbling to himself and looking somewhat perplexed.
+
+You can move east and west.
+Paul gives you a look over, then resumes his searching.
+
+> open door
+You whip out your Simons Law key and open the door. You can now go up into
+the building.
+
+> east
+You move east.
+
+In front of the Arch
+You are standing at the south end of the famous Simons-Law Arch, a typical
+meeting place for almost any off-campus occasion. A path heading towards
+Campell Hall leads to the South, and a walkway in front of Simons-Law goes
+west and east. To the north is the Arch itself.
+
+You can move north, east, south and west.
+
+> south
+You move south.
+
+A seminary path
+Just a nice path between the various buildings. Simons-Law is to the north,
+Campbell hall is to the south.
+
+You can move north and south.
+
+> south
+You move south.
+
+Campbell Hall entrance-
+There is an entrance way here leading into Campbell Hall, one of the main
+academic buildings on campus and the home to your greek classes. Fun. You can
+climb the stairs to enter Campbell Hall (not very handicap accessible, is
+it?) or head north to Simons-Law. A path towards the quad lies eastward.
+
+You can move north, east and up.
+
+> up
+You move up.
+
+(1) Campbell Hall stairwell
+You are standing in the main Campbell Hall stairwell. The main stairs lead up
+to the classrooms. To the east is the elevator, with a sign that says "Out of
+Order." A door to the south leads towards your mailbox and the academic
+offices, most of which are closed for the summer; They've heard of Greek
+School, but decided they didn't like the sound of it. The stairs to the
+basement have been blocked off for some reason. (Oooh... interesting plot
+foreshadowing!)
+
+You can move south, up and down.
+
+> south
+You move south.
+
+Campbell Hall Lobby
+The furniture in here is so nice, you got a stern look from the president
+once just for sitting on it. Clearly designed more for the high-rollers than
+lowly M-Div students, this lobby has been mostly empty all summer. After all,
+who in their right mind would move to Atlanta in the summertime?
+Larry is here.
+
+You can move north and south.
+
+> south
+You move south.
+
+Outside the Business Office
+You are in the main hallway of Campbell Hall, just outisde of the business
+office. The business office would be where you should go to have any rooming
+problems handled, assuming they were ever open, which they're not. Luckily,
+the mailboxes are kept in the main hallway itself, allowing you to get to
+your mail. There is also a list of student rooms posted by the mailboxes.
+ To the north is the Campbell Hall lobby. To the south is the registrar's
+office.
+
+You can move north and south.
+
+> open mailbox
+You open the mailbox with your mailbox key.
+
+> look in mailbox
+This is your mailbox. It has a small window that is so badly smudged that you
+cannot tell whether you have any mail or not.  Your mailbox is open.  White
+envelope and folded message are inside your mailbox.
+
+> take envelope
+You take white envelope from your mailbox.
+
+> open envelope
+You open white envelope.  Presbytery message and presbytery cheque are inside
+white envelope.
+
+> look in envelope
+Hmm, it seems that your presbytery has sent you some mail. This could be
+good. This could also be very, very bad.  White envelope is open.  Presbytery
+message and presbytery cheque are inside white envelope.
+
+> take cheque
+You take presbytery cheque from white envelope.
+
+> north
+You move north.
+
+Campbell Hall Lobby
+The furniture in here is so nice, you got a stern look from the president
+once just for sitting on it. Clearly designed more for the high-rollers than
+lowly M-Div students, this lobby has been mostly empty all summer. After all,
+who in their right mind would move to Atlanta in the summertime?
+Larry is here.
+
+You can move north and south.
+
+> north
+You move north.
+
+(1) Campbell Hall stairwell
+You are standing in the main Campbell Hall stairwell. The main stairs lead up
+to the classrooms. To the east is the elevator, with a sign that says "Out of
+Order." A door to the south leads towards your mailbox and the academic
+offices, most of which are closed for the summer; They've heard of Greek
+School, but decided they didn't like the sound of it. The stairs to the
+basement have been blocked off for some reason. (Oooh... interesting plot
+foreshadowing!)
+
+You can move south, up and down.
+
+> up
+You move up.
+
+(2) Cambell Hall stairwell
+This is the second floor of Campbell Hall. South of here are the main
+classrooms, including the main lecture hall and the room where your small
+group meets. Upwards lies the third floor of Campbell Hall, where the
+professor's offices are. To the east is the elevator, with an out of order
+sign on the door.
+
+You can move south, up and down.
+
+> south
+You move south.
+
+CH 2nd floor north
+You are standing at the northern end of the 2nd floor hallway in Campbell
+Hall. To the west lies the main lecture hall where you would learn greek if
+you were so inclined. To the south lies the room where your small group
+meets, and the chapel. To the north is  the main stairwell.
+Mr. Deedles is here.
+
+You can move north and south.
+
+> give cheque to deedles
+Looking at you suspiciously, Mr. Deedles takes the cheque and looks at it
+closely.
+ "Well... I suppose this should cover what you owe... I guess."
+ With a sigh, he finally  gets out of your way.   Deedles slouches off.
+
+> west
+You move west.
+
+CH Lecture Hall
+Every day of the summer (excepting weekends for most) your fellow Greek
+School students congregate here while the professor speaks to them in greek.
+This is supposed to be education. The room is large, so as to accomodate the
+entire class, and the seats are on risers to aid the view. With the exception
+of a single seat, the room is also packed full. Wanting to take full
+advantage of this, your seat is in the back, as Professor Johnson refuses to
+teach you when you sit on the floor. To the east is the main hallway.
+Sarah is here.
+
+You can only move east.
+
+> sit in seat
+Done. Let the learning begin. Professor Johnson moves to the front of the
+room and begins professing, as everyone around you starts taking notes.
+
+> take notes
+What an idea! Whipping out your notebook with gusto, you begin writing down
+every coherent thought to pass the professor's lips. Hey... maybe this is how
+everyone else seems to understand this language...
+
+ ...After what seems like an eternity, the professor finally stops talking.
+"Very good, everyone. If you have any questions, I'm sure your TA's can help
+you. If not, feel free to visit me in my office."
+
+You take a moment to look over your notes before closing your notebook...
+hey, these could be useful, later. You stand with that thought in mind.
+
+> east
+You move east.
+
+CH 2nd floor north
+You are standing at the northern end of the 2nd floor hallway in Campbell
+Hall. To the west lies the main lecture hall where you would learn greek if
+you were so inclined. To the south lies the room where your small group
+meets, and the chapel. To the north is  the main stairwell.
+Sarah and Marc are here.
+
+You can move north, south and west.
+
+> flirt with Sarah
+Sarah smiles shyly, and a hint of blush starts to appear on her cheeks. "Oh,
+Player, do you mean it? I mean, I'm such a studier and you're such a partier
+that I thought I'd be, well, you know, too *boring* for someone like you. "
+With that same sweet, shy smile, she cuddles up next to you. "Thank you."
+
+> copy Sarah's notes
+Sarah, still gazing moon-eyed at you, blinks for a moment, but then smiles.
+"Well, I suppose I COULD copy them for you..."
+
+ It only takes her a moment to copy out everything she wrote for class on
+Monday, and hand it to you.
+ "I really hope that this helps."
+
+> north
+You move north.
+
+(2) Cambell Hall stairwell
+This is the second floor of Campbell Hall. South of here are the main
+classrooms, including the main lecture hall and the room where your small
+group meets. Upwards lies the third floor of Campbell Hall, where the
+professor's offices are. To the east is the elevator, with an out of order
+sign on the door.
+
+You can move south, up and down.
+
+> up
+You move up.
+
+(3) Campbell Hall stairwell
+You are on the third floor landing of the main Campbell Hall stairwell. To
+the south is a hallway with many professor's offices. To the east is the
+elevator.
+
+You can move east, south and down.
+
+> south
+You move south.
+
+CH 3rd floor North
+This is the north end of the third floor of Campbell Hall, where most of the
+professor's offices are. As most professors do not teach Greek (indeed, the
+ethics professors have debated the teaching of it for some time) most of the
+offices are locked. Professor Johnson's office, however, lies to the west.
+The hallway continues to the south, and to the north is the stairwell.
+
+You can move north, south and west.
+
+> west
+You move west.
+
+Prof. Johnson's office
+You've never seen so many books on greek language in one place... they're
+everywhere, written in many other languages that you also don't speak. In the
+middle of this shrine to a dead language is the professor's desk, which is
+covered in papers. The hallway lies to the east.
+Johnson is here.
+
+You can only move east.
+
+> get practicum instructions
+Professor Johnson nods as she ruffles around on her desk. "By the way,
+Player, I see that you still haven't taken yesterday's quiz. You really have
+to do that today, you know. Get back down to your practicum, but be sure to
+come right back up here when you're ready."
+
+> east
+You move east.
+
+CH 3rd floor North
+This is the north end of the third floor of Campbell Hall, where most of the
+professor's offices are. As most professors do not teach Greek (indeed, the
+ethics professors have debated the teaching of it for some time) most of the
+offices are locked. Professor Johnson's office, however, lies to the west.
+The hallway continues to the south, and to the north is the stairwell.
+
+You can move north, south and west.
+
+> south
+You move south.
+
+CH 3rd floor south
+This is the south end of the third floor of Campbell Hall, where most of the
+professor's offices are. As most professors do not teach Greek (indeed, the
+ethics professors have debated the teaching of it for some time) most of the
+offices are locked. There is one office, however, that has a light on, which
+lies to the west. The hallway leads north, to more offices, and stairs had
+down to the second floor.
+
+You can move north, west and down.
+
+> west
+You move west.
+
+Prof. Stroup's Office
+You have never seen so many books in such a small room. They cover the walls,
+the furniture, and even a fair amount of the floor, books covering an
+astonishing amount of subjects, though most deal with reformed theology. The
+desk in the center of it all is cluttered, if in a way that seems to imply
+busyness rather than sloppiness.
+
+You can only move east.
+
+> search clutter
+Sorting through the mess on Stroup's desk, you eventually find his letter
+opener, AKA, The Crusader's sword.
+
+> east
+You move east.
+
+CH 3rd floor south
+This is the south end of the third floor of Campbell Hall, where most of the
+professor's offices are. As most professors do not teach Greek (indeed, the
+ethics professors have debated the teaching of it for some time) most of the
+offices are locked. There is one office, however, that has a light on, which
+lies to the west. The hallway leads north, to more offices, and stairs had
+down to the second floor.
+
+You can move north, west and down.
+
+> north
+You move north.
+
+CH 3rd floor North
+This is the north end of the third floor of Campbell Hall, where most of the
+professor's offices are. As most professors do not teach Greek (indeed, the
+ethics professors have debated the teaching of it for some time) most of the
+offices are locked. Professor Johnson's office, however, lies to the west.
+The hallway continues to the south, and to the north is the stairwell.
+
+You can move north, south and west.
+
+> north
+You move north.
+
+(3) Campbell Hall stairwell
+You are on the third floor landing of the main Campbell Hall stairwell. To
+the south is a hallway with many professor's offices. To the east is the
+elevator.
+
+You can move east, south and down.
+
+> down
+You move down.
+
+(2) Cambell Hall stairwell
+This is the second floor of Campbell Hall. South of here are the main
+classrooms, including the main lecture hall and the room where your small
+group meets. Upwards lies the third floor of Campbell Hall, where the
+professor's offices are. To the east is the elevator, with an out of order
+sign on the door.
+
+You can move south, up and down.
+
+> south
+You move south.
+
+CH 2nd floor north
+You are standing at the northern end of the 2nd floor hallway in Campbell
+Hall. To the west lies the main lecture hall where you would learn greek if
+you were so inclined. To the south lies the room where your small group
+meets, and the chapel. To the north is  the main stairwell.
+Sarah and Marc are here.
+
+You can move north, south and west.
+
+> south
+You move south.
+
+CH 2nd floor South
+You are at the south end of the 2nd floor hallway of Campbell hall. To the
+east is room CH 203, where your Greek Practicum meets. Further north off of
+the hallway is the main lecture hall and the main stairwell. South of here is
+the Chapel lobby.
+
+You can move north, east and south.
+
+> east
+You move east.
+
+CH 203
+This cramped classroom plays host to your greek precept. Given your
+relationship with your preceptor, you spend as little time here as possible.
+There are a number of chairs here around the table, yours is the stool
+closest to the door. As usual, every other seat is taken by students eager to
+study.
+Chris is here.
+
+You can only move west.
+
+> sit on stool
+"Thank you, Player," Chris says after you hand him the instructions. "Now
+that we're all here, let's begin, shall we? Pay attention,  this material is
+very important, and may clarify some questions you  had from the quiz this
+morning..."
+
+ As he is wont to do, Chris starts pontificating on greek. You know you
+should be focusing, but there's something about the language that just causes
+your thoughts to wander...
+
+> focus
+Difficult. Very, very difficult, but you manage. With a herculean effort that
+would even have made Samson whistle in appreciation, you force yourself to
+listen to every word that Chris has to say. You even manage to absorb some of
+it.
+
+ "Hey," Chris says to you after the practicum is over. "I realize I may have
+been a bit hard on you earlier. I can see that you're trying, so I thought
+that these notes would help you with the quiz. Good luck."
+
+> west
+You move west.
+
+CH 2nd floor South
+You are at the south end of the 2nd floor hallway of Campbell hall. To the
+east is room CH 203, where your Greek Practicum meets. Further north off of
+the hallway is the main lecture hall and the main stairwell. South of here is
+the Chapel lobby.
+
+Also here is crumpled note.
+
+You can move north, east and south.
+
+> north
+You move north.
+
+CH 2nd floor north
+You are standing at the northern end of the 2nd floor hallway in Campbell
+Hall. To the west lies the main lecture hall where you would learn greek if
+you were so inclined. To the south lies the room where your small group
+meets, and the chapel. To the north is  the main stairwell.
+
+You can move north, south and west.
+
+> north
+You move north.
+
+(2) Cambell Hall stairwell
+This is the second floor of Campbell Hall. South of here are the main
+classrooms, including the main lecture hall and the room where your small
+group meets. Upwards lies the third floor of Campbell Hall, where the
+professor's offices are. To the east is the elevator, with an out of order
+sign on the door.
+
+You can move south, up and down.
+
+> down
+You move down.
+
+(1) Campbell Hall stairwell
+You are standing in the main Campbell Hall stairwell. The main stairs lead up
+to the classrooms. To the east is the elevator, with a sign that says "Out of
+Order." A door to the south leads towards your mailbox and the academic
+offices, most of which are closed for the summer; They've heard of Greek
+School, but decided they didn't like the sound of it. The stairs to the
+basement have been blocked off for some reason. (Oooh... interesting plot
+foreshadowing!)
+
+You can move south, up and down.
+
+> down
+You move down.
+
+Campbell Hall entrance-
+There is an entrance way here leading into Campbell Hall, one of the main
+academic buildings on campus and the home to your greek classes. Fun. You can
+climb the stairs to enter Campbell Hall (not very handicap accessible, is
+it?) or head north to Simons-Law. A path towards the quad lies eastward.
+
+You can move north, east and up.
+
+> north
+You move north.
+
+A seminary path
+Just a nice path between the various buildings. Simons-Law is to the north,
+Campbell hall is to the south.
+
+You can move north and south.
+
+> north
+You move north.
+
+In front of the Arch
+You are standing at the south end of the famous Simons-Law Arch, a typical
+meeting place for almost any off-campus occasion. A path heading towards
+Campell Hall leads to the South, and a walkway in front of Simons-Law goes
+west and east. To the north is the Arch itself.
+
+You can move north, east, south and west.
+
+> west
+You move west.
+
+Outside Simons-Law, Quad 2
+You are standing just outside of the humble quad that you call home. A
+sidewalk passes in front of the door that  goes in front of each of the
+quads. The 1st Quad is to the west, and the Arch is to the east. There is
+also a bench here for seminarians to sit on while talking to each other or
+meditating on the truths of the universe.
+Paul is here, grumbling to himself and looking somewhat perplexed.
+
+You can move east, west and up.
+Paul gives you a look over, then resumes his searching.
+
+> up
+You move up.
+
+1st floor hallway
+Similar to the floors above it, except for the lone occupant and an exit
+outside. Sarah Peters lives on this floor, in room 212. The stairs leading up
+to the 2nd and 3rd floors are here, as well as some stairs leading down to
+the main (and only) exit.
+
+You can move west, up and down.
+
+> up
+You move up.
+
+2nd floor hallway
+Much like the 3rd floor, only lower. No one is living on this floor at the
+moment, which has left a thick layer of dust disturbed only by your
+footprints going up and down.
+
+You can move up and down.
+
+> up
+You move up.
+
+3rd floor hallway
+This hallway is the only way into your room, and also the only way to the
+outside door downstairs. The sketchy lighting and cracked plaster captures
+the personality of Simons-Law perfectly. There are three doors and a
+staircase leading down.
+
+You can move north and down.
+
+> north
+You move north.
+
+Your Room
+Of all the nooks and crannies the business office could find for student
+housing, they had to stuff you into this one. Stuck on the third floor of
+Simons-Law with no fire-escape but the stairs, you are compensated for this
+lack of basic safety with cracking plaster walls, a heater on the fritz, and
+as little head-room as possible. Ah, the joys of Seminary housing.
+
+You can see your bed, your desk, your dresser, and two doors, one leading
+west to your bathroom and the other south to the main hallway. The south door
+has a large mirror on it.
+
+You can move south and west.
+
+> study for quiz
+Quickly compiling all of your notes, you memorize vocab and paradigms, doing
+your best to get everything where it should go... your  brain. When you
+finish, you think you have it all... but you're not certain for how long.
+
+> south
+You move south.
+
+3rd floor hallway
+This hallway is the only way into your room, and also the only way to the
+outside door downstairs. The sketchy lighting and cracked plaster captures
+the personality of Simons-Law perfectly. There are three doors and a
+staircase leading down.
+
+You can move north and down.
+
+> down
+You move down.
+
+2nd floor hallway
+Much like the 3rd floor, only lower. No one is living on this floor at the
+moment, which has left a thick layer of dust disturbed only by your
+footprints going up and down.
+
+You can move up and down.
+
+> down
+You move down.
+
+1st floor hallway
+Similar to the floors above it, except for the lone occupant and an exit
+outside. Sarah Peters lives on this floor, in room 212. The stairs leading up
+to the 2nd and 3rd floors are here, as well as some stairs leading down to
+the main (and only) exit.
+
+You can move west, up and down.
+
+> down
+You move down.
+
+Outside Simons-Law, Quad 2
+You are standing just outside of the humble quad that you call home. A
+sidewalk passes in front of the door that  goes in front of each of the
+quads. The 1st Quad is to the west, and the Arch is to the east. There is
+also a bench here for seminarians to sit on while talking to each other or
+meditating on the truths of the universe.
+Paul is here, grumbling to himself and looking somewhat perplexed.
+
+You can move east, west and up.
+Paul gives you a look over, then resumes his searching.
+
+> east
+You move east.
+
+In front of the Arch
+You are standing at the south end of the famous Simons-Law Arch, a typical
+meeting place for almost any off-campus occasion. A path heading towards
+Campell Hall leads to the South, and a walkway in front of Simons-Law goes
+west and east. To the north is the Arch itself.
+
+You can move north, east, south and west.
+
+> south
+You move south.
+
+A seminary path
+Just a nice path between the various buildings. Simons-Law is to the north,
+Campbell hall is to the south.
+
+You can move north and south.
+
+> south
+You move south.
+
+Campbell Hall entrance-
+There is an entrance way here leading into Campbell Hall, one of the main
+academic buildings on campus and the home to your greek classes. Fun. You can
+climb the stairs to enter Campbell Hall (not very handicap accessible, is
+it?) or head north to Simons-Law. A path towards the quad lies eastward.
+
+You can move north, east and up.
+
+> up
+You move up.
+
+(1) Campbell Hall stairwell
+You are standing in the main Campbell Hall stairwell. The main stairs lead up
+to the classrooms. To the east is the elevator, with a sign that says "Out of
+Order." A door to the south leads towards your mailbox and the academic
+offices, most of which are closed for the summer; They've heard of Greek
+School, but decided they didn't like the sound of it. The stairs to the
+basement have been blocked off for some reason. (Oooh... interesting plot
+foreshadowing!)
+
+You can move south, up and down.
+
+> up
+You move up.
+
+(2) Cambell Hall stairwell
+This is the second floor of Campbell Hall. South of here are the main
+classrooms, including the main lecture hall and the room where your small
+group meets. Upwards lies the third floor of Campbell Hall, where the
+professor's offices are. To the east is the elevator, with an out of order
+sign on the door.
+
+You can move south, up and down.
+
+> up
+You move up.
+
+(3) Campbell Hall stairwell
+You are on the third floor landing of the main Campbell Hall stairwell. To
+the south is a hallway with many professor's offices. To the east is the
+elevator.
+
+You can move east, south and down.
+
+> south
+You move south.
+
+CH 3rd floor North
+This is the north end of the third floor of Campbell Hall, where most of the
+professor's offices are. As most professors do not teach Greek (indeed, the
+ethics professors have debated the teaching of it for some time) most of the
+offices are locked. Professor Johnson's office, however, lies to the west.
+The hallway continues to the south, and to the north is the stairwell.
+
+You can move north, south and west.
+
+> west
+You move west.
+
+Prof. Johnson's office
+You've never seen so many books on greek language in one place... they're
+everywhere, written in many other languages that you also don't speak. In the
+middle of this shrine to a dead language is the professor's desk, which is
+covered in papers. The hallway lies to the east.
+Johnson is here.
+
+You can only move east.
+
+> take quiz
+You sit down, sweating profusely as visions of greek letters pass through
+your head. The quiz  is difficult, but with the knowledge gleaned from all of
+the notes you acquired, you feel adequate to the task, and quickly put pen to
+paper...
+
+ When you finish, Professor Johnson takes it from you and looks it over
+quickly. "Well, I have to admit that I'm surprised, but it certainly looks
+like you've studied. This must be the first A you've had on a quiz this
+summer. Well done!"
+
+ A huge smile breaks out on your face. Looks like you'll live to see another
+day! Hoorraayy!
+
+ As you leave Professor Johnson's office, you find yourself faced by Jimmy,
+who is grinning. "Ha! I knew you could do it! This calls for celebration.
+Let's go party!"
+
+ Not long after, you find yourself in Thinking Man's tavern celebrating your
+unexpected triumph. "Hey," Jimmy says, unexpectedly. "I've gotta head out for
+a moment. You'll be fine here while I'm gone, right? Just hit this... you'll
+be entertained enough, I'm sure." Then, pushing a bottle into your hands, he
+heads for the door.
+
+> drink tequila
+Well, when in Rome, and all of that. Giving a silent toast to your mastery of
+all things this week in Greek, you raise the bottle to your lips and take a
+swig. It goes down smooth... far smoother than you'd expect, given that it is
+tequila. A few swigs later, however, the world starts spinning....
+spinning... and then, you are in...
+
+Dark
+You seem to have landed in the midst of endless void. Occasional flashes of
+light pass your vision but you have no real context for them... there seems
+to be nothing for them to illuminate.
+
+You can move north, east, south, west, up and down.
+Something weird is going on here... and all this dark is really depressing...
+
+> north
+You move north.
+
+More Dark
+You seem to have landed in the midst of endless void. Occasional flashes of
+light pass your vision but you have no real context for them... there seems
+to be nothing for them to illuminate.
+Descartes is here.
+
+You can move north, east, south, west, up and down.
+
+> give plenary notes
+Descartes looks at them, then nods. "You have some learning, it seems? Very
+well. Fill your void with knowledge, gained from ze masters, and the way back
+to your body will begin to form. Farewell, student of ze classiks!"
+
+There is a moment of disorientation, and then suddenly what was dark explodes
+into light. You are now in...
+
+Chaos
+Where once there was only emptiness, occasionally streaked with the odd bit
+of light, you know find yourself surrounded by light and color, dazzling and
+flying around in insane, impossible patterns and mixtures.
+
+You can move north, east, south, west, up and down.
+
+> north
+You move north.
+
+More Chaos
+Where once there was only emptiness, occasionally streaked with the odd bit
+of light, you know find yourself surrounded by light and color, dazzling and
+flying around in insane, impossible patterns and mixtures.
+Crusader is here.
+
+You can move north, east, south, west, up and down.
+
+> give practicum notes
+"Very good, very good, indeed! Let us ride on, now, to adventure, and
+excitement! I am so excited, that if I had my sword, I would smiting
+everything in sight! Now, CHARGE!"
+
+Suddenly astride a mighty steed, the Crusader charges forward, and somehow
+drags you with him. The chaos becomes even more chaotic, until you find
+yourself falling.
+
+WHAM! You hit the ground, and when you look up you are in...
+
+Desert
+Everywhere you look, you see yourself surrounded by a vast, empty stretch of
+sand. The air is dry and still, the sky a dull white above you, matching a
+sun that is both harsh and colorless. Quite a downer, actually.
+
+You can move north, east, south and west.
+
+> give study guide
+Anthony gasps, shocked. "What? You used lecherous ways to woo the naive and
+innocent into aiding you for selfish reasons? You must be some evil vision
+sent to plague me, begone, in the name of Christ, and trouble me no more!"
+
+That's the ticket! A mighty wind blows through the desert, knocking you head
+over heels until you land in...
+
+> north
+You move north.
+
+Northern Corridor
+The corridor continues on. This is clearly some kind of mighty fortress. You
+can head back the way you came, to the south, or head west into some kind of
+antechamber. (Ok, I don't really know what an antechamber is. It's a big
+room.)
+
+You can move south and west.
+
+> west
+You move west.
+
+Antechamber (or whatever)
+You are in a large room with a view of the outdoors. The room is sparsely
+decorated, with a desk, a fireplace, and little else.
+
+You can only move east.
+
+> give Luther Jimmy's rules
+Luther smiles. "Ach, so! Ein minute, bitte..." apparently forgetting that you
+don't speak much German. He walks out into the hallway, and comes back a few
+moments later.
+
+"There you are, Player, and good luck in the rest of your endeavors. And
+remember, grace abounds!"
+
+> east
+You move east.
+
+Northern Corridor
+The corridor continues on. This is clearly some kind of mighty fortress. You
+can head back the way you came, to the south, or head west into some kind of
+antechamber. (Ok, I don't really know what an antechamber is. It's a big
+room.)
+
+You can move south and west.
+
+> south
+You move south.
+
+Castle Corridor
+Talk about a change of venue. You are currently standing in some sort of
+castle corridor. The door to the south is locked by an insanely complicated
+locking mechanism, and the corridor moves on to the north.
+
+You can only move north.
+
+> open door
+Yes! The mechanism has been unlocked, and though it takes a few heaves, you
+push your way into...
+
+...conciousness. And now you're here, you kind of wish that you weren't. Your
+head is pounding and you can barely see straight. You've had hangovers
+before, but this... this is unreal.
+
+You are in your bathroom. How appropriate. Taking advantage of the momentary
+break in the game, you kneel before the porcelain alter. Let it fly, baby,
+let it fly.
+
+When you are finally done, you stand up and pat yourself down. You are in
+decent shape, considering what you've been through, but you can't remember
+much of what you dreamed the night before. It's odd... your wallet and
+everything of value are still on you... but your greek notes seem to be
+missing...
+
+> east
+You move east.
+
+Your Room
+Of all the nooks and crannies the business office could find for student
+housing, they had to stuff you into this one. Stuck on the third floor of
+Simons-Law with no fire-escape but the stairs, you are compensated for this
+lack of basic safety with cracking plaster walls, a heater on the fritz, and
+as little head-room as possible. Ah, the joys of Seminary housing.
+
+You can see your bed, your desk, your dresser, and two doors, one leading
+west to your bathroom and the other south to the main hallway. The south door
+has a large mirror on it.
+
+Also here is Jimmy's note.
+
+You can move south and west.
+
+> south
+You move south.
+
+3rd floor hallway
+This hallway is the only way into your room, and also the only way to the
+outside door downstairs. The sketchy lighting and cracked plaster captures
+the personality of Simons-Law perfectly. There are three doors and a
+staircase leading down.
+
+You can move north and down.
+
+> down
+You move down.
+
+2nd floor hallway
+Much like the 3rd floor, only lower. No one is living on this floor at the
+moment, which has left a thick layer of dust disturbed only by your
+footprints going up and down.
+
+You can move up and down.
+
+> down
+You move down.
+
+1st floor hallway
+Similar to the floors above it, except for the lone occupant and an exit
+outside. Sarah Peters lives on this floor, in room 212. The stairs leading up
+to the 2nd and 3rd floors are here, as well as some stairs leading down to
+the main (and only) exit.
+
+You can move west, up and down.
+
+> down
+You move down.
+
+Outside Simons-Law, Quad 2
+You are standing just outside of the humble quad that you call home. A
+sidewalk passes in front of the door that  goes in front of each of the
+quads. The 1st Quad is to the west, and the Arch is to the east. There is
+also a bench here for seminarians to sit on while talking to each other or
+meditating on the truths of the universe.
+Paul is here, grumbling to himself and looking somewhat perplexed.
+
+You can move east, west and up.
+Paul gives you a look over, then resumes his searching.
+
+> east
+You move east.
+
+In front of the Arch
+You are standing at the south end of the famous Simons-Law Arch, a typical
+meeting place for almost any off-campus occasion. A path heading towards
+Campell Hall leads to the South, and a walkway in front of Simons-Law goes
+west and east. To the north is the Arch itself.
+Street Preacher is here.
+
+You can move north, east, south and west.
+
+> south
+You move south.
+
+A seminary path
+Just a nice path between the various buildings. Simons-Law is to the north,
+Campbell hall is to the south.
+
+You can move north and south.
+
+> south
+You move south.
+
+Campbell Hall entrance-
+There is an entrance way here leading into Campbell Hall, one of the main
+academic buildings on campus and the home to your greek classes. Fun. You can
+climb the stairs to enter Campbell Hall (not very handicap accessible, is
+it?) or head north to Simons-Law. A path towards the quad lies eastward.
+
+You can move north, east and up.
+
+> up
+You move up.
+
+(1) Campbell Hall stairwell
+You are standing in the main Campbell Hall stairwell. The main stairs lead up
+to the classrooms. To the east is the elevator, with a sign that says "Out of
+Order." A door to the south leads towards your mailbox and the academic
+offices, most of which are closed for the summer; They've heard of Greek
+School, but decided they didn't like the sound of it. The stairs to the
+basement have been blocked off for some reason. (Oooh... interesting plot
+foreshadowing!)
+
+You can move south, up and down.
+
+> south
+You move south.
+
+Campbell Hall Lobby
+The furniture in here is so nice, you got a stern look from the president
+once just for sitting on it. Clearly designed more for the high-rollers than
+lowly M-Div students, this lobby has been mostly empty all summer. After all,
+who in their right mind would move to Atlanta in the summertime?
+Larry is here.
+
+You can move north and south.
+
+> south
+You move south.
+
+Outside the Business Office
+You are in the main hallway of Campbell Hall, just outisde of the business
+office. The business office would be where you should go to have any rooming
+problems handled, assuming they were ever open, which they're not. Luckily,
+the mailboxes are kept in the main hallway itself, allowing you to get to
+your mail. There is also a list of student rooms posted by the mailboxes.
+ To the north is the Campbell Hall lobby. To the south is the registrar's
+office.
+
+You can move north and south.
+
+> open mailbox
+You open your mailbox.  Folded message and a small Package are inside your
+mailbox.
+
+> look in mailbox
+This is your mailbox. It has a small window that is so badly smudged that you
+cannot tell whether you have any mail or not.  Your mailbox is open.  Folded
+message and a small Package are inside your mailbox.
+
+> take Package
+You take the small Package from your mailbox.
+
+> open Package
+You open the small Package.  A burned copy of Bibleworks and pastor's letter
+are inside the small Package.
+
+> look in Package
+A small manila package.  The small Package is open.  A burned copy of
+Bibleworks and pastor's letter are inside the small Package.
+
+> take Bibleworks
+You take the burned copy of Bibleworks from the small Package.
+
+> north
+You move north.
+
+Campbell Hall Lobby
+The furniture in here is so nice, you got a stern look from the president
+once just for sitting on it. Clearly designed more for the high-rollers than
+lowly M-Div students, this lobby has been mostly empty all summer. After all,
+who in their right mind would move to Atlanta in the summertime?
+Larry is here.
+
+You can move north and south.
+
+> north
+You move north.
+
+(1) Campbell Hall stairwell
+You are standing in the main Campbell Hall stairwell. The main stairs lead up
+to the classrooms. To the east is the elevator, with a sign that says "Out of
+Order." A door to the south leads towards your mailbox and the academic
+offices, most of which are closed for the summer; They've heard of Greek
+School, but decided they didn't like the sound of it. The stairs to the
+basement have been blocked off for some reason. (Oooh... interesting plot
+foreshadowing!)
+
+You can move south, up and down.
+
+> down
+You move down.
+
+Campbell Hall entrance-
+There is an entrance way here leading into Campbell Hall, one of the main
+academic buildings on campus and the home to your greek classes. Fun. You can
+climb the stairs to enter Campbell Hall (not very handicap accessible, is
+it?) or head north to Simons-Law. A path towards the quad lies eastward.
+
+You can move north, east and up.
+
+> north
+You move north.
+
+A seminary path
+Just a nice path between the various buildings. Simons-Law is to the north,
+Campbell hall is to the south.
+
+You can move north and south.
+
+> north
+You move north.
+
+In front of the Arch
+You are standing at the south end of the famous Simons-Law Arch, a typical
+meeting place for almost any off-campus occasion. A path heading towards
+Campell Hall leads to the South, and a walkway in front of Simons-Law goes
+west and east. To the north is the Arch itself.
+Street Preacher is here.
+
+You can move north, east, south and west.
+
+> east
+You move east.
+
+Outside Simons-Law, Quad 3
+You are standing outside of the third Quad of Simons-Law. There is a bench
+here for reflective sitting. You can head up into third quad from here. To
+the east is Quad 4. To the west is the arch and a path heading to Campbell
+hall.
+
+You can move east, west and up.
+
+> east
+You move east.
+
+Outside Simons-Law, Quad 4
+You are standing at the easternmost edge of Simon-Law, the fourth quad. Like
+always, there is a bench here to sit on. Like quad 1, all residents of Quad 4
+are gone for the summer.
+
+You can move east and west.
+
+> east
+You move east.
+
+In front of Richards Center
+You are standing in front of the Richards Center, the fine building named
+after a former Columbia President which proudly holds the CTS Refectory and a
+number of classrooms. You can go north into the Richards Center, though you
+do see a small sign on the door.  You can also go  west towards Simons-Law or
+follow another path that leads south towards the Quad.
+
+You can move north, south and west.
+
+> north
+You move north.
+
+Richards Center Lobby
+This is the main lobby of the Richards Center. To the west is the bookstore,
+which has yet to be open since you arrived at the start of summer. To the
+north is the Refectory, the source of food and various forms of depression,
+and to the east is a TV lounge. There is also a strange statue here.
+Jesus and Deedles are here.
+
+You can move north, east and south.
+
+> east
+Once again, Deedles blocks your way. "Fallen a bit behind on your workstudy
+hours, haven't you? I'll need to see a completed workstudy time card before I
+can let you past, I'm afraid."
+
+> east
+You move east.
+
+TV Lounge
+A fine place to relax, and the only place on campus to watch cable
+television, this room is also occasionally used as a place to pick up various
+important campus documents. No one is really sure why.
+
+A small table has been placed by the door, holding a pile of take home tests.
+Looks like it's go time, Player.
+
+To the west is the lobby.
+
+Also here is take home exam.
+
+You can only move west.
+
+> take exam
+You take take home exam.
+
+> west
+You move west.
+
+Richards Center Lobby
+This is the main lobby of the Richards Center. To the west is the bookstore,
+which has yet to be open since you arrived at the start of summer. To the
+north is the Refectory, the source of food and various forms of depression,
+and to the east is a TV lounge. There is also a strange statue here.
+Jesus and Deedles are here.
+
+You can move north, east and south.
+
+> south
+You move south.
+
+In front of Richards Center
+You are standing in front of the Richards Center, the fine building named
+after a former Columbia President which proudly holds the CTS Refectory and a
+number of classrooms. You can go north into the Richards Center, though you
+do see a small sign on the door.  You can also go  west towards Simons-Law or
+follow another path that leads south towards the Quad.
+
+You can move north, south and west.
+
+> west
+You move west.
+
+Outside Simons-Law, Quad 4
+You are standing at the easternmost edge of Simon-Law, the fourth quad. Like
+always, there is a bench here to sit on. Like quad 1, all residents of Quad 4
+are gone for the summer.
+
+You can move east and west.
+
+> west
+You move west.
+
+Outside Simons-Law, Quad 3
+You are standing outside of the third Quad of Simons-Law. There is a bench
+here for reflective sitting. You can head up into third quad from here. To
+the east is Quad 4. To the west is the arch and a path heading to Campbell
+hall.
+
+You can move east, west and up.
+
+> west
+You move west.
+
+In front of the Arch
+You are standing at the south end of the famous Simons-Law Arch, a typical
+meeting place for almost any off-campus occasion. A path heading towards
+Campell Hall leads to the South, and a walkway in front of Simons-Law goes
+west and east. To the north is the Arch itself.
+Street Preacher is here.
+
+You can move north, east, south and west.
+
+> west
+You move west.
+
+Outside Simons-Law, Quad 2
+You are standing just outside of the humble quad that you call home. A
+sidewalk passes in front of the door that  goes in front of each of the
+quads. The 1st Quad is to the west, and the Arch is to the east. There is
+also a bench here for seminarians to sit on while talking to each other or
+meditating on the truths of the universe.
+Paul is here, grumbling to himself and looking somewhat perplexed.
+
+You can move east, west and up.
+Paul gives you a look over, then resumes his searching.
+
+> up
+You move up.
+
+1st floor hallway
+Similar to the floors above it, except for the lone occupant and an exit
+outside. Sarah Peters lives on this floor, in room 212. The stairs leading up
+to the 2nd and 3rd floors are here, as well as some stairs leading down to
+the main (and only) exit.
+
+You can move west, up and down.
+
+> up
+You move up.
+
+2nd floor hallway
+Much like the 3rd floor, only lower. No one is living on this floor at the
+moment, which has left a thick layer of dust disturbed only by your
+footprints going up and down.
+
+You can move up and down.
+
+> up
+You move up.
+
+3rd floor hallway
+This hallway is the only way into your room, and also the only way to the
+outside door downstairs. The sketchy lighting and cracked plaster captures
+the personality of Simons-Law perfectly. There are three doors and a
+staircase leading down.
+
+You can move north and down.
+
+> north
+You move north.
+
+Your Room
+Of all the nooks and crannies the business office could find for student
+housing, they had to stuff you into this one. Stuck on the third floor of
+Simons-Law with no fire-escape but the stairs, you are compensated for this
+lack of basic safety with cracking plaster walls, a heater on the fritz, and
+as little head-room as possible. Ah, the joys of Seminary housing.
+
+You can see your bed, your desk, your dresser, and two doors, one leading
+west to your bathroom and the other south to the main hallway. The south door
+has a large mirror on it.
+
+Also here is Jimmy's note.
+
+You can move south and west.
+
+> install program
+Your computer is up it, if just barely. It's a good thing this wasn't version
+6.0! Your computer is now running Bibleworks.
+
+> use Bibleworks
+All seems hopeless until you remember about the lovely elaborate crutch
+resting in your computers innards. Then, in a blaze of electron inspired
+brilliance, you unravel the text, and lay it bare before you. In only a few
+minutes, you find that you have completed the test!
+
+With a flourish and a smile, you run down the stairs, over to Campbell Hall,
+and eagerly into Prof. Johnson's office where you present "your work", also
+surrepticiously placing the stolen copy in as well. Now all there's to do is
+wait for the results...
+
+%pause%
+
+One Week Later...
+
+When word arrives that the exam results have come in, you rush over to Prof.
+Johnson's office. She greets you with a smile.
+
+"Well, Player, I can see that I underestimated you. Your hard work and
+perseverence have allowed you to surpass all expectations, and deliver a
+solid "B" on your final, which constitutes a passing grade. Excellently done,
+and congratulations."
+
+Congratulations, indeed! You have passed Greek School, without ever learning
+Greek!
+You are a Greek School survivor! Well done!
+You scored 185 out of the maximum 275!
+That is 67% of the game!
+You finished 90 points short.

@@ -1,0 +1,583 @@
+Loading game...
+
+The Hunter
+Dreams or memories rush past you, fighting inside a castle. A delegation of
+diplomats scattering before armed warriors. Men-at-arms locked in combat,
+spells flying past. Flames lick at the furniture, storms blast the walls. An
+old man in a travelling cloak putting out the flames, casting spells at the
+other spellcasters. Suddenly he casts one at you and you fall into blackness.
+
+You wake up suddenly with the sensation of hitting the floor.
+Please enter your name:
+
+> Hunter
+Please choose the player's gender (male or female):
+
+> male
+
+Ruined Statue
+You are in a crumbling stone room. Above you towers a broken statue, ravaged
+by the passage of time. It holds a torch, which is burning, illuminating the
+room. About you lurk malevolent shadows, seeming to move with a life of their
+own, though these are glimpses seen from the corner of your eye that vanish
+the moment you look closely at them. They are probably tricks of the
+torchlight. Passages in the ruined walls of this place lie to the north and
+west.
+
+> torch an flam
+The torch fights your magic briefly, then succumbs, plunging the room into
+darkness.
+
+> west
+(Standing up first)
+You move west.
+
+Cage
+You are in a circular chamber. In the centre of the room is a cage, sunken
+into the floor, in which the skeleton of some beast lies in a heap. Claw
+marks on the bars of the cage indicate the beast fought ferociously to escape
+its imprisonment, yet failed. And died. To the west there is a large chamber
+from which a humming sound emanates; to the east you can make out a statue.
+
+> west
+You move west.
+
+Humming Chamber
+You are in a room that obviously once served as a meeting hall or council
+chambers. Rows of seats spiral outwards from a central podium where a speaker
+once stood to deliver speeches to a waiting audience. It is lit by a
+candelabra suspended above the central podium, which is still lighting the
+room, despite there being no evidence that there are any burning candles in
+it. Many of the seats are smashed and little but splinters remain. Burn marks
+scar the floor and walls; in one place there is what appears to be a large
+quantity of books and scrolls which someone has attempted to burn but
+abandoned partway through. A faint humming sound can be heard, emanating from
+somewhere in the chamber. A passage extends north and another to the east.
+
+> candelabra an lor
+The candelabra goes out with relief, leaving the room dark.
+
+> north
+You move north.
+
+Blocked Passage
+You are in a stone passage. The ceiling has collapsed, blocking further
+access along it. On one wall is an opening which overlooks the outside world,
+although the drop looks to be formidable and you doubt you could survive it.
+The passage leads back to the south.
+
+> window in hur
+Wind howls out through the window, taking you with it. Fortunately, you
+manage to grab onto the frame.
+
+Dangling
+You are dangling outside the castle. Below you, the castle wall, followed by
+a cliff, drop two hundred metres sheer to the plains below. You are
+desperately hanging on to a window frame. You might be able to climb up into
+the window, or you could let go and fall to your death.
+
+> window an hur
+The wind dies down and you manage to climb back in through the window.
+
+Blocked Passage
+You are in a stone passage. The ceiling has collapsed, blocking further
+access along it. On one wall is an opening which overlooks the outside world,
+although the drop looks to be formidable and you doubt you could survive it.
+The passage leads back to the south.
+
+> south
+You move south.
+
+Humming Chamber
+You are in a room that obviously once served as a meeting hall or council
+chambers. Rows of seats spiral outwards from a central podium where a speaker
+once stood to deliver speeches to a waiting audience. There is a candelabra
+suspended above the central podium with no candles in. Many of the seats are
+smashed and little but splinters remain. Burn marks scar the floor and walls;
+in one place there is what appears to be a large quantity of books and
+scrolls which someone has attempted to burn but abandoned partway through. A
+faint humming sound can be heard, emanating from somewhere in the chamber.
+The room is dark apart from a faint natural light from the northeast. A
+passage extends north and another to the east.
+
+> east
+You move east.
+
+Cage
+You are in a circular chamber. In the centre of the room is a cage, sunken
+into the floor, in which the skeleton of some beast lies in a heap. Claw
+marks on the bars of the cage indicate the beast fought ferociously to escape
+its imprisonment, yet failed. And died. To the west there is a large chamber
+from which a humming sound emanates; to the east you can make out a statue.
+
+> east
+You move east.
+
+Ruined Statue
+You are in a dark, crumbling stone room. Above you towers a broken statue,
+ravaged by the passage of time. It holds a torch, which is unlit. Passages in
+the ruined walls of this place lie to the north and west.
+
+> north
+You move north.
+
+Ancient Gallery
+You are in a portrait gallery of some sort. The walls about you are ancient
+and crumbling, yet modern looking portraits hang from them all the same. The
+faces depicted twist and writhe in torment. Is it your imagination or can you
+also hear their cries? Against one wall lies a large crystal, as tall as a
+man and wide as a chariot. It is glowing, illuminating the room with an angry
+red glow. A passage lies away to the south and another to the northeast, at
+the end of which a light shines faintly.
+
+> crystal an lor
+The crystal responds to your command rather enthusiastically, sucking in
+light from the room.
+
+> northeast
+You move northeast.
+
+Passage
+You are in a stone passage. The broken bones of tiny rodents crunch underfoot
+as you make your way along it. It is dark and shadowy for the most part,
+illuminated poorly by the pale daylight at the end. The passage extends
+northeast to a tower staircase and southwest to an ancient gallery.
+
+> northeast
+You move northeast.
+
+Top of Tower
+You are at the top of a castle tower. The roof has crumbled and fallen,
+letting light stream in. The top of the walls is out of your reach and the
+walls are smooth. There was once a wooden spiral staircase running up this
+tower, but it is no longer useable: a combination of the falling roof, the
+elements, and scorch marks have consigned it to a heap of splinters at the
+bottom of the tower, leaving only a gaping hole in its place. The passage you
+came down heads back southwest. The bottom of the tower is a long way below
+you.
+
+> tower in hur
+You feel a very slight resistance to the magic hovering on the edge of your
+consciousness, but it cannot stop your magic. After a few seconds, a howling
+gale blasts up the inside of the tower.
+
+> down
+You step into the gale. You are buffeted and swung around by the wind.
+Several black doorways pass your line of vision, and then you are dumped,
+feeling rather dizzy, on a heap of wood fragments.
+
+Bottom of Tower
+You are at the bottom of a tall castle tower. The remains of the tower's
+staircase are here, a heap of wood fragments. There is no way to climb back
+up the tower. The tower is lit by light pouring in through the broken roof.
+There is an extremely dark passage heading South and another heading West.
+
+> get up
+You drag yourself off the remains of the stairs and to your feet. After
+staggering around for a few seconds, you recover yourself.
+
+> stairs in flam
+You feel an odd resistance to your magic on the edge of your consciousness,
+but break through it easily enough. The remains of the stairs burst into
+flame. They are bone dry and in small pieces. The heat they give off drives
+you from the room. You run into the cool dark corridors and don't stop
+running until the flames are out of sight. There is a funny smell, and you
+realise it is coming from your singed hair.
+
+Very Dark Passage
+This is an extremely dark passage, so dark that you realise you have lost all
+sense of direction and can see nothing. The passage you came down should be
+to your North.
+
+> ring kal lor
+Some external resistance is preventing the casting of magic by multiplying
+the energy requirements many times over. However, an ant could provide the
+energy required to invoke a magical object, so even with the anti-magic field
+you succeed in waking the power within the ring. It explodes into light. You
+collapse onto the floor as the energy drains from you, but retain
+consciousness. Some strength returns in a few minutes.
+You can now make out the details of the room you are in. The passage widens
+out and narrow exits head north and west.
+
+> west
+You enter a massive main hall.
+
+Main Hall SE
+This is the southeast quarter of the castle's main hall. The vaulted ceiling
+stretches out of sight above you. A vast pillar in the centre of the room,
+shaped like an enormous tree, stretches up into darkness towards the ceiling.
+The floor is paved with marble flagstones. There is a sculpture here. A
+passage enters from the East. The hall stretches out of the pool of light
+thrown by your ring to the west, north and northwest.
+
+> north
+You move north.
+
+Main Hall NE
+This is the northeast quarter of the castle's main hall. The vaulted ceiling
+stretches out of sight above you. A vast pillar in the centre of the room,
+shaped like an enormous tree, stretches up into darkness towards the ceiling.
+The floor is paved with marble flagstones. There is a tapestry on the wall
+here. The hall stretches out of the pool of light thrown by your ring to the
+west, south and southwest.
+
+> west
+You move west.
+
+Main Hall NW
+This is the northwest quarter of the castle's main hall. The vaulted ceiling
+stretches out of sight above you. A vast pillar in the centre of the room,
+shaped like an enormous tree, stretches up into darkness towards the ceiling.
+The floor is paved with marble flagstones. The northern half of the main
+table is here. A passage enters from the north. The hall stretches out of the
+pool of light thrown by your ring to the east, south and southeast.  A mouse
+scuttles along the table from the south.
+
+> examine table
+This is a long wooden banquet table, looking big enough to seat a hundred or
+so. It is devoid of any food.  A sharp knife is on the huge wooden table.
+
+> take knife
+You take the sharp knife from the huge wooden table.
+
+> south
+You move south.
+
+Main Hall SW
+This is the southwest quarter of the castle's main hall. The vaulted ceiling
+stretches out of sight above you. A vast pillar in the centre of the room,
+shaped like an enormous tree, stretches up into darkness towards the ceiling.
+The floor is paved with marble flagstones. The southern half of the main
+table is here. There is a grand door in the west wall. The hall stretches out
+of the pool of light thrown by your ring to the east, north and north east.
+A mouse scuttles along the table from the north.
+
+> kill rodent with knife
+You throw the knife at the mouse. It hits, and the mouse expires instantly. A
+Harris' Hawk swoops into the room. You are not sure where from. She lands on
+the end of the table and looks at the mouse.
+
+> get dead mouse
+Kiya follows the mouse with her eyes. Suddenly she launches herself forward
+at the mouse. Instinctively you hold out your hand with the mouse in. Kiya
+lands on it gently and eats the mouse, then jumps off and sits on the table
+looking at you.
+
+> north
+You move north.
+
+Main Hall NW
+This is the northwest quarter of the castle's main hall. The vaulted ceiling
+stretches out of sight above you. A vast pillar in the centre of the room,
+shaped like an enormous tree, stretches up into darkness towards the ceiling.
+The floor is paved with marble flagstones. The northern half of the main
+table is here. A passage enters from the north. The hall stretches out of the
+pool of light thrown by your ring to the east, south and southeast.  A mouse
+scuttles along the table from the south.  Kiya flies in from the south.
+
+> east
+You move east.
+
+Main Hall NE
+This is the northeast quarter of the castle's main hall. The vaulted ceiling
+stretches out of sight above you. A vast pillar in the centre of the room,
+shaped like an enormous tree, stretches up into darkness towards the ceiling.
+The floor is paved with marble flagstones. There is a tapestry on the wall
+here. The hall stretches out of the pool of light thrown by your ring to the
+west, south and southwest.  Kiya flies in from the west.
+
+> my name hunter say
+Kiya swoops onto your arm as you speak. The tapestry shimmers, highlighting
+your name, then rolls up. Behind it is a small store cupboard, and there is a
+set of armour, a sword and a shield in it. You get them and strap the armour
+and shield on. The tapestry rolls shut again. Kiya nods, then swoops off
+again.
+
+> south
+You move south.
+
+Main Hall SE
+This is the southeast quarter of the castle's main hall. The vaulted ceiling
+stretches out of sight above you. A vast pillar in the centre of the room,
+shaped like an enormous tree, stretches up into darkness towards the ceiling.
+The floor is paved with marble flagstones. There is a sculpture here. A
+passage enters from the East. The hall stretches out of the pool of light
+thrown by your ring to the west, north and northwest.  Kiya flies in from the
+north.
+
+> turn statue
+The sculpture twists easily and silently. It clicks faintly when you have
+turned it so it is facing West. The main door out of the room (to your west)
+glides open equally silently, allowing natural light to creep in.
+
+> west
+You move west.
+
+Main Hall SW
+This is the southwest quarter of the castle's main hall. The vaulted ceiling
+stretches out of sight above you. A vast pillar in the centre of the room,
+shaped like an enormous tree, stretches up into darkness towards the ceiling.
+The floor is paved with marble flagstones. The southern half of the main
+table is here. There is a grand door in the west wall. The hall stretches out
+of the pool of light thrown by your ring to the east, north and north east.
+A mouse is here.  Kiya flies in from the east.
+
+> west
+You move west.
+
+Porch
+This is the keep's porch. It is about two stories tall and has the floor
+space of an average city house, but it is a porch nonetheless. The keep's
+main door is to your East, and the courtyard is visible to your West.  Kiya
+flies in from the east.
+
+> west
+You move west.
+
+Inner Courtyard
+This is part of the castle courtyard, close to the keep. It is choked with
+brambles, nettles, and every spiky or poisonous plant you know of, and then
+some. There is a sculpture identical to the one in the main hall here, half
+hidden by brambles. A narrow path through the undergrowth winds West towards
+the castle main gates and East towards the keep.   Kiya flies in from the
+east.
+
+> west
+You move west.
+
+Outer Courtyard
+This is part of the castle courtyard, close to the outer gate. It is just as
+overgrown as the area of courtyard close to the keep, and populated by
+equally nasty vegetation. There is a path through the vegetation to your
+East, a crumbling staircase up Northwest to the walls, and the main gatehouse
+to your West. There is some sort of animal track through the vegetation to
+your south.  Kiya flies in from the east.
+
+> south
+You lie down and crawl through the undergrowth, forcing it apart with your
+sword, protected from the thorns (mostly) by your armour.
+
+Under a hawthorn tree
+This is a natural room about four feet high and six feet across, underneath a
+tall hawthorn tree. There are some large stone blocks on the ground.
+Vegetation surrounds it in all directions, except for an enlarged animal
+track heading North.
+
+Also here is a length of rope.  Kiya flies in from the north.
+
+> take rope
+You take the length of rope.
+
+> north
+You move north.
+
+Outer Courtyard
+This is part of the castle courtyard, close to the outer gate. It is just as
+overgrown as the area of courtyard close to the keep, and populated by
+equally nasty vegetation. There is a path through the vegetation to your
+East, a crumbling staircase up Northwest to the walls, and the main gatehouse
+to your West. There is some sort of animal track through the vegetation to
+your south.  Kiya flies in from the south.
+
+> northwest
+You move northwest.
+
+Top of Wall
+This is a short section of the castle wall, just north of the gate, that is
+still relatively undamaged. The rest of the wall has partially or completely
+crumbled away. Crenellations run along the wall. A stairway runs Southeast
+down next to the gate. It is a long way down to the ground - too far to jump.
+ Kiya flies in from the south-east.
+
+> tie rope to wall
+You tie the rope to the crennelations and let it down the outside of the
+wall.
+
+> down
+You move down.
+
+Outside the castle
+You are outside the castle wall. Below you to the west is a wide, gentle
+slope, covered in a fairly young forest with thick, thorny undergrowth. The
+main gate is to your East, and a wide lane winds down the hill to your West.
+Kiya flies in from above.
+
+> west
+You move west.
+
+Lane
+This is a wide lane coming down the hill from the castle. It is cut through
+fairly young forest. The castle is visible up the lane to your East, and the
+lane continues South.  Kiya flies in from the east.
+
+> south
+You set off down the lane. Night begins to fall as you walk.
+Eventually you reach the bottom of the lane, now in darkness.
+
+Bottom of the Lane
+This is the bottom of the lane leading down from the castle. A small walled
+village lies ahead. The lane heads up the hill to the North and towards the
+village to the West. The woods are slightly thinner to the South, and
+probably passable.
+The Rune Master is here.  Kiya flies in.
+
+> talk to master
+The Rune Master steps up to you and looks at you for a moment. 'I wondered
+how long my spell would take to wear off. The Legion are looking for you in
+connection with the fighting up at the castle - in other words, they thought
+you got killed so made a good scapegoat for the devastation. They can't
+change their minds now, so if they find you, you will probably be executed.
+You know there were over a hundred deaths, not to mention damage to property?
+Well, you're wanted for arson - I accidently incinerated most of the council
+chambers. We should be able to buy a ship from the shipyard in the village.'
+'A... a ship? There's no sea!' you protest.
+'What? Oh. Sorry. A landship.' The Rune Master indicates the vast plains.
+'Fastest way of getting around.'
+You nod in understanding, feeling suddenly tired after being assaulted with
+knowledge after escaping a ruined castle.
+'You look tired,' the Rune Master says. 'Come with me.' Ignoring your
+protests and questions, the Rune Master leads you into the village and to a
+bed in the inn. You fall asleep instantly.
+
+Your Bedroom
+You are in your bedroom in the inn. There is a bed and a chest of drawers,
+and a small window looking west. There is some writing on the wall in
+charcoal. There is a door to the south.
+The first ray of sunlight is shining through your window.
+You roll over in bed, realise that staying in it any longer than absolutely
+neccesary is a bad idea, and get up.
+
+> open door
+You open the wooden door.
+
+> south
+You move south.
+
+Inn Bedrooms
+You are on the floor of the inn with the bedrooms on. There are several doors
+leading off, all locked except one to the North. There is a staircase leading
+down to the common room.  Kiya flies in from the north.
+
+> down
+You move down.
+
+Inn Common Room
+You are in the common room of the village inn. There are a few chairs and
+tables, a bar in the corner (with Fred the barman stood behind), a fire in
+the middle of the room, and a set of steps up to the bedrooms. The door
+leading to the village is to the southwest. There is a badly concealed door
+to the North to Fred's house.
+Fred the innkeeper is here.  Kiya flies in from above.
+
+> southwest
+You move southwest.
+
+Village Centre
+This is the centre of the village, marked by a standing stone. Roads run
+north, east, south and west. The inn is to the northeast. There is an area of
+garden to the Northwest.  Kiya flies in from the north-east.
+
+> south
+You move south.
+
+Road
+This is one of the roads running through the village. It continues north and
+south. The village housing is to the East, but is guarded by a collection of
+large dogs, so you dare not go that way.  Kiya flies in from the north.
+
+> south
+You move south.
+
+Road
+This is one of the roads running through the village. It continues north and
+south. The shipyard office is to the West. The village housing is to the
+East, but is guarded by a collection of large dogs, so you dare not go that
+way.  Kiya flies in from the north.
+
+> west
+You move west.
+
+Shipyard Office
+This is the office for the shipyard. It has had money lavished on it. The
+desk surface is green slate and the chairs are comfortable. There is nobody
+at the desk at the moment. There is a door to the West leading to the
+drydocks and a door South to the docks themselves.
+The Rune Master is here.  Kiya flies in from the east.
+
+> talk to master
+The Rune Master stands up. 'Ah, you're here. Good. I've been talking to the
+shipyard. They've just been sold a ship. Thirty-foot merchant vessel. Should
+do nicely for us. They protested that they hadn't checked it over yet, so I
+gave them some more money.'
+The Rune Master stops as the South door opens and a man comes in. 'Come with
+me,' he orders, then disappears again. You and the Rune Master follow through
+the shipyard and docks and onto a landship.
+After a brief discussion with the shipyard man, the Rune Master begins
+winding a winch. You help, and soon raise some sails. The gate opens, and
+your ship leaves.
+
+You spend the day learning how to operate the ship and half the night on
+watch. At midnight you swap with the Rune Master and go below to sleep.
+
+Hunter Aft Hold
+This is the aft hold of the Hunter. Assorted spare sails and ropes hang from
+the walls, and there are a few crates in a corner. You hammock is tied to the
+walls here. A ladder leads up to the deck and a walkway leads West to the
+forward hold.
+A ray of sunlight is shining through the hatch.
+You realise this is what woke you. After almost thirty seconds of peace, the
+Rune Master shouts you. 'Hunter! Get up here! We're being pursued! Man the
+ballista! Hunter! IN FLAM!'
+
+> take rope
+You take the short length of rope.
+
+> examine crates
+These are a few wooden crates in the corner of the hold. They carry
+provisions for the journey, not valuable cargo.  A ballista bolt is inside
+the pile of crates.
+
+> take bolt
+You take the ballista bolt from the pile of crates.
+
+> up
+(Getting off the hammock first)
+You move up.
+
+Hunter Aft Deck
+You are on the aft deck of the Hunter. The wheel is here, manned by the Rune
+Master. There is also a rear-facing ballista, the mainmast, and some sheets.
+The foredeck is to the west and a hatchway leads down to the hold. All around
+you are empty plains. Directly behind you, another landship, similar in
+length to your ship, but thinner, taller, and more heavily armed, is gaining
+rapidly.
+The Rune Master is here.  The air is filled with the hissing of ballista
+bolts, yelling voices, the crackle of flames, the crash of lightning, and
+other assorted spells, as the Rune Master simultaneously fends off enemy
+spells, incinerates ballista bolts before they hit, and barrages the pursuit
+vessel with spells.  Kiya flies in from below.
+
+> string ballista
+You string the ballista.
+
+> load ballista
+You put a bolt into the ballista and draw it.
+
+> fire ballista
+The ballista fires with a bang, and the bolt soars through the air, then
+smacks into the pursuing ship. At first nothing happens, then the ship begins
+to skid sideways. After a few seconds, its wheels collapse under it and it
+hits the ground with a splintering crash audible even over the roar of your
+own wheels.
+
+'Good shot!' says the Rune Master. 'I guess they were distracted by my
+attempts to kill them. Well, we can get on with teaching you now.' He makes a
+slight alteration to the course, then ties the wheel into place with a length
+of cord.
+
+Well done! You have a long voyage learning from the Rune Master to follow,
+and then who knows what?
+
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!

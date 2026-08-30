@@ -1,0 +1,56 @@
+look
+open drawer
+get matches
+pull shelf
+go east
+get torch
+light match
+get torch
+light torch
+light torch
+sit
+read book
+go north
+go west
+feed peacocks
+get feather
+go east
+go south
+go east
+go north
+go east
+touch indentation
+go north
+go up
+open door
+get book
+go east
+go north
+go east
+go east
+go east
+open left door
+go north
+use dragons delight
+go south
+go east
+go north
+go east
+go east
+go east
+open left door
+open chest
+get handkerchief
+go south
+go west
+go west
+go west
+go south
+go south
+go south
+go east
+wear handkerchief
+pull shackle
+pull shackle
+go down
+tickle dragon with feather

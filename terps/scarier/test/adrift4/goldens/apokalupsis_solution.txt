@@ -1,0 +1,46 @@
+examine me
+inventory
+examine front door
+examine leather jacket
+examine sneakers
+examine red shirt
+examine church
+examine presbytery
+examine danny
+examine jimenez
+examine regis
+examine squad car
+examine cleaner
+examine danny's notes
+talk to jimenez
+talk to jimenez
+talk to jimenez
+go east
+examine study door
+examine kitchen door
+examine living room door
+examine corridor
+examine carpet
+examine stairs
+examine walls
+examine decor
+examine paintings
+examine painting of jesus
+examine painting of field
+examine painting of flowers
+go east
+examine body
+examine wounds
+examine desk
+examine virgin mary statue
+examine computer
+examine papers
+examine pen pot
+examine individual pens
+examine light switch
+examine mirror
+examine broken window
+examine bookcase
+examine missing books
+examine bloody handprints
+go west

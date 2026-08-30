@@ -1,0 +1,257 @@
+Loading game...
+
+The Ascot
+
+# #  #   #    #     #      #       #        #         #
+THE ASCOT
+Written by Duncan Bowsman-- a shake 'n nod adventure!
+ADRIFT 4 courtesy of Campbell Wild.
+# #  #   #    #     #      #       #        #         #
+For assistance on how to play, type how to play and press enter.
+
+You decide to go walking to the convenience store one day when all of a
+sudden a man approaches you!  You think he looks rather out of place, maybe
+even lost.  He removes an ascot from around his neck and says, "Hey, man.
+Wujalykan ASCOT?"
+
+> banana
+Whoa, easy tiger!  You better just stick to just YES or NO, cuz you speak
+through an electronic interpreter for reasons unexplained.  Don't want to
+overload it now, do ya?  It'll totally explode on you if that happens and, I
+mean, then where would you be?
+
+Speechless, that's where!
+
+> yes
+Of course you accept!
+
+The guy waves a finger in front of you, though, dangling the ascot from his
+other hand in warning.  "But I'll warn ya-- this ascot is cursed!  D'ya still
+wannit?"
+
+Well, do you?
+
+> banana
+Did I mention you're doing all this talking through an electronic interpreter
+thingy?  Well, you are.  So you'd better stick to just plain, ol' YES or NO
+to avoid overloading the poor thing.  And, y'know, it blowing up.
+
+> yes
+Of course you still want it!
+
+"Gimme that ascot lost-looking person!" you say.  He promptly hands it over
+and you proceed to your prior stated destination wearing your new overly
+formal accessory.
+
+*        *        *        *
+
+So you've made it to the convenience store.  Not really an accomplishment,
+but, hey, super-sized Slushies are on sale.  Want one?
+
+> banana
+Seriously, this is your last warning.  One more slip-up and your interpreter
+will explode.  So no messin' around!
+
+> yes
+You mix yourself a monster Slushie.  Oh, man is that gonna taste good.  Oh,
+you also get whatever it was you came to the store for... but that doesn't
+really matter, does it?
+
+At the counter, some balding guy named Doug rings up your stuff.
+
+"Hey," he says.  "Nice ascot.  Is it yours?"
+
+> yes
+Doug smiles.  "It suits you.  Say, you wouldn't be related to that rich
+weirdo hanging around outside the shop, would ya?"
+
+> yes
+"Heck yes, we're related!"
+
+Just then, that rich weirdo sweeps dramatically into the store.
+"Frondwelbo!" he calls.  "I would recognise that ascot anywhere-- my son!  I
+have searched long and far to find you.  Do we still have our agreement?"
+
+> yes
+"Good lad!  Now, then, if you want the family fortune you must meet with
+Hilda in White Park--"
+
+"The park around the corner?" you ask.
+
+"Yes," says weirdly rich guy.  "And you must rendezvous with her at thirty
+minutes past twelve--"
+
+"In five minutes?"  You're good at this.
+
+"Indeed!  Fare thee well, Frondwelbo... I must return before the infernal
+Eagle Beast finds us both!"  With that, he disappears (though he pays for his
+gas, first).
+
+Well, what do you think?  Should you head to the park, then?
+
+> yes
+You stroll on over to the park.
+
+You happen to notice a queer, old woman squatting in the bushes.  You hope
+she's not doing what you think she's doing...
+
+"Psst!" she hisses.  "Frondwelbo... is that you?"
+
+> yes
+"Hmph, well, Frondwelbo..." says the old lady.  "I always thought you were an
+absent-minded buffoon.  Never mind, though.  Are you ready to finally claim
+your family's fortune, young master?"
+
+> yes
+The crone hunched in the greenery pulls up a section of roots, revealing a
+dark stairwell.  "Proceed with caution, dear master..."
+
+Oh, man.  You always knew there had to be something cool under that bush.  I
+mean, there's always something cool under bushes, right?  Secret passageways,
+lost treasures, plastic rats, loose change, you name it.  With a small
+adjustment of your ascot, you descend into another world.
+
+*        *        *        *
+
+Holy patoot.  It's totally dark under the bushes-- lucky thing you're a big
+carrot eater.  You've got the night vision to make it around safely sans
+lamp.
+
+It's kind of a cramped tunnel.  The dirt walls are all crumbly and bush roots
+dangling from the ceiling obscure your way, so you keep having to duck and
+sweep your arms in front of you.  Eventually you come to a fork in the
+tunnel.  You think you can see some rays of light coming from around another
+corner to the left, whereas the right-hand passage looks just as dark as the
+long tunnel you came through.
+
+You might like to be out in the light again, but then again you're also
+curious about what might be down the right-hand side.
+
+Think you'll go left, though?
+
+> yes
+Okay, so you go left.  Cool.
+
+Around the corner you find this iron grating-type door thing.  Beyond it is
+an open cliffside filled with all these jagged spires.  Atop the tallest one
+perches the horrible Eagle Beast... part man, part eagle, part alligator, and
+all giant, baby!  I mean, the sight of it is like nine nightmares wrapped in
+accidental electrocution... I mean, really shocking.  Fortunately, its back
+is to you and its hearing must obviously suck because it's completely
+oblivious to you.
+
+Unfortunately, that iron grating-type door is totally locked.  You do notice,
+though, that at the feet of the Eagle Beast lies a fortune!
+
+Well, I dunno... maybe you should just turn around and go down that other
+tunnel?
+
+> no
+Don't be ridiculous, dude.  There's nothing to do here in front of the door
+if you ain't got the key.  You gotta go find the key.  Don't you wanna go
+find the key somewhere?  It's not like it'll be hard.  I mean, you'll prolly
+just be like Y at some point (or N, okay) and I'll be all, like, "Whoa!  You
+found the key.  Way to go!"
+
+So, I mean, that's what you wanna do, right?
+
+> yes
+Okay, so you travel down a steeper and steeper slope into some weird sort of
+tunnel recesses until you realize you picked a frickin' dead-end.
+
+What crud!  Some excuse for a tunnel you chose.  I mean, it doesn't even lead
+anywhere.  You don't have time enough in your day to mess around with this
+stupid stuff.
+
+Unless, y'know, you wanna search it.  Don't know why you would, though.
+Looks emptier than your Geocities guestbook.
+
+But since I mentioned it, I bet you'll insist on searching, huh?
+
+> yes
+So, you spend a little under fourteen minutes putting your pupils to the
+walls and squinting around stalagmites and stuff, when you suddenly notice
+this one key sticking out from under some dirt near this one stalagmite or
+something.  You pluck it out and wipe it off with the bottom of your t-shirt.
+ Yeah, it looks pretty old.  Like an antique or something.  When you really
+squint, you think you can make out some lettering or something on the key.
+
+Hey, wanna try reading the key?
+
+> yes
+The note etched into the key reads:
+
+"Be this the prophecy of the great line of heroes from the royal family
+Hizkwelderbang..."
+
+...blah, blah, blah...
+
+"...the Chosen One will come forth and surrender his voice to free our family
+from the haunting of the fearsome Eagle Beast!"
+
+Huh.  Well, that's neat.  Time to head back to the fork in the tunnel, then?
+
+> yes
+Okay, so you trudge back to the fork in the tunnel.
+
+I'll bet you wanna go left this time, huh?
+
+> yes
+Okay, so you go left.
+
+Around the corner you find this iron grating-type door thing.  Beyond it is
+an open cliffside filled with all these jagged spires.  Atop the tallest one
+perches the horrible Eagle Beast... part man, part eagle, part alligator, and
+all giant, baby!  I mean, the sight of it is like nine nightmares wrapped in
+accidental electrocution... I mean, really shocking.  Fortunately, its back
+is to you and its hearing must obviously suck because it's completely
+oblivious to you.
+
+Unfortunately, that iron grating-type door is totally locked.  You do notice,
+though, that at the feet of the Eagle Beast lies a fortune!
+
+Hey, genius.  Looks like it's time to stick that key in the door, know what I
+mean?
+
+> yes
+You slide the key into the lock and turn it quietly, so you don't draw
+attention from the behemoth bird of prey monster outside... you push the door
+open slowly, slowly... slowly...
+
+You've only snuck out a few steps before the Eagle Beast turns on you!  Its
+red eyes glare at you with deadly intent, and smoky wisps of fire snort out
+its beak-nostril-things.
+
+"That ascot!" booms the Eagle Beast.  "Who have touched it must die!"
+
+Geez, man, I hope you had a plan.  What were you gonna do... give it the
+ascot?
+
+> no
+Your stuff from the convenience store, maybe?
+
+> no
+Your Slushie?
+
+> no
+Your interpreter?
+
+> yes
+Are you sure?
+
+> yes
+Frantically you toss your interpreter at the Eagle Beast.  It catches it in
+one crooked talon and pauses in bewilderment.
+
+"Uh?" it asks.  And then your interpreter blows its featherbeak face off.
+Oh, man... that's gruesome!
+
+You lay claim to the fortune and haul it above ground.  It turns out there
+are no Hizkwelderbangs left alive to claim the fortune.  It also turns out
+their fortune is worth $96,300,000!  You immediately take your money to the
+store to buy yourself a new deluxe interpreter and then, like, a mansion and
+all of that stuff because you're so filthy rich now.
+
+Just one of those lucky adventurers, I guess.
+
+***WHOA!  YOU TOTALLY JUST WON!***

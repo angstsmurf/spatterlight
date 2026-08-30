@@ -1,0 +1,362 @@
+Loading game...
+
+The Puzzle Box
+
+Taken
+
+The Puzzle Box
+
+by Richard Otter
+Version 1.1, 2007
+
+Written for the One Room Game Competition 2007
+
+1. Play the game
+
+2. Read the introduction
+
+3. Useful information
+
+4. Credits
+
+> 1
+
+Stepping carefully through the door, you walk slowly to the centre of the
+room. As you reach the middle, the door behind swings silently closed. You
+are only aware that it is no longer open when a key turning in the lock can
+be heard.
+
+The Room
+The room is about 10m square and seems to be an empty space. For a place with
+no windows and no visible light source it is strange that the room is lit by
+an odd bluish glow.  The only furniture is an old wooden table in the centre
+of the space; the table has a box on it.  On the wall to your left is an old
+oil painting. The only visible exit is south, through the closed door.
+
+> look
+
+The Room
+The room is about 10m square and seems to be an empty space. For a place with
+no windows and no visible light source it is strange that the room is lit by
+an odd bluish glow.  The only furniture is an old wooden table in the centre
+of the space; the table has a box on it.  On the wall to your left is an old
+oil painting. The only visible exit is south, through the closed door.
+
+> pull switch 1
+You pull switch one. Switch one is now in the down position.
+
+> pull switch 2
+You pull switch two. Switch two is now in the down position.
+
+> pull switch 3
+You pull switch three. Switch three is now in the down position.
+
+> pull switch 4
+You pull switch four. Switch four is now in the down position.
+
+> push switch 5
+You push switch five. Switch five is now in the up position.
+
+> push button
+You carefully press the red button.
+
+You hear a click from within the box and it opens, to reveal the next puzzle.
+
+> move minute hand
+You move the hour hand on by one hour.  The clock on the box is now
+displaying 12:35.
+
+> move minute hand
+You move the hour hand on by one hour.  The clock on the box is now
+displaying 12:40.
+
+> move minute hand
+You move the hour hand on by one hour.  The clock on the box is now
+displaying 12:45.
+
+> move minute hand
+You move the hour hand on by one hour.  The clock on the box is now
+displaying 12:50.
+
+> move minute hand
+You move the hour hand on by one hour.  The clock on the box is now
+displaying 12:55.
+
+> move minute hand
+You move the hour hand on by one hour.  The clock on the box is now
+displaying 12:00.
+
+> move minute hand
+You move the hour hand on by one hour.  The clock on the box is now
+displaying 12:05.
+
+> move minute hand
+You move the hour hand on by one hour.  The clock on the box is now
+displaying 12:10.
+
+> move minute hand
+You move the hour hand on by one hour.  The clock on the box is now
+displaying 12:15.
+
+> move minute hand
+You move the hour hand on by one hour.  The clock on the box is now
+displaying 12:20.
+
+Someone in the corridor rattles the door knob.
+
+> move minute hand
+You move the hour hand on by one hour.  The clock on the box is now
+displaying 12:25.
+
+> push button
+You carefully press the red button.
+
+You hear a click from within the box and it opens, to reveal the next puzzle.
+
+> turn dial 1
+You turn the first dial one position. Dial one is now displaying orange.
+
+> turn dial 1
+You turn the first dial one position. Dial one is now displaying yellow.
+
+> turn dial 1
+You turn the first dial one position. Dial one is now displaying green.
+
+> turn dial 1
+You turn the first dial one position. Dial one is now displaying blue.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying yellow.
+
+You hear footsteps in the corridor which stop outside the door, pause for a
+moment and then continue.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying green.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying blue.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying indigo.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying violet.
+
+> turn dial 3
+You turn the third dial one position. Dial three is now displaying green.
+
+> turn dial 3
+You turn the third dial one position. Dial three is now displaying blue.
+
+> turn dial 3
+You turn the third dial one position. Dial three is now displaying indigo.
+
+> turn dial 3
+You turn the third dial one position. Dial three is now displaying violet.
+
+> turn dial 3
+You turn the third dial one position. Dial three is now displaying red.
+
+> turn dial 3
+You turn the third dial one position. Dial three is now displaying orange.
+
+> turn dial 5
+You turn the fifth dial one position. Dial five is now displaying indigo.
+
+> turn dial 6
+You turn the sixth dial one position. Dial six is now displaying violet.
+
+> turn dial 6
+You turn the sixth dial one position. Dial six is now displaying red.
+
+> turn dial 7
+You turn the seventh dial one position. Dial seven is now displaying red.
+
+> turn dial 7
+You turn the seventh dial one position. Dial seven is now displaying orange.
+
+> turn dial 7
+You turn the seventh dial one position. Dial seven is now displaying yellow.
+
+> push button
+You carefully press the red button.
+
+You hear a click from within the box and it opens, to reveal the next puzzle.
+
+> x weathercock
+It is a pivoted ornamental weathervane that turns with the wind to show which
+way it is blowing. It is currently pointing southeast.
+
+> push button
+You carefully press the red button.
+
+You hear a click from within the box and it opens, to reveal the next puzzle.
+
+> push colesford button
+You press the "Colesford" button which lights up.
+
+> push donningworth button
+You push the "Donningworth" button which lights up.
+
+> push stanly button
+You push the "Stanly" button which lights up.
+
+> push button
+You carefully press the red button.
+
+You hear a click from within the box and it opens, to reveal the next puzzle.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying C.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying I.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying V.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying X.
+
+> turn dial 5
+You turn the fifth dial one position. Dial five is now displaying I.
+
+> turn dial 5
+You turn the fifth dial one position. Dial five is now displaying V.
+
+> turn dial 5
+You turn the fifth dial one position. Dial five is now displaying X.
+
+> push button
+You carefully press the red button.
+
+You hear a click from within the box and it opens, to reveal the next puzzle.
+
+> x animal
+In a corner of the farmyard you can see 6 pigs.
+
+> turn dial
+You turn the dial one position, it is now displaying 2.
+
+> turn dial
+You turn the dial one position, it is now displaying 3.
+
+> turn dial
+You turn the dial one position, it is now displaying 4.
+
+> turn dial
+You turn the dial one position, it is now displaying 5.
+
+> turn dial
+You turn the dial one position, it is now displaying 6.
+
+> push button
+You carefully press the red button.
+
+You hear a click from within the box and it opens, to reveal the next puzzle.
+
+> x ceiling
+The ceiling is painted, although in this light you have no idea what colour
+it could be. The only way you know it is painted is that it is pealing. In an
+odd way the pealing paint is in the shape of a circle.
+
+Something makes an unearthly scream in the corridor. A cat maybe?.
+
+> turn dial
+You turn the first dial one position. The dial is now displaying circle.
+
+> push button
+You carefully press the red button.
+
+You hear a click from within the box and it opens, to reveal the next puzzle.
+
+> turn dial 1
+You turn the first dial one position. Dial one is now displaying circle.
+
+> turn dial 1
+You turn the first dial one position. Dial one is now displaying triangle.
+
+> turn dial 1
+You turn the first dial one position. Dial one is now displaying star.
+
+> turn dial 4
+You turn the fourth dial one position. Dial four is now displaying rectangle.
+
+> turn dial 5
+You turn the fifth dial one position. Dial five is now displaying oval.
+
+> turn dial 5
+You turn the fifth dial one position. Dial five is now displaying hexagon.
+
+> turn dial 5
+You turn the fifth dial one position. Dial five is now displaying square.
+
+> turn dial 5
+You turn the fifth dial one position. Dial five is now displaying circle.
+
+> turn dial 5
+You turn the fifth dial one position. Dial five is now displaying triangle.
+
+> push button
+You carefully press the red button.
+
+You hear a click from within the box and it opens, to reveal the next puzzle.
+
+Something makes an unearthly scream in the corridor. A cat maybe?.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying 3.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying 4.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying 5.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying 6.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying 7.
+
+> turn dial 2
+You turn the second dial one position. Dial two is now displaying 8.
+
+> turn dial 3
+You turn the third dial one position. Dial three is now displaying 4.
+
+> turn dial 3
+You turn the third dial one position. Dial three is now displaying 5.
+
+> push button
+You carefully press the red button.
+
+This time you hear a click not from the box, but from behind.  As you turn to
+look at the door, you just catch the sight of it swinging open. Wasting no
+time, you sprint for the opening.
+
+Running through the open door a voice from somewhere in the room behind you
+shouts, "Get out and stay out!"  The door slams shut.  You are free!
+
+[Press ENTER to continue]
+
+You want to run, need to run, but seem unable to do so. It feels like you can
+only crawl. You have no memory of the journey home, only a half thought of it
+taking forever.  Staggering through your front door you manage to get
+upstairs and crash into your bed.
+
+Afterwards you are never sure if anything about the house, the corridor and
+the room was real or just some terrible nightmare. Unlike other dreams this
+one never fades from memory.
+
+It seems vital now that you avoid Sycamore Street.  If you should find
+yourself anywhere near the old house you cross the street and hurry passed,
+your eyes elsewhere.
+
+"Get out and stay out!"
+
+Puzzle Box by Richard Otter.
+richardo@delron.org.uk
+
+Visit www.delron.org.uk for more Richard Otter games.

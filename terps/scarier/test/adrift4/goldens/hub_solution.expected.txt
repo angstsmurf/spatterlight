@@ -1,0 +1,680 @@
+Loading game...
+
+The House Husband
+
+I woke up with my legs at a strange angle behind me, and my head crammed
+against something soft, but not soft enough. Shifting my weight, I notice I'm
+on the sofa instead of in bed. I crack open my eyes and wince - the window is
+bright - it must be late morning at least. Pain throbs in my temples, and the
+dryness of my throat makes me cough, as, sitting up, I try to straighten my
+stiff neck.
+
+Rubbish is strewn about the room - remains of a dinner of beer and crisps,
+looks like. I put my hand down and feel crumbs crunching under my weight. I
+stand up in annoyance, slowly, unfurling my joints to a little tune of creaks
+and pops. Oh, god. What a mess. How did this happen? I try to remember how I
+came to be on the couch, how I came to drink all that beer on my own - in
+fact anything at all from last night, or even the past few days.
+
+The only sound in the room, besides my careful breathing, is the ticking of
+my watch.
+
+(For more information type 'Info' or 'Walkthrough')
+
+> look
+
+Living room
+The living room is decorated in cream and white - Marta's great redecorating
+project last year. A white leather sofa faces a wide-screen television. A
+sash window looks out on the front garden, screened by dainty net curtains,
+and shelves on the wall behind the sofa holds a variety of knick-knacks.
+There are a couple of paintings on the walls. Cream-carpeted stairs lead up
+to the next storey, and the kitchen is through an archway to the north. The
+front door is closed, and faces south.
+
+Also here is a bottle of tiger beer, a bottle of chardonnay and a bottle of
+cheap whiskey.
+
+> take tiger
+I take the bottle of tiger beer.
+
+> take chardonnay
+I take the bottle of chardonnay.
+
+> take whiskey
+I take the bottle of cheap whiskey.
+
+> x tv
+The TV is one of the few additions to this home that was my choice. It is a
+Panasonic wide-screen with a built-in video player (I really should upgrade
+to a DVD, but haven't bothered yet). It rests on a small pine stand.  A can
+of budweiser is on the tv.
+
+> take bud
+I take the can of budweiser from the tv.
+
+> x stand
+The pine TV stand holds the TV and has a small shelf underneath.  A video
+tape and a packet of walkers are on the TV stand.
+
+> take walkers
+I take the packet of walkers from the TV stand.
+
+> look under stand
+I get down on my knees and look under the stand. There's a couple cigarette
+butts under there. Strange - I don't smoke anymore. But I pick them up
+anyway.
+
+> x sofa
+The sofa is a three-seater, taking up a large part of the middle of the
+living room. Marta bought it from a sofa-shop in Kensington. Her new salary
+has been kitting our terrace out in a manner not really fitting to its size.
+On the sofa is a can of fosters, a can of becks and some crumbs.
+
+> take fosters
+I take the can of fosters from the sofa.
+
+> take becks
+I take the can of becks from the sofa.
+
+> take crumbs
+I take the crumbs from the sofa.
+
+> n
+I move north.
+
+Kitchen
+The kitchen is Marta's pride and joy. Although she never actually cooks, she
+does love to buy food. The whole room was gutted only months after we moved
+in, two years ago, and replaced in a modern style of brushed steel and
+marble.
+
+A chopping block takes up much of the centre of the room. A counter runs
+along one wall with a sink, and a small window above. Two cupboards and two
+drawers are below the counters, and two cupboards are above it. On the
+opposite wall are the ceramic hob and fan oven, and a retro fridge/freezer
+(which I do like quite a bit).
+
+There is a bad smell in here.
+
+Also here is the bin.
+
+> put all in bin
+I drop the can of Foster's into the bin.
+I put the can of Becks into the bin.
+The empty bottle of Tiger beer is chucked into the bin.
+I throw the bottle of Bud in the bin.
+The bottle clanks as I drop the Chardonnay in the bin.
+I drop the empty packet of Walker's crisps into the bin.
+I drop the crumbs in the bin, and dust off my hands.
+The bottle of whiskey slides into the bin.
+The cigarette butts disappear into the bin. I find myself wondering if there
+are any unsmoked cigarettes around.
+
+> take bin
+I take the bin.
+
+> s
+I move south.
+
+Living room
+The living room is decorated in cream and white - Marta's great redecorating
+project last year. A white leather sofa faces a wide-screen television. A
+sash window looks out on the front garden, screened by dainty net curtains,
+and shelves on the wall behind the sofa holds a variety of knick-knacks.
+There are a couple of paintings on the walls. Cream-carpeted stairs lead up
+to the next storey, and the kitchen is through an archway to the north. The
+front door is closed, and faces south.
+
+> x stairs
+The stairs are carpeted in the same cream carpet Marta picked out for the
+entire house (except the kitchen). There is no bannister. A picture hangs
+above the stairs.  Some dirty tissues are on the stairs.
+
+> take tissues
+I take the dirty tissues from the stairs.
+
+> put tissues in bin
+The dirty tissues are now in the bin.
+
+> up
+I move up.
+
+Bedroom
+Our bedroom - supposedly the room of passion, or at least of contented
+companionship, for married couples. The bed is dishevelled - I obviously
+slept in here at some point in the past few days, although I can't remember
+doing so. Satin sheets and that damned expensive silk bedspread. Flaunting
+all the rules, I had not bothered to place it carefully at the foot of the
+bed before going to sleep.
+
+The room is small, and, like the living room, decorated with cream carpet and
+white walls. A pine dresser faces the bed, at it's foot, and a matching
+nightstand is next to the bed. The door to the bathroom, to the west, is
+ajar.
+
+> make bed
+I pull up the sheets, smoothing them and even folding the corners. Plump up
+pillows and draw shamefully exotic bedspread over the lot - done.
+
+> look under bed
+I lift up the bedspread, move the sheets aside, and finally the pillows.
+There's something here, something I want, I just can't quite remember what.
+Ah, that's it. Reaching under the far pillow, I pick up a letter.
+
+> look behind dresser
+For some strange reason, I decide to look behind the dresser. Why, I'll never
+know. Pushing the chest back from the wall, so I can see the floor down its
+length reveals a small photograph amid lint balls - it must have fallen down
+there ages ago. I gingerly pick it up.
+
+> read letter
+19/04
+Cairo
+
+Dear M (it says)
+
+My ravishing darling, delight to me. I can't think of you without feeling so
+lost. I want to see you now - this very day, this very hour! Tell me you are
+coming back soon.
+
+My work is going well, although the oil rigs are soon to be closed, and I am
+to move to Brazil for the new company. Perhaps you have a trip planned to
+Brazil soon? Let me know, then I have something to look forward to, dearest.
+
+I haven't heard from you for 2 weeks now - I worry and wonder what you are
+doing all this time.
+
+I'm sorry if my english isn't good today - you must teach me how to speak
+better, so I can express myself to you in passionate words.
+
+Your only lover,
+
+C
+
+Somehow, this letter does not surprise me, and somehow it does not make me
+angry. This 'C' is Marta's only lover, I now realise. At least, there's no
+competition from me. I want to feel angry though - I want to feel wounded so
+I can have some reason to pity myself, instead of just loathing myself.
+
+> w
+I move west.
+
+Bathroom
+The bathroom is small and pretty average. A toilet. A sink with a mirror
+above it. A shower. There's a hamper in the corner.
+
+Also here are some dirty clothes and some unrolled toilet paper.
+
+> sit on toilet
+I sit on the toilet, do my thing and flush.
+
+> take cleaner
+I take the toilet cleaner.
+
+> put cleaner in toilet
+I squirt some toilet duck cleaner in the toilet bowl.
+
+> take toilet brush
+I take the toilet brush.
+
+> clean toilet
+I vigorously scrub the toilet inside and flush the cleaner down.
+
+> x shower
+The shower is a glass stall, with a shower head and knob. It's a power
+shower.
+
+> pull knob
+I pull on the knob and the shower comes on. I drop everything and step into
+the shower, which is deliciously warm and massaging. I stay under it longer
+than I should - much longer than normal - enjoying the cleansing feeling.
+Marta and I have had one or two good times in this shower, although after the
+one or two times, she decided it was too cramped for two. My showers got
+shorter and shorter after that.
+
+> push knob
+Pushing the knob turns the shower off. I find a towel and quickly dry myself,
+shivering a bit.
+I can see goosepimples all over my bare flesh.
+
+> look
+
+Bathroom
+The bathroom is small and pretty average. A toilet. A sink with a mirror
+above it. A shower. There's a hamper in the corner.
+
+Also here is my watch, the bin, some dirty clothes, some unrolled toilet
+paper, some toilet cleaner, a toilet brush, a photograph, my t-shirt, my
+jeans, my socks and my trainers.
+
+> take watch
+I take my watch.
+
+> wear watch
+I put on my watch.
+
+> take t-shirt
+I take my t-shirt.
+I'm beginning to wish I was fully clothed.
+
+> wear t-shirt
+I put on my t-shirt.
+
+> take jeans
+I take my jeans.
+I can see goosepimples all over my bare flesh.
+
+> wear jeans
+I step into my jeans, and zip them up carefully.
+
+> take socks
+I take my socks.
+
+> wear socks
+I put on my socks.
+
+> take trainers
+I take my trainers.
+
+> wear trainers
+I put on my trainers.
+
+> take bin
+I take the bin.
+
+> take dirty clothes
+I take the dirty clothes.
+
+> take unrolled toilet paper
+I take the unrolled toilet paper.
+
+> put paper in toilet
+I put the unrolled toilet paper inside the toilet.
+
+> flush toilet
+I flush the toilet paper down.
+
+> put dirty clothes in hamper
+I put the dirty clothes in the hamper.
+
+> e
+I move east.
+
+Bedroom
+Our bedroom - supposedly the room of passion, or at least of contented
+companionship, for married couples. The bed is nicely made up now, with its
+satin sheets smoothed tight, and the silk bedspread pulled up evenly.
+
+The room is small, and, like the living room, decorated with cream carpet and
+white walls. A pine dresser faces the bed, at it's foot, and a matching
+nightstand is next to the bed. The door to the bathroom, to the west, is
+ajar. The bedroom looks much tidier now.
+
+> d
+I move down.
+
+Living room
+The living room is decorated in cream and white - Marta's great redecorating
+project last year. A white leather sofa faces a wide-screen television. A
+sash window looks out on the front garden, screened by dainty net curtains,
+and shelves on the wall behind the sofa holds a variety of knick-knacks.
+There are a couple of paintings on the walls. Cream-carpeted stairs lead up
+to the next storey, and the kitchen is through an archway to the north. The
+front door is closed, and faces south.
+
+> look behind sofa
+There is a broken tile on the carpet behind the sofa. I pick it up. It's from
+one of Marta's business trips to Morocco. It must have fallen off the shelf.
+
+> put tile on shelf
+I put the tile on the shelf, arranging it so that the break cannot be seen
+easily. Hopefully Marta won't try to pick it up anytime soon.
+
+> n
+I move north.
+
+Kitchen
+The kitchen is Marta's pride and joy. Although she never actually cooks, she
+does love to buy food. The whole room was gutted only months after we moved
+in, two years ago, and replaced in a modern style of brushed steel and
+marble.
+
+A chopping block takes up much of the centre of the room. A counter runs
+along one wall with a sink, and a small window above. Two cupboards and two
+drawers are below the counters, and two cupboards are above it. On the
+opposite wall are the ceramic hob and fan oven, and a retro fridge/freezer
+(which I do like quite a bit).
+
+There is a bad smell in here.
+
+> x block
+The square chopping block is a seperate unit, and sits in the middle of the
+kitchen. It has a wooden surface (for chopping), and a space for vegetable
+baskets underneath.
+
+> x baskets
+The vegetable basket is made of wicker.  Some rotten vegetables are inside
+the vegetable basket.
+
+> take vegetables
+I take the rotten vegetables from the vegetable basket.
+
+> put vegetables in bin
+In the rotten vegetables go. Phew! The bin is not very big, its going to fill
+up soon.
+
+> x counter
+The counters are smooth black marble.  The dirty dishes and some fairy liquid
+are on the counter.
+
+> x sink
+The sink is stainless steel - so far unscratched. There's a tap to be turned
+on and off.  A cloth is inside the sink.
+
+> take fairy liquid
+I take the fairy liquid from the counter.
+
+> take cloth
+I take the cloth from the sink.
+
+> turn on tap
+I turn the tap on to a warm setting and turn it off when the sink fills.
+
+> put fairy liquid in sink
+I dribble some Fairy liquid in the sink.
+
+> wash dirty dishes
+I wash all the dishes with the cloth and put the mugs, pint glasses, bowls,
+plates and silverware on the counter next to the sink, where they lay,
+soaking wet.
+
+> x right drawer
+The right drawer has a few odds and ends.  The right drawer is open.  The
+drying-up cloth is inside the right drawer.
+
+> take drying-up cloth
+I take the drying-up cloth from the right drawer.
+
+> dry clean dishes
+I dry the clean dishes with the Leaning Tower tea-towel, buffing them to a
+high shine.
+
+> x lower right cupboard
+There are some stainless-steel, copper-bottom pots and pans in here,
+including the saucepan I normally use to make baked beans or soup.  The right
+lower cupboard is closed.
+
+> open lower right cupboard
+I open the right lower cupboard.  A saucepan is inside the right lower
+cupboard.
+
+> take saucepan
+I take the saucepan from the right lower cupboard.
+
+> x upper right cupboard
+There are cans, bottles and packets of food in here. Maybe I can eat bit a of
+food now.  The right upper cupboard is closed.
+
+> open upper right cupboard
+I open the right upper cupboard.  A tin can of Baxter's is inside the right
+upper cupboard.
+
+> take tin can
+I take the tin can of Baxter's from the right upper cupboard.
+
+> x left drawer
+There is a cultery holder in this drawer with some silverware inside.  The
+left drawer is open.  A can opener is inside the left drawer.
+
+> take can opener
+I take the can opener from the left drawer.
+
+> open tin can with can opener
+I put the can opener on the minestrone soup can, and turn the lever. A lovely
+smell of tomato and garlic wafts out.
+
+> put soup in pan
+The soup slides easy out of the can and into the saucepan. I throw the can
+into the bin.
+
+> press on
+I press the 'on' button.
+The hob is starts glowing red.
+
+> put saucepan on hob
+I put the saucepan, with the soup in it, on the hob. From past experience I
+know how easily it burns on this hob - I'll have to move it once its done, to
+another part of the hob.
+The soup starts boiling.
+
+> x hob
+The hob is ceramic, flush with the countertops. I've been admonished many
+times not to drop things on it, or scratch it. I can turn it on by touching
+the panel at the side.  A saucepan is on the hob.
+
+> x panel
+The touch-panel allows me to turn on the hob rings. There's an on and an off
+button.
+
+> move pan
+I move the saucepan to a cool part of the hob. Ah, this will be good. I dig a
+spoon out of the left drawer and eat soup directly out of the pan (well, at
+least it wasn't out of the can, although if they ever sell soup in
+microwavable cans, anything is possible). When I finish, the can goes in the
+bin, the pan and spoon are quickly washed and dried, and I'm feeling in
+slightly better spirits.
+A whiff of smoke comes from somewhere.
+
+> press off
+I press the 'off' button.
+
+> w
+I move west.
+
+Dining room
+The dining room leads off the kitchen to the west, and just fits a large pine
+table with six chairs. A tall potted palm of some variety sits in the corner.
+Another of my old paintings is on the wall. Sliding glass doors lead out to
+the garden to the north.
+
+> x table
+The table is sanded pine, rustic, with a large round leg in the middle.  Some
+dirty paper towels and a phonebook are on the table.
+
+> take paper towels
+I take the dirty paper towels from the table.
+
+> x paper towels
+The dirty paper towels are in a clump.  A stained knife is inside the dirty
+paper towels.
+
+> put paper towels in bin
+I put the dirty paper towels in the bin.
+
+> n
+I move north.
+
+Garden
+The garden is a good size, mostly lawn although there is a mulberry tree in
+one corner, an apple tree a bit further along, and some flower beds around
+the edges. A tall fence surrounds the garden, and I can't see anything beyond
+it. There's a shed to the east.
+
+Also here is a watering can.
+
+> take watering can
+I take the watering can.
+
+> e
+I move east.
+
+Outside the shed
+The garden shed was here when we bought the place. It's a bit shabby. I'm
+sure Marta's next project will be to get a new one, or some kind of
+conservatory. Oh well, DIY keeps me busy anyway, even if she does complain
+that it takes me to long and I do less-than-perfect work. The sight of the
+shed makes me shudder - the dark interior, cobwebs and cramped space never
+appealed to me much. Today, I'm feeling particularly disinclined toward it,
+with no real good reason. I face the latched door to the east. Next to the
+door is a coiled hose.
+
+> x hose
+A hose is hooked up to a small tap on the shed. There's a nozzle on the end,
+which turns on and off.
+
+> turn on hose
+I turn the nozzle on and water gushes out.
+
+> put water in watering can
+I fill up the watering can with water.
+
+> e
+I move east.
+
+Shed interior
+I flip the latch and open the door, which creaks and scrapes along the
+concrete floor. It is dark in here, although the sunshine pouring in through
+the door allows me to see shadowy piles of stuff. There are cobwebs hanging
+off the ceiling. The shed's normal musty odour pricks at my nose, but there's
+an overtone of some other smells. A couple wheelie bins stand to the side of
+the door.
+
+Also here is some pizza.
+
+> take pizza
+I take the pizza.
+
+> x pizza
+The partial pizza is starting to go green with mould. It smells of a
+combination of garlic, tomato and something rotten.
+
+Suddenly I remember this pizza. Marta cooked this, the day before she left -
+of course, she likes this gourmet type of pizza, three times the cost of your
+average Goodfellas or Tombstone. In fact, it seems I was in here, and she
+came in, eating the pizza - but why? And what happened after that? And why is
+the pizza on the floor?
+
+Well, whatever it was must've been so boring I forgot it.
+
+> put pizza in bin
+I gingerly drop the pizza in the bin.
+
+> dump bin in wheelie
+Hefting the full bin, I dump its contents into the wheelie bin.
+
+> x large box
+It's a large box.  The large box is open.  A hammock is inside the large box.
+
+> take hammock
+I take the hammock from the large box.
+
+> w
+I move west.
+
+Outside the shed
+The garden shed was here when we bought the place. It's a bit shabby. I'm
+sure Marta's next project will be to get a new one, or some kind of
+conservatory. Oh well, DIY keeps me busy anyway, even if she does complain
+that it takes me to long and I do less-than-perfect work. The sight of the
+shed makes me shudder - the dark interior, cobwebs and cramped space never
+appealed to me much. Today, I'm feeling particularly disinclined toward it,
+with no real good reason. I face the latched door to the east. Next to the
+door is a coiled hose.
+
+> w
+I move west.
+
+Garden
+The garden is a good size, mostly lawn although there is a mulberry tree in
+one corner, an apple tree a bit further along, and some flower beds around
+the edges. A tall fence surrounds the garden, and I can't see anything beyond
+it. There's a shed to the east.
+
+> tie hammock to mulberry tree
+I tie one end of the hammock to the mulberry tree trunk.
+
+> tie hammock to apple tree
+I tie one end of the hammock to the trunk of the apple tree.
+
+> s
+I move south.
+
+Dining room
+The dining room leads off the kitchen to the west, and just fits a large pine
+table with six chairs. A tall potted palm of some variety sits in the corner.
+Another of my old paintings is on the wall. Sliding glass doors lead out to
+the garden to the north.
+
+> water palm
+I water the palm until the soil is covered by about 1/2 inch of water.
+
+> e
+I move east.
+
+Kitchen
+The kitchen is Marta's pride and joy. Although she never actually cooks, she
+does love to buy food. The whole room was gutted only months after we moved
+in, two years ago, and replaced in a modern style of brushed steel and
+marble.
+
+A chopping block takes up much of the centre of the room. A counter runs
+along one wall with a sink, and a small window above. Two cupboards and two
+drawers are below the counters, and two cupboards are above it. On the
+opposite wall are the ceramic hob and fan oven, and a retro fridge/freezer
+(which I do like quite a bit).
+
+It smells much better in here now that those rotten vegetables are gone.
+
+> water plants
+I carefully water the plants on the window sill.
+Proudly I survey my work on the house and garden. Everything looks pretty
+much back to normal. I feel a sense of satisfaction, but when I think of
+Marta walking in the front door, setting down her suitcase, and sighing with
+jet-lag, I know she won't even notice. She expects the house to be clean all
+the time. She won't say a word - after all, it's the only job I have right
+now, keeping her house clean.
+
+At least she doesn't expect me to cook. Or have her children. Sighing, I go
+to the hammock in the garden. At least now I can have a little rest.
+
+Flopping into my trusty hammock, I try to sleep, but since I know Marta will
+be arriving any moment, I find it impossible to sleep. I try to remember
+where she's gone. It's been such a strange day - I haven't felt my normal
+self at all. Waking up on the sofa, having drunk so much (and so many
+different kinds) of alcohol, strange mood swings. I'm not old enough for a
+mid-life crisis, am I?
+
+And that stained knife - I've pushed it to the back of my mind, but what was
+it doing on the table? Why was it wrapped up in paper towels? And that pizza
+on the floor in the shed - how come I can't remember anything after that
+argument we had when she walked in on me, pizza in hand? Suddenly I decide
+the best way to remember is to return to the scene of the crime, as it were.
+
+I roll out of the hammock and head for the shed. Opening the door, I stand
+inside willing myself to remember. Argument, Marta away, stained knife,
+stained paper towels, pizza, anger, blinding rage, regret...
+
+And my brain suddenly wakes up, as if from a long dream. Marta, Marta - you
+are here, I remember now... here in this shed! I can see her now, a dark
+slumped shape at the back, behind the boxes - invisible to me during my time
+of denial. It's her, covered in blood - dried now, and I reach out to her. Of
+course, she's dead - I stabbed her.
+
+The argument - it was about that letter. I'd found it in her things in our
+room, and tried to gather my thoughts in here in private. She found me,
+unsuspecting until I boiled over in jealous rage. She had the knife - was
+going to open some boxes - I grabbed it from her and we struggled together.
+Then she fell, behind the boxes and I looked at my hand, holding a bloody
+knife. Truimphant, then panicked, running into the house...
+
+Now that I have forced myself to admit my crime, I find that regret is mixed
+with self-pity, and self-preservation. I didn't hate Marta. No, I just didn't
+love her anymore. I didn't miss her. And this house, I don't hate it, but I
+won't miss it either. I know what I need to do. I go back to the house and
+find my wallet and car keys. I put on a light jacket and sunglasses. I open
+the Victorian glazed front door and exit into the world - a world I had
+almost forgotten existed. A world with nosey neighbors, police, prison.
+
+I lock the door to the house, unlock the blue Vauxhall Zafira sitting in our
+driveway, and take off down the suburban street, not once looking back.

@@ -1,0 +1,85 @@
+2
+northwest
+west
+clean room
+east
+give comic to daniel
+get remote
+change channel
+southwest
+open cabinet
+northeast
+north
+open cabinet
+open fridge
+fill cup
+drink water
+south
+northwest
+shake michael
+slap michael
+shout at michael
+talk to michael
+southeast
+east
+give chocolates to jim
+west
+southeast
+tife steal map
+south
+southeast
+source burn weed
+fit cut tree
+get sticks
+get upper
+fit get lower
+south
+drop tree
+south
+southwest
+source burn stick
+south
+attack goblin
+turn corpse
+north
+northeast
+southeast
+tife climb cliff
+push boulder
+put stick in hat
+put stick in lamb
+put stick in beach
+put stick in flower
+south
+put small rock on left pan
+put medium rock on left pan
+put tiny rock on right pan
+cut rope
+tie rope to statue
+pull stool
+south
+push jewel
+south
+push lever
+push lever
+south
+push button
+south
+get jewel
+north
+south
+put sword in crack
+source burn staff
+down
+source levitate rock
+north
+source levitate me
+northwest
+swim
+put spear in tree
+hide
+wait
+wait
+wait
+wait
+attack tife

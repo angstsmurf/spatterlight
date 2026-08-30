@@ -1,0 +1,1815 @@
+Loading game...
+
+For Love Of Digby
+
+For Love Of Digby
+
+or
+
+(A Day In The Life Of A Couch Potato / Changing The Channel)
+
+An interactive fiction game written by David Whyld
+
+It was a day that started like any other day: you, in front of the TV, the
+remote clutched in one pudgy hand, ready for a good eighteen hours of solid
+TV watching before the inevitable crawl up the stairs to bed. Only a very
+strange, and disturbing, thing happened when you tried to change the channel.
+
+The remote didn't work.
+
+You weren't sure what the problem was at first. Your old nightmare - the one
+about the TV being broken and all the TV repairmen in the world being
+kidnapped by aliens - resurfaced, until you noticed the TV was working
+(currently showing a series of adverts in Spanish). It was just the remote.
+
+It wasn't working.
+
+It was broken.
+
+[MORE]
+
+It was unable to change the channel for you.
+
+You nearly panicked then. You came close to tearing your hair out and running
+around the house screaming. Well… okay, you came close to tearing your hair
+out. Running around the house? Screaming? Way too energetic for someone who
+lists 'couch potato' on his passport under occupation.
+
+But you were in a pretty pickle and no mistake. With no remote to change the
+channel, you'll be stuck watching adverts for the rest of your natural life.
+Or until the TV breaks. Which might well be the same thing. And there's Digby
+The World's Biggest Dog on in six hours. You have to get the channel changed
+before then. Yes, you've seen it before. Six or ten or eighteen times. But
+it's a classic.
+
+But how do you change the channel when the remote isn't working? You
+remember, vaguely, something about a knob on the TV that changes it… but
+you're here and the TV's right on the far side of the room. Much too far
+away. There must be an easier way to handle things than having to trek all
+the way over there.
+
+[MORE]
+
+The Lounge
+You're seated in your favourite chair, positioned at just the right angle as
+to allow you to view your 32" TV in all its glory. A stand on which you
+generally store food and/or drink to keep you sustained during long
+TV-watching marathons is to the left of the chair, and to the right is the
+magazine rack. A plush rug covers the floor, deep enough so that if you
+accidentally dropped your beer glass it won't shatter upon impact. The walls
+are blank for the most part but a pancake you threw there a while ago is
+still there. Off to the west is a door leading into the kitchen.
+
+> x you
+You look about the same as you usually do: slightly* overweight, but
+otherwise in peak physical condition. To say that you spend most of your life
+sitting in this chair watching TV, you have retained the physique of an
+athlete that you had during your teenage years and, aside from a beer barrel
+of quite startling proportions, don't at all resemble a guy who does nothing
+all day aside from sit in a chair and watch TV. You consider that the
+exercise you generally get done in a day's TV watching - lifting the remote,
+changing the channel, turning the pages in the TV mag to check what's on the
+other side - keep you as fit as those fools who jog ten miles a day.
+
+And then you notice something a little odd: you have a bell on your head.
+
+Frowning (which causes a ding-a-ling sound to echo around the room), you
+reach up and take the bell off.
+
+* For 'slightly' read 'massively'.
+
+> ring bell
+Normally you're against anything so hectic as bell ringing, but you're also
+the sort of person who can't have a bell in his possession and not ring it.
+So you take a good hold of it, and ring away to your heart's content:
+
+ding
+a
+ling-a-LIIIIINNNGGG!!!
+
+You're still ringing the bell when a strange looking fellow in a red and
+yellow outfit and wearing a rather fetching hat comes bursting through your
+back door.
+
+"My bell!" he cries. "Damn you, you fool! You'll wear it out if you keep
+ringing it like that!"
+
+[MORE]
+
+You raise an eyebrow. "Your bell? I don't remember that."
+
+"But you took it from me during our years fighting the Japs," says the man.
+"Surely you remember that."
+
+You frown. "No."
+
+"Sergeant Willikins needed a couple of men for a certain death mission and we
+volunteered. Remember?"
+
+"No."
+
+"We raided the enemy camp, torched their supplies, then activated the bomb
+which wiped out half the enemy populace in one go. Any of this coming back?"
+
+"No."
+
+[MORE]
+
+"You got shot. Twice. Both times in the left arm. You spent six months in
+hospital paralysed and almost lost your arm. Coming back?"
+
+"No."
+
+"Someone dressed as Hitler tried to knife you in the hospital ward and you
+used your own bandages to strangle him?"
+
+"No."
+
+"They were showing Blake's 7 on the hospital TV?"
+
+"Ah!" Realisation dawns. "McCready! You old devil! How have you been?"
+
+He stares at you. "Minus my bell, that's how. You remember when we split the
+proceeds from the raid on the enemy base and you took those old TV mags and I
+took the bell?"
+
+You give a half nod. You vaguely remember something like that. But there was
+something on TV at the time...
+
+[MORE]
+
+"Well, after we got discharged, we went out drinking... must be, oh, twenty
+years back... and when I woke up the next morning, you'd took my bell. Took
+me this long to track you down. I had to hire detectives, sell my house to
+pay their bills, auction my kidneys on the black market to pay more bills...
+all to no avail. Then one day on my way to work as a jester, I happen to hear
+a bell. My bell." He reaches out a hand. "I'll take it back now, if you don't
+mind."
+
+"And if I do mind?"
+
+McCready hesitates. "A trade then? My hat for the bell?"
+
+It is a very nice hat... but then you reflect that McCready has spent twenty
+years of his life looking for this bell. Maybe you can get more out of him
+than a simple hat.
+
+> give bell to mccready
+Deciding you'd rather have the hat than the bell, you happily make the trade.
+
+"You'll be glad you did this," says McCready, watching as you take possession
+of his prized hat. "It's fair set my mind at ease has this and-"
+
+"You still here?" you ask, peering over the brim of your new and rather
+fetching hat.
+
+McCready frowns. "I was just giving my going away speech-"
+
+"Well, you've given it so you can go."
+
+McCready's knuckles whiten as he tightens his grip on the bell... then he
+sighs and they loosen again. "Oh, what's the point? You were always more
+interested in TV than humans anyway..."
+
+"Speaking of which-"
+
+[MORE]
+
+"No, I don't know how to fix a broken remote control. You're on your own
+there. Literally. And furthermore-"
+
+"Furthermore, there's the door."
+
+McCready opens his mouth to say something, closes it again, then snaps, "at
+least I have a TV that works!" before storming out.
+
+His words don't bother you much. After all, you have a TV that works. It's
+your remore that's the problem.
+
+> look under rug
+You bend over (with great difficulty) and tug up one corner of the rug. You
+find yourself staring at nothing more interesting than bare floorboards...
+
+Oh, and a postcard.
+
+Frowning, you pick the postcard up and let the rug drop down.
+
+> look under rug
+You bend over again (with even greater difficulty than before) and tug up one
+corner of the rug. This time you see yourself looking at a wallet.
+
+But not just any wallet.
+
+Your wallet.
+
+You frown. Why is your wallet under the ru-
+
+Ah. You remember. You got worried one day that you might pass out while
+watching TV (a constant threat when most of your waking hours are spent sat
+here) and some enterprising thief might try to sneak in here and rob you
+while you were unconscious and unable to defend yourself. So you hit upon the
+bright idea of hiding your wallet under the rug which, you saw in a film once
+a while ago, is the last place any would-be thief would think to look.
+
+Well, you're awake now and not likely to get any sleep with the tragedy of
+your broken remote hanging over you, so you reclaim your wallet.
+
+> look under chair
+It's awkward, particularly for an individual of your, um, bulk, to manoeuvre
+themselves to look under the chair without standing up, but you manage it.
+You've had to in the past after you once dropped your remote and it fell down
+there...
+
+Today, you find nothing more interesting than the floor.
+
+Until, that is, you look a bit harder, and then you catch sight of a scarf.
+
+You fish it out, wondering why it's under the chair. It's definitely yours
+alright - you remember buying it the night of the Star Trek double bill - but
+you can't remember a decent reason for why it's under your chair.
+
+> x rack
+Empty at magazines at the moment (buying them requires leaving the house and
+you'd hate to think you were missing something important on the TV while you
+were out buying one), so you tend to just use the rack as a temporary storage
+space for items you're intending to throw out but haven't yet got round to
+making the arduous trek to the dustbin (all of fifteen feet away on your back
+yard) to permanently dispose of.
+
+At the moment, the magazine rack is home to an old and battered radio, a
+baseball glove and a cardboard box.
+
+> get box
+You try to take the cardboard box out of the magazine rack and find the
+battered radio emerging with it.
+
+> open wallet
+You open the wallet. Inside, nestled amidst the mothballs and old coins that
+were probably out of circulation long before your grandparents were born, is
+a single stamp.
+
+> stick stamp on postcard
+You lick the stamp then stick it on the postcard. There! Perfect.
+
+> x chair
+After the TV, this is your pride and joy. Some men buy cars that they heap
+oodles of attention on. Not you, though. Most cars don't have TV sets built
+into them, and you imagine that tearing down the motorway at 95 mph with a
+32" TV screen taking up the dashboard might be a tad illegal.
+
+So you got yourself a chair instead: gleaming black leather, upholstered,
+padded back, armrests, footrest… at least that's what it was like when you
+bought it in the Summer of '82. These days it's looking a bit the worse for
+wear. There's even a cavernous gap down one side that threatens to swallow
+you whole every time you seat yourself in it.
+
+> reach into gap
+Biting your lip against anything unpleasant biting at your hand and tearing
+it off at the elbow (you saw a film in '94 where that happened and have
+therefore been wary of it ever since), you reach warily into the gap… and
+find something.
+
+Hey! A wafer!
+
+A bit grimy and a bit mouldy and a bit stained but still food. This ought to
+mean that once you get the remote fixed, you'll be able to last that extra
+bit longer without having to go and fetch yourself some food.
+
+> reach into gap
+Hoping you're not making a terrible mistake here, you reach warily into the
+gap… and find something.
+
+Hey! A card!
+
+It looks like the card of a well known pizza delivery boy called Ivan who
+you've used regularly over the years as calling for home deliveries of pizza
+instead of cooking food or going out to buy it means that you get more time
+to spend watching TV. You'll have to give Ivan a call the next time you feel
+a bit peckish.
+
+> reach into gap
+You pluck up your courage and reach into the gap once more… and find
+something.
+
+Hey! Some gum!
+
+From the general hardness of it, you're guessing it's been here for the best
+part of the last decade but you're betting it still knocks socks off that can
+of beans you've got in the kitchen cupboard.
+
+> x stand
+The stand. It's nothing more interesting than a block of wood which you
+positioned next to your chair one day as a handy place to put refreshments,
+the idea being that the more you store there the less time you'll have to
+spend away from your beloved TV fetching said refreshments. At the moment,
+it's unfortunately looking somewhat depleted.  There is a whistle on the edge
+of the stand.
+
+There is a knock on the door then, before you can even shout "go away, I'm
+watching TV!" in wanders a short fellow in a postman's uniform.
+
+"Got any post?" grunts the fellow. "Only the post box at the end of the
+street's been swiped by a gang of vicious and sadistic post box thieves, so
+they sent me door to door. Name's Pat by the way."
+
+Postman Pat? He looks more like a short terrorist than a postman but he does
+have the uniform.
+
+> give postcard to pat
+Pat takes the postcard and sniffs it. "Well, I don't smell any kind of drugs
+or illegal substances on it, so I'll give you the benefit of the doubt and
+assume this isn't a bomb. I'll put it in special express next day delivery."
+
+"Which takes a day to get to its destination...?"
+
+Pat snorts. "A day? Yeah, right... A month. Two months. Six." He shrugs.
+"Hard to say really. That's assuming we don't lose it which is a good
+possibility. Anyway, I'll be off with-"
+
+"You dropped it on the floor."
+
+Pat looks down and picks the postcard up again. "Ah, so I did. Butterfingers
+they used to call me-"
+
+"You dropped it again."
+
+Pat takes it more carefully this time but still manages to drop it a grand
+total of five times before he's out of your house.
+
+> get whistle
+You take the whistle from the stand.
+
+> push stand
+You give the stand a little nudge and off the side drops a thimble. Funny how
+you never noticed that before.
+
+> get thimble
+You take the thimble.
+
+> blow whistle
+Curious as to just why you have this whistle with you, you raise it to your
+lips (panting a little at this unusual exertion), take a deep breath, and
+blow it.
+
+Toot!!!
+
+You're a little surprised when, from underneath you, there comes the sound of
+an answering whistle. What? Has your cellar been invaded by whistling insect
+men from that sci-fi film you saw one night? You always suspected it wasn't a
+work of fiction like they claimed but instead a factual drama and that the
+whistling insect men really did exist-
+
+Oh, hang on. It's your mobile. You were sitting on it.
+
+You fish around underneath you and, sure enough, pull out your mobile. A
+little squashed actually, and it doesn't smell too good considering which
+part of your anatomy was on it, but it's still in one (vaguely mobile-like)
+piece.
+
+> x mobile
+In 1992, when you purchased this, it was state of the art technology. Now...
+well, it's not really anything to write home about. Even for someone like
+you, whose life revolves around his TV, it's kind of embarrassing.
+
+These days, to even get it (kind of) work, it needs a really good shake.
+
+> shake mobile
+You shake it. Several possible options display them to you on the mobile's
+0.2 inch screen:
+
+A1        Phone the police and report that your remote isn't working.
+A2        Phone your parents.
+A3        Phone your bank manager.
+A4        Phone your MP.
+A5        Phone for a pizza.
+
+> a3
+You call your bank manager.
+
+"Ye-esssssssss?"
+
+"I've got a problem with my remote. It-"
+
+"Is this related to a mortgage or current account?"
+
+"No. It's the remote for my TV. It's not-"
+
+"Do you wish to transfer funds to an alternate account? Or do you wish for
+another account to be opened?"
+
+"No. Nothing like that. My remote isn't working and-"
+
+[MORE]
+
+"All done, sir. Money has been transferred to your current account. Thank you
+for calling us."
+
+"Hang on! That's not what I-"
+
+Click.
+
+The bank have hung up.
+
+The mobile makes a buzzing sound and switches itself off. You'll probably
+need to shake it before it works again.
+
+> shake mobile
+You shake it. Several possible options display them to you on the mobile's
+0.2 inch screen:
+
+A1        Phone the police and report that your remote isn't working.
+A2        Phone your parents.
+A3        Phone your bank manager.
+A4        Phone your MP.
+A5        Phone for a pizza.
+
+> a5
+You call Ivan the pizza delivery boy.
+
+It takes a while for him to answer, but at least he apologises with, "sorry
+'bout the delay, guv'nor, only some rats got into the pizza cases I had
+stored in me toilet and died," before asking, "so you want a pizza then?"
+
+"I don't suppose you fix remotes?"
+
+A lengthy silence. "They made o' pizza, guv'nor?"
+
+"No."
+
+"Then no."
+
+You sigh. It was probably a long shot. But you order some pizza anyway. Maybe
+inspiration will strike you while you're eating.
+
+Ivan promises to deliver the pizzas just as soon as he finishes having the
+sewage pipe under his house rerouted.
+
+The mobile makes a buzzing sound and switches itself off. You'll probably
+need to shake it before it works again.
+
+> chew gum
+You pop the gum into your mouth and chew.
+
+It's hard going at first, what with the very texture of the gum threatening
+to remove your teeth every time you bite down, but you've eaten some truly
+horrendous things in the past (when you're watching a fourteen hour Simpsons
+marathon, you eat what's to hand and don't worry about whether it's 'edible'
+or not) and your pallet is certainly up to the challenge of the gum.
+
+And as you chew it, you...
+
+Hallucinate.
+
+(At least you're assuming it's an hallucination. It might be really
+happening. If being mysteriously transported in the blink of an eye to a
+castle floating above the clouds, while still being seated in your favourite
+chair, sounds at all plausible, feel free to believe that instead of the
+hallucination theory.)
+
+[MORE]
+
+"Greetings!" cries a tiny pixie, flitting about your head on wings of light.
+"Greetings, Balor Robertson! Greetings, Mr Robertson! Greetings, Robertson
+the Conqueror-"
+
+"My name's not Robertson," you say.
+
+The pixie stops flitting about and looks at you. "It's not?"
+
+"No."
+
+She peers closely at you in case you have Mr Balor Robertson the Conqueror
+concealed somewhere about your person. "You sure about that?"
+
+"Quite sure. I've even seen my birth certificate."
+
+"Hmpfhhff!" The pixie stamps her foot in indignation. "Well, that messes up
+the speech I had prepared. A damn good speech it was as well. Had drama,
+character, poise... the works! And then you go and mess it all up by not
+being the right person. Makes me mad, I can tell you." She fumes for a while
+longer. "I suppose you don't want the wand then?"
+
+[MORE]
+
+"The wand?"
+
+"Yes. It's a special wand." She nods at you as if you might doubt her.
+"Magic."
+
+"Can it fix remotes?" you ask.
+
+"No. But you might as well have it anyway..." She drops a rather naff-looking
+wand into your lap. "I don't think Mr Balor Robertson is going to show up
+now. Thinks he's all big and important since he became the Duke of Hell no
+doubt. Well, when I see him he'll get a thick ear and no mistake! You want to
+know what else he'll get when I see him? Let me tell you..."
+
+But whatever she is planning to tell you is going to remain unsaid, but with
+a cry of ATISHOO!!! you suddenly find yourself waking up.
+
+Whew! you think. That was one crazy hallucination/day dream there.
+
+And then you spot the magic wand lying in your lap. And wonder.
+
+> wear hat
+You put on the hat.
+
+> wear scarf
+You put on the scarf.
+
+> x box
+Not the best looking cardboard box in the world if the truth be told. You
+have vague memories of it once containing something but whatever that was,
+you no longer remember. There are strange markings on the side.
+
+> read markings
+The markings have been greatly distorted over the years and are now hard to
+make out. But you see:
+
+T*e ***kag*
+DO *** O**N
+by or*** o* ****i****
+
+> z
+Time passes...
+
+There is a screeching of brakes outside the house, a crash (as of a very big
+car ramming into a much smaller car), a cry of "goddamn heathens! Parking in
+their own drives like that!" and then the sound of someone approaching your
+front door.
+
+[MORE]
+
+A moment later, in strides none other than Bartholomew 'Bart' Nash himself.
+His timid assistant, who looks like she's permanently on the verge of a
+nervous breakdown, trots after him.
+
+"What a dump," Bart snorts as he takes a look around your house. "Muriel,
+make a note. Competition winners in future must come from better
+backgrounds."
+
+"Yes, sir, Mr Nash, sir, of course, sir, yessir, yessir, yessir!"
+
+Bart looks at you. "So you're the chap who won the competition to meet me,
+eh? Bet you must be feeling pretty damn pleased with yourself right now,
+chappy? Muriel, make a note of how pleased he looks."
+
+"Yes, sir, Mr Nash, sir, of course, sir, yessir, yessir, yessir!"
+
+"Got anything to say, fellow?" Bart asks. "Or are you just gonna sit there
+like a lemon all day and not say a word?"
+
+"Do you know how to fix a remote?" you ask.
+
+[MORE]
+
+Bart looks at you. His eyes cross slightly as he wonders if, somehow, you are
+making fun of him. Then they uncross. He smiles.
+
+"Not got a damn clue," he says cheerfully. "I break something - a table, a
+car, a rival's back with a cricket bat - I just get Muriel here to fix it.
+Isn't that right, Muriel?"
+
+"Yes, sir, Mr Nash, sir, of course, sir, yessir, yessir, yessir!"
+
+Just as you are about to ask if Muriel knows how to fix a remote, Bart barks,
+"Muriel, nip to the car and fetch me some beer, love."
+
+"But, sir, we're out of beer, sir, and you're under a court order, sir, not
+to drink, sir, not after you ran over those gypsies-"
+
+"Then go find a pub, Muriel. Pronto!"
+
+Muriel scurries away.
+
+[MORE]
+
+Bart looks back at you. "Okay, fellow. You got till she gets back to ask me
+about anything under the sun. I can assure you I'm a font of knowledge. Man
+doesn't get where he is without being a font of knowledge."
+
+Your first question would probably be who the heck are you? but you're not
+sure that would go down very well.
+
+> z
+Time passes...
+
+[MORE]
+
+There is a knock on your front door followed, a moment later, by Ivan
+strolling into the room.
+
+"Wotcha, guv'nor!" he says, giving a strange salute he probably once saw in a
+film, took a fancy to, and started using as his own. "How many times have I
+told you to lock your front door?"
+
+"But if I did that, I'd have to leave my seat every time the door needed
+answering," you point out.
+
+"But," says Ivan, "if you don't lock it, you might get burglars in here
+who'll murder you in your sleep."
+
+You shrug. You've considered the pros and cons - convenience against having a
+knife stabbed into you while you sleep - and it's an acceptable risk as far
+as you're concerned.
+
+"My pizza?" you say, reaching a hand out for it.
+
+"Ah," says Ivan. "Slight problem there."
+
+[MORE]
+
+Ivan explains about your credit rating. And the fact that you've been
+ordering pizzas four to five times a week for the past seventeen years and
+haven't paid for any of them yet. And that you now owe £87,213.54.
+
+"And you don't think I'm going to pay?" you say, a hot flush coming over you.
+"Why, I've never been so downright insulted in all my life! The nerve of it!
+Didn't I tell you about my mother dying and I had to pay for her funeral?"
+
+Ivan nods. "You did."
+
+"And isn't that good enough?"
+
+"'Fraid not, guv'nor. I 'ave it on good authority that you were lyin'."
+
+"And who told you such a slanderous thing?"
+
+"Your mother."
+
+[MORE]
+
+Damn. You forgot she was Ivan's boss. Bit of on oversight there but then when
+you watch Eastenders' marathons for ten hours a day, it's perhaps
+understandable.
+
+"So," you say, "if I want that pizza I'm going to have to pay you £87,213.54
+for it?"
+
+Ivan nods.
+
+You whistle. That's one mighty expensive pizza.
+
+"And," adds Ivan, "you gotta pay the money straight into my account. I'll
+wait 'ere wiv the pizza till it's sorted."
+
+And he does, the swine. Your taste buds fairly melt over the smell of the
+pizza, but unless you can somehow get your hands on £87,213.54, melt is the
+only thing they'll be doing today.
+
+> pay ivan
+"The money's sorted out, Ivan," you say. "Call your bank and have them
+transfer it across to your account."
+
+Ivan looks suspicious (you're not sure why, as this is the only the
+twenty-third time you've told him this over the years (and you've only lied
+twenty-two of those times)) but he puts in a quick call to his bank, passes
+you his mobile so you can authorise the funds transfer, and then stands there
+in something approaching shock as £87,213.54 is transferred over into his
+account.
+
+"Blimey," he says, handing you over the pizza, which smells even better by
+the second. "I don't suppose I get a tip...?"
+
+You tip your finger up at him.
+
+Ivan snorts. "Figures," he mutters and, £87,213.54 the richer, he departs
+your house.
+
+> eat pizza
+It's a terrible thought that you might miss the repeat of Digby, but at least
+you've got something to eat while you ponder over this unfortunate turn of
+events.
+
+So you open your mouth, savour the smell of the pizza, bite down on it and...
+
+Crunch!
+
+You frown. That sounded suspiciously like a sound you shouldn't hear
+emanating from a pizza. Not to mention the fact that there seems to be
+something stuck in one of your teeth.
+
+You probe it with your finger then tug it loose.
+
+It's a rat skull.
+
+[MORE]
+
+Ivan, it seems, still hasn't got rid of that rat problem which has infested
+his business for the past decade.
+
+Now, if you were the energetic sort, and you didn't have a remote to fix and
+Digby to (hopefully) watch later on, you'd be down that pizza hut like a shot
+and give Ivan a piece of your mind.
+
+But as it is, you keep hold of the rat skull, force your simmering anger down
+somewhat, and wonder if there's some way you can make a complaint without
+leaving the comfort of your favourite chair.
+
+Oh, and you eat the rest of the pizza. No point in letting good food go to
+waste after all.
+
+> shake mobile
+You shake it. Several possible options display them to you on the mobile's
+0.2 inch screen:
+
+A1        Phone the police and report that your remote isn't working.
+A2        Phone your parents.
+A3        Phone your bank manager.
+A4        Phone your MP.
+A5        Phone the pizza delivery place and complain.
+
+> a5
+You call the pizza delivery company. The phone is answered by someone you
+haven't spoke to before.
+
+"I want to make a complaint!" you say.
+
+"Yeah? Me, too, pal. You see the conditions I have to work in! Man, a rat
+just popped its head outta that pizza and winked at me! It actually winked!
+Christ, this place is going to the dogs!"
+
+This stops you in your tracks a little... before you realise that you are
+supposed to be the one complaining.
+
+"That doesn't matter right now," you say. "I found a rat skull in my pizza-"
+
+"I'm not surprised one bit, pal. Tell you what, find three and we'll give you
+a free pizza. Can't say fairer than that."
+
+[MORE]
+
+"Er... you... what..."
+
+"Sorry, pal. No time to chat. If I don't get that arsenic cleared up before
+the next batch of pizzas go out, I might get fired when our customers start
+dropping dead."
+
+And with that, the man hangs up. Leaving you sitting there, staring at your
+mobile, and hardly able to believe what just happened.
+
+And you're no closer to getting your remote fixed.
+
+The mobile makes a buzzing sound and switches itself off. You'll probably
+need to shake it before it works again.
+
+> shake mobile
+You shake it. Several possible options display them to you on the mobile's
+0.2 inch screen:
+
+A1        Phone the police and report that your remote isn't working.
+A2        Phone your parents.
+A3        Phone your bank manager.
+A4        Phone your MP.
+A5        Phone the pizza delivery place and complain.
+
+> a5
+You call the pizza delivery company. The phone is answered by the same person
+as before.
+
+"My complaint," you say, "is that-"
+
+"Complaint? You want to complain? Man, I'm so busy I haven't got time to
+complain! I'm so busy I can barely find time to breathe! I'm so busy-"
+
+Ten minutes are spent listening to the man telling you how he's so busy he
+can't even answer the phone most times.
+
+"And furthermore-"
+
+You hang up. When the word 'furthermore' is used in a sentence like that,
+it's obviously going to be bad news.
+
+The mobile makes a buzzing sound and switches itself off. You'll probably
+need to shake it before it works again.
+
+> shake mobile
+You shake it. Several possible options display them to you on the mobile's
+0.2 inch screen:
+
+A1        Phone the police and report that your remote isn't working.
+A2        Phone your parents.
+A3        Phone your bank manager.
+A4        Phone your MP.
+A5        Phone the pizza delivery place and complain.
+
+> a5
+You call the pizza delivery company. The phone is answered by the same busy
+person as before.
+
+You suppress a sigh as you say, "any chance you could hear my complaint
+before you start saying how-"
+
+"Busy! Too busy to hear complaints! Man, the pressure I'm under you wouldn't
+believe. You want to know why I'm busy?"
+
+"Not one bit. Now if you'd be so kind-"
+
+"Damn remote control fixing business! Bah, it's enough to drive a man to
+drink!"
+
+You blink.
+
+[MORE]
+
+"You oughta try holding down a job at a pizza delivery place and fix remote
+controls. It ain't fun, I can tell you. The amount of times I have people
+phoning up for a pizza when once, just once, I'd kill just to have someone
+ask me to fix their remote. Oh, I'd beg for that sort of thing to happen!"
+
+"Well, speaking of funny coincidences-"
+
+"Damn your coincidences, you inconsiderate swine! Me, I'm trying to run a
+successful remote fixing business and I keep getting people phone up to
+complain!"
+
+"But I want you to fix my remote-"
+
+"Damn you, pal! Damn you! Oh, you people make me sick..."
+
+The man hangs up.
+
+The mobile makes a buzzing sound and switches itself off. You'll probably
+need to shake it before it works again.
+
+> shake mobile
+You shake it. Several possible options display them to you on the mobile's
+0.2 inch screen:
+
+A1        Phone the police and report that your remote isn't working.
+A2        Phone your parents.
+A3        Phone your bank manager.
+A4        Phone your MP.
+A5        Phone the pizza delivery place and complain.
+
+> a5
+You call the pizza delivery company. The phone is answered by the same busy
+person as before.
+
+Before he can get a word in, you blurt out: "I want you to fix my remote!"
+
+"Damn you, you complaining swine! Always phoning up giving me grief! Curse
+you! Curse you all, you lying, sneaking, thieving toerag of a-" A slight
+pause, then in a completely different tone of voice: "you want a remote
+fixing? Why, of course, sir. It would be a pleasure. A pleasure, I tell you.
+Why, let me just grab my coat and I'll be over there in a flash."
+
+Before you can say, "my address is..." the man hangs up. How strange.
+
+The mobile makes a buzzing sound and switches itself off. You'll probably
+need to shake it before it works again.
+
+> shake mobile
+You shake it. Several possible options display them to you on the mobile's
+0.2 inch screen:
+
+A1        Phone the police and report that your remote isn't working.
+A2        Phone your parents.
+A3        Phone your bank manager.
+A4        Phone your MP.
+A5        Phone the pizza delivery place and complain.
+
+> a5
+You call the pizza delivery company. The phone is answered by the remote
+repairing guy.
+
+"I do apologise for my assistant before. I have disciplined him severely and
+he shall not trouble you again with his incompetence," he says in the kind of
+voice that says yes, I knows it's pretty obvious that it's the same guy as
+before, but cut me some slack ok, pal, or I might just start ranting again.
+
+"Quite alright," you say. You tell him your address. "Only it's quite
+urgent."
+
+"No problem, sir. I know the place. Let me just grab a few tools and I'll be
+there this Saturday!"
+
+"Saturday? But I need the remote fixing today!"
+
+[MORE]
+
+"Today? Well, I'm a bit swamped with work right now - one job a week on
+Tuesday, another in 2009 - but if you promise to tell me I did a great job
+even if I don't, I'll see what I can do."
+
+"You did a wonderful job," you say.
+
+"Thank you, sir. I shall leave immediately."
+
+The phone goes dead.
+
+The mobile makes a buzzing sound and switches itself off. You'll probably
+need to shake it before it works again.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+[MORE]
+
+There comes a knock on the front door followed a moment later by the arrival
+of the guy from the pizza delivery place.
+
+"Ah," he says, upon taking a look at your remote. "Yes, I see the problem
+with this. It's a simple case of... grkrkrk!"
+
+"Grkrkrk?" you say with a frown. "What's that mean?"
+
+The man goes purple and clutches his chest. "It means... hrkrrkr!... that I'm
+having... ghghghgkgk! ... a heart... attack..."
+
+You push your remote at him. "Before you do..."
+
+"No time..." he gasps. He drops to one knee. "Call an... ambulance... now...
+before I... I..."
+
+You quickly shake your mobile and call an ambulance.
+
+[MORE]
+
+While waiting for it to arrive, you make polite conversation with the man:
+"...so if you're feeling well enough, there's this remote..." but as he just
+gargles and gasps and makes choking gestures, you guess now isn't a good time
+to bother him.
+
+After a few minutes, the ambulance arrives and several people rush into your
+house, load the man onto a stretcher and cart him away. They aren't impressed
+with your questions as to whether any of them happen to know how to fix a
+remote, but you learn a couple of new swear words that you never knew before.
+
+After they've gone, you sit back and ponder the fate of your poor remote and
+wonder just what you'e going to do with it... and then you notice something
+interesting.
+
+The repairman left behind his toolbox.
+
+> x toolbox
+A rusty old toolbox (with the emphasis definitely on both 'rusty' and 'old')
+dropped by the guy who came to fix your remote. After a quick perusal of it,
+you would guess that the words 'battered', 'dented' and 'piece of crap' could
+also be used to adequately describe it.
+
+At the moment, the toolbox is closed.
+
+> open toolbox
+You open the toolbox with a stomach-wrenching cr-rrr-eee-aaa-kkkk!!! and
+find, inside, not the tools you were expecting but a badge.
+
+How strange.
+
+> get badge
+You take it from the toolbox.
+
+> x badge
+A simple badge with the word UFO emblazoned on it in black marker pen.
+
+No matter how long you look at it, you can't understand just why it was
+inside a workman's toolbox.
+
+> wear badge
+You slip the badge on. It changes your Geek Rating from Nerd to Super Nerd
+but as you also qualify as a fully blown couch potato, you doubt it's going
+to affect your street cred much.
+
+> shake mobile
+You shake it. Several possible options display them to you on the mobile's
+0.2 inch screen:
+
+A1        Phone the police and report that your remote isn't working.
+A2        Phone your parents.
+A3        Phone your bank manager.
+A4        Phone your MP.
+A5        Phone the pizza delivery place and complain.
+A6        Phone the local UFO group.
+
+> a6
+Deciding that unselfish action is called for, you phone the local UFO group
+and report the unfortunate situation regarding the pizza delivery/remote
+fixing guy.
+
+"Ah, the Martians dealt with him, it seems," says a sad voice on the other
+end of the phone.
+
+"Martians? No, it was a simple heart attack."
+
+"The Martians are cunning like that, friend. They can strike from afar with
+their unwholesome rays of death and it appears as a heart attack when hitting
+its target. A terrible, terrible weapon it is."
+
+"And so he didn't have a history of heart problems?"
+
+"Well, he did but I'm sure the Martians just used this as a convenient cover
+story for it."
+
+[MORE]
+
+You start to point out that this makes no sense, but then realise that you're
+arguing with a man who believes in Martians and rays of death that can cause
+heart attacks from a distance. You're also wasting precious time.
+
+"Say, I don't suppose you UFO types know anything about remo-"
+
+"I shall send you our brochure," declares the man. "It tells of the dangers
+of the Martians and their rays of death and how best to avoid them."
+
+"But does it cover remote fixing-"
+
+Unfortunately the man has hung up.
+
+The mobile makes a buzzing sound and switches itself off. You'll probably
+need to shake it before it works again.
+
+> z
+Time passes...
+
+Your mobile buzzes as a call comes through.
+
+"Cedric? This is Bartimony. Do you remember the call sign?"
+
+"My name's not Cedric and I don't know any call sign," you say.
+
+"Perfect! You remembered it down to the last word as well. Impressive stuff,
+Cedric. Now, is the meeting still to take place on the arranged time and
+date?"
+
+"No idea."
+
+"Me neither. We need to meet, Cedric. Your place or mine?"
+
+"I don't have a clue where your place is."
+
+"Good. I'll come to yours."
+
+And before you can ask how this stranger knows where your house is, he hangs
+up.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+[MORE]
+
+There comes a knock on your door and then a fellow in a bright yellow
+tracksuit with the words Delivery Service crayoned on the side strides in.
+
+(Doesn't anyone ever bother waiting for you to answer the door?)
+
+(Actually it's probably just as well they don't because they'd be waiting a
+long time.)
+
+(It's surprising what you can miss on the box when answering the door.)
+
+"Parcel for you, Mr Tungsten," says the fellow.
+
+"But my name's not Tungsten."
+
+He frowns. Then hands you the parcel, which turns out to be a brochure.
+
+"Take it anyway," he says. "Damned if I'm carting it all the way back to the
+depot."
+
+[MORE]
+
+"Do I have to sign for it?" you ask.
+
+"What - and make me more paperwork? Not likely!"
+
+The man snorts and wanders off, leaving you the proud recipient of a
+seriously strange brochure indeed.
+
+> x brochure
+In big letters on the front, this brochure declares itself to be:
+
+THE UFO WATCHERS GUIDE
+[TO ALL THINGS ALIEN]
+
+(being a treatise on Martians, their rays of death and
+various other things of interest)
+
+> read brochure
+Sure you're wasting your time, but unable to think of anything better to do
+right now, you open up the brochure and read:
+
+We are not alone! No, we are not! They are out there! And they are coming for
+you! And you! And you over there in the corner! And you in the back! They're
+coming for ALL OF YOU!
+But never fear for there are ways of protecting oneself from them! To be
+completely immune to their alien death rays of death, you need only:
+
+Recipe 1: wear a scarf, wear a thimble, chant!
+Recipe 2: wear a hat, blow a whistle
+Recipe 3: eat a wafer, wave a magic wand
+
+Be careful you get the procedure correct or a fate worse than death itself
+will befall you!
+
+Crazy stuff. But the craziest of all is that it seems to be written on
+somehting with all the texture of toilet paper.
+
+[MORE]
+
+"Is it safe to talk?" asks a voice from out of nowhere.
+
+You look around but see no one. "Who is that?"
+
+"'Tis I - Bartimony!"
+
+You remember the stranger on the phone, the one who thought you were called
+Cedric and droned on about a meeting.
+
+"Where are you?"
+
+"Concealed in a place where no eye can see and no ear can-"
+
+You look over your shoulder. "Oh, you're hiding behind my chair."
+
+Bartimony - who looks about as intimidating as a librarian who also practices
+ballet dancing in his spare time - gives a sheepish nod and steps out from
+behind the chair.
+
+[MORE]
+
+"You have me at an disadvantage it seems, Cedric," he says. "Per chance you
+have been honing your spying techniques since our days together in the SAS."
+
+"But I was never in the SAS. And my name's not Cedric!"
+
+Bartimony taps his nose. "But of course, Cedric. Your secret is safe with
+me."
+
+What a strange fellow.
+
+> talk to bartimony
+"I don't know who you are or why you're here or why you seem to think I'm
+Cedric," you say, "but you couldn't be more wrong."
+
+Cedric nods. "Keeping undercover at all times, Cedric. Good man. Tell me, do
+you have the package?"
+
+"What package?"
+
+"The one upon which the very fate of the world rests. Upon which the lives of
+countless millions hang in the balance." Bartimony looks like he's reciting
+from a script. And not a very well written one either. "Well, do you have
+it?"
+
+"If you told me what it was, I might be able to-"
+
+"Yes or no, Cedric. That's all I need to know. Yes or no."
+
+> yes
+"Good," says Bartimony. "I got a bit worried about it for a moment there.
+Now, hand it over."
+
+"Hand what over?"
+
+"The package, Cedric. The package."
+
+You frown. "And would you believe me if I told you that I don't have a clue
+what the package is?"
+
+"Of course not," says Bartimony. "After all, you just admitted that you have
+it."
+
+He certainly has a point there.
+
+"So hand it over, Cedric. There's a good fellow."
+
+> give box to bartimony
+"Good job in keeping hold of this, Cedric," says Bartimony, looking the
+cardboard box over as though it might contain untold secrets. "I knew I could
+rely on you. Your efforts in this regard will not be forgotten."
+
+"I don't suppose you'd care to repay me by fixing my-"
+
+"Take this," Bartimony says, cutting you off with the kind of ease that
+indicates he is used to doing this. He hands you a pencil. "That's your next
+assignment, Cedric. Guard it well. The fate of the world relies on its safe
+keeping."
+
+"It's a pencil," you say.
+
+Bartimony nods. "Yes. A pencil. That's what you'll tell anybody who asks
+you."
+
+"But it is a pencil."
+
+"Yes. Good, Cedric. You're darn convincing when you want to be."
+
+[MORE]
+
+"But... it... is... a... pencil..."
+
+Bartimony laughs. "Careful! You'll be convincing me next. Now..." He looks
+around. "Must be going. Stay safe, Cedric, and remember: guard the 'pencil'
+with your life."
+
+And without further ado, the strangest man you have ever encountered swiftly
+departs.
+
+> wear thimble
+You put on the thimble.
+
+> chant
+Following what was said in the brochure, you check you have the scarf and the
+thimble on (you do) and then you begin to chant.
+
+You go for a quick um-um-um-um sound which is similar to what you saw in a
+documentary about Tibetan monks living in a monastery somewhere. You found it
+quite catchy and were planning to turn it into a proper recording, but there
+was something on TV at the time…
+
+You chant some more um-um-um-um and even gesture vaguely in the air in the
+way those monks did. And then, as if by magic (or something equally bizarre),
+you find yourself holding what appears to be a manuscript.
+
+How odd.
+
+You chant some more um-um-um-um but whatever oddity put the manuscript in
+your hands before doesn't visit you again.
+
+> x manuscript
+Big bold letters on the cover denote this as:
+
+"The Runny-Nosed Whelp & The Virgin Mary"
+Being a worke in progresse by Esteemed Playwrighte Percival de Nihteweete
+
+> blow whistle
+Wearing the hat and carrying the whistle, you raise it to your lips (the
+whistle, that is, not the hat) take a deep breath, and blow.
+
+Toot!!!
+
+Nothing seems to happen so after a moment you give another
+
+Toot!!!
+
+and then you notice something blowing past the window. It looks, if your eyes
+aren't mistaking you, to be nothing other than some song lyrics.
+
+As you watch, a freak gust of wind catches hold of the lyrics and blows them
+through a window you hadn't even realised until now was open. The lyrics land
+in your lap.
+
+> x lyrics
+They look to be the latest song in progress by that prolific writer of songs,
+Smidgeon Gobrit Tungsten Scothers IV, written especially for his good friend,
+Bartholomew Nash. You aren't sure about some of the lyrics - oh, how your
+bosoms are to me like a glass of wine to a blind camel - but this stuff is
+worth a fortune in the right hands.
+
+Or, in your case, in the wrong hands...
+
+> give lyrics to bart
+"Ah, I wondered where these had got to," says Bart, stuffing the lyrics down
+the front of his trousers. "They're for my new pop career that a dear friend
+is planning for me. Want to hear some?"
+
+"Definitely not."
+
+"Gotcha."
+
+And Bart proceeds to launch into what can only be described as the most
+appalling piece of music you have ever heard. It's like a combination of rap,
+pop, heavy metal, the blues, soul and reggae. Only a lot worse.
+
+"Of course," he says afterwards, "some of the lyrics still need a smidgeon of
+work doing on them-"
+
+"Like when you say all nuns should be shot and all priests hung from their
+bells?"
+
+"Got it. What do you think about shooting the priests and hanging the nuns?
+Great idea, eh?"
+
+You just decide to keep quiet and hope he doesn't torture you with any more
+songs.
+
+> talk to bart
+"So tell me how you came to win the competition to meet me," says Bart.
+
+You struggle to retrieve a memory or two, but while you can remember the
+details of an episode of Blake's 7 broadcast twenty years ago, even down to
+what you were wearing at the time and whether or not it was raining, anything
+not directly related to TV is kind of a blur to you.
+
+Not that it matters because...
+
+"Reminds me of the time I was in the Sahara," says Bart, clearly not
+interested in anything you have to say. "The day I fought the aboriginals I
+think it was."
+
+"There are aboriginals in the Sahara?"
+
+"Lots of aboriginals in Austria, friend. You not aware of that?"
+
+You open your mouth to say something, realise nothing you have to say will
+make a blind bit of difference, and proceed to close it again.
+
+> talk to bart
+"And there I was," Bart says, "knee deep in aboriginal dead when the werewolf
+turns to me and says-"
+
+"I don't suppose you've ever learnt anything about fixing remotes on your
+travels?"
+
+Bart frowns. "No. I don't think that's what he said. It was more along the
+lines of 'rarararahahahahahahahah!' or maybe 'rawaahahahahahahahaha'.
+Something like that. In any case, I don't think werewolves have much time for
+remotes what with the throat tearing and the blood letting and stuff. Anyway,
+where was I...?"
+
+He clearly knows this already and proceeds to relate to you his continuing
+adventures when he was a spy for the king of Japan.
+
+> talk to bart
+Bart says, "it was a difficult decision. Accept the beer or let my comrades
+die a horrible, horrible death." He sighs. "Damn. But that beer was good-
+yes?"
+
+"Can I have your autograph?" you ask, this being the first thing you can
+think of to shut him up.
+
+"My autograph? Course you can, fellow. Least I can do (in the most literal
+sense of the word). You got a pen and paper?"
+
+> give pencil to bart
+"A pencil? What - you ain't got no pens?"
+
+You shake your head.
+
+"Damnation. When Muriel gets back, remind me to remind her to remind me not
+to let competition winners in future live in a house with no pens. Think
+you'll remember that, son?"
+
+"No."
+
+"Me neither."
+
+> give manuscript to bart
+
+"Righty-o," says Bart, and scribbles his signature in a most untidy manner
+across the front of the manuscript. "There. You can now go and tell all your
+friends you met the one and only Bartholomew Nash. Bet they'll be dashed
+proud."
+
+You just settle for giving a quick nod of the head.
+
+Bart crosses to the window and peers out. "Now where is that Muriel? Woman's
+always dashing off something. I don't know what's got into her lately. Ever
+since she started this remote fixing business, I'm lucky to catch sight of
+her."
+
+"Remote... fixing... business..."
+
+[MORE]
+
+"Yes. She fixes remotes. Clever girl. Nothing she can't fix when she puts her
+mind to her. Of course, I never tell her that. Wouldn't do to let her get
+ideas above her station and- Oh, there she is."
+
+In rushes Muriel, arms full of beer cans.
+
+Just as you're about to ask Muriel about fixing your remote, Bart grabs the
+beer out of her hands, gulps it down in one go and emits a thunderous belch!
+
+"Ah, tha' 'it the spo'..." he says, swaying drunkenly from side to side.
+"C'mon, Mu'iel, le's go 'ome..."
+
+"Wait!" you cry. "My remote!"
+
+But they're gone and, even though you struggle to rise from your seat, hours
+of inactivity spread out over the past twenty years have rendered you
+incapable of fast movement. By the time you could stagger ungainly to your
+feet, they'd be miles away.
+
+[MORE]
+
+At least you have the manuscript Bart signed. You're not sure how much use
+it'll be to you in your current situation but if it serves no other purpose,
+you ought to be able to dry your eyes on it.
+
+Your pencil, alas, is gone. It seems Bart still had it with him when he left.
+
+> shake mobile
+You shake it. Several possible options display them to you on the mobile's
+0.2 inch screen:
+
+A1        Phone the police and report that your remote isn't working.
+A2        Phone your parents.
+A3        Phone your bank manager.
+A4        Phone your MP.
+A5        Phone the pizza delivery place and complain.
+A6        Phone the local UFO group.
+A7        Phone Percival de Nihteweete and say you have his manuscript.
+
+> a7
+It takes a while to be put through to Percival de Nihteweete himself and you
+almost give up a couple of times. But something - perhaps the knowledge that
+Percival, in his long and illustrious career as a playwright, might well have
+come across a few instances of remotes that needed fixing and know how to fix
+them - keeps you on the phone.
+
+"Hel-lo?"
+
+"I've got your manuscript. The one about the Virgin Mary and the whelp."
+
+There are several seconds of deathly silence, then:
+
+"My manuscript? Well, well. That is a turn up for the books. And would there
+be a price for the safe return of my manuscript?"
+
+You realise you could ask for a veritable fortune here - Percival de
+Nihteweete is a millionaire after all - but then there's only one thing you
+really want.
+
+[MORE]
+
+"I want my remote fixing."
+
+"Your... remote fixing?" You hear a muttered conversation from the other end
+of the phone. "Is that some kind of... prison slang?"
+
+"No. It's my remote. It's broke. I need it fixing."
+
+"And this 'remote' would be a person, I take it?"
+
+"No. A remote."
+
+More muttered conversation, followed by: "very well. I agree to your terms.
+Give me your address and I'll send the tactical strik- er, I mean I'll come
+alone and unarmed and without anyone following me in disguised police cars."
+
+Wondering if you're making a mistake, but unwilling to pass up on the best
+opportunity you've had yet for getting your remote fixed, you give him the
+address.
+
+[MORE]
+
+The phone goes dead.
+
+The mobile makes a buzzing sound and switches itself off. You'll probably
+need to shake it before it works again.
+
+> eat wafer
+You raise it to your mouth, brush away a few pieces of grime that seem to
+have stubbornly clung to it, and bite it.
+
+It's tough going. The wafer has been unnaturally hardened by the constant
+pressure of your bottom against it and, as such, it takes more than a little
+grimacing and grinding before you're able to break it in your mouth and
+swallow it down. And then you spend a while feeling like your insides are
+being scraped raw by a garden rake and your lungs ache with a fierce, intense
+pain.
+
+All in all, it's the best damn wafer you've had in a long time.
+
+> wave magic wand
+You wave the wand around.
+
+Nothing seems to happen at first until you hear a crash from outside your
+house and then in runs a spotty-faced individual in a business suit.
+
+"Strewth, cobber! Knock me down with a dingo, sport!" he cries, in what must
+be the world's worst Australian accent. "Think I crashed me old dangle dongle
+into your front wall, neighbour! Strewth a malarkey, eh?"
+
+You frown. "Is that supposed to mean anything to me?"
+
+"From the Land Down Under, sport," the man says. "Name's Butch McBricck. Good
+ol' Aussie I am and no mistake. Strewth!" he adds, as if 'good ol' Aussies'
+say this a lot and as if by repeating it frequently he can given the
+impression that that's what he really is. "Soz about the ol' front wall,
+sport, but I was just chuckin' back a tinnie when it 'appened and, well, I
+couldn't look at the road and the beer, y'know."
+
+[MORE]
+
+You glance through the front window. There does indeed seem to be something
+embedded in your front wall.
+
+"Is that a go cart?" you ask.
+
+"No, cobber!" the man says. He sounds almost offended. So offended in fact
+that his appalling Aussie accent falters even more than usual. "Me and me
+girl were driving around and I just... er, I mean me an' me Sheila were
+mosying around in our ol' dingle dangle and then 'strewth!' I thinks, 'I've
+only gone and 'it that there wall'. So's I came in 'ere to see's what I could
+do to makes amends for it." He glances around. "Anythin' you need fixin'?
+Mendin'? Repairin'? Me, I can fix near anythin' except for-"
+
+You show him your remote.
+
+"-except for them." He frowns. "Bummer, sport. That's one crockety remote you
+got yourself there, cobber. What 'appened to it?"
+
+[MORE]
+
+"It broke."
+
+The man nods. "Figured as much, cobber. Cor, what a dingo to 'appen to a
+bloke. Looks like you'll 'ave to take up a new hobby." You're about to tell
+him that TV watching is not a hobby, it's a way of life, when he says, "wot
+about a new pair o' glasses, sport?" He indicates his own pair. "Ye can 'ave
+'em if you want. Good pair they are as well. If you squint real hard, you can
+jus' about make out yer 'and in front of yer face."
+
+"Don't you need them for driving?"
+
+"Me? Nah, mate. I'm an Aussie. We're born behind the wheel-"
+
+You nod to your front wall.
+
+"Well, it weren't my fault some great big dozy plank went and built a wall at
+the side of the road like that!"
+
+[MORE]
+
+He shows you the glasses again. "You wan' 'em or not?"
+
+You don't really, but as it's that or nothing, you might as well take them.
+And who knows, maybe you'll come across a remote repairman needing a new pair
+of glasses before the end of the day.
+
+So you take the glasses. The man claps you on the back, says you're "a right
+fine mucker, sport!" and hurries out. You hear a thump from your front wall
+as his go cart disengages and then several more thumps as it makes its way
+down the street.
+
+> wear glasses
+You slip the glasses on and things look... different.
+
+You can't tell exactly how they look different but with the glasses on,
+there's definitely something different about things.
+
+> l
+
+The Lounge
+You're seated in your favourite chair, positioned at just the right angle as
+to allow you to view your 32" TV in all its glory. A stand on which you
+generally store food and/or drink to keep you sustained during long
+TV-watching marathons is to the left of the chair, and to the right is the
+magazine rack. A certificate hangs from the wall. A plush rug covers the
+floor, deep enough so that if you accidentally dropped your beer glass it
+won't shatter upon impact. The walls are blank for the most part but a
+pancake you threw there a while ago is still there. Off to the west is a door
+leading into the kitchen.
+
+Also here is a toolbox.
+
+> x certificate
+Seen only through the glasses, the certificate reads:
+
+Well done for finding this hidden Easter Egg.
+
+If you can bear the incredible mimesis-breaking of it all, award yourself two
+points. If not, then you don't get the points.
+
+And in smaller letters beneath:
+
+"Made in Taiwan"
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+There is a knock at the door.
+
+You wait, expecting this person to just barge into your house a moment later
+the same way as all your guests do. But
+
+knock!!!
+
+obviously not.
+
+[MORE]
+
+"It's open!" you call, hoping this isn't a burglar, but as burglars seldom
+tend to knock on the doors of houses they are intending to burgle (you know
+this because you saw it on TV once), you think you're quite safe.
+
+A moment later, in strides one of the ugliest fellows you have ever seen. He
+looks like a complete-
+
+"Nihteweete," says the man, extending his hand. "Percival de Nihteweete.
+Playwright extraordinare. Perhaps you have heard of me? I am, after all,
+rather famous."
+
+You have indeed heard of him. There was a programme on TV about him in, oh,
+1992. Ran for 27 minutes and was interrupted twice by adverts. Interesting
+programme all the same.
+
+But he didn't look anything like this fellow.
+
+[MORE]
+
+"Now," says the man who may or may not be Percival de Nihteweete, "about
+this... manuscript of mine you claim to have. Might I see it?"
+
+"Are you any good at fixing remotes?" you ask.
+
+The fellow hesitates. Then, thankfully, he nods. "I am indeed. An expert as
+it happens. I once took a course in remote fixing at Harvard and furthermore-
+what's that? too much? damn you fellow! i wrote the book on this thing and-
+but I'm sure you don't want to hear anything more about that."
+
+"What were you doing then?"
+
+"When?"
+
+"Just then. When you started talking to yourself."
+
+Percival (probably) shrugs. "I am a playwright. I am eccentric. Some might
+even say I am a little deranged- no i dont care if he sues! let him! - Now,
+the manuscript. Might I see it?"
+
+> give manuscript to percival
+Seeing no other way of getting this strange fellow to leave, you hand over
+the manuscript.
+
+"You won't regret this," says Percival. "You did the right- yes ive got it.
+what? he just handed it over! yes im serious. what? beats me. i guess i must
+have intimidated him so much he- thing. And now, without further ado, I shall
+depart."
+
+But he doesn't depart. Instead he reaches into his pocket and fishes out a
+gun.
+
+"You're under arrest," he says. "It might have escaped your attention but I
+am not Percival de Nihteweete at all, but a cunningly disguised FBI agent. On
+my command, undercover agents will swarm this place and take you into custody
+for the appalling theft of poor Mr de Nihteweete's manuscript and- what?
+there are no undercover agents outside? youre sure? they got stuck in
+traffic? oh for the love of- oh hell." The man sighs. "Tell me, was my
+impression of the famous playwright at all realistic?"
+
+[MORE]
+
+You're tempted to lie to him - he does have a gun, after all - but if twenty
+solid years of watching TV have taught you anything, it's that the truth is
+out there. Somewhere.
+
+"You were awful," you say. "Completely terrible." Then you hit him with the
+real killer: "I've seen more convincing playwrights on Eastenders."
+
+He lets out a sigh. "Damn. What was it that gave me away?"
+
+"Aside from the fact you don't look anything like Percival de Nihteweete? Or
+sound like him? Or that you've for a sticker that says 'FBI agent' on your
+shoulder? Or that you kept speaking into a supposedly hidden mike in your
+collar?"
+
+"Yes, aside from that?"
+
+"It was..." An idea occurs to you and you hand him your remote. "It was your
+complete inability to fix a broken remote."
+
+[MORE]
+
+The man frowns. "But what does that-"
+
+"It's common knowledge that all great playwrights know everything there is to
+know about fixing remotes. That you don't is all the proof I needed to know
+you were a fake."
+
+The man turns the remote over in his hands. "You know... I might just have an
+idea here..."
+
+"You think you-" Then you remember yourself. "Oh, I doubt it. No one lacking
+the brainpower of a famous playwright could ever figure out how to fix
+something as devilishly complicated as-"
+
+"It needs a new battery," says the man. He ferrets around in his pocket,
+brings out a battery and pops it in before handing it back to you. "There you
+go. All sorted."
+
+[MORE]
+
+You stare at the remote in your hand. Could it be true...?
+
+"Now I've got to be back to the FBI station," says the man. "I'll take the
+manuscript so I can hand it to Mr de Nihteweete and- oh, it's been
+autographed by none other than Bartholomew Nash himself!"
+
+"You know him?" you ask, a little distracted at the thought of your remote
+working now and all your problems solved.
+
+"Oh yes. He's a hero of mine. The man's done so much, so very much. Why, did
+you know-"
+
+"I hear he's visiting a bookstore in the downtown area. If you hurry, you
+might just be able to-"
+
+Too late. He's already off and running.
+
+> change channel
+Breathlessly, you reach for the button on the remote that should, if
+everything is working, change the channel. Your finger hovers closer and
+closer, your breath comes in short, painful gasps, you extend your finger
+ever so slightly...
+
+... and push the button.
+
+Nothing happens.
+
+Aside, that is, for the channel abruptly changing itself!
+
+"Hoo-rrrrrrrrrrrrrraaaaaaaayyyyy!!!" you cry, overcome with emotion at this
+amazingly fortuitous happening.
+
+You can now watch Digby The World's Biggest Dog secure in the knowledge that
+nothing, absolutely nothing, can stop you.
+
+You settle back, let out a satisfied grunt, and wait for the best film ever
+made coming on.
+
+[MORE]
+
+You wait...
+
+[MORE]
+
+And wait...
+
+[MORE]
+
+And wait some more...
+
+[MORE]
+
+And then, finally, it is time.
+
+[MORE]
+
+LADIES & GENTLEMEN
+This is a public service announcement
+
+Due to unforseen circumstances, we regret to inform you that we shall not be
+broadcasting Digby The World's Biggest Dog this evening. Instead, we shall be
+showing an entire night of adverts instead.
+
+We apologise for this break in our normal schedule and hope to resume normal
+service shortly.
+
+And on that somewhat sombre note, For Love Of Digby winds to a close. Thank
+you for playing and I hope you enjoyed it.
+
+If you're interested, the maximum score possible in the game in 50. If you
+achieved less than that, well done all the same, but you really ought to have
+another go and see if you can do better.
+
+Any comments, suggestions, etc, to dwhyld@gmail.com
+
+Thanks again for playing!
+
+David Whyld
+
+> quit
+You can't do that. The game is over.
+
+> y
+You can't do that. The game is over.
+
+>

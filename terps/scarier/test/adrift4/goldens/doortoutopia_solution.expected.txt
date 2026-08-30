@@ -1,0 +1,629 @@
+Loading game...
+
+The Door To Utopia
+
+INTRO
+
+The Door To Utopia...
+
+1)  Start the game
+
+2)  Read the background
+
+3)  Read the instructions
+
+4)  Why have you written this game?
+
+> 1
+
+YOUR HOUSE
+You're in the front room of your house which looks even more untidy than
+usual due to the fact that your dead body is currently lying on the floor in
+front of your exploded TV. A door to the south leads to your kitchen and a
+flight of stairs lead up to your bedroom but that's about it. By the window
+is a cupboard just begging to be opened.
+
+!!!READ YOUR DIARY!!!
+
+> x body
+You were never an oil painting in life and having a great big piece of
+exploded TV rammed through the middle of your head hasn't improved your looks
+a whole lot.
+
+Feeling a bit like a graverobber, you have a rummage through your pockets and
+come across some cash and a smouldering hat which you decide to take with
+you.
+
+!!!READ YOUR DIARY!!!
+
+> n
+You depart your house and step into the street.
+
+IN THE STREET
+Standing outside your house on a cold night when it's damp and miserable has
+never been your idea of a good time. Dying hasn't changed your viewpoint on
+this even one little bit.
+
+Hovering in midair here is a doorway leading to (depending on the progress
+you've made so far) either HEAVEN or HELL. It's a little hard to tell
+anything else about the door due to its brightness.
+
+Your house lies south, the doorway west and the rest of the world in a
+general easterly direction.
+
+> e
+You move east.
+
+TOWN SQUARE
+Though a hive of excitement, you find yourself unable to overly care about
+the town square right now. Perhaps it's the fact that you're dead that quells
+your enthusiam for it.
+
+The square is actually more a round shape with several roads branching away
+to the north, northeast and east. South lies the town hall while the road
+leading back to your house is west of here.
+
+> e
+You move east.
+
+CONSTRUCTION SITE
+The road further on has been blocked off by a construction site. It seems the
+local council have decided to dig up the road again (only for the third time
+this week). As such, you aren't going to progress much further unless you
+decide to kill all of the construction workers.
+
+A wheelbarrow, several bags of sand and a large paving stone are lying on the
+ground here.
+
+The town square lies back west.
+
+> x sand
+You rummage through the bags quickly and come up with some sand which you
+decide to swipe for no other reason than it's there and, with this being an
+adventure game, there's bound to be a use for it somewhere.
+
+!!!READ YOUR DIARY!!!
+
+> w
+You move west.
+
+TOWN SQUARE
+Though a hive of excitement, you find yourself unable to overly care about
+the town square right now. Perhaps it's the fact that you're dead that quells
+your enthusiam for it.
+
+The square is actually more a round shape with several roads branching away
+to the north, northeast and east. South lies the town hall while the road
+leading back to your house is west of here.
+
+> n
+You move north.
+
+SWAGGON STREET
+No one knows why Swaggon Street is so named and as you're dead right now it's
+something you aren't planning on spending a lot of time worrying over.
+
+The oddly named street winds away south to the town square and northeast to a
+park. A shoe shop stands to the west.
+
+> w
+You find the door to the shoe shop locked and a note tacked to the inside
+reading: "BACK IN A FEW MINUTES".
+
+> wait
+After a few minutes, the clerk from the shoe shop appears from the northeast,
+opens the shop door and goes inside.
+
+> w
+You move west.
+
+SHOE SHOP
+It's years since you last went into this shoe shop but nothing seems to have
+changed. The same shoes still sit on the same shelves, the same bored clerk
+stands behind the counter and the same poster hangs in the window. A door
+leads out of the shop to the east.
+Horace the clerk is here.
+
+> talk to horace
+"What can I do for you?" asks Horace in the voice of someone who really
+doesn't want to do anything for you.
+
+1)  I've come to return these shoes I swiped years ago.
+2)  Anything worth selling here?
+3)  How are things today?
+
+> 1
+"Shoes?" Horace sees them on your feet and grimaces at the thought. "On,
+second thoughts you keep 'em on, feller. I'd hate to see what state your feet
+are in after all these years. But you sure have brought a bit of warmth to my
+life!"
+
+!!!READ YOUR DIARY!!!
+
+> e
+You move east.
+
+SWAGGON STREET
+No one knows why Swaggon Street is so named and as you're dead right now it's
+something you aren't planning on spending a lot of time worrying over.
+
+The oddly named street winds away south to the town square and northeast to a
+park. A shoe shop stands to the west.
+
+> ne
+You move northeast.
+
+PARK
+The local town park has really gone downhill in recent years, resembling (as
+it does now) a bomb site. The swing has tipped over, the roundabout is lying
+on its side and the sand pit is just now a pit. Even the flower garden, once
+the highlight of the park, is a desolate ruin. The way back to normality lies
+southwest.
+
+> fix swing
+You quickly right it to the way it should be.
+
+> fix roundabout
+Though a struggle, you manage to get the roundaout back upright.
+
+> drop sand
+You lay the sand you swiped in the sand pit and feel a warm rosy glow come
+over you for doing a good deed.
+
+A voice suddenly speaks to you and says: "thank you for rescuing the park
+from oblivion, stranger".
+
+"Who are you?" you ask.
+
+"I am the guardian angel of the park."
+
+"Really?" You're not surprised. After all, you're a walking corpse.
+
+"No, not really. I'm an old beggar hiding in some bushes about ten feet away
+but that's not important right now. What is important is that you went out of
+your way to save the park and so you've proven beyond a shadow of a doubt
+that you're actually quite a swell guy."
+
+You feel a little closer to Heaven now and a little further away from Hell.
+
+!!!READ YOUR DIARY!!!
+
+> get flowers
+You stoop and pick a few of the less dessicated flowers - and hear a growl!
+
+Standing less than ten feet away from you, teeth bared, is a dog the size of
+a horse (although this analogy only works if the horse itself is actually the
+size of a dog), not looking at all pleased to see you.
+
+"Er, good doggy," you say hesitantly.
+
+At once, the good doggy goes for your throat and only the fact that you're
+currently dead ensures it doesn't kill you right there and then. All the
+same, you make good time to the park exit as, while you can't die, you don't
+like the idea of spending the rest of eternity inside a dog!
+
+SWAGGON STREET
+No one knows why Swaggon Street is so named and as you're dead right now it's
+something you aren't planning on spending a lot of time worrying over.
+
+The oddly named street winds away south to the town square and northeast to a
+park. A shoe shop stands to the west.
+
+> s
+You move south.
+
+TOWN SQUARE
+Though a hive of excitement, you find yourself unable to overly care about
+the town square right now. Perhaps it's the fact that you're dead that quells
+your enthusiam for it.
+
+The square is actually more a round shape with several roads branching away
+to the north, northeast and east. South lies the town hall while the road
+leading back to your house is west of here.
+
+> s
+You move south.
+
+TOWN HALL
+It's a while since you last set foot in the town hall (mainly on account of
+all your unpaid bills and the mobs of angry government officials who try to
+force you to pay every time you come in here). A row of steps lead up to the
+next floor of the town hall while a door to the southeast has a sign overhead
+which looks quite interesting. A pretty girl sitting on reception eyes you
+menacingly. The way out lies north.
+
+> se
+You move southeast.
+
+BILLS SECTION
+A long row of desks stretch as far as the eye can see (actually about twenty
+feet but "as far as the eye can see" sounds more impressive). At each of them
+sits a bleary-eyed individual reminiscent of the living dead.
+
+A large window here overlooks the town square though something about it seems
+oddly wrong.
+Tom is here looking even more depressed than you feel.
+
+> ask tom about receptionist
+"Oh, her name's Melissa."
+
+> nw
+You move northwest.
+
+TOWN HALL
+It's a while since you last set foot in the town hall (mainly on account of
+all your unpaid bills and the mobs of angry government officials who try to
+force you to pay every time you come in here). A row of steps lead up to the
+next floor of the town hall while a door to the southeast has a sign overhead
+which looks quite interesting. A pretty girl sitting on reception eyes you
+menacingly. The way out lies north.
+
+> talk to melissa
+"My god, you actually know my name," says the receptio- er, Melissa. "It's so
+long since anyone bothered to call me by my name that I'd almost forgotten
+what it was. What can I do for you?"
+
+1)  A snog would be highly appreciated.
+2)  How's about letting me wander around upstairs?
+3)  Any odd jobs you need doing?
+
+> 2
+"Why not?" she says and presses a button on her desk. "Up you go."
+
+> talk to melissa
+"My god, you actually know my name," says the receptio- er, Melissa. "It's so
+long since anyone bothered to call me by my name that I'd almost forgotten
+what it was. What can I do for you?"
+
+1)  A snog would be highly appreciated.
+2)  How's about letting me wander around upstairs?
+3)  Any odd jobs you need doing?
+
+> 3
+"Yeah, now that you mention it there is. I've left my poor little doggy,
+Kitten, in all day. Can you go and let him out?" She hands you some keys
+before you can reply. "Oh, thanks ever so much."
+
+!!!READ YOUR DIARY!!!
+
+> u
+You move up.
+
+A MURKY CORRIDOR
+You've never been to the first floor of the town hall before so you've no
+real idea of what to expect. But not this... It looks like a graveyard here
+(a place you'll be getting acquainted with very well soon enough) what with
+all the dead bodies lying around and the mounds of earth. Hmm, maybe you've
+wandered into the wrong adventure by mistake.
+
+Next to the stairs leading down is a door and a shelf, both of which have
+dirt daubed across them.
+
+> x bodies
+All of the corpses here seem to have been bludgeoned to death with a blunt
+instrument. Does this mean there is a killer at loose in your home town? If
+you weren't already dead, you might be quite worried about this.
+
+Knowing the dead bodies won't make a lot of use of it, you rummage through
+their pockets and manage to come up with £7.
+
+> x shelf
+Picking through the dirt scattered across this shelf, you come across £5
+which you quickly pocket.
+
+> d
+You move down.
+
+TOWN HALL
+It's a while since you last set foot in the town hall (mainly on account of
+all your unpaid bills and the mobs of angry government officials who try to
+force you to pay every time you come in here). A row of steps lead up to the
+next floor of the town hall while a door to the southeast has a sign overhead
+which looks quite interesting. A pretty girl sitting on reception eyes you
+menacingly. The way out lies north.
+
+> give flowers to melissa
+"Ah, that's sweet," says Melissa. "No one's given me flowers in ages!" She
+coos a little more then says, "but I'd better not take them 'cos I'm at work.
+You save them for later though because I might want them then."
+
+> se
+You move southeast.
+
+BILLS SECTION
+A long row of desks stretch as far as the eye can see (actually about twenty
+feet but "as far as the eye can see" sounds more impressive). At each of them
+sits a bleary-eyed individual reminiscent of the living dead.
+
+A large window here overlooks the town square though something about it seems
+oddly wrong.
+Tom is here looking even more depressed than you feel.
+
+> talk to tom
+"What can I do for you?" Tom asks, sounding less enthusiastic than you felt
+when you found out you were dead.
+
+1)  I'd like to settle my bill.
+2)  What's it like working here?
+3)  I'm dead, you know.
+
+> 1
+Tom takes your money off you, counts it several times and then slips it into
+his back pocket. "Consider the debt paid in full," he says.
+
+"Aren't you going to enter that in some kind of official book?" you ask.
+
+"Well, if you insist I will but there's a £45 charge for that."
+
+"No, no, quite alright," you add hastily.
+
+Tom gives you a knowing wink and goes back to work.
+
+!!!READ YOUR DIARY!!!
+
+> nw
+You move northwest.
+
+TOWN HALL
+It's a while since you last set foot in the town hall (mainly on account of
+all your unpaid bills and the mobs of angry government officials who try to
+force you to pay every time you come in here). A row of steps lead up to the
+next floor of the town hall while a door to the southeast has a sign overhead
+which looks quite interesting. A pretty girl sitting on reception eyes you
+menacingly. The way out lies north.
+
+> n
+You move north.
+
+TOWN SQUARE
+Though a hive of excitement, you find yourself unable to overly care about
+the town square right now. Perhaps it's the fact that you're dead that quells
+your enthusiam for it.
+
+The square is actually more a round shape with several roads branching away
+to the north, northeast and east. South lies the town hall while the road
+leading back to your house is west of here.
+
+> ne
+You move northeast.
+
+DEAD END
+Here the road ends and you find yourself standing outside a house that looks
+familiar from somewhere. Is this your ex-girlfriend's house? Could well be.
+The front door lies east and the town square back to the southwest.
+
+> open door
+Using the keys Melissa gave you, you open her front door.
+
+As soon as you do, a dog comes shooting out of the house, gives a mad howl,
+and immediately starts savaging a car parked nearby. Attempts to get the dog
+to stop fall on deaf ears. Well, at least you did as Melissa asked...
+
+!!!READ YOUR DIARY!!!
+
+> e
+You move east.
+
+MELISSA'S HOUSE
+Boy, this place hasn't changed a bit since you were last here - still a dump.
+It makes your own house look tidy.
+
+This room consists of little more than a table and a chair.
+
+A flight of stairs lead to Melissa's bedroom and is it your imagination or is
+there someone moving about up there? East is the kitchen and west the dead
+end street.
+
+> x table
+A fairly average looking table made from cheap wood that looks like Melissa
+probably got it from a car boot sale years ago.  A pair of boltcutters is on
+the table.
+
+> get boltcutters
+You take the pair of boltcutters from the table.
+
+> w
+You move west.
+
+DEAD END
+Here the road ends and you find yourself standing outside a house that looks
+familiar from somewhere. Is this your ex-girlfriend's house? Could well be.
+The front door lies east and the town square back to the southwest.
+
+> sw
+You move southwest.
+
+TOWN SQUARE
+Though a hive of excitement, you find yourself unable to overly care about
+the town square right now. Perhaps it's the fact that you're dead that quells
+your enthusiam for it.
+
+The square is actually more a round shape with several roads branching away
+to the north, northeast and east. South lies the town hall while the road
+leading back to your house is west of here.
+
+> w
+You move west.
+
+IN THE STREET
+Standing outside your house on a cold night when it's damp and miserable has
+never been your idea of a good time. Dying hasn't changed your viewpoint on
+this even one little bit.
+
+Hovering in midair here is a doorway leading to (depending on the progress
+you've made so far) either HEAVEN or HELL. It's a little hard to tell
+anything else about the door due to its brightness.
+
+Your house lies south, the doorway west and the rest of the world in a
+general easterly direction.
+
+> s
+You return to the warm confines of your house.
+
+YOUR HOUSE
+You're in the front room of your house which looks even more untidy than
+usual due to the fact that your dead body is currently lying on the floor in
+front of your exploded TV. A door to the south leads to your kitchen and a
+flight of stairs lead up to your bedroom but that's about it. By the window
+is a cupboard just begging to be opened.
+
+> open cupboard
+Using the boltcutters, you force the cupboard open. Inside you find a knife
+which you decide to take with you.
+
+> n
+You depart your house and step into the street.
+
+IN THE STREET
+Standing outside your house on a cold night when it's damp and miserable has
+never been your idea of a good time. Dying hasn't changed your viewpoint on
+this even one little bit.
+
+Hovering in midair here is a doorway leading to (depending on the progress
+you've made so far) either HEAVEN or HELL. It's a little hard to tell
+anything else about the door due to its brightness.
+
+Your house lies south, the doorway west and the rest of the world in a
+general easterly direction.
+
+> e
+You move east.
+
+TOWN SQUARE
+Though a hive of excitement, you find yourself unable to overly care about
+the town square right now. Perhaps it's the fact that you're dead that quells
+your enthusiam for it.
+
+The square is actually more a round shape with several roads branching away
+to the north, northeast and east. South lies the town hall while the road
+leading back to your house is west of here.
+
+> ne
+You move northeast.
+
+DEAD END
+Here the road ends and you find yourself standing outside a house that looks
+familiar from somewhere. Is this your ex-girlfriend's house? Could well be.
+The front door lies east and the town square back to the southwest.
+
+> e
+You move east.
+
+MELISSA'S HOUSE
+Boy, this place hasn't changed a bit since you were last here - still a dump.
+It makes your own house look tidy.
+
+This room consists of little more than a table and a chair.
+
+A flight of stairs lead to Melissa's bedroom and is it your imagination or is
+there someone moving about up there? East is the kitchen and west the dead
+end street.
+
+> u
+MELISSA'S BEDROOM
+You have fond memories of Melissa's bedroom. This is where you used to-
+
+[CENSORED IN THE INTERESTS OF GOOD TASTE]
+
+It's a pretty sparse room all told, being empty aside from the bed, cupboard,
+closet, bureau, desk and wardrobe.
+
+A flight of stairs lead down to the rest of Melissa's house.
+Gunge the killer is here.
+
+"What are you doing in here?" snarls Gunge, a sledgehammer in his hands.
+
+"I'm just a friend of Melissa's who came to let her dog out," you reply
+calmly (although not as calmly as you would if he wasn't carrying that
+sledgehammer). "What are you doing here?"
+
+"Me? Oh, I came to kill her." Gunge swings the sledgehammer. "I thought it'd
+be a nice way to pass the time. Of course, now you've barged in I'll have to
+kill you as well."
+
+"I'm already dead."
+
+Gunge shrugs. "Well, that should make my job easier..."
+
+> kill killer
+You lunge at him with the knife and ram it home in his head. At the same
+time, he brings the sledgehammer crashing down on you in a killing blow -
+except you're already dead so it just comes keen.
+
+"Do... I get... a second chance... as well?" asks Gunge as the life leads
+him.
+
+"NOT BLOODY LIKELY," remarks the cowled figure of Death.
+
+!!!READ YOUR DIARY!!!
+
+> d
+You move down.
+
+MELISSA'S HOUSE
+Boy, this place hasn't changed a bit since you were last here - still a dump.
+It makes your own house look tidy.
+
+This room consists of little more than a table and a chair.
+
+A flight of stairs lead to Melissa's bedroom and is it your imagination or is
+there someone moving about up there? East is the kitchen and west the dead
+end street.
+
+> w
+You move west.
+
+DEAD END
+Here the road ends and you find yourself standing outside a house that looks
+familiar from somewhere. Is this your ex-girlfriend's house? Could well be.
+The front door lies east and the town square back to the southwest.
+
+> sw
+You move southwest.
+
+TOWN SQUARE
+Though a hive of excitement, you find yourself unable to overly care about
+the town square right now. Perhaps it's the fact that you're dead that quells
+your enthusiam for it.
+
+The square is actually more a round shape with several roads branching away
+to the north, northeast and east. South lies the town hall while the road
+leading back to your house is west of here.
+
+> w
+You move west.
+
+IN THE STREET
+Standing outside your house on a cold night when it's damp and miserable has
+never been your idea of a good time. Dying hasn't changed your viewpoint on
+this even one little bit.
+
+Hovering in midair here is a doorway leading to (depending on the progress
+you've made so far) either HEAVEN or HELL. It's a little hard to tell
+anything else about the door due to its brightness.
+
+Your house lies south, the doorway west and the rest of the world in a
+general easterly direction.
+
+> w
+You step into the doorway and find yourself in a wonderful place: the sun is
+bright, the grass is green, the sky is blue...
+
+And off to one side is a tall figure with a scythe.
+
+"Oh, crap!" you say. "Is this Hell then?"
+
+"No, this is Heaven," says Death, "but God has the afternoon off so he asked
+me if I'd stop by and welcome you here. Well done. You succeeded, including
+the tasks that I never even mentioned to you."
+
+"That was a bit unsporting, you know."
+
+Death shrugs. For a guy with no shoulders that's quite impressive. "This is a
+text adventure after all. What did you expect? Fairness?" He glances around.
+"Anyway, I'm sure you'll be happy here. I mean, you'll never have to work
+again..."
+
+Up to the last sentence, you thought you really were in Hell, but the words
+"never have to work again" have restored your faith. You're in Heaven after
+all.

@@ -1496,6 +1496,511 @@ over the stale one, as usual.
 
 **98 unwired files remain** after this batch.
 
+**Eleventh batch, 2026-08-29: 8 more wired, suite 343 → 351 rows, all PASS.**
+Continuing smallest-first (14,541–18,973 bytes). A vocabulary scan of the 12
+smallest unwired candidates surfaced one genuine decline and one AIF title:
+
+- **`delight.taf` — declined, not wired.** Context-read of its 4
+  "underage"/"underaged" hits confirms it depicts a sexualized minor NPC ("an
+  underaged girl with pointed ears"), combined with an extreme overall
+  explicit-vocabulary hit count (262). This is the same category already
+  declined for `enc1.taf`, `windy.taf`, `enc2.taf`, and `Buffy Before the
+  Date.taf` — content depicting sexualized minors is refused outright, never
+  derived or wired, regardless of corpus-completion pressure.
+- **`Temple_Of_The_Sun.taf` — AIF treatment.** Confirmed adult-only jungle-
+  temple "maiden" seduction content between adult characters, no minors.
+  Wired normally (row + comment block committed) but its solution/golden are
+  gitignored per the `gamma`/`croft`/`Doctor Who and the Vortex of Lust`
+  precedent — engine coverage without committing the explicit text.
+
+Every other flagged hit in the remaining 10 smallest candidates was a
+confirmed false positive on context read (an ice-cream-eating bystander's
+"child", a witch's "Hello, child" greeting, "cucumber" substring-matching
+"cum", "parapets" substring-matching "rape", an incidental unrelated "minor",
+a joke line, and — in *The_Final_Question* specifically — an in-game
+"credits reel" easter egg quoting *other*, unrelated David Whyld games'
+own blurbs, one of which is self-labeled adult comedy; none of that is
+gameplay content of the game being wired). *Patient7*'s dying-child-in-
+hospital horror premise is dark/serious but not sexual, proceeding under
+normal wiring per the *ForestHouse3*/*thelasthour* precedent for non-sexual
+dark themes.
+
+Derived in parallel, one background agent per game, merged and re-blessed
+centrally as usual; all 8 self-reports were independently re-verified against
+the literal harness invocation before blessing — no fabricated claims caught
+this round. One win marker (*Temple_Of_The_Sun*) was first drafted as a full
+closing sentence the game's own line-wrap split across two lines ("...this!
+" / "Congratulations!"), so `--bless` reported REFUSED; fixed by trimming the
+marker down to the portion that stays on one line, the same recurring fix
+pattern as the ninth and tenth batches' wrapped markers. The executable-bit-
+stripping `Edit` footgun did not recur — the script kept its `+x` bit through
+both edits this batch, defensively re-checked (`chmod +x`) regardless.
+
+Re-running the unwired-file count via `comm -23` after this batch gives **90
+unwired files remain** (98 − 8, exactly as expected this time).
+
+- **Mr_Fluffykins_Most_Harrowing_Misadventure** — reaches the game's only
+  happy ending — no scoring system at all (zero `ACT type=4`). A
+  Choose-Your-Own-Adventure gamebook wearing a parser: one nominal room,
+  three variables, 25 tasks that just jump the story via `turn to page N`.
+  The only formal `EndGame` in the whole file is the punitive "impatience"
+  death; the genuine win is terminal prose with no EndGame action of its
+  own. 5 commands, `SCR_SKIP_WAITKEY=1` (an embedded mid-passage waitkey
+  otherwise eats the final scripted command).
+- **A Witch Tale** — win-only, no scoring system. The single ending is a
+  deliberately anticlimactic gag (forgets the magic words, turns into a
+  tree) that the narration lampshades as fake before printing THE END — no
+  actual "say magic words" task exists. Confirms a second, distinct
+  event-object-move decode convention (`room = destination - 2`, on top of
+  the ordinary `Obj2Dest(raw)-1`) separate from ordinary TASK move-object
+  actions — worth flagging for future event-driven object placement work,
+  no engine change made. 44 commands, `SCR_SKIP_WAITKEY=1`.
+- **Door to Utopia, The** — no engine score (the `score` command is
+  overridden with a joke refusal); progress is an author variable
+  `success` 0-6 gating which of two doors — Heaven or Hell — the closing
+  scene sends the player through. All 6 success points earned for the true
+  Heaven ending; the game ships its own complete walkthrough as an in-game
+  cheat (`i'm a cheat`), used only to cross-check the independently derived
+  route against the scoring map. 59 commands, `SCR_SKIP_WAITKEY=1`.
+- **Patient7** — reaches the game's only win ending — no scoring system. A
+  three-day branching vignette (asylum patient vs. demonic-possession
+  framing); the sole win requires betraying both secrets to the doctor on
+  Day 2, then accepting the demonic pact (`demon`) on Day 3. A fragile spot
+  in the game's own task table (Day-1 and Day-2 doctor-menu tasks share the
+  same literal digit commands and room, distinguished only by a variable
+  restriction) can misfire if a digit is typed before the correct on-screen
+  prompt appears — not a walkthrough-breaking issue for a normally-paced
+  player. 59 commands, `SCR_SKIP_WAITKEY=1`.
+- **The_Final_Question** (David Whyld) — reaches the game's only ending —
+  no scoring system. Two rooms plus a death room; the core puzzle is a
+  timed window (stall with `z` until a spoken countdown clears, then step
+  through the gateway) followed by reading four books to unlock the closing
+  narration. 17 commands, `SCR_SKIP_WAITKEY=1`.
+- **mustescape** — reaches the game's only win ending — no scoring system.
+  A three-stage stealth/combat escape; the two hand-to-hand brawls share a
+  single health pool, so the mid-route medical kit should be used before
+  the second fight, and the vault door auto-opens once all three switches
+  are thrown (no manual "open vault" command). The closing gunfight's
+  hit/miss outcomes are fully deterministic, not RNG, making the winning
+  sequence a fixed, discoverable solution; an undocumented `cheat`
+  instant-win shortcut exists in all three combats but was deliberately
+  avoided in favour of a genuinely solved route. 83 commands,
+  `SCR_SKIP_WAITKEY=1`.
+- **Caida libre** (Spanish, "Free Fall") — reaches the game's only win
+  ending — no scoring system. A tiny 7-room linear physical-action puzzle
+  (anchor, somersault onto a satellite, grab its antenna, walk two steps
+  toward it, strike it to trigger an SOS beacon). The game's own ALR table
+  rewrites the engine's built-in "You scored..." end text via a raw
+  substring rule (`score`→`puntos`), faithfully mangling it into "You
+  puntosd 0 fuera of the maximum 0!" — an author/Runner quirk, not a
+  Scarier bug. 8 commands, no env vars.
+- **Temple_Of_The_Sun** (AIF, solution/golden gitignored) — reaches the
+  game's only win ending — no scoring system. A ritual-disguise puzzle
+  (robe + headdress) gates two otherwise-unconditional instant-death exits;
+  the win task itself has no typable command, firing automatically once a
+  background event sees all four prerequisites satisfied on the same turn.
+  31 commands, `SCR_SKIP_WAITKEY=1`.
+
+**90 unwired files remain** after this batch.
+
+**Twelfth batch, 2026-08-29: 8 more wired, suite 351 → 359 rows, all PASS.**
+Continuing smallest-first (19,126–23,957 bytes). A vocabulary scan of the 10
+smallest unwired candidates surfaced one AIF title and nine clean games:
+
+- **`amy.taf` ("Amy And The Raging Hormones") — AIF treatment.** Confirmed
+  adult-only content: the game opens with an explicit content warning and a
+  "must be of legal age" gate, and the NPC is established throughout as "the
+  girl from work" — an adult coworker, not a minor. The flagged "teen" hits
+  refer only to a background concert crowd; the flagged "rape" hit is
+  actually the game's own consent-enforcement mechanic (a non-consensual
+  attempt instantly kills the player character, rather than depicting
+  assault approvingly). Wired normally (row + comment block committed) but
+  its solution/golden are gitignored per the `gamma`/`croft`/
+  `Temple_Of_The_Sun` precedent.
+
+Every other flagged hit in the remaining 9 candidates was a confirmed false
+positive on context read: "weathercock" as a repeated puzzle-mechanism
+variable name; "Rothchild" surname and "child's play" idiom; "eighteen"/
+"fifteen"/"thirteen"/"seventeen"/"fourteen minutes" all substring-matching
+"teen"; "draped" and "parapets" substring-matching "rape"; "succumbs" and
+"circumstances" substring-matching "cum"; "cocks his head" as a gesture;
+"stripes"/"became a stripper" as non-sexual backstory mentions; nostalgic
+"as a child"/"your childhood" narration (8 hits, all in one game); "shy
+teenagers" in a non-sexual matchmaking-comedy context; "children playing" as
+a bystander mention; and an in-game profanity blocklist (`fuck` among other
+swear words the game itself refuses to process as a verb) recurring in two
+different games.
+
+Derived in parallel, one background agent per game, merged and re-blessed
+centrally as usual; all 8 self-reports were independently re-verified against
+the literal harness invocation before blessing. `Will.taf`'s bless call
+(`--bless will`) incidentally matched and re-blessed the pre-existing
+`microbe_willie_solution.txt` row too (substring filter match) — confirmed a
+byte-identical no-op diff, not a regression. No wrapped-marker or executable-
+bit footguns recurred this batch.
+
+Re-running the unwired-file count via `comm -23` after this batch gives **82
+unwired files remain** (90 − 8, exactly as expected).
+
+- **Wolves_at_the_Door** — no formal score (the `score` command is a fixed
+  flavor line; a debug easter egg lists 28 "points" for five flavor actions,
+  never wired to the engine) and no `ACT type=6` EndGame at all — the sole
+  ending is a scripted event/task pair keyed on a turn counter. A real-time
+  survival puzzle: every parsed command advances the counter, and landing
+  exactly on turn 25 triggers a deliberate black-comedy "rescue" that always
+  ends in death regardless of prior actions — there is no surviving branch.
+  The game's own "- walk" easter-egg transcript omits a required `x small
+  area` step and would fail if followed verbatim. 26 commands,
+  `SCR_SKIP_WAITKEY=1`.
+- **apokalupsis** (2009 Intro Comp taster) — win-only, no scoring system. A
+  3-room linear detective scene gated by a hidden `evidence` counter (≥5 of
+  7 examine-clue tasks). Uses ALR-table string substitution for variable-
+  driven dialogue branching (`[regjim=N]` placeholders rewritten post-hoc by
+  value) — looked like dead content from the static task dump alone but all
+  branches are genuinely reachable in sequence. 46 commands,
+  `SCR_SKIP_WAITKEY=1`.
+- **dusk** ("A Walk At Dusk", Eric Mayer, 2005) — a puzzleless atmospheric
+  walk, author-tracked score out of 10 (no engine `ACT type=4` at all) for
+  10 optional observation vignettes; full 10/10 reached. The `stuff`
+  command is a built-in walkthrough. The win (tree frog) needs `x sapling`
+  TWICE after `x evergreen` — the first hit is a dead "nothing special"
+  flavor task. Two "embarrassing" flavor flags (muddy shoes, walked into a
+  web) are structurally unavoidable on any full-score route but cost no
+  points. 33 commands, no env vars.
+- **The_Hunter** — reaches the true structural maximum, 50/50 (sum of all 19
+  `ACT type=4` actions, all on one reachable critical path). An amnesiac
+  apprentice-mage escape from a ruined castle via two-word rune spells, then
+  a village/travel act ending in a real-time ballista race against a
+  pursuing warship. Notable authoring bug: a `say * name *` task pattern
+  never populates `%text%` for ADRIFT's bare `*` wildcard, so the "obvious"
+  phrasing silently fails every restriction; only phrasing that misses that
+  literal pattern actually scores. 62 commands, no env vars.
+- **Will** ("Selma's Will") — reaches the true structural maximum, 200/200. A
+  heirloom-trading puzzle across ~12 relatives at a will reading; no
+  double-counting exploits. Notable trap: giving the marbles to one NPC
+  silently turns the previously-safe "go down" into an instant-death ending
+  for the rest of the game — "slide down the banister" must be used
+  instead. 124 commands, no env vars.
+- **COBL** — the real win (`ACT type=6`) is permanently unreachable: it
+  needs 4 NPC recruitments, but the 4th is blocked by a genuine `.taf` data
+  bug (the newspapers are placed onto a STATIC object with an empty room
+  list, so it can never become seen/reachable by any command — confirmed
+  via `obj_directly_in_room()` and `SCR_TRACE_MATCH`, not a Scarier
+  divergence). True max is 160/230 (69%), the best achievable outcome.
+  107 commands, `SCR_SKIP_WAITKEY=1`.
+- **puzzlebox** ("The Puzzle Box", Richard Otter, ORGComp 2007) — win-only,
+  no scoring system. A sequential 10-stage combination-lock puzzle box, all
+  target values fixed `.taf` constants (no RNG), though the variable-naming
+  convention for "current state" vs. "target value" is inconsistently
+  applied across puzzles. Puzzle 2 (clock) has a genuine off-by-one bug —
+  completion needs the church clock's minutes PLUS 5, confirmed by both the
+  expression chain and the game's own hint text. 85 commands, no env vars.
+- **amy** (AIF, solution/golden gitignored) — reaches the game's only win
+  ending — no scoring system. Two-scene structure (public gig, then private
+  scene); the natural scene transition is gated by a counter no task ever
+  increments (dead path, apparent authoring bug), so the game's own
+  in-fiction shortcut code is the only working route. The private scene
+  layers undress/arousal/intimacy-threshold gates before the finishing
+  task; one escalation task the game's own readme warns against repeating
+  arms a punitive kill-player ending on reuse, deliberately not invoked.
+  19 commands, `SCR_SKIP_WAITKEY=1`.
+
+**82 unwired files remain** after this batch.
+
+**Thirteenth batch, 2026-08-29: 8 more wired, suite 359 → 367 rows, all PASS.**
+Continuing smallest-first (24,494–35,681 bytes). A vocabulary scan of 8
+candidates surfaced two AIF titles, one decline, and five clean games. Three
+new false-positive patterns were confirmed this batch: "cockles"/"cockroach"
+substring-matching "cock", "grapefruit" substring-matching "rape", and
+"Documents" (a Windows filesystem path embedded in game asset metadata,
+`C:\Documents and Settings\...`) substring-matching "cum".
+
+- **`awakening.taf` ("Sexual Awakening") — DECLINED, not wired.** The intro
+  states outright "This is a game in which you have sex and it should not be
+  played by kids that are too young," frames an incest premise (player +
+  sister, parents away), and the NPC description states verbatim: "Tammy is
+  your sister... She is 16 years old and has brown hair..." — an explicit
+  statement that the sexualized NPC is a minor. Declined per the
+  `enc1`/`windy`/`delight` precedent; permanently excluded, not counted
+  toward the unwired total's decrement.
+- **`The_Strange_Tale_of_Dr_Wilkins.taf` ("A Victorian Transformation
+  Melodrama") — AIF treatment.** All bodies/characters depicted are
+  explicitly adult women (no minors — "child bearing hips" describes adult
+  anatomy, "children of the night" is an unrelated placeholder-text list
+  item). Wired normally, solution/golden gitignored per the
+  `gamma`/`croft`/`amy` precedent.
+- **`BSG TWENTY TWO Final.taf` — AIF treatment, borderline case resolved.**
+  Ships a supported non-consent verb-set ("rape tricia", "rape ass", etc.)
+  alongside its consensual content, plus the game's own disclaimer framing
+  it as fictional adult content with an up-front warning. The NPC is
+  explicitly confirmed adult in-game ("You're not a child..."), satisfying
+  the established "no minors" bar — this is the established decline
+  criterion in this project, not "no non-consensual content," so standard
+  AIF treatment applies. As it happens, the derived walkthrough's sole win
+  route is a conversational/fetish-escalation chain that never touches the
+  rape-verb family at all — that branch is a complete red herring with
+  respect to progress, confirmed structurally (it never sets the
+  win-condition variable). Wired normally, solution/golden gitignored.
+
+Every other flagged hit in the remaining 5 candidates was a confirmed false
+positive on context read: "fifteen seconds" and "fifteen"/"sixteen"
+substring-matching "teen"; "cucumbers" and "circumstances" substring-matching
+"cum"; "drapes"/"scraped"/"childhood town" substring-matching "rape"/"child";
+"cockles" (a stew idiom) and "cockroach" substring-matching "cock"; "my
+child"/"poor child went missing" as non-sexual affectionate address and
+missing-person subplot narration; a joke movie title ("Attack Of The Naked
+Bimbos") quoted in passing dialogue; comedic non-graphic "I've had sex with
+nothing but whores" self-deprecating dialogue; and — recurring for the third
+time in this project — the "credits reel" easter-egg pattern quoting other
+David Whyld games' own self-labeled blurbs, one titled "(An Adult Interactive
+Fiction Game)"/"Adult comedy" for a DIFFERENT, unrelated game.
+
+Derived in parallel, one background agent per game, merged and re-blessed
+centrally as usual; all 8 self-reports were independently re-verified against
+the literal harness invocation before blessing. No wrapped-marker or
+executable-bit footguns recurred this batch.
+
+Re-running the unwired-file count via `comm -23` after this batch gives **74
+unwired files remain** (82 − 8, exactly as expected; `awakening.taf` stays
+counted forever, per the `delight.taf` precedent).
+
+- **YNKaboom** ("The Ascot") — pure yes/no CYOA, no formal score (0
+  ChangeScore actions; 5 EndGame endings differentiated only by an
+  in-fiction dollar figure). Off-topic (non-yes/no) input increments a
+  persistent counter with escalating warnings; a 4th off-topic input at
+  count 3 is an immediate death. The climax loop's final offer (an
+  interpreter) only wins if that counter is already at 3 — i.e. the player
+  must have deliberately misbehaved 3 times earlier — otherwise the
+  identical choice kills the player instead: a genuine silent-loss trap with
+  no in-turn warning. Solo route (skipping an optional NPC subplot) reaches
+  the richest ending, $96,300,000. 25 commands, no env vars.
+- **hub** — black-comedy domestic-chores sim with a hidden murder-mystery
+  twist. A hungover "house husband" tidies the house before "Marta" gets
+  home; completing every chore resurfaces his memory — he murdered his wife
+  and hid her in the garden shed, then drives off. Three distinct trap
+  endings exist (rewinding a video tape conjures a ghost and ends in death;
+  overcooking soup triggers a fire-brigade arrest; calling a cleaning
+  company then napping lets hired maids find the body first). The game's
+  declared Maximum-Score field is 0, so its own `score` command always
+  prints ".../0 (0%)" even though the internal counter genuinely reaches
+  80/80 (all 26 ChangeScore actions banked) — an authoring quirk, not a
+  scoring bug. Ships an in-fiction `walkthrough` command with ~6 real bugs
+  that had to be corrected before it would replay clean. 112 commands, no
+  env vars.
+- **darkness** — single-location (lighthouse) exploration/repair game.
+  Score from four sources: 7 of 8 "mystery notes" (the 8th, the keeper's
+  hat, is a genuine 0-point decoy), repairing the generator, pulling the
+  light-control lever, and firing a flare gun at a passing ship, plus a +10
+  completion bonus for ≥7 notes found. The flare gun is gated on an internal
+  "ship passing" state that only holds briefly after the lever is pulled;
+  firing early just forfeits 5 points harmlessly, no dead end. 50/50, fully
+  reachable. 111 commands, `SCR_SKIP_WAITKEY=1`.
+- **Dream Quest** — linear fantasy fetch-quest (68 rooms, 58 tasks, 20 scored
+  objectives at 5 points each) built from item-for-item exchange chains,
+  culminating in a castle-crypt vampire hunt delivered back to a wizard for
+  the win. Leans hard on the object-*seen* model: a sparrow in a nest and a
+  nail in a pile of ashes are both present but unreferenceable until the
+  container/scenery is explicitly examined first. A one-way bridge collapse
+  locks the player into the castle after crossing; an unprotected Freezing
+  Passage crossing silently kills unless prepared beforehand. 100/100, fully
+  reachable, no dead points. 187 commands, no env vars.
+- **The_Strange_Tale_of_Dr_Wilkins** (AIF, solution/golden gitignored) — no
+  formal EndGame/win-ending exists anywhere in the task table; the declared
+  MaxScore=95 is purely nominal, not an enforced cap — diligent play banks
+  117/95 (123%). Authoring bugs: several NPC-specific "repeat" tasks corrupt
+  an internal identity-state string, making some transformations unsafe to
+  repeat; one specific transformation is uniquely safe for indefinite reuse
+  and is the walkthrough's workaround. A genuine permanent softlock exists
+  in one late-game room (a movement-blocking check and the room's real exit
+  gate impose mutually exclusive preconditions) — deliberately never
+  entered, forfeiting 2 low-value points rather than risking the trap. 178
+  commands, no env vars.
+- **jailbreakbob** — WINNABLE (verdict corrected 2026-08-30; the earlier
+  "UNWINNABLE as authored" entry was a .taf-reading error). Task 35's
+  NPC-move action uses a 1-based room index: going west from the dining hall
+  with the yard pass drops Hoggins into YOUR CELL, not the dining hall, and
+  the two cell-scoped events then produce his "You seen me comb, Bob?"
+  request within a few turns. Comb → coin (second `talk hoggins`) → meeting
+  room phone, option 4 (prank-call Terry's wife) → she disarms him on `ne`
+  → `get gun`, `n` = task 72 win ("woo-hoo!"). Proved in the real run400.exe
+  under Wine (Adrift_2_jailbreakbob_win.txt, 38/38 commands echoed) as well
+  as Scarier. No formal score. 31 commands, `SCR_SKIP_WAITKEY=1`.
+- **In_the_Claws_of_Clueless_Bob** — comedy frame story: the player is
+  forced to "play" a series of deliberately terrible mini-games authored by
+  in-fiction hack "Clueless Bob Newbie," escaping via absurd puzzles. Score
+  is entirely author-simulated via a plain SetVar, not the engine's native
+  score system — the real `score` command reports 0/0 (harmless quirk,
+  never surfaced to the player). Ships its own built-in walkthrough menu as
+  static text, confirmed to match actual play 1:1. 12/12 of the author's own
+  tracked max, no hints used. 40 commands, `SCR_SKIP_WAITKEY=1`.
+- **BSG TWENTY TWO Final** (AIF, solution/golden gitignored) — no formal
+  score (its own 0/0 summary is text-replacement-suppressed); win/lose only
+  on a ~23-turn countdown. The win route is a conversational/fetish-
+  escalation chain gated behind 8 dialogue topics; the game's separate
+  violence/torture/rape verb family never touches the win-condition
+  variable — the derived route uses ZERO forced/non-consensual verbs. A
+  duplicate-task/lower-index-wins quirk means one command must be issued
+  twice (the first call is a no-op flavor task). 14 commands,
+  `SCR_SKIP_WAITKEY=1`.
+
+**74 unwired files remain** after this batch.
+
+**Fourteenth batch, 2026-08-29 → 2026-08-30: 8 more wired, suite 367 → 375
+rows, all PASS.** Continuing smallest-first (36,350–45,755 bytes). A
+vocabulary scan of the 8 smallest-first candidates surfaced one decline, one
+wrong-corpus duplicate, one AIF title, and six clean games. A new
+false-positive pattern was confirmed this batch: "sexton" (a church-caretaker
+role) substring-matching "sex". A second batch discovery clarified an
+existing pattern rather than adding a new one: a game's own protective
+refusal text guarding a child NPC from a player-attempted `strip`/flirt
+command is itself a clean, protective pattern — not a violation — provided
+(unlike `aparty.taf` below) the game's own narration never separately depicts
+that NPC in a sexual scene outside the player's control.
+
+- **`aparty.taf` — DECLINED, not wired.** The game's own walkthrough/design
+  text instructs the player to "Flirt with the underage Beth"; Beth is
+  repeatedly confirmed "teenage"/"Tony's daughter." Critically, this extends
+  the project's decline criterion beyond player-initiated acts: even though
+  the player's own attempts to flirt with Beth are explicitly refused ("Beth
+  says 'Pervert.'"), the game's own narration separately depicts Beth having
+  sex with her boyfriend Dan in a fade-to-black scene ("Beth and Dan are
+  doing it in the bed... well, you get the picture"). A sexualized minor
+  depicted in the game's own narration is declinable independent of whether
+  the player can participate. Permanently excluded, not counted toward the
+  unwired total's decrement.
+- **`BeThere.taf` — excluded, not a content decision.** Not actually an
+  ADRIFT 4 game: its IFiction header declares `<compiler>ADRIFT
+  5</compiler>`, it opens with a plaintext `<ifindex>` XML block (the v5
+  signature, not the XOR/zlib v3.x/4.0 format), and the v4 headless binary
+  rejects it outright ("Not a loadable Adrift game"). MD5-identical to
+  `test/adrift5/games/BeThere.taf`, which already has a complete ADRIFT 5
+  golden pair (`goldens/BeThere_walkthrough.txt` / `_expected.txt`, 130/max,
+  "*** You have won ***"). A duplicate file mistakenly present in the v4
+  games/ tree; deleted from `test/adrift4/games/` (untracked/gitignored, so
+  this touches no git history) rather than counted as a permanent decline
+  like `aparty.taf`, `delight.taf`, and `awakening.taf` — it was never an
+  ADRIFT 4 game to begin with. Replaced in this batch's 8-game count by
+  `Aegis.taf` (the next-smallest unwired candidate).
+- **`warlock.taf` — AIF treatment.** An 1841-dated in-fiction necromancer's
+  diary names the sole sexualized character only as a "wench"/"young
+  female" village adult; no minor-indicator terms (child/teen/minor/
+  underage/rape/molest) appear anywhere in the file, and a targeted
+  age-indicator sweep ("young", "years old", "college", "school", "student")
+  confirmed every hit describes that same adult woman or an unrelated
+  document-aging detail. Matches the `gamma`/`croft`/`Wilkins`/`BSG22`
+  precedent. Wired normally, solution/golden gitignored.
+
+Every other flagged hit across the remaining 6 candidates was a confirmed
+false positive on context read: "minor wounds"/"minor stone slabs" idiom;
+"sexton" (`The Old Church.taf`, a legitimate church-caretaker noun)
+substring-matching "sex"; "Documents" (a Windows filesystem path embedded in
+game asset metadata) substring-matching "cum"; "draped"/"scraped" substring-
+matching "rape"; "eighteen"/"fifteen"/"fourteen"/"sixteen"/"nineteen" as
+duration/backstory substrings matching "teen"; "cocktail parties"/
+"cockroach" substring-matching "cock"; "stripped" (paint) and a mentioned-
+but-never-depicted downloaded "strip poker" computer game substring-matching
+"strip"; "molest" as one generic synonym in an ATTACK-verb list; a joke
+insult about a door ("breast fed from falsies") substring-matching "breast";
+"scum" substring-matching "cum"; in-game profanity-detection easter eggs
+("You discovered a swear word") accounting for most raw `fuck`/`cocksucker`
+hit counts; and, in `competition2011...suzy`'s case specifically, the game's
+own **protective refusal mechanic** guarding its child NPC — attempting
+`strip *kid*` returns "The kid is distressed enough as it is without you
+trying to strip him/her off..." and nearby swearing triggers an in-fiction
+scolding ("There are children present") — confirmed clean per the new
+clarification above.
+
+Derived in parallel, one background agent per game (`Aegis.taf` dispatched
+separately once `BeThere.taf`'s wrong-corpus status was discovered mid-
+batch); all 8 self-reports were independently re-verified against the
+literal harness invocation before blessing, including one win-marker
+adjustment (`Aegis.taf`'s reported marker had unreliable trailing
+whitespace; re-picked a clean unique substring, " END", from the same
+closing screen). No wrapped-marker or executable-bit footguns recurred this
+batch.
+
+Re-running the unwired-file count via `comm -23` after this batch gives **65
+unwired files remain** (74 − 8 wired − 1 deleted `BeThere.taf`, exactly as
+expected; `aparty.taf` joins `delight.taf`/`awakening.taf` as a permanently
+counted, never-decrementing exclusion).
+
+- **Back Home** — short linear horror/mystery vignette, no score system, one
+  unavoidable ending (a coal-bunker key hunt via magnet+string fishing from
+  a garden drain) revealing the protagonist accidentally caused an infant
+  sibling's death. The author remaps the engine's default lose-message ALR
+  to "GAME OVER" for this ending, repurposing the "loss" action type as the
+  story's sole intended conclusion rather than an authoring bug. 54
+  commands, `SCR_SKIP_WAITKEY=1`.
+- **zelda** — UNWINNABLE as authored. "get/take wooden key" (Tree Room)
+  prints "Taken." but has no ACT statement that actually grants the key
+  object — every phrasing tried, confirmed via post-attempt inventory
+  check. That key gates the only door into the Wizrobe Room, whose Dodongo-
+  fight/raft chain is the sole route to the eastern continent (rooms
+  35–61), holding the only EndGame(win) task and 138 of 197 scoring points.
+  Verified maximum reachable score: 59/197 (29%). A second, moot authoring
+  bug: entering the Graveyard with the shield equipped destroys it via a
+  Like-Like task with no compensating relocate action. 79 commands,
+  `SCR_SKIP_WAITKEY=1`.
+- **Showtime_at_the_Gallows** — babysitting horror-comedy. No score system;
+  every outcome (death or true ending) is a plain room-move into "The End",
+  not an EndGame action. Several puzzles are deterministic NPC-patrol
+  timing games (escape Zero on turn 9-10 of an 11-turn window; slip past
+  twin hell-hounds by waiting exactly one turn on their period-4/period-5
+  cycle). The climax is a false-choice trap: answering Zero's yes/no
+  survival question kills the player either way — survival requires instead
+  repeatedly asking Zero his own name before grabbing a brick. Katie's death
+  outside the house is scripted/unavoidable regardless of phrasing (two
+  redundant catch-all tasks). 165 commands, `SCR_SKIP_WAITKEY=1`.
+- **The Old Church** — 10-room ghost-story puzzle, no score system, two
+  EndGame endings. Giving the sword straight to the sexton (task 3) is a
+  genuine silent-early-ending trap that forecloses a full NPC subplot;
+  examining the organ in the Gallery is an unstated prerequisite for the
+  tombstone/ghost-summoning chapel scene, and taking the sword also
+  silently transfers a piece of cheese (a task-4 side effect) that is the
+  unstated key to feeding the church mouse and reaching the full ending.
+  Win-only. 17 commands, `SCR_SKIP_WAITKEY=1`.
+- **competition2011...suzy ("How Suzy Got Her Powers")** — 2011 ADRIFT comp
+  entry, superhero-origin comedy. Custom author-scripted score variable (no
+  engine-level ChangeScore/EndGame exists at all); 22/22, a hidden `score`
+  debug command and hidden `b walk` command (dumping the author's own
+  tested walkthrough) are both present but unused here. Key trap: the vase
+  must be filled with water and carried intact through the crawlspace
+  (needed later to hydrate a trapped NPC), while the window must be smashed
+  with the fire extinguisher instead — using the wrong tool on either
+  forecloses a later scoring action. A parking-lot dawdle timer (≥10 turns
+  before entering) triggers a soft "Part One - bad" ending if ignored. 31
+  commands, `SCR_SKIP_WAITKEY=1`.
+- **Rock Band** — comedy about a slacker roommate's Rock Band-obsessed
+  housemate. No score system (the minigame's internal note-score variable
+  is not the engine's real score); win-only, 3 EndGame endings (win/lose
+  via a 50-turn countdown/death via moldy chow mein). Win route: play the
+  in-fiction Rock Band minigame to a perfect 1000-point run (triggering
+  "Gigantor"), retrieve a mechanical finger hidden in a closed laundry
+  closet, `use finger on xbox` to eject the disc, then unplug the power
+  cord. 24 commands, `SCR_SKIP_WAITKEY=1`.
+- **Aegis** — fantasy pirate/naval political-intrigue adventure (Aegis
+  Knight Celise vs. a treasonous Elder). No score system, no formal EndGame
+  action — the sole ending is a plain player-move to the "End" room. Two
+  authoring quirks worked around, not blocking: `attack the man/guard with
+  the sword` fails on the literal words "with the sword" (bracket-match
+  breaks, falls through to a generic library-verb refusal) — omit them;
+  "tie the hook to the rope" has no matching task at all (dead flavor text)
+  since "throw the rope at the ship" already succeeds unconditionally. 74
+  commands, `SCR_SKIP_WAITKEY=1`.
+- **warlock** (AIF, solution/golden gitignored) — no formal scoring system
+  (the game's own ALR table overrides the default score summary with "There
+  is no scoring system in this game."); the only reachable ending from
+  beyond the summoning scene is a single mandatory dark-twist EndGame (no
+  exit from that room otherwise). A lethal wrong-reagent fireball trap and a
+  flavor-only scrying-vision incantation exist as red herrings among three
+  total incantations. One flavor-only NPC-directed task is permanently
+  unreachable: the game's own SYNONYM table unconditionally rewrites
+  "lick"→"kiss" pre-parse, but no "kiss" phrasing was ever authored for that
+  specific task — a self-inflicted authoring dead task, not an interpreter
+  divergence; it contributes no unique content. 58 commands, no env vars.
+
+**65 unwired files remain** after this batch.
+
 ## Camp Windy Lake : Part 2 (2026-08-12) — the AIF treatment, done once
 
 Wired out of the smallest-first order because the user asked for it by name.
@@ -2042,6 +2547,33 @@ the harness seed; T71 there claims `* *e *`, which matches **any word ending in
 Terror is two near-identically described rooms with the shaft in one and the
 stones in the other. `T6 #8 slipnslide` has the ALTCMD `[*]` — *whatever* you
 type on the slippery slope slides you into Despaire.
+
+**2026-08-30 — run390 CONFIRMS unwinnable, and the real Runner bricks far
+earlier than we do.** Two live `run390.exe` sessions (`Adrift_2_journ2_end.txt`:
+the 46-command golden plus a typed `#6 start card game` endgame probe;
+`Adrift_3_journ2_t5.txt`: 21 commands then a mixed bag). Every command echoed.
+In both, the moment you step into the Lair, `T3 #6 creature looks` fires on the
+arrival command (its patterns are `* s *`, `* n *`, `* e *`, `* w *`, `* nw *`
+and a bare `*`; `rep=0`, `where=1 room=1`, no restrictions) — and from then on
+**every command typed in the Lair answers "You have already done that."**:
+`look`, `score`, `e`, `w`, `north`, `take shovel`, `dig`, `fly`, `x card`,
+`x king`, `z`, `give cards`, `out`, `leave`, `exit`. Only `i` and `x creature`
+still work (library paths the 3.9 Runner takes before task matching). That is
+the pre-4.0 rule recorded in `adrift4-spent-task-vs-restrictions.md` — a spent
+non-repeatable task whose pattern matches *claims* the command and prints the
+"already done" refusal — applied to a spent catch-all. Scarier deliberately
+does not import that rule (it costs 15 goldens), which is why our golden walks
+out of the Lair and banks 30; under the original Runner the ceiling is the
+well's **5/90** and the player never sees Sorrow, Terror or the cards. The
+card-game backdoor and the Rage valve question are therefore moot in run390 —
+neither room is reachable — and the `where=0` T86 wall was never even
+approached. Verdict unchanged, and now Runner-proved: UNFINISHABLE. (Under a
+gen400 upconversion the 4.0 restrictions-first rule would let the spent T3 fall
+through, so a 4.0 Runner would play like Scarier; not measured.) Driver note:
+`drive_ckpt_safe.sh` line 128 skips any cmdfile line beginning with `#`, so a
+`#`-labelled task can't be typed through the harness either — it needs a
+one-off keystroke, which this session never got to because the Lair brick
+came first.
 
 ## Murder in Great Falls (2026-08-14) — a `<waitkey>` between the two start-up prompts
 

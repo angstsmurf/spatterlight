@@ -1,0 +1,936 @@
+Loading game...
+
+Crazy Old Bag Lady
+
+Start
+What would you like to do?
+
+1) Read some gameplay tips,
+
+2) Read the credits, or
+
+3) Start playing.
+
+> 3
+After the ending of the last adventure game you played left you feeling empty
+and cheated, you realised that the highlight of your adventuring life tends
+to be the miscellanious rubbish you find on the street. The giddy thrill of
+finding old rubbish far outweighs the satisfaction of actually accomplishing
+anything.
+
+[press any key to continue]
+
+As you passed from street to street, finding and grabbing items that caught
+your fancy, the interest in item-collecting became an obsession. Your every
+waking moment was spent in the search for useless items! Your dreams were
+haunted by objects with no apparent purpose!
+
+[press any key to continue]
+
+After some time, you began to be weighed down by the bulk of your inventory.
+Even balancing objects on your head wasn't enough; you simply didn't have the
+arm capacity for all your possessions! But it was too late to stop now, the
+objects that consumed your life could not be abandoned... you had come too
+far for that.
+
+[press any key to continue]
+
+Then an idea hit you. Legend tells of a Golden Trolley. Surpassing the common
+Silver Trolley in both capacity and style, the Golden Trolley would be more
+than enough to satisfy your irrational love of item finding. Alright, gold
+may be tackier than silver, but why are you complaining? You're a Bag Lady.
+
+[press any key to continue]
+
+There's just one problem... finding it. You could talk to people to get the
+important stuff, that's what works best in this game, but you are a smelly,
+crazy, scary old bag lady so don't expect great responses. In fact the people
+most likely to talk to you probably won't make much sense either.
+
+[press any key to continue]
+
+So, armed only with your meagre possessions, you set out into the big city...
+well, little town... more sort of a heavily industrialised village, actually,
+on the search for the Golden Trolley, because you are... Crazy Old Bag Lady.
+
+[press any key to continue]
+
+(If you happen to be of a male persuasion, you'll have to put up with being
+female for the duration of this game. Use your imagination, I know you can.
+Then when you finish you can go back to spitting, or punching each other, or
+whatever your crazy gender does in its spare time, ok?)
+
+[press any key to continue]
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+A ginger cat is strolling about casually.  The ginger cat ambles away to the
+south.
+
+> n
+You move north.
+
+Outside McDonalds
+
+Ah, the legend that is McDonalds. Townie Central. Even from here, the smell
+of the grease is making your mouth water...
+
+An empty polystyrene cup is lying helplessly in the gutter.  A large red bin
+is to the side.
+A group of chavs is leaning against the wall and smoking.
+
+> take cup
+You take the polystyrene cup.
+
+> look in bin
+The bin is bright red.  Some rubbish is inside the McDonalds bin.
+
+> search rubbish
+I don't understand what you want me to do with the rubbish.
+
+> look in rubbish
+There is all sorts of rubbish in here... empty chip boxes and such. But
+you're not allowed any of that; that's cheating. A true Bag Lady only takes
+important things from bins or rubbish from the streets.  A jar of mind
+medicine is inside the rubbish.
+
+> take medicine
+You take the jar of mind medicine from the rubbish.
+
+> s
+You move south.
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+
+> get water from pond
+You dip the cup into the stagnant green water, being careful not to let it
+come into contact with your hand.
+
+> e
+You move east.
+
+Outside Mad Cat Lady's House
+
+The garden is neglected and overgrown with weeds. In a fit of creative irony,
+the writer has seen fit to add some crazy paving. Some people have no
+subtlety.
+Mad Cat Lady is here. So are many cats. Many, many cats.
+
+> talk to mad cat lady
+"Byeyoraghaaaarahargh munuuhbreayoragh!"
+
+> give medicine to mad cat lady
+Although it pains you to give away one of your precious items, you do need to
+refine your collection. Only true tat is worthy of the Golden Trolley.
+
+You pass the pills over to the Mad Cat Lady. You may not be stupid enough to
+take them, but you'll bet she is. And... yes, she swallows all the pills in
+one!
+
+> talk to mad cat lady
+The drugs seem to be taking some time to kick in... "Yep, feisty felines... I
+don't even, but we were, and, and, and, and and andandandand... anyway..."
+maybe a drink would help...
+
+> give water to mad cat lady
+Mad Cat Lady grabs the drink from your hand and downs it. You shudder to
+think what that'll do to her insides.
+
+> w
+You move west.
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+
+> s
+You move south.
+
+High Street
+
+Shops line the south side of the High Street. They're all fairly
+modern-looking.
+
+There are a few people milling about noncommitally.
+
+> e
+You move east.
+
+High Street
+
+Shops line the south side of the street. They're quite old.
+
+There are a few people milling about noncommitally.
+
+> e
+You move east.
+
+Supermarket
+
+This is a very large supermarket, but for reasons I won't go into it's the
+same size as it would be if it were a very small supermarket. It's all very
+complicated, and probably quantum.
+
+There are a few people milling about noncommitally.
+Shop Guy is stacking the shelves.
+
+> s
+You move south.
+
+Car Park
+
+This vast expanse of concrete has very little of interest to you.
+
+Underneath a trolley, in the corner of the car park, a small silver glint
+catches your eye... it's a key!  You see some trolleys lurking around the
+edges of the car park.  There are a few cars about.
+
+> take key
+You take the key.
+
+> n
+You move north.
+
+Supermarket
+
+This is a very large supermarket, but for reasons I won't go into it's the
+same size as it would be if it were a very small supermarket. It's all very
+complicated, and probably quantum.
+
+There are a few people milling about noncommitally.
+Shop Guy is stacking the shelves.
+
+> w
+You move west.
+
+High Street
+
+Shops line the south side of the street. They're quite old.
+
+There are a few people milling about noncommitally.
+
+> w
+You move west.
+
+High Street
+
+Shops line the south side of the High Street. They're all fairly
+modern-looking.
+
+There are a few people milling about noncommitally.
+
+> n
+You move north.
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+
+> e
+You move east.
+
+Outside Mad Cat Lady's House
+
+The garden is neglected and overgrown with weeds. In a fit of creative irony,
+the writer has seen fit to add some crazy paving. Some people have no
+subtlety.
+Mad Cat Lady is here. So are many cats. Many, many cats.
+
+> give key to mad cat lady
+You pass the small silver key to Mad Cat Lady. She's been looking for it for
+days, bless her. She unlocks her front door.
+
+Mad Cat Lady's House
+
+You're actually surprised at how... well, sane the place is. It's tidy, and
+there are pictures of flowers on the wall. The only indications that it
+belongs to Mad Cat Lady are the furballs and dead mice that decorate the
+floor artisticly.
+
+There is a sofa by the east wall.  For some reason, there is a length of rope
+in here. What for? Who knows, and who cares. Point is, you have some handy
+rope lying about. It may not be plausible, but you shouldn't look a gift
+horse in the mouse, or something to that effect.
+
+> score
+Your score is 100 out of a maximum of 230.  (43%)
+
+> e
+You can only move west.
+
+> look
+
+Mad Cat Lady's House
+
+You're actually surprised at how... well, sane the place is. It's tidy, and
+there are pictures of flowers on the wall. The only indications that it
+belongs to Mad Cat Lady are the furballs and dead mice that decorate the
+floor artisticly.
+
+There is a sofa by the east wall.  For some reason, there is a length of rope
+in here. What for? Who knows, and who cares. Point is, you have some handy
+rope lying about. It may not be plausible, but you shouldn't look a gift
+horse in the mouse, or something to that effect.
+Mad Cat Lady is here. So are many cats. Many, many cats.
+
+> i
+You are wearing a woolly hat and your old, grey coat, and you are carrying an
+old lighter, a cinema ticket, an empty cigarette box, a trashy romance novel,
+a biro and a beige computer keyboard.
+
+> take rope
+You take the rope.
+
+> look in sofa
+You search through the sofa, hating every second of it. Occassionally your
+hand encounters something that you really, really don't want to inspect any
+closer. After a couple of minutes of looking under, behind, and in the sofa,
+you find a small bag of catnip.
+
+> look under sofa
+The sofa has a floral pattern. It was probably originally white. (Mental
+note: cats and white furniture don't mix.)
+
+> look behind sofa
+The sofa has a floral pattern. It was probably originally white. (Mental
+note: cats and white furniture don't mix.)
+
+> i
+You are wearing a woolly hat and your old, grey coat, and you are carrying an
+old lighter, a cinema ticket, an empty cigarette box, a trashy romance novel,
+a biro, a beige computer keyboard, some rope and some catnip.
+
+> w
+You move west.
+
+Outside Mad Cat Lady's House
+
+The garden is neglected and overgrown with weeds. In a fit of creative irony,
+the writer has seen fit to add some crazy paving. Some people have no
+subtlety.
+
+> w
+You move west.
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+
+> w
+You move west.
+
+Riverbank
+
+The river winds away to the south. It's completely unbridged, which could
+well be because there isn't actually anything on the other side. Funny, that.
+
+> n
+You move north.
+
+Riverbank
+
+The beautiful, sparkling river is a very healthy shade of brown. When you
+found a fishing rod about a month ago, you were here from dawn till dusk
+catching boots; but then one fought back and took your rod with it.
+
+> x golden trolley
+Yes! There it is! You can just about see the object of your desires, the
+thing that haunts your every dream, the very meaning of your life; the GOLDEN
+TROLLEY!
+
+> s
+You move south.
+
+Riverbank
+
+The river winds away to the south. It's completely unbridged, which could
+well be because there isn't actually anything on the other side. Funny, that.
+
+> s
+You move south.
+
+Street Corner
+
+It's a fairly uninteresting street corner, as far as street corners go. I
+mean, usually there woudl be a lamppost to loiter around, but not here. Here
+we just have: pavement, road, pavement. Very dull indeed.
+
+> s
+You move south.
+
+Road out of town...
+
+This is a dusty dirt track, despite the fact that the rest of the town has
+concrete roads. It doesn't seem likely that the neighbouring towns have no
+roads, so why exactly there's this middle bit of dirt is a mystery.
+
+> talk to scary mumbling man
+"You've found it? Oh, fantastic. Alright, I'll tell everyone to go to the
+park. Meet me there. Mblmmmrermmm."
+
+> n
+You move north.
+
+Street Corner
+
+It's a fairly uninteresting street corner, as far as street corners go. I
+mean, usually there woudl be a lamppost to loiter around, but not here. Here
+we just have: pavement, road, pavement. Very dull indeed.
+
+> n
+You move north.
+
+Riverbank
+
+The river winds away to the south. It's completely unbridged, which could
+well be because there isn't actually anything on the other side. Funny, that.
+
+> e
+You move east.
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+Scary Mumbling Man is shuffling about here.  Miscellaneous Hobos and Hobinas
+are loitering all over the park.  Ollie the Magic Hobo is standing with the
+other hobos.
+
+> look
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+Scary Mumbling Man is shuffling about here.  Miscellaneous Hobos and Hobinas
+are loitering all over the park.  Ollie the Magic Hobo is standing with the
+other hobos.
+
+> score
+Your score is 110 out of a maximum of 230.  (47%)
+
+> talk to scary mumbling man
+Scary Mumbling Man sees you approaching, and steps up onto the bench. He
+clears his throat and addresses the crowd.
+
+"Mmmmblmmmermm. Ladies and gentlemen. I have asked you here today to help a
+long-standing member of the Local Nutters Association acheive her dream. Come
+on up here, Crazy Old Bag Lady." You smile, and stand on the bench with him.
+"Hmblrmmmbmuhphmm. This fine woman has been a cornerstone of our fair town
+for many years now, always willing to mmmblmmmm help whenever required. I
+think it's time we paid her back!"
+
+[Press to continue]
+
+You look around at the friendly faces. These are your people; your friends.
+They are looking at you with an admiration that can only be acheived by the
+truly unstable; some dribbling unheedingly onto their cardboard-soled shoes.
+Never before have you been so proud to be a member of this noble group of
+people.
+
+[Press to continue]
+
+"If Crazy Old Bag Lady will help us get what we want, we will help her.
+Agreed? Mphmmmrurmm?" A cheer of assent fills the air. "And so,
+mrrrmmmmlrmmm," Scary Mumbling Man continued, "to help our sister in her
+quest, I hereby give her the Sacred Crowbar, and a handy whistle! Just blow
+the whistle when you're ready for our help, dear."
+
+[Press to continue]
+
+Your eyes are filling with tears. This is due to a combination of factors:
+the fumes wafting up from the pond beneath you, the fact that Scary Mumbling
+Man is standing on your foot, and the touching sentimentality of the moment.
+Mostly that last one. You accept the Sacred Crowbar gratefully, and step down
+from the bench, concluding the meeting with a promise to help each and every
+one of them.
+
+> i
+You are wearing a woolly hat and your old, grey coat, and you are carrying an
+old lighter, a cinema ticket, an empty cigarette box, a trashy romance novel,
+a biro, a beige computer keyboard, the sacred crowbar, some rope, some catnip
+and the whistle.
+
+> score
+Your score is 110 out of a maximum of 230.  (47%)
+
+> n
+You move north.
+
+Outside McDonalds
+
+Ah, the legend that is McDonalds. Townie Central. Even from here, the smell
+of the grease is making your mouth water...
+
+A large red bin is to the side.
+A group of chavs is leaning against the wall and smoking.
+
+> e
+You move east.
+
+Alley
+
+Well, it had to happen. Here is a traditional alley; staple of the
+Interactive Fiction world. And you would know, from your vast experience in
+these matters. Except - and it's important to remember this - this time it's
+real. A battered old dumpster is slumped - insofar as it's possible for
+inanimate objects to slump - against the east wall.
+
+> open dumpster
+You prise open the dumpster with the sacred crowbar. It's satisfyingly
+pungent, and you're certain that somewhere in all this rubbish, if you could
+only find it... hey look, a candelabra.
+
+> take candelabra
+You reach into the dumpster, and pull out the treasure. What a find! There
+must be a hundred uses for an old candelabra! ... Though they escape you
+right now.
+
+> tie rope to candelabra
+You don't have a candelabra.
+
+> score
+Your score is 130 out of a maximum of 230.  (56%)
+
+> i
+You are wearing a woolly hat and your old, grey coat, and you are carrying an
+old lighter, a cinema ticket, an empty cigarette box, a trashy romance novel,
+a biro, a beige computer keyboard, the sacred crowbar, some rope, some catnip
+and the whistle.
+
+> look
+
+Alley
+
+Well, it had to happen. Here is a traditional alley; staple of the
+Interactive Fiction world. And you would know, from your vast experience in
+these matters. Except - and it's important to remember this - this time it's
+real. A battered old dumpster is slumped - insofar as it's possible for
+inanimate objects to slump - against the east wall.
+
+> look in dumpster
+It's big, it's dull, it's filthy. You can almost smell the valueless item
+within.  No wait, that's an old mattress.  The dumpster is open.  A
+candelabra and a rubbish are inside the dumpster.
+
+> x candelabra
+It's an old metal candelabra. One of the candle-holdy bits is bent; but it
+looks pretty strong.
+
+> take candelabra
+You take the candelabra from the dumpster.
+
+> i
+You are wearing a woolly hat and your old, grey coat, and you are carrying an
+old lighter, a cinema ticket, an empty cigarette box, a trashy romance novel,
+a biro, a beige computer keyboard, a candelabra, the sacred crowbar, some
+rope, some catnip and the whistle.
+
+> tie candelabra to rope
+You tie the rope around the candelabra, making sure that they're firmly
+attached. There! You now have a handy grapnel.
+
+> score
+Your score is 130 out of a maximum of 230.  (56%)
+
+> i
+You are wearing a woolly hat and your old, grey coat, and you are carrying an
+old lighter, a cinema ticket, an empty cigarette box, a trashy romance novel,
+a biro, a beige computer keyboard, the sacred crowbar, a grapnel, some catnip
+and the whistle.
+
+> w
+You move west.
+
+Outside McDonalds
+
+Ah, the legend that is McDonalds. Townie Central. Even from here, the smell
+of the grease is making your mouth water...
+
+A large red bin is to the side.
+A group of chavs is leaning against the wall and smoking.
+
+> s
+You move south.
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+Scary Mumbling Man is shuffling about here.  Miscellaneous Hobos and Hobinas
+are loitering all over the park.  Ollie the Magic Hobo is standing with the
+other hobos.
+
+> talk to ollie
+He seems to be searching frantically for something. "My bindle!" he cries.
+"Where is my magical bindle of mystery?!" You ask him where he last saw it.
+"It's in the park somewhere, I know it is. Honestly, Bag Lady, I'll help you
+get your trolley if you find my bindle!" You say you'll do your best.
+
+> look under bench
+Peering underneath the old bench, you see a flash of red colour. You drag it
+out, and see that it is the bindle of mystery! Ollie will be glad to get this
+back.
+
+> give bindle to ollie
+You pass the magic bindle of mystery to Ollie, and he gives it an
+experimental wave. You see sparkles, and smell the faint aroma of beans.
+"Thanks Bag Lady!" he says, grinning broadly.
+
+> score
+Your score is 150 out of a maximum of 230.  (65%)
+
+> talk to hobo
+They nominate a spokes-hobo to talk to you. He steps forward. "We'll help you
+get the Golden Trolley. IF..... you get us..." he stops and scratches his
+head, thinking of an obscure object to demand as payment. "...Newpapers!" The
+hobos mutter in approval.
+
+> score
+Your score is 150 out of a maximum of 230.  (65%)
+
+> s
+You move south.
+
+High Street
+
+Shops line the south side of the High Street. They're all fairly
+modern-looking.
+
+There are a few people milling about noncommitally.
+A ginger cat is strolling about casually.
+
+> e
+You move east.
+
+High Street
+
+Shops line the south side of the street. They're quite old.
+
+There are a few people milling about noncommitally.
+
+> e
+You move east.
+
+Supermarket
+
+This is a very large supermarket, but for reasons I won't go into it's the
+same size as it would be if it were a very small supermarket. It's all very
+complicated, and probably quantum.
+
+There are a few people milling about noncommitally.
+Shop Guy is stacking the shelves.
+
+> talk to shop guy
+"If it's not on the shelf we ain't got it."
+
+> w
+You move west.
+
+High Street
+
+Shops line the south side of the street. They're quite old.
+
+There are a few people milling about noncommitally.
+
+> w
+You move west.
+
+High Street
+
+Shops line the south side of the High Street. They're all fairly
+modern-looking.
+
+There are a few people milling about noncommitally.
+A ginger cat is strolling about casually.
+
+> w
+You move west.
+
+Street Corner
+
+It's a fairly uninteresting street corner, as far as street corners go. I
+mean, usually there woudl be a lamppost to loiter around, but not here. Here
+we just have: pavement, road, pavement. Very dull indeed.
+
+> w
+You move west.
+
+Corner Shop
+
+This is the newsagent's. It's a fairly unassuming little shop, like you might
+find in any town. There are things for sale lining the shelves, and a cash
+register on the counter.
+Shop Gal is standing behind the counter, reading a newspaper.
+
+> talk to shop gal
+"Hi, bag lady." She greets you wth a smile, which is a very unusual
+experience for you. "What can I do for you?" You explain your need for
+newspapers. "Well, I dunno. You don't have any money, do you. Maybe you could
+do me a favour instead?" She must have heard your sigh, because she continues
+"Not an item, or course; I wouldn't ask you for that. Just... Shop Guy. You
+know? He works in the supermarket?" You nod. "Well, I was wondering if you
+could fix a date. I'd do it myself, but... well, he might say no." Unusual
+though it is for a homeless, smelly, crazy old Bag Lady to play cupid for shy
+teenagers, you decide to give it a bash. What's the worst that could happen?
+
+> score
+Your score is 150 out of a maximum of 230.  (65%)
+
+> e
+You move east.
+
+Street Corner
+
+It's a fairly uninteresting street corner, as far as street corners go. I
+mean, usually there woudl be a lamppost to loiter around, but not here. Here
+we just have: pavement, road, pavement. Very dull indeed.
+
+> n
+You move north.
+
+Riverbank
+
+The river winds away to the south. It's completely unbridged, which could
+well be because there isn't actually anything on the other side. Funny, that.
+
+> e
+You move east.
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+Scary Mumbling Man is shuffling about here.  Miscellaneous Hobos and Hobinas
+are loitering all over the park.  Ollie the Magic Hobo is standing with the
+other hobos.
+
+> e
+You move east.
+
+Outside Mad Cat Lady's House
+
+The garden is neglected and overgrown with weeds. In a fit of creative irony,
+the writer has seen fit to add some crazy paving. Some people have no
+subtlety.
+
+> e
+You move east.
+
+Mad Cat Lady's House
+
+You're actually surprised at how... well, sane the place is. It's tidy, and
+there are pictures of flowers on the wall. The only indications that it
+belongs to Mad Cat Lady are the furballs and dead mice that decorate the
+floor artisticly.
+
+There is a sofa by the east wall.
+Mad Cat Lady is here. So are many cats. Many, many cats.
+
+> x cat
+You can't see how many cats there are. For some reason, they won't stay still
+for you, but you're sure there are at least twenty. Given that the acceptable
+limit is five, Mad Cat Lady has acheived legendary status with the
+neighbourhood kids.
+
+> talk to mad cat lady
+"Scary Mumbling Man is in town, he wanted to meet you." You mutter something
+incomprehensible and probably quite vulgar. "I think he's missed you, Bag
+Lady. By the way, you haven't seen my house key about, have you?"
+
+> w
+You move west.
+
+Outside Mad Cat Lady's House
+
+The garden is neglected and overgrown with weeds. In a fit of creative irony,
+the writer has seen fit to add some crazy paving. Some people have no
+subtlety.
+
+> w
+You move west.
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+Miscellaneous Hobos and Hobinas are loitering all over the park.  Ollie the
+Magic Hobo is standing with the other hobos.
+
+> w
+You move west.
+
+Riverbank
+
+The river winds away to the south. It's completely unbridged, which could
+well be because there isn't actually anything on the other side. Funny, that.
+
+> n
+You move north.
+
+Riverbank
+
+The beautiful, sparkling river is a very healthy shade of brown. When you
+found a fishing rod about a month ago, you were here from dawn till dusk
+catching boots; but then one fought back and took your rod with it.  The
+ginger cat saunters towards you from the east.
+
+> x cat
+The cat sniffs the small pouch you hold out to it, and decides that following
+you might be a laugh after all.
+
+> s
+You move south.
+
+Riverbank
+
+The river winds away to the south. It's completely unbridged, which could
+well be because there isn't actually anything on the other side. Funny, that.
+ The ginger cat saunters towards you from the north.
+
+> e
+You move east.
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+Miscellaneous Hobos and Hobinas are loitering all over the park.  Ollie the
+Magic Hobo is standing with the other hobos.  The ginger cat saunters towards
+you from the west.
+
+> e
+You move east.
+
+Outside Mad Cat Lady's House
+
+The garden is neglected and overgrown with weeds. In a fit of creative irony,
+the writer has seen fit to add some crazy paving. Some people have no
+subtlety.  The ginger cat saunters towards you from the west.
+
+> e
+You move east.
+
+Mad Cat Lady's House
+
+You're actually surprised at how... well, sane the place is. It's tidy, and
+there are pictures of flowers on the wall. The only indications that it
+belongs to Mad Cat Lady are the furballs and dead mice that decorate the
+floor artisticly.
+
+There is a sofa by the east wall.
+Mad Cat Lady is here. So are many cats. Many, many cats.  The ginger cat
+saunters towards you from the west.
+
+"Oh, thankyou, Bag Lady!" Mad Cat Lady gratefully takes the cat - now a
+docile, sweet little feline - into her arms, and strokes it for a while
+before dropping it on the ground. "I owe you a favour, don't I. Well, that
+shouldn't be a problem!"
+
+> score
+Your score is 160 out of a maximum of 230.  (69%)
+
+> w
+You move west.
+
+Outside Mad Cat Lady's House
+
+The garden is neglected and overgrown with weeds. In a fit of creative irony,
+the writer has seen fit to add some crazy paving. Some people have no
+subtlety.
+
+> w
+You move west.
+
+The Park
+
+The park is fairly empty at the moment; all useful members of society are at
+work. This makes the park an ideal meeting place for no-good vagabonds...
+such as yourself. There is a large duck pond in the centre of the park, and a
+bench at the side.
+Miscellaneous Hobos and Hobinas are loitering all over the park.  Ollie the
+Magic Hobo is standing with the other hobos.
+
+> talk to scary mumbling man
+"Mmmmblrmmmm. Yes, actually there is something you can do for me... I haven't
+scared any young troublemakers in a while. Starting to miss it, you know...
+do you perhaps know of any kids around here? Just to see if I've still got
+what it takes, you know." You tell him to follow you.  Scary Mumbling Man
+follows you.
+
+> n
+You move north.
+
+Outside McDonalds
+
+Ah, the legend that is McDonalds. Townie Central. Even from here, the smell
+of the grease is making your mouth water...
+
+A large red bin is to the side.
+A group of chavs is leaning against the wall and smoking.  Scary Mumbling Man
+follows you from the south.
+Scary Mumbling Man sidles up to the youths, a look of glee on his face.
+"Mmblrmmmermm." he says, starting off gently.
+
+"Get lost granddad", one of the ever considerate thugs says.
+
+Scary Mumbling Man takes his game up a notch.
+"MmmMMRERmmmmumbleMUMBLEmumble." The chavs start to look uneasy. Time for the
+grand finale...
+
+"MUMBLEMUMBLErermmmmmmum *COUGH COUGH*" It sounds like he's hacking up a
+furball. He continues to cough for a good five minutes, but the chavs don't
+move; this is a truly incredible performance from both parties. Then, seeing
+that this approach was having little effect, he tries a different tack...
+
+[Press any key to continue]
+
+"Twas brillig, and the slithy toves
+Did gyre and gimble in the wabe."
+
+ There are definite ripples of fear spreading throughout the crowd. "Is that
+poetry?" one asks. "Must be, I don't get a word!" Encouraged, Scary Mumbling
+Man continues.
+
+"All mimsy were the borogroves,
+And the mome raths outgrabe!" and as the chavs run away, terrified, he shouts
+after them: "GO BACK TO SCHOOL, you useless louts!"
+
+Scary Mumbling Man cackles evilly. "That was fun! Ok, I'll help you get your
+trolley."
+
+> score
+Your score is 160 out of a maximum of 230.  (69%)
+
+> quit
+Do you really want to quit? [Y/N]

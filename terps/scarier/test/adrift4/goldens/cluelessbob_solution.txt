@@ -1,0 +1,40 @@
+2
+quit
+2
+kill rat
+catch spider
+u
+n
+s
+e
+w
+n
+open chest
+get kee
+open chest
+x rat
+talk to rat
+drink beer
+u
+1
+shoot sojers
+1
+x trapdoor
+x trapdoor
+x trapdoor
+bite trapdoor
+bite trapdoor
+bite trapdoor
+d
+n
+w
+get food
+get food
+get food
+close eyes
+e
+e
+give food to giant
+e
+e
+ride camul

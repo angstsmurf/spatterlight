@@ -1,0 +1,54 @@
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+e
+e
+n
+d
+get bulb
+u
+e
+get string
+w
+s
+open hatch
+u
+replace bulb
+u
+examine boxes
+examine photo album
+d
+d
+w
+examine under bed
+tie string to magnet
+e
+n
+d
+w
+s
+s
+examine drain
+n
+turn on tap
+s
+get key with magnet
+n
+open coal bunker door

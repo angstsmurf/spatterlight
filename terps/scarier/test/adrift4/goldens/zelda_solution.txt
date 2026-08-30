@@ -1,0 +1,79 @@
+take shield
+s
+s
+e
+z
+e
+n
+n
+s
+s
+w
+w
+n
+n
+s
+s
+e
+e
+n
+e
+d
+hookshot moblin
+u
+w
+s
+w
+w
+s
+s
+e
+examine back shelf
+w
+s
+s
+s
+e
+e
+s
+get wind waker
+n
+n
+get urn
+hookshot boulder
+pour urn
+hookshot statue
+s
+w
+w
+w
+n
+n
+n
+w
+sell wind waker
+e
+n
+n
+e
+e
+s
+buy ganon mask
+wear ganon mask
+n
+w
+w
+s
+s
+s
+w
+w
+z
+z
+z
+z
+z
+z
+n
+e
+score

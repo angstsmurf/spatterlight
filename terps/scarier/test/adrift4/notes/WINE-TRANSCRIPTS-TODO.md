@@ -4207,3 +4207,26 @@ from the failed `Say` onwards Olaf stays put, `Get rucksack` is refused and
 every later `Put powder ...` lands on split 3.  Suite 344/344 after the
 port.  Housekeeping the same day: the Wine transcripts were renamed
 `Adrift_N_<game>.txt`.
+
+## Journ2.taf (The Long Journey Home, 3.90) — 2026-08-30, run390
+
+`Adrift_2_journ2_end.txt` (golden + typed endgame probe, 63/64 echoed — the
+`#6 start card game` line is skipped by `drive_ckpt_safe.sh`'s `#` rule) and
+`Adrift_3_journ2_t5.txt` (21 commands + `i look "x creature" score e "take
+shovel" dig fly north w "x card" "x king" i e`, 35/35 echoed).  One split, and
+it is the known deliberate one: after `T3 #6 creature looks` fires on entering
+the Lair, run390 answers every non-library command there with "You have
+already done that." (spent `rep=0` task, patterns include a bare `*`) while
+Scarier walks on.  `i` and `x creature` still answer in the Runner.  Not a
+new engine question — it is the "task match that says nothing still claims
+the command" rule of `adrift4-spent-task-vs-restrictions.md`, deliberately
+not imported.  Consequence for the verdict: UNFINISHABLE in the original
+Runner as well, ceiling 5/90 there vs our 30/90.
+
+## jailbreakbob.taf (Jailbreak Bob, 4.00) — 2026-08-30, run400
+
+Three sessions (PRE=3, `SCR_SKIP_WAITKEY`-style intro pauses), all commands echoed:
+
+- `Adrift_2_jailbreakbob_golden.txt` — the old 11-command death golden; run400 matches Scarier through "BANG!!! ... Well, he did warn you..."
+- `Adrift_2_jailbreakbob_probe.txt` — Hoggins-presence probe (46 cmds). Hoggins is absent in the cell at start and after `n`/`s`, but after the yard-pass `w` from the dining hall and returning `e`,`s` he IS in the cell (`x hoggins`, `talk hoggins` answered; `give comb` → "But I ain't asked you for it yet"). The notes' "moves to the dining hall" claim was a 0/1-based room-index misread.
+- `Adrift_2_jailbreakbob_win.txt` — the full chain (38 cmds): comb request fires during the waits, `give comb` accepted, second `talk hoggins` tosses the coin, meeting-room `insert coin` / `4` prank call, `ne` → wife disarms Terry, `get gun`, `n` → "woo-hoo!" `[Press any key to end]`. **The game is winnable in the real Runner**; goldens/jailbreakbob_solution.txt re-derived as a 31-command win (the `look` before `get gun` is required: the gun is not referenceable until listed).

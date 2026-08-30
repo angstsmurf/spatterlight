@@ -1,0 +1,523 @@
+Loading game...
+
+In The Claws Of Clueless Bob
+
+In the Claws Of Clueless Bob
+
+An ADRIFT Text Adventure by David Whyld
+E-Mail: dwhyld@gmail.com
+Website: http://www.shadowvault.net
+Written: April-May 2005 with ADRIFT Version 4, Release 46
+
+(1)        Read the introduction
+(2)        Start the game
+(3)        Walkthrough
+(4)        Game Information
+(5)        Things to know before playing the game
+
+> 2
+
+The Hobbyt
+
+A comfutble tunnel-like home
+U is in a comfutble tunnel-like house wiv curvin walls an a green door. U can
+go east an west.
+
+> quit
+In desperation you manage to bash the letters "Q U I T" on the keyboard and
+the game, mercifully, finally understands a command. You slump at the
+keyboard, your mind numb from the horrors you have just witnessed. But you
+made it. You played an entire Clueless Bob Newbie game and you're still
+alive. And by the look of things, that was one of his bigger games as well.
+Maybe, just maybe, you'll get through this nightmare in one piece after all-
+   The door bursts open and in rushes Bob, face aglow.
+   "Great, wasn't it?" he cries, almost hopping up and down in excitement. He
+claps you on the shoulder. "Now, Mr Smiffy. Give me your honest opinion of
+the game. Your honest opinion, mind. Don't sugarcoat it for me. Tell it to me
+straight. What was it like?"
+
+(1)  "It was great!"
+(2)  "It was awful!"
+
+> 2
+Bob's face falls. He takes several steps back from you and clenches his
+fists. Fearing a beating, you brace yourself… but instead he says, "I see. It
+looks like the brainwashing your editor put you through was more thorough
+than I first expected. More extreme measures are called for. Yes! I will
+write a game especially for this. But for now…" He grabs hold of you. "Back
+to the cellar for you."
+
+...press a key...
+
+Cellar
+Your new 'home'. And not a pleasant one either. The floor is knee-deep in
+water, there are rats and large spiders swimming around in it, and there is
+no light. Funnily enough you can still see although how this can be you don't
+know. Perhaps the laws of physics don't apply here just as they don't apply
+in Bob's games. A flight of worn steps lead out of here.
+
+> kill rat
+You reach for the nearest rat and it meows at you!
+   Meows?
+   Yep. It meowed alright. This reminds you of a CBN game you once had the
+misfortune to play before you realised who it was by. He had misspelled the
+word 'cat' as 'rat' throughout the entire game and never even realised it. Of
+course, the cats/rats in his game bore little resemblance to cats/rats in the
+real world. For a start, they ate spiders…
+
+> catch spider
+You manage to catch hold of a spider by one of its six legs (six? Well, this
+is the cellar of Clueless Bob Newbie's house so you probably shouldn't be
+surprised) and hoist it up from the floor. As you do, one of the rats gives
+it a hungry look. An idea suddenly occurs to you and you fling the spider to
+the rat. The rodent seizes the six legged freak and wolfs it down in one go.
+Then gives a satisfied belch!
+   Nothing else seems to happen for now.
+
+> u
+You ascend the steps. Bob is waiting for you, rubbing his hands together in
+evil genius mode (minus the genius bit of course).
+   "Time for another game!" he proclaims and frog-marches you to the small
+room.
+
+...press a key...
+
+"This one," says Bob as he sits you down in the chair, "I wrote just this
+morning. Took me… oh, 7, maybe 8 minutes. Long time for me to spend on a game
+that is. Including the advanced dialogue options and combat system I
+introduced, there must be close to 30 lines of code in this baby."
+   "As many as that…" you say numbly. "What did your beta-testers think of
+it?"
+   "Beta-testers?" Bob snorts. "I never use beta-testers! Those people are
+cretinous fools. Why, one once had the nerve to tell me that ten spelling
+mistakes a line was a bad thing!"
+   The game starts to load on screen.
+   "… fancy that …" you mutter as you're plunged into…
+
+...press a key...
+
+The Big Maize Game
+
+Maize
+U is in a maize. U can go north, north, north, north and north.
+
+> n
+U cant go that way. Try going south.
+
+> s
+U cant go that way. Try going east.
+
+> e
+U cant go that way. Try going west.
+
+> w
+U cant go that way. Try going north.
+
+> n
+U go north an find yourself in annuver part of the maize.
+
+Annuvver Part Of The Maize
+U is in a big roome wiv a tresure chest in the middle. There are exits to the
+east and the east.
+
+> open chest
+U need a kee to open the tresure chest.
+
+> get kee
+U get the kee.
+
+> open chest
+U open the tresure chest wiv the kee. There is 1000065056696 peaces of glod
+inside. U is rich! Woo-hoo!
+
+...press a key...
+
+"Yes!" cries Bob as the games reaches its conclusion with the inevitable 'Gam
+Ova' screen. "Now that, you have to admit, was a classic."
+   You struggle to agree with him but instead only manage: "it was certainly
+different."
+   Bob nods, apparently mistaking your deathless pallor for appreciation of
+his game. "Sure was, Smiffy. I don't usually bother with that level of
+implementation in my games but here I felt it was necessary. Sure paid off as
+well. You ready to write a glowing review for me yet?"
+   You say, "of course, Mr Newbie. It would be an honour. I'll praise your
+game as the greatest work of interactive fiction the world has ever seen. A
+thousand years from now people will look back on this game and still be
+amazed by it."
+
+...press a key...
+
+Actually, that's what you intended to say, but somewhere between your brain
+and the mouth, the words change to, "a good review? Of that fifth rate piece
+of tosh? Mr Newbie, you must be joking! My cat's written better games than
+that. And he was drunk at the time!"
+   Bob gives a sigh. "I'll have to do some research into brainwashing
+techniques," he says, "because whatever your editor used on you was the real
+thing. Otherwise how you have failed to appreciate the glory that was my
+game? The sheer depth of interaction? The fully realised virtual world where
+anything and everything can happen? Well…" He lifts you up from the chair.
+"Back to the cellar I guess."
+
+...press a key...
+
+Cellar
+Is it your imagination or does the cellar look slightly different than
+before? Not quite as… dark. And a bit… drier. Still a horrible cellar
+admittedly, and made even more so by the rats and the caterpillars, but a
+definite improvement on the way it was before. The same flight of worn steps
+lead out of here to… a fate possibly worse than death.
+
+> x rat
+The rats look just the same as before, only a little plumper. You-
+   "Evening, Mr Smiffy," one of them says.
+   You experience a thrill of dread. "You can talk?"
+   "Well…" The rat puts on a thoughtful expression. "It depends. Either I'm
+really the first rat in the history of ratkind to achieve the power of
+speech. Or rats have always been able to speak and they just haven't felt the
+need before now. Or I'm not really speaking and you've gone stark raving mad
+and just think I'm speaking. What do you think it's a case of?"
+   "None of them sound very appealing," you admit.
+   The rat snorts. "You're trapped in the cellar of the world's worst
+adventure game writer, pal. I'd say you're a bit past the stage where
+anything is going to sound appealing."
+
+...press a key...
+
+"But," says the rat, "things could be worse."
+   "You're right. He could have a computer put down here."
+   The rat grimaces. "Hey, no tempting fate. Of course, it'd be madness to
+put a computer down here in a wet cellar but then this is Clueless Bob Newbie
+we're talking about here. He's so far past madness he's on first name terms
+with insanity and dementia."
+
+> talk to rat
+"What?" says the rat. "You think that just because I can talk, I'm going to
+reward you with something? Fat chance."
+   "I did give you that spider," you point out.
+   "Yeah? I could have caught it myself. I just… Aw hell." The rat scurries
+off into the shadows and returns a minute later dragging a bottle of beer
+with him. "Here. Take it. I was going to save it for myself but you probably
+need it more than me."
+   You take the beer gladly. "I sure do. He's making me play these games.
+Well, I call them games-"
+   The rat holds up a paw. "Pal, believe me when I say this: I don't want to
+hear. Seriously I don't. I might be destined for a life prematurely cut short
+when a cat bites my head off but that doesn't mean I want to be tormented
+before then. Drink your beer and leave the adventure game chatter for the
+next talking rat you meet."
+
+> drink beer
+You chug it down. It probably tastes nothing special but for a guy trapped in
+the cellar of a deranged adventure game writer, it tastes like pure heaven.
+Unfortunately, there's not enough to get you drunk but you feel mildly tipsy
+afterwards.
+
+> u
+You climb the steps - and find Bob waiting for you.
+   "An empty bottle, Mr Smiffy?" he says when he sees the bottle in your
+hand. "You don't need to wander around with that. Here, let me have it." He
+snatches the bottle from you and throws it away.
+
+...press a key...
+
+"I'm going to give you a choice this time, Mr Smiffy," says Bob when you are
+once more in the room you have begun to think of as the torture chamber. Is
+an iron maiden and a rack and a set of heated needles half as fearsome as a
+CD containing 321 Bob Nebwie games? "There's a wartime epic called 'Blud', a
+science fiction game which is a cross between Star Wars and Star Trek which
+I've called 'Wars Trek' and, wait for it, a serious work dealing which deals
+with drugs issues and emotional instability in a sensible and caring fashion.
+I've called it 'Lousy Junkies'. Which one do you want?"
+
+(1)  'Blud'
+(2)  'Wars Trek'
+(3)  'Lousy Junkies'
+
+> 1
+And you're in the game…
+
+...press a key...
+
+Blud
+
+Battelfeeld
+Ure in a feeld wiv lots of ded bodees an bullits flyin all ova the place. U
+can see some nme sojers. U can go south.
+
+> shoot sojers
+U blast em wiv your gunn. They falls down ded on the ground an a bridge
+appears.
+
+[A bridge? Why the hell has a bridge suddenly appeared?]
+
+The bridge gets bigger an bigger an-
+
+...press a key...
+
+You're back in the room. Still alive. Barely.
+   Bob gives you an enthusiastic clap on the back and cries, "what a classic!
+Man! Even though I wrote that one, I was still on tenterhooks while you were
+playing it! There's so much going on that anything could happen!"
+   You wonder if 'anything' includes the game actually being any good but you
+doubt it. This is Clueless Bob Newbie after all.
+   "And your verdict…?" Bob asks.
+   You open your mouth and say:
+
+(1)  "Bob, it was great. Could use a smidgeon of improvements but, all in
+all, resoundingly brilliant."
+(2)  "Bob, it was diabolical. You have a reputation for truly awful games
+but, with this one, you've exceeded yourself yet again. Hell will surely
+freeze over before a worse game comes alone."
+
+> 1
+You say, "Bob, it was great. Could use a smidgeon of improvements to bring it
+into line with the lesser text adventures that plague the world but, all in
+all, like all your works: resoundingly brilliant."
+   You frown to yourself even as you're speaking the words. They're a lie,
+you think. They're completely untrue. And yet-
+   And yet the beer is giving you the nerve to speak them all the same!
+   Bob beams. "I knew you'd come around. I knew that brainwashing your editor
+performed on you wouldn't be able to withstand the wonder of my games and
+that, sooner or later, your resistance would crumble and you would be another
+convertee to the Church of CBN!"
+   The Church of CBN? Dear god, he really is mad!
+
+...press a key...
+
+"Back to the cellar for now," says Bob. "I've got to think things through
+prior to your writing a glowing review of my games. Is fifty games enough for
+a first review? Or should I go for quantity first?"
+   "Quality definitely," you say, horrified  at the prospect of fifty games
+to review.
+   "Yes, you're probably right. We'll call it forty games and leave it at
+that. But which forty? Hmmm, this will require some thought…"
+   Bob ushers you back to the cellar which might be cold and damp and
+miserable, but at least it doesn't have any of his games in it.
+
+...press a key...
+
+Cellar
+The cellar again. It looks pretty much the same as before and yet, at the
+same time, slightly different. Where are the rats and the spiders and the
+caterpillars? All gone it seems. Departed since you were last here. The floor
+of the cellar is still flooded but nowhere nearly as deeply as before. In
+fact, this time you can even see the floor.
+
+> x trapdoor
+Currently shut. Probably locked as well. Has this been there all along?
+Surely not. You'd have discovered it before now if it was there all along,
+wouldn't you? Even covered by water, you'd surely have walked across it at
+some point and noticed it was there. So it looks like the trapdoor, along
+with the rats and spiders and caterpillars, is one of the strange things
+about this place that changes from time to time.
+   Something about the trapdoor, you can't really tell what, strikes you as
+mighty suspicious.
+
+> x trapdoor
+You take a closer look at the trapdoor. And notice that it's not made of
+metal or wood but, strangely enough, of something that looks quite like
+chocolate. How bizarre.
+
+> x trapdoor
+Yep, it's definitely chocolate. Very hard chocolate and not at all edible but
+chocolate nevertheless. Only Clueless Bob Newbie could have a cellar fitted
+with a chocolate trapdoor.
+
+> bite trapdoor
+Eating trapdoors is normally the sort of thing that only happens in the games
+Bob writes, but as this trapdoor is made not of steel or wood but chocolate,
+you manage to chew into one side of it. It's hard going though. It might be
+chocolate but it's foul-tasting chocolate. It's also pretty tough stuff.
+   But after a minute or two of chewing, you have started to bite a hole in
+the surface.
+
+> bite trapdoor
+You dig into a bit more of the trapdoor. You're beginning to suffer chocolate
+overload now but as anything is preferable to another bout of playing CBN's
+games, you persevere.
+
+> bite trapdoor
+Your waistline begins to bulge unpleasantly but you cram more and more of the
+chocolate trapdoor into your mouth. The hole now is big enough for you to fit
+through.
+
+> d
+You force your way into the tunnel beneath the trapdoor. A brief moment of
+worry assails you - you don't know what's down there and it could well be
+worse than where you are now. But then you reflect on your current
+predicament and realise there is no fate in the world worse than being forced
+to play Bob's games one after another, endlessly, until your mind just
+collapses and dies from sheer overload. If dropping down the tunnel beneath
+the trapdoor leads to your certain doom, then so be it. It's certainly the
+lesser of two evils.
+   You force your way through the trapdoor - and fall.
+
+...press a key...
+
+Somewhere Else
+
+Fowl Smellin Tunnul
+U is in a sewer tunnul. It is drak. U see lots o stuff u don't wanna see. U
+can go north.
+You blink and wipe filthy water from your eyes. You are lying on the ground,
+in what appears to be a regular sewerage tunnel, replete with the smells and
+sensations that a regular sewerage tunnel is well known for. Despite the
+unpleasantness of the situation, you give a cry of relief! You're out of
+Bob's cellar and, better yet, you're still alive!
+   But then you stop cheering and notice something worrying. Very worrying
+indeed. The tunnel is actually spelt "tunnul". And "fowl" and "smellin"? Ye
+gods, you might be out of the cellar but you're not free of Bob's clutches
+yet. It seems his madness has polluted even the sewer tunnels running beneath
+his house.
+
+> n
+You move north.
+
+Branchin Tunnul
+Three tunnuls meat ere comin from the west, the south an the east. Dere is a
+giant sleepin ere. He luks ugly.
+
+(This is worrying. You know that tunnuls isn't spelt like that and yet you
+can't seem to think of it being spelt any other way. Has exposure to Bob's
+games polluted your mind in such a way that you can't tell right from wrong
+any more?)
+
+> w
+
+Dinning Roome
+U is in a dinning room wiv a tabul an food on top o it. U can go east.
+
+(You shake your head at the abrupt change in locations. What happened to the
+sewer tunnel?)
+
+> get food
+U don't see no food.
+
+(Dear god. You can't even take the food despite the fact that it's right
+there in front of you! Hang on, maybe there's a way around this.)
+
+> get food
+U don't see no food.
+
+(Something about the food strikes you as… wrong. It's almost transparent. You
+wonder…)
+
+> get food
+U don't see no food.
+
+(You wonder if you close your eyes, you might be able to pick it up after
+all.)
+
+> close eyes
+U cloze ur eyes an pik up the fod.
+
+(Whew! You actually solved what passes for a puzzle in a CBN game.)
+
+U open your eyes.
+
+> e
+You move east.
+
+Branchin Tunnul
+Three tunnuls meat ere comin from the west, the south an the east. Dere is a
+giant sleepin ere. He luks ugly.
+
+(This is worrying. You know that tunnuls isn't spelt like that and yet you
+can't seem to think of it being spelt any other way. Has exposure to Bob's
+games polluted your mind in such a way that you can't tell right from wrong
+any more?)
+
+> e
+The giant luks at u an growls "I is ungry. Gimme fod or ill smash yer ead
+in!"
+
+> give food to giant
+The giant taks the food an ates it. He burps and sez "grate!"
+
+> e
+You move east.
+
+Ded End
+The tunnul reaches a ded end jus ahed of u where someun as put a gait. It iz
+loked tite. U can go east.
+
+> e
+U go east.
+
+(Hmmm… did you just step right through a locked gate there? Looks like it.)
+
+Dessert
+U is in a dessert. The son burns briteley overhed an there is a camul ere. U
+can go west.
+
+(Hang on! A desert? But only a moment ago you were in a sewer tunnel! Then
+again, why should you expect the geography in Bob's games to make any sense
+when the games themselves don't?)
+
+> ride camul
+U hop onna the camul's bak an it takes off an flies inna the aire. (Takes
+off? A flying camel? You just shake your head in despair.)
+   U fly for a long tim. Then a plain appears outta nOwerE an shots u down. U
+crash an the camul explods!
+
+...press a key...
+
+Aftermath
+
+Many hours pass before you awaken. You are lying in the bomb-blasted shell of
+a building. The remains of the camel - which now looks remarkably like a
+hang-glider - lie against one wall.
+
+As you pick yourself up and dust yourself down, you notice something both
+remarkable and rewarding: the spelling has been fixed! Which can mean only
+one thing…
+   You are no longer in Clueless Bob Newbie's reality! You are back in the
+real world!
+
+Quite how you came to pass from his reality into the real world on the back
+of a camel/hang-glider you can't imagine, but right now you're too relieved
+to be free of that demented madman to worry about such things. From now on,
+no more text adventures. No more reviewing. You're going to go and live in a
+cave somewhere and grow mushrooms and hold meaningless conversations with
+shepherds about turnips and moss.
+
+...press a key...
+
+You stagger from the building, taking a good long look around to see where
+you are.
+   That's when your euphoria fades and is replaced by a growing sense of
+dread.
+   For there before you, fully five hundred feet tall, outlined against the
+skyline, is a statue of Clueless Bob Newbie himself. In one hand he holds
+that hateful and banned collection of his games, Masterpieces Of CBN, and in
+the other hand is a knife with a reddish tint (probably from the blood of all
+the reviewers he has brutally stabbed for giving their opinions on his
+games). A long procession of people in cloaks lead to the temples situated
+around the feet of the enormous statue.
+
+...press a key...
+
+What is this place? Surely not another game…? No, it can't be. The spelling
+is fine and the grammar, while hardly Shakespearian, isn't the assault on the
+nerves that is the hallmark of Bob's usual style. What you're looking at now,
+hard as it is to imagine, must be some kind of alternate reality where
+Clueless Bob Newbie is worshipped as a God.
+   As you sink to your knees in disbelief, you can just about imagine the
+statue turning its head to you and booming: "WELCOME TO MY WORLD, MR SMIFFY!"
+
+...press a key...
+
+And here ends the game. For poor Smiffy at least. But CBN's further
+adventures can be found in:
+
+"The Church Of CBN"
+
+...press a key...
+
+The game has ended and nothing more can be done. If you reached here with a
+score of 12 - well done. You didn't resort to the hints at all. If not, maybe
+you should try again and see if, this time, you can go the whole way without
+the hints.
+
+> quit
+Do you really want to quit? [Y/N]

@@ -1,0 +1,118 @@
+Loading game...
+
+Sigurd Fafnesbane
+
+You are Sigurd Fafnesbane, a hero in the Edda, a collection of poems from the
+13th century about the nordic gods and heroes. You are said to be the son of
+a viking king and your live is adventurous. One of your adventures deals with
+a quarrel between your stepfather, Regin the blacksmith an his brother
+Fafner.
+
+The quarrel has a tragic background. A boy transformed himself into an otter
+and was swimming in a creek. Then three of the nordic gods came along,
+catched the otter and consumed the meat. They asked a peasant about room for
+the night and offered him the otter's skin as payment. Now the peasant
+recognized his own son and was downhearted. The gods realized their mistake
+and filled the otter's skin with gold to compensate him.
+
+[Press any key to continue]
+
+The peasant had two other sons, Fafner and Regin. Fafner killed their father
+and took the golden treasure. There was a quarrel between the brothers about
+the gold. Fafner wanted the gold for himself, but Regin couldn't accept that.
+Then Fafner went up to the plain with the gold. He transformed himself into a
+dragon and lied down to brood on the treasure.
+
+Regin's Smithy
+The smithy is a place filled with iron items and soot. Regin is working by
+the anvil in his smithy. You visit him while your horse Grane is standing
+under a tree, waiting for you.  Regin talks to you about Fafner.
+
+You can move north and east.
+
+> ask regin about fafner
+Regin wants revenge. He has come to think of the sword you have inherited
+from your father, the king. It was a gift from Oden. The sword was broken,
+but Regin has repaired it. Regin says: I want you to ride north to the plain,
+kill Fafner with the sword and take the gold. We we will share the gold
+between us, of course. Both of us will be rich." Regin adds: "I want the
+dragon's heart too. I will eat it to become as strong as the dragon." Then he
+offers you the sword.
+
+> take sword
+You take the sword that Regin offers you and say "I will ride instantly!"
+
+> north
+You move north.
+
+The Plain
+The plain is a hot, dry place.  Fafner is lying here to brood on the
+treasure. He gets thirsty and winds away drink water in a lake east of the
+plain. The dragon carries the treasure with him.
+
+You can move east and south.
+
+> east
+You move east.
+
+The Lake
+There is a small lake east of the plain. The animals of the plain come here
+to drink.  Fafner is coming down to the lake. You hide yourself in a cavity
+in the path. Grane stands hidden behind a rock. Now Fafner passes above you.
+
+You can move south and west.
+
+> kill dragon with the sword
+You kill the dragon with your sword. Fafner falls down dead and you take the
+leather sack with the gold.
+
+> take heart
+You take the dragon's heart. Now you should ride back to Regin, but you must
+stop somewhere to light a fire and roast the dragon's heart. A meadow south
+of the lake might be a suitable place.
+
+> south
+You move south.
+
+The Meadow with the Oak Tree
+You come to a green meadow with an oak tree standing in the middle of it.
+Bluebirds are sitting in the top of the tree, peacefully chirping.
+
+You can move north and west.
+
+> light fire
+You light a fire beneath the oak tree. The birds are chirping in the top of
+the tree.
+
+> roast heart
+You roast the dragon's heart. Unfortunately you burn the thumb. You suck the
+thumb to ease the pain and lap up a drop of the dragon's blood. Suddenly you
+can understand the chirping of the birds. Listen carefully.
+
+> listen to birds
+You listen to the birds and hear sensational news: "Beware of Regin. He will
+deceive you and keep the treasure for himself." The birds are laughing at
+you. "What a stupid boy you are, Sigurd." You get furious. "I will kill
+him!", you tell the bluebirds.
+
+> west
+You move west.
+
+Regin's Smithy
+The smithy is a place filled with iron items and soot. Regin is working by
+the anvil in his smithy. You visit him while your horse Grane is standing
+under a tree, waiting for you.  Regin asks: "Do you have the gold and the
+dragon's heart?"
+
+You say: "Yes I have. But I also know that you have used me. You have planned
+to keep the gold for yourself. I will kill your for that!"
+
+You can move north and east.
+
+> kill regin
+You kill your deceitful stepfather. Regin falls dead over his anvil.
+You ride away on Grane, your faithful horse, heading for new adventures. The
+gold is glittering in the leather sack in your luggage.
+
+Since then you were called Sigurd Fafnesbane, or Sigurd who killed the dragon
+Fafner.

@@ -2,9 +2,10 @@
 
 **Game:** *The Spirit's Flight* (ADRIFT 4 `.taf`, Battle System enabled)
 **Result:** **UNWINNABLE** — maximum *reachable* score **50 / 95**, verified
-deterministic. The game cannot be completed because of an author data bug (the
-water elemental is an orphaned object), which also seals off roughly half the
-map and the remaining 45 points.
+deterministic. The game cannot be completed, and there are **two independent
+author defects**, either of which alone would be fatal: the water elemental is
+an orphaned object (which also seals off roughly half the map and the remaining
+45 points), and the winning chant is `Where`/Type 0, runnable in no room at all.
 **Solution file:** `goldens/spirits_flight_solution.txt` (the full 50-point
 route, replayable under the seeded harness).
 
@@ -39,6 +40,15 @@ Totem (global object 1) starts *Hidden* and is referenced by exactly two tasks �
 the win incantation and `invoke elementals` — but **no action anywhere moves it
 out of hiding.** It is an orphaned object: unobtainable.
 
+The check is mechanical, and worth repeating rather than trusting: every
+`ACT type=0` (move object) in the file targets
+`v1 ∈ {2,3,5,6,7,8,9,10,11,12,13,14,15,17,18,19,20,22,23,25}`. Amber is 3, the
+Orb 5 and the Grass Amulet 6 — all present; the Ice Totem's **4 is absent**.
+The events cannot supply it either: events 0–4 carry `o2`/`o3` = 0 and event 5
+moves raw 37 and 8, i.e. objects 36 and 7 under the raw−1 rule. `SCR_DUMP_OBJLOC`
+shows all four elementals starting at `pos=-1`; three get moved, the totem never
+does.
+
 Two consequences follow, and they cascade:
 
 1. **`invoke elementals`** (task 21, +5) requires Amber **+ Ice Totem + Orb**
@@ -51,7 +61,31 @@ Two consequences follow, and they cascade:
    **Acuru** (+10) and the three inner-cavern bosses **Griffon / Carnifern /
    Spirit Paladin** (+10 each) become unreachable.
 3. The **winning incantation** (task 29) needs all four elementals on the tablet
-   and so can likewise never fire.
+   and so can likewise never fire — though as the next section shows, that task
+   could not have run even with all four in hand.
+
+## The second wall: the winning chant is `Where`/Type 0
+
+Re-derived from scratch 2026-08-30, and **not** part of the original verdict.
+The file contains exactly **one `ACT type=6`** — `v1=0`, a win — and it sits on
+**TASK 29**, the chant, which the dump reports as:
+
+```
+TASK 29 where=0 room=-1 restr=4 ... cmd=[Wind, water, fire, earth. ...]
+    ACT type=6 v1=0 v2=0 v3=0
+```
+
+`where=0` is `ROOMLIST_NO_ROOMS` (`scprotos.h`): the task can never run in
+**any** room. It is the only such task in the game — the other 29 are `where=1`
+(21) or `where=3` (8). And nothing can dispatch it around the room test either:
+the file has **zero `ACT type=5`** (Execute task) actions anywhere, and no event
+names task 29 (`startTask`/`TaskAffected` are 0, 3, 20, 14, 14, 24/25).
+
+So even a player handed all four elementals could not win. This is the same
+shape as *The Hangover*'s task 14 and *The Long Journey Home*'s `#17 the end`
+(see `WALKTHROUGH_TODO.md` and `adrift4-where-norooms.md`), and it is faithful
+Runner behaviour — run390 answers `where=0` tasks with *"You can't do that
+here!"*.
 
 **Unreachable: 45 points** — invoke (5) + Acuru (10) + Griffon (10) + Carnifern
 (10) + Spirit Paladin (10). **Maximum reachable: 50 / 95.** This is faithful to

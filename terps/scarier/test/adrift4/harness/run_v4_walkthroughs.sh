@@ -640,6 +640,14 @@ shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the 
 # Dagger, The Orb of Storms and The Amber of Flames all carry a "The" Prefix.
 # The run390 decompilation does not reach its normalizer, so 3.9 is bracketed
 # by the measured 3.8 and 4.0 behaviour rather than read.  See the xfiles block.
+# UNWINNABLE, so the row is anchored on the score line like The Hangover's, and
+# the defects are the author's twice over (re-verified 2026-08-30 on a fresh
+# build): the Ice Totem is never moved out of hiding by any task or event -- no
+# ACT type=0 targets its v1=4 -- which seals `invoke elementals` (task 21) and
+# with it the only exit into the earth cluster; and the file's SOLE ACT type=6
+# (the chant, task 29) is where=0 ROOMLIST_NO_ROOMS with no ACT type=5 and no
+# event able to dispatch it, so the win could not fire even with all four
+# elementals held.  50 of 95 is the ceiling.
 spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a maximum of 95.
 # Measured 2026-08-29: run400 replay, all 12 commands echoed, 12 of 12 turns
 # identical.
@@ -3276,6 +3284,10 @@ losttomb_solution.txt|losttombv2.taf|you and Rupert start the trek back to camp.
 # Gnarled Woods is an RNG maze (T68 needs VAR 2 == 2, re-rolled every turn by
 # EVENT 4) that takes three `left`s under this seed, and T71's `* *e *` steals
 # any word ending in "e", so it is `get king of spades` there, not `take`.
+# run390-PROVED 2026-08-30: the real Runner bricks in the Lair (spent T3 with a
+# bare `*` pattern claims every command, "You have already done that."), so
+# its ceiling is 5/90; the 30 here exists only because Scarier does not import
+# the pre-4.0 spent-task claim rule.  Unwinnable either way.
 journ2_solution.txt|Journ2.taf|Your score is 30 out of a maximum of 90.
 # Murder in Great Falls (no author recorded anywhere -- no author byte-field
 # in the .taf and none in games.manifest.tsv; released 24 Nov 2001) is a
@@ -4527,6 +4539,484 @@ dayattheoffice_solution.txt|DayAtTheOffice.taf|I'll have a tea, black with two s
 # path is `search dirt` there instead, finding a pouch that wins the game
 # outright. 80 commands, no env vars.
 beer_solution.txt|beer.taf|You search the dirt and find a pouch.|
+# Mr_Fluffykins_Most_Harrowing_Misadventure.taf (4.00): a Choose-Your-Own-
+# Adventure gamebook wearing a parser -- one nominal room, three variables,
+# 25 tasks that just jump the story via `turn to page N`. No scoring at all
+# (zero ACT type=4); the only formal `EndGame` in the file is the punitive
+# "impatience" death, while the genuine happy ending is terminal prose with
+# no EndGame action of its own. 5 commands, `SCR_SKIP_WAITKEY=1` (an
+# embedded mid-passage waitkey otherwise eats the final scripted command).
+fluffykins_solution.txt|Mr_Fluffykins_Most_Harrowing_Misadventure.taf|Congratulations, Mr. Fluffykins! And you too, reader!|SCR_SKIP_WAITKEY=1
+# A Witch Tale.taf (4.00): win-only comedy, no scoring system (zero ACT
+# type=4). The single ending is a deliberately anticlimactic gag (forgets
+# the magic words, turns into a tree) that the narration lampshades as fake
+# before printing THE END -- there is no actual "say magic words" task, so
+# this is the real and only win. 44 commands, `SCR_SKIP_WAITKEY=1` (intro
+# waitkey cutscenes otherwise eat script lines).
+witchtale_solution.txt|A Witch Tale.taf|THE END|SCR_SKIP_WAITKEY=1
+# Door to Utopia, The.taf (4.00): no engine score (the `score` command is
+# overridden with a joke refusal); progress is an author variable `success`
+# 0-6 gating which of two doors -- Heaven or Hell -- the closing scene sends
+# the player through. All 6 success points earned (debts paid, shoes let
+# go, park restored, flowers given, dog freed, Gunge killed with a weapon)
+# for the true Heaven ending. 59 commands, `SCR_SKIP_WAITKEY=1` (frequent
+# `<a2>`-macro "read your diary" waitkeys otherwise desync the route into
+# the Hell ending instead).
+doortoutopia_solution.txt|Door to Utopia, The.taf|Up to the last sentence, you thought you really were in Hell, but the words|SCR_SKIP_WAITKEY=1
+# Patient7.taf (4.00): a three-day branching vignette (asylum patient vs.
+# demonic-possession framing), no scoring system, no inventory or map
+# puzzles -- just timed cutscenes gated by numbered dialogue menus. The
+# single win requires betraying both secrets to the doctor on Day 2, then
+# accepting the demonic pact (`demon`) during the Day 3 climax; any other
+# combination routes to one of six deaths or a non-death "lose" ending. 59
+# commands, `SCR_SKIP_WAITKEY=1` (embedded waitkeys otherwise eat script
+# lines and dead-end the run on Day 1).
+patient7_solution.txt|Patient7.taf|Your world.|SCR_SKIP_WAITKEY=1
+# The_Final_Question.taf (4.00, David Whyld): win-only sci-fi vignette, no
+# scoring system. Two rooms plus a death room; the core puzzle is a timed
+# window (must step through the gateway during a narrow turn range after a
+# spoken countdown, `z` to stall until then) followed by reading four books
+# to unlock the closing narration. An unrelated in-game "credits reel"
+# easter egg (typed `games`) lists blurbs for the author's OTHER games --
+# flavour text, not story content, and not touched by this route. 17
+# commands, `SCR_SKIP_WAITKEY=1` (opening cutscene waitkeys otherwise eat
+# script lines).
+finalquestion_solution.txt|The_Final_Question.taf|And there ends The Final Question|SCR_SKIP_WAITKEY=1
+# mustescape.taf (4.00): a three-stage stealth/combat escape, no scoring
+# system, pure win/lose. Two hand-to-hand brawls share a single health
+# pool, so the medical kit found mid-route (vent-maze medical office) should
+# be used before the second fight; the vault door auto-opens once all three
+# switches are thrown, with no manual "open vault" command. The closing
+# gunfight's hit/miss outcomes are fully deterministic (not RNG), so the
+# winning sequence is a fixed, discoverable solution. An undocumented
+# `cheat` instant-win shortcut exists in all three combats but was
+# deliberately avoided in favour of a genuinely solved route. 83 commands,
+# `SCR_SKIP_WAITKEY=1` (combat-intro "press a key" prompts otherwise eat
+# scripted input and desync the fight).
+mustescape_solution.txt|mustescape.taf|Not that your boss will like that.|SCR_SKIP_WAITKEY=1
+# Caida libre.taf (4.00, Spanish): a tiny 7-room linear physical-action
+# puzzle -- a falling assassin must anchor, somersault onto a satellite,
+# grab its antenna, walk two steps toward it, and strike it to trigger an
+# SOS beacon, the only win. No scoring system. The game's own ALR table
+# rewrites the engine's built-in "You scored..." end text via a raw
+# substring rule (`score`->`puntos`), faithfully mangling it into "You
+# puntosd 0 fuera of the maximum 0!" -- an author/Runner quirk, not a
+# Scarier bug. 8 commands, no env vars.
+caidalibre_solution.txt|Caida libre.taf|You puntosd 0 fuera of the maximum 0!|
+# Temple_Of_The_Sun.taf (4.00): AIF, solution/golden gitignored (adult
+# jungle-temple content between adult NPCs, no minors -- see gamma/croft
+# precedent). No scoring system, pure win/death. A ritual-disguise puzzle
+# (robe + headdress) gates two otherwise-unconditional instant-death exits;
+# the win task itself has no typable command, firing automatically once a
+# background event sees all four prerequisites (two prior tasks done, robe
+# and headdress worn) satisfied on the same turn. 31 commands,
+# `SCR_SKIP_WAITKEY=1` (intro waitkey otherwise eats the first command and
+# desyncs the whole route).
+templeofthesun_solution.txt|Temple_Of_The_Sun.taf|It is good to see that you didn't lose your head about this!|SCR_SKIP_WAITKEY=1
+# Wolves_at_the_Door.taf (4.00): a real-time survival puzzle -- a fixed
+# turn-counter kills the player by wolves once o_turns>24 unless it lands
+# exactly on turn 25, which fires a scripted "rescue" event/task pair (there
+# is no ACT type=6 EndGame task at all). No formal score (the `score`
+# command is a fixed flavor line; a debug "- score" easter egg lists +5/+4/
+# +7/+5/+7 = 28 "points" for five flavor actions, never wired to the engine).
+# Every parsed command advances the counter, so the ending is reachable by
+# many command-count totals as long as they land on 25; the "rescue" is a
+# deliberate black-comedy twist -- hunters "save" the player only to kill
+# them for a trophy scalp, with no branch that lets the player actually
+# survive. Several objects are hidden until examined (`x small area` reveals
+# the bottle/sandwich/dishrag, absent from the game's own "- walk" easter-egg
+# transcript, which is missing that step and would fail on `get wedge`).
+# 26 commands, `SCR_SKIP_WAITKEY=1` (intro waitkey otherwise eats the first
+# two commands).
+wolvesatthedoor_solution.txt|Wolves_at_the_Door.taf|And on that somewhat sombre note, Wolves At The Door is concluded.|SCR_SKIP_WAITKEY=1
+# apokalupsis.taf (4.00): a 2009 Intro Comp taster -- 3-room linear detective
+# scene, no scoring system, exactly one ACT type=6 EndGame (win) on the
+# Study's exit task. A hidden `evidence` counter gates that exit (>=5 of 7
+# examine-clue tasks in the Study); the walkthrough examines all 7. Uses
+# ALR-table string substitution for variable-driven dialogue branching
+# (`[regjim=N]` placeholders rewritten post-hoc by value) -- looked like dead
+# content from the static task dump alone (a <3 restriction on repeat
+# conversation) but all branches are genuinely reachable in sequence.
+# 46 commands, `SCR_SKIP_WAITKEY=1` (5 intro waitkeys otherwise eat the first
+# several commands).
+apokalupsis_solution.txt|apokalupsis.taf|Thank you for playing the introduction to Apokalupsis.|SCR_SKIP_WAITKEY=1
+# dusk.taf (A Walk At Dusk, Eric Mayer, 2005; 4.00): a puzzleless atmospheric
+# walk, author-tracked score out of 10 (a hidden `total_score` var, no engine
+# ACT type=4 at all) for 10 optional observation vignettes; full 10/10
+# reached. The `stuff` command is a built-in walkthrough listing all 10.
+# The win (final tree frog) needs `x sapling` TWICE after `x evergreen` --
+# the first hit is a dead "nothing special" flavor task, easy to miss from
+# the static dump alone. Two "embarrassing" flavor flags (muddy shoes,
+# walked into a web) are structurally unavoidable on any full-score route
+# but cost no points; a "weeds shortcut" between two rooms is a fake exit
+# that always retreats you regardless of state.
+# 33 commands, no env vars (ending waitkey resolves cleanly on EOF).
+dusk_solution.txt|dusk.taf|Most importantly you finally saw a tree frog!|
+# The_Hunter.taf (4.00): an amnesiac apprentice-mage escape from a ruined
+# castle via two-word rune spells (object + 2 runes), then a village/travel
+# act ending in a real-time ballista race against a pursuing warship
+# (`#Defeat` EndGame if not fired within a ~15-25 turn window). True
+# structural maximum 50/50 (sum of all 19 ACT type=4 actions), all on one
+# reachable critical path, no dead points. Notable authoring bug: task 28's
+# `say * name *` pattern never populates %text% for ADRIFT's bare `*`
+# wildcard, so the "obvious" `say my name is Hunter` phrasing silently fails
+# every restriction; only phrasing that misses that literal pattern (falling
+# through to the task's ALTCMD catch-all) actually sets %text% and scores.
+# 62 commands (incl. name/gender prompts), no env vars.
+thehunter_solution.txt|The_Hunter.taf|You scored 50 out of the maximum 50!|
+# Will.taf (Selma's Will, 4.00): a heirloom-trading puzzle across ~12
+# relatives at a will reading -- route small gifts to specific NPCs in
+# dependency order, then clean/break a mirror to recover the will and rush
+# it to Mr. Lewis before sunset. Structural max 200/200 reached, no
+# double-counting exploits (repeatable tasks award ChangeScore once).
+# Notable trap: giving the marbles to Henry silently turns the previously-
+# safe "go down" into an instant-death ending for the rest of the game --
+# "slide down the banister" must be used instead. 124 commands, no env vars.
+will_solution.txt|Will.taf|Well done - you scored maximum points!|
+# COBL.taf (4.00): a fetch-quest recruiting NPCs to retrieve a Golden
+# Trolley; the real win (TASK 49) needs "People helping"==4, but only 3 of
+# 4 recruitments are completable -- the 4th (newspapers to the hobos) is
+# permanently blocked by a genuine .taf data bug: the counter object the
+# newspapers are placed "onto" is a STATIC with an empty room list, so it
+# can never become seen/reachable by any command (confirmed via
+# obj_directly_in_room() and SCR_TRACE_MATCH, not a Scarier divergence).
+# True max is therefore 160/230 (69%), with the win screen permanently
+# unreachable. 107 commands, `SCR_SKIP_WAITKEY=1` (two mid-game waitkeys
+# otherwise eat scripted commands).
+cobl_solution.txt|COBL.taf|Your score is 160 out of a maximum of 230.  (69%)|SCR_SKIP_WAITKEY=1
+# puzzlebox.taf (The Puzzle Box, Richard Otter, ORGComp 2007; 4.00): a
+# sequential 10-stage combination-lock puzzle box, no scoring system, single
+# ACT type=6 EndGame. All target values are fixed .taf constants (no RNG),
+# but the ADRIFT variable-naming convention for "current state" vs.
+# "target value" is inconsistently applied across puzzles, making the
+# static task dump unreliable without cross-checking live variable state.
+# Puzzle 2 (clock) has a genuine off-by-one bug -- completion actually needs
+# the church clock's minutes PLUS 5 (confirmed by both the expression chain
+# and the game's own hint text), and its minute-hand completion message is
+# copy-pasted from the hour-hand task. 85 commands, no env vars.
+puzzlebox_solution.txt|puzzlebox.taf|shouts, "Get out and stay out!"  The door slams shut.  You are free!|
+# amy.taf (Amy And The Raging Hormones, 4.00): AIF, solution/golden
+# gitignored (adult content between the player and an adult coworker, no
+# minors -- see gamma/croft precedent). No scoring system, pure win/lose;
+# two-scene structure (public gig, then private scene) with a same-named-
+# task duplication trick standing in for room restrictions. The natural
+# gig->bedroom transition is gated by a counter no task ever increments
+# (dead path, apparent authoring bug); the game's own in-fiction shortcut
+# code is the only working route. The bedroom scene layers undress/arousal/
+# intimacy-threshold gates before the finishing task; one escalation task
+# the game's own readme warns against repeating arms a punitive kill-player
+# ending on reuse (not invoked). 19 commands, `SCR_SKIP_WAITKEY=1` (opening
+# waitkeys otherwise eat queued commands).
+amy_solution.txt|amy.taf|You've reached the end of this adventure - congratulations.|SCR_SKIP_WAITKEY=1
+# In_the_Claws_of_Clueless_Bob.taf: comedy frame story -- the player is
+# forced to "play" a series of deliberately terrible mini-games authored by
+# in-fiction hack "Clueless Bob Newbie" (txtspeak titles: "The Hobbyt", "The
+# Big Maize Game", "Blud"), escaping via absurd puzzles. Score is entirely
+# author-simulated via a plain SetVar (ACT type=3, var "scor"), not the
+# engine's native score system -- zero ACT type=4/6 actions anywhere in the
+# 228 tasks; the real `score` command reports 0/0 (harmless authoring quirk,
+# never surfaced to the player). Ships its own built-in walkthrough menu
+# (title-screen `walkthrough` -> short/long), static COMPLETE text, not a
+# live replay -- confirmed to match actual play 1:1. 12/12 of the author's
+# own tracked max, no hints used. 40 commands, `SCR_SKIP_WAITKEY=1` (a
+# `press a key` pause otherwise eats queued commands).
+cluelessbob_solution.txt|In_the_Claws_of_Clueless_Bob.taf|score of 12 - well done. You didn't resort to the hints at all. If not, maybe|SCR_SKIP_WAITKEY=1
+# hub.taf: black-comedy domestic-chores sim with a hidden murder-mystery
+# twist. A hungover "house husband" must tidy the house (dishes, soup,
+# bathroom, laundry, plants, hammock, trash) before "Marta" gets home;
+# completing every chore (task 97's 23-way AND restriction) resurfaces his
+# memory -- he murdered his wife and hid her in the garden shed, then drives
+# off. Three distinct trap endings exist: rewinding the TV conjures a
+# ghostly vision and ends in death; leaving the hob on too long triggers a
+# smoke alarm -> fire brigade -> arrest; calling a cleaning company then
+# napping lets the hired maids find the body first -> arrest (a deliberate
+# skip-the-chores trap). The game's declared Maximum-Score field is 0, so
+# its own `score` command always prints ".../0 (0%)" even though the
+# internal counter really does reach 80/80 (all 26 ChangeScore actions
+# banked) -- an authoring quirk, not a scoring bug in this harness. Ships
+# an in-fiction `walkthrough` command with ~6 real bugs (ambiguous
+# take/wear clothes, unopened cupboards, missing take-fairy-liquid, wrong
+# hose/toilet-paper phrasing, wrong hob order) that had to be corrected.
+# "toilet paper" collides with the scenery noun "toilet" -- use the
+# registered alias. 112 commands, no env vars needed.
+hub_solution.txt|hub.taf|driveway, and take off down the suburban street, not once looking back.|
+# YNKaboom.taf ("The Ascot"): pure yes/no CYOA, no formal score system (0
+# ChangeScore actions; 5 EndGame endings differentiated only by an
+# in-fiction dollar figure). Off-topic (non-yes/no) input increments a
+# persistent, never-reset counter (var6) with escalating warnings; a 4th
+# off-topic input at count 3 is an immediate death. The climax loop offers
+# the Eagle Beast an ascot/stuff/Slushie/[kiss]/interpreter -- throwing the
+# interpreter only wins if var6==3 (i.e. the player deliberately misbehaved
+# 3 times earlier); at var6<3 the identical choice kills the player instead
+# -- a genuine silent-loss trap with no in-turn warning. Solo route (never
+# meeting NPC Gertie) reaches the richest ending, $96,300,000 (vs.
+# $48,150,000 each on the split route). 25 commands (3 primer off-topic
+# "banana" inputs + 22 yes/no), no env vars.
+ynkaboom_solution.txt|YNKaboom.taf|***WHOA!  YOU TOTALLY JUST WON!***|
+# BSG TWENTY TWO Final.taf: AIF, solution/golden gitignored (adult content
+# between the player and an adult NPC, no minors -- the game's own dialogue
+# reassures "You're not a child...", matching the amy/gamma/croft
+# precedent). No formal score (its own 0/0 summary is text-replacement-
+# suppressed); win/lose only, on a ~23-turn countdown. The win route is a
+# conversational/fetish-escalation chain gated behind 8 dialogue topics; the
+# game's separate violence/torture/rape verb family is a complete red
+# herring that never touches the win-condition variable -- the derived
+# route uses ZERO forced/non-consensual verbs, confirmed the sole win path
+# doesn't require any. A duplicate-task/lower-index-wins quirk means one
+# command must be issued twice (first call is a no-op flavor task). 14
+# commands, `SCR_SKIP_WAITKEY=1` (a mid-scene [More] pause otherwise eats
+# the final command).
+bsg22_solution.txt|BSG TWENTY TWO Final.taf|YOU HAVE WON!|SCR_SKIP_WAITKEY=1
+# jailbreakbob.taf: WINNABLE (verdict corrected 2026-08-30, proved in the
+# real run400.exe under Wine -- see notes/WINE-TRANSCRIPTS-TODO.md). The
+# earlier "UNWINNABLE" reading mis-indexed task 35's NPC move: leaving the
+# dining hall west with the yard pass puts Hoggins in YOUR CELL (1-based
+# room 1), where the cell-scoped events fire his comb request. Give him
+# the comb, pester him for a coin, phone Trigger Happy Terry's wife (option
+# 4) from the meeting room, and she disarms him; take the gun and walk out
+# the gate (task 72 = win). No formal score (0 ChangeScore actions).
+# 31 commands, `SCR_SKIP_WAITKEY=1` (intro `[more]` pauses otherwise eat
+# queued commands).
+jailbreakbob_solution.txt|jailbreakbob.taf|woo-hoo!|SCR_SKIP_WAITKEY=1
+# Dream Quest.taf: linear fantasy fetch-quest, 68 rooms / 58 tasks / 20
+# scored objectives (5 points each), built from item-for-item exchange
+# chains (pebble->dagger->ruby->Jeziah, sandwich past a guard, a horn past
+# wolves) culminating in a castle-crypt vampire hunt (stun with holy water,
+# stake, take a trophy fingernail) delivered back to the wizard for the
+# win. Leans hard on the object-*seen* model: a sparrow in a nest and a
+# nail in a pile of ashes are both present but unreferenceable until the
+# container/scenery is explicitly examined first. A one-way bridge
+# collapse locks the player into the castle after crossing; an
+# unprotected Freezing Passage crossing silently kills unless the coat is
+# worn and brandy drunk beforehand. 100/100, fully reachable, no dead
+# points. 187 commands, no env vars.
+dreamquest_solution.txt|Dream Quest.taf|Well done - you scored maximum points!|
+# The_Strange_Tale_of_Dr_Wilkins.taf: AIF ("A Victorian Transformation
+# Melodrama"), solution/golden gitignored (adult content depicting adult
+# women only -- all bodies/characters are explicitly adult, no minors --
+# matching the gamma/croft/amy precedent). No formal EndGame/win-ending
+# exists anywhere in the task table; the declared MaxScore=95 is purely
+# nominal, not an enforced cap -- diligent play banks 117/95 (123%).
+# Authoring bugs found: several NPC-specific "repeat" tasks corrupt an
+# internal identity-state string (one via a trailing space, one via a
+# copy-paste of the wrong identity) making some transformations unsafe to
+# repeat; one specific transformation is uniquely safe for indefinite reuse
+# and is the walkthrough's workaround. A genuine permanent softlock exists
+# in one late-game room (a movement-blocking check and the room's real exit
+# gate impose mutually exclusive preconditions) -- deliberately never
+# entered, forfeiting 2 low-value points rather than risking the trap. 178
+# commands, no env vars.
+wilkins_solution.txt|The_Strange_Tale_of_Dr_Wilkins.taf|My score is 117 out of a maximum of 95.|
+# darkness.taf: single-location (lighthouse) exploration/repair game.
+# Score comes from four sources: 7 of 8 "mystery notes" (the keeper's hat
+# is a genuine 0-point decoy), repairing the generator across three `mend
+# generator` actions, pulling the light-control lever, and firing a flare
+# gun at a passing ship, plus a +10 completion bonus for >=7 notes found.
+# The flare gun is gated on an internal "ship passing" state that only
+# holds briefly right after the lever is pulled and self-reverts; firing
+# early just forfeits the 5 flare points harmlessly (no dead end/softlock).
+# 50/50, fully reachable. 111 commands, `SCR_SKIP_WAITKEY=1` (intro
+# press-ENTER pauses otherwise eat queued commands).
+darkness_solution.txt|darkness.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
+# Back Home.taf: short linear horror/mystery vignette, no score system, one
+# unavoidable ending (a coal-bunker key hunt via magnet+string fishing from
+# a garden drain) revealing the protagonist accidentally caused an infant
+# sibling's death. The author remaps the engine's default lose-message ALR
+# to "GAME OVER" for this ending, repurposing the "loss" action type as the
+# story's sole intended conclusion rather than an authoring bug. 54
+# commands, `SCR_SKIP_WAITKEY=1` (narration embeds `%wait%<cls>` pauses).
+backhome_solution.txt|Back Home.taf|You are back.  Back home.|SCR_SKIP_WAITKEY=1
+# zelda.taf: Legend of Zelda fan-fiction (Kokiri Wood, Ganondorf).
+# UNWINNABLE as authored: "get/take wooden key" (Tree Room) prints "Taken."
+# but has no ACT statement that actually grants the key object -- every
+# phrasing tried, confirmed via post-attempt inventory check. That key
+# gates the only door into the Wizrobe Room, whose Dodongo-fight/raft
+# chain is the sole route to the eastern continent (rooms 35-61), which
+# holds the only EndGame(win) task and 138 of 197 scoring points. Verified
+# maximum reachable score: 59/197 (29%). A second, moot authoring bug:
+# entering the Graveyard with the shield equipped destroys it via a
+# Like-Like task with no compensating relocate action. 79 commands,
+# `SCR_SKIP_WAITKEY=1` (a Like-Like/Shield-Eater cutscene pause).
+zelda_solution.txt|zelda.taf|Your score is 59 out of a maximum of 197.|SCR_SKIP_WAITKEY=1
+# Showtime_at_the_Gallows.taf: babysitting horror-comedy. No score system;
+# every outcome (death or true ending) is a plain room-move into "The End",
+# not an EndGame action. Several puzzles are deterministic NPC-patrol
+# timing games (escape Zero on turn 9-10 of an 11-turn window; slip past
+# twin hell-hounds by waiting exactly one turn on their period-4/period-5
+# cycle). The climax is a false-choice trap: answering Zero's yes/no
+# survival question kills the player either way -- survival requires
+# instead repeatedly asking Zero his own name before grabbing a brick.
+# Katie's death outside the house is scripted/unavoidable regardless of
+# phrasing (two redundant catch-all tasks). 165 commands,
+# `SCR_SKIP_WAITKEY=1` (a hidden mid-game `<waitkey>` otherwise eats a
+# queued command).
+showtime_solution.txt|Showtime_at_the_Gallows.taf|I will STRIKE like the fucking Hand Of God.|SCR_SKIP_WAITKEY=1
+# The Old Church.taf: 10-room ghost-story puzzle, no score system, two
+# EndGame endings. Giving the sword straight to the sexton (task 3) is a
+# genuine silent-early-ending trap that forecloses a full NPC subplot;
+# examining the organ in the Gallery is an unstated prerequisite for the
+# tombstone/ghost-summoning chapel scene, and taking the sword also
+# silently transfers a piece of cheese (Task 4 side effect) that is the
+# unstated key to feeding the church mouse and reaching the full ending.
+# Win-only. 17 commands, `SCR_SKIP_WAITKEY=1` (mouse dialogue embeds a
+# mid-paragraph `<waitkey>`).
+oldchurch_solution.txt|The Old Church.taf|Axel Gyllenpil has come to peace after a sermon held in the chapel.|SCR_SKIP_WAITKEY=1
+# competition2011__adrift__powers__how suzy got her powers.taf: 2011 ADRIFT
+# comp entry, superhero-origin comedy. Custom author-scripted score
+# variable (no engine-level ChangeScore/EndGame exists at all); 22/22, a
+# hidden `score` debug command and hidden `b walk` command (dumping the
+# author's own tested walkthrough) are both present but unused here. Key
+# trap: the vase must be filled with water and carried intact through the
+# crawlspace (needed later to hydrate a trapped NPC), while the window
+# must be smashed with the fire extinguisher instead -- using the
+# extinguisher on the vase or the wrong tool on the window forecloses a
+# later scoring action. A parking-lot dawdle timer (>=10 turns before
+# entering) triggers a soft "Part One - bad" ending if ignored. 31
+# commands, `SCR_SKIP_WAITKEY=1` (intro embeds a `<waitkey>` pause).
+suzypowers_solution.txt|competition2011__adrift__powers__how suzy got her powers.taf|You achieved this with a score of 22 out of a maximum possible of 22.|SCR_SKIP_WAITKEY=1
+# Rock Band.taf: comedy about a slacker roommate's Rock Band-obsessed
+# housemate. No score system (the minigame's internal note-score variable
+# is not the engine's real score); win-only, 3 EndGame endings (win/lose
+# via a 50-turn countdown/death via moldy chow mein). Win route: play the
+# in-fiction Rock Band minigame to a perfect 1000-point run (triggering
+# "Gigantor"), retrieve a mechanical finger hidden in a closed laundry
+# closet, `use finger on xbox` to eject the disc, then unplug the power
+# cord. 24 commands, `SCR_SKIP_WAITKEY=1` (task 18's cutscene embeds two
+# `<waitkey>` tags that otherwise silently eat subsequent commands).
+rockband_solution.txt|Rock Band.taf|You did it! You stopped Gigantor and saved the world (and Rock Band!)|SCR_SKIP_WAITKEY=1
+# Aegis.taf: fantasy pirate/naval political-intrigue adventure (Aegis
+# Knight Celise vs. a treasonous Elder). No score system, no formal
+# EndGame action -- the sole ending is a plain player-move to the "End"
+# room. Two authoring quirks worked around, not blocking: `attack the
+# man/guard with the sword` fails on the literal words "with the sword"
+# (bracket-match breaks, falls through to a generic library-verb refusal)
+# -- omit them; "tie the hook to the rope" has no matching task at all
+# (dead flavor text) since "throw the rope at the ship" already succeeds
+# unconditionally. 74 commands, `SCR_SKIP_WAITKEY=1` (many narrative
+# `<waitkey>` pauses).
+aegis_solution.txt|Aegis.taf| END|SCR_SKIP_WAITKEY=1
+# warlock.taf (AIF): solution/golden gitignored (adult content depicting an
+# adult woman only -- an 1841-dated necromancer's-diary framing device
+# names her only as a "wench"/"young female" villager, no minor-indicator
+# terms anywhere in the file -- matching the gamma/croft/Wilkins/BSG22
+# precedent). No formal scoring system (the game's own ALR table overrides
+# the default score summary with "There is no scoring system in this
+# game."); the only reachable ending from beyond the summoning scene is a
+# single mandatory dark-twist EndGame (no exit from that room otherwise). A
+# lethal wrong-reagent fireball trap and a flavor-only scrying-vision
+# incantation exist as red herrings among three total incantations. One
+# flavor-only NPC-directed task is permanently unreachable: the game's own
+# SYNONYM table unconditionally rewrites "lick"->"kiss" pre-parse, but no
+# "kiss" phrasing was ever authored for that specific task -- a
+# self-inflicted authoring dead task, not an interpreter divergence; it
+# contributes no unique content. 58 commands, no env vars.
+warlock_solution.txt|warlock.taf|The laboratory stands empty. No sign of demonic presences save a chalk-drawn|
+# For_Love_of_Digby.taf: black-comedy puzzlebox about TV-obsessed shut-in
+# Ivan, confined to a single room (The Lounge), racing a 119-turn deadline to
+# get a battery into the TV remote before his beloved show "Digby The
+# World's Biggest Dog" airs. No formal ChangeScore/EndGame actions exist in
+# the .taf (all 266 tasks show score=0) -- score is tracked entirely via an
+# author variable incremented by ACT type=3, and "winning" is a variable
+# flag checked by a catch-all task, not a real EndGame. All 50 points are
+# structurally reachable via a chain of absurd trades/rituals (three
+# brochure-recipe combos, a branching phone-menu tree, a manuscript relayed
+# through three NPCs) culminating in changing the channel in time -- only to
+# have Digby pre-empted for a night of adverts anyway, the intended
+# anticlimactic payoff. The game ships its own undocumented cheat commands
+# (`lemme cheat`, `1 score`) exposing the full walkthrough/scoring breakdown.
+# 95 commands, `SCR_SKIP_WAITKEY=1` (an intro pause otherwise silently eats
+# the first scripted command and desyncs the rest of the run).
+digby_solution.txt|For_Love_of_Digby.taf|For Love Of Digby winds to a close.|SCR_SKIP_WAITKEY=1
+# Sigurd_Fafnesbane.taf: tiny 4-room, 12-task retelling of the Norse
+# Sigurd/Fafnir legend. No score system and only one EndGame (killing
+# treacherous stepfather Regin), reached by a strict linear dependency
+# chain: Regin only gives the sword after being asked about Fafner; the
+# dragon must be killed at the Lake specifically (not the Plain, a red
+# herring where he's merely "gone to drink"); the Lake-to-Plain shortcut
+# gates shut once the dragon is dead, forcing a detour south to roast the
+# dragon's heart; tasting its blood unlocks understanding the birds'
+# warning of Regin's betrayal, gating the final kill. No dead points or
+# silent-loss traps. 12 commands, `SCR_SKIP_WAITKEY=1` (a leading blank
+# line for the intro's press-any-key pause works identically, but the flag
+# matches corpus convention).
+sigurd_solution.txt|Sigurd_Fafnesbane.taf|gold is glittering in the leather sack in your luggage.|SCR_SKIP_WAITKEY=1
+# Unfortunately.taf ("Back To Life... Unfortunately"): comedy about a
+# resurrected king (Your Highness) whose High Chancellor Verenor keeps
+# un-killing him. No formal ChangeScore/EndGame actions (all 265 tasks
+# score=0); the game ends by teleporting the player to an exitless GAME
+# OVER room. Win-only, with a scripted suicide-and-resurrection tour
+# (poisoned apple/coconut, exploding potion, collapsing ceiling, bomb,
+# balcony jump, knife, poison gas, holy-water lightning bolt) interleaved
+# with reforming ne'er-do-well Prince Toromin via a communication ring,
+# gating the permanently-fatal best ending over a clearly-labeled inferior
+# alternate ending (task 149, no bug). The game ships its own in-fiction
+# `walkthrough`/`short`/`long` hint commands naming `short` as the author's
+# solution to the best ending. 60 commands, `SCR_SKIP_WAITKEY=1` (frequent
+# `[more]` pauses, including after every in-game death, otherwise eat the
+# next scripted command and desync the run).
+unfortunately_solution.txt|Unfortunately.taf|An ending to be sure - and the best one in the game to boot! You brought your|SCR_SKIP_WAITKEY=1
+# frustrated.taf ("Frustrated Interviewee"): 2005 InsideADRIFT Spring comp
+# entry. 50/50 max score. Opens with an apartment sequence recruiting three
+# friends into a game (TV channel-change, six-plus chocolates, a
+# shake/slap/shout wake-up ritual), gating a cutscene into an RPG-style
+# dungeon crawl: tree-felling/bridge-building (burning poisonous weeds is a
+# non-obvious mandatory prerequisite to cutting the tree), a goblin fight
+# for a rope, an NPC-assisted cliff climb, a boulder puzzle, a four-symbol
+# sun-room puzzle, and a scale/rope/stool statue puzzle for a jewel. Taking
+# the jewel triggers a betrayal/forced escape (burn-staff-for-light,
+# solo rock/ravine levitation), ending in an invisible-spear ambush (plant
+# spear unhidden, hide, wait for the NPC to trip and become dazed, then
+# attack) that recovers the jewel and wins. All 50 points confirmed
+# reachable in one unbroken run. 85 commands, `SCR_SKIP_WAITKEY=1` (several
+# `(Press a key)` pauses otherwise eat a scripted command and desync).
+frustrated_solution.txt|frustrated.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
+# Camelot 1,5.taf: light Arthurian fantasy comedy. Win-only, no score
+# system (zero ChangeScore actions; a single EndGame on the win task).
+# Dragon's Lair entry requires wearing a handkerchief AND applying
+# Dragons-delight perfume, both fetched from Guinevere's Chamber; a
+# one-shot "caught in the Queen's chamber" guard-timer event (fires 3 turns
+# after opening the chamber door, permanently disarms itself once
+# triggered) is deliberately absorbed on a disposable first visit for the
+# perfume, then the chamber is re-entered safely for the handkerchief.
+# Feeding the Rose Garden peacocks bread for a tail feather is the sole,
+# non-optional trigger for the ending (tickle the dragon with it). Two
+# lowest-index-precedence "two-attempts" idioms (torch-lighting,
+# shackle-pulling) are deliberate authoring patterns, not bugs. 56
+# commands, `SCR_SKIP_WAITKEY=1` (a "Press any key" prompt after the
+# kitchen cutscene otherwise eats the next scripted command).
+camelot15_solution.txt|Camelot 1,5.taf|Looks like the old Merlin did read your mind correctly after all.|SCR_SKIP_WAITKEY=1
+# JimPond.taf: James-Bond spy-comedy parody. 140/352 (39%) is the true
+# achievable ceiling on this branch, not a partial run -- the game has zero
+# EndGame tasks; the ending is an automatic scene transition to P's office
+# the instant Bungo is defeated, followed by a tiered debrief scoring
+# info-gathering (Bungo's dialogue menu is a branching escalating state
+# machine, not a simple cycle -- `2,2,2,2,2,1,1,5` safely harvests all 3
+# info topics, including Liza's bank-robbery reveal, before triggering
+# combat), diary recovery, and keeping NPC Orinoko alive (ferry him to the
+# Strip Den once his hint flag sets, letting him bail before the robbery).
+# Bungo's fistfight round-counters are fully deterministic, no RNG --
+# kick/kick/insult/insult/headbutt x3 guarantees victory. `kill bungo` is a
+# confirmed-inert dead end (flavor text only, does not leave the dialogue
+# state machine). 127 commands, `SCR_SKIP_WAITKEY=1`.
+jimpond_solution.txt|JimPond.taf|and I'll be wanting you to lead the attack.|SCR_SKIP_WAITKEY=1
+# Greek School Adventure.taf: comic college-life sim (a Greek-language
+# class). 185/275 (67%) is the true reachable maximum -- 90 points are
+# structurally dead: a gender-exclusive Sarah/Marc flirt subplot (+15) is
+# mutually exclusive by design; a mailroom-key subplot (+4) is permanently
+# blocked (the key is held by an NPC with no release path); a soup-quest
+# (+21) is blocked on a ladle never placed anywhere reachable; and an
+# alternate "+50 true learning" win requires a holiness stat >=100 that
+# caps at 90 via exhaustive trace (one point short by design, since closing
+# it needs dead "crusader" content). These four unreachable pools sum to
+# exactly 90, reconciling with the game's own "90 points short" message.
+# The winning "cheat" ending requires a one-shot authoring-bug exploit at
+# room 61: a blocked `east` attempt falls through to the plain exit on a
+# *second* identical attempt (ADRIFT's task-repeat gate). The morning
+# shower (task 36) strips all held/worn items, so it must happen before
+# dressing; mailbox/envelope/Package containers don't auto-list contents on
+# `open`, silently blocking `take` unless followed by `look in X`. 165
+# commands (incl. name/gender character-creation answers), no env vars.
+greekschool_solution.txt|Greek School Adventure.taf|You scored 185 out of the maximum 275!|
 EOF
 }
 

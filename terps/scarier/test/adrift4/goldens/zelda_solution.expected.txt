@@ -1,0 +1,1001 @@
+Loading game...
+
+The Legend of Zelda: Legacy of a Princess
+
+At last, the ink was dry and the chronicle was finished. The old woman closed
+the book she had just finished writing and gave it one last longing look. The
+leatherbound cover was enblazoned with gold writing, which said: The Legend
+of Zelda.
+
+Inga sighed. "The influence of the Triforce is beyond Hyrule, for the time
+being. Ganon will indeed return, but we need not live in fear of his evil."
+
+"Does that mean we at last may rest?" Link asked.
+
+"No, no," Impa laughed. "Never. We must never allow our guard to falter.
+Monsters still roam the highlands, and lesser villians would relish taking
+the throne in the wake of Ganondorf's treachery."
+
+Link fingered his sword as the old woman spoke. "Then what must we do now?"
+
+"Life in Hyrule will never be the same," Impa replied. "Now we await the
+coming of the next stage. A new chapter. A new chronicle. A new legend..."
+
+[Press any key to continue.]
+
+THE LEGEND OF ZELDA
+Legacy of a Princess
+
+An Interactive Adventure in Hyrule
+Version 1.0
+Serial Number 47821/2238
+
+Written by Me
+
+Impa's Cave
+
+Two lone torches flicker against the darkness of the cave, providing meager
+light. What you can see is of little interest: chests of old royal garb, odd
+artifacts gathered by Impa over the years of no value, and shelf after shelf
+of dusty books. Moonlight streams through the cave exit to the south,
+providing a view down the hill overlooking Kakariko Village.
+
+An old shield lies on the ground, gathering dust.  Sitting on a pedestal is
+an old book marked "The Legend of Zelda".
+Impa stands nearby, deep in thought.
+
+> take shield
+You take the shield.
+
+> s
+You move south.
+
+Hilltop
+
+Hyrule is especially beautiful at night. The strange light of the moon and
+stars somehow plays on the emerald green of the hills, producing some
+intoxicating effect. The rocky hill path ends here, before the mouth of
+Impa's cave to the north. Carved into the rock near the cave is a sign. The
+path also continues south, down the hill.
+
+A terrified palace aide runs up the hill and cries when he sees you. "Link!
+We need your help!"
+
+He stops for a moment, short of breath. "The King has been kidnapped! He was
+on the palace promenade when a strange creature in blue armor spirited him
+away. The entire royal guard is out searching for him, and we haven't a clue
+where he could be.
+
+"Princess Zelda demands she see you at once!"
+
+You jump a little when you realize Impa is standing right next to you. "Once
+you speak with Zelda, come back here and talk to me. I have something that
+could be of value to you."
+
+Impa returns to the cave, and the aide goes running back to the palace.
+
+[Press any key to continue...]
+
+Hilltop
+
+Hyrule is especially beautiful at night. The strange light of the moon and
+stars somehow plays on the emerald green of the hills, producing some
+intoxicating effect. The rocky hill path ends here, before the mouth of
+Impa's cave to the north. Carved into the rock near the cave is a sign. The
+path also continues south, down the hill.
+
+> s
+You move south.
+
+Stone Columns
+
+Five rows of tall rocky columns jut from the flat sandy ground near the
+bottom of the hill. These pillars at one time supported a structure of some
+sort, now long gone. A path leads straight through the middle of the rows,
+leading north up the hill and south to Kakariko Village. Not too far in the
+distance, the Palace is visible east.
+
+> e
+You move east.
+
+The Moat
+
+The Palace stands here, lit by the fires of the night watch guards on the
+barricade. Even by the darkness of night is the Palace impressive, with its
+great swooping walls and high-vaulted towers. Hugging the land the walls
+stand on is a deep moat, filled with the kingdom's most vicious Zoras. A
+trail leads leads away from the Palace to the west.
+
+> z
+Time passes...
+
+One of the palace guards in the barracks above sees your face in the dim
+torchlight. He gives a signal, and the drawbridge carefully lowers. The way
+is now open to you towards the east.
+
+> e
+You move east.
+
+Palace Square
+
+Wafting aromas of fresh meat and pancakes pour from the streetcarts of the
+vendors and shops in this public market inside the outer walls. A few
+dwelling areas for peasants and the like dot the streets behind the shops.
+There is a drawbridge open to the west, with what looks like a tranquil
+garden to the east. Northwards lies the entrance to the inner palace. To the
+south is a quaint little shop with two wide open doors. Hanging from the shop
+near the doors is a sign.
+There is a palace guard here, making the night rounds.
+
+> n
+
+The guards posted at the door nod as you walk past.
+
+Palace Hall
+
+The Palace Entry Hall is draped in marble and adorned with gold, lined with
+portraits of all the great rulers of Hyrule. There are no guards present,
+likely because everybody is looking for the King. A grand entrance to the
+throne room leads north. To the south is Palace Square. A rather smallish
+door is to the east, looking somewhat dark and foreboding.
+
+> n
+
+As you approach the door, you hear the sound of a weeping girl.
+
+"You've made it!" Zelda cries as you enter the room. "I knew you would come,
+Link."
+
+Zelda's eyes are wet and her cheeks are red. Surprisingly, she is not in her
+usual royal dress. In fact, if you didn't know the Princess so well, you
+wouldn't even know it to be her.
+
+She curtsies before you, as though you were in fact the princess and not her.
+"It gives me courage to see you. As you know, Father was abducted not even
+since an hour has passed. His abductor was a strange creature in blue armor.
+
+"The kidnapper is a very powerful Darknut. It is unlikely, though, that he
+made his way past the guards without any help. Everybody is looking for him,
+but he seems to have vanished into thin air.
+
+"I have confidence in you, Link. I know you can find Father. And--" she
+paused while she straightened her tunic, "I am coming with you. I will be of
+great use to you, and I feel rather frustrated locked up in the Palace."
+
+Before you can even begin to object, she says, "I'm coming, like it or not.
+In this disguise, no-one need ever know I'm a Princess. Besides, there's no
+legend for you without me, Link."
+
+[Press any key to continue...]
+
+The Throne Room
+
+The seat of the Great Lord of Hyrule is placed in this room of art and
+beauty, designed to overwhelm all who enter with the majesty of the King.
+This dome-like chamber is simply decked with precious gems and metals
+everywhere. The throne, of course, is the magnificent centerpiece. Nearby to
+the throne is a marble stair leading up. To the south is the Palace Entry
+Hall.
+Zelda is present.
+
+> s
+You move south.
+
+Palace Hall
+
+The Palace Entry Hall is draped in marble and adorned with gold, lined with
+portraits of all the great rulers of Hyrule. There are no guards present,
+likely because everybody is looking for the King. A grand entrance to the
+throne room leads north. To the south is Palace Square. A rather smallish
+door is to the east, looking somewhat dark and foreboding.
+
+> s
+You move south.
+
+Palace Square
+
+Wafting aromas of fresh meat and pancakes pour from the streetcarts of the
+vendors and shops in this public market inside the outer walls. A few
+dwelling areas for peasants and the like dot the streets behind the shops.
+There is a drawbridge open to the west, with what looks like a tranquil
+garden to the east. Northwards lies the entrance to the inner palace. To the
+south is a quaint little shop with two wide open doors. Hanging from the shop
+near the doors is a sign.
+A peasant woman is here, going for a late stroll.
+
+There is a palace guard here, making the night rounds.
+
+> w
+You move west.
+
+The Moat
+
+The Palace stands here, lit by the fires of the night watch guards on the
+barricade. Even by the darkness of night is the Palace impressive, with its
+great swooping walls and high-vaulted towers. Hugging the land the walls
+stand on is a deep moat, filled with the kingdom's most vicious Zoras. A
+trail leads leads away from the Palace to the west.  Also, the drawbridge
+opens access of the Palace to the east.
+
+> w
+You move west.
+
+Stone Columns
+
+Five rows of tall rocky columns jut from the flat sandy ground near the
+bottom of the hill. These pillars at one time supported a structure of some
+sort, now long gone. A path leads straight through the middle of the rows,
+leading north up the hill and south to Kakariko Village. Not too far in the
+distance, the Palace is visible east.
+
+> n
+You move north.
+
+Hilltop
+
+Hyrule is especially beautiful at night. The strange light of the moon and
+stars somehow plays on the emerald green of the hills, producing some
+intoxicating effect. The rocky hill path ends here, before the mouth of
+Impa's cave to the north. Carved into the rock near the cave is a sign. The
+path also continues south, down the hill.
+
+> n
+Impa's Cave
+
+Two lone torches flicker against the darkness of the cave, providing meager
+light. What you can see is of little interest: chests of old royal garb, odd
+artifacts gathered by Impa over the years of no value, and shelf after shelf
+of dusty books. Moonlight streams through the cave exit to the south,
+providing a view down the hill overlooking Kakariko Village.
+
+Sitting on a pedestal is an old book marked "The Legend of Zelda".
+Impa stands nearby, deep in thought.
+
+Impa spies Zelda entering the cave and grins in delight. "Ah, good! You
+brought Zelda. I saved toys for both of you. Before I give them to you, know
+this: The Triforce is broken, and the magic of Hyrule is dead. You must rely
+on your own skills now.
+
+"If you're going to find your Father, you'll need all the help you can get.
+For a few tight spots, you might find this to be useful." Impa then presents
+you with your old hookshot, refurbished and ready for action.
+
+"And for you, Zelda," she said, "I have something you'll find invaluable if
+you want to survive." Zelda received a beautiful crossbow, complete with
+wooden arrows.
+
+Impa now assumed a grave tone. "One more thing. About the King's whereabouts.
+I can't help you much, except that you'll need to seek out the ally of an old
+enemy for information. Ganondorf is gone, but he still has a few friends
+about in his service. And be careful! Even with Ganon banished, Hyrule is a
+very dangerous place!"
+
+[Press any key to continue...]
+
+Impa's Cave
+
+Two lone torches flicker against the darkness of the cave, providing meager
+light. What you can see is of little interest: chests of old royal garb, odd
+artifacts gathered by Impa over the years of no value, and shelf after shelf
+of dusty books. Moonlight streams through the cave exit to the south,
+providing a view down the hill overlooking Kakariko Village.
+
+Sitting on a pedestal is an old book marked "The Legend of Zelda".
+Impa stands nearby, deep in thought.
+
+> s
+You move south.
+
+Hilltop
+
+Hyrule is especially beautiful at night. The strange light of the moon and
+stars somehow plays on the emerald green of the hills, producing some
+intoxicating effect. The rocky hill path ends here, before the mouth of
+Impa's cave to the north. Carved into the rock near the cave is a sign. The
+path also continues south, down the hill.
+
+> s
+You move south.
+
+Stone Columns
+
+Five rows of tall rocky columns jut from the flat sandy ground near the
+bottom of the hill. These pillars at one time supported a structure of some
+sort, now long gone. A path leads straight through the middle of the rows,
+leading north up the hill and south to Kakariko Village. Not too far in the
+distance, the Palace is visible east.
+
+> e
+You move east.
+
+The Moat
+
+The Palace stands here, lit by the fires of the night watch guards on the
+barricade. Even by the darkness of night is the Palace impressive, with its
+great swooping walls and high-vaulted towers. Hugging the land the walls
+stand on is a deep moat, filled with the kingdom's most vicious Zoras. A
+trail leads leads away from the Palace to the west.  Also, the drawbridge
+opens access of the Palace to the east.
+
+> e
+You move east.
+
+Palace Square
+
+Wafting aromas of fresh meat and pancakes pour from the streetcarts of the
+vendors and shops in this public market inside the outer walls. A few
+dwelling areas for peasants and the like dot the streets behind the shops.
+There is a drawbridge open to the west, with what looks like a tranquil
+garden to the east. Northwards lies the entrance to the inner palace. To the
+south is a quaint little shop with two wide open doors. Hanging from the shop
+near the doors is a sign.
+A peasant woman is here, going for a late stroll.
+
+There is a palace guard here, making the night rounds.
+
+> n
+
+The guards posted at the door nod as you walk past.
+
+Palace Hall
+
+The Palace Entry Hall is draped in marble and adorned with gold, lined with
+portraits of all the great rulers of Hyrule. There are no guards present,
+likely because everybody is looking for the King. A grand entrance to the
+throne room leads north. To the south is Palace Square. A rather smallish
+door is to the east, looking somewhat dark and foreboding.
+
+> e
+You move east.
+
+Stairwell
+
+A winding stairwell leads down, deep into the dungeons of the palace. Light
+streams through a doorway to west.
+
+> d
+You move down.
+
+Dungeon
+
+Not many folks come to Palace Dungeon. It's not a friendly place. Blue stone
+tile comprises the floors and walls, and three large prison cells occupy the
+back half of the room.
+
+One of the cells is not empty. A Moblin creeps in the shadows, leering at
+you.
+
+> hookshot moblin
+
+SNAP!
+
+The hookshot chain swings through the cell bars and hits home on the Moblin's
+belt. Finding a target, the mechanism winds the chain back, pulling the
+Moblin toward the bars.
+
+Balancing the hookshot in your right hand, you pull your sword with your left
+hand and hold it to the neck of the Moblin. Feeling the blade that killed
+hundreds of his kind, he begins to plead for his life.
+
+"Go ahead and kill him," says Zelda. "He's got it coming."
+
+"No!" the Moblin cries. "Please, I can tell you where they took the King!"
+
+You and Zelda meet eyes for a moment. Now you're getting somewhere.
+
+"Very well," you say. "Tell us what you know."
+
+"They took the King across the lake," he said.
+
+Zelda seems puzzled. "Across the lake? You mean Lake Hylia?"
+
+"Yes, yes," says the Moblin. "The Lake called Hylia. They wanted to take the
+King to Death Mountain."
+
+"Who did?" you ask. "Who wanted the King on Death Mountain? Ganon?"
+
+"Ganon is banished to another dimension," the Moblin replies. "I don't know
+who's in charge now, or why."
+
+You tighten the sword against his neck just a little more. "What are they
+going to do to him on Death Mountain?"
+
+The Moblin squirms and squeals. "Please, I don't know! I've told you
+everything I know. Please, let me be!"
+
+"Let him go," Zelda says. "We've got to get across Lake Hylia."
+
+The hookshot clicks free of the Moblin's belt. You withdraw your sword, and
+the Moblin whimpers back into the darkness.
+
+> u
+You move up.
+
+Stairwell
+
+A winding stairwell leads down, deep into the dungeons of the palace. Light
+streams through a doorway to west.
+
+> w
+You move west.
+
+Palace Hall
+
+The Palace Entry Hall is draped in marble and adorned with gold, lined with
+portraits of all the great rulers of Hyrule. There are no guards present,
+likely because everybody is looking for the King. A grand entrance to the
+throne room leads north. To the south is Palace Square. A rather smallish
+door is to the east, looking somewhat dark and foreboding.
+
+> s
+You move south.
+
+Palace Square
+
+Wafting aromas of fresh meat and pancakes pour from the streetcarts of the
+vendors and shops in this public market inside the outer walls. A few
+dwelling areas for peasants and the like dot the streets behind the shops.
+There is a drawbridge open to the west, with what looks like a tranquil
+garden to the east. Northwards lies the entrance to the inner palace. To the
+south is a quaint little shop with two wide open doors. Hanging from the shop
+near the doors is a sign.
+There is a palace guard here, making the night rounds.
+
+> w
+You move west.
+
+The Moat
+
+The Palace stands here, lit by the fires of the night watch guards on the
+barricade. Even by the darkness of night is the Palace impressive, with its
+great swooping walls and high-vaulted towers. Hugging the land the walls
+stand on is a deep moat, filled with the kingdom's most vicious Zoras. A
+trail leads leads away from the Palace to the west.  Also, the drawbridge
+opens access of the Palace to the east.
+
+> w
+You move west.
+
+Stone Columns
+
+Five rows of tall rocky columns jut from the flat sandy ground near the
+bottom of the hill. These pillars at one time supported a structure of some
+sort, now long gone. A path leads straight through the middle of the rows,
+leading north up the hill and south to Kakariko Village. Not too far in the
+distance, the Palace is visible east.
+
+> s
+You move south.
+
+Kakariko Gate
+
+Nobody lives on the outskirts of Kakariko Village--everybody lives inside the
+gates where it's safe. The walls of the village have stood the test of many
+monsters. In fact, it would be quite a trick for even you to scale these tall
+red stone barricades. On the path to the north you can see the stone columns,
+and the village gate is south.
+
+> s
+The guards nod and open the gates as they see you and Zelda approach.
+
+Kakariko Village (North)
+
+At this late hour, the village is sound asleep. During the daytime, this area
+would be full of activity. Most of the stucco-brick tudor houses are closed
+tight, their candles smothered. The windmill to the west is still running.
+Also, it looks like someone's still awake in the library, to the east. More
+village lies to the south, and the gate stands to the north.
+The night watch guard is on patrol, looking hugely alert (snicker).
+
+> e
+You move east.
+
+The Library
+
+Kakariko Library is actually a cottage, hollowed out and filled with
+bookshelves. The shelves are so overflowing with books that there is barely
+any room in the already small place. There are texts to be found on pretty
+much every subject. Katie the Librarian loves reading in the perfect quiet of
+night, so the library stays open will past sundown. The only exit is west.
+
+There is a beatiful portrait of Zelda on the wall near the hearth.
+Katie is here, reclining on a pile of old books.
+
+> examine back shelf
+Your search reveals the Atlas of Famous Forests, complete with a map to the
+Lost Woods. Katie checks out the book, muttering something about steep
+library fines.
+
+Zelda takes the atlas and holds it for safekeeping. "Let me carry that. I
+happen to be very good with maps."
+
+> w
+You move west.
+
+Kakariko Village (North)
+
+At this late hour, the village is sound asleep. During the daytime, this area
+would be full of activity. Most of the stucco-brick tudor houses are closed
+tight, their candles smothered. The windmill to the west is still running.
+Also, it looks like someone's still awake in the library, to the east. More
+village lies to the south, and the gate stands to the north.
+
+> s
+You move south.
+
+Kakariko Village (South)
+
+Most people don't come to this part of town, as it is just west of the
+graveyard. Business with the armory (to the east) brings a few brave souls
+around. There is more of the village to the north, and a dense forest to the
+south.
+There is a chicken here, pecking in the dust.
+
+The chicken inspects the ground, hoping for a treat.
+
+> s
+You move south.
+
+Kakariko Forest
+Sturdy cedar timbers of majestic size rise around you. The boughs and
+branches of the trees allow the occasional star to peak through, but most of
+the night is covered by the leafy canopy. A trodden forest trail stretches
+north into town, and south deep into the famous Lost Woods. To the east, you
+can make out the glimmering reflection of a lake.
+
+> s
+
+With Zelda reading the atlas, you quickly manage to navigate the Lost Woods
+to the other side.
+
+Temple Entrance
+
+Long thought to be lost forever, the Temple of Shadow still stands proudly
+among the creepers and foliage as though in defiance of the forest. The
+carved image of some grotesque creature emerges from the building, opening
+it's mouth as an entrance to the east. A path back into the Lost Woods leads
+west.
+
+> e
+You move east.
+
+Antechamber
+
+Your vision is drawn to a massive stone bowl, 10 feet in diameter, steeped
+with fiery coals. The coals provide a measure of light, dimly illuminating
+the beautifully embroidered curtains hanging from the vaulted ceiling. The
+walls are draped entirely in shadow. An exit to the temple stands to the
+west. Another passage leads into the temple east.
+
+> e
+You move east.
+
+Tree Room
+
+Twice as large as the Antechamber, this room houses an enormous tree, growing
+from the very middle of the dirt floor. You crane your neck to see the
+top--the tree is at least 100 feet tall. Moonlight softly filters in through
+the leaves above. Heat billows from a doorway to the north. Other doors lead
+east and west.
+
+Unfortunetly, the door to the east appears to be locked.
+
+> s
+You move south.
+
+Temple Dungeon
+
+The temple dungeon is little more than a cave with a few shackles. Ancient
+clay dishes that probably once held food are smashed on the floor. In one of
+the shackles is a skeleton, whose eyeless sockets stare straight at the door
+to the north.
+
+> get wind waker
+Taken.
+
+> n
+You move north.
+
+Tree Room
+
+Twice as large as the Antechamber, this room houses an enormous tree, growing
+from the very middle of the dirt floor. You crane your neck to see the
+top--the tree is at least 100 feet tall. Moonlight softly filters in through
+the leaves above. Heat billows from a doorway to the north. Other doors lead
+east and west.
+
+Unfortunetly, the door to the east appears to be locked.
+
+> n
+You move north.
+
+Lava Bridge
+
+The doorway opens into a wide room with a stone ledge. Not too far below the
+ledge is a pool of bubbling lava. Stretching across the pool is a long,
+rickety wooden bridge. The bridge end anchors onto a little island to the
+north. On the island, you make faintly make out a large boulder. The Tree
+Room is to the south.
+
+An urn sits here, resisting the heat.
+
+There is a good-sized statue here, depicting a man in armor.
+
+> get urn
+You take the urn.
+
+> hookshot boulder
+Zelda holds tight to your arm as you fire the hookshot at the boulder. The
+chain snaps home, and you are whisked across the bridge...
+
+Lava Island
+
+Waves of heat billow from the sea of melted rock. The island is nor more than
+10 feet wide, and is fairly hot itself. You can actually feel your boots
+warming up. There is a bridge here, leading south. Across the bridge you can
+see a large statue.
+
+There is a boulder here, near the center of the island.  Lying on the ground
+here is a super-hot key.
+
+> pour urn
+The water pours from the vessel and cools the key. It is now safe to take.
+
+> hookshot statue
+Zelda holds tight to your arm as you fire the hookshot at the statue. The
+chain snaps home, and you are whisked across the bridge...
+
+Lava Bridge
+
+The doorway opens into a wide room with a stone ledge. Not too far below the
+ledge is a pool of bubbling lava. Stretching across the pool is a long,
+rickety wooden bridge. The bridge end anchors onto a little island to the
+north. On the island, you make faintly make out a large boulder. The Tree
+Room is to the south.
+
+There is a good-sized statue here, depicting a man in armor.
+
+> s
+You move south.
+
+Tree Room
+
+Twice as large as the Antechamber, this room houses an enormous tree, growing
+from the very middle of the dirt floor. You crane your neck to see the
+top--the tree is at least 100 feet tall. Moonlight softly filters in through
+the leaves above. Heat billows from a doorway to the north. Other doors lead
+east and west.
+
+Unfortunetly, the door to the east appears to be locked.
+
+> w
+You move west.
+
+Antechamber
+
+Your vision is drawn to a massive stone bowl, 10 feet in diameter, steeped
+with fiery coals. The coals provide a measure of light, dimly illuminating
+the beautifully embroidered curtains hanging from the vaulted ceiling. The
+walls are draped entirely in shadow. An exit to the temple stands to the
+west. Another passage leads into the temple east.
+
+> w
+You move west.
+
+Temple Entrance
+
+Long thought to be lost forever, the Temple of Shadow still stands proudly
+among the creepers and foliage as though in defiance of the forest. The
+carved image of some grotesque creature emerges from the building, opening
+it's mouth as an entrance to the east. A path back into the Lost Woods leads
+west.
+
+> w
+You move west.
+
+Lost Woods
+
+Viable directions become murky in this old, rather dead forest. Twisty paths
+lead in all directions.
+
+> n
+You move north.
+
+Kakariko Forest
+Sturdy cedar timbers of majestic size rise around you. The boughs and
+branches of the trees allow the occasional star to peak through, but most of
+the night is covered by the leafy canopy. A trodden forest trail stretches
+north into town, and south deep into the famous Lost Woods. To the east, you
+can make out the glimmering reflection of a lake.
+
+> n
+You move north.
+
+Kakariko Village (South)
+
+Most people don't come to this part of town, as it is just west of the
+graveyard. Business with the armory (to the east) brings a few brave souls
+around. There is more of the village to the north, and a dense forest to the
+south.
+There is a chicken here, pecking in the dust.
+
+> n
+You move north.
+
+Kakariko Village (North)
+
+At this late hour, the village is sound asleep. During the daytime, this area
+would be full of activity. Most of the stucco-brick tudor houses are closed
+tight, their candles smothered. The windmill to the west is still running.
+Also, it looks like someone's still awake in the library, to the east. More
+village lies to the south, and the gate stands to the north.
+The night watch guard is on patrol, looking hugely alert (snicker).
+
+> w
+You move west.
+
+Windmill
+As you might expect, the windmill is nearly hollow on the inside. Down the
+center runs a great wood shaft, which connects the wind energy to gear system
+on the floor. Right now, the wind is fairly still, so the gears aren't
+turning. There is an exit east.
+The Windmill Man stands near the gear mechanism, cranking away on his
+phonograph.
+Zelda looks at the Windmill Man and rolls her eyes.
+
+> sell wind waker
+
+The little man's eyes light as he sees the Wind Waker. "You have it!" he
+cries. "With the Wind Waker, all of my joyful wind dreams can will true."
+
+The Windmill Man eagerly gives you 623 rupees in exchange for the Wind Waker.
+"A bargain, at any price," he says.
+
+> e
+You move east.
+
+Kakariko Village (North)
+
+At this late hour, the village is sound asleep. During the daytime, this area
+would be full of activity. Most of the stucco-brick tudor houses are closed
+tight, their candles smothered. The windmill to the west is still running.
+Also, it looks like someone's still awake in the library, to the east. More
+village lies to the south, and the gate stands to the north.
+The night watch guard is on patrol, looking hugely alert (snicker).
+
+> n
+You move north.
+
+Kakariko Gate
+
+Nobody lives on the outskirts of Kakariko Village--everybody lives inside the
+gates where it's safe. The walls of the village have stood the test of many
+monsters. In fact, it would be quite a trick for even you to scale these tall
+red stone barricades. On the path to the north you can see the stone columns,
+and the village gate is south.
+
+> n
+You move north.
+
+Stone Columns
+
+Five rows of tall rocky columns jut from the flat sandy ground near the
+bottom of the hill. These pillars at one time supported a structure of some
+sort, now long gone. A path leads straight through the middle of the rows,
+leading north up the hill and south to Kakariko Village. Not too far in the
+distance, the Palace is visible east.
+
+> e
+You move east.
+
+The Moat
+
+The Palace stands here, lit by the fires of the night watch guards on the
+barricade. Even by the darkness of night is the Palace impressive, with its
+great swooping walls and high-vaulted towers. Hugging the land the walls
+stand on is a deep moat, filled with the kingdom's most vicious Zoras. A
+trail leads leads away from the Palace to the west.  Also, the drawbridge
+opens access of the Palace to the east.
+
+> e
+You move east.
+
+Palace Square
+
+Wafting aromas of fresh meat and pancakes pour from the streetcarts of the
+vendors and shops in this public market inside the outer walls. A few
+dwelling areas for peasants and the like dot the streets behind the shops.
+There is a drawbridge open to the west, with what looks like a tranquil
+garden to the east. Northwards lies the entrance to the inner palace. To the
+south is a quaint little shop with two wide open doors. Hanging from the shop
+near the doors is a sign.
+A peasant woman is here, going for a late stroll.
+
+There is a palace guard here, making the night rounds.
+
+> s
+You move south.
+
+The Mask Shoppe
+
+Masks of all shapes, sizes and styles cover every inch of every wall in this
+room, making an odd barrage of manic color that almost makes you nervous. In
+the middle of the room is an odd little stool carved from a tree trunk. Just
+a few feet away, near the back wall, is a large display case. The double
+doors behind you open north, to the Palace Square.
+Standing near the display case is a shopkeeper. He is watching your every
+move.
+
+> buy ganon mask
+
+"Excellent choice, sir. You'll be very happy with your new mask." The
+shopkeeper hands you the Ganon Mask.
+The shopkeeper polishes the display case glass.
+
+> wear ganon mask
+You put on the Ganon mask.
+The shopkeeper polishes the display case glass.
+
+> n
+You move north.
+
+Palace Square
+
+Wafting aromas of fresh meat and pancakes pour from the streetcarts of the
+vendors and shops in this public market inside the outer walls. A few
+dwelling areas for peasants and the like dot the streets behind the shops.
+There is a drawbridge open to the west, with what looks like a tranquil
+garden to the east. Northwards lies the entrance to the inner palace. To the
+south is a quaint little shop with two wide open doors. Hanging from the shop
+near the doors is a sign.
+There is a palace guard here, making the night rounds.
+
+> w
+You move west.
+
+The Moat
+
+The Palace stands here, lit by the fires of the night watch guards on the
+barricade. Even by the darkness of night is the Palace impressive, with its
+great swooping walls and high-vaulted towers. Hugging the land the walls
+stand on is a deep moat, filled with the kingdom's most vicious Zoras. A
+trail leads leads away from the Palace to the west.  Also, the drawbridge
+opens access of the Palace to the east.
+
+> w
+You move west.
+
+Stone Columns
+
+Five rows of tall rocky columns jut from the flat sandy ground near the
+bottom of the hill. These pillars at one time supported a structure of some
+sort, now long gone. A path leads straight through the middle of the rows,
+leading north up the hill and south to Kakariko Village. Not too far in the
+distance, the Palace is visible east.
+
+> s
+You move south.
+
+Kakariko Gate
+
+Nobody lives on the outskirts of Kakariko Village--everybody lives inside the
+gates where it's safe. The walls of the village have stood the test of many
+monsters. In fact, it would be quite a trick for even you to scale these tall
+red stone barricades. On the path to the north you can see the stone columns,
+and the village gate is south.
+
+> s
+The guards nod and open the gates as they see you and Zelda approach.
+
+Kakariko Village (North)
+
+At this late hour, the village is sound asleep. During the daytime, this area
+would be full of activity. Most of the stucco-brick tudor houses are closed
+tight, their candles smothered. The windmill to the west is still running.
+Also, it looks like someone's still awake in the library, to the east. More
+village lies to the south, and the gate stands to the north.
+
+> s
+You move south.
+
+Kakariko Village (South)
+
+Most people don't come to this part of town, as it is just west of the
+graveyard. Business with the armory (to the east) brings a few brave souls
+around. There is more of the village to the north, and a dense forest to the
+south.
+The night watch guard is on patrol, looking hugely alert (snicker).
+
+There is a chicken here, pecking in the dust.
+
+> w
+You move west.
+
+Graveyard Fence
+
+Weathered gray wooden planks line the outskirts of the graveyard, a
+notoriously dangerous place to visit at night. You can make out a few graves
+dotting the field beyond the recently abandoned gravedigger's hut. Standing
+by the fence entrance is an old beaten sign. To the west is the graveyard,
+and Kakariko Village is to the east.
+
+> w
+Graveyard
+
+The gravestones here have lately sprung up here almost as quickly as they
+could be made. They surround you, and seem to be closing in on your location.
+It is very dark, as the field is almost carved into a hillside and the only
+light comes from the moon. There is an exit west.
+You can hear movement of some sort, behind you.
+
+> z
+Time passes...
+You hear a twig snap behind you. Zelda raises her crossbow at the sound.
+
+> z
+Time passes...
+You can almost feel some dark presence breathing down your neck.
+
+OOOOF!!
+
+You feel a tongue of slime wrap around your back and pull you against your
+will. You are dragged inside a monster resembling an evil stack of pancakes.
+You've been grabbed by Like-Like, the Shield-Eater!
+
+Inside Shield-Eater
+
+Organic acids secrete from places you'd rather not look at in an effort to
+digest you. This may be the end...
+
+[Press any key to continue...]
+
+The slimy innards of the Like-Like snatch your shield away!!
+
+The Like-Like feels your face, and senses the Ganon mask!
+
+Believing he has betrayed it's master, the Like-Like spits you out and shoves
+himself against a nearby gravestone. A secret passage appears, which the
+Like-Like crawls away into.
+
+CLINK! You hear the Like-Like drop something on the ground as he runs away.
+
+You can hear movement of some sort, behind you.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> n
+You move north.
+
+Tunnel
+Darkness surrounds you in this tunnel that stretches south to east. Barely,
+with the slight moonbeam that streams in, you can make out evidence that some
+very slobbish creature has lived here.
+
+Also here is a shield.
+
+> e
+Pushing east leads you too...
+
+Windmill
+As you might expect, the windmill is nearly hollow on the inside. Down the
+center runs a great wood shaft, which connects the wind energy to gear system
+on the floor. Right now, the wind is fairly still, so the gears aren't
+turning. There is an exit east.  Also, there is a secret passage to the west.
+The Windmill Man stands near the gear mechanism, cranking away on his
+phonograph.
+
+> score
+Your score is 59 out of a maximum of 197.  (29%)
+
+> quit
+Do you really want to quit? [Y/N]

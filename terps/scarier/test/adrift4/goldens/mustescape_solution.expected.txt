@@ -1,0 +1,1217 @@
+Loading game...
+
+Must Escape!
+by Robert Rafgon
+
+Please type info for more information about the game.
+
+You must escape!
+
+Now!
+
+Maybe this hadn't been such a good idea after all. Next time you want to
+sabotage an enemy base, you should be more careful. Although only if you can
+get past the guards during your escape and there is a next time.
+
+The laboratory
+You have destroyed all of the experiments in this laboratory. There is
+shattered glass and pools of liquid on the workbenches and floor. Ashes from
+the burned notes drift around the room. You have succeeded in your mission,
+but unfortunately you have set off an alarm,  which you can hear ringing
+loudly. Enemy agents are searching for you right now, and this room has only
+one exit to the west.
+
+> west
+When you leave the room, a guard spots you. Your plan is becoming more
+disastrous by the minute. There is nowhere to escape, so you will have to
+fight your way out of here.
+
+(Press a key)
+
+  _                       _
+ / \                     / \
+ \_/                     \_/
+  |_/                   \_|
+  |\/                   \/|
+  |                       |
+ / \                     / \
+/  /                     \  \
+-  -                     -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 3
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, PUNCH, WAIT (Z)
+
+> punch
+YOU MISS
+
+(Press a key)
+
+  _                       _
+ / \                     / \
+ \_/                     \_/
+  |___                  \_|
+  |\/                   \/|
+  |                       |
+ / \                     / \
+/  /                     \  \
+-  -                     -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 3
+
+HE MOVES LEFT
+
+(Press a key)
+
+  _                 _
+ / \               / \
+ \_/               \_/
+  |___            \_|
+  |\/             \/|
+  |                 |
+ / \               / \
+/  /               \  \
+-  -               -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 3
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, PUNCH, WAIT (Z)
+
+> punch
+YOU MISS
+
+(Press a key)
+
+  _                 _
+ / \               / \
+ \_/               \_/
+  |___            \_|
+  |\/             \/|
+  |                 |
+ / \               / \
+/  /               \  \
+-  -               -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 3
+
+HE MOVES LEFT
+
+(Press a key)
+
+  _           _
+ / \         / \
+ \_/         \_/
+  |___      \_|
+  |\/       \/|
+  |           |
+ / \         / \
+/  /         \  \
+-  -         -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 3
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, PUNCH, WAIT (Z)
+
+> punch
+YOU MISS
+
+(Press a key)
+
+  _           _
+ / \         / \
+ \_/         \_/
+  |___      \_|
+  |\/       \/|
+  |           |
+ / \         / \
+/  /         \  \
+-  -         -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 3
+
+HE MOVES LEFT
+
+(Press a key)
+
+  _     _
+ / \   / \
+ \_/   \_/
+  |___\_|
+  |\/ \/|
+  |     |
+ / \   / \
+/  /   \  \
+-  -   -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 3
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, PUNCH, WAIT (Z)
+
+> punch
+YOU PUNCH HIM
+
+(Press a key)
+
+  _       _
+ / \     / \
+ \_/     \_/
+  |___  \_|
+  |\/  \_/
+  |     /
+ / \   / \
+/  /   \  \
+-  -   -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 2
+
+HE PUNCHES YOU
+
+(Press a key)
+
+ _       _
+/ \     / \
+\_/     \_/
+ |_/  ___|
+  \_/  \_|
+   \     |
+  / \   / \
+ /  /   \  \
+ -  -   -  -
+
+YOUR HEALTH: 7, ENEMY HEALTH: 2
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, PUNCH, WAIT (Z)
+
+> punch
+YOU PUNCH HIM
+
+(Press a key)
+
+  _       _
+ / \     / \
+ \_/     \_/
+  |___  \_|
+  |\/  \_/
+  |     /
+ / \   / \
+/  /   \  \
+-  -   -  -
+
+YOUR HEALTH: 7, ENEMY HEALTH: 1
+
+HE PUNCHES YOU
+
+(Press a key)
+
+ _       _
+/ \     / \
+\_/     \_/
+ |_/  ___|
+  \_/  \_|
+   \     |
+  / \   / \
+ /  /   \  \
+ -  -   -  -
+
+YOUR HEALTH: 6, ENEMY HEALTH: 1
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, PUNCH, WAIT (Z)
+
+> punch
+YOU PUNCH HIM
+
+(Press a key)
+
+  _       _
+ / \     / \
+ \_/     \_/
+  |___  \_|
+  |\/  \_/
+  |     /
+ / \   / \
+/  /   \  \
+-  -   -  -
+
+YOUR HEALTH: 6, ENEMY HEALTH: 0
+
+THE ENEMY IS DEAD
+
+(Press a key)
+
+The guard collapses dead on the ground. One enemy down, too many to go. You
+cannot keep fighting your way out like this. You have to find another way,
+but how? Well, you are confident that you will figure it out soon and survive
+this experience. Until you do though, all of the guards should watch out, as
+nothing is going to stop you from escaping.
+
+As you pause, you notice that the alarm has stopped ringing. You are not sure
+why, but you may have more time now.
+
+Southern yellow hallway
+You have noticed during your mission that the complex is colour coded, with
+this area having a hallway that is painted yellow. Why there are different
+colours, you do not know. Maybe it was to prevent the guards from becoming
+lost. The corpse of the guard you just killed lies on the floor here. There
+are laboratories to the east and west, with the hallway continuing to the
+north.
+
+> search guard
+You search the corpse and find a yellow keycard, which you take.
+
+> west
+You move west.
+
+The other laboratory
+You destroyed this laboratory earlier, with the destruction here mirroring
+the destruction of the other lab across the hallway. Well, apart from the
+minor detail that you did not set off an alarm in here, like you did in the
+other room. You have to keep reminding yourself not to get careless near the
+end of missions when you start to relax and think it is almost over. The only
+exit is back to the east.
+
+You can see a bottle of acid.
+
+> take acid
+You take the bottle of acid.
+
+> east
+You move east.
+
+Southern yellow hallway
+You have noticed during your mission that the complex is colour coded, with
+this area having a hallway that is painted yellow. Why there are different
+colours, you do not know. Maybe it was to prevent the guards from becoming
+lost. The corpse of the guard you just killed lies on the floor here. There
+are laboratories to the east and west, with the hallway continuing to the
+north.
+
+> north
+You move north.
+
+Northern yellow hallway
+To the north the yellow painted hallway comes to an end appropriately at a
+yellow door. This door leads to the centre of the complex and one step closer
+to freedom. Next to the yellow door is a switch, and a cabinet that has an
+emergency label stuck to it. You an also return to the laboratory area to the
+south.
+
+> pour acid on cabinet
+You pour the acid on the lock. It dissolves enough to allow you to open the
+cabinet. You throw away the now empty bottle of acid.  Inside the cabinet is
+a green keycard, which you take.
+
+> turn on switch
+You turn on the switch.
+
+> open door
+You unlock and open the yellow door with the yellow keycard.
+
+> north
+You move north.
+
+Complex centre
+This is the centre of the complex, with the four main areas divided by
+colours that are shown by the door leading to each. There is  an open yellow
+door to the south,  a closed green door to the east,  a closed blue door to
+the north,  and a closed red door to the west. You know that the red door
+leads to the exit to the complex, as that is where you entered. Before the
+alarm went off all these doors were open, but the alarm closed them all
+automatically. Keycards have been placed in hard to find areas to minimise
+the chances of enemy agents, like you, escaping.
+
+> open green door
+You unlock and open the green door with the green keycard.
+
+> east
+You move east.
+
+Western green hallway
+This hallway is painted green, which isn't a surprise, as it matches the
+green door to the west that you walked through initially to enter the
+hallway. You think that this is the office area, and there is an empty office
+to the south. On the northern wall is a tools cabinet. You can hear voices to
+the east, so it would probably not be a good idea to continue walking down
+the hallway.
+
+> open cabinet
+You open up the tools cabinet, but you are disappointed to see that there are
+not many tools left. The only tool you can find is a screwdriver, which you
+take.
+
+> south
+You move south.
+
+Empty office
+By the absence of any papers, books or other office supplies, you guess that
+no one has worked here for a while. There is no obvious reason you can see as
+to why it is empty, so maybe someone is due to move in here soon. Or possibly
+another thief got here first.  There is a table and a bookcase along the
+eastern wall.  On the western wall near the top corner is a large closed
+vent. The exit is back to the north.
+
+> push bookcase
+You move the bookcase under the vent.
+
+> climb bookcase
+You climb onto the bookcase.
+
+> open vent
+You unscrew and open the vent to allow you to move up into the ventilation
+system.
+
+> up
+You move up.
+
+Ventilation shaft 1
+You are above the empty office where you first entered the ventilation
+system. There is an open vent here leading down. The ventilation system
+continues to the east.
+
+> east
+You move east.
+
+Ventilation shaft 2
+You can see two guards talking in the office below through the vent. The
+ventilation system continues to the east, west and north.
+
+> east
+You move east.
+
+Ventilation shaft 3
+You can see a room through the closed vent. In the room is a table just under
+the vent, and two closed doors. The ventilation system continues to the east
+and west.
+
+> open vent
+You unscrew and open the vent to allow access to the room down below.
+
+> down
+You move down.
+
+Outside the vault
+The main feature of this room is a secure looking vault door on the eastern
+wall. There are 3 lights on the door, with 1 of them currently lit up. This
+is the kind of vault that you would normally associate with top secret
+materials. You should know, as your line of work sometimes involves stealing
+these materials. Sabotage is more fun though.  A switch is next to the door.
+There is also a table under the vent, which leads back up into the
+ventilation system. To the north is a closed hallway door.
+
+> turn on switch
+You turn on the switch. One of the lights on the vault door turns on as well.
+
+> up
+You move up.
+
+Ventilation shaft 3
+You can see a room through the open vent. In the room is a table just under
+the vent, and two closed doors. The ventilation system continues to the east
+and west, or you can go down through the vent.
+
+> west
+You move west.
+
+Ventilation shaft 2
+You can see two guards talking in the office below through the vent. The
+ventilation system continues to the east, west and north.
+
+> north
+You move north.
+
+Ventilation shaft 5
+You can see an empty green hallway through the vent beneath you. However, you
+can still hear the conversation from the office below to the south. The
+ventilation system continues to the north and south.
+
+> north
+You move north.
+
+Ventilation shaft 6
+Through the vent you can see a medical office, with a closed door. The
+ventilation system continues to the east, west and south.
+
+> open vent
+You unscrew and open the vent to allow access to the room down below.
+
+> down
+You move down.
+
+Medical office
+By the first aid posters plastered over all the walls, you guess that this is
+a medical office. There is no one here at the moment, and you hope that there
+is not a doctor lurking around the complex. There is a cabinet that is
+labelled as medical supplies, and a small bed in here. A closed door leads to
+the south. A vent above the cabinet leads up into the ventilation system.
+
+> open cabinet
+You open the medical cabinet.  A medical kit is inside the medical cabinet.
+
+> take medical kit
+You take the medical kit and apply it to yourself. Soon you are feeling back
+to full health.
+
+> up
+You move up.
+
+Ventilation shaft 6
+Through the vent you can see a medical office, with a closed door. The
+ventilation system continues to the east, west and south.  You could also
+move down through the vent.
+
+> west
+You move west.
+
+Ventilation shaft 8
+Through the vent you can see an empty room, which looks like a guard's
+bedroom. The ventilation system continues to the east.
+
+> open vent
+You unscrew and open the vent to allow access to the room down below.
+
+> down
+When you drop into the room, a guard enters simultaneously. His reaction to
+the surprise is faster than yours, and he pushes you against the wall. He
+then handcuffs you, and tells you that you are going to be locked up for a
+long time.
+
+You laugh and kick out at the guard. Finally your years of kickboxing
+training can pay off. It might be helpful, but you don't need your hands to
+fight. The guard snarls and says that he won't take you in alive after all.
+
+(Press a key)
+
+  _                       _
+ / \                     / \
+ \_/                     \_/
+ _|                     \_|
+(/|                     \/|
+  |                       |
+ / \                     / \
+/  /                     \  \
+-  -                     -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 6
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, KICK, WAIT (Z)
+
+> kick
+YOU MISS
+
+(Press a key)
+
+  _                       _
+ / \                     / \
+ \_/                     \_/
+ _|                     \_|
+(/|                     \/|
+  |                       |
+ / \                     / \
+ |  \/                   \  \
+ -                       -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 6
+
+HE MOVES LEFT
+
+(Press a key)
+
+  _                 _
+ / \               / \
+ \_/               \_/
+ _|               \_|
+(/|               \/|
+  |                 |
+ / \               / \
+ |  \/             \  \
+ -                 -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 6
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, KICK, WAIT (Z)
+
+> kick
+YOU MISS
+
+(Press a key)
+
+  _                 _
+ / \               / \
+ \_/               \_/
+ _|               \_|
+(/|               \/|
+  |                 |
+ / \               / \
+ |  \/             \  \
+ -                 -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 6
+
+HE MOVES LEFT
+
+(Press a key)
+
+  _           _
+ / \         / \
+ \_/         \_/
+ _|         \_|
+(/|         \/|
+  |           |
+ / \         / \
+ |  \/       \  \
+ -           -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 6
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, KICK, WAIT (Z)
+
+> kick
+YOU MISS
+
+(Press a key)
+
+  _           _
+ / \         / \
+ \_/         \_/
+ _|         \_|
+(/|         \/|
+  |           |
+ / \         / \
+ |  \/       \  \
+ -           -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 6
+
+HE MOVES LEFT
+
+(Press a key)
+
+  _     _
+ / \   / \
+ \_/   \_/
+ _|   \_|
+(/|   \/|
+  |     |
+ / \   / \
+ |  \/ \  \
+ -     -  -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 6
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, KICK, WAIT (Z)
+
+> kick
+YOU KICK HIM
+
+(Press a key)
+
+  _    _
+ / \  / \
+ \_/  \_/
+ _|   \_\
+(/|    \_\
+  |       |
+ / \     /\
+ |  \/   | |
+ -       - -
+
+YOUR HEALTH: 8, ENEMY HEALTH: 5
+
+HE PUNCHES YOU
+
+(Press a key)
+
+ _       _
+/ \     / \
+\_/     \_/
+ |    ___|
+/_\    \_|
+   \     |
+  / \   / \
+ /  /   \  \
+ -  -   -  -
+
+YOUR HEALTH: 7, ENEMY HEALTH: 5
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, KICK, WAIT (Z)
+
+> kick
+YOU KICK HIM
+
+(Press a key)
+
+  _    _
+ / \  / \
+ \_/  \_/
+ _|   \_\
+(/|    \_\
+  |       |
+ / \     /\
+ |  \/   | |
+ -       - -
+
+YOUR HEALTH: 7, ENEMY HEALTH: 4
+
+HE PUNCHES YOU
+
+(Press a key)
+
+ _       _
+/ \     / \
+\_/     \_/
+ |    ___|
+/_\    \_|
+   \     |
+  / \   / \
+ /  /   \  \
+ -  -   -  -
+
+YOUR HEALTH: 6, ENEMY HEALTH: 4
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, KICK, WAIT (Z)
+
+> kick
+YOU KICK HIM
+
+(Press a key)
+
+  _    _
+ / \  / \
+ \_/  \_/
+ _|   \_\
+(/|    \_\
+  |       |
+ / \     /\
+ |  \/   | |
+ -       - -
+
+YOUR HEALTH: 6, ENEMY HEALTH: 3
+
+HE PUNCHES YOU
+
+(Press a key)
+
+ _       _
+/ \     / \
+\_/     \_/
+ |    ___|
+/_\    \_|
+   \     |
+  / \   / \
+ /  /   \  \
+ -  -   -  -
+
+YOUR HEALTH: 5, ENEMY HEALTH: 3
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, KICK, WAIT (Z)
+
+> kick
+YOU KICK HIM
+
+(Press a key)
+
+  _    _
+ / \  / \
+ \_/  \_/
+ _|   \_\
+(/|    \_\
+  |       |
+ / \     /\
+ |  \/   | |
+ -       - -
+
+YOUR HEALTH: 5, ENEMY HEALTH: 2
+
+HE PUNCHES YOU
+
+(Press a key)
+
+ _       _
+/ \     / \
+\_/     \_/
+ |    ___|
+/_\    \_|
+   \     |
+  / \   / \
+ /  /   \  \
+ -  -   -  -
+
+YOUR HEALTH: 4, ENEMY HEALTH: 2
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, KICK, WAIT (Z)
+
+> kick
+YOU KICK HIM
+
+(Press a key)
+
+  _    _
+ / \  / \
+ \_/  \_/
+ _|   \_\
+(/|    \_\
+  |       |
+ / \     /\
+ |  \/   | |
+ -       - -
+
+YOUR HEALTH: 4, ENEMY HEALTH: 1
+
+HE PUNCHES YOU
+
+(Press a key)
+
+ _       _
+/ \     / \
+\_/     \_/
+ |    ___|
+/_\    \_|
+   \     |
+  / \   / \
+ /  /   \  \
+ -  -   -  -
+
+YOUR HEALTH: 3, ENEMY HEALTH: 1
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: LEFT, RIGHT, KICK, WAIT (Z)
+
+> kick
+YOU KICK HIM
+
+(Press a key)
+
+  _    _
+ / \  / \
+ \_/  \_/
+ _|   \_\
+(/|    \_\
+  |       |
+ / \     /\
+ |  \/   | |
+ -       - -
+
+YOUR HEALTH: 3, ENEMY HEALTH: 0
+
+THE ENEMY IS DEAD
+
+(Press a key)
+
+The guard collapses dead on the ground. You take the handcuff keys that he
+dropped in his collapse and unlock yourself. You probably will not survive
+many more battles like this, so it is time to search for a weapon, as well as
+a way out.
+
+Guard's bedroom
+This is a guard's bedroom, and is consequently very small and cramped. You
+are glad that you are allowed to live in a nice home for your job. Well,
+apart from the majority of the time, which you spend on missions. The corpse
+of the guard, who you guess used to own the bedroom, is on the floor. There
+is a bed built into one wall and a drawer under it. On the opposite wall is a
+vent, but you cannot get back into the ventilation system from this room. The
+exit is to the west.
+
+> open drawer
+You open the drawer.  A gun is inside the drawer.
+
+> take gun
+You take the gun from the drawer.
+
+> search guard
+You search the corpse and find a blue keycard, which you take.
+
+> west
+You move west.
+
+Southern blue hallway
+Keeping up the colour coding, this hallway is painted blue, with a blue door
+leading to the south. Next to the door is a switch. A guard's bedroom is to
+the east. The hallway continues to the north, but you can hear voices, so it
+probably would not be a good idea to continue walking through the hallway.
+You think that this is the barracks area, where the guards relax. You hope
+that there may be one good point in having set off the alarm, in that not
+many guards should be off-duty.
+
+> open door
+You unlock and open the blue door with the blue keycard.
+
+> turn on switch
+You turn on the switch.
+
+You suddenly hear a beeping noise.
+
+> south
+You move south.
+
+Complex centre
+This is the centre of the complex, with the four main areas divided by
+colours that are shown by the door leading to each. There is  an open yellow
+door to the south,  an open green door to the east,  an open blue door to the
+north,  and a closed red door to the west. You know that the red door leads
+to the exit to the complex, as that is where you entered. Before the alarm
+went off all these doors were open, but the alarm closed them all
+automatically. Keycards have been placed in hard to find areas to minimise
+the chances of enemy agents, like you, escaping.
+
+> east
+You move east.
+
+Western green hallway
+This hallway is painted green, which isn't a surprise, as it matches the
+green door to the west that you walked through initially to enter the
+hallway. You think that this is the office area, and there is an empty office
+to the south. On the northern wall is a tools cabinet. You can hear voices to
+the east, so it would probably not be a good idea to continue walking down
+the hallway.
+
+> south
+You move south.
+
+Empty office
+By the absence of any papers, books or other office supplies, you guess that
+no one has worked here for a while. There is no obvious reason you can see as
+to why it is empty, so maybe someone is due to move in here soon. Or possibly
+another thief got here first.  There is a bookcase along the western wall,
+with a table along the eastern wall.  On the western wall near the top corner
+is a large open vent, which will allow you to move up into the ventilation
+system. The exit is back to the north.
+
+> up
+You move up.
+
+Ventilation shaft 1
+You are above the empty office where you first entered the ventilation
+system. There is an open vent here leading down. The ventilation system
+continues to the east.
+
+> east
+You move east.
+
+Ventilation shaft 2
+You can see two guards talking in the office below through the vent. The
+ventilation system continues to the east, west and north.
+
+> east
+You move east.
+
+Ventilation shaft 3
+You can see a room through the open vent. In the room is a table just under
+the vent, and two closed doors. The ventilation system continues to the east
+and west, or you can go down through the vent.
+
+> down
+You move down.
+
+Outside the vault
+The main feature of this room is a secure looking vault door on the eastern
+wall. There are 3 lights on the door, with 3 of them currently lit up. This
+is the kind of vault that you would normally associate with top secret
+materials. You should know, as your line of work sometimes involves stealing
+these materials. Sabotage is more fun though.  The vault door is now open,
+allowing access to the east. A switch is next to the door. There is also a
+table under the vent, which leads back up into the ventilation system. To the
+north is a closed hallway door.
+
+> east
+You move east.
+
+Inside the vault
+You were hoping that when you searched carefully you would find a secret
+high-tech weapon stash in here. However, it is disappointingly empty despite
+your best efforts. The weapons are probably located in a vault on the other
+side of the building, where you have no access. Sooner or later someone
+should hide away the good weapons right where you need them. The exit is to
+the west.
+
+You can see a red keycard.
+
+> take red keycard
+You take the red keycard.
+
+> west
+You move west.
+
+Outside the vault
+The main feature of this room is a secure looking vault door on the eastern
+wall. There are 3 lights on the door, with 3 of them currently lit up. This
+is the kind of vault that you would normally associate with top secret
+materials. You should know, as your line of work sometimes involves stealing
+these materials. Sabotage is more fun though.  The vault door is now open,
+allowing access to the east. A switch is next to the door. There is also a
+table under the vent, which leads back up into the ventilation system. To the
+north is a closed hallway door.
+
+> up
+You move up.
+
+Ventilation shaft 3
+You can see a room through the open vent. In the room is a table just under
+the vent, and two closed doors. The ventilation system continues to the east
+and west, or you can go down through the vent.
+
+> west
+You move west.
+
+Ventilation shaft 2
+You can see two guards talking in the office below through the vent. The
+ventilation system continues to the east, west and north.
+
+> west
+You move west.
+
+Ventilation shaft 1
+You are above the empty office where you first entered the ventilation
+system. There is an open vent here leading down. The ventilation system
+continues to the east.
+
+> down
+You move down.
+
+Empty office
+By the absence of any papers, books or other office supplies, you guess that
+no one has worked here for a while. There is no obvious reason you can see as
+to why it is empty, so maybe someone is due to move in here soon. Or possibly
+another thief got here first.  There is a bookcase along the western wall,
+with a table along the eastern wall.  On the western wall near the top corner
+is a large open vent, which will allow you to move up into the ventilation
+system. The exit is back to the north.
+
+> north
+You move north.
+
+Western green hallway
+This hallway is painted green, which isn't a surprise, as it matches the
+green door to the west that you walked through initially to enter the
+hallway. You think that this is the office area, and there is an empty office
+to the south. On the northern wall is a tools cabinet. You can hear voices to
+the east, so it would probably not be a good idea to continue walking down
+the hallway.
+
+> west
+You move west.
+
+Complex centre
+This is the centre of the complex, with the four main areas divided by
+colours that are shown by the door leading to each. There is  an open yellow
+door to the south,  an open green door to the east,  an open blue door to the
+north,  and a closed red door to the west. You know that the red door leads
+to the exit to the complex, as that is where you entered. Before the alarm
+went off all these doors were open, but the alarm closed them all
+automatically. Keycards have been placed in hard to find areas to minimise
+the chances of enemy agents, like you, escaping.
+
+> open red door
+You unlock and open the red door with the red keycard.
+
+> west
+You hear a noise, so you draw your gun when you walk through the door. It is
+time to shoot your way out of here, as you are sure that you do not have much
+time left to escape.
+
+(Press a key)
+
+  _                  _  ______
+ / \                / \ |    |
+ \_/                \_/ |    |
+  |_;-            -;_|  |    |
+  |\/              \/|  |    |
+  |                  |  |    |
+ / \                / \ |    |
+/  /  ____________  \  \|    |
+-  -                -  -
+
+YOU ARE THE CHARACTER ON THE LEFT
+COMMANDS: MOVE RIGHT, TURN LEFT, SHOOT, WAIT (Z)
+
+> shoot
+YOU SHOOT HIM
+
+(Press a key)
+
+  _                     ______
+ / \                    |    |
+ \_/                    |    |
+  |_;-                  |    |
+  |\/                   |    |
+  |                     |    |
+ / \                    |    |
+/  /  __________________|    |
+-  -
+
+COMMANDS: MOVE RIGHT, TURN LEFT, SHOOT, WAIT (Z)
+
+> right
+YOU MOVE RIGHT
+
+(Press a key)
+
+        _               ______
+       / \              |    |
+       \_/              |    |
+        |_;-            |    |
+        |\/             |    |
+        |               |    |
+       / \              |    |
+______/  /  ____________|    |
+      -  -
+
+COMMANDS: MOVE RIGHT, TURN LEFT, SHOOT, WAIT (Z)
+
+> right
+YOU MOVE RIGHT
+
+(Press a key)
+
+              _         ______
+             / \        |    |
+             \_/        |    |
+              |_;-      |    |
+              |\/       |    |
+              |         |    |
+             / \        |    |
+____________/  /  ______|    |
+            -  -
+
+A GUARD ENTERS THE AREA
+
+(Press a key)
+
+              _      _  ______
+             / \    / \ |    |
+             \_/    \_/ |    |
+              |_;--;_|  |    |
+              |\/  \/|  |    |
+              |      |  |    |
+             / \    / \ |    |
+____________/  /    \  \|    |
+            -  -    -  -
+
+COMMANDS: MOVE RIGHT, TURN LEFT, SHOOT, WAIT (Z)
+
+> shoot
+YOU SHOOT HIM
+
+(Press a key)
+
+              _         ______
+             / \        |    |
+             \_/        |    |
+              |_;-      |    |
+              |\/       |    |
+              |         |    |
+             / \        |    |
+____________/  /  ______|    |
+            -  -
+
+COMMANDS: MOVE RIGHT, TURN LEFT, SHOOT, WAIT (Z)
+
+> right
+YOU MOVE RIGHT
+
+(Press a key)
+
+                    _   ______
+                   / \  |    |
+                   \_/  |    |
+                    |_;-|    |
+                    |\/ |    |
+                    |   |    |
+                   / \  |    |
+__________________/  /  |    |
+                  -  -
+
+COMMANDS: MOVE RIGHT, TURN LEFT, SHOOT, WAIT (Z)
+
+> right
+YOU MOVE RIGHT
+
+(Press a key)
+
+______  _
+|    | / \                |\
+|    | \_/                | \
+|    |  |_;-              | |
+|    |  |\/               | |
+|    |  |                 | |
+|    | / \                | |
+|    |/  /  ______________| |
+      -  -                  |
+
+COMMANDS: MOVE RIGHT, TURN LEFT, SHOOT, WAIT (Z)
+
+> right
+YOU MOVE RIGHT
+
+(Press a key)
+
+______        _
+|    |       / \          |\
+|    |       \_/          | \
+|    |        |_;-        | |
+|    |        |\/         | |
+|    |        |           | |
+|    |       / \          | |
+|    |______/  /  ________| |
+            -  -            |
+
+YOU HEAR A NOISE BEHIND YOU
+
+COMMANDS: MOVE RIGHT, TURN LEFT, SHOOT, WAIT (Z)
+
+> right
+YOU MOVE RIGHT
+
+(Press a key)
+
+______              _
+|    |             / \    |\
+|    |             \_/    | \
+|    |              |_;-  | |
+|    |              |\/   | |
+|    |              |     | |
+|    |             / \    | |
+|    |____________/  /  __| |
+                  -  -      |
+
+A GUARD ENTERS THE AREA
+
+(Press a key)
+
+______  _           _
+|    | / \         / \    |\
+|    | \_/         \_/    | \
+|    |  |_;-        |_;-  | |
+|    |  |\/         |\/   | |
+|    |  |           |     | |
+|    | / \         / \    | |
+|    |/  /  ______/  /  __| |
+      -  -        -  -      |
+
+COMMANDS: MOVE RIGHT, TURN LEFT, SHOOT, WAIT (Z)
+
+> right
+YOU MOVE RIGHT
+
+(Press a key)
+
+As you run away and hide, whilst evading the last few shots that come from
+somewhere behind you, you reflect on your completed mission. It could have
+been handled a little better, but you survived, and that is the main thing.
+Maybe you should rest up for a few hours before starting your next mission.
+Not that your boss will like that.
+
+[If you play this game again, and you want to skip the fight scenes, type
+cheat during one of your turns in the fight.]

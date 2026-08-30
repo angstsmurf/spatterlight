@@ -1,0 +1,970 @@
+Loading game...
+
+Camelot
+Camelot V 1.05
+This is a revised version of my entry for the Adrift Summer competition 2010.
+
+Created using Adrift V.4 Rel. 51 (by Campbell Wild)
+
+I want to thank all the beta testers who have shown an almost inhuman
+patience while testing the game:
+Jason Guest, Björn Paulsen (Yes another Scandinavian Viking) Mark Tilford,
+Roy Lee and Bruce Humphrey.
+Thanks for putting up with me, and thank you all for all the errors you found
+and all the suggestions and ideas you've given me to create a better game.
+F.Rosenløv (Espergærde, Denmark July 29 2010)
+
+Should you get stuck, feel free to write me, either at the Adrift forum, or
+at my e-mail: Rosenloev dot 1 at gmail dot com
+
+After a number of years your membership of the distinguished club of the
+unemployed has finally expired.
+In other words, you've got a job! It's not the job you've hoped for but being
+honest to yourself you realize that the chances of you becoming General
+secretary of the UN was at best non existent.
+Instead you've got a job at the local library cleaning up, putting books back
+on the shelves and the occasional sweeping of the floor.
+When you arrive at work today you never in your wildest dreams imagined that
+this day would turn your otherwise peaceful existence upside down.
+For a few days your job has been to clean up the cellar under the library, a
+dusty place where they keep all the books that are no longer interesting.
+When you arrive at the library you quietly walk down the stairs and lock
+yourself into the cellar.
+
+Cellar
+The cellar is not the coziest of places you've been.
+A simple wooden desk with a single drawer is placed almost in the middle
+between tall bookshelves which upon closer inspection are nailed to the wall.
+A row of fluorescent lamps are hanging from the ceiling lighting up the room
+with their cold, but efficient light shining down on the old dusty books.
+Along the walls and on the desk piles of books are stacked up high,
+threatening to fall over at the tiniest breeze.
+
+> look
+
+Cellar
+The cellar is not the coziest of places you've been.
+A simple wooden desk with a single drawer is placed almost in the middle
+between tall bookshelves which upon closer inspection are nailed to the wall.
+A row of fluorescent lamps are hanging from the ceiling lighting up the room
+with their cold, but efficient light shining down on the old dusty books.
+Along the walls and on the desk piles of books are stacked up high,
+threatening to fall over at the tiniest breeze.
+
+> open drawer
+You open the drawer.  A map and a box of matches are inside the drawer.
+
+> get matches
+You take the box of matches from the drawer.
+
+> pull shelf
+You grab the vertical metal bar and pull with all your might, nothing
+happens...
+Then you wedge your feet against the wall next to the shelf and again pull as
+hard as you can...
+At first nothing happens and you are about to give up when suddenly it feels
+like the shelf is moving...
+Slowly the shelf and the wall its mounted on starts to swing out... more...
+more... until a crack wide enough for you to slip through has appeared in the
+eastern wall.
+
+> go east
+Although not too keen on the situation your curiosity gets the better part of
+you.
+Painfully reminded that you could lose a few pounds you squeeze yourself
+through the opening in the wall.
+
+Chamber
+You are in an ancient chamber of some kind. Obviously this is all that
+remains of whatever building was here many years ago.
+The walls are made of huge boulders delicately chiseled into shape so they
+fit perfectly into one another. A single torch is placed in a metal holder
+high on the wall.
+Roughly cut wooden shelves are placed against the wall and a huge oak desk
+with an chair is placed near the middle. A faint smell of burnt wood still
+lingers in the air although it must have been hundreds of years since anyone
+was here.
+
+> get torch
+You reach up to take the torch.
+As soon as you lift it out of its metal holder a screeching sound makes you
+turn around.
+The torch falls from your hand as you helplessly watch the wall slowly but
+inexorably slide back closing your only exit, and the darkness slowly engulfs
+you.
+Is it your imagination, or is the air already getting heavier in here?
+
+> light match
+You light one of your few remaining precious matches.
+The sudden burst of light almost blinds you and by the time you get your
+vision back the match has almost burned out.
+Before it extinguishes you get a glimpse of the torch on the floor, right by
+your feet.
+
+> get torch
+With the match burned out the darkness seems even deeper than before. You
+slowly kneel, letting your hands slide slowly over the rough floor...
+nothing!
+Then, just as you are about to give up, your fingertips touches something,
+you desperately grab it, hold it tight as if it would wiggle its way out of
+your grip. The feeling of the torch in your hand sends a sigh of relief
+through your body.
+
+> light torch
+You light a match and set it to the oily cloth wrapped around the end of the
+torch.
+You watch impatiently as the flame slowly eats away the matchstick, getting
+closer to your fingers without any noticeable effect on the torch.
+With a silent oath you drop the match and the room is once again engulfed in
+darkness.
+
+> light torch
+You strike yet another match and hold it to the torch. It slowly burns down,
+further and further... the flickering flame almost touching your fingers when
+finally something begins to happen.
+First a tiny flame appears. It slowly grows bigger and bigger as it feeds
+from the oily cloths and finally a sleepy dark yellow, almost orange light
+spreads throughout the room and the various things stands out in their
+natural form.
+
+Chamber
+The sleepy golden, orange light from the torch manages to light up your
+immediate surroundings.
+The flame flickers, casting eerie shadows over the ceiling and ancient walls.
+Obviously this is all that remains of whatever building was here many years
+ago.
+The walls are made of huge boulders delicately chiselled into shape so they
+fit perfectly into one another.
+Roughly cut wooden shelves are placed against the wall and a huge oak desk
+with an chair is placed near the middle.
+
+> sit
+You slowly sink down on the chair, leaning back, resting your head against
+the back and placing your arms on the armrests.
+It feels like the shape of the chair is changing slightly, forming after your
+body.
+Then an almost unnoticeable shiver, and the chair slowly slides forward
+across the floor, not stopping until you can easily reach the desk.
+
+> read book
+You press the torch into the hole in the old desk and sit down.
+Gently you pull the book towards you and open it carefully.
+In letters almost impossible to read the first page starts:
+I Merlin, Wizard of Camelot in the forgotten land of Avalon, .... (the rest
+is unreadable)
+As you turn the page you feel a tiny prick on the tip of your finger. You
+look down and see a tiny drop of blood forming... You bring the finger to
+your mouth and suck it before continuing reading.
+Making out the words is hard work, and a light dizziness overwhelms you. Your
+eyelids become heavy, almost impossible to keep open, your head nods, falling
+on your chest, and soon you slump over the book, drifting away in a deep
+sleep.
+
+Kitchen
+You are abruptly awakened by a rather unkind shoe between your ribs.
+Still groggy you stumble to your feet only to be sent back to the floor by a
+clout on the ear.
+As the haze lifts from your eyes and the few remaining stars of the universe
+stop rotating you look up. A tall man wearing a white apron is leaning over
+you, his face lobster red with rage.
+“What are you doing, sleeping while there is work to do!” He raises his hand
+again and you instinctively cover your still burning ear.
+“King Arthur is celebrating the anniversary of his and Queen Guinevere's
+wedding this evening, and you are sleeping?”
+He grabs a loaf of bread from a nearby table and shoves it in your arms.
+“Here, take this to the King for approval, but make haste you lazy git, or my
+shoe isn't the only thing you'll feel.”
+He turns and disappears in the crowd.
+Press any key
+
+You look around, confused and with your ear still stinging from the rough
+treatment.
+People are running back and forth, carrying huge trays or pots and pans of
+all shapes and sizes. Two lambs are slowly roasting over a huge fire,
+supervised by two young children.
+Bloody pieces of fresh meat lie on long tables and young girls and fat women
+are chopping up vegetables, between the lumps, obviously not caring much
+about kitchen hygiene.
+The straw scattered on the stone floor does little to suck up the blood and
+other liquids.
+To the north and east two narrow openings in the walls lead out of the
+kitchen.
+The northern leads up, and you can see a faint light at the top of what must
+be a staircase, and the eastern leads down into darkness.
+
+> go north
+You sneak out of the kitchen, up along the dark passage.
+After a short while you see a light up ahead, and soon you step out into the
+courtyard.
+
+Courtyard
+The courtyard is surrounded on all sides by tall walls that seem to go on
+forever.
+High above them the towers of Camelot can be seen, so high up they almost
+disappears in the clouds.
+The ground is covered with straw  from a huge haystack in the corner right
+next to the stables.
+To the west through an arch lies a green garden. Through the arch you can see
+rose beds with roses in all colours. To the East lies the entrance to the
+castle, guarded by two heavily armed men holding long spears. Behind you to
+the south are the stairs leading back down into the kitchen and finally to
+the north the heavy drawbridge that spans the moat. Here too, guarding the
+huge oak doors and the portcullis another two men are posted. An axe is
+leaning against the winch that holds the portcullis.
+
+> go west
+A soft stillness engulfs you as you walk through the arch into the rose
+garden.
+All the noise from the courtyard is muffled to a melodic humming, and you
+feel a tranquility overtake you.
+
+The Rose garden
+The first thing that strikes you as you enter through the arch is the
+delicate scent of roses. Although there are hundreds of different kinds, you
+discover that each of them smells differently and each scent is distinctively
+caught by you.
+A green carpet of grass is spread out before you, only broken by the flower
+beds which have been placed in decorative patterns throughout the garden.
+Peacocks, pecking for food, wander around a stone bench which is placed under
+the protective shade of a small almond tree and a low stone wall surrounds
+the garden on two sides, the castle wall making out the third and the wall
+with the arch which you walked through to the east, makes out the fourth.
+
+> feed peacocks
+You break off a piece of the bread and crumble it between your fingers.
+No sooner have you thrown it on the ground before the peacocks come running
+over and begin to eat it.
+A fight breaks out over the last few crumbs and as the victor proudly struts
+away, a lost tail feather lays behind on the ground.
+
+> get feather
+You take the tail feather.
+
+> go east
+You feel almost sad having to leave this beautiful garden. But you head east
+and once again pass under the arch of roses entering the noisy courtyard.
+
+Courtyard
+The courtyard is surrounded on all sides by tall walls that seem to go on
+forever.
+High above them the towers of Camelot can be seen, so high up they almost
+disappears in the clouds.
+The ground is covered with straw  from a huge haystack in the corner right
+next to the stables.
+To the west through an arch lies a green garden. Through the arch you can see
+rose beds with roses in all colours. To the East lies the entrance to the
+castle, guarded by two heavily armed men holding long spears. Behind you to
+the south are the stairs leading back down into the kitchen and finally to
+the north the heavy drawbridge that spans the moat. Here too, guarding the
+huge oak doors and the portcullis another two men are posted. An axe is
+leaning against the winch that holds the portcullis.
+
+> go south
+The sudden darkness of the passage surprises you and you carefully walk down
+the steps towards the kitchen, steadying yourself by holding on to the
+wall...
+The smell of food becomes stronger as does the noise and chatter from below.
+Soon you step out into the kitchen.
+
+Kitchen
+You are back in the kitchen.
+Nothing much has changed since your last visit here, except the kitchen
+master isn't here to kick and slap you around. He must be busy tormenting
+some other poor soul.
+People are running back and forth, carrying huge trays or pots and pans of
+all shapes and sizes. Two lambs are slowly roasting over a huge fire,
+supervised by two young children.
+Bloody pieces of fresh meat lie on long tables and young girls and fat women
+are chopping up vegetables, between the lumps, obviously not caring much
+about kitchen hygiene.
+The straw scattered on the stone floor does little to suck up the blood and
+other liquids.
+To the north and east two narrow openings in the walls lead out of the
+kitchen.
+
+> go east
+With the light from the kitchen flickering playfully over the walls, you
+slowly descend down into a darkness that gets deeper and deeper the further
+you go.
+The air gets heavier and warmer the further down you go and the walls get
+moist... little drops of water trickling down onto the steps making them
+dangerously slippery.
+As you continue further down, the passage widens a bit and finally opens up
+into a large room.
+
+Cave
+The ceiling of this huge cave is towering high above you, invisible in the
+darkness.
+What was in the beginning a natural cave has been carved into a huge cellar
+like room deep under the castle
+The cave would have been completely dark hadn't it been for the burning
+torches mounted high on the walls.
+The flickering flame from the torches and the moving shadows makes is
+somewhat confusing, but you remember that the passage leading back up to the
+kitchen lies to the west, and amongst the erratic moving shadows you notice
+that there's an opening in the southern wall, leading down, and a narrow dark
+passage in the northern wall.
+
+> go north
+After fumbling your way through a narrow windy passage you finally enter a
+huge hall.
+You slip out from the narrow opening in the southern end of the hall, hidden
+by a sharp turn.
+
+The Knight's Hall
+The hall stretches out before you seemingly endlessly from one end to the
+other.
+Furthest away is a huge oak table with twelve oak chairs around it and a
+little closer is a long table where trays are placed in rows as long as the
+table.
+Torches are placed high on the walls, ready to be lit at night but for now
+the sun beams in through the tall windows.
+Huge tapestries hangs on the walls, reaching from the ceiling almost to the
+floor and in the eastern wall is a stairway leading up.
+There are two huge fireplaces, one in the center of the hall and one built
+into the northeastern corner. Neither of them are lit but both stacked with
+firewood.
+Behind you, so the south, lies the entrance to the passage leading down to
+the cave, and far away, across the hall to the west are the doors leading
+out.
+To the east, behind the long table, is a dark opening in the wall.
+
+> go east
+You enter the passage in the east wall of the Knights Hall.
+
+Passage
+The dusky passage winds its way between the walls of the castle, leading up
+to a corridor higher up or down to the Great hall.
+The steps have been polished smooth and even, so that Queen Guinevere can
+walk safely from her chamber to the hall. Even the walls here are different
+from those in the other parts of the castle.
+The passage is only lit partly by what little light that seeps in from above
+and below, hardly enough to allow you to see where you put your feet.
+This is no problem to Guinevere who of course is always followed by a maid
+holding a torch or candle.
+
+> touch indentation
+Running your fingers over the indentation you feel a faint roughness.
+You press against it and a faint click is heard somewhere.
+Slowly a part of the wall slides aside revealing a dark spiral stairway
+leading north.
+
+> go north
+Carefully, you step through the opening and are at the foot of a spiral
+wooden staircase leading up into the unknown darkness.
+
+Spiral staircase
+Looking up along the winding wooden staircase you see... nothing but
+darkness.
+A high pitched scream is heard, almost inaudible, and then the faint sound of
+wings fluttering through the air. Something soft and hairy brush against your
+cheek as a bat silently flies by, disappearing into the darkness.
+It takes a while before your eyes get used to the darkness, and still you can
+only vaguely see the outline of the steps before you leading up.
+
+> go up
+With your arms stretched out, your hands running along the stone wall you
+slowly climb the stairway, one reluctant step at a time.
+After a while the darkness is broken by a faint flickering light and you
+quite suddenly bump your face against what appears to be a door.
+
+> open door
+Fumbling, you run your hands over the door, trying to keep your balance on
+the narrow steps.
+Finally, your fingers touches metal, a door handle of some kind.
+You reach for the handle like a drowning person would grab a lifebelt. You
+turn it and literally fall into the room.
+Not quite the dignified entrance you had planned, but it'll have to do.
+You pick yourself up from the, not very, flattering position on the floor and
+your jaw drop to your knees.
+
+Merlin's chamber
+The room is humongous! But this can't be, how can anyone fit a room the size
+of the great hall inside a slim tower?
+Under a window at the farthest end of the room an old man stands behind a
+desk an owl resting on his shoulder.
+Behind him is a fireplace with a nice fire going. A cauldron hangs on a sooty
+hook, and the cozy sound of something boiling fills the room.
+Along the wall tall shelves is filled with dusty books and weird looking
+instruments. Glasses and flasks are piled up on a table in a strange looking
+experiment.
+He looks at you with a knowing smile, and nods... Like he has been expecting
+you...
+
+> get book
+Merlin comes over and takes the book out of your hands and puts it back down.
+“Please don't touch anything. The order here is a very delicate balance.”
+Looking around the messy room you find it hard to see ANY balance at all, but
+you decide to believe him.
+"Let me tell you why I brought you here. Today is the anniversary of Arthur
+and Guinevere's wedding.
+My gift for them should be hot running water, and every thing is in place
+except..."
+Merlin pauses and pulls his beard. “I can't get that stupid dragon to heat up
+the water! Can you imagine the embarrassment.. The mighty Merlin, not being
+able to keep a promise?
+Getting the dragon was easy enough,” he continues, “sneaking it into the
+dungeons under the castle under the eye of everyone was a bit more
+troublesome, but absolutely manageable. But getting that blasted creature to
+spew fire and heat up the water, is downright impossible.”
+He looks at you with a wicked look in his eyes. “This is where you come into
+the picture. If you can get the Dragon to heat up the water before the
+banquette tonight I will send you back to your own time, if not you will stay
+here as the lowest kitchen helper. I am not usually a mean person, but this
+shows you how desperate I am.”
+He raises his hands, waves them in an intriguing pattern before your eyes...
+“Now be gone. We both have a job to do.”
+
+Kitchen
+You are back in the kitchen.
+Nothing much has changed since your last visit here, except the kitchen
+master isn't here to kick and slap you around. He must be busy tormenting
+some other poor soul.
+People are running back and forth, carrying huge trays or pots and pans of
+all shapes and sizes. Two lambs are slowly roasting over a huge fire,
+supervised by two young children.
+Bloody pieces of fresh meat lie on long tables and young girls and fat women
+are chopping up vegetables, between the lumps, obviously not caring much
+about kitchen hygiene.
+The straw scattered on the stone floor does little to suck up the blood and
+other liquids.
+To the north and east two narrow openings in the walls lead out of the
+kitchen.
+
+> go east
+With the light from the kitchen flickering playfully over the walls, you
+slowly descend down into a darkness that gets deeper and deeper the further
+you go.
+The air gets heavier and warmer the further down you go and the walls get
+moist... little drops of water trickling down onto the steps making them
+dangerously slippery.
+As you continue further down, the passage widens a bit and finally opens up
+into a large room.
+
+Cave
+The ceiling of this huge cave is towering high above you, invisible in the
+darkness.
+What was in the beginning a natural cave has been carved into a huge cellar
+like room deep under the castle
+The cave would have been completely dark hadn't it been for the burning
+torches mounted high on the walls.
+The flickering flame from the torches and the moving shadows makes is
+somewhat confusing, but you remember that the passage leading back up to the
+kitchen lies to the west, and amongst the erratic moving shadows you notice
+that there's an opening in the southern wall, leading down, and a narrow dark
+passage in the northern wall.
+
+> go north
+After fumbling your way through a narrow windy passage you finally enter a
+huge hall.
+You slip out from the narrow opening in the southern end of the hall, hidden
+by a sharp turn.
+
+The Knight's Hall
+The hall stretches out before you seemingly endlessly from one end to the
+other.
+Furthest away is a huge oak table with twelve oak chairs around it and a
+little closer is a long table where trays are placed in rows as long as the
+table.
+Torches are placed high on the walls, ready to be lit at night but for now
+the sun beams in through the tall windows.
+Huge tapestries hangs on the walls, reaching from the ceiling almost to the
+floor and in the eastern wall is a stairway leading up.
+There are two huge fireplaces, one in the center of the hall and one built
+into the northeastern corner. Neither of them are lit but both stacked with
+firewood.
+Behind you, so the south, lies the entrance to the passage leading down to
+the cave, and far away, across the hall to the west are the doors leading
+out.
+To the east, behind the long table, is a dark opening in the wall.
+
+> go east
+You enter the passage in the east wall of the Knights Hall.
+
+Passage
+The dusky passage winds its way between the walls of the castle, leading up
+to a corridor higher up or down to the Great hall.
+The steps have been polished smooth and even, so that Queen Guinevere can
+walk safely from her chamber to the hall. Even the walls here are different
+from those in the other parts of the castle.
+The passage is only lit partly by what little light that seeps in from above
+and below, hardly enough to allow you to see where you put your feet.
+This is no problem to Guinevere who of course is always followed by a maid
+holding a torch or candle.
+
+> go east
+You walk up the stairs towards the west end of a long corridor which can be
+seen at the end of the stairway.
+
+West end of corridor
+You are heading down a long corridor running east west, your steps sounding
+hollow against the wooden floor. On your left and right are doors leading
+into the chambers occupied by people of the court.
+A soldier is guarding the door on the right side of the corridor whereas the
+door on the opposite side is not guarded at all. Further down you see other
+doors and at the far end of the corridor to the east you can make out a small
+room with stairways leading up and down.
+
+> go east
+Your steps sound hollow against the wooden floor as you walk down the
+corridor.
+
+East end of corridor
+You are heading down a long corridor running east west. Behind you to the
+west at the other end of the corridor is the stairway leading down to the
+great hall. Ahead of you to the east is a small room in which you can see a
+stairway leading up and down.
+On your left and right are doors leading into the chambers occupied by people
+of the court.
+Here too torches are placed in metal holders on the wall, none of them lit
+though, leaving the part of the corridor gloomy and dusky.
+
+> open left door
+Putting up an attitude that shows you have every right to be here, you
+quickly reach out and open the left door and slip inside.
+Unfortunately your attitude, however splendid wasn't fooling anyone, and
+certainly not the guard.
+He shouts angrily at you as you close the door behind you. You are safe for
+the time being but you realize that it's only a matter of time before he will
+have reinforcements up here.
+You quickly look around, wondering how much time you have before the guards
+will come.
+
+Queen Guinevere's chamber
+This must be Queen Guinevere's chamber. It's very luxurious with a huge bed
+raised upon a small platform and a silk canopy above it. The bed is placed so
+the first light of the sun will shine directly on it, waking the Queen
+gently. The scent of cedar, mixed with delicate perfume lingers in the air
+giving the room a truly feminine touch.
+A table with a candelabra is positioned under the window and a comfortable
+chair is standing near by.
+A huge closet takes up part of the western wall and between it and a cedar
+chest is a door.
+The room is kept neatly clean and tidy, heavy velvet curtain and beautiful
+tapestries on the wall.
+A door in the western wall leads into another room and to the north an
+opening, covered with a semi see-through silky curtain, leads into yet
+another part of the Queen's chamber. Behind you, to the south is the door
+leading out to the corridor.
+
+> go north
+You gently push the silk curtains aside and walk into the adjacent room.
+
+Bathroom
+The beauty of this room is absolutely fantastic.
+The stone floor is covered with heavy mats, woven from the finest and softest
+wool in all of England. A small table filled with bottles and jars of all
+forms, shapes and sizes are neatly lined up against the wall under a huge
+metal plate, polished like the clearest glass, and a small stool is pushed
+under it.
+What surprises you the most is what appears to be a modern bathtub placed
+against the western wall, discretely out of sight from the entrance in the
+southern wall, leading into Guinevere's chamber, and a shiny faucet
+protruding from the wall a little above it.
+A modern bathtub in the midst of the darkest medieval age? This must be
+magic...
+
+Also here is the dragons delight, a arthurs pleasure, a summer breeze and a
+moonlight at midnight.
+You hear noise from the corridor as a squad of guards is approaching.
+
+> use dragons delight
+You dab a few drops of the Dragons delight onto your neck and wrists.
+The heavy scent engulfs you completely as the warmth of your blood evaporates
+the perfume.
+The door is slammed open and the guards rush into the room.
+
+> go south
+Slipping through the flimsy silky curtain once again, you leave the bathroom
+and enter Queen Guinevere's chamber.
+
+Queen Guinevere's chamber
+This must be Queen Guinevere's chamber. It's very luxurious with a huge bed
+raised upon a small platform and a silk canopy above it. The bed is placed so
+the first light of the sun will shine directly on it, waking the Queen
+gently. The scent of cedar, mixed with delicate perfume lingers in the air
+giving the room a truly feminine touch.
+A table with a candelabra is positioned under the window and a comfortable
+chair is standing near by.
+A huge closet takes up part of the western wall and between it and a cedar
+chest is a door.
+The room is kept neatly clean and tidy, heavy velvet curtain and beautiful
+tapestries on the wall.
+A door in the western wall leads into another room and to the north an
+opening, covered with a semi see-through silky curtain, leads into yet
+another part of the Queen's chamber. Behind you, to the south is the door
+leading out to the corridor.
+One of the guards sends you to the floor in a flying tackle even you've got
+to admire He holds you in an iron tight grip while the other make a quick
+inspection of the room, making sure that all doors are locked and nothing is
+missing.
+Both guards grab your arms and they drag you though the castle corridors down
+to the kitchen where they dump you at the feet of the kitchen chef, who
+immediately slap you across the face, sending you tumbling through the room.
+The guards laugh scornfully and return to their duties..
+
+Kitchen
+You are back in the kitchen.
+Nothing much has changed since your last visit here, except the kitchen
+master isn't here to kick and slap you around. He must be busy tormenting
+some other poor soul.
+People are running back and forth, carrying huge trays or pots and pans of
+all shapes and sizes. Two lambs are slowly roasting over a huge fire,
+supervised by two young children.
+Bloody pieces of fresh meat lie on long tables and young girls and fat women
+are chopping up vegetables, between the lumps, obviously not caring much
+about kitchen hygiene.
+The straw scattered on the stone floor does little to suck up the blood and
+other liquids.
+To the north and east two narrow openings in the walls lead out of the
+kitchen.
+
+> go east
+With the light from the kitchen flickering playfully over the walls, you
+slowly descend down into a darkness that gets deeper and deeper the further
+you go.
+The air gets heavier and warmer the further down you go and the walls get
+moist... little drops of water trickling down onto the steps making them
+dangerously slippery.
+As you continue further down, the passage widens a bit and finally opens up
+into a large room.
+
+Cave
+The ceiling of this huge cave is towering high above you, invisible in the
+darkness.
+What was in the beginning a natural cave has been carved into a huge cellar
+like room deep under the castle
+The cave would have been completely dark hadn't it been for the burning
+torches mounted high on the walls.
+The flickering flame from the torches and the moving shadows makes is
+somewhat confusing, but you remember that the passage leading back up to the
+kitchen lies to the west, and amongst the erratic moving shadows you notice
+that there's an opening in the southern wall, leading down, and a narrow dark
+passage in the northern wall.
+
+> go north
+After fumbling your way through a narrow windy passage you finally enter a
+huge hall.
+You slip out from the narrow opening in the southern end of the hall, hidden
+by a sharp turn.
+
+The Knight's Hall
+The hall stretches out before you seemingly endlessly from one end to the
+other.
+Furthest away is a huge oak table with twelve oak chairs around it and a
+little closer is a long table where trays are placed in rows as long as the
+table.
+Torches are placed high on the walls, ready to be lit at night but for now
+the sun beams in through the tall windows.
+Huge tapestries hangs on the walls, reaching from the ceiling almost to the
+floor and in the eastern wall is a stairway leading up.
+There are two huge fireplaces, one in the center of the hall and one built
+into the northeastern corner. Neither of them are lit but both stacked with
+firewood.
+Behind you, so the south, lies the entrance to the passage leading down to
+the cave, and far away, across the hall to the west are the doors leading
+out.
+To the east, behind the long table, is a dark opening in the wall.
+
+> go east
+You enter the passage in the east wall of the Knights Hall.
+
+Passage
+The dusky passage winds its way between the walls of the castle, leading up
+to a corridor higher up or down to the Great hall.
+The steps have been polished smooth and even, so that Queen Guinevere can
+walk safely from her chamber to the hall. Even the walls here are different
+from those in the other parts of the castle.
+The passage is only lit partly by what little light that seeps in from above
+and below, hardly enough to allow you to see where you put your feet.
+This is no problem to Guinevere who of course is always followed by a maid
+holding a torch or candle.
+
+> go east
+You walk up the stairs towards the west end of a long corridor which can be
+seen at the end of the stairway.
+
+West end of corridor
+You are heading down a long corridor running east west, your steps sounding
+hollow against the wooden floor. On your left and right are doors leading
+into the chambers occupied by people of the court.
+A soldier is guarding the door on the right side of the corridor whereas the
+door on the opposite side is not guarded at all. Further down you see other
+doors and at the far end of the corridor to the east you can make out a small
+room with stairways leading up and down.
+
+> go east
+Your steps sound hollow against the wooden floor as you walk down the
+corridor.
+
+East end of corridor
+You are heading down a long corridor running east west. Behind you to the
+west at the other end of the corridor is the stairway leading down to the
+great hall. Ahead of you to the east is a small room in which you can see a
+stairway leading up and down.
+On your left and right are doors leading into the chambers occupied by people
+of the court.
+Here too torches are placed in metal holders on the wall, none of them lit
+though, leaving the part of the corridor gloomy and dusky.
+
+> open left door
+Putting up an attitude that shows you have every right to be here, you
+quickly reach out and open the left door and slip inside.
+Unfortunately your attitude, however splendid wasn't fooling anyone, and
+certainly not the guard.
+He shouts angrily at you as you close the door behind you. You are safe for
+the time being but you realize that it's only a matter of time before he will
+have reinforcements up here.
+You quickly look around, wondering how much time you have before the guards
+will come.
+
+Queen Guinevere's chamber
+This must be Queen Guinevere's chamber. It's very luxurious with a huge bed
+raised upon a small platform and a silk canopy above it. The bed is placed so
+the first light of the sun will shine directly on it, waking the Queen
+gently. The scent of cedar, mixed with delicate perfume lingers in the air
+giving the room a truly feminine touch.
+A table with a candelabra is positioned under the window and a comfortable
+chair is standing near by.
+A huge closet takes up part of the western wall and between it and a cedar
+chest is a door.
+The room is kept neatly clean and tidy, heavy velvet curtain and beautiful
+tapestries on the wall.
+A door in the western wall leads into another room and to the north an
+opening, covered with a semi see-through silky curtain, leads into yet
+another part of the Queen's chamber. Behind you, to the south is the door
+leading out to the corridor.
+
+> open chest
+You lift up the lid and look inside the chest. A tray is resting on two thin
+pieces of wood, allowing it to be pushed to either side.
+On the tray lays a stack of snow white handkerchiefs, held together by a
+piece of red string, and below it, you see piles of neatly folded linen.
+You hear noise from the corridor as a squad of guards is approaching.
+
+> get handkerchief
+Almost reluctantly you pick up one of the hankies. It feels so smooth and
+soft to your touch.
+The heavy odor of lavender engulfs you, drowning out all other scents.
+The door is slammed open and the guards rush into the room.
+
+> go south
+You quickly slip out of the door again, closing it silently behind you,
+pretending not to see the suspicious look the guard further down the corridor
+is sending you.
+
+East end of corridor
+You are heading down a long corridor running east west. Behind you to the
+west at the other end of the corridor is the stairway leading down to the
+great hall. Ahead of you to the east is a small room in which you can see a
+stairway leading up and down.
+On your left and right are doors leading into the chambers occupied by people
+of the court.
+Here too torches are placed in metal holders on the wall, none of them lit
+though, leaving the part of the corridor gloomy and dusky.
+
+> go west
+Little clouds of dust rises around your feet as you walk down the corridor
+towards the west end.
+
+West end of corridor
+You are heading down a long corridor running east west, your steps sounding
+hollow against the wooden floor. On your left and right are doors leading
+into the chambers occupied by people of the court.
+A soldier is guarding the door on the right side of the corridor whereas the
+door on the opposite side is not guarded at all. Further down you see other
+doors and at the far end of the corridor to the east you can make out a small
+room with stairways leading up and down.
+
+> go west
+You head towards the passage leading down to the Knights hall.
+It takes a few minutes before your eyes adjust to the dusky passage.
+
+Passage
+The dusky passage winds its way between the walls of the castle, leading up
+to a corridor higher up or down to the Great hall.
+The steps have been polished smooth and even, so that Queen Guinevere can
+walk safely from her chamber to the hall. Even the walls here are different
+from those in the other parts of the castle.
+The passage is only lit partly by what little light that seeps in from above
+and below, hardly enough to allow you to see where you put your feet.
+This is no problem to Guinevere who of course is always followed by a maid
+holding a torch or candle.
+
+> go west
+Running your hands along the walls you hurry down the stairs and are soon
+once again in the Knights Hall.
+
+The Knight's Hall
+The hall stretches out before you seemingly endlessly from one end to the
+other.
+Furthest away is a huge oak table with twelve oak chairs around it and a
+little closer is a long table where trays are placed in rows as long as the
+table.
+Torches are placed high on the walls, ready to be lit at night but for now
+the sun beams in through the tall windows.
+Huge tapestries hangs on the walls, reaching from the ceiling almost to the
+floor and in the eastern wall is a stairway leading up.
+There are two huge fireplaces, one in the center of the hall and one built
+into the northeastern corner. Neither of them are lit but both stacked with
+firewood.
+Behind you, so the south, lies the entrance to the passage leading down to
+the cave, and far away, across the hall to the west are the doors leading
+out.
+To the east, behind the long table, is a dark opening in the wall.
+
+> go south
+You quickly walk across the wide mosaic floor towards the southern wall, turn
+the corner and head down the passage to the cave under the Knight Hall.
+
+Cave
+The ceiling of this huge cave is towering high above you, invisible in the
+darkness.
+What was in the beginning a natural cave has been carved into a huge cellar
+like room deep under the castle
+The cave would have been completely dark hadn't it been for the burning
+torches mounted high on the walls.
+The flickering flame from the torches and the moving shadows makes is
+somewhat confusing, but you remember that the passage leading back up to the
+kitchen lies to the west, and amongst the erratic moving shadows you notice
+that there's an opening in the southern wall, leading down, and a narrow dark
+passage in the northern wall.
+
+> go south
+The darkness engulfs you as you enter the narrow passage in the southern
+wall. With hands reached out, you try to make your way through the darkness.
+
+Dark passage
+The passage you're walking is leads down under or near to the moat. The walls
+are moist and smell of stagnant water. All is quiet except the faint sound of
+drops of water hitting the steps making them treacherously slippery.
+Ahead of you, further down the passage to the south you see a flickering
+light and up towards the north is the cave.
+
+> go south
+You continue down towards the flickering light, supporting yourself against
+the wall, treading carefully.
+Finally you enter a lit room... not much more comfortable than the passage
+you just came from.
+
+The Dungeons
+There's an awful smell here.. not just from the rotten moisture seeping down
+the slimy greenish walls but also something else, something strange and
+indefinable.
+You are in the castle dungeons... where criminals and enemies are kept locked
+up in tiny cells making it almost impossible for them to stand up straight.
+There are five such cells, each barred with a heavy iron door.
+The torches on the walls flicker having a hard time burning in the humid air.
+Behind you to the north is the passage leading up, and the only cell which
+isn't locked lies to the east.
+
+> go east
+The door leading into the cell opens easily and you walk through the opening
+and into the small cell straining your eyes to see in the dark.
+The floor feels soggy under your feet and the smell of rotten hay is even
+stronger than before.
+The strange and very unpleasant smell is getting stronger as you walk deeper
+into the cell. Your position is very uncomfortable bent forward as you are.
+
+Cell
+You swallow hard at the sight of this place.
+The cell narrows in as you move in further and soon the walls are rubbing
+against your shoulders and the room is so small you can't move anywhere but
+back.
+A line of shackles, embedded into the wall, allowing the guards to shrink the
+size of the cell,stops about a yard from the point of the triangle, leaving
+incredibly little space for the unfortunate prisoner.
+A little hay is stewed over the floor, most of it rotten from the moisture
+that seeps down the wallswhich is covered in in slimy greenish, foul smelling
+moss. the floor is slippery with rotting straw but most of all... the
+atmosphere of utter despair that sifts through the room is almost knocking
+you out.
+The only thing that makes it bearable to stay here is the little air that
+comes from the open door to the west, leading back out to the dungeon.
+
+> wear handkerchief
+Holding the lavender smelling hankie over your nose drowns out every other
+smell. Suddenly the stench from the cell is like the smell of, if not roses,
+then at least lavender.
+
+> pull shackle
+At first nothing happens...
+Then very slowly at first, then still easier, the shackle turns.
+A loud rumble is heard from somewhere distant and the wall in front of you
+begins to move, sliding aside until a passage down is revealed.
+You tumble back as the most incredible stench engulfs you. Your vision blurs
+and you can hardly breathe. The stench is so overpowering it is making you
+nauseated.
+Trying your best to control the cramps in your stomach, you quickly cover
+your nose and mouth with your sleeve while the wall opens.
+
+> pull shackle
+At first nothing happens...
+Then very slowly at first, then still easier, the shackle turns.
+A loud rumble is heard from somewhere distant and the wall in front of you
+begins to move, sliding aside until a passage down is revealed.
+Even with the handkerchief covering your nose and mouth, the stench from the
+secret passage is overwhelming. Your vision blurs and you can hardly breathe.
+
+> go down
+The heavy odor of lavender drowns out the incredible stench in the passage.
+You slowly continue walking down until you reach an enormous cave.
+
+Dragon's Lair
+The first things that strikes you as you enter this cave, is how in the
+blazes Merlin managed to get that incredibly huge creature in here!
+Squeezing it through the fairly small opening in the cell at the end of the
+stairs must have taken all the talent of a true magician.
+The lair is enormous, as is the dragon laying in the middle of it, on top of
+an incredible treasure.
+Gold, diamonds and pearls is stacked up in a pile and on top this gigantic
+dragon whose body covers most of the treasure.
+The cave is dry and warm, the warmth adding to make the foul smell of the
+dragon even worse than if there had been just a minimum of ventilation.
+Your stomach is turning upside down, its contents moving up and down like a
+runaway elevator filling your mouth with the ugly taste of your own vomit.
+You know you can't stay here for long like this.
+High above the dragon, way out of your reach, a huge metal tank is hanging
+suspended under the ceiling. Pipes are leading from the bottom and disappears
+into the cave wall.
+
+> tickle dragon with feather
+As you get closer the dragon lifts his huge head and turns it towards you.
+He sticks his scaly head up close to you and snorts loudly. Satisfied with
+your scent he caringly rub his head against your arm before returning to his
+post on top of the treasure pile.
+You slowly edge closer, and closer... without making too much noise you climb
+the pile of gold and gems until you are right next to the dragon.
+You take out the feather, and lightly tickle his soft and vulnerable
+underside.
+At first nothing, then a sound like a baby's giggle emerges from this
+frightening creature. The sound gets louder and louder until the entire cave
+echoes with the grunting and laughter of the dragon.
+Little puffs of smoke rises from his nostrils and suddenly a roar of flames
+shoots out of his mouth. The roaring flames swops up under the ceiling,
+engulfing the huge metal tank making it glow red hot within seconds.
+The water inside the tank starts boiling, the bubbling sounding like sweet
+music to your ears.
+You suddenly feel dizzy … The hankie drops from your powerless hand and you
+try to support yourself against the wall.
+A deep darkness engulfs you and you sink to the floor.
+Slowly you gain consciousness and open your eyes.
+You are once again in Merlin's chamber, the old wizard himself standing over
+you a wide grin on his face.
+“Well, done my brave fellow. You have made our Queen very happy, not to
+mention you've saved my reputation. I will grant you one wish to show my
+appreciation... Name anything you want.”
+The image of the incredible treasure in the cave flashes before your eyes,
+but before you can open your mouth Merlin continues... "Ohh but I can see
+what is it you want.. You want to return to your own time, and so you shall."
+You desperately try to stop his torrent of words, but before you get a chance
+to ask about the treasure, Merlin waves his hands and once again you are
+engulfed in darkness. Your last conscious thought is that this is beginning
+to get a little boring, then everything turns black.
+When you wake up again, you find yourself in the cellar where you started
+this adventure. Everything looks like before. A quick glance on your watch
+tells you that it's closing time and so you head for the stairs leading to
+the library.
+Your pants feels heavier than they usually do, and as you reach into your
+pockets you pull out handfuls of precious gems.
+Looks like the old Merlin did read your mind correctly after all.

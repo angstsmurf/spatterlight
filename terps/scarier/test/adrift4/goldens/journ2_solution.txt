@@ -99,6 +99,15 @@
 #      `ACT type=6 v1=0` -- the game's ONE win -- which is itself `where=0`.
 #      The WINTEXT quoted at the top of this file is dead data.
 #
+# RUNNER-PROVED 2026-08-30 (run390.exe under Wine, Adrift_2_journ2_end.txt and
+# Adrift_3_journ2_t5.txt): the original Runner is unwinnable too, and bricks
+# earlier.  T3 `#6 creature looks` (rep=0, room 1, patterns end with a bare
+# `*`) fires on arrival in the Lair, and 3.9's spent-task rule then answers
+# EVERY later command there with "You have already done that." -- only `i`
+# and `x creature` get through.  Ceiling in the real Runner: 5/90.  Scarier
+# deliberately does not import that rule (adrift4-spent-task-vs-restrictions),
+# which is the only reason this route gets past the Lair to 30.
+#
 # A NOTE ON TYPING THE LABEL.  `!goto lair` (T87) and `!random` (T88) are
 # debug tasks the author shipped in the release, and they DO fire if typed --
 # literal ADRIFT command patterns match literally.  By the same token a real

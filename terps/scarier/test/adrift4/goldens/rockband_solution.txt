@@ -1,0 +1,24 @@
+1
+look
+get guitar
+turn on television
+turn on xbox
+play the game
+use green button
+use yellow button
+use green button
+use green button
+use blue button
+use blue button
+use blue button
+use yellow button
+use yellow button
+use red button
+north
+look
+open closet door
+look
+get finger
+south
+use finger on xbox
+unplug the power cord
