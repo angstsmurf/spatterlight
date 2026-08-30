@@ -1786,6 +1786,34 @@ pf_buffer_join_always (scr_filterref_t filter, const scr_char *string)
 
 
 /*
+ * pf_buffer_pspace()
+ *
+ * The pspace() sub by itself, for a caller that needs the separator without
+ * pf_buffer_join()'s removal of a trailing newline: append the two-space
+ * separator unless the buffer is empty or already ends with "  ", Chr(10)
+ * or "<br>" (run390 @42C920).  run390's win path calls it unconditionally
+ * before appending the game's WinText (execute_task loc_43F255), where the
+ * accumulated text still ends with the winning task's unterminated text --
+ * see task_print_end_game_message().  The caller is responsible for taking
+ * back our own section terminator first (pf_undo_auto_break), since the
+ * Runner's string never had one.
+ */
+void
+pf_buffer_pspace (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  if (filter->is_muted)
+    return;
+
+  if (filter->buffer.size () > filter->hidden
+      && !pf_text_ends_with_break (filter->buffer.c_str ())
+      && !pf_buffer_ends_with_two_spaces (filter))
+    pf_append_string (filter, "  ");
+}
+
+
+/*
  * pf_buffer_hard_break()
  *
  * Note that the newline the buffer currently ends with is one the Runner

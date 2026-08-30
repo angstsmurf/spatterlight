@@ -185,5 +185,5 @@ Nothingness....
 
 ...and then I'm falling...falling...
 
-[This ends the first part of "The Cave of Morpheus." To continue, please open
-the file entitled "tcom2"]
+  [This ends the first part of "The Cave of Morpheus." To continue, please
+open the file entitled "tcom2"]

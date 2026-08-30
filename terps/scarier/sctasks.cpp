@@ -1552,7 +1552,26 @@ task_print_end_game_message (scr_gameref_t game)
            summary, with the location panel switched to "Congratulations!".  See
            RUNNER_TESTS_TODO.md section 4. */
         if (is_pre_400)
-          pf_undo_auto_break (filter);
+          {
+            pf_undo_auto_break (filter);
+
+            /*
+             * 3.9 -- and 3.9 alone -- passes the accumulated text through
+             * pspace() before appending the WinText, unconditionally: the
+             * win branch of execute_task calls it even for an empty WinText
+             * (run390 loc_43F255, the sub itself @42C920).  Measured live on
+             * Richard.taf, whose winning task text and WinText join as
+             * "...you return to the staging area.  Rich smiles..."
+             * (Adrift_3_richard.txt) with neither side carrying authored
+             * spaces (the COMPLETE/WINTEXT dumps end "area." and start
+             * "Rich").  run380 is the measured butt-join above; run370
+             * shares 3.8's inline join style (no pspace sub exists in
+             * either) and keeps the butt-join.
+             */
+            if (prop_get_integer (bundle, "I<-s", &vt_version)
+                >= TAF_VERSION_390)
+              pf_buffer_pspace (filter);
+          }
         if (!scr_strempty (wintext))
           pf_buffer_string (filter, wintext);
         pf_buffer_character (filter, '\n');

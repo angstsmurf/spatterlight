@@ -372,8 +372,19 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination)
        * The comparison is against the object's own location, not its
        * container's: an event that posts something into a closed box in the
        * player's room leaves it unseen until the box is opened.
+       *
+       * The stamp is 4.0's alone.  run390's mover (448B94-448CE3, inside
+       * checkevent 448EB8) writes the location (22), the static room-presence
+       * array (24) and the parent (42), and simply falls off the end -- no
+       * player-room compare, no write to the 3.9 seen byte (44) on any
+       * branch.  Measured live on cleft.taf (3.90, Adrift_3_cleft.txt): the
+       * klaxon event ends with the player standing in the Loading bay it
+       * delivers the packing case to, and the very next commands get
+       * "You can't open that." / "Take what?" -- the case stays
+       * unreferenceable until something lists it.
        */
-      if (gs_object_position (game, object) == gs_playerroom (game) + 1)
+      if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
+          && gs_object_position (game, object) == gs_playerroom (game) + 1)
         gs_set_object_seen (game, object, TRUE);
     }
 }

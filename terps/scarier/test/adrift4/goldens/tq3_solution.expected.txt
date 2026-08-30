@@ -358,7 +358,7 @@ Your score is 45 out of a maximum of 2400.  (1%)
 You pour the water into the unicorn's mouth, and you see it's burns quickly
 disappears. After a few minutes, it starts taking deeper breaths, and then
 stands up. You hear in your head: "Thank you Adventurer, you have saved me
-and the town of Trixnar"Congradulations, you have sucessfully completed my
+and the town of Trixnar"  Congradulations, you have sucessfully completed my
 first IF game. If I get enough positive comments, or at least constructive
 recommendations on how I could have made this game better, then I will make
 part 2 of this game.

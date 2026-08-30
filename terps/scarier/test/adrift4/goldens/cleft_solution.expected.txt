@@ -497,6 +497,14 @@ Time passes...
 > z
 Time passes...
 
+> look
+
+Loading bay
+This is a small flat platform at the base of the ramp.  A large red bulb in a
+wire cage is affixed to the wall.  The bulb is flashing wildly.
+
+Also here is packing case.
+
 > open case
 You open packing case.  Inside packing case is chocolate bar, a banana and
 gold coin.
@@ -536,9 +544,9 @@ small slot cut into one wall, about 2 inches long and half an inch wide.
 Your score is 60 out of a maximum of 100.  (60%)
 
 > put coin in slot
-You put the coin in the slot.Congratulations! You have successfully completed
-the Cleft in the Rock.  I hope you got the full points (100 are available in
-the game), and trust you enjoyed it.
+You put the coin in the slot.  Congratulations! You have successfully
+completed the Cleft in the Rock.  I hope you got the full points (100 are
+available in the game), and trust you enjoyed it.
 You scored 100 out of the maximum 100!
 That is 100% of the game!
 Well done - you scored maximum points!

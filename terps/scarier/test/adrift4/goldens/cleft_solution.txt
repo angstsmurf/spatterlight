@@ -15,7 +15,10 @@
 # The control-room combination is red + blue and NOT green/puce -- task 9's
 # restrictions want "press green"/"Press puce" *undone*.  Pulling the lever
 # summons a packing case to the Loading bay 15 turns later; the nine "z"s are
-# that wait, timed from the walk down the ramp.
+# that wait, timed from the walk down the ramp.  The "look" after them
+# lists the case: a 3.9 event move never stamps the seen byte (run390 mover
+# 448B94-448CE3), so even delivered to the room the player stands in it cannot be opened
+# until something lists it -- measured live, Adrift_3_cleft.txt.
 # "eat compass" is worth 3 points and destroys the compass, so it has to come
 # after "tie rope to compass" has already opened the shaft.
 # No <waitkey> pauses -- verified with SCR_MARK_WAITKEY=1, so there are no
@@ -105,6 +108,7 @@ z
 z
 z
 z
+look
 open case
 get coin
 u

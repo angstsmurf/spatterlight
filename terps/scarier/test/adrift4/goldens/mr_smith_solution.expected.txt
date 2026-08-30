@@ -632,8 +632,9 @@ Unfortunately, there is no time. You must stop Mr. Jones before he gets away.
 After taking careful aim you pull the trigger of the rifle. After almost no
 delay, the helicopter explodes and falls from the sky. An awesome sight. What
 you've done to save the world won't sink in until later, and for right now
-you're going home to catch up on some lost sleep.Congratulations! I hope you
-liked our game. If you didn't get 100%, you should go back and try for it!
+you're going home to catch up on some lost sleep.  Congratulations! I hope
+you liked our game. If you didn't get 100%, you should go back and try for
+it!
 You scored 90 out of the maximum 100!
 That is 90% of the game!
 You finished 10 points short.

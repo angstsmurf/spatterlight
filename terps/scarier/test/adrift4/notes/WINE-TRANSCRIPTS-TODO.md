@@ -516,6 +516,10 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `Oh_Human.taf` | 4.00 | full run400 replay, `Adrift_1_ohhuman.txt` (feed `cmdfile_ohhuman.txt` -- no `_w_`, which is why the 2026-08-30 re-sweep missed it) | 9/9 identical on every turn; compared 2026-08-30 |
 | `wingman1.taf` | 3.90 | full run390 replay, `Adrift_3_wingman1.txt` (POPUP_ANSWERS name dialog, feed `cmdfile_wingman1.txt`) | 32/32 identical but the tail -- once the 3.9 `(Getting off ...)` correction below landed |
 | `gamma.taf` | 3.90 | full run390 replay, `Adrift_3_gamma.txt` (POPUP_ANSWERS name dialog, feed `cmdfile_gamma.txt` -- 185 commands, the golden's `#` comment lines stripped) | 185/185 identical but the tail, all 4 walks and 10 NPCs in step -- once the pre-4.0 openness-line fix below landed |
+| `tcom.taf` | 3.90 | full run390 replay, `Adrift_3_tcom.txt` (feed `cmdfile_tcom.txt`) | 13/13 identical but the tail; the three walk scenes line up |
+| `windy2.taf` | 3.90 | full run390 replay, `Adrift_3_windy2.txt` (POPUP_ANSWERS name dialog, feed `cmdfile_windy2.txt` -- 147 commands) | 147/147 identical but the tail; 8 NPCs, both walks and the fixed skinny-dip event all in step |
+| `Richard.taf` | 3.90 | full run390 replay, `Adrift_3_richard.txt` (feed `cmdfile_richard.txt` -- 70 commands) | 70/70 identical but the tail -- once the 3.9 WinText pspace join below landed; 1000/1000 |
+| `cleft.taf` | 3.90 | full run390 replays, `Adrift_3_cleft.txt` + `Adrift_3_cleft2.txt` (feed `cmdfile_cleft.txt`) | first drive 90/90 echoed with 3 divergent turns -- the 3.9 event-move seen-byte split below; re-drive with the `look` added 91/91 identical but the tail, Runner wins 100/100 |
 | `sa.taf` (`sophie`) | 4.00 | live run400 replay, `Adrift_41_sophie.txt`..`Adrift_45_sophie.txt` (five runs of the solution's first fifty commands), plus the game's own 488-entry ALR table | the walk announcement is **joined into the turn's paragraph**, so 12 of sa.taf's 65 join-spanning ALRs fire and delete the arrivals they match -- see the FIXED section below |
 | `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
 | `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased**, and **what is *on* an object is listed before what is *in* it, in one sentence** -- see the two FIXED sections below.  Also closed the `knock` lead (a feed artefact) and pinned `burn memo` on the 4.0 `%object%` case rule (FIXED) |
@@ -4354,3 +4358,69 @@ proof unnoticed: `Adrift_1_hangover_run390.txt` says "The closet is
 open.  A two dollar bill is inside your closet." -- bare name in the
 openness sentence, full name in the contents sentence, in one message.
 Suite 395/395, wheretest 3/3.
+
+### richard's homecoming: 3.9 alone runs the win text through pspace()
+
+The richard drive (run390, 70 commands) came back clean except the winning
+turn: the Runner joins the final task's completion text and the game's
+WinText with the two-space separator -- "...you return to the staging
+area.  Rich smiles as you hand him the recall beacon..." -- where we
+butt-joined them ("area.Rich").  The SCR_DUMP_TASKS dump clears the
+authored-spaces theory: COMPLETE ends "staging area." with nothing after
+the period, and WINTEXT starts at "Rich".
+
+The decompile pins it to one call: run390's win branch (execute_task
+43F72C) at loc_43F252 tests the win flag and, before appending the
+WinText global (MemVar_468148), calls pspace() (loc_43F255; the sub at
+42C920: append "  " unless the buffer is empty or already ends with "  ",
+Chr(10) or "<br>").  The call is unconditional -- it runs even when the
+WinText is empty.  It is also 3.9's alone: run380 is the measured
+butt-join (microwaveman, "You win the game.You have destroyed Coffee
+Man..."), run370 shares 3.8's inline join with no pspace sub at all, and
+run400 is the measured butt-join-plus-terminator (ptbad).
+
+Ported as pf_buffer_pspace() (scprintf.cpp), an exact pspace: unlike
+pf_buffer_join() it never pops a trailing authored newline (that pop is
+what the ECOD3 "<br><br>" two-blank-lines measurement needs from the
+join, and pspace has no such removal).  Called from
+task_print_end_game_message()'s win branch for 3.90+ pre-4.0 games only.
+Twenty-three goldens re-blessed, every diff the join alone -- and two of
+them are their own corroboration: the archived tcom transcript prints the
+WinText line as "  [This ends the first part..." with the two leading
+spaces run390 really emits at the start of a line (the buffer it tested
+ended in neither break nor spaces), and deaths/wingman1 gain three-space
+runs because the authored text ends in ". " -- pspace only refuses to
+stack on an exact trailing "  ".  Suite 395/395, wheretest 3/3 after.
+
+### cleft's packing case: a 3.9 event move never stamps the seen byte
+
+The cleft drive (run390, 90 commands) diverged on three turns, all one
+cause.  The klaxon event (Time1=Time2=15, started by the lever task)
+moves the packing case to the Loading bay when it finishes -- the player
+is standing there, and "The klaxon stops sounding." printed identically
+on both sides -- yet the Runner then answers `open case` with "You can't
+open that." and `get coin` with "Take what?", where we opened the case
+and won the game.  The delivery is silent: nothing ever LISTED the case,
+so under the seen model it is unreferenceable -- in 3.9.  Scarier stamped
+the seen byte in its event mover whenever the object landed in the
+player's room, a rule read out of run400 (@456124: compare the freshly
+written location against the player-room global, stamp seen(48)).
+run390's mover (448B94-448CE3, inside checkevent 448EB8) has no such
+tail: it writes the location (22), the static room-presence array (24)
+and the parent (42), and falls off the end on every branch.  The stamp is
+now gated to TAF_VERSION_400+ (scevents.cpp evt_move_object); with it,
+Scarier's replay reproduces the Runner's refusals word for word.
+
+The route needed the reveal a player would need: a `look` after the nine
+`z`s lists the case ("timing" costs nothing -- the klaxon is the game's
+only event and it is already finished).  Golden re-derived and
+re-blessed, still 100/100.
+
+Open question from the same drive: with the coin never taken, run390
+answers `put coin in slot` with "You can't do that!" where Scarier says
+"I don't understand what you mean!" (the task matches, its held-coin
+restriction fails with an empty FailMessage -- compare the run390
+silent-task DontUnderstand rule from the Hangover cabinet, which this
+contradicts on the surface).  The turn is off the corrected route, so it
+is recorded here rather than chased; 3.7/3.8's event movers are also
+unread -- the gate models them as 3.9 (no stamp) pending a measurement.
