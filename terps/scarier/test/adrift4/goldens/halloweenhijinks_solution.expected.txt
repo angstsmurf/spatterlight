@@ -1,0 +1,1460 @@
+Loading game...
+
+Halloween Hijinks
+
+Intro
+
+HALLOWEEN HIJINKS
+
+"Tonight," declares Mother, "is going to be the best damn Halloween ever!
+It's going to rock! It's going to roll! It's going to be the Halloween
+everyone talks about for ever and ever and ever!"
+   You and your sister - dressed as a short, fat scarecrow and a wasp
+respectively - just nod numbly. Mother comes up with these strange notions
+from time to time and has the tendency to drag you and Lisa into them for
+'your own good'. Protesting is pointless. As is running away. And pretending
+you've suddenly died of a freak heart attack.
+...press a key...
+
+   "Now," says Mother, her eyes wide with the kind of fervour usually
+reserved for religious fanatics and school teachers, "go on and get some
+trick or treating done!"
+   Earlier you tried to raise the protest that you weren't very well.
+Unfortunately Mother didn't listen (she has selective deafness for whenever
+somebody tries to tell her something she doesn't want to hear) and so you and
+Lisa - the short, fat scarecrow and the wasp - have to go trick or treating.
+And not just ordinary trick or treating. Oh no.
+   For you live on Murder Drive.
+...press a key...
+
+   You're not quite sure where the name originated from but the brutal and
+bloodthirsty killings of half the street residents a few years back might
+have had something to do with it. Of course, you didn't live on Murder Drive
+then - you lived on a quaint little thoroughfare called Pleasant Avenue - but
+you heard of the killings all the same as they made headlines nationwide.
+Maybe even worldwide. It was the talk of the school and many were the times
+when your friends tried to get you to venture near Murder Drive and see if
+you could find a corpse or two that the cops might have missed.
+   But, eventually, things died down as they are wont to do. You put Murder
+Drive out of your mind.
+   Until one day when Mother was looking through the property pages in the
+local paper and said out loud, "oh, this one looks nice. Should be worth
+£389,000 but they've knocked it down to £11.50. Hmmm. Doesn't say why. How
+strange. Oh, and it's on Murder Drive."
+...press a key...
+
+   Right from the moment you heard those fateful words, you just knew what
+was going to happen. Sure enough, several weeks later you moved into Murder
+Drive: there was you protesting that you were all going to wind up dead, Lisa
+asking about the funny red stains which seemed to discolour the pavement at
+random intervals, Father complaining under the weight of eighteen separate
+suitcases, and Mother exclaiming: "Ah, this looks lovely! And there's that
+nice institute just on the other side of the road. That'll make for some
+eye-catching paintings."
+   The 'institute' in question turns out to be The Redrum Institute for the
+Criminally Demented. It's right next door to the school.
+   "Looks... lovely," you say, then do your best attempt at fainting...
+...press a key...
+
+Several months pass by during which time you get to know your neighbours:
+there's Mad Old Gubbins who limps around the street all day taking swipes at
+everyone he comes across with a steel-capped walking stick; there's Mrs
+Thumpp who is referred to as either 'Thumpp the Kids' or 'Ouch!' due to her
+tendency to try and thump her neighbours to death; then there's Professor
+Squick whose house is dark and secluded and from which foul smells seem to
+emanate through the day and night; then there's...
+   And so on. None of your neighbours are normal. There was a normal family
+living just down the street a while back but they mysteriously disappeared.
+It was the same night the police pulled some bodies out of the local river.
+...press a key...
+
+So here you are. On Halloween Night. About to go trick or treating on a
+street populated by mad, dangerous and highly demented people who have a
+severe dislike for anyone likely to ring their doorbell or come banging on
+their doors. Something tells you that tonight is going to be a night to
+remember...
+...press a key...
+
+If you get stuck type "help". Check your progress from time to time by typing
+"score" or "treats" to discover how many treats you have. The more the
+merrier.
+...press a key...
+
+> look
+Far South of Murder Drive
+The whole of Murder Drive is laid out before you in all its... Words fail
+you. It's not that it's a particularly nasty looking street or anything like
+that but when you know as much about the occupants of the houses as you do,
+it's hard to see the street for what it is and not let your opinions cloud
+your judgement. There's something vaguely unsettling about it all the same.
+It's not the sort of street you really want to be wandering along at night
+time dressed as a scarecrow.
+   Exits lie: north (to Murder Drive) and south (to the road leading home).
+Lisa is here.
+
+> give sweet to lisa
+You offer her one sweet - and she snatches the lot out of your hand and
+scoffs them down! She has a choking fit partway along but that doesn't stop
+her finishing them off and sticking her tongue out at you as she's doing it.
+   "Nyeaaahahahahahahah!" she cackles, spraying you with bits of sweets as
+she does so.
+   With an effort, you resist the urge to throttle her.
+
+> n
+You move north.
+
+Murder Drive [1]
+Close to the southern edge of Murder Drive you stand, shivering. It's not
+that cold here but you feel a definite need to shiver all the same. The
+rundown house of Barney Bloggs, the town's village idiot, lurks to the west
+while to the east is the likewise rundown dwelling of Mrs Thumpp, a woman
+whose name and hobby are one and the same. What she does for a living you
+don't know but she sure has a ready supply of thumps for anyone who gets on
+her nerves.
+   Exits lie: north and south (to Murder Drive), east (to Mrs Thumpps' house)
+and west (to Barney Bloggs' house).  Lisa follows you from the south.
+
+> n
+You move north.
+
+Murder Drive [2]
+Murder Drive curves here, one branch heading south to where your house is
+located (opposite the road from the lunatic asylum) and the other branch
+heading northeast. You've always tried to avoid venturing along here after
+the hours of darkness because you suspected it might be really, really
+spooky. You were right as well.
+   At the curve in the road is an overflowing dumpster that looks like it
+hasn't been emptied in years while on the other side of the road is an
+abandoned building.
+   Exits lie: northwest (to the abandoned building), northeast (further along
+Murder Drive) and south (to Murder Drive [1]).  Lisa follows you from the
+south.
+
+> climb dumpster
+You've never been a good climber and the sides of the dumpster are pretty
+sheer. There's no way you're going to be able to climb up them and see what's
+inside.
+   "You wan' me ter cwimb the ickle dumpster?" asks Lisa.
+   You're so shocked by this unexpected offer of help from Lisa that you
+stand there, awestruck. Lisa mutters something about "...uselessbwuddymen..."
+and scales the dumpster like a monkey. When she reaches the top she gives a
+cry of "woo-hoo! I founds a corpsie!"
+   You grimace. "Get down from there, Lisa!"
+   "No way! Me gonna bash im! Ah-ha! A gweat big stick!"
+   There comes the sound of thuds from above and the dumpster shakes from
+side to side.
+   "Lisa! Stop that at once!" you order. "Get down here before I tell Mother
+you've been beating up corpses!"
+   Your sister complains but in the end the dumpster stops rocking and the
+thudding sounds die down. Lisa comes scrambling down the side of the dumpster
+and tosses a rope at your feet.
+   "I founded dat in dere," she says. "Dere wuz loads o' junk 'n' stuff an' I
+felt like an ickle reminder fingie."
+
+> get rope
+You take the rope.
+
+> s
+You move south.
+
+Murder Drive [1]
+Close to the southern edge of Murder Drive you stand, shivering. It's not
+that cold here but you feel a definite need to shiver all the same. The
+rundown house of Barney Bloggs, the town's village idiot, lurks to the west
+while to the east is the likewise rundown dwelling of Mrs Thumpp, a woman
+whose name and hobby are one and the same. What she does for a living you
+don't know but she sure has a ready supply of thumps for anyone who gets on
+her nerves.
+   Exits lie: north and south (to Murder Drive), east (to Mrs Thumpps' house)
+and west (to Barney Bloggs' house).  Lisa follows you from the north.
+
+> e
+You move east.
+
+Outside Mrs Thumpp's House
+You're standing outside the seriously dilapidated house or Mrs Thumpp.
+Peering through the curtained windows, you spy blanket-covered furniture and
+shadows galore. Mrs Thumpp clearly doesn't go in for housekeeping much. Her
+front garden isn't anything to write home about either and the less said
+about the rubble-strewn path leading to her door the better. At any moment
+you expect to have to dive to one side to avoid falling pieces of roof but,
+so far, this hasn't been necessary.
+   Exits lie: west (to Murder Drive [1]) and southeast (into Mrs Thumpp's
+house).  Lisa follows you from the west.
+
+> tie rope to rod
+Acting on a hunch, you tie the rope to the metal rods and stretch it across
+the path. It looks pretty lethal.
+   "You is evil!" Lisa gasps. "Wicked! Someun's gonna trip on it 'n' snap der
+neck in 'alf!"
+
+> push bell
+You hesitantly reach out and lightly touch the doorbell - and the sound of a
+dog laughing hysterically rips out across the neighbourhood!
+   "Wicked!" cries Lisa, clapping her hands together. "Ah always wan'ed a lil
+doggie woggie but mom sed it might eat der goldifishies!"
+   A moment later you hear someone moving around inside the house and then
+the front door flies open. Silhouetted in the doorway is Mrs Thumpp, her
+fists raised to give you a severe pummelling.
+   "Er... trick or treat," you mumble, kind of wishing you hadn't done this.
+   Mrs Thumpp takes a step towards you - and you take a step back. You try to
+tell yourself that she's just one little old lady and you've nothing to fear
+from her. But then you take one look at the size of her fists, and feel very
+afraid.
+   "Smack 'er one, bruv!" Lisa says, clutching your arm. "G'wan, gi' the ol'
+bat a smack inna teef!"
+   You start to tell her to be quiet, but before you can even open your mouth
+Mrs Thumpp comes charging out of her house, fists raised - and then abruptly
+trips over the rope you had tied between the metal rods and goes down like a
+toppled tree. The thud she makes when she hits the ground is quite
+earth-shaking.
+   It also knocks her unconscious.
+   "Way-hey!" cries Lisa, doing a little dance. "We killed de old witch!"
+   "I think she's still alive," you say, noticing the rasping breaths coming
+from out of Mrs Thumpp's angry scar of a mouth.
+   "Way-hey! Kill 'er!"
+   "We can't kill a helpless old woman!"
+   "Sure we can! Gerra spade 'n' bash 'er 'ead in wiv it!"
+   You manage to shush her and notice that Mrs Thumpp didn't shut her front
+door after emerging from it. The way into her house lies open to you.
+
+> get rope
+You retrieve the rope from the metal rods.
+
+> se
+You move southeast.
+
+Mrs Thumpp's House
+If you didn't know better, you'd swear no one had lived in this house for
+years. The words "what", "a", "complete" and "dump" just don't do it justice
+in describing the state of things. A sagging table occupies the centre of his
+one room "house" (for want of a better word); surrounded by a burnt sofa, a
+broken chair and a stool with no seat it is an eyesore of unbelievable
+proportions. A cabinet which looks like someone with a big hammer and a
+bigger temper has had a go at it hangs on one wall. The floor below it is
+covered with cigarette butts and torn apart newspaper. In all honesty, you've
+never seen a bigger mess than this. And you've seen some messes in your time.
+(After all, you've got Lisa as a sister).
+   Exits lie: northwest (to outside the "house").  Lisa follows you from the
+north-west.
+
+> push sofa
+You give it a shove - and find a bullet proof vest lying in a shallow
+depression beneath it. You wonder why Mrs Thumpp hid this here and what she
+needed with a bullet proof vest. You take it with you all the same. Something
+tells you that you might well find a use for this before the night is over.
+
+> wear vest
+You put on the bullet proof vest.
+
+> tie rope to handle
+Showing just why you're considered such a bright spark at school, you tie the
+rope around the handle of the cabinet.
+   "Wicked!" cries Lisa, giving you a high five. "Wot you gonna do next?"
+
+> pull rope
+You yank on the rope as hard as you can - and the cabinet door comes undone!
+It doesn't actually fly from the cabinet and go careening across the room but
+it hangs ajar letting you see what's inside.
+   "Dere's someone's 'ead in 'ere!" cries Lisa, the first to peer into the
+cabinet.
+   You push her aside and look yourself. And find... no sign of a head but,
+instead, a treat. You quickly grab it and shove it deep down in your pocket
+where no one will be able to find it and take it from you.
+   "I still woulda liked ter see someone's 'ead in dere!" complains Lisa.
+   You shush her and gather up the rope which came loose during the
+dismantling of the cabinet door.
+
+> nw
+You move northwest.
+
+Outside Mrs Thumpp's House
+You're standing outside the seriously dilapidated house or Mrs Thumpp.
+Peering through the curtained windows, you spy blanket-covered furniture and
+shadows galore. Mrs Thumpp clearly doesn't go in for housekeeping much. Her
+front garden isn't anything to write home about either and the less said
+about the rubble-strewn path leading to her door the better. At any moment
+you expect to have to dive to one side to avoid falling pieces of roof but,
+so far, this hasn't been necessary. Lying on the path is the unconscious form
+of Mrs Thumpp, felled by your underhanded rope trick.
+   Exits lie: west (to Murder Drive [1]) and southeast (into Mrs Thumpp's
+house).  Lisa follows you from the south-east.
+
+> w
+You move west.
+
+Murder Drive [1]
+Close to the southern edge of Murder Drive you stand, shivering. It's not
+that cold here but you feel a definite need to shiver all the same. The
+rundown house of Barney Bloggs, the town's village idiot, lurks to the west
+while to the east is the likewise rundown dwelling of Mrs Thumpp, a woman
+whose name and hobby are one and the same. What she does for a living you
+don't know but she sure has a ready supply of thumps for anyone who gets on
+her nerves.
+   Exits lie: north and south (to Murder Drive), east (to Mrs Thumpps' house)
+and west (to Barney Bloggs' house).  Lisa follows you from the east.
+
+> n
+You move north.
+
+Murder Drive [2]
+Murder Drive curves here, one branch heading south to where your house is
+located (opposite the road from the lunatic asylum) and the other branch
+heading northeast. You've always tried to avoid venturing along here after
+the hours of darkness because you suspected it might be really, really
+spooky. You were right as well.
+   At the curve in the road is an overflowing dumpster that looks like it
+hasn't been emptied in years while on the other side of the road is an
+abandoned building.
+   Exits lie: northwest (to the abandoned building), northeast (further along
+Murder Drive) and south (to Murder Drive [1]).  Lisa follows you from the
+south.
+
+> ne
+You move northeast.
+
+Murder Drive [3]
+Silhouetted against the northwestern horizon is the terrifying abode of
+Professor Squick. Rumours abound that he's either a vampire or just someone
+with a real liking for long capes, pale skin and neck measurements. Murder
+Drive winds away past his house and you'll be pleased to get out of here.
+   Exits lie: southwest (to murder Drive [2]), northwest (to outside
+Professor Squick's house) and northeast (to murder Drive [4]).
+Balfour is crouched at the side of the road looking... strange.  Lisa follows
+you from the south-west.
+
+> give treat to balfour
+Wondering if you're making a really big mistake, you hand the treat over to
+Balfour - who promptly scoffs it in one go!
+   "And now you gots wots I gots and wots you needs," he says, and drops on
+the ground a hammer, some wood and some nails.
+   "Yer greedy pig'ead!" says Lisa angrily. "I wuz gonna eats that tweat
+meself!" She looks at you. "Kill 'im, bruv!"
+   Balfour gives a chortle and goes rushing off down the street before you
+decide to have a change of heart and kill him anyway.
+
+> get wood
+You take the wood.
+
+> get hammer
+You take the hammer.
+
+> get nails
+You take the nails.
+
+> nw
+You move northwest.
+
+Outside Professor Squick's House
+You once saw a film about a man who lived in a hotel and dressed up in
+women's clothing and went round killing people (you think it was on while you
+were waiting for Friends) and the house in that film looked very similar to
+this house. The house of Professor Squick is large, imposing and doesn't look
+at all friendly. Lightning crackles around the many TV aerials protruding
+from the roof. The front façade of the house is dotted with a dozen or so
+windows, each of them opening into rooms that are dark and creepy. The main
+door lies just before you and the knocker resting on it is shaped into a
+screaming face.
+   Exits lie: northwest (into Professor Squick's house) and southeast (to
+Murder Drive [3]).
+"Wicked!" gasps Lisa, clapping her hands to her face in mock horror. "I 'ear
+da guy who lives 'ere is a right evil scumbo an' he kidnaps people an'
+experiments on 'em and turns 'em inna zombees 'n' such!"
+   "He needs to be locked up," you say.
+   "He's me 'ero!" cries your angelic sister. "Ooh, can I 'ave his aut'graph,
+bruv?"
+
+> use knocker
+The knocker makes a hideously loud !!!GONG!!! sound as you lightly tap it on
+the door - and then, a second later, the door opens. Out steps a vampire!
+   "Ahahahahahahahahah!" wails Lisa. "'Elp me, bruv, he's gonna drink me
+blood!"
+   "Greetings, children," says Professor Squick, rubbing his hands together
+in an eerie approximation of a mad scientist. "You have come... trick or
+treating I believe the term is?"
+   "Ahahahahahahaah!"
+   "Er, that's right," you say hesitantly.
+   "Excellent. I have a... proposition for you. One you may find to your
+estimable advantage. What say you?"
+   "Ahahahahahahaah!"
+   "What do you want?" you ask.
+   "I recently had a break-in at my... dwelling. A neighbour of mine stole
+some... er, item from me. An item, yes. She stole this item and she took it
+away from me. Retrieve this item for me and you shall have the treat that you
+desire. What say you?"
+   "Ahahahahahahaah!"
+   "What did she steal?"
+   "She stole..." Professor Squick hesitates, glances around to see if anyone
+might be listening, then shrugs and says quietly, "a small vial of... glue."
+   "Ahahahahahahaah!"
+   "Glue?"
+   "Glue. It has, er, special properties and is quite irreplaceable. Retrieve
+it for me and I shall be most grateful. Do we have a deal?"
+   "Ahahahahaha- is dere gonna be any ice cweam?" asks Lisa, breaking off her
+wailing midway through to ask the only question to her that needs asking.
+   "Undoubtedly." Professor Squick gives you a smile which doesn't look very
+convincing - you suspect he's not had much experience at smiling and is
+finding the idea a strange one - and murmurs, "excellent" before retreating
+into his house.
+   A few seconds pass before Lisa says, "'ee seemed like a nice ol' git."
+
+> se
+You move southeast.
+
+Murder Drive [3]
+Silhouetted against the northwestern horizon is the terrifying abode of
+Professor Squick. Rumours abound that he's either a vampire or just someone
+with a real liking for long capes, pale skin and neck measurements. Murder
+Drive winds away past his house and you'll be pleased to get out of here.
+   Exits lie: southwest (to murder Drive [2]), northwest (to outside
+Professor Squick's house) and northeast (to murder Drive [4]).  Lisa follows
+you from the north-west.
+
+> sw
+You move southwest.
+
+Murder Drive [2]
+Murder Drive curves here, one branch heading south to where your house is
+located (opposite the road from the lunatic asylum) and the other branch
+heading northeast. You've always tried to avoid venturing along here after
+the hours of darkness because you suspected it might be really, really
+spooky. You were right as well.
+   At the curve in the road is an overflowing dumpster that looks like it
+hasn't been emptied in years while on the other side of the road is an
+abandoned building.
+   Exits lie: northwest (to the abandoned building), northeast (further along
+Murder Drive) and south (to Murder Drive [1]).  Lisa follows you from the
+north-east.
+
+> nw
+You move northwest.
+
+Abandoned Building
+Water runs in a trickle down the walls of this house which doesn't look like
+anyone has been living in for a long, long time (or if they have then they
+won't be winning any awards from the Tidy & Elegant Homes Commission). Across
+the broken floor, which is littered with piles of garbage and bits of broken
+ceiling, run rats as large as footballs; the stench they give off is the sort
+of thing that should have a whole page in the dictionary to itself. Resting
+in one corner is a safe which looks strangely out of place in these
+surroundings due to its sparkly newness. In another corner are a pile of
+shattered wooden beams that seem to have an 'arranged' look to them.
+   Exits lie: southeast (to Murder Drive [2]).  Lisa follows you from the
+south-east.
+
+> x body
+"Yeh, let's rob 'im!" coos Lisa. "See wot ee's got!"
+   ""I'm not robbing him, Lisa," you say testily. "I'm... I'm, well..."
+   "Wot?"
+   "Just be quiet. I'm trying to see what he's got."
+   Ignoring her protests, you gingerly search through the pockets of the dead
+man and find... nothing. Whoever he was, he isn't carrying any form of ID, or
+maybe it was taken off him after he died. You find no money, no credit cards,
+not even a key. In fact, all you do find is a crash helmet that was lying at
+the side of him. You wonder why it was left behind while everything else he
+had was taken, although when Lisa lifts the helmet up (to "gi' it der once
+over!") you notice a massive crack down one side. Mystery solved.
+   "I think I'd better take that," you say, holding your hand out for the
+helmet.
+   Lisa looks about to protest then sticks her tongue out at you and drops
+the helmet with a thud on the floor.
+   "Wuz really 'eavy anyway," she says.
+   You bend down and snatch up the helmet.
+
+> wear helmet
+You pop the helmet on.
+   "Crikey!" says Lisa. "Yer don'ts 'alf look like a piggy wiv dat on!"
+
+> se
+You move southeast.
+
+Murder Drive [2]
+Murder Drive curves here, one branch heading south to where your house is
+located (opposite the road from the lunatic asylum) and the other branch
+heading northeast. You've always tried to avoid venturing along here after
+the hours of darkness because you suspected it might be really, really
+spooky. You were right as well.
+   At the curve in the road is an overflowing dumpster that looks like it
+hasn't been emptied in years while on the other side of the road is an
+abandoned building.
+   Exits lie: northwest (to the abandoned building), northeast (further along
+Murder Drive) and south (to Murder Drive [1]).  Lisa follows you from the
+north-west.
+
+> ne
+You move northeast.
+
+Murder Drive [3]
+Silhouetted against the northwestern horizon is the terrifying abode of
+Professor Squick. Rumours abound that he's either a vampire or just someone
+with a real liking for long capes, pale skin and neck measurements. Murder
+Drive winds away past his house and you'll be pleased to get out of here.
+   Exits lie: southwest (to murder Drive [2]), northwest (to outside
+Professor Squick's house) and northeast (to murder Drive [4]).  Lisa follows
+you from the south-west.
+
+> ne
+You move northeast.
+
+Murder Drive [4]
+The road curves around here and the sky overhead begins to get very, very
+dark (although you're sure this is just pure coincidence). On one side of the
+road lurks the house of Elsa Trivett, a woman with a mad fixation on guns. On
+the other side is where Mad Old Gubbins lives while to the northwest is the
+house of Colonel Haggard, a demented former army man. You've heard evil
+things about all three.
+   Exits lie: southwest to murder Drive [3], north to Elsa Trivett's house,
+northwest (to outside Colonel Haggard's house) and southeast (to Mad Old
+Gubbins' house).  Lisa follows you from the south-west.
+
+> n
+You move north.
+
+Gaudy architecture seems a big thing in the house of Elsa Trivett, Murder
+Drive's answer to Calamity Jane and Annie Oakley all rolled into one. Hideous
+chairs that look like petrified animals more than items of furniture lurk
+about the room. Several rifles are nailed to the walls, their triggers
+looking surprisingly worn. A TV covered with more bullet holes than you could
+shake a stick at sits - or, rather, is thrown - in one untidy corner. A
+flight of steps lead up the second floor of Elsa's house though from the
+spent cartridges and boxes of ammo littering each step, climbing them won't
+be a walk in the party.
+   Exits lie: up (to the second room of Elsa's house) and south (to Murder
+Drive [4])
+
+Elsa Trivette is here, a shotgun in one hand, a rifle in the other and a
+demented grin spread across her face.
+
+"Hi there, kids!" cries Elsa, her itchy trigger finger clenching and
+unclenching on the trigger of her two guns. "Come for a little shooting?"
+   "Yer don't scares us, yer ol' witch!" cries Lisa. "Gi' us yer worse shot!"
+   "I might do at that," says Elsa.
+   She swings the shotgun around until it's pointing directly at - you!
+   "Say your prayers!" whispers the mad gun-mistress - and opens fire!
+   The bullet slams into you, throwing you across the room. From that range
+it kills you outright.
+   "You want some as well, little girl?" asks Elsa, swivelling to face Lisa.
+   "Uh-oh," says Lisa with a shake of her head. "Me jus' a lil girl. No need
+ter be nasty ter me."
+   Elsa looks about to argue with this and shoot Lisa anyway but some last
+vestige of decency seems to come to the fore and instead she lowers the
+rifle.
+   "Hell with it," she mutters. "I've got better things to do than hang
+around this deadbeat house with a corpse and his sister. I'm outta here!"
+   She fires the rifle into the ceiling - dislodging several tiles which fall
+to the floor with a crash - then goes running out of the house. The sound of
+her taking shots at the scenery can be heard for several minutes afterwards.
+   Lisa waits a few seconds then comes over to your corpse, looks down at it
+curiously, then opens her mouth to spit on you.
+   "Don't you dare!" you snap.
+   Lisa frowns. "I fought you wuz ded!" she complains, sounding a bit more
+disappointed than you would have liked.
+   You stagger to your feet, swaying from side to side. The bullet proof vest
+now has a massive dent in the front of it and your skin is a little tender
+beneath. Still, you suppose it's better than getting a bullet in your chest.
+   "You ain't ded den?" mutters Lisa.
+   "No, I made it. Thanks for your concern."
+   "Only mom sed I could 'ave yer room if yer died an' now you ain't-"
+   "Like I said, thanks for your concern."
+   Some days you wonder if your parents were playing a practical joke on you
+when they had Lisa.
+
+> u
+You move up.
+
+Elsa's Bedroom
+From the Dirty Harry poster dominating one bullet-riddled wall to the
+collection of spent cartridges lying on a shelf, it is clear you are in the
+bedroom of none other than Elsa Trivett, the most gun crazy person you know.
+Peering around her dimly lit sleeping quarters (dimly lit because of her
+tendency to take pot shots at the light bulbs), you spy a bed, dresser and
+bedside cabinet. And a LOT of bullet holes. The very atmosphere smells of
+gunfire and gunpowder and breathing deeply probably isn't considered a good
+way to extend your life span.
+   Exits lie: down (to the main room of Elsa's house).  Lisa follows you from
+below.
+
+> read note
+The writing reads: "This is my personal stash. Keep out everyone. Its
+contents - comprising a gun, some ammo and half a dozen or so Halloween
+treats - are mine and no one else's. Anyone I find opening my cabinet gets a
+shot to the head."
+   It's signed Elsa Trivett.
+
+Half a dozen treats, eh? That'd be enough to satisfy mom that you had done a
+good job of trick or treating this night and let you go home. And the gun and
+the bullets don't sound bad. You could certainly use some protection in a
+dangerous place like Murder Drive.
+   "Le's grab der gun, bruv!" says Lisa, clutching at your shoulder. "We can
+goes out shootin' the 'ell outta ever'one we see!"
+
+> smash dresser
+You aim a death dealing punch at the dresser - and then hop around the
+bedroom yelling and howling in pain and wondering if your fist is broken. It
+isn't. But you're pretty sure it came close there. You'd better not try that
+again any time soon.
+   "Aahahahahaha!" laughs Lisa. "You's weak as pee! Can't even bash open a
+lil dwesser!"
+   "Why don't you break it open then?" you hiss, clutching your poorly hand.
+   "'Kay." Lisa looks hard at the dresser, takes a few deep breaths, mutters
+something quietly that sounds like "Way-hey fer der Teletubbies!" and flies
+across the room at the dresser. At the last moment she brings her head
+smashing down on it with enough force to make the room shake! With a
+crunching sound, the dresser comes swinging open!
+   "Nyeahahaaha!" sneers Lisa, staggering a bit from the blow she's just
+received to the head. "You sucks at bashin', bruv!"
+   You shush her and have a look inside the dresser. It contains...
+surprisingly, no bullets or guns or anything along those lines but just
+Elsa's logbook, a treat and a key. You take them all, stuffing the treat deep
+down in your pocket where it can't fall out or be taken from you.
+   "No fair!" Lisa complains. "Yer get ev'ryfin' an' I get nuffin' an' it
+were me wot bashed der dwesser open!"
+
+> d
+You move down.
+
+Elsa Trivett's House
+Gaudy architecture seems a big thing in the house of Elsa Trivett, Murder
+Drive's answer to Calamity Jane and Annie Oakley all rolled into one. Hideous
+chairs that look like petrified animals more than items of furniture lurk
+about the room. Several rifles are nailed to the walls, their triggers
+looking in good need of a pulling. A TV covered with more bullet holes than
+you could shake a stick at sits - or, rather, is thrown - in one untidy
+corner. A flight of steps lead up the second floor of Elsa's house though
+from the spent cartridges and boxes of ammo littering each step, climbing
+them won't be a walk in the park.
+   Exits lie: up (to the second room of Elsa's house) and south (to Murder
+Drive [4]).  Lisa follows you from above.
+
+> s
+You move south.
+
+Murder Drive [4]
+The road curves around here and the sky overhead begins to get very, very
+dark (although you're sure this is just pure coincidence). On one side of the
+road lurks the house of Elsa Trivett, a woman with a mad fixation on guns. On
+the other side is where Mad Old Gubbins lives while to the northwest is the
+house of Colonel Haggard, a demented former army man. You've heard evil
+things about all three.
+   Exits lie: southwest to murder Drive [3], north to Elsa Trivett's house,
+northwest (to outside Colonel Haggard's house) and southeast (to Mad Old
+Gubbins' house).  Lisa follows you from the north.
+
+> sw
+You move southwest.
+
+Murder Drive [3]
+Silhouetted against the northwestern horizon is the terrifying abode of
+Professor Squick. Rumours abound that he's either a vampire or just someone
+with a real liking for long capes, pale skin and neck measurements. Murder
+Drive winds away past his house and you'll be pleased to get out of here.
+   Exits lie: southwest (to murder Drive [2]), northwest (to outside
+Professor Squick's house) and northeast (to murder Drive [4]).  Lisa follows
+you from the north-east.
+
+> sw
+You move southwest.
+
+Murder Drive [2]
+Murder Drive curves here, one branch heading south to where your house is
+located (opposite the road from the lunatic asylum) and the other branch
+heading northeast. You've always tried to avoid venturing along here after
+the hours of darkness because you suspected it might be really, really
+spooky. You were right as well.
+   At the curve in the road is an overflowing dumpster that looks like it
+hasn't been emptied in years while on the other side of the road is an
+abandoned building.
+   Exits lie: northwest (to the abandoned building), northeast (further along
+Murder Drive) and south (to Murder Drive [1]).  Lisa follows you from the
+north-east.
+
+> nw
+You move northwest.
+
+Abandoned Building
+Water runs in a trickle down the walls of this house which doesn't look like
+anyone has been living in for a long, long time (or if they have then they
+won't be winning any awards from the Tidy & Elegant Homes Commission). Across
+the broken floor, which is littered with piles of garbage and bits of broken
+ceiling, run rats as large as footballs; the stench they give off is the sort
+of thing that should have a whole page in the dictionary to itself. Resting
+in one corner is a safe which looks strangely out of place in these
+surroundings due to its sparkly newness. In another corner are a pile of
+shattered wooden beams that seem to have an 'arranged' look to them.
+   Exits lie: southeast (to Murder Drive [2]).  Lisa follows you from the
+south-east.
+
+> open safe
+Using the key you swiped from Elsa Trivett's house, you unlock the safe.
+Inside you find-
+   "Urgghhhh! Someone's 'ead!" wails Lisa, clapping her hands over her eyes
+in shock.
+   You peer in the safe and see a small tube of... zombie glue? At least,
+that's what it says on the side of the tube although you've never heard of
+such a thing before.
+   "Is it someone's 'ead?" asks Lisa, looking over your shoulder. "An' issit
+all bloody 'n' battered 'n' such?"
+   "No, it's a tube of zombie glue," you say.
+   Her eyes go wide. "Wicked! We gonna make us a zombee wiv it?"
+   You tell her to be quiet and check the safe again to see if there's
+anything else in there you missed the first time.
+   There is. You also come across a journal.
+   "Is dat someone's 'ead?" Lisa asks, then adds, sounding disappointed, "it
+don't look much like someone's 'ead!"
+
+> se
+You move southeast.
+
+Murder Drive [2]
+Murder Drive curves here, one branch heading south to where your house is
+located (opposite the road from the lunatic asylum) and the other branch
+heading northeast. You've always tried to avoid venturing along here after
+the hours of darkness because you suspected it might be really, really
+spooky. You were right as well.
+   At the curve in the road is an overflowing dumpster that looks like it
+hasn't been emptied in years while on the other side of the road is an
+abandoned building.
+   Exits lie: northwest (to the abandoned building), northeast (further along
+Murder Drive) and south (to Murder Drive [1]).  Lisa follows you from the
+north-west.
+
+> ne
+You move northeast.
+
+Murder Drive [3]
+Silhouetted against the northwestern horizon is the terrifying abode of
+Professor Squick. Rumours abound that he's either a vampire or just someone
+with a real liking for long capes, pale skin and neck measurements. Murder
+Drive winds away past his house and you'll be pleased to get out of here.
+   Exits lie: southwest (to murder Drive [2]), northwest (to outside
+Professor Squick's house) and northeast (to murder Drive [4]).  Lisa follows
+you from the south-west.
+
+> nw
+You move northwest.
+
+Outside Professor Squick's House
+You once saw a film about a man who lived in a hotel and dressed up in
+women's clothing and went round killing people (you think it was on while you
+were waiting for Friends) and the house in that film looked very similar to
+this house. The house of Professor Squick is large, imposing and doesn't look
+at all friendly. Lightning crackles around the many TV aerials protruding
+from the roof. The front façade of the house is dotted with a dozen or so
+windows, each of them opening into rooms that are dark and creepy. The main
+door lies just before you and the knocker resting on it is shaped into a
+screaming face.
+   Exits lie: northwest (into Professor Squick's house) and southeast (to
+Murder Drive [3]).  Lisa follows you from the south-east.
+
+> use knocker
+The knocker rings out over the neighbourhood with a loud !!!GONG!!! sound
+which quite sets your teeth on edge. As before, the door swings open and
+there stands Professor Squick.
+   "Greetings, children," he murmurs, rubbing his hands together. "Do you
+have what we discussed?"
+   Before you can say anything, Lisa says, "gi' us da sweeties 'fore yous
+gets the glue, yer ol' git!"
+   You try to shush Lisa, fearing that Squick might well pounce on her and
+suck her blood but the vam- er, Professor seems quite amused by her. "Ah,
+what a dear child. So full of... life. Enter, children. The... sweets lie
+within."
+   Squick backs away, leading you into his house.
+   "Wa-hey! Sweeties!" cries Lisa, and goes charging into the house before
+you can stop her.
+   With a sigh, you rush after her.
+
+Professor Squick's Lab
+A stainless steel table dominates the centre of this room on which is lying a
+dead body that looks like it’s had one too many run-ins with a big guy with a
+hammer and a lot of suppressed rage. A bank of strange looking machines are
+pushed against the far wall where you also see several jars in which look to
+be stored preserved body parts. All of this is quite gruesome and unsettling
+but nothing you haven't seen before on kids TV. A passage opposite the bank
+of machines leads further into the Professor's macabre dwelling.
+   Exits lie: west (to the passage).
+Professor Squick is here.
+
+"Now, the zombie glue," says Squick, extending one slim, pale hand. "Hand it
+over."
+   "Gi' us de sweeties first, yer ol' git!" shouts Lisa. "Or I'm eatin' der
+glue!"
+   Squick starts to say something along the lines of "don't be silly! If you
+eat that glue, you'll die! I dare you to eat the glue!" but clearly something
+in Lisa's eyes - the total madness of a six year old girl perhaps - convinces
+him that daring her to do anything would be a very, very bad idea indeed.
+   "Very well," says Squick. He reaches into his pocket and pulls out some
+chocolates. "Will these do? Now, I suggest that we do the hand over in the
+manner of a casual extending of the hand carrying the items to be exchanged,
+followed by a few brief-"
+   "Gorrem!" cries Lisa who has already snatched the chocolates out of
+Squick's hand and proceeds to eat them noisily.
+   "Ah, yes." Squick frowns, looks peeved for a moment, then extends his hand
+once more. "The glue, if you please."
+   "Gi' 'im the glue, bruv," says Lisa as she scoffs the chocolates. She
+makes quite a mess of them although you doubt the chocolates have yet been
+born that Lisa could eat without making a mess. "We gots what's we wan'ed!"
+   You hand over the zombie glue.
+   "Excellent," remarks Squick, turning away from you. "You may go now."
+   It seems the meeting is over.
+
+> push knob
+You push a knob at random. It makes a weird farting sound but nothing else
+seems to happen.
+   "Cor, bruv!" gasps Lisa. "Wuz dat you?"
+
+> push button
+You press a button at random. A dry, rancid smell spreads across the lab.
+   "Cor!" gasps Lisa. "Some filthy git's let rip!"
+   Squick gives you a hard look. "Please don't press that again. The
+technology is not quite... perfected."
+
+> turn dial
+You turn one of the dials a fraction of an inch to the right.
+   Absolutely nothing happens.
+   "Curses," says Squick. "I was sure that would kill you outright. Maybe I
+wired it up wrong."
+   "Why'd you let me touch it if you thought it would kill me?" you ask with
+alarm.
+   "Volunteers for my experiments are so hard to acquire, particularly after
+the last few blew up. So when you reached out your hand, well... I thought it
+was a dream come true. I was hardly going to tell you for a reason as trivial
+as keeping you alive and breathing."
+
+> push lever
+With a groan of effort (the lever is more than a little stiff), you push one
+of the levers. Unfortunately, aside from getting some dirt on your hands
+nothing much seems to happen.
+
+> pull lever
+You grab hold of a lever and give it a pull. From somewhere overhead you hear
+a crackling sound.
+   "I wonder what that was," Squick says, mirroring the question you were
+thinking a moment before.
+
+> flip switch
+The moment you flip a switch absolutely nothing happens. Pity. You were really expecting something
+interesting to happen there.
+
+> x jar
+"My... collection," says Squick. "Would you care to... make a contribution?"
+   You wisely refrain from answering. However, behind one of the jars you do
+come across a treat which you quickly swipe and shove deep down in your
+pocket. Squick doesn't notice.
+
+> x zombie
+You lean over the dead body - and then get the shock of your life when it
+opens its eyes!
+   "Wahahahahahahah!" wails Lisa. "Der evil ded! Ahahahahahah!"
+   "Amazing!" gasps Professor Squick. "You hit upon the exact combination
+required to restore the dead to life!"
+   "I- what?"
+   Squick hurries over and checks the 'corpse' for a pulse. "He lives," he
+murmurs, awe in his tone. "I have hit upon the secret of restoring life to
+the dead!"
+   "Hold on," you say. "I did all that stuff with the levers and dials and-"
+   "Yes, yes, but that's largely incidental. It was I who stole that corpse
+from the morgue, I who arranged the levers and dials to whatever the way they
+were, I who realised that the correct application could restore this corpse
+to-"
+   "I don't suppose," says the 'corpse', "that you'd mind calling me by my
+own name."
+   Squick hesitates and glances down at it- er, him. "You can... talk?"
+   "Of course I can damn well talk, yer silly sod," the 'corpse' says and
+sits up. For someone apparently dead, he moves with surprising fluidity. "I
+could talk before that evil git with the axe whacked me one and I can talk
+now."
+   "Some rotta killed yer, eh?" asks Lisa. "Sucks!"
+   "It came keen as well, two feet of stainless steel rammed through the side
+of my head. The name's Fred by the way." Fred reaches up and gingerly pats
+the side of his head where, you notice uneasily, there is a large, gaping
+hole. He winces. "Well, can't be helped. And I guess I'll just have to learn
+to live with it." He pauses, thinks over what he's said and then laughs.
+"'Live' with it? Ha! Geddit?"
+   "Very amusing," says Squick, not sounding amused at all. "Now, if you'd be
+so kind as to lie back down, I have a number of quite pressing tests to
+perform and then- hold on, where do you think you're going?"
+   "After the swine what put me in the ground in the first place," says Fred
+who is already halfway out of the door. "Then I might head down to the
+nearest bar and check out the local skirt. See ya, kid," he adds to you. "I
+owe you one."
+   "'Ow's about some sweeties?" shouts Lisa but Fred doesn't answer.
+   Squick starts to pursue him but one look from Fred tells him he doesn't
+want pursuing. The professor comes to a halt and visible sags.
+   "Well," he says a minute or so later, "at least I know my experiment was a
+success. Now, all I need is a more malleable corpse and I'll be well away..."
+
+> talk squick
+"What is it this time?" he'd asks. "Can't you see I'm busy?"
+
+   1: "Actually, it just looks like you're standing there with nothing better
+to do with your time."
+   2: "Sorry for bothering you. Guess I'll be on my way."
+   3: "Are you really a vampire?"
+   4: "What is it you do here?"
+   5: "Do you need a hand with anything?"
+
+> 5
+"My experiments are reaching a crucial stage," says Squick, and gives a mad
+scientist cackle as he rubs his skeletal hands together. "I seek to restore
+the dead to life, to give them a second chance, to turn back the evil tide of
+death that is sweeping across this dismal little planet. And, in the bargain,
+to make myself filthy stinking rich. But I need to experiment on a live
+person to achieve this."
+   "A - gulp! - live person?" you say.
+   "Indeed. Someone, in fact, just like you."
+
+   1: "Sorry. Not interested."
+   2: "It'd be an honour. What needs doing?"
+   3: "Let me ask you something else."
+
+> 2
+"Excellent! It requires a simple injection of my zombie serum and then...
+well, we shall see." Squick reaches into his pocket and pulls out a syringe.
+"Speak to me again when you are ready, child, and we shall pull off the
+greatest scientific experiment in the history of man."
+
+> talk squick
+"Let the experiment begin," says Squick with a mad laugh that would have done
+a Hammer Horror film star justice. He lifts his syringe - which, you notice
+with a thrill of horror, is fully six inches long. "Now, you know how when
+your family doctor is about to give you an injection and he tells you it
+won't hurt and then he sticks the needle in you and, indeed, it does hurt?"
+   "'Ee's gonna kill yer, bruv!" says Lisa, sounding quite a bit more excited
+at the prospect than you feel altogether comfortable with.
+   "Er - gulp! - yes."
+   "Well, this..." The syringe looms closer. "This will hurt!"
+   And he jabs the syringe into your arm with a triumphant cry!
+   And nothing happens.
+   You wait for a minute and still nothing happens.
+   "Curses!" says Squick. "You're still alive!"
+   "Of course I'm still alive," you say. "Why wouldn't I-" The penny drops.
+"Hang on! You thought that was going to kill me!"
+   Squick has the decency to wince. "Oh no, not as such. I thought there was
+a  slight possibility it would kill you."
+   "How slight?"
+   "Oh, about 99.34% or thereabouts. But anyway," he adds as you start to
+complain, "it seems not to have worked. You're still alive. Damn. I must have
+messed up the dose somehow. I wonder if you'd mind waiting there while I mix
+another... No, I see not. At least, I'm assuming that those two raised
+fingers of yours signify that you aren't interested."
+   "That's putting it mildly."
+   "Still, not to worry. Tell you what, have this and keep quiet about this
+to your parents, okay?"
+   He hands you an action man figure.
+   "This is my reward?" you say, looking at the action man figure. He's
+missing a leg and an arm. Oh, and another leg. And another arm. And the less
+said about his head the better.
+   "Yes. It's what is termed a 'bribe'. Take it and keep quiet."
+   "Worrabout my bwibe?" Lisa says. "I wan' a great big choccy bar wiv lots
+'n' lots o' dec-rations on top o' it!"
+   "Sorry. I'm right out of those," says Squick, who clearly hasn't had a lot
+to do with children since the mid-70's.
+   He ignores your protests and ushers you to the door. You're still
+protesting when the door slams shut with a resounding thud behind you.
+
+Outside Professor Squick's House
+You once saw a film about a man who lived in a hotel and dressed up in
+women's clothing and went round killing people (you think it was on while you
+were waiting for Friends) and the house in that film looked very similar to
+this house. The house of Professor Squick is large, imposing and doesn't look
+at all friendly. Lightning crackles around the many TV aerials protruding
+from the roof. The front façade of the house is dotted with a dozen or so
+windows, each of them opening into rooms that are dark and creepy. The main
+door lies just before you and the knocker resting on it is shaped into a
+screaming face.
+   Exits lie: northwest (into Professor Squick's house) and southeast (to
+Murder Drive [3]).
+
+"Sonofabee-ach!" Lisa hisses. She pounds on the door for a bit before having
+a sulk and trying to eat the door handle. "Lousy ol' git! Didna even gi' me a
+darn reward! Wahahahahahaha!"  Lisa follows you.
+
+> se
+You move southeast.
+
+Murder Drive [3]
+Silhouetted against the northwestern horizon is the terrifying abode of
+Professor Squick. Rumours abound that he's either a vampire or just someone
+with a real liking for long capes, pale skin and neck measurements. Murder
+Drive winds away past his house and you'll be pleased to get out of here.
+   Exits lie: southwest (to murder Drive [2]), northwest (to outside
+Professor Squick's house) and northeast (to murder Drive [4]).  Lisa follows
+you from the north-west.
+
+> ne
+You move northeast.
+
+Murder Drive [4]
+The road curves around here and the sky overhead begins to get very, very
+dark (although you're sure this is just pure coincidence). On one side of the
+road lurks the house of Elsa Trivett, a woman with a mad fixation on guns. On
+the other side is where Mad Old Gubbins lives while to the northwest is the
+house of Colonel Haggard, a demented former army man. You've heard evil
+things about all three.
+   Exits lie: southwest to murder Drive [3], north to Elsa Trivett's house,
+northwest (to outside Colonel Haggard's house) and southeast (to Mad Old
+Gubbins' house).  Lisa follows you from the south-west.
+
+> nw
+You move northwest.
+
+Outside Colonel Haggard's House
+You're on the front porch of Colonel Haggard's house. Remnants from his days
+in the army litter the garden and the house itself looks like something that
+has seen one too many wars. The walls are scarred with bullet holes and
+larger craters that look like cannon fire or maybe rocket blasts. The front
+door - seven feet of stainless steel which you suspect was once part of a
+tank - stands closed before you and looks to be the only way inside the house
+(the windows have been covered with steel bars).
+   Exits lie: north (into Colonel Haggard's house) and southeast (to Murder
+Drive [4]).  Lisa follows you from the south-east.
+
+> knock door
+Your knock sounds hollow on the door and echoes away eerily along the whole
+street. Then, slowly, the door opens.
+   "Wahahahahahah!" wails Lisa, clutching your arm in fright.
+   There in the doorway stands Colonel Haggard, wearing a full suit of body
+armour and carrying a bazooka.
+   "WHAT IN HELL DO YOU KIDS WANT?" he thunders.
+   You open your mouth and say:
+
+   1: "Trick or treat!"
+   2: "Er, hi. Insurance salesman here. You interested in buying any?"
+   3: "What gives with all the army stuff in your front garden?"
+   4: "I've got this lovely action man figure which I thought you might be
+interested in."
+
+> 4
+The colonel hesitates in the act of yelling at you for wasting his time and
+stares fixedly at the action man figure in your hand.
+   "MY GOD," he gasps, "IT REALLY IS THE FIRST EVER ACTION MAN! I NEVER
+DREAMED THIS MOMENT WOULD COME TRUE THAT I, EUSTACE PHILOMEN COLUMBINE
+HAGGARD, WOULD HOLD IN MY HAND THE ONE, THE ONLY, THE TRUE ACTION MAN
+FIGURE!"
+   "Yer ain't gorrit yet, pig'ead!" says Lisa. "Dunna gi' it 'im, bruv, till
+he 'ands o'er some sweeties 'n' choccies!"
+   You start to tell Lisa to shush when the colonel makes a sudden swift
+movement and snatches the action man figure out of your hand!
+   "MINE!" he cries. "MINE FOREVER MORE! AHHAHAHAHAH!" He steps aside and
+gestures to his house. "COME IN, MY FRIENDS. I HAVE A REWARD FOR YOU."
+   Whether you want the 'reward' or not seems pretty much academic as the
+colonel grabs both of you in one big hand and pulls you inside.
+
+Colonel Haggard's House
+The colonel's house is surprisingly spartan and doesn't contain anywhere near
+as many weapons as you thought it might do. In fact, aside from the anti-tank
+gun resting on the sofa and the nuclear bomb (yes, it really is a nuclear
+bomb) on the shelf by the TV, there's precious little in here at all.
+   Exits lie: south (to outside the house).
+Colonel Haggard is here.
+
+"Wahahahaaha!" Lisa wails. "'Elp me, bruv, he's gonna eat me! Ahahahahahahh!"
+   But instead of eating you, the colonel merely sets you down on the floor.
+Then he carries the action man figure to the far side of the room, opens a
+safe you never noticed before and reverently places the figure inside. With a
+last look at his newly acquired toy, the colonel closes the safe.
+   Then he turns to you. "AS A REWARD FOR DOING THAT, YOU CAN TAKE ANYTHING
+YOU WANT FROM HERE."
+   "Yer gots any choccies an' icy cweam?" asks Lisa.
+   The colonel considers the question then shakes his head. "ALAS NOT. BUT
+ANYTHING ELSE IS YOURS FOR THE TAKING."
+
+> x tv
+It's currently switched off. Actually "currently" might as well be
+"permanently" due to the fact that the screen is shattered and has a sword
+embedded in it. You guess the colonel was eager to try out another of his
+weapons and the TV seemed a good place to start.
+   On top of the TV is a noose.
+   "TAKE THE NOOSE IF YOU LIKE," says the colonel. "I BOUGHT IT YEARS AGO AS
+AN ANTI-THEFT DEVICE BUT I FIGURED THAT A GOOD RIFLE SHOT IN THE HEAD TENDS
+TO ACT AS A BETTER DETERRENT."
+   You do as he says.
+
+> push button
+You reach out to press the button - and then hesitate. If the gun goes off in
+here, won't the blast kill you outright? Maybe you'd be better off not firing
+it after all.
+
+> push button
+Your death wish in full flow, you press the button - and are almost deafened
+when a thunderous blast rips through the room, shatters the front window and
+makes a sizeable dent in the road outside.
+   "Way-hey!" cries Lisa. "You fink we killed someun' wiv dat, bruv?"
+   "I DOUBT IT," says the colonel. "BUT GOOD SHOT, CHILD. YOU SURE SHOWED
+THAT WINDOW WHAT FOR!"
+   You expected the colonel to be pretty miffed that you'd wrecked his front
+room but if anything he seems ecstatic.
+   "I HAD JUST ABOUT GIVEN UP GETTING ANY MORE USE OUT OF THAT GUN, TRUTH BE
+TOLD," he explains. "BUT IT SEEMS IT STILL WORKED AFTER ALL. FANCY THAT!"
+   "Sorry about the ceiling," you say, which has just begun to groan and
+crack.
+   "HMMM?" The colonel glances up. "AH. NOW THAT MIGHT PROVE TO BE A BIT OF A
+PROBLEM. MIGHT I SUGGEST YOU FETCH ME SOME WOOD AND A HAMMER AND NAILS AND
+I'LL PATCH IT UP."
+   "Er, where are we going to find some wood, a hammer and nails from?"
+   "OH, YOU'LL MANAGE FINE I'M SURE. CLEVER CHAP LIKE YOU. NOW, YOU'D BETTER
+HURRY-" The colonel moves quickly, standing on the anti-tank gun and bracing
+the ceiling with his shoulders. "MIGHT BE... AN... IDEA... IF YOU...
+HURRIED," he adds, groaning under the weight.
+   You take one look at Lisa and flee the house.
+
+Outside Colonel Haggard's House
+You're on the front porch of Colonel Haggard's house. Remnants from his days
+in the army litter the garden and the house itself looks like something that
+has seen one too many wars. The walls are scarred with bullet holes and
+larger craters that look like cannon fire or maybe rocket blasts. The front
+door - seven feet of stainless steel which you suspect was once part of a
+tank - stands closed before you and looks to be the only way inside the house
+(the windows have been covered with steel bars).
+   Exits lie: north (into Colonel Haggard's house) and southeast (to Murder
+Drive [4]).
+
+"Hey, look at dat, bruv!" says Lisa, clutching your arm and pointing to the
+crater in the road. "Cor! We coulda really bus'ed someun's 'ead in if we'da
+hit 'em! Better look nex' time, eh?"
+   "Er," you say, which is about the best answer you can come up with on the
+spur of the moment. You hurry over to the crater and peer inside, making
+certain that there aren't dead people lying there. Fortunately there aren't.
+What you do find, however, is a treat and a spent anti-tank gun shell. The
+shell you leave where it is (it's too hot to touch at the moment) but the
+treat you put in your pocket.
+   "No sweedies?" asks Lisa hopefully.
+   "No sweeties," you say.
+
+> n
+"AH, EXCELLENT!" cries the colonel as you approach the house. "JUST LEAVE THE
+SUPPLIES THERE AND I'LL BE OUT IN A MINUTE!"
+   You do as he says and a moment later he dashes out of the house, grabs
+what you've left him, and dashes back inside. There comes the sound of
+frantic hammering and banging and then he emerges again.
+   "CRISIS AVERTED," he announces to you and Lisa. "IT SEEMS MY HOUSE WILL
+SURVIVE ANOTHER DAY AFTER ALL."
+   "You gonna gi' us some sweeties fer 'elpin' yer out?" asks Lisa.
+   "SWEETS? NAY. I SHALL GIVE YOU SOMETHING INFINITELY PREFERABLE TO SWEETS."
+   "Choccies?"
+   The colonel pulls out of his pocket: two treats!
+   You eagerly take the treats and stuff them deep into your pocket where no
+one will ever find them.
+   "MANY THANKS AGAIN FOR YOUR HELP," says the colonely. "AND NOW, I THANK
+YOU FOR MY EFFORTS AND SHALL RETREAT TO MY HOUSE. FAREWELL."
+   The colonel salutes you in a way you imagine he got from his days in the
+army before retreating back inside his house.
+   "I'd 'ave sooner 'ad some choccies," says Lisa wistfully.
+
+> se
+You move southeast.
+
+Murder Drive [4]
+The road curves around here and the sky overhead begins to get very, very
+dark (although you're sure this is just pure coincidence). On one side of the
+road lurks the house of Elsa Trivett, a woman with a mad fixation on guns. On
+the other side is where Mad Old Gubbins lives while to the northwest is the
+house of Colonel Haggard, a demented former army man. You've heard evil
+things about all three.
+   Exits lie: southwest to murder Drive [3], north to Elsa Trivett's house,
+northwest (to outside Colonel Haggard's house) and southeast (to Mad Old
+Gubbins' house).  Lisa follows you from the north-west.
+
+> se
+You move southeast.
+
+Outside Mad Old Gubbins' House
+You've heard many frightening stories about Mad Old Gubbins, the most
+dangerous man on Murder Drive to carry a walking stick. The stories relate to
+how he has a liking for leaping out of alleys with his stick in hand and
+pounding to a bloody pulp anyone foolish enough to be there. You're standing
+right outside his house.
+   The small building looks every bit as rundown as you might have expected:
+the walls seem to lean at a weird angle and look on the verge of collapsing
+altogether. The door - which resembles a piece of driftwood and is only
+vaguely door-shaped - rests uneasily in the frame. And the windows... well,
+the less said about the windows the better. Above the door, for a reason that
+escapes you right now, is a pole.
+   Exits lie: southeast (into Mad Old Gubbins' house) and northwest (to
+Murder Drive [4]).  Lisa follows you from the north-west.
+
+> knock door
+You raise your hand to knock on the door - and it flies open! There stands
+Mad Old Gubbins, the most fearsome pensioner in the world.
+   "Whahahahahahahahah!" he cries - you're not sure if he's especially upset
+at you or if this is how he usually greets people. "Kids! I love kids!"
+   "Gweat!" says Lisa. "Yus go' any sweeties?"
+   "Roasted," finishes off Gubbins and before you can say anything to that he
+reaches out one gnarled hand and grabs Lisa and drags her back into his
+house.
+   "Wahahahahahahah!" wails Lisa as the door slams shut. "...'elp me, bruv,
+de ol' git's gonna eat me..."
+   You pound on the door but are unable to get inside. There comes a cry of
+"clear off! Now, where'd I put them damn matches?"
+   You realise you don't have long to act before Lisa gets roasted. The only
+question is - what do you do?
+
+> tie noose to pole
+An idea occurring to you (you get them once a year whether you like it or
+not), you loop the noose around the pole.
+
+> climb window
+The gaping holes are far too narrow for even a skinny little kid like you to
+climb through. However, as you try Gubbins happens to glance over and see
+you.
+   "Damn kid!" he thunders. "Breaking into me damn house just 'cos I'm about
+to eat your sister!"
+   "Wahahahahahaha!" wails Lisa.
+   Gubbins comes stomping over to the front door, tears it open with enough
+force to break it off its hinges and charges out of the house at you - not
+seeing the noose hanging from the pole until it's too late! With a snarl, he
+trips and the noose falls around his neck and then there is one horrid jerk
+and...
+   You manage to avert your eyes just so you don't end up getting emotionally
+disturbed.
+   "Wa-hey!" cries Lisa from inside the house. "Der ol' git's ded 'n' done
+fer! D'yer 'ear 'is neck snap, bruv? Cor! It wuz wicked!"
+   "Are you alright?" you ask, rushing into the house.
+
+Mad Old Gubbins' House
+The only room in Gubbins' house (you're guessing he either ate the others or
+misplaced them one day) is nothing more than a patch of burnt earth with some
+coffins arrayed around the outside. The smell of rot (and maybe Gubbins' body
+odour as well) is present on a continual basis although even this is
+overwhelmed by the untidy collection of garbage assembled in the middle of
+the room. Windows that are nothing more than gaping holes in the wall look
+out over Murder Drive. In the middle of the room is the chair in which the
+evil old man had Lisa tied in readiness for her 'dinner'.
+   Exits lie: northwest (to the outside world).
+
+"He wuz gonna eats me, bruv!" says Lisa. From the tone of her voice, you get
+the feeling she was quite looking forward to the whole experience. "I wuz
+gonna swim 'round in 'is belly an' bite 'is insidies ter bits 'n' pieces!"
+   You try to hush her as you untie her from the chair.
+   "You'd better not tell Mother about it," you say. "She might get worried."
+   "Gonna tell me friends," Lisa says. "Snottie's dad tried ter stab 'er once
+wiv a flagpole an' she tol' ever'one fer weeks 'n' weeks 'n' weeks 'bout it!
+An' den dere wuz Smelly - 'er bruv got kidnapped by aliens an' dey
+exper-men'ed on 'im an' took orf 'is 'ands! Cor! Dey're gonna be so jealous
+when I tells 'em dat an evil ol' man wuz gonna 'as me fer 'is brekkie!"
+   Telling her to keep quiet about this is probably a bad idea so instead you
+settle for just trying to ignore her.
+   "Yer fink we should chops me 'and orf ter makes it look more real, bruv?"
+asks Lisa. She holds up her left hand. "Right 'ere-"
+   And then she goes quiet as you hear someone moving around outside the
+house. You can't see who it might be from where you're standing but they're
+clearly moving around very close to Gubbins' corpse.
+   "...keep... very... quiet..." you say to Lisa. "... no... sudden...
+moves... and... we'll... be... just... fi-"
+   "Wahahahahahahahaha!" wails Lisa, clutching at your arm. "'Elp me, bruv!
+De ol' git ain't ded an' he's come ter eats me all up!"
+   You push her away and rush over to the door and see... well, no sign of
+Gubbins' corpse for starters. Whoever was prowling around out here has taken
+it with them.
+   "Gwave wobbers!" says Lisa with awe in her voice. "I'm gonne be a gwave
+wobber when I grows up! Dat or a terrorist! I ain'ts decided yet."
+
+> wait
+"Hey, look wot I found!" says Lisa. She has a treat in her hand.
+   "Where'd you get that from?" you ask, wondering how you could have missed
+it.
+   She shrugs. "Jus' found it."
+   It takes a bit of persuasion to get her to hand it over - you have to tidy
+her room for the next 1,024 years - but eventually you get the treat.
+
+> get box
+You pick up one box - and then there is a crash as the bottom falls out and a
+treat drops to the floor!
+   "Mine!" cries Lisa and dives on it.
+   Before you can do anything, she stuffs it into her mouth and scoffs it
+down.
+   "How did you know that was edible?" you demand. "It might have been
+poisoned!"
+   "It wuz choccy!" says Lisa, spraying you with bits of it as she chomps
+noisily down the treat. "Dunna matter if it's poison! It's choccy!"
+   Seven seconds pass by during which time Lisa carries on being alive so you
+conclude the 'choccy' wasn't poisonous after all.
+
+> get box
+You pick up another box - and another treat falls out!
+   You're quicker than Lisa this time and grab the treat and stuff it in your
+pocket before she can scoff it.
+   "Wahahahahahaahha!" she wails. "Gonna tells mom you tried ter stab me wiv
+a knife!"
+
+> nw
+You move northwest.
+
+Outside Mad Old Gubbins' House
+You've heard many frightening stories about Mad Old Gubbins, the most
+dangerous man on Murder Drive to carry a walking stick. The stories relate to
+how he has a liking for leaping out of alleys with his stick in hand and
+pounding to a bloody pulp anyone foolish enough to be there. You're standing
+right outside his house.
+   The small building looks every bit as rundown as you might have expected:
+the walls seem to lean at a weird angle and look on the verge of collapsing
+altogether. The door - which resembles a piece of driftwood and is only
+vaguely door-shaped - rests uneasily in the frame. And the windows... well,
+the less said about the windows the better. Above the door, for a reason that
+escapes you right now, is a pole.
+   Exits lie: southeast (into Mad Old Gubbins' house) and northwest (to
+Murder Drive [4]).  Lisa follows you from the south-east.
+
+> nw
+You move northwest.
+
+Murder Drive [4]
+The road curves around here and the sky overhead begins to get very, very
+dark (although you're sure this is just pure coincidence). On one side of the
+road lurks the house of Elsa Trivett, a woman with a mad fixation on guns. On
+the other side is where Mad Old Gubbins lives while to the northwest is the
+house of Colonel Haggard, a demented former army man. You've heard evil
+things about all three.
+   Exits lie: southwest to murder Drive [3], north to Elsa Trivett's house,
+northwest (to outside Colonel Haggard's house) and southeast (to Mad Old
+Gubbins' house).  Lisa follows you from the south-east.
+
+> sw
+You move southwest.
+
+Murder Drive [3]
+Silhouetted against the northwestern horizon is the terrifying abode of
+Professor Squick. Rumours abound that he's either a vampire or just someone
+with a real liking for long capes, pale skin and neck measurements. Murder
+Drive winds away past his house and you'll be pleased to get out of here.
+   Exits lie: southwest (to murder Drive [2]), northwest (to outside
+Professor Squick's house) and northeast (to murder Drive [4]).  Lisa follows
+you from the north-east.
+
+> sw
+You move southwest.
+
+Murder Drive [2]
+Murder Drive curves here, one branch heading south to where your house is
+located (opposite the road from the lunatic asylum) and the other branch
+heading northeast. You've always tried to avoid venturing along here after
+the hours of darkness because you suspected it might be really, really
+spooky. You were right as well.
+   At the curve in the road is an overflowing dumpster that looks like it
+hasn't been emptied in years while on the other side of the road is an
+abandoned building.
+   Exits lie: northwest (to the abandoned building), northeast (further along
+Murder Drive) and south (to Murder Drive [1]).  Lisa follows you from the
+north-east.
+
+> s
+You move south.
+
+Murder Drive [1]
+Close to the southern edge of Murder Drive you stand, shivering. It's not
+that cold here but you feel a definite need to shiver all the same. The
+rundown house of Barney Bloggs, the town's village idiot, lurks to the west
+while to the east is the likewise rundown dwelling of Mrs Thumpp, a woman
+whose name and hobby are one and the same. What she does for a living you
+don't know but she sure has a ready supply of thumps for anyone who gets on
+her nerves.
+   Exits lie: north and south (to Murder Drive), east (to Mrs Thumpps' house)
+and west (to Barney Bloggs' house).  Lisa follows you from the north.
+
+> w
+You move west.
+
+Outside Barney Bloggs' House
+Is it just your imagination or does the front of Barney Bloggs' house
+resemble a skull? The way the windows frame the door, the freakish placing of
+the tiles on the roof, the chill feeling that floods through you...
+   You hear strange and unsettling sounds emanating from inside the house
+although what any of these things are you don't like to think. You've heard
+more than a few rumours concerning Barney and none of them are especially
+nice rumours. The front door stands open. By the state of it, you're guessing
+that someone big and strong - and very, very angry - came by here recently
+and smashed it from its hinges.
+   Exits lie: east (to Murder Drive [1]) and west (into Barney Bloggs'
+house).  Lisa follows you from the east.
+
+> w
+You move west.
+
+Barney Bloggs' House
+From the smashed TV to the wrecked entertainment centre, it's clear that
+housekeeping is not one of Barney's strong points. Food has been spilled on
+the floor (or maybe that's where he just stores it while he gets around to
+eating it), turning a naturally untidy location into one that a scrap yard
+would be ashamed of. A painting that resembles... something... hangs from one
+battered wall although your mind balks at trying to describe what it might
+be.
+   Lying sprawled in the middle of this untidy mess is the dead body of
+Barney.
+   Exits lie: east (to outside the house).  Lisa follows you from the east.
+
+> x body
+Grimacing, you have a quick glance through his pockets - and find a treat.
+   "Gweat!" cries Lisa. "Corpsie-robbin'! Yous gotta luv it!"
+
+> e
+You move east.
+
+Outside Barney Bloggs' House
+Is it just your imagination or does the front of Barney Bloggs' house
+resemble a skull? The way the windows frame the door, the freakish placing of
+the tiles on the roof, the chill feeling that floods through you...
+   You hear strange and unsettling sounds emanating from inside the house
+although what any of these things are you don't like to think. You've heard
+more than a few rumours concerning Barney and none of them are especially
+nice rumours. The front door stands open. By the state of it, you're guessing
+that someone big and strong - and very, very angry - came by here recently
+and smashed it from its hinges.
+   Exits lie: east (to Murder Drive [1]) and west (into Barney Bloggs'
+house).  Lisa follows you from the west.
+
+> e
+You move east.
+
+Murder Drive [1]
+Close to the southern edge of Murder Drive you stand, shivering. It's not
+that cold here but you feel a definite need to shiver all the same. The
+rundown house of Barney Bloggs, the town's village idiot, lurks to the west
+while to the east is the likewise rundown dwelling of Mrs Thumpp, a woman
+whose name and hobby are one and the same. What she does for a living you
+don't know but she sure has a ready supply of thumps for anyone who gets on
+her nerves.
+   Exits lie: north and south (to Murder Drive), east (to Mrs Thumpps' house)
+and west (to Barney Bloggs' house).  Lisa follows you from the west.
+
+> s
+You move south.
+
+Far South of Murder Drive
+The whole of Murder Drive is laid out before you in all its... Words fail
+you. It's not that it's a particularly nasty looking street or anything like
+that but when you know as much about the occupants of the houses as you do,
+it's hard to see the street for what it is and not let your opinions cloud
+your judgement. There's something vaguely unsettling about it all the same.
+It's not the sort of street you really want to be wandering along at night
+time dressed as a scarecrow.
+   Exits lie: north (to Murder Drive) and south (to the road leading home).
+Lisa follows you from the north.
+
+> s
+"Oh, you have done well!" Mother coos, clapping her hands in delight. "Treats
+galore! And I bet you had a really good time!"
+   "We almost got killed, mom!" you protest. "This creepy guy wanted to turn
+us into zombies, and Lisa nearly got eaten by an evil old man and-"
+   "Oh, pfftt," says Mother, waving her hand as if batting away a
+particularly persistent insect, "you kids and the tales you tell. I hope you
+thanked your neighbours for all these treats."
+   "Well-"
+   "Because if you haven't you'll have to go back and say thank you to every
+single one of them?"
+   Even the dead ones? you wonder. But out loud you say, "no need to worry,
+mom. We thanked every one of them personally."
+   "Yeh! Dey sed we wuz really really really really nice kids an' we oughta
+get ice cweam an' choccies!" pipes in Lisa.
+   "Well, you did do exceptionally well so I guess ice creams and chocolates
+is a fair reward," says Mother. She takes your hand and that of Lisa and
+leads you away to the south. "After all, you'll need your strength for your
+secret holiday tomorrow when we fly to Disneyland."
+   Amid a chorus of "yay!" "great!" "fab!" and "is dere any choccies in
+Disneywand?" the three of you return home.
+
+Well done! You've reached the best ending in the game!
+Well done! You've reached the end of the game. If you want to have another
+go, type "restart".  Lisa follows you.
+
+> quit
+Do you really want to quit? [Y/N]

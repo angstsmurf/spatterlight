@@ -69,6 +69,10 @@
 /goldens/warlock_solution.txt
 /goldens/warlock_solution.expected.txt
 
+# Dear Diary.taf (AIF): explicit text, deliberately not committed.
+/goldens/deardiary_solution.txt
+/goldens/deardiary_solution.expected.txt
+
 # The croft.taf SYNONYM-precedence probe generator.  It is a faithful
 # reduction of an AIF file and is built from that game's own vocabulary, so
 # it stays local like the solutions above; the finding it measured is
@@ -77,3 +81,23 @@
 /harness/make_39_synprobe.py
 /harness/pSYN.taf
 /harness/pSYN.taf.plain
+
+# Riding_Home.taf (AIF): explicit text, deliberately not committed.
+/goldens/riding_home_solution.txt
+/goldens/riding_home_solution.expected.txt
+
+# Dear Diary 2.taf (AIF): explicit text, deliberately not committed.
+/goldens/deardiary2_solution.txt
+/goldens/deardiary2_solution.expected.txt
+
+# Barney's Problem (AIF): explicit text, deliberately not committed.
+/goldens/barneysproblem_solution.txt
+/goldens/barneysproblem_solution.expected.txt
+
+# cldone.taf (AIF): explicit text, deliberately not committed.
+/goldens/cldone_solution.txt
+/goldens/cldone_solution.expected.txt
+
+# Scandal.taf (AIF): explicit text, deliberately not committed.
+/goldens/scandal_solution.txt
+/goldens/scandal_solution.expected.txt

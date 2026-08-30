@@ -1,0 +1,84 @@
+Loading game...
+
+Blood Relatives
+
+Main room
+
+Main room
+You are in the main room of the Sophire household. It is an impressive sight,
+not least of which because there is a dead body lying in the middle of the
+floor. The walls are decorated with tapestries, paintings, and numerous other
+things that Mother probably found in some old jumble sale somewhere - all too
+tedious to describe in any greater detail. And south is the impressive front
+door of Sophire Mansion. Exits lie east, west, south, northeast and up.
+Mother and Father are here.
+
+> open coffin
+You open the coffin. Inside (not very surprisingly) lies the dead body of
+Aunt Petunia.
+
+> x petunia
+Holding your nose against the unwholesome smell of death and decay, you pry
+through Aunt Petunia's burial garments and come across a lovely brooch which
+you quickly swipe.
+
+> x henry's painting
+Uncle Henry's painting is just a simple one: Henry smoking his pipe, smiling,
+humming a tune...
+   Humming a tune? You can hear him humming!
+   "Indeed you can, my dear," says Uncle Henry from the painting. "I have
+important news for you and felt this was as good a way as any of passing it
+onto you."
+   "But what if I had never examined this painting?" you ask.
+   Henry frowns. "Then you would have wound up dead. But you did examine the
+painting and so therefore you shall not die." He pauses a moment and amends
+that to, "or probably not. Or actually, you probably will still die but at
+least this way you'll have a more sporting chance. Anyway. Listen carefully.
+Go to my room and lift my bed. I've hidden something very important for you
+there."
+   "Y1r room?" you say. "I never even knew you had a room here."    Uncle
+Henry sighs. "West from the top of the stairs. Honestly, child, I've never
+known anyone as unobservant as you. Go to my room and find the item I've left
+for you."
+   "What is it?" yu ask and wait patiently for a response. Which you fail to
+get. When you look carefully at the painting again you see the reason for
+this. It's just a painting once more. Any hint of the magic that animated it
+is gone.
+    "Really, Sophie," Father remarks. "Y1'll have to do something about this
+talking to inanimate objects problem of yours."
+
+> u
+You move up.
+
+Top of stairs
+
+Top of stairs
+Sophie is at the top of the stairs. The entirety of the Sophire household is
+spread out around her: corridors seem to lead off in every imaginable
+direction. Northwards, however, is her room, whereas directly above her is a
+hole in the ceiling. Exits lie north, south, northeast, southwest and down.
+There is also an exit to the west, one which you have never noticed before.
+
+> n
+You move north.
+
+Your room
+
+Your room
+You are in your room. If there were prizes given out for having the untidiest
+bedroom in the world, you'd win it in a second. Clothes are strewn
+everywhere, as are empty beer cans, books, posters, foreign coins of less
+value than the metal they are minted from, and lots of other items which
+don't really warrant a better description than 'lots of other items'. Amidst
+the carnage here is your bed and also a window although the location of
+either is a mystery to you right now. Exits lie south.
+
+Also here is a gold coin.
+
+> tidy room
+You decide to tidy your room. Alas, exhaustion gets the better of you after
+six hours or so and you have to give up the whole idea as a bad job for
+another decade or two. On the plus side, however, you did find your bed.
+
+> quit
+Do you really want to quit? [Y/N]

@@ -1,0 +1,6 @@
+open coffin
+x petunia
+x henry's painting
+u
+n
+tidy room

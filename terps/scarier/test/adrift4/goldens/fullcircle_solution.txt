@@ -1,0 +1,222 @@
+x statue
+x eyes
+x arm
+x helm
+wear helm
+lower faceplate
+nw
+w
+x tapestry
+open crate
+x mirror
+e
+x mark
+touch mark
+w
+manifest
+manifest
+e
+se
+e
+e
+w
+w
+drink water
+nw
+wait
+get locket
+se
+climb tree
+get branch
+e
+e
+n
+throw pendant
+remove helm
+drop all
+n
+x sculpture
+get pendant
+put pendant in hand
+listen to man
+s
+s
+get all
+s
+se
+manifest
+burn webs
+se
+e
+w
+s
+n
+n
+s
+w
+e
+s
+n
+w
+e
+n
+s
+e
+w
+x figure
+n
+n
+get golden skull
+s
+nw
+nw
+ne
+score
+i
+look
+untie corpse
+get cloak
+push rock e
+e
+push rock e
+e
+s
+se
+nw
+in
+score
+i
+look
+x corpse
+manifest
+u
+lie on bed
+open chest
+smash chest
+get crucifix
+look under bed
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+score
+i
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+read logbook
+score
+i
+u
+give locket to man
+d
+d
+out
+n
+n
+n
+nw
+get spike
+get spike
+score
+i
+look
+se
+manifest
+s
+e
+e
+x door
+put spike in slot
+score
+look
+n
+x corpses
+x man
+move man
+x pattern
+n
+look in mirror
+s
+e
+e
+s
+x drawings
+n
+w
+drop crucifix in well
+w
+s
+s
+kneel
+pray
+score
+look
+e
+listen
+listen
+e
+x symbols
+manifest
+x symbols
+n
+n
+w
+shout
+w
+s
+shout
+s
+e
+shout
+e
+n
+shout
+n
+x shadows
+w
+w
+s
+x runes
+score
+look
+i
+n
+e
+e
+s
+x gargoyle
+um'ladour
+score
+look
+e
+manifest
+open coffin
+score
+look
+i
+w
+n
+w
+w
+s
+open sarcophagus
+score
+look
+e
+score
+look
+i

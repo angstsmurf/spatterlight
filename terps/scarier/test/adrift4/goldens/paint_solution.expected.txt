@@ -1,0 +1,817 @@
+Loading game...
+
+...
+
+...press a key...
+
+Introduction...
+
+It was time for your rousing speech: "listen up, fellers, and listen good.
+We've got a job to do and we're gonna do it. We're gonna be slick, we're
+gonna be professional and, best of all, we're gonna get paid!"
+
+Your workmen nod at this last part. They understand money.
+
+"So..." You draw the word out then look at each one of them in turn. Believe
+me, it isn't a pretty sight. "They'll be no chatting up eligible females on
+the job [to Stan]; no falling to sleep [to Rob]; no thieving from the house
+we're doin' up [to Ted]; and - most important of all - no using the floor as
+a convenient toilet because it's closer than the proper toilet [this to
+everyone - yourself included, you're ashamed to admit]."
+
+Your workman nod in agreement. Or maybe they just nod. It's difficult to tell
+sometimes.
+
+"Right then." You pick up your paint brush and put your Boss cap on. "Let's
+get to work."
+...press a key...
+
+The job seemed like a relatively simple one. Which was fortunate because your
+crew was relatively simple.
+   "This is the office," Mr Ostinolypakalopodopous explained, "and I want it
+painting."
+   "Painting." A nod. "I got that."
+   "And I want a good job doing of it," said Mr Ostinolypakalopodopous.
+   "Good job." Another nod. "Got that, too."
+   "And I don't want any mistakes," said Mr Ostinolypakalopodopous.
+   "No mis-" I nearly choked but managed to put it down to a sudden case of
+indigestion. "Er, no mistakes at all, Mr Ostiny- Otski-, er Sir."
+   Mr Ostinolypakalopodopous gave you a stern look then bid you farewell. You
+didn't notice. You were too busy praying.
+...press a key...
+
+But the office doesn't look too bad. After all, it's just one room and all
+you have to do is paint it. Simple stuff. Grab the brush, stick it in the
+paint, slop it on the walls. Even your crew shouldn't have any problems with
+it.
+   Someone with half a brain could get this right, you remembered thinking at
+one point. After that you started to get worried.
+...press a key...
+
+Welcome to version 2 of Paint!!!. A walkthrough for the game can be accessed
+with the "let me cheat" command. "Notes" lists the changes between the two
+versions.
+...press a key...
+
+Office
+The office that Mr Ostinolypakalopodopous has hired you to paint is a fairly
+small affair: just four walls, a floor and a ceiling. A door in the north
+wall leads to the reception area (from which direction a radio can be heard
+playing) whereas the room's only window takes up a nice portion of southern
+wall (nice because you won't have to paint it). A large desk occupies the
+middle of the office and is pretty much all the room has in the way of
+decoration aside from a filing cabinet in the corner and a large potted
+plant.   Ted is standing by the desk, looking bored. Stan lurks in a corner
+of the office, trying to attract the attention of the pretty receptionist you
+all passed on the way in. Rob looks tired.
+
+> talk to ted
+"What's up, boss?" asks Ted.
+
+   1: "Get to work, Ted. On the double!"
+   2: "Nothing right now."
+
+> 1
+Ted sighs but picks up his paint brush and starts on one of the walls.
+
+> talk to rob
+Rubbing the sleep from his bleary eyes, Rob ssays, "yeah?"
+
+   1: "Stop looking so tired, Rob. We've got work to do."
+   2: "Nothing right now."
+
+> 1
+Rob nods in a tired sort of way and starts to work.
+
+> talk to stan
+"Yep?" asks Stan.
+
+   1: "We've work to do, Stan."
+   2: "Nothing right now."
+
+> 1
+"On the double, boss," says Stan with the kind of enthusiasm that might fool
+you into thinking he actually means to do some work if you didn't know him
+better.
+
+> wait
+Time passes...
+
+> give mints to rob
+"Ta, boss," he says.
+   He takes a couple and doesn't look quite so tired afterwards.
+
+> move desk
+"High time we moved this desk, Ted," you say.
+   "Why me?" he complains. "I get all the heavy jobs."
+   "Because," you say. Nothing else. You've often found that a lot of
+meanings can be covered with 'because'.
+   Grumbling, Ted helps you move the desk.
+   Underneath it, perhaps put there to protect it from having paint
+accidentally dripped over it, is a telephone.
+
+> paint telephone
+A few dabs of paint and the telephone looks a lot... brighter than it did
+before.
+
+   Suddenly, and without any kind of warning whatsoever, a meteor comes
+crashing through the roof!
+   Startled as you are by this, you still have the presence of mind to throw
+yourself to one side as it smashes down into the middle of the floor and
+blasts a pit several feet wide.
+
+   "Ber-limey!" gasps Stan. "Did yer see that friggin' meteor, boss? Came
+right through the ceiling at us!"
+
+   Rob stares bleakly at the meteor and rubs his eyes. "I knew I shouldn't
+have got out of bed this morning," he says.
+
+   Approaching the meteor, Ted glances at you and says, "y'think if I whack
+it one it might blow up?"
+   "That wouldn't be a very good idea," you say.
+
+   Ted starts humming a tune.
+   "Why are you humming that tune, Ted?" you ask.
+   He stops humming. "I wasn't humming, boss."
+   "You were, Ted. I heard you."
+   "I swear I wasn't, boss."
+   "And I swear you were, Ted. Don't you always hum when you've stole
+something?"
+   Ted shakes his head. "Me, boss? Perish the thought."
+
+> look through door
+A corridor beyond leads to the reception area where the pretty reception
+sits. She looks up at you.
+   "Yes?" she asks.
+   "Er-"
+   She sighs. "I suppose you want a cup of coffee, right?"
+   "Er-"
+   "Fine. Fine. I'll get the coffee. No need to give me grief."
+   She disappears from the reception area and in the distance you hear a
+kettle brewing.
+
+> paint ceiling
+You clamber onto the desk and paint the as much of the ceiling as you can
+reach. The finished result isn't so much 'finished' as 'just about okay' but
+that's good enough for you.
+
+> paint desk
+Deciding the desk looks a bit drab, you splash a bit of paint on it.
+   There! A definite improvement!
+
+   "Oh my GOD!" comes a high-pitched whine of a voice.
+   Thinking it must be the wife come to visit you on the job, you're halfway
+through the window before noticing it's actually the pretty receptionist.
+   "What HAPPENED?" she cries, tearing at her hair. "Mr
+Ostinolypakalopodopous got this floor from his father who got it from his
+father who got it from his uncle (didn't get on with the father apparently).
+He's going to hit the roof when-" She glances up and winces. "Oh, the
+roof..."
+   "We saved the phone," you say, thinking this is somehow an issue that will
+make a difference.
+   "The... phone?" The receptionist scrabbles in her pocket for a tissue,
+dislodging a card which drops to the floor. "That's not so bad then. I mean,
+a desk that's been in the family for generations doesn't matter much but
+provided the phone's okay..."
+   She bursts into sobs and rushes off.
+   Now if you didn't know better you'd swear there was a hint of sarcasm in
+that last comment of hers.
+
+> paint door
+The door looks decidely dull but after a few swipes with your trusty paint
+brush it starts looking quite a bit better.
+
+> paint walls
+You dollop some paint over the walls. It's not a particularly impressive job
+(a professional decorator might well give his opinion of it as "crap") but
+you're reasonably pleased with it.
+
+   The receptionist enters with some coffee.
+   "Sorry it took so long," she says, not sounding sorry at all, "but there
+was a great big spider curled up in the kettle and I had to really mash it to
+pieces before it would let go of the teabags. Anyway, here you go."
+   She hands you some coffee.
+
+   "Hey, grand!" says Ted.
+
+   Rob grins at the coffee. "My favourite staying awake drink," he murmurs.
+
+   "Ta," says Stan as the receptionist hands him his coffee. For perhaps the
+first time ever, an attractive member of the female sex enters within
+grabbing distance of Stan and doesn't get grabbed. Stan's attention seems
+focused on the job in hand. Also a first.
+
+   "Well, back to work," the receptionist says.
+   "I'll call you if I need more coffee," you say.
+   "You can try," she says archly and departs.
+
+> listen to radio
+A crackling voice can be heard emanating from the radio: "...in other news,
+enterpreneur Mr Ostinolypakalopodopous has developed a craving for choccy and
+insists his receptionist keeps a ready supply close to hand at all times.
+Simply calling her name - Mertle - will now inspire her to bring... Oh, we've
+just been informed by Mr Ostinolypakalopodopous' lawyers that any more
+comments will result in a £95,000,000,000 lawsuit being brought against us.
+Oh, well, onto other news..."
+
+> call mertle
+You hear the sound of sighing down the corridor then the receptionist pops
+her head around the door.
+   "Yes?" she asks pointedly.
+   "Er, that coffee was awfully nice," you say.
+   "We don't have any more if you're going to ask for more."
+   "Er-"
+   She sighs. "If I give you some beer from the reception fridge will you
+stop bothering me?"
+   You don't stop to ask her why she has beer in the reception fridge. You
+just nod.
+   "Back in a minute," she says and disappears.
+
+   The usual peaceful furore of the office is interrupted by a short, but
+violent, piece of humming from Ted.
+
+> paint floor
+Mr Ostinolypakalopodopous didn't hire you to paint the floor but you're sure
+he'll appreciate the gesture all the same. And it certainly looks more
+colourful after you've sloshed some paint onto it.
+
+> paint plant
+A few dabs of paint and the plant looks a bit more colourful.
+
+> read id
+In lovely bold print there are the words: "NamE: £2.17; aDDres: yes pleeze;
+ocupat- occurpor- job: mail; sex: 343434; hoMe FONe numbA: 34 wirtLe rOAd;
+toTaL SAVins: PatriCk AinT"
+   Good job you've got your painting skills to fall back on because you
+grammar and spelling certainly leave a thing or two to be desired. As do your
+form filling in skills.
+
+> call 343434
+You dial the number you read on your ID. After 42 rings, your wife answers.
+   "Hi, honey," you say. "You miss me?"
+   "Who the hell is this?" screeches a voice from the other end of the phone
+which is either a harpy or an extremely frustrated housewife. The two are
+hard to tell apart. "If this is that useless, waste of space, fifth rate
+excuse for a painter-"
+   "No," you say. "It's your husband."
+   Dead silence.
+   "Oh, hello, sweetums," the harpy/frustrated housewife goes on. "So nice of
+you to call me from work. What's it been - four, five years since your last
+call?"
+   "You know how time flies when you're having fun," you say calmly. "I've
+been busy."
+   Another bout of yelling. Followed by: "and are you treating your workmen
+well?"
+
+   "He's horrible as hell to us," mutters Ted.
+   You flash him an angry glance.
+   "Well, you are," says Ted.
+   You grudgingly admit he might have a point there.
+
+   "Of course, honey," you say to your wife. "Be home about ten, okay?"
+   "This year or next?" is the snarled response before the phone is slammed
+down. But you can tell, mainly due to the lack of death threats issued by
+your nearest and dearest, that she appreciated you calling her.
+
+   The receptionist walks in with some beer which she hands to you.
+   "It's not very cold," she says, "but the fridge has been malfunctioning
+for years so I tend to store them in the box Mr Ostinolypakalopodopous uses
+for his dirty underpants."
+
+   "I'd suggest something," says Stan, "but you'd probably think I was being
+a pig."
+   "I think pigs would be insulted by that," says the receptionist.
+
+   "Any more beer if I get thirsty?" you ask.
+   The receptionist laughs. "Oh, sorry. You were being serious there." She
+laughs some more. "Oh, you're a funny one and no mistake."
+   Still chuckling, she goes back to the reception area.
+
+> call fortuna
+Acting on a hunch, you dial the number for Madame Fortuna.
+   "You seek to know the future," says the croaky voice on the other end of
+the phone.
+   "Blimey, she's good," says Rob.
+
+   "I need help," you say to Fortuna.
+   "Something has occurred," she says.
+
+   Stan nods in admiration. "Damnit, boss, she sure knows her stuff."
+
+   "That's right," you say. "A-"
+   "I do not need to know the details," Fortuna goes on. "To cure yourself of
+your recent troubles, a blood sacrifice must be made."
+   "A... blood sacrifice?" you ask, wondering if you heard that right. "I'm
+not quite sure I heard-"
+   "A blood sacrifice," Fortuna affirms. "Search and you shall find a dagger.
+Stab this into a fellow worker and your problems shall be solved. A curse you
+shall break and the world shall be saved."
+   Dead silence descends on the office.
+   Then you can, "er... you do know I'm an office decorator, don't you?"
+   There is a moment's silence from the other end of the phone. Then Fortuna
+comes back on. She doesn't sound quite as confident as before. "You are
+not... Prince Gulgrinn who faces death and mayhem from an army of ravening
+demons from the dark pits of Hades itself?"
+   "Er... no."
+   "Well. Similar principle so give it a try. Should work. Oh, is that the
+time? Must go. Terribly busy."
+   The phone goes dead.
+
+> x cabinet
+The filing cabinet looks like no one has bothered with it in a long, long
+time. If Mr Ostinolypakalopodopous has bothered doing much filing in recent
+years, you'd hate to see the state of the files that he keeps in this thing.
+   On the edge of the filing cabinet is the knife Fortuna mentioned. You take
+it with you.
+
+> answer phone
+You answer the phone - but there's no one there. Not even a message recorded
+on the phone's inbuilt answerphone.
+   "I get that all the time," says Ted with a sigh. "I answer the phone and
+there's never anyone there."
+   "Did you think to plug it in?" asks Stan.
+   Ted sighs again. "Damn. Knew there was something I was doing wrong."
+
+   The phone suddenly makes a beeping sound as a message is recorded onto it.
+
+> sacrifice rob
+Due to his unfortunate habit of falling asleep frequently, Rob makes an easy
+victim and you're able to dispatch him with ease.
+   Stan and Ted stand there with horrified looks on their faces.
+   "Blimey, boss," says Stan. "He wasn't the best employee in the world but
+couldn't you have just docked his pay instead?"
+
+   Ted begins to hum... but stops and goes very quiet the moment you look at
+him.
+
+> talk to ted
+"Ted!" you say. "You seem to be carrying a stapler!"
+   Ted tries to shove said stapler into his pocket but as you've already seen
+it he sighs and hands it over.
+   "I wasn't going to steal it," he mutters.
+   You look at him.
+   "Well, okay I was going to steal it. But I wasn't going to keep it."
+   You look at him.
+   "Well, okay I was going to keep it. But I, er, wasn't going to take it
+with me on dates or anything."
+   You look at him.
+   Ted just looks embarrassed.
+
+> talk to ted
+"Ted!" you say. "You seem to be carrying a filofax!"
+   "I found it!" Ted protests.
+   You look at him.
+   "Okay, okay. I didn't find it as such as steal it. But I was sorry
+afterwards."
+   You look at him.
+   "Okay, okay. I wasn't sorry as such but I felt I should have been."
+   Grumbling, he hands over the filofax.
+
+> talk to ted
+"Ted!" you say. "You seem to be carrying an... unexploded bomb!"
+   Ted sighs. "Only a bit of fun, boss," he says. "I mean, it's not like I
+was planning to blow up any government buildings with it or anything."
+   You look at him.
+   Ted sighs again and hands over the bomb.
+
+> answer phone
+You answer the phone - and a thunderous voice booms down the phoneline: "THOR
+HERE! AND I'M MAD! MAN, AM I MAD! GEESH, YOU WOULDN'T BELIEVE THE DAY I JUST
+HAD. HONEY, YOU BETTER HAVE SOME BEER FOR ME WHEN I GET THERE 'COS I'M GONNA
+BE MADDER THAN A MADMAN IF THERE AIN'T ANY!"
+   Hmmm. You wonder if it was a wrong number.
+
+> wait
+Time passes...
+
+   In the car park outside you hear a carriage draw up and, seconds later, a
+bizarrelly clad fellow enters. He's dressed in the skins of several different
+humans and carries a staff which looks to be fashioned from bone.
+   "If you're here selling double glazing, we ain't interested," says Stan.
+   "I am summoned," says the man who introduces himself as Mr Abogee. "I am
+here to right a grave injustice." He regards the ceiling. "Ah, a grave
+injustice indeed. I will need time to prepare for this most tragic of
+circumstances. Do not interrupt me."
+   Mr Abogee heads into a corner of the office and starts 'preparing'.
+
+> wait
+Time passes...
+
+   The phone suddenly makes a beeping sound as a message is recorded onto it.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   There is a crash outside and a moment later in bursts a huge fellow
+carrying a VERY large hammer.
+   "DAMNATION!" he roars (and, overhead, lightning crackles and thunder
+booms. "JORMUNGAND THE WORLD WYRM WAS IN A FOUL MOOD AND THAT WASN'T EVEN THE
+START OF MY PROBLEMS." He points a fist the size of a battering ram and
+demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a fist the size of a
+battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a
+fist the size of a battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK
+TWICE!" He points a fist the size of a battering ram and demands, "BEER! NOW!
+DON'T MAKE ME ASK TWICE!" He points a fist the size of a battering ram and
+demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a fist the size of a
+battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a
+fist the size of a battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK
+TWICE!" He points a fist the size of a battering ram and demands, "BEER! NOW!
+DON'T MAKE ME ASK TWICE!" He points a fist the size of a battering ram and
+demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a fist the size of a
+battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a
+fist the size of a battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK
+TWICE!" He points a fist the size of a battering ram and demands, "BEER! NOW!
+DON'T MAKE ME ASK TWICE!"
+
+   "Blimey, boss!" gasps Ted. "Have you seen the size of that fellow?"
+   "SULLY NOT THE FORM OF THOR WITH THY UNCLEAN EYES, MORTAL!" booms Thor.
+"LEST THOU WOULDST BRING DOWN THE WRATH OF THE GOD OF THUNDER 'PON THY
+LICE-RIDDEN HEAD!"
+   Ted frowns, puzzling things over.
+   "I think he's threatening to kill you, Ted," you say.
+   Ted nods. "I had a feeling that might be the case.""""""""""""
+
+   Stan gawps at the figure.
+
+> wait
+Time passes...
+
+> give beer to thor
+Thor takes the beer with a pleased grin spreading across his face. "BEER!" he
+booms. "THE DRINK OF THE GODS! THE NECTAR OF THE TITANS! THE SCOURGE OF-" He
+tastes it. "-AH, CRAP!" After he's finished throwing up, he gives a shake of
+his head, drops his VERY big hammer on the floor, and storms off to find some
+headache tablets.
+
+   "Good job he cleared off when he did," says Ted. "I was just about to take
+a swing for him."
+
+> wait
+Time passes...
+
+> give coffee to abogee
+"Ah, my favourite," he says, and drinks the coffee down in one go. "Much
+obliged. We seldom have mud in cups where I come from."
+
+   There comes a squeal from the receptionist followed by a swarthy fellow
+who looks like a used car salesman stepping into the office.
+   "Mr O here?" he enquires, looking around the office in case 'Mr O' might
+be hiding in a corner.
+   "Nor right now," you say.
+   "Pity. Him and me - the name's Stavros by the way, I'm an 'associate' of
+his - we're friends. Go way back."
+
+   Stavros looks about to say more but instead glances down at the hammer of
+Thor lying on the ground.
+   And frowns.
+   "Hey!" he says. "That wasn't there the last time I was here!"
+   "Someone, er, left it behind," you say.
+   "I can see that. Tell you what, friend, I'm a, er, collector of, er, big
+hammers like that one so how's about I give you some cash to take it off your
+hands?"
+   You're just about to tell him no when your mind catches up and informs you
+he just mentioned the word 'cash'.
+   So instead of "clear off!" (or words to that effect) your next utterance
+goes more along the lines of: "how much?"
+   "£500. Can't say fairer than that, now can I? Just say 'yes' or 'no'.
+Simple as simple."
+
+> give filofax to stan
+"Gee thanks, boss," he says. "I'll be sure and remember you to the ladies for
+this."
+   "I'd be happier if you worked a bit harder," you say.
+   Stan nods. "Will do."
+
+   Suddenly, Mr Abogee begins to chant. This he does in accompaniment to a
+Dire Straits CD he pops into his Walkman and then jigs along to the sounds of
+Walk Of Life.
+   He approaches Rob's corpse, taps it several times with his staff, and
+pronounces several words of what are no doubt powerful magic - "eeny meeny
+miny mo" - and then, without warning, the corpse vanishes!
+   At the same time, a vortex of light swirls around the office, magically
+repairing the ceiling and the floor. A minute later it's like no damage had
+been caused. Even the meteor is gone.
+   "Amazing!" you breathe.
+   "The powers I wield are wonderful and wonderous," says Mr Abogee. "And now
+I must depart."
+   He throws a smoke bomb at his feet and slips away - which he does via the
+door. You're not quite sure what the smoke bomb was in aid of but maybe he
+just prefers showy exits.
+
+> wait
+Time passes...
+
+   The phone suddenly makes a beeping sound as a message is recorded onto it.
+
+> call mertle
+Almost before you have finished shouting, the receptionist appears at the
+doorway and hands you some choccy before returning to the reception area.
+
+   "What about me, love?" cries Stan. "Wanna see my choccy?"
+
+> give choccy to stan
+"Grand!" says Stan. "Tell you what, boss, I'll let you have a couple of my
+birds. Anytime you feel in the mood, just give me a nod and they're yours. No
+questions asked."
+
+> wait
+Time passes...
+
+> answer phone
+"We've got your sister," says the recorded message on the phone.
+   "But I haven't got a sister," you reply without thinking.
+   There is a moment of hesitation followed by: "okay, how about a brother?"
+   "Er, yes, I've got a-"
+   "He called Bill?"
+   "No. Steve."
+   "Well, we've got him and we're gonna kill him if you give us any crap. Got
+that? Good. Now, bring £200 to the ransom point within the hour... or else."
+   The phone goes dead before you can even ask where the ransom point is.
+
+   "C'mon, fellow," mutters Stavros. "I ain't got all day, y'know. Yes or
+no?"
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> yes
+"A great deal, my friend," says Stavros, "and not on you'll regret at all.
+Let me just that little hammer..."
+   "It's very heavy," you start to say, then stop as Stavros casually picks
+it up, slings it over his shoulder and reaches into his pocket.
+   "£200 we agreed, right?"
+   "£500!"
+   "£400 it is."
+   He counts out £300 and hands it to you.
+   "Good doing business with you, fellow. You come across any more gems like
+this, you let ol' Stavros know and he'll slip you another couple hundred quid
+for it.""""""""
+   "Couple-"
+   You count the money and, sure enough, there's just £200 there.
+   Before you can do anything, Stavros gives you a swift nod and departs.
+   There is another squeal from the receptionist followed by a cry of "damn
+you! Give me back my bra!" and the sound of Stavros cackling as he leaves.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> give cash to ted
+Ted takes the cash, slips it into his pocket, then removes from a different
+pocket another wad of cash which looks exactly the same as the first lot
+minus a few notes.
+   "You were carrying that cash around with you all this time?" you ask.
+   "Not all this time, boss," Ted says. "I, er, found it on the way to work
+this morning."
+
+   The receptionist pops her head around the doorway and says, "I've got some
+strange fellow out front asking if we have any meteor ore for sale. I told
+him to go take a running jump (which is our usual response to customers) but
+he seems to think you might be able to help him. Can you?"
+   "Sorry," you say. "No meteor ore here."
+   "That's what I thought." The receptionist shakes her head and returns to
+the reception area.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> answer phone
+"Er, sorry about before," says a voice you recognise as being that of the
+kidnapper. "Forgot to tell you the ransom point in all the excitement. Tell
+you what, we'll come to you and then you can hand over the money."
+   "And what about my brother?"
+   "What about him?"
+   "Are you going to release him if I give you the money?"
+   "Release him? Why? Do you think we've kidn-" There is the sound of someone
+being slapped on the back of the head. "Er, of course we've kidnapped your
+brother. And we're going to kill him. Twice if you're not careful. So have
+the money and be ready for us 'cos we're comin' with your sister."
+   "Don't you mean my brother?"
+   "Him, too."
+   The phone goes dead.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   You hear the sound of the main doors in the reception area opening and
+then into the office strides a small, not very intimidating looking fellow.
+   "The name's Boris," he says, and you recognise the voice of the kidnapper
+from the phone. "I've come for your ransom money for your dear old granny."
+
+   "Don't you mean his brother?" asks Stan. "Least that's what you said on
+the phone."
+   Boris frowns. "Er, right. Yeah. Thanks. Your brother."
+   "You aren't half dopey," mutters Stan.
+   Boris' eyes narrows. "You watch it, pal. His sister ain't the only one
+what can get kidnapped."
+
+   "What if I don't have the ransom money?" you say.
+   Boris sighs. "Then you ain't never gonna see your dad again."
+
+   "If you're going to embark on a life of crime," says Ted (who knows all
+about a life of crime), "you really ought to start getting your facts
+straight."
+   "You want your wife to get kidnapped, buddy boy?" asks Boris in a not very
+menacing tone of voice.
+   "I ain't got a wife."
+   Boris looks at him. "Nah. I can see why not."
+
+   A lull falls over the office.
+   "I'll wait right here for my money, buster," Boris says. "I'll give you a
+few minutes to get it together. But if I ain't got it by the time I count to,
+oh, 60 then I'm outta here. And you'll never see your dog again."
+
+> give cash to boris
+"Ah, the ransom payment for your uncle," says Boris, not noticing that you
+have given him the notes you got from Ted.
+   "I thought it was my brother you had," you say.
+   "Er, right." Boris frowns. "Turns out we had 'em both. Don't worry,
+they'll both be released now so no need to concern yourself on that account.
+Your sister is okay."
+   And without further ado, he shakes your hand and departs.
+
+   "Yeah!" cries Stan. "You sure showed him what for, boss!"
+   "No thanks to you, Stan," you say reproachfully.
+   "Didn't wanna ruin your moment of glory, boss."
+
+> wait
+Time passes...
+
+> fix desk
+I don't think you can fix the desk.
+
+> water plant
+I don't understand what you want me to do with the large potted plant.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   "Well, well, what have we here?" booms a voice from the doorway and you
+glance over in surprise to see a hulking fellow there. He's big and
+brutal-looking and has an air of concealed violence about him. Yep,
+definitely a cop.
+
+   "Blimey! A pig!" says Stan before he can stop himself.
+   It doesn't look at first like Officer Bribe has even noticed the insult,
+but then as he turns to speak to you and his fist shoots out and catches Stan
+in the face, you conclude that Bribe probably did hear.
+   That, or he felt like belting Stan one anyway. (You know how he feels.)
+
+   "I'm here investigating a very serious charge of passing counterfeit
+money," Bribe says, the words charging out of his mouth like unstoppable
+rhinos. "I have reason to believe that you are responsible for this crime."
+   "Me?" you say.
+   Bribe gives a nod that could very easily turn into a headbutt. "You. You
+have the look of the career criminal, my friend, and I know a career criminal
+when I see one."
+   "I'm a painter."
+   "Ah, and you even have a suitable cover story worked out." Bribe glances
+around the office as if debating smashing it up in case you've hidden any
+suspicious substances there. "I'll ask you a question, pal, and you'd better
+give me a straight answer or I'll be very angry. And you won't like me when
+I'm angry."
+
+   "We don't like you now," mutters Stan who clearly has no idea when to keep
+quiet.
+   A few seconds later, Bribe unclenches his fist, picks Stan up from the
+floor where he had fallen, and continues the questioning.
+
+   "What do you want to know?" you ask, eager to avoid a pummelling for
+'obstructing the police in the lawful execution of their duties'.
+   "Did you, or did you not, hand counterfeit money to one Boris Snitch? A
+simple yes or ow will suffice."
+   You frown. "Don't you mean yes or no?"
+   "I know what I mean."
+
+> wait
+Time passes...
+
+> yes
+"An admission of guilt, eh?" says Bribe.
+   "But I didn't know the money was counterfeit," you say truthfully. "I
+thought my work colleague had exchanged it for real money."
+   Ted looks like a rabbit cornered in the car headlights.
+   "Nah," says Bribe. "By the look of things, the money you had was real and
+your colleague exchanged it for fake cash. Now, I'm almost minded to book you
+for passing fake cash but as I arrested a snivelling little toerag today and
+I'll probably get a promotion out of it, I'll let you off with a warning. But
+next time..."
+   Bribe waves a finger at you before departing.
+   You turn to Ted. "Why, you lying little-"
+   "I did you a favour, boss," he says, backing away. "Without me you'd have
+wound up in deep doodoo and no mistake."
+   While you admit he might well have a point there, you're still not very
+happy about him lying to you.
+
+   "Ah, the friendly face of the law," says Ted. "Makes me feel safe knowing
+they're around."
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   The receptionist pops her head around the doorway and announces, "Mr
+Ostinolypakalopodopous will be returning from his business trip shortly. He
+asks that you leave the office in the mint condition state it was in when you
+arrived."
+   You look around the office. "Er... right," you say, the words not exactly
+jumping with enthusiasm from your mouth.
+   The receptionist flashes you a worrying look then goes back to her desk.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   You hear a man talking to the receptionist and a moment later in walks Mr
+Ostinolypakalopodopous.
+   "You're back early," you say nervously.
+   "Indeed I am," says Mr Ostinolypakalopodopous, smiling the way you imagine
+a shark smiles before it rips open the harmless little dolphin. "My business
+trip was over sooner than I expected and so I returned to find out how things
+have been going in my absence. And," he takes a look around the office, "what
+kind of job you have made at painting my office."
+   "The best job I could have done," you reply, which may - or may not - be
+the truth.
+
+   "Well," says Mr Ostinolypakalopodopous. "I am impressed!"
+   "You are?" you gasp. "Er... I mean, of course you are."
+   "You did an excellent job here. Everything appears to be painted and neat
+and tidy. What was the agreed upon fee?"
+   Honesty and dishonesty war inside you.
+   For about a fifth of a second.
+   Mr Ostinolypakalopodopous frowns. "1.2 million pounds?" he says with a
+raised eyebrow. "For one day's work? On one office? But..." He looks around
+again. "You did do an exceptional job after all so your fee is accepted. £1.2
+million it is."
+   And he reaches into his pocket and pulls out a wad of £5 notes which he
+proceeds to count.
+   You lose count several times along the way but you figure that with £1.2
+million you can afford to miss the odd note here and there.
+
+Well done! You've reached the best ending in the game!

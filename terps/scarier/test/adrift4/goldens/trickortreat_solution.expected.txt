@@ -1,0 +1,2828 @@
+Loading game...
+
+Trick or Treat
+
+Well, this is a bummer and no mistake.
+
+You went trick or treating with your best buds - Jud and Emmentine Clara
+McAlmont Toshara Rothschester (Emmie for short) - and where should you decide
+to trick or treat first?
+
+The old Markham place.
+
+You knew it was a bad idea. Kids talk about this place like it's haunted and
+the creaking gate, stone gargoyles on the front of the house and eerie music
+playing didn't help. But you never imagined that when you knocked on the
+front door and shouted, "Trick or treat!" that the crazy old man who lived
+here would come rushing out and lop Jud's head off with a meat cleaver he was
+carrying. The head flew right off his shoulders with a spray of blood
+trailing behind it - it was quite a sight, I can tell you - and landed at
+Emmie's feet.
+
+She said, "We should, uh, probably run round about now."
+
+Which would have been excellent advice if the crazy old man hadn't already
+grabbed the pair of you and bundled you inside his house. Note to self: next
+time a crazy old man lops your best friend's head off, run for it. Don't wait
+for someone telling you to run for it.
+
+Ah well.
+
+Trick or Treat
+
+by David Whyld
+(dwhyld@gmail.com)
+
+(version 2)
+Type 'changes' to see what has changed since version 1
+
+WRITTEN WITH ADRIFT 4 VERSION 52
+BETWEEN JULY AND AUGUST 2017
+
+Cellar
+
+You're in the cellar of the crazy old man's house. Correction: chained up in
+the cellar of the crazy old man's house. You against one wall and Emmie
+against the other, with just a grubby piece of floor between you.
+
+As far as cellars go, this one is better than some you've been locked in
+(long story, don't ask). The crazy old man has left the light on, at least,
+so you can see what's what, and he's only triple-locked the door to the east,
+so maybe he feels like giving you a sporting chance.
+
+> smash chains with sword
+You bash the chain as hard as you can with the sword – and it breaks! Both
+the chain and the sword!
+
+"Woo-hoo!" you cry.
+
+Emmie sighs. "You broke your own chain, didn't you?"
+
+"I did indeed!"
+
+"Which means my chain is unbroken."
+
+"Um... yes."
+
+"Which means you're free but I'm still trapped here. In the cellar of a crazy
+old man. Do you know what crazy old men do to teenage girls in their
+cellars?"
+
+"Um... no."
+
+"Me neither actually, but I'm going to hazard a guess he won't be taking me
+out for a picnic. You need to explore the house and find a way to get me out
+as well."
+
+"I could leave and bring back help," you suggest.
+
+"No, dingbat. You see those films in which the hero – which in this case is
+you, major contradiction though it is – leaves the damsel in distress in the
+cellar while he goes for help? No of course you haven't 'cos they don't make
+films like that. But believe me, what happens to her isn't nice. No, you need
+to search the house for something to get me out. A hammer to break the chain,
+maybe, or a knife so you can stab the crazy old man. Also, keep a look out
+for keys. And above all, schmuck?"
+
+"Yes?"
+
+"Quit standing there like a jackass listening to me and get on with it!"
+
+> head butt door
+You head-butt the door.
+
+Now, there's no way this should work. You're a teenage boy and that's a solid
+metal door. Locked to boot. There's no way you should be able to slam your
+head into it and have it go flying off the hinges and crash into the wall. No
+way at all.
+
+But it happens.
+
+"My head," you declare, "has super powers!"
+
+"Either that or it was a really weak door," says Emmie, who should probably
+put Taking You Down a Peg on her list of hobbies.
+
+"At least we're free," you say.
+
+She rattles her chains. "You are anyway. Now, get out of there and figure out
+some way to get me free as well. I'll offer you helpful advice as you go."
+
+"How? If you're stuck here and I'm out there?"
+
+"I'm real good at throwing my voice."
+
+> e
+
+Corridor
+
+You're in a narrow corridor outside the cellar of the crazy old man. It's not
+a very interesting corridor – but then corridors seldom are – and just leads
+west back to the cellar and east to another room.
+
+> e
+
+Storage Room
+
+Shelves line the walls, on which are stacked all manner of junk and garbage.
+Some of it is new, some old, but all of it smells. There are a couple of ways
+out of here – east and west – and there's also a ladder leaning against one
+wall which you can probably climb to the upper part of the room.
+
+> u
+
+Crawlspace
+
+You're in a crawlspace at the top of the storage room, reached by way of a
+ladder from down below. There's not much to see here, just a half mattress
+and some old cans.
+
+> look under mattress
+Tucked away underneath the mattress, you find an old diary with weathered
+pages and a faint smell of fungus. It looks to have been here for a long
+time.
+
+> read diary
+You flip open the diary and read:
+
+'Day 1:
+
+Woke up in the cellar this morning. Nothing to keep me company except my
+buddies Bud and Laurie. Found this old diary which I figured I might as well
+use to detail my exploits here and also to warn folk if I find out anything
+useful.'
+
+> read diary
+You flip open the diary and read:
+
+'Day 3:
+
+Bud thinks he's figured a way out of here. Laurie says he's a dumbass
+douchbag with a brain the size of a pea. Bud ignores her 'cos he says his
+plan is definitely 100% going to work and then who'll be a dumbass douchbag
+with a brain the size of a pea?
+
+Later:
+
+Bud's plan didn't work. He now has a sizeable bruise on the side of his head
+and Laurie is making him repeat "I'm a dumbass douchbag with a brain the size
+of a pea" a hundred times over. She seems quite pleased Bud didn't get away
+because she gets to tell him what an idiot he is, even though this means
+we're probably all going to die.'
+
+> read diary
+You flip open the diary and read:
+
+'Day 6:
+
+Getting worried. Think the crazy old man might be planning to do me in. He
+took Bud away this morning and we heard all manner of evil noises. Laurie
+said it was probably just some random stranger getting his head lopped off
+and kicked around the room, but I'm sure it was Bud. His head makes a
+distinct sound when it's kicked and I'm convinced that's the sound I just
+heard.'
+
+> read diary
+You flip open the diary and read:
+
+'Day 7:
+
+Damn. The crazy old man came and took Laurie. She begged him to kill me
+instead 'cos of what a pathetic low-life loser I am - her words - but he just
+said he fancied some girl flesh next, so off she went.'
+
+> read diary
+You flip open the diary and read:
+
+'Day 8:
+
+Managed to get free! One of the chains was loose. Probably should have tried
+this before Bud and Laurie got murdered, but I'm never that good with stuff
+like thinking. Now, I just need to escape from here and I'll be fine. I
+should probably also stop writing in this diary and concentrate on escaping
+'cos it'd be a real bummer if I was sat here writing this and the crazy old
+man found me and killed me. Yep, I'll stop writing now and finish it off once
+I'm safely out of here.'
+
+> read diary
+You flip open the diary and read:
+
+'Day 9:
+
+Damn! Left it a bit long. Managed to hide my special jail break kit in the
+sovte in the tikchne (putting that in code in case the crazy old man finds
+this diary!) before he lopped my head off with a meat cleaver. Frantically
+writing this in the hope I'll be able to finish before my body shuts do-'
+
+'He probably should have spent more time running and less filling in the
+diary," says Emmie. "Or at least filled it with something useful. Boys," she
+adds with a sigh.
+
+"Why do you assume it was a boy writing this?"
+
+"He's drawn a pair of boobs in the margin and signed it Captain Cool Ass."
+
+"Oh."
+
+> x cans
+Beans, peas and carrots. All empty, though, so not much use to you. Behind
+one of the cans, though, you spot a previously hidden button.
+
+> push button
+You push it. Somewhere, something changes.
+
+"Hey, get back down here," says Emmie. "Some kind of panel in the wall just
+opened."
+
+> d
+
+Storage Room
+
+Shelves line the walls, on which are stacked all manner of junk and garbage.
+Some of it is new, some old, but all of it smells. There are a couple of ways
+out of here – east and west – and there's also a ladder leaning against one
+wall which you can probably climb to the upper part of the room.
+
+> e
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside. There are exits to the south and west, as
+well as a small alcove you can fit into to the northeast.
+
+> x stove
+It's a stove and it's burnt-out. More than that is really stretching your
+descriptive powers to the limit.
+
+However, you remember what Captain Cool Ass wrote it in the diary and search
+a bit further, and eventually you find the jail break kit hidden just out of
+sight. You quickly swipe it, figuring it should come in handy considering
+your current predicament.
+
+> s
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> w
+
+Hallway
+
+A-ha, you see the front door to the south! On the down side, the padlocks –
+four of them in total – look pretty sturdy. Someone – probably the crazy old
+man – has put a cupboard by the door and placed a skull on top of it. Yes, an
+actual skull. Stairs lead up here to the upper floor of the house, and there
+are other rooms away to the east and west. On the floor is a sinister rug.
+
+"Careful going west," says Emmie.
+
+"Why? It looks safe enough."
+
+"I'm just saying. I don't want you getting hurt."
+
+You stop, feeling a sudden tightness in your throat. "You mean... you
+actually care about me?"
+
+"Hell no. But if you die, I'm probably going to end up being eaten by the
+crazy old man."
+
+"Oh."
+
+> x rug
+The rug looks out of place, for reasons you can't quite put your finger on.
+It's almost as if... it's some kind of trap.
+
+> lift rug
+You lift up a corner of the rug, exposing a circular device about the size of
+a bowl which makes an ominous ticking sound. Having once watched a film in
+which the Second World War was mentioned, you feel justifiably confident to
+call this a landmine.
+
+"Good call, Emmie," you say.
+
+"You're welcome. You should be okay to head west now."
+
+You eye the landmine warily. "You sure that thing's not going to explode?"
+
+"Well, only a complete idiot would be stupid enough to step on it now they
+know it's... Um, just be real careful, okay?"
+
+> w
+You carefully skirt around the landmine and head west.
+
+... Press a key...
+
+Lounge
+
+Considering the state of the rest of the house, you're surprised to find that
+the lounge is actually quite nice. It's got a reclining sofa, a huge flat
+screen TV and a mini-bar in the corner. It's also got a roaring log fire and
+a dartboard. And a pool table. And a donkey. All in all, there's quite a lot
+to see in here. Only one exit back to the east but lots of stuff to do in
+here.
+
+> x sofa
+Very nice indeed. Plush leather upholstery, a button to press to raise and
+lower the seat, built-in massager. This would have set the crazy old man back
+a fair sum.
+
+"How does some child-murdering weirdo afford a sofa like this?" Emmie muses,
+echoing your own thoughts.
+
+> push button
+When you do, the sofa itself is unchanged but you hear a door opening
+somewhere.
+
+"Cool," says Emmie. "That sounded like it came from the kitchen."
+
+> e
+
+Hallway
+
+A-ha, you see the front door to the south! On the down side, the padlocks –
+four of them in total – look pretty sturdy. Someone – probably the crazy old
+man – has put a cupboard by the door and placed a skull on top of it. Yes, an
+actual skull. Stairs lead up here to the upper floor of the house, and there
+are other rooms away to the east and west. On the floor is a sinister rug,
+with a landmine partially concealed beneath. All things considered, it's the
+landmine you're more concerned about right now.
+
+> e
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> s
+
+South of Dining Chamber
+
+You can't help but think that 'south of dining chamber' is a strange way to
+think of a room but that's what springs to mind here. It's a big room with a
+barred window overlooking the crazy old man's front garden. North of here is
+the dining chamber.
+
+> smash window
+You spend a while futilely bashing the windows but this achieves nothing
+aside from bruises. Oh, but you do spot a button to one side of the window
+that you never noticed before.
+
+> push button
+You push the button and, to the north, you hear a door opening.
+
+> n
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> n
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside, however something you've done looks to have
+revealed a previously hidden door in the north wall(to one side of which you
+can see a button). There are exits to the south and west, as well as a small
+alcove you can fit into to the northeast.
+
+> n
+
+Den
+
+The floor of this previously hidden room is sunken with a large sofa set into
+the middle area. Directly in front of the sofa is a TV screen showing, of all
+places, the cellar where you and Emmie woke up after being kidnapped by the
+crazy old man. A can of beer and a sandwich rest on one side of the sofa and
+there's an exit to the west leading to, by the sound of things, a bathroom.
+There's also another exit to the south leading back to the kitchen.
+
+> w
+
+Bathroom
+
+You're in a tiny bathroom off to one side of the den. It doesn't have a
+toilet here but by the state of the sink... no, you don't want to go there.
+There's a shower fixture in the bath, which has unsightly stains all around
+the side. All things considered, this is probably the worst bathroom you've
+ever seen in your life.
+
+"Looks like your bathroom," says Emmie. "Honestly, I feel like I'm going to
+die of gangrene every time I go in there."
+
+> x shower
+Operated by the push of a button by the look of things.
+
+> push button
+You push the button.
+
+At once, you hear a rumbling sound from deep underground, as though some
+great ancient machinery has been stirred into life and is slowly, slowly but
+surely, beginning to operate again, and then the walls begin to shake, and
+the floor vibrates, and the ceiling... well, the ceiling just kind of stays
+where it is but you feel that if it could shake or vibrate, it would. The
+rumbling sound gets louder, and louder, and louder and LOUDER
+
+and, quite undramatically, a carrot which was lodged in the pipes of the
+shower falls out and lands at your feet.
+
+Silence descends once more.
+
+"Um... is that it?" asks Emmie, echoing your own thoughts. "That was a whole
+lot of build up and no real climax." She thinks about this and giggles. "Bit
+like my boyfriend."
+
+> get carrot
+You take the carrot.
+
+> e
+
+Den
+
+The floor of this previously hidden room is sunken with a large sofa set into
+the middle area. Directly in front of the sofa is a TV screen showing, of all
+places, the cellar where you and Emmie woke up after being kidnapped by the
+crazy old man. A can of beer and a sandwich rest on one side of the sofa and
+there's an exit to the west leading to, by the sound of things, a bathroom.
+There's also another exit to the south leading back to the kitchen.
+
+> s
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside, however something you've done looks to have
+revealed a previously hidden door in the north wall(to one side of which you
+can see a button). There are exits to the south and west, as well as a small
+alcove you can fit into to the northeast.
+
+> s
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> w
+
+Hallway
+
+A-ha, you see the front door to the south! On the down side, the padlocks –
+four of them in total – look pretty sturdy. Someone – probably the crazy old
+man – has put a cupboard by the door and placed a skull on top of it. Yes, an
+actual skull. Stairs lead up here to the upper floor of the house, and there
+are other rooms away to the east and west. On the floor is a sinister rug,
+with a landmine partially concealed beneath. All things considered, it's the
+landmine you're more concerned about right now.
+
+> u
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course.
+
+> e
+
+Bedroom
+
+This must be the crazy old man's bedroom. It's got a double bed – which you
+really hope he doesn't ever share with anyone – and a bedside cabinet, a
+mirror built into the ceiling, a window giving a very nice view of the wall
+outside and a wardrobe which seems to lurk in the corner with much malice and
+menace. The only exit is to the west.
+
+> x bed
+It's unmade. That's bad.
+
+"We're in the house of a crazy old man who killed Jud, locked us in the
+cellar and is likely planning to murder us both whenever he feels like it,
+and the first thing you think on seeing that his bed is unmade is that it's
+bad?" says Emmie. "Man, you are so lame it's a wonder your head doesn't fall
+off."
+
+You touch your neck gingerly. "Is that what happens if you become really
+lame?"
+
+"Maybe."
+
+> make bed
+As you're making it, something tumbles out of the sheets and falls to the
+floor. The something turns out to be a key.
+
+"Grab it!" cries Emmie. "It might open the front door!"
+
+You grab it.
+
+"Now get to the front door!"
+
+> w
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course.
+
+> n
+
+Meeting Room
+
+Quite why a crazy old man who abducts and murderers teenagers needs a meeting
+room, you don't know. So he can get together with his crazy old men friends
+and discuss the best tactics for getting away with abduction and murder?
+Whatever the reason, he has a meeting room. This has a large circular table
+in the centre with nameplates around its edge and a ballot box in the centre.
+The only exit is to the south.
+
+"Why aren't you at the front door?" cries Emmie. "Hurry, dumbass!"
+
+> x box
+There's a keyhole in one side and a slot on top where people can push in
+their suggestions. The box itself is closed.
+
+> open box
+You slide the key into the keyhole and – as if by magic – the ballot box
+opens. Revealing...
+
+"Well, that's odd," says Emmie.
+
+It's not ballot papers she's referring to because there are none here, but
+instead a doll. Emmie probably played with this kind of thing when she was-
+
+"Excuse me, I never played with dolls as a kid," she snaps. "I was reading
+Shakespeare at three and writing my own plays by four."
+
+All the same, you pick the doll up. "It's kind of cute."
+
+Emmie groans. "Yeah. You probably played with dolls yourself, empty head."
+
+> x doll
+A kid's doll. Definitely not the kind of thing Emmie would ever have played
+with. It feels remarkably fragile and easily breakable, so it's likely more a
+collector's item than anything a kid would have.
+
+> smash doll
+The moment the doll hits the floor, it explodes into a million billion
+fragments (okay, slight exaggeration there), leaving behind...
+
+"What is that?" you ask, frowning.
+
+"It looks like a golden scepter," says Emmie. "Hidden inside the doll. That's
+weird."
+
+"Yeah. Very."
+
+"You know what's weirder?"
+
+"What?"
+
+"The fact that there's a golden scepter lying on the floor and you're just
+stood there looking at it. Duh! Pick it up, dumbass."
+
+> get golden sceptre
+You take the golden scepter.
+
+> s
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course.
+
+> w
+
+Study
+
+Of all the studies you've seen in your life - which is, admittedly, one
+(being your dad's) - this is the most unusual. It has a statue in the centre
+of a nubile young lady sitting in a pond spurting water out of her mouth and
+a dumb waiter in one wall, which is currently ready and waiting for someone
+to use it. As if that wasn't strange enough, the door you entered via (to the
+east) is shaped like a huge mouth with teeth painted onto the edges. Even
+stranger still, there's a window. What's strange about the window, you might
+ask? Well, take a look at it and see. By comparison, the writing bureau
+beneath the window is positively boring.
+
+> x bureau
+It's empty.
+
+Aside from the piece of paper nailed to one corner.
+
+> read paper
+It reads:
+
+"Dear fellow,
+
+It has come to our attention that your game, of late, has been somewhat...
+lacking. We do this kind of thing because we're a) crazy, b) evil and c)
+easily amused. Your recent endeavours lack wit and ingenuity. Why, dear
+fellow, it's almost like you're bored of killing teenagers.
+
+So the fellows have decided that you need to up your game. Add some spice to
+the proceedings. Make it more exciting! No killing the teenagers too quick.
+No putting them in unfair situations from which they have no chance of
+success. Give them a sporting chance.
+
+However, we feel you may be a tad reluctant to implement some of the required
+changes. As such, we've taken the liberty of leaving the special dark-rimmed
+NHS glasses in a very easy-to-find place in the dining chamber. Simply cough
+loudly and they appear.
+
+Be a dear, my good fellow, and don't remove them. We'd be ever so
+disappointed if you were to do that."
+
+It's signed your murderous chums.
+
+"Interesting," says Emmie. "So the crazy old man has got some equally crazy
+chums and they want to give us a sporting chance. To the dining chamber,
+doofus! Let's go find these glasses."
+
+> e
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course.
+
+> d
+
+Hallway
+
+A-ha, you see the front door to the south! On the down side, the padlocks –
+four of them in total – look pretty sturdy. Someone – probably the crazy old
+man – has put a cupboard by the door and placed a skull on top of it. Yes, an
+actual skull. Stairs lead up here to the upper floor of the house, and there
+are other rooms away to the east and west. On the floor is a sinister rug,
+with a landmine partially concealed beneath. All things considered, it's the
+landmine you're more concerned about right now.
+
+> e
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> cough
+You loudly clear your throat.
+
+This has the effect of subtly shifting a piece of especially stubborn air
+near to where you're standing and, as if by magic, you see some special
+thick-rimmed NHS glasses there on the floor.
+
+Frowning, you pick them up.
+
+"Try 'em on," suggests Emmie. "I wanna see what they do."
+
+> wear glasses
+You put them on.
+
+Your dork rating increases by a factor of 5, your coolness rating drops
+immensely and your chances of getting literally anywhere with girls is
+non-existent.
+
+"Nothing seems to have changed," you say and Emmie giggles to herself.
+
+> n
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside, however something you've done looks to have
+revealed a previously hidden door in the north wall(to one side of which you
+can see a button). There are exits to the south and west, as well as a small
+alcove you can fit into to the northeast.
+
+> w
+
+Storage Room
+
+Shelves line the walls, on which are stacked all manner of junk and garbage.
+Some of it is new, some old, but all of it smells. There are a couple of ways
+out of here – east and west – and there's also a ladder leaning against one
+wall which you can probably climb to the upper part of the room. The glasses
+make a strange buzzing sound, which you're sure means something important.
+
+> w
+
+Corridor
+
+You're in a narrow corridor outside the cellar of the crazy old man. It's not
+a very interesting corridor – but then corridors seldom are – and just leads
+west back to the cellar and east to another room.
+
+> w
+
+Cellar
+
+You're in the cellar of the crazy old man's house. You're now free but
+Emmie's still chained up to the wall. You're going to hazard a guess that
+she's not too chuffed about this situation. You now see a previously hidden
+panel has opened in the wall near to where Emmie is tied up.
+
+As far as cellars go, this one is better than some you've been locked in
+(long story, don't ask). The crazy old man has left the light on, at least,
+so you can see what's what, and the door which was originally blocking the
+exit is now gone, and it was a pretty flimsy door too, so maybe he feels like
+giving you a sporting chance. And, oddly enough, you can now see an archway
+to the south that you could swear wasn't there before. The glasses make a
+strange buzzing sound, which you're sure means something important.
+
+> open panel
+Peering into the panel, you see...
+
+"A scintillating jewel?" says Emmie, frowning. "Why would the crazy old man
+hide a scintillating jewel in a panel in the wall of his cellar?"
+
+"I don't know," you say, slipping said jewel into your pocket.
+
+"What use do you think it might be?" She snorts. "You going to bribe the
+crazy old man to let us go?"
+
+> s
+
+'Enclave'
+
+The room south of the archway is an odd one. It looks like a cave which
+someone has been renovating for quite some time - there's a table and a
+recliner there, a pool filled with gungy-looking water, a picture of the sun
+on one wall and a dead palm tree in the corner. Not to mention the someone in
+question, a small fellow with wild hair and mad eyes, currently digging with
+a spade at the floor.
+
+As you enter the hidden room, the strange fellow looks up at you and scowls
+before continuing his digging.
+
+"I don't like visitors," he says. "So find your own enclave."
+
+"Sounds like a loony!" Emmie helpfully calls from the cellar.
+
+"I just found this hidden room," you say to the strange fellow, "and I was
+wondering-"
+
+"Don't wonder. This-" he gestures to the 'enclave' "-is mine. All mine. The
+name's Cuthbert and I'm not the sharing type."
+
+> talk to Cuthbert
+"What are you doing here?" you ask.
+
+"Digging," says Cuthbert and proceeds to dig for a while. "I got kidnapped by
+this crazy old man years ago and locked up in a cellar. But through luck and
+ingenuity - and the key being left in the lock - I got free. Now, the dumb
+thing to do would have been to flee for the outside world."
+
+"Why is that dumb?"
+
+"Because it's what he would have expected me to do." Cuthbert sighs as he
+says this, as if you're just too stupid for words. "So I found my way here
+instead, to this hidden room, and I decided to plan my escape from here. As
+you can see, it's going well."
+
+> talk to Cuthbert
+"You're going to dig your way out?" you say.
+
+"Indeed." Cuthbert digs some more. "At first I figured it would take me a
+week or two. Then I figured a month. Then two months. Then five." He frowns.
+"When it got to the one year stage, I realised my initial estimate was a
+little optimistic. So I figured that if I wasn't out by the two year stage
+I'd re-think my plan."
+
+"How long has it been now?"
+
+"Nine years." He sighs. "But I'm almost out. I reckon another week and I'll
+be able to smell the fresh air again. As you can see, I've made attempts to
+make the enclave a little more homely." He gestures at the pool and other
+scenery. "It's, um, a work in progress."
+
+> talk to Cuthbert
+"I need to escape myself," you say. "My friend and I are trapped here and-"
+
+Cuthbert puts up a hand. "Sorry, I'm strictly here for myself. Unwilling to
+help out my fellow man - or woman - at all. However, if you'd be willing to
+lend me a hand, that'd be great. I could half the time it'd take me to
+escape. And you could use the escape tunnel once I'm done."
+
+"What do you need help with?" you ask.
+
+"Oh, a drill would be handy. Get through this solid concrete floor a little
+faster. Or a better spade."
+
+"Sorry, I don't have any of them. I'm kind of on the run for my life here."
+
+"Oh. Well, how about something with a really sharp cutting edge? Jewellery
+generally a good job at that. I could strap it to the spade and cut through
+this stuff in no time."
+
+> give jewel to Cuthbert
+"Ah, this'll do nicely," says Cuthbert, and immediately straps the
+scintillating jewel to his spade. "I can feel the difference already."
+
+You can't yourself, but he sets to with gusto, hammering into the rock floor
+of the 'enclave', and then exclaims, "By Jove! I've done it!"
+
+"What - you've found the way out?"
+
+"Oh heavens no. Nothing like that. But look." He points to a button he's
+uncovered on the floor. "I wonder what that does."
+
+"It's just begging to be pushed," you say.
+
+"Yes it is. But... you do it. I've got digging to do and, er, I'm already a
+little concerned about buttons being wired to explosives and things like
+that."
+
+> push button
+You push it.
+
+If something happens, it happens very quietly and definitely not in here.
+
+"Well, that was a bit of downer," says Cuthbert, "but at least it didn't
+explode and kill you."
+
+> n
+
+Cellar
+
+You're in the cellar of the crazy old man's house. You're now free but
+Emmie's still chained up to the wall. You're going to hazard a guess that
+she's not too chuffed about this situation. You now see a previously hidden
+panel has opened in the wall near to where Emmie is tied up.
+
+As far as cellars go, this one is better than some you've been locked in
+(long story, don't ask). The crazy old man has left the light on, at least,
+so you can see what's what, and the door which was originally blocking the
+exit is now gone, and it was a pretty flimsy door too, so maybe he feels like
+giving you a sporting chance. And, oddly enough, you can now see an archway
+to the south that you could swear wasn't there before. The glasses make a
+strange buzzing sound, which you're sure means something important.
+
+> e
+
+Corridor
+
+You're in a narrow corridor outside the cellar of the crazy old man. It's not
+a very interesting corridor – but then corridors seldom are – and just leads
+west back to the cellar and east to another room.
+
+> e
+
+Storage Room
+
+Shelves line the walls, on which are stacked all manner of junk and garbage.
+Some of it is new, some old, but all of it smells. There are a couple of ways
+out of here – east and west – and there's also a ladder leaning against one
+wall which you can probably climb to the upper part of the room. The glasses
+make a strange buzzing sound, which you're sure means something important.
+
+> e
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside, however something you've done looks to have
+revealed a previously hidden door in the north wall(to one side of which you
+can see a button). There are exits to the south and west, as well as a small
+alcove you can fit into to the northeast.
+
+> s
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> w
+
+Hallway
+
+A-ha, you see the front door to the south! On the down side, the padlocks –
+four of them in total – look pretty sturdy. Someone – probably the crazy old
+man – has put a cupboard by the door and placed a skull on top of it. Yes, an
+actual skull. Stairs lead up here to the upper floor of the house, and there
+are other rooms away to the east and west. On the floor is a sinister rug,
+with a landmine partially concealed beneath. All things considered, it's the
+landmine you're more concerned about right now.
+
+> u
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course.
+
+> se
+
+Long Corridor
+
+This is a long and somewhat narrow corridor which winds away to the northwest
+and southwest.
+
+> sw
+
+Long Corridor
+
+This is another long and winding corridor which heads northwest and
+northeast.
+
+> nw
+
+Long Corridor
+
+This is yet another long corridor which reaches a dead end here after coming
+from the southeast. Actually, now that you think about it, it doesn't reach a
+dead end at all because there's another exit to the west. How odd. The
+glasses make a strange buzzing sound, which you're sure means something
+important.
+
+> w
+
+Cells
+
+The cells. Or, rather, one cell in which is locked up a very angry man. You
+suppose he has good reason to be angry on account of being locked up, but
+he's really not taking his captivity very well. He's screaming abuse, kicking
+and punching the bars of his cell and just causing all manner of kerfuffle.
+You're almost relieved there are big thick bars between the two of you
+because he looks angry enough to go ballistic on anyone he gets his hands on.
+
+The moment you set foot inside the room, the man in the cell grabs hold of
+the bars and yells, "Let me outta here, yer young thug, or I'll rip yer 'ead
+off! I'm gonna kill yer! I swear to God I'm gonna kill yer dead!"
+
+"Just a bit of advice," says Emmie, "but you might want to give serious
+consideration to not letting him out."
+
+On seeing you hesitate, the man says, in a somewhat calmer voice, "Ah, don't
+you go listenin' to the voices in yer 'ead! Jus' open the bars and let ol'
+Tarquin out."
+
+"Tarquin?" says Emmie. "Ha! With a name like that, he almost deserves to be
+locked up."
+
+> use jail break kit
+You've never used a jail break kit before but it proves surprisingly easy.
+You just aim it at the bars and - hey presto! - a pair of hooks shoot out,
+attach themselves to the bars and force them apart.
+
+Tarquin wastes no time in squeezing through the bars and escaping his cell.
+Also no time in snatching the jail break kit off you, saying, "This oughta
+come in handy," before legging it.
+
+"Hang on!" you say. "Isn't there any sort of reward for letting you go?"
+
+He pauses, frowning at you. "Did I promise you any reward?"
+
+"Um... no."
+
+"Well, what did you expect then?"
+
+And with that, the ungrateful ex-prisoner scarpers.
+
+"Doofus," mutters Emmie and for once you're sure if she means you or Tarquin.
+
+> x bars
+You study the bars closely, noticing how sharp and stabby some of them are.
+As a long time D & D player, you know the advantages of having a good stabby
+weapon so you quickly find the sharpest piece of metal in sight, snap it off
+and...
+
+You have your very own stabby stick!
+
+"Oh, man," says Emmie with a groan. "That is so lame."
+
+> e
+
+Long Corridor
+
+This is yet another long corridor which reaches a dead end here after coming
+from the southeast. Actually, now that you think about it, it doesn't reach a
+dead end at all because there's another exit to the west. How odd. The
+glasses make a strange buzzing sound, which you're sure means something
+important.
+
+> se
+
+Long Corridor
+
+This is another long and winding corridor which heads northwest and
+northeast.
+
+> ne
+
+Long Corridor
+
+This is a long and somewhat narrow corridor which winds away to the northwest
+and southwest. Someone - likely Tarquin because it wasn't here when you first
+came this way - has written on the wall "The code is 1156".
+
+"Look!" says Emmie. "Writing on the wall. It must be Tarquin."
+
+"What code does he mean?"
+
+"Dunno, but it must be important if he wrote it down. Make a note of it."
+
+> nw
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course. Someone - perhaps Tarquin - has written on the wall "No, darn, that's
+not the code. It's that but minus 52 x 4 times too much!"
+
+"More writing," says Emmie. "So we've got 1156 and we just need to deduct 208
+from it. That leaves us with..."
+
+"Um... er... ah... 1156 minus 208?"
+
+Emmie sighs. "Sometimes I really wish I'd picked cleverer friends."
+
+> w
+
+Study
+
+Of all the studies you've seen in your life - which is, admittedly, one
+(being your dad's) - this is the most unusual. It has a statue in the centre
+of a nubile young lady sitting in a pond spurting water out of her mouth and
+a dumb waiter in one wall, which is currently ready and waiting for someone
+to use it. As if that wasn't strange enough, the door you entered via (to the
+east) is shaped like a huge mouth with teeth painted onto the edges. Even
+stranger still, there's a window. What's strange about the window, you might
+ask? Well, take a look at it and see. By comparison, the writing bureau
+beneath the window is positively boring. Someone - definitely Tarquin - has
+written on the wall "Did my maths wrong. The code is actually just what I
+said but with the final digit taken off."
+
+> e
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course. Someone - perhaps Tarquin - has written on the wall "No, darn, that's
+not the code. It's that but minus 52 x 4 times too much!"
+
+> n
+
+Meeting Room
+
+Quite why a crazy old man who abducts and murderers teenagers needs a meeting
+room, you don't know. So he can get together with his crazy old men friends
+and discuss the best tactics for getting away with abduction and murder?
+Whatever the reason, he has a meeting room. This has a large circular table
+in the centre with nameplates around its edge and a ballot box in the centre.
+The only exit is to the south. Someone - Tarquin, who else? - has written on
+the wall "Fixed my calculator at last. The code is reversed."
+
+> s
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course. Someone - perhaps Tarquin - has written on the wall "No, darn, that's
+not the code. It's that but minus 52 x 4 times too much!"
+
+> e
+
+Bedroom
+
+This must be the crazy old man's bedroom. It's got a double bed – which you
+really hope he doesn't ever share with anyone – and a bedside cabinet, a
+mirror built into the ceiling, a window giving a very nice view of the wall
+outside and a wardrobe which seems to lurk in the corner with much malice and
+menace. The only exit is to the west. Someone - yes, Tarquin - has written on
+the wall "No, blasted calculator letting me down again. It's double what I
+last thought."
+
+"I think I can figure the code out," says Emmie. "I mean, it's pretty logical
+really when you think about it."
+
+"Yeah, I was thinking the same thing."
+
+Emmie sighs. "You don't have a clue what it is, do you, doofus?"
+
+"Of course I do, but... I think you should tell me anyway. To, er, show off
+how much more clever than me you are."
+
+Emmie sighs again. She seems to do a lot of sighing when speaking to you. "It
+starts with 1156, right?"
+
+You'd forgotten that but nod anyway.
+
+"Then you take away 208 which leaves you with..."
+
+"Um..."
+
+"948. Then you take the final digit off which leaves you with..."
+
+"Ah..."
+
+"94. Double that to get..."
+
+"Er..."
+
+"188. Then reverse it."
+
+"Well..."
+
+"Oh, for pity's sake, dumbass! I'm not telling you all of it. I'm sure even
+your tiny peabrain can figure it out if you try."
+
+That's Emmie for you. Pep talks are not her strong point.
+
+> x bedside cabinet
+Old, battered and leaning unevenly to one side, this has certainly seen
+better days.  The perfume is on the bedside cabinet.
+
+> get perfume
+You take the perfume from the bedside cabinet.
+
+> x perfume
+Well, it says 'perfume' on the side, but you're a trifle suspicious about it.
+For a start, it's glowing radioactively, it feels unnaturally warm to the
+touch and it smells faintly of glue and acid.
+
+"You might want to go steady with that and not go spraying it all over the
+place," says Emmie. "I got a bad feeling about it."
+
+"How dangerous could perfume be?"
+
+"Very. And that's just normal perfume, which that most certainly isn't. In
+fact, if I didn't know better, I'd swear it was actually a weapon."
+
+"You mean, the crazy old man has poison perfume?"
+
+"Maybe, or someone's trying to kill him."
+
+"You think he sprays perfume on himself?"
+
+"He kills people and locks others in his cellar, so anything's possible."
+
+> x wardrobe
+This is probably the most evil wardrobe you have ever seen. How can a
+wardrobe be evil? Well, it's hard to say but this one certainly gives off a
+very evil vibe. It's currently closed, which is just the way you like it. You
+don't even want to imagine what untold horrors lurk within.
+
+Scratched into the side of the wardrobe are the words: "Acme security
+wardrobe. Current status: locked. Speak aloud the code to unlock."
+
+> 881
+"881!" you cry.
+
+There's a distinct click! sound from the wardrobe.
+
+> open door
+You don't imagine for a second that the door will simply open at your touch.
+I mean, who's going to put a door at the back of a special wardrobe and have
+an elaborate code for it and then go and leave the door unlocked? I mean, no
+one, right?
+
+The door opens.
+
+Well, you guess it's fine to catch a lucky break every now and then.
+
+> e
+
+Cheat Room
+It probably has an official name but cheat room is how you think of this
+place. It's got a metal chair in the centre which looks a lot like the one
+Captain Kirk sits in in Star Trek and a large screen in front of it (also
+like Star Trek) bearing the words CHEAT CONSOLE. There's an exit to the west
+and a panel on one wall.
+
+The moment you step into the room, Emmie cries out, "Doofus, watch it!" and
+you duck just as the crazy old man tries to lop your head off with a meat
+cleaver!
+
+"Damnation!" he says, looking not at all pleased that you're a) still alive
+and b) his meat cleaver has hit the wall and broken. "You kids will be the
+death of me."
+
+"You killed my friend!" you say, this being a) factually correct and b) the
+first thing it occurred to you to say.
+
+"And I'll kill you as well, you young rapscallion. How dare you break out of
+my cellar? Do you know what kind of damage you've caused-"
+
+"Nothing compared to the damage I'll cause you!" someone yells from behind
+you and you see Tarquin there. Correction: and a great big axe! "You locked
+me up in that room and left me to die. That sorta thing makes a man see red!"
+
+The crazy old man points a shaking finger at him. "You! You gave him the
+code!"
+
+"Of course I did. Next I'll give him your head!"
+
+Tarquin goes rushing past you and swings the axe at the crazy old man's head,
+but misses as your kidnapper darts to one side. He slaps a panel on the wall
+and a secret door - well, not secret any longer - opens up and he ducks
+through. Tarquin rushes in after him and the not-so-secret door swings shut
+behind him.
+
+Deadly silence descends.
+
+"Woah," says Emmie.
+
+> x console
+
+CHEAT CONSOLE
+
+1        Open the hidden door.
+2        Reveal the exit in south of the dining chamber.
+3        Something...
+4        Ultimate destruction! Blow the house up! Kill everyone!
+
+0        Exit.
+
+> 1
+Done. The hidden door is now visible in the lounge.
+
+CHEAT CONSOLE
+
+1        Open the hidden door.
+2        Reveal the exit in south of the dining chamber.
+3        Something...
+4        Ultimate destruction! Blow the house up! Kill everyone!
+
+0        Exit.
+
+> 2
+Done. The secret exit is now revealed.
+
+CHEAT CONSOLE
+
+1        Open the hidden door.
+2        Reveal the exit in south of the dining chamber.
+3        Something...
+4        Ultimate destruction! Blow the house up! Kill everyone!
+
+0        Exit.
+
+> 3
+Done. Something has changed.
+
+CHEAT CONSOLE
+
+1        Open the hidden door.
+2        Reveal the exit in south of the dining chamber.
+3        Something...
+4        Ultimate destruction! Blow the house up! Kill everyone!
+
+0        Exit.
+
+> 0
+
+Cheat Room
+
+It probably has an official name but cheat room is how you think of this
+place. It's got a metal chair in the centre which looks a lot like the one
+Captain Kirk sits in in Star Trek and a large screen in front of it (also
+like Star Trek) bearing the words CHEAT CONSOLE (which is nothing like Star
+Trek at all). There's an exit to the west and also another exit somewhere,
+the one the crazy old man escaped through, but you don't see that right now.
+Maybe the panel on the wall has something to do with it.
+
+> w
+
+Bedroom
+
+This must be the crazy old man's bedroom. It's got a double bed – which you
+really hope he doesn't ever share with anyone – and a bedside cabinet, a
+mirror built into the ceiling, a window giving a very nice view of the wall
+outside and a wardrobe which seems to lurk in the corner with much malice and
+menace. The only exit is to the west. Someone - yes, Tarquin - has written on
+the wall "No, blasted calculator letting me down again. It's double what I
+last thought."
+
+> w
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course. Someone - perhaps Tarquin - has written on the wall "No, darn, that's
+not the code. It's that but minus 52 x 4 times too much!"
+
+> w
+
+Study
+
+Of all the studies you've seen in your life - which is, admittedly, one
+(being your dad's) - this is the most unusual. It has a statue in the centre
+of a nubile young lady sitting in a pond spurting water out of her mouth and
+a dumb waiter in one wall, which is currently ready and waiting for someone
+to use it. As if that wasn't strange enough, the door you entered via (to the
+east) is shaped like a huge mouth with teeth painted onto the edges. Even
+stranger still, there's a window. What's strange about the window, you might
+ask? Well, take a look at it and see. By comparison, the writing bureau
+beneath the window is positively boring. Someone - definitely Tarquin - has
+written on the wall "Did my maths wrong. The code is actually just what I
+said but with the final digit taken off."
+
+> climb into dumb waiter
+
+Dumb Waiter
+
+You're crammed into the dumb waiter, which is really small and definitely not
+designed with the idea of a human sitting in it (even one as scrawny as you).
+From here, you can just about reach the lever which moves the dumb waiter
+between floors.
+
+> pull lever
+You reach out of the dumb waiter and pull the lever.
+
+It immediately goes shooting upwards, almost taking your arm off.
+
+> out
+
+Storage Room
+
+Seen through the glasses, the storage room is greatly changed. The shelves
+are now stacked to capacity with money, the boarded-up window is unboarded
+(though a little too small to climb through if you were thinking of it as a
+possible escape route) and the locked door to the west... well, that's still
+locked but there's a tiger-skin rug on the floor in front of it that wasn't
+there before. Oh, and the dumb waiter, of course.
+
+> get money
+You help yourself to some. Not a lot. You don't want to be greedy. Just
+enough to tide you over for a while.
+
+Yes, £330,000 should just about do it. In your mind, you think of it as loot.
+Lots of loot. Lovely, lovely loot.
+
+> lift rug
+Someone has nailed it to the floor. That someone is likely to be the crazy
+old man on account of it being a pretty crazy thing to do, nailing a
+tiger-skin rug to the floor.
+
+As you try to lift it, however, you hear something creaking in the distant
+and then the sound of something opening.
+
+"Something opened," Emmie says helpfully. "You should probably go and have a
+look for it."
+
+"You're full of helpful advice."
+
+"Well, I could say it was from the safe in the dining chamber, but I don't
+want to make this easy for you, do I?"
+
+> climb into dumb waiter
+
+Dumb Waiter
+
+You're crammed into the dumb waiter, which is really small and definitely not
+designed with the idea of a human sitting in it (even one as scrawny as you).
+From here, you can just about reach the lever which moves the dumb waiter
+between floors.
+
+> pull lever
+You reach out of the dumb waiter and pull the lever.
+
+It immediately goes shooting downwards, almost taking your arm off.
+
+> out
+
+Study
+
+Of all the studies you've seen in your life - which is, admittedly, one
+(being your dad's) - this is the most unusual. It has a statue in the centre
+of a nubile young lady sitting in a pond spurting water out of her mouth and
+a dumb waiter in one wall, which is currently ready and waiting for someone
+to use it. As if that wasn't strange enough, the door you entered via (to the
+east) is shaped like a huge mouth with teeth painted onto the edges. Even
+stranger still, there's a window. What's strange about the window, you might
+ask? Well, take a look at it and see. By comparison, the writing bureau
+beneath the window is positively boring. Someone - definitely Tarquin - has
+written on the wall "Did my maths wrong. The code is actually just what I
+said but with the final digit taken off."
+
+> pull lever
+You do. The dumb waiter goes shooting upwards, leaving an empty space behind.
+
+> climb into empty space
+You do. You don't hear Emmie saying, "Oh, why the heck did you do that, you
+moron?" before gravity takes hold and sends you falling rapidly downward at
+bone-breaking speed, but she probably did say it.
+
+... Press a key...
+
+Or, actually, not quite bone-breaking speed as while landing on the feathered
+bed down below certainly comes keen, your bones survive the impact fairly
+well.
+
+... Press a key...
+
+Grim Room
+
+This place is well named (well, you named it so you're naturally biased). The
+walls are slimy with odd-coloured water (and the odd button), the floor is
+pitted with holes, in which lots of the odd-coloured water has gathered, and
+the ceiling is... well, not really there. Most of it has collapsed and added
+to the mess on the floor, and what remains is just the shaft through which
+you fell from the study upstairs. Strangely, there's a feathered bed in the
+middle of the room, right below the shaft, which allowed your fall to be
+broken instead of your back, but the lack of actual exits makes you too
+nervous to dwell on what a good thing this is.
+
+"I don't like the look of this," says Emmie. "It smacks of a trap."
+
+You swallow nervously. "A t-trap?"
+
+"No. A trap. One T, not two. Yeah, someone clearly expected an idiot to fall
+down the dumb waiter shaft and left the feathered bed there to break their
+fall, yet there are no exits."
+
+"How do I get out?"
+
+"Beats me, buster. You're the one who jumped down a dumb waiter shaft without
+checking if it was safe first."
+
+> push button
+You push it. Nothing seems to happen.
+
+"Time to go exploring," says Emmie. "I'm gonna hazard a guess that opened
+something somewhere and that somewhere sounded kinda... easterly."
+
+"I didn't hear anything at all."
+
+"Yeah, that's why you're not the brains of this operation." Emmie pauses.
+"Yep, definitely in an easterly direction. South of the dining chamber?
+Somewhere east of that, I'm thinking."
+
+> x bed
+It's not very comfortable and the feathers are soaked with the water and give
+off a fairly pungent smell, but you're still pleased about the bed being
+here. If not for this, you'd have likely broken your back falling down the
+shaft. It has a sticker on one side.
+
+> jump on bed
+You jump up and down on the bed, fully expecting nothing much to happen, and
+even hearing Emmie say, "What are you doing that for, lamo?" and then you get
+a really good bounce going and...
+
+... Press a key...
+
+Study
+
+Of all the studies you've seen in your life - which is, admittedly, one
+(being your dad's) - this is the most unusual. It has a statue in the centre
+of a nubile young lady sitting in a pond spurting water out of her mouth and
+a dumb waiter in one wall, or, rather, the empty space where a dumb waiter
+used to be as you've sent it up to the next floor. As if that wasn't strange
+enough, the door you entered via (to the east) is shaped like a huge mouth
+with teeth painted onto the edges. Even stranger still, there's a window.
+What's strange about the window, you might ask? Well, take a look at it and
+see. By comparison, the writing bureau beneath the window is positively
+boring. Someone - definitely Tarquin - has written on the wall "Did my maths
+wrong. The code is actually just what I said but with the final digit taken
+off."
+
+... and land back in the study by the dumb waiter.
+
+"No way!" Emmie cries. "No way in a million years did you just do that!"
+
+You get to your feet, brushing yourself down. "Sometimes I amaze myself."
+
+"No. Damn. Way."
+
+> e
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course. Someone - perhaps Tarquin - has written on the wall "No, darn, that's
+not the code. It's that but minus 52 x 4 times too much!"
+
+> d
+
+Hallway
+
+A-ha, you see the front door to the south! On the down side, the padlocks –
+four of them in total – look pretty sturdy. Someone – probably the crazy old
+man – has put a cupboard by the door and placed a skull on top of it. Yes, an
+actual skull. Stairs lead up here to the upper floor of the house, and there
+are other rooms away to the east and west. On the floor is a sinister rug,
+with a landmine partially concealed beneath. All things considered, it's the
+landmine you're more concerned about right now.
+
+> w
+
+Lounge
+
+Considering the state of the rest of the house, you're surprised to find that
+the lounge is actually quite nice. It's got a reclining sofa, a huge flat
+screen TV and a mini-bar in the corner. It's also got a roaring log fire and
+a dartboard. And a pool table. And a donkey. All in all, there's quite a lot
+to see in here. Only one exit back to the east but lots of stuff to do in
+here. Not to mention a previously hidden door to the south which you'd bet
+your bottom dollar wasn't there originally.
+
+> give carrot to donkey
+You offer the carrot up to the donkey who sniffs it, sniffs you, gives you a
+suspicious look, and then bites the carrot in two before swallowing both
+pieces.
+
+Nothing seems to change as a result, but the donkey seems marginally less
+angry than before.
+
+> s
+
+Isabella's Cell
+
+This is certainly more lavish than the other cell you came across earlier,
+and much nicer than the cellar in which the crazy old man locked you and
+Emmie. It's got a bed for a start with a poster of the She-Hulk above it and
+a Playstation and a window (covered with thick bars unfortunately) and the
+light doesn't even flicker in a nausea-inducing manner. It's definitely still
+a cell, though, as it's got a teenage girl a few years younger than you
+chained up here, pacing back and forth furiously between her bed and the
+window.
+
+The moment you step into the cell, the girl pacing back and forth glances at
+you and scowls. "Oh, it's you," she mutters.
+
+"Do you know me?"
+
+"No, but I know my dad kidnapped you and your idiot friend and that clever
+girl-"
+
+"Hey, thanks," says Emmie.
+
+"-and locked them in the cellar."
+
+"Your dad? The crazy old man?"
+
+"Yeah. As you can see," she rattles the chains, "he's got a thing for
+chaining people up." She scowls again. "Sometimes I really don't like my
+parents."
+
+> x bed
+"Hey," says Isabella. "That's mine. Back off!"
+
+> x bed
+"I said back off!" says Isabella. "Are you looking for a punch in the teeth
+or what?"
+
+> x bed
+"Oh, you are so asking for your spine to be pulled out of your body and used
+to strangle you," says Isabella, which is certainly the most unusual threat
+you've ever heard.
+
+> x bed
+"Right, that does it!" Isabella yells. "That - fricking - well - does - it!"
+
+And she hulks out. Literally. Her skin begins to turn green and she tears at
+her clothes (though, as this is a strictly PC game, she does this in such a
+way as to not reveal anything) and her muscles bulge and-
+
+The chains split apart!
+
+Isabella gives a hulky roar and punches the window, causing the bars to crack
+open, and then flees past you out of the room, yelling, "She-Hulk
+smaaaaaaash!" as she does.
+
+Leaving you in the wreckage of her cell.
+
+"What... the... hell..." says Emmie. "Did I just see what I thougt I saw or
+am I going mad?"
+
+> n
+
+Lounge
+
+Considering the state of the rest of the house, you're surprised to find that
+the lounge is actually quite nice. It's got a reclining sofa, a huge flat
+screen TV and a mini-bar in the corner. It's also got a roaring log fire and
+a dartboard. And a pool table. And a donkey. All in all, there's quite a lot
+to see in here. Only one exit back to the east but lots of stuff to do in
+here. Not to mention a previously hidden door to the south which you'd bet
+your bottom dollar wasn't there originally.
+
+> e
+
+Hallway
+
+A-ha, you see the front door to the south! On the down side, the padlocks –
+four of them in total – look pretty sturdy. Someone – probably the crazy old
+man – has put a cupboard by the door and placed a skull on top of it. Yes, an
+actual skull. Stairs lead up here to the upper floor of the house, and there
+are other rooms away to the east and west. On the floor is a sinister rug,
+with a landmine partially concealed beneath. All things considered, it's the
+landmine you're more concerned about right now.
+
+> e
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> n
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside, however something you've done looks to have
+revealed a previously hidden door in the north wall(to one side of which you
+can see a button). There are exits to the south and west, as well as a small
+alcove you can fit into to the northeast.
+
+> ne
+
+The Alcove
+
+You're in the alcove which is small, cramped and altogether far more scary
+than it has any right to be. There's nothing really here to indicate just why
+it's such a scary place but you can't shake off the feeling that the sooner
+you're out of here (like heading southwest ASAP), the better. With the
+glasses on, it doesn't look quite as dark as it was before and you can see
+there's another exit out of here, this one to the east. The glasses make a
+strange buzzing sound, which you're sure means something important.
+
+> e
+
+Aquarium
+
+Well, you certainly didn't expect to stumble across an aquarium in the crazy
+old man's house, but that's just what you see here. Hundreds, if not
+thousands, of fish in bowls and a man (we'll call him Bob for the sake of it)
+sitting on a stool as he makes notes.
+
+> remove glasses
+You take them off.
+
+You'd like to think this makes you a lot more cool than before, but
+unfortunately it doesn't.
+
+> se
+
+Grumby's Office
+
+For 'office' read 'bedroom' as there's more space taken up by the bed (in
+which Grumby is lying) than the desk (on which his dinner is going cold). He
+has a tiny TV on the desk currently showing the weather forecast (hot and wet
+if you're interested) and a calendar on one wall. Considering the effort it
+took you to get here, though, you're a little disappointed that there isn't
+more here. The room's one lousy exit, northwest, says it all.
+
+"That's Grumby," says Emmie as you step into the room.
+
+"Who's Grumby?"
+
+"I'm Grumby," says the man lying on the bed. "Grumby the world famous serial
+killer. Grumby the magnificent. Grumby..." He sighs. "Now reduced to living
+in my mad brother's house and sponging off his generosity in return for
+supplying him with the tricks of my trade."
+
+"You're the crazy old man's brother?"
+
+"Is that what they're calling him these days? Ha, kinda suits him. He was
+always crazy even before he went mad and he seemed old when he was young. And
+the man bit, well, that's just self-explanatory." He sighs deeply. "Me and my
+brother, we never got on well."
+
+> talk to Grumby
+"I was famous once, you know," says Grumby, reminiscing. "Back in the 70's,
+they used to call me the Terror on account of what a terrible human being I
+was. The Sun branded me a lowlife scum of the worst kind. Proper made my day,
+that did." He wipes away a tear. "Proudest moment of my life when they
+crowned me Serial Killer of the Year two years running."
+
+"Um... congrats. I guess."
+
+"Thanks. But, of course, I got caught. 42 counts of murder and they made 'em
+all stick. I was inside for almost a year. When I got out, well, the world
+had changed. No one respected serial killers anymore and we had to hide out.
+Can you credit it? Hiding out just 'cos every few weeks you feel the need to
+brutally murder someone?" He sighs sadly. "So that's when I got together with
+a few friends and we decided to do it all legal and above board."
+
+"Legal and above board murder?"
+
+"Well, when I say legal and above board, I actually mean illegal. But you get
+my drift, right?"
+
+"Um... yeah..."
+
+> talk to Grumby
+"We decided to give our victims a sporting chance. Only seemed right. And,
+well, it was fun, too, watching 'em scurry back and forth figuring every move
+they made was their last. Made the whole murdering and burying the dead
+bodies much more rewarding. Of course, some people still complained. Bunch of
+wimps, the lot of 'em. Said it wasn't right that we just butchered people
+like that. So we had to be discrete. Keep a low profile." Grumby sighs again.
+"Yeah, it's sad what's happened to this once noble profession."
+
+"My heart bleeds for you," you say with every ounce of sarcasm you can
+muster.
+
+Which clearly isn't much as Grumby doesn't even notice. "So that's what I've
+been doing these last few decades. Living here in my brother's house.
+Teaching him the tricks of the trade. Of course, he ain't really got what it
+takes to be a proper serial killer. Tries hard, I'll give him that, but way
+too bloodthirsty. Don't like giving his victims a sporting chance and thinks
+he should kill 'em no matter what."
+
+> talk to Grumby
+"But times have changed, I tell him. We ain't living in the 70's now, I tell
+him. We have to adapt to the times or we'll get arrested, I tell him. Does he
+listen? Nah. He don't. Thinks he knows best does my brother."
+
+"He kidnapped me and my friend and killed my other friend," you say.
+
+"You see? Where's the sportsmanship in that? I bet he never even gave your
+friend any warning before murderising him, did he?"
+
+"No."
+
+"I'll have a word with him. Meantime, do me a favour, kid. Fetch me my
+baseball bat. Me brother took it off me 'cos he wanted to use it himself but
+I don't see why he should have all the fun. You'll find it in the gallery."
+
+> nw
+
+Aquarium
+
+Well, you certainly didn't expect to stumble across an aquarium in the crazy
+old man's house, but that's just what you see here. Hundreds, if not
+thousands, of fish in bowls and a man (we'll call him Bob for the sake of it)
+sitting on a stool as he makes notes. You also now see an exit to the
+southeast which wasn't there when the glasses were worn.
+
+> w
+
+The Alcove
+
+You're in the alcove which is small, dark, cramped and altogether far more
+scary than it has any right to be. There's nothing really here to indicate
+just why it's such a scary place but you can't shake off the feeling that the
+sooner you're out of here (like heading southwest ASAP), the better.
+
+> sw
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside, however something you've done looks to have
+revealed a previously hidden door in the north wall(to one side of which you
+can see a button). There are exits to the south and west, as well as a small
+alcove you can fit into to the northeast.
+
+> w
+
+Storage Room
+
+Shelves line the walls, on which are stacked all manner of junk and garbage.
+Some of it is new, some old, but all of it smells. There are a couple of ways
+out of here – east and west – and there's also a ladder leaning against one
+wall which you can probably climb to the upper part of the room.
+
+> w
+
+Corridor
+
+You're in a narrow corridor outside the cellar of the crazy old man. It's not
+a very interesting corridor – but then corridors seldom are – and just leads
+west back to the cellar and east to another room.
+
+> w
+
+Cellar
+
+You're in the cellar of the crazy old man's house. You're now free but
+Emmie's still chained up to the wall. You're going to hazard a guess that
+she's not too chuffed about this situation. You now see a previously hidden
+panel has opened in the wall near to where Emmie is tied up.
+
+As far as cellars go, this one is better than some you've been locked in
+(long story, don't ask). The crazy old man has left the light on, at least,
+so you can see what's what, and the door which was originally blocking the
+exit is now gone, and it was a pretty flimsy door too, so maybe he feels like
+giving you a sporting chance.
+
+> spray perfume
+You spray some of the perfume at the nearest wall, noticing how the wall
+itself bubbles and begins to melt. Then stops.
+
+"Spray it again," suggests Emmie. "I think you're onto something here,
+moron."
+
+> spray perfume
+You spray some more of the perfume at the nearest wall and this time several
+of the bricks crumble away, leaving behind a small area off to the west.
+
+"Woah!" says Emmie. "I totally did not see that happening!"
+
+> w
+
+Throne Room
+
+If you ever had any doubts about the crazy old man's sanity - and to be fair,
+you didn't - you wouldn't any longer. He has an actual throne room hidden off
+to one side of his cellar with an actual throne in its centre. He even has a
+framed painting of him hanging on one wall wearing a crown. The only exit (to
+the east) is decorated with royal banners.
+
+> sit on throne
+You place your behind on the throne in much the way you imagine royalty do.
+
+And frown. There's something underneath the royal behind.
+
+On lifting said behind to check, you find that there a pair of gloves on the
+throne which you didn't notice before.
+
+"Grab 'em," says Emmie.
+
+"Why?"
+
+"You never know when they might come in handy."
+
+Which is a good point, so you grab 'em.
+
+> wear gloves
+You put on the gloves.
+
+> e
+
+Cellar
+
+You're in the cellar of the crazy old man's house. You're now free but
+Emmie's still chained up to the wall. You're going to hazard a guess that
+she's not too chuffed about this situation. You now see a previously hidden
+panel has opened in the wall near to where Emmie is tied up.
+
+As far as cellars go, this one is better than some you've been locked in
+(long story, don't ask). Part of the nearest wall has completely crumbled
+away on account of yours truly spraying it with a strange perfume. The crazy
+old man has left the light on, at least, so you can see what's what, and the
+door which was originally blocking the exit is now gone, and it was a pretty
+flimsy door too, so maybe he feels like giving you a sporting chance.
+
+> e
+
+Corridor
+
+You're in a narrow corridor outside the cellar of the crazy old man. It's not
+a very interesting corridor – but then corridors seldom are – and just leads
+west back to the cellar and east to another room.
+
+> e
+
+Storage Room
+
+Shelves line the walls, on which are stacked all manner of junk and garbage.
+Some of it is new, some old, but all of it smells. There are a couple of ways
+out of here – east and west – and there's also a ladder leaning against one
+wall which you can probably climb to the upper part of the room.
+
+> e
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside, however something you've done looks to have
+revealed a previously hidden door in the north wall(to one side of which you
+can see a button). There are exits to the south and west, as well as a small
+alcove you can fit into to the northeast.
+
+> s
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> w
+
+Hallway
+
+A-ha, you see the front door to the south! On the down side, the padlocks –
+four of them in total – look pretty sturdy. Someone – probably the crazy old
+man – has put a cupboard by the door and placed a skull on top of it. Yes, an
+actual skull. Stairs lead up here to the upper floor of the house, and there
+are other rooms away to the east and west. On the floor is a sinister rug,
+with a landmine partially concealed beneath. All things considered, it's the
+landmine you're more concerned about right now.
+
+> w
+
+Lounge
+
+Considering the state of the rest of the house, you're surprised to find that
+the lounge is actually quite nice. It's got a reclining sofa, a huge flat
+screen TV and a mini-bar in the corner. It's also got a roaring log fire and
+a dartboard. And a pool table. And a donkey. All in all, there's quite a lot
+to see in here. Only one exit back to the east but lots of stuff to do in
+here. Not to mention a previously hidden door to the south which you'd bet
+your bottom dollar wasn't there originally.
+
+> x fire
+Roaring. Very roaring. The amount of heat it gives off is enough to make your
+head ache.
+
+Hmmm... that's odd. If you didn't know better, you'd swear there was
+something at the back of the flames.
+
+> get something
+Hoping the gloves protect you from the flames, you reach gingerly towards the
+fire and-
+
+"Ahghghghghghghg!"
+
+You frown. "Emmie, that isn't helping."
+
+She stops screaming and giggles. "Sorry. Just felt the situation needed
+lightening up a bit. Anyway, what have you found there?"
+
+The 'something' turns out to be a logbook. It's a little charred but was
+wedged at such a position in the fireplace as to escape the worst of the
+flames.
+
+> read logbook
+It looks to be a list of the crazy old man's victims, starting from some chap
+called Flogbert right down to...
+
+"Ah, poor Jud," says Emmie.
+
+"I wonder why he tried to burn it."
+
+"Maybe he's worried that you got out of the cellar and wants to try and
+dispose of the evidence. Anyway, keep it with you. It'll come in handy once
+we're out of this place."
+
+> e
+
+Hallway
+
+A-ha, you see the front door to the south! On the down side, the padlocks –
+four of them in total – look pretty sturdy. Someone – probably the crazy old
+man – has put a cupboard by the door and placed a skull on top of it. Yes, an
+actual skull. Stairs lead up here to the upper floor of the house, and there
+are other rooms away to the east and west. On the floor is a sinister rug,
+with a landmine partially concealed beneath. All things considered, it's the
+landmine you're more concerned about right now.
+
+> u
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course. Someone - perhaps Tarquin - has written on the wall "No, darn, that's
+not the code. It's that but minus 52 x 4 times too much!"
+
+> ne
+
+Red Corridor
+
+You're going to call this place the red corridor because it's a) red and b) a
+corridor. It winds away to the southwest and ends just ahead of you at a gate
+at the bottom of some stairs. A gate which, thankfully, stands wide open.
+Though you haven't opened it directly, it looks like something you've done
+indirectly has done the trick.
+
+> u
+
+Top of Stairs
+
+You're at the top of some stairs stood outside a room with a large imposing
+steel door to the east. As if the door wasn't imposing enough already (and,
+believe me, it was), someone has only gone and carved a large scowling face
+into it, giving it the added impression of menace. This definitely looks like
+the kind of door that would happily take your arm off if you tried knocking
+on it. There's another exit to the west, however, and this one doesn't have a
+big steel door blocking it.
+
+> w
+
+Gallery
+
+This looks to be some sort of gallery. Normally you'd expect to see works of
+art in a place like this, but this gallery just has exhibitions of the crazy
+old man's. You see a dead body in one cage, a severed leg in another and a
+bloodied baseball bat in a third. A fourth cage contains a skull. A fifth has
+a pile of meat (which you don't even like to think about) while a sixth has a
+small pile of wallets, purses, watches and jewelry. The centre piece of the
+gallery, however, is a statue. Or kind of a statue anyway. Have a closer look
+at it. It's downright bizarre. There's an exit to the east.
+
+"Aw, heck," says Emmie. "That statue... is that what I think it is?"
+
+"I don't know. What do you think it is?"
+
+"Take a look. Oh, man, that's just wrong."
+
+> smash cage
+You brandish the stabby stick up high
+
+Emmie cringes in embarassment.
+
+and then bring it down on the nearest cage. Which flies open, causing the
+baseball bat to shoot out like a rocket, hit a door in the corridor outside
+this room, and then fall promptly to the floor with a heavy thud. The cage
+then swings shut again, as if it has a mind of its own.
+
+"I hate to say it, but... that thing has its uses," says Emmie very
+grudgingly.
+
+> e
+
+Top of Stairs
+
+You're at the top of some stairs stood outside a room with a large imposing
+steel door to the east. As if the door wasn't imposing enough already (and,
+believe me, it was), someone has only gone and carved a large scowling face
+into it, giving it the added impression of menace. This definitely looks like
+the kind of door that would happily take your arm off if you tried knocking
+on it. There's another exit to the west, however, and this one doesn't have a
+big steel door blocking it.
+
+Also here is the baseball bat.
+
+> get baseball bat
+You take the baseball bat.
+
+> d
+
+Red Corridor
+
+You're going to call this place the red corridor because it's a) red and b) a
+corridor. It winds away to the southwest and ends just ahead of you at a gate
+at the bottom of some stairs. A gate which, thankfully, stands wide open.
+Though you haven't opened it directly, it looks like something you've done
+indirectly has done the trick.
+
+> sw
+
+Upper Floor
+
+Strangely, the upper floor of the house seems quite a bit bigger than the
+lower floor, as if there's weird Tardis effect in place. Of course, you know
+the Tardis isn't real and it's just from some dumbass program about a time
+traveller, but even so it's weird how much bigger the upper floor is. There's
+a large meeting room off to the north, a bedroom to the east, a bathroom to
+the south and a study to the west, not to mention corridors leading away to
+the northeast and southeast. And the stairs heading back downstairs of
+course. Someone - perhaps Tarquin - has written on the wall "No, darn, that's
+not the code. It's that but minus 52 x 4 times too much!"
+
+> d
+
+Hallway
+
+A-ha, you see the front door to the south! On the down side, the padlocks –
+four of them in total – look pretty sturdy. Someone – probably the crazy old
+man – has put a cupboard by the door and placed a skull on top of it. Yes, an
+actual skull. Stairs lead up here to the upper floor of the house, and there
+are other rooms away to the east and west. On the floor is a sinister rug,
+with a landmine partially concealed beneath. All things considered, it's the
+landmine you're more concerned about right now.
+
+> e
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> n
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside, however something you've done looks to have
+revealed a previously hidden door in the north wall(to one side of which you
+can see a button). There are exits to the south and west, as well as a small
+alcove you can fit into to the northeast.
+
+> ne
+
+The Alcove
+
+You're in the alcove which is small, dark, cramped and altogether far more
+scary than it has any right to be. There's nothing really here to indicate
+just why it's such a scary place but you can't shake off the feeling that the
+sooner you're out of here (like heading southwest ASAP), the better.
+
+> wear glasses
+You put them on.
+
+Your dork rating increases by a factor of 5, your coolness rating drops
+immensely and your chances of getting literally anywhere with girls is
+non-existent.
+
+"Nothing seems to have changed," you say and Emmie giggles to herself.
+
+> e
+
+Aquarium
+
+Well, you certainly didn't expect to stumble across an aquarium in the crazy
+old man's house, but that's just what you see here. Hundreds, if not
+thousands, of fish in bowls and a man (we'll call him Bob for the sake of it)
+sitting on a stool as he makes notes.
+
+> remove glasses
+You take them off.
+
+You'd like to think this makes you a lot more cool than before, but
+unfortunately it doesn't.
+
+> se
+
+Grumby's Office
+
+For 'office' read 'bedroom' as there's more space taken up by the bed (in
+which Grumby is lying) than the desk (on which his dinner is going cold). He
+has a tiny TV on the desk currently showing the weather forecast (hot and wet
+if you're interested) and a calendar on one wall. Considering the effort it
+took you to get here, though, you're a little disappointed that there isn't
+more here. The room's one lousy exit, northwest, says it all.
+
+> give baseball bat to Grumby
+"Ah, my bat," says Grumby, taking it off you and giving it a few mighty
+swings. "I remember bashing the heads in of quite a few trouble-causing
+teenagers at one time. And a cop or two. And that annoying postman. And my
+wife."
+
+"Your wife?" you say. "That's horrid."
+
+"So was my wife. In fact, I'd say hitting her a few dozen times with a
+baseball bat probably improved her no end. Hmmm..." Grumby peers closely at
+the bat and frowns. "Hang on a minute. You got this bat from the gallery,
+right?"
+
+"Right."
+
+"Cross your heart and hope to get your head bashed in with a baseball bat if
+you lie?"
+
+"Um... guess so..."
+
+"Well, my brother's only gone and sold my bat and replaced it with a cheap
+alternative, hasn't he? Damn the man! Got no respect at all." He throws the
+baseball bat to the ground in a fury. "You find him, give me a call. I'll
+come and break his arms a few times to teach him a lesson."
+
+> get baseball bat
+You take the baseball bat.
+
+> nw
+
+Aquarium
+
+Well, you certainly didn't expect to stumble across an aquarium in the crazy
+old man's house, but that's just what you see here. Hundreds, if not
+thousands, of fish in bowls and a man (we'll call him Bob for the sake of it)
+sitting on a stool as he makes notes. You also now see an exit to the
+southeast which wasn't there when the glasses were worn.
+
+> w
+
+The Alcove
+
+You're in the alcove which is small, dark, cramped and altogether far more
+scary than it has any right to be. There's nothing really here to indicate
+just why it's such a scary place but you can't shake off the feeling that the
+sooner you're out of here (like heading southwest ASAP), the better.
+
+> sw
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside, however something you've done looks to have
+revealed a previously hidden door in the north wall(to one side of which you
+can see a button). There are exits to the south and west, as well as a small
+alcove you can fit into to the northeast.
+
+> s
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> x safe
+A safe that is likely impregnable, unbreakable and probably not going to open
+any time soon in your humble opinion.
+
+Also, lucky you, wide open at this precise moment in time, allowing you to
+swipe the diamond necklace you see inside.
+
+"You're stealing?" says Emmie. "That's just so wrong on so many levels!"
+
+"I, um, thought you might want a new necklace-"
+
+"Well, that's totally different. Grab it before the crazy old man wanders
+along and sees you!"
+
+> s
+
+South of Dining Chamber
+
+You can't help but think that 'south of dining chamber' is a strange way to
+think of a room but that's what springs to mind here. It's a big room with a
+barred window (with a previously hidden button now visible) overlooking the
+crazy old man's front garden(which is now accessible a previously hidden exit
+to the south). North of here is the dining chamber.
+
+> wear glasses
+You put them on.
+
+Your dork rating increases by a factor of 5, your coolness rating drops
+immensely and your chances of getting literally anywhere with girls is
+non-existent.
+
+"Nothing seems to have changed," you say and Emmie giggles to herself.
+
+> e
+
+Corridor
+
+You're in a long narrow corridor. Also here is a large dog. A very large dog.
+It's not quite up to your head height but it's not far off. It's also very,
+very angry. On the plus side, it's got a steel collar (bearing the very
+ill-fitting name Snuggles) around its neck preventing it from jumping at you
+and ripping your throat out, but that's the only good news. Along the
+corridor further to the east, you can see a door but getting past the dog
+won't be easy to say the least.
+
+"Bad dog!" Emmie shouts. "No eating idiot teenage boys!"
+
+The dog doesn't respond aside from giving you an evil look that says, in no
+uncertain terms, that if it wasn't chained up, it'd have your throat out as
+soon as look at you.
+
+"You need to find something to threaten it with," says Emmie. "Something
+sharp."
+
+"Any suggestions?"
+
+"Well, your wit isn't an option but I'm sure you can find something sharp and
+stabby if you look around here long enough."
+
+> threaten Snuggles
+You brandish the stabby stick at Snuggles - who takes one look at it and
+gives a very high-pitched, totally un-dog-like girlish scream and goes
+running away. He almost gets choked by the collar around his neck but a
+sudden burst of terrified strength rips it out of the wall and he runs back
+along the corridor to the west, disappearing through the door to the east
+(which, as it's just had a great big dog tear through it, is now a doorway to
+the east).
+
+"Well, what do you think to my stabby stick now?" you say to Emmie who, for
+once, has nothing to say.
+
+> e
+
+Crazy Old Man's Office
+
+You're in the crazy old man's office. You know this because there's a desk
+here with a nameplate on it reading "COM's office". Behind the desk is a
+leather reclining chair and on it is a monitor showing a blank screen. A few
+shelves full of old books line the walls. There's a doorway to the west while
+the east has a door, albeit a closed one. There's also a two-way mirror on
+one wall, on the far side of which you can see the crazy old man! He looks
+every bit as evil and mad as he did when he lopped poor Jud's head off. The
+glasses make a strange buzzing sound, which you're sure means something
+important.
+
+> smash mirror
+You emit a fierce war cry - you heard it on Game of Thrones and it sounded
+well nasty - you go charging at the mirror and smash it to pieces.
+
+Which is unexpected because you'd have bet money that wouldn't have worked.
+
+The crazy old man looks surprised as well because he just stands here gawping
+at you for a few seconds before saying, "You broke my window!"
+
+"You killed my friend!" you retort. A pretty good retort though you say so
+yourself.
+
+"You can always get new friends, but that mirror cost a fortune!" he
+re-retorts.
+
+Good comeback, you think.
+
+"Enough's enough," says the crazy old man. "I'm going to kill that meddling
+brat in the cellar then come back for you."
+
+He claps his hands and, as if by magic, sinks into the floor.
+
+"That's one crazy trapdoor he has," you say.
+
+"Forget that, doofus!" cries Emmie. "He's on his way to kill me! Get here
+before him or I'm dead!"
+
+> w
+
+Corridor
+
+You're in a long narrow corridor. Also here is a doorway to the east which
+was formerly a door before a great big dog tore through it.
+
+> w
+
+South of Dining Chamber
+
+You can't help but think that 'south of dining chamber' is a strange way to
+think of a room but that's what springs to mind here. It's a big room with a
+barred window (with a previously hidden button now visible) overlooking the
+crazy old man's front garden(which is now accessible a previously hidden exit
+to the south). North of here is the dining chamber, while off to the east you
+see a strange doorway that you could swear wasn't there before. The glasses
+make a strange buzzing sound, which you're sure means something important.
+
+> n
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> n
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside, however something you've done looks to have
+revealed a previously hidden door in the north wall(to one side of which you
+can see a button). There are exits to the south and west, as well as a small
+alcove you can fit into to the northeast.
+
+> w
+
+Storage Room
+
+Shelves line the walls, on which are stacked all manner of junk and garbage.
+Some of it is new, some old, but all of it smells. There are a couple of ways
+out of here – east and west – and there's also a ladder leaning against one
+wall which you can probably climb to the upper part of the room. The glasses
+make a strange buzzing sound, which you're sure means something important.
+
+> w
+
+Corridor
+
+You're in a narrow corridor outside the cellar of the crazy old man. It's not
+a very interesting corridor – but then corridors seldom are – and just leads
+west back to the cellar and east to another room.
+
+> w
+
+Cellar
+
+You're in the cellar of the crazy old man's house. You're now free but
+Emmie's still chained up to the wall. You're going to hazard a guess that
+she's not too chuffed about this situation. You now see a previously hidden
+panel has opened in the wall near to where Emmie is tied up.
+
+As far as cellars go, this one is better than some you've been locked in
+(long story, don't ask). Part of the nearest wall has completely crumbled
+away on account of yours truly spraying it with a strange perfume. The crazy
+old man has left the light on, at least, so you can see what's what, and the
+door which was originally blocking the exit is now gone, and it was a pretty
+flimsy door too, so maybe he feels like giving you a sporting chance. And,
+oddly enough, you can now see an archway to the south that you could swear
+wasn't there before. The glasses make a strange buzzing sound, which you're
+sure means something important.
+
+"You took your time," says Emmie, struggling with the chains. "I thought
+you'd stopped for a nap along the way or something."
+
+"I'm here, aren't I?" you say, a little testily. It's been a long and
+stressful day, after all.
+
+"Yeah, you are. But where's he...?"
+
+> e
+As you head for the door, the crazy old steps into the cellar, a fearsome axe
+in his hand.
+
+"You," he says, jabbing a gnarled finger at you, "are proving to be a real
+pain."
+
+"Serves you right for murdering and kidnapping teenagers, you old monster!"
+you say, which you think is a pretty good comeback.
+
+"What a lame comeback," says Emmie. "C'mon, pal, if we're gonna get murdered,
+at least have something better than that to say as your final words."
+
+"It was a mistake ever giving you a chance," the crazy old man goes on,
+ignoring your and Emmie's bickering, "but my colleagues insisted. Fools! They
+say where's the fun in killing people if there's no challenge? I say because
+it's fun! Well, enough's enough. I'm tired of playing by their rules. Now
+it's just you and me and the mouthy one."
+
+"Hey!" Emmie protests.
+
+"I'm going to kill you both then have teenage idiot stew for my lunch washed
+down with some mouthy girl blood."
+
+... Press a key...
+
+Here it's just you against the crazy old man (and Emmie providing moral
+support and / or insults). You have 15 health left and he has 52 health and
+whoever's runs out first is dead.
+
+Choose carefully what you want to do and may the best spotty teenage boy win.
+
+1)        Use the stabby stick (if you have it).
+2)        Perform a devastating strike (you read about this in D & D) against
+the crazy old man.
+3)        Kick the crazy old man in the unmentionables.
+4)        Trip the crazy old man up.
+5)        Call for aid from Tarquin.
+6)        Call for aid from Isabella.
+7)        Call for aid from Emmie.
+8)        Engage in a battle of wits with the crazy old man.
+9)        Use the baseball bat (if you have it).
+10)        Whack the crazy old man with the golden scepter (if you have it).
+11)        Call for aid from Grumby.
+
+> 1
+You lunge at the crazy old man with the stabby stick, a move which clearly
+surprises him a great deal as he's way too slow ducking out of the way. You
+manage to stab him in one gammy leg, knocking 8 off his health, but he seizes
+your weapon and snaps it in two!
+
+"My stabby stick!" you cry.
+
+The crazy old man laughs.
+
+> 3
+You fall back on what every teenage boy knows best: fighting dirty. As the
+crazy old man lunges at you, you drive your foot into his unmentionables,
+causing him not only to double over but lose 12 health in the process.
+
+"Good one, doofus!" Emmie cries. "Do it again!"
+
+> 6
+You call for Isabella to come and aid you.
+
+"Isabella?" the crazy old man says with a snort. "My own daughter isn't going
+to harm-"
+
+"You sure about that, daddy dearest?" yells Isabella from the doorway. She
+still bears a remarkable resemblance to the She-Hulk. All green skin and
+bulging muscles and lots of uncontrolled rage. "You locked me in a cell! You
+chained me up! And all because I killed a few people?"
+
+"Now, now, Isabella," says the crazy old man, looking a little nervous for
+the first time. "C-calm down, dear-"
+
+Isabella springs at him. The crazy old man yelps and ducks back, but too
+slow. Isabella drags him down to the floor and the two roll back and forth,
+kicking and scratching at each other. Isabella fights dirty, gouging and
+clawing, and the crazy old man has little defence against her.
+
+When Isabella staggers to her feet, she has blood around her mouth - though
+none of it seems to be her own - and her tattered dress is barely in one
+piece. "I need a rest," she gasps, her voice more her own than the
+She-Hulk's, and limps out of the cell to rest.
+
+The crazy old man picks himself up. He looks like he's been run over by a
+battering ram then had a ten tonne safe dropped on his head, to the tune of
+15 health. "And that," he says, "is why I've never liked kids."
+
+> 8
+You pit your wits against those of the crazy old man.
+
+Now, normally this would be a very one-sided battle as you have the wits of a
+small child, but with Emmie's sarcastic comebacks bolstering your own inane
+comments, you're in with a real life. And-
+
+Yes! The crazy old man groans in pain, the beginnings of an Emmie-induced
+migraine clawing at him (and -9 health in the process).
+
+"Score one for the loser!" Emmie crows triumphantly.
+
+> 9
+"Ha-yah!" you cry and spring at the crazy old man with the baseball bat held
+high.
+
+Unfortunately he ducks to one side at the last moment and your swing goes
+wide.
+
+"Hang on a minute!" he yells. "Is that my brother's baseball bat?"
+
+"It sure is," you say.
+
+"Is he behind all this?"
+
+Thinking quickly (by your standards anyway), you say, "He sure is."
+
+The crazy old man's face falls. "To think... I looked after him all these
+years... put a roof over his head... kept him warm and dry... befriended him
+when no one did and-"
+
+While he's engaging in this somewhat rambling diabtribe, you swing the
+baseball bat at him again and this time catch him clean in the jaw, knocking
+him flying back.
+
+"Ha!" cries Emmie. "Sucks being you!"
+
+Your last attack seems to have done the trick as the crazy old man staggers
+back, clutching his chest, and then keels over on the floor. Not just dead
+but very, very dead.
+
+"Holy mother!" gasps Emmie. "You actually did it, doofus. If you weren't such
+a complete and utter loser, I'd be tempted to kiss you."
+
+"No need to let that stop you-"
+
+"See if you can find a key to these chains. I want out of this place." She
+shivers. "Even with him dead, it's still a creepy place and no mistake."
+
+You do indeed find a key in the crazy old man's pocket and free Emmie, who
+doesn't kiss you (alas) but says she'll meet you outside and then legs it out
+of the cellar.
+
+> e
+
+Corridor
+
+You're in a narrow corridor outside the cellar of the crazy old man. It's not
+a very interesting corridor – but then corridors seldom are – and just leads
+west back to the cellar and east to another room.
+
+> e
+
+Storage Room
+
+Shelves line the walls, on which are stacked all manner of junk and garbage.
+Some of it is new, some old, but all of it smells. There are a couple of ways
+out of here – east and west – and there's also a ladder leaning against one
+wall which you can probably climb to the upper part of the room. The glasses
+make a strange buzzing sound, which you're sure means something important.
+
+> e
+
+Kitchen
+
+Kitchen? Well, that's debatable. You see a burnt-out stove, a piece of rusted
+iron that might, possibly, if you squinted at it long enough, be a fridge and
+a hole with water dripping from it (the sink?) You certainly don't see any
+food here or would fancy eating anything prepared here. You also don't see
+any handy doors leading outside, however something you've done looks to have
+revealed a previously hidden door in the north wall(to one side of which you
+can see a button). There are exits to the south and west, as well as a small
+alcove you can fit into to the northeast.
+
+> s
+
+Dining Chamber
+
+'Dining chamber' might be overdoing it a bit, but this is probably where the
+crazy old man eats. There's a tiny table in the middle of the room and a few
+paintings on the wall of some seriously ugly people. One of the paintings has
+been knocked to one side and you can see a safe peering out from behind it.
+You can't help but think that if your relatives looked like this, you
+wouldn't have paintings done of them let alone hang them on the wall in a
+room where you sit down to eat. You can leave here to the north, south and
+west.
+
+> s
+
+South of Dining Chamber
+
+You can't help but think that 'south of dining chamber' is a strange way to
+think of a room but that's what springs to mind here. It's a big room with a
+barred window (with a previously hidden button now visible) overlooking the
+crazy old man's front garden(which is now accessible a previously hidden exit
+to the south). North of here is the dining chamber, while off to the east you
+see a strange doorway that you could swear wasn't there before. The glasses
+make a strange buzzing sound, which you're sure means something important.
+
+> s
+
+Garden
+
+You're free!
+
+Well... almost...
+
+If you think you're ready to go, you can do just that by heading south.
+However, if there are things that still need taking care of, you'd better
+return to the house by heading north.
+
+> s
+You flee to freedom.
+
+... Press a key...
+
+The story hits national headlines. As well it should as it has all the
+ingredients of a really juicy front page attention grabber.
+
+When the BBC make a series about it - titled (of all things) Trick or Treat -
+you're portrayed by a hunky guy with bulging biceps and perfect teeth. He's
+not so good at the actual acting side of things but you could balance wine
+glasses on his muscles so you guess that makes up for it. Emmie is portrayed
+by a stunning, raven-haired beauty who has the audience hanging on her every
+word. They cheer when you manfully fight the crazy old man to protect her
+(which isn't actually the way things went down as you fought him to save
+yourself - but, y'know, artistic licence) and then even harder when you sweep
+her into your arms and plant a smacker on her lips.
+
+"That totally happened," Emmie gushes in an interview. "Ever since that
+terrible day, we've been inseparable. We barely leave each other's sides."
+
+Which is true, oddly enough. You'd like to think it's your manly good looks,
+charming personality and heroic fortitude, but you suspect it's more because
+of the loot you swiped from the crazy old man's house. The moment Emmie saw
+that, she swore her undying love for you (which will probably last for as
+long as the money does) and hasn't left your side since. Literally. You can
+barely go to the toilet without her wanting to follow you just in case you
+happen to have a wad of cash hidden in the medicine cabinet.
+
+All in all, things ended great. You're alive - which is always a happy bonus
+- and the crazy old man is dead, you're rich and you got the girl. You doubt
+you could have done better no matter how hard you tried.
+
+You're visited by cops looking into the crazy old man's multiple murders and
+hand them the logbook you retrieved from the fireplace in the crazy old man's
+lounge. The cop seem quite pleased with this and spend a while studying its
+contents.
+
+If you're reading this, then congratulations are in order. You escaped the
+crazy old man's house and lived to tell the tale. But (and there's always a
+but, isn't there?) did you get the best possible ending?
+
+If your score (which is 270) here reads 270, then you did. Well done to you.
+Give yourself a clap on the back and go enjoy a few months of happy bliss
+before something else unfortunate befalls you (face it, it's bound to
+happen). However, if it doesn't read 270, then it looks like you missed a few
+things. Feel feel to try again. Maybe you'll hit the best ending next time
+and feel all warm and fuzzy inside knowing you did so.
+
+> quit
+Do you really want to quit? [Y/N]

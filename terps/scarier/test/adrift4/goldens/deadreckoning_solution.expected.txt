@@ -1,0 +1,612 @@
+Loading game...
+
+Dead Reckoning
+
+Intro
+Dead Reckoning
+
+by
+
+David Whyld
+
+1)  Start playing the game
+
+2)  Read the introduction
+
+3)  A few notes on playing the game
+
+4)  Credits
+
+> 1
+
+Old Mill Road
+A cold mist drifts up the hill towards where you stand, at the beginning of
+the Old Mill Road. An ancient oak tree, its branches gnarled and twisted by
+the weight of countless years, stands forlornly off to one side of the road,
+its branches seemingly reaching for you as to pass by. Below you, the village
+of Morrow lies spread out, though due to the encroaching fog you can make out
+little more than the tops of buildings; the road, little more than a path at
+this stage, descends into the village itself. The end is lost in the fog. At
+the back, in an easterly direction, stretches the road you travelled along to
+reach Morrow. The fog has encroached here as well and little is visible
+beyond the immediate area you're in.
+   At your feet lies the unmoving figure of the man who approached you.
+
+> search man
+Feeling uncomfortably like a grave robber, you quickly search through the
+man's pockets. You find his wallet, though minus anything that might identify
+him. You put this back, a ghoulish shudder going through you. A few coins you
+also leave. You doubt they'll prove any use to you. One item you uncover,
+curled in the man's hand, is a cross. He's clutched it so hard that it has
+dug into his palm and looks like it could well be causing him quite a bit of
+pain.
+
+> give water to man
+Lifting the man's head slightly, you dribble some water into his mouth. At
+first he doesn't respond but then he starts coughing and spluttering. A
+sudden jerking movement knocks bottle flying out of your hands. It drops to
+the road and has spilt its entire contents before you're able to retrieve it.
+   "… thanks…" says the man or, rather, gasps. "Who are… you?"
+   You tuck the empty bottle away and go over to the man. "My name's Mark
+Duffy. What happened here?"
+   The man stares up at you then coughs hideously. "Bad… things, Mr Duffy.
+Things you wouldn't… wouldn't believe…"
+
+> talk man
+"Ask…" says the man, clearly too weak to say anything else.
+
+   1: "Who are you?"
+   2: "What has happened here?"
+   3: "I need to find my friend, Edwin Carter. Have you heard of him?"
+   4: "Don't talk. Just lie there while I find a phone to call for an
+ambulance."
+   5: "What's wrong with you?"
+
+> 3
+"Never heard of… him…" says the man. A terrible cough rips through him,
+leaving him shuddering. " Lots of… of people… dead… maybe he's one… of…
+them…"
+
+   1: "Who are you?"
+   2: "What happened here?"
+   3: "Don't talk. Just lie there while I find a phone to call for an
+ambulance."
+   4: "What's wrong with you?"
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+The man suddenly gives a shudder and his eyes close. You try to ask him if
+he's alright but he fails to answer. His breathing comes in short, ragged
+gasps and while he's not dead you don't think he's going to be able to speak
+anymore.
+
+> get cross
+It takes a surprising amount of effort to remove the cross from the man's
+hand, unconscious though he is. Clearly some part of him is aware of what
+you're doing and does everything it can to prevent you removing the cross.
+After a second's consideration, you leave the cross where it is.
+
+> get cross
+Again you try to take the cross. The man clutches it so tightly in his hand
+that it's an actual struggle to remove it. But remove it you do. This
+comprises prying his fingers open one by one and literally forcing the cross
+out of them.
+   As soon as you have the cross in your possession, the man gives a shudder
+and seems to collapse.
+
+> d
+Uneasy about abandoning the injured man, you set off at a brisk pace down the
+hill and into the centre of the village of Merrow. You pass a couple of
+abandoned cars along the way: one even has its doors wide open and the keys
+still in the ignition. Weird. You know that crime isn't as widespread in a
+place like this as it is in the city where you live, but leaving the car
+doors open and the keys in plain sight is just asking for trouble. Not really
+sure what to do, you leave the car and stride into the village itself.
+...press a key...
+
+Morrow Square
+Cold fog washes over you as you stand in the seemingly deserted centre of the
+village: at Morrow Square to be precise. Several roads branch away from here;
+Church Road to the southwest, Grasboren Road to the south, Marble Street
+(where Edwin lives) to the east; the road (little more than a path really)
+that you reached Morrow Square by leads up a hill.
+   There is no one here. Several stalls stand abandoned, remnants of the
+usual market that comes to Morrow most weekdays. Overseeing all of this is a
+stone statue of Jerome Morrow, the village founder: his eyes peer around the
+marketplace in a manner you find oddly disturbing. There appears to be no one
+around. Not a living soul for as far as you can see.
+
+> e
+Marble Street
+Years ago, Marble Street was home to several shops, a number of houses and
+even a small park where the village kids (yourself included) played during
+the summer. But that was a long time ago. Marble Street, as it is now, is a
+location you barely recognise: closed signs hang in every shop window and the
+shops themselves are boarded up, their interiors dark, as if no one has used
+them in years. The houses are in a similar condition, and several even have
+battered down front doors and smashed windows. This is the sort of thing you
+have seen more than a few times in the city but seldom in a place like Morrow
+where crime is virtually non-existent. Edwin's house, looking pretty much the
+same as the others, is a short walk to the northeast. His front garden is
+little more than a dirt patch and doesn't appear to have been looked out in
+many a year. The small park, or what remains of it, is to the east while
+Morrow Square lies back westwards.
+
+You step into Marble Street, the memories of the place flooding back. But
+this is a Marble Street far changed from what you remember. Gone is the park.
+Instead, in its place, is a patch of burnt ground. Edwin's house has changed,
+too, looking more like a bomb blast has torn through it.
+   "What the hell is going on, Edwin?" you wonder, wishing once more you'd
+never returned to the village of Morrow.
+
+> e
+You move east.
+
+Park
+The park is changed from the way you remember it. The climbing frame is gone,
+as is the sand pit, the roundabout and everything that you normally associate
+with a park. In their place is just a patch of muddy ground, dotted with
+lumps that perhaps indicate something is buried here. The park is encircled
+by a wooden fence; supposedly it deters vandals during the hours of darkness
+when the park is closed but it stands little more than three feet high and is
+broken in many places. Marble Street lies back to the west.
+
+> dig lump
+You get down on your knees and… hesitate. Are you sure you really want to go
+digging in the earth? Something tells you it would be a very bad idea.
+
+> dig lump
+Pushing aside any reservations you might have, you dig into the lump with
+your hands. The mud feels disgusting as it squelches between your fingers but
+you force yourself to continue. You have a feeling that there is something
+important here and if you-
+   Without warning, the earth at your feet bursts apart and out of the lump
+extends a calloused hand! For a second it probes around blindly, almost
+comic-like in its actions, then a head breaks free of the soil and eyes as
+cold as death lock onto yours.
+   Almost beside yourself with terror, you scrabble back away from the thing
+as it pulls itself free of its earthy prison. Rasping sounds emanate from the
+thing's throat but if these are words you're unable to decipher them.
+
+> raise cross
+As the corpse staggers towards you, you remember the cross you took from the
+injured man and quickly raise it before you. The effect it has is apparent:
+the corpse seems to hit an invisible wall and goes bouncing off. It stumbles,
+falls, seeks to regain its feet. You take a step towards it, holding the
+cross like a torch in the darkness. A rasping scream tears from the corpse's
+throat as the presence of the cross burns into it.
+   And then it collapses at your feet, the unholy power animating its limbs
+fleeing.
+...press a key...
+
+   For seconds you stand there, breathless, unable to comprehend what has
+just happened. But then, gradually, you manage to get a grip on your
+emotions. You approach the corpse - and this time it is just a corpse - and,
+bending down, pick up the small red orb it dropped when it died for the
+second time.
+   A sudden movement out of the corner of your eye makes you jerk back… but
+you see nothing. However, you are aware of the other lumps in the ground and
+know that remaining here is not safe. Clutching the red orb you return to
+Marble Street.
+...press a key...
+
+Marble Street
+Years ago, Marble Street was home to several shops, a number of houses and
+even a small park where the village kids (yourself included) played during
+the summer. But that was a long time ago. Marble Street, as it is now, is a
+location you barely recognise: closed signs hang in every shop window and the
+shops themselves are boarded up, their interiors dark, as if no one has used
+them in years. The houses are in a similar condition, and several even have
+battered down front doors and smashed windows. This is the sort of thing you
+have seen more than a few times in the city but seldom in a place like Morrow
+where crime is virtually non-existent. Edwin's house, looking pretty much the
+same as the others, is a short walk to the northeast. His front garden is
+little more than a dirt patch and doesn't appear to have been looked out in
+many a year. The small park, or what remains of it, is to the east while
+Morrow Square lies back westwards.
+
+> call to edwin
+"Edwin! It's me! Mark! I got your call! I-" you shout out, and suddenly the
+front door of Edwin's house is pushed open a few inches.
+   A figure stands there, half-crouched in the shadows, a baseball bat
+clutched in one wasted hand.
+   "Mark?" it says.
+   It takes you a second to recognise the man as Edwin. But a changed Edwin
+from the man you once knew.
+   "Is that really you, Mark?" calls the man who was once your friend.
+   "It's me, Edwin," you say, trying to get a better look at him as he
+hunches in the shadows. Surely he can't have lost that much weight? "What the
+hell's happened here? This place looks like a ghost to-"
+   "Not now!" Edwin hisses. He glances frantically around as if expecting
+someone to be lurking on the street corner. "Inside, Mark. Quick! It's not
+safe being out here."
+   "Safe? What are you-"
+   Edwin shakes his head. "Not outside. In. Then we'll talk."
+   Before you can say anything, Edwin ducks back inside his house, leaving
+the front door open an inch. Trying to calm your nerves - which are currently
+climbing the walls - you follow him inside his house.
+
+...press a key...
+
+Edwin Carter's House
+Only one room in Edwin Carter's house is still habitable and this is the room
+you're in. Scars - looking like the claws of ferocious beasts - mar the
+walls, often inches deep; the ceiling is similarly marked and the carpet is
+ripped and torn. It looks like a pack of wild animals have been chained up in
+here. Edwin's furniture - comprising a sofa, a couple of chairs and a small
+coffee table with a missing leg - is likewise battered. The front window is
+smashed and as a result the floor is littered with broken glass; walking
+about is treacherous as bloody red stains on the glass attest. A door to the
+northwest leads to the kitchen and another, in a northerly direction, heads
+into the hallway and the stairs.
+
+You look around in amazement. "Edwin, what in God's name happened here?" you
+say.
+   "It was… necessary," says Edwin, hardly looking at you. He seems to be
+going around the room, checking the doors and windows are securely fastened
+or covered with boards. From the way he's acting, you imagine he expects
+someone to come bursting in at any moment. "They killed everyone else. Or
+turned them. I seemed to be… immune. I don't understand it myself but I knew
+that I had to stop them getting inside. If they did…" He shakes his head. "I
+don't know what would have happened, Mark, but it wouldn't have been nice."
+   "But this town…" You trail off, not even sure you can start to understand
+what has gone on here. "There's a seriously ill man on the outskirts of town,
+Edwin. I need to get an ambulance for him."
+   "No ambulances in Morrow, Mark. You know that."
+   "A doctor then-"
+   "The doctor's one of them."
+   "One of…" You find yourself beginning to get afraid. Very afraid.
+
+   1: "Tell me what happened, Edwin."
+
+> 1
+"Things changed here a while ago, Duffy. I don't know all the details.
+Christ, I wish I didn't know any of the details. It all happened…" He shakes
+his head. "Are you sure you really want to know?"
+   You nod.
+   "A man came into town. He said his name was Shekel and he was here to rid
+himself of a curse. He said he had been living in torment for years and here,
+in Morrow, was the salvation from his curse.. Of course, no one knew what to
+make of him. Most of us thought he was mad and we sat around the pub laughing
+about him. Shekel often came in and just stood there and stared at us until
+some of the local toughs started getting mightily pissed with him. After that
+he stayed well away.
+   "But then things started happening. Bad things."
+   "Tell me about them," you say, sure even as you say the words that you
+don't want to know.
+   Edwin swallows nervously. "Some of the toughs who had thrown Shekel out of
+the pub, they… died. Horrible deaths. Farmer Morris found them at the bottom
+of one of his fields. They'd been… cut apart. Or torn apart maybe. I went
+down and took a look before the police showed up and cordoned off the whole
+area. I wished I hadn't. Worst sight I've ever seen and I don't think I've
+had a decent night's sleep since then. There were… bits thrown all over the
+place; in trees, in bushes, even draped around a fencepost. I was sick, I
+don't mind telling you. I was glad when the police showed up and ordered me
+out of there…" Edwin shakes his head. "It got worse, Duffy. A lot worse. You
+don't want to know what happened next."
+
+   1: "Tell me what happened next."
+   2: "Tell me about Shekel."
+   3: "What about the other villagers?"
+
+> 1
+"It was Shekel, everyone knew that. Of course, we couldn't get the police to
+believe us when we told them. I'm not sure I blame them myself. I mean, it
+all sounds unlikely as hell when you think about it logically but we knew
+Shekel was behind it. And none of them were local people so I guess when we
+started telling them that some wandering beggar - that was what Shekel looked
+like then - had killed the people with black magic they didn't believe us."
+He shakes his head. "We should have been more careful, I realise that now. We
+should have…" Another shake. "But it's no use going over it now. It's over.
+Finished. We're all finished."
+
+   1: "Tell me about Shekel."
+
+> 1
+"No one really knew what to make of him to begin with. He looked like a
+wandering beggar, and when he started ranting and raving about us dying we
+thought he was mad. We didn't think for a second that he could actually do
+what he claimed he could do."
+   "What did he do?" you ask.
+   "Lots of things," whispers Edwin. "Bad things. He killed some local toughs
+who had insulted him - tore them apart! - and he made Old Lumbly, the guy who
+runs the farm on the west side of Morrow, he made him kill his own animals
+and eat them!" Edwin gives a horrified cry and looks around his ruined house
+as if hoping for some sudden salvation. "But he's gotten worse since then.
+He's poisoned the village water; he's turned people against each other;
+he's…" A shake of the head. "I don't know everything he's done, Duffy, but if
+even some of it is true then he's evil incarnate. He worships a dark god that
+he makes sacrifices to. And I think the whole village is his sacrifice."
+
+   1: "Sacrifices?"
+
+> 1
+"I think they're part of some bizarre ritual Shekel's performing: the local
+toughs, Old Lumbly, and then his turning of people against each other. What
+he's planning to do in the end I don't know. But it can't be far off now."
+
+   1: "What do you mean by a 'bizarre ritual'?"
+   2: "We have to get out of here, Edwin."
+
+> 1
+"I'm not sure. I just know Shekel has something planned. It's..." A quick
+shake of the head. "It's difficult to say exactly how I know, I just do.
+Sometimes I wake up and I know things I didn't know before. And I know he's
+planning some kind of ritual and then... Then I don't like to think what
+might happen, Duffy, but it won't be something I want to be around to
+witness."
+
+   1: "Where is Shekel now?"
+
+> 1
+"I don't know. I've seen him moving around over the past few months but I've
+never been able to find where he's holed up. Then again, I don't tend to
+leave my house much. It's not safe. They're out there and they can't be
+killed."
+
+   1: "We have to get out of here, Edwin."
+
+> 1
+"The other villagers. The people of Morrow. Hellfire, Duffy, have you met any
+of them?"
+   "I met a man as I was coming along the Old Mill Road," you say,
+remembering the man who collapsed as you approached. You wonder if he is
+alright. "I never got his name."
+   "They didn't get all of us," says Edwin. "I don't think they're very well
+organised. I mean, they seem to be able to kill you by touch, but for all
+their powers they're not above making mistakes. They don't know I'm here
+which is the only reason why I'm still alive. If they knew I was here, they'd
+kill me."
+
+   1: "We need to get out of here, Edwin."
+
+Edwin suddenly hesitates, his face drawn. "Do you hear that?" he asks,
+clutching at your arm.
+   "Hear what? Edwin, you're not making any sense. Edwin-"
+   He pulls away from you, goes rushing over to the boarded up windows and
+peers out between the boards. When he speaks, his voice is hoarse with fear.
+"I can see one of them. Duffy, he's just standing out there!"
+   You go over to the window and look out yourself. "I don't see anyone,
+Edwin. Look, calm down and-"
+   And then you do see someone out there. A tall figure, wrapped in a long
+cloak, standing at the corner of the street. The mist swirls about him like a
+living creature, obscuring his features.
+   "That's one of them," hisses Edwin. His hands clutch the boards. They are
+bone white. "I don't know if they have names but he…"
+   Edwin's nerve breaks and he backs away from the window, almost trips over
+his own feet, then goes rushing across the room. Ignoring your cries for him
+to stop, he dashes into a back room. You make to follow him but there comes a
+hideous scream from the room into which Edwin ran, and then the door slams
+shut in your face!
+...press a key...
+
+   "Edwin!" you call, slamming your fist into the door. "Edwin! Open the
+door! Edwin-"
+   Edwin screams from beyond the door, the ragged high-pitched roar of an
+animal in pain. From the other side of the door there is a meaty thud as of
+something heavy being thrown against it with tremendous force.
+   "… Edwin…" you say again, your words trailing off as you realise Edwin
+isn't alone in there.
+   For the first time in your life, you feel completely helpless, completely
+without any idea what to do next. Part of you wants to smash the door down
+and go charging in to Edwin's rescue. But another part of you knows what a
+terrible idea that would be. There is something in that room. Something that
+has hurt Edwin, perhaps even killed him. The same would almost certainly
+happen to you if you were foolish enough to try and rescue him.
+   Even as you think this, you become aware of the front door beginning to
+open behind you and a cold wind roaring into the house. You sense a presence
+flowing through the doorway…
+   You run. You don't have time to be ashamed of leaving Edwin but know,
+instinctively, that if you stay you die. You run back into the main room of
+Edwin's house and throw yourself at the boards covering the front window…
+...press a key...
+
+Graveyard
+Morrow graveyard is a frightening place even now than it was when you were a
+child: trees struggle to survive in the black soil; the ground is a stinking
+quagmire with pools of mud many feet deep ready to claim you if you wander
+off the known path. Headstones are dotted about at regular intervals, the
+names carved into their surfaces faded with age. Uneasily, you notice that
+several graves have recently been dug open; ancient coffins, battered as if
+by madmen, lie at the bottom. The church lies a short step to your east but
+the door to it, the only way in as far as you know, is around the other side,
+along a short path to the southeast. A ladder has been affixed to the wall of
+the church a short distance from where you stand and this leads up to the
+church roof.
+
+Why you came here of all places you don't know. But when you fled from
+Edwin's house you weren't thinking. You're not quite sure of your state of
+mind at the time but blind panic would be the best way to describe it. What
+happened to Edwin after he ran into the back room you don't know but you fear
+the worst.
+
+> 1
+Command not understood. Try something else.
+
+> open door
+At first, the door appears locked. The handle refuses to turn, and even when
+you put effort into it, it remains stubbornly closedly closed.
+   But then you hear a sound from behind you. Nervously, you glance back over
+your shoulder… and see a corpse walking towards you!
+...press a key...
+
+   As it moves, pieces of its decaying body fall from it. It approaches you
+in a lurching manner, dragging one foot behind it. A ghastly moan emanates
+from its desiccated throat and eyes that are long dead, yet retain a hideous
+kind of life, lock onto yours.
+   Frantically you throw yourself against the door. A sharp pain flares in
+your shoulder yet you barely feel it. Again, you slam into the door, and
+again, and again…
+   The corpse reaches out a rotting hand and it is barely an inch from your
+face when the door, finally, gives way and you tumble into the church beyond.
+...press a key...
+
+You fall to the floor of the church, skinning your knees and ripping your
+palm open on a jagged tile stone. You barely notice this, however, as you
+struggle to your feet. The corpse is approaching; it stands at the church
+doorway, either unable to enter, or afraid to. Hesitantly, its lifeless face
+giving no indication of what thoughts, if any, travel through its decaying
+brain, it takes a step forward over the threshold-
+   ”Back, undead!” comes a cry.
+   A man comes lurching past you, a bottle in one hand. As he approaches the
+doorway, he lifts the bottle and throws it. It crashes into the corpse and
+explodes. The effect is dramatic to say the least.
+   The corpse staggers back, its chest and arms burning with acidic fire. It
+tried frantically to wipe away the flames but this serves to spread them: to
+its face, its legs, its entire torso…
+   The man who threw the bottle at the corpse steps forward and slams the
+door shut. For a moment, everything is dark inside the church. Then you hear
+a scratching sound and a lamp flares into life.
+...press a key...
+
+   ”What-“
+   The man waves away what you were going to say. “You're hurt. Come, I have
+some small skill as a healer. Follow me.”
+   Without waiting for a response, the man turns and shuffles away into the
+depths of the darkened church. He pauses only to take the lamp with him. You
+lie where you fell for a moment, your breath rasping in the rapidly darkening
+room, then pick yourself up and follow him.
+...press a key...
+
+Church
+Morrow's only church looks far smaller from the inside than it does from the
+outside. A great age is apparent from a casual glance at the building, from
+the layers of dust that coat seemingly every surface to the groaning of the
+architecture all about.
+   The main body of the church is a lengthy diagonal in shape. Coloured
+windows, the majority lacking most of their colouring due to the ravages of
+time, line each of the walls, some depicting the life of Jesus, others blank.
+A row of pews lead to the podium where the priest stands to deliver his
+speeches to the masses; at one side of it is a font which is bone dry. Two
+doors lead out of the church: a small, side door to the west and a larger
+door to the east. Both are closed.
+   Father Kadrin stands near to you.
+
+”My name is Father Kadrin,” says the man. He has bandaged your hands and put
+ointment on your knees. Little faith though you have in any medicine that
+doesn’t come with a hospital stamp on it, you have to admit that the stinging
+pain fades away rapidly. “I was the priest here in Morrow until… the bad
+things happened.”
+   ”The bad things?”
+   ”Lots of bad things. An ancient evil returned to haunt us, to exact
+revenge for what we did.” He shakes his head sadly. “What goes around, comes
+around. My mother told me that when I was a small boy. I never knew how true
+her words were…”
+
+> e
+"Are you leaving so soon?" asks Kadrin.
+   "I need to find Edwin," you say.
+   Kadrin nods. "I guess that is true. I would come with you only… I am not a
+brave man, Mr Duffy, and I am not a strong one either. I suspect I would be
+little use in a fight. But wait, I have an item that you should take with
+you." He goes rushing off into the depths of the church and returns a minute
+later carrying a small statue. This he hands to you with the words: "this is
+a holy artefact, kept in the chambers beneath the church for countless
+decades. It does little good where it is but, hopefully, it will help you
+where you go."
+   "Thank you, Kadrin," you say with feeling.
+   "God bless," mutters Kadrin as you depart the church.
+...press a key...
+
+You leave the church. Dusk has fallen and the streets of Morrow are dark.
+Shadows abound all over, obscuring your vision and making movement
+treacherous. Your breath steams coldly in the chill air...
+   Suddenly you hear a noise from the house across the street: the sound of
+shuffling feet, of someone (or something) moving around. Eager to avoid any
+kind of confrontation, you set off down the street at a run, Merrik Wood your
+destination...
+...press a key...
+
+Merrik Wood
+Under the branches of Merrik Wood everything is still. Several paths lead
+away from the oasis of calm where you stand: northwest back to the centre of
+Morrow, south into the very depths of the wood itself, east towards a bright,
+shining light. The air is heavy with menace; moving around seemly overly
+difficult as though you were wading through water. The trunks of gargantuan
+trees crowd you on all sides; their branches seem to move with a life of
+their own.
+
+If indeed there was anything following you, you appear to have lost it. All
+is quiet and still beneath the branches.
+
+> e
+You move east.
+
+Approaching The Ritual Field
+The air is rank with the stench of smoke which drifts on the breeze from
+ahead: a large field, the grass burnt away to ash. In the centre rises a
+wooden platform which is aflame. A figure, kicking, screaming, yelling in
+pain, is tied to a spike at the top of the platform; the flame lick around
+him. Standing around the funeral pyre are a gathering of figures, some clad
+in long dark cloaks, the rest naked, their bodies twisted and deformed as if
+by plague. Some of them are chanting, a dirge rising into the cold night air.
+   The path you reached this place by leads away to the west; to the east is
+the ritual field.
+
+> drop statue
+You drop the statue.
+
+> e
+Ritual Field
+A platform rises in the centre of this field; your friend, Edwin Carter, is
+tied to the platform, his face a mask of abject terror. Figures - bizarre to
+say the least - stand around the edges of the platform; some carry torches.
+Some are dead, some still living. Bundles of wood have been placed around the
+platform, a few are already burning. Edwin's cries rise high over everything
+else.
+
+   Shekel stands amidst the living dead, his emotionless eyes locked onto
+yours.
+
+As you step into the field, one figure breaks from the other and stops before
+you. Though you have never seen his true form before, it is obvious from just
+a glance that this is none other than Shekel.
+   "You came then," he says, his voice soft and malevolent. "I expected as
+much. Did that fool Moropeth send you? Or did you find your way here all by
+yourself? Not that it matters. Nothing matters now." He gestures to the
+living dead standing around him. "Seize the fool. We will have two sacrifices
+tonight instead of just the one."
+
+> smash orb
+As he looks upon the orb, Shekel's look of confidence crumbles. "No..." he
+says, taking a step towards you. "No, not after I've come all this way..."
+   Without warning you drop the orb to the ground and crush it beneath your
+feet. Shekel lunges for you, his hands twisted into claws ready to choke the
+very life from you, but the part of his life trapped within the orb dies...
+and the evil that has plagued Morrow for so long explodes in a cloud of
+dust...
+...press a key...
+
+The diner is crowded: bikers push and jostle each other; waitresses yell; the
+manager hurls abuse at an inoffensive man sitting at a table in the corner
+who has complained about the bill.
+   It is heaven.
+   "I never thought I'd be pleased to see a place like this," says Edwin,
+seated opposite you and clutching a cappuccino as if his life depends on it.
+"I used to shy away from biker diners like the plague in case one of them
+decided to knife me for some reason. But after what I've seen recently…"
+   You nod. "We got him, Edwin. Shekel is dead."
+   "No. You got him, Duffy. I just…" Edwin shakes his head. "I went to
+pieces. After they killed Kadrin and I couldn't get out of town, I just… lost
+it. I think I'd have killed myself before too much longer if you hadn't come
+and rescued me."
+   You find his words touching, though they are true. You saved your friend's
+life and put an end to the evil that had arisen in Morrow.
+...press a key...
+
+Well done. You have reached the end of Dead Reckoning. There are three
+possible endings and this is the best of the lot. Well done indeed!
+   If you wish to try again, type "restart" at any time.
+
+> quit
+Do you really want to quit? [Y/N]

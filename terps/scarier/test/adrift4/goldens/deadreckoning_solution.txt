@@ -1,0 +1,32 @@
+1
+search man
+give water to man
+talk man
+3
+wait
+wait
+wait
+wait
+get cross
+get cross
+d
+e
+e
+dig lump
+dig lump
+raise cross
+call to edwin
+1
+1
+1
+1
+1
+1
+1
+1
+open door
+e
+e
+drop statue
+e
+smash orb

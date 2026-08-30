@@ -1,0 +1,213 @@
+smash chains with sword
+head butt door
+e
+e
+u
+look under mattress
+read diary
+read diary
+read diary
+read diary
+read diary
+read diary
+x cans
+push button
+d
+e
+x stove
+s
+w
+x rug
+lift rug
+w
+x sofa
+push button
+e
+e
+s
+smash window
+push button
+n
+n
+n
+w
+x shower
+push button
+get carrot
+e
+s
+s
+w
+u
+e
+x bed
+make bed
+w
+n
+x box
+open box
+x doll
+smash doll
+get golden sceptre
+s
+w
+x bureau
+read paper
+e
+d
+e
+cough
+wear glasses
+n
+w
+w
+w
+open panel
+s
+talk to Cuthbert
+talk to Cuthbert
+talk to Cuthbert
+give jewel to Cuthbert
+push button
+n
+e
+e
+e
+s
+w
+u
+se
+sw
+nw
+w
+use jail break kit
+x bars
+e
+se
+ne
+nw
+w
+e
+n
+s
+e
+x bedside cabinet
+get perfume
+x perfume
+x wardrobe
+881
+open door
+e
+x console
+1
+2
+3
+0
+w
+w
+w
+climb into dumb waiter
+pull lever
+out
+get money
+lift rug
+climb into dumb waiter
+pull lever
+out
+pull lever
+climb into empty space
+push button
+x bed
+jump on bed
+e
+d
+w
+give carrot to donkey
+s
+x bed
+x bed
+x bed
+x bed
+n
+e
+e
+n
+ne
+e
+remove glasses
+se
+talk to Grumby
+talk to Grumby
+talk to Grumby
+nw
+w
+sw
+w
+w
+w
+spray perfume
+spray perfume
+w
+sit on throne
+wear gloves
+e
+e
+e
+e
+s
+w
+w
+x fire
+get something
+read logbook
+e
+u
+ne
+u
+w
+smash cage
+e
+get baseball bat
+d
+sw
+d
+e
+n
+ne
+wear glasses
+e
+remove glasses
+se
+give baseball bat to Grumby
+get baseball bat
+nw
+w
+sw
+s
+x safe
+s
+wear glasses
+e
+threaten Snuggles
+e
+smash mirror
+w
+w
+n
+n
+w
+w
+w
+e
+1
+3
+6
+8
+9
+e
+e
+e
+s
+s
+s
+s

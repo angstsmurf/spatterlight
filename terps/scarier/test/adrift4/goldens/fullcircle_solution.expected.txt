@@ -1,0 +1,2796 @@
+Loading game...
+
+Full Circle
+
+"Wake up."
+
+The words are spoken as if from far away.
+
+"Wake up."
+
+Somewhere in the darkness, for all about you is nothing but darkness, a light
+shines.
+
+"Wake up," says the light.
+
+You awaken...
+
+The darkness, the emptiness, is gone. You are lying in a glade at the side of
+a statue. A cool wind blows through the glade, ruffling your hair, making you
+shiver.
+   You climb to your feet and look around. There is nothing here that is
+familiar, that you remember. Have you been here before? For that matter,
+where is this place? What is this place?
+   "You have questions, many, many questions," says a voice. It is the same
+voice from the dream (if dream it was), but its source is impossible to
+discern. "I have the answers. But you need to find them for yourself."
+   "Who are you?" you call, moving about the glade. "What am I doing here?"
+   "You are here because it is fated that you are here, because you always
+return here. Always. Come find me. I will be waiting."
+   A fierce gust of wind blows and the voice is gone. You are alone in the
+glade.
+
+F u l l   C i r c l e
+
+An interactive adventure by David Whyld
+Written with ADRIFT Version 4, Release 51
+
+Version 1 (21st August 2012)
+
+Glade
+[Locations visited: 1/43] [Decisions made: 1]
+
+EXITS: Northwest, East
+
+Weak rays of sunlight filter through the branches overhead, illuminating an
+ancient statue in the centre of this otherwise empty clearing. The statue
+kneels in a pool with muddy water lapping about its thighs. Paths lead away
+to the northwest and the east.
+
+> x statue
+Larger than a man, though man-shaped, the statue is worn by the passage of
+many, many years. Its face is almost gone, with just the impression of eyes
+and a mouth remaining. One arm, the left, is missing; the right ends at the
+elbow. It seems to be reaching for something.
+
+> x eyes
+Though the eyes have been worn almost to nothingness by the years and the
+elements, they nevertheless appear to be looking at something. But it's
+difficult to tell what that something might be.
+
+> x arm
+The statue's left arm is missing altogether. Worn to nothing but dust by the
+passing of the seasons? Or stolen by thieves?
+   The right arm remains, though this ends at the elbow. It seems to be
+pointing to something.
+
+   A sudden thought occurs to you. The statue's eyes are looking at
+something, the right arm is pointing at something... acting on a hunch, you
+go to the point on the ground they are indicating and find, buried just under
+the surface, caked with soft mud, a helm. Brushing the worst of the mud off,
+you pick it up.
+
+> x helm
+Patches of rust have already claimed parts of this helm, yet the rest is
+sturdy enough. While unlikely to stop a forceful blow, this at least ought to
+turn it from a killing strike to merely a wounding one. There is an unusual
+glass faceplate on the helm, unlike any you have seen before. It is currently
+raised.
+
+> wear helm
+You put the helm on.
+
+> lower faceplate
+You lower the faceplate. A faint light begins to radiate from the helm.
+
+> nw
+
+Outside a Cave
+[Score: 1/50] [Locations visited: 2/43] [Decisions made: 7]
+
+EXITS: Southeast, West
+
+The path comes to an end here, at the opening to a cave mouth. It is dark
+inside the cave and you can barely see more than a few feet into it.
+
+> w
+The darkness of the cave is dispelled by the light emanating from the helm.
+
+.. press a key to continue...
+
+Cave
+[Score: 2/50] [Locations visited: 2/43] [Decisions made: 8]
+
+EXITS: East
+
+This appears to once have been a smuggler's cave judging by the old wooden
+crates, almost reduced to dust by the passing of the years, piled in one
+corner. The word "moonshine" is visible on the side of many of them. The cave
+itself is not large, though a mirror, affixed to the west wall, gives it the
+impression of being quite a bit larger than it really is. A tapestry hangs to
+one side of the mirror, depicting an ancient scene. There is a grate set into
+the ground.
+
+> x tapestry
+The ancient scene is one you are familiar with though you cannot say where
+from. Your childhood perhaps?
+   It tells the tale of a man, never named, who has to cross the path of a
+ferocious beast. Knowing the beast to abhor poison, he first thinks to coat
+his weapon with it, but rejects this idea in favour of another: namely, to
+drink the poison himself. Thereby ensuring that even if the beast kills him,
+he will in turn kill it. As it happens, the beast, upon sensing the man has
+poison coursing through his very body, flees in terror from him, thus
+allowing him to drink the antidote he has concealed nearby. The antidote, you
+seem to remember, is nothing more than common water.
+
+> open crate
+You gingerly lift the lid on one of the crates, expecting to see its contents
+decayed away to little more than dust-
+   So imagine your surprise when a snake, reddish gold in colour, rears up
+hissing out of the crate and sinks its fangs into your wrist!
+   You cry out and stagger back, shaking your arm frantically to try and
+dislodge the snake. It clings to you stubbornly, like a leech, but eventually
+you manage to throw it to the floor where it slithers away out of sight.
+   The wound on your wrist oozes greenish ichor.
+   You have been poisoned.
+
+> x mirror
+You see yourself looking back out, but the you in the mirror seems...
+different than you remember. Were you always so thin? Your face so drawn?
+Your hair so straggly?
+   It is only as you turn away from the mirror that you catch sight of
+something previously unseen: a mark, easily mistaken for a bruise, on your
+shoulder. In the mirror it glows a brilliant red.
+
+> e
+
+Outside a Cave
+[Score: 4/50] [Locations visited: 3/43] [Decisions made: 12]
+
+EXITS: Southeast, West
+
+The path comes to an end here, at the opening to a cave mouth. It is dark
+inside the cave and you can barely see more than a few feet into it.
+
+> x mark
+When seen in the mirror, the mark appeared to glow brightly with a reddish
+colour. Seen with your own eyes, it appears nothing more than a bruise.
+Yet...
+   Yet there is something unusual about it. Its shape. It is certainly not
+natural.
+
+> touch mark
+The moment you touch the bruise...
+
+A flash of memory...
+
+"It is called a Power Sigil," says a voice.
+   You look at the man. Your mentor. "What can it do?"
+   "Do? Anything. In the hands of a master." Your mentor gestures and you see
+a similar mark on his arm, though larger and more pronounced than your own.
+"See." Flames spring up from his arm, coming directly from the skin but not
+harming it. "And learn." The flames dance around his arm then die down. "With
+the correct guidance, you can learn how to Manifest anything through that
+Sigil".
+
+The vision ends, leaving you lying on the ground, gasping and shaking.
+
+You feel a sudden dizziness come over you. The poison in your blood is
+working fast.
+
+> w
+
+Cave
+[Score: 5/50] [Locations visited: 3/43] [Fragments of memory recovered: 1/12]
+[Decisions made: 15]
+
+EXITS: East
+
+This appears to once have been a smuggler's cave judging by the old wooden
+crates, almost reduced to dust by the passing of the years, piled in one
+corner. The word "moonshine" is visible on the side of many of them. The cave
+itself is not large, though a mirror, affixed to the west wall, gives it the
+impression of being quite a bit larger than it really is. A tapestry hangs to
+one side of the mirror, depicting an ancient scene. There is a grate set into
+the ground.
+
+> manifest
+As you think the word manifest, there is a sudden pain from the mark on your
+shoulder and then fiery sparks burst from it.
+   Several of the sparks land on the grate set into the ground, mommentarily
+illuminating it, but die down before you think to take a closer look.
+
+> manifest
+You think the word manifest and fiery sparks burst from the mark on your
+shoulder. As before, they drop towards the grate and illuminate its contents.
+You crouch down, peer into the grate and see what appears to be a locket
+lying at the bottom of the grate.
+   Then the fiery sparks fade once more.
+
+> e
+
+Outside a Cave
+[Score: 5/50] [Locations visited: 3/43] [Fragments of memory recovered: 1/12]
+[Decisions made: 18]
+
+EXITS: Southeast, West
+
+The path comes to an end here, at the opening to a cave mouth. It is dark
+inside the cave and you can barely see more than a few feet into it.
+
+A sudden pain has you grasping your wrist where the snake bit you. You can
+almost feel the poison working its way around your body.
+
+> se
+
+Glade
+[Score: 5/50] [Locations visited: 3/43] [Fragments of memory recovered: 1/12]
+[Decisions made: 19]
+
+EXITS: Northwest, East
+
+Weak rays of sunlight filter through the branches overhead, illuminating an
+ancient statue in the centre of this otherwise empty clearing. The statue
+kneels in a pool with muddy water lapping about its thighs.
+
+A cool wind blows through the glade and carries with it an odour of decay and
+rot. You cover your nose to block the smell out.
+   A woman steps into the glade. Or, perhaps, steps is the wrong word as she
+floats above the ground, her sandalled feet mere inches above the grass. In
+one hand she carries a staff and in the other a lantern which has long since
+gone out. Her eyes are glassy white in appearance; no pupils. Her skin is
+grey and lifeless.
+   "My locket," you hear her say as she floats past you, oblivious to your
+presence, and heads to the cave.
+
+> e
+
+Muddy Path
+[Score: 5/50] [Locations visited: 3/43] [Fragments of memory recovered: 1/12]
+[Decisions made: 20]
+
+EXITS: East, West
+
+This narrow path runs east (to a branching of many different paths) and west
+(to the glade where you first awoke). It is muddy in places and the mud seems
+to clutch at your feet with a mind of its own. The path leading further east
+has strange grooves in it.
+
+> e
+
+You reach an area where many paths meet but have precious little time to look
+around. Close by, something roars. You turn fearfully as a creature of some
+kind, large and horned, fangs protruding from a maw as wide as your body,
+bursts from the undergrowth. Terror freezes you on the spot and the thing,
+whatever manner of beast it is, seizes you in its claws and-
+   And hesitates. A cold intelligence lurks within the thing's misplaced
+eyes, one on the side of its ape-like face, the other below its tusked chin.
+This intelligence regards you and warily. A frown seems to cross the things's
+face.
+   It knows you are poisoned!
+   Then, surprisingly, the creature releases its grip upon you. It shuffles
+backwards several feet, its gaze never leaving you, then turns and scurries
+away into the undergrowth. You are left where it dropped you, a little
+bruised but otherwise unharmed.
+
+> w
+
+Muddy Path
+[Score: 6/50] [Locations visited: 5/43] [Fragments of memory recovered: 1/12]
+[Decisions made: 22]
+
+EXITS: East, West
+
+This narrow path runs east (to a branching of many different paths) and west
+(to the glade where you first awoke). It is muddy in places and the mud seems
+to clutch at your feet with a mind of its own. The path leading further east
+has strange grooves in it.
+
+> w
+
+Glade
+[Score: 6/50] [Locations visited: 5/43] [Fragments of memory recovered: 1/12]
+[Decisions made: 23]
+
+EXITS: Northwest, East
+
+Weak rays of sunlight filter through the branches overhead, illuminating an
+ancient statue in the centre of this otherwise empty clearing. The statue
+kneels in a pool with muddy water lapping about its thighs.
+
+You stagger and almost fall. Your vision seems blurry, your thought processes
+slow and dull.
+
+> drink water
+You take a sip of the water... then gag and spit it out!
+   It's foul! Contaminated, it seems.
+   But, but... the poison! The poison that was coursing through your veins,
+that was killing you... it's gone! Somehow the water has cured you of it.
+
+> nw
+You reach the area outside the cave just as the woman enters it. A glowing
+barrier begins to form around the entrance.
+
+.. press a key to continue...
+
+Outside a Cave
+[Score: 7/50] [Locations visited: 5/43] [Fragments of memory recovered: 1/12]
+[Decisions made: 25]
+
+EXITS: Southeast, West
+
+The path comes to an end here, at the opening to a cave mouth. It is dark
+inside the cave and you can barely see more than a few feet into it. A
+glowing barrier has formed around the entrance to the cave.
+
+> wait
+You wait for the woman to emerge.
+   A minute passes... and another... and another... and-
+   But then the glow emanating from the cave dies down and the woman emerges.
+Her dead eyes lock onto yours and a frown wrinkles her lifeless forehead.
+   "Kedric?" she murmurs. "You, too?"
+   "What do you mean?"
+   But if she hears you speak, and understands what you say, she gives no
+indication of it. Instead, she opens her hand and you see the locket from the
+grate.
+   "I am free," she says, and fades from view; at the same time, the barrier
+blocking the cave entrance vanishes.
+   The locket drops to the ground.
+
+> get locket
+You take the locket.
+
+> se
+
+Glade
+[Score: 8/50] [Locations visited: 5/43] [Fragments of memory recovered: 1/12]
+[Decisions made: 28]
+
+EXITS: Northwest, East
+
+Weak rays of sunlight filter through the branches overhead, illuminating an
+ancient statue in the centre of this otherwise empty clearing. The statue
+kneels in a pool with muddy water lapping about its thighs.
+
+> climb tree
+You attempt to climb the nearest tree but its bark is as smooth as glass and
+you quickly slip back down. A broken branch, torn from the trunk, drops to
+the ground by your feet.
+
+> get branch
+You take the branch.
+
+> e
+
+Muddy Path
+[Score: 9/50] [Locations visited: 5/43] [Fragments of memory recovered: 1/12]
+[Decisions made: 31]
+
+EXITS: East, West
+
+This narrow path runs east (to a branching of many different paths) and west
+(to the glade where you first awoke). It is muddy in places and the mud seems
+to clutch at your feet with a mind of its own. The path leading further east
+has strange grooves in it.
+
+> e
+
+Where Many Paths Meet
+[Score: 9/50] [Locations visited: 5/43] [Fragments of memory recovered: 1/12]
+[Decisions made: 32]
+
+EXITS: North, Northeast, Southeast, West
+
+Four different paths meet here, in a clearing where a signpost has been
+erected. Though weathered by time and the elements, words are still visible
+on the worn wood.
+
+> n
+
+By a Rope Bridge
+[Score: 9/50] [Locations visited: 6/43] [Fragments of memory recovered: 1/12]
+[Decisions made: 33]
+
+EXITS: North, South
+
+The path you have been following ends ahead of you where a rope bridge spans
+a gorge which drops away steeply to a river, far below; the distance so great
+that the sounds of the river are just a faint hum. The rope bridge sways back
+and forth, appearing barely capable of holding itself together let alone the
+weight of a fully grown man.
+
+> throw pendant
+You hurl the pendant over the gorge.
+
+> remove helm
+You remove the helm.
+
+> drop all
+You drop the helm, the broken branch and the locket.
+
+> n
+You gingerly approach the rope bridge, disliking the way it sways with every
+gust of wind. You step onto it, sure it will collapse at any moment and go
+crashing down into the gorge below, carrying you with it... but it proves
+surprisingly strong and steady. Hardly daring to breathe, you move across the
+bridge, as fast as you can can, and let out a sigh of relief as you set foot
+on the far side.
+
+.. press a key to continue...
+
+Shadowy Clearing
+[Score: 10/50] [Locations visited: 6/43] [Fragments of memory recovered:
+2/12] [Decisions made: 37]
+
+EXITS: South
+
+The sunlight cannot penetrate this clearing. What light there is illuminates
+an eerily life-like sculpture of a man, standing by a long-extinguished fire.
+He has one hand outstretched, as if reaching for something, and his face is
+contorted into an expression of helpless fear and despair.
+
+   There is a pendant here.
+
+A flash of memory...
+
+"I wish you to undertake a journey," says your mentor.
+   It is evening, a cold day approaching winter. Snow has begun to fall and a
+chill is in the air.
+   "Where to?"
+   "A distant place." Your mentor looks down from the castle battlements to
+the land below. "There is a place of magic I have heard of, a place where the
+impossible can be achieved and where things that are said to be hidden can be
+discovered."
+   You look to the horizon, where the sun is dying.
+   "And this place is called...?"
+
+The memory fades.
+
+> x sculpture
+The sculpture is life-like, eerily so. It's like a man was simply frozen in
+place and his skin became stony in appearance. He is dressed in woollen
+trousers and a waistcoat. One hand is outstretched as if reaching for
+something.
+
+> get pendant
+You take the pendant.
+
+> put pendant in hand
+You hold the pendant out and then place it in the outstetched hand of the
+sculpture...
+   ...and in the blink of an eye you are elsewhere.
+
+.. press a key to continue...
+
+Sunny Clearing
+[Score: 11/50] [Locations visited: 7/43] [Fragments of memory recovered:
+2/12] [Decisions made: 40]
+
+The sun shines through the branches overhead and illuminates this clearing. A
+man, strangely familiar yet at the same time unknown to you, sits by a fire,
+playing a flute and rocking back and forth. He seems oblivious to your
+presence.
+   The rope bridge which spanned the gorge to the south is gone, leaving no
+exits from this place.
+
+The pendant you placed in the sculpture's hand is lying on the ground.
+
+> listen to man
+The man is playing a tune on his flute:
+
+"To the east!
+To the south!
+To the north!
+To the west!
+
+A-round a-round the pole we go!
+
+To the south!
+To the west!
+to the north!
+To the east!
+
+A-round a-round the pole we go!"
+
+An old Kandish rhyme? You are sure you know it from somewhere - your
+childhood perhaps? Maybe. In any event, it is hauntingly familiar.
+
+> s
+As you approach the gorge, everything flickers around you. The bright vibrant
+colours are gone, the sun moves out of sight and a shadowy darkness descends.
+   You are back where you were before.
+
+.. press a key to continue...
+
+Shadowy Clearing
+[Score: 12/50] [Locations visited: 7/43] [Fragments of memory recovered:
+2/12] [Decisions made: 42]
+
+EXITS: South
+
+The sunlight cannot penetrate this clearing. What light there is illuminates
+an eerily life-like sculpture of a man, standing by a long-extinguished fire.
+He has one hand outstretched, as if reaching for something, and his face is
+contorted into an expression of helpless fear and despair.
+
+> s
+You cross the rope bridge and make it safely to the far side.
+
+.. press a key to continue...
+
+By a Rope Bridge
+[Score: 12/50] [Locations visited: 7/43] [Fragments of memory recovered:
+2/12] [Decisions made: 43]
+
+EXITS: North, South
+
+The path you have been following ends ahead of you where a rope bridge spans
+a gorge which drops away steeply to a river, far below; the distance so great
+that the sounds of the river are just a faint hum. The rope bridge sways back
+and forth, appearing barely capable of holding itself together let alone the
+weight of a fully grown man.
+
+   There is a helm here.
+   There is a branch here.
+   There is a locket here.
+
+> get all
+You take the branch.
+
+You take the helm and the locket.
+
+> s
+
+Where Many Paths Meet
+[Score: 12/50] [Locations visited: 7/43] [Fragments of memory recovered:
+2/12] [Decisions made: 45]
+
+EXITS: North, Northeast, Southeast, West
+
+Four different paths meet here, in a clearing where a signpost has been
+erected. Though weathered by time and the elements, words are still visible
+on the worn wood.
+
+> se
+
+Spider Grove
+[Score: 12/50] [Locations visited: 8/43] [Fragments of memory recovered:
+2/12] [Decisions made: 46]
+
+EXITS: Northwest, Southeast
+
+Large spider webs, some the thickness of your arm, span this grove from one
+side to the other. Though there are paths between them, these paths are
+narrow and afford little space for movement. The webs themselves appear
+coated with some kind of slime which emits a powerful stench of decay.
+
+> manifest
+You think the word manifest and fiery sparks burst from the mark on your
+shoulder. They strike the broken branch you are carrying and transform it
+into a torch.
+   After several seconds, the sparks die down.
+
+> burn webs
+You hold out the burning torch to the nearest web and it quickly blackens and
+falls to the ground in a smoking heap. You do the same to the webs around it,
+burning them to ash and clearing yourself a path to the southeast.
+
+> se
+
+Totem Pole
+[Score: 14/50] [Locations visited: 8/43] [Fragments of memory recovered:
+2/12] [Decisions made: 49]
+
+EXITS: North, South, East, West, Northwest
+
+In the centre of an area cleared of trees, a totem pole has been built. It is
+easily thirty feet tall and topped by a figure with a scowling face. In the
+four cardinal directions lie ancient cairns.
+
+A flash of memory...
+
+Halstings came to you with news he felt was of great significance: the island
+is inhabited. Or, rather, it was once inhabited. He has found a series of
+buildings - cairns he calls them - around a totem pole topped by a figure of
+Kandish descent. His religious fetish - a damnable skull of golden tint that
+he carries with him everywhere - glowed when he approached the totem pole,
+though he is unsure as to what this means. You thank him for telling you of
+his discovery and wonder what this means. Why did your mentor not mention
+that Kandish people had been to the island? He is, after all, of Kandish
+descent himself.
+
+The memory fades.
+
+> e
+
+Outside the Eastern Cairn
+[Score: 15/50] [Locations visited: 9/43] [Fragments of memory recovered:
+3/12] [Decisions made: 50]
+
+EXITS: East, West
+
+The path ends at a cairn built into the side of a hill. There is a door in
+the front of the cairn but it is closed and you cannot see any visible means
+of opening it.
+
+> w
+
+Totem Pole
+[Score: 15/50] [Locations visited: 10/43] [Fragments of memory recovered:
+3/12] [Decisions made: 51]
+
+EXITS: North, South, East, West, Northwest
+
+In the centre of an area cleared of trees, a totem pole has been built. It is
+easily thirty feet tall and topped by a figure with a scowling face. In the
+four cardinal directions lie ancient cairns.
+
+> s
+
+Outside the Southern Cairn
+[Score: 15/50] [Locations visited: 10/43] [Fragments of memory recovered:
+3/12] [Decisions made: 52]
+
+EXITS: North, South
+
+The path ends at a cairn built into the side of a hill. There is a door in
+the front of the cairn but it is closed and you cannot see any visible means
+of opening it.
+
+> n
+
+Totem Pole
+[Score: 15/50] [Locations visited: 11/43] [Fragments of memory recovered:
+3/12] [Decisions made: 53]
+
+EXITS: North, South, East, West, Northwest
+
+In the centre of an area cleared of trees, a totem pole has been built. It is
+easily thirty feet tall and topped by a figure with a scowling face. In the
+four cardinal directions lie ancient cairns.
+
+> n
+
+Outside the Northern Cairn
+[Score: 15/50] [Locations visited: 11/43] [Fragments of memory recovered:
+3/12] [Decisions made: 54]
+
+EXITS: North, South
+
+The path ends at a cairn built into the side of a hill. There is a door in
+the front of the cairn but it is closed and you cannot see any visible means
+of opening it.
+
+> s
+
+Totem Pole
+[Score: 15/50] [Locations visited: 12/43] [Fragments of memory recovered:
+3/12] [Decisions made: 55]
+
+EXITS: North, South, East, West, Northwest
+
+In the centre of an area cleared of trees, a totem pole has been built. It is
+easily thirty feet tall and topped by a figure with a scowling face. In the
+four cardinal directions lie ancient cairns.
+
+> w
+
+Outside the Western Cairn
+[Score: 15/50] [Locations visited: 12/43] [Fragments of memory recovered:
+3/12] [Decisions made: 56]
+
+EXITS: East, West
+
+The path ends at a cairn built into the side of a hill. There is a door in
+the front of the cairn but it is closed and you cannot see any visible means
+of opening it.
+
+> e
+
+Totem Pole
+[Score: 15/50] [Locations visited: 13/43] [Fragments of memory recovered:
+3/12] [Decisions made: 57]
+
+EXITS: North, South, East, West, Northwest
+
+In the centre of an area cleared of trees, a totem pole has been built. It is
+easily thirty feet tall and topped by a figure with a scowling face. In the
+four cardinal directions lie ancient cairns.
+
+> s
+
+Outside the Southern Cairn
+[Score: 15/50] [Locations visited: 13/43] [Fragments of memory recovered:
+3/12] [Decisions made: 58]
+
+EXITS: North, South
+
+The path ends at a cairn built into the side of a hill. There is a door in
+the front of the cairn but it is closed and you cannot see any visible means
+of opening it.
+
+> n
+
+Totem Pole
+[Score: 15/50] [Locations visited: 13/43] [Fragments of memory recovered:
+3/12] [Decisions made: 59]
+
+EXITS: North, South, East, West, Northwest
+
+In the centre of an area cleared of trees, a totem pole has been built. It is
+easily thirty feet tall and topped by a figure with a scowling face. In the
+four cardinal directions lie ancient cairns.
+
+> w
+
+Outside the Western Cairn
+[Score: 15/50] [Locations visited: 13/43] [Fragments of memory recovered:
+3/12] [Decisions made: 60]
+
+EXITS: East, West
+
+The path ends at a cairn built into the side of a hill. There is a door in
+the front of the cairn but it is closed and you cannot see any visible means
+of opening it.
+
+> e
+
+Totem Pole
+[Score: 15/50] [Locations visited: 13/43] [Fragments of memory recovered:
+3/12] [Decisions made: 61]
+
+EXITS: North, South, East, West, Northwest
+
+In the centre of an area cleared of trees, a totem pole has been built. It is
+easily thirty feet tall and topped by a figure with a scowling face. In the
+four cardinal directions lie ancient cairns.
+
+> n
+
+Outside the Northern Cairn
+[Score: 15/50] [Locations visited: 13/43] [Fragments of memory recovered:
+3/12] [Decisions made: 62]
+
+EXITS: North, South
+
+The path ends at a cairn built into the side of a hill. There is a door in
+the front of the cairn but it is closed and you cannot see any visible means
+of opening it.
+
+> s
+
+Totem Pole
+[Score: 15/50] [Locations visited: 13/43] [Fragments of memory recovered:
+3/12] [Decisions made: 63]
+
+EXITS: North, South, East, West, Northwest
+
+In the centre of an area cleared of trees, a totem pole has been built. It is
+easily thirty feet tall and topped by a figure with a scowling face. In the
+four cardinal directions lie ancient cairns.
+
+> e
+
+Outside the Eastern Cairn
+[Score: 15/50] [Locations visited: 13/43] [Fragments of memory recovered:
+3/12] [Decisions made: 64]
+
+EXITS: East, West
+
+The path ends at a cairn built into the side of a hill. There is a door in
+the front of the cairn but it is closed and you cannot see any visible means
+of opening it.
+
+> w
+
+Totem Pole
+[Score: 16/50] [Locations visited: 13/43] [Fragments of memory recovered:
+3/12] [Decisions made: 65]
+
+EXITS: North, South, East, West, Northwest
+
+In the centre of an area cleared of trees, a totem pole has been built. It is
+easily thirty feet tall and topped by a figure with a scowling face. In the
+four cardinal directions lie ancient cairns.
+
+   As you approach the totem, you notice something about it is different.
+
+> x figure
+The figure seems to have changed position. Its arms have opened and it is
+leaning in a northerly direction.
+
+> n
+
+Outside the Northern Cairn
+[Score: 16/50] [Locations visited: 13/43] [Fragments of memory recovered:
+3/12] [Decisions made: 67]
+
+EXITS: North, South
+
+The path ends at a cairn built into the side of a hill. There is a door in
+the front of the cairn which currently stands open.
+
+> n
+
+Northern Cairn
+[Score: 16/50] [Locations visited: 14/43] [Fragments of memory recovered:
+3/12] [Decisions made: 68]
+
+EXITS: South
+
+The cairn is not large, barely ten feet in diameter, yet mirrored panels on
+the walls give it the impression of greater size. An altar rests in the
+middle of the floor, a golden skull atop it.
+
+> get golden skull
+You take the skull.
+   As you do, something groans deep within the cairn. You stagger back, trip
+and fall, tumble out of the cairn...
+   Just as the door swings shut with an almighty crash.
+
+.. press a key to continue...
+
+Outside the Northern Cairn
+[Score: 17/50] [Locations visited: 14/43] [Fragments of memory recovered:
+3/12] [Decisions made: 69]
+
+EXITS: North, South
+
+The path ends at a cairn built into the side of a hill. There is a door in
+the front of the cairn but it is closed and you cannot see any visible means
+of opening it.
+
+> s
+
+Totem Pole
+[Score: 17/50] [Locations visited: 14/43] [Fragments of memory recovered:
+3/12] [Decisions made: 70]
+
+EXITS: North, South, East, West, Northwest
+
+In the centre of an area cleared of trees, a totem pole has been built. It is
+easily thirty feet tall and topped by a figure with a scowling face. In the
+four cardinal directions lie ancient cairns.
+
+> nw
+
+Spider Grove
+[Score: 17/50] [Locations visited: 14/43] [Fragments of memory recovered:
+3/12] [Decisions made: 71]
+
+EXITS: Northwest, Southeast
+
+Large spider webs, some the thickness of your arm, span this grove from one
+side to the other. Though there are paths between them, these paths are
+narrow and afford little space for movement. The webs themselves appear
+coated with some kind of slime which emits a powerful stench of decay.
+
+> nw
+
+Where Many Paths Meet
+[Score: 17/50] [Locations visited: 14/43] [Fragments of memory recovered:
+3/12] [Decisions made: 72]
+
+EXITS: North, Northeast, Southeast, West
+
+Four different paths meet here, in a clearing where a signpost has been
+erected. Though weathered by time and the elements, words are still visible
+on the worn wood.
+
+> ne
+
+Hanging Tree
+[Score: 17/50] [Locations visited: 15/43] [Fragments of memory recovered:
+3/12] [Decisions made: 73]
+
+EXITS: East, Southwest
+
+At the side of the path you have been following is a tall tree, withered and
+ancient, from which hangs the dead and rotting body of a man. It swings back
+and forth in the light breeze, emitting a creaking sound which would be
+chilling even if not caused by such a grisly spectre. The corpse is clad in a
+worn black cloak.
+
+   There is a large rock here.
+
+> score
+You have a score of 17 out of 52.
+
+> i
+You are carrying:
+
+_        helm {Patches of rust have already claimed parts of this helm, yet
+the rest is sturdy enough. While unlikely to stop a forceful blow, this at
+least ought to turn it from a killing strike to merely a wounding one. There
+is an unusual glass faceplate on the helm, unlike any you have seen before.
+It is currently lowered. A faint light emanates from it.}
+
+_        locket {A silver locket, quite expensive you would imagine, though
+you're unlikely to find anyone around here willing to pay a price for it. You
+would normally be able to open and close it, but it has been damaged and
+remains permanently open. In the interior a detailed drawing of a man with
+straggly hair who is smiling happily. He appears to be wearing some kind of
+sailor's outfit.}
+
+_        golden skull {Smaller than a grown man's. Perhaps a child's? But why
+the gold colour? The skull is made of bone and seems wholly normal, aside
+from the unusual colour.}
+_        torch {The torch blazes with a light that seems unnatural in its
+intensity, not to mention the fact that it is blue in colour and smells
+faintly of radiation. You're not altogether sure how safe it is being near
+this torch for any length of time.}
+
+> look
+
+Hanging Tree
+[Score: 17/50] [Locations visited: 15/43] [Fragments of memory recovered:
+3/12] [Decisions made: 76]
+
+EXITS: East, Southwest
+
+At the side of the path you have been following is a tall tree, withered and
+ancient, from which hangs the dead and rotting body of a man. It swings back
+and forth in the light breeze, emitting a creaking sound which would be
+chilling even if not caused by such a grisly spectre. The corpse is clad in a
+worn black cloak.
+
+   There is a large rock here.
+
+> untie corpse
+You are reluctant to approach the corpse, but equally reluctant to leave it
+hanging like that, fodder for any passing crow who might take a fancy to it.
+So you climb the tree and proceed to unfasten the ropes keeping the corpse in
+place. As it happens, they are rotted through and break the moment you touch
+them. The body drops to the ground with a thud that would doubtless be
+painful indeed for a living creature.
+   A sudden wind stirs up and you fancy you hear a voice whisper "...thank
+you..."
+
+> get cloak
+An unpleasant business, but you grit your teeth and tug the cloak away from
+the corpse. As you do, you can't help but notice the way the corpse almost
+seems to... laugh at you.
+   But you shrug aside the feeling. The cloak seems... familiar. From
+somewhere. It seems more right that it should be in your possession and not
+that of the corpse's. Something, some little feeling, some gut instinct, even
+makes you wonder if the cloak might not be yours.
+
+> push rock e
+You roll the large rock to the east.
+
+> e
+
+Quicksand
+[Score: 19/50] [Locations visited: 16/43] [Fragments of memory recovered:
+3/12] [Decisions made: 80]
+
+EXITS: East, West
+
+The path ahead of you is covered by sand. Quicksand. Step into it and you
+could well be sucked down to an early and unpleasant grave. On the far side,
+you can see what looks like a fast-flowing river, just visible through the
+trees.
+
+   There is a large rock here.
+
+> push rock e
+You roll the large rock into the quicksand. It sinks into the sand and
+disappears quickly from sight, disappearing altogether after just a few
+seconds.
+
+> e
+You warily step into the quicksand, not entirely sure the large rock you
+pushed into there will be able to keep you from sinking...
+   But it does. Though you become covered in quicksand, you manage to
+hurriedly pass through it and scramble out the far side.
+
+A flash of memory...
+
+"The island will be dangerous," the voice tells me, "and although you have
+powers of your own, I want you to take this."
+   A black spike appears in the air, shimmering with dark energy.
+   "At its simplest, it is a weapon of great power, adequate to combat most
+of what you will encounter. Your companions, should the  influence of the
+island overcome their minds, will be felled easily by it. But it can also
+provide other functions."
+   You take the spike. It feels cold to the touch. Lightning crackles around
+your hand. "Other functions?"
+   The voice laughs, softly. "You might say it is the key to success, my
+protege."
+
+The memory fades.
+
+.. press a key to continue...
+
+River Bank
+[Score: 20/50] [Locations visited: 16/43] [Fragments of memory recovered:
+4/12] [Decisions made: 82]
+
+EXITS: North, South, West
+
+The bank of a fast-flowing river. Perhaps fifty feet wide, the river rushes
+past at such a pace that crossing it would be suicidal. North and south the
+river runs while away to the west is a patch of quicksand.
+
+> s
+
+By a Wrecked Ship
+[Score: 20/50] [Locations visited: 18/43] [Fragments of memory recovered:
+4/12] [Decisions made: 83]
+
+EXITS: North, Southeast, In
+
+A sea-faring ship has been washed ashore here; it is broken in places and the
+contents of the hold have spilled out. The stench of death, ever
+unmistakeable, lingers in the air. Entry can be gained via a hole in the
+side, though the entire structure of the ship looks less than safe.
+
+> se
+
+A flash of memory...
+
+You are the only one alive. Magarick was bitten by a snake and began to
+transform, his very flesh changing to mimic the appearance of the beasts you
+have seen stalking the island. Halstings fled, taking with him the enchanted
+skull. It has powers, you were told, though none of them seem to work here.
+   Only you, Tammor and Gregg were left this morning. Spiders the size of
+dogs took Tammor when he foolishly ventured off the path you were following.
+Gregg you lost track of on a winding path. When you found him later that day,
+he was frozen into stone. Nothing you did seemed to make a difference. If he
+was alive inside that stony husk, you could see no indication of it.
+   You venture on. You have no choice. There are beasts out there, both
+native to this land and your former crewmen changed into monstrosities. If
+you remain still too long, they will find you.
+   Onwards you go.
+   Ahead, you see the outlines of a temple rising in the forest.
+
+The memory fades.
+
+Waterfall
+[Score: 21/50] [Locations visited: 18/43] [Fragments of memory recovered:
+5/12] [Decisions made: 84]
+
+EXITS: Northwest
+
+To the southeast, the river you have been following ends abruptly at a
+waterfall which cascades down for as far as the eye can see. Whatever lands
+lies down there you cannot tell. Perhaps the waterfall falls for all
+eternity.
+
+> nw
+
+By a Wrecked Ship
+[Score: 21/50] [Locations visited: 19/43] [Fragments of memory recovered:
+5/12] [Decisions made: 85]
+
+EXITS: North, Southeast, In
+
+A sea-faring ship has been washed ashore here; it is broken in places and the
+contents of the hold have spilled out. The stench of death, ever
+unmistakeable, lingers in the air. Entry can be gained via a hole in the
+side, though the entire structure of the ship looks less than safe.
+
+> in
+
+Hold
+[Score: 21/50] [Locations visited: 19/43] [Fragments of memory recovered:
+5/12] [Decisions made: 86]
+
+EXITS: Out, Up
+
+The hold is poorly lit but the hole in one wall allows you to see enough to
+make your way. The floor is awash with water from the river and the contents
+of the hold; you also catch sight of what appears to be a corpse, bobbing up
+and down in the water. A ladder leads up to another area of the ship.
+
+   You hear a sound from above, as though someone was moving around in the
+upper part of the boat.
+
+> score
+You have a score of 21 out of 52.
+
+> i
+You are carrying:
+
+_        cloak {Black in colour, though faded almost to grey, the cloak is
+torn in many places. It seems colder than the grave to the touch.}
+_        helm {Patches of rust have already claimed parts of this helm, yet
+the rest is sturdy enough. While unlikely to stop a forceful blow, this at
+least ought to turn it from a killing strike to merely a wounding one. There
+is an unusual glass faceplate on the helm, unlike any you have seen before.
+It is currently lowered. A faint light emanates from it.}
+
+_        locket {A silver locket, quite expensive you would imagine, though
+you're unlikely to find anyone around here willing to pay a price for it. You
+would normally be able to open and close it, but it has been damaged and
+remains permanently open. In the interior a detailed drawing of a man with
+straggly hair who is smiling happily. He appears to be wearing some kind of
+sailor's outfit.}
+
+_        golden skull {Smaller than a grown man's. Perhaps a child's? But why
+the gold colour? The skull is made of bone and seems wholly normal, aside
+from the unusual colour.}
+_        torch {The torch blazes with a light that seems unnatural in its
+intensity, not to mention the fact that it is blue in colour and smells
+faintly of radiation. You're not altogether sure how safe it is being near
+this torch for any length of time.}
+
+> look
+
+Hold
+[Score: 21/50] [Locations visited: 20/43] [Fragments of memory recovered:
+5/12] [Decisions made: 89]
+
+EXITS: Out, Up
+
+The hold is poorly lit but the hole in one wall allows you to see enough to
+make your way. The floor is awash with water from the river and the contents
+of the hold; you also catch sight of what appears to be a corpse, bobbing up
+and down in the water. A ladder leads up to another area of the ship.
+
+> x corpse
+You approach the corpse gingerly, unsure of why you are afraid of something
+that has no power to harm you. Hesitantly you reach a hand out (part of you
+half-fearing that the corpse will suddenly come to life and rear up at you)
+and touch it.
+   Nothing happens.
+   A few seconds later, you turn the corpse over in the water. Decay has
+eaten away the eyeballs and the face is ravaged and yet...
+   ...and yet it seems familiar. Familar from somewhere, but you cannot
+recall just where. Something about the face...
+   But no. The memory is gone. Who this person was, you do not know.
+
+> manifest
+You think the word manifest. This time, no flames spurt from the Power Sigil
+on your shoulder, but, instead, a coldness spreads from it. It seeps down
+your arm, through your body, seeming to freeze you with its progress. But
+when it is complete, you don't feel frozen. You feel... hard. Strong. You
+flex your muscles and they creak as if made of metal. Your skin has taken on
+a greyish tint.
+
+> u
+You climb up the ladder quickly and have just reached the top when someone
+gives a cry of "Take that, yer swine!" and something heavy crashes into your
+head.
+   The something heavy breaks!
+   Someone screams in dismay and you hear footsteps retreating away from you.
+Shaken, but otherwise unharmed, you quickly continue climbing upwards and
+reach a cabin.
+
+.. press a key to continue...
+
+Cabin
+[Score: 23/50] [Locations visited: 20/43] [Fragments of memory recovered:
+5/12] [Decisions made: 92]
+
+EXITS: Up, Down
+
+The wall of this cabin has been smashed in, affording you a view of the
+forest to the west. The cabin itself is small and cramped with a bed, a chest
+and an assortment of clothes scattered around. An unpleasant greenish mould
+clings to one wall and seems to pulse from time to time. Ladders lead up and
+down.
+
+> lie on bed
+This is hardly the time for sleep. And yet...
+   And yet once the idea has formed in your mind, you find it hard to push it
+away. Sleep. What a wonderful idea. And you do feel tired. Maybe just a short
+nap and you'll feel better...
+   You approach the bed, lie down on it, close your eyes and...
+
+"Your studies are coming along well," says your mentor. "I am pleased."
+   You bow to him to show your thanks at his praise.
+   "However..." He lets the word trail off and you look at him. "However,
+there is always room for improvement. You have the skills, you have the
+knowledge, but we have yet to put them to the test." He smiles, though it is
+a smile lacking any vestige of humour. "So... a test."
+
+...awaken. It seems like only a few moments have passed, but the sky outside
+the boat appears darker than before.
+   The mark on your shoulder itches fiercely for a second or two.
+
+> open chest
+You try to open the chest but it seems to be locked and you do not have the
+key.
+
+> smash chest
+You smash your fist into the chest, which springs open! Apparently it wasn't
+locked at all, just jammed. Inside is a crucifix.
+
+A change overcomes as you feel the steel tint leaves your skin and it reverts
+to its normal colour.
+
+> get crucifix
+You take the crucifix.
+
+> look under bed
+You crouch down and peer under the bed, wondering if something might be
+hidden there, and see, right at the back, a book of some kind. You pull it
+out from under the bed and have a good look at it. It appears to be a
+logbook, perhaps belonging to the owner of this ship.
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 3
+
+... abominations. At first it seemed they were monsters of the island, warped
+by the magic here, but on one we found coins in a pouch of Kandish make;
+another wore clothes, tattered rags though they were. The abominations are,
+or once were, humans, though none of us like to speculate on how they
+suffered such a change. Does a similar fate await...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 5
+
+... my actions seem circular. Repetitious. Everything I do, every move I
+make, every decision I reach, seems one I have made before. I found my helm,
+buried where I had buried it for reasons unknown to me now; my cloak, on the
+corpse of Halstings; my sword... which I threw into the quicksand, putting it
+forever beyond my reach. Its blade is red with blood – who I have killed and
+then forgotten?...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 7
+
+... Halstings believes we are dead and this island simply a figment of our
+collective imaginations. He points to the things we both cannot be, and yet
+are. The cave, the totem pole, the bridge which repairs itself... other
+things... I have ordered him to keep his mad delusions to himself, lest he
+incite a panic in the crew, but here, in this place, far from the power of my
+mentor, he seems to have grown brave. I could punish him, but he is popular
+amongst the crew and they have been pushed far already. The last thing I need
+is a mutiny as I would be forced to kill them. Something I can do easily,
+though I can hardly sail the ship home on my own...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 8
+
+... my memories are confused, contradictory. I remember, clearly, a fight
+with Halstings when I stabbed him through the chest, though I do not remember
+why I did this. I also remember, clearly, Halstings leaping to his death over
+a waterfall, insisting we were all dead so it didn't matter anyway. I further
+remember, equally as clearly, the beast that Carson became tearing Halstings
+apart. How can all of these be true? Or are none of them? Am I simply mad?...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 4
+
+... communication device, shaped like a pendant, has failed, a thing I was
+told was impossible. Magic powers it, and it is self-repairing, and can last
+a lifetime. Yet within days of arriving in this strange place, it has ceased
+to function altogether. I lack the means to repair it, a device of magic and
+science which I do not fully understand. We are trapped here...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 8
+
+... my memories are confused, contradictory. I remember, clearly, a fight
+with Halstings when I stabbed him through the chest, though I do not remember
+why I did this. I also remember, clearly, Halstings leaping to his death over
+a waterfall, insisting we were all dead so it didn't matter anyway. I further
+remember, equally as clearly, the beast that Carson became tearing Halstings
+apart. How can all of these be true? Or are none of them? Am I simply mad?...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 4
+
+... communication device, shaped like a pendant, has failed, a thing I was
+told was impossible. Magic powers it, and it is self-repairing, and can last
+a lifetime. Yet within days of arriving in this strange place, it has ceased
+to function altogether. I lack the means to repair it, a device of magic and
+science which I do not fully understand. We are trapped here...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 2
+
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 5
+
+... my actions seem circular. Repetitious. Everything I do, every move I
+make, every decision I reach, seems one I have made before. I found my helm,
+buried where I had buried it for reasons unknown to me now; my cloak, on the
+corpse of Halstings; my sword... which I threw into the quicksand, putting it
+forever beyond my reach. Its blade is red with blood – who I have killed and
+then forgotten?...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 6
+
+... Halstings does not believe the cave is simply the former home of pirates
+or bandits. He points to the mirror, the grate we have been unable to open,
+the strange barrier which sometimes forms over the mouth – these are not the
+work of pirates or bandits. He is right as well. The barrier is a form of
+magic I have seen my mentor employ often. A form he once taught to me...
+
+> score
+You have a score of 26 out of 52.
+
+> i
+You are carrying:
+
+_        cloak {Black in colour, though faded almost to grey, the cloak is
+torn in many places. It seems colder than the grave to the touch.}
+_        crucifix {A crucifix, though an unusual one. It is carved from a
+lump of black metal and is icily cold to the touch. It feels unpleasant and
+you can't help but wonder if keeping it close to you is a bad idea.}
+_        helm {Patches of rust have already claimed parts of this helm, yet
+the rest is sturdy enough. While unlikely to stop a forceful blow, this at
+least ought to turn it from a killing strike to merely a wounding one. There
+is an unusual glass faceplate on the helm, unlike any you have seen before.
+It is currently lowered. A faint light emanates from it.}
+
+_        locket {A silver locket, quite expensive you would imagine, though
+you're unlikely to find anyone around here willing to pay a price for it. You
+would normally be able to open and close it, but it has been damaged and
+remains permanently open. In the interior a detailed drawing of a man with
+straggly hair who is smiling happily. He appears to be wearing some kind of
+sailor's outfit.}
+
+_        logbook {Many, many years old, and worn heavily by the passing of
+the ages. Did this belong to the captain of this ship?}
+
+_        golden skull {Smaller than a grown man's. Perhaps a child's? But why
+the gold colour? The skull is made of bone and seems wholly normal, aside
+from the unusual colour.}
+_        torch {The torch blazes with a light that seems unnatural in its
+intensity, not to mention the fact that it is blue in colour and smells
+faintly of radiation. You're not altogether sure how safe it is being near
+this torch for any length of time.}
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 7
+
+... Halstings believes we are dead and this island simply a figment of our
+collective imaginations. He points to the things we both cannot be, and yet
+are. The cave, the totem pole, the bridge which repairs itself... other
+things... I have ordered him to keep his mad delusions to himself, lest he
+incite a panic in the crew, but here, in this place, far from the power of my
+mentor, he seems to have grown brave. I could punish him, but he is popular
+amongst the crew and they have been pushed far already. The last thing I need
+is a mutiny as I would be forced to kill them. Something I can do easily,
+though I can hardly sail the ship home on my own...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 7
+
+... Halstings believes we are dead and this island simply a figment of our
+collective imaginations. He points to the things we both cannot be, and yet
+are. The cave, the totem pole, the bridge which repairs itself... other
+things... I have ordered him to keep his mad delusions to himself, lest he
+incite a panic in the crew, but here, in this place, far from the power of my
+mentor, he seems to have grown brave. I could punish him, but he is popular
+amongst the crew and they have been pushed far already. The last thing I need
+is a mutiny as I would be forced to kill them. Something I can do easily,
+though I can hardly sail the ship home on my own...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 2
+
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 3
+
+... abominations. At first it seemed they were monsters of the island, warped
+by the magic here, but on one we found coins in a pouch of Kandish make;
+another wore clothes, tattered rags though they were. The abominations are,
+or once were, humans, though none of us like to speculate on how they
+suffered such a change. Does a similar fate await...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 2
+
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 2
+
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 9
+
+... ship moored here? Why here? It is in a river, not far north of a
+waterfall. How did it come to be here, miles away from the cove where it was
+anchored? What kind of magic could do such a thing? No one knows...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 8
+
+... my memories are confused, contradictory. I remember, clearly, a fight
+with Halstings when I stabbed him through the chest, though I do not remember
+why I did this. I also remember, clearly, Halstings leaping to his death over
+a waterfall, insisting we were all dead so it didn't matter anyway. I further
+remember, equally as clearly, the beast that Carson became tearing Halstings
+apart. How can all of these be true? Or are none of them? Am I simply mad?...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 10
+
+... the design is Kandish. The temple. Of course, I should have expected it.
+The rhyme in the clearing was Kandish, the totem pole Kandish, why should the
+temple now be Kandish, too, even though it lies on the far side of the world
+from Kandor? I feel not that I am discovering something new, but simply
+returning to a place I have already visited many, many times before...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 6
+
+... Halstings does not believe the cave is simply the former home of pirates
+or bandits. He points to the mirror, the grate we have been unable to open,
+the strange barrier which sometimes forms over the mouth – these are not the
+work of pirates or bandits. He is right as well. The barrier is a form of
+magic I have seen my mentor employ often. A form he once taught to me...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 1
+
+... primitives would worship of the skull. Golden in colour it was, and the
+size of that of a child, though for certain it came from no child of human
+descent. Prayers would be offered with the skull in the possession of the
+worshipper, and, on occasion, or so it seemed, they would be answered...
+
+You lower the logbook, understanding finally dawning. You recognise the
+handwriting because it is your handwriting. This is your logbook. The ship
+you found it on was your ship. But...
+   But you don't remember writing a word of it.
+
+> score
+You have a score of 28 out of 52.
+
+> i
+You are carrying:
+
+_        cloak {Black in colour, though faded almost to grey, the cloak is
+torn in many places. It seems colder than the grave to the touch.}
+_        crucifix {A crucifix, though an unusual one. It is carved from a
+lump of black metal and is icily cold to the touch. It feels unpleasant and
+you can't help but wonder if keeping it close to you is a bad idea.}
+_        helm {Patches of rust have already claimed parts of this helm, yet
+the rest is sturdy enough. While unlikely to stop a forceful blow, this at
+least ought to turn it from a killing strike to merely a wounding one. There
+is an unusual glass faceplate on the helm, unlike any you have seen before.
+It is currently lowered. A faint light emanates from it.}
+
+_        locket {A silver locket, quite expensive you would imagine, though
+you're unlikely to find anyone around here willing to pay a price for it. You
+would normally be able to open and close it, but it has been damaged and
+remains permanently open. In the interior a detailed drawing of a man with
+straggly hair who is smiling happily. He appears to be wearing some kind of
+sailor's outfit.}
+
+_        logbook {Many, many years old, and worn heavily by the passing of
+the ages. Did this belong to the captain of this ship?}
+
+_        golden skull {Smaller than a grown man's. Perhaps a child's? But why
+the gold colour? The skull is made of bone and seems wholly normal, aside
+from the unusual colour.}
+_        torch {The torch blazes with a light that seems unnatural in its
+intensity, not to mention the fact that it is blue in colour and smells
+faintly of radiation. You're not altogether sure how safe it is being near
+this torch for any length of time.}
+
+> u
+
+Deck
+[Score: 28/50] [Locations visited: 22/43] [Fragments of memory recovered:
+6/12] [Decisions made: 123]
+
+EXITS: West, Down
+
+The way the ship has come to rest on the shore means the deck is tilted at a
+sharp angle, making progress across it difficult to say the least. There are
+also gaping holes in it and it creaks beneath your feet alarmingly. A scrawny
+man, his face streaked with tears, crouches at the far end of the deck to the
+west, clinging onto the broken mast, staring at you in fear. He talks
+endlessly to himself but the words seem meaningless to you.
+   A ladder leads back down inside the boat.
+
+> give locket to man
+When the man sees you holding up the locket, he grows calm. He murmurs,
+"Kedric? I... I thought it was you, but... you died, master. I found your
+body and I... " He reaches towards you and, despite the distance between you
+being roughly twenty feet, plucks the locket from your hand! He looks at it
+and a smile breaks across his face. "My dear sweet Amelia. I had wondered
+where you went..." He puts the locket away and then looks back at you. "Thank
+you, sir. Thank you..."
+   "Who are you?" you ask. "What is going on here?"
+   But the clarity in the man's eyes was only fleeting. He sinks back down
+against the mast, seizes it with both hands and, in moments, the fearful look
+has returned to his face.
+
+> d
+
+Cabin
+[Score: 29/50] [Locations visited: 22/43] [Fragments of memory recovered:
+6/12] [Decisions made: 125]
+
+EXITS: Up, Down
+
+The wall of this cabin has been smashed in, affording you a view of the
+forest to the west. The cabin itself is small and cramped with a bed, a chest
+and an assortment of clothes scattered around. An unpleasant greenish mould
+clings to one wall and seems to pulse from time to time. Ladders lead up and
+down.
+
+> d
+
+Hold
+[Score: 29/50] [Locations visited: 22/43] [Fragments of memory recovered:
+6/12] [Decisions made: 126]
+
+EXITS: Out, Up
+
+The hold is poorly lit but the hole in one wall allows you to see enough to
+make your way. The floor is awash with water from the river and the contents
+of the hold; you also catch sight of what appears to be a corpse, bobbing up
+and down in the water. A ladder leads up to another area of the ship.
+
+> out
+
+A flash of memory...
+
+Carson asks your permission to marry Amelia, his childhood sweetheart. You
+debate saying no, as this is hardly the time or the place for such things,
+but then reflect that such an event might be a good idea after all. The men
+have become tense since arriving on the island. Perhaps an evening's
+merriment might help take their minds off more sinister thoughts; so you give
+your permission and they are wed on the morrow, a simple ceremony conducted
+by Halstings.
+   It is the last happy event you remember.
+
+The memory fades.
+
+.. press a key to continue...
+
+By a Wrecked Ship
+[Score: 30/50] [Locations visited: 22/43] [Fragments of memory recovered:
+7/12] [Decisions made: 127]
+
+EXITS: North, Southeast, In
+
+A sea-faring ship has been washed ashore here; it is broken in places and the
+contents of the hold have spilled out. The stench of death, ever
+unmistakeable, lingers in the air. Entry can be gained via a hole in the
+side, though the entire structure of the ship looks less than safe.
+
+> n
+
+River Bank
+[Score: 30/50] [Locations visited: 22/43] [Fragments of memory recovered:
+7/12] [Decisions made: 128]
+
+EXITS: North, South, West
+
+The bank of a fast-flowing river. Perhaps fifty feet wide, the river rushes
+past at such a pace that crossing it would be suicidal. North and south the
+river runs while away to the west is a patch of quicksand.
+
+> n
+
+By a Broken Bridge
+[Score: 30/50] [Locations visited: 23/43] [Fragments of memory recovered:
+7/12] [Decisions made: 129]
+
+EXITS: North, South, East
+
+A bridge, broken in the centre, spans the river. The gap looks to be just shy
+of thirty feet - not a distance you could jump at the best of times. The
+river runs north to south.
+
+> n
+
+Riverside Path
+[Score: 30/50] [Locations visited: 24/43] [Fragments of memory recovered:
+7/12] [Decisions made: 130]
+
+EXITS: Northwest, South
+
+The path splits here, one branch heading northwest and the other back to the
+south. The river continues as far north as the eye can see.
+
+> nw
+
+Grotto
+[Score: 30/50] [Locations visited: 25/43] [Fragments of memory recovered:
+7/12] [Decisions made: 131]
+
+EXITS: Southeast
+
+In the centre of this grotto is a stone table, ancient in appearance, with
+the rotting corpse of some kind of beast atop it. Cords have fastened the
+beast's arms and legs (it has three of each) to the table, and there is a
+spike, black in colour, driven deep into its chest. The thing's fanged jaws
+are open in a silent scream of agony.
+   A path leads away to the river to the southeast.
+
+> get spike
+The moment you touch the spike, the creature's head lifts. Red eyes open and
+lock onto yours and a voice as cold as the grave whispers "Ah, warm blood...
+'tis long since I have tasted such a fine nectar..." and the thing seizes you
+in its arms and-
+   And then curses in pain!
+   "PROTECTED!" it roars, backing away from you. Black blood stains its hands
+where it touched you. "DAMN YOU! DAMN YOU, KEDRIC! WHERE DID YOU FIND THE
+POWER TO-"
+   Before you can ask the creature what it means, it rushes away into the
+forest. You see the spike lying on the ground in the wake of its passing,
+dislodged from its chest when it attacked you.
+
+> get spike
+You take the black spike.
+
+> score
+You have a score of 31 out of 52.
+
+> i
+You are carrying:
+
+_        cloak {Black in colour, though faded almost to grey, the cloak is
+torn in many places. It seems colder than the grave to the touch.}
+_        crucifix {A crucifix, though an unusual one. It is carved from a
+lump of black metal and is icily cold to the touch. It feels unpleasant and
+you can't help but wonder if keeping it close to you is a bad idea.}
+_        helm {Patches of rust have already claimed parts of this helm, yet
+the rest is sturdy enough. While unlikely to stop a forceful blow, this at
+least ought to turn it from a killing strike to merely a wounding one. There
+is an unusual glass faceplate on the helm, unlike any you have seen before.
+It is currently lowered. A faint light emanates from it.}
+
+_        logbook {Many, many years old, and worn heavily by the passing of
+the ages. Did this belong to the captain of this ship?}
+
+_        golden skull {Smaller than a grown man's. Perhaps a child's? But why
+the gold colour? The skull is made of bone and seems wholly normal, aside
+from the unusual colour.}
+_        black spike {It appears to be a weapon of some kind, though it feels
+chill and uncomfortable to the touch. Perhaps the broken tip of a spear? It
+is difficult to say for certain.}
+_        torch {The torch blazes with a light that seems unnatural in its
+intensity, not to mention the fact that it is blue in colour and smells
+faintly of radiation. You're not altogether sure how safe it is being near
+this torch for any length of time.}
+
+> look
+
+Grotto
+[Score: 31/50] [Locations visited: 25/43] [Fragments of memory recovered:
+7/12] [Decisions made: 136]
+
+EXITS: Southeast
+
+In the centre of this grotto is a stone table, ancient in appearance. The
+beast which previously lay atop the table, a spike driven through its chest,
+is gone. A depression marks the area where it lay.
+   A path leads away to the river to the southeast.
+
+> se
+
+A flash of memory...
+
+"The Grove of the Ancients it is called. A place of magical power."
+   The journey goes swiftly at first. The vessel you have commandeered is a
+fast one, powered to even greater speeds by the spells of your sorcerous
+friend, Mical.
+   "It lies far to the west, beyond the Farthest Shores, beyond the Endless
+Ocean. Its true origins have been forgotten but some say it can be found in
+the Malavon Isles."
+   Beyond the Farthest Shores, the weather turns bad. Storms come out of
+nowhere, turning a sunny sky into a maelstrom in the space of seconds. The
+ocean itself seems to turn against the ship. Several men are killed, swept
+overboard. Supplies are lost.
+   "Search the Malavon Isles. Monsters lurk there, so the rumours say, beasts
+of terrible power not seen in civilised lands since the dawn of mankind.
+Perhaps they guard the entrance to the Grove. Perhaps they are merely
+mindless scavengers."
+   Land is sighted. The Malavon Isles? You cannot say. The land appears where
+no land should appear on your map, yet it is too large for previous explorers
+to have missed it. You order your men to find a suitable cove and set up a
+camp on the shore. A feeling of dread overcomes some of the crew and you
+almost face a mutiny. The men do not like it here. Neither do you.
+   "Find me the Grove of the Ancients, my apprentice, and return only when
+you have discovered its secrets."
+
+The memory fades.
+
+Riverside Path
+[Score: 32/50] [Locations visited: 25/43] [Fragments of memory recovered:
+8/12] [Decisions made: 137]
+
+EXITS: Northwest, South
+
+The path splits here, one branch heading northwest and the other back to the
+south. The river continues as far north as the eye can see.
+
+> manifest
+You manifest the power, wondering what it will be this time. The first time
+it was fire, the second it turned your skin to iron, the third...
+   At first nothing seems to happen. Then you look around and notice your
+eyesight seems clearer than before. Details that you might originally have
+missed now stand out to you; sounds are also more vibrant.
+
+> s
+
+By a Broken Bridge
+[Score: 32/50] [Locations visited: 25/43] [Fragments of memory recovered:
+8/12] [Decisions made: 139]
+
+EXITS: North, South, East
+
+A bridge, broken in the centre, spans the river. The gap looks to be just shy
+of thirty feet - not a distance you could jump at the best of times. The
+river runs north to south.
+
+   You notice a flicker out of the corner of your eye and turn to see
+movement on the bridge. Or, rather, on the area of the bridge that no longer
+exists.
+   Lights dance around this area, joining together to form shapes then
+drifting apart once more. You stand there, mesmerised, unsure what to make of
+this bizarre spectacle. Then the lights join together and form a shape that
+indicates in no uncertain terms what you should do: a hand, gesturing for you
+to follow.
+   A second later, the lights break apart and shoot off into the land on the
+far side of the bridge.
+
+> e
+You walk towards the bridge. Your feet become lighter and lighter as you
+walk, and then you take a step forward onto thin air.
+   A sudden fear assails you as you find yourself stepping onto nothingness,
+yet it continues to support you, and even carries you along, depositing you
+on the far side of the river a few moments later.
+
+.. press a key to continue...
+
+Eastern River Bank
+[Score: 33/50] [Locations visited: 25/43] [Fragments of memory recovered:
+9/12] [Decisions made: 140]
+
+EXITS: East, West
+
+A bridge which formerly spanned the river has broken here, with half of its
+span missing and the rest threatening to topple into the water. Thick
+vegetation crowds around this side of the river, making travel north and
+south an impossibility; only to the east can you see an opening.
+
+A flash of memory...
+
+Mical is found dead the following morning. He has taken his own life. You
+order the men to bury him then lead a party inland.
+   The trees seem alive: often you are struck by the feeling that they watch
+you and, sometimes, the path itself seems to change as if the trees are
+moving to conceal it when your attention is elsewhere.
+   Carson comes to you at dusk and announces that Amelia has fled into the
+forest. He cannot say why. You forbid him to follow her, but the next morning
+he, too, is gone. You dread finding his corpse around the next twist in the
+path but instead of Carson, or Amelia, you find the ship's captain, grizzled
+old Ranbor, frothing at the mouth and badly injured, babbling of demons that
+came in the night and killed everyone aboard the ship.
+   The men protest at venturing further and you realise they cannot be pushed
+onwards, lest they mutiny and leave you here. Back to the cove you lead them.
+
+.. press a key to continue...
+
+The vision ends. With it, you also notice that your enhanced sight and vision
+have gone, too. You are back to normal again.
+
+> e
+
+Outside the Temple
+[Score: 33/50] [Locations visited: 27/43] [Fragments of memory recovered:
+9/12] [Decisions made: 141]
+
+EXITS: West
+
+An ancient temple, crumbling into ruin, looms before you in the forest. Vines
+and creepers have grown up the walls, but none are within easy reach. There
+is a massive stone door, perhaps fifteen feet tall and ten wide, set into the
+front of the temple; it stands closed and you do not see a visible means of
+opening it.
+
+> x door
+The door is fifteen feet tall and ten feet wide, a door built for giants.
+There are strange runes carved into its surface which look like they might be
+some kind of language, but ones you are unable to read. Below the runes is a
+slot about the size of your hand.
+
+> put spike in slot
+The moment the spike is slid into the slot, a force seizes hold of it and
+yanks it out of your grip. At the same time, there is a churning sound
+beneath your feet and the entire stone door revolves around, carrying you
+inside the temple.
+
+.. press a key to continue...
+
+Temple Entrance
+[Score: 34/50] [Locations visited: 27/43] [Fragments of memory recovered:
+10/12] [Decisions made: 143]
+
+EXITS: North, South
+
+Dust covers every surface within the temple; particles are stirred by your
+passing and threaten to choke you at any moment. A sarcophagus can be seen
+here, mounted on a pedestal; runes have been carved into the surface which
+you are unable to read. The sarcophagus is closed, its contents hidden from
+view. Passageways lead through the temple to the north and south. A massive
+stone door to the west is closed.
+
+A flash of memory...
+
+The temple is a maze. One passage leads to another, and another, and
+another...
+   Where are your companions? Are they dead? Ran away? You cannot remember.
+You come across footprints at one time and hurry onwards, thinking you have
+found another survivor, but instead discover they are your own. You become
+tired, hungry, disorientated. The magic you use to light your way fails you.
+Your protective magic fails as well, though you seem to be alone in this maze
+so the protection afforded by iron-hard skin is perhaps unnecessary.
+   At some point, you realise you are half naked. You have discarded your
+helm and cloak, your weapons, your armour. Where are your spell components?
+Gone also. You lack the means to communicate with your mentor, but you have
+failed him so perhaps this is just as well. He is not, after all, a forgiving
+master.
+   In a dusty passageway, you come across the bodies of many of your former
+companions. They appear long dead; some are naught but bones. Only days have
+passed since you arrived on this island... or is it weeks? Months? Years?
+Your hair is long and in the torchlight it appears grey. But...
+
+The memory fades.
+
+> score
+You have a score of 34 out of 52.
+
+> look
+
+Temple Entrance
+[Score: 34/50] [Locations visited: 28/43] [Fragments of memory recovered:
+10/12] [Decisions made: 145]
+
+EXITS: North, South
+
+Dust covers every surface within the temple; particles are stirred by your
+passing and threaten to choke you at any moment. A sarcophagus can be seen
+here, mounted on a pedestal; runes have been carved into the surface which
+you are unable to read. The sarcophagus is closed, its contents hidden from
+view. Passageways lead through the temple to the north and south. A massive
+stone door to the west is closed.
+
+> n
+
+Dusty Passageway
+[Score: 34/50] [Locations visited: 28/43] [Fragments of memory recovered:
+10/12] [Decisions made: 146]
+
+EXITS: South, East
+
+The decaying remains of several bodies lie on the floor of this passage; a
+pungent aroma is emitted from them which makes your nose itch.
+
+> x corpses
+They are dead. Long dead. The nearest is little more than dust, while the
+farthest still recognisable as a man in his late forties. Chillingly, there
+is something almost familiar about this one.
+
+> x man
+You study him closely. His appearance repulses you and your every desire is
+to flee from the scene as quickly as you can, but you force yourself to
+remain, to examine the corpse, to find out why it seems familiar… but no. You
+can remember nothing. You have a feeling that whoever this man was, you used
+to know him, but you cannot recall his name or where you knew him from. He is
+nothing more than a corpse to you now.
+
+> move man
+You hesitate for a second before moving the body. It feels clammy to the
+touch but you make yourself touch it all the same. You shift it to one side,
+ignoring the slight crackling sound from its arm (what this signifies you
+don't want to know) and see, on the ground where the corpse was lying, a
+pattern carved into the stone.
+
+> x pattern
+It takes a moment for the pattern to register in your mind.
+   The temple.
+   This temple.
+   It is a layout of the temple, with all the corridors and rooms and
+passageways clearly marked. Including, you notice, a further room. Some kind
+of gallery. Directly north of this chamber.
+
+> n
+You approach the wall and pass through, as if it is not there at all.
+
+.. press a key to continue...
+
+Mirror Room
+[Score: 37/50] [Locations visited: 29/43] [Fragments of memory recovered:
+10/12] [Decisions made: 151]
+
+EXITS: South
+
+This room is small and empty aside from a mirror, hanging, seemingly without
+support, in its direct centre. The surface of the mirror churns and boils,
+unlike any glass you have seen before. There is no visible source of light,
+aside from the dim glow emitted by the mirror, yet you are able to see
+without difficulty.
+
+> look in mirror
+The mirror is the centrepiece to this room, and, indeed, the only thing in
+here aside from the walls and the floor. Its surface churns unlike any mirror
+you have ever seen before and it emits a dim glow. It also hangs in the air,
+suspended several feet above the floor with no visible means of support.
+   When you look into the mirror, your gaze is returned by a corpse.
+   It takes a moment for the shock to die down before you can approach the
+mirror. The corpse mimics your every move and from its general size and
+build, it seems to mimic you in that respect as well. Its skull is fleshless,
+yet, bizarrely, you fancy you see a similarity there, too.
+   What does this mean?
+
+> s
+
+Dusty Passageway
+[Score: 38/50] [Locations visited: 30/43] [Fragments of memory recovered:
+10/12] [Decisions made: 153]
+
+EXITS: North, South, East
+
+The decaying remains of several bodies lie on the floor of this passage; a
+pungent aroma is emitted from them which makes your nose itch.
+
+> e
+
+Well
+[Score: 38/50] [Locations visited: 30/43] [Fragments of memory recovered:
+10/12] [Decisions made: 154]
+
+EXITS: East, West
+
+A stone well has been built in the centre of this chamber, though there is no
+bucket and the pulley used to raise it is broken. It looks like a mighty blow
+has struck and shattered it.
+
+> e
+
+Dark Passageway
+[Score: 38/50] [Locations visited: 31/43] [Fragments of memory recovered:
+10/12] [Decisions made: 155]
+
+EXITS: South, West
+
+It is difficult to see much here, despite lighted panels on the walls
+offering illumination. The shadows seem to move with a mind of their own and
+seldom mirror your movements.
+
+> s
+
+Disused Gallery
+[Score: 38/50] [Locations visited: 32/43] [Fragments of memory recovered:
+10/12] [Decisions made: 156]
+
+EXITS: North, South
+
+Once this might have been a gallery of some kind, with drawings on the stone
+walls depicting scenes of battle... but that was long ago. Now the drawings
+are faded, some barely even recognisable for what they are; a feeling of
+immense sadness hangs over the place.
+
+> x drawings
+You see depictions of battle in all of the drawings: people dying, powerful
+magics being cast, ferocious beasts tearing each other apart...
+   But the drawings are now faded, remnants of what they once were.
+   A flicker of movement catches your eye and you turn to see something step
+out of the drawing: a hideous creature the same size as you with terrible
+burns across its whole body.
+   "Ah, you have come back, my friend," it hisses, reaching for you with
+hands that are vicious claws. "Good. We have much unfinished business to
+resolve..."
+   The thing moves with a frightful speed and seizes hold of you with its
+claws and...
+   And reels back, clutching its hand as though burned!
+   "You carry a crucifix, Kedric!" it rasps, every word an effort. "You! One
+of the unliving like me and yet... yet you carry that THAT THING!"
+   It looks about to strike you but you hold the crucifix out before you and
+the beast backs away, hissing in pain. Then it turns and flees to the south,
+disappearing from sight in a matter of seconds.
+
+> n
+
+Dark Passageway
+[Score: 39/50] [Locations visited: 33/43] [Fragments of memory recovered:
+10/12] [Decisions made: 158]
+
+EXITS: South, West
+
+It is difficult to see much here, despite lighted panels on the walls
+offering illumination. The shadows seem to move with a mind of their own and
+seldom mirror your movements.
+
+> w
+
+Well
+[Score: 39/50] [Locations visited: 33/43] [Fragments of memory recovered:
+10/12] [Decisions made: 159]
+
+EXITS: East, West
+
+A stone well has been built in the centre of this chamber, though there is no
+bucket and the pulley used to raise it is broken. It looks like a mighty blow
+has struck and shattered it.
+
+> drop crucifix in well
+It drops out of sight, landing somewhere unseen a few seconds later.
+
+> w
+
+Dusty Passageway
+[Score: 40/50] [Locations visited: 33/43] [Fragments of memory recovered:
+10/12] [Decisions made: 161]
+
+EXITS: North, South, East
+
+The decaying remains of several bodies lie on the floor of this passage; a
+pungent aroma is emitted from them which makes your nose itch.
+
+> s
+
+Temple Entrance
+[Score: 40/50] [Locations visited: 33/43] [Fragments of memory recovered:
+10/12] [Decisions made: 162]
+
+EXITS: North, South
+
+Dust covers every surface within the temple; particles are stirred by your
+passing and threaten to choke you at any moment. A sarcophagus can be seen
+here, mounted on a pedestal; runes have been carved into the surface which
+you are unable to read. The sarcophagus is closed, its contents hidden from
+view. Passageways lead through the temple to the north and south. A massive
+stone door to the west is closed.
+
+> s
+
+Prayer Room
+[Score: 40/50] [Locations visited: 33/43] [Fragments of memory recovered:
+10/12] [Decisions made: 163]
+
+EXITS: North, East
+
+Something about the layout of this room - a central area, cleared of
+obstructions, with a pole set into the floor - stirs an old memory for you.
+This is a prayer room. Worshippers would kneel around the pole and pray and,
+if they were respectful enough, their God would answer them.
+
+> kneel
+You kneel down.
+
+> pray
+You offer up a prayer, not sure if there is any point but-
+   A presence manifests itself in the room, a being of unimaginable power.
+   "YOU KNOW THE FORMS AND YOU HAVE RETRIEVED THE ARTIFACT," booms a voice as
+loud as a thunderstorm. "THE GIFT IS ACCEPTED." The golden skull vanishes
+from your hands. "YOU HAVE COME A LONG WAY, KEDRIC, AND THERE IS NOT FAR LEFT
+TO GO."
+   Something touches you on the head and a pain tears through your body,
+knocking you to the floor and leaving you gasping and shuddering.
+   "WE SHALL SPEAK MORE OF THIS BUT NOT HERE. I AWAIT YOU IN THE CHAMBER."
+   The presence fades away.
+
+> score
+You have a score of 41 out of 52.
+
+> look
+
+Prayer Room
+[Score: 41/50] [Locations visited: 34/43] [Fragments of memory recovered:
+10/12] [Decisions made: 167]
+
+EXITS: North, East
+
+Something about the layout of this room - a central area, cleared of
+obstructions, with a pole set into the floor - stirs an old memory for you.
+This is a prayer room. Worshippers would kneel around the pole and pray and,
+if they were respectful enough, their God would answer them.
+
+> e
+You rise to your feet and move east.
+
+.. press a key to continue...
+
+Echoing Chamber
+[Score: 41/50] [Locations visited: 34/43] [Fragments of memory recovered:
+10/12] [Decisions made: 168]
+
+EXITS: East, West
+
+Every movement in this chamber causes an echo to reverberate around its
+walls; every breath is a loud groan, every footfall a crash of thunder.
+
+> listen
+The echoes are mostly noises caused by you moving around, your breathing,
+even your heartbeat... but a few seem to be lingering remnants of things that
+have happened before in this chamber.
+
+"... lost..."
+"... told him we should have turned back..."
+"... wouldn't listen..."
+"... we'll all die here..."
+
+> listen
+The echoes seem different this time.
+
+"... death walks in his footsteps..."
+"... he's like us but doesn't know it yet..."
+"... when will he discover the truth..."
+"Right or wrong are irrelevant concerns. What matters is what I want."
+
+The final voice is clearer than the others. And familiar. It is one you have
+heard before in your visions. The one you call your mentor.
+
+> e
+
+A Bend in the Passage
+[Score: 42/50] [Locations visited: 35/43] [Fragments of memory recovered:
+10/12] [Decisions made: 171]
+
+EXITS: North, West
+
+The passage bends here, heading north and west.
+
+You come to a halt. The walls... they now bear symbols whereas before they
+were blank.
+
+> x symbols
+You study the symbols but they mean precious to you. Some kind of foreign
+language? A pity you have no way of learning the language.
+   Or do you...?
+
+> manifest
+You use your manifest ability, and the symbols on the walls suddenly seem to
+make a lot more sense.
+
+> x symbols
+The symbols tell of a religious ceremony conducted here in the temple in ages
+past. The jakanta - some kind of high priest, you guess - visited the four
+cardinals and gave a shout in recognition of the power of the being which
+once resided in the central chamber of the temple. The ceremony was conducted
+once a day and kept the being appeased. Below this text, you see a collection
+of dots as follows:
+
+*
+
+**        ****
+
+***
+
+> n
+
+Disused Gallery
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 175]
+
+EXITS: North, South
+
+Once this might have been a gallery of some kind, with drawings on the stone
+walls depicting scenes of battle... but that was long ago. Now the drawings
+are faded, some barely even recognisable for what they are; a feeling of
+immense sadness hangs over the place.
+
+> n
+
+Dark Passageway
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 176]
+
+EXITS: South, West
+
+It is difficult to see much here, despite lighted panels on the walls
+offering illumination. The shadows seem to move with a mind of their own and
+seldom mirror your movements.
+
+> w
+
+Well
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 177]
+
+EXITS: East, West
+
+A stone well has been built in the centre of this chamber, though there is no
+bucket and the pulley used to raise it is broken. It looks like a mighty blow
+has struck and shattered it.
+
+> shout
+You give a shout which echoes through the dusty passageways of the temple.
+
+> w
+
+Dusty Passageway
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 179]
+
+EXITS: North, South, East
+
+The decaying remains of several bodies lie on the floor of this passage; a
+pungent aroma is emitted from them which makes your nose itch.
+
+> s
+
+Temple Entrance
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 180]
+
+EXITS: North, South
+
+Dust covers every surface within the temple; particles are stirred by your
+passing and threaten to choke you at any moment. A sarcophagus can be seen
+here, mounted on a pedestal; runes have been carved into the surface which
+you are unable to read. The sarcophagus is closed, its contents hidden from
+view. Passageways lead through the temple to the north and south. A massive
+stone door to the west is closed.
+
+From somewhere in the temple, you hear a sound as of something huge being
+moved around.
+
+> shout
+You give a shout which echoes through the dusty passageways of the temple.
+
+> s
+
+Prayer Room
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 182]
+
+EXITS: North, East
+
+Something about the layout of this room - a central area, cleared of
+obstructions, with a pole set into the floor - stirs an old memory for you.
+This is a prayer room. Worshippers would kneel around the pole and pray and,
+if they were respectful enough, their God would answer them.
+
+> e
+
+Echoing Chamber
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 183]
+
+EXITS: East, West
+
+Every movement in this chamber causes an echo to reverberate around its
+walls; every breath is a loud groan, every footfall a crash of thunder.
+
+> shout
+You give a shout which echoes through the dusty passageways of the temple.
+
+> e
+
+A Bend in the Passage
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 185]
+
+EXITS: North, West
+
+The passage bends here, heading north and west. Symbols mark the walls here,
+whereas before they were blank.
+
+> n
+
+Disused Gallery
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 186]
+
+EXITS: North, South
+
+Once this might have been a gallery of some kind, with drawings on the stone
+walls depicting scenes of battle... but that was long ago. Now the drawings
+are faded, some barely even recognisable for what they are; a feeling of
+immense sadness hangs over the place.
+
+> shout
+You give a shout which echoes through the dusty passageways of the temple.
+   At once, something flickers out of the corner of your eye. You turn to see
+a shadowy... something... darting away to the north.
+
+> n
+
+Dark Passageway
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 188]
+
+EXITS: South, West
+
+It is difficult to see much here, despite lighted panels on the walls
+offering illumination. The shadows seem to move with a mind of their own and
+seldom mirror your movements.
+
+> x shadows
+The shadows move independently of your own movements, darting back and forth
+in a manner that is chilling.
+   One shadow breaks from the others and approaches you. It is small, no
+larger than a young child, yet it radiates an icy chill.
+   "Come..." it murmurs in a voice ages old. "Follow... the Massssster
+awaits..."
+   It darts away to the west.
+
+> w
+
+Well
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 190]
+
+EXITS: East, West
+
+A stone well has been built in the centre of this chamber, though there is no
+bucket and the pulley used to raise it is broken. It looks like a mighty blow
+has struck and shattered it.
+
+You don't see the shadow when you first step into the well room, but then it
+moves and you catch sight of it once more. It beckons you to follow before
+moving away to the west.
+
+> w
+
+Dusty Passageway
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 191]
+
+EXITS: North, South, East
+
+The decaying remains of several bodies lie on the floor of this passage; a
+pungent aroma is emitted from them which makes your nose itch.
+
+As you step into the dusty passageway, one shadow detaches itself from the
+others and gestures you to follow it to the south.
+
+> s
+
+Temple Entrance
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered:
+10/12] [Decisions made: 192]
+
+EXITS: North, South
+
+Dust covers every surface within the temple; particles are stirred by your
+passing and threaten to choke you at any moment. A sarcophagus can be seen
+here, mounted on a pedestal; runes have been carved into the surface which
+you are unable to read. By the side of the sarcophagus lurks the strange
+shadow you have followed here.The sarcophagus is closed, its contents hidden
+from view. Passageways lead through the temple to the north and south. A
+massive stone door to the west is closed.
+
+The shadow hesitates by the sarcophagus and makes a gesture of studying the
+runes, before fading away into nothingness.
+
+> x runes
+At first, you cannot decipher what the runes mean, but then, suddenly, they
+make sense:
+
+HERE LIES UM'LADOUR
+
+PARAGON AMONGST MEN
+LONG MAY HE BE REMEMBERED AMONGST THE CHOSEN
+
+A flash of memory...
+
+"The island will be a dangerous place, my protegee," says the voice of your
+mentor, speaking to you from afar as you travel across the seas, "and most
+dangerous of all, if the rumours are to be believed, are Um'Ladour and his
+followers."
+   "The name is unfamiliar to me."
+   "As it is to most. Um'Ladour was a magus of incredible power who departed
+these shores centuries ago, on a quest similar to what you now undertake: to
+discover the location of the Grove of the Ancients and the untold wealth
+reputed to lie therein. He was never heard from again and his name passed
+from living memory."
+   You digest this. It does not make for good hearing. "But you believe
+Um'Ladour found the Grove? And that he somehow lives to this day?"
+   "The former, yes. The latter... I am unsure. That he did not return does
+not bode well, unless what he discovered there was all he ever desired to
+discover and so he saw no reason to return."
+   "But... hundreds of years have passed... How can he still live?"
+   Your mentor was silent for several heartbeats before replying, "Pray that
+he does not, my protegee. Pray that he does not."
+
+The vision fades and you find yourself kneeling before the sarcophagus. The
+runes, when you look at them once more, appear foreign to you. Whatever
+understanding the shadow afforded you is gone, too.
+
+> score
+You have a score of 45 out of 52.
+
+> look
+
+Temple Entrance
+[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered:
+11/12] [Decisions made: 195]
+
+EXITS: North, South
+
+Dust covers every surface within the temple; particles are stirred by your
+passing and threaten to choke you at any moment. A sarcophagus can be seen
+here, mounted on a pedestal; runes have been carved into the surface which
+you are unable to read. The sarcophagus is closed, its contents hidden from
+view. Passageways lead through the temple to the north and south. A massive
+stone door to the west is closed.
+
+> i
+You are carrying:
+
+_        cloak {Black in colour, though faded almost to grey, the cloak is
+torn in many places. It seems colder than the grave to the touch.}
+_        helm {Patches of rust have already claimed parts of this helm, yet
+the rest is sturdy enough. While unlikely to stop a forceful blow, this at
+least ought to turn it from a killing strike to merely a wounding one. There
+is an unusual glass faceplate on the helm, unlike any you have seen before.
+It is currently lowered. A faint light emanates from it.}
+
+_        logbook {Many, many years old, and worn heavily by the passing of
+the ages. Did this belong to the captain of this ship?}
+
+_        torch {The torch blazes with a light that seems unnatural in its
+intensity, not to mention the fact that it is blue in colour and smells
+faintly of radiation. You're not altogether sure how safe it is being near
+this torch for any length of time.}
+
+> n
+
+Dusty Passageway
+[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered:
+11/12] [Decisions made: 197]
+
+EXITS: North, South, East
+
+The decaying remains of several bodies lie on the floor of this passage; a
+pungent aroma is emitted from them which makes your nose itch.
+
+> e
+
+Well
+[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered:
+11/12] [Decisions made: 198]
+
+EXITS: East, West
+
+A stone well has been built in the centre of this chamber, though there is no
+bucket and the pulley used to raise it is broken. It looks like a mighty blow
+has struck and shattered it.
+
+> e
+
+Dark Passageway
+[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered:
+11/12] [Decisions made: 199]
+
+EXITS: South, West
+
+It is difficult to see much here, despite lighted panels on the walls
+offering illumination. The shadows seem to move with a mind of their own and
+seldom mirror your movements.
+
+> s
+
+Disused Gallery
+[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered:
+11/12] [Decisions made: 200]
+
+EXITS: North, South
+
+Once this might have been a gallery of some kind, with drawings on the stone
+walls depicting scenes of battle... but that was long ago. Now the drawings
+are faded, some barely even recognisable for what they are; a feeling of
+immense sadness hangs over the place. The statue of a gargoyle can be seen by
+the east wall.
+
+You come to a halt. The gargoyle... it wasn't there before, was it?
+
+> x gargoyle
+The gargoyle is a squat creature, barely four feet tall and hunched over to
+make it appear smaller still. Its features are grotesque, distorted into a
+mockery of a man's.
+   As you study it, a voice seems to issue from its jaws (though the jaws
+themselves do not move): "Who approaches? Speak or begone!"
+
+> um'ladour
+"You are not Um'Ladour," says a voice, "but you bear his sigil of power.
+Enter, servant of the Fallen One."
+   The wall behind the gargoyle opens, revealing another chamber to the east.
+
+> score
+You have a score of 46 out of 52.
+
+> look
+
+Disused Gallery
+[Score: 46/50] [Locations visited: 36/43] [Fragments of memory recovered:
+11/12] [Decisions made: 204]
+
+EXITS: North, South, East
+
+Once this might have been a gallery of some kind, with drawings on the stone
+walls depicting scenes of battle... but that was long ago. Now the drawings
+are faded, some barely even recognisable for what they are; a feeling of
+immense sadness hangs over the place. The statue of a gargoyle can be seen by
+the east wall. There is an opening to one side of it.
+
+> e
+
+Crypt
+[Score: 46/50] [Locations visited: 36/43] [Fragments of memory recovered:
+11/12] [Decisions made: 205]
+
+EXITS: West
+
+There is no light source within this crypt yet you are still able to see. The
+room is not large - perhaps 10 feet east to west and 12 north to south - and
+the centre is occupied by a coffin resting atop a plinth. The coffin shimmers
+faintly and radiates enough heat to make it seem that you are actually stood
+by an open fire.
+
+"Tread carefully, intruder," calls a voice from out of nowhere. "My temporary
+resting place is not unguarded. Though someone with your powers should not be
+unduly troubled..."
+
+> manifest
+You use your manifest power, and a strange glow envelopes your skin, matching
+perfectly the glow surrounding the coffin.
+
+> open coffin
+You touch the coffin- and an explosion tears through you.
+
+.. press a key to continue...
+
+But, strangely, leaves you unharmed. The glow which surrounded you before now
+vanishes.
+   "Ah, Kedric, only you could bypass the wardings," says a voice from
+nowhere, the voice of your mentor. "I had hoped the intruder was you. Come,
+visit me. The way is now open."
+
+> score
+You have a score of 47 out of 52.
+
+> look
+
+Crypt
+[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+11/12] [Decisions made: 209]
+
+EXITS: West
+
+There is no light source within this crypt yet you are still able to see. The
+room is not large - perhaps 10 feet east to west and 12 north to south - and
+the centre is occupied by a coffin resting atop a plinth. The coffin shimmers
+faintly and radiates enough heat to make it seem that you are actually stood
+by an open fire.
+
+> i
+You are carrying:
+
+_        cloak {Black in colour, though faded almost to grey, the cloak is
+torn in many places. It seems colder than the grave to the touch.}
+_        helm {Patches of rust have already claimed parts of this helm, yet
+the rest is sturdy enough. While unlikely to stop a forceful blow, this at
+least ought to turn it from a killing strike to merely a wounding one. There
+is an unusual glass faceplate on the helm, unlike any you have seen before.
+It is currently lowered. A faint light emanates from it.}
+
+_        logbook {Many, many years old, and worn heavily by the passing of
+the ages. Did this belong to the captain of this ship?}
+
+_        torch {The torch blazes with a light that seems unnatural in its
+intensity, not to mention the fact that it is blue in colour and smells
+faintly of radiation. You're not altogether sure how safe it is being near
+this torch for any length of time.}
+
+> w
+
+Disused Gallery
+[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+11/12] [Decisions made: 211]
+
+EXITS: North, South, East
+
+Once this might have been a gallery of some kind, with drawings on the stone
+walls depicting scenes of battle... but that was long ago. Now the drawings
+are faded, some barely even recognisable for what they are; a feeling of
+immense sadness hangs over the place. The statue of a gargoyle can be seen by
+the east wall. There is an opening to one side of it.
+
+> n
+
+Dark Passageway
+[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+11/12] [Decisions made: 212]
+
+EXITS: South, West
+
+It is difficult to see much here, despite lighted panels on the walls
+offering illumination. The shadows seem to move with a mind of their own and
+seldom mirror your movements.
+
+> w
+
+Well
+[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+11/12] [Decisions made: 213]
+
+EXITS: East, West
+
+A stone well has been built in the centre of this chamber, though there is no
+bucket and the pulley used to raise it is broken. It looks like a mighty blow
+has struck and shattered it.
+
+> w
+
+Dusty Passageway
+[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+11/12] [Decisions made: 214]
+
+EXITS: North, South, East
+
+The decaying remains of several bodies lie on the floor of this passage; a
+pungent aroma is emitted from them which makes your nose itch.
+
+> s
+
+Temple Entrance
+[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+11/12] [Decisions made: 215]
+
+EXITS: North, South
+
+Dust covers every surface within the temple; particles are stirred by your
+passing and threaten to choke you at any moment. A sarcophagus can be seen
+here, mounted on a pedestal; runes have been carved into the surface which
+you are unable to read. The sarcophagus is closed, its contents hidden from
+view. Passageways lead through the temple to the north and south. A massive
+stone door to the west is closed.
+
+> open sarcophagus
+As you go to open the sarcophagus, a voice speaks: "Ah, you return, Kedric.
+Welcome back."
+   There is a grinding sound and the eastern wall of the chamber opens up.
+   "Come," speaks the voice of your master. "We have much to discuss."
+
+> score
+You have a score of 48 out of 52.
+
+> look
+
+Temple Entrance
+[Score: 48/50] [Locations visited: 37/43] [Fragments of memory recovered:
+11/12] [Decisions made: 218]
+
+EXITS: North, South
+
+Dust covers every surface within the temple; particles are stirred by your
+passing and threaten to choke you at any moment. A sarcophagus can be seen
+here, mounted on a pedestal; runes have been carved into the surface which
+you are unable to read. The sarcophagus is closed, its contents hidden from
+view. Passageways lead through the temple to the north, south and east. A
+massive stone door to the west is closed.
+
+> e
+You step through the opening in the east wall and the temple falls away from
+you.
+
+A flash of memory...
+
+I am dead. I see that now. I think, inside, I have known all along. My body
+died long ago, but my magic... ah. My protective magic. What an irony. It
+could not keep my heart beating but it can prevent the last vestiges of life
+fleeing my corpse. It can animate me. It can make me walk the same path I
+have walked before.
+   I leave the temple. I know what I need to do. The things that need to be
+returned to their original places, so the path can be walked again. There is
+a reason for this repetition, you see, because the magic does not realise I
+am dead  and beyond saving. It will keep on trying to save me until,
+eventually, it runs out. I have little say in the matter. I will simply keep
+on doing what I have been doing all along.
+   Turning full circle.
+
+The memory fades.
+
+.. press a key to continue...
+
+You are falling.
+   "Ah, my protegee," says the voice of your mentor, the man you now know to
+be none other than Um'Ladour. "You have come full circle I see. Do you
+understand it now, the fate that has befallen you?"
+   You see the ship in the river, washed ashore and ruined; you see the
+corpse in the dusty passageway; you see the dead man staring back at you from
+the mirror.
+   "It makes sense, does it not?" says your mentor. He speaks from the
+shadows. You cannot see him. "Yes, in the end, it all makes sense."
+   The ship… was yours. You remember crossing the vast ocean in it, only to
+become lost upon arrival at your destination. The corpse in the dusty
+passageway… that was you. That was where your strength failed you, where you
+could continue no longer. Yet continue you did. Somehow… perhaps through use
+of the magic you were taught… you have continued beyond death.
+   "A fate I succumbed to myself," says your mentor. "Death claimed me, yet
+my desire to discover the mysteries of the Grove of the Ancients was too
+great... My magic sustained me... In time, I returned - or, rather, a part of
+me returned - to the lands of my birth. I desired to return here, yet knew
+that I could not. That I dare not! But then I began to wonder: what if I
+found for myself a protegee and sent him here in my stead? Could he uncover
+the secrets I had failed to uncover myself?"
+   Your mentor steps from the shadows. You cannot see his face due to the
+cowl he wears.
+   "I regret what happened, Kedric. This... This was never intended..."
+   The faces of your crew flash past you, either dead as you last saw them or
+hideously transformed into abominations by whatever fell magic lurks here on
+the island surrounding the Grove.
+   "I am sorry…" says your mentor, but the time for regrets is past.
+   He turns away from you and disappears into the shadows. The darkness which
+claimed you once before returns to claim you again. Your life is over.
+
+.. press a key to continue...
+
+Full Circle has ended. If you're reading this then well done. You've reached
+the end of the game.
+
+If you'd like to try again, simply type RESTART. To check how well you did,
+type SCORE.
+
+Many thanks for playing.
+
+> score
+You have a score of 51 out of 52.
+
+> look
+That cannot be done here.
+
+> i
+That cannot be done here.
+
+> quit
+That cannot be done here.
+
+> y
+That cannot be done here.
+
+>

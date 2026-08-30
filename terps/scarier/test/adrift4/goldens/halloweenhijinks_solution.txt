@@ -1,0 +1,89 @@
+look
+give sweet to lisa
+n
+n
+climb dumpster
+get rope
+s
+e
+tie rope to rod
+push bell
+get rope
+se
+push sofa
+wear vest
+tie rope to handle
+pull rope
+nw
+w
+n
+ne
+give treat to balfour
+get wood
+get hammer
+get nails
+nw
+use knocker
+se
+sw
+nw
+x body
+wear helmet
+se
+ne
+ne
+n
+u
+read note
+smash dresser
+d
+s
+sw
+sw
+nw
+open safe
+se
+ne
+nw
+use knocker
+push knob
+push button
+turn dial
+push lever
+pull lever
+flip switch
+x jar
+x zombie
+talk squick
+5
+2
+talk squick
+se
+ne
+nw
+knock door
+4
+x tv
+push button
+push button
+n
+se
+se
+knock door
+tie noose to pole
+climb window
+wait
+get box
+get box
+nw
+nw
+sw
+sw
+s
+w
+w
+x body
+e
+e
+s
+s

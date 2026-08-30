@@ -1,0 +1,301 @@
+Loading game...
+
+Starship Volant
+
+"Stowaway"
+
+by C. Henshaw
+
+New game / Restore / Credits / Help
+Skip Beginning / Important information
+
+> skip
+
+*        *        *        *        *        *        *        *        *
+   *
+
+DANNY
+
+You are wading through a clear mountain stream. It's just like the one you
+knew as a child back on Earth. Brown trout shimmer and twitch around your
+legs and you hover, bent over, estimating distance, water resistance, the
+speed of your own muscles, the pattern of the trout school. With pure
+instinct, you plunge your hand into the stream and it comes out holding a
+wriggling, muscular brown fish - about 6 inches long now, but it'll grow with
+lightning speed, you think, chuckling. You are about to throw it back, when
+it looks at you with its cold round eyes, gasping in the alien air, and
+starts making an ear-spitting, rhythmic screech. You drop the fish and open
+your eyes at the same time.
+
+Cursing, you jolt awake and the first thing you do is look over at the
+Captain's chair. Mercifully, she isn't there and didn't see you nod off on
+watch. Miss Deleanora and Mrs Williamsby are talking loudly and excitedly to
+each other. The red alert alarm is blaring.
+
+You look at the view-screen. Stars, moving normally along. But there are two
+conspicuously bright ones, not moving. Quite still, unblinking.
+
+'Danny McPhee, will you please wake the hell up!' Miss Deleanora shouts. The
+Captain bursts in.
+
+'Who activated the Red Alert!' She hisses with uncharacteristic sharpness.
+'Only the Captain has that prerogative. Why didn't you call me?' She says
+this last to you, and you stammer without actually saying anything. Miss
+Deleanora glares at you.
+
+Press any key
+
+The Bridge
+The red alert beacon flashes, giving the room an eerie, almost disco-like
+atmosphere. Your chair sits near the middle of the room, facing the giant
+view-screen. Stretching across the room in front of your chair is the control
+board, with the piloting controls at hand, the information computer panel in
+front of the Captain's chair to your left, and the weapons controls further
+left.
+
+Behind and to the left is the communication officer's station, and next to
+her, the systems monitor's station.
+
+To the right of the Captain's chair is a double-lift, one leading down to the
+engine room, and the other is the Captain's personal access up to her
+quarters. Another door leads east to the Briefing Room.
+
+Captain Sun ponders the view.  Miss Deleanora mans the system monitor
+station.  Mrs Williamsby concentrates on the airwaves traffic through her
+padded headphones.
+
+> z
+Time passes...
+
+'Captain, I activated Red Alert, because I couldn't raise the approaching
+ships on the com.' Mrs Williamsby explains calmly. 'I assumed they were
+hostile.'
+
+'And I confirmed that they were headed straight for us at two thousand knots,
+and are now,' Miss Deleanora checks her screen, 'only fourteen thousand
+clicks away.'
+
+Captain Sun rests her hand on the back of your chair. 'Okay, fair enough. I'm
+sorry I snapped at you. Handar!' She barks into mid-air. 'Get your ass down
+here NOW.'
+
+> z
+Time passes...
+
+Handar makes an unhurried entrance through the doors from the Briefing Room.
+
+'Captain, it's the Techthon.' Miss Deleanora gravely calls out.
+
+Your heart sinks. Their weapons will be state-of-the-art, and their Captains
+will be state-of-the-shoot first, talk later.
+
+> z
+Time passes...
+
+You realise that your day has arrived. Mr Handar may have the firepower, but
+only you can wow the enemy with your daring and innovative flying power. The
+enemy (if that is, in fact, what they are) are closing in fast. In another
+couple hours they will be in firing range, assuming they don't have some kind
+of super-weapon that can out-reach your own.
+
+The two vessels are coming towards you from NNE, on a relatively level
+vertical plane.
+
+> z
+Time passes...
+
+> nne
+At the moment you do not need to change the ship's speed or heading.
+
+The vessels are almost within firing range. You have several options, and you
+try to focus on your Flight Academy training (having had no actual experience
+in this kind of thing). You can move NNE to meet them head-on, keep going
+DEAD AHEAD or try to evade by turning SSW.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> talk to techthon
+Only the Captain should communicate with the Techthon.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> stall
+Only the Captain can make such decisions.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> talk to techthon
+Only the Captain should communicate with the Techthon.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> e
+You are not about to leave the Bridge now.
+
+> x racks
+You can't see the equipment racks from here!
+
+> get all from racks
+You either can't have it, or don't need it at this moment.
+
+> w
+You can't go in that direction, but you can move east, up and down.
+
+> fix casing
+I don't think you can fix that.
+
+> talk to team
+You aren't in the mood to talk to them right now.
+
+> talk to team
+You aren't in the mood to talk to them right now.
+
+> divide
+What?
+
+> e
+You are not about to leave the Bridge now.
+
+> u
+You don't have the authority to use the Captain's personal lift to her
+quarters.
+
+> e
+You are not about to leave the Bridge now.
+
+> open panel
+You can't open the information computer panel!
+
+> n
+You can't go in that direction, but you can move east, up and down.
+
+> w
+You can't go in that direction, but you can move east, up and down.
+
+> n
+You can't go in that direction, but you can move east, up and down.
+
+> u
+You don't have the authority to use the Captain's personal lift to her
+quarters.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> stand your ground
+I don't understand what you mean!
+
+> warm jeljel
+I don't understand what you mean!
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> talk to doctor
+The doctor isn't with you.
+
+> talk to doctor
+The doctor isn't with you.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> talk to jeljel
+The Prehipsonite isn't here.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> talk to doctor
+The doctor isn't with you.
+
+> flee
+
+You give Handar instructions for the electro-magnetic advantage you devised,
+and turn immediately to Danny.
+
+'Do absolutely nothing until we've confirmed thier visual system is disabled.
+Then I want to you head straight between them. Change your direction, but
+only slightly - keep on an average course for the Halcyon System. Don't
+worry, we aren't really going to visit my sister - we're going to change
+course later on for Prehipson.'
+
+'Aye, aye.' Danny readies his course and waits for the confirmation.
+
+On Prehipson, you accompany Jeljel Ha Wennwa to the governor, who has been
+briefed on the secret spy network on illegal Techthon activity. He gives you
+the information so far collected. It is the beginning stages of a cause that
+will go on for years and take you to many brinks of disaster, but,
+eventually, the Techthon will be forced to pay for thier misdeeds, and become
+virtual vassals of the World Planetary Unions. You daughter will eventually
+join the Techthon alliance against the WPU 30 years later, in defiance of the
+totalitarian regime the Techthon 'problem' helped to engender.
+
+THE END
+
+You have won! Good for you! You can still restore a saved game, restart or
+undo (like you need to).
+
+> quit
+Do you really want to quit? [Y/N]
