@@ -4,7 +4,7 @@ take cup
 look in bin
 search rubbish
 look in rubbish
-take medicine
+get medicine
 s
 get water from pond
 e

@@ -1,3 +1,14 @@
+# zelda.taf (ADRIFT 4.00) -- WINNING walkthrough, 197/197.
+# RUNNER-PROVED 2026-08-30: run400.exe under Wine replays all 188 commands
+# with matching responses through `kill ganon with arrow` (the EndGame win
+# task); transcript ~/adrift-battle/runner/wine/pfx/drive_c/adrift/
+# Adrift_2_zelda_win.txt. Seed-independent (no combat; fixed-timer events).
+# The earlier "UNWINNABLE, max 59/197" verdict was wrong: the tree's
+# "wooden key" (task 3) is a decoy; the real small key is dropped by the
+# Like-Like in the Graveyard ("CLINK!") after it eats the shield and spits
+# you out for wearing the Ganon mask. The "Take what?" `get key` before the
+# drop is deliberate -- it spends a turn the 5-turn lurking-horror event
+# timing relies on.
 take shield
 s
 s
@@ -69,11 +80,120 @@ s
 w
 w
 z
-z
-z
-z
-z
+look
+get key
+n
+get shield
+s
+get key
+n
+e
+e
+s
+s
+s
+e
+e
+unlock door
+e
+w
+n
+hookshot boulder
+get iron key
+hookshot statue
+s
+e
+push block
+e
+unlock door
+e
+w
+w
+w
+w
+w
+w
+n
+fight
+drop iron key
+drop shield
+drop hookshot
+look
+get jasper
+e
+get granite
+s
+s
+d
+s
+get sphere of sandstone
+u
+get anchor
+w
+d
+n
+u
+n
+n
+e
+get blue whistle
+e
+get rope
+s
+get red whistle
+s
+ask woman about maze
 z
 n
 e
-score
+e
+n
+put jasper on pedestal
+w
+put granite on pedestal
+s
+put sphere of sandstone on pedestal
+s
+kill octorock
+get ladder
+i
+n
+n
+e
+s
+w
+w
+n
+w
+w
+s
+s
+d
+s
+u
+e
+blow blue whistle
+blow blue whistle
+blow red whistle
+look
+get flippers
+wear flippers
+w
+d
+n
+u
+n
+n
+n
+tie rope to anchor
+throw rope
+u
+e
+e
+d
+place ladder
+d
+e
+e
+pull arrow
+kill ganon with arrow

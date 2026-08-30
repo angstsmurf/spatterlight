@@ -150,7 +150,7 @@ east
 north
 east
 east
-take exam
+get exam
 west
 south
 west

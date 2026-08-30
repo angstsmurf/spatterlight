@@ -4230,3 +4230,31 @@ Three sessions (PRE=3, `SCR_SKIP_WAITKEY`-style intro pauses), all commands echo
 - `Adrift_2_jailbreakbob_golden.txt` — the old 11-command death golden; run400 matches Scarier through "BANG!!! ... Well, he did warn you..."
 - `Adrift_2_jailbreakbob_probe.txt` — Hoggins-presence probe (46 cmds). Hoggins is absent in the cell at start and after `n`/`s`, but after the yard-pass `w` from the dining hall and returning `e`,`s` he IS in the cell (`x hoggins`, `talk hoggins` answered; `give comb` → "But I ain't asked you for it yet"). The notes' "moves to the dining hall" claim was a 0/1-based room-index misread.
 - `Adrift_2_jailbreakbob_win.txt` — the full chain (38 cmds): comb request fires during the waits, `give comb` accepted, second `talk hoggins` tosses the coin, meeting-room `insert coin` / `4` prank call, `ne` → wife disarms Terry, `get gun`, `n` → "woo-hoo!" `[Press any key to end]`. **The game is winnable in the real Runner**; goldens/jailbreakbob_solution.txt re-derived as a 31-command win (the `look` before `get gun` is required: the gun is not referenceable until listed).
+
+## zelda.taf (The Legend of Zelda: Legacy of a Princess, 4.00) — 2026-08-30, run400
+
+- `Adrift_2_zelda_key.txt` — old 79-command golden through the Graveyard scene, then `get key` / Tree Room `unlock door` / `e`: "The key fits perfectly", Wizrobe Room, 61/197 — above the notes' claimed 59 maximum. Event timing (twig, breathing, OOOOF, CLINK) matches Scarier turn-for-turn on identical input; run400 joins the event StartText onto the room paragraph.
+- `Adrift_2_zelda_win.txt` — the full 188-command win (PRE=1, 12 mid-game pauses). Per-command responses match Scarier; ends at `kill ganon with arrow` (EndGame win task) — the Runner closes the transcript at the following keypress so the score summary isn't in the file. First attempt (`Adrift_2_zelda_win_desync1.txt`) lost the `e` after the Moat `z` — the known random cutscene swallow; re-run was clean.
+
+## TenebraeSemper.taf (Tenebrae Semper, 4.00) — 2026-08-30, run400
+
+- `Adrift_1_tenebrae_probe.txt` — old golden as-is: `take pens` falls to the library ("You take the pens from your desk.") and the clock-code chain later blocks at `north` — not a swallowed command, a real split.
+- `Adrift_1_tenebrae_probe2.txt` — `take pens` then `get pen`: hands full at `take gold key` (self-inflicted; two pens).
+- `Adrift_1_tenebrae_probe3.txt` — `get pens` fires TASK0 `get * pen(s)`; key sequence proceeds. **Task matching is verb-literal**: no take↔get synonymy in run400. Ported as `lib_typed_verb()` in sclibrar.cpp (the library's retry now uses the verb the player typed; the prefix-less retry stays — cobl below).
+- `Adrift_1_tenebrae_probe4.txt` — corrected golden + 8 waits: **UNWINNABLE confirmed**. The player is still in the Science Center Hallway, `examine pillow` is the daytime text; rooms 6/7 are only entered by tasks that live in rooms 6/7.
+
+## COBL.taf / GreekSchool.taf — 2026-08-30, run400 (retry-model probes)
+
+- `Adrift_1_cobl_probe.txt` — `look in rubbish`, `take medicine` → "You don't have any. And boy does it show." (TASK `[eat/take] {the} {mind} [medicine…]` matched, failed, and owns the command; no library take). Settles the sclibrar.cpp retry model: keep the prefix-less retry, use the typed verb. Golden `take medicine` → `get medicine`.
+- `Adrift_1_greek_probe.txt` (154/154 echoed) — `take exam` → "You'll need the test, first." Golden `take exam` → `get exam`.
+- man_overboard `take poster` → `get poster` by the same rule (unmeasured; TASK `Get * poster`).
+
+## Del Sol.taf (4.00) — 2026-08-30
+
+No new run. The UNWINNABLE verdict already rests on live run400 probes recorded in notes/Del_Sol_walkthrough.md (win task 26 has Where = room 6 only; the Moreland KilledTask dispatch is gated on its room list). Nothing in the Tenebrae/Hangover work touches those rules.
+
+## hangover.taf (The Hangover, 3.90) — 2026-08-30, run390
+
+- `Adrift_1_hangover_run390.txt` — old golden as-is: turn 2 `x closet` refused (player still on the bed: "can't reach … from your bed"), 4/7.
+- `Adrift_1_hangover_run390_standup.txt` (57/57 echoed) — golden with `stand up` prepended: **UNWINNABLE confirmed**, 5/7 like Scarier; both Where=0 endgame tasks answer "You can't do that here!". Golden re-derived with `stand up` first.
+- `Adrift_1_hangover_run390_cabinet.txt` (42/42) — `open filing cabinet` / `open cabinet` / `open the cabinet`: the first runs silent +1 TASK8 and prints the game's DontUnderstand text "What you typed doesn't work."; the rest say "You have already done that."; the cabinet stays closed and `take approval form` → "Take what?". Scarier opens it via the library after the task — deliberate deviation (same score), recorded on the harness row. Scarier also lacks the from-the-bed reach rule (not fixed).

@@ -5253,6 +5253,55 @@ lib_object_short_name_is_ambiguous (scr_gameref_t game, scr_int object)
   return FALSE;
 }
 
+/*
+ * lib_typed_verb()
+ *
+ * The retry below is built from a canonical library verb ("get", "drop"),
+ * but the Runner matches tasks against the words the player actually typed.
+ * "TenebraeSemper.taf" task 0 is "get * pen(s)": run400 runs it for
+ * `get pens` ("You take a pen from the drawer.") and NOT for `take pens`,
+ * which completes the library take of the pens object untouched (probes
+ * Adrift_1_tenebrae_probe{,3}.txt, 2026-08-30) -- so the game's "have a pen"
+ * gate on leaving the dorm really does require typing `get`.  Retrying with
+ * a canonical "get" let Scarier's `take pens` fire that task and walk past
+ * the gate.  The precedents the retry was tuned on all keep the typed verb
+ * (Wax Worx `get marie` -> "get * head", Sommeril `take silver orb` ->
+ * "take silver orb"), so hand the retry the verb the player used: the
+ * library's own synonym of the canonical verb that opens the dispatched
+ * command element, or the canonical verb when none does.
+ */
+static const scr_char *
+lib_typed_verb (const scr_char *verb)
+{
+  static const scr_char *const GET_FORMS[] = {"get", "take", "pick up", "pick"};
+  static const scr_char *const DROP_FORMS[] = {"drop", "put down"};
+  const scr_char *const *forms;
+  scr_int count, index_;
+  const scr_char *input;
+
+  if (strcmp (verb, "get") == 0)
+    forms = GET_FORMS, count = 4;
+  else if (strcmp (verb, "drop") == 0)
+    forms = DROP_FORMS, count = 2;
+  else
+    return verb;
+
+  input = run_get_dispatch_input ();
+  if (!input)
+    return verb;
+  while (scr_isspace (*input))
+    input++;
+
+  for (index_ = 0; index_ < count; index_++)
+    {
+      const scr_int length = strlen (forms[index_]);
+      if (scr_strncasecmp (input, forms[index_], length) == 0
+          && (input[length] == NUL || scr_isspace (input[length])))
+        return forms[index_];
+    }
+  return verb;
+}
+
 static scr_bool
 lib_try_game_command_common (scr_gameref_t game,
                              const scr_char *verb, scr_int object,
@@ -5262,6 +5311,8 @@ lib_try_game_command_common (scr_gameref_t game,
                              scr_bool is_associate_npc)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  verb = lib_typed_verb (verb);
   scr_vartype_t vt_key[3];
   scr_char buffer[LIB_ALLOCATION_AVOIDANCE_SIZE];
   scr_bool references_buffer[LIB_ALLOCATION_AVOIDANCE_SIZE];
@@ -5336,7 +5387,13 @@ lib_try_game_command_common (scr_gameref_t game,
       command = required > (scr_int) sizeof (buffer)
                 ? (decltype(+buffer)) scr_malloc (required) : buffer;
 
-      /* Try the command with and without prefixes on the addressed object. */
+      /* Try the command with and without prefixes on the addressed object.
+       * The prefix-less retry can re-hit a task that already matched and
+       * failed its restrictions this turn; that is what the Runner shows
+       * too (cobl: "take medicine" after "look in rubbish" prints the
+       * task's fail text, not the library take -- run400 probe
+       * 2026-08-30).
+       */
       sprintf (command, "%s %s %s", verb, prefix, name);
       status = run_game_task_commands (game, command);
       if (!status && !lib_object_short_name_is_ambiguous (game, object))

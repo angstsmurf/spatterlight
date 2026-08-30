@@ -98,7 +98,7 @@ you're not allowed any of that; that's cheating. A true Bag Lady only takes
 important things from bins or rubbish from the streets.  A jar of mind
 medicine is inside the rubbish.
 
-> take medicine
+> get medicine
 You take the jar of mind medicine from the rubbish.
 
 > s

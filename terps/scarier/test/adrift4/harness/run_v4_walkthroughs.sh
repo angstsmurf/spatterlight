@@ -71,6 +71,10 @@ the_cat_in_the_tree_solution.txt|TheCatintheTree.taf|You scored 50 out of the ma
 # for the tail (Adrift_1_man_overboard.txt).  Settles: the `again` echo and the give/ask
 # rewrites print as Scarier does, and the prefix-less object antecedent echoes as
 # "(a Cupboard)" (Proc_21_31_448710).
+# 2026-08-30: `take poster` -> `get poster`; the poster refusal is TASK
+# `Get * poster`, and task matching is verb-literal (Tenebrae/cobl/
+# greekschool run400 probes), so `take poster` now falls to the library's
+# "You can't take the kelly brook poster!" as the Runner would.
 man_overboard_solution.txt|man overboard.taf|Maybe it wasn't all a waste of time|SCR_SKIP_WAITKEY=1
 pieces_of_eden_solution.txt|Pieces of eden.taf|END OF PART ONE
 # Measured 2026-08-29 in run400 under Wine: 78/78 commands identical (Adrift_1_princess.txt).
@@ -1119,6 +1123,17 @@ mishmash_solution.txt|mishmash.taf|You have lived up to your name and survived a
 # follows by the same rule, unmeasured:
 # `give the doctor some french fries` -> "Give the french fries to who?" (was "Give
 # what?"; run390 itself answers with the task's wrong-room message, see the note above).
+# 2026-08-30: UNWINNABLE confirmed in the real run390 under Wine
+# (Adrift_1_hangover_run390{,_standup,_cabinet}.txt).  Both Where=0 tasks
+# answer "You can't do that here!" there, and run390 tops out at the same
+# 5/7.  Golden now starts with `stand up`: run390 refuses `x closet` etc.
+# from the bed ("can't reach ... from your bed"), a rule Scarier lacks.
+# Known split kept: `open the filing cabinet` runs the silent +1 TASK8 in
+# both, but run390 then prints the game's DontUnderstand text ("What you
+# typed doesn't work.") and never opens the cabinet (later `open cabinet`
+# = "You have already done that."), so the approval form is unreachable
+# there; Scarier falls through to the library open.  Same score either
+# way -- deliberate deviation, same family as Journ2's Lair.
 the_hangover_solution.txt|hangover.taf|Your score is 5 out of a maximum of 7.
 # Troll! is WINNABLE and this route reaches the ending with zero parser errors,
 # but its ceiling is 185/190, not 190.  The game has 38 scoring tasks worth 5
@@ -4213,19 +4228,21 @@ shetland_solution.txt|The_Shetland_Enigma.taf|You scored 210 out of the maximum 
 # `SCR_SKIP_WAITKEY=1`.
 takeone_solution.txt|takeone.taf|it only took 1 take|SCR_SKIP_WAITKEY=1
 # Tenebrae Semper (Seciden Mencarde, EctoComp 2010 "3 Hours", 9757 bytes,
-# 4.00): **unwinnable** -- confirmed, not just unreached. No score system
-# exists, and all three authored endings are dead: TASK21 has zero ALTCMD
-# entries so it can never match typed input; TASK18/TASK24 both require
-# reaching room6, but the sole door there (TASK16, up/north from the
-# Science Center hallway) has no ACT entries at all -- its CompleteText
-# alone marks the command handled, so the engine never falls through to
-# real movement, permanently sealing the only way in. Confirmed against
-# `run_all_commands()`/`task_run_task_unrestricted()`: faithful ADRIFT 4
-# Runner behaviour, a genuine author defect in the original .taf, not a
-# Scarier divergence. Row demonstrates the fullest reachable content
-# instead (clock-code lock, inventory-wiping "sit chair" mechanic, the
-# notebook subplot) ending on retrieving Lauren's pistol. 34 commands,
-# `SCR_SKIP_WAITKEY=1`.
+# 4.00): **unwinnable**, confirmed in the real run400 under Wine
+# (2026-08-30, Adrift_1_tenebrae_probe4.txt = this golden + 8 waits). The
+# night-time rooms 6/7 are entered only by tasks 19/23, which live in
+# rooms 6/7 themselves; the hallway door TASK16 (`* u *`/`* n *`, needs
+# the stairwell task) prints its forest CompleteText with no ACT entries,
+# and the countdown event's TASK17 has none either -- the Runner leaves
+# the player in the Science Center Hallway (daytime `examine pillow`
+# after eight waits). Genuine author defect, not a Scarier divergence.
+# The golden says `get pen`, not `take pens`: TASK0 is `get * pen(s)` and
+# run400 task matching is verb-literal (Adrift_1_tenebrae_probe{,3}.txt
+# -- `take pens` falls to the library, `get pens` fires the task); the
+# typed-verb library retry in sclibrar.cpp came from this. Row
+# demonstrates the fullest reachable content (clock-code lock,
+# inventory-wiping "sit chair" mechanic, the notebook subplot) ending on
+# retrieving Lauren's pistol. 34 commands, `SCR_SKIP_WAITKEY=1`.
 tenebraesemper_solution.txt|TenebraeSemper.taf|You take the loaded pistol from Lauren's dresser.|SCR_SKIP_WAITKEY=1
 # Helsing ("Steve Van Helsing: Process Server", 9776 bytes, 4.00): WON, no
 # score system (zero ACT type=4), the game's only ending. TASK 13 (`ask *
@@ -4683,6 +4700,12 @@ will_solution.txt|Will.taf|Well done - you scored maximum points!|
 # True max is therefore 160/230 (69%), with the win screen permanently
 # unreachable. 107 commands, `SCR_SKIP_WAITKEY=1` (two mid-game waitkeys
 # otherwise eat scripted commands).
+# 2026-08-30: `take medicine` -> `get medicine`. run400 under Wine
+# (Adrift_1_cobl_probe.txt) answers `take medicine` with TASK "[eat/take]
+# {the} {mind} [medicine/...]"'s fail text "You don't have any. And boy
+# does it show." -- 4.0 task matching is verb-literal, and a task that
+# matched-and-failed still owns the command; Scarier's library retry now
+# uses the typed verb (sclibrar.cpp lib_typed_verb) and agrees.
 cobl_solution.txt|COBL.taf|Your score is 160 out of a maximum of 230.  (69%)|SCR_SKIP_WAITKEY=1
 # puzzlebox.taf (The Puzzle Box, Richard Otter, ORGComp 2007; 4.00): a
 # sequential 10-stage combination-lock puzzle box, no scoring system, single
@@ -4827,17 +4850,19 @@ darkness_solution.txt|darkness.taf|Well done - you scored maximum points!|SCR_SK
 # commands, `SCR_SKIP_WAITKEY=1` (narration embeds `%wait%<cls>` pauses).
 backhome_solution.txt|Back Home.taf|You are back.  Back home.|SCR_SKIP_WAITKEY=1
 # zelda.taf: Legend of Zelda fan-fiction (Kokiri Wood, Ganondorf).
-# UNWINNABLE as authored: "get/take wooden key" (Tree Room) prints "Taken."
-# but has no ACT statement that actually grants the key object -- every
-# phrasing tried, confirmed via post-attempt inventory check. That key
-# gates the only door into the Wizrobe Room, whose Dodongo-fight/raft
-# chain is the sole route to the eastern continent (rooms 35-61), which
-# holds the only EndGame(win) task and 138 of 197 scoring points. Verified
-# maximum reachable score: 59/197 (29%). A second, moot authoring bug:
-# entering the Graveyard with the shield equipped destroys it via a
-# Like-Like task with no compensating relocate action. 79 commands,
-# `SCR_SKIP_WAITKEY=1` (a Like-Like/Shield-Eater cutscene pause).
-zelda_solution.txt|zelda.taf|Your score is 59 out of a maximum of 197.|SCR_SKIP_WAITKEY=1
+# WINNABLE, 197/197 (verdict corrected 2026-08-30; proved in the real
+# run400.exe under Wine -- see notes/WINE-TRANSCRIPTS-TODO.md). The earlier
+# "UNWINNABLE, max 59" reading fixated on the decoy "wooden key" task (3),
+# which indeed only prints "Taken." -- but the Tree Room door takes the
+# SMALL key that the Like-Like drops in the Graveyard ("CLINK!") after it
+# eats your shield and spits you out for wearing the Ganon mask (the shield
+# lands in the Tunnel, not destroyed). Beyond the door: iron key from Lava
+# Island, push block with Zelda, Dodongo with shield, Prince Haku's raft,
+# `fight` the guards to sail east, three-sphere Boulder Maze, King Zora's
+# whistles for flippers, rope+anchor cliff, ladder, then pull Haku's arrow
+# and kill Ganon within the 3-turn event window. No RNG (no combat).
+# 188 commands, `SCR_SKIP_WAITKEY=1` (12 mid-game [Press any key] pauses).
+zelda_solution.txt|zelda.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
 # Showtime_at_the_Gallows.taf: babysitting horror-comedy. No score system;
 # every outcome (death or true ending) is a plain room-move into "The End",
 # not an EndGame action. Several puzzles are deterministic NPC-patrol
@@ -5016,7 +5041,469 @@ jimpond_solution.txt|JimPond.taf|and I'll be wanting you to lead the attack.|SCR
 # dressing; mailbox/envelope/Package containers don't auto-list contents on
 # `open`, silently blocking `take` unless followed by `look in X`. 165
 # commands (incl. name/gender character-creation answers), no env vars.
+# 2026-08-30: `take exam` -> `get exam` for the take-home exam. run400 under
+# Wine (Adrift_1_greek_probe.txt, 154/154 echoed) answers `take exam` with
+# the translate/complete/take-exam TASK's fail text "You'll need the test,
+# first."; only `get` reaches the library take.
 greekschool_solution.txt|Greek School Adventure.taf|You scored 185 out of the maximum 275!|
+# Trick or Treat.taf by David Whyld: comic Halloween horror-house escape.
+# Derived via SCR_DUMP_TASKS structural dump (task/restr/act tables) plus
+# interactive replay through harness/scare. No ACT type-4 (ChangeScore) or
+# type-6 (EndGame) exist anywhere in this game -- scoring is 39 direct
+# type-3 "scor" variable increments (+5 each) plus bonus tasks for
+# defeating the crazy old man (+20), holding the logbook at the ending
+# (+10), and a money-counter bonus for holding all three valuables --
+# golden sceptre, diamond necklace, loot -- at once (+45); ending itself
+# is a type-1 move-player into a "Garden"/"game over" room, not EndGame.
+# 270/270 (100%) confirmed via the game's own "score" command and its
+# closing text ("If your score (which is 270) here reads 270, then you
+# did."). The game's own hidden "- walk" debug hint (task 10) omits the
+# carrot/donkey subplot (+5): the carrot is found by pushing the bathroom
+# button (revealed after `x cans`), then must be given to the donkey in
+# the Lounge on a later pass-through -- `give carrot to donkey`. The
+# crazy-old-man fight (room "you and the crazy old man fighting") is a
+# numbered-menu battle (bare digits 1-11); the sequence `1,3,6,8,9`
+# (stabby stick, kick, call Isabella, battle of wits, baseball bat) is
+# fully deterministic and kills him outright (15hp vs his 52hp, ending
+# exactly on the 9th baseball-bat hit). 213 commands, `SCR_SKIP_WAITKEY=1`
+# to skip the intro/credits `<waitkey>` pauses without wasting turns.
+trickortreat_solution.txt|Trick or Treat.taf|You flee to freedom.|SCR_SKIP_WAITKEY=1
+# Starship Volant "Stowaway" by C. Henshaw: sci-fi anthology thriller where
+# the playable "you" auto-switches perspective (Danny -> Jacquiline ->
+# Penelope -> Aldos -> Fornkan -> Jeljel -> Jacquiline) purely via timed
+# Events, never by a typed command. No Type-6 EndGame anywhere and
+# `MaxScore: 0` / `NoScoreNotify: 1` -- there is no numeric score, only a
+# narrative winning/losing ending. Derived from the game's own built-in
+# `walkthrough` command (task 173) hint text, but that hint text omits a
+# second `talk to techthon` between `stall` and the perspective switch to
+# Chief Engineer: task 84 (first contact) is one-shot/not repeatable, and
+# it is task 114 (the second `talk to techthon`/`ask * techthon about *`)
+# whose action chain (task 147 -> Event 5, a 2-turn timer) actually fires
+# task 40 "#Switch to Chief Engineer" and moves the player to the Engine
+# Room; without that second hail the game just sits in the Captain's
+# perspective and every subsequent hint command (`x racks`, `fix casing`,
+# `talk to team`, `divide`, ...) fails as a non-sequitur. With the second
+# `talk to techthon` inserted, the rest of the hint plays back verbatim
+# with zero failed commands, ending on `flee` for the "You have won! Good
+# for you!" ending (task 158). 60 commands, no env vars.
+volant_solution.txt|volant.taf|You have won! Good for you!|
+# Dear Diary.taf by Wotan-Anubis (AIF): a 3.90 coming-out romance -- dump
+# Erik, fall for his sister Erin, win her over across a swim/dinner/movie
+# date, and reach the "fuck erin" ending. Derived via SCR_DUMP_TASKS'
+# structural dump (55 tasks) plus interactive replay through harness/scare,
+# with SCR_TRACE_JUDY confirming Erin's real per-scene room (22 "Under the
+# Trees" by default; the invite-swim/dinner/movie tasks each physically
+# relocate her to 24/14/13, and her own ACT resets her back to 22
+# afterwards -- kiss erin moves her again, to her own room, room 6, where
+# the rest of the intimacy tasks must be played out). All 23 scoring tasks
+# sum to exactly the game's own stated max (contains a `rape %character%`
+# task pattern that is a deliberate author refusal printing a disgusted
+# non-cooperation message and doing nothing; the walkthrough never invokes
+# it). "Fucking Amal" on Erin's shelf in the Video Archive isn't
+# referenceable by name until `examine erin's shelf` first lists it (the
+# object *seen* model). 300/300 (100%) confirmed via the game's own final
+# score summary. 134 commands, no env vars.
+deardiary_solution.txt|Dear Diary.taf|FUCK YOU ERIK|
+# Riding_Home.taf (AIF): 2008 Mini-Comp entry by Raul, explicit text between
+# consenting adults (blind protagonist Andy, bus driver Erica, passenger/
+# photographer Krystal), golden gitignored per the warlock/gamma/croft
+# precedent. Derived via SCR_DUMP_TASKS structural dump plus interactive
+# replay through harness/scare -- an adaptive Python driver (react to live
+# question text rather than precompute absolute turn numbers, since event
+# timing is RNG-jittered) was used to nail the sequencing. 100/100: Erica's
+# and Krystal's 4-question dialogue trees must each be answered strictly in
+# order and only after being asked (`tell erica/krystal about <topic>`);
+# the white paper and cane start *inside* the closed laptop case (`open
+# case`/`take cane`/`take paper` up front); `call ashley` only succeeds
+# once Krystal has boarded the bus, and Krystal's own question chain is
+# gated on that call having succeeded; `hire krystal` requires both NPCs'
+# full 4-question chains done (EricaHappy/KrystalHappy flags); getting off
+# the bus auto-fires a GameProgress>=90 check (all 6 non-win scoring tasks:
+# paper +20, sex +20, hire +10, call ashley +20, call family +10, call
+# tuxedo +10) that silently ends the game in an instant loss if short --
+# reaching 90 before the bus stops is mandatory, not optional. Once home,
+# `call krystal` embeds her arrival in its own completion text; `kiss
+# krystal` must precede both `strip krystal` and `strip` (self), which must
+# both precede the win command `fuck krystal` (+10). 57 commands,
+# `SCR_SKIP_WAITKEY=1` (a `<PRESSKEY>` pause on the closing cutscene).
+riding_home_solution.txt|Riding_Home.taf|You have won "Riding Home."|SCR_SKIP_WAITKEY=1
+# Dear Diary 2 - Prom Night.taf by Wotan-Anubis (AIF): sequel to Dear Diary --
+# same 3.90 engine, no Events/NPC walks (all 11 NPCs are stationary), so the
+# whole game is a straight task-dependency chain. Decoded via harness/tafpretty.py
+# (43 tasks) plus TASK_ACTION/TASK_RESTR demultiplexer source (sctasks.cpp
+# task_run_task_action, screstrs.cpp restr_pass_task_restriction) to resolve
+# the object/NPC/room numbering conventions, then nailed turn-by-turn via
+# interactive replay through harness/scare. Prom-night side quests (all
+# optional but all required for max score): the fancy digital camera starts
+# inside the locked red locker and Kanbe's dialogue-flavour flask must be
+# given to Jake to knock him out and drop the locker key; the dildo starts
+# inside Kate's purse (left with her in the Girl's Bathroom after the private
+# kiss) and must be pocketed before the purse is returned to Kate; giving
+# Kanbe's camera back earns a replacement Polaroid (needed later for the
+# bedroom photo tasks) and giving Smooth G the mom's photo earns the massage
+# oil (needed for `massage erin`). Containers gate visibility on the *seen*
+# model: `take X from Y` fails "Take what?" unless `look in Y` (or `examine
+# Y`) has listed the contents first -- hits the purse, then the locker.
+# `ask erin about music` sends her to the Girl's Bathroom for the private
+# `kiss erin`; `go home` requires Erin present and carries both her and the
+# player onto The Bus; the bus's `erin rub pussy` is the escalation task that
+# transports both of them, now undressed, into My Bedroom for the closing
+# scene chain, ending on `fuck erin` (+20) then `sleep` (+10, EndGame). 300/300
+# (100%) confirmed via the game's own closing score summary. 68 commands,
+# `SCR_SKIP_WAITKEY=1` (the game's own opening StartupText pauses on a
+# `<waitkey>` before the first room is even shown; without it every command
+# desyncs against that pause).
+deardiary2_solution.txt|Dear Diary 2.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
+# Full_Circle.taf -- horror/fantasy: Kedric wakes in a Glade with no memory,
+# on an island around a Grove of the Ancients. Custom score (Variables[1]
+# "scor", 0..52) is printed on demand via SCORE and shown in the room-banner
+# status line (though that banner caps its own denominator at 50 -- the real
+# max, from the game's own in-fiction "points available" checklist task, is
+# 52). Solution walks the game's own embedded walkthrough text almost
+# verbatim (a CompleteText block in the .taf, findable by decoding the
+# plaintext and grepping for "A brief walkthrough for"), with two
+# game-specific traps worked around:
+#   - The totem-pole puzzle (four cairns around a totem; only one is
+#     openable, keyed to which way a carved figure atop the pole is "facing")
+#     is *seed-fixed* here, not random per findings during derivation --
+#     `x figure` after circling the pole once reports "leaning in a
+#     northerly direction", so the walkthrough's generic "(n/s/e/w)"
+#     placeholders are hardcoded to `n`. A different seed/build could face a
+#     different direction; re-derive via `x figure` if this ever breaks.
+#   - The Grotto's beast: `get spike` on a first, unprotected visit is
+#     lethal (a scripted, non-permanent death -- respawns you at the river
+#     bank with -1 score and a stripped inventory, distinct from the
+#     permanent ADRIFT battle-system death). Surviving requires the pendant
+#     to already have been given to the sculpture ("put pendant in hand")
+#     earlier in the walkthrough, which flags the player "PROTECTED"; the
+#     solution's `get spike` / `get spike` pair then bounces off the guard
+#     (beast flees, drops the spike) before actually taking it.
+# The cabin's logbook awards +2 only once all ten (randomly-drawn, with
+# replacement) entries have each been read at least once; empirically this
+# game's RNG stream needs 21 `read logbook` draws from this exact point in
+# the transcript to cover all ten -- an exact count baked into this seeded,
+# deterministic solution (changing anything earlier in the script would
+# shift the draws and could change this number).
+# Ends on the "best"/canonical ending ("You have come full circle...").
+# Final score 51/52 -- one point short of the 52-point max because one of
+# the twelve "memory fragment" pickups (most likely "Crossed the bridge over
+# the river", at By a Broken Bridge, never actually walked in this route) is
+# skipped; the other 51 of the checklist's ~50 listed tasks (all of which
+# this solution completes) are all confirmed via matching SCORE deltas
+# during derivation. 222 commands, `SCR_SKIP_WAITKEY=1` (multiple
+# `<waitkey>`-driven "press a key to continue" cutscenes throughout).
+fullcircle_solution.txt|Full_Circle.taf|Full Circle has ended.|SCR_SKIP_WAITKEY=1
+# HalloweenHijinks.taf: Halloween comedy -- a kid (dressed as a scarecrow)
+# and little sister Lisa (a wasp) go trick-or-treating on aptly-named Murder
+# Drive, visiting a string of deranged neighbours (Mrs Thumpp, Barney
+# Bloggs, Mad Old Gubbins, mad scientist Professor Squick, gun-toting
+# Colonel Haggard) to collect treats before heading home. No stated numeric
+# score cap in the .taf dump; the win condition (TASK433, the `s` command
+# back at Murder Drive [1]) is a descending five-tier ending ladder gated on
+# Lisa being present and treats > 6 (var7), with TASK433 being the best
+# ending. Derived via SCR_DUMP_TASKS structural dump plus interactive
+# replay through harness/scare. Notable quirks:
+#   - The player starts the game already holding "sweets" in inventory
+#     (never picked up) -- `give sweet to lisa` right after the opening
+#     `look` is the very first action.
+#   - Several items are ACT type=0 v2=6 (dropped in the room, not given to
+#     the player) rather than added straight to inventory: Lisa's rope
+#     after the dumpster climb, and the wood/hammer/nails Balfour hands
+#     over -- each needs an explicit follow-up `get`.
+#   - Mrs Thumpp's doorbell must be rigged first (`tie rope to rod` at her
+#     house) before `push bell` succeeds; the rope is then retrieved and
+#     reused at Barney Bloggs' place to pull a treat off a sofa vest.
+#   - At Elsa's Bedroom, `read note` must be issued before `smash dresser`
+#     on the very first visit -- attempting the smash first fires a
+#     Lisa-absent/no-reward flavour branch instead of the scoring one, even
+#     though Lisa is nominally present in both cases (suspected one-turn
+#     companion-state registration lag after the room transition).
+#   - Colonel Haggard's `push button` (fire the gun) is preceded by an
+#     unconditional, single-use hesitation-flavour task that consumes the
+#     first attempt with no state change; the command must be issued twice
+#     to reach the real success task.
+#   - Professor Squick's Lab is a one-shot dialogue-menu visit (`talk
+#     squick`, then menu choices `5`, `2`, `talk squick` again) that ejects
+#     the player once resolved. 89 commands, no env vars. Final run: score
+#     89, treats 8 (comfortably clears the >6 threshold), ending on "Well
+#     done! You've reached the best ending in the game!". Needs
+#     `SCR_SKIP_WAITKEY=1` -- without it a keypress pause later in the
+#     script (not just the printed intro "...press a key..." beats) silently
+#     eats one line of stdin, desyncing every command after it.
+halloweenhijinks_solution.txt|HalloweenHijinks.taf|Well done! You've reached the best ending in the game!|SCR_SKIP_WAITKEY=1
+# BarneysProblem.taf (AIF, adult content -- see /goldens/.gitignore): Barney
+# has "Bollockus Explodingus" and must have sex with as many of the town's
+# women as possible before his balls literally explode. Score is a checklist
+# of ~42 discrete acts (summing to 121, cross-checked against the .taf's own
+# CompleteText hint dump) plus at least one unlisted bonus (the "man attacked
+# by police" truncheon EVENT scores +1 on its own, on top of the checklist's
+# separate "give truncheon to girl" point). Ending is a score-gated five-tier
+# ladder: `talk death` in Cobblestone Walk (room3, where Death simply always
+# is) sets the "ready to end" state directly, then typing `4` ("I'm ready to
+# go") dispatches TASK284, which RunTasks 278 (score>110, best ending) down
+# through 282 (worst) -- the numbered Death small-talk options (1-3) are
+# optional flavour, not required. Derived via SCR_DUMP_TASKS structural dump
+# plus interactive replay through harness/scare. Notable quirks:
+#   - Several items are ACT type=0 v2=6 (dropped in the room, not given
+#     straight to inventory) and need an explicit follow-up `get`: the thumb
+#     after `x thumbscrew` in the Interrogation Room, and the truncheon
+#     dropped wherever the player happens to be standing when the "man
+#     attacked by police" EVENT fires (turn-based, always Snodger Lane on
+#     this exact command sequence).
+#   - The bastard-sword ambush (leaving the Park south) is gated on having
+#     opened the iron maiden first (Interrogation Room); the walkthrough
+#     revisits the Park after the Interrogation Room content to trigger it.
+#   - Alicia's holding-cell rescue plan (`talk alicia`, option 4, `shazam`)
+#     drops the player back in Town Centre; her actual "reward" scenes
+#     (fuck/assfuck/kiss/suck) are in her bedroom (Alicia's House, `u`), not
+#     the cell, and require VAR36>1 (set by `shazam`) to reach.
+#   - Sarah's Bedroom fires an unconditional dialogue menu on entry with a
+#     `cmd=[*]` wildcard task that intercepts *every* other command
+#     ("Answer the fucking question, asswipe") until answered -- any option
+#     except #3 (a scoring trap that kicks the player back downstairs) clears
+#     it; only then does `give choc to sarah` (the actual +10 scoring task)
+#     register.
+#   - Jodie's "kiss/fuck/assfuck/suck" scoring task is gated on syrup having
+#     already been given to her (`give syrup to jodie` first); reaching her
+#     sick-in-bed scene needs a second, self-referential `u` while already
+#     standing in her bedroom (Jodie's House), not a room transition.
+#   - The filing cabinet in Doctor Grim's Office (`open cabinet`, +2, yields
+#     a scroll) needs the truncheon, not a key; reading the scroll a second
+#     time (`x scroll` twice) secretly scores +3 despite its own flavour text
+#     claiming otherwise.
+# 133 commands, `SCR_SKIP_WAITKEY=1`. Final run: score 114 (comfortably
+# clears the >110 threshold), ending "...not just any ending (there are five
+# in total), but the best one of the bunch! ... the password to the game, if
+# you're wondering, is BABYLON."
+barneysproblem_solution.txt|BarneysProblem.taf|BABYLON|SCR_SKIP_WAITKEY=1
+# DeadReckoning.taf (David Whyld, 2003) -- no scoring system at all (zero
+#   ACT type=4 actions in the whole 533-task dump; the game's own
+#   "instructions" text says as much: "There is no score system used
+#   although you can judge how well you did by the ending you reach").
+#   Goal is reaching the best of its multiple endings (the runtime text
+#   says "three possible endings", though some unreachable-by-us COMPLETE
+#   text elsewhere in the dump claims five -- outdated/inconsistent
+#   authoring, not something we can resolve either way).
+#   - The cross on Old Mill Road is a two-step steal: `search man` reveals
+#     it, `give water to man` revives him enough to talk, and picking
+#     option 3 ("I need to find my friend, Edwin Carter") then waiting out
+#     the `man falls unconscious` EVENT (4 turns) is required before
+#     `get cross` even becomes takeable -- and even then the FIRST `get
+#     cross` always fails (task 96, "you leave the cross where it is");
+#     only the immediately following second `get cross` (task 97) succeeds.
+#   - The red orb (the actual win-condition item) comes from the Park:
+#     `dig lump` must be typed twice (the first hits a "are you sure?"
+#     hesitation task with no effect; the second actually digs and raises
+#     a corpse), then `raise cross` while holding the cross banishes it and
+#     hands over the orb, auto-returning the player to Marble Street.
+#   - Reaching Edwin requires the guess-the-verb command `call to edwin`
+#     (documented as a known issue on IFDB) rather than "call edwin",
+#     "shout", or "knock" -- nothing else at Marble Street triggers his
+#     appearance.
+#   - Edwin's house is a fixed, non-branching interrogation: selecting
+#     option 1 eight times in a row exhausts his entire backstory dialogue
+#     tree and then automatically cuts to a forced flight scene (Edwin is
+#     dragged off off-screen) that deposits the player in the Graveyard --
+#     no player choice actually avoids this beat once the conversation
+#     starts.
+#   - The Graveyard has NO working directional exit at all (its only
+#     EXIT-table entry is `u` to the Church Roof, a dead end for a rock
+#     used only by the lesser endings): the way out is the unrelated verb
+#     `open door`, which triggers a corpse chase and dumps the player into
+#     the Church with Father Kadrin.
+#   - Leaving the church via `e` unconditionally hands the player a statue
+#     (an item that leads to one of the worse endings/death if still held
+#     when entering the Ritual Field -- Shekel demands it) before dropping
+#     them in Merrik Wood; the statue must be `drop`ped before the final
+#     `e` into the Ritual Field so the capture task keyed on "statue NOT
+#     held" fires instead of the statue-demand branch.
+#   - Once captured in the Ritual Field, `smash orb` (task 488, gated only
+#     on holding the red orb, no other state check) immediately wins on
+#     the very next turn regardless of Shekel/Edwin dialogue state --
+#     no fighting, freeing Edwin, or further exploration is needed.
+# 32 commands, `SCR_SKIP_WAITKEY=1`. Final run: no score (game has none);
+# reaches the best ending, "Well done. You have reached the end of Dead
+# Reckoning. There are three possible endings and this is the best of the
+# lot. Well done indeed!"
+deadreckoning_solution.txt|DeadReckoning.taf|this is the best of the lot. Well done indeed!|SCR_SKIP_WAITKEY=1
+# cldone.taf (AIF, adult content -- see /goldens/.gitignore): a fake-psychic
+# scam gets exposed mid-séance and detours into an explicit one-on-one scene.
+# Three rooms (Parlour, Back Room, Miranda's Loft); the only two named
+# variables are `choice` (the confession-branch pick) and `mir` (a private
+# scoring/gate counter, examinable via the game's own debug task `x mir`).
+# Structure, derived via SCR_DUMP_TASKS plus interactive replay:
+#   - The séance needs `sit`/`join hands`/`concentrate`/`ask miranda about
+#     tattoo` (each srd, +2 apiece) before Miranda leaves to smoke, which is
+#     the only window `push crystal ball` (+2) and `look under table` (+2,
+#     reveals the "contraption" -- ADRIFT's seen-object model: it isn't
+#     referenceable at all until this reveals it) will succeed.
+#   - `ask madame v about contraption` (+2) triggers her confession and a
+#     3-way numbered choice; option `2` ("tell Miranda Roberto cheated on
+#     her") is the only branch that continues into the loft scene and scores
+#     (+3) -- options 1 and 3 are non-explicit dead-end endings. A silent
+#     hidden "Please enter your name:" prompt fires before the first real
+#     turn and eats whatever line comes next as `%player%`, not as a
+#     command -- the script's first line must be a name, not a verb.
+#   - In Miranda's Loft, three `wait`s let her emerge in lingerie. From there
+#     11 distinct acts each carry a one-time +1 (SingleScore, version 390):
+#     kiss miranda, fuck miranda's tits, touch/miranda touch/suck miranda's
+#     pussy, miranda fuck me, two successive `fuck miranda` calls (TASK36
+#     then TASK37 -- the second call is a *different* task, gated on the
+#     first being done, not a repeat), miranda suck/touch cock, touch cock.
+#     `fuck miranda's tits`/`miranda suck cock`/`miranda touch cock`/`touch
+#     cock` additionally require slacks off, and `miranda fuck me` requires
+#     both sweater and slacks off. Six more acts (touch/suck miranda's tits,
+#     touch/spank/miranda touch ass) are flavour-only (no score) but still
+#     bump `mir`, same as every scoring act above.
+#   - The finale, `fuck miranda's ass` (+4, ends the game), is double-gated:
+#     TASK37 (the second `fuck miranda`) must be done, AND `mir` must reach
+#     >=15 -- restr type=4 v1=3 decodes to Variables[3-2]=`mir` per
+#     scdump.cpp's "RESTR type=4 names it by index + 2" comment. Doing all 17
+#     mir-bumping acts above once each leaves mir=17, comfortably clearing
+#     the threshold. `suck/kiss miranda's ass` is a permanent refusal (no
+#     ACT block at all) and must not be attempted.
+# 34 commands, no env vars. Final run: score 30 out of the maximum 30 (100%),
+# ending "Well done - you scored maximum points!"
+cldone_solution.txt|cldone.taf|Well done - you scored maximum points!|
+# Scandal.taf (AIF, adult content -- see /goldens/.gitignore): "Scandal on
+# the Seven Seas" by Faraday, v1.1, May 2007. Regency-era pirate romp:
+# aboard "Cutlass" Liz's ship, the player boards and duels the captain of a
+# merchantman rumoured to be carrying Admiral Byng's daughter, who turns
+# out to be Lady Penelope Byng travelling incognito. The game has no score
+# ("There is no score, but you can lose") -- the win condition is reaching
+# one of its endings without dying. Derived via SCR_DUMP_TASKS structural
+# dump plus interactive replay through harness/scare. Notable subsystems:
+#   - Sea battle: `close` (close to boarding range) then `single shot`
+#     repeatedly has no reload cooldown, so firing it 20 times in a row
+#     drives the enemy captain's hidden health variable (`croatoan`) deeply
+#     negative before ever boarding.
+#   - Duel: `board` starts a swordfight where Liz's duel-start health is
+#     computed as `liz + croatoan`; having driven `croatoan` to -34 first
+#     makes that sum deeply negative, so the very first `thrust` wins
+#     instantly with zero damage taken. Skipping the `single shot` grind
+#     still wins the duel eventually, but risks player-health loss across
+#     several rounds -- this walkthrough takes the zero-risk path.
+#   - After `west` (into Penelope's cabin) and `victorious`, a Proper
+#     Conversation minigame gates access to Penelope's affections: two
+#     hidden accumulators, seemliness (`sl`) and amusement (`am`), are each
+#     nudged by a random amount (`changesl`/`changeam`) every turn depending
+#     on which of three remark verbs is used -- `neutral remark` (favours
+#     `am`), `personal remark` (balanced), `sexy remark` (favours both, more
+#     strongly). `sl<=0` or `am<=0` on any turn is an immediate, permanent
+#     EndGame loss ("cross"/"bored" flavour tasks) -- there is no recovery.
+#     `am>=6` reaches the "hanging from your lips" good state, which is
+#     required before `ask penelope about tea` will succeed. `ask penelope
+#     about the weather` is a one-time-only safety valve that unconditionally
+#     resets both accumulators (am=1, sl=4) and was used once mid-sequence
+#     here to recover safety margin. This walkthrough's 16-remark sequence
+#     was derived by an exhaustive backtracking search over the three remark
+#     verbs (plus the one-time reset) against the engine's fixed RNG seed,
+#     rejecting any branch that would cross either accumulator's zero
+#     threshold, until `am` first reaches 6.
+#   - Once tea is unlocked, any affectionate/intimate command toward
+#     Penelope (kiss/hug/touch) attempted BEFORE `ask penelope about tea`
+#     has been issued is a separate, unrelated instant-death trap ("you jump
+#     into the cooling ocean") -- tea must always come first.
+#   - The finale offers a two-way choice: `tell penelope about byng` (this
+#     walkthrough's ending -- Penelope, Liz and the player become "the
+#     scourge of the British fleet" and Admiral Byng resigns in disgrace) or
+#     the alternative `don't tell`, not taken here.
+# 49 commands, no env vars. Final run: no numeric score (none exists in this
+# game); reaches the "tell penelope about byng" ending with the player's
+# health untouched throughout (no combat or accumulator-threshold damage
+# taken), closing on the game's own "Thanks for playing" credits.
+scandal_solution.txt|Scandal.taf|Admiral Byng resigns from his|
+# Blood_Relatives.taf -- Sophie's family gathers for Aunt Petunia's funeral in
+# the Main room (room0) of Sophire Mansion; the game's designed win (drop a
+# treasure retrieved from a vault, room86, triggering an Event7->8->9 "End of
+# the game, Sophie..." cascade) is a genuine, provable authoring bug and is
+# NOT reachable, so this walkthrough targets the maximum score that actually
+# IS reachable instead. Derived via SCR_DUMP_TASKS structural dump plus
+# interactive replay through harness/scare.
+#   - Only four tasks in the whole .taf carry an ACT type=4 (change score):
+#     TASK9 `x *petunia` (+3, needs `open *coffin` done first), TASK10
+#     `open *door` (+2, needs the bronze key), TASK16 `x *henry's painting`
+#     (+3) and TASK17 `tidy * room` in room5 (+5) -- 13 points total.
+#   - TASK10's bronze key is unobtainable. Its only source is TASK391 (`open
+#     drawer` in Aunt Petunia's room, room12), gated on TASK385 (`open drawer`
+#     needs `exam desk` -- TASK385 -- done first). But the .taf's own SYNONYM
+#     table rewrites the player's typed verbs `exam`/`examine` to `x` before
+#     any task pattern is matched, and that rewrite is never applied to the
+#     game's own stored task patterns -- so TASK385's literal pattern
+#     `exam desk` can never be matched by anything a player can type (`x desk`
+#     doesn't match it either; the pattern's verb word itself is dead). No
+#     other task anywhere places obj6 (the bronze key). TASK385 is one of many
+#     `exam ...` tasks broken the same way (room10, room35, room87 all have
+#     their own dead `exam desk` variants), but this is the only one gating a
+#     scoring task. This caps the practically-achievable score at 11/13.
+#   - The room86 vault is separately unreachable on its own terms even before
+#     the above: its only entrance (EXIT room81 N / room86 S) is gated on
+#     TASK344, whose restriction is Type4/Var1=0 ("referenced number" ==1) --
+#     per scrunner.cpp's scr_ref_number_guard, a game with no number-wildcard
+#     task pattern anywhere (true here) can never set that value away from its
+#     initial 0, so TASK344 -- and the win task (TASK345 `drop treasure`) it
+#     gates -- can never run, in Scarier or the real Runner alike. This is the
+#     same class of bug as Sandy.taf's unwinnable win condition.
+#   - All three reachable scoring tasks (9, 16, 17) sit in room0 or one step
+#     away: `open coffin` and `x *petunia` fire in room0 itself; `x henry's
+#     painting` is also room0 (a talking-painting cutscene, no score-blocking
+#     restriction); then `u` (Top of stairs) and `n` reach room5, Sophie's own
+#     untidy bedroom, for `tidy * room`. The room0 S exit (gated on TASK10,
+#     the unreachable door) and N exit (gated on TASK249, a separate branching
+#     "freeze on the spot" bad-end trap keyed on an equally-unset variable)
+#     are both avoided entirely by this route.
+# 6 commands, no env vars. Final run: score 11/13 (the practical maximum;
+# 13/13 is unreachable, see above), closing on TASK17's completion text after
+# `tidy room`, which does not end the game.
+bloodrelatives_solution.txt|Blood_Relatives.taf|you did find your bed|
+# Paint.taf -- office-painting comedy for the tyrannical Mr Ostinolypakalopodopous
+#   (aka "Mr O"). Scoring is a checklist of dozens of small ACT type=3 (add to
+#   xscor, VAR7) actions triggered by talking to coworkers, painting each named
+#   surface, and playing along with several scripted subplot events, gated by a
+#   final score-threshold ending ladder.
+#   - Ending is decided by master task "mr o returns", whose Actions list
+#     (TASK282-284 then TASK273-279, run in that fixed order) first applies
+#     three -5 xscor penalties -- one apiece -- if Ted/Stan/Rob are not in the
+#     same room as the player at that instant (Type3 restriction, "not in same
+#     room as"), THEN dispatches to the score-bracket ending task: TASK273
+#     (xscor>70, "best ending"), TASK274 (50-69, second best), down through
+#     TASK278/279 (worst). The live `score` command shows the raw xscor value
+#     *before* these end-of-game penalties are applied, so it can overstate the
+#     effective score by up to 15 if any of the three NPCs have been removed
+#     from play.
+#   - Sacrificing Rob to Fortuna (`sacrifice rob`, SYNONYM-rewritten to `stab
+#     rob`) permanently removes him from every room, so the -5 "rob not here"
+#     penalty at TASK284 is unavoidable once taken. The route is nonetheless
+#     worth taking here because the resulting bonus chain (Fortuna's call +2,
+#     coffee to the resulting Abogee visitor +2, and -- earlier in the same
+#     playthrough -- the Boris counterfeit-cash sting resolving cleanly because
+#     Ted's fake-cash swap is exposed without Rob around to complicate the
+#     Bribe interrogation) nets a comfortably higher final xscor (76) than
+#     skipping it, clearing the >70 threshold even after the -5 penalty
+#     (76-5=71).
+#   - `sacrifice rob` needs Rob still present in the office; skipping this step
+#     also prevents Abogee (a state-triggered visitor, not a fixed-timer one)
+#     from ever appearing, which would strand the coffee meant for him.
+#   - Several `wait` commands are load-bearing timing placeholders, not filler:
+#     they hold the exact turn count needed so that `give beer to thor` lands
+#     after Thor's entrance and before his rage timer expires, `give cash to
+#     boris` lands after Boris physically arrives (his entrance line prints
+#     *after* the command that would otherwise try to target him, causing
+#     "who do you want to give to?" if attempted one turn early), and the two
+#     `yes` answers land on Officer Bribe's actual counterfeit-money question
+#     rather than being consumed early as a no-op affirmation.
+#   - `water plant` (after `fix desk`) is a same-turn-window +1 scoring action
+#     using coffee already carried for Abogee's earlier visit.
+#   - After the second `yes` (the Bribe interrogation payoff), exactly 13
+#     trailing `wait` commands are required for the "Mr O returning" cutscene
+#     to fire and reach the scored ending; the game stops accepting input once
+#     the ending prints, so any additional padding here would simply be
+#     dropped.
+# 81 commands, `SCR_SKIP_WAITKEY=1`. Final run: raw score 76 (confirmed via an
+# interim `score` check just before the endgame cascade), landing on "Well
+# done! You've reached the best ending in the game!" after the -5 "rob not
+# here" endgame penalty (76-5=71, still >70).
+paint_solution.txt|Paint.taf|Well done! You've reached the best ending in the game!|SCR_SKIP_WAITKEY=1
 EOF
 }
 

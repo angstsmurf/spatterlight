@@ -1200,14 +1200,17 @@ agents' own reported command counts before proceeding.
   player — 8 explicit waits hit the threshold. 22 commands,
   `SCR_SKIP_WAITKEY=1`.
 - **Tenebrae Semper** (Seciden Mencarde, EctoComp 2010 "3 Hours", 9,757
-  bytes) — **confirmed unwinnable**, not merely unreached: all three
-  authored endings are dead by construction (one task has zero `ALTCMD`
-  entries and can never match input; the sole door to the other two
-  endings' shared prerequisite room is gated by a task with no `ACT`
-  entries at all, so its `CompleteText` alone marks the command handled
-  and the engine never falls through to real movement) — verified against
-  `run_all_commands()`/`task_run_task_unrestricted()` as faithful Runner
-  behaviour, a genuine author defect. Row demonstrates the fullest
+  bytes) — **confirmed unwinnable in run400 too** (2026-08-30, Wine
+  transcript `Adrift_1_tenebrae_probe4.txt`): the night-time rooms (6
+  Forest Path, 7 Lauren's Room – Night) are entered only by tasks 19/23,
+  which themselves live in rooms 6/7; the hallway door task 16 (`* u *` /
+  `* n *`, needs the stairwell task) prints the forest text with no
+  actions, and the countdown event's task 17 has no actions either, so the
+  player is still in the Science Center Hallway after eight waits and
+  `examine pillow` stays "An ordinary pillow". Genuine author defect, not
+  a Scarier divergence. Also Runner-proved: the golden's `take pens` had
+  to become `get pen` — task 0 is `get * pen(s)` and 4.0 task matching is
+  verb-literal (no take↔get synonymy). Row demonstrates the fullest
   reachable content instead. 34 commands, `SCR_SKIP_WAITKEY=1`.
 - **Helsing** ("Steve Van Helsing: Process Server", 9,776 bytes) — **WON**,
   no score system, the game's only ending. A flavor-only jukebox command
@@ -1931,16 +1934,17 @@ counted, never-decrementing exclusion).
   to "GAME OVER" for this ending, repurposing the "loss" action type as the
   story's sole intended conclusion rather than an authoring bug. 54
   commands, `SCR_SKIP_WAITKEY=1`.
-- **zelda** — UNWINNABLE as authored. "get/take wooden key" (Tree Room)
-  prints "Taken." but has no ACT statement that actually grants the key
-  object — every phrasing tried, confirmed via post-attempt inventory
-  check. That key gates the only door into the Wizrobe Room, whose Dodongo-
-  fight/raft chain is the sole route to the eastern continent (rooms
-  35–61), holding the only EndGame(win) task and 138 of 197 scoring points.
-  Verified maximum reachable score: 59/197 (29%). A second, moot authoring
-  bug: entering the Graveyard with the shield equipped destroys it via a
-  Like-Like task with no compensating relocate action. 79 commands,
-  `SCR_SKIP_WAITKEY=1`.
+- **zelda** — WINNABLE, 197/197 (verdict corrected 2026-08-30; the earlier
+  "UNWINNABLE, max 59/197" entry was wrong). The tree's "wooden key" task
+  really is a no-op decoy, but the Tree Room door wants the *small* key:
+  enter the Graveyard with the shield while wearing the Ganon mask, and the
+  Like-Like event (twig → breathing → swallowed) spits you out and drops it
+  ("CLINK!") — the old golden walked through that very scene and left the
+  key on the ground; the shield survives in the Tunnel. The rest of the game
+  (iron key, Dodongo, raft, spheres, King Zora, cliff, Ganon) is
+  deterministic. Proved in the real run400.exe under Wine
+  (Adrift_2_zelda_win.txt, 188/188 echoed, responses match Scarier). 188
+  commands, `SCR_SKIP_WAITKEY=1`.
 - **Showtime_at_the_Gallows** — babysitting horror-comedy. No score system;
   every outcome (death or true ending) is a plain room-move into "The End",
   not an EndGame action. Several puzzles are deterministic NPC-patrol
@@ -2000,6 +2004,239 @@ counted, never-decrementing exclusion).
   divergence; it contributes no unique content. 58 commands, no env vars.
 
 **65 unwired files remain** after this batch.
+
+**Fifteenth batch, 2026-08-29 → 2026-08-30: 7 wired, 3 declined, suite → 382
+rows.** Continuing smallest-first (48,080–55,650 bytes: `ssteacher.taf`,
+`For_Love_of_Digby.taf`, `Greek School Adventure.taf`, `Hunting Ground.taf`,
+`JimPond.taf`, `frustrated.taf`, `sibling seduction.taf`,
+`Sigurd_Fafnesbane.taf`, `Camelot 1,5.taf`, `Unfortunately.taf` — 10
+candidates this time, not 8, since two resolved as quick declines with no
+derivation needed). A vocabulary scan surfaced three declines and seven
+clean games; every score/win-marker claim was independently re-run against
+the literal `harness/scare` invocation before wiring, per standing practice.
+
+A real environment footgun was found and worked around mid-batch: this
+session's `grep` is a shell function wrapping a `ugrep`-based binary
+(`--ignore-files --hidden -I --exclude-dir=.git …`) that can silently return
+**zero matches on a plain file it does have a hit in** — confirmed
+reproducibly on a literal win-marker substring visible in `tail` output.
+`command grep` bypasses the wrapper and is now used for every verification
+grep in this project; a `ugrep` quirk, not a Scarier one.
+
+- **`ssteacher.taf` — DECLINED, not wired.** "Substitute Sex Teacher": the
+  PC is history teacher Claire Veranda at "St. Mark's High School … a
+  preppy all boys private school"; the scoring track is her seducing a named
+  student, "Michael" — "The schoolboy looks up from his desk at me" — with
+  "a... better incentive than grades." A high-school student under a
+  teacher's sexual advances is the established `enc1.taf`/`windy.taf`/
+  `enc2.taf`/`Buffy Before the Date` pattern. Permanently excluded.
+- **`sibling seduction.taf` — DECLINED, not wired.** The game's own object
+  text states outright: "Abby is your little sister. Almost three years
+  younger than you, Abby is only a month shy of her fifteenth birthday."
+  Sexualized-minor content, independent of anything else in the file.
+  Permanently excluded.
+- **`Hunting Ground.taf` — DECLINED, not wired.** A derivation agent's
+  first briefing (built from an earlier, too-shallow vocabulary pass) called
+  this a clean mystery; a full playthrough attempt found otherwise, and
+  reading the game's own plaintext directly confirmed it: no minor
+  characters, but the scoring path requires drugging, restraining, and
+  gagging an adult NPC ("Alexia"), narrating the player character's sexual
+  arousal while doing so ("a part of me stirring to do... other things...
+  to her first", "ignoring the stirring between my legs"), immediately
+  before a strangulation murder written as the scene's climax. This is a
+  category the project has not had to rule on before — non-consensual
+  sexualized violence culminating in murder, not consensual adult content
+  and not a sexualized minor — and it is declined on the same footing as
+  the minor-content declines: content the game's own narration depicts,
+  independent of whether it can be avoided. No `.gitignore` entry is needed
+  (nothing was ever wired or committed, matching `aparty.taf`/`delight.taf`/
+  `awakening.taf`). The agent's 246-command draft solution was also never a
+  confirmed win by its own account (no EndGame screen fired), which would
+  have needed further investigation regardless of the content question;
+  moot now. Permanently excluded.
+
+The seven wired games:
+
+- **`For_Love_of_Digby.taf`** ("For Love of Digby") — WON. 95-command
+  golden, `SCR_SKIP_WAITKEY=1`.
+- **`Sigurd_Fafnesbane.taf`** ("Sigurd Fafnesbane") — WON, a short one:
+  12-command golden, `SCR_SKIP_WAITKEY=1`.
+- **`Unfortunately.taf`** — WON ("An ending to be sure - and the best one in
+  the game to boot!"). Content-vetted: the file's lone flagged "sex" hit is
+  a clean comedic non-human joke, not a person. 60 commands,
+  `SCR_SKIP_WAITKEY=1`.
+- **`frustrated.taf`** — WON maximum points. 85 commands,
+  `SCR_SKIP_WAITKEY=1`.
+- **`Camelot 1,5.taf`** — WON ("Looks like the old Merlin did read your mind
+  correctly after all."). 56 commands, `SCR_SKIP_WAITKEY=1`.
+- **`JimPond.taf`** — WON. The golden's transcript never itself displays the
+  final score, so a scratch copy with `score` appended was run to confirm
+  it before wiring. 127 commands, `SCR_SKIP_WAITKEY=1`.
+- **`Greek School Adventure.taf`** — 185/275 (67%), the confirmed ceiling
+  for this route. 165 commands, no env vars.
+
+Two more real Scarier fixes came out of independent Wine-Runner ground-truth
+work running alongside this batch (not part of the vocabulary-scan/derive
+loop, but landing in the same window): **`lib_typed_verb()`** in
+`sclibrar.cpp` — 4.0 task command matching is verb-literal (no take↔get
+synonymy: `TenebraeSemper.taf`/`COBL.taf`/`Greek School Adventure.taf`/
+`man overboard.taf` run400 probes), so the library's object-command retry
+now reuses the verb the player actually typed instead of always
+canonicalizing to "get"/"drop" — and a corrected verdict for **`zelda.taf`**
+(Legend of Zelda fan-fiction), which the Fourteenth batch had called
+UNWINNABLE at a 59/197 ceiling. It is actually **WINNABLE, 197/197**: the
+Tree Room door wants the *small* key, which a Like-Like event drops in the
+Graveyard when the player wears the Ganon mask there, not the decoy "wooden
+key" the earlier pass fixated on. Both proved live in run400 under Wine
+(`notes/WINE-TRANSCRIPTS-TODO.md`); goldens re-blessed, rows updated.
+
+Rebuilding after these engine changes turned up one unrelated stale golden,
+fixed the same day: `where_refusal_expected.txt` (the synthetic Where-probe
+regression, not part of the game corpus) was blessed 2026-08-10, five days
+before commit `0318bd25` ("a bare Return is a parser complaint, not
+silence") changed what a genuinely empty command line prints. `make test`
+had not been run since, so `wheretest` was failing at HEAD independent of
+anything in this batch. Re-blessed via `make wherebless`; `make test`
+passes clean (382/382 corpus rows, all synthetic suites green).
+
+Re-running the unwired-file count via `comm -23` gives **61 files list as
+unwired** — down only 4 net from 65 because 3 of this batch's 10 candidates
+are now permanent declines that never decrement the count (`ssteacher.taf`,
+`sibling seduction.taf`, `Hunting Ground.taf`, joining `aparty.taf`/
+`delight.taf`/`awakening.taf`/`enc1.taf`/`enc2.taf`/`windy.taf`/`Buffy
+Before the Date.taf` for 10 total). That raw 61 also includes three files
+outside the original smallest-first queue entirely — `ONNAFA.TAF`,
+`YADFA.TAF` (uppercase `.TAF`, missed by a case-sensitive glob somewhere
+upstream) and `Older.zip` (not a game file) — genuinely-pending candidates
+number closer to 48.
+
+**Sixteenth batch, 2026-08-30: 8 wired, 0 declined, suite → 390 rows.**
+Continuing smallest-first (55,650–75,243 bytes: `Riding_Home.taf`,
+`volant.taf`, `BarneysProblem.taf`, `Trick or Treat.taf`,
+`HalloweenHijinks.taf`, `Full_Circle.taf`, `Dear Diary.taf`, `Dear Diary
+2.taf`). A vocabulary scan flagged concerning-looking hit counts in several
+of these (`volant.taf`'s `rape:7`/`child:2`/`teen:3` against only 14 total
+hits; `BarneysProblem.taf`'s `teen:48`/`underage:4`/`molest:2`; `Trick or
+Treat.taf`'s `minor:1`/`child:4`; `HalloweenHijinks.taf`'s `child:18`;
+`Full_Circle.taf`'s `child:11`; `Dear Diary.taf`'s `minor:1`/`rape:1`;
+`Riding_Home.taf`'s `rape:2`/`teen:1` against 474 total hits) — every single
+one resolved to a false positive on direct context read, and this batch
+ends with zero declines, the first clean sweep since declines started
+turning up:
+
+- `volant.taf`'s seven `rape` hits are all the substring `draped` (bed
+  linens); its two `child` hits are a hypothetical-future-children aside and
+  a childhood-stream memory; its three `teen` hits are the numerals
+  `fourteen`/`fifteen`. The one `cum`/`sex` hit is `documentaries` and
+  wanting to look "sexy" (an adult character, said to another adult). No
+  AIF content of any kind — an ordinary sci-fi story.
+- `BarneysProblem.taf`'s `underage` hits are all a comedic disco-scene aside
+  about background children illegally drinking beer, not sexual. Its `teen`
+  hits split into two groups: 48-of-48 read, the sex-shop "teenagers" are a
+  foul-mouthed, non-sexual slapstick-violence side-plot (`kill *teenager*
+  with *sword*`, dialogue like "Wot u lookin' at, git?"), and the named love
+  interests (Sarah, Jodie, Alicia, "girl") are independently confirmed
+  adults — each has her own house with her own bedroom, and "girl" is
+  described explicitly as "about eighteen-ish." The two `molest` hits are
+  both a *failed, thwarted* assault attempt played for slapstick (the target
+  knees the PC in the groin; nothing is completed) — not the graphic,
+  narration-endorsed non-consensual violence that got `Hunting Ground.taf`
+  declined. Ordinary consenting-adult AIF; wired and gitignored.
+- `Trick or Treat.taf`'s `minor` hit is "minor character flaws" (an idiom,
+  not a person); its `child` hits are a childish drawing, a
+  happily-married-with-children epilogue aside, a comedic "child-murdering
+  weirdo" epithet for a spooky NPC, and the idiom "wits of a small child";
+  its `strip` hits are a striped rug and a poster torn "in strips." Not
+  adult content at all — an ordinary Halloween comedy.
+- `HalloweenHijinks.taf`'s 18 `child`/`children` hits are all a vampire NPC
+  ("Professor Squick") addressing trick-or-treaters as "child" in
+  Victorian-vampire affectation, and a background gag about the character
+  being out of touch with children "since the mid-70's" — comedic horror,
+  no sexual content.
+- `Full_Circle.taf`'s 11 `child` hits are all non-sexual: a skull "the size
+  of a child," repeated "childhood" memories/nostalgia, and a "childhood
+  sweetheart" engagement subplot. Ordinary fantasy/horror.
+- `Dear Diary.taf`'s one `minor` hit is a fourth-wall content-warning aside
+  ("every minor reading this... should leave now") addressed to the
+  *reader*, not a character in the story. Its one `rape` hit is the literal
+  task-pattern name `rape %character%` — but reading the task's own action
+  text shows it is a deliberate **refusal**: typing it prints "I mean, I
+  know there's evil inside everyone, but I'd never thought I'd find it in
+  myself... I was disgusted by the mere thought of it" and nothing happens.
+  Same shape as the `TenebraeSemper`/`hangover` retry-refusal patterns
+  documented elsewhere — the author blocked the action outright rather than
+  depicting it. Ordinary consenting-adult AIF (confirmed via Erin, an adult
+  love interest with her own house/bedroom); wired and gitignored.
+- `Riding_Home.taf`'s two `rape` hits are `draped` and a single narrated
+  fear-of-crime aside ("Someone might rape you while you sleep" — a risk the
+  PC worries about for herself, never depicted) amid 474 otherwise-ordinary
+  explicit-adult-vocabulary hits; its one `teen` hit is a walk-on
+  "teenager" mentioned only as the paid lawn-mowing boy, no sexual content
+  directed at him. Ordinary consenting-adult AIF; wired and gitignored.
+- `Dear Diary 2.taf`'s one `child` hit is the adjective "childish" (an
+  unrelated object description). Ordinary consenting-adult AIF; wired and
+  gitignored.
+
+The eight wired games:
+
+- **`Trick or Treat.taf`** — WON, 270/270 (100%), confirmed by the game's
+  own `score` command and closing narration. No ACT-4/ACT-6 scoring or
+  EndGame at all — 39 direct variable increments plus three bonus tasks; the
+  ending is a plain move-player action, not a scored EndGame. A numbered-menu
+  battle against a "crazy old man" (bare digits 1–11, not ADRIFT's Battle
+  system) is won with the deterministic choice sequence `1,3,6,8,9`. The
+  game's own built-in `walk` debug hint omits a +5 carrot/donkey subplot,
+  which had to be found independently to reach the full score. 213
+  commands, `SCR_SKIP_WAITKEY=1`.
+- **`volant.taf`** ("Starship Volant: Stowaway") — WON ("You have won! Good
+  for you!"). No numeric score at all (`MaxScore: 0`, `NoScoreNotify: 1`);
+  win/loss is purely narrative. Playable perspective auto-switches between
+  six NPCs via timed Events, never by player command. The game's own
+  built-in `walkthrough` hint silently omits a second `talk to techthon`
+  needed to arm the Event chain that advances the story — found only by
+  live play. 60 commands, no env vars.
+- **`BarneysProblem.taf`** — 114/121 checklist points (plus at least one
+  unlisted bonus), clearing the `>110` threshold for the best of five
+  endings. Win marker `BABYLON` (the game's own closing text: "the password
+  to the game... is BABYLON"). 133 commands, `SCR_SKIP_WAITKEY=1`.
+- **`HalloweenHijinks.taf`** — reached the best of five tiered endings (8
+  treats, clearing the `>6` threshold), no stated numeric maximum. A real
+  desync bug was caught during wiring: the first bless attempt silently
+  dropped a stdin line mid-script because `SCR_SKIP_WAITKEY=1` was initially
+  missing from the manifest row — a hidden keypress pause (not one of the
+  visible "...press a key..." beats) ate a command and corrupted every
+  movement command afterward, confirmed via a byte-for-byte transcript diff.
+  89 commands, `SCR_SKIP_WAITKEY=1`.
+- **`Full_Circle.taf`** — 51/52, reaching the best/canonical ending ("Full
+  Circle has ended."). The `.taf` contains an embedded author's walkthrough
+  (a `CompleteText` block), followed almost verbatim; two spots needed live
+  resolution beyond the literal text (a seed-fixed cairn direction, and a
+  lethal beast trap avoidable only by a much-earlier pendant placement). The
+  one missing point is a memory-fragment pickup on an alternate path never
+  walked. 222 commands, `SCR_SKIP_WAITKEY=1`.
+- **`Dear Diary.taf`** — WON, 300/300 (100%), every one of 23 scoring tasks
+  fires. Win marker `FUCK YOU ERIK`. 134 commands, `SCR_SKIP_WAITKEY=1`,
+  gitignored (AIF).
+- **`Riding_Home.taf`** — WON, 100/100 (100%) ("you scored maximum
+  points!"). Getting off the bus silently instant-loses the game if a
+  hidden `GameProgress` sum (paper/sex/hire/three phone calls) is under 90 —
+  found only via structural dump, not from any in-game hint. 57 commands,
+  `SCR_SKIP_WAITKEY=1`, gitignored (AIF).
+- **`Dear Diary 2.taf`** — WON, 300/300 (100%) ("you scored maximum
+  points!"). 68 commands, `SCR_SKIP_WAITKEY=1`, gitignored (AIF).
+
+Every score/win-marker claim in this batch was independently re-run against
+the literal `harness/scare` invocation (not just the derivation agent's own
+`--bless` step) before being accepted, per standing practice; the full
+`sh harness/run_v4_walkthroughs.sh` corpus run afterward shows all 390 rows
+PASS, zero FAIL/NEEDGOLD/SKIP.
+
+Re-running the unwired-file count via `comm -23` gives **53 files listed as
+unwired**, down 8 from 61. Excluding the 10 permanent declines
+(`aparty.taf`/`delight.taf`/`awakening.taf`/`enc1.taf`/`enc2.taf`/
+`windy.taf`/`Buffy Before the Date.taf`/`ssteacher.taf`/`sibling
+seduction.taf`/`Hunting Ground.taf`) and the one non-game file
+(`Older.zip`), genuinely-pending candidates number **42**.
 
 ## Camp Windy Lake : Part 2 (2026-08-12) — the AIF treatment, done once
 

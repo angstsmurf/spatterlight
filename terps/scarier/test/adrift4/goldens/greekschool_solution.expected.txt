@@ -1477,7 +1477,7 @@ Also here is take home exam.
 
 You can only move west.
 
-> take exam
+> get exam
 You take take home exam.
 
 > west

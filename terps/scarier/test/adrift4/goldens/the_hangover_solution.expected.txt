@@ -6,6 +6,9 @@ A Red Conine Game
 
 Copyright @ 2009
 
+> stand up
+You stand up from your bed.
+
 > x closet
 This closet is so stuffed that if a single thing was taken out, it could very
 well all fallout and risk your very own death. The only thing that seems to

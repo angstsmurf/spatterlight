@@ -42,7 +42,7 @@ ready. Probably only a few minutes till class."
 > open desk
 You open your desk.  The pens are inside your desk.
 
-> take pens
+> get pen
 You take a pen from the drawer.
 
 > examine my dresser
