@@ -699,7 +699,7 @@ all over.
 I can tell you nothing about that.
 
 > x desk
-A fine rolltop desk (not made of teak).  The rolltop desk is closed.
+A fine rolltop desk (not made of teak).  The desk is closed.
 
 > open desk
 You open the rolltop desk.  Inside the rolltop desk is some bills, an
@@ -750,7 +750,7 @@ The furniture here is getting a little wobbly on account of all this water.
 
 > x fridge
 The fridge has shorted out.  (The microwave seems still to be going, though.)
- The small fridge is closed.
+ The fridge is closed.
 
 > e
 You move east.

@@ -35,8 +35,8 @@ Greg is here, annoying you with his mere presence.
 The desk drawer slides open.
 
 > x Shane's Desk
-The desk drawer has been opened.  Shane's Desk is open.  A Correspondence Set
-is inside Shane's Desk.
+The desk drawer has been opened.  The Desk is open.  A Correspondence Set is
+inside Shane's Desk.
 
 > get all from desk
 You take the Correspondence Set from Shane's Desk.

@@ -5094,8 +5094,28 @@ lib_cmd_examine_object (scr_gameref_t game)
           " is open.", " is closed.", " is locked."
         };
 
+        /*
+         * How the object is named here splits at 4.0.  run370, run380 and
+         * run390 all build the line as `"  The " & Name & " is open."` from
+         * the bare Short name -- run370 loc_435629/loc_435659, run380
+         * loc_43CF4A/loc_43CF7A, run390 loc_44BE84/loc_44BEB4 -- so a
+         * multi-word prefix vanishes: gamma.taf (3.90, Prefix "a mini",
+         * Short "fridge") measures `x mini fridge` as "The fridge is
+         * open." (Adrift_3_gamma.txt).  run400 instead composes the name
+         * with the tensed prefix (Proc_21_31_448710 at 4717D1): man
+         * overboard.taf (4.00, Prefix "the set of", Short "drawers")
+         * measures `x drawers` as "The set of drawers is closed."
+         */
         lib_new_clause (game, is_described);
-        lib_print_object_np (game, object);
+        if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+          {
+            pf_buffer_string (filter, "the ");
+            pf_buffer_string (filter,
+                              prop_get_indexed_string (bundle, "Objects",
+                                                       object, "Short"));
+          }
+        else
+          lib_print_object_np (game, object);
         pf_buffer_string (filter, states[openness - OBJ_OPEN]);
         is_described |= TRUE;
       }

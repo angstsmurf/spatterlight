@@ -95,8 +95,8 @@ All the lockers, bar a bright red one, appear to be locked.
 
 > x red locker
 The bright red locker appears to be the only one which isn't locked.  The
-locking mechanism in the locker requires a coin to lock it.  The red locker
-is open.
+locking mechanism in the locker requires a coin to lock it.  The locker is
+open.
 
 > close it
 (the red locker)
@@ -106,8 +106,8 @@ fallen out of the locking mechanism.  I open the door again.
 > x it
 (the red locker)
 The bright red locker appears to be the only one which isn't locked.  The
-locking mechanism in the locker requires a coin to lock it.  The red locker
-is open.  Inside the red locker is a small silver coin.
+locking mechanism in the locker requires a coin to lock it.  The locker is
+open.  Inside the red locker is a small silver coin.
 
 > get coin
 I take a small silver coin from the red locker.
@@ -720,7 +720,7 @@ I can only move down.
 > x window
 The window is small and in desperate need of a clean.  It looks out onto the
 village Post Office.  The Post Office roof is flat.  It looks like there's a
-small cat stuck on the roof.  The motel window is closed.
+small cat stuck on the roof.  The window is closed.
 I'm starting to sober up.
 
 > open door

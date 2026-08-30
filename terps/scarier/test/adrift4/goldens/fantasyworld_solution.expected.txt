@@ -1630,9 +1630,9 @@ then storms out.
 You break open Jed's trunk.
 
 > x heavy trunk
-This chest holds the treasures of Jed Hobble and his daughters.    Heavy
-trunk is open.  Inside heavy trunk is leaf circlet, Meggle's deed and
-meticulous notes.
+This chest holds the treasures of Jed Hobble and his daughters.    The trunk
+is open.  Inside heavy trunk is leaf circlet, Meggle's deed and meticulous
+notes.
 
 > get circlet
 You take leaf circlet from heavy trunk.

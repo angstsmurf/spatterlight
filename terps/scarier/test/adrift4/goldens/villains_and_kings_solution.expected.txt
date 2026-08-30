@@ -259,15 +259,14 @@ You can move north and south.
 
 > x Cracked Broken Window
 Hey, this window is broken.  Who would do such a dastardly, dastardly deed?
-Cracked Broken Window is open.  A Soap on a rope is inside Cracked Broken
-Window.
+The Broken Window is open.  A Soap on a rope is inside Cracked Broken Window.
 
 > take soap on a rope
 You take a Soap on a rope from Cracked Broken Window.
 
 > x window
 Hey, this window is broken.  Who would do such a dastardly, dastardly deed?
-Cracked Broken Window is open.
+The Broken Window is open.
 
 > close window
 You can close the thing very easily, and as you do, it locks back into place

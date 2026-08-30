@@ -515,6 +515,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `3monkeys.taf` | 4.00 | live run400 replay of the solution's first 36 commands, `Adrift_16.txt` | the Runner really does print the raw `CHIMPSIGNAL=0`; the variable freeze is not a port artefact |
 | `Oh_Human.taf` | 4.00 | full run400 replay, `Adrift_1_ohhuman.txt` (feed `cmdfile_ohhuman.txt` -- no `_w_`, which is why the 2026-08-30 re-sweep missed it) | 9/9 identical on every turn; compared 2026-08-30 |
 | `wingman1.taf` | 3.90 | full run390 replay, `Adrift_3_wingman1.txt` (POPUP_ANSWERS name dialog, feed `cmdfile_wingman1.txt`) | 32/32 identical but the tail -- once the 3.9 `(Getting off ...)` correction below landed |
+| `gamma.taf` | 3.90 | full run390 replay, `Adrift_3_gamma.txt` (POPUP_ANSWERS name dialog, feed `cmdfile_gamma.txt` -- 185 commands, the golden's `#` comment lines stripped) | 185/185 identical but the tail, all 4 walks and 10 NPCs in step -- once the pre-4.0 openness-line fix below landed |
 | `sa.taf` (`sophie`) | 4.00 | live run400 replay, `Adrift_41_sophie.txt`..`Adrift_45_sophie.txt` (five runs of the solution's first fifty commands), plus the game's own 488-entry ALR table | the walk announcement is **joined into the turn's paragraph**, so 12 of sa.taf's 65 join-spanning ALRs fire and delete the arrivals they match -- see the FIXED section below |
 | `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
 | `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased**, and **what is *on* an object is listed before what is *in* it, in one sentence** -- see the two FIXED sections below.  Also closed the `knock` lead (a feed artefact) and pinned `burn memo` on the 4.0 `%object%` case rule (FIXED) |
@@ -4321,3 +4322,35 @@ the refusal-exit retry in `lib_take_backend_common` now goes through
 to `take poster`, and the full v4 suite is 395/395 PASS.  The
 man_overboard replay against its Runner transcript is again clean but for
 the expected `[Press any key to end]` tail.
+
+### gamma's fridge: the pre-4.0 examine openness line is "The <Name>", prefix dropped
+
+The gamma drive (run390, 185 commands) came back clean except one turn:
+`x mini fridge` answers "This is a small box-shaped fridge.   **The fridge
+is open.**  A bottle of rum is on the mini fridge." where we printed "The
+mini fridge is open."  The object is Prefix `a mini`, Short `fridge`
+(OBJNAME dump), and the openness sentence uses the bare Short name while
+the contents sentence in the same message keeps the full name.
+
+The decompile has it as a literal in all three pre-4.0 Runners -- the
+line is `"  The " & Name & " is open."`, no prefix anywhere near it:
+run370 loc_435629/loc_435659, run380 loc_43CF4A/loc_43CF7A, run390
+loc_44BE84/loc_44BEB4.  run400 is different: it composes the name with
+the tensed prefix (Proc_21_31_448710, mode 0, at 4717D1/47182B), and
+that side was already measured live -- man overboard.taf's drawers are
+Prefix `the set of`, Short `drawers`, and run400 says "The set of
+drawers is closed."  So 4.0 keeps the prefix exactly where 3.7-3.9 drop
+it, and Scarier's single `lib_print_object_np` call was right only for
+4.0.
+
+Fix: the openness branch of the examine describer now prints `"the " +
+Short` for `< TAF_VERSION_400` and keeps `lib_print_object_np` at 4.0.
+Eight goldens re-blessed (cybercow_win, deardiary2, fantasyworld, gamma,
+report, the_hangover, villains_and_kings, wrecked) -- every diff is the
+openness sentence alone, and several read better for it ("Heavy trunk is
+open." -> "The trunk is open.", "Cracked Broken Window" -> "The Broken
+Window").  The archived hangover run390 transcript already carried the
+proof unnoticed: `Adrift_1_hangover_run390.txt` says "The closet is
+open.  A two dollar bill is inside your closet." -- bare name in the
+openness sentence, full name in the contents sentence, in one message.
+Suite 395/395, wheretest 3/3.
