@@ -1272,12 +1272,12 @@ static const char * const GSC_USAGE_ONOFFSTATUS[] = {"on", "off", "status",
 static const char * const GSC_USAGE_ONOFF[] = {"on", "off", NULL};
 static const char * const GSC_USAGE_MAP[] = {"on", "off", "top", "right",
                                              "colour [on | off]",
-                                             "zoom [in | out | auto]", NULL};
+                                             "zoom [in | out | auto | N]", NULL};
 static const char * const GSC_USAGE_ASSIST[] = {"combat [on | off]",
                                                "move [on | off]",
                                                "repeat [on | off]",
                                                "room [on | off]", NULL};
-static const char * const GSC_USAGE_ZOOM[] = {"in", "out", "auto", NULL};
+static const char * const GSC_USAGE_ZOOM[] = {"in", "out", "auto", "N", NULL};
 
 /* The "glk help" entry for each command, printed by gsc_command_help().  Text
    between backquotes is shown in standout, as a command to type. */
@@ -1314,8 +1314,10 @@ static const char GSC_HELP_ZOOM[] =
   "Zooms the game's map, which otherwise fits itself to its window.\n\n"
   "Use `glk zoom in` and `glk zoom out` to zoom by hand; the view then pans"
   " to keep you on-screen.  Plain `glk zoom` zooms in, and `glk zoom auto`"
-  " (or `glk zoom default`) restores the automatic fit.  Each is also"
-  " understood with a map prefix, as in `glk map zoom in`.\n";
+  " (or `glk zoom default`) restores the automatic fit.  `glk zoom N` sets"
+  " the scale to N pixels per map unit (from the auto-fit floor up to the"
+  " manual zoom ceiling).  Each is also understood with a map prefix, as in"
+  " `glk map zoom in`.\n";
 
 static const char GSC_HELP_SCRIPT[] =
   "Logs the game's output to a file.\n\n"
