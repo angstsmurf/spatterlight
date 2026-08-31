@@ -1,0 +1,101 @@
+Loading game...
+
+.
+
+Intro
+Whatever Happened
+To
+Uncle Grumble?
+
+Do you require instructions (y/n) ?
+
+> n
+Who are you?
+
+Who are you?
+Before we start, let's just decide what type of hero you really are. Are you:
+
+   a)  Tall and strapping, the type of fellow who strides through life
+without a care in the world, content in the fact that, while others might
+have the brains, he has the looks.
+
+   b)  Average. The sort of hero who, in another existence, might find
+employment as a brick wall or an amusing piece of scenery. In short, pretty
+mundane.
+
+   c)  Short and ugly. Not the ideal choice for a hero you might think, but
+short and ugly sometimes wins through where tall and strapping doesn't.
+People are more likely to take pity on you because of your obvious
+shortcomings.
+
+   Whatever your decision, make it now!
+
+> a
+   Done. You're tall, strapping, handsome and likely to get into more fights
+than a professional boxer because the people of Harrenden take a serious
+dislike to people like you.
+
+   When you're ready, press a key and let the bloodshed begin...
+
+Oscoe's Sleazepit
+
+Oscoe's Sleazepit
+You're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar
+in Stipplemoore (a reputation it easily lives up to). A singer stands on a
+stage off to one side, murdering some folk song. Nearby a couple of orcs are
+setting fire to a dwarf. Over by the bar, several dubious looking individuals
+throw back pints of beer. All in all, not the best of surroundings for the
+beginning of your adventure...
+
+A flight of winding steps lead upwards, a door leads out and a corridor leads
+east
+
+Vulgur the bartender, Tarquin and Boswell are here.
+Some Orcs are here.
+
+> kill orcs
+   "Get away from the dwarf, you piece of slime!" you say to one of your orcs
+in your best 'hero' tone of voice.
+   Neither of them seem very impressed by you.
+   The biggest of them pulls out a dagger and says, "let's see how brave you
+are minus a nose or two, human."
+   And the fight is on...
+
+   You lunge at the orcs and bash at them mightily with your sword. The fight
+rages back and forth across the bar for a while, despite cries from Vulgur of
+"Oi, don't you get the buggers' blood on me floor!" but in the end you manage
+to finally get the better of them. The final count stands at you: 2, orcs: 0,
+although you took more than your fair share of wounds during the tussle.
+
+   "Thanks a bunch!" the dwarf says as the last of the orcs falls. "What the
+'ell was all that in aid of?"
+   "I just saved your life," you reply proudly.
+   The dwarf sneers. "The hell you did! I was just about ter take 'em down
+meself! Now you've only gone and made me look like a right wimp!" He pauses
+to kick the corpses a couple of times then adds, "next time yer see me being
+torched by a couple of evil buggers, leave me be. I can handle meself!"
+   The ungrateful dwarf heads out of the Sleazepit, pausing only to nut an
+unfortunate customer who holds the door open for him.
+   "Some people are hard to please," you say with a sigh.
+
+> x orcs
+   Dead, if the truth be told. But your graverobbing instincts come to the
+fore here and you swipe several coins from the pocket of one of the orcs.
+
+> buy wine
+   Vulgur takes your money card, swipes it along his bar, grunts "that'll do
+nicely," and hands you a mug of wine.
+
+> x card
+   A slim piece of card which tells you, in a way that is quite magical and
+incomprehensible to you, just how much money you have in the world. The
+balance currently stands at 5 pieces of gold.
+
+> i
+   You have with you the sword bludrinker, your money card and a mug of wine.
+
+> score
+Your score is 6 out of a maximum of 404.  (1%)
+
+> quit
+Do you really want to quit? [Y/N]

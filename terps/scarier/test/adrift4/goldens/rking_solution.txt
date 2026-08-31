@@ -1,0 +1,111 @@
+1
+roll
+l
+roll w
+x quills
+nudge quills
+nudge quills
+x quills
+roll n
+roll into patch
+roll s
+roll w
+x drawer
+x markings
+roll into crack
+nudge something odd
+nudge something odd
+nudge something odd
+nudge something odd
+roll onto ruler
+x ruler
+x marks
+bounce
+bounce
+bounce
+roll e
+read notebook
+nudge paperweight
+nudge paperweight
+roll pill
+roll through crack
+roll pill east
+roll e
+roll pill south
+read paperwork
+roll s
+x cannon
+nudge cannon
+roll pill into cannon
+wait
+roll onto creature
+roll s
+roll n
+x scrolls
+read first scroll
+read second scroll
+read third scroll
+read fourth scroll
+read fifth scroll
+roll pill into hole
+roll into hole
+read paper
+read snippets
+roll out
+nudge scroll
+nudge scroll
+nudge scroll
+nudge scroll
+nudge scroll
+roll s
+roll s
+roll s
+roll cannon
+roll s
+roll s
+roll s
+roll cannon
+roll s
+roll s
+roll s
+roll cannon
+x plaster
+roll s
+roll s
+roll w
+roll into crack
+peer into crystal ball
+peer into crystal ball
+bell
+magic
+end
+roll out
+roll e
+thrust at bell
+6
+wink
+3
+4
+6
+4
+1
+2
+5
+6
+1
+1
+2
+5
+1
+2
+5
+6
+peasants
+guards
+montrick
+cleaning
+job
+end
+4
+3
+6

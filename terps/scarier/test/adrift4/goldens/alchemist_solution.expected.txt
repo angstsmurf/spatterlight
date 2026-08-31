@@ -1,0 +1,4731 @@
+Loading game...
+
+The Alchemist
+
+For info and contacts type "info" or "about" anytime during the game. You can
+check the most recent entry to the Journal easily by typing "last entry".
+Hold onto your objects, don't forget to explore every corner and most of all,
+enjoy the game!
+
+Alessandro d'Estino's Journal
+
+February 14, 1602
+
+The road was winding between tall blue mountains and cold streams of water,
+making its way down the hills under layers of frozen snow. The carriage was
+leaving behind miles and miles of the road and days and weeks of my
+suffering. The constant monotonous horse-shoe clapping was putting me to
+sleep, time after time, never mind the chill of the frozen winds.
+
+I turned my eyes away from the cold sleeping scenery outside and for a
+thousandth time I have remembered my homeland. Leaving my country along with
+my past life had left another deep scar in my heart. Someday, still I hope, I
+will be allowed to forget about all the pain that the fate had bestowed upon
+me.
+
+But before the next sad sunset my long journey was to be finished. Then I
+could finally get my tired soul to rest and pay attention to the tasks that
+lay ahead.
+
+> talk to flavio
+"How long do you think until we arrive in Prague?" I ask my fellow traveller.
+"Well, we are almost there. Two or three days would be my guess."
+"What if we get into an ice storm?" worried I ask.
+"Well, the storm would slow us down, of course. Let us hope the carriage does
+not crash, for then we might never get there," the doctor starts munching on
+some nasty looking food from his dirty bag.
+"Well, thanks..." I try to end the conversation.
+"I have noticed you being nervous. This is your first journey, is it not so?"
+the old man grins.
+"No, not at all. But my first journey beyond the borders of Italy. And the
+weather does not add to my comfort either," I turn away from his evil,
+all-knowing grin, and watch the first snow flakes flutter in the wind.
+
+Alessandro d'Estino's Journal
+
+February 21, 1602
+
+It was late evening when the horse-shoe clapping finally hushed and the
+carriage stopped. Doctor Flavio, my not-so-pleasant company, immediately fled
+from his seat and disappeared in the snow storm.
+
+I looked through the window, where I could hardly see the marks of a big
+town, the remarkable signs of the city in the very heart of Europe and the
+center of arts and science. The roofs were all covered with snow and trees
+were kneeling under the weight of frozen branches.
+
+> x seat
+The seats are wooden and covered with some old, worn-out cloth. When I make a
+move I can hear the old wood creak.  My coat and my suitcase are on the seat.
+
+> get coat
+I take my coat from the seat.
+
+> get suitcase
+I take my suitcase from the seat.
+
+> get letter
+Take what?
+
+> wear coat
+I put on my coat.
+
+> out
+I climb down the two steps dividing the carriage floor from the cold white
+earth. The storm is raging and snow falls heavily on the stony ground. I
+fasten my coat tighter, grab my suitcase and walk into the night.
+
+> in
+I open the door and step inside.
+
+Alessandro d'Estino's Journal
+
+February 22, 1602
+
+Last night is the very right name for the night before. It was the last night
+of my long journey, and of the last week's riding blindly through the storm
+without a hope or chance.
+
+As I entered the inn and closed the gate behind me, it seemed like the most
+pleasant place to be. Like a sanctuary hidden within the hell of pain. I
+ordered a good dinner, changed my wet clothes and slept until the bright
+daylight.
+
+This morning may seem just like another beginning of a new cold day locked
+within sad winter-land, but for me it means a welcome change indeed. I am to
+make my way to the castle and to the King himself, and learn at last what
+good thing he expects of me.
+
+> open closet
+I open the closet.  My travel-clothes and my coat are inside the closet.
+
+> get coat
+I take my coat from the closet.
+
+> get suitcase
+I take my suitcase from the bed.
+
+> x table
+The table is wooden and its legs are curved in rich shapes.  The letter and
+the Bible are on the table.
+
+> get bible
+I take the Bible from the table.
+
+> get letter
+I take the letter from the table.
+
+> down
+I leave my room and take a set of stairs down to the entrance hall.
+
+> wear coat
+I put on my coat.
+
+> out
+Sorry to leave the comfort of the inn, I walk out onto the snow-covered
+courtyard. A carriage was ordered to take me to the castle. I don't mind to
+wait, but since it's very cold I hope it arrives soon.
+
+> talk to monica
+"May I ask why are you standing here, in such a frost?" I ask the woman.
+She seems to be glad to have found someone to talk to. "My name is Monica
+Engelke. I have just come to Prague with my husband. He is a solicitor and
+has a lot of work to do. I am waiting for him now."
+"That is not very nice of him to let you stand here and wait," I suggest.
+"Oh, he is the kindest person that can be. I am sure he will buy me a rose
+when he comes back," smiles Monica.
+"I would buy you a rose myself, but I have work to do now...Instead, accept
+this modest gift..." I reach to my pocket a put a small shiny piece of gold
+in her hand.
+"Where did you get that?" she claims.
+"That would be a long story..." I smile and say goodbye, leaving her waiting
+for whoever that might be.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+I can see the carriage coming in a distance.
+The carriage is here, waiting for me.
+
+> wait
+Time passes...
+I say goodbye to the friendly place and begin the last part of my journey.
+
+Alessandro d'Estino's Journal
+
+March 9, 1602
+
+The carriage passed through a huge entrance gate. As I stepped out onto a
+large courtyard, the castle greeted me with a number of tall gothic towers,
+surrounded by firm walls of the royal buildings.
+
+I was accomodated in one of the many guest rooms, representing the glory and
+wealth of expanding kingdom. I have used every chance to explore and discover
+wonders of the royal castle, as far as public parts of the residence went.
+
+Over two weeks passed by since I had arrived to the castle, impatiently
+awaiting the reception of the King. But today, this very morning, I am to
+meet him and discuss the matter in person...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> west
+I walk west.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+
+I can go east and up.
+
+> up
+I walk up.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> east
+I walk east.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+Rudolph II. is resting in his brocade arm-chair.
+
+I can only go west.
+
+> talk to king
+"Alessandro d'Estino at your service," I interrupt the King in his rest.
+"At last you came. I hope you had a pleasant journey," states the King,
+shaking my hand.
+"I can imagine a better one. We got into a storm..." I begin explaining, but
+the King's strong voice interrupts me.
+"You may be wondering why you are here," to which I nod promptly.
+"I have heard about the success you had achieved in the art of alchemy. What
+I am speaking of is...the creation of gold. If the rumors are true, and I
+believe they are, you are the only one who possesses this power, this
+knowledge," he pauses for a while.
+"Your admiration is an honor to me," I bow to the King.
+"Now we get to the point of your journey. I want you to repeat the miracle
+here, for me and for the kingdom of course. Bring me your gold and you will
+be greatly rewarded," claims Rudolph.
+"Where do I get the equipment, and the necessary ingredients?" I complain.
+"You will have to do with what we have here. You might want to check the
+cellar, it is all at your disposal," he proposes.
+"Alright. But let me ask a question. Why do you need gold, when you and your
+country just seem to be full of it?" I ask the King, who promptly replies.
+"This country is not as rich as it might seem to a stranger. The biggest
+expense is the war against the Turks, which will last for a while from now.
+Also, if you will be really able to create gold for me, I might need you for
+other, more important purposes," Rudolph says mysteriously.
+
+Alessandro d'Estino's Journal
+
+March 9, 1602
+
+The afternoon appeared to be a cold one, with freezing showers of snow and
+ice unceasingly knocking on the windows, and the sun with light as cold as
+the very inner core of my soul.
+
+The King's orders were clear, and to say the truth, I wasn't surprised by
+this at all. Later I have tried to recall about what exactly I have done to
+turn metals into gold, but my mind was blank just like after a sudden flash
+of lightning. Now I know I will have to find sulphur, but there might be
+other elements to it as well.
+
+> west
+I walk west.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+The old alchemist is standing nearby.
+
+I can go east, west and up.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+The merchant is watching my steps with an alligator smile.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  Cold wind blows, chilling me to the bone.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain. There is a group of jugglers chatting near to me.
+A servant is hurrying by.  Cold wind blows, chilling me to the bone.
+
+I can go east and west.
+
+> listen
+"No, that's not possible. Two men lost in a week...that just can't be true,"
+one of the jugglers says.
+"'Tis true. They still hope to conquer him and get a huge reward," says
+another one.
+"Foolish. Silly. Suicidal, it is," the first juggler states.
+"I agree with you, Charles. No man with their brains on the right place would
+go fighting a four-headed dragon. I have heard that he breathes out huge
+flames of fire and sulphur. That alone would kill a man," the third juggler
+adds.
+"So, who is going to dare and kill that dragon? Not even you, Peter?" one of
+the jugglers jokes, making the whole group laugh.
+"Oh well...maybe later," a juggler named Peter replies.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.
+
+I can go east and west.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A shower of white snow flakes flutters down slowly.
+
+I can go east, south, west and up.
+
+> up
+I walk up.
+
+In the western gallery
+The gallery is a long and wide hall, framed with tall windows on the northern
+side and portraits on the southern one. Several chandeliers are suspended
+from the ceiling, a luxurious blue and golden carpet covers the floor and the
+walls are giving the place a warm feel with lots of leather tiles. There are
+also some big vases and a staircase on the western side of the hall.
+
+I can go east and down.
+
+> get picture
+I take a nice framed picture of a woman and hope that nobody will notice.
+
+> down
+I walk down.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A shower of white snow flakes flutters down slowly.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+The merchant is watching my steps with an alligator smile.
+
+I can go north, east and down.
+
+> east
+I walk east.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+The old alchemist is standing nearby.
+
+I can go east, west and up.
+
+> talk to alchemist
+I greet a fellow alchemist and start off by asking for sulphur.
+"No, we have no sulphur in the cellar, and I doubt you will be able to find
+it inside the castle's walls. Don't ask me why. It is all used up, I
+suppose," the old man declares.
+"But I really need the sulphur," I claim, hoping it helps.
+"Like I said, I don't have any. If you do find some though, you will need
+something to put it in," the alchemist suggests.
+"Well, what do I need to do?" I ask him.
+"I am quite lost here and I need to get to the cathedral. If you take me
+there, I will give you a precious blue vial in return," he makes a deal which
+I have to accept.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+The merchant is watching my steps with an alligator smile.  An older man is
+passing by slowly.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain. There is a group of jugglers chatting near to me.
+A man in black walks by, saluting me.  Cold wind blows, chilling me to the
+bone.
+
+I can go east and west.
+
+> east
+I walk east.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.  The
+monk is sitting down, half asleep.
+
+I can only go west.
+Giaccomo Verdi turns to me happily. "Well, here we are. Wait here, it will be
+just a minute."
+I wait for more than half an hour until he comes back, and I demand the
+promised vial.
+"Why, there's no need to hurry. Would you mind taking me to the cellar?"
+states he, smiling.
+"I am afraid you will have to find a way on your own," I turn to leave.
+"No, wait. You must take me to the cellar. That is where the vial is, anyway.
+It is a good deal. Now, let's go, I will follow you," the old man demands,
+leaving me just a sigh to respond.
+
+> west
+I walk west.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain. There is a group of jugglers chatting near to me.
+Cold wind blows, chilling me to the bone.
+
+I can go east and west.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.
+
+I can go east and west.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  An older man is passing by slowly.  Cold wind blows,
+chilling me to the bone.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+The merchant is watching my steps with an alligator smile.
+
+I can go north, east and down.
+
+> down
+I walk down.
+
+In the cellar
+The cellar is a large space located deep under the castle's luxurious rooms.
+There is an oven called Athanor attached to the southern side of the room, a
+strange picture on the wall and a staircase winding to the upper floor. In
+the middle stands a large table covered with flasks, which are scattered
+across the rest of the room as well.
+
+I can only go up.
+"Thank you young man, I would not have made it myself," Giaccomo states,
+turning away.
+"Wait, what about my vial?" I demand.
+"What vial?" the old man asks, paying no attention to my attempts.
+"The one you promised you would give me when I take you to the cellar," I
+explain angrily.
+"Alright, alright, don't get mad. Here it is and now please leave me alone,"
+he declares, handing me the desired blue vial.
+
+> up
+I walk up.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+The merchant is watching my steps with an alligator smile.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A shower of white snow flakes flutters down slowly.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.
+
+I can go east and west.
+
+> talk to stableman
+"I need a horse," I tell the stable man.
+"Everyone could say that," the man laughs.
+"Alright. What do I need to do to get a horse?" I ask patiently.
+"I can give you a horse only if you have a special letter of commission,"
+declares Henry.
+"From the King?" I suggest.
+"Very right. A commission letter from the King," the man affirms and turns
+away.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A shower of white snow flakes flutters down slowly.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+The merchant is watching my steps with an alligator smile.  A pretty woman is
+walking by.
+
+I can go north, east and down.
+
+> east
+I walk east.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+
+I can go east, west and up.
+
+> up
+I walk up.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> east
+I walk east.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+Rudolph II. is resting in his brocade arm-chair.
+
+I can only go west.
+
+> ask king for letter
+"I need a letter of commission. For a horse from the stable," I state.
+"The stable has only the best trained and most expensive horses of the best
+breeds. Which of course means that I am not giving the rights to them to
+anyone," the King says calmly.
+"I am not just anyone. Would you mind...?" I try to make a deal.
+"No," the King stops me. Maybe I should try harder.
+
+> ask king for letter
+"Your Majesty, let me explain. To be able to make gold I need one thing that
+I can't get here in the castle. Therefore, I need a horse to be able to get
+to a place where I am sure to find it," I say.
+"I am not sure if I want to give you one of my beautiful horses..." the King
+resists.
+"This is my only wish, and the last one. Is it not worth all the gold I can
+make for you?" I smile, knowing I have won. The King nods and hands me the
+letter.
+
+> west
+I walk west.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> down
+I walk down.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+
+I can go east, west and up.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+The merchant is watching my steps with an alligator smile.  An older man is
+passing by slowly.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.
+
+I can go east and west.
+
+> show letter to stableman
+I show the commission letter to the stable man. He waves his hand in a
+direction of the horses, which means that I can take any horse I like, I
+suppose.
+
+> get horse
+I climb on a beautiful black horse, ready to visit the evil dragon's forest.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  Cold wind blows, chilling me to the bone.
+
+I can go east, south, west and up.
+
+> west
+I walk west.
+
+By the western gate
+Framing along the white stony pathway, the gate is huge and made of stone.
+Above the entrance there is a big table saying something in a language I
+don't understand.  Cold wind blows, chilling me to the bone.
+
+I can only go east.
+
+> out
+I leave the castle area.
+
+Alessandro d'Estino's Journal
+
+March 11, 1602
+
+I have travelled for two days and two nights, surrounded by the everlasting
+land of winter, the sad, snow-covered landscape of hills and frozen rivers
+and occassional villages, the sleepy terrain of white roads and traces
+leading to the distance.
+
+My horse and I were exhausted even though a few breaks for food and rest, and
+upon arriving to the mysterious forest, the unholy place of the cruel
+dragon's residence, the sun was already high in the sky.
+
+> get hair
+I wait until the horse's attention is elsewhere and get a bit of his black
+hair.
+
+> off horse
+I get off the horse, leaving him standing nearby.
+
+> east
+I walk east.
+
+In the pine grove
+The pine trees are winding their red-barked branches in the weirdest shapes
+and their shattered crowns crawl to each other, covering the sky entirely.
+The ground is cold and covered with fresh snow.  A shower of white snow
+flakes flutters down slowly.
+
+I can only go west.
+
+> get bark
+As I touch an old pine a piece of bark falls down to my feet. Where is the
+spirit of the trees?, I wonder as I kneel to pick it up.
+
+> west
+I walk west.
+
+On the crossroads
+I am standing on a crossroads of three stony paths. My horse is patiently
+waiting near the pathway, which, along with trees and frozen grass, is
+covered with a cushion of white snow.  A shower of white snow flakes flutters
+down slowly.
+
+I can go north, east and west.
+
+> west
+I walk west.
+
+On the meadow
+I am standing on a wide snow-covered meadow, where no trees are shadowing the
+sky. I can see the distant sun above and feel its sparse golden rays without
+warmth.  A shower of white snow flakes flutters down slowly.
+
+I can only go east.
+
+> get sunshine
+I raise my hands up to the sky and while the sunshine blinds my eyes I catch
+a little speck of sun's golden light.
+
+> east
+I walk east.
+
+On the crossroads
+I am standing on a crossroads of three stony paths. My horse is patiently
+waiting near the pathway, which, along with trees and frozen grass, is
+covered with a cushion of white snow.  A shower of white snow flakes flutters
+down slowly.
+
+I can go north, east and west.
+
+> north
+I walk north.
+
+In the deep forest
+The forest is deep and dark, with tall trees covering the sky and shadowed
+snow on the ground. In front of me there are some fallen branches burning
+faintly, giving the brightest light around still.  A shower of white snow
+flakes flutters down slowly.
+
+I can go north and south.
+
+> get snow
+I kneel down to the frozen ground and reach for a bit of snow in my hand.
+
+> picture on fire
+I lay the picture on the flaming branches. I watch as it catches fire and the
+flames slowly burn their way through. A spell is all I need now.
+
+> black on fire
+I put the black pattern into the flames which adopt its dark color.
+
+> white on fire
+I put the white pattern into the fire which now dances with bright white
+flames.
+
+> yellow on fire
+I put the yellow pattern on the flaming picture and the fire turns from white
+to yellow.
+
+> red on fire
+The fourth degree of fire. The picture shots red flames high into the crowns
+of the trees, and I watch it develop into a human form. Then the fire
+disappears and leaves an artificial being standing in front of me.
+
+> talk to decoy
+"Now, listen, if you can," I speak to the female shape in front of me.
+"Whatever happens, you will follow me. Understand?" I look into the empty
+eyes.
+I make a few steps to see what happens. To my great surprise, the decoy
+follows.
+"Good girl," I smile at the floating figure.
+
+> north
+I walk north.
+
+In front of the cave
+Through the endless depths of darkened woods I can see a hole within the mass
+of stones, which could possibly be the entrance to the cave. The ground is
+frozen and covered with cold white snow.  Cold wind blows, chilling me to the
+bone.
+
+I can go south and in.
+
+> in
+I walk in.
+
+Inside the cave
+The cave creates a long and dark room, lighted by several torches on the
+walls. Time from time the silence is disturbed by a non-human breath-like
+sound, darkness is parted around a sudden wall of fire and the air is filled
+with a vicious smell of sulphur.
+
+I can only go out.
+
+> breath vial
+I wait for a moment when the attention of all of the dragon's heads is
+concentrated at the decoy and I catch a bit of hot sulphur into the vial.
+
+> out
+I walk out.
+
+In front of the cave
+Through the endless depths of darkened woods I can see a hole within the mass
+of stones, which could possibly be the entrance to the cave. The ground is
+frozen and covered with cold white snow.  Cold wind blows, chilling me to the
+bone.
+
+I can go south and in.
+
+> south
+I walk south.
+
+In the deep forest
+The forest is deep and dark, with tall trees covering the sky and shadowed
+snow on the ground. There are some fallen branches in front of me.
+
+I can go north and south.
+
+> south
+I walk south.
+
+On the crossroads
+I am standing on a crossroads of three stony paths. My horse is patiently
+waiting near the pathway, which, along with trees and frozen grass, is
+covered with a cushion of white snow.
+
+I can go north, east and west.
+
+> get horse
+I get on my horse and leave the cold and deep forest behind my back. Soon I
+arrive to the castle and return the horse to the stable. I walk down to the
+cellar...now I am ready for the miracle of creation.
+
+> look
+
+In the cellar
+The cellar is a large space located deep under the castle's luxurious rooms.
+There is an oven called Athanor attached to the southern side of the room, a
+strange picture on the wall and a staircase winding to the upper floor. In
+the middle stands a large table covered with flasks, which are scattered
+across the rest of the room as well.
+The old alchemist is standing nearby.
+
+I can only go up.
+
+> score
+My score is 40 out of a maximum of 0.  (0%)
+
+> x table
+The table is a strong one, made of solid wood. It is several meters long and
+covered with various alchemistic equipment of no use and value.  On the table
+is the bowl, the flask of mercury and an iron ore.
+
+> get bowl
+I take the bowl from the table.
+
+> get mercury
+I take the flask of mercury from the table.
+
+> get ore
+I take an iron ore from the table.
+
+> bowl on athanor
+I put the bowl into the flames.
+
+> iron on athanor
+I place the iron ore on the bowl.
+
+> mercury in bowl
+I fill the bowl with mercury, which immediately starts burning.
+
+> sulphur in bowl
+I watch the sulphur float onto the bowl and on the piece of iron ore. After a
+while the inside of the Athanor becomes a golden shrine, striking the
+brightest light in my eyes and all around. Then the red flames go down,
+unveiling a bowl with nuggets of pure gold upon its surface. Impatiently I
+take the bowl from the oven, almost getting my hands burned in the heat.
+
+> up
+I walk up.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+The merchant is watching my steps with an alligator smile.  A young man is
+crossing my way.
+
+I can go north, east and down.
+
+> east
+I walk east.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+
+I can go east, west and up.
+
+> up
+I walk up.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> east
+I walk east.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+Rudolph II. is resting in his brocade arm-chair.
+
+I can only go west.
+
+> give gold to king
+I give the gold to the King.
+
+Alessandro d'Estino's Journal
+
+April 26, 1602
+
+Weeks went by since I left the King's room, pleasing him with the gold I have
+created. While the cold days slowly passed away, I was spending most of time
+in the cellar, preparing more and more gold for the King to cover the
+expenses of the war, as he said to me.
+
+Before I could see the spring was at its best, with fresh springing grass,
+blooming flowers and merrily singing birds circling upon the clear blue sky.
+As I was watching these beautiful scenes of new-born life and new-gained hope
+through the windows of my room, the King had called on me again. But this
+time his orders ran in quite a different direction, and it was one that I
+could not agree.
+
+Still, I had to obey and do my best to fulfill the King's wish, even though
+everything in me was screaming in protest. I am to develop a mechanism of
+destruction, for which I will need some machinery, gun powder and dragon's
+tears, and help the King win the long-standing war.
+
+> look
+
+In the guest room
+The guest room is luxurious and convenient, with leather-tiled walls, a blue
+and golden carpet on the floor, a high arched ceiling with a silver
+chandelier and windows to the south. The walls are covered with a bookshelf,
+a wardrobe and a blue stove, the bed stands in the corner and a table with
+chairs occupies the middle part of the room. Among the most beautiful things
+belong venetian vases and a big ancient globe.
+
+I can only go west.
+
+> score
+My score is 50 out of a maximum of 0.  (0%)
+
+> west
+I walk west.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+
+I can go east, west and up.
+
+> up
+I walk up.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> get weapons
+I take a few old weapons from the pile on the floor.
+
+> down
+I walk down.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+
+I can go east, west and up.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+The merchant is watching my steps with an alligator smile.
+
+I can go east, south, west and up.
+
+> buy powder
+I get a sack of gun powder in exchange for a piece of gold.
+
+> buy potion
+I trade some of my gold for the famous dream potion.
+
+> buy moonstone
+I get a nice sack of moonstone nuggets. Good deal.
+
+> take nuggets from sack
+I take moonstone nuggets from the sack.
+
+> look
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+The merchant is watching my steps with an alligator smile.
+
+I can go east, south, west and up.
+
+> score
+My score is 50 out of a maximum of 0.  (0%)
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over the horses.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+
+I can go north, east and west.
+
+> east
+I walk east.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.  The
+monk is sitting down, half asleep.
+
+I can go north and west.
+
+> north
+I walk north.
+
+By the northern tower
+I am standing upon a stony ground, right in front of a tall tower, which has
+no windows, just a square hole as an entrance. The tower must be very old,
+judging from the state of decay.  A warm, light breeze blows gently in my
+face.
+
+I can go south and in.
+
+> in
+I walk in.
+
+In the northern tower
+The inside of the tower is a small round space with decayed walls and a
+ground which is just soil. It has the feel as if it was going to fall apart
+right now.
+The magician is rubbing his beard and staring beyond reality.
+
+I can only go out.
+
+> talk to magician
+"Excuse me, do you have the dragon's tears?" I take the magician by surprise.
+"Do I look like I do?"
+"You look like you know something," I insist.
+"Alright. I will give you the item if you bring me another precious thing.
+Star dust. Where or how you shall obtain it I don't care", the magician
+states and turns away.
+
+> out
+I walk out.
+
+By the northern tower
+I am standing upon a stony ground, right in front of a tall tower, which has
+no windows, just a square hole as an entrance. The tower must be very old,
+judging from the state of decay.  A warm, light breeze blows gently in my
+face.  A light shower of rain is fluttering down.
+
+I can go south and in.
+
+> south
+I walk south.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.  The
+monk is sitting down, half asleep.
+
+I can go north and west.
+
+> west
+I walk west.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.  A warm, light breeze blows gently in my face.  A
+light shower of rain is fluttering down.
+
+I can go north, east and west.
+
+> north
+I walk north.
+
+By the northern gate
+The gate is huge and solid, featured by two huge knockers made of lead and
+ornamented with heads of lions, standing upon a white stony ground.  A pretty
+woman is walking by.  A light shower of rain is fluttering down.
+
+I can go north and south.
+
+> north
+I walk north.
+
+In the royal garden
+The garden is a rich mixture of flowers and trees of all kinds, a lot of them
+having been brought from distant countries. Several benches are scattered
+along the grassy paths.
+
+There is also a shovel.  A light shower of rain is fluttering down.
+
+I can go south and west.
+
+> west
+I walk west.
+
+By the royal pond
+The royal pond is large, with clean blue water, and offers a nice hideaway
+for those who need it. It is surrounded by large grassy areas and many trees.
+There are also some solid benches, offering a place to rest and relax.
+The poet is sitting on the grass, writing words down constantly.  A light
+shower of rain is fluttering down.
+
+I can only go east.
+
+> talk to poet
+"I'm sorry to disturb you, but I need to know something. Where could I find
+star dust?"
+The poet stops writing. "I believe I can help you. You see, to be able to
+write good poetry, one must have learned a lot. Ancient mysteries as well as
+modern questions," he explains eagerly.
+"So will you tell me about star dust?" I ask impatiently.
+"Of course I will. It's like this poem, this very one I am working on right
+now. It's about dreams, beautiful dreams turned into nightmares, and love, oh
+wonderful, everlasting love, at the beginning of ages..." he seems to be
+dreaming himself while he talks.
+"I see. But what does it have to do with me?"
+"I will get to that. There are some ancient legends about enchanted
+mountains. In those mountains, on the very tops of the tallest of them, they
+say, you can touch the sky and the very stars. And it's in your dreams that
+you will be able to do this", says the poet mysteriously.
+
+> east
+I walk east.
+
+In the royal garden
+The garden is a rich mixture of flowers and trees of all kinds, a lot of them
+having been brought from distant countries. Several benches are scattered
+along the grassy paths.
+
+There is also a shovel.
+
+I can go south and west.
+
+> south
+I walk south.
+
+By the northern gate
+The gate is huge and solid, featured by two huge knockers made of lead and
+ornamented with heads of lions, standing upon a white stony ground.
+
+I can go north and south.
+
+> south
+I walk south.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.  A happy couple is walking hand in hand.  I get a
+glimpse of a bird flying high above my head.
+
+I can go north, east and west.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over the horses.
+
+I can go east and west.
+
+> show letter to stableman
+I show the commission letter to the stable man. He waves his hand in a
+direction of the horses, which means that I can take any horse I like, I
+suppose.
+
+> get horse
+I climb on a beautiful black horse, ready for a long journey to the enchanted
+mountains.
+
+> look
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over the horses.
+
+I can go east and west.
+
+> score
+My score is 50 out of a maximum of 0.  (0%)
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+The merchant is watching my steps with an alligator smile.
+
+I can go east, south, west and up.
+
+> west
+I walk west.
+
+By the western gate
+Framing along the white stony pathway, the gate is huge and made of stone.
+Above the entrance there is a big table saying something in a language I
+don't understand.  A servant is hurrying by.
+
+I can only go east.
+
+> out
+I leave the castle area.
+
+Alessandro d'Estino's Journal
+
+May 2, 1602
+
+I passed the huge entrance gate of the castle and followed the road to the
+north. During daytimes I carried on wondering at the beautiful landscape and
+awaking nature and nights I have rested in old convenient inns scattered
+along the way. I have seen places where kind people spend their easy and
+peaceful lives, I have crossed wild rivers and cold fresh streams and my
+eager eyes met the visions of crystal clear lakes, wide blooming fields and
+pine forests.
+
+Upon the sixth evening's coming, when the sun was shining dim rays of orange
+light from low above the darkened horizon, a sight of tall grey mountains
+spread before my eyes.
+
+> off horse
+I get off the horse, leaving him standing nearby.
+
+> north
+I walk north.
+
+Under the tall mountain
+The landscape is wild and hostile, featured by tall mountains and large rocks
+that have been cast down by the nature and time.  A warm, light breeze blows
+gently in my face.  A light shower of rain is fluttering down.
+
+I can go south and up.
+
+> up
+I walk up.
+
+Halfway the mountain
+The landscape is wild and hostile, featured by tall mountains and large rocks
+that have been cast down by the nature and time.  A warm, light breeze blows
+gently in my face.  A light shower of rain is fluttering down.
+
+I can go up and down.
+
+> up
+I walk up.
+
+On the plain
+The landscape is wild and hostile, featured by tall mountains and large rocks
+that have been cast down by the nature and time. The plain lacks these rocks,
+having been created by a large flat one itself.  A warm, light breeze blows
+gently in my face.  A light shower of rain is fluttering down.
+
+I can go up and down.
+
+> up
+I walk up.
+
+On top of the mountain
+The landscape is wild and hostile, featured by tall mountains and large rocks
+that have been cast down by the nature and time.  A warm, light breeze blows
+gently in my face.
+
+I can only go down.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The night is falling slowly.
+
+> wait
+Time passes...
+It is getting dark.
+
+> wait
+Time passes...
+Night falls down upon the mountain-tops, and soon the distant moon and stars
+appear.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> drink potion
+I drink the dreaming potion to fall asleep and watch the night-sky change and
+slowly develop into a fairy-tale, colorful version of itself. Stars spiral
+down, so low that I could touch them, and weird plants begin to rush from the
+stony ground in a snake-like manner.
+
+> touch star
+As I touch the star millions of tiny sparkling grains of dust begin to fall
+down and soon the whole mountain-top is covered with a layer of soft silver
+dust.
+
+> get dust
+I reach my hand down for the sparkling star dust to fill the sack with.
+
+> down
+I walk down.
+
+On the plain
+The landscape is wild and hostile, featured by tall mountains and large rocks
+that have been cast down by the nature and time. The plain lacks these rocks,
+having been created by a large flat one itself. The surface is covered with
+sparkling stardust.  A light shower of rain is fluttering down.
+
+I can go up and down.
+
+> down
+I walk down.
+
+Halfway the mountain
+The landscape is wild and hostile, featured by tall mountains and large rocks
+that have been cast down by the nature and time.  A light shower of rain is
+fluttering down.
+
+I can go up and down.
+
+> down
+I walk down.
+
+Under the tall mountain
+The landscape is wild and hostile, featured by tall mountains and large rocks
+that have been cast down by the nature and time.  A warm, light breeze blows
+gently in my face.  I get a glimpse of a bird flying high above my head.  A
+light shower of rain is fluttering down.
+
+I can go south and up.
+
+> south
+I walk south.
+
+In the mountains
+The landscape is wild and hostile, featured by tall mountains and large rocks
+that have been cast down by the nature and time. My horse is standing nearby.
+ A warm, light breeze blows gently in my face.  A light shower of rain is
+fluttering down.
+
+I can only go north.
+
+> get horse
+I leave the landscape of mountains behind and travel back to the castle,
+which has become my current home.
+
+> look
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over the horses.
+
+I can go east and west.
+
+> score
+My score is 70 out of a maximum of 0.  (0%)
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.  A warm, light breeze blows gently in my face.  A
+light shower of rain is fluttering down.
+
+I can go north, east and west.
+
+> east
+I walk east.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.  The
+monk is sitting down, half asleep.
+
+I can go north and west.
+
+> north
+I walk north.
+
+By the northern tower
+I am standing upon a stony ground, right in front of a tall tower, which has
+no windows, just a square hole as an entrance. The tower must be very old,
+judging from the state of decay.
+
+I can go south and in.
+
+> in
+I walk in.
+
+In the northern tower
+The inside of the tower is a small round space with decayed walls and a
+ground which is just soil. It has the feel as if it was going to fall apart
+right now.
+The magician is rubbing his beard and staring beyond reality.
+
+I can only go out.
+
+> give dust to magician
+I give the sack with star dust to the magician and get the desired dragon's
+tears in return.
+
+> out
+I walk out.
+
+By the northern tower
+I am standing upon a stony ground, right in front of a tall tower, which has
+no windows, just a square hole as an entrance. The tower must be very old,
+judging from the state of decay.  A pretty woman is walking by.
+
+I can go south and in.
+
+> south
+I walk south.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.  The
+monk is sitting down, half asleep.
+
+I can go north and west.
+
+> west
+I walk west.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+
+I can go north, east and west.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over the horses.
+
+I can go east and west.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+The merchant is watching my steps with an alligator smile.  A servant is
+hurrying by.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> down
+I walk down.
+
+In the cellar
+The cellar is a large space located deep under the castle's luxurious rooms.
+There is an oven called Athanor attached to the southern side of the room, a
+strange picture on the wall and a staircase winding to the upper floor. In
+the middle stands a large table covered with flasks, which are scattered
+across the rest of the room as well.
+Thomas Erikkson is boiling liquids in his flasks.
+
+I can only go up.
+
+> put weapons on table
+I place the weapons on the table and play with them for a while, until they
+represent a scheme of a powerful mechanism of destruction.
+
+> put powder on table
+I pour the gun powder into a slot in the mechanism.
+
+> put tears on table
+I open the flask to pour the dragon's tears into the designated slot.
+
+Alessandro d'Estino's Journal
+
+May 8, 1602
+
+This will be the first ever invention of mass destruction, of killing
+thousands or perhaps millions of people with one single blow. Kill and
+destroy. Waste human lives to satisfy the King.
+
+Something broke in me. In my soul and in my heart, all I ever wanted was to
+heal, give life, build and create. And with the death of my beloved Clarissa
+I swore to avenge the mankind, to avenge and conquer death itself. I can't,
+not even for the King, play in the game of destruction. I can't cause so much
+death and despair to the mankind, my brothers and sisters, not for the King's
+wish, not for anything.
+
+So I came into hiding. I kept avoiding the King's presence anytime I could
+and lied about my creation of death. As I sat here writing this morning,
+however, I was asked for a visit in the King's rooms. I received the last
+task, which shall prove my loyalty to the King once and for all. If he
+couldn't win the war now, he would defeat the enemies in a whole different
+way. "Make me immortal," he said.
+
+I am not afraid of death, but still I fear his wrath. I have to believe and I
+have to hope that all that has been said is true. That men upon this Earth
+can be made immortal, can live forever upon nothing, that they are only
+hiding not to be discovered. I must believe, but what if this secret is just
+a legend?
+
+> look
+
+In the guest room
+The guest room is luxurious and convenient, with leather-tiled walls, a blue
+and golden carpet on the floor, a high arched ceiling with a silver
+chandelier and windows to the south. The walls are covered with a bookshelf,
+a wardrobe and a blue stove, the bed stands in the corner and a table with
+chairs occupies the middle part of the room. Among the most beautiful things
+belong venetian vases and a big ancient globe.
+
+I can only go west.
+
+> score
+My score is 80 out of a maximum of 0.  (0%)
+
+> west
+I walk west.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+A young woman is looking at me desperately.
+
+I can go east, west and up.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.  A servant is hurrying by.
+
+I can go north, east and down.
+
+> down
+I walk down.
+
+In the cellar
+The cellar is a large space located deep under the castle's luxurious rooms.
+There is an oven called Athanor attached to the southern side of the room, a
+strange picture on the wall and a staircase winding to the upper floor. In
+the middle stands a large table covered with flasks, which are scattered
+across the rest of the room as well.
+Thomas Erikkson is boiling liquids in his flasks.  The magician is rubbing
+his beard and staring beyond reality.
+
+I can go east and up.
+
+> talk to alchemist
+"Nice flasks you have there," I comment on the number of flasks he is working
+with.
+"You can have one if you get me some beer. I'm really thirsty," offers the
+alchemist.
+
+> east
+I walk east.
+
+By the bath
+The room is small, with a wooden floor, tiled walls and an arched ceiling.
+The middle part of the room is occupied by a large bath tub and there are
+some chairs standing by the walls. A uniform is lying upon the floor.
+A man is occupying the far-off part of the bath tub.
+
+I can only go west.
+
+> x uniform
+It is a soldier's uniform, piled on the floor in a precise square.  A small
+knife is on the uniform.
+
+> get knife
+I take a small knife from the uniform.
+
+> west
+I walk west.
+
+In the cellar
+The cellar is a large space located deep under the castle's luxurious rooms.
+There is an oven called Athanor attached to the southern side of the room, a
+strange picture on the wall and a staircase winding to the upper floor. In
+the middle stands a large table covered with flasks, which are scattered
+across the rest of the room as well.
+Thomas Erikkson is boiling liquids in his flasks.  The magician is rubbing
+his beard and staring beyond reality.
+
+I can go east and up.
+
+> up
+I walk up.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.  A young man is crossing my
+way.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+The old alchemist is standing nearby.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A little girl is
+staring into the fountain.  An older man is passing by slowly.
+
+I can go north, east and west.
+
+> east
+I walk east.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.
+
+I can go north and west.
+
+> north
+I walk north.
+
+By the northern tower
+I am standing upon a stony ground, right in front of a tall tower, which has
+no windows, just a square hole as an entrance. The tower must be very old,
+judging from the state of decay.
+A young man is standing by the tower.
+
+I can go south and in.
+
+> in
+I walk in.
+
+In the northern tower
+The inside of the tower is a small round space with decayed walls and a
+ground which is just soil. It has the feel as if it was going to fall apart
+right now.
+
+I can only go out.
+
+> x walls
+There is a small crevice in the wall.  A sack is inside the crevice.
+
+> get sack
+I take a sack from the crevice.
+
+> get jewels from sack
+Take what?
+
+> out
+I walk out.
+
+By the northern tower
+I am standing upon a stony ground, right in front of a tall tower, which has
+no windows, just a square hole as an entrance. The tower must be very old,
+judging from the state of decay.
+A young man is standing by the tower.  A warm, light breeze blows gently in
+my face.
+
+I can go south and in.
+
+> south
+I walk south.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.
+
+I can go north and west.
+
+> give bible to priest
+I hand over the Bible to the Priest. He accepts it gratefully.
+
+> talk to baltus
+"Father, I was just wondering if I could have one of those beautiful tin cups
+over there," I state fearlessly.
+"No way!" The answer is clear, but maybe I should insist.
+
+> talk to baltus
+"Alright, you can have the cup," the Priest gives up after much of my
+attempts.
+"Thank you..."
+"But you must do something first," he claims with authority, and to my
+helpless sigh.
+"Do you see the marble basin over there? There, on the wall. I want you to
+fill it with fresh water," the Priest demands.
+
+> west
+I walk west.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A little girl is
+staring into the fountain.
+
+I can go north, east and west.
+
+> north
+I walk north.
+
+By the northern gate
+The gate is huge and solid, featured by two huge knockers made of lead and
+ornamented with heads of lions, standing upon a white stony ground.  A light
+shower of rain is fluttering down.
+
+I can go north and south.
+
+> north
+I walk north.
+
+In the royal garden
+The garden is a rich mixture of flowers and trees of all kinds, a lot of them
+having been brought from distant countries. Several benches are scattered
+along the grassy paths.
+
+There is also a shovel.  An older man is passing by slowly.  A light shower
+of rain is fluttering down.
+
+I can go south, west and in.
+
+> in
+I walk in.
+
+In the pavilion
+I am standing upon a wooden floor of the pavilion, which is created by wooden
+logs lifted up to hold the roof. The place is bare with the exception of an
+excellent view of the surrounding garden.
+
+There is also an empty pot.
+
+I can only go out.
+
+> get pot
+I take the empty pot.
+
+> out
+I walk out.
+
+In the royal garden
+The garden is a rich mixture of flowers and trees of all kinds, a lot of them
+having been brought from distant countries. Several benches are scattered
+along the grassy paths.
+
+There is also a shovel.  An older man is passing by slowly.  A light shower
+of rain is fluttering down.
+
+I can go south, west and in.
+
+> west
+I walk west.
+
+By the royal pond
+The royal pond is large, with clean blue water, and offers a nice hideaway
+for those who need it. It is surrounded by large grassy areas and many trees.
+There are also some solid benches, offering a place to rest and relax.
+The poet is sitting on the grass, writing words down constantly.  A light
+shower of rain is fluttering down.
+
+I can only go east.
+
+> put water in pot
+I fill the pot with fresh water from the pond.
+
+> east
+I walk east.
+
+In the royal garden
+The garden is a rich mixture of flowers and trees of all kinds, a lot of them
+having been brought from distant countries. Several benches are scattered
+along the grassy paths.
+
+There is also a shovel.  A man in black walks by, saluting me.  I get a
+glimpse of a bird flying high above my head.  A light shower of rain is
+fluttering down.
+
+I can go south, west and in.
+
+> south
+I walk south.
+
+By the northern gate
+The gate is huge and solid, featured by two huge knockers made of lead and
+ornamented with heads of lions, standing upon a white stony ground.  A light
+shower of rain is fluttering down.
+
+I can go north and south.
+
+> south
+I walk south.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A little girl is
+staring into the fountain.
+
+I can go north, east and west.
+
+> east
+I walk east.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.
+
+I can go north and west.
+"Good job," wonders the Priest at my coming. "Now pour the water into the
+basin."
+
+> put water in basin
+I empty the contents of the pot into the marble basin. The water splashes as
+I pour it onto the cold surface. Then the Priest appears by my side to
+sanctify the water with his holy words.
+
+> get cup
+I take a strangely carved tin cup from the altar. It's a really heavy one, I
+realize.
+
+> west
+I walk west.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A little girl is
+staring into the fountain.  A warm, light breeze blows gently in my face.
+
+I can go north, east and west.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> give jewels to monk
+I show the jewels of gold to the monk. He takes them with many thanks, saying
+that they have been stolen from his room and he is happy to have them back.
+
+> get beer from monk
+"Hey Brother, can I have some of your beer?" I shout, making him wake up.
+"Why, of course, Brother," mumbles the drunken monk.
+I reach down and pour the stinking liquid into the cup.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+The old alchemist is standing nearby.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.  An older man is passing by
+slowly.
+
+I can go north, east and down.
+
+> down
+I walk down.
+
+In the cellar
+The cellar is a large space located deep under the castle's luxurious rooms.
+There is an oven called Athanor attached to the southern side of the room, a
+strange picture on the wall and a staircase winding to the upper floor. In
+the middle stands a large table covered with flasks, which are scattered
+across the rest of the room as well.
+Thomas Erikkson is boiling liquids in his flasks.  The magician is rubbing
+his beard and staring beyond reality.
+
+I can go east and up.
+
+> give beer to alchemist
+I give the alchemist the cup of beer, which he drinks down immediately. He
+lays the cup on the table, along with my desired flask, and gets back to
+work.
+
+> get flask
+I take the flask from the table.
+
+> get cup
+I take a tin cup from the table.
+
+> give nuggets to alchemist
+I give the moonstone nuggets to the fellow alchemist. He looks grateful but
+doesn't say anything.
+
+> up
+I walk up.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+The old alchemist is standing nearby.  A man in black walks by, saluting me.
+I get a glimpse of a bird flying high above my head.
+
+I can go east, south, west and up.
+
+> talk to alchemist
+"Looks like you are leaving," I speak to the old man.
+"Your eyes don't mistake you, young one," utters the alchemist.
+"But why are you leaving?"
+"I just have to go on, that's all. Travel to distant lands. So much left to
+know, so many mysteries yet to learn. Here, take this, I'll have no use for
+it anymore," he hands me a flask of mercury.
+He commands the horses into run and soon he disappears behind the castle
+gate.
+
+> up
+I walk up.
+
+In the western gallery
+The gallery is a long and wide hall, framed with tall windows on the northern
+side and portraits on the southern one. Several chandeliers are suspended
+from the ceiling, a luxurious blue and golden carpet covers the floor and the
+walls are giving the place a warm feel with lots of leather tiles. There are
+also some big vases and a staircase on the western side of the hall.
+
+I can go east and down.
+
+> east
+I walk east.
+
+In the eastern gallery
+The gallery is a long and wide hall, framed with tall windows on the northern
+side and statues on the southern one. Several chandeliers are suspended from
+the ceiling, while a red carpet is covering the floor and the walls are
+giving the place a warm feel with lots of leather tiles.
+A young man is standing in the middle of the room, staring at the statues.  A
+happy couple is walking hand in hand.
+
+I can only go west.
+
+> talk to jean
+"What beautiful pieces of art you can find in these places," marvels the
+frenchman.
+"Yes, it's unbelievable what jewels people can create," I agree.
+"Speaking of jewels, I have just heard about a strange thing this morning.
+Like there is a lake with waters of silver. Can you imagine, living, flowing
+silver everywhere in sight. If I could only get there, I would be rich,"
+smiles the sculptor.
+
+> read note
+Saturn's ring on fire, feet made out of lead.
+Poisoned by Mercury, lies my silent head.
+
+> west
+I walk west.
+
+In the western gallery
+The gallery is a long and wide hall, framed with tall windows on the northern
+side and portraits on the southern one. Several chandeliers are suspended
+from the ceiling, a luxurious blue and golden carpet covers the floor and the
+walls are giving the place a warm feel with lots of leather tiles. There are
+also some big vases and a staircase on the western side of the hall.
+
+I can go east and down.
+
+> down
+I walk down.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+
+I can go east, south, west and up.
+
+> west
+I walk west.
+
+By the western gate
+Framing along the white stony pathway, the gate is huge and made of stone.
+Above the entrance there is a big table saying something in a language I
+don't understand.
+A woman is standing by the gate, looking around desperately.  A happy couple
+is walking hand in hand.
+
+I can only go east.
+
+> read note
+The warlord waves his fist of iron skin.
+Jupiter spins, lives melt like heated tin.
+
+> east
+I walk east.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  I get a glimpse of a bird flying high above my head.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A little girl is
+staring into the fountain.  A young man is crossing my way.
+
+I can go north, east and west.
+
+> north
+I walk north.
+
+By the northern gate
+The gate is huge and solid, featured by two huge knockers made of lead and
+ornamented with heads of lions, standing upon a white stony ground.
+
+I can go north and south.
+
+> north
+I walk north.
+
+In the royal garden
+The garden is a rich mixture of flowers and trees of all kinds, a lot of them
+having been brought from distant countries. Several benches are scattered
+along the grassy paths.
+
+There is also a shovel.  A light shower of rain is fluttering down.
+
+I can go south, west and in.
+
+> read note
+Venus is the goddess, hair copper red.
+Life is precious until our blood was shed.
+
+> get shovel
+I take the shovel.
+
+> get earth
+I kneel to the ground and get a few handfuls of earth which I then drop into
+the sack.
+
+> south
+I walk south.
+
+By the northern gate
+The gate is huge and solid, featured by two huge knockers made of lead and
+ornamented with heads of lions, standing upon a white stony ground.  A warm,
+light breeze blows gently in my face.  A light shower of rain is fluttering
+down.
+
+I can go north and south.
+
+> knife on knocker
+I scratch at the knocker. To my surprise, a piece of it tears loose and falls
+onto the grass.
+
+> get lead
+I take the piece of lead.
+
+> south
+I walk south.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A little girl is
+staring into the fountain.  A light shower of rain is fluttering down.
+
+I can go north, east and west.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A light shower of rain is fluttering down.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.  A happy couple is walking
+hand in hand.
+
+I can go north, east and down.
+
+> east
+I walk east.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+A young woman is looking at me desperately.
+
+I can go east, west and up.
+
+> up
+I walk up.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> east
+I walk east.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+Rudolph II. is resting in his brocade arm-chair.
+
+I can go south and west.
+
+> south
+I walk south.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> down
+I walk down.
+
+On the lower stairway
+The stairway leads up, surrounded by tiled walls and an arched ceiling above.
+Wooden stairs are covered with a thick blue and golden carpet and a pair of
+big chinese vases are standing by the downmost stair.
+
+There is also a copper key.
+
+I can go south and up.
+
+> get key
+I take the copper key.
+
+> up
+I walk up.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> north
+I walk north.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+Rudolph II. is resting in his brocade arm-chair.
+
+I can go south and west.
+
+> west
+I walk west.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> unlock case
+I unlock the glass case.
+
+> open case
+I pull the case open.
+
+> x case
+The case is made of glass and I can see a nice sword displayed inside it.
+The case is open.  An iron sword is inside the case.
+
+> get sword
+I take an iron sword from the case.
+
+> east
+I walk east.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+Rudolph II. is resting in his brocade arm-chair.
+
+I can go south and west.
+
+> south
+I walk south.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> down
+I walk down.
+
+On the lower stairway
+The stairway leads up, surrounded by tiled walls and an arched ceiling above.
+Wooden stairs are covered with a thick blue and golden carpet and a pair of
+big chinese vases are standing by the downmost stair.
+
+I can go south and up.
+
+> south
+I walk south.
+
+In the southern garden
+The southern garden is peaceful and filled with sweet smells. Upon the grass,
+different kinds of flowers grow, along with a lawn of roses by the eastern
+wall. There is a bench to sit on and watch butterflies fluttering on the
+flowers.  A light shower of rain is fluttering down.
+
+I can only go north.
+
+> get rose
+I take a red rose.
+
+> north
+I walk north.
+
+On the lower stairway
+The stairway leads up, surrounded by tiled walls and an arched ceiling above.
+Wooden stairs are covered with a thick blue and golden carpet and a pair of
+big chinese vases are standing by the downmost stair.
+
+I can go south and up.
+
+> up
+I walk up.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> north
+I walk north.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+Rudolph II. is resting in his brocade arm-chair.
+
+I can go south and west.
+
+> give rose to king
+I show the beauty of the rose to the King and convince him to go out into the
+garden.
+
+> get bowl
+I get a large metal bowl from the scales, causing the other bowl collapse
+under the weight of gold.
+
+> south
+I walk south.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> down
+I walk down.
+
+On the lower stairway
+The stairway leads up, surrounded by tiled walls and an arched ceiling above.
+Wooden stairs are covered with a thick blue and golden carpet and a pair of
+big chinese vases are standing by the downmost stair.
+
+I can go south and up.
+
+> south
+I walk south.
+
+In the southern garden
+The southern garden is peaceful and filled with sweet smells. Upon the grass,
+different kinds of flowers grow, along with a lawn of roses by the eastern
+wall. There is a bench to sit on and watch butterflies fluttering on the
+flowers.
+Rudolph II. is standing in the middle of the garden.  A warm, light breeze
+blows gently in my face.
+
+I can only go north.
+
+> talk to king
+"If you have nothing better to do than walk around, asking people things they
+don't know, you might as well do something useful. A precious statue has been
+stolen from the sculpture gallery. I would be happy if you could find it,"
+the King declares with a stone-cold face.
+
+> north
+I walk north.
+
+On the lower stairway
+The stairway leads up, surrounded by tiled walls and an arched ceiling above.
+Wooden stairs are covered with a thick blue and golden carpet and a pair of
+big chinese vases are standing by the downmost stair.
+
+I can go south and up.
+
+> up
+I walk up.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> north
+I walk north.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+
+I can go south and west.
+
+> west
+I walk west.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> down
+I walk down.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+A young woman is looking at me desperately.  A pretty woman is walking by.
+
+I can go east, west and up.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+
+I can go east, south, west and up.
+
+> up
+I walk up.
+
+In the western gallery
+The gallery is a long and wide hall, framed with tall windows on the northern
+side and portraits on the southern one. Several chandeliers are suspended
+from the ceiling, a luxurious blue and golden carpet covers the floor and the
+walls are giving the place a warm feel with lots of leather tiles. There are
+also some big vases and a staircase on the western side of the hall.
+
+I can go east and down.
+
+> east
+I walk east.
+
+In the eastern gallery
+The gallery is a long and wide hall, framed with tall windows on the northern
+side and statues on the southern one. Several chandeliers are suspended from
+the ceiling, while a red carpet is covering the floor and the walls are
+giving the place a warm feel with lots of leather tiles.
+
+There is also a piece of paper.
+A young man is standing in the middle of the room, staring at the statues.  A
+servant is hurrying by.
+
+I can only go west.
+
+> get paper
+I take the piece of paper.
+
+> west
+I walk west.
+
+In the western gallery
+The gallery is a long and wide hall, framed with tall windows on the northern
+side and portraits on the southern one. Several chandeliers are suspended
+from the ceiling, a luxurious blue and golden carpet covers the floor and the
+walls are giving the place a warm feel with lots of leather tiles. There are
+also some big vases and a staircase on the western side of the hall.
+
+I can go east and down.
+
+> down
+I walk down.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A young man is crossing my way.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A little girl is
+staring into the fountain.  A warm, light breeze blows gently in my face.
+
+I can go north, east and west.
+
+> north
+I walk north.
+
+By the northern gate
+The gate is huge and solid, featured by two huge knockers made of lead and
+ornamented with heads of lions, standing upon a white stony ground.  A warm,
+light breeze blows gently in my face.
+
+I can go north and south.
+
+> north
+I walk north.
+
+In the royal garden
+The garden is a rich mixture of flowers and trees of all kinds, a lot of them
+having been brought from distant countries. Several benches are scattered
+along the grassy paths.  A young man is crossing my way.  A warm, light
+breeze blows gently in my face.
+
+I can go south, west and in.
+
+> west
+I walk west.
+
+By the royal pond
+The royal pond is large, with clean blue water, and offers a nice hideaway
+for those who need it. It is surrounded by large grassy areas and many trees.
+There are also some solid benches, offering a place to rest and relax.
+The poet is sitting on the grass, writing words down constantly.  A warm,
+light breeze blows gently in my face.  A light shower of rain is fluttering
+down.
+
+I can only go east.
+
+> talk to poet
+"Yes, I know this poem," utters the poet as he takes the piece of paper.
+"Tell me about it," I demand.
+"I have wrote this one a long while ago. I sold it to a poor guy who wanted
+to gift his girlfriend," the poet explains.
+"Who was this man?" I ask.
+"I did not question him. But I remember he was worn out and dirty, almost
+like a gardener, digging in the earth."
+
+> east
+I walk east.
+
+In the royal garden
+The garden is a rich mixture of flowers and trees of all kinds, a lot of them
+having been brought from distant countries. Several benches are scattered
+along the grassy paths.  A man in black walks by, saluting me.  A light
+shower of rain is fluttering down.
+
+I can go south, west and in.
+
+> dig
+I get hold of the shovel and dig deep into the ground. Soon I happen upon a
+dirty pack wrapped in linen and I lift it up into the sunlight.
+
+> south
+I walk south.
+
+By the northern gate
+The gate is huge and solid, featured by two huge knockers made of lead and
+ornamented with heads of lions, standing upon a white stony ground.  A light
+shower of rain is fluttering down.
+
+I can go north and south.
+
+> south
+I walk south.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A little girl is
+staring into the fountain.  A light shower of rain is fluttering down.
+
+I can go north, east and west.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A servant is hurrying by.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> east
+I walk east.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+A young woman is looking at me desperately.
+
+I can go east, west and up.
+
+> up
+I walk up.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> east
+I walk east.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+
+I can go south and west.
+
+> south
+I walk south.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> down
+I walk down.
+
+On the lower stairway
+The stairway leads up, surrounded by tiled walls and an arched ceiling above.
+Wooden stairs are covered with a thick blue and golden carpet and a pair of
+big chinese vases are standing by the downmost stair.
+
+I can go south and up.
+
+> south
+I walk south.
+
+In the southern garden
+The southern garden is peaceful and filled with sweet smells. Upon the grass,
+different kinds of flowers grow, along with a lawn of roses by the eastern
+wall. There is a bench to sit on and watch butterflies fluttering on the
+flowers.
+Rudolph II. is standing in the middle of the garden.
+
+I can only go north.
+
+> give bust to king
+I give the statue to the King, receiving nothing but words of gratitude.
+
+> north
+I walk north.
+
+On the lower stairway
+The stairway leads up, surrounded by tiled walls and an arched ceiling above.
+Wooden stairs are covered with a thick blue and golden carpet and a pair of
+big chinese vases are standing by the downmost stair.
+
+I can go south and up.
+
+> up
+I walk up.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> north
+I walk north.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+
+I can go south and west.
+
+> west
+I walk west.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> down
+I walk down.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+A young woman is looking at me desperately.
+
+I can go east, west and up.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.  A young man is crossing my
+way.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+
+I can go east, south, west and up.
+
+> west
+I walk west.
+
+By the western gate
+Framing along the white stony pathway, the gate is huge and made of stone.
+Above the entrance there is a big table saying something in a language I
+don't understand.
+A woman is standing by the gate, looking around desperately.
+
+I can only go east.
+
+> talk to woman
+"You look desperate. What happened?" I ask the woman.
+"I have lost my daughter. We were walking through the castle courtyards and
+suddenly she was gone," cries the woman.
+
+> east
+I walk east.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A little girl is
+staring into the fountain.  A happy couple is walking hand in hand.
+
+I can go north, east and west.
+
+> talk to girl
+"Why are you crying?" I ask the little girl.
+"I have lost my earrings. They were just new!" cries the girl.
+"What happened to the earrings?" I continue patiently.
+"They fell into the fountain. Well, I threw them in, but not on purpose," she
+cries. "Could you get them for me, mister?"
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> down
+I walk down.
+
+In the cellar
+The cellar is a large space located deep under the castle's luxurious rooms.
+There is an oven called Athanor attached to the southern side of the room, a
+strange picture on the wall and a staircase winding to the upper floor. In
+the middle stands a large table covered with flasks, which are scattered
+across the rest of the room as well.
+Thomas Erikkson is boiling liquids in his flasks.  The magician is rubbing
+his beard and staring beyond reality.
+
+I can go east and up.
+
+> east
+I walk east.
+
+By the bath
+The room is small, with a wooden floor, tiled walls and an arched ceiling.
+The middle part of the room is occupied by a large bath tub and there are
+some chairs standing by the walls. A uniform is lying upon the floor.
+A man is occupying the far-off part of the bath tub.
+
+I can go east and west.
+
+> east
+I walk east.
+
+In a secret passage
+The passage is a dark tunnel that has been built under the castle, God knows
+for what purposes. I leave my footprints in the soil as I walk.
+
+I can go north and west.
+
+> north
+I walk north.
+
+On the bottom of the fountain
+The fountain is a tens of meters deep and unpleasantly dark round hole into
+the ground. The top of it is covered with a heavy grid and the ground is just
+soil.
+
+Also here are the earrings.
+
+I can only go south.
+
+> get earrings
+I take the earrings.
+
+> south
+I walk south.
+
+In a secret passage
+The passage is a dark tunnel that has been built under the castle, God knows
+for what purposes. I leave my footprints in the soil as I walk.
+
+I can go north and west.
+
+> west
+I walk west.
+
+By the bath
+The room is small, with a wooden floor, tiled walls and an arched ceiling.
+The middle part of the room is occupied by a large bath tub and there are
+some chairs standing by the walls. A uniform is lying upon the floor.
+A man is occupying the far-off part of the bath tub.
+
+I can go east and west.
+
+> west
+I walk west.
+
+In the cellar
+The cellar is a large space located deep under the castle's luxurious rooms.
+There is an oven called Athanor attached to the southern side of the room, a
+strange picture on the wall and a staircase winding to the upper floor. In
+the middle stands a large table covered with flasks, which are scattered
+across the rest of the room as well.
+Thomas Erikkson is boiling liquids in his flasks.  The magician is rubbing
+his beard and staring beyond reality.
+
+I can go east and up.
+
+> up
+I walk up.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A light shower of rain is fluttering down.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A little girl is
+staring into the fountain.  I get a glimpse of a bird flying high above my
+head.  A light shower of rain is fluttering down.
+
+I can go north, east and west.
+
+> give earrings to girl
+"Here you are. Now let's see your mother," I offer, giving her the desired
+earrings.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+
+I can go east, south, west and up.
+
+> west
+I walk west.
+
+By the western gate
+Framing along the white stony pathway, the gate is huge and made of stone.
+Above the entrance there is a big table saying something in a language I
+don't understand.
+A woman is standing by the gate, looking around desperately.  A young man is
+crossing my way.
+
+I can only go east.
+As soon as they see each other, the mother and her daughter run to embrace,
+and with many thanks they walk away.
+
+> east
+I walk east.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.
+
+I can go north, east and west.
+
+> east
+I walk east.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.
+
+I can go north and west.
+
+> north
+I walk north.
+
+By the northern tower
+I am standing upon a stony ground, right in front of a tall tower, which has
+no windows, just a square hole as an entrance. The tower must be very old,
+judging from the state of decay.
+A young man is standing by the tower.  A warm, light breeze blows gently in
+my face.
+
+I can go south and in.
+
+> talk to enrico
+"You look so unhappy. What's the problem?" I ask the young man.
+"I was to meet my girlfriend, and she did not come. I have been waiting for
+two hours, and she did not come. I have no reason to live now. I will die,"
+he cries.
+
+> south
+I walk south.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.
+
+I can go north and west.
+
+> west
+I walk west.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A warm, light
+breeze blows gently in my face.
+
+I can go north, east and west.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A light shower of rain is fluttering down.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.  A man in black walks by,
+saluting me.
+
+I can go north, east and down.
+
+> east
+I walk east.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+A young woman is looking at me desperately.
+
+I can go east, west and up.
+
+> talk to serena
+"You look desperate. What's the matter?" I ask the girl.
+"I was to meet my boyfriend and he did not even show up. Whatever the reason,
+he did not even bother to explain," she cries.
+"I think he has been waiting by the northern tower. Maybe we could go and see
+him," I offer.
+"He has been so mean lately and now he lets me wait like this. I have no
+intention to go on with him. Death would be better than this," cries the
+girl, not even listening.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.  An older man is passing by
+slowly.
+
+I can go north, east and down.
+
+> down
+I walk down.
+
+In the cellar
+The cellar is a large space located deep under the castle's luxurious rooms.
+There is an oven called Athanor attached to the southern side of the room, a
+strange picture on the wall and a staircase winding to the upper floor. In
+the middle stands a large table covered with flasks, which are scattered
+across the rest of the room as well.
+Thomas Erikkson is boiling liquids in his flasks.  The magician is rubbing
+his beard and staring beyond reality.
+
+I can go east and up.
+
+> talk to magician about love spell
+"Do you know how to make people love and forgive each other?" I ask the
+magician.
+"Indeed. I do. You need a love spell," states the old man.
+"A love spell?"
+"Take this note. When you find all ingredients, you will need to mix them up
+and make the victim consume the mixture," he hands me a piece of paper.
+
+> up
+I walk up.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  An older man is passing by slowly.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.
+
+I can go north, east and west.
+
+> east
+I walk east.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+
+There is also a cup of red wine.
+The high priest is watching over the cathedral with a stone-cold face.
+
+I can go north and west.
+
+> x basin
+The basin is old, the marble crackles with age. The water inside it sparkles
+vividly.
+
+> get wine
+I take the cup of red wine.
+
+> west
+I walk west.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A warm, light
+breeze blows gently in my face.
+
+I can go north, east and west.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A happy couple is walking hand in hand.  A warm, light
+breeze blows gently in my face.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> east
+I walk east.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+A young woman is looking at me desperately.
+
+I can go east, west and up.
+
+> up
+I walk up.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> east
+I walk east.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+
+I can go south and west.
+
+> south
+I walk south.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> down
+I walk down.
+
+On the lower stairway
+The stairway leads up, surrounded by tiled walls and an arched ceiling above.
+Wooden stairs are covered with a thick blue and golden carpet and a pair of
+big chinese vases are standing by the downmost stair.
+
+I can go south and up.
+
+> south
+I walk south.
+
+In the southern garden
+The southern garden is peaceful and filled with sweet smells. Upon the grass,
+different kinds of flowers grow, along with a lawn of roses by the eastern
+wall. There is a bench to sit on and watch butterflies fluttering on the
+flowers.
+Rudolph II. is standing in the middle of the garden.
+
+I can only go north.
+
+> get rose
+I get some rose petals.
+
+> north
+I walk north.
+
+On the lower stairway
+The stairway leads up, surrounded by tiled walls and an arched ceiling above.
+Wooden stairs are covered with a thick blue and golden carpet and a pair of
+big chinese vases are standing by the downmost stair.
+
+I can go south and up.
+
+> up
+I walk up.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> north
+I walk north.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+
+I can go south and west.
+
+> west
+I walk west.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> down
+I walk down.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+A young woman is looking at me desperately.
+
+I can go east, west and up.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A man in black walks by, saluting me.  A warm, light
+breeze blows gently in my face.  A light shower of rain is fluttering down.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A warm, light
+breeze blows gently in my face.  A light shower of rain is fluttering down.
+
+I can go north, east and west.
+
+> east
+I walk east.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.
+
+I can go north and west.
+
+> north
+I walk north.
+
+By the northern tower
+I am standing upon a stony ground, right in front of a tall tower, which has
+no windows, just a square hole as an entrance. The tower must be very old,
+judging from the state of decay.
+A young man is standing by the tower.
+
+I can go south and in.
+
+> in
+I walk in.
+
+In the northern tower
+The inside of the tower is a small round space with decayed walls and a
+ground which is just soil. It has the feel as if it was going to fall apart
+right now. Time from time a mouse runs across the floor.
+
+I can only go out.
+
+> kill mouse with knife
+I kill the mouse, leaving a disgusting mess on the floor. I take the mouse's
+teeth.
+
+> out
+I walk out.
+
+By the northern tower
+I am standing upon a stony ground, right in front of a tall tower, which has
+no windows, just a square hole as an entrance. The tower must be very old,
+judging from the state of decay.
+A young man is standing by the tower.
+
+I can go south and in.
+
+> talk to enrico
+"I have talked to your girlfriend, but she refuses to meet you ever again," I
+speak, making the young man cry like a child. "I want to change her mind, and
+I need a piece of your body."
+He stops crying for a while, then gives me a bit of his hair.
+Now as I have all the ingredients, I can mix them up in the cup of wine.
+
+> south
+I walk south.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.
+
+I can go north and west.
+
+> west
+I walk west.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.
+
+I can go north, east and west.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> east
+I walk east.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+A young woman is looking at me desperately.  A man in black walks by,
+saluting me.
+
+I can go east, west and up.
+
+> give spell to serena
+I offer the cup of wine to the girl and she drinks it down in a moment. Now I
+am sure she will follow me.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A happy couple is walking hand in hand.  A warm, light
+breeze blows gently in my face.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.
+
+I can go north, east and west.
+
+> east
+I walk east.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.
+
+I can go north and west.
+
+> north
+I walk north.
+
+By the northern tower
+I am standing upon a stony ground, right in front of a tall tower, which has
+no windows, just a square hole as an entrance. The tower must be very old,
+judging from the state of decay.
+A young man is standing by the tower.  A happy couple is walking hand in
+hand.  A light shower of rain is fluttering down.
+
+I can go south and in.
+As soon as the lovers see each other, they run together, to kiss and embrace,
+and with whispered words and laughter they disappear in the distance.
+
+> south
+I walk south.
+
+In the cathedral
+The cathedral is tall, built long ago in the gothic style. It is featured by
+two front towers and offers a luxury of gold to pray and be forgiven. The
+floor is wooden and the ceiling is arched and painted gloriously. The windows
+behind and above the altar are allowing the sunlight to come in sparsely.
+There are two lines of wooden benches, a basin and some cups on the altar.
+The high priest is watching over the cathedral with a stone-cold face.
+
+I can go north and west.
+
+> west
+I walk west.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A light shower of
+rain is fluttering down.
+
+I can go north, east and west.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The stableman is watching over his horses.  The monk is sitting down, half
+asleep.
+
+I can go east and west.
+
+> show letter to stableman
+I show the commission letter to the stable man. He waves his hand in a
+direction of the horses, which means that I can take any horse I like, I
+suppose.
+
+> get horse
+I climb on a beautiful black horse, ready to visit the mysterious silver
+lake.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.
+
+I can go east, south, west and up.
+
+> west
+I walk west.
+
+By the western gate
+Framing along the white stony pathway, the gate is huge and made of stone.
+Above the entrance there is a big table saying something in a language I
+don't understand.  An older man is passing by slowly.
+
+I can only go east.
+
+> out
+I leave the castle area.
+
+Alessandro d'Estino's Journal
+
+August 12, 1603
+
+Nights and days went by since I left the castle. Another thing that went by
+was the continuously changing landscape, villages upon rivers, castles upon
+the hills. I travelled to the north-east, farther than I had ever imagined I
+would go. I travelled on and on, until the land became harder and hostile and
+I could occassionally glimpse the hilltops covered with snow.
+
+Then once, when the evening set dark mist upon my way, I have realized that I
+have finally arrived at the lake. It spread in a distance before me, shining
+silverly beneath the fading sky.
+
+> off horse
+I get off the horse, leaving him standing nearby.
+
+> east
+I walk east.
+
+By the silver lake
+The lake is spreading far and wide, endless like the sea. It reflects light
+with millions of tiny silver sparkles on the water surface, which looks like
+if the lake itself was made of silver. There are some trees growing on the
+banks of the lake.  A warm, light breeze blows gently in my face.
+
+I can only go west.
+
+> wait
+Time passes...
+The sun is setting beyond the horizon of water.
+
+> wait
+Time passes...
+The sky is getting dark slowly.
+The moon comes up, bright and big in the middle of the cloudy sky.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> throw tears into wind
+I throw the dragon's tears into the wind.
+
+Alessandro d'Estino's Journal
+
+August 16, 1603
+
+I opened the flask and tossed the crimson-colored liquid high into the air.
+The stream flew up into the night, above the sparkling lake and my
+outstretched arms. Then the blackness was disturbed with a few light drops,
+descending from the distant sky. Soon thousands upon thousands tiny silver
+raindrops came falling down, making the darkness gleam like the brightest day
+and splashing into the lake, its waters now of pure silver. I took out the
+flask and got it full of this wondrous rain.
+
+Refreshed and happy that old legends don't lie, I savored the experience and
+headed back for the castle. The many shuffling days and nights did not matter
+to me, knowing I would get a plenty of rest in the peaceful warmth and
+silence of my room.
+
+> west
+I walk west.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.
+
+I can go east, west and up.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.  A young man is crossing my
+way.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A light shower of rain is fluttering down.
+
+I can go east, south, west and up.
+
+> east
+I walk east.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The monk is sitting down, half asleep.
+
+I can go east and west.
+
+> east
+I walk east.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A young artist is
+standing nearby.  A pretty woman is walking by.  A light shower of rain is
+fluttering down.
+
+I can go north, east and west.
+
+> north
+I walk north.
+
+By the northern gate
+The gate is huge and solid, featured by two huge knockers made of lead and
+ornamented with heads of lions, standing upon a white stony ground.  I get a
+glimpse of a bird flying high above my head.  A light shower of rain is
+fluttering down.
+
+I can go north and south.
+
+> north
+I walk north.
+
+In the royal garden
+The garden is a rich mixture of flowers and trees of all kinds, a lot of them
+having been brought from distant countries. Several benches are scattered
+along the grassy paths.  A light shower of rain is fluttering down.
+
+I can go south, west and in.
+
+> west
+I walk west.
+
+By the royal pond
+The royal pond is large, with clean blue water, and offers a nice hideaway
+for those who need it. It is surrounded by large grassy areas and many trees.
+There are also some solid benches, offering a place to rest and relax.
+The poet is sitting on the grass, writing words down constantly.  An older
+man is passing by slowly.
+
+I can only go east.
+
+> put water in pot
+I fill the pot with fresh water from the pond.
+
+> east
+I walk east.
+
+In the royal garden
+The garden is a rich mixture of flowers and trees of all kinds, a lot of them
+having been brought from distant countries. Several benches are scattered
+along the grassy paths.  A warm, light breeze blows gently in my face.
+
+I can go south, west and in.
+
+> south
+I walk south.
+
+By the northern gate
+The gate is huge and solid, featured by two huge knockers made of lead and
+ornamented with heads of lions, standing upon a white stony ground.  A happy
+couple is walking hand in hand.  A warm, light breeze blows gently in my
+face.
+
+I can go north and south.
+
+> south
+I walk south.
+
+On the III. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. In the center of the yard there is an
+ancient-looking fountain.
+The merchant is watching my steps with an alligator smile.  A young artist is
+standing nearby.  A warm, light breeze blows gently in my face.
+
+I can go north, east and west.
+
+> west
+I walk west.
+
+In the stable
+The stable is a wide and long hall with white walls and an ancient arched
+ceiling, also white. The ground is just soil, which is suitable for the tens
+of horses that are stabled in boxes along the southern wall.
+The monk is sitting down, half asleep.
+
+I can go east and west.
+
+> west
+I walk west.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A warm, light breeze blows gently in my face.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> down
+I walk down.
+
+In the cellar
+The cellar is a large space located deep under the castle's luxurious rooms.
+There is an oven called Athanor attached to the southern side of the room, a
+strange picture on the wall and a staircase winding to the upper floor. In
+the middle stands a large table covered with flasks, which are scattered
+across the rest of the room as well.
+Thomas Erikkson is boiling liquids in his flasks.  The magician is rubbing
+his beard and staring beyond reality.
+
+I can go east and up.
+
+> make fire
+I remember what the note said I must do to create the spell of fire. I empty
+the contents of the earth sack into the Athanor, followed by the water from a
+pot. Then a gust of air from my lungs sets the whole set of elements on fire.
+
+> bowl on athanor
+I place the bowl into the firing oven.
+
+> gold on athanor
+I place the gold onto the bowl.
+
+> silver on athanor
+I let the silver liquid flow onto the bowl.
+
+> mercury on athanor
+I let the mercury mix with other metals.
+
+> copper on athanor
+I let the fire melt off the top of the key. I might still need the rest.
+
+> up
+I walk up.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> north
+I walk north.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A light shower of rain is fluttering down.
+
+I can go east, south, west and up.
+
+> west
+I walk west.
+
+By the western gate
+Framing along the white stony pathway, the gate is huge and made of stone.
+Above the entrance there is a big table saying something in a language I
+don't understand.
+A soldier is guarding the entrance.  A happy couple is walking hand in hand.
+A warm, light breeze blows gently in my face.  A light shower of rain is
+fluttering down.
+
+I can only go east.
+
+> give knife to guard
+I return the knife to the soldier. He doesn't say anything.
+
+> east
+I walk east.
+
+On the II. courtyard
+The courtyard is a large square area, paved with white stones and looking
+over a large part of the castle. A large staircase is attached to the middle
+of the eastern wall.  A warm, light breeze blows gently in my face.  A light
+shower of rain is fluttering down.
+
+I can go east, south, west and up.
+
+> south
+I walk south.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> east
+I walk east.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.  A young man is crossing my way.
+
+I can go east, west and up.
+
+> up
+I walk up.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> east
+I walk east.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+
+I can go south and west.
+
+> south
+I walk south.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> down
+I walk down.
+
+On the lower stairway
+The stairway leads up, surrounded by tiled walls and an arched ceiling above.
+Wooden stairs are covered with a thick blue and golden carpet and a pair of
+big chinese vases are standing by the downmost stair.
+
+I can go south and up.
+
+> south
+I walk south.
+
+In the southern garden
+The southern garden is peaceful and filled with sweet smells. Upon the grass,
+different kinds of flowers grow, along with a lawn of roses by the eastern
+wall. There is a bench to sit on and watch butterflies fluttering on the
+flowers.
+Rudolph II. is standing in the middle of the garden.
+
+I can only go north.
+
+> give key to king
+I return the key to the King.
+
+> north
+I walk north.
+
+On the lower stairway
+The stairway leads up, surrounded by tiled walls and an arched ceiling above.
+Wooden stairs are covered with a thick blue and golden carpet and a pair of
+big chinese vases are standing by the downmost stair.
+
+I can go south and up.
+
+> up
+I walk up.
+
+Above the stairway
+The stairway leads down, surrounded by tiled walls and an arched ceiling
+above. Wooden stairs are covered with a thick blue and golden carpet and a
+pair of big chinese vases are standing by the upmost stair.
+
+I can go north and down.
+
+> north
+I walk north.
+
+In the royal bedroom
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with
+golden chandeliers, a big blue stove, a blue and golden carpet on the floor
+and a bookshelf covering the northern wall. The room is richly equipped; in
+the corner there is a bed, in the center stands a table with chairs, an
+armchair is surrounded by big vases, the scales or a globe. Some portraits
+line up on the walls and the windows overview the southern garden.
+
+I can go south and west.
+
+> west
+I walk west.
+
+In the armory
+The armory is a small room with tiled walls and a red carpet covering the
+floor. The ceiling is arched and painted magnificently, with a chandelier
+suspended from the center, and the staircase is descending to the lower part
+of the tower. Weapons are displayed along the walls and there is a small pile
+of them on the floor, as well as a locked case upon the northern wall.
+
+I can go east and down.
+
+> down
+I walk down.
+
+In the southern tower
+The lower part of the tower is occupied by a red-carpeted, leather-tiled
+hall. The arched ceiling is featured by a silver chandelier, portraits of the
+royal family are framing the walls and a pair of big chinese vases are
+decorating both sides of the staircase.  An older man is passing by slowly.
+
+I can go east, west and up.
+
+> west
+I walk west.
+
+In the wide hall
+The wide hall has leather-tiled walls, a luxurious red carpet, a big red
+stove and golden chandeliers below the arched ceiling. Tall windows are
+framing the southern wall, while the opposite wall is covered with portraits.
+Standing by the long northern wall are tall chairs and chinese vases and a
+wooden staircase is spiraling down to the cellar.
+
+I can go north, east and down.
+
+> down
+I walk down.
+
+In the cellar
+The cellar is a large space located deep under the castle's luxurious rooms.
+There is an oven called Athanor attached to the southern side of the room, a
+strange picture on the wall and a staircase winding to the upper floor. In
+the middle stands a large table covered with flasks, which are scattered
+across the rest of the room as well.
+Thomas Erikkson is boiling liquids in his flasks.  The magician is rubbing
+his beard and staring beyond reality.
+
+I can go east and up.
+
+> iron on athanor
+I point the sword into the flames and watch it melt, piece by piece, like it
+was a candle-wax.
+
+> tin on athanor
+I put the tin cup onto the bowl.
+
+> lead on athanor
+I toss the piece of lead into the fire. The mixture of metal melts together,
+creating a flowing black liquid, which, when taken out of the heat, cools off
+into a snow-white color. Then the form begins to darken and crumble, finally
+leaving a crimson, bloody red powder.
+
+Alessandro d'Estino's Journal
+
+August 17, 1613
+
+I have succeeded in the creation of the Elixir of Life. I have fulfilled the
+King's wish, completed his task. But I never went back to tell him.
+
+It occured to me at the moment when I stood with the vial of the precious
+life-giving liquid in my hands, that if I took it to the King, he could and
+would make the world a battlefield. He would be an invincible leader, able to
+set destruction to the world.
+
+I left the castle immediately and headed for my homeland. There, in the
+garden of my old house, I sat down and thought. So many things happened, so
+many yet to come. I recalled a picture of my Clarissa, as she ran bare-foot,
+laughing, through the flower field. Then I saw her dying in my arms, and the
+sun dried tears on my cheeks before they could fall to the ground, just like
+it did then, many years ago.
+
+I took the vial. I have had enough of fears to know and wish not to be any
+part of the world at all. For not being part of their deadly games, for my
+own Clarissa's death, for the love of angels and their golden light and for
+myself - I drank.
+
+As I write these lines, ten years after I have willingly became what I became
+to watch the history take its turns, the King's brother had taken over the
+land, leaving the King himself sick and broken. Fate had it that he died this
+winter, winter that stands for cold, cruel and slow death. I don't pity him,
+not anymore than I would pity anybody's departure for the shadowland.
+
+But me, I am immortal. I am changeless and flawless and I am wandering the
+world to learn all that there is left to know. I have set my steps on a road
+to walk through eternity, without regrets or fears, and I can't wait to see
+tomorrow.
+
+You scored 490 out of the maximum 0!
+That is 100% of the game!
+You finished -490 points short.

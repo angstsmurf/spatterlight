@@ -1,0 +1,213 @@
+1
+2
+3
+x leg
+s
+get poetry
+w
+talk jeb
+2
+score
+1
+nw
+look
+score
+buy beer
+i
+talk normal
+x wallet
+open wallet
+score
+give cash to spam
+score
+give beer to normal
+score
+talk normal
+3
+1
+2
+1
+1
+1
+1
+se
+look
+sw
+look
+sw
+x rock
+look
+sw
+look
+score
+kid
+i
+score
+look
+get grenade
+i
+ne
+ne
+e
+e
+look
+ne
+e
+e
+look
+talk toby
+4
+1
+n
+2
+ne
+2
+sw
+s
+n
+throw grenade
+score
+look
+s
+se
+look
+s
+look
+se
+look
+i
+score
+x noticeboard
+talk calhoun
+score
+1
+score
+i
+nw
+w
+w
+look
+nw
+look
+i
+arrest whitey
+score
+se
+e
+e
+se
+talk calhoun
+score
+nw
+w
+w
+sw
+look
+talk mauree
+score
+1
+1
+score
+1
+ne
+nw
+look
+give lolly to cestus
+score
+se
+e
+e
+s
+look
+x beggar
+n
+w
+w
+sw
+look
+ne
+nw
+look
+talk cestus
+score
+give lolly to cestus
+5
+score
+1
+se
+e
+e
+se
+give slippers to sheriff
+score
+s
+x wall
+get crowbar
+score
+i
+wear badge
+s
+x wall
+get crowbar
+score
+talk quiff
+score
+2
+score
+3
+score
+1
+n
+nw
+w
+n
+look
+open wardrobe
+score
+i
+get will
+i
+score
+s
+e
+se
+talk sheriff
+score
+nw
+w
+w
+nw
+give will to dyanne
+score
+i
+talk spam
+2
+1
+se
+e
+e
+e
+open warehouse
+sw
+pull board
+ne
+score
+i
+u
+open cabinet
+score
+i
+d
+ne
+give helmet
+w
+ne
+sw
+ne
+n
+push barrel
+d
+u
+s
+score
+i

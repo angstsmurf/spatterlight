@@ -1,0 +1,466 @@
+Loading game...
+
+Fire in the Blood
+by Richard Otter, version 1.04
+
+Written during 2005 using ADRIFT version 4.00 Release 45.
+
+At any time during the game you can type Intro, credits or details for more
+information.
+
+If you get stuck you could try hints which should give you a clue.
+
+[Press ENTER to read the Introduction]
+
+Fire in the Blood
+by Richard Otter, version 1.04
+
+In the early hours of the morning you once again awake screaming. Sweating
+and disorientated, it is the same nightmare that has haunted you for the last
+two months. You are late home from work, you open your front door and call
+'Jane' as you always do. Closing the door, you take a few steps into the
+house and discover her crumpled body lying on the floor.  Unfortunately it is
+not a dream.
+
+Even now, two months later, you can't come to terms with what has happened.
+Robbery, assault, rape, murder are only words, but those words ended your
+world. According to the police, from the evidence it would appear that about
+four individuals were involved.  They questioned one man but had to let him
+go due to lack of evidence and of course they wouldn't let you know his name.
+Still, in your pocket is a piece of paper with a single name on it from a
+good friend at the police station.
+
+You are now standing before her headstone, a single red rose in your pocket.
+Each anniversary you always gave her a rose and, although she is not here,
+today will be no different.  Nothing will give you any peace; not alcohol,
+not comforting friends, not helpful relatives, not counselling.  They took
+away your best friend, your lover, your soul mate and it hurts.
+
+Only two thoughts are on your mind; find out who did this and then make them
+pay with their very lives.
+
+[Press ENTER to start]
+
+Cemetery
+With no buildings or trees near or around this large open space, nothing
+seems to stop the cold wind which is always blowing here.  It is the type of
+wind which cuts straight through to your bones, chilling your very soul.
+Gloomy and depressing as this place is, it seems to match your mood
+perfectly. Standing at the side of your wife's grave, the recently completed
+headstone is the only bright thing here.  To the north is Albert Street and
+Dawson Street is to the east.
+
+So the only clue you have is the name Jed Peters. Quietly to yourself you
+mutter, "I must track him down and find out who his friends are."
+
+> put rose on grave
+You place the rose on the grave of your wife.
+
+> n
+You move north.
+
+Albert Street
+One of the more run down parts of town, Albert Street has tired looking shops
+and houses lining both sides of the road. You are very familiar with this
+area and know without looking that a pub called the Flying Horse is northeast
+and the place to the north is a tattoo parlour.  Dawson Street is to the
+southeast and London Road is to your west. From the wind that is blowing you
+can tell the cemetery is to the south.
+
+> w
+You move west.
+
+London Road
+Lined by sad little houses you cannot help but feel depressed here.  East
+leads to Albert Street, to the west is Castle Avenue and you know without
+looking that to the north is a seedy corner shop. You avoid looking south but
+the terrible feeling of grief and despair still overtakes you; it is the
+front door of your home.
+
+> open front door
+You open your front door.  Terry Unsworth wanders in from the west.
+
+> s
+You move south.
+
+Your House
+You cannot really bring yourself to even look at the house, let alone think
+about living here.  It was a place of joy, of long winter nights curled in
+front of the television, of dinner parties with friends, a place of
+happiness.  In the centre of the room is the battered old three seater settee
+you both loved and just in front of it the coffee table you always use as a
+foot rest. At the back of the room is a rather nice looking chest of drawers.
+The front door is to the north.
+
+You can also see a pair of gloves.
+
+As you enter the house it suddenly all comes back to you. It is two months
+ago and you are late home from work.
+You remember opening your front door and walking in, calling 'Jane' as you
+always did. Closing the door, you take a few steps into the house and there
+before you is her crumpled body lying on the floor. For a few moments you
+feel dizzy but slowly it passes.
+
+> get gloves
+You take the pair of gloves.
+
+> wear gloves
+Slipping on the gloves and smiling to yourself you think, "These would stop
+any fingerprints appearing on anything I touch."
+
+> examine coffee table
+It is a small wooden coffee table.  A photograph and a jewellery box are on
+the coffee table.
+
+> take photograph from coffee table
+You take the photograph from the coffee table.
+
+> take jewellery box from coffee table
+You take the jewellery box from the coffee table.
+
+> open jewellery box
+You open the jewellery box. A note is inside the jewellery box.
+
+> examine jewellery box
+It is your Jane's white leather jewellery box.   The jewellery box is open.
+A note is inside the jewellery box.
+
+> examine chest of drawers
+The chest of drawers stands around 1.5m high, it is made from mahogany and
+has brass handles. Most of the drawers seem to be locked, but one appears to
+be open.  The chest of drawers is closed.  A pair of scissors is on the chest
+of drawers.
+
+> take scissors
+You take the pair of scissors from the chest of drawers.
+
+> open chest of drawers
+You open the chest of drawers.  A medical report and some old curtains are
+inside the chest of drawers.
+
+> take medical report from chest of drawers
+You take the medical report from the chest of drawers.
+
+> take curtains from chest of drawers
+You take the old curtains from the chest of drawers.
+
+> n
+You move north.
+
+London Road
+Lined by sad little houses you cannot help but feel depressed here.  East
+leads to Albert Street, to the west is Castle Avenue and you know without
+looking that to the north is a seedy corner shop. You avoid looking south but
+the terrible feeling of grief and despair still overtakes you; it is the
+front door of your home.
+
+> w
+You move west.
+
+Castle Avenue
+The houses are larger and the cars parked outside more expensive, so this is
+the better part of town but it still seems a very bleak place. London Road is
+to the east and a small park can just be seen to the west.  An alley is north
+and to the south is a betting shop.
+Alison Clarke is standing here.
+Alison straightens her skirt.
+
+> n
+You move north.
+
+Back Alley
+The narrow alleyway is just wide enough to allow two people to pass; it looks
+a very unpleasant place and smells even worse. Just to your right are some
+metal steps leading up to a flat and an old neon sign with the words 'Pool
+Hall' is to the west. At the north end of the alley is an old house, which
+from the look of it has been derelict for years. Castle Avenue is to the
+south.
+
+> u
+You move up.
+
+Upstairs Flat
+As you enter the flat you are greeted with the smell of stale sweat and
+probably far worse.  You are not sure what colour the carpet should be and it
+feels very 'crunchy' under foot.  You ask yourself how people can live like
+this and decide that you will need a shower later.  Against the opposite wall
+is an unmade bed and in the centre of the room is an armchair sited just in
+front of an old television. A lone picture is hanging at steep angle on one
+wall. Some steps lead down and away from this place.
+Frank Lovell is sitting in the armchair.
+
+Frank looks at you and says, "What are you doing in here, don't you know how
+to knock?"
+Looking firmly at him you reply, "No, why?"
+Frank withers under your firm gaze and replies, "Well, now you are in I don't
+suppose it matters."
+
+> show photograph to frank
+Frank looks at the picture and replies, "She was a nice woman. I think Jed
+and Ben went a bit too far though."
+You clench both you fists and try to remain calm, he was one of them.
+
+> d
+You move down.
+
+Back Alley
+The narrow alleyway is just wide enough to allow two people to pass; it looks
+a very unpleasant place and smells even worse. Just to your right are some
+metal steps leading up to a flat and an old neon sign with the words 'Pool
+Hall' is to the west. At the north end of the alley is an old house, which
+from the look of it has been derelict for years. Castle Avenue is to the
+south.
+
+> s
+You move south.
+
+Castle Avenue
+The houses are larger and the cars parked outside more expensive, so this is
+the better part of town but it still seems a very bleak place. London Road is
+to the east and a small park can just be seen to the west.  An alley is north
+and to the south is a betting shop.
+Alison Clarke is standing here.
+
+> e
+You move east.
+
+London Road
+Lined by sad little houses you cannot help but feel depressed here.  East
+leads to Albert Street, to the west is Castle Avenue and you know without
+looking that to the north is a seedy corner shop. You avoid looking south but
+the terrible feeling of grief and despair still overtakes you; it is the
+front door of your home.
+Terry Unsworth is busy sweeping the road.  Terry Unsworth wanders out to the
+west.
+
+> e
+You move east.
+
+Albert Street
+One of the more run down parts of town, Albert Street has tired looking shops
+and houses lining both sides of the road. You are very familiar with this
+area and know without looking that a pub called the Flying Horse is northeast
+and the place to the north is a tattoo parlour.  Dawson Street is to the
+southeast and London Road is to your west. From the wind that is blowing you
+can tell the cemetery is to the south.
+
+> ne
+You move northeast.
+
+Flying Horse
+The Flying Horse was once your typical pub (public house) and a good place to
+have a quiet drink. Now, like the rest of this town it looks neglected and
+miserable (or maybe that is just you).  It has the typical pub smell of stale
+beer and cigarettes, not exactly a stomach churning experience but not that
+pleasant either.  The pubs narrow bar is in front of you and just inside the
+door is a dart board and a wall mounted jukebox. To the southwest is Albert
+Street, southeast is Draycot Road and the yard behind the pub is to the
+south.
+Colin Turner is standing at the bar.  Jed Peters is watching you carefully.
+Fred Sutton is staring vacantly around.  Emma Taylor is standing behind the
+bar.
+
+The barmaid, Emma, looks up and says cheerily, "Hello darling, you look a bit
+under the weather. I'm sure a drink will cheer you up a bit."
+Under your breath you mutter, "Try having your wife murdered and see how much
+you want to laugh!" You return her comment with a weak smile.
+Colin and Fred are talking about a boxing match.
+
+> show photograph to jed
+Jed looks at the picture and replies, "She was a bit of all right.  We
+certain showed her a good time."
+You clench both you fists and try to remain calm, he was one of them. It is
+not until much later that you realise he did not return your picture.
+Colin and Fred are arguing about a football match.
+Emma is cleaning glasses.
+
+> sw
+You move southwest.
+
+Albert Street
+One of the more run down parts of town, Albert Street has tired looking shops
+and houses lining both sides of the road. You are very familiar with this
+area and know without looking that a pub called the Flying Horse is northeast
+and the place to the north is a tattoo parlour.  Dawson Street is to the
+southeast and London Road is to your west. From the wind that is blowing you
+can tell the cemetery is to the south.
+
+> w
+You move west.
+
+London Road
+Lined by sad little houses you cannot help but feel depressed here.  East
+leads to Albert Street, to the west is Castle Avenue and you know without
+looking that to the north is a seedy corner shop. You avoid looking south but
+the terrible feeling of grief and despair still overtakes you; it is the
+front door of your home.
+Terry Unsworth is busy sweeping the road.
+
+> w
+You move west.
+
+Castle Avenue
+The houses are larger and the cars parked outside more expensive, so this is
+the better part of town but it still seems a very bleak place. London Road is
+to the east and a small park can just be seen to the west.  An alley is north
+and to the south is a betting shop.
+Alison Clarke is standing here.  Terry Unsworth wanders in from the east.
+Alison coughs.
+
+> w
+You move west.
+
+The Park
+You remember the park in this town as being a beautiful, peaceful, well kept
+place. It is quite obvious that the local council are now spending their
+money elsewhere. With its overgrown flower beds and wild bushes it has an air
+of neglect about it. You are standing next to one of the only wooden benches
+not to be vandalised and just at its side is a rubbish bin. Castle Avenue is
+to the east of you and a small path leads away to the south.
+Tom Addison is here.
+
+Tom makes a terrible noise at the back of this throat and then spits on the
+ground.
+
+As you look around the park something jogs a memory and it suddenly all comes
+back to you. You are walking with your wife, hand in hand. You are talking
+about the future, about starting a family. You stand quite still for several
+minutes and quietly call her name.
+Tom spits on the floor.
+
+> s
+You move south.
+
+Path
+The rutted and overgrown path leads north to the park and south to the old
+tennis courts. A tired looking tree stands forlornly at the side of the path.
+Mrs Ashworth is walking her dog, Timmy.  Mrs Ashworth exits to the north.
+
+> s
+You move south.
+
+The Old Tennis Court
+The old tennis court are now in a very bad state of repair and it would be
+impossible to have any sort of game here. Most of the fence which once
+surrounded the courts has gone, along with the fence posts which would have
+supported it. From the look of the court surface someone has been riding
+motorbikes in here. A path leads away to the north.
+Rick Dawson is nervously looking around.
+
+> show photograph to rick
+You are not carrying the photograph.
+
+> n
+You move north.
+
+Path
+The rutted and overgrown path leads north to the park and south to the old
+tennis courts. A tired looking tree stands forlornly at the side of the path.
+Mrs Ashworth is walking her dog, Timmy.
+
+> n
+You move north.
+
+The Park
+You remember the park in this town as being a beautiful, peaceful, well kept
+place. It is quite obvious that the local council are now spending their
+money elsewhere. With its overgrown flower beds and wild bushes it has an air
+of neglect about it. You are standing next to one of the only wooden benches
+not to be vandalised and just at its side is a rubbish bin. Castle Avenue is
+to the east of you and a small path leads away to the south.
+Tom Addison is here.
+
+> e
+You move east.
+
+Castle Avenue
+The houses are larger and the cars parked outside more expensive, so this is
+the better part of town but it still seems a very bleak place. London Road is
+to the east and a small park can just be seen to the west.  An alley is north
+and to the south is a betting shop.
+Alison Clarke is standing here.
+Alison takes a few paces.
+
+> e
+You move east.
+
+London Road
+Lined by sad little houses you cannot help but feel depressed here.  East
+leads to Albert Street, to the west is Castle Avenue and you know without
+looking that to the north is a seedy corner shop. You avoid looking south but
+the terrible feeling of grief and despair still overtakes you; it is the
+front door of your home.
+
+You are suddenly overwhelmed by a complete feeling of helplessness and you
+scream to yourself, "If only I hadn't got home late that night."
+
+> e
+You move east.
+
+Albert Street
+One of the more run down parts of town, Albert Street has tired looking shops
+and houses lining both sides of the road. You are very familiar with this
+area and know without looking that a pub called the Flying Horse is northeast
+and the place to the north is a tattoo parlour.  Dawson Street is to the
+southeast and London Road is to your west. From the wind that is blowing you
+can tell the cemetery is to the south.
+Terry Unsworth is busy sweeping the road.  Terry Unsworth wanders out to the
+south-east.
+
+> n
+You move north.
+
+Tattoo Parlour
+The place looks clean enough but still somehow manages to feel grimy and
+dirty.  On the walls are various posters showing examples of different dragon
+tattoos. A white counter is located against the rear wall of the shop and you
+can see a certificate hanging on the wall just inside the door. The only exit
+from this miserable place is behind you to the south.
+
+You can see a discarded cigarette.
+Ben Crosby is standing here.
+Ben glances at you for a moment and with a look of distain looks away.
+
+> show photograph to ben
+You are not carrying the photograph.
+
+> hints
+Do you really want to view hints? [Y/N] How do I get the gold pendant?
+- Jed sold it to someone.
+- Check out the pawn brokers on Dawson Street.
+How do I find the diamond ring?
+- Jed gave it to someone.
+- Rick may known something about the ring.
+How do I find the small bracelet?
+- Jed gave it to someone.
+- Alison may know something about the ring.
+How do I find the silver necklace?
+- Jed gave it to someone.
+- Frank may known something about the ring.
+Any other ways to check if Ben is guilty?
+- Maybe you can find a witness.
+- Ask Matthew Baylis about Ben.
+How do I kill Ben Crosby
+- He is a very tough man and the usual methods will not work. He has one weakness so may you can get someone else to do the business for you.
+- Ed owes John Morley money, get the package from Ben.
+How do I kill Ben Crosby
+- He is a very tough man and the usual methods will not work. He has one weakness so may you can get someone else to do the business for you.
+- Ed owes John Morley money, get the package from Ben.
+How do I kill Ben Crosby
+- He is a very tough man and the usual methods will not work. He has one weakness so may you can get someone else to do the business for you.
+- Ed owes John Morley money, get the package from Ben.
+Can the bottle be used as a weapon?
+- Not whole it can't
+- Break the bottle.
+How do I get the package from Ben?
+- He has a bad habit, that might make him put the package down.
+- Get some drugs from Rick and give them to Ben. He will put the package down.
+How do I check whether Ben is guilty?
+- You need to find out whether he recognises your wife. Something with a picture in it maybe.
+- Show him the burnt album and see how he reacts.
+How do I stop being arrested?
+- What could you wear to hide your fingerprints.
+- Try wearing some gloves.
+
+> quit
+Do you really want to quit? [Y/N]

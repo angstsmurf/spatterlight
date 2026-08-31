@@ -1,0 +1,10 @@
+n
+a
+kill orcs
+x orcs
+buy wine
+x card
+i
+score
+quit
+y

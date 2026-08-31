@@ -1,0 +1,73 @@
+1
+n
+wait
+wait
+wait
+wait
+wait
+w
+w
+w
+e
+e
+s
+clean office
+x desk
+look under desk
+n
+e
+se
+get gloves
+nw
+w
+w
+cut wire
+smash vending with crowbar
+wear gloves
+get item
+e
+nw
+n
+x throne
+ne
+force trunk
+get trident
+talk daisy
+talk daisy
+2
+sw
+s
+se
+w
+w
+give coca to violetta
+e
+e
+e
+1
+1
+1
+1
+w
+w
+talk plod
+e
+get badge
+wear badge
+e
+e
+n
+ne
+in
+x accelerator
+get veal
+out
+sw
+s
+w
+nw
+n
+ne
+use camera
+sw
+give trident to witherspoon

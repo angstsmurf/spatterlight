@@ -1,0 +1,303 @@
+1
+s
+talk to bartimony
+death
+traps
+book
+goodbye
+n
+e
+e
+move wardrobe
+x bureau
+read book
+1
+2
+3
+4
+5
+move painting
+w
+read notice board
+w
+x plant
+look
+plant seed
+z
+z
+z
+z
+e
+n
+w
+1
+5
+3
+s
+s
+talk to bartimony
+merrichan
+cadmus
+goodbye
+n
+x table
+ring bell
+talk to ibben
+x sign
+ibben cadmus
+z
+z
+z
+z
+z
+n
+talk to cadmus
+3
+1
+2
+s
+z
+z
+z
+read notice board
+z
+z
+z
+z
+z
+z
+hide under bed
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+w
+get suit
+get glove
+wear glove
+w
+x tree
+get bark
+e
+s
+talk to bartimony
+uff
+unbreakable safe
+goodbye
+n
+n
+w
+1
+x
+1
+s
+e
+e
+read scroll
+read scroll
+w
+s
+talk to bartimony
+magician
+yukabong beetle
+1
+goodbye
+n
+ring bell
+ibben samuel
+e
+put hand in hole
+get whistle
+w
+z
+z
+z
+z
+z
+z
+z
+z
+z
+w
+talk to samuel
+shout
+talk to samuel
+e
+n
+s
+w
+volturnus
+talk to volturnus
+talk to volturnus
+talk to volturnus
+talk to volturnus
+talk to volturnus
+talk to volturnus
+talk to volturnus
+e
+n
+w
+1
+0
+3
+s
+s
+talk to bartimony
+necromancy
+goodbye
+n
+e
+look under bed
+read codex
+w
+s
+talk to bartimony
+canum
+goodbye
+n
+ring bell
+ibben scalbit
+ibben chalk
+ibben phial
+e
+come forth
+king
+davien
+scorbites
+davien
+palace cemetery
+buried
+lies
+w
+ibben hammer
+n
+smash east wall with hammer
+x alcove
+s
+w
+give parchment to volturnus
+e
+read notice board
+s
+talk to bartimony
+tavrin
+goodbye
+n
+ibben simkin
+n
+w
+1
+1
+2
+3
+3
+1
+4
+1
+5
+3
+6
+s
+z
+z
+z
+z
+z
+z
+z
+e
+w
+w
+z
+z
+z
+z
+z
+z
+e
+e
+get net
+get fork
+z
+z
+raise bark
+w
+ring fork
+ring fork
+ring fork
+throw net at volturnus
+e
+e
+get crown
+wear crown
+read tome
+w
+s
+talk to bartimony
+essence
+spirit ward
+cleansed
+goodbye
+pray
+shout
+n
+w
+shout
+e
+n
+shout
+s
+e
+shout
+w
+n
+w
+2
+1
+s
+s
+talk to bartimony
+purified
+goodbye
+n
+e
+blow whistle
+shatter safe
+pour blood on safe
+wear noseplugs
+open wardrobe
+w
+n
+w
+2
+1
+s
+s
+talk to bartimony
+talk to bartimony
+death
+death
+secretary
+robeson
+goodbye
+n
+ring bell
+ibben robe
+wear robe
+ibben secretary
+e
+talk to marla
+2
+1
+read diary
+crush essence
+crush essence
+wait for midnight
+ritual

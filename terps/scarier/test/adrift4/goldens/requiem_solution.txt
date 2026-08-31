@@ -1,0 +1,74 @@
+1
+n
+talk to sophia
+1
+1
+1
+z
+z
+z
+z
+z
+z
+z
+z
+z
+n
+u
+open door
+x bed
+e
+3
+2
+open package
+x photographs
+x report
+x file
+x folder
+talk to sophia
+talk to sophia
+n
+s
+shoot martin cairns
+s
+talk to cairns
+break chair
+listen
+e
+e
+1
+1
+1
+1
+1
+1
+1
+1
+1
+e
+s
+e
+n
+e
+sw
+e
+talk to homeless man
+give loose change to homeless man
+w
+w
+w
+n
+x street light
+w
+talk to cairns
+talk to cairns
+talk to carl marrington
+plan two
+n
+n
+e
+1
+3
+2
+1
+5

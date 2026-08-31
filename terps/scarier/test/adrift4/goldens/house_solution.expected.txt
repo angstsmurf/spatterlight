@@ -1,0 +1,1660 @@
+Loading game...
+
+HOUSE
+
+by Matt Wiltshire
+
+     <1>  Introduction.
+
+     <2>  Play the game.
+
+     <3>  Read me.
+
+     <4>  Credits.
+
+> 2
+
+Its a beautifully sunny day as you stroll into Bellview road.
+Cathy's house should be at the far end of the row.
+Today's the day when you confront her.
+Lets just hope she doesn't mind you dropping in unexpectedly.
+
+You are carrying your diary.
+
+Bellview Road - numbers 1 and 2
+You stand upon the hot tarmac of Bellview Road.  The sky is a clear blue and
+a slight breeze keeps the heat from becoming uncomfortable.  The houses are
+medium sized, two story dwellings.  North lies No. 1 while south lies No. 2.
+
+> e
+%drunk% east.
+
+Bellview Road - numbers 3 and 4
+To the north lies No. 3 and to the south lies No. 4.  Nothing much seems to
+be going on around here.
+
+> e
+%drunk% east.
+
+Bellview Road - numbers 5 and 6
+Something casts a shadow over this part of the road.  You glance up and
+notice that nothing is blocking the sunlight.  It's just slightly....darker
+here.  No. 5. lies to the north and No. 6. lies to the south.
+
+> e
+%drunk% east.
+
+Bellview Road - numbers 7 and 8
+A large tree stands here.  To the north lies No. 7 and to the south lies No.
+8.
+
+> e
+%drunk% east.
+
+Bellview Road - numbers 9 and 10
+Bellview Road ends here and becomes Haughton street to the east.  To the
+North lies No .9. while to the south lies No. 10.  Cathy's house.
+
+> look under stone
+Result!  Under the broken paving stone you find a note written on lined
+paper.  It reads:
+
+Dear Damien,
+We waited but you didn't show up.  We are at the live action gig.  This is
+the big one.  The forces of darkness must yield to our superior intellect.
+Bring weapons.
+
+Love Cathy     x
+
+Love!  LOVE!  And a kiss as well.  Who is this Damien character?
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+Everything seems to have gone unnaturally quiet.
+
+> z
+Time passes...
+
+You notice that shadows are beginning to lengthen. The quality of the light
+is changing.  Looking up into the sky you are dumbfounded to see the sun
+turning a dull red colour.  The whole road is now drenched in a bloody haze
+and you shiver as the temperature drops.
+
+The breeze becomes a high wind.  You are nearly knocked off your feet as a
+roaring gale starts up.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+The earth shakes beneath your feet and cracks begin to appear in the road.
+Foul odors and black smoke belch forth from the tears in the tarmac.
+
+> z
+Time passes...
+
+Screams and cries assault your ears and inhuman voices chatter and gibber in
+the mists and vapours that now cloud your vision.
+
+> z
+Time passes...
+
+There is an almighty howl. Like the roar of a thousand beasts and every
+single window in Bellview road shatters.  All except for the windows of No.
+5.
+
+> z
+Time passes...
+
+You see a giant being stalking across the horizon.  Its face a mass of
+tentacles.  As your sanity begins to unfold you realise that the crashing you
+can hear must be the sound of it stepping on and crushing houses.
+
+> z
+Time passes...
+
+Large creatures are zipping through the air on bat like wings.  They move too
+fast for you to identify.
+
+> z
+Time passes...
+
+You hear the roar of an engine and out of the haze speeds a badly damaged
+Ford Capri.  Its front end slams into a steadily widening crack in the road
+and the driver tumbles out.  Its Cathy!
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> get cathy
+You slip one arm under Cathy's knees, the other around her waist and gently
+lift her.  You are now carrying Cathy.
+
+> w
+%drunk% west.
+
+Bellview Road - numbers 7 and 8
+The pavement is ragged and broken where a tree used to stand.  Its almost as
+if it heaved up its roots and walked away.  You wonder where it is now.  It
+was a very large tree.  To the north something seems to be sliding over the
+walls of No. 7. and to the south is....darkness.
+
+> w
+%drunk% west.
+
+Bellview Road - numbers 5 and 6
+There is madness in the sky.  No. 5. lies to the north and No. 6. lies to the
+south.
+
+> n
+As you stagger up the path towards No. 5 the front door slowly creaks open.
+You pause on the threshold.  The world seems to be coming to an end behind
+you and yet still you hesitate.  Cradled in your arms Cathy moans and reaches
+out a hand towards the darkness framed by the open door.  With no other means
+of escape from the disintegrating road in sight you run headlong into the
+house.
+
+The door slams shut and the floor pitches forward causing you to drop Cathy.
+You try to regain your balance but the hallway tilts further until you find
+yourself lying on the ceiling.  As the hall shakes and rocks crazily it feels
+as if you are in free fall and you choke back rising bile as motion sickness
+causes you to retch miserably.
+
+The hallway.  You stand upon the ceiling as the house sways and rocks from
+side to side.   Above your head is a long uncarpeted passage ending in
+rickety looking stairs.  A small wooden stool stands seemingly glued to the
+floor.  There are doors to the east and west.  The front door is behind you.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+The house suddenly rights itself and you fall to the floor.  Landing badly on
+the hard boards you wait as the violent rocking stops then slowly get to your
+feet.  The light that only a moment ago was pouring through the window is
+abruptly cut off.  You stand in near darkness.
+
+> z
+Time passes...
+
+You feel a faint vibration pass through the house.
+
+> z
+Time passes...
+
+You begin to wonder why the objects in these rooms didn't become dislodged
+when the house tipped over.  Could some force be holding everything in place?
+
+> z
+Time passes...
+
+A sickly greenish light begins to illuminate the room.
+You realise that the glow is coming from the gaps in the floor boards.
+
+> look
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a narrow window with its own
+wooden shutter.
+
+You can also see a wooden stool.
+Cathy is roughly shaking you.
+Cathy suddenly rushes over and grabs you.  She begins to shout hysterically
+saying, "It's my fault, it's all my fault.  We should never have done it.
+Damien swore he knew what he was doing.  I don't understand what went
+wrong...I....I...".  She gulps air and continues to shake you.
+
+> i
+You are carrying a note and a diary.
+
+> get cathy
+
+As you touch cathy you feel as if you have been transported to another place.
+ Static races through your fingers, up your arms and into your body making
+the hairs on your head rise.  A wave of nausea washes over you.  Your eyes
+blur with tears and your surroundings change.  Pictures begin to form in your
+head.
+
+It is a grey, rain sodden morning in a little church yard.  Standing beside
+two newly dug graves is a tall, androgynous figure with one blue and one
+green eye.  It is impossible to tell if they are male or female.  A single
+tear runs down their cheek.  The figure seems to be looking right at you.
+You can see the names upon the grave stones.  Yours and Cathys.  The sound of
+your screams shatter the vision.
+
+> score
+Your score is 3 out of a maximum of 30.  (10%)
+
+> i
+You are carrying a note and a diary.
+
+> open dining room door
+The dining room door is already open!
+
+> open lounge door
+As you reach out towards the door it slowly creaks open of its own accord.
+Cathy lets go of your arm and wanders off towards the Dining room.  You hear
+her voice echoing through the house saying, "Cold...so cold.....".  Soon she
+stops talking altogether.
+
+> w
+%drunk% west.
+
+Dining room
+This room is dominated by a huge fireplace.  A large window is set in the
+south wall with thick shutters on either side.  To the north is the kitchen
+door.  High up on one wall you notice a dent in the plaster.  A suit of
+armour stands in one corner.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+Cathy seems to have gone catatonic.
+
+You begin to realise how cold it is here.  Everything is covered in a layer
+of frost.
+
+> look
+
+Dining room
+This room is dominated by a huge fireplace.  A large window is set in the
+south wall with thick shutters on either side.  To the north is the kitchen
+door.  High up on one wall you notice a dent in the plaster.  A suit of
+armour stands in one corner.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+Cathy seems to have gone catatonic.
+
+> i
+You are carrying a note and a diary.
+
+Your breath becomes fog as the warmth slowly leaches from your body.
+
+> e
+%drunk% east.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a narrow window with its own
+wooden shutter.
+
+You can also see a wooden stool.
+
+> e
+%drunk% east.
+
+Lounge
+A large room that has been leached of all cheer by darkness and decay.  Damp
+patches colour the walls in whorls of black slime.  A single window lets no
+light into this place.  There is a layer of frost coating the glass and thick
+shutters are fixed either side.  In one corner is a mouse hole.
+
+An upright piano stands against one wall.
+
+You can also see a wooden tea chest, a rocking chair and a lounge table.
+
+It is freezing.  You begin to shiver involuntarily.
+
+> look
+
+Lounge
+A large room that has been leached of all cheer by darkness and decay.  Damp
+patches colour the walls in whorls of black slime.  A single window lets no
+light into this place.  There is a layer of frost coating the glass and thick
+shutters are fixed either side.  In one corner is a mouse hole.
+
+An upright piano stands against one wall.
+
+You can also see a wooden tea chest, a rocking chair and a lounge table.
+
+> w
+%drunk% west.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a narrow window with its own
+wooden shutter.
+
+You can also see a wooden stool.
+
+> u
+%drunk% up.
+
+Landing
+There are three closed doors to the north,  east and west.  There is also
+square hole in the ceiling way above your head.
+
+> look
+
+Landing
+There are three closed doors to the north,  east and west.  There is also
+square hole in the ceiling way above your head.
+
+> n
+You look up and see the ceiling quickly recede.  Up.....up into darkness.
+Falling to your knees you shut your eyes tightly and wait for the illusion to
+end.  It has to be an illusion.  It just has to be.
+
+> look
+
+Landing
+There are three closed doors to the north,  east and west.  There is also
+square hole in the ceiling way above your head.
+
+> i
+You are carrying a note and a diary.
+
+> s
+You look up and see the ceiling quickly recede.  Up.....up into darkness.
+Falling to your knees you shut your eyes tightly and wait for the illusion to
+end.  It has to be an illusion.  It just has to be.
+
+> w
+You look up and see the ceiling quickly recede.  Up.....up into darkness.
+Falling to your knees you shut your eyes tightly and wait for the illusion to
+end.  It has to be an illusion.  It just has to be.
+
+> look
+
+Landing
+There are three closed doors to the north,  east and west.  There is also
+square hole in the ceiling way above your head.
+
+> e
+You look up and see the ceiling quickly recede.  Up.....up into darkness.
+Falling to your knees you shut your eyes tightly and wait for the illusion to
+end.  It has to be an illusion.  It just has to be.
+
+> e
+You look up and see the ceiling quickly recede.  Up.....up into darkness.
+Falling to your knees you shut your eyes tightly and wait for the illusion to
+end.  It has to be an illusion.  It just has to be.
+
+> w
+You look up and see the ceiling quickly recede.  Up.....up into darkness.
+Falling to your knees you shut your eyes tightly and wait for the illusion to
+end.  It has to be an illusion.  It just has to be.
+
+> w
+You look up and see the ceiling quickly recede.  Up.....up into darkness.
+Falling to your knees you shut your eyes tightly and wait for the illusion to
+end.  It has to be an illusion.  It just has to be.
+
+> w
+You look up and see the ceiling quickly recede.  Up.....up into darkness.
+Falling to your knees you shut your eyes tightly and wait for the illusion to
+end.  It has to be an illusion.  It just has to be.
+
+> look
+
+Landing
+There are three closed doors to the north,  east and west.  There is also
+square hole in the ceiling way above your head.
+
+> d
+%drunk% down.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a narrow window with its own
+wooden shutter.
+
+You can also see a wooden stool.
+
+> d
+You can't go in that direction, but you can move east, west and up.
+
+> w
+%drunk% west.
+
+Dining room
+This room is dominated by a huge fireplace.  A large window is set in the
+south wall with thick shutters on either side.  To the north is the kitchen
+door.  High up on one wall you notice a dent in the plaster.  A suit of
+armour stands in one corner.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+Cathy seems to have gone catatonic.
+
+> n
+You take a step and pause.  The dimensions of the room twist and curve in a
+sickening defiance of natural law.  You stumble into a wall and wait there,
+eyes shut tightly against the madness, until the movement stops.
+
+> look
+
+Dining room
+This room is dominated by a huge fireplace.  A large window is set in the
+south wall with thick shutters on either side.  To the north is the kitchen
+door.  High up on one wall you notice a dent in the plaster.  A suit of
+armour stands in one corner.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+Cathy seems to have gone catatonic.
+
+> n
+You take a step and pause.  The dimensions of the room twist and curve in a
+sickening defiance of natural law.  You stumble into a wall and wait there,
+eyes shut tightly against the madness, until the movement stops.
+
+> open kitchen door
+It is stiff and it takes a few good tugs before it opens.
+
+> open kitchen door
+The kitchen door is already open!
+
+> n
+%drunk% north.
+
+Kitchen
+A small narrow room with the same bare floor as the rest of the house.  A gas
+pipe sticks out of one wall and a single cupboard is fixed to another.  Below
+the cupboard is the kitchen sink.  The back door is to the north.    A rancid
+smell fills the kitchen and you can hear a faint hissing noise.
+
+> look
+
+Kitchen
+A small narrow room with the same bare floor as the rest of the house.  A gas
+pipe sticks out of one wall and a single cupboard is fixed to another.  Below
+the cupboard is the kitchen sink.  The back door is to the north.    A rancid
+smell fills the kitchen and you can hear a faint hissing noise.
+
+> i
+You are carrying a note and a diary.
+
+> open cupboard
+A musty food smell wafts over you as the cupboard opens.  Inside the cupboard
+is a crystal decanter, a coffee jar, a matchbox, a salt shaker, a jar of
+honey and a mug.
+
+> look in cupboard
+A chipped and stained cupboard.  The cupboard is open.  Inside the cupboard
+is a crystal decanter, a coffee jar, a matchbox, a salt shaker, a jar of
+honey and a mug.
+
+> examine jar
+Thank god its not Nestle!  The coffee jar is closed.
+
+> n
+The back door is closed.
+
+> open back door
+You do your best to open the back door.  No good it's locked.
+
+> open back door
+You do your best to open the back door.  No good it's locked.
+
+> look
+
+Kitchen
+A small narrow room with the same bare floor as the rest of the house.  A gas
+pipe sticks out of one wall and a single cupboard is fixed to another.  Below
+the cupboard is the kitchen sink.  The back door is to the north.    A rancid
+smell fills the kitchen and you can hear a faint hissing noise.
+
+> s
+%drunk% south.
+
+Dining room
+This room is dominated by a huge fireplace.  A large window is set in the
+south wall with thick shutters on either side.  To the north is the kitchen
+door.  High up on one wall you notice a dent in the plaster.  A suit of
+armour stands in one corner.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+Cathy seems to have gone catatonic.
+
+> s
+You can't go in that direction, but you can move north and east.
+
+> s
+You can't go in that direction, but you can move north and east.
+
+> u
+You'd need to enter the fireplace if you want to explore in that direction.
+
+> open bathroom door
+You can't see the bathroom door.
+
+> open bathroom door
+You can't see the bathroom door.
+
+> open small bedroom door
+You can't see the small bedroom door.
+
+> open small bedroom door
+You can't see the small bedroom door.
+
+> open master bedroom door
+You can't see the master bedroom door.
+
+> open master bedroom door
+You can't see the master bedroom door.
+
+> look
+
+Dining room
+This room is dominated by a huge fireplace.  A large window is set in the
+south wall with thick shutters on either side.  To the north is the kitchen
+door.  High up on one wall you notice a dent in the plaster.  A suit of
+armour stands in one corner.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+Cathy seems to have gone catatonic.
+Cathy stirs and looks at you.  Some colour has come back into her cheeks.
+
+> n
+%drunk% north.
+
+Kitchen
+A small narrow room with the same bare floor as the rest of the house.  A gas
+pipe sticks out of one wall and a single cupboard is fixed to another.  Below
+the cupboard is the kitchen sink.  The back door is to the north.    A rancid
+smell fills the kitchen and you can hear a faint hissing noise.
+
+You hear Cathy calling you.
+
+> get matchbox
+You take the matchbox from the cupboard.
+
+> get salt shaker
+You take the salt shaker from the cupboard.
+
+> get honey
+You take the jar of honey from the cupboard.
+
+> i
+You are carrying a note, a diary, a matchbox, a salt shaker and a jar of
+honey.
+
+> look
+
+Kitchen
+A small narrow room with the same bare floor as the rest of the house.  A gas
+pipe sticks out of one wall and a single cupboard is fixed to another.  Below
+the cupboard is the kitchen sink.  The back door is to the north.    A rancid
+smell fills the kitchen and you can hear a faint hissing noise.
+
+> i
+You are carrying a note, a diary, a matchbox, a salt shaker and a jar of
+honey.
+
+> examine sink
+A stained porcelain sink with hot and cold taps.  The smell and hissing noise
+seems to be coming from the cold tap.    A large cast iron kettle is inside
+the kitchen sink.
+
+> turn off cold tap
+You turn off the cold tap and the hissing noise stops.
+
+> score
+Your score is 5 out of a maximum of 30.  (16%)
+
+> s
+%drunk% south.
+
+Dining room
+This room is dominated by a huge fireplace.  A large window is set in the
+south wall with thick shutters on either side.  To the north is the kitchen
+door.  High up on one wall you notice a dent in the plaster.  A suit of
+armour stands in one corner.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+Cathy seems to have recovered.
+Cathy takes a deep breath then says, "OK Michael.  Heres what happened.  As
+you've probably guessed by now the role play thing I do isn't the dice and
+model kind.  It's for real.  There are things in this universe that....well
+we don't have time for long explanations.  We need to see what we can salvage
+from this sorry situation.  First things first.  In my team I'm the weapons
+expert.  I don't do magic or strategy.  I just do the shooting and let the
+others do the puzzle solving.  So if you find any weapons and you don't feel
+comfortable about violence then give them to me".
+She pauses and smiles saying, "By the way.  I haven't thanked you yet for
+dragging me in here.  So thank you.  It brings back memories being in
+granddads old house again.  I somehow knew it would be safe here.  Strange
+place.  Even after he died his presence seemed to linger on here".
+The freakish green glow brightens and a rasping voice that seems to come from
+everywhere at once says, "WELL MY PET THERE HAPPENS TO BE A REASON FOR THAT"!
+Cathy looks at you.  You look at Cathy.
+(PRESS ANY KEY)
+The voice continues, "NOW DON'T WORRY I HAVE WORKED EVERYTHING OUT.  AS SOON
+AS THAT BRAVE YOUNG FRIEND OF YOURS BROUGHT YOU HERE I TOOK US SOMEWHERE
+ELSE.  I WILL DO ALL I CAN TO KEEP YOU SAFE BUT MY POWERS ARE LIMITED.  IT IS
+TAKING UP ALL MY STRENGTH JUST TO KEEP US HERE.  THERE ARE WEEK POINTS
+THROUGHOUT THIS HOUSE THAT I NEED YOU TO REINFORCE.  IF ANY OF THOSE
+CREATURES TRIED TO FOLLOW US THEN THEY MAY BE ABLE TO GET IN.  YOUNG MAN YOU
+MUST PROTECT MY GRANDDAUGHTER AT ALL COSTS.  I MAY TALK WITH YOU NO LONGER.
+MY STRENGTH WEAKENS.  FIND THE PLAN AND YOU WILL GET THE IDEA SOON ENOUGH.
+The voice and the light fades.  Cathy says, "Well that explains a lot.  Look
+after my granddaughter indeed!  I don't need looking after".
+
+You hear the sound of a phone ringing in the hall.  Cathy goes to answer it
+and you follow.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+Cathy calls out, "Maybe we should ignore it"?.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+The phone stops ringing.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> look
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a narrow window with its own
+wooden shutter.
+
+You can also see a wooden stool.
+Cathy seems to have recovered.
+
+(PRESS ENTER TO CONTINUE)
+
+Meanwhile...
+
+The world you left behind is plundered by twisted creatures,  split by
+earthquakes and scorched by hell fire.  As Belview Road disintegrates there
+is a gathering of living blasphemies,  of nightmares given flesh.   Howling,
+screeching, sniffing they pick up your scent.   A house shaped hole in
+reality is found.   Claws extend, saliva drips from jagged tooth.  Death
+follows in your footsteps.
+
+> score
+Your score is 5 out of a maximum of 30.  (16%)
+
+> get stool
+You pick up the stool.  The telephone slides off and falls onto the floor.
+
+> u
+%drunk% up.
+
+Landing
+There are three closed doors to the north,  east and west.  There is also
+square hole in the ceiling way above your head.
+
+> stand on stool
+The stool creaks alarmingly when you step onto it and you wonder how long it
+will be able to take your weight.
+
+> u
+Standing on the wooden stool you are able to reach the hole in the ceiling
+and enter the attic.
+
+Attic
+High over your head lie rafters half cloaked in darkness.   A square hole in
+the floor leads down to the landing.
+
+Somthing large squats in the far corner.  It is too dark to make out what it
+is without closer inspection.
+
+> get metal key
+You pick up the metal key.
+
+Cathy says, "Ahh", and picks up some cartridges.
+
+> d
+You sit down on the frosty boards and swing your legs out over the square of
+blackness.  It is far too dark to see the landing and you cannot shake the
+feeling that you would fall forever if pushed.  You hesitate....
+
+> d
+Taking a deep breath you let yourself drop down into the
+darkness....fall....and land badly but safely.
+
+> open bathroom door
+As your hand reaches out all the doors creak open at once.
+
+Landing
+There are three exits.  North leads to a bathroom.  East leads to a small
+bedroom and the master bedroom is to the west.  There is a square hole in the
+ceiling way above your head.
+Cathy seems to have recovered.
+
+> n
+%drunk% north.
+
+Bathroom
+A small, frost covered window is set into the south wall.  A shutter lies
+next to it.  Below the window is a porcelain toilet.  Fixed to the north wall
+is a sink and standing against the east wall is a large white bath.
+
+> examine bath
+A large white bath with four claw feet and brass taps.  An old newspaper and
+a photograph are inside the bath.
+
+> get newspaper
+You take the old newspaper from the bath.
+
+> s
+%drunk% south.
+
+Landing
+There are three exits.  North leads to a bathroom.  East leads to a small
+bedroom and the master bedroom is to the west.  There is a square hole in the
+ceiling way above your head.
+
+> d
+%drunk% down.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a narrow window with its own
+wooden shutter.
+
+You can also see an old fashioned telephone.
+
+> w
+%drunk% west.
+
+Dining room
+This room is dominated by a huge fireplace.  A large window is set in the
+south wall with thick shutters on either side.  To the north is the kitchen
+door.  High up on one wall you notice a dent in the plaster.  A suit of
+armour stands in one corner.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+
+> n
+%drunk% north.
+
+Kitchen
+A small narrow room with the same bare floor as the rest of the house.  A gas
+pipe sticks out of one wall and a single cupboard is fixed to another.  Below
+the cupboard is the kitchen sink.  The back door is to the north.
+
+> unlock back door with metal key
+You unlock the back door with the large metal key.
+
+> open back door
+You open the back door and sunlight floods the kitchen.
+
+> n
+Leaving the house is like stepping into a different time.
+
+Garden
+A large beach tree is the centre piece of this garden and various herbs and
+flowers send out luscious scents on the breeze.  A sundial stands in one
+corner.
+
+You can also see some thyme.
+
+You see Cathy grow younger and become a girl.
+As you step outside sunlight dazzles you and you feel dizzy and weak.  As
+your eyes adjust you notice that the garden seems to be growing bigger.  You
+don't quite feel yourself.
+
+> get thyme
+You pick some thyme from the garden.
+
+> examine sundial
+This weather beaten lichen covered stone sundial has a bronze dial that has
+gone green with age.  Engraved upon it are the words TEMPUS INSANUS.  The
+points of the compass are depicted on the dial with the letters N, S, E and
+W.
+
+> press e
+You press E.  It acts like a button and you hear a faint click.
+
+> press n
+You press N.  It acts like a button and you hear a faint click.
+
+> press n
+You press N.  It acts like a button and you hear a faint click.
+
+> press w
+You press W.  It acts like a button and you hear a faint click.
+
+> press s
+You press S.  It acts like a button and you hear a faint click.
+
+> press w
+You press W.  It acts like a button and you hear a faint click.
+
+A door at the base of the sundial opens.  You discover a book inside.
+Although your brain is addled by childish thoughts you still know a solved
+puzzle when you see one and snatch the book.
+
+> read defensor
+This book seems filled with obscure pictures and symbols.  Not much of it
+makes sense but near the end you find a passage that details certain runes to
+be carved into wood that may protect you from, 'such evil that stalks the
+nightmare lands'.  Deciding that anything's worth a try you do your best to
+memorise the runes in case they come in handy.
+
+> score
+Your score is 7 out of a maximum of 30.  (23%)
+
+> look
+
+Garden
+A large beach tree is the centre piece of this garden and various herbs and
+flowers send out luscious scents on the breeze.  A sundial stands in one
+corner.
+A girl is playing in the garden.
+
+Cathy starts to skip round and round the tree.
+
+> s
+You step back into the darkness.
+
+You watch fascinated as Cathy swiftly grows and becomes a woman.
+
+> s
+%drunk% south.
+
+Dining room
+This room is dominated by a huge fireplace.  A large window is set in the
+south wall with thick shutters on either side.  To the north is the kitchen
+door.  High up on one wall you notice a dent in the plaster.  A suit of
+armour stands in one corner.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+
+> e
+%drunk% east.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a narrow window with its own
+wooden shutter.
+
+You can also see an old fashioned telephone.
+
+> e
+%drunk% east.
+
+Lounge
+A large room that has been leached of all cheer by darkness and decay.  Damp
+patches colour the walls in whorls of black slime.  A single window lets no
+light into this place.  There is a layer of frost coating the glass and thick
+shutters are fixed either side.  In one corner is a mouse hole.
+
+An upright piano stands against one wall.
+
+You can also see a wooden tea chest, a rocking chair and a lounge table.
+
+> open piano
+You lift the lid.
+
+> look in piano
+An English rosewood upright piano.   It is dark brown and battered looking
+and the ivory keys have turned an unsavoury yellow colour.  Several carvings
+adorn the piano.   The upright piano is open.  A silver snuffbox and a tuning
+fork are inside the upright piano.
+
+> get snuffbox
+You take the silver snuffbox from the upright piano.
+
+> get tuning fork
+You take the tuning fork from the upright piano.
+
+> play three blind mice
+The piano is horrendously out of tune and you are out of practice but you
+manage to pick out the right notes.  When you finish a small mouse comes out
+of the mouse hole and stops in the middle of the room.
+
+You hear a distant scraping sound, as if something were sliding across the
+roof tiles.
+Cathy looks incredulously at the mouse then claps her hands and says, "Bravo
+maestro.  Methinks you just solved one of my grandfathers puzzles".
+
+You hear a distant scraping sound, as if something were sliding across the
+roof tiles.
+
+> get key
+After a bit of a struggle you wrench the little wooden key from the rodents
+jaws.
+
+You feel a light pressure on your shoulder and see a wrinkled, liver spotted
+hand resting there.  Jerking round you find.....nothing.  The hand, if it
+ever existed, has gone.
+
+> score
+Your score is 8 out of a maximum of 30.  (26%)
+
+> look
+
+Lounge
+A large room that has been leached of all cheer by darkness and decay.  Damp
+patches colour the walls in whorls of black slime.  A single window lets no
+light into this place.  There is a layer of frost coating the glass and thick
+shutters are fixed either side.  In one corner is a mouse hole.
+
+An upright piano stands against one wall.
+
+You can also see a wooden tea chest, a rocking chair, a lounge table and a
+mechanical mouse.
+Cathy smiles at you.
+
+> w
+%drunk% west.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a narrow window with its own
+wooden shutter.
+
+You can also see an old fashioned telephone.
+
+> w
+%drunk% west.
+
+Dining room
+This room is dominated by a huge fireplace.  A large window is set in the
+south wall with thick shutters on either side.  To the north is the kitchen
+door.  High up on one wall you notice a dent in the plaster.  A suit of
+armour stands in one corner.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+
+> unlock trapdoor with small wooden key
+You waggle the key about in the lock for awhile and finally produce a hopeful
+sounding click.
+
+> open trapdoor
+You heave the trapdoor open creating a loud creak.  Musty air rises up around
+you.
+
+> d
+As you climb down into the cellar you try to steel yourself against the
+possibility of finding something very nasty.  As your feet touch the floor
+you realise that indeed a ghost inhabits this place.  But not the sort you
+were expecting.  In the middle of the large cellar is a 1907 Rolls-Royce
+Silver Ghost.
+
+While you are marveling at the beautiful machine the trap door closes with a
+loud crash.  Maybe you didn't open it fully?
+
+Cellar
+A vast space that must extend far beyond the boundaries of the house.  The
+floor is smooth concrete.
+
+A large workbench rests against one wall.  Cobwebs betray the presence of
+spiders.
+
+Leaning against the workbench is what looks like some sort of modified rifle.
+ The car sits and seems to dare you to ask how it got there.
+
+You can also see a wooden trapdoor, a piece of chalk and a petrol can.
+
+> examine workbench
+This large workbench shows its years of long use in the many scars and nicks
+on its surface.  On the large workbench is a wood chisel, an axe and a drill.
+
+> search workbench
+This large workbench shows its years of long use in the many scars and nicks
+on its surface.  On the large workbench is a wood chisel, an axe and a drill.
+
+The voice of Cathy's grandfather shatters the silence saying, "BEWARE.
+SOMETHING HAS OPENED A RIFT AND ENTERED THE MASTER BEDROOM".
+Cathy says, "Oh great.  Just what we need.  OK partner.  Lets go meet the
+neighbors".
+
+> look on workbench
+This large workbench shows its years of long use in the many scars and nicks
+on its surface.  On the large workbench is a wood chisel, an axe and a drill.
+
+> get chisel
+You take the wood chisel from the large workbench.
+
+> drop wooden stool
+You drop the wooden stool.
+
+> drop tuning fork
+You drop the tuning fork.
+
+> get axe
+You take the axe from the large workbench.
+
+> get chalk
+You take the piece of chalk.
+
+> get cobweb
+Despite your morbid fear of spiders you gather up some cobweb.
+
+> create a ring of salt
+You create a ring of salt on the concrete floor of the cellar.
+
+> put snuffbox in ring
+You place the snuff box inside the salt ring.
+
+> noinimod on sah emit
+You take a deep breath and say,"noinimod on sah emit".
+Nothing happens.
+Nothing continues to happen.
+Just as you are about to give up the snuff box begins to sparkle with golden
+flecks of light.  A gust of air blows through the cellar disturbing the dust.
+ As the particles begin to settle they slow to a stop and hang suspended in
+the air.  The light dies and the dust settles.
+
+> score
+Your score is 12 out of a maximum of 30.  (40%)
+
+> look
+
+Cellar
+A vast space that must extend far beyond the boundaries of the house.  The
+floor is smooth concrete.  On the floor is a ring of salt.
+
+A large workbench rests against one wall.
+
+Leaning against the workbench is what looks like some sort of modified rifle.
+ The car sits and seems to dare you to ask how it got there.
+
+You can also see a wooden stool, a wooden trapdoor, a silver snuffbox, a
+petrol can and a tuning fork.
+Cathy smiles at you.
+
+> unlock trapdoor with small wooden key
+The wooden trapdoor is not locked!
+
+> open trapdoor
+You heave the trapdoor open creating a loud creak.  Musty air rises up around
+you.
+
+> u
+%drunk% up.
+
+Dining room
+This room is dominated by a huge fireplace.  A large window is set in the
+south wall with thick shutters on either side.  To the north is the kitchen
+door.  High up on one wall you notice a dent in the plaster.  A suit of
+armour stands in one corner.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+
+> carve shutter with chisel
+Remembering the strange runes you read about in Defensor you begin carving
+the Dining room shutter.  The wood is soft and it only takes a few minutes
+before you are finished.  You stand back to gaze at your handy work and find
+that the runes are shining with silver light.  The shutter closes with a
+finality that makes you feel a bit more secure.
+
+> score
+Your score is 13 out of a maximum of 30.  (43%)
+
+> e
+%drunk% east.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a narrow window with its own
+wooden shutter.
+
+You can also see an old fashioned telephone.
+
+> carve shutter with chisel
+Remembering the strange runes you read about in Defensor you begin carving
+the Hall shutter.  The wood is soft and it only takes a few minutes before
+you are finished.  You stand back to gaze at your handy work and find that
+the runes are shining with silver light.  The shutter closes with a finality
+that makes you feel a bit more secure.
+
+> score
+Your score is 14 out of a maximum of 30.  (46%)
+
+> u
+%drunk% up.
+
+Landing
+There are three exits.  North leads to a bathroom.  East leads to a small
+bedroom and the master bedroom is to the west.  There is a square hole in the
+ceiling way above your head.
+
+> n
+%drunk% north.
+
+Bathroom
+A small, frost covered window is set into the south wall.  A shutter lies
+next to it.  Below the window is a porcelain toilet.  Fixed to the north wall
+is a sink and standing against the east wall is a large white bath.
+
+> carve shutter with chisel
+How did those ruins in Defensor look again?  Oh yes.  You begin to carve the
+Bathroom shutter.  The wood is soft and it only takes a few minutes before
+you are finished.  You stand back to gaze at your handy work and find that
+the runes are shining with silver light.  The shutter closes with a finality
+that makes you feel a bit more secure.
+
+> score
+Your score is 15 out of a maximum of 30.  (50%)
+
+> s
+%drunk% south.
+
+Landing
+There are three exits.  North leads to a bathroom.  East leads to a small
+bedroom and the master bedroom is to the west.  There is a square hole in the
+ceiling way above your head.
+
+> e
+%drunk% east.
+
+Cathy's old room
+A small, frost covered window is set into the south wall.  A shutter lies
+next to it.
+
+Something reminiscent of a piece of modern sculpture dominates the center of
+the room.  If it is art it must have sprung from a truly twisted mind.  Three
+tall mirrors, hinged together and at right angles to each other stand against
+one wall.
+
+> carve shutter with chisel
+Remembering the strange runes you read about in Defensor you begin carving
+the spare room shutter.  The wood is soft and it only takes a few minutes
+before you are finished.  You stand back to gaze at your handy work and find
+that the runes are shining with silver light.  The shutter closes with a
+finality that makes you feel a bit more secure.
+
+> score
+Your score is 16 out of a maximum of 30.  (53%)
+
+> w
+
+Cathy says, "Hang on a second.  If memory serves there should be a secret
+stash under the floor in here.  Granddad knew about it so we may find some
+useful things inside".  Cathy starts to examine the floor.
+
+> w
+%drunk% west.
+
+Landing
+There are three exits.  North leads to a bathroom.  East leads to a small
+bedroom and the master bedroom is to the west.  There is a square hole in the
+ceiling way above your head.
+
+> w
+You enter the master bedroom and find a hole in reality hovering in the
+centre of the room.  A man is rummaging through the bookcase.  He turns to
+face you clutching a large black book and gives you both a charming smile.
+"Cathy, I'm so glad you are safe", he says and his voice has an upper class
+timbre to it.
+"I don't believe I've had the pleasure of meeting your friend before".
+Cathy interrupts saying, "Damien what the hell is going on?  What did you do
+back there?  Where are the others"?
+"I'm sure the rest of our group are perfectly safe.  They are after all a
+resourceful bunch".
+
+"Do you know what you've done!  Have you seen the devastation you've caused?"
+
+"Yes but now that I have the Immortalis", he says smoothing the binding with
+his hand as if it were a pet,
+"I can set everything straight again.  Now quickly, we must leave this place.
+ Enter the portal and it will take you to safety".
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+Cathy says,"Forget it Damien.  I'm not going anywhere until I get an
+explanation".
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+"What's the matter Cathy.  I can't believe you don't trust me any more.
+After all we've been through....all we've shared".
+
+> z
+Time passes...
+
+Damien's smile vanishes and he angrily stalks towards Cathy saying, "You try
+my patience.  It looks as if I'll have to use force".
+
+At that moment the door flies open and a rusty suit of armour charges into
+the room.  Green tendrils of energy can be seen curling and writhing beneath
+its visor.    Damien stares incredulously as the knight heads straight
+towards him swinging its axe left and right and you hear Cathy's grandfather
+shout, "LEAVE HER ALONE!  GET OUT OF HERE NOW"!
+With incredible speed he dodges the first blow and fires a blazing purple
+fireball.  It goes wide and strikes the wall ripping a chunk out of it.
+Damien leaps through the portal closely followed by the armour.  The portal
+closes behind them both.
+Green energy sparks and flares from the damaged wall.  The glow emanating
+from the floorboards grows dim.
+
+"Damn you!  I'll tear you apart for this.  You hear me Damien?  Your life is
+over.......Grandfather?  Are you OK?  Can you here me?", says Cathy.  There
+is no response.  "Oh dear.  It looks like we are on our own".
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+Cathy spies something interesting and picks up a schematic.  She studies it
+thoroughly and then says, "Intreating.  Grandfather was working on a powerful
+laser".
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> look
+
+Master bedroom
+A large comfortable looking bed dominates this room.  It looks like it's
+owner was quite the scholar.  A small, frost covered window is set into the
+south wall.  A shutter lies next to it.
+
+There is a  jagged gash in the wall.  Every now and then a green spark shoots
+out of it.
+
+A tall and beautilfuly carved grandfather clock stands in the corner of the
+room.  Fixed to the wall is a framed blue print of the house.  You notice a
+single page from a book lying just beneath the bed.
+
+You can also see a large bookcase.
+Cathy looks upset.
+
+> score
+Your score is 16 out of a maximum of 30.  (53%)
+
+> e
+%drunk% east.
+
+Landing
+There are three exits.  North leads to a bathroom.  East leads to a small
+bedroom and the master bedroom is to the west.  There is a square hole in the
+ceiling way above your head.
+
+> d
+%drunk% down.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a shuttered window.
+
+You can also see an old fashioned telephone.
+
+> e
+%drunk% east.
+
+Lounge
+A large room that has been leached of all cheer by darkness and decay.  Damp
+patches colour the walls in whorls of black slime.  A single window lets no
+light into this place.  There is a layer of frost coating the glass and thick
+shutters are fixed either side.  In one corner is a mouse hole.
+
+An upright piano stands against one wall.
+
+You can also see a wooden tea chest, a rocking chair, a lounge table and a
+mechanical mouse.
+
+> carve shutter with chisel
+Hoping that Defensor was a worth while read you begin carving the Lounge
+shutter.  The wood is soft and it only takes a few minutes before you are
+finished.  You stand back to gaze at your handy work and find that the runes
+are shining with silver light.  The shutter closes with a finality that makes
+you feel a bit more secure.
+
+> score
+Your score is 17 out of a maximum of 30.  (56%)
+
+> w
+%drunk% west.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a shuttered window.
+
+You can also see an old fashioned telephone.
+
+> w
+%drunk% west.
+
+Dining room
+This room is dominated by a huge fireplace.  A large shuttered window is set
+in the south wall and to the north is the kitchen door.  High up on one wall
+you notice a dent in the plaster.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a dining room table and a wooden trapdoor.
+
+> use axe on dining table
+You give the axe a good swing and begin to chop up the table.  In no time at
+all you produce some wood.
+
+A gust of air blows down the chimney.
+
+> put wood in fireplace
+You dump the wood into the fireplace.
+
+> put newspaper under firewood
+You tear off some pages and stuff them into the fireplace.
+
+> drop axe
+You drop the axe.
+
+> n
+%drunk% north.
+
+Kitchen
+A small narrow room with the same bare floor as the rest of the house.  A gas
+pipe sticks out of one wall and a single cupboard is fixed to another.  Below
+the cupboard is the kitchen sink.  The back door is to the north.    A shaft
+of dazzling sunlight reaches in from the garden.
+
+> get kettle
+You take the large cast iron kettle from the kitchen sink.
+
+> fill kettle
+You fill the kettle from the hot tap.
+
+> s
+%drunk% south.
+
+Dining room
+This room is dominated by a huge fireplace.  A large shuttered window is set
+in the south wall and to the north is the kitchen door.  High up on one wall
+you notice a dent in the plaster.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a wooden trapdoor and an axe.
+
+> put kettle on hook
+You hang the kettle back onto the hook.
+
+> chalk a star onto the kettle
+You chalk a five pointed star onto the kettle.
+
+> score
+Your score is 18 out of a maximum of 30.  (60%)
+
+> get match from matchbox
+You take a match from the matchbox.
+
+> light match
+You strike the match against the match box.  With a flash and a sulphurous
+smell it sputters into life.
+
+> light a fire in the fireplace
+The newspaper is dry and catches easily.  Its pages curl and flames begin to
+lick the wood.  In no time at all you have a decent fire going.
+Soon the water in the kettle begins to boil.
+
+> score
+Your score is 19 out of a maximum of 30.  (63%)
+
+> look
+
+Dining room
+This room is dominated by a huge fireplace.  A large shuttered window is set
+in the south wall and to the north is the kitchen door.  High up on one wall
+you notice a dent in the plaster.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a wooden trapdoor and an axe.
+Cathy studies you with interest.
+
+> score
+Your score is 19 out of a maximum of 30.  (63%)
+
+> i
+You are carrying a note, a diary, a small wooden key, a large metal key,
+a book entitled Defensor, a wood chisel, an old newspaper, a matchbox, a
+burning match, some cobweb, a salt shaker, some desiccated herb, a jar of
+honey and a piece of chalk.
+
+> e
+%drunk% east.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a shuttered window.
+
+Shadows dance about the room chased by the light from your match.
+
+You can also see an old fashioned telephone.
+
+> u
+%drunk% up.
+
+Landing
+There are three exits.  North leads to a bathroom.  East leads to a small
+bedroom and the master bedroom is to the west.  There is a square hole in the
+ceiling way above your head.
+
+With a cry you drop the match and suck the ends of your singed fingers.  The
+match burns itself out.
+
+> w
+%drunk% west.
+
+Master bedroom
+A large comfortable looking bed dominates this room.  It looks like it's
+owner was quite the scholar.  A small, frost covered window is set into the
+south wall.  A shutter lies next to it.
+
+There is a  jagged gash in the wall.  Every now and then a green spark shoots
+out of it.
+
+A tall and beautilfuly carved grandfather clock stands in the corner of the
+room.  Fixed to the wall is a framed blue print of the house.  You notice a
+single page from a book lying just beneath the bed.
+
+You can also see a large bookcase.
+
+> examine bookcase
+A large wooden bookcase with strange carvings along its sides.  A pipette is
+on the large bookcase, and inside is a record,
+a book entitled Nos accommodatum essee pulvis,
+a book entitled Medicas herbas inquirit,
+a book entitled Lepidoptera,
+a book entitled Unausprechlichen kulten,
+a book entitled the book which drives men to madness,
+a book entitled the story of O,
+a book entitled the golden bough,
+a book entitled Tempus domitus and a notebook.
+
+> search bookcase
+A large wooden bookcase with strange carvings along its sides.  A pipette is
+on the large bookcase, and inside is a record,
+a book entitled Nos accommodatum essee pulvis,
+a book entitled Medicas herbas inquirit,
+a book entitled Lepidoptera,
+a book entitled Unausprechlichen kulten,
+a book entitled the book which drives men to madness,
+a book entitled the story of O,
+a book entitled the golden bough,
+a book entitled Tempus domitus and a notebook.
+
+> look in bookcase
+A large wooden bookcase with strange carvings along its sides.  A pipette is
+on the large bookcase, and inside is a record,
+a book entitled Nos accommodatum essee pulvis,
+a book entitled Medicas herbas inquirit,
+a book entitled Lepidoptera,
+a book entitled Unausprechlichen kulten,
+a book entitled the book which drives men to madness,
+a book entitled the story of O,
+a book entitled the golden bough,
+a book entitled Tempus domitus and a notebook.
+
+> get notebook
+You take the notebook from the large bookcase.
+
+> get pipette
+You take the pipette from the large bookcase.
+
+> carve shutter with chisel
+Remembering the strange runes you read about in Defensor you begin carving
+the Bedroom shutter.  The wood is soft and it only takes a few minutes before
+you are finished.  You stand back to gaze at your handy work and find that
+the runes are shining with silver light.  The shutter closes with a finality
+that makes you feel a bit more secure.
+
+The gash in the wall repairs itself and the glow illuminating the house
+increases.  You hear the voice of Cathy's grandfather say, "I HAVE RETURNED.
+THIS HOUSE IS SAFE".
+
+The house plan swings open to reveal a safe.
+
+> score
+Your score is 20 out of a maximum of 30.  (66%)
+
+> i
+You are carrying a note, a diary, a small wooden key, a large metal key,
+a book entitled Defensor, a wood chisel, an old newspaper, a matchbox, some
+cobweb, a salt shaker, some desiccated herb, a notebook, a jar of honey, a
+piece of chalk and a pipette.
+
+> quit
+Do you really want to quit? [Y/N]

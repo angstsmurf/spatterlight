@@ -1,0 +1,1667 @@
+Loading game...
+
+A Day In The Life Of A Super Hero
+
+A Day In The Life
+Of A Super Hero
+
+by David Whyld
+
+(1)   Start the game
+
+(2)   Read the introduction
+
+(3)   Things you should know
+
+(4)   Credits
+
+> 2
+
+The first thing you become aware of upon awakening is the ground. Now this
+isn't anything that you haven't seen before - indeed, you've spent quite a
+bit of your life walking on it so it'd be true to say that you're somewhat of
+an expert. But usually when you see the ground first thing in the morning,
+it's a couple feet away from where you're lying hung over the edge of your
+bed.
+   It's not fifty feet away!
+
+[more]
+
+You wake up quickly after that, the sudden action setting you to swinging.
+Swinging?
+   A quick peer upwards reveals the truth: you're hanging from the underside
+of a bridge!
+
+You quickly get yourself under control. You are, after all, the Masked
+Defender, greatest super hero the world has ever seen and such minor
+inconveniences as waking one morning to find yourself tied by your ankles to
+the underside of a bridge fifty feet off the ground are nothing new. All you
+need to do is reach up and untie-
+   Ah.
+   Your hands are tied behind your back as well. It seems whoever hung you up
+here didn't intend on you getting yourself free anytime soon.
+
+[more]
+
+As you struggle to free yourself, you notice the sign painted on the building
+opposite you, a sign that makes even your super hero heart quiver with
+unsuppressed fear:
+To ThE MASkED DeFEndER
+This ear is paybak 4 all the tymes you as messed with us an broked up our
+milk monie rackett.
+
+Signed - The Paper Boys
+
+The Paper Boys, eh? Ah, so this is what that bunch of juvenile delinquents
+have been up to since they got out of the youth home you sent them to. Well,
+as soon as you get yourself free of this little trap they've dropped you in,
+you'll be sure and pay them a visit…
+
+[more]
+
+A Day In The Life
+Of A Super Hero
+
+by David Whyld
+
+(1)   Start the game
+
+(2)   Read the introduction
+
+(3)   Things you should know
+
+(4)   Credits
+
+> 3
+The Unfinishable Game
+
+Okay, breathe a sigh of relief. No matter what you do, no matter what you say
+or how you act, A Day In The Life Of A Super Hero will still be finishable.
+You might not get the best ending in the game if you make a point of
+insulting everyone you come across and throw away your items, but you will
+still reach the end. Which is something in itself.
+
+If, however, you do manage to render the game unfinishable, you've either
+been especially persistent or I've been especially lax. Either way, fire off
+an email to me@dwhyld.plus.com and tell me about it and I'll see if I can fix
+the problem in time for the next release.
+
+[more]
+
+Conversation
+
+Two forms of conversation are used in A Day In The Life Of A Super Hero: in
+the format of "talk to [name]" (which will bring up a list of dialogue
+options for you to choose from) and "ask [name] about [subject]" which might,
+or might not, get you a useful response. Every character in the game can be
+spoken to although not all have something useful to say. Which are which?
+Well, you'll just have to speak to them and find out.
+
+[more]
+
+Transcript
+
+You can turn on the transcript facility by clicking on Adventure (at the top
+of the screen) and then Start Transcript.
+
+[more]
+
+Getting Stuck
+
+I wouldn't say A Day In The Life Of A Super Hero is a particularly difficult
+game - but then I wrote it so I'm naturally biased. And it's often impossible
+to know just how difficult someone else is going to find a particular puzzle.
+Fortunately, if you become stuck with the game, you don't have to remain
+stuck.
+
+[more]
+
+Your first port of call should be to type either "help" or "hint" (both mean
+the same thing in this game) which might, or might not, provide you with a
+handy little hint to get you past the problem you're stuck with. Often,
+typing it again can give another clue.
+   However, if you're still stuck, you can try typing "clues" which will
+bring up a list of general hints for the game. Needless to say, the game
+won't be as much fun if you use the clues to help you but a game you're stuck
+on isn't a whole lot of fun anyway so use them if you like.
+   If you're still stuck after that and really, really don't have a hope of
+getting any further, you can always resort to the walkthrough. It's contained
+in the README file that came with the game but if for some reason it's not
+there, you can access it through the game by typing "gimme the walkthrough".
+Bear in mind that the walkthrough isn't the only way through the game. There
+are several. The walkthrough merely lists one of the ways and some of the
+options it follows aren't necessary in completing the game.
+
+[more]
+
+To see this text again at any time throughout the game, simply type "things
+to know".
+
+[more]
+
+A Day In The Life
+Of A Super Hero
+
+by David Whyld
+
+(1)   Start the game
+
+(2)   Read the introduction
+
+(3)   Things you should know
+
+(4)   Credits
+
+> 1
+
+Hanging From A Bridge By Your Ankles
+Swinging from side to side by the rope tied to your ankles isn't an
+experience you're going to rate among your Top Ten Experiences Of All Time.
+The ground, fifty feet below you, looks alarmingly hard and without a single
+mattress or collection of large fluffy toys to be seen, although a crowd,
+drawn by the possible spectacle of seeing someone plummet to his death, have
+started to gather. One enterprising individual has even started selling
+souvenirs.
+   A cool wind rushes past you, alarmingly making you sway from side to side.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Someone on the ground points at you and shouts: "hey! Is that the Masked
+Defender?"
+   "Yup!" agrees someone else.
+   Several others gather to watch the event of your impending demise.
+
+> wait
+Time passes...
+
+You experience a moment's worry (but only a moment because you are, after
+all, a super hero) as a seagull lands on the bridge above you and eyes the
+rope you are dangling from hungrily.
+
+> wait
+Time passes...
+
+Voices drift up to you from the ground: "I hear the Masked Defender can't be
+harmed by anything." and "what - not even bullets?" and "nah. Not even them."
+   A few seconds of thoughtful silence pass by.
+   Then one of the onlookers says, "I bet I could hit him with a pebble."
+   "You're on."
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Out of nowhere you spot Smelly, your friendly animal sidekick, approaching.
+He's a parrot, a particularly mangy one that you rescued from the trash one
+day and who has served you loyally ever since. (Well, loyally as parrots
+define the term which generally means he leaves little presents for you
+around the apartment, bites through the phone wires and has a tendency to try
+and claw your eyes out if you're not careful.)
+   "Evening, Guv'nor," he squawks as he lands on your left knee, setting you
+to swaying even worse than before. "You look like you're in a pretty pickle
+here and no mistake." He then proceeds to ferret through your pockets on the
+off chance you have some parrot food concealed within.
+
+> ask smelly for help
+"You're in a pretty pickle now and no mistake, Guv'nor," says Smelly,
+sounding not unduly concerned over the topic of your pending demise. "A drop
+from here… Woo! You'd probably smash right through the-"
+   "Have you got any ideas, Smelly?" you ask.
+   "Loads, Guv'nor." He pauses, considers, then asks: "I take it you only
+wanna hear 'em if you're gonna survive?"
+   You nod.
+   "Well…" He sighs. "I got one plan but it's kind of a long shot. You could
+try and reach that lorry over there."
+   You crane your neck and see the lorry he is referring to. It looks a long
+way away but, on the plus side, it has a large collection of fluffy toys in
+the back.
+   "You think I can make it?" you ask as you swing back and forth.
+   "You could certainly try, Guv'nor," says Smelly. "Worse than can happen is
+you miss and land on the concrete…" He frowns. "Hmmm. That's a lot worse."
+
+> swing
+You swing… and swing… and swing… and then, with a sickening crack!!! the rope
+breaks. Off you go flying into the air.
+   "Way to go, Guv'nor!" squawks Smelly. "I always knew you had it in you!
+Ooh - watch out for that carrier pigeon!"
+   Your flight is not graceful but then as you're still tied up there's no
+reason to assume it would be. But you are still able to twist and turn your
+body as you plummet through the air, angling it ever closer to that lorry
+with the fluffy toys in the back.
+   Down you drop…
+   …and further down…
+   …and further down…
+
+[more]
+
+   And then you land in the back of the lorry with a resounding thud that
+heralds the untimely demise of several dozen stuffed elephants called Drongo.
+
+[more]
+
+It takes a while to extricate yourself from the remains of the deceased
+Drongos, not helped at all by the irate Pakistani lorry driver who
+continually tries to brain you with his walking stick for ruining his
+produce.
+   "Want me to crap on his 'ead, Guv'nor?" asks Smelly at one point. "I'm
+awful good at making it look like an accident."
+   After endlessly reassuring the poor lorry driver that your Super Hero
+Insurance will definitely cover stuffed toy elephants crushed beneath you by
+being hurled from a bridge, you are finally able to get away from his manic
+protestations of hatred and head off home.
+
+[more]
+
+The apartment of a super hero should, in your humble opinion, be a lavish
+affair: wall-to-wall carpets, expensive decorations, paintings, portraits,
+valuable works of art. One wall should be given over to an array of monitors
+which show far away places where crimes are being committed for you to be
+able to see instantly what is going on and how best to respond.
+   Unfortunately your apartment has none of those things.
+
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath,
+sink, sofa, fridge and washing machine. There used to be a TV but you had to
+sell it to pay for your Masked Defender costume. An archway to the south
+leads out into the hallway outside your apartment while another exit you
+sometimes use is the window in the western wall. The drop beyond it is a
+little dizzying but it's quicker than the stairs.
+
+> x washing machine
+Despite the unfortunate stains which mar the front of the washing machine it
+still functions with perfect efficiency. To a degree anyway. Anything you put
+into the washing machine has about a 50/50 chance of coming out in one piece,
+although there's only a 10% of that one piece being anything vaguely the same
+as it was when it went in. A couple of buttons above the circular door start
+and stop the machine but which one is which you can't seem to remember right
+now.  A small hoover is on the washing machine, and inside is your jeans.
+
+> get hoover
+You take the small hoover from the washing machine.
+
+> look under bed
+Musty is the first word which springs to mind when describing the underside
+of your bed.  Your memory fails you as to exactly when you last cleaned it
+and you face the very real possibility that it has never been cleaned. The
+smell certainly bears out that possibility.
+
+> clean under bed
+Gritting your teeth at this unpleasant task - surely one of the worse a super
+hero has to face - you crawl under the bed and hoover up.
+
+[more]
+
+Time passes.
+
+[more]
+
+A lot of time.
+
+[more]
+
+You fear at times you may not survive, such is the sheer volume of dirt and
+grime and dust and filth and decay clustered under your bed. Part of you even
+wonders just how you have survived all this time with this level of filth
+right beneath where you sleep every night and put it down simply to the fact
+that, being a super hero, you're a fair sight more durable than the average
+guy in the street.
+
+[more]
+
+At last you finish. The underside of your bed isn't spotless but it's cleaner
+than it's ever been before and you can even see the floor now, for perhaps
+the first time ever.
+
+> look under bed
+Cleared of the majority of the grime and decay which had accumulated beneath
+your bed, a casual glance under there reveals some soap. Why you've got some
+soap under your bed you don't know but as there's no point in leaving it
+there, you take it with you.
+
+   Smelly flies in through the open window.
+   "Squawk," he says angrily, which you translate as: "you could have waited
+for me!"
+   "Sorry," you say. "I had other things on my mind. I need to find the Paper
+Boys."
+   "Not just them, Guv'nor. Check this out." He drops a newspaper he has in
+his claws. "Front page, Guv'nor. Frightening stuff."
+   You glance at the front page.
+   And gasp!
+   "Inflation up by 15%-"
+   "Not that. Below it."
+   You glance below it.
+   And gasp!
+   "The Tax Collector has been freed from jail!"
+   Smelly nods. "Quite a turn-up, eh, Guv'nor? Your worst enemy and the
+deadliest super villain of them all gets freed from prison on a technicality
+on the same day the Paper Boys try to kill you." He shakes his head. "If I
+was a suspicious parrot, I'd swear that was a hell of a coincidence."
+
+> read newspaper
+The main headline is bad enough - inflation up by 15%! - but it's the one
+regarding the Tax Collector that really chills you. Maybe you should read it
+again in case there are any pertinent clues you missed the first time.
+
+> read newspaper
+You read the latest on the Tax Collector, humming and ahhing over the
+miscarriage of justice which has allowed a man with a criminal record as long
+as his arm to walk free from prison on a technicality. The technicality in
+this case being that none of the witnesses at his trial showed up on account
+of being dead. The prosecutor, too, was a no-show due to his swimming lession
+in the Yasdrin River with lead weights on his ankles. Only three of the jury
+showed up and as they were in coffins at the time it was difficult to gauge
+their opinion on the case. After an impassioned plea from the defence
+attorney, the judge (later seen leaving the courthouse in his brand new
+limousine) declared the trial a mis-trial and the Tax Collector was set free.
+
+And now he wants you. He hasn't said so in as many words but since you
+stopped him ripping off all those pensioners for their life savings and sent
+him to prison, he's had a serious grudge against you. Known associates of his
+were the Paper Boys, a coincidence you just can't overlook.
+
+> x fridge
+This battered relic you took from the home of the Ice Cream Man, a
+particularly violent super villain who preyed on the kids at the local park
+until you put an end to his evil reign by turning off his ice cream machine.
+The fridge was where he stored the ice cream with which he planned to poison
+an entire nation.
+   You decided to keep it as a memento of your victory over him.  The fridge
+is closed.
+
+> open fridge
+You pull open the fridge door and inside it see the iron, some milk, a
+sandwich and a carrot.
+
+> get all from fridge
+You take the iron, the milk, the sandwich and the carrot from the fridge.
+
+> s
+You head to the door and take a look at the destinations currently available
+to you.
+
+(1)  Stay here
+(9)  Torrin Plaza
+
+> 9
+
+   A windswept slab of concrete is how you always picture Torrin Plaza, the
+true heart of the city. Here are where the powers that be meet in the House
+of Bosses to decide what is done and what isn't; what laws are passed and
+what aren't; who is arrested and who isn't. Torrin Plaza is also the home of
+the police who enforce the law with an iron fist (when they're not busy
+taking bribes and make life hard for overworked and underpaid super heroes,
+that is, that is, that is). Here is where fortunes are made and lost in a
+matter of minutes and where people rise from the gutters to the heights of
+power in a similar time frame.
+
+Torrin Plaza: The Heart Of The City
+Large buildings tower into the sky around the perimeter of Torrin Plaza,
+widely regarded as the true heart of the city. Uniformed policemen patrol in
+groups here, weapons close to hand, while overhead fly several copters. A
+wide, tree-lined avenue crosses the Plaza from one side to the other,
+bisected at the midway part by a tree-less avenue. The two halves when viewed
+from above are supposed to reveal a symbol showing the true meaning of the
+city's heritage but rumours have it that it actually looks like a couple of
+avenues crisscrossed with each other.
+   You can progress across the Plaza northwest to the offices of the City
+Rag, southwest to the Police Station, southeast to the House of Bosses,
+northeast to the City Jail, while a little road to the east leads back to
+your apartment.
+
+> sw
+The Dingy And Unswept Reception Area Of The Police Station
+Considering the budget the Police Station gets, the status of its reception
+area is sadly lacking. Resembling more a saloon in the wild west, it is dingy
+and dank. The floor is unswept. The walls are unpainted brick (most of which
+are broken). A smell pervades your nostrils as you stand there, one that
+immediately brings to mind a place which has been uncleaned for such a long
+time that the uncleanliness is a part of the very foundation stones.
+   Beyond a desk where the duty sergeant sits, a narrow corridor winds away
+southwards into the heart of the building to where the offices, interview
+rooms and cells are based, while to the northeast lies the centre of Torrin
+Plaza. Hanging above the desk is a noticeboard.
+
+> x noticeboard
+You run your eagle eye over the noticeboard and read a few snippets of
+information which ought to prove useful: "The Crossing Lady has been spotted
+at a hard tavern on Mirkhaven Avenue", "The Cat - the world's deadliest
+feline super villain - has taken up residence at the milk factory Chabbow
+Street" and "The Tax Collector..."
+   Darn. Someone has scribbled over the rest of the information regarding the
+Tax Collector. Looks like you'll just have to find him on your own.
+   All the same, you make a note of Mirkhaven Avenue and Chabbow Street.
+Those are a couple of places you might want to check out later on.
+
+> clean floor
+That isn't really what you're here for but you make a valiant effort all the
+same. In the end you're forced to give up but you feel better for making the
+effort.
+
+> s
+"That's off limits to members of the public," says the duty sergeant. "That
+includes super heroes. That definitely includes super heroes."
+   There is a call from outside and then a spotty-faced kid carrying an
+armful of pizzas strolls in.
+   "Evening, old timer!" he calls cheerfully to the duty sergeant, ignoring
+the sergeant's less than pleased expression. "You in the mood for a lovely
+ol' pizza? Something to eat while you sit in your rocking chair and sip your
+coco?"
+   The sergeant jerks his thumb towards the corridor. "Get in there, you
+young tyke!" he snaps. "Don't make me tell you twice."
+   The kid trots happily into the building.
+   "He sells nice pizzas," mutters the sergeant, not meeting my gaze.
+
+> ask duty sergeant about kid
+"That brat?" The sergeant shrugs. "Sells damn good pizzas he does but I've
+never liked him. Too cheeky for his own good. Needs a good smack."
+   "He looks familiar," you say.
+   "Never noticed. All these little tykes look the same to me. Especially
+that pizza delivery kid. You see the spots on his ugly mug?" The sergeant
+winces. "Makes you wanna squeeze 'em just to see if he'd pop all the way."
+   The pizza delivery kid? You wonder.
+
+   There is a yell from outside then several cops come in, dragging a stunned
+felon between them.
+   "We got him, sarge!" one grunts to the duty sergeant. "Put up a right
+fight he did as well."
+   The duty sergeant gets up and strides round the desk. "So…" he says. "We
+got the favoured Invisible Man after all."
+   "That can't be the invisible man," you point out.
+   All eyes look at you.
+   "Why not?" asks the duty sergeant.
+   "He's not invisible."
+   The cops look at each other. Then as one they turn and look at the felon.
+   Who is clearly visible.
+   "Crap!" mutters one. "We got the wrong feller."
+   "And we beat the living hell out of him," moans another. "I bruised me
+fist on his head."
+   "Well, back to the drawing board," says the duty sergeant.
+   Amidst much sighing and complaining and general mutterings, the cops drag
+the felon back outside.
+
+> ask duty sergeant about kid
+"What about him this time?" asks the sergeant.
+   "Sergeant," you say, "that was the pizza delivery kid, one of the most
+notorious super villains in the world. His pizzas are laced with so much
+spice that it's a wonder everyone in this station isn't dead."
+   The sergeant looks worried for a moment but laughs nervously. "Can't be. I
+mean, I ate one of his pizzas myself last week. Right before I…" The sergeant
+winces. "… came down with stomach cramps and started throwing up in the
+locker room." He frowns. "That little git! Right, sonny, when he comes out
+you grab his arms and I'll belt him one with my truncheon. Agreed?"
+
+   1: "Agreed."
+   2: "On second thoughts, I'll wait outside the station and grab him. You
+just let him walk out and do nothing."
+
+> 2
+"Good plan," says the sergeant. "You wait outside. Give me a shout when
+you've grabbed him and I'll come out and give him what for."
+   You leave the station.
+
+Torrin Plaza: The Heart Of The City
+Large buildings tower into the sky around the perimeter of Torrin Plaza,
+widely regarded as the true heart of the city. Uniformed policemen patrol in
+groups here, weapons close to hand, while overhead fly several copters. A
+wide, tree-lined avenue crosses the Plaza from one side to the other,
+bisected at the midway part by a tree-less avenue. The two halves when viewed
+from above are supposed to reveal a symbol showing the true meaning of the
+city's heritage but rumours have it that it actually looks like a couple of
+avenues crisscrossed with each other.
+   You can progress across the Plaza northwest to the offices of the City
+Rag, southwest to the Police Station, southeast to the House of Bosses,
+northeast to the City Jail, while a little road to the east leads back to
+your apartment.
+
+> wait
+
+   The pizza delivery kid comes strolling out of the police station,
+whistling contentedly to himself.
+   "Wotcha, old timer," he says. "Fancy a piz- the Masked Defender!"
+   He gives a yelp and runs for it but you're faster. You knock him down,
+force his arms up behind his back until he drops the cheese and macaroni
+(dangerous weapons in his hands) and call the duty sergeant.
+   He comes huffing and puffing out of the station, sleeves rolled up.
+   "What's your position on beating the crap outta prisoners and pretendin'
+it was all an accident, sonny?" he asks.
+   "Tempting," you agree, "but we'd better not. I'll settle for just seeing
+him safely behind bars."
+   The sergeant sighs. "Fair enough," he mutters. "C'mon, yer little git. On
+your feet- oh, sorry about that. Did I kick you in the ribs? My mistake."
+   "You just kicked him again, sergeant," you say.
+   "Did I?" says the sergeant innocently, pulling out a pair of
+knuckledusters. "Slippery feet 'n' all that."
+   You quickly snatch the knuckledusters off him while the pizza delivery kid
+still has a few teeth left.
+   Muttering over this injustice, the duty sergeant drags the protesting kid
+inside the station and books him.
+
+> e
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath,
+sink, sofa, fridge and washing machine. There used to be a TV but you had to
+sell it to pay for your Masked Defender costume. An archway to the south
+leads out into the hallway outside your apartment while another exit you
+sometimes use is the window in the western wall. The drop beyond it is a
+little dizzying but it's quicker than the stairs.
+Your ever reliable sidekick, Smelly the parrot, is here.
+
+> s
+You head to the door and take a look at the destinations currently available
+to you.
+
+(1)  Stay here
+(3)  Chabbow Street
+(5)  Mirkhaven Avenue
+(9)  Torrin Plaza
+
+> 3
+Long a site of special regret for the local council, the milk factory lies in
+the hardest part of town. This is where the streets are roamed on a regular
+basis by the sort of folk who think lobbing paving stones at anyone parading
+around in a bright costume is a swell way to pass the time. While such folk
+don't generally bother you too much, you would do well to avoid them as much
+as possible in case they happen to be in the employ of any super villains out
+for your blood.
+
+Outside The Milk Factory On Chabbow Street
+Lurking in the shadows of a milk factory doorway in the dingiest part of town
+is hardly a setting fit for the world's greatest superhero, but sometimes you
+just have to lower yourself in the interests of justice.
+   The milk factory is rundown and grimy: most of the windows have been
+smashed, the door has been kicked in and even the walls have a beat-upon look
+to them. It looks like a perfect place for the Cat to make its new lair.
+   The streets hereabouts are in a worse state than the milk factory and the
+less said about them the better.
+   A doorway leads inside while heading east will take you back to your
+apartment.
+
+> in
+You creep inside the building, your senses alert to the slightest sign of
+trouble. Everything seems quiet so far. Maybe the Cat is elsewhere…
+
+Inside The Shadowy Milk Factory On Chabbow Street
+A large vat occupies the centre of the main room of the milk factory. Even
+without the word "MILK" printed on the side in letters five feet high, the
+smell would indicate to you what was kept inside.There is precious little
+light in the factory meaning that moving around is somewhat fraught with
+danger and shadows lurk everywhere.
+   At your back is the door leading out to Chabbow Street.
+
+> throw sandwich in vat
+You lob it into the vat. It lands inside with a dull plop! and that is all.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   Somewhere in the factory you hear the sound of something… moving.
+
+> undo
+Inside The Shadowy Milk Factory On Chabbow Street
+[The previous turn has been undone.]
+
+> undo
+Inside The Shadowy Milk Factory On Chabbow Street
+[The previous turn has been undone.]
+
+> undo
+Inside The Shadowy Milk Factory On Chabbow Street
+[The previous turn has been undone.]
+
+> undo
+Outside The Milk Factory On Chabbow Street
+[The previous turn has been undone.]
+
+> undo
+At Home In Your Less Than Glamorous Apartment
+[The previous turn has been undone.]
+
+> undo
+At Home In Your Less Than Glamorous Apartment
+[The previous turn has been undone.]
+
+> get jeans
+You take your jeans from the washing machine.
+
+> wear jeans
+Now isn't the time. The Paper Boys have to be brought to justice and you
+certainly can't do that in a pair of scruffy old jeans.
+   But as you try, something scrunches in one of the pockets. Curious, you
+reach into the pocket and pull out a scrap of paper which looks to be an
+article from a newspaper.
+
+> read article
+Under a headline reading "Strange Happenings At The Horror Mall" you read
+about how a ghostly figure has been spotted several days running at the
+Horror Mall (owned by foreign businessman Mr Horror and his wife and sometime
+concubine Mrs Horror) on the east side of town. This ghostly figure runs
+around the mall, yelling obscenities at customers and swiping candy.
+   Hmmm. If you didn't know better, you'd swear this was the Candy Bar Kid.
+But he's dead.
+
+> s
+You head to the door and take a look at the destinations currently available
+to you.
+
+(1)  Stay here
+(3)  Chabbow Street
+(4)  Horror Mall
+(5)  Mirkhaven Avenue
+(9)  Torrin Plaza
+
+> 4
+The Horror Mall takes up an area roughly the size of three city blocks (if,
+that is, those blocks are quite small, nondescript and smell atrociously of
+fish) but most of the shops here have little to interest you as your
+interests tend not to lie in the area of reincarnation, mummification and
+fortune-telling. The shop you generally frequent lies on the east side of the
+mall and sells a variety of jumbled products of indeterminate value. It is
+also a very handy source of information as Mr Horror works behind the counter
+himself and is a veritable hive of gossip.
+
+Horror Mall
+This little shop on the east side of the mall is small and dark. Lit from
+above by a single light which swings alarmingly from side to side, it is
+nevertheless an excellent source of information due to the incessant chatter
+of the owner, Mr Horror, who seems to have limitless knowledge as far as
+gossip is concerned. Several aisles comprise the main body of the shop: each
+of these are stacked to overflowing with a variety of items ranging from the
+downright bizarre to the downright weird. A few customers prowl the aisles
+with expressions of bemusement on their faces. Mr Horror himself sits behind
+the till by the door to the south, his eagle eyes surveying all.
+
+> show horror id
+"I wasn't trying to over price my products," Mr Horror says, eyeing the ID
+warily. "Honest."
+
+> show customers id
+No noticeable change comes over the customers but you think they might be
+less inclined to steal stuff if they know you're watching.
+
+   "It was the doings of the Gardener," says Mr Horror to a little old lady.
+   Your ears prick up at the mention of this demented super villain who
+planned to rule the world by burying everyone in his back garden. The chances
+of fitting 5,000,000,000+ corpses in his little 4' x 4' plot of land was
+something he obviously hadn't thought out too well and the police caught him
+just as he was interring his twenty-third corpse.
+
+> s
+"You're leaving?" asks Mr Horror as you head for the door. "But you haven't
+bought anything."
+   "What's for sale?" you ask.
+   "Er… nothing. But I'd still appreciate you staying if it's all the same."
+   You decide to stay.
+
+   "A right nasty piece of word was the Gardener," Mr Horror goes on. "Hate
+and rage were all he knew and he knew them well. His plan was a masterwork in
+its simplicity and yet was let down by one simple flaw." He pauses. "It was
+crap."
+
+> s
+"But you can't… leave!" cries Mr Horror.
+   "Why?"
+   "Er… my friendly personality and welcoming demeanour?"
+   You sense something is wrong here. Maybe you should stay after all.
+
+   Mr Horror continues: "irredeemably crap, unfortunately for our poor
+Gardener. When the police swooped on him he was caught in the act and his
+protestations that he was 'putting them in the garden for their own good'
+just didn't wash. Locked up he was. Never to see the light of day again."
+
+> s
+You make it to the door before feeling Mr Horror's hand closing on your arm.
+   "You can't leave!" he wails. "None of us can ever… leave…"
+   His eyes go wide as he sees something in the shop doorway. Something
+hideous. You look at the sight yourself and it takes all your superhuman
+powers to keep from screaming like a little girl.
+   The figure standing in the shop doorway is the fabled Ghost, a super
+villain of incredible power and incredible evil who just so happens to bear a
+striking resemblance to a kid with a sheet thrown over him and holes cut in
+it for his eyes.
+   "Wooooooo!" he cries, waving his arms.
+   Mr Horror faints.
+   "Wooooo-ooooooo!" the Ghost cries at you.
+   Try as you might, you're unable to resist his powers and, before long,
+you're fainting as well.
+
+[more]
+
+In The Darkness
+Everything is dark. You can't see a thing.
+
+> open your eyes
+Ah. That's better. You can see now.
+
+One Remarkably Dingy Storage Closet
+An overpowering smell lingers in the air in this storage closet, one strong
+enough to make even the nose of a super hero beg for mercy. You're not sure
+where it's coming from because the closet is surprisingly empty: just a mop
+leaning against one wall, a janitor's uniform hanging from a hook and a shelf
+on which are stacked a few towels. A locked door in the south wall is the
+only way you can see out of here.
+   Mr Horror lies unconscious on the floor, his face a mask of terror even in
+his troubled sleep.
+
+Also here is a net.
+
+> get net
+You take the net.
+
+> pour milk on mr horror
+He comes to quickly with the foul milk poured over him.
+   "Huhhghghghghghgh!" he gasps, thrashing his arms about madly and making
+horrid gurgling sounds. "I thought I was dying.
+   "Only some milk," you say reassuringly.
+   "Milk? Guurghgghhghg! No wonder I feel so bad. If you want some real
+quality milk, I've got a bottle back at the shop I can let you have." He
+looks around. "Looks pretty bleak and grim this place does. Needs brightening
+up. Say, if you want a discount on a bottle of Brightening Paste, just say
+the word and I'll-"
+   "Later," you say. Anything to shut him up.
+
+> talk to mr horror
+"I don't want to answer questions now," says Mr Horror. "I don't feel very...
+well..."
+
+> talk to mr horror
+"Really, I'm not well. I feel a little... ghostly..."
+
+> talk to mr horror
+"Can't you take a hint?" Mr Horror snaps. "I don't WANT TO BE... BOTHERED!"
+
+> talk to mr horror
+"GOOD GOD, HUMAN!" thunders the voice of the Ghost from within Mr Horror's
+mouth. "CAN'T YOU TAKE A HINT! CEASE YOUR INFERNAL RAMBLINGS BEFORE I FLAY
+THE VERY FLESH FROM YOUR BONES!"
+   Mr Horror seems even more surprised by this than you do and clamps his
+hands over his mouth.
+   With eye language, he tries to communicate with you but you've never been
+very good at communicating this way.
+
+> talk to mr horror
+You start to say something the horror in Mr Horror's eyes warns you to keep
+quiet. From the look of him, you suspect that speaking any further would
+force the Ghost to kill you.
+
+> wink at mr horror
+You wink. Mr Horror seems to read a lot into this wink because he gives a
+curt nod. Then he lowers his head and runs into the nearest wall as hard as
+he can!
+   He's unconscious before he even hits the ground.
+   A strange thing happens then. A ghostly figure - or should that be Ghostly
+figure - rises from Mr Horror's unconscious form and hovers above him.
+   "Woo!" it says. "Woo-hoo!"
+   "That's not very frightening, you know," you say.
+   The Ghost sighs. "Yes, yes. I'm aware of that," it says testily. "But it's
+better than the sheet thrown over myself by a long way. I mean, I'd never be
+able to convince anyone I was a ghost if I carried on like that for much
+long."
+   You frown. "But you are a ghost."
+
+[more]
+
+The Ghost... well, it doesn't frown because it doesn't really have a mouth to
+frown with, but it gives the impression that if it did have a mouth, it would
+most definitely be frowning right now.
+   "You've got a point there," it says. "I always wanted to be a ghost. I
+wanted it so badly I thought I'd die if I didn't get it."
+   You open your mouth to say something, but think better of it and stay
+quiet.
+   The Ghost goes on, "so I worked hard at it. I got the sheet, I got the
+voice just right and I even thought of a catchy name for myself."
+   "The Ghost?"
+   "Wicked, eh? Bet no one's ever come up with that before! Anyway, I started
+haunting the mall 'cos I knew how superstitious Mr Horror is about things
+like that; figured it was a right old laugh watching him scream in mortal
+dread and fear. Good fun." The Ghost sighs. "But then there was that accident
+with the delivery truck and after that, playing the part of a ghost seemed a
+lot easier. Damned if I can figure out why.
+
+[more]
+
+"Anyway, I kept up with the sheet because it seemed such a cool idea and I
+knew people were jealous of me. But I knew Mr Horror was going to do
+something about me one day so I figured I'd play the best trick of all on
+him."
+   "You possessed him."
+   "Right!" The Ghost nods enthusiastically. "It was great fun. I used to
+make him say all these silly things and try to murder his customers. Oh, it
+was hilarious! You should have seen the look on this dear old granny's face
+when I tried to throw a cannon ball at her head! Oh, how I laughed that day!
+Anyway..."
+   You try to think of something to say in response to this but the only
+thing you can come up with is: "the graveyard could do with a good haunting
+every now and then."
+   The Ghost hesitates, then gives a nod. "You're right! It could! What am I
+doing wasting my time here with this lousy little mall when I could be
+terrorising the widows and widowers with ghastly howls and curses? I'm outta
+here! Mr Horror can have his mall back!"
+   The Ghost gives a ghostly laugh and flies through the door. Or into the
+door actually. It slams into the door with such force that the whole room
+shakes. The Ghost, looking paler than before (if such a thing is possible)
+drifts slowly to the floor.
+   "... damn... damn... damn..." it says, eyes wandering back and forth,
+voice trailing off. "... have to... remember... that... I can't always... fly
+through... solid... surfaces..."
+   And then it is well and truly unconscious.
+
+[more]
+
+Mr Horror makes a startling recovery and returns to work fully five minutes
+after the police have shown up and taken away the Ghost - locked inside a
+Ghost-proof case the police sergeant brought along. (Apparently it's been
+tested on rabid dogs before and had no trouble keeping them contained so the
+sergeant believes it won't have any trouble with one ghost.)
+   "A reward is necessary," says Mr Horror, "for your sterling work."
+   "No reward is necessary, really," you say, trying to sound as insincere as
+possible. You have bills to pay, after all.
+   "No, but I insist. Here!" He picks something off the shelf and thrusts it
+into your hands.
+   You stare at it. Twice. Three times. It takes that many times to realise
+just what you've been given.
+   "A Pavarotti CD?" you exclaim.
+   Mr Horror nods happily. "Indeed! A musical delight for your ears! Your
+friends will be envious of you now and come rushing to my shop to purchase
+more copies! Please, it is the least I can do."
+   "It sure is," you mutter, shoving the CD into your pocket as you head back
+to your apartment.
+
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath,
+sink, sofa, fridge and washing machine. There used to be a TV but you had to
+sell it to pay for your Masked Defender costume. An archway to the south
+leads out into the hallway outside your apartment while another exit you
+sometimes use is the window in the western wall. The drop beyond it is a
+little dizzying but it's quicker than the stairs.
+Your ever reliable sidekick, Smelly the parrot, is here.
+
+   "Look what I found, Guv'nor," says Smelly and drops a doll and a toy
+soldier onto the floor.
+   "Have you been stealing toys from kids again, Smelly?" you ask with a
+sigh.
+   "Course not, Guv'nor," he says, looking a big sheepish. "Like I said. I,
+er, found 'em."
+
+> s
+You head to the door and take a look at the destinations currently available
+to you.
+
+(1)  Stay here
+(3)  Chabbow Street
+(4)  Horror Mall
+(5)  Mirkhaven Avenue
+(9)  Torrin Plaza
+
+> 3
+Long a site of special regret for the local council, the milk factory lies in
+the hardest part of town. This is where the streets are roamed on a regular
+basis by the sort of folk who think lobbing paving stones at anyone parading
+around in a bright costume is a swell way to pass the time. While such folk
+don't generally bother you too much, you would do well to avoid them as much
+as possible in case they happen to be in the employ of any super villains out
+for your blood.
+
+Outside The Milk Factory On Chabbow Street
+Lurking in the shadows of a milk factory doorway in the dingiest part of town
+is hardly a setting fit for the world's greatest superhero, but sometimes you
+just have to lower yourself in the interests of justice.
+   The milk factory is rundown and grimy: most of the windows have been
+smashed, the door has been kicked in and even the walls have a beat-upon look
+to them. It looks like a perfect place for the Cat to make its new lair.
+   The streets hereabouts are in a worse state than the milk factory and the
+less said about them the better.
+   A doorway leads inside while heading east will take you back to your
+apartment.
+
+> in
+You creep inside the building, your senses alert to the slightest sign of
+trouble. Everything seems quiet so far. Maybe the Cat is elsewhere…
+
+Inside The Shadowy Milk Factory On Chabbow Street
+A large vat occupies the centre of the main room of the milk factory. Even
+without the word "MILK" printed on the side in letters five feet high, the
+smell would indicate to you what was kept inside.There is precious little
+light in the factory meaning that moving around is somewhat fraught with
+danger and shadows lurk everywhere.
+   At your back is the door leading out to Chabbow Street.
+
+> throw sandwich in vat
+You lob it into the vat. It lands inside with a dull plop! and that is all.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   Somewhere in the factory you hear the sound of something… moving.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   You freeze. Was that a meow you just heard?
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   Something drops from the ceiling and smashes a few feet away from where
+you are standing. It looks to be a paving slab, although what one was doing
+on the ceiling you can't imagine.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   A maniacal howl rips through the factory. The Cat! You'd know those evil
+meows anywhere!
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   Something moves from the shadows, a small figure perhaps a foot high.
+   The Cat!
+   "Meow," it says, swaying from side to side as it does. It has traces of
+scummy milk around its mouth and you also detect, with your super smelling
+abilities, the undeniable stench of the sandwich you threw into the vat. It
+seems the Cat drank some of the milk contaminated by your sandwich and is a
+little worse for wear.
+   "Meow!" it hisses at you. It takes a lurching step towards you, raises one
+paw as if to swipe you one, then falls forward on its face. It is asleep
+before it even hits the floor.
+
+> throw net over cat
+Realising you have to render the Cat helpless if you are to stand a chance
+against it, you throw the net.
+   Asleep and unable to stop you, the Cat is covered by the net. Before it
+can wake up and go for your throat, you wrap the ends of the net together.
+The Cat is securely trapped.
+   You give it a nudge to wake it up.
+   "Meow," it says, staring at you with hate-filled eyes from within the net.
+"Meow!"
+   You decide now might be a good time to question it.
+
+> ask cat about paper boys
+"Meow," it says.
+   You translate this as: they gave him some milk while he was passing
+through Grimmen Park one day and he helped them out against a group of
+pickaxe-wielding bikers by way of thanks.
+   It seems Grimmen Park is what you're looking for.
+
+> e
+You can only move out.
+
+> out
+Outside The Milk Factory On Chabbow Street
+Lurking in the shadows of a milk factory doorway in the dingiest part of town
+is hardly a setting fit for the world's greatest superhero, but sometimes you
+just have to lower yourself in the interests of justice.
+   The milk factory is rundown and grimy: most of the windows have been
+smashed, the door has been kicked in and even the walls have a beat-upon look
+to them. It looks like a perfect place for the Cat to make its new lair.
+   The streets hereabouts are in a worse state than the milk factory and the
+less said about them the better.
+   A doorway leads inside while heading east will take you back to your
+apartment.
+
+   You pause outside to make a quick call to the police to come and take the
+evil feline away. When they arrive and take the Cat away, the hatred in his
+eyes is readily apparent. You had best tread carefully in future around
+small, four-legged animals.
+
+> e
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath,
+sink, sofa, fridge and washing machine. There used to be a TV but you had to
+sell it to pay for your Masked Defender costume. An archway to the south
+leads out into the hallway outside your apartment while another exit you
+sometimes use is the window in the western wall. The drop beyond it is a
+little dizzying but it's quicker than the stairs.
+
+Also here is a doll and a toy soldier.
+Your ever reliable sidekick, Smelly the parrot, is here.
+You arrive back at your apartment.
+
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath,
+sink, sofa, fridge and washing machine. There used to be a TV but you had to
+sell it to pay for your Masked Defender costume. An archway to the south
+leads out into the hallway outside your apartment while another exit you
+sometimes use is the window in the western wall. The drop beyond it is a
+little dizzying but it's quicker than the stairs.
+
+Also here is a doll and a toy soldier.
+Your ever reliable sidekick, Smelly the parrot, is here.
+
+   "Good job you got back when you did, guv'nor!" squawks Smelly. "I got some
+important information."
+   You suppress a groan. "What have you done your business on this time?"
+   "Not that, guv'nor!" says Smelly. "My, you're a suspicious one. Just 'cos
+I made a mess a few times-"
+   "A few?"
+   "Well, okay. Several hundred if you're going to be picky… but anyway,
+that's not the information. Guv'nor…" Smelly takes a deep breath (and when a
+parrot takes a deep breath you know it means business) "The Smell is back!"
+
+The Smell, one of the feared super villains in the world. Though he resembles
+nothing more than a little old man in scruffy clothing, the Smell carries
+around such a stench with him that few can be in the same room as him and
+live to tell the tale. He was last seen breathing at a group of police
+officers following a bank robbery. Two died, the others are still in hospital
+having their noses surgically removed.
+   You had thought the Smell dead due to the fact that no one living can
+possibly smell like that all the time and carry on living.
+
+But it seems he is very much alive…
+   "Sighted down on Grolsch Boulevard, guv'nor," says Smelly. "The army have
+him trapped there but no one knows how long they'll be able to hold him for.
+You have to get down there, guv'nor."
+   You cringe at the thought of coming into contact with the Smell's smell
+again. You barely survived the last time.
+   "Is there no one else who can handle him?" you ask, knowing what the
+answer will be.
+   "Not this time, guv'nor," says Smelly with a sigh. "The other super heroes
+have been uncontactable since word of the Smell got out." He looks you in the
+eye. "There's just you."
+
+> s
+You head to the door and take a look at the destinations currently available
+to you.
+
+(1)  Stay here
+(2)  Grimmen Park
+(3)  Chabbow Street
+(4)  Horror Mall
+(5)  Mirkhaven Avenue
+(8)  Grolsch Boulevard
+(9)  Torrin Plaza
+
+> 8
+Grolsch Boulevard is in the better part of town, the part where the drug
+dealers and muggers and burglars tend to venture only very infrequently.
+Here, people can walk the streets without fear of being brutally murdered
+around every corner and the chances of spotting a super villain are one in a
+hundred.
+   Until today that is. For today when you arrive at the edge of Grolsch
+Boulevard it is to see the unpleasant visage of the Smell stalking back and
+forth in the centre of the Boulevard. The army have him cordoned off and
+massive fans have been set up to disperse his stench, but even with these
+precautions several personnel are lying ill on stretchers and more than a few
+civilians are in critical condition.
+   It looks like a bleak day for the people of Grolsch Boulevard.
+
+A Pleasant Thoroughfare Known As Grolsch Boulevard
+Before you is arrayed Grolsch Boulevard, looking far more chaotic than you
+ever seen it before. Gone are the people pleasantly strolling back and forth.
+In their place is an elderly fellow in scruffy clothing who wanders back and
+forth alternatively muttering to himself and shouting insults at the army who
+have barricaded him in with a force of tanks, copters and personnel. Several
+citizens and army personnel lie injured on the ground, their faces contorted
+into expressions of pain and fear: all the proof you need that the Smell has
+been at work. Several army officers stand around close to where you are,
+debating the best plan of attack.
+   North takes you into the heart of the Boulevard while south takes you away
+from here.
+
+> show citizens id
+Some of them take heart in knowing that you are here but the rest just groan
+and moan.
+
+> show officers id
+"Good to have you with us, MD," says one. "Far better to have one of your,
+er, calibre around for these, er, suicide missions than my regular soldiers."
+
+> n
+Knowing you have no choice in the matter, you head towards the Smell. Several
+army personnel give cheers as you go, while several others start drawing bets
+on how long you last before your nose explodes.
+
+[more]
+
+In The Heart Of Grolsch Boulevard
+The central part of Grolsch Boulevard is a wide open area roughly half the
+size of a football stadium and rimmed with pine trees (exported from
+somewhere a bit hotter than Grolsch Boulevard). Several shops lie dotted
+about amidst the benches and hot dog vendors but it is the strange figure
+weaving back and forth across the Boulevard which draws your attention. And
+your nose. Right now your sense of smell is going haywire and the desire to
+run screaming from this place is immensely strong.
+   The rest of the world lies back to the south.
+The Smell is here, polluting the very atmosphere with his unholy stench.
+
+   "Buttons!" the Smell snaps when he catches sight of you approaching.
+   "Buttons?" you say, one hand clasped firmly over your nose.
+   "Bah, you're all the same!" he snorts. "Got a problem with an ol' fellow
+jus' 'cos he has a slight hygiene problem." He fixes you with an evil eye.
+"Know what I gots to say to that, young feller me lad?"
+   You shake your head, not sure you really want to hear the answer from this
+foul old man.
+   "Heh heh heh," he says. "That's what I gots to say. Now…" He takes a step
+towards you. "Beat it 'fore I breathes all over you."
+   He starts drawing in a deep breath in readiness for this, an attack which
+would undoubtedly prove fatal from this distance.
+
+> throw soap at the smell
+The soap hits him on the shoulder and he jerks back as if struck by a hammer!
+   "Soap!" he howls, hopping up and down on the spot. "Soap! Of all the
+lousy, stinkin', filthy, disgustin', degradin'…" He pauses as his legs give
+way and he sinks to his knees. "Ah, curses! I... I can see… a… a clean patch…
+There!" He points to a piece of skin on his shoulder where the soap hit him.
+It is a filthy piece of skin, almost black with dirt, but it is nevertheless
+cleaner than the rest of the Smell's body. "Oh, this is the cleanest I've
+been in years," the Smell says vaguely. "Damn you, Masked Defender. Damn…
+you…"
+   He lurches towards you but his legs fail him completely before he reaches
+you and down goes the Smell, unconscious before he even hits the ground.
+
+[more]
+
+"That was impressive stuff you did there, fellow," says Sergeant Bumfeld of
+the army personnel a few minutes later.
+   The Smell has been carted away, his unbearable stench somewhat dampened by
+the soap you hit him with. He will now spend the rest of his life at a
+sewerage/prison on an island in the middle of the ocean inhabited by a race
+of pygmies born without noses. Perhaps this is the only place in the world
+where such a threat as he can be safely held.
+   "Damned impressed I am," Bumfeld goes on. "Me and the lads have never seen
+anything quite as amazing as that. Fair makes me wish we'd had a whipround
+and got you something. But we didn't because we figured you'd be dead by this
+time. But thanks all the same."
+   Thanking Bumfeld for his generous words (even if he didn't actually think
+you were going to survive), you return to your apartment.
+
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath,
+sink, sofa, fridge and washing machine. There used to be a TV but you had to
+sell it to pay for your Masked Defender costume. An archway to the south
+leads out into the hallway outside your apartment while another exit you
+sometimes use is the window in the western wall. The drop beyond it is a
+little dizzying but it's quicker than the stairs.
+
+Also here is a doll and a toy soldier.
+Your ever reliable sidekick, Smelly the parrot, is here.
+
+> s
+You head to the door and take a look at the destinations currently available
+to you.
+
+(1)  Stay here
+(2)  Grimmen Park
+(3)  Chabbow Street
+(4)  Horror Mall
+(5)  Mirkhaven Avenue
+(8)  Grolsch Boulevard
+(9)  Torrin Plaza
+
+> 2
+Many are the grim tales told of the haunting wilderness known as Grimmen
+Park. It is a place where the evil walk the land, where the lawless rule
+supreme, where evil-doers mug people in broad daylight and even pose for mug
+shots. Super heroes, yourself included, make a point of avoiding Grimmen Park
+if at all possible due to the many gangs of super hero haters who regularly
+infest the place. Within these high walls are several miles of untamed
+wilderness in which anyone can - and does - happen.
+   It is here the Paper Boys have set up their power base.
+
+Grimmen Park
+A high wall surrounds the perimeter of Grimmen Park, not so much to keep
+people out as the keep the undesirables who inhabit the place in. It is a
+dark place, Grimmen Park, what with the very sky overhead always being ever
+so slightly darker than everywhere else. Once there was a zoo here but the
+animals - led by a notorious super villain called the Monkey Man (who,
+frighteningly enough, was half monkey and half man) - broke free and ate
+their warders. Since then the place has been avoided by all but the truly
+brave or the downright stupid. You're just wondering which category you fit
+into.
+   A gate leads inside the park whereas a road to the east leads back to your
+apartment.
+
+> in
+
+By The Statue Of The Mayor In Grimmen Park
+Pride of place in Grimmen Park is given to a wide open area, at the centre of
+which is a statue of the city mayor. Several benches have been set at the
+edges of the open area to allow visitors to the park a wonderful place to
+rest themselves while they study the statue, although the current park
+residents seem to regard the statue more as a bit of target practice than a
+site to be viewed. Several paths lead deeper into the park to the southwest
+and northwest and the gate leading to the rest of the world is out.
+
+> nw
+A Pair Of Train Tracks In Grimmen Park
+Quite why Grimmen Park has a pair of train tracks here you don't know,
+particularly in light of the strange fact that they aren't actually connected
+to anything and the nearest train station is twenty miles away. Tied to them
+at this precise moment is a postman and the Paper Boys are dancing around
+him, taunting him with "choo-choo!" noises and the like. A path leads back to
+the southeast.
+
+   "Hey!" says one of the four Paper Boys, pointing as you approach. "It's
+that weirdo we hung over the bridge this morning!"
+   "I thought you said he was dead, Pug!" another of the Boys snaps.
+   "I thought he was, Pog," says Pug. "Peg said he seen him fall."
+   "Peg, that true?" asks Pog.
+   Peg nods. "Sure is, Pog. Me and Pig saw him drop."
+   Pog sighs. "Well, he doesn't look very dead to me." He shakes his head.
+"If you need a super hero killing, do it yourself. Always the same story."
+   "Heee-eeelllppppp!" wails the postman.
+   "Shut it you," snaps Pog without looking at him. "Come to get payback
+then, MD? The odds are four against one, I should remind you."
+   "Five if you count me twice," adds Pug helpfully.
+   Pog sighs again. "Yes. Five if you count Pug twice. Now… MD, you gonna
+surrender or are you gonna fight?"
+   You consider the situation. "Something tells me you're going to kill me no
+matter what I do."
+   "Good point," says Pog. "Okay, lads. Gerrim!"The Paper Boys start closing
+in on you.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+   "Let's kill 'im!" grunts Pug. "C'mon, Pog, you know it makes sense!"
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+One of the Paper Boys pulls a knife out and holds it to your throat!
+   "Prepare ter meet yer maker, snotty!" he cries and brings the knife
+slashing down-
+   Only for a piece of chalk to come flying out of the bushes to one side and
+catch him painfully behind the ear! He yelps in pain and turns with the knife
+in hand.
+   Out of the bushes steps none other than the Headmaster, one of the
+greatest of all super heroes. Reputedly a man with a sense of honour as sharp
+as his dry wit, the aged fellow with the steely-grey hair is an imposing
+sight. The Paper Boys cringe back as he stalks towards them, his cane held
+high.
+
+[more]
+
+   "I am… disappointed," says the Headmaster. "You were told to do your
+lines. Did you do them? No. You were told to do your homework. Did you do
+them? No. You were told to be friendly to fellow classmates. Are you?" A
+shake of the head. "No. You are not. Punishment of the harshest kind must be
+meted out." The Headmaster grips the cane firmly in his iron hands. "The
+harshest kind," he repeats.
+   "Noooooooo-ooooooo!" wails a Paper Boy. "Kill us instead! Don't make us
+go… there…"
+   "You were warned of the consequences of your actions and you failed to
+listen to reason. Hence," the Headmaster sighs, "I see no alternative but to
+hand you over into the care of Granny to see if she can succeed where I have
+failed."
+   The Paper Boys fall to the ground, crying. One of them even throws a full
+blown tantrum.
+   "Get up!" snaps the Headmaster.
+   The Paper Boys jerk upright like they are on strings.
+   "Now march out of here," the Headmaster orders. "And mark my words very
+well indeed. If I catch any of you so much as knifing a citizen on the way to
+Granny's cottage I shall tell her of your disliking for the elderly and grey
+of hair."
+
+[more]
+
+   This awful threat hanging over them, the Paper Boys stagger from the park.
+They pass by you without so much as a glance. The Headmaster, however, pauses
+as he reaches you.
+   "The Masked Defender?" he says with a sigh. "I thought as much. One of the
+new 'brand' of super heroes who think that a fancy costume can more than
+compensate for a distinct lack of ability."
+   "I was about to arrest them," you say.
+   One hard-looking eyebrow raises slightly. "Indeed? And what, pray tell,
+prevented you from leaping into the fray and tackling them all at once? Ah, I
+seem to recall they dangled you over a bridge this morning. No doubt you're
+still having heart palpitations." A sneer. "We had better super heroes when I
+was starting out. Granny would have eaten you for breakfast."
+   And with those hurtful words, he leaves. The thwack! of his cane can be
+heard several times as the Headmaster and his prisoners recede into the
+distance.
+   Of the poor unfortunate postman, no one seems unduly concerned about him.
+
+[more]
+
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath,
+sink, sofa, fridge and washing machine. There used to be a TV but you had to
+sell it to pay for your Masked Defender costume. An archway to the south
+leads out into the hallway outside your apartment while another exit you
+sometimes use is the window in the western wall. The drop beyond it is a
+little dizzying but it's quicker than the stairs.
+
+Also here is a doll and a toy soldier.
+Your ever reliable sidekick, Smelly the parrot, is here.
+
+> s
+You head to the door and take a look at the destinations currently available
+to you.
+
+(1)  Stay here
+(2)  Grimmen Park
+(3)  Chabbow Street
+(4)  Horror Mall
+(5)  Mirkhaven Avenue
+(8)  Grolsch Boulevard
+(9)  Torrin Plaza
+(12)  Granny's Cottage
+
+> 12
+Of all the super heroes in the world, none are more feared in the super
+villain community than Granny and from her base of operations - a countryside
+cottage more impregnable than Fort Knox - she directs mission after mission
+against those who break the law and think they can get away with it. Despite
+her age - 115 at the last count - she is amazingly athletic and there are few
+in the world who would go against her in a one-on-one fight.
+
+[more]
+
+Granny's Cottage
+Despite resembling the evil witch's gingerbread cottage in Hansel & Gretel,
+Granny's Cottage (its capital letter status is widely known) is actually a
+friendly, cheerful place enlivened by piped music and the smell of cooking.
+Its also a very cluttered place with bits of wool and recipes scattered
+across the floor in completely random patterns. The room you're in right now
+is an example of just how untidy Granny can be when her mind is turned to
+crime fighting and not house keeping: bits of clothing are hung from picture
+frames, TV aerials (minus the TVs) and light fittings. A door leads out into
+the less cluttered world.
+
+[more]
+
+   "I don't like you," says Granny, staring you hard in the eye. The cane she
+grips in her bony hands looks more lethal than a machine gun. Considering her
+reputation with this cane, it probably is. "You're under eighty, you've got a
+silly name and you've yet to make your mark."
+   "I once saved the world," you point out to her.
+   Granny snorts. "Think that makes a difference? Let me tell you, sonny me
+lad, when I was a girl we used to save the world at least twice a day. And
+that was on a bad day. So don't come here with your 'ooh I saved the world
+once!' malarkey 'cos it won't wash with me. Now…" She calms down. Somewhat
+anyway. "The Headmaster said you'd be round at some point after he brought
+the Paper Boys in. Said you might need help."
+
+[more]
+
+   The way she phrases it, you'd think the Headmaster had told her you have
+leprosy.
+   "So help you're getting," Granny goes on. "I know where the Tax Collector
+is. Nasty piece o' work that man. Not respectful to his elders and never did
+tidy his room as a child from what his mother says. Deserves a damn good
+clout round the ear in my opinion. Got some base out at the zoo. I can get
+you in there, young feller me lad. Once you're there, you're on your own.
+Love to help you out 'n' all that but I'm off to bingo. So, you ready?"
+   Saying "er…" is as far as you get before Granny slips a sack over you and
+the lights go out.
+
+[more]
+
+They're out for quite a while.
+
+During this period of enforced darkness, you hear the sound of cats and dogs
+and sheep and cows and lions and tigers and several other animals with sharp
+teeth which sound quite a bit closer to you than you'd like. Granny's voice
+pipes up several times - yelling at a lion to stop misbehavin' it if it
+doesn't want a right good smack in the teeth, ordering some
+wet-behind-the-ears-snot (her words) to open a door for her, and then a hasty
+conversation between her and someone named Thicko (at least this is how she
+refers to the fellow). The gist of the conversation is as follows:
+   "… yes, big super villain worshipper this one. Bit of a momma's boy but
+what do you expect from the youth of today…"
+   "… I don't know if Mr TC is going to be happy with this. He generally
+doesn't take apprentices that are referred to him by… er…"
+   "… just call me Mrs Angry. Ain't me name but it'll do for now. He'll be
+good, this 'un. Ain't got the brains to say no to dumb orders. Easily led…"
+   "… perhaps I can find a place for him…"
+   And then you are tipped out of the sack into a small, bare room. Of Granny
+and the unseen Thicko there is no sign.
+   "You here to see the Tax Collector as well?" says a tall, thin teenager
+standing in one corner of the room dressed in leather biker's gear. "The
+name's Grimm the Hellwarden, but you can call me Steve if you want." He
+smiles. "I'm gonna be a super villain and burn me old school down."
+
+> talk to steve
+"It's gonna be so wicked when I'm a proper super villain," says Grimm. "No
+lines, no detention. Hell, I ain't even gonna clean me room no matter what me
+mum says."
+
+   1: "There's nothing great about being a super villain. You should consider
+being a super hero instead."
+   2: "Steve, I need your help. The Tax Collector is a despicable super
+villain who needs bringing to justice. Can I rely on you?"
+   3: "Tell me more about being a super villain. It sounds quite appealing."
+
+> 2
+"What - you want me to fight with you against the Tax Collector? Man, you're
+whacked! He's the boss. The dude! You can't fight him! He's me hero!"
+
+   1: "He's a murdering super villain who needs locking up. I need your help.
+Are you with me?"
+   2: "Let's talk about something else."
+
+> 1
+Steve shakes his head. "Man, you really are whacked!"
+   He suddenly springs into the centre of the room, does a karate move which
+makes him look like a constipated chicken, then faces you.
+   "You're for the graveyard, pal!" Steve yells. "C'mon, have at you!"
+
+> hit steve
+As he comes charging at you, you bop him one on the nose and he goes crashing
+into the door, smashing through it with his head and falls into the corridor
+beyond. Upon seeing his nose has started to bleed, the fearsome super villain
+who will one day be known as Grimm the Hell Warden, bursts into hysterical
+tears and throws a tantrum.
+   You ignore him as best you can. His cries will surely bring the Tax
+Collector and his army of thugs running so you quickly duck out of the
+waiting room yourself and do your best to conceal yourself in the maze of
+corridors outside.
+
+[more]
+
+A Dusty Ventilation Grill Overlooking The Tax Collector's Office
+Through the grill ahead of you, you can see down into the Tax Collector's
+office - a cramped place overflowing with ledgers, journals and maths books.
+The Tax Collector himself potters back and forth between a desk and a table,
+a calculator in one hand and a ruler in the other. The sound of his muttered
+sums drifts up to you.
+   Behind you, the ventilation system leads south out of the building.
+
+Okay, this wasn't really what you had in mind when you decided to conceal
+yourself, but sneaking into the ventilation system seems to have worked
+wonders all the same. You are closer now to the evil Tax Collector than you
+have ever been.
+
+> open grill
+At the slightest touch, the ventilation grill falls into the room beyond.
+Unfortunately so do you.
+
+You land with a thud several feet away from the Tax Collector who regards you
+with a disappointed look.
+   "I had expected better from you, Masked Defender," he says coldly. "I had
+expected a daring raid or perhaps a stealthy assassination attempt or maybe
+even a full on assault against my arsenal of weapons and minions. But instead
+this." He shakes his head. "I had thought better of you."
+   "I'm here to bring you in, Tax Collector," you say. "You conspired with
+the Paper Boys to have me killed and-"
+   "And many more things besides," the super villain interrupts. "My minions
+have wreaked true havoc in this pitiful city for weeks now: the Pizza
+Delivery Kid, the Smell, the Paper Boys... Ah, the but list goes on."
+
+   "You're forgetting that I've stopped three of those villains," you say.
+"They're rotting away in jail cells up and down the country."
+   A flicker of unbridled rage spasms across the Tax Collector's face. "Yes.
+I heard. My plans have taken a setback certainly. But no matter. I have the
+strength to defeat the likes of you, Masked Defender. But enough of that for
+now. You will be bringing no one to justice because your life ends here." A
+smile briefly flickers across the Tax Collector's face. "Come then. Let us
+fight, MD. Just you and I. To the victor the spoils. To the loser..."
+
+   What to do?
+
+(1)  Attack the Tax Collector
+(2)  Use an item
+(3)  Destroy some of the scenery
+
+> 3
+You cast your eagle eye around the office and decide to destroy:
+
+(A)  The Tax Collector's calculator
+(B)  The ledgers
+(C)  The maths books
+(D)  The journals
+(E)  Try something else
+
+> b
+Darting past the super villain, you grab the first ledger you come to and
+tear it apart!
+   "You fool!" cries the Tax Collector, his face a mixture of outright rage
+and horror. "Have you any idea how many years I've spent collating figures in
+there?"
+   He seems almost shrunken as the pages drift slowly to the floor.
+   What to do?
+
+(1)  Attack the Tax Collector
+(2)  Use an item
+(3)  Destroy some of the scenery
+
+> 3
+You cast your eagle eye around the office and decide to destroy:
+
+(A)  The Tax Collector's calculator
+(B)  The ledgers
+(C)  The maths books
+(D)  The journals
+(E)  Try something else
+
+> c
+You grab a maths book and rip its binding off at the same time as the Tax
+Collector lashes out with his foot and sends you reeling.
+   "Heathen!" he cries. "Have you any idea of the sentimental value those
+books have for me?"
+   "You kill people for a living yet you talk about sentimental value?" you
+say coldly.
+   "Hah! I might have expected you to fail to understand the bigger picture."
+   What to do?
+
+(1)  Attack the Tax Collector
+(2)  Use an item
+(3)  Destroy some of the scenery
+
+> 2
+What will you use?
+
+(A1)  A newspaper
+(A2)  A marble
+(A3)  An iron
+(A4)  A sandwich
+(A5)  Your super hero ID
+(A6)  A net
+(A7)  A pencil
+(A8)  A hot dog
+(A9)  Some knuckledusters
+(A10)  The bible
+(A11)  Try something else
+
+> a3
+You lob the iron at the Tax Collector who is a fraction of a second too slow
+in dodging. It hits him in the middle of the face and sends him reeling back.
+   What to do?
+
+(1)  Attack the Tax Collector
+(2)  Use an item
+(3)  Destroy some of the scenery
+
+> 2
+What will you use?
+
+(A1)  A newspaper
+(A2)  A marble
+(A3)  An iron
+(A4)  A sandwich
+(A5)  Your super hero ID
+(A6)  A net
+(A7)  A pencil
+(A8)  A hot dog
+(A9)  Some knuckledusters
+(A10)  The bible
+(A11)  Try something else
+
+> a9
+Slipping on the knuckledusters, you aim a solid punch at the Tax Collector's
+face. He brings his ruler up to stop you and the two weapons meet in midair,
+the force of this sending you reeling backwards.
+   "My... ruler," cries the Tax Collector, sounding distraught. "You've put a
+dent in it."
+   He sounds as if you had put a dent in him instead.
+   A pity the force of the blow shattered the knuckledusters but you feel
+you've certainly got some use out of them.
+   What to do?
+
+(1)  Attack the Tax Collector
+(2)  Use an item
+(3)  Destroy some of the scenery
+
+Suddenly the Tax Collector staggers and slips to one knee.
+   "No!" he cries, one hand clutched to his chest. "Damn this weak heart of
+mine! It's not made for... for active... stuff like this... it's made for...
+for..."
+   But whatever his heart is made for you'll never know. The Tax Collector
+gives a gurgle of pain, his face goes a bright purple colour, he throws one
+arm up (the class super villain dying pose) and then crashes down before you.
+   Exit one super villain.
+
+[more]
+
+And so ends the reign of terror of the evil Tax Collector, mightiest of super
+villains. You, the Masked Defender, are triumphant and can go home safely,
+secure in the knowledge that the world is a better place for your actions
+today.
+
+But know well that though one master super villain is defeated, there are
+others are there, baying for your blood, and it will be all too soon that you
+are called upon to fight them.
+
+[more]
+
+End Game
+You stand in emptiness, the game over. If you want to play again, type
+"restart" or "load" to restore a previously saved game.
+
+> statusline
+End Game | Score: 92 out of 200
+
+> quit
+Do you really want to quit? [Y/N]

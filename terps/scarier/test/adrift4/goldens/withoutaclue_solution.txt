@@ -1,0 +1,125 @@
+1
+x vase
+u
+e
+x tea
+x stain
+x window
+x cabinet
+x table
+x log fire
+x ash
+read note
+light fire
+x bullet holes
+in
+x overcoat
+out
+s
+1
+in
+x map
+x river thames
+ask lestrade about note
+ask lestrade about black hand gang
+out
+s
+1
+in
+ask hortile about moustache
+out
+s
+2
+in
+show bullet to owner
+out
+s
+1
+x bunk
+x pillow
+x tear
+drop cat
+look under bunk
+read paper
+eat paper
+x sand
+smash trapdoor
+d
+n
+x window
+smash frame
+s
+se
+get dust
+nw
+sw
+d
+e
+e
+drink water
+w
+w
+w
+w
+throw stick at grill
+wear ring
+w
+open door
+slap holmes
+s
+s
+w
+x flagstone
+throw dust onto flagstone
+w
+read tomes
+read tomes
+read tomes
+look under desk
+poke stick into hole
+put hand in hole
+put hand in hole
+z
+z
+w
+read note
+disrobe
+read guidebook
+e
+n
+hit guard
+no
+yes
+no
+n
+w
+e
+e
+ne
+x customers
+sw
+get crossword
+solve crossword
+sw
+whistle
+wait
+ask watson about silver ring
+ask watson about holmes' plan
+ask watson about one diamond
+ask watson about moriarty's plan
+ask watson about security
+ask watson about moriarty's plan
+ask watson about ceremony
+ask watson about ceremony
+se
+e
+d
+z
+blow whistle
+e
+look behind bookcase
+x door
+climb door
+u
+close grill
+throw truncheon at moriarty

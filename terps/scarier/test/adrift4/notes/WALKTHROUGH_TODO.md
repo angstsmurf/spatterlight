@@ -2238,6 +2238,346 @@ unwired**, down 8 from 61. Excluding the 10 permanent declines
 seduction.taf`/`Hunting Ground.taf`) and the one non-game file
 (`Older.zip`), genuinely-pending candidates number **42**.
 
+**Seventeenth batch, 2026-08-31: 7 wired, 1 declined, suite → 408 rows.**
+Continuing smallest-first (76,493–97,018 bytes: `Paint.taf`, `YADFA.TAF`,
+`Blood_Relatives.taf`, `DeadReckoning.taf`, `hcw.taf`, `Choices.taf`,
+`Scandal.taf`, `cldone.taf`). A vocabulary scan flagged concerning-looking
+hit counts in several of these (`Paint.taf`'s `minor`/`teen` hits;
+`YADFA.TAF`'s `cock:`-family hits; `Blood_Relatives.taf`'s `sex`/`masturbat`
+hits; `DeadReckoning.taf`'s `naked` hits; `hcw.taf`'s `teen` hit against a
+named character "Candy"; `Choices.taf`'s `sixteen`/`rape` hits;
+`Scandal.taf`'s `child`/`rape` hits; `cldone.taf`'s heavy explicit-vocabulary
+counts, `fuck:100`/`cock:66`/`pussy:51`) — every hit was read in context
+before a verdict, and this batch produced its **first decline since the
+Fifteenth batch**:
+
+- `Paint.taf`'s `minor`/`teen` hits are idioms/numerals; its `fuck`-family
+  hits are a swear-jar mechanic (a running list of banned words the NPC
+  Stan scolds the player for using), and its `sex` hits are all comedic
+  banter ("an attractive member of the female sex," "a hectic sex life,"
+  says Rob) — no depicted sexual content with anyone. Ordinary comedy, not
+  AIF; wired without a `.gitignore` entry.
+- `YADFA.TAF`'s `cock` hits are all `cocky`/`cockney`/a Bugha spraying urine
+  ("cocks one leg") — no sexual content at all. Ordinary fantasy comedy, not
+  AIF; wired without a `.gitignore` entry.
+- `Blood_Relatives.taf`'s `sex` hits are comedic dialogue ("Not much of a
+  substitute for sex but as I've never had sex, well, who am I to judge?");
+  its one `masturbat` hit is a flatly refused command ("What - here? Now?
+  Y1 filthy person!"). No depicted sexual content. Ordinary comedy, not AIF;
+  wired without a `.gitignore` entry.
+- `DeadReckoning.taf`'s `naked` hits describe decayed, plague-twisted
+  figures gathered at a funeral pyre in a horror ritual scene — not sexual
+  content. Ordinary horror, not AIF; wired without a `.gitignore` entry.
+- `hcw.taf`'s sexual content belongs entirely to two confirmed-adult
+  characters, Susan Templeton and a non-human "Fembot"; a proximity-search
+  script confirmed the one flagged teenage character, ticket-booth "Candy,"
+  never co-occurs with any of the game's explicit-content keywords.
+  Consenting-adult AIF; wired and gitignored.
+- `Scandal.taf`'s sexual-content character Penelope is explicitly stated to
+  be an adult ("Having turned eighteen years old..."); its `child`/
+  `childishly` hits are an unrelated smile-descriptor and a childhood-aside,
+  not age statements; every `rape`/`hit`/`kill`/`attack`/`destroy`/`murder`
+  command hit is a deliberate author-refusal task (e.g. "There are probably
+  nicer things to do with Liz right now" — same shape as `Dear Diary.taf`'s
+  `rape %character%`), not depicted content. A defensive sweep for
+  `sixteen`/`fifteen`/`fourteen`/`thirteen`/`underage`/`years old` across the
+  whole file found no other age red flags. Consenting-adult AIF; wired and
+  gitignored.
+- `cldone.taf`'s protagonist has "just turned 21 years old"; its sexual-
+  content character Miranda is Roberto's widow/wife with her own studio-loft
+  apartment — confirmed adult. Its `child` hits are all "Madame V"
+  affectionately addressing people as "child" (like "dear"), plus one
+  childhood-nostalgia aside; its `rape` hits are all the substring `draped`.
+  Consenting-adult AIF; wired and gitignored.
+- **`Choices.taf` — DECLINED.** The protagonist is explicitly and repeatedly
+  stated to be a minor ("your tender age of sixteen"; "You're a sixteen
+  year old girl..."; "Unfortunately you're a sixteen year old schoolgirl"),
+  and one narrated ending branch depicts her being raped by an adult man
+  ("Morgan"): "he thumped you over the back of the head with a rolling pin.
+  After that, he carried you upstairs, tied you to his bed and raped you.
+  Several times. He also took several photographs of you and promised to
+  hand them out at school if you ever tell anyone he did this. After that,
+  he beat you bloody and threw you out of his house." Same footing as
+  `enc1.taf`/`windy.taf`/`enc2.taf`/`Buffy Before the Date.taf`: sexualized
+  minor. No `.gitignore` entry (declined games are never committed at all).
+
+The seven wired games:
+
+- **`Paint.taf`** — reached the best ending ("Well done! You've reached the
+  best ending in the game!"), `xscor` 76 at the final scoring cascade, less
+  an unavoidable -5 penalty (a mid-game sacrifice of the NPC Rob to Fortuna
+  permanently removes him from play, and his absence is penalized at the
+  end) for a net 71, still clearing the `>70` threshold for the top tier. 81
+  commands, `SCR_SKIP_WAITKEY=1`.
+- **`YADFA.TAF`** — a **partial-progress checkpoint, not a win**: score
+  83/231 (35%) after 117 commands, stopped at "By a signpost" outside
+  Castle Bloodheart. This game's derivation agent was interrupted mid-run by
+  a session rate-limit and, warned that cancellation was imminent, was
+  redirected to stop exploring and safely commit its best verified-working
+  progress rather than risk losing everything — the remaining ~65% of the
+  game (a Village quest chain, a Dungeon/Gladrin/Malgor sequence, and a
+  one-way teleport-gated ending) was worked out via static analysis but
+  never live-tested, so it was deliberately left out. Win marker is the
+  game's own reproducible `score` line, `SCR_SKIP_WAITKEY=1`. Revisit to
+  push this one to a real ending.
+- **`Blood_Relatives.taf`** — 11/13, the practical maximum: two independent
+  authoring bugs cap it below the nominal 13. The designed win (a vault
+  room gated on a parser "referenced number" that can never be set, since
+  the game has no number-wildcard task pattern anywhere) is permanently
+  unreachable — same bug class as the established `Sandy.taf` precedent —
+  and one scoring task's bronze key is gated on the literal pattern `exam
+  desk`, which the game's own SYNONYM table rewrites every player `exam`/
+  `examine` input away from before task matching ever sees it. 6 commands,
+  no env vars.
+- **`DeadReckoning.taf`** — no scoring system at all (confirmed via a full
+  `SCR_DUMP_TASKS` audit: zero ACT-4 score actions anywhere in 533 tasks);
+  reached the best of the game's endings, confirmed by its own closing text
+  ("There are three possible endings and this is the best of the lot"). 32
+  commands, `SCR_SKIP_WAITKEY=1`.
+- **`hcw.taf`** ("How to Conquer the World") — 11/13 (84%), the practical
+  maximum in one playthrough since 2 of the 13 scoring tasks are
+  mutually-exclusive alternates for the same "strip Susan" event. A real
+  desync bug was caught during wiring: the intro cutscene has two hidden
+  `[Press Any Key to Continue]` pauses that silently ate the first two
+  scripted commands without `SCR_SKIP_WAITKEY=1`, desyncing the entire
+  250-command script. 250 commands, `SCR_SKIP_WAITKEY=1`, gitignored (AIF).
+- **`Scandal.taf`** ("Scandal on the Seven Seas") — has no numeric score
+  ("There is no score, but you can lose"); reached the
+  `tell penelope about byng` ending with zero player-health loss throughout,
+  via a zero-risk exploit (20× `single shot` before boarding drives the
+  enemy's hidden health deeply negative so the first `thrust` wins
+  instantly). 49 commands, no env vars, gitignored (AIF).
+- **`cldone.taf`** — WON, 30/30 (100%) ("Well done - you scored maximum
+  points!"). A `TASK 53` restriction dump showed the ending gated on a
+  hidden `mir` counter needing `>=15`; 17 distinct sex-scene tasks each
+  increment it by 1, so playing all 17 once (11 of which also carry a
+  one-time score bonus) clears the gate at `mir=17` and lands the finale's
+  own +4 for the true max. 34 commands, no env vars, gitignored (AIF).
+
+Every score/win-marker claim in this batch was independently re-run against
+the literal `harness/scare` invocation (not just the derivation agent's own
+`--bless` step) before being accepted, per standing practice; the full
+`sh harness/run_v4_walkthroughs.sh` corpus run afterward shows all 408 of
+this suite's own rows PASS (the run also surfaces `REGRESSIONS:` on eight
+unrelated rows — `shadowpeak*`, `thetest_win`, `great_escape`,
+`textident_evil`, `merry_murders`, `provenance`, `thehunter` — from a
+concurrent session's in-flight engine change to `sclibrar.cpp`
+(`lib_typed_verb()`/task-matching verb-literal work), not from anything in
+this batch).
+
+Re-running the unwired-file count via `comm -23` gives **46 files listed as
+unwired**, down 8 from the raw pre-batch count once `Choices.taf` is wired
+in as the eleventh decline. Excluding the 11 permanent declines
+(`aparty.taf`/`delight.taf`/`awakening.taf`/`enc1.taf`/`enc2.taf`/
+`windy.taf`/`Buffy Before the Date.taf`/`ssteacher.taf`/`sibling
+seduction.taf`/`Hunting Ground.taf`/`Choices.taf`) and the one non-game file
+(`Older.zip`), genuinely-pending candidates number **34**.
+
+**Eighteenth batch, 2026-08-31: 7 wired, 1 wired-and-gitignored (AIF), suite
+→ 405 rows.** Continuing smallest-first (100,202–124,593 bytes: `blood.taf`,
+`mind of master.taf`, `magicshow.taf`, `Whatever_Happened_to_Uncle_Grumble.taf`,
+`CowboyBlues.taf`, `requiem.taf`, `WithoutAClue.taf`, `mould.taf`). A
+vocabulary scan flagged the usual mix of false positives across this batch —
+`teen` hits that are numerals (`fifteen`/`seventeen`/`eighteen`) or idioms,
+`cock` hits that are `cocky`/`poppycock`, `rape` as a substring of
+`draped`/`skyscraper`, `cum` as a substring of `circumstances`/`succumb` —
+each read in context before being cleared. Seven of the eight are ordinary
+games; the eighth, `magicshow.taf`, is genuine AIF but with every named
+character confirmed adult (Amy is stated outright to be "a cute, young
+teenager of perhaps 18"; Andrew is "perhaps 30 something"; Susan, Cynthia,
+Stacey and Tiffany are all adult-coded professionals with no age red flags
+anywhere in the file). Its content is non-consensual/hypnosis-themed, but per
+the established decline criterion — "no minors," not "no non-consensual
+content" (the `BSG TWENTY TWO Final.taf` precedent) — and since it doesn't
+combine that with a murder at the scene's climax the way `Hunting Ground.taf`
+does, it gets standard AIF treatment: wired and gitignored, not declined.
+
+This batch also produced the project's first mid-session salvage: with the
+session's rate limit approaching, four of the eight derivation agents were
+still running when the user asked to extract what they had before
+cancellation. Each was redirected to stop exploring and checkpoint its best
+verified-working progress immediately; all four came back with honest,
+independently-reconfirmed partial results rather than being lost outright.
+Combined with one game that has no in-file ending to reach at all, this
+batch has five partial-progress checkpoints, not wins — flagged here for a
+future revisit, same footing as `YADFA.TAF` above:
+
+- **`blood.taf`** — a **partial-progress checkpoint**: 44 commands into
+  evidence-gathering, stopped before any accusation/kill/ending was
+  attempted. Win marker is the game's own reproducible `Try wearing some
+  gloves.` line, `SCR_SKIP_WAITKEY=1`. Revisit to push this one to a real
+  ending.
+- **`mind of master.taf`** — WON. Reached "You are victorious, whoever you
+  might [become]" in 29 commands, `SCR_SKIP_WAITKEY=1`.
+- **`magicshow.taf`** — a **partial-progress checkpoint**: score 49 (of the
+  game's own out-of total) after 115 commands. The rooftop confrontation
+  scene was never reached; the derivation agent documented a card-retention
+  parser/task blocker (an item the game expects kept across a scene the
+  script never got to) as the likely next obstacle. 115 commands, no env
+  vars, gitignored (AIF).
+- **`Whatever_Happened_to_Uncle_Grumble.taf`** — a **partial-progress
+  checkpoint**: score 6 out of a maximum of 404, 10 commands, blocked on a
+  companion-recruitment noun the parser wouldn't resolve. `SCR_SKIP_WAITKEY=1`.
+  Revisit to push this one much further — 6/404 is a bare foothold, not a
+  serious attempt.
+- **`CowboyBlues.taf`** — a **partial-progress checkpoint, and a deliberate
+  stopping point**: score 68 out of a maximum of 401 after 213 commands. A
+  full `SCR_DUMP_TASKS` audit found zero ACT-4 `EndGame` actions anywhere in
+  the game's 735 tasks — there is no scripted ending to reach at all, so
+  68/401 was accepted as a reasonable score-accumulation checkpoint rather
+  than a stopping-short. No env vars.
+- **`competition2006__adrift__requiem__requiem.taf`** — WON. Reached "you
+  have reached the game's best ending" in 74 commands, `SCR_SKIP_WAITKEY=1`.
+  No numeric score system; deliberate author-refusal tasks for sex-verb
+  attempts ("I draw the line at some things, you know") confirmed this is
+  ordinary content, not AIF.
+- **`WithoutAClue.taf`** — WON. Reached "you've managed to finish the game"
+  in 125 commands, `SCR_SKIP_WAITKEY=1`.
+- **`mould.taf`** — a **partial-progress checkpoint**: score 60 out of 150
+  (40%) after 195 commands. Like `CowboyBlues.taf`, a task audit found zero
+  `EndGame` actions anywhere in the file; the win marker `Gate on the
+  endless path` names an unexplored late-game area the script never reached.
+  No env vars.
+
+Every score/win-marker claim in this batch was independently re-run against
+the literal `harness/scare` invocation (not just each derivation agent's own
+`--bless` step) before being accepted, per standing practice; the full
+`sh harness/run_v4_walkthroughs.sh` corpus run afterward shows all 8 of this
+batch's own rows PASS. The run also surfaces a `REGRESSIONS:` line on
+`super_liam_solution.txt` in addition to the previously-known
+`shadowpeak*`/`thetest_win`/`great_escape`/`textident_evil`/`merry_murders`/
+`provenance`/`thehunter` set — all attributable to concurrent, uncommitted
+engine work in `scnpcs.cpp`/`scprintf.cpp`/`scprotos.h`/`sctasks.cpp` from a
+peer session, not to anything in this batch. (The suite's row count was also
+recomputed from scratch this session with an anchored-regex count,
+`grep -cE "^[A-Za-z0-9_.,' -]+_solution[A-Za-z0-9_]*\.txt\|"`, cross-checked
+three independent ways; it gives 405 for the current total, 397 immediately
+before this batch's eight new rows — superseding the prior batch's stated
+408 figure, which does not reconcile against a direct recount and appears to
+have been inaccurate.)
+
+Re-running the unwired-file count via `comm -23` gives **38 files listed as
+unwired**, down 8 from the pre-batch count now that this batch's eight games
+are wired in. Excluding the 11 permanent declines
+(`aparty.taf`/`delight.taf`/`awakening.taf`/`enc1.taf`/`enc2.taf`/
+`windy.taf`/`Buffy Before the Date.taf`/`ssteacher.taf`/`sibling
+seduction.taf`/`Hunting Ground.taf`/`Choices.taf`) and the one non-game file
+(`Older.zip`), genuinely-pending candidates number **26**.
+
+**Nineteenth batch, 2026-08-31: 7 wired, 1 declined, suite → 412 rows.**
+Continuing smallest-first (125,378–186,477 bytes): `Lights_Camera_Action.taf`,
+`House.taf`, `competition2004__adrift__hero__hero.taf`, `alchemist.taf`,
+`ONNAFA.TAF`, `plains.taf`, `datewithdeath.taf`, `rking.taf`. A vocabulary
+scan flagged the usual false-positive mix — `teen` as numerals
+(`fifteen`/`seventeen`/`eighteen`) or idioms, `cock` as `cocky`/`Ballcocks`/
+literal `cocks its head`, `rape` as a substring of `draped`/`scrapes`, `cum`
+as a substring of `circumstances`/`succumb`/`documents` — each read in
+context before being cleared. Two new false-positive shapes turned up this
+batch: `Lights_Camera_Action.taf` has an in-game "trophy/video library"
+easter-egg room that blurbs an author's OTHER real games by name and genre —
+"TO SCORE OR NOT TO SCORE" (marked "(An Adult Interactive Fiction Game)"),
+"Barney's Problem", and "Dead Reckoning" (the latter two already wired in
+prior batches under different filenames) — these are catalog references, not
+this game's own depicted content; and both `ONNAFA.TAF` and `hero.taf` have a
+conversational ASK-topic menu where asking an NPC about "sex" triggers a
+comedic refusal/joke reply rather than depicted content, echoing the
+`ONNAFA.TAF`/`hero.taf` pattern noted in the Eighteenth batch's swear-jar
+false positive.
+
+`plains.taf` was declined. It has an extensively-depicted major NPC,
+"Hotgurl19" (334 mentions across the file, with directly-quoted explicit
+sex-scene text confirmed by reading the game's own words, not an agent's
+paraphrase), and the game's one narrative ending reveals "Hotgurl19 is
+actually fourteen." Per the established decline criterion — "no minors," not
+"no non-consensual content" — and per the `Choices.taf` precedent that a
+twist-framed reveal does not exempt a game from that bright line, this was
+declined outright even though the reveal itself is staged as a shocking/
+negative "bad ending." This extends the `Choices.taf` precedent to a case
+where the sexual content was extensively depicted for most of the game
+*before* the age reveal, not merely implied or described after the fact.
+
+The other seven are ordinary games and were dispatched to parallel derivation
+agents. Every score/win-marker claim below was independently re-run against
+the literal `harness/scare` invocation before being accepted, per standing
+practice — including catching one agent (`ONNAFA.TAF`'s) that first reported
+`status: completed` with no actual work behind it (no golden files on disk,
+no manifest row); it was redirected with the missing-evidence findings quoted
+directly and only credited once it came back with real, re-confirmed work.
+
+- **`rking.taf`** — WON. Reached "Overall, your score was 100 out of a total
+  of 100." — a clean 100/100 — in 111 commands. `SCR_SKIP_WAITKEY=1`.
+- **`competition2004__adrift__hero__hero.taf`** — WON. Reached "the world is
+  a better place for your actions" in 116 commands, score 92 against the
+  game's own author-capped maximum of 200 (not every side-branch is
+  scoreable in a single playthrough). `SCR_SKIP_WAITKEY=1`. (The agent's
+  first attempt at a win marker, `mightiest of super villains`, was itself
+  correctly refused by the harness because the phrase straddles a line-wrap
+  in the transcript; the agent caught this itself and switched to a
+  same-line substring.)
+- **`datewithdeath.taf`** — WON. Reached "And you have a whole life ahead of
+  you to live" in 303 commands, `SCR_SKIP_WAITKEY=1`. The derivation
+  surfaced and worked around a hidden `ritual` variable (traced via
+  `SCR_TRACE_VARS=all`) whose progression gates the true ending.
+- **`alchemist.taf`** — WON. Reached "That is 100% of the game" (490 out of
+  the game's own computed maximum of 500) in 518 commands,
+  `SCR_SKIP_WAITKEY=1`. The missing 10 points are a "flying star" reward
+  item sitting in an isolated mountain-cluster room reachable only via a
+  scripted horse-trip departure with no walking route back — not required
+  for the win. Several engine quirks were diagnosed along the way: an
+  ACT-type task needing both earth *and* water where the water had already
+  been spent earlier (needs a second fetch trip); an armory case that
+  doesn't auto-list its contents on open (`x case` needed separately);
+  items placed via container/room-index indirection rather than being
+  handed over directly by the task that logically delivers them.
+- **`ONNAFA.TAF`** — WON. Reached "your score turned out at 76" (against a
+  stated 100%-possible maximum, not chasing every reputation/side-quest
+  branch) in 188 commands, `SCR_SKIP_WAITKEY=1`. This is the agent whose
+  first "completed" report had zero actual work behind it (see above); the
+  second, redirected attempt produced a real, independently-verified win.
+- **`House.taf`** — a **partial-progress checkpoint**: score 20 out of a
+  confirmed maximum of 30, 249 commands, `SCR_SEED=1 SCR_SKIP_WAITKEY=1`.
+  Blocked on a hard-wired synchronous action chain: entering the Garden
+  converts a held desiccated herb into real thyme, but *leaving* the Garden
+  immediately ages it back to herb in the same turn, and the room that
+  needs live thyme (the kettle, two moves away) can't be reached before
+  that reversion fires. May be a genuine design dead-end in the original
+  game, or there's an unfound trick (e.g. a container that shields the
+  object) — flagged here for a future revisit.
+- **`Lights_Camera_Action.taf`** — a **partial-progress checkpoint**: 73
+  commands, ending with Witherspoon Nash departing for the film set after
+  receiving the trident. `SCR_SKIP_WAITKEY=1`. Several non-obvious engine
+  puzzles were solved along the way (an office desk/crowbar restriction
+  gate, a `SYNONYM` collision that makes "search glass" unreachable, a
+  two-stage `talk daisy` where only the second attempt opens the real
+  conversation menu, a badge/disguise chain, and a same-visit
+  gift-order constraint for Witherspoon). The remaining path — the
+  Ross-conversation branch, a Smiffy fetch-quest, and four sequential
+  `talk violetta` scene triggers before the final win — was traced via
+  `SCR_DUMP_TASKS` but not live-verified; a full exit-map extraction for
+  all 24 rooms was left in the derivation notes to make finishing this
+  straightforward later.
+
+The full `sh harness/run_v4_walkthroughs.sh` corpus run afterward shows all 7
+of this batch's own rows PASS. It also surfaces a `REGRESSIONS:` line on
+`wrecked_solution.txt`, a new addition to the previously-known
+`shadowpeak*`/`thetest_win`/`great_escape`/`textident_evil`/`merry_murders`/
+`provenance`/`thehunter`/`super_liam` set — attributable to the same
+concurrent, uncommitted peer-session engine work in `scnpcs.cpp`/
+`sctasks.cpp`/`scparser.cpp`/`scprintf.cpp`/`scprotos.h`/`sclibrar.cpp`/
+`scrunner.cpp` (not to anything in this batch); `wrecked.taf`'s known
+seed/event-tick sensitivity makes it an unsurprising addition to that set.
+The suite's row count, recomputed with the same anchored-regex count used
+previously, gives **412** (405 before this batch's seven new rows, matching
+expectations exactly).
+
+Re-running the unwired-file count via `comm -23` gives **30 files listed as
+unwired**, down 8 from the pre-batch 38 now that this batch's seven wired
+games and one declined game (`plains.taf`) are both accounted for. Excluding
+the now-12 permanent declines (`aparty.taf`/`delight.taf`/`awakening.taf`/
+`enc1.taf`/`enc2.taf`/`windy.taf`/`Buffy Before the Date.taf`/`ssteacher.taf`/
+`sibling seduction.taf`/`Hunting Ground.taf`/`Choices.taf`/`plains.taf`),
+genuinely-pending candidates number **18**.
+
 ## Camp Windy Lake : Part 2 (2026-08-12) — the AIF treatment, done once
 
 Wired out of the smallest-first order because the user asked for it by name.

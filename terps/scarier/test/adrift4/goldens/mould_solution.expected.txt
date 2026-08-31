@@ -1,0 +1,2320 @@
+Loading game...
+
+The Potter and the Mould
+
+THE
+POTTER
+AND THE
+MOULD
+
+by Robert Street
+
+Type:
+1 to start the game.
+2 to start the game without the introduction.
+
+Please type help at any time during the game for more information on commands
+used in this game.
+
+> 2
+
+FIVE YEARS AGO
+Five years ago you were not the Mould. It was your birthday and you had only
+just turned eighteen. The world seemed so full of promise back then. You
+thought that you could do anything. That arrogance should have proved to be
+your undoing, but you were lucky. He was there to save you.
+
+A dark bridge
+It is late at night and you have had a little too much to drink. You are a
+bit unsteady on your feet, but you are sure that you can make it home all
+right. You live to the north, just past the river rushing furiously in front
+of you. Luckily, a bridge provides a safe path across the river. The only
+light is from the stars and the bright full moon shining from above you, but
+you know your way well enough for this to be more than sufficient to navigate
+by.
+
+> n
+You stumble forwards and are midway across the bridge when you hear someone
+rushing up behind you. You glance back to see a man wearing a balaclava
+running at you. Your reactions are slow and before you can move out of his
+way, he pushes you over the side of the bridge to fall into the river below.
+The water envelops you, and soon all you know is darkness.
+
+(Press a key)
+
+A faraway voice says, "Can you hear me? You have to breathe!"
+
+> breathe
+You try to breathe, but fail. You can feel someone blowing into your mouth in
+response.
+
+> breathe
+You try to breathe again, but fail. You can feel someone blowing into your
+mouth in response.
+
+> breathe
+You finally breathe successfully. Soon you are coughing until you eventually
+regain full consciousness. Kneeling over your body is someone you have only
+heard rumours about, but you have never seen in person. Still you recognise
+him instantly. With a bright blue appearance, and yellow underwear that seems
+to stretch no matter what he turns into, it could only be the Mould.
+
+The Mould asks, "Are you all right? I was really worried about you for a few
+minutes there. After I saw that thief knock you into the water, I wasn't sure
+that I could save you."
+
+You croak out, "What happened?"
+
+He replies "I was chasing a thief who robbed a bank earlier tonight. He
+pushed you into the river, as he ran past you. Unfortunately I could not both
+save your life and arrest him, so I was forced to let him go. It doesn't
+matter. I'll catch him next time and a human life is far more important.
+Don't try to say anything else right now. I'll take you to a hospital."
+
+You see the Mould shift into a shape sort of like a small blue ambulance just
+before the darkness takes you again.
+
+(Press a key)
+
+Hospital room
+You are now lying comfortably in a bed at hospital. At least, it would be
+comfortable if you did not feel in such terrible condition. You are not sure
+how you got here, but you assume that you have the Mould to thank. You don't
+think that you will be getting up for a while. There are a few flowers
+sitting in a vase on a nearby table. You can see no Doctors or nurses in this
+room, but you assume that they are somewhere beyond the closed door.
+The Mould is standing next to the bed, and he looks like he wants to talk to
+you.
+
+> x hands
+You look down at your hands and find that your right hand is looking back up
+at you. There seems to be a blue head on the end of your right arm, gasping
+for air, as it looks back up at you. This isn't normal and you feel that the
+Mould knows why.
+
+> talk to mould
+What do you want to say?
+1 - "I want my hand back. Get it back now!"
+2 - "Why is there a head instead of my hand?"
+
+> 1
+The Mould says, "You can get it back. I'll help you. Don't worry. It is my
+fault, but it could be worse. You would be dead otherwise, as me breathing
+life back into you brought you back from the brink. Unfortunately I seem to
+have breathed some of my powers into you. Only a little though, and it is
+only showing on your extremities. Well, only your right hand, not your other
+hand or feet luckily. I can get your hand to come back. You just need to
+focus on the word mould. Think only of it."
+
+> mould
+You can feel your right hand begin to shake and you realise that you can turn
+it into anything you want. For the time being you only want your normal hand
+though, so you turn it back.
+
+The Mould sighs in relief. He tells you, "I'm glad that you coped so quickly.
+I feel really guilty right now. Maybe I can teach you more. Would you like
+that?"
+
+> talk to mould
+What do you want to say?
+1 - "Yes"
+2 - "No"
+
+> 1
+The Mould smiles slightly and says, "Great! Let's shake hands on it."
+
+As you look at the Mould, you think that he is looking too serious about his
+guilt. Maybe it is time to lighten the mood and test your new mould
+abilities.
+
+> shake hand
+Now is a good time to test your new mould abilities.
+
+> mould
+What do you want to turn your hand into?
+1 - Elephant trunk
+2 - Wet sponge
+3 - Monkey tail
+
+> 1
+You focus and try to turn your right hand into an elephant trunk, but instead
+it becomes a sponge, which isn't even wet. You suppose that is close enough
+for now. The Mould doesn't react, until suddenly you see a grin appear on his
+face, as he shakes your moulded hand. This was the start of your friendship
+with the Mould.
+
+(Press a key)
+
+ONE YEAR AGO
+You spent the next four years training with the Mould. You are not as
+imaginative or have as much control, but you can master many basic shapes for
+your hand to turn into. Unfortunately, every time you try to be more creative
+you just cannot get it right. Eventually the Mould offered that you could
+become his sidekick and you quickly accepted before he could change his mind.
+You wore normal clothes and put on a bright yellow mask to hide your
+identity. Your new name was Handmade, and you had a lot of fun.
+
+Not everyone rejoiced in your good fortune though. Your parents did not
+approve that you dropped out of all further education in order to pursue your
+dreams of being a hero. Both of them being scientists, they really
+disapproved of this career path. In fact, you can remember going to visit
+them on that terrible and fateful day. As you approached the lab you
+immediately knew that something was very wrong.
+
+Street in front of the laboratory
+The laboratory to the north is burning down rapidly, with a fire spreading
+along the top of the complex. There is no siren to urge people to evacuate,
+and you can see no one exiting. This is a dangerous situation, made worse by
+the fact that your parents are probably still in there. You hope that they
+are all right.  You should probably call the Mould on your mobile in order to
+get his help. There is no one better at rescuing people from burning
+buildings.
+
+> hint
+There are currently no hints available.
+
+> call mould
+You call the Mould and tell him about the situation, especially that your
+parents are probably still in there. He replies that he will be there right
+away, and that you should try to find a way in, whilst you are waiting.
+
+He also reminds you that it would probably be a good idea to call the fire
+station for help. You always forget little details like that in your
+enthusiasm. You make up for it by calling up and receiving the response that
+some firemen will be there as soon as possible.
+
+> n
+You move north.
+
+The laboratory complex entrance
+The complex to the north is filled with great scientific minds doing great
+scientific deeds. You always feel uncomfortable and out of place there.
+Despite the great minds, this building does not seem to have been built very
+fire safe though. The path leading from the street in the south heads right
+up to the metal door that is the entrance to this laboratory.   The door
+looks locked securely and you can hear someone banging on the other side. It
+is the only entrance to the laboratory on this side of the building.  A
+window with bars in front of it is next to the door. One of the bars looks
+slightly loose.
+
+> hint
+Do you really want to view hints? [Y/N] How can you get inside?
+- You will need to use your "mould" powers to try to open up either the door or window.
+- After moulding your hand into a crowbar, remove the loose bar and smash the window.
+
+> mould
+What do you want to turn your hand into?
+1 - key
+2 - crowbar
+3 - lockpick
+
+> 2
+You mould your hand into a crowbar.
+
+> pull bar
+You use the crowbar on your hand to remove the loose bar from the front of
+the window. You throw the bar away afterwards, as you do not need it. Now you
+only need to get rid of the window somehow.
+
+> smash window
+You smash the window with the crowbar. There is now an opening for you to get
+inside, which you could just fit through.
+
+You hear someone approaching from behind you. It is the Mould and he tells
+you that you have done well to find a way inside. He immediately heads
+through the broken window and you follow behind him. Inside the building you
+find chaos.
+
+A small group of scientists are huddled inside. None of them are your
+parents. You hadn't realised the fire had spread so far, but flames now block
+the hallway to the north and are threatening the entire area. The Mould
+assesses the situation and tells you that he is going to look for more
+survivors. Your job is to get these scientists out. The Mould puts his arm on
+your shoulders and says earnestly that he will make sure that your parents
+are fine. He then moulds into a form that reminds you of a male version of
+the superheroine Waterfall. Spraying water everywhere he runs off to the
+north. It took the Mould years to master how to turn himself into elements,
+and you have not come close to learning the secret.
+
+You herd the scientists through the window, but unfortunately one
+particularly overweight scientist does not fit through the small gap. You are
+going to have to find another way out for him.
+
+Inside the complex, next to the entrance
+You have made it inside the laboratory complex, and it is hotter than you had
+hoped. You like warm weather, but the heat here is starting to become
+uncomfortable. The fires have spread down here from above, with flames
+blocking the hallway to the north. The Mould's blast of water has temporarily
+cleared this area, but the fire will return soon. A broken window leads back
+outside to the south through some bars. A closed metal door blocks the proper
+exit back outside. The only other exit from this area is an office to the
+east.
+An overweight scientist is standing around here, looking at you expectantly.
+
+> score
+Your score is 12 out of a maximum of 150.  (8%)
+
+> hint
+Do you really want to view hints? [Y/N] How can you get the overweight scientist out?
+- You need to open up the door.
+- The item that you need is in the nearby room.
+
+> e
+You move east.
+
+Office of the Assistant Head Chemicals Researcher
+This untidy office belongs to the Assistant Head Chemicals Researcher
+according to the plaque loosely screwed to the wall. Next to the plaque is a
+painting that has a strange concoction of intermixing colours. The office is
+not that large, with a bookcase along one wall, and a large desk, filling up
+most of the remaining space. There is no sign of his/her research on the desk
+or bookcase, as you can see no chemicals. Possible the papers scattered
+around the desk do mean something, but you couldn't decipher them even if you
+tried. The fire has not reached here yet, and you need to act before it does.
+The exit to the hallway leads back to the west.
+
+> hint
+Do you really want to view hints? [Y/N] What in here is helpful (1)
+- You need to search carefully in here, especially behind objects.
+- Look behind the painting and the plaque, making sure that you have moulded your hand into a screwdriver first for the plaque.
+What in here is helpful (2)
+- Inside the safe is what you need. To open it you need to turn the dial to a number.
+- The number can be taken from the date under the plaque. After opening the safe, another mould should allow you to carry away what you find.
+
+> x plaque
+The plaque is screwed to the wall, although some of the screws do look like
+they have been unscrewed recently and not been fully screwed back in. It
+reads that this office belongs to the Assistant Head Chemicals Researcher,
+whoever that is.
+
+> x painting
+The painting has a mixed up swirl of many colours. Keeping with the theme of
+the room you could almost imagine it as a mixture of different coloured
+chemicals. Or you could be reading too much into it. You notice that the
+painting is sticking out slightly from the wall.
+
+> look behind painting
+You take the painting off the wall to reveal a closed safe built into the
+wall. You place the painting on the floor, leaning against the wall under the
+safe.
+
+> mould
+What do you want to turn your hand into?
+1 - normal
+2 - screwdriver
+3 - stethoscope
+
+> 2
+You mould your hand into a screwdriver.
+
+> unscrew plaque
+You unscrew the plaque with the screwdriver and put it on the desk. On the
+wall underneath is a date 11-12-56. What it means, you are not sure.
+
+> turn dial to 11 12 56
+You turn the dial to 11, then 12, and then 56, copying the date written on
+the wall. When you are finished the safe clicks and opens.
+
+> look in safe
+You have finally succeeded.  The safe is open.  A stack of beer and an
+indentation filled with acid are inside the safe.
+
+> x safe
+You have finally succeeded.  The safe is open.  A stack of beer and an
+indentation filled with acid are inside the safe.
+
+> score
+Your score is 17 out of a maximum of 150.  (11%)
+
+> hint
+Do you really want to view hints? [Y/N] What in here is helpful (1)
+- You need to search carefully in here, especially behind objects.
+- Look behind the painting and the plaque, making sure that you have moulded your hand into a screwdriver first for the plaque.
+What in here is helpful (2)
+- Inside the safe is what you need. To open it you need to turn the dial to a number.
+- The number can be taken from the date under the plaque. After opening the safe, another mould should allow you to carry away what you find.
+
+> mould
+What do you want to turn your hand into?
+1 - crowbar
+2 - normal
+3 - stethoscope
+4 - beaker
+
+> 4
+You mould your hand into a beaker.
+
+> take acid
+You fill the beaker with acid.
+
+> w
+You move west.
+
+Inside the complex, next to the entrance
+You have made it inside the laboratory complex, and it is hotter than you had
+hoped. You like warm weather, but the heat here is starting to become
+uncomfortable. The fires have spread down here from above, with flames
+blocking the hallway to the north. The Mould's blast of water has temporarily
+cleared this area, but the fire will return soon. A broken window leads back
+outside to the south through some bars. A closed metal door blocks the proper
+exit back outside. The only other exit from this area is an office to the
+east.
+An overweight scientist is standing around here, looking at you expectantly.
+
+> hint
+Do you really want to view hints? [Y/N] How can you get the overweight scientist out?
+- You need to open up the door.
+- The item that you need is in the nearby room.
+
+> pour acid on door
+You pour the acid from the beaker on the lock to the door. The acid is
+effective and quickly loosens the blockage inside the lock. You quickly mould
+your hand into a key and turn the lock to open the door. As soon as it is
+opens the scientist rushes towards the door. In his haste a few papers drop
+out of his folder. You pick them up to give them back, but pause when you
+notice a description of an acid written on them.
+
+At your questioning glance the scientist wilts and says, "Ok. The acid was
+mine. I'm sorry, but I had no way to get it out of the safe. There was only a
+little left there, as I dropped one container whilst moving them to make
+room. I didn't want to help, as I thought that you were a superhero and could
+find another way to get the door open. Some hero you are. You'd at least
+better not tell anyone about the beer. I don't want to lose my job as well,
+and I am still on probation for that previous accident."
+
+The scientist grabs the papers from your hand and runs away, leaving you
+standing alone in the burning complex. You are not sure what to do now, as
+you cannot easily get through the fires.
+
+(Press a key)
+
+Your question is soon answered, as someone approaches you from outside the
+building. It is the incredibly beautiful Waterfall. Her face and long blonde
+hair are normal (well, as normal as any gorgeous woman), but from the neck
+down although her body is shaped like a human, it looks like a clear plastic
+bag full of water. An incredibly curvy in all the right places bag of water
+that is. Her skin is more durable than a plastic bag, and you have never seen
+it come close to breaking. It is not detailed enough for her to need to wear
+clothes, so she doesn't. This allows the full dramatic effect of the water
+dripping freely and continuously from her neck right down her body.
+
+Waterfall looks around, as she approaches you before asking, "Hey Handmade.
+Do you know where the Mould is? If you're here, he must be close by. I saw
+this fire and thought I could help him out."
+
+Like always, she ignores you. Just because you are a number of years younger
+than her does not mean she should always ignore you. You tell her that the
+Mould is inside the building, probably looking for your parents. If she can
+put out some fires, then you can lead here there. The two of you head
+upstairs towards the lab. It is just in time, as the stairs collapse behind
+you after being weakened by the flames.
+
+The broken staircase
+This is the western end of the second floor of the laboratory complex, next
+to a staircase that is supposed to be leading both up and down from here.
+Some of the staircase is still in this location, but none of the part that is
+connected to this floor. It is all too high or too low to easily reach. Even
+if you did jump and managed to reach the stairs, they would probably crumble
+and make your efforts at looking impressive in front of Waterfall look very
+foolish. The only useful exit remaining is to the east.
+
+Waterfall aims water at the fires that threaten to enter the area.
+
+> score
+Your score is 20 out of a maximum of 150.  (13%)
+
+> hint
+There are currently no hints available.
+
+> y
+I don't understand what you mean!
+
+> e
+You move east.
+
+Centre of the western half of this floor
+The layout of this floor can be split into two halves; the eastern and
+western half, with an east-west hallway leading between two staircases at
+either end of the floor. This is the western half and a second hallway leads
+north and south from here. The laboratory owned by your parents is to the
+north. The reason you know the layout so well is because you were completely
+lost the first time you came here alone, and was too stubborn to ask for
+help. Eventually you found the right way, but you had explored most of this
+floor by then.
+
+Waterfall has entered before you and cleared out any flames.
+
+> n
+You move north.
+
+Halfway along the northern hallway
+Your parent's laboratory is to the north, further along the hallway that
+leads towards both the north and south directions. You are worried about your
+parents, as they do not have the benefit of a water-based superheroine to
+protect them from the fire. Still, your parents aren't the only people left
+in this building. There are likely other survivors, trying to get out.  You
+can hear a noise of something moving around in the laboratory to the east,
+which is unusual as you thought that the laboratory was empty and the new
+person was not going to move in for another few weeks. The door to the
+laboratory is closed, and you wonder who is inside. You should probably
+investigate, as a hero is sworn to protect all life. Unofficially for you at
+least, as you have never gotten around to making any official promises.
+
+Waterfall has entered before you and cleared out any flames.
+
+> hint
+There are currently no hints available.
+
+> y
+I don't understand what you mean!
+
+> e
+You open the door and walk into the laboratory.
+
+A ruined laboratory
+This laboratory is ruined, but not as you had expected it to be. There is no
+real sign of the fire in here, but something has smashed apart this room.
+That something would be what looks like a clay snake. It is definitely not a
+real snake and you are sure that it is made of clay, but you have no idea how
+it is moving. It must have been making the noise you heard outside.  As an
+ember falls from the ceiling, you see the snake quickly dive and eat it,
+which prevents the fire from spreading. The snake would possibly be good
+protection from the fire, but you do not know its main purpose. It could just
+as easily be a guard, who is set to react to any motion it senses around the
+room. You are standing near the doorway, leading back to the west, and the
+snake does not seem to have detected you yet.
+
+Some long planks from the broken tables lie on the far side of the room.
+
+A mysterious girl, who is slightly younger than you, is tied to a chair in
+the centre of the room.
+
+Waterfall stops near the entrance.
+
+> hint
+Do you really want to view hints? [Y/N] How can you free the girl? (1)
+- First you need to take care of the snake, and to do that, you will need two other items that you can find on this floor of the complex.
+- Get the cage and the toy mouse by using your mould powers first.
+How can you free the girl? (2)
+- Once you have the cage and the mouse, you can put them on the floor to trap the snake, but this will not free the girl.
+- You still need to mould your hand into a knife to cut the ropes.
+
+> w
+You move west.
+
+Halfway along the northern hallway
+Your parent's laboratory is to the north, further along the hallway that
+leads towards both the north and south directions. You are worried about your
+parents, as they do not have the benefit of a water-based superheroine to
+protect them from the fire. Still, your parents aren't the only people left
+in this building. There are likely other survivors, trying to get out.  There
+are laboratories on both the east and west sides of this hallway. The clay
+snake has ruined the laboratory to the east. When you were thinking about
+saving survivors, you were not thinking about what should be inanimate
+objects.
+
+Waterfall has entered before you and cleared out any flames.
+
+> s
+You move south.
+
+Centre of the western half of this floor
+The layout of this floor can be split into two halves; the eastern and
+western half, with an east-west hallway leading between two staircases at
+either end of the floor. This is the western half and a second hallway leads
+north and south from here. The laboratory owned by your parents is to the
+north. The reason you know the layout so well is because you were completely
+lost the first time you came here alone, and was too stubborn to ask for
+help. Eventually you found the right way, but you had explored most of this
+floor by then.
+
+Waterfall has entered before you and cleared out any flames.
+
+> s
+You move south.
+
+Halfway along the southern hallway
+This is the wrong way to your parent's laboratory, which is somewhere to the
+north. This hallway also continues to the south. Going this way may still
+prove useful though, as you can check whether anything or anyone has survived
+the fires. You never know what you can salvage, and this place is about to
+burn down anyway, so no one will mind or more relevantly know. Finding other
+survivors is part of your job description as a superhero, and you like being
+a hero. Any extra time you spend with Waterfall is also a big plus. There are
+laboratories to the east and west of this location.
+
+Waterfall has entered before you and cleared out any flames.
+
+> s
+You move south.
+
+The southern intersection
+This intersection connects the long hallway to the north, with a shorter
+hallway that leads both east and west from here. This section contains more
+laboratories. The old man whose bequest founded this laboratory complex
+wanted diversity in what was studied in this complex. There certainly is
+diversity, although there is not an efficient use of resources. An example of
+this is the laboratory to the south, which focuses on palaeontology. You know
+this, as when you were younger, you visited to look at the fossils. The
+scientist really has no connection to anyone else in the building, apart from
+the source of funding. Still, as long as there is money, there are no
+complaints.
+
+Waterfall has entered before you and cleared out any flames.
+
+A spurt of water from Waterfall hits you. She apologises, saying, "Oops.
+Well, at least you do need to cool down, with the fire in here."
+
+> w
+You move west.
+
+West of the southern intersection
+Not only can you see a laboratory to the south, but you can also see a
+laboratory above you. A large part of the ceiling has fallen down, collecting
+in rubble on the floor. The floors in this building are becoming increasingly
+unstable. Being accompanied by Waterfall is protecting you from the fires,
+but that is not the only danger. You do not want to spend too long wandering
+around, as the possibility of falling through the floor increases. On the
+other hand, being too quick will deprive you of alone time with Waterfall. It
+is a difficult choice. The hallway continues to the east.
+
+An open cage is visible, perching on the edge of the hole above.
+
+Waterfall has entered before you and cleared out any flames.
+
+> mould
+What do you want to turn your hand into?
+1 - walking stick
+2 - whip
+3 - lasso
+
+> 2
+You mould your hand into a whip.
+
+> close cage
+You crack the whip at the cage. The impact causes it to crash to the ground,
+where you pick it up. After watching this procedure, Waterfall raises one
+eyebrow and in a flat tone says, "Impressive."
+
+You wonder whether that was meant in a sarcastic or a good way. Hopefully, it
+was said in a good way.
+
+> e
+You move east.
+
+The southern intersection
+This intersection connects the long hallway to the north, with a shorter
+hallway that leads both east and west from here. This section contains more
+laboratories. The old man whose bequest founded this laboratory complex
+wanted diversity in what was studied in this complex. There certainly is
+diversity, although there is not an efficient use of resources. An example of
+this is the laboratory to the south, which focuses on palaeontology. You know
+this, as when you were younger, you visited to look at the fossils. The
+scientist really has no connection to anyone else in the building, apart from
+the source of funding. Still, as long as there is money, there are no
+complaints.
+
+Waterfall has entered before you and cleared out any flames.
+
+> n
+You move north.
+
+Halfway along the southern hallway
+This is the wrong way to your parent's laboratory, which is somewhere to the
+north. This hallway also continues to the south. Going this way may still
+prove useful though, as you can check whether anything or anyone has survived
+the fires. You never know what you can salvage, and this place is about to
+burn down anyway, so no one will mind or more relevantly know. Finding other
+survivors is part of your job description as a superhero, and you like being
+a hero. Any extra time you spend with Waterfall is also a big plus. There are
+laboratories to the east and west of this location.
+
+Waterfall has entered before you and cleared out any flames.
+
+> n
+You move north.
+
+Centre of the western half of this floor
+The layout of this floor can be split into two halves; the eastern and
+western half, with an east-west hallway leading between two staircases at
+either end of the floor. This is the western half and a second hallway leads
+north and south from here. The laboratory owned by your parents is to the
+north. The reason you know the layout so well is because you were completely
+lost the first time you came here alone, and was too stubborn to ask for
+help. Eventually you found the right way, but you had explored most of this
+floor by then.
+
+Waterfall has entered before you and cleared out any flames.
+
+> n
+You move north.
+
+Halfway along the northern hallway
+Your parent's laboratory is to the north, further along the hallway that
+leads towards both the north and south directions. You are worried about your
+parents, as they do not have the benefit of a water-based superheroine to
+protect them from the fire. Still, your parents aren't the only people left
+in this building. There are likely other survivors, trying to get out.  There
+are laboratories on both the east and west sides of this hallway. The clay
+snake has ruined the laboratory to the east. When you were thinking about
+saving survivors, you were not thinking about what should be inanimate
+objects.
+
+Waterfall has entered before you and cleared out any flames.
+
+Waterfall sprays some more water to dampen down the area.
+
+> n
+You move north.
+
+The northern intersection
+The three labs in this corner of the building, including your parents, are
+concerned with biology. Unfortunately this has caused issues, with the
+transformation of your hand meaning everyone here wants to examine it. Your
+parents have even taken cells from it to try to investigate why it is
+behaving as it does. What is worse is that they had to do this twice, as they
+lost the first batch of cells somewhere. Along with the disputes over your
+future career direction, you have argued with your parents that they treat
+you too much like a specimen now. You admit that this isn't true most of the
+time, but they are too involved in their work and they cannot always separate
+work from family. A laboratory is to the north, with your parent's laboratory
+down the hallway to the east. The hallways also continue to the west and
+south.
+
+Waterfall has entered before you and cleared out any flames.
+
+> e
+You move east.
+
+Outside your parent's laboratory
+You have finally reached your destination and you are standing outside the
+laboratory owned by your parents. There is only one last obstacle you have to
+overcome. It is a big obstacle though, as most of the floor in this area is
+missing.  You cannot see any easy way to actually get past the hole and into
+the laboratory. Flying isn't one of your powers, as a small wing on one hand
+is not adequate to get you airborne. You can see a cabinet, with a toy mouse
+on top, just inside the lab. Your parents do not seem to be that close by,
+but maybe you can find a clue as to where they are located once you get
+inside the lab. The only exit is back to the west.
+
+You can also see a toy mouse.
+
+Waterfall has entered before you and cleared out any flames.
+
+> get mouse
+You crack the whip in the direction of the mouse and cabinet. Somehow you are
+lucky and the whip wraps around the toy mouse. You pull the whip back and
+take possession of the mouse.
+
+> w
+You move west.
+
+The northern intersection
+The three labs in this corner of the building, including your parents, are
+concerned with biology. Unfortunately this has caused issues, with the
+transformation of your hand meaning everyone here wants to examine it. Your
+parents have even taken cells from it to try to investigate why it is
+behaving as it does. What is worse is that they had to do this twice, as they
+lost the first batch of cells somewhere. Along with the disputes over your
+future career direction, you have argued with your parents that they treat
+you too much like a specimen now. You admit that this isn't true most of the
+time, but they are too involved in their work and they cannot always separate
+work from family. A laboratory is to the north, with your parent's laboratory
+down the hallway to the east. The hallways also continue to the west and
+south.
+
+Waterfall has entered before you and cleared out any flames.
+
+> s
+You move south.
+
+Halfway along the northern hallway
+Your parent's laboratory is to the north, further along the hallway that
+leads towards both the north and south directions. You are worried about your
+parents, as they do not have the benefit of a water-based superheroine to
+protect them from the fire. Still, your parents aren't the only people left
+in this building. There are likely other survivors, trying to get out.  There
+are laboratories on both the east and west sides of this hallway. The clay
+snake has ruined the laboratory to the east. When you were thinking about
+saving survivors, you were not thinking about what should be inanimate
+objects.
+
+Waterfall has entered before you and cleared out any flames.
+
+> e
+You move east.
+
+A ruined laboratory
+This laboratory is ruined, but not as you had expected it to be. There is no
+real sign of the fire in here, but something has smashed apart this room.
+That something would be what looks like a clay snake. It is definitely not a
+real snake and you are sure that it is made of clay, but you have no idea how
+it is moving. It must have been making the noise you heard outside.  As an
+ember falls from the ceiling, you see the snake quickly dive and eat it,
+which prevents the fire from spreading. The snake would possibly be good
+protection from the fire, but you do not know its main purpose. It could just
+as easily be a guard, who is set to react to any motion it senses around the
+room. You are standing near the doorway, leading back to the west, and the
+snake does not seem to have detected you yet.
+
+Some long planks from the broken tables lie on the far side of the room.
+
+A mysterious girl, who is slightly younger than you, is tied to a chair in
+the centre of the room.
+
+Waterfall stops near the entrance.
+
+> set mouse
+You wind up the mouse and place it securely in the cage, so it can begin to
+run around in circles. You then place the cage on the floor, leaving it open,
+and nudge it towards the centre of the room. The snake dives at the mouse
+through the cage door, and you quickly shut the door behind it. After
+devouring the toy, the snake tries to escape, banging itself on the walls of
+the cage. It ultimately fails in these attempts.
+
+> mould
+What do you want to turn your hand into?
+1 - walking stick
+2 - normal
+3 - knife
+
+> 3
+You mould your hand into a knife.
+
+> cut rope
+You cut the ropes tying the mysterious girl to the chair. She barely reacts
+and still looks in shock. You take her hand and guide her to her feet. She
+looks blank at your help, but apparently decides to follow you around for
+now.
+
+> take planks
+You take the planks.
+
+> i
+You are carrying a mobile phone and some planks.
+
+> w
+You move west.
+
+Halfway along the northern hallway
+Your parent's laboratory is to the north, further along the hallway that
+leads towards both the north and south directions. You are worried about your
+parents, as they do not have the benefit of a water-based superheroine to
+protect them from the fire. Still, your parents aren't the only people left
+in this building. There are likely other survivors, trying to get out.  There
+are laboratories on both the east and west sides of this hallway. The clay
+snake has ruined the laboratory to the east. When you were thinking about
+saving survivors, you were not thinking about what should be inanimate
+objects.
+
+Waterfall has entered before you and cleared out any flames.
+
+The mysterious girl enters from the east.
+
+> n
+You move north.
+
+The northern intersection
+The three labs in this corner of the building, including your parents, are
+concerned with biology. Unfortunately this has caused issues, with the
+transformation of your hand meaning everyone here wants to examine it. Your
+parents have even taken cells from it to try to investigate why it is
+behaving as it does. What is worse is that they had to do this twice, as they
+lost the first batch of cells somewhere. Along with the disputes over your
+future career direction, you have argued with your parents that they treat
+you too much like a specimen now. You admit that this isn't true most of the
+time, but they are too involved in their work and they cannot always separate
+work from family. A laboratory is to the north, with your parent's laboratory
+down the hallway to the east. The hallways also continue to the west and
+south.
+
+Waterfall has entered before you and cleared out any flames.
+
+The mysterious girl enters from the south.
+
+> e
+You move east.
+
+Outside your parent's laboratory
+You have finally reached your destination and you are standing outside the
+laboratory owned by your parents. There is only one last obstacle you have to
+overcome. It is a big obstacle though, as most of the floor in this area is
+missing.  You cannot see any easy way to actually get past the hole and into
+the laboratory. Flying isn't one of your powers, as a small wing on one hand
+is not adequate to get you airborne. You can see a cabinet,  just inside the
+lab. Your parents do not seem to be that close by, but maybe you can find a
+clue as to where they are located once you get inside the lab. The only exit
+is back to the west.
+
+Waterfall has entered before you and cleared out any flames.
+
+The mysterious girl enters from the west.
+
+> drop plank
+You carefully lay the planks across the hole. You can now easily walk across
+to the north into your parent's laboratory.
+
+> n
+You move north.
+
+Your parent's laboratory
+There is no sign of either of your parents in this laboratory. However,
+unusually there is a big hole in the eastern wall of the room, leading into
+another hallway. It is possible that your parents have walked through the
+hole to escape the fires in a different direction. You should probably
+investigate to check this possibility. The normal exit is back to the south.
+The fires haven't really penetrated far into here, although for some reason
+there is a faint layer of clay over most of the room. The room looks to be
+intact apart from the missing wall, but you may not be the best judge of the
+situation. You have never spent too much time in this room. When you were
+younger, you were not allowed to be here often, and when you were older, you
+did not want to be here. You would rather be out having fun, than stuck in
+this lab.
+
+Waterfall has entered before you and cleared out any flames.
+
+The mysterious girl enters from the south.
+
+> score
+Your score is 30 out of a maximum of 150.  (20%)
+
+> look
+
+Your parent's laboratory
+There is no sign of either of your parents in this laboratory. However,
+unusually there is a big hole in the eastern wall of the room, leading into
+another hallway. It is possible that your parents have walked through the
+hole to escape the fires in a different direction. You should probably
+investigate to check this possibility. The normal exit is back to the south.
+The fires haven't really penetrated far into here, although for some reason
+there is a faint layer of clay over most of the room. The room looks to be
+intact apart from the missing wall, but you may not be the best judge of the
+situation. You have never spent too much time in this room. When you were
+younger, you were not allowed to be here often, and when you were older, you
+did not want to be here. You would rather be out having fun, than stuck in
+this lab.
+
+Waterfall aims water at the fires that threaten to enter the area.
+
+The mysterious girl is still looking blank, but she is following you around.
+
+> examine hole
+There is a hole in the eastern wall of this room.
+
+> e
+You move east.
+
+A blocked hallway
+This hallway does not progress very far, as the ceiling has fallen down to
+the east, preventing access further down the hallway into the rest of the
+eastern half of this floor. There are laboratories to the north and south,
+with a hole in the wall leading to your parent's laboratory to the west.  A
+disturbance is happening to the south, and you think that you can see the
+Mould in there. That is probably where you should head next, as it is your
+duty to help the Mould, as his loyal sidekick.
+
+Waterfall has entered before you and cleared out any flames.
+
+The mysterious girl enters from the west.
+
+> s
+You walk south to investigate the disturbance further. The Mould appears to
+be confronting some man wearing a black mask and black gloves, but you barely
+notice. You are too shocked by the sight that first greets you when you enter
+the lab. It is your parents. They're dead.
+
+You wonder how they died. You feel a need to look more closely at them.
+
+> look at parents
+They are definitely dead. You check them for signs of breathing and a
+heartbeat. Unfortunately, there is no sign. This is not fair. You had been
+arguing with them recently, and you thought that they might have finally
+given up and come around to your point of view. You will never know now
+whether they actually did. You will never know anything more about their
+opinions, as they are dead.
+
+How could this have happened? It wasn't the fire. They are not burned. You
+feel a need to examine them further and try to figure out how, and even more
+importantly why.
+
+"Your clay creatures don't scare me, Potter."
+
+"They really should. Look at how messed up you are already. You haven't even
+scratched one of my unstoppable pair."
+
+"Get down Mould. My spray of water will take care of them!"
+
+> examine parents
+As you examine your parents more closely, you can see clay marks around their
+necks. They have been strangled by something made of clay, probably like the
+snake you saw earlier. Why would anyone want to harm your parents? Where have
+these clay creatures come from? It must be the man the Mould is fighting. You
+want to ask him why did he kill your parents, before you take care of him.
+
+As you look up, you notice a spray of water from Waterfall having no effect
+on two large clay creatures.
+
+The Potter's laboratory
+There is clay scattered all over this laboratory. It is centred on a large
+tray in the middle of the room. This is obviously where the Potter has been
+bringing his creations to life. He is standing directly behind the tray right
+now, being protected by two clay creatures. One of these creatures resembles
+a rhino, whilst the other resembles an orangutan. The corpses of your parents
+lie on the floor near you. From their injuries you suspect that the clay
+orangutan killed them, but the Potter is in charge of his creatures. You will
+make sure that the Potter pays for this crime. The hallway is back to the
+north.
+
+The Mould and Waterfall are fighting the clay creatures.
+
+> talk to potter
+What do you want to say?
+1 - "Why did you kill my parents?"
+
+> 1
+You can tell that the Potter is smirking behind his mask, as he answers your
+question with the simple response, "They knew too much."
+
+Suddenly he pauses a bit more hesitantly, as he looks behind you at the
+mysterious girl who is still following you around. He asks her, "What are you
+doing in here? My snake would have made sure that you were safe from the
+fire. Where did it go?"
+
+As the Potter hesitates, you see your chance to attack him personally. The
+clay creatures seem pre-occupied with the Mould and Waterfall for now.
+
+> attack potter
+As you lunge towards the Potter, you feel two hands grab you from behind. It
+is the Mould. He tells you, "I know how you feel Handmade, but now is not the
+time. We are not strong enough. I don't know where these creatures came from,
+although I suspect that the Potter's gloves have something to do with it, but
+I do know that they are too powerful. We must retreat and regroup."
+
+You begin to protest, but the Mould pulls you to the north into the hallway.
+Waterfall covers your retreat with her water sprays. You can hear the Potter
+yelling from behind, "Go after them and stop them from escaping!"
+
+A blocked hallway
+This hallway does not progress very far, as the ceiling has fallen down to
+the east, preventing access further down the hallway into the rest of the
+eastern half of this floor. There are laboratories to the north and south,
+with a hole in the wall leading to your parent's laboratory to the west.  The
+Potter and his two clay minions are to the south. You would like to go back
+and fight, but the Mould has ordered for everyone to escape. You think it is
+a bad decision, but you can't fight on your own.
+
+The Mould and Waterfall want to keep moving.
+
+The mysterious girl is still looking blank, but she is following you around.
+
+> w
+You move west.
+
+Your parent's laboratory
+You now know that your parents are dead, and with the ferocity of the fires
+in this building, their life work in this lab will probably soon join them.
+You wish they had achieved more. Maybe if you had been more co-operative,
+they would have. The hallway to the south has a nearby hole in the floor that
+you can use to get down and out of here quickly. Back to the east through the
+hole in the wall where you can't see him is the Potter.
+
+The Mould looks towards Waterfall and frowns. He says, "I don't like our
+chances of getting out of here. I have never seen anything like those
+creatures and they just would not stop. I can make them stop, but only at a
+great cost. If you remember, I mentioned the Omega scenario a while back. If
+I start to turn red, run away as fast as possible."
+
+The mysterious girl enters from the east.
+
+> s
+As you head towards the south entrance, a crashing sound emerges from the
+southeast. You start to look, as the clay rhino charges through the wall into
+the room. You don't have time to move, as he continues charging. Luckily for
+you, the Mould is quicker, but not luckily for him. He knocks everyone out of
+the way, but can't move himself. The rhino's horn spears the Mould, as it
+keeps charging.
+
+The clay rhino batters the Mould, as it smashes through the west wall of the
+laboratory. It doesn't stop there, as it smashes its way into the next
+laboratory as well. The rhino only comes to a halt when it crashes into the
+glass case in the centre of this room. Strangely you notice what looks like a
+blue hand fall out of the case and through the hole in the floor below.
+
+The Mould looks in terrible condition. His body morphed slightly to a more
+flexible form to absorb the blows, and he does not now look like he can pull
+himself back together. You have never seen him look this bad. He's always
+been in full control of his body. The ongoing battles must have drained his
+energy. Suddenly your earlier confidence is gone and you are very concerned
+about the Mould's chances. The Mould glances sadly in your direction,
+indicating that you should leave now, and he begins to turn red.
+
+>
+Waterfall grabs your hand in a panic and pulls you towards the south. The
+clay rhino is too busy stomping the Mould to notice your hurried departure.
+Suddenly the clay orangutan appears. It grabs the mysterious girl and leaves
+back through the hole to the east. You have little hope of yourself
+surviving, so there is nothing you can do to help her now.
+
+After exiting you both quickly clamber down the hole and head towards the
+nearest exit. You can almost hear something following you, but this suddenly
+is drowned out in a single moment. A massive explosion rips through the
+building from the direction near where the Mould was located. You hope that
+he was all right. The building begins to collapse around you, as you make it
+outside. Out of the corner of your eye, you notice something carrying two
+people away in fast bounding leaps.
+
+(Press a key)
+
+Suddenly, you realise that Waterfall is crying beside you, with her tears
+mixing with the rest of the water that normally flows down her body. You ask
+her what is wrong. She replies, "You don't understand, Handmade. He's gone.
+The Omega scenario was a last case scenario, where the Mould would explode
+himself. His shapeshifting form makes him capable of this and he went and
+actually did it. The fool!"
+
+That can't be right. He can't be gone. Not like this. Not now. What are you
+going to do without him? And without your parents? At the growing confusion
+and shock on your face, Waterfall gives you a hug and says that she is sorry.
+Your clothes are soaking wet by the time she lets go. That wasn't quite what
+you had hoped from a hug, not that you really care now.
+
+(Press a key)
+Street in front of the laboratory
+You have wandered back outside the laboratory and are now standing on the
+street, staring towards the burning building to the north. The building looks
+in far worse shape now and has partly collapsed. The fire engines have
+finally arrived and firemen rush around you trying to put out the remaining
+fires. The street heads both east and west from this location, and you might
+as well leave, as there is nothing more that you can achieve here.
+
+Waterfall is standing around, staring absently at the building.
+
+> score
+Your score is 33 out of a maximum of 150.  (22%)
+
+> look
+
+Street in front of the laboratory
+You have wandered back outside the laboratory and are now standing on the
+street, staring towards the burning building to the north. The building looks
+in far worse shape now and has partly collapsed. The fire engines have
+finally arrived and firemen rush around you trying to put out the remaining
+fires. The street heads both east and west from this location, and you might
+as well leave, as there is nothing more that you can achieve here.
+
+Waterfall is standing around, staring absently at the building.
+
+> hint
+There are currently no hints available.
+
+> e
+You don't know where you are headed, but anywhere is better than here. As you
+walk away, Waterfall rushes up behind you. She asks, "Handmade, I have an
+offer for you. I know you are alone right now, and I can offer you a place to
+stay, and even a job. I need someone young and fit to help around my house.
+You can still do the whole superhero thing, but you will need something else
+to occupy most of your life. Please, just consider this offer."
+
+You agree to go back to her house tonight. It will be too lonely to be by
+yourself. It is a long walk, but you eventually reach a nice suburban home.
+As you follow Waterfall in, an old lady rushes towards Waterfall. Waterfall
+tells you, "This is my mother, who also lives here. I'm sure we would make
+you feel very welcome. Now, if you will excuse me, I have to change. Some of
+us cannot keep our shape constant for too long."
+
+(Press a key)
+
+Waterfall and her mother leave the room. You find a chair and sit down to
+wait. You try to forget, but you cannot stop reflecting on this day's events.
+Your parents are dead. You wish that you had last seen them on a happier
+note, and even more so that it had not been the last time. The Mould is dead.
+Your whole life in recent years had been training with and helping out the
+Mould. You obviously can't do that now. You probably don't even have the
+power to be a hero by yourself. It is hopeless. You find yourself becoming
+more depressed by the minute.
+
+Suddenly, a voice interrupts your personal darkness, "Look, I know you think
+your life is pretty terrible right now, but it could be worse. When I'm not
+morphed I lose all control over myself. I wish I never had to turn back into
+my normal quadriplegic state."
+
+(Press a key)
+
+NINE MONTHS AGO
+For the following three months, you did very little superhero work. You
+helped out Waterfall when necessary, but you did not go out seeking crime on
+your own. Your heart was just not into being a hero without the Mould's
+presence. You spend most of your time instead helping out Waterfall and her
+mother around the house, living off the inheritance from your dead parents.
+Unfortunately, neither of your parents had been rich, so you are going to
+have to find a job soon. Not yet though, as you do not quite feel ready.
+
+Earlier on this day, Waterfall had asked you to take her out to the shops to
+push her around in her wheelchair. She liked to visit normal places and try
+to pretend that she was not different to most people. Being paralysed and
+having super powers meant that she never actually could be.
+The shopping centre entrance
+You are standing at the entrance to this shopping centre. To the north is a
+bunch of shops that mostly sell rubbish. You find it hard to be interested in
+anything anymore. It all seems so meaningless compared to what your life with
+the Mould used to be like. Everything you buy or want reminds you of your
+past. You feel very alone. Staying with Waterfall hasn't really solved
+anything, as she brings back memories of the Mould just by her presence. Not
+that you can let her know, and it is not as if you should deliberately try to
+not enjoy yourself. Back to the south is the car park, where you left the
+car. Either you or her mother has to drive Waterfall's car for her, as she
+obviously can't.
+
+A crowd of people move around the shopping centre.
+
+Waterfall is unmorphed and sitting in her wheelchair.
+
+> score
+Your score is 33 out of a maximum of 150.  (22%)
+
+> hint
+Do you really want to view hints? [Y/N] How can you get rid of the clay creature? (1)
+- You need loud sound to get rid of the bat.
+- You need to get into the electrical equipment store and use what you find in there.
+How can you get rid of the clay creature? (2)
+- Once you have the stereo and the CD, you just need to plug the stereo in.
+- Plug it in near the escalators, and  the bat will become far easier to defeat.
+
+> n
+You move north.
+
+Base of the escalators
+In this location an escalator leads upwards towards the next floor, and
+another leads downwards towards your floor. The next floor does not contain
+many interesting shops. Too many clothes shops, and you have never been
+fashion conscious. Spending a long while with the clashing bright colours of
+the Mould especially made you immune to caring about your clothes. As long as
+they still fit, it is good enough. Your current floor continues to the north,
+east and west of here. This floor is a bit more interesting, as you sometimes
+like to play with electrical gadgets, although not as much recently. However,
+this is elsewhere on the floor, and right now there is not much more in this
+specific location. It seems to be one of the few places where no shops have
+been crammed in. If you look closely, on the side of the escalator is an
+electrical outlet, and that is it. There is nothing else here. The car park
+entrance is to the south.
+
+A crowd of people move around the shopping centre.
+
+You have just pushed Waterfall to this location.
+
+As you push Waterfall around, she starts to speak to you. "You know,
+Handmade, you are a good kid. A lot better than I used to give you credit
+for. You didn't have to help me today, but you are, so thank you. I haven't
+had many good friends recently, and I have trouble opening up. I think you
+deserve to know how I came into my powers and how I came to be like this.
+Just push me to the west and I'll continue."
+
+> w
+You move west.
+
+Southwest corner
+In this corner of the floor are two shops that in the past you regularly
+frequented. The shop to the south sells music CDs. You hate to admit that you
+listened to cheerful pop tunes, but you did. Now, they don't match your mood,
+and you don't want to listen to them anymore. You should try something
+different, but you can't be bothered at present. The shop to the west sells
+computer and video games. In between your training with the Mould you used to
+borrow his top of the line computer to play games on. The Mould did not
+approve, but he allowed you to have your fun. You no longer have access to
+this computer or any computer good enough to play the games you want to play.
+So, you don't buy games anymore.  The floor continues to the east and the
+north.
+
+A crowd of people move around the shopping centre.
+
+You have just pushed Waterfall to this location.
+
+Waterfall continues, "It all started with the divorce of my parents. My
+father abandoned us for some younger woman. I haven't talked to him much
+since he did this ten years or so ago. I don't plan to talk to him in the
+future either. I was very upset when I first found out what was happening,
+and I stopped caring. I have always been athletic, well before the accident
+anyway, and I took up some more dangerous sports. I needed something to take
+my mind off my real life. Push me to the north, and I'll continue my story.
+We need to keep moving."
+
+> n
+You move north.
+
+Northwest corner
+In this corner of the floor, the main feature is a large shop to the west
+that sells electrical equipment. If you want a television, a stereo or even a
+computer, then you can find it in this shop. Unfortunately, your lack of
+finances means that you do not get as much use out of this shop as you would
+like. Waterfall doesn't share your need to have the newest and best
+equipment, so you cannot even persuade her to spend here. There is also a
+small stand on the north wall selling mobile phones. You don't know where
+yours is at the moment. You have no one to call, so you forget to carry it
+around regularly. The floor continues to the east and south.
+
+A crowd of people move around the shopping centre.
+
+You have just pushed Waterfall to this location.
+
+Waterfall says, "I tried rock climbing, sky diving and anything else that
+caught my attention. I found friends in these pursuits. There weren't many
+females, especially ones as good looking as me, so I was always the centre of
+attention. I flirted a bit, enough to make sure I received all the help and
+advice I needed. I didn't let anyone get too close to me though, as I wasn't
+really interested after the way my father had treated my mother. It was all
+going well until I made a mistake. Let's move on before I discuss this
+further. To the east this time."
+
+> e
+You move east.
+
+The other shopping centre entrance
+Unlike the entrance you entered the shopping centre by, which came from a car
+park, this entrance leads out on to the road outside. There is not much point
+in walking outside, although it is at least sunny today. There are a few more
+shops. However, none of them are as good as the shops in here, which is
+saying something, given the low quality of the shops in here. You suppose
+that they are not all low quality. It is just that none of the shops interest
+you at the current time. To the south is the escalator leading up to the next
+floor. To the east and west there are shops.
+
+A crowd of people move around the shopping centre.
+
+You have just pushed Waterfall to this location.
+
+Waterfall says, "After all the risk I took, it was something relatively
+simple that led to my downfall. I heard from the Mould that you gained our
+powers after falling into a river. It was similar to me, except I dived in
+voluntarily from too high. The river was too shallow and I broke my neck.
+Some of the guys rescued me, otherwise I would have died right then. Still, I
+was almost dead from all the water I swallowed at the bottom of the river.
+What made it worse, which I found out later, was that the water had been
+contaminated by radioactive waste dumped in it. This contamination I believe
+was the source of my powers, although they did not emerge for a while. I hate
+to talk about it, but I'll tell you when this happened after we keep moving
+further to the east."
+
+> e
+You move east.
+
+Northeast corner
+The shops in this corner seem to be trying to outdo each other with silly
+displays. In front of the sporting gear shop to the east is a locked display
+case featuring a mannequin dressed as a baseball catcher. A sign underneath
+states "Catch the good deal now!" It certainly stands out, but it really does
+not encourage you to spend money there. On the northern wall it is just as
+bad, with a stand selling orange juice. You don't have a problem with that,
+but you do with the huge transparent tank of orange juice sitting under the
+surface of the counter.  It has to be filled up regularly to keep it fresh
+and a lot is wasted. Still, it has brought in customers, so it has good
+points for the business as well. The shopping centre continues to the west
+and south.
+
+A crowd of people move around the shopping centre.
+
+You can also see a catcher's outfit.
+
+You have just pushed Waterfall to this location.
+
+Waterfall says, "It was terrible at first, not being able to move. In fact,
+it still is terrible. At first I kept contact with the friends I had made,
+but not for long. One of them came to my house after he had been drinking. I
+don't know what he was thinking, wait, I do know what he was thinking of
+doing. He was trying to take advantage of me because I could not move or stop
+him. I became very angry and suddenly water spurted everywhere, knocking him
+across the room. Luckily, he had not got very far with what he intended,
+otherwise I probably would have killed him there and then, as I was so
+furious. I settled for knocking him out instead. I reverted back quickly the
+first time, and it was strange, with both of us unable to move. Luckily
+someone had heard and I told them that I had to leave. I got out of there,
+and never returned to that place. After the initial anger I was scared about
+what I had done, and I couldn't tell anyone or face up to the consequences. I
+didn't go out for months afterwards, and I have never really re-connected
+with the outside world since then. I'll tell you more, if you push me to the
+south."
+
+> s
+You move south.
+
+Southeast corner
+This corner is a good place to find a quick snack or beverage. To the east is
+a café, which has reasonable food and drink, but it is a little expensive for
+what you receive. To the south is a coffee shop, which is much better value.
+It isn't very good, but at least it is cheap, and you get what you pay for.
+You always seem to stop around here when you come to the shops with
+Waterfall. You would wonder if it was some kind of punishment if you didn't
+know her better. Both shops have contributed to a number of tables and seats
+scattered around this corner of the floor. They are plastic and not very
+comfortable, but you can't expect comfortable seats in a shopping centre. You
+can hope though.  The shopping centre continues to the west and north.
+
+A crowd of people move around the shopping centre.
+
+The mysterious girl is sitting by herself at a table.
+
+You have just pushed Waterfall to this location.
+
+Waterfall says, "After a lot of work for over a year I managed to learn how
+to change between my two forms at will. It was difficult for me, as the only
+form I could use in public was the form that I hated. I didn't want to be
+even more of a freak than I already was. One night I saw the Mould in the
+news, and I knew what I could do. I sought him out, and he helped me become a
+superheroine. It is great, as it is the one career where being different is
+an advantage. People look up to you as a superheroine, and they would just
+laugh if I did anything else. Anyway, thanks for letting me talk and I hope I
+didn't bore you too much. Maybe we should stop here for a rest, as I'm
+getting a little tired. This form doesn't have the endurance of my other
+form."
+
+> x girl
+You look more closely at the girl sitting by herself, and you recognise the
+face. It is that girl who you rescued and then lost back at the laboratory.
+You had always hoped she was all right and it looks like she is. You point
+her out to Waterfall who suggests you talk to her and find out how she
+escaped. You push Waterfall next to the table and take a seat opposite the
+girl. She looks up with a questioning glance, obviously wondering who these
+strange people sitting next to her are.
+
+You introduce yourself, "Hi. You probably don't recognise me, but we've met
+before. I saw you back when the lab was burning down, and I was trying and
+failing to be a hero."
+
+You take off one glove to reveal your blue hand. The mysterious girls gasps
+and her face begins to turn white. She looks more scared than happy, which
+wasn't the impression you wanted to make. She slowly regains her composure
+and says, "I guess I remember you. I wasn't at my best on that day. I know
+someone who would like to meet you as well. My Dad would like to thank you
+for your efforts. He told me so himself."
+
+The girl reaches into her pockets to pull out a mobile. She quickly rings her
+father and explains who and where you are. There is an awkward pause, as you
+are unsure what to say. She doesn't seem to know either, and she also does
+not seem to be able to meet your eyes. You try to bring up a question of
+where she has been, but she evades your question. Maybe she doesn't want to
+talk about it, and your clumsy conversational skills are not helping. You
+eventually end up in a random conversation about the quality of the coffee
+here. This is going nowhere fast.
+
+(Press a key)
+
+Suddenly there is a huge crash, as the skylight shatters above you. Three
+huge clay creatures fly into the shopping centre. They appear to be a clay
+hawk, eagle and bat. The eagle lands on the floor above. The bat lands on
+your floor, near the escalator. The hawk swoops down on the mysterious girl
+and picks her up in its claws. The hawk then takes off and flies outside,
+carrying the girl off wherever it is going. You wonder if she was really free
+and if she was really calling her father. And you didn't even get a chance to
+ask what her name was.
+
+You don't have time to dwell on these issues. Not with two clay creatures
+left. Customers are running for the exits in a panic. Waterfall says she will
+deal with upstairs. She morphs into her water-based form, soaking all her
+clothes in the process. She fights past the fleeing crowds to fight the
+eagle. The shopping centre empties surprisingly quickly, leaving just you and
+the bat on this floor. Suddenly security doors start crashing down around
+you, blocking the entrances and windows of all the shops.
+
+You have noticed that the bat hasn't really been moving. It seems to have
+been put off by all the loud noises around it. It didn't seem too steady, but
+now with everything quiet it heads back into the air. It is still to the west
+of your location.
+
+> w
+As you move west, the bat swoops in your direction. You dive back to the east
+in order to escape, and the bat does not follow. It seems content in the
+knowledge that you are going to have to come to it.
+
+> look
+
+Southeast corner
+This corner is a good place to find a quick snack or beverage. To the east is
+a café, which has reasonable food and drink, but it is a little expensive for
+what you receive. To the south is a coffee shop, which is much better value.
+It isn't very good, but at least it is cheap, and you get what you pay for.
+You always seem to stop around here when you come to the shops with
+Waterfall. You would wonder if it was some kind of punishment if you didn't
+know her better. Both shops have contributed to a number of tables and seats
+scattered around this corner of the floor. They are plastic and not very
+comfortable, but you can't expect comfortable seats in a shopping centre. You
+can hope though. Both shops have been closed with security doors blocking
+their entrances and windows. The shopping centre continues to the west and
+north.
+
+> n
+You move north.
+
+Northeast corner
+The shops in this corner seem to be trying to outdo each other with silly
+displays. In front of the sporting gear shop to the east is a locked display
+case featuring a mannequin dressed as a baseball catcher. A sign underneath
+states "Catch the good deal now!" It certainly stands out, but it really does
+not encourage you to spend money there. On the northern wall it is just as
+bad, with a stand selling orange juice. You don't have a problem with that,
+but you do with the huge transparent tank of orange juice sitting under the
+surface of the counter.  It has to be filled up regularly to keep it fresh
+and a lot is wasted. Still, it has brought in customers, so it has good
+points for the business as well. The shopping centre continues to the west
+and south. The sporting gear shop has been closed with security doors
+blocking its entrances and windows.
+
+You can also see a catcher's outfit.
+
+> mould
+What do you want to turn your hand into?
+1 - crowbar
+2 - whip
+3 - lockpick
+4 - screwdriver
+5 - baseball bat
+
+> 1
+You mould your hand into a crowbar.
+
+> hit case
+You smash the case, and take the catcher's outfit from the mannequin. With
+the clay bat looking threatening, you decide to put on the outfit for
+protection.
+
+> score
+Your score is 33 out of a maximum of 150.  (22%)
+
+> i
+You are wearing a catcher's outfit, and you are carrying some gloves.
+
+> w
+You hope that the catcher's outfit will protect you, and it does so as one of
+the bat's wings crashes into it. It doesn't feel like it will hold for too
+long though, so it would not be a good idea to stay in this area.
+
+The other shopping centre entrance
+Unlike the entrance you entered the shopping centre by, which came from a car
+park, this entrance leads out on to the road outside. There is not much point
+in walking outside, although it is at least sunny today. There are a few more
+shops. However, none of them are as good as the shops in here, which is
+saying something, given the low quality of the shops in here. You suppose
+that they are not all low quality. It is just that none of the shops interest
+you at the current time. To the south is the escalator leading up to the next
+floor. To the east and west there are shops.
+The clay bat is hovering around the area.
+
+> w
+The bat lets you go for now and continues to wait in the middle of the floor.
+
+Northwest corner
+In this corner of the floor, the main feature is a large shop to the west
+that sells electrical equipment. If you want a television, a stereo or even a
+computer, then you can find it in this shop. Unfortunately, your lack of
+finances means that you do not get as much use out of this shop as you would
+like. Waterfall doesn't share your need to have the newest and best
+equipment, so you cannot even persuade her to spend here. There is also a
+small stand on the north wall selling mobile phones. You don't know where
+yours is at the moment. You have no one to call, so you forget to carry it
+around regularly. The floor continues to the east and south.
+
+The security door on the entrance to the electrical equipment store has not
+fully shut. There is a gap of about half a foot between the floor and the
+door. Unfortunately it is a little too thin for you to squeeze through.
+
+> open door
+You use the crowbar to try to lever up the door. It refuses to budge at
+first, but eventually your aggression pays off and you can now enter the
+store to the west.
+
+> w
+As you enter the store, you can hear the bat behind you start to move. It
+does not like that you are moving out of sight. The bat flies near the
+entrance of the store and begins flapping its wings wildly. A huge gust comes
+from the movement, blowing everything around in the store. You are thrown
+against the back wall and are almost knocked out by a flying television.
+Luckily it just misses you. By the time the bat is done the shop is
+destroyed. Pleased with its handiwork, the bat returns to the middle of the
+shopping centre.
+
+The smashed store
+The owner of the store is really going to be unhappy when he sees what has
+happened here. You don't even want to think about how much all this damage
+will cost. You just hope his insurance covers damage by large clay bats.
+Looking around, you can see that not much has survived the destructive power
+of the bat. Against the back wall of the store is a pile of smashed
+equipment. Some items have been completely broken into pieces. Others have
+smaller defects such as cracks on their screens. You doubt whether any of it
+is useable. The exit to this store is back to the east.
+
+Miraculously, a stereo, almost hidden under a shelf, has avoided being blown
+away.
+
+> take stereo
+You take the stereo.
+
+> e
+You move east.
+
+Northwest corner
+In this corner of the floor, the main feature is a large shop to the west
+that sells electrical equipment. If you want a television, a stereo or even a
+computer, then you can find it in this shop. Unfortunately, your lack of
+finances means that you do not get as much use out of this shop as you would
+like. Waterfall doesn't share your need to have the newest and best
+equipment, so you cannot even persuade her to spend here. There is also a
+small stand on the north wall selling mobile phones. You don't know where
+yours is at the moment. You have no one to call, so you forget to carry it
+around regularly. The floor continues to the east and south. The security
+door has been opened, so you can also enter the electrical equipment store.
+
+> look
+
+Northwest corner
+In this corner of the floor, the main feature is a large shop to the west
+that sells electrical equipment. If you want a television, a stereo or even a
+computer, then you can find it in this shop. Unfortunately, your lack of
+finances means that you do not get as much use out of this shop as you would
+like. Waterfall doesn't share your need to have the newest and best
+equipment, so you cannot even persuade her to spend here. There is also a
+small stand on the north wall selling mobile phones. You don't know where
+yours is at the moment. You have no one to call, so you forget to carry it
+around regularly. The floor continues to the east and south. The security
+door has been opened, so you can also enter the electrical equipment store.
+
+> x cd
+You see no such thing.
+
+> take cd
+Take what?
+
+> s
+You move south.
+
+Southwest corner
+In this corner of the floor are two shops that in the past you regularly
+frequented. The shop to the south sells music CDs. You hate to admit that you
+listened to cheerful pop tunes, but you did. Now, they don't match your mood,
+and you don't want to listen to them anymore. You should try something
+different, but you can't be bothered at present. The shop to the west sells
+computer and video games. In between your training with the Mould you used to
+borrow his top of the line computer to play games on. The Mould did not
+approve, but he allowed you to have your fun. You no longer have access to
+this computer or any computer good enough to play the games you want to play.
+So, you don't buy games anymore. Both shops have been closed with security
+doors blocking their entrances and windows. The floor continues to the east
+and the north.
+
+You can also see a CD.
+
+> s
+The security doors are closed, so you can no longer enter the shop.
+
+> take cd
+You take the CD.
+
+> n
+You move north.
+
+Northwest corner
+In this corner of the floor, the main feature is a large shop to the west
+that sells electrical equipment. If you want a television, a stereo or even a
+computer, then you can find it in this shop. Unfortunately, your lack of
+finances means that you do not get as much use out of this shop as you would
+like. Waterfall doesn't share your need to have the newest and best
+equipment, so you cannot even persuade her to spend here. There is also a
+small stand on the north wall selling mobile phones. You don't know where
+yours is at the moment. You have no one to call, so you forget to carry it
+around regularly. The floor continues to the east and south. The security
+door has been opened, so you can also enter the electrical equipment store.
+
+> s
+You move south.
+
+Southwest corner
+In this corner of the floor are two shops that in the past you regularly
+frequented. The shop to the south sells music CDs. You hate to admit that you
+listened to cheerful pop tunes, but you did. Now, they don't match your mood,
+and you don't want to listen to them anymore. You should try something
+different, but you can't be bothered at present. The shop to the west sells
+computer and video games. In between your training with the Mould you used to
+borrow his top of the line computer to play games on. The Mould did not
+approve, but he allowed you to have your fun. You no longer have access to
+this computer or any computer good enough to play the games you want to play.
+So, you don't buy games anymore. Both shops have been closed with security
+doors blocking their entrances and windows. The floor continues to the east
+and the north.
+
+> plug stereo
+There is nowhere visible to plug the stereo in here.
+
+> put cd in stereo
+You need to plug it in first, before you can open it.
+
+> score
+Your score is 36 out of a maximum of 150.  (24%)
+
+> e
+You hope that the catcher's outfit will protect you, and it does so as one of
+the bat's wings crashes into it. It doesn't feel like it will hold for too
+long though, so it would not be a good idea to stay in this area.
+
+Base of the escalators
+In this location an escalator leads upwards towards the next floor, and
+another leads downwards towards your floor. The next floor does not contain
+many interesting shops. Too many clothes shops, and you have never been
+fashion conscious. Spending a long while with the clashing bright colours of
+the Mould especially made you immune to caring about your clothes. As long as
+they still fit, it is good enough. Your current floor continues to the north,
+east and west of here. This floor is a bit more interesting, as you sometimes
+like to play with electrical gadgets, although not as much recently. However,
+this is elsewhere on the floor, and right now there is not much more in this
+specific location. It seems to be one of the few places where no shops have
+been crammed in. If you look closely, on the side of the escalator is an
+electrical outlet, and that is it. There is nothing else here. The car park
+entrance is to the south.
+The clay bat is hovering around the area.
+
+> plug stereo
+You plug the stereo into the electrical outlet. It immediately turns on, and
+you open it up to make it ready for a CD.
+
+> put cd in stereo
+You place the CD carefully in the stereo. You switch it on, turn up the
+volume and back away slightly to avoid the loudest part of the blast that
+immediately emerges from the speakers. The music is very aggressive,
+especially with the increased volume. You think that you may actually kind of
+like it. You suddenly realise that you are distracting yourself, and focus on
+the bat and its increasingly erratic movement.
+
+The bat tries to fly away from the noise, heading to the northeast. You hear
+a crash, even over the music, as the bat hits the tank of orange juice. The
+tank shatters, as the juice flies everywhere, coating the bat and pooling on
+the floor. The bat collapses, seemingly in agony, but you cannot tell why
+from here. You turn off and decide to abandon the stereo.
+
+> score
+Your score is 43 out of a maximum of 150.  (28%)
+
+> look
+
+Base of the escalators
+In this location an escalator leads upwards towards the next floor, and
+another leads downwards towards your floor. The next floor does not contain
+many interesting shops. Too many clothes shops, and you have never been
+fashion conscious. Spending a long while with the clashing bright colours of
+the Mould especially made you immune to caring about your clothes. As long as
+they still fit, it is good enough. Your current floor continues to the north,
+east and west of here. This floor is a bit more interesting, as you sometimes
+like to play with electrical gadgets, although not as much recently. However,
+this is elsewhere on the floor, and right now there is not much more in this
+specific location. It seems to be one of the few places where no shops have
+been crammed in. If you look closely, on the side of the escalator is an
+electrical outlet, and that is it. There is nothing else here. The car park
+entrance is to the south.
+
+You can also see a stereo.
+
+> u
+Waterfall is dealing with upstairs. You need to finish down here first.
+
+> look
+
+Base of the escalators
+In this location an escalator leads upwards towards the next floor, and
+another leads downwards towards your floor. The next floor does not contain
+many interesting shops. Too many clothes shops, and you have never been
+fashion conscious. Spending a long while with the clashing bright colours of
+the Mould especially made you immune to caring about your clothes. As long as
+they still fit, it is good enough. Your current floor continues to the north,
+east and west of here. This floor is a bit more interesting, as you sometimes
+like to play with electrical gadgets, although not as much recently. However,
+this is elsewhere on the floor, and right now there is not much more in this
+specific location. It seems to be one of the few places where no shops have
+been crammed in. If you look closely, on the side of the escalator is an
+electrical outlet, and that is it. There is nothing else here. The car park
+entrance is to the south.
+
+You can also see a stereo.
+
+> e
+You move east.
+
+Southeast corner
+This corner is a good place to find a quick snack or beverage. To the east is
+a café, which has reasonable food and drink, but it is a little expensive for
+what you receive. To the south is a coffee shop, which is much better value.
+It isn't very good, but at least it is cheap, and you get what you pay for.
+You always seem to stop around here when you come to the shops with
+Waterfall. You would wonder if it was some kind of punishment if you didn't
+know her better. Both shops have contributed to a number of tables and seats
+scattered around this corner of the floor. They are plastic and not very
+comfortable, but you can't expect comfortable seats in a shopping centre. You
+can hope though. Both shops have been closed with security doors blocking
+their entrances and windows. The shopping centre continues to the west and
+north.
+
+> hit bat
+The clay bat is not in your current location.
+
+> score
+Your score is 43 out of a maximum of 150.  (28%)
+
+> n
+You move north.
+
+Northeast corner
+The shops in this corner seem to be trying to outdo each other with silly
+displays. In front of the sporting gear shop to the east is a broken display
+case featuring a mannequin dressed as a baseball catcher. A sign underneath
+states "Catch the good deal now!" It certainly stands out, but it really does
+not encourage you to spend money there. On the northern wall it is just as
+bad, with a stand selling orange juice. You don't have a problem with that,
+but you do with the huge transparent tank of orange juice sitting under the
+surface of the counter.  It has been smashed, so you can't complain too much
+about it now. The sporting gear shop has been closed with security doors
+blocking its entrances and windows.
+
+The bat is lying in the pool and looks like it can barely move. The clay, it
+consists of, is all cracked and starting to fall apart. Maybe you should
+hasten the process.
+
+> hit bat
+You smash the bat with the crowbar. And again, as you hear a satisfying
+crunch with the clay starting to shatter. Finally you have a chance for
+revenge against the Potter. A chance to show him who is boss. You pound the
+bat repeatedly with the crowbar until there is nothing left, but specks of
+clay on the ground. That is how you will treat the Potter when you find him.
+As you take some breaths following your exertions, your anger slowly fades
+and you wonder if you really would hurt the Potter that badly. It worries you
+that you do not really know.
+
+You try to calm down and think about the situation. Why did the clay bat
+start to crack like that? It must have been the orange juice. Maybe it was
+too acidic for it. Your thinking is interrupted, as you hear a loud thump
+from upstairs with the fight up there still continuing.  Now that you are
+finished down here, you should probably help Waterfall finish her target off.
+
+> score
+Your score is 46 out of a maximum of 150.  (30%)
+
+> sw
+You move southwest.
+
+Base of the escalators
+In this location an escalator leads upwards towards the next floor, and
+another leads downwards towards your floor. The next floor does not contain
+many interesting shops. Too many clothes shops, and you have never been
+fashion conscious. Spending a long while with the clashing bright colours of
+the Mould especially made you immune to caring about your clothes. As long as
+they still fit, it is good enough. Your current floor continues to the north,
+east and west of here. This floor is a bit more interesting, as you sometimes
+like to play with electrical gadgets, although not as much recently. However,
+this is elsewhere on the floor, and right now there is not much more in this
+specific location. It seems to be one of the few places where no shops have
+been crammed in. If you look closely, on the side of the escalator is an
+electrical outlet, and that is it. There is nothing else here. The car park
+entrance is to the south.
+
+You can also see a stereo.
+
+> u
+You run quickly up the escalator hoping to find Waterfall as quickly as
+possible. She isn't difficult to locate, as you just follow the trail of
+destruction. Unfortunately she doesn't look like she is winning the fight.
+
+At the fight upstairs
+The clay eagle is flying around the area. Whenever it looks in your
+direction, you notice the dangerous look in its eyes. Unlike the bat, this
+clay creature does not look like it wants to wait too long. It almost looks
+like it wants to eat you. Waterfall is lying on the ground. She is conscious,
+but does not look like she can keep fighting for too much longer. Worryingly,
+she has several leaks in her skin. You have never seen leaks before, so that
+eagle must have a viciously sharp beak. You hope that the water leaking won't
+have too serious an effect on her.
+
+A shopping bag is lying on the floor.
+
+> look
+
+At the fight upstairs
+The clay eagle is flying around the area. Whenever it looks in your
+direction, you notice the dangerous look in its eyes. Unlike the bat, this
+clay creature does not look like it wants to wait too long. It almost looks
+like it wants to eat you. Waterfall is lying on the ground. She is conscious,
+but does not look like she can keep fighting for too much longer. Worryingly,
+she has several leaks in her skin. You have never seen leaks before, so that
+eagle must have a viciously sharp beak. You hope that the water leaking won't
+have too serious an effect on her.
+
+A shopping bag is lying on the floor.
+
+> take bag
+You take the shopping bag.
+
+> look in bag
+Someone has obviously dropped a shopping bag in this area, as they ran for
+the exits.  Inside the shopping bag is a teddy bear, a bottle of vinegar and
+a lemon.
+
+> take vinegar
+You take the bottle of vinegar from the shopping bag.
+
+The eagle dives in your direction. You lift Waterfall and roll out of the way
+to dodge the attack.
+
+> throw vinegar at eagle
+You throw the vinegar at the eagle's mouth. It closes its beak around the
+bottle and crushes it. Suddenly the eagle spits out the remains and looks a
+little shaky. You can see cracks inside the eagle's mouth. Waterfall sees
+them as well and with a final big effort, fires a powerful burst of water
+straight in its mouth. The power of the water widens the cracks further and
+suddenly the eagle falls into pieces on the floor.
+
+Waterfall returns to her normal form, and you can see that she is bleeding
+badly underneath her soaked clothes. You are not sure what to do. You
+couldn't bear it if you lost Waterfall as well. You pick up Waterfall and
+walk quickly towards the exit. She needs help and there is nowhere to get
+help here. Outside the shopping centre you find ambulances, which had arrived
+to treat victims from the vicious stampede outside by the crowds. Not
+everyone coped well in that situation. You lay Waterfall down and get the
+nearest medical officers to help.
+
+(Press a key)
+
+After Waterfall is bandaged and the medical officers say she will be all
+right, she is placed in an ambulance to be taken to the hospital for
+observation. You say goodbye to her before she leaves. And it is a final
+goodbye. You just cannot take the pressure any more. Any time you now fight,
+someone gets hurt, or you hurt someone. You don't like how you treated the
+bat. You scared yourself there with your attitude.
+
+You are no hero, and it is foolish to pretend otherwise. It is time to find a
+real job and a real life. You tell this to Waterfall and she says she
+understands. She has felt the same way before and sometimes you just need
+time to cope with your issues. She gives you a kiss on the cheek and wishes
+you well in the future. The ambulance then carries her and your superhero
+dreams away.
+
+(Press a key)
+
+SIX MONTHS AGO
+For the next three months your life changed for the better, although more
+boring. You found a quiet job in a store. It didn't pay much, but you needed
+the income to fund some further education. It was a mistake not to continue
+before. You rented your own small apartment, which was not much more than a
+bedroom and a kitchen, and tried to get your life back in some semblance of
+order. However, you did keep seeing something blue out of the corner of your
+eyes. You probably just missed the Mould. By the end of the three months you
+were starting to get your act together, but then your life changed completely
+again when you received a letter.
+
+You didn't think that anyone knew where you now lived , but obviously someone
+did. Probably Waterfall, but there was no way to tell for certain. The letter
+was from the Mould and it was definitely his handwriting. He wasn't suddenly
+alive again, as you had first hoped, as it was a letter that had been stored
+with his lawyer in the case of his disappearance. You were surprised by the
+contents, but made the decision to travel to the Mould's old apartment to
+investigate. You shouldn't have gone, but you could not resist. It was your
+first chance of excitement in months. Now that you have arrived, you feel an
+urge to read the letter again and check that it really does say what you
+think it does.
+
+The entrance to the Mould's apartment
+You are standing just inside the entrance to the Mould's apartment. You can
+tell that no one has been here since the Mould's disappearance. It is all
+exactly how you can remember. This place was paid for by the local council
+who were grateful to the Mould. You guess that no one knows that he is dead,
+as everything in this apartment still looks like it works. You wonder what
+people think about his disappearance. You hope that they don't think he is
+just being lazy. He was far better than that. Apart from the exit to the
+south, the kitchen is to the west, the bathroom is to the east, and the
+hallway continues to the north.
+
+> score
+Your score is 51 out of a maximum of 150.  (34%)
+
+> i
+You are carrying a letter.
+
+> read letter
+The letter reads:
+Handmade,
+
+ I hope you never have to receive this letter, but if you do then I have been
+dead or missing for six months. I am sorry for leaving you, but I have made
+plans to keep the good fight going in my absence. Unfortunately, I know that
+there is a high likelihood that you will receive this letter unless I can
+escape my fate. If you are reading this, then obviously I haven't been able
+to.
+
+ The main reason for this letter is to tell you a secret about my powers. You
+will find this difficult to believe, but my powers come from a magic amulet
+that I found long ago. Only one person can wield the power of the amulet at
+the one time, and the amulet chose me. If I am dead, the amulet will need to
+choose another, so a new Mould can arise. I am hoping that the next wielder
+of the amulet will be you.
+
+ This  is a heavy burden, with a heavy price. I will understand if you choose
+not to be the next wielder of the amulet. I just ask as a favour that you
+consider it, as I can think of no one better to take my mantle and be a hero.
+If you are interested, push aside the boxes in my wardrobe to reveal a safe.
+The combination is the date we first met.
+
+ I wish I wasn't dead, but we cannot always have our wishes. Think about the
+offer and do what you think is best.
+
+ Always looking after you,
+ The Mould
+
+You remember that the date was 11-10-02.
+
+> n
+You move north.
+
+Hallway between the entrance and the main room
+The reason no one tried to break into the Mould's apartment, despite his
+absence in the last six months is hidden above you. There are some guns
+installed in the ceiling, set to fire at any intruder who breaks in. It is a
+crude measure, but the Mould was forced to do something as too many criminals
+knew where he lived. You don't know how to take out or reveal the guns, but
+they won't bother you, as you still remember all the passcodes. You made sure
+to use the right ones to gain entrance to the apartment. The hallway ends in
+the main room to the north and continues to the entrance in the south. To the
+east is the gym and to the west is the dining room.
+
+> n
+You move north.
+
+Main room
+This is the largest room in the apartment and features essential items, such
+as a large television and stereo. This is a good place to relax in between
+important missions, and the much more numerous unimportant ones. The Mould
+never complained himself or tolerated complaints from you despite the many
+times you both went out to patrol and found nothing. At least it was better
+than training. From your location you can see glass doors blocking the
+entrance to the balcony to the north. There are hallways to the south and
+east. The computer room is to the west, and the laundry is to the northwest.
+
+> e
+You move east.
+
+Hallway between the main room and the bedrooms
+This hallway connects the main room, which is to the west, to the two
+bedrooms in this apartment. The Mould's bedroom, which you rarely entered in
+the past, is to the northeast, whilst your old bedroom is to the southeast.
+When the two of you first moved in here, you put in what you thought was a
+strong bid for the larger bedroom, but it didn't succeed. You slept in that
+room every night for over two years before the Mould's death. The Mould
+barely needed sleep at all, so he definitely didn't need the large room. That
+argument is well over by now, but the annoyance has at least stopped you from
+feeling sad temporarily.
+
+> ne
+You move northeast.
+
+The Mould's bedroom
+You rarely ventured into the Mould's bedroom whilst he was still alive. It
+was one of the two private places for him, along with the meditation room. At
+least he didn't keep this room locked up and you could see enough in here to
+know that you didn't want to come in anyway. This room is not much different
+to your bedroom, except everything is a bit larger. The wardrobe can be
+walked into in the south. The bed is a double bed rather than a single like
+yours. There is even a desk in here, but it is mainly empty, as the Mould
+preferred to work in the computer room. The exit is to the southwest.
+
+> s
+You move south.
+
+Walk-in wardrobe
+There is little in this wardrobe to justify the large amount of space that it
+takes up. The Mould had very little need for clothes. There are a few suits
+hung up on one side of the wardrobe for special occasions. It had to be very
+formal though before the Mould accepted the inevitable and wore one of them.
+On the other side is a pile of boxes. Inside these boxes are the various
+awards and mementos that the Mould has been given over the years. He tried to
+refuse and avoid gifts where possible, but he rarely succeeded. The exit to
+the wardrobe is to the north.
+
+> push box
+You push the boxes aside to reveal a safe built into the floor.
+
+> open safe
+You turn the dial through the combination that was indicated on the letter,
+and open the safe. Inside you find a photo, a note and a key, but no amulet.
+You take these items, glancing at the photo of a girl in her mid-twenties
+that you don't recognise. You wonder if she was a relative, or maybe a lover.
+You turn your attention to the note, wondering if it will explain the missing
+amulet.
+
+The note reads:
+ Sorry for not leaving the amulet where I said it would be. I need it
+regularly in my meditations, so I kept it often in the meditation room. The
+key should unlock the door in the gym.
+
+ Whilst I am writing this note, it has dawned on me that I did not fully
+explain what the price was that you would have to pay if you took on the
+amulet. It is a terrible price, but I paid it willingly. The price you must
+pay is the loss of your identity. The Mould always looks like the Mould. You
+see that photo in the safe with this note. That used to be me. I was once an
+archaeologist, digging around old ruins. One day I discovered the amulet
+along with an inscription describing its function. I decided to wear it, as I
+wanted to be a hero.
+
+ The amulet took from me any semblance of my former self and turned me into a
+blue it, firstly temporarily and then permanently. When I first started to be
+a hero, I scared people by how alien I was. My mannerisms were more female
+than male, which confused people further given my more male-looking form.
+That was why I wore the underwear, however bad it looked. It gave me a
+definite male appearance, which people could associate with better. I would
+have preferred not to have to pretend, but I had no choice. As a price, I
+felt it was worth paying.
+
+ If you take the amulet the same will happen to you. I just want you to think
+about it carefully.
+
+Wait, the Mould is a she? That can't be right, can it? If he, or maybe she,
+says so, then you guess it must be right. You are starting to feel a lot less
+sure of yourself. Maybe you should just leave.
+
+> score
+Your score is 54 out of a maximum of 150.  (36%)
+
+> n
+As you leave the room, something blue leaps from the ceiling to hover in
+front of you. It looks kind of like a blue imp, keeping afloat with a pair of
+small wings. You don't know where it came from, but you know it should not be
+here.
+
+The imp says, "Hello Handmade. I have been watching you for a while. I am you
+in a way, as I was created by cloning your hand. The Mould's death somehow
+brought me to life. I wish it hadn't. I keep reverting to a hand and I cannot
+seem to keep my current form. Still, reading that letter over your shoulder
+gives me hope. Give me the key, so I can take the amulet and a fixed useful
+form."
+
+You refuse straight away. You won't let the amulet be stolen by some thing.
+It is not even really alive and there is no way it should have the amulet.
+The imp frowns and says, "I guess I'll just have to take the key from you
+then."
+
+The imp moves quickly and tries to grab the key. The tussle knocks the key
+from your hand, but neither of you can reach it without the other stopping
+them. The imp smiles and tells you that it is time to fight.
+
+(Press a key)
+
+The imp flies towards you, and suddenly shifts into a swinging crowbar. The
+small wings remain and help give the crowbar momentum as it swings in your
+direction.
+
+What do you want to turn your hand into?
+1 - crowbar
+2 - thin shield
+3 - hook
+4 - knife
+5 - baseball bat
+
+> 1
+You smash the imp's crowbar with your own crowbar. The imp gives way
+slightly, as your larger body means that you can put more weight behind the
+blow. The two weapons clash again and this time you knock the imp to the
+ground, where it reverts to a hand. You kick the hand away.
+
+The hand lands in the hallway, and you quickly follow. The hand soon turns
+back into the imp.
+
+The imp moves in your direction before turning into a lasso. Propelled by the
+small wings, the lasso swings to try to catch you.
+
+What do you want to turn your hand into?
+1 - (retain crowbar)
+2 - thin shield
+3 - hook
+4 - knife
+5 - baseball bat
+
+> 4
+The lasso loops over the knife, but before it can tighten around your arm,
+you swing the knife downwards. It slices cleanly through the rope of the
+lasso. The lasso falls useless to the ground, where it reverts to a hand. You
+kick the hand away.
+
+The hand lands in the main room, and you quickly follow. The hand soon turns
+back into the imp.
+
+The imp launches itself at you, spinning as it flies. Coming out of the spin,
+it morphs into a chain that swings down in your direction.
+
+What do you want to turn your hand into?
+1 - crowbar
+2 - thin shield
+3 - hook
+4 - (retain knife)
+5 - baseball bat
+
+> 3
+The chain swings down, but you swing the hook simultaneously to catch it. You
+throw the chain away, and it skids across the floor, reverting into a hand.
+
+The blue hand bounces off the closed glass door to the balcony. You open the
+door, and kick the hand outside. As you enter the balcony, the hand turns
+back into the imp.
+
+The imp turns into a bird. It looks in your direction with a vicious glare,
+and then dives towards you, aiming its sharp beak to hit you.
+
+What do you want to turn your hand into?
+1 - crowbar
+2 - thin shield
+3 - (retain hook)
+4 - knife
+5 - baseball bat
+
+> 2
+The shield blocks the bird each time it tries to come near you. Eventually it
+gives up and turns back into the blue imp. The shield looks a bit weak after
+the impact and it would not be a good idea to keep using it. You have trouble
+morphing your hand into a large enough shield, as you have size limitations.
+
+The imp moves in your direction before turning into a lasso. Propelled by the
+small wings, the lasso swings to try to catch you.
+
+What do you want to turn your hand into?
+1 - crowbar
+2 - (retain thin shield)
+3 - hook
+4 - knife
+5 - baseball bat
+
+> 4
+The lasso loops over the knife, but before it can tighten around your arm,
+you swing the knife downwards. It slices cleanly through the rope of the
+lasso. The lasso falls useless to the ground, where it reverts to a hand. You
+kick the hand away.
+
+The hand is knocked off the balcony and begins a long descent down to the
+ground. There is plenty of time for it to change, so it will probably
+survive. You do not wait to find out though, as you walk back inside, locking
+the balcony door behind you. It is time for you to find the amulet.
+
+You walk back to the Mould's bedroom.
+
+The Mould's bedroom
+You rarely ventured into the Mould's bedroom whilst she was still alive. It
+was one of the two private places for her, along with the meditation room. At
+least she didn't keep this room locked up and you could see enough in here to
+know that you didn't want to come in anyway. This room is not much different
+to your bedroom, except everything is a bit larger. The wardrobe can be
+walked into in the south. The bed is a double bed rather than a single like
+yours. There is even a desk in here, but it is mainly empty, as the Mould
+preferred to work in the computer room. The exit is to the southwest.
+
+You can also see a key.
+
+> take key
+You take the key.
+
+> score
+Your score is 60 out of a maximum of 150.  (40%)
+
+> sw
+You move southwest.
+
+Hallway between the main room and the bedrooms
+This hallway connects the main room, which is to the west, to the two
+bedrooms in this apartment. The Mould's bedroom, which you rarely entered in
+the past, is to the northeast, whilst your old bedroom is to the southeast.
+When the two of you first moved in here, you put in what you thought was a
+strong bid for the larger bedroom, but it didn't succeed. You slept in that
+room every night for over two years before the Mould's death. The Mould
+barely needed sleep at all, so she definitely didn't need the large room.
+That argument is well over by now, but the annoyance has at least stopped you
+from feeling sad temporarily.
+
+> w
+You move west.
+
+Main room
+This is the largest room in the apartment and features essential items, such
+as a large television and stereo. This is a good place to relax in between
+important missions, and the much more numerous unimportant ones. The Mould
+never complained herself or tolerated complaints from you despite the many
+times you both went out to patrol and found nothing. At least it was better
+than training. From your location you can see glass doors blocking the
+entrance to the balcony to the north. There are hallways to the south and
+east. The computer room is to the west, and the laundry is to the northwest.
+
+> s
+You move south.
+
+Hallway between the entrance and the main room
+The reason no one tried to break into the Mould's apartment, despite her
+absence in the last six months is hidden above you. There are some guns
+installed in the ceiling, set to fire at any intruder who breaks in. It is a
+crude measure, but the Mould was forced to do something as too many criminals
+knew where she lived. You don't know how to take out or reveal the guns, but
+they won't bother you, as you still remember all the passcodes. You made sure
+to use the right ones to gain entrance to the apartment. The hallway ends in
+the main room to the north and continues to the entrance in the south. To the
+east is the gym and to the west is the dining room.
+
+> e
+You move east.
+
+Gym
+The gym was more for your benefit then the Mould's. She did not need the
+fitness or muscles, as she could create them at will. You did need to improve
+yourself in order to keep up with the Mould. The equipment in here, with a
+treadmill and a set of weights, allowed you to train hard. You didn't mind
+the training, although you didn't like too much training. The Mould often
+forced you in here, whilst she resided in the meditation room to the
+southeast. The door to that room was always locked, so you have no idea what
+is inside. The hallway is to the west.
+
+> open door
+You unlock the door with the key from the safe. It is time for you to finally
+find out what is in this room. You open the door with trepidation, but to
+your disappointment the room is nearly empty at first glance. There is only a
+mat on the floor, and no furniture. Suddenly your eyes are drawn to one
+corner of the room, where you see the amulet lying on the floor.
+
+You have come this far, and you realise that you now have to make a choice.
+You could lock this room back up, hide the key where no one will ever find it
+and return to your normal life. Or, you could take the amulet, lose yourself
+and become the new Mould. The choice is actually easy. Fighting the imp has
+reminded you of how much fun fighting bad guys is. You know that you are
+developing an unhealthy addiction to excitement, but you don't care. Besides,
+it will be far unhealthier for the criminals. You now know that you need to
+be a hero. A normal life can never satisfy you.
+
+You pick up the amulet and put it on. A sudden electric shock runs through
+you, as the change begins.
+
+(Press a key)
+
+THREE MONTHS AGO
+
+The change wasn't permanent at first. You only became the Mould whilst
+wearing the amulet. This was enough for you to practice morphing into various
+shapes and substances. The ability to change into any form was exhilarating
+in its possibilities. For three months, you practiced in the meditation room,
+virtually non-stop, barely pausing to eat or sleep. You meditated frequently,
+as you needed great mental control to change your form at all. It was a
+thousand times harder than your hand had been.
+
+Soon you realised why you were not fully in control. Whilst you were testing
+your new powers, you could feel that the amulet was also testing you. Until
+you proved yourself worthy, you could never wield the full potential of the
+Mould's powers. You tried everything you could think of to show that you
+could control these powers and deserved them, but it did not work. Eventually
+all the hard work caught up with you, and you passed out in exhaustion. That
+was when things started to get strange.
+
+Gate on the endless path
+A large metal gate is open to the north. Engraved on the gate is a message
+saying, "Everything Changes". Strangely there is no fence and seemingly no
+reason for a gate. There is no difference between what you can see on one
+side of the gate to the other. Of course, the heavy mist might be obscuring
+something. An endless path leads both to the north and south, passing through
+the gate. You are not sure why you know that it is endless. You cannot see an
+end on either side, but you also cannot see very far in the mist. It is only
+instinctive, but it does feel right that it is endless.
+
+> y
+I don't understand what you mean!
+
+>

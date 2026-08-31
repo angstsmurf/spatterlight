@@ -1,0 +1,1367 @@
+Loading game...
+
+YADFA - Yet Another Damn Fantasy Adventure
+
+Intro
+
+Do you require instructions (y/n) ?
+
+> n
+
+Outside the castle walls
+Outside the castle walls
+The walls of Castle Bloodheart rise majestically above you into the early
+morning sky. You have always found something a little fearful about them -
+perhaps it is the sheer immensity of them, perhaps it is the drab blocks of
+stone they are carved from, or perhaps it is simply the dead bodies that have
+been nailed to the side of the castle as a grim reminder of what happens to
+anyone King Bloodheart takes a dislike to. You're not sure.
+
+Paths wind away north and south
+
+> n
+You move north.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards block the way in, their beady eyes holding promises of violence. Off
+to one side there is what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> nw
+You move northwest.
+
+Market
+The Market
+As markets go, this one isn't very impressive. There are only half a dozen
+stalls and none of them seem to be selling anything worthwhile. The ground
+here is immensely muddy (what with the rain) and immensely dungy (what with
+the pigs). It almost makes you feel at home.
+
+Paths lead off north, south, west and southeast
+
+> gather mud
+   You grab an oozing lump of it. It squelches between your fingers quite
+disgustingly but you manage to keep hold of it.
+
+> se
+You move southeast.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards block the way in, their beady eyes holding promises of violence. Off
+to one side there is what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> throw mud at guards
+   You throw the mud with expert skill - and it lands with a loud SPLAT! in
+the face of one of the guards!
+   "Why, you little-" he snarls, wiping at the mud. He spits out the needle
+he was cleaning his teeth with and draws his sword. "Do that again, I dare
+you, you sonofabitch!"
+
+> take needle
+You take the needle.
+
+> nw
+You move northwest.
+
+Market
+The Market
+As markets go, this one isn't very impressive. There are only half a dozen
+stalls and none of them seem to be selling anything worthwhile. The ground
+here is immensely muddy (what with the rain) and immensely dungy (what with
+the pigs). It almost makes you feel at home.
+
+Paths lead off north, south, west and southeast
+
+> n
+You move north.
+
+Well
+By a well
+You are by an old stone well that sits in the middle of a field. A length of
+rope winds away into the darkness below. There are what appear to be rungs
+set into the side of the well.
+
+A path leads south.
+
+> turn handle
+   You crank the handle and raise the bucket out of the well.
+
+> mend bucket
+   You expertly mend the hole with your needle and twine.
+
+> turn handle
+   You crank the handle and lower the bucket back down into the well.
+
+> turn handle
+   You crank the handle and raise the bucket out of the well.
+
+> wash
+   You tip the bucket over your head. The net result of this is that you
+become, for the first time in your life, clean. The downside to this is that
+you also now seem to be suffering from chronic pneumonia.
+
+> s
+You move south.
+
+Market
+The Market
+As markets go, this one isn't bad (maybe because you don't smell like a
+walking sewer now people aren't as reluctant to come near you). There are
+quite a variety of stalls selling all manner of items. The ground here is
+immensely muddy (what with the rain) and immensely dungy (what with the
+pigs). It almost makes you feel at home.
+
+Paths lead off north, south, west and southeast
+
+   You suddenly start sneezing horribly. It seems you caught a cold having a
+wash!
+
+> w
+You move west.
+
+Outside inn
+Outside an inn
+You're on the western side of the market outside an ancient inn. A sign
+hanging above the doorway proclaims this to be "The Headless Orc". It looks
+like a pretty dismal place. There is a gallows outside the inn, and it's not
+empty either.
+
+A path leads east and northwest and a door leads in.
+
+> in
+Inn
+The inn
+You're in a cosy little inn with a roaring log fire against one wall and a
+bar against the other. The ceiling is lost in murky shadows although you
+suspect it is supported by oak beams felled in the nearby wood. The common
+room is quite full of customers some of whom are playing cards while others
+stand around debating over the price of cheese (a local custom you guess).
+
+A door leads out.
+
+Bertram the bartender is here.
+
+   You start sneezing worse than ever. It seems you're sneezing your lungs
+out.
+
+> x fire
+   You stand by the fire for a while and warm yourself. By the time you've
+finished, you seem to be over the worst of your cold.
+
+> talk to elves
+   "That's a nice knife you have there," one of the elves remarks. "I'll give
+you 10 gold for it. Do we have a deal?"
+
+> no
+   The elf, of all things, smiles. "Good, I like a human who can drive a hard
+bargain. 15 coins, and a curious little whistle I found to boot. What say you
+now?"
+   Knowing when to say yes and when to say no, you say yes.
+
+> out
+You move out.
+
+Outside inn
+Outside an inn
+You're on the western side of the market outside an ancient inn. A sign
+hanging above the doorway proclaims this to be "The Headless Orc". It looks
+like a pretty dismal place. There is a gallows outside the inn, and it's not
+empty either.
+
+A path leads east and northwest and a door leads in.
+
+> x body
+   Feeling somewhat like a graverobber (only minus the grave) you rifle
+through the corpse's pockets and come across a few items which, being the
+dishonest unlaw-abiding citizen that you are, you decide to swipe.
+
+> e
+You move east.
+
+Market
+The Market
+As markets go, this one isn't bad (maybe because you don't smell like a
+walking sewer now people aren't as reluctant to come near you). There are
+quite a variety of stalls selling all manner of items. The ground here is
+immensely muddy (what with the rain) and immensely dungy (what with the
+pigs). It almost makes you feel at home.
+
+Paths lead off north, south, west and southeast
+
+> se
+You move southeast.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards block the way in, their beady eyes holding promises of violence. Off
+to one side there is what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> ne
+You move northeast.
+
+Muddy ground
+Muddy ground
+You're on a patch of muddy ground at one side of the castle. There is a deep
+moat here, and a broken drawbridge that once spanned the moat. On the other
+side is the remains of a door. One good jump...
+
+A path winds leads back to the southwest.
+
+Grarrrrr is here.
+
+> give nuts to grarrrrr
+   Grarrrrr eyes you suspiciously as you hand the nuts over then wolfs them
+down. Then, to your surprise, he licks your hand!
+   It seems you have found yourself a companion.
+
+> sw
+You move southwest.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards block the way in, their beady eyes holding promises of violence. Off
+to one side there is what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> nw
+You move northwest.
+
+Market
+The Market
+As markets go, this one isn't bad (maybe because you don't smell like a
+walking sewer now people aren't as reluctant to come near you). There are
+quite a variety of stalls selling all manner of items. The ground here is
+immensely muddy (what with the rain) and immensely dungy (what with the
+pigs). It almost makes you feel at home.
+
+Paths lead off north, south, west and southeast
+
+> w
+You move west.
+
+Outside inn
+Outside an inn
+You're on the western side of the market outside an ancient inn. A sign
+hanging above the doorway proclaims this to be "The Headless Orc". It looks
+like a pretty dismal place. There is a gallows outside the inn, and it's not
+empty either.
+
+A path leads east and northwest and a door leads in.
+
+> in
+Inn
+The inn
+You're in a cosy little inn with a roaring log fire against one wall and a
+bar against the other. The ceiling is lost in murky shadows although you
+suspect it is supported by oak beams felled in the nearby wood. The common
+room is quite full of customers some of whom are playing cards while others
+stand around debating over the price of cheese (a local custom you guess).
+
+A door leads out.
+
+Bertram the bartender is here.
+
+> talk to bernard
+   "Bug-" Bernard starts to snap, then sees Grarrrrr and goes pale. "Bloody
+'ell! He's got that mad dog wiv 'im!" He swallows nervously and then says in
+a completely different tone of voice, "Bernard Blackwell at your service,
+young sir. Would you care for a nice steak? Cheap at half the price."
+
+> yes
+   "Here you are then, kind sir," Bernard says and takes the steak out of the
+front of his trousers. Seeing your face he quickly adds, "fresh as anything,
+sir. I had meself a bath only last month an' all."
+
+> give steak to dwarf
+   "Steak!" he cries. "The food of the Gods!"
+   He probably wouldn't be saying that if he knew where you got it from but
+fortunately he doesn't ask and Bernard stays quiet on the subject.
+   "That was grand," he says when he's finished the steak. "The name's Otto.
+I'm in town for the reward."
+   "Reward?" you say, always ready with a dumb question when the occasion
+warrants it.
+   Otto nods as if you had said something intelligent. "For the King's
+daughter, the Princess Isabella. Rumour has it he's offered half the kingdom
+to any man - or dwarf - wot can rescue her. Needless to say, I decided to
+give it a shot. So here I am, just having a quick drink (or ten) before I
+head up the castle to see the King and then I'm off to rescue his squalling
+brat."
+   You quickly explain your own situation and the dwarf frowns.
+   "Hmmm, seems to me an alliance is called for here. After all, two people
+have a better chance of seeing this thing through in one piece than does one.
+Of course, we'll share the reward afterwards. 95% to me, 5% to you. Can't say
+fairer than that."
+   "You could say a lot fairer than that!" you point out.
+   "True, but I'd have to kill you then. What do you say, kid, have you and
+me got a deal?"
+   What else can you say but yes?
+
+> out
+You move out.
+
+Outside inn
+Outside an inn
+You're on the western side of the market outside an ancient inn. A sign
+hanging above the doorway proclaims this to be "The Headless Orc". It looks
+like a pretty dismal place. There is a gallows outside the inn, and it's not
+empty either.
+
+A path leads east and northwest and a door leads in.
+
+> e
+You move east.
+
+Market
+The Market
+As markets go, this one isn't bad (maybe because you don't smell like a
+walking sewer now people aren't as reluctant to come near you). There are
+quite a variety of stalls selling all manner of items. The ground here is
+immensely muddy (what with the rain) and immensely dungy (what with the
+pigs). It almost makes you feel at home.
+
+Paths lead off north, south, west and southeast
+
+> se
+You move southeast.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards block the way in, their beady eyes holding promises of violence. Off
+to one side there is what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> e
+   "The castle's off limits for scum," one of the guards grunts.
+   "He's wiv me!" snarls Otto menacingly.
+   The guard grins and says, "it's particularly off limits to midgets, short
+arse. Clear off before I stick me sword in yer ass and make yer clear off!"
+   "Midget? Short arse?" Otto thunders. "Why, you bast-"
+   He lunges forward and headbutts the first guard in the groin. The guard
+grunts, goes cross-eyed, and drops into the mud. The other goes for his sword
+- but not quickly enough! Otto punches out with his mailed fist and connects
+with a rather sensitive part of the guard's anatomy with stunning force.
+   "...you little... you... eeerrgghhh!!!" the guard manages to gasp out
+before he, too, is on the ground.
+   "The advantage of being a dwarf," remarks Otto to the two unfortunate
+guards. "Just be thankful I didn't wanna dent me teeth on yer codpiece!" He
+looks up at you. "C'mon, kid. Let's go see the King."
+
+Courtyard
+Castle courtyard
+You find yourself in the coutyard of Castle Bloodheart. Men at arms are in
+training here - most of which appears to consist of drinking large pints of
+ale, falling over and getting into fights with each other. At the far end of
+the courtyard is a doorway leading into the castle itself.
+
+Exits lie east and west
+
+> e
+You move east.
+
+Outside throne room
+Outside the King's throne room
+You're in a lavishly appointed chamber just outside the King's throne room.
+Tapestry-adorned walls mark this out as a place of great wealth, as do the
+stylish works of art in glass cases. Pride of place is given to a majestic
+statue of the King set atop a block of marble in the centre of the chamber.
+Several sizeable guards are lounging around the room looking unpleasant.
+
+Doorways lie to the east and west and there are corridors to the north,
+northwest, south and a flight of stairs lead upwards
+
+> e
+You move east.
+
+Throne room
+Throne room
+You're in the majestic throne room of Castle Bloodheart. This is a chamber of
+truly vast proportions, stretching as it does for well over two hundred
+metres. The King's throne is raised on a dais at the far end and flanked on
+either side by a pair of stone golems which are reputed to animate only when
+a threat to the King's life becomes apparent. The ceiling of this gigantic
+room is lost in shadows but you fancy you hear strange murmurings from
+somewhere up there...
+   The throne room is pretty much empty aside from a few servants scrubbing
+at a patch of blood on the floor.
+
+A doorway leads west
+
+   The King's wizard, Spiridon, says, "right, shut up, the lot of you! Yes,
+you heard me alright. The King has important business to conduct and he
+doesn't need the likes of you scum talking when there's no need for it."
+Spiridon bows to the King. "Your Majesty..."
+
+   The King steps forward, clears his throat and says, "yes, thank you,
+Spiridon.
+
+   "I want to thank you all for coming here today. You are a brave lot and I
+salute you. Now, to the business in hand..."
+
+   "My daughter, the lovely Princess Isabella, has been kidnapped by the evil
+sorcerer, Malgor the Mad, who threatens to perform foul and unspeakable
+rituals with her innocent body unless a ransom of vast proportions is paid.
+What should I do, I ask you?"
+
+   "Pay up!" someone in the crowd shouts.
+
+   "It was a rhetorical question, you arse!" the King says coldly. "What, you
+think I'm going to pay this swine just because he threatens to lop my
+daughter's head off and fire it over my walls with a catapult made from her
+spine? Ha! Not a coin - not a single bloody half coin - will I pay to Malgor!
+Why, he must be mad to even suggest the thing!"
+
+   "He is mad, your Highness," says Spiridon. "That's why he's called Malgor
+the Mad."
+
+  The King shrugs. "Whatever. The point is this: I am not paying him
+anything. I will not allow myself to be threatened by this scum. In short, I
+want him dead and I'm willing to pay a hefty sum to see it happen. Anyone
+interested in taking a shot at him?"
+
+   Several hands in the crowd shoot up and the King nods expectantly.
+Spiridon comes forward and takes down some names.
+   "Sign me an' the kid, up," Otto says.
+
+   "A dwarf and a farm boy?" Spiridon says. "Has it come to this? That the
+fate of the Princess lies in the hands of such 'heroes'?"
+
+   "Sign us up," Otto repeats, "if you don't want ter be pickin' yer teeth
+out yer beard."
+
+   Spiridon sighs but adds your name and Otto's to the list.
+
+   "Right," announces the King, "I think that sorts matters out. The first
+one back here with my daughter gets wealth beyond their wildest dreams. The
+other ones, er, well..."
+
+   Spiridon whispers something in the King's ear.
+
+   "Ah yes, an all expenses paid funeral and your choice of stylised
+coffins."
+
+   The business of the day concluded, the King and Spiridon depart. As soon
+as they are gone, the mercenaries hanging around the place set off in search
+of the King's daughter.
+
+> look
+
+Throne room
+Throne room
+You're in the majestic throne room of Castle Bloodheart. This is a chamber of
+truly vast proportions, stretching as it does for well over two hundred
+metres. The King's throne is raised on a dais at the far end and flanked on
+either side by a pair of stone golems which are reputed to animate only when
+a threat to the King's life becomes apparent. The ceiling of this gigantic
+room is lost in shadows but you fancy you hear strange murmurings from
+somewhere up there...
+   The throne room is pretty much empty aside from a few servants scrubbing
+at a patch of blood on the floor.
+
+A doorway leads west
+
+> w
+You move west.
+
+Outside throne room
+Outside the King's throne room
+You're in a lavishly appointed chamber just outside the King's throne room.
+Tapestry-adorned walls mark this out as a place of great wealth, as do the
+stylish works of art in glass cases. Pride of place is given to a majestic
+statue of the King set atop a block of marble in the centre of the chamber.
+Several sizeable guards are lounging around the room looking unpleasant.
+
+Doorways lie to the east and west and there are corridors to the north,
+northwest, south and a flight of stairs lead upwards
+
+   "Ah, there you are," says Spiridon. "Just the fellows I was looking for."
+   "Flattery'll get you nowhere, pal," grunts Otto. "So spit it out."
+   Spiridon sighs. "Very well. The King has decreed that each band of, er...
+for want of a better word 'heroes' shall set off to a different location to
+hunt his daughter. He wishes the pair of you to head northwards to the Valley
+of Certain Death and there enter the Fortress of Painful Madness and see if
+the Princess is there."
+   "An' if she's not there?"
+   "Then you are to proceed directly to the Land of Torturous Agony and seek
+out the wise man known only as the Dwarven Farm Boy Slayer and ascertain from
+him the location of the entrance to the Dungeon of Dead Adventurers."
+   Otto mulls over this while he picks his nose (or maybe he just feels like
+a good pick) and then says, "and if we refuse?"
+   Spiridon smiles slightly. "Then the reward goes to some other brave soul."
+He gives a further smile - rather like a cat might smile at a mouse before it
+started on the feeding game - and wanders off up some stairs.
+   "Are you thinking what I'm thinking, Otto?" you ask.
+   "That's he a right arsewipe and we should have killed 'im when we had the
+chance?"
+   "Er, not quite. That we're going to wind up dead?"
+   Otto shrugs. "No one lives forever, kid, and if you didn't get killed
+you'd only end up old and that's not a fate for a fine adventurer like myself
+or a... a, well for myself it certainly isn't. C'mon, let's make a beeline up
+north."
+
+> w
+You move west.
+
+Courtyard
+Castle courtyard
+You find yourself in the coutyard of Castle Bloodheart. Men at arms are in
+training here - most of which appears to consist of drinking large pints of
+ale, falling over and getting into fights with each other. At the far end of
+the courtyard is a doorway leading into the castle itself.
+
+Exits lie east and west
+
+> w
+You move west.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards are leaning against the castle wall, clutching their groins. They
+don't look like they'll be giving anyone trouble. Off to one side there is
+what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> ne
+You move northeast.
+
+Muddy ground
+Muddy ground
+You're on a patch of muddy ground at one side of the castle. There is a deep
+moat here, and a broken drawbridge that once spanned the moat. On the other
+side is the remains of a door. One good jump...
+
+A path winds leads back to the southwest and another goes northwards.
+
+> n
+You move north.
+
+Highway
+Highway
+You're on a wide, four-lane highway which cuts through the countryside in a
+very anachronistic way indeed. There are farms on either side, and the
+occasional field, but nothing much worth noting. The highway stretches as far
+as the eye can see.
+
+You can go northeast and south
+
+> ne
+You move northeast.
+
+More highway
+More highway
+You find yourself at a bend in the highway where someone has built a tavern.
+It is an old and rickety structure and the sign above the door is anything
+but politically correct. The place appears rundown, as if few people have
+come here in years.
+
+The highway stretches northeast and southwest and a door leads in
+
+Lance the cutthroat is here.
+
+> talk to lance
+   "Some folk in there," Lance nods to the tavern "plannin' ter do you harm,
+feller. Fer a suitable bribe, I can take care of 'em fer yer."
+
+> bribe lance
+   "Consider 'em dead," Lance says.
+   He disappears into the tavern...
+
+   There are the sounds of a fight from the tavern.
+
+   Followed by the sound of someone howling in pain.
+
+   Followed by Lance, who comes running out of the tavern with a black eye.
+   "Bugger that fer a game o' soldiers!" he gasps as he goes running off down
+the highway.
+
+> in
+Tavern
+The Black Midget
+You're in the main (and only) room of the Black Midget. Dust is a big thing
+here, as is a suspicious lack of beer. The customers look the sort of people
+who have probably spent their entire lives in places like this without ever
+buying a drink. Sitting at a table in the corner are a nobleman and his
+retinue (which comprises of a chunky barbarian and an assassin). An amazon
+warrior lies dead on the floor.
+
+A door leads out
+
+   "Good god!" exclaims the nobleman upon seeing you. "A genuine peasant. I
+didn't think there were such things these days!"
+   "You wan' me bash 'is 'ead in, boss?" grunts one of his retinue.
+   "Yes," says the nobleman. "But not in here. He might make a mess on the
+floor. Go outside and wait for him leaving then murder him."
+   The barbarian grunts and pushes past you outside.
+
+> kill nobleman
+   You stare the nobleman in the face and say, "do your worst..."
+   And so the fight is on.
+
+   You fight well, felling the assassin all by yourself (of course, Grarrrrr
+sinking his teeth into the poor fellow's gonads probably contributed). Otto
+is on fine form: he neatly scythes the legs from under the barbarian and, as
+the barbarian outside comes running in to see what is happening, he fells
+that one as well.
+
+   "Yer next, buggerface!" he snarls at the nobleman who is looking a little
+less cocky than he was a minute ago.
+
+> talk nobleman
+   "Er, hello," he says uneasily, eyeing the dead members of his retinue.
+"That was, er, jolly fun, wasn't it?"
+   "You mean where you tried to kill me?" you ask.
+   The nobleman flinches. "Okay, how's about I give you this shield and you
+let me live?"
+   He shows you the shield in question. It looks like a fair work of art.
+   "Well?" says the nobleman. "Do we have a deal? Just nod if you're
+agreeable."
+
+> nod
+   The nobleman hands it over. "It's really a wonderful work of art, capable
+of deflecting a sword wielded by a demon."
+   "What's this scratch here?" you ask.
+   The nobleman shrugs. "Oh that. It's where I dropped it this morning."
+
+> kill nobleman
+   With his retinue done for, the nobleman presents little obstacle to you.
+
+   "Yow vicious sud!" remarks someone at a nearby table whose grasp of the
+common language is obviously not as good as it could be.
+
+> out
+More highway
+More highway
+You find yourself at a bend in the highway where someone has built a tavern.
+It is an old and rickety structure and the sign above the door is anything
+but politically correct. The place appears rundown, as if few people have
+come here in years.
+
+The highway stretches northeast and southwest and a door leads in
+
+Theef the trader is here.
+
+   "Greetings!" cries a voice. "The name's Theef and I'm the best damn trader
+for miles around."
+   You take a look around at the desolate landscape. "How many traders are
+there for miles around?" you ask.
+   Theef sighs."You're looking at the only one. But never fear for Theef has
+a bargain or three for you!" He unhooks his rucksack and opens it to reveal
+the most unremarkable selection of items you have ever seen. "A diamond from
+the hordes of Goron the Slayer, a sword capable of slaying a demon with a
+single blow, an orb of dragon crystal, a coat that makes the wearer
+invisible!"says Theef.
+   What you see appears to be a small white pebble, a broken and very rusty
+knife, a tennis ball with a dragon's face drawn on one side and a moth-eaten
+rag that might vaguely resemble a coat if you happened to be very
+short-sighted.
+   "Tempting, is it not?" Theef says. "All of these wonderful items are for
+sale, my fine friend. And I'm also partial to taking off you any items you
+might care to part with - for a very reasonable sum of course."
+   You take a look around while debating what to make of this fellow.
+
+> ne
+You move northeast.
+
+Edge of chasm
+Edge of chasm
+You appear to have reached the edge of a mighty chasm which splits the land
+in two. The bottom is lost in shadow although you fancy it is quite a way
+down, and not an easy climb either. There are what looks like the remains of
+a rope bridge on the far side but nothing here.
+
+The highway leads back southwest.
+
+> blow whistle
+   You give a quick toot! on the whistle. You hear absolutely nothing.
+
+   But then a few seconds later, an eagle appears out of nowhere, grabs you
+and Otto by the scruff of the neck (eliciting a cry of "Oi, yer bugger! Sod
+off!" from Otto), seizes Grarrrrr in a claw, and carries you all over the
+chasm. It circles around for a while, perhaps debating whether to drop you
+somewhere nice and safe or just drop you, before finally flying down and
+depositing you in a field.
+
+Field
+A field
+You're in an idyllic little field with a babbling brook off to one side and a
+herd of cows to the other. Birds fly by your head and butterflies flutter
+around brightly-coloured flowers. All of this is so twee you begin to feel a
+litle ill. Not far from here is what appears to be a massive castle that
+rises majestically on the northern horizon. The other way lies the chasm.
+
+Paths lead north, south, east and west
+
+> w
+You move west.
+
+Babbling brook
+By the babbling brook
+You're by a brook that is babbling. Nearby is a small stone bridge which
+spans a fast-flowing river but there doesn't seem to be anything on the other
+side aside from more fields. A patch of strange flowers grow by the brook,
+their colours bizarre.
+
+Paths leads off west and east
+
+> x flowers
+   You peer at the flowers, hoping for some insight into their strange
+colours.
+   An insight you don't get but you do find a dead body which you strangely
+failed to notice before.
+
+> x body
+   Feeling a bit like a graverobber, you rifle through the corpse's pockets
+and come across several items.
+
+> w
+You move west.
+
+On the bridge
+On the bridge
+You find yourself on top of a bridge, below which runs a fast-flowing river
+that is a dirty yellow colour. On one side of the bridge is a field and on
+the other is a field as well (the scenery in these parts isn't what you'd
+call inspiring). The only out of place item here is a strange, totally dark
+portal which floats several inches above the ground and appears to be
+emitting a slight humming sound.
+
+The bridge extends east and west. And then there's that strange portal...
+
+> x river
+   Home to a shark (named Henry) and the remains of several fisherman who
+thought they'd take on something a bit more 'challenging'.
+   Just to one side of where Henry is sleeping, you catch sight of an opening
+leading under the bridge that you didn't see before.
+
+> x remains
+   You see enough parts to make a couple of fisherman, give or take a hand or
+two.
+
+> enter opening
+Under the bridge
+Under the bridge
+You're under the bridge in a grimy little grotto that some troll has made its
+home. The place fairly reeks and it's all you can do not to collapse in
+disgust. There is a pile of garbage here (for garbage read "the troll's
+privy" if you're thinking about searching it) and a large steel cage.
+
+The only way out is out
+
+You can also see a feather.
+
+> take feather
+You take the feather.
+
+> i
+You are carrying some twine, a needle, your money, a bent nail, a fish, a
+curious little whistle, a shield, a feather, a dwarf called Otto (who is
+following you) and a dog called Grarrrrr (who is following you).
+
+> out
+Babbling brook
+By the babbling brook
+You're by a brook that is babbling. Nearby is a small stone bridge which
+spans a fast-flowing river but there doesn't seem to be anything on the other
+side aside from more fields. A patch of strange flowers grow by the brook,
+their colours bizarre. Lying in the flowers is a dead body.
+
+Paths leads off west and east
+
+You can also see the bodyguard's journal, a quaint little trumpet, a note and
+Princess Isabella's ring.
+
+> i
+You are carrying some twine, a needle, your money, a bent nail, a fish, a
+curious little whistle, a shield, a feather, a dwarf called Otto (who is
+following you) and a dog called Grarrrrr (who is following you).
+
+> take all
+You take the bodyguard's journal, the quaint little trumpet, the note and
+Princess Isabella's ring.
+
+> i
+You are carrying some twine, a needle, your money, a bent nail, a fish, a
+curious little whistle, a shield, the bodyguard's journal, a quaint little
+trumpet, a note, a feather, a dwarf called Otto (who is following you), a dog
+called Grarrrrr (who is following you) and Princess Isabella's ring.
+
+> read journal
+You turn to page 1 and begin reading:
+
+   Kidnapped, by gad! Such a tragedy it is! Such a desperate, desperate
+tragedy! And me her only bodyguard! Forsooth, the King'll have me gonads for
+this and no mistake! I must rescue her!
+
+> read journal
+You turn to page 2 and continue reading:
+
+   Tracked the thieving miserable boggers as far as the chasm then hit a
+slight problem. No way across. Finally risked life and limb and used the
+bridge which abruptly collapsed after I had crossed. Apologies for anyone
+seeking that way across. It no longer exists.
+
+> read journal
+You turn to page 3 and continue reading:
+
+   Found the Princess' ring which she must have lost somewhere along the way.
+Found also a little note which read bugger! Methinks she is not taking the
+matter of her captivity well.
+
+> read journal
+You turn to page 4 and continue reading:
+
+   Alas, the scum were waiting for me! They must have been tipped off that I
+was coming - either that or blowing my trumpet this morning was not such a
+bright idea after all. But what better time to get in a little practice?
+   At least the scum are civilised. They were kind enough to let me finish my
+journal entry off before slicing off my-
+
+> read journal
+You turn to page 5 where the writing appears to be from a different hand. And
+the ink is no longer ink but blood:
+
+   Ha! Fat lot he knows! He'll never rescue the Princess from the Dungeon of
+Dead Adventurers which lies southeast of the castle walls now.
+
+   Hmm. It seems whoever the kidnappers were caught up with the Princess'
+bodyguard and slew him. But where are the kidnappers?
+   At least you now know the way to the Dungeon of Dead Adventurers.
+
+> score
+At this moment in time your score appears to be 59 out of a maximum of 231.
+(25%)
+
+> e
+You move east.
+
+Field
+A field
+You're in an idyllic little field with a babbling brook off to one side and a
+herd of cows to the other. Birds fly by your head and butterflies flutter
+around brightly-coloured flowers. All of this is so twee you begin to feel a
+litle ill. Not far from here is what appears to be a massive castle that
+rises majestically on the northern horizon. The other way lies the chasm.
+
+Paths lead north, south, east and west
+
+> n
+You move north.
+
+Toll booth
+Toll booth
+You are at a toll booth manned by several disreputable people: a human (or
+vaguely so at any rate), a mishapen dwarf, a centaur and two goblins. They
+have blocked the path ahead by means of a large gate. The path itself
+continues northwards past them but they don't look in any hurry to step out
+of the way.
+
+The paths leads north and south
+
+> pay toll
+   You hand over five of your hard-earned coins.
+   The dwarf counts them and sighs (almost as if he was hoping you were going
+to cause trouble and give him an excuse to kill you), then mutters, "okay,
+boys. 'Nother damn spoilsport. Open the bleedin' gate."
+   His 'boys' don't look any happier about this than he is, but they open the
+gate all the same. The goblins glare at you all the time, as if trying to
+provoke you into causing trouble.
+
+> n
+You move north.
+
+Valley of Certain Death
+Valley of Certain Death
+You appear to have reached your first goal: the entrance to the Valley of
+Certain Death. Through the mists ahead you can just about make out what
+appears to be a large open gate hung between two vast trees.
+
+Paths lead north (if you dare) and south
+
+> score
+At this moment in time your score appears to be 59 out of a maximum of 231.
+(25%)
+
+> i
+You are carrying some twine, a needle, your money, a bent nail, a fish, a
+curious little whistle, a shield, the bodyguard's journal, a quaint little
+trumpet, a note, a feather, a dwarf called Otto (who is following you), a dog
+called Grarrrrr (who is following you) and Princess Isabella's ring.
+
+> n
+You move north.
+
+In the valley
+In the valley
+You're in the valley which, considering its reputation, doesn't look to be
+too bad a place. True, there's the graveyard off to one side, and the pile of
+skulls to the other, and the dead body nailed to the tree in front of you,
+and the pit, but you were expecting something a bit more frightening than all
+that...
+
+Paths wend through here to the northwest, northeast, west and south and the
+pit leads down
+
+> x body
+   Long dead by the look of things. It's started going mouldly already. A
+quick search of its pockets reveals a couple of strange items.
+
+> mend shield
+   Using the repair kit, you fix the shield. It is now in mint condition.
+
+> w
+You move west.
+
+Graveyard
+Graveyard
+Actually graveyard is a bit of a misnomer. It implies graves. What you
+actually have here is just a lot of dead bodies that are lying around in a
+mess. Judging by the state of them, they appear to have met a particularly
+nasty and brutal end - and recently too. You count fifteen corpses, not one
+of which looks to have been here for more than a few hours.
+
+A path leads northwest and east
+
+> nw
+You move northwest.
+
+Outside a cave
+Outside a cave
+You're standing outside a cave mouth from which emerge gruesome grunting
+sounds. Every now and then you overhear what appears to be the sound of
+someone howling in pain - or maybe it's an opera music fan. You're never sure
+of the difference.
+
+The cave leads in while a path winds away southeast
+
+> in
+Lair of the Bugha
+Lair of the Bugha
+You're in a dark, dismal cave, home of the fearsome Bugha (please - no
+jokes). There are dead bodies lying all over the cave, and the very air reeks
+of madness and death. Strange paintings dominate the walls and in the centre
+there is a pit from which issue cyan flames.
+
+A path leads out of the cave
+
+   There is suddenly a ferocious roar from the pit and out leaps the Bugha!
+It looks somewhat like a cross between an ape and an ogre only not as nice.
+It seems you and utters its war cry "bugha-bugha-bugha!" and starts lurching
+towards you.
+
+> talk to bugha
+   The Bugha stops in its lurching towards you motion and a puzzled look
+crosses its face. "You want to talk to me?" it says as if the very idea was
+alien to it.
+   You nod.
+  "Well, damn me. That's a turn up for the books. Sit down while I make us a
+nice cup of tea."
+
+   Over the next hour or so you get to know the Bugha quite well. It
+transpires that under that murderous man-eating, vicious sod exterior is
+buried the heart of a sad, desperately lonely soul.
+   "People seem to assume that just because I occasionally eat a few of them
+that I'm some kind of monster," explains the fearsome bea- er, lonely soul.
+"They don't realise I have feelings, too. Sure, they might suffer a bit when
+I'm eating them but what is that compared to the suffering I go through every
+day at the thought of eating them?"
+Press a key...
+
+   Before long, you manage to turn the topic of conversation around to your
+mission.
+   The Bugha frowns, "hmm, I think I remember a young Princess around here
+not long ago. I didn't pay much attention. Not to my tastes, I'm afraid. Too
+scrawny. One good bite and you'd need to go hunting all over again-"
+   "Did you see what happened to her?" you manage to butt in.
+   "Hmm. Not really. I was eating her maid at the time and that kind of
+distracted me and- Oh. Do you mind if I answer a call of nature?"
+   "Not at all."
+   "Good." The Bugha cocks one leg and sprays a jet of urine against one
+wall. It misses your head by an inch or two. "Now, where were we? Ah yes, I
+was eating the Princess' maid. Quite tasty she was as well. Oh, right," it
+adds, seeing your expression, "the Princess. I saw some fellows grab her and
+take her off on horseback to the east. They went to that ruined fortress.
+Didn't see them after all. If you're headed in there, this might come in
+handy." He hands over a talisman that seems to glow in the murky cave. "I
+picked this up a while ago from some ranger I was eating. I'd have ate that
+as well - he had it in his pocket of all places! - but fortunately I realised
+it was there and so managed to fish it out and thus avoid a bad case of
+indigestion. You take it. I'm sure it'll ward you against the hazards you'll
+no doubt encounter."
+   You take the medallion and thank the Bugha for its time.
+
+> out
+You move out.
+
+Outside a cave
+Outside a cave
+You're standing outside a cave mouth from which emerge gruesome grunting
+sounds. Every now and then you overhear what appears to be the sound of
+someone howling in pain - or maybe it's an opera music fan. You're never sure
+of the difference.
+
+The cave leads in while a path winds away southeast
+
+> se
+You move southeast.
+
+Graveyard
+Graveyard
+Actually graveyard is a bit of a misnomer. It implies graves. What you
+actually have here is just a lot of dead bodies that are lying around in a
+mess. Judging by the state of them, they appear to have met a particularly
+nasty and brutal end - and recently too. You count fifteen corpses, not one
+of which looks to have been here for more than a few hours.
+
+A path leads northwest and east
+
+> e
+You move east.
+
+In the valley
+In the valley
+You're in the valley which, considering its reputation, doesn't look to be
+too bad a place. True, there's the graveyard off to one side, and the pile of
+skulls to the other, and the dead body nailed to the tree in front of you,
+and the pit, but you were expecting something a bit more frightening than all
+that...
+
+Paths wend through here to the northwest, northeast, west and south and the
+pit leads down
+
+> ne
+You move northeast.
+
+Ruins
+Ruins
+You're standing at the entrance to a ruined fortress which appears to be
+desserted. Ragged curtains flap in the broken windows, giving the eerie
+impression that there is someone still in residence. A yawning hole in one
+wall leads inside. Could this be the dreaded Fortress of Painful Madness?
+
+The fortress lies inwards while a path leads off southwest
+
+> in
+You move in.
+
+In the ruins
+In the ruins...
+You find yourself in a small, rubble-strewn chamber that has a look of
+serious neglect to it. Weeds have grown up through the flagstones in many
+places and all the windows here are smashed. On one wall is a map of the
+fortress which you imagine must be hopelessly out of date by now. There is
+also a sturdy cabinet here. It seems no one has been here for a long, long
+time.
+
+A corridor leads east and a hole in the wall leads out
+
+> e
+You move east.
+
+Old church
+Old church
+You're in a deserted hall which looks somewhat like a church. There is a font
+in the middle of the chamber and tapestries (though ragged and tatty with
+age) depict religious events that you would probably know more about if you
+had spent your time doing something more constructive than mucking out the
+pigs. Two flights of steps lead lead further into the fortress.
+
+There are staircases to the northeast and northwest and a corridor leads west
+
+> pray
+   You drop to your knees and do a spot of praying...
+
+   At first, nothing much happens (for the 471st time in your life), but
+then, abruptly, you hear a voice!
+
+   "GRAVE PERIL AWAITS YOU, BRAVE ADVENTURER! GRAVE PERIL INDEED!"
+
+   "Is this the voice of God?" you ask, awestruck.
+
+   "NO," replies the voice. "THIS IS JUST A VOICE INSIDE YOUR HEAD. YOU'VE
+GONE STARK RAVING MAD AND STARTED HEARING THINGS. BUT LISTEN UP, FOR I HAVE
+INTERESTING NEWS FOR YOU ALL THE SAME...
+   "THE STAIRCASE TO THE NORTHWEST IS FRAUGHT WITH DANGER. IF YOU ARE NOT
+CARRYING A MEDALLION GIVEN TO YOU BY A BEAST WHOSE VERY NAME IS CONSIDERED AN
+INSULT, THEN DO NOT PROCEED FURTHER. ONLY DEATH AND MAYHEM AWAIT YOU THAT
+WAY."
+
+   You wait but the voice in your head appears to have finished speaking.
+
+> nw
+You move northwest.
+
+First staircase
+First staircase
+You're partway up a staircase at the northwestern edge of the chamber.
+However, there are strange stains on the steps here and the air seems charged
+with energy. Something tells you it would not be a good idea to venture any
+further...
+
+The stairs leads up and the rest of the chamber is southeast
+
+> u
+   As you move up the stairs you feed a sickening tension in the air and the
+medallion you are carrying begins to vibrate slightly. However, nothing else
+happens and you reach the top of the stairs safely.
+
+Circular chamber
+Circular chamber
+You're in a circular chamber with several dead goblins lying on the floor
+making a real mess of the place. It looks like there has been a big fight
+here recently, judging from the carnage, and that whoever the other force was
+they won by quite a margin. The only corpses appear to be those of goblins.
+
+Stairs lead down and a corridor leads north
+
+> n
+You move north.
+
+Council chamber
+Council chamber
+Back in the days when the fortress was in occupation, this was where the
+leading members of the fortress met to discuss business. Now it is just a
+grimy little chamber that hasn't been cleaned in a long, long time. Rows of
+tables and chairs lie smashed all over the place, indicating that a pretty
+big fight took place here not long ago. There is also a dead body lying by a
+window in the east wall.
+
+A corridor leads south
+
+   Gathered around the dead body are a group of mercenaries who bear a
+remarkable resemblance to some you remember seeing in the King's Castle.
+   "Ah, well met," says one of the figures, a tall, spindly fellow with an
+eyepatch. "The name's Gladrin. I fear we arrived too late. The Princess is
+gone."
+   "Gone as in 'dead' or gone as in 'gone'?" asks Otto.
+   "As in gone," replies Gladrin. "We fought a fair fight against a gang of
+beastly goblins out there and as we broke into here, we saw some more
+goblins, filthy little boggers the lot of them, manhandling the Princess
+through the window."
+   "But the window ain't broke!" points out Otto in his best
+oh-you-lying-bugger voice.
+   Gladrin hesitates then says, "ah, but they used magic to sort it out.
+Cunning little fellows. Anyway, ahem, me and the lads have done our bit here.
+We'd better be off and see if we can catch up the goblins at the, er, next
+place they, er, decide to, er..." He trails off this time and makes hasty
+gestures to his 'lads'. "C'mon, scarper!"
+   Before another minute has gone, they have all left.
+   "I trust them about as far as I could throw 'em," remarks Otto. "Whoever
+heard of goblins using magic?"
+
+> x body
+   The body appears to be that of one of Princess Isabella's servants.
+Someone appears to have crushed her underfoot.
+
+> x body
+   Knowing this to be just the sort of annoying thing writers often put in
+games to antagonise the hell out of players, you search the body a second
+time. And find a pretty damn big key that you somehow missed the first time.
+Funny that!
+
+> take key
+You are already carrying the pretty damn big key.
+
+> score
+At this moment in time your score appears to be 81 out of a maximum of 231.
+(35%)
+
+> i
+You are carrying some twine, a needle, your money, a bent nail, a fish, a
+curious little whistle, the bodyguard's journal, a quaint little trumpet, a
+note, a medallion, a feather, the pretty damn big key, a dwarf called Otto
+(who is following you), a dog called Grarrrrr (who is following you),
+Princess Isabella's ring, a remote control and a shield.
+
+> s
+You move south.
+
+Circular chamber
+Circular chamber
+You're in a circular chamber with several dead goblins lying on the floor
+making a real mess of the place. It looks like there has been a big fight
+here recently, judging from the carnage, and that whoever the other force was
+they won by quite a margin. The only corpses appear to be those of goblins.
+
+Stairs lead down and a corridor leads north
+
+> d
+You move down.
+
+First staircase
+First staircase
+You're partway up a staircase at the northwestern edge of the chamber.
+However, there are strange stains on the steps here and the air seems charged
+with energy. Something tells you it would not be a good idea to venture any
+further...
+
+The stairs leads up and the rest of the chamber is southeast
+
+> se
+You move southeast.
+
+Old church
+Old church
+You're in a deserted hall which looks somewhat like a church. There is a font
+in the middle of the chamber and tapestries (though ragged and tatty with
+age) depict religious events that you would probably know more about if you
+had spent your time doing something more constructive than mucking out the
+pigs. Two flights of steps lead lead further into the fortress.
+
+There are staircases to the northeast and northwest and a corridor leads west
+
+> w
+You move west.
+
+In the ruins
+In the ruins...
+You find yourself in a small, rubble-strewn chamber that has a look of
+serious neglect to it. Weeds have grown up through the flagstones in many
+places and all the windows here are smashed. On one wall is a map of the
+fortress which you imagine must be hopelessly out of date by now. There is
+also a sturdy cabinet here. It seems no one has been here for a long, long
+time.
+
+A corridor leads east and a hole in the wall leads out
+
+> out
+You move out.
+
+Ruins
+Ruins
+You're standing at the entrance to a ruined fortress which appears to be
+desserted. Ragged curtains flap in the broken windows, giving the eerie
+impression that there is someone still in residence. A yawning hole in one
+wall leads inside. Could this be the dreaded Fortress of Painful Madness?
+
+The fortress lies inwards while a path leads off southwest
+
+> sw
+You move southwest.
+
+In the valley
+In the valley
+You're in the valley which, considering its reputation, doesn't look to be
+too bad a place. True, there's the graveyard off to one side, and the pile of
+skulls to the other, and the dead body nailed to the tree in front of you,
+and the pit, but you were expecting something a bit more frightening than all
+that...
+
+Paths wend through here to the northwest, northeast, west and south and the
+pit leads down
+
+> s
+You move south.
+
+Valley of Certain Death
+Valley of Certain Death
+You appear to have reached your first goal: the entrance to the Valley of
+Certain Death. Through the mists ahead you can just about make out what
+appears to be a large open gate hung between two vast trees.
+
+Paths lead north (if you dare) and south
+
+> s
+You move south.
+
+Toll booth
+Toll booth
+You are at a toll booth manned by several disreputable people: a human (or
+vaguely so at any rate), a mishapen dwarf, a centaur and two goblins. The
+dwarf gives you a friendly nod and indicates the path leading north, now
+mercifully free of gates in the way.
+
+The paths leads north and south
+
+> s
+You move south.
+
+Field
+A field
+You're in an idyllic little field with a babbling brook off to one side and a
+herd of cows to the other. Birds fly by your head and butterflies flutter
+around brightly-coloured flowers. All of this is so twee you begin to feel a
+litle ill. Not far from here is what appears to be a massive castle that
+rises majestically on the northern horizon. The other way lies the chasm.
+
+Paths lead north, south, east and west
+
+> e
+You move east.
+
+Amidst cows
+Amidst cows
+You're in a field surrounded by a nasty-looking bunch of cows. None of these
+specimens look very friendly and the way they're chewing the grass gives you
+the impression they might mean you serious harm. A large tree stands to one
+side, its shadow flickering eerily across the ground.
+
+A path leads back to the west
+
+> moo!
+   Beams of light shoot from the tree and for a moment you are blinded...
+
+Outside the castle walls
+Outside the castle walls
+The walls of Castle Bloodheart rise majestically above you into the early
+morning sky. You have always found something a little fearful about them -
+perhaps it is the sheer immensity of them, perhaps it is the drab blocks of
+stone they are carved from, or perhaps it is simply the dead bodies that have
+been nailed to the side of the castle as a grim reminder of what happens to
+anyone King Bloodheart takes a dislike to. You're not sure.
+
+Paths wind away north, south and southeast
+
+   Strange! How did you get here?
+
+> se
+You move southeast.
+
+By a signpost
+By a signpost
+You're at a junction where several paths meet, at which point a signpost has
+been erected. Amidst colourful graffiti, you see signs pointing northwest to
+'That Way', south to 'Some Other Way' and southeast to 'The Land Of Torturous
+Agony'. There is a beggar sitting by the signpost smoking a pipe.
+
+Exits are pretty much as the signpost has just said
+
+> score
+At this moment in time your score appears to be 83 out of a maximum of 231.
+(35%)
+
+> i
+You are carrying some twine, a needle, your money, a bent nail, a fish, a
+curious little whistle, the bodyguard's journal, a quaint little trumpet, a
+note, a medallion, a feather, the pretty damn big key, a dwarf called Otto
+(who is following you), a dog called Grarrrrr (who is following you),
+Princess Isabella's ring, a remote control and a shield.
+
+> quit
+Do you really want to quit? [Y/N]

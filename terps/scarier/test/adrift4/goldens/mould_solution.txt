@@ -1,0 +1,195 @@
+2
+n
+ 
+breathe
+breathe
+breathe
+ 
+x hands
+talk to mould
+1
+mould
+talk to mould
+1
+shake hand
+mould
+1
+ 
+hint
+call mould
+n
+hint
+y
+mould
+2
+pull bar
+smash window
+score
+hint
+y
+e
+hint
+y
+x plaque
+x painting
+look behind painting
+mould
+2
+unscrew plaque
+turn dial to 11 12 56
+look in safe
+x safe
+score
+hint
+y
+mould
+4
+take acid
+w
+hint
+y
+pour acid on door
+ 
+score
+hint
+y
+e
+n
+hint
+y
+e
+hint
+y
+w
+s
+s
+s
+w
+mould
+2
+close cage
+e
+n
+n
+n
+n
+e
+get mouse
+w
+s
+e
+set mouse
+mould
+3
+cut rope
+take planks
+i
+w
+n
+e
+drop plank
+n
+score
+look
+examine hole
+e
+s
+look at parents
+examine parents
+talk to potter
+1
+attack potter
+w
+s
+ 
+ 
+score
+score
+look
+hint
+e
+ 
+ 
+score
+hint
+y
+n
+w
+n
+e
+e
+s
+x girl
+ 
+w
+look
+n
+mould
+1
+hit case
+score
+i
+w
+w
+open door
+w
+take stereo
+e
+look
+x cd
+take cd
+s
+s
+take cd
+n
+s
+plug stereo
+put cd in stereo
+score
+e
+plug stereo
+put cd in stereo
+score
+look
+u
+look
+e
+hit bat
+score
+n
+hit bat
+score
+sw
+u
+look
+take bag
+look in bag
+take vinegar
+throw vinegar at eagle
+score
+ 
+score
+i
+read letter
+n
+n
+e
+ne
+s
+push box
+open safe
+score
+n
+1
+1
+4
+3
+2
+4
+take key
+score
+sw
+w
+s
+e
+open door

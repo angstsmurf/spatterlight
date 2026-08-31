@@ -1,0 +1,116 @@
+2
+3
+1
+wait
+wait
+wait
+wait
+wait
+wait
+ask smelly for help
+swing
+x washing machine
+get hoover
+look under bed
+clean under bed
+look under bed
+read newspaper
+read newspaper
+x fridge
+open fridge
+get all from fridge
+s
+9
+sw
+x noticeboard
+clean floor
+s
+ask duty sergeant about kid
+ask duty sergeant about kid
+2
+wait
+e
+s
+3
+in
+throw sandwich in vat
+wait
+wait
+undo
+undo
+undo
+undo
+undo
+undo
+get jeans
+wear jeans
+read article
+s
+4
+show horror id
+show customers id
+s
+s
+s
+open your eyes
+get net
+pour milk on mr horror
+talk to mr horror
+talk to mr horror
+talk to mr horror
+talk to mr horror
+talk to mr horror
+wink at mr horror
+s
+3
+in
+throw sandwich in vat
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+throw net over cat
+ask cat about paper boys
+e
+out
+e
+s
+8
+show citizens id
+show officers id
+n
+throw soap at the smell
+s
+2
+in
+nw
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+s
+12
+talk to steve
+2
+1
+hit steve
+open grill
+3
+b
+3
+c
+2
+a3
+2
+a9
+statusline

@@ -1,0 +1,3088 @@
+Loading game...
+
+ONNAFA
+
+Intro
+O.N.N.A.F.A.
+Oh No Not Another Fantasy Adventure
+
+1)  Read the background
+
+2)  Read the instructions
+
+3)  Hidden features in the game
+
+4)  Play the game!
+
+> 4
+
+Your Bedchamber
+
+Your Bedchamber
+You're in your bedchamber which is a large, sprawling room filled with a
+hideous mismatch of furniture, clothing and junk. Quite why you need such a
+large bedchamber is a mystery but it's the done thing what with you being a
+noble and everything.
+
+Sunlight through a coloured window illuminates the room, banishing shadows
+away from your bed, desk, bureau, wardrobe, closet and shower.
+
+Exits lie: in and down
+
+> x bureau
+   You're not really sure what it is that a bureau does (hence this seriously
+lame description) but you're now a lord and you imagine that a bureau is the
+sort of thing every lord should have.  A small bell is on the bureau.
+
+> get bell
+You take the small bell from the bureau.
+
+> open wardrobe
+   You gingerly touch the wardrobe door and, sure enough, a whole mass of
+items fall out onto the floor. Actually, it turns out only to be two items
+but it definitely seemed like more at the time.
+
+> get crown
+You take the jewelled crown.
+
+> open closet
+   You gingerly reach out and open the door - sure enough, there is a cascade
+of useless junk within that falls all over the carpet. Don't you hate it when
+that sort of thing happens?
+
+> get trousers
+You take your trousers.
+
+> wear trousers
+   You put on your trousers.
+
+> get bear rug
+You take the bear rug.
+
+> get lump
+You take the lump.
+
+> down
+   You move down.
+
+Main Hall
+
+Main Hall
+You're in the main hall of Castle Stroppenheim. This a huge chamber which
+looks to have been hacked out of the side of a cliff by a builder with more
+enthusiam than taste. Walls lean at weird angles and the ceiling, assuming
+there is one, is so far above you as to be hidden in the murky shadows that
+seem a permanent fixture of your new home.
+
+Dominating the centre of the main hall is a partially-finished statue of you
+that, one day, will magically greet everyone who enters your domain.
+
+There are a number of corridors and passageways leading away from here but
+quite a few are blocked due to building work being underway.
+
+Exits lie: north, south, east, west, northeast, southeast, southwest, up and
+down
+
+> ring bell
+   You ring the bell and a moment later Rancid enters. He gives you a curt
+nod before deciding to promptly ignore you.
+
+> s
+   You move south.
+
+Courtyard
+
+Courtyard
+The main courtyard of Castle Stroppenheim isn't a very impressive site at the
+best of times, which this most certainly isn't. The dead (and still steaming)
+bodies of a couple of your servants the dragon lunched on don't add a lot to
+the decor and there is a definite atmosphere of unease floating around (or
+maybe that's just the roasted bodies again).
+
+A pair of broken gates lead southwards out of the courtyard and into the big,
+bad world. Off to one side are the stables which, while a little charred, are
+at least upright.
+
+Exits lie: north, south, west and up
+
+Stimmons your bodyguard and Doris the maid are here.
+
+> talk to stimmons
+   "An honour to serve, sir," remarks Stimmons and gives you a proud salute.
+That he does so with two fingers sticking up straight in your face is, you
+are sure, just pure coincidence. "The dragon shall be caught and killed, sir,
+the next time he sets foot, er paw, inside the castle, sir. Me and the lads
+guarantee it, sir."
+   You glance about the yard and notice a distinct lack of 'lads'. "Where are
+the lads, Stimmons?"
+   "Ran away, sir. Cowardly little sods! They said they didn't get paid
+enough to fight a dragon. I tried pointing out they didn't get paid full stop
+but that didn't seem to motivate 'em to stay, sir, I regret to say. So when
+the dragon shows up, I shall take him on myself, sir."
+   "And, er, if you fail, Stimmons?" you ask. "What then?"
+   Stimmons frowns as if the idea had never occurred to him. "Well, sir, then
+I guess you get eaten up, sir. But don't worry, sir, I've been practising.
+See the two practice dummies I've set up in the corner of the yard?"
+   "I see only one practice dummy, Stimmons."
+   "Hmmm. Funny. I guess my double vision must be coming back. Anyway... I
+got the first of the practice dummies beaten to a standstill and was close to
+handling the second one when my bad leg gave in and I had to take a breather.
+Damn asthma, sir."
+   "Does it affect you all the time?" you ask, not liking the idea of
+trusting your life to someone with breathing problems.
+   "Oh no, sir," says Stimmons.
+   You breathe a sigh of relief.
+   "Only when I fight, sir."
+
+*   *   *   *   *
+
+   In the end you decide to ask Stimmons some questions:
+
+   1)  How's about a raise, Stimmons?
+   2)  Have all the guards left?
+   3)  What progress has been made about finding where the dragon's egg went?
+   4)  Follow me.
+   5)  I seem to be having some trouble with locked doors in the castle.
+   6)  Where are my parents right now?
+   7)  I don't want to talk any further.
+
+> 2
+   "All except the two worse ones, sir," says Stimmons. "Bill and Ben are
+still in their quarters. I know 'cos I locked 'em in so they couldn't flee
+the same as everyone else. You can let 'em out if you want, sir, but they
+aren't a lot of use unless you're looking for an after dinner feast for some
+visiting cannibals. Here's the key for the guardroom door."
+   Stimmons hands over a small key.
+   "Aah, me arm, me arm!" Doris wails. When no one pays her much attention,
+she wails a bit louder.
+
+> n
+   You move north.
+
+Main Hall
+
+Main Hall
+You're in the main hall of Castle Stroppenheim. This a huge chamber which
+looks to have been hacked out of the side of a cliff by a builder with more
+enthusiam than taste. Walls lean at weird angles and the ceiling, assuming
+there is one, is so far above you as to be hidden in the murky shadows that
+seem a permanent fixture of your new home.
+
+Dominating the centre of the main hall is a partially-finished statue of you
+that, one day, will magically greet everyone who enters your domain.
+
+There are a number of corridors and passageways leading away from here but
+quite a few are blocked due to building work being underway.
+
+Exits lie: north, south, east, west, northeast, southeast, southwest, up and
+down
+
+Rancid the butler is here.
+
+> open door
+   Using the key you obtained from Stimmons, you open the door to the
+guardroom.
+
+> n
+         You move north.
+
+Guardroom
+
+Guardroom
+The guardroom of Castle Stroppenheim once served as the castle's cat room and
+the smell has lingered despite the cats having since been eaten by the
+monstrous rats that infest your crypt. Nowadays, this room is occupied by a
+couple of guards (your only guards as it happens) called Bill and Ben who are
+to keeping their room tidy what dragons are to not eating nubile young
+maidens. As such, while you are sure there is a floor in this room you've yet
+to actually catch sight of it amidst the piles of unwashed clothes, broken
+weapons, rusted armour and all round litter.
+
+Exits lie: south
+
+Bill the guard and Ben the guard are here.
+
+> talk to bill
+   "Please don't make me fight that dragon, boss," says Bill in a whiny
+voice. "It's not that I'm scared or a coward or anything like that, but that
+I hate you, boss. It's true. I really do. And I'd just hate to see myself
+getting killed for the likes of you. Er, boss. Oh, and can I have a raise?"
+
+   1)  A raise? You miserable, snivelling little sod! Of course not!
+   2)  Of course you can have a raise, Bill. We've just got a dragon egg to
+find in the meantime.
+   3)  I want that dragon killing, Bill. Wait for it outside the castle and
+deal with it.
+   4)  Follow me.
+   5)  I seem to be having some trouble with locked doors in the castle.
+   6)  What progress have you made in finding the dragon's egg?
+   7)  Sorry, Bill, you're just too boring to talk to right now.
+
+> 4
+   Bill sighs. "Gee, boss. Love it. It'd be a pleasure. It really would.
+Whoopee..."
+   If you didn't know better, you'd swear he was being sarcastic.
+
+> talk to ben
+   "I'm quite looking forward to fighting the dragon, boss," Ben says.
+   "You are?" you say, not expecting to hear this kind of thing from the
+guard voted Most Likely To Run Away At The First Sign Of Trouble.
+   "Yeah, boss," says Ben. "I mean, what with being so big and heavy, right,
+they can't really move very fast is the way I sees things, so if I just sorta
+ducks left an' ducks right quite a bit, like so-" and Ben staggers very
+slowly to the left and then very slowly to the right "-the dragon won't be
+able to hit me."
+   "What if it breathes fire at you?"
+   Ben gives you a blank look. "You what?"
+
+   You decide a few questions might be in order.
+
+   1)  So tell me how you plan to fight the dragon again, Ben.
+   2)  How much do you get paid, Ben?
+   3)  Do you like your job here?
+   4)  Follow me.
+   5)  Where's the dragon's egg got to? I want answers and I want them now!
+   6)  Sorry, busy right now. We'll talk again later.
+
+> 4
+   "It'd be an honour, sir," says Ben.
+   "Really?"
+   "Nah," says Ben, "but you'd only go and hit me if I said otherwise."
+
+> drop key
+You drop the guard's key.
+
+> s
+   You move south.
+
+Main Hall
+
+Main Hall
+You're in the main hall of Castle Stroppenheim. This a huge chamber which
+looks to have been hacked out of the side of a cliff by a builder with more
+enthusiam than taste. Walls lean at weird angles and the ceiling, assuming
+there is one, is so far above you as to be hidden in the murky shadows that
+seem a permanent fixture of your new home.
+
+Dominating the centre of the main hall is a partially-finished statue of you
+that, one day, will magically greet everyone who enters your domain.
+
+There are a number of corridors and passageways leading away from here but
+quite a few are blocked due to building work being underway.
+
+Exits lie: north, south, east, west, northeast, southeast, southwest, up and
+down
+
+Rancid the butler is here.  Bill follows you from the north.  Ben follows you
+from the north.
+
+> s
+   You move south.
+
+Courtyard
+
+Courtyard
+The main courtyard of Castle Stroppenheim isn't a very impressive site at the
+best of times, which this most certainly isn't. The dead (and still steaming)
+bodies of a couple of your servants the dragon lunched on don't add a lot to
+the decor and there is a definite atmosphere of unease floating around (or
+maybe that's just the roasted bodies again).
+
+A pair of broken gates lead southwards out of the courtyard and into the big,
+bad world. Off to one side are the stables which, while a little charred, are
+at least upright.
+
+Exits lie: north, south, west and up
+
+Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
+the north.  Ben follows you from the north.
+
+> w
+   You move west.
+
+Stables
+
+Stables
+You find yourself amidst several large smelly horses in the stables. You've
+never liked the stables much because, unlike back home, the animals here are
+vicious and merely petting them is almost an open invitation for an arm being
+taken off.
+
+Piles of hay are stacked in a corner in such a way that you would just bet
+there's something hidden behind them. Aside from that there's not a whole lot
+in here aside from the horses and, of course, the ever present smell of a
+word that's censored to keep it from the ears of the impressionable.
+
+Exits lie: east
+
+Ned the stable boy is here.  Bill follows you from the east.  Ben follows you
+from the east.
+
+> x ned
+   A local yokel with a grin as wide as his carrot-topped head, Ned is the
+sort of simpleton who gets on amazingly well with horses. It's Rancid's
+opinion that this is because the horses are more intelligent and feel they
+can look down on him.  Ned is carrying a rake, some small, hard peas and some
+mouldy straw.
+
+> ask ned about rake
+   "Take good care of me fings, boss," Ned grunts and hands over what you've
+asked for.
+
+> e
+   You move east.
+
+Courtyard
+
+Courtyard
+The main courtyard of Castle Stroppenheim isn't a very impressive site at the
+best of times, which this most certainly isn't. The dead (and still steaming)
+bodies of a couple of your servants the dragon lunched on don't add a lot to
+the decor and there is a definite atmosphere of unease floating around (or
+maybe that's just the roasted bodies again).
+
+A pair of broken gates lead southwards out of the courtyard and into the big,
+bad world. Off to one side are the stables which, while a little charred, are
+at least upright.
+
+Exits lie: north, south, west and up
+
+Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
+the west.  Ben follows you from the west.
+
+> s
+   You move south.
+
+South Road
+
+South Road
+Running in a roughly southwards direction, the imaginately named South Road
+winds away as far as the eye can see - assuming the eye cannot see very far,
+that is, as a hundred metres to the south it comes to a junction.
+
+There isn't really a whole lot to do in this location and you get the sinking
+suspicion that it has been designed as more a kind of filler than anything
+that actually serves a purpose.
+
+By the side of the road is a bored looking scarecrow.
+
+Exits lie: north and south
+
+Perry the pointless pedlar is here.  Bill follows you from the north.  Ben
+follows you from the north.
+
+> s
+   You move south.
+
+Junction
+
+Junction
+The road splits here, one branch heading north to your castle, one going
+southwest to a deep, dark wood and two other branches heading off to the east
+and southeast. A signpost in the centre of the junction informs you of just
+where you're going.
+
+A short jaunt to the west is what appears to be a flower stall.
+
+Exits lie: north, east, west, southeast and southwest
+
+  Bill follows you from the north.  Ben follows you from the north.
+
+> se
+      You move southeast.
+
+Winding Road
+
+Winding Road
+You're on a winding road, often used as a means of bridging the gap from one
+location to another and, as such, not the most enthralling of locations. This
+one is no exception. A few small bushes and a solitary tree leave a lot to be
+desired.
+
+However, a short way to the south is a small building that looks somewhat
+like a smithy. Smoke curls from a chimney and drifts in lazy spirals up into
+the early morning sky (if you're playing this game at night, just use your
+imagination).
+
+Exits lie: northwest, southeast and south
+
+Barnaby is here.  Bill follows you from the north-west.  Ben follows you from
+the north-west.
+
+> se
+      You move southeast.
+
+Murky Crossroads
+
+Murky Crossroads
+You're at a crossroads which is both murky and thoroughly depressing. The
+ground is knee deep in foul-smelling mud and you are forever having to pick
+woodlice out of your hair.
+
+Situated in the centre of the crossroads is a statue of a man with three
+arms, each arm pointing off in one of the directions you can take.
+
+Exits lie: (as the arm indicate) northwest, east and south
+
+  Bill follows you from the north-west.  Ben follows you from the north-west.
+
+> s
+   You move south.
+
+Gates of Korbintown
+
+Gate of Korbintown
+The gates of a large walled town stand just to the south of you. Little of
+the town can be seen from where you stand as the gates are currently locked,
+no doubt to keep unwanted visitors from entering. Any thoughts of smashing
+the gates down would be ill-advised: aside from being a good three feet thick
+they are manned by more archers than you can count.
+
+The bodies of several people are nailed to the walls on either side of the
+gates.
+
+Exits lie: north and south
+
+  Bill follows you from the north.  Ben follows you from the north.
+
+> drop crown
+   The crown falls to the ground - and vanishes!
+   "Hey!" you complain. "You never said that was going to happen!"
+   The voice chuckles. "True, but I never said it wouldn't either. Anyway,
+you can enter Korbintown now if you like."
+   "But what about my crown? It cost a fortune that crown did!"
+   The voice chuckles again. "Yeah, I hear there's a good business to be had
+from crowns made of crap! Heh, heh, heh!"
+
+> s
+      You move south.
+
+Korbintown
+
+Korbintown
+The bustling town of Korbintown is all around you: townsfolk rush back and
+forth, greeting each other cheerfully, exchanging insults, duelling to the
+death... The usual. Korbintown isn't a very big town but it more than makes
+up for it by the sheer noise of its inhabitants; you suspect being able to
+shout and yell is one of the prerequisites for living here.
+
+There is a fountain in the centre of the area you stand around which are
+playing several small children. A sign by the side of the fountain points
+south and indicates "Brothel".
+
+Exits lie: northwest, north, east, southwest, south and southeast
+
+Samson is here.  Bill follows you from the north.  Ben follows you from the
+north.
+
+> sw
+      You move southwest.
+
+Constipated Badger
+
+Constipated Badger
+You're in a tavern, that much is clear from the sounds of fighting, vomiting
+and people complaining over the poor quality of the beer. The Constipated
+Badger is the sort of tavern your mother warned you to stay away well from.
+One wrong move here and your life, money and virginity will all be gone in a
+flash.
+
+A bar runs along one wall at which is what appears to a female troll serving
+drinks. Several rousty layabouts sit at the bar exchanging insults. In one
+corner is a singer murdering some power ballad. In another corner a group of
+foul-tempered dwarves (then again is there any other sort?) are playing
+cards. A noticeboard hangs to one side of the bar.
+
+Exits lie: northeast
+
+  Bill follows you from the north-east.  Ben follows you from the north-east.
+
+> x dwarves
+   You study the dwarves for a while. They look to be about average for
+dwarves: short, foul-tempered, permanently in the mood for a fight, bearded,
+carrying battleaxes and itching for an excuse to use them...
+   And one of them looks very familiar.
+   "Otto!" you cry!
+
+   The dwarf you have cried out to turns around in his seat and fixes you
+with an evil eye. It's not his own. This one he carries in a small pouch tied
+to his wrist by a string. "What yer on about, kid?" he grunts.
+   "It's me, Otto! Me! Don't you remember me?"
+   The dwarf peers at you for a while then shakes his head. "Nope, can't say
+as ah do. Why don'ts yer buys me a drink and we can talk over what ah
+remember?"
+
+> give bear rug to troll
+   "Hmmm... I guess that'll do. Here's your beer."
+   The beer is plonked down on the bar instead of being handed to you in
+typical trollish fashion.
+
+> get beer
+You take the mug of beer.
+
+> give beer to toto
+   The dwarf takes the beer, looks into its depths for a moment, then throws
+it over his head. "Aah!" he says. "That sure hit the spot."
+   "You're supposed to drink it," you point out.
+   "Not this stuff you don't. Not if you want your insides ter stay on the
+inside and yer outsides ter stay on the outside. Anyhows, take a seat, kid.
+Tell me your life story."
+   You sit down and tell this dwarf who bears a remarkable similarity to Otto
+your life story. He doesn't seem very impressed.
+   "Last week," he says, "I was wrestling an ice dragon on a iceberg twenty
+minutes off the coast; the week before that I duelled a devil to the death in
+a fiery black pit; the week before that I chopped the legs off a cyclop wot
+tried to kill me while I was sleeping; the week before-"
+   "Don't tell me. Let me guess. You, er, you fought a dark wizard in the
+evil land of Hellfire."
+   The dwarf gives you a baffled look. "What? But that would be just plain
+stupid! Whoever heard of a dark wizard. And there's no such place as
+Hellfire. I think you've got an overactive imagination. Anyhows..." He looks
+pityingly at the empty mug in his hands. "I could sure do with another of
+these."
+   "Are you going to drink it this time?"
+   "Fat chance. I just fancied another one is all."
+
+> give lump to troll
+   "Hmmm... I guess that'll do. Here's your beer."
+   The beer is plonked down on the bar instead of being handed to you in
+typical trollish fashion.
+
+> get beer
+You take the mug of beer.
+
+> give beer to toto
+   The dwarf looks at you in surprise as you hand him another mug of beer.
+The phrase "another one born every minute" is clearly on the tip of his
+tongue but he manages to throw the beer over himself instead.
+   "Aah, refreshing," he says as he wipes beer out of his beard. "Now, kid,
+what was your name again? I seem ter have forgotten."
+   "I never told you."
+   The dwarf considers. "Hmmm. Damn peculiar name. How's about I call you kid
+for short?"
+   "Er, okay."
+   "Right then, kid for short. My name's Toto and I-"
+   "Toto!" you say. "But that's just a poor anagram of Otto!"
+   Toto shakes his head. "No it ain't. Otto is a poor anagram of Toto. Toto's
+my name. Otto's my poor sap of a brother."
+   "Your brother?"
+   "Yep. Now, I can just imagine what you're thinking now. You're thinking:
+what a lame idea. Having a dwarf who just so happens to be Otto's twin
+brother show up in the sequal to YADFA. Well, if you were thinking that then
+don't bother 'cos believe me, the writer sure as hell ain't listening.
+   "Now, I suppose you're off on a quest for something or the other, right?"
+   You give Ot- er, Toto a nod.
+   "Good. I'm coming with you. This dive's depressing enough already without
+having ter spend any longer in it than I have ter. C'mon, kid, yous got
+yerself a new travelling companion."
+   You take all this in and then ask the question you're just dying to ask,
+"would you mind if I called you Otto?"
+   Toto considers for all of half a second and then says, "would you mind if
+I shoved my axe up your ass and gave it a twist?"
+   You consider this strange comment for a moment. "Is that a yes or a no?"
+
+> i
+   Draped around your person are your trousers, and you are carrying a small
+bell, a rake and an empty beer mug.
+
+> ne
+      You move northeast.
+
+Korbintown
+
+Korbintown
+The bustling town of Korbintown is all around you: townsfolk rush back and
+forth, greeting each other cheerfully, exchanging insults, duelling to the
+death... The usual. Korbintown isn't a very big town but it more than makes
+up for it by the sheer noise of its inhabitants; you suspect being able to
+shout and yell is one of the prerequisites for living here.
+
+There is a fountain in the centre of the area you stand around which are
+playing several small children. A sign by the side of the fountain points
+south and indicates "Brothel".
+
+Exits lie: northwest, north, east, southwest, south and southeast
+
+Samson is here.  Bill follows you from the south-west.  Ben follows you from
+the south-west.  Toto follows you from the south-west.
+
+> n
+   You move north.
+
+Gates of Korbintown
+
+Gate of Korbintown
+The gates of a large walled town stand just to the south of you. The town now
+stands open to you, the gates having mysteriously unlocked themselves after
+you gave up your crown of rulership. You just hope you did the right thing.
+
+The bodies of several people are nailed to the walls on either side of the
+gates.
+
+Exits lie: north and south
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> n
+   You move north.
+
+Murky Crossroads
+
+Murky Crossroads
+You're at a crossroads which is both murky and thoroughly depressing. The
+ground is knee deep in foul-smelling mud and you are forever having to pick
+woodlice out of your hair.
+
+Situated in the centre of the crossroads is a statue of a man with three
+arms, each arm pointing off in one of the directions you can take.
+
+Exits lie: (as the arm indicate) northwest, east and south
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> nw
+      You move northwest.
+
+Winding Road
+
+Winding Road
+You're on a winding road, often used as a means of bridging the gap from one
+location to another and, as such, not the most enthralling of locations. This
+one is no exception. A few small bushes and a solitary tree leave a lot to be
+desired.
+
+However, a short way to the south is a small building that looks somewhat
+like a smithy. Smoke curls from a chimney and drifts in lazy spirals up into
+the early morning sky (if you're playing this game at night, just use your
+imagination).
+
+Exits lie: northwest, southeast and south
+
+Barnaby is here.  Bill follows you from the south-east.  Ben follows you from
+the south-east.  Toto follows you from the south-east.
+
+> nw
+      You move northwest.
+
+Junction
+
+Junction
+The road splits here, one branch heading north to your castle, one going
+southwest to a deep, dark wood and two other branches heading off to the east
+and southeast. A signpost in the centre of the junction informs you of just
+where you're going.
+
+A short jaunt to the west is what appears to be a flower stall.
+
+Exits lie: north, east, west, southeast and southwest
+
+  Bill follows you from the south-east.  Ben follows you from the south-east.
+ Toto follows you from the south-east.
+
+> n
+   You move north.
+
+South Road
+
+South Road
+Running in a roughly southwards direction, the imaginately named South Road
+winds away as far as the eye can see - assuming the eye cannot see very far,
+that is, as a hundred metres to the south it comes to a junction.
+
+There isn't really a whole lot to do in this location and you get the sinking
+suspicion that it has been designed as more a kind of filler than anything
+that actually serves a purpose.
+
+By the side of the road is a bored looking scarecrow.
+
+Exits lie: north and south
+
+Perry the pointless pedlar is here.  Bill follows you from the south.  Ben
+follows you from the south.  Toto follows you from the south.
+
+> talk to perry
+   "Aye, right you are there, sir!" says Perry in the sort of whining
+high-pitched voice that just makes you want to go for the jugular. "I've got
+more junk 'n' you can shake a stick at! My, you wouldn't believe some of the
+garbage I'm selling here. Just step right up and empty your wallet and buy
+something from me. I guarantee you'll be disappointed with whatever you buy."
+   "Aren't you supposed to be encouraging me to buy something?" you say.
+   Perry shakes his head. "Not me, sir. I'm as honest as the sky is blue," he
+adds with a gesture at the dark, storm-filled sky. "I like to pride myself on
+never selling junk unknowingly to a customer. So what can I do you for?"
+
+   1)  How's about a nice dragon egg?
+   2)  The 'ONNAFA Hints & Tips Guide' looks handy. Let me have a copy.
+   3)  That big mace there, I'll take it.
+   4)  Heard any good jokes lately?
+   5)  Don't you think you'd sell more junk if you lied?
+   6)  Follow me.
+   7)  I must be going.
+
+> 3
+   "Ah, the mace of might," says Perry. "Just about the only item I've ever
+come across that isn't completely useless. Yours for nothing more than an
+empty beer mug."
+
+> give empty beer mug to perry
+   "A fair trade as I'm sure you'll agree," says Perry as you hand him the
+empty beer mug and he hands you the mace of might.
+   Too fair a trade? You wonder.
+   "And just to make myself feel better for giving you such rubbish, have
+this stuffed cat as well."
+
+> drop stuffed cat
+You drop the stuffed cat called Sam.
+
+> s
+   You move south.
+
+Junction
+
+Junction
+The road splits here, one branch heading north to your castle, one going
+southwest to a deep, dark wood and two other branches heading off to the east
+and southeast. A signpost in the centre of the junction informs you of just
+where you're going.
+
+A short jaunt to the west is what appears to be a flower stall.
+
+Exits lie: north, east, west, southeast and southwest
+
+  Bill follows you from the north.  Ben follows you from the north.  Toto
+follows you from the north.
+
+> sw
+            You move southwest.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see, except to the northeast where
+you see a junction.
+
+Exits lie: northeast, southeast and southwest
+
+Borrible the Horrible - Scourge of the One Sea, Tyrant of the Trolls, Gouger
+of the Goblins - is here.
+   "Wull, wull," grunts the man mountain that is Borrible the Horrible. He
+hefts the fearsome axx he has in his hand and stalks towards you. "You lok
+like your a rich fella, me lad. Wot say yous and over all yus items an mebbe
+i willna killya."
+   "I'll not be threatened by someone who can't even speak proper
+Harrendien," you point out.
+   Borrible laughs, though not in a pleasant sort of way. In more the sort of
+way that implies 'you just insulted me, I'm going to rip your face off'. He
+says, "Newbieville borne and bread, thats me. Now, and over an item an yus
+can go. Udderwise-" He hefts the axx again. "You an me axx can get better
+acq- acqu - to know each udder a little better."  Bill follows you from the
+north-east.  Ben follows you from the north-east.  Toto follows you from the
+north-east.
+
+> kill borrible
+   "Gerrim!" yells Toto. "And remember: the bigger they are, the harder they
+bloody well hit you so watch it!"
+   And with those words of wisdom, he flings himself at Borrible and buries
+his axe in the madman's gut. This doesn't seem to bother Borrible a whole
+lot. He yanks the axe out, smites Toto over the head with his fist and then
+turns to you. In normal circumstances this would be a bad time: but
+fortunately for you (though not, perhaps, as fortunate for him), Ben gets in
+the way of Borrible's incoming fist and gets thoroughly pounded into the
+ground instead of you. You take this opportunity to pick up Bill and swing
+him around like a club and clobber Borrible over the head with it. Borrible
+grunts, his eyes start to glaze over - and then he starts spewing up blood in
+a really disgusting manner as Toto's axe bursts through the top of his head.
+With a last gasp of "aaaah - kiled!" Borrible slumps dead at your feet.
+   "That was a close thing," you say with a sigh.
+   "Close?" Ben moans. "He hit me! He damn well hit me! It wasn't close at
+all!"
+   "It could have been closer," you say, and with that cryptic (and pretty
+much nonsence) statement, you decide to have a look at what Borrible
+carrying. His items are scattered around his bloodied corpse.
+
+> get bag of gold
+You take the bag of gold.
+
+> se
+            You move southeast.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: south and northwest
+
+  Bill follows you from the north-west.  Ben follows you from the north-west.
+ Toto follows you from the north-west.
+
+> s
+   You move south.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: north and south
+
+Roden and Murphy are here.  Bill follows you from the north.  Ben follows you
+from the north.  Toto follows you from the north.
+
+> s
+   You move south.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: north and southwest
+
+   You can also see someone's head.  Bill follows you from the north.  Ben
+follows you from the north.  Toto follows you from the north.
+
+> sw
+      You move southwest.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: northeast and northwest
+
+  Bill follows you from the north-east.  Ben follows you from the north-east.
+ Toto follows you from the north-east.
+
+> nw
+      You move northwest.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: east and southeast
+
+  Bill follows you from the south-east.  Ben follows you from the south-east.
+ Toto follows you from the south-east.
+
+> e
+   You move east.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Embedded in the side of a tree is a rusty axe.
+
+Exits lie: northwest and west
+
+Petunia is here.  Bill follows you from the west.  Ben follows you from the
+west.  Toto follows you from the west.
+
+> ask bill about axe
+   "Right you are, boss," Bill says and wrenches the axe out of the tree. "I
+wonder why someone embedded it in the tree like that and then just cleared
+off and left it. Some folk are just downright strange."
+
+> ask bill about broken axe
+   "Saves me carrying it, I guess," Bill mutters with his usual lack of
+respect for your authority.
+
+> nw
+      You move northwest.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: southeast and southwest
+
+  Bill follows you from the south-east.  Ben follows you from the south-east.
+ Toto follows you from the south-east.
+
+> sw
+      You move southwest.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: northeast
+
+  Bill follows you from the north-east.  Ben follows you from the north-east.
+ Toto follows you from the north-east.
+
+> get twig
+   You pluck a twig from a tree at the end of the wood. It looks pretty much
+the same as a twig you might pluck from any tree in the woods but you suspect
+that there is more to this one than meets the eye.
+
+> ne
+      You move northeast.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: southeast and southwest
+
+  Bill follows you from the south-west.  Ben follows you from the south-west.
+ Toto follows you from the south-west.
+
+> se
+      You move southeast.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: northwest and west
+
+Petunia is here.  Bill follows you from the north-west.  Ben follows you from
+the north-west.  Toto follows you from the north-west.
+
+> w
+   You move west.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: east and southeast
+
+  Bill follows you from the east.  Ben follows you from the east.  Toto
+follows you from the east.
+
+> se
+      You move southeast.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: northeast and northwest
+
+  Bill follows you from the north-west.  Ben follows you from the north-west.
+ Toto follows you from the north-west.
+
+> ne
+      You move northeast.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: north and southwest
+
+   You can also see someone's head.  Bill follows you from the south-west.
+Ben follows you from the south-west.  Toto follows you from the south-west.
+
+> n
+   You move north.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: north and south
+
+Roden and Murphy are here.  Bill follows you from the south.  Ben follows you
+from the south.  Toto follows you from the south.
+
+> n
+   You move north.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: south and northwest
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> nw
+      You move northwest.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see, except to the northeast where
+you see a junction.
+
+Exits lie: northeast, southeast and southwest
+
+   You can also see a battered old skull, a rusti kee, a codpiece, an axx and
+the dead body of Borrible the Horrible.  Bill follows you from the
+south-east.  Ben follows you from the south-east.  Toto follows you from the
+south-east.
+
+> sw
+            You move southwest.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: east and northeast
+
+  Bill follows you from the north-east.  Ben follows you from the north-east.
+ Toto follows you from the north-east.
+
+> e
+   You move east.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: south and west
+
+  Bill follows you from the west.  Ben follows you from the west.  Toto
+follows you from the west.
+
+> s
+   You move south.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: north
+
+Will the mystic is here, tending to some flowers.  Bill follows you from the
+north.  Ben follows you from the north.  Toto follows you from the north.
+
+> give twig to will
+   "Yip!" says Will. "That's the right one - yap!"
+   He takes the twig from you, heads over to the flowers, and gently lays the
+twig at the side of them.
+   Nothing earth-shattering seems to occur but Will nods his head in
+satisfaction.
+   "And now all I need is - yip! - a rake to tidy things up around here and -
+yap! - everything will be complete."
+   You open your mouth to mention the word 'reward' but a little voice tells
+you to keep quiet for now.
+
+> give rake to will
+   "Ah, a - yap! - rake!" says Will. He takes it off you and gently crushes
+the flowers with it. "There! That'll save me - yip! - having to waste time -
+yap! - looking after them any longer."
+   You say, "you mean to tell me you had me fetch you a twig and a rake for
+your flowers and you were just intending to destroy them anyway?"
+   "Yip! Isn't it irritating when you have - yap! - to do that sort of thing
+in adventure games?"
+   "It sure is, but-"
+   "But nothing! And more fool - yip! - you for trekking all over the place
+for the twig and the - yap! - rake when you had no way of knowing why I even
+wanted them. Thh! Anyway, I'm - yap! - off now to warmer climes. I guess
+you'll be needing this."
+   He tosses a red wig on the ground.
+   "What's that?" you ask.
+   "Your purpose in doing those - yapyapyap!!! - tasks for me. So long."
+   Will wanders off to the west (an exit inaccessible to anybody but strange
+mystics) leaving you alone in the clearing with a red wig.
+
+> get wig
+You take the red wig.
+
+> n
+   You move north.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: south and west
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> w
+   You move west.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see.
+
+Exits lie: east and northeast
+
+  Bill follows you from the east.  Ben follows you from the east.  Toto
+follows you from the east.
+
+> ne
+      You move northeast.
+
+Dark Woods
+
+Dark Woods
+You're wandering in a large wood which is both dark and, well, full of trees.
+
+While not being especially impressed by that description, you admit that it
+certainly brings home the reality of your situation well enough.
+
+Trees stretch away as far as the eye can see, except to the northeast where
+you see a junction.
+
+Exits lie: northeast, southeast and southwest
+
+   You can also see a battered old skull, a rusti kee, a codpiece, an axx and
+the dead body of Borrible the Horrible.  Bill follows you from the
+south-west.  Ben follows you from the south-west.  Toto follows you from the
+south-west.
+
+> ne
+            You move northeast.
+
+Junction
+
+Junction
+The road splits here, one branch heading north to your castle, one going
+southwest to a deep, dark wood and two other branches heading off to the east
+and southeast. A signpost in the centre of the junction informs you of just
+where you're going.
+
+A short jaunt to the west is what appears to be a flower stall.
+
+Exits lie: north, east, west, southeast and southwest
+
+  Bill follows you from the south-west.  Ben follows you from the south-west.
+ Toto follows you from the south-west.
+
+> se
+      You move southeast.
+
+Winding Road
+
+Winding Road
+You're on a winding road, often used as a means of bridging the gap from one
+location to another and, as such, not the most enthralling of locations. This
+one is no exception. A few small bushes and a solitary tree leave a lot to be
+desired.
+
+However, a short way to the south is a small building that looks somewhat
+like a smithy. Smoke curls from a chimney and drifts in lazy spirals up into
+the early morning sky (if you're playing this game at night, just use your
+imagination).
+
+Exits lie: northwest, southeast and south
+
+Barnaby is here.  Bill follows you from the north-west.  Ben follows you from
+the north-west.  Toto follows you from the north-west.
+
+> s
+   You move south.
+
+Smithy
+
+Smithy
+Inside the smithy things are HOT. Very HOT. Though only a small place, this
+building gives the impression of being far larger due to the sheer amount of
+junk piled in here. Aside from the furnace and the kiln, there is a hideous
+mishmash of items that probably serve no purpose whatsoever but are just put
+there in an effort to confuse you.
+
+Roaring fires have been lit in several arched fireplaces situated around the
+room, as well as in a pit in the centre; over this pit is suspended an anvil.
+
+Exits lie: north
+
+Smith the smith is here.  Bill follows you from the north.  Ben follows you
+from the north.  Toto follows you from the north.
+
+> give broken axe to smith
+   "Aye, ah can fix this fer yer!" Smith grunts and pounds away at it for the
+next hour or so.
+   Sweat fair runs down your face throughout this time but Smith, who at
+times seems wreathed in flames, doesn't appear at all bothered by the heat.
+   In the end he turns to you and announces, "'ere's the axe, ye ninkle!
+Payment'll be a mug o' beer!"
+   "But you've already fixed the axe," you say.
+   Smith nods. "Aye, but ye ain't gettin' it back till yer fetches me some
+beer!"
+
+> n
+   You move north.
+
+Winding Road
+
+Winding Road
+You're on a winding road, often used as a means of bridging the gap from one
+location to another and, as such, not the most enthralling of locations. This
+one is no exception. A few small bushes and a solitary tree leave a lot to be
+desired.
+
+However, a short way to the south is a small building that looks somewhat
+like a smithy. Smoke curls from a chimney and drifts in lazy spirals up into
+the early morning sky (if you're playing this game at night, just use your
+imagination).
+
+Exits lie: northwest, southeast and south
+
+Barnaby is here.  Bill follows you from the south.  Ben follows you from the
+south.  Toto follows you from the south.
+
+> se
+      You move southeast.
+
+Murky Crossroads
+
+Murky Crossroads
+You're at a crossroads which is both murky and thoroughly depressing. The
+ground is knee deep in foul-smelling mud and you are forever having to pick
+woodlice out of your hair.
+
+Situated in the centre of the crossroads is a statue of a man with three
+arms, each arm pointing off in one of the directions you can take.
+
+Exits lie: (as the arm indicate) northwest, east and south
+
+  Bill follows you from the north-west.  Ben follows you from the north-west.
+ Toto follows you from the north-west.
+
+> s
+   You move south.
+
+Gates of Korbintown
+
+Gate of Korbintown
+The gates of a large walled town stand just to the south of you. The town now
+stands open to you, the gates having mysteriously unlocked themselves after
+you gave up your crown of rulership. You just hope you did the right thing.
+
+The bodies of several people are nailed to the walls on either side of the
+gates.
+
+Exits lie: north and south
+
+  Bill follows you from the north.  Ben follows you from the north.  Toto
+follows you from the north.
+
+> s
+      You move south.
+
+Korbintown
+
+Korbintown
+The bustling town of Korbintown is all around you: townsfolk rush back and
+forth, greeting each other cheerfully, exchanging insults, duelling to the
+death... The usual. Korbintown isn't a very big town but it more than makes
+up for it by the sheer noise of its inhabitants; you suspect being able to
+shout and yell is one of the prerequisites for living here.
+
+There is a fountain in the centre of the area you stand around which are
+playing several small children. A sign by the side of the fountain points
+south and indicates "Brothel".
+
+Exits lie: northwest, north, east, southwest, south and southeast
+
+Samson is here.  Bill follows you from the north.  Ben follows you from the
+north.  Toto follows you from the north.
+
+> nw
+      You move northwest.
+
+Strange Building
+
+Strange Building
+You're in a small room about the size of your privy back at Castle
+Stroppenheim. Decorating the filthy stone walls are a collection of drawings
+of a possum: in one it is posing for the artist, in another yawning, in
+another... (but I'm sure you get the picture)
+
+A ladder set into a hole in the ground winds away into the darkness.
+
+Exits lie: southeast and down
+
+Gondo the guard and Boris the guard are here.  Bill follows you from the
+south-east.  Ben follows you from the south-east.  Toto follows you from the
+south-east.
+
+> d
+   "The way is forbidden," pipes up Boris in a stern voice. "On account of
+the fact that you are not holy in the eyes of the divine one."
+   Your only response to this is a blank stare.
+   "He means that you aren't wearing a possum cap and so you aren't entering
+the cult grounds," adds Gondo.
+   "Sez who, pal?" grunts Toto.
+   "Sez me, and I'm not your pal," says Gondo.
+   "Huh!" Toto glances up at you. "You and whose bloody army?" He glances up
+at you. "C'mon, kid, we can take 'em the swines, ah just know we can!"
+
+> d
+   You move down.
+
+Ladder
+
+Ladder
+You're clinging to a very rickety wooden ladder which winds away downwards
+into the darkness and up to strange building.
+
+Exits lie: up and down
+
+  Bill follows you from above.  Ben follows you from above.  Toto follows you
+from above.
+
+> d
+   You move down.
+
+Ladder
+
+Ladder
+You're about halfway down the ladder which, you begin to notice, is swaying
+unpleasantly from side to side. One good gust of wind...
+
+Down below you can hear the chanting that you associate either with people
+being violently ill or religious fanatics.
+
+Exits lie: up and down
+
+  Bill follows you from above.  Ben follows you from above.  Toto follows you
+from above.
+
+> d
+   You move down.
+
+Ladder
+
+Ladder
+You're close to the bottom of the swaying ladder (which is also very
+slippery).
+
+The chanting is louder here than it was above and you can also see a
+flickering row of torches further down.
+
+A large sign has been nailed to the wall here though it might not be a good
+idea to read its contents.
+
+Exits lie: up and down
+
+  Bill follows you from above.  Ben follows you from above.  Toto follows you
+from above.
+
+> d
+   You move down.
+
+Cult of the Morbid Possum
+
+Cult of the Morbid Possum
+You stand in a stone chamber carved into the rock. In the middle of this
+chamber is an altar, to the top of which is tied a girl in a serious state of
+undress. Bizarrely clad figures in what look like possum costumes are dancing
+around the altar, chanting mysteriously from time to time.
+
+Overlooking the proceedings is the weirdest thing of all: a possum fully
+eight feet tall wearing a spiked black cap!
+
+A row of torches set around the walls illuminate events for you.
+
+Exits lie: up
+
+Alonzo the Magnaf- Magniff- Great! is here.
+Alice is tied to the altar here.  Bill follows you from above.  Ben follows
+you from above.  Toto follows you from above.
+
+> kill alonzo
+   "So," snarls Alonzo, "I see that you come here with murder in your hearts
+and evil in your minds. I see that the depravity that is the Temple of Red
+Harry holds you fully in its perverse sway and that no amount of-"
+   "Enough talk!" yells Toto. "Let's ace the sucker!"
+   He charges across the chamber, crashes through several of the cult
+acolytes and takes a swipe at Alonzo - who calmly catches the axe blade in
+his hand.
+   "The powers of the Cult of the Possum of Morbidness are many and great,"
+he says. "Belief in the Morbid One has granted me immunity to such weapons as
+axes and- ugh!"
+   But not, it seems, to a steel-tipped dwarven boot in the groin. As Alonzo
+folds, the four of you jump on him and proceed to pound him into the floor.
+
+   With their leader defeated, the rest of the cult take one look at Toto -
+bloodstained axe at the ready - and make a run for it.
+   "Gaah!" Toto yells after them. "Shall we go after 'em, kid, and lop us a
+few 'eads off?"
+   "We did what we came for, Toto," you say. "Besides, we've still got Gondo
+and Boris to deal with."
+
+> get holy symbol
+You take the holy symbol.
+
+> get priceless ruby
+You take the priceless ruby.
+
+> get cloak of ashes
+You take the cloak of ashes.
+
+> wear holy symbol
+   You put on the holy symbol.
+
+> u
+   You move up.
+
+Ladder
+
+Ladder
+You're close to the bottom of the swaying ladder (which is also very
+slippery).
+
+The chanting is louder here than it was above and you can also see a
+flickering row of torches further down.
+
+A large sign has been nailed to the wall here though it might not be a good
+idea to read its contents.
+
+Exits lie: up and down
+
+  Bill follows you from below.  Ben follows you from below.  Toto follows you
+from below.
+
+> u
+   You move up.
+
+Ladder
+
+Ladder
+You're about halfway down the ladder which, you begin to notice, is swaying
+unpleasantly from side to side. One good gust of wind...
+
+Down below you can hear the chanting that you associate either with people
+being violently ill or religious fanatics.
+
+Exits lie: up and down
+
+  Bill follows you from below.  Ben follows you from below.  Toto follows you
+from below.
+
+> u
+   You move up.
+
+Ladder
+
+Ladder
+You're clinging to a very rickety wooden ladder which winds away downwards
+into the darkness and up to strange building.
+
+Exits lie: up and down
+
+  Bill follows you from below.  Ben follows you from below.  Toto follows you
+from below.
+
+> u
+      You move up.
+
+Strange Building
+
+Strange Building
+You're in a small room about the size of your privy back at Castle
+Stroppenheim. Decorating the filthy stone walls are a collection of drawings
+of a possum: in one it is posing for the artist, in another yawning, in
+another... (but I'm sure you get the picture)
+
+A ladder set into a hole in the ground winds away into the darkness.
+
+Exits lie: southeast and down
+
+Gondo the guard and Boris the guard are here.
+   "What went on down there?" says Gondo. "I heard the sounds of fighting."
+   "Er, I had a slight disagreement with your boss," you say.
+   "Is that slang for you chopped his head off?" asks Boris.
+   "Er-"
+   "And are you carrying his freaking symbol?" Boris grabs for his blade.
+   You make to take the symbol off before these two maniacs butcher you but
+Gondo shakes his head. "No, Boris. He's wearing the holy symbol of the Cult."
+   "But that means-"
+   Gondo nods. "That's he's in charge of the Cult now." Gondo drops to one
+knee before you.
+   "But the Cult's dead," you say, not sure how best to handle this strange
+turn of events. "I, er, killed it..."
+   Gondo frowns. "Hmm, that's strange. With Alonzo dead and the Cult
+destroyed, well..." He gets back to his feet. "I was going to offer to come
+with you, stranger, fight against the evils of the world at your side and
+even show you a dragon egg I once found. But as the Cult's no more, well, I
+guess I'll be on my way instead."
+   Dragon egg...?
+   You rush after Gondo as he and Boris leave but there is no sign of them in
+the main square of Korbintown. Defeated, you return to the strange building.
+Bill follows you from below.  Ben follows you from below.  Toto follows you
+from below.
+
+> se
+      You move southeast.
+
+Korbintown
+
+Korbintown
+The bustling town of Korbintown is all around you: townsfolk rush back and
+forth, greeting each other cheerfully, exchanging insults, duelling to the
+death... The usual. Korbintown isn't a very big town but it more than makes
+up for it by the sheer noise of its inhabitants; you suspect being able to
+shout and yell is one of the prerequisites for living here.
+
+There is a fountain in the centre of the area you stand around which are
+playing several small children. A sign by the side of the fountain points
+south and indicates "Brothel".
+
+Exits lie: northwest, north, east, southwest, south and southeast
+
+Samson is here.  Bill follows you from the north-west.  Ben follows you from
+the north-west.  Toto follows you from the north-west.
+
+> wear red wig
+   You put on the red wig.
+
+> se
+      You move southeast.
+
+Temple of Red Harry
+
+Temple of Red Harry
+This vast building - once a nut factory, now just a place that lots of nuts
+frequent - is a shrine to the religious leader called Red Harry. Several rows
+of pews for the faithful to sit in during prayer times line the room you find
+yourself in. At the far end is a large font which you imagine could be used
+to baptise a whale if one wanted to join the Harryites (as they are often
+called). Windows depicting scenes from the Life of Harry line each of the
+walls.
+
+Clustered around the font are a group of white-robed priests with a bright
+shock of red hair - acolytes of the Holy One no doubt.
+
+Exits lie: northwest
+
+  Bill follows you from the north-west.  Ben follows you from the north-west.
+ Toto follows you from the north-west.
+
+> talk to priest
+   One of the priests looks up as you approach and murmurs: "ah, a believer.
+Tell me, young man, what made you convert to the wonder that is Red Harry."
+   "Er," you say, and then stop, not really sure how to continue.
+   "Ah, excellent!" says the priest as if you had made some interesting
+comment. "My name is Thomas and I am Harry's second-in-command. After him,
+and Balthus, and Neiron, and Shad, and Morphon, I hold the most senior
+position in the Temple. It's always nice to hear of the exploits of the new
+recruits I must say. Alas, the Temple of Red Harry is in dire straits, my
+friend, and I don't mean the group."
+   Several of the other Harryites burst out in laughter at this.
+   Thomas nods appreciately. "Coined that one myself, y'know," he confides in
+you. "A classic as I'm sure you'll agree."
+   You can't think of a suitable reply to that which doesn't include more
+than a few swearwords so you settle for murmuring, "er," again.
+   Thomas smiles. "Nice to hear your praise. Would you believe I spent the
+best part of a month working on that joke?"
+   "No," you say, "I really wouldn't."
+   "Anyway, as I was saying, the Temple of Red Harry is in 'dire straits'-"
+   More laughter from the Harryites.
+   "-namely in that we are seriously lacking in holy items. True, we have a
+font full of water but it's not very holy anymore. It lacks the element that
+makes water holy, you see, and I suspect that several of my fellow Harryites
+relieving themselves in it has not helped matters much." He gives each of
+them a stern look. "But be that as it may, we need holy water. And we need
+other holy items as well. You, as our new recruit, I shall give the task of
+finding these items."
+   "And will I be paid for my work?" you ask.
+   "But of course," says Thomas. "We are not one of those places of worship
+that expect our faithful to work for nothing. No, you shall be properly
+rewarded."
+   "That's nice to know."
+   "Indeed. Yes, your reward shall consist of a personal word with Red Harry
+himself and a place in the cemetery we've been building on the far side of
+the marsh for burying the bodies of our faithful. See? I can tell by the look
+on your face how much that means to you." Thomas gives you another smile.
+"Right. Off with you then. Return when you've got the items."
+
+> nw
+      You move northwest.
+
+Korbintown
+
+Korbintown
+The bustling town of Korbintown is all around you: townsfolk rush back and
+forth, greeting each other cheerfully, exchanging insults, duelling to the
+death... The usual. Korbintown isn't a very big town but it more than makes
+up for it by the sheer noise of its inhabitants; you suspect being able to
+shout and yell is one of the prerequisites for living here.
+
+There is a fountain in the centre of the area you stand around which are
+playing several small children. A sign by the side of the fountain points
+south and indicates "Brothel".
+
+Exits lie: northwest, north, east, southwest, south and southeast
+
+Samson is here.  Bill follows you from the south-east.  Ben follows you from
+the south-east.  Toto follows you from the south-east.
+
+> sw
+      You move southwest.
+
+Constipated Badger
+
+Constipated Badger
+You're in a tavern, that much is clear from the sounds of fighting, vomiting
+and people complaining over the poor quality of the beer. The Constipated
+Badger is the sort of tavern your mother warned you to stay away well from.
+One wrong move here and your life, money and virginity will all be gone in a
+flash.
+
+A bar runs along one wall at which is what appears to a female troll serving
+drinks. Several rousty layabouts sit at the bar exchanging insults. In one
+corner is a singer murdering some power ballad. In another corner a group of
+foul-tempered dwarves (then again is there any other sort?) are playing
+cards. A noticeboard hangs to one side of the bar.
+
+Exits lie: northeast
+
+  Bill follows you from the north-east.  Ben follows you from the north-east.
+ Toto follows you from the north-east.
+
+> give bag of gold to troll
+   "Hmmm... I guess that'll do. Here's your beer."
+   The beer is plonked down on the bar instead of being handed to you in
+typical trollish fashion.
+
+> get beer
+You take the mug of beer.
+
+> ne
+      You move northeast.
+
+Korbintown
+
+Korbintown
+The bustling town of Korbintown is all around you: townsfolk rush back and
+forth, greeting each other cheerfully, exchanging insults, duelling to the
+death... The usual. Korbintown isn't a very big town but it more than makes
+up for it by the sheer noise of its inhabitants; you suspect being able to
+shout and yell is one of the prerequisites for living here.
+
+There is a fountain in the centre of the area you stand around which are
+playing several small children. A sign by the side of the fountain points
+south and indicates "Brothel".
+
+Exits lie: northwest, north, east, southwest, south and southeast
+
+Samson is here.  Bill follows you from the south-west.  Ben follows you from
+the south-west.  Toto follows you from the south-west.
+
+> n
+   You move north.
+
+Gates of Korbintown
+
+Gate of Korbintown
+The gates of a large walled town stand just to the south of you. The town now
+stands open to you, the gates having mysteriously unlocked themselves after
+you gave up your crown of rulership. You just hope you did the right thing.
+
+The bodies of several people are nailed to the walls on either side of the
+gates.
+
+Exits lie: north and south
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> n
+   You move north.
+
+Murky Crossroads
+
+Murky Crossroads
+You're at a crossroads which is both murky and thoroughly depressing. The
+ground is knee deep in foul-smelling mud and you are forever having to pick
+woodlice out of your hair.
+
+Situated in the centre of the crossroads is a statue of a man with three
+arms, each arm pointing off in one of the directions you can take.
+
+Exits lie: (as the arm indicate) northwest, east and south
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> nw
+      You move northwest.
+
+Winding Road
+
+Winding Road
+You're on a winding road, often used as a means of bridging the gap from one
+location to another and, as such, not the most enthralling of locations. This
+one is no exception. A few small bushes and a solitary tree leave a lot to be
+desired.
+
+However, a short way to the south is a small building that looks somewhat
+like a smithy. Smoke curls from a chimney and drifts in lazy spirals up into
+the early morning sky (if you're playing this game at night, just use your
+imagination).
+
+Exits lie: northwest, southeast and south
+
+Barnaby is here.  Bill follows you from the south-east.  Ben follows you from
+the south-east.  Toto follows you from the south-east.
+
+> s
+   You move south.
+
+Smithy
+
+Smithy
+Inside the smithy things are HOT. Very HOT. Though only a small place, this
+building gives the impression of being far larger due to the sheer amount of
+junk piled in here. Aside from the furnace and the kiln, there is a hideous
+mishmash of items that probably serve no purpose whatsoever but are just put
+there in an effort to confuse you.
+
+Roaring fires have been lit in several arched fireplaces situated around the
+room, as well as in a pit in the centre; over this pit is suspended an anvil.
+
+Exits lie: north
+
+Smith the smith is here.  Bill follows you from the north.  Ben follows you
+from the north.  Toto follows you from the north.
+
+> give beer to smith
+   Smith takes it and throws it over his head. "Gaah, that be grand! Here's
+yer axe, grarg!"
+   He holds the axe out to you then abruptly drops it on the floor.
+  "Ne'er 'and a weapon ter a ninkle!" he exclaims at your protest.
+
+> get axe
+You take the axe.
+
+> n
+   You move north.
+
+Winding Road
+
+Winding Road
+You're on a winding road, often used as a means of bridging the gap from one
+location to another and, as such, not the most enthralling of locations. This
+one is no exception. A few small bushes and a solitary tree leave a lot to be
+desired.
+
+However, a short way to the south is a small building that looks somewhat
+like a smithy. Smoke curls from a chimney and drifts in lazy spirals up into
+the early morning sky (if you're playing this game at night, just use your
+imagination).
+
+Exits lie: northwest, southeast and south
+
+Barnaby is here.  Bill follows you from the south.  Ben follows you from the
+south.  Toto follows you from the south.
+
+> se
+      You move southeast.
+
+Murky Crossroads
+
+Murky Crossroads
+You're at a crossroads which is both murky and thoroughly depressing. The
+ground is knee deep in foul-smelling mud and you are forever having to pick
+woodlice out of your hair.
+
+Situated in the centre of the crossroads is a statue of a man with three
+arms, each arm pointing off in one of the directions you can take.
+
+Exits lie: (as the arm indicate) northwest, east and south
+
+  Bill follows you from the north-west.  Ben follows you from the north-west.
+ Toto follows you from the north-west.
+
+> e
+   You move east.
+
+Edge of Marsh
+
+Edge of Marsh
+From here you can see the quality of the landscape take a definite nosedive
+to the east where it opens out into a marsh. The smell, even from this
+distance, is enough to make your eyes water.
+
+To one side is a small hut which appears to have survived the ravages of
+being built next to a marsh surprisingly well (i.e. it's still standing). By
+the side of the hut a sign points the way east with a cheerless
+skull-and-crossbones emblem drawn on it.
+
+Exits lie: north, east and west
+
+  Bill follows you from the west.  Ben follows you from the west.  Toto
+follows you from the west.
+
+> n
+   You move north.
+
+Dismal Hut
+
+Dismal Hut
+The description says it all: "dismal". The floor of this hut is (for want of
+a better word) "squelchy" - it seems to move about beneath you as you walk.
+There is a collapsed bed in one corner. Next to it is a desk and a table. The
+hut is illuminated (not that it really needs to be as there's not a damn
+thing here) by a greenish window above the table.
+
+Exits lie: south
+
+Aaaaaaaaaarg is here.  Bill follows you from the south.  Ben follows you from
+the south.  Toto follows you from the south.
+
+> give axe to aaaaaaaaaarg
+   "Ah, now this is a real piece of work and no mistake! I can well imagine
+the sight on my landlord's face when he comes to collect the rent and I've
+got this beauty ready and- er, what I meant to say was: thanks for the axe.
+Right, here's how you get across the marsh."
+   Aaaaaaaaaarg imparts to you the secrets of how to cross the marsh. It
+seems you have to utter the word "whizzo!" anywhere in the marsh and a magic
+pathway will open up to the far side.
+   "Don't ask me why that happens," he says. "Just one of them weird things
+you tend to get in text adventures that don't make a damn bit of sense."
+
+> s
+   You move south.
+
+Edge of Marsh
+
+Edge of Marsh
+From here you can see the quality of the landscape take a definite nosedive
+to the east where it opens out into a marsh. The smell, even from this
+distance, is enough to make your eyes water.
+
+To one side is a small hut which appears to have survived the ravages of
+being built next to a marsh surprisingly well (i.e. it's still standing). By
+the side of the hut a sign points the way east with a cheerless
+skull-and-crossbones emblem drawn on it.
+
+Exits lie: north, east and west
+
+  Bill follows you from the north.  Ben follows you from the north.  Toto
+follows you from the north.
+
+> w
+   You move west.
+
+Murky Crossroads
+
+Murky Crossroads
+You're at a crossroads which is both murky and thoroughly depressing. The
+ground is knee deep in foul-smelling mud and you are forever having to pick
+woodlice out of your hair.
+
+Situated in the centre of the crossroads is a statue of a man with three
+arms, each arm pointing off in one of the directions you can take.
+
+Exits lie: (as the arm indicate) northwest, east and south
+
+  Bill follows you from the east.  Ben follows you from the east.  Toto
+follows you from the east.
+
+> s
+   You move south.
+
+Gates of Korbintown
+
+Gate of Korbintown
+The gates of a large walled town stand just to the south of you. The town now
+stands open to you, the gates having mysteriously unlocked themselves after
+you gave up your crown of rulership. You just hope you did the right thing.
+
+The bodies of several people are nailed to the walls on either side of the
+gates.
+
+Exits lie: north and south
+
+  Bill follows you from the north.  Ben follows you from the north.  Toto
+follows you from the north.
+
+> s
+      You move south.
+
+Korbintown
+
+Korbintown
+The bustling town of Korbintown is all around you: townsfolk rush back and
+forth, greeting each other cheerfully, exchanging insults, duelling to the
+death... The usual. Korbintown isn't a very big town but it more than makes
+up for it by the sheer noise of its inhabitants; you suspect being able to
+shout and yell is one of the prerequisites for living here.
+
+There is a fountain in the centre of the area you stand around which are
+playing several small children. A sign by the side of the fountain points
+south and indicates "Brothel".
+
+Exits lie: northwest, north, east, southwest, south and southeast
+
+Samson is here.  Bill follows you from the north.  Ben follows you from the
+north.  Toto follows you from the north.
+
+> se
+      You move southeast.
+
+Temple of Red Harry
+
+Temple of Red Harry
+This vast building - once a nut factory, now just a place that lots of nuts
+frequent - is a shrine to the religious leader called Red Harry. Several rows
+of pews for the faithful to sit in during prayer times line the room you find
+yourself in. At the far end is a large font which you imagine could be used
+to baptise a whale if one wanted to join the Harryites (as they are often
+called). Windows depicting scenes from the Life of Harry line each of the
+walls.
+
+Clustered around the font are a group of white-robed priests with a bright
+shock of red hair - acolytes of the Holy One no doubt.
+
+Exits lie: northwest
+
+Thomas the Harryite is here.  Bill follows you from the north-west.  Ben
+follows you from the north-west.  Toto follows you from the north-west.
+
+> talk to thomas
+   "Ah, the Cult is no more," says Thomas, rubbing his hands together and
+cackling evilly rather like the villain in a Bond film. "Excellent.
+Excellent! You have done well, stranger. The next time you are in these
+parts, Red Harry himself would have words with you."
+
+> nw
+            You move northwest.
+
+Korbintown
+
+Korbintown
+The bustling town of Korbintown is all around you: townsfolk rush back and
+forth, greeting each other cheerfully, exchanging insults, duelling to the
+death... The usual. Korbintown isn't a very big town but it more than makes
+up for it by the sheer noise of its inhabitants; you suspect being able to
+shout and yell is one of the prerequisites for living here.
+
+There is a fountain in the centre of the area you stand around which are
+playing several small children. A sign by the side of the fountain points
+south and indicates "Brothel".
+
+Exits lie: northwest, north, east, southwest, south and southeast
+
+Samson is here.  Bill follows you from the south-east.  Ben follows you from
+the south-east.  Toto follows you from the south-east.
+
+> se
+      You move southeast.
+
+Temple of Red Harry
+
+Temple of Red Harry
+This vast building - once a nut factory, now just a place that lots of nuts
+frequent - is a shrine to the religious leader called Red Harry. Several rows
+of pews for the faithful to sit in during prayer times line the room you find
+yourself in. At the far end is a large font which you imagine could be used
+to baptise a whale if one wanted to join the Harryites (as they are often
+called). Windows depicting scenes from the Life of Harry line each of the
+walls.
+
+Clustered around the font are a group of white-robed priests with a bright
+shock of red hair - acolytes of the Holy One no doubt.
+
+Exits lie: northwest
+
+Thomas the Harryite and Red Harry are here.  Bill follows you from the
+north-west.  Ben follows you from the north-west.  Toto follows you from the
+north-west.
+
+> talk to harry
+   "Ah, so you're the fellow what destroyed those pesky cultists for me, eh?"
+says Harry. "Well done, feller, I couldn't have done it without you. When my
+plans for world domination and universal conquest get under way, I'll reserve
+a special place at my right hand side for you."
+   "But I thought I was going to be on your right hand side!" protests
+Thomas.
+   Harry shrugs. "Nah! You're too much of a grovelling little weasel, Thomas
+ol' boy."
+   "But- but-"
+   Thomas bursts into tears and runs from the temple.
+   Harry says, "well that's him out of the way. Now, what can I do for you?"
+
+   1)  How's about a dragon egg?
+   2)  Why were you so horrible to Thomas?
+   3)  Can I get a job here at your temple? It seems a nice cushy life.
+   4)  What was that about world domination and universal conquest?
+   5)  Follow me.
+   6)  I have to go now.
+   7)  It was a pleasure wiping out the Cult of the Morbid Possum for you,
+boss.
+
+> 7
+   "Glad you enjoyed your work. Got another little job you might be
+interested in." Harry fishes a key out of his pocket and tosses it on the
+floor. "I'd have handed that to you," he explains, "but I've always enjoyed
+making people bend over and pick stuff up. I think it comes from my mispent
+youth in Harrenden Jail or something. Anyway, as I was saying, I've got a
+little job for you. There's a fortress east of the marsh, grisly place by all
+accounts. One of my ancestors left some priceless manuscripts there -
+I'm not sure how much they're worth but I doubt it's much - and I've been
+looking to get them back for quite some time now. Only the problem is that
+the marsh is just such a damned dangerous place that no one I've sent has yet
+managed to reach the other side, find the fortress and retrieve the
+manuscripts. Until you came along."
+   You glance at the fallen key and say, "so you want me to risk life and
+limb to fetch you these manuscripts?"
+   Harry snaps his fingers. "Got it in one! That key will let you into the
+fortress. The manuscripts are my property but anything else - like dragon
+eggs or the like - you find lying around, feel free to keep."
+
+> get key of pure harry
+You take the key of pure Harry.
+
+> nw
+      You move northwest.
+
+Korbintown
+
+Korbintown
+The bustling town of Korbintown is all around you: townsfolk rush back and
+forth, greeting each other cheerfully, exchanging insults, duelling to the
+death... The usual. Korbintown isn't a very big town but it more than makes
+up for it by the sheer noise of its inhabitants; you suspect being able to
+shout and yell is one of the prerequisites for living here.
+
+There is a fountain in the centre of the area you stand around which are
+playing several small children. A sign by the side of the fountain points
+south and indicates "Brothel".
+
+Exits lie: northwest, north, east, southwest, south and southeast
+
+Samson is here.  Bill follows you from the south-east.  Ben follows you from
+the south-east.  Toto follows you from the south-east.
+
+> n
+   You move north.
+
+Gates of Korbintown
+
+Gate of Korbintown
+The gates of a large walled town stand just to the south of you. The town now
+stands open to you, the gates having mysteriously unlocked themselves after
+you gave up your crown of rulership. You just hope you did the right thing.
+
+The bodies of several people are nailed to the walls on either side of the
+gates.
+
+Exits lie: north and south
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> n
+   You move north.
+
+Murky Crossroads
+
+Murky Crossroads
+You're at a crossroads which is both murky and thoroughly depressing. The
+ground is knee deep in foul-smelling mud and you are forever having to pick
+woodlice out of your hair.
+
+Situated in the centre of the crossroads is a statue of a man with three
+arms, each arm pointing off in one of the directions you can take.
+
+Exits lie: (as the arm indicate) northwest, east and south
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> e
+   You move east.
+
+Edge of Marsh
+
+Edge of Marsh
+From here you can see the quality of the landscape take a definite nosedive
+to the east where it opens out into a marsh. The smell, even from this
+distance, is enough to make your eyes water.
+
+To one side is a small hut which appears to have survived the ravages of
+being built next to a marsh surprisingly well (i.e. it's still standing). By
+the side of the hut a sign points the way east with a cheerless
+skull-and-crossbones emblem drawn on it.
+
+Exits lie: north, east and west
+
+  Bill follows you from the west.  Ben follows you from the west.  Toto
+follows you from the west.
+
+> e
+   You move east.
+
+Marsh
+
+Marsh
+You're stumbling through one of the most foul places in Harrenden: a marsh!
+The ground is soft and often you sink up to your knees in it. The smell is
+quite atrocious (and from someone who spent his childhood mucking out pigs
+this is really saying something).
+
+Far off in the mists that rise from his godforsaken place, you catch sight of
+bizarre trees, obscure bushes and, perhaps, the dead and rotting bodies of
+the last poor fools to try and cross this marsh...
+
+Exits lie: in lots and lots of directions
+
+  Bill follows you from the west.  Ben follows you from the west.  Toto
+follows you from the west.
+
+> whizzo!
+   The moment you utter the magic word, a path opens to the east which you
+are sure wasn't there before. You scurry along it before it disappears again.
+
+Muddy Path
+
+Muddy Path
+You're on the eastern side of the marsh (which lies, as you might have
+gathered, to the west). The ground here is muddy and desolate but someone has
+at least made the effort to make things easier by carving a path.
+
+A row of skulls line the path to the southeast whereas looming to the north
+is a large building which looks about as old as Castle Stroppenheim.
+
+Exits lie: northeast, southeast and west
+
+Merton is here, mumbling inanely to himself.  Bill follows you.  Ben follows
+you.  Toto follows you.
+
+> ne
+      You move northeast.
+
+Fortress Gates
+
+Fortress Gates
+Before you tower a pair of ruined gates and, beyond them, a footpath leading
+to a fortress of epic proportions. Towering on the northern horizon, it sends
+shivers down your spine and turns your legs to jelly (not in the literal
+sense of course but it's certainly a chilling sight).
+
+Mounted on either side of the gates are two gargoyles, stone beasts fully
+fifteen feet tall that you could swear move from time to time.
+
+Exits lie: north and southwest
+
+  Bill follows you from the south-west.  Ben follows you from the south-west.
+ Toto follows you from the south-west.
+
+> open gate
+   Using the key of pure Harry you obtained from Red Harry, you unlock the
+gates of the fortress. They rattle open with a sound quite similar to a knife
+being drawn across someone's throat (at least in your opinion).
+   "Geez!" mutters Bill. "That sounded just like a knife being drawn across
+someone's throat, boss!"
+   "Don't be ridiculous, Bill!" you say. "It was just a perfectly ordinary
+sound made by some old gates opening."
+
+> n
+   You move north.
+
+Entrancehall
+
+Entrancehall
+You're standing in the entrancehall of the fortress, a place that makes
+Castle Stroppenheim seem small and meek by comparison. Though long since
+fallen to ruin, this fortress retains an air of majesty about it and, quite
+unpleasantly, a feeling comes to you that the place isn't quite as dead as it
+first appears.
+
+Corridors lead off in many directions but most appear blocked by fallen
+rubble. Before you a flight of stone steps lead up the first level of this
+mighty edifice.
+
+Exits lie: northwest, northeast, west, southeast, south and up
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> u
+   You move up.
+
+Ruined Hall
+
+Ruined Hall
+Once this was perhaps the main hall of the fortress, a mighty chamber
+stretching for nigh on two hundred feet with large stone statues lining the
+walls. Now the statues lie in broken fragments and the hall itself is a ruin.
+In the centre of the hall is a pile of debris, piled to a height of some
+fifteen feet. Several dead bodies lie amidst the debris.
+
+Set in each of the four walls is a shadowy doorway, beyond which nothing can
+be seen.
+
+Exits lie: north, south, east, west and down
+
+  Bill follows you from below.  Ben follows you from below.  Toto follows you
+from below.
+
+> n
+   You move north.
+
+Ruined Chamber
+
+Ruined Chamber
+Judging by the forty five beds you find in this room which is just about big
+enough to swing a very small cat, you would guess this is where the servants
+of the fortress used to stay. Poor drawings decorate two of the walls but the
+other two are strangely blank.
+
+There is nothing else of interest in this room.
+
+Exits lie: south
+
+   You can also see a teddy bear repair kit and a prayer book.  Bill follows
+you from the south.  Ben follows you from the south.  Toto follows you from
+the south.
+
+> x wall
+   In big bold letters are the words: "DROP THAT WHICH IS REQUIRED IN THE
+LOCATION IT IS REQUIRED TO BE DROPPED IN".
+
+   "Sounds like a puzzle, boss," says Ben.
+   "Any idea what it means?" you ask.
+   Ben shakes his head. "Nah! Not me. I'm about as thick as, as- well, as
+something that's really really thick. I'm still wondering why you bothered
+bringin' me along at all."
+
+> get teddy bear repair kit
+You take the teddy bear repair kit.
+
+> get prayer book
+You take the prayer book.
+
+> s
+   You move south.
+
+Ruined Hall
+
+Ruined Hall
+Once this was perhaps the main hall of the fortress, a mighty chamber
+stretching for nigh on two hundred feet with large stone statues lining the
+walls. Now the statues lie in broken fragments and the hall itself is a ruin.
+In the centre of the hall is a pile of debris, piled to a height of some
+fifteen feet. Several dead bodies lie amidst the debris.
+
+Set in each of the four walls is a shadowy doorway, beyond which nothing can
+be seen.
+
+Exits lie: north, south, east, west and down
+
+  Bill follows you from the north.  Ben follows you from the north.  Toto
+follows you from the north.
+
+> e
+   You move east.
+
+Ruined Chamber
+
+Ruined Chamber
+A row of bodies line the floor of this room, adding an altogether grisly
+aspect to it that makes you glad you've not had your dinner today. There is
+nothing to indicate what killed the people but judging by the freshness of
+the wounds you would guess they have not been dead for long.
+
+There is nothing else of interest in this room.
+
+Exits lie: west
+
+  Bill follows you from the west.  Ben follows you from the west.  Toto
+follows you from the west.
+
+> drop prayer book
+   As you drop the prayer book to the ground, you hear a gong chime somewhere
+else in the fortress.
+
+> w
+   You move west.
+
+Ruined Hall
+
+Ruined Hall
+Once this was perhaps the main hall of the fortress, a mighty chamber
+stretching for nigh on two hundred feet with large stone statues lining the
+walls. Now the statues lie in broken fragments and the hall itself is a ruin.
+In the centre of the hall is a pile of debris, piled to a height of some
+fifteen feet. Several dead bodies lie amidst the debris.
+
+Set in each of the four walls is a shadowy doorway, beyond which nothing can
+be seen.
+
+Exits lie: north, south, east, west and down
+
+  Bill follows you from the east.  Ben follows you from the east.  Toto
+follows you from the east.
+
+> w
+   You move west.
+
+Ruined Chamber
+
+Ruined Chamber
+This looks to have been a nursery at some distant time in the past: you see
+smashed up toys, broken cots and even a large teddy bear which resembles one
+you had yourself as a kid (but minus a knife you used to stab into your
+teddy's head for reasons which don't need going into right now).
+
+There is nothing else of interest in this room.
+
+Exits lie: east
+
+  Bill follows you from the east.  Ben follows you from the east.  Toto
+follows you from the east.
+
+> x toys
+   Sifting through the smashed up toys, you come across the priceless
+manuscripts Red Harry asked you to find.
+
+> get manuscripts
+You take the priceless manuscripts.
+
+> drop teddy bear repair kit
+   The moment you drop the teddy bear repair kit on the floor, a gong sounds
+throughout the fortress.
+
+> e
+      You move east.
+
+Ruined Hall
+
+Ruined Hall
+Once this was perhaps the main hall of the fortress, a mighty chamber
+stretching for nigh on two hundred feet with large stone statues lining the
+walls. Now the statues lie in broken fragments and the hall itself is a ruin.
+In the centre of the hall is a pile of debris, piled to a height of some
+fifteen feet. Several dead bodies lie amidst the debris.
+
+Set in each of the four walls is a shadowy doorway, beyond which nothing can
+be seen.
+
+Exits lie: north, south, east, west and down
+
+   A billowing mist suddenly shoots from the southern, previously unpassable
+doorway and swirls all around you.
+   "Ah," says a ghostly presence, "you are clever indeed to figure out a
+puzzle as complex as that one."
+   "Nah," grunts Toto. "'Ee 'ad me 'elpin' him out!"
+   The ghostly presence takes one look at Toto and sneers, "hmmm." It turns
+to you. "Well done, adventurer, you have solved my puzzle. The murdered souls
+of this fortress are at last at peace. Take the southern route and fulfill
+your destiny. And now, farewell..."
+   "'Ang on!" says Toto, making a grab for the ghostly presence. "Is that all
+the bloody reward we get fer that damn puzzle?"
+   "It is the reward and it is reward enough."
+   "Gaaaah, yer bloody cheapskate!"
+   Toto takes a swing for the ghostly presence with his axe but his weapon
+just passes through the ghost without harming it. You manage to clap a hand
+on Toto's shoulder to prevent him chasing the presence out of the castle,
+which he agrees not to do in the end.
+   "So is this it then, kid?" he says with a glance at the southern doorway.
+   "It?" you ask.
+   "The dragon egg."
+   You look at the doorway yourself. The dragon egg? It could well be.  Bill
+follows you from the west.  Ben follows you from the west.  Toto follows you
+from the west.
+
+> s
+      You move south.
+
+Birthing Chamber
+
+Birthing Chamber
+Of all the places you expected to find yourself in, this was clearly not one
+of them. The walls are covered - literally covered with not an inch of space
+spare - with thousands of drawings of dragons: small dragons, big dragons, a
+dragon posing with a nun in its mouth, a dragon breathing flame over a
+town...
+
+And, weirdest of all, is the sight in the centre of this chamber: a pedestal
+on which sits a small cot, the sort of thing you'd imagine a newborn baby
+would be placed in.
+
+And inside the cot is the dragon egg you have been searching for.
+
+Exits lie: north
+
+Vorgon is here.
+   "Ah," says the large fellow in the armour, "you've arrived at last. I was
+wondering when you'd care to show up."
+   "An' who the bloody 'ell are ye, pal?" snaps Toto. "Yer don't half look
+like a git in that armour!"
+   "My name is Vorgon," says the man. "And I am your death-"
+   Ben faints.
+   "-if you try to take the dragon egg from me."
+   You give Ben a sharp kick in the ribs and he wakes up again.
+   "I represent a Cult - and the first one to make a joke about that and
+accidentally pronounce the word one letter wrong gets a sword blade in the
+ear - called the Cult of the Dragon. We worship dragons. They are our Gods!
+   "Dragons are everything mankind is not: big, powerful, fire-breathing,"
+Vorgon goes on. "We in the Cult do everything in our power to procure dragon
+eggs. Once the dragon hatches, we nurture it until it is fully grown. We
+already have half a dozen dragons. With this one-" he gestures to the cot on
+the pedestal "-we will have an even eight.
+   "And when we have eight dragons: why, the world will be ours. Mankind will
+be swept away in a war of death and carnage."
+   This time Bill faints.
+   "Yer a bleedin' headcase!" yells Toto.
+   "I am merely stating the facts as I see them," replies Vorgon.
+   "Same here!"
+   You place a hand on Toto's shoulder before he goes rushing into the fray.
+"How about we discuss this like adults, Vorgon? We need that egg."
+   "Your need is not as great as mine."
+   "Well, how's about a nice castle-"
+   "No."
+   "Gold?"
+   "No."
+   "Power and good fortune?"
+   "No."
+   "Are you going to say no to everything I suggest?"
+   "No- er, yes." Vorgon drops a hand to his sword. "I grow weary of this
+conversation, fool. You have come for the egg. Try and take it if you will.
+You only have to defeat me."
+   "It's four against one, yer arsewipe!" Toto snaps.
+   "Three!" chips in Bill who chooses this moment to regain consciousness.
+   "Two!" says Ben.
+   Toto flashes you an angry look. "Don't you dare say 'one' kid!" He looks
+back at Vorgon. "'Ell with it, ah'll take ye myself. The bigger they are, the
+harder they bloody well fall!"
+   Vorgon sneers and unsheathes his sword. A pall of darkness seems to shroud
+the chamber. "Come then. If you dare."  Bill follows you from the north.  Ben
+follows you from the north.  Toto follows you from the north.
+
+> kill vorgon
+   "So be it then!" sneers Vorgon and charges at you.
+
+   The fight is long and bloody, mainly on account of the fact that Vorgon
+moves so fast, even clad in his thick, heavy armour, that it's difficult to
+lay a blow on him. Even Toto has difficulty hitting him (represented by his
+eloquent "come 'ere an' let me smack yer, yer bastard!
+Gaaaaaaaaaaaahhhhhhh!!!!!!!!!) but in the end a lucky move from Ben - who you
+shove under Vorgon's feet - sends the cultist crashing to his knees.
+   Toto doesn't waste a second and brings his axe smashing down on Vorgon's
+head. Even then, Vorgon manages to twist around and grab the axe as it
+descends. He and Toto wrestle back and forth across the floor, neither able
+to gain an advantage - until you step forward and stab Vorgon in the side
+with your weapon. He grimaces - and Toto brings the axe crashing down.
+   Exit one cultist.
+
+   "Gaah, he was one tough sonofabitch!" gasps Toto afterwards. "But yer got
+what yer came fer, kid."
+   "The dragon egg," you say.
+   It lies on the floor by the pedestal, knocked there during the fight with
+Vorgon. Now all you've got to do is get it returned to the dragon.
+
+   But it couldn't be that easy, could it?
+
+   Could it?
+
+> get egg
+You take the dragon egg.
+
+> n
+   You move north.
+
+Ruined Hall
+
+Ruined Hall
+Once this was perhaps the main hall of the fortress, a mighty chamber
+stretching for nigh on two hundred feet with large stone statues lining the
+walls. Now the statues lie in broken fragments and the hall itself is a ruin.
+In the centre of the hall is a pile of debris, piled to a height of some
+fifteen feet. Several dead bodies lie amidst the debris.
+
+Set in each of the four walls is a shadowy doorway, beyond which nothing can
+be seen.
+
+Exits lie: north, south, east, west and down
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> d
+   You move down.
+
+Entrancehall
+
+Entrancehall
+You're standing in the entrancehall of the fortress, a place that makes
+Castle Stroppenheim seem small and meek by comparison. Though long since
+fallen to ruin, this fortress retains an air of majesty about it and, quite
+unpleasantly, a feeling comes to you that the place isn't quite as dead as it
+first appears.
+
+Corridors lead off in many directions but most appear blocked by fallen
+rubble. Before you a flight of stone steps lead up the first level of this
+mighty edifice.
+
+Exits lie: northwest, northeast, west, southeast, south and up
+
+  Bill follows you from above.  Ben follows you from above.  Toto follows you
+from above.
+
+> s
+   You move south.
+
+Fortress Gates
+
+Fortress Gates
+Before you tower a pair of ruined gates and, beyond them, a footpath leading
+to a fortress of epic proportions. Towering on the northern horizon, it sends
+shivers down your spine and turns your legs to jelly (not in the literal
+sense of course but it's certainly a chilling sight).
+
+Mounted on either side of the gates are two gargoyles, stone beasts fully
+fifteen feet tall that you could swear move from time to time.
+
+Exits lie: north and southwest
+
+  Bill follows you from the north.  Ben follows you from the north.  Toto
+follows you from the north.
+
+> sw
+      You move southwest.
+
+Muddy Path
+
+Muddy Path
+You're on the eastern side of the marsh (which lies, as you might have
+gathered, to the west). The ground here is muddy and desolate but someone has
+at least made the effort to make things easier by carving a path.
+
+A row of skulls line the path to the southeast whereas looming to the north
+is a large building which looks about as old as Castle Stroppenheim.
+
+Exits lie: northeast, southeast and west
+
+Merton is here, mumbling inanely to himself.  Bill follows you from the
+north-east.  Ben follows you from the north-east.  Toto follows you from the
+north-east.
+
+> w
+      You move west, and soon become lost in the marsh again.
+
+Marsh
+
+Marsh
+You're stumbling through one of the most foul places in Harrenden: a marsh!
+The ground is soft and often you sink up to your knees in it. The smell is
+quite atrocious (and from someone who spent his childhood mucking out pigs
+this is really saying something).
+
+Far off in the mists that rise from his godforsaken place, you catch sight of
+bizarre trees, obscure bushes and, perhaps, the dead and rotting bodies of
+the last poor fools to try and cross this marsh...
+
+Exits lie: in lots and lots of directions
+
+  Bill follows you.  Ben follows you.  Toto follows you.
+
+> w
+   You move west.
+
+Edge of Marsh
+
+Edge of Marsh
+From here you can see the quality of the landscape take a definite nosedive
+to the east where it opens out into a marsh. The smell, even from this
+distance, is enough to make your eyes water.
+
+To one side is a small hut which appears to have survived the ravages of
+being built next to a marsh surprisingly well (i.e. it's still standing). By
+the side of the hut a sign points the way east with a cheerless
+skull-and-crossbones emblem drawn on it.
+
+Exits lie: north, east and west
+
+  Bill follows you from the east.  Ben follows you from the east.  Toto
+follows you from the east.
+
+> w
+   You move west.
+
+Murky Crossroads
+
+Murky Crossroads
+You're at a crossroads which is both murky and thoroughly depressing. The
+ground is knee deep in foul-smelling mud and you are forever having to pick
+woodlice out of your hair.
+
+Situated in the centre of the crossroads is a statue of a man with three
+arms, each arm pointing off in one of the directions you can take.
+
+Exits lie: (as the arm indicate) northwest, east and south
+
+  Bill follows you from the east.  Ben follows you from the east.  Toto
+follows you from the east.
+
+> s
+   You move south.
+
+Gates of Korbintown
+
+Gate of Korbintown
+The gates of a large walled town stand just to the south of you. The town now
+stands open to you, the gates having mysteriously unlocked themselves after
+you gave up your crown of rulership. You just hope you did the right thing.
+
+The bodies of several people are nailed to the walls on either side of the
+gates.
+
+Exits lie: north and south
+
+  Bill follows you from the north.  Ben follows you from the north.  Toto
+follows you from the north.
+
+> s
+      You move south.
+
+Korbintown
+
+Korbintown
+The bustling town of Korbintown is all around you: townsfolk rush back and
+forth, greeting each other cheerfully, exchanging insults, duelling to the
+death... The usual. Korbintown isn't a very big town but it more than makes
+up for it by the sheer noise of its inhabitants; you suspect being able to
+shout and yell is one of the prerequisites for living here.
+
+There is a fountain in the centre of the area you stand around which are
+playing several small children. A sign by the side of the fountain points
+south and indicates "Brothel".
+
+Exits lie: northwest, north, east, southwest, south and southeast
+
+Samson is here.  Bill follows you from the north.  Ben follows you from the
+north.  Toto follows you from the north.
+
+> se
+      You move southeast.
+
+Temple of Red Harry
+
+Temple of Red Harry
+This vast building - once a nut factory, now just a place that lots of nuts
+frequent - is a shrine to the religious leader called Red Harry. Several rows
+of pews for the faithful to sit in during prayer times line the room you find
+yourself in. At the far end is a large font which you imagine could be used
+to baptise a whale if one wanted to join the Harryites (as they are often
+called). Windows depicting scenes from the Life of Harry line each of the
+walls.
+
+Clustered around the font are a group of white-robed priests with a bright
+shock of red hair - acolytes of the Holy One no doubt.
+
+Exits lie: northwest
+
+Red Harry is here.  Bill follows you from the north-west.  Ben follows you
+from the north-west.  Toto follows you from the north-west.
+
+> give manuscripts to harry
+   "My manuscripts returned!" Harry cries. He opens them up in the middle and
+a magazine with a photo on the cover of a young lady wearing not too many
+clothes falls out. Harry snatches it up quickly and stuffs it in his pocket.
+"Many thanks for safe return of the po- er, the manuscripts, devoted servant.
+I'll let you know if there's anything else I need you for. Well done. Er,
+have some score points for being such a decent chap."
+   "Is that a dirty book you got there, mister?" pipes in Ben.
+   "Er..." Harry's face suddenly matches his name. "What if it is?"
+   "Can I have a look?"
+   "No!"
+   "Oh, please..."
+   "No, you cannot!"
+
+> nw
+      You move northwest.
+
+Korbintown
+
+Korbintown
+The bustling town of Korbintown is all around you: townsfolk rush back and
+forth, greeting each other cheerfully, exchanging insults, duelling to the
+death... The usual. Korbintown isn't a very big town but it more than makes
+up for it by the sheer noise of its inhabitants; you suspect being able to
+shout and yell is one of the prerequisites for living here.
+
+There is a fountain in the centre of the area you stand around which are
+playing several small children. A sign by the side of the fountain points
+south and indicates "Brothel".
+
+Exits lie: northwest, north, east, southwest, south and southeast
+
+Samson is here.  Bill follows you from the south-east.  Ben follows you from
+the south-east.  Toto follows you from the south-east.
+
+> n
+   You move north.
+
+Gates of Korbintown
+
+Gate of Korbintown
+The gates of a large walled town stand just to the south of you. The town now
+stands open to you, the gates having mysteriously unlocked themselves after
+you gave up your crown of rulership. You just hope you did the right thing.
+
+The bodies of several people are nailed to the walls on either side of the
+gates.
+
+Exits lie: north and south
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> n
+   You move north.
+
+Murky Crossroads
+
+Murky Crossroads
+You're at a crossroads which is both murky and thoroughly depressing. The
+ground is knee deep in foul-smelling mud and you are forever having to pick
+woodlice out of your hair.
+
+Situated in the centre of the crossroads is a statue of a man with three
+arms, each arm pointing off in one of the directions you can take.
+
+Exits lie: (as the arm indicate) northwest, east and south
+
+  Bill follows you from the south.  Ben follows you from the south.  Toto
+follows you from the south.
+
+> nw
+      You move northwest.
+
+Winding Road
+
+Winding Road
+You're on a winding road, often used as a means of bridging the gap from one
+location to another and, as such, not the most enthralling of locations. This
+one is no exception. A few small bushes and a solitary tree leave a lot to be
+desired.
+
+However, a short way to the south is a small building that looks somewhat
+like a smithy. Smoke curls from a chimney and drifts in lazy spirals up into
+the early morning sky (if you're playing this game at night, just use your
+imagination).
+
+Exits lie: northwest, southeast and south
+
+Barnaby is here.  Bill follows you from the south-east.  Ben follows you from
+the south-east.  Toto follows you from the south-east.
+
+> nw
+      You move northwest.
+
+Junction
+
+Junction
+The road splits here, one branch heading north to your castle, one going
+southwest to a deep, dark wood and two other branches heading off to the east
+and southeast. A signpost in the centre of the junction informs you of just
+where you're going.
+
+A short jaunt to the west is what appears to be a flower stall.
+
+Exits lie: north, east, west, southeast and southwest
+
+  Bill follows you from the south-east.  Ben follows you from the south-east.
+ Toto follows you from the south-east.
+
+> n
+   You move north.
+
+South Road
+
+South Road
+Running in a roughly southwards direction, the imaginately named South Road
+winds away as far as the eye can see - assuming the eye cannot see very far,
+that is, as a hundred metres to the south it comes to a junction.
+
+There isn't really a whole lot to do in this location and you get the sinking
+suspicion that it has been designed as more a kind of filler than anything
+that actually serves a purpose.
+
+By the side of the road is a bored looking scarecrow.
+
+Exits lie: north and south
+
+   You can also see a stuffed cat called Sam.
+Perry the pointless pedlar is here.  Bill follows you from the south.  Ben
+follows you from the south.  Toto follows you from the south.
+
+> n
+   You move north.
+
+Courtyard
+
+Courtyard
+The main courtyard of Castle Stroppenheim isn't a very impressive site at the
+best of times, which this most certainly isn't. The dead (and still steaming)
+bodies of a couple of your servants the dragon lunched on don't add a lot to
+the decor and there is a definite atmosphere of unease floating around (or
+maybe that's just the roasted bodies again).
+
+A pair of broken gates lead southwards out of the courtyard and into the big,
+bad world. Off to one side are the stables which, while a little charred, are
+at least upright.
+
+Exits lie: north, south, west and up
+
+Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
+the south.  Ben follows you from the south.  Toto follows you from the south.
+
+> u
+   "Are you sure you wanna go up there, boss?" says Stimmons. "That's where
+the dragon said he'd wait for you. If you haven't got the egg, well..."
+   "Aah, me arm, me arm!" Doris wails. When no one pays her much attention,
+she wails a bit louder.
+
+> u
+      You move up.
+
+The Spire
+
+The Spire
+Rising not very majestically from the courtyard of Castle Stroppenheim, the
+spire is a small tower. Its purpose is supposed to be that of a watchtower
+but as your staff doesn't comprise of anyone with decent eyesight, the spire
+has generally gone unused thus far.
+
+The spire is open on all four sides by means of large, glassless windows.
+Below each window lies a heavy chest.
+
+Exits lie: down
+
+The dragon is here.
+   "AH," roars the dragon, "SO YOU HAVE COME AFTER ALL. I HAD HALF EXPECTED
+YOU MIGHT DECIDE TO FLEE."
+   "Fleeing's not in my nature," you say.
+   "REALLY? AND PERHAPS YOU ALSO NOTICED THAT YOU CANNOT FLEE. THE BORDERS OF
+THIS LAND ARE VAST, ARE THEY NOT, BUT NOT SO VAST THAT ONE SUCH AS I COULD
+NOT HAVE FOUND YOU. WHEREVER YOU CHOSE TO FLEE TO.
+   "TO BUSINESS THEN. I WOULD HAVE THE EGG I ASKED YOU FOR."
+   "And if I don't have the egg?"
+   The dragon blows a gust of flame that misses you by mere inches and singes
+your eyebrows. "I WOULD NOT LIKE TO BE IN YOUR SHOES WERE THAT THE CASE,
+HUMAN. UNLESS, OF COURSE, YOU CARE TO FIGHT ME..." The dragon laughs to
+itself. "BUT ONLY A FOOL WOULD THINK TO TAKE ON A DRAGON AND EVEN A FOOL LIKE
+YOU WOULD KNOW THE FUTILITY OF SUCH AN ACTION.
+   "BUT I TIRE OF THESE WORD GAME. GIVE ME THE DRAGON EGG. NOW!"  Bill
+follows you from below.  Ben follows you from below.  Toto follows you from
+below.
+
+> give egg to dragon
+   You hand over the egg.
+   The dragon pauses in the act of drawing a deep breath in readiness to
+roast you, and instead says, "DAMN YOU FOUND IT."
+   "You don't sound very happy," you say.
+   "I'M NOT. I WAS BANKING ON YOU FAILING SO I COULD KILL YOU." It frowns.
+"THEN AGAIN, I COULD ALWAYS TAKE THE EGG AND ROAST YOU. I MEAN, NOBODY WOULD
+EVER KNOW ANY BETTER AND EVEN IF THEY DID THERE'S NOT A FOOL ALIVE TODAY WHO
+WOULD GAINSAY A DRAGON-"
+   "Hold on, yer sonofabitch!" snarls Toto. "Are ye tellin' me yer's gonna
+cheat after all we been through ter get yer that damn bleedin' egg?"
+   "ER-"
+   "The 'ell yer are!" your dwarven companion yells. "YE'RE GONNA TAKE THIS
+DAMN EGG AN' YE'RE GONNA GET YER SCALY ARSE OUTTA THIS DAMN CASTLE AN' IF AH
+CATCH SIGHT OF YER AGAIN AND YER CHEATIN' WAYS AH'M GONNA TELLS YER MOTHER
+ABOUT IT!"
+   Up until the last bit, the dragon was looking very suspiciously like it
+was going to pounce on Toto and crush him into the floor.
+   But instead it says, "MY... MOTHER?"
+   "Yer mother, right. She dunna like cheatin' from wot ah hear. In fact, ah
+bet if she wuz ter find out ye'd gone an' tried ter bloody well cheat us
+she'd have yer 'ead orf!"
+   The dragon tries to laugh at this but the laugh comes out like a strangled
+croak. "GEEZ, YOU'RE EVIL! I MEAN, GOOD GOD! THREATENING TO TELL MY MOTHER
+JUST BECAUSE I WAS GOING TO KILL YOU!" It snatches up the egg. "I'LL BE GOING
+NOW AND YOU... YOU JUST KEEP QUIET ABOUT THIS TO MY MOTHER IF YOU KNOW WHAT'S
+GOOD FOR YOU!"
+   "An' ye bugger orf outta 'ere before ah's get an itchin' ter start
+blabbin'!"
+   The dragon yelps and flies out of the window. It swoops around the castle
+a few times, its curses ringing out loud and clear, before flying off into
+the sunset.
+   "That was awful brave of you, Toto," you say in admiration.
+   "Yuh," says Toto.
+   "I mean, standing up to the dragon like that."
+   "Yuh," says Toto.
+   "I really admired what you did."
+   "Yuh," says Toto.
+   "Er... are you okay?"
+   Toto wipes his sweating brow. "Ah think ah need a drink, kid. Ah bloody
+big drink..." And then he collapses in a dead faint at your feet.
+
+Later that day...
+
+   There was much merriment about the castle. Toto (recovered from his bout
+of dragon fear and threatening to kill any loudmouth who even considered
+telling it to anybody) spent the day getting completely and utterly drunk. So
+much did he drink that at one point the hero of the story (this being "you"
+of course) had to send Stimmons (still complaining about his asthma) out for
+more beer from nearby Korbintown.
+   All in all, everything had turned out fine. Until that night...
+
+   The hero had just decided to turn in for the day when he became aware of
+the figure standing by the window. It was wreathed in shadows and seemed hard
+to look upon. The figure was pretty much the same.
+   "Who are you?" asked the hero.
+   "I? I am nobody that need concern you now. But I was passing by and saw
+what had happened today and just thought I'd offer my opinion on what went
+down.
+   "You did really well."
+   "That's your opinion?"
+   "What? You were expecting a great big wonderful cheer from me just because
+you managed to make it to the end of the game in one piece? Fat chance. I
+tell things like they are. You did well, kid, but don't let the success of it
+all go to your head. After all, you've got more adventures to go on."
+   But the farm boy who rescued a princess and later went on to save his
+castle from an evil dragon merely shook his head. "Not me. I've had it with
+the adventuring life."
+   The figure cawed. "Is that what you think? Well, well. While you might
+have had it with the adventuring life, what makes you so sure the adventuring
+life has had it with you?
+   "Anyway, I just stopped by to wish you well in your future exploits and
+let you know that your score turned out at 76. Now, if that's less than 100%
+you really ought to be thinking about having another go. 100% is possible."
+   "What if I got 100% this time?" the hero asked.
+   "Possible, I guess, though unless you've been here quite a few times
+before I doubt it. Getting 100% isn't at all easy. And even if you got 100%
+you probably didn't get a wonderful reputation along the way. I'd be aiming
+for at least 12 myself. Still, now you've reached here once you can always
+use the knowledge you gained this time to improve your score next time." The
+figure glanced out of the window. "And now I think I'll be going. Take care
+and keep a lookout for Toto's brother. I suspect he'll be along here soon."
+   "Otto?"
+   "No, I don't think that's the fellow's name. Oott - that's his name!"
+   The figure gave the hero a deep bow and departs, leaving said hero to
+debate on whether he had indeed achieved 100%. If not, he reflected, there
+was always the option of typing 'restart' and having another go...  Bill
+follows you.  Ben follows you.  Toto follows you.
+
+> quit
+Do you really want to quit? [Y/N]

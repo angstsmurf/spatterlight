@@ -1,0 +1,188 @@
+4
+x bureau
+get bell
+open wardrobe
+get crown
+open closet
+get trousers
+wear trousers
+get bear rug
+get lump
+down
+ring bell
+s
+talk to stimmons
+2
+n
+open door
+n
+talk to bill
+4
+talk to ben
+4
+drop key
+s
+s
+w
+x ned
+ask ned about rake
+e
+s
+s
+se
+se
+s
+drop crown
+s
+sw
+x dwarves
+give bear rug to troll
+get beer
+give beer to toto
+give lump to troll
+get beer
+give beer to toto
+i
+ne
+n
+n
+nw
+nw
+n
+talk to perry
+3
+give empty beer mug to perry
+drop stuffed cat
+s
+sw
+kill borrible
+get bag of gold
+se
+s
+s
+sw
+nw
+e
+ask bill about axe
+ask bill about broken axe
+nw
+sw
+get twig
+ne
+se
+w
+se
+ne
+n
+n
+nw
+sw
+e
+s
+give twig to will
+give rake to will
+get wig
+n
+w
+ne
+ne
+se
+s
+give broken axe to smith
+n
+se
+s
+s
+nw
+d
+d
+d
+d
+d
+kill alonzo
+get holy symbol
+get priceless ruby
+get cloak of ashes
+wear holy symbol
+u
+u
+u
+u
+se
+wear red wig
+se
+talk to priest
+nw
+sw
+give bag of gold to troll
+get beer
+ne
+n
+n
+nw
+s
+give beer to smith
+get axe
+n
+se
+e
+n
+give axe to aaaaaaaaaarg
+s
+w
+s
+s
+se
+talk to thomas
+nw
+se
+talk to harry
+7
+get key of pure harry
+nw
+n
+n
+e
+e
+whizzo!
+ne
+open gate
+n
+u
+n
+x wall
+get teddy bear repair kit
+get prayer book
+s
+e
+drop prayer book
+w
+w
+x toys
+get manuscripts
+drop teddy bear repair kit
+e
+s
+kill vorgon
+get egg
+n
+d
+s
+sw
+w
+w
+w
+s
+s
+se
+give manuscripts to harry
+nw
+n
+n
+nw
+nw
+n
+n
+u
+u
+give egg to dragon

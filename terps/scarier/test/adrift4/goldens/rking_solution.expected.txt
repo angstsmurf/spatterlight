@@ -1,0 +1,2549 @@
+Loading game...
+
+The Reluctant Resurrectee
+
+The Further Adventures Of The King Who Wanted To Die But Whose Subjects Just
+Weren't Ready To Let Him Go…
+
+or
+
+The Reluctant Resurrectee
+
+A Light-Hearted Game by David Whyld
+(WRITTEN WITH ADRIFT VERSION 4, RELEASE 46)
+
+[Version 1]
+
+        1)        Begin the game
+        2)        Read the background to the game
+        3)        Read the introduction
+        4)        About The Reluctant Resurrectee
+        5)        Things to know (strongly recommended to read this!)
+        6)        Game information and credits
+
+Typing about or info during the game will display this menu again.
+
+> 1
+
+lll Shelf lll
+
+A shelf you are on. And a dusty shelf at that. Whoever cleans this place
+should be hung (and, knowing Verenor, probably has been). The shelf extends
+to the east and the west but as it appears to be the same in either
+direction, there's precious little point in moving any further along it.
+
+The rest of the room looks blurry from here (no doubt your lack of body isn't
+helping your visual capabilities any), though you fancy you can make out a
+desk in the distance.
+
+The edge of the shelf looms to the south.
+
+> roll
+No sooner has the thought entered your
+
+(no, not your mind because you don't have one. But your)
+
+consciousness, you find yourself rolling. Unfortunately, while you can make
+yourself roll with just a moment's thought, directing that rolling is
+somewhat more problematic. You don't have feet. You don't have hands. You
+don't even have anything to control direction or slow you down. All you have
+is-
+
+The edge of the shelf.
+
+Getting closer.
+
+And closer.
+
+And-
+
+And then you're falling.
+
+You fall for a long time then...
+
+Bounce!
+
+        Bounce!
+
+                Bounce!
+
+                        Bounce!
+
+And, finally, you come to a crashing halt.
+
+Under other circumstances, you might be winded. But one of the advantages of
+having no wind is that you escape this little bit of unpleasantness. You're
+also not even hurt.
+
+You guess that's two positives to lacking a body but you're sure the
+disadvantages add up to a lot more.
+
+You peer around. Yes, you're on a desk alright. Right at the very eastern
+end. Over to the west there looms the massively foreboding structure of the
+bell which High Chancellor Verenor mentioned. Arrayed around it are what
+appear to be a selection of quills and some paperwork.
+
+It occurs to you, as you lie there gathering your... whatever passes for
+breath in the world of disembodied eyeballs... that rolling would be your
+best bet for getting around. [Footnote 1]
+
+YOUR SCORE HAS INCREASED BY 5 POINTS TO 5 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+Your score has just increased. To see a breakdown of what you have achieved
+so far, type score.
+
+> l
+
+lll Eastern End Of Desk lll
+
+This little corner of the desk is perhaps its most uninteresting part. There
+is precious little here, with the only thing of note being a slight
+depression in the wood which looks like it had something resting there until
+very recently.
+
+Over to the west there looms the massively foreboding structure of the bell
+which High Chancellor Verenor mentioned. Arrayed around it are what appear to
+be a selection of quills and some paperwork.
+
+The only direction you can roll from here appears to be to the west.
+
+> roll w
+
+lll By The Bell lll
+
+The bell, the one High Chancellor Verenor expects you to ring, looms over
+you. Though nothing more than a normal-sized bell, in your current condition
+it seems gigantic, monstrous; the kind of bell that an eyeball twenty times
+your size would struggle to use. Its surface is deformed with marks which are
+probably nothing more than grazes yet appear to you to be scars made by the
+claws of foul beasts.
+
+Around the bell you see some writing quills - each ten times your size - and
+some paperwork.
+
+You can roll in all the main compass directions: north, south, east and west.
+
+Ah. The bell High Chancellor Verenor mentioned, though quite how he expects
+an eyeball lacking anything like hands to ring it is another matter. But...
+
+But you'll find a way. You have  to find a way. High Chancellor Verenor might
+have his faults (as the residents of the city graveyard could surely attest)
+but when he says there is trouble brewing, there is trouble brewing. And
+while you quite liked being dead yourself, you don't really want the same
+fate to befall your son. Or your citizens.
+
+So, you need to find a way to ring that bell. Think. There must be a way
+around here to do it.
+
+Somewhere.
+
+Somehow.
+
+> x quills
+The first thing you notice about the quills is that they're bigger than you,
+heavier than you, and, with you lacking hands, not likely to be of much use
+to you. The second thing you notice is that they're all old and don't appear
+to have been used much.
+
+The third thing is that... is there something written on the side of one of
+the quills? You're not entirely sure. It's turned away from you.
+
+> nudge quills
+You roll into the nearest quill, causing it to wobble slightly and turn
+itself around even less slightly, but nothing else happens.
+
+> nudge quills
+You roll into the nearest quill, causing it to wobble slightly and turn
+itself around even less slightly, but nothing else happens.
+
+> x quills
+The first thing you notice about the quills is that they're bigger than you,
+heavier than you, and, with you lacking hands, not likely to be of much use
+to you. The second thing you notice is that they're all old and don't appear
+to have been used much. The third is that, now that you have rolled into the
+nearest quill and nudged it slightly, there is something written on the side
+of it. Peering closely at it, you manage to make out:
+
+6 q x = +1
+
+Quite what it means is anyone's guess.
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 6 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll n
+
+lll Northern End Of Desk lll
+
+To the north, the world is aflame.
+
+No, actually that's just a fire burning in a fireplace beyond the desk but
+when you're only an inch in size, even a fire burning in a hearth can seem
+like a terrifying thing.
+
+This part of the desk, appearing to you a vast and inspiring thing, is given
+over to crumpled pieces of paper, a number of drawing pins the size of
+elephants and a wet patch caused by water dripping steadily from the ceiling
+far above.
+
+The only direction you can roll from here appears to be to the south.
+
+> roll into patch
+You hesitantly roll into the wet patch, hoping there's nothing harmful in
+there that might give you a bad case of eye-ache.
+
+But no. The water seems to be nothing more than simple water. Several drops
+fall on you while you roll about, wetting you a little more but causing no
+real harm.
+
+However, while a wash was undoubtedly called for after your most recent
+resurrection, there's no real reason to remain here so you roll back to a
+drier part of the desk.
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 7 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll s
+
+lll By The Bell lll
+
+The bell, the one High Chancellor Verenor expects you to ring, looms over
+you. Though nothing more than a normal-sized bell, in your current condition
+it seems gigantic, monstrous; the kind of bell that an eyeball twenty times
+your size would struggle to use. Its surface is deformed with marks which are
+probably nothing more than grazes yet appear to you to be scars made by the
+claws of foul beasts.
+
+Around the bell you see some writing quills - each ten times your size - and
+some paperwork.
+
+You can roll in all the main compass directions: north, south, east and west.
+
+> roll w
+
+lll Western End Of Desk lll
+
+Most of the western end of the desk is occupied by a drawer, but when you're
+only the size of an eyeball this doesn't present any real problems. The
+drawer itself rests askew on the desk, leaning over the western end with its
+side to you. There is a nasty crack down one side, perhaps the reason why the
+drawer was removed in the first place; whatever lies beyond is difficult to
+tell due to the angle of the crack.
+
+The only direction you can roll from here appears to be to the east.
+
+> x drawer
+The drawer itself seems perfectly ordinary, other than for the fact that it
+is on the desk rather than in it. There is a nasty crack down one side,
+perhaps explaining why it is on rather than in. To one side of the crack are
+a series of faint markings.
+
+> x markings
+At first, the markings don't seem to mean a thing and you wonder if they are
+manmade markings at all and not just some kind of graze left there when the
+drawer was removed from the desk. But you look closer.
+
+And closer.
+
+And then you notice the markings forming into:
+
+x x 6        = -1
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 8 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll into crack
+The hole is only slightly wider than you are, but you manage to roll through
+it on account of the dampening you received from the wet patch. While a less
+slippery eyeball might well have become wedged in place, you roll through
+without problem.
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 9 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+[MORE]
+
+lll Inside The Drawer lll
+
+You would never have imagined the inside of a drawer could seem so
+unbelievably large, but then this is the first time you have seen one from
+the viewpoint of a single eyeball and nothing else.
+
+Scattered around are a notebook the size of a yacht, a broken crystal ball
+(or half of one anyway), a pencil with an unsharpened tip, a paperweight
+(though more the size of a battering ram to you) and... something odd. You
+aren't sure what this last thing is but it's certainly... odd.
+
+A ruler has been positioned against the far side of the drawer and there is a
+crack at the side of you which allowed you in here in the first place.
+
+> nudge something odd
+You nudge it.
+
+At first it seems that nothing is going to happen, that nudging the odd thing
+will not result in anything.
+
+But then-
+
+[MORE]
+
+Sure enough, nothing happens.
+
+> nudge something odd
+You nudge the odd thing again.
+
+It wobbles a little in a decidedly odd way. But nothing else happens until-
+
+[MORE]
+
+No, still nothing much happens.
+
+> nudge something odd
+Again you nudge the odd thing.
+
+This time, absolutely nothing happens again.
+
+Apart from a little sprite with a ponytail hopping out of the odd thing,
+squealing "quit nudging me, fer christ's sake!"  and then disappearing in a
+flash of light.
+
+Which was certainly unusual, you have to admit.
+
+> nudge something odd
+Nothing happens.
+
+Until the top of the odd thing opens and a sinister looking fellow peers out.
+"Is this Scarlet?"  he asks.
+
+You try to reply but lacking a mouth you don't get very far.
+
+"No, I see it isn't. Not enough hero figures." The sinister fellow looks
+around the drawer, sniffs, and says, "well, I'll come back in 2008. Maybe
+he'll have gotten round to writing it by then."
+
+So saying, he zips the odd thing back up again and disappears from view.
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 10 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll onto ruler
+You roll onto the ruler. It tips up slightly as your weight hits the centre
+part and then bobs uncertainly from side to side.
+
+[MORE]
+
+lll On The Ruler lll
+
+The ruler wobbles under your weight, threatening at any moment to topple you
+off into... whatever lies at its western extent. You can't see very far that
+way and attempts to look any further make you worry that the ruler might
+topple you over into... whatever it is that lies there.
+
+Back to the east is the base of the drawer and everything in it.
+
+[Footnote 2]
+
+> x ruler
+It's nothing more than a simple, ordinary ruler... if you were a simple,
+ordinary human being that is. To you, currently a bit larger than the average
+marble, it's huge.
+
+And not very stable either. It's balanced very precariously on the edge of
+the drawer and your weight, little though it is, is making it wobble from
+side to side in a most alarming manner.
+
+Etched into its surface are some marks which appear to be words of some kind.
+
+> x marks
+You peer at the words, trying to make out what they might mean. They look to
+be... no, they're... but that character there...
+
+No, the words are too faded to make them out in their entirety. The only
+clear thing seems to be right at the bottom:
+
+u f        = 1
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 11 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> bounce
+You bounce up and down again.
+
+The ruler tips slightly to one side - there is an alarming moment when you
+worry it might tip entirely over one side - but then it settles again in
+place.
+
+One end of it is now positioned very close to the notebook in the drawer.
+
+> bounce
+Another bounce and one end of the ruler jars against the notebook... but
+nothing else.
+
+> bounce
+A third bounce...
+
+...and the end of the ruler hits the notebook and flips it open.
+
+If you had a mouth right now, you can well imagine it would be smiling.
+
+YOUR SCORE HAS INCREASED BY 2 POINTS TO 13 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll e
+
+lll Inside The Drawer lll
+
+You would never have imagined the inside of a drawer could seem so
+unbelievably large, but then this is the first time you have seen one from
+the viewpoint of a single eyeball and nothing else.
+
+Scattered around are a notebook the size of a yacht, a broken crystal ball
+(or half of one anyway), a pencil with an unsharpened tip, a paperweight
+(though more the size of a battering ram to you) and... something odd. You
+aren't sure what this last thing is but it's certainly... odd.
+
+A ruler has been positioned against the far side of the drawer and there is a
+crack at the side of you which allowed you in here in the first place.
+
+> read notebook
+You read:
+
+And so it came to pass that the mystical enchantments of the ancient
+forgotten peoples whose names are now known only to the people who themselves
+have been forgotten to time came to be used in the creation of mystical
+parchments and the like for it was said that the mystical enchantments could
+render the very words on the pages illegible to all lacking the knowledge to
+discern their true purpose and thus safeguard their secrets from the eyes of
+the unworthy while at the same time remaining readily accessible to those
+with the knowledge and...
+
+The rest of the page is filled with what at first seems like a meaningless
+collection of symbols, but which as you study more closely, becomes:
+
+... in this way were the ancients able to hide their secrets from those they
+did not wish to know their secrets yet at the same time keeping those secrets
+around for the easy perusal of those who had attained the sufficient
+knowledge and intelligence to discern what was hidden within as it was
+discovered that the reading of a simple primer of no more than 96 words in
+total could allow those with sufficient knowledge and intelligence to learn
+the enchantments and in this way could documents of great and vital
+importance be left around for the perusal of any who could manage to read the
+primer...
+
+You note that Herminckle, the Palace Scribe, has not got over his dislike of
+commas and full stops in the time since your untimely demise.
+
+YOUR SCORE HAS INCREASED BY 5 POINTS TO 18 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> nudge paperweight
+Noticing the strange shape of the paperweight, you roll into it, causing it
+to wobble slightly. It seems on the verge of toppling over, but then manages
+to right itself and return to its previous position.
+
+> nudge paperweight
+You crash into the paperweight.
+
+(Actually, crash  is misleading because there's not enough of you left to
+really crash  into things, but it certainly seems to warrant more than a
+simple roll.)
+
+The paperweight sways to one side then falls over and hits the ground with a
+
+c r a c k!
+
+It breaks in two!
+
+From one part of it, a pill of some kind tumbles free.
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 19 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll pill
+You nudge the pill and it rolls through the crack in the drawer.
+
+> roll through crack
+
+lll Western End Of Desk lll
+
+Most of the western end of the desk is occupied by a drawer, but when you're
+only the size of an eyeball this doesn't present any real problems. The
+drawer itself rests askew on the desk, leaning over the western end with its
+side to you. There is a nasty crack down one side, perhaps the reason why the
+drawer was removed in the first place; whatever lies beyond is difficult to
+tell due to the angle of the crack.
+
+The only direction you can roll from here appears to be to the east.
+
+Also here is the pill.
+
+> roll pill east
+The pill rolls along to the east.
+
+> roll e
+
+lll By The Bell lll
+
+The bell, the one High Chancellor Verenor expects you to ring, looms over
+you. Though nothing more than a normal-sized bell, in your current condition
+it seems gigantic, monstrous; the kind of bell that an eyeball twenty times
+your size would struggle to use. Its surface is deformed with marks which are
+probably nothing more than grazes yet appear to you to be scars made by the
+claws of foul beasts.
+
+Around the bell you see some writing quills - each ten times your size - and
+some paperwork.
+
+You can roll in all the main compass directions: north, south, east and west.
+
+Also here is the pill.
+
+> roll pill south
+The pill rolls along to the south.
+
+> read paperwork
+
+Your Highness!
+
+It is good to see you once more in the land of the living and ready to resume
+your duties of rulership again. Times have been difficult in your absence
+what with the depredations of the foul barbarians and the goblin hordes
+encroaching upon our city. But now that you have returned, I am confident you
+will quickly see a solution to our problems that have baffled the greatest
+minds in the court.
+
+As your current predicament precludes the use of many of the functions you
+have previously made use of, I have taken the liberty of placing this bell
+here for your use. A low ring will summon the High Warlord, who shall heed
+your advice on how best to deal with the threats our army is to meet; a
+middle ring will summon the Captain of the guard, who will need to hear your
+opinions on how to combat the rising problems of unrest in our once fair
+city; a high ring will summon forth the Protector, your own personal
+champion; a higher ring will summon your son; the highest ring, Your
+Highness, will summon myself. Due to the many and varied problems we are
+attempting to deal with, I regret that we shall only be able to leave our
+posts one at a time and return shortly thereafter, but I have no fears that
+someone of your genius will be able to handle such a problem with ease.
+
+I have left some light reading material for you on the mantle over the
+fireplace, Your Highness, which will further enlighten you to the current
+situation. I would humbly suggest you avail yourself of it at your first
+opportunity as much has changed since last you graced us with your presence
+and, as you have so often told me, Your Highness, forewarned is forearmed.
+
+It might also be an excellent to peruse the --------- that I have placed
+beside ------------ and so you will know what to do. I dare say that without
+this most crucial information even you, Your Highness, may well struggle to
+reach a successful conclusion to this latest spate of problems we face.
+
+You wonder at the ------ that adorn the text. Peering more closely, you
+notice that the paper seems to have what appear to be teeth  marks in it.
+Small teeth marks. Rat teeth? No. You once conducted a study on rat teeth and
+these aren't them. Mice teeth perhaps?
+
+You glance around. Might there be the guilty party around somewhere? It's
+altogether possible. Also possible that the troublesome little fellow hasn't
+yet completely disposed of the paper he has chewed from here. It might be
+possible, albeit unlikely, for you to retrieve it.
+
+You read the last bit:
+
+Until we speak again, Your Highness.
+Your obeying servant, High Chancellor Verenor.
+
+Pity he didn't take into account the fact that an eyeball isn't very well
+able to either a ring or reach reading material on a mantle over a fireplace,
+but you guess you'll have to find a way. While you're at it, you'll also need
+to figure out what he means by low, middle, high, higher and highest rings.
+Some kind of musical score?
+
+YOUR SCORE HAS INCREASED BY 5 POINTS TO 24 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+[Footnote 3]
+
+> roll s
+
+lll Southern End Of Desk lll
+
+The desk slopes alarmingly to the south; perhaps designed to allow whoever
+normally sits here (High Chancellor Verenor no doubt) to have whatever they
+place here tilted at an angle for easier perusal. Yet for an eyeball, that
+slope, with the unenviable drop beyond it, is a worrying thing.
+
+A collection of strange objects have been placed to one side: one appears to
+be a miniature cannon, another a mirror which reflects nothing but smoke, a
+third a marble of roughly the same shape and dimensions as your current form
+the final a creased piece of paper shaped to resemble some kind of flying
+creature. What they are doing here is a mystery. Bizarre toys of High
+Chancellor Verenor's perhaps?
+
+The only direction you can roll from here appears to be to the north.
+
+Also here is the pill.
+
+> x cannon
+Identical in many respects to the full size cannon you have often seen on
+parade grounds, this one isn't, as might be assumed from a first glance, a
+toy cannon but a real, genuine, authentic cannon. Just far, far smaller than
+normal. The barrel of the cannon is a little larger than you are and
+currently pointed upwards at an angle.
+
+> nudge cannon
+You bump into the cannon. Not hard - you don't have the means to bump things
+hard - but with just enough pressure to knock the barrel until it is facing
+more towards you than upwards.
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 25 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll pill into cannon
+You nudge the pill and it rolls neatly into the barrel of the cannon.
+
+> wait
+Time passes...
+
+Suddenly the cannon shudders, shakes - and fires!!!
+
+The pill you had rolled into the barrel shoots out like a... well, like a
+cannon ball. It careens into the air to the north and...
+
+And what happens to it then you can't say for sure. Your eyesight is
+notoriously unpredictable (one eye just isn't good enough for most things)
+and wherever the pill lands, it's outside of your immediate vision.
+
+YOUR SCORE HAS INCREASED BY 2 POINTS TO 27 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll onto creature
+
+lll On The Paper Creature lll
+
+The paper rustles slightly beneath you but seems able to retain its shape.
+That shape is an unusual one: it appears to be the same shape as a flying
+creature of some kind, though like none you have ever set eyes (or eye) upon
+before.
+
+Its western end is raised slightly - perhaps the creature's head - while
+there is an indentation at its southern end. North leads back down to the
+southern end of the desk.
+
+> roll s
+The moment you roll onto the indentation, the whole body of the 'creature'
+shakes and shudders and, then, begins to slide  across the desk!
+
+You'd hold on if you could but you can't so you don't.
+
+You'd also quite like to scream but that likewise isn't an option.
+
+So you just stay where you are hope for the best and just pray that your
+rolling about isn't going to send you plunging off the edge of the desk and
+to a fate worse than death...
+
+Unfortunately it does.
+
+[MORE]
+
+Well... 50% anyway.
+
+The paper creature does  slide off the edge of the desk - its careful balance
+upset by your rolling onto it - but rather than dropping with a thud to the
+floor, and the unpleasant fate which would undoubtedly wait you there, it
+begins to glide, carried on air currents, even seeming to raise itself at one
+point, and then it curves around (a worrying moment as you seem very close to
+tipping off the side as it does this), banks sharply, and lands, with nothing
+worse than a bit of a jolt, on the mantle to the north of the desk.
+
+If you were capable of it, you'd be breathing a hefty sigh of relief right
+now.
+
+YOUR SCORE HAS INCREASED BY 5 POINTS TO 32 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.[Footnote 4]
+
+[MORE]
+
+lll On The Paper Creature lll
+
+The paper rustles slightly beneath you but seems able to retain its shape.
+That shape is an unusual one: it appears to be the same shape as a flying
+creature of some kind, though like none you have ever set eyes (or eye) upon
+before.
+
+Its western end is raised slightly - perhaps the creature's head - while
+there is an indentation at its southern end. North leads down to the mantle.
+
+> roll n
+
+lll On The Mantle lll
+
+It is unlike High Chancellor Verenor to do things by halves, and here he
+appears to be have done them by doubles. If not trebles.
+
+There is a veritable mound of scrolls piled on this mantle over the fireplace
+below (which is generating a fair amount of heat as well); so many, in fact,
+that some seem on the verge of toppling over the edge and landing far down on
+the floor below.
+
+The mantle is not a wide one but more than adequate for your present
+dimensions. It extends both east and west, with the north being blocked by an
+imposing wall (featureless save for a mouse hole) and to the south, it seems
+a great distance away, is the desk you left. A creased piece of paper in the
+form of a flying creature can be seen to the side of the scrolls.
+
+Also here is the pill.
+
+> x scrolls
+The scrolls are all alike in appearance but you manage to sort out five
+likely suspects which you decide to think of as scroll one, scroll two,
+scroll three, scroll four and scroll five to avoid confusion.
+
+> read first scroll
+You read:
+
+Being a Treatise on the Southern Barbarians and their Barbarism
+… it was in the year 764 that the great barbarian king himself, Lubb the Mad,
+declared to his men "right, you scabby weasels, get out there and kill some
+of them there blokes and don't come back till you have" and this was the
+event which signified the beginning of our troubles with the barbarian
+peoples. Since then, the filthy heathens have been at our gates day and night
+and we have known no respite from their foul depredations.
+
+Combat-wise, the barbarians are fearsome fighters. Lethal in hand-to-hand
+combat, they have no equal and are said to be demons in man-form. Our armies
+are seldom capable of combating them in any meaningful way and we have only
+ever succeeded in the past when the numbers are greatly in our favour. If we
+are to beat them in open warfare, another method of fighting them needs to be
+found…
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 33 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+You spy a little mouse peeking out of the hole at you. The moment it sees you
+looking back at it, it ducks back out of sight.
+
+> read second scroll
+You read:
+
+Being a Work in Progress Charting the Rise & Fall of the Montrick Family
+… far did Gareth Montrick fall when he fell. Some would even say that he has
+never stopped falling. Once a mighty lord of the kingdom (until the
+unfortunate incident involving too much fine wine and the Princess of
+Albernon), he now works as a lowly guardsman. While an admirable profession
+in itself, it cannot be looked upon as anything but a major downturn in the
+fortunes of one who once commanded armies…
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 34 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> read third scroll
+You read:
+
+Being a History of the Barons & Their Allegiance to the Crown
+… long have the barons stood behind the might of the kingdom, so much so
+that, as some would say, if their support were withdrawn, the very kingdom
+might well crumble. For it is the barons' collective might which gives the
+armies the majority of their men, the guilds their crafters, and the king his
+main advisors. High Chancellor Verenor himself hails from one of the baronies
+and, as such, the barons' support is an integral part of the wellbeing of the
+kingdom.
+
+Recently there have been rumours of ill ease within the barons' compounds.
+Some say they are dissatisfied with the kingdom's lack of vision since the
+death of the former king at the hands of a foul assassin, and that they yearn
+for the current king to take a more active role in expanding the kingdom's
+borders…
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 35 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> read fourth scroll
+You read:
+
+Being a Journal of the Dissatisfaction of the Lower Classes
+… long have the lower classes in the kingdom been dissatisfied with their lot
+in life. Long have they wrongly believed that they have the same rights and
+privileges as us of the upper classes. Long have they mistakenly held the
+opinion that just because we have arrows, we should not fire them at said
+lower classes as archery practice for our bowmen.
+
+Clearly they are wrong.
+
+Yet, despite this, they maintain their opinions and are not swayed one iota
+by the sound reasoning we put to them. An unfortunate state of affairs
+indeed.
+
+Recently the rumours of unrest among the lower classes have grown. It is said
+that they are unwilling in the extreme to allow our supposed 'mistreatment'
+of them and seek to make their lot in life better. At our own expense! While
+plainly they are wrong, it is also plain that they do not see this obvious
+truth and will not turn back from their course irrespective of the
+consequences. Some kind of agreement will need to be made with them before
+they openly revolt… and at a time when we are pressed on all corners by
+invaders, the last thing the kingdom needs is trouble from within its own
+borders…
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 36 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+A little mouse runs out of the hole, sees you there, emits a sound like nails
+being grated down a chalkboard, and flees back into the hole.
+
+> read fifth scroll
+You read:
+
+Being an Excerpt from the Travels of Parco Molo Amongst the Eastern Plainsmen
+… while savages of the most foul kind, the eastern plainsmen are,
+nevertheless, excellent combatants. Fierce in nature, deadly in action, they
+give no quarter and seldom turn back from a target before it is seized and no
+threat to them any longer. They are a fiercely protective people, hard to
+reason with, impossible to negotiate with, who take great pride in their
+honour and answer any challenge with deadly force.
+
+They are also, perhaps surprisingly, a religious people. They erect great
+burial mounds in the wilderness and inter many of their dead inside each one
+then post guards to ensure the dead are not disturbed. Recently, I made
+efforts to enter one of these mounds on a fact-finding expedition, and was
+somewhat perturbed to find myself stabbed through the nether regions by one
+guard who for some obscure reason believed my taking for pure research
+purposes of the jewelled headpiece of a former plainsman ruler was 'wrong'.
+Clearly they are a strange and unfathomable race…
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 37 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll pill into hole
+Having seen the mouse, a hunch occurs to you. You used to have these quite
+regularly at one time, but after your untimely demise the good ideas just
+seemed to dry up. Maybe there's a connection...?
+
+But you have one now. And so, rolling into the pill, you send it shooting
+into the hole where the mouse resides. It disappears into the darkness within
+and is swallowed up.
+
+Nothing happens.
+
+You wait some more.
+
+Still nothing happens.
+
+You wait a bit longer.
+
+Still noth-
+
+Ah, what's that?  It sounds suspiciously like a mouse snoring.
+
+Still got it,  you think and give yourself a (metaphorical) pat on the back.
+
+YOUR SCORE HAS INCREASED BY 5 POINTS TO 42 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll into hole
+
+lll In The Mouse Hole lll
+
+The mouse who resides here (currently fast asleep in the middle of the hole)
+certainly has had a busy time of things what with the amount of paper he has
+lined his hole with. You see all manner of snippets here and there, plastered
+into a kind of 'wallpaper' by the industrious little fellow. The jagged edges
+indicate the mouse has almost certainly chewed these pieces away from larger
+pages (most out in the room beyond the hole no doubt) in order to allow him
+to bring them in here.
+
+> read paper
+Rendered largely illegible by the mouse's chewing on it, you nevertheless
+manage to make out a few bits here and there:
+
+"... believe not true..."
+
+"... not safe... security arr---- bound to fail..."
+
+"... coming soon: a tale of horror and dread..."
+
+"... 'My Life As An Eyeball: A True Story'..."
+
+Unfortunately, none of it looks very memorable.
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 43 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> read snippets
+You read some of the snippets:
+
+... crystal ball I have left in the drawer. Yes, Your Highness, I know you
+have little patience for such things but I would ask that you study the
+crystal ball in any event. This is an especially powerful one that I have
+made good use of in the past. Alas, it is now broken by careless removal men
+(who, rest assured, have been punished utterly for their callous actions!);
+one in the drawer on my desk and the other shattered into many parts. All the
+same, peering deep into the crystal ball should suffice to make it
+function...
+
+... the bell is functioning, though it may not appear so at first glance. I
+had an instruction scroll for it when I acquired it, yet seem to have
+misplaced it. (Perhaps my cleaner's fault. I shall have him beheaded just in
+case.) But I dare say, Your Highness, that you will be able to fathom its use
+in no time. It is a favoured pastime of yours after all. I believe my
+------------- should contain further details...
+
+Again the ---------. It seems the mouse actually ate some of the words right
+off the page. Still, the majority of the information you need is here so you
+should be fine.
+
+YOUR SCORE HAS INCREASED BY 5 POINTS TO 48 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll out
+
+lll On The Mantle lll
+
+It is unlike High Chancellor Verenor to do things by halves, and here he
+appears to be have done them by doubles. If not trebles.
+
+There is a veritable mound of scrolls piled on this mantle over the fireplace
+below (which is generating a fair amount of heat as well); so many, in fact,
+that some seem on the verge of toppling over the edge and landing far down on
+the floor below.
+
+The mantle is not a wide one but more than adequate for your present
+dimensions. It extends both east and west, with the north being blocked by an
+imposing wall (featureless save for a mouse hole) and to the south, it seems
+a great distance away, is the desk you left. A creased piece of paper in the
+form of a flying creature can be seen to the side of the scrolls.
+
+> nudge scroll
+You nudge the scrolls and one slips off the mantle and drops to the floor
+below.
+
+> nudge scroll
+You nudge the scrolls and another slips off the mantle and drops to the floor
+below.
+
+> nudge scroll
+You nudge the scrolls and another slips off the mantle and drops to the floor
+below.
+
+You can see several down there now, though not enough to cushion your fall
+should you happen to roll off.
+
+> nudge scroll
+You nudge the scrolls and another slips off the mantle and drops to the floor
+below.
+
+There are quite a pile of scrolls down there now. Enough to cushion your
+fall? You're not sure.
+
+> nudge scroll
+You nudge the scrolls and another slips off the mantle and drops to the floor
+below.
+
+The are enough scrolls down there now to cushion your fall... should you
+decide to roll off the shelf, that is.
+
+> roll s
+You roll off the edge of the mantle...
+
+...and fall.
+
+You fall down and down and down for what seems like an unusually long way,
+but then, finally, the floor is looming... along with the scrolls you nudge
+off the mantle and-
+
+you land on them
+
+and bounce!
+
+You were braced (as well as an eyeball can brace anyway) for the impact with
+the floor being the (temporary) death of you, but it seems the scrolls
+softened your fall enough to save your life.
+
+You bounce back up into the air. If you had lungs, you'd either be yelling or
+laughing now but as you have neither you instead maintain a dignified
+silence.
+
+When the bounce ends, and you come to a neat stop on the northern edge of the
+desk, you let out as close to a sigh of relief as you're able to.
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 49 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+[MORE]
+
+lll Northern End Of Desk lll
+
+To the north, the world is aflame.
+
+No, actually that's just a fire burning in a fireplace beyond the desk but
+when you're only an inch in size, even a fire burning in a hearth can seem
+like a terrifying thing.
+
+This part of the desk, appearing to you a vast and inspiring thing, is given
+over to crumpled pieces of paper, a number of drawing pins the size of
+elephants and a wet patch caused by water dripping steadily from the ceiling
+far above.
+
+The only direction you can roll from here appears to be to the south.
+
+> roll s
+
+lll By The Bell lll
+
+The bell, the one High Chancellor Verenor expects you to ring, looms over
+you. Though nothing more than a normal-sized bell, in your current condition
+it seems gigantic, monstrous; the kind of bell that an eyeball twenty times
+your size would struggle to use. Its surface is deformed with marks which are
+probably nothing more than grazes yet appear to you to be scars made by the
+claws of foul beasts.
+
+Around the bell you see some writing quills - each ten times your size - and
+some paperwork.
+
+You can roll in all the main compass directions: north, south, east and west.
+
+> roll s
+
+lll Southern End Of Desk lll
+
+The desk slopes alarmingly to the south; perhaps designed to allow whoever
+normally sits here (High Chancellor Verenor no doubt) to have whatever they
+place here tilted at an angle for easier perusal. Yet for an eyeball, that
+slope, with the unenviable drop beyond it, is a worrying thing.
+
+A collection of strange objects have been placed to one side: one appears to
+be a miniature cannon, another a mirror which reflects nothing but smoke, a
+third a marble of roughly the same shape and dimensions as your current form.
+What they are doing here is a mystery. Bizarre toys of High Chancellor
+Verenor's perhaps?
+
+The only direction you can roll from here appears to be to the north.
+
+> roll cannon
+It's a daunting prospect, and one you can't help but wonder is a little
+foolhardy, but you manage to roll yourself into the barrel of the cannon.
+Unfortunately, you do this somewhat awkwardly and end up with your eye facing
+the back of the cannon and the back of your eye facing out, effectively
+blinding yourself.
+
+But before you have chance to mutter and curse your stupidity (assuming
+muttering and cursing were still a possibility in your current condition),
+you hear a distinct
+
+CLICK!!!
+
+from somewhere. It's the kind of
+
+CLICK!!!
+
+which indicates, in no uncertain terms, that a miniature but altogether real
+cannon is just about to fire.
+
+You have a brief moment to really wish you had a mouth so you could scream in
+dismay, then the cannon fires and-
+
+[MORE]
+
+But you don't die.
+
+You blink, clearing some cannon blast residue out of your eye, and look
+around. You are, unbelievable though it sounds, still alive.
+
+(Actually, your whole current existence is something of a miracle anyway so
+you don't know why surviving being fired out of a miniature cannon should in
+any way surprise you, but it does.)
+
+You aren't lying in a tattered mess by the side of the cannon, as you had
+expected but, instead, you're on the mantle over the fireplace. Your impact
+has chipped the plaster to one side of where you are lying but the damage to
+you seems to be remarkably minor.
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 50 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll s
+Down onto the scrolls you tumble once more. It's a nerve-wracking experience,
+even when you don't have any nerves to be wracked, and when you land on the
+scrolls there's a moment's worry that this time everything won't go right,
+that this time you'll hit the floor hard enough to splatter yourself
+everywhere, that this time-
+
+But no, everything works out fine.
+
+You land on the edge of the desk and if you had a mouth you'd be kissing its
+surface right now.
+
+[MORE]
+
+lll Northern End Of Desk lll
+
+To the north, the world is aflame.
+
+No, actually that's just a fire burning in a fireplace beyond the desk but
+when you're only an inch in size, even a fire burning in a hearth can seem
+like a terrifying thing.
+
+This part of the desk, appearing to you a vast and inspiring thing, is given
+over to crumpled pieces of paper, a number of drawing pins the size of
+elephants and a wet patch caused by water dripping steadily from the ceiling
+far above.
+
+The only direction you can roll from here appears to be to the south.
+
+> roll s
+
+lll By The Bell lll
+
+The bell, the one High Chancellor Verenor expects you to ring, looms over
+you. Though nothing more than a normal-sized bell, in your current condition
+it seems gigantic, monstrous; the kind of bell that an eyeball twenty times
+your size would struggle to use. Its surface is deformed with marks which are
+probably nothing more than grazes yet appear to you to be scars made by the
+claws of foul beasts.
+
+Around the bell you see some writing quills - each ten times your size - and
+some paperwork.
+
+You can roll in all the main compass directions: north, south, east and west.
+
+> roll s
+
+lll Southern End Of Desk lll
+
+The desk slopes alarmingly to the south; perhaps designed to allow whoever
+normally sits here (High Chancellor Verenor no doubt) to have whatever they
+place here tilted at an angle for easier perusal. Yet for an eyeball, that
+slope, with the unenviable drop beyond it, is a worrying thing.
+
+A collection of strange objects have been placed to one side: one appears to
+be a miniature cannon, another a mirror which reflects nothing but smoke, a
+third a marble of roughly the same shape and dimensions as your current form.
+What they are doing here is a mystery. Bizarre toys of High Chancellor
+Verenor's perhaps?
+
+The only direction you can roll from here appears to be to the north.
+
+> roll cannon
+Into the barrel you go once more, (metaphorical) heart in (metaphorical)
+mouth. Everything went fine last time, of course, so there's no reason to
+assume anything will go wrong this  time, but even so...
+
+CLICK!!!
+
+The cannon fires.
+
+[MORE]
+
+You blink and glance around warily. As expected, you are back on the mantle
+once again. In one piece as well. You don't have a head to ache but you feel
+that if it did, it would be positively throbbing by now.
+
+Your impact with the wall has chipped some more of the plaster from the wall.
+
+> roll s
+Down onto the scrolls you tumble once more. It's a nerve-wracking experience,
+even when you don't have any nerves to be wracked, and when you land on the
+scrolls there's a moment's worry that this time everything won't go right,
+that this time you'll hit the floor hard enough to splatter yourself
+everywhere, that this time-
+
+But no, everything works out fine.
+
+You land on the edge of the desk and if you had a mouth you'd be kissing its
+surface right now.
+
+[MORE]
+
+lll Northern End Of Desk lll
+
+To the north, the world is aflame.
+
+No, actually that's just a fire burning in a fireplace beyond the desk but
+when you're only an inch in size, even a fire burning in a hearth can seem
+like a terrifying thing.
+
+This part of the desk, appearing to you a vast and inspiring thing, is given
+over to crumpled pieces of paper, a number of drawing pins the size of
+elephants and a wet patch caused by water dripping steadily from the ceiling
+far above.
+
+The only direction you can roll from here appears to be to the south.
+
+> roll s
+
+lll By The Bell lll
+
+The bell, the one High Chancellor Verenor expects you to ring, looms over
+you. Though nothing more than a normal-sized bell, in your current condition
+it seems gigantic, monstrous; the kind of bell that an eyeball twenty times
+your size would struggle to use. Its surface is deformed with marks which are
+probably nothing more than grazes yet appear to you to be scars made by the
+claws of foul beasts.
+
+Around the bell you see some writing quills - each ten times your size - and
+some paperwork.
+
+You can roll in all the main compass directions: north, south, east and west.
+
+> roll s
+
+lll Southern End Of Desk lll
+
+The desk slopes alarmingly to the south; perhaps designed to allow whoever
+normally sits here (High Chancellor Verenor no doubt) to have whatever they
+place here tilted at an angle for easier perusal. Yet for an eyeball, that
+slope, with the unenviable drop beyond it, is a worrying thing.
+
+A collection of strange objects have been placed to one side: one appears to
+be a miniature cannon, another a mirror which reflects nothing but smoke, a
+third a marble of roughly the same shape and dimensions as your current form.
+What they are doing here is a mystery. Bizarre toys of High Chancellor
+Verenor's perhaps?
+
+The only direction you can roll from here appears to be to the north.
+
+> roll cannon
+A third time you roll yourself into the barrel of the cannon. You know what
+to expect this time so you're ready when the
+
+CLICK!!!
+
+sounds and the cannon fires and then you're shooting through the air...
+
+[MORE]
+
+You groan.
+
+No, you don't groan because you'd need a mouth to groan with and clearly that
+isn't something you have. You also don't have a throbbing migraine because
+only people with heads have throbbing migraines.
+
+But you feel like groaning and you feel like you have a migraine. All in all,
+this is the worst you felt since the last time you died.
+
+Still more plaster has been chipped from the wall where you struck it, but
+you're too busy almost groaning and almost having a migraine to really
+notice.
+
+> x plaster
+The plaster has been chipped away so much by your continued impacts with it
+that you can now see something that was previously hidden beneath. Something
+scribbled on the wall, perhaps jotted down to serve as a reminder for the
+scribbler/jotter, and then, at some point, covered up when the area over the
+mantle was re-plastered.
+
+Peering at it closely, you can make out:
+
+f u        = 5
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 51 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> roll s
+Down onto the scrolls you tumble once more. It's a nerve-wracking experience,
+even when you don't have any nerves to be wracked, and when you land on the
+scrolls there's a moment's worry that this time everything won't go right,
+that this time you'll hit the floor hard enough to splatter yourself
+everywhere, that this time-
+
+But no, everything works out fine.
+
+You land on the edge of the desk and if you had a mouth you'd be kissing its
+surface right now.
+
+[MORE]
+
+lll Northern End Of Desk lll
+
+To the north, the world is aflame.
+
+No, actually that's just a fire burning in a fireplace beyond the desk but
+when you're only an inch in size, even a fire burning in a hearth can seem
+like a terrifying thing.
+
+This part of the desk, appearing to you a vast and inspiring thing, is given
+over to crumpled pieces of paper, a number of drawing pins the size of
+elephants and a wet patch caused by water dripping steadily from the ceiling
+far above.
+
+The only direction you can roll from here appears to be to the south.
+
+> roll s
+
+lll By The Bell lll
+
+The bell, the one High Chancellor Verenor expects you to ring, looms over
+you. Though nothing more than a normal-sized bell, in your current condition
+it seems gigantic, monstrous; the kind of bell that an eyeball twenty times
+your size would struggle to use. Its surface is deformed with marks which are
+probably nothing more than grazes yet appear to you to be scars made by the
+claws of foul beasts.
+
+Around the bell you see some writing quills - each ten times your size - and
+some paperwork.
+
+You can roll in all the main compass directions: north, south, east and west.
+
+> roll w
+
+lll Western End Of Desk lll
+
+Most of the western end of the desk is occupied by a drawer, but when you're
+only the size of an eyeball this doesn't present any real problems. The
+drawer itself rests askew on the desk, leaning over the western end with its
+side to you. There is a nasty crack down one side, perhaps the reason why the
+drawer was removed in the first place; whatever lies beyond is difficult to
+tell due to the angle of the crack.
+
+The only direction you can roll from here appears to be to the east.
+
+> roll into crack
+
+lll Inside The Drawer lll
+
+You would never have imagined the inside of a drawer could seem so
+unbelievably large, but then this is the first time you have seen one from
+the viewpoint of a single eyeball and nothing else.
+
+Scattered around are a notebook the size of a yacht, a broken crystal ball
+(or half of one anyway), a pencil with an unsharpened tip, a broken
+paperweight and... something odd. You aren't sure what this last thing is but
+it's certainly... odd.
+
+A ruler has been positioned against the far side of the drawer and there is a
+crack at the side of you which allowed you in here in the first place.
+
+> peer into crystal ball
+Recalling what was written in the snippets of paper in the mouse hole, you
+peer  into the half a crystal ball.
+
+At first, nothing happens.
+
+After that, still nothing happens.
+
+A full minute later, yet more nothing happens.
+
+Just as you're beginning to suspect nothing will ever  happen, an image forms
+in the depths of the crystal ball and a voice speaks:
+
+Greetings, Your Highness! It is I, the High Arcanist!
+
+High Chancellor Verenor has asked me to set up this relay in order to answer
+each and every question you may pose. Er... assuming it's a question I've
+already come up with an answer for, that is. You see, this isn't actually me
+speaking here. It's... well, a bit complicated  actually. By use of arcane
+disciplines, mental fortitude and a large quantity of something called H
+(believe it stands for Head Medicine), I have managed to imprint a part of my
+consciousness within this here crystal ball. Thus you can ask me questions
+and I can respond to the best of my knowledge, but only, Your Highness, if
+the question you are asking is one I knew the answer to at the time the
+imprint was made.
+
+Several seconds pass in silence while you ponder how you're going to be able
+to ask questions without a mouth.
+
+Um... High Chancellor Verenor has just spoken to me about your...
+resurrection, Your Highness. It seems everything did not go quite  as well as
+hoped and you are now in fact minus a good deal of your body. Or, indeed, all
+ of your body aside from a single eyeball. Which I guess would make
+conversation something of a problem.
+
+But not to fear! I have managed to incorporate into this imprint the ability
+to focus on certain words that you concentrate on. Hence, I shall list a
+number of subjects and you can concentrate on them, Your Highness, simply the
+word itself will suffice and nothing else, and then I can reply as if you had
+asked me a question about that very subject. In this way, a conversation can
+be had.
+
+Simply peer into the crystal ball whenever you wish to communicate with me,
+Your Highness, and I shall do my best to answer all of your questions.
+
+The voice of the High Arcanist fades away.
+
+YOUR SCORE HAS INCREASED BY 3 POINTS TO 54 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+> peer into crystal ball
+
+Greetings, Your Highness!
+
+Now, I shall list a number of subjects and you merely need to think the word
+and I shall attempt to answer your every query concerning the subject in
+hand. Of course, you can also try asking me about other subjects as well,
+Your Highness, and I shall endeavour to respond with as full an answer as I
+can, but I can only guarantee a proper response to the subjects listed. Do
+you understand?
+
+Good. Then let us begin.
+
+Oh, and if you wish to end the conversation at any time, simply think the
+word end. That ought to do the trick.
+
+Now, the list:
+
+r        the barbarian hordes
+r        the bell
+r        the eastern plainsmen
+r        my resurrection
+r        my son
+r        High Chancellor Verenor
+
+> bell
+I believe High Chancellor Verenor installed the bell in order to give you
+some means of communicating that did not involve speech or sign language.
+However, I also suspect he may well have not taken into account the
+unfortunate fact that someone lacking anything but  an eyeball may have
+trouble manipulating a bell in any way, shape or form.
+
+However, you live, Your Highness, by my magic, and perhaps it is through
+these means that your manipulation of the bell may be achieved.
+
+r        the barbarian hordes
+r        the bell
+r        magic
+r        the eastern plainsmen
+r        my resurrection
+r        my son
+r        High Chancellor Verenor
+
+The end command (or goodbye) would be handy for finishing the conversation
+off.
+
+> magic
+Yes, Your Highness. I believe the bell can be manipulated by magic. By your
+magic in particular.
+
+You see, your resurrection was a complicated and lengthy process, Your
+Highness. It was not as before, when that foul assassin killed you and a
+simple reawakening of the limbs was required. No, this time there were  no
+limbs to be reawakened. All that remained of you was a simple eyeball, a
+little charred but otherwise in fully usable condition. Of course, an eyeball
+cannot function on its own. It has no mind, no emotions, no thought
+processes. So magic was used to instil in your one remaining eyeball the
+power of thought. And that magic has left behind raw vestiges of itself which
+I believe you will be able to utilise to manipulate physical objects. In
+short, you can thrust  your will onto objects and use them as they might be
+used if you had hands.
+
+I believe it will work anyway, Your Highness. But of course the truth will
+only be revealed when you try it and see.
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 55 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+r        the barbarian hordes
+r        the bell
+r        magic
+r        the eastern plainsmen
+r        my resurrection
+r        my son
+r        High Chancellor Verenor
+
+The end command (or goodbye) would be handy for finishing the conversation
+off.
+
+> end
+No sooner have you thought this word than the conversation with the High
+Arcanist ends and you find yourself back in the drawer once more.
+
+[MORE]
+
+lll Inside The Drawer lll
+
+You would never have imagined the inside of a drawer could seem so
+unbelievably large, but then this is the first time you have seen one from
+the viewpoint of a single eyeball and nothing else.
+
+Scattered around are a notebook the size of a yacht, a broken crystal ball
+(or half of one anyway), a pencil with an unsharpened tip, a broken
+paperweight and... something odd. You aren't sure what this last thing is but
+it's certainly... odd.
+
+A ruler has been positioned against the far side of the drawer and there is a
+crack at the side of you which allowed you in here in the first place.
+
+> roll out
+
+lll Western End Of Desk lll
+
+Most of the western end of the desk is occupied by a drawer, but when you're
+only the size of an eyeball this doesn't present any real problems. The
+drawer itself rests askew on the desk, leaning over the western end with its
+side to you. There is a nasty crack down one side, perhaps the reason why the
+drawer was removed in the first place; whatever lies beyond is difficult to
+tell due to the angle of the crack.
+
+The only direction you can roll from here appears to be to the east.
+
+> roll e
+
+lll By The Bell lll
+
+The bell, the one High Chancellor Verenor expects you to ring, looms over
+you. Though nothing more than a normal-sized bell, in your current condition
+it seems gigantic, monstrous; the kind of bell that an eyeball twenty times
+your size would struggle to use. Its surface is deformed with marks which are
+probably nothing more than grazes yet appear to you to be scars made by the
+claws of foul beasts.
+
+Around the bell you see some writing quills - each ten times your size - and
+some paperwork.
+
+You can roll in all the main compass directions: north, south, east and west.
+
+> thrust at bell
+Armed with the knowledge given to you by the High Arcanist (or the imprint of
+the High Arcanist at any rate), you thrust  your will at the bell and
+
+You are suddenly... elsewhere.
+
+Or your consciousness is at least. The eyeball which is all that remains of
+your physical body is most likely still at the side of the bell. But you...
+
+... you are here.
+
+Floating in a void, surrounded by a strange array of symbols that you know,
+without knowing quite how you know, is the magic of your thrust interpreting
+the interior workings of the bell. Figure out how it all fits together and
+you can cause the bell to ring.
+
+You see the following symbols before you
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SSS
+
+And then
+
+6  q  u  f  x
+
+With just the word
+
+THRUST
+
+easy to discern.
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 6
+You thrust and hear the bell ring:
+
+ding-DONG!
+
+Somewhere in the distance, you fancy you hear (though not in any normal
+manner of hearing) someone (no doubt the poor chap who picked the shortest
+straw) go off to find the Protector.
+
+The Protector.
+
+It's kind of ironic, you've always felt, that your own personal champion, the
+finest sword in the kingdom, the man sworn to protect you with his own life
+if need be*, is the same man you're more completely terrified of than even
+High Chancellor Verenor.
+
+* A pity he had the day off when that assassin stabbed you to death, but you
+guess that's just one of those things.
+
+You don't know his name. You don't think anyone does. He's just the
+Protector: a hulking brute of a fellow with a brain the size of a pea who can
+reputedly kill a man at twenty paces just by looking at them hard.
+
+He storms into the room where you are. This is nothing unusual as he storms
+everywhere. He also has his sword drawn and, you notice uneasily, the blade
+is wet with blood. (You're just glad you don't have a mouth so you could ask
+him whose blood it is...)
+
+"GOOD TO SEE YOU, BOSS," the Protector says. "NICE TO SEE YOU'RE DOING
+ALRIGHT."
+
+You're not quite sure how there being nothing left of you other than an
+eyeball can constitute as 'doing alright', but you let that one pass.
+
+An uneasy silence follows. Communicating is a little difficult...
+
+"OH, RIGHT," says the Protector. He drops his sword to the floor (the clatter
+is enough to be heard on the other side of the city) and fumbles in his
+pocket. Pulling out a piece of crumpled paper, he peers at the words. This
+takes some time and has him muttering and cursing quite a bit. (Give him a
+toothpick and two thousand armed savages to fight and the Protector is in his
+element. Give him a piece of paper and you see real fear in his eyes.)
+"HIGH... CHANC- CHUNC- CHANICILO- ER... VERENOR. HE SAID... UM... HE SAID YOU
+WAS TO... UM... TO BOUNCE AND LIKE... LIKE WINK YOUR REPLIES, BOSS."
+
+You wait.
+
+"OH!" The Protector studies the paper some more.
+
+Much times passes...
+
+"GOT IT!" he says at last. "I'S GOTTA ASK YOU A... A QUESTION. AN'... AN' YOU
+ANSWER LIKE WIV A BOUNCE FOR A YEAH AND A WINK FOR A... UH... FOR THE
+OPPOSITE OF YEAH. GOT IT?"
+
+You bounce.
+
+The Protector nods. "RIGHT THEN. THE QUESTION... THE QUESTION..." He studies
+the paper but the answer, unfortunately, doesn't seem to be there. "LEMME
+SEE... IT WAS SOMETHIN' ABOUT THEM THERE SECURITY... ARRAG- ARREANG- ARRTANG-
+UM... STUFF. DO YOU WANT 'EM OR NOT? YEAH OR OPPOSITE OF YEAH?"
+
+Of course, you don't have a clue what he's talking about but there's no way
+you'd be able to convince him of that even if you did have the power of
+speech. So a bounce (for yes) or a wink (for the opposite of yes) look like
+your only options.
+
+> wink
+You indicate a no to the Protector.
+
+He looks at you for what seems like an age. Has he forgot what a wink
+signifies or...?
+
+No, apparently he understood. It just takes him twice as long as normal
+people to process something not combat-related.
+
+"I'LL GET ON IT RIGHT AWAY," he says. "IT'LL BE DONE AS QUICK AS... ER...
+AS... AS SOMETHING THAT'S REALLY FAST."
+
+He turns away, turns back and salutes (a dangerous thing to do with the
+spikes built into his gauntlets) and then thunders out. He slams the door so
+hard that you fancy even the peasants in the streets outside the palace can
+hear it.
+
+Now fingers crossed (in the strictly metaphorical sense, of course) that you
+made the right decision.
+
+[MORE]
+
+You are... elsewhere.
+
+You see the following symbols before you
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SSS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 3
+The u is pressed. The display flickers.
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SSS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 4
+The f is pressed. The display flickers.
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        S
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 6
+You thrust at the bell and hear:
+
+ding-DONG!
+
+Somewhere in the distance, a horn is sounded. This in turn signals for
+another horn to be sounded and this, in turn, for another, and another, and
+another... Halfway across the kingdom, horns are sounded, each one carrying
+the distinctive message which indicates the king desires an audience with
+none other than the High Warlord.
+
+There are few people feared in the kingdom more than the High Warlord (High
+Chancellor Verenor is the only one that springs to mind). He isn't a
+physically large man, yet his personality, loud and boisterous and, on
+occasion, drunk to high heaven, is enough to fill a large room and he has the
+kind of rugged charisma that a man in his position, who often orders a
+hundred men to their deaths before breakfast, needs. He's a fiercely
+dangerous psychopath with a vicious streak a mile wide and the kind of morals
+even a lowly gutter tramp would frown upon, yet stick him on a battlefield
+with a broken sword and a thousand enemies and he'd defeat them so easily
+you'd actually feel sorry for the other side. In a kingdom forever at war
+with each and every one of its neighbours, a High Warlord who knows how to
+win seemingly unwinnable battles is a must.
+
+"Goddamn good to see you alive, Your Highness!" you hear his voice thunder
+from several hundred miles away.
+
+You frown. Sure, he's loud  but several hundred-
+
+"No, Your Highness. That ol' bag o' bones the High Arcanist-" you fancy you
+hear the High Warlord spitting "-whipped up some magical thingymawotsit so we
+could have a little chat. Kinda cool I guess. Allows me to hear you an' you
+to hear me. But'-" the voice drops to a whisper (or as close to a whisper as
+a man who spends most of his life yelling on battlegrounds can yet) "-it
+better not let that ol' bag o' bones listen in 'cos if it does-"
+
+You assure him it does not. (And, due to the magic at work here, he hears you
+loud and clear.)
+
+"Okay, Your Highness. Got a tiny little bit of a problem here that might need
+a bit o' your ol'-fashioned wisdom."
+
+The High Warlord goes on to explain the situation. His 'tiny little bit of a
+problem' seems to boil down to the fact that he and his cat Marmaduke, his
+ferret Patrick and his snake Rory, as well as a few hundred soldiers, are
+about to go to war with the Eastern Plainsman. ("Bunch o' lousy stinkin' good
+for nothin' mongrels" is how he refers to them.) And the problem is that the
+enemy have him outnumbered by roughly two to one.
+
+Two to one?
+
+"Thereabouts. Anyway, I was hopin' you might have a few insights, Your
+Highness, what with you bein' so darned clever 'n' all. Know anythin' 'bout
+these lousy godforsaken dung-infested pieces o' garbage I might put to some
+use?"
+
+1)        "I think we need to mount a pre-emptive attack on the Eastern
+Plainsmen. Take the battle to them and show them what happens they move
+against us."
+2)        "I think a meeting between myself and the High Chieftain of the
+Eastern Plainsmen is called for."
+3)        "You should continue as you have done before, High Warlord."
+4)        "I think we need to use their fear of magic against them. Have a
+dozen of your men dress as wizards and send them to attack the Eastern
+Plainsmen."
+
+> 4
+There are a few seconds of silence as you give the order.
+
+Then, surprisingly, you hear a clapping sound!
+
+"Well done, Your Highness!" the High Warlord says. "Well done indeed!"
+
+You blink.
+
+"Yes, magic!  Damnit, why didn't I think of that? The Plainsmen hate magic.
+They're terrified  of it! We send a few of the boys against them dressed as
+wizards and they'll run a mile. Ha! They might outnumber us fifty to one, but
+we'll give 'em hell all the same!"
+
+Fifty to one?
+
+"Er... isn't that what I said befo- oh, is that  the time? Sorry, Your
+Highness, got to be going. Er... an attack-"
+
+The communication abruptly cuts off and you are left there wondering if you
+have made the right decision but unable to think of anything to do about it.
+
+[MORE]
+
+You are... elsewhere.
+
+You see the following symbols before you
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        S
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 1
+The 6 is pressed. The display flickers.
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        S
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 2
+The q is pressed. The display flickers.
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        S
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 5
+The x is pressed. The display changes to:
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SS
+
+Very good, Your Highness. I see you have mastered this simple process, says
+the voice of the High Arcanist. Each changing of the display signals a new
+high reached. Each new high resets the change.
+
+Which means precisely zilch to you but you don't see any real means to tell
+this to the High Arcanist.
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 6
+You thrust and hear the bell ring:
+
+ding-DONG!
+
+At once, you hear (though not in anything like the normal way), someone
+hurrying through the palace to fetch the Captain of the guard. He comes
+stomping along, his metal armour making an unholy racket as he moves, his
+bristly moustache stern and fierce. The Captain isn't a diplomat, not by any
+stretch of the imagination, and keeps his job for the single reason that is,
+for someone in his line of work, more important than anything else.
+
+He's really good at killing.
+
+So when he storms into the room and peers down at the desk where you are, you
+can't help but feel a bit intimidated by the man.
+
+"Your Highness!"  he booms. He is a booming sort of fellow. More used to the
+battlefield than the palace, he has a tendency to forget himself at times and
+positively yell. He's even been known to draw his sword and gesture with it
+in a head-chopping-off kind of way when he feels he needs to get a point
+across. He also regards you as some kind of God-like figure because you're
+the first king in living memory to actually know which end of a sword to hold
+and which end needs stabbing into people. "Present and correct, Your
+Highness, sah! Ready for your commands, sah!"
+
+Now all you have to do is decide which commands you're going to give to this
+ferocious man. Fortunately, he has brought with him a kind of clipboard (a
+little bloodstained admittedly) with a series of orders scribbled untidily on
+it. Hopefully you can wink at the order you want him to carry out and he'll
+do it.
+
+1.        Order the city guard to go easy on the common folk.
+2.        Order the city guard to proceed as normal.
+3.        Order the city guard to round up a dozen of the common folk and
+execute them as a warning of what happens to those who break the law. Order
+that this will continue every day until the civil unrest dies down and if a
+week has happened without any change, a hundred lousy peasants will be hung,
+drawn and quartered.
+
+You wonder at the last option being several times as long as the other two,
+but figure this is the Captain's way of indicating which one he's really
+hoping you'll go with.
+
+> 1
+You wink at the first option.
+
+You can tell this is an unpopular choice with the Captain as he frowns,
+growls, grumbles, looks like he might well be considering outright refusing
+(you clearly carry less authority as an eyeball as you once did as a fully
+grown man), but in the end he nods.
+
+"It'll be done, Your Highness, sah! I'll have the men..."  A deep sigh.
+"...go easy on the common folk and not... not use 'em for... for target
+practice... and... and no more puttin' them in... in our... cannons to check
+they're... to check they're working properly..."  Another sigh. "Is that all,
+Your Highness, sah?"
+
+You can't quite manage a nod but something indicates this is precisely what
+you are thinking as the Captain turns and thumps and thunders his way out of
+the room.
+
+[MORE]
+
+You are... elsewhere.
+
+You see the following symbols before you
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 1
+The 6 is pressed. The display flickers.
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 2
+The q is pressed. The display flickers.
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 5
+The x is pressed. The display changes to:
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SSS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 1
+The 6 is pressed. The display flickers.
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SSS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 2
+The q is pressed. The display flickers.
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SSS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 5
+The x is pressed. The display changes to:
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SSSS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 6
+You thrust at the bell and hear:
+
+ding-DONG!
+
+In the distance (it's hard to tell exactly how distant with your somewhat
+limited senses), you imagine a messenger is being sent to tell your son that
+you desire an audience with him.
+
+Your son.
+
+If the truth be told, you've never really had much confidence in your son.
+He's not the kind of son that fathers tend to parade around at parties and
+exclaim "look at this fine specimen of manliness! Came from my  loins he
+did!" to all and sundry but, rather, the kind of son they conveniently forget
+to take to said parties and, were someone to ask why this was the case,
+mutter something along the lines of "… oh, pressing engagements… busy… um…"
+and then change the subject as quickly as possible. Part of you blames your
+wife for Podric growing up to be such a disappointment to you, but another
+part accepts that as she died during childbirth it's not really fair to blame
+her.
+
+Yes, the blame lies with you. Too busy waging wars and running a kingdom to
+notice your son had developed an unhealthy fascination with music and the
+arts, you left him to do pretty much as he pleased. It's to your eternal
+shame that your only offspring hasn't taken to rulership in the way you
+envisaged but instead seems content to go to the opera, potter around his
+flower garden and thinks the kingdom and all its many warring neighbours
+would get along really well if they just made the effort.
+
+A horn sounds, disrupting your reverie, and into the room walks Podric.
+
+"Oh, father!"  he gasps, mopping at his brow. "I've had a positively ghastly
+time since you died."
+
+You're a disembodied eyeball and yet he's the one having a ghastly time?
+
+"I need help, father," Podric goes on. "The peasants are revolting and I'm
+sure it's all my fault…"
+
+You wink.
+
+"Well, I know  it's wrong to have their hovels knocked down with them inside
+to build another wing to the Royal Opera House, but it was such  a nice
+design that I just couldn't refuse."
+
+You cover your eye with your hands. (Metaphorically speaking.)
+
+"Oh, tell me what to do, father!" wails Podric. "I'm sure the peasants are
+after my blood and I don't have any to spare."
+
+You concentrate, trying to form some kind of mental link with your son.
+Hopefully this way, you can think certain words and he can respond to them.
+That way, you might be able to glean some idea of the full extent of the mess
+he's in.
+
+r        the barbarian hordes
+r        Podric's guards
+r        High Chancellor Verenor
+r        the king
+r        the kingdom
+r        opera
+r        peasants
+r        the eastern plainsmen
+r        Podric
+r        revolts
+
+> peasants
+"I suppose it was  a tad cruel having their hovels demolished just to make
+way for a new wing of the opera house, but then the design was just so
+amazing that I had to do it, father. I had to! The music called me and-"
+
+Podric notices the look in your eye and winces.
+
+"I… I'll give the order for the wing to be demolished and the hovels
+restored, father," he mumbles.
+
+You give him a harder look.
+
+"But better  hovels," he adds quickly. "And, er, I'll make sure we use proper
+bricks so they don't collapse and kill them all in a week or two."
+
+YOUR SCORE HAS INCREASED BY 2 POINTS TO 57 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+r        the barbarian hordes
+r        Podric's guards
+r        the king
+r        the kingdom
+r        opera
+r        peasants
+r        the eastern plainsmen
+r        Podric
+r        revolts
+r        High Chancellor Verenor
+
+It occurs to you that 'goodbye' would a good subject to finish the
+conversation on. Or perhaps 'end'.
+
+> guards
+"Oh, they're okay, father. For peasants." Podric sighs. "One of them
+complains continually though. Montrick the man's called. Just because I ask
+him to clean the toilet out three times a day, he complains.  Says it's
+beneath his station. That he's there to guard me  and that I shouldn't waste
+his time on servant tasks."
+
+You wink.
+
+"Well, of course I've got  servants, father, but they're all busy helping me
+with my gardening. And yes, I've got gardeners.  But they're needed to help
+keep the place clean so I can't possibly pull them away from that. So
+unfortunately for Montrick, he'll just have to make do. Or I could have him
+executed. The man detests opera so I have good grounds."
+
+r        the barbarian hordes
+r        Podric's guards
+r        the king
+r        the kingdom
+r        Gareth Montrick
+r        opera
+r        peasants
+r        the eastern plainsmen
+r        Podric
+r        revolts
+r        High Chancellor Verenor
+
+It occurs to you that 'goodbye' would a good subject to finish the
+conversation on. Or perhaps 'end'.
+
+> montrick
+"Oh, what an appalling man, father. I don't know why you ever sent him to me
+for cleaning!"
+
+r        the barbarian hordes
+r        cleaning
+r        Podric's guards
+r        the king
+r        the kingdom
+r        Gareth Montrick
+r        opera
+r        peasants
+r        the eastern plainsmen
+r        Podric
+r        revolts
+r        High Chancellor Verenor
+
+It occurs to you that 'goodbye' would a good subject to finish the
+conversation on. Or perhaps 'end'.
+
+> cleaning
+"Yes, cleaning! Oh, I know he trained as a fighter and he's got a full suit
+of armour and a sword, but, well, he's got nice strong arms and most of my
+cleaning staff aren't healthy enough to withstand a full day of hectic
+cleaning. Most of them see an especially nasty stain and faint outright. So I
+had  to set Montrick to cleaning. He's simply the only man for the job."
+
+r        the barbarian hordes
+r        cleaning
+r        Podric's guards
+r        job
+r        the king
+r        the kingdom
+r        Gareth Montrick
+r        opera
+r        peasants
+r        the eastern plainsmen
+r        Podric
+r        revolts
+r        High Chancellor Verenor
+
+It occurs to you that 'goodbye' would a good subject to finish the
+conversation on. Or perhaps 'end'.
+
+> job
+"You mean... I should make Montrick a guard again and not a cleaner? Well, he
+is  a strong man and everything and knows how to handle a sword, but... oh,
+not that  look, father. Please!  The way you look at me, I... oh, okay. Okay,
+I said. I'll make Montrick a guard again and find someone else to do the
+cleaning."
+
+YOUR SCORE HAS INCREASED BY 2 POINTS TO 59 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+r        the barbarian hordes
+r        cleaning
+r        Podric's guards
+r        job
+r        the king
+r        the kingdom
+r        Gareth Montrick
+r        opera
+r        peasants
+r        the eastern plainsmen
+r        Podric
+r        revolts
+r        High Chancellor Verenor
+
+It occurs to you that 'goodbye' would a good subject to finish the
+conversation on. Or perhaps 'end'.
+
+> end
+"Yes, goodbye, father. I enjoy these chats we have. Yes, I do really. I do.
+I... er, well is that  the time? Must be going! See you soon. Be sure to..."
+
+The rest of what Podric might have said is swallowed up by the door slamming
+shut and his rapidly retreating footsteps.
+
+[MORE]
+
+You are... elsewhere.
+
+You see the following symbols before you
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SSSS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 4
+The f is pressed. The display flickers.
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SSSS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 3
+The u is pressed. The display flickers.
+
+        H        SSSSS
+                SSSS
+                SSS
+                SS
+        L        S
+
+        C        SSSSS
+
+Your options seem to be as follows:
+
+1)        6
+2)        q
+3)        u
+4)        f
+5)        x
+6)        Thrust.
+7)        Exit here.
+
+> 6
+After a moment's hesitation, you thrust at the bell
+
+ding-DONG!
+
+and summon your faithful second-in-command.
+
+High Chancellor Verenor.
+
+It's a strange state of affairs that you're terrified of the man. Then again,
+everyone  is terrified of High Chancellor Verenor. There's just something
+infinitely… terrifying about him. He's a tall man, bone thin, with a large,
+vulture-like nose, piercing eyes, a complete lack of humour and the fiercest
+devotion to the throne you've ever encountered. Though never known to wield a
+weapon any more lethal than a cane, you've seen battle-hardened soldiers
+quake in their boots when meeting High Chancellor Verenor. Something about
+the way he speaks, and acts, and moves, and… well, everything  he does, just
+intimidates everyone he comes into contact with. You sometimes wonder just
+how he managed to get the job of High Chancellor in the first place and
+assume it's simply a case of whoever interviewed him for the position not
+having the nerve to tell him that, really, the kind of man who orders a dozen
+peasants hung, drawn and quartered for forgetting to cheer three times on
+your birthday isn't perhaps the best man for the job.
+
+Into the room he sweeps. He bows before you and then he straightens up. His
+piercing eyes locked onto you.
+
+"Your Highness," he says. "It is good to see you looking so…" A moment's
+hesitation then High Chancellor Verenor goes on with, "alive. Um." Never one
+to waste time, High Chancellor Verenor unfurls a scroll he has with him and
+scans it briefly. "I see good news good and bad, Your Highness. Let us see
+what today has brought us.
+
+"Regarding the Captain of the Guard…" A slight pause.
+
+You don't like it when High Chancellor Verenor pauses. He only ever pauses
+for effect or because he is about to deliver bad news.
+
+Fortunately this time it seems to be purely for effect.
+
+"Things have improved, Your Highness. Surprisingly, your plan of treating the
+peasantry like human beings and not as target practice for our archers has
+yielded positive results. They have ceased their rioting, have stopped
+attacking our guards on sight and, if this report is to be believed, their
+planned assassination of you that I neglected to mention has been temporarily
+put on hold. Well done, Your Highness.
+
+YOUR SCORE HAS INCREASED BY 5 POINTS TO 64 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+"Moving on to the Protector…" High Chancellor Verenor hesitates. "Yes, I see
+things go well. The security arrangements were turned down and with good
+reason as well. It seems the manufacturer has met with a rather unfortunate
+accident." High Chancellor Verenor scans a few lines of the report. "Or
+several unfortunate accidents it seems. All of them fatal. It seems that
+after his head was severed, his left and right arms torn off, his legs
+mangled, his chest crushed and the less said about his lower regions the
+better, he succumbed to a nasty cough and promptly died on the spot. So you
+have saved your champion's life, Your Highness, and he, in turn, has vowed to
+protect you for the rest of it. Sometimes, Your Highness, your foresight if
+impressive beyond the ken of mortal men.
+
+YOUR SCORE HAS INCREASED BY 5 POINTS TO 69 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+"As for the advice you gave to the High Warlord…" High Chancellor Verenor
+reads the report. And then reads it again. And again. And then, most
+surprising of all, he smiles.
+
+Now, you've seen the High Chancellor smile before. He always smiles on
+execution days and when news comes in that someone he dislikes has met an
+untimely end, but those are malicious smiles. This is a happy smile. A happy
+smile. On the face of High Chancellor Verenor himself.
+
+"I am… impressed, Your Highness," he says at last. "I mean, even more
+impressed with the divine genius than I usually am. The solution to use magic
+against the magic-fearing Plainsmen proved a masterful stroke. They are
+defeated, Your Highness. Defeated and currently begging  not to be utterly
+destroyed by the 'powerful magics at our disposal'. Ha!"
+
+You manage a wink which High Chancellor Verenor interprets correctly.
+
+"Destroy them, Your Highness? Well, the idea has some merit certainly-"
+
+You wink again. Frantically.
+
+"But no, you're right, Your Highness. Destroying an already defeated enemy
+would be an unnecessary act. We shall instead put them to use. They can dig
+canals for us and straighten our roads and perhaps spare the peasantry from
+being used as target practice for our archers. Oh, the possibilities are
+endless. But for now, onto your son…
+
+YOUR SCORE HAS INCREASED BY 5 POINTS TO 74 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+"As for your son…" High Chancellor Verenor reads the report several times.
+You fancy you see him hold back a sigh. Then he gives you the news you've
+been dreading. "It seems matters have resolved themselves most satisfactorily
+there, Your Highness. The peasantry problem was dealt with after that
+conversation (so to speak) that you had with your son, and your son also
+stopped forcing the captain of his guards, Gareth Montrick, to clean his
+toilets. As such, Montrick is now your son's sworn protector and I trust he
+will do an admirable job. At worst, he will be one more shield of flesh for a
+potential assassin's blade to be stabbed into before they reach your son. All
+in all, a happy conclusion to this unfortunate problem.
+
+YOUR SCORE HAS INCREASED BY 5 POINTS TO 79 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+"All in all, Your Highness, things ended up…" High Chancellor Verenor smiles.
+It's such a rare event to see a moment of genuine happiness cross his face
+(one that doesn't immediately follow someone dying that is) that you're
+momentarily dumbstruck. If you had a mouth and a tongue, you'd no doubt be
+lost for words. "… wonderful, Your Highness. Simply, simply… just wonderful."
+In an almost unheard of display of emotion, High Chancellor Verenor sinks to
+his knees and bows deeply to you. "Oh, Your Highness. It is so good to have
+you back!"
+
+And right then, at that precise moment, it feels  good to be back. It really
+does. For the first time in a long time, you're actually glad to be alive.
+Glad to be doing some actual ruling.
+
+Damn, you've missed this feeling…
+
+I need a body, you think. I can't rule as an eyeball…
+
+High Chancellor Verenor, as if he can somehow hear your thoughts, nods
+eagerly. "Indeed, Your Highness. A body! You need to show yourself to the
+people and let them know you are back. You'll need… a good body. A fine,
+strapping, healthy, athletic body, one never stricken by disease or plague. I
+shall send forth the guards into the streets to find such a person and, once
+he is dead, we will-"
+
+No. No killing.
+
+High Chancellor Verenor blinks. "No killing? But, Your Highness-"
+
+No. Find me a body but do it peacefully.
+
+This is clearly an alien concept to the High Chancellor. "But maybe just a
+small  killing-"
+
+You don't have a head to shake but your refusal to participate in further
+murder is conveyed to High Chancellor Verenor all the same. He nods. "As you
+wish, Your Highness. I shall endeavour to procure you a body without  killing
+one first. It shall be…" He hesitates. "… a challenge."
+
+YOUR SCORE HAS INCREASED BY 10 POINTS TO 89 OUT OF A MAXIMUM POSSIBLE SCORE
+OF 100.
+
+Things are set in motion that very hour. Messengers are sent far and wide to
+find you a body that is hale and hearty, young and supple, strong and
+athletic, and, most important of all, not currently occupied. You're not
+entirely sure how even someone like High Chancellor Verenor will manage to
+achieve this, but he has always been a resourceful man and you're sure he'll
+do it somehow.
+
+What the future holds for you, you aren't sure. Rulership once seemed like a
+terrible burden to you, a never ending miasma of problems to be faced and
+mistakes to be fixed and countless assassins to avoid. But no longer. Perhaps
+it's simply your absence from it for so long, or the dawning realisation of
+how much your citizens need you, not to mention what a terrible job poor
+Podric is making of things. Perhaps it's something else entirely. After all,
+rotting in a coffin is no job for a king.
+
+YOUR SCORE HAS INCREASED BY 10 POINTS TO 99 OUT OF A MAXIMUM POSSIBLE SCORE
+OF 100.
+
+As you didn't die at all during the game:
+
+YOUR SCORE HAS INCREASED BY 1 POINT TO 100 OUT OF A MAXIMUM POSSIBLE SCORE OF
+100.
+
+[MORE]
+
+And so the game has come to an end. Give yourself a clap on the back
+(assuming you've now got a hand and a back that is). Congratulations on a job
+well done.
+
+Overall, your score was 100 out of a total of 100. Didn't achieve the full
+amount? Not to worry. You can always try again if you like. If you're curious
+to see what you missed, and don't mind a few spoilers, the points command
+will list all of the actions you need to undertake to achieve the full 100
+points.
+
+In the meantime, thanks for playing the game and if you especially liked it,
+you could always go over to the ADRIFT forum at
+http://www.adrift.org.uk/cgi/iB/ikonboard.cgi and write a glowing review of
+it.
+
+> quit
+Do you really want to quit? [Y/N]

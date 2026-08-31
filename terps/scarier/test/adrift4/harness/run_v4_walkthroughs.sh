@@ -163,6 +163,10 @@ shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  Battle rolls reorder.
+# Re-blessed 2026-08-31 for the exact-tick walk-move gate (the whole walk
+# step, move included, runs only when counter == suffix_sum; measured live
+# in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
+# pre-move lines between stops disappeared; still wins.
 shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=7
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
@@ -690,7 +694,9 @@ thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.|SCR_SKI
 # key/door colour matches on `unlock door` (the old "circular lock /
 # unwinnable" verdict misindexed task 15's variable restriction -- var1-2 is
 # addything, not robot2).  The route's unlock/shout spam is RNG-timing under
-# the fixed seed; see thetest_walkthrough.md for the mechanism.
+# the fixed seed; see thetest_walkthrough.md for the mechanism.  Re-derived
+# 2026-08-31 (191 commands): the exact-tick walk-move gate shifted the Robot
+# Guard's storms-in/out schedule, so every shout was re-timed; still 20/25.
 thetest_win_solution.txt|thetest.taf|Well done!  You won!|SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29: run400 replay, 12 commands echoed and all 12 identical
 # before a real-time <wait> pause ate the next one; a cmdfile with #sleep lines
@@ -747,6 +753,10 @@ wreckage_solution.txt|Wreckage.taf|you've rescued yourself
 vagabond_solution.txt|Vagabond.taf|The End|SCR_SKIP_WAITKEY=1
 woof_solution.txt|Woof.taf|I'm back.
 undefined_solution.txt|Undefined1.taf|An end is defined.
+# RUNNER-MEASURED 2026-08-31 (run390 under Wine, Adrift_3_ecod3.txt, all 11
+# feed commands echoed): clean -- 10/11 turns identical, the Usher's walk in
+# step; the last turn differs only because the live transcript stops at the
+# endgame pause, before the alley arrival and score summary flush.
 ecod3_solution.txt|ECOD3.taf|In an alley behind Denny's.
 goblinhunt_solution.txt|goblinhunt.taf|Tomorrow is the next goblin hunt.|SCR_SKIP_WAITKEY=1
 # 2026-08-29: "Time passes..." now precedes the ending (silent-End-Game rule).
@@ -1412,6 +1422,9 @@ marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!
 # vardock_bates row.  The train legs roll Time 15-20 each, so the
 # author's fixed wait counts are seed-tuned: 234 no longer wins and a 1-700
 # scan gave 95, 429, 433, 681; the row now uses 95.
+# 2026-08-31: "In the swimming pool" (empty Long + LastDesc alt) now leads
+# with "There is nothing of interest here." -- 3.8 substitutes it into the
+# empty Long at LOAD (run380 447FEE), measured live on cave.taf.
 wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.|SCR_SEED=95
 # Mortality (David Whyld, 2004).  A VERBATIM replay of the author's own session
 # transcript shipped inside the game's doc file: all 78 commands, no repairs,
@@ -2207,6 +2220,17 @@ afdfr_solution.txt|AFDFR.taf|Life is good for Death.|SCR_SKIP_WAITKEY=1
 # prints the exits and drops the task line.  Six of arlo's 84 commands differ
 # for those two reasons alone.  See notes/WINE-TRANSCRIPTS-TODO.md.
 akron_solution.txt|akron.taf|you brave adventurer, saved yourself
+# cave.taf (3.80) measured live in run380, 2026-08-31 (Adven_1_cave.rtf, 216
+# commands, Save Transcript flow).  Two findings, both ported:
+#  - the walkthrough's seven `z` commands fell dead ("Say again?"): `z` only
+#    entered the Runner vocabulary at 3.90 (run390_3.bas 45FCB0 tests the
+#    exact line `= "z"` OR'd with c("wait"); no z literal in run370/380/400
+#    .bas, run400 takes it via its own dispatch).  Scarier now declines the
+#    z rows below 3.90 (lib_cmd_wait_390) and the solution says `wait`.
+#  - rooms with an empty Long and a LastDesc alt ("By the old shack", "By
+#    the large tree") print "There is nothing of interest here." BEFORE the
+#    alt on every show: 3.8 substitutes the sentence into the empty Long at
+#    LOAD (run380 447FEE), unlike 3.9's render-time nothing-described guard.
 cave_solution.txt|cave.taf|You scored 1000 out of the maximum 1000!
 haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
@@ -2233,6 +2257,12 @@ haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 #                 already degrades to exactly this.
 # npc_tick_npc() gates the 0xFF stamp on is_400 and the restart on
 # (is_400 || npc_walk_is_loop(...)), so the 3.8 path matches line for line.
+# Re-blessed 2026-08-31 for the exact-tick walk-move gate (the whole walk
+# step, move included, runs only when counter == suffix_sum; measured live
+# in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
+# pre-move lines between stops disappeared; still wins.
+# Its four `z` commands are now `wait`: `z` is not in the 3.80 Runner
+# vocabulary (see the cave.taf row) and falls to "Say again?" there.
 great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!
 tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
 # The 3.8 half of the walk-announcement rewrite was measured on this game --
@@ -2294,6 +2324,17 @@ microwave_man_solution.txt|microwaveman.taf|You scored 100 out of the maximum 10
 # is one code path; a normal answer means 4.00 narrows by the longest match
 # and the port has to be version-split.
 life_of_mike_solution.txt|mikes.taf|Ypu ask her out
+# Measured 2026-08-31 against run380.exe live (Adven_1_superliam.rtf, feed
+# cmdfile_w_superliam.txt, 85/85 echoed, save at the 85th command).  Two
+# engine rules imported, three golden lines re-blessed:
+# 1. run380 appends AdditionalMessage only when the turn's flat string does
+#    not already end in two spaces ('4D001) -- so a ShowRoomDesc room Long
+#    ending "  " suppresses it (tasks 22/23: the cat song and the X1 taunt
+#    never print; pf_note_trailing_auto_break in task_show_room_desc).
+# 2. c()/co() match the RAW Short/Alias ('429048/'42DE60): object 9's Short
+#    "necko wafers " (trailing space) is unreferenceable, so `take necko
+#    wafers` answers "Take what?"; the task-matched eat still fires and the
+#    Runner wins 3250/3250 (uip_compare_reference trailing-space rule).
 super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 # The 3.7 confirmation of the empty-M1 room-alt start rule (see the
 # lair-of-the-cybercow rows): measured live in run370 under Wine, cmd 34 is now
@@ -2780,6 +2821,10 @@ everything_solution.txt|everything.taf|I'll smile as I curse her name and everyt
 # four monster events run on a fixed global cadence and the zombie's WALKs
 # re-teleport it onto the player after every kill, so the `instructions` turn
 # and the exact command count before the dog fight are load-bearing.
+# Re-blessed 2026-08-31 for the exact-tick walk-move gate (the whole walk
+# step, move included, runs only when counter == suffix_sum; measured live
+# in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
+# pre-move lines between stops disappeared; still wins.
 textident_evil_solution.txt|Textident_Evil.taf|Congratulations! You've successfully beaten Textident Evil.|SCR_SEED=4
 # Impulso: a Spanish conversation piece with no map, no objects and no
 # score -- 12 tasks, all unrestricted, chained by ACT type=1 moves.  You
@@ -3380,6 +3425,15 @@ murder_great_falls_solution.txt|mudergreatfalls.taf|Ken is found guilty of tripl
 # script kills those turns at the club (29 x `x girl`, with `buy beer` hoisted
 # into the window); the queue then goes in at 23:39, ONE minute inside T83.
 # The row needs SCR_SKIP_WAITKEY=1 for the single <waitkey> that ends the intro.
+# RUNNER-MEASURED 2026-08-31 (run390 under Wine, Adrift_3_vampire.txt, all 84
+# feed commands echoed): the REAL Runner cannot win this game.  T61 (east out
+# of the Bozo backyard, rep=0, RepeatText=' ') is spent by the first exit; the
+# exit after raising Jon is claimed by the pre-4.0 spent-task rule -- run390
+# prints the RepeatText (one space, a blank turn) and walls at 70/100, the
+# backyard's only exit.  Our 100/100 stands on the documented deliberate
+# deviation (see Journ2's Lair brick, WINE-TRANSCRIPTS-TODO.md Vampire
+# section).  Everything up to that wall matched turn-for-turn except two RNG
+# schedule items (the green-porche event, Simonsen's arrival one turn apart).
 vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SCR_SKIP_WAITKEY=1
 
 # The Merry Murders -- ADRIFT 3.90, 69,489 bytes, December 16 2003.  A seven-act
@@ -3397,6 +3451,12 @@ vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SC
 # janitor's closet never unlocks; and T46 `n` in the Computer Lab only unlocks
 # the archive door, so a second `n` is needed to walk through it.  The row needs
 # SCR_SKIP_WAITKEY=1 for the six act-transition <waitkey>s.
+# Re-derived 2026-08-31 (66 commands): after the exact-tick walk-move gate,
+# T27's move of Trey to the east Hallway sticks (his walk is spent), so
+# `show list to trey` moved there from the Plaza.  Full 64/64 run390 replay
+# Adrift_3_merry_murders.txt; the Runner itself walls the second archives
+# `n` on the pre-4.0 spent-task claim (deliberate deviation, not imported)
+# and ends 100/135.
 merry_murders_solution.txt|Merry_Murders.taf|You scored 135 out of the maximum 135!|SCR_SKIP_WAITKEY=1
 
 # The Woods Are Dark -- ADRIFT 3.90, 71,216 bytes, Cannibal 2003.  A haunted
@@ -3789,6 +3849,11 @@ gmylm_solution.txt|GMYLM_2010.taf|Victory! - - -|SCR_SKIP_WAITKEY=1
 # @48A409); a command that used the pronoun leaves it untouched; put never sets it.
 # Measured on humbug (Adrift_5_humbug.txt, 76 prompts; Adrift_4_humbug.txt full replay).  Scarier:
 # uip_definite_form() in scparser.cpp.
+# Re-blessed 2026-08-31 for the exact-tick walk-move gate: the butler is
+# displaced by a task and now STAYS displaced until his next exact tick, so
+# his exit announcements fire at the real moves (one joins the armoire
+# paragraph per the walk-announcement join rule).  The old bare "The butler
+# exits." lines were the per-tick re-drag bug.
 provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2006!!!|SCR_SKIP_WAITKEY=1
 
 # Professor Von Witt's Fabulous Flying Machine, from the game's own bundled
@@ -4680,6 +4745,10 @@ dusk_solution.txt|dusk.taf|Most importantly you finally saw a tree frog!|
 # every restriction; only phrasing that misses that literal pattern (falling
 # through to the task's ALTCMD catch-all) actually sets %text% and scores.
 # 62 commands (incl. name/gender prompts), no env vars.
+# Re-blessed 2026-08-31 for the exact-tick walk-move gate (the whole walk
+# step, move included, runs only when counter == suffix_sum; measured live
+# in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
+# pre-move lines between stops disappeared; still wins.
 thehunter_solution.txt|The_Hunter.taf|You scored 50 out of the maximum 50!|
 # Will.taf (Selma's Will, 4.00): a heirloom-trading puzzle across ~12
 # relatives at a will reading -- route small gifts to specific NPCs in
@@ -5504,6 +5573,418 @@ bloodrelatives_solution.txt|Blood_Relatives.taf|you did find your bed|
 # done! You've reached the best ending in the game!" after the -5 "rob not
 # here" endgame penalty (76-5=71, still >70).
 paint_solution.txt|Paint.taf|Well done! You've reached the best ending in the game!|SCR_SKIP_WAITKEY=1
+# hcw.taf (AIF, adult content -- see /goldens/.gitignore): "How to Conquer the
+# World" by Jason Mac Innes, v2.0, 2014. Comic mad-scientist romp: amnesiac
+# "Dr. Evil" works down a 6-item to-do list (secret lair, evil assistant, lab
+# equipment, robot, weather-control-crown "weapon", plus a joke item that
+# never completes) with chauffeur Vincent's limo as the hub between the
+# basement-apartment/amusement-park lair and the rest of town. Derived via
+# taf_pattern_scan.py plaintext extraction, SCR_DUMP_TASKS structural dump,
+# and interactive replay through harness/scare.
+#   - Sexual content is confirmed limited to two consenting-adult characters,
+#     love-interest-turned-lab-assistant Susan Templeton and the player's own
+#     non-human Fembot creation; the teenage ticket-booth character Candy is
+#     confirmed uninvolved in any sexual content and this walkthrough never
+#     interacts with her.
+#   - Only 13 tasks carry an ACT type=4 (change score) across the whole game.
+#     Two pairs are mutually exclusive alternates gated on the same object
+#     state (stripping Susan can fire via the literal `strip susan` command
+#     or via a "talk to susan"/hypnosis-menu option, but never both in one
+#     playthrough), so the structural maximum in a single run is 11 of the
+#     13 points, not 13 -- confirmed by reaching every other to-do item as
+#     "[Completed]" with 2 points permanently unreachable.
+#   - The Tri-City Museum crown heist (the "weapon" arc) is the core puzzle
+#     chain: hypnotize Susan (a "talk to susan" menu, option asking her to
+#     undress/strip -- one of the mutually-exclusive scoring pairs above),
+#     `take keys` from her, `give clothes to fembot` to disguise the Fembot
+#     as museum staff (required later to push past the ticket line and to
+#     neutralize security guard Frank automatically on room entry), then
+#     `talk to fembot` -> incapacitate Susan and stash her in the limo trunk
+#     (requires the trunk already open) before leaving the parking lot.
+#   - At the Main Entrance, `x map` must be typed there specifically (it
+#     fails everywhere else) to reveal the Security Guard Station exit.
+#   - The Gift Shop's `buy crown` (a replica, plus a separate sales receipt
+#     object) must be followed immediately by `drop crown` -- carrying both
+#     the replica and the later-stolen real crown through the exit security
+#     checkpoint results in getting caught and a bad ending despite showing
+#     a non-zero score; dropping the replica and keeping only the receipt
+#     lets the checkpoint's "I have a sales receipt for it" dialogue option
+#     succeed cleanly.
+#   - The Security Guard Station's 3-button panel (Motion Sensors/Temperature
+#     Sensors/Case Locks) is solved by pushing third, then first, then
+#     second, landing on all three off ("All of the museum's security system
+#     is now off").
+#   - The Arms and Armour display case refuses to open ("you'll need some
+#     cover") until the Fembot hypnotizes the tour group into "mindless
+#     minions" (a `talk to fembot` menu option back at the Reptiles Exhibit).
+#     `take crown` then triggers a scripted EMP burst that disables the
+#     Fembot in place -- she must be picked up with `take fembot` (a global,
+#     any-room command) before leaving, or she is permanently lost; the
+#     disabled Fembot rides home in inventory with no complications at the
+#     exit checkpoint.
+#   - Susan's research documents are hidden in her closed office desk
+#     (`open desk`, not `x`/`take documents` directly) behind a door reached
+#     via the Employees Only Hallway once Frank is neutralized and the
+#     Fembot is disguised.
+#   - Back at the lair, `give crown to vicky` (a single direct command)
+#     fires both the crown-acquisition and documents-handoff scoring tasks
+#     at once if both objects are already carried, completing the "weapon"
+#     to-do item outright. A `talk to vicky` menu option then repairs the
+#     disabled Fembot (lowers her into the regeneration pod); a couple of
+#     `wait`s later she recovers at full strength.
+#   - Regardless of Fembot repair state, keeping Vicky as a willing, un-
+#     coerced ally always leads to her betraying the player once the
+#     weather-control device finishes calibrating (an automatic, non-skippable
+#     cutscene chain triggered a few turns after the device is activated) --
+#     with the Fembot repaired this is the "Vick usurps with Fembot" ending
+#     used here; leaving her unrepaired instead triggers a poisoning-death
+#     ending, also at the same 11/13 score. A third, better-ending branch
+#     requires hypnotizing/enslaving Vicky via the Fembot *before* the
+#     Fembot is ever disabled at the museum, which is structurally
+#     incompatible with the crown-heist route (the Fembot must accompany the
+#     player into the museum and gets disabled there), so it was not pursued.
+# 250 commands, SCR_SKIP_WAITKEY=1 (the intro cutscene has two
+# "[Press Any Key to Continue]" pauses that otherwise eat the first two
+# commands and desync the whole script). Final run: score 11 out of the
+# maximum 13 (84%), ending "Well, you didn't conquer the world today. But
+# there's always tomorrow." (the "Vick usurps with Fembot" ending, reached
+# with the crown, documents and a repaired Fembot all delivered).
+hcw_solution.txt|hcw.taf|Well, you didn't conquer the world today. But there's always tomorrow.|SCR_SKIP_WAITKEY=1
+# YADFA.TAF ("Yet Another Damsel in Fantasy Adventure"): a comic fantasy in
+# which a farm boy (with recruited companions Otto the dwarf and Grarrrrr
+# the dog) sets out from Castle Bloodheart to rescue kidnapped Princess
+# Isabella from the sorcerer Malgor. Derived via taf_pattern_scan.py text
+# dump plus interactive replay against harness/scare (SCR_ECHO_INPUT=1
+# SCR_SKIP_WAITKEY=1). Progress verified so far (partial walkthrough, NOT
+# a full win):
+#   - Market: `gather mud`, then at the Castle gates `throw mud at guards`
+#     to get past them; `take needle` off the spat-out needle.
+#   - Well: mend the leaky bucket with the needle and twine (`turn handle`/
+#     `mend bucket`/`turn handle` x2/`wash`) to draw clean water.
+#   - Inn: recruit the dwarf Otto by giving him a steak (`give steak to
+#     dwarf`) after talking to the bartender Bernard.
+#   - Tavern "The Black Midget": defeat the nobleman's retinue with `kill
+#     nobleman`, then -- strictly between that first kill and finishing him
+#     off -- `talk nobleman` (unlocks a task-state gate) and `nod` to accept
+#     his shield, then `kill nobleman` again to finish him.
+#   - Bribe the lance-corporal (`bribe lance`) to cross into the chasm/
+#     valley area; `blow whistle` to part flowers and find a body; `x body`
+#     then `mend shield` combines the shield with a repair kit taken off
+#     the corpse, once both are visible, into a repaired shield needed
+#     later for the final boss.
+#   - Feed the giant Bugha (`give nuts to grarrrrr` earlier recruits the
+#     dog; later at its lair `talk to bugha`), `pray` at a shrine for gold,
+#     and `pay toll` at the toll booth to proceed toward the signpost.
+#   - Ends at "By a signpost" (room past the toll booth/valley/graveyard
+#     loop) with the shield repaired, the feather secured (needed later for
+#     a pit-crossing shortcut), Otto and Grarrrrr both following, and
+#     Princess Isabella's ring and a remote control already picked up along
+#     the way.
+# 117 commands, SCR_SKIP_WAITKEY=1. Final run (partial progress, not a
+# win): score 83 out of a maximum of 231 (35%), stopped at "By a signpost"
+# with the `score` command's own output used as the reproducible marker
+# below -- the Village/Dungeon/Malgor-fight/ending portion of the game was
+# analyzed but not yet live-verified, so is not included in this walkthrough.
+yadfa_solution.txt|YADFA.TAF|your score appears to be 83 out of a maximum of 231|SCR_SKIP_WAITKEY=1
+# Requiem (IF Comp 2006, David Whyld): a noir psychological thriller. PI Chris
+# Chandler is hired by client Sophia Montague to investigate Martin Cairns, an
+# ex-lover who (she claims) cannot be killed. No score/MaxScore is authored
+# (VAR "scor" exists but no task ever ACT-type=4s it) -- the game is entirely
+# branch/ending driven, tracked via ROOM 91 "<good ending>" vs ROOM 14
+# "<death>"/ROOM 15 "<decision>" bad-ending rooms reached by ACT type=1 (move
+# player) off numbered-menu TASKs. Derived from the game's own built-in
+# `cheat` command (typed at the very first "My Office" prompt), which prints
+# the author's own annotated walkthrough to the positive/best ending verbatim
+# ("> command, command, ..." lines) -- extracted and live-verified against
+# harness/scare rather than trusted blind. 74 commands (the leading `1`
+# selects "Play the game" from the title menu; SCARE gives
+# "Sorry. That is not recognised." on every command that follows if it's
+# omitted). Ends "Requiem has ended. Well done - you have reached the game's
+# best ending."
+requiem_solution.txt|competition2006__adrift__requiem__requiem.taf|you have reached the game's best ending|SCR_SKIP_WAITKEY=1
+# In The Mind Of The Master (IF Comp 2007, David Whyld): a disguise/heist
+# thriller -- fugitive master-of-disguise "the Master" flees his apartment as
+# Grekko and Pauldro close in, escapes as a police sergeant, hides out in the
+# Montalban club, gets drugged and interrogated in a black-site "Chamber" by
+# an unseen faction who blackmail him into killing the Cardinal, then breaks
+# into the Cardinal's home and defeats him. No score/MaxScore is authored
+# ("score" always reports 0 out of a maximum of 0) -- purely branch/ending
+# driven, with a built-in `help`/`h` hint chain at every puzzle and the
+# game's own `walkthrough` command (typed at the very first "Apartment"
+# prompt) printing the author's shortest solution verbatim. That built-in
+# walkthrough has one live bug: it skips `read paper` before leaving "By A
+# Door", and without it the eastward move has a fatal chance of walking
+# straight into Grekko's death squad (live-verified both ways against
+# harness/scare) -- `read paper` is inserted here to make the route safe.
+# The finish is triggered by `become cardinal` once inside the Cardinal's
+# lair, using the Master's titular mind-transfer power to end the game on
+# its richest ending (full confrontation/reveal text, same final ending
+# whether the guard is felled by the cudgel or bypassed via the alley's
+# billboard-distraction shortcut). 29 commands, SCR_SKIP_WAITKEY=1 (leading
+# `1` selects "Begin the game" from the title menu).
+mindofmaster_solution.txt|competition2007__adrift__mindofmaster__mind of master.taf|You are victorious, whoever you might|SCR_SKIP_WAITKEY=1
+# Without A Clue (David Whyld, IF Comp-era Sherlock Holmes pastiche): the
+# player character "Ognacio Bigglesworth" burgles Holmes' Baker Street
+# residence, discovers Holmes has faked his own kidnapping (with Moriarty as
+# a knowing accomplice) to test a would-be successor, then chases the plot
+# through Scotland Yard, a prison cell, Moriarty's laboratory, the Thames
+# docks and a First National art-gallery heist to a final truncheon-throwing
+# confrontation. This game ships its OWN developer walkthrough as in-fiction
+# commands -- `w brief`/`w long` (TASK 5/6) print the author's exact
+# move-by-move solution with per-move score annotations, and `s points`
+# (TASK 7) prints the full scoring rubric -- so this route is that
+# authoritative sequence, live-verified rather than trusted blind. WON with
+# a score of 101 out of the game's own stated maximum of 100 (the ending
+# text's "maximum possible of 100" undercounts by one; every single
+# ChangeScore action in the task dump fires). 124 commands, `SCR_SKIP_WAITKEY=1`
+# (a `[MORE]` pagination pause after the "hail a cab" cutscene otherwise eats
+# the following Scotland-Yard-menu digit and desyncs the whole run).
+withoutaclue_solution.txt|WithoutAClue.taf|you've managed to finish the game|SCR_SKIP_WAITKEY=1
+# Cowboy Blues (comedic Western): the player wanders the town of Deadwood
+# Gulch collecting items and running dialogue trees to help NPCs, working
+# toward a showdown with the outlaw "Mad Jake" and his three cronies
+# (Scabies, Gragg, Herman) at OK's Coral. The game has NO scripted EndGame
+# action anywhere in its 735 tasks -- it is a pure open-ended
+# score-accumulation game with no win/lose ending, so as with the YADFA
+# row above this is a deliberately PARTIAL walkthrough using the engine's
+# own `score` output as the reproducible marker. Progress: buys a beer and
+# trades favors around town (badge, crowbar, slippers, lolly, will) to
+# raise cash and reputation, then dispatches all three of Jake's cronies --
+# Scabies via the bank double-encounter, Gragg via the warehouse
+# board-trap (open the warehouse, pull the board, let him chase and fall),
+# and Herman via the Murder Avenue double walk-in trigger (`ne` twice from
+# Stonetomb Square) followed by knocking him out with `push barrel` to
+# rescue his kidnap victim Alissa and reunite her with her father for
+# points. The deflection helmet obtained from Dyanne's cabinet is handed
+# over to Egbert's dwarf gang (`give helmet`) to defuse their Slaughter Row
+# ambush peacefully, at the cost of forfeiting the item needed to survive
+# Mad Jake's "Herokiller" gun -- so the much larger OK's Coral boss
+# confrontation is NOT attempted here. 213 commands, no waitkey pauses
+# encountered. Final score 68 out of a maximum of 401 (16%).
+cowboyblues_solution.txt|CowboyBlues.taf|Your score is 68 out of a maximum of 401|
+# Whatever Happened to Uncle Grumble (comedic fantasy, hero "a" = tall and
+# strapping): the player must rescue Uncle Grumble from a fortress, working
+# through a long chain of mandatory prerequisites (a church "deed of purity"
+# errand, a package delivery, a horn-for-chest-combination trade with Lord
+# Boore, a witch's-cottage broom-for-potion/spellbook-for-key exchange, and
+# a mandatory travelling companion -- Lughead or Vahla) before the fortress
+# rescue and ending sequence can even be attempted. Static analysis via
+# SCR_DUMP_TASKS mapped the full 82-room connectivity graph and the entire
+# fortress-escape state machine, but the full route was NOT completed live
+# before this run was checkpointed -- this is a deliberately PARTIAL
+# walkthrough covering only the live-verified opening: select hero "a", kill
+# the two orcs menacing the dwarf in Oscoe's Sleazepit (no companion
+# required for this fight), loot their corpses for 4 gold, and buy a mug of
+# wine (spending 1 of the resulting 6 gold) -- the item needed to recruit
+# Vahla as a companion, though the recruitment command itself was not yet
+# resolved (the parser needs a noun for her that hasn't been found: neither
+# "vahla" nor "swordfist" -- her object's alias/prefix in the dump -- match
+# before she's somehow introduced). 9 commands, no waitkey pauses
+# encountered. Final score 6 out of a maximum of 404 (1%).
+grumble_solution.txt|Whatever_Happened_to_Uncle_Grumble.taf|Your score is 6 out of a maximum of 404|SCR_SKIP_WAITKEY=1
+# magicshow.taf (AIF, adult content -- see /goldens/.gitignore): a hypnosis/
+# stage-magic themed game. The player (stage magician "Justin") performs a
+# theatre act (hat/rabbit, card, sawing-a-girl-in-half, hypnosis/table, and
+# escape-manacles tricks) for assistant Tiffany and volunteer Amy/Stacey,
+# then investigates a mysterious letter that sends him via museum (dinosaur
+# exhibit, security guard, a display-case scarab artifact) and a riddle
+# ("the wind") to a crumbling tower, where he defeats a flame-wall guardian
+# (Victoria) with the magic wand and climbs a hidden spiral staircase to
+# confront the villain Morgana, who has hypnotized and bound Tiffany atop
+# the tower as part of a god-ascension ritual.
+#   - This is a deliberately PARTIAL walkthrough: it reaches the Morgana
+#     rooftop confrontation (score 49/67, 35/47 magic rating) but does NOT
+#     resolve the final duel. SCR_DUMP_TASKS structural analysis found the
+#     "true" win (`tap deck of cards with wand` knocking Morgana off the
+#     tower) requires possessing the deck of cards at the climax, but the
+#     Act 1 card trick (task 27) always returns the cards to Tiffany when
+#     she is on stage -- and screstrs.cpp's restr_pass_task_char (RESTR
+#     type=3) confirms the alternate keep-the-cards task (28) is gated on
+#     Tiffany having already left the stage, which does not happen during
+#     Act 1 under any command ordering tried (including stalling with
+#     `wait`). This blocker was not resolved before the run was checkpointed.
+# 115 commands, no waitkey pauses encountered. Final score 49 out of a
+# maximum of 67 (73%), stopped at the Roof of Tower with Morgana's duel not
+# yet attempted.
+magicshow_solution.txt|magicshow.taf|Your overall score is 49 out|
+# mould.taf: superhero-origin story ("Handmade", sidekick to "the Mould",
+# whose power is a shapeshifting hand/body). SCR_DUMP_TASKS confirmed ZERO
+# ACT type=6 (EndGame) actions anywhere in its 1121 tasks -- no scripted
+# win/lose ending exists at all, so this is a deliberately PARTIAL
+# walkthrough checkpointed mid-play rather than driven to a final screen.
+# Live-verified through: training with the Mould, the parents'-lab rescue
+# (cage/mouse/snake/rope puzzles), the Mould's apparent death, the "NINE
+# MONTHS AGO" shopping-centre flashback (rescuing Waterfall's girl, the
+# clay-bat fight via stereo+CD+orange-juice tank, the clay-eagle fight via
+# thrown vinegar), and the Mould's-apartment finale (safe combination from
+# the letter, the shapeshifting-imp mini-battle for the key, unlocking the
+# meditation room and taking the amulet). Ends cleanly (no error text) at
+# the "Gate on the endless path" scene transition, score 60/150 (40%) at
+# last measurement. 195 commands, no waitkey pauses left unresolved.
+mould_solution.txt|mould.taf|Gate on the endless path|
+# blood.taf ("Fire in the Blood" by Richard Otter, ADRIFT 4, whodunit
+# murder mystery). The player's wife has been murdered by one of four
+# guilty men (Frank Lovell, Jed Peters, Rick Dawson, Ben Crosby); the
+# game's own `hints` command doubles as an in-fiction Q&A oracle for
+# both guilt-confirmation methods (show the photograph/burnt album, or
+# find a witness) and kill methods (poisoned pie, jukebox distraction,
+# shotgun, etc). This is a deliberately PARTIAL checkpoint, not a
+# scored ending: put rose on grave (opens the plot), get gloves (avoid
+# fingerprint arrest), gather photograph/jewellery box/medical
+# report/curtains/scissors from the flat, then show the photograph to
+# each of the four suspects in turn (Frank returns it, Jed and Rick
+# confiscate it, Ben's viewing then fails since it is already gone) and
+# finish by opening the hints menu, which prints the game's full
+# state-dependent hint tree cleanly with no error text. 32 commands,
+# no waitkey pauses left unresolved.
+blood_solution.txt|blood.taf|Try wearing some gloves.|SCR_SKIP_WAITKEY=1
+# rking.taf ("The Reluctant Resurrectee" / "The Further Adventures Of The
+# King Who Wanted To Die..." by David Whyld, ADRIFT 4). The dead king is
+# resurrected as a disembodied eyeball and must roll/nudge/read his way
+# around Verenor's study, get fired from a cannon as a sleeping pill onto
+# a mouse, read scrolls and snippets, peer into a crystal ball, then guide
+# his son's advice to the court (Captain of the Guard, Protector, son,
+# High Warlord) via a numeric-menu dialogue before being restored to a
+# body. The game ships its own in-fiction `walkthrough` command (a static
+# author-authored command list) which was used verbatim after the intro
+# menu's `1` (Begin the game); it plays clean start-to-finish with no
+# parser-error text and lands the full 100/100 score. 111 commands
+# (menu choice + 110 walkthrough commands), SCR_SKIP_WAITKEY=1 for the
+# "[MORE]" pagination pause before the final score summary.
+rking_solution.txt|rking.taf|Overall, your score was 100 out of a total of 100.|SCR_SKIP_WAITKEY=1
+# hero.taf ("A Day In The Life Of A Super Hero" / "Masked Defender" by
+# David Whyld, ADRIFT 4, competition2004 comedic superhero parody). The
+# game ships its own in-fiction "gimme the walkthrough" cheat command (a
+# static 110-command author-authored list) which was played verbatim
+# after the intro menu's `2`/`3`/`1` choices; it reaches the TRUE win --
+# defeating the Tax Collector, the "mightiest of super villains" -- with
+# no parser-error text. The real score lives in a DIY status-line
+# variable (VAR 50 zscore, "Score: %zscore% out of 200"), not the
+# native/broken %score% command tags, so five clearly-safe, zero-risk
+# score-boosting commands were interleaved into the base script at
+# points verified not to disturb the critical path: `clean floor` at
+# the Police Station reception (+2, unconditional), and four ID-flash
+# bonus tasks gated only on "ID not yet defaced" (never triggered on
+# this route) -- `show horror id` and `show customers id` at Horror
+# Mall immediately on arrival before Mr Horror faints (+2 each), and
+# `show citizens id` / `show officers id` on Grolsch Boulevard right
+# after arriving there before heading north to fight the Smell (+2
+# each). A trailing `statusline` command prints the real live score.
+# Raises the score from the base walkthrough's 82/200 to 92/200; the
+# game's own text admits it "won't allow you to get the maximum score
+# in the game", so this is a deliberate, honest partial-progress
+# checkpoint rather than a claim of 200/200. 116 commands.
+hero_solution.txt|competition2004__adrift__hero__hero.taf|the world is a better place for your actions|SCR_SKIP_WAITKEY=1
+# Derived 2026-08-31 from the game's own built-in `B WALK` bare-bones
+# walkthrough (available from turn 1), with one fix: the built-in text
+# only has Bartimony's "*death*" topic asked twice at the palace
+# archives, which stalls the "spoke to bartimony..." flag (VAR178) at 1
+# and leaves b_secretary (VAR180) at 0, so `ibben secretary` fails
+# ("Ibben shrugs...") and the whole Marla/diary/essence chain that
+# follows never happens (TASK 199/200/405/425 in scdump). Asking
+# "*death*" a THIRD time fires TASK 405, setting b_secretary=1, which
+# lets "secretary" (TASK 425) and then `ibben secretary` (TASK 199)
+# succeed. That closes the last gap in the hidden "ritual" variable
+# (VAR167), which reaches 5 (TASK 891, `- ritual 5`) instead of
+# stalling at 4 (TASK 892's death ending). 303 commands, full win: the
+# true best ending ("Out with the old, in with the new" -- the player
+# escapes Death's time-locked domain as a new person) with the full
+# positive end-of-game score recap (all 5 meetings + all 4 bodyguards
+# survived + "perfect health" bonus).
+datewithdeath_solution.txt|datewithdeath.taf|And you have a whole life ahead of you to live|SCR_SKIP_WAITKEY=1
+# Derived 2026-08-31 via SCR_DUMP_TASKS=1 static analysis (TASK/EXIT/
+# CONTAINER/NPC tables) plus interactive play. Three-part story: Part 1
+# get to the castle and become the King's alchemist; Part 2 three horse
+# trips to gather elemental reagents (dragon's tears, gold, a flying
+# star+dust); Part 3 (Part2->Part3 gate = TASK 80, "*tears*table*" in
+# the cellar) relocates a dozen NPCs and unlocks ~20 side tasks culminating
+# in TASK 116-124 melting eight metals onto the cellar Athanor to win.
+# Two engine quirks drove most of the derivation: (1) some ACT type=0
+# "move object" v2=2 targets are a 0-based index into the CONTAINER-only
+# object subset (via obj_container_object()), not a room number -- e.g.
+# the 2nd sack lands *inside* the "crevice" object (aliased "walls") in
+# the northern tower, found only via `x walls`; the same scheme places a
+# love-spell "red wine" inside the cathedral's basin, found via `x
+# basin`. (2) opening a locked container does not auto-list its contents
+# ("I pull the case open." only) -- the armory's sword stays unseen until
+# `x case`. Two mechanics are easy to trip on a straight-through replay:
+# the priest's pot/water swaps to an empty pot once poured into the
+# basin, so the final fire-spell task (needs earth+water held) requires
+# a *second* pond trip to refill it after the 3rd horse trip back; and
+# a locked-case sword requires `x case` (not `look in case`, which the
+# parser rejects) between opening it and `get sword`. Reaches TASK 124
+# (the ENDGAME task), finishing with the full "immortal alchemist"
+# ending text and "That is 100% of the game!" 490 out of a possible 500
+# (the missing 10 are TASK 128, giving a "flying star" obtained on the
+# 2nd horse trip's isolated mountain-cluster rooms to the magician --
+# those rooms have no walking connection back from the castle or the
+# 3rd trip's lake-cluster rooms, so retrieving it would need a full new
+# scripted horse-trip departure not otherwise required for the win).
+# 518 commands, zero unmatched/refusal lines in the full transcript.
+alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
+# ONNAFA.TAF (David Whyld). Full win: retrieve the dragon egg (flushed down
+# the privy as backstory) and hand it back to the dragon at the castle
+# courtyard. Two RESTR/ACT engine-semantics discoveries drove the derivation
+# (see notes/onnafa-restr-offset.md-equivalent reasoning in commit history):
+# RESTR type=4's v1 addresses a named VAR at (v1-2), NOT raw, unlike ACT
+# type=3's v1 which IS raw -- so TASK503's gate on "harry" (var 77, set by
+# `talk to thomas`) was originally misread as a gate on "smash"(var 79,
+# smashing the Abandoned Church door), a dead end. The real Harry-unlock
+# chain is: kill Alonzo -> talk to priest (places Thomas in the Temple) ->
+# talk to thomas -> leave/re-enter the Temple (Harry reappears, NPC-move
+# room offset is `dest-1`) -> talk to harry -> option 7 -> get key. Inside
+# the fortress, a "secret door" two-item puzzle gates the Vorgon fight: the
+# teddy bear repair kit and prayer book (both found in the fortress's wall
+# puzzle room) must each be dropped in ITS OWN separate room (kit in the
+# toys/manuscripts room, book in the 45-beds room) before leaving either
+# room, which flips a wall-of-force barrier off and lets `kill vorgon`
+# actually run the fight instead of bouncing off the barrier. `x toys`
+# only spawns the manuscripts on the floor -- `get manuscripts` is still
+# needed before leaving, or `give manuscripts to harry` later fails with
+# "you haven't even got that". Finally, going `u` from the Courtyard to
+# face the dragon needs TWO `u` commands: the first is a spent, non-
+# repeatable Stimmons flavour-text task, the second is the real move.
+# Reaches the true ending (the dragon takes the egg back and flies off,
+# Toto faints from the strain) with a final reported score of 76 (out of
+# a possible 100 -- the closing narrator explicitly says "100% is
+# possible" and suggests a target reputation of at least 12; this
+# walkthrough does not chase every side-quest/reputation-boosting branch,
+# so 76 is accepted as a genuine-win checkpoint rather than a stuck
+# partial). 188 commands, zero unmatched/refusal lines in the full
+# transcript.
+onnafa_solution.txt|ONNAFA.TAF|your score turned out at 76|SCR_SKIP_WAITKEY=1
+# Partial-progress checkpoint, NOT a win: reaches score 20/30 (confirmed
+# max=30 via exhaustive audit of every ACT type=4 scoring task in the
+# SCR_DUMP_TASKS structural dump). Collects starting items, solves the
+# piano/snuffbox/ring-of-salt puzzle, fetches the cellar axe/chisel and
+# carves all six room shutters (Hall, Lounge, Bathroom, Master Bedroom,
+# Spare Room, Dining), lights the kitchen fire and boils the kettle, and
+# triggers the "house is safe" safe-reveal event on the final shutter.
+# Ends standing in the Master Bedroom. The remaining 10 points (kettle
+# "reveal thy secret" potion +2, safe combo +1, glass door +1, clock
+# hands +3, escape +3) were not reached: the potion recipe needs real
+# garden thyme, but entering the Garden (task "# ENTER GARDEN") always
+# converts the held desiccated herb into real thyme via an immediate
+# redirect to task357, and leaving the Garden (task "# LEAVE GARDEN")
+# just as immediately redirects to task355 and ages it straight back to
+# herb again in the very same turn -- Dining, where the kettle is, is
+# two moves away, so no route was found to carry live thyme there.
+house_solution.txt|House.taf|The house plan swings open to reveal a safe.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
+# Partial-progress checkpoint, NOT a win: David Whyld's studio-director comedy
+# sim "TO THE MOON AND BACK" (in-game title "Lights, Camera, Action!"). This
+# walkthrough gets the trident to Witherspoon Nash (so he relocates to the
+# Film Set to await the shoot) after solving the office-desk/crowbar chain,
+# the vending-machine "search glass" SYNONYM-collision workaround, the
+# two-stage "talk daisy" (first attempt is flavour-only, the second opens the
+# real menu) needed to unlock PC Plod's canteen interrogation, and the
+# badge/Grunch disguise chain to reach the car for the camera and veal. It
+# stops there: still pending (traced via SCR_DUMP_TASKS but not yet
+# live-verified) are the Ross/cup/Acctors-Gide fetch for Ogden Buckett, the
+# push-garbage/press-catch/x-side fetches for Smiffy's coin/tape/goggles, the
+# 88th-copy-script handoff to Violetta, and the four "talk violetta" scene
+# triggers before the final "give bar to zara" win. 72 commands, zero
+# unmatched/refusal lines in the transcript.
+lca_solution.txt|Lights_Camera_Action.taf|Still wittering to himself, Witherspoon departs.|SCR_SKIP_WAITKEY=1
 EOF
 }
 

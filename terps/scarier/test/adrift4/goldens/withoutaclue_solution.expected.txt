@@ -1,0 +1,2367 @@
+Loading game...
+
+Without A Clue
+
+L
+
+Without  A  Clue
+
+A Detective Game by David Whyld
+Written with ADRIFT 4, Version 46
+Started in November 2007; Finished in March 2008
+
+        1)        Start the game
+        2)        Read the introduction
+        3)        About the game
+        4)        Things to know before playing
+        5)        Game information
+
+> 1
+
+Part 1: Breaking & Entering
+
+In which our hero, attempting to uncover evidence  of the foul deeds of one
+Sherlock Holmes, breaks into his residence on Baker Street...
+
+At The Bottom Of Some Stairs
+
+The lower floor of Sherlock Holmes' residence is sparse and drab, consisting
+of nothing more interesting than a flight of stairs leading upwards, a door
+leading south to Baker Street, a table by the door on which someone has
+placed a vase containing a flower (though watering said flower had obviously
+not occurred to them) and a corridor leading away to the north. It is
+certainly not anything like as glamorous or high class as you expected it to
+be.
+
+   Evidence. That's what you need. Evidence of Holmes' miscreant ways. It
+won't be easy. but you're quietly confident of getting what you came for.
+   So you start looking, and you keep a mental note (check it from time to
+time by typing 'evidence') of your progress.
+
+> x vase
+It's got a chip down one side - has Holmes used it to bludgeon some poor
+unfortunate to death with? Perhaps. Perhaps indeed.
+   There's also a dead flower inside though you can't say you're really
+concerned over this.
+
+You swiftly make a mental note of this piece of evidence.
+
+*** Your score has increased by 1 point! ***
+
+> u
+
+At The Top Of Some Stairs
+
+This small area outside of Holmes' residence (to the east) looks every bit as
+shabby and drab as you'd imagine. There is dust everywhere. Holmes may
+present an acceptable facade to the world in general, but in his own home he
+appears to have let things go. There's even dust on the stairs leading down
+to the lower floor. Shockingly low standards here and no mistake.
+
+> e
+
+Sherlock Holmes' Residence
+
+Ah, the home of the famous detective himself. It's not a large place and
+seems to consist of nothing more than a single room overlooking Baker Street
+with a closet in the corner. A table in the middle of the floor has been
+tipped over, spilling tea everywhere and leaving a frightful stain. There are
+two chairs here, a comfortable rocking chair and a less comfortable wooden
+one, positioned before a log fire which is currently unlit. A collection of
+books, mostly first editions, line a shelf over a cabinet in the corner
+opposite the closet. Bullet holes mark the walls and you also notice a few in
+the window as well. The door to the west appears to have received its fair
+share of bullet holes, too.
+
+> x tea
+Dreadfully untidy of Holmes to leave tea everywhere. Doesn't say much for his
+cleaner in your opinion.
+
+You swiftly make a mental note of this piece of evidence.
+
+*** Your score has increased by 1 point! ***
+
+> x stain
+You peer closely at the stain. And frown.
+   Now, unless Holmes' tea is reddish in colour (which is altogether possible
+considering how odd the man is), that stain down there isn't tea. In fact, if
+you didn't know better, you'd swear it was really blood.
+
+You swiftly make a mental note of this piece of evidence.
+
+*** Your score has increased by 1 point! ***
+
+> x window
+Bullet holes in the window, eh? Awfully suspicious. Why, if you didn't know
+better, you'd swear something out of the ordinary had occurred here.
+
+You swiftly make a mental note of this piece of evidence.
+
+*** Your score has increased by 1 point! ***
+
+> x cabinet
+A cabinet which looks to have received one heck of a knock recently. The
+front is hanging off, the top is battered and its contents... there aren't
+any. Either someone has already swiped them or the cabinet was simply empty.
+
+You swiftly make a mental note of this piece of evidence.
+
+*** Your score has increased by 1 point! ***
+
+> x table
+It's certainly been battered around a bit. Hmmm... now, you're no fan of
+Holmes (God forbid!) but you find it a tad unlikely that even he, with his
+reputation and image to consider, would leave home with his table in this
+state. How odd.
+
+You swiftly make a mental note of this piece of evidence.
+
+*** Your score has increased by 1 point! ***
+
+> x log fire
+A cosy little thing, no doubt where the 'master' detective sits in an evening
+and smokes that revolting air-polluting pipe of his. Currently unlit, with
+nothing more interesting than ash to see.
+
+> x ash
+You sift through the ash, seeking clues, and finding something... odd. Very
+odd. A note. In Holmes' handwriting no less.
+
+> read note
+The note has been partially burnt but you can still read most of what has
+been written:
+
+"...might be on to me. Watson is fearful and ... the Black Hand Gang ...
+probably should never have taken the case but it was for a good cause and...
+so left this note... unlikely BHG will spot it here but hopefully... will
+find it and realise... something happened... if so, you, whoever you are,
+might be my last hope..."
+
+Curious.
+
+You swiftly make a mental note of this piece of evidence.
+
+*** Your score has increased by 1 point! ***
+
+> light fire
+Strangely there is no means of lighting it visible. No matches, no poker to
+stoke it with, nothing. It is all very, very odd.
+
+You swiftly make a mental note of this piece of evidence.
+
+*** Your score has increased by 1 point! ***
+
+> x bullet holes
+You peer at the nearest bullet holes - those in the door - noticing, with
+your expert eye, that they all appear to be of a similar shape and size.
+Therefore, you conclude, they were all fired from the same gun. Dashed tardy
+of Holmes to go out and leave his residence in this state.
+   Hmm... what's this? You study a bullet hole a little more closely and
+notice that there is still a bullet embedded in it. Picking it out, you
+examine the bullet more closely. Best keep this with you in case it comes in
+handy.
+
+You swiftly make a mental note of this piece of evidence.
+
+*** Your score has increased by 1 point! ***
+
+> in
+
+A Somewhat Dark & Dingy Closet
+
+Of all the dark and dingy closets you have been in during your life (there
+have been a quite a few), this is by far the darkest. Not to mention the
+dingiest. If there's a working light bulb in here, you can't see head nor
+tail of it and the pitiful amount of light which filters from the main room
+does nothing to dispel the gloom.
+
+You can see (just about) a coatstand with what appears to be one of Holmes'
+old overcoats slung over it. But in the truly dismal light, it could also be
+a masked assailant about to strike. It's hard to tell.
+
+> x overcoat
+You rifle through the pockets of the overcoat, disturbing so much dust that
+you begin to harbour the belief that Holmes perhaps keeps it to deter
+riflers, and find... not much. Most of the pockets are empty (dust
+notwithstanding), however in the final one you find... a fake moustache.
+   A fake moustache?
+   Yes, a fake moustache. You don't even want to know why Holmes had it in
+the pocket of his overcoat, but you suspect the worst.
+
+You swiftly make a mental note of this piece of evidence.
+
+*** Your score has increased by 1 point! ***
+
+> out
+
+Sherlock Holmes' Residence
+
+Ah, the home of the famous detective himself. It's not a large place and
+seems to consist of nothing more than a single room overlooking Baker Street
+with a closet in the corner. A table in the middle of the floor has been
+tipped over, spilling tea everywhere and leaving a frightful stain. There are
+two chairs here, a comfortable rocking chair and a less comfortable wooden
+one, positioned before a log fire which is currently unlit. A collection of
+books, mostly first editions, line a shelf over a cabinet in the corner
+opposite the closet. Bullet holes mark the walls and you also notice a few in
+the window as well. The door to the west appears to have received its fair
+share of bullet holes, too.
+
+[MORE]
+
+A thought suddenly occurs to you and you stop dead in your tracks. There is
+something wrong here, something very wrong indeed.
+   You peer around the residence of the so-called great detective, your eagle
+eye attuned to the slightest detail, the most minute thing out of place...
+and yes, there is a lot out of place here, a lot that doesn't add up. Someone
+of his reputation would never leave his residence in such a state. He has an
+image to consider, after all. He has to 'appear' to be a wise and wonderful
+detective even though you know he is anything but.
+   Sherlock Holmes has been kidnapped!
+   You stifle your initial reaction to jump for joy and, perhaps, give a cry
+of "about time!" and pause to consider what this means. The position of
+greatest detective of all time is now open, ready for someone with the
+necessary skills, intelligence, good lucks and ingenuity (you, in other
+words) to step forward and fill it. However...
+   Your brow is furrowed with thought as you consider further what this
+means. It means that somewhere out there, Holmes, and possibly that buffoon
+Watson, are held captive. Perhaps their very lives are in danger. Now, a
+lesser man might simply turn his back on the fools and leave them to their
+fate. But not you. No, for you are Ognacio Bigglesworth and you are above
+pettiness. You will find them, rescue them and, when that is done, you will
+make it perfectly clear to Mr I'm Such A Great Detective Holmes just who
+rescued him. The kidnappers might have Holmes but you fancy you'll prove more
+than a match for them. The look on Holmes' face alone will be worth the
+trouble.
+   Your mind decided, you leave the residence and head downstairs. Time to
+catch a handsome cab to begin the search for Holmes and Watson.
+
+*** Your score has increased by 1 point! ***
+
+[MORE]
+
+At The Bottom Of Some Stairs
+
+The lower floor of Sherlock Holmes' residence is sparse and drab, consisting
+of nothing more interesting than a flight of stairs leading upwards, a door
+leading south to Baker Street, a table by the door on which someone has
+placed a vase containing a flower (though watering said flower had obviously
+not occurred to them) and a corridor leading away to the north. It is
+certainly not anything like as glamorous or high class as you expected it to
+be.
+
+> s
+Armed with the evidence you have discovered, you set off to find Sherlock
+Holmes and Watson. And, while you're at it, prove to the world just who the
+greatest detective of them all really is.
+
+[MORE]
+
+Part 2: The Search For Sherlock Holmes
+
+In which our intrepid hero, realising that he has the opportunity to become
+an actual hero (and rub someone's nose in it in the bargain), sets off to
+find out just what has happened to Sherlock Holmes and his troublesome
+companion...
+
+You head out of 55 Baker Street and hail a handsome cab. One pulls up to the
+kerb - anything but handsome, but you don't have time to waste awaiting a
+more appealing one - and you climb inside, give directions to the cabbie, a
+chubby fellow with a cheerful expression on his face (by London cabbie
+standards anyway), and away you go.
+   While being bounced around in the back of the cab, you go over what you
+know about this little mystery so far and what you have uncovered.
+   The bullet: did someone attempt to murder Holmes? You can easily
+understand such feelings, but this bullet is a very handy clue to have all
+the same. Bullets can be traced and, as lucky chance would have it, you know
+the location of the Gunshop, London's premier store for all things related to
+blasting away merrily at the wildlife in the name of gentlemanly fun. A
+little chat with the owner about said bullet ought to steer you in the right
+direction.
+
+[MORE]
+
+The fake moustache: on its own it means nothing, but you think over again
+where you found it. Now that you ponder it, its position seems somewhat
+suspicious. Everything else in the overcoat was useless, yet this moustache
+just screams "clue" at you in letters four inches high and bold, underlined
+and scored through to boot. You should probably make a point of stopping off
+at that outfitter's store you sometimes frequent and see if they have a list
+of the fake moustaches they sell. With luck, you might well find who the
+owner is within the hour. With even more luck, the owner and the kidnapper of
+Sherlock Holmes will be one and the same.
+   The note: definitely a clue left by Holmes for someone - in this case you
+- to find. The Black Hand Gang? No, you've never heard of them though you can
+well understand if they want to do harm to the doddering fool. Still, Holmes
+leaving you this clue has given you a definite place to start looking for
+him: namely with Inspector Lestrade of the Yard. If anyone knows about the
+Black Hand Gang, it'll be him.
+
+"'Ere we r, guv'nor!" chirps up the cabbie with the kind of appalling
+approach to spelling that has often made you froth at the mouth before.
+"Tha'll be-" He reels off a price and adds, "in cash" before extending his
+hand to you.
+   You pay the bounder then depart his cab. You have arrived at your
+destination.
+   Which is...
+
+1)        Scotland Yard (to see Inspector Lestrade in relation to the Black
+Hand Gang)
+2)        Hortile's Outfitters (to check on the fake moustache)
+3)        The Gunshop (to check on the bullet)
+
+> 1
+
+Before The Doors Of Scotland Yard
+
+Scotland Yard: the great bastion of law enforcement in London. It is a
+gigantic structure - a marvel of modern engineering at its finest - covering
+several city blocks and packed full of the finest detectives in the world who
+strive with every fibre of their being to solve crime once and for all and
+make the country a safer place to live in.
+
+At least that's what it's supposed to be like. In truth, you see a rather
+rundown establishment that might, to an unfavourable eye, look somewhat like
+a tawdry brothel. Several of the windows here have been smashed, several
+others have been boarded up and the rest have been stolen. Doors lead inside,
+though there's no real need to open them as they're both smashed to such a
+degree that, even closed, they're still effectively 'open'. The street
+leading away from Scotland Yard does so with great vigour to the south.
+
+> in
+
+Scotland Yard
+
+It may have a reputation that is known around the world, but the interior of
+Scotland Yard is no more pleasing to the eye than the exterior. The part
+you're in now, which actually comprises 50% of its overall space, is a long,
+thin room with desks crammed against one wall, a map of the city in the
+middle and several detectives eating muffins stood around a radio blaring out
+the latest horse racing results. An area to the west contains a number of
+holding cells but as the doors to many of these have fallen off, whether they
+still qualify as 'holding' cells is perhaps debatable. Inspector Lestrade,
+sporting a very fetching red tie, is sat in the corner and looking thoroughly
+morose.
+
+> x map
+A shockingly simplified map, spanning nothing more than five feet, with the
+Thames, depicted here as the colour of either blood or treacle (you can't
+decide which) running through its centre. Various red blobs dotted across the
+map seem to indicate ongoing investigations, green blobs indicate concluded
+ones. You can't help but notice that the ratio of red to green is somewhere
+in the region of 3,192 to 1.
+
+> x river thames
+Your eagle-eyed attention-to-detail brain focuses on an anomaly on the
+northern bank of the River Thames. It deviates some 25 metres in an area
+given over to abandoned warehouses and the like. Why? You cannot say for
+sure, but you get the distinct impression that something is going on there
+that Scotland Yard don't want the general public to know about.
+
+*** Your score has increased by 1 point! ***
+
+> ask lestrade about note
+Lestrade peers at the note. He glances at it, mutters something, glances at
+it some more, and frowns. "Move it a bit closer, will you?"
+   You hold the note a little closer.
+   "Bingo!" he says. "Now..." He reads the note. "Hmmm... interesting stuff
+there. So the Black Hand Gang are back in town, eh? Nasty bunch of criminals
+and no mistake. You cross them, you don't live to tell the tale."
+
+*** Your score has increased by 1 point! ***
+
+> ask lestrade about black hand gang
+"Nasty bunch of criminals, totally lacking in class and style," says
+Lestrade, emphasising this last part as if it bears greater relevance than
+the first. "Enemies of Sherlock Holmes and vowed to do him ill if they ever
+find out where he lives."
+   "But everyone knows Holmes lives at 55 Baker Street," you point out.
+   "Yes, but the BHG aren't the smartest criminals in town. They've been
+searching for him high and low for years now." Lestrade shivers. "I'd hate to
+see the state him and poor old Dr Watson would be in if they managed to find
+him."
+   "Really? Tell me more..."
+   "I heard a rumour they had a hideout down by the docks some time back,"
+says Lestrade, staring off into the middle distance as if the location of the
+hideout can be seen there. "Don't know whether they'd still be there after
+all this time, but if you're interested in tracking down the lowlives, that
+would be a good place to start... say," Lestrade looks at you, "why are you
+asking me about them?"
+   "Just curious," you say hastily, hoping you haven't given away too much.
+   Lestrade frowns. He has the look of a man who is seriously considering
+beating you bloody for wasting police time (you have a remarkably low opinion
+of the police force) but getting out of his chair requires way too much
+effort.
+   "Just go about your business, friend," he says with a sigh. "I've got too
+much work to do now to waste time on you." He starts to eat another muffin.
+
+*** Your score has increased by 1 point! ***
+
+> out
+
+Before The Doors Of Scotland Yard
+
+Scotland Yard: the great bastion of law enforcement in London. It is a
+gigantic structure - a marvel of modern engineering at its finest - covering
+several city blocks and packed full of the finest detectives in the world who
+strive with every fibre of their being to solve crime once and for all and
+make the country a safer place to live in.
+
+At least that's what it's supposed to be like. In truth, you see a rather
+rundown establishment that might, to an unfavourable eye, look somewhat like
+a tawdry brothel. Several of the windows here have been smashed, several
+others have been boarded up and the rest have been stolen. Doors lead inside,
+though there's no real need to open them as they're both smashed to such a
+degree that, even closed, they're still effectively 'open'. The street
+leading away from Scotland Yard does so with great vigour to the south.
+
+> s
+You call a handsome cab, step inside and inform the cabbie of your
+destination.
+   Which is...?
+
+1)        Hortile's Outfitters
+2)        The Gunshop
+
+> 1
+
+On Podmore Lane
+
+Many are the times you have walked past the fashionable stores of Podmore
+Lane, gazing at the lavishly expensive clothing in the windows of many of the
+stores, bypassing the even more lavishly expensive outfits worn by the other
+shoppers, and feeling a little envious in your own drab garb. Still, one day,
+when you solve this case and are rightfully credited as a master detective by
+your peers...
+
+The store you have come here for - Hortile's Outfitters - is a short way to
+the northwest while other stores, all of them selling clothes, all of them
+way out of your present league, can be sighted in most other compass
+directions. A road leading out of here to less elitist parts of London can be
+spied to the south.
+
+> in
+
+Hortile's Outfitters
+
+Though your means do not allow you to frequent premises such as these very
+often, frequent them you do. You are, in fact, on first name terms with a
+good number of the store owners in these parts, however you suspect the
+majority of them would be horrified, if not stricken dead of shock on the
+spot, to learn of your true yearly salary...
+
+Hortile's Outfitters is a gentleman's store. A rich gentleman's store, that
+is. On display are items which would set the average man in the street back
+six months salary. The expensive items are kept out back. Hortile himself -
+balding, bespectacled, somewhat resembles a shrew in your opinion - is
+standing around looking rather vague and holding a leek in his hands. If
+there is a reason for this, it seems not to be one he is keen on sharing.
+
+> ask hortile about moustache
+"Hmmm?" says Hortile. He takes the moustache and peers at it closely. "Ah
+yes, I recognise this moustache. It's a Brazilian Blue '58, a particularly
+fine specimen worn by certain gentlemen wishing to make themselves appear
+more Brazilian."
+   "Why would anyone want to appear more Brazilian?" you ask, instinctively
+taking a dislike to the idea on principle.
+   "Oh? No idea really but customers demand them so we supply them." He hands
+it back to you. "I believe I recognise this particular one because the owner
+specified its exact size and shape. Buck, he called himself."
+   "Buck?"
+   "Yes. A good Brazilian name I remember thinking at the time. Said he
+wished to impress some friends of his at the casino on Demontfort Avenue and
+so requisitioned this moustache."
+   The casino on Demontfort Avenue, eh? You'll be sure to check that out.
+
+*** Your score has increased by 1 point! ***
+
+> out
+
+On Podmore Lane
+
+Many are the times you have walked past the fashionable stores of Podmore
+Lane, gazing at the lavishly expensive clothing in the windows of many of the
+stores, bypassing the even more lavishly expensive outfits worn by the other
+shoppers, and feeling a little envious in your own drab garb. Still, one day,
+when you solve this case and are rightfully credited as a master detective by
+your peers...
+
+The store you have come here for - Hortile's Outfitters - is a short way to
+the northwest while other stores, all of them selling clothes, all of them
+way out of your present league, can be sighted in most other compass
+directions. A road leading out of here to less elitist parts of London can be
+spied to the south.
+
+> s
+You call a handsome cab, step inside and inform the cabbie of your
+destination.
+   Which is...?
+
+1)        Scotland Yard
+2)        The Gunshop
+
+> 2
+
+On The Pavement Near The Gunshop
+
+Dark and brooding, the Gunshop is a veritable eyesore on a London that is, in
+your opinion, already dark and brooding enough. It's a dirty black shop which
+seems to exude foul smoke for most of the day and practically disappears when
+dusk falls. People walking down the street here tend to veer around the
+Gunshop, perhaps fearful of either the smoke, the smell or, more likely, the
+distinct possibility of being shot.
+
+A doorway leads inside. Part of a doorway anyway. The part that hasn't been
+blasted to bits by one stray misfire or another. From within, you can see
+little but hear more than you would care to of guns, guns, guns and, indeed,
+more guns. A road leads away to the south and looks somewhat less likely to
+be the location of a shooting.
+
+> in
+
+The Gunshop
+
+The interior of the Gunshop is poorly lit, if lit at all. Peering through the
+smoke (which is actually floating gunpowder as well as the residue or more
+guns being fired than should ever be allowed within the limits of a city),
+you spy the owner, a tall, bearded fellow carrying several loaded weapons,
+cleaning a cannon in the corner. Yes, a cannon. An actual cannon. You don't
+even want to ask whether it's been fired recently...
+
+> show bullet to owner
+The owner hesitates then reaches over and takes the bullet.
+   "Nice bullet," he says after peering at it for a few seconds. "Seen this
+type before."
+   "Might I ask where?"
+   He shrugs. "Sure."
+   You wait.
+   He waits.
+   You sigh. Clearly he is a very literal man. "Where have you seen its type
+before?"
+   "Fellow came in, oh, 'bout 8 years back with a gun. Special kinda gun he
+got off his old man who were in the army. Said he wanted some bullets for it.
+Kinda strange."
+   "The man or the gun?" you ask.
+   "Both. The man had an evil squint. Looked like he'd either been slapped
+about way too much as a youngster or not enough. And the gun was weird as
+well. Not a standard make. Special trigger 'n' all. Custom-made job. An' only
+one reason you want bullets for a custom gun, son."
+   "And that is?"
+   "Untraceable. Your average cop bullets expert knows all your standard
+bullet types and knows where the guns what make 'em are sold. But he comes
+across a custom gun and he ain't got a clue. So if you were plannin' to shoot
+someone and you didn't ever want to be caught, that's the way to do it."
+   Interesting, you think, very interesting indeed. "And I suppose you
+wouldn't happen to have an address for the man who came in, would you?"
+   "Sure."
+   You wait.
+   He waits.
+   You sigh. "And the address is...?"
+   He tells you. You recognise the address: an office in downtown London, not
+too far from your own humble abode. You could be there in no time.
+   "Many thanks for your assistance," you say to the owner. "Now, could I
+have that bullet back?"
+   "What bullet?" he asks, and proceeds to clean his cannon whilst doing an
+excellent job of totally ignoring you.
+
+*** Your score has increased by 1 point! ***
+
+> out
+
+On The Pavement Near The Gunshop
+
+Dark and brooding, the Gunshop is a veritable eyesore on a London that is, in
+your opinion, already dark and brooding enough. It's a dirty black shop which
+seems to exude foul smoke for most of the day and practically disappears when
+dusk falls. People walking down the street here tend to veer around the
+Gunshop, perhaps fearful of either the smoke, the smell or, more likely, the
+distinct possibility of being shot.
+
+A doorway leads inside. Part of a doorway anyway. The part that hasn't been
+blasted to bits by one stray misfire or another. From within, you can see
+little but hear more than you would care to of guns, guns, guns and, indeed,
+more guns. A road leads away to the south and looks somewhat less likely to
+be the location of a shooting.
+
+> s
+You call a handsome cab, step inside and inform the cabbie of your
+destination.
+   Which is...?
+
+1)        Scotland Yard
+2)        Hortile's Outfitters
+
+> 1
+"Actually," says the handsome cabbie (who is anything but in your opinion),
+"I think we'll take a little detour instead."
+   You frown. "A little detour to... where?"
+   "Hell," says the cabbie. He looks back at you and chortles. "You been
+stickin' your nose in where it ain't wanted, Bigglesworth. Time you learnt
+the error of your ways."
+   Before you can ask him what he means, or, for that matter, just how he
+knows your name, someone climbs into the cab alongside you and pushes a cloth
+in your face. A cloth with something rather unpleasant sprayed onto it.
+You're about to protest at this callous treatment, but the handsome cab has
+begun to spin around you and your knees have turned to jelly and the floor of
+the cab is suddenly rushing up to meet your head...
+
+[MORE]
+
+Part 3: Kidnapped!
+
+In which our hero discovers that being kidnapped is much more enjoyable when
+it's happening to someone else...
+
+Hmmm... the drug seems to be wearing off.
+   You blink, groan, give out an obligatory "Wh-what happened?" followed by
+"Where am I?" then fully open your eyes and see...
+
+Cell
+
+You've never spent time in prison (naturally), but you've often fancied that,
+when you become the master detective you know you're destined to be, most of
+your arrests will end up in a place similar to this: a horrible, grimy,
+grotty little cell with a barred window high up on one wall, a light covering
+of sand on the floor and a locked wooden door in the wall. Rats would
+feature, too. Large rats. With sharp teeth and vicious claws. About the same
+size as dogs...
+
+Fortunately it's too dark in here for you to make out much beyond the filthy
+little bunk you awoke on, but you can hear the rats scrabbling around there
+in the darkness. The door is a vague outline with the window only a little
+better defined due to the dim sunlight filtering through it. In short, the
+accommodation is here is frankly appalling.
+
+Your possessions! They're gone!
+   Actually, you still have your stuff. And your clothes - your kidnappers
+may be shameless bounders but at least they didn't see fit to strip you
+naked. Thank heavens!
+   But your current location... well, this just won't do. No, not at all.
+You're just going to have to escape.
+
+> x bunk
+Hardly the sort of accommodation you'd expect to find in a first class hotel,
+but certainly not as shabby as it could be. The bunk is bent out of shape,
+the pillow is (literally) nailed to the top of it and the mattress has so
+many lumps that you wonder if it's really just one big lump that happens to
+resemble a mattress.
+
+> x pillow
+The pillow does not look comfortable. Not at all. Then again, you've never
+been the kind of person who feels that criminals should be molly-coddled so
+you'd normally be totally fine with this if you weren't currently the one
+stuck in here.
+   That nail hammered through it might be a tad too far, though, and it has
+caused a huge tear in one side of the pillow.
+
+> x tear
+As you study the tear, you notice (in the eagle-eyed way of great detectives
+everywhere) that there's something poking out of it. You tug it out. "It"
+turns out to be a wooden cat.
+
+> drop cat
+The cat drops to the floor. At once, there is a frenzied scrabbling from the
+rats who immediately retreat from where it landed. The wooden cat doesn't
+actually do anything - being made of wood it's not capable of doing a whole
+lot of things - but the rats, sensing the close proximity of something that
+very often eats their sort for breakfast, in the most literal sense
+imaginable, back away fearfully.
+
+*** Your score has increased by 1 point! ***
+
+> look under bunk
+Aside from some sand, and a rat who flees the moment you swing your foot at
+him, you find… a scrap of paper. Sure this must be a clue, you fish it out
+from under the bunk.
+
+> read paper
+It reads:
+
+"If you're reading this, know something very important. Know that if you do
+not heed the advice given on this scrap of paper, you will almost certainly
+die a terrible death in the confines of this cell. Know that disregarding
+what I am about to tell you will ensure you never leave these four walls
+alive. Above all else, do not let this note fall into the wrong hands. The
+consequences could be fatal.
+
+"To escape this most hideous fate…"
+
+That's the extent of the paper. Someone has torn away the lower part of it.
+Damn that Holmes (for you recognise his handwriting). Couldn't he have left
+off the rambling prose for once and just written the facts right at the
+beginning?
+   Still, at least this confirms that you're closer to him.
+
+*** Your score has increased by 1 point! ***
+
+> eat paper
+Knowing it's never a good idea to leave potential evidence lying around -
+even useless evidence - you pop it into your mouth and swallow it down. While
+it hardly compares to the gourmet meals you have taken a fancy to as of late,
+it's not especially horrible.
+
+*** Your score has increased by 1 point! ***
+
+> x sand
+It's sand and it's not very clean sand. You entertain a brief idea that the
+cell floor is covered with sand to hide the bloodstains from all the
+prisoners that have been beat to death in this cell in the past, but as
+you're currently locked up here, you decide to instead entertain the idea
+that the sand is merely here for decoration.
+   Now the rats have retreated from the fearsome wooden cat you dropped, you
+can see what appears to be a trapdoor in the floor.
+
+> smash trapdoor
+Violence solves nothing.
+
+Usually. But this time it works a treat. You smash the trapdoor which, being
+old and somewhat rickety, breaks in half. Part of it remains where it was,
+while the rest tumbles away into the depths. Though you like to think of
+yourself as brains rather than brawn, you accept that, when called upon, you
+have them both in equal amounts.
+
+*** Your score has increased by 1 point! ***
+
+> d
+You exit the cell via the trapdoor and clamber down a long (and slightly too
+rickety for your liking) ladder to a corridor. The corridor appears
+ordinary-ish. Hardly the sort of corridor one would expect to see in a
+prison. So, maybe you're not in an abandoned prison after all. Which poses
+the question…
+   Where are you?
+
+*** Your score has increased by 1 point! ***
+
+[MORE]
+
+Corridor
+
+A small and ordinary-ish corridor. Dimly-lit, though enough light filters in
+through a barred window at the north end to show you what is here to see.
+That being: not much. The corridor itself leads away to the southwest and
+southeast while a ladder leads up to the cell you recently escaped from
+(quite brilliantly, in your humble opinion).
+
+> n
+
+A Dimly Lit Corridor
+
+There is a barred window at the far end of the corridor, though thankfully
+the bars are thin enough to allow enough light to stream through to
+illuminate the rest of the corridor. On the down side, the bars are, unlike
+everything else you have seen here, new and look to be rather on the
+unbreakable side as far as your knowledge of metal bars go.
+
+> x window
+The window frame is old and rotted, the bars are new and you fancy would
+gleam if there was enough light in here to gleam by.
+
+> smash frame
+You consider yourself a man of brains before brawn, but you have to admit
+that when you a take a few steps back, throw yourself at the window frame and
+give it a seriously good bash with your right shoulder, and it then breaks
+free of the wall and tumbles into space and then subsequently tumbles away
+into oblivion (probably smashing itself to pieces on the ground far down
+below), you experience a certain sense of satisfaction.
+   Where once there was a window with bars across it, there is now simply a
+hole. A good deal more daylight filters into the corridor as a result, though
+the place is still somewhat on the gloomy side.
+
+*** Your score has increased by 1 point! ***
+
+> s
+
+Corridor
+
+A small and ordinary-ish corridor. Dimly-lit, and not helped much by the
+light which filters down the corridor from the window to the north. The
+corridor itself leads away to the southwest and southeast while a ladder
+leads up to the cell you recently escaped from (quite brilliantly, in your
+humble opinion).
+
+> se
+
+Storage Room
+
+Once this was no doubt a storage room of some kind, indicated by the shelves
+lining the walls. But that was a long time ago alas, for all that is stored
+on the shelves now is… dust. Lots of dust. Huge clumps of the stuff. It's
+like every bit of dust was gathered from the rest of this building (prison?)
+and piled high on the shelves here. Or, perhaps, it's simply a long, long
+time since anyone had the decency to clean up in here. A doorway (minus
+anything resembling a door) can be seen to the northwest but that's the only
+exit you can see at the moment.
+
+> get dust
+Normally picking up dust would be all but impossible due to its nature of
+simply breaking apart into smaller and smaller parts, but this dust seems to
+have congealed into an almost solid mass over time and picking it up is
+actually quite easy. Small parts flake off from time to time, but the dust
+you pick up seems to retain its shape fairly well.
+
+> nw
+
+Corridor
+
+A small and ordinary-ish corridor. Dimly-lit, and not helped much by the
+light which filters down the corridor from the window to the north. The
+corridor itself leads away to the southwest and southeast while a ladder
+leads up to the cell you recently escaped from (quite brilliantly, in your
+humble opinion).
+
+> sw
+
+Top Of Some Steps
+
+The corridor ends at a flight of steps leading down into a fairly dark area.
+With the window along the corridor now smashed and more light streaming
+through it, you can make out a few things... but it's still far, far too
+dark. Faintly, from a great distance, you fancy that you can hear voices,
+though they are speaking so quietly (or perhaps just from so far away) that
+you cannot make out what they are saying.
+
+> d
+You take a step forward into the almost-darkness. Even with the window now
+absent and a little more daylight filtering into the corridor, down the steps
+it's still… very, very dark. But by being careful, and squinting more than is
+entirely good for you, you manage to make your way down the steps, avoiding a
+rather nasty hole that you would doubtless have stumbled into if you hadn't
+been able to at least see its outline, and proceed downwards. At some point,
+the light is completely gone and you are forced to proceed on faith alone.
+   That and the handrail running alongside the steps. Offering up a prayer to
+whichever god it is that looks out for people who build handrails in darkened
+stairwells, you continue downwards.
+   Ahead, at the bottom of the steps, you see a few chinks of light and the
+voices you felt you heard before become much more pronounced…
+
+*** Your score has increased by 1 point! ***
+
+[MORE]
+
+An Unappealing Stretch Of Corridor
+
+Bleak in a way remarkably similar to the corridor on the floor above, this
+corridor is singularly unappealing. It extends east to west for… well, as
+'far as the eye can see' isn't really indicative of much here considering
+that, with it being somewhat dark, you can't see more than ten feet in either
+direction. But the corridor does indeed extend as far as your eye can
+currently see. A flight of steps lead upwards, though they appear even more
+rickety than they did above.
+
+> e
+
+An Ascending Corridor
+
+To the east, the corridor begins to rise ever so slightly. It is a gentle
+inclination, the kind of thing that might go unnoticed by one less observant
+than you, but definitely the corridor is rising. Is it perhaps leading back
+to the area you departed not so long ago?
+
+> e
+
+An Ominous Puddle Of Water
+
+The corridor is blocked (partially) by a puddle of water which stretches
+across it from one side to another. Fortunately the puddle is barely two
+inches wide so stepping over it should pose little problem to you, but,
+nevertheless, something about the placement of the puddle strikes you as odd.
+
+Voices drift to you from somewhere close by.
+
+"… kill him?"
+   "Indeed. You seem surprised at the idea."
+   "But… but it's Sherlock Holmes, sir! The Sherlock Holmes. Your arch rival!
+You can't just… kill him…"
+   "Really? And, pray tell, why not?"
+
+> drink water
+Deciding to quench your thirst with this oddly-placed puddle of water, you
+lean forward to-
+   And then common sense reasserts itself and you hesitate. Are you really
+going to drink from a puddle of water on the floor of an abandoned building?
+There could be anything in it. Literally anything.
+   But, you notice, as you hesitate with your face almost touching it, the
+only thing in the puddle aside from the puddle itself is... a stick.
+   You fish it out and shake it dry. Hmmm... it seems a little feeble to be
+used as a potential weapon but you might be able to threaten someone with it
+if they don't notice how weak it really is.
+
+*** Your score has increased by 1 point! ***
+
+"But you've plotted his death for years, sir. You've come up with one
+fiendish plan after another for killing him. The vat of acid slowly eating
+him alive… the piano falling on him from a great height… the swarm of killer
+locusts…"
+   "Yes. And?"
+   "Now you're just going to… kill him…"
+
+> w
+
+An Ascending Corridor
+
+To the east, the corridor begins to rise ever so slightly. It is a gentle
+inclination, the kind of thing that might go unnoticed by one less observant
+than you, but definitely the corridor is rising. Is it perhaps leading back
+to the area you departed not so long ago?
+
+"And that would be wrong you conclude?"
+   "Yes, sir. Undoubtedly, sir."
+   "Why, my man? Do tell."
+   "It would be so… so…"
+   "Ye-es?"
+   "Well… crude, sir. Amateurish. Crass even. You can't just kill your arch
+rival like that. You have to make his death mean something, sir."
+
+> w
+
+An Unappealing Stretch Of Corridor
+
+Bleak in a way remarkably similar to the corridor on the floor above, this
+corridor is singularly unappealing. It extends east to west for… well, as
+'far as the eye can see' isn't really indicative of much here considering
+that, with it being somewhat dark, you can't see more than ten feet in either
+direction. But the corridor does indeed extend as far as your eye can
+currently see. A flight of steps lead upwards, though they appear even more
+rickety than they did above.
+
+"No. No, I do not. You see, Fagen, that is where I have failed in the past.
+That is my weakness, my… Achilles' Heel. I could simply, at any time over the
+past decade, have walked up to Sherlock Holmes on a quiet and deserted street
+and shot him dead. I could have burnt his house to the ground whilst he slept
+during the night. I could have hired a gang of crude hooligans to pummel him
+to death one day whilst he was out strolling. But no. Instead I went for more
+elaborate means of killing him, of declaring to the world just who was
+superior. That was my mistake. If you want someone killing, Fagen, simply
+kill them. There is no need for theatrics."
+
+> w
+
+A Descending Corridor
+
+The corridor, dimly lit (though you fail to see any source of light), begins
+to slope down to the west. The walls feel a trifle damp. Are you underwater?
+
+"You seem disappointed, Fagen. Do tell why."
+   "This… this isn't you, sir. Your plan was just to break into Holmes'
+residence and kidnap him, bring him back here and kill him where the sound of
+any screams won't be heard."
+   "That is, indeed, the plan. Do go on."
+   "But where's the flare? Where's the ingenuity? Where's the skill and
+mastermind you are well known for?"
+   "Absent, my dear Fagen. Absent. Discarded as the irrelevancies they are."
+
+> w
+
+By A Grill
+
+Set into the wall several feet above your head is a grill. It looks large
+enough for a man of modest proportions (not you, alas) to crawl through,
+though the fact remains that it is several feet above you and there is no
+visible means of reaching it short of a miraculous and totally unexpected
+growth spurt on your behalf.
+
+"You see, Fagen, I tire of the theatrics. Holmes is a thorn in my side and I
+fully intend to remove him once and for all. No more games, no more elaborate
+schemes, no more mad capers. I will kill him today and bury his corpse in the
+fields out back and no one will ever know what has happened to him."
+   "And… and Dr Watson?"
+   "Oh. I shall throw his dead body into the same grave as the one I use for
+Holmes. Two birds with one stone, so to speak."
+
+> throw stick at grill
+The stick hits the grill and, with an almighty clang (which is way too loud
+in your humble opinion), rocks its back in its setting.
+   You freeze, sure that the sound will alert all manner of lowlife criminal
+kinds to come investigating, but it seems, after a minute has passed in
+silence, that the clang was perhaps not as loud as you feared.
+   Breathing a sigh of relief, you stoop to pick up the stick, and find,
+lying by its side, a silver ring. Frowning, you pick it up and dust it off.
+Clearly this was concealed behind the grill and dropped down when you hit it
+with the stick.
+
+*** Your score has increased by 1 point! ***
+
+"Oh… and, Fagen?"
+   "Yes, sir?"
+   "If that fool we caught following us has awakened yet, make sure he joins
+that pair in the grave."
+   "Yes, sir. Yes, Professor Moriarty."
+
+The voices fade away.
+
+> wear ring
+You put on the silver ring.
+
+> w
+
+By A Stout Wooden Door
+
+The corridor ends a few feet further to the west but directly north of you
+lurks a stout wooden door. Yes, lurks. You aren't sure what it is about this
+door which indicates a lurking status, but if a door could be said to lurk,
+then this door is definitely that door.
+
+> open door
+The door opens easily. Very easily, in fact. It seems to have been used quite
+often as of late.
+   Before you, seated in the small room beyond the door, is none other than
+Sherlock Holmes.
+
+[MORE]
+
+Part 4: A Slight Problem
+
+In which our hero finds, to his joy, that Sherlock Holmes is indeed a
+bumbling imbecile, but this unfortunately doesn't help his current situation
+much...
+
+Holmes' Cell
+
+Roughly the same shape and dimensions as your cell, though a little more damp
+and dank. There is a feeling of pressure in the air, further giving credence
+to the idea that, wherever this place is, it's underground. Perhaps under a
+river or lake.
+
+Sat in a chair in the middle of the cell, not even tied up but making no
+attempt to flee, is none other than Sherlock Holmes himself. He is dressed in
+scruffier clothes than when you have chanced upon him in public, proof (in
+your mind anyway) that underneath the obviously fake persona, he is a very
+ordinary man indeed.
+
+The only exit is the door to the south through which you entered.
+
+So... face to face with Sherlock Holmes for the first time.
+   You consider how best to handle this situation: a sneering greeting, as
+you calmly inform him that you have breached the defences of this place in
+order to rescue him; a mockery of his talents as a detective if he let
+himself be captured so easily (yes, you were captured yourself, but you
+managed to escape. This fool is still captive); or merely a cool nod between
+professionals; perhaps even-
+   "Bibble!" says Holmes.
+   You frown. Did you hear that right-
+   "Bubble!" says Holmes. He looks around the room, peers at a nearby wall
+intently and shouts, "Bobble bobble BOBBLE!"
+   Well... it seems your guess that the great Holmes was a demented idiot was
+more correct than you ever knew.
+
+> slap holmes
+Figuring that this is the best way of dealing with the deranged and, also,
+because the idea of slapping the 'great' detective across the face is so
+very, very tempting, you draw your hand back and-
+   "I wouldn't do that, dear boy," says Holmes. "You'll quite blow the
+illusion of idiocy if you do."
+   You hesitate, hand still raised. "But..."
+   "Put your hand down, Mr Bigglesworth." Holmes rises to his feet. "We have
+much work to do and, I daresay, a most reprehensible villain to apprehend."
+
+[MORE]
+
+Part 5: Better The Devil You Know...
+
+In which our hero discovers, much to his disappointment, that Sherlock Holmes
+isn't a bumbling imbecile after all and, to his further disappointment, that
+he has to work alongside the great detective...
+
+"Firstly," says Holmes, lighting a pipe he seems to have acquired from
+somewhere in the cell, "I believe I owe you an apology, Mr Bigglesworth. It
+was not my intention to drag an innocent bystander into this unwholesome mess
+but, alas, sometimes even the best laid plans do not go strictly according
+to, er, plan. And when none other than the notorious Professor Moriarty, the
+very Napoleon of crime himself, is involved, it is seldom that plans go
+according to, um, plan."
+   You blink several times. Clearly the man is still delusional. "Hang on. I
+found the clues at your residence and came here of my own volition-"
+   "Indeed you did, Mr Bigglesworth. And for that you are to be
+congratulated. The carefully-placed bullet, the moustache, the note about the
+Black Hand Gang. I had precious little time to place the evidence and so
+merely had to casually scatter it in plain sight, for the most part, and
+simply hope that you would uncover it. As indeed you did. Well done, Mr
+Bigglesworth, there aren't many who could have succeeded so admirably."
+   You come dangerously close to actually thanking him for his praise, until
+you remember just who it is you're speaking to here. He's a conman, you tell
+yourself. A master manipulator. He's telling you these things to save his
+skin and because he doesn't have a clue what to do next.
+   "Of course, dear boy, of course," you tell him. Still delusional, of
+course, just doing a better job of hiding it now. "What say we get you out of
+this nasty cell and back to your residence, eh? Back to your comfortable
+rocking chair and that fire? Eh?"
+   Holmes blows a foul-smelling smoke ring up to the ceiling. "Indeed, my
+good man. Indeed. No point in spending any more time in these less than
+savoury surroundings now that the door is opened and the next part of my plan
+can unfold."
+   "Plan?" He has a plan? "You have a plan?"
+   "Of course, Mr Bigglesworth. It's quite a simple and straightforward plan,
+really, but often simple and straightforward succeeds where complicated and
+tangled does not. The plan involves-"
+   There is a sudden explosion from somewhere and the entire building sways
+from side to side.
+   "Bother!" says Holmes, dropping his pipe and losing it in the dark
+confines of the cell. "No time to discuss the plan any further, Mr
+Bigglesworth! I trust you are familiar with it anyway. I shall meet with you
+at the laboratory and we shall effect the next part of the plan from there."
+   Holmes pats you companionably on the shoulder and darts from the cell,
+gone so swiftly that you suspect, if he ever tires of masquerading as a great
+detective, he could be a first class athlete.
+   "What plan?" you call after him but the madman has gone.
+
+*** Your score has increased by 1 point! ***
+
+> s
+Barely has Holmes left the cell than you hurry after him. This is not, of
+course, because you have any fears for your own safety, but, naturally,
+because if the silly fool goes rushing off on his own, he's only going to get
+himself in trouble again.
+   So after him you run.
+   Holmes darts down the corridor and then stops in mid-stride, peering at
+the wall to the south with a frown etched across his face.
+   "Notice the placing of the two bricks there and there?" he asks.
+   You can't say that you do.
+   "If I press this one here and this one here..." Holmes does, and the
+entire wall opens up, revealing a flight of narrow stone steps leading
+sharply upwards. "Ahah!"
+   You just have to ask: "But where did you learn to do that?"
+   "Elemenary, my dear Bigglesworth," says Holmes. "The elementary school I
+attended was riddled with secret passages and whatnot. It became quite a game
+for I and my school chums to spot them as we made our merry way to one lesson
+or another. Now." Holmes enters the secret passage and begins to climb the
+steps. "This way, Mr Bigglesworth. We have little time to waste."
+
+> s
+You follow Holmes up the steps.
+
+[MORE]
+
+The Laboratory Of Professor Moriarty {east}
+
+Contrary to popular opinion, Professor Moriarty is not a mad scientist.
+However, in order to further his many nefarious schemes, he often adopts the
+guise of one and even keeps a fully functioning laboratory in which to
+perform various deeds of ill repute. This is one such place: from the
+bubbling cauldron in the corner to the skeleton manacled to the wall, from
+the overpowering aroma of rotting flesh to the bats which flutter about the
+ceiling... this is a mad scientist's laboratory and no mistake. Carefully
+placed cobwebs cover many surfaces, adding an air of neglect to the
+proceedings though you suspect this laboratory sees very regular use indeed.
+
+There is a flight of stairs leading downwards and, over to the west, the
+larger part of the laboratory and a steel door. Holmes stands nearby,
+carefully studying everything but saying little.
+
+"The next part of the plan unfolds here, dear boy," says Holmes. "I trust you
+are familiar with it? Good. Then let us proceed."
+
+> w
+Holmes puts a hand out and says, "Careful, Mr Bigglesworth. Danger is afoot."
+He points. "Observe the floor. Observe what is there. Observe-"
+   You observe what he points to and see, though barely visible, what appears
+to be an uneven flagstone.
+   "It's probably just uneven," you say.
+   "Ah, but is it?" says Holmes. "Is it really?"
+
+> x flagstone
+Peering more closely at the flagstone, you notice something a little odd
+about it. Footsteps can clearly be seen to walk around the flagstone itself,
+all missing it by a good few feet on all sides and seeming to make a special
+effort not to actually touch it.
+   "An explosive trap of some kind," says Holmes. "Devious. Very devious."
+   "You sound like you admire the idea of it..."
+   "Oh, but I do. I do. Why, if only Moriarty had turned his attentions to
+the side of fairness and order, what a force he would be. Now..." Holmes
+studies the flagstone for several seconds. "I hazard a guess that our safest
+bet would be either to jump over the flagstone and hope that none of the
+others around it are trapped, or to trigger the trap somehow and thus spare
+ourselves any risk."
+
+*** Your score has increased by 1 point! ***
+
+> throw dust onto flagstone
+Realising that touching the flagstone with your hand would be an act of
+foolishness, you instead throw the dust that you took from the storage room
+over the flagstone.
+   "Oh, very good idea, Mr Bigglesworth," says Holmes, clapping you on the
+back. "Yes, that ought to do the trick."
+   The dust lands on the flagstone and... nothing. No explosion. No cloud of
+poison gas shoots forth. No reaction at all.
+   "Well, not to worry," says Holmes with a frown. "The plan was dashed good
+and really ought to have wor-"
+
+B O O M ! ! ! ! !
+
+"Ah," says Holmes, whose voice emanates from somewhere nearby but which is
+hidden, currently, by thick billowing smoke. "It seems I was correct, Mr
+Bigglesworth. There was an explosive device under the flagstone, after all!"
+   When the smoke has cleared, the flagstone is still pretty much as it was
+before, but whatever lethal trap was concealed underneath it has (hopefully)
+expended itself.
+   "We had best move with all speed," says Holmes. "Doubtless the Professor
+will have heard that explosion and be making his way here with all haste."
+
+*** Your score has increased by 2 points! ***
+
+> w
+Holmes hurries ahead of you to the west.
+
+[MORE]
+
+The Laboratory Of Professor Moriarty {west}
+
+The western part of the laboratory is similar to the eastern part, only the
+smell here is slightly less appalling and there is even a slight breeze
+blowing under the steel door to the west. A large desk occupies a good deal
+of the floor space and on this desk you see several weighty tomes which look,
+from a brief glance, to detail subjects as diverse as the Dark Arts and
+witchcraft.
+
+Holmes stands nearby, a studious look on his face as he considers something
+unknown. Or perhaps he is simply bored.
+
+> read tomes
+You peruse the nearest one, which seems to detail the ritual necessary to
+summon forth a demon from the darkest dimensions and set it on your worst
+enemy.
+   "Fanciful stuff," says Holmes with a sigh. "But I suspect it does an
+excellent job of keeping Moriarty's more superstitious cronies in line."
+
+"Now," says Holmes, rubbing his hands together in an entirely unsettling
+manner, "let's have a look at what's what, shall we?"
+   He begins to walk around the desk, studying it from every angle.
+
+> read tomes
+The second tome is about the Dark Arts and lists the many and varied ways of
+cursing people. Properly used, these curses can make a man forget everything
+he knows, be overcome with the desire to rid himself of his clothes and run
+about naked (you shield this from Holmes in case the crazy fool gets any
+ideas), be convinced he is something he is not (Holmes probably wrote this
+one, you think to yourself), or to suffer terrible bouts of flatulence. Nasty
+stuff.
+
+"Ah, this is what I was after!" cries Holmes, snatching up something from the
+desk and slipping it into his pocket.
+   "What was that?" you ask.
+   "Hmmm? Oh, nothing. Nothing." Holmes fakes looking at an imaginary
+wristwatch. "Oh my, Mr Bigglesworth. We had best be hurrying up our escape
+attempt lest the Professor and his minions begin to close in on us."
+
+> read tomes
+The third tome… hmmm. This isn't about the Dark Arts or witchcraft or
+anything of that unpleasant ilk, but instead appears to be a list of famous
+targets around London with Nelson's Column highlighted in ink that looks
+suspiciously red to your eyes. (Probably nothing more than dark red ink
+really, but you can't get over the idea of Moriarty scribbling down notes in
+the blood of his victims.)
+   "What have you found there, Mr Bigglesworth?" asks Holmes, and promptly
+snatches the tome out of your hands and peruses it. "Hmmm. Interesting. It
+seems the nefarious Professor has more cards up his sleeves than a
+professional poker player. I shall have to have words with him about this
+shortly." The tome disappears into his pockets. "But that will have to wait,
+I fear. We need to escape now, my friend, before we are discovered and our
+plans thwarted."
+
+*** Your score has increased by 1 point! ***
+
+"We need to get the door open," says Holmes, looking at it as if, by sheer
+force of will alone, he can make the door open.
+   "It's locked."
+   "Locked, my dear Bigglesworth, is not a word in my vocabulary. Why, with
+my trusty lockpicks," he begins fumbling around in his pocket, "I can open
+any lock in... Oh. Damn."
+   "What?"
+   "My trusty lockpicks appear to be resting on the small bedside cabinet
+near my bed. Bother."
+
+> look under desk
+You bend down and peer under the desk. In an area directly beneath the
+drawer, you can make out what appears to be a hole.
+
+"Perhaps brute force will suffice," murmurs Holmes, and kicks the door. "No,
+that didn't seem to do it."
+
+> poke stick into hole
+You poke the stick into the hole, wondering if there is something in there
+that you might be able to-
+   Ah. It seems there is something in there.
+   A rat.
+   The vicious little blighter fastens its razor sharp fangs onto the stick
+and bites it for dear life. In vain, alas, as while the rat might be a dab
+hand at sinking its teeth into fingers and the like, it doesn't make much
+headway with the stick. Though, you have to admit, by the time it finally
+gives up and runs off somewhere, it's gnawed your stick down to about half
+its original size.
+   "Bravo," says Holmes with, you can't help but notice, a touch of sarcasm
+in his voice. "You certainly showed that vermin what for."
+   You decide to ignore his sarcasm and put it down to jealousy at how well
+you handled the situation.
+
+*** Your score has increased by 1 point! ***
+
+"I wonder if..." Holmes walks up to the door and presses his head against it.
+He remains that way for several moments. Then he sighs. "No, that didn't work
+either."
+
+> put hand in hole
+A little wary about reaching into the hole (visions of an extra rat lurking
+in there with razor-sharp fangs at the ready fill your mind), you
+nevertheless grit your teeth and do it. And find something in the hole which,
+when pulled out and examined in the (dim) light of the laboratory, proves to
+be-
+   "Watson's monocle!" cries Holmes, snatching it from you and studying it
+closely.
+   "I never knew Watson wore a monocle," you say, having observed the pompous
+fool for years.
+   "He doesn't. But this is his all the same. He keeps it aside his bed and
+uses it seldom. But it is here. I wonder…"
+   But what Holmes wonders, he wonders in silence and doesn't see fit to
+share it with you. The monocle he slips into his pocket.
+
+*** Your score has increased by 1 point! ***
+
+Holmes stares at the door some more. He appears to be searching for
+something.
+
+> put hand in hole
+You rummage in the hole a second time and find-
+   "Watson's favourite cufflink!" Holmes cries, snatching it from you before
+you can even take a casual look at it. "Why, it's the one he was wearing the
+last time I saw him. Right before this unpleasant little escapade began."
+   "But why would Watson's monocle and cufflink be in that hole?"
+   "It is a mystery, my dear Bigglesworth. A mystery indeed. When we chance
+upon my esteemed friend, we shall have to question him about this and see
+what his explanation for it is."
+   The cufflink, like the monocle, Holmes slips inside his pocket.
+
+*** Your score has increased by 1 point! ***
+
+Holmes taps his brow, clearly considering something very deeply.
+
+> z
+You wait for something more interesting to happen.
+
+"Now that," says Holmes, "is decidedly odd."
+   "What's odd?" you ask, but Holmes does not answer. He appears to be lost
+in thought.
+
+> z
+You wait for something more interesting to happen.
+
+"Eureka!" says Holmes, stepping up to the door and... locking it? Yes,
+locking it. At least, he goes through the motions of locking the already
+locked door, and when he has finished...
+   The door swings open!
+   You stare at the door and then at Holmes in something grudgingly
+approaching admiration. "But... how did you...?"
+   "Elementary, my dear Bigglesworth," says Holmes with a rather pleased look
+on his face. "Yes, at elementary school we were introduced to a wide variety
+of unusual doors. It was a hobby of the school headmaster, so I believe, and
+he would often have his hobby installed around the school to baffle and
+confuse not just the students but the members of staff as well. One of his
+favourite doors was one that was unlocked but which would appear, to all
+intents and purposes, to be locked, and yet every attempt to unlock it would
+fail. It was a trick, you see, in that the door was actually unlocked and
+thus attempting to unlock it would cause it to really be locked. Thus when
+faced with a locked door, the way to open it was to... lock it. Now..."
+Holmes gestures to the door. "We had best be leaving with all due haste, Mr
+Bigglesworth. I doubt we have much time."
+
+> w
+As you and Holmes rush through the steel door, there is a cry from behind of
+"Halt!" and you glance back to see none other than Professor Moriarty himself
+step into the laboratory. Previously you have always had a soft spot for the
+Professor - insane criminal mastermind and mass murderer that he is, he hates
+Sherlock Holmes almost as much as you do and so you have been prepared to see
+his actions in a more favourable light - but this time, you don't feel quite
+so comradely towards him. This is partly due to the way he is carrying a
+hunting rifle and partly due to the way said hunting rifle is pointed
+directly at your head.
+   "Perfect!" says Moriarty, his finger closing on the trigger. "You shout
+'halt!' and one of the cretins always halts, even though every last ounce of
+common sense is telling them to do the exact opposite. It's just beautiful
+the way it works out sometimes-"
+   The rest of his words are lost as the hunting rifle fires with a sound
+like a cannon and then something hits you hard in the chest and then-
+
+[MORE]
+
+Part 6: The Plot Thickens
+
+In which our hero, now on his own once more, discovers just what is at stake…
+
+-then you awaken.
+   The first thing you do is spit the filthy river water from your mouth, the
+second is to heave and gag for a while, the third is to groan, the fourth is
+to look around yourself and wonder where in the blue blazes you have ended
+up.
+   Hmmm… from your surroundings, you'd guess you are somewhere on the banks
+of the River Thames.
+
+[MORE]
+
+On The Bank Of The Thames
+
+The River Thames stretches east and west for quite some distance. It appears
+to be early morning and there is not another soul in sight. The river wends
+its way through low hills and grassy fields which do an effective job of
+blocking your view of anything you might need to see. The sun shines dully
+overhead and does little to improve either your mood or your current
+position.
+
+You become aware, a few seconds later, that you have clutched in your hand a
+torn note. Everything else you were carrying - except, thankfully, your stuff
+- is gone, no doubt lost during your escape from Moriarty's base.
+Fortunately, the silver ring is still on your finger.
+
+> read note
+The old words that were once on this page have faded badly, so much so that
+you can barely make out even one of them. However someone - you're guessing
+Holmes - has written new words in their place. His handwriting is appalling,
+and the ink has run with the river water, but you're able to make out the
+following:
+
+"{illegible} Bigglesworth,
+
+Seems we ran into {illegible} there and no mistake, eh? Dashed bad luck that
+ol' Moriarty was such {illegible} with that rifle of his. Why, if I hadn't
+managed to pull you into the path of the bullet, there's no telling what
+might have {illegible} to me. Unfortunately, you were out cold after that and
+so after dragging you bodily from {illegible}, I was unable to rouse you and
+so I was {illegible} behind. I trust you understand. At least I made you
+comfortable and I trust you will recover your wits shortly. Though no doctor
+like {illegible} Watson, I am reasonably confident that you will not
+{illegible} from your injuries.
+
+Now, we have little time so I have gone ahead to {illegible}. As per our
+plan, you are to meet me at the {illegible} by no later than {illegible} and,
+Mr Bigglesworth, please do not forget to bring the {illegible} with you as
+the plan will doubtless fail without it and many lives will be lost.
+
+To recap:
+
+1. Meet at the {illegible}.
+2. By no later than {illegible}.
+3. Bring the {illegible} with you.
+
+I shall see you soon…"
+
+It is signed "H".
+   You hold the note up to the light, hoping to perceive what might have been
+written where the {illegible} blotches now lie, but no. No luck. Whatever was
+written there is well and truly gone.
+
+*** Your score has increased by 1 point! ***
+
+> disrobe
+Hoping no one passes by and mistakes your harmless disrobing for a random act
+of perversion, you begin to quickly disrobe and-
+   Hang on! What's this?
+   In the pocket of your jacket is a small book. A guidebook. How odd. You're
+sure it wasn't there earlier on and, indeed, the guidebook itself is not one
+you have ever laid eyes on before.
+
+*** Your score has increased by 1 point! ***
+
+> read guidebook
+You flick open the book and see, not the information you were expecting to
+see inside a guidebook, but instead several sheets of paper which have been
+loosely threaded inside. The actual contents of the guidebook seem to have
+been torn out and disposed of.
+   Curious, you settle down on the bank of the Thames to see just what you
+have found.
+
+Page 1:
+An article torn from a newspaper and detailing a priceless diamond being
+transported from Germany to England.
+
+Page 2:
+A blueprint of the First National Bank. Goes into remarkable detail,
+including access to the Bank from the sewers and several concealed doors not
+mentioned in the official blueprints.
+
+Page 3:
+Several notes in very poor handwriting, some of it illegible, noting the
+strength, movement and general discipline of the security guards at the First
+National Bank.
+
+Page 4:
+A drawing. It takes you a while to figure out just who the tall, angular
+fellow with the pipe carrying the priceless diamond from page 1, but then you
+take a longer look at it and it clicks. Holmes. Holmes is carrying the
+diamond. Does it therefore follow that Holmes is intending to steal said
+diamond?
+
+You sit back and ponder this. Something about the whole situation never added
+up, you are forced to admit. Why was Holmes in that room? Why did he not
+escape (you, after all, were able to effect entry by simply opening the
+door)? Why did he fake madness? Of course, even assuming Holmes' guilt - an
+easy thing to do considering you've always assumed he was guilty of something
+- you don't understand why he has involved you in these proceedings. A
+scapegoat perhaps? Have you come hurrying to the First National Bank to foil
+some nefarious plot of Professor Moriarty's (whom Holmes is almost certainly
+in cahoots with) and then have you framed for the very crime you are trying
+to prevent?
+   Whatever the truth of the situation, it is clear you need to get to the
+First National as soon as you can and uncover just what it is that madman is
+up to.
+
+*** Your score has increased by 1 point! ***
+
+> e
+With a direction now firmly in mind, you set off, walking at a slow but
+steady pace that does, nevertheless, quickly eat up the miles.
+   Along the way, you pause only once. This part of the Thames, it seems
+familiar. It…
+   Ah! Of course! The map of London on the wall in Scotland Yard! Your
+eagle-eye noticed the change on the map and now you notice it relates to the
+very area you are in. Curious to see what manner the change really is, you
+picture the map in your mind then move towards it.
+   "It" turns out to be a small hovel, set back into the trees and hidden
+from apparent view. The door is open and you pop your head inside. The hovel
+is a hidden police storehouse, though long since abandoned by the look of
+things. You doubt anyone has been here in years. A quick search reveals
+nothing of any great interest, but you find a handy truncheon lying on a
+dusty old table. A solid one, too. While not effective against a man armed
+with a pistol, this should give you a serious advantage against anyone else.
+With a satisfied grin, you set off again.
+   You are not, as it happens, that far away from the centre of London and
+before an hour has passed, you find yourself walking through a familiar
+street of terraced houses.
+   Trafalgar Square, where lies the First National Bank, is just ahead of
+you.
+
+*** Your score has increased by 1 point! ***
+
+[MORE]
+
+Trafalgar Square
+
+Nelson's Column, a rather imposing block of stone with Admiral Nelson himself
+(or a statue of him at any rate) standing atop it, has always been one of
+your favourite London landmarks. Nelson, after all, was a true gentleman and
+conducted himself as such; he was not a pretender to the throne of greatness
+and would not suffer fools gladly.
+
+Trafalgar Square is spread out around you in all its bustling glory. At this
+time of day, it is crowded indeed and eager tourists scurry back and forth in
+desperate attempts to cram as many hours of sight-seeing in as is humanely
+possible. The Square itself extends in many directions but the only one that
+seems relevant to you is away to the north where the First National Bank
+lies.
+
+The First National, your destination, lies to the north. You have no idea how
+much time you have before Holmes hatches his nefarious plan, but common sense
+indicates you hurry.
+
+> n
+
+At The Doors Of The First National
+
+The front façade of the First National, the financial heart of London's
+business district, has always struck you as a particularly shabby place. It
+isn't impressive, not one bit. It doesn't even look especially rich, or even
+well off. It just looks, disappointingly, like a large building that has
+received the tender attentions of dedicated building cleaners far too
+infrequently.
+
+Fierce looking guards carrying old-fashioned pikes (an affection of the First
+National that has always struck you as quite bizarre) stand on either side of
+the (currently open) double doors leading inside. A queue of people stand
+before them. A long queue. One that does not, as it happens, appear to be
+moving. A banner above the doors indicates the day's entertainment.
+
+> hit guard
+The idea pops into your mind and your mind, without regard to common sense or
+your own wellbeing, takes hold of your fist and sends it careening into the
+face of the nearest guard.
+   Or tries to anyway. Only the guard, clearly an old hand at complete
+strangers trying to punch him in the face, ducks nimbly to one side and then
+floors you with one quick sweep of his pike (which, if you were wondering, is
+an actual pike and not just a harmless replica).
+   "Take him to see Lestrade!" one guard barks as you are hauled to your
+feet.
+   "Yes, to Lestrade!" cries the other.
+   And then, rather than being hauled across half of London to Scotland Yard,
+you find yourself being carried into the one place you were trying to get
+into anyway. The First National.
+
+[MORE]
+
+Storage Room
+
+Even the First National has storage rooms. And, it does you good to know
+this, the First National has storage rooms which look no more interesting
+than anywhere else. It might be the very heart of London's financial
+district, but it seems even the First National is no better than other
+establishments in certain areas.
+
+The storage room is dimly-lit, somewhat musty and entirely empty of anything
+that might once have been stored here. Instead it has been converted into a
+Scotland Yard base for the police who have erected several tables and chairs
+and placed on them all manner of equipment which you wouldn't even like to
+guess at the use of. Lestrade is here, not looking particularly happy about
+something or other. The only exit is via a door to the north, currently
+closed.
+
+Lestrade looks up as you're dragged into the room and the door is slammed
+shut.
+   "You!" he says. "I remember you from yesterday when you were asking
+questions about Holmes. Who I now discover is missing and his residence has
+been wrecked. All very suspicious behaviour, Mr Bigglesworth. Or 'Suspect
+Number One in the investigation into the disappearance of Sherlock Holmes' as
+I've decided to refer to you now. And now I find you beating up people at
+random. Care to answer a few questions?"
+   You start to explain the situation but Lestrade, clearly a man who prefers
+to do things his way, instead begins to bark questions at you: "Did you kill
+Sherlock Holmes?"
+
+> no
+"Damn. I was kind of hoping for a confession there. Okay, next question: have
+you seen or spoken to Holmes today or over the past few days?"
+
+> yes
+"I knew it. No doubt during the kidnapping, eh?" Lestrade doesn't give you
+chance to respond to that, but instead goes on with: "And what's your
+business here today? You one of Moriarty's cronies in his attempt to steal
+the One Diamond?"
+
+> no
+"I suspected you'd give me such an answer. Well, I don't believe you,
+Bigglesworth. I don't believe you at all. I suspect you kidnapped Holmes and
+then did away from him when he uncovered your evil plot and then came here
+today as part of Moriarty's crew to effect the stealing of the-"
+   The door opens and an officer walks in. He hurries over to Lestrade and
+whispers something in his ear. Lestrade mutters under his breath then rolls
+his eyes.
+   "Apparently," he says, and you can tell he begrudges every last word, "you
+didn't kill Sherlock Holmes after all. I have received very good information
+to the contrary."
+   "Information from whom?"
+   "Holmes." Lestrade glances over at the officer who delivered the
+messenger, clearly not liking to adhere to the old saying of 'don't shoot the
+messenger'. "It seems you are working with him, Mr Bigglesworth, and he has
+vouched for your morale fibre. He has asked that I extend to you every
+courtesy as you are a vital piece of his plan to, and I quote, 'trap a most
+nefarious man in an act of utmost devilry'." Lestrade glances at the ceiling
+and sighs. "Of course, I'm not obliged to do anything Holmes asks, him not
+being an officer of the law, but… but if it gives me a chance at Moriarty,
+I'd go down on my hands and knees and kiss his feet." He looks at you and
+adds, "Mention one word of that to Holmes and you'll be spending the next
+fifty years doing hard labour. Understand?"
+   You nod. "Crystal clear."
+   "Moriarty is here today to steal a diamond," Lestrade explains. "I
+received a tip from an anonymous source which is why I'm here to monitor the
+situation. Apparently Holmes is here as well though aside from a conveniently
+placed message in the canteen one of my undercover officers is disguised as a
+cleaner in, I haven't seen hide nor hair of him. Here." Lestrade tosses you a
+badge with a red blob painted on it. "Wear that and don't remove it. I've got
+undercover officers throughout the whole bank for the duration of the
+exhibition. That'll mark you as one of my men and you'll be able to access
+every part of the bank. Go about your business, Mr Bigglesworth, and if you
+manage to bag me Moriarty, well… well, I'll be a very happy man indeed."
+   Lestrade gestures to the door and one of the officers opens it. You
+hesitate, not sure whether to point out that you don't have a clue what
+Holmes' plan actually is, and that you also have suspicions about Holmes'
+involvement in this whole matter, but clearly arguing with a man who could
+have you locked up at a moment's notice isn't a good idea. And, too, if
+you're going to find out just what is going on here, you need to be out there
+in any event.
+   Nodding to Lestrade, you slip the badge on and exit the room.
+
+*** Your score has increased by 1 point! ***
+
+[MORE]
+
+By A Firmly Locked Door
+
+You are at the southern end of a corridor which ends at a rather plain (and
+currently locked) wooden door. The surface of the door is dusty and it
+appears to be the entrance to a storage room from what you can tell. The
+corridor itself extends away to the north.
+
+> n
+
+A Branching Corridor
+
+Three corridors meet here: ones from the east and west and a final one from
+the south. At the far end of the southern branch, you can make out a wooden
+door, while to the east is a sign indicating 'Art Gallery' and to the west
+another sign indicating 'Safe Room'.
+
+> w
+
+Outside The Safe Room
+
+A pair of the most unfriendly-looking guards you have ever seen stand here,
+flanking either side of a door referred to, by the sign above it as:
+
+SAFE ROOM
+
+Whether or not the door is locked, you cannot say for certain, but with the
+presence of these remarkably unfriendly types standing between you and it,
+and not looking likely to simply stand aside and let you enter any time you
+feel like it, it's perhaps irrelevant.
+
+> e
+
+A Branching Corridor
+
+Three corridors meet here: ones from the east and west and a final one from
+the south. At the far end of the southern branch, you can make out a wooden
+door, while to the east is a sign indicating 'Art Gallery' and to the west
+another sign indicating 'Safe Room'.
+
+> e
+
+Art Gallery
+
+In all honesty, you never expected to find an art gallery inside a bank, but
+then the First National seems more like a museum than any bank you have ever
+set eyes on before today. This art gallery, though, is nothing out of the
+ordinary as far as art galleries are concerned: the displays are simple and
+to the point, the lighting is average at best and the few members of staff
+you see about the place seem to be either constantly yawning or constantly
+whistling in boredom.
+
+There are three exits from the art gallery: to the northeast, west and
+southeast.
+
+> ne
+
+The Tills
+
+Ah! Finally you find yourself in a room that actually looks like it belongs
+in a bank: the tills area. Here you see a long row of people that does not
+appear to be moving at more than a mere snail's pace, winding back and forth
+across the length and breadth of the room, leading to a single till on the
+far side where a bored looking clerk is dealing with them. Slowly dealing
+with them. Very slowly dealing with them. In fact, if you were to spend the
+rest of the day simply standing here and watching, you imagine you would see
+the same clerk dealing with the same customer.
+
+Aside from this not particularly enthralling spectacle, the rest of the tills
+area is uneventful and the only point of interest for you is the exit to the
+southwest.
+
+> x customers
+You cast your eye over the queue of people, wondering if perhaps Holmes has
+concealed himself in their midst in preparation to launch whatever plan he
+has in mind into effect-
+   Ah! There!
+   That tall, distinguished gentleman with the pipe and the pointy nose-
+   A hand claps on your shoulder and you spin on your heel to see none other
+than Dr Watson himself standing there, wearing a tweed waistcoat and trousers
+(that were probably out of fashion in your grandparents' time) and an anxious
+expression.
+   "We need to talk," he says, glancing around as if he expects danger to
+befall him at any moment. "But not here. Too many people. Too many chances of
+being overheard. The art gallery, Bigglesworth. Meet me there."
+   Then he turns and ducks into the crowd and, for a man of his girth and
+seeming lack of agility, manages to effectively lose himself in a matter of
+moments.
+
+*** Your score has increased by 1 point! ***
+
+> sw
+As you are turning to leave, someone brushes past you with a snarl and drops
+something on the floor.
+   "I say," you say, "you've dropped-"
+   "You're welcome to it!" snaps the less than cheerful man. "Damn thing's
+impossible anyway."
+   Frowning, you glance at what he has dropped. It appears to be a crossword.
+
+> get crossword
+You take the crossword.
+
+> solve crossword
+You think you might be able to get the better of the crossword if you really,
+really struggled, but time is pressing. Maybe later when you have time to
+spare.
+   Still, you feel better for at least trying to solve the blighter.
+
+*** Your score has increased by 1 point! ***
+
+> sw
+
+Art Gallery
+
+In all honesty, you never expected to find an art gallery inside a bank, but
+then the First National seems more like a museum than any bank you have ever
+set eyes on before today. This art gallery, though, is nothing out of the
+ordinary as far as art galleries are concerned: the displays are simple and
+to the point, the lighting is average at best and the few members of staff
+you see about the place seem to be either constantly yawning or constantly
+whistling in boredom.
+
+There are three exits from the art gallery: to the northeast, west and
+southeast.
+
+> whistle
+You whistle.
+   The member of staff who is also whistling whistles the chorus from a
+popular music hall classic and you whistle the end piece.
+   Afterwards, for some unknown reason, you feel slightly better about
+things.
+
+*** Your score has increased by 1 point! ***
+
+> wait
+You've been waiting barely ten seconds when Watson, again displaying a
+remarkable skill for appearing seemingly out of nowhere, steps up to you and
+says, "Greetings again, Bigglesworth. We have much to discuss."
+   "You're presuming we have anything to discuss," you tell him, wanting to
+make it quite clear that whatever he and Holmes are up to, you're onto them.
+   "You came here," says Watson, "so clearly you want to hear what I have to
+say." He peers at you closely. "Hmmm… Or are you just fishing in the dark for
+answers, eh, Bigglesworth? Holmes always said you were…"
+   "Holmes always said what?"
+   Watson shrugs. "It doesn't matter now. What matters is… can you be
+trusted? Have you found the clues that were left for you and acted on them as
+you were intended or do you have your own agenda?"
+   "I saved Holmes from a fate worse than death."
+   "From Moriarty's base, you mean?" Watson snorts. "That was a ploy to get
+inside the base, my man. Holmes let the pair of us be captured so he could
+get close to Moriarty's laboratory and have time to discover his plans."
+   "Oh, please," you say. "Holmes was babbling like a madman when I found
+him. He was in no position to plan anything."
+   It's not often people roll their eyes at you. But Watson, the buffoon,
+does it now. "And, Mr Bigglesworth," he says in a strained voice, "the moment
+he was sure Moriarty was safely out of range, he dropped the madness ploy and
+effected the plan. It was elementary really."
+   "Elementary?"
+   "Yes, elementary school. That's when we first conceived the plan to act
+mad in an attempt to lower an enemy's precautions. Worked a treat as well.
+Now, to the matter in hand…" Watson peers at you again. It might be simply
+your imagination but you get the distinct impression that he doesn't really
+like you. "Let's see what you know, Bigglesworth. Let's see how on the ball
+you really are. Ask me some questions. I'll let you know what I know once I
+see what you know."
+
+*** Your score has increased by 1 point! ***
+
+> ask watson about silver ring
+Watson's eyes light up as he catches sight of the silver ring you are
+holding. "Ah! My ring!" Without waiting, he snatches it off you and slips it
+onto his finger. "Perfect fit! Wasn't sure I'd get this back considering
+where I hid it."
+   "Why did you hide it in the grill?"
+   "Keep it out of reach of Moriarty's cronies, of course. That bunch of
+scoundrels would steal a man's gold teeth so my silver ring would be long
+gone if I hadn't managed to stash it behind the grill. Though I do wonder
+what in the devil made you think to look for it behind there…?"
+
+*** Your score has increased by 1 point! ***
+
+> ask watson about holmes' plan
+"Of course Holmes has a plan. Holmes always has a plan. Why, he probably
+plans getting out of bed in the morning and brushing his teeth. Indeed, I
+imagine he even has a plan for the event of a plan failing. A man full of
+plans is our Holmes."
+   "But you're not going to tell me anything about this plan?"
+   Watson nods. "Indeed. Did you gather that from my rather rambling reply or
+are you simply not quite as dim as I originally thought?"
+
+*** Your score has increased by 1 point! ***
+
+> ask watson about one diamond
+"Ah, so you're aware the One Diamond is involved? Good. That shows you're not
+the total incompetent I had you pegged for, Bigglesworth."
+   Complimented and insulted in the same sentence. That takes some doing.
+
+*** Your score has increased by 1 point! ***
+
+> ask watson about moriarty's plan
+"Why, it's to steal the One Diamond, of course. Worth a darn fortune from
+what I gather, though my own field of expertise doesn't really cover
+diamonds. Quite how he plans to get it past the First National's extensive
+security system is another matter, though."
+
+*** Your score has increased by 1 point! ***
+
+> ask watson about security
+"I've given the security here the once over myself and it's pretty decent.
+That's what I was doing in the tills area when I spotted you there: checking
+things out and seeing how they work. As far as I can tell, the security here
+is top notch. They've got lots of new-fangled technology in place that
+doesn't mean a whole lot to an old duffer like me, but I can tell it's enough
+to deter most criminals."
+   "But not Moriarty?"
+   "No, not Moriarty. But then, Moriarty isn't like most criminals. He
+doesn't see a top notch security system as a deterrent. He sees it as a
+challenge. Damn, but he'd probably break into the place just to see if he
+could beat the system. He's like that."
+
+*** Your score has increased by 1 point! ***
+
+> ask watson about moriarty's plan
+"I don't understand Moriarty's plan, but knowing him it'll be something
+grand. Something dramatic. He could probably just waltz in and swipe the One
+Diamond and walk out with it in his pocket, but that's not his style. It just
+doesn't set the right impression. So no, he'll have something dramatic
+planned alright. Maybe…" Watson frowns. "Maybe during the Ceremony…"
+
+*** Your score has increased by 1 point! ***
+
+> ask watson about ceremony
+"Yes, the director of the First National is planning a special Ceremony later
+on for unveiling the One Diamond. He's even had banners designed for it and
+had the staff dress up in fancy gear to 'put them in the right frame of
+mind'. It's going to take place that way-" Watson gestures to the southeast,
+towards the balcony "-later today. In fact, very soon I think. I wonder…"
+   "You suspect Moriarty will use the Ceremony as a distraction for stealing
+the One Diamond?"
+   "Maybe… I'm not sure. The thing is, the Ceremony is about the One Diamond.
+It'll be in plain view of every single person here. You can hardly just walk
+up and steal it with everyone watching, but… but it's got Moriarty's style
+written all over it. It's just the sort of thing he'd do."
+
+*** Your score has increased by 1 point! ***
+
+> ask watson about ceremony
+"It must be taking place at the Ceremony, Bigglesworth. I know it. I'm sure
+of it. Here. Take this." Watson pushes a whistle into your hand. "I need to
+head back to the tills and keep an eye on things there. You head to where the
+Ceremony is taking place and at the first sign of trouble, blow that thing as
+hard as you can."
+   "And where is Holmes?" you ask as Watson starts to move away.
+   Watson hesitates, and for a long moment you suspect he isn't going to
+answer at all, but then he sighs and says, "He's around here somewhere. Don't
+worry about Holmes, Mr Bigglesworth. Just do what you need to do with that
+whistle and I'll come running the moment I hear it."
+   Watson ducks away before you can ask him anything else, no doubt heading
+back to the tills area.
+
+*** Your score has increased by 1 point! ***
+
+> se
+
+A Short Corridor
+
+East of this corridor, whose walls are lined with paintings of the previous
+directors of the First National, is a balcony overlooking an open area. To
+the south are a large pair of double doors, closed, with the vague outlines
+of a couple of beefy guards on the far side. The corridor itself winds away
+to the northwest.
+
+> e
+
+Balcony
+
+Down below the balcony you are standing on is an open area, in the centre of
+which you see a large glass case. Displayed within, and mounted on its own
+little pedestal, is a diamond large enough to make you, usually disinterested
+in such things, go a little weak at knees. Armed guards stand at each side of
+the display case and you suspect there are several others, probably in plain
+clothes, amidst the huge crowd of people currently gathered in the room. Of
+either Holmes or Moriarty, or that bumbling fool Watson, you can see no sign.
+
+A staircase descends to one side of the balcony into the main area of the
+room while there is a corridor leading away to the west.
+
+> d
+
+Display Area
+
+Pride of place in the display area is given over to a large display case in
+which can presently be seen the One Diamond. Without a doubt, this is the
+largest diamond you have ever laid eyes upon and, even for someone not
+generally impressed by jewels, this one is certainly impressive. The display
+case itself is sturdily built, not exactly easy on the eyes and clearly
+intended for security over vanity. Several guards, hulking fellows with meaty
+fists and meatier faces, stand around it looking for all the world like
+they'd appreciate someone just trying to steal the diamond so they could have
+an opportunity to pound them into mush. The rest of the room is made up of
+tourists milling around in eager anticipation.
+
+Of exits, you see three: a corridor to the east, an archway to the southwest
+and a flight of steps leading up to a balcony.
+
+The moment you reach the floor of the display area, a voice, augmented via
+means of a microphone, booms: "LADIES AND GENTLEMEN! WELCOME TO THE FIRST
+NATIONAL! I AM MARCEL SHAFFER AND I WILL BE YOUR HOST FOR THE EVENING'S
+ENTERTAINMENT!"
+   Evening's entertainment, you wonder. At a bank?
+   "YES, LADIES AND GENTLEMEN, FOR TONIGHT, AND TONIGHT ONLY, I GIVE YOU… THE
+ONE DIAMOND!"
+   The room's lights dim and a spotlight shines from above, illuminating… a
+bare patch of floor.
+   "Er… over to one side a bit, lads!" the same voice, though noticeably
+quieter, hisses from somewhere overhead.
+   The light moves… and now illuminates the display case containing the One
+Diamond.
+   "THE ONE DIAMOND! DIRECT TO THE FIRST NATIONAL BANK OF LONDON FROM DARKEST
+GERMANY! IT SHALL BE DISPLAYED HERE FOR ONLY ONE NIGHT AND THEN RETURNED TO
+BERLIN! SO STEP CLOSE, LADIES AND GENTLEMEN! STUDY THE ONE DIAMOND IN ALL ITS
+MAGNIFICENT GLORY! THIS IS, AFTER ALL, A ONCE IN A LIFETIME OCCURRENCE!"
+   Everyone in the room, including the security guards, begin to crown around
+the display case.
+
+> z
+You wait for something more interesting to happen.
+
+"ISN'T IT JUST A SIGHT FOR SORE EYES, LADIES AND GENTLEMEN? ISN'T IT THE
+CROWNING GLORY OF YOUR DAYS ON EARTH?" The speaker laughs harshly. Something
+maniacally, you think, for someone giving an otherwise cheery speech. "OR IT
+WOULD BE… IF THIS WASN'T YOUR FINAL DAY ON EARTH." The booming voice stops
+booming. The tone changes. It becomes something oh so familiar. "Oh yes,
+ladies and gentlemen," says Professor Moriarty. "Crowd around the display
+case… even as the poisonous gas pours from the vents in its base. Crowd
+around… and be vanquished like the ants you truly are."
+   There is a sudden gasp from the crowd as one man stumbles back, clutching
+at his throat, before pitching headfirst onto the floor. A woman trips over
+him and fails to rise. A security guard, rushing to their aid, sinks slowly
+to his knees and then collapses onto his side, unconscious before he even
+hits the floor. Panic ensues as people, already poisoned, fight frantically
+to get away from the case.
+   Fortunately you are perhaps the individual furthest away from the display
+case at the time the gas was released and this has bought you precious
+seconds, but even so you can feel its effects starting: your eyes are heavy,
+your knees shake, you have to fight off an inexplicable desire to lie down on
+the floor and just sleep…
+
+> blow whistle
+It's hard keeping a head clear enough to pull out the whistle, put it to your
+lips and blow for all you're worth… but you manage it. Your eyes are
+watering, your legs are knocking together, and your nose feels like it's
+expanding to three times its normal size… but you manage it.
+
+T o o t ! ! !
+
+   Then the gas overwhelms you and you sink to the floor and know nothing
+more…
+
+[MORE]
+
+Until, what seems like hours later, someone is shaking you briskly and you
+open your eyes in time to save yourself from a fate most horrible: Watson
+about to give you the Kiss of Life!
+   After hastily assuring him that you don't need that kind of treatment, he
+helps you to your feet. You are further to one side of the display area than
+when you collapsed - "I managed to drag you here," says Watson, who, you
+note, has what appears to be a gas mask around his neck, "but unfortunately
+you'd already inhaled enough of the gas to render you unconscious" - and, you
+notice uneasily, the display case which contained the One Diamond is empty. A
+dozen or more people are collapsed in a heap around the empty case and
+several dozen others have collapsed close by.
+   "Are they…?"
+   Watson shakes his head. "Sleeping. Just unconscious. We can be thankful at
+least that Moriarty is a cheapskate as far as the gas is concerned - poison
+gas costs at least another pound a litre than sleeping gas - so there won't
+be any casualties."
+   Considering you breathed in a good deal of the gas yourself, you find this
+immeasurably reassuring. "And now…?"
+   "Now we need to catch Moriarty."
+   "And Holmes…?"
+   Watson hesitates. "He's around here. Somewhere. I know what he wants us to
+do, Bigglesworth. Just follow me and we'll be fine."
+   He hurries off to the east.
+
+*** Your score has increased by 2 points! ***
+
+[MORE]
+
+Part 8: The Chase
+
+In which our hero and Dr Watson find themselves in hot pursuit of Professor
+Moriarty...
+
+Display Area
+
+Pride of place in the display area is given over to a large display case
+which is currently wide open and empty of anything resembling the One
+Diamond. Several guards and more than several tourists are lying in a heap
+around the display case, victims of the powerful sleeping gas emitted from
+the case very recently and which even now permeates the air in here to a
+worrying degree.
+
+Of exits, you see three: a corridor to the east, an archway to the southwest
+and a flight of steps leading up to a balcony.
+
+> e
+
+Dead End
+
+Watson stands just before at the very end of this corridor. There is a door
+here but it is locked and bolted and appears to have been in this condition
+for quite some time. A good ten feet above you is a hole that has been
+recently hacked into the ceiling and is just large enough for a grown man to
+wriggle through. A heavy bookcase leans against the wall in a very
+inconspicuous way.
+
+"Door's locked," says Watson, "so I'm guessing the blighter went up there."
+He points to the hole in the ceiling. "But if he used a ladder, he must have
+pulled it up after him 'cos I sure don't see one lying around."
+
+> look behind bookcase
+Hoping for a hidden exit, you peer behind the bookcase and instead find...
+   "A bag of loot!" exclaims Watson. "What the devil is that doing there?"
+   He fishes it out and you inspect it together. It is, indeed, a bag of
+loot.
+   "I'm guessing one of Moriarty's cronies had it but had to abandon it when
+they went through that hole," Watson says. "Here, you hold it, Bigglesworth.
+I need to keep my hands free for when we catch the bounder. At least we've
+found this so that swine hasn't gotten away with everything. We should be
+grateful for that at least."
+   He hands you the bag of loot.
+
+*** Your score has increased by 1 point! ***
+
+> x door
+The locks and bolts are huge and ungainly. Remarkably so. You don't think
+you've ever seen quite such an array of locks and bolts in your life. What
+ever can be behind this door that requires such an array to keep people out…?
+
+> climb door
+Acting on a hunch, you begin to climb the door.
+   "Bigglesworth!" says Watson. "What in the world-"
+   But his confusion soon turns to delight as the locks and bolts provide a
+handy system of hand- and footholds and you are able to climb the door as
+easily as a ladder.
+   Once you are safely at the top and through the hole, Watson follows you.
+
+*** Your score has increased by 1 point! ***
+
+[MORE]
+
+Crawl Space
+
+You are uncomfortably close to Watson in a crawl space clearly not designed
+for two grown men to be in. A hole in the bottom, recently hacked by the look
+of things, offers one way out but as you've just come that way, you're only
+interested in the other directions… of which there are eight in total. Every
+possible compass direction is covered, though each one looks equally
+unwelcoming.
+
+"Any ideas, Bigglesworth?" says Watson, peering along one passage after
+another. "Blighter could have gone any way and if we pick the wrong one,
+we'll never find him."
+   "We could split up and try two ways at a time…"
+   "No. That still leaves six routes we can't cover. It's a one in four
+chance we'd be right. Not good enough odds, my friend. We need to be certain
+of heading in the right direction before we choose."
+
+> u
+Up. Of course. You didn't notice it at first but the crawl space extends
+upwards as well.
+   "Damnation!" cries Watson, clapping his hands together. "I never even
+realised that. What ever made you think to try that way…?"
+   "Elementary, my dear Watson," you say, mimicking Holmes without even
+noticing. "At elementary school, we had a crawl space above the science lab
+that went upwards as well as in the normal compass directions…"
+   The two of you make your way up the crawl space as best you can and find.
+
+*** Your score has increased by 1 point! ***
+
+[MORE]
+
+Upper Crawl Space
+
+The upper region of the crawl space ends at a sturdy metal grill set across
+the passage and preventing access for yourself and Watson to the dimly-lit
+room beyond. Dust is caked across the grill but absent in certain places,
+indicating that someone came here only too recently.
+
+"Locked," says Watson, rattling the grill in an attempt to open it. "Damn
+that Moriarty! He must have left it open, crawled through and locked it once
+he was on the other side. A genius plan and no mistake."
+
+> close grill
+Of course!
+   The grill bears a striking similarity to the door you saw Holmes deal with
+in Moriarty's laboratory, the door that seemed, to all intents and purposes,
+to be locked yet in fact was open. Thus attempts to open it would actually
+lock it, whereas attempts to close it…
+   The grill springs open!
+   "Marvellous, Bigglesworth!" cries Watson, clapping you on the back. "But
+how did you…?"
+   You merely give him a satisfied smile then hurry through the now open
+grill into the room beyond.
+
+*** Your score has increased by 2 points! ***
+
+[MORE]
+
+A Rather Ordinary Little Room
+
+The location of your encounter with the notorious Professor Moriarty could
+not be more ordinary than this: a simple little room, almost empty and devoid
+of description. You can see a chair on the far side, in which is seated a
+very tied up Sherlock Holmes; to one side of him, pointing a pistol at his
+head, is Moriarty. There is a door behind Moriarty, open, but as reaching it
+would necessitate bypassing a criminal mastermind currently armed with a
+pistol, it's not really something you consider a possible exit. The only
+genuine exit is the one you entered the room by: the open grill to the west.
+
+Watson, forehead furrowed with worry and anxiety and hands opening and
+clenching into fists, stands at your side.
+
+"Ah," says a voice, "it seems you've found me after all."
+
+[MORE]
+
+Your attention is drawn to a most unfortunate scene: Professor Moriarty,
+clutching a pistol, stands on the far side of the room. At his side, seated
+in a chair and thoroughly tied up, is Sherlock Holmes. There is an open door
+behind Moriarty, on the east side of the room, but the professor seems in no
+real hurry to escape through it.
+   "I was tempted to keep leading you on a merry chase, Watson," says
+Moriarty, "but it appears you've rather improved at overcoming my little
+obstacles."
+   Watson glances at you and nods, but says nothing.
+   "So let us end this here and now," Moriarty goes on. "I have the One
+Diamond," he pats his pocket, "and I have a gun pointed at the head of this
+babbling idiot-"
+   "Bubble!" cries Holmes.
+   "-so what I propose is this: you two simply retreat back through the
+grill, sit down and count to 100, and then you can emerge. Agreeable?"
+   "Babble!" cries Holmes, and blows a raspberry at Moriarty.
+   "Disagree, and I shoot Holmes here and now and end this charade you have
+been perpetrating all these years."
+   "Charade?" you ask Watson, eyebrow raised.
+   Watson hushes you. "Not now, Bigglesworth. Not now."
+   "You have to the count of five to decide," says Moriarty, pistol still
+pointed firmly at Holmes' head (Holmes now blowing bubbles and giggling),
+"and then BANG. No more Sherlock Holmes. And your career goes down the toilet
+as well, Watson. Decide."
+
+> throw truncheon at moriarty
+There's no way you could reach Moriarty in time to stop him shooting Holmes,
+so the only thing you can do is… throw the truncheon!
+   It's not ideally suited for throwing, and you're hardly the sort of fellow
+who practices throwing truncheons across wide rooms at gun-toting criminal
+masterminds, but clearly whichever God it is that looks out for great
+detectives is looking out for you today because the truncheon flies straight
+and true, hits Moriarty clean between the eyes, and knocks him staggering
+back.
+   "Damnation!" he cries, momentarily clutching his hands to his head and
+dropping the pistol. "Ouch! That… hurt..."
+   He stoops to pick up the pistol before either you or Watson can close in
+on him, but clearly has forgotten about Holmes. Previously sitting in the
+chair and seeming content to merely "babble!" and "bubble!" and occasionally
+pull faces, Holmes now spins around in the chair, says, "Oh, Morairty?" and
+kicks said Moriarty in a place which pretty much guarantees that while
+Moriarty himself might come after Holmes again, his children won't.
+Moriarty's eyes cross, his face goes red, he emits a sound which is probably
+meant to be a scream of agony but which his stressed vocal chords interpret
+as "ggghghggjgjkkkk!" and then collapses face first onto the floor.
+   Several seconds of deathly silence descend on the room.
+   Followed by Watson rushing up to untie Holmes and say, "Dashed good
+recovery there, old boy. You found your pills, after all?"
+   And Holmes staring back at Watson, giggling once, then saying, "Babble?"
+   Watson sighs. Then he looks up at you and says, "I think you need to be
+told a few things."
+
+*** Your score has increased by 5 points! ***
+
+[MORE]
+
+Epilogue: The Awful Truth
+
+In which our hero discovers that he was right all along.
+
+And also very, very wrong.
+
+Sherlock Holmes, the greatest detective of his age, or, indeed, any age, sits
+in the middle of a large room with padded walls. He appears quite calm and
+totally sane. Aside from the fact that he has a pair of underpants on his
+head, is cradling a stick in his arms that he refers to as 'baby' and from
+time to time he will shout "bubble!" or "babble!" or even "bumble!"
+   "How long has he been like this?" you ask Watson, peering through the one
+way mirror at the unfortunate fellow currently hidden away beneath his
+residence at 10 Baker Street.
+   "How long?" Watson sighs long and hard. "He's always been like this,
+Bigglesworth."
+   Watson tells you how he and Holmes were room mates at boarding school.
+There he noticed two things about Holmes: one, that he was a remarkable
+genius of almost godlike intellect; two, that he was stark raving insane.
+   "He could take medication to control the worst of his symptoms," says
+Watson, indicating Holmes now as an example of just how bad the symptoms
+could be, "but he often forgot to take them. There was a time when he climbed
+on top of the school and tried to throw himself off, convinced that he was
+really a parrot called Blueboy Marigold who knew how to fly. He was stopped
+at the last moment and I managed to cover up the whole incident as boyhood
+exuberance gone a bit too far."
+   From there, Holmes went from bad to worse. In despair, Watson, himself
+having dealt with the mentally ill before, prescribed him stronger and
+stronger medication. And, in doing so, managed to make something of a
+breakthrough.
+   "Properly sedated, Holmes functions as a man at the top of his game," says
+Watson. "Give him the bare pieces of evidence from a crime scene and he will
+sit and stare at them for countless hours, and then tell you everything you
+need to do to solve the crime. He can even, on good days, when he is not
+prone to uncontrollable outbursts of 'burble' and 'babble' give the
+impression of being totally in control. He's had Lestrade fooled for years."
+   "And everyone else as well," you say.
+   "But not you, Bigglesworth." Watson looks at you and says nothing for
+several moments. "Not you. No, you reckoned it all out, didn't you? That's
+why I decided to bring you on board."
+   You say nothing, not wanting Watson to realise you didn't reason it out at
+all, but rather just went to Holmes' residence looking for proof that he was
+some kind of criminal. What you found out was the last thing you expected.
+   "It was lucky you came to the residence when you did," Watson goes on,
+turning back to look at Holmes. "Moriarty's goons got the drop on us and I
+barely had time to leave any evidence lying conveniently around to clue you
+into where we were being taken. I gave Holmes a note to give to you
+explaining it all, but I think he ate it." Watson sighs. "He can follow
+simple instructions when he's properly medicated. It's just when everything
+is coming together, and tempers are stressed, he sometimes… loses the plot. I
+managed to leave him little clues hinting what he is supposed to do next -
+you probably found some of them around Moriarty's base - but I never know at
+the time just whether he's going to be lucid enough to know to look for them,
+or even if he'll know what to do when he finds them-"
+   "Is the Napoleon of crime apprehended, Watson?" asks Holmes suddenly,
+tapping on the glass from the other side. "Pray tell me it is so."
+   "It's true, dear boy," says Watson.
+   "Excellent news, Watson. Excellent indeed. And more…" Holmes' eyes lose
+their clarity and he goes chasing off around the room after something neither
+you nor Watson can see.
+   Watson sighs again. "You see? One moment, perfect clarity. The next… I
+need your help, Bigglesworth."
+   You blink. You expected a lot of things after being invited here today,
+but not this. "My help?"
+   "Keeping the illusion intact that Holmes is a brilliant detective is more
+than a job for one man. Several times during this little escapade things
+could have gone hideously wrong and left us all dead if you hadn't had the
+foresight to pull us through. I'm not even going to pretend I understand how
+you figured so much of it out, but if you could do that, you could certainly
+help maintain the illusion. And it's an illusion that needs to be maintained,
+Bigglesworth."
+   You don't ask why. You suspect Watson will tell you anyway.
+   "It needs to be maintained precisely because the name Sherlock Holmes
+strikes mortal fear into the hearts and minds of every criminal in this city.
+They hear rumours that the great Sherlock Holmes might be assigned to their
+case and they decide against stealing anything in the first place. The very
+idea that someone likes Holmes will be after them makes a good few criminals
+swear off a life of crime and become decent citizens. If the truth were to be
+found out…"
+   "You'd have a dozen more Moriarty's every day."
+   "Precisely. Moriarty himself is bad enough, but he's one of the few that
+dare to commit crimes anywhere near London. If it became known that Holmes
+didn't really have the mental capacity to tie his own shoelaces, well…
+there's no telling what might happen. We'd probably have London itself stolen
+from under our feet while we were sleeping. That's why I need you,
+Bigglesworth." Watson looks back to you. "I need you to help me maintain the
+illusion that Sherlock Holmes is the greatest detective of his age. I need
+you to help me keep London safe. Ognacio Bigglesworth, I need someone of your
+skill and expertise. What do you say?"
+   Put like that, what else can you say but…
+
+[MORE]
+
+Victory
+
+It seems you've managed to finish the game. Well done. Well done indeed. You
+did this with a score of 101 out of a maximum possible of 100.
+Congratulations are in order, Mr Bigglesworth. Truly you are the great
+detective you always believed yourself to be.
+
+Did you achieve the best score of 100? If so, give yourself a resounding
+round of applause at a job well done. If not, well, you got here in one piece
+and that's a remarkable achievement in its own right. Consider yourself
+proud. Of course, if you're eager to see that full score of 100, feel free to
+try again. You might want to check out the walkthrough for the game
+(available via the W BRIEF or W LONG commands) or a list of all the tasks in
+the game that award points (S POINTS). If you're interested in the password
+for the game so you can take a look in the Generator and see how it was all
+put together, it's DETECTIVE.
+
+Thanks for playing and I hope you enjoyed it.
+
+> quit
+Do you really want to quit? [Y/N]

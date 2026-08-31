@@ -1,0 +1,249 @@
+2
+e
+e
+e
+e
+look under stone
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+get cathy
+w
+w
+n
+z
+z
+z
+z
+z
+look
+i
+get cathy
+score
+i
+open dining room door
+open lounge door
+w
+look
+i
+e
+e
+look
+w
+u
+look
+n
+look
+i
+s
+w
+look
+e
+e
+w
+w
+w
+look
+d
+d
+w
+n
+look
+n
+open kitchen door
+open kitchen door
+n
+look
+i
+open cupboard
+look in cupboard
+examine jar
+n
+open back door
+open back door
+look
+s
+s
+s
+u
+open bathroom door
+open bathroom door
+open small bedroom door
+open small bedroom door
+open master bedroom door
+open master bedroom door
+look
+n
+get matchbox
+get salt shaker
+get honey
+i
+look
+i
+examine sink
+turn off cold tap
+score
+s
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+look
+score
+get stool
+u
+stand on stool
+u
+get metal key
+d
+d
+open bathroom door
+n
+examine bath
+get newspaper
+s
+d
+w
+n
+unlock back door with metal key
+open back door
+n
+get thyme
+examine sundial
+press e
+press n
+press n
+press w
+press s
+press w
+read defensor
+score
+look
+s
+s
+e
+e
+open piano
+look in piano
+get snuffbox
+get tuning fork
+play three blind mice
+get key
+score
+look
+w
+w
+unlock trapdoor with small wooden key
+open trapdoor
+d
+examine workbench
+search workbench
+look on workbench
+get chisel
+drop wooden stool
+drop tuning fork
+get axe
+get chalk
+get cobweb
+create a ring of salt
+put snuffbox in ring
+noinimod on sah emit
+score
+look
+unlock trapdoor with small wooden key
+open trapdoor
+u
+carve shutter with chisel
+score
+e
+carve shutter with chisel
+score
+u
+n
+carve shutter with chisel
+score
+s
+e
+carve shutter with chisel
+score
+w
+w
+w
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+look
+score
+e
+d
+e
+carve shutter with chisel
+score
+w
+w
+use axe on dining table
+put wood in fireplace
+put newspaper under firewood
+drop axe
+n
+get kettle
+fill kettle
+s
+put kettle on hook
+chalk a star onto the kettle
+score
+get match from matchbox
+light match
+light a fire in the fireplace
+score
+look
+score
+i
+e
+u
+w
+examine bookcase
+search bookcase
+look in bookcase
+get notebook
+get pipette
+carve shutter with chisel
+score
+i

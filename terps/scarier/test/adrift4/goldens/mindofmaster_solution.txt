@@ -1,0 +1,29 @@
+1
+read books
+open closet
+get police sergeant's uniform
+e
+s
+out
+w
+n
+move garbage
+force door
+in
+talk to bartender
+3
+1
+2
+1
+1
+1
+1
+2
+1
+read paper
+e
+x wasteland
+hit guard with cudgel
+hit guard with cudgel
+open door
+become cardinal

@@ -1,0 +1,117 @@
+n
+n
+nw
+gather mud
+se
+throw mud at guards
+take needle
+nw
+n
+turn handle
+mend bucket
+turn handle
+turn handle
+wash
+s
+w
+in
+x fire
+talk to elves
+no
+out
+x body
+e
+se
+ne
+give nuts to grarrrrr
+sw
+nw
+w
+in
+talk to bernard
+yes
+give steak to dwarf
+out
+e
+se
+e
+e
+e
+look
+w
+w
+w
+ne
+n
+ne
+talk to lance
+bribe lance
+in
+kill nobleman
+talk nobleman
+nod
+kill nobleman
+out
+ne
+blow whistle
+w
+x flowers
+x body
+w
+x river
+x remains
+enter opening
+take feather
+i
+out
+i
+take all
+i
+read journal
+read journal
+read journal
+read journal
+read journal
+score
+e
+n
+pay toll
+n
+score
+i
+n
+x body
+mend shield
+w
+nw
+in
+talk to bugha
+out
+se
+e
+ne
+in
+e
+pray
+nw
+u
+n
+x body
+x body
+take key
+score
+i
+s
+d
+se
+w
+out
+sw
+s
+s
+s
+e
+moo!
+se
+score
+i

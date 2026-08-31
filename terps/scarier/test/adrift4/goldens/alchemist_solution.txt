@@ -1,0 +1,518 @@
+talk to flavio
+x seat
+get coat
+get suitcase
+get letter
+wear coat
+out
+in
+open closet
+get coat
+get suitcase
+x table
+get bible
+get letter
+down
+wear coat
+out
+talk to monica
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+west
+up
+east
+talk to king
+west
+west
+north
+east
+east
+listen
+west
+west
+up
+get picture
+down
+south
+east
+talk to alchemist
+west
+north
+east
+east
+east
+west
+west
+west
+south
+down
+up
+north
+east
+talk to stableman
+west
+south
+east
+up
+east
+ask king for letter
+ask king for letter
+west
+down
+west
+north
+east
+show letter to stableman
+get horse
+west
+west
+out
+get hair
+off horse
+east
+get bark
+west
+west
+get sunshine
+east
+north
+get snow
+picture on fire
+black on fire
+white on fire
+yellow on fire
+red on fire
+talk to decoy
+north
+in
+breath vial
+out
+south
+south
+get horse
+look
+score
+x table
+get bowl
+get mercury
+get ore
+bowl on athanor
+iron on athanor
+mercury in bowl
+sulphur in bowl
+up
+east
+up
+east
+give gold to king
+look
+score
+west
+up
+get weapons
+down
+west
+north
+buy powder
+buy potion
+buy moonstone
+take nuggets from sack
+look
+score
+east
+east
+east
+north
+in
+talk to magician
+out
+south
+west
+north
+north
+west
+talk to poet
+east
+south
+south
+west
+show letter to stableman
+get horse
+look
+score
+west
+west
+out
+off horse
+north
+up
+up
+up
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+drink potion
+touch star
+get dust
+down
+down
+down
+south
+get horse
+look
+score
+east
+east
+north
+in
+give dust to magician
+out
+south
+west
+west
+west
+south
+down
+put weapons on table
+put powder on table
+put tears on table
+look
+score
+west
+west
+down
+talk to alchemist
+east
+x uniform
+get knife
+west
+up
+north
+east
+east
+east
+north
+in
+x walls
+get sack
+get jewels from sack
+out
+south
+give bible to priest
+talk to baltus
+talk to baltus
+west
+north
+north
+in
+get pot
+out
+west
+put water in pot
+east
+south
+south
+east
+put water in basin
+get cup
+west
+west
+give jewels to monk
+get beer from monk
+west
+south
+down
+give beer to alchemist
+get flask
+get cup
+give nuggets to alchemist
+up
+north
+talk to alchemist
+up
+east
+talk to jean
+read note
+west
+down
+west
+read note
+east
+east
+east
+north
+north
+read note
+get shovel
+get earth
+south
+knife on knocker
+get lead
+south
+west
+west
+south
+east
+up
+east
+south
+down
+get key
+up
+north
+west
+unlock case
+open case
+x case
+get sword
+east
+south
+down
+south
+get rose
+north
+up
+north
+give rose to king
+get bowl
+south
+down
+south
+talk to king
+north
+up
+north
+west
+down
+west
+north
+up
+east
+get paper
+west
+down
+east
+east
+north
+north
+west
+talk to poet
+east
+dig
+south
+south
+west
+west
+south
+east
+up
+east
+south
+down
+south
+give bust to king
+north
+up
+north
+west
+down
+west
+north
+west
+talk to woman
+east
+east
+east
+talk to girl
+west
+west
+south
+down
+east
+east
+north
+get earrings
+south
+west
+west
+up
+north
+east
+east
+give earrings to girl
+west
+west
+west
+east
+east
+east
+east
+north
+talk to enrico
+south
+west
+west
+west
+south
+east
+talk to serena
+west
+down
+talk to magician about love spell
+up
+north
+east
+east
+east
+x basin
+get wine
+west
+west
+west
+south
+east
+up
+east
+south
+down
+south
+get rose
+north
+up
+north
+west
+down
+west
+north
+east
+east
+east
+north
+in
+kill mouse with knife
+out
+talk to enrico
+south
+west
+west
+west
+south
+east
+give spell to serena
+west
+north
+east
+east
+east
+north
+south
+west
+west
+show letter to stableman
+get horse
+west
+west
+out
+off horse
+east
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+throw tears into wind
+west
+west
+north
+east
+east
+north
+north
+west
+put water in pot
+east
+south
+south
+west
+west
+south
+down
+make fire
+bowl on athanor
+gold on athanor
+silver on athanor
+mercury on athanor
+copper on athanor
+up
+north
+west
+give knife to guard
+east
+south
+east
+up
+east
+south
+down
+south
+give key to king
+north
+up
+north
+west
+down
+west
+down
+iron on athanor
+tin on athanor
+lead on athanor

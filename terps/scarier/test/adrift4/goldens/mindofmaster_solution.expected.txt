@@ -1,0 +1,741 @@
+Loading game...
+
+In The Mind Of The Master
+
+In The Mind Of The Master
+
+An ADRIFT Game
+by David Whyld
+
+Started in March 2007, completed in September 2007
+Written with ADRIFT Version 4, Release 46
+
+Earlier Releases of ADRIFT 4 should play this game without problems, but it
+is recommended to play it using Release 46 or later. If you don't already
+have this version installed, it can be found at
+
+http://www.shadowvault.net/adrift.htm
+
+1)        Begin the game
+2)        Read the introduction
+3)        Read the notes on the game
+4)        Things to know before playing
+5)        Game information and credits
+
+> 1
+
+}Fortunately I was tipped off that they were coming.
+
+Things might have gone badly for me if not for the helpful fellow who sent me
+the message, at great personal risk, warning of what was to happen at
+midnight. So when they came for me, I was ready.
+
+How did I escape? Well, let's see…~
+
+a Apartment
+
+The Master was in his apartment which, while not large, gave the impression
+of being so. There was a lot in here, fitted in in such a way as to make the
+apartment seem many times its actual size, though at the same time there was,
+strangely enough, ample free space.
+
+The Master saw several shelves of books lining the walls, a large wardrobe
+(out of place here but too bulky for his bedroom), a trunk in the corner and
+several chairs. There was a closet in one wall in which he kept his
+disguises, a door to the east leading out into the corridor which spanned the
+top floor of the building and to the northwest was his bedroom.
+
+> read books
+The Master picked up a book at random. He opened it, read a passage he had
+highlighted not too long ago:
+
+"... the emergence of powers, the like of which has never been encountered
+before. In olden times, before the rise of technology, such powers were often
+regarded with superstitious dread. Many believed they came from the Devil and
+the ones who displayed them were often persecuted, whether they committed
+evil deeds or not.
+
+"The true extent of the powers of these individuals was unknown, though much
+speculation arose. Some claimed the ability to walk through walls, other
+could become those they desired to be, others could move objects with the
+thought of will alone. Documented accounts vary in veracity, though the
+existence of such individuals has always been open to question in any
+event..."
+
+> open closet
+The Master opened the closet and saw hanging inside his collection of
+disguises. He dismissed several outright - too flamboyant or too out of style
+or simply too unbecoming for a man of his stature - and narrowed the
+possibilities down to three: a police sergeant's uniform, a postal worker's
+outfit and a gentleman's suit.
+
+Yes, any would suffice in the circumstances.
+
+> get police sergeant's uniform
+The Master selected the disguise. It seemed a simple enough thing, and hardly
+suitable for a master of disguise such as he was, but sometimes the simplest
+disguises were often the best. A uniform that tended to make the wary avert
+their eyes, that commanded respect from others dressed in like garb, was
+often all that was required.
+
+Aware of the nearness of midnight and the unpleasant fate which would befall
+him should he still be present at that time, he swiftly became the police
+sergeant. This was not a simple slipping on of a new pair of clothes. His
+physical appearance itself might not have changed but a casual passerby,
+seeing him before and seeing him now, would have been hard pressed to know
+they were one and the same.
+
+He looked at himself at the mirror. The Master was gone. The police sergeant
+was here.
+
+The police sergeant was aware that time was pressing. He wasn't sure how
+little time he had left but knew that it wasn't enough. He needed to be gone
+from here… and quickly.
+
+> e
+Time to leave. The police sergeant cast a glance around the apartment that
+had been home to the Master for a good many years. He recalled that he had
+not cared for it at first - too small, too cramped, too lower class for
+someone of his breeding. But he had grown to like it. To even become fond of
+it. Leaving was almost painful.
+
+Yet he had to leave. They were coming for him. If he was not gone soon…
+
+With a nod of his head to the apartment and its possessions he could never
+hope to take with him, and thus would have to leave, he opened the door and
+departed.
+
+The police sergeant descended the stairs swiftly, though not so swiftly that
+anyone who observed him would assume there was anything suspicious about his
+movements. He met several people on his way down, nodded amiably to them, and
+reached the lobby without incident.
+
+[MORE]
+
+a Lobby
+
+The lobby of the building possessed a kind of charm which the Master had
+taken to immediately. It was, while not unique in this modern world of
+technology, at least unusual. A chipped wooden counter to one side of the
+lobby was manned by an elderly fellow with a goatee which ill suited him.
+There was an old-fashioned radio on the counter. Behind the clerk were a
+number of holes in the wall in which mail for individual guests was held
+until they arrived to collect it. In the other direction to the counter lay
+the bar area, though the police sergeant seldom ventured there due to his
+dislike of such places.
+
+Several directions presented themselves to the police sergeant: up the stairs
+he had just recently descended, east to the bar area, north along a corridor
+leading to the back of the building and south to the street where, so he
+noted, a light rain had begun to fall.
+
+The police sergeant heard from the radio... nothing very interesting.
+
+> s
+The police sergeant opened the front door of the building… and froze. There,
+less than ten feet away from him, was the unmistakeable form of Pauldro.
+Massive and hulking, he towered over the others around him, like a veritable
+ogre amongst men. He seemed almost a giant compared to Grekko who stood in
+his shadow.
+
+The police sergeant's hesitation almost cost him, but he remembered who he
+was - an officer of the law no less - and rather than retreat into the
+building, or make a run for it, or try to hide himself, he strolled
+confidently down the steps and past Grekko. He was close enough to touch at
+one point. As expected, neither Grekko nor the lumbering Pauldro, or any of
+the cronies they had brought with them, gave him so much as a second glance.
+
+Smiling inwardly, the police sergeant made his way down the street. A
+roadblock had been set up, but the men there took one look at him (not a
+close look thankfully) and waved him past. He turned a corner and, wary of
+travelling for too long in the same disguise, slipped into a café.
+
+[MORE]
+
+}You seem surprised at the ease with which I eluded Grekko? Don't be. Grekko
+is good at what he does, and Pauldro, for all that he appears a simpleton,
+has a keen mind, too.
+
+But they are amateurs at the game we play. And I?
+
+I am the Master.~
+
+a Cafe
+
+The police sergeant seldom frequented cafes these days. It wasn't, so he
+hoped, that he was above such things but simply that he found himself with
+precious little free time in order to simply sit around in such places. This
+one, he was relieved to note, seemed a little cleaner than the ones he
+remembered from years gone by: the tables were neat and orderly, the staff
+smiling and pleasant and the customers, while common, at least sober and in
+good spirits. Fortunately, none of them seemed at all uneasy about the
+presence of a police officer in their midst.
+
+A door to the north led to the outside world.
+
+> out
+The police sergeant stepped from the café, thoughts forming in his mind over
+what his next move should be… and then realised that he really should not
+have left the café without first checking the way was clear. Of course, the
+odds that Grekko and his cronies would be passing by this café at the exact
+same time as their quarry emerged were many thousands to one, yet this was
+what indeed happened.
+
+For a moment, there was deathly silence. For a moment, the police sergeant
+dared to hope that Grekko would overlook him as he had before. For a moment…
+
+Grekko's eyes narrowed perceptibly and he held up a hand, halting his
+contingent. "You!" he called. "You! Come here!"
+
+Naturally, he referred to the police sergeant. Who abruptly turned on his
+heel, dived into a nearby alley, and fled as fast as he could.
+
+[MORE]
+
+He was many things, the police sergeant was not a world class athlete. He was
+in good condition, though, and the alley was narrow enough so that Grekko's
+cronies could not run along it in any great number. So the police sergeant
+ran, and Grekko's cronies ran behind him. One of them nearly caught him at a
+bend, but he gave the fellow a shove and sent him careening into a wall. He
+turned over an overflowing bin and that bought him some time. Eventually the
+alley reached an end and the police sergeant plunged into another directly
+opposite it, aware that his pursuers were falling further and further behind.
+At the end of this alley, he scrambled over a fence, dropped down into
+someone's garden, snatched at the clothing he saw hanging on the washing line
+there, and then ran some more. He wasn't entirely sure when the pursuit
+ceased, but simply remembered pausing to gather his breath on a side street
+and realising he was, mercifully, alone.
+
+The change of clothes came in handy. His previous disguise was tatty now, and
+mud-stained and would be unlikely to pass muster if anyone inspected it too
+closely. He changed swiftly, in the shadows of an abandoned shop, and emerged
+looking… disreputable. The clothes were simple and plain, hardly the sort of
+thing he would normally be seen in, and yet, given that he was trying to
+avoid detection now, appropriate.
+
+"I look like a common thief," he said, and decided that that was what he now
+was.
+
+[MORE]
+
+The thief walked some more. Night was beginning to fall. It was growing cold.
+He had another apartment he could go to, a simple bedsit, but it was on the
+far side of the city and he had no way of knowing if Grekko would be there
+waiting for him. What he needed for the time being was somewhere he could lay
+low, somewhere where he would not be sought after…
+
+It was as he was thinking those words that the thief turned a corner and
+found himself on Balmoral Way.
+
+[MORE]
+
+a Balmoral Way
+
+Balmoral Way. At one time, the Master had frequented this area often, though
+the thief fancied no one would recognise his current disguise. It was in the
+heart of the city's entertainment district and catered, amongst other things,
+to many select theatres and art houses. These days it appeared little
+changed: a haze still hung over everything, drifting from many illicit drug
+dens and from the pipes smoked by refined gentlemen strolling along. There
+were old-fashioned lights every ten paces and the buildings themselves harked
+back to a day when the world was a far less complicated place. In fact, the
+whole of Balmoral Way, all two miles of it, was like a step back in time.
+
+The entrance to a gentleman's club the Master had been a visitor to stood
+just to the north while the road itself wound away to the east and west.
+
+There was no sign over the door but the thief recognised the club as one the
+Master had visited many times before. Dressed as he was, he doubted he would
+be able to gain access. The club catered to the rich and employed a number of
+highly trained bouncers to ensure undesirables were kept off the premises.
+They would likely take one look at him and throw him out into the street.
+Perhaps an alternative entrance existed…
+
+> w
+
+a Balmoral Way {west}
+
+Further to the west was an area the thief had never visited but which was
+often referred to as 'the slums'. It was an unwelcoming area, the kind of
+place seldom visited by anyone who did not live there. To the east was the
+majority of Balmoral Way while to the north was an alley running alongside
+the club.
+
+> n
+
+a Alley
+
+Bags of garbage, bulging at the seams and smelling several degrees beyond
+foul, were thrown haphazardly against the far wall of the alley. There was a
+window above these bags, though far enough up the wall to be effectively out
+of reach even if the thief were so minded as to attempt to climb up to it.
+The walls of the alley were close enough to touch, though the thief fancied
+they were little cleaner than the garbage itself and found himself wishing he
+was anywhere but here.
+
+> move garbage
+Grimacing against the smell, the thief gripped hold of the nearest bag and
+shoved it to one side. Mercifully it didn't split, though the stench as it
+shifted was enough to make him wince.
+
+But his effort was rewarded for there, behind the bag, was a door set into
+the wall of the club. He moved several other bags to allow him easier access
+to the door.
+
+> force door
+It was surprisingly easy to force the door. The thief simply leant on it and
+it opened with barely any pressure exerted.
+
+> in
+The thief slipped inside the club.
+
+[MORE]
+
+}And so to my old haunts I returned. The Montalban. I had spent quite some
+time here before my current troubles. I had been something of a celebrity
+there and people had travelled to see me.
+
+But that was then. This is now. I had left the Montalban a well-respected
+figure; I returned a fugitive.~
+
+a The Montalban
+
+The atmosphere was smoky. The thief remembered it well. The Montalban had
+changed little over the years.
+
+There was a central stage where entertainers often performed - indeed, there
+was now a singer atop it, purring lustily into a microphone, a song about
+love and loss and hope and despair. Several drinkers sat around the stage,
+chatting softly amongst themselves. Waitresses moved between the tables, all
+of them young women, pretty, dressed in a way that suggested, in no uncertain
+terms, that this was a man's club and the only women allowed were working
+here.
+
+Along one wall ran an elegant bar at which a bartender in a pin-striped suit
+served wine. No beer. The Montalban would never serve such a common beverage.
+
+The thief noticed a corridor running to the north (in the direction of the
+manager's office), a doorway to the northwest (leading to what he believed
+was a gambling area) and to the south lay Balmoral Way.
+
+As the thief stood there, looking around the oh so familiar interior of the
+Montalban, he was struck by a feeling of rightness. That he should be here.
+Whatever fluke of fate or chance had bought him here, it was, he felt, the
+place he needed to be. Here he would discover just why Grekko and Pauldro had
+come for him, what it was they thought he had done.
+
+And he would find the means to fight back.
+
+> talk to bartender
+"Good evening, sir," the bartender said with a slight nod of the head. "It is
+good to see you again." He hesitated then added, "though I am somewhat
+surprised at your current attire."
+
+1)  "Again? My dear fellow, I've never foot in here in my life before today."
+2)  "Indeed. It is good to be back."
+3)  "I would like a drink. What is the house favourite?"
+4)  "And what is wrong with my current attire?"
+
+0)  {say nothing}
+
+> 3
+The bartender indicated the house favourite was a drink known as Devil's
+Delight.
+
+"An interesting name," said the thief. "What is in it?"
+
+"Ah, sir, but that would be giving away all my secrets."
+
+The thief allowed that that would be the case.
+
+1)  "I'll have one anyway. One Devil's Delight, my man."
+2)  "Perhaps I will give it a miss this once."
+
+0)  {say nothing}
+
+> 1
+The bartender delivered a Devil's Delight and said, "I shall have a tab
+started, sir," which pleased the Master because he was currently without
+funds. The drink was red in colour and looked unpleasantly like blood. "It
+looks better than it tastes, sir," he added.
+
+The Master thanked him and sipped it. It was, to his surprise, actually a
+fine drink. There was even a pleasant aftertaste, one which lingered long
+after the glass was empty.
+
+"Is the drink fine, sir?" the bartender asked.
+
+The Master nodded. He suddenly felt very sleepy. He started to say something
+but instead found that he was having great difficulty in staying upright. He
+put a hand out to catch hold of the edge of the bar yet it moved out of his
+reach and he fell over.
+
+The floor rushed up to meet him…
+
+[MORE]
+
+}I knew nothing for some time after that. Was it hours? Days? Weeks? Probably
+no more than a matter of minutes though when I awoke and it was dark, I felt
+sure that a great deal of time had passed.
+
+Was I worried at the predicament I found myself in? Perhaps. But not, I
+suspect, as worried as you are right now, my friend.~
+
+A voice: "Ah, you are aware. Good. I was beginning to wonder if the dose we
+had given you was too much. If it was... fatal..."
+
+The Master looked around. He saw nothing. Pitch blackness assailed him on all
+sides.
+
+A voice: "Save yourself the trouble, Kasvar. This is a Chamber. I'm sure
+you're familiar with the term?"
+
+He was. And it was many years since he had been called Kasvar. He glanced at
+himself. His disguise was gone. He was the Master once more.
+
+A voice: "Answer what I ask you and you will live. Refuse to answer or give
+me the wrong answers and you will not. Understand?"
+
+Whether he did or not was irrelevant. The voice did not wait for a reply.
+
+"Why does the Cardinal wish to capture you? For what reason have you become
+his target?"
+
+1)  "I have no idea."
+2)  "He suspects I am an enemy of his."
+3)  "Why don't you start by telling me why I have been brought here?"
+
+0)  {say nothing}
+
+> 2
+"And is he correct? Are you an enemy?"
+
+1)  "Yes."
+2)  "No."
+3)  "I don't know enough about why he wants me to say for certain."
+
+0)  {say nothing}
+
+> 1
+A laugh from somewhere in the dark.
+
+"Indeed, Kasvar! Indeed! After all, if you were not an enemy to the Cardinal,
+we would have no use for you, would we?"
+
+1)  "And what is your use for me?"
+
+0)  {say nothing}
+
+> 1
+"Oh, such a simple one. And something I am sure you will take to heart as it
+is in your own best interests as well as ours."
+
+"And that is?"
+
+"Naturally, we wish you to kill me."
+
+1)  "Why me? I am being hunted by his agents, I cannot walk the streets
+without risking being captured by them and I certainly cannot approach him
+undetected."
+2)  "Why me? I am no assassin."
+
+0)  {say nothing}
+
+> 1
+"Hunted, Kasvar? You? Surely not. You are, after all, the Master. Is there a
+man alive who can recognise you when you choose not to be recognised? Is
+there anyone you cannot get to if you so desire? After all..."
+
+A brief pause then:
+
+"... it is how you killed all your other victims, is it not?"
+
+1)  "You have me mistaken for someone else. I am many things, but not a
+killer."
+2)  "You captured me so clearly I am not as invincible as you seem to think."
+
+0)  {say nothing}
+
+> 1
+"You are what you become. Has that not always been the case?"
+
+"I..."
+
+"No, do not answer that. The question was rhetorical; the answer irrelevant.
+Think merely on this: the Cardinal wishes you dead. He will stop at nothing
+to see that wish carried out. We have the means to reach him, you have the
+means to kill him. Self-preservation alone should prove sufficient motivation
+to carry out our little mission."
+
+1)  "Self-preservation or not, I am no killer."
+2)  "I... I need to think on this."
+3)  "If you have the means to reach the Cardinal, why do you need me to kill
+him? Why not kill him yourself?"
+
+0)  {say nothing}
+
+> 2
+"There is nothing to think on, Kasvar. This is an optional task I set you
+here, one that can be completed or not on a whim. I need to have your answer,
+and you will not leave this room, this Chamber, until I do. Tell me: will you
+kill the Cardinal?"
+
+1)  "Yes, I will kill him if I have no choice in the matter."
+2)  "No, I will not do it."
+
+0)  {say nothing}
+
+> 1
+"Yes," I say. "I will kill the Cardinal for you."
+
+[MORE]
+
+}And as easily as that, I became a killer for hire. My price? Simple
+self-preservation.
+
+Or did I have other reasons for doing what I did? I can see you wondering
+that, questioning my motives, debating if what I am telling you is the honest
+truth or mere words I seek to mystify you with.
+
+But listen a little more if you will. All will become clear. And we are
+nearing the end of my tale after all...~
+
+The Master was given no weapon. He did not have a cyanide capsule hidden
+about his person nor was he briefed in counter-espionage tactics. He was
+simply taken from the chamber, though by which means he left it he could not
+tell. Only after he found himself in a dusty corridor, paint peeling from the
+walls, did he become aware that he was no longer in the chamber though how he
+had left it, he could not tell. He was showed a door by a man who did not
+speak and led out into the street.
+
+It was raining. Cold, wet, miserable.
+
+"What now?" he asked.
+
+"Now?" The speaker was stood in the shadows. His face was hidden. "Now you go
+to this address-" a piece of paper was thrust into the Master's hand "-and
+you go inside and you kill the Cardinal."
+
+"As simple as that?"
+
+"As simple as that."
+
+The Master would have asked more questions but the speaker turned and
+re-entered the building. The door closed. The unmistakeable sound of a bolt
+being thrown was heard.
+
+[MORE]
+
+a By A Door
+
+The Master was on a side street, stood by a closed door set into a dusty
+wall. The street ran to the east and west.
+
+> read paper
+It read:
+
+"PROCTOR AVENUE, 1213
+THE CARDINAL'S RESIDENCE"
+
+The Master knew the address well. It lay several miles east of his current
+location.
+
+> e
+The Master left the door and the building and what it contained and moved
+eastwards. The piece of paper he discarded, its purpose served. He walked
+quickly but carefully, always looking about himself for possible problems. He
+saw no sign of Grekko, Pauldro or any of their ilk. It was a very short time
+later when he arrived at his destination.
+
+[MORE]
+
+a Proctor Street
+
+Proctor Street was quiet.
+
+It lay in a part of the city that had an unnatural quietness to it. It was an
+oddity, one the Master had reflected upon many times over the years and had
+yet to reach a suitable conclusion about. Rumours said of vast chambers
+underground filled with diabolical machines which somehow suppressed sound.
+Fanciful? Perhaps. But the quiet was undisputable. A shout here was no louder
+than a whisper.
+
+The home of the Cardinal - for home read office/base/headquarters - was set
+directly to the north. It was unassuming: a small house in a row of small
+houses. Purposefully inconspicuous. His official residence was across town,
+situated in the middle of Tolonel Square and occupying almost an entire city
+block. But this, Proctor Street, was where he actually lived. There was a
+guard standing at the door, a gun held openly in his hand and his expression
+was anything but friendly.
+
+Proctor Street extended to the northwest and northeast and to the south there
+was an area of wasteland soon to be developed into an office block, according
+to the sign to one side. A billboard to one side of the Cardinal's home
+carried a picture of the man himself, his face benevolent as he bestowed a
+blessing on someone not captured on the billboard.
+
+> x wasteland
+A building site now, one day a new office block. The Master felt it looked
+somewhat garish and out of place in these otherwise sedate surroundings, but
+doubted his opinion would unduly affect anything.
+
+However, whilst looking over the site he saw, propped against a fence, a
+cudgel. As a weapon it was hardly on par with a gun or even a knife, but it
+could still prove effective if wielded correctly. He took it with him. It was
+better than nothing.
+
+> hit guard with cudgel
+The Master had a poor weapon. The guard was armed with a far better one. If
+the situation was reversed, the Master would have felt confident that he
+could overpower the other man. But now, under these circumstances...
+
+Perhaps there was another way.
+
+> hit guard with cudgel
+The Master approached the guard casually, as if he was merely a fellow out
+for an early evening stroll. The guard watched him approach, perhaps
+wondering just what the Master was doing and then, when he saw the cudgel,
+his eyes widened and he went for his gun.
+
+Too slow.
+
+The Master whirled the cudgel in the air and struck the guard with it, just
+once, to the side of the head. He never even had time to shout out in pain
+before he was crumpling to the ground.
+
+The Master looked around. No one was there. No one had seen a thing. He
+quickly searched the guard, found the key he knew was there, opened the door,
+let himself inside, dragged the unconscious man inside and him in a closet
+close by, and he was there. At the same time, he also helped himself to the
+guard's gun and discarded the cudgel. And then, on a whim, he took the
+guard's uniform as well and put it on. It would serve far better than his
+current guise.
+
+[MORE]
+
+a A Short Corridor
+
+Remarkably plain, the corridor ran a short way north to a closed door and
+south to Proctor Street. To one side, there was closet.
+
+> open door
+The door opened.
+
+The guard hesitated, expecting an alarm to sound or perhaps some security
+guard to come running. Instead… nothing.
+
+After a brief moment, he stepped through the doorway. There was a room
+beyond, large and lavish, furnished in such a way that indicated money was in
+abundance. A thief could rob this one room and live happily off the profits
+for a long time.
+
+In the centre was a couch on which a man and woman were seated. As the guard
+entered, they paused in what they were doing and looked up. The man's shirt
+was undone, the woman was naked.
+
+The man started to exclaim, "Who the hell do you-" and then he eyes narrowed.
+"I know you. You might be disguised as one of my own security guards but
+that's the last thing you are."
+
+The woman sprung to her feet. Despite her womanish curves and the act she had
+been engaged in, she appeared young. Very young. She snatched at some clothes
+of hers that were scattered on the floor and fled into the adjoining room.
+The man never even glanced at her.
+
+"Damn you," said the Cardinal. "Damn you to hell and back, Kasvar."
+
+> become cardinal
+The guard looked into the Cardinal's eyes and became...
+
+The Cardinal.
+
+There was a strange moment when the two of them, two Cardinals, stood facing
+each other across the small room. The Cardinal who had formerly been the
+Master looked at the other Cardinal, the original one, who was looking like
+he could not believe his own eyes.
+
+The original Cardinal took a step back and almost fell. He murmured, "it's...
+true then... all true..."
+
+The new Cardinal nodded. "You seemed surprised. Didn't you realise I could do
+this?"
+
+The original Cardinal shook his head in disbelief.
+
+"A pity." The new Cardinal took a step towards the old one. "For you."
+
+He struck. Just once. A single punch to the face was all it took. The old
+Cardinal raised his hands to block the punch, and the new one noticed a
+definite shimmering in the air that presaged something about the Cardinal he
+had been unaware of, but the shimmering was too slow and the new Cardinal was
+too fast, and his fist struck the old Cardinal a mighty blow to the forehead.
+
+The punch knocked him back and he fell heavily to the floor. He did not rise
+again.
+
+[MORE]
+
+The Master sank down onto the sofa. He felt… exhausted. Drained. Becoming
+someone else, where he not only disguised himself as someone else, but became
+them - mind, body, soul - always tired him. It would be many weeks or months
+or even years before he could do it again.
+
+But at least he had achieved something notable this time. The Cardinal. The
+actual ruler of the city and, as was well known, the most powerful man in the
+free world. Before he had become the Master, a celebrity at the time and one
+whom he had admired as a man of remarkable intellect and foresight, but,
+ultimately, just a man like all the others. He had been a civil servant
+before that by the name of Mikal Shalper so the Master had been an
+improvement at least, but little more.
+
+The Master… no, the Cardinal. That was who he was now. The Master was dead.
+He had to remember that. Totally ridding himself of an old personality was
+difficult, perhaps the hardest thing he had ever done, but he had been doing
+it for nigh on two centuries now and knew he was up to the task.
+
+The… Cardinal frowned.
+
+Strange. He had access to the Cardinal's memories now - all his hopes and
+fears, his darkest secrets and greatest desires - yet the one thing he could
+not discover, the one thing he had come here seeking an answer to, was why
+the Cardinal had wished him dead. Why had he sent Grekko and Pauldro after
+him? To what end? All he could find, no matter how he exerted himself, was
+that the Cardinal had believed the Master was coming here to assassinate him
+and to prevent that, had ordered out a death squad with orders to shoot on
+sight. Where the Cardinal had come across the notion that the Master wished
+him dead was a mystery.
+
+But there was one piece of startling information he did discover. One he
+would never have thought to even look for if it had not been right at the
+forefront of the Cardinal's thoughts: the call which had alerted him to the
+arrival of Grekko and Pauldro at his apartment had come from the Cardinal's
+own private line.
+
+It was the Cardinal himself who had warned him.
+
+[MORE]
+
+And so the game has come to an end. You are victorious, whoever you might
+happen to be at this stage. You have prevailed against the odds and emerged
+the winner, though you're perhaps a little confused about exactly what it is
+you've achieved. No need to worry on that account. In The Mind Of The Master
+isn't a particularly straightforward game. Not everything is expected to make
+sense or fall neatly into place.
+
+There are several different endings to the game, dependent upon the decisions
+you made throughout it and who you were at the end. If you feel like playing
+it again to see if you can find them all, please do so. The basic layout of
+the game (fleeing the hotel to begin with, arriving at the Montalban, the
+encounter with the Cardinal) remains the same each time but there are subtle
+differences along the many paths that ought to make replaying it at least
+once worthwhile.
+
+Type notes if you replay the game for some background info and walkthrough
+for the best way to reach those endings.
+
+But for now, thanks for playing and I hoped you enjoyed the game.
+
+David Whyld
+
+> quit
+Do you really want to quit? [Y/N]

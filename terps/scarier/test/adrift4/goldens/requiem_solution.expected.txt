@@ -1,0 +1,1431 @@
+Loading game...
+
+Requiem
+
+REQUIEM
+
+An interactive fiction adventure by David Whyld
+Written with ADRIFT Version 4, Release 46
+Started August 2005; Completed September 2006
+
+(1)        Play the game
+(2)        About Requiem
+(3)        Special commands
+(4)        Game information
+
+> 1
+
+Today
+
+"You'll never get away with this," I say.
+
+The figure standing behind me, the one with the gun pressed against the back
+of my head, laughs. "That's what they all say. And you know what, Chris?" The
+gun presses harder against my skull. "They're always wrong."
+
+I have a second, perhaps two, to wonder if I should make a move, throw myself
+forward, dive to one side, maybe even drop back and try to knock the gun out
+of his hand… but a second is too long. I hear a thunderous explosion, I feel
+a sudden pain…
+
+… and then I know nothing more …
+
+7 Days Ago
+
+My Office
+My office: small, squalid, depressing. It's what is generally referred to as
+'workmanlike' meaning no frills. No decorations. Nothing that might alleviate
+the general feeling of small/squalid/depressing that hangs over it.
+
+My desk occupies the bulk of the floor space, then there's a filing cabinet
+in the corner, then a window, then the coat rack, then the door to the north.
+Yes, small and squalid and depressing certainly describe this place to a tee.
+
+> n
+I make to leave my office, but the door is already opening.
+
+It's my assistant, Ben. "Got a client for you, boss," he says, and ushers in
+the woman who was going to change my life.
+
+She was, and let's not beat about the bush here, stunning. Totally stunning.
+She could have stepped from the pages of any Playboy centrefold you cared to
+name: blonde, beautiful, curvaceous and, from the way she was dressed, rich.
+Very rich. If there was a more desirable woman alive today, I've yet to meet
+her.
+
+"Detective," she says, extending her hand to me. "My name is Sophia
+Montague." Her accent was hard to place. Dutch? Perhaps Swiss? "I have a
+little… problem that I wish for your aid in solving."
+
+[MORE]
+
+Restaurant
+The restaurant is a stark contrast to my office: warm, large, decorated. The
+staff are smiling and friendly and there is a general feeling of relaxation
+hanging over everything.
+
+The table Sophia and I are seated at is near the window, offering a view of
+the waterfront. If not for the rain falling, this would be a fine view
+indeed.
+I didn't often take prospective clients to this restaurant near my office,
+but it was nice and clean and the staff were friendly. Three points up on my
+office.
+
+I sat Sophia down, ordered us a meal (a third of my week's salary gone in one
+go) and proceeded to question her about why she required my services and what
+'little problem' she had that needed sorting out.
+
+> talk to sophia
+"Tell me why you need my services, Miss Montague," I say.
+
+Sophia frowns, as if unsure where to start. "It is… complicated," she says.
+"I…" She frowns again. "Tell me, detective, do you believe in the
+supernatural?"
+
+My look of confusion clearly shows on my face as she adds, "I need someone
+who believes. Do you?"
+
+1) "Why ask such a question, Miss Montague?"
+2) "To be honest, it's not a question I've ever thought much about."
+
+> 1
+"Because I need you to find someone for me," says Sophia. "Someone who is...
+unusual. Someone who has…" She seems to hesitate over the word. "Powers."
+
+1) "Powers?"
+2) "I'm assuming you mean 'powers' as in 'political powers'?
+
+> 1
+Sophia nods. "Yes. Powers. Don't look at me like that, detective. I know how
+it sounds. Just, for now, trust me, okay?"
+
+I remind myself that she is a client after all. And a paying one.
+
+"Indeed, Miss Montague."
+
+"This person..." She frowns. "This person is evil. What he does is evil. The
+way he affects the people around him..."
+
+1) "And who is this person, Miss Montague?"
+2) "Have you been to the police about this evil person, Miss Montague?"
+
+> 1
+"His name," she says, "is Martin Cairns. I was one of the people he has
+affected because of who he is. Because of what he does. And what he did to me
+long ago..." She smiles bleakly. "I want you to find the man who killed me,
+detective."
+
+[MORE]
+
+I walk her back to her car. I am disturbed by what she had told me to say the
+least. To speak to her, you would never guess she was insane. Indeed, she
+sounded eerily convincing. Everything she told me seemed so plausible that
+there were even a few odd moments when I found myself entertaining the idea
+that maybe, just maybe, she wasn't mad after all. That she was telling the
+truth. After all, who really knows what happens when we die?
+
+But then common sense reasserts itself and I realise how ridiculous the
+notion is. Sophia Montague is mad, clearly, but she isn't dead. She wasn't
+murdered. And she hasn't returned as a ghost.
+
+[MORE]
+
+"You will help me, detective?" she says as I open the car door for her.
+
+I want to tell her no. To tell her that she needs to check herself into a
+hospital and get herself sorted out.
+
+But I don't. In part, it's her looks. I'm a sucker for a beautiful woman and
+Sophia Montague is without a doubt the most beautiful woman I have ever set
+eyes upon. I've never been able to resist beautiful women, even when I'm
+aware of what I'm getting myself into. And in part it's the fact that, like
+every poor schmuck out there, I have bills to pay. And if I don't pay them, I
+lose my apartment, my office, my life...
+
+So instead of telling her what I think, and what I'm sure would be the best
+course of action for her, I say, "of course I can help you, Miss Montague."
+
+[MORE]
+
+Lounge
+My lounge is sparsely decorated: TV, couch and a bookshelf (minus much in the
+way of literature). Doorways to the west, northwest, north and northeast lead
+to other rooms while my front door is to the south.
+
+I return home, feeling about an inch high. Part of me feels like a prize
+schmuck for agreeing to help Sophia when the only help she needs is getting
+herself checked into a hospital. But another part of me sees this as a chance
+to actually do something worthwhile for someone other then myself.
+
+A chance to start over again and put my past mistakes behind me.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+Yes, I feel bad about it. But I'm only human. And, yes, I have bills to pay
+just the same as the next guy.
+
+All the same, taking advantage of a woman who is undoubtedly emotionally
+disturbed leaves me feeling bad to say the least.
+
+> z
+Time passes...
+
+Sophia Montague believes she died a year ago. She was killed: shot to the
+back of the head by her former lover. Her body was thrown into the river in a
+carpet that was weighted down. It was washed ashore a month later, discovered
+by a young couple out walking their dog.
+
+> z
+Time passes...
+
+Sophia says she was aware of all of this as it happened. She told me of the
+pain she felt when the bullet struck, of the sensation of being wrapped in
+the carpet and thrown into the river. Of the water entering her mouth and
+she, paralysed (dead) unable to do a thing about it.
+
+It chilled me hearing this, imagining it. Of course, I don't believe her
+story for a second, despite what I told her at the time, but she believes it.
+When she told me of the torment of lying on the bottom of the river, of the
+fish eating her eyes, I felt quite queasy.
+
+> z
+Time passes...
+
+And then, suddenly, she was alive again. She awoke in a grimy hotel room,
+naked as the day she was born. Her body was unmarked save for a vicious scar
+on the back of her head which was at precisely the point where she had been
+shot.
+
+> z
+Time passes...
+
+Sophia found some clothes and dressed herself. She found her handbag, the one
+she had been carrying when she was shot, and took her purse from it. Inside
+her purse was no money but a note.
+
+> z
+Time passes...
+
+The note was in her handwriting. It said, quite simply, that she had been
+given a second chance. She had to 'put things right'.
+
+> z
+Time passes...
+
+And so she had come to me. I was to find her former lover. That was all. I
+half expected her to ask me to kill him, or beat him senseless, or even
+inform the police. But no, I was to find him and tell her where he was. She,
+she assured me, would take care of the rest.
+
+> z
+Time passes...
+
+I had a name and an old address to go on: Martin Cairns, Apartment 8C,
+Barkwood Building, Lower Westside. He wasn't there now - Sophia had checked -
+but there might well be a clue I could use to track him down.
+
+I wondered about mentioning that I knew someone called Martin Cairns. It
+could be a different person, of course, but something told me it wasn't. In
+the end, I kept quiet.
+
+I feel tired. Exhausted. Tomorrow I'll head to the Barkwood Building and see
+what I can find out about Martin Cairns. For now? Now I'm in desperate need
+of some shuteye.
+
+[MORE]
+
+6 days ago
+
+Outside The Barkwood Building
+I've not been to Lower Westside many times but it's a place I'd fancy living
+in one day. The apartment buildings are large: skyscrapers almost. They
+overlook the river and, on a good day, the view from the upper stories is
+quite breathtaking.
+
+The sidewalk stretches away east and west, while the entrance to the Barkwood
+Building is to the north.
+
+> n
+
+Barkwood Building: Reception Area
+The reception area is expansive, several times larger than it really needs to
+be. A flight of stairs and an elevator lead to the upper floors while a bar
+over to the east also offers possibilities.
+
+> u
+I climb the stairs to the 8th floor.
+
+[MORE]
+
+Outside Apartment 8C
+Apartment 8C looks the same as every other apartment here: one plain and
+unadorned door in a long corridor of plain and unadorned doors.
+
+> open door
+I try the door, expecting it to be locked, but find it open.
+
+Into Apartment 8C I step.
+
+[MORE]
+
+Apartment 8C
+Something seems wrong the moment I enter the apartment. It takes me but a
+moment to put my finger on it: it's been trashed. There are books and papers
+scattered on the floor, the bed has been slashed, the bedside cabinet opened
+and its contents thrown all over the place, the window has been smashed,
+graffiti has been scrawled on the walls.
+
+> x bed
+I check it over quickly, uncovering a small diary almost at once. The diary
+has a lock on it, but is currently open.
+
+> e
+I step from the room and hurry down to reception. There I report the trashing
+of the room. The reception staff seem surprised at first, but when I show
+them the room, they immediately call the police.
+
+Seeing no reason to hang around any longer, I leave the hotel and make my way
+back to the office.
+
+[MORE]
+
+My Office
+My office: small, squalid, depressing. It's what is generally referred to as
+'workmanlike' meaning no frills. No decorations. Nothing that might alleviate
+the general feeling of small/squalid/depressing that hangs over it.
+
+My desk occupies the bulk of the floor space, then there's a filing cabinet
+in the corner, then a window, then the coat rack, then the door to the north.
+Yes, small and squalid and depressing certainly describe this place to a tee.
+
+[MORE]
+
+I settle down in my chair, put my feet on the desk, and start to go through
+the diary. It's certainly a strange one.
+
+The days aren't numbered chronologically - August 15th might be followed by
+June 5th, and Christmas Day is sandwiched between January 8th and 9th. There
+are also three times when the date 9th October pops up, although if this
+bears any kind of relevance I cannot tell what it might be.
+
+The writing is small and cramped, as if the writer had only a very limited
+amount of space to write what they needed to write, and too much information
+to relay.
+
+I don't know whose diary this is as there is no name and the handwriting is
+unfamiliar to me.
+
+It deals with a strange and varied range of subjects: horror stories the from
+the writer's childhood; a haunting; the strange disappearance of a woman
+called Jayne; and a man named Giles Dashwood who is said to have "powers both
+frightening and mysterious".
+
+[MORE]
+
+The phone rings, interrupting me. It is, unsurprisingly, Sophia Montague
+checking up on my progress.
+
+I explain about the hotel and what had happened there. She doesn't sound
+surprised.
+
+"I had a feeling this would happen, detective," she says. "Martin fell in
+with the wrong crowd and they want him dead every bit as much as I do."
+
+1) "You believe these people are behind his disappearance?"
+2) "Who are these people, Miss Montague?"
+3) "I found a diary in Mr Cairns' room, Miss Montague. A strange diary. I'd
+like to discuss its contents with you."
+
+> 3
+"A… diary?" I hear a sound like something breaking. Glass perhaps. "You found
+my diary?"
+
+Her diary? I suppose I should have realised. The horror stories, hauntings
+and disappearances sound like just the sort of thing a woman who believes she
+is really dead might write.
+
+"There's some very… unusual stuff in there, Miss Montague," I say, swapping
+'weird' for 'unusual' at the last moment. "What does it have to do with
+Martin Cairns? I'd like to meet you to discuss its contents-"
+
+"That… isn't a good idea, detective," says Sophia. "I'm sorry. I don't feel
+very… I have to go."
+
+And before I can say another word, she hangs up on me.
+
+[MORE]
+
+Five days ago
+
+The next morning, I read through the rest of the diary. It doesn't make a
+whole lot of sense, and even after trying to rearrange the entries into some
+kind of chronological order, I'm still at a loss to understand it all. Then
+again, there's no reason to assume it makes any kind of sense at all. I'm
+guessing it's Sophia Montague's diary and Sophia Montague, as was clear from
+the moment I first laid eyes on her, has serious mental problems. Her diary
+reads like the diary of a woman who is certifiably insane and ought to be
+locked away for her own safety. Not to mention the belief that she is really
+dead. There's no reason to assume it should make sense.
+
+I think I need to make a decision.
+
+1) Decide enough is enough. Go to the police and tell them everything.
+2) Stick with the case. Sophia is a client after all and it's not like I have
+so many of them that I can afford to just go shopping them to the police at
+the first hint of craziness.
+
+> 2
+In the end, I decide to stick with the case. I'm not too sure I'm making the
+right decision, but if I can help Sophia out, I'll at least have achieved
+something.
+
+The rest of the day passes pretty much uneventfully. With no other leads
+aside from the diary, I read and reread it. No further clues reveal
+themselves to me.
+
+[MORE]
+
+Four days ago
+
+When I arrive at the office early the next day, I find a package waiting for
+me on the ground outside. I scoop it up, noticing my name scrawled on the
+top, and carry it into the office to check out.
+
+[MORE]
+
+My Office
+My office: small, squalid, depressing. It's what is generally referred to as
+'workmanlike' meaning no frills. No decorations. Nothing that might alleviate
+the general feeling of small/squalid/depressing that hangs over it.
+
+My desk occupies the bulk of the floor space, then there's a filing cabinet
+in the corner, then a window, then the coat rack, then the door to the north.
+Yes, small and squalid and depressing certainly describe this place to a tee.
+
+> open package
+I open it, curious as to what I will find inside. The contents are surprising
+to say the least.
+
+I take the photographs, police report, medical file and folder out of the
+package and sit at my desk to take a better look.
+
+> x photographs
+There are several photographs of Sophia Montague in various stages of
+undress; in the final one she is completely naked. I notice strange
+discolorations on her body: lines of marks that might be bruises across her
+stomach, a healed scar on her lower abdomen, a lump across her back that
+defies description.
+
+The photographs are posed and she is as beautiful as ever, although I find it
+hard to become aroused by them.
+
+> x report
+A police mugshot of Sophia, and a sheet of paper indicating what offences she
+was charged with: drunk and disorderly, assault, attempted murder… and,
+perhaps most tellingly, possession of drugs. A list of previous convictions
+indicates many, many charges relating to the possession of drugs. Indeed, she
+has even served prison time for possession on two occasions.
+
+> x file
+The medical file is a thin report from the Barkington Institute for the
+Criminally Insane. It details the treatment received by one Sophia Christine
+Montague between 1992 and 1998 when she was committed to the Institute for
+attempted murder after believing that her next door neighbour was actually a
+living corpse. Apparently she tried to ram a pair of scissors through his
+throat and actually wounded a helpful member of the public who intervened.
+Whilst committed at the Institute, she raved incessantly about a man called
+Martin Cairns who was after her and wanted to kill her. Whether Martin Cairns
+was a real person or just a figment of her imagination, no one ever really
+knew.
+
+> x folder
+The folder contains several scraps of creased paper, words upon each of them.
+The words are disturbing: "…voices in my head tell me things…" and "…tell me
+to end it…" and "…tell me to kill Martin…" and perhaps worst of all "…tell me
+to kill myself…"
+
+[MORE]
+
+I sit at my desk, uneasy over what I have read. That Sophia is disturbed goes
+without saying. Then again, when she first spoke to me at the restaurant, it
+was obvious from even that brief meeting that she had severe delusional
+problems. But I was never quite sure just how far her delusions went. Now I
+know. Now-
+
+The door opens and in comes Ben. I can see Sophia behind him.
+
+"Sorry to disturb you, boss," he starts, "but-"
+
+"No, Ben, quite alright." I hastily hide the package and its contents. Best
+if Sophia doesn't see it right away. Not till I've had chance to think about
+what was in it. "Send her in."
+
+Something is different about Sophia than the previous time I saw her. She
+still looks beautiful, but there is a gauntness to her features that was
+missing before. One of her lips looks swollen. And, though it might be just
+my imagination, she seems to walk with a slight limp.
+
+"We need to talk, detective," she says once Ben has left.
+
+> talk to sophia
+Mindful of what I know about Sophia now, I say "tell me what's on your mind,
+Miss Montague."
+
+"I received a visit last night." She sits down and undoes the top two buttons
+of her coat. A row of wounds distort the skin at the top of her neck. Some of
+the wounds look inflamed. "From Martin Cairns. I think he knew I sent someone
+to find him and he…he wasn't pleased."
+
+I lean forward in my seat. "He did that to you?" Or did she do it to herself?
+Is self harm one of her many delusions?
+
+Sophia nods. "Yes. I passed out after a while and he was gone when I awoke."
+
+"Have you gone to the police?"
+
+Sophia shakes her head and stifles a sob. "…no…"
+
+> talk to sophia
+"Tell me where to find Martin Cairns," I say.
+
+Sophia looks at me. "Why? Are you going to hurt him?"
+
+"No worse than he hurt you."
+
+"You don't know what he's capable-"
+
+"Tell me where he is."
+
+Sophia hesitates for a second, then gives me an address. I know the place.
+It's down by the waterfront.
+
+"How do you know he's there? He wasn't at the Barkwood Building like you
+said."
+
+"He was there, but he..." She hesitates, then adds, "I think he sensed you
+were coming."
+
+I start to ask her how she could know such a thing, but decide this isn't the
+time.
+
+"And if I go to the waterfront, he won't know I'm coming?"
+
+"I... hope not." Sophia swallows painfully. "He was there last night,
+detective. That's where he took me. Where he did this to me..." She looks at
+me. "What are you going to do?"
+
+Which, of course, is the big question.
+
+[MORE]
+
+Waterfront
+I'm by a warehouse on the waterfront. A cold rain is falling, wetting the
+ground and yours truly. The warehouse is before me to the north while a
+pathway leads away from the warehouse to the east and west. The sea stretches
+away into the distance to the south.
+
+The waterfront seems deserted. Good. I check the gun I have with me, take a
+deep breath, and hope I don't have to use it.
+
+> n
+I walk towards the warehouse.
+
+[MORE]
+
+Warehouse
+The warehouse is dark and empty. The smell of meat hangs in the air,
+indicating this place was once used to store food of some kind. But that was
+a long time ago. Several empty shelves line the walls and there is a
+collection of old boxes stacked haphazardly in the middle of the floor, but
+other than that the warehouse is remarkably empty.
+
+As I look around the warehouse, I wonder if I have been misled. This clearly
+isn't where someone is living (aside from, maybe, a few squatters). If Martin
+Cairns was ever here, he's long since left.
+
+> s
+As I turn to leave, the door opens and a man steps inside. He doesn't see me
+at first but when I say, "Martin Cairns," he looks up at me and his eyes
+narrow.
+
+"What the hell do you want?"
+
+"We have a mutual friend," I say. "Or, in your case, 'friend' isn't perhaps
+the right word."
+
+He frowns again. "Get out of my warehouse, friend. Now. You got no business
+being here."
+
+> shoot martin cairns
+And with a single shot, it's all over for Martin Cairns.
+
+I stand there for a while afterwards, staring down at the body, aware of
+smoke curling slowly from the barrel of the gun. I've just killed a man, I
+think numbly. A man who beat Sophia. But is that any kind of justification
+for murder?
+
+I dispose of the gun in the sea, throwing it as far as I can. Afterwards I
+wonder if that was such a clever move. What happens if the police trawl the
+harbour and find it there? What if they trace it back to me? Of course,
+there's nothing I can do about it now.
+
+I dispose of the body in the same way: pushed into the sea. It floats for a
+while until, finally, it begins to sink. When it is gone, I leave the
+waterfront and return to my apartment to think over what I have done.
+
+[MORE]
+
+Sophia doesn't answer when I call her and I'm wary of leaving a message. The
+full import of what I did today is finally beginning to sink in and I'm
+feeling more than a little regretful over the way events turned out. I didn't
+go the waterfront with the intention of killing a man (at least, I don't
+think I did...) but that's just what I did.
+
+I sit and watch TV but find myself unable to concentrate. It's barely ten pm
+but I feel shattered. A good sleep, that's what I need. It's what I'm aching
+for. But it's unlikely in my current state of mind I'm going to get any sleep
+for a long time...
+
+[MORE]
+
+I roll out of bed, blinking myself awake. Did I hear a sound? From somewhere
+in my apartment? Is that what woke me?
+
+I pad to my bedroom door, arming myself with a baseball bat as I do just in
+case there is really someone here.
+
+> s
+
+I step into the kitchen, ready and prepared for anything that might happen.
+But not, it seems, prepared enough. The figure with the crowbar steps from
+behind the door and hits me over the back of the head.
+
+I am unconscious before I hit the floor.
+
+[MORE]
+
+I come to, tied to a chair, naked, in the middle of my kitchen. Standing
+before me is none other than Martin Cairns.
+
+"It hurts," he says. He points to a hole in his forehead, crusted with dried
+blood. "You any idea how much it hurts, Chris?"
+
+My mouth is probably hanging open as I stare at him in disbelief. I shot him.
+I shot him in the head. I killed him. And yet here he is, standing before me,
+very much alive.
+
+"Think you know what's going on, pal?" says the man I thought I had killed.
+"You don't know nothing. Nothing!"
+
+1) "Are you really Martin Cairns?"
+
+> talk to cairns
+The man gives a croaking laugh. "What do you think, Chris? You got real up
+close when you fired that gun at me." He leans close to me, the ghastly hole
+in his head level with my right eye. "Do I look like Martin Cairns?" He
+stands up. "Now, you and me are going to have a question and answer session.
+I'm going to ask you where that bitch Sophia is and you're going to tell me.
+Or we'll see how you like a hole in your freaking head. Got that-"
+
+A noise in another room draws his attention for a second. He starts towards
+the door, glances back at me and checks my restraints are secure, then heads
+from the room.
+
+I have to move fast. He could be back at any moment.
+
+> break chair
+Knowing I only have moments, I rock back on the chair. It doesn't tip over at
+first I rock again and again-
+
+And then it's tipping over.
+
+I brace myself for the impact-
+
+Which shatters the chair underneath me!
+
+I hear footsteps in another room. Frantically I scrabble for the baseball bat
+which I can see in one corner. Snatching it up, I ready myself. Cairns will
+be here any second.
+
+> listen
+I hear sounds coming from my bedroom.
+
+> e
+I step from the kitchen into the lounge, fully expecting to meet Cairns. But
+instead I hear footsteps from my bedroom. A second later, the door comes
+flying open and out charges Cairns. I hit him with the baseball bat, a blow
+right across the face that drives him back into the wall.
+
+But Cairns shrugs the blow off as if it barely even bothers him. He evades my
+second blow and darts around me, moving with surprising speed and agility for
+such a large fellow.
+
+"This ain't over, Chris," he says, blood dribbling from his mouth where I hit
+him. "Not by a long shot."
+
+Then he turns and walks away. Even after I hear the front door close behind
+him, I'm not convinced he's really left and I don't stop shaking until I've
+managed to free myself and retrieve my gun.
+
+[MORE]
+
+I leave my apartment, eager to be out of there in case Cairns comes back. I
+try to ring Sophia several times but get no signal. Then, just as I'm nearing
+my office, my mobile rings.
+
+It's Sophia.
+
+"We need to meet, detective," she says before I can get a word out. She reels
+off an address. "Meet me there as soon as you can and I'll tell you
+everything I know."
+
+And then she hangs up before I can ask any questions. I tap a few numbers
+into the phone but she has withheld the number.
+
+[MORE]
+
+Sidewalk
+A busy sidewalk with people pushing past me on all sides.
+
+I find myself presented with a number of possible directions: east to where
+Sophia wishes to meet me, any other direction will take me away from her.
+
+> e
+An old friend of mine, dead almost a decade now God rest his soul, once told
+me that when a detective takes on a case, he sees that case through to the
+end. "Through hell and high water" he said. Well, I listened to his advice
+then and I'm going to listen to it now.
+
+I head east to the Plaza to meet with Sophia.
+
+[MORE]
+
+The Plaza
+The Plaza - the bustling heart of the city. When I was married, I came here
+often with my wife. We came shopping, to sit in cafes and talk, to look at
+all the expensive things we could never hope to afford, to think about our
+dreams... Of course, all that ended on the day she walked out on me and now,
+well, I have little reason to visit it these days.
+
+I see Sophia straightaway, standing by a hot dog stall. She looks paler than
+before, her eyes hidden by thick sunglasses. She looks up as I approach and
+takes my hand.
+
+There are hundreds of people around us rushing back and forth, loaded up with
+bags of shopping as if today was the last shopping day of their lives. Right
+now, I envy someone whose biggest concern is having enough time to go
+shopping.
+
+Sophia pulls me into the doorway of a closed shop. "We can talk here.
+Hopefully without Martin knowing anything is going on."
+
+1) "Tell me the truth about Martin Cairns. Tell me how come he ended up at my
+apartment yesterday after I killed him."
+
+> 1
+"I didn't tell him, if that's what you're asking."
+
+"I wasn't."
+
+"He…" Sophia shakes her head. "In a way, maybe I did tell him. Oh, don't give
+me that look, Chris. Martin is unusual. He has… powers, you'd call them. He
+can read my mind."
+
+"All the time?"
+
+"Not all the time. Just now and then. Bits here and there. When I'm stressed,
+he says he can read me like an open book. And with Martin around, I'm
+generally stressed all the time. I think…" Sophia looks around before
+answering, making sure that there is no one near to us. "I think he might
+have picked up your location from my mind."
+
+1) "How come you knew where I lived? I never told you."
+2) "I'm not sure how much of this I believe, Sophia. Do you really expect me
+to believe Martin Cairns is psychic? That he can read your mind?"
+
+> 1
+"You were thinking about your apartment when I first met you, how you needed
+to get someone in to fix the roof."
+
+"You're telling me you can read minds?"
+
+"Yes. Martin showed me how." Sophia sighs. "Do you want a demonstration?
+Proof that I'm telling you the truth and not a pack of lies? Think of a
+number, Chris. Any number."
+
+1) Think of a number.
+2) Pretend to think of a number.
+
+> 1
+No sooner have I thought of the number 95 - the number of the house I grew up
+in - than Sophia says, "95".
+
+I stare at her, wondering if I heard right.
+
+"The number of the house you grew up in," she says. "And right now you're
+wondering if you mentioned that to me at some point or if I could have found
+out. No, you didn't mention it to me. Yes, I could have found out. But,
+Chris, what are the odds that I would decide to pick 95 in case that, out of
+all of the numbers in the world, was what you were thinking?"
+
+I'm not sure how to answer that so I keep quiet.
+
+"You want more proof? Okay. What was your first girlfriend's middle name?"
+
+No sooner has she asked the question than her name-
+
+"Lisa," says Sophia.
+
+-pops into my mind.
+
+"Maria Lisa Stedman. Pretty little brunette. Told you she was a virgin and
+you believed her. Still do in fact." Sophia looks me in the eye. "Is that
+enough proof for you? Given time, I can tell you everything about you there
+is to know."
+
+1) "Fair enough. I believe you. But what do we do about Martin Cairns."
+2) "Any of that information you could found out from other sources."
+
+> 1
+Sophia breathes a sigh of relief. "Thank heavens for that," she says,
+clutching my arm. "Let me tell you everything I know of Martin Cairns and
+then… then we can decide what we're going to do about him."
+
+I'm not sure I care for the way she says 'decide what we're going to do about
+him'. Kill him? Is that what she intends? I open my mouth to voice a protest,
+or simply point out that that wasn't what I meant when I said I trusted her,
+but I sense now isn't the time. Sophia is fragile. Oh so very fragile. I show
+her any hint that I think she's crazy and she might well leave and I'll never
+see her again.
+
+[MORE]
+
+"Martin Cairns," Sophia begins, "is… different than other people. I don't
+know all the things he can do or just what he's capable of but what bit I do
+know… well, it scares me.
+
+"We were lovers, about ten years ago. He was kind to me at first. Charming,
+funny, the perfect gentlemen. He wanted to be a writer but I read some of his
+stuff and, unfortunately, it wasn't very good. Martin knew this, too, and
+even though I tried to convince him that he had what it took to succeed, he
+knew he didn't. I think he resented me in the end for not telling him how bad
+his writing really was. He turned to drink. And then he turned to… other
+things."
+
+Sophia shivers. "He brought someone home one night. A strange man, tall and
+thin and pale. He looked like he hadn't had a good meal in years. They sat up
+late into the night talking and when I came down in the morning, Martin was
+there. The man had gone. Martin had slit his wrists because, he said, the man
+told him it was a test of his faith. He was actually sitting there in a
+puddle of his own blood and smiling calmly as he bled.
+
+[MORE]
+
+"I wanted to call an ambulance but Martin wouldn't let me. He even threatened
+to hit me when I went to call one anyway. In the end, I just waited. I think
+I decided that eventually he'd become too weak to stop me and then I'd call
+an ambulance, but he didn't become weaker. The blood stopped flowing. Martin
+showed me his wrists. The cuts had sealed themselves up.
+
+"After that, Martin changed. He became obsessed. He tried telling me about it
+sometimes but it… it scared me. I didn't want to listen. This made him angry
+and sometimes he… he hurt me…"
+
+1) "The man Martin brought home. Do you know his name?"
+
+> 1
+"He told me once, but I don't remember. Bashwood? Mashwood? Something strange
+like that. I only met him the one time and after that I don't think he ever
+came round our house, or at least I never saw him if he did. I don't know how
+much contact Martin had with him after that first time but it changed him. It
+changed my Martin."
+
+1) "What happened after that?"
+
+> 1
+"I left Martin. I waited till he was out one day and then I packed a bag and
+left him. I got a taxi across town to the bus depot and…" Sophia gives a
+bitter smile. "He was waiting for me. He said he'd read it in my mind that I
+was going to leave him. He took me home. I didn't even try to resist him. He
+took me home and… and…"
+
+She trails off.
+
+"Eventually I got away from me. I don't know how many times it took - five,
+six, a dozen. He caught me every time I tried, even when I made an effort not
+to actively think about leaving him. Once I even tried calling the police
+only to find he'd cut the phone lines the previous day because he knew I
+would try it. But I got away from him in the end."
+
+1) "How?"
+
+> 1
+Sophia gives me the same bitter smile again. "He killed me." She turns to me
+and taps the back of her head. "Feel it."
+
+Gingerly I touch her head. There is a lump there. And some kind of scar.
+
+"Martin shot me. He shot me and threw me in the river and I died and then,
+several months later, I lived again."
+
+I withdraw my hand.
+
+Sophia turns back to me. "You don't believe me." She says it as a statement
+not a question. "Neither did I at the time, but it happened all the same.
+Whatever Martin has, he infected me with it. It's like a disease."
+
+I involuntarily find myself taking a step back. "Is it contagious?"
+
+Sophia steps towards me. "I don't know. Maybe. I don't understand how it
+works, whether it can be passed to other people by a simple touch or whether
+it needs something else."
+
+1) "Have you passed it to me?"
+2) "What are we going to do about Martin?"
+
+> 1
+"There's one simple way to find out, Chris. Shoot yourself. That'll answer
+all your questions."
+
+I stare at her.
+
+She stares back.
+
+Finally she says, "but no, I don't think you have it. There's no easy way of
+telling, of course, and the only positive way I know is far too risky. You'll
+just have to hope you're okay."
+
+"And there's no cure?"
+
+"None Martin ever told me of."
+
+1) "What are we going to do about Martin?"
+
+> 1
+"Kill him."
+
+As simple as that.
+
+"But you said he couldn't be killed."
+
+Sophia nods. "Not as you could. Not easily. But shoot him. Then burn his
+body. Not even Martin could survive something like that."
+
+She makes it sound like an easy task. Shoot a man. Burn his body to ashes.
+
+"I can't do this alone, Chris. I need your help."
+
+Sophia takes a step away from me.
+
+"I'm going to go and wait on the east side of the Plaza. Think about what
+I've said then come to me if you're still willing to help. I'll give you ten
+minutes then, if you haven't shown up, I leave."
+
+She steps out of the shop doorway and makes her way through the crowd. She
+seems stronger than before, as if having told me of her burdens she has
+somehow lightened them.
+
+> e
+There is a definite look of relief on Sophia's face as I reach her on the
+east side of the Plaza. She takes my hand and kisses me. "Let's go to your
+apartment," she says.
+
+"You said my apartment wasn't safe from Martin-"
+
+"It isn't. But he'll find me wherever I go sooner or later. It's time to make
+a stand."
+
+And with those words, we go to my apartment.
+
+[MORE]
+
+It has been wrecked. That much is apparent from the moment I see the front
+door is open and the lock broken.
+
+"Is he here?" I ask, hesitating.
+
+Sophia shakes her head. "No. But he was recently. And he'll back soon. We
+need to prepare."
+
+We enter the apartment.
+
+[MORE]
+
+The lock on my front door is smashed beyond repair and now it is too late to
+call out a repairmen, but I do my best to secure it anyway.
+
+"Martin might not come through the door," says Sophia.
+
+"He can walk through walls?"
+
+It was meant as a joke, but from her expression I gather he might well be
+able to do that.
+
+"What do we do now?" I ask. "Wait?"
+
+She nods. "Wait."
+
+I load my gun up and offer it to her. She refuses, insisting I'm better to
+keep it. She takes a knife from the kitchen. Then we wait.
+
+[MORE]
+
+I blink and open my eyes.
+
+Until that moment, I hadn't even been aware that I had fallen asleep. I curse
+under my breath and prop myself up.
+
+"You should have woke me, Sophia," I say. "I fell asl-"
+
+That's when I stop. Sophia is no longer by my side.
+
+> s
+
+Kitchen
+Cairns really seems to have done a number on my kitchen, smashing practically
+everything in here. My fridge, cupboard, washing machine and cupboard are no
+more, and even the sink hasn't escaped his attention. Doors are to the north
+and east.
+
+> e
+
+Lounge
+Even before the vandalism, my lounge was never the most lavishly decorated of
+rooms. Now the sad remains of my TV litter the floor, my couch has been
+slashed and the bookshelf broken apart. Doorways to the west, northwest,
+north and northeast lead to other rooms while my front door is to the east.
+
+> n
+
+Spare Room
+The spare room seems to have been the only one in my apartment that has
+escaped Cairns' maniacial vandalism. Unfortunately there's nothing much in
+here anyway. Doors are to the east and south.
+
+> e
+
+Bathroom
+As empty though it is, even my bathroom hasn't escaped vandalising. The side
+of the bath is dented and the toilet has been cracked. Doors are to the west
+and southwest.
+
+I've searched my entire apartment and Sophia isn't here. Neither is Martin
+Cairns. I'm not sure what to make of this. Has he somehow crept into my
+apartment and spirited Sophia away? But if he could do that, why would he
+leave me alive? Or has Sophia gone with him of her own accord?
+
+One thing is for certain: I'm not going to find her in here.
+
+> sw
+
+Lounge
+Even before the vandalism, my lounge was never the most lavishly decorated of
+rooms. Now the sad remains of my TV litter the floor, my couch has been
+slashed and the bookshelf broken apart. Doorways to the west, northwest,
+north and northeast lead to other rooms while my front door is to the east.
+
+> e
+I open the front door and step out. I can't lock it behind me due to the
+broken lock but I close it as securely as I can. Then I make my way down the
+steps to the lobby and out into the street.
+
+[MORE]
+
+Street
+The street outside my apartment building is pretty much deserted at this time
+of night. Just a few drunks making their way home, a homeless man sitting by
+a dumpster and several cars parked in the glow of a street lamp. The street
+runs east and west with the lobby of my building to the south.
+
+> talk to homeless man
+I query the homeless man on whether he saw anyone leave my building earlier.
+
+"Dunno," is his reply. His breath reeks of cheap liquor. "I don't think so
+good on a dry stomach."
+
+I check my pockets and find I have nothing but change.
+
+> give loose change to homeless man
+I hand him the change. It's barely a dollar in total but he looks at it as if
+it's a fortune.
+
+"Seen some fellow earlier," he says, gesturing vaguely at my building. "Big
+fellow. Weird looking. Had this woman with him."
+
+I describe Sophia.
+
+"That was her," says the man. "Pretty thing. Bit skinny for my tastes. Didn't
+look none too happy to be with the other fellow. Say, he her boyfriend or-"
+
+"Did you see which way they went?"
+
+He scratches his head with one grimy finger then nods to the west. "Think it
+was that a'way."
+
+> w
+
+Street
+The street curves away to the west, eventually rising slightly with the lie
+of the land. I am alone here.
+
+> w
+
+Street
+The street curves to the west of me, turning northwards after a way. To the
+east it is as straight as an arrow.
+
+> w
+
+Street
+Silhouetted in a street light some distance to the north, I catch sight of
+two people. A man and a woman. They appear to be arguing.
+
+> n
+
+Street
+I stand under a street light which sheds a pale luminence on this forbidding
+evening. Of Sophia Montague and Martin Cairns I see no sign, although empty
+streets lead away in the four main compass directions.
+
+> x street light
+The street light itself is unremarkable, of similar appearance to many
+thousands scattered randomly around the city. At some point in its life, it
+has received a considerable knock and leans at an angle, pointing ever so
+slightly to the west.
+
+> w
+As I hurry to the west, I notice a brief flickering, as if seen out of the
+corner of my eye, but when I turn my head it is gone. Confused over what this
+might be, I pause... then a scream from the west draws my attention once
+more.
+
+Sophia!
+
+I abandon whatever the flickering was and run in the direction of the scream
+as far as I can.
+
+[MORE]
+
+Street
+The street reaches an abrupt end ahead of me. Abrupt? That barely describes
+it. The street just ends. There is a gaping void where there should be solid
+ground, and beyond that... nothing.
+
+"It's come to this has it, Chris?" says Martin Cairns. He stands with Sophia,
+one hand holding her by her hair. The other has a gun pointed at me. "Ready
+to throw away your life for this bitch?"
+
+I glance around, not understanding any of this. Is it really happening? Am I
+hallucinating? Is this Cairns' doing?
+
+"Leave me, Chris!" Sophia cries. "Just get out-"
+
+Cairns strikes her hard across the face, knocking her to one side.
+
+"Speak when spoken to," he says, "or not at all. Now you-" he looks at me and
+smiles "-how are we going to play this out?"
+
+> talk to cairns
+"Let her go, Cairns," I say. "This is between the two of us."
+
+Cairns laughs. "Between the two of us? Hardly, Chris. This has nothing to do
+with you. You're just a pawn in a game you don't even understand. That you
+can't understand. You're about an inch away from losing your life and your
+soul and you know the best thing about it? You don't even realise this has
+been a trap all along."
+
+"Don't listen to him!" Sophia cries. "Chris, he's-"
+
+Again, Cairns hits her. Sophia sags and almost falls.
+
+"A trap, Chris," repeats Cairns. "What, you think out of all the detectives
+in this crummy city she came to you?"
+
+"I don't know what you mean."
+
+Cairns gives me an almost pitying look. "No, you don't, do you."
+
+> talk to cairns
+"Tell me what you meant about it being a trap," I demand.
+
+Cairns looks at Sophia and laughs. "I ought to let her tell you really. After
+all, it was her idea." He shakes Sophia roughly then looks back at me. "I
+know about your past, Chris Standler. I know about the time you served in
+prison. I know why you were once a damn good detective but you're now running
+a crummy two-bit business which barely makes ends meet. I know," he adds,
+"that if you were to up and disappear, no one would even bother looking for
+you."
+
+I feel my throat go dry. I take a step towards him but Cairns jerks the gun
+at me and I step hastily back.
+
+"Everything happens for a reason," says Cairns. "That sound kind of poetic to
+you, Chris?"
+
+I say nothing.
+
+"It's what you said, isn't it?" He stares at me, his eyes boring into mind.
+"The day you killed that girl?"
+
+[MORE]
+
+I hadn't always been a private detective, of course. Once, ten years ago or
+maybe a little more, I had been a detective with the police. I had a bright
+future ahead of me. I was going places.
+
+But a single wrong move can ruin even the best and brightest of careers...
+
+[MORE]
+
+Outside The Bank
+The front doors of the bank have been barricaded from the inside. All that
+can be seen from my vantage point behind the police cars are the movements of
+one of the robbers as he paces back and forth beyond the doors. The others
+are deeper inside the bank, hidden from view. Along with their hostages.
+
+Hashing Avenue, at this time of day, is usually all but deserted but today
+there are perhaps two hundred people here, crowding up against the police
+barrier in order to catch a glimpse of the events unfolding.
+
+The street runs east and west while the front doors of the bank are to the
+north.
+Carl Marrington, my second-in-command, is here.
+
+> talk to carl marrington
+"What's the situation?" I ask.
+
+"Four robbers as far as we can tell: one visible just beyond the doors, the
+other three hidden elsewhere in the bank. They've blacked out the windows and
+disabled the security cameras. No demands made as yet but shots were heard a
+while back. We think one of the security guards might have tried to be a hero
+and took a bullet for his trouble."
+
+"Any ID on the robbers?"
+
+"None. They're masked. How do you want to play this?"
+
+Which is, of course, the big question.
+
+"Plan one: we burst in there and take the place by force. Risky, but if
+they've already killed a security guard there's nothing to say they won't
+kill another. Plan two: we wait till they make their demands and see what
+happens then. Plan three: we try to bargain with them. Plan four: we wait.
+Let 'em grow edgy and see what happens."
+
+> plan two
+The robbers' demand, when they come, are simple in the extreme.
+
+They want me to enter the bank, alone and unarmed.
+
+"Did they say why?" I ask.
+
+Marrington shakes his head. "Just asked for you."
+
+"As the senior officer here or-"
+
+"They asked for you by name. Christopher Paul Standler." Marrington frowns.
+"You know more about this than you're letting on, chief?"
+
+I ignore him. Marrington shrugs and walks away.
+
+The front doors of the bank loom before me.
+
+> n
+I step into the bank.
+
+[MORE]
+
+Bank: Entrance
+Normally the entrance to the bank would be unremarkable in the extreme, yet
+today all that has changed. There are people hudded here - bank employees and
+customers - and a man with a gun, his face masked, watching over them. The
+main area of the bank is to the north while south takes me outside.
+
+"Head into the manager's office," says the robber. "Don't look around, don't
+get any funny ideas, don't try to be a hero. And you might, just might, get
+out of this in one piece."
+
+"I'm not going anywhere till I know the hostages are okay," I say. I can feel
+sweat dripping down my back and wonder if I sound as scared as I feel.
+
+The robber shrugs. "Boss' orders are to shoot a hostage if you turn away or
+cause us trouble or don't do what he says. I'm all for killing in cold
+blood." This is delivered matter of fact. "Don't bother me who I shoot."
+
+"You shoot anyone, you'll never get out of here alive."
+
+Another shrug. "So?"
+
+> n
+
+Bank: Main Area
+More customers are here, in the main area of the bank, lined up against the
+far wall like prisoners of war about to face the firing squad (an idea which
+I hope will not become a reality today). A couple of masked men stand guard
+over them, guns at the ready. To the northwest is the vault, the east the
+manager's office and south the entrance.
+
+> e
+
+I step into the manager's office. A mask-wearing robber sits at the manager's
+desk, a girl of perhaps seven or eight years sat in his lap. A gun is pointed
+to the back of her head.
+
+"Hello again, Chris," says the man. "Remember me?"
+
+"You'll never get away with this," I say.
+
+His face is masked but I fancy I see a smile all the same. "That's why they
+all say. And you know what, they're all wrong."
+
+He reaches up and removes the mask.
+
+"Take a seat, Chris," says Martin Cairns. "We've got a lot to discuss."
+
+[MORE]
+
+I need to say something, to get back in control of the situation. I am in
+control, of course. All I need to do is shout the codeword into the mike
+hidden in my collar and the police will storm this place. Cairns and the rest
+of his gang will be dead within five minutes.
+
+1)  Tell him this.
+2)  Tell him to let the girl go.
+3)  Decide enough is enough. Shout the codeword into the mike and have Cairns
+and his men killed.
+
+> 1
+
+"Go ahead," says Cairns. He pushes the gun into the side of the little girl's
+head, making her cry. "See if your men can reach me before I pull the
+trigger. What do you think, honey?" he says to the girl. "Think the nice men
+will make it?" He looks at me. "I dare you, Chris. Show me what a bad ass you
+can be. Call your men."
+
+1)  Do it.
+2)  Tell him to let the girl go.
+3)  Ask him what he wants.
+4)  Shoot the girl.
+
+> 3
+"I want to live forever."
+
+I stare at Cairns as he says the words. He seems perfectly serious.
+
+"I'm sure we all want to live forever, Cairns," I say, "but-"
+
+"And I've found a way." Cairns nods to himself. "Oh yes. I have indeed. I met
+a man, y'see. A very strange and unusual man. He calls himself Giles
+Dashwood. He's two hundred and five years old. He's-"
+
+1)  "He's insane. Or he's lying to you."
+2)  Let him continue.
+
+> 2
+"-an amazing fellow. He really is. He's taught me so much and yet, now, he's
+cut me free to take the next step on my own. Now, to business. Y'see, Mr
+Dashwood explained a thing or two to me about the whole process of
+immortality. About living forever."
+
+I have a sudden urge to rub my eyes and see if I can wake up. Here I am
+having a conversation with a bank robber about living forever. It seems
+ludicrous.
+
+"A life for a life," says Cairns. "That's what he said. A life given
+willingly to someone else can live. It releases the necessary power for it
+all to work."
+
+"You're making no sense-"
+
+"I'm making perfect sense!" he shouts suddenly. "Perfect sense. Damnit,
+Chris! Why can't you understand that?" He takes a deep breath and seems to
+calm down. "One has to die willingly so another can live forever. That's the
+way it goes. And here," he gestures around, "we have the perfect setup."
+
+1)  "You expect me to kill myself for you? Are you out of your mind?"
+
+> 1
+"Not at all." Cairns places the gun against the little girl's head. "I'm
+deadly serious."
+
+I feel myself go cold. "Let her go."
+
+"I intend to." Cairns runs his hand through the girl's hair. She whimpers.
+"Just take out your gun, place it to your head, and shoot yourself. Then I
+surrender. The girl lives. Everyone here lives. As simple as that."
+
+"You'll never let her go-"
+
+"Oh, but I will. I want to live forever," says Martin Cairns. "Nothing else
+matters."
+
+I believe him. I really do. The man's a deluded psychopath but I think he's
+telling the truth. I kill myself and everyone else lives. It seems so simple.
+
+1)  Do it.
+2)  Tell him there's no way that's going to happen.
+3)  Rush him.
+4)  Shout the codeword into the mike and end this.
+5)  Shoot the girl.
+
+> 5
+Out of all the actions I could take right now, the worst possible one is the
+one I choose.
+
+Why?
+
+Because it's the one action Martin Cairns doesn't anticipate.
+
+I see his eyes go wide as I draw my gun, raise it and point at the little
+girl's head. I see her realise what I am going to do and start to struggle. I
+see open his mouth to say anything-
+
+I fire.
+
+At the last moment, I turn ever-so-slightly. The bullet actually clips the
+girl's head, cutting her scalp and making it bleed, before burying itself in
+Martin Cairns' chest. He staggers back. One hand grabs hold of the chair he
+was sitting on and he tries to steady himself but my second bullet catches
+him square between the eyes. He is dead before he hits the floor.
+
+Shouts come from all over the bank as the other robbers realise what has
+happened. I grab the girl and throw her down behind the desk then shout the
+codeword into my hidden mike and just hope my men can get in here before the
+robbers-
+
+[MORE]
+
+My thoughts return to the street where Martin Cairns waits with a gun to
+Sophia Montague's head. Only now, of course, the situation has changed.
+Cairns is lying on the ground, a bullet hole between his eyes, another in his
+chest.
+
+"What happened…" says Sophia. "He just fell… but you didn't shoot him-"
+
+"I did," I say as I go to her. "A long time ago." I nudge him with my foot.
+Cairns makes no response. But he has been dead for almost ten years so
+there's no reason why he should. "He just took a long time to die."
+
+I lead Sophia away from the street which, as we walk, reverts to normal. She
+has a thousand and one questions and I have no real answers to give her. I
+have questions of my own for her. Did she conspire with Martin Cairns to trap
+me into giving up my life so that either he or she could live forever? Was
+she a helpless victim or a willing accomplice?
+
+But I don't ask any of those questions now. I simply take her home. Tomorrow
+can be a time for questions and answers. Tonight I have a lot to think over.
+
+[MORE]
+
+Requiem has ended. Well done - you have reached the game's best ending.
+
+But there are other endings to the game. If you want to have another go,
+simply type restart to try again, load to restore a previously saved game
+position or undo to reverse the last move.
+
+> quit
+Do you really want to quit? [Y/N]

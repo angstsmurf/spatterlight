@@ -1,0 +1,44 @@
+put rose on grave
+n
+w
+open front door
+s
+get gloves
+wear gloves
+examine coffee table
+take photograph from coffee table
+take jewellery box from coffee table
+open jewellery box
+examine jewellery box
+examine chest of drawers
+take scissors
+open chest of drawers
+take medical report from chest of drawers
+take curtains from chest of drawers
+n
+w
+n
+u
+show photograph to frank
+d
+s
+e
+e
+ne
+show photograph to jed
+sw
+w
+w
+w
+s
+s
+show photograph to rick
+n
+n
+e
+e
+e
+n
+show photograph to ben
+hints
+y

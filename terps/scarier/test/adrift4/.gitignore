@@ -101,3 +101,11 @@
 # Scandal.taf (AIF): explicit text, deliberately not committed.
 /goldens/scandal_solution.txt
 /goldens/scandal_solution.expected.txt
+
+# hcw.taf (AIF): explicit text, deliberately not committed.
+/goldens/hcw_solution.txt
+/goldens/hcw_solution.expected.txt
+
+# magicshow.taf (AIF): explicit text, deliberately not committed.
+/goldens/magicshow_solution.txt
+/goldens/magicshow_solution.expected.txt
