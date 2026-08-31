@@ -148,7 +148,7 @@ static void
 draw_and_exit (void)
 {
   map_surface_t *surf;
-  map_camera_t cam;
+  map_camera_t cam = { 0 };
   map_view_t view;
   map_t *map;
   char player[16];
@@ -184,7 +184,7 @@ draw_and_exit (void)
                      (unsigned int) (g_fg >= 0 ? g_fg : 0x000000));
   map_set_colour_scheme (g_colour ? MAP_SCHEME_DERIVED : MAP_SCHEME_STANDARD);
   surf = map_surface_new (g_width, g_height);
-  map_frame (map, &view, player, surf, g_zoom, &cam);
+  map_frame (map, &view, player, surf, g_zoom, 1, 0, &cam, NULL);
   map_render (map, &view, player, &cam, surf);
   fprintf (stderr, "scale=%d\n", cam.scale);
 

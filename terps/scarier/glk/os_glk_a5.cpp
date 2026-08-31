@@ -1040,6 +1040,8 @@ gsc_a5_restart_run (a5_run_t *&run)
      close in. */
   gsc_map_hide ();
   gsc_map_zoom = 0;
+  gsc_map_follow = TRUE;
+  gsc_map_last_player[0] = '\0';
 
   glk_window_clear (gsc_main_window);
   gsc_main_window_empty = TRUE;

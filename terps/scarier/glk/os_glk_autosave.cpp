@@ -349,6 +349,10 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
   st->map_shown = gsc_map_shown;
   st->map_at_top = gsc_map_at_top;
   st->map_zoom = gsc_map_zoom;
+  st->map_follow = gsc_map_follow;
+  st->map_cx = gsc_map_cam.cx;
+  st->map_cy = gsc_map_cam.cy;
+  st->map_page = gsc_map_cam.page;
   st->map_colourful = gsc_map_colourful;
   st->colour_on = gsc_colour_enabled;
 
@@ -410,6 +414,11 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
   gsc_map_shown = st->map_shown;
   gsc_map_at_top = st->map_at_top;
   gsc_map_zoom = st->map_zoom;
+  gsc_map_follow = st->map_follow;
+  gsc_map_cam.cx = st->map_cx;
+  gsc_map_cam.cy = st->map_cy;
+  gsc_map_cam.page = st->map_page;
+  gsc_map_last_player[0] = '\0';
   /* The renderer is a fresh process's, at its default; the scheme has to be
      named again or the restored map would come back in the standard colours. */
   gsc_map_set_colourful (st->map_colourful);

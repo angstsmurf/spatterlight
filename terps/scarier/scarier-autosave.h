@@ -107,6 +107,14 @@ struct ScarierGlkFrontendState {
     int map_shown = 0;
     int map_at_top = 0;
     int map_zoom = 0;
+    /* Pan/zoom chrome: follow-the-player, and the last camera centre so a
+     * mid-pan autosave comes back looking the same.  An autosave written
+     * before these fields existed restores follow as on (the unarchiver's
+     * default) and the centre as 0, which the next redraw re-clamps. */
+    int map_follow = 1;
+    int map_cx = 0;
+    int map_cy = 0;
+    int map_page = 0;
     /* "glk map colour": which of the two schemes the map is drawn in.  An
      * autosave written before this field existed decodes as 0, the standard
      * colours, which is what those sessions restored as anyway. */
