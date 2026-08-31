@@ -48,11 +48,6 @@ int gsc_map_want = FALSE;
    hiding and re-showing the map does not move it, and it is remembered with
    the visibility (gsc_map_pref_write) so neither does restarting. */
 int gsc_map_at_top = FALSE;
-/* How the two colours the map is drawn in are spent ("glk map colour"):
-   paper/ink cards by default, or the same cards with a you-are-here amber
-   (MAP_SCHEME_DERIVED in mapdraw.h).  Kept with the visibility and the
-   placement (gsc_map_pref_write). */
-int gsc_map_colourful = FALSE;
 /* Set when the game defines a MAP command of its own (Lost Coastlines has a
    sea chart): the game's command wins, and the pane is reached with the
    "glk map" escape instead. */
@@ -839,22 +834,19 @@ gsc_map_pref_ref (void)
  * The player's remembered choice for this game: 1 to show the map, 0 to hide
  * it, -1 when they have never said.  Where they last put it is returned
  * through at_top on the same terms -- 1 for the top band, 0 for the pane at
- * the right, -1 for never said -- and which colour scheme they last had
- * through colourful, 1 for the derived colours and 0 for the flat ones.
- * Files written before the map could be moved hold only the first byte, and
- * ones written before it could be recoloured only the first two, so a missing
- * byte reads as never said rather than as a choice.
+ * the right, -1 for never said.  Files written before the map could be moved
+ * hold only the first byte, so a missing byte reads as never said rather than
+ * as a choice.  (A third byte, left by the removed "glk map colour", is
+ * ignored.)
  */
 int
-gsc_map_pref_read (int *at_top, int *colourful)
+gsc_map_pref_read (int *at_top)
 {
   frefid_t fileref;
   int value = -1;
 
   if (at_top != NULL)
     *at_top = -1;
-  if (colourful != NULL)
-    *colourful = -1;
 
   fileref = gsc_map_pref_ref ();
   if (fileref == NULL)
@@ -875,10 +867,6 @@ gsc_map_pref_read (int *at_top, int *colourful)
           if (at_top != NULL && (c == 't' || c == 'r'))
             *at_top = (c == 't');
 
-          c = glk_get_char_stream (stream);
-          if (colourful != NULL && (c == 'c' || c == 'p'))
-            *colourful = (c == 'c');
-
           glk_stream_close (stream, NULL);
         }
     }
@@ -891,10 +879,9 @@ gsc_map_pref_read (int *at_top, int *colourful)
  * gsc_map_pref_write()
  *
  * Remember that the player asked for the map to be shown or hidden in this
- * game, where they had it, and which colours they drew it in, so that the next
- * session opens the way they left it.  The position and the colour scheme are
- * recorded even when the map is off, so that turning it back on later still
- * puts it where they last had it, looking the way it did.
+ * game and where they had it, so that the next session opens the way they left
+ * it.  The position is recorded even when the map is off, so that turning it
+ * back on later still puts it where they last had it.
  *
  * Only a game whose map the player has actually moved away from its default
  * gets a file; one they have put back where it started has theirs removed
@@ -903,7 +890,7 @@ gsc_map_pref_read (int *at_top, int *colourful)
  * do accumulate are only for games the player made a decision about.
  */
 static void
-gsc_map_pref_write (int shown, int at_top, int colourful)
+gsc_map_pref_write (int shown, int at_top)
 {
   frefid_t fileref;
   strid_t stream;
@@ -912,7 +899,7 @@ gsc_map_pref_write (int shown, int at_top, int colourful)
   if (fileref == NULL)
     return;
 
-  if (!shown == !gsc_map_default_shown () && !at_top && !colourful)
+  if (!shown == !gsc_map_default_shown () && !at_top)
     {
       if (glk_fileref_does_file_exist (fileref))
         glk_fileref_delete_file (fileref);
@@ -925,7 +912,6 @@ gsc_map_pref_write (int shown, int at_top, int colourful)
     {
       glk_put_char_stream (stream, (unsigned char) (shown ? '1' : '0'));
       glk_put_char_stream (stream, (unsigned char) (at_top ? 't' : 'r'));
-      glk_put_char_stream (stream, (unsigned char) (colourful ? 'c' : 'p'));
       glk_stream_close (stream, NULL);
     }
   glk_fileref_destroy (fileref);
@@ -1048,7 +1034,7 @@ gsc_map_set (int shown)
      worth keeping.  A deferred open is the opposite case -- the player did
      ask, and the map is on its way. */
   gsc_map_want = gsc_map_shown || deferred;
-  gsc_map_pref_write (gsc_map_want, gsc_map_at_top, gsc_map_colourful);
+  gsc_map_pref_write (gsc_map_want, gsc_map_at_top);
 }
 
 /*
@@ -1086,7 +1072,7 @@ gsc_map_toggle (void)
 void
 gsc_map_auto_reveal (void)
 {
-  int pref, at_top, colourful;
+  int pref, at_top;
 
   if (gsc_map_shown)
     return;
@@ -1098,15 +1084,12 @@ gsc_map_auto_reveal (void)
       || !glk_gestalt (gestalt_DrawImage, wintype_Graphics))
     return;
 
-  pref = gsc_map_pref_read (&at_top, &colourful);
+  pref = gsc_map_pref_read (&at_top);
 
-  /* Where the map goes, and what it is drawn in, are remembered whether or not
-     it is opened now, so that a later "glk map on" puts it back the way the
-     player last had it. */
+  /* Where the map goes is remembered whether or not it is opened now, so that
+     a later "glk map on" puts it back the way the player last had it. */
   if (at_top >= 0)
     gsc_map_at_top = at_top;
-  if (colourful >= 0)
-    gsc_map_set_colourful (colourful);
 
   if (pref < 0)
     {
@@ -1201,89 +1184,6 @@ gsc_map_place (int at_top)
 }
 
 /*
- * gsc_map_set_colourful()
- *
- * Pick the scheme the renderer spends the story's two colours in.  Silent, and
- * it draws nothing: gsc_map_auto_reveal calls this before there is a pane.
- */
-void
-gsc_map_set_colourful (int colourful)
-{
-  gsc_map_colourful = colourful;
-  map_set_colour_scheme (colourful ? MAP_SCHEME_DERIVED
-                                   : MAP_SCHEME_STANDARD);
-}
-
-/*
- * gsc_map_colour()
- *
- * "glk map colour": draw the map with a you-are-here amber, or back in the
- * paper-and-ink cards that are the default.  Unlike placement this does not
- * ask for a map: recolouring one that is hidden is a preference for next
- * time, not a request to see it.
- *
- * The pixels we think are on screen were drawn in the old scheme, so they are
- * dropped before the redraw; otherwise the row comparison would find them
- * unchanged and send nothing.  Redrawing here rather than leaving it to the
- * next prompt is what gsc_set_colour does, and for the same reason: the
- * glk-command loop never reaches the turn loop's prompt.
- */
-static void
-gsc_map_colour (int colourful)
-{
-  if (gsc_map_colourful == colourful)
-    {
-      gsc_normal_string (colourful
-                         ? "The map is already drawn in colour.\n"
-                         : "The map is already drawn in the standard"
-                           " colours.\n");
-      return;
-    }
-
-  gsc_map_set_colourful (colourful);
-  gsc_map_screen_drop ();
-  gsc_map_redraw ();
-  gsc_normal_string (colourful
-                     ? "The map is now drawn in colour.\n"
-                     : "The map is now drawn in the standard colours.\n");
-  gsc_map_pref_write (gsc_map_want, gsc_map_at_top, gsc_map_colourful);
-}
-
-/*
- * gsc_map_colour_word()
- *
- * True if the argument to "glk map" starts with the word colour, in any of the
- * four spellings "glk colour" itself answers to; *arg is then advanced past it
- * to whatever followed, with the leading space eaten.
- *
- * Matched at a word boundary and longest first, so that "colours" is not read
- * as "colour" with a stray "s" argument.
- */
-static int
-gsc_map_colour_word (const char **arg)
-{
-  static const char * const words[] = {
-    "colours", "colors", "colour", "color", NULL
-  };
-  const char *s = *arg;
-  int i;
-
-  for (i = 0; words[i] != NULL; i++)
-    {
-      size_t len = strlen (words[i]);
-
-      if (scr_strncasecmp (s, words[i], len) == 0
-          && (s[len] == '\0' || s[len] == ' ' || s[len] == '\t'))
-        {
-          s += len;
-          *arg = s + strspn (s, " \t");
-          return TRUE;
-        }
-    }
-  return FALSE;
-}
-
-/*
  * gsc_command_map()
  *
  * "glk map [on|off]".  Always available, even for the rare game that defines a
@@ -1320,25 +1220,6 @@ gsc_command_map (const char *argument)
            || scr_strcasecmp (argument, "side") == 0)
     {
       gsc_map_place (FALSE);
-    }
-  /* "glk map colour" on its own toggles, so that one command both tries the
-     alternative colours and puts them away again; "on"/"off" are there for a
-     player who would rather say which they mean.  All four spellings of the
-     word that "glk colour" answers to are accepted here too. */
-  else if (gsc_map_colour_word (&argument))
-    {
-      if (*argument == '\0')
-        gsc_map_colour (!gsc_map_colourful);
-      else if (scr_strcasecmp (argument, "on") == 0)
-        gsc_map_colour (TRUE);
-      else if (scr_strcasecmp (argument, "off") == 0)
-        gsc_map_colour (FALSE);
-      else if (scr_strcasecmp (argument, "status") == 0)
-        gsc_normal_string (gsc_map_colourful
-                           ? "The map is drawn in colour.\n"
-                           : "The map is drawn in the standard colours.\n");
-      else
-        gsc_command_usage ("map");
     }
   else if (scr_strncasecmp (argument, "zoom", 4) == 0
            && (argument[4] == '\0' || argument[4] == ' '

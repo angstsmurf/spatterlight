@@ -1271,7 +1271,6 @@ static const char * const GSC_USAGE_ONOFFSTATUS[] = {"on", "off", "status",
                                                      NULL};
 static const char * const GSC_USAGE_ONOFF[] = {"on", "off", NULL};
 static const char * const GSC_USAGE_MAP[] = {"on", "off", "top", "right",
-                                             "colour [on | off]",
                                              "zoom [in | out | auto | N]", NULL};
 static const char * const GSC_USAGE_ASSIST[] = {"combat [on | off]",
                                                "move [on | off]",
@@ -1301,11 +1300,6 @@ static const char GSC_HELP_MAP[] =
   " map to a band across the top of the screen, above the status line; `glk"
   " map right` puts it back beside the story.  This is remembered for the"
   " game as well, so the map comes back where you left it.\n\n"
-  "The map is normally drawn as shaded cards mixed from the two colours of"
-  " the story text.  `glk map colour` picks the room you are in out in"
-  " amber instead -- the runner's yellow -- and typing it again (or `glk"
-  " map colour off`) returns to the standard colours.  This is remembered"
-  " for the game too.\n\n"
   "The map zooms itself to fit its window.  Use `glk zoom in` and `glk zoom"
   " out` to zoom by hand instead; the view then pans to keep you on-screen."
   "  `glk zoom auto` restores the automatic fit.\n";
