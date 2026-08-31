@@ -30,6 +30,7 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <cstdio>
 #include <cmath>
 #include <map>
 #include <string>
@@ -1571,11 +1572,23 @@ map_has_content (const map_t *map, const map_view_t *view,
 /* The manual zoom ladder ("glk zoom in/out").  The automatic fit never goes
    above MAP_SCALE_MAX, but a player asking to zoom in can usefully get closer
    than the fit would; past 32 the boxes stop gaining anything. */
+static const int map_zoom_ladder[] = {
+  3, 4, 5, 6, 8, 10, 12, 16, 20, 26, 32
+};
+#define MAP_ZOOM_LADDER_N \
+  ((int) (sizeof map_zoom_ladder / sizeof map_zoom_ladder[0]))
+
+int
+map_zoom_max (void)
+{
+  return map_zoom_ladder[MAP_ZOOM_LADDER_N - 1];
+}
+
 int
 map_zoom_step (int scale, int dir)
 {
-  static const int ladder[] = { 3, 4, 5, 6, 8, 10, 12, 16, 20, 26, 32 };
-  const int n = (int) (sizeof ladder / sizeof ladder[0]);
+  const int *ladder = map_zoom_ladder;
+  const int n = MAP_ZOOM_LADDER_N;
   int i;
 
   if (dir > 0)
