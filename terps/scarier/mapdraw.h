@@ -230,7 +230,7 @@ typedef struct map_camera_s {
    the extent fits at the chosen scale.  When `out_fit_scale` is non-NULL it
    receives the auto-fit scale (even under a manual zoom), so the host can
    disable zoom-out at the floor where the map fits. */
-#define MAP_SCALE_MIN 3
+#define MAP_SCALE_MIN 10
 #define MAP_SCALE_MAX 16
 extern int map_frame (const map_t *map, const map_view_t *view,
                       const char *player_key, const map_surface_t *dst,

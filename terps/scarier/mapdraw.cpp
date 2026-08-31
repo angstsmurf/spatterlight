@@ -1419,7 +1419,7 @@ map_has_content (const map_t *map, const map_view_t *view,
 int
 map_zoom_step (int scale, int dir)
 {
-  static const int ladder[] = { 3, 4, 5, 6, 8, 10, 12, 16, 20, 26, 32 };
+  static const int ladder[] = { 10, 12, 16, 20, 26, 32 };
   const int n = (int) (sizeof ladder / sizeof ladder[0]);
   int i;
 
