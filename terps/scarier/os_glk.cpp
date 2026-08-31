@@ -402,10 +402,10 @@ static int gsc_map_want = FALSE;
    hiding and re-showing the map does not move it, and it is remembered with
    the visibility (gsc_map_pref_write) so neither does restarting. */
 static int gsc_map_at_top = FALSE;
-/* How the two colours the map is drawn in are spent ("glk map colour"): flat,
-   or mixed into room cards, a
-   you-are-here amber and faded connectors (MAP_SCHEME_DERIVED in mapdraw.h).
-   Kept with the visibility and the placement (gsc_map_pref_write). */
+/* How the two colours the map is drawn in are spent ("glk map colour"):
+   paper/ink cards by default, or the same cards with a you-are-here amber
+   (MAP_SCHEME_DERIVED in mapdraw.h).  Kept with the visibility and the
+   placement (gsc_map_pref_write). */
 static int gsc_map_colourful = FALSE;
 /* Set when the game defines a MAP command of its own (Lost Coastlines has a
    sea chart): the game's command wins, and the pane is reached with the
@@ -5327,13 +5327,12 @@ gsc_command_help (const char *command)
       gsc_standout_string ("glk map right");
       gsc_normal_string (" puts it back beside the story.  This is remembered"
                          " for the game as well, so the map comes back where"
-                         " you left it.\n\nThe map is normally drawn in the"
-                         " two colours of the story text.  ");
+                         " you left it.\n\nThe map is normally drawn as"
+                         " shaded cards mixed from the two colours of the"
+                         " story text.  ");
       gsc_standout_string ("glk map colour");
-      gsc_normal_string (" mixes a fuller palette out of those two instead --"
-                         " rooms as tinted cards, the room you are in picked"
-                         " out in amber, and the connectors drawn back a"
-                         " little -- and typing it again (or ");
+      gsc_normal_string (" picks the room you are in out in amber instead --"
+                         " the runner's yellow -- and typing it again (or ");
       gsc_standout_string ("glk map colour off");
       gsc_normal_string (") returns to the standard colours.  This is"
                          " remembered for the game too.\n\nThe map zooms"
@@ -9918,10 +9917,10 @@ gsc_map_set_colourful (int colourful)
 /*
  * gsc_map_colour()
  *
- * "glk map colour": draw the map in the derived colours -- room cards, a
- * you-are-here amber, faded connectors -- or back in the flat two the runners
- * used.  Unlike placement this does not ask for a map: recolouring one that is
- * hidden is a preference for next time, not a request to see it.
+ * "glk map colour": draw the map with a you-are-here amber, or back in the
+ * paper-and-ink cards that are the default.  Unlike placement this does not
+ * ask for a map: recolouring one that is hidden is a preference for next
+ * time, not a request to see it.
  *
  * The pixels we think are on screen were drawn in the old scheme, so they are
  * dropped before the redraw; otherwise the row comparison would find them
