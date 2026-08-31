@@ -417,16 +417,25 @@ static int gsc_map_taken = FALSE;
 static scr_int gsc_map_restarts = 0;
 static void gsc_map_redraw (void);
 static void gsc_map_set_colourful (int colourful);
+static int gsc_map_chrome_click (int px, int py);
+static int gsc_map_zoom_apply (int dir);
 
 /* The camera and pixel size of the last map redraw, so a mouse click can be
    hit-tested against exactly what is on screen. */
 static map_camera_t gsc_map_cam;
 static int gsc_map_px_w = 0, gsc_map_px_h = 0;
+static int gsc_map_fits = TRUE;
+static int gsc_map_fit_scale = MAP_SCALE_MAX;
+static int gsc_map_pan_can = 0;
+/* Recentre on the player when the map does not fit; cleared by a pan button,
+   restored by moving to a different (visible) room. */
+static int gsc_map_follow = TRUE;
+static char gsc_map_last_player[64];
 
 /* A manual zoom ("glk zoom in/out"), as pixels per map unit; 0 while the map
    is fitting itself to its window ("glk zoom auto", the default).  A manual
    zoom is kept until "auto" puts it back; meanwhile the view pans to keep the
-   player on-screen. */
+   player on-screen when follow is set. */
 static int gsc_map_zoom = 0;
 
 /* The pixels currently on screen, kept so that a redraw need only send the rows
@@ -6203,6 +6212,13 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
               char here[16];
               const char *hit;
 
+              if (gsc_map_chrome_click ((int) event->val1, (int) event->val2))
+                {
+                  if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
+                    glk_request_mouse_event (gsc_map_window);
+                  break;
+                }
+
               scmap_view ((scr_gameref_t) gsc_game, &view);
               hit = map_hit (gsc_map, &view, &gsc_map_cam,
                              gsc_map_px_w, gsc_map_px_h,
@@ -7233,6 +7249,13 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
               a5_state_t *st = a5run_state (gsc_a5_run);
               const char *hit, *here;
 
+              if (gsc_map_chrome_click ((int) event->val1, (int) event->val2))
+                {
+                  if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
+                    glk_request_mouse_event (gsc_map_window);
+                  break;
+                }
+
               gsc_a5_map_view (st, &view);
               hit = map_hit (gsc_map, &view, &gsc_map_cam,
                                gsc_map_px_w, gsc_map_px_h,
@@ -8211,6 +8234,10 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
   st->map_shown = gsc_map_shown;
   st->map_at_top = gsc_map_at_top;
   st->map_zoom = gsc_map_zoom;
+  st->map_follow = gsc_map_follow;
+  st->map_cx = gsc_map_cam.cx;
+  st->map_cy = gsc_map_cam.cy;
+  st->map_page = gsc_map_cam.page;
   st->map_colourful = gsc_map_colourful;
   st->colour_on = gsc_colour_enabled;
 
@@ -8261,6 +8288,11 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
   gsc_map_shown = st->map_shown;
   gsc_map_at_top = st->map_at_top;
   gsc_map_zoom = st->map_zoom;
+  gsc_map_follow = st->map_follow;
+  gsc_map_cam.cx = st->map_cx;
+  gsc_map_cam.cy = st->map_cy;
+  gsc_map_cam.page = st->map_page;
+  gsc_map_last_player[0] = '\0';
   /* The renderer is a fresh process's, at its default; the scheme has to be
      named again or the restored map would come back in the standard colours. */
   gsc_map_set_colourful (st->map_colourful);
@@ -9177,7 +9209,9 @@ gsc_a5_map_view (a5_state_t *st, map_view_t *view)
  * room you are in and the rooms you have seen, both of which change as you
  * play, and the runner likewise recomputed it every time it drew.
  *
- * Returns FALSE if there is no map to show.
+ * Returns FALSE if there is no map to show.  Mid-game ADRIFT 4 HideOnMap keeps
+ * the previous layout so the pan/zoom view can freeze on the last-known map
+ * instead of wiping the pane.
  */
 static int
 gsc_map_current (map_view_t *view, const char **player, char *keybuf,
@@ -9199,10 +9233,22 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
     return FALSE;
 
   scmap_view ((scr_gameref_t) gsc_game, view);
-  map_free (gsc_map);
-  gsc_map = scmap_build ((scr_gameref_t) gsc_game, view);
-  if (gsc_map == NULL)
-    return FALSE;
+  {
+    map_t *built = scmap_build ((scr_gameref_t) gsc_game, view);
+
+    if (built == NULL)
+      {
+        /* No layout from this room.  Keep a previous one if we have it
+           (HideOnMap mid-game); otherwise there is nothing to show yet. */
+        if (gsc_map == NULL)
+          return FALSE;
+      }
+    else
+      {
+        map_free (gsc_map);
+        gsc_map = built;
+      }
+  }
 
   snprintf (keybuf, (size_t) keysize, "%ld",
             (long) gs_playerroom ((scr_gameref_t) gsc_game));
@@ -9247,6 +9293,123 @@ gsc_map_worth_opening (void)
 }
 
 /*
+ * gsc_map_zoom_apply()
+ *
+ * Step the manual zoom in (dir > 0) or out (dir <= 0).  Zoom-out will not go
+ * below the auto-fit scale for the current window; at that floor it returns to
+ * auto.  Returns TRUE if the zoom changed.
+ */
+static int
+gsc_map_zoom_apply (int dir)
+{
+  int scale, stepped;
+
+  scale = gsc_map_zoom > 0 ? gsc_map_zoom : gsc_map_cam.scale;
+  if (scale < MAP_SCALE_MIN)
+    scale = 10;
+
+  if (dir <= 0)
+    {
+      stepped = map_zoom_step (scale, -1);
+      if (stepped < gsc_map_fit_scale || stepped == scale)
+        {
+          if (gsc_map_zoom == 0)
+            return FALSE;
+          gsc_map_zoom = 0;
+          gsc_map_redraw ();
+          return TRUE;
+        }
+      gsc_map_zoom = stepped;
+      gsc_map_redraw ();
+      return TRUE;
+    }
+
+  stepped = map_zoom_step (scale, 1);
+  if (stepped == scale)
+    return FALSE;
+  gsc_map_zoom = stepped;
+  gsc_map_redraw ();
+  return TRUE;
+}
+
+/*
+ * gsc_map_chrome_click()
+ *
+ * Handle a click on the floating pan/zoom buttons.  Returns TRUE if the click
+ * was consumed (including a greyed zoom-out that should not walk).
+ */
+static int
+gsc_map_chrome_click (int px, int py)
+{
+  int scale = gsc_map_cam.scale;
+  int zoom_in_ok = map_zoom_step (scale, 1) != scale;
+  int zoom_out_ok = scale > gsc_map_fit_scale;
+  int id = map_chrome_hit (gsc_map_px_w, gsc_map_px_h, gsc_map_fits,
+                           zoom_in_ok, zoom_out_ok, gsc_map_pan_can, px, py);
+  int dx = 0, dy = 0;
+  int pan_bit = 0;
+
+  if (id == MAP_CHROME_NONE)
+    return FALSE;
+
+  /* Greyed zoom: swallow the click so it does not walk to a room. */
+  if (id == MAP_CHROME_ZOOM_IN && !zoom_in_ok)
+    return TRUE;
+  if (id == MAP_CHROME_ZOOM_OUT && !zoom_out_ok)
+    return TRUE;
+
+  switch (id)
+    {
+    case MAP_CHROME_PAN_L:
+      pan_bit = MAP_PAN_CAN_L;
+      break;
+    case MAP_CHROME_PAN_R:
+      pan_bit = MAP_PAN_CAN_R;
+      break;
+    case MAP_CHROME_PAN_U:
+      pan_bit = MAP_PAN_CAN_U;
+      break;
+    case MAP_CHROME_PAN_D:
+      pan_bit = MAP_PAN_CAN_D;
+      break;
+    default:
+      break;
+    }
+  if (pan_bit != 0)
+    {
+      /* Greyed pan: swallow without moving. */
+      if ((gsc_map_pan_can & pan_bit) == 0)
+        return TRUE;
+      gsc_map_follow = FALSE;
+      map_pan_nudge_delta (&gsc_map_cam, gsc_map_px_w, gsc_map_px_h, &dx, &dy);
+      if (id == MAP_CHROME_PAN_L)
+        gsc_map_cam.cx -= dx;
+      else if (id == MAP_CHROME_PAN_R)
+        gsc_map_cam.cx += dx;
+      else if (id == MAP_CHROME_PAN_U)
+        gsc_map_cam.cy -= dy;
+      else
+        gsc_map_cam.cy += dy;
+      gsc_map_redraw ();
+      return TRUE;
+    }
+
+  switch (id)
+    {
+    case MAP_CHROME_ZOOM_IN:
+      gsc_map_zoom_apply (1);
+      return TRUE;
+
+    case MAP_CHROME_ZOOM_OUT:
+      gsc_map_zoom_apply (-1);
+      return TRUE;
+
+    default:
+      return FALSE;
+    }
+}
+
+/*
  * gsc_map_redraw()
  *
  * Rasterise the map and blit it into the graphics window.  Glk has no drawing
@@ -9267,6 +9430,7 @@ gsc_map_redraw (void)
   char keybuf[16];
   glui32 w, h;
   int x, y;
+  int zoom_in_ok, zoom_out_ok;
 
   /* A map that was asked for while there was nothing on it: try again now
      that the game has moved on.  (gsc_map_show comes straight back here, but
@@ -9300,9 +9464,8 @@ gsc_map_redraw (void)
       }
   }
 
-  /* Nothing to draw: an ADRIFT 4 layout that gave up, or a player standing in a
-     room hidden from the map -- where the runner showed an empty map too.  Wipe
-     the pane rather than leave the last one up; it will come back by itself. */
+  /* Nothing to draw yet: no map has ever been built (opening staging room).
+     Mid-game HideOnMap keeps the previous layout via gsc_map_current. */
   if (!gsc_map_current (&view, &ploc, keybuf, sizeof keybuf))
     {
       glk_window_clear (gsc_map_window);
@@ -9310,12 +9473,34 @@ gsc_map_redraw (void)
       return;
     }
 
+  /* Moving to a different visible room restores follow-the-player.  A hidden
+     room leaves the camera where it was.  The first redraw after open/restore
+     only records the room -- it must not override a restored pan. */
+  if (ploc != NULL)
+    {
+      if (gsc_map_last_player[0] != '\0'
+          && strcmp (ploc, gsc_map_last_player) != 0)
+        {
+          const map_node_t *pn = map_find (gsc_map, ploc);
+
+          if (pn != NULL && !pn->hidden)
+            gsc_map_follow = TRUE;
+        }
+      snprintf (gsc_map_last_player, sizeof gsc_map_last_player, "%s", ploc);
+    }
+
   surf = map_surface_new ((int) w, (int) h);
   if (surf == NULL)
     return;
 
-  map_frame (gsc_map, &view, ploc, surf, gsc_map_zoom, &gsc_map_cam);
+  gsc_map_fits = map_frame (gsc_map, &view, ploc, surf, gsc_map_zoom,
+                            gsc_map_follow, MAP_CHROME_H, &gsc_map_cam,
+                            &gsc_map_fit_scale);
   map_render (gsc_map, &view, ploc, &gsc_map_cam, surf);
+  zoom_in_ok = map_zoom_step (gsc_map_cam.scale, 1) != gsc_map_cam.scale;
+  zoom_out_ok = gsc_map_cam.scale > gsc_map_fit_scale;
+  gsc_map_pan_can = map_pan_can (gsc_map, &view, &gsc_map_cam, surf->w, surf->h);
+  map_chrome_draw (surf, gsc_map_fits, zoom_in_ok, zoom_out_ok, gsc_map_pan_can);
   gsc_map_px_w = surf->w;
   gsc_map_px_h = surf->h;
   if (gsc_is_a5)
@@ -9675,6 +9860,8 @@ gsc_map_show (void)
       return;
     }
   gsc_map_shown = TRUE;
+  gsc_map_follow = TRUE;
+  gsc_map_last_player[0] = '\0';
   gsc_map_screen_drop ();       /* a fresh window holds nothing */
   gsc_map_redraw ();
 
@@ -9869,6 +10056,8 @@ gsc_map_notice_restart (void)
   stream = glk_stream_get_current ();
   gsc_map_hide ();
   gsc_map_zoom = 0;
+  gsc_map_follow = TRUE;
+  gsc_map_last_player[0] = '\0';
   gsc_map_auto_reveal ();
   glk_stream_set_current (stream);
 }
@@ -10062,7 +10251,7 @@ gsc_command_map (const char *argument)
 static void
 gsc_command_zoom (const char *argument)
 {
-  int in, scale, stepped;
+  int in;
 
   if (gsc_is_a5 ? gsc_a5_run == NULL : gsc_game == NULL)
     return;
@@ -10109,18 +10298,12 @@ gsc_command_zoom (const char *argument)
 
   /* Step from the manual zoom, or from wherever the automatic fit last
      landed; a map with nothing drawn yet steps from the runner's default. */
-  scale = gsc_map_zoom > 0 ? gsc_map_zoom : gsc_map_cam.scale;
-  if (scale < MAP_SCALE_MIN)
-    scale = 10;
-  stepped = map_zoom_step (scale, in ? 1 : -1);
-  if (stepped == scale)
+  if (!gsc_map_zoom_apply (in ? 1 : -1))
     {
       gsc_normal_string (in ? "The map is already at its maximum zoom.\n"
                             : "The map is already at its minimum zoom.\n");
       return;
     }
-  gsc_map_zoom = stepped;
-  gsc_map_redraw ();
 }
 
 
@@ -10212,6 +10395,8 @@ gsc_a5_restart_run (a5_run_t *&run)
      close in. */
   gsc_map_hide ();
   gsc_map_zoom = 0;
+  gsc_map_follow = TRUE;
+  gsc_map_last_player[0] = '\0';
 
   glk_window_clear (gsc_main_window);
   gsc_main_window_empty = TRUE;

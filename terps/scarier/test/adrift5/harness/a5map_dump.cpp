@@ -82,7 +82,7 @@ main (int argc, char **argv)
   a5_run_t *run;
   map_t *map;
   map_surface_t *surf;
-  map_camera_t cam;
+  map_camera_t cam = { 0 };
   ctx_t ctx;
   map_view_t view;
   const char *out = "map.ppm";
@@ -207,7 +207,7 @@ main (int argc, char **argv)
        PrepareForNextTurn emptied the per-turn route memo, so stale in-turn
        blocked results must not decide connector visibility. */
     a5restr_route_cache_clear (ctx.st);
-    map_frame (map, &view, ploc, surf, 0, &cam);
+    map_frame (map, &view, ploc, surf, 0, 1, 0, &cam, NULL);
     map_render (map, &view, ploc, &cam, surf);
     fprintf (stderr, "player=%s page=%d scale=%d content=%d\n",
              ploc ? ploc : "(none)", cam.page, cam.scale,
