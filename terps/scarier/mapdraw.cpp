@@ -1308,7 +1308,7 @@ map_has_content (const map_t *map, const map_view_t *view,
    above MAP_SCALE_MAX, but a player asking to zoom in can usefully get closer
    than the fit would; past 32 the boxes stop gaining anything. */
 static const int map_zoom_ladder[] = {
-  3, 4, 5, 6, 8, 10, 12, 16, 20, 26, 32
+  10, 12, 16, 20, 26, 32
 };
 #define MAP_ZOOM_LADDER_N \
   ((int) (sizeof map_zoom_ladder / sizeof map_zoom_ladder[0]))
