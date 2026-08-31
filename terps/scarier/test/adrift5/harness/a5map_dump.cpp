@@ -6,10 +6,8 @@
  * without the Glk layer.
  *
  *   ./map_dump <game.blorb> [script.txt] [-o out.ppm] [-w W] [-h H] [-all]
- *                [-colour]
  *
  *   -all      mark every room seen (whole-page view, for development)
- *   -colour   draw in the alternative scheme "glk map colour" selects
  */
 
 #include <stdio.h>
@@ -88,13 +86,13 @@ main (int argc, char **argv)
   const char *out = "map.ppm";
   const char *script = NULL;
   const char *walk_to = NULL;
-  int W = 480, H = 480, reveal = 0, colour = 0, i;
+  int W = 480, H = 480, reveal = 0, i;
   FILE *f;
 
   if (argc < 2)
     {
       fprintf (stderr, "usage: %s <game> [script] [-o out.ppm] [-w W] [-h H]"
-               " [-all] [-colour]\n", argv[0]);
+               " [-all]\n", argv[0]);
       return 1;
     }
   for (i = 2; i < argc; i++)
@@ -107,10 +105,6 @@ main (int argc, char **argv)
         H = atoi (argv[++i]);
       else if (strcmp (argv[i], "-all") == 0)
         reveal = 1;
-      /* The alternative scheme "glk map colour" selects. */
-      else if (strcmp (argv[i], "-colour") == 0
-               || strcmp (argv[i], "-color") == 0)
-        colour = 1;
       else if (strcmp (argv[i], "-walk") == 0 && i + 1 < argc)
         walk_to = argv[++i];
       else if (argv[i][0] != '-')
@@ -198,8 +192,6 @@ main (int argc, char **argv)
               a5state_player_location (ctx.st), walk_to);
     }
 
-  map_set_colour_scheme (colour ? MAP_SCHEME_DERIVED
-                                : MAP_SCHEME_STANDARD);
   surf = map_surface_new (W, H);
   {
     const char *ploc = a5state_player_location (ctx.st);

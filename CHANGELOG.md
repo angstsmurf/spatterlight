@@ -12,7 +12,7 @@
 ### Scarier (Adrift)
 - Games that colour their text now display those colours. Colour display can be toggled with the *glk colour* command.
 - New *glk undo*, *glk restore*, *glk restart* and *glk quit* meta-commands to use when their standard counterparts are unavailable, such as in the player name entry dialog.
-- A new *glk map colour* command switches the map between the standard colours and an alternative scheme derived from the current theme, which mixes room fills, connector greys and a you-are-here marker out of the theme's own paper and ink. The choice is remembered per game.
+- <s>A new *glk map colour* command switches the map between the standard colours and an alternative scheme derived from the current theme, which mixes room fills, connector greys and a you-are-here marker out of the theme's own paper and ink. The choice is remembered per game.</s> The `glk map colour` option has been removed.
 
 #### Adrift 3.7 to 4
 - Now plays the two known Adrift 3.7 games, *Alice's Restaurant Anti-Massacree Adventure* and *Castle Quest*.
