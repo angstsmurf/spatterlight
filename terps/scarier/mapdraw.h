@@ -212,23 +212,75 @@ typedef struct map_camera_s {
   int page;                   /* page to draw                                */
   int scale;                  /* pixels per map unit (runner default 10)     */
   int cx, cy;                 /* centre of the view, in map units * scale    */
+  int chrome_h;               /* top strip reserved for pan/zoom buttons;
+                                 shifts the projection so the map sits under
+                                 the chrome.  0 for headless dumps.          */
 } map_camera_t;
 
-/* Pick the page the player is on and frame it.  With `zoom` 0, fits the seen
-   nodes to `dst` (clamped between MAP_SCALE_MIN and MAP_SCALE_MAX) and centres
-   on the player, like the runner's LockPlayerCentre.  A positive `zoom` pins
-   the scale to that many pixels per map unit instead (a manual "glk zoom");
-   the centring still runs, so the view pans to keep the player on-screen. */
+/* Height of the floating pan/zoom button row (padding included). */
+#define MAP_CHROME_H 30
+
+/* Pick the page and frame the seen extent into the content area under
+   `chrome_h`.  With `zoom` 0, fits to that area (clamped between
+   MAP_SCALE_MIN and MAP_SCALE_MAX).  A positive `zoom` pins the scale.
+   When the extent fits, the view is centred on it.  When it does not:
+   `follow` recentres on the player (LockPlayerCentre); otherwise the
+   caller's cam->cx/cy are kept and re-clamped.  A hidden or missing player
+   room never follows -- the previous centre is retained.  Returns whether
+   the extent fits at the chosen scale.  When `out_fit_scale` is non-NULL it
+   receives the auto-fit scale (even under a manual zoom), so the host can
+   disable zoom-out at the floor where the map fits. */
 #define MAP_SCALE_MIN 3
 #define MAP_SCALE_MAX 16
-extern void map_frame (const map_t *map, const map_view_t *view,
-                       const char *player_key, const map_surface_t *dst,
-                       int zoom, map_camera_t *cam);
+extern int map_frame (const map_t *map, const map_view_t *view,
+                      const char *player_key, const map_surface_t *dst,
+                      int zoom, int follow, int chrome_h,
+                      map_camera_t *cam, int *out_fit_scale);
 
 /* The next manual zoom level in from (dir > 0) or out from (dir <= 0) `scale`
    pixels per map unit.  Returns `scale` unchanged at the end of the range,
    which is how a caller knows to warn instead of redraw. */
 extern int map_zoom_step (int scale, int dir);
+
+/* Floating pan/zoom chrome over the map surface. */
+enum {
+  MAP_CHROME_NONE = 0,
+  MAP_CHROME_PAN_L,
+  MAP_CHROME_PAN_R,
+  MAP_CHROME_PAN_U,
+  MAP_CHROME_PAN_D,
+  MAP_CHROME_ZOOM_IN,
+  MAP_CHROME_ZOOM_OUT
+};
+
+/* Draw the button row (right-aligned).  When `fits`, the pan buttons are
+   omitted.  `pan_can` is a mask of MAP_PAN_CAN_* bits: directions that still
+   have travel room are drawn enabled; the rest are greyed.  Zoom-in/out are
+   greyed when their enabled flags are clear (zoom-out when already at the
+   auto-fit floor; zoom-in at the top of the ladder). */
+extern void map_chrome_draw (map_surface_t *dst, int fits,
+                             int zoom_in_enabled, int zoom_out_enabled,
+                             int pan_can);
+
+/* Which chrome button contains (px,py), or MAP_CHROME_NONE.  Greyed controls
+   (disabled pan, greyed zoom) still return their id so the host can swallow
+   the click. */
+extern int map_chrome_hit (int w, int h, int fits,
+                           int zoom_in_enabled, int zoom_out_enabled,
+                           int pan_can, int px, int py);
+
+/* Nudge size for one pan-button press: about a quarter of the content view. */
+extern void map_pan_nudge_delta (const map_camera_t *cam, int w, int h,
+                                 int *out_dx, int *out_dy);
+
+/* Which pan directions still have room to travel from `cam` (MAP_PAN_CAN_*
+   bits).  Returns 0 when the map fits on both axes. */
+#define MAP_PAN_CAN_L 1
+#define MAP_PAN_CAN_R 2
+#define MAP_PAN_CAN_U 4
+#define MAP_PAN_CAN_D 8
+extern int map_pan_can (const map_t *map, const map_view_t *view,
+                        const map_camera_t *cam, int w, int h);
 
 /* Draw the map.  Only rooms the player has seen are drawn (as in both
    runners); the player's own room is highlighted. */

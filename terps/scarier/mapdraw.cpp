@@ -1037,9 +1037,18 @@ typedef struct {
 static void
 proj_init (proj_t *p, const map_camera_t *cam, const map_surface_t *dst)
 {
+  int chrome = cam->chrome_h;
+  int content_h;
+
+  if (chrome < 0)
+    chrome = 0;
+  if (chrome > dst->h)
+    chrome = dst->h;
+  content_h = dst->h - chrome;
   p->cam = cam;
   p->ox = dst->w / 2 - cam->cx;
-  p->oy = dst->h / 2 - cam->cy;
+  /* Centre the view in the content area under the floating chrome. */
+  p->oy = chrome + content_h / 2 - cam->cy;
 }
 
 static int
@@ -1429,29 +1438,60 @@ map_zoom_step (int scale, int dir)
   return scale;
 }
 
-void
+int
 map_frame (const map_t *map, const map_view_t *view,
-             const char *player_key, const map_surface_t *dst,
-             int zoom, map_camera_t *cam)
+           const char *player_key, const map_surface_t *dst,
+           int zoom, int follow, int chrome_h, map_camera_t *cam,
+           int *out_fit_scale)
 {
   const map_node_t *pn;
   const map_page_t *page;
   int i, minx = 0, miny = 0, maxx = 0, maxy = 0, first = 1;
-  int sx, sy, scale;
+  int sx, sy, scale, fit_scale;
+  int content_w, content_h, margin = 24;
+  int spanx, spany, fits_x, fits_y, fits;
+  int prev_cx, prev_cy, prev_page;
+  int follow_now;
+  int cx, cy, lo, hi;
 
-  cam->page = 0;
+  if (cam == NULL)
+    return 0;
+  prev_cx = cam->cx;
+  prev_cy = cam->cy;
+  prev_page = cam->page;
+  if (chrome_h < 0)
+    chrome_h = 0;
+  cam->chrome_h = chrome_h;
   cam->scale = 10;
-  cam->cx = 0;
-  cam->cy = 0;
   if (map == NULL || dst == NULL)
-    return;
+    {
+      if (out_fit_scale)
+        *out_fit_scale = MAP_SCALE_MAX;
+      return 1;
+    }
+
+  content_w = dst->w;
+  content_h = dst->h - chrome_h;
+  if (content_h < 1)
+    content_h = 1;
 
   pn = map_find (map, player_key);
-  player_page_key (map, player_key, &cam->page);
+  /* Stay on the player's page while they are on a visible map room; a hidden
+     or unplaced room keeps the previous page so the view does not jump. */
+  if (pn != NULL && !pn->hidden)
+    cam->page = pn->page;
+  else if (page_by_key (map, prev_page) != NULL)
+    cam->page = prev_page;
+  else if (!player_page_key (map, player_key, &cam->page))
+    cam->page = 0;
 
   page = page_by_key (map, cam->page);
   if (page == NULL)
-    return;
+    {
+      if (out_fit_scale)
+        *out_fit_scale = MAP_SCALE_MAX;
+      return 1;
+    }
 
   for (i = 0; i < page->n_nodes; i++)
     {
@@ -1479,56 +1519,407 @@ map_frame (const map_t *map, const map_view_t *view,
         }
     }
   if (first)
-    return;                     /* nothing seen yet */
-
-  /* Fit the seen extent, with a margin for the labels and out-arrows -- unless
-     a manual zoom has pinned the scale, when only the centring below runs. */
-  if (zoom > 0)
-    scale = zoom;
-  else
     {
-      sx = (maxx - minx) > 0 ? (dst->w - 24) / (maxx - minx) : MAP_SCALE_MAX;
-      sy = (maxy - miny) > 0 ? (dst->h - 24) / (maxy - miny) : MAP_SCALE_MAX;
-      scale = sx < sy ? sx : sy;
-      if (scale > MAP_SCALE_MAX)
-        scale = MAP_SCALE_MAX;
-      if (scale < MAP_SCALE_MIN)
-        scale = MAP_SCALE_MIN;
+      if (out_fit_scale)
+        *out_fit_scale = MAP_SCALE_MAX;
+      return 1;                 /* nothing seen yet */
     }
+
+  /* Auto-fit into the content area under the chrome, with a margin for the
+     labels and out-arrows. */
+  sx = (maxx - minx) > 0 ? (content_w - margin) / (maxx - minx) : MAP_SCALE_MAX;
+  sy = (maxy - miny) > 0 ? (content_h - margin) / (maxy - miny) : MAP_SCALE_MAX;
+  fit_scale = sx < sy ? sx : sy;
+  if (fit_scale > MAP_SCALE_MAX)
+    fit_scale = MAP_SCALE_MAX;
+  if (fit_scale < MAP_SCALE_MIN)
+    fit_scale = MAP_SCALE_MIN;
+  if (out_fit_scale)
+    *out_fit_scale = fit_scale;
+
+  scale = zoom > 0 ? zoom : fit_scale;
   cam->scale = scale;
 
-  /* Centre the seen extent when it fits at this scale (CentreMap); once it is
-     too big to show at once, follow the player instead (LockPlayerCentre) and
-     clamp so we never scroll past the edge of the map. */
-  cam->cx = (int) ((minx + maxx) / 2.0 * scale);
-  cam->cy = (int) ((miny + maxy) / 2.0 * scale);
+  spanx = (maxx - minx) * scale;
+  spany = (maxy - miny) * scale;
+  fits_x = spanx <= content_w - margin;
+  fits_y = spany <= content_h - margin;
+  fits = fits_x && fits_y;
 
-  if (pn != NULL && view_seen (view, pn->key))
+  cx = (int) ((minx + maxx) / 2.0 * scale);
+  cy = (int) ((miny + maxy) / 2.0 * scale);
+
+  follow_now = follow && pn != NULL && !pn->hidden && view_seen (view, pn->key);
+
+  if (!fits && follow_now)
     {
-      int spanx = (maxx - minx) * scale;
-      int spany = (maxy - miny) * scale;
-      int lo, hi;
-      if (spanx > dst->w - 24)
+      /* LockPlayerCentre on whichever axis overflows. */
+      if (!fits_x)
         {
-          cam->cx = (int) ((pn->x + pn->w / 2.0) * scale);
-          lo = minx * scale + (dst->w - 24) / 2;
-          hi = maxx * scale - (dst->w - 24) / 2;
-          if (cam->cx < lo)
-            cam->cx = lo;
-          if (cam->cx > hi)
-            cam->cx = hi;
+          cx = (int) ((pn->x + pn->w / 2.0) * scale);
+          lo = minx * scale + (content_w - margin) / 2;
+          hi = maxx * scale - (content_w - margin) / 2;
+          if (cx < lo)
+            cx = lo;
+          if (cx > hi)
+            cx = hi;
         }
-      if (spany > dst->h - 24)
+      if (!fits_y)
         {
-          cam->cy = (int) ((pn->y + pn->h / 2.0) * scale);
-          lo = miny * scale + (dst->h - 24) / 2;
-          hi = maxy * scale - (dst->h - 24) / 2;
-          if (cam->cy < lo)
-            cam->cy = lo;
-          if (cam->cy > hi)
-            cam->cy = hi;
+          cy = (int) ((pn->y + pn->h / 2.0) * scale);
+          lo = miny * scale + (content_h - margin) / 2;
+          hi = maxy * scale - (content_h - margin) / 2;
+          if (cy < lo)
+            cy = lo;
+          if (cy > hi)
+            cy = hi;
         }
     }
+  else if (!fits)
+    {
+      /* User pan, or a hidden player room: keep the previous centre and clamp. */
+      cx = prev_cx;
+      cy = prev_cy;
+      if (fits_x)
+        cx = (int) ((minx + maxx) / 2.0 * scale);
+      else
+        {
+          lo = minx * scale + (content_w - margin) / 2;
+          hi = maxx * scale - (content_w - margin) / 2;
+          if (cx < lo)
+            cx = lo;
+          if (cx > hi)
+            cx = hi;
+        }
+      if (fits_y)
+        cy = (int) ((miny + maxy) / 2.0 * scale);
+      else
+        {
+          lo = miny * scale + (content_h - margin) / 2;
+          hi = maxy * scale - (content_h - margin) / 2;
+          if (cy < lo)
+            cy = lo;
+          if (cy > hi)
+            cy = hi;
+        }
+    }
+
+  cam->cx = cx;
+  cam->cy = cy;
+  return fits;
+}
+
+/* --- floating pan/zoom chrome ------------------------------------------- */
+
+#define MAP_BTN_SIZE 22
+#define MAP_BTN_GAP 3
+#define MAP_BTN_PAD 4
+#define MAP_CLUSTER_GAP 8
+#define MAP_BTN_ALPHA 230       /* ~90% opaque */
+
+typedef struct {
+  int id;
+  int x, y, w, h;
+} map_btn_t;
+
+/* Lay out the chrome buttons into `out` (at most 6), right-aligned in `win_w`.
+   Returns the count.  When `fits`, only +/− are present. */
+static int
+map_chrome_layout (int win_w, int fits, map_btn_t *out, int out_max)
+{
+  int n = 0, i, x, y = MAP_BTN_PAD, total;
+
+  if (out_max < 2)
+    return 0;
+
+  /* Width of the row we are about to place, then right-align it. */
+  if (fits)
+    total = MAP_BTN_SIZE * 2 + MAP_BTN_GAP;
+  else
+    total = MAP_BTN_SIZE * 4 + MAP_BTN_GAP * 3   /* pan */
+            + MAP_CLUSTER_GAP
+            + MAP_BTN_SIZE * 2 + MAP_BTN_GAP;     /* zoom */
+  x = win_w - MAP_BTN_PAD - total;
+  if (x < MAP_BTN_PAD)
+    x = MAP_BTN_PAD;
+
+  if (!fits)
+    {
+      static const int pan_ids[] = {
+        MAP_CHROME_PAN_L, MAP_CHROME_PAN_R,
+        MAP_CHROME_PAN_U, MAP_CHROME_PAN_D
+      };
+      for (i = 0; i < 4 && n < out_max; i++)
+        {
+          out[n].id = pan_ids[i];
+          out[n].x = x;
+          out[n].y = y;
+          out[n].w = MAP_BTN_SIZE;
+          out[n].h = MAP_BTN_SIZE;
+          n++;
+          x += MAP_BTN_SIZE + (i < 3 ? MAP_BTN_GAP : MAP_CLUSTER_GAP);
+        }
+    }
+
+  if (n < out_max)
+    {
+      out[n].id = MAP_CHROME_ZOOM_IN;
+      out[n].x = x;
+      out[n].y = y;
+      out[n].w = MAP_BTN_SIZE;
+      out[n].h = MAP_BTN_SIZE;
+      n++;
+    }
+  x += MAP_BTN_SIZE + MAP_BTN_GAP;
+  if (n < out_max)
+    {
+      out[n].id = MAP_CHROME_ZOOM_OUT;
+      out[n].x = x;
+      out[n].y = y;
+      out[n].w = MAP_BTN_SIZE;
+      out[n].h = MAP_BTN_SIZE;
+      n++;
+    }
+  return n;
+}
+
+static void
+fill_round_rect (map_surface_t *s, int x0, int y0, int x1, int y1,
+                 int r, unsigned int rgb, int alpha)
+{
+  int x, y;
+  if (r < 1)
+    {
+      fill_rect (s, x0, y0, x1, y1, rgb, alpha);
+      return;
+    }
+  fill_rect (s, x0 + r, y0, x1 - r, y1, rgb, alpha);
+  fill_rect (s, x0, y0 + r, x0 + r, y1 - r, rgb, alpha);
+  fill_rect (s, x1 - r, y0 + r, x1, y1 - r, rgb, alpha);
+  for (y = 0; y <= r; y++)
+    for (x = 0; x <= r; x++)
+      if (x * x + y * y <= r * r)
+        {
+          blend (s, x0 + r - x, y0 + r - y, rgb, alpha);
+          blend (s, x1 - r + x, y0 + r - y, rgb, alpha);
+          blend (s, x0 + r - x, y1 - r + y, rgb, alpha);
+          blend (s, x1 - r + x, y1 - r + y, rgb, alpha);
+        }
+}
+
+static void
+draw_chrome_arrow (map_surface_t *s, int cx, int cy, int dx, int dy,
+                   unsigned int rgb, int alpha)
+{
+  /* A small filled triangle pointing along (dx,dy). */
+  draw_arrowhead (s, (double) cx + dx * 3, (double) cy + dy * 3,
+                  (double) dx, (double) dy, 5, rgb, alpha);
+}
+
+static void
+draw_chrome_btn (map_surface_t *s, const map_btn_t *b, int enabled)
+{
+  unsigned int face, ink;
+  int cx = b->x + b->w / 2;
+  int cy = b->y + b->h / 2;
+  int alpha = MAP_BTN_ALPHA;
+
+  ensure_derived_palette ();
+  face = mix_rgb (map_bg, map_fg, enabled ? 0.12 : 0.06);
+  ink = enabled ? map_fg : mix_rgb (map_fg, map_bg, 0.55);
+
+  fill_round_rect (s, b->x, b->y, b->x + b->w - 1, b->y + b->h - 1,
+                   4, face, alpha);
+  draw_rect (s, b->x, b->y, b->x + b->w - 1, b->y + b->h - 1,
+             ink, enabled ? alpha : alpha / 2);
+
+  switch (b->id)
+    {
+    case MAP_CHROME_PAN_L:
+      draw_chrome_arrow (s, cx, cy, -1, 0, ink, enabled ? 255 : 140);
+      break;
+    case MAP_CHROME_PAN_R:
+      draw_chrome_arrow (s, cx, cy, 1, 0, ink, enabled ? 255 : 140);
+      break;
+    case MAP_CHROME_PAN_U:
+      draw_chrome_arrow (s, cx, cy, 0, -1, ink, enabled ? 255 : 140);
+      break;
+    case MAP_CHROME_PAN_D:
+      draw_chrome_arrow (s, cx, cy, 0, 1, ink, enabled ? 255 : 140);
+      break;
+    case MAP_CHROME_ZOOM_IN:
+    case MAP_CHROME_ZOOM_OUT:
+      {
+        /* The 8x8 cells leave empty columns on the right, so centre on the
+           ink width rather than the cell. */
+        unsigned char ch = (b->id == MAP_CHROME_ZOOM_IN) ? '+' : '-';
+        int ink_w = glyph_advance (&kBigFont, ch) - 1;
+        if (ink_w < 1)
+          ink_w = kBigFont.w;
+        draw_glyph (s, &kBigFont, ch,
+                    cx - ink_w / 2, cy - kBigFont.h / 2,
+                    ink, enabled ? 255 : 140);
+      }
+      break;
+    }
+}
+
+void
+map_chrome_draw (map_surface_t *dst, int fits,
+                 int zoom_in_enabled, int zoom_out_enabled,
+                 int pan_can)
+{
+  map_btn_t btns[6];
+  int n, i;
+
+  if (dst == NULL)
+    return;
+  n = map_chrome_layout (dst->w, fits, btns, 6);
+  for (i = 0; i < n; i++)
+    {
+      int enabled = 1;
+      switch (btns[i].id)
+        {
+        case MAP_CHROME_PAN_L:
+          enabled = (pan_can & MAP_PAN_CAN_L) != 0;
+          break;
+        case MAP_CHROME_PAN_R:
+          enabled = (pan_can & MAP_PAN_CAN_R) != 0;
+          break;
+        case MAP_CHROME_PAN_U:
+          enabled = (pan_can & MAP_PAN_CAN_U) != 0;
+          break;
+        case MAP_CHROME_PAN_D:
+          enabled = (pan_can & MAP_PAN_CAN_D) != 0;
+          break;
+        case MAP_CHROME_ZOOM_IN:
+          enabled = zoom_in_enabled;
+          break;
+        case MAP_CHROME_ZOOM_OUT:
+          enabled = zoom_out_enabled;
+          break;
+        default:
+          break;
+        }
+      draw_chrome_btn (dst, &btns[i], enabled);
+    }
+}
+
+int
+map_chrome_hit (int w, int h, int fits,
+                int zoom_in_enabled, int zoom_out_enabled,
+                int pan_can, int px, int py)
+{
+  map_btn_t btns[6];
+  int n, i;
+
+  (void) h;
+  (void) zoom_in_enabled;
+  (void) zoom_out_enabled;
+  (void) pan_can;              /* caller decides whether to act */
+  n = map_chrome_layout (w, fits, btns, 6);
+  for (i = 0; i < n; i++)
+    {
+      const map_btn_t *b = &btns[i];
+      if (px < b->x || py < b->y || px >= b->x + b->w || py >= b->y + b->h)
+        continue;
+      return b->id;
+    }
+  return MAP_CHROME_NONE;
+}
+
+void
+map_pan_nudge_delta (const map_camera_t *cam, int w, int h,
+                     int *out_dx, int *out_dy)
+{
+  int chrome = cam != NULL ? cam->chrome_h : 0;
+  int content_h = h - chrome;
+  if (content_h < 1)
+    content_h = 1;
+  if (out_dx)
+    *out_dx = w / 4;
+  if (out_dy)
+    *out_dy = content_h / 4;
+  if (out_dx && *out_dx < 16)
+    *out_dx = 16;
+  if (out_dy && *out_dy < 16)
+    *out_dy = 16;
+}
+
+int
+map_pan_can (const map_t *map, const map_view_t *view,
+             const map_camera_t *cam, int w, int h)
+{
+  const map_page_t *page;
+  int i, minx = 0, miny = 0, maxx = 0, maxy = 0, first = 1;
+  int chrome, content_w, content_h, margin = 24;
+  int scale, spanx, spany, lo, hi, can = 0;
+
+  if (map == NULL || cam == NULL || w <= 0 || h <= 0)
+    return 0;
+  page = page_by_key (map, cam->page);
+  if (page == NULL)
+    return 0;
+
+  for (i = 0; i < page->n_nodes; i++)
+    {
+      const map_node_t *n = &page->nodes[i];
+      if (!view_seen (view, n->key))
+        continue;
+      if (first)
+        {
+          minx = n->x;
+          miny = n->y;
+          maxx = n->x + n->w;
+          maxy = n->y + n->h;
+          first = 0;
+        }
+      else
+        {
+          if (n->x < minx)
+            minx = n->x;
+          if (n->y < miny)
+            miny = n->y;
+          if (n->x + n->w > maxx)
+            maxx = n->x + n->w;
+          if (n->y + n->h > maxy)
+            maxy = n->y + n->h;
+        }
+    }
+  if (first)
+    return 0;
+
+  chrome = cam->chrome_h;
+  if (chrome < 0)
+    chrome = 0;
+  content_w = w;
+  content_h = h - chrome;
+  if (content_h < 1)
+    content_h = 1;
+  scale = cam->scale;
+  spanx = (maxx - minx) * scale;
+  spany = (maxy - miny) * scale;
+
+  /* An axis that fits is locked to the extent centre: no pan either way. */
+  if (spanx > content_w - margin)
+    {
+      lo = minx * scale + (content_w - margin) / 2;
+      hi = maxx * scale - (content_w - margin) / 2;
+      if (cam->cx > lo)
+        can |= MAP_PAN_CAN_L;
+      if (cam->cx < hi)
+        can |= MAP_PAN_CAN_R;
+    }
+  if (spany > content_h - margin)
+    {
+      lo = miny * scale + (content_h - margin) / 2;
+      hi = maxy * scale - (content_h - margin) / 2;
+      if (cam->cy > lo)
+        can |= MAP_PAN_CAN_U;
+      if (cam->cy < hi)
+        can |= MAP_PAN_CAN_D;
+    }
+  return can;
 }
 
 /* An exit that leads somewhere the player has not been is drawn as a short
