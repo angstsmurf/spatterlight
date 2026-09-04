@@ -1847,14 +1847,30 @@ void show_continue_link(Interp &in)
         glk_set_hyperlink(0);
 }
 
+/* Retract "\n" + label while it is still the window tail.  False -- and the
+ * label left exactly where it is, still counted as shown -- when the window
+ * has moved past it or there is no unput at all (CheapGlk). */
+bool lift_continue_link()
+{
+    if (g_continue_shown.empty())
+        return false;
+    if (!unput_exact(u32_from_utf8("\n" + g_continue_shown)))
+        return false;
+    g_continue_shown.clear();
+    return true;
+}
+
+/* The wait is over: take the chrome away.  Where it cannot be retracted the
+ * label stays in the scrollback like a "Press any key" line, so end its line
+ * -- otherwise the next msg lands on the same line as "Continue...". */
 void hide_continue_link()
 {
     if (g_continue_shown.empty())
         return;
-    /* Retract "\n" + label when still the window tail; leave it alone if
-     * timer output or a clear has already moved past it. */
-    (void) unput_exact(u32_from_utf8("\n" + g_continue_shown));
-    g_continue_shown.clear();
+    if (!lift_continue_link()) {
+        put_uni_char('\n');
+        g_continue_shown.clear();
+    }
 }
 
 /* One keypress (a pending `wait`).  Timer events keep ticking.  A click on a
@@ -1884,6 +1900,12 @@ void read_keypress(Interp &in)
         if (ev.type == evtype_Timer) {
             if (!timer_event_second(in))
                 continue;
+            /* Lift the chrome first so anything the tick prints lands where
+             * it was, then put it back underneath (the reference link sits
+             * below #divOutput however much that grows).  Where it cannot be
+             * lifted it stays put and show_continue_link is a no-op, rather
+             * than a fresh label every second. */
+            (void) lift_continue_link();
             in.tick(1);
             update_banner(in);
             redraw_side_pane(in);
@@ -1895,7 +1917,7 @@ void read_keypress(Interp &in)
                 hide_continue_link();
                 return;
             }
-            /* A ClearScreen during the tick wiped the chrome; put it back. */
+            /* Also covers a ClearScreen during the tick wiping the chrome. */
             show_continue_link(in);
             /* Clearing the pane drops its hyperlink request; re-arm it. */
             if (g_hyperlinks && gobjwin)
