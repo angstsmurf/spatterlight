@@ -843,7 +843,11 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
 
   if (destnum == 0)          /* Hidden. */
     {
-      dest = -1;
+      /* Hide only on the exact tick: run390 stamps the &HFF inside the
+         counter==suffix gate (loc_45ABB8), run400 likewise (the whole step
+         at loc_468841); until the counter lands, the walker stays visible. */
+      if (is_exact)
+        dest = -1;
       is_arrival = TRUE;
     }
   else if (destnum == 1)     /* Follow player. */
@@ -854,7 +858,18 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
         dest = gs_playerroom (game);
     }
   else if (destnum < gs_room_count (game) + 2)
-    dest = destnum - 2;      /* To room. */
+    {
+      /* To room -- but only on the exact arrival tick.  run390 loc_45A780
+         and run400 loc_468841 gate the *entire* walk step, the move
+         included, on counter == suffix_sum, so between arrivals the walker
+         stands wherever it is -- even when a task has displaced it.  Live
+         run390, Merry_Murders 2026-08-31: task 9 starts Trey's walk to the
+         Plaza (arrives next tick), then task 27 moves him into the Hallway,
+         and he stays there for the rest of the game; Scarier used to warp
+         him back every turn.  Same mechanism as provenance's butler. */
+      if (is_exact)
+        dest = destnum - 2;
+    }
   else if (destnum < gs_room_count (game) + 2 + roomgroups)
     {
       scr_int initial;

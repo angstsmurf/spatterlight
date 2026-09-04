@@ -286,6 +286,7 @@ Hallway
 The long hallway keeps on going to the East, which leads towards Thurman's
 office. To the North are the computer labs. Chatting can be heard to the
 West, coming from the Plaza.
+Trey stands in the corner, smoking a cigarette.
 
 > w
 I move west.
@@ -299,8 +300,7 @@ side of the wall, overlooking the city below. The city's lights and sounds
 are barely visible from this height. Three long hallways extend from the
 plaza, to the East, North, and West. The elevator doors sit to the South near
 the glass window, the only exit off the floor.
-Trey stands in the corner, smoking a cigarette.  Gina stands away from the
-other guests, drinking some egg nog.
+Gina stands away from the other guests, drinking some egg nog.
 
 > n
 I move north.
@@ -355,6 +355,7 @@ Hallway
 The long hallway keeps on going to the East, which leads towards Thurman's
 office. To the North are the computer labs. Chatting can be heard to the
 West, coming from the Plaza.
+Trey stands in the corner, smoking a cigarette.
 
 > e
 I move east.
@@ -404,6 +405,7 @@ Hallway
 The long hallway keeps on going to the East, which leads towards Thurman's
 office. To the North are the computer labs. Chatting can be heard to the
 West, coming from the Plaza.
+Trey stands in the corner, smoking a cigarette.
 
 > w
 I move west.
@@ -418,8 +420,8 @@ are barely visible from this height. Three long hallways extend from the
 plaza, to the East, North, and West. The elevator doors sit to the South near
 the glass window, the only exit off the floor.
 Nancy sits on the edge of the fountain, sipping from a drink.  Eric leans
-against the wall, smoking a cigarette.  Trey stands in the corner, smoking a
-cigarette.  Gina stands away from the other guests, drinking some egg nog.
+against the wall, smoking a cigarette.  Gina stands away from the other
+guests, drinking some egg nog.
 
 > w
 I move west.
@@ -509,8 +511,17 @@ are barely visible from this height. Three long hallways extend from the
 plaza, to the East, North, and West. The elevator doors sit to the South near
 the glass window, the only exit off the floor.
 Nancy sits on the edge of the fountain, sipping from a drink.  Eric leans
-against the wall, smoking a cigarette.  Trey stands in the corner, smoking a
-cigarette.  Gina stands away from the other guests, drinking some egg nog.
+against the wall, smoking a cigarette.  Gina stands away from the other
+guests, drinking some egg nog.
+
+> e
+I move east.
+
+Hallway
+The long hallway keeps on going to the East, which leads towards Thurman's
+office. To the North are the computer labs. Chatting can be heard to the
+West, coming from the Plaza.
+Trey stands in the corner, smoking a cigarette.
 
 > show list to trey
 "Yeah, yeah. I know what you're thinking, I must be Alex Boss. Well, I'll
@@ -527,6 +538,22 @@ office, where I kept my notes on Alex Boss. There could be some information
 you can use in there."
 
 Trey handed me the key, and then walked off.
+
+> w
+I move west.
+
+Plaza
+This is the plaza of floor 23, a large room which is now full of streamers,
+balloons, and other party supplies. A large stone fountain sits in the middle
+of the room, a waterfall from the floor above extends from the ceiling and
+drops sparking blue water into it. A large glass window sits on the South
+side of the wall, overlooking the city below. The city's lights and sounds
+are barely visible from this height. Three long hallways extend from the
+plaza, to the East, North, and West. The elevator doors sit to the South near
+the glass window, the only exit off the floor.
+Nancy sits on the edge of the fountain, sipping from a drink.  Eric leans
+against the wall, smoking a cigarette.  Gina stands away from the other
+guests, drinking some egg nog.
 
 > w
 I move west.
@@ -626,8 +653,8 @@ are barely visible from this height. Three long hallways extend from the
 plaza, to the East, North, and West. The elevator doors sit to the South near
 the glass window, the only exit off the floor.
 Nancy sits on the edge of the fountain, sipping from a drink.  Eric leans
-against the wall, smoking a cigarette.  Trey stands in the corner, smoking a
-cigarette.  Gina stands away from the other guests, drinking some egg nog.
+against the wall, smoking a cigarette.  Gina stands away from the other
+guests, drinking some egg nog.
 
 > e
 I move east.

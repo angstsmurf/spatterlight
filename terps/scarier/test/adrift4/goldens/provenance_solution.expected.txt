@@ -699,7 +699,7 @@ quickly turn to get a better look but whatever was there is now gone.
 > open it
 (the resplendent armoire)
 You open the resplendent armoire.  A rugged rucksack is inside the
-resplendent armoire.
+resplendent armoire.  The butler exits to the north.
 
 > get rucksack
 You take the rugged rucksack from the resplendent armoire.
@@ -3359,6 +3359,7 @@ Time passes...
 
 > z
 Time passes...
+The butler exits.
 
 > z
 Time passes...

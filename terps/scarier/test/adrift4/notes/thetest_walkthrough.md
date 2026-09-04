@@ -60,10 +60,14 @@ on each success (`robot1+1` while ≤ 5, then `rand(6,20)`;
    triangle numbers whenever it is in your room (it storms in and out every
    couple of turns, hitting you with its chain — battle damage is real but
    ~1/hit vs 100 stamina): `shout 1`, `shout 3`, `shout 6`, `shout 10`,
-   `shout 15`, `shout 21`.  After the 6th success (`guard` > 5 → `guard2`=1)
-   the next command is stolen by `#findoutsecret`: "…the robot guard just
-   dropped his key."  `take key` (again — the first was stolen),
-   `take teleporter`.
+   `shout 15`, `shout 21`.  A number shouted while the room is empty is
+   wasted ("Why shout numbers now?") and the sequence does NOT advance, so
+   each number must be spammed until the guard's visit coincides (under the
+   harness seed: 9/5/10/5/10/5 attempts — re-timed 2026-08-31 when the
+   exact-tick walk gate changed the guard's schedule).  After the 6th
+   success (`guard` > 5 → `guard2`=1) the next command is stolen by
+   `#findoutsecret`: "…the robot guard just dropped his key."  `take key`
+   (again — the first was stolen), `take teleporter`.
 5. **Teleport to the Morse Room:** the teleporter refuses in the Orange Room
    (orange paint), so `west` first, then `teleport` repeatedly (random
    destination) until `look` shows the Morse Room.
@@ -86,3 +90,9 @@ this route skips; the endgame reports 20/25, "You finished 5 points short."
   with blind `unlock door` spam; the Runner's own RNG differs from the seeded
   harness, so its command counts differ, but every mechanism above fired
   identically.
+- 2026-08-31: the golden route was re-derived (191 commands) after the
+  exact-tick walk-move gate landed in `scnpcs.cpp` (the Runner-verified rule
+  that the whole walk step runs only when `counter == suffix_sum`; see
+  WINE-TRANSCRIPTS-TODO.md, Merry_Murders section).  The guard's visit
+  schedule under the fixed seed shifted, so every shout was re-timed; the
+  mechanism and score (20/25) are unchanged.

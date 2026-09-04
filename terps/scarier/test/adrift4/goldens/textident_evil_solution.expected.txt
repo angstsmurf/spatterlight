@@ -219,8 +219,6 @@ floor, and a large pool of blood fills it. The owner of the plasma, however,
 doesn't appear to be in evidence. A metal door to the west leads back
 outside, while another door to the east reads: "No Entry."  To the south, a
 broken window also provides a way out.
-A mangled zombie has found you! It's countenance is feral and hungry, and its
-eyes promise only a painful death!
 
 > w
 You move west.

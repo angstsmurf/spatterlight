@@ -625,6 +625,18 @@ Robot Guard hits you with the robot's chain.
 
 > shout 1
 You shout one and the robot scurries off.
+
+> shout 3
+Why shout numbers now?
+
+> shout 3
+Why shout numbers now?
+
+> shout 3
+Why shout numbers now?
+
+> shout 3
+Why shout numbers now?  Robot Guard storms in from the west.
 Robot Guard hits you with the robot's chain.
 
 > shout 3
@@ -637,15 +649,48 @@ Why shout numbers now?
 Why shout numbers now?
 
 > shout 6
-Why shout numbers now?  Robot Guard storms in from the west.
+Why shout numbers now?
+
+> shout 6
+Why shout numbers now?
+
+> shout 6
+Why shout numbers now?
+
+> shout 6
+Why shout numbers now?
+
+> shout 6
+Why shout numbers now?
+
+> shout 6
+Why shout numbers now?
+
+> shout 6
+Why shout numbers now?  Robot Guard storms in.
 Robot Guard hits you with the robot's chain.
 
 > shout 6
 You shout six and the robot scurries off.
+
+> shout 10
+Why shout numbers now?
+
+> shout 10
+Why shout numbers now?
+
+> shout 10
+Why shout numbers now?
+
+> shout 10
+Why shout numbers now?  Robot Guard storms in from the west.
 Robot Guard hits you with the robot's chain.
 
 > shout 10
 You shout ten and the robot scurries off.
+
+> shout 15
+Why shout numbers now?
 
 > shout 15
 Why shout numbers now?
@@ -674,6 +719,18 @@ Robot Guard hits you with the robot's chain.
 
 > shout 15
 You shout fifteen and the robot scurries off.
+
+> shout 21
+Why shout numbers now?
+
+> shout 21
+Why shout numbers now?
+
+> shout 21
+Why shout numbers now?
+
+> shout 21
+Why shout numbers now?  Robot Guard storms in from the west.
 Robot Guard hits you with the robot's chain.
 
 > shout 21
@@ -687,8 +744,7 @@ the robot guard just dropped his key.  Just thought you ought to know.
 You pick up yet another key.
 
 > take teleporter
-You pick up the portable teleporter.  Robot Guard storms in from the west.
-Robot Guard hits you with the robot's chain.
+You pick up the portable teleporter.
 
 > west
 You move west.
@@ -703,8 +759,7 @@ You can move east and west.
 > teleport
 As I said, its broken.  The entire destination circuit has been broken off.
 But as I told you it might still work, here it goes.  Colours swirl around
-you.  Then you arrive.  Robot Guard storms in.
-Robot Guard hits you with the robot's chain.
+you.  Then you arrive.
 
 > look
 
@@ -712,17 +767,17 @@ Morse Room
 If you can't hear anything then turn your speakers up and the sound on.
 You're in a old shack, the kind you send morse from except that all the
 equipment has gone.  A slot forms part of the east wall.
-A Robot Guard is here.
-Robot Guard hits you with the robot's chain.
 
 > tiddlywink
 You say tiddlywinks.  Thick smoke swirls around the room.  You wait for what
 seems like half a minute before the smoke disappears.  The room is just the
-same as it was though your pocket feels slight heavier.  Robot Guard stamps
-out to the east.
+same as it was though your pocket feels slight heavier.  Robot Guard storms
+in from the east.
+Robot Guard hits you with the robot's chain.
 
 > take tiddlywink
 You take the blue tiddlywink from your clothes.
+Robot Guard hits you with the robot's chain.
 
 > put tiddlywink in slot
 You place the magic tiddlywink in the slot and it fits perfectly.  The slot
@@ -737,15 +792,12 @@ This room is completely empty and very plain.  Unless you count the dust, but
 even that is very plain.
 
 Scattered on the ground is a piece of paper.
-A Robot Guard is here.
 
 You can only move west.
-Robot Guard hits you with the robot's chain.
 
 > push south
 You push the south wall, but instead of opening it swivels round, leaving yet
-another door!  On the right hand side of the door is a key hole.  Robot Guard
-stamps out to the west.
+another door!  On the right hand side of the door is a key hole.
 
 > use key with keyhole
 You put yet another key into the keyhole then pull the brick wall towards

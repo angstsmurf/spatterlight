@@ -272,8 +272,8 @@ stretches out of sight above you. A vast pillar in the centre of the room,
 shaped like an enormous tree, stretches up into darkness towards the ceiling.
 The floor is paved with marble flagstones. The northern half of the main
 table is here. A passage enters from the north. The hall stretches out of the
-pool of light thrown by your ring to the east, south and southeast.  A mouse
-scuttles along the table from the south.  Kiya flies in from the south.
+pool of light thrown by your ring to the east, south and southeast.  Kiya
+flies in from the south.
 
 > east
 You move east.

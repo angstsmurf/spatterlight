@@ -7,8 +7,8 @@
 # stall, the elevators are sealed, and over seven acts every remaining guest
 # is murdered one by one by somebody signing themselves "Alex Boss".
 #
-# RESULT: **WIN, 135 out of a declared maximum of 135**, in 64 input lines
-# (62 moves, one `score` check and the final killing blow).
+# RESULT: **WIN, 135 out of a declared maximum of 135**, in 66 input lines
+# (64 moves, one `score` check and the final killing blow).
 #
 # 135 IS THE CEILING AND EVERY POINT IS ON THE CRITICAL PATH.  The file holds
 # exactly 20 `ACT type=4` awards, they sum to exactly the declared MaxScore,
@@ -52,10 +52,15 @@
 #     not walk you through it.  A second `n` is needed.
 #
 # WHERE TREY IS.  T27 `research alex` is authored `ACT type=1 v1=7 v2=0 v3=3`,
-# which reads as "move NPC 5 (Trey) to room 2" -- but Trey also owns a WALK
-# with startTask=10 (task 9) that fires first, and he ends up in the **Plaza**.
-# T38 `show list to trey` is where=2 over rooms [0 2], so the Plaza is legal;
-# go there, not to the east Hallway.
+# "move NPC 5 (Trey) to room 2" -- the east Hallway.  Trey's WALK (startTask
+# = task 9) has already arrived in the Plaza and spent itself by then, and a
+# spent walk never moves him again: run390/run400 run the whole walk step
+# only on the exact counter==suffix tick (run390 loc_45A780, run400
+# loc_468841; measured live in run390, 2026-08-31), so T27's move sticks.
+# T38 `show list to trey` is where=2 over rooms [0 2]; go to the east
+# Hallway, not the Plaza.  (Before the exact-tick rule was ported Scarier
+# re-dragged Trey to the Plaza every turn, and this script showed him the
+# list there.)
 #
 # ===========================================================================
 # --- Act I: find the host ---------------------------------------------------
@@ -127,9 +132,11 @@ enter 132
 read list
 e
 e
-# T38, +5 -- Trey is in the Plaza (see the note above).  He gives up the small
-# key to Max's desk.
+e
+# T38, +5 -- Trey is in the east hallway (see the note above).  He gives up
+# the small key to Max's desk.
 show list to trey
+w
 w
 w
 # T2, +5 -- the drawer holds Max's own piece of paper.
