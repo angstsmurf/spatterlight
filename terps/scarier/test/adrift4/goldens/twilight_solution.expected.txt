@@ -57,13 +57,13 @@ You move east.
 A wispy fog creeps along the ground toward you, guided by a cold, steady
 wind.  Below there is only darkness, while above the floating mansion looms.
 
-You hear a voice, more of a whisper.  The words it speaks are
-indistinguishable, yet there is an eerie familarity to it.
-
 > w
 "Wait," Gale says,  flying off just beyond the cliff's edge.  "There is a
 cavern here--I never saw it before.  Maybe we can find a way to the mansion
 in there," she says, pointing downward.
+
+You hear a voice, more of a whisper.  The words it speaks are
+indistinguishable, yet there is an eerie familarity to it.
 
 > down
 You move down.
@@ -102,10 +102,6 @@ finds amusing as well; it drops the crystal key and dances around wildly.
 > take key
 You pick up the small crystal key.
 
-A brilliant flash of white light momentarily blinds you.  In that instance, a
-vague memory exists in your mind, the key to the mystery of how you got here.
- But as quickly as it came, it is gone again.
-
 > give key to gale
 "Sure!  I'm small enough to fit through the bars," Gale says, taking the
 crystal key and flying to the north passage.  She inserts the key in the
@@ -113,6 +109,10 @@ lock, and the bars retract, opening the exits again.  Then both lock and key
 turn into a ghostly apparitions, which disappear through the rock..
 "Servants of the Sentinel," Gale notes.  "He has taken notice, and will try
 to stop us..."
+
+A brilliant flash of white light momentarily blinds you.  In that instance, a
+vague memory exists in your mind, the key to the mystery of how you got here.
+ But as quickly as it came, it is gone again.
 
 > e
 You move east.
@@ -294,12 +294,12 @@ Using the spatula, you thrust into the floor, scooping up a bladeful of
 compacted dirt.  A little more digging and you uncover a yellow balloon,
 which is in surprisingly good condition.
 
+> take balloon
+You pick up the yellow balloon.
+
 For a second, a strong fragrance is in the air.  A fleeting image in your
 mind of another place and time is triggered by the smell, only to disappear
 as quickly as it arrived.
-
-> take balloon
-You pick up the yellow balloon.
 
 > up
 You move up.

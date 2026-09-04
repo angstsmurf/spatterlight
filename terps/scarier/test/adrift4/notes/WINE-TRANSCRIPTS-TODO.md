@@ -544,6 +544,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `ECOD3.taf` | 3.90 | full run390 replay, `Adrift_3_ecod3.txt` (feed `cmdfile_w_ecod3.txt` -- 11 commands, the solution's 15 `#` comment lines stripped) | clean: 11/11 echoed, 10/11 turns identical and the Usher's walk in step; the 11th is the tail -- the transcript stops mid-epilogue at the final pause, so the alley arrival and score summary never flush.  Measured 2026-08-31 |
 | `superliam.taf` | 3.80 | full run380 replay, `Adven_1_superliam.rtf` (feed `cmdfile_w_superliam.txt` -- 86 commands, Save Transcript at the 85th) | 85/85 echoed; three divergent turns, two engine rules, both FIXED: the run380 **AdditionalMessage double-space suppression reaches through a ShowRoomDesc room description**, and **names are matched RAW** -- object Short `"necko wafers "` (trailing space) is unreferenceable, `take necko wafers` answers "Take what?".  After the fixes every echoed turn matches; both sides win 3250/3250.  Measured 2026-08-31 |
 | `cave.taf` | 3.80 | three full run380 replays, `Adven_1_cave.rtf` / `Adven_1_cave2.rtf` / `Adven_1_cave3.rtf` (final feed `cmdfile_w_cave3.txt` -- 216 commands, Save Transcript flow) | 215/215 echoed each time; FOUR engine findings, all FIXED: `z` is not 3.80 vocabulary (whole-line `= "z"` test only exists from run390_3 45FCB0 -- seven `z` -> `wait`); 3.8 substitutes "There is nothing of interest here." into empty room Longs at LOAD (447FEE), so it prints BEFORE LastDesc alts; a 3.8 task can never move the PLAYER to the game's FIRST room (tasks() 44D1D4 stores Var2 pre-decremented behind "If Var2 > 1" -- second `climb down` re-derived to `down`; 3.7's encoding sits one higher so run370 441E55 is correct, arlo the counterexample; is_v370 gate in sctafpar.cpp); and the single-named held-take refusal is "You've already got X!" pre-4.0 (43E03E -- 4.0's "already carrying" @462D25 gated on lib_is_version_400, four 3.9 goldens re-blessed -- thewoods' own ALR "I've already got the" -> "<br>I'm already carrying the" confirms the base from the game side).  Third drive replays CLEAN: every comparable turn identical, `score` at 900/1000 both sides; only the winning `read parchment` is uncapturable in the Save-at-end flow (Scarier finishes 1000/1000).  Still open from the pre-fix stuck-tail census (never reached by the corrected feed): 3.8 answers a matched-task-wrong-room with "You can't do that here." (21x) and names unseen/unheld objects in refusals ("You can't see X from here!" / "You don't have X!") where Scarier says "Take what?" etc -- a 3.8 referenceability/where-fail model not yet ported.  Measured 2026-08-31 |
+| `haunt.taf` | 3.80 | full run380 replay, `Adven_1_haunt.rtf` (feed `cmdfile_w_haunt.txt` -- 85 commands, `measure38.sh`: Save Transcript at the 84th, the winning `down` sent after it) | 84/84 echoed; 40 divergent turns, then 1, then 0 -- two pre-3.9 engine rules, both fixed: **no startup event tick before 3.90** (a StarterType 2 delay of N starts on turn N, uncompensated) and **no administrative turns before 3.90** (`score` ticks NPCs and events).  Seven 3.80 goldens re-blessed, wrecked re-pinned to seed 106; full suite 428/428 PASS. |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -797,7 +798,7 @@ The four best targets, by walks x length:
 
 | game | solution | cmds | walks | NPCs | events | waitkey | notes |
 |---|---|---:|---:|---:|---:|---|---|
-| `haunt.taf` | `haunt` | 88 | 5 | 4 | 3 | -- | -- |
+| `haunt.taf` | `haunt` | 88 | 5 | 4 | 3 | -- | **done** 2026-09-04 -- see "Measured so far" |
 | `superliam.taf` | `super_liam` | 86 | 5 | 11 | 0 | -- | **done** 2026-08-31 -- see "Measured so far" |
 | `cave.taf` | `cave` | 216 | 2 | 5 | 12 | -- | **done** 2026-08-31 -- see "Measured so far" |
 | `akron.taf` | `akron` | 44 | 2 | 4 | 0 | -- | -- |
@@ -4504,3 +4505,73 @@ rules, both fixed; the seeded replay wins 3250/3250 on both sides.
   seen gate and no ambiguity pass: 75 lines, raw InStr, first hit wins.
 - Corpus after both fixes: **408 PASS**, sole golden change
   `super_liam_solution.expected.txt` (3 lines), re-blessed; win marker kept.
+
+## haunt.taf (House of the Damned, 3.80) -- 2026-09-04, run380
+
+Feed `cmdfile_w_haunt.txt` (85 commands, PRE=0, identical to the solution),
+transcript `Adven_1_haunt.rtf` (Save Transcript at the 84th command; the
+85th, `down`, is the win and was sent after the save, so its output is not in
+the .rtf).  Driven with the new `measure38.sh` -- the run380/run370 twin of
+`measure.sh`: registry-only Verbose/Sound pre-flight in `pfx/user.reg` with
+nothing of ours running, fresh launch, startup-alert dismissal, all-but-last
+commands through `drive_ckpt_safe.sh`, then Adventure (menu bar +30/+43) and
+`t` for Save Transcript with the "Transcript saved" MsgBox detected as an
+extra top-level window before its Return is sent, then the last command.  It
+replaces `runner_savetranscript.sh`, whose blind Ctrl+V TOGGLES Verbose (the
+registry value is what the Runner starts with -- run380.bas 431963
+`GetSetting "Verbose"`, default False), so a prefix already at Verbose=True
+came up Verbose OFF and every re-entry heading went missing.  RULE 2 clean
+-- 84/84 echoed.  Forty divergent turns before the fix, one after the first
+rule, none after the second; the seeded replay wins 84/84 on both sides.
+
+- **No startup event tick before 3.90 (40 turns, FIXED)**: run390's tstart
+  (42E940) calls `events()` at 42E90B straight after the opening viewroom and
+  run400's tstart calls 449310 the same way -- that is the tick Scarier's
+  startup `evt_tick_events()` reproduces, and the `+1` on every StarterType 2
+  delay in `evt_start_load_events()` compensates.  run380's `events()`
+  (425094) and run370's (432538) have exactly ONE caller each: the tail of
+  generaltasks.  Their load code (run380 448DC9 / run370 440083) puts a
+  StarterType 1 event straight into RUNNING with its rolled length and no
+  StartText, and a StarterType 2 event into WAITING with its rolled delay;
+  checkevent (run380 439DA5) then decrements and starts on `= 0`, so a delay
+  of N starts on turn N with nothing to compensate.  haunt's Weather (delay
+  1, restart 2) and Wolves (delay 1) events therefore started AT LOAD in
+  Scarier and on turn 1 in the Runner, and every weather/wolves line sat one
+  turn early.  Ported as version gates in scrunner.cpp (the startup
+  `evt_finish_load_events()` + `evt_tick_events()` pair) and scevents.cpp
+  (the `+1`), both `>= TAF_VERSION_390`.  Immediate events are unaffected:
+  bare length, first decrement on turn 1, same finish turn.  A ZERO-length
+  immediate parks for ever in 3.8 (the clock goes negative past the `= 0`
+  test at 43A474) -- decompile-read, not measured; the corpus has one such
+  event (wrecked EVENT 35, which un-completes a task nothing ever completes).
+- **No administrative turns before 3.90 (turn 83, `score`, FIXED)**: after
+  the first fix the one remaining divergence was `score` at turn 83 -- the
+  Runner followed "Your score is 84 out of a maximum of 84.  (100%)" with the
+  Weather FinishText and the grandfather-clock line, which Scarier had
+  swallowed as an administrative turn.  run390's generaltasks (460D6C) sets
+  its flag 468219 for history / score / count / information / end / turns and
+  guards the end-of-turn `characters()` + `events()` (460675/46067A) on it;
+  run380's generaltasks tail (443160-44317E; run370 43C88D-43C8AB) ticks
+  after EVERY command that left output unless the game has ended.  Only
+  `opensave()` (save / restore / restart, `GoTo 443326`) and quit (which
+  Unloads the form) bypass it, and the turn counter (44F138 at 441A21)
+  increments on every command as well.  Ported as `lib_set_admin()` in
+  sclibrar.cpp -- `is_admin` only from 3.90 -- on the meta-commands 3.8
+  recognises and answers: score, turns, count, hint, help, about, clear,
+  history, where.  Verbs 3.8 does not know (version, license, notify,
+  status, brief, verbose ...) keep their 4.0 behaviour, since the Runner
+  would answer "I don't understand" for them anyway.  `undo` is left admin:
+  3.8 has no undo ("I can't undo your blundering.").
+- Corpus after both fixes: seven 3.80 goldens moved -- haunt, great_escape
+  (its mid-chase `score` now gets the "sirens" event line), and marooned /
+  wrecked / twilight / tom_ceader (secret.taf) / timmy_reid (tra.taf), whose
+  delayed events all have RANDOM delays and moved only through the RNG
+  stream (one draw fewer at startup).  None changed its score or win;
+  wrecked's seed-tuned train waits needed a re-pin (95 -> 106; 150 also
+  wins).  cave and haunted, the other exposed 3.80 rows, did not move.
+  The tra.taf replay (`Adven_9_timmy_reid.rtf`) still agrees with Scarier
+  on everything but its RNG-timed lines, as it did before.
+- **Open lead, 3.90**: the run390 admin set above is history / score / count
+  / information / end / turns only.  Scarier also marks hint, help, clear,
+  where and a dozen 4.0-era verbs administrative for 3.9 games; nothing has
+  measured `hint` / `help` / `clear` / `where` under run390 yet.

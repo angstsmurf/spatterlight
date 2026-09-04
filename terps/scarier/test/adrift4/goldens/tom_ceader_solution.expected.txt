@@ -111,7 +111,6 @@ Time passes...
 "hey pal your keys ready ."
 The keymaker says "Thanks for the job , heres your key" and hands you the key
 .
-You know there must be survivers so you should leave asap.
 
 > out
 You move out.
@@ -120,6 +119,7 @@ some sort . The road is paved black , there are street lights near the road
 and the basic yellow markers .
 
 You can move west and in.
+You know there must be survivers so you should leave asap.
 
 > west
 You move west.

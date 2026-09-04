@@ -1397,6 +1397,8 @@ locked_door_solution.txt|Locked_door_with_water_trap.taf|See if I ever dive with
 # bread and fresh  turkey", and hhorror's obj 51 " floorboards".  The trim now
 # runs at parse time, in parse_trim_object_names(), because in the Runner it
 # happens in the loader and the noun matcher therefore sees it too.
+# Re-blessed 2026-09-04: pre-3.9 delayed events roll one RNG draw later (no
+# startup event tick); the measurement is on the haunt row.
 marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!
 # Wrecked (Campbell Wild, 2000), TAF 3.80.  WIN at the full 250/250, following
 # the author's own published walkthrough -- but that walkthrough leaves four
@@ -1431,7 +1433,10 @@ marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!
 # 2026-08-31: "In the swimming pool" (empty Long + LastDesc alt) now leads
 # with "There is nothing of interest here." -- 3.8 substitutes it into the
 # empty Long at LOAD (run380 447FEE), measured live on cave.taf.
-wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.|SCR_SEED=95
+# 2026-09-04: seed re-pinned 95 -> 106 (a 1-400 scan gave 106, 150) after the
+# pre-3.9 startup event tick was removed, which shifts every roll by one
+# draw; route and 250/250 win unchanged.  Measured on the haunt row.
+wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.|SCR_SEED=106
 # Mortality (David Whyld, 2004).  A VERBATIM replay of the author's own session
 # transcript shipped inside the game's doc file: all 78 commands, no repairs,
 # word-for-word identical responses, ending on one of the two good endings.
@@ -2256,9 +2261,49 @@ akron_solution.txt|akron.taf|you brave adventurer, saved yourself
 #    secret_of_lost_world, villains_and_kings and thewoods (3.9) re-blessed
 #    with it (thewoods ALRs the corrected base itself -- see its row).
 cave_solution.txt|cave.taf|You scored 1000 out of the maximum 1000!
+# 3.80.  Measured live 2026-09-04: full run380 replay, Adven_1_haunt.rtf
+# (feed cmdfile_w_haunt.txt, 85 commands, measure38.sh: Save Transcript at
+# the 84th; the 85th, `down`, is the win and its output is not in the .rtf).
+# 84/84 echoed, 84/84 identical after two engine fixes.  Canonical block for
+# the seven 3.80 goldens this moved (marooned, wrecked, twilight,
+# great_escape, tom_ceader, timmy_reid and this row):
+#  - NO startup event tick before 3.90.  run390 tstart (42E940) calls
+#    events() at 42E90B right after the opening viewroom, and run400 tstart
+#    calls 449310 the same way; run380's events() (425094) and run370's
+#    (432538) have exactly one caller each, the end of generaltasks.  The
+#    load code (run380 448DC9 / run370 440083) puts a StarterType 1 event
+#    straight into RUNNING with its rolled length and a StarterType 2 event
+#    into WAITING with its rolled delay, and checkevent (run380 439DA5)
+#    decrements and starts on `= 0` -- a delay of N starts on turn N with
+#    nothing to compensate.  Here the Weather (delay 1, restart 2) and
+#    Wolves (delay 1) events started at LOAD in Scarier and on turn 1 in the
+#    Runner, shifting 40 of 84 turns.  Ported as version gates: the startup
+#    evt_finish_load_events()+evt_tick_events() pair in scrunner.cpp and the
+#    +1 delay compensation in evt_start_load_events() are >= 3.90 only.
+#    Immediate events are unaffected (bare length, first decrement on turn
+#    1, same finish turn).  Corpus exposure: every pre-3.9 delayed event
+#    other than haunt's two and wrecked's fish (1..1) has a RANDOM delay, so
+#    the other six rows moved only through the RNG stream (one draw fewer at
+#    startup) and none changed its score or win.
+#  - NO administrative turns before 3.90 (turn 83, `score`).  run390
+#    generaltasks (460D6C) sets flag 468219 for history/score/count/
+#    information/end/turns and guards its end-of-turn characters()+events()
+#    (460675) on it; run380's generaltasks tail (443160-44317E, run370
+#    43C88D-43C8AB) ticks after EVERY command that left output unless the
+#    game has ended -- only opensave() (save/restore/restart, GoTo 443326)
+#    and quit (Unload) bypass it, and the turn counter (44F138, 441A21)
+#    increments on every command too.  The Runner printed the Weather
+#    FinishText and the grandfather-clock line after `score`; Scarier had
+#    swallowed the tick as administrative.  Ported as lib_set_admin() in
+#    sclibrar.cpp (is_admin only >= 3.90) on the meta-commands 3.8
+#    recognises and answers: score, turns, count, hint, help, about, clear,
+#    history, where.  great_escape (3.80, a `score` mid-chase) gained its
+#    "sirens" event line from it.
 haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
+# Re-blessed 2026-09-04: pre-3.9 delayed events roll one RNG draw later (no
+# startup event tick); the measurement is on the haunt row.
 twilight_solution.txt|twilight.taf|Your score is 500 out of a maximum of 500
 haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 # 3.80.  Re-blessed 2026-08-24: "Mrs Walters totters into the room." moves
@@ -2295,11 +2340,18 @@ haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 # Street north -> Restaurant).  Same events, same 1475/1860 finish.
 # microwaveman.taf and twilight.taf each carry one such record too, but
 # their walkthroughs never exercise it.
+# Re-blessed 2026-09-04: `score` is not an administrative turn in 3.8, so
+# the "sirens are getting louder" event line now follows it; measured on the
+# haunt row.
 great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!
+# Re-blessed 2026-09-04: pre-3.9 delayed events roll one RNG draw later (no
+# startup event tick); the measurement is on the haunt row.
 tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
 # The 3.8 half of the walk-announcement rewrite was measured on this game --
 # run380 under Wine, Adven_9_timmy_reid.rtf, 2026-08-24: Hovey's departure really is
 # "shuffles off outside." with no "to".  See the arlo block.
+# Re-blessed 2026-09-04: pre-3.9 delayed events roll one RNG draw later (no
+# startup event tick); the measurement is on the haunt row.
 timmy_reid_solution.txt|tra.taf|Thanks for getting us back home!
 duck_mccloud_solution.txt|duck.taf|You jump from the plane just in time and you survive the huge
 fistandantalus_solution.txt|first.taf|Congradulations you have won the game

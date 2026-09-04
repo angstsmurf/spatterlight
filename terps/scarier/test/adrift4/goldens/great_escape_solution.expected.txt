@@ -944,6 +944,7 @@ chase is over, but maybe you could still get away with it...
 
 > score
 Your score is 1375 out of a maximum of 1860.  (73%)
+The sirens are getting louder and louder...
 
 > hide
 As the sirens draw closer you hide yourself in the long grass of the field.

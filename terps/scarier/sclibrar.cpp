@@ -847,6 +847,35 @@ lib_is_version_400 (scr_gameref_t game)
 
 
 /*
+ * lib_set_admin()
+ *
+ * Mark a built-in meta-command as an administrative turn -- but only for
+ * 3.90/4.00 games.  Administrative turns exist only from 3.90: run390
+ * generaltasks (460D6C) sets its flag 468219 for history/score/count/
+ * information/end/turns, and its end-of-turn characters()+events() at
+ * 460675/46067A is guarded by that flag.  run380 generaltasks (44349C) and
+ * run370 (43B5xx) have no such flag: their tail (run380 443160-44317E,
+ * run370 43C88D-43C8AB) ticks characters()+events() after EVERY command
+ * that left output, unless the game has ended; only opensave() (save/
+ * restore/restart, GoTo 443326) and quit (unloads the form) bypass it.
+ * Measured 2026-09-04, run380 haunt.taf: the `score` at turn 83 is followed
+ * by the Weather event's finish text and the grandfather-clock line, which
+ * Scarier had suppressed as an administrative turn.  The 3.8 turn counter
+ * (44F138, 441A21) likewise increments on every command, so the pre-3.90
+ * non-admin path is right on both counts.  Callers are the meta-commands
+ * 3.8 recognises and answers (score, turns, count, hint, help, about,
+ * clear, history, where); verbs 3.8 does not know at all keep their 4.0
+ * behaviour.
+ */
+static void
+lib_set_admin (scr_gameref_t game)
+{
+  game->is_admin = prop_get_taf_version (gs_get_bundle (game))
+                   >= TAF_VERSION_390;
+}
+
+
+/*
  * lib_matcher_requires_seen()
  *
  * TRUE if the parser's object matcher should reject objects the player
@@ -2372,7 +2401,7 @@ lib_cmd_history_common (scr_gameref_t game, scr_int limit)
   /* Remove the surrogate "history"; the main loop will add the real one. */
   memo_unsave_command (memento);
 
-  game->is_admin = TRUE;
+  lib_set_admin (game);
   return TRUE;
 }
 
@@ -2624,7 +2653,7 @@ lib_cmd_hints (scr_gameref_t game)
                         " yourself...\n");
     }
 
-  game->is_admin = TRUE;
+  lib_set_admin (game);
   return TRUE;
 }
 
@@ -2710,7 +2739,7 @@ lib_cmd_help (scr_gameref_t game)
   if_print_string (
     " to print both SCARIER's and the game's version number.\n");
 
-  game->is_admin = TRUE;
+  lib_set_admin (game);
   return TRUE;
 }
 
@@ -2795,7 +2824,7 @@ lib_cmd_information (scr_gameref_t game)
   if_print_string (".\n");
   scr_free (filtered);
 
-  game->is_admin = TRUE;
+  lib_set_admin (game);
   return TRUE;
 }
 
@@ -2812,7 +2841,7 @@ lib_cmd_clear (scr_gameref_t game)
 
   pf_buffer_tag (filter, SCR_TAG_CLS);
   pf_buffer_string (filter, "Screen cleared.\n");
-  game->is_admin = TRUE;
+  lib_set_admin (game);
   return TRUE;
 }
 
@@ -5937,7 +5966,7 @@ lib_cmd_count (scr_gameref_t game)
       pf_buffer_integer (filter, obj_get_player_burden_limit (game));
       pf_buffer_string (filter, ".\n");
 
-      game->is_admin = TRUE;
+      lib_set_admin (game);
       return TRUE;
     }
 
@@ -5977,7 +6006,7 @@ lib_cmd_count (scr_gameref_t game)
   pf_buffer_integer (filter, obj_get_player_weight_limit (game));
   pf_buffer_string (filter, ".\n");
 
-  game->is_admin = TRUE;
+  lib_set_admin (game);
   return TRUE;
 }
 
@@ -11069,7 +11098,7 @@ lib_cmd_locate_object (scr_gameref_t game)
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int index_, count, object, room, position, parent;
 
-  game->is_admin = TRUE;
+  lib_set_admin (game);
 
   /*
    * Filter to remove unseen object references.  Note that this is different
@@ -11275,7 +11304,7 @@ lib_cmd_locate_npc (scr_gameref_t game)
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int index_, count, npc, room;
 
-  game->is_admin = TRUE;
+  lib_set_admin (game);
 
   /* Count the number of NPCs referenced by the last command. */
   count = 0;
@@ -11410,7 +11439,7 @@ lib_cmd_turns (scr_gameref_t game)
   pf_buffer_integer (filter, game->turns);
   pf_buffer_string (filter, " turns so far.\n");
 
-  game->is_admin = TRUE;
+  lib_set_admin (game);
   return TRUE;
 }
 
@@ -11441,7 +11470,7 @@ lib_cmd_score (scr_gameref_t game)
   pf_buffer_integer (filter, percent);
   pf_buffer_string (filter, "%)\n");
 
-  game->is_admin = TRUE;
+  lib_set_admin (game);
   return TRUE;
 }
 
@@ -11746,7 +11775,7 @@ lib_cmd_locate_other (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
 
   pf_buffer_string (filter, "I don't know where that is!\n");
-  game->is_admin = TRUE;
+  lib_set_admin (game);
   return TRUE;
 }
 

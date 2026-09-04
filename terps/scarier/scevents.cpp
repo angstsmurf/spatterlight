@@ -1323,8 +1323,15 @@ evt_start_load_events (scr_gameref_t game)
        * evt_tick_event()): the startup tick that follows decrements a running
        * event once, so a length-N event has to leave the load carrying N+1.
        * A zero-length event keeps its zero and is finished below.
+       *
+       * Only where that tick exists, which is 3.90 and 4.00: run380 and
+       * run370 never call events() before the first command (see the
+       * startup block in scrunner.cpp), and their load code hands an
+       * immediate event its bare rolled length, so the first command's
+       * decrement is the first one it ever sees.
        */
-      if (gs_event_time (game, event) > 0)
+      if (gs_event_time (game, event) > 0
+          && evt_taf_version (game, event) >= TAF_VERSION_390)
         gs_set_event_time (game, event, gs_event_time (game, event) + 1);
     }
 }
