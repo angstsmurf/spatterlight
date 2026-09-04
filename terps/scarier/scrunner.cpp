@@ -592,8 +592,13 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[wait] %number%", lib_cmd_wait_number},
   {"[wait]", lib_cmd_wait},
 #else
-  {"[wait/z] %number%", lib_cmd_wait_number},
-  {"[wait/z]", lib_cmd_wait},
+  /* `z` only entered the Runner vocabulary at 3.90 (index/verbs.py; cave.taf
+   * run380 live 2026-08-31 answers it "Say again?"), so its rows decline
+   * below that version and the word falls through to the unknown reply. */
+  {"[wait] %number%", lib_cmd_wait_number},
+  {"[wait]", lib_cmd_wait},
+  {"z %number%", lib_cmd_wait_number_390},
+  {"z", lib_cmd_wait_390},
 #endif
   {"save", lib_cmd_save},
   {"[restore/load]", lib_cmd_restore},

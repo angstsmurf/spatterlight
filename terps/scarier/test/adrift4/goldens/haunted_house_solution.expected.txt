@@ -258,9 +258,9 @@ staircase leading up.
 
 > up
 You move up.
-You are standing in the upstairs landing.  High above your head is some kind
-of hatch.  There is a bedroom to the north and south, and a bathroom to your
-west.  A spiral staircase leads down.
+There is nothing of interest here.  You are standing in the upstairs landing.
+ High above your head is some kind of hatch.  There is a bedroom to the north
+and south, and a bathroom to your west.  A spiral staircase leads down.
 
 > w
 You move west.
@@ -273,9 +273,9 @@ Well, I suppose this is the place to do it if anywhere is!
 
 > e
 You move east.
-You are standing in the upstairs landing.  High above your head is some kind
-of hatch.  There is a bedroom to the north and south, and a bathroom to your
-west.  A spiral staircase leads down.
+There is nothing of interest here.  You are standing in the upstairs landing.
+ High above your head is some kind of hatch.  There is a bedroom to the north
+and south, and a bathroom to your west.  A spiral staircase leads down.
 
 > n
 You move north.
@@ -293,9 +293,9 @@ You take a nap for a while, and wake up feeling refreshed.
 
 > s
 You move south.
-You are standing in the upstairs landing.  High above your head is some kind
-of hatch.  There is a bedroom to the north and south, and a bathroom to your
-west.  A spiral staircase leads down.
+There is nothing of interest here.  You are standing in the upstairs landing.
+ High above your head is some kind of hatch.  There is a bedroom to the north
+and south, and a bathroom to your west.  A spiral staircase leads down.
 
 > down
 You move down.
@@ -440,10 +440,10 @@ Also here is a pink nail file and a fancy key.
 
 > n
 You move north.
-You are in the back garden.  It must be a good few acres in size.  There are
-various trees scattered around.  Also, in the ground, is a big lump of
-concrete.  There is a thick hedge preventing you from going outside the
-garden.  The garden stretches to the east and west.
+There is nothing of interest here.  You are in the back garden.  It must be a
+good few acres in size.  There are various trees scattered around.  Also, in
+the ground, is a big lump of concrete.  There is a thick hedge preventing you
+from going outside the garden.  The garden stretches to the east and west.
 
 > climb tree
 You find your footing in the small branches, and make your way up the tree.
@@ -462,7 +462,8 @@ chimney.
 
 > down
 You move down.
-You are in the attic.  There is a trapdoor in the floor.
+There is nothing of interest here.  You are in the attic.  There is a
+trapdoor in the floor.
 
 Also here is a smooth stick.
 
@@ -479,16 +480,16 @@ landing.
 
 > down
 You move down.
-You are standing in the upstairs landing.  High above your head is some kind
-of hatch, which is open.  A ladder leads up towards the hatch, into the
-attic.  There is a bedroom to the north and south, and a bathroom to your
-west.  A spiral staircase leads down.
+There is nothing of interest here.  You are standing in the upstairs landing.
+ High above your head is some kind of hatch, which is open.  A ladder leads
+up towards the hatch, into the attic.  There is a bedroom to the north and
+south, and a bathroom to your west.  A spiral staircase leads down.
 
 > s
 You move south.
-You are in the small bedroom.  There is a small bed by one wall.  You jump as
-a ghost flies past your face.  The ghost flies round and round the room.  The
-upstairs landing is to the north.
+There is nothing of interest here.  You are in the small bedroom.  There is a
+small bed by one wall.  You jump as a ghost flies past your face.  The ghost
+flies round and round the room.  The upstairs landing is to the north.
 
 > give teddy to ghost
 You hand the old teddy bear to the ghost.  She squeals, as now she can rest
@@ -497,10 +498,10 @@ bear, and floats out the window.
 
 > n
 You move north.
-You are standing in the upstairs landing.  High above your head is some kind
-of hatch, which is open.  A ladder leads up towards the hatch, into the
-attic.  There is a bedroom to the north and south, and a bathroom to your
-west.  A spiral staircase leads down.
+There is nothing of interest here.  You are standing in the upstairs landing.
+ High above your head is some kind of hatch, which is open.  A ladder leads
+up towards the hatch, into the attic.  There is a bedroom to the north and
+south, and a bathroom to your west.  A spiral staircase leads down.
 
 > down
 You move down.
@@ -529,10 +530,11 @@ Also here is a small ball.
 
 > e
 You move east.
-You are standing in the conservatory.  There are lots of windows here, but
-you notice a strange round window, very high up.  In the floor, there is some
-sort of round hole.  The walls appear to be made up from lots of panels.  The
-study is to the north, and the reception area is to the west.
+There is nothing of interest here.  You are standing in the conservatory.
+There are lots of windows here, but you notice a strange round window, very
+high up.  In the floor, there is some sort of round hole.  The walls appear
+to be made up from lots of panels.  The study is to the north, and the
+reception area is to the west.
 
 > put rod in hole
 You put the fancy rod into the hole.  Suddenly, a beam of light enters from
@@ -547,9 +549,9 @@ conservatory, whilst you can see a small room to the east.
 
 > e
 You move east.
-You are in a secret underground cavern.  The ground is very soft here.  The
-room is strangely lit by a soft green glow eminating from the cavern walls.
-The passage leads back west.
+There is nothing of interest here.  You are in a secret underground cavern.
+The ground is very soft here.  The room is strangely lit by a soft green glow
+eminating from the cavern walls.  The passage leads back west.
 
 > dig
 You dig in the soft ground with the piece of guttering.  You uncover a small
@@ -571,12 +573,13 @@ conservatory, whilst you can see a small room to the east.
 
 > w
 You move west.
-You are standing in the conservatory.  There are lots of windows here, but
-you notice a strange round window, very high up.  In the middle of the floor
-is a rod.  A beam of light is coming from the window, through the crystal,
-and into the passage.  The walls appear to be made up from lots of panels.
-One of the panels has opened, revealing a secret passage.  The study is to
-the north, and the reception area is to the west.
+There is nothing of interest here.  You are standing in the conservatory.
+There are lots of windows here, but you notice a strange round window, very
+high up.  In the middle of the floor is a rod.  A beam of light is coming
+from the window, through the crystal, and into the passage.  The walls appear
+to be made up from lots of panels.  One of the panels has opened, revealing a
+secret passage.  The study is to the north, and the reception area is to the
+west.
 
 > n
 You move north.
@@ -667,10 +670,10 @@ Also here is a pink nail file and a fancy key.
 
 > n
 You move north.
-You are in the back garden.  It must be a good few acres in size.  There are
-various trees scattered around.  Also, in the ground, is a big lump of
-concrete.  There is a thick hedge preventing you from going outside the
-garden.  The garden stretches to the east and west.
+There is nothing of interest here.  You are in the back garden.  It must be a
+good few acres in size.  There are various trees scattered around.  Also, in
+the ground, is a big lump of concrete.  There is a thick hedge preventing you
+from going outside the garden.  The garden stretches to the east and west.
 
 > drill concrete
 You take the drill, and place the bit into the concrete.  The drill starts to

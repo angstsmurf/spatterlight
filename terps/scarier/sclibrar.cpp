@@ -1569,6 +1569,21 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
           pf_buffer_string (filter, description);
           is_described = TRUE;
         }
+      else if (prop_get_taf_version (bundle) == TAF_VERSION_380)
+        {
+          /*
+           * 3.8 substitutes "There is nothing of interest here." into an
+           * empty Long at LOAD time (run380 447FEE), so the sentence prints
+           * wherever the Long would -- even when an alt goes on to describe
+           * the room.  Measured live 2026-08-31 on cave.taf (3.80): "By the
+           * old shack" and "By the large tree" have empty Longs and a
+           * LastDesc alt, and run380 prints "There is nothing of interest
+           * here.  You are standing..." on every show.  3.9's render-time
+           * guard below fires only when nothing else described the room.
+           */
+          pf_buffer_string (filter, "There is nothing of interest here.");
+          is_described = TRUE;
+        }
 
       vt_key[2].string = "Res";
       res_handle_resource (game, "sis", vt_key);
@@ -1652,8 +1667,12 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
    * guarded shape at all four of its exits (run390 4478CA/4479A5/447A3A/
    * 447ACF, each preceded by a `<alt string> <> vbNullString` branch that
    * jumps clean past it).  3.8 does it at LOAD time instead, substituting the
-   * sentence into the empty Long itself (run380 447FEE), so it arrives at the
-   * same output by a different route.  3.7 has no such string and leaves the
+   * sentence into the empty Long itself (run380 447FEE) -- and cave.taf
+   * (measured live 2026-08-31) proves the routes DIVERGE when an alt
+   * describes the room: 3.8 prints the substitute in the Long's place AND
+   * the alt after it, where this render-time guard stayed silent.  The 3.80
+   * case therefore now lives up at the Long print; only 3.90 keeps this
+   * guarded tail.  3.7 has no such string and leaves the
    * room blank; 4.0 dropped it again.
    *
    * Read the guard, not the literal: hanging the sentence off an empty Long
@@ -1672,7 +1691,7 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
     {
       const scr_int version = prop_get_taf_version (bundle);
 
-      if (version == TAF_VERSION_380 || version == TAF_VERSION_390)
+      if (version == TAF_VERSION_390)
         {
           pf_buffer_string (filter, "There is nothing of interest here.");
           is_described = TRUE;
@@ -2930,6 +2949,35 @@ lib_cmd_wait (scr_gameref_t game)
   if (lib_is_version_400 (game))
     pf_buffer_hard_break (filter);
   return TRUE;
+}
+
+
+/*
+ * lib_cmd_wait_390()
+ * lib_cmd_wait_number_390()
+ *
+ * `z` is not in the pre-3.9 Runner vocabulary: the verb harvest finds the
+ * "z" literal only from run390 on (index/verbs.py; run390_3.bas 45FCB0),
+ * and run380 live answers `z` with "Say again?" -- measured 2026-08-31 on
+ * cave.taf, where every `z` in the solution fell dead and the egg-hatch
+ * timeline drifted.  These wrap the wait handlers for the `z` rows and
+ * decline below 3.90, so `z` falls through to the ordinary unknown-command
+ * reply -- which is already "Say again?" here.
+ */
+scr_bool
+lib_cmd_wait_390 (scr_gameref_t game)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return FALSE;
+  return lib_cmd_wait (game);
+}
+
+scr_bool
+lib_cmd_wait_number_390 (scr_gameref_t game)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return FALSE;
+  return lib_cmd_wait_number (game);
 }
 
 scr_bool
@@ -6475,8 +6523,15 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * handler, which words the held-object refusal "I am already carrying
    * <object>." (run400 @00462D25); "'ve already got <object>!" is the
    * multi-take processor's wording (run400 @0047BE1B).
+   *
+   * 4.0 only: the pre-4.0 Runners have no "already carrying" wording at
+   * all (no such literal in run370/run380/run390.bas; the only held-take
+   * refusal is "'ve already got <object>!" -- run370 436561, run380
+   * 43E03E, run390_3 454EC5).  Measured live 2026-08-31 on cave.taf
+   * run380: single-named `take parchment` while holding it answers
+   * "You've already got half of a parchment!".
    */
-  if (lib_take_single_named && list.size () == 1)
+  if (lib_is_version_400 (game) && lib_take_single_named && list.size () == 1)
     {
       lib_new_clause (game, has_printed);
       pf_buffer_string (filter,

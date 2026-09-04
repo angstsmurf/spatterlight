@@ -37,13 +37,13 @@ n
 e
 give chocolate to mrs walters
 call ambulance
-z
-z
+wait
+wait
 take picasso
 s
 phone julie
-z
-z
+wait
+wait
 invite julie in
 up
 e
@@ -78,8 +78,10 @@ w
 w
 converse with mr broomfield
 give novel to mr broomfield
-n
-n
+e
+e
+down
+s
 w
 converse with diners
 w

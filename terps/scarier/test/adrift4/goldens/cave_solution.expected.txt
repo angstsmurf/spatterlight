@@ -28,9 +28,9 @@ You put on a small red poppy.
 
 > w
 You move west.
-You are standing outside an old shack.  It looks very run down.  There is a
-pump here.  There is a cave to the north, a poppy field to the east, and a
-pool to the south.
+There is nothing of interest here.  You are standing outside an old shack.
+It looks very run down.  There is a pump here.  There is a cave to the north,
+a poppy field to the east, and a pool to the south.
 
 > kick door
 You kick the door in a karate style kick, and it flys open, then slams shut
@@ -68,9 +68,9 @@ You take a rusty old axe from the large chest.
 
 > out
 You move out.
-You are standing outside an old shack.  It looks very run down.  There is a
-pump here.  There is a cave to the north, a poppy field to the east, and a
-pool to the south.
+There is nothing of interest here.  You are standing outside an old shack.
+It looks very run down.  There is a pump here.  There is a cave to the north,
+a poppy field to the east, and a pool to the south.
 
 > e
 You move east.
@@ -123,11 +123,12 @@ the south, and a large tree to the west.
 
 > w
 You move west.
-You are standing beside an enormous tree.  The bark itself must be a couple
-of inches thick as you can see small gaps in the bark near the base of the
-tree.  Some of the roots poke back out from the ground like thick railings.
-You cannot see all the way to the top of the tree.  There is a poppy field to
-the south, and a cave to the west.  You can also move east.
+There is nothing of interest here.  You are standing beside an enormous tree.
+ The bark itself must be a couple of inches thick as you can see small gaps
+in the bark near the base of the tree.  Some of the roots poke back out from
+the ground like thick railings.  You cannot see all the way to the top of the
+tree.  There is a poppy field to the south, and a cave to the west.  You can
+also move east.
 
 > pick bark
 You peel a medium sized piece of bark from near the bottom of the tree.  It
@@ -153,10 +154,10 @@ fingers greedily.  The bird instantly looks more energetic as it swallows the
 tasty morsel.
 The bird squats in it's nest, and lays a small green egg.
 
-> z
+> wait
 Time passes...
 
-> z
+> wait
 Time passes...
 The egg starts to shake, and soon a small hole appears in the side.  Moments
 later a little green head appears, and breaks away from the egg.  Unfurling
@@ -168,8 +169,16 @@ You pick up the baby dragon.
 > climb down
 You make your way down the tree.
 
-> climb down
-You make your way down to the ground.
+> down
+You move down.
+There is nothing of interest here.  You are standing beside an enormous tree.
+ The bark itself must be a couple of inches thick as you can see small gaps
+in the bark near the base of the tree.  Some of the roots poke back out from
+the ground like thick railings.  You cannot see all the way to the top of the
+tree.  There is a poppy field to the south, and a cave to the west.  You can
+also move east.
+
+Also here is a shiny gold coin.
 
 > take coin
 You pick up the shiny gold coin.
@@ -194,9 +203,9 @@ you.  There is a large tree to the east, and an old shack to the south.
 
 > s
 You move south.
-You are standing outside an old shack.  It looks very run down.  There is a
-pump here.  There is a cave to the north, a poppy field to the east, and a
-pool to the south.
+There is nothing of interest here.  You are standing outside an old shack.
+It looks very run down.  There is a pump here.  There is a cave to the north,
+a poppy field to the east, and a pool to the south.
 
 > in
 You move in.
@@ -236,9 +245,9 @@ Also here is some sellotape.
 
 > out
 You move out.
-You are standing outside an old shack.  It looks very run down.  There is a
-pump here.  There is a cave to the north, a poppy field to the east, and a
-pool to the south.
+There is nothing of interest here.  You are standing outside an old shack.
+It looks very run down.  There is a pump here.  There is a cave to the north,
+a poppy field to the east, and a pool to the south.
 
 > e
 You move east.
@@ -251,10 +260,10 @@ Also here is an old book and a faded map.
 
 > s
 You move south.
-You are standing at the bottom of an old stairway cut into the rock.  The
-steps are very large and a little slippery, but there is a rope handrail
-running along the side.  To the north is the poppy field, the beach is to the
-east, and the pool to the west.
+There is nothing of interest here.  You are standing at the bottom of an old
+stairway cut into the rock.  The steps are very large and a little slippery,
+but there is a rope handrail running along the side.  To the north is the
+poppy field, the beach is to the east, and the pool to the west.
 
 > untie rope
 You untie the rope from the rock wall.
@@ -315,10 +324,10 @@ puts it in his pocket.  Reluctantly, he hands you the hammer.
 
 > n
 You move north.
-You are standing on the bank of the river.  It is very grassy here.  There is
-a small path leading north and south.  Sitting on the path is a small dog.
-There is a bridge to the north, and a market to the south.  To the east is a
-large metal fence.
+There is nothing of interest here.  You are standing on the bank of the
+river.  It is very grassy here.  There is a small path leading north and
+south.  Sitting on the path is a small dog.  There is a bridge to the north,
+and a market to the south.  To the east is a large metal fence.
 There is a sad looking dog here.
 
 > give bark to dog
@@ -332,20 +341,20 @@ of batteries.  Paws then runs away barking happily.
 You put the seed into the hole, and pat some soil down on top of it.
 A small stick appears in the hole.
 
-> z
+> wait
 Time passes...
 
-> z
+> wait
 Time passes...
 The stick reaches about two metres in height, then falls over.
 
-> z
+> wait
 Time passes...
 
-> z
+> wait
 Time passes...
 
-> z
+> wait
 Time passes...
 
 > take rod
@@ -374,8 +383,9 @@ your west, and to the north are the gates to a graveyard.
 
 > in
 You move in.
-You are standing inside a small garage.  There are shelves running along the
-sides of the walls.  There is an old run down car in here.
+There is nothing of interest here.  You are standing inside a small garage.
+There are shelves running along the sides of the walls.  There is an old run
+down car in here.
 
 > take nails
 You take a bag of nails from the shelves.
@@ -422,10 +432,10 @@ Bob is here, standing behind a stall.
 
 > n
 You move north.
-You are standing on the bank of the river.  It is very grassy here.  There is
-a small path leading north and south.  There is a small hole beside the path.
- There is a bridge to the north, and a market to the south.  To the east is a
-large metal fence.
+There is nothing of interest here.  You are standing on the bank of the
+river.  It is very grassy here.  There is a small path leading north and
+south.  There is a small hole beside the path.  There is a bridge to the
+north, and a market to the south.  To the east is a large metal fence.
 
 Also here is a fishing rod and a pair of batteries.
 
@@ -448,10 +458,10 @@ You drop the claw hammer.
 
 > s
 You move south.
-You are standing on the bank of the river.  It is very grassy here.  There is
-a small path leading north and south.  There is a small hole beside the path.
- There is a bridge to the north, and a market to the south.  To the east is a
-large metal fence.
+There is nothing of interest here.  You are standing on the bank of the
+river.  It is very grassy here.  There is a small path leading north and
+south.  There is a small hole beside the path.  There is a bridge to the
+north, and a market to the south.  To the east is a large metal fence.
 
 Also here is a fishing rod.
 
@@ -479,8 +489,9 @@ the south, and a large tree to the west.
 
 > w
 You move west.
-You are standing by what was once an enormous tree.  All that is left, is a
-large stump in the ground, and a load of roots sticking out the ground.
+There is nothing of interest here.  You are standing by what was once an
+enormous tree.  All that is left, is a large stump in the ground, and a load
+of roots sticking out the ground.
 
 Also here is a rusty old axe.
 
@@ -495,9 +506,9 @@ Also here is an old book and a faded map.
 
 > w
 You move west.
-You are standing outside an old shack.  It looks very run down.  There is a
-pump here.  There is a cave to the north, a poppy field to the east, and a
-pool to the south.
+There is nothing of interest here.  You are standing outside an old shack.
+It looks very run down.  There is a pump here.  There is a cave to the north,
+a poppy field to the east, and a pool to the south.
 
 > oil pump
 You squirt the oil into the moving parts of the pump.  Slowly, along with a
@@ -528,9 +539,10 @@ Also here is an old book and a faded map.
 
 > s
 You move south.
-You are standing at the bottom of an old stairway cut into the rock.  The
-steps are very large and a little slippery.  To the north is the poppy field,
-the beach is to the east, and the pool to the west.
+There is nothing of interest here.  You are standing at the bottom of an old
+stairway cut into the rock.  The steps are very large and a little slippery.
+To the north is the poppy field, the beach is to the east, and the pool to
+the west.
 
 Also here is a piece of wire and a baby dragon.
 
@@ -565,9 +577,10 @@ You drop the fishing rod.
 
 > w
 You move west.
-You are standing at the bottom of an old stairway cut into the rock.  The
-steps are very large and a little slippery.  To the north is the poppy field,
-the beach is to the east, and the pool to the west.
+There is nothing of interest here.  You are standing at the bottom of an old
+stairway cut into the rock.  The steps are very large and a little slippery.
+To the north is the poppy field, the beach is to the east, and the pool to
+the west.
 
 > n
 You move north.
@@ -580,9 +593,9 @@ Also here is an old book and a faded map.
 
 > w
 You move west.
-You are standing outside an old shack.  It looks very run down.  There is a
-pump here.  There is a cave to the north, a poppy field to the east, and a
-pool to the south.
+There is nothing of interest here.  You are standing outside an old shack.
+It looks very run down.  There is a pump here.  There is a cave to the north,
+a poppy field to the east, and a pool to the south.
 
 Also here is a small can of oil.
 
@@ -604,7 +617,7 @@ parchment.  You take the piece of parchment but before you manage to grab the
 robot, it is off again down the passage.  And it never comes back...
 
 > take parchment
-You are already carrying half of a parchment.
+You've already got half of a parchment!
 
 > out
 You move out.
@@ -613,9 +626,9 @@ you.  There is a large tree to the east, and an old shack to the south.
 
 > s
 You move south.
-You are standing outside an old shack.  It looks very run down.  There is a
-pump here.  There is a cave to the north, a poppy field to the east, and a
-pool to the south.
+There is nothing of interest here.  You are standing outside an old shack.
+It looks very run down.  There is a pump here.  There is a cave to the north,
+a poppy field to the east, and a pool to the south.
 
 Also here is a small can of oil.
 
@@ -666,9 +679,9 @@ hatch in the floor.
 
 > out
 You move out.
-You are standing outside an old shack.  It looks very run down.  There is a
-pump here.  There is a cave to the north, a poppy field to the east, and a
-pool to the south.
+There is nothing of interest here.  You are standing outside an old shack.
+It looks very run down.  There is a pump here.  There is a cave to the north,
+a poppy field to the east, and a pool to the south.
 
 Also here is a small can of oil.
 
@@ -686,9 +699,9 @@ You drop some sellotape.
 
 > s
 You move south.
-You are standing by a little pool.  The water is very clear.  A few reeds
-stick out from beneath the surface.  To the north is an old shack, and there
-is an old stairway to the east.
+There is nothing of interest here.  You are standing by a little pool.  The
+water is very clear.  A few reeds stick out from beneath the surface.  To the
+north is an old shack, and there is an old stairway to the east.
 
 > swim
 You swim out into the middle of the pool.
@@ -739,17 +752,18 @@ only way out of the crater is to the north.
 
 > n
 You move north.
-You are standing north of a large crater which was once a pool.  To the north
-is an old shack, and there is an old stairway to the east.
+There is nothing of interest here.  You are standing north of a large crater
+which was once a pool.  To the north is an old shack, and there is an old
+stairway to the east.
 
 > drink water
 You drink the water, and feel refreshed.
 
 > n
 You move north.
-You are standing outside an old shack.  It looks very run down.  There is a
-pump here.  There is a cave to the north, a poppy field to the east, and a
-crater to the south.
+There is nothing of interest here.  You are standing outside an old shack.
+It looks very run down.  There is a pump here.  There is a cave to the north,
+a poppy field to the east, and a crater to the south.
 
 Also here is a small can of oil, a baby dragon, a star shaped amulet, half of
 a parchment and some sellotape.
@@ -780,9 +794,9 @@ you.  There is a large tree to the east, and an old shack to the south.
 
 > s
 You move south.
-You are standing outside an old shack.  It looks very run down.  There is a
-pump here.  There is a cave to the north, a poppy field to the east, and a
-crater to the south.
+There is nothing of interest here.  You are standing outside an old shack.
+It looks very run down.  There is a pump here.  There is a cave to the north,
+a poppy field to the east, and a crater to the south.
 
 Also here is a small can of oil, a baby dragon and a star shaped amulet.
 
@@ -800,9 +814,10 @@ Also here is an old book and a faded map.
 
 > s
 You move south.
-You are standing at the bottom of an old stairway cut into the rock.  The
-steps are very large and a little slippery.  To the north is the poppy field,
-the beach is to the east, and the pool to the west.
+There is nothing of interest here.  You are standing at the bottom of an old
+stairway cut into the rock.  The steps are very large and a little slippery.
+To the north is the poppy field, the beach is to the east, and the pool to
+the west.
 
 > drop amulet
 You drop the star shaped amulet.
@@ -818,8 +833,9 @@ Also here is an old book and a faded map.
 
 > n
 You move north.
-You are standing by what was once an enormous tree.  All that is left, is a
-large stump in the ground, and a load of roots sticking out the ground.
+There is nothing of interest here.  You are standing by what was once an
+enormous tree.  All that is left, is a large stump in the ground, and a load
+of roots sticking out the ground.
 
 Also here is a rusty old axe.
 
@@ -844,10 +860,10 @@ Also here is a claw hammer.
 
 > s
 You move south.
-You are standing on the bank of the river.  It is very grassy here.  There is
-a small path leading north and south.  There is a small hole beside the path.
- There is a bridge to the north, and a market to the south.  To the east is a
-large metal fence.
+There is nothing of interest here.  You are standing on the bank of the
+river.  It is very grassy here.  There is a small path leading north and
+south.  There is a small hole beside the path.  There is a bridge to the
+north, and a market to the south.  To the east is a large metal fence.
 
 > s
 You move south.
@@ -869,8 +885,9 @@ your west, and to the north are the gates to a graveyard.
 
 > in
 You move in.
-You are standing inside a small garage.  There are shelves running along the
-sides of the walls.  There is an old run down car in here.
+There is nothing of interest here.  You are standing inside a small garage.
+There are shelves running along the sides of the walls.  There is an old run
+down car in here.
 
 > put slime in car
 You locate the fuel cap on the car, and open it.  You then pour the slime
@@ -896,8 +913,9 @@ You pick up the garden spade.
 
 > n
 You move north.
-You are standing inside a small garage.  There are shelves running along the
-sides of the walls.  There is a large hole in the south wall of the garage.
+There is nothing of interest here.  You are standing inside a small garage.
+There are shelves running along the sides of the walls.  There is a large
+hole in the south wall of the garage.
 
 Also here is a glass bottle.
 
@@ -991,10 +1009,10 @@ Bob is here, standing behind a stall.
 
 > n
 You move north.
-You are standing on the bank of the river.  It is very grassy here.  There is
-a small path leading north and south.  There is a small hole beside the path.
- There is a bridge to the north, and a market to the south.  To the east is a
-large metal fence.
+There is nothing of interest here.  You are standing on the bank of the
+river.  It is very grassy here.  There is a small path leading north and
+south.  There is a small hole beside the path.  There is a bridge to the
+north, and a market to the south.  To the east is a large metal fence.
 
 > n
 You move north.
@@ -1011,9 +1029,10 @@ falling too heavy at the moment.  There is a bridge to the south.
 
 > n
 You move north.
-You are standing underneath the waterfall.  It is moderately dry here as the
-water falls in a clear arc above you.  There is a solid rock face to the
-north, but the east wall appears to be made from mud.
+There is nothing of interest here.  You are standing underneath the
+waterfall.  It is moderately dry here as the water falls in a clear arc above
+you.  There is a solid rock face to the north, but the east wall appears to
+be made from mud.
 
 > hit wall
 You hit the wall, and a large hole appears.  It looks as though you have
@@ -1049,10 +1068,10 @@ water running past you.
 
 > w
 You move west.
-You are standing underneath the waterfall.  It is moderately dry here as the
-water falls in a clear arc above you.  There is a solid rock face to the
-north, but the east wall appears to be made from mud.  There is a secret
-passage in the east wall.
+There is nothing of interest here.  You are standing underneath the
+waterfall.  It is moderately dry here as the water falls in a clear arc above
+you.  There is a solid rock face to the north, but the east wall appears to
+be made from mud.  There is a secret passage in the east wall.
 
 > s
 You move south.
@@ -1081,8 +1100,9 @@ the south, and a large tree to the west.
 
 > w
 You move west.
-You are standing by what was once an enormous tree.  All that is left, is a
-large stump in the ground, and a load of roots sticking out the ground.
+There is nothing of interest here.  You are standing by what was once an
+enormous tree.  All that is left, is a large stump in the ground, and a load
+of roots sticking out the ground.
 
 Also here is a rusty old axe.
 
@@ -1097,9 +1117,10 @@ Also here is an old book and a faded map.
 
 > s
 You move south.
-You are standing at the bottom of an old stairway cut into the rock.  The
-steps are very large and a little slippery.  To the north is the poppy field,
-the beach is to the east, and the pool to the west.
+There is nothing of interest here.  You are standing at the bottom of an old
+stairway cut into the rock.  The steps are very large and a little slippery.
+To the north is the poppy field, the beach is to the east, and the pool to
+the west.
 
 Also here is a star shaped amulet.
 
@@ -1108,14 +1129,16 @@ You pick up the star shaped amulet.
 
 > up
 You move up.
-You are standing at the top of the stairs cut into the rock.  To your east
-you can see the main part of the rock, while the steps lead back down.
+There is nothing of interest here.  You are standing at the top of the stairs
+cut into the rock.  To your east you can see the main part of the rock, while
+the steps lead back down.
 
 > e
 You move east.
-You are standing on the top of the large rock.  You can see all around you.
-You can see how the river runs from the south all the way up to the north.
-There is a stone table set into the middle of the rock.
+There is nothing of interest here.  You are standing on the top of the large
+rock.  You can see all around you.  You can see how the river runs from the
+south all the way up to the north.  There is a stone table set into the
+middle of the rock.
 
 > put amulet on table
 You place the amulet carefully into the dimple on the table.  It fits

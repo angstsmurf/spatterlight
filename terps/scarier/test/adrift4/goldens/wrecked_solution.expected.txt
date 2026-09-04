@@ -575,8 +575,8 @@ I put on a scuba outfit.
 
 > in
 I move in.
-I am in the swimming pool, which is full of crystal clear water.  At the
-bottom of the pool is a large plug.
+There is nothing of interest here.  I am in the swimming pool, which is full
+of crystal clear water.  At the bottom of the pool is a large plug.
 
 I can only move out.
 

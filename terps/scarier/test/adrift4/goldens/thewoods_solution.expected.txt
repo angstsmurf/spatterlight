@@ -198,7 +198,8 @@ I stretched and ran my hand along the top shelf and found an old paint brush,
 thick with dust.
 
 > take brush
-I am already carrying the brush.
+
+I'm already carrying the brush!
 
 > look at oil
 

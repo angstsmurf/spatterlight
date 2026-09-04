@@ -222,7 +222,7 @@ You search him and find THE GOLDEN SOAP!  Better pick it up soon, and take it
 to the king.
 
 > take golden soap
-You are already carrying Golden soap.
+You've already got Golden soap!
 
 > n
 You move north.

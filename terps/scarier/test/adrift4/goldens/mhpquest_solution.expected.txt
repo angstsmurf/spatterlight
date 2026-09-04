@@ -196,7 +196,7 @@ entrance is to the South.
 You discover a small gold coin.
 
 > take coin
-You are already carrying the gold coin.
+You've already got the gold coin!
 
 > out
 You move out.
@@ -231,7 +231,7 @@ treetops. A few feet away you can see the remains of a small fire.
 As you rummage through the ashes of the fire you discover an old torn note.
 
 > take note
-You are already carrying the torn note.
+You've already got the torn note!
 
 > se
 You move southeast.

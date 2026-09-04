@@ -266,6 +266,8 @@ renegade_brainwave_solution.txt|Renegade_Brainwave.taf|planet Earth has been ave
 goldilocks_solution.txt|goldilocks.taf|Three Bears are no more
 masochists_heaven_solution.txt|1HRGAME.taf|You scored 15 out of the maximum 15!
 griswold_solution.txt|Griswold.taf|And there you have it: the intro|SCR_SKIP_WAITKEY=1
+# Re-blessed 2026-08-31: pre-4.0 single-take held refusal is "You've
+# already got <object>!", not 4.0's "already carrying" (cave.taf row).
 mhpquest_solution.txt|mhpquest.taf|You have saved Crystal's life
 # Archie's Birthday is AIF: the game's text is sexually explicit, so its solution
 # and golden are deliberately NOT committed (they are in harness/.gitignore).  The
@@ -489,6 +491,8 @@ orient_express_solution.txt|Orient_Express.taf|You successfully complete your as
 # train-stop event texts move with the seed -- event 0 rolls 10..19 and events
 # 1..3 roll 1..7 -- so their turn numbers are RNG, not an engine difference.
 screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to get everyone to the set!
+# Re-blessed 2026-08-31: pre-4.0 single-take held refusal is "You've
+# already got <object>!", not 4.0's "already carrying" (cave.taf row).
 secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
 # Measured 2026-08-29: run400 replay, all 133 commands echoed, 132 of 133
 # turns identical, the last differs only by the [Press any key to end] tail.
@@ -735,6 +739,8 @@ to_hell_and_beyond_assisted_max_solution.txt|To_Hell_And_Beyond.taf|You are now 
 # tasks 2/17 (`give soap`/`yes`, +5 each) are duplicates that consume the one
 # soap.  SCR_ASSUME_COMBAT still has a row above (to_hell_and_beyond, a real 4.0
 # zero-accuracy game).
+# Re-blessed 2026-08-31: pre-4.0 single-take held refusal is "You've
+# already got <object>!", not 4.0's "already carrying" (cave.taf row).
 villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 31 out of a maximum of 37.
 # WesGHN's old "UNWINNABLE 30/100, orphaned gold ring" verdict was wrong
 # (2026-08-02): event 1 [Davidshand] -- started by `ring bell`, misread in the
@@ -2221,7 +2227,9 @@ afdfr_solution.txt|AFDFR.taf|Life is good for Death.|SCR_SKIP_WAITKEY=1
 # for those two reasons alone.  See notes/WINE-TRANSCRIPTS-TODO.md.
 akron_solution.txt|akron.taf|you brave adventurer, saved yourself
 # cave.taf (3.80) measured live in run380, 2026-08-31 (Adven_1_cave.rtf, 216
-# commands, Save Transcript flow).  Two findings, both ported:
+# commands, Save Transcript flow).  Four findings, all ported (third drive
+# with the re-derived solution replayed clean: 215/215 comparable turns,
+# only the final read parchment is uncapturable in the Save-at-end flow):
 #  - the walkthrough's seven `z` commands fell dead ("Say again?"): `z` only
 #    entered the Runner vocabulary at 3.90 (run390_3.bas 45FCB0 tests the
 #    exact line `= "z"` OR'd with c("wait"); no z literal in run370/380/400
@@ -2231,6 +2239,22 @@ akron_solution.txt|akron.taf|you brave adventurer, saved yourself
 #    the large tree") print "There is nothing of interest here." BEFORE the
 #    alt on every show: 3.8 substitutes the sentence into the empty Long at
 #    LOAD (run380 447FEE), unlike 3.9's render-time nothing-described guard.
+#  - a 3.8 task can never move the PLAYER to the game's FIRST room: run380's
+#    executor (tasks() 44EB4C, loop 44D1D4) stores movement Var2
+#    pre-decremented and moves only behind "If Var2 > 1", which excludes
+#    room 1 along with the none/hidden entries.  The second `climb down` at
+#    Halfway printed its text and left the player up the tree, so the
+#    solution says plain `down` there (which also lists the coin the next
+#    command takes).  3.7's encoding sits one higher and is NOT affected
+#    (see the alices_restaurant row); 3.9 rewrote the executor.  Ported as
+#    the is_v370 gate in sctafpar.cpp parse_fixup_v380_movement.
+#  - single-named `take parchment` while holding it answers "You've already
+#    got half of a parchment!": the 4.0-only single-take "already carrying"
+#    wording (run400 @462D25) does not exist pre-4.0 (no such literal in
+#    run370/380/390; only "'ve already got" -- run380 43E03E).  Gated on
+#    lib_is_version_400 in lib_take_backend_common; mhpquest,
+#    secret_of_lost_world, villains_and_kings and thewoods (3.9) re-blessed
+#    with it (thewoods ALRs the corrected base itself -- see its row).
 cave_solution.txt|cave.taf|You scored 1000 out of the maximum 1000!
 haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
@@ -2263,6 +2287,14 @@ haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 # pre-move lines between stops disappeared; still wins.
 # Its four `z` commands are now `wait`: `z` is not in the 3.80 Runner
 # vocabulary (see the cave.taf row) and falls to "Say again?" there.
+# Re-derived + re-blessed 2026-08-31 for the 3.8 first-room player-move bug
+# (see the cave.taf row): task 40 `give novel to mr broomfield` carries a
+# (1,2,0) movement to room 0 Street (south end) that run380 never performs,
+# so the old post-give `n / n / w` is now the walked path
+# `e / e / down / s / w` (Classic Fiction -> bookstore -> shopping centre ->
+# Street north -> Restaurant).  Same events, same 1475/1860 finish.
+# microwaveman.taf and twilight.taf each carry one such record too, but
+# their walkthroughs never exercise it.
 great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!
 tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
 # The 3.8 half of the walk-announcement rewrite was measured on this game --
@@ -2520,6 +2552,11 @@ super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 # REPEATABLE task whose own effects make a DIFFERENT task match -- are hit by
 # no other game in this corpus.  Full write-up in
 # notes/WINE-TRANSCRIPTS-TODO.md, "the run370 double matcher pass".
+# 3.7 is NOT affected by the 3.8 first-room player-move bug (cave.taf row):
+# run370's identical "If Var2 > 1" guard (tasks() 441E55) sits over an
+# encoding one higher, so it admits every room -- this game is the
+# counterexample, task-moving the player to room 0 In Front of the Church.
+# Guarded by the is_v370 flag in sctafpar.cpp parse_fixup_v380_movement.
 alices_restaurant_solution.txt|arlo.taf|recording an album that will be that hit record
 castle_quest_solution.txt|castle.taf|Thanks for playing!
 # ---------------------------------------------------------------------------
@@ -3472,6 +3509,11 @@ merry_murders_solution.txt|Merry_Murders.taf|You scored 135 out of the maximum 1
 # a bare `look` because TASK 45 is `[*]` -- any command is consumed by the
 # forwarding to the Graves.  One <waitkey> sits in the title text ahead of the
 # menu, hence SCR_SKIP_WAITKEY=1.
+# Re-blessed 2026-08-31 for the pre-4.0 held-take wording (cave.taf row): the
+# game's own ALR table rewrites "I've already got the" -> "<br>I'm already
+# carrying the", so the correct run390-shaped base yields "I'm already
+# carrying the brush!" with a leading break -- the old golden's "I am already
+# carrying the brush." was the ALR mangling Scarier's wrong 4.0-style text.
 thewoods_solution.txt|thewoods.taf|You scored 100 out of the maximum 100!|SCR_SKIP_WAITKEY=1
 
 # Captive Universe -- ADRIFT 3.90, 74,568 bytes, after the Harry Harrison novel.

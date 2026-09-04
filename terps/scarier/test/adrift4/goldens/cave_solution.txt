@@ -26,11 +26,11 @@ climb tree
 put wire in hole
 climb tree
 feed bird
-z
-z
+wait
+wait
 take dragon
 climb down
-climb down
+down
 take coin
 chop tree
 drop axe
@@ -61,11 +61,11 @@ give coin to bob
 n
 give bark to dog
 plant seed
-z
-z
-z
-z
-z
+wait
+wait
+wait
+wait
+wait
 take rod
 drop rod
 s

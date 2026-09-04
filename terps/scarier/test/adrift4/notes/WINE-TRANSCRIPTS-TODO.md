@@ -152,8 +152,9 @@ somebody else's hours-old transcript instead of failing — that is how the
 "run370 can't save transcripts" wrong conclusion got made. Use
 `runner_savetranscript.sh` for those two.
 
-Unverified: whether the scrollback dump is capped for a long session. `cave`
-(216 commands) is the one to check that on before trusting a 3.80 diff.
+Verified 2026-08-31 on `cave` (216 commands): the scrollback dump is NOT
+capped — the Save-at-end `Adven_N.rtf` carried the whole session, from the
+intro through command 216, so a full-length 3.80 diff is trustworthy.
 
 ⚠️ **The Runner reuses transcript numbers, so old citations rot.** Both
 `Adrift_<N>.txt` and `Adven_<N>.rtf` restart their numbering when the prefix's
@@ -540,6 +541,9 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `cyber2.taf` | 4.00 | full run400 replay, 29/29 echoed | 26/29; turns 15 and 26 differ by one **battle roll** line each (rule 3), 28 is the tail |
 | `dragonshrine`, `through_time`, `invasion_shirts`, `qui_a_tue_dana`, `whitterscap`, `hyper_b_s`, `cibass`, `allhallowseve` | 4.00 | partial run400 replays -- a cutscene, real-time pause or waitkey eats a fed command part-way (rule 2) | identical up to the loss (105, 12, 13, 15, 13, 3, 3 and 3 turns respectively); nothing after it is comparable |
 | `Vardock Bates.taf` | 4.00 | full run400 replay (Adrift_1_vardock_bates.txt), then a checkpointed probe (Adrift_3_vardock_bates.txt) | `<waitkey 4>` is a zero-second wait; co() feeds the generic verbs; a finishing event's task re-checks LOWER-indexed events in the same tick; the SYNONYM table is a sequence of whole-string rewrites -- see the two FIXED 2026-08-29 sections |
+| `ECOD3.taf` | 3.90 | full run390 replay, `Adrift_3_ecod3.txt` (feed `cmdfile_w_ecod3.txt` -- 11 commands, the solution's 15 `#` comment lines stripped) | clean: 11/11 echoed, 10/11 turns identical and the Usher's walk in step; the 11th is the tail -- the transcript stops mid-epilogue at the final pause, so the alley arrival and score summary never flush.  Measured 2026-08-31 |
+| `superliam.taf` | 3.80 | full run380 replay, `Adven_1_superliam.rtf` (feed `cmdfile_w_superliam.txt` -- 86 commands, Save Transcript at the 85th) | 85/85 echoed; three divergent turns, two engine rules, both FIXED: the run380 **AdditionalMessage double-space suppression reaches through a ShowRoomDesc room description**, and **names are matched RAW** -- object Short `"necko wafers "` (trailing space) is unreferenceable, `take necko wafers` answers "Take what?".  After the fixes every echoed turn matches; both sides win 3250/3250.  Measured 2026-08-31 |
+| `cave.taf` | 3.80 | three full run380 replays, `Adven_1_cave.rtf` / `Adven_1_cave2.rtf` / `Adven_1_cave3.rtf` (final feed `cmdfile_w_cave3.txt` -- 216 commands, Save Transcript flow) | 215/215 echoed each time; FOUR engine findings, all FIXED: `z` is not 3.80 vocabulary (whole-line `= "z"` test only exists from run390_3 45FCB0 -- seven `z` -> `wait`); 3.8 substitutes "There is nothing of interest here." into empty room Longs at LOAD (447FEE), so it prints BEFORE LastDesc alts; a 3.8 task can never move the PLAYER to the game's FIRST room (tasks() 44D1D4 stores Var2 pre-decremented behind "If Var2 > 1" -- second `climb down` re-derived to `down`; 3.7's encoding sits one higher so run370 441E55 is correct, arlo the counterexample; is_v370 gate in sctafpar.cpp); and the single-named held-take refusal is "You've already got X!" pre-4.0 (43E03E -- 4.0's "already carrying" @462D25 gated on lib_is_version_400, four 3.9 goldens re-blessed -- thewoods' own ALR "I've already got the" -> "<br>I'm already carrying the" confirms the base from the game side).  Third drive replays CLEAN: every comparable turn identical, `score` at 900/1000 both sides; only the winning `read parchment` is uncapturable in the Save-at-end flow (Scarier finishes 1000/1000).  Still open from the pre-fix stuck-tail census (never reached by the corrected feed): 3.8 answers a matched-task-wrong-room with "You can't do that here." (21x) and names unseen/unheld objects in refusals ("You can't see X from here!" / "You don't have X!") where Scarier says "Take what?" etc -- a 3.8 referenceability/where-fail model not yet ported.  Measured 2026-08-31 |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -735,7 +739,7 @@ The four best targets, by walks x length:
 | game | solution | cmds | walks | NPCs | events | waitkey | notes |
 |---|---|---:|---:|---:|---:|---|---|
 | `Merry_Murders.taf` | `merry_murders` | 181 | 8 | 8 | 2 | yes | [Merry_Murders_walkthrough](Merry_Murders_walkthrough.md) |
-| `Vampire.taf` | `vampire` | 205 | 7 | 11 | 11 | yes | [LairOfTheVampire_walkthrough](LairOfTheVampire_walkthrough.md) |
+| `Vampire.taf` | `vampire` | 205 | 7 | 11 | 11 | yes | [The_Vampire_With_A_Conscience_walkthrough](The_Vampire_With_A_Conscience_walkthrough.md) -- **measured 2026-08-31**, Runner walls at 70/100 (T61 spent-claim), see section below |
 | `gamma.taf` | `gamma` | 315 | 4 | 10 | 0 | -- | -- |
 | `S_Tar_Dus.taf` | `stardust` | 199 | 4 | 6 | 0 | -- | [S_Tar_Dus_T_walkthrough](S_Tar_Dus_T_walkthrough.md) |
 | `wingman1.taf` | `wingman1` | 33 | 3 | 3 | 0 | -- | -- |
@@ -743,7 +747,7 @@ The four best targets, by walks x length:
 | `windy2.taf` | `windy2` | 200 | 2 | 8 | 1 | -- | -- |
 | `Richard.taf` | `richard` | 189 | 2 | 5 | 13 | yes | [WhereIsRichard_walkthrough](WhereIsRichard_walkthrough.md) |
 | `cleft.taf` | `cleft` | 115 | 1 | 2 | 1 | -- | [The_Cleft_in_the_Rock_walkthrough](The_Cleft_in_the_Rock_walkthrough.md) |
-| `ECOD3.taf` | `ecod3` | 26 | 1 | 1 | 0 | -- | [ECOD3_walkthrough](ECOD3_walkthrough.md) |
+| `ECOD3.taf` | `ecod3` | 26 | 1 | 1 | 0 | -- | [ECOD3_walkthrough](ECOD3_walkthrough.md) -- **measured 2026-08-31**, clean (tail only) |
 | `BobBobsly.taf` | `bob_bobsly` | 25 | 1 | 2 | 0 | -- | [Bob_Bobsly_walkthrough](Bob_Bobsly_walkthrough.md) |
 | `largo-winch.taf` | `largo_winch` | 323 | 0 | 42 | 22 | -- | [Largo_Winch_walkthrough](Largo_Winch_walkthrough.md) |
 | `mudergreatfalls.taf` | `murder_great_falls` | 255 | 0 | 0 | 0 | yes | [Murder_in_Great_Falls_walkthrough](Murder_in_Great_Falls_walkthrough.md) |
@@ -794,8 +798,8 @@ The four best targets, by walks x length:
 | game | solution | cmds | walks | NPCs | events | waitkey | notes |
 |---|---|---:|---:|---:|---:|---|---|
 | `haunt.taf` | `haunt` | 88 | 5 | 4 | 3 | -- | -- |
-| `superliam.taf` | `super_liam` | 86 | 5 | 11 | 0 | -- | -- |
-| `cave.taf` | `cave` | 216 | 2 | 5 | 12 | -- | -- |
+| `superliam.taf` | `super_liam` | 86 | 5 | 11 | 0 | -- | **done** 2026-08-31 -- see "Measured so far" |
+| `cave.taf` | `cave` | 216 | 2 | 5 | 12 | -- | **done** 2026-08-31 -- see "Measured so far" |
 | `akron.taf` | `akron` | 44 | 2 | 4 | 0 | -- | -- |
 | `jb2000.taf` | `james_bond` | 20 | 1 | 1 | 0 | -- | -- |
 | `haunted.taf` | `haunted_house` | 116 | 0 | 0 | 2 | -- | -- |
@@ -1293,70 +1297,16 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
 
 ### Open leads
 
-- **The walk move and the meet-task dispatch sit outside the exact-tick
-  test.**  run400 `loc_468841` is `If (counter = suffix_sum) And (suffix_sum
-  > 0)` and it branches false straight to `loc_468D51`, which is the walk-step
-  loop's `Next` -- so the *entire* step, the move included, happens only on
-  the exact tick.  run390 has the identical shape (loop `loc_45A741`, gate
-  `loc_45A780`, `End If` `loc_45ABC7`, `Next` `loc_45ABC2`, the `&HFF` hide
-  stamp at `loc_45ABB8` inside it), so this is not a 4.0 rewrite.
-  `npc_tick_npc_walk()` now gates both announcements on `is_exact` but still
-  runs `if (start != dest) { move }` and the CharTask dispatch
-  unconditionally, and still forces `is_arrival` true for the Hidden and
-  roomgroup cases.  **Live exposure:** `provenance`'s butler is displaced by a
-  task and Scarier warps him back on a non-exact tick, which is where its
-  three now-deleted bare "The butler exits." lines came from.  The
-  announcements are right now; the move timing is not.
-
-  **Corpus cost, measured 2026-08-24 (engine experiment, not blessed):**
-  gating both the move and the meet tasks on `is_exact` costs 10 rows
-  (shadowpeak x3, `the_town_of_azra_v390`, `thetest_win`, `ticket`,
-  `great_escape`, `textident_evil`, `merry_murders`, `provenance`); gating
-  only the move costs 9 -- the same list minus `ticket`.  So the meet-task
-  half is what breaks the "Ticket to No Where" roomgroup canary and the move
-  half is the substantive change.  `merry_murders` does not merely re-word:
-  it stops being winnable on its present script ("Trey's not here!"), so that
-  row would need re-deriving, not re-blessing.
-
-  **The live probe that was meant to settle it FAILED, and its result must
-  not be quoted.**  `Merry_Murders.taf` (3.90) was driven through run390 with
-  a 23-command probe ending in `look`s in the Hallway and the Plaza
-  (`~/adrift-battle/runner/wine/mm2.cmds`, transcript
-  `pfx/drive_c/adrift/Adrift_40_merry_murders.txt`).  The Runner desynced at command 4:
-  the game's "Act II" cutscene warps the player to the Plaza, and the `w`
-  typed straight afterwards never echoed at all -- the transcript goes
-  cutscene, blank, "I don't understand what you mean!", so the keystroke was
-  swallowed while the Runner was still painting the cutscene.  Every later
-  command therefore landed in a different room from Scarier's, and in
-  particular task 9 (`n` / `open door`, `Where.Room` 11) never ran there.
-  That task is the one whose `NPCWalkAlert` `[0,2 2,0 5,0]` starts Nancy's
-  walk 2, Mary's walk 0 and Trey's walk 0, so the Runner's "Trey is still in
-  the Hallway, Mary is still in the Plaza" says nothing about walk timing --
-  it only says the walks were never started.  **The lead is still
-  unmeasured.**  Next time pick a probe game whose opening has no long
-  cutscene, and check every command echoed before reading anything.
-
-  Two things *were* nailed down from the decompiles on the way, and they
-  cost nothing to keep.  (Read run390 from the cooked `run390/run390.bas`,
-  not `Project2/Form1.frm` -- the stack-machine listing is unreadable next to
-  it.)  The 3.9 walk struct is `(0)` StartTask, `(4)` Loop, `(8)` stops
-  (`.global_2` = Times), `(12)` NumStops, `(13)` counter, `(18)`
-  StoppingTask.  First, `loc_45A71E` gates the whole step loop on `enabled
-  And counter > 0`, and the only reseed in the ticker is `loc_45A5A7`,
-  `((counter < 0) Or (counter = 0 And Loop = 1)) And enabled` -> sum of Times
-  (the `counter < 0` disjunct is dead: it is a Byte).  Scarier's
-  `npc_tick_npc()` already has both.  Second, the seeding really is
-  `1 + total`: the task-completion handler at `loc_43F095` walks every NPC
-  and every walk and, `If walk.StartTask - 1 = taskno`, sets `counter = 1`
-  and then adds each stop's Times -- which is exactly
-  `npc_start_npc_walk()`.  Note the Runner finds the walk by **scanning
-  every walk's StartTask**, where `task_start_npc_walks()` reads the task's
-  own `NPCWalkAlert` list; the two agree on this corpus, but a game where
-  they disagree would show it here first.
-
-  When this is finally measured, check it against pre-4.0 too, plus the
-  "Ticket to No Where" roomgroup case, which is the evidence that a Times>1
-  roomgroup stop *does* re-run every tick.
+- **FIXED 2026-08-31 -- the walk step (move included) is exact-tick-gated.**
+  Measured live in run390 on `Merry_Murders.taf` (see the dated section at
+  the end of this file) and ported: `npc_tick_npc_walk()` now resolves the
+  fixed-room and Hidden destinations only when `counter == suffix_sum`
+  (run390 gate `loc_45A780`, `&HFF` hide stamp `loc_45ABB8` inside it;
+  run400 `loc_468841`).  The meet-task dispatch and the roomgroup refresh
+  stay ungated -- "Ticket to No Where" is the canary that a Times>1
+  roomgroup stop *does* re-run every tick, and it still passes.  Corpus
+  fallout was 9 rows: 7 re-blessed (their changed lines were the re-drag
+  artifacts), `merry_murders` and `thetest_win` re-derived.
 - **arlo, `get out of bus` at the church** (cmds 37 and 64): run370 ends with
   the task's "You are no longer in the bus." and prints no exits list;
   scarier prints the exits and drops the task line.  **Diagnosed 2026-08-24,
@@ -4424,3 +4374,133 @@ silent-task DontUnderstand rule from the Hangover cabinet, which this
 contradicts on the surface).  The turn is off the corrected route, so it
 is recorded here rather than chased; 3.7/3.8's event movers are also
 unread -- the gate models them as 3.9 (no stamp) pending a measurement.
+
+## Merry_Murders.taf (The Merry Murders, 3.90) — 2026-08-31, run390
+
+Clean full replay: `cmdfile_w_merry_murders.txt` (79 lines -- 64 commands
+plus waitkey blanks), transcript `Adrift_3_merry_murders.txt`, every command
+echoed.  (The earlier `Adrift_40_merry_murders.txt` probe desynced at command
+4 -- the Act II cutscene swallowed a keystroke -- and must not be quoted.)
+
+**The walk step is exact-tick-gated, move included -- MEASURED and PORTED.**
+Task 9 starts Trey's walk (counter seeds `1 + ΣTimes`, he arrives in the
+Plaza on the next tick and the walk is spent); task 27 `research alex` then
+moves him to room 2, the east Hallway (`ACT type=1 v1=7 v2=0 v3=3`).  In the
+Runner he then *stays there for the rest of the game* (transcript lines
+134/167/192/300/324/361 show him in the east Hallway with his ChangedDesc;
+line 251 `show list to trey` in the Plaza gets "Trey's not here!").  Scarier
+used to re-resolve the walk destination every tick and warp him back to the
+Plaza.  run390 runs the entire walk step -- destination resolve, move, meet
+dispatch, announcement, `&HFF` hide stamp -- inside the
+`counter == suffix_sum` gate (`loc_45A780` .. `loc_45ABC7`); run400 is the
+identical shape at `loc_468841`.  `npc_tick_npc_walk()` now gates the
+fixed-room and Hidden destination resolution on `is_exact`; follow-player
+was already arrival-gated and the roomgroup refresh is deliberately left
+per-tick (the "Ticket to No Where" canary).  Same mechanism as provenance's
+butler, whose exit announcements now fire at his real ticks.
+
+Decode confirmations from the same replay: walk-stop dest `N>=2` -> room
+`N-2` (Mary stop 3 -> room 1, the janitor Hallway; Nancy walk 4 stop 2 ->
+room 0, the Plaza); dest 1 = follow player; dest 0 = hidden.  3.9 walk
+struct: `(0)` StartTask, `(4)` Loop, `(8)` stops, `(12)` NumStops, `(13)`
+counter, `(18)` StoppingTask.  Seeding really is `1 + total`: run390's
+task-completion handler (`loc_43F095`) *scans every walk's StartTask*,
+where Scarier reads the task's parse-time `NPCWalkAlert` list
+(sctafpar.cpp) -- built by the same scan, so they cannot disagree.
+
+Also exhibited, all previously known:
+
+- **The pre-4.0 spent-task claim** at task 46: after `n` unlocks the
+  archives, the Runner answers the second `n` with "I have already done
+  that." (game ALR rewrites "You " -> "I ") and never enters the archives,
+  ending 100/135.  Deliberate deviation, NOT imported (the journ2 rule);
+  Scarier's `n`, `n` walks through to 135/135.
+- **The waitkey butt-join**: across authored `<waitkey><cls>` sequences the
+  run390 transcript butt-joins the two texts with no separator (feed turns
+  2/11/22/31/51); Scarier emits a space.  Transcript artifact -- the `<cls>`
+  wipes the live screen, so the join never displays.  Accepted.
+- **Open, minor**: feed turns 45/46 (`move pile` / `open panel` typed a room
+  early) -- run390 prints its out-of-room FLAG text where Scarier's library
+  answers first.  Wording only, no state; same family as the FIXED
+  2026-08-25 catch-all-`*` section.
+
+Corpus fallout of the port, all triaged 2026-08-31: shadowpeak x3,
+great_escape, textident_evil, thehunter (walker pre-move lines vanish),
+provenance (the butler's exit announcements appear at his real ticks --
+the old bare "The butler exits." lines were the re-drag bug) -- all still
+hit their win markers, re-blessed.  merry_murders re-derived (`show list to
+trey` moved to the east Hallway, 66 commands, 135/135).  thetest_win
+re-derived (the Robot Guard's storms-in/out schedule shifted; 191 commands,
+still 20/25 "Well done!  You won!").
+## Vampire.taf (The Vampire With A Conscience, 3.90) -- 2026-08-31, run390
+
+Feed `cmdfile_w_vampire.txt` (84 commands, PRE=1), transcript
+`Adrift_3_vampire.txt`; `compare_wine_transcript.py` RULE 2 clean -- every
+command echoed.  The seeded Scarier replay of the same feed WINS 100/100.
+The Runner ends **walled at 70/100**, stuck in the Bozo backyard.
+
+- **Mechanism**: T61 (`east / e / go east / go e`, where=room 11,
+  Repeatable=0, action move-player -> nightclub, **RepeatText=' '**) fires on
+  the first exit (feed 63, "You enter the nightclub again.").  At feed 73 --
+  the exit after raising Jon -- the spent task claims `e` and run390 prints
+  its **RepeatText**, a single space, so the turn is whitespace-only; every
+  later `e` is claimed the same way forever.
+- **The real run390 cannot finish this game.**  Room 11 has exactly one exit
+  (east, and no in/out), T61's four patterns cover every phrasing of it, and
+  T114 (the "Hay, you're not supposed to be back here" bounce) is a
+  `-`-prefixed system task, event-fired only.  Any route needs two backyard
+  exits (stash the corpse; come back to raise Jon), and the second is always
+  claimed.  The 70 points on the wall's near side are exactly what the
+  transcript's `score` shows (70/100).  Same family as Journ2's Lair brick.
+- **New Runner fact**: the pre-4.0 spent-task claim prints the task's
+  RepeatText when non-empty, and the default "You have already done that."
+  only when RepeatText is empty (Journ2 T3#6 RepeatText="" -> default;
+  Vampire T61 RepeatText=' ' -> blank turn).
+- **Scarier**: 100/100 stands on the documented deliberate deviation (the
+  pre-4.0 spent-task claim is NOT imported -- see the Journ2 section and
+  `adrift4-spent-task-vs-restrictions`); no engine change, golden untouched.
+- **Benign RNG diffs**: turn 12 "A green porche drives past you" (ranged
+  traffic event, fired in the Runner only, 1 vs 0 occurrences); Jon
+  Simonsen's club arrival lands one turn apart (the turns-45/46 splitter
+  wobble, content identical).  Turns 47-71 byte-identical after whitespace
+  normalisation.
+
+## superliam.taf (Super Liam, 3.80) -- 2026-08-31, run380
+
+Feed `cmdfile_w_superliam.txt` (86 commands, PRE=0, identical to the
+solution), transcript `Adven_1_superliam.rtf` (Save Transcript at the 85th
+command; the 86th, `east`, sent after the save so its output is not in the
+.rtf).  RULE 2 clean -- 85/85 echoed.  Three divergent turns, two engine
+rules, both fixed; the seeded replay wins 3250/3250 on both sides.
+
+- **AdditionalMessage vs a room description (turns 82/83, FIXED)**: run380
+  builds each turn as one flat VB string and appends `"  " & AdditionalMessage`
+  only when the string does not already end in two spaces (run380.bas '4D001).
+  Rooms 38/39 have Longs ending `"  "`, and tasks 22/23 (`press button`, the
+  `up` cutscene) show them via ShowRoomDesc -- so "a cat runs out of a door,
+  and sings a song" and "X1 raising his gunlike arms and aims at you.  Do
+  something now!" are SUPPRESSED in the Runner, and "The Mermaid follows you."
+  joins straight on.  Scarier's 3.80-only `task_suppresses_additional_message()`
+  already modelled the rule but could not see the double space through the
+  room-description block's terminating `'\n'` -- that newline was a bare
+  `pf_buffer_character()`, invisible to `pf_ends_with_double_space()`.  Fixed
+  by recording it as an auto-break: new `pf_note_trailing_auto_break()`
+  (scprintf.cpp), called from `task_show_room_desc()` (sctasks.cpp).
+- **Raw name matching (turn 25, FIXED)**: object 9's Short is
+  `"necko wafers "` -- authored with a trailing space.  run380's `c()`
+  ('429048) matches the RAW stored Short/Alias case-insensitively by InStr
+  and requires the character after the match to be a space, comma or
+  end-of-input; `co()` ('42DE60) feeds it the raw obj(4)/obj(8) strings.  A
+  trailing-space name can therefore only match input holding two consecutive
+  spaces -- never typeable -- so the object is unreferenceable: `take necko
+  wafers` answers "Take what?".  The task-matched `eat necko wafers` still
+  fires (task patterns, no noun resolution), so the game stays winnable.
+  run390's `c()` LCases both strings but keeps the same InStr shape, and the
+  4.0 strict comparator already refused the trailing space -- only Scarier's
+  tolerant `uip_compare_reference()` forgave it, by collapsing the name's
+  trailing whitespace.  Fixed: a name whose whitespace runs to the end never
+  matches (scparser.cpp; the containment pass `uip_contains_words()` and the
+  3.90+/4.0 strict comparators were already raw).  The 3.80 resolver has no
+  seen gate and no ambiguity pass: 75 lines, raw InStr, first hit wins.
+- Corpus after both fixes: **408 PASS**, sole golden change
+  `super_liam_solution.expected.txt` (3 lines), re-blessed; win marker kept.

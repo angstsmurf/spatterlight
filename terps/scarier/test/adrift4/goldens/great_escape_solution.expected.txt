@@ -269,8 +269,8 @@ on the food-encrusted sofa and watch the TV. About half an hour later...
 Loud sirens awake you from your soap-apera induced slumber. The doorbell
 rings.
 
-> z
-Time passes...  Mrs Walters totters into the room.
+> wait
+Time passes...
 The ambulance man charges through the door knocking you over. You pick
 yourself up and see that the ambulance man is crouched over the dead body of
 Mrs Walters. He sighs a deep sigh and says "Dammit, I'm afraid she's dead
@@ -281,8 +281,8 @@ hour undertaker service is much quicker than the ambulance service and within
 a few minutes the body of Mrs Walters is whisked away. The ambulance-man also
 leaves quickly leaving you feeling very depressed and alone.
 
-> z
-Time passes...  Mrs Walters totters out of the room to the east.
+> wait
+Time passes...
 
 > take picasso
 You quickly take the picasso and run out of the door.
@@ -300,11 +300,11 @@ You phone up Julie. She seems surprised to hear from you at first but then
 she warms to you. She agrees to come over to your house and hangs up on you.
 There is a ring at the doorbell.
 
-> z
+> wait
 Time passes...
 The doorbell is pressed again.
 
-> z
+> wait
 Time passes...
 
 > invite julie in
@@ -563,16 +563,32 @@ his pocket and shoves it into your hand. "Now go!" he says. You get up from
 the chair and stand there, unable to believe your luck. Mr Broofield leaves
 quickly, the book held in his hands.
 
-> n
-You move north.
-You are in the middle of a long street. A car sits unobtrusively on one side
-of the road. Birds circle overhead and grey clouds roll slowly across the
-sky.  From here, the sky's the limit. You can go north up the street, you
-could also choose to go south which would lead you down the street or you can
-go east to the now dead Mrs Walters'  house.
+> e
+You move east.
+The modern fiction section of the bookshop is a fairly ordinary room. Posters
+of different bestsellers adorn the walls.  From here you can either move west
+to the 'classic fiction' section or east to the main bookshop area.
 
-> n
-You move north.
+> e
+You move east.
+The Cheapoland bookstore is the hub of literary brilliance and contains
+nearly every book known to man, except of course, the one you're looking for.
+An important-looking notice hangs on one of the walls.  A large puddle of
+orangey liquid now occupies a large area of the floor in front of the desk.
+From here you can move north, east, west or down. North leads to the 'useless
+book section', east leads to the 'foreign book section', west leads to the
+'modern fiction' section and down leads back down to the shopping centre
+entrance.
+Betty is here.
+
+> down
+You move down.
+Cheapoland shopping centre is surprisingly quiet today. The shopping centre
+extends upwards, downwards, sideways etc.  You can move north to the clothes
+department, south to the street or up to the bookstore.
+
+> s
+You move south.
 You are in the north end of a long street.  You can walk west to Giovanni's
 restaurant (the premier eatery in town) or north to the Cheapoland shopping
 centre.

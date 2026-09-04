@@ -2268,7 +2268,8 @@ parse_fixup_v380_action (scr_int type, scr_int var_count,
  * Helper for parse_fixup_v380(), converts a task movement into an action.
  */
 static void
-parse_fixup_v380_movement (scr_int mvar1, scr_int mvar2, scr_int mvar3)
+parse_fixup_v380_movement (scr_int mvar1, scr_int mvar2, scr_int mvar3,
+                           scr_bool is_v370)
 {
   scr_int var1;
 
@@ -2283,7 +2284,28 @@ parse_fixup_v380_movement (scr_int mvar1, scr_int mvar2, scr_int mvar3)
    */
   if (mvar1 == 1)
     {
-      if (mvar3 == 0 && mvar2 >= 2)
+      /*
+       * The 3.8 Runner's executor (run380 tasks() 44D1D4) loads movement
+       * Var2 minus one and moves the player only behind "If Var2 > 1" --
+       * meant to exclude the none/hidden entries, but it also excludes
+       * room 1, so a 3.8 task can never move the PLAYER to the game's
+       * first room; the object branch has no such guard.  Measured live
+       * 2026-08-31 on cave.taf run380: "climb down" at the halfway room
+       * (raw Var2 = 2) prints its CompleteText and leaves the player in
+       * place.  So raw 2 converts to no action at all.
+       *
+       * Version 3.7 is NOT affected: its player-move encoding sits one
+       * higher (the first room is raw Var2 = 3, which its identical
+       * "If Var2 > 1" post-decrement guard admits -- run370 tasks()
+       * 441E55 = 3.8's guard over 3.7's encoding).  3.8 shifted the
+       * encoding down by one and forgot the guard, 3.9 rewrote the
+       * executor around typed actions and the bug went away again.  By
+       * the time the 3.7 conversion reaches this function its values are
+       * already in 3.8 form, so the exclusion must not apply to it --
+       * alices_restaurant (arlo.taf, 3.70) moves the player to its first
+       * room, In Front of the Church, by task.
+       */
+      if (mvar3 == 0 && mvar2 >= (is_v370 ? 2 : 3))
         parse_fixup_v380_action (1, 3, 0, 0, mvar2 - 2);
       return;
     }
@@ -2979,24 +3001,24 @@ parse_fixup_v370_movement (scr_int mvar1, scr_int mvar2)
    */
   if (mvar1 == 1)
     {
-      parse_fixup_v380_movement (mvar1, mvar2 - 1, 0);
+      parse_fixup_v380_movement (mvar1, mvar2 - 1, 0, TRUE);
       return;
     }
 
   switch (mvar2)
     {
     case 0:                    /* Hidden */
-      parse_fixup_v380_movement (mvar1, 0, 0);
+      parse_fixup_v380_movement (mvar1, 0, 0, TRUE);
       break;
 
     case 1:                    /* Held by the player */
       /* Version 3.8's "held by" passes Var2 straight through as the holder,
          and there zero is the player (one is the referenced character).  */
-      parse_fixup_v380_movement (mvar1, 0, 3);
+      parse_fixup_v380_movement (mvar1, 0, 3, TRUE);
       break;
 
     default:                   /* Player's room, or a room */
-      parse_fixup_v380_movement (mvar1, mvar2 - 1, 0);
+      parse_fixup_v380_movement (mvar1, mvar2 - 1, 0, TRUE);
       break;
     }
 }
@@ -3050,7 +3072,7 @@ parse_fixup_task_actions (scr_bool is_v370)
       if (is_v370)
         parse_fixup_v370_movement (mvar1, mvar2);
       else
-        parse_fixup_v380_movement (mvar1, mvar2, mvar3);
+        parse_fixup_v380_movement (mvar1, mvar2, mvar3, FALSE);
     }
 }
 

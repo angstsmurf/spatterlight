@@ -212,3 +212,29 @@ draining a junkie), T74 `east` after the Bozo Guard has seen the corpse, T80
 `-NutritionDeath` (63 turns without feeding), T83 `enter queue` from 23:40,
 T100 `push 16`, T109/T110/T111/T112 the four under-qualified `west`s, T118
 `taste heroin`, and T119 `-ToLate` at 24:00.
+
+## Runner measurement (2026-08-31, run390 under Wine)
+
+The route was replayed command-for-command in the genuine `run390.exe`
+(feed `cmdfile_w_vampire.txt`, 84 commands; transcript
+`~/adrift-battle/runner/wine/pfx/drive_c/adrift/Adrift_3_vampire.txt`,
+every command echoed).  Result: **the real Runner cannot win this game.**
+
+T61 (`east/e/go east/go e` in the Bozo backyard, `Repeatable=0`,
+`RepeatText=' '`) fires on the first exit after stashing the corpse.  When
+the route comes back to raise Jon and leaves again, the spent task claims
+`e` under the pre-4.0 spent-task rule and prints its RepeatText -- a single
+space, so the turn is blank -- and does so forever.  The backyard's only
+exit is east (no in/out), T61's patterns cover every phrasing, and T114
+(the guard's "into the club with you" bounce) is a `-` system task, only
+event-fired.  The Runner therefore walls at **70/100**, the exact sum of
+the awards on the near side of the second exit.
+
+Our 100/100 is real under Scarier's documented deliberate deviation (the
+pre-4.0 spent-task claim is not imported; see
+`adrift4-spent-task-vs-restrictions` and Journ2's Lair brick, the same
+family).  New Runner fact from this measurement: the spent-task claim
+prints the task's RepeatText when non-empty, and the default "You have
+already done that." only when it is empty.  The only other divergences
+were RNG scheduling (the green-porche traffic event; Jon Simonsen's club
+arrival one turn apart).
