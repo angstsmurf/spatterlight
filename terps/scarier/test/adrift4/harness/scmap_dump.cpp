@@ -7,11 +7,12 @@
  * a5map_dump.
  *
  *   ./scmap_dump <game.taf> [script.txt] [-o out.ppm] [-w W] [-h H] [-all]
- *                [-grid] [-colour]
+ *                [-grid] [-colour] [-zoom N]
  *
  *   -all      mark every room seen (whole-map view, for development)
  *   -grid     print the grid as ASCII, the way Form29.display_grid did
  *   -colour   draw in the alternative scheme "glk map colour" selects
+ *   -zoom N   pin the map scale (pixels per map unit); default auto-fits
  *   -bg/-fg   the host text style the palette is built from, RRGGBB hex
  */
 
@@ -34,6 +35,7 @@ static int g_width = 480, g_height = 480, g_grid = 0;
    paper, so it needs to be eyeballable here too. */
 static int g_colour = 0;
 static long g_bg = -1, g_fg = -1;
+static int g_zoom = 0;          /* 0 = auto-fit; else pin map_frame scale */
 
 static void draw_and_exit (void);
 
@@ -166,7 +168,7 @@ draw_and_exit (void)
                      (unsigned int) (g_fg >= 0 ? g_fg : 0x000000));
   map_set_colour_scheme (g_colour ? MAP_SCHEME_DERIVED : MAP_SCHEME_STANDARD);
   surf = map_surface_new (g_width, g_height);
-  map_frame (map, &view, player, surf, 0, &cam);
+  map_frame (map, &view, player, surf, g_zoom, &cam);
   map_render (map, &view, player, &cam, surf);
   fprintf (stderr, "scale=%d\n", cam.scale);
 
@@ -204,7 +206,7 @@ main (int argc, char **argv)
   if (argc < 2)
     {
       fprintf (stderr, "usage: %s <game.taf> [script] [-o out.ppm] [-w W]"
-               " [-h H] [-all] [-grid] [-colour]\n"
+               " [-h H] [-all] [-grid] [-colour] [-zoom N]\n"
                "       [-bg RRGGBB] [-fg RRGGBB]\n", argv[0]);
       return 1;
     }
@@ -223,6 +225,8 @@ main (int argc, char **argv)
       else if (strcmp (argv[i], "-colour") == 0
                || strcmp (argv[i], "-color") == 0)
         g_colour = 1;
+      else if (strcmp (argv[i], "-zoom") == 0 && i + 1 < argc)
+        g_zoom = atoi (argv[++i]);
       else if (strcmp (argv[i], "-bg") == 0 && i + 1 < argc)
         g_bg = strtol (argv[++i], NULL, 16);
       else if (strcmp (argv[i], "-fg") == 0 && i + 1 < argc)
