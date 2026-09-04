@@ -205,6 +205,9 @@ std::vector<LinkAction> g_links;
  * the already-printed links keep theirs -- clearing would hand an old link on
  * screen the action of whichever new one reused its number. */
 size_t g_links_spent = 0;
+/* Label of the host "Continue..." chrome currently at the transcript tail
+ * (QuestViva's #endWaitLink), or empty when none is showing. */
+std::string g_continue_shown;
 
 /* Right-hand pane: Quest's Inventory / "Places and Objects" / compass lists
  * (WorldModel.UpdateListsAsync -> the update_list host hook), shown the way
@@ -962,6 +965,7 @@ unsigned g_clear_gen = 0;
     g_links_spent = g_links.size();
     g_out_log.clear();
     g_sections.clear();
+    g_continue_shown.clear();   /* chrome died with the window */
     glk_window_clear(gwin);
     g_clear_gen++;
 }
@@ -1812,12 +1816,54 @@ InResult read_line(Interp &in, bool echo, const char *prompt = nullptr,
     }
 }
 
+/* Host chrome for a pending wait: QuestViva's #endWaitLink ("Continue..."),
+ * which sits under #divOutput while a keypress is owed and is hidden when the
+ * wait ends (playercore.js beginWait / waitEnded).  A Glk buffer has no
+ * separate chrome row, so the label is printed as a bold endWait hyperlink at
+ * the transcript tail and retracted (best-effort) before the wait resolves --
+ * leaving the next msg where the Continue was, like the reference link
+ * vanishing rather than joining the scrollback. */
+void show_continue_link(Interp &in)
+{
+    if (!g_continue_shown.empty())
+        return;
+    g_continue_shown =
+        template_text_or(in.world(), "ContinueLabel", "Continue...");
+    put_uni_char('\n');
+    LinkAction act;
+    act.end_wait = true;
+    StylePush p;
+    p.b = 1;                    /* #endWaitLink { font-weight: bold } */
+    if (g_hyperlinks) {
+        g_links.push_back(act);
+        glk_set_hyperlink((glui32) g_links.size());
+    } else {
+        p.u = 1;                /* no hyperlink support: underline only */
+    }
+    push_style(p);
+    put_uni_string(g_continue_shown);
+    pop_style(p);
+    if (g_hyperlinks)
+        glk_set_hyperlink(0);
+}
+
+void hide_continue_link()
+{
+    if (g_continue_shown.empty())
+        return;
+    /* Retract "\n" + label when still the window tail; leave it alone if
+     * timer output or a clear has already moved past it. */
+    (void) unput_exact(u32_from_utf8("\n" + g_continue_shown));
+    g_continue_shown.clear();
+}
+
 /* One keypress (a pending `wait`).  Timer events keep ticking.  A click on a
  * hyperlink -- in the main window or the side pane -- counts as the keypress
  * that dismisses the wait, matching the reference player where any input
  * continues past "Press any key to continue". */
 void read_keypress(Interp &in)
 {
+    show_continue_link(in);
     glk_request_char_event(gwin);
     request_hyperlinks();
     for (;;) {
@@ -1825,12 +1871,14 @@ void read_keypress(Interp &in)
         glk_select(&ev);
         if (ev.type == evtype_CharInput && ev.win == gwin) {
             cancel_hyperlinks();
+            hide_continue_link();
             return;
         }
         if (ev.type == evtype_Hyperlink &&
             (ev.win == gwin || ev.win == gobjwin)) {
             glk_cancel_char_event(gwin);
             cancel_hyperlinks();
+            hide_continue_link();
             return;
         }
         if (ev.type == evtype_Timer) {
@@ -1844,8 +1892,11 @@ void read_keypress(Interp &in)
             if (in.world().finished || !in.pending_wait()) {
                 glk_cancel_char_event(gwin);
                 cancel_hyperlinks();
+                hide_continue_link();
                 return;
             }
+            /* A ClearScreen during the tick wiped the chrome; put it back. */
+            show_continue_link(in);
             /* Clearing the pane drops its hyperlink request; re-arm it. */
             if (g_hyperlinks && gobjwin)
                 glk_request_hyperlink_event(gobjwin);
@@ -2691,6 +2742,7 @@ void do_wait_ui(Interp &in)
 {
     if (!gli_sa_delays)
         return;
+    show_continue_link(in);
     glk_request_char_event(gwin);
     request_hyperlinks();
     for (;;) {
@@ -2701,6 +2753,7 @@ void do_wait_ui(Interp &in)
              (ev.win == gwin || ev.win == gobjwin))) {
             glk_cancel_char_event(gwin);
             cancel_hyperlinks();
+            hide_continue_link();
             return;
         }
         if (ev.type == evtype_Arrange || ev.type == evtype_Redraw)
