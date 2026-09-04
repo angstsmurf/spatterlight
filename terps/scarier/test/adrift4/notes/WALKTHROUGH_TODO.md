@@ -2407,7 +2407,8 @@ future revisit, same footing as `YADFA.TAF` above:
   evidence-gathering, stopped before any accusation/kill/ending was
   attempted. Win marker is the game's own reproducible `Try wearing some
   gloves.` line, `SCR_SKIP_WAITKEY=1`. Revisit to push this one to a real
-  ending.
+  ending. **RESOLVED — see "`blood.taf` — 140/140" at the end of this file:
+  87 commands, 140/140, marker `You managed to score 140 out of 140.`**
 - **`mind of master.taf`** — WON. Reached "You are victorious, whoever you
   might [become]" in 29 commands, `SCR_SKIP_WAITKEY=1`.
 - **`magicshow.taf`** — a **partial-progress checkpoint**: score 49 (of the
@@ -5419,3 +5420,91 @@ SKIP, no NOSCRIPT.
 Still open after this: `blood.taf` (44 commands, no ending attempted),
 `magicshow.taf` (49, AIF terms — row committed, solution and golden
 gitignored), and `House.taf` (20/30).
+
+---
+
+## `blood.taf` — 140/140, the partial checkpoint is closed
+
+`blood.taf` ("Fire in the Blood", Richard Otter, ADRIFT 4) had been sitting
+here as a deliberately partial 44-command evidence-gathering checkpoint with
+`Try wearing some gloves.` as its win marker. It is now a **full 140-out-of-140
+route in 87 commands**, and the marker is the game's own
+`You managed to score 140 out of 140.` line.
+
+**There is no `EndGame(win)` anywhere in the file.** The ending is TASK 724,
+`ne` out of Colesworth Road (room 25) — "You head northeast and leave this
+miserable town." — which execs TASK 5 and chains through to TASK 41, printing
+the murder tally, the jewellery count, `The End` and the score summary before
+`ACT type=6 v1=3` (EndGame *stop*). So the win marker has to come from the
+perfect-score line; there is no victory string to grep for.
+
+### The 140 points
+
+| what | task(s) | points |
+| --- | --- | --- |
+| `put rose on grave` | 750 | +10 |
+| Jed / Frank / Ben / Rick killed | 143 / 147 / 150 / 151 | +25 each |
+| Terry Unsworth arrested | 162 | +5 |
+| `give wad to tom` | 545 | +5 |
+| the four guilt clues (vars 17/19/18/76) | 37 / 38 / 39 / 40 | +5 each |
+
+Killing an innocent runs TASK 34 (−25) and TASK 35 (−15), so all four kills
+have to be one of the guilty four. Gloves are not optional: the "check gloves"
+events (EVENT 5/6/7/9/10/11/12/40) fire 5–15 turns after each kill and arrest
+you bare-handed.
+
+### The route, and why each piece is shaped the way it is
+
+* **Clues.** The long way is the TASK 254 "enough evidence" chain. The short
+  way is Alison Clarke: `give perfume to alison` makes her drop the small
+  bracelet, and `give bracelet to alison` (TASK 507) sets the Jed, Rick *and*
+  Ben clues in one action and removes her from play — which also means she can
+  no longer be killed by mistake. `show photo to frank` (TASK 791) supplies the
+  fourth. The bracelet is recovered later from Jed's body.
+* **Frank Lovell** — allergic to peanuts. `put peanut in pie` must happen
+  unobserved: TASK 742's `WHERE_ROOMS` excludes rooms 1, 3, 5, 7, 9, 10, 14,
+  18, 20 and 22, so the Back Alley (room 4) is used. Then `give pie to frank`
+  in the Upstairs Flat.
+* **Rick Dawson** — blocked by Mrs Ashworth, who walks the Path with Timmy.
+  `search drum` in the Derelict House lists the bone (the ADRIFT-4 *seen*
+  model: nothing is referenceable until something lists it), and `give bone to
+  timmy` on the Path stops her walk permanently. Then fly spray + `kill rick
+  with knife`. **The kill consumes the bread knife** (`ACT type=0 v1=3 v2=3
+  v3=14`), which is why Jed later needs the garden spade lying in the Yard.
+* **Ben Crosby** — not killed by the player at all. `buy drug` from Rick (£20,
+  needs Timmy and Mrs Ashworth gone), `give packet to ben`, `get package`, then
+  stand in the Betting Shop Office so John Morley's phone call (TASK 165) fires
+  — EVENT 2 has `restart=1`, so it retries every turn until the room condition
+  holds. EVENT 4 then rolls 5..15 turns before the shot is heard. The +25 is
+  **not** awarded by the shot: `x dead body` in the Tattoo Parlour (TASK 1037 →
+  149 → 150) is what scores it.
+* **Jed Peters** — `insert money` in the pub (TASK 551 sets music-plays-for =
+  10, the noise cover), `give bracelet to jed` (TASK 515, he refuses in public
+  and walks to the Yard), follow him south, `give bracelet to jed` again (TASK
+  518 turns his back), then `kill jed with spade`. TASK 565 execs TASK 249,
+  which hands the bracelet back.
+* **Terry Unsworth** — `open cart` then `get panties` in Dawson Street (the
+  black panties, obj 82, sit *inside* the road sweepers cart, which starts
+  closed), then `give panties to policeman` and answer `1` (TASK 527). The
+  police station is only manned part-time: its door is **locked on arrival**
+  and EVENT 31 → TASK 235 unlocks it a few turns later, hence the `z` waits at
+  Draycot Road. The +5 lands immediately, not at the ending.
+* **Jewellery.** Four pieces for the ending text, worth no points: bracelet
+  from Alison, silver necklace dropped by Frank, diamond ring dropped by Rick,
+  and `buy pendant` at the Pawn Brokers (£20). The detour is kept because it
+  turns "You located 3 pieces" into "You located 4 pieces".
+
+**Every kill teleports the player back to the Cemetery** (room 0), which is why
+the route keeps restarting from there rather than walking on from the scene.
+
+Money: start £93; perfume £5 + pie £2 + drugs £20 + pendant £20 = £47 spent.
+
+Two sets of `z` waits are load-bearing and both are timing-sensitive: four
+after `give wad to tom` for EVENT 4's random shot delay, and three at Draycot
+Road for the police station door. Both were tuned against the seeded transcript
+and both have slack.
+
+Suite after this: **428 rows, 428 PASS, exit 0.**
+
+Still open after this: `magicshow.taf` (49, AIF terms — row committed, solution
+and golden gitignored) and `House.taf` (20/30).

@@ -5,40 +5,83 @@ open front door
 s
 get gloves
 wear gloves
-examine coffee table
-take photograph from coffee table
-take jewellery box from coffee table
-open jewellery box
-examine jewellery box
-examine chest of drawers
-take scissors
-open chest of drawers
-take medical report from chest of drawers
-take curtains from chest of drawers
+x coffee table
+get photograph
 n
+n
+x counter
+buy perfume
+buy pie
+get peanut
+s
 w
+give perfume to alison
+give bracelet to alison
 n
+put peanut in pie
+w
+get fly spray
+e
+n
+search drum
+get bone
+s
 u
-show photograph to frank
-d
+show photo to frank
+give pie to frank
+n
+w
+w
+w
 s
+give bone to timmy
+s
+buy drug
+spray fly spray at rick
+kill rick with knife
+n
+n
+give packet to ben
+get package
+s
+w
+w
+s
+s
+n
+n
+w
+give wad to tom
+z
+z
+z
+z
 e
 e
+e
+n
+x dead body
+n
 ne
-show photograph to jed
-sw
-w
-w
-w
+insert money
+give bracelet to jed
 s
+get spade
+give bracelet to jed
+kill jed with spade
+e
+open cart
+get panties
 s
-show photograph to rick
+buy pendant
 n
-n
+ne
+z
+z
+z
 e
-e
-e
-n
-show photograph to ben
-hints
-y
+give panties to policeman
+1
+w
+ne
+ne

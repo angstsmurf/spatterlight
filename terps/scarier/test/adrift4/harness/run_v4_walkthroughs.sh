@@ -2251,6 +2251,8 @@ afdfr_solution.txt|AFDFR.taf|Life is good for Death.|SCR_SKIP_WAITKEY=1
 # the task's "You are no longer in the bus." and no exits list where scarier
 # prints the exits and drops the task line.  Six of arlo's 84 commands differ
 # for those two reasons alone.  See notes/WINE-TRANSCRIPTS-TODO.md.
+# Re-compared 2026-09-05 (`Adven_7_akron.rtf` against the engine as of
+# 9c7c1691): still 43/43 identical; no events in the game.
 akron_solution.txt|akron.taf|you brave adventurer, saved yourself
 # cave.taf (3.80) measured live in run380, 2026-08-31 (Adven_1_cave.rtf, 216
 # commands, Save Transcript flow).  Four findings, all ported (third drive
@@ -2326,6 +2328,9 @@ haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!
 # Re-blessed 2026-09-04: pre-3.9 delayed events roll one RNG draw later (no
 # startup event tick); the measurement is on the haunt row.
 twilight_solution.txt|twilight.taf|Your score is 500 out of a maximum of 500
+# Measured 2026-09-05 in run380 (`Adven_1_haunted.rtf`, 116 commands, the
+# winning `open gate` last): 115/115 echoed, 0 differences.  Its two events
+# are RNG-timed but have no room list, so nothing they do is visible.
 haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 # 3.80.  Re-blessed 2026-08-24: "Mrs Walters totters into the room." moves
 # about six lines later in the transcript -- she is announced on a later turn,
@@ -2392,7 +2397,12 @@ tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
 # Re-blessed 2026-09-04: pre-3.9 delayed events roll one RNG draw later (no
 # startup event tick); the measurement is on the haunt row.
 timmy_reid_solution.txt|tra.taf|Thanks for getting us back home!
+# Measured 2026-09-05 in run380 (`Adven_1_duck.rtf`, 13 commands, the winning
+# `jump` last): 12/12 echoed, 0 differences.
 duck_mccloud_solution.txt|duck.taf|You jump from the plane just in time and you survive the huge
+# Measured 2026-09-05 in run380 (`Adven_1_first.rtf`, the 18 commands plus a
+# dummy `look` -- `read book` prints the ending without an EndGame, so the
+# Save Transcript can follow it): 18/18 echoed, identical on every turn.
 fistandantalus_solution.txt|first.taf|Congradulations you have won the game
 # Measured 2026-09-04 in run380 (`Adven_1_jb2000c.rtf`, 23 commands, Save
 # Transcript at the 22nd): 22/22 echoed, ZERO engine differences after the
@@ -2406,6 +2416,8 @@ fistandantalus_solution.txt|first.taf|Congradulations you have won the game
 # day (`take jacket` / `drop jacket` / `take bag` / `take box`) so the row
 # keeps exercising the rewrite; re-blessed.
 james_bond_solution.txt|jb2000.taf|YOU COMPLEATED THE MISSION! YOU LANDED WELL
+# Measured 2026-09-05 in run380 (`Adven_1_microwaveman.rtf`, 9 commands, the
+# winning `shoot man` last): 8/8 echoed, 0 differences.
 microwave_man_solution.txt|microwaveman.taf|You scored 100 out of the maximum 100!
 # DIAGNOSED 2026-08-24, deliberately not ported -- cmd 27 `take truck keys`.
 # run380 (Adven_8_mikes.rtf line 207) answers "Which keys.  The mustang keys or the
@@ -6044,22 +6056,44 @@ goblin_solution.txt|goblin.taf|Oh, and before we forget- Congratulations, gobbo.
 # Two "(Press a key)" pauses are absorbed by throwaway `look` commands;
 # SCR_SKIP_WAITKEY must NOT be used here (it breaks the imp fight).
 mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould|
-# blood.taf ("Fire in the Blood" by Richard Otter, ADRIFT 4, whodunit
-# murder mystery). The player's wife has been murdered by one of four
-# guilty men (Frank Lovell, Jed Peters, Rick Dawson, Ben Crosby); the
-# game's own `hints` command doubles as an in-fiction Q&A oracle for
-# both guilt-confirmation methods (show the photograph/burnt album, or
-# find a witness) and kill methods (poisoned pie, jukebox distraction,
-# shotgun, etc). This is a deliberately PARTIAL checkpoint, not a
-# scored ending: put rose on grave (opens the plot), get gloves (avoid
-# fingerprint arrest), gather photograph/jewellery box/medical
-# report/curtains/scissors from the flat, then show the photograph to
-# each of the four suspects in turn (Frank returns it, Jed and Rick
-# confiscate it, Ben's viewing then fails since it is already gone) and
-# finish by opening the hints menu, which prints the game's full
-# state-dependent hint tree cleanly with no error text. 32 commands,
-# no waitkey pauses left unresolved.
-blood_solution.txt|blood.taf|Try wearing some gloves.|SCR_SKIP_WAITKEY=1
+# blood.taf ("Fire in the Blood" by Richard Otter, ADRIFT 4, revenge
+# thriller). The player's wife has been murdered by four guilty men
+# (Frank Lovell, Jed Peters, Rick Dawson, Ben Crosby) and the game is
+# about killing all four without being arrested. There is no EndGame
+# (win) action anywhere in the file: the ending is `ne` out of
+# Colesworth Road, which runs a task chain that prints the murder
+# tally, the jewellery count and "The End" before EndGame(stop), so
+# the win marker is drawn from the perfect score line instead.
+# Full 140/140 route. Scoring: +10 put rose on grave; +25 for each of
+# the four kills; +5 for getting Terry Unsworth arrested; +5 for the
+# wad of money to Tom; +5 for each of the four guilt clues, awarded in
+# the ending chain. Killing an innocent costs -25/-15, so every kill
+# here is one of the four.
+# Gloves first (bare-handed kills get you arrested five to ten turns
+# later by the "check gloves" events). Alison shortcut: `give perfume
+# to alison` makes her drop the bracelet, and handing the bracelet
+# back sets the Jed, Rick and Ben clues at once and removes her from
+# play; `show photo to frank` supplies the fourth.
+# Frank: peanut in the pie (he is allergic) -- the peanut must go in
+# out of sight, so it is done in the Back Alley. Rick: `give bone to
+# timmy` on the Path stops Mrs Ashworth's walk and clears the
+# witness, then fly spray + bread knife (which the kill consumes, so
+# Jed later needs the garden spade from the Yard). Ben: buy the drug
+# packet from Rick, hand it to Ben, take the package, then be in the
+# Betting Shop Office so John Morley's phone call fires; the shot is
+# heard a few turns later and `x dead body` in the Tattoo Parlour is
+# what actually scores the kill. Jed: jukebox coin for cover noise,
+# bracelet to lure him into the Yard, bracelet again to turn his back.
+# Terry: open the road sweepers cart, take the black panties, and give
+# them to Officer Coulton answering `1`. The police station is only
+# manned part-time -- its door is locked on arrival and unlocks a few
+# turns later, hence the `z` waits at Draycot Road. The other `z`
+# waits are for the random 5..15 turn delay on Ben's shooting.
+# Every kill teleports the player back to the Cemetery, which is why
+# the route keeps restarting from there. Buying the gold pendant at
+# the Pawn Brokers is worth no points but completes the jewellery
+# count (4 of 4) in the ending text. 87 commands.
+blood_solution.txt|blood.taf|You managed to score 140 out of 140.|SCR_SKIP_WAITKEY=1
 # rking.taf ("The Reluctant Resurrectee" / "The Further Adventures Of The
 # King Who Wanted To Die..." by David Whyld, ADRIFT 4). The dead king is
 # resurrected as a disembodied eyeball and must roll/nudge/read his way
