@@ -2280,22 +2280,6 @@ You can see Small Cage, a Large Cage, a Food Bowl, Water Bottle, a Moonbeam, a W
 
 You can go out.
 
-You are Inside A Cage (In the Pet Store Office).
-
-A filthy wire pet cage, there is damp straw on the floor, and there is an empty water bottle and food bowl.
-
-The light is off in the office, but there is bright moonlight streaming through the window so you can see out of the cage and into the pet store office where you can see:
-
-Banners and balloons ready for the opening day, various boxes and a chair and desk (with paperwork stacked on it).
-
-On the wall is a map.
-
-On either side of your cage you can see two others.
-
-You can see Small Cage, a Large Cage, a Food Bowl, Water Bottle, a Moonbeam, a Window and a Waste Paper Bin.
-
-You can go out.
-
 > x banners
 
 > x banners

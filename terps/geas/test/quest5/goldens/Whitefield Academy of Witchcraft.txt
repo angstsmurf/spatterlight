@@ -2248,6 +2248,11 @@ You slog south when you feel something suddenly tighten around your leg.  Before
 She clucks her tongue at the sight of you.  "Scrawny little runt," she says, shaking her head.  "Barely any meat on her.  Well, no matter!  Granny's gingerbread will soon have you fattened up nice and plump!"
 
 She cuts you down.  Her arms feel as though they were banded with iron, and you're so dizzy you barely know where you are, anyway.
+
+Grislewood Kitchen
+Strong arms haul you through the kitchen and towards an ominous-looking iron cage.
+
+You can go in, north or south.
 Grislewood bends the bars of the cage, forces you inside, and bends them back into place.  "I'll be back with din-din, dearie!" she laughs as she turns and stomps away.
 
 "Pmmph?" someone says behind you.
@@ -2259,57 +2264,6 @@ She blushes and swallows the mouthful of gingerbread.  "I know, I know.   But ju
 Mary Jane pulls another gingerbread man from the basket she's holding and nibbles on it as she talks.  "See, she's being acting awful kooky ever since the welcome party--well, everyone has, really.  Except me and Jenny.  We think it has something to do with the punch they drank.   I didn't have any because I'm..." She grins sheepishly.  "...on a diet.  But everyone else just went nuttier than a Cinncinnati fruitcake!   The Grizz started thinking she was her great-grandmother from back in the Old Country or wherever.  At first we managed to get away and put up a barricade, but then Jenny started feeling sick.  She said she needed something in her greenhouse and she'd only be five minutes, but she never came back!   So I went looking for her, and that's when the Grizz got me."
 
 You explain about Jenny, and Mary Jane's eyes light up.  "Wowsers!  That's great!   I can't wait to tell her what happened to me!  Except I guess we gotta get outta here without getting eaten, first, huh?"  She looks thoughtful.  "Y'know, she's pretty focused on her work.  I bet you could squeeze out through the bars and get the drop on her!   I'd have done it but, uh... I don't think I'd fit."   She pats her stomach ruefully.
-Grislewood bends the bars of the cage, forces you inside, and bends them back into place.  "I'll be back with din-din, dearie!" she laughs as she turns and stomps away.
-
-"Pmmph?" someone says behind you.
-
-You turn.  You recognize the blonde hair and blue eyes of Mary Jane Minsky, an annoyingly chipper girl you were hoping to see as little as possible of this year.  Instead you're actually seeing more of her--quite a bit more.  Since the last time you laid eyes on her, she must have gained fifty pounds.
-
-She blushes and swallows the mouthful of gingerbread.  "I know, I know.   But just wait until you try her gingerbread -- it's to die for!  I can't stop eating the stuff!  It's almost worth turning into a butterball."  Her glossy pink lips turn down in a moue.  "Except there's just one teeny-tiny problem, and that's that I'm pretty sure she's gonna eat me once I'm fat enough."
-
-Mary Jane pulls another gingerbread man from the basket she's holding and nibbles on it as she talks.  "See, she's being acting awful kooky ever since the welcome party--well, everyone has, really.  Except me and Jenny.  We think it has something to do with the punch they drank.   I didn't have any because I'm..." She grins sheepishly.  "...on a diet.  But everyone else just went nuttier than a Cinncinnati fruitcake!   The Grizz started thinking she was her great-grandmother from back in the Old Country or wherever.  At first we managed to get away and put up a barricade, but then Jenny started feeling sick.  She said she needed something in her greenhouse and she'd only be five minutes, but she never came back!   So I went looking for her, and that's when the Grizz got me."
-
-You explain about Jenny, and Mary Jane's eyes light up.  "Wowsers!  That's great!   I can't wait to tell her what happened to me!  Except I guess we gotta get outta here without getting eaten, first, huh?"  She looks thoughtful.  "Y'know, she's pretty focused on her work.  I bet you could squeeze out through the bars and get the drop on her!   I'd have done it but, uh... I don't think I'd fit."   She pats her stomach ruefully.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'z' was not present in the dictionary.
-
-An Inescapable Cage
-You're inside a  large iron cage pushed against the wall of the kitchen.   There's no visible door or lock or other means of entry beyond squeezing in and out through the bars--it's your standard two-flat-slabs-with-a-bunch-of-bars-in-between model.   You can see shelves containing various kitchen supplies on the opposite wall.
-
-You can go out.
-You can see Mary Jane Minsky and shelves.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'z' was not present in the dictionary.
 
 An Inescapable Cage
 You're inside a  large iron cage pushed against the wall of the kitchen.   There's no visible door or lock or other means of entry beyond squeezing in and out through the bars--it's your standard two-flat-slabs-with-a-bunch-of-bars-in-between model.   You can see shelves containing various kitchen supplies on the opposite wall.
@@ -2370,7 +2324,11 @@ You unscrew the top and taste some of the powder.  It's pretty good -- minty.  A
 You just manage to wriggle through the heavy iron bars.
 
 Grislewood Kitchen
-Strong arms haul you through the kitchen and towards an ominous-looking iron cage.
+This is a large institutional kitchen haphazardly converted into a witch's laboratory.   The sinks have been converted into makeshift cauldrons, and yellow candles are dribbling wax everywhere.       The doors to the north have been blocked by several large slabs of stale gingerbread, and the only other direction you can go -- besides back into the cage -- is south, into the walk-in freezer.
+
+Baba Grislewood is here, working at her cauldrons and seeming remarkably unconcerned that you're wandering around out of your cage.
+
+A cage big enough to hold at least two people is plopped down in the middle of the kitchen.   Mary Jane Minsky is clutching at the bars nervously, silently pleading with you to get rid of Grislewood and save her.
 
 You can go in, north or south.
 You can see Baba Grislewood and a carving knife.

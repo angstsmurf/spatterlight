@@ -40,13 +40,12 @@ Second color?
 
 Spottedkit is a Grey and Black colored, Male Thunder clan cat.
 Now press a key to continue.
-
 Chapter One
 Night play
  Press any key to continue.
 You slowly open your eyes. Blearily, you look around. You can see your sister, Fernkit, softly snoring beside you.
-
 ''Hey, Fernkit.'' Stretching out a paw, you prod your sister in the ribs. ''Fernkit wake up.''
+
 Your sister impatiently bats you away.
 
 ''Go back to sleep Spottedkit.'' she yawns, flipping over to her other side.
@@ -54,7 +53,6 @@ What's your response?
 > No
 ''No'' You mew. ''Come on. Pleeeaaassee???''
 ''Well, okay.'' Fernkit agrees, shaking moss off her pelt and trotting out the nursery.
-
 You and Fernkit head out into the open. ''Well what should we do now?'' she asks, looking around. ''Nobody's up.
 Which one do you want to do?
 1: Get something to eat.
@@ -79,6 +77,7 @@ Swatting your Mouse a few mouse lenghts in front of you, quietly as you can, you
 ''Hey, Fernkit!'' You call. ''Look at me. I'm hunting!
 You crawl forward slowly on your belly then, when you're only one paw step away, you pounce.
 Fernkit snorts. ''You call that hunting?'' she meows. ''Watch me. ''
+
 Fernkit crawls stealthily forward towards the Mouse, then suddenly whirls around and leaps on top of you.
 "Hey!" You yowl. "No fair!"
 "First rule! " Your sibling mock growls from on top of you, "You have to surprise you prey!"

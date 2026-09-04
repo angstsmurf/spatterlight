@@ -2743,11 +2743,10 @@ What item code would you like to search?
 > Q01QWD
 You wander around the maze of crates and boxes looking for Q01QWD.  Eventually you recognize a pattern in the coded numbers and find what you are looking for.
 
-You see a bottle of isopropyl alcohol here on one of the shelves.
-
 You glance around at the crates and boxes and the little yellow cards that are on them.  The air here smells a bit like your cats litter box.  You notice containers of isopropyl alcohol lining one of the walls here.
 
 If you want to return to the front of the warehouse just go 'out' of the maze.
+You see a bottle of isopropyl alcohol here on one of the shelves.
 > take isopropyl
 
 > take isopropyl
