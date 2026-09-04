@@ -1,5 +1,7 @@
 read checklist
+take jacket
 take key card
+drop jacket
 look at key card
 read key card
 north
@@ -9,6 +11,7 @@ flush toilet
 west
 90238
 down
+take bag
 open bag
 take learner
 1

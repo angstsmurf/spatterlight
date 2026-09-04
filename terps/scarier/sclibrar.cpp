@@ -3861,29 +3861,57 @@ lib_disambiguate_npc (scr_gameref_t game,
 }
 
 
-#ifdef SCARIER_DUMP_TOOLS
 /*
  * lib_co_contains()
  * lib_co_lastword()
+ * lib_runner_co_scan()
+ * lib_co_ambiguity_prompt()
  * lib_trace_runner_co()
  *
- * SCR_TRACE_CO: reproduce the real Runner's object-ambiguity test and report
- * where it disagrees with ours.  This is a measurement harness, not engine
- * behaviour -- nothing here changes what the interpreter does.
+ * The pre-4.0 Runners' object-ambiguity test, and the end-of-turn prompt it
+ * raises.  Scarier's own `%object%` matcher is positional, so `take truck
+ * keys` binds only the truck keys; the Runner has no positional matcher and
+ * asks instead.
  *
  * The Runner matches an object by scanning the *whole* typed command for its
  * Short name or, failing that, its Alias (run380 `c()` @429048: a
  * case-insensitive InStr whose hit must start at the string start or after a
  * space, and end at the string end, a space or a comma).  Its `co()`
- * @42DE60 then takes the term that matched, counts every object *present*
- * whose Short or Alias is exactly that term, and if more than one is present
- * -- and the player did not also type the last word of the object's Prefix --
- * flags the command ambiguous, replacing the whole turn's output with
- * "Which <term>.  The X or the Y?".
+ * @42DE60 (run370 @4261B4, run390 @43B6BC) then takes the term that
+ * matched, counts every object *present* (obhere: in the room, carried,
+ * worn, or in/on something here) whose Short or Alias is exactly that term,
+ * and if more than one is present flags the command ambiguous by stamping
+ * the object's number into MemVar_44F124 (@42DDC7).  One escape hatch: if
+ * the player also typed the last word of the object's own Prefix ("take
+ * *silver* key"), @42DD4C stamps the resolved marker &HFE instead, and that
+ * marker outranks any ambiguity flagged by any other object in the same
+ * scan (@42DDC1 only writes an object number when the marker is not already
+ * set).  The list is built once, by the first ambiguous object (@42DC1E:
+ * every present object answering to that term, tense(Prefix) & " " & Short,
+ * joined with ", " and " or "); the prompt's term comes from the LAST
+ * flagged object.
  *
- * Ours is a positional matcher, so `take truck keys` binds only the truck
- * keys; the Runner also sees the mustang keys through their shared alias
- * "keys" and asks.  mikes.taf cmd 27 is the live case (Adven_8_mikes.rtf).
+ * generaltasks() runs that scan over every object at the start of EVERY
+ * command (run380 loc_441D5D, straight after the built-in input rewrites),
+ * so the flag is raised whatever handler goes on to answer the line.  It is
+ * read at the very end of the turn, after events have ticked (@4431B0,
+ * `If (MemVar_44F124 < 0) Or (MemVar_44F12C = 1)`): unless a game task ran
+ * (MemVar_44F12C, set at 44D0BA inside the task executor) the turn's whole
+ * output is thrown away and replaced by
+ *
+ *     Which <term>.  <The X, the Y or the Z>?
+ *
+ * (@4432AA with the Short when the player typed it, @443303 with the Alias
+ * otherwise).  Everything the turn DID still stands: mikes.taf cmd 27 `take
+ * truck keys`, with the carried mustang keys and the truck keys both
+ * aliased "keys", answers "Which keys.  The mustang keys or the truck
+ * keys?" -- and the truck keys are taken, because `drive truck bob` works
+ * 30 commands later (run380 under Wine, Adven_8_mikes.rtf and the
+ * 2026-09-04 re-drive; an earlier note that the keys were NOT taken was
+ * wrong).  The next command is not eaten as an answer -- `east` after the
+ * prompt simply moves east.  4.0 narrows differently (co(i,3)/co(i,4) and
+ * a word-score pass, see lib_absent_seen_object()) and never raises this
+ * prompt from the dispatcher, so the port stops at 3.9.
  */
 static scr_bool
 lib_co_contains (const scr_char *command, const scr_char *term)
@@ -3920,24 +3948,56 @@ lib_co_lastword (const scr_char *string)
   return space ? space + 1 : string;
 }
 
-static void
-lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
+/* TRUE if the object's Short or Alias is exactly the term. */
+static scr_bool
+lib_co_object_answers_to (scr_gameref_t game, scr_int object,
+                          const scr_char *term)
 {
-  static const scr_bool trace_co = getenv ("SCR_TRACE_CO") != NULL;
-
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_char *command;
-  scr_int object, room;
+  const scr_char *shortname;
+  scr_vartype_t vt_key[4];
+  scr_int alias_count, alias;
 
-  const scr_char *ambig_term = NULL;
-  scr_int ambig_present = 0;
+  shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  if (shortname && scr_strcasecmp (shortname, term) == 0)
+    return TRUE;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Alias";
+  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  for (alias = 0; alias < alias_count; alias++)
+    {
+      const scr_char *alias_name;
+
+      vt_key[3].integer = alias;
+      alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (alias_name && alias_name[0] != NUL
+          && scr_strcasecmp (alias_name, term) == 0)
+        return TRUE;
+    }
+  return FALSE;
+}
+
+/*
+ * Reproduce the scan.  Returns TRUE when the Runner would prompt, with
+ * *prompt_term the last flagged object's term, *list_term the term the list
+ * was built from (the first ambiguous object's), and *present that first
+ * object's count of present namesakes.
+ */
+static scr_bool
+lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
+                    const scr_char **prompt_term, const scr_char **list_term,
+                    scr_int *present_count)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int object, room;
+  const scr_char *flagged_term = NULL, *first_term = NULL;
+  scr_int first_present = 0;
   scr_bool resolved = FALSE;
 
-  if (!trace_co)
-    return;
-  command = run_get_dispatch_input ();
   if (!command)
-    return;
+    return FALSE;
   room = gs_playerroom (game);
 
   for (object = 0; object < gs_object_count (game); object++)
@@ -3980,58 +4040,104 @@ lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
       present = 0;
       for (other = 0; other < gs_object_count (game); other++)
         {
-          const scr_char *other_short;
-          scr_vartype_t vt_key[4];
-          scr_bool matches;
-
-          if (!obj_indirectly_in_room (game, other, room))
-            continue;
-
-          other_short = prop_get_indexed_string (bundle, "Objects",
-                                                 other, "Short");
-          matches = other_short && scr_strcasecmp (other_short, term) == 0;
-
-          vt_key[0].string = "Objects";
-          vt_key[1].integer = other;
-          vt_key[2].string = "Alias";
-          alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
-          for (alias = 0; alias < alias_count && !matches; alias++)
-            {
-              const scr_char *alias_name;
-
-              vt_key[3].integer = alias;
-              alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
-              if (alias_name && alias_name[0] != NUL
-                  && scr_strcasecmp (alias_name, term) == 0)
-                matches = TRUE;
-            }
-          if (matches)
+          if (obj_indirectly_in_room (game, other, room)
+              && lib_co_object_answers_to (game, other, term))
             present++;
         }
 
-      /*
-       * More than one present object answers to the term.  The Runner then
-       * lets the object's own Prefix rescue it: if the player also typed the
-       * Prefix's last word ("take *silver* key"), co() stamps its resolved
-       * marker &HFE, and that marker outranks any ambiguity flagged by any
-       * other object in the same scan (run380 @42DD4C sets it
-       * unconditionally, while @42DDC1 only writes an object number when the
-       * marker is not already set).  So one resolvable object suppresses the
-       * prompt for the whole command.
-       */
       if (present > 1)
         {
+          if (!first_term)
+            {
+              first_term = term;
+              first_present = present;
+            }
           if (lib_co_contains (command, lib_co_lastword (prefix)))
             resolved = TRUE;
-          else if (!ambig_term)
-            {
-              ambig_term = term;
-              ambig_present = present;
-            }
+          else if (!resolved)
+            flagged_term = term;
         }
     }
 
-  if (ambig_term && !resolved)
+  if (!flagged_term || resolved)
+    return FALSE;
+  if (prompt_term)
+    *prompt_term = flagged_term;
+  if (list_term)
+    *list_term = first_term;
+  if (present_count)
+    *present_count = first_present;
+  return TRUE;
+}
+
+scr_bool
+lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *prompt_term, *list_term;
+  scr_int present, room, object, listed;
+
+  /*
+   * 3.7 and 3.8 only.  run390 still has co() (@43B6BC) and the same
+   * end-of-turn replacement (@4607BC/460832, gated on its own task-ran
+   * flag MemVar_468198), but no longer runs the scan from generaltasks():
+   * its co() is called only from characters() (@459436/45A025/45A0F0:
+   * "give"/"attack ... with" style character commands) and sitstand()
+   * (@44413E-444827).  hangover.taf `ask doctor about approval form` with
+   * two approval forms present is answered by the doctor in run390
+   * (Adrift_1_hangover_run390.txt), where the 3.8 scan would have prompted.
+   * Those two 3.9 handlers are not ported; see WINE-TRANSCRIPTS-TODO.md.
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    return FALSE;
+  if (!lib_runner_co_scan (game, command, &prompt_term, &list_term, &present))
+    return FALSE;
+
+  /* The whole turn's output goes; only the prompt is shown. */
+  pf_empty (filter);
+  pf_buffer_string (filter, "Which ");
+  pf_buffer_string (filter, prompt_term);
+  pf_buffer_string (filter, ".  ");
+
+  room = gs_playerroom (game);
+  listed = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (!obj_indirectly_in_room (game, object, room)
+          || !lib_co_object_answers_to (game, object, list_term))
+        continue;
+
+      if (listed > 0)
+        pf_buffer_string (filter, listed == present - 1 ? " or " : ", ");
+      else
+        pf_new_sentence (filter);
+      lib_print_object_np (game, object);
+      listed++;
+    }
+  pf_buffer_string (filter, "?");
+  pf_buffer_character (filter, '\n');
+  return TRUE;
+}
+
+#ifdef SCARIER_DUMP_TOOLS
+/*
+ * SCR_TRACE_CO: report where the Runner's test disagrees with ours at each
+ * lib_disambiguate_object_common() call.  `ours=` is our own post-filter
+ * reference count, so ours=1 is a real divergence and ours>1 means only the
+ * prompt's wording differed before lib_co_ambiguity_prompt() existed.  A
+ * measurement harness only: it changes nothing.
+ */
+static void
+lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
+{
+  static const scr_bool trace_co = getenv ("SCR_TRACE_CO") != NULL;
+  const scr_char *command, *ambig_term;
+  scr_int ambig_present;
+
+  if (!trace_co)
+    return;
+  command = run_get_dispatch_input ();
+  if (lib_runner_co_scan (game, command, &ambig_term, NULL, &ambig_present))
     fprintf (stderr, "CO-AMBIG verb=[%s] input=[%s] term=[%s]"
              " present=%ld ours=%ld\n",
              verb ? verb : "", command, ambig_term, ambig_present, count);
@@ -5002,7 +5108,14 @@ lib_list_in_on_object (scr_gameref_t game, scr_int object,
     {
       if (is_open_container)
         in_listed = lib_list_in_object (game, object, is_described, FALSE);
-      if (obj_is_surface (game, object))
+      /*
+       * A closed object lists nothing, surface or not: run380's examine
+       * gates its whole in/on listing on field 44 <> 5 (@43CFF3), as do
+       * whatisin1 and whatisin2 -- Crime_Adventure.taf's closed dresser,
+       * a surface with Openable set (decompile-read, not measured live).
+       */
+      if (obj_is_surface (game, object)
+          && gs_object_openness (game, object) != OBJ_CLOSED)
         on_listed = lib_list_on_object (game, object,
                                         is_described || in_listed, FALSE);
       return in_listed || on_listed;
@@ -6167,6 +6280,58 @@ static scr_bool lib_take_refusal_claimed = FALSE;
    raw prefix in pre-4.0 games (see the wording comment in the backend). */
 static scr_bool lib_take_from_single_named = FALSE;
 
+/*
+ * lib_take_container_unheld()
+ * lib_print_not_holding()
+ *
+ * The pre-3.9 hold gate on the container or surface an object is taken
+ * from.  run380's takes() (loc_43E47B) rewrites a plain "take X" whose X sits
+ * in or on a present object into "take X from <parent>", and its insides()
+ * from-branch (loc_446CBB..446CFB) then insists that a DYNAMIC parent is held
+ * (position 0) or worn (&H9C) by the player, else "<You> <are> not holding
+ * <raw prefix> <short>." -- before the closed test, before any game task is
+ * tried for "get X from Y".  A static parent only has to be in the room.
+ * run370's insides() (43B118, "not holding" at 439D33/43AB5E) is the same;
+ * run390 has no "not holding" on any take path and run400 none at all, so
+ * from 3.90 on a contained object is taken wherever its parent is.
+ *
+ * Measured on jb2000.taf (James Bond - Happy Landings, 3.80) in run380,
+ * 2026-09-04: `take key card` with the card inside a jacket lying in the
+ * room answers "You are not holding a brown jacket.", and `take learner`
+ * from a suitcase on the floor "You are not holding a brown suitcase.";
+ * `take jacket` first, and the card comes out with "You take the cockpit
+ * key card from the brown jacket."  The prefix is the author's, untensed
+ * (var_41C(0) & " " & var_41C(4)), hence lib_print_object.  Held means
+ * held directly: a container nested inside a carried one has position
+ * &HF6, not 0, and is refused like any other.
+ */
+static scr_bool
+lib_take_container_unheld (scr_gameref_t game, scr_int container)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    return FALSE;
+  if (obj_is_static (game, container))
+    return FALSE;
+
+  return !(gs_object_position (game, container) == OBJ_HELD_PLAYER
+           || gs_object_position (game, container) == OBJ_WORN_PLAYER);
+}
+
+static void
+lib_print_not_holding (scr_gameref_t game, scr_int container,
+                       const scr_char *suffix)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                         "You are not holding ",
+                                         "I am not holding ",
+                                         "%player% is not holding "));
+  lib_print_object (game, container);
+  pf_buffer_string (filter, suffix);
+}
+
 static void
 lib_take_backend_common (scr_gameref_t game, scr_int associate,
                          scr_bool is_associate_object, scr_bool is_associate_npc)
@@ -6198,6 +6363,25 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
 
       if (!game->object_references[object])
         continue;
+
+      /*
+       * Pre-3.9 refuses the whole take when the object's parent is a
+       * dynamic container or surface the player isn't holding; see
+       * lib_take_container_unheld().  With an associate the parent was
+       * already vetted by lib_take_from_is_valid().
+       */
+      if ((gs_object_position (game, object) == OBJ_IN_OBJECT
+           || gs_object_position (game, object) == OBJ_ON_OBJECT)
+          && lib_take_container_unheld (game,
+                                        gs_object_parent (game, object)))
+        {
+          scr_int index_;
+
+          lib_print_not_holding (game, gs_object_parent (game, object), ".");
+          for (index_ = 0; index_ < object_count; index_++)
+            game->object_references[index_] = FALSE;
+          return;
+        }
 
       /*
        * If the object is inside or on something already held by the player,
@@ -7068,6 +7252,13 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
       return FALSE;
     }
 
+  /* Pre-3.9: a dynamic supporter must be held or worn (run380 446CFB). */
+  if (lib_take_container_unheld (game, associate))
+    {
+      lib_print_not_holding (game, associate, ".\n");
+      return FALSE;
+    }
+
   /* If object is a container, and is closed, reject now. */
   if (obj_is_container (game, associate)
       && gs_object_openness (game, associate) > OBJ_OPEN)
@@ -7333,6 +7524,18 @@ typedef struct
   const scr_char *lacks[3];   /* "You are not holding ", and so on */
   scr_char lacks_end;         /* Terminator for the "not holding" list */
   scr_bool raw_prefix_pre_390;/* Print the authored prefix below 3.9 */
+  /*
+   * Below 3.9 the leftovers are not a list at all.  run380's drops()
+   * (@438DD5-438E13) and its remove handler (@430076-4300C8) each walk the
+   * objects in index order and, for the first name-match they cannot act
+   * on, set the turn's message ONLY IF IT IS STILL EMPTY: "<You> don't have
+   * <raw prefix> <short>!" and "<You> <are> not wearing <raw prefix>
+   * <short>!" -- so a second unactionable object is never named, and none
+   * is once something was dropped or removed on the same line.  run370 is
+   * the same code (drop @430BD4, remove @429954).  NULL keeps the list.
+   */
+  const scr_char *lacks_pre_390[3];
+  scr_char lacks_end_pre_390;
 } lib_move_verb_t;
 
 static void
@@ -7359,21 +7562,26 @@ static const lib_move_verb_t LIB_DROP_VERB = {
   lib_move_to_room, NULL,
   {"You drop ", "I drop ", "%player% drops "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
-  '.', FALSE
+  '.', FALSE,
+  /* run380 @438E13: `MemVar_44F108(0) & " don't have " & ...` -- the
+   * third-person form really is "<name> don't have". */
+  {"You don't have ", "I don't have ", "%player% don't have "}, '!'
 };
 
 static const lib_move_verb_t LIB_REMOVE_VERB = {
   lib_move_to_player, NULL,
   {"You remove ", "I remove ", "%player% removes "},
   {"You are not wearing ", "I am not wearing ", "%player% is not wearing "},
-  '!', TRUE
+  '!', TRUE,
+  {"You are not wearing ", "I am not wearing ", "%player% is not wearing "}, '!'
 };
 
 static const lib_move_verb_t LIB_PUT_ON_VERB = {
   lib_move_onto, " onto ",
   {"You put ", "I put ", "%player% puts "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
-  '.', FALSE
+  '.', FALSE,
+  {NULL, NULL, NULL}, '.'
 };
 
 
@@ -7466,6 +7674,30 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
 
       list.push_back (object);
       game->multiple_references[object] = FALSE;
+    }
+
+  /*
+   * Pre-3.9: first leftover only, raw prefix, and only while nothing has
+   * been said (see lacks_pre_390 above).  Measured on Crime_Adventure.taf
+   * (3.80) in run380, 2026-09-04: `remove shoes` with the golf shoes lying
+   * unworn in the shop is "You are not wearing a pair of golf shoes!", where
+   * Scarier said "the pair of golf shoes"; `drop cash` naming a penny it
+   * never held is "You don't have a penny!".
+   */
+  if (verb->lacks_pre_390[0]
+      && prop_get_taf_version (bundle) < TAF_VERSION_390)
+    {
+      if (!has_printed && !list.empty ())
+        {
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                                 verb->lacks_pre_390[0],
+                                                 verb->lacks_pre_390[1],
+                                                 verb->lacks_pre_390[2]));
+          lib_print_object_raw (game, list[0]);
+          pf_buffer_character (filter, verb->lacks_end_pre_390);
+        }
+      return;
     }
 
   lib_print_object_list (game, has_printed, list, " or ", verb->lacks_end,
@@ -8152,6 +8384,53 @@ lib_cmd_inventory (scr_gameref_t game)
 
 
 /*
+ * lib_list_in_object_pre_390()
+ *
+ * The listing the 3.8 open handler appends: whatisin1 (run380 @42998C) and
+ * whatisin2 (@4297AC) each gather every object whose parent field names the
+ * opened object -- in or on, they never look at which -- and print them as
+ * "  Inside <the object> is a, b and c." from the one "  Inside " literal
+ * the Runner has (see lib_list_in_object).  The object only has to be a
+ * surface or container of some kind (field 29 nonzero) and not closed, so
+ * an openable SURFACE lists this way too: Crime_Adventure.taf (3.80) keeps
+ * a penny and a golf ball on a closed dresser (SurfaceContainer 2), and
+ * run380 answers `open dresser` with "You open the dresser.  Inside the
+ * dresser is a penny and a golf ball." (measured 2026-09-04) where the
+ * container-only lister said nothing.  whatisin1, the held case, marks each
+ * listed object seen; whatisin2, the static case, does not.  run370 is the
+ * same pair (@42B78E).
+ */
+static scr_bool
+lib_list_in_object_pre_390 (scr_gameref_t game, scr_int container)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int object;
+  lib_list_t list;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if ((gs_object_position (game, object) == OBJ_IN_OBJECT
+           || gs_object_position (game, object) == OBJ_ON_OBJECT)
+          && gs_object_parent (game, object) == container)
+        {
+          list.push_back (object);
+          if (!obj_is_static (game, container))
+            gs_set_object_seen (game, object, TRUE);
+        }
+    }
+  if (list.empty ())
+    return FALSE;
+
+  pf_buffer_string (filter, "  Inside ");
+  lib_print_object_np (game, container);
+  pf_buffer_string (filter, " is ");
+  lib_print_list (game, list, lib_print_object, " and ");
+  pf_buffer_character (filter, '.');
+  return TRUE;
+}
+
+
+/*
  * lib_cmd_open_object()
  *
  * Attempt to open the referenced object.
@@ -8210,9 +8489,27 @@ lib_cmd_open_object (scr_gameref_t game)
       lib_print_object_np (game, object);
       pf_buffer_character (filter, '.');
 
-      /* Set open state, and list contents. */
+      /*
+       * Set open state, and list contents.  The 3.8 open handler
+       * (openclose, run380 42F3A4) lists through whatisin1 (42998C: only a
+       * dynamic container held directly by the player, position 0 -- not
+       * worn, not lying in the room, not nested) and whatisin2 (4297AC:
+       * only a static one present in the room); anything else gets the
+       * bare "You open X."  Measured on jb2000.taf in run380, 2026-09-04:
+       * `open bag` on a suitcase lying in the room prints just "You open
+       * the brown suitcase.", while the same command after `take bag` adds
+       * "  Inside the brown suitcase is a 9mm hand gun, a lazer watch and
+       * a mind learner."  3.9 and 4.0 list regardless.
+       */
       gs_set_object_openness (game, object, OBJ_OPEN);
-      lib_list_in_object (game, object, TRUE, FALSE);
+      if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+        {
+          if (obj_is_static (game, object)
+              || gs_object_position (game, object) == OBJ_HELD_PLAYER)
+            lib_list_in_object_pre_390 (game, object);
+        }
+      else
+        lib_list_in_object (game, object, TRUE, FALSE);
       pf_buffer_character (filter, '\n');
       return TRUE;
 
@@ -12993,14 +13290,64 @@ lib_cmd_unclear_object (scr_gameref_t game)
   return TRUE;
 }
 
+/*
+ * lib_first_named_object_pre_390()
+ *
+ * The pre-3.9 drop and remove handlers match their noun with co() (run380
+ * @42DE60), which tests every object's Short and alias against the line
+ * with no regard to where the object is, and then name the first match in
+ * index order that they cannot act on (see lacks_pre_390 in the move verb
+ * table).  So `drop cash` with the penny (alias "cash") shut in a dresser
+ * two rooms away answers "You don't have a penny!" rather than "Drop what?",
+ * which run380 keeps (@438FE6) for a line naming nothing at all.  Measured
+ * on Crime_Adventure.taf (3.80) in run380, 2026-09-04.  Returns the first
+ * object the line names below 3.9, else -1.
+ */
+static scr_int
+lib_first_named_object_pre_390 (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object;
+
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    return -1;
+  if (!input)
+    return -1;
+  if (!uip_match ("* %object%", input, game)
+      && !uip_match ("* %object% *", input, game))
+    return -1;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (game->object_references[object])
+        return object;
+    }
+  return -1;
+}
+
 scr_bool
 lib_cmd_drop_what (scr_gameref_t game)
 {
+  const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *input = run_get_dispatch_input ();
+  scr_int object;
 
   if (lib_is_version_400 (game)
       && input && !lib_input_contains_word (input, "drop"))
     return lib_cmd_unclear_object (game);
+
+  object = lib_first_named_object_pre_390 (game);
+  if (object != -1)
+    {
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You don't have ",
+                                             "I don't have ",
+                                             "%player% don't have "));
+      lib_print_object_raw (game, object);
+      pf_buffer_string (filter, "!\n");
+      return TRUE;
+    }
 
   return lib_what (game, "Drop");
 }
@@ -13068,6 +13415,23 @@ lib_cmd_give_what (scr_gameref_t game)
 scr_bool
 lib_cmd_remove_what (scr_gameref_t game)
 {
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int object;
+
+  /* run380 @4300C8, the same first-named-object rule as drop above. */
+  object = lib_first_named_object_pre_390 (game);
+  if (object != -1)
+    {
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You are not wearing ",
+                                             "I am not wearing ",
+                                             "%player% is not wearing "));
+      lib_print_object_raw (game, object);
+      pf_buffer_string (filter, "!\n");
+      return TRUE;
+    }
+
   return lib_what (game, "Remove");
 }
 

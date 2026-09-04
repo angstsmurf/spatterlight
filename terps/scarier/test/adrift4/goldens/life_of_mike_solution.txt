@@ -91,6 +91,7 @@ wait
 wait
 look in mailbox
 open box
+take box
 take case
 open case
 take balls

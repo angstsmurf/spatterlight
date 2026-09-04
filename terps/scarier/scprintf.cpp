@@ -2169,6 +2169,50 @@ pf_compare_words (const scr_char *string, const scr_char *words)
 
 
 /*
+ * pf_rewrite_whole_words()
+ *
+ * One whole-string rewrite pass: replace every whole-word occurrence of
+ * original in the current input with replacement.  'buffer' is materialised
+ * from 'string' on the first change, 'current' always points at the text
+ * being walked, and 'modified' records that buffer is live.
+ */
+static void
+pf_rewrite_whole_words (const scr_char *string, std::string &buffer,
+                        scr_bool &modified, const scr_char *&current,
+                        const scr_char *original, const scr_char *replacement,
+                        size_t replacement_length, const scr_char *what)
+{
+  scr_int offset;
+
+  /* Walk the current string a word at a time, replacing each match. */
+  offset = strspn (current, WHITESPACE);
+  while (current[offset] != NUL)
+    {
+      scr_int extent;
+
+      extent = pf_compare_words (current + offset, original);
+      if (extent > 0)
+        {
+          if (!modified)
+            {
+              buffer = string;
+              modified = TRUE;
+            }
+          buffer.replace (offset, extent, replacement, replacement_length);
+          current = buffer.c_str ();
+          offset += replacement_length;
+
+          if (pf_trace)
+            scr_trace ("Printfilter: %s \"%s\"\n", what, buffer.c_str ());
+        }
+      else
+        offset += strcspn (current + offset, WHITESPACE);
+
+      offset += strspn (current + offset, WHITESPACE);
+    }
+}
+
+/*
  * pf_filter_input()
  *
  * Applies synonym changes to a player input string, and returns the resulting
@@ -2183,7 +2227,6 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
   std::string buffer;
   scr_bool modified;
   const scr_char *current;
-  scr_int offset;
   assert (string && bundle);
 
   if (pf_trace)
@@ -2236,36 +2279,63 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
     {
       const pf_str_pair_t &entry = pf_synonym_cache[index_];
 
-      /* Walk the current string a word at a time, replacing each match. */
-      offset = strspn (current, WHITESPACE);
-      while (current[offset] != NUL)
-        {
-          scr_int extent;
-
-          extent = pf_compare_words (current + offset, entry.original);
-          if (extent > 0)
-            {
-              if (!modified)
-                {
-                  buffer = string;
-                  modified = TRUE;
-                }
-              buffer.replace (offset, extent, entry.replacement,
-                              entry.replacement_length);
-              current = buffer.c_str ();
-              offset += entry.replacement_length;
-
-              if (pf_trace)
-                scr_trace ("Printfilter: synonym \"%s\"\n", buffer.c_str ());
-            }
-          else
-            offset += strcspn (current + offset, WHITESPACE);
-
-          offset += strspn (current + offset, WHITESPACE);
-        }
+      pf_rewrite_whole_words (string, buffer, modified, current,
+                              entry.original, entry.replacement,
+                              entry.replacement_length, "synonym");
     }
 
-  /* Return the final string, or NULL if no synonym replacements. */
+  /*
+   * The Runner's own built-in rewrites come AFTER the game's synonyms, in
+   * this order, each a whole-word change() of every occurrence (change() is
+   * a c()-driven loop, case-insensitive):
+   *
+   *   run370 43B41F everything->all, 43B430 slap->hit
+   *   run380 441C3F everything->all, 441C50 slap->hit,
+   *          441C61 take->get,       441C72 except->but
+   *
+   * 3.9 and 4.0 replace everything/slap/except/"apart from" too (run390
+   * 45F222-45F28B, run400 48A330 area) but as substring Replace()s, and
+   * neither touches `take`; 4.0 task matching is verb-literal.  Those
+   * versions' rewrites are covered by the grammar alternatives instead.
+   *
+   * The 3.80-only take->get is the one that matters: it runs before ANY
+   * task matching, so a 3.80 task whose command slots say only `take X` /
+   * `pick up X` never sees a typed `take X` -- the library take handles it.
+   * Measured live on great.taf (run380 under Wine, greatx1 probe,
+   * 2026-09-04): task 2 is "take wallet"/"pick up wallet" (score 5, no
+   * pickup), and `pick up wallet` ran it ("You have your wallet", +5) while
+   * `take wallet` fell to the library ("You pick up the wallet.", score
+   * unchanged, wallet then carried).  Every other measured pre-4.0 pair
+   * fits: the great t-shirt/stun-gun/picasso tasks (take-only slots) go to
+   * the library, the dictionary (`get dictionary` slot), crime's `get cash`
+   * and tra's `get *...*` wildcards run as tasks.
+   */
+  {
+    struct pf_builtin_rewrite_t
+    {
+      const scr_char *original;
+      const scr_char *replacement;
+      scr_int min_version, max_version;
+    };
+    static const pf_builtin_rewrite_t BUILTIN[] = {
+      {"everything", "all", TAF_VERSION_370, TAF_VERSION_380},
+      {"slap", "hit", TAF_VERSION_370, TAF_VERSION_380},
+      {"take", "get", TAF_VERSION_380, TAF_VERSION_380},
+      {"except", "but", TAF_VERSION_380, TAF_VERSION_380},
+    };
+    scr_int version = prop_get_taf_version (bundle);
+
+    for (const pf_builtin_rewrite_t &entry : BUILTIN)
+      {
+        if (version < entry.min_version || version > entry.max_version)
+          continue;
+        pf_rewrite_whole_words (string, buffer, modified, current,
+                                entry.original, entry.replacement,
+                                strlen (entry.replacement), "builtin");
+      }
+  }
+
+  /* Return the final string, or NULL if no replacements. */
   return modified ? pf_strdup (buffer) : NULL;
 }
 

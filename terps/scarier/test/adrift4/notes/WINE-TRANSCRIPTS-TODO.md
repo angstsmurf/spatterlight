@@ -545,6 +545,10 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `superliam.taf` | 3.80 | full run380 replay, `Adven_1_superliam.rtf` (feed `cmdfile_w_superliam.txt` -- 86 commands, Save Transcript at the 85th) | 85/85 echoed; three divergent turns, two engine rules, both FIXED: the run380 **AdditionalMessage double-space suppression reaches through a ShowRoomDesc room description**, and **names are matched RAW** -- object Short `"necko wafers "` (trailing space) is unreferenceable, `take necko wafers` answers "Take what?".  After the fixes every echoed turn matches; both sides win 3250/3250.  Measured 2026-08-31 |
 | `cave.taf` | 3.80 | three full run380 replays, `Adven_1_cave.rtf` / `Adven_1_cave2.rtf` / `Adven_1_cave3.rtf` (final feed `cmdfile_w_cave3.txt` -- 216 commands, Save Transcript flow) | 215/215 echoed each time; FOUR engine findings, all FIXED: `z` is not 3.80 vocabulary (whole-line `= "z"` test only exists from run390_3 45FCB0 -- seven `z` -> `wait`); 3.8 substitutes "There is nothing of interest here." into empty room Longs at LOAD (447FEE), so it prints BEFORE LastDesc alts; a 3.8 task can never move the PLAYER to the game's FIRST room (tasks() 44D1D4 stores Var2 pre-decremented behind "If Var2 > 1" -- second `climb down` re-derived to `down`; 3.7's encoding sits one higher so run370 441E55 is correct, arlo the counterexample; is_v370 gate in sctafpar.cpp); and the single-named held-take refusal is "You've already got X!" pre-4.0 (43E03E -- 4.0's "already carrying" @462D25 gated on lib_is_version_400, four 3.9 goldens re-blessed -- thewoods' own ALR "I've already got the" -> "<br>I'm already carrying the" confirms the base from the game side).  Third drive replays CLEAN: every comparable turn identical, `score` at 900/1000 both sides; only the winning `read parchment` is uncapturable in the Save-at-end flow (Scarier finishes 1000/1000).  Still open from the pre-fix stuck-tail census (never reached by the corrected feed): 3.8 answers a matched-task-wrong-room with "You can't do that here." (21x) and names unseen/unheld objects in refusals ("You can't see X from here!" / "You don't have X!") where Scarier says "Take what?" etc -- a 3.8 referenceability/where-fail model not yet ported.  Measured 2026-08-31 |
 | `haunt.taf` | 3.80 | full run380 replay, `Adven_1_haunt.rtf` (feed `cmdfile_w_haunt.txt` -- 85 commands, `measure38.sh`: Save Transcript at the 84th, the winning `down` sent after it) | 84/84 echoed; 40 divergent turns, then 1, then 0 -- two pre-3.9 engine rules, both fixed: **no startup event tick before 3.90** (a StarterType 2 delay of N starts on turn N, uncompensated) and **no administrative turns before 3.90** (`score` ticks NPCs and events).  Seven 3.80 goldens re-blessed, wrecked re-pinned to seed 106; full suite 428/428 PASS. |
+| `jb2000.taf` | 3.80 | three run380 replays, `Adven_1_jb2000.rtf` / `_jb2000b` / `_jb2000c` (final feed `cmdfile_w_jb2000c.txt` -- 23 commands, the walkthrough plus four `take` probes, Save Transcript at the 22nd) | 22/22 echoed; ONE engine finding, FIXED: run380's generaltasks rewrites the typed `take` to `get` before matching (441C61), a **3.80-only** rewrite (run370 has only everything->all and slap->hit, run390 has no change() rewrite at all, run400 rewrites take->get only inside its get handler after task matching).  This game's tasks are all written `get X`, so Scarier had been printing the library's "You take the X." where run380 ran the task.  Ported in `pf_filter_input` (BUILTIN table, version-gated); after the port 0 differences.  Golden re-blessed (the probes) |
+| `Crime_Adventure.taf` | 3.80 | full run380 replay, `Adven_1_crime.rtf` (whole solution, Save Transcript at the penultimate command) | every command echoed; 0 engine differences once the take->get rewrite was in.  Re-blessed: 65/95 finish (the `score` before `stand on chair` ticks the events in 3.8) |
+| `mikes.taf` | 3.80 | second full run380 replay, `Adven_1_mikesb.rtf` (feed `cmdfile_w_mikesb.txt`) | cmd 27 `take truck keys` -> `Which keys.  The mustang keys or the truck keys?` -- the end-of-turn co() prompt, now **PORTED for 3.7/3.8** (see the DIAGNOSED section's 2026-09-04 addendum); identical through cmd 52 after the port; the shift from cmd 53 on is the "auction" event's RANDOM 2..10 length, not a consequence of 27 |
+| `great.taf` | 3.80 | five run380 replays: `Adven_1_greatx1.rtf` (6-command probe), `_greatb` / `_greatc` (old walkthrough, survived the chase, 1240), `_greatd` (new walkthrough + dummy `look` after the winning `hide` -- the end-of-game modals wipe the scrollback, 2870-byte .rtf, useless), `_greate` (new walkthrough, DIED in the chase -- a death restarts the game and wipes the scrollback, 3240 bytes, useless), `_greatf` (feed `cmdfile_w_greatf.txt`: 121 commands up to `break into car`) | 121/121 echoed, **0 engine differences** (turns 5/102/109 differ only by the .rtf's `Â£` mojibake).  Line 41 is now `steal picasso`: the 3.80 take->get rewrite turns `take picasso` into `get picasso`, which matches none of the theft task's patterns and falls to "You can't take the picasso."  Everything after `break into car` is the car chase, whose four events roll RANDOM lengths (police arrival 1..6, small road 1..15, police 3 / police 4 1..5): greatc survived and greate died on the same feed, so the chase is unmeasurable and only the pre-chase turns count.  Even turn 121's tail shows the roll: the "sirens" event prints PrefText1 ("grows steadily louder", run380) or PrefText2 ("getting much closer", Scarier) on its start turn depending on the length it drew |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -802,9 +806,9 @@ The four best targets, by walks x length:
 | `superliam.taf` | `super_liam` | 86 | 5 | 11 | 0 | -- | **done** 2026-08-31 -- see "Measured so far" |
 | `cave.taf` | `cave` | 216 | 2 | 5 | 12 | -- | **done** 2026-08-31 -- see "Measured so far" |
 | `akron.taf` | `akron` | 44 | 2 | 4 | 0 | -- | -- |
-| `jb2000.taf` | `james_bond` | 20 | 1 | 1 | 0 | -- | -- |
+| `jb2000.taf` | `james_bond` | 20 | 1 | 1 | 0 | -- | **done** 2026-09-04 -- see "Measured so far" (take->get rewrite, 3.80 only) |
 | `haunted.taf` | `haunted_house` | 116 | 0 | 0 | 2 | -- | -- |
-| `Crime_Adventure.taf` | `crime_adventure` | 90 | 0 | 2 | 3 | -- | [Crime_Adventure_walkthrough](Crime_Adventure_walkthrough.md) |
+| `Crime_Adventure.taf` | `crime_adventure` | 90 | 0 | 2 | 3 | -- | **done** 2026-09-04 -- see "Measured so far"; [Crime_Adventure_walkthrough](Crime_Adventure_walkthrough.md) |
 | `first.taf` | `fistandantalus` | 18 | 0 | 1 | 0 | -- | -- |
 | `duck.taf` | `duck_mccloud` | 13 | 0 | 0 | 0 | -- | -- |
 | `microwaveman.taf` | `microwave_man` | 9 | 0 | 1 | 1 | -- | -- |
@@ -1314,11 +1318,14 @@ akron is the first pre-3.9 game to match the real Runner byte for byte.
   deliberately not ported** -- see "DIAGNOSED ... the run370 double matcher
   pass" below.
 - **mikes replay desync**, for anyone re-running it: cmd 27 `take truck keys`
-  hits a disambiguation prompt ("Which keys. The mustang keys or the truck
-  keys?") that scarier resolves silently, and everything from cmd 53 on is a
-  consequence.  Only commands before 27 are evidence.  **Diagnosed 2026-08-24,
-  not ported -- blocked on one live 4.00 command**; see "DIAGNOSED ... the
-  Runner's co() object-ambiguity test" below.
+  hits a disambiguation prompt ("Which keys.  The mustang keys or the truck
+  keys?") that scarier used to resolve silently.  **PORTED 2026-09-04 for
+  3.7/3.8** (Scarier now prints the same line, and -- like run380 -- still
+  takes the keys: the prompt replaces the turn's OUTPUT only).  Corrected the
+  same day: the shift from cmd 53 on is NOT a consequence of 27, it is the
+  "auction" event's random 2..10 length; `Adven_1_mikesb.rtf` is identical
+  to Scarier through cmd 52.  See "DIAGNOSED ... the Runner's co()
+  object-ambiguity test" below and its 2026-09-04 addendum.
 - **Humbug via SAVE points** (user's suggestion, untried): checkpoint the
   replay with the Runner's own `save`/`restore` so the three randomised
   secrets -- dial combination, magic word at cmd 209, keypad code at cmd 344
@@ -1341,8 +1348,12 @@ run380 answers mikes cmd 27 `take truck keys` with
 
     Which keys.  The mustang keys or the truck keys?
 
-and does not take them (`Adven_8_mikes.rtf` line 207).  Scarier binds the truck
-keys silently, which is where the replay desyncs.
+and -- correction 2026-09-04 -- DOES take them: the prompt replaces the turn's
+output, the task's state changes stand (`Adven_8_mikes.rtf` and
+`Adven_1_mikesb.rtf` both list the truck keys in the inventory afterwards).
+Scarier bound the truck keys silently and printed the take line, which is
+where the replay diverged.  **PORTED 2026-09-04 for 3.7/3.8** -- see the
+addendum at the end of this section.
 
 ### What the Runner does
 
@@ -1432,7 +1443,7 @@ Of the remaining 12 genuine divergences, **eleven are in 4.00 games**:
 | easter | 4.00 | `put egg/eggs/chicks in basket` |
 | asteroid_after | 4.00 | `open/close {first..fifth} valve` x6 |
 
-### Why it is not ported
+### Why it is not ported (superseded 2026-09-04: PORTED for 3.7/3.8, see the addendum below)
 
 4.00 is exactly the generation where the rule is *not* established.  Objects
 carry `[1]$Alias` -- one alias, full stop -- in 3.7, 3.8 and 3.9, which is why
@@ -1669,6 +1680,45 @@ the follow-up-prompt state machine, and version-splitting the lot against
 passes today (303/303) precisely because they name objects by their Short.
 Left unported deliberately -- but this section is now the specification for
 doing it, and nothing above needs Wine again.
+
+### Addendum 2026-09-04 -- PORTED for 3.7/3.8, and why 3.9 is different
+
+The 4.00 argument above still holds for 4.00.  It never applied to 3.7/3.8,
+where the rule was measured (mikes) and read off the decompile, so the
+pre-3.9 prompt is now in the engine:
+
+* `sclibrar.cpp` `lib_co_ambiguity_prompt()` -- the run380 `co()` scan for
+  every object (term = Short if the whole command contains it, else the
+  Alias; count the present objects whose Short or Alias equals the term;
+  >1 = flagged unless the last word of the object's Prefix was typed, the
+  `&HFE` escape hatch), then the 4431B0 end-of-turn test: the flag is only
+  honoured when no task ran this turn.  Scarier's `run_note_task_ran()` is
+  the task-ran flag (`run_co_task_claimed`), and `run_main_loop()` calls the
+  prompt after the tick, after which the whole turn's output is replaced by
+  `Which <term>.  <Short list>?` -- exactly as 4431B0 replaces the Runner's.
+  State changes stand, the same as in the Runner.
+* Gated `prop_get_taf_version() < TAF_VERSION_390`.  The first version of
+  the port was global and **regressed six 3.90 goldens** (cybercow_win,
+  secret_of_lost_world, the_hangover, troll, hhorror, deardiary).  run390
+  really does not do this: its `co(obnum, mode)` @43B6BC is reached ONLY from
+  `characters()` (45ACD8: 459436 / 45A025 / 45A0F0 -- give / "... with"
+  style character commands) and `sitstand()` (444A04: 44413E / 444430 /
+  4445F8 / 444827); there is no per-object loop in generaltasks, the flag
+  468190 is only ever set inside co(), and the end-of-turn test at
+  4607BC/460832 is guarded the same way (`(468190 < 0) Or (468198 = 1)`).
+  run390's takes() 455B34 / drops() 445F20 / wears() 43D298 never call co()
+  and print their own "Which X would you like to take/drop.  <list>?"
+  (454CAD / 4459BD / 43C9D5) -- those are NOT ported either.  The live
+  hangover run390 transcript (`open cabinet` with two cabinets in the room:
+  no prompt) is the measurement behind the gate.
+* run370 differs in reach, not in rule: `co()` @4261B4 is called from
+  `therest()` (43EAA8; per-object loop 43CC5D/43CC86) and `insides()`
+  (43B118), and `therest()` only runs when nothing has answered the command
+  yet (`If MemVar_4460E4 = vbNullString`, 43C647); the end-of-turn test at
+  43C8D3 checks the flag alone.  The 3.8 "no task ran" gate approximates
+  that; no 3.70 golden moved.
+* Corpus: only mikes cmd 27 moved (life_of_mike golden re-blessed, one
+  line).  v4 suite 428/428 after the port.
 
 ## DIAGNOSED 2026-08-24 -- the run370 double matcher pass (arlo)
 
@@ -4575,3 +4625,48 @@ rule, none after the second; the seeded replay wins 84/84 on both sides.
   / information / end / turns only.  Scarier also marks hint, help, clear,
   where and a dozen 4.0-era verbs administrative for 3.9 games; nothing has
   measured `hint` / `help` / `clear` / `where` under run390 yet.
+
+## 2026-09-04 -- jb2000 / Crime_Adventure / mikes / great (run380): the 3.80 `take` -> `get` rewrite, the co() prompt ported
+
+Four more 3.80 replays (rows in "Measured so far").  Two engine findings,
+both ported; one correction; one RNG dead end.
+
+- **run380 rewrites the typed command before matching** (generaltasks
+  441C3F-441C72): `everything` -> `all`, `slap` -> `hit`, `take` -> `get`,
+  `except` -> `but`, each a whole-word replace on the raw input.  run370 has
+  only the first two.  run390 has no `change()` function at all, and
+  run400 rewrites take->get only inside its get handler, after task
+  matching -- so the generic rewrite is **3.80-only**.  The take->get one is the visible one: any 3.80 game whose
+  tasks are written with `get` (jb2000: all of them; Crime_Adventure; the
+  great.taf picasso task in the other direction) matched in run380 and fell
+  to the library in Scarier.  Ported in `scprintf.cpp` `pf_filter_input()`
+  as a BUILTIN rewrite table after the game's SYNONYM pass, version-gated
+  per row.  jb2000 and Crime then replay with 0 differences; great line 41
+  had to become `steal picasso` because the rewritten `get picasso` matches
+  no pattern of that task.
+- **The co() end-of-turn ambiguity prompt is ported for 3.7/3.8** -- see the
+  addendum under "DIAGNOSED 2026-08-24 -- the Runner's co() object-ambiguity
+  test".  3.9 is handler-scoped and deliberately unported; the global
+  version regressed six 3.90 goldens and the hangover transcript proves
+  run390 prints nothing there.
+- **Correction**: run380 DOES take the keys at the mikes prompt; the prompt
+  replaces the output only.  And the mikes shift from cmd 53 was never a
+  consequence of cmd 27 -- it is the random-length "auction" event.
+- **great.taf's car chase is RNG** (four events with random lengths); one
+  replay survived it, one died on the identical feed.  Only the 121 turns
+  before `break into car` are measurable, and they match.  Two Save-Transcript
+  footguns learned the hard way: a dummy command after the winning move
+  lands the save in the end-of-game modal chain and wipes the scrollback,
+  and a mid-run death restarts the game and does the same -- both give a
+  ~3 KB .rtf with nothing in it.  The game-ending command must be the LAST
+  one in the feed (it is never echoed anyway, RULE 2).
+- **Open, unmeasured**: two things seen in the OLD-walkthrough replay
+  (`Adven_1_greatc.rtf`) that the new feed does not exercise -- a 3.8
+  room-refusal ("You can't do that here.", a task's Where restriction)
+  answering where Scarier's library refuses for an unseen object (greatc
+  turn 49, and the turns after it cascade from that), and run380's task
+  wildcard `get *knives*` matching `get meat`.  Neither is in a wired
+  walkthrough today; both need their own probe.
+
+**Parked here 2026-09-04.**  Next candidate is the next unmeasured row in
+the "### 3.80" table above; the harness is 428/428.

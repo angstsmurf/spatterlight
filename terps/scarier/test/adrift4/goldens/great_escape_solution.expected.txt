@@ -52,10 +52,10 @@ at this point without at least a pair of well-washed trousers.
 Also here is the wallet, the letter and the mobile-phone.
 
 > take wallet
-You have your wallet
+You pick up the wallet.
 
 > get wallet
-You pick up the wallet.
+You've already got the wallet!
 
 > open wallet
 You open the wallet revealing a crisp tenner, your Piddlington bank credit
@@ -94,11 +94,14 @@ fresh minty flavour (aka your bathroom) or west to your upstairs landing.
 
 Also here are the pair of trousers and the t-shirt.
 
+> get trousers
+You pick up the pair of trousers.
+
 > take stun-gun
-You pick up the Sparkshot 500, it feels cool to the touch.
+You take the stun-gun from the pair of trousers.
 
 > get stun-gun
-You take the stun-gun from the pair of trousers.
+You've already got the stun-gun!
 
 > watch tv
 You switch on the TV. There isn't much on, a chat show, a gardening program.
@@ -109,11 +112,7 @@ think where you saw that painting before, then suddenly it hits you. You have
 seen that very painting in your neighbour's flat!
 
 > take t-shirt
-You pick up the t-shirt and put it on. It is surprisingly fresh and smells of
-springtime (whatever that smells like.)
-
-> get trousers
-You pick up the pair of trousers.
+You pick up the t-shirt.
 
 > e
 You move east.
@@ -284,7 +283,7 @@ leaves quickly leaving you feeling very depressed and alone.
 > wait
 Time passes...
 
-> take picasso
+> steal picasso
 You quickly take the picasso and run out of the door.
 
 > s
@@ -943,7 +942,7 @@ realise with horror that you can barely stand let alone run. For you the
 chase is over, but maybe you could still get away with it...
 
 > score
-Your score is 1375 out of a maximum of 1860.  (73%)
+Your score is 1360 out of a maximum of 1860.  (73%)
 The sirens are getting louder and louder...
 
 > hide
@@ -955,6 +954,6 @@ sound of your breathing. Eventually, after what seems like an eternity, they
 give up and drive off. You wait for about five more minutes and then you get
 up, slowly. You check that there is no-one there. There isn't. You let out a
 cry of joy, you have made it, you have escaped!!
-You scored 1475 out of the maximum 1860!
-That is 79% of the game!
-You finished 385 points short.
+You scored 1460 out of the maximum 1860!
+That is 78% of the game!
+You finished 400 points short.

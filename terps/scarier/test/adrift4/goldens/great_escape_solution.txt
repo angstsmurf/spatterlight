@@ -9,11 +9,11 @@ shout
 up
 get crowbar
 e
+get trousers
 take stun-gun
 get stun-gun
 watch tv
 take t-shirt
-get trousers
 e
 use shower
 use toilet
@@ -39,7 +39,7 @@ give chocolate to mrs walters
 call ambulance
 wait
 wait
-take picasso
+steal picasso
 s
 phone julie
 wait

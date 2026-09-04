@@ -117,7 +117,7 @@ You move north.
 In spare bedroom of Fenwicks house. There is a dresser here.
 
 > open dresser
-You open the dresser.
+You open the dresser.  Inside the dresser is a penny and a golf ball.
 
 > get penny
 You take a penny from the dresser.
@@ -183,7 +183,7 @@ You put the penny in the machine and give the lever a pull. All of a sudden
 You grab the £30.00 from the machine
 
 > get cash
-You take a cash from the casino.
+You are not holding a casino.
 
 > south
 You move south.
@@ -202,17 +202,16 @@ In the shoe store.
 Also here is a pair of golf shoes.
 
 > buy shoes
-You get the shoes of the self and give your money to the lady at the
-checkout.
+You don't have enough money
 
 > wear golf shoes
-You wear the golf shoes
+You don't have enough money
 
 > remove shoes
-You remove a pair of golf shoes.
+You are not wearing a pair of golf shoes!
 
 > wear golf shoes
-You wear the golf shoes
+You don't have enough money
 
 > south
 You move south.
@@ -315,7 +314,7 @@ The oven has finnished making the stew
 You switch off the oven
 
 > drop cash
-You drop the cash.
+You don't have a penny!
 
 > north
 You move north.
@@ -354,9 +353,7 @@ You move south.
 In the back yard of the Fenwick house. You can see a green, and a flag
 
 > putt golf ball
-You place the ball on the ground and with one steady  breath you place it in
-the middle of the hole.. In doing this, the hole begins to grow untill it is
-just about big enough for you to get in to.
+You aren't wearing the right clothing.
 
 > drop putter
 You drop the putter.
@@ -387,7 +384,7 @@ You pick up the chair.
 You move the chair under the ceiling hole.
 
 > score
-Your score is 75 out of a maximum of 95.  (78%)
+Your score is 45 out of a maximum of 95.  (47%)
 
 > stand on chair
 You stand on  the chair and see that Mrs Fenwick is there safe and sound.Well
@@ -396,6 +393,6 @@ picked her up at the booth (she was in a rush).
 
 I hoped you liked my game
 If you do then e-mail me with some feedback mwhitmore12@yahoo.co.uk
-You scored 95 out of the maximum 95!
-That is 100% of the game!
-Well done - you scored maximum points!
+You scored 65 out of the maximum 95!
+That is 68% of the game!
+You finished 30 points short.

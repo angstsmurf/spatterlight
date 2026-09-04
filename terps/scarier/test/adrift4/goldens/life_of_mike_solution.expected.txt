@@ -150,7 +150,7 @@ important.
 You can only move east.
 
 > take truck keys
-You take a truck keys from the closet.
+Which keys.  The mustang keys or the truck keys?
 
 > east
 You move east.
@@ -495,6 +495,9 @@ This is a mail box.  Inside the mailbox is a small box.
 
 > open box
 You can't open the small box!
+
+> take box
+You take a small box from the mailbox.
 
 > take case
 You take a neat carrying case from the small box.

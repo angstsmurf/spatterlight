@@ -13,8 +13,14 @@ play the game. and 007... please be careful
 what's happend is that the pilots have been shot! and no one can drive it!
 your mission is  1. to make sure that the plane lands!
 
+> take jacket
+You pick up the brown jacket.
+
 > take key card
 You take the cockpit key card from the brown jacket.
+
+> drop jacket
+You drop the brown jacket.
 
 > look at key card
 (IT'S Q) OK NOW READ THE CARD! IT MIGHT HAVE SOMETHING IMPORTANT ON IT!
@@ -61,6 +67,9 @@ IS! I RUN TO IT! "THANK GOD I FOUND THIS, IT'S GOT ALL MY GADGETS IN HERE!
 Also here is a brown suitcase.
 
 You can only move up.
+
+> take bag
+You pick up the brown suitcase.
 
 > open bag
 You open the brown suitcase.  Inside the brown suitcase is a 9mm hand gun, a

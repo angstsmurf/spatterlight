@@ -1318,9 +1318,20 @@ run_get_dispatch_input (void)
  */
 static std::vector<scr_bool> run_tasks_ran_this_command;
 
+/*
+ * The last typed command as the dispatcher saw it, and whether a game task
+ * ran for it: the pre-4.0 end-of-turn ambiguity prompt (see
+ * lib_co_ambiguity_prompt()) fires only on a line no task claimed, and the
+ * Runner's flag for that (MemVar_44F12C) is set at the same place any task
+ * executes, library-callback tasks included.
+ */
+static std::string run_co_pending_input;
+static scr_bool run_co_task_claimed = FALSE;
+
 static void
 run_note_task_ran (scr_gameref_t game, scr_int task)
 {
+  run_co_task_claimed = TRUE;
   if (run_tasks_ran_this_command.size () != (size_t) gs_task_count (game))
     run_tasks_ran_this_command.assign (gs_task_count (game), FALSE);
   run_tasks_ran_this_command[task] = TRUE;
@@ -2606,6 +2617,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
 #ifdef SCARIER_DUMP_TOOLS
   run_trace_last_input = string;
 #endif
+  run_co_pending_input = string;
+  run_co_task_claimed = FALSE;
   run_tasks_ran_this_command.assign (gs_task_count (game), FALSE);
   status = run_game_commands_in_parser_context (game, string, FALSE, TRUE);
   if (!status)
@@ -3391,6 +3404,19 @@ run_main_loop (scr_gameref_t game)
               /* Give the debugger a chance to catch watchpoints. */
               debug_turn_update (game);
             }
+        }
+
+      /*
+       * Pre-4.0: the Runner's object-ambiguity flag, raised by the scan at
+       * the top of generaltasks() and read only now, after the events have
+       * ticked (run380 @4431B0), replaces the turn's whole output with its
+       * "Which <term>.  <list>?" -- unless a game task claimed the line.
+       */
+      if (!run_co_pending_input.empty ())
+        {
+          if (!run_co_task_claimed)
+            lib_co_ambiguity_prompt (game, run_co_pending_input.c_str ());
+          run_co_pending_input.clear ();
         }
 
       /*

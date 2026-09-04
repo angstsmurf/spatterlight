@@ -1747,6 +1747,12 @@ humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner..
 # turn before the winning `stand on chair`, which banks the last 20.
 # 3.80, despite sitting in the 3.90 block.  Re-blessed 2026-08-24 with the
 # other eighteen pre-3.9 rows; see the comment block above the akron row.
+# Measured 2026-09-04 in run380 (`Adven_1_crime.rtf`, the whole solution,
+# Save Transcript at the penultimate command): every command echoed, ZERO
+# engine differences once the 3.80 `take` -> `get` rewrite (jb2000 row) was
+# in.  Re-blessed the same day: the finish is now 65/95 -- the `score`
+# before `stand on chair` is not an administrative turn in 3.8 (haunt row),
+# and the re-worded `take` lines went with the rewrite.  Still wins.
 crime_adventure_solution.txt|Crime_Adventure.taf|Mrs Fenwick was in no danger at all, it was a friend
 # The Sisters (Andy Joel / "Mad Monk") -- ADRIFT 4.00, 50 rooms, 123 tasks,
 # 9 events.  WIN with the FULL 109/109 in 151 commands.  All 109 points live in
@@ -2343,6 +2349,24 @@ haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 # Re-blessed 2026-09-04: `score` is not an administrative turn in 3.8, so
 # the "sirens are getting louder" event line now follows it; measured on the
 # haunt row.
+# Re-derived + re-blessed 2026-09-04 (line 41 `take picasso` -> `steal
+# picasso`): run380's generaltasks rewrites `take` -> `get` BEFORE task
+# matching (3.80 ONLY -- see the jb2000 row), so the typed `take picasso`
+# becomes `get picasso`, matches none of the theft task's patterns (`take
+# picasso`, `take picasso painting`, `steal picasso`, ...: no `get`
+# alternative) and falls to the library's "You can't take the picasso."
+# (`Adven_1_greatc.rtf` turn 41).  `steal picasso` runs the task in both.
+# Measured 2026-09-04 in run380 (`Adven_1_greatf.rtf`, 121 commands up to
+# `break into car`): 121/121 echoed, ZERO engine differences (turns 5/102/109
+# differ only by the transcript's mojibake of `£`).  The tail from turn 121 on
+# is the car chase, whose four events (police arrival 1..6, small road 1..15,
+# police 3 / police 4 1..5) all roll RANDOM lengths: two earlier full replays
+# (`greatc` survived and won 1240, `greate` died in the chase, which restarts
+# the game and wipes the Save-Transcript scrollback) differ only by the
+# rolls, so nothing past `break into car` is measurable.  Even the last
+# measured turn shows it: the "sirens" event prints PrefText1 or PrefText2 on
+# its start turn depending on the length it rolled (run380 rolled "grows
+# steadily louder", Scarier "getting much closer").
 great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!
 # Re-blessed 2026-09-04: pre-3.9 delayed events roll one RNG draw later (no
 # startup event tick); the measurement is on the haunt row.
@@ -2355,6 +2379,17 @@ tom_ceader_solution.txt|secret.taf|you did good work escaping from the town
 timmy_reid_solution.txt|tra.taf|Thanks for getting us back home!
 duck_mccloud_solution.txt|duck.taf|You jump from the plane just in time and you survive the huge
 fistandantalus_solution.txt|first.taf|Congradulations you have won the game
+# Measured 2026-09-04 in run380 (`Adven_1_jb2000c.rtf`, 23 commands, Save
+# Transcript at the 22nd): 22/22 echoed, ZERO engine differences after the
+# builtin `take` -> `get` rewrite was ported (scprintf.cpp pf_filter_input,
+# 3.80 ONLY: run380 generaltasks 441C61; run370 has only everything->all
+# and slap->hit, run390 has no change() rewrite at all, run400 rewrites
+# take->get only inside its get handler after task matching).  This game's tasks
+# are written with `get`, so before the port every `take X` in the feed
+# fell through to the library's "You take the X." in Scarier while run380
+# ran the author's task.  The walkthrough gained four `take` probes the same
+# day (`take jacket` / `drop jacket` / `take bag` / `take box`) so the row
+# keeps exercising the rewrite; re-blessed.
 james_bond_solution.txt|jb2000.taf|YOU COMPLEATED THE MISSION! YOU LANDED WELL
 microwave_man_solution.txt|microwaveman.taf|You scored 100 out of the maximum 100!
 # DIAGNOSED 2026-08-24, deliberately not ported -- cmd 27 `take truck keys`.
@@ -2407,6 +2442,23 @@ microwave_man_solution.txt|microwaveman.taf|You scored 100 out of the maximum 10
 # `open second valve`.  A prompt means the 4.00 rule is the same and the port
 # is one code path; a normal answer means 4.00 narrows by the longest match
 # and the port has to be version-split.
+# PORTED 2026-09-04, for 3.7/3.8 only (sclibrar.cpp lib_co_ambiguity_prompt,
+# called at the end of every turn from scrunner.cpp when no task claimed
+# the command): run380 calls co() for EVERY object on EVERY command
+# (generaltasks 441D5D) and, at the end of the turn (4431B0), replaces the
+# whole output with `Which <term>.  <list>?` unless a task ran.  Cmd 27 now
+# prints exactly run380's line -- and the keys ARE taken (the old note above
+# saying they are not was wrong: `Adven_8_mikes.rtf` and `Adven_1_mikesb.rtf`
+# both list the truck keys in the inventory afterwards, the prompt only
+# replaces the OUTPUT).  Measured again 2026-09-04 (`Adven_1_mikesb.rtf`):
+# identical through cmd 52; the shift from cmd 53 on is the "auction" event,
+# whose length is RANDOM (2..10), not a consequence of cmd 27.
+# NOT ported for 3.9: run390's co() is only reached from characters() and
+# sitstand() (45ACD8 / 444A04), never from the generic per-object loop, and
+# its take/drop/wear handlers have their own "Which X would you like to
+# take" prompts; the hangover run390 transcript (`Adrift_*_hangover.txt`,
+# `open cabinet` with two cabinets present) shows no prompt.  Porting the
+# 3.8 rule globally regressed six 3.90 goldens, hence the `< 3.90` gate.
 life_of_mike_solution.txt|mikes.taf|Ypu ask her out
 # Measured 2026-08-31 against run380.exe live (Adven_1_superliam.rtf, feed
 # cmdfile_w_superliam.txt, 85/85 echoed, save at the 85th command).  Two
