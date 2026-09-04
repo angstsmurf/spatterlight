@@ -8879,11 +8879,24 @@ gsc_a5_media_fire (a5_run_t *run, int idx)
  * rendering was dropped, e.g. a deduped repeat response).  Returns the number
  * of images the turn embedded, so the caller can decide whether to fall back
  * to the cover.
+ *
+ * A leftover that merely REPEATS an event already fired at its mark is not
+ * replayed: a description is rendered several times inside one turn (the stock
+ * Look's two pre/post-action test renders, then the real one), so its <audio>
+ * is recorded once per render while only the displayed render's copy carries a
+ * mark.  The Runner never sees the test renders at all -- they never reach
+ * DisplayText -- and replaying one here is not the no-op it looks like: the
+ * sweep runs after the whole turn has been displayed, so a repeat play landing
+ * behind a stop the player really did see restarts a track that was just
+ * switched off (Grandpa's Ranch: MUSIC OFF, then the room view's own
+ * background-music tag comes back through the sweep).  Only an event the
+ * displayed text did not already carry -- e.g. a sound-only message dropped as
+ * output-less -- still needs the sweep to fire it.
  */
 static int
 gsc_a5_show_media (a5_run_t *run)
 {
-  int n = a5run_media_count (run), i, images = 0;
+  int n = a5run_media_count (run), i, j, images = 0;
   int trace = getenv ("A5_TRACE_MEDIA") != NULL;
 
   for (i = 0; i < n; i++)
@@ -8897,15 +8910,36 @@ gsc_a5_show_media (a5_run_t *run)
              image was already part of the intro. */
           if (m->number > 0)
             images++;
+          continue;
         }
-      else if (m->shown)
+      if (m->shown)
         {
           if (trace)
-            fprintf (stderr, "[a5 media] skip kind=%d ch=%d (fired at its "
-                     "mark)\n", m->kind, m->channel);
+            fprintf (stderr, "[a5 media] skip %d/%d kind=%d ch=%d snd=%d "
+                     "(fired at its mark)\n", i + 1, n, m->kind, m->channel,
+                     m->number);
+          continue;
         }
-      else
-        gsc_a5_sound_event (m);
+      for (j = 0; j < n; j++)
+        {
+          const a5_media_event_t *s = a5run_media_get (run, j);
+
+          if (s->shown && s->kind == m->kind && s->number == m->number
+              && s->channel == m->channel)
+            break;
+        }
+      if (j < n)
+        {
+          if (trace)
+            fprintf (stderr, "[a5 media] skip %d/%d kind=%d ch=%d snd=%d "
+                     "(repeat of shown %d)\n", i + 1, n, m->kind, m->channel,
+                     m->number, j + 1);
+          continue;
+        }
+      if (trace)
+        fprintf (stderr, "[a5 media] sweep %d/%d kind=%d ch=%d snd=%d (never "
+                 "displayed)\n", i + 1, n, m->kind, m->channel, m->number);
+      gsc_a5_sound_event (m);
     }
   return images;
 }

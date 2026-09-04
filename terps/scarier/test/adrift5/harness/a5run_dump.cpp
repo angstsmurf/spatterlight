@@ -11,6 +11,11 @@
  *
  * A5_TRACE_RUN=1   trace task matching + action execution
  * A5_TRACE_RESTR=1 trace restriction evaluation
+ * A5_DUMP_MEDIA=1  print each turn's collected <img>/<audio> events (the list a
+ *                  Glk host presents), so sound channels and the repeats a
+ *                  multiply-rendered description produces can be inspected
+ *                  without a sound-capable host
+
  * A5_SAVE_AT=N     after the Nth command, a5run_save the state, free the run,
  *                  build a fresh run, a5run_restore it, and continue from there
  *                  -- a save/restore self-check: the transcript must be identical
@@ -135,6 +140,30 @@ ask_upgrade_question (a5_adventure_t *a, FILE *script)
     printf ("Adventure Upgrade\n%d tasks have been updated.", n);
 }
 
+/* A5_DUMP_MEDIA=1 prints the turn's collected <img>/<audio> events to stderr
+   (the same list a Glk host presents), so sound ordering and channel handling
+   can be checked headlessly. */
+static void
+dump_media (a5_run_t *run)
+{
+  static const char *dm = (const char *) 1;
+  int n, i;
+
+  if (dm == (const char *) 1) dm = getenv ("A5_DUMP_MEDIA");
+  if (dm == NULL)
+    return;
+  n = a5run_media_count (run);
+  for (i = 0; i < n; i++)
+    {
+      const a5_media_event_t *m = a5run_media_get (run, i);
+      static const char *kn[] = { "?", "image", "play", "stop", "pause" };
+
+      fprintf (stderr, "[media %d/%d %s num=%d ch=%d loop=%d]\n", i + 1, n,
+               (m->kind >= 1 && m->kind <= 4) ? kn[m->kind] : "?",
+               m->number, m->channel, m->loop);
+    }
+}
+
 int
 main (int argc, char **argv)
 {
@@ -220,6 +249,7 @@ main (int argc, char **argv)
       txt = a5run_intro (run);
       printf ("%s\n", txt);
       free (txt);
+      dump_media (run);
     }
 
   {
@@ -282,6 +312,7 @@ main (int argc, char **argv)
         txt = a5run_input (run, line);
         printf ("%s\n", txt);
         free (txt);
+        dump_media (run);
         if (was_over && strcasecmp (line, "quit") == 0)
           /* The runner exits on a post-game "quit"; the transcript just ends. */
           break;
