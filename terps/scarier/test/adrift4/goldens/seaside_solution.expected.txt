@@ -1,0 +1,401 @@
+Loading game...
+
+A Day At The Seaside
+Welcome to Portobello, the picturesque seaside in the east of Edinburgh,
+capital of Scotland.The No. 26 bus drops you off as you start your
+much-awaited trip to the seaside. This will be where you catch the bus home
+when you have finished your visit, but first you need to find the beach...
+
+Portobello Town Hall & Crossroads
+
+You can move north, east, west and northeast.
+
+> w
+You move west.
+
+Portobello high street (west)
+
+The west end of Portobello High Street. A must for the vehicular enthusiast
+and gateway to Edinburgh's popular Seafield district - home of the bus depot
+and many premier car dealerships (except Rover).
+
+You can move north and east.
+
+> n
+You move north.
+
+West end of the beach
+The west end of the beach at Portobello, in many ways the poorer cousin of
+the more popular end, due in part to the further reach of the tide here
+meaning less expanse of dry, golden sands. Nevertheless popular with
+dog-walkers and metal detector enthusiasts, this end of the resort is home to
+the varied pursuits of indoor bowling, five-a-side football, and drinking in
+the newly refurbished "Tides Inn" pub/bar- a late night favourite for karaoke
+enthusiasts. The western end of the beach is also home to Portobello's
+repository of graffiti.
+
+Also here is a bucket and spade.
+
+You can move north, east and south.
+
+> get bucket and spade
+You take the bucket and spade.
+
+> make sandcastle
+You build an attractive sandcastle, complete with moat!
+
+> e
+You move east.
+
+Middle of the beach
+
+You are standing in the central area of the beach at Portobello. To the
+north, over the glassy but dark waters of the firth of Forth, the rolling
+hills of Fife stare back. Picking your way through the driftwood and seaweed,
+you ponder which direction to follow as you recall summers past at this exact
+spot - the tanned drinkers who used to roll out of the now-demolished
+Grannies Attic bar, the hordes of children and dogs and their ensuing
+detritus. The beach stretches east and west. To the south, the Arcade invites
+you by smell - a heady cocktail of fried sugar and gambling awaits...
+
+You can move north, east, south and west.
+
+> e
+You move east.
+
+East end of the beach
+The eastern end of Portobello beach, where sand turns to rock and the
+promenade is book-ended by the welcoming sight of a public toilet and a
+chinese takeaway. Looking back west, the promenade, beach, sea and distant
+hills present themselves in an almost framed, postcard-esque setting
+A local photographer is here.
+
+You can move north, south and west.
+
+> dig
+as you dig in the sand you uncover a penny!
+
+> w
+You move west.
+
+Middle of the beach
+
+You are standing in the central area of the beach at Portobello. To the
+north, over the glassy but dark waters of the firth of Forth, the rolling
+hills of Fife stare back. Picking your way through the driftwood and seaweed,
+you ponder which direction to follow as you recall summers past at this exact
+spot - the tanned drinkers who used to roll out of the now-demolished
+Grannies Attic bar, the hordes of children and dogs and their ensuing
+detritus. The beach stretches east and west. To the south, the Arcade invites
+you by smell - a heady cocktail of fried sugar and gambling awaits...
+
+You can move north, east, south and west.
+
+> s
+You move south.
+
+Arcade - entrance
+Portobello's main Amusement Arcade, prominently situated on the promenade and
+bedecked with enough fluorescent lighting to make redundant any need for a
+lighthouse. Strange gambling machines consisting of slowly moving shelves
+stacked precariously with pennies vie for your attention along with video
+games and prize bingo - come inside and go on a ride, or be taken for one ...
+
+You can move north, east, south and in.
+
+> in
+You move in.
+
+Arcade
+You step inside the arcade, drawn in like a soft toy which has been grabbed
+by a poorly controlled metal claw and deposited aimlessly down. Although
+unsure what you seek, you see the choice as threefold - youngsters play video
+games downstairs, their elders seem to be smoking and playing bingo machines
+upstairs, and to your right an odd gambling contraption invites you to chance
+the luck of a penny against its already heaving shelves.
+
+You can move up and out.
+
+> play game
+Fortune is on your side. Your penny manages to dislodge a pound coin!
+
+> u
+You move up.
+
+Bingo
+A visit to Portobello is arguably complete *without* playing a game of Bingo,
+and if I had to argue the case for obligatory play, I would be struggling to
+come up with a reason. Nevertheless, you have wandered into a semi-automated
+Bingo room. A game is in progress.
+
+Also here is a pen.
+
+You can only move down.
+
+> get pen
+You take the pen.
+
+> d
+You move down.
+
+Arcade
+You step inside the arcade, drawn in like a soft toy which has been grabbed
+by a poorly controlled metal claw and deposited aimlessly down. Although
+unsure what you seek, you see the choice as threefold - youngsters play video
+games downstairs, their elders seem to be smoking and playing bingo machines
+upstairs, and to your right an odd gambling contraption invites you to chance
+the luck of a penny against its already heaving shelves.
+
+You can move up and out.
+
+> out
+You move out.
+
+Arcade - entrance
+Portobello's main Amusement Arcade, prominently situated on the promenade and
+bedecked with enough fluorescent lighting to make redundant any need for a
+lighthouse. Strange gambling machines consisting of slowly moving shelves
+stacked precariously with pennies vie for your attention along with video
+games and prize bingo - come inside and go on a ride, or be taken for one ...
+
+You can move north, east, south and in.
+
+> s
+You move south.
+
+Scotmid (and Post Office) - entrance
+
+You are standing outside the main supermarket in Portobello - unless evil
+developers have their way, that is - but that is another story. For now this
+building is what Portobello has to offer - the Scottish & Midland
+Co-Operative society store, also known as Scotmid. It's a distant
+evolutionary relative of the modern supermarket, much like the missing link
+sought by Homo Sapiens. Sadly left behind by the ravages of modern
+capitalism, Scotmid stands like a proud (and poor) victorian Scotsman
+suddenly deposited on the streets of modern Manhattan - alien, confused,
+nostalgic and ultimately facing extinction. They are doing quite a nice soup
+pack today where you can buy a leek, small turnip and carrot for the price of
+1/3 of a trendy take-away latte.
+
+You can move north, south and in.
+
+> in
+You move in.
+
+Scotmid
+You are just inside the supermarket. Although tempted by the special offer
+soup pack and the in-store Post Office, your eyes are drawn to the automatic
+photo booth - resolutely traditional photography in an increasingly digital
+world.
+
+You can move in and out.
+
+> in
+You move in.
+
+Photo booth
+Even though it is for functional rather than entertainment use, it's amusing
+to you to compare this photo booth with the gambling and entertainment
+machines in the nearby amusement arcade - the coin slot, the swivel seat, and
+the chances of getting a decent photo out of your three shots make playing
+almost as much fun ... The cost of a photo is £1, payable in coin form.
+
+You can only move out.
+
+> insert coin
+You insert the coin and ... * Flash *  a mugshot ensues.
+
+> out
+You move out.
+
+Scotmid
+You are just inside the supermarket. Although tempted by the special offer
+soup pack and the in-store Post Office, your eyes are drawn to the automatic
+photo booth - resolutely traditional photography in an increasingly digital
+world.
+
+You can move in and out.
+
+> out
+You move out.
+
+Scotmid (and Post Office) - entrance
+
+You are standing outside the main supermarket in Portobello - unless evil
+developers have their way, that is - but that is another story. For now this
+building is what Portobello has to offer - the Scottish & Midland
+Co-Operative society store, also known as Scotmid. It's a distant
+evolutionary relative of the modern supermarket, much like the missing link
+sought by Homo Sapiens. Sadly left behind by the ravages of modern
+capitalism, Scotmid stands like a proud (and poor) victorian Scotsman
+suddenly deposited on the streets of modern Manhattan - alien, confused,
+nostalgic and ultimately facing extinction. They are doing quite a nice soup
+pack today where you can buy a leek, small turnip and carrot for the price of
+1/3 of a trendy take-away latte.
+
+You can move north, south and in.
+
+> n
+You move north.
+
+Arcade - entrance
+Portobello's main Amusement Arcade, prominently situated on the promenade and
+bedecked with enough fluorescent lighting to make redundant any need for a
+lighthouse. Strange gambling machines consisting of slowly moving shelves
+stacked precariously with pennies vie for your attention along with video
+games and prize bingo - come inside and go on a ride, or be taken for one ...
+
+You can move north, east, south and in.
+
+> e
+You move east.
+
+Municipal baths - entrance
+You are standing outside Portobello's public baths - owned and run by the
+local council. The baths stand on the promenade, facing the beach. A large
+sign, also erected by the council, carries miscellaneous information of note
+to visitors.
+
+You can move north, south, west and in.
+
+> in
+You move in.
+
+Municipal Baths
+Portobello's public baths serve the local population's civic swimming,
+turkish bathing and other exercise needs, under one Victorian roof. A sign on
+the wall indicates that it is only possible to partake of these facilities
+when one is the holder of a Leisure Access Card.
+
+Also here is a leisure access card form.
+
+You can only move out.
+
+> get form
+You take the leisure access card form.
+
+> do form
+I don't understand what you want me to do with the completed form.
+
+> give form
+Finally, you are given a leisure access card.
+
+> swim
+Your swim is almost as rewarding as the process of applying for a leisure
+access card! You do a few lengths, taking great care not to get your hair
+wet.
+
+> out
+You move out.
+
+Municipal baths - entrance
+You are standing outside Portobello's public baths - owned and run by the
+local council. The baths stand on the promenade, facing the beach. A large
+sign, also erected by the council, carries miscellaneous information of note
+to visitors.
+
+You can move north, south, west and in.
+*** Sunset has started in Portobello. To the west, the sun is setting,
+casting a deep reddish light over the horizon. ***
+
+> s
+You move south.
+
+Portobello high street (east)
+
+The eastern end of Portobello High Street. Any retail needs in the
+departments of pharmaceuticals, alcohol, religion, gambling and second-hand
+charity goods will be adequately met here. You note a particularly attractive
+wood-fronted chemist.
+
+You can move north, west and in.
+
+> in
+You move in.
+
+Chemist
+You are in the chemists. The pharmacist stands, arms folded, amidst the
+containers of lip balm, wart cream and homeopathic cold remedies. The shop is
+dominated by a large display cabinet, whose slightly more expensive contents
+are safely hidden from prying hands and grubby eyes.
+
+You can only move out.
+
+> buy camera
+You buy the disposable camera.
+
+> out
+You move out.
+
+Portobello high street (east)
+
+The eastern end of Portobello High Street. Any retail needs in the
+departments of pharmaceuticals, alcohol, religion, gambling and second-hand
+charity goods will be adequately met here. You note a particularly attractive
+wood-fronted chemist.
+
+You can move north, west and in.
+
+> n
+You move north.
+
+Municipal baths - entrance
+You are standing outside Portobello's public baths - owned and run by the
+local council. The baths stand on the promenade, facing the beach. A large
+sign, also erected by the council, carries miscellaneous information of note
+to visitors.
+
+You can move north, south, west and in.
+
+> n
+You move north.
+
+East end of the beach
+The eastern end of Portobello beach, where sand turns to rock and the
+promenade is book-ended by the welcoming sight of a public toilet and a
+chinese takeaway. Looking back west, the promenade, beach, sea and distant
+hills present themselves in an almost framed, postcard-esque setting
+A local photographer is here.
+
+You can move north, south and west.
+
+> take photo
+You take a photograph of the sunset.
+
+> s
+You move south.
+
+Municipal baths - entrance
+You are standing outside Portobello's public baths - owned and run by the
+local council. The baths stand on the promenade, facing the beach. A large
+sign, also erected by the council, carries miscellaneous information of note
+to visitors.
+
+You can move north, south, west and in.
+
+> s
+You move south.
+
+Portobello high street (east)
+
+The eastern end of Portobello High Street. Any retail needs in the
+departments of pharmaceuticals, alcohol, religion, gambling and second-hand
+charity goods will be adequately met here. You note a particularly attractive
+wood-fronted chemist.
+
+You can move north, west and in.
+*** The sun has now set. ***
+
+> w
+You move west.
+
+Portobello Town Hall & Crossroads
+
+You can move north, east, west and northeast.
+
+> get bus
+You get the No. 26 bus back to town.
+Congratulations! Your day at the seaside is complete.
+You scored 9 out of the maximum 9!
+That is 100% of the game!
+Well done - you scored maximum points!

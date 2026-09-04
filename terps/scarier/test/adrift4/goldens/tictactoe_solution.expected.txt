@@ -1,0 +1,188 @@
+Loading game...
+
+Tic-Tac-Toe
+
+by
+Justahack
+
+Introduction
+In the midst of giving your naughty kitten a bath, you were inexplicably
+summoned to the ends of the Universe. There the gods have gathered to have
+you stand trial for the crimes of humanity. After much deliberation behind
+closed space, the judgement has been decided:
+
+You are to play one game, to the death, of tic-tac-toe. Your opponent will be
+an Undead Rob Zombie. If you win, humanity will receive a second chance. If
+you lose, earth will be annihilated, starting with your cat.
+
+Have fun!
+
+press any key to continue ...
+
+Gameplay
+This is a turn based game, where play alternates between you and ... the
+gods. Game is similar to tic-tac-toe. To make a selection, enter the number
+corresponding to the place you wish to mark. For example,
+
+1 |  2 |  3 |
+4 |  5 |  6 |
+7 |  8 |  9 |
+
+press any key to continue ...
+
+Gathering Of The Gods
+
+You are in the gathering of the Gods. The verdict has been decreed. To play,
+type "play game" If during the match, you wish to forfeit, simply type
+"forfeit" or "quit."
+
+Undead Rob Zombie is here, thinking more about how tasty your brain would be
+than his next move.
+
+> play game
+You begin playing tic tac toe.
+
+Gathering Of The Gods
+
+You are in the gathering of the Gods. The verdict has been decreed. To play,
+type "play game" If during the match, you wish to forfeit, simply type
+"forfeit" or "quit."
+
+     |       |
+      |       |
+      |       |
+
+Undead Rob Zombie is here, thinking more about how tasty your brain would be
+than his next move.
+
+> 1
+filled 1
+
+Gathering Of The Gods
+
+You are in the gathering of the Gods. The verdict has been decreed. To play,
+type "play game" If during the match, you wish to forfeit, simply type
+"forfeit" or "quit."
+
+X  |       |
+      |       |
+      |       |
+
+Undead Rob Zombie is here, thinking more about how tasty your brain would be
+than his next move.
+
+With a slow lurch, an Undead Rob Zombie scrawls a large O on the board.
+
+Gathering Of The Gods
+
+You are in the gathering of the Gods. The verdict has been decreed. To play,
+type "play game" If during the match, you wish to forfeit, simply type
+"forfeit" or "quit."
+
+X  |  O  |
+      |       |
+      |       |
+
+Undead Rob Zombie is here, thinking more about how tasty your brain would be
+than his next move.
+
+> 3
+filled 3
+
+Gathering Of The Gods
+
+You are in the gathering of the Gods. The verdict has been decreed. To play,
+type "play game" If during the match, you wish to forfeit, simply type
+"forfeit" or "quit."
+
+X  |  O  |  X
+      |       |
+      |       |
+
+Undead Rob Zombie is here, thinking more about how tasty your brain would be
+than his next move.
+
+With a slow lurch, an Undead Rob Zombie scrawls a large O on the board.
+
+Gathering Of The Gods
+
+You are in the gathering of the Gods. The verdict has been decreed. To play,
+type "play game" If during the match, you wish to forfeit, simply type
+"forfeit" or "quit."
+
+X  |  O  |  X
+ O  |       |
+      |       |
+
+Undead Rob Zombie is here, thinking more about how tasty your brain would be
+than his next move.
+
+> 5
+filled 5
+
+Gathering Of The Gods
+
+You are in the gathering of the Gods. The verdict has been decreed. To play,
+type "play game" If during the match, you wish to forfeit, simply type
+"forfeit" or "quit."
+
+X  |  O  |  X
+ O  |  X  |
+      |       |
+
+Undead Rob Zombie is here, thinking more about how tasty your brain would be
+than his next move.
+
+With a slow lurch, an Undead Rob Zombie scrawls a large O on the board.
+
+Gathering Of The Gods
+
+You are in the gathering of the Gods. The verdict has been decreed. To play,
+type "play game" If during the match, you wish to forfeit, simply type
+"forfeit" or "quit."
+
+X  |  O  |  X
+ O  |  X  |  O
+      |       |
+
+Undead Rob Zombie is here, thinking more about how tasty your brain would be
+than his next move.
+
+The lights of Rob Zombie's eyes flicker slightly, as he stares at you.
+"Braaaaaains."
+
+> 7
+filled 7
+
+Gathering Of The Gods
+
+You are in the gathering of the Gods. The verdict has been decreed. To play,
+type "play game" If during the match, you wish to forfeit, simply type
+"forfeit" or "quit."
+
+X  |  O  |  X
+ O  |  X  |  O
+ X  |       |
+
+Undead Rob Zombie is here, thinking more about how tasty your brain would be
+than his next move.
+
+press any key to continue ...
+
+A sudden flash of light fills the void throughout the Universe, as you beat
+an undead Rob Zombie in an epic game of tic-tac-toe.
+
+"Braaaains!" groans the undead singer as his body is suddenly consumed by
+flames, then disappears in a brilliant flash of sparkles.
+
+"It is done! You will get your second chance," said a large face,
+materializing in front of you. Curiously, it seems to resemble Sean Connery.
+"... to fail!"
+
+"And then, we shall see you here again, human!" Another face materialized
+next to you, this time resembling Charleston Heston.
+
+***
+You blink your eyes and are suddenly home, once again.
+
+Congratulations, you won!

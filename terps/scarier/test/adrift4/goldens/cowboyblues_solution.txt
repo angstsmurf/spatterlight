@@ -211,3 +211,61 @@ u
 s
 score
 i
+get voucher
+sw
+w
+w
+nw
+give voucher to eccles
+talk speckle
+3
+give cash to spam
+give beer to speckle
+se
+e
+e
+e
+e
+x pile
+x mark
+w
+w
+w
+w
+wait
+sw
+get mattress
+ne
+e
+s
+talk kid
+2
+1
+n
+s
+e
+x house
+arrest lucy
+nw
+nw
+w
+get battery
+e
+e
+e
+w
+e
+give mattress
+give marble
+give battery
+w
+w
+ne
+e
+n
+n
+n
+n
+n
+blow whistle
+score

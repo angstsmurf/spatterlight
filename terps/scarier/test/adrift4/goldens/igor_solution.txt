@@ -1,0 +1,22 @@
+look wall
+press boil
+read book
+look apparatus
+give elixir to master
+pull curtain
+open coffin
+unlock wardrobe
+open wardrobe
+look corpse
+get brain
+give brain to master
+get coat
+wear coat
+look in coat
+get note
+read note
+press 5th switch
+press 1st switch
+press 2nd switch
+press 3rd switch
+press 4th switch

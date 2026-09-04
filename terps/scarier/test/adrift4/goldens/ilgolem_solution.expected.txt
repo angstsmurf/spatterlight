@@ -1,0 +1,1044 @@
+Loading game...
+
+Il Golem
+un'avventura testuale di Tristano Ajmone
+
+www.ZenFactor.org
+
+(presentata al concorso CAT 2010)
+
+* * * ATTENZIONE! * * *
+
+QUESTO GIOCO HA CONTENUTI GIUDAICI!
+
+Se sieti nazisti, fascisti, razzisti, o anche solo persone impreparate a
+confrontarvi con altre culture, l'utilizzo di questo gioco potrebbe turbarvi
+seriamente!
+
+Il linguaggio impiegato nel gioco è a tratti esplicito e si avvale di
+immagini forti che potrebbero disturbare un pubblico bigotto. Inadatto ai
+bambini sotto i 4 anni.
+
+Quest'avventura può essere liberamente distribuita purché non a scopo di
+lucro.
+
+* * * * * * * * *
+Lo guardava il rabbi con tenerezza
+E orrore. Come ho potuto (si disse)
+Dar vita a questo tormentoso figlio
+Lasciando l'inazione, che è saggezza?
+
+Perché ho aggiunto alla già infinita serie
+Un altro simbolo? Perché alla vana
+Matassa che in eterno si dipana
+Ho dato ancora causa, effetto e pena?
+
+Nelle ore di angoscia e luce vaga
+Sul suo Golem lo sguardo soffermava.
+Chi potrà dirci che cosa pensava
+Iddio, guardano il suo rabbino in Praga?
+
+— J.L. Borges, Il Golem.
+
+* * * * * * * * *
+
+Questo gioco è dedicato a Thomas Szasz,
+mio grande amico e maestro.
+
+[ premi un tasto per continuare ]
+
+Introduzione
+Sei Mirko Shlomo Barilla, e dagli amici ti fai chiamare Mirko perché a te
+Shlomo non è che piaccia un granché — sa molto di ebraico e te con la
+religione non leghi molto. Ma in famiglia tutti ti chiamano Shlomo Bar-Illàh
+— Barilla è una latinizzazione della  forma originale del tuo cognome. Detta
+in parole povere ... sei ebreo.
+
+Di fatto, la tua vita è proiettata verso i frutti del piacere mondano che
+attendono di essere colti dal rigoglioso albero dell'adolescenza: hai sedici
+anni, sei sciupato da far schifo, e la tua unica preoccupazione è divertirti.
+Questa tua indole — assieme al fatto che sei un ateo e, come direbbe tuo
+nonno Avner (il Rabbino Avner Bar-Illàh!), anche un ignorante e uno
+scansafatiche — fa sì che tra te e la famiglia vi sia un conflitto di valori
+— specialmente col nonno, come se non bastasse il conflitto generazionale.
+
+A te tutte quelle faccende religiose millenarie son sempre parse noiosissime
+questioni da vecchi matusalemme, cose datate e di altri tempi. Ma i doveri
+famigliari sono quello che sono (specie per chi, come te, dipende dalle
+elemosine della famiglia) e quindi talvolta capita che il richiamo dei
+«doveri» religiosi venga a reclamarti al tuo prezioso tempo ludico. Come oggi
+...
+
+Tornato da scuola, hai trovato in segreteria un messaggio di nonno Avner:
+
+"Mirko, corri subito a casa mia è successo un pasticcio e ho urgentemente
+bisogno di te nipote mio."
+
+E così, addio partita di calcio. A nonno Avner è impossibile dire di no, è un
+vecchio rabbino testardo, bigotto e burbero. Sei il suo unico nipote e ti
+grava sovente con richieste e commissioni — rendendo la tua vita da
+adolescente una palla al piede.
+
+Nonno Avner, con la sua fissa monomaniacale del Golem. Il Golem, cazzo! Un
+pupazzo d'argilla che, tramite operazioni di magia cabalistica, prenderebbe
+vita traformandosi in un'umile servitore. La versione giudaica di
+Frankenstein. Il nonno ha sempre inseguito questo sogno assurdo e, da quando
+è rimasto vedovo, è divenuta la sua unica delirante ragione di vita.
+
+Con rassegnazione, ti incammini verso la casa del nonno ... dove ad
+attenderti al varco ci sarà Diablo, quel malefico cagnaccio pieno d'odio nei
+tuoi confronti.
+
+[ premi invio per iniziare il gioco ]
+
+> guarda
+Di Fronte Alla Casa
+Il sole pomeridiano illumina la facciata in pietra della casa di nonno Avner
+proiettandovi l'ombra di alcuni alberi del vialetto. A nord, tre gradini
+ascendono ad un portico in cui due colonne reggono una trabeazione
+triangolare formando una tettoia sotto la quale trova riparo un antico
+portone in legno. Un muretto di mattoni cinge la casa da colonna a colonna,
+lasciando come unico punto d'accesso il portico.
+
+[ puoi digitare istruzioni o ringraziamenti in qualsiasi momento del gioco! ]
+
+> n
+Tirando con forza riesci a spalancare i pesanti battenti del portone, e ti
+addentri in casa.
+
+Varchi la soglia, ma una folata di vento serra i battenti alle tue spalle ...
+
+Udendo lo scatto della serratura comprendi che il portone ora è bloccato.
+
+Ti ci vogliono alcuni secondi per adattare la vista all'oscurità in cui è
+avvolta casa.
+
+Ingresso
+Nella parete nord dell'ingresso è ritagliata una porta ad arco dietro cui vi
+sono delle spesse tende. All'apice della porta è affissa una grossa e
+inquietante ape. Nell'angolo a sinistra della porta, la statua di una rana
+maggiordomo regge un vassoio con un calice e una bottiglia. Da dietro la
+rana, il volto incorniciato di un rabbino scruta severo la stanza da un
+quadro appeso al muro. Nell'altro angolo, una colonna in marmo regge un busto
+di Tutankhamen. Al centro della stanza, un tappeto circolare è disteso sul
+vertiginoso pavimento a scacchi.
+
+A est si accede al salotto, a ovest alla cucina. L'ingresso prosegue a nord
+attraverso la porta ad arco. A sud c'è il portone della casa.
+
+La presenza di Diablo nella stanza ti inquieta.
+
+Avverti una brutta atmosfera attorno a te...
+Forse è a causa dell'insolito silenzio in cui è avvolta la casa. Magari è
+dovuto al fatto di trovarsi da solo di fronte a Diablo, il cagnaccio del
+nonno a cui non vai per nulla a genio. Ti fissa in modo strano, come se
+stesse pianificando qualcosa contro di te.
+
+> e
+Vai verso est.
+
+Salotto
+La penombra della stanza è illuminata dalle candele di una menorah a sette
+bracci che poggia su un tavolino. Un fascio di luce, smorzato dalle tende,
+penetra dalla finestra rivelando un divano su cui giace, inerme, il corpo di
+tuo nonno. La parete è dominata da una libreria stracolma di libri e un
+quadro. Una porta, a ovest, conduce nell'ingresso.
+
+Vedi anche l' osso e la lettera.  Diablo ti segue nella stanza zampettando.
+
+> prendi osso
+Prendi l'osso, è coperto di bava e ti impiastriccia le mani.
+
+> prendi lettera
+Prendi la lettera.
+
+> o
+Vai verso ovest.
+
+Ingresso
+Nella parete nord dell'ingresso è ritagliata una porta ad arco dietro cui vi
+sono delle spesse tende. All'apice della porta è affissa una grossa e
+inquietante ape. Nell'angolo a sinistra della porta, la statua di una rana
+maggiordomo regge un vassoio con un calice e una bottiglia. Da dietro la
+rana, il volto incorniciato di un rabbino scruta severo la stanza da un
+quadro appeso al muro. Nell'altro angolo, una colonna in marmo regge un busto
+di Tutankhamen. Al centro della stanza, un tappeto circolare è disteso sul
+vertiginoso pavimento a scacchi.
+
+A est si accede al salotto, a ovest alla cucina. L'ingresso prosegue a nord
+attraverso la porta ad arco. A sud c'è il portone della casa.
+
+Diablo ti segue nella stanza zampettando.
+
+> n
+Vai verso nord.
+
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Nell'insenatura in
+cui il muro curva tra la porta dello sgabuzzino e l'accesso alla rampa, una
+lampada a piantana diffonde una morbida luce azzurognola nell'ambiente.
+
+Diablo ti segue nella stanza zampettando.
+
+> o
+Vai verso ovest.
+
+Gabinetto
+L'impatto con il gabinetto del nonno è sempre uno shock per te: prodotto
+della sua mancanza di gusto giovanile, è un vero obbrobrio. La moquette
+tigrata (pregna d'acqua come una spugna) è fonte di un'umidità insostenibile
+e della muffa che ricopre le piastrelle come fosse tappezzeria. La tazza del
+cesso con la sua ciambella imitazione oro zecchino è il «tocco di classe».
+Sopra la vaschetta per lo scarico c'è un rotolo di carta igienica e, posato
+in terra a lato, c'è lo spazzolone per il cesso (quel che tu chiami
+«scatizzolino»). Un lavandino è infisso al muro, sovrastato da un grosso
+specchio. Sotto il lavandino intravedi dei funghi. Tra il lavandino e il
+cesso un'alta pianta domina la stanza dal suo vaso. Una porta, a est, conduce
+alla base delle scale
+
+Diablo ti segue nella stanza zampettando.
+
+> leggi lettera allo specchio
+Attraverso l'immagine riflessa dello specchio riesci a decifrare la lettera:
+
+Caro Mirko, nipote mio prediletto nonché l'unico. Temendo che, data la tua
+inoperosità, non saresti giunto prima che l'Altissimo mi richiamasse a Sé, ti
+ho scritto questa lettera con le istruzioni per salvare il mondo dal disastro
+che ho combinato — possa l'Altissimo perdonarmi!
+
+Accecato dalla brama di potere ho inseguito l'antico sogno del Golem e ho
+creato un mostro che sfugge ad ogni controllo. Questo Golem non è come gli
+altri Golem noti alla tradizione rabbinica: non basta cancellare la lettera
+aleph dalla sua fronte per neutralizzarlo! Per uccidere questo Golem — te lo
+dico perché mi sono documentato! — è necessario procurarsi l'unguento di
+Avraham Merlin e versarglielo addosso!
+
+La formula per l'unguento l'ho nascosta in un luogo sicuro — dove il mio
+acerrimo rivale, il Rabbino Shmuel Musso, non la troverà mai! Ah ... quello
+shnorrer invidioso di Rav Musso non riuscirà mai a mettere le sue zampe sui
+miei testi sacri! Neanche dopo la mia morte. Invece tu — che sei quel che
+sei! — son certo che la troverai senza grosse difficoltà.
+
+Quanto al lucchetto che sbarra l'accesso allo sgabuzzino, la combinazione è:
+211184.
+
+Ti prego, nipote, agisci presto e procurati ciò che ti serve per uccidere
+questo Golem che ho rinchiuso nella sala da pranzo. So che per un meshuge
+sfaticato come te tutto ciò è solo una rogna ma non preoccuparti: dopo che
+avrai ucciso il Golem, nella sala da pranzo ti attende una lauta ricompensa —
+un'eredità a dir poco sacra! Anche se non sei animato da spirito religioso,
+fallo per tuo nonno Avner che ti ha sempre voluto tanto bene nonostante tu
+sia un 'am ha-aretz (un ignoramus) di prima categoria! Prego l'Altissimo
+affinché tu possa ritrovare la fede attraverso l'osservanza delle mitzvòt —
+rendendo così onore al sangue dei Bar-Illah da cui discendi! Amen.
+
+È sempre un piacere leggere una lettera di nonno Avner, così piena di epiteti
+disprezzanti per chi non condivide le sue stramberie! Neanche in punto di
+morte gli si è addolcita la lingua.
+
+Adesso hai la combinazione del lucchetto e puoi entrare nello sgabuzzino!
+
+> e
+Vai verso est.
+
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Nell'insenatura in
+cui il muro curva tra la porta dello sgabuzzino e l'accesso alla rampa, una
+lampada a piantana diffonde una morbida luce azzurognola nell'ambiente.
+
+Diablo ti segue nella stanza zampettando.
+
+> n
+Inserendo la combinazione svelata nella lettera, apri i lucchetto che chiude
+la porta dello sgabuzzino.
+
+Sgabuzzino
+Una lampadina, penzolante dal soffitto, illumina lo spazio angusto dello
+sgabuzzino. Appeso alla parete est c'è un arazzo. Un malandato scaffale in
+alluminio poggia contro la parete d'angolo; da sotto lo scaffale spunta del
+ciarpume. Sulle mensole dello scaffale riesci a distinguere vari oggetti. Nel
+ripiano inferiore ci sono una scatola di legno e un secchio. Su quello
+superiore è parcheggiata una vecchia automobile a pedali. Sullo scaffale
+centrale ci sono dei prodotti detergenti. Una porta, a sud, conduce alla base
+delle scale.
+
+Accanto ai prodotti detergenti, c'è una bomboletta.  Diablo ti segue nella
+stanza zampettando.
+
+> prendi insetticida
+Prendi l' insetticida.
+
+> sposta scaffale
+Con grande sforzo per il tuo corpo esile, riesci a spostare un poco lo
+scaffale, rivelando un grosso interruttore a muro.
+
+> spegni interruttore
+Infilando la mano sotto lo scaffale, spegni l'interruttore generale!
+
+> s
+Vai verso sud.
+
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Una lampada a
+piantana giace spenta nella penombra dell'insenatura in cui il muro curva tra
+la porta dello sgabuzzino e l'accesso alla rampa.
+
+Diablo ti segue nella stanza zampettando.
+
+> s
+Vai verso sud.
+
+Ingresso
+Nella parete nord dell'ingresso è ritagliata una porta ad arco dietro cui vi
+sono delle spesse tende. All'apice della porta è affissa una grossa e
+inquietante ape. Nell'angolo a sinistra della porta, la statua di una rana
+maggiordomo regge un vassoio con un calice e una bottiglia. Da dietro la
+rana, il volto incorniciato di un rabbino scruta severo la stanza da un
+quadro appeso al muro. Nell'altro angolo, una colonna in marmo regge un busto
+di Tutankhamen. Al centro della stanza, un tappeto circolare è disteso sul
+vertiginoso pavimento a scacchi.
+
+A est si accede al salotto, a ovest alla cucina. L'ingresso prosegue a nord
+attraverso la porta ad arco. A sud c'è il portone della casa.
+
+Diablo ti segue nella stanza zampettando.
+
+> o
+Cucina
+La cucina è allagata e in palese stato di abbandono: chiazze di umidità e
+sporcizia ne macchiano le pareti e, in alcuni punti, l'intonaco si è staccato
+mettendo a nudo i mattoni. Attaccato alla parete c'è un poster. Da dietro un
+lavello dotato di mobiletto proviene il gocciolio di una perdita. Accanto al
+lavello c'è un tavolo su cui poggiano un tritatutto, svariati sacchetti vuoti
+e avanzi del take-away kosher di zona.   Un vecchio frigorifero è appoggiato,
+chiuso,  contro la parete. Da sopra il frigorifero un orsacchiotto di peluche
+ti scruta a braccia aperte. Una porta, a est, conduce nell'ingresso.
+
+Diablo ti segue nella stanza zampettando.
+
+> dai osso a diablo
+Allunghi l'osso a Diablo e lui, accucciatosi in un angolo, inizia a morderlo
+perdendo ogni interesse nei tuoi confronti.
+
+> e
+Vai verso est.
+
+Ingresso
+Nella parete nord dell'ingresso è ritagliata una porta ad arco dietro cui vi
+sono delle spesse tende. All'apice della porta è affissa una grossa e
+inquietante ape. Nell'angolo a sinistra della porta, la statua di una rana
+maggiordomo regge un vassoio con un calice e una bottiglia. Da dietro la
+rana, il volto incorniciato di un rabbino scruta severo la stanza da un
+quadro appeso al muro. Nell'altro angolo, una colonna in marmo regge un busto
+di Tutankhamen. Al centro della stanza, un tappeto circolare è disteso sul
+vertiginoso pavimento a scacchi.
+
+A est si accede al salotto, a ovest alla cucina. L'ingresso prosegue a nord
+attraverso la porta ad arco. A sud c'è il portone della casa.
+
+L'accanimento delle zanne di Diablo sull'osso è talmente forte che il rumore
+si propaga dalla cucina in tutta la casa.
+
+> n
+Vai verso nord.
+
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Una lampada a
+piantana giace spenta nella penombra dell'insenatura in cui il muro curva tra
+la porta dello sgabuzzino e l'accesso alla rampa.
+
+Mentre Diablo mastica avidamente l'osso, gli parte un flato.
+
+> n
+Vai verso nord.
+
+Sgabuzzino
+Il buio dello sgabuzzino è smorzato dalla fioca luce che proietta la sagoma
+della finestra contro la parete est su cui è appeso un arazzo. Una lampadina
+penzola, spenta, dal soffitto. Uno scaffale in alluminio poggia contro la
+parete d'angolo. Sulle mensole dello scaffale riesci a distinguere vari
+oggetti; da sotto lo scaffale spunta del ciarpume. Nel ripiano inferiore ci
+sono una scatola di legno e un secchio. Su quello superiore è parcheggiata
+una vecchia automobile a pedali. Sullo scaffale centrale ci sono dei prodotti
+detergenti. Una porta, a sud, conduce alla base delle scale.
+
+Sotto lo scaffale intravedi l'interruttore generale della luce.
+
+La masticazione di Diablo si affievolisce.
+
+> accendi interruttore
+Infilando la mano sotto lo scaffale, accendi l'interruttore generale!
+Dalla cucina odi un latrato tremendo e il rumore di corrente elettrica. Segue
+la puzza di carne bruciata e il silenzio.
+
+> spegni interruttore
+Infilando la mano sotto lo scaffale, spegni l'interruttore generale!
+
+> s
+Vai verso sud.
+
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Una lampada a
+piantana giace spenta nella penombra dell'insenatura in cui il muro curva tra
+la porta dello sgabuzzino e l'accesso alla rampa.
+
+> s
+Vai verso sud.
+
+Ingresso
+Nella parete nord dell'ingresso è ritagliata una porta ad arco dietro cui vi
+sono delle spesse tende. All'apice della porta è affissa una grossa e
+inquietante ape. Nell'angolo a sinistra della porta, la statua di una rana
+maggiordomo regge un vassoio con un calice e una bottiglia. Da dietro la
+rana, il volto incorniciato di un rabbino scruta severo la stanza da un
+quadro appeso al muro. Nell'altro angolo, una colonna in marmo regge un busto
+di Tutankhamen. Al centro della stanza, un tappeto circolare è disteso sul
+vertiginoso pavimento a scacchi.
+
+A est si accede al salotto, a ovest alla cucina. L'ingresso prosegue a nord
+attraverso la porta ad arco. A sud c'è il portone della casa.
+
+> o
+Cucina
+La cucina è allagata e in palese stato di abbandono: chiazze di umidità e
+sporcizia ne macchiano le pareti e, in alcuni punti, l'intonaco si è staccato
+mettendo a nudo i mattoni. Attaccato alla parete c'è un poster. Da dietro un
+lavello dotato di mobiletto proviene il gocciolio di una perdita. Accanto al
+lavello c'è un tavolo su cui poggiano un tritatutto, svariati sacchetti vuoti
+e avanzi del take-away kosher di zona.   Un vecchio frigorifero è appoggiato,
+chiuso,  contro la parete. Da sopra il frigorifero un orsacchiotto di peluche
+ti scruta a braccia aperte. Una porta, a est, conduce nell'ingresso.
+
+Il cadavere di Diablo giace riverso in terra.
+
+> sposta frigo
+Spostando il frigo scopri che il cavo elettrico del frigo è sguainato in vari
+punti e i fili di rame sono a contatto con l'acqua che allaga il pavimento.
+La spina del frigo è infilata nella presa a muro.
+
+> stacca spina frigo
+Tirando il cavo, stacchi la spina del frigo.
+
+> e
+Vai verso est.
+
+Ingresso
+Nella parete nord dell'ingresso è ritagliata una porta ad arco dietro cui vi
+sono delle spesse tende. All'apice della porta è affissa una grossa e
+inquietante ape. Nell'angolo a sinistra della porta, la statua di una rana
+maggiordomo regge un vassoio con un calice e una bottiglia. Da dietro la
+rana, il volto incorniciato di un rabbino scruta severo la stanza da un
+quadro appeso al muro. Nell'altro angolo, una colonna in marmo regge un busto
+di Tutankhamen. Al centro della stanza, un tappeto circolare è disteso sul
+vertiginoso pavimento a scacchi.
+
+A est si accede al salotto, a ovest alla cucina. L'ingresso prosegue a nord
+attraverso la porta ad arco. A sud c'è il portone della casa.
+
+> n
+Vai verso nord.
+
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Una lampada a
+piantana giace spenta nella penombra dell'insenatura in cui il muro curva tra
+la porta dello sgabuzzino e l'accesso alla rampa.
+
+> n
+Vai verso nord.
+
+Sgabuzzino
+Il buio dello sgabuzzino è smorzato dalla fioca luce che proietta la sagoma
+della finestra contro la parete est su cui è appeso un arazzo. Una lampadina
+penzola, spenta, dal soffitto. Uno scaffale in alluminio poggia contro la
+parete d'angolo. Sulle mensole dello scaffale riesci a distinguere vari
+oggetti; da sotto lo scaffale spunta del ciarpume. Nel ripiano inferiore ci
+sono una scatola di legno e un secchio. Su quello superiore è parcheggiata
+una vecchia automobile a pedali. Sullo scaffale centrale ci sono dei prodotti
+detergenti. Una porta, a sud, conduce alla base delle scale.
+
+Sotto lo scaffale intravedi l'interruttore generale della luce.
+
+> accendi interruttore
+Infilando la mano sotto lo scaffale, accendi l'interruttore generale!
+
+> s
+Vai verso sud.
+
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Nell'insenatura in
+cui il muro curva tra la porta dello sgabuzzino e l'accesso alla rampa, una
+lampada a piantana diffonde una morbida luce azzurognola nell'ambiente.
+
+> u
+In Cima Alle Scale
+Sei in cima alla rampa di scale che, conducendo giù, collega il piano
+superiore al piano terra. Una balaustra si affaccia sulla tromba delle scale
+prevenendo eventuali cadute. Da una finestra nella parete nord la luce diurna
+si fa strada tra il pulviscolo che aleggia nell'aria. A est si accede al
+bagno, a ovest alla camera da letto del nonno. Il corridoio si estende a sud
+verso il pianerottolo.
+
+> o
+Vai verso ovest.
+
+Camera Da Letto
+Un letto a una piazza se ne sta poggiato contro la parete d'angolo. Accanto
+al letto vi sono un comodino e una pianta che sgorga dal suo vaso spezzando
+l'austerità della stanza. Le pareti sono decorate con complessi arabeschi che
+sormontano un primo tratto di parete a strisce verticali. Sul pavimento in
+marmo con motivo a scacchiera un tappetino è disteso accanto al letto. Appesa
+sopra il letto, una foto incorniciata domina la parete. Una porta, a est,
+conduce al corridoio in cima alle scale.
+
+> spruzza insetticida su vedova nera
+Spruzzi l'insetticida sulla pianta, mirando al fogliame in basso. Il ragno
+inizia a contorcersi e infine si riversa sulla schiena. Morto stecchito.
+Frugando sul terriccio trovi una vecchia chiave di bronzo e la prendi.
+
+> e
+Vai verso est.
+
+In Cima Alle Scale
+Sei in cima alla rampa di scale che, conducendo giù, collega il piano
+superiore al piano terra. Una balaustra si affaccia sulla tromba delle scale
+prevenendo eventuali cadute. Da una finestra nella parete nord la luce diurna
+si fa strada tra il pulviscolo che aleggia nell'aria. A est si accede al
+bagno, a ovest alla camera da letto del nonno. Il corridoio si estende a sud
+verso il pianerottolo.
+
+> s
+Vai verso sud.
+
+Corridoio
+Un paio di tende semiaperte smorza la luce che penetra dalla finestra. Sotto
+la finestra, un termosifone è infisso al muro. A lato della finestra,
+un'anfora in cui cresce una palma adorna la parete. A est c'è la porta del
+laboratorio, a ovest quella dell'ufficio. A nord il corridoio prosegue verslo
+la rampa di scale.
+
+> apri l'ufficio
+Giri la chiave di ottone nella toppa e sblocchi la serratura.
+
+> o
+Vai verso ovest.
+
+Ufficio
+L'ufficio è spazioso e ordinato; le sue pareti in tappezzeria floreale lo
+rendono una stanza sobria ed accogliente. La luce, attraversando la finestra,
+si riversa su una scrivania in legno che regge un libro e un grammofono.
+Accanto alla scrivania, in un vaso poggiato in terra, giace una pianta dalle
+foglie oblunghe. Appesa alla parete intravedi una grossa foto incorniciata.
+Una porta, a est, conduce al corridoio.
+
+> apri scrivania
+Apri i cassetti della scrivania.  In uno dei cassetti trovi un machete.
+
+> prendi machete
+Prendi il machete dalla scrivania.
+
+> e
+Vai verso est.
+
+Corridoio
+Un paio di tende semiaperte smorza la luce che penetra dalla finestra. Sotto
+la finestra, un termosifone è infisso al muro. A lato della finestra,
+un'anfora in cui cresce una palma adorna la parete. A est c'è la porta del
+laboratorio, a ovest quella dell'ufficio. A nord il corridoio prosegue verslo
+la rampa di scale.
+
+> n
+Vai verso nord.
+
+In Cima Alle Scale
+Sei in cima alla rampa di scale che, conducendo giù, collega il piano
+superiore al piano terra. Una balaustra si affaccia sulla tromba delle scale
+prevenendo eventuali cadute. Da una finestra nella parete nord la luce diurna
+si fa strada tra il pulviscolo che aleggia nell'aria. A est si accede al
+bagno, a ovest alla camera da letto del nonno. Il corridoio si estende a sud
+verso il pianerottolo.
+
+> d
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Nell'insenatura in
+cui il muro curva tra la porta dello sgabuzzino e l'accesso alla rampa, una
+lampada a piantana diffonde una morbida luce azzurognola nell'ambiente.
+
+> s
+Vai verso sud.
+
+Ingresso
+Nella parete nord dell'ingresso è ritagliata una porta ad arco dietro cui vi
+sono delle spesse tende. All'apice della porta è affissa una grossa e
+inquietante ape. Nell'angolo a sinistra della porta, la statua di una rana
+maggiordomo regge un vassoio con un calice e una bottiglia. Da dietro la
+rana, il volto incorniciato di un rabbino scruta severo la stanza da un
+quadro appeso al muro. Nell'altro angolo, una colonna in marmo regge un busto
+di Tutankhamen. Al centro della stanza, un tappeto circolare è disteso sul
+vertiginoso pavimento a scacchi.
+
+A est si accede al salotto, a ovest alla cucina. L'ingresso prosegue a nord
+attraverso la porta ad arco. A sud c'è il portone della casa.
+
+> e
+Vai verso est.
+
+Salotto
+La penombra della stanza è illuminata dalle candele di una menorah a sette
+bracci che poggia su un tavolino. Un fascio di luce, smorzato dalle tende,
+penetra dalla finestra rivelando un divano su cui giace, inerme, il corpo di
+tuo nonno. La parete è dominata da una libreria stracolma di libri e un
+quadro. Una porta, a ovest, conduce nell'ingresso.
+
+> taglia mano al nonno
+Trattieni il fiato e col machete infliggi una rapida serie di fendenti sul
+polso del nonno. Il nonno spalanca gli occhi e prende a dimenarsi
+selvaggiamente e ad urlare ... forse non era così morto come credevi!
+
+Il sangue caldo sprizza copioso dal moncherino, imbrattando te e tutto ciò
+che è nella stanza. In pochi istanti il nonno si dissangua. Ora è morto
+davvero.
+
+Adesso, la mano mozzata del nonno giace sul pavimento.
+
+> prendi mano mozzata del nonno
+Prendi la mano mozzata del nonno.
+
+> o
+Vai verso ovest.
+
+Ingresso
+Nella parete nord dell'ingresso è ritagliata una porta ad arco dietro cui vi
+sono delle spesse tende. All'apice della porta è affissa una grossa e
+inquietante ape. Nell'angolo a sinistra della porta, la statua di una rana
+maggiordomo regge un vassoio con un calice e una bottiglia. Da dietro la
+rana, il volto incorniciato di un rabbino scruta severo la stanza da un
+quadro appeso al muro. Nell'altro angolo, una colonna in marmo regge un busto
+di Tutankhamen. Al centro della stanza, un tappeto circolare è disteso sul
+vertiginoso pavimento a scacchi.
+
+A est si accede al salotto, a ovest alla cucina. L'ingresso prosegue a nord
+attraverso la porta ad arco. A sud c'è il portone della casa.
+
+> n
+Vai verso nord.
+
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Nell'insenatura in
+cui il muro curva tra la porta dello sgabuzzino e l'accesso alla rampa, una
+lampada a piantana diffonde una morbida luce azzurognola nell'ambiente.
+
+> u
+In Cima Alle Scale
+Sei in cima alla rampa di scale che, conducendo giù, collega il piano
+superiore al piano terra. Una balaustra si affaccia sulla tromba delle scale
+prevenendo eventuali cadute. Da una finestra nella parete nord la luce diurna
+si fa strada tra il pulviscolo che aleggia nell'aria. A est si accede al
+bagno, a ovest alla camera da letto del nonno. Il corridoio si estende a sud
+verso il pianerottolo.
+
+> s
+Vai verso sud.
+
+Corridoio
+Un paio di tende semiaperte smorza la luce che penetra dalla finestra. Sotto
+la finestra, un termosifone è infisso al muro. A lato della finestra,
+un'anfora in cui cresce una palma adorna la parete. A est c'è la porta del
+laboratorio, a ovest quella dell'ufficio. A nord il corridoio prosegue verslo
+la rampa di scale.
+
+> apri il laboratorio
+Appoggi la mano mozzata del nonno sul pannello della serratura biometrica,
+dopo qualche secondo si accende una luce verde e la porta si apre.
+
+> e
+Vai verso est.
+
+Laboratorio
+Le pareti del  laboratorio alchemico del nonno sono decorate con arabeschi
+dipinti a mano. Il laboratorio è sempre stata la stanza che il nonno ha
+custodito più gelosamente, come se fosse il suo santuario — di fatto, non eri
+mai entrato qui dentro prima d'oggi. Tra la penombra e i fumi che aleggiano
+nell'aria, riesci a intravedere un tavolo da lavoro su cui poggiano tre
+beute. A lato del tavolo si erge una grossa statua. Attaccata alla parete c'è
+una vecchia litografia, invecchiata dal tempo. Una porta, a ovest, conduce al
+pianerettolo.
+
+Vedi anche un vecchio disco abbandonato tra la polvere.
+
+Vedi anche la mandragora e il vasino.
+
+> prendi mandragora
+Prendi la mandragora.
+
+> o
+Vai verso ovest.
+
+Corridoio
+Un paio di tende semiaperte smorza la luce che penetra dalla finestra. Sotto
+la finestra, un termosifone è infisso al muro. A lato della finestra,
+un'anfora in cui cresce una palma adorna la parete. A est c'è la porta del
+laboratorio, a ovest quella dell'ufficio. A nord il corridoio prosegue verslo
+la rampa di scale.
+
+> n
+Vai verso nord.
+
+In Cima Alle Scale
+Sei in cima alla rampa di scale che, conducendo giù, collega il piano
+superiore al piano terra. Una balaustra si affaccia sulla tromba delle scale
+prevenendo eventuali cadute. Da una finestra nella parete nord la luce diurna
+si fa strada tra il pulviscolo che aleggia nell'aria. A est si accede al
+bagno, a ovest alla camera da letto del nonno. Il corridoio si estende a sud
+verso il pianerottolo.
+
+> d
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Nell'insenatura in
+cui il muro curva tra la porta dello sgabuzzino e l'accesso alla rampa, una
+lampada a piantana diffonde una morbida luce azzurognola nell'ambiente.
+
+> s
+Vai verso sud.
+
+Ingresso
+Nella parete nord dell'ingresso è ritagliata una porta ad arco dietro cui vi
+sono delle spesse tende. All'apice della porta è affissa una grossa e
+inquietante ape. Nell'angolo a sinistra della porta, la statua di una rana
+maggiordomo regge un vassoio con un calice e una bottiglia. Da dietro la
+rana, il volto incorniciato di un rabbino scruta severo la stanza da un
+quadro appeso al muro. Nell'altro angolo, una colonna in marmo regge un busto
+di Tutankhamen. Al centro della stanza, un tappeto circolare è disteso sul
+vertiginoso pavimento a scacchi.
+
+A est si accede al salotto, a ovest alla cucina. L'ingresso prosegue a nord
+attraverso la porta ad arco. A sud c'è il portone della casa.
+
+> o
+Cucina
+La cucina è allagata e in palese stato di abbandono: chiazze di umidità e
+sporcizia ne macchiano le pareti e, in alcuni punti, l'intonaco si è staccato
+mettendo a nudo i mattoni. Attaccato alla parete c'è un poster. Da dietro un
+lavello dotato di mobiletto proviene il gocciolio di una perdita. Accanto al
+lavello c'è un tavolo su cui poggiano un tritatutto, svariati sacchetti vuoti
+e avanzi del take-away kosher di zona.   Contro la parete c'è un vecchio
+frigorifero chiuso. Il frigo è stato spostato quanto basta per intravederne
+il cavo di alimentazione. Sopra il frigo c'è un orsacchiotto di peluche. Una
+porta, a est, conduce nell'ingresso.
+
+Il cadavere di Diablo giace riverso in terra.
+
+> metti mandragora in tritatutto
+Metti la mandragora dentro il tritatutto.
+
+> accendi tritatutto
+Col dito indice premi il pulsante d'avvio del tritatutto.
+Le lame del tritatutto sminuzzano rumorosamente la mandragora. Dopo alcuni
+secondi il tritatutto si ferma e della radice di mandragora resta solo una
+poltiglia.
+
+> prendi mandragora
+Prendi la mandragora dal tritatutto.
+
+> e
+Vai verso est.
+
+Ingresso
+Nella parete nord dell'ingresso è ritagliata una porta ad arco dietro cui vi
+sono delle spesse tende. All'apice della porta è affissa una grossa e
+inquietante ape. Nell'angolo a sinistra della porta, la statua di una rana
+maggiordomo regge un vassoio con un calice e una bottiglia. Da dietro la
+rana, il volto incorniciato di un rabbino scruta severo la stanza da un
+quadro appeso al muro. Nell'altro angolo, una colonna in marmo regge un busto
+di Tutankhamen. Al centro della stanza, un tappeto circolare è disteso sul
+vertiginoso pavimento a scacchi.
+
+A est si accede al salotto, a ovest alla cucina. L'ingresso prosegue a nord
+attraverso la porta ad arco. A sud c'è il portone della casa.
+
+> n
+Vai verso nord.
+
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Nell'insenatura in
+cui il muro curva tra la porta dello sgabuzzino e l'accesso alla rampa, una
+lampada a piantana diffonde una morbida luce azzurognola nell'ambiente.
+
+> u
+In Cima Alle Scale
+Sei in cima alla rampa di scale che, conducendo giù, collega il piano
+superiore al piano terra. Una balaustra si affaccia sulla tromba delle scale
+prevenendo eventuali cadute. Da una finestra nella parete nord la luce diurna
+si fa strada tra il pulviscolo che aleggia nell'aria. A est si accede al
+bagno, a ovest alla camera da letto del nonno. Il corridoio si estende a sud
+verso il pianerottolo.
+
+> s
+Vai verso sud.
+
+Corridoio
+Un paio di tende semiaperte smorza la luce che penetra dalla finestra. Sotto
+la finestra, un termosifone è infisso al muro. A lato della finestra,
+un'anfora in cui cresce una palma adorna la parete. A est c'è la porta del
+laboratorio, a ovest quella dell'ufficio. A nord il corridoio prosegue verslo
+la rampa di scale.
+
+> e
+Vai verso est.
+
+Laboratorio
+Le pareti del  laboratorio alchemico del nonno sono decorate con arabeschi
+dipinti a mano. Il laboratorio è sempre stata la stanza che il nonno ha
+custodito più gelosamente, come se fosse il suo santuario — di fatto, non eri
+mai entrato qui dentro prima d'oggi. Tra la penombra e i fumi che aleggiano
+nell'aria, riesci a intravedere un tavolo da lavoro su cui poggiano tre
+beute. A lato del tavolo si erge una grossa statua. Attaccata alla parete c'è
+una vecchia litografia, invecchiata dal tempo. Una porta, a ovest, conduce al
+pianerettolo.
+
+Vedi anche un vecchio disco abbandonato tra la polvere.
+
+Vedi anche il vasino.
+
+> versa beuta grande in beuta media
+Con estrema cautela, versi il contenuto della beuta grande nella media.
+
+> versa beuta media in beuta piccola
+Con estrema cautela, versi il contenuto della beuta media nella piccola.
+
+> versa beuta piccola in beuta grande
+Facendo attenzione, versi il contenuto della beuta piccola nella grande.
+
+> versa beuta media in beuta piccola
+Con estrema cautela, versi il contenuto della beuta media nella piccola.
+
+> versa beuta grande in beuta media
+Con estrema cautela, versi il contenuto della beuta grande nella media.
+
+> versa beuta media in beuta piccola
+Con estrema cautela, versi il contenuto della beuta media nella piccola.
+
+> versa beuta grande in vasino
+Versi cautamente nel vasino da notte il latte di drago contenuto nella beuta.
+Ora che si trova in un contenitore a bocca larga, ti rendi conto che il latte
+di drago ha un odore nauseabondo, come di rancido. Ma dove l'avrà mai preso
+del latte di drago nonno Avner? E quanto tempo fa l'avrà munto?
+
+> metti mandragora in vasino
+Con estrema attenzione, fai scivolare nel vasino la mandragora tritata.
+La mandragora, entrando in contatto col latte di drago, inizia a dissolversi
+producendo una strana effervescenza.
+
+> versa beuta piccola in vasino
+Versi altro latte di drago dalla beuta al vasino da notte. La gelatina nel
+vasino inizia a bollire e a sprigionare del fumo, dapprima rosa e infine
+giallo. Dopo alcuni secondi l'attività chimica nel vasino si arresta,
+rivelando una crema purpurea che corrisponde alla descrizione contenuta nella
+formula.
+
+Complimenti, hai ottenuto l'unguento di Avraham Merlin!
+
+> prendi vasino
+Prendi il vasino da notte. È tiepido al contatto.
+
+> o
+Vai verso ovest.
+
+Corridoio
+Un paio di tende semiaperte smorza la luce che penetra dalla finestra. Sotto
+la finestra, un termosifone è infisso al muro. A lato della finestra,
+un'anfora in cui cresce una palma adorna la parete. A est c'è la porta del
+laboratorio, a ovest quella dell'ufficio. A nord il corridoio prosegue verslo
+la rampa di scale.
+
+> n
+Vai verso nord.
+
+In Cima Alle Scale
+Sei in cima alla rampa di scale che, conducendo giù, collega il piano
+superiore al piano terra. Una balaustra si affaccia sulla tromba delle scale
+prevenendo eventuali cadute. Da una finestra nella parete nord la luce diurna
+si fa strada tra il pulviscolo che aleggia nell'aria. A est si accede al
+bagno, a ovest alla camera da letto del nonno. Il corridoio si estende a sud
+verso il pianerottolo.
+
+> e
+Vai verso est.
+
+Bagno
+Un ampio fascio di luce soffusa si riversa dalla finestra nella vasca da
+bagno che domina la parete che hai di fronte. Una sedia, una pianta ed un
+poster sghembo alla parete giacciono avvolti nella penombra azzurra e umida
+della stanza. Le vecchie assi di legno del pavimento, scricchiolando sotto i
+tuoi passi, richiamano la tua attenzione verso un buco nel pavimento. Una
+porta, a ovest, conduce al corridoio in cima alle scale.
+
+Noti una rivista che spunta da dietro la vasca da bagno.
+
+> versa unguento nel buco
+Versi il contenuto del vasino da notte attraverso il buco nel pavimento.
+L'unguento si riversa in testa al Golem che, tra urla e lamenti, inizia a
+dissolversi in un pantano di argilla.
+
+Il Golem è morto.
+
+> o
+Vai verso ovest.
+
+In Cima Alle Scale
+Sei in cima alla rampa di scale che, conducendo giù, collega il piano
+superiore al piano terra. Una balaustra si affaccia sulla tromba delle scale
+prevenendo eventuali cadute. Da una finestra nella parete nord la luce diurna
+si fa strada tra il pulviscolo che aleggia nell'aria. A est si accede al
+bagno, a ovest alla camera da letto del nonno. Il corridoio si estende a sud
+verso il pianerottolo.
+
+> d
+Base Delle Scale
+L'ingresso termina alla base di una rampa di scale che conduce sopra,
+inerpicandosi a elica sino al piano superiore. Dal pianerottolo superiore una
+fioca cascata di luce dorata irrora la scalinata. Accanto alla rampa, verso
+nord, vi è la porta dello sgabuzzino. Ai tuoi lati vedi altre due porte:
+quella a est che conduce alla sala da pranzo e quella a ovest che dà sul
+gabinetto. A sud, una porta ad arco conduce all'ingresso.  Nell'insenatura in
+cui il muro curva tra la porta dello sgabuzzino e l'accesso alla rampa, una
+lampada a piantana diffonde una morbida luce azzurognola nell'ambiente.
+
+> e
+Liberi dal chiavistello la porta e varchi la soglia della sala da pranzo.
+
+Sala Da Pranzo
+La penombra della sala da pranzo è trafitta da un fascio di luce che si fa
+strada attraverso un buco nel soffitto, illuminando la testa del Golem morto
+— che giace in terra circondata dal resto dei suoi brandelli. Un tavolo da
+pranzo, circondato dalle sue sedie, è sovrastato da un grosso quadro appeso
+alla parete. Da un caminetto in marmo al centro parete, il crepitio del fuoco
+modula il silenzio della stanza.
+
+> esamina tavolo
+È il  tavolo in legno in cui un tempo i nonni pranzavano e cenavano. Attorno
+al tavolo vi sono quattro sedie ormai impolverate dal tempo. Sopra il tavolo
+vi sono delle tazzine, un vaso con fiori finti, e pezzetti di argilla verde.
+Sul tavolo noti un libro.
+
+> prendi libro
+Prendi il libro Golem For Dummies dal tavolo.
+
+> leggi libro
+Apri il libro Golem per Dummies, sulla prima pagina c'è una dedica di nonno
+Avner:
+
+Caro nipote, se sei riuscito a impossessarti di questo libro vuol dire che ce
+l'hai fatta a uccidere il malefico Golem. Ben fatto, congratulazioni.
+Lascio a te in eredità questo prezioso manuale affinché tu possa un giorno
+riuscire laddove tuo nonno ha fallito.
+Ma non scordarti mai nipote mio che molte insidie s'annidano nell'antico
+sogno di creare un Golem! Esso è una creatura che ha molto in comune con
+Ahasvero, l'Ebreo Errante, e le sue sporadiche apparizioni sono la
+materializzazione dell'anima collettiva del ghetto, ma non solo ... Il Golem
+infatti è anche il doppio dell'eroe, di colui che si illude di poter lottare
+per la propria redenzione attraverso la purificazione messianica del Golem,
+che assume il valore simbolico del nostro Sé irredento.
+Possa tu un giorno purificare la tua anima e intraprendere la creazione del
+Golem scevro da tali insidie delle passioni umane.
+Amen!
+Nonno Avner.
+
+Lette queste parole, chiudi il libro con delusione. Era ben altra la
+ricompensa che ti saresti aspettato.
+
+[ premi un tasto per proseguire ]
+
+Getti il libro tra le fiamme del caminetto e osservi le lingue di fuoco
+divorarne le pagine, restituendole alla cenere così come tu hai restituito
+alla creta questo tedioso Golem.
+
+Scazzatissimo, ti avvii verso casa consolandoti all'idea degli amari frutti
+del piacere mondano che stasera ti riscatteranno da questa giornata da
+incubo. Lungo il tragitto, riempi l'attesa canticchiando la tua canzone
+preferita...
+
+Golden brown texture like sun
+Lays me down with my mind she runs
+Throughout the night
+No need to fight
+Never a frown with golden brown
+
+Every time just like the last
+On her ship tied to the mast
+To distant lands
+Takes both my hands
+Never a frown with golden brown
+
+Golden brown finer temptress
+Through the ages she's heading west
+From far away
+Stays for a day
+Never a frown with golden brown
+
+Never a frown
+With golden brown
+Never a frown
+With golden brown
+
+Complimenti, hai completato l'avventura!
+
+... ricordati di visitare il sito dell'autore: www.ZenFactor.org
+
+Hai guadagnato 42 punti su un totale di 45!
+Questo è 93% del gioco!
+Hai completato il gioco mancando 3 punti bonus.

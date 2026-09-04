@@ -1,0 +1,4140 @@
+Loading game...
+
+The Warlord, The Princess & The Bulldog
+
+The Warlord, The Princess
+& The Bulldog {version 2}
+
+An interactive fiction game by David Whyld
+
+dwhyld@gmail.com                        http://www.shadowvault.net
+
+Written with ADRIFT version 4, release 46
+Started: December 2005; Completed: March 2006
+
+[1]        Start The Game
+[2]        Read The Introduction
+[3]        On Playing The Warlord, The Princess & The Bulldog
+[4]        Things To Know Before You Start Playing
+[5]        Special Commands
+[6]        Notes On The Game
+[7]        Game Information & Credits
+
+> 1
+
+Ravine
+
+A narrow wooden bridge, perhaps six inches wide, spans this ravine. The wind
+rushes past you, threatening at any moment to blow you into the ravine and
+send you hurtling down, down, down to its bottom, all of a thousand feet
+away. There might be a river down there or there might be cold stone. Either
+way, it's a long fall. A small bird, the sort of thing you might use for
+target practice on another day, is fluttering around.
+
+On the other side of the ravine, the mountain fortress of Baron Grishtak
+rises imposingly into the sky.
+
+North takes you across the ravine, south away from here.
+
+> give mackerel to bird
+It goes against every instinct you have, but you suppress your desire to grab
+the bird by the throat and throttle it, and instead offer it the mackerel
+still clinging to your fork.
+
+The bird eyes you suspiciously. You've never seen this one before, but your
+reputation as someone to be avoided by the bird community has no doubt spread
+to even these remote parts. But then greed gets the better of the bird's fear
+and it flies over, snatches the fork in its beak, and flies away again.
+
+You watch it go.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+[MORE]
+
+Suddenly there is a twittering sound from above you and you look up to see a
+flock of birds descending. Before you can even think abou throttling the lot
+of them (a risky enterprise even for you), the birds latch onto you, dig
+their claws into your uniform... and lift you up off the ground!
+
+You struggle, trying to break free... but then happen to glance down and see
+you're now over the ravine. All thoughts of breaking free, and what might
+happen if you did break free, vanish from your mind and you stay very, very
+still.
+
+The birds carry you across the ravine, depositing you on the far side with
+less of a bump than the time you had to crashland a Concorde after you threw
+the pilot out of the door at 32,000 feet believing he was a terrorist.
+
+One bird, it looks familiar, gives you a quick nod and then they all fly off.
+
+[MORE]
+
+Approach To The Fortress
+
+Before you rises the steep, almost unclimbable wall of the mountain peak upon
+which Baron Grishtak has built his fortress. It is lost somewhere in the
+clouds above, hidden from view.
+
+Right before you, perhaps sixty feet high, is the outer wall of the fortress
+itself. Comprised of huge stone blocks ten feet in size themselves, the wall
+has an immovable look about it. There is a gate situated partway along, to
+one side of a tower, currently closed tight (the gate, that is, not the
+tower).
+
+Back along the path to the south is the ravine, the gate is to the northwest
+and upwards lie the mountain side.
+
+> x path
+The path leads back to the ravine, which looks every bit as uncrossable from
+this side as it did from the other. There is a stone lying by the side of the
+path.
+
+> get stone
+You take the stone from the side of the path. As far as weapons go, it's
+hardly an M16 but it ought to do the job of giving someone a serious headache
+if you throw it hard enough.
+
+> x tower
+The tower is perhaps forty feet tall. Wisps of smoke drift from an upper
+window, indicating that there is someone within. Guards perhaps.
+
+> throw stone at window
+Your skill with throwing stones isn't the same as your skill with rifles (you
+once shot the ears of a fleeing suspect at six hundred yards), but you're a
+dab hand at it all the same. You cock back your arm, weigh the stone, wait
+for your moment and then - just as a silhouette passes across the window -
+throw the stone.
+
+It sails through the air, through the window and there is a dull, thudding
+sound followed by a louder, screaming sound followed ultimately by the sound
+of someone falling over.
+
+> open gate
+You approach the gate and give it a hefty push, shoving it open several feet.
+
+No alarm bells go off. No sirens sound. No one tries to shoot you. And no
+attack dogs come bounding over to tear you apart.
+
+All well and good.
+
+You slip through the gate and make your way along a winding path leading to
+the grounds of the fortress.
+
+[MORE]
+
+The Fortress Grounds
+
+The fortress of Baron Grishtak - an old castle, converted into a modern
+castle by the look of things - rises majestically before you, its upper
+reaches hidden in the very clouds. Between you and it lie the fortress
+grounds: several hundred feet of seemingly innocent looking flowers, weeds
+and bushes without a soldier, guard dog or security camera in sight.
+
+Paths lead north to the main door of the fortress and northeast and northwest
+around the sides of it. A further path leads away to the south.
+
+As you're standing there, staring at the fortress, you suddenly realise
+you've lost the photo of Princess Leonora. Somewhere between the ravine and
+here, you must have misplaced it.
+
+You hope this isn't an ill-omened sign for your mission.
+
+> ne
+
+By A Ramshackle Hut
+
+Nestling in the shadow of the fortress is a ramshackle hut. It appears to be
+some kind of garden keeper's hut, although judging from the state of the
+grounds you're guessing he's either not here any more or doesn't do a
+particularly good job.
+
+A path winds past the hut over to the northwest while southwest takes you
+back to the fortress grounds.
+
+> nw
+
+Behind The Fortress
+
+A bleak waste stretches away behind the fortress, eventually reaching an end
+at a deep chasm which has split the ground. This waste is home to several
+mouldering corpses and a number of recently filled graves.
+
+The rear of the fortress is far more empty than its front, lacking doors and
+windows. The only sign of ornamentation, in fact, seems to be a carving of
+Baron Grishtak's face that someone has made here.
+
+Paths lead away around the fortress to the southeast and the southwest.
+
+> bury corpses
+The ground is too hard to bury a corpse in and you lack any kind of digging
+tools, but you feel better for considering it all the same.
+
+As you're mulling over one of the corpses, a handkerchief tumbles from the
+corpse's pocket and drops to the ground.
+
+> get handkerchief
+You take the handkerchief.
+
+> x corpses
+The corpses are long dead. Some of them are missing a limb or two whereas a
+couple are missing just about everything but a limb or two. It's a gruesome
+sight, but nothing that you, The Bulldog, haven't seen before. The main
+difference being that generally when you see lots of corpses like this, it's
+you that made them corpses.
+
+A glint catches your eye and you move closer to one of the corpses: a tall,
+handsome fellow (even with half his face missing). He has a watch on his
+wrist that fairly gleams. After a second's careful consideration, you take
+the watch off his wrist.
+
+> x watch
+A secret agent's watch. You can tell it's a secret agent's watch by the
+S.A.W. motif on the side. And by the fact that the time it keeps doesn't seem
+to be the same kind of time as the rest of the world (probably on account of
+all the nifty secret agent devices cunningly hidden inside).
+
+There is an indentation in the side of the watch, about the size of a
+fingernail.
+
+> se
+
+By A Ramshackle Hut
+
+Nestling in the shadow of the fortress is a ramshackle hut. It appears to be
+some kind of garden keeper's hut, although judging from the state of the
+grounds you're guessing he's either not here any more or doesn't do a
+particularly good job.
+
+A path winds past the hut over to the northwest while southwest takes you
+back to the fortress grounds.
+
+> touch indentation
+The moment you touch the indentation, the watch vibrates slightly under your
+finger and a voice seems to whisper:
+
+Countdown Commencing...
+
+> drop watch
+You drop the watch.
+
+A voice seems to whisper:
+
+Detonation in 5 seconds...
+
+> sw
+
+The Fortress Grounds
+
+The fortress of Baron Grishtak - an old castle, converted into a modern
+castle by the look of things - rises majestically before you, its upper
+reaches hidden in the very clouds. Between you and it lie the fortress
+grounds: several hundred feet of seemingly innocent looking flowers, weeds
+and bushes without a soldier, guard dog or security camera in sight.
+
+Paths lead north to the main door of the fortress and northeast and northwest
+around the sides of it. A further path leads away to the south.
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 4 seconds...
+
+> z
+Time passes...
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 3 seconds...
+
+> z
+Time passes...
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 2 seconds...
+
+> z
+Time passes...
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 1 second...
+
+> z
+Time passes...
+
+A voice seems to whisper:
+
+Boom...
+
+You hear a thunderous explosion from somewhere. Unless you're very much
+mistaken, it's from the same place as you dropped the watch.
+
+> ne
+
+By A Ramshackle Hut
+
+Nestling in the shadow of the fortress is a ramshackle and somewhat
+fire-blasted hut. It appears to be some kind of garden keeper's hut, although
+judging from the state of the grounds you're guessing he's either not here
+any more or doesn't do a particularly good job.
+
+A path winds past the hut over to the northwest while southwest takes you
+back to the fortress grounds.
+
+There is a watch lying on the ground here.
+
+> get watch
+You take the watch.
+
+> in
+
+Inside A Ramshackle Hut
+
+The interior of the hut is full of smoke. Thick, cloying smoke that threatens
+to choke you at every turn. There is precious little here in the way of
+anything useful and it looks like the hut has just been used to store all
+manner of junk over the years.  A window on one wall, dirty and begrimed,
+shows the side of the fortress but nothing more interesting than that. A
+doorway, where there previously was a door, leads outside.
+
+> x junk
+A pile of junk, thrown haphazardly into the direct centre of the hut. You
+can't help but feel that the way it's there is somewhat deliberate, as if it
+has been put there for a reason.
+
+The junk comprises a pole, a large rock and a tennis ball.
+
+> get pole
+You take the pole from the junk.
+
+> get rock
+You take the large rock from the junk.
+
+> get tennis ball
+You take the tennis ball from the junk.
+
+> clean window
+You clean away the worst of the filth.
+
+> look through window
+Now that the window has been cleared, you can see the fortress a little more
+clearly. And, as you squint, you see something you hadn't noticed: a lever of
+some kind partway up the wall.
+
+You wonder how come you never noticed it from outside the hut.
+
+> move junk
+You move the junk over into a corner of the hut, revealing a previously
+hidden trapdoor beneath it.
+
+> open trapdoor
+The trapdoor seems to be securely locked.
+
+> touch indentation
+The moment you touch the indentation, the watch vibrates slightly under your
+finger and a voice seems to whisper:
+
+Countdown Commencing...
+
+> drop watch
+You drop the watch.
+
+A voice seems to whisper:
+
+Detonation in 5 seconds...
+
+> out
+
+By A Ramshackle Hut
+
+Nestling in the shadow of the fortress is a ramshackle and somewhat
+fire-blasted hut. It appears to be some kind of garden keeper's hut, although
+judging from the state of the grounds you're guessing he's either not here
+any more or doesn't do a particularly good job. There is a rusty lever
+embedded in the fortress wall at about head height.
+
+A path winds past the hut over to the northwest while southwest takes you
+back to the fortress grounds.
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 4 seconds...
+
+> pull lever
+You pull the lever into the downward position.
+
+You hear a click! from somewhere but are unable to tell if anything has
+changed.
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 3 seconds...
+
+> z
+Time passes...
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 2 seconds...
+
+> z
+Time passes...
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 1 second...
+
+> z
+Time passes...
+
+A voice seems to whisper:
+
+Boom...
+
+You hear a thunderous explosion from somewhere. Unless you're very much
+mistaken, it's from the same place as you dropped the watch.
+
+> in
+
+Inside A Ramshackle Hut
+
+The interior of the hut is full of smoke. Thick, cloying smoke that threatens
+to choke you at every turn. There is precious little here in the way of
+anything useful and it looks like the hut has just been used to store all
+manner of junk over the years. There is a trapdoor in the floor. A window on
+one wall, dirty and begrimed, shows the side of the fortress but nothing more
+interesting than that. A doorway, where there previously was a door, leads
+outside.
+
+There is a watch lying on the ground here.
+
+> get watch
+You take the watch.
+
+> out
+
+By A Ramshackle Hut
+
+Nestling in the shadow of the fortress is a ramshackle and somewhat
+fire-blasted hut. It appears to be some kind of garden keeper's hut, although
+judging from the state of the grounds you're guessing he's either not here
+any more or doesn't do a particularly good job. There is a rusty lever
+embedded in the fortress wall at about head height.
+
+A path winds past the hut over to the northwest while southwest takes you
+back to the fortress grounds.
+
+> nw
+
+Behind The Fortress
+
+A bleak waste stretches away behind the fortress, eventually reaching an end
+at a deep chasm which has split the ground. This waste is home to several
+mouldering corpses and a number of recently filled graves.
+
+The rear of the fortress is far more empty than its front, lacking doors and
+windows. The only sign of ornamentation, in fact, seems to be a carving of
+Baron Grishtak's face that someone has made here.
+
+Paths lead away around the fortress to the southeast and the southwest.
+
+> sw
+
+On A Straggly Path
+
+You're on a straggly path running around the western side of the fortress.
+Here, the fortress wall shoots straight up into the air, so smooth it's
+almost like someone has polished it to prevent intruders climbing up it.
+Thick bushes crowd the path, their branches poking painfully at you as you
+struggle past.
+
+Partway up the wall, previously hidden by bushes, you spy a wide open window.
+
+The path leads further round the fortress to the north and southeast.
+
+> x bushes
+The bushes are thick and... well, bushy. You look into them, noticing nothing
+that you wouldn't expect to see in a bush growing at the side of a fortress
+run by an evil warlord-
+
+And then you catch sight of something you didn't expect to see: a cudgel.
+
+You snatch it up from the bush, relieved to have found a weapon at last. It's
+no anti-tank gun but it'll certainly come in handy in a tight corner.
+
+> se
+
+The Fortress Grounds
+
+The fortress of Baron Grishtak - an old castle, converted into a modern
+castle by the look of things - rises majestically before you, its upper
+reaches hidden in the very clouds. Between you and it lie the fortress
+grounds: several hundred feet of seemingly innocent looking flowers, weeds
+and bushes without a soldier, guard dog or security camera in sight.
+
+Paths lead north to the main door of the fortress and northeast and northwest
+around the sides of it. A further path leads away to the south.
+
+> x ground
+The grounds look unguarded. Suspiciously so. Maybe it's just you being
+paranoid and seeing enemies everywhere*, but it's also just as unlikely that
+the Baron would leave the front approach to his fortress unguarded.
+
+* You once put your milkman in hospital after being convinced he was really
+an assassin out to get you, so anything is possible.
+
+> throw tennis ball
+You throw the tennis ball. It arcs up into the air and then lands on the
+ground perhaps twenty feet away and
+
+B O O O O O M M M M ! ! !
+
+[MORE]
+
+A thunderous explosion tears upwards from where the rock landed, followed a
+moment later by
+
+B O O O O O M M M M ! ! !
+
+another thunderous explosion and then
+
+B O O O O O M M M M ! ! !
+
+another one and finally
+
+[MORE]
+
+Dead silence.
+
+You watch as the smoke from the explosions finally dies down, waiting for an
+alarm to sound and guards to flood out of the fortress and attack you. But
+nothing else seems to happen.
+
+Is the Baron's security so lax that an explosion like that can tear through
+the fortress grounds and not cause so much as a single guard to come out and
+investigate? Apparently so.
+
+> use pole
+You've never been much of an athlete, but you know the basics of what needs
+to be done. Armed with the pole, you back up several metres, take a deep
+breath, and then run forwards.
+
+At the last moment, you jab the end of the pole into the ground and vault
+over the area immediately before the fortress, coming to a rest neatly before
+the front door and springing to your feet.
+
+All in all, a pretty nifty bit of pole-vaulting, though you say so yourself.
+
+Pity that you had to let go of the pole to get here but you probably won't
+need it again anyway.
+
+[MORE]
+
+Front Door Of The Fortress
+
+The front door of the fortress rises before you, larger than any door really
+has any right to be. It is pitted and scarred with age, but still looks more
+than sturdy enough to keep an army from battering it down. There looks to be
+no means of opening the door from here; the controls are no doubt on the
+other side.
+
+A security camera has been mounted on an outcropping of stone just above the
+door and its lens follows your every movement. There is a stone gargoyle next
+to it, mouth permanently open in a perpetual growl of anger.
+
+The closed door of the fortress lies to the north while the fortress grounds
+are back to the south.
+
+> s
+
+The Fortress Grounds
+
+The fortress of Baron Grishtak - an old castle, converted into a modern
+castle by the look of things - rises majestically before you, its upper
+reaches hidden in the very clouds. Between you and it lie the fortress
+grounds: several hundred feet of seemingly innocent looking flowers, weeds
+and bushes without a soldier, guard dog or security camera in sight.
+
+Paths lead north to the main door of the fortress and northeast and northwest
+around the sides of it. A further path leads away to the south.
+
+There is a pole lying on the ground.
+
+> get pole
+You take the pole.
+
+> n
+
+Front Door Of The Fortress
+
+The front door of the fortress rises before you, larger than any door really
+has any right to be. It is pitted and scarred with age, but still looks more
+than sturdy enough to keep an army from battering it down. There looks to be
+no means of opening the door from here; the controls are no doubt on the
+other side.
+
+A security camera has been mounted on an outcropping of stone just above the
+door and its lens follows your every movement. There is a stone gargoyle next
+to it, mouth permanently open in a perpetual growl of anger.
+
+The closed door of the fortress lies to the north while the fortress grounds
+are back to the south.
+
+> throw pole at gargoyle
+You hold the pole like a javelin, aim at the gargoyle - and throw!
+
+And miss!
+
+The pole hits the wall to one side of the gargoyle, but then bounces off and
+strikes the gargoyle a hefty blow to the head. The gargoyle seems to emit a
+groaning sound (probably the wind, but quite freaky to hear all the same),
+then tips over to one side. Its stony arm smashes into the camera, shattering
+it into a thousand pieces.
+
+The pole, one end dented slightly by coming into contact with the gargoyle's
+head, drops to the ground beside you.
+
+> x door
+If you looked in the dictionary for the word 'impregnable' you'd probably see
+something that looked like this door. It has a definite impregnable look to
+it, the kind of thing that could survive a couple dozen battering rams being
+slammed into it for the next decade or so.
+
+There seems to be no way of opening the door from this side. The controls
+must be located inside.
+
+> touch indentation
+The moment you touch the indentation, the watch vibrates slightly under your
+finger and a voice seems to whisper:
+
+Countdown Commencing...
+
+> drop watch
+You drop the watch.
+
+A voice seems to whisper:
+
+Detonation in 5 seconds...
+
+> s
+
+The Fortress Grounds
+
+The fortress of Baron Grishtak - an old castle, converted into a modern
+castle by the look of things - rises majestically before you, its upper
+reaches hidden in the very clouds. Between you and it lie the fortress
+grounds: several hundred feet of seemingly innocent looking flowers, weeds
+and bushes without a soldier, guard dog or security camera in sight.
+
+Paths lead north to the main door of the fortress and northeast and northwest
+around the sides of it. A further path leads away to the south.
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 4 seconds...
+
+> z
+Time passes...
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 3 seconds...
+
+> z
+Time passes...
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 2 seconds...
+
+> z
+Time passes...
+
+From somewhere you hear a voice seems to whisper:
+
+Detonation in 1 second...
+
+> z
+Time passes...
+
+A voice seems to whisper:
+
+Boom...
+
+You hear a thunderous explosion from somewhere. Unless you're very much
+mistaken, it's from the same place as you dropped the watch.
+
+> n
+
+Front Door Of The Fortress
+
+The front door of the fortress rises before you, larger than any door really
+has any right to be. It is pitted and scarred with age, but still looks more
+than sturdy enough to keep an army from battering it down. There looks to be
+no means of opening the door from here; the controls are no doubt on the
+other side.
+
+A security camera has been mounted on an outcropping of stone just above the
+door. Until recently it was tracking your every movement, but now it’s just
+smouldering away to itself, smashed to pieces by the gargoyle you hit with
+the pole.
+
+The closed door of the fortress lies to the north (a hole has been blasted in
+it and trails of smoke trail wisp away from it) while the fortress grounds
+are back to the south.
+
+There is a pole lying on the ground.  There is a watch lying on the ground
+here.
+
+The exploding watch certainly looks to have done its work here: a large hole
+has been blasted in the front door of the fortress. The edges are a little
+warm to the touch but nothing you can't handle.
+
+> go hole
+You squeeze yourself into the gap and crawl through the front door. Into the
+fortress…
+
+Partway through, you hit an obstruction: some kind of block of stone that
+seems to have dropped down and blocked the way (no doubt caused by the
+explosion that blasted the hole in the door in the first place). You heave it
+to one side, enough for you to slip past, and then let it fall back into
+place.
+
+[MORE]
+
+Entrance Hall
+
+Judging by the sign hanging over archway to the south - WELCOME TO CASTLE
+VUURGHEIM! - you assume this must be the entrance hall of the former Dark
+Ages castle. Baron Grishtak clearly hasn't made much effort to tidy the place
+up and there is dust covering every surface, from the old desk to the counter
+running along one wall.
+
+Torches line the walls, a throwback to the time before electricity, and these
+cast flickering shadows over the proceedings.
+
+There are passages to the north and east, and a flight of steps lead
+downwards to the wine cellar.
+
+> x desk
+This clearly isn't a feature of the original Dark Ages castle that the
+fortress once was. This is a newer feature, although why it has been dumped
+down here in the entrance hall you can't imagine.
+
+It's an old school desk, complete with graffiti and chewing gum even now. The
+top can be opened.
+
+> read graffiti
+The graffiti is pretty much what you'd expect to find on an old school desk:
+
+I ate the teacher!
+Maffs suks!
+Keeley 4 Simon!
+Letter 2 is E!
+eye dunna ned 2 atend skool as eye kan alredy spel grate neway!
+Codeword: blogmore
+
+You frown at the last of these: 'codeword: blogmore'. Does that mean
+something? Does it bear some relevance to your current mission? Or, more
+likely, is it just something that some school kid wrote a long time ago and
+doesn't mean anything?
+
+> open desk
+Your old desk at school generally had an assortment of weapons in it: knives,
+bayonets and maces being your favouritesssss. The owner of this desk clearly
+wasn't of the same temperament as you, though, as all you find inside are
+some ancient flowers (now withered away), a bible and a small, empty bottle.
+After a moment's hesitation, you take the bible and the bottle, and leave the
+flowers where they are.
+
+> e
+
+Circular Chamber
+
+What purpose this perfectly circular chamber has you cannot guess. The walls
+are curved slightly, allowing the chamber to form a circular shape instead of
+the more normal square or rectangular shapes of other rooms.
+
+In the middle of the chamber there is a pit which appears to lead down into
+the very depths beneath the fortress. An unwholesome stench emanates from the
+pit, as well as a keening sound, somewhat like a cry.
+
+Passages lead east and west away from here.
+
+> e
+
+Curving Passageway
+
+On either wall of this curving passageway, tapestries have been hung
+depicting the fortress when it was a Dark Ages castle. The tapestries are old
+and tattered, fluttering slightly in the light breeze that blows along here.
+
+A glowing panel is set into the ceiling, perhaps twenty feet above your head.
+Luminous liquid drips from one side of it.
+
+The passageway curves away to the west and northwest.
+
+> x tapestries
+By the look of things, these tapestries depict the former rulers of the
+fortress, back in the days when it was a Dark Ages castle. There are a dozen
+tapestries in total but most of them are so tattered and decayed with age
+that they are more holes than tapestries. However, the third, sixth and tenth
+tapestries are in better condition, albeit more than a little rugged
+themselves.
+
+> x tapestry three
+This depicts a great bear of a man standing on a blue field and carrying a
+halberd. About him are strewn the corpses of many fallen enemies.
+
+A little plaque beneath the tapestry indicates this man to be "Gulgrin
+Smersh, 5th Lord of Castle Vuurgheim".
+
+> x gulgrin smersh
+Smersh looks to be the kind of brutal fellow you'd imagine to see in charge
+of a Dark Ages castle. The halberd he carries has the look of a weapon that
+has seen a lot of action, and you suspect Smersh himself was a dab hand at
+swiping heads off with it.
+
+> x halberd
+The halberd is soaked with gore which drips onto the blue field around it.
+Something about the tip of the halberd looks a little off.
+
+> x tip
+What you're trying to look at isn't important enough to warrant a
+description.
+
+> x tapestry six
+This tapestry is badly burnt, but you can still see the man shown there: a
+snake-like fellow with beady eyes, clutching fingers and hollow cheeks.
+
+The plague beneath the tapestry says his name to be "Eccles Montoron, 8th
+Lord of Castle Vuurgheim".
+
+> x eccles montaron
+Eccles has the look of an evil-minded sociopath. That or a politician. You're
+not sure which. The way he is depicted makes it evident that even the
+tapestry didn't hold any clear liking for him. There looks to be a bulge
+around his head, perhaps some kind of abnormal growth or distortion.
+
+> push bulge
+You push the bulge and it sinks into the wall slightly. Somewhere in the
+fortress there is a click!!! sound but nothing else happens.
+
+> push bulge
+You push the bulge again. It sinks a little further into the wall but there
+is no click!!! sound this time.
+
+> nw
+
+Kitchen
+
+M
+any, many years ago, before you were even known as The Puppy, this would have
+been the kitchen where meals for the occupants of the fortress were prepared.
+The great iron stove in the corner - a monstrosity large enough to fit both
+Hansel and Gretel in at the same time and still have room left over for an
+evil witch or two - still seems to emit heat, indicating that the kitchen is
+perhaps not as deserted as it appears.
+
+Rotten food has been scattered across the floor and dozens of rats fight for
+it. A large pile by the west wall emits the most pungent stench and has the
+largest rats fighting for it.
+
+Passages lead out of the kitchen to the southeast, northeast and west.
+
+[MORE]
+
+As you step into the kitchen, senses alert for trouble, the sound of a door
+opening and closing somewhere to the west can be heard. At the same time, you
+hear a voice that you thought never to hear again:
+
+"Bulldog - that you, ol' buddy?"
+
+If that isn't your imagination playing tricks with you (unlikely as you don't
+have an imagination), that's the voice of none other than Tiberius 'The
+Tiger' Tugmore, your arch rival from your days at the SAS Training Academy.
+And a man you thought was long dead.
+
+But then into the room steps none other than The Tiger. He looks... not good.
+
+[MORE]
+
+The years clearly haven't been kind to him: he's lost one arm and had it
+replaced with a metallic one; the left side of his face is a scarred ruin;
+and he doesn't speak he booms. Probably due to the weird metal contraption
+he's got bolted to his throat.
+
+"Damnit, Bulldog," he says, "but you're still every bit as ugly as you were
+back when I first laid eyes on you."
+
+You grunt. You don't need to use a lot of insulting words; enough is carried
+in that one grunt to get your message across.
+
+Something flashes in The Tiger's one good eye. "That's a low one for sure,
+Bulldog. Damn, if I wasn't already planning to kill you anyway, I'd do it
+just for that."
+
+[MORE]
+
+You grunt a question.
+
+"Damn straight, ol' buddy. The Baron put out a message that he was looking
+for some muscle to help him organise a terrorist plot and there I was,
+recuperatin' in some crappy little hospital while they tried to sew my body
+back together after that little accident I had, and I thought 'hey, what a
+swell idea'. So here I am." He taps his metallic arm. "And I got a few toys
+besides." He taps the arm again. A bright flame starts to burn on the metal
+tip, where his hand should be. "Oh man, I'm gonna enjoy this!"
+
+> se
+
+Curving Passageway
+
+On either wall of this curving passageway, tapestries have been hung
+depicting the fortress when it was a Dark Ages castle. The tapestries are old
+and tattered, fluttering slightly in the light breeze that blows along here.
+
+A glowing panel is set into the ceiling, perhaps twenty feet above your head.
+Luminous liquid drips from one side of it.
+
+The passageway curves away to the west and northwest.  The Tiger charges
+after you from the north-west.
+
+> throw cudgel at panel
+The cudgel hits the panel with a resounding crash and the glow vanishes as
+suddenly as a light being turned off. Bits of the broken panel cascade down
+around you, and a particularly large lump - about a foot across and which
+looks heavier than it has any right to be - lands on The Tiger's head with a
+resounding thump.
+
+"Awww…" he groans, his eyes glazing over and his knees giving way. Then he
+collapses in an unconscious heap on the ground.
+
+> get cudgel
+You take the cudgel.
+
+> x the tiger
+Now no longer a threat, you quickly search the The Tiger to see if he might
+be carrying anything useful. You already know who he's working for, and the
+odds of him carrying around Baron Grishtak's battle plans are a bit unlikely,
+but you find some something...
+
+And you do. An axe (no kind of weapon really considering the amount of rust
+on it), a letter addressed to The Tiger from the Baron and, strangely, a
+crucifix.
+
+The Tiger's metallic arm is an actual part of his weapon, and while it's a
+decent enough weapon you're not too fussed about losing your own arm to get
+any use out of it.
+
+> read letter
+The letter reads:
+
+My dear Tiberius,
+        Most pleased that you decided to join in my little 'venture'. Your
+services are most appreciated. Of course, you shall be remune- renumin-
+remumue- paid well for your services indeed.
+        The plan goes according to plan so far. The Princess is ours. The
+King has refused to pay the ransom but I am sure he will change his mind once
+the rescue mission he has organised with that insufferable fool Twiddles ends
+in failure. You might be interested to note that your old 'friend' The
+Poodle-
+
+Your hands shake at that point and it's only with the greatest of efforts
+that you refrain from tearing the letter to pieces.
+
+[MORE]
+
+-is heading the rescue mission. If he survives to reach the fortress - highly
+unlikely I would think - feel free to deal with him appropriately. He
+shouldn't prove much of a challenge for a man of your skill, Tiberius. Then
+again, from what I know of The Poodle, a pregnant ballerina could probably
+get the better of him.
+
+More hand shaking. If you weren't already intending to kill the Baron, you
+are now. Much more of this and you'll kill him twice.
+
+Be sure to destroy this letter the moment you've finished reading it as I
+foolishly jotted down the access code to the window in Princess Leonora's
+cell on the bottom of it. It'd be terrible if that fell into enemy hands but
+I know you'll destroy it satisfactorily.
+
+[MORE]
+
+It's signed 'Baron Grishtak'. And there at the bottom of the letter, just as
+the Baron said, is the access code: blogmore. You make a mental note of it.
+
+> read bible
+The bible is written in an ancient language that you think is either Latin or
+Hebrew. Unfortunately you speak neither.
+
+However, scribbled inside the front cover is an inscription:
+
+"To M,
+
+Treasure this, as a gift from a divine princess to a lowly servant.
+
+L"
+
+> get the tiger
+You take The Tiger.
+
+> w
+
+Circular Chamber
+
+What purpose this perfectly circular chamber has you cannot guess. The walls
+are curved slightly, allowing the chamber to form a circular shape instead of
+the more normal square or rectangular shapes of other rooms.
+
+In the middle of the chamber there is a pit which appears to lead down into
+the very depths beneath the fortress. An unwholesome stench emanates from the
+pit, as well as a keening sound, somewhat like a cry.
+
+Passages lead east and west away from here.
+
+> drop the tiger into pit
+The dead body of The Tiger drops away into the depths of the pit. It falls
+for what seems like a long time and then
+
+thud
+
+is heard from the very bottom of the pit. Followed by much cheering and cries
+of
+
+"food! at last! glorious food!"
+
+It was nice to know that someone appreciated a nice bit of corpse anyway.
+
+> w
+
+Entrance Hall
+
+Judging by the sign hanging over archway to the south - WELCOME TO CASTLE
+VUURGHEIM! - you assume this must be the entrance hall of the former Dark
+Ages castle. Baron Grishtak clearly hasn't made much effort to tidy the place
+up and there is dust covering every surface, from the old desk to the counter
+running along one wall.
+
+Torches line the walls, a throwback to the time before electricity, and these
+cast flickering shadows over the proceedings.
+
+There are passages to the north and east, and a flight of steps lead
+downwards to the wine cellar.
+
+> n
+
+Ancient Guard Room
+
+This appears to be some kind of ancient guard room going by the weapon
+lockers against one wall and the row of bunk beds along the other. This is a
+particularly grim room without any kind of decoration to give it a bit of
+warmth.
+
+A suit of armour stands by a door at the northern side of the room. The helm
+seems to look straight at you, but you're sure this is simply a coincidence.
+
+There is a locked door to the north and openings to the east and south
+leading out of here.
+
+> x bed
+The bunk beds emit a malodorous smell. It reminds you of rotten eggs, spilt
+milk, sewage and other unpleasant smells like that. What lies beneath the
+sheets you just don't like to think.
+
+> get sheets
+You gingerly tug one of the sheets to the side, exposing…
+
+Not the raw pile of sewage you were expecting but, strangely, a globe about
+the size of your hand. It smells appallingly, a combination of every horrible
+smell you have ever come across in your life, and a few others besides.
+
+> put globe in handkerchief
+You wrap the foul-smelling globe in the hankie. The smell doesn't become any
+less loathsome, but at least now you can carry the globe around without your
+skin coming into contact with it.
+
+> e
+
+Kitchen
+
+M
+any, many years ago, before you were even known as The Puppy, this would have
+been the kitchen where meals for the occupants of the fortress were prepared.
+The great iron stove in the corner - a monstrosity large enough to fit both
+Hansel and Gretel in at the same time and still have room left over for an
+evil witch or two - still seems to emit heat, indicating that the kitchen is
+perhaps not as deserted as it appears.
+
+Rotten food has been scattered across the floor and dozens of rats fight for
+it. A large pile by the west wall emits the most pungent stench and has the
+largest rats fighting for it.
+
+Passages lead out of the kitchen to the southeast, northeast and west.
+
+> kill rats with cudgel
+You smash the nearest rats away from you with the cudgel. Before they manage
+to reclaim the food they were fighting over it, you sift through it and come
+across a rotten egg and a cook book. You swipe both. And not a moment too
+soon as the rats surge back towards the food and commence fighting over it
+again.
+
+> read cook book
+There are many recipes here, although they're all more than a little strange.
+Few seem to contain any actual food-like ingredients and instead seem to
+involve flicking switches, pushing levers and moving gears. There are four
+recipes in total, although the final one doesn't seem to have all of its
+pages intact.
+
+> read recipe 1
+Cooking up a treat in just 4 easy steps
+
+1. Switches up.
+2. Left lever up, right lever down.
+3. Gears middle.
+4. Kick stove.
+
+> push switches up
+You flick the switches and they move into the upwards position.
+
+> raise left lever
+You raise the left lever.
+
+> lower right lever
+You lower the right lever.
+
+> move gear
+You move the gear into the middle position.
+
+> kick stove
+The moment you kick the stove, it emits a harsh bellowing sound (you're
+already a little freaked out by this place as it is so a bellowing stove
+doesn't even make you bat an eyelid) and then shudders violently. When the
+shuddering has died down, there looks to be a treat on top of it.
+
+> get treat
+You take the treat from the iron stove.
+
+> read recipe 2
+Beef stew (minus any beef) (or stew)
+
+1. Put an egg on the stove.
+2. Left lever down, right lever down.
+3. Gears up.
+4. Kick stove.
+
+> put egg on stove
+You put the rotten egg onto the iron stove.
+
+> lower left lever
+You lower the left lever.
+
+> move gear
+You move the gear into the downward position.
+
+> move gear
+You move the gear into the middle position.
+
+> move gear
+You move the gear into the upright position.
+
+> kick stove
+You kick the stove and it shudders violently, shaking from side to side so
+suddenly that you fear it might turn over. As you reach to steady it, the
+shuddering stops abruptly and the stove seems to emit a sound similar to a
+sigh. On its top there is a now, of all things, a bone.
+
+You can't help but feel that after all the effort you went through there, a
+bone is kind of poor reward.
+
+> get bone
+You take the bone from the iron stove.
+
+> eat bone
+You munch on the bone, feeling a lot of the weariness leave your muscles and
+your oldest injuries heal themselves a little.
+
+> read recipe 3
+Explosive force
+
+1. Put a cudgel and a rock on the stove.
+2. Left lever up, right lever up.
+3. Gears middle.
+4. Switches down.
+5. Kick stove.
+
+> put cudgel on stove
+You put the cudgel onto the iron stove.
+
+> put rock on stove
+You put the large rock onto the iron stove.
+
+> raise left lever
+You raise the left lever.
+
+> raise right lever
+You raise the right lever.
+
+> move gear
+You move the gear into the middle position.
+
+> push switches
+You flick the switches and they move into the downwards position.
+
+> kick stove
+You kick the stove and it emits a grunting sound before shaking violently
+from side to side. You grab hold of it to steady it when the shaking suddenly
+stops. It's then you notice the cudgel has disappeared.  Or, rather, been
+changed. Whereas before it was just a simple wooden cudgel, no more exciting
+than any old piece of wood, now it's glistening wood, darker in colour than
+before, with the point sharpened into a decent cutting edge.
+
+> get cudgel
+You take the explosive cudgel from the iron stove.
+
+> read recipe 4
+Opening doors
+
+1. Put a foul-smelling globe on the stove.
+2. Left lever down, right lever up.
+3. Gears down.
+4. Switches --------.
+5. ---------
+
+Unfortunately the last bit of the recipe seems to be missing.
+
+> unwrap globe
+You unwrap the hankie and take the globe out.
+
+The appalling smell of the globe begins to affect you, causing you to feel
+nauseous.
+
+> put globe on stove
+You put the foul-smelling globe onto the iron stove.
+
+> lower left lever
+You lower the left lever.
+
+> move gear
+You move the gear into the upright position.
+
+> move gear
+You move the gear into the middle position.
+
+> move gear
+You move the gear into the downward position.
+
+> kick stove
+The recipe itself might have been incomplete but that doesn't stop you
+finishing it all the same. After kicking the stove, you step back and wait
+for something to happen.
+
+A few minutes later you're still waiting. Did something go wrong? Did you get
+the recipe wrong after all that? Was it just a hoax-
+
+And then you hear that most glorious of sounds: doors opening. You can't tell
+where the sounds are coming from but it seems like at least two doors
+somewhere in the fortress have now opened.
+
+> ne
+
+Broken Passage
+
+Some recent spot of misfortune seems to have befallen this passage as it ends
+abruptly several feet ahead of you. A gaping chasm splits the floor, its
+lower reaches hidden away in the receding shadows. The passage extends on the
+far side of it, but the chasm looks to be too wide for jumping over. As for
+what lies at the bottom of it... A bridge covers the middle of the chasm,
+allowing easy access to the far side.
+
+An assortment of junk has been piled against the wall here and, your nose
+informs you, it certainly smells something awful.
+
+The passage leads back to the southwest and the chasm is to the northeast.
+
+> x junk
+The junk looks to be a mess of computer parts, all dumped here in an untidy
+jumble. You aren't quite sure why the parts smell so bad and aren't really
+sure you want to know the answer.
+
+> x parts
+Some of them look ancient: computers dating back to the dawn of the computer
+age. Others look to be a little more up to date. Not that you're any expert
+on computers, but you've used enough base units over the years to bludgeon
+people to death with that you've acquired a little knowledge of them.
+
+> get parts
+You rummage through the junk, searching for anything that might be useful. A
+hard drive containing the Baron's complete plans would definitely be useful.
+But the only hard drive here is smashed beyond repair. You doubt even the
+tech guys back home could put it back together again...
+
+Hmmm… what's this?
+
+This turns out to be a small disc, badly scratched but otherwise in fine
+condition. You aren't sure what's on it as there aren't any labels or marks
+but if you happen to find a computer anywhere in the fortress, you should
+probably have a go at finding out.
+
+> sw
+
+Kitchen
+
+M
+any, many years ago, before you were even known as The Puppy, this would have
+been the kitchen where meals for the occupants of the fortress were prepared.
+The great iron stove in the corner - a monstrosity large enough to fit both
+Hansel and Gretel in at the same time and still have room left over for an
+evil witch or two - still seems to emit heat, indicating that the kitchen is
+perhaps not as deserted as it appears.
+
+Rotten food has been scattered across the floor and dozens of rats fight for
+it. A large pile by the west wall emits the most pungent stench and has the
+largest rats fighting for it.
+
+Passages lead out of the kitchen to the southeast, northeast and west.
+
+> w
+
+Ancient Guard Room
+
+This appears to be some kind of ancient guard room going by the weapon
+lockers against one wall and the row of bunk beds along the other. This is a
+particularly grim room without any kind of decoration to give it a bit of
+warmth.
+
+A suit of armour stands by a door at the northern side of the room. The helm
+seems to look straight at you, but you're sure this is simply a coincidence.
+
+There is a locked door to the north and openings to the east and south
+leading out of here.
+
+> x armour
+This is the kind of armour a knight might have worn back in the days when
+there were knights. This suit has rusted badly, though, and is several sizes
+too small for you to wear in any event. From the look of it, one good blow
+would shatter it into a thousand pieces. The armour has an axe motif emblazed
+on its breastplate and its helm, as rusty as the rest of it, seems to stare
+straight at you.
+
+The suit of armour carries a rusty sword in its hands, the blade pointed
+upwards.
+
+> get sword
+You tug the rusty sword out of the armour's hands with a creaking sound.
+
+The suit seems to emit a pleasant groan, as if happy about what you have
+done.
+
+> put axe in hands
+You place the axe in the armour's hands. They seem to close about it of their
+own accord and the helm gives a brief, but very noticeable, nod.
+
+The door to the north swings open.
+
+> n
+You hurry through the door, which, predictable annoyance, swings shut behind
+you the moment you are through.
+
+[MORE]
+
+Short Passage
+
+You are in a short passage by a locked door. There appears to be no way of
+opening the door from this side.
+
+You can go north to a balcony overlooking a courtyard.
+
+> n
+
+Balcony {south}
+
+You are on a balcony overlooking an open air courtyard in which are training
+no less than a dozen of the Baron's soldiers. The sounds of their "Hut! Hut!
+Hut!" cries override any other sounds.
+
+The courtyard is not large, perhaps thirty feet from side to side, with a
+fountain in the centre providing a pleasant little idyll amidst the chaos of
+the training soldiers. The balcony you are upon is to the south of the
+courtyard and extends around it to the northwest and northeast. A flight of
+steps, mossy-covered and looking like no one has set foot on them in years,
+descend into the courtyard itself while a small passage leads away to the
+south to a locked door.
+
+> nw
+
+Balcony {west}
+
+The balcony extends around the courtyard in a rough circular shape. Your view
+of it from here is similar to the view you had from the south, with the
+training soldiers and their "Hut! Hut! Hut!" cries overpowering every other
+sound. The courtyard is empty aside from the soldiers and the pleasant little
+fountain.
+
+The balcony extends to the northeast and southeast, a flight of steps lead
+down into the courtyard itself, and there is a passage to the west.
+
+> w
+
+Surveillance Centre
+
+This looks to be the surveillance centre for the whole fortress, judging by
+the array of high resolution monitors covering the entire far wall. A display
+panel beneath shows a bewildering number of controls, most of which look to
+be so far beyond your understanding of such things that you'll probably never
+fathom out what they're for.
+
+A passage leads away eastwards to the balcony overlooking the courtyard.
+
+> x panel
+Of all the bewildering sights you have seen in your life, none are more
+bewildering than this display panel. Its main feature is a lever, but
+everything else is just so hard to comprehend you don't even try. The only
+other thing you seem to have a hope of understanding is the keyboard, but
+even that is strange: no normal English keyboard here. Oh no. There are just
+nine keys and they cover the letters: B H I J L T S U. The final key is
+marked ENTER and is the only one whose use is clear.
+
+> type h
+You type H on the keyboard.
+
+The display on the monitors flickers momentarily, displaying
+
+FIRST LETTER OF PASSWORD ENTERED CORRECTLY.
+
+before returning to normal.
+
+> type s
+You type S on the keyboard.
+
+The display on the monitors flickers momentarily, displaying
+
+SECOND LETTER OF PASSWORD ENTERED CORRECTLY.
+
+before returning to normal.
+
+> type j
+You type J on the keyboard.
+
+The display on the monitors flickers momentarily, displaying
+
+THIRD LETTER OF PASSWORD ENTERED CORRECTLY.
+
+before returning to normal.
+
+> type t
+You type T on the keyboard.
+
+The display on the monitors flickers momentarily, displaying
+
+FOURTH LETTER OF PASSWORD ENTERED CORRECTLY.
+
+before returning to normal.
+
+> type i
+You type I on the keyboard.
+
+The display on the monitors flickers momentarily, displaying
+
+FIFTH LETTER OF PASSWORD ENTERED CORRECTLY.
+
+before returning to normal.
+
+> type u
+You type U on the keyboard.
+
+The display on the monitors flickers momentarily, displaying
+
+SIXTH LETTER OF PASSWORD ENTERED CORRECTLY.
+
+before returning to normal.
+
+> type b
+You type B on the keyboard.
+
+The display on the monitors flickers momentarily, displaying
+
+SEVENTH LETTER OF PASSWORD ENTERED CORRECTLY.
+
+before returning to normal.
+
+> type l
+You type L on the keyboard.
+
+The display on the monitors flickers momentarily, displaying
+
+EIGHTH LETTER OF PASSWORD ENTERED CORRECTLY.
+
+LEVER UNLOCKED.
+
+before returning to normal.
+
+> lift lever
+You raise the lever a notch.
+
+The image on the monitors flickers and changes.
+
+> x monitor
+The monitors are all state of the art technology: gleaming and pristine, so
+hideously modern that even a certified nerd would be impressed to be here.
+Certainly better than the 6" black and white TV with no sound and a cracked
+screen you have back home.
+
+All of the monitors display the same image: Baron Grishtak himself!
+
+He looks pretty much the same as you remember him from that night in Peru:
+ugly. Remarkably so. If prizes were given out for sheer physical repugnance,
+Grishtak would sweep the board.
+
+At the moment he seems to be in a room that looks like a command post.
+Interesting... but it doesn't help your situation much.
+
+> lift lever
+You raise the lever a notch.
+
+The image on the monitors flickers and changes.
+
+> x monitor
+The monitors are all state of the art technology: gleaming and pristine, so
+hideously modern that even a certified nerd would be impressed to be here.
+Certainly better than the 6" black and white TV with no sound and a cracked
+screen you have back home.
+
+All of the monitors display the same image: Princess Leonora!
+
+She is in a large chamber which, judging by the view from the window directly
+behind her, is on the north face of the fortress. The chamber seems unguarded
+but you suspect there are more than a few guards present, just lurking off
+camera.
+
+> lower lever
+You lower the lever a notch.
+
+The image on the monitors flickers and changes.
+
+> lower lever
+You lower the lever a notch.
+
+The image on the monitors flickers and changes.
+
+> lower lever
+You lower the lever a notch.
+
+The image on the monitors flickers and changes.
+
+> lower lever
+You lower the lever a notch.
+
+The image on the monitors flickers and changes.
+
+> lower lever
+You lower the lever a notch.
+
+The image on the monitors flickers and changes.
+
+> x monitor
+The monitors are all state of the art technology: gleaming and pristine, so
+hideously modern that even a certified nerd would be impressed to be here.
+Certainly better than the 6" black and white TV with no sound and a cracked
+screen you have back home.
+
+All of the monitors display the same image: a wall, blank aside from a
+scrawled message: letter 7 is o!
+
+> lower lever
+You lower the lever a notch.
+
+The image on the monitors flickers and changes.
+
+> x monitor
+The monitors are all state of the art technology: gleaming and pristine, so
+hideously modern that even a certified nerd would be impressed to be here.
+Certainly better than the 6" black and white TV with no sound and a cracked
+screen you have back home.
+
+All of the monitors display the same image: the courtyard, complete with all
+the guards training.
+
+But a strange thing happens as you look through the monitors at the guards.
+One of them turns and looks back at you!
+
+[MORE]
+
+"Men!" he snaps to the others. "The Baron desires our attention!"
+
+The men turn and look at you (clearly there is some kind of monitor in the
+courtyard as well) and one says, "the Baron looks a bit different today,
+sir."
+
+"Taller."
+
+"Beefier."
+
+"More Bulldog-like."
+
+The leader quietens them down and bows low before you. "What is your command,
+my lord?"
+
+You grunt something at him.
+
+[MORE]
+
+"I don't remember the Baron grunting before," says one of the soldiers.
+
+"And he's never told us to leave our posts and desert the fortress, either."
+
+"And lock ourselves out as well."
+
+The leader glares angrily at them. "Quiet! The lot of you! Ours is not to
+question the Baron's orders." He turns back to you. "We obey at once, my
+lord."
+
+The guards quickly depart the courtyard through a door in the northern side.
+
+> lower lever
+You lower the lever a notch.
+
+The image on the monitors flickers and changes.
+
+> x monitor
+The monitors are all state of the art technology: gleaming and pristine, so
+hideously modern that even a certified nerd would be impressed to be here.
+Certainly better than the 6" black and white TV with no sound and a cracked
+screen you have back home.
+
+All of the monitors display the same image: a dead end. Only, when you peer
+more closely, you detect something that looks like this might not be a dead
+end after all. Maybe you should go and take a better look. The dead end
+(which might not be so dead after all) looks to be fairly close by.
+
+> e
+
+Balcony {west}
+
+The balcony extends around the courtyard in a rough circular shape. Your view
+of it from here is similar to the view you had from the south. The courtyard
+is empty aside from a pleasant little fountain.
+
+The balcony extends to the northeast and southeast, a flight of steps lead
+down into the courtyard itself, and there is a passage to the west.
+
+> d
+
+Courtyard
+
+Now mercifully empty of the soldiers, the courtyard is a fairly pleasant,
+peaceful place. Also a very sparse one. Aside from the fountain, which is
+little more than a trickle, there is a burnt mark on the grass and precious
+little else.
+
+Flights of stone steps lead up to the balcony to the east, west and south.
+
+> fill bottle
+You fill the bottle from the fountain. The water assumes a strange, reddish
+tint once inside the bottle.
+
+> x mark
+It takes a little figuring out, but by squinting at the burnt mark and
+turning your head at an angle, you are able to discern that it is actually
+the letter G. At the side of it, partially burnt away, are the words: "let---
+-our".
+
+> e
+
+Balcony {east}
+
+The easternmost extreme of the balcony is somewhat more fragile than the
+southernmost part, with the very stone beneath your feet seeming to move
+slightly from side to side as your weight presses down on it. The balcony
+extends to the northwest, where the stone looks even more fragile still, and
+southwest, where it seems to become somewhat stronger.
+
+A flight of steps lead down into the courtyard from here while a passage has
+been carved in the east wall, leading deeper into the fortress.
+
+> e
+
+Dead End
+
+This short passage seems to reach a dead end here, at a completely blank
+piece of wall. Try as you might, you can detect nothing unusual about it. It
+seems, strangely, that someone has actually gone and built a wall across the
+end of the passage. However, saying that, there looks to be some kind of
+depression across part of the wall.
+
+The passage leads back westwards to the balcony.
+
+> x depression
+It looks vaguely hand-shaped.
+
+> touch depression
+You reach out, put your hand in the depression, and...
+
+The wall suddenly shifts around, taking you with it!
+
+[MORE]
+
+Jail
+
+Harking back to the Dark Ages, this is a jail cell similar to many you have
+seen all over the world. A prisoner, chained to the wall, glares angrily at
+you, cursing frequently and rattling his chains. Behind him, a barred window
+affords a view of the empty woodland behind the fortress.
+
+There appear to be no exits. The way you entered the jail by has sealed
+itself behind you, although the nearest wall bears a similar depression to
+the one you saw on the other side.
+
+Light is provided via the window, although not enough to really see anything
+that might be lurking in the shadows.
+
+"Come back for more, have you, you scum?" snarls the prisoner, rattling his
+chains angrily. "Bah! You don't scare me! C'mon, do your worst!
+Grarrrrrhhhhh!"
+
+> smash chains
+You grab hold of the chains and flex your muscles and strain to break them.
+The prisoner sees what you are doing and for once holds off his usual torrent
+of abuse to help you.
+
+The two of you strain... and strain... and strain...
+
+But in the end, the chains withstand your combined efforts.
+
+"Bah, you're hopeless!" the prisoner yells when you let go of the chains.
+"Pa-thetic! You didn't even put your back into it! My gran could have done
+better! My gran's gran could have-"
+
+You ignore him and massage your aching hands. It's frustrating that the
+chains got the better of you, and you're certainly worse off for it, but
+maybe another go...
+
+> smash chains
+Determined not to let the chains get the better of you, you take hold of them
+again.
+
+"And try a bit harder this time," says the prisoner, as the two of you strain
+to break them.
+
+You grit your teeth and tear at the chains... and again... and again...
+
+... partway through you feel like you're going to dislocate your arms
+wrenching at the chains like this but the day The Bulldog is beaten by some
+lousy chains...
+
+... is a day that is never going to come.
+
+The chains break!
+
+[MORE]
+
+The moment he is free, the prisoner, rather than thanking you profusely for
+his freedom, grabs up a length of chain and tries to choke you with it!
+
+[MORE]
+
+Only the fact that he's spent several months locked up in a cell and has been
+weakened by the odreal, and that you're The Bulldog stops him succeeding.
+
+"Grunt," you say, meaning (roughly) "hang on, fellow! I just freed you! Show
+a little gratitude, okay?"
+
+He hesitates a little, then sighs. "Sorry about that, pal. Force of habit,
+y'see. I've been locked up here for the past few months and swore that when
+the swine came for me, I'd choke the life outta the lot of 'em. Hard habit to
+break." He peers at you. "Say, you ain't one of the Baron's men, are you?"
+
+You explain, by way of several grunts, groans and much hand gesturing, who
+you are and why you're here.
+
+The man's eyes widen. "Well, well, you're here after Princess Leonora, eh?
+Pleased to meet you, friend. My name's Merrick." He grimaces. "I'm her
+personal bodyguard."
+
+[MORE]
+
+Merrick goes on to explain the circumstances behind the Princess' capture and
+his imprisonment.
+
+"The Princess was captured," he says, "and I was imprisoned."
+
+He isn't, unfortunately, a very good story teller.
+
+It seems the Princess and her entourage - including sixteen maids, fourteen
+butlers, seven hair stylists, eight bodyguards and no less than forty-five
+servants - were travelling to see the Princess' good friend in Hong Kong one
+day when the ship they were on was boarded by pirates working for none other
+than Baron Grishtak himself.
+
+"It was a dodgy situation," says Merrick. "The Baron's forces outnumbered us
+by over five to one. He promised to spare everyone who surrendered, but I
+didn't like the idea of that so I ordered the men to fight." He winces. "And
+they all got killed. Maybe my plan wasn't such a hot idea after all.
+
+[MORE]
+
+"After that, the Baron brought us here. The Princess he took to somewhere
+else in the fortress. Me, he threw in here. Said he was going to break me and
+make me tell him everything I knew. I told him to do his worst. So he did."
+He sighs. "And I told him everything. Damn, but I'm just not very good at
+this sort of thing."
+
+You grunt a question.
+
+"Now what?" Merrick shrugs. "Rescue the Princess, of course. I'd offer to
+join forces but I'm sure you'd only slow me down, so I suggest we split up
+and go after her separately. That way, when you get yourself captured or
+killed, I'll still be around to rescue her. We ought to get going now-"
+
+You raise an eyebrow.
+
+Merrick hesitates. "Unless you've got any questions you want answering, of
+course. I've picked up a few things about the place since I've been locked up
+here."
+
+> talk to merrick
+“Ask away,” he says. “I'm a font of… of, er, um…” He shrugs. “Something or
+other anyway. What do you want to know?”
+
+1.  Grunt. (“Tell me about the layout of the fortress.”)
+2.  Grunt. (“Where is Princess Leonora being held?”)
+3.  Grunt. (“Where do I find Baron Grishtak?”)
+4.  Grunt. (“I need to blow up the fortress but I don't have access to any
+powerful explosives. Any ideas where I might find some?”)
+5.  Grunt. (“How many men does the Baron have here?”)
+6.  Grunt. (“I think we should stick together. Strength in numbers and all
+that.”)
+7.  Grunt. (“What else can you tell me?”)
+8.  Grunt. (“Do you need a weapon?”)
+9.  Grunt. (“Time to get going.”)
+
+> 2
+"I managed to get a glimpse of the place when they first brought me here."
+Merrick describes the route, pointing out things to watch out for along the
+way. None of it is really essential knowledge, but it's handy having a rough
+idea of where the Princess is being held.
+
+1.  Grunt. "Let me ask you something else."
+
+> 1
+“Ask away,” he says. “I'm a font of… of, er, um…” He shrugs. “Something or
+other anyway. What do you want to know?”
+
+1.  Grunt. (“Tell me about the layout of the fortress.”)
+2.  Grunt. (“Where is Princess Leonora being held?”)
+3.  Grunt. (“Where do I find Baron Grishtak?”)
+4.  Grunt. (“I need to blow up the fortress but I don't have access to any
+powerful explosives. Any ideas where I might find some?”)
+5.  Grunt. (“How many men does the Baron have here?”)
+6.  Grunt. (“I think we should stick together. Strength in numbers and all
+that.”)
+7.  Grunt. (“What else can you tell me?”)
+8.  Grunt. (“Do you need a weapon?”)
+9.  Grunt. (“Time to get going.”)
+
+> 3
+"He's in the command centre, top of the fortress. But he's got his bodyguards
+all around him and they're the nastiest fellows you could ever have the
+misfortune to run into." Merrick mentions a strange call he heard - something
+like a yodel - from some of the guards. "Some kind of secret code between
+'em, I think. Don't know what it means but it might come in handy to try and
+fool the swine."
+
+1.  Grunt. "Let me ask you something else."
+
+> 1
+“Ask away,” he says. “I'm a font of… of, er, um…” He shrugs. “Something or
+other anyway. What do you want to know?”
+
+1.  Grunt. (“Tell me about the layout of the fortress.”)
+2.  Grunt. (“Where is Princess Leonora being held?”)
+3.  Grunt. (“Where do I find Baron Grishtak?”)
+4.  Grunt. (“I need to blow up the fortress but I don't have access to any
+powerful explosives. Any ideas where I might find some?”)
+5.  Grunt. (“How many men does the Baron have here?”)
+6.  Grunt. (“I think we should stick together. Strength in numbers and all
+that.”)
+7.  Grunt. (“What else can you tell me?”)
+8.  Grunt. (“Do you need a weapon?”)
+9.  Grunt. (“Time to get going.”)
+
+> 4
+"There's a special room with dynamite in, packed to the roof," says Merrick.
+"Not sure where it is myself but I've heard some of the guards talk about.
+Figure out a way to start a fire or an explosion in there and pow! The whole
+place'll go up!"
+
+1.  Grunt. "Let me ask you something else."
+
+> 1
+“Ask away,” he says. “I'm a font of… of, er, um…” He shrugs. “Something or
+other anyway. What do you want to know?”
+
+1.  Grunt. (“Tell me about the layout of the fortress.”)
+2.  Grunt. (“Where is Princess Leonora being held?”)
+3.  Grunt. (“Where do I find Baron Grishtak?”)
+4.  Grunt. (“I need to blow up the fortress but I don't have access to any
+powerful explosives. Any ideas where I might find some?”)
+5.  Grunt. (“How many men does the Baron have here?”)
+6.  Grunt. (“I think we should stick together. Strength in numbers and all
+that.”)
+7.  Grunt. (“What else can you tell me?”)
+8.  Grunt. (“Do you need a weapon?”)
+9.  Grunt. (“Time to get going.”)
+
+> 8
+"Sure. Give me whatever's you got. I'm a dab hand at tearing a bloke's face
+off with my fingers, but a good rocket launcher always comes in handy, too."
+
+1.  Grunt. "Let me ask you something else."
+
+> give treat to merrick
+"Hey, nice stuff," says Merrick. He chomps the treat down, almost choking on
+its minty goodness. "Damn good stuff that - cough! - treat!"
+
+> give bible to merrick
+"Hey, the bible the Princess gave me that time I rescued her from the Arab
+terrorists," says Merrick, stroking the bible's cover. "There's an
+interesting story behind this, you know."
+
+You wait.
+
+Merrick nods. "Yep. Sure is interesting, that story."
+
+> give sword to merrick
+"A-ha! A sword!" says Merrick. "Oh yes, I'm a dab hand at using a swo- Ah!
+Christ! Cut myself! You could have told me the damn thing was sharp!"
+
+> talk to merrick
+“Ask away,” he says. “I'm a font of… of, er, um…” He shrugs. “Something or
+other anyway. What do you want to know?”
+
+1.  Grunt. (“Tell me about the layout of the fortress.”)
+2.  Grunt. (“Where is Princess Leonora being held?”)
+3.  Grunt. (“Where do I find Baron Grishtak?”)
+4.  Grunt. (“I need to blow up the fortress but I don't have access to any
+powerful explosives. Any ideas where I might find some?”)
+5.  Grunt. (“How many men does the Baron have here?”)
+6.  Grunt. (“I think we should stick together. Strength in numbers and all
+that.”)
+7.  Grunt. (“What else can you tell me?”)
+8.  Grunt. (“Do you need a weapon?”)
+9.  Grunt. (“Time to get going.”)
+
+> 9
+"Good idea," says Merrick. He extends his hand and you shake it. "Best of
+luck, The Bulldog. You'll need it. Give me a minute or two to get clear then
+follow."
+
+He hurries over to the depression in the wall, taps it with his hand, and
+departs the cell.
+
+> touch depression
+You touch the depression and the wall rotates, taking you with it.
+
+[MORE]
+
+Dead End
+
+This short passage seems to reach a dead end here, at a completely blank
+piece of wall. Try as you might, you can detect nothing unusual about it. It
+seems, strangely, that someone has actually gone and built a wall across the
+end of the passage. However, saying that, there looks to be some kind of
+depression across part of the wall.
+
+The passage leads back westwards to the balcony.
+
+> w
+
+Balcony {east}
+
+The easternmost extreme of the balcony is somewhat more fragile than the
+southernmost part, with the very stone beneath your feet seeming to move
+slightly from side to side as your weight presses down on it. The balcony
+extends to the northwest, where the stone looks even more fragile still, and
+southwest, where it seems to become somewhat stronger.
+
+A flight of steps lead down into the courtyard from here while a passage has
+been carved in the east wall, leading deeper into the fortress.
+
+> w
+
+Courtyard
+
+Now mercifully empty of the soldiers, the courtyard is a fairly pleasant,
+peaceful place. Also a very sparse one. Aside from the fountain, which is
+little more than a trickle, there is a burnt mark on the grass and precious
+little else.
+
+Flights of stone steps lead up to the balcony to the east, west and south.
+
+> w
+
+Balcony {west}
+
+The balcony extends around the courtyard in a rough circular shape. Your view
+of it from here is similar to the view you had from the south. The courtyard
+is empty aside from a pleasant little fountain.
+
+The balcony extends to the northeast and southeast, a flight of steps lead
+down into the courtyard itself, and there is a passage to the west.
+
+> ne
+
+Balcony {north}
+
+The part of the balcony to the north of the courtyard is slightly higher than
+the balcony around the rest of the courtyard, affording you a better view of
+the  fountain, but you can also see something that was previously hidden to
+you: a strange mark burnt into the ground.
+
+There is an archway to the north leading deeper into the fortress, while the
+balcony extends away to the southeast (although it looks somewhat crumbly in
+that direction) and southwest. Unlike the other parts of the balcony, there
+is no flight of steps leading down into the courtyard from here.
+
+> n
+You step through the archway and find yourself at the bottom of a flight of
+steps which wind up and up into the fortress. With nowhere else to go, you
+climb the steps, ready at a moment's notice to spring to the attack if
+required to do so. You hear footsteps on the other side of the stairwell wall
+from time to time, and even hear a voice that sounds eerily familiar, barking
+orders and just generally ranting, but no one seems to realise you are here.
+
+Up you climb. Up and up and…
+
+And then you emerge from the stairwell, pass through an archway and find
+yourself in a large hall. If you're not at the very upper limit of the
+fortress now, you can't be far off.
+
+[MORE]
+
+Large Hall
+
+When the fortress was a Dark Ages castle, this would doubtless have been the
+main hall: a massive place about half the size of a football stadium; the
+main area of the floor is given over to row upon row of tables and benches
+where the soldiers at the time would have seated themselves. An unlit fire
+rests in an overly large fireplace to one side of the hall, while to the
+other, at the top of a raised platform, is a chair large enough to seat a
+giant.
+
+Passages leads away to the west, northwest and east while there is an archway
+to the south. The sound of voices emanate from the northwestern passage.
+
+> x chair
+It's not so much a chair as a throne. No doubt this was where the former lord
+of the castle sat, the raised platform and the chair's overly large
+dimensions making him appear a giant to the men seated at the benches. Or
+maybe he was just an overly large fellow.
+
+> sit in chair
+You sit in the chair. Even for a large fellow like yourself, you feel like a
+small child whilst sitting here. The left and right armrests of the chair are
+just about reachable, each of them studded with many strange looking gems.
+
+> pull armrest
+The right armrest won't move at all but you manage to raise the left one an
+inch or two by tugging on it with all your strength. As you do, you hear a
+creaking sound and look up in surprise to see part of the southeast wall
+slide smoothly to one side, revealing a hidden passage beyond.
+
+> e
+
+Portrait Gallery
+
+The walls of this large chamber are lined with portraits and photos of many,
+many different scenes, all of which have one thing in common: Baron Grishtak.
+Either the man has been pictured more times than any other master criminal in
+the world, or he's got a team of painters and photographers hidden away
+somewhere who do nothing all day but immortalise him in this way. Aside from
+the endless array of photos, the room is fairly empty, the only other thing
+you can see being a marble sculpture (again of the Baron) mounted on a
+pedestal in the middle of the room.
+
+A passage leads west, there is a wide open door to the north and an archway
+to the east.
+
+There is a rag on the floor.
+
+> get rag
+You take the rag.
+
+> x portraits
+They're quite frightening; not to you, of course, being The Bulldog, but you
+imagine anyone else might feel nauseous having so many depictions of Baron
+Grishtak's face looming at him like this.
+
+The portraits all seem alike: all feature the Baron, all have him in some
+kind of heroic pose, and not one has him looking anything but the homicidal
+pyschopath everyone knows him to be.
+
+One of the portraits is a little askew, hanging at an angle that ruins the
+effect of the rest. (Okay, they're ruined already as they've all got Baron
+Grishtak's face on them, but even so...)
+
+> straighten portrait
+You line the errant portrait up with all the others. It isn't any more
+pleasing to the eye - an impossibility with the Baron's face on every one of
+them - but the artist inside you breathes a sigh of relief.
+
+> x sculpture
+A grotesque likeness of the Baron. But then any likeness of the Baron is
+grotesque by default.
+
+This sculpture shows him with his mouth wide open, either yelling in maniacal
+rage or about to be violently ill. It's hard to tell the difference.
+
+Whoever did the sculpture has the Baron's eyes down to perfection: filled
+with madness, rage and hatred. It's almost like looking at the man himself.
+
+> x mouth
+The mouth is wide open, showing you... not much really. The sculpture is
+hollow inside and...
+
+And something about the shape of the mouth strikes you as odd. Peculiar even.
+It looks almost like a crucifix in shape. It must be some kind of weird
+coincidence because you can't imagine the Baron is a particularly religious
+fellow.
+
+> put crucifix in mouth
+You place the crucifix into the open mouth of the sculpture. It seems like
+the mouth curves slightly into a smile and then it closes up altogether,
+taking your crucifix with it.
+
+There comes a click from the door to the north.
+
+> n
+
+Baron Grishtak's Personal Quarters
+
+Even at a glance, it is obvious who these quarters belong to: Baron Grishtak
+himself. They fairly reek of pomp and opulence with even the carpets being
+more than you earn in a decade. The bed is large enough for a family of six
+and is surrounded by a dozen or more chairs.
+
+A large portrait of the Baron - thankfully not warts 'n' all - hangs above
+the bed while there is a writing desk and a computer off to one side. A
+window of coloured glass makes up one entire wall, showing the grounds around
+the fortress.
+
+The only exit is via a door in the southern wall.
+
+> lie on bed
+Now isn't the appropriate time for resting, but you do feel tired and you
+haven't had a good rest since the start of this mission. And part of you
+finds the idea of a quick nap in the Baron's own bed to be the kind of thing
+that will drive Grishtak mad with rage.
+
+As there doesn't seem to be any immediate danger, you get into bed, lie down
+and...
+
+[MORE]
+
+sleep
+
+and sleep
+
+and sleep some more
+
+And then finally you awake. You're not sure how many hours have passed but
+you feel better than you have done in a long time.
+
+> look under bed
+The bed is too close to the floor for you to be able to see anything
+underneath it.
+
+> raise bed
+You try to lift the bed... and after the slightest touch from you, it moves
+of its own accord. Raising itself several feet off the floor, it rises until
+it is half-embedded in the wall and then, with a grinding of gears that
+sounds anything healthy, it becomes stuck.
+
+In the space beneath the bed, there is now revealed a tunnel built cunningly
+into the wall.
+
+> move portrait
+The moment you touch the portrait, it slides neatly to one side. A safe,
+previously hidden, is revealed set into the wall behind the portrait.
+
+> x window
+The window appears similar to some you have seen in churches over the
+yearsssss*. Except this one doesn't depict the Life of Jesus in wonderfully
+diverse colours.
+
+It depicts the Life of Grishtak.
+
+You can't help but feel that it isn't quite the same thing.
+
+* Not that you ever attend church, but when you've been pursuing terrorists
+for as long as you have it's inevitable that one of them is going to run
+through a church at some point.
+
+> read life of grishtak
+The Life of Grishtak is even written in biblical terms:
+
+And lo! The prophet Grishtak did come to the Land of America!
+
+There did He dwell amongst the heathens and the low people!
+
+There did He find that the eighth and final letter was R!
+
+There did He also become arrested for bug-
+
+The rest of that line has been erased. You wonder why.
+
+[MORE]
+
+The prophet Grishtak saw the filth and the corruption that dwells in the
+hearts of the impure!
+
+And He said "I'll have some of that!"
+
+So He set forth and gathered to Himself an army of scum and malcontents!
+
+And He said "Shut up when I'm talkin' to you, you lousy swine! Yes, you at
+the back, you loudmouth! And you, mushface! Keep your trap shut or I'll smash
+it in!"
+
+And He further said, "Find me a hostage! And make it a good one! None of that
+cheap rubbish the other warlords go for! Get me a Princess!"
+
+[MORE]
+
+And He finally said "And the next one of you who goes logging into my
+computer with the Warlord password gets his head handed to him on a plate!
+Got that? Good! Now clear off the lot of you!"
+
+And thus did the prophet Grishtak begin His rise of greatness...
+
+That's about all you can take for now. It seems the Baron's delusions are
+even more extreme than you originally thought if he's now believing he's some
+kind of holy prophet.
+
+> x computer
+The computer is switched on and displays a simple message on the screen:
+
+Enter password: _ _ _ _ _ _ _
+
+(Password to be entered in format of
+type [password])
+
+There is a slot in the side large enough for a normal-sized CD to be
+inserted. At the moment the slot is empty.
+
+> type warlord
+You type in the password. The display on screen changes to:
+
+Password entered
+
+Type access to begin computer program
+
+> type access
+
+Grishsoft 1995 Version 2
+
+Basic Menu Options
+
+1)  Manifest
+2)        Database list
+3)        Beginner's Guide to Grishsoft
+4)        The Plan
+5)        The Base
+6)        Exit
+
+> 5
+
+The Base
+
+Decided to use this old castle as my fortress because of the strategic
+advantages it offers. Also because of the many, many secret tunnels and
+passages already built into it in case anything goes wrong with The Plan and
+am forced to flee. The best escape route, as far as I can see, lies in the
+chamber I shall lock the princess inside: one of the windows can be opened
+and there is a fire escape outside that will allow easy escape.
+
+Hmmm... must get the window locked so the princess herself can't escape. I
+know, I'll put a voice-activated lock on it so that it will only open when
+the word 'blogmore' is spoken nearby.
+
+Grishsoft 1995 Version 2
+
+Basic Menu Options
+
+1)  Manifest
+2)        Database list
+3)        Beginner's Guide to Grishsoft
+4)        The Plan
+5)        The Base
+6)        Exit
+
+> 6
+
+Baron Grishtak's Personal Quarters
+
+Even at a glance, it is obvious who these quarters belong to: Baron Grishtak
+himself. They fairly reek of pomp and opulence with even the carpets being
+more than you earn in a decade. The bed is large enough for a family of six
+and is surrounded by a dozen or more chairs. The bed has been raised and a
+tunnel is visible beneath it.
+
+A large portrait of the Baron - thankfully not warts 'n' all - hangs above
+the bed while there is a writing desk and a computer off to one side. The
+portrait has been pushed to one side and a safe is visible behind it. A
+window of coloured glass makes up one entire wall, showing the grounds around
+the fortress.
+
+The only exit is via a door in the southern wall and the tunnel beneath the
+bed.
+
+> put disc in computer
+You slip the disc into the slot. The computer emits a beeping sound but
+nothing else seems to happen.
+
+> type access
+
+Grishsoft 1995 Version 2
+
+Advanced Menu Options
+
+1)  Fortress blueprint
+2)        Sleeping arrangements
+3)        Accessing the explosives store
+4)        Crashing the computer system
+5)        Exit
+
+> 1
+
+Fortress Blueprint
+
+Welcome to the blueprint of the fortress. This blueprint will detail every
+location in the fortress, every hidden passage, every secret room and every
+little thing you need to know about the fortress.
+
+Simply press a key and the blueprint will be displayed on the screen before
+you.
+
+...
+
+...
+
+...
+
+...
+
+...
+
+...error... cannot process information...
+
+WE ARE SORRY BUT GRISHSOFT HAS ENCOUNTERED AN ERROR AND MUST NOW CLOSE.
+PLEASE PRESS A KEY TO SUBMIT AN ERROR REPORT (ALONG WITH YOUR CREDIT CARD
+DETAILS) TO...
+
+Grishsoft 1995 Version 2
+
+Advanced Menu Options
+
+1)  Fortress blueprint
+2)        Sleeping arrangements
+3)        Accessing the explosives store
+4)        Crashing the computer system
+5)        Exit
+
+> 2
+
+Sleeping Arrangements
+
+Note from B. Grishtak to Head of Security:
+
+'Believe may be in danger. Advise.'
+
+Note from Head of Security to B. Grishtak:
+
+'Change sleeping arrangements. Assassins have less chance of getting to you
+that way.'
+
+Note from B. Grishtak to Head of Security:
+
+'Good plan. I shall spend my time in the small bedsit area beneath the
+barracks from now on.'
+
+Grishsoft 1995 Version 2
+
+Advanced Menu Options
+
+1)  Fortress blueprint
+2)        Sleeping arrangements
+3)        Accessing the explosives store
+4)        Crashing the computer system
+5)        Exit
+
+> 3
+
+Explosives Store
+
+Necessary that the men are kept away from the explosives store. Could cause
+catastrophe if anything untoward occurs within - possible destruction of
+entire fortress.
+
+Door encoded with five access code: 1 5 3 8 9.
+
+Grishsoft 1995 Version 2
+
+Advanced Menu Options
+
+1)  Fortress blueprint
+2)        Sleeping arrangements
+3)        Accessing the explosives store
+4)        Crashing the computer system
+5)        Exit
+
+> 4
+
+Crashing The Computer System
+
+This can achieved with the explode command, entered outside of either of the
+main menus.
+
+WARNING: this will totally destroy the system and recovery will not be
+possible. Use with care.
+
+Grishsoft 1995 Version 2
+
+Advanced Menu Options
+
+1)  Fortress blueprint
+2)        Sleeping arrangements
+3)        Accessing the explosives store
+4)        Crashing the computer system
+5)        Exit
+
+> 5
+
+Baron Grishtak's Personal Quarters
+
+Even at a glance, it is obvious who these quarters belong to: Baron Grishtak
+himself. They fairly reek of pomp and opulence with even the carpets being
+more than you earn in a decade. The bed is large enough for a family of six
+and is surrounded by a dozen or more chairs. The bed has been raised and a
+tunnel is visible beneath it.
+
+A large portrait of the Baron - thankfully not warts 'n' all - hangs above
+the bed while there is a writing desk and a computer off to one side. The
+portrait has been pushed to one side and a safe is visible behind it. A
+window of coloured glass makes up one entire wall, showing the grounds around
+the fortress.
+
+The only exit is via a door in the southern wall and the tunnel beneath the
+bed.
+
+> type explode
+You enter the explode command and the computer...
+
+Doesn't explode.
+
+In fact, nothing seems to change regarding the general appearance of the
+computer but you sense that internally things may be a lot different.
+
+> x safe
+A Steinmuller & Grimpenstein Mark 4 safe. Widely regarded as the hardest safe
+in the world to crack. Rumour has it that a nuclear bomb could be detonated
+inside a safe like this and the resulting explosion wouldn't even be noticed
+by anyone outside.
+
+Unless, of course, the safe was open in which case the explosion would
+definitely be noticed.
+
+There is a number pad on the front of the safe, numbers all the way from 0 to
+9, with a display to one side containing enough room for six numbers.
+
+The safe is currently closed.
+
+> x display
+
+Enter number: _ _ _ _ _ _
+
+Or type exit
+
+> 0
+
+Enter number: 0 _ _ _ _ _
+
+Or type exit
+
+> 1
+
+Enter number: 0 1 _ _ _ _
+
+Or type exit
+
+> 0
+
+Enter number: 0 1 0 _ _ _
+
+Or type exit
+
+> 1
+
+Enter number: 0 1 0 1 _ _
+
+Or type exit
+
+> 5
+
+Enter number: 0 1 0 1 5 _
+
+Or type exit
+
+> 8
+
+Enter number: 0 1 0 1 5 8
+
+Or type exit
+
+You remember the Baron's birthday from the computer and, acting on a hunch,
+enter it on the number pad. There is a click from the safe and it swings
+slowly open.
+
+Inside is not the array of wealth you expected to see or even some kind of
+fantastic weapon, but instead just a simple journal. You fish it out, staring
+at the cover which bears the words
+
+THE PERSONAL JOURNAL OF BARON GRISHTAK
+BEING THE THOUGHTS AND SPECULATIONS OF THE MAN WHO WOULD BE GOD
+
+[MORE]
+
+Baron Grishtak's Personal Quarters
+
+Even at a glance, it is obvious who these quarters belong to: Baron Grishtak
+himself. They fairly reek of pomp and opulence with even the carpets being
+more than you earn in a decade. The bed is large enough for a family of six
+and is surrounded by a dozen or more chairs. The bed has been raised and a
+tunnel is visible beneath it.
+
+A large portrait of the Baron - thankfully not warts 'n' all - hangs above
+the bed while there is a writing desk and a computer off to one side. The
+portrait has been pushed to one side and a safe is visible behind it. A
+window of coloured glass makes up one entire wall, showing the grounds around
+the fortress.
+
+The only exit is via a door in the southern wall and the tunnel beneath the
+bed.
+
+> read journal
+
+January 8th 2006
+A good day! The Plan moves forward like an unstoppable juggernaut of
+destruction. The forces of the enemy dwindle before my might and the army are
+powerless to stop me.
+
+This fortress is a good location to mount my offensive. I can see, now, that
+my previous defeats were all to my advantage. They have taught me caution,
+when to retreat and when to fight, and they have forced me here, to this
+fortress in the middle of nowhere, where I shall uncover my destiny.
+
+The first part of the Plan involves the kidnapping of the Princess Leonora,
+and then I shall use her ransom money to finance an army. And the world shall
+know the name of Baron Grishtak. And it will tremble.
+
+> read journal
+
+January 29th 2006
+An unexpected ally arrived in the form of Tiberius Tugmore, AKA The Tiger, a
+military fellow of unspeakable pedigree. He proposes to act as my personal
+bodyguard for when the army inevitably send someone to rescue the Princess I
+have kidnapped.
+
+"Rescued her?" I remember sneering. "From here? No one in the world could get
+into here and rescue her."
+
+"One man could," said The Tiger.
+
+"You mean...?"
+
+He nodded. "Him. But leave it to me and I'll arrange for the fellow to have
+an unfortunate... accident."
+
+[MORE]
+
+I have left the details in The Tiger's hands. If he is willing to throw
+himself against this formidable enemy and save me the hassle of expending the
+lives of my own soldiers, I am content.
+
+> read journal
+
+January 38th 2006
+It seems the formidable adversary foretold of by The Tiger is no more. There
+was an ambush not far from here and, I am informed, the man called The
+Bulldog was killed.
+
+The Tiger seems less certain. The odds, I point out, were eighteen to one,
+and my men were armed with the latest in lethal firearms technology. The
+Bulldog, from what I hear, had a fork.
+
+"Yes," said The Tiger, "that's what worries me. Have you any idea what kind
+of damage the fellow can cause with a fork? Thank Christ he didn't have a
+knife as well..."
+
+[MORE]
+
+I have despatched The Tiger to the lower reaches of the fortress as a
+precaution in case The Bulldog has survived, although I confess to not being
+unduly concerned over the matter.
+
+> read journal
+
+January 39th 2006
+Perhaps The Tiger was correct after all. My men report someone has
+successfully crossed the bridge I ordered destroyed and, furthermore, that
+the same someone has gained access to the fortress itself. I would not have
+thought such a thing possible. Even more worrying is the fact that I have not
+heard from The Tiger for some time now. It could be merely that he has ceased
+radio contact so as best to track his quarry... or that he has met an
+unfortunate end.
+
+Best I cease writing this journal now and find myself some safe place to wait
+out this debacle.
+
+> read journal
+There are no further entries in the journal so you turn back to the start and
+read the first entry again.
+
+January 8th 2006
+A good day! The Plan moves forward like an unstoppable juggernaut of
+destruction. The forces of the enemy dwindle before my might and the army are
+powerless to stop me.
+
+This fortress is a good location to mount my offensive. I can see, now, that
+my previous defeats were all to my advantage. They have taught me caution,
+when to retreat and when to fight, and they have forced me here, to this
+fortress in the middle of nowhere, where I shall uncover my destiny.
+
+[MORE]
+
+The first part of the Plan involves the kidnapping of the Princess Leonora,
+and then I shall use her ransom money to finance an army. And the world shall
+know the name of Baron Grishtak. And it will tremble.
+
+> enter tunnel
+
+Sleeping Quarters
+
+From the many portraits of the Baron which line the walls of this small,
+somewhat cramped room, you guess you must have discovered his sleeping
+quarters. For certain, no one else would be able to get a wink of sleep with
+his visage looming over them.
+
+The sleeping quarters aren't large, comprising nothing more than a bed, a
+cabinet by the side of it and a digital clock built into the wall. There are
+no windows and the only light comes from a panel set into the low ceiling.
+The passage you entered the room by is to the east.
+
+> smash bed
+You wreck the bed. It doesn't achieve much in the scheme of things but you
+feel better for even this small act of mindless violence against a possession
+of the Baron's.
+
+> look under bed
+There looks to be nothing under the bed and-
+
+And then, just as you're about to give up, you notice something pushed right
+under the far side. Reaching under the bed, you take hold of it, pull it out,
+and find yourself looking at… a voodoo doll.
+
+Not just an ordinary one either. This is shaped like Baron Grishtak. He looks
+every bit as ugly in doll format as he does in human format.
+
+> smash clock
+You smash the front of the clock. Grishtak will probably go livid when he
+sees what you have done.
+
+> smash cabinet
+A single blow shatters the cabinet into so much ruin.
+
+> smash panel
+You shatter the panel with a single blow. And when the panel shatters, so
+does the bulb behind it. There is a sudden explosion from somewhere in the
+room as sparks rain down on the Baron's bed then-
+
+Darkness falls. You wait for the sparks on the bed to ignite and create a bit
+of light, but no such luck there.
+
+You stumble around in the dark, banging your knee painfully on something,
+then manage to stagger to the passage in the wall and hurry along it back to
+Grishtak's personal quarters.
+
+[MORE]
+
+Baron Grishtak's Personal Quarters
+
+Even at a glance, it is obvious who these quarters belong to: Baron Grishtak
+himself. They fairly reek of pomp and opulence with even the carpets being
+more than you earn in a decade. The bed is large enough for a family of six
+and is surrounded by a dozen or more chairs. The bed has been raised and a
+tunnel is visible beneath it.
+
+A large portrait of the Baron - thankfully not warts 'n' all - hangs above
+the bed while there is a writing desk and a computer off to one side. The
+portrait has been pushed to one side and a safe is visible behind it. A
+window of coloured glass makes up one entire wall, showing the grounds around
+the fortress.
+
+The only exit is via a door in the southern wall and the tunnel beneath the
+bed.
+
+> s
+
+Portrait Gallery
+
+The walls of this large chamber are lined with portraits and photos of many,
+many different scenes, all of which have one thing in common: Baron Grishtak.
+Either the man has been pictured more times than any other master criminal in
+the world, or he's got a team of painters and photographers hidden away
+somewhere who do nothing all day but immortalise him in this way. Aside from
+the endless array of photos, the room is fairly empty, the only other thing
+you can see being a marble sculpture (again of the Baron) mounted on a
+pedestal in the middle of the room.
+
+A passage leads west, there is a wide open door to the north and an archway
+to the east.
+
+> open mouth
+You force the mouth open and manage to retrieve the crucifix. Not very
+surprisingly, the door to the north then swings shut.
+
+> w
+
+Large Hall
+
+When the fortress was a Dark Ages castle, this would doubtless have been the
+main hall: a massive place about half the size of a football stadium; the
+main area of the floor is given over to row upon row of tables and benches
+where the soldiers at the time would have seated themselves. An unlit fire
+rests in an overly large fireplace to one side of the hall, while to the
+other, at the top of a raised platform, is a chair large enough to seat a
+giant.
+
+Passages leads away to the west, northwest and east while there is an archway
+to the south. The sound of voices emanate from the northwestern passage.
+
+> se
+
+Bend In The Passage
+
+This (previously hidden) passage curves around a little here, one branch
+leading away to the large hall to the northwest and another leading east to a
+room from which the sound of voices can be heard.
+
+The only light along this passage comes from a glowing patch of moss on one
+of the walls.
+
+> get moss
+You pick a piece of moss off the wall. The moment it leaves contact with the
+wall, it darkens to a greyish colour and assumes the general appearance of
+dead weed.
+
+> listen
+You hear a strange conversation take place:
+
+"Well, I said to him…"
+"And did he…?"
+"Fifteen times if the truth be told…"
+"But he denied it…"
+"Never believed the fellow myself…"
+
+The strangest thing is that all the voices sound the same, just pitched at
+slightly different tones.
+
+> listen
+The strange conversation continues:
+
+"He was dead, I tell you…"
+"Nothing a good paint job wouldn't cure…"
+"Be good and goodness will follow you around…"
+"They'll kill me before that happens…"
+"Never in a million years…"
+
+Yes. Five different conversation pieces, but all spoken in the same voice.
+What is going on?
+
+> listen
+More strange conversation:
+
+“Poppycock…”
+“Nothing happened but they said otherwise…”
+“The first letter is F……”
+“I think it might be dead…”
+“Poor chap…”
+
+The strangest thing is that all the voices sound the same, just pitched at
+slightly different tones.
+
+> x rag
+This looks like nothing more exciting than an old cleaning rag. Not very
+clean, as it happens, but certainly cleaner than any cleaning rag that has
+seen the inside of your bathtub back home.
+
+It's not a normal cleaning rag, though. It looks to be specially curved, and
+even bent in place to give it the impression of a... mask?
+
+> wear rag
+You put on the rag.
+
+> e
+
+Ogbert's Chamber
+
+You've been in some squalid dumps before, as anyone who has ever seen your
+house could testify, but this place definitely takes not only the cake but
+the entire cake shop in terms of squalid dumps. The overpowering stench of
+unwashed clothes issues from a pile of filthy undergarments in the corner;
+food is spilt on the floor and has rotted to such a degree that even the many
+vermin in here are giving it a wide berth; as for the bed… you feel ill just
+thinking about it. A single bulb, almost black in colour due to the dirt,
+hangs from the ceiling above a grime-encrusted table and stool. Due to the
+dirt upon it, it leaves the rest of the chamber in shadow.
+
+A passage leads away to the west.
+
+There is a large and heavy barrel here.
+A tall, thin fellow with filthy skin is here.
+
+The tall, thin fellow with the filthy skin blinks at you as if surprised to
+see you. "Wh-what?" he gasps, spitting out something that looks vaguely like
+an insect. "A v-visitor? H-here?" He claps his hands together, sending clouds
+of dust wafting around the room. "C-come to visit O-Ogbert, have we?"
+
+> talk to ogbert
+You grunt a few questions at Ogbert.
+
+1.  Grunt. ("Who are you?")
+2.  Grunt. ("Where has everyone else gone? I'm sure I heard more than one
+voice.")
+3.  Grunt. ("What's that appalling smell?")
+4.  Grunt. ("Nice place you got here.")
+5.  Grunt. ("Why are you in a part of the fortress hidden away behind a
+concealed passage?")
+6.  Grunt. ("I need your help in dealing with Baron Grishtak, rescuing
+Princess Leonora and blowing up the fortress and everyone inside it.")
+7.  Grunt. ("It must be terrible having a stutter like that.")
+
+> 6
+"I-I'd love to help," says Ogbert, sounding about as insincere as it's
+possible for anyone to sound, "but I'm just too busy right now. T-this place
+doesn't keep itself tidy, after all."
+
+Wisely, you say nothing.
+
+Ogbert frowns. "S-saying that, it would be nice to have something to brighten
+the place up. S-something that complements everything else in here. I-I'm
+just not sure what…"
+
+1.  Grunt. ("Let me ask you something else.")
+
+> x clothes
+As you approach the clothes, an overpowering stench shoots from you. The
+smell almost penetrates the rag you're covering your nose with, but you
+grimace and fight off the worst effects of it.
+
+The clothes are beyond filthy and it's all you can do to have a quick fish
+through them, grab hold of the only item concealed therein (a sandwich) and
+retreat before the odour does you in.
+
+> give sandwich to ogbert
+You hold out the disgusting sandwich to Ogbert.
+
+Who, nauseatingly, takes it and wolves it down in one go.
+
+You feel a little ill at the sight of this but Ogbert smiles, pats his
+stomach and says, "h-hmmm, tasty."
+
+> talk to ogbert
+"H-hello again," says Ogbert. "I-I've been giving some thought to an
+appropriate gift for your kindness and think I have found the perfect thing."
+
+He holds something out to you.
+
+It's not often you speak (you're more a man of actions than words), but here
+you blurt out: "a flower?"
+
+Ogbert nods. "I-indeed. I picked it myself the fortress gardens just a few
+years ago and have kept it here all this time. N-now you are here, and I
+sense you are the one to take it."
+
+You reach out for it but hesitate. Your face says it all.
+
+"A-ah," says Ogbert with a nod. "Y-you wonder what use it will be. T-take
+it," he urges, "and you will see. I-Its use will become readily apparent
+before long."
+
+Whether that's true or not, Ogbert presses the flower into your hand and,
+eager to not have any more contact with him than strictly necessary, you take
+it.
+
+> clean light bulb
+You polish the bulb a little, making a room fractionally brighter.
+
+The light reveals what appears to be a cabinet on one wall.
+
+> open cabinet
+There is no front on the cabinet-
+
+"I-it fell off," says Ogbert cheerfully. "I-I suspect the woodlice had eaten
+away its hinges."
+
+-but you find, inside, an almost clean necklace.
+
+"N-not sure who that belongs to," Ogbert says with a frown. "I-I found it one
+day in the large hall. S-someone dropped it, so, seeing it there, I decided
+it was of more value to me than the floor of the hall. D-do you know who it
+belongs to?"
+
+You don't.
+
+"T-take it anyway," says Ogbert. "I-it's of no use to me. I-I mean, what need
+have I of a diamond-studded necklace anyway?"
+
+> push barrel
+The barrel is certainly a stubborn thing to move, but you pride yourself on
+being a lot more stubborn than any old hunk of wood and, after a while, the
+barrel realises it's beaten and rolls along to the west.
+
+> w
+
+Bend In The Passage
+
+This (previously hidden) passage curves around a little here, one branch
+leading away to the large hall to the northwest and another leading east to a
+room from which the sound of voices can be heard.
+
+The only light along this passage comes from a glowing patch of moss on one
+of the walls.
+
+There is a large and heavy barrel here.
+
+> push barrel
+You give the barrel a shove. It rolls forward a bit then rolls along to the
+large hall.
+
+> nw
+
+Large Hall
+
+When the fortress was a Dark Ages castle, this would doubtless have been the
+main hall: a massive place about half the size of a football stadium; the
+main area of the floor is given over to row upon row of tables and benches
+where the soldiers at the time would have seated themselves. An unlit fire
+rests in an overly large fireplace to one side of the hall, while to the
+other, at the top of a raised platform, is a chair large enough to seat a
+giant.
+
+Passages leads away to the west, northwest and east while there is an archway
+to the south. The sound of voices emanate from the northwestern passage.
+
+There is a large and heavy barrel here.
+
+> push barrel
+You shove at the barrel. Irrespective of where you were trying to shove it,
+it rolls along to the east.
+
+> e
+
+Portrait Gallery
+
+The walls of this large chamber are lined with portraits and photos of many,
+many different scenes, all of which have one thing in common: Baron Grishtak.
+Either the man has been pictured more times than any other master criminal in
+the world, or he's got a team of painters and photographers hidden away
+somewhere who do nothing all day but immortalise him in this way. Aside from
+the endless array of photos, the room is fairly empty, the only other thing
+you can see being a marble sculpture (again of the Baron) mounted on a
+pedestal in the middle of the room.
+
+A passage leads west, there is a locked door to the north and an archway to
+the east.
+
+There is a large and heavy barrel here.
+
+> push barrel
+You give the barrel a shove and it rolls off to the west.
+
+> w
+
+Large Hall
+
+When the fortress was a Dark Ages castle, this would doubtless have been the
+main hall: a massive place about half the size of a football stadium; the
+main area of the floor is given over to row upon row of tables and benches
+where the soldiers at the time would have seated themselves. An unlit fire
+rests in an overly large fireplace to one side of the hall, while to the
+other, at the top of a raised platform, is a chair large enough to seat a
+giant.
+
+Passages leads away to the west, northwest and east while there is an archway
+to the south. The sound of voices emanate from the northwestern passage.
+
+There is a large and heavy barrel here.
+
+> b1
+You shove at the barrel. Irrespective of where you were trying to shove it,
+it rolls along to the west.
+
+A moment later there is a scream, a thunderous explosion
+
+B O O O O O O O O O M
+
+and then deadly silence.
+
+> w
+
+Guard Post
+
+This short corridor, leading from the hall to the east to a chamber in the
+west, is currently a little on the empty side. The two guards who were
+stationed here are now corpses (still technically stationed here but not much
+of a threat any more)..
+
+> w
+
+Armoury
+
+Considering that this is the fortress' armoury, you might have expected it to
+contain a few more arms. Or any arms. But instead you find yourself in a
+small, somewhat drab room which has no weapons at all. In fact, all it does
+have are a collection of hats on one wall and a long box lying on a table.
+The box is closed but a faint light can be seen shining from within. A
+passage leads away to the east.
+
+> get hat
+You pick a hat out at random: a stylish bowler hat, wide enough to fit your
+overly capacious head, and with a brim hard enough to deflect a blow or two.
+
+> wear hat
+You put on the stylish black bowler hat.
+
+> open box
+You open the box - and grimace at the bright light that shines from within.
+There is a bar of gold inside, shining so brightly it's like having a
+miniature sun in here with you.
+
+> get gold
+You take the gold bar out of the box. It weighs several times what you
+expected it to and is also strangely warm to the touch.
+
+> e
+
+Guard Post
+
+This short corridor, leading from the hall to the east to a chamber in the
+west, is currently a little on the empty side. The two guards who were
+stationed here are now corpses (still technically stationed here but not much
+of a threat any more)..
+
+> e
+
+Large Hall
+
+When the fortress was a Dark Ages castle, this would doubtless have been the
+main hall: a massive place about half the size of a football stadium; the
+main area of the floor is given over to row upon row of tables and benches
+where the soldiers at the time would have seated themselves. An unlit fire
+rests in an overly large fireplace to one side of the hall, while to the
+other, at the top of a raised platform, is a chair large enough to seat a
+giant.
+
+Passages leads away to the west, northwest and east while there is an archway
+to the south. The sound of voices emanate from the northwestern passage.
+
+> nw
+
+Communications Centre
+The communications centre mainly comprises of a single, large screen monitor,
+a stereo system built into the wall and a keyboard. A couple of large blocks
+of dark plastic no doubt house the hardware for the centre, but they seem to
+have no visible means of opening them and their use isn't obvious to you.
+
+A passage leads away southeast to the large hall.
+
+You step into the communications centre, and a guard current crouching over
+the keyboard looks up in surprise.
+
+[MORE]
+
+His eyes go to the hat you're wearing and they go wide.
+
+"B-Baron Grishtak!" he gasps. "I didn't… I… well, that is…"
+
+Unbelievable. Just because you're wearing a hat favoured by the Baron, this
+fool has mistaken you for the Baron.
+
+"Are you here to check the system?" asks the guard nervously. "Here. Let me
+just stick the code in for you…" His hands fly over the keyboard before him.
+"There. Do you want me to stick around and-"
+
+You make a dismissive gesture.
+
+The guard breathes a sigh of relief and hurries from the room.
+
+> x keyboard
+A standard QWERTY keyboard, the like of which you have seen many times over
+the years but have got little use of (your fingers are a bit too large for a
+normal keyboard and you tend to type hard enough to break plastic). It also
+has a couple of extra keys that aren't part of the standard set: a big green
+key and a narrow red one.
+
+> x green key
+Similar to the other keys here aside from being marked "FYRE ALURM".
+
+You guess whoever the Baron bought this communications software from, he
+wasn't too fussed about spelling.
+
+> x red key
+The words "g__e_al al__t" have been partially scratched off this key, leaving
+you to guess at what its use might be.
+
+> push green key
+You press the green key.
+
+A sound not unlike a fire alarm
+
+meep- meep- meep!
+
+can be heard throughout the fortress. Somewhere far off you think you hear
+the sound of an overhead sprinkler system coming on.
+
+After a few seconds, the fire alarm cuts out.
+
+> push red key
+You press the red key.
+
+A siren starts to sound somewhere in the fortress, making a high-pitched
+
+eeek- eeek- eeek!
+
+sound. Something flickers on the monitor but you can't tell if anything has
+changed.
+
+After a few seconds, the siren cuts out.
+
+> se
+
+Large Hall
+
+When the fortress was a Dark Ages castle, this would doubtless have been the
+main hall: a massive place about half the size of a football stadium; the
+main area of the floor is given over to row upon row of tables and benches
+where the soldiers at the time would have seated themselves. An unlit fire
+rests in an overly large fireplace to one side of the hall, while to the
+other, at the top of a raised platform, is a chair large enough to seat a
+giant.
+
+Passages leads away to the west, northwest and east while there is an archway
+to the south. The sound of voices emanate from the northwestern passage.
+
+> x fireplace
+The fire has long since gone out, although the last vestiges of warmth still
+linger in the kindling stacked in the hearth.
+
+> get kindling
+You try to pick up the kindling but find it surprisingly heavy. So you grab
+hold of a lump of it and…
+
+and that's when you see the tunnel behind the fireplace. It was hidden to you
+before due to the angle at which you were standing, but now that you've bent
+over to pick up the kindling, you see it easily enough.
+
+> go tunnel
+You enter the tunnel, finding it unpleasantly cramped but otherwise
+manageable. After twenty feet it begins to rise sharply and then you come to
+a ladder.
+
+Up you go. You sense there might well be something you want to see at the end
+of this.
+
+[MORE]
+
+Princess Leonora's 'Cell'
+
+Normally you'd say a room with an open door (to the north) and a barred
+window was a cell, but considering the sheer opulence on display here, it's
+hard to imagine this place is any kind of prison. The floor is carpeted, the
+walls hung with tapestries and exquisite works of art... there is a bed and a
+large screen television; a state of the art entertainment centre; even a
+drinks machine... Cell? It looks cosier than your house, that's for certain.
+The only non-cosy thing you can see is a grill set into the southern wall.
+
+By the bed, chained there by the ankle, is none other than Princess Leonora
+herself.
+
+The moment you step into the 'cell', Leonora gives a cry of "take that, you
+lowlife ruffian!" and hits you over the head with her chamber pot.
+
+[MORE]
+
+For such a fragile-looking waif of a woman - five feet tall, 120 pounds
+soaking wet - she packs one heck of a punch and the chamber pot hits you with
+enough force to put a dent in one side of your stylish black bowler hat.
+
+And the worse part?
+
+It's not empty.
+
+[MORE]
+
+You groan, wipe away at your face (which is covered in stuff you don't even
+want to think about right now) and snatch the chamber pot out of Leonora's
+grasp before she can hit you with it again. It's quite a struggle. She's
+doing her damnedest to brain you and she fights like a little hellcat; you're
+under strict orders to bring her out alive and you've always had an
+honourable streak that prevents you from simply bashing her unconscious and
+carting her out of here over your shoulder. But in the end, your superior
+strength and combat training gets the better of her, and you tug the chamber
+pot out of her hands.
+
+You grunt at her to calm down.
+
+"Oh, you pig!" she fumes, stamping her feet. "I am not happy about this! Not
+happy at all!"
+
+And she then demonstrates just how unhappy she is by kneeing you in the
+groin.
+
+[MORE]
+
+It takes some time to calm her down.
+
+Princess Leonora is, as might be expected, somewhat on the spoilt side. When
+she gives an order, that order gets obeyed. If she says "jump" people
+literally are expected to say "how high?" When she doesn't get her way, she
+gets angry. And when she gets angry...
+
+"Well, how was I supposed to know you were coming to rescue me?" she says.
+"You expect me to be a mind reader? Hmphfff! Let me tell you something,
+buster. We have a better quality of bodyguard where I come from. They bow and
+they call me Mistress and they never, ever try to disarm me while I'm hitting
+them with a chamber pot! And furthermore-"
+
+She goes on in this vein for several long minutes.
+
+[MORE]
+
+Finally you manage to get her calmed down. A bit...
+
+"I'll let you rescue me," she says at last. "But I need something to drink
+first off. Some wine. I'm positively parched."
+
+You point to the drinks cabinet.
+
+"Oh, pur-lease! That's the kind of swill the common folk drink. I am used to
+better things. Now, get me some wine, and make sure it's some decent wine and
+none of the cheap trash the common folk drink, and then you can rescue me.
+Oh, and deal with that nasty man as well."
+
+[MORE]
+
+You raise an eyebrow.
+
+"Baron Grishtak, dummy," she says. "The man is positively de-spick-able! Why,
+I've a good mind to make a complaint against him. Do you know he refused to
+give me back my pearl necklace? And my diamond bracelet? And my genuine
+catskin coat?" She frowns. "And I seem to think he killed my bodyguards as
+well..." She nods. "Yes, the man's de-spick-able. Get me the wine then knock
+some sense into him and then you can rescue me. Well? What are you still
+standing here for? That wine won't pour itself, you know."
+
+And that was how you came to meet the divine Princess Leonora.
+
+> give necklace to leonora
+"My necklace!" cries Leonora, snatching it from you. "Oh, you've dirtied it
+with your filthy hands!"
+
+"Grunt," you say (meaning "it was like that when I found it.")
+
+"Liar! Oh, daddy will be so angry when he sees the state you've left my
+precious necklace in! I shall tell him and he shall have you shot! You hear
+that? Shot?"
+
+Expecting gratitude from Leonora for returning her necklace? Not while she's
+sober.
+
+> n
+
+By An Oak Door
+
+To the south just a few feet away is an imposing oak door, open, with the
+name "Leonora" written on its name plaque. By the door is a footstool, the
+kind of thing that a guard might sit upon... if there was one here, which
+there isn't. One wall holds a window, wide open, which shows you a view that
+is quite stomach-lurching. Beneath it is nestled a small cabinet with a chest
+to one side.
+
+> push chest
+You give the chest a push and it slides across the floor almost like it's
+been greased, slips down the stairs and
+
+CRASH!
+
+lands at the bottom of the tower with a more than audible crash. The entire
+tower seems to shake in its foundations.
+
+> d
+
+In The Tower
+
+You seem to be at the base of the tower, empty aside from a door to the south
+and a circular staircase leading up... and up... and up... and...
+
+A long way up, that's for certain.
+
+Also here is a silver coin.
+
+> get silver coin
+You take the silver coin.
+
+> s
+
+Before The Tower
+
+The tower rises up before you, its upper reaches hidden in the clouds. A
+doorway leads inside the tower, the door having been smashed to pieces.
+
+To the south is a walkway spanning a void. On the far side is the fortress.
+
+> s
+You step away from the tower towards the walkway... and at the moment you set
+foot on it, a gust of wind seizes hold of you and sweeps you off the side.
+
+*     *     *     *     *
+
+You fall for a few feet and then, miraculously, the same gust of wind seizes
+hold of you again and carries you safely across to the southern edge of the
+walkway.
+
+To say you've never been happier to see solid earth beneath you isn't an
+understatement at all.
+
+[MORE]
+
+Near Walkway
+
+Before you, swaying unnervingly in the breeze, is a wooden walkway over a
+void. On the other side is a spindly tower, rising up into the sky and
+brushing the clouds with its upper reaches. The tower seems to be built on a
+narrow outcropping of rock, perhaps fifty feet wide, which is connected to
+the rest of the fortress by only this decidedly unsafe looking walkway.
+
+North takes you across the walkway and south into the fortress itself.
+
+> s
+
+Auditorium
+
+This chamber, measuring at least a hundred feet north to south and fifty feet
+east to west, is open to the sky above. You gather it is some kind of
+auditorium from the way the floor is sloped down to a podium in the centre,
+with rows of seats spreading outwards from it. An aperture in the west wall
+seems to be designed to reflect sunlight down onto the podium.
+
+Passages lead out of the chamber to the north (from where you can see
+daylight), east and southwest (which appear to lead deeper into the
+fortress).
+
+> x aperture
+The aperture is currently closed, blocking out any sunlight that might
+otherwise find its way inside. There look to be some scribbled words on the
+aperture.
+
+> x words
+The words read:
+
+"SPEAK ALOUD THE COMBINED TOTAL
+OF R AND S AND THE APERTURE
+SHALL OPEN"
+
+You wonder what R  and S refers to?
+
+> x rows
+There are fifteen rows in total, each set in a circle from the podium and
+spreading out towards the edge of the room.
+
+> x seats
+The seats are all connected to each other by nails. They look particularly
+uncomfortable in the kind of way that reminds you painfully of your school
+days when merely sitting on a school chair was considered a punishment worse
+than caning. Each row contains exactly fifty seats, the ones towards the
+outside of the room being slightly more spaced out than the ones towards the
+centre.
+
+> 750
+The moment you grunt out "750", the aperture emits a groaning sound and
+swivels open. At once, sunlight floods into the auditorium, throwing light
+over everything, and illuminating the podium.
+
+> x podium
+Now illuminated by the sunlight streaming through the aperture, the podium is
+revealed as nothing out of the ordinary. There is a small platform at its
+base for the speaker to stand upon and handrests to lean upon while giving
+speeches, but precious little else.
+
+> stand on platform
+You stand on the small platform.
+
+> lean on handrests
+You lean on the handrests.
+
+There comes a sudden creak from one side of the podium and then the podium
+itself shifts to one side, almost throwing you off your feet.
+
+A tunnel has opened in the floor where previously the podium was stood.
+
+> e
+
+Prayer Room
+
+Of all the things you expected to see in the fortress of an evil warlord, a
+prayer room wasn't one of them. But that's just what you see: a small room
+decorated with religious artefacts, prayer beads, scrolls and printings of
+the Bible. Is the Baron a religious man at heart after all?
+
+Doorways lead east and west.
+
+> x artefacts
+The artefacts aren't the kind of thing you'd expect to see in a prayer room.
+They're not even strictly speaking 'religious'. You see masks and skulls, as
+well as a totem that looks like the Devil. Clutched in his scarred hand are
+several crosses, all pointed downwards. On top of the Devil's head is a slot
+which is currently empty.
+
+> x devil's skull
+A somewhat gruesome depiction of the Devil. Whoever carved this was every bit
+as talented as they were insane. There is a slot on top of the head which is
+currently empty.
+
+> put crucifix in slot
+You insert the crucifix into the slot. At once, the eyes of the Devil light
+up and a recorded message can be heard:
+
+Ah, The Tiger. You return. Excellent. I take it this means that that
+troublesome Bulldog is dealt with. Good news.
+
+We must discuss this in my temple. Come visit me via the tunnel beneath the
+podium - you remember how to open the aperture, I take it? - and we shall
+plan our next move.
+
+Until we meet,
+
+Baron Grishtak
+
+The eyes dim once more and the voice ceases.
+
+> e
+
+Experimentation Centre
+
+From the cages which line the walls of his room, you could easily mistake
+this as some kind of jail. But the array of machinery dotted around indicates
+it has an even more sinister purpose: an experimentation centre.
+
+A large bench in the centre of the room has a collection of scientific
+equipment on top of it, though the use of most of it is beyond you. A chart
+hangs from the wall.
+
+A door to the west leads out of here.
+
+As you step into the experimentation centre, you hear footsteps behind you,
+feel a gun barrel pressed against the back of your head and a voice murmur,
+"say your prayers, Bulldog."
+
+[MORE]
+
+The fellow, whoever he is, has certainly got the drop on you. Any move you
+make, he pulls the trigger-
+
+There is a sudden thud behind you and the pressure of the gun barrel is
+removed. You spin around. Wrestling with a guard is none other Merrick, the
+princess' bodyguard. He fights with enthusiasm, aggression, violence… and
+anything but skill. Fortunately he's got the rusty sword you gave him and,
+while it might be rusty, it's still sharp. The guard tries to knock it out of
+Merrick's grip. Merrick responds with a flick of the wrist that puts a slice
+in the guard's side. The two of them move apart a little, circle each other…
+and then the guard goes crashing to his knees as your fist slams into his
+head from behind.
+
+[MORE]
+
+"So I saw the swine creeping after you and decided it was high time I did a
+little payback for what the Baron did to me," says Merrick after the body of
+the guard has been disposed of. "Nifty sword this. Where'd you find it?"
+
+You grunt.
+
+Merrick nods. "Interesting. Anyway, I've returned the favour I owed you by
+saving your life. I guess we're even now. I'm going to find the princess now,
+Bulldog, so look after yourself and maybe I'll see you around soon."
+
+And with that, he claps you on the shoulder and hurries out of the room.
+
+> x machinery
+The machinery has a definite "futuristic" look it being of gleaming metal,
+shiny surfaces and no way in a million years of you being able to figure out
+just what it all does. After running your eyes over it for a minute or two,
+and growing steadily more confused as to its use, you decide to leave it well
+alone.
+
+However, on the edge of one of the machines you find a syringe which you
+take.
+
+> x equipment
+You're not a scientist so most of this equipment is unfamiliar to you. You
+divide it into three main parts for ease of use: a bowl, a statuette and a
+collection of coloured lumps on a board.
+
+> x statuette
+The statuette looks to be some kind of monk: a seated figure with its hands
+upheld as if expecting some of gift. It reminds you vaguely of an old fortune
+teller you went to see as a kid who predicted your future to a quite eerie
+degree (aside from the times you died at the age of seventeen, lost your legs
+at nineteen and were beheaded by terrorists at twenty-three).
+
+> put silver coin in statuette's hand
+The moment you lay the silver coin in the statuette's hands, its lips curl up
+at the edges and a recorded voice says:
+
+“Thank you. Credit accepted.”
+
+Nothing else seems to happen and a moment later you take the coin back.
+
+> x bowl
+It's not really a bowl, not in the same sense that that thing you use back
+home in your kitchen is a bowl, but it's bowl-shaped so that'll do for you.
+There are a few scribbled words on the side of it that give instruction in
+its use and a lever.
+
+> x words
+1. Place ingredients in bowl.
+2. Pull lever.
+3. Destroy things.
+
+A decidedly strange set of instructions. And being told just what the
+ingredients were would have been nice.
+
+> look under bowl
+Written on the bottom of the bowl are the words:
+
+Made in Taiwan
+
+And beneath that:
+
+Necessary ingredients: water; weed; flower. Place within bowl and pull lever
+to produce dynamite.
+
+> put bottle in bowl
+You put the small bottle inside the bowl.
+
+> put weed in bowl
+You put the weed inside the bowl.
+
+> put flower in bowl
+You put the flower inside the bowl.
+
+> pull lever
+You pull the lever. The bowl shakes, rattles and - at one point - even rolls
+a little. The ingredients flare brilliantly into a light so bright you are
+forced to look away. When the light fades, as quickly as it came, you are
+left looking at a bowl that is completely empty.
+
+Aside, that is, from the dynamite.
+
+> get dynamite
+You take the stick of dynamite from the bowl.
+
+> x lumps
+The board itself looks like some kind of board game, although what the lumps
+signify you're not sure. There are six of them: red, blue, green, orange,
+purple and black. All are about the size of a golf ball and glow faintly.
+
+> x chart
+Most of the writing on this chart is in strict scientific terms and makes
+about as much sense to you as most scientific terms do. But there is a bit
+near the bottom that is at least understandable:
+
+Chemical Descriptions:
+
+Red: restoration
+Blue: cleansing
+Green: poison
+Orange: fire
+Purple: sleep
+Black: death
+
+> inject red lump
+You inject the syringe into the lump and watch as it begins to fill with red
+powder.
+
+> inject me
+You inject yourself. A feeling of immense well being comes over you.
+
+> inject blue lump
+You inject the syringe into the lump and watch as it begins to fill with blue
+powder.
+
+> inject me
+You inject yourself. A feeling of well being comes over you.
+
+> w
+
+Prayer Room
+
+Of all the things you expected to see in the fortress of an evil warlord, a
+prayer room wasn't one of them. But that's just what you see: a small room
+decorated with religious artefacts, prayer beads, scrolls and printings of
+the Bible. Is the Baron a religious man at heart after all?
+
+Doorways lead east and west.
+
+> w
+
+Auditorium
+
+This chamber, measuring at least a hundred feet north to south and fifty feet
+east to west, is open to the sky above. You gather it is some kind of
+auditorium from the way the floor is sloped down to a podium in the centre,
+with rows of seats spreading outwards from it. An aperture in the west wall
+seems to be designed to reflect sunlight down onto the podium.
+
+Passages lead out of the chamber to the north (from where you can see
+daylight), east and southwest (which appear to lead deeper into the
+fortress).
+
+> d
+Entering the tunnel is a one way affair. There is no returning until either
+you or Grishtak are dead. Are you sure you're ready for this?
+
+Yes moves you into the tunnel; any other command leaves you here.
+
+> yes
+Into the tunnel you go...
+
+You walk along the tunnel for a time, heading deeper and deeper into the very
+heart of the fortress. You hear screams at one point, and a large thud at
+another, and then the tunnel ends abruptly at a large echoing chamber. You
+step forward into it, and with a crash the door you have just stepped through
+slams shut.
+
+[MORE]
+
+"Well, well," says Grishtak, stepping forward from the altar. "You're here at
+last. Good." He clenches his hands into fists. "I've been expecting you."
+
+[MORE]
+
+"Grunt," you say.
+
+Grishtak's eyes go cold. "And for that insult, you shall suffer the pain of a
+thousand deaths. You don't scare me, Bulldog. You might have reached here,
+you might have killed countless numbers of my men, but it ends here. It ends
+now."
+
+You take a step towards him, hands itching to lock around his throat... and
+squeeze - but something about the cold, calculating way Grishtak is standing,
+watching you, makes you wonder if there is something you are overlooking. Is
+it your imagination or does Grishtak seem a little taller than he was when
+you met him before? Not to mention heavier? And decidely more dangerous
+looking.
+
+[MORE]
+
+"You've noticed the changes then?" says Grishtak. "Good. That won't be the
+only thing you notice before you die."
+
+Grishtak claps his hands together. (Hands? He should only have the one. You
+remember that night in deepest, darkest Peru when you hacked his arm off at
+the shoulder. Either he's grown another one or there is something sinister
+going on here.) The hands ring hollowly. Metal?
+
+"I was in a sorry state when you left me, Bulldog," he says. "I was a broken
+man. I lacked an arm and my courage was gone. But then I met a man who can do
+the most amazing things with metallic limbs and-" He raises his arms. They
+are encased in steel. No, not encased in steel. They are steel. "-look what
+he has done to me. He gave me back my life. He gave me the will to live. He
+gave me the means to kill you."
+
+"Grunt?" you say (meaning "is that what this is all about? Revenge?")
+
+"Partially. But then I needed the ransom money for Princess Leonora to fund
+my army. I figured they'd send you to bring her back. And I was right. This
+is the classic case of killing two birds with one stone."
+
+[MORE]
+
+"Grunt." ("This bird's got claws, Grishtak.")
+
+"I'm sure it has." Grishtak claps his hands together again. Lightning
+crackles around his left wrist while his right flares with fire. "But then
+the bird-crusher has these." He laughs hollowly. "Any last words, Bulldog?
+You might as well grunt them now if you have because in a few minutes, you
+won't have any more time for grunting. Just screaming."
+
+> smash voodoo doll
+The moment he sees the voodoo doll in your hands, Grishtak goes pale.
+
+"Where... where did you get... that?" he gasps. He starts to take a step
+towards you, but hesitates as you raise the doll above your head. "What are
+you-"
+
+Then you hurl the doll down onto the floor and stamp on it!
+
+Grishtak howls!
+
+It's like someone has stamped on him!
+
+You crush the voodoo doll to dust and Grishtak howls some more.
+Unfortunately, it doesn't actually kill him, but from the way he seems
+afterwards, it's just about done the job.
+
+> kill baron grishtak
+Grishtak is still reeling from the damage you did to his voodoo doll and is
+unable to put up much defence as you deliver a devastating kick to his ribs.
+
+Something breaks!
+
+Grishtak's eyes go wide and he snarls out something that is choked off in a
+gush of blood from his mouth. He staggers back, falls to one knee, makes a
+last desperate attempt to pull himself back to his feet-
+
+Then your next kick catches him in the skull and down he goes. This time he
+doesn't get back up again.
+
+[MORE]
+
+You stand over the dead body of Baron Grishtak, formerly a tyrannical warlord
+hellbent on conquering the world, now just another corpse. It was a close
+thing for a while there, but in the end there was only one way this could go.
+
+One of your three objectives has been attained: Baron Grishtak is no more.
+But Princess Leonora is still held captive somewhere and the fortress needs
+to be destroyed. Weary as you are from your deadly fight with the Baron, the
+most important part of your mission still lies ahead of you.
+
+> x altar
+A block of stone, eight feet long and four wide. In ancient times, this would
+probably have been used for sacrifices. Considering the kind of person Baron
+Grishtak is, that's probably what it's used for now as well. Carved into the
+side of the altar is the letter 'T' and the number '6'.
+
+There is a glowing crystal atop the altar but nothing else.
+
+> w
+You enter the passage and head back to the auditorium.
+
+[MORE]
+
+Auditorium
+
+This chamber, measuring at least a hundred feet north to south and fifty feet
+east to west, is open to the sky above. You gather it is some kind of
+auditorium from the way the floor is sloped down to a podium in the centre,
+with rows of seats spreading outwards from it. An aperture in the west wall
+seems to be designed to reflect sunlight down onto the podium.
+
+Passages lead out of the chamber to the north (from where you can see
+daylight), east and southwest (which appear to lead deeper into the
+fortress).
+
+> n
+
+Near Walkway
+
+Before you, swaying unnervingly in the breeze, is a wooden walkway over a
+void. On the other side is a spindly tower, rising up into the sky and
+brushing the clouds with its upper reaches. The tower seems to be built on a
+narrow outcropping of rock, perhaps fifty feet wide, which is connected to
+the rest of the fortress by only this decidedly unsafe looking walkway.
+
+North takes you across the walkway and south into the fortress itself.
+
+> throw dynamite
+You throw the item - and it lands on the far side of the walkway by the
+tower.
+
+> throw gold bar
+You throw the item - and it lands on the far side of the walkway by the
+tower.
+
+> drop all
+You drop the letter, the cook book, the explosive cudgel, the pendant, the
+journal, the handkerchief and the syringe.
+
+> n
+
+Before The Tower
+
+The tower rises up before you, its upper reaches hidden in the clouds. A
+doorway leads inside the tower, the door having been smashed to pieces.
+
+To the south is a walkway spanning a void. On the far side is the fortress.
+
+Also here is a gold bar and a stick of dynamite.
+
+> get all
+You take the gold bar and the stick of dynamite.
+
+> n
+
+In The Tower
+
+You seem to be at the base of the tower, empty aside from a door to the south
+and a circular staircase leading up... and up... and up... and...
+
+A long way up, that's for certain.
+
+> u
+
+By An Oak Door
+
+To the south just a few feet away is an imposing oak door, open, with the
+name "Leonora" written on its name plaque. By the door is a footstool, the
+kind of thing that a guard might sit upon... if there was one here, which
+there isn't. One wall holds a window, wide open, which shows you a view that
+is quite stomach-lurching. Beneath it is nestled a small cabinet.
+
+> x cabinet
+The cabinet has a jumble sale look to it. The front has fallen off, it sags
+to one side and looks like it's one step - one small step, that is - away
+from the trash yard.  There is some wine on the cabinet.
+
+> get wine
+You take the wine from the cabinet.
+
+> s
+
+Princess Leonora's 'Cell'
+
+Normally you'd say a room with an open door (to the north) and a barred
+window was a cell, but considering the sheer opulence on display here, it's
+hard to imagine this place is any kind of prison. The floor is carpeted, the
+walls hung with tapestries and exquisite works of art... there is a bed and a
+large screen television; a state of the art entertainment centre; even a
+drinks machine... Cell? It looks cosier than your house, that's for certain.
+The only non-cosy thing you can see is a grill set into the southern wall.
+
+By the bed, chained there by the ankle, is none other than Princess Leonora
+herself.
+
+> give wine to leonora
+She takes the wine suspiciously, as if expecting you might either be trying
+to poison her or foist some cheap 'lower class' wine on her, but then she
+sniffs it and gives a brief nod.
+
+"It's not quite the standard I'm used to," she says. "But it'll do. For now.
+But be warned I shall be having words with daddy when I get home about the
+quality of it."
+
+You half expect her to complain over the lack of a glass, but clearly where
+wine is concerned, Leonora is prepared to make 'sacrifices'. She tips the
+bottle up and drinks straight from it, and manages, despite her slim frame,
+to down the entire thing in ten seconds flat.
+
+And then lets out a decidedly unladylike and unprincesslike burp!
+
+[MORE]
+
+"By god, that fel' good!" she says, wiping at a trickle of wine dripping down
+her chin. "Say, d'ya wan' some?"
+
+You point out that the bottle is empty.
+
+Leonora stares at it suspiciously. "It is, eh? Swines! They mus' have snuck
+in 'ere while I was distu- distan- distec- no' payin' attenshun an' emptied
+it! I'll 'ave their 'eads for this, you mark me words." Leonora sways a
+little from side to side and steadies herself on your arm. "Say, 'as anyone
+e'er told you that you isn't the uggiest guy inna world? Second mos' uggy
+mebbe but defin'tly no' the uggiest. What d'ya say we…" She gestures to the
+bed, almost losing her balance in the process and falling over.
+
+You shake your head.
+
+Leonora sighs. "Yup. Ye're probably righ'." She sighs again. "C'mon then,
+le's gerroutere." She starts towards the door then stops and frowns at the
+chain around her ankle. "Aw, crap."
+
+> smash chain with gold bar
+You raise the gold bar then bring it smashing down on the chain.
+
+There is a double breaking sound as first the chain shatters... and then the
+gold bar, clearly not a real gold bar, breaks as well.
+
+"Thank god for that..." says Leonora, swaying a little from side to side.
+"That chain was beginning to... to..." She sighs and sinks down onto the bed.
+"Are we ready to go home yet? Daddy will be missing me so badly."
+
+You open your mouth to give the princess a quick relay on what you've done so
+far, but even in a drunken state she is determined not to let you get a word
+in.
+
+"Come and have a lil word with me again when you're ready," she says. Her
+eyes close a little then she blinks and yawns. "Yep... Lemme know when you're
+ready..."
+
+> x window
+Locked and barred. The bars are old and rusty, but still look more than
+sturdy enough to preclude the window being used as a handy escape route.
+
+> bend bars
+You grab hold of the bars and then freeze as a voice speaks out:
+
+Speak Password
+
+Password?
+
+The bars resist your best efforts to bend them, so maybe you should heed the
+advice.
+
+> blogmore
+You utter the word and, lo and behold, the bars in the window retract into
+the wall and the window itself swivels open.
+
+"Ooooooooh!" gasps Leonora. "That was so cool!"
+
+> climb through window
+You scramble through the window, debating whether this would be a decent
+escape route for you and the Princess.
+
+But no. The drop is eighty feet straight down. One slip...
+
+So you quickly cross it off as a possible escape route and just concentrate
+on climbing up the outside of the tower as quickly as you can until you reach
+an open window, which you climb inside.
+
+[MORE]
+
+Explosives Dump
+
+The word 'dump' is certainly apt given the state of this room: several tonnes
+of explosives seem to have been callously thrown in here in the most untidy
+sprawl you have ever come across. You've never been especially fearful around
+explosives, but even you feel a little uneasy at the sheer number of
+explosive devices in this room. One spark...
+
+The window you entered via is on the north wall while there is a locked door
+to the south.
+
+> fengstor
+Well done for finding all eight letters of the game's password.
+Unfortunately, typing it here doesn't do you any good - you need to open the
+game up in the ADRIFT Generator and type it there.
+
+What is Fengstor? Nothing is the answer. It was just a nonsense word I made
+up to serve as the game's password.
+
+Still, on the positive side of things, it has given you an extra point.
+
+> shake dynamite
+You shake the dynamite until it lights itself, drop it on the floor, then
+flee through the window as quickly as you can and climb back down to the
+Princess' room. She's swaying from side to side as you pick her up in your
+arms - she even gives a cry of "woo-hoo!" - and then you're rushing from the
+tower, mindful at every moment of that dynamite and the explosions and you
+just hope you've got enough time to get away before the inevitable happens...
+
+[MORE]
+
+The Bulldog and Princess Leonora were a mile away from the fortress when it
+exploded with an almighty roar. The explosion lit up the night sky for miles
+around and was so amazingly loud that even The Bulldog's extra strong ear
+drums took a pounding.
+
+Not so the princess.
+
+“Wow!” she gasped, staring up at the mushroom cloud of the explosion which
+was now rapidly expanding to fill the entire sky. “That was so wicked! So
+cool! So… so! You think they can see that thing from space?”
+
+[MORE]
+
+The Bulldog grunted.
+
+“I bet they can,” said the princess. “Oh, my friends will be so envious! I
+wish I had a camera right now. I… You-“ she pointed to her rescuer “-I order
+you to find a local shop and purchase me a camera. A good one as well. None
+of that cheap rubbish the lower classes make do with. Now, peasant! Don't
+make me ask you again! And furthermore-“
+
+And that was pretty much how the rest of the rescue mission went. By the time
+the copter met them at the rendezvous point, The Bulldog fell in desperate
+need of rescue himself.
+
+[MORE]
+
+The debriefing was ordinary as far as debriefings went. It was handled by
+Sergeant Twiddles and he stroked his little black and white cat as he filled
+in the boxes on his Multiple Choice Mission Assessment Scorecard. “Blew up
+the fortress… tick. Killed the Baron… tick. Rescued the princess…”
+
+A jar shattered on the wall behind him, hurled by Leonora upon discovering
+she'd have to comb her own hair because her personal hairdresser had been
+killed during her kidnapping.
+
+“…tick. Unfortunately. All in all, a resounding success.” Twiddles made a few
+more notes on the MCMAS. “Did you encounter any problems along the way?”
+
+[MORE]
+
+The Bulldog glanced over to where Leonora was hitting an army major with her
+left hand.
+
+He shook his head.
+
+“All wrapped up,” said Twiddles, signing the form at the bottom and slipping
+it into a drawer marked MCMAS Forms: Completed. “You're officially off active
+duty for the next week while you recover from the rigours of the mission.
+Unless, of course, you'd care to escort the princess back to-“
+
+Twiddles looked up and noticed he was talking to himself. The Bulldog, the
+most fearless man he knew, capable of facing an entire terrorist army on his
+own without flinching, had ran off.
+
+“Ah… ha,” he muttered.
+
+[MORE]
+
+The Bulldog's house was not a pretty sight. Then again, neither was The
+Bulldog so the two went together quite well. When you lived the kind of
+dangerous lifestyle that The Bulldog led, with assassins trying to shoot you
+or blow your house up on a day by day basis, it paid not to get too attached
+to personal belongings. The last personal possession The Bulldog had allowed
+himself to become attached to had been a cuckoo clock, which he had then been
+forced to use to bash in the head of a terrorist. No, it didn't pay to become
+attached to things in this business.
+
+The Bulldog was in his study. It looked like a bomb site. In the literal
+sense. It seemed that while he had been away rescuing the princess, an old
+enemy had come around and lobbed a bomb through the window. All that survived
+were the shell of his TV (it didn't work anyway, not after he had shot it a
+couple of times when chasing terrorists from his house, but it had been a
+nice TV and sometimes he passed the time by looking at it) and a garrotte.
+The garrotte had been the tool of choice of the only woman he had ever felt
+anything for.
+
+[MORE]
+
+Her name had been Lashara Karynes. She had been trying to kill him at the
+time. But something about the athletic way she burst into his bedroom while
+he slept and wrapped the garrotte around his throat and squeezed it until his
+breath was cut off, his eyes were bulging out and he was a hair's breath away
+from opening Death's Door… well, it had been the closest thing to love he had
+ever experienced. That he had broken her neck a second later, however, had
+put somewhat of a dampener on their future relationship.
+
+There came a knock on the front door.
+
+[MORE]
+
+The Bulldog frowned. People seldom knocked on his front door. Terrorists
+kicked it down*, assassins blew it up, door to door salesmen knew better than
+to call at his door**. Curious, he went to answer it.
+
+* They had done this so often he had even had a spring fitted.
+** To The Bulldog, they weren't “door to door salesmen”. They were “target
+practice”.
+
+It was Princess Leonora.
+
+“Nice place you got here,” she said as she pushed her way in. She didn't ask
+permission to enter. She was a princess after all. Only the lower classes
+bothered with manners. “Love the way it's falling to bits and all. Classy.”
+
+The Bulldog raised an eyebrow.
+
+[MORE]
+
+“I need a bodyguard,” said Leonora. She wrinkled her nose at an unpleasant
+smell that was wafting up from the basement. A dead terrorist perhaps. “You
+oughta do the trick after my last fifteen got themselves killed. Don't worry
+about them, though. They were poor.”
+
+The Bulldog raised the other eyebrow.
+
+Leonora looked at him… and, for perhaps the first time in her life, seemed a
+little unsure of herself. “And, um, there's another reason I came here.” She
+nudged some rubble with her shoe. “I, um, well…” More rubble nudging. “I…
+that is… um…” She let out a deep, exasperated breath:
+“mydaddysaidIshouldcomeandsay… say… ah… god!...”
+
+“Thank you?” prompted The Bulldog.
+
+[MORE]
+
+Leonora snapped: “yes! Thank you! Thank you for rescuing me! Thank you for
+saving my life! Thank you for this, that and the other! You hear that, daddy,
+dear? You can switch off the frigging mikes now! I said it okay! I said
+IT!!!”  She groaned and deflated a little. “There. Done. You happy now,
+buster? Got me grovelling and everything? Ought to be ashamed of yourself,
+acting like that.”
+
+The Bulldog shrugged.
+
+“Good,” said Leonora. “'Cos I don't says thank you very often. I'm  a
+princess. Saying thank you is for… for…” Her eyes suddenly locked onto The
+Bulldog's. “… for… for…” She licked her lips. She seemed strangely lost for
+words. “… for… well…"
+
+And then, without any other warning, she threw herself into The Bulldog's
+arms and pressed her soft lips against his somewhat more rugged ones.
+
+[MORE]
+
+The Bulldog wasn't sure which of them was the more surprised.
+
+Leonora pulled back with a grimace, spat several times onto the floor, and
+gave a theatrical sigh, the kind of sigh that, had she been wearing a low cut
+dress, would have done amazing things to her bosoms.
+
+As it happened, she was wearing a low cut dress.
+
+“Oh, bother!” she fumed, stamping her foot. “Daddy's always telling me I keep
+falling for the wrong sort of men. There was the Persian desert raider who
+rescued me from those horrible Arabs, and then that Muslim fundamentalist who
+stopped the Egyptian terrorists from beheading me, and the legless, deaf,
+mute and dumb death row prisoner who beat up that other prisoner for throwing
+mud at me… and now you.” She looked up into The Bulldog's eyes. “Damnitall.
+You're the ugliest of the bunch but you did rescue me. And you're awful
+strong. And you're here. And…” She sighed once more. “Let's just get this
+over with, okay?”
+
+[MORE]
+
+Never one to disobey a beautiful women, and the Princess Leonora was
+beautiful indeed, The Bulldog picked her up, carried her into the bedroom,
+and got it over with.
+
+It took quite some time.
+
+[MORE]
+
+Well done. If you're reading this, you've successfully completed The Warlord,
+The Princess & The Bulldog!
+
+Did you like it? Hate it? Feel indifferent to it? If you like, you can
+complete the scorecard in the enclosed file and e-mail back to the writer -
+dwhyld@gmail.com. Comments kept in strict confidence.
+
+Your final score was one of 100 out of a maximum of 100; you finished the
+game with a rank of The Ultimate Soldier and achieved this in 354 turns. You
+had 100 life points left.
+
+Thanks for playing.
+
+Type restart if you fancy having another go at the game.
+
+> quit
+Do you really want to quit? [Y/N]

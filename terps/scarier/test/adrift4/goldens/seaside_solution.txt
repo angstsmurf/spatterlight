@@ -1,0 +1,40 @@
+w
+n
+get bucket and spade
+make sandcastle
+e
+e
+dig
+w
+s
+in
+play game
+u
+get pen
+d
+out
+s
+in
+in
+insert coin
+out
+out
+n
+e
+in
+get form
+do form
+give form
+swim
+out
+s
+in
+buy camera
+out
+n
+n
+take photo
+s
+s
+w
+get bus

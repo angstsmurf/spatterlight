@@ -1,0 +1,163 @@
+Loading game...
+
+"El Ascensor"
+
+     Cualquier día mando este trabajo a tomar por saco, ¡quince años de mi
+vida para esta mierda de sueldo mileurista!, no teniendo vacaciones, no
+teniendo vida... cuando la gente normal sale con sus hijos y su mujer a esos
+apartamentos de la Costa Dorada, con tumbona, sombrilla y olor a delial
+diario...y yo, ...aquí... , viendo la vida pasar, escuchando a ese "gordo"
+todos los días de mi existencia, repitiendo una y otra vez a primera hora de
+la mañana: ¡Ramírez, quiero esos informes encima de mi mesa antes del
+almuerzo!... Pero... ¿Quién cojones se ha creído que soy yo? [más]
+
+     Pulsas el botón del ascensor, con toda la rabia que llevas acumulada en
+ese cuerpo de ochenta kilos, bajo, regordete y con  principio de alopecia.
+¡Aquellos años de atleta pasaron a la historia!, cuando te marcabas el
+kilómetro en dos-cincuenta, terminabas y te fumabas un "trujas" para
+celebrarlo. [más]
+
+     Después, al terminar el instituto, conociste a Marisa. Tu vida dio un
+giro de ciento ochenta grados. Los sueños de recorrer mundo, en pantalón
+corto y chancletas en aquella furgoneta C15 roja que tu padre te dio un año
+antes de caer enfermo, quedaron reducidos a un simple y escurridizo sueño.
+[más]
+
+     La puerta del ascensor se abre por completo acompañada de un breve y
+agudo pitido, dejando la vía libre para entrar en él. Entras en el ascensor
+rápido, ansioso de salir de esa repugnante oficina . [más]
+
+Dentro del ascensor
+
+     Estás dentro del ascensor del trabajo. Te encuentras en la primera
+planta del edificio. Quieres bajar al garaje, recoger tu coche y marchar a
+casa.
+
+> examinar ascensor
+
+     La verdad que este tirano siempre se lo ha montado bien, ¡pagarte las
+horas extras, no!, pero fardar de tener una de las más modernas oficinas de
+la ciudad sí. Ves un panel de botones a tu derecha, pulsando el botón verde
+bajarás al garaje, para salir de este edificio de una vez por todas... o por
+lo menos... hasta mañana.
+
+> pulsar boton verde
+
+     ¡Maldita sea! ¡No me quedo un minuto más aquí! Pulsas el botón verde
+para bajar al garaje, descargando toda tu ira en ese gesto. [más]
+
+     La luz del ascensor comienza a parpadear, un ruido a engranaje oxidado
+aparece por encima del elevador. El ascensor se balancea y queda totalmente
+bloqueado entre el primer piso y el garaje. ¡Estás atrapado!
+
+     La luz parpadea, como si el recinto se fuera a quedar a oscuras.
+
+> examinar alfombra
+
+     No está muy limpia y menos aún reluciente, seguro que hay más de un
+bicho de esos que Marisa analiza hasta la saciedad... espachurrados panza
+arriba en su inseparable microscopio. ¿Y qué me dices de ella? dice tu voz...
+[más]
+
+     Llegó como la primavera, una vaporada de oxígeno que llenó mis pulmones.
+Todos los días se pasaba por el "Cartujo", sobre las diez de la mañana. Allí,
+yo, había empezado a trabajar con  el padre del "Largo", que después de la
+muerte de papá y mamá, se apresuró a darme un sueldo, antes de dejar que me
+perdiera en las profundidades de Ciutat Vella  y la facilidad de conseguir un
+"pico" rápido en sus calles. [más]
+
+     Aquel día llegó cargada de libros y carpetas, se sentó en la barra y
+como todos los días le serví un café con leche descafeinado con doble de
+azúcar, no podría olvidarlo ni aunque me lavaran el cerebro con treinta
+litros de lejía. En ese momento entró por la puerta "el Aidón", metro noventa
+de zagal, con menos dientes que una sandía, tatuajes de Tercio en brazo y
+navaja en mano... [más]
+
+     ... Agarró a Marisa por la espalda y le colocó la curra en el cuello,
+pidiendo de rescate dos talegos para una papelina de jaco. Cogí el libro más
+gordo que había encima de la barra y se lo lancé con tanta fuerza que lo
+mandé a Bellvitge con siete puntos en la ceja. [más]
+
+     Lo bueno de todo, es que nos pasamos cuatro horas en comisaría, a
+esperas de que Mariano (policía en prácticas del barrio, por aquel entonces)
+nos devolviera el libro, ya que se trataba del trabajo de final de carrera de
+Marisa, ni más ni menos... "La Grylloblattodea en el Norte de América"... a
+los dos años siguientes nos habíamos casado.
+
+     ¿Le amas? dice tu voz... [más]
+
+     Con toda mi alma, ella fue el olor a fresco de mi vida... esa vida vacía
+de cariño. Fue la madre perfecta, la amante sensual y pasional, la amiga
+querida... rebosante de alegría y apoyo incondicional. [más]
+
+     En un lado de la alfombra te encuentras un bolígrafo... parece ser que a
+alguien se le calló.
+
+> coger boligrafo
+Coges un bolígrafo.
+
+> examinar boligrafo
+
+     ¡No puede ser!... Germán de Julián y Santos, es el nombre que aparece
+grabado en el precioso bolígrafo de plata.... ¡Es mi jefe! Menudo mosqueo
+tenía hoy porque había perdido su "precioso, único e incalculable boli".
+
+     El bolígrafo se compone de dos partes enroscadas una con  la otra,
+formando un sólo cuerpo, muy resistente.
+
+> desmontar boligrafo
+
+     Aplicando todo lo que te enseñaron en aquel curso de seiscientas
+cuarenta horas en Mantenimiento y reparación de motores, desmontas el
+bolígrafo y te quedas con las dos partes, una que no parece que te sirva para
+nada y otra, la tapa, con  una punta bastante afilada y fuerte.
+
+> examinar tapa
+
+     La tapa, del bolígrafo, es bastante resistente y podría ser utilizada
+incluso como una herramienta de circunstancias, ya que su forma es afilada,
+fuerte y resistente.
+
+> subirme al reposabrazos
+
+     En otra etapa de mi vida pasada, lo hubiera subido en un abrir y cerrar
+de ojos... pero ahora... parezco un mono borracho intentando encaramarme en
+ese reposabrazos. Hago lo que puedo y dándolo todo me subo en él, manteniendo
+una postura artificial y en total desequilibrio... ayudándome de los brazos
+para mantener la estabilidad ahí arriba.
+
+> examinar trampilla
+
+     Examinas detenidamente la trampilla, está cerrada. Puedes llegar a ella
+fácilmente... incluso a tocarla. Tiene la medida justa para que una persona
+pueda pasar a través de ella.
+
+> abrir trampilla con la tapa del boligrafo
+
+     ¡Pues la verdad es que no es mala idea!... haciendo equilibrio sobre el
+reposabrazos, con  una mano apoyada en la pared de enfrente, comienzas a
+aflojar los tornillos de la trampilla del techo... [más]
+
+     ¿Qué cambiarías de tu vida Mario?... [más]
+
+     Cambiaría... TODO... buscaría mi tiempo y tiempo para los demás,
+buscaría mi yo, el yo que un día dejé atrás... para convertirme en uno más
+del rebaño... sacas el primer tornillo... [más]
+
+     Me alejaría de la ciudad, del agobio, del querer tener todo...
+pararme,... sentir... y dar... extraes el segundo tornillo... [más]
+
+     Familia...despertarme los domingos en la cama y sentirme acompañado por
+la persona que más quiero en esta vida... que al segundo, la cama se llene de
+niños jugando y riendo... que el tiempo pase lento... el tercer tornillo
+sale... [más]
+
+     Arreglar esa vieja C15 que está tapada y polvorienta en el garaje del
+pueblo, subir hasta el cerro, desde donde se ve todo el valle en calma, a la
+sombra de la encina, donde descansan mamá y papá. Jurarles que mi camino no
+se torcerá más, que mi camino está claro como el agua... decirles que
+encontré el premio de la vida... como ellos lo hicieron en su día...[más]
+
+   ....el amor....  [más]
+
+     El último tornillo cae al suelo... la trampilla está abierta.

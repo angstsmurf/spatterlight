@@ -109,3 +109,11 @@
 # magicshow.taf (AIF): explicit text, deliberately not committed.
 /goldens/magicshow_solution.txt
 /goldens/magicshow_solution.expected.txt
+
+# goblin.taf (AIF): explicit text, deliberately not committed.
+/goldens/goblin_solution.txt
+/goldens/goblin_solution.expected.txt
+
+# ss whore.taf (AIF): explicit text, deliberately not committed.
+/goldens/sswhore_solution.txt
+/goldens/sswhore_solution.expected.txt

@@ -1,0 +1,725 @@
+Loading game...
+
+The White Singularity
+        You are Christian Esguerra, PhD, one of the most celebrated
+naturalists and scientists on earth.  There is almost nothing you haven't
+done and nowhere you haven't been.  You have gone rafting on the Amazon and
+treasure hunting in the catacombs of Egypt.  You've discovered a new
+elementary particle while playing around with your local accelerator.  You've
+even space-walked a little, in orbit around Earth.  The only place you
+haven't been, you think ruefully, is the center of the Earth.  It was just a
+childhood fantasy.
+
+        Until now.
+
+> talk to irene
+        You greet your wife by grabbing her and giving her a firm kiss on the
+lips.  She laughs and kisses you back, wrapping you in her trademark bearhug
+that almost crushes your ribs.  You pick her up, but almost immediately, she
+wriggles so much that you put her down.
+        "What would you do,"  she says breathlessly, "if I told you that
+you're finally going to get your wish?"
+        "What do you mean?"  you ask, smiling in amusement at her enthusiasm.
+        "I mean," she says dramatically, "You're finally going to be able to
+travel to the center of the earth!"
+        "That's impossible, baby,"  you say, trying not to scoff.  "I know
+I've been saying that for years, but it was always just an impossible dream."
+        "That's my point!"  She butts her head against your cheek
+impatiently, and you indulgently put an arm around her waist.  "It's not just
+an impossible dream anymore.  It can actually come true!"
+        "It's just not possible,"  you say patiently, trying to lead her to
+your chair so you can sit her down.  She's filled with so much energy that
+you can almost see it boiling off her.  "If you're talking about that
+whatchamacallit movie about going to the earth's core, I told you before that
+it's complete crap.  They played around with the laws of physics so much that
+I'm surprised nature itself didn't erupt in outrage."
+        "No, this has nothing to do with that movie,"  Irene says,
+inadvertently shaking your hand off when she hops onto your desk and sits
+there, swinging her legs like a small child.   "That Unobtainium thing is
+physically impossible and everyone knows it.  No, we've totally circumvented
+that.  And we discovered it--"  her eyes gleam proudly--"because of you."
+        "Me?"  You repeat blankly.
+        "Yes, you.  You found the way five years ago without even realizing
+it.  It was only when we were playing around with your theorem in the
+simulator two months ago that we formed it."
+        "Formed what?"
+        "The forcefield,"  your wife says, relishing the word.
+
+Your office
+        You stare at her in complete and utter shock.
+
+        You start to say, "But I thought they debunked the possibility of a
+working forcefield years ago--"
+
+        "Well, it's not exactly a forcefield in the exact sense of the word,"
+ Irene corrects herself hastily.  "But something almost as good.  In fact..."
+ she pokes you on the chest.  "It's even better than a forcefield.  And you
+made it possible!"
+
+        "You keep saying that,"  you interrupt her, now completely confused.
+"Back up a little.  What theorem are you talking about?"
+
+        "The one where you took Einstein's theory of General Relativity and
+used it to create a singularity,"  Irene says airily.
+
+        You think back.  It takes you about a microsecond.  The equation is
+familiar to everyone:  E=mc2, or Energy equals mass times the speed of light.
+ Using the equation, you merely reasoned out the equation to calculate the
+amount of plutonium you needed to detonate safely within a fixed and
+extremely powerful electromagnetic field.  The energy produced by the
+plutonium, since it was confined within the electromagnetic field, would
+result in an implosion, not an explosion, which would squeeze the remaining
+mass into an incredibly small space.
+
+        You recall the weeks it took your Cray supercomputers to perform the
+equations.  The amount had to be exact within 10 decimal places.  Just a tiny
+bit less of plutonium and the process would create nothing more than a
+powerful, extremely expensive, and superbly useless implosion.  Just a tiny
+bit more than the field could handle, and your lab--plus an eight-mile
+radius--would be reduced instantly to radioactive ash.
+
+        You agonized for months over your decision to transform your theorem
+into reality.   The ethics committee and the doublecheck committee didn't
+rush over the decision either.  But try as they could, even by making the
+most junior scientists recalculate your equations by hand, they could not
+find fault with your results.
+
+        Fortunately, when you finally performed the experiment--with the
+surrounding area evacuated under an imaginary bomb threat, and a skeleton
+crew operating the building--it became an unqualified success.  For exactly
+six minutes, forty two seconds, and nineteen microseconds, you brought into
+existence something that had previously been observed only from radio
+telescopes:  a miniature singularity.  Or a small black hole in layman's
+terms, although the two are not quite the same thing.   What they possess in
+common is an incredible gravitational field, which is capable of sucking
+anything from a certain distance, even light.
+
+        The whole scientific community rejoiced with you at the
+accomplishment, although you could not find a practical use for it at the
+time.    After a few months of television appearances, awardings, press
+conferences, and endless speculations about future modalities, your interest
+in the project started to fade.  It seemed that nothing would ever come out
+of it.
+
+        Finally, even when everyone else still seemed intent on developing
+another superweapon or energy source out of your creation, you shelved the
+project and turned your attention to other things.  As far as you knew, your
+wife had lost interest in it the same time that you did.
+
+        Now, it seems that you were wrong.
+
+        "Baby," you say rather uneasily, "what exactly did you do?"
+
+        "Me?  You give me far too much credit!"  Irene laughs easily.  "I
+didn't do it.  NESCA did.  And since you invented NESCA, it's as if you
+thought of it yourself."
+
+        NESCA is your neuron-enhanced supercomputer array, one of the first
+of its kind.  She has biological components extracted from your own nerve
+cells, and is even constructed like an organism's neural net.  Thus, NESCA is
+capable of fuzzy logic, or intuition, and of learning.  She is almost
+frighteningly smart, and certainly self-aware.
+
+        "NESCA?"  You echo.  You don't know if you're supposed to feel
+reassured or even more alarmed.  "What did she do?"
+
+        "Well, you know, she'd been hinting of a new discovery for ages, but
+I wasn't really listening to her,"  Irene says a bit uncomfortably.  You grin
+secretly at this admission.  When you made NESCA, it was rather unwieldly
+talking to her by installing microphones and speakers everywhere, so instead,
+you ordered the construction of a mobile unit that could follow you around.
+Predictably, your excessively hormonal junior scientists created a unit in
+the form of a realistic-looking woman with long black hair and green eyes.
+
+        A rather attractive,  well-endowed woman.  You sometimes wonder if
+NESCA has ever been propositioned by anyone who wasn't aware that she was a
+computer yet.   Each time, you quickly decided that you didn't really want to
+know.
+
+        Since the mobile NESCA has been activated, and has taken to following
+your every move, you've gotten the distinct feeling that your wife has become
+a little insecure.  You sometimes rib her about it, but of course, she's
+never admitted to such a thing.  Of course, it is a little silly, being
+jealous of a computer.  But you sometimes look from NESCA's perfectly crafted
+limbs to the googly-eyed expressions of your scientists, and wonder exactly
+how silly it is.
+
+        "Anyway,"  Irene continues, "she'd been playing around with your
+theorem for months, ever since you left for Arizona.  And she thought about
+recreating your experiment, except..." she pauses dramatically.
+
+        "Except?"  you repeat.
+
+        "Except instead of using plutonium, she suggested using a tiny bit of
+antimatter," your wife continues in a hushed voice.
+
+        Antimatter.  The antithesis of ordinary matter.  If you crushed an
+amount of ordinary matter into an infinitely small space, you would get a
+singularity.  If you crushed an amount of antimatter the same way--
+
+        You stop cold, your mind roiling as you strive to grasp the
+consequences of doing such a dangerous thing.  "That's...that's insane!"  you
+gasp out after a few seconds, still furiously doing calculations in your
+head.
+
+        "My God, if the field didn't hold--"
+
+        "That's not the point,"  your wife interrupts impatiently.  "Come on
+lightning-brain, tell me the implications.  I know you don't need NESCA to do
+it for you."
+
+        While a tiny part of your mind wonders where lightning-brain came
+from, the rest of it seems to be frozen in shock.  "Instead of the usual
+singularity, you would create a sort of--a sort of reverse singularity,"  you
+murmur in a hushed voice.  "The exact opposite of a black hole.  Instead of
+sucking objects in--"
+
+        "It would push them away,"  your wife continues in satisfaction.
+"Create a tiny reverse singularity, channel its antigravity field to surround
+a specially built craft, and wallah!  Instant Terra-ship!  Better than
+Unobtainium, don't you think?"
+
+        You shake your head, almost overwhelmed.  "The implications--the
+implications of this are incredible!"  you burst out.  "We could go almost
+anywhere without needing to build ships with necessarily durable and
+expensive materials.  We would just need a power source to feed the
+singularity--a portable nuclear reactor maybe--and some way to channel the
+antigravity...hmm...maybe that same magnetic field magnified a few dozen
+times would do it..."
+
+        Your eyes become slightly glassy as you mull over these problems.
+Then reality returns to bite you in the behind.
+
+        "Baby, this is all very sweet,"  you say gently, trying to mask your
+disappointment, "but we don't really have the funding to explore all of this.
+ I don't think I can explain to the committee the necessity--"
+
+        Irene stops you with a finger to your lips.  "What would you say,"
+she says, smiling mischievously, "If I instructed NESCA to go before the
+committee six weeks ago?"
+
+Eight months later....
+
+> 2
+        "Onwards to the Core of the Earth!"  you yell enthusiastically.
+        Irene produces a genuine-looking smile and kisses you on the cheek.
+"Anything to make you happy, darling."
+        She puts an arm around your waist as you release the champagne
+bottle.  You watch it fall, almost in slow motion, before it smashes
+satisfyingly against the ship's hull.  The technicians scurrying around look
+up in startlement as you and Irene burst out into whoops and laughter.  They
+must think you've gone crazy.  But then, you think giddily, this entire
+venture is crazy.  You're touched when a few of them clap politely anyway.
+You even hear someone whistle.
+        "To the White Singularity!" you and your wife cry out simultaneously.
+ You hug her and think, I'm finally going to fulfill my childhood dream.
+        But something deep, deep inside you asks whether or not you're making
+a terrible mistake.
+
+Two weeks later...
+
+> down
+You move down.
+
+The Mantle
+        Extending to a depth of 907 miles, the mantle consists of very dense
+rock. Although temperatures increase with depth, the melting point of the
+rock is not reached because the melting temperature is raised by the great
+confining pressure.
+
+        But this solid rock does not slow you down at all.  With the
+forcefields pointed like an arrowhead, you plummet straight down at
+incredible speeds.
+
+        Eight hours pass, trickling by like molasses.
+
+        You glance out the diamond porthole.  Of course, there's nothing to
+see.  The forcefield surrounding your ship repels everything, including
+light.    You look at the three-dimensional diagram on the monitors.  It
+shows variations in the density of the mantle, extrapolated into an image of
+red-hot rock rushing by at a hundred miles per hour.  You wonder if it really
+looks like that.
+
+        NESCA is sitting at the controls as always, indefatigably navigating
+the White Singularity through the least dense rock.
+
+        You glance at her and sigh, wondering if you made the wrong decision
+about being sedated.   With her here, there's really nothing for you to
+except kill time and look at the information being gathered by the White
+Singularity as it speeds through the layers of the Core.  The amount of data
+streaming through the sensors screens in front of you is immense, but you
+speed-read so fast anyway that it doesn't take you long.  Besides, you
+haven't seen anything yet that's unexpected.
+
+        You're about to stand up, intending to get a book that Irene made you
+take along, when NESCA suddenly speaks.
+
+        "Sir,"  she says, then very uncharacteristically pauses as if not
+sure of what she's about to say next.
+
+        You sit back down and stare at her curiously.  You don't even
+remember if you ever programmed her to act so human.  Maybe it's the result
+of all her organic components.
+
+        "I have been...thinking.  Judging from your actions and that of the
+other scientists back at the institution, I am aware that you value me.
+However..."
+
+        She hesitates again, then looks you straight in the eye with her
+disconcertingly piercing gaze.
+
+        "I would like to clarify just how you value me.  As a...colleague, an
+equal, even as a...friend?  Or as a reference, a sophisticated device,
+a...tool?  Please be honest, sir.  Just as a matter of interest."
+
+        You look at her contemplatively, thinking of all those horror stories
+about too-intelligent Artificial Intelligences that finally became sentient.
+Actually, NESCA has always been sentient.  But she's never said anything like
+this before.
+
+        The problem is, both answers apply.  You consider NESCA an extremely
+sophisticated tool--after all, you built her yourself--but she talks and acts
+in so human a manner that you often forget that she isn't.
+
+        Of course, NESCA won't accept that answer.  You'll have to choose.
+
+        Will you say, a friend?
+
+        Or will you say, a tool?
+
+> a friend
+        "Well, as a friend, of course,"  you say warmly.
+
+        NESCA looks back down at her bank of controls.  "Do you really mean
+that, sir?"
+
+        "Of course I do!"  you say indignantly.  "I wouldn't lie to you."
+Then suddenly, you start to laugh.  "Just don't tell my wife I said that,
+though.  She's already more jealous of you than she ought to be."
+
+        A ghost of a smile crosses NESCA's face; another gesture that you
+didn't program in her.  "Of course not, sir. I wasn't thinking of being
+friendly to that extent."
+
+        You laugh too.  "Of course not."
+
+        Suddenly, a siren start to wail.
+
+        "What's going on?"  you ask, alarmed.
+
+        "We've arrived at the interface to the Earth's core,"  NESCA answers,
+her fingers blurring as the dance over the controls.  "But something's
+wrong."
+
+        "What's wrong?"
+
+        "This."  A final tap, and something flashes on the sensor screens.
+You gape at them, disbelieving.
+
+        A completely black spot pulses ominously on the screen, at the exact
+center of a circle that represents the inner core.
+
+        "That's impossible,"  you breathe.
+
+        "The sensors are working perfectly sir, according to the
+diagnostics,"  NESCA comments.  She looks at you.  "Should we stop, sir?"
+
+        "Yes!  Yes, by all means, stop!"  You feel the ship shuddering to a
+halt.  You get up and move closer to the screen, feeling a thrill of horror
+run through your body.  The sensors create the picture by extrapolating
+changes in density.   The pulsing object in the screen is pitch black.
+
+        "Sir, the only phenomenon that could create such a picture is--"
+
+        "--a black hole,"  you finish breathlessly.  "But what in hell is a
+black hole doing at the center of the Earth?"
+
+        NESCA is silent for a moment.  "It had to have started from a certain
+size, or else it should have evaporated by now by giving off Hawking
+radiation.  Thus, extrapolating forward from that size, we can infer that it
+hasn't been there for very long."
+
+        "Yes, not very long."  You calculate feverishly in your head.  "Only
+about two years."  Your face assumes a ghastly color as you realize
+something.  "Omigod.  Get Irene on the communicator."
+
+        "Sir, what--?"
+
+        "Now!"
+
+        NESCA moves into action immediately.  "Ready sir."
+
+"Irene?"  you say breathlessly.
+
+        "Hon?"  Your wife's voice is sleepy and a bit disoriented.  "Is
+anything wrong?  It's two in the morning--"
+
+        "We have a rather huge problem,"  you interrupt.  "There's a
+miniature black hole at the center of the Earth."
+
+        Silence.  Then, a drowsy, appreciative laugh.
+
+        "That's a good one.  Not content with finding titanic diamonds or a
+giant geode, you've tried for a bigger anomaly instead."
+
+        "I'm not kidding!"  you yell.  "There's a singularity at the middle
+of the Earth!"
+
+        "Oh.  Oh my."  A deep breath.  You can imagine her waking up as
+completely as if she's been sprayed with cold water.  "That's...that's
+catastrophic.      Well...could it be stable?  Maybe it's been there for
+millennia--"
+
+        "It hasn't, Dr. Esguerra,"  NESCA cuts in.  "From our calculations,
+it's only been there for about two years."
+
+        "Two years..."  Irene falls silent.  "Hang on.  Wasn't that when
+you--?"
+
+        "Experimented on making my own miniature singularity, yes,"  you
+finish miserably.  "After which, we cut off the power to the nuclear reactor,
+theorizing that the singularity was too small to survive on its own without
+continuous feeding with radioactive matter."
+
+        "Wasn't it supposed to evaporate in a few days?"
+
+        "It was supposed to,"  you say, fighting the urge to hit yourself
+over the head with something.  "Certainly we never saw it again.  But what
+if, after cutting off the magnetic fields, it actually fell through the earth
+all the way to the core and has stayed there since, increasing in mass?"
+
+        A miniature singularity is actually hard to sustain.  You actually
+have to force-feed it concentrated matter in order so it won't evaporate too
+quickly.  But in the incredible density and pressures of the core, akin to a
+buffet for a singularity, the question isn't how long it can survive.  It's
+how long the Earth has before the singularity grows to tremendous size and
+engulfs the whole planet completely.
+
+        Irene doesn't respond.  It was a rhetorical question anyway.
+
+        "How long?"  she whispers.
+
+        For the first time, you wish you weren't a human lightning
+calculator.  "About a year,"  you say, hating the thought.  "Maybe less."
+
+        "We can't let this happen!"  Irene shouts desperately, hurting your
+ear.  "We have to do something!  We can't just let everybody die!"
+
+        "You mean I have to do something,"  you correct her grimly.  You mean
+it.  You've never felt more awful about anything in your life.  Suddenly, all
+your accomplishments seem to recede into nothingness in the shadow of this
+ghastly event.  "This is my mistake.  My fault.  If anybody has to be
+sacrificed because of this, it's me."
+
+        "You can't just throw your life away like that,"  your wife pleads,
+her voice dropping.  "Think of a way to solve this, but if you can find a way
+that doesn't involve me losing my husband, then take it!"
+
+        "I'll make that decision,"  you tell her gently.  "I love you.  Out."
+
+        "Wait!"  Irene shouts, but her voice cuts off as you turn the
+communicators  off.
+
+        You close your eyes for a moment, then look at NESCA with a
+pseudo-cheerful grin.  "So...any ideas?"
+        "Actually, sir, I do."  NESCA taps repeatedly on the keys.  ""We
+could release the reverse singularity itself straight into the black hole so
+that would annihilate each other."
+
+        You nod.  But if you did that--as NESCA very well knows--you'd also
+lose your forcefields, your only protection against the crushing pressures
+and searing heat outside.
+
+        You sigh.  "Won't that destroy the ship too?"
+
+        "Yes, sir.  But one of us could escape through the pod."
+
+        "And what about the other?"
+
+        "The other would have to remain behind to pilot the ship,"  NESCA
+says firmly.
+
+        You shake your head and try to think of something else.  The diagram
+of the White Singularity with its flowing forcefields on the monitor catches
+your eye and triggers an idea.
+
+        "Or,"  you say with beginning excitement,  "we could extend the
+antigravity forcefield around the black hole itself so that no matter would
+be able to get in.  That way, the black hole would be starved.  It should
+then evaporate as it was supposed to."
+
+        NESCA looks at you.  "But won't that take days--maybe even weeks,
+sir?"
+
+        "Yes, it probably would,"  you say, frowning and rather deflated.
+"It would weaken our own forcefield, too.  But I can't think of anything else
+at the moment."
+
+        You have to make a decision soon.
+
+        Will you use your antigravity forcefield?
+
+        Or will you release the reverse singularity?
+
+> use your antigravity forcefield
+
+        You take a deep breath.
+
+        "Let's use the forcefields,"  you say.  "We'll go as near as we can
+to the black hole, then extend the antigravity fields around it till it's in
+an enclosed bubble of absolute vacuum.  Once the black hole has no matter
+left to suck, it should start to emit Hawking radiation.  Once it does that,
+then we'll know that it's starting to evaporate."
+
+        You smile wearily at NESCA.  "To think that I was complaining about
+our hours of travel through the core.  We may have weeks of waiting ahead of
+us.  We can't leave until we're entirely sure that the black hole is gone.
+If I'd known this was going to happen, I would have cherished every last
+second before getting here."
+
+         NESCA doesn't respond.  Curiously, she seems to be debating with
+herself.  Shrugging, you turn back to the control panel. But before you can
+again reconfigure the forcefield to bring you closer to the black hole, she
+suddenly grabs your hand.
+
+        "Sir,"  she says intensely,  "only one of us is needed for this job."
+
+        "What do you mean?"  you ask, confused.
+
+        "I mean, this is a very hazardous task, and we might not survive,"
+NESCA continues patiently.  "However, both of us need not be put in harm's
+way.  I can do this alone.  You should use the pod and escape.  Now."
+
+        "That's--that's very kind of you."  You shake your head.  "But this
+is my mistake.  My fault.  I have to rectify it myself."
+
+        "Your integrity is noted sir,"  NESCA says firmly, "but unnecessary.
+Besides, since I am your creation, bearing your neurons, you can almost say
+that you're doing this yourself.  You need not be guilty for entrusting this
+task to me."
+
+        The temptation to take her up on her effort is great, but your guilt
+is greater.  "I'm sorry, NESCA, but I just can't countenance--"
+
+        "I knew you would say that, sir."
+
+        Suddenly, you feel sharp sting against your arm.  You look down in
+shock, to see a syringe emptying its yellowish contents into your veins.
+Dimly, you recognize the name written on the side of the syringe as a
+powerful sedative.  NESCA is holding it.
+
+        "So I'm not giving you a choice.  Sir."
+
+        You look up at her furiously and try to speak, but already the room
+is darkening in front of you.  Your ears fill with a rushing sound.  Your
+muscles turn to jelly.  After a few more seconds, you slump unconscious to
+the floor.  NESCA picks you up easily, then stares at your face for a moment.
+
+        "This is my job now,"  she whispers tenderly.  "My friend."
+
+Back-up
+        NESCA shoves you inside the escape pod.  Once she makes sure that
+you're securely strapped in, she steps back and releases it.  The pod pops
+from the surface of the White Singularity and shoots for the surface of the
+Earth like a runaway balloon.
+
+        The sedative keeps you unconscious for almost half a day.  By the
+time you regain consciousness, you are well through the middle of the Mantle.
+ For a time, you kick at the walls in impotent fury, but there's really
+nothing you can do.  The pod has its own antigravity forcefield,
+life-support, and communications, but not much of anything else.  You can't
+even steer, much less try to go back.  Fortunately, NESCA already programmed
+the coordinates of the rift into the pod's computer; plus, she alerted Irene
+to your coming, so the helicopter should be waiting for you.
+
+        An hour after you wake up, NESCA sends you a brief transmission
+saying that your plan worked brilliantly.  She has succeeded in enfolding the
+black hole with the ship's antigravity forcefield.  Almost immediately, she
+said, the black hole's diameter seemed to shrink, and it started emitting
+Hawking radiation, which is the hallmark of a dying miniature singularity.
+She says that according to her calculations, the black hole should evaporate
+completely within six days.  She adds that fortunately, the ship's own
+forcefields seem to be holding for the moment.
+
+        You are happy with the results, but you still can't help feeling that
+you should be down there at the core, monitoring the demise of the black
+hole.  After all, it's your fault that it's down there in the first place.
+Since there's nothing else for you to do, your mind wanders to NESCA.  You
+wonder if her earlier question--if whether you considered her as a friend or
+merely a tool--played any role at all in her curious behavior.
+
+        Since you can't ask her, you end up dozing off.  The rest of the trip
+is uneventful.
+
+        When you pop out at the rift, the helicopter is indeed in place.  A
+chain is thrown out, which attaches via an extremely strong magnet to the
+side of the pod.  You are flown quickly back to the hangar, and the hatch
+prised free.
+
+        The second you stumble out of the pod's cramped cabin, your wife
+flings her arms around you, laughing and crying at the same time.  She looks
+haggard and disheveled, as if she hasn't slept or eaten in days.  You hug
+each other tightly for several moments, surrounded by your clapping and
+whistling colleagues.
+
+        Almost immediately, however, you remember the problem at hand.  You
+disentangle yourself gently and ask Irene about what's happening to the core,
+as NESCA must be communicating with her most often.  Your junior scientists
+become serious and start hustling the two of you to the ground crew's main
+control room.
+
+        "It's going well,"  Irene says breathlessly as you jog through the
+crowded halls, hastily wiping away tears.  "It's a good thing we installed
+all those extra generators.  The main one has failed already at the added
+load."
+
+        "How many more do we have left?"
+
+        "Two."
+
+        "Do you think they'll last for five more days?"  you ask tensely.
+
+        Your scientists glance at each other uneasily.
+
+        "They have to, sir,"  one of your junior scientists, a tall, thin,
+bespectacled  genius named Ace speaks up.  "If the White Singularity fails
+now, we won't have enough time to build another one to send down to the
+core."
+
+        "Yeah, I was afraid of that,"  you mutter.  You arrive at the control
+room and stare over the heads of all the people rushing around.  Covering an
+entire wall is a replica of the sensor screen aboard the White Singularity,
+showing a diagram of the ship in proximity to the black hole.  Also shown is
+the forcefield as it wavers around both the ship and the black hole.
+
+        "It looks a lot more unstable from here,"  you say worriedly.  "Are
+there really just two more generators on board the White Singularity?  If the
+lifespan of the main generator is any clue, then each generator will function
+for only about two days each.  That will leave us with one day unaccounted
+for."
+
+        "Well, there are two more, but they support other vital systems of
+the White Singularity,"  Irene answers.  "It's up to you if you want to pull
+out any of them."
+
+        "We can disengage either the life support or the communications
+generator if needed,"  Ace volunteers.
+
+        The decision is once again yours.
+
+        Will you pull out the communications generator?
+
+        Or will you pull out the life support generator?
+
+> pull out the life support generator
+
+        You chew your lip, agonizing over the decision.  Suddenly, a
+brilliant light seems to illuminate your mind.  You slap your forehead with
+your palm.
+
+        "Idiot,"  you mutter.  "NESCA doesn't need the life-support systems.
+She's not human.  She's a machine."
+
+        Irene stares at you in admiration.  "You're right!  Why didn't we
+think of that?"
+
+        The other scientists heave sighs of relief and start giving each
+other high-fives.
+
+        "Don't celebrate just yet," you say, though you're hard pressed to
+suppress a grin.  "Let's just hope those three generators are enough."
+
+        "Let's hope so, sir,"  Ace says fervently.  "Okay, patching on to
+NESCA."
+
+        They converse for several minutes.   "She says affirmative to the
+disengagement of the life-support generator.  She's working on rewiring it to
+the forcefield now."
+
+        "Good."
+
+        You feel tired suddenly, like a puppet with its strings cut.  You
+sway on your feet.  Fortunately, your colleagues see you, and help you to a
+chair.  Irene hurries over to fuss over you.
+
+        "I'll give you a massage once this is over,"  she promises, giving
+you a sound kiss on the cheek.  "What do we do now?"
+
+        "Now?"  You look at the sensor screens and sigh.  "Now, we wait."
+
+Back-up
+
+        Four days pass, and the back-up generators indeed fail one after
+another.  Fortunately, you plan works, and the life-support generator
+supports the forcefield perfectly without detriment to NESCA.
+
+        However, whether it can last the last day waits to be seen.  You wait
+with strung nerves and bated breath as the hours crawl by.  When you reach
+the twenty-third hour, the third and last generator sputters as if on cue.
+
+        You receive a desperate transmission from NESCA.
+
+        "The generator can't hold much longer!"
+
+        Irene grips your sleeve.  "The communications generator."
+
+        "But if we pull that out as well, NESCA will have no way to contact
+us to receive further instruction,"  Ace argues.  "We'll never know where to
+pick the White Singularity up, or if we don't find her, whether she succeeded
+at all."
+
+        "That's kind of a moot point now, isn't it,"  you say grimly.  "If
+the antigravity forcefield collapses before the black hole evaporates, we'll
+be back to  square one, or worse."
+
+        "This is our best chance to get rid of this thing,"  Irene agrees.
+"We have to pull out all the stops now."
+
+        Another tachyon transmission comes in.  Ace points excitedly at the
+sensor screens as NESCA's face materializes.  "Maybe we won't have to
+deactivate the generators!"
+
+        "Dr. Esguerra,"  NESCA says formally, "I am happy to tell you that
+the black hole is no more."
+
+        "What?  What?"  You look blankly at the diagram which was previously
+showing the black hole, the White Singularity, and the wavering forcefield.
+But now, the black hole is gone, and the forcefield is only surrounding the
+ship.
+
+        "The black hole has fully evaporated,"  NESCA clarifies, smiling
+slightly.  "I am now making my way to the surface.  I shall be at the rift in
+approximately 33.4 hours.  Over and out."
+
+        Her picture winks out.  For several seconds, there is only a stunned
+silence.  Then abruptly, frenzied whooping, cheering, and clapping fill the
+room.  You grin widely as several people crowd around you and compete to
+shake your hand or clap you on the back.  The next moment, you are hefted
+over the shoulders of several of your admiring colleagues and paraded around
+the room.  You swivel around the room and look back at your wife, who is
+holding two thumbs up at you, her cheeks sparkling with proud and happy
+tears.
+
+        The White Singularity resurfaces at the rift almost to the minute
+that NESCA predicted.  She has tetrabytes of data about the core itself, and
+the black hole.   You prove that the latter has evaporated, to your
+satisfaction.
+
+        The scientists are so happy with the data that they almost forget
+that you put the black hole in the core of the Earth to begin with.  They
+forgive you that monumental mistake anyway.   Apparently, there was nothing
+erroneous with your calculations; the equations themselves that everybody had
+been using were wrong.
+
+        You get another Nobel prize for your work, a gigantic grant for more
+expeditions with the White Singularity, and an even larger office.   Most
+enjoyably, you get two entire months off, during which you learn--to your
+great joy--that your wife is expecting the child that you've been waiting for
+for five years.   To celebrate, you go on a Mediterranean cruise.
+
+        You relax on the deck of a luxurious yacht with Irene, filled with
+peace and bliss.
+
+        You've gone to the core, saved the world, earned a Nobel prize with
+its corresponding benefits, and now you have a kid on the way--life can't get
+much better than this.

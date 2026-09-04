@@ -1,0 +1,356 @@
+1
+give mackerel to bird
+z
+z
+z
+x path
+get stone
+x tower
+throw stone at window
+open gate
+ne
+nw
+bury corpses
+get handkerchief
+x corpses
+x watch
+se
+touch indentation
+drop watch
+sw
+z
+z
+z
+z
+ne
+get watch
+in
+x junk
+get pole
+get rock
+get tennis ball
+clean window
+look through window
+move junk
+open trapdoor
+touch indentation
+drop watch
+out
+pull lever
+z
+z
+z
+in
+get watch
+out
+nw
+sw
+x bushes
+se
+x ground
+throw tennis ball
+use pole
+s
+get pole
+n
+throw pole at gargoyle
+x door
+touch indentation
+drop watch
+s
+z
+z
+z
+z
+n
+go hole
+x desk
+read graffiti
+open desk
+e
+e
+x tapestries
+x tapestry three
+x gulgrin smersh
+x halberd
+x tip
+x tapestry six
+x eccles montaron
+push bulge
+push bulge
+nw
+se
+throw cudgel at panel
+get cudgel
+x the tiger
+read letter
+read bible
+get the tiger
+w
+drop the tiger into pit
+w
+n
+x bed
+get sheets
+put globe in handkerchief
+e
+kill rats with cudgel
+read cook book
+read recipe 1
+push switches up
+raise left lever
+lower right lever
+move gear
+kick stove
+get treat
+read recipe 2
+put egg on stove
+lower left lever
+move gear
+move gear
+move gear
+kick stove
+get bone
+eat bone
+read recipe 3
+put cudgel on stove
+put rock on stove
+raise left lever
+raise right lever
+move gear
+push switches
+kick stove
+get cudgel
+read recipe 4
+unwrap globe
+put globe on stove
+lower left lever
+move gear
+move gear
+move gear
+kick stove
+ne
+x junk
+x parts
+get parts
+sw
+w
+x armour
+get sword
+put axe in hands
+n
+n
+nw
+w
+x panel
+type h
+type s
+type j
+type t
+type i
+type u
+type b
+type l
+lift lever
+x monitor
+lift lever
+x monitor
+lower lever
+lower lever
+lower lever
+lower lever
+lower lever
+x monitor
+lower lever
+x monitor
+lower lever
+x monitor
+e
+d
+fill bottle
+x mark
+e
+e
+x depression
+touch depression
+smash chains
+smash chains
+talk to merrick
+2
+1
+3
+1
+4
+1
+8
+give treat to merrick
+give bible to merrick
+give sword to merrick
+talk to merrick
+9
+touch depression
+w
+w
+w
+ne
+n
+x chair
+sit in chair
+pull armrest
+e
+get rag
+x portraits
+straighten portrait
+x sculpture
+x mouth
+put crucifix in mouth
+n
+lie on bed
+look under bed
+raise bed
+move portrait
+x window
+read life of grishtak
+x computer
+type warlord
+type access
+5
+6
+put disc in computer
+type access
+1
+2
+3
+4
+5
+type explode
+x safe
+x display
+0
+1
+0
+1
+5
+8
+read journal
+read journal
+read journal
+read journal
+read journal
+enter tunnel
+smash bed
+look under bed
+smash clock
+smash cabinet
+smash panel
+s
+open mouth
+w
+se
+get moss
+listen
+listen
+listen
+x rag
+wear rag
+e
+talk to ogbert
+6
+x clothes
+give sandwich to ogbert
+talk to ogbert
+clean light bulb
+open cabinet
+push barrel
+w
+push barrel
+nw
+push barrel
+e
+push barrel
+w
+b1
+w
+w
+get hat
+wear hat
+open box
+get gold
+e
+e
+nw
+x keyboard
+x green key
+x red key
+push green key
+push red key
+se
+x fireplace
+get kindling
+go tunnel
+give necklace to leonora
+n
+push chest
+d
+get silver coin
+s
+s
+s
+x aperture
+x words
+x rows
+x seats
+750
+x podium
+stand on platform
+lean on handrests
+e
+x artefacts
+x devil's skull
+put crucifix in slot
+e
+x machinery
+x equipment
+x statuette
+put silver coin in statuette's hand
+x bowl
+x words
+look under bowl
+put bottle in bowl
+put weed in bowl
+put flower in bowl
+pull lever
+get dynamite
+x lumps
+x chart
+inject red lump
+inject me
+inject blue lump
+inject me
+w
+w
+d
+yes
+smash voodoo doll
+kill baron grishtak
+x altar
+w
+n
+throw dynamite
+throw gold bar
+drop all
+n
+get all
+n
+u
+x cabinet
+get wine
+s
+give wine to leonora
+smash chain with gold bar
+x window
+bend bars
+blogmore
+climb through window
+fengstor
+shake dynamite

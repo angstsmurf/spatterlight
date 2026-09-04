@@ -1,0 +1,3108 @@
+Loading game...
+
+The Reluctant Vampire
+
+The Reluctant Vampire
+
+An interaction fiction game written by David Whyld with ADRIFT version 4,
+release 46
+
+Started November 2005 / Completed June 2006
+
+(1)        Play the game
+(2)        Read the introduction
+(3)        About The Reluctant Vampire
+(4)        Special commands in the game
+(5)        Things to know before playing
+(6)        Game information
+
+> 1
+
+Part 1: A Little Guidance
+
+lll Waiting Room lll
+
+The marriage counsellor's reception area also doubles as the waiting room and
+this is where you currently are, sitting in a remarkably uncomfortable chair
+and waiting somewhat impatiently to be called in to your latest session.
+There are four other people here: Steve, Jo and Andy who are here for
+marriage counselling, and the receptionist whose name you've never picked up.
+     The waiting room is kind of small and dingy, but has a window facing
+away from the sun which is always an advantage given your current
+predicament. A door to the north leads outside and another to the south into
+the marriage counselling room. Both are closed.
+
+> look under chair
+Nestled underneath the chair is none other than a brooch, no doubt dropped
+there by a former client of the marriage guidance counsellor.
+     You pull it out while debating what to do with it.
+
+*** Your score has just increased by 1 point! ***
+
+> give brooch to jo
+"Oh, my brooch!" exclaims Jo, taking it off you. "Why, I thought I'd lost
+this years ago when I was swimming in the Bahamas. Or maybe when I went
+bungee jumping off Everest. Or even in the Sahara... where did you find it?"
+     You point under your chair.
+     "Ah." She nods. "Or when I came here."
+
+*** Your score has just increased by 1 point! ***
+
+> i
+Possessions:
+- your cape {worn}
+- some mints
+- your watch {worn}
+
+> give mint to receptionist
+She looks at you with a frown. "What, do you think I'm the kind of cheap girl
+who'll sleep with someone just because they offer her a mint?"
+     "Well, now that you mention it-"
+     She snatches a mint off you and eats it. "Not bad. But I don't sleep
+with just anyone, you know."
+     Steve snickers but the receptionist fixes him with a hard stare and he
+abruptly goes quiet.
+
+> give mint to receptionist
+"Don't keep offering me mints thinking I'm going to have sex with you," says
+the receptionist. "I'm not that kind of girl."
+     Andy laughs.
+     The receptionist fixes him with a hard stare and he pretends to be
+fascinated in a patch of wall above his head.
+     The receptionist shakes her head then takes the mint you've offered,
+adding, "don't think this means you're getting anything, okay?"
+
+> give mint to receptionist
+"Another mint?" The receptionist looks you in the eye. "What, you think I'm a
+three mints kind of girl or something?"
+     Jo laughs.
+     The receptionist ignores her, hesitates, then takes the mint. "Heck with
+it."
+
+*** Your score has just increased by 1 point! ***
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+The door to the south opens and a teary-faced individual stumbles out. He
+pauses to blow his nose, blubbers a bit about the terrible state of his life
+right now then staggers away.
+     "Hubert Bumble," calls a voice. "You're next."
+     No one moves.
+     "Hubert," says the voice. "That means you."
+     You blink. Hubert Bumble? Of course, that's you.
+     You rise to your feet, your cloak billowing around you in the way only a
+proper vampire's cloak can billow. "I go by the name Lord Sinister these
+days, lady," you say in your best Vampire Voice.
+     There is a sigh from the room out of which the teary-faced individual
+has just departed. "Very well, Hu- Lord Sinister. If you'd care to step into
+my office-"
+     You move to the south.
+
+[Press a key, scion of the night.]
+
+lll Marriage Counsellor's Office lll
+
+The office of marriage counsellor Maria Frostwich is similar to many you have
+seen on TV: a couch (on which you're currently lying), a chair (in which
+she's currently sitting), several bookshelves full of 'learned tomes', a
+window (mercifully with the blinds drawn) and a table between the two of you.
+There used to be a statue of Jesus on the table but after a particularly bad
+fit you threw one time, Maria moved it. The door to the reception area, to
+the north, is closed.
+
+"Tell me what's been on your mind, Lord Sinister," says Maria. "Have you made
+much progress since your less session?"
+
+You review what has happened since your last session and realise a number of
+options present themselves to you. You can be brutally honest, tell a story
+that is basically honest but which contains a few untruths or simply lie
+through your spiky teeth.
+
+> z
+"If you'd just answer the question, Lord Sinister."
+
+> z
+"If you'd just answer the question, Lord Sinister."
+
+> lie
+You lie. It's an easy thing for a vampire to do. It comes naturally. And,
+best of all, you don't have to look at yourself in the mirror over it.
+
+(A little vampire joke there. :) )
+
+"So you helped the nuns across the road, returned the priest's wallet and
+even saved the evangelist from the mob?"
+     "That's right."
+     (The nuns you pushed under a car, the priest's wallet was actually
+thrown back to him along with a brick you'd attached to it, but you did save
+the evangelist from the mob. Why waste perfectly good blood on a mob?)
+     "That's progress, Lord Sinister," says Maria, in the tone that implies
+she doesn't actually believe you but isn't going to outright accuse you of
+being a liar. "Now… have you given any more thought to what we discussed at
+your last session? Getting a job?"
+
+Laugh at the very idea, point out that a Lord of the Undead does not work for
+a living, or simply lie and say you've been looking for work but so far
+haven't found anything suitable.
+
+*** Your score has just increased by 1 point! ***
+
+> looking
+Maria smiles. "That's a positive sign, Lord Sinister. What kind of jobs have
+you been looking for?"
+     You stare into the distance (or as much distance as there in a small
+room like this) as if trying to recall details instead of trying to make them
+up.
+     "Oh, odd jobs here and there. There was a…" Your undead mind presents
+you with several possibilities.
+
+A florist, a police officer, a priest or a gravedigger.
+
+> gravedigger
+"Any particular reason you'd consider that line of work?"
+     You shrug in what you hope is a disarming manner. "Oh, not really. Just
+seemed like an interesting… job. Outside. Lots of fresh air-"
+     "Fresh body parts."
+     "Well, it's not like they need them any longer."
+     "I'm going to pretend I didn't hear that, Lord Sinister. I suggest you
+do the same. But…" Maria takes a deep breath then lets it out in a sigh. "But
+it's nice that you're actually considering such a thing. It's progress. If
+you're really serious about this, I can have a word with my dad - he's the
+local gravedigger - and see if he can put in a good word for you. I think
+you've met him already."
+     You nod. He buried you. Did a pretty good job as well. That coffin took
+an age to get open.
+     "So shall I call my dad or not?"
+
+Tell her to go ahead and make the call, or tell her that you've had a change
+of heart.
+
+> ahead
+"I'll speak to him after the session and see what he says. This time next
+week, if everything goes well, you could be burying your first dead body."
+     Well, not your first. But you decide not to tell her that.
+     "This is very promising progress, Lord Sinister. You're showing an
+interest in something not directly related to your, um, recent accident. You
+seem to be coming along as well as can be expected. The only problem I see is
+that you keep looking at my neck and licking your lips."
+     You drag your eyes away and make an effort to keep your tongue firmly
+inside your mouth, and say indignantly, "I resent that implication, lady."
+     "You're not denying it, I notice."
+     "I'm not saying it isn't true. I just resent it, is all."
+     Maria jots something down. "Fine, fine. Now…" Another note. "Let's
+discuss the future, shall we?"
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, Lord of the Unliving.]
+
+The session ends and you and Maria shakes hands. The first time, you gave her
+an affectionate peck on the cheek but she thought you were trying to fang her
+and promptly fainted.
+     "We'll speak again soon, Lord Sinister," says Maria. "And don't worry,
+you'll get through this fine. Every cloud has a silver lining."
+     You nod. Clouds are good. On a particularly cloudy day, you can venture
+outside the house during the hours of daylight and get away with a mild
+sunburn.
+     It is with a lighter heart that you leave the marriage guidance
+counsellor. There is almost a spring in your step. But when you close the
+door behind you and glance across the street, that spring abruptly dies away
+and your heart grows much heavier. For there, standing on the other side of
+the street, is none other than Norbert van Helsing, the leader of the FVH.
+
+[Press a key, Lord of the Unliving.]
+
+The Charter Of The Fearless Vampire Hunters
+(3rd edition)
+
+1)  Wherever vampires are found, we shall stamp them out!
+2)  Wherever dead bodies show up drained of blood and pale of countenance,
+the culprits are undoubtedly vampires!
+3)  Wherever innocent men fear to tread in the darkness, there vampires lurk!
+4)  Wherever shady individuals hide in the shadows, they are vampires!
+5)  Wherever the encroachment of evil is greatest, vampires are behind it!
+6)  Wherever vampires are found, we shall kill them!
+
+The FVH are, not surprisingly, no friends to vampires. Their recruitment
+criteria are simple: if you're not a vampire, you're in. No questions asked.
+Oh, and being a dab hand at stabbing people in the chest with a sharp wooden
+implement is also handy.
+     They've hounded you ever since that fateful night three months ago after
+which you developed a craving for blood, biting people in the neck and flying
+around your garden in bat form. So far they haven't made any actual moves
+against you - aside from the obligatory chalking of a message on the side of
+your house declaring "THE OWNER OF THIS HOUSE IS A MEMBER OF THE UNDEAD!" -
+as they operate strictly within the law and at the moment they can't prove a
+thing. While they'd prefer to stake every vampire through the heart the
+moment they uncover one, they'd also be arrested for murder so they tend to
+wait, watch and take notes. One wrong move and it's staking time.
+
+[Press a key, Lord of the Unliving.]
+
+lll Morping Street lll
+
+This uninteresting bit of road right outside the marriage guidance
+counsellor's office is known hereabouts as Morping Street for reasons that
+are probably better off not known. It's the kind of street that few people
+ever have cause to visit as it contains nothing more than the marriage
+guidance counsellor's office (to the south), a Christian bookshop (to the
+north)  and the town's most unprofitable bank (to the northeast). Even the
+homeless have better taste than to try begging for money here. Morping Street
+itself runs east and west to more interesting places.
+Your arch-nemesis, the leader of the FVH, Norbert van Helsing, is here.
+
+"No doubt you left a dozen corpses in there, you foul spawn of the undead,"
+says Norbert van Helsing, speaking in the kind of strident tones that carry
+to everyone on the street. "Drained of blood, eyes vacant, bodies twitching
+with the last vestiges of lost life."
+     Yes, Norbert really talks like that.
+
+> w
+
+lll Balamoric Drive lll
+
+Nestled between Morphing Street to the east and Nahatabatamatatungadeer Ro Ro
+Ro Din Plaza to the west, Balamoric Drive is a fairly peaceful area where
+precious little ever happens. A hated church occupies most of the north side
+of the block whereas a more much preferable sewage works is off to the south.
+There is also a pleasant cake shop off to the northwest.
+
+As you step into Balamoric Drive, Norbert, a curious look on his face, goes
+to stare at something in the gutter.  Norbert van Helsing rushes after you
+from the east.
+
+> s
+
+lll Sewage Works lll
+
+The sewage works arises before you to the south, a looming monstrosity of
+iron and steel (and abominable smells!) that has been abandoned for many a
+long year. Rumour has it that a vicious gang of werewolves once took up
+residence inside and butchered the workers; another rumour claims it was
+striking sewage workers who, fed up of the 11p they were getting an hour,
+demanded an increase to 13p and threatened to torch the place if they didn't
+get what they wanted. Either way, it's a bleak and miserable place and one
+you've always avoided in the past.
+
+There is a rock lying on the ground.  Norbert van Helsing rushes after you
+from the north.
+
+> get rock
+You take the rock.
+
+> n
+
+lll Balamoric Drive lll
+
+Nestled between Morphing Street to the east and Nahatabatamatatungadeer Ro Ro
+Ro Din Plaza to the west, Balamoric Drive is a fairly peaceful area where
+precious little ever happens. A hated church occupies most of the north side
+of the block whereas a more much preferable sewage works is off to the south.
+There is also a pleasant cake shop off to the northwest.  Norbert van Helsing
+rushes after you from the south.
+
+> w
+
+lll Nahatabatamatatungadeer Ro Ro Ro Din Plaza lll
+
+Nahatabatamatatungadeer Ro Ro Ro Din Plaza is perhaps the best example of
+why, while a good idea in theory, it's never a good idea in practice to name
+areas of the city after local ethnic heroes. A statue of
+Nahatabatamatatungadeer Ro Ro Ro Din himself stands in the direct centre of
+the plaza, bearing proudly aloft a torch in one hand and a sledgehammer in
+the other. Various graffiti has been scribbled all over the statue. Roads
+lead away from here northwest, southwest (which is where you live) and east.
+Norbert van Helsing rushes after you from the east.
+
+"We are watching you, host of the darkness," says Norbert. "Never forget for
+a moment that we are. And when we have all the evidence that we need, we
+shall strike. Your foul depredations will be no more."
+     A passing woman gives you a funny look and hurries on down the street.
+
+> nw
+
+lll Pugnacious Lane lll
+
+Named after a famous bulldog which once collapsed and died here many years
+ago, Pugnacious Lane is home to many, many bungalows frequented by the
+elderly. It is a very tidy and quiet lane full of tall trees and flowers.
+Normally you don't care much for trees but these have especially thick,
+sun-blocking leaves so you're happy to make an exception. The lane winds away
+to the north in the direction of a park and back southeast to
+Nahatabatamatatungadeer Ro Ro Ro Din Plaza. By the side of the road is a kid
+struggling to right his toppled over scooter.  Norbert van Helsing rushes
+after you from the southeast.
+
+> help kid
+It's rare for one of the undead to actually help someone out when there's no
+possibility of a bit of bloodletting afterwards, but this is just what you
+do. You lift the kid's scooter up, set it straight, and give him a friendly
+clap on the shoulder.
+     "Ta, mis'er," he mutters, managing to effectively mangle 'mister' into
+'miser'. "Me dad alwez sed u weren't such a bad 'un."
+     He pedals away, humming the theme tune to a rap song about torching
+homeless people. Ah, kids...
+     You notice afterwards a frisbee lying on the ground. The kid must have
+dropped it.
+
+*** Your score has just increased by 1 point! ***
+
+> get frisbee
+You take the frisbee.
+
+> se
+
+lll Nahatabatamatatungadeer Ro Ro Ro Din Plaza lll
+
+Nahatabatamatatungadeer Ro Ro Ro Din Plaza is perhaps the best example of
+why, while a good idea in theory, it's never a good idea in practice to name
+areas of the city after local ethnic heroes. A statue of
+Nahatabatamatatungadeer Ro Ro Ro Din himself stands in the direct centre of
+the plaza, bearing proudly aloft a torch in one hand and a sledgehammer in
+the other. Various graffiti has been scribbled all over the statue. Roads
+lead away from here northwest, southwest (which is where you live) and east.
+Norbert van Helsing rushes after you from the northwest.
+
+> e
+
+lll Balamoric Drive lll
+
+Nestled between Morphing Street to the east and Nahatabatamatatungadeer Ro Ro
+Ro Din Plaza to the west, Balamoric Drive is a fairly peaceful area where
+precious little ever happens. A hated church occupies most of the north side
+of the block whereas a more much preferable sewage works is off to the south.
+There is also a pleasant cake shop off to the northwest.  Norbert van Helsing
+rushes after you from the west.
+
+"Ashes you will become before we are done with you," says Norbert. "We shall
+consecrate the ground upon which your mangled corpse lies and then the ashes
+themselves shall be burnt to smaller ashes and the smaller ashes-"
+     You do your best to ignore him.
+
+> nw
+
+lll Cake Shop lll
+
+A pleasant little cake shop that you used to frequent on a regular basis
+before your, um, accident. Now you tend to just browse the shelves of cakes
+and loaves and buns and wonder at the possibility of getting one made by
+someone with a particularly virulent nosebleed...
+     There are several customers here, as well as Collette, the sole member
+of staff on duty, milling around with nothing better to do with their time.
+     A door leads outside to the southeast.  Norbert van Helsing rushes after
+you from the southeast.
+
+> hypnotise collette
+It's risky doing this sort of thing with Norbert standing there, but you lean
+close to Collette, tap her on the shoulder, say in a loud voice, "about that
+cake over there" and then when she looks at you, probably in order to swear
+at you for disturbing her while she's trying to do her nails, you look deep
+into her eyes.
+     She's yours.
+     "The cake, my dear," you say.
+     "... yes... master..." she says. She turns spasmodically and picks up
+the nearest cake from the shelf and hands it to you.
+     "Put it on my tab," you say.
+     "... you... tab... yes... master..."
+     You glance over at Norbert who is watching you very suspiciously indeed.
+     You break the hypnosis.
+     Collette blinks as if waking from a deep sleep. "Woah!" she mutters.
+"What was I drinking last night?"
+     She shakes her head then, not noticing the cake in your hands, goes back
+to her nails.
+
+*** Your score has just increased by 1 point! ***
+
+> z
+Time passes...
+
+The door opens and in wanders a ruddy-faced fellow sporting a cardigan and
+carpet slippers. He looks a strange sight to say the least.
+     "Yo, Collette honey!" he shouts out. "Wanna date wiv the hardest dude in
+town?"
+     Collette covers her mouth with her hand and stifles a yawn.
+
+> throw frisbee at stefan
+Stefan gives a cry as the frisbee bounces off the back of his head.
+     "Owwwowowowowowo!" he wails, clutching his head as if he expects it to
+suddenly tumble off. "You threw a frisbee at me! At me! The hardest guy in
+town!"
+     You wait, wondering what the hardest guy in town is going to do. If he
+pulls a knife, you're fine. If he's got a sharp pointed stick in his pocket,
+however...
+     "I'm of to tell me mum!" he says. "Yeah, me mum! She's even harder 'n'
+me an' she eats blokes like you for breakfast! See if she don't!"
+     And with that, the hardest guy in town departs the shop to tell the
+hardest mum in town to come and have a word with you.
+     "Normally I'd stake you for attacking a member of the public," Norbert
+says, "but I'm willing to let that one go. You evil spawn of darkness," he
+adds as an after thought.
+
+*** Your score has just increased by 1 point! ***
+
+> get frisbee
+You take the frisbee.
+
+> se
+
+lll Balamoric Drive lll
+
+Nestled between Morphing Street to the east and Nahatabatamatatungadeer Ro Ro
+Ro Din Plaza to the west, Balamoric Drive is a fairly peaceful area where
+precious little ever happens. A hated church occupies most of the north side
+of the block whereas a more much preferable sewage works is off to the south.
+There is also a pleasant cake shop off to the northwest.  Norbert van Helsing
+rushes after you from the northwest.
+
+> e
+
+lll Morping Street lll
+
+This uninteresting bit of road right outside the marriage guidance
+counsellor's office is known hereabouts as Morping Street for reasons that
+are probably better off not known. It's the kind of street that few people
+ever have cause to visit as it contains nothing more than the marriage
+guidance counsellor's office (to the south), a Christian bookshop (to the
+north)  and the town's most unprofitable bank (to the northeast). Even the
+homeless have better taste than to try begging for money here. Morping Street
+itself runs east and west to more interesting places.  Norbert van Helsing
+rushes after you from the west.
+
+> throw frisbee at bookshop
+The frisbee hits the window, shatters it and sails on into the shop!
+     "I saw that!" screeches Norbert. "I saw it! Damnation, you vampiric
+scum, you smashed the window of that shop and you're going to burn-"
+     "It was an accident," you say.
+     Norbert blinks and stops in mid-rant. "An... accident?"
+     You nod. "Slipped out of my fingers."
+     Norbert's hand twitches as if debating whether to wrap itself around
+your throat or start stabbing with the stake. In the end, thankfully, he does
+neither.
+     "I've got my eye on you, vampire," he says, breathing hard. "I might not
+be able to stake you for petty acts of vandalism, but one day you'll slip up
+and then-" he makes a stabbing gesture with the stake "-then you're for it."
+     You give him an insolent sneer, but you're ill at ease over the
+sharpness of that stake and the way it's pointing unerringly at your
+unbeating heart. Norbert might be a fanatical fool, but he's not one to mess
+with.
+
+*** Your score has just increased by 1 point! ***
+
+> w
+
+lll Balamoric Drive lll
+
+Nestled between Morphing Street to the east and Nahatabatamatatungadeer Ro Ro
+Ro Din Plaza to the west, Balamoric Drive is a fairly peaceful area where
+precious little ever happens. A hated church occupies most of the north side
+of the block whereas a more much preferable sewage works is off to the south.
+There is also a pleasant cake shop off to the northwest.  Norbert van Helsing
+rushes after you from the east.
+
+"A curse upon you, foul demon of evil!" cries Norbert, getting quite carried
+away. "May the light take you and destroy you utterly and may you be
+forevermore destroyed!"
+
+> throw cake at church
+As Norbert seems distracted, you quickly cock back your arm and let fly with
+the cake. It smashes into the church and with a cacophonous
+
+s m a s h ! ! !
+
+it shatters into a thousand and one pieces.
+     Hard things these rock cakes.
+     Norbert looks up and his eyes focus on you.
+     "You did that!" he screeches. "You broke that church window!"
+     "Me?" You look around as if he might mean someone else. "But I'm just a
+harmless bystander who happened by at the wrong time."
+     "Codswallop! I even saw you with a cake in your hand-"
+     "Ah, but did you see me actually break the window?"
+     Norbert freezes in mid-rant. His eyes cross over. He makes several
+aborted attempts to speak, fails, and then puts his head in his hands and
+looks like he's about to cry.
+     "I'll get you yet," he mutters. "Damn it, you evil spawn of the dark
+god. I'll get you if it's the last thing I do."
+     You give him an endearing smile.
+
+*** Your score has just increased by 1 point! ***
+
+> w
+
+lll Nahatabatamatatungadeer Ro Ro Ro Din Plaza lll
+
+Nahatabatamatatungadeer Ro Ro Ro Din Plaza is perhaps the best example of
+why, while a good idea in theory, it's never a good idea in practice to name
+areas of the city after local ethnic heroes. A statue of
+Nahatabatamatatungadeer Ro Ro Ro Din himself stands in the direct centre of
+the plaza, bearing proudly aloft a torch in one hand and a sledgehammer in
+the other. Various graffiti has been scribbled all over the statue. Roads
+lead away from here northwest, southwest (which is where you live) and east.
+Norbert van Helsing rushes after you from the east.
+
+> clean statue
+You aren't able to do a very good job of cleaning the statue, lacking, as you
+do, any proper cleaning tools, but the palm of a vampire's hand is
+particularly tough and stubborn and you soon get rid of most of the graffiti.
+     The finished result isn't a big improvement on the unfinished result,
+but at least you feel a momentary bout of pride at seeing it.
+
+*** Your score has just increased by 1 point! ***
+
+> x sledgehammer
+The sledgehammer has a sizeable chunk missing out of one side.
+
+> repair sledgehammer
+Normally it wouldn't be possible to repair a broken stone sledgehammer in
+such a way, but you force the rock into place and then use a previously
+unknown vampire power to fuse it there. It looks a little uneven afterwards
+but you still feel a remarkable amount of civic pride at having restored the
+sledgehammer to (even a shadow of) its former glory.
+
+*** Your score has just increased by 1 point! ***
+
+> sw
+With the sun beginning to creep nastily through the clouds overhead (nice
+things, clouds, ought to be more of them), you decide it's high time you made
+your way home. Norbert follows you some of the way and warns several
+passersby that you're about to drain their blood,  but once you step inside
+and close the door on him, the sound-proofing you've added to the walls shuts
+him out. Sometime later, he apparently decides enough is enough and leaves.
+     Either that or he's realised that the sun is setting and night is
+approaching. The time of the vampire is almost here.
+
+[Press a key, scion of the night.]
+
+Part 2: Vampire About The House
+
+lll Dining Room lll
+
+This is where you used to eat your meals, but since your little accident you
+find your tastes turning to other things. Not that you can't eat meals like
+all those non-vampire types, you just find you don't want to. Hence the
+dining table is now a handy storage space for your coffin, filled with soil
+from your own back garden to boot, and the chairs which once surrounded it
+have been moved into the attic to create more space. On one wall is a dark
+patch where a mirror once hung. Doors lead west and northwest from here.
+
+There is a letter, lying on the floor as if it had been callously discarded.
+
+Ah. Home sweet home. Home is where the heart is. A man's house is his own
+private harem. A home-
+     And so on and so forth.
+
+> look under table
+Under the table there is nothing more interesting than... a lolly.
+     You frown and pull it out, wincing as it sticks first of all to the
+floor and then to your hand. It's been half eaten.
+     Why oh where was there a lolly under your table?
+
+*** Your score has just increased by 1 point! ***
+
+> open coffin
+You lightly touch the coffin... and open it swings. You barely even hear a
+thing, as the mechanism inside is so well oiled. Revealed before you is your
+coffin in all its glory: cushion for resting your head on, padded sides so
+you don't risk yourself an injury if you have a bad dream, light scattering
+of soil from your back garden... and there, where your head would normally
+rest, is a note. Frowning, you reach into your coffin and pick it up.
+     The coffin soundlessly closes itself once more.
+
+*** Your score has just increased by 1 point! ***
+
+A sound, probably inaudible to normal human hearing but not to that of a
+vampire, drifts faintly to your ears. A scuffle, a quickly gasped breath, a
+muttered word under one's breath… all from the direction of your attic.
+     Someone is in your house!
+
+> read note
+"Fellow vampire,
+   Allow me to introduce myself. Call me M. I am, like you, a vampire.
+   I am currently living in a rather rundown flat in Lower Drunswich and feel
+that a change for the better is called for. I have decided, after much
+careful thought and consideration, that I will conquer the world, turn every
+human into a vampire and then have special shields erected over the major
+cities to block out the hateful sun. Then we vampires can walk about in the
+light of day and not fear the fateful demise that awaits us now.
+   But I need generals in my army. I have decided to select you to be my
+appointed general. The reasons for this are manifold yet tend to boil down to
+a couple of salient points:
+
+[Press a key, Lord Sinister.]
+
+   1. I'm desperate.
+   2. You are the only other vampire I know of (aside from my dear wife whom
+I fear the FVH caught and staked last week. That, or my cleaner has missed an
+unusually large patch of dust on the living room carpet.)
+   So... are you interested, Lord Sinister? Do you desire revenge on the
+living ones who seek to have us destroyed merely for draining their blood and
+killing many of them without reason?
+   If you do, we shall meet. We shall discuss our plans. And then we shall
+strike where the humans least expect it. The world shall be ours, Lord
+Sinister, and we shall rule it as the king we vampires were meant to be.
+   We shall meet. And soon."
+
+Unfortunately, or perhaps fortunately, there is no mention of how to contact
+M so it looks like you'll have to wait for him to get in touch with you.
+
+*** Your score has just increased by 1 point! ***
+
+It takes a brave, even a foolhardy fellow, to break into the house of a
+vampire. A burglar? A murderer? Or something more sinister altogether?
+
+> read letter
+
+"Dear Mr Bumble,
+
+Re:        Overdue Payment
+
+We write to you on behalf of our client, Dead 'n' Buried Graveyards Ltd, who
+inform us that, on 22nd June 2006, you did deface the grave - value £24.55
+inclusive of VAT - of one H. Bumble with beastliness and malice aforethought.
+It is further alleged that you damaged a plain wooden coffin - value £15.22
+inclusive of VAT - also belonging to one H. Bumble. We are further informed
+that, upon exiting said graveyard, you broke a fence - value £0.98 inclusive
+of…"
+
+Yes. They're trying to sue you for breaking out of your own grave.
+
+*** Your score has just increased by 1 point! ***
+
+> nw
+
+lll Hallway lll
+
+The hallway isn't really a proper room at all, just a thin corridor with a
+coat rack on one side, a hat stand on the other, and your front door looming
+off to the east. Steps leads up to the second floor of your house while your
+dining room is to the southeast.
+
+You hear the same sound as before, and again from the attic. There is
+definitely someone up there. But who…?
+     A member of the FVH perhaps, planning to murder you during the following
+day when you'll be asleep? They can't get you legally because you haven't
+done anything illegal (that they know about anyway), but maybe they've
+decided it's time to take things into their own hands.
+
+> x coat rack
+Since you've taken to wearing your vampire's cape at all hours of the day and
+night, your coat rack has become somewhat neglected. As has the solitary coat
+still hanging on it.
+
+> x coat
+Your old coat. You'd like to say you have fond memories of it but, really,
+you don't. It's got one too many holes in it for it to ever be classified as
+a 'decent' coat, but...
+     Ah, what's this you find in one of the pockets? Some money? A whistle?
+A...
+     Gum.
+     Gum. In your coat pocket. You can't got a clue what it's doing there as
+you never bother with the stuff, but you take it anyway. No sense in leaving
+it where it is and, who knows, maybe you'll need to use it as a means of
+getting fresh blood one day. Bribery perhaps.
+
+*** Your score has just increased by 1 point! ***
+
+> u
+
+lll Upstairs lll
+
+Your house narrows as it gets higher, so the second floor is a bit smaller
+than the first and contains just this little area you're standing in now,
+your old bedroom to the west and your bathroom to the east. Stairs leads down
+to the hallway and there is a chain dangling from the ceiling, several feet
+out of reach.
+
+You really need to head up there and investigate the sound you heard. The FVH
+are dangerous and mad, and they carry many, many pointed sticks that are
+decidely lethal to your health. Ignoring them could well be a fatal mistake.
+
+> e
+
+lll Bathroom lll
+
+The word "bathroom" generally indicates a room with a bath. Here you have a
+description which is 50% correct. You bought this house on the cheap, checked
+it over during your dinner break one day, and didn't realise until a month
+after you'd moved in that it lacked a bath. On the plus side, you live in
+England so a ready supply of water is always available every time you venture
+outdoors.
+     All your bathroom has is a toilet, which flushes sporadically and, on
+occasion, makes unpleasant gurgling sounds throughout the night.
+     A doorway leads west to the top of the stairs.
+
+> flush toilet
+You flush the toilet, watch it fill with murky brown water, hear it gurgle
+unpleasantly to itself, smell its stench get slowly worse, and then breathe a
+sigh of relief as the brown water disappears and the toilet empties itself.
+     The smell in here lessens ever so slightly.
+
+*** Your score has just increased by 1 point! ***
+
+> w
+
+lll Upstairs lll
+
+Your house narrows as it gets higher, so the second floor is a bit smaller
+than the first and contains just this little area you're standing in now,
+your old bedroom to the west and your bathroom to the east. Stairs leads down
+to the hallway and there is a chain dangling from the ceiling, several feet
+out of reach.
+
+> change
+You change into a vampire bat... and everything you're carrying drops to the
+floor with a clatter (except your cape, of course. This being an authentic
+genuine vampire's cape, it transforms with you.)
+     Undaunted by this unfortunate setback, you quickly fly up to the ceiling
+by the dangling chain.
+
+[Press a key, scion of the night.]
+
+lll Hovering By The Chain lll
+
+You're hovering, bat-like, near the chain hanging from the ceiling.
+     (As a bat, you can't really see things as such as hear them, but as
+you've spent your whole life before this in a vague man-shape, you tend to
+associate hearing as seeing anyway.)
+     There is a chain dangling down here and, a long way below you, the
+floor.
+
+> pull chain
+While the chain is easy enough for a grown man to pull, even for a child to
+pull, it's beyond the capabilities of a bat.
+
+> change
+Eyeing the chain cunningly (and there's nothing like cunning when it comes to
+vampire bats), you fly as close to the chain as you can, then change back
+into your human form. The moment you have a hand again, you grab hold of the
+chain and then when your wings disappear, down you drop. The sound of the
+chain rattling as it is pulled down and reveals a trapdoor in the ceiling is
+sweet, but the thud you make as you slam into the upstairs floor somewhat
+spoils the moment for you.
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, if you would be so kind.]
+
+lll Upstairs lll
+
+Your house narrows as it gets higher, so the second floor is a bit smaller
+than the first and contains just this little area you're standing in now,
+your old bedroom to the west and your bathroom to the east. Stairs leads down
+to the hallway and there is an open trapdoor in the ceiling leading to your
+attic.
+
+Also here are some mints, your watch, a lolly, a note and some gum.
+
+> change
+You change into a vampire bat... and everything you're carrying drops to the
+floor with a clatter (except your cape, of course. This being an authentic
+genuine vampire's cape, it transforms with you.)
+     Undaunted by this, you quickly fly up into the attic and land there
+before reverting back to your human form.
+
+[Press a key, if you would be so kind.]
+
+lll Attic lll
+
+Perhaps the untidiest room known to man (or to this man certainly): your
+attic. This is where the accumulated junk of a lifetime of acquiring junk for
+no other reason than it was there has made its way. You see tables and chairs
+and desks. You see writing bureaus and lamps and clocks. You see boxes and
+cartons and carpets. You see...
+     Many, many more things. The very idea of searching through this lot
+fills even the lifeless heart of an undead lord of the night with dread.
+     Downwards lies the open trapdoor you entered the attic by.
+
+> x table
+You look under the table… and find someone looking back at you!
+     You scream, expecting an attack from the FVH at any moment!
+     Someone else screams!
+     Then something hits you on the nose and a small foot, clad in what can
+only be described as slippers shaped like a cow's head, hit you in the left
+shin. A voice shouts out, "take that, you evil so 'n' so, an' that! an' that!
+an'-" with each repetition of that! being accompanied by another bonk on the
+nose from…
+     A teddy bear.
+     You're so surprised by this - and relieved as well, teddy bears being
+somewhat less deadly than holy water and stakes - that the teddy bear has the
+opportunity to deliver a further three or four strikes before you manage to
+recover your senses enough to seize it and snatch it out of the hands of… the
+five year old girl who is currently trying to bash you to death with it.
+
+[Press a key, Lord of the Unliving.]
+
+Her name, it turns out, is Jemma and she's been kidnapped by some 'baddies'.
+     This she relates to you while stuffing herself with your favourite
+chocolate ice cream from the fridge. (You didn't offer her any, she just took
+it. While you might be a dab hand at intimidating six foot five bikers in
+leather jackets by a mere showing of the pointed teeth and a word or two, you
+find myself wholly unable to impress a five year old girl who thinks your
+vampire's cape is 'a bit girly'.)
+     "It was wicked!" she says, ice cream dribbling down the side of her face
+and slopping all over the kitchen table. "These baddies bursted in an'
+grabbed me dad an' he said a lot of words that he once told me older brother
+off for sayin' 'cos they ain't nice 'n' polite 'n' stuff an' then they shoved
+me dad in the back of this van an' then one of 'em says to grab the girl an'
+then one of 'em grabs me an' shoves me in the back of the van an' then they
+drives off only then they hits another car an' someone swears an' then the
+back of the van comes open an' the baddies drag me an' me dad out and start
+shovin' us into another car an' then me dad kicks one of the baddies right
+where it hurts an' says to me to run off 'n' get help so I runs off to gets
+help only the baddies start runnin' after me an' I see this door open an'
+sneak inside an' one of the baddies says that that's where the evil ol' vampy
+fellow lives so they all run off an' then I 'ad a little sleep an' then you
+comes along an' wakes me- say, you got any more ice cream?"
+
+[Press a key, Lord of the Unliving.]
+
+This is all said in one breathless rush, punctuated by the girl shoving more
+ice cream into her mouth, wiping it around her face, licking it off the edge
+of the table and generally making a godawful mess.
+     Leaving you sitting there in the middle of the night in your kitchen
+with an over active five year old girl looking around for more ice cream and
+you left to wonder just what you're going to do about her.
+
+*** Your score has just increased by 1 point! ***
+
+> l
+
+lll Kitchen lll
+
+You're no gastrinomic genius. (Heck, you can't even spell gastrinomic!) So
+your kitchen is small and compact, with the freezer, washing machine, cooker
+and sink all occupying a space barely large enough to swing a feline in. A
+window (painted black to keep out the prying rays of the sun) used to show
+your back garden but now it just shows... well, not a lot to be honest. There
+is a table in the middle of the floor with a single stool at it, while to the
+east is a doorway leading into another room, to the southwest a door leading
+to your back garden and downwards is your cellar.
+Jemma is sitting on the stool, eating some ice cream. Some of it even manages
+to make its way into her mouth.
+
+> e
+
+lll Dining Room lll
+
+This is where you used to eat your meals, but since your little accident you
+find your tastes turning to other things. Not that you can't eat meals like
+all those non-vampire types, you just find you don't want to. Hence the
+dining table is now a handy storage space for your coffin, filled with soil
+from your own back garden to boot, and the chairs which once surrounded it
+have been moved into the attic to create more space. On one wall is a dark
+patch where a mirror once hung. Doors lead west and northwest from here.
+
+There is a letter, lying on the floor as if it had been callously discarded.
+
+> nw
+
+lll Hallway lll
+
+The hallway isn't really a proper room at all, just a thin corridor with a
+coat rack on one side, a hat stand on the other, and your front door looming
+off to the east. Steps leads up to the second floor of your house while your
+dining room is to the southeast.
+
+> u
+
+lll Upstairs lll
+
+Your house narrows as it gets higher, so the second floor is a bit smaller
+than the first and contains just this little area you're standing in now,
+your old bedroom to the west and your bathroom to the east. Stairs leads down
+to the hallway and there is an open trapdoor in the ceiling leading to your
+attic.
+
+Also here are some mints, your watch, a lolly, a note and some gum.
+
+> change
+You change into a vampire bat... and everything you're carrying drops to the
+floor with a clatter (except your cape, of course. This being an authentic
+genuine vampire's cape, it transforms with you.)
+     Undaunted by this, you quickly fly up into the attic and land there
+before reverting back to your human form.
+
+[Press a key, neck biting one.]
+
+lll Attic lll
+
+Perhaps the untidiest room known to man (or to this man certainly): your
+attic. This is where the accumulated junk of a lifetime of acquiring junk for
+no other reason than it was there has made its way. You see tables and chairs
+and desks. You see writing bureaus and lamps and clocks. You see boxes and
+cartons and carpets. You see...
+     Many, many more things. The very idea of searching through this lot
+fills even the lifeless heart of an undead lord of the night with dread.
+     Downwards lies the open trapdoor you entered the attic by.
+
+> x carton
+You open the nearest carton and get something of a shock.
+     A mirror!
+     Gingerly you pick it up, wincing at the sight of your cape standing
+there without a body inside it.
+
+> smash mirror
+You crush it underfoot. This probably achieves very little in the scheme of
+things but you feel a lot better for doing it all the same.
+
+*** Your score has just increased by 1 point! ***
+
+> open bureau
+You open a bureau at random and find inside… nothing.
+
+> open bureau
+You open another bureau at random and find inside… your old diary. Hmm.
+What's that doing in there?
+     Curious, you retrieve it.
+
+*** Your score has just increased by 1 point! ***
+
+> read diary
+You flip open the diary and read:
+
+April 18th
+Got killed. Mother always warned me about the dangers of picking up
+hitchhikers but the poor fellow looked so sad standing by the side of the
+road so I pulled over and picked him up.
+
+Big mistake!
+
+Right in the middle of a joke about three nuns on their way to see the Devil
+to barter for the soul of an innocent, the ‘poor fellow’ leans over and fangs
+me in the throat.
+
+Never did hear the punchline.
+
+> read diary
+You flip open the diary and read:
+
+April 22nd
+Woke up in my coffin today. Not a nice coffin. Too cramped, not enough
+legroom, and whoever designed coffins that lack a handle on the inside needs
+shooting.
+
+Managed to get out in the end by punching my way through the coffin lid and
+then crawling through all the soil that some damn fool had piled on top of
+it. A curse on gravediggers!
+
+> read diary
+You flip open the diary and read:
+
+April 24th
+Had an unpleasant encounter with a fellow in the town centre who called me a
+‘vampire’ and then tried to drive a stake through my chest. Came keen as
+well! I was just in the process of draining his blood when the police showed
+up and I had to flee.
+
+Arrived home to find a sign scrawled on the side of my house claiming that
+the owner is a vampire and to keep small children away in case I murder them.
+
+Went inside and drank some blood while I mulled over what to do.
+
+> read diary
+You flip open the diary and read:
+
+April 25th
+Norbert van Helsing came to see me. Nasty person. He believes I am a vampire
+and pointed to my elongated teeth, cape and the fact that I turned into a bat
+several times during our talk as proof of his suspicions. I refuted his
+allegation and would have gone for the jugular right there and then except
+that he was carrying a cross and, for some reason, the very presence of it
+made me uneasy.
+
+In the end, Norbert left with a promise to gather evidence on my ‘nefarious
+practices’ and then ‘return with a torch’ and ‘burn my evil soul to a crisp’.
+
+> read diary
+You flip open the diary and read:
+
+April 28th
+The proof seems to be evident: I am a vampire. Either that, or I have
+recently acquired a very bad skin condition that makes being out in the
+sunlight painful. And become allergic to crosses and all religious
+paraphernalia. And taken a liking for wearing long capes. And a couple of my
+teeth have grown to four times their previous length. And priests, who I was
+previously on good terms with, have now started trying to kill me. Blood
+tastes a lot better than I thought it would as well.
+
+Oh… and I start looking at women’s necks and seem to have precious little
+interest in the rest of them.
+
+All this is worrying. Church this Sunday seems to be off the agenda.
+
+> read diary
+You flip open the diary and read:
+
+April 30th
+Hubert Bumble is no more. I am a vampire and a vampire is not called Hubert
+Bumble. (In fact, I was embarrassed by the name when I was human.) So
+something else is called for…
+
+Dracula? No, already taken.
+
+I wonder what else I can think of…?
+
+*** Your score has just increased by 1 point! ***
+
+> d
+You clamber back through the trapdoor and drop heavily to the floor at the
+top of the stairs.
+
+lll Upstairs lll
+
+Your house narrows as it gets higher, so the second floor is a bit smaller
+than the first and contains just this little area you're standing in now,
+your old bedroom to the west and your bathroom to the east. Stairs leads down
+to the hallway and there is an open trapdoor in the ceiling leading to your
+attic.
+
+Also here are some mints, your watch, a lolly, a note and some gum.
+
+> get all
+You take the mints, your watch, the lolly, the note and the gum.
+
+> d
+
+lll Hallway lll
+
+The hallway isn't really a proper room at all, just a thin corridor with a
+coat rack on one side, a hat stand on the other, and your front door looming
+off to the east. Steps leads up to the second floor of your house while your
+dining room is to the southeast.
+
+> se
+
+lll Dining Room lll
+
+This is where you used to eat your meals, but since your little accident you
+find your tastes turning to other things. Not that you can't eat meals like
+all those non-vampire types, you just find you don't want to. Hence the
+dining table is now a handy storage space for your coffin, filled with soil
+from your own back garden to boot, and the chairs which once surrounded it
+have been moved into the attic to create more space. On one wall is a dark
+patch where a mirror once hung. Doors lead west and northwest from here.
+
+There is a letter, lying on the floor as if it had been callously discarded.
+
+> w
+
+lll Kitchen lll
+
+You're no gastrinomic genius. (Heck, you can't even spell gastrinomic!) So
+your kitchen is small and compact, with the freezer, washing machine, cooker
+and sink all occupying a space barely large enough to swing a feline in. A
+window (painted black to keep out the prying rays of the sun) used to show
+your back garden but now it just shows... well, not a lot to be honest. There
+is a table in the middle of the floor with a single stool at it, while to the
+east is a doorway leading into another room, to the southwest a door leading
+to your back garden and downwards is your cellar.
+Jemma is sitting on the stool, eating some ice cream. Some of it even manages
+to make its way into her mouth.
+
+> open freezer
+You open the freezer.  Some jam and a bottle are inside the freezer.
+
+> get jam
+You take the jam from the freezer.
+
+> give lolly to jemma
+Jemma eyes the lolly with narrowed eyes. "I'm not too keen on lollies," she
+says suspiciously, as if you might be trying to poison her.
+     "Well," you say, making to put the lolly away, "that's too-"
+     "Hey!" she cries, snatching the lolly off you and cramming it into her
+mouth. "I dint say I dint want it!"
+
+*** Your score has just increased by 1 point! ***
+
+> give gum to jemma
+"Gum," she says. "My favourite!"
+     "Would you like a piece-" is as far as you get before she snatches it
+off you and crams it into her mouth. She half chokes as she does so but,
+being obsessed with sweeties and the like as she is, she doesn't let a minor
+thing like this stop her from wolfing it all down.
+
+*** Your score has just increased by 1 point! ***
+
+> give jam to jemma
+"Hey, jam!" cries Jemma, snatching the jam off you and plunging her hand into
+it.
+     "Would you prefer a spoon and a dish for that?" you ask.
+     She digs a wad of jam out then crams it into her mouth. Most of it
+spills down her front and stains her already grubby nightgown an even
+grubbier colour.
+     "Nah," she says and finishes off the jam in short order.
+
+*** Your score has just increased by 1 point! ***
+
+> talk to jemma
+"What we going to do 'bout me dad?" asks Jemma, wiping her mouth with her
+sleeve and smearing the chocolate ice cream everywhere.
+
+1)  "We? Nothing. I am a vampire, little girl, and you should leave while you
+still can."
+2)  "Why should I do anything about your dad?"
+
+> 1
+"What's a vampy?" she asks, pausing only long enough to pick up the ice cream
+pot and stick her hand inside. Chocolate ice cream oozes out over her
+fingers.
+     "A vampire, little girl. A Lord of the Night. A Master of the Undead. A
+Denizen of the-" You can see you're wasting your time. Either she's genuinely
+unimpressed with the myriad titles of vampires, or she's too engrossed with
+her ice cream to spare thought for anything else. You need to decide how
+you're going to deal with this hellcat before someone discovers she's here
+and wonders just what a vampire is doing with a little girl in his house in
+the middle of the night. You can almost hear the FVH sharpening their stakes…
+
+1)  "As I said before, you should leave. Now. Preferably before I finish this
+sentence."
+2)  "Tell you what, why don't you go and rescue your dad right now and I'll
+follow along later."
+
+> 2
+"I dunno," says Jemma. "You might be just sayin' that to get me outta here."
+     And then she gives you such a suspicious look that you feel quite
+offended at the very idea, even if that was what you were intending all
+along.
+     "Ah-hem," you say, feeling that a good throat clear is called for. "So,
+let me get this straight: you're proposing we go off and rescue your father?"
+     Jemma nods. Some ice cream falls from her lip and slides down the side
+of the face but she seems not to notice. "Yep."
+
+1)  "But that would, um, be rather dangerous so why don't I just call the
+police and we'll let them handle it?"
+2)  "Very well. Let's get going."
+
+> 2
+And just like that, you say yes.
+
+(Afterwards, when you have chance to think it over, you wonder just what you
+were thinking when you agreed to help the little girl out. You're a vampire.
+A Lord of the Undead. A Master of Darkness. You're not supposed to go around
+helping people. By rights, you should have fanged the little menace the
+moment you set eyes on her and either drained her blood as a midnight snack
+or kept her around for possible transformation into a little girl vampire at
+some unspecified point in the future. Instead, you agreed to help her. If
+your heart was capable of beating, it would be beating very quickly indeed
+right now.)
+
+[Press a key, neck biting one.]
+
+It takes only a few minutes to get ready. You don't require any weapons
+yourself - being a vampire, you are a weapon - and Jemma, after glancing
+through a selection of knifes in the kitchen, picks up a spoon.
+     "You're going to rescue your father with a spoon?" you ask.
+     She nods. "Yep. Y'know what…?"
+     You bend down to catch what she might be about to say and she bonks you
+on the head with the spoon.
+     "It's a good weapon as well," she adds.
+     As your head is currently ringing, you can't help but agree.
+
+[Press a key, neck biting one.]
+
+Part 3: The Vampire & The Little Girl
+
+"So where did the baddies take your father?" you ask Jemma as the two of you
+set foot outside your house. Fortunately, the sun has set and the FVH are
+nowhere to be seen.
+     "Dunno," says Jemma. She's grabbed an old coat from your wardrobe which
+is several sizes too big for her and looks like she's wearing a funeral
+shroud. "Say, we goin' to pass any sweet shops on the way?"
+     "You don't know?"
+     She shakes her head. "Nope. 'Bout those sweet shops…"
+     You ask her where her father works in the hope that this might give you
+a clue where to start.
+     "Dunno," she says.
+
+[Press a key, neck biting one.]
+
+"I fink… um… it's a building. A big building. Might be dis officey place wot
+counsels people… or a big security building… or one of those places you goes
+to when you isn't very well… or it might even be one of those places you goes
+to when you're even worse than not very well…"
+     You mull that over.
+     "In other words," you say at length, "he could be pretty much anywhere?"
+     Jemma nods. "That jus' 'bout sums it up."
+     Suppressing the urge to fang her and be done with it, you think over
+what she's told you: a marriage guidance counsellor's office (it couldn't be
+the one you were at earlier today, could it?), a security building, a
+hospital or a graveyard. It's a start at least. From where you're standing,
+the marriage guidance counsellor's office is northeast, the security building
+southeast, the hospital southwest and the graveyard northwest.
+
+*** Your score has just increased by 1 point! ***
+
+> talk to jemma
+"You got any sweeties?" asks Jemma hopefully.
+     "No, I was wondering if you had any advice."
+     She sighs. "Dunno..." She bites her lip. "'Ard to fink clearly when you
+'adn't 'ad no sweeties for ages." She wipes a chocolate smear from the side
+of her face. "Course, you could go somewhere you know."
+     You frown. "Why somewhere you do?"
+     "Dunno. Ask people if dey know anythin'. They mighta seen somethin'."
+     It's not much of an idea but it's certainly better than anything you've
+had so far.
+
+*** Your score has just increased by 1 point! ***
+
+> nw
+You and Jemma set off for the graveyard.
+
+[Press a key, master of the darkness.]
+
+lll Graveyard Entrance lll
+
+You haven't been back to the graveyard since your broke out on the night you
+became a vampire, but it doesn't look like you've missed much. It is nothing
+more than a few acres of muddy land, surrounded by a wooden fence topped with
+barbed wire. There is a gate directly before you, but you escaped before by
+smashing your way through the fence on account of your slightly agitated
+state of mind at the time. The gate is due north, the road leading back to
+your house to the south.
+
+Jemma looks around her and sniffs. "Don't like this place."
+     "Me, neither," you say. It brings back bad memories.
+     "No sweetie shops."
+     "Yes, that's my main reason for disliking it as well."
+     Your companion wanders up to the fence and tries to peer over it. As
+it's nine feet tall and she's barely three and a half, she doesn't succeed
+very well. From somewhere, she produces a sticky sweet and pops it into her
+mouth. As she chews, she says, "we need to get inside an' pronto."
+     Wise words indeed.
+
+> change
+"Stay here," you say to Jemma. "I'll fly inside and open up the gate."
+     She nods, distracted with the toffee she's found from somewhere.
+     You quickly change into a bat (wincing as all your possessions drop
+noisily to the ground), fly over the gate, enter the graveyard... and see
+Jemma waiting for you.
+     Surprised over this strange turn of events, you change back into your
+human form and land at the side of her.
+     "How did you get inside?" you ask.
+     She points with a chocolate-smeared finger at the gate, which has been
+pushed open. "It wasn't locked."
+     "And you didn't think to tell me that?"
+     She considers this, finishes her toffee off, then shrugs. "Nah."
+
+*** Your score has just increased by 5 points! ***
+
+> l
+
+lll Amidst Graves lll
+
+The graves of the deceased (your former neighbours at one time) are all
+around you, some topped with lavish gravestones, others with nothing more
+than a chunk of stone with their name crudely scribbled on (in biro in a
+couple of cases). Paths wind through the graves to the west and north, deeper
+into the graveyard, and south, to the entrance. A light shines from somewhere
+over to the northeast but there is no path in that direction.
+Jemma is here, watching you with anxious eyes and probably thinking about ice
+cream.
+
+> x graves
+You glance over the graves, noting the names on them, the inscriptions, the-
+     And then you see your own grave.
+     It probably shouldn't come as a surprise to you - after all, this is
+where you broke out of on the night you woke up in your coffin so it's
+expected that it would be here - but, even so, seeing it is a shock.
+     "Hey," says Jemma. "You're famous. I wonder if I'm 'ere…" She reads some
+of the inscriptions closest to her. "No. Not me. Not poor lil Jemma." She
+sniffs. "I always get left out…"
+
+> x your grave
+Gingerly you approach your grave. If your heart was beating, it would no
+doubt be doing cartwheels right now. As it is, you feel a queasiness in your
+chest and a fervent desire to be anywhere but here…
+     Something glints in the soil. Frowning, you bend down and pick it up.
+It's-
+     "Is it a sweetie?" asks Jemma.
+     "No," you say, "it's my lucky coin."
+     Jemma groans.
+     You must have dropped it when you clambered out of your coffin on that
+fateful night. Well, it's nice to have it back. Not that it really did you
+much good, of course, seeing as you died whilst carrying it, but even so…
+
+*** Your score has just increased by 1 point! ***
+
+> n
+
+lll Harry The Zombie's Den lll
+
+Someone has dragged a mattress, a broken chair, a bedside cabinet and a TV
+with a smashed screen to this part of the graveyard and arranged them to give
+the impression of this being a little home away from home. It might be quite
+cosy if not for the fact that there are several graves interspersed with the
+furniture, which quite spoils the 'homey' feel. A sign in the middle of this
+area indicates 'HARRY TEH ZOMBEE'S DENN' in big bold letters, no doubt
+erected by someone with considerably more enthusiasm than spelling ability.
+     There is a path leading away to the south.  Jemma enters from the south.
+
+> x mattress
+As moth-eaten and smelly as any old mattress you've ever come across. If this
+hasn't spent the last few years lying in a scrap yard, you'd be very
+surprised. From the way it seems to move with a life of its own, there's
+either something in or under it.
+
+> lift mattress
+Expecting to see an army of termites or other insects beneath the mattress,
+you gingerly lift it up… and find, not the termites you expected, but some
+biscuits.
+     At the same time, the mattress you're holding squirms about unpleasantly
+in your hand and you quickly drop it.
+     "Biccies!" cries Jemma, tugging them out from under the matrress.
+     "Leave them alone," you say. "You don't want to eat biscuits that have
+been under a-"
+     You're just in time to snatch them out of her hands before she starts to
+eat them.
+     "No fair, no fair!" she wails. "I'm 'ungry! I 'aven't 'ad any brekkie!"
+     You tell her to hush and, eventually, after several comments about how
+she's' "starvin'" and "gonna die of 'unger", she does.
+
+*** Your score has just increased by 1 point! ***
+
+> get tv
+As you lift the TV, something that was propped against the back of it tumbles
+over. Frowning, you set down the mini-TV to see what it was.
+     A journal.
+     Curious, you pick it up.
+
+*** Your score has just increased by 1 point! ***
+
+> read journal
+After struggling with the painfully bad spelling and broken grammar, you
+manage to reconstruct it into something approaching English:
+
+Page 1:
+Woke up dead today. Bit of a shock.
+
+Page 2:
+Decided to explore my new home. Not much in the way of scenery. Got a few
+neighbours but (heh) they don't talk much. Whatever's happened to me doesn't
+seem to have happened to them. Nice to have the place to myself.
+
+Page 3:
+Found an old scrap yard nearby and helped myself to the choice items. Great
+TV. Classy mattress. Even a bedside cabinet which the Queen might appreciate.
+Like a little home away from home.
+
+[Press a key, Lord Sinister.]
+
+Page 4:
+Settling in. Being dead isn't as bad as I thought it would be.
+
+Page 5:
+Found the camp site. There was a compass there which I took for myself. Nice
+looking thing.
+
+Page 6:
+Gave up with the compass. Must be broken. Keeps pointing all over the place.
+In the end, buried it by my mattress.
+
+Page 7:
+Some new blood came in today. Couple of hulking fellows carrying some
+unconscious bloke between them. Went west to the standing stones. Think I
+might follow.
+
+[Press a key, Lord Sinister.]
+
+Page 8:
+Discovered the Tapping Ritual at the standing stones. Looks like if I tap
+each stone once in the compass directions north, south, east, west, something
+weird happens. Going to try it out tomorrow.
+
+There are no more journal entries.
+
+*** Your score has just increased by 1 point! ***
+
+> dig
+Going on what your read in the journal, you dig into the earth at the side of
+the mattress and find-
+     "Any sweeties?" asks Jemma hopefully.
+     "No," you say, pulling the compass out of the ground. "Just this."
+
+*** Your score has just increased by 1 point! ***
+
+> s
+
+lll Amidst Graves lll
+
+The graves of the deceased (your former neighbours at one time) are all
+around you, some topped with lavish gravestones, others with nothing more
+than a chunk of stone with their name crudely scribbled on (in biro in a
+couple of cases). Paths wind through the graves to the west and north, deeper
+into the graveyard, and south, to the entrance. A light shines from somewhere
+over to the northeast but there is no path in that direction.  Jemma enters
+from the north.
+
+> w
+
+lll Woody Copse lll
+
+Several trees which look either dead or seriously unwell mark the western
+edge of the graveyard. Elaborate gravestones, far more imposing looking than
+those seen elsewhere, are situated between the trees, indicating that this is
+the graveyard equivalent of first class. A break in the fence to the west
+leads to an area of standing stones and another path leads away to the east.
+Jemma enters from the east.
+
+> x trees
+The trees are all similar in appearance and sport weeping sores across their
+bark. You don't know what might have caused this but even your vampire senses
+are tingling.
+     There seems to be something caught in one of the branches.
+
+> shake tree
+You give it a vigorous shaking and after a second or two a coconut drops from
+the branches and lands on the ground.
+     A coconut?
+     In a graveyard in the English countryside?
+     "Whee!" cries Jemma, snatching up the coconut. "Me fave!"
+     "Hang on," you say. "Before you eat that, you ought to at least stop to
+wonder how a coconut happened to be up a tree in a graveyard in the English
+countryside and, furthermore, if it's safe to eat and then…"
+     But you stop. By the time you reach 'before you eat', Jemma had opened
+the coconut up with her bare hands (strong hands these five year olds), drank
+the coconut dry and thrown the remains away.
+     "Yeah?" she says, coconut juice dribbling down her chin.
+     You sigh. "Never mind."
+
+*** Your score has just increased by 1 point! ***
+
+> w
+
+lll Standing Stones lll
+
+This is like a miniature Stonehenge, complete with tall standing stones
+arranged in rough circle around the top of a hill. There is even an old stone
+altar in the centre of them, with red stains on top indicating that it might
+well have been used in the past for nefarious purposes. A hole in the fence
+surrounding the graveyard can be seen to the east while paths lead down the
+hill to the north, west and south.  Jemma enters from the east.
+
+> x stones
+There are four in total, set at each of the cardinal compass directions which
+makes you think of them as the north stone, the east stone, the south stone
+and the west stone. The stones are identical in appearance, being roughly
+eight feet tall, weighing more than even a vampire could comfortably lift and
+worn by the passing of many, many years.
+
+> tap north stone
+You tap on it.
+     Faintly, you hear a ringing sound.
+
+> tap south stone
+You tap on it.
+     Faintly, you hear a ringing sound.
+
+> tap east stone
+You tap on it.
+     Faintly, you hear a ringing sound.
+
+> tap west stone
+You tap on it.
+     The ringing sound you heard before grows louder and louder and louder
+and…
+     A bizarre figure steps into the circle of standing stones.
+     He is about your height but much bulkier, has a face that (being kind)
+even a mother couldn't love, dresses in clothes that were out of style before
+your grandparents were born, and emits a smell that would give a leprous
+skunk a run for its money. Fortunately, you're too well-mannered to comment
+on all this.
+     However, Jemma isn't.
+     "Phoeey!" she cries, holding her nose. "You smells! An' yer ugly! An'
+yer dress like a weirdo!"
+     The smelly, ugly weirdo steps forward into the light and the bell he is
+carrying rings again. "You got a nerve, kid," he rasps, his voice as wrecked
+as the rest of him. "Show some manners or I'll stick you over me knee and
+give you the spanking your momma never did."
+
+[Press a key, scion of the night.]
+
+Jemma's hand goes for her spoon but you manage to grab her in time.
+     "Who are you?" you ask the strange looking fellow.
+     "Me?" He scratches his head. You can't help but notice how a maggot or
+two becomes dislodged and drops to the ground. "You mean you went to the
+trouble of invoking the ritual and summoning me and you don't even know who I
+am?" He shakes his head. Another maggot gains its freedom. "I'm Harry the
+zombie, pal, and you-" one stubby, decaying finger points at you "-you're
+about an inch away from getting your ass handed to you on a plate. Start
+talking."
+
+*** Your score has just increased by 1 point! ***
+
+> talk to harry
+"You think I've got nothing better to do than talk to you?" asks Harry.
+     "You're mean," says Jemma. "An' you smell."
+     "Yeah?" Harry picks his teeth, dislodging something small and wriggly.
+"And I hate kids, too."
+     Jemma scowls then whispers to you, "if you wanna 'it 'im, go fer it".
+     You shush her. "Harry, why are you here?"
+     "Why do you care?"
+     "I'm just curious."
+     "Well… maybe I don't feel like talking."
+
+> talk to harry
+"How come you're the only zombie in the graveyard?" you ask.
+     Harry shrugs. "Beats me. I woke up in me coffin. Cramped place. Not much
+fun. Decided being in there wasn't much fun so I punched a hole in it and
+clambered out. Loads of other dead bodies in this place but they don't seem
+active like me. Dunno why."
+
+> talk to harry
+"What happens with the Tapping Ritual?" you ask.
+     "Found me journal, did you? Knew I'd put the damn thing somewhere.
+Anyway, the Ritual? Not a thing. I tapped one of the stones 'cos I was bored
+- when you live in a graveyard, you don't have a lot to amuse yourself - and
+heard a funny sound. So I tapped another one and heard another funny sound. I
+figured out if I tapped them all in the right sequence, I heard a whole load
+of funny sounds. So I went to investigate."
+     "And what did you find?"
+     "Nothing."
+
+> talk to harry
+"Nothing at all?" you ask.
+     "Well… not nothing as such, just nothing very interesting." Harry yawns.
+"This conversation's about the most boring thing that's happened to me since
+I died. I'm off to me den."
+     He wanders off back into the graveyard. He's just out of sight when
+Jemma suddenly yells out: "an' you really smell!"
+
+*** Your score has just increased by 1 point! ***
+
+> e
+
+lll Woody Copse lll
+
+Several trees which look either dead or seriously unwell mark the western
+edge of the graveyard. Elaborate gravestones, far more imposing looking than
+those seen elsewhere, are situated between the trees, indicating that this is
+the graveyard equivalent of first class. A break in the fence to the west
+leads to an area of standing stones and another path leads away to the east.
+Jemma enters from the west.
+
+> e
+
+lll Amidst Graves lll
+
+The graves of the deceased (your former neighbours at one time) are all
+around you, some topped with lavish gravestones, others with nothing more
+than a chunk of stone with their name crudely scribbled on (in biro in a
+couple of cases). Paths wind through the graves to the west and north, deeper
+into the graveyard, and south, to the entrance. A light shines from somewhere
+over to the northeast but there is no path in that direction.  Jemma enters
+from the west.
+
+> n
+
+lll Harry The Zombie's Den lll
+
+Someone has dragged a mattress, a broken chair, a bedside cabinet and a TV
+with a smashed screen to this part of the graveyard and arranged them to give
+the impression of this being a little home away from home. It might be quite
+cosy if not for the fact that there are several graves interspersed with the
+furniture, which quite spoils the 'homey' feel. A sign in the middle of this
+area indicates 'HARRY TEH ZOMBEE'S DENN' in big bold letters, no doubt
+erected by someone with considerably more enthusiasm than spelling ability.
+     There is a path leading away to the south.
+A zombie by the name of Harry is here.  Jemma enters from the south.
+
+> talk to harry
+"You here again?" Harry says with a groan. "And I see you bought the annoying
+brat as well."
+     "Jus' you wait, mister," Jemma says. "When I'm big 'n' tuff 'n' hard,
+I'm gonna come back 'ere an-"
+     You manage to shush her and say to Harry, "I felt our conversation
+before was left a bit incomplete."
+     "Really? Well, I didn't. Clear off."
+
+> talk to harry
+"You mentioned before you found nothing after the Tapping Ritual," you say,
+"but then you said you'd found something."
+     Harry shrugs. "Something, nothing. What's it matter?"
+     "It matters to me."
+     "An' me," says Jemma. "Some baddies kidnapped me dad."
+     Harry looks about to snap at her to be quiet, but you see him hesitate.
+"Your dad's been kidnapped?"
+     "Yep."
+     You've never seen a zombie lost in thought before and you hope never to
+again. It's like watching a very slow coat of paint dry on a very long wall.
+     "Tell you what, I'll take you to where I stashed him, okay?" he says.
+     "Stashed who?" you ask.
+     "The fellow who was on the other end of the Ritual. This way."
+     He wanders off to the south.
+
+*** Your score has just increased by 1 point! ***
+
+> s
+
+lll Amidst Graves lll
+
+The graves of the deceased (your former neighbours at one time) are all
+around you, some topped with lavish gravestones, others with nothing more
+than a chunk of stone with their name crudely scribbled on (in biro in a
+couple of cases). Paths wind through the graves to the west and north, deeper
+into the graveyard, and south, to the entrance. A light shines from somewhere
+over to the northeast but there is no path in that direction.
+A zombie by the name of Harry is here.
+
+"Try and keep up," mutters Harry. "I ain't got all day."
+     He heads to the west.  Jemma enters from the north.
+
+> w
+
+lll Woody Copse lll
+
+Several trees which look either dead or seriously unwell mark the western
+edge of the graveyard. Elaborate gravestones, far more imposing looking than
+those seen elsewhere, are situated between the trees, indicating that this is
+the graveyard equivalent of first class. A break in the fence to the west
+leads to an area of standing stones and another path leads away to the east.
+A zombie by the name of Harry is here.
+
+"Not far to go now," mutters Harry, and heads off to the north along a path
+you hadn't even noticed before.  Jemma enters from the east.
+
+> n
+
+lll Hidden Path lll
+
+Due to the thick, encroaching bushes, this path is actually hidden from the
+rest of the graveyard to the south. In fact, if not for Harry showing you the
+way, you doubt you'd have ever stumbled across it.
+     It heads north to some kind of clearing.
+A zombie by the name of Harry is here.
+
+"Just north of here," says Harry and heads in that direction.  Jemma enters
+from the south.
+
+> x bushes
+You peer into the bushes, not expecting to see anything beyond a few leaves,
+a few dead twigs and...
+     A tie, hanging from one of the branches.
+     "Me dad's!" cries Jemma, and snatches it down. "Yep, it's 'is alwight.
+See dat spot there? Dat's where I threw an egg at 'im for 'is birthyday!"
+     You open your mouth to ask why she threw an egg at her father on his
+birthday, but decide you're better off not knowing.
+
+*** Your score has just increased by 1 point! ***
+
+> n
+
+lll Clearing lll
+
+This isn't a clearing that is ever going to win any design awards,
+consisting, as it does, of just a round area about the size of your kitchen
+with trees all about. A path leads back to the south.
+
+[Press a key, Lord of the Unliving.]
+
+Harry stalks into the bushes and returns dragging someone along behind him. A
+fellow with both hands tied behind his back who looks like he's gone several
+rounds with the zombie equivalent of Mike Tyson and come off worse.
+     "This is the guy I found," he says, pushing the fellow to the floor. "I
+tapped on the stones, he tapped on some trees back there. Like some kinda
+signal. Only he looked surprised to see me."
+     "I was surprised to see you!" gasps the man. "It was supposed to be my
+partner I was signalling to and instead you showed up."
+     "Yeah. And didn't you look surprised?" Harry laughs. "Fellow calls
+himself Jeff. Didn't want to tell me his name at first so I beat him up to
+make him tell me."
+     "I told you my name," insists the man called Jeff. "You just beat me up
+anyway."
+
+[Press a key, Lord of the Unliving.]
+
+Harry laughs again. "Yeah, I know. Now, you interrogate this fellow all you
+like and then do with him what you like. I don't care. Me? I'm off to me den
+and I don't wanna be disturbed again."
+     He leaves to the south.
+     You walk over to Jeff. "Let's have a talk, shall we?"
+     "I'm telling you nothing. Believe me, after what he did to me, nothing
+you can do would be the least bit frightening."
+     You flash him your fangs. "Oh, really?"
+
+[Press a key, Lord of the Unliving.]
+
+Part 4: Interrogation (vampire style)
+
+It's time to interrogate Jeff. This isn't done in the normal way of asking
+him questions or even using the 'talk to' command. Instead, when you press
+RETURN again, you'll find Jeff's first response displayed on screen. Simply
+type any of the words he says (any at all) and Jeff will respond to it. (If
+you're using the ADRIFT Runner to play this game, you can even click on the
+words with the mouse and have it select them for you.) Only one word at a
+time can be selected.
+
+[Press a key, Lord of the Unliving.]
+
+"It wasn't my fault... I was paid to do it. Paid I tell you! And a lot of
+money besides. I suppose I could have turned it down but I got a wife and
+kids to look after and they don't feed themselves, you know. So I made a
+decision to take the money and do the deed. I never imagined it would end up
+like this."
+
+> fault
+
+"No, it wasn't supposed to go down like this at all," says Jeff. "It was
+supposed to be peaceful, y'know? Grab the guy, make him pay us a fortune and
+then let him go. Only he acted all macho and put up a fight. So we... we..."
+     "Did you kill him?" asks Jemma with a slight hitch in the voice.
+     "No! I'm not a killer. We just, well, threatened him. Snapped his pen
+and said we'd do his neck next-"
+     "His pen!" Jemma screeches. She's so horrified that she even forgots the
+chocolate bar she's eating and stares at him in open-mouthed shock. "I bought
+him dat pen for his birthday! Wiv me own money! That he gave to me!"
+     "Hey, kid, calm down," says Jeff. "It was either that or his neck and we
+thought-"
+     "You *******!" says Jemma.
+     Jeff frowns and looks at you. "Did she just swear at me then?"
+     "I don't know," you say. "But it didn't sound nice."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, if you would be so kind.]
+
+"It wasn't my fault... I was paid to do it. Paid I tell you! And a lot of
+money besides. I suppose I could have turned it down but I got a wife and
+kids to look after and they don't feed themselves, you know. So I made a
+decision to take the money and do the deed. I never imagined it would end up
+like this."
+
+> money
+
+"Yeah, money, the root of all evil," says Jeff with a shake of his head.
+     "You can buy sweeties wiv money," says Jemma.
+     Jeff looks at her. "And...?"
+     Jemma shuffles her feet. "Jus' sayin' is all..."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, master of the darkness.]
+
+"It wasn't my fault... I was paid to do it. Paid I tell you! And a lot of
+money besides. I suppose I could have turned it down but I got a wife and
+kids to look after and they don't feed themselves, you know. So I made a
+decision to take the money and do the deed. I never imagined it would end up
+like this."
+
+> kids
+
+"My poor little dears," says Jeff. "I miss 'em."
+     "They like sweeties?" asks Jemma.
+     "I guess..."
+     "What're their faves?"
+     "Er... I'm not sure..."
+     Jemma points a chocolate-smeared finger at him. "You're a bad father."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, oh Vampire.]
+
+"It wasn't my fault... I was paid to do it. Paid I tell you! And a lot of
+money besides. I suppose I could have turned it down but I got a wife and
+kids to look after and they don't feed themselves, you know. So I made a
+decision to take the money and do the deed. I never imagined it would end up
+like this."
+
+> deeds
+
+"Yeah, I did it. I feel bad about it but, y'know, it's done now."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, master of the darkness.]
+
+"It wasn't my fault... I was paid to do it. Paid I tell you! And a lot of
+money besides. I suppose I could have turned it down but I got a wife and
+kids to look after and they don't feed themselves, you know. So I made a
+decision to take the money and do the deed. I never imagined it would end up
+like this."
+
+> wife
+
+"Yeah, sweet little Angela. Most beautiful girl I ever saw. But she's one
+demanding one, let me tell you. She wants this, she wants that. Never gives
+me a bit of peace and quiet. So, sometimes, I do things that aren't strictly
+legal in order to keep her in the lifestyle to which she's become accustomed.
+Man, it ain't easy."
+
+*** Your score has just increased by 1 point! ***
+
+> peace
+
+"I love her but, well, it'd be nice if she occasionally kept her mouth shut.
+She even orders me around in her sleep, and doing what she says has become so
+ingrained I find myself obeying her in my sleep."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, lifeless one.]
+
+"Yeah, sweet little Angela. Most beautiful girl I ever saw. But she's one
+demanding one, let me tell you. She wants this, she wants that. Never gives
+me a bit of peace and quiet. So, sometimes, I do things that aren't strictly
+legal in order to keep her in the lifestyle to which she's become accustomed.
+Man, it ain't easy."
+
+> legal
+
+"Nothing really bad. I mean, no one ever dies. Much anyway."
+     "How can someone die but not much?" you ask.
+     Jeff shrugs. "They just don't is all. I might be a criminal, but I'm no
+killer."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, Lord of the Unliving.]
+
+"Yeah, sweet little Angela. Most beautiful girl I ever saw. But she's one
+demanding one, let me tell you. She wants this, she wants that. Never gives
+me a bit of peace and quiet. So, sometimes, I do things that aren't strictly
+legal in order to keep her in the lifestyle to which she's become accustomed.
+Man, it ain't easy."
+
+> lifestyle
+
+"Let me tell you, keeping a woman like that satisifed ain't easy. Sher spends
+about a grand a week, and as I only earn £110, that presents a problem. So,
+from time to time, I find myself doing little jobs on the side. Strictly
+small time." Jeff shakes his head. "Aside from this one, I guess."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, scion of the night.]
+
+"Yeah, sweet little Angela. Most beautiful girl I ever saw. But she's one
+demanding one, let me tell you. She wants this, she wants that. Never gives
+me a bit of peace and quiet. So, sometimes, I do things that aren't strictly
+legal in order to keep her in the lifestyle to which she's become accustomed.
+Man, it ain't easy."
+
+> angela
+
+"We met a while back," says Jeff, his eyes beginning to mist over at the
+remembering. "She was walking down the beach in this skimpy little bikini and
+she-"
+     You cough and indicate Jemma.
+     Jeff hesitates then quickly goes on, "anyway, me and her we went back to
+her hotel and we-" He glances at Jemma again. "We, um... er... after that we
+got married and she insisted I buy her things to show my love for her. So I
+did. Expensive things. But whatever I bought her, it just wasn't enough. She
+always wanted more, more, more."
+     "Why dint you jus' kill her?" asks Jemma. She looks up at you. "Saw it
+in The Teletubbies once. Man killin' his wifey." Back to Jeff: "so?"
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, neck biting one.]
+
+"I ain't a killer. Not me. No way. Besides which, she's scary my wife is.
+Frightening in a beautiful centrefold kind of way. So I just bought her stuff
+to keep her happy and, when I didn't have enough money left, I started
+stealing things."
+
+> killer
+
+"A thief? Yes. A kidnapper? Yes. But a killer? No way."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, lifeless one.]
+
+"I ain't a killer. Not me. No way. Besides which, she's scary my wife is.
+Frightening in a beautiful centrefold kind of way. So I just bought her stuff
+to keep her happy and, when I didn't have enough money left, I started
+stealing things."
+
+> scary
+
+"Hell yes, she's scary. It's like she can read my mind and always knows when
+I've been cheating on her or when I'm lying to her." He shakes his head.
+"Married life, eh?"
+     "I wouldn't know," you say.
+     "Me neither," says Jemma.
+     "You're lucky people," Jeff says with feeling.
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, Lord Sinister.]
+
+"I ain't a killer. Not me. No way. Besides which, she's scary my wife is.
+Frightening in a beautiful centrefold kind of way. So I just bought her stuff
+to keep her happy and, when I didn't have enough money left, I started
+stealing things."
+
+> centrefold
+
+"What's a cennerfold?" asks Jemma a moment before you can question Jeff about
+this subject.
+     "Er... It's... er..." He flounders a little then says, "it's a woman
+who, er, folds things. In the center. Like a, a dressmaker. Kind of..."
+     Jemma looks at him. She chews some gum she's found, then says, "so it's
+not someun' who takes her clothies off in dirty books then?"
+     "Eh? Er no. Not at all."
+     Jemma nods. "Good. Dat's nice to know."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, if you would be so kind.]
+
+"I ain't a killer. Not me. No way. Besides which, she's scary my wife is.
+Frightening in a beautiful centrefold kind of way. So I just bought her stuff
+to keep her happy and, when I didn't have enough money left, I started
+stealing things."
+
+> stealing
+
+"I feel bad about it afterwards," says Jeff, "but not half as bad as I'd feel
+if I didn't steal stuff and then I see the look on my wife's face when she
+realises I can't support her in the lifestyle to which she's become
+accustomed." He sighs. "She'd probably refuse to sleep with me as well
+which'd be the real kicker."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, Lord of the Unliving.]
+
+"I ain't a killer. Not me. No way. Besides which, she's scary my wife is.
+Frightening in a beautiful centrefold kind of way. So I just bought her stuff
+to keep her happy and, when I didn't have enough money left, I started
+stealing things."
+
+> wife
+
+"Damn Erika. Every bit as beautiful as she is deadly. Sometimes I wish I'd
+never hooked up with her in the first place."
+
+*** Your score has just increased by 1 point! ***
+
+> beautiful
+
+"God, she's beautiful," says Jeff, his eyes aglow. "Beautiful doesn't really
+describe her. She's got the most amazing pair of-"
+     You cough.
+     Jeff blinks and notices Jemma sitting there, chewing on a sweet. "Er...
+the most amazing pair... of... eyes. Very nice eyes, they are." He wipes his
+forehead. "Phew, suddenly got all hot in here."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, scion of the night.]
+
+"Damn Erika. Every bit as beautiful as she is deadly. Sometimes I wish I'd
+never hooked up with her in the first place."
+
+> deadly
+
+"Well, not deadly in the sense that she's ever harm me," says Jeff. "Well..."
+He frowns. "Unless I forgot to buy her something, I guess. Then she'd be
+really deadly."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, lifeless one.]
+
+"Damn Erika. Every bit as beautiful as she is deadly. Sometimes I wish I'd
+never hooked up with her in the first place."
+
+> erika
+
+"What about her?"
+     "Well," you say, "a moment ago you said her name was Angela."
+     Jeff's face freezes, then he sighs. "Damn. I'm not even married."
+     "You lying pig," says Jemma. "Me mom sez that if you lie, you die." She
+points a finger at him. "You's gonna die. An' it ain't gonna be nice."
+     "Why don't you tell me the truth, Jeff," you say. "The actual truth this
+time."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, scion of the night.]
+
+"The truth is that I was hired by Maltormo to kidnap some guy. This kid's
+father, I guess. He never told me why, but then he's never been what you'd
+call the talkative kind. Anyway, we kidnapped him then we brought him here
+and said we'd murder him if he didn't talk. Only he wouldn't talk. We didn't
+murder him, though. We took him to Maltormo then I came back to clear the
+place up and make sure we hadn't left any evidence lying around. But you
+caught me... Heck, my wife's going to hit the roof when she finds out about
+this."
+
+> married
+
+"I don't know anything about that," says Jeff.
+
+[Press a key, oh Vampire.]
+
+"The truth is that I was hired by Maltormo to kidnap some guy. This kid's
+father, I guess. He never told me why, but then he's never been what you'd
+call the talkative kind. Anyway, we kidnapped him then we brought him here
+and said we'd murder him if he didn't talk. Only he wouldn't talk. We didn't
+murder him, though. We took him to Maltormo then I came back to clear the
+place up and make sure we hadn't left any evidence lying around. But you
+caught me... Heck, my wife's going to hit the roof when she finds out about
+this."
+
+> maltormo
+
+"You wouldn't believe how strong he is. One night, a while back, someone said
+something he didn't like and Maltormo, he grabs this guy and throws him right
+across the room. Just lifts him up like he don't weigh a thing and throws him
+twenty feet across the room. I think it happened that night at the Cobrini."
+
+*** Your score has just increased by 1 point! ***
+
+> maltormo
+
+Jeff shivers. "I'd be happier you stopped asking me about Maltormo. The guy
+scares the living bejesus out of me."
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, Lord of the Unliving.]
+
+"You wouldn't believe how strong he is. One night, a while back, someone said
+something he didn't like and Maltormo, he grabs this guy and throws him right
+across the room. Just lifts him up like he don't weigh a thing and throws him
+twenty feet across the room. I think it happened that night at the Cobrini."
+
+> cobrini
+
+Jeff shrugs. "It's some place Maltormo's mentioned a time or two. I don't
+know much about it as I only got to see one little room. Maltormo said 'my
+kind' - whatever that's supposed to mean - weren't welcome in the rest of it.
+Anyway-"
+     And then a bell rings deep in your mind. You've heard the name before.
+     Cobrini.
+     It's a vampire bar.
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, scion of the night.]
+
+"You've been very helpful, Jeff," you say, deciding you've learnt enough from
+him.
+     "So you're going to let me go?" he asks, hope flaring for a moment in
+his eyes.
+     You shrug. "In a manner of speaking," you say, and then you lunge
+forward and headbutt him in a move you once enacted on a priest who came to
+your door with a bible one day.
+     Jeff goes out like a light.
+     "Is we gonna kill 'im?" asks Jemma, sounding a little too hopeful for
+your liking.
+     "Maybe some other time," you say.
+
+[Press a key, scion of the night.]
+
+"So wot now?" asks Jemma, sucking on a gobstopper.
+     "Now we" (or me anyway, you add silently) "go to the Cobrini and see
+what we can find out."
+
+> s
+
+lll Hidden Path lll
+
+Due to the thick, encroaching bushes, this path is actually hidden from the
+rest of the graveyard to the south. In fact, if not for Harry showing you the
+way, you doubt you'd have ever stumbled across it.
+     It heads north to some kind of clearing.  Jemma enters from the north.
+
+> s
+
+lll Woody Copse lll
+
+Several trees which look either dead or seriously unwell mark the western
+edge of the graveyard. Elaborate gravestones, far more imposing looking than
+those seen elsewhere, are situated between the trees, indicating that this is
+the graveyard equivalent of first class. A break in the fence to the west
+leads to an area of standing stones and another path leads away to the east.
+Jemma enters from the north.
+
+> e
+
+lll Amidst Graves lll
+
+The graves of the deceased (your former neighbours at one time) are all
+around you, some topped with lavish gravestones, others with nothing more
+than a chunk of stone with their name crudely scribbled on (in biro in a
+couple of cases). Paths wind through the graves to the west and north, deeper
+into the graveyard, and south, to the entrance. A light shines from somewhere
+over to the northeast but there is no path in that direction.  Jemma enters
+from the west.
+
+> ne
+
+lll Grassy Knoll lll
+
+This plain and ordinary grassy knoll set to one side of the graveyard is
+wreathed in ground mist, making all movement kind of treacherous. There is an
+open grave by your feet and you hate to think how many others there might be
+lurking out of sight. A worn path wends its way to the north where a light of
+some kind is burning and off to the southwest is another path.  Jemma enters
+from the southwest.
+
+> x ground mist
+It's every bit as unpleasant as the fog you used to encounter on the way to
+work back in your pre-neck-biting days. It does an effective, and thoroughly
+frustrating job of hiding anything that might be on the ground.
+
+> touch ground
+It feels damp and slightly sticky to the touch, just as you'd expect the
+ground in a graveyard to feel. Your questing fingers fins something, however,
+that you didn't expect to find and as you bring them out of the way, you see
+they've come across-
+     "Me dad's notebook!" cries Jemma, and snatches it off you with the kind
+of speed a professional pickpocket would be proud of. She looks warily at the
+grave. "Me dad's not in there, is he?"
+     You shake your head.
+
+*** Your score has just increased by 1 point! ***
+
+> dig grave
+You hesitate… Do you really want to be going digging in an open grave? Is
+Jemma's father likely to be in there? (For her sake, you sincerely hope he
+isn't.)
+
+> dig grave
+Pushing aside your hesitation, you dig in the grave and find, not the corpse
+you expected to find, but instead a life-size manikin, such as you might see
+in the window of a clothes shop. This one has a name tag around its neck
+which snaps off in your fingers as you touch it.
+
+*** Your score has just increased by 1 point! ***
+
+> n
+
+lll Camp Site lll
+
+There is a fire here, but no sign of the people who lit it. Bedrolls surround
+the campfire but no tent. The fire burns fiercely, giving off much light, but
+strangely little in the way of heat. Perhaps it accounts for the unpleasant
+smell which hangs on the breeze. To the south, a path leads back to the
+grassy knoll.  Jemma enters from the south.
+
+> x compass
+This is certainly one strange compass. Rather than the standard N, S, E, W
+directions, it has instead This Way, That Way, Other Way, Yet Another Way,
+with an indicator in the middle which seems to move with a mind of its own
+and flickers from one direction to another with no apparent reason.
+     As you hold the compass, you notice the indicator points at Other Way
+for a full minute, before starting to spin at random again. Other Way itself
+points to a log at one side of the fire.
+
+> x log
+Following the directions of the compass, you approach the log it pointed to
+and lift it up. That's when you get a bit of a surprise as the log turns out
+not to be a log at all, but some kind of flask which contains a murky
+substance.
+
+*** Your score has just increased by 1 point! ***
+
+> x bedroll
+As you approach the bedrolls, you hear a hissing sound from within and a
+snake's head emerges from one side. Before you can do anything, the head
+darts at you and-
+     Snatches the biscuits out of your hand!
+     The snake delves back into the bedroll and the sound of biscuit munching
+can be heard from within.
+     "Ah, poor lil fing was 'ungry," says Jemma.
+     You nod, a little unnerved by how close it came to biting your hand off
+in an attempt to get the biscuits. Another inch-
+     "Hey, what's that?" Jemma runs forward and snatches up a piece of
+parchment which the snake dislodged when it emerged from the bedroll. "Oh,
+it's not sweeties or anything," she adds with a snort and hands it to you.
+     By the markings on it, it appears to be a map of some kind.
+
+*** Your score has just increased by 1 point! ***
+
+> x map
+The map is a map of this very graveyard, although it's not good map listing,
+as it does, just the entrance, this area, and a set of standing stones to the
+west. There are words scribbled in the margin which look to be more
+interesting, however.
+
+> read map
+In tight, spidery text, the words read: "… believe may have finally found the
+true home of the vampire… compass detecting location of vampire cult lead me
+here… armed myself well: holy water in a flask disguised to resemble a log so
+will pass casual scrutiny… if all goes well, tomorrow I shall have proof of
+their existence…"
+     There is a note on the bottom of the map that the above was written on
+16th April 1972, so you're guessing whoever wrote these words didn't find
+what they were looking for. Or, maybe, that they succeeded only too well and
+paid the price for it.
+
+*** Your score has just increased by 1 point! ***
+
+> s
+
+lll Grassy Knoll lll
+
+This plain and ordinary grassy knoll set to one side of the graveyard is
+wreathed in ground mist, making all movement kind of treacherous. There is an
+open grave by your feet and you hate to think how many others there might be
+lurking out of sight. A worn path wends its way to the north where a light of
+some kind is burning and off to the southwest is another path.  Jemma enters
+from the north.
+
+> sw
+
+lll Amidst Graves lll
+
+The graves of the deceased (your former neighbours at one time) are all
+around you, some topped with lavish gravestones, others with nothing more
+than a chunk of stone with their name crudely scribbled on (in biro in a
+couple of cases). Paths wind through the graves to the west and north, deeper
+into the graveyard, and south, to the entrance. A light shines from somewhere
+over to the northeast but there is no path in that direction.  Jemma enters
+from the northeast.
+
+> s
+
+lll Graveyard Entrance lll
+
+You haven't been back to the graveyard since your broke out on the night you
+became a vampire, but it doesn't look like you've missed much. It is nothing
+more than a few acres of muddy land, surrounded by a wooden fence topped with
+barbed wire. There is a gate directly before you, but you escaped before by
+smashing your way through the fence on account of your slightly agitated
+state of mind at the time. The gate is due north, the road leading back to
+your house to the south.  Jemma enters from the north.
+
+> s
+
+Part 5: A Night At The Cobrini
+
+The Cobrini.
+     You once got an invite, not long after your return from the 'other
+side'. At first you thought it was a joke - a vampire bar, with blood served
+in long, tall glasses, with framed works of art focusing on the neck region
+displayed on the walls, with a secret back room where you could, for a fee,
+have your own little neck biting session with a less than will participant…
+but it turned out it was no joke. You read something in the papers about the
+Cobrini being one of the city's more disreputable dives and then read the
+other stories. The ones about people going missing and winding up the next
+day with bite marks on their necks and a distinct lack of blood in their
+bodies. All within a three or four block radius of a certain bar known as the
+Cobrini. Whatever else it was, the Cobrini was no joke.
+     It might have been the ideal place for you, if not for a couple of
+factors. The first being that Hubert Bumble, Lord Sinister as he would be
+known at the bar if he ever went, just isn't the type of person who's easy
+with killing people when draining a pint or two of blood every now and then
+will suffice (priests notwithstanding).
+
+[Press a key, neck biting one.]
+
+Then, too, there was the worrying news that the FVH were planning to raid the
+bar one day and prove to the authorities just what it was that went on behind
+those blood-red doors.
+     All in all, being a vampire who went to the Cobrini was a sure fire way
+to get a good six inches of sharpened wood in the chest region.
+
+[Press a key, neck biting one.]
+
+You deposited Jemma back at home with the biggest pot of ice cream the local
+store had before setting off for the Cobrini. She wanted to come along, but
+you managed to convince her otherwise (using the ice cream as a lure that no
+sweeties-mad kid could resist). The Cobrini is the last place you'd ever want
+to take a five year girl. Then again, it's the last place you'd ever want to
+take anyone.
+     Including yourself.
+
+[Press a key, neck biting one.]
+
+You travel by taxi. Flying there in bat form would be quicker, as would
+driving your own car, but the FVH will be watching the place and showing up
+in bat form would be suspicious. They also know your licence plate number and
+have a tendency to smash your lights and slash your tyres when you're not
+there to stop them.
+     So to the Cobrini you go, taking with you the card you received through
+the post after your change from living to unliving…
+
+[Press a key, neck biting one.]
+
+lll Outside The Cobrini lll
+
+The Cobrini is in a downmarket part of the city, sandwiched between a
+disreputable video store on one side and an even more disreputable building
+on the other. You're not sure exactly sure what the business of the second
+building is, but as you've been propositioned six times already by the
+'ladies' standing outside, you can take a rough guess.
+     The door into the Cobrini, flanked by a couple of bouncers who could
+stand in for mountains in a low budget flick, is to the north, the video
+store is west, the other building east, while the street leads away to the
+southwest and southeast.
+
+> talk to ladies
+"Ooh, you're a pale one," says one of the ladies. "Name's Michelle. What can
+I do you for?"
+     "Don't you mean 'what can I do for you'?" you say.
+     Michelle giggles. "Whatever."
+
+> talk to michelle
+"So what do you fancy, darling?" she asks. She reels off a list of her
+prices. They range from the extortionate to the incredibly extortionate. If
+you sold your car and remortgaged your house, you might get an entire night
+with her. "I'm a very reasonable girl, y'know."
+
+> talk to michelle
+"Tell me about yourself," you say.
+     Michelle laughs. "Ooh, kinky. Talking. I like that." She bites her lip.
+"Let's see…" She starts to relate a sad tale of growing up living rough on
+the streets, being taken in by a man who made her perform appalling chores
+for him (washing his underpants being one of the worst), escaping, getting
+arrested, meeting up with some other 'ladies' and finding out that a stunning
+blonde woman with an hourglass figurer could make herself a pretty penny if
+she stood on the right street corners and made eyes at the men who walked
+past.
+     "That's a heart breaking tale," you say.
+     Michelle nods. "Yes, I've been working on it for quite some time."
+     You blink. "Working on it…?"
+     "Yep. It's better than telling everyone I'm actually working as a
+waitress and just doing this to make ends meet." She sighs. "A girl needs a
+bit of glamour in her life, y'know?"
+
+> give lucky coin to michelle
+You hate to part with your lucky coin, but as it's the only cash you have on
+you, and as it's never really bought you any luck, you decide you have to.
+     "Ooh, this looks nice," says Michelle. She bites the coin, not even
+grimacing at the taste of graveyard dirt that no doubt still clings to it.
+"I've got one just like it." She fishes in her pocket and pulls out an
+identical coin to the one you gave her. "See? Like peas in a pod."
+     "Say, Michelle," says one of the other ladies, "aren't they the
+legendary coins of ancient Rome, minted in 75 BC and said to retail for
+approximately £2,300.000 when sold together? I slept with a curator from the
+museum last night," she adds to raised eyebrows.
+     "Really?" Michelle peers at the coins. "You know, I think you're right.
+I'd better get off and get these valued."
+     She starts off down the street, ignoring your clutching hand or
+desperate cry of "hang on! I want that coin back!"
+     But Michelle, along with £1,150,000 worth of rare coinage, disappears
+around the block.
+
+*** Your score has just increased by 1 point! ***
+
+> show card to bouncers
+You show the card to the nearest bouncer. He sees it, shrugs, and steps
+aside.
+     Into the Cobrini you go.
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, oh Vampire.]
+
+lll The Cobrini: Main Area lll
+
+Like many bars, the Cobrini attracts a wild variety of people. In this case:
+vampires of all colours, races, sexes, ages and backgrounds. Hip vampires rub
+shoulders with old timers; bloodthirsty vampires chat amiably with those who
+consider fanging people in the neck to be uncouth.
+     There is a bar running along the west wall, a stage to the east (on
+which is the world's most overdressed stripper), a dance floor to the north
+and the outside world to the south. A plaque hangs on the wall.
+
+> w
+
+lll By The Bar lll
+
+The bar area is crowded, probably on account of there being just a single,
+harassed waitress on duty. As there are upwards of fifty customers baying for
+blood (a phrase which has a double meaning in a vampire bar), the situation
+looks like it's only going to get worse before getting better. If it gets
+better at all.
+     There is a unisex toilet to the northwest and the main area back to the
+east.
+
+> talk to waitress
+"Oh, gimme a freaking minute!" she snaps before you've even opened your
+mouth. "Aighghgh! All I get all day is people trying to buy drinks. Drives me
+up the wall."
+     You consider mentioning that this happens to be her job but decide it
+might not be a good idea.
+     "How about a drink?"
+     "Sure. You got anything worthwhile on you?"
+     You frown. "How do you-"
+     "Trade, you moron. Jeez, you from outta town or something? We trade
+here. You give me something. If it's worth it, you get a drink."
+     "And if it's not worth something, I get nothing?"
+     "Got it in one, buddy boy. So if you want a drink, show me what you
+got?"
+
+> give card to waitress
+"That'll do," says the waitress. "I'll give it to a friend who likes places
+like this. Here you go, a pint of blood."
+     She fills up a battered old mug and slides it over the bar to you.
+"Fresh from the donor clinic, that is. Not even started to congeal."
+     Sounds delicious.
+
+*** Your score has just increased by 1 point! ***
+
+> give blood to customer
+The nearest customer looks at you as if you're out of your mind. Indeed,
+you're wondering if that might not be the case. You're a vampire and you're
+actually giving away a pint of blood.
+     But if you having second thoughts about this unforseen streak of
+friendliness that has suddenly come over you, it's too late to do anything
+about it as the nearest customer grabs the pint from your hands, downs it in
+one go, and collapses on the floor with a beautific look on his face.
+     Several of the others, the rowdiest lot there, mutter about him not
+"being able to hold his blood" and cart him off.
+     A brief lull descends on the area around the bar before the waitress
+leans over and pats you on the arm.
+     "Thanks," she says, pouring another pint and sliding it across the bar
+to you. "It's not often we get gentlemen in here and you might well be the
+first."
+     "Think nothing of it," you say.
+     "Say, next time you're in the mood for a little neck-watching, give me a
+call and maybe-"
+     Just as this was looking like it could well become a beautiful moment,
+someone jostles you, someone else jostles the waitress, and things are almost
+as bad as they were before.
+     But only almost...
+
+*** Your score has just increased by 1 point! ***
+
+> give cudgel to waitress
+"That'll do," says the waitress, hefting the cudgel. "Let's see how it
+performs-"
+     She leans over the bar and brings the cudgel down on the back of a
+customer's head, hard enough to split it. (The head, that is, not the
+cudgel.)
+     "Yep," she says. "Good weapon that. Hmm… the barrel seems a bit empty.
+Tell you what, have this instead." She hands you a token. "You can use that
+in the vending machine in the toilets. It's not as good as the stuff we serve
+here but it'll do in a pinch."
+
+*** Your score has just increased by 1 point! ***
+
+> drink blood
+You gulp down the refreshing blood, noting as you do that it's been warmed to
+room temperature - just perfect.
+     As it oozes and slides down your throat, you feel your muscles (yes, you
+have muscles, even though they're used mainly for carrying shopping home and,
+occasionally, cutting bread) bulge and grow. Amazing what a quality pint of
+blood can do for your constitution.
+
+*** Your score has just increased by 1 point! ***
+
+> nw
+
+lll Unisex Toilets lll
+
+Unlike toilets in normal pubs, there is no crude condom vending machine
+hanging on the wall. Oh no. The Cobrini boasts the latest in blood infusion
+vending machine. Simply insert the relevant token and the machine shoots
+forth a jet of wonderfully refreshing blood. Or as refreshing as it's likely
+to be considering it's located right above the where the men's urinals would
+be if there were any urinals in here. There are several cubicles in here as
+well but all of them are occupied.
+     There is a doorway to the southeast.
+
+> insert token
+You insert the token. The vending machine makes a strange whirring sound then
+a jet of red goodness shoots out. By angling your head, you are able to catch
+all of it in your mouth.
+     (At the same time, a little voice in the back of your mind - probably
+Hubert Bumble's conscience putting in a rare appearance - points out that
+you're drinking blood from a vending machine in the toilet of a vampire bar.)
+     But you ignore the voice. The blood just tastes too good.
+     Your muscles, already enhanced by the previous blood you drank, bulge
+out so much they almost split your clothes. You feel stronger than you've
+ever been before. Strong enough, in fact, to do just about anything.
+
+*** Your score has just increased by 1 point! ***
+
+> get machine
+The machine hangs at an angle, yet is still attached to the wall too firmly
+for you to take without breaking - and you doubt the management would be very
+pleased if you did that-
+     Hold on. What's this?
+     As you try to move the vending machine, something that was wedged behind
+it drops down to the floor. You start to bend down to see what it is but
+hesitate as you see a cross motif on the front cover.
+     It looks like a bible.
+
+*** Your score has just increased by 1 point! ***
+
+> get bible
+You reach out for it gingerly, ready to snatch your hand back if it suddenly
+bursts into flame… but you touch the cover and, aside from a faint
+queasiness, everything seems okay. Frowning, you pick the bible up and flick
+it open.
+     There are words written inside the front cover:
+
+Fear I may have become infected with vampirism. Managed to infiltrate the bar
+easily enough but one of the bouncers kept following me around which made
+trying to break into Maltormo's office tricky to say the least.
+
+Lured the bouncer outside with a promise of a bottle of blood, but when we
+reached the alley out back he pounced on me. If I hadn't had my stake out
+already, he'd have killed me there and then. As it is, he just caught me on
+the neck. Painful but not too bad.
+
+[Press a key, scion of the night.]
+
+Or so I thought at first. He didn't bite me so I figured I was okay, but it
+seems the scratch of certain vampires carries the taint as well as their
+bite. I've become infected. Or maybe there's another reason why I turned into
+a bat earlier on. Difficult to think right now.
+
+Can't stand being near my bible any longer. It's beginning to burn my skin
+when I touch it and the very sight of it makes my eyes ache. I'm going to
+hide it behind the vending machine and if tonight goes well I'll try retrieve
+it afterwards.
+
+Now I'm off to Maltormo's office to drive a stake through the evil SOB's
+unbeating heart.
+
+*** Your score has just increased by 1 point! ***
+
+> x doorway
+The doorway itself isn't any special but you see a fire alarm to the side of
+it that you didn't notice before.
+
+> use fire alarm
+The moment you touch the fire alarm, it rings with such volume that your ears
+feel like they might explode at any moment. You clap your hands over them and
+stagger out of the toilets, hoping to lose yourself in the crowd and prayingf
+that none of the bouncers will realise it was you that set the alarm off. But
+as you emerge from the toilets, you notice a set of doors to the north of the
+dance floor, previously guarded by a couple of hulking bouncers, now
+unguarded. With the general exodus of vampires towards the southern exit,
+this seems like an ideal opportunity to find out what lies behind that door.
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, neck biting one.]
+
+"Ah… you've arrived, Lord Sinister. Excellent. I've been expecting you."
+
+You look around but the room is pitch back and you don't see a thing.
+
+"You're probably wondering how I know your name and why I've been expecting
+you. You see, it was destiny that we meet, destiny that brought us together."
+
+The voice seems to emanate from all over the room, not just a specific place.
+Maybe there's some kind of built in speaker system.
+
+"Destiny, Lord Sinister, that we rule the world together."
+
+[Press a key, neck biting one.]
+
+You stop walking and frown. "Rule the world?"
+
+"Indeed! We are prime vampires, you and I. Not like the rest of the rabble
+out there. We are meant to rule, to crush the world of mankind beneath our
+boot heels and then, when they are defeated and subdued, we are to destroy
+the horrid, hateful sun."
+
+"Destroy it?" you say. "How?"
+
+"Nuclear power. An explosion of great force would block out the rays of the
+sun for many, many years to come. The vampire would reign supreme as the
+dominant master of the world."
+
+"But wouldn't we be dead as well?"
+
+The voice laughs. "Yes, but we would rule this miserable world until oblivion
+claimed us. It would be… beautiful."
+
+Beautiful isn't quite the word you'd use. Deranged perhaps. Psychotic. Mad.
+
+"This is our destiny, Lord Sinister. To destroy the world." The voice laughs
+once more, in an eerie approximation of the Evil Villain Laugh made famous by
+Hammer Horror. "I am Maltormo."
+
+[Press a key, neck biting one.]
+
+A tall, cloaked figure steps into view. Or maybe the darkness recedes from
+where he was standing. Maltormo is… unsettling. If you passed him on the
+street, you'd probably think he was seriously unwell. If you saw him cut open
+on a mortuary slab, you'd probably think he fit in. If you were describing
+his appearance to a kid who grew up on He-Man & The Masters Of The Universe
+cartoons and had just one word to use, you'd go for "Skeletor". To anyone not
+blessed by the joys of a childhood spent watching a butch fellow in a
+loincloth and his band of bizarre companions save the world again and again,
+you'd go for "skeleton". Oh yes, Maltormo resembles a corpse that has got up
+and walked.
+     "You can be like me one day, Lord Sinister," says Maltormo, "when you
+have attained the power that I have. When your mastery of the vampire state
+of mind is as complete as mine, you will never have to fear those fools who
+think they can hunt us. Us! The true masters of this world. We will crush
+them all.
+
+[Press a key, neck biting one.]
+
+"Of course," Maltormo adds, "before true world domination is ours, we need to
+dispose of our immediate rivals. Tonight I put into effect a plan to destroy
+the Fearless Vampire Hunters."
+     You find yourself nodding in agreement with this. Whatever else can be
+said about Maltormo, he's still a vampire and has as much reason as you to
+hate the FVH.
+     "A mewling bug he is," says Maltormo, "and tonight, we shall destroy
+him. Ours shall be the hand that slits his throat. His blood will join us in
+an unholy bond. Are you interested, Lord Sinister?"
+     You nod.
+     "Good. And then, when we have drained him of life, we shall find where
+his brat of a daughter escaped to and kill her as well."
+     You stop nodding. In fact, your very heart might have stopped then if it
+was even beating in the first place.
+     Jemma's father has been kidnapped on the orders of someone called
+Maltormo and here is Maltormo himself, wanting your help in executing a
+member of the FVH. A man you've vowed to save. Of course, you never knew when
+you agreed to help Jemma that her father was a member of the FVH.
+
+[Press a key, neck biting one.]
+
+"What say you, Lord Sinister?" asks Maltormo, sounding jovial. Or as close to
+jovial as a walking, talking skeleton can sound. "Are you with me or against
+me? A simple question I can sure."
+
+> against
+Maltormo blinks. "Did I hear that right, Lord Sinister? You don't wish to
+join with me in destroying the world of men and killing countless millions?
+Surely you jest." A soft laugh. "Why, but of course you jest! How droll, Lord
+Sinister! You are quite an amusing fellow for one of our kind. Now,
+seriously, are you with me or against me?"
+
+> against
+Maltormo stares at you. Though it's difficult to tell much in the way of
+expressions on that corpse-face of his, you'd have to say he looks rather
+shocked.
+     "You refuse me?" he says. "You refuse me? ME! Curse you, Lord Sinister!
+Curse you for the fool that you are! Curse you for still being human! Curse
+you-" He makes a slashing gesture with his claw-like hands. "Ah, to hell with
+it! I'll kill you and drain your blood myself!"
+     Maltormo starts towards you and you can sense he's about to use one of
+his powers.
+
+Time to use one of your own.
+
+Change          Fang          Hypnotise
+
+> change
+You change into a bat!
+     Unfortunately, Maltormo seems to have anticipated this as he merely
+opens his eyes - and catches you in his hypnotic gaze!
+     You feel your willpower crumbling away, find yourself unable to resist
+as he reaches out and deals you a stunning blow to the side of your bat-like
+head... it's only your weakness at holding bat form that saves you in the end
+as the blow knocks your concentration to such a degree that you find yourself
+transforming back into human before you know it.
+     "You are mine, Lord Sinister," Maltormo murmurs. "You were a fool to
+turn against me."
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+> change
+You change into a bat!
+     Clearly Maltormo didn't anticipate this as he lunges towards where you
+were standing with his fangs poised to drain your blood - only, of course, to
+find you are no longer there. Instead, you're flitting behind his head and
+sinking your claws into him. His blood, when it shoots forth, isn't red but
+brown and it smells so terrible you doubt even a vampire who's sworn off
+blood for life and started drinking tomato ketchup would be tempted by it.
+     You hastily spit it out.
+     "Curse you, Lord Sinister!" cries Maltormo, swiping at you with his hand
+and missing by a fraction of an inch. "I'll get you yet!"
+     You swoop out of sight and then feel your control slipping and a moment
+later you are back in human form.
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+> change
+It worked last time, so you try it again - changing into a bat.
+     Unfortunately, Maltormo seems to have anticipated that you might try
+this and when you blink away the after-bat transformation, you find his
+clawed hands closing around your throat. It's all you can do to fly out of
+his grasp before he crushes the very life out of you, and from the bruises
+you feel on your ribcage it was a pretty close thing.
+     Your control, knocked by the sudden pain, slips and you drop heavily to
+the floor in human form.
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+> change
+You change into a bat a moment before Maltormo tries to fang you, and his
+attack misses by such a narrow margin that you fancy you can feel their sharp
+edges running along your throat.
+     You flit up and over him, ready yourself for an attack at his epxosed
+back-
+     But feel your control slipping and find yourself reverting to human form
+again.
+     "You're a dead man, Lord Sinister!" growls Maltormo.
+     "We're both dead men," you tell him.
+     Maltormo mutters something under his breath. "Brevity is not a vampire's
+tool and for that I'll eat your unbeating heart."
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+> change
+Maltormo is expecting you to try this, but constant changes to bat form have
+made you faster and better at it and even though he's rushing for you when
+you change, you still manage to become bat before he can grab hold of you.
+His hands swipe through the air, missing you by inches, as you bite him
+several times in the face.
+     "Curse you, Lord Sinister!" he cries, swatting frantically at you. "You
+will die for this!"
+     One of his hands catches you a bruising blow but you're already
+reverting back to your normal shape and it's not enough to cause you any real
+damage.
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+> change
+You change into a bat!
+     You manage to keep your eyes averted this time which saves you from
+Maltormo's hypnotic gaze, but without looking (and your sonic sense doesn't
+seem to work in this room), it's difficult to actually land a blow on him.
+     After half a minute of pointless fluttering around the room, you feel
+your control slipping and you revert back to human form.
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+> change
+You change into a bat!
+     Unfortunately, this doesn't give you any real advantage over Maltormo as
+he seems to have decided on the same mode of attack.
+     The two of you flutter around each other, trying to bite and claw, but
+ultimately not doing much more than ruggling the others wings.
+     After several fruitless minutes of non-combat, you break away from
+Maltormo and change back to your human form. Maltormo does the same. Or as
+close to human as he ever gets.
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+> change
+You change into a bat!
+     Fixing Maltormo's position in your mind's eye, you fly straight at him
+with your eyes closed to shield you from his hypnotic gaze. You feel his
+claws miss you by the narrowest fraction of an inch then your own claws are
+digging into him and Maltormo is howling in pain and fury!
+     You open your eyes and fly away from him, reverting back to human form a
+few feet away. Maltormo's face is torn up, looking even worse than it did
+before.
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+> fang
+You lunge at Maltormo, interrupting the hypnotic attack he was trying to
+make. His concentration lost, he can do nothing but try to beat you off-
+     To no avail. Your fangs sink into his throat and you drink deep of his
+dry-tasting blood.
+     Maltormo manages to force you away but you can sense your attack has
+weakened him.
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+[Press a key, if you would be so kind.]
+
+Maltormo goes staggering back a step, clutching at his side in sudden pain.
+     "Damn you, Sinister!" he rasps. "Why do I waste my time fighting with
+you? I have a member of the FVH to kill! Enough of this!"
+     He wraps his cloak around him and transforms into a bat. You make a grab
+for him, but Maltormo is fast and easily evades your grasp. You watch as he
+flies towards a small window over a door on the north side of the road. He
+disappears through the window and you see him transform back to his (almost)
+human form. A moment later, a metallic panel over the door slams shut.
+
+*** Your score has just increased by 5 points! ***
+
+[Press a key, if you would be so kind.]
+
+lll Maltormo's Study lll
+
+Maltormo's study is quite a cosy little place, nothing at all like you
+expected from a vampire like him. There is a rocking chair by a fireplace,
+complete with roaring log fire, a thick rug on the floor, a painting of
+Maltormo on the wall and several rows of books. In a corner is a drinks
+cabinet which even seems to contain a few non-blood drinks. The door Maltormo
+fled through is to the north, with the metallic panel above it still in place
+and preventing you pursuing him.
+
+You haven't time to waste. Before long, Maltormo will kill Jemma's father and
+tonight will all have been for nothing. You have to be through that door -
+and quick!
+
+> x cabinet
+The kind of thing you might expect to find in a cheap hotel room somewhere.
+There are a few bottles inside, a few of them containing, as might be
+expected, blood and a few others wine and brandy.
+
+> drink blood
+You take some of the blood and gulp it down, unable to help yourself. The
+glorious taste of it refreshes you and makes you feel like you're ready to
+take on anything. And anyone.
+
+*** Your score has just increased by 1 point! ***
+
+> x fireplace
+Complete with a roaring log fire encased in a stone mantle. The heat is
+fierce enough to make looking at it an almost painful experience.
+
+> x mantle
+The mantle is plain and ordinary in appearance, aside from a small stud over
+to one side.
+
+You experience a moment's worry over how long it's taking to get that door
+open. Maltormo isn't going to hold off killing his prisoner for long. You
+have to get after him... and soon.
+
+> push stud
+As your finger touches the stud, the door to the north springs open.
+
+*** Your score has just increased by 1 point! ***
+
+> n
+
+lll Dead End lll
+
+Apparently an extension to Maltormo's study that never went anywhere, this
+dead end is just that and nothing more. The walls are perfectly small
+although there is a gap far above. To the south is the door leading back to
+the study.
+
+As you emerge from the study, you feel a change come over you. Your senses
+seem keener than they did a moment before, your strength seems greater...
+it's like nothing you've ever experienced before.
+     Unfortunately your heightened senses, whatever the significance to them,
+don't detect any trace of Maltormo.
+
+> change
+You change into a bat, fully expecting, as has happened every other time that
+you've changed into a bat, your possessions to drop with a clatter to the
+floor. Only this time that doesn't happen.
+     Your possessions change with you, becoming tiny versions of themselves
+that you can keep tucked under your wings.
+     Puzzled over this strange, but welcome change of events, you start to
+give a quick "woo-hoo!" cry before you remember just why you decided to
+change into a bat in the first place. Deal with Maltormo now, cry out
+"woo-hoo!" later.
+
+*** Your score has just increased by 1 point! ***
+
+[Press a key, master of the darkness.]
+
+You fly up the vertical tunnel as fast as your wings can carry you. At every
+moment, you expect to see Maltormo's desiccated face looming over the top and
+then something huge and bat-crushing to come tumbling down the tunnel. But
+you reach the top and nothing untoward happens.
+     In the middle of the large room that awaits you there is Maltormo
+himself, clutching a curved dagger to the throat of a battered looking man
+who is kneeling on the floor. You can't see his face very well from here but
+you imagine this can be no one other than Jemma's father.
+     A member of the FVH who had vowed to destroy all vampires…
+     For a moment, your resolve wavers. You consider throwing everything in
+with Maltormo and wiping the FVH from the face of the earth. It seems such a
+tempting idea…
+     But then you picture Jemma's face when you tell her "sorry, kid, but
+your dad's dead. It was just too much hassle trying to save him" so you grit
+your teeth (your human teeth, having just transformed back from your bat
+form) and decide to get on with it.
+
+[Press a key, master of the darkness.]
+
+"Are you really going to fight me for this vermin, Lord Sinister?" Maltormo
+demands. "Kill one of your own kind to save one of them? He'll repay you with
+a vat of holy water, you know."
+     Maltormo is probably right. In fact, he is right. But, you reflect,
+you're an ex-used shower curtain salesman called Hubert Bumble. You're not
+prime vampire material and never have been. Maybe it's time you tried to make
+peace with the FVH and what better way than rescuing one of them from a
+vampire?
+     "Yes, Maltormo," you say. "I am going to fight you."
+
+> kill Maltormo
+You feel bolstered by the strength boosts you gained earlier on - drinking
+the pint of blood and the blood dispensing vending machine in the toilets -
+and you're ready to take on anything. Even Maltormo.
+     He's got a knife to the throat of Jemma's father, but you're fast enough
+not to have  to worry about that. You simply rush him, grab hold of the knife
+(it cuts your palm which on one hand is bad (it hurts) but on the other hand
+is good (lots of blood)) and then knock him back. You jump on him before he
+recovers. Maltormo is a lot stronger than he looks, but then so are you, and
+you've learnt a thing or two over the years about dirty fighting (you don't
+rise to the top of the used shower curtain ring sales business by being a
+nice guy). A few vicious knees in the groin from a leg boosted to superhuman
+strength and even a centuries old vampire is beginning to look pained.
+     "Damn you, Sinister!" rasps Maltormo, trying to force you away, but
+you're too strong and you throw him against the wall hard enough to break
+bones. Several of them. Maltormo collapses on the floor.
+
+[Press a key, neck biting one.]
+
+"He's not dead," says a voice.
+     You look over to see Jemma's father has managed to chew through the gag.
+     "Technically," you say, "he's been dead for a long time."
+     He scowls. "I see death hasn't given you a sense of humour. Over there.
+In my rucksack." You follow his nod. "You'll find the means to deal with
+him."
+     The means turns out to be a stake and a hammer. You hesitate before
+taking them out of the rucksack.
+     "Do it if you don't want to end up like him," says the man. "And believe
+me, I wouldn't wish that kind of thing even on someone like you."
+     Maltormo stirs as you approach him, as if the very presence of a stake
+and hammer is enough to bring him around. "No," he murmurs. "No… Sinister… we
+can rule… this world…"
+     You place the stake against his chest. His eyes shoot open and his hands
+lock onto yours as he tries to wrest the weapons from you-
+     But fails. Your strength is greater than his.
+     You hold the stake in place then bring the hammer striking down.
+
+[Press a key, neck biting one.]
+
+*** Your score has just increased by 16 points! ***
+It isn't especially easy for a man to walk out of the Cobrini without someone
+wondering just why a man is there and why someone hasn't yet fanged him in
+the throat and drained his blood. But you find some makeup in Maltormo's
+study as well as some lipstick (does he simply have strange tastes or is
+there another story here to tell?) and do a pretty effective job of whitening
+the man's face to give him a vampiric skin tone. The lipstick, liberally
+applied to the mouth region, gives the expression that he's just drank some
+poor unfortunate's blood.
+     "I never thought I'd have to disguise myself as one of them," he mutters
+a time or two as you're applying the makeup.
+     "It's either this or I bite you in the neck," you say, "and that way
+you'll definitely pass."
+     He mutters some more but the makeup and lipstick disguise passes without
+another complaint.
+
+Through the Cobrini the two of you go. You get a few funny looks but no one,
+thankfully, tries to stop you. You approach the southern door of the Cobrini,
+step outside into the early morning light (fortunately the hated sun has yet
+to put in an appearance) and come face to face with Norbert van Helsing and
+thirty of his Fearless Vampire Hunters.
+
+[Press a key, neck biting one.]
+
+"Tom, you're alive!" cries Norbert. His gaze travels from Tom (the guy you've
+rescued obviously) to you. They go wide. "'Ware, vampire!"
+     Before you can do anything, Norbert's ever present cross comes shooting
+up and, with it, the crosses of thirty other FVH members as well. The sheer
+holiness of it is overpowering and you can feel-
+     Suddenly the shock and horror is cut off as Tom steps in front of you.
+     "Hang on, Norbert," he says, shielding your body from the crosses with
+his. "This fellow helped me."
+     "Fellow?!??!" splutters Norbert. "He's a vampire! The blood of countless
+innocents stains his hands! He bathes in the corpses of murdered nuns! He-"
+     "Have you seen him do any of that?"
+     A hush falls over the assembled FVH and thirty-two pairs of eyes swivel
+and look at Norbert who, for perhaps the first time in his life, is at a loss
+for words.
+     "Seen him?" he says finally, struggling with the words. "Seen… him… have
+I… seen…" He grips his cross hard enough to make his knuckles bone white.
+"He's a vampire, you fool! He's just come out of a vampire bar! And tonight,"
+he pulls a small crossbow out of his robes, one fitted with a silver bolt,
+"he gets his just desserts-"
+
+[Press a key, neck biting one.]
+
+Tom steps forward as Norbert raises the crossbow.
+     "Get out of the way, Tom!" Norbert says.
+     "No."
+     "If you don't move, I'll shoot you and then him-"
+     "Then shoot me."
+     You're seriously considering either running back into the Cobrini and
+trying to lose yourself in the vampire crowd, or change into a bat and fly as
+quick as you can, when something you really didn't expect happens.
+     A small figure breaks from the assembled crowd of FVH and throws herself
+into Tom's arms.
+     "Dad!" cries Jemma. "You're alive!"
+     Tom pats her head. "Yes, honey. I'm here. And this fellow-" he indicates
+you "-saved me."
+     "He gimme some sweeties," says Jemma, "an' a lolly an' a bit o' candy
+an' some chocolate an' some more sweeties." She indicates the side of her
+face where some of the chocolate has been smeared. "Ol' Norby int gonna kill
+'im is he, dad?"
+     "Get out of here, Tom!" Norbert orders. "And take her with you. This is
+a matter between me and-"
+     "You smell!" Jemma shouts at him. "You shouldn't be in charge 'cos you
+smells!"
+     Tom tries to hush her but Jemma, in full blown five year old girl rant
+mode, isn't someone who can be hushed. She runs over to Norbert and hits him
+on the head with a stick of rock then proceeds to yell at him until she runs
+out of insults. (This takes quite some time.) After that, she kicks him in
+the shins until her father pulls her away.
+
+[Press a key, neck biting one.]
+
+"This…" Norbert tries to straighten his dishevelled robes. "This changes…
+nothing. That thing-" he points to you "-is still a vampire and I still-"
+     "No," says another of the FVH. "He saved one of us. He's no vampire."
+     "But his fangs-"
+     "That's due to an unfortunate accident at the dentist," says Tom.
+     "But he drinks blood-"
+     "Red wine," says Tom. "Damn fine stuff."
+     "His complexion-"
+     "He needs to work on his tan. No reason to kill the poor bloke."
+     Norbert starts to say something else but, finally, the fact that he is
+well and truly beaten seems to sink in. He sags. "So we're going to turn our
+backs and let a vampire walk away, are we? We're suppose to hunt them, not
+let them walk among us?" No one says anything. "Fine, fine. When you wake up
+tomorrow and there are fang marks on your neck and you're missing a pint of
+blood, don't come crying to me-"
+     The crowd starts to disperse. You decide it might be an ideal to make
+yourself scarce. Things seem to have calmed down now, but you know what
+Norbert is like and you don't fancy hanging around a man who has his finger
+on the trigger of a silver bolt loaded crossbow. So you quickly flag down a
+taxi (changing into a bat would be too risky with Norbert still here) and a
+few minutes later you're on your way back home.
+
+[Press a key, neck biting one.]
+
+   "We likely to arrive before sun up, cabbie?"
+     "Only if I break every speed limit in the city."
+     "How much?"
+     "What? You think you can bribe me into committing a speeding offence-
+say, is that a £50 note?"
+     "It is."
+     "In that case, we ought to be there in about five minutes."
+
+[Press a key, neck biting one.]
+
+Well done!
+
+The Reluctant Vampire has come to an end and you, Hubert Bumble aka Lord
+Sinister, are dead. Of course, you were also dead at the start of the
+adventure, so not to worry. You're at least no worse off than you are now.
+
+When all is said and done, you achieved a score of 103 out of a possible of
+100, achieved the rank of Arch Vampire and took 197 to do this.
+
+If you haven't got the full 100 points, feel free to have another go. Most
+likely you missed a few things somewhere along the way.
+
+But whatever you do, thanks for playing and I hope you liked it.
+
+Oh, and if you do play the game again, be sure to check out the "reveal"
+command. It's certainly an eye-opener.
+
+> quit
+Do you really want to quit? [Y/N]

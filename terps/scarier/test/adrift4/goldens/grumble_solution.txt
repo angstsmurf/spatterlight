@@ -2,9 +2,262 @@ n
 a
 kill orcs
 x orcs
+ask vulgur for damn menu
+bedazzle
+u
+x paper
+x bed
+d
+talk fosk
+wait
+follow fosk
+wait
+x fosk
+get doll
+get whistle
+clean whistle
+get turkish delight
+e
+in
+out
+sw
+w
+pray
+bow
+e
+ne
+in
+show drawing to gobbold
+give package to gobbold
+x fruitseller
+wake fruitseller
+sw
+w
+e
+ne
+e
+cond
+kill guards
+talk guards
+cond
+e
+e
+in
+x campfire
+get potion
+get scroll
+get vial
+out
+w
+w
+w
+sw
+w
+give scroll to priest
+e
+ne
+in
 buy wine
+out
+sw
+s
+s
+se
+nw
+n
+n
+ne
+w
+n
+s
+e
+in
+give wine to vahla
+e
+x table
+w
+out
+n
+kill thug
+x thug
+x thug
+x thug
+x thug
+get key
+n
+smash gates
+e
+yes
+open coffin
+kill vampire
+ask bludgeon about map
+show drawing to bludgeon
+w
+sw
+s
+s
+se
+buy broom
+buy earwax
+buy batspawn
+buy left leg
+sell whistle
+sell steak
+buy true love
 x card
-i
+nw
+w
+give bomb to kids
+give love to kids
+e
+in
+u
+give broom to naggie
+ask naggie about broom
+buy flares
+wear flares
+d
+out
+se
+nw
+sw
+s
+sw
+s
+nw
+w
+in
+cond
+give broom to nulga
+e
+se
+n
+ne
+n
+ne
+e
+e
+ne
+se
+give medicine to mob
+e
+in
+give horn to boore
+out
+w
+nw
+ne
+in
+351
+get spellbook
+get journal
+get bandages
+use bandages
+out
+sw
+sw
+w
+w
+sw
+s
+sw
+s
+nw
+w
+in
+give spellbook to nulga
+e
+se
+n
+ne
+n
+ne
+n
+n
+ne
+open hut
+in
+x bed
+x socks
+open chest
+get head
+x items
+out
+sw
+s
+s
+e
+e
+ne
+climb tree
+x nest
+get ring
+wear ring
+d
+sw
+s
+se
+pull button
+give batspawn to saldor
+go mirror
+pull button
+show drawing to saldor
+s
+rub ring
+smash telescope
+rub ring
+untie girl
+n
+nw
+n
+ne
+se
+in
+give earwax to mayor
+out
+e
+se
+give leg to barii
+climb hedge
+kill rufus
+out
+se
+e
+show head
+e
+jump
+e
+e
+wear uniform
+e
+out
+sw
+se
+e
+give bludrinker to grumble
+w
+nw
+sw
+ne
+ne
+w
+no
+w
+get gravel
+rub ring
+w
+w
+nw
+nw
+w
+nw
+sw
+w
+w
+in
+wait
+give nulgas potion to grumble
+u
 score
 quit
 y

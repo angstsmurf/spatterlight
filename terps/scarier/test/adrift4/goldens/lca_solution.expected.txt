@@ -1087,6 +1087,91 @@ Oscar hopeful Witherspoon Nash is here.
 Former action hero turned "serious" actor, Ogden Buckett stands here, looking
 confused.  Boris trots towards you from the north-east.
 
+> ne
+
+Haunted House
+
+For 'house' read 'shed'. The studio's remake of The House On Haunted Hill ran
+into budgeting problems after the tea girl bought top of the range milk
+instead of the more common variety, so the house was downgraded to a shed.
+This made for a very different film, although the part where the pretty model
+was decapitated with the garden rake still brings a smile to your face.
+   To the southwest lies Hell and over to the north is a desert.
+The ever alluring Daisy is here.  Boris trots towards you from the
+south-west.
+
+> x bench
+"I don't think you should be looking around here," says Daisy.
+   "I'm the film director," you say. "I have a right to look everywhere on
+set."
+   "Yes, but it's awfully distracting."
+
+> get axe
+Take what?
+
+> x implement
+"I still don't think you should be looking around," says Daisy.
+   You sigh.
+
+> n
+
+Desert
+
+Deserts are a hard thing to create indoors, so the studio went for the less
+well known type of desert: the one that looks like a small storage room at a
+film studio that has previously contained cleaning supplies and a mop. The
+critics might have hated it but you're convinced Lawrence Of Arabia never
+looked better.
+   Southwards lies a haunted house.  Boris trots towards you from the south.
+
+> get mop
+You take the-
+   No, you don't. You try to but the mop seems almost locked in place. How
+strange.
+
+> get mop
+You have another go. Boris helps, throwing his monkey-weight onto yours, and
+together, film director and monkey assistant, manage to lift the mop. And
+then you realise just why it was so difficult to move. The mop is made of
+metal, the wall it's leaning on is made of metal, and someone has stuck a
+magnet between the two, effectively keeping the two together. It's a simple,
+and rather useless, anti-theft device.
+   You tug the magnet free of both the wall and mop and slip it into your
+pocket.
+   Boris growls.
+   "No," you say. "I'm not stealing it. I'm just, er, moving it to a
+different location."
+   Boris looks suspicious but doesn't say anything else.
+
+> s
+
+Haunted House
+
+For 'house' read 'shed'. The studio's remake of The House On Haunted Hill ran
+into budgeting problems after the tea girl bought top of the range milk
+instead of the more common variety, so the house was downgraded to a shed.
+This made for a very different film, although the part where the pretty model
+was decapitated with the garden rake still brings a smile to your face.
+   To the southwest lies Hell and over to the north is a desert.
+The ever alluring Daisy is here.  Boris trots towards you from the north.
+
+> sw
+
+Hell
+
+An unpleasant looking fellow sporting horns, carrying a trident and bathed in
+flames towers over you. Yes, you're in the studio's interpretation of Hell,
+complete with all its devils, demons, school teachers…
+   School teachers? Yep, there are school teachers amidst the damned, dancing
+around in a river of flame which flows from Satan's throne of bone (or
+cardboard as bone thrones were a bit beyond the studio's admittedly limited
+budget).
+   South is a jungle, north is the bottom of the ocean and northeast a
+haunted house.
+Oscar hopeful Witherspoon Nash is here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the north-east.
+
 > give trident to witherspoon
 "Oh, I say, what a frightfully decent trident this is," says Witherspoon,
 studying it in sheer delight. "My, I haven't seen a trident like this in
@@ -1098,6 +1183,2874 @@ glee. "I shall have to go and speak to my good friend Brad about this, and
 then, perchance, I will make my way to the film set to await the commencement
 of the shoot."
    Still wittering to himself, Witherspoon departs.
+
+> s
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.  Boris trots
+towards you from the north.
+
+> se
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash is here.  Boris trots towards you from the
+north-west.
+
+> e
+
+Outside The Studio
+
+This used to be a pleasant stretch of tarmac which you once had the idea of
+turning into a miniature golf course. Until, that is, the local serial killer
+decided here would be a good place to start dumping his victims.
+   The corpse of Meralda the cleaner, minus her head, is here, not doing much
+aside from bleeding messily all over the ground.
+   Off to the west is the entrance to the studio, north extends the area
+outside the studio, southeast is a patch of grass where romantic scenes are
+filmed, and south is a tree which often doubles as an entire forest when
+you're on a tight budget.  Boris trots towards you from the west.
+
+> x body
+Oh, poor Meralda the cleaning lady. Many are the run-ins you have had with
+her over the years due to her frustrating habit of never doing an ounce of
+cleaning. You're not sure just what it was she used to do all day, but
+whatever it was, it sure didn't include anything that was likely to make the
+film studio an iota cleaner.
+   But you feel that it's kind of petty to hold a grudge against her for
+working here for thirty-two years without ever doing a day's work. The poor
+thing has been murdered. At a time like this, what's needed is a show of
+respect, of-
+   Hang on! Is that her watch?
+   You quickly swipe it from her wrist and examine it. Yep, her watch
+alright. Nice one as well. Ought to go someway towards the thirty-two years
+of pay you gave her that she didn't earn.
+
+> s
+
+Tree
+
+You're under the branches of a single tree which, when shot from the right
+angle, can actually look like an entire forest. The wonders of modern camera
+technology are a marvel to behold sometimes.
+   The area outside the studio is to the north and a patch of grass where
+romantic scenes are filmed lies to the east.  Boris trots towards you from
+the north.
+
+> shake tree
+You give the tree a slight shake. The flying saucer caught in the branches
+rocks from side to side… but doesn't fall.
+
+> shake tree
+You give the tree a more vigorous shaking, fairly putting some effort into it
+now. It shakes from side to side, creaks, groans, even gasps at one point
+(don't ask), but the flying saucer lodged in its branches stubbornly remains
+where it is.
+
+> shake tree
+You grab the tree and shake… and shake and SHAKE… and with a crash, the
+flying saucer drops to the ground. A plume of dust and smoke shoots up around
+it and knocks you from your feet. Boris gives a yelp of fear (or glee, it's
+difficult to tell with monkeys).
+   When the dust has cleared, you notice with more than a little worry that
+the flying saucer has missed landing on you by about three inches, give or
+take an inch or two.
+
+> kick saucer
+Drawing back your foot, you unleash a devastating kick to the side of the
+saucer. While this seems to do no actual damage to the saucer which, being
+made of some steel-like substance, is resistant to kicks from film directors
+wearing soft shoes, it does nevertheless cause a previously hidden door on
+the top of the saucer to spring open. Out of it pops… an alien.
+   "Splip!" it cries. "Mlip! Blip! Scra-lip!"
+   The alien is small, green, skinny and has a zip in its head. Yes, an
+actual zip. You're just about to peer more closely at this when the alien
+gives a cry of "frip!" and goes rushing off in the direction of the film
+studio.
+   Boris growls.
+   "I know," you say, patting his head. "It freaked me out as well."
+
+> chop tree
+Whatever you're trying to do, you can't. Either check out the Film Director's
+Guide for more information, or type COMMANDS.
+
+> n
+
+Outside The Studio
+
+This used to be a pleasant stretch of tarmac which you once had the idea of
+turning into a miniature golf course. Until, that is, the local serial killer
+decided here would be a good place to start dumping his victims.
+   The corpse of Meralda the cleaner, minus her head, is here, not doing much
+aside from bleeding messily all over the ground.
+   Off to the west is the entrance to the studio, north extends the area
+outside the studio, southeast is a patch of grass where romantic scenes are
+filmed, and south is a tree which often doubles as an entire forest when
+you're on a tight budget.  Boris trots towards you from the south.
+
+> n
+
+More Area Outside The Studio
+
+When overly dramatic outdoor scenes that require cinematic lighting, wide
+screen shots and an amazing backdrop are called for… people tend to go
+elsewhere because this shoddy patch of ground just isn't up to the job. As
+such, though once considered as a possible film set in its own right, this
+area is now used exclusively for dumping of any garbage which needs dumping
+after the local garbage collection company cut you off. A huge pile of
+garbage towers before you, threatening at any moment to topple over and bury
+anyone foolish enough to be standing here at the time.
+   The area extends (garbage free) to the south while the studio car park is
+off to the northeast.  Boris trots towards you from the south.
+
+> push garbage
+You give the garbage a push. It sways a little, but then rights itself.
+
+> push garbage
+Another push. The garbage sways to one side, seems to rock, then rights
+itself again.
+
+> push garbage
+A third push. The garbage sways, almost falls over, and then, right at the
+very last moment, rights itself. However, something that was perched
+precariously right on the very top chooses that moment to tumble off and fall
+to the ground.
+
+> get coin
+You take the 50p coin.
+
+> ne
+
+Car Park
+
+Being humble film studio employees, no one who works at the studio actually
+owns a car. You, however, park one here anyway which you "appropriated" from
+your ex following a messy divorce. She got the picnic hamper, you got the
+car. Looking at the state of it, you can't help but think she got the better
+end of the deal. There's an ever present puddle of water by your car door.
+You're not 100% certain about this but it seems to follow you around.
+   A garbage-filled area is to the southwest while your car lies inwards.
+Big, ugly and not looking pleased to see you, Officer Grunch is here.  Boris
+trots towards you from the south-west.
+
+> in
+
+Your Car
+
+Some men are justifiably proud of their cars. You're not. Then again, when
+you drive a car that is so old it predates the Victorian Age, that's perhaps
+not surprising. You glance at the cluttered dashboard, the antiquated
+steering wheel, the accelerator, muse over just where the brakes have
+disappeared to, note the pizza boxes stacked haphazardly on the floor, peer
+out through the windscreen which is so encrusted with dirt and other grime as
+to make driving not just difficult but close to impossible… and reflect that,
+really, you don't have the kind of car that anyone would be proud of.  Boris
+trots towards you from outside.
+
+> look under passenger seat
+You have a quick glance under there and, lo and behold, come across some
+beer. You pull it out, wondering just why you've got some beer under your
+passenger seat… ah, you remember. You were driving along one day, minding
+your own business, just starting on your eighteenth pint of the day, when you
+happened to glance in your rear view mirror and notice the cop car closing on
+you. A quick throwing gesture with your hand and the offending article was
+quickly tossed out of sight.
+
+> out
+
+Car Park
+
+Being humble film studio employees, no one who works at the studio actually
+owns a car. You, however, park one here anyway which you "appropriated" from
+your ex following a messy divorce. She got the picnic hamper, you got the
+car. Looking at the state of it, you can't help but think she got the better
+end of the deal. There's an ever present puddle of water by your car door.
+You're not 100% certain about this but it seems to follow you around.
+   A garbage-filled area is to the southwest while your car lies inwards.
+Big, ugly and not looking pleased to see you, Officer Grunch is here.  Boris
+trots towards you from inside.
+
+> sw
+
+More Area Outside The Studio
+
+When overly dramatic outdoor scenes that require cinematic lighting, wide
+screen shots and an amazing backdrop are called for… people tend to go
+elsewhere because this shoddy patch of ground just isn't up to the job. As
+such, though once considered as a possible film set in its own right, this
+area is now used exclusively for dumping of any garbage which needs dumping
+after the local garbage collection company cut you off. A huge pile of
+garbage towers before you, threatening at any moment to topple over and bury
+anyone foolish enough to be standing here at the time.
+   The area extends (garbage free) to the south while the studio car park is
+off to the northeast.  Boris trots towards you from the north-east.
+
+> s
+
+Outside The Studio
+
+This used to be a pleasant stretch of tarmac which you once had the idea of
+turning into a miniature golf course. Until, that is, the local serial killer
+decided here would be a good place to start dumping his victims.
+   The corpse of Meralda the cleaner, minus her head, is here, not doing much
+aside from bleeding messily all over the ground.
+   Off to the west is the entrance to the studio, north extends the area
+outside the studio, southeast is a patch of grass where romantic scenes are
+filmed, and south is a tree which often doubles as an entire forest when
+you're on a tight budget.  Boris trots towards you from the north.
+
+> w
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash is here.  Boris trots towards you from the
+east.
+
+> nw
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.  Boris trots
+towards you from the south-east.
+
+You hear a strange sound - a bit like "dlip!" - from up above in the
+'treetops', but whoever, or whatever is up there, moves too swiftly for you
+to get a good look at them.
+
+> pull creeper
+You tug on the creeper and-
+   And the weird alien you saw emerging from the flying saucer comes tumbling
+from the treetop and lands in a heap before you.
+   "Brip!" he cries, scrambling around and finally getting to his feet. (One
+of which, you notice, is actually covered in a comfortable slipper.) "Frip!
+Gar-" He seems to sag. "Aw, hell with it." He tugs at the zip you noticed
+before on the side of his head and then opens his face. The mask he was
+wearing slips to one side to reveal the unmistakeable features of-
+   "Byron Smiggle!" you cry.
+   "It's Petty Morgan actually," says the fellow.
+   Obviously not that unmistakeable then.
+   "What are you doing in an alien suit, Petty?" you ask, wondering just
+where he has been for the last six months. You assumed he had been either
+kidnapped, killed in a pub brawl or just suffered a fatal heart attack one
+day. You'd been meaning to call him to find out but just never got round to
+it.
+
+...press a key...
+
+"Method acting," says Petty. "I'm playing an alien in the studio's remake of
+Ben Hur and felt that a few months in this costume might put me in the right
+frame of mind to play the evil alien dictator who teaches Ben the meaning of
+humility during his trip to New York. Man," he says with a groan, rubbing his
+back, "that saucer sure isn't very spacy. Not," he says with a glare at you,
+"that some berk shaking the tree and knocking it to the ground helped."
+   "Sorry," you mumble.
+   He waves that away. "No big deal, kid. Say, when do they start shooting?"
+   The simple answer is: they don't. The studio decided that Ben Hur just
+wasn't a good enough film to remake (instead going for Plan 69 From Outer
+Space instead). But you're not sure you want to go telling Petty Morgan this.
+He's a method actor and they're kind of strange.
+
+> se
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash is here.  Boris trots towards you from the
+north-west.
+
+> s
+
+Your Office
+
+You'd like to say your office is a mess of different cultures all vying for
+supremacy in the cut-throat world of commercial films. But it's actually just
+a mess. Your desk has now put in an appearance and crouches in the middle of
+the floor with a menacing look to it. There's a filing cabinet lurking in the
+corner which seems to have been battered around recently with someone with a
+serious dislike for filing cabinets. There's your computer-
+   No, someone stole that last week.
+   There's a door leading out to the main set to the north.  Boris trots
+towards you from the north.
+
+> open cabinet
+You try to but find it either jammed or locked. The drawer slides open about
+half an inch then stays there. Further struggling with it produces no
+noticeable improvement.
+
+> use magnet
+You hold the magnet over the open drawer and, sure enough, it draws the steel
+paperweight unerringly up to it. (Ignore, if you will, that this sort of
+thing is never going to happen in real life and just contend yourself with
+the knowledge that it's made this part of the game quite a bit easier.)
+   Success!
+
+> n
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash is here.  Boris trots towards you from the
+south.
+
+> w
+
+Canteen
+
+You're not sure if the definition of a canteen can really be stretched to fit
+this room: it's small, cramped, grubby, smelly, dark and also somewhat dank.
+There's a single naked light bulb, hanging from the dust-encrusted ceiling,
+and a single table and chair. In the corner, half-buried behind empty boxes
+and pizza wrappers, is a vending machine which you have never seen work in
+all the time you’ve spent at the film studio. The front has been smashed.
+You're not sure if it even does work, and considering the state of the goods
+within it, you're perhaps better off not finding out.
+   Northwest lie a series of small dressing rooms, east the film set, west
+the dressing room of Violetta de Panina Derriere and southwest a small
+storage room.
+
+There is some broken glass from the vending machine on the floor.  Boris
+trots towards you from the east.
+
+> w
+
+Violetta's Dressing Room
+
+An entire dressing given to a single star? It's practically unheard of in the
+history of the film studio, but then you seldom get stars of the magnitude of
+Violette de Panina Derriere. Despite only arriving two hours ago, she has
+already had the dressing room repainted shocking pink, had a Jacuzzi
+installed, thrown out the old desk and table and had an entire office suite
+put in their place. Oh, and she's had a skylight put in as well. At least,
+you're assuming that's what the huge hole in the ceiling is.
+   Various members of her gargantuan entourage lounge around the dressing
+room, chatting, smoking, drinking.
+   East lies the canteen.
+World famous film star Violetta de Panino Derriere is here.  Boris trots
+towards you from the east.
+
+> give veal to violetta
+Violetta sniffs at the veal. "This smells decidedly strange," she says. "Are
+you sure it's safe?"
+   "No one's died eating it yet," you point out, quite truthfully.
+   Violetta sniffs again but accepts your bald-faced lie for what it is.
+
+> give fry to violetta
+You hold the mouldy old French Fry out to Violetta.
+   "What," she says, "is that?"
+   "Part of the three course meal you ordered, Miss Panino de Derriere," you
+reply smoothly, hoping she takes the French Fry from you soon (the smell of
+it is beginning to make you feel somewhat unwell).
+   Violetta peers at the French Fry and you get the distinct impression that
+she's either a bit short-sighted, or that she really is as dim as the
+tabloids make her out to be because she takes the French Fry and bites it.
+   You hold your breath.
+   A minute later she's still alive so you let out a big sigh of relief.
+   "I've had better," she says.
+   "I bet you have," you reply in all honesty.
+
+> give crisps to violetta
+Violetta turns her nose up at the crisps. "I," she says, "am famous. I do not
+eat such things."
+   "They're all the rage amongst the cool people," you say, throwing the lie
+at her with the skill of a true professional. "Everyone who's hop 'n'
+hoppenin' is eating them."
+   "Don't you mean hip 'n' happenin'?" says Violetta.
+   "Them, too," you reply smoothly.
+   "Well…" Violetta stares dubiously at the crisps but, in the end, takes
+them. You can tell she's not entirely convinced, or even slightly convinced,
+that you're telling her the truth, but she's obviously not as hip 'n'
+happenin' as she likes to think because she eats the crisps all the same.
+   "Should they be so… stale?" she asks.
+   "Oh yes. That's considered their best aspect."
+
+...press a key...
+
+Violetta finishes what you've given her.
+   "That," she says, "was undoubtedly the poorest three course meal I have
+ever eaten. Its tastes I would describe as akin to being slowly poisoned.
+You, sir, are no chef."
+   "No, madam," you say. "I'm a film director. With a film to shoot. And we
+are behind schedule…"
+   Violetta, for once, takes the subtle hint. But says, "ah, what a pity. I
+seem to have misplaced my script. Be a dear and fetch me another."
+   "But I posted you three copies," you say, "and despatched two more by
+courier pigeon, had six copies e-mailed to you, four faxed to you, and one
+hurled through your apartment window with a brick attached to it."
+   "Yes," says Violetta, "but I seem to have misplaced it all the same."
+   "And you can't do your first scene without it…?"
+   "Oh, perish the thought, no." She frowns. "What is the film about anyway?"
+   "You haven't read the script?"
+   "Heavens no! You think I have the time? I'm simply rushed off my feet.
+Now, be a good boy and fetch me another script, would you?"
+
+> e
+
+Canteen
+
+You're not sure if the definition of a canteen can really be stretched to fit
+this room: it's small, cramped, grubby, smelly, dark and also somewhat dank.
+There's a single naked light bulb, hanging from the dust-encrusted ceiling,
+and a single table and chair. In the corner, half-buried behind empty boxes
+and pizza wrappers, is a vending machine which you have never seen work in
+all the time you’ve spent at the film studio. The front has been smashed.
+You're not sure if it even does work, and considering the state of the goods
+within it, you're perhaps better off not finding out.
+   Northwest lie a series of small dressing rooms, east the film set, west
+the dressing room of Violetta de Panina Derriere and southwest a small
+storage room.
+
+There is some broken glass from the vending machine on the floor.  Boris
+trots towards you from the west.
+
+Boris chirps.
+   "I know," you say.
+   He chirps again.
+   "Yes, I'm aware of that," you say.
+   He chirps a third time.
+   "Really?" you raise an eyebrow. "Are you sure-"
+   Boris nods.
+   "I thought as much."
+
+A week ago, so Boris has just helpfully reminded you, there was a break in at
+the studio and all copies of Violetta's script were stolen. Fortunately,
+there were back up copies carefully hidden away. Unfortunately, they were
+stolen as well. As well as the copy you had propping up the wonky leg on your
+desk. As well as the one you used to swat flies with. As well as the three
+copies that you were planning to save for paper to throw on the fire at
+winter to save on heating bills.
+   But somewhere, there must be another copy of that script.
+
+> sw
+
+Small Storage Room
+
+It's seldom you venture into this storage room. The reason? It's rumoured to
+be haunted. Haunted storage rooms might seem a tad unlikely in the modern
+age, but one look at the creaky shelves, their desiccated contents open to
+the uncaring air, the shadows which seem to move with a mind of their own,
+and the sounds in this room, and it's easy to imagine it really is haunted.
+The black cloak which hovers a foot above the ground and is surrounded by a
+nimbus of glowing light doesn't help matters either.
+   Off to the west is the film archive store while to the northeast is the
+canteen.
+Smiffy the filing clerk is here.  Boris trots towards you from the
+north-east.
+
+> talk smiffy
+"Smiffy's the name, filing's the game," says Smiffy. It wasn't amusing the
+first time he said it and by the 856th time, it hasn't become any funnier.
+"What can I help you with, Mr Film Director? Any films you need finding,
+anything you need filing, anything to need unfiling-" he laughs, "you just
+come to Smiffy. Anything's that lost, Smiffy can find it. Anything that needs
+to be lost," he winks, "Smiffy can lose it for you. Anything-"
+   You quickly say something. Given the opportunity, he's quite capable of
+going on all day in this vein.
+
+[1]  "Tell me how the filing system works, Smiffy."
+[2]  "I hear you want to be a stand-up comedian. Isn't that a long step away
+from filing clerk?"
+[3]  "What's the deal with the black cloak?"
+[4]  "I need to find a copy of the film script that Violetta de Panino
+Derriere is working on. Any ideas if we have one left around anywhere?"
+
+> 4
+"Hmm… that's a tricky one," says Smiffy, rubbing his brow. "I remember we had
+87 copies in, but…" He ticks them off on his fingers, one by one, until he
+has accounted for all 87. "No, that's them all. Unless…"
+
+[1]  "Unless what?"
+
+> 1
+"Unless there was an 88th copy made that I wasn't told about."
+   "Why would there be an 88th copy made that you weren't told about?" you
+ask.
+   "There are always things going on that don't stand up to scrutiny," says
+Smiffy in the tones of someone about to launch into a Big Conspiracy Theory.
+"Sometimes you hear things. Rumours. Hearsay. Well, there was a rumour about
+this film script being given an 88th copy but which wasn't mentioned to
+anyone. 'Security reasons' was the official reason but I have my suspicions
+it was something else. My theory is that-"
+   "Can you find this 88th copy for me?" you ask, eager to cut him off before
+he starts with his Big Conspiracy Theory. If he does that, you might never
+shut him up.
+   "I can try," says Smiffy. "So long as you're aware of the risks involved?"
+   "I'm fully aware of the risks," you say, truthfully not having a clue
+about the risks. It's a film script after all. How dangerous can getting hold
+of a copy of it be?
+   Smiffy nods. "Come speak to me later. I'll see what I can do."
+
+> w
+
+Film Archive Store
+
+This untidy shambles of a room is where the studio keeps its archive of old
+films, whether made by it, stolen by its employees from other studios, or
+just ones that showed here one day that no one is really sure where they came
+from. Every surface is covered with old tapes, all of them dusty. There is
+even reputed to be a video player and a TV in here somewhere, but if so they
+must have been buried under the humungous collection of films many years ago.
+   Away to the east is a small storage room.
+Ross is here looking every bit as nerdy as usual.  Boris trots towards you
+from the east.
+
+> give watch to ross
+Ross takes the watch and presses it close to his chest.
+   "I shall treasure this always, sir," he says, wiping away a tear.
+
+> talk ross
+"Terrible news about Meralda, sir," says Ross, wringing his hands. "Oh,
+terrible news. Terrible news indeed. Oh, what a tragedy! Oh, what a calamity!
+Oh, what a-"
+   Best you interrupt him while you can otherwise he'll carry on in this vein
+all day.
+
+[1]  "I want a cup of tea, Ross. Hop to it."
+[2]  "You were close to Meralda, weren't you?"
+[3]  "What's it like being a tea boy?"
+[4]  "There's a murderer at loose, Ross. What are you planning to do about
+it?"
+[5]  "Have you seen any suspicious looking characters hanging around the
+studio?"
+[6]  "About my assistant…"
+
+> 6
+"Must be magic, sir," says Ross with the kind of unshakeable confidence
+displayed by people who don't have a clue what they're talking about.
+   "Magic?"
+   "Undoubtedly, sir. What you need, sir, if I might be so bold as to say
+this, sir, is a counterspell, sir."
+   "A counterspell?"
+   "Yes, sir," and adds, "it's a spell, sir, that counters another spell."
+   "Ah," you say, while wondering just how the studio manages to pick so many
+nuts to work for it.
+
+[1]  "I'll bear that in mind, Ross. In the meantime, let me ask you something
+else."
+
+> 1
+"Terrible news about Meralda, sir," says Ross, wringing his hands. "Oh,
+terrible news. Terrible news indeed. Oh, what a tragedy! Oh, what a calamity!
+Oh, what a-"
+   Best you interrupt him while you can otherwise he'll carry on in this vein
+all day.
+
+[1]  "I want a cup of tea, Ross. Hop to it."
+[2]  "You were close to Meralda, weren't you?"
+[3]  "What's it like being a tea boy?"
+[4]  "There's a murderer at loose, Ross. What are you planning to do about
+it?"
+[5]  "Have you seen any suspicious looking characters hanging around the
+studio?"
+[6]  "About my assistant…"
+
+> 1
+"Of course, sir!" he pipes up and then goes rushing off to get you your tea.
+Considering how long it generally takes him to make tea, he ought to be gone
+for quite a while.
+
+> x film
+With Ross out of the way, you quickly go through the old films, searching
+for... you're not sure really. Just searching.
+   It's Boris who finds the ring wedged between a copy of Some Like It Cold
+(a remake of Some Like It Hot with Eskimos in the lead roles) and Out Of
+Birmingham (a remake of Out Of Africa but the studio decided Africa was too
+far to go to make a film).
+   You take the ring from Boris with a promise later on of a banana or two.
+
+> e
+
+Small Storage Room
+
+It's seldom you venture into this storage room. The reason? It's rumoured to
+be haunted. Haunted storage rooms might seem a tad unlikely in the modern
+age, but one look at the creaky shelves, their desiccated contents open to
+the uncaring air, the shadows which seem to move with a mind of their own,
+and the sounds in this room, and it's easy to imagine it really is haunted.
+The black cloak which hovers a foot above the ground and is surrounded by a
+nimbus of glowing light doesn't help matters either.
+   Off to the west is the film archive store while to the northeast is the
+canteen.
+Smiffy the filing clerk is here.  Boris trots towards you from the west.
+
+> ne
+
+Canteen
+
+You're not sure if the definition of a canteen can really be stretched to fit
+this room: it's small, cramped, grubby, smelly, dark and also somewhat dank.
+There's a single naked light bulb, hanging from the dust-encrusted ceiling,
+and a single table and chair. In the corner, half-buried behind empty boxes
+and pizza wrappers, is a vending machine which you have never seen work in
+all the time you’ve spent at the film studio. The front has been smashed.
+You're not sure if it even does work, and considering the state of the goods
+within it, you're perhaps better off not finding out.
+   Northwest lie a series of small dressing rooms, east the film set, west
+the dressing room of Violetta de Panina Derriere and southwest a small
+storage room.
+
+There is some broken glass from the vending machine on the floor.  Boris
+trots towards you from the south-west.
+
+> nw
+
+Small Dressing Rooms
+
+The phrase "not even big enough to swing a cat around" was coined for these
+dressing rooms. Or if it wasn't, it probably should have been. There are
+perhaps two dozen here, occupying the same amount of space as one side of
+Violetta's dressing room. There are no lights because bulbs cost money and
+two dozen bulbs cost a lot of money. There is, however, an overpowering smell
+which lingers over everything and makes you really glad you're not a minor
+film star but a director instead. A small collection tin has been nailed to
+the nearest wall.
+   Back to the southeast is the canteen.
+Some chap called Spivvy is here.  Boris trots towards you from the
+south-east.
+
+> talk spivvy
+"Yessir?" he says, eager to offload another fountain of wisdom (from his
+point of view) upon you.
+
+[1]  "I need help with something."
+[2]  "Tell me about yourself."
+[3]  "What's the agenda for the day?"
+[4]  "Say, would you like to be in a film?"
+[5]  "Let me ask you about some of the people here."
+[6]  "What time did you arrive today, Spivvy?"
+
+> 4
+Spivvy's eyes become full of stars. Literally. (You're sure this is
+physically impossible but the evidence before you is quite convincing.)
+   "A… film?" he says. "Me? In a film? Me film? A film in… me? Me me me? Film
+me? Me-"
+   "Yes, a film," you say, realising he might well go on all day if given the
+chance. "Are you interested?"
+   His shouted "yes" is perhaps the loudest sound to ever emanate from a
+human throat and, if repeated here, would fill up half a dozen screens of
+text, so it will have to do with a simple "yes" instead.
+   "Which one?" asks Spivvy, now in more normal tones.
+   Which one indeed?
+
+[1]  "A horror film."
+[2]  "A science fiction epic."
+[3]  "A romance."
+
+> 2
+"Sci-fi, eh? I'll do it, sir, you can be sure of that. I've always wanted to
+fire a gun at some fellow cowboy and this looks like just the project for
+me."
+   You open your mouth to point out that there aren't many Wild West
+gunfights in sci-fi films but then considering the way the studio will often
+base an entire futuristic epic at a modern day bus stop if it mean saving a
+bit of money, it's certainly a possibility the sci-fi epic will be filmed in
+the Wild West after all.
+
+[1]  "The sci-fi film it is. In the meantime, let me ask you something else."
+
+> give photo to spivvy
+Spivvy takes one look at the photo... and his eyes almost pop out.
+   "Gosh!" he says. "She's... beautiful..."
+   "I should warn you she's also a little vain," you say. "She's mainly
+attracted to men for their power and money and-"
+   "And have you seen the bosoms on her?"
+   You open your mouth to say something else but realise that there's nothing
+to say. Resignedly, you close your mouth.
+
+> put change in tin
+You put your loose change into the slot. From the sound it makes as it hits
+the inside of the tin, you're probably the first person to do this.
+
+> put credit in tin
+And so in one rash moment, you dispose of all your credit cards. You feel a
+bit better for it afterwards, your euphoria only slightly dimmed by the
+knowledge that you'll have to live on rainwater for the next six weeks until
+you can afford to eat it.
+
+> eat kit kat
+You eat it. It's not especially tasty but, once you've wiped off the worst of
+the mold, it fills a small gap.
+
+> se
+
+Canteen
+
+You're not sure if the definition of a canteen can really be stretched to fit
+this room: it's small, cramped, grubby, smelly, dark and also somewhat dank.
+There's a single naked light bulb, hanging from the dust-encrusted ceiling,
+and a single table and chair. In the corner, half-buried behind empty boxes
+and pizza wrappers, is a vending machine which you have never seen work in
+all the time you’ve spent at the film studio. The front has been smashed.
+You're not sure if it even does work, and considering the state of the goods
+within it, you're perhaps better off not finding out.
+   Northwest lie a series of small dressing rooms, east the film set, west
+the dressing room of Violetta de Panina Derriere and southwest a small
+storage room.
+
+There is some broken glass from the vending machine on the floor.  Boris
+trots towards you from the north-west.
+
+> e
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
+here.  Boris trots towards you from the west.
+
+Ross rushes into the film set, carrying a cup of tea (most of which he spills
+on the floor in his haste) and then goes charging off towards the canteen.
+
+...press a key...
+
+"There is evil all about!" cries Madam Zara, dancing from foot to foot. "I
+can sense it! The Son of Evil walks the world of men and all shall be plunged
+into a vat of bubbling death and fiery pain! You!" She points a bony finger
+at you. "You seek the one who is cursed with poor manners!"
+   "I… er… you… what?" you say, wondering just who this strange old crone is
+and why she has suddenly shown up here.
+   "I sense doubt in your heart!" Madam Zara announces. "And disbelief! And
+manic rage! You are a slothful man, Timothy, and the world will suffer as a
+result!"
+   "My name's not Timothy," you point out.
+   Madam Zara stops her dancing and looks at you. "What?"
+   "It's not Timothy."
+   "Oh." She frowns. "Damn. That's a pity and no mistake," she says in a more
+ordinary voice. "Well, if you see Timothy around, be sure to come and tell
+me."
+
+> nw
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.
+Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
+towards you from the south-east.
+
+> n
+
+Hell
+
+An unpleasant looking fellow sporting horns, carrying a trident and bathed in
+flames towers over you. Yes, you're in the studio's interpretation of Hell,
+complete with all its devils, demons, school teachers…
+   School teachers? Yep, there are school teachers amidst the damned, dancing
+around in a river of flame which flows from Satan's throne of bone (or
+cardboard as bone thrones were a bit beyond the studio's admittedly limited
+budget).
+   South is a jungle, north is the bottom of the ocean and northeast a
+haunted house.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the south.
+
+> n
+
+Bottom Of The Ocean
+
+You're floating on the ocean bed which comprises of a few cardboard goldfish
+(goldfish in the ocean? Oh well…), a sunken car, Jesus on a cross and several
+buckets of blue paint thrown liberally about which are supposed to convince
+the audience that the scene they're viewing is actually a thousand feet
+beneath the waves. Dribble some water down the camera lens and it's
+surprisingly realistic.
+   Hell lurks to the south with Heaven off to the north.  Boris trots towards
+you from the south.
+
+> x belly
+Something about the beer belly strikes you as a bit... odd. You're not sure
+what it is until Boris, clearly no Christian, jumps up on Jesus and digs his
+claws into the Son of God's side.
+   "Boris!" you cry. "Get back before you get smited for-"
+   And that's when you see that the beer belly has been deflated by Boris'
+claws and out of it has fallen... a gold bar.
+   Boris gives a gurgle.
+   You reach over and pick up the gold bar.
+   Boris raises a puzzled eyebrow.
+   "Yes," you say, "I know it's blue but it's still gold to me."
+   What it was doing in the fake beer belly of Christ is another matter, but
+for now it's yours.
+
+> pray
+You're not too sure but you think you see Jesus give a nod in your direction.
+   Boris coos.
+   "Yes," you tell him, "I probably have been working too hard."
+
+> n
+
+Heaven
+
+When the studio were considering filming the life of Christ, no one was
+really sure what Heaven looked like. After conducting a survey of all studio
+employees, this set was built as it was felt to be the best interpretation of
+the afterlife anyone could think of. You're not sure about the lapdancer's
+pole, personally, but the beer-laden bar running along the north wall is
+certainly a nice touch.
+   A short step south is the bottom of the ocean.
+A very unusual-looking God is here.  Boris trots towards you from the south.
+
+> talk god
+"Hey," says God, "is that my gold bar you're carrying?"
+   You look at it. "Your gold bar?"
+   "Yeah, mine. I stole it from that bank-" He hesitates, chews his cigar a
+bit more, scowls then says, "er, no. Not mine. I never had a gold bar me. No,
+nothing to do with me." He looks at his feet, muttering, "I knew it was a
+damn stupid idea hiding it in me son's belly. First place anyone'd think to
+look."
+
+> give beer
+God looks at you, looks at what you're carrying - and he quickly reaches over
+and snatches the beer out of your hand before you can stop him. Barely
+another second has passed before he's expertly opened the  beer and then is
+pouring it down his throat, heedless of the fact that half of it splashes
+down his front and makes an… well, an ungodly mess.
+   "Ta, mate," he says. "Hell, that sure hit the spot. Got any more where it
+came from?"
+   You shake your head.
+   "Pity. Being the Lord Almighty ain't all it's cracked up to be, I can tell
+you."
+
+> s
+
+Bottom Of The Ocean
+
+You're floating on the ocean bed which comprises of a few cardboard goldfish
+(goldfish in the ocean? Oh well…), a sunken car, Jesus on a cross and several
+buckets of blue paint thrown liberally about which are supposed to convince
+the audience that the scene they're viewing is actually a thousand feet
+beneath the waves. Dribble some water down the camera lens and it's
+surprisingly realistic.
+   Hell lurks to the south with Heaven off to the north.  Boris trots towards
+you from the north.
+
+> s
+
+Hell
+
+An unpleasant looking fellow sporting horns, carrying a trident and bathed in
+flames towers over you. Yes, you're in the studio's interpretation of Hell,
+complete with all its devils, demons, school teachers…
+   School teachers? Yep, there are school teachers amidst the damned, dancing
+around in a river of flame which flows from Satan's throne of bone (or
+cardboard as bone thrones were a bit beyond the studio's admittedly limited
+budget).
+   South is a jungle, north is the bottom of the ocean and northeast a
+haunted house.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the north.
+
+> s
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.
+Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
+towards you from the north.
+
+> nw
+
+Surface Of The Moon
+
+Maybe it's just you, but you're sure the surface of the moon isn't yellow.
+Admittedly, you've never been much of an astronomy fan but you were always
+under the impression that the moon was kind of grey. And it doesn't have
+trees, does it? Palm trees? Well, at least the miniature replica of Sydney
+Opera House looks good.
+   To the west is the top of Mount Doom and southeast is a jungle.  Boris
+trots towards you from the south-east.
+
+> x side
+Looks like someone has left a pair of night goggles here. You understand the
+people who set the sets up often work extra long hours when there's a
+deadline to meet (it's called 'slave labour' you believe) and working through
+the night is often considered normal. Looks like one of the poor chaps left
+his goggles here by mistake. You could always leave them where they are in
+case he comes back-
+   Or just swipe 'em, stick 'em in your pocket, and maybe return them to him
+later on for a 'reward' for finding them.
+   No prizes for guessing which one you go for.
+
+> w
+
+Mount Doom
+
+The studio was once considering filming Lord Of The Rings but the bigwigs
+felt that no one was really interested in seeing Tolkien's epic brought to
+the cinema screen so no more of the set was ever built beyond this crater
+which is supposed to represent Mount Doom. The setting has been put to good
+effect, though, with the studio's remake of Titanic being filmed here.
+   Eastwards lies the surface of the moon.  Boris trots towards you from the
+east.
+
+> x mark
+The marks look to be… marks. Claws marks, to be precise. It looks like
+someone has gouged into the side of the converted dustbin that is Mount Doom
+and scratched away at the surface. On closer inspection, there seems to be a
+small catch down there that you never noticed before.
+
+> press catch
+You press down on it, and the top of Mount Doom (or the dustbin lid in other
+words) springs open.
+   Boris claps his hands.
+   Before you can join him in congratulating yourself, the lid shuts of its
+own accord.
+
+> press catch
+You press the catch again, and again the top of Mount Doom springs open.
+   Boris immediately jumps up, scrambles into the dustbin and ferrets around
+inside. A fraction of a second before the lid comes crashing down again, he
+emerges with some tape in his mouth which he obediently drops in your hands.
+   "Good boy- er, Boris," you say, and resist the urge to pat him on the
+head.
+   The tape looks old and somewhat manky in appearance. For a guess, you'd
+say that it was thrown in the dustbin before it was converted into Mount
+Doom.
+
+> e
+
+Surface Of The Moon
+
+Maybe it's just you, but you're sure the surface of the moon isn't yellow.
+Admittedly, you've never been much of an astronomy fan but you were always
+under the impression that the moon was kind of grey. And it doesn't have
+trees, does it? Palm trees? Well, at least the miniature replica of Sydney
+Opera House looks good.
+   To the west is the top of Mount Doom and southeast is a jungle.  Boris
+trots towards you from the west.
+
+> se
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.
+Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
+towards you from the north-west.
+
+> se
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
+here.  Boris trots towards you from the north-west.
+
+> w
+
+Canteen
+
+You're not sure if the definition of a canteen can really be stretched to fit
+this room: it's small, cramped, grubby, smelly, dark and also somewhat dank.
+There's a single naked light bulb, hanging from the dust-encrusted ceiling,
+and a single table and chair. In the corner, half-buried behind empty boxes
+and pizza wrappers, is a vending machine which you have never seen work in
+all the time you’ve spent at the film studio. The front has been smashed.
+You're not sure if it even does work, and considering the state of the goods
+within it, you're perhaps better off not finding out.
+   Northwest lie a series of small dressing rooms, east the film set, west
+the dressing room of Violetta de Panina Derriere and southwest a small
+storage room.
+
+There is some broken glass from the vending machine on the floor.  Boris
+trots towards you from the east.
+
+> sw
+
+Small Storage Room
+
+It's seldom you venture into this storage room. The reason? It's rumoured to
+be haunted. Haunted storage rooms might seem a tad unlikely in the modern
+age, but one look at the creaky shelves, their desiccated contents open to
+the uncaring air, the shadows which seem to move with a mind of their own,
+and the sounds in this room, and it's easy to imagine it really is haunted.
+The black cloak which hovers a foot above the ground and is surrounded by a
+nimbus of glowing light doesn't help matters either.
+   Off to the west is the film archive store while to the northeast is the
+canteen.
+Smiffy the filing clerk is here.  Boris trots towards you from the
+north-east.
+
+> talk smiffy
+"Nothing so far," says Smiffy. He seems a little nervous about something,
+constantly glancing from side to side and looking over his shoulder as if he
+expects to see someone waiting for him there. "Think I might have to, uh,
+give up the hunt for the 88th copy."
+   "Someone put pressure on you?" you ask.
+   "Oh no, nothing of the sort," says Smiffy hurriedly. "Any stories of my
+water torture and having a limb hacked off and then re-attached by means of
+weird science are just pure hearsay."
+   "What-"
+   Smiffy taps his nose. "Not safe to discuss this any further," he whispers,
+not looking you in the eyes. "But wait for me in the forest later and we'll
+discuss it more."
+   "The forest-"
+   "A file you wanted, Mr Film Director Sir?" asks Smiffy in his usual tone.
+
+> w
+
+Film Archive Store
+
+This untidy shambles of a room is where the studio keeps its archive of old
+films, whether made by it, stolen by its employees from other studios, or
+just ones that showed here one day that no one is really sure where they came
+from. Every surface is covered with old tapes, all of them dusty. There is
+even reputed to be a video player and a TV in here somewhere, but if so they
+must have been buried under the humungous collection of films many years ago.
+   Away to the east is a small storage room.
+Ross is here looking every bit as nerdy as usual.  Boris trots towards you
+from the east.
+
+"Your tea, sir," says Ross, handing you… an empty cup.
+   "It's empty, Ross," you point out.
+   "It is?" He snatches it back, peers inside, pokes his finger into it, tips
+it upside down. "Well… that is mystery. I wonder how that can have happened."
+   You start to tell him but realise it's probably not worth the effort. You
+keep the cup, though.
+
+> e
+
+Small Storage Room
+
+It's seldom you venture into this storage room. The reason? It's rumoured to
+be haunted. Haunted storage rooms might seem a tad unlikely in the modern
+age, but one look at the creaky shelves, their desiccated contents open to
+the uncaring air, the shadows which seem to move with a mind of their own,
+and the sounds in this room, and it's easy to imagine it really is haunted.
+The black cloak which hovers a foot above the ground and is surrounded by a
+nimbus of glowing light doesn't help matters either.
+   Off to the west is the film archive store while to the northeast is the
+canteen.
+Smiffy the filing clerk is here.  Boris trots towards you from the west.
+
+> ne
+
+Canteen
+
+You're not sure if the definition of a canteen can really be stretched to fit
+this room: it's small, cramped, grubby, smelly, dark and also somewhat dank.
+There's a single naked light bulb, hanging from the dust-encrusted ceiling,
+and a single table and chair. In the corner, half-buried behind empty boxes
+and pizza wrappers, is a vending machine which you have never seen work in
+all the time you’ve spent at the film studio. The front has been smashed.
+You're not sure if it even does work, and considering the state of the goods
+within it, you're perhaps better off not finding out.
+   Northwest lie a series of small dressing rooms, east the film set, west
+the dressing room of Violetta de Panina Derriere and southwest a small
+storage room.
+
+There is some broken glass from the vending machine on the floor.  Boris
+trots towards you from the south-west.
+
+> e
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
+here.  Boris trots towards you from the west.
+
+> e
+
+Outside The Studio
+
+This used to be a pleasant stretch of tarmac which you once had the idea of
+turning into a miniature golf course. Until, that is, the local serial killer
+decided here would be a good place to start dumping his victims.
+   The corpse of Meralda the cleaner, minus her head, is here, not doing much
+aside from bleeding messily all over the ground.
+   Off to the west is the entrance to the studio, north extends the area
+outside the studio, southeast is a patch of grass where romantic scenes are
+filmed, and south is a tree which often doubles as an entire forest when
+you're on a tight budget.  Boris trots towards you from the west.
+
+> s
+
+Tree
+
+You're under the branches of a single tree which, when shot from the right
+angle, can actually look like an entire forest. The wonders of modern camera
+technology are a marvel to behold sometimes. Resting on the ground by the
+tree is the flying saucer which you shook from the branches. A small panel in
+the side of the saucer has opened and from which has previously emerged from
+space alien.
+   The area outside the studio is to the north and a patch of grass where
+romantic scenes are filmed lies to the east.  Boris trots towards you from
+the north.
+
+> wait
+You wait, wondering if you are wasting your time. Smiffy is clearly a couple
+of dogs short of a Disney classic and even if he knows where the 88th copy of
+the film script is, you've got serious doubts that-
+   Ah, here he is now.
+   "I can't stay long," he says, hurrying over. "Too risky. I managed to rig
+up a realistic dummy to stand in my place but I'm not sure it will last up to
+close scrutiny. I think I'm being watched."
+   "Who is watching you?"
+   "Difficult to say but when your every move is being followed like a hawk,
+it's best to keep your head down and out of the sand."
+   You puzzle that over before giving a quick nod. Best not to excite him.
+"What have you found out?"
+   "The 88th copy exists," says Smiffy in reverent tones. It's the same kind
+of voice Christians might use if they had discovered the Ark of the Covenant
+buried in their back garden. "But getting it will prove… difficult to say the
+least."
+
+...press a key...
+
+"In what way?"
+   "High level security. Tracking devices. Professional bodyguards. The
+works. This is some seriously freaky stuff we're talk about here. Real code
+zero."
+   "But we have the resources to break it, right?" you say, really getting
+into all the cloak and dagger stuff now. "I mean, for what I'm paying you a
+week-"
+   "£12.50 and a car parking space provided I come to work on my bike?"
+   "Precisely. I expect results, Smiffy. Can you deliver is the question?"
+   Smiffy nods stiffly. He seems almost offended that you might doubt his
+abilities. "Sure can. Piece of cake. But I'll need money and supplies if I'm
+going to pull this job off."
+   "What kind of money and supplies?"
+   He ticks things off on his fingers, adding up the cost of mounting such 'a
+mammoth high level operation', and then delivers his list of demands: "some
+scissors, tape, night goggles and-" he hesitates as if wondering whether he
+might be asking for too much "-a 50p coin."
+
+...press a key...
+
+You make a mental note of them. Shouldn't be too difficult to get hold. But…
+"Why a 50p coin?"
+   "I have my reasons," says Smiffy, looking kind of nervous. "Anyway, I'll
+be back in the storage room when you have the resources. Best we keep a low
+profile and act like nothing is out of the ordinary until the time for the
+retrieval of the 88th copy is required."
+   Smiffy gives you a quick salute then turns and walks off.
+
+> n
+
+Outside The Studio
+
+This used to be a pleasant stretch of tarmac which you once had the idea of
+turning into a miniature golf course. Until, that is, the local serial killer
+decided here would be a good place to start dumping his victims.
+   The corpse of Meralda the cleaner, minus her head, is here, not doing much
+aside from bleeding messily all over the ground.
+   Off to the west is the entrance to the studio, north extends the area
+outside the studio, southeast is a patch of grass where romantic scenes are
+filmed, and south is a tree which often doubles as an entire forest when
+you're on a tight budget.  Boris trots towards you from the south.
+
+> n
+
+More Area Outside The Studio
+
+When overly dramatic outdoor scenes that require cinematic lighting, wide
+screen shots and an amazing backdrop are called for… people tend to go
+elsewhere because this shoddy patch of ground just isn't up to the job. As
+such, though once considered as a possible film set in its own right, this
+area is now used exclusively for dumping of any garbage which needs dumping
+after the local garbage collection company cut you off. A huge pile of
+garbage towers before you, threatening at any moment to topple over and bury
+anyone foolish enough to be standing here at the time.
+   The area extends (garbage free) to the south while the studio car park is
+off to the northeast.  Boris trots towards you from the south.
+
+> ne
+
+Car Park
+
+Being humble film studio employees, no one who works at the studio actually
+owns a car. You, however, park one here anyway which you "appropriated" from
+your ex following a messy divorce. She got the picnic hamper, you got the
+car. Looking at the state of it, you can't help but think she got the better
+end of the deal. There's an ever present puddle of water by your car door.
+You're not 100% certain about this but it seems to follow you around.
+   A garbage-filled area is to the southwest while your car lies inwards.
+Big, ugly and not looking pleased to see you, Officer Grunch is here.  Boris
+trots towards you from the south-west.
+
+> fill cup
+You fill it from the puddle.
+
+> sw
+
+More Area Outside The Studio
+
+When overly dramatic outdoor scenes that require cinematic lighting, wide
+screen shots and an amazing backdrop are called for… people tend to go
+elsewhere because this shoddy patch of ground just isn't up to the job. As
+such, though once considered as a possible film set in its own right, this
+area is now used exclusively for dumping of any garbage which needs dumping
+after the local garbage collection company cut you off. A huge pile of
+garbage towers before you, threatening at any moment to topple over and bury
+anyone foolish enough to be standing here at the time.
+   The area extends (garbage free) to the south while the studio car park is
+off to the northeast.  Boris trots towards you from the north-east.
+
+> s
+
+Outside The Studio
+
+This used to be a pleasant stretch of tarmac which you once had the idea of
+turning into a miniature golf course. Until, that is, the local serial killer
+decided here would be a good place to start dumping his victims.
+   The corpse of Meralda the cleaner, minus her head, is here, not doing much
+aside from bleeding messily all over the ground.
+   Off to the west is the entrance to the studio, north extends the area
+outside the studio, southeast is a patch of grass where romantic scenes are
+filmed, and south is a tree which often doubles as an entire forest when
+you're on a tight budget.  Boris trots towards you from the north.
+
+> se
+
+Patch Of Grass
+
+Four feet wide, three feet square, with a daisy growing in the middle, this
+patch of grass is where romantic scenes are filmed. You've always liked to
+think that the daisy adds a certain element of class to the proceedings,
+although the overpowering smell of the sewage works off to the south doesn't
+help matters much.
+   The area outside the studio is to the northwest and a tree which often
+doubles as an entire forest is to the west.  Boris trots towards you from the
+north-west.
+
+> pour water
+You pour some water onto the daisy. The effect it has is quite startling. One
+moment, the daisy is just about dead, the next… well, it's still just about
+dead but it looks a bit further away from dead than it did beforehand. Also,
+it has lifted itself up a little and, just peeking it out from under it, you
+can see a book of some kind. You snatch it out before the daisy can reclaim
+it and see, in big bold print on the cover, the words: "Acctors Gide".
+Clearly a manual aimed at people wanting to improve their acting (although
+definitely not their spelling).
+
+> nw
+
+Outside The Studio
+
+This used to be a pleasant stretch of tarmac which you once had the idea of
+turning into a miniature golf course. Until, that is, the local serial killer
+decided here would be a good place to start dumping his victims.
+   The corpse of Meralda the cleaner, minus her head, is here, not doing much
+aside from bleeding messily all over the ground.
+   Off to the west is the entrance to the studio, north extends the area
+outside the studio, southeast is a patch of grass where romantic scenes are
+filmed, and south is a tree which often doubles as an entire forest when
+you're on a tight budget.  Boris trots towards you from the south-east.
+
+> w
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
+here.  Boris trots towards you from the east.
+
+> nw
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.
+Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
+towards you from the south-east.
+
+> n
+
+Hell
+
+An unpleasant looking fellow sporting horns, carrying a trident and bathed in
+flames towers over you. Yes, you're in the studio's interpretation of Hell,
+complete with all its devils, demons, school teachers…
+   School teachers? Yep, there are school teachers amidst the damned, dancing
+around in a river of flame which flows from Satan's throne of bone (or
+cardboard as bone thrones were a bit beyond the studio's admittedly limited
+budget).
+   South is a jungle, north is the bottom of the ocean and northeast a
+haunted house.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the south.
+
+> give gide to ogden
+Ogden takes the Acctors Gide and his eyes light up. "Why…" he says. He seems
+lost for words. "This is… remarkable. Do you not agree?"
+   "It's certainly…" you struggle for something that is both true and not too
+insulting "… different. Unique even. Why, I bet there's not a single book in
+the entire world that comes close to it."
+   Ogden flicks through a few pages, his face aglow with happiness. "Hey! It
+tells me how to say 'die, scum!' in fifteen different languages! And how to
+rig the Oscars! And sleeping with fellow cast members-"
+   He goes on at some length but you manage to just stand there and nod your
+head from time to time. Ogden seems oblivious to the fact that by the time
+he's leaving to head to the film set, you're almost asleep on your feet.
+   Boris chitters.
+   "No," you say, "you can't borrow the Gide when he's finished with it."
+
+> s
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.
+Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
+towards you from the north.
+
+> se
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
+here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the north-west.
+
+> w
+
+Canteen
+
+You're not sure if the definition of a canteen can really be stretched to fit
+this room: it's small, cramped, grubby, smelly, dark and also somewhat dank.
+There's a single naked light bulb, hanging from the dust-encrusted ceiling,
+and a single table and chair. In the corner, half-buried behind empty boxes
+and pizza wrappers, is a vending machine which you have never seen work in
+all the time you’ve spent at the film studio. The front has been smashed.
+You're not sure if it even does work, and considering the state of the goods
+within it, you're perhaps better off not finding out.
+   Northwest lie a series of small dressing rooms, east the film set, west
+the dressing room of Violetta de Panina Derriere and southwest a small
+storage room.
+
+There is some broken glass from the vending machine on the floor.  Boris
+trots towards you from the east.
+
+> sw
+
+Small Storage Room
+
+It's seldom you venture into this storage room. The reason? It's rumoured to
+be haunted. Haunted storage rooms might seem a tad unlikely in the modern
+age, but one look at the creaky shelves, their desiccated contents open to
+the uncaring air, the shadows which seem to move with a mind of their own,
+and the sounds in this room, and it's easy to imagine it really is haunted.
+The black cloak which hovers a foot above the ground and is surrounded by a
+nimbus of glowing light doesn't help matters either.
+   Off to the west is the film archive store while to the northeast is the
+canteen.
+Smiffy the filing clerk is here.  Boris trots towards you from the
+north-east.
+
+> give tape to smiffy
+"This ought to make the job easier," he says, slipping the tape into his
+pocket.
+   "The job?" you ask.
+   He taps his nose. "The less you know, the better."
+
+> give goggles to smiffy
+"Excellent," he says, and slips the night goggles into his pocket without
+another word.
+
+> give scissors to smiffy
+"These should help through a few problems," he says with a laugh, hiding the
+scissors about his person.
+
+> give 50p to smiffy
+"Bribery always makes the job go easier," says Smiffy.
+   You start to ask just who he's planning to bribe with a 50p coin but
+decide you're better off not knowing.
+
+"I think I have everything I need," says Smiffy. "Wish me luck, sir. I shall
+return when I can."
+   Boris salutes as Smiffy goes to… do whatever it is he needs to do.
+   "Mrrrrrrpprrp!" says Boris.
+   "I know," you say. "I know."
+
+> ne
+
+Canteen
+
+You're not sure if the definition of a canteen can really be stretched to fit
+this room: it's small, cramped, grubby, smelly, dark and also somewhat dank.
+There's a single naked light bulb, hanging from the dust-encrusted ceiling,
+and a single table and chair. In the corner, half-buried behind empty boxes
+and pizza wrappers, is a vending machine which you have never seen work in
+all the time you’ve spent at the film studio. The front has been smashed.
+You're not sure if it even does work, and considering the state of the goods
+within it, you're perhaps better off not finding out.
+   Northwest lie a series of small dressing rooms, east the film set, west
+the dressing room of Violetta de Panina Derriere and southwest a small
+storage room.
+
+There is some broken glass from the vending machine on the floor.  Boris
+trots towards you from the south-west.
+
+> e
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
+here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the west.
+
+> e
+
+Outside The Studio
+
+This used to be a pleasant stretch of tarmac which you once had the idea of
+turning into a miniature golf course. Until, that is, the local serial killer
+decided here would be a good place to start dumping his victims.
+   The corpse of Meralda the cleaner, minus her head, is here, not doing much
+aside from bleeding messily all over the ground.
+   Off to the west is the entrance to the studio, north extends the area
+outside the studio, southeast is a patch of grass where romantic scenes are
+filmed, and south is a tree which often doubles as an entire forest when
+you're on a tight budget.  Boris trots towards you from the west.
+
+You hear someone whisper "psst!" and look around to see none other than
+Smiffy standing there, hiding in the shadows. Well, not shadows as such
+because it's quite sunny here and there is a distinct of lack of shadows but
+he definitely has a shadowy look to him. Maybe it's paint or something.
+   "Mission successful, sir," he says, clutching something to his chest. "I
+have the 88th copy!"
+
+...press a key...
+
+"It wasn't easy," he relates, "but nor was it as difficult as I had
+expected."
+   "I trust no one was killed," you say, this being the sort of thing you're
+expected to say at a time like this.
+   "Nothing can be traced back to either of us," says Smiffy, neatly avoiding
+answering the question, "and if anyone comes asking-" He runs a finger across
+his throat.
+   You nod. (Although you're not really sure why you're nodding as you
+haven't got a clue what he expects you to do if someone comes asking
+questions.)
+   Smiffy hands over the 88th copy of the script then announces he's off to
+get himself cleaned up.
+   Boris chirps as Smiffy leaves.
+   "Good point," you tell him.
+
+> w
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
+here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the east.
+
+> w
+
+Canteen
+
+You're not sure if the definition of a canteen can really be stretched to fit
+this room: it's small, cramped, grubby, smelly, dark and also somewhat dank.
+There's a single naked light bulb, hanging from the dust-encrusted ceiling,
+and a single table and chair. In the corner, half-buried behind empty boxes
+and pizza wrappers, is a vending machine which you have never seen work in
+all the time you’ve spent at the film studio. The front has been smashed.
+You're not sure if it even does work, and considering the state of the goods
+within it, you're perhaps better off not finding out.
+   Northwest lie a series of small dressing rooms, east the film set, west
+the dressing room of Violetta de Panina Derriere and southwest a small
+storage room.
+
+There is some broken glass from the vending machine on the floor.  Boris
+trots towards you from the east.
+
+> nw
+
+Small Dressing Rooms
+
+The phrase "not even big enough to swing a cat around" was coined for these
+dressing rooms. Or if it wasn't, it probably should have been. There are
+perhaps two dozen here, occupying the same amount of space as one side of
+Violetta's dressing room. There are no lights because bulbs cost money and
+two dozen bulbs cost a lot of money. There is, however, an overpowering smell
+which lingers over everything and makes you really glad you're not a minor
+film star but a director instead. A small collection tin has been nailed to
+the nearest wall.
+   Back to the southeast is the canteen.
+Some chap called Spivvy is here.  Boris trots towards you from the
+south-east.
+
+> talk spivvy
+"Yessir?" he says, eager to offload another fountain of wisdom (from his
+point of view) upon you.
+
+[1]  "I need help with something."
+[2]  "Tell me about yourself."
+[3]  "What's the agenda for the day?"
+[4]  "Say, would you like to be in a film?"
+[5]  "Let me ask you about some of the people here."
+[6]  "What time did you arrive today, Spivvy?"
+
+> 1
+"Always a pleasure to help," says Spivvy. "Just let me know what it is, no
+matter how big or small, long or short, odious or fabulous, and I shall leap
+to it without a moment's thought."
+
+[1]  "I need to find out who the murderer is."
+[2]  "I need help rewriting the script into something better."
+[3]  "I've got a problem with my assistant."
+[4]  "Back to the other set of questions."
+
+> 2
+"I was a dab hand at amending script in my youth," says Spivvy, who is all of
+seventeen years old. "Why, I'd often sit up till half past eight at night
+amending and amending. Oh, it was a happy time."
+   "Can you improve this script though?" you ask.
+   Spivvy takes the script and skims through it. "Hmmm… hmmm… hmmm… Sure
+thing. Let me just grab my pen-" He does so, and scribbles frantically on the
+script for five solid minutes. You're not entirely sure this was a good idea
+considering it's the only copy of the script in existence, and you really
+don't want to have to go through the hassle of obtaining another one, but
+Spivvy's improvements do actually seem to improve it.
+   "I rewrote the scene where the naked woman leads the charge against the
+space aliens," he says. "Totally unrealistic. I mean, she charges the space
+aliens. Ha! Everyone knows space aliens fly so you can't charge them."
+   "You also amended the sinking of the battleship," you say. That had been
+one of your favourite scenes in the film. You'd even had a prototype of the
+battleship, made from three cornflake boxes stapled to each other, and it was
+pretty impressive.
+
+...press a key...
+
+"Ships sinking is old hat," says Spivvy with a shrug. "But ships exploding
+into a dozen smaller ships, each of them with the characteristics of the
+former crew? Never been done before. People will see that and not know what
+to think."
+   "Well," you say, "at least you left the scene where the princess wakes the
+prince with a single kiss on the lips- oh."
+   "Got that one as well," says Spivvy. He wipes away a tear. "Such a
+beautiful, touching scene. I particularly like the bit where she disrobes
+before the entire congregation and the prince takes her from-"
+   And bang goes the film's 12 rating, you think glumly. Still, it's
+certainly a far better script than it was before.
+
+[1]  "Let me ask you something else."
+
+> 1
+"Yessir?" he says, eager to offload another fountain of wisdom (from his
+point of view) upon you.
+
+[1]  "I need help with something."
+[2]  "Tell me about yourself."
+[3]  "What's the agenda for the day?"
+[4]  "Say, would you like to be in a film?"
+[5]  "Let me ask you about some of the people here."
+[6]  "What time did you arrive today, Spivvy?"
+
+> se
+
+Canteen
+
+You're not sure if the definition of a canteen can really be stretched to fit
+this room: it's small, cramped, grubby, smelly, dark and also somewhat dank.
+There's a single naked light bulb, hanging from the dust-encrusted ceiling,
+and a single table and chair. In the corner, half-buried behind empty boxes
+and pizza wrappers, is a vending machine which you have never seen work in
+all the time you’ve spent at the film studio. The front has been smashed.
+You're not sure if it even does work, and considering the state of the goods
+within it, you're perhaps better off not finding out.
+   Northwest lie a series of small dressing rooms, east the film set, west
+the dressing room of Violetta de Panina Derriere and southwest a small
+storage room.
+
+There is some broken glass from the vending machine on the floor.  Boris
+trots towards you from the north-west.
+
+> e
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
+here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the west.
+
+> nw
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.
+Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
+towards you from the south-east.
+
+> give ring to petty
+"Ah, my ring," he says, snatching it off you and slipping it onto his finger.
+"I lost this during the filming of Death Alien Attack On The Planet Of Living
+Terror. One of my better works."
+
+> smash paperweight
+You crush is to dust. (Surprising yourself with your own strength there. It
+is made of steel after all.)
+   Petty chuckles. "See if you can do the same to his head next," he says.
+
+> se
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
+here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the north-west.
+
+> w
+
+Canteen
+
+You're not sure if the definition of a canteen can really be stretched to fit
+this room: it's small, cramped, grubby, smelly, dark and also somewhat dank.
+There's a single naked light bulb, hanging from the dust-encrusted ceiling,
+and a single table and chair. In the corner, half-buried behind empty boxes
+and pizza wrappers, is a vending machine which you have never seen work in
+all the time you’ve spent at the film studio. The front has been smashed.
+You're not sure if it even does work, and considering the state of the goods
+within it, you're perhaps better off not finding out.
+   Northwest lie a series of small dressing rooms, east the film set, west
+the dressing room of Violetta de Panina Derriere and southwest a small
+storage room.
+
+There is some broken glass from the vending machine on the floor.  Boris
+trots towards you from the east.
+
+> w
+
+Violetta's Dressing Room
+
+An entire dressing given to a single star? It's practically unheard of in the
+history of the film studio, but then you seldom get stars of the magnitude of
+Violette de Panina Derriere. Despite only arriving two hours ago, she has
+already had the dressing room repainted shocking pink, had a Jacuzzi
+installed, thrown out the old desk and table and had an entire office suite
+put in their place. Oh, and she's had a skylight put in as well. At least,
+you're assuming that's what the huge hole in the ceiling is.
+   Various members of her gargantuan entourage lounge around the dressing
+room, chatting, smoking, drinking.
+   East lies the canteen.
+World famous film star Violetta de Panino Derriere is here.  Boris trots
+towards you from the east.
+
+> give copy to violetta
+She takes the script between finger and thumb as if she suspects it might
+well bite her.
+   "Hmmm," she says. "Somewhat shabby but I'm sure it will suffice." She
+flicks through it. "Hmmm… 'die, you foul alien scum!', 'may the blood burst
+from your eyes and rain down on the corpses of your enemies!', 'bury him
+alive!' Good. I haven't done a romance in quite a while. I shall be on set
+preparing. Do not speak to me again until everything is ready."
+   Violetta tosses the script casually to one side and goes off to 'prepare'.
+Several of her entourage make as if to follow her then decide against it and
+instead just remain where they are.  Boris trots towards you.
+
+> 1
+
+You just knew today wasn't going to be a good day.
+   When Violetta de Panino Derriere arrived on set, it was obvious she wasn't
+going to be just 'one of the guys'. She wanted an entire dressing room for
+herself, and commandeered another three for her 'entourage' (which included a
+tea girl, a tea girl's assistant, a tea girl's assistant's apprentice… and
+even some chap who looked after the tea girl's assistant's apprentice's cat
+while she was learning the tricks of the trade). Violetta, then displaying
+the personality she is famed for in the entertainment industry, made several
+changes to the script which involved, basically, giving herself far more
+screen time than before and effectively making her the centerpiece of every
+scene. On top of that, she's dumped the bulk of the dialogue on her co-star,
+Myles Frobisher.
+
+...press a key...
+
+Only Myles has called in sick today - today of all days! - so you've had to
+replace him with Witherspoon Nash who's fine in many respects but just not
+really cut out for lead actor roles.
+   As if all that wasn't bad enough, your assistant seems to have been
+replaced by a monkey since you were last looking, Violetta has decided that
+you, the director of the film, are to be her personal servant for the day
+(apparently her 'entourage' are too busy caring for her every other need)
+and-
+   Aahaahthhgghgghghh!
+   Oh yes. There's a serial killer at loose.
+
+...press a key...
+
+Whatever else happens today, it's certainly not going to be boring.
+
+A scream tears across the studio, freezing you where you stand.
+   Boris whimpers.
+   "Yes," you tell him, patting his little head, "it looks like the killer
+has struck again."
+   You guess you'd better go and see who he's killed this time.
+
+...press a key...
+
+A small crowd has gathered in the car park around the body of none other
+than…
+   "Who is it?" you ask Spivvy.
+   "Don't know," he says. "I've never seen him before, sir."
+   "Is it anyone famous?" asks Witherspoon Nash. "I sincerely hope not. As I
+was saying to my dear friend Brad just the other day…"
+   PC Plod makes his way through the crowd, ably assisted by Officer Grunch
+(the crowd parts for him in a manner akin to the way the Red Sea parted a
+long time ago).
+   "This is very suspicious," says Plod, peering down at the body. "A body is
+discovered and there are many people just standing around looking…
+suspicious."
+   There are shocked gasps from the crowd.
+   "I do hope you're not accusing me of their heinous crime," says
+Witherspoon. "Brad is not a believer in physical violence and neither a I-"
+   "You!" says Plod, pointing an accusing finger at Smiffy. "Did you see
+anything?"
+
+...press a key...
+
+"Not a thing," says Smiffy.
+   Plod sniffs. "Really? I find that remarkably suspicious. And you-" this is
+to you "-where were you on the evening of the 18th July 1982?"
+   You frown. "I haven't a clue."
+   "Even more suspicious. Next you'll be telling me you don't have a clue why
+your assistant has been turned into a monkey."
+   "But I don't-"
+   "I thought you might say that. Officer Grunch!"
+   "Yessir?" says Grunch.
+   "Take this fellow and his monkey to Hell. I will question them there."
+   And to Hell you go.
+
+...press a key...
+
+Hell
+
+An unpleasant looking fellow sporting horns, carrying a trident and bathed in
+flames towers over you. Yes, you're in the studio's interpretation of Hell,
+complete with all its devils, demons, school teachers…
+   School teachers? Yep, there are school teachers amidst the damned, dancing
+around in a river of flame which flows from Satan's throne of bone (or
+cardboard as bone thrones were a bit beyond the studio's admittedly limited
+budget).
+   South is a jungle, north is the bottom of the ocean and northeast a
+haunted house.
+
+"I could read you your rights," says Plod, "but I'm not inclined to waste
+time. And I'm sure you know them offhand anyway, considering what a
+suspicious past you undoubtedly have."
+   "I really must protest, officer," you say. "I'm a film director, not a
+murderer. I don't know who that poor fellow was outside but I certainly
+didn't have a hand in his murder."
+   "Ah," says Plod, "you see a person lying on the ground and immediately
+assume a murder has been committed. That's remarkably suspicious behaviour if
+I say so myself."
+   "He was lying in a puddle of blood and had a great big knife sticking out
+of his neck."
+
+...press a key...
+
+Plod frowns. "Okay, I'll give you that one. But…" He smiles. A chilling
+smile. "I need to ask you some more questions all the same. And this time I'd
+appreciate it if your monkey waited outside."
+   You glance at Boris who shrugs and goes to wait in the jungle.
+   "Questions," says Plod. He paces back and forth before turning to you and
+saying, "what is your favourite colour?"
+
+[1]  Tell the truth.
+[2]  Lie.
+[3]  Ask him what your favourite colour has to do with his investigating a
+murder.
+
+> 1
+"Red," you say.
+   "Interesting," says PC Plod, "and suspicious. Red: the colour of blood. We
+have two dead bodies outside the studio and your favourite colour is the
+colour of blood. That could well prove your undoing, film director."
+   "It's just a favourite colour, it doesn't mean anything," you say, wishing
+you'd said blue instead.
+   "I find it suspicious that you think so. Suspicious indeed. Next question:
+where were you doing during the First World War?"
+
+[1]  Tell him you weren't even born.
+[2]  Make up some story about leading a charge against the enemy and portray
+yourself as a hero.
+[3]  Ask him what this has to do with his investigating a murder.  Boris
+trots towards you.
+
+> 1
+"I wasn't even born in the First World War," you say. "That's nearly a
+hundred years ago. I'm only-"
+   "So you didn't fight against the foul enemy?" says Plod, shaking his head.
+"The fate of the entire world hung in the balance and you, sir, you were
+absent from the conflict. Suspicious."
+   "I wasn't even born!"
+   "Still suspicious. Final question: if given the choice, would you a)
+become the King of Mercury, b) become the King of Venus, or c) become a
+platypus?"
+
+[1]  a) become the King of Mercury.
+[2]  b) become the King of Venus.
+[3]  c) become a platypus.
+[4]  Refuse to answer on the grounds that he's quite clearly mad.
+
+> 1
+"The King of Mercury," you say. "It's always been a childhood ambition of
+mine."
+   "Mine, too," says Plod. "Nice place Mercury. I try to head there at least
+once a year. Bit hot in places but you can get the most amazing tequilas from
+a small bar on the coast."
+   You just smile, secretly wondering if this guy is really as mad as he's
+beginning to seem.
+   "Any more questions?" you ask.
+   "I find it suspicious that you would ask such a thing," says Plod, "but
+no. Not for the moment. Go about your business, film director, but refrain
+from any trips to the inner planet for the time being. I may have other
+questions for you."
+   You take the opportunity to put some distance between yourself and Plod.
+
+...press a key...
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.
+Famous actor (in his own mind anyway) Petty Morgan is here.
+
+Boris comes rushing over and groans.
+   "Yes," you say, "he was decidedly weird."
+   Boris grunts.
+   "You're sure?"
+   He nods.
+   "Well, that makes two of us," you tell him.  Boris trots towards you from
+the north.
+
+> n
+
+Hell
+
+An unpleasant looking fellow sporting horns, carrying a trident and bathed in
+flames towers over you. Yes, you're in the studio's interpretation of Hell,
+complete with all its devils, demons, school teachers…
+   School teachers? Yep, there are school teachers amidst the damned, dancing
+around in a river of flame which flows from Satan's throne of bone (or
+cardboard as bone thrones were a bit beyond the studio's admittedly limited
+budget).
+   South is a jungle, north is the bottom of the ocean and northeast a
+haunted house.
+An officer known as PC Plod is here, looking at you with suspicious eyes.
+Boris trots towards you from the south.
+
+> n
+
+Bottom Of The Ocean
+
+You're floating on the ocean bed which comprises of a few cardboard goldfish
+(goldfish in the ocean? Oh well…), a sunken car, Jesus on a cross and several
+buckets of blue paint thrown liberally about which are supposed to convince
+the audience that the scene they're viewing is actually a thousand feet
+beneath the waves. Dribble some water down the camera lens and it's
+surprisingly realistic.
+   Hell lurks to the south with Heaven off to the north.  Boris trots towards
+you from the south.
+
+> n
+
+Heaven
+
+When the studio were considering filming the life of Christ, no one was
+really sure what Heaven looked like. After conducting a survey of all studio
+employees, this set was built as it was felt to be the best interpretation of
+the afterlife anyone could think of. You're not sure about the lapdancer's
+pole, personally, but the beer-laden bar running along the north wall is
+certainly a nice touch.
+   A short step south is the bottom of the ocean.
+A very unusual-looking God is here.  Boris trots towards you from the south.
+
+> talk god
+"I was wondering if I could ask you about the dead body in the car park," you
+say.
+   "Yeah, I heard about it," says God. "Poor Melvyn."
+   "You know his name?"
+   "Sure. Melvyn. Homeless fellow who used to hang around on the studio car
+park looking for scraps of food. I think the head honchos even put him in a
+few scenes in one of their films."
+   You frown. "I don't ever remember a homeless man in one of the studio's
+films."
+   "Surprising how good the guy scrubbed up. Why, he fit in that chorus line
+just fine, though he said the bikini chaffed him a bit." God sighs. "Poor
+chap. Not a nice way to go."
+   "Has he got any family we should notify?" you ask.
+   God shrugs. "You could try searching him I guess but I don't know anything
+else about him."
+
+> s
+
+Bottom Of The Ocean
+
+You're floating on the ocean bed which comprises of a few cardboard goldfish
+(goldfish in the ocean? Oh well…), a sunken car, Jesus on a cross and several
+buckets of blue paint thrown liberally about which are supposed to convince
+the audience that the scene they're viewing is actually a thousand feet
+beneath the waves. Dribble some water down the camera lens and it's
+surprisingly realistic.
+   Hell lurks to the south with Heaven off to the north.  Boris trots towards
+you from the north.
+
+> s
+
+Hell
+
+An unpleasant looking fellow sporting horns, carrying a trident and bathed in
+flames towers over you. Yes, you're in the studio's interpretation of Hell,
+complete with all its devils, demons, school teachers…
+   School teachers? Yep, there are school teachers amidst the damned, dancing
+around in a river of flame which flows from Satan's throne of bone (or
+cardboard as bone thrones were a bit beyond the studio's admittedly limited
+budget).
+   South is a jungle, north is the bottom of the ocean and northeast a
+haunted house.
+An officer known as PC Plod is here, looking at you with suspicious eyes.
+Boris trots towards you from the north.
+
+> s
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.
+Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
+towards you from the north.
+
+> se
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash, The strange and unusual Madam Zara and world
+famous film star Violetta de Panino Derriere are here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the north-west.
+
+> e
+
+Outside The Studio
+
+This used to be a pleasant stretch of tarmac which you once had the idea of
+turning into a miniature golf course. Until, that is, the local serial killer
+decided here would be a good place to start dumping his victims.
+   The corpse of Meralda the cleaner, minus her head, is here, not doing much
+aside from bleeding messily all over the ground.
+   Off to the west is the entrance to the studio, north extends the area
+outside the studio, southeast is a patch of grass where romantic scenes are
+filmed, and south is a tree which often doubles as an entire forest when
+you're on a tight budget.  Boris trots towards you from the west.
+
+> n
+
+More Area Outside The Studio
+
+When overly dramatic outdoor scenes that require cinematic lighting, wide
+screen shots and an amazing backdrop are called for… people tend to go
+elsewhere because this shoddy patch of ground just isn't up to the job. As
+such, though once considered as a possible film set in its own right, this
+area is now used exclusively for dumping of any garbage which needs dumping
+after the local garbage collection company cut you off. A huge pile of
+garbage towers before you, threatening at any moment to topple over and bury
+anyone foolish enough to be standing here at the time.
+   The area extends (garbage free) to the south while the studio car park is
+off to the northeast.  Boris trots towards you from the south.
+
+> ne
+
+Car Park
+
+Being humble film studio employees, no one who works at the studio actually
+owns a car. You, however, park one here anyway which you "appropriated" from
+your ex following a messy divorce. She got the picnic hamper, you got the
+car. Looking at the state of it, you can't help but think she got the better
+end of the deal. There's an ever present puddle of water by your car door.
+You're not 100% certain about this but it seems to follow you around. A dead
+body is lying on the ground, the latest victim of the studio's resident
+serial killer.
+   A garbage-filled area is to the southwest while your car lies inwards.
+Big, ugly and not looking pleased to see you, Officer Grunch is here.  Boris
+trots towards you from the south-west.
+
+> x body
+Nothing has changed about the body from before aside from you now knowing
+what his name is, but you look at him and notice something you didn't see
+before: namely that he has something clutched in his hand. Prying open the
+fingers (you're actively trying not to dwell over how unpleasant this is),
+you retrieve the something. It turns out to be, of all things, a piece from a
+Scrabble set.
+
+> talk grunch
+Grunch takes one look at the badge and says, "yes, sir, Mr Plod, sir?" as if
+he believes anyone wearing Plod's badge is Plod.
+
+[1]  "I was wondering if I could ask you some questions."
+[2]  "Why are you standing here?"
+[3]  "What's it like being a cop?"
+[4]  "I need to leave the film set, Grunch."
+
+> 1
+"Yes," says Grunch.
+
+[1]  "Any ideas who the murderer might be?"
+[2]  "Say, would you like to be in a film?"
+[3]  "What evidence has been uncovered so far?"
+
+> 2
+"Yes," says Grunch. "What kind of film?"
+
+[1]  "A horror film."
+[2]  "A science fiction epic."
+[3]  "A romance."
+
+> 2
+"Fine," says Grunch. "I like sci-fi. Digby The World's Biggest Dog is great
+film."
+   You consider telling him that that's hardly the sort of film he'll be in,
+but challenging concepts like that are a difficult thing to get over to
+someone of Grunch's mental abilities.
+
+[1]  "Let me ask you something else."
+
+> 1
+Grunch takes one look at the badge and says, "yes, sir, Mr Plod, sir?" as if
+he believes anyone wearing Plod's badge is Plod.
+
+[1]  "I was wondering if I could ask you some questions."
+[2]  "Why are you standing here?"
+[3]  "What's it like being a cop?"
+[4]  "I need to leave the film set, Grunch."
+
+> sw
+
+More Area Outside The Studio
+
+When overly dramatic outdoor scenes that require cinematic lighting, wide
+screen shots and an amazing backdrop are called for… people tend to go
+elsewhere because this shoddy patch of ground just isn't up to the job. As
+such, though once considered as a possible film set in its own right, this
+area is now used exclusively for dumping of any garbage which needs dumping
+after the local garbage collection company cut you off. A huge pile of
+garbage towers before you, threatening at any moment to topple over and bury
+anyone foolish enough to be standing here at the time.
+   The area extends (garbage free) to the south while the studio car park is
+off to the northeast.  Boris trots towards you from the north-east.
+
+> s
+
+Outside The Studio
+
+This used to be a pleasant stretch of tarmac which you once had the idea of
+turning into a miniature golf course. Until, that is, the local serial killer
+decided here would be a good place to start dumping his victims.
+   The corpse of Meralda the cleaner, minus her head, is here, not doing much
+aside from bleeding messily all over the ground.
+   Off to the west is the entrance to the studio, north extends the area
+outside the studio, southeast is a patch of grass where romantic scenes are
+filmed, and south is a tree which often doubles as an entire forest when
+you're on a tight budget.  Boris trots towards you from the north.
+
+> w
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash, The strange and unusual Madam Zara and world
+famous film star Violetta de Panino Derriere are here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the east.
+
+> s
+
+Your Office
+
+You'd like to say your office is a mess of different cultures all vying for
+supremacy in the cut-throat world of commercial films. But it's actually just
+a mess. Your desk has now put in an appearance and crouches in the middle of
+the floor with a menacing look to it. There's a filing cabinet lurking in the
+corner which seems to have been battered around recently with someone with a
+serious dislike for filing cabinets. There's your computer-
+   No, someone stole that last week.
+   There's a door leading out to the main set to the north.  Boris trots
+towards you from the north.
+
+The Scrabble piece you are carrying begins to vibrate from side to side. It
+seems to be attracted to… the filing cabinet.
+   Boris whimpers.
+
+> x cabinet
+As you approach the cabinet, the Scrabble piece seems to almost pull itself
+out of your hand. You realise it's not the cabinet it's pulling you towards
+but, instead, the corner of the room. You get down on your hands and knees
+and peer into the corner. There's nothing there-
+   Wait! You brush aside a few cobwebs and find another Scrabble piece. This
+one is identical to the first yet bears the letter M instead.
+
+> n
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash, The strange and unusual Madam Zara and world
+famous film star Violetta de Panino Derriere are here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the south.
+
+> nw
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.
+Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
+towards you from the south-east.
+
+> n
+
+Hell
+
+An unpleasant looking fellow sporting horns, carrying a trident and bathed in
+flames towers over you. Yes, you're in the studio's interpretation of Hell,
+complete with all its devils, demons, school teachers…
+   School teachers? Yep, there are school teachers amidst the damned, dancing
+around in a river of flame which flows from Satan's throne of bone (or
+cardboard as bone thrones were a bit beyond the studio's admittedly limited
+budget).
+   South is a jungle, north is the bottom of the ocean and northeast a
+haunted house.
+An officer known as PC Plod is here, looking at you with suspicious eyes.
+Boris trots towards you from the south.
+
+> show scrabble
+You show the letter to PC Plod. At first he doesn't seem especially
+interested, but then when he catches sight of the two initials - P & M - he
+gives a nod.
+   "I found one of them clutched in the hand of the poor fellow who has been
+murdered in the car park," you explain. You elect to keep quiet about the
+location of the other.
+   "Normally I'd think you were being remarkably suspicious by showing these
+to me," he says, "but Petty Morgan is someone I've been after for quite a
+while now. He's one of the most suspicious characters I've ever come across."
+   "Is he the killer?" you ask.
+   "I don't know. I hope so. We were childhood enemies, you see, and I always
+swore I'd get revenge on him one day. Twenty-five years in a horrid little
+cell ought to just about pay him back for the time he stole my favourite red
+crayon.  I believe I shall go and have a few words with Mr Morgan and see
+what he has to say for himself."
+   Plod hurries away, clutching the two Scrabble pieces in his hand.
+
+> s
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.  Boris trots
+towards you from the north.
+
+...press a key...
+
+You could hear the sounds of fighting even before you reached the jungle, but
+when you pass the heavy foliage (amazing how much foliage you can get on a
+plastic bush), you see Petty Morgan being wrestled to the ground by Officer
+Grunch. Petty seems to be putting up a spirited fight, but with Grunch being
+nearly twice at tall, three times as heavy and four times as strong (as well
+as at least five times as mean), it's a fight with only one possible
+conclusion…
+   "Well done, Grunch," says Plod, emerging onto the scene. "I see you've
+secured the prisoner. Pity about the bruised ribs."
+   "But I didn't bruise his ribs," says Grunch.
+   Plod helps pull Petty up and his foot moves several times.
+   "Looks like you did, Grunch," says Plod. "Nasty set of bruises you've got
+there, Morgan."
+   Petty just groans.
+
+...press a key...
+
+"Take him away, Grunch," says Plod. "We've got our man."
+   Grunch goes lumbering away, Petty Morgan held in a headlock.
+   "Is he really guilty?" you ask. "The evidence-"
+   "Evidence is for the less suspicious than myself," says Plod. "No, film
+director, we have our man. I would offer you my thanks but I am always
+suspicious of anyone who does a good deed like this without any obvious
+ulterior motive. So I shall simply… depart."
+   You might have taken umbrage at his comments at any other time, but
+considering that he is convinced he has his man, and his weird behaviour
+recently, you're just relieved to see the back of him.
+   Still, as he leaves, you can't help but wonder if he really has the right
+man… or has he just seen this as a perfect opportunity to settle a childhood
+vendetta?
+
+> se
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+Oscar hopeful Witherspoon Nash, The strange and unusual Madam Zara and world
+famous film star Violetta de Panino Derriere are here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the north-west.
+
+> talk violetta
+"Are we ready to begin shooting, Miss Panino de Derriere?" you ask.
+   "I believe so," says Violetta.
+   "Excellent." You rub your hands together in an eerie rendition of Mr Burns
+from The Simpsons. "Light! Camera! Action!"
+
+...press a key...
+
+Talk-A-Lot
+
+Scene 1: "Battle For The Stars"
+
+The opening scene of Talk-A-Lot goes well in your humble opinion. Violetta
+emerges onto the deck of the Starship Volagar, light sabre (or cardboard
+sword actually) in hand.
+   "This Starship is ours," she announces. "And I will have the head of
+anyone who dares say otherwise."
+   "I dare say otherwise!" cries a voice.
+   Witherspoon Nash, sporting a fetching alien head (aka carrier bag) lurches
+onto the scene.
+   "You will die a horrid death, lady conqueror," he cries, going for his own
+light sabre (he accidentally bangs it on the floor and it bends in two but
+you can always fix that at the editing stage). "Prepare to meet thy maker!"
+
+...press a key...
+
+"I am not the sort to indulge in petty duels," says Violetta. "Clobertine.
+Deal with him."
+   Clobertine - or Ogden Buckett with a dustbin liner thrown over his head -
+surges across the deck of the Starship Volagar and grapples with Witherspoon.
+The two crash down in a kicking and punching melee. (Several stage hands
+immediately clap as loudly as possible to create the realistic sound effects
+that go hand in hand with the fight scene.)
+   In the end, Ogden staggers to his feet. His bin liner is ripped and sickly
+alien fluid (or what was in the bin liner before you 'reappropriated' it most
+likely) is oozing down his side.
+   "The foul miscreant is no more, milady," he grunts.
+   "Excellent," says Violetta. "Now, to the surface of the world. We have
+much to do and little time in which to do-"
+   The scene is only slightly spoiled by Spivvy rushing on at the last moment
+with a cry of "hang on! I can't find my costume!" and Ogden, clearly not
+liking the way Spivvy stands on his toe, punching him and knocking him over.
+
+   "CUT!" you cry.
+
+...press a key...
+
+"Good shoot, people!" you say, doing your bit and congratulating everyone.
+"Scene two will take place on the surface of the Moon so if you'll all make
+your way there as soon as you can..."
+   Boris snickers.
+   "Yes," you hiss to him. "I know they're ignoring me but if we wait long
+enough they'll do it."
+   Boris just sighs.
+
+> wait
+After a while, everyone makes their way over to the surface of the Moon
+setting.
+
+> nw
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.  Boris trots
+towards you from the south-east.
+
+> nw
+
+Surface Of The Moon
+
+Maybe it's just you, but you're sure the surface of the moon isn't yellow.
+Admittedly, you've never been much of an astronomy fan but you were always
+under the impression that the moon was kind of grey. And it doesn't have
+trees, does it? Palm trees? Well, at least the miniature replica of Sydney
+Opera House looks good.
+   To the west is the top of Mount Doom and southeast is a jungle.
+Oscar hopeful Witherspoon Nash and world famous film star Violetta de Panino
+Derriere are here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the south-east.
+
+> talk violetta
+"Are you ready for scene two, Miss Panino de Derriere?" you ask.
+   You catch her stifling a yawn but she nods and says, "if we must."
+   You guess enthusiasm was too much to ask for.
+
+...press a key...
+
+Talk-A-Lot
+
+Scene 2: "The Alien Menace Of Death On The Moon"
+
+Scene two opens on a foggy night on the surface of the Moon. Violetta,
+resplendent in a dinner gown with a low cut top (she refused to wear a
+spacesuit because it cramped her style), emerges from the crashed spaceship
+that has been cunningly cobbled together from the remains of several milk
+crates. In one hand she has a glass of wine (not a prop, she says she was
+thirsty beforehand) and in the other a cardboard sword.
+   "My god!" she exclaims. "What a desolate wasteland this place is! Is there
+nowhere a lady can get a good drink?"
+
+...press a key...
+
+Witherspoon Nash, clad as a bartender (he, too, thought a spacesuit would
+cramp his style), steps from out of a crater with a bottle of wine in his
+hand.
+   "Milady," he says. "It would be an honour to serve one so beautiful as
+you. Allow me to introduce my friend and travelling companion, Gribbit."
+   'Gribbit' (AKA Ogden Buckett in a dog costume inside a spacesuit) trots
+along behind him. From time to time, he says "woof" and "bark" and "growl"
+with the kind of sincerity in his voice that makes you think this is how he
+believes animals really communicate.
+   "My dear friend," says Violetta. "Come, let us leave this desolate place-"
+   "NOT SO FAST!" thunders a terrifying voice and Officer Grunch, still
+wearing his policeman's uniform, strides onto the scene. He has a card in his
+hand with his words on and doesn't hesitate to read them. "YOU ARE… UNDER
+ARREST. YOU ARE… TO COME… WITH ME. YOU ARE…" He squints at the card. "TO DIE…
+TOADY?"
+   "Today!" Witherspoon hisses.
+   "TODAY!" Grunch finishes.
+
+...press a key...
+
+"What a frightful man," says Violetta. "Proctis, be a dear and see him off."
+   Witherspoon, AKA Proctis, shrugs. "Fighting is a fool's game, milady.
+Gribbit, deal with the fellow."
+   Gribbit lunges at Grunch and punches him in the stomach. (Punches? You'll
+have to have a word with Ogden afterwards and make sure he realises that dogs
+don't punch.)
+   The battle rages for quite some time. Too long, in fact. At this rate,
+half the film will taken over with Grunch and Gribbit rolling around on the
+Moon's surface fighting it out. Not to worry, though. You can always edit out
+the bulk of it if needs be.
+   Finally, the fight ends with Gribbit the victor…
+   "My dear friend," says Violetta. "Come, let us leave this desolate place
+where we can-" she pats her ample bosom "-engage in other pursuits."
+   The two of them leave, Gribbit/Ogden running along behind them as fast as
+his stubby little legs can carry him.
+
+   "CUT!" you cry.
+   All in all, an excellent second scene.
+
+...press a key...
+
+"Another excellent shoot, people!" you cry.
+   Everyone just grumbles.
+   "Right, over to the next set: the desert!"
+   Again, everyone just grumbles.
+   Maybe they'll move to the next location in due course.
+
+> wait
+After a while, everyone makes their way over to the desert setting.
+
+> se
+
+Jungle
+
+Despite possessing just one tree (fake), one bush (fake) and one broken
+fairground ride (real), this makes for a surprisingly effective jungle. The
+heat is terrifying, leading you to suspect that either the studio have
+finally got something right… or the air conditioning is broken again.
+   To the southeast is a film set which looks like a film set, while
+northwest lies the surface of the moon and north Hell itself.  Boris trots
+towards you from the north-west.
+
+> n
+
+Hell
+
+An unpleasant looking fellow sporting horns, carrying a trident and bathed in
+flames towers over you. Yes, you're in the studio's interpretation of Hell,
+complete with all its devils, demons, school teachers…
+   School teachers? Yep, there are school teachers amidst the damned, dancing
+around in a river of flame which flows from Satan's throne of bone (or
+cardboard as bone thrones were a bit beyond the studio's admittedly limited
+budget).
+   South is a jungle, north is the bottom of the ocean and northeast a
+haunted house.  Boris trots towards you from the south.
+
+> ne
+
+Haunted House
+
+For 'house' read 'shed'. The studio's remake of The House On Haunted Hill ran
+into budgeting problems after the tea girl bought top of the range milk
+instead of the more common variety, so the house was downgraded to a shed.
+This made for a very different film, although the part where the pretty model
+was decapitated with the garden rake still brings a smile to your face.
+   To the southwest lies Hell and over to the north is a desert.
+The ever alluring Daisy is here.
+
+As you step into the haunted house set, you observe…
+   Daisy unbuttoning her dress. "Are you sure there was a naked storm trooper
+in Star Wars?"
+   Witherspoon nods. "Indeed. It was in the part where, um, Darth Vader and
+Obi-Wan. Difficult to see with the light sabres but definitely there. An
+integral part of the - yes, bra off too if you don't mind - film and probably
+not-"
+   You clear your throat.
+   The two spin and stare at you. Daisy covers herself. Witherspoon, ever the
+gentlemen, helps her. The fact that her lower quarters are already covered
+doesn't seem to bother him unduly.
+   "The script!" Witherspoon gasps. "We were… going through the… script!"
+   "I'm sure you were," you say.
+   "Come, Daisy," says Witherspoon. "Let us find somewhere more private to do
+this."
+   "The script you mean?" says Daisy as Witherspoon hurries her away.
+   "Yes, that too," are Witherspoon's final words.  Boris trots towards you
+from the south-west.
+
+> n
+
+Desert
+
+Deserts are a hard thing to create indoors, so the studio went for the less
+well known type of desert: the one that looks like a small storage room at a
+film studio that has previously contained cleaning supplies and a mop. The
+critics might have hated it but you're convinced Lawrence Of Arabia never
+looked better.
+   Southwards lies a haunted house.
+World famous film star Violetta de Panino Derriere is here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the south.
+
+> talk violetta
+"Scene three on the ready, Miss Panino de Derriere," you say.
+   She doesn't respond with incredibly enthusiasm - more a yawn - but she
+nods that she's willing.
+
+...press a key...
+
+Talk-A-Lot
+
+Scene 3: "Romance In The Dreamy Desert Of Desire On A Lovely Day"
+
+Scene three opens. It is cloudy. The moon is hidden. Somewhere, a Playstation
+is being-
+   (You clout the stage hand who promptly puts away his Playstation.)
+   Violetta staggers across the desert, panting, out of breath. Her clothes
+are torn (there's no real reason for them to be torn but it was either a
+choice of them not being torn or them being torn and, with the guy who
+designs the clothes being a red blooded male, it was a fair bet they would
+end up torn).
+
+...press a key...
+
+"Water!" she cries. "Water! Water! What-"
+   "Milady!" cries a voice and onto the scene strides Witherspoon Nash. He
+has a golf club over one shoulder (not a prop, he's off to do a spot of
+golfing after today's shoot and didn't want to forget the club) and a jaunty
+smile on his lips. "You seem rather… thirsty, milady."
+   "I am indeed, kind sir," says Violetta. "Tell me, have you, perchance, a
+six pack of beer about your person?"
+   "A six pack, milady?" Witherspoon shakes his head. "I fear not. But I
+have… love in my heart… and a song in my breath… and-"
+   It sounds corny as anything, but you catch the approving glances of the
+stage hands and realise that Spivvy's amendments to the script have really
+struck a chord with everyone. Your core audience - drunks and losers, says
+the latest survey - probably won't appreciate the changes, but the bit where
+Witherspoon 'accidentally' stumbles and tears down Violetta's dress ought to
+satisfy them. It's not Shakespeare, you reflect, but it's a beautiful women
+wearing no clothes. It's good enough.
+
+   "CUT!" you cry.
+   Undoubtedly the best scene so far.
+
+...press a key...
+
+"Not many to go now, people!" you cry, your enthusiasm more than making up
+for the alarming lack you see from everyone else. "Over to the bottom of the
+ocean!"
+   Everyone grumbles.
+
+> wait
+After a while, everyone makes their way over to the bottom of the ocean.
+
+> s
+
+Haunted House
+
+For 'house' read 'shed'. The studio's remake of The House On Haunted Hill ran
+into budgeting problems after the tea girl bought top of the range milk
+instead of the more common variety, so the house was downgraded to a shed.
+This made for a very different film, although the part where the pretty model
+was decapitated with the garden rake still brings a smile to your face.
+   To the southwest lies Hell and over to the north is a desert.  Boris trots
+towards you from the north.
+
+> sw
+
+Hell
+
+An unpleasant looking fellow sporting horns, carrying a trident and bathed in
+flames towers over you. Yes, you're in the studio's interpretation of Hell,
+complete with all its devils, demons, school teachers…
+   School teachers? Yep, there are school teachers amidst the damned, dancing
+around in a river of flame which flows from Satan's throne of bone (or
+cardboard as bone thrones were a bit beyond the studio's admittedly limited
+budget).
+   South is a jungle, north is the bottom of the ocean and northeast a
+haunted house.  Boris trots towards you from the north-east.
+
+> n
+
+Bottom Of The Ocean
+
+You're floating on the ocean bed which comprises of a few cardboard goldfish
+(goldfish in the ocean? Oh well…), a sunken car, Jesus on a cross and several
+buckets of blue paint thrown liberally about which are supposed to convince
+the audience that the scene they're viewing is actually a thousand feet
+beneath the waves. Dribble some water down the camera lens and it's
+surprisingly realistic.
+   Hell lurks to the south with Heaven off to the north.
+World famous film star Violetta de Panino Derriere is here.
+Former action hero turned "serious" actor, Ogden Buckett stands here, looking
+confused.  Boris trots towards you from the south.
+
+> talk violetta
+"Scene four-" you start to say but Violetta interrupts you with, "how many
+more of these things are there?"
+   You tell her.
+   She sighs. "Very well. Let's get it over with then.
+
+...press a key...
+
+Talk-A-Lot
+
+Scene 4: "All's Well That Ends Well"
+
+Scene 4 might not be the final one in the film but you're sure it's the most
+crucial. This is the one on which the film is made or buried. The one on
+which, if you're going to be brutally honest, your career hangs.
+   It starts well.
+   Violetta strides majestically onto the ocean bed.
+   [You're a little peeved that she refused to wear a diving suit for the
+scene but figure you can always have it added later during the editing
+stage.]
+   She looks left, she looks right. She cries out, "oh, where did I drop that
+darn mobile phone?" She starts sifting among the sand and then Ogden Buckett
+swims onto the set (he swims by crawling along the floor and making 'swimming
+gestures' with his arms, but at least he's trying). In one hand he has a
+mobile phone.
+
+...press a key...
+
+"Oh, thank you, my good friend," cries Violetta. She snatches the mobile from
+him and, ignoring the fact that she is currently half a mile under the water,
+immediately makes a call and spends the next five minutes of the film
+chatting to some friend in Havana about the price of kitchen roll.
+   You consider stopping the film at that stage but figure that Violetta in a
+clinging dress is going to please the male part of the audience, even if the
+idea of her making a phone call on the ocean floor doesn't make any sense at
+all.
+   The cameras keep on rolling…
+
+...press a key...
+
+The film is a roaring success at the box office when it opens weeks later. It
+reaches number 72 in the film charts and is, far and away, the most
+successful film you have ever directed. At one time, it even makes more money
+than an Indian documentary film about glue in its fifth week out. Your name,
+the name of G. I. Torrance, is sure to be remembered for a long time as a
+result of this.
+
+But that's the future. Today, you thank the cast and crew, wish everyone all
+the best for the future and retire to your office for a last celebratory
+drink with Boris.
+
+...press a key...
+
+Your Office
+
+You'd like to say your office is a mess of different cultures all vying for
+supremacy in the cut-throat world of commercial films. But it's actually just
+a mess. Your desk has now put in an appearance and crouches in the middle of
+the floor with a menacing look to it. There's a filing cabinet lurking in the
+corner which seems to have been battered around recently with someone with a
+serious dislike for filing cabinets. There's your computer-
+   No, someone stole that last week.
+   There's a door leading out to the main set to the north.
+
+Only forgetting as you arrive there that you don't have anything to drink.
+And Boris is still a monkey.
+   Boris yowls.
+   "Yes, I know you're still a monkey," you say. "What do you expect me to do
+about it?"
+   Boris just shrugs.
+   Maybe, you reflect, there's something you can do. Or maybe it's just time
+to head out to your car and drive on home.  Boris trots towards you.
+
+> n
+
+Film Set
+
+This is the first part of the film set, cunningly fashioned to look like… a
+film set. Yes, someone apparently decided that the opening scene of
+Talk-A-Lot - a film about space battles on the far edge of the galaxy - would
+benefit from its first set being that of a film set. So you see a camera and
+a stand (on which to put a camera) and several coils of rope and what looks
+to be a ceiling light that has fallen from the ceiling and now lies smashed
+on the floor.
+   Your office is back to the south, the canteen is off to the west, a jungle
+is off to the northwest and a door leading outside is to the east.
+The strange and unusual Madam Zara is here.  Boris trots towards you from the
+south.
+
+> give bar to zara
+"Stand back," says Madam Zara, pocketing what you have given to her, "and I
+shall work my magic most wonderful and frightening. If you should die as a
+result of this casting, Mr Torrance, you shall not come back and haunt me."
+   "Die as a…" you say. "Hang on a min-"
+   But that's as far as you get before Madam Zara claps her hands together
+and everything disappears in a soundless explosion of light. Soundless, that
+is, aside from the roaring sound, the rustling sound, the scraping sound and,
+ultimately, the crashing and bashing sound.
+   And then a voice says: "by heck, that came keen!"
+   You blink away the tears and see, lying there on the floor, as naked as
+the day he was born, but considerably hairier, your assistant Boris!
+
+...press a key...
+
+"Boris!" you cry. "You're human again!"
+   Boris groans and clutches his head. "Man, what was I drinking last night?"
+he says. "Must have been one hell of a drink to make me feel-"
+   "Boris," you say, "you were a monkey."
+   He stares at you. Unconsciously, he scratches himself on the head. "A
+monkey?" He rolls his eyes. "Yeah, right…"
+   You look at Madam Zara… only to find she has mysteriously vanished. You
+look back at Boris.
+   It's kind of strange. Seen like this, he still retains a certain amount of
+monkey to him: the chitters he makes, the way he's picked up the same soggy
+banana he's been sucking for the past eight hours and has now started sucking
+again, the way he scampers about… but it's probably not a good idea to point
+that out to him.
+   "How did the film go, sir?" he asks.
+   "Good, Boris," you say. You reflect that, today, just about everything has
+gone as well as it could. "Very good indeed."
+
+...press a key...
+
+Well done!
+
+   Give yourself a clap on the back, pour yourself a drink and start finding
+some shelf space for that Oscar you'll be winning soon... you reached the
+best ending in the game!
+   All that remains now is to thank you for playing Lights, Camera, Action!
+and I hope you enjoyed it. Feel free to open up the game in the ADRIFT
+Generator and see how it was all put together.
+   You might want to also compare your score and rank to the following chart
+to see if you did everything that it's possible to do in the game:
+
+Score 0-9        : Embarrassment to the film world
+Score 10-19        : The new Ed Wood
+Score 20-29        : Fit to direct a Carry On film
+Score 30-39        : Middling film director
+Score 40-49        : Great film director
+Score 50-59        : The new Orson Welles
+Score 60-69  : Number one film director in the world
+Score 70-79        : God
+Score 80+        : So good you must have cheated
+
+Did well but not the best? Type details if you decide to play a game again
+for some extra hints.
 
 > quit
 Do you really want to quit? [Y/N]

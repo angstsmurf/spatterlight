@@ -1,0 +1,2897 @@
+Loading game...
+
+Ghost town
+
+Parts of this game may contain pictures considered to be of adult nature by
+some. Player discretion recommended.
+
+Having received a puzzling letter at your home address a few days ago from a
+law firm you've never heard of before, you find yourself here in the midst of
+the wood, where a friendly truck driver dropped you off before continuing his
+trip across the state. As you wait for the lawyer to meet you, you start to
+reach in your pocket to read the letter for the umpteenth time although
+you've read the contents so often they're committed to memory.
+Were you wrong to come here? You hope not!   Press any key
+
+Outside cabin
+Withered leaves and rotten twigs crumble under your feet as you slowly pace
+back and forth outside the old wooden cabin.
+It looks likes like it has been here for an eternity and the years hasn't
+passed it kindly. The single window is broken, and the remaining glass is too
+dirty to even look through, and you  get a creepy feeling that it stares at
+you like an empty eye socket. The door leading in is nothing more than
+rotting planks of timber.
+Big patches of greenish moss cover the logs that make up the sides of the
+cabin, and the roof is hidden under layer upon layer of leaves and broken
+branches.  Nature has once again claimed her ground, and a narrow path that
+appears to lead around to the back of the cabin is blocked by dense bushes
+and shrubbery.
+Although hard to see, there is still a trace of a path leading north into the
+cottage, and back south towards the road.
+
+> open door
+Grabbing the handle you pull at the door. With a heartening scream from the
+rusty hinges the door slowly opens.
+A smell of rot engulfs you as the door opens and you feel like vomiting for a
+brief second. A light breeze that must have been heaven sent washes away the
+foul odor and you can breathe freely again.
+You can now go in.
+
+> n
+You move north.
+
+Living room
+Although not very big, the living room takes up most of the space in the
+cabin.
+Daylight filters through what's left of the glass in what was once a window
+and casts an eerie dusty light inside the room. Every step you take whirls up
+little clouds of dirt from the floor, and the planks feel wobbly and somewhat
+loose under your feet.
+There isn't much furniture left in here. Two wooden boxes supporting two
+boards has been used as a table, and an old rotten couch with its upholstery
+torn and shredded stands near the wall under the window.
+on the walls you see the sad remains of some old posters, once probably very
+colorful but now faded into oblivion.
+In the corner lays a wooden dresser, pushed over on its side, as if a giant's
+hand has swept through the room. There are gaping openings in the dresser
+front, and the floor is strewn with broken splinters of wood that probably
+once made up the drawers.
+Behind you a gaping hole in the wall leads east to the kitchen, and a ragged
+blanket covers an exit to the north, leading into yet another room.
+
+> n
+You move north.
+
+Bedroom
+As you enter the bedroom you are surprised by the sight of total destruction.
+You realize that this can't have been done by animals or the tooth of time.
+Only other humans could have caused such havoc.
+Deep lines have been drawn in the dirt where the various items of furniture
+have been dragged from one end of the room to the other. The bed, or what is
+left of it, has been thrown on its side, and the mattress and pillow have
+been slit open and the stuffing pulled out.
+Strangely enough the lonely wooden bedside table has avoided damage and is
+still standing close to the wall, and an old kerosene lamp stands proudly on
+top of it as the sole survivor of the obvious turmoil. Another one lies next
+to the table, and as you check them you find that only one of them is in
+working condition.
+A tall closet, one leg missing is leaning against a wall, its doors hanging
+by one hinge only, with old moldy pieces of clothing lying half way out and
+on to the floor.
+
+Also here is a rusty kerosene lamp.
+
+> look
+
+Bedroom
+As you enter the bedroom you are surprised by the sight of total destruction.
+You realize that this can't have been done by animals or the tooth of time.
+Only other humans could have caused such havoc.
+Deep lines have been drawn in the dirt where the various items of furniture
+have been dragged from one end of the room to the other. The bed, or what is
+left of it, has been thrown on its side, and the mattress and pillow have
+been slit open and the stuffing pulled out.
+Strangely enough the lonely wooden bedside table has avoided damage and is
+still standing close to the wall, and an old kerosene lamp stands proudly on
+top of it as the sole survivor of the obvious turmoil. Another one lies next
+to the table, and as you check them you find that only one of them is in
+working condition.
+A tall closet, one leg missing is leaning against a wall, its doors hanging
+by one hinge only, with old moldy pieces of clothing lying half way out and
+on to the floor.
+
+Also here is a rusty kerosene lamp.
+
+> get lamp
+You reach out and pick up the only working kerosene lamp in the room.
+
+> s
+You move south.
+
+Living room
+Although not very big, the living room takes up most of the space in the
+cabin.
+Daylight filters through what's left of the glass in what was once a window
+and casts an eerie dusty light inside the room. Every step you take whirls up
+little clouds of dirt from the floor, and the planks feel wobbly and somewhat
+loose under your feet.
+There isn't much furniture left in here. Two wooden boxes supporting two
+boards has been used as a table, and an old rotten couch with its upholstery
+torn and shredded stands near the wall under the window.
+on the walls you see the sad remains of some old posters, once probably very
+colorful but now faded into oblivion.
+In the corner lays a wooden dresser, pushed over on its side, as if a giant's
+hand has swept through the room. There are gaping openings in the dresser
+front, and the floor is strewn with broken splinters of wood that probably
+once made up the drawers.
+Behind you a gaping hole in the wall leads east to the kitchen, and a ragged
+blanket covers an exit to the north, leading into yet another room.
+
+> e
+You move east.
+
+Kitchen
+Any movement on the floor here sounds strangely hollow. You notice how the
+planks here also feel kind of wobbly and loose under your feet, and in
+several places the planks have separated leaving dangerous cracks between
+them.
+An old iron stove, now all dusty and red with rust stands against one wall,
+its doors open and piles of ashes lying on the floor. The metal cooking rings
+have been thrown onto the floor, leaving gaps in the surface of the stove.
+Not that it would be your first choice for a place to prepare any food.
+The kitchen table is roughly attached to the wall near the stove and also has
+huge cracks in it. Here and there a piece is cut out, leaving the edge rugged
+and sharp.
+A sturdy wooden box with rusted iron corners stands in the corner and the
+opening leading back into the living room is to the west of you.
+
+> look
+
+Kitchen
+Any movement on the floor here sounds strangely hollow. You notice how the
+planks here also feel kind of wobbly and loose under your feet, and in
+several places the planks have separated leaving dangerous cracks between
+them.
+An old iron stove, now all dusty and red with rust stands against one wall,
+its doors open and piles of ashes lying on the floor. The metal cooking rings
+have been thrown onto the floor, leaving gaps in the surface of the stove.
+Not that it would be your first choice for a place to prepare any food.
+The kitchen table is roughly attached to the wall near the stove and also has
+huge cracks in it. Here and there a piece is cut out, leaving the edge rugged
+and sharp.
+A sturdy wooden box with rusted iron corners stands in the corner and the
+opening leading back into the living room is to the west of you.
+
+> get logs
+The logs are far too heavy for you to carry, so you just take them from the
+box, one at a time and place them on the floor beside you.
+
+> move box
+Placing your feet solid on the floor, you lean over and pull at the box.
+At first nothing happens, but then, very slowly the box starts to move, and
+to your surprise part of the floor moves with it creating a hole in the
+floor.
+A dark entrance leading down becomes visible as you pull the box.
+Finally the hole in the kitchen floor is big enough for a man to enter. Now
+you suddenly understand why your footsteps sounded different as you walked
+across the floor.
+
+> light lamp
+You strike one of your few remaining matches, and light the kerosene lamp.
+It starts burning with a sleepy dusty yellow light, just strong enough to
+light up your nearest surroundings.
+
+> d
+Cellar
+Standing at the bottom of the wooden ladder leading back up into the kitchen,
+you realize that you are in a cellar of some kind. Above your head you can
+see the planks of the kitchen floor, and to tell the truth, they don't look
+too sturdy from down here.
+The air is heavy, and you have trouble breathing. The little air you manage
+to draw into your lungs has a sour moldy smell and it seems to stick to the
+inside of your mouth, polluting your taste buds with a grim sensation.
+Heavy beams are erected and have the dual purpose of holding up the ceiling
+and also supporting the cellar walls, keeping them from collapsing.
+In the dim light that is available from the flickering lantern, you can see
+some crates lying around, with only a few of them unbroken.
+
+> look
+
+Cellar
+Standing at the bottom of the wooden ladder leading back up into the kitchen,
+you realize that you are in a cellar of some kind. Above your head you can
+see the planks of the kitchen floor, and to tell the truth, they don't look
+too sturdy from down here.
+The air is heavy, and you have trouble breathing. The little air you manage
+to draw into your lungs has a sour moldy smell and it seems to stick to the
+inside of your mouth, polluting your taste buds with a grim sensation.
+Heavy beams are erected and have the dual purpose of holding up the ceiling
+and also supporting the cellar walls, keeping them from collapsing.
+In the dim light that is available from the flickering lantern, you can see
+some crates lying around, with only a few of them unbroken.
+
+> x wall
+With the lamp lifted high over your head, you move closer to the wall for a
+better inspection.
+At first you see no differences in texture, but as you slowly move the light
+around, you notice that there is a spot that looks darker than the rest of
+the wall. It's not much, and you wouldn't have seen it if you hadn't stood so
+close.
+You reach out and touch the darker area of the wall... The dirt seems a
+little softer here.
+
+> dig wall
+You carefully start to scratch on the spot on the wall where the dirt looks
+less hard and to your surprise your hands sink relatively easily into the
+dirt, and it doesn't take long before a small pile of dirt is covering your
+feet leaving a fairly nice sized hole in the dirt wall.
+
+> dig wall
+Amazed that it's so easy to dig, you reach into the small hole you've made
+and scoop out a big chunk of dirt. Too late you realize that you have been
+too impatient. It starts with a small tremble and then without any further
+warning the wall collapses on you, throwing you to the ground,.
+You fall to the ground under the weight of dirt, the fine dust filling your
+lungs, making it almost impossible to breathe, and as your vision slowly
+fades while you desperately gasp for air you feel a sharp agonizing pain in
+your knee as something hard is knocked against it.  Press any key
+Slowly the dust settles, and you manage to pull yourself together,
+controlling your breath while you dig yourself out of the mountain of dirt
+that almost killed you, your hands touches something metallic as you scoop
+the dirt away.
+The cellar looks totally different now. A huge black hole where one of the
+walls once stood shows you just how close you came to losing your life.
+
+> x hole
+You pull yourself together and reach into the black hole in the wall. You
+search it thoroughly but it seems to be empty..... The cellar seems quite
+different now that part of the wall has collapsed.
+
+> x pile
+The dirt is covering you almost to your knees. You manage to pull yourself
+out and with a sigh of relief you get back on your feet while the moldy
+smelling cloud of dust slowly settles around you.
+Holding your breath you curiously and very carefully run your hands through
+the pile of dirt.  At first you find nothing, then your fingertips touches
+something metallic and you pull a small box from the dirt.    Press any key
+You suddenly feel a tingling down your neck as tiny flakes of dust from the
+kitchen floor above you are falling on your head and shoulders. A cold fear
+runs down your spine when you realize that someone has entered the cabin and
+is now walking around upstairs.
+Then a soft female voice calls out: "Anyone here? I'm from the lawyer's
+office!", and you take a deep breath, slowly getting your nerves under
+control again.
+Fearing the risk of the ceiling collapsing on you, you wonder if it's worth
+taking the chance of looking up.
+
+> x ceiling
+Ohh it was well worth taking the chance....
+Through a crack between the floorboards you can see a quite pretty woman in
+the kitchen. Not only that, your position also give you quite a tasty look up
+her legs, up under her skirt.
+Feeling you could stand there forever, enjoying the view, a cloud of dust
+from the ceiling suggests that it might be time to go up and say hello to
+this stranger....
+
+> u
+Kitchen
+Any movement on the floor here sounds strangely hollow. You notice how the
+planks here also feel kind of wobbly and loose under your feet, and in
+several places the planks have separated leaving dangerous cracks between
+them.
+An old iron stove, now all dusty and red with rust stands against one wall,
+its doors open and piles of ashes lying on the floor. The metal cooking rings
+have been thrown onto the floor, leaving gaps in the surface of the stove.
+Not that it would be your first choice for a place to prepare any food.
+The kitchen table is roughly attached to the wall near the stove and also has
+huge cracks in it. Here and there a piece is cut out, leaving the edge rugged
+and sharp.
+A sturdy wooden box with rusted iron corners stands in the corner and the
+opening leading back into the living room is to the west of you.
+  There's a hole in the floor where the box with the logs once was.
+
+Also here are some wooden logs.
+
+> i
+You are wearing well worn jeans, a pair of sneakers and a T-shirt, and you
+are carrying a rusty kerosene lamp, a book of matches, a small metal box and
+an official looking document.
+The flame in the kerosene lamp starts to flicker.
+
+> w
+You move west.
+
+Living room
+Although not very big, the living room takes up most of the space in the
+cabin.
+Daylight filters through what's left of the glass in what was once a window
+and casts an eerie dusty light inside the room. Every step you take whirls up
+little clouds of dirt from the floor, and the planks feel wobbly and somewhat
+loose under your feet.
+There isn't much furniture left in here. Two wooden boxes supporting two
+boards has been used as a table, and an old rotten couch with its upholstery
+torn and shredded stands near the wall under the window.
+on the walls you see the sad remains of some old posters, once probably very
+colorful but now faded into oblivion.
+In the corner lays a wooden dresser, pushed over on its side, as if a giant's
+hand has swept through the room. There are gaping openings in the dresser
+front, and the floor is strewn with broken splinters of wood that probably
+once made up the drawers.
+Behind you a gaping hole in the wall leads east to the kitchen, and a ragged
+blanket covers an exit to the north, leading into yet another room.
+Ninette is here.
+
+> look
+
+Living room
+Although not very big, the living room takes up most of the space in the
+cabin.
+Daylight filters through what's left of the glass in what was once a window
+and casts an eerie dusty light inside the room. Every step you take whirls up
+little clouds of dirt from the floor, and the planks feel wobbly and somewhat
+loose under your feet.
+There isn't much furniture left in here. Two wooden boxes supporting two
+boards has been used as a table, and an old rotten couch with its upholstery
+torn and shredded stands near the wall under the window.
+on the walls you see the sad remains of some old posters, once probably very
+colorful but now faded into oblivion.
+In the corner lays a wooden dresser, pushed over on its side, as if a giant's
+hand has swept through the room. There are gaping openings in the dresser
+front, and the floor is strewn with broken splinters of wood that probably
+once made up the drawers.
+Behind you a gaping hole in the wall leads east to the kitchen, and a ragged
+blanket covers an exit to the north, leading into yet another room.
+Ninette is here.
+
+> x ninette
+Ninette is a pretty woman in her late twenties.
+Her long blonde hair is combed back in a business-style fashion, ruining her
+otherwise soft facial features. Her eyes are blue and she wears very discrete
+makeup that underlines her cheekbones and full lips perfectly.
+She is wearing a pinkish quality top, and a light grey business suit, that
+clings nicely to her well shaped body without being too forward. A pair of
+black high heeled shoes ends the perfect picture of a determined business
+woman.
+
+> x box
+It's just a small metal box - a little bit bigger than a notebook if you were
+to compare sizes. It has all the signs of having been buried inside the dirt
+wall for many years. Although the cellar walls are relatively dry, there are
+specks of rust here and there on the metal.
+The box is locked with a padlock much too big for a box this size.
+
+> open box
+There's no way you can open the metal box with the padlock still in place.
+
+> ask ninette about will
+Ninette opens her briefcase and looks through her papers, then with a
+satisfying "oh" she hands you an envelope.
+The flame in the lamp is much smaller now, and it starts to smoke a little.
+It looks like it has a hard time burning.
+
+> ask ninette about battle creek
+"Battle Creek is now a ghost town. It's located not too far from here,
+although the road leading there hasn't been used for quite some time. I am
+instructed to take you there, should you decide to fulfill the last wish of
+your great grandfather."
+Upon seeing the surprised expression on your face, she hurriedly continues:
+"No, no. No one from the office has read your great grandfathers will, as you
+will see, the seal is still untouched. However, there was a letter to my
+grandfather, attached to the envelope, giving him instructions on what to do,
+in case we found a living relative."
+She continues, "My car is parked nearby, so if you are ready to leave for
+Battle Creek, let's get in the car and get going."
+
+> ask ninette about grandfather
+Ninette opens her briefcase, and looks through her papers. Finding what she
+looks for, she pulls out a few sheets, skims them and then continues:
+"According to this, your great grandfather, (aged 17) and his family left the
+town of Battle Creek around 1879 and moved to San Francisco. He left again in
+81 on a ship, and nothing much is known about him from then on, until he
+returned to Battle Creek in 1920, as a very  wealthy man.
+The fate of one "Holly" must have been important to him, because he spent
+quite an amount on private detectives, trying to find this woman, but there
+is nothing on record that he ever succeeded.   Press any key
+
+"During the depression in the 30's people left Battle Creek looking for jobs
+in the cities, and although your great grandfather was still a very wealthy
+man, all we know is that he too left town, got married at some point, and a
+few years later met with my grandfather to draw up this will. His wife died,
+suddenly, and he left his son with some distant relatives, and then
+disappeared, never to be heard from again."
+
+> ask ninette about holly
+Ninette shakes her head.
+"My company knows nothing about this person, whether it is a daughter, a
+former wife, (your great grandmother's name was Kate) or whatever she was, it
+looks like your great grandfather was very interested in finding her."
+
+> give document to ninette
+Ninette doesn't seem interested in the official looking document.
+
+> x document
+It's a letter from a lawyer, with a rather impressive letter head at the top.
+The strangest thing is that apart from the letter head, the letter itself has
+little resemblance with any letter you have received from lawyers in the
+past. This isn't a typically machine written letter, but a hand written one,
+which seems to indicate some importance.
+The flame flickers and dies.
+You are now carrying an empty kerosene lamp. Let's hope you won't be needing
+light in the future..
+
+> x envelope
+The envelope looks very old, and has apparently been through quite a lot. Big
+stains of water, discolored with age, cover most of the surface, and one
+corner bears the charred  marks of fire. There is some handwriting on its
+face.
+There's a seal on the back of the envelope, showing that is hasn't been
+opened.  The old envelope is closed.
+
+> open envelope
+You carefully break the seal, and pull out an old and withered tainted
+document. You are now holding the will of your great grandfather.
+
+> read will
+Although the ink on the document is fainted, it is still possible to read and
+with a growing surprise you read it out loud.
+It states that your great grandfather leaves all his earthly goods and assets
+to his closest living relative (you).
+You are the owner of the cabin, and of a piece of property in a town called
+"Battle Creek." However, you must set foot in Battle Creek, and you must find
+out what happened to some  girl named Holly that worked in the local Saloon
+"the Lucky Dice" before you can claim the money.
+There's a lot of other lawyer mumbo-jumbo, but this is mainly what it's all
+about.
+
+> i
+You are wearing well worn jeans, a pair of sneakers and a T-shirt, and you
+are carrying a book of matches, a small metal box, an official looking
+document, an old envelope, your great grandfather's will and an empty
+kerosene lamp.
+
+> s
+You move south.
+
+Outside cabin
+Withered leaves and rotten twigs crumble under your feet as you slowly pace
+back and forth outside the old wooden cabin.
+It looks likes like it has been here for an eternity and the years hasn't
+passed it kindly. The single window is broken, and the remaining glass is too
+dirty to even look through, and you  get a creepy feeling that it stares at
+you like an empty eye socket. The door leading in is nothing more than
+rotting planks of timber.
+Big patches of greenish moss cover the logs that make up the sides of the
+cabin, and the roof is hidden under layer upon layer of leaves and broken
+branches.  Nature has once again claimed her ground, and a narrow path that
+appears to lead around to the back of the cabin is blocked by dense bushes
+and shrubbery.
+Although hard to see, there is still a trace of a path leading north into the
+cottage, and back south towards the road.
+  A black SUV is parked near by.  Ninette is here.
+
+> enter car
+You open the passenger door and get into the car, and as you do so Ninette
+opens the door on the driver's side and slides in behind the wheel, giving
+you an interesting glimpse of a firm nylon clad thigh.
+Once you are inside and have buckled up, Ninette turns her head and looks at
+you and smiles. She then turns the key in the ignition, starts the car and
+turns onto the road.
+As you drive along, dark clouds gather over head, and soon heavy drops of
+rain hit the windshield, making it hard to see anything, even with the lights
+and wipers on.
+Not taking her eyes off the road, Ninette speaks to you: "According to the
+directions your great grandfather wrote down, there should be a small path
+leading into the forest somewhere around here. Please help me look for it, as
+it's hard to find, and we may easily miss it."      Press any key
+
+Road by cabin
+You are sitting next to Ninette inside the car, driving down a road leading
+east.
+Dark clouds are covering the skies outside and the rain is falling heavily on
+the windshield, making it hard to see, even with the wipers furiously
+sweeping against the glass.
+The reflections of the instruments shine in the windshield, and cast a soft
+light on Ninette's face giving it a certain charm. You lean back against the
+leather seat, enjoying the smell of a "new" car and try to look through the
+windows at the scenery outside.
+There isn't much to be seen in the darkness, just the road lying like a black
+snake between the walls of trees towering on both sides of the vehicle.
+Ninette is here.
+
+> e
+You move east.
+
+Road east / west
+Ninette drives cautiously through the heavy rain, concentrating on the road
+ahead.
+Not many words are exchanged between you, so you turn your head and look out
+the windows of the car at the dark wall of the forest outside. The road seems
+to go on forever and you try to fight back the pleasant feeling of sleepiness
+that slowly overwhelms you, knowing that if you doze off you might miss the
+path she told you about earlier.
+Ninette is here.
+
+> e
+You move east.
+
+Road through forest
+The wheels hum silently against the wet asphalt as you travel along, and the
+monotonous landscape slides silently past outside. More than once your head
+nods down as you start to doze off.
+Suddenly you jerk wide awake, catching a break in the trees a short distance
+ahead. You're not quite sure if this is what you're looking for... and
+yet.......
+Ninette is here.
+
+> look
+
+Road through forest
+The wheels hum silently against the wet asphalt as you travel along, and the
+monotonous landscape slides silently past outside. More than once your head
+nods down as you start to doze off.
+Suddenly you jerk wide awake, catching a break in the trees a short distance
+ahead. You're not quite sure if this is what you're looking for... and
+yet.......
+Ninette is here.
+
+> x path
+You squint your eyes, trying to penetrate the darkness and the rain.
+YES! it is a path, almost invisible, a little further up ahead, leading south
+in amongst the trees.
+
+> s
+All excited you point out the small dirt path almost invisible through the
+darkness and the rain.
+Ninette sends you an impressed look, slows down a little and turns the SUV
+down the road in amongst the tall dark trees.
+
+Small dirt path - 1
+It's a good thing that the rain didn't last that long. The narrow dirt road
+you're driving on is relatively dry, but could very easily have become a sea
+of mud.
+You are on a bumpy narrow path that runs north and south.
+The branches of the trees brush against the sides of the car, and the rough
+path jostles the car up and down, throwing you roughly around on the seat.
+You desperately look around to find something solid to hold on to, finally
+grabbing the edge of the dashboard hard enough to turn your knuckles white.
+Ninette is holding tightly onto the steering wheel, trying her best to steer
+the car along the narrow path.
+Ninette is here.
+
+> look
+
+Small dirt path - 1
+It's a good thing that the rain didn't last that long. The narrow dirt road
+you're driving on is relatively dry, but could very easily have become a sea
+of mud.
+You are on a bumpy narrow path that runs north and south.
+The branches of the trees brush against the sides of the car, and the rough
+path jostles the car up and down, throwing you roughly around on the seat.
+You desperately look around to find something solid to hold on to, finally
+grabbing the edge of the dashboard hard enough to turn your knuckles white.
+Ninette is holding tightly onto the steering wheel, trying her best to steer
+the car along the narrow path.
+Ninette is here.
+
+> s
+You move south.
+
+Small dirt path - 2
+At this place the path makes a turn, heading off in an easterly direction
+while another set of old tracks also branches off and continues south where
+it seems like the trees are not as close together. The path also extends off
+to the north towards the paved roadway.
+Ninette has stopped the car, and is looking at you for directions, as your
+guess is as good as hers.
+Ninette is here.
+
+> look
+
+Small dirt path - 2
+At this place the path makes a turn, heading off in an easterly direction
+while another set of old tracks also branches off and continues south where
+it seems like the trees are not as close together. The path also extends off
+to the north towards the paved roadway.
+Ninette has stopped the car, and is looking at you for directions, as your
+guess is as good as hers.
+Ninette is here.
+
+> s
+You move south.
+
+Small dirt path -4
+The path abruptly ends here near the edge of a steep cliff. Behind you to the
+north the path disappears in between the dense trees of the forest.
+Looking to the south, it appears as if the path has abruptly been cut off and
+the silhouette of a town is delicately balancing on the edge.
+As you look closer you see that the path continues down what appears to be an
+almost vertical slope.
+Ninette is here.
+
+> look
+
+Small dirt path -4
+The path abruptly ends here near the edge of a steep cliff. Behind you to the
+north the path disappears in between the dense trees of the forest.
+Looking to the south, it appears as if the path has abruptly been cut off and
+the silhouette of a town is delicately balancing on the edge.
+As you look closer you see that the path continues down what appears to be an
+almost vertical slope.
+Ninette is here.
+
+> leave car
+Ninette looks at you, then she reaches out and turns off the ignition.
+You open the door and gets out of the car, standing on the path, overlooking
+the beautiful scenery.
+
+Small dirt path -4
+The path abruptly ends here near the edge of a steep cliff. Behind you to the
+north the path disappears in between the dense trees of the forest.
+Looking to the south, it appears as if the path has abruptly been cut off and
+the silhouette of a town is delicately balancing on the edge.
+As you look closer you see that the path continues down what appears to be an
+almost vertical slope.
+  Ninettes' car is parked where you left it.
+Ninette is here.
+
+> d
+You carefully start your decent down the slope, being very careful where you
+put your feet.
+Suddenly you hear a scream behind you, and in a flash you see Ninette sliding
+past you in a blur of rubble and dirt! Flat on her stomach, arms swining
+wildly in the air, she passes you a cloud of dust.
+Halfway down the slope, you manage to duck aside just in time to avoid
+getting hit by her high heeled, Italian-made, designer shoe as it swipes just
+inches in front of your eye.
+You watch as she lands in some bushes at the bottom of the slope, using
+language you never thought possible.
+Luckily you are more than halfway down the slope, so there is no big chance
+of her getting hurt, but the sight is absolutely lovely.
+You have stopped halfway down the steep slope, and wait a while until the
+dust has settled before you dare continue your way down.
+
+Halfway down slope
+You are halfway down the steep slope, trying to keep your balance...
+The slope is very steep and covered with rubble which makes it very hard to
+keep your balance.
+A fact that was all too well demonstrated by Ninette a little while ago…
+Ninette is here.
+
+> look
+
+Halfway down slope
+You are halfway down the steep slope, trying to keep your balance...
+The slope is very steep and covered with rubble which makes it very hard to
+keep your balance.
+A fact that was all too well demonstrated by Ninette a little while ago…
+Ninette is here.
+
+> d
+You can see Ninette come to rest at the bottom of the slope, and apparently
+she is unhurt.
+You continue your descent down, trying to your best to keep a huge grin off
+your face when you reach the bottom. Ninette lies in the bushes, her pride
+hurt more than anything else. You notice her beautiful long legs wiggling
+desperately in the air.....
+With her face red with embarrassment, she tries to get up from a rather
+awkward and quite revealing resting position in some bushes, and you reach
+out to help her get on her feet again, trying not to stare at her legs.
+Press any key
+In the distance to the east you can see the outskirts of Battle Creek...
+Ninette is here.
+
+> look
+
+Bottom of slope
+You are standing at the bottom of a steep slope. The top seems to be miles
+away upwards and to the east an almost invisible trail leads through the
+barren land towards the outskirts of a town silhouette shimmering in the
+heat.
+The dry bushes on either side of the slope still bear the marks of Ninettes'
+landing earlier, and the dry air burns in your throat and lungs as you
+breathe. This is not a very hospitable environment.
+Ninette is here.
+
+> e
+You move east.
+
+West end of Main street
+Stretched out towards the east like a dusty band, silent, shimmering in the
+hot prairie heat the main street of Battle Creek lies before you. Old
+battered buildings line each side of the dusty street, some in ruins, others
+nothing but burned out skeletons of what once were...
+To the north lies the empty shell of what was once a general store, its
+charred beams of timber stretching towards the sky  as an accusing finger,
+and to the south is the old livery stable, walls almost caving in, bleached
+and dried by the merciless sun. Behind you, to the west, the trail continues
+away from the town, leading back up to the plateau from where you came.
+Ninette is here.
+
+> look
+
+West end of Main street
+Stretched out towards the east like a dusty band, silent, shimmering in the
+hot prairie heat the main street of Battle Creek lies before you. Old
+battered buildings line each side of the dusty street, some in ruins, others
+nothing but burned out skeletons of what once were...
+To the north lies the empty shell of what was once a general store, its
+charred beams of timber stretching towards the sky  as an accusing finger,
+and to the south is the old livery stable, walls almost caving in, bleached
+and dried by the merciless sun. Behind you, to the west, the trail continues
+away from the town, leading back up to the plateau from where you came.
+Ninette is here.
+
+> e
+You move east.
+
+Outside Saloon & Bank
+You are still on the main street, little clouds of dust rising with every
+step you take are quickly swept away by the hot desert wind. A single
+tumbleweed passes by you, like a lonely traveler passing through town. East
+and west of you the relatively broad street continues, but to the north is
+the ruin of what must once have been a rather impressive building. To the
+south, is the town Saloon, strangely enough almost undamaged, and the
+withered sign still intact. The building rises up above you, two storeys
+high, with only a few windows broken, looking like you could move in today if
+you wanted to.
+Ninette is here.
+
+> n
+You move north.
+
+The bank
+You step around a huge hole in the sidewalk to enter what was once a rather
+impressive building built from heavy timber, and although most of it is still
+standing, time has also set its whithering mark here.
+There is only one room inside and it is hard to move around because of all
+the fallen timber. Most of the roof lies on the floor and when you look up
+you can see that the upstairs floor has collapsed and most of the roof is
+gone too allowing you to see the sky through a huge hole.
+Close to the wall there is a counter that runs along the entire length, and
+on top of the counter you can see the remains of iron bars and little
+windows. Something that could have been the manager's office is located at
+the far end, but fallen timber and other debris prevents you from getting
+closer.
+You look around in the vain hope of finding the safe, but it has long gone
+been taken by someone.
+Ninette is here.
+
+> get iron bar
+You carefully study the iron bars on top of the counter. They all look very
+solid in spite of the number of years they have been here. Also the counter
+top where the bars are embedded looks surprisingly solid.
+You find one that looks manageable and take a good firm grip on it and start
+to pull. Back and forth for what seems like forever, but finally the wood
+gives in and soon you are holding an iron bar in your hand.
+
+> s
+You move south.
+
+Outside Saloon & Bank
+You are still on the main street, little clouds of dust rising with every
+step you take are quickly swept away by the hot desert wind. A single
+tumbleweed passes by you, like a lonely traveler passing through town. East
+and west of you the relatively broad street continues, but to the north is
+the ruin of what must once have been a rather impressive building. To the
+south, is the town Saloon, strangely enough almost undamaged, and the
+withered sign still intact. The building rises up above you, two storeys
+high, with only a few windows broken, looking like you could move in today if
+you wanted to.
+Ninette is here.
+
+> s
+The rusty hinges on the saloon swinging doors squeak ghostly behind you as
+you step into what was once the center of entertainment of Battle Creek.
+
+The saloon
+The little sunlight that manages to shine through the dirty windows gives the
+room a dusky atmosphere. Tiny flakes of dust swirls in the air creating
+strange forms as they move about changing patterns with every move you make,
+and an unpleasant feeling of not being alone creeps over you as you look
+around.   Press any key
+
+To the south, leading up, is a stairway, and on top of the stairway you can
+see the beginning of a corridor disappearing into the darkness. In front of
+you is the bar, the big mirror, although broken now, shows a hideous
+distorted reflection of you. The shelves behind the bar are empty now, dusty
+cobwebs covering them. But once a long row of bottles stood there, ready for
+any thirsty Cowboy with a dollar burning in his pocket. There are still a few
+tables and chairs left scattered around the room. Two big wagon wheels with
+kerosene lamps attached hangs suspended from the ceiling. One of the wheels
+is broken, and the glass from the kerosene lamp lies shattered underneath it
+along with some wooden remains.
+Ninette is here.
+
+> untie rope
+You reach out and touch the rope holding the heavy chandelier.
+The knot is tight, almost impossible to loosen, but slowly it gives in…
+Suddenly the rope is pulled from your hands and the heavy chandelier comes
+crashing down towards you….   Press any key
+You stand paralyzed, unable to move, your eyes magically glued to the deadly
+object coming hurtling down towards you.
+A strange smell fills the air, a scent of perfume and two invisible hands
+violently pushes you out of harm's way just as the chandelier hits the floor
+where you stood and smashes into a million pieces.
+Breathing heavily, sweat pouring from your brow you get up on your feet
+again. The scent slowly disappears and a silent sigh is heard fading away as
+the dust settles.
+
+> get container
+You take the kerosene container.
+
+> n
+You move north.
+
+Outside Saloon & Bank
+You are still on the main street, little clouds of dust rising with every
+step you take are quickly swept away by the hot desert wind. A single
+tumbleweed passes by you, like a lonely traveler passing through town. East
+and west of you the relatively broad street continues, but to the north is
+the ruin of what must once have been a rather impressive building. To the
+south, is the town Saloon, strangely enough almost undamaged, and the
+withered sign still intact. The building rises up above you, two storeys
+high, with only a few windows broken, looking like you could move in today if
+you wanted to.
+Ninette is here.
+
+> w
+You move west.
+
+West end of Main street
+Stretched out towards the east like a dusty band, silent, shimmering in the
+hot prairie heat the main street of Battle Creek lies before you. Old
+battered buildings line each side of the dusty street, some in ruins, others
+nothing but burned out skeletons of what once were...
+To the north lies the empty shell of what was once a general store, its
+charred beams of timber stretching towards the sky  as an accusing finger,
+and to the south is the old livery stable, walls almost caving in, bleached
+and dried by the merciless sun. Behind you, to the west, the trail continues
+away from the town, leading back up to the plateau from where you came.
+Ninette is here.
+
+> n
+You move north.
+
+A burned down shop
+The first thing you notice as you enter the ruin is the smell. Although it
+must have been ages ago, you can still smell the burned wood. It is like it
+still hangs in the air, engulfing the place.
+The fire has really taken its toll. There isn't much left, hardly a wall is
+standing, and over in the corner is the remains of what was once a staircase
+leading up to the first floor. The dirt has blown in and is lying in piles on
+the floor, and a few tumbleweeds have found a temporary shelter here, away
+from the constantly blowing prairie wind.   Press any key
+In front of you are the sad remains of a counter, sooty and almost charred
+beyond recognition. Most of the drawers are missing, and not one of those
+that are left have avoided the flames.
+Different kinds of debris are scattered around the floor, and it's hard to
+see what is what, but you think that some of it was once shelves and
+cupboards.
+Ninette is here.
+
+> lubricate drawer
+You carefully pour some of the kerosene into the cracks around the stuck
+drawer.
+
+> open drawer
+Carefully at first, then more and more impatient you try to pull out the
+drawer, but no matter how hard you try the drawer seems to be completely
+stuck, almost grown into the frame of the counter.
+Drops of sweat form on your brow, and Ninette looks skeptically at you,
+letting you know that you are quickly losing points with her. Finally you
+manage... the drawer is slowly giving in and suddenly it comes loose and
+slides out into your hands.
+
+> read newspaper
+The newspaper clipping is dated June 20th 1866 and amongst the stories you
+are able to read, there is a story about a notorious gunslinger by the name
+of Montana who stood trial for the disappearance and possible murder of a
+Saloon girl named Holly who disappeared the night between June 14th and 15th
+The article also says that Montana was acquitted due to lack of evidence and
+some of his “friends” gave him an alibi claiming that he had been playing
+cards all night. Montana is described as coldhearted and mean to the bone,
+and yet something of a fancy dresser.
+The picture shows Montana outside the Lucky Dice saloon after the trial. Even
+from the faded picture in the newspaper he looks like a mean s.o.b. but very
+well dressed if it hadn't been for the button missing in his vest.
+
+A little further down you read an article about the untimely death and burial
+of a Joshua Harkins who was run over by the stagecoach and killed on the 13th
+of June. The article goes on telling about the funeral taking place on the
+16th and that he will be greatly missed by family and friends.    Press any
+key
+
+Another article tells about the upcoming horse race and the county fair just
+outside of town, and the prize money this year will be the staggering sum of
+50 Dollars. There will also be baking contests and lots of other things to
+amuse the young and the old.
+
+Finally you read a short notice where the priest seeks volunteers to repair
+the bell tower on the church…
+The rest of the clipping is unreadable... dissolved by moisture and rot.
+Press any key
+A chill runs down your spine, and through the wind you hear a ghostly scream
+of terrible anger…
+
+> i
+You are wearing well worn jeans, a pair of sneakers and a T-shirt, and you
+are carrying a book of matches, a small metal box, an official looking
+document, an old envelope, your great grandfather's will, an empty kerosene
+lamp, a drawer, a kerosene container and a rusty Iron bar.  An old newspaper
+is inside the drawer.
+
+> s
+You move south.
+
+West end of Main street
+Stretched out towards the east like a dusty band, silent, shimmering in the
+hot prairie heat the main street of Battle Creek lies before you. Old
+battered buildings line each side of the dusty street, some in ruins, others
+nothing but burned out skeletons of what once were...
+To the north lies the empty shell of what was once a general store, its
+charred beams of timber stretching towards the sky  as an accusing finger,
+and to the south is the old livery stable, walls almost caving in, bleached
+and dried by the merciless sun. Behind you, to the west, the trail continues
+away from the town, leading back up to the plateau from where you came.
+Ninette is here.
+
+> e
+You move east.
+
+Outside Saloon & Bank
+You are still on the main street, little clouds of dust rising with every
+step you take are quickly swept away by the hot desert wind. A single
+tumbleweed passes by you, like a lonely traveler passing through town. East
+and west of you the relatively broad street continues, but to the north is
+the ruin of what must once have been a rather impressive building. To the
+south, is the town Saloon, strangely enough almost undamaged, and the
+withered sign still intact. The building rises up above you, two storeys
+high, with only a few windows broken, looking like you could move in today if
+you wanted to.
+Ninette is here.
+
+> e
+You move east.
+
+Center of Battle Creek
+You are standing on Main Street in the middle of the town. Several track
+marks in the hard soil indicates that this was once a busy street, and as you
+look east and west and see the street continuing in both directions, it is
+not hard to imagine the traffic that must once have been here, Cowboys coming
+in from the nearby ranches, wagon trains passing through town, only stopping
+for supplies, and maybe a few necessary repairs, and once in a while a stage
+coach with mail and a few passengers.
+To the north of you a small street leads in between two buildings, and to the
+south a narrow alley leads out of town.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
+
+> e
+You move east.
+
+Outside Hotel
+You are close to the eastern end of what was once the Main Street of Battle
+Creek.
+An old beat up water trough is laying halfway out on the street, torn from
+its place outside a tall building to your south. To the north slightly pulled
+back from the street, lies a small house, the wall facing you is collapsed
+and the roof is only supported by a few beams. To the west of you the street
+continues, and far out in the horizon you can see the steep hillside where
+you came from.
+Ninette is here.
+
+> s
+You move south.
+
+Hotel
+The hotel lobby looks almost normal. If it hadn't been for the thick layer of
+dust that covers everything you would expect a clerk to appear any moment.
+Everything looks as if the place has been abandoned just yesterday. The guest
+registry and the bell are amazingly still lying on the reception counter, and
+the carpet, although worn to pieces still covers the floor.
+A few tables and couches are placed in the lobby and to the right of the
+reception counter a stair leads up to the floors upstairs. Behind the counter
+is a door, almost invisible against the bleached wallpaper.
+Ninette is here.
+
+> x registry
+The registry is old and torn, the leather cover dry and cracked and the
+entries unreadable as the ink has faded over the years. As you touch the
+paper it crumbles under your fingers with a silent whisper, leaving just a
+fraction of itself.
+
+> x bell
+The bell looks like silver, and has a little button on top that makes it ring
+when pushed. Reluctantly you reach for the button and push it. A rusty
+“clank” is heard and you look around expecting a clerk to pop up from behind
+the counter, but of course, he has long ago faded away like the ink in the
+registry.
+
+> open door
+You can't open the door as it is locked!
+
+> x posters
+This is not interesting to you.
+
+> ninette wait here
+You tell Ninette to wait, and even though she is not too happy about being
+left alone she agrees to wait for you here.
+
+> u
+Curious to see what it on the first floor you start to climb the staircase
+ignoring that it feels a little shaky under your feet.
+Half way up it is like you step into the emptiness, as the stair disappears
+under you and you fall into empty space, the darkness closing in around you.
+As you fall through empty space all kind of thoughts race through your mind,
+and you desperately try to reach out to ward off the unavoidable blow as your
+body hits the bottom of whatever this is.
+You cover your head and face as the remains of the stairs come crashing down
+upon you and the last thing you feel is a blow to your head and you gently
+drift away into a soft and comfortable unconsciousness…
+Press any key
+
+Cellar (in hotel)
+You have no idea where you are or how far you have fallen, your body aches
+all over and the air is heavy with dust from your recent fall… You slowly get
+on your feet, shaking all the debris off of you, and try to look around.
+You are in complete darkness, not even the dim light from the hole reaches
+you. A deep feeling of utter panic is about to overtake you and you have to
+take a hard (mental) hold of yourself.
+You carefully start to feel your way around, the first thing you realize is
+that the ground under you is made from dirt...
+
+Also here is a shovel.
+
+> x floor
+On hands and knees you slowly feel your way across the cellar floor, and
+after a little while your fingers touch a vertical surface which could be a
+wall. And as you continue you feel something that could be a stick …
+Running your fingers over the wooden stick, you feel a handle at the top and
+some metal at the bottom of the stick…. The outline of a shovel!
+
+> get shovel
+You take the shovel.
+
+> x wall
+You slowly get up from your kneeling position, your hands slowly moving
+across the wall…
+It's like your other senses has been sharpened considerably in the total
+darkness and your fingertips feels every little bump and crevice in the wall.
+You move around the darkness, your hands and fingers exploring the wall, and
+suddenly you feel what appears to be the bottom of a staircase against your
+shin.
+
+> x stairs
+After the first feverishly attempts to get a little more information about
+the staircase, an attempt that gives you little less than a few nasty
+splinters in your hand, you more carefully run your hands over the rough wood
+that makes out the stairs. It appears that they lead upwards and towards the
+center of the steps you feel the wood being more smooth, worn by the many
+feet that has walked them over the years.
+
+> u
+Very, very carefully you start climbing the ”invisible” stairway. It's steep
+and all you have to hold on to is the wall next to you. To the other side is
+nothing but emptiness… One step at the time, taking what seems like forever
+until you finally reach the top, banging your head against a wooden object in
+the darkness.
+As you run your hands over it, you feel the outline of what appears to be a
+door of some kind. Just a little higher than your head you feel the outline
+of a wooden board, nailed to the door, lower there's a handle and a keyhole …
+
+But no key...
+
+> x board
+You run your fingers across the rough wooden board, and find what feels like
+a skeleton key.
+Being very careful not to drop it in the darkness you take the key from the
+board.
+
+> unlock door
+Fumbling in the darkness, you know that if you drop this key you will never
+be able to find it again.
+You start to sweat and your fingers get slippery... Just as you feel the end
+of the key touching the keyhole, you lose your grip.
+The key slips from your fingers... Holding your breath you instinctively
+reach out almost losing your delicate foothold and for a fragment of a second
+you actually touch the key before it vanishes into the darkness.
+You hold your breath, waiting to hear the faint thud as the key hits the
+ground, but…. Nothing! Not a sound is heard…
+Has the key been suspended in time, or is there a more logical explanation?
+
+> open door
+You desperately push the door.... Nothing happens... isn't the door unlocked?
+You are sure that you felt the key turn in the lock…
+The years and changing temperatures has made the door stick to the frame. You
+feel the panic beginning to overtake you, and with one forceful push of your
+shoulder you slam against the door.
+Finally... the door swings open and you almost fall out into what appears to
+be the lobby of the hotel.
+
+Hotel
+The hotel lobby looks almost normal. If it hadn't been for the thick layer of
+dust that covers everything you would expect a clerk to appear any moment.
+Everything looks as if the place has been abandoned just yesterday. The guest
+registry and the bell are amazingly still lying on the reception counter, and
+the carpet, although worn to pieces still covers the floor.
+A few tables and couches are placed in the lobby and to the right of the
+reception counter a stair leads up to the floors upstairs. Behind the counter
+is a door, almost invisible against the bleached wallpaper.
+Ninette is here.
+
+> ninette follow
+You ask Ninette to come with you...
+She is a bit annoyed being told what to do, but follows you anyway.
+
+> i
+You are wearing well worn jeans, a pair of sneakers and a T-shirt, and you
+are carrying a book of matches, a small metal box, an official looking
+document, an old envelope, your great grandfather's will, an empty kerosene
+lamp, a drawer, a kerosene container, a shovel and a rusty Iron bar.  An old
+newspaper is inside the drawer.
+The sun is slowly settling behind the distant mountains and the grey dusk is
+descending upon the town of Battle Creek.
+A frightening chill runs down your spine as ghostlike clouds of white mist
+begin appearing in the streets as if the long gone habitants of the town are
+returning.
+
+> look
+
+Hotel
+The hotel lobby looks almost normal. If it hadn't been for the thick layer of
+dust that covers everything you would expect a clerk to appear any moment.
+Everything looks as if the place has been abandoned just yesterday. The guest
+registry and the bell are amazingly still lying on the reception counter, and
+the carpet, although worn to pieces still covers the floor.
+A few tables and couches are placed in the lobby and to the right of the
+reception counter a stair leads up to the floors upstairs. Behind the counter
+is a door, almost invisible against the bleached wallpaper.
+Ninette is here.
+
+> n
+You move north.
+
+Outside Hotel
+You are close to the eastern end of what was once the Main Street of Battle
+Creek.
+An old beat up water trough is laying halfway out on the street, torn from
+its place outside a tall building to your south. To the north slightly pulled
+back from the street, lies a small house, the wall facing you is collapsed
+and the roof is only supported by a few beams. To the west of you the street
+continues, and far out in the horizon you can see the steep hillside where
+you came from.
+Ninette is here.
+
+> w
+You move west.
+
+Center of Battle Creek
+You are standing on Main Street in the middle of the town. Several track
+marks in the hard soil indicates that this was once a busy street, and as you
+look east and west and see the street continuing in both directions, it is
+not hard to imagine the traffic that must once have been here, Cowboys coming
+in from the nearby ranches, wagon trains passing through town, only stopping
+for supplies, and maybe a few necessary repairs, and once in a while a stage
+coach with mail and a few passengers.
+To the north of you a small street leads in between two buildings, and to the
+south a narrow alley leads out of town.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
+
+> w
+You move west.
+
+Outside Saloon & Bank
+You are still on the main street, little clouds of dust rising with every
+step you take are quickly swept away by the hot desert wind. A single
+tumbleweed passes by you, like a lonely traveler passing through town. East
+and west of you the relatively broad street continues, but to the north is
+the ruin of what must once have been a rather impressive building. To the
+south, is the town Saloon, strangely enough almost undamaged, and the
+withered sign still intact. The building rises up above you, two storeys
+high, with only a few windows broken, looking like you could move in today if
+you wanted to.
+Ninette is here.
+
+> s
+The rusty hinges on the saloon swinging doors squeak ghostly behind you as
+you step into what was once the center of entertainment of Battle Creek.
+
+The saloon
+The little sunlight that manages to shine through the dirty windows gives the
+room a dusky atmosphere. Tiny flakes of dust swirls in the air creating
+strange forms as they move about changing patterns with every move you make,
+and an unpleasant feeling of not being alone creeps over you as you look
+around.   Press any key
+
+To the south, leading up, is a stairway, and on top of the stairway you can
+see the beginning of a corridor disappearing into the darkness. In front of
+you is the bar, the big mirror, although broken now, shows a hideous
+distorted reflection of you. The shelves behind the bar are empty now, dusty
+cobwebs covering them. But once a long row of bottles stood there, ready for
+any thirsty Cowboy with a dollar burning in his pocket. There are still a few
+tables and chairs left scattered around the room. A single wagon wheels with
+kerosene lamps attached hangs suspended from the ceiling, the other lies
+scattered on the floor, the glass from the kerosene lamp and some wooden
+remains laying around it.
+
+Also here is A lump of hard grease.  Ninette is here.
+The chilly desert night engulfs the quiet town of Battle Creek.
+Everything is silent at first, but then slowly whispering voices are heard
+fading in and out, carried by the wind, unnaturally cold air, stinging like
+ice brushes against you as if restless souls pass you by.
+Although the excitement is like a shot of adrenaline straight in your veins,
+you can't help but feel that your body is demanding some rest...
+Maybe it would be a good idea to find a place where you and Ninette can bunk
+down for the night.
+
+> u
+You move up.
+
+Saloon (1st floor)
+The muffled noise from below, the far away voices and the out-of-tune piano
+sounds distant as you stand at the top of the stairway.
+You are at the end of a corridor going east, next to you is the stairway
+leading down to the saloon below, and ahead of you the corridor stretches
+out.  On the left side a thin railing and to the right a number of doors.
+Kerosene lamps are hanging on the wall providing the only source of light,
+leaving the corridor somewhat dusky.
+Muffled voices are heard, and the smell of cheap perfume and tobacco lingers
+in the air.
+Ninette is here.
+
+> e
+You move east.
+
+Saloon (corridor 1)
+Your footsteps sound hollow on the naked wooden floor as you walk down the
+corridor.
+A heavy smell of cheap perfume, tobacco and whisky lingers in the air, and
+you hear the distant metallic sound of spurs as if people long gone are still
+walking here.
+There are doors to your right, and you hear laughter behind the closest one,
+marked 101.
+At the far end of the corridor you see a door that obviously leads out.
+Ninette is here.
+
+> e
+You move east.
+
+Saloon (corridor 2)
+You are in the midst of the corridor stretching out to the east and west.
+The door to your right leads into room 103, a number clearly visible on the
+door.
+You hear someone singing, a sad song... the sound making you chill to your
+bones.
+The kerosene lamps on the walls flicker as if people were passing by, but you
+see no one here, except ghostly shadows that brush against you sending cold
+chills through you.
+Ninette is here.
+
+> insert bar in hole
+Just as you are about to insert the iron rod into the hole where the missing
+door handle used to be, you notice that the handle is there!!
+You reach do grab it and open the door, but a low feminine voice from the
+other side of the door makes you stop dead in your tracks.
+Deciding that you'd better wait till daybreak.
+
+> open door 103
+As you reach for the door handle you hear a male voice from behind the door,
+answered by a female laughter.
+You decide that this is probably not a good time to enter…
+
+> e
+You move east.
+
+Saloon (corridor 3)
+You have reached the end of the corridor and are standing before a door
+leading out into the desert night.
+To your left and right there are two doors. The kerosene lamp gives enough
+light for you to read the word “Bath” on the door to your left, and the
+number 105 on the door to your right.
+There's a faint sound of splashing water and the faint voice of a young girl
+singing.
+Ninette is here.
+
+> open bathroom door
+The door is clearly locked from the inside…
+As you press your shoulder hard against it, the songs stop, you hear
+movements in there and suddenly the door opens, but no one is there…
+You feel the presence of someone, there's a strong smell of soap and
+something or someone brush against your, then you hear a door slam, and
+everything is quiet again.
+You hear an argument..  the voices faint and hollow as carried through the
+immense distance of time… The harsh voice of a male, His voice demanding, the
+frightened voice of a girl, sobbing, tearful, even frightened.
+The sound of a hand hitting flesh, a loud scream that stops abruptly and then
+
+silence …
+
+Saloon (bath)
+
+The smell of soap still lingers in the air as you enter the bathroom.
+Here dusty cowboys and other travellers can wash the trail dust off and
+refresh themselves before going downstairs and spend their hard earned cash
+at the bar.
+The working girls of the establishment also use this facility and not so long
+ago it seems according to the tiny footprints on the floor.
+The lamps cast a nice cozy light over the room and the room is still warm
+from the hot water in the tub.
+Someone must have been here not so long ago. The footprints on the floor
+leading towards the door are still damp and the water in the tub is still in
+motion as if someone has just gotten out.
+The curtain in front of the window is closed, and in the corner is a screen
+where the guests can undress. There is also a clothes rack nearby.
+The room itself isn't much. The walls are bare, and the floor made out of
+wood with no carpeting.
+Ninette is here.
+
+> out
+You move out.
+
+Saloon (corridor 3)
+You have reached the end of the corridor and are standing before a door
+leading out into the desert night.
+To your left and right there are two doors. The kerosene lamp gives enough
+light for you to read the word “Bath” on the door to your left, and the
+number 105 on the door to your right.
+There's a faint sound of splashing water and the faint voice of a young girl
+singing.
+Ninette is here.
+
+> open door 105
+As you reach for the handle you hear voices behind the door. You stop and
+listen, although you can't make out the words you realize that the one of the
+voices belongs to a man. The voice is angry and hateful, the other voice, the
+voice of a young woman, is trembling with fear, begging, pleading…
+As you turn the handle, the air is torn by a desperate scream that ends
+abruptly. A thud is heard and then…
+Silence.   Press any key
+
+Saloon (room 105)
+You realize that you have just witnessed a murder....  Ninette is here.
+
+> look
+
+Saloon (room 105)
+You realize that you have just witnessed a murder....
+Ninette is here.
+
+> out
+You quietly leave the room, silently closing the door behind you.
+
+Saloon (corridor 3)
+You have reached the end of the corridor and are standing before a door
+leading out into the desert night.
+To your left and right there are two doors. The kerosene lamp gives enough
+light for you to read the word “Bath” on the door to your left, and the
+number 105 on the door to your right.
+There's a faint sound of splashing water and the faint voice of a young girl
+singing.
+Ninette is here.
+
+> w
+You move west.
+
+Saloon (corridor 2)
+You are in the midst of the corridor stretching out to the east and west.
+The door to your right leads into room 103, a number clearly visible on the
+door.
+You hear someone singing, a sad song... the sound making you chill to your
+bones.
+The kerosene lamps on the walls flicker as if people were passing by, but you
+see no one here, except ghostly shadows that brush against you sending cold
+chills through you.
+Ninette is here.
+
+> w
+You move west.
+
+Saloon (corridor 1)
+Your footsteps sound hollow on the naked wooden floor as you walk down the
+corridor.
+A heavy smell of cheap perfume, tobacco and whisky lingers in the air, and
+you hear the distant metallic sound of spurs as if people long gone are still
+walking here.
+There are doors to your right, and you hear laughter behind the closest one,
+marked 101.
+At the far end of the corridor you see a door that obviously leads out.
+Ninette is here.
+
+> w
+You move west.
+
+Saloon (1st floor)
+The muffled noise from below, the far away voices and the out-of-tune piano
+sounds distant as you stand at the top of the stairway.
+You are at the end of a corridor going east, next to you is the stairway
+leading down to the saloon below, and ahead of you the corridor stretches
+out.  On the left side a thin railing and to the right a number of doors.
+Kerosene lamps are hanging on the wall providing the only source of light,
+leaving the corridor somewhat dusky.
+Muffled voices are heard, and the smell of cheap perfume and tobacco lingers
+in the air.
+Ninette is here.
+
+> d
+You walk down the wooden stairs towards the saloon. Each step is taken
+quietly in respect for the unseen souls you feel are watching you…
+
+The saloon
+The Saloon swinging doors move frictionless back and forth behind you with a
+soft "clacking" sound as you enter the Saloon. Almost immediately you feel a
+cold icy feeling all through your body as if held tight by ghostly arms that
+wrap themselves around you...
+Somehow the light in the chandelier has been turned on but shines only with a
+faint glow hardly lighting up the Saloon.  Here and there you see vague
+shades walking amongst the tables and vague human like shapes are standing at
+the bar, but showing no reflections in the now unbroken bar mirror. Although
+the place seems empty, you can hear faint music from an out-of-tune piano and
+muffled voices from the unseen presence of people long gone as if it was
+reaching you over the past decades. The scent of smoke from cigars and
+cigarettes mingled with cheap perfume and sweaty bodies, tickles your
+nostrils.
+The stairway leading up to the first floor is now dimly lit by a burning
+kerosene lamp as is the corridor on the first floor.
+
+Also here is A lump of hard grease.  Ninette is here.
+
+> fill lamp
+You carefully pour the kerosene into the empty lamp, and when you're done you
+toss away the now empty container.
+
+> get grease
+You take the lump of hard grease.
+
+> n
+You move north.
+
+Outside Saloon & Bank
+The chill in the air is felt much stronger here and you feel the cold go
+through your bones. The lights in the otherwise empty saloon are pale and
+flicker erratically as if figures were moving around in there, but you can
+see no one. Yet… Somehow you feel the presence of "something". Faint music,
+from  another time or place can be heard and every now and then the sound of
+glass breaking and a brutal laughter fills the air.
+The buildings are dark and silent. In the night they seem to have a life of
+their own, almost leaning over you their empty black windows staring,
+accusing you from a hundred years away
+Ninette is here.
+
+> e
+You move east.
+
+Center of Battle Creek
+You are standing at a crossroad on Main Street. The street itself leading
+east, west and to the north, a small street leading in between two ruins and
+to the south a narrow alley leading in between the saloon and the hotel.
+The darkness in the two side streets seems even darker, more sinister with
+the pale ghostly light from the Saloon shining onto the otherwise dark main
+street, and you feel chills as you imagine what shadows might be lurking,
+waiting for you should you be fool hearted enough to enter.
+The flickering pale ghostly light from the Saloon behind you makes you cast a
+macabre shadow on the ground as you slowly walk on.  Is this the Devil's
+playground, or is it just the wind whispering as it sweeps through the
+corners of the houses?
+Ninette is here.
+
+> e
+You move east.
+
+Outside Hotel
+Even though you are getting closer to the end of town, you still feel the
+presence of something indefinable in the air.  The hotel rising up to the
+south of you and the ruin of a house the north, both only lit up by the cold
+bluish moonlight makes them almost seem alive, and what were ordinary
+buildings in the daylight have now turned into threatening creatures in the
+dark, waiting for a chance to engulf you, should you dare to enter.
+Everything is quiet here, the sounds from the Saloon, now only a faint
+whisper in the air, you are able to hear the quiet "clank" from the church
+tower as the bell is slowly swinging in the wind as if touched by an unseen
+hand.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
+
+> e
+You move east.
+
+East end of Main street
+The air seems a little warmer here, but the atmosphere still has an uneasy
+evil or maybe a rather sad feeling as if a great injustice has been done.
+Something or someone is moving restless through the deep shadows in an
+endless search.
+The entrance to the church lies to the north of you, the only place you have
+discovered so far that hasn't filled you with fear, although the building
+itself looks evil and hostile in the dim light from the moon high above.
+To the south the gaping hole in the façade of the sheriff's office, and the
+metallic “clank” from the church bell high above you, suddenly becomes the
+noise of cell doors being opened and closed, and the whispering sound of the
+wind becoming the voices of the prisoners once held here.
+Ninette is here.
+
+> n
+You move north.
+
+Church
+The moon shines in through the windows, and little feather light fragments of
+dust plays in the pale beams of light as you slowly almost hesitantly walk up
+through the church room. There is a strong feeling of tranquility here, as if
+this is a sanctuary from all the evil outside, and yet it seems like there's
+a presence of death so close to you.
+The moonlight shines on the pulpit like a spotlight in a theater, and at any
+moment you would expect someone to appear there and begin to talk.
+Behind a little to the left a door leads east, and further left of the door
+the bell tower rises high into the air.
+What is left of the staircase is lying on the floor, and the rotting rope to
+the bell is hanging down slowly moving with the bell high above.
+Ninette is here.
+
+> e
+You move east.
+
+Cemetery
+Walking amongst the old graves at night is an experience you could well had
+been without. The cold pale moonlight makes the grave markers and wooden
+crosses cast eerie shadows on the ground, and the wind sweeping across the
+old burial ground seems to hold the voices of the dead, calling out for you.
+The nocturnal activity of insects and animals sounds like the dead are trying
+to work their way up through the ground.
+Even the church looks different in the moonlight, where it was just an old
+building in the daytime, it has turned into a threatening looking structure
+in the night, the bell tower opening staring at you from above.
+Straight ahead to the west lie the church and the only exit from here.
+Ninette is here.
+
+> read marker
+You lean over the first grave and read the faded marker:
+Here lies Lester More
+Four slugs from a .44
+No less, no more.
+d.July 5th 1868
+
+> read marker
+The name on the second grave is foreign. Apparently people came from all over
+the world to seek their fortune:
+Katrine Foukes
+Native of Denmark
+b. April 16 1805  d. May 5 1843.
+
+> read marker
+Half of this wooden marker is missing on the third grave, leaving only these
+words:
+d.15 sept 1864
+ .....
+
+> read marker
+The fourth grave looks like most of the others. The marker is, like all the
+others tilted to one side, almost fallen over. A few years from now it will
+most certainly be gone.
+You have to get very close to read the fainted letters carved into the porous
+wood:
+Joshua Harkins
+d. June 13 1866
+Beloved husband and friend.
+
+> dig grave
+Although the night is chilly it doesn't take long before your back is covered
+with sweat and you begin to shale… Whether it's from the cold air or fear you
+are not certain, and you really don't want to think about it too much.
+The hollow sound of the shovel digging into the ground is unpleasant and you
+feel like you're trespassing where you have no business…
+Yet a strange feeling makes you continue.
+As you get deeper into the ground the digging gets a little easier and the
+digging goes faster.
+Suddenly a hollow thud tells you that you have hit something, and you
+carefully kneel down and with your hands you move the last of the soil and
+uncover a primitively made coffin.
+
+> x grave
+Once again you look into the grave, staring at the old withered coffin.
+It strikes you as odd that this pine box has been buried here for over a
+hundred years and is still in a fairly good condition. Maybe the dry prairie
+soil has preserved it through the years?
+
+> open casket
+Carefully you press the shovel in under the lid of the coffin and with a
+quick jerk you pry it open…
+It looks like you've found Joshua Harkins, or what's left of him.
+The skeleton is in pretty good condition, and you lean over to examine it
+further, placing your hand on the side of the coffin in doing so. There's
+nothing out of the ordinary about the skeleton, it's just what it appears to
+be, a lot of bones that once was a human being.
+As you reach up to climb up from the grave again, you almost lose your
+balance as the coffin slides a little under you, settling into the obvious
+soft ground underneath it.
+Dawn approaches. The life giving rays of the sun are gradually becoming
+visible from behind the peaks of the distant mountains.
+An almost inaudible sigh is heard, whispering through the silent air as the
+light mist, the souls long gone, once again vanish from the streets and
+dissolve in the pale morning light.
+
+> x skeleton
+There is nothing interesting about this skeleton. It is obviously the earthly
+remains of Joshua Harkins, and in this state he is not a threat to you.
+
+> move casket
+It is almost impossible to get a solid grip on the coffin, your hands being
+sweaty and slippery with all the dirt from the previous digging.
+Although old and rotting the weight of the coffin makes your feet sink into
+the soft soil under the coffin and it is hard for you to lift it and push it
+up over the edge of the grave.
+
+> x material
+The red material feels stiff between your fingers, a piece of clothing
+perhaps that has been buried here for a century?
+
+> get material
+The red material is somehow stuck in the ground...
+Is someone holding on to it??
+
+> wait
+Time passes...
+The sun rises above the mountains. The last of the ghostly shadows of the
+night vanishes in the bright sunlight with a sad sigh. Once again the streets
+of Battle Creek are silent, the ghosts awaiting another night.
+
+> dig grave
+With the coffin out of the way, you continue digging in the soft dirt.
+It only takes a few more shovels of dirt before the shovel hits something.
+Out of breath and with the cold sweat pouring from your forehead you kneel
+down and quickly dig with your hands…
+Slowly another skeleton comes into view before your eyes. A few more scoops
+of dirt and the skeleton of a woman lies before you.
+
+> x grave
+Standing at Boot Hill, you look at the various graves that surround you. Most
+of them are nothing more than just a little pile of dirt, their marker
+succumbed to the passing of time long ago.
+The dry prairie wind blowing across the empty ground sounds like the
+whispering of the forgotten voices that have been silenced over the passing
+decades. You can only imagine how it would be like to be here at night, and
+it's not a thought you'd like to dwell with for too long.
+Some of the few remaining markers have a roughly carved inscription that has
+survived the ages, while others are barely readable as the painted letters
+have faded away.
+
+> open hand
+Her hand clutched tight in death, the young girl is reluctant to give away
+her secret.
+You mange to bend her fingers back, one by one, chills running down your
+spine through this awful task.
+But finally her boney hand is open…
+Whatever she held on to so desperately has turned to dust, and you can only
+watch helplessly as a light breeze takes the tiny pile of dust from her hand
+and carries it away… along with her secret?  Or do you have a second chance?
+
+> x skeleton
+It looks like a female skeleton.
+It is in an amazingly good condition after having beein burried for so many
+years. One could suspect that there was some ghostly over her.
+
+> x hand
+Her hand is clutched, as if she is shaking her fist in desperate anger from
+beyond the grave, or as if she is clinging desperately to something, maybe
+her young life which was taken from her much too soon?
+
+> w
+You move west.
+
+Church
+Although completely empty now there's a certain sense of tranquility as you
+walk through the church. Your footstep sends a hollow echo through the room
+as you walk further in. Everything has long since been removed and all that
+is left now is the marks on the floor where the church benches once stood,
+and at the far end of the room you can still see the pulpit where the priest
+talked to his congregation.
+Behind a little to the left a door leads east, and further left of the door
+the bell tower rises high into the air.
+What is left of the staircase is lying on the floor, and the rotting rope to
+the bell is hanging down slowly moving with the bell high above.
+Ninette is here.
+
+> s
+You move south.
+
+East end of Main street
+You are at the east end of the old ghost town.
+Far out in the horizon to the east, across what looks like an endless
+prairie, you can see the mountains, dark, and majestic, the main street
+turning into only a set of wheel tracks that disappears in the grass.
+To the west is the town, silent and ghostly, no trace of the once so busy
+life there must have been here, and the cemetery you can see in the distance
+witnesses of the ones that stayed behind.
+To the north of you, a small path leads in through a wooden gate, up to a
+church, and across the street to the south, lays another building... one of
+the few remaining buildings that are still relatively intact.
+Ninette is here.
+
+> w
+You move west.
+
+Outside Hotel
+You are close to the eastern end of what was once the Main Street of Battle
+Creek.
+An old beat up water trough is laying halfway out on the street, torn from
+its place outside a tall building to your south. To the north slightly pulled
+back from the street, lies a small house, the wall facing you is collapsed
+and the roof is only supported by a few beams. To the west of you the street
+continues, and far out in the horizon you can see the steep hillside where
+you came from.
+Ninette is here.
+
+> w
+You move west.
+
+Center of Battle Creek
+You are standing on Main Street in the middle of the town. Several track
+marks in the hard soil indicates that this was once a busy street, and as you
+look east and west and see the street continuing in both directions, it is
+not hard to imagine the traffic that must once have been here, Cowboys coming
+in from the nearby ranches, wagon trains passing through town, only stopping
+for supplies, and maybe a few necessary repairs, and once in a while a stage
+coach with mail and a few passengers.
+To the north of you a small street leads in between two buildings, and to the
+south a narrow alley leads out of town.
+Ninette is here.
+
+> w
+You move west.
+
+Outside Saloon & Bank
+You are still on the main street, little clouds of dust rising with every
+step you take are quickly swept away by the hot desert wind. A single
+tumbleweed passes by you, like a lonely traveler passing through town. East
+and west of you the relatively broad street continues, but to the north is
+the ruin of what must once have been a rather impressive building. To the
+south, is the town Saloon, strangely enough almost undamaged, and the
+withered sign still intact. The building rises up above you, two storeys
+high, with only a few windows broken, looking like you could move in today if
+you wanted to.
+Ninette is here.
+
+> s
+The rusty hinges on the saloon swinging doors squeak ghostly behind you as
+you step into what was once the center of entertainment of Battle Creek.
+
+The saloon
+The little sunlight that manages to shine through the dirty windows gives the
+room a dusky atmosphere. Tiny flakes of dust swirls in the air creating
+strange forms as they move about changing patterns with every move you make,
+and an unpleasant feeling of not being alone creeps over you as you look
+around.   Press any key
+
+To the south, leading up, is a stairway, and on top of the stairway you can
+see the beginning of a corridor disappearing into the darkness. In front of
+you is the bar, the big mirror, although broken now, shows a hideous
+distorted reflection of you. The shelves behind the bar are empty now, dusty
+cobwebs covering them. But once a long row of bottles stood there, ready for
+any thirsty Cowboy with a dollar burning in his pocket. There are still a few
+tables and chairs left scattered around the room. A single wagon wheels with
+kerosene lamps attached hangs suspended from the ceiling, the other lies
+scattered on the floor, the glass from the kerosene lamp and some wooden
+remains laying around it.
+Ninette is here.
+
+> u
+You move up.
+
+Saloon (1st floor)
+A dark and dusty corridor stretches out in front of you to the east, and at
+the far end you can see a door leading out. The only light here comes from
+the dirty windows in the door, and the little light that manages to filter
+through the glass is hardly enough to light up the corridor.
+To your left is a rickety railing and far below, the floor of the saloon. A
+single chandelier hangs just out of reach on the other side of the railing,
+its kerosene lamps covered in a thick layer of dust.     Press any key.
+On your right, just a little further down the corridor, is a door, leading in
+to what was probably the room of one of the saloon girls working here so many
+years ago.
+The floor is covered in a layer of dust, and with each step you take a small
+cloud of dust raises, the tiny grains slowly floating in the dim light.
+Ninette is here.
+
+> e
+You move east.
+
+Saloon (corridor 1)
+You are at the beginning of a narrow corridor leading east, west. To your
+left is the wooden railing, and to your right a door leading in to what was
+probably the room of one of the saloon girls. There are other doors further
+down the corridor but they are hard to see in the faint light.
+The atmosphere is depressing, what was once a well lit corridor is now
+nothing but a dirty passage, wallpaper hanging down, torn off in huge
+patches. Pale patterns indicate the position of the kerosene lamps that once
+lit up the corridor, and here and there a square patch indicates the position
+of a long gone painting.
+Ninette is here.
+
+> e
+You move east.
+
+Saloon (corridor 2)
+Your footsteps echo hollow as you walk down the narrow corridor. Behind you
+to the west  is the beginning of the corridor, hardly visible in the dusk,
+and ahead of you to the east the corridor continues towards the door with the
+glass window. The railing ends a little further ahead as the corridor
+narrows. To your right is a door, leading in to a room.
+There is not much to say about this area of the corridor. The creepy feeling
+that started when you came up the stairs is stronger here and you feel the
+unknown presence of something indefinable.
+Ninette is here.
+
+> insert bar in hole
+Looks like the diameter of the iron bar is roughly the same as the hole in
+the door.
+You press the bar into the hole where the door handle used to be and with a
+little bit of force you manage to press it all the way in.
+
+> open door 103
+The iron bar from the bank makes a usable door handle and with a little
+difficulty you manage to turn it. To your relief and satisfaction you feel
+the mechanism turning and the stopper moving. The door is now open and you
+slowly walk into the room.       Press any key.
+
+Saloon (room 103)
+The room looks empty apart from the thick layers of dust and cobwebs that
+decorate the windows and every corner.
+The air is heavy and stale, with a sour smell, making it hard to breathe. The
+walls are stained with little specks of moisture that has dried long ago,
+leaving little dots of a brown substance. The windows are heavily covered
+with a grey layer of dust that allows only a limited amount of light into the
+room. Your steps echo in the empty room, the floorboards squeaking in protest
+under your weight as you walk across the floor.
+An old worn mattress lies in the corner halfway up the wall, also covered
+with dust, thrown there in great haste as someone has left the room in a
+hurry.
+
+A piece of rope lies in the corner, probably forgotten by some previous
+visitor.
+
+Also here is an old mattress.  Ninette is here.
+
+> move closet
+The closet is heavier than it looks and it takes quite an effort for you to
+push it just a little.
+After a lot of huffing and puffing you have managed to move it out from the
+wall enough for you to get an arm in behind it.
+
+> x plank
+The plank isn't quite in level with the rest of the wall, and with a little
+difficulty you can get the tips of your fingers in behind it...
+It seems to be loose…
+
+> move plank
+You carefully insert your fingertips and slowly pull at the plank.
+For a second or two it doesn't' move and you are about to give up. Then with
+a squeak it suddenly gives and you manage to pull it away from the wall, just
+enough to see that there's some kind of a small compartment hidden behind it.
+
+> x compartment
+The hidden compartment isn't very big.
+It's completely dark and seems rather deep but you might be able to get your
+hand in there...
+
+> get mattress
+Getting a good hold of the mattress seems to a problem. The old mattress
+keeps slipping from your fingers which are starting to hurt from the strain.
+Finally you manage to pick up the mattress, and sling it over your shoulder.
+Back in your mind you send up a silent prayer that you are not going to have
+to carry this thing for very long.
+
+> get rope
+Thinking that a strong rope might come in handy, you decide to take it with
+you.
+
+> reach in compartment
+The secret compartment is just big enough for you to stick your hand in.
+You roam about for a while, but it appears that the compartment is empty…
+Then just as you are pulling your hand back, your fingertips brush against
+something. It feels like metal.
+You manage to hold it between the very tips of your fingers and slowly
+retrieve it.
+An old rusty knife has seen the daylight again after hundreds of years.
+
+> x knife
+It's quite a long knife with a bone handle imbedded with intriguing patterns
+of mother of pearl.
+The blade itself is slim and about 6 inches long… dark brown stains can be
+seen on the once so shiny blade.
+This knife has tasted blood …
+A horrible high pitched scream of anger sounds through the air... For a brief
+second the air around freezes and your breath is shown as little clouds of
+mist.
+Then the chill fades away, the scream of anger slowly dies with a hollow
+echo, but you feel that something evil has been disturbed, and a sense of
+danger fills the air.
+
+> out
+As you leave the room you silently close the door behind you...
+
+Saloon (corridor 2)
+Your footsteps echo hollow as you walk down the narrow corridor. Behind you
+to the west  is the beginning of the corridor, hardly visible in the dusk,
+and ahead of you to the east the corridor continues towards the door with the
+glass window. The railing ends a little further ahead as the corridor
+narrows. To your right is a door, leading in to a room.
+There is not much to say about this area of the corridor. The creepy feeling
+that started when you came up the stairs is stronger here and you feel the
+unknown presence of something indefinable.
+
+Also here is a rusty Iron bar.  Ninette is here.
+
+> w
+You move west.
+
+Saloon (corridor 1)
+You are at the beginning of a narrow corridor leading east, west. To your
+left is the wooden railing, and to your right a door leading in to what was
+probably the room of one of the saloon girls. There are other doors further
+down the corridor but they are hard to see in the faint light.
+The atmosphere is depressing, what was once a well lit corridor is now
+nothing but a dirty passage, wallpaper hanging down, torn off in huge
+patches. Pale patterns indicate the position of the kerosene lamps that once
+lit up the corridor, and here and there a square patch indicates the position
+of a long gone painting.
+Ninette is here.
+
+> open door 101
+Almost afraid of disturbing the quietness, you reach out and turn the handle
+on the door in front of you.
+It hasn't been opened for years and only budges slowly as you firmly press
+against it. The squeaking sound from the rusty hinges sounds like the voices
+of the damned…                                Press any key.
+
+Saloon (room 101)
+The room is bare and dusty. The dented frame of an old iron bed is laying
+slung against a wall and opposite it are the old remains of an old nightstand
+with a marble washbasin leaning tiredly against the wall. One ragged curtain
+hangs down at the window, heavy with dust. The wallpaper hangs in long rugged
+streamers and the wooden planks are clearly visible through the gaping holes.
+
+A worn wooden closet stands leaning against the wall next to the window, one
+of the doors torn off nowhere to be seen… probably used as firewood years
+ago.
+Ninette is here.
+
+> move bed
+The bed is quite heavy, and the fact that it's crumpled and bent doesn't make
+things easier…
+You rock it back and forth, again and again, and it slowly begins to swing
+Faster and harder... and suddenly it tips over, almost pushing you over and
+it lands on the floor with a thundering crash that could wake up the dead
+That is... if they weren't already…
+
+> x closet
+It's a wonder that the closet is still here. It's made of plain wood, painted
+in an indefinable color without any decorations whatsoever. The wood is
+cracked and dry, and the backside has become loose in one corner.
+One door is missing and the other one is barely hanging on its hinges.  A
+woven blanket is inside the wooden closet.
+
+> get blanket
+You take the woven blanket from the wooden closet.
+
+> prepare bed
+You place the old mattress on the bed hoping that the moldy smell won't stop
+you from getting any sleep.
+Then you take the blanket you found in the closet and place it on top of the
+mattress. Although it's not the Ritz you are sure that you will find this
+arrangement comfortable enough to get at least a little shut eye.
+
+> out
+You leave the room and close the door behind you.
+
+Saloon (corridor 1)
+You are at the beginning of a narrow corridor leading east, west. To your
+left is the wooden railing, and to your right a door leading in to what was
+probably the room of one of the saloon girls. There are other doors further
+down the corridor but they are hard to see in the faint light.
+The atmosphere is depressing, what was once a well lit corridor is now
+nothing but a dirty passage, wallpaper hanging down, torn off in huge
+patches. Pale patterns indicate the position of the kerosene lamps that once
+lit up the corridor, and here and there a square patch indicates the position
+of a long gone painting.
+Ninette is here.
+
+> w
+You move west.
+
+Saloon (1st floor)
+A dark and dusty corridor stretches out in front of you to the east, and at
+the far end you can see a door leading out. The only light here comes from
+the dirty windows in the door, and the little light that manages to filter
+through the glass is hardly enough to light up the corridor.
+To your left is a rickety railing and far below, the floor of the saloon. A
+single chandelier hangs just out of reach on the other side of the railing,
+its kerosene lamps covered in a thick layer of dust.     Press any key.
+On your right, just a little further down the corridor, is a door, leading in
+to what was probably the room of one of the saloon girls working here so many
+years ago.
+The floor is covered in a layer of dust, and with each step you take a small
+cloud of dust raises, the tiny grains slowly floating in the dim light.
+Ninette is here.
+
+> d
+You walk down the wooden stairs towards the saloon. Each step is taken
+quietly in respect for the unseen souls you feel are watching you…
+
+The saloon
+The little sunlight that manages to shine through the dirty windows gives the
+room a dusky atmosphere. Tiny flakes of dust swirls in the air creating
+strange forms as they move about changing patterns with every move you make,
+and an unpleasant feeling of not being alone creeps over you as you look
+around.   Press any key
+
+To the south, leading up, is a stairway, and on top of the stairway you can
+see the beginning of a corridor disappearing into the darkness. In front of
+you is the bar, the big mirror, although broken now, shows a hideous
+distorted reflection of you. The shelves behind the bar are empty now, dusty
+cobwebs covering them. But once a long row of bottles stood there, ready for
+any thirsty Cowboy with a dollar burning in his pocket. There are still a few
+tables and chairs left scattered around the room. A single wagon wheels with
+kerosene lamps attached hangs suspended from the ceiling, the other lies
+scattered on the floor, the glass from the kerosene lamp and some wooden
+remains laying around it.
+Ninette is here.
+
+> n
+You move north.
+
+Outside Saloon & Bank
+You are still on the main street, little clouds of dust rising with every
+step you take are quickly swept away by the hot desert wind. A single
+tumbleweed passes by you, like a lonely traveler passing through town. East
+and west of you the relatively broad street continues, but to the north is
+the ruin of what must once have been a rather impressive building. To the
+south, is the town Saloon, strangely enough almost undamaged, and the
+withered sign still intact. The building rises up above you, two storeys
+high, with only a few windows broken, looking like you could move in today if
+you wanted to.
+Ninette is here.
+The sun is slowly settling behind the distant mountains and the grey dusk is
+descending upon the town of Battle Creek.
+A frightening chill runs down your spine as ghostlike clouds of white mist
+begin appearing in the streets as if the long gone habitants of the town are
+returning.
+
+> w
+You move west.
+
+West end of Main street
+Stretched out towards the east like a dusty band, silent, shimmering in the
+hot prairie heat the main street of Battle Creek lies before you. Old
+battered buildings line each side of the dusty street, some in ruins, others
+nothing but burned out skeletons of what once were...
+To the north lies the empty shell of what was once a general store, its
+charred beams of timber stretching towards the sky  as an accusing finger,
+and to the south is the old livery stable, walls almost caving in, bleached
+and dried by the merciless sun. Behind you, to the west, the trail continues
+away from the town, leading back up to the plateau from where you came.
+Ninette is here.
+
+> n
+You move north.
+
+A burned down shop
+The first thing you notice as you enter the ruin is the smell. Although it
+must have been ages ago, you can still smell the burned wood. It is like it
+still hangs in the air, engulfing the place.
+The fire has really taken its toll. There isn't much left, hardly a wall is
+standing, and over in the corner is the remains of what was once a staircase
+leading up to the first floor. The dirt has blown in and is lying in piles on
+the floor, and a few tumbleweeds have found a temporary shelter here, away
+from the constantly blowing prairie wind.   Press any key
+In front of you are the sad remains of a counter, sooty and almost charred
+beyond recognition. Most of the drawers are missing, and not one of those
+that are left have avoided the flames.
+Different kinds of debris are scattered around the floor, and it's hard to
+see what is what, but you think that some of it was once shelves and
+cupboards.
+Ninette is here.
+
+> move debris
+You move the pile of wood and discover an old wooden box. With some
+difficulties you manage to pull it from the pile and out on the floor.
+
+> get wooden box
+You pick up the old wooden box.
+No sooner have you lifted it from the ground before it disintegrates between
+your hands, adding another little pile of debris to the floor.
+Something falls from the box as it disintegrates between your hands, and
+lands softly on the floor.
+
+> get dynamite
+With little drops of sweat forming on your forehead you kneel down and
+carefully pick up the old stick of dynamite.
+It appears to be very old and you have no idea how safe it is, tiny drops of
+nitro has "sweated" though the paper and sparkles like diamonds.
+The chilly desert night engulfs the quiet town of Battle Creek.
+Everything is silent at first, but then slowly whispering voices are heard
+fading in and out, carried by the wind, unnaturally cold air, stinging like
+ice brushes against you as if restless souls pass you by.
+Although the excitement is like a shot of adrenaline straight in your veins,
+you can't help but feel that your body is demanding some rest...
+Maybe it would be a good idea to find a place where you and Ninette can bunk
+down for the night.
+
+> s
+You move south.
+
+West end of Main street
+There is a strange chill in the air and the atmosphere feels restless as if
+lost souls lurk in the dark, their empty eye sockets watching you, trying to
+see through you. The buildings lining the street, empty shells of black
+silhouettes seem to whisper in the cold prairie wind. A dim and dusty light
+comes from the Saloon a little further down the street, almost dragging you
+irresistibly towards it with the faint sound of an out of tune piano, and
+faint sound of laughter.
+Ninette is here.
+
+> e
+You move east.
+
+Outside Saloon & Bank
+The chill in the air is felt much stronger here and you feel the cold go
+through your bones. The lights in the otherwise empty saloon are pale and
+flicker erratically as if figures were moving around in there, but you can
+see no one. Yet… Somehow you feel the presence of "something". Faint music,
+from  another time or place can be heard and every now and then the sound of
+glass breaking and a brutal laughter fills the air.
+The buildings are dark and silent. In the night they seem to have a life of
+their own, almost leaning over you their empty black windows staring,
+accusing you from a hundred years away
+Ninette is here.
+
+> e
+You move east.
+
+Center of Battle Creek
+You are standing at a crossroad on Main Street. The street itself leading
+east, west and to the north, a small street leading in between two ruins and
+to the south a narrow alley leading in between the saloon and the hotel.
+The darkness in the two side streets seems even darker, more sinister with
+the pale ghostly light from the Saloon shining onto the otherwise dark main
+street, and you feel chills as you imagine what shadows might be lurking,
+waiting for you should you be fool hearted enough to enter.
+The flickering pale ghostly light from the Saloon behind you makes you cast a
+macabre shadow on the ground as you slowly walk on.  Is this the Devil's
+playground, or is it just the wind whispering as it sweeps through the
+corners of the houses?
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
+
+> e
+You move east.
+
+Outside Hotel
+Even though you are getting closer to the end of town, you still feel the
+presence of something indefinable in the air.  The hotel rising up to the
+south of you and the ruin of a house the north, both only lit up by the cold
+bluish moonlight makes them almost seem alive, and what were ordinary
+buildings in the daylight have now turned into threatening creatures in the
+dark, waiting for a chance to engulf you, should you dare to enter.
+Everything is quiet here, the sounds from the Saloon, now only a faint
+whisper in the air, you are able to hear the quiet "clank" from the church
+tower as the bell is slowly swinging in the wind as if touched by an unseen
+hand.
+Ninette is here.
+
+> e
+You move east.
+
+East end of Main street
+The air seems a little warmer here, but the atmosphere still has an uneasy
+evil or maybe a rather sad feeling as if a great injustice has been done.
+Something or someone is moving restless through the deep shadows in an
+endless search.
+The entrance to the church lies to the north of you, the only place you have
+discovered so far that hasn't filled you with fear, although the building
+itself looks evil and hostile in the dim light from the moon high above.
+To the south the gaping hole in the façade of the sheriff's office, and the
+metallic “clank” from the church bell high above you, suddenly becomes the
+noise of cell doors being opened and closed, and the whispering sound of the
+wind becoming the voices of the prisoners once held here.
+Ninette is here.
+
+> n
+You move north.
+
+Church
+The moon shines in through the windows, and little feather light fragments of
+dust plays in the pale beams of light as you slowly almost hesitantly walk up
+through the church room. There is a strong feeling of tranquility here, as if
+this is a sanctuary from all the evil outside, and yet it seems like there's
+a presence of death so close to you.
+The moonlight shines on the pulpit like a spotlight in a theater, and at any
+moment you would expect someone to appear there and begin to talk.
+Behind a little to the left a door leads east, and further left of the door
+the bell tower rises high into the air.
+What is left of the staircase is lying on the floor, and the rotting rope to
+the bell is hanging down slowly moving with the bell high above.
+Ninette is here.
+
+> e
+You move east.
+
+Cemetery
+Walking amongst the old graves at night is an experience you could well had
+been without. The cold pale moonlight makes the grave markers and wooden
+crosses cast eerie shadows on the ground, and the wind sweeping across the
+old burial ground seems to hold the voices of the dead, calling out for you.
+The nocturnal activity of insects and animals sounds like the dead are trying
+to work their way up through the ground.
+Even the church looks different in the moonlight, where it was just an old
+building in the daytime, it has turned into a threatening looking structure
+in the night, the bell tower opening staring at you from above.
+Straight ahead to the west lie the church and the only exit from here.
+Ninette is here.
+
+> dig grave
+With the coffin out of the way, you continue digging in the soft dirt.
+It only takes a few more shovels of dirt before the shovel hits something.
+Out of breath and with the cold sweat pouring from your forehead you kneel
+down and quickly dig with your hands…
+Slowly something comes into view… Not another skeleton, but the body of a
+young woman, almost just a girl. A few more scoops of dirt and the corpse of
+a young woman lies before you.
+
+> x body
+You can't hold back a gasp of surprise, and you know by yourself that no
+matter how many times you look at this, the sight will never cease to amaze
+you.
+This corpse looks like it has been buried only yesterday. What is going on
+here?
+The fair skin on this pretty girl is smooth and soft, her golden hair is
+still soft, although a little stiff from the time spent in the ground. Her
+dress, although stained from the dirt, looks almost new.
+As you lean over her you see a ghastly tear in her dress, the moonlight
+reflects in the blood that has poured from the wound under the fabric.
+Is this Holly, the girl who disappeared from town so suddenly?
+Her position in the grave indicates that she has been thrown there in haste,
+her hair tilted backwards, like she is trying to cry out her sadness, her
+hand clutched like holding on to her life, the life that has so hastily left
+her. Or clutched in anger, or holding on to a secret… who can tell?
+A sudden chill in the air, makes you look up… a cry from hundreds of years
+ago, is heard in the wind, and a ghostly image floats before you, shimmering
+in the light breeze, before fading away.
+
+> open hand
+Holding your breath, you grab the hand of the dead girl. It feels terribly
+cold against yours as you slowly try to pry the fingers open.
+Slowly they give in, and soon her hand is open, revealing a small black
+button. As you take the button from her hand, her fingers suddenly snaps
+back, holding your hand in an iron grip… Your heart stops for what seems to
+be an eternity, then it starts racing pounding against your ribs, almost
+hurting you.
+You try to jump up from the grave, but her hand holds you back, with a
+strength you have never experienced before.
+Slowly you calm yourself down… your breath slowly returns to normal, your
+heart slows down to a normal pace as you realize that it is probably the
+muscles in her hand that has snapped back to their normal position.
+You gently pry her fingers open again, pulling your hand away from hers.
+Holding the button tightly in your hand you climb up from the grave…
+As you once again are standing beside the grave, holding the button in your
+hand, a cry of horrifying rage sounds through the night. An ice cold wind
+engulfs you, a dark cloud is lowering itself upon you holding you in ghostly
+chains of terrible fear.
+Slowly, very slowly, you manage to pull yourself together, knowing that you
+have come across something very important.
+
+> w
+You move west.
+
+Church
+The moon shines in through the windows, and little feather light fragments of
+dust plays in the pale beams of light as you slowly almost hesitantly walk up
+through the church room. There is a strong feeling of tranquility here, as if
+this is a sanctuary from all the evil outside, and yet it seems like there's
+a presence of death so close to you.
+The moonlight shines on the pulpit like a spotlight in a theater, and at any
+moment you would expect someone to appear there and begin to talk.
+Behind a little to the left a door leads east, and further left of the door
+the bell tower rises high into the air.
+What is left of the staircase is lying on the floor, and the rotting rope to
+the bell is hanging down slowly moving with the bell high above.
+Ninette is here.
+
+> s
+You move south.
+
+East end of Main street
+The air seems a little warmer here, but the atmosphere still has an uneasy
+evil or maybe a rather sad feeling as if a great injustice has been done.
+Something or someone is moving restless through the deep shadows in an
+endless search.
+The entrance to the church lies to the north of you, the only place you have
+discovered so far that hasn't filled you with fear, although the building
+itself looks evil and hostile in the dim light from the moon high above.
+To the south the gaping hole in the façade of the sheriff's office, and the
+metallic “clank” from the church bell high above you, suddenly becomes the
+noise of cell doors being opened and closed, and the whispering sound of the
+wind becoming the voices of the prisoners once held here.
+Ninette is here.
+
+> ninette wait here
+You tell Ninette to wait, and even though she is not too happy about being
+left alone she agrees to wait for you here.
+
+> s
+You move south.
+
+Sheriffs Office
+The pale ghostly moonlight that shines through the dirty windows light up the
+room with cold silver light. The various items cast dark shadows over the
+surfaces, dark shadows that can hold any form of terror your mind can think
+of.  A hand of ice cold fear grabs your heart as you see a human figure
+leaning against the wall, and every nerve in your body tells you to get out
+of here as fast as possible…    Press any key
+With a loud sigh of relief you discover it to be only the silhouette of the
+old pot bellied oven, and you smile to yourself, your heart still hammering
+away in your chest.
+A desk is leaning dangerously over the edge of the hole in the floor, and a
+chair lies in a corner. A few wanted posters hang on the walls, next to the
+usual gun rack, which is now empty. A dark opening to the east leads into
+what must have been the cells. You can see part of the first cell through the
+opening.
+
+> x gun rack
+All the rifles and shotguns are long gone but dents and scratches show the
+heavy use of this rack. There are deep cuts where the chain used to be,
+holding the weapons in place.
+ The pine wood is all gray and withered and on one side the wood is detached
+here and there as it grew older and dryer through the ages.
+  As you run your fingertips over the aging wood you imagine the sheriff
+rushing to the gun rack, grabbing a rifle or a shotgun from the holder at the
+first sound of gun fire.
+Suddenly you hold your breath. Your fingertips are touching something. An old
+bullet is cramped in the corner of the gun rack squeezed in between the two
+sides of wood in a corner.
+
+> get bullet
+You take the bullet from the old gun rack.
+
+> e
+You move east.
+
+Sheriff's office (cells)
+The moonlight shines through the barred windows casting strange and
+mysterious shadows through the now empty cells.
+In your imagination the dark shadows begin to take shape of humans, perhaps
+the restless souls of cattle rustlers and highway robbers that once occupied
+these premises?
+The lock on the cell doors are rusty and haven't worked for ages, but through
+the spaces in time you can still hear the slamming when they closed behind a
+prisoner.
+Behind you, to the left is the entrance to the sheriff's office…
+
+> tie rope to cell door
+You carefully tie the rope to one of the more sturdy looking bars on the cell
+door.
+Still holding on to the other end, you are now holding a length of rope.
+(a wise decision)
+
+> w
+You move west.
+
+Sheriffs Office
+The pale ghostly moonlight that shines through the dirty windows light up the
+room with cold silver light. The various items cast dark shadows over the
+surfaces, dark shadows that can hold any form of terror your mind can think
+of.  A hand of ice cold fear grabs your heart as you see a human figure
+leaning against the wall, and every nerve in your body tells you to get out
+of here as fast as possible…    Press any key
+With a loud sigh of relief you discover it to be only the silhouette of the
+old pot bellied oven, and you smile to yourself, your heart still hammering
+away in your chest.
+A desk is leaning dangerously over the edge of the hole in the floor, and a
+chair lies in a corner. A few wanted posters hang on the walls, next to the
+usual gun rack, which is now empty. A dark opening to the east leads into
+what must have been the cells. You can see part of the first cell through the
+opening.
+
+> throw rope in hole
+You throw the length of rope into the hole in the floor.
+
+> climb down rope
+You grab hold of the rope and slowly start your decent into the darkness.
+It's a good thing you have the rope, your feet slips on the almost vertical
+sides of the hole and you realize that you wouldn't have had a chance of
+getting back up without it.
+
+Bottom of the hole
+You are standing on the bottom of the rather big hole under the floor in the
+sheriff's office. Right in front of you, leaning tediously against the side,
+half buried in the mud is an old rusty safe
+The ground here is quite muddy and you have to constantly shift your weight
+from foot to foot to avoid sinking deeper into the brownish substance and the
+wall consists of loose dirt which looks like it is ready to cave in at the
+slightest touch.
+
+Also here is a length of rope.
+
+> move safe
+You press your shoulder against the safe and push as hard you can.
+Slowly you feel that it begins to move and you put all your strength into
+pushing even harder.
+Suddenly you realize that it's not the safe that's moving, it's you pushing
+yourself deeper into the sticky mud at the bottom of the hole.
+You give up and spend some time trying to get your feet out of the mud.
+
+> blow up safe
+You place the stick of dynamite against the safe and light the fuse....
+
+> climb up rope
+Although the rope is slippery from the mud you manage to get a good firm grip
+and begin climbing up. Again and again your feet slip on the loose and muddy
+surface and it seems to take forever to advance upwards. You keep looking
+back over your shoulder at the burning fuse, trying to calculate whether or
+not you will reach the top and safety before the blast from the unavoidable
+explosion will tear your body to shreds, a picture you try your best to put
+out of your mind,
+Finally you reach the edge of the hole, desperately you grab hold of the
+rough floorboards and swing yourself over the edge and roll as fast as you
+can away from the hole and get back up on your feet.
+
+Sheriffs Office
+The pale ghostly moonlight that shines through the dirty windows light up the
+room with cold silver light. The various items cast dark shadows over the
+surfaces, dark shadows that can hold any form of terror your mind can think
+of.  A hand of ice cold fear grabs your heart as you see a human figure
+leaning against the wall, and every nerve in your body tells you to get out
+of here as fast as possible…    Press any key
+With a loud sigh of relief you discover it to be only the silhouette of the
+old pot bellied oven, and you smile to yourself, your heart still hammering
+away in your chest.
+A desk is leaning dangerously over the edge of the hole in the floor, and a
+chair lies in a corner. A few wanted posters hang on the walls, next to the
+usual gun rack, which is now empty. A dark opening to the east leads into
+what must have been the cells. You can see part of the first cell through the
+opening.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The ground shakes under you and a deafening crash of thunder hammers against
+your poor unprotected eardrums as the dynamite explodes.
+The explosion echoes through the houses and here and there planks are falling
+from an already fragile facade or roof.
+
+> climb down rope
+You grab hold of the rope and slowly start your decent into the darkness.
+It's a good thing you have the rope, your feet slips on the almost vertical
+sides of the hole and you realize that you wouldn't have had a chance of
+getting back up without it.
+
+Bottom of the hole
+You are standing on the bottom of the rather big hole under the floor in the
+sheriff's office. Right in front of you, leaning tediously against the side,
+half buried in the mud is an old rusty safe
+The ground here is quite muddy and you have to constantly shift your weight
+from foot to foot to avoid sinking deeper into the brownish substance and the
+wall consists of loose dirt which looks like it is ready to cave in at the
+slightest touch.
+
+Also here is a length of rope.
+Dawn approaches. The life giving rays of the sun are gradually becoming
+visible from behind the peaks of the distant mountains.
+An almost inaudible sigh is heard, whispering through the silent air as the
+light mist, the souls long gone, once again vanish from the streets and
+dissolve in the pale morning light.
+
+> get gun
+You reach into the safe and grap the gun.
+
+> climb up rope
+Although the rope is slippery from the mud you manage to get a good firm grip
+and begin climbing up. Your feet slip on the loose surface and it takes
+forever to get up, but finally you are once again standing in the sheriff's
+office.
+
+Sheriffs Office
+The pale ghostly moonlight that shines through the dirty windows light up the
+room with cold silver light. The various items cast dark shadows over the
+surfaces, dark shadows that can hold any form of terror your mind can think
+of.  A hand of ice cold fear grabs your heart as you see a human figure
+leaning against the wall, and every nerve in your body tells you to get out
+of here as fast as possible…    Press any key
+With a loud sigh of relief you discover it to be only the silhouette of the
+old pot bellied oven, and you smile to yourself, your heart still hammering
+away in your chest.
+A desk is leaning dangerously over the edge of the hole in the floor, and a
+chair lies in a corner. A few wanted posters hang on the walls, next to the
+usual gun rack, which is now empty. A dark opening to the east leads into
+what must have been the cells. You can see part of the first cell through the
+opening.
+
+> dissolve grease
+Holding the lump of grease in your hand, you carefully pour some kerosene
+over it and start to squeeze it.
+It takes a while, but you can slowly feel how the kerosene softens the rock
+you're holding and slowly the grease turns into a soft smooth lubricant.
+
+> lubricate gun
+Not minding the dirt, and the fact that your hands are all covered with rust
+and grease, you start cleaning the gun.
+First you remove all the rust which takes you a fair amount of time and hard
+work. Then when you are satisfied with the result, you use the grease you got
+from the wagon wheel and lubricate all the moving parts. It takes a while and
+has to be done carefully, but finally you have a working gun with all the
+vital parts moving.
+
+> load gun
+With the revolver all cleaned and lubricated it's as good as new (almost..
+You still have absolutely NO clue whatsoever what's going to happen when you
+fire the thing.) You open the drum and slide the cartridge into the hole,
+feeling a whole lot better now that you at least have a weapon.
+The sun rises above the mountains. The last of the ghostly shadows of the
+night vanishes in the bright sunlight with a sad sigh. Once again the streets
+of Battle Creek are silent, the ghosts awaiting another night.
+
+> out
+You leave teh sheriffs office and walk out into the empty street.
+
+East end of Main street
+You are at the east end of the old ghost town.
+Far out in the horizon to the east, across what looks like an endless
+prairie, you can see the mountains, dark, and majestic, the main street
+turning into only a set of wheel tracks that disappears in the grass.
+To the west is the town, silent and ghostly, no trace of the once so busy
+life there must have been here, and the cemetery you can see in the distance
+witnesses of the ones that stayed behind.
+To the north of you, a small path leads in through a wooden gate, up to a
+church, and across the street to the south, lays another building... one of
+the few remaining buildings that are still relatively intact.
+Ninette is here.
+
+> ninette follow
+You ask Ninette to come with you...
+She is a bit annoyed being told what to do, but follows you anyway.
+
+> w
+You move west.
+
+Outside Hotel
+You are close to the eastern end of what was once the Main Street of Battle
+Creek.
+An old beat up water trough is laying halfway out on the street, torn from
+its place outside a tall building to your south. To the north slightly pulled
+back from the street, lies a small house, the wall facing you is collapsed
+and the roof is only supported by a few beams. To the west of you the street
+continues, and far out in the horizon you can see the steep hillside where
+you came from.
+Ninette is here.
+
+> w
+You move west.
+
+Center of Battle Creek
+You are standing on Main Street in the middle of the town. Several track
+marks in the hard soil indicates that this was once a busy street, and as you
+look east and west and see the street continuing in both directions, it is
+not hard to imagine the traffic that must once have been here, Cowboys coming
+in from the nearby ranches, wagon trains passing through town, only stopping
+for supplies, and maybe a few necessary repairs, and once in a while a stage
+coach with mail and a few passengers.
+To the north of you a small street leads in between two buildings, and to the
+south a narrow alley leads out of town.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
+
+> w
+You move west.
+
+Outside Saloon & Bank
+You are still on the main street, little clouds of dust rising with every
+step you take are quickly swept away by the hot desert wind. A single
+tumbleweed passes by you, like a lonely traveler passing through town. East
+and west of you the relatively broad street continues, but to the north is
+the ruin of what must once have been a rather impressive building. To the
+south, is the town Saloon, strangely enough almost undamaged, and the
+withered sign still intact. The building rises up above you, two storeys
+high, with only a few windows broken, looking like you could move in today if
+you wanted to.
+Ninette is here.
+
+> s
+The rusty hinges on the saloon swinging doors squeak ghostly behind you as
+you step into what was once the center of entertainment of Battle Creek.
+
+The saloon
+The little sunlight that manages to shine through the dirty windows gives the
+room a dusky atmosphere. Tiny flakes of dust swirls in the air creating
+strange forms as they move about changing patterns with every move you make,
+and an unpleasant feeling of not being alone creeps over you as you look
+around.   Press any key
+
+To the south, leading up, is a stairway, and on top of the stairway you can
+see the beginning of a corridor disappearing into the darkness. In front of
+you is the bar, the big mirror, although broken now, shows a hideous
+distorted reflection of you. The shelves behind the bar are empty now, dusty
+cobwebs covering them. But once a long row of bottles stood there, ready for
+any thirsty Cowboy with a dollar burning in his pocket. There are still a few
+tables and chairs left scattered around the room. A single wagon wheels with
+kerosene lamps attached hangs suspended from the ceiling, the other lies
+scattered on the floor, the glass from the kerosene lamp and some wooden
+remains laying around it.
+Ninette is here.
+
+> u
+You move up.
+
+Saloon (1st floor)
+A dark and dusty corridor stretches out in front of you to the east, and at
+the far end you can see a door leading out. The only light here comes from
+the dirty windows in the door, and the little light that manages to filter
+through the glass is hardly enough to light up the corridor.
+To your left is a rickety railing and far below, the floor of the saloon. A
+single chandelier hangs just out of reach on the other side of the railing,
+its kerosene lamps covered in a thick layer of dust.     Press any key.
+On your right, just a little further down the corridor, is a door, leading in
+to what was probably the room of one of the saloon girls working here so many
+years ago.
+The floor is covered in a layer of dust, and with each step you take a small
+cloud of dust raises, the tiny grains slowly floating in the dim light.
+Ninette is here.
+
+> e
+You move east.
+
+Saloon (corridor 1)
+You are at the beginning of a narrow corridor leading east, west. To your
+left is the wooden railing, and to your right a door leading in to what was
+probably the room of one of the saloon girls. There are other doors further
+down the corridor but they are hard to see in the faint light.
+The atmosphere is depressing, what was once a well lit corridor is now
+nothing but a dirty passage, wallpaper hanging down, torn off in huge
+patches. Pale patterns indicate the position of the kerosene lamps that once
+lit up the corridor, and here and there a square patch indicates the position
+of a long gone painting.
+Ninette is here.
+
+> open door 101
+Almost afraid of disturbing the quietness, you reach out and turn the handle
+on the door in front of you.
+It hasn't been opened for years and only budges slowly as you firmly press
+against it. The squeaking sound from the rusty hinges sounds like the voices
+of the damned…                                Press any key.
+
+Saloon (room 101)
+The room is bare and dusty. The dented frame of an old iron bed is now
+standing rickety on the floor and across the floor are the old remains of an
+old nightstand with a marble washbasin leaning tiredly against the wall. One
+ragged curtain hangs down at the window, heavy with dust. The wallpaper hangs
+in long rugged streamers and the wooden planks are clearly visible through
+the gaping holes.
+A worn wooden closet stands leaning against the wall next to the window, one
+of the doors torn off nowhere to be seen… probably used as firewood years
+ago.
+Ninette is here.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The sun is slowly settling behind the distant mountains and the grey dusk is
+descending upon the town of Battle Creek.
+A frightening chill runs down your spine as ghostlike clouds of white mist
+begin appearing in the streets as if the long gone habitants of the town are
+returning.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The chilly desert night engulfs the quiet town of Battle Creek.
+Everything is silent at first, but then slowly whispering voices are heard
+fading in and out, carried by the wind, unnaturally cold air, stinging like
+ice brushes against you as if restless souls pass you by.
+Although the excitement is like a shot of adrenaline straight in your veins,
+you can't help but feel that your body is demanding some rest...
+Maybe it would be a good idea to find a place where you and Ninette can bunk
+down for the night.
+
+> sleep
+You slowly drift into what becomes a restless sleep and the bumpy mattress
+isn't making things better.
+You toss and turn, sweat breaks out and a shimmer in the air before you
+slowly, almost unnoticeable, forms into what becomes the ghostly image of a
+young girl.
+ “Find my murderer” she whispers, “let me have peace.”
+Her empty eyes beg you from a distance past, tears rolling down her cheeks as
+her lips form the silent words.
+"Montana killed me, and hid my body… search at night at the obvious place …
+search at the …"     Press any key
+A look of terrible fear shows on her face, and she looks over her shoulder.
+Her voice becomes desperate… "I must leave, HE is here. Don't be afraid, I
+will try to help you…"
+The image shimmers and then fades away, leaving only the faint cry of a young
+girl...
+You wake up covered in sweat shaking uncontrollably … but the room is empty…
+All you hear is Ninette's quiet breathing…
+You feel totally exhausted, every ounce of strength is drained from your
+body. You sink back on to the bed, trying to get some sleep while the
+thoughts are tormenting your brain.
+
+> sleep
+You slowly drift into what becomes a restless sleep and the bumpy mattress
+isn't making things better.
+You toss and turn, sweat breaks out as you dream... Then
+A sudden scream wakes you up...
+A heavy shimmering dank cloud of mist is shimmering in the room at the end of
+the bed.
+A figure is slowly appearing, and to your horror you see that this ghastly
+looking figure is holding Ninette…
+You turn and look at the bed beside you, only to find it empty… Ninette
+reaches her arms towards you her eyes begging you to help her…
+But before you can act, the cloud vaporizes and leaves only the disgusting
+smell of rot and death.
+A hoarse rasping voice is heard… “Go back to where you came from, and YOU may
+be saved from the same
+fate.”  A hollow laughter echoes and fades away slowly…    Press any key.
+A deep sigh is heard from Ninette...
+
+Suddenly you feel an eerie chill run down your spine... the air around you
+slowly gets colder and colder until you are engulfed in a cloud of icy air.
+Your teeth begin to clatter… and you are not sure whether it's from the cold
+or pure fear…
+
+Before you the icy air shimmers, and out of the icy mist comes a horrible
+looking figure… a tall man, dressed all in black. The black Stetson pulled
+down, his ghostly face hidden in the shadow of the brim, but his devilish
+eyes are filled with evil…
+You realize you have awakened something terrible…
+An awful smell of rot and death surrounds him and the flesh is slowly falling
+from his bones, his evil eyes stare at you from the meatless eye sockets. His
+long black hair sways in the wind, and his breathing is hollow and labored.
+The metallic sound from his spurs clings ominously as he slowly approaches
+you.
+The gun in his hand belches smoke and flames, and a whistling bullet grazes
+your cheek as you turn to run.
+He missed this time. But you don't know if you are as lucky next time.
+
+The ghost of Montana follows you.
+A foul smell of rotten flash and sulphur that seem to engulf you making you
+sick to your stomach and the air starts to shimmer and Montana materializes
+before you.
+An awful smell of rot and death surrounds him and the flesh is slowly falling
+from his bones, his evil eyes stare at you from the meatless eye sockets. His
+long black hair sways in the wind, and his breathing is hollow and labored.
+The metallic sound from his spurs clings ominously as he slowly approaches
+you.
+The gun in his hand belches smoke and flames, and a whistling bullet grazes
+your cheek as you turn to run.
+He missed this time. But you don't know if you are as lucky next time.
+
+> shoot montana
+The old gun shakes in your trembling hand as you slowly lift it and aims in
+the general direction of the approaching ghost…
+You squeeze the trigger and the gun explodes in a cloud of smoke and orange
+flames. The recoil kicks the gun out of your hand and it hits the ground and
+breaks into several pieces.
+Montana's laughter stops abruptly as the bullet tears into his chest. His
+expression changes from a mean grin to horror and his mouth opens in a
+deafening scream as he slowly starts to disintegrate before your eyes.
+A few moments later all that's left of him is a small pile of grayish dust on
+the floor, quickly swept away by the desert breeze. The same gentle breeze
+that suddenly carries the laughter of a young girl.
+A pair of soft lips brush against yours and a quiet “thank you” is whispered
+in your ear.       Press any key
+
+Slowly two figures are seen shimmering in the air. One of a pretty young girl
+and the other of a young man with his arm around her. They both smile to you
+with gratitude in their eyes.
+Your thoughts turn to Ninette... What has happened to her, will she ever come
+back?
+No sooner have you thought the thought before a figure staggers into view.
+Ninette looks baffled, shocked as she slowly walks towards you.
+She reaches out her arms and wraps them around your neck as if she will never
+let you go. Then she clings to you tightly and her lips meet yours in a
+passionate kiss that seems to go on forever.
+When she finally has to break the kiss to get some air, she smiles at you and
+says “It looks like you've fulfilled your great grandfather's wishes. You are
+a very wealthy man now.”
+You stare into her lovely eyes, lean over and kiss her again…

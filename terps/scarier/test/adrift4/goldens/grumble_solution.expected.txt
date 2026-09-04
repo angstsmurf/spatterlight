@@ -82,20 +82,3459 @@ unfortunate customer who holds the door open for him.
    Dead, if the truth be told. But your graverobbing instincts come to the
 fore here and you swipe several coins from the pocket of one of the orcs.
 
+> ask vulgur for damn menu
+   Vulgur grunts and hands it over. "Smartarse!" he grunts but seems
+impressed with your nerve.
+
+> bedazzle
+   You utter the magic word - and your Life points are increased!
+
+> u
+You move up.
+
+Your room
+
+Your room
+You're in your room at the Sleazepit. The less said about the decor the
+better, but if vomit-stained walls ever become a fashion accessory the owner
+of the Sleazepit will make a killing. Aside from the trough that serves as
+your bed and a greasy window letting in murky sunlight there is little to be
+seen here.
+
+A flight of winding steps lead down
+
+> x paper
+   It appears to be a reward for the safe return of Aggie Newby's wayward
+son, Lughead. He was last seen talking to a shady fellow by the name of Fosk
+in the Sleazepit and hasn't been sighted since.
+
+> x bed
+   You find one of your personal possessions on the bed and take it with you.
+
+> d
+Oscoe's Sleazepit
+
+Oscoe's Sleazepit
+You're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar
+in Stipplemoore (a reputation it easily lives up to). A singer stands on a
+stage off to one side, murdering some Elvis song. A couple of orcs lie dead
+on the floor, victims of mindless violence (or you, to be more precise). Over
+by the bar, several dubious looking individuals throw back pints of beer, a
+couple of whom look vary familar from somewhere...
+
+A flight of winding steps lead upwards, a door leads out and a corridor leads
+east
+
+Vulgur the bartender, Fosk, Tarquin and Boswell are here.
+
+> talk fosk
+   "I have nothing to say to the likes of you, peasant," he replies coldly.
+
+> wait
+   You hang around the bar, waiting for something to happen...
+
+   Eventually it does. Fosk grows bored, throws some coins on the bar and
+staggers drunkenly towards the door.
+
+> follow fosk
+   You sneak out of the bar after him and follow him across Vildung Square.
+He enters a dingy alley...
+
+Merrick Row
+
+Merrick Row
+You're on Merrick Row, a little street of no great importance off to one side
+of Vildung Square. There is a large gallows in the centre of the street which
+serves at some times as an instrument of murder and at others as a climbing
+frame for the neighbourhood kids. There is a dark alley nearby.
+
+Vildung Square is east, a house lies north and the dark alley northwest
+
+> wait
+   You hang around outside the alley waiting for something exciting to
+happen...
+
+   Finally (after you realise the game is waiting for you to press a key and
+do so) Fosk lurches out of the alley. He appears to either drunk or wounded.
+He staggers about a bit, seems to steady himself, then collapses on the
+ground several feet away from where you are waiting.
+
+> x fosk
+   Going through his pockets in the hope of finding something to do with
+Aggie Newby's son, you instead come across some cash, a whistle, a single
+turkish delight and a small doll.
+
+> get doll
+You take the small doll.
+
+> get whistle
+You take the whistle.
+
+> clean whistle
+   You wipe the worst of the grime off it.
+
+> get turkish delight
+You take the turkish delight.
+
+> e
+You move east.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+> in
+You move in.
+
+Oscoe's Sleazepit
+
+Oscoe's Sleazepit
+You're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar
+in Stipplemoore (a reputation it easily lives up to). A singer stands on a
+stage off to one side, murdering some Elvis song. A couple of orcs lie dead
+on the floor, victims of mindless violence (or you, to be more precise). Over
+by the bar, several dubious looking individuals throw back pints of beer, a
+couple of whom look vary familar from somewhere...
+
+A flight of winding steps lead upwards, a door leads out and a corridor leads
+east
+
+Vulgur the bartender, Tarquin and Boswell are here.
+
+> out
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> sw
+You move southwest.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+   The rain... will it ever stop?
+
+> w
+You move west.
+
+Church of the Homidical Hamster
+
+Church of the Homicidal Hamster
+You're in the Church of the Homicidal Hamster, one of the many bizarre
+religions which has sprung up recently. Last week the 'church' was a fish &
+chip shop, something your nose tells you if nothing else. Several dark-robed
+priests are dancing around a stone statue of a giant hamster in the middle of
+the building but there doesn't seem to be a whole lot of religious activity
+going on.
+
+A doorway leads east
+
+> pray
+   You decide to indulge in a little praying...
+
+   "Ah!" cries a priest. "You must be a worshipper of the holy one!"
+   "Er... yes," you reply.
+   "Excellent, excellent. I have this package-" He hands over the said
+package which appears to be about the size of your head and wrapped in brown
+paper. "-that I need delivering to our mission in the far away land of
+Panefuldeth. Surely you have no objections to delivering it for me?"
+   "Well, yes I do actually. I have very big objections about it!" you say.
+Or start to anyway. Then you catch sight of the way all the priests in the
+church have gathered around you, and how they all seem to be carrying
+weapons, and of how they all - and this is the really nasty part - seem to be
+blocking the way out. So you amend it to, "but of course I'd love to."
+   The priest who handed you the package smiles. It is not a nice smile. It's
+the sort of smile a cat gives to a mouse just before it starts its lunch.
+   "Jolly good," he says. He claps his hands together suddenly and cries,
+"and now, a dance to the majesty that is the Homicidal Hamster!"
+   All the priests suddenly leave off their menacing you and proceed to dance
+in pretty much the same way they were when you first entered the church.
+Leaving you with the package.
+
+> bow
+   You bow to the hamster (following some unknown urge that suddenly sweeps
+through you). Several of the priests appear impressed by your devotion.
+
+> e
+You move east.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> ne
+You move northeast.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain... will it ever stop?
+
+> in
+You move in.
+
+Oscoe's Sleazepit
+
+Oscoe's Sleazepit
+You're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar
+in Stipplemoore (a reputation it easily lives up to). A singer stands on a
+stage off to one side, murdering some Elvis song. A couple of orcs lie dead
+on the floor, victims of mindless violence (or you, to be more precise). Over
+by the bar, several dubious looking individuals throw back pints of beer, a
+couple of whom look vary familar from somewhere...
+
+A flight of winding steps lead upwards, a door leads out and a corridor leads
+east
+
+Vulgur the bartender, Tarquin, Boswell and Gobbold are here.
+Gobbold's guards are here.
+
+> show drawing to gobbold
+   "Ah! The man called Grumble!" says Gobbold with delight. "You know him,
+commoner?"
+   You nod. "He's my uncle."
+   Gobbold looks at you and sighs. "Well, I guess he can't be held
+responsible for everything. I met Grumble several years ago when he was a
+visitor to my father's court in Deadmancity. He gave a performance that was
+truly remarkable. Which reminds me..." He gestures to one of his guards who
+hands over a device that looks suspiciously like a bomb. "I never did the
+chance to thank him for the performance. Here. This should go some way
+towards redressing the balance."
+   Gingerly, you take the 'bomb'. It doesn't explode but it is making an
+ominous ticking noise.
+   "I don't know what to say," you say with complete honesty.
+   "Think nothing of it," remarks Gobbold. "It's the least I can do."
+
+> give package to gobbold
+   "Hmm," he remarks upon seeing the package. "A fake head? Most interesting.
+I haven't seen one of these in a long while." He glances at you. "I shall
+deliver this to my homeland and claim whatever reward there is for it. You do
+not need to trouble yourself any longer."
+   He turns away, the conversation over, but you stand there a moment later.
+   Finally he sighs and turns back to you. "I assume you're waiting for some
+kind of payment for your services?"
+   You nod.
+   "I thought you might be. Guards, throw him out on his ass."
+   Before you can react, his guards seize you by the arms, march you to the
+door, and throw you bodily out into the street. By happy chance you manage to
+land on a passing fruit-seller and thus your fall is cushioned.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling. Lying unconscious on the ground is the
+unfortunate fruit-seller who you landed on. He doesn't look well.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+> x fruitseller
+   Rummaging through the pockets of the unfortunate fellow like a petty
+thief, you come across an apple and an orange as well as a single coin. You
+pocket all three.
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> wake fruitseller
+   You nudge him a couple of times and he abruptly comes to.
+   "Came outta nowhere it did that comet, man!" he gasps, clearly not
+recognising you as the fellow who slammed into him and knocked him
+unconscious. "Amazing it were! Jus' amazing!"
+   You help him to his feet and he staggers away, swaying from side to side.
+   The rain... will it ever stop?
+
+> sw
+You move southwest.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+   Several birds are fluttering overhead. Remembering what happened last
+time, you keep an eye out for them.
+
+> w
+Church of the Homidical Hamster
+
+Church of the Homicidal Hamster
+You're in the Church of the Homicidal Hamster, one of the many bizarre
+religions which has sprung up recently. Last week the 'church' was a fish &
+chip shop, something your nose tells you if nothing else. Several dark-robed
+priests are dancing around a stone statue of a giant hamster in the middle of
+the building but there doesn't seem to be a whole lot of religious activity
+going on.
+
+A doorway leads east
+
+   "You have returned!" cries the priest. "And back so soon? Your journey of
+4,000 miles went well, I trust?"
+   "Er, very well thanks," you say quickly. "Now, about this reward..."
+   "But of course. Of course. Here, we have these two items of most amazing
+wonder for you."
+   He snaps his fingers and a couple of priests scuttle forward with a
+scruffy uniform and a hunting horn.
+   "These are items of most amazing wonder?" you ask with some doubt in your
+tone.
+   "But of course!" says the priest in such a way as to suggest you had just
+said something incredibly dumb. "One is the uniform of a guard of a mighty
+fortress which you will need to enter. The other will also be helpful."
+   You take the two items and mutter an ungrateful "...ta...". You were kind
+of hoping for something a bit more useful.
+
+> e
+You move east.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+   Several birds fly past, each giving you a threatening look.
+
+> ne
+You move northeast.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> e
+You move east.
+
+East gates
+
+East Gates
+You've come to the east gates of town which, as is usual in these
+circumstances, are guarded by a couple of disreputable looking guards. The
+two here (who look eerily familiar from somewhere - perhaps from another
+life?) are blocking the way out of town and generally being as unpleasant as
+possible to anyone trying to pass. The gates themselves stand open but anyone
+attempting to pass through seems to do so only at the allowance of the guards
+- or not at all... Beyond lies the outside world.
+
+Exits lie east and west
+
+   The rain... will it ever stop?
+
+> cond
+   You have 24 Life Points remaining.
+
+> kill guards
+   You lunge at the guards.
+   It is a short, vicious, brutal, bloodthirsty and, ultimately, satisfying
+fight (mainly because you win).
+   You wipe the floor with the guards but, alas, take several quite bad
+injuries in the process. The sword Bludrinker drinks its fair share of blud
+today.
+   The rain seems to let up for a moment then comes down worse than ever.
+
+> talk guards
+   "I hear that chap Grumble was seen messin' around in the graveyard,"
+mutters Vlad, clutching his groin where 'someone' gave him a sizeable wallop.
+
+> cond
+   You have 18 Life Points remaining.
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> e
+Crossroads
+
+Crossroads
+You're standing at a crossroads just outside town. For some reason there
+isn't the usual signpost here, but instead a scarecrow with a posterboard
+around his neck (you guess the locals are a little eccentric). His arms (of
+which he has four) point in the directions northeast, east, south and west.
+
+Exits lie pretty much as the scarecrow is indicating
+
+> e
+You move east.
+
+Roadway
+
+Roadway
+You're on a muddy roadway which runs in a pretty straight east-to-west line
+as far as you can see. Trees and bushes crowd the road on all sides, making
+this one of the less interesting locations in the game.
+
+The roadway leads both east and west
+
+   A little birdie flies down from the sky, flutters around your head for a
+while, then poops on your shoulder before flying away.
+
+> in
+You move in.
+
+Hidden in bushes
+
+Hidden in bushes
+You're hidden in bushes to one side of the road, parting the foliage to allow
+you to peer out and see what is happening on the road. There is the remains
+of a campfire here, smouldering away to itself. As well as this is a rope
+that is attached to a small spear stuck into the ground. The other end of the
+rope goes off somewhere into the trees above.
+
+The only way out is out
+
+> x campfire
+   The embers are still warm so it looks like someone was here not long ago.
+By the side of the campfire you come across several items.
+
+> get potion
+You take the healing potion.
+
+> get scroll
+You take the priest's scroll.
+
+> get vial
+You take the vial of pig medicine vial.
+
+> out
+You move out.
+
+Roadway
+
+Roadway
+You're on a muddy roadway which runs in a pretty straight east-to-west line
+as far as you can see. Trees and bushes crowd the road on all sides, making
+this one of the less interesting locations in the game.
+
+The roadway leads both east and west
+
+   A little birdie flies down from the sky, flutters around your head for a
+while, then poops on your shoulder before flying away.
+
+> w
+You move west.
+
+Crossroads
+
+Crossroads
+You're standing at a crossroads just outside town. For some reason there
+isn't the usual signpost here, but instead a scarecrow with a posterboard
+around his neck (you guess the locals are a little eccentric). His arms (of
+which he has four) point in the directions northeast, east, south and west.
+
+Exits lie pretty much as the scarecrow is indicating
+
+> w
+You move west.
+
+East gates
+
+East Gates
+You've come to the east gates of town which, as is usual in these
+circumstances, are guarded by a couple of disreputable looking guards. The
+two here are rolling around on the ground in quite a bit of pain. They don't
+look half as frightening now someone has stood up to them. The gates
+themselves stand open but anyone attempting to pass through seems to do so
+only at the allowance of the guards - or not at all... Beyond lies the
+outside world.
+
+Exits lie east and west
+
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> w
+You move west.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain... will it ever stop?
+
+> sw
+You move southwest.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+   Several birds fly past, each giving you a threatening look.
+
+> w
+You move west.
+
+Church of the Homidical Hamster
+
+Church of the Homicidal Hamster
+You're in the Church of the Homicidal Hamster, one of the many bizarre
+religions which has sprung up recently. Last week the 'church' was a fish &
+chip shop, something your nose tells you if nothing else. Several dark-robed
+priests are dancing around a stone statue of a giant hamster in the middle of
+the building but there doesn't seem to be a whole lot of religious activity
+going on.
+
+A doorway leads east
+
+> give scroll to priest
+   One of the priests takes a look at the scroll and his eyes go wide.
+   "The existence of the Homicidal Hamster!" he cries to the others. "It is
+proven!"
+   The priests do a jolly little dance around the church in their joy, quite
+forgetting you are even there. Until you clear your throat noisily.
+   One of the priests glances over at you. "Yes, yes, I suppose some kind of
+reward is called for." He mutters a few words and you feel strength flooding
+through your body. "There? I have blessed you with the strength of the
+Hamster himself. That should keep you safe from harm for quite a while."
+
+> e
+You move east.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> ne
+You move northeast.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain... will it ever stop?
+
+> in
+You move in.
+
+Oscoe's Sleazepit
+
+Oscoe's Sleazepit
+You're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar
+in Stipplemoore (a reputation it easily lives up to). A singer stands on a
+stage off to one side, murdering some Elvis song. A couple of orcs lie dead
+on the floor, victims of mindless violence (or you, to be more precise). Over
+by the bar, several dubious looking individuals throw back pints of beer, a
+couple of whom look vary familar from somewhere...
+
+A flight of winding steps lead upwards, a door leads out and a corridor leads
+east
+
+Vulgur the bartender, Tarquin and Boswell are here.
+
 > buy wine
    Vulgur takes your money card, swipes it along his bar, grunts "that'll do
 nicely," and hands you a mug of wine.
+
+> out
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+> sw
+You move southwest.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+   A little birdie flies down from the sky, flutters around your head for a
+while, then poops on your shoulder before flying away.
+
+> s
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+> s
+You move south.
+
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+   Somewhere in the distance you hear a tree falling down. It makes quite a
+crash.
+
+> se
+Gorge
+
+Gorge
+The land is split here by a vast gorge, the far side of which must be a good
+hundred feet away. A quick peer into the gorge dispels any notions you might
+have of climbing down the sides: they are sheer drops, and lava flows through
+a river bed at the bottom.
+
+A path leads into the woods to the northwest
+
+   "Duh!" you hear a cry of and a hulking figure bursts from the undergrowth.
+   You ready yourself for a vicious fight but the figure - who appears to be
+a strapping barbarian at least seven feet tall - merely snatches the small
+doll you have been carrying around and cradles it to his chest.
+   "Duh! Duh! Duh!" he cries ecstatically. He looks at you. "Duh!"
+   "Er... you must be Aggie Newby's son?" you hazard a rough guess.
+   "Duh!" says Lughead.
+   "I thought you'd been kidnapped."
+   "Duh!" says Lughead.
+   "Your mother's very worried about you."
+   "Duh!" says Lughead.
+   You start to say something else but stop. Lughead Newby, for this is he if
+you were ever in any doubt, seems a little slow and you doubt you're going to
+get anything more than "duh!" from him now he's got his precious doll back.
+   A funny thing happens when you try to leave - Lughead follows you,
+hero-worship in his eyes. It seems you've gained a travelling companion
+whether you want one or not.
+
+> nw
+You move northwest.
+
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+   A bear growls loudly closeby but you can't see where it's coming from.
+
+> n
+You move north.
+
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+> n
+You move north.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+   The rain... will it ever stop?
+   A little birdie flies down from the sky, flutters around your head for a
+while, then poops on your shoulder before flying away.
+
+> ne
+You move northeast.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+> w
+You move west.
+
+Merrick Row
+
+Merrick Row
+You're on Merrick Row, a little street of no great importance off to one side
+of Vildung Square. There is a large gallows in the centre of the street which
+serves at some times as an instrument of murder and at others as a climbing
+frame for the neighbourhood kids. There is a dark alley nearby. Lying on the
+ground outside the alley, looking a little the worse for wear, is Fosk.
+
+Vildung Square is east, a house lies north and the dark alley northwest
+
+   The rain seems to let up for a moment then comes down worse than ever.
+
+> n
+Aggie Newby's cottage
+
+Aggie Newby's cottage
+You're in a quaint little cottage owned by Aggie Newby. The walls are
+decorated with a varied display of tapestries depicting scenes of historic
+interest (at least from Aggie's point of view) from Harrenden's past. An
+ancient rocking chair sits in front of a friendly looking fire, making this
+without a doubt the only really cosy location in the entire game.
+
+A door leads outwards to the south
+
+Aggie Newby is here.
+   "Lughead!" Aggie cries, throwing down her knitting. "You've come back!
+Where have you been?"
+   "Duh!" says Lughead quite predictably.
+   Aggie frowns. "Ah, don't give me that! We both know where you were.
+Messing around in the Sleazepit again no doubt?"
+   "...duh..." says Lughead sorrowfully.
+   "Well, can't be helped now, I guess. Go to your room and stay there until
+I've decided on your punishment."
+   Lughead slinks away.
+   Aggie turns to you. "I suppose I owe you my thanks, stranger. Returning my
+son home to me out of the goodness of your heart."
+   You clear your throat. "Actually," you say, "I only did it for the money."
+   She says. "I figured as much. Here." She hands you 20 gold coins. "Next
+time you see the silly sod in the Sleazepit, clip him round the ear and send
+him on home to me. He doesn't have the brains he was born with."
+   The matter of her wayward son's disappearance solved, Aggie returns to her
+knitting.
+
+> s
+You move south.
+
+Merrick Row
+
+Merrick Row
+You're on Merrick Row, a little street of no great importance off to one side
+of Vildung Square. There is a large gallows in the centre of the street which
+serves at some times as an instrument of murder and at others as a climbing
+frame for the neighbourhood kids. There is a dark alley nearby. Lying on the
+ground outside the alley, looking a little the worse for wear, is Fosk.
+
+Vildung Square is east, a house lies north and the dark alley northwest
+
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> e
+You move east.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain... will it ever stop?
+
+> in
+You move in.
+
+Oscoe's Sleazepit
+
+Oscoe's Sleazepit
+You're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar
+in Stipplemoore (a reputation it easily lives up to). A singer stands on a
+stage off to one side, murdering some Elvis song. A couple of orcs lie dead
+on the floor, victims of mindless violence (or you, to be more precise). Over
+by the bar, several dubious looking individuals throw back pints of beer, a
+couple of whom look vary familar from somewhere...
+
+A flight of winding steps lead upwards, a door leads out and a corridor leads
+east
+
+Vulgur the bartender, Tarquin, Boswell and Vahla Swordfist are here.
+
+> give wine to vahla
+   Vahla takes the wine and, as she looks at you, her tongue falls out.
+   "Wow!" she breathes.
+   "That's what all the women say," you reply modestly.
+   Vahla blushes a little then says, "I don't suppose you need a little
+companionship do you? I mean, helping out in your adventure like? 'Cos I'm
+real good, y'know. At helping out."
+   You give a nod of your handsome face and gain a new travelling companion.
+
+> e
+Seedy little side room
+
+Seedy little side room
+You're in a seedy little side room that looks to have been the location of
+several recent fights judging by the broken tables and chairs and sprawled
+bodies. There isn't a single stick of furniture in here that remains
+unbroken.
+
+The main room lies west
+
+Father Kringle is here.
+   "Oh, my head!" moans Father Kringle. "Oh, my poor head! I knew I shouldn't
+have had those last seventeen pints but the temptation was too strong... I'm
+a terrible man... I don't deserve to live... I'm a terrible, terrible
+person..."
+   He breaks down sobbing in what must be the worst piece of ham acting
+you've ever seen.
+
+> x table
+   On one of the ruined tables you come across a steak which someone must
+have been eating when the fighting broke out. After wiping away the worst of
+the bloodstains and spilled brain matter, it looks fairly edible so you take
+it with you.
+
+> w
+You move west.
+
+Oscoe's Sleazepit
+
+Oscoe's Sleazepit
+You're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar
+in Stipplemoore (a reputation it easily lives up to). A singer stands on a
+stage off to one side, murdering some Elvis song. A couple of orcs lie dead
+on the floor, victims of mindless violence (or you, to be more precise). Over
+by the bar, several dubious looking individuals throw back pints of beer, a
+couple of whom look vary familar from somewhere...
+
+A flight of winding steps lead upwards, a door leads out and a corridor leads
+east
+
+Vulgur the bartender, Tarquin and Boswell are here.
+
+> out
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+> n
+Bourbon Avenue
+
+Bourbon Avenue
+You're on a pleasant, tree-lined avenue that leads through the northern part
+of town. Tall buildings loom on all sides, giving the impression of great
+wealth in this area, although there don't seem to be many people around. The
+avenue widens at one point and there is a fountain in the centre. Standing by
+the fountain, looking for all the world as if he owns the place, is the
+biggest thug you have ever seen.
+
+Bourbon Avenue leads north and south
+
+   You watch uneasily as the hulking thug from the fountain notices you,
+grunts like an animal, and starts towards you.
+   "You ain' goin' no further!" he grunts. "This 'ere is my territory and no
+one goes any further without my permission."
+   It looks suspiciously like you might have to fight your way further north.
+
+> kill thug
+   "If fight you we must, then fight you we shall," you say (an impressive
+speech made only less so by the fact that your knees are knocking together
+throughout).
+   "So be it!" the thug grunts - and lunges at you!
+
+   He proves a difficult enemy to defeat, does the thug, possessing the
+fighting abilities of one born to fight and the ruthlessness of a school
+teacher. But you and Vahla are equal to the challenge, bashing the brute into
+the ground between you in truly heroic style (ignoring the fact that there
+are two on your side and one on his).
+
+> x thug
+   A key falls out of his pocket as you search.
+
+> x thug
+   A further search reveals a couple of gold coins which you add to your
+supply.
+
+> x thug
+   You search and uncover a further coin that you must have missed the last
+time.
+
+> x thug
+   Unfortunately, subsequent searches fail to turn up anything else.
+
+> get key
+You take the key.
+
+> n
+Cemetery gates
+
+Cemetery Gates
+You're at the gates of an ancient, murky cemetery that looks like it hasn't
+seen any kind of maintenance in a long, long time. Through the gates you
+catch sight of open graves, corpses left out to rot, and several other things
+that chill you to the bone. Off to one side there is a small hut, probably
+the residence of the gravedigger.
+
+Bourbon Avenue lies south and the cemetery northeast
+
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> smash gates
+   Using your great strength you attack the gates, batter them into the
+ground, and storm into the cemetery.
+
+Cemetery
+
+Cemetery
+You're in the cemetery. And a more grim and desolate place you have never set
+eyes on! Either the local council went out of their way to make their
+cemetery the most unpleasant in the land or there are some seriously spooky
+corpses around. What can you see? Graves, dead bodies (a couple of whom are
+even buried), the small hut of the gravedigger, and a large crypt that looks
+like the final resting place of some rich nobleman.
+
+The rest of the world lies southwest whereas that crypt is to the east and
+the gravedigger's hut in
+
+  An owl hoots somewhere in the cemetery.
+
+> e
+Lucifer's crypt
+
+Lucifer's crypt
+You're standing in a dank crypt. There is a coffin set upon a pedestal in the
+centre of the chamber; around it lie blackened flowers and burnt food
+(offerings of some kind...?) Two other coffins lie in a corner of the crypt,
+both looking as if they have been recently dug up from the cemetery outside.
+The coffin on the pedestal, however, looks brand new. There are no windows in
+the crypt and the air is cold and oppressive.
+
+West lies the cemetery
+
+Bludgeon is here.
+
+   "Who the hell are you?" grunts Bludgeon. "Are you that damn assistant from
+Fosby I sent for three weeks ago?"
+
+> yes
+   "You are? Good. Here, hold these a minute." He hands you his glasses.
+"Right, I need to get this coffin open only it's being a bit of a sod. I'm
+sure there's an important piece of mapmaking equipment hidden in there and I
+want it. Only I can't get the damn thing open. Any ideas...?"
+
+> open coffin
+   You step up to the coffin and open it.
+   "Ah," says Bludgeon. "I wish you hadn't done that."
+   "Why? I thought you wanted the coffin open?" you say.
+   He nods agitatedly. "I did, I did. But I neglected to mention the vampire
+inside that I was trying to prevent escaping."
+   Vampire?
+   You turn back to the coffin and find yourself face-to-face (or
+face-to-fang actually) with a rather tall fellow in a long cape who's sitting
+in the coffin. His teeth, you notice unpleasantly, have a strange, pointed
+look to them and his eyes are quite mesmerising.
+   "Hello," says the vampire. He looks from you to Bludgeon and then back
+again to you. He smiles. "Now, which of you is the first course?"
+
+> kill vampire
+   You lunge at the vampire and hit him with the steak!
+   "Oh, come on!" he snaps in annoyance. "It's a 'stake' you need to kill a
+vampire, not a bloody 'steak', you illiterate bastard! Why, I've a good mind
+to-"
+   And then he stops as your steak knocks one of his arms off.
+   "What?!!!???? But that's not supposed to happ-"
+   You hit him again and this time send his head crashing from his shoulders.
+   "Well, I'll be damned," says Bludgeon. "That's the first time I've ever
+seen a vampire murdered with someone's dinner. I take it you're some kind of
+vampire hunter, then?"
+   "Er, sort of..." you say, a little confused yourself at just how easy it
+was to kill Vlad. You'd have thought it would have taken something a bit more
+than hitting him with a bit of meat to kill him.
+
+> ask bludgeon about map
+   "I've got a map of the deep, dark woods and, as a way of saying thanks for
+helping me out, I've a mind to give it to you." He fishes in his pockets and
+comes out with a very tatty looking map. "Here. Make good use of it. It's one
+of a kind."
+   You take one look at it and think I should hope so...
+
+> show drawing to bludgeon
+   "Hmm, Grumble. I know the fellow. Said he was going to head eastwards out
+of town and see what was happening there. Said to be big trouble thataways."
+
+> w
+You move west.
+
+Cemetery
+
+Cemetery
+You're in the cemetery. And a more grim and desolate place you have never set
+eyes on! Either the local council went out of their way to make their
+cemetery the most unpleasant in the land or there are some seriously spooky
+corpses around. What can you see? Graves, dead bodies (a couple of whom are
+even buried), the small hut of the gravedigger, and a large crypt that looks
+like the final resting place of some rich nobleman.
+
+The rest of the world lies southwest whereas that crypt is to the east and
+the gravedigger's hut in
+
+> sw
+You move southwest.
+
+Cemetery gates
+
+Cemetery Gates
+You're at the gates of an ancient, murky cemetery that looks like it hasn't
+seen any kind of maintenance in a long, long time. Through the gates you
+catch sight of open graves, corpses left out to rot, and several other things
+that chill you to the bone. Off to one side there is a small hut, probably
+the residence of the gravedigger.
+
+Bourbon Avenue lies south and the cemetery northeast
+
+> s
+You move south.
+
+Bourbon Avenue
+
+Bourbon Avenue
+You're on a pleasant, tree-lined avenue that leads through the northern part
+of town. Tall buildings loom on all sides, giving the impression of great
+wealth in this area, although there don't seem to be many people around. The
+avenue widens at one point and there is a fountain in the centre. Lying in a
+heap by the fountain, looking for all the world as if someone has given him
+one hell of a beating, is the biggest thug you have ever seen.
+
+Bourbon Avenue leads north and south
+
+> s
+You move south.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain... will it ever stop?
+
+> se
+You move southeast.
+
+Wendell's emporium
+
+Wendell's Emporium
+You're in Wendell's Emporium, Stipplemoore's answer to the supermarket. Here
+there are rows and rows of good for sale (although 'goods' is perhaps the
+wrong word considering the state of half of it). Tables and shelves are
+stacked full of every kind of item under the sun you might want to buy.
+Wendell himself stands by his counter, a loaded crossbow in one hand to deter
+thieves, the other hand posied on the cash register. A large sign hangs above
+his head.
+
+A door leads northwest into the big, bad world
+
+> buy broom
+   "You'll be glad you brought this," Wendell comments in a knowing tone of
+voice.
+
+> buy earwax
+   "Finest earwax money can buy," Wendell remarks as he hands over your
+purchase.
+
+> buy batspawn
+   "A fine acquisition," Wendell says as he hands over your purchase.
+
+> buy left leg
+   "Find the other, you'll be part way towards making your very first
+corpse," Wendell says in a helpful tone of voice as he hands over the severed
+body part.
+
+> sell whistle
+   "I'll give you 5 gold for it," says Wendell.
+
+> sell steak
+   "Okay, I'm feelin' a bit peckish right now," remarks Wendell. "Here, have
+2 gold for it."
+
+> buy true love
+   "A wise purchase," remarks Wendell as he hands over, of all things, a
+small statue of a frog.
 
 > x card
    A slim piece of card which tells you, in a way that is quite magical and
 incomprehensible to you, just how much money you have in the world. The
 balance currently stands at 5 pieces of gold.
 
-> i
-   You have with you the sword bludrinker, your money card and a mug of wine.
+> nw
+You move northwest.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain... will it ever stop?
+
+> w
+You move west.
+
+Merrick Row
+
+Merrick Row
+You're on Merrick Row, a little street of no great importance off to one side
+of Vildung Square. There is a large gallows in the centre of the street which
+serves at some times as an instrument of murder and at others as a climbing
+frame for the neighbourhood kids. There is a dark alley nearby. Lying on the
+ground outside the alley, looking a little the worse for wear, is Fosk.
+
+Vildung Square is east, a house lies north and the dark alley northwest
+
+> give bomb to kids
+   You hand over the bomb.
+   "Cool!" says the girl. "Just fink how many teachers we can kill wiv this
+baby!"
+   Another kid wanders off and taps the bomb with his knife. "Not bad,
+mister. Maybe you aren't so bad fer a git. C'mon, fellers, let's go torch
+somefin!"
+   The rain seems to let up for a moment then comes down worse than ever.
+
+> give love to kids
+   You hand over the true love.
+   One of the kids looks at it for a moment then lowers his knife. "Fellows,"
+he says to the others. "I think the time has come for us to abandon our evil
+ways and join the path of light."
+   The others consider this for a second then one says, "good point. Let's go
+and find some old lady and help her with her shopping."
+   The kids wander off down the street singing a joyful ltitle song to
+themselves, all thoughts of mindless violence gone from their minds.
+
+> e
+You move east.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> in
+You move in.
+
+Oscoe's Sleazepit
+
+Oscoe's Sleazepit
+You're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar
+in Stipplemoore (a reputation it easily lives up to). A singer stands on a
+stage off to one side, murdering some Elvis song. A couple of orcs lie dead
+on the floor, victims of mindless violence (or you, to be more precise). Over
+by the bar, several dubious looking individuals throw back pints of beer, a
+couple of whom look vary familar from somewhere...
+
+A flight of winding steps lead upwards, a door leads out and a corridor leads
+east
+
+Vulgur the bartender, Tarquin and Boswell are here.
+
+> u
+You move up.
+
+Your room
+
+Your room
+You're in your room at the Sleazepit. The less said about the decor the
+better, but if vomit-stained walls ever become a fashion accessory the owner
+of the Sleazepit will make a killing. Aside from the trough that serves as
+your bed and a greasy window letting in murky sunlight there is little to be
+seen here.
+
+A flight of winding steps lead down
+
+Old Naggie is here.
+
+> give broom to naggie
+   She looks at the broom suspiciously, as if expecting it to attack her.
+When it doesn't she snatches it off, whacks it on the ground a few times to
+knock the fight out of it, and carries on where she left off. Only this time
+she makes slightly better progress having an actual broom to sweep with as
+opposed to an imaginary one.
+
+> ask naggie about broom
+   She eyes you suspiciously, glances at the broom then hands it over. "Go
+with it," she says. "I can sense its evil power playing with my mind!"
+
+> buy flares
+   You hand over the cash, she hands over the flares.
+   "Boogie the night away!" Old Naggie cries before going back to her
+cleaning.
+
+> wear flares
+You put on the pair of flares.
+
+> d
+Oscoe's Sleazepit
+
+Oscoe's Sleazepit
+You're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar
+in Stipplemoore (a reputation it easily lives up to). A singer stands on a
+stage off to one side, murdering some Elvis song. A couple of orcs lie dead
+on the floor, victims of mindless violence (or you, to be more precise). Over
+by the bar, several dubious looking individuals throw back pints of beer, a
+couple of whom look vary familar from somewhere...
+
+A flight of winding steps lead upwards, a door leads out and a corridor leads
+east
+
+Vulgur the bartender, Tarquin and Boswell are here.
+
+> out
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain seems to let up for a moment then comes down worse than ever.
+
+> se
+You move southeast.
+
+Wendell's emporium
+
+Wendell's Emporium
+You're in Wendell's Emporium, Stipplemoore's answer to the supermarket. Here
+there are rows and rows of good for sale (although 'goods' is perhaps the
+wrong word considering the state of half of it). Tables and shelves are
+stacked full of every kind of item under the sun you might want to buy.
+Wendell himself stands by his counter, a loaded crossbow in one hand to deter
+thieves, the other hand posied on the cash register. A large sign hangs above
+his head.
+
+A door leads northwest into the big, bad world
+
+> nw
+You move northwest.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> sw
+You move southwest.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+   The rain... will it ever stop?
+
+> s
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+   Somewhere in the distance you hear a tree falling down. It makes quite a
+crash.
+
+> sw
+You move southwest.
+
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+> s
+More deep, dark woods
+
+More deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+   A bear growls loudly closeby but you can't see where it's coming from.
+
+> nw
+   As you wander northwest, you trip and stumble over a fallen tree and badly
+graze your hands. After some choice cursing, you venture on...
+
+More deep, dark woods
+
+More deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+> w
+You move west.
+
+Outside cottage
+
+Outside a cottage
+You're standing in a clearing in the deep, dark woods, in the middle of which
+is a small cottage. Smoke billows in the sky from the cottage's single
+chimney although other than that there is little sign of life. The place
+looks to have been abandoned for years and what few windows there are appear
+to be painted black.
+
+A rickety doorway leads in and the deep, dark woods are to the east
+
+> in
+You move in.
+
+Witch's cottage
+
+Witch's cottage
+You're in a cottage. And the cottage of a spellcaster by the look of all the
+mystical items scattered around. The walls are lined with shelves upon which
+are piled more books than you could read in a lifetime. There is also a desk
+stacked with scrolls and rolls of parchments, and what looks like a strange
+shape chalked into the floor. A log fire lights the whole scene quite merrily
+but there is an unmistakeable aura of menace hanging over everything.
+
+A door leads out
+
+Nulga the witch is here.
+
+> cond
+   You have 19 Life Points remaining.
+
+> give broom to nulga
+   "Ah, vy broom!" she cackles. "Excellent. Very, very excellent indeed." She
+glances at you and smiles. Quite an unpleasant smile but a smile
+nevertheless. "Tell me, vat kind of revard vould you require?"
+   "I'd like to find my Uncle Grumble," you say.
+   "Gvumble? Gvumble? Ah, I know ze vellow! He was vere a vhile ago. He
+stopped vye to vurchase some svells from me and ven he devarted."
+   After a little substition of the letter 'v', you manage to figure out what
+she's saying. "And vere- I mean where did he go after vat- that?"
+   "Vhy, he vent east out of town is vhere he vent. Here, take vis votion. It
+vill aid you against vhe vandits vat voam the east voad."
+   She hands you a potion which you take before hastily departing. You're not
+sure your ears could handle much more of that dialogue!
+
+Outside cottage
+
+Outside a cottage
+You're standing in a clearing in the deep, dark woods, in the middle of which
+is a small cottage. Smoke billows in the sky from the cottage's single
+chimney although other than that there is little sign of life. The place
+looks to have been abandoned for years and what few windows there are appear
+to be painted black.
+
+A rickety doorway leads in and the deep, dark woods are to the east
+
+> e
+You move east.
+
+More deep, dark woods
+
+More deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+   A bear growls loudly closeby but you can't see where it's coming from.
+
+> se
+You move southeast.
+
+More deep, dark woods
+
+More deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+> n
+You move north.
+
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+   Spookily, you see a weird figure go running through the trees some
+distance away but when you look again it's not there anymore.
+
+> ne
+You move northeast.
+
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+> n
+You move north.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+   Several birds are fluttering overhead. Remembering what happened last
+time, you keep an eye out for them.
+
+> ne
+You move northeast.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain goes on and on...
+   There is a crash of thunder from above and a moment later it starts to
+rain all over you.
+
+> e
+You move east.
+
+East gates
+
+East Gates
+You've come to the east gates of town which, as is usual in these
+circumstances, are guarded by a couple of disreputable looking guards. The
+two here are rolling around on the ground in quite a bit of pain. They don't
+look half as frightening now someone has stood up to them. The gates
+themselves stand open but anyone attempting to pass through seems to do so
+only at the allowance of the guards - or not at all... Beyond lies the
+outside world.
+
+Exits lie east and west
+
+   The rain... will it ever stop?
+
+> e
+Crossroads
+
+Crossroads
+You're standing at a crossroads just outside town. For some reason there
+isn't the usual signpost here, but instead a scarecrow with a posterboard
+around his neck (you guess the locals are a little eccentric). His arms (of
+which he has four) point in the directions northeast, east, south and west.
+
+Exits lie pretty much as the scarecrow is indicating
+
+> ne
+You move northeast.
+
+Copse of trees
+
+Copse of trees
+You're standing in the middle of a thick copse of trees which seem to have
+sprouted up all around you. There is a particularly large tree in the centre
+of the copse around which are laid small tokens. Peering through the trees,
+you can just about make out a town, a field with a big tent and what looks
+like a rustic, country village.
+
+Exits out of the copse lie northeast, southeast and southwest
+
+> se
+You move southeast.
+
+Village green
+
+Village green
+You're at the northern end of a village green. A short step south of here
+lies the village itself, a small cluster of wattle and daub huts arranged in
+a rough semicircle. It looks pretty much like your home village and, as such,
+a pretty uninteresting place. Nearby is a large building, perhaps the village
+hall, outside which are gathered a group of men with pitchforks.
+
+From here you can go northwest, southwest, south, east and in
+
+> give medicine to mob
+   "Truly you are a god amongst men," says the mob man as you hand over the
+pig medicine. "A strange one as well, carrying around a vial of pig medicine
+all that time on the slight off chance that you might need it."
+   "I've played these sort of games before," you say with a knowing smile.
+   "Ah," says the man. "That explains it all."
+   Several birds are fluttering overhead. Remembering what happened last
+time, you keep an eye out for them.
+
+> e
+You move east.
+
+Village path
+
+Village path
+You're following a winding little path that leads to a village green in one
+direction and a junction where several paths meet in the other. By the side
+of the road is a coach of quite amazing proportions, drawn by four jet-black
+horses. A coachman, wrapped in a sinister black cloak, sits atop the coach.
+His gaze does not look friendly.
+
+    The path leads off to the west and southeast and the coach lies inwards
+
+> in
+You move in.
+
+Lord Boore's coach
+
+Lord Boore's coach
+You're sitting in a coach the size of a house (well, your house anyway).
+Around you are arrayed the retinue of Boore himself, a nobleman of historic
+lineage who can trace his ancestry back as far as his own parents. There also
+appear to be several large pots of gold just lying around, and more than
+enough jewelery to set you up for life.
+
+The coach door leads outwards
+
+Lord Boore and Stevin are here.
+
+> give horn to boore
+   "The horn!" cries Boore. "Delivered to me in the hands of a peasant of all
+things!"
+   "Just say the word, milord, and the peasant shall die a messy death and
+save you the ignomity," pipes in Stevin.
+   Boore waves him to be quiet. "No, Stevin. I am a man of my word if nothing
+else. And the pea- fellow deserves rewarding greatly. Now, fellow, I could
+gift you with gold enough to buy a couple of lands, or weapons mighty enough
+to slay the foulest of enemies, or potions that would ensure you lived to be
+a thousand years old... but instead I think I'll just tell you the number.
+It's 351."
+   "What number?" you ask.
+   Boore smiles softly. Though not to you. "Oh I think you'll find out what
+number eventually, fel- hell, peasant. Suffice to say, when you come to a
+combination lock, try that number because none other will work. Now, I think
+out meeting is at an end."
+
+> out
+You move out.
+
+Village path
+
+Village path
+You're following a winding little path that leads to a village green in one
+direction and a junction where several paths meet in the other. By the side
+of the road is a coach of quite amazing proportions, drawn by four jet-black
+horses. A coachman, wrapped in a sinister black cloak, sits atop the coach.
+His gaze does not look friendly.
+
+    The path leads off to the west and southeast and the coach lies inwards
+
+   A little birdie flies down from the sky, flutters around your head for a
+while, then poops on your shoulder before flying away.
+
+> w
+You move west.
+
+Village green
+
+Village green
+You're at the northern end of a village green. A short step south of here
+lies the village itself, a small cluster of wattle and daub huts arranged in
+a rough semicircle. It looks pretty much like your home village and, as such,
+a pretty uninteresting place. Nearby is a large building, perhaps the village
+hall, outside which are gathered a group of men with pitchforks.
+
+From here you can go northwest, southwest, south, east and in
+
+> nw
+You move northwest.
+
+Copse of trees
+
+Copse of trees
+You're standing in the middle of a thick copse of trees which seem to have
+sprouted up all around you. There is a particularly large tree in the centre
+of the copse around which are laid small tokens. Peering through the trees,
+you can just about make out a town, a field with a big tent and what looks
+like a rustic, country village.
+
+Exits out of the copse lie northeast, southeast and southwest
+
+> ne
+You move northeast.
+
+Field
+
+Field
+You're in a jolly field where birds sing, flowers grow and the sky is an
+amazingly brilliant blue. All of this wonderful nature is lost on you,
+however, for your attention is taken up by the large colourful tent that lies
+off to the one side of the field. Oh, and the looming castle to the north
+which lies just on the far of the bridge. And the knight who seems to be
+guarding the bridge...
+
+Exits lie north, in and southwest
+
+Sir Picanose is here.
+
+> in
+Tent
+
+Tent
+The tent rises impressively around you. Strangely it seems far larger from
+the inside than it did from the outside. Are the dimensions distorted and the
+fabric of reality bent asunder by the tent? Or have you just not been getting
+enough sleep lately? Perhaps you'll never know.
+   Unfortunately there is little of interest in this vast tent, just a bed, a
+mirror floating above it and a chest that sits at the foot of the bed.
+
+Exits lie out
+
+> 351
+   You reach out and tap in the combination helpfully given to you by Lord
+Boore - and the chest helpfully springs open. Inside are several items.
+
+> get spellbook
+You take the spellbook.
+
+> get journal
+You take Picanose's journal.
+
+> get bandages
+You take the bandages.
+
+> use bandages
+   You put on the bandages. You feel better at once.
+   Unfortunately, the bandages can only be used once and are now pretty much
+useless.
+
+> out
+You move out.
+
+Field
+
+Field
+You're in a jolly field where birds sing, flowers grow and the sky is an
+amazingly brilliant blue. All of this wonderful nature is lost on you,
+however, for your attention is taken up by the large colourful tent that lies
+off to the one side of the field. Oh, and the looming castle to the north
+which lies just on the far of the bridge. And the knight who seems to be
+guarding the bridge...
+
+Exits lie north, in and southwest
+
+Sir Picanose is here.
+
+> sw
+Copse of trees
+
+Copse of trees
+You're standing in the middle of a thick copse of trees which seem to have
+sprouted up all around you. There is a particularly large tree in the centre
+of the copse around which are laid small tokens. Peering through the trees,
+you can just about make out a town, a field with a big tent and what looks
+like a rustic, country village.
+
+Exits out of the copse lie northeast, southeast and southwest
+
+> sw
+You move southwest.
+
+Crossroads
+
+Crossroads
+You're standing at a crossroads just outside town. For some reason there
+isn't the usual signpost here, but instead a scarecrow with a posterboard
+around his neck (you guess the locals are a little eccentric). His arms (of
+which he has four) point in the directions northeast, east, south and west.
+
+Exits lie pretty much as the scarecrow is indicating
+
+   A little birdie flies down from the sky, flutters around your head for a
+while, then poops on your shoulder before flying away.
+
+> w
+You move west.
+
+East gates
+
+East Gates
+You've come to the east gates of town which, as is usual in these
+circumstances, are guarded by a couple of disreputable looking guards. The
+two here are rolling around on the ground in quite a bit of pain. They don't
+look half as frightening now someone has stood up to them. The gates
+themselves stand open but anyone attempting to pass through seems to do so
+only at the allowance of the guards - or not at all... Beyond lies the
+outside world.
+
+Exits lie east and west
+
+> w
+You move west.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain seems to let up for a moment then comes down worse than ever.
+
+> sw
+You move southwest.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+> s
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+   A bear growls loudly closeby but you can't see where it's coming from.
+
+> sw
+You move southwest.
+
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+> s
+More deep, dark woods
+
+More deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+   Spookily, you see a weird figure go running through the trees some
+distance away but when you look again it's not there anymore.
+
+> nw
+More deep, dark woods
+
+More deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+> w
+You move west.
+
+Outside cottage
+
+Outside a cottage
+You're standing in a clearing in the deep, dark woods, in the middle of which
+is a small cottage. Smoke billows in the sky from the cottage's single
+chimney although other than that there is little sign of life. The place
+looks to have been abandoned for years and what few windows there are appear
+to be painted black.
+
+A rickety doorway leads in and the deep, dark woods are to the east
+
+> in
+You move in.
+
+Witch's cottage
+
+Witch's cottage
+You're in a cottage. And the cottage of a spellcaster by the look of all the
+mystical items scattered around. The walls are lined with shelves upon which
+are piled more books than you could read in a lifetime. There is also a desk
+stacked with scrolls and rolls of parchments, and what looks like a strange
+shape chalked into the floor. A log fire lights the whole scene quite merrily
+but there is an unmistakeable aura of menace hanging over everything.
+
+A door leads out
+
+Nulga the witch is here.
+
+> give spellbook to nulga
+   "Ah, a svellbook! Very, very good indeed!" she cackles. "Now, let me
+svee-"
+   She ferrets around her cottage, throwing things (severed heads, mummified
+animals, the odd dinosaur foot) to one side and eventually comes up with a
+small key.
+   "Tvis vill come in very handy, my sviend!" she says.
+   "Veally- I mean, really?"
+   "Vut of course! It seems I vas not strictly sveaking honest vith you
+before. I know svomething of ve location of your Uncle Gvumble. It veems ve
+is veing vept prisoner in a vortress. Vis is vhe key you vill need to vee
+him."
+   You thank Nulga for the key and duck out of the cottage before her accent
+overwhelms you completely.
+
+Outside cottage
+
+Outside a cottage
+You're standing in a clearing in the deep, dark woods, in the middle of which
+is a small cottage. Smoke billows in the sky from the cottage's single
+chimney although other than that there is little sign of life. The place
+looks to have been abandoned for years and what few windows there are appear
+to be painted black.
+
+A rickety doorway leads in and the deep, dark woods are to the east
+
+> e
+You move east.
+
+More deep, dark woods
+
+More deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+> se
+You move southeast.
+
+More deep, dark woods
+
+More deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+   Spookily, you see a weird figure go running through the trees some
+distance away but when you look again it's not there anymore.
+
+> n
+You move north.
+
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+> ne
+You move northeast.
+
+Deep, dark woods
+
+Deep, dark woods...
+You're in the midst of deep, dark woods that seem to loom on all sides and
+make finding your way through quite a nightmare. There is something amazingly
+threatening about the trees that you haven't experienced since your last job
+interview. All in all, this is one place you'll be glad to see the back of...
+
+Paths lead in... lots of directions!
+
+   Somewhere in the distance you hear a tree falling down. It makes quite a
+crash.
+
+> n
+You move north.
+
+The road out of town
+
+The road out of town
+You're following the road out of town which leads, surprisingly enough, out
+of town in a general southerly direction. The town hereabouts is pretty much
+deserted with only a few homeless derelicts to add some much needed detail to
+a pretty sparse location. There is a big building off to one side.
+
+Dark wood lies to the south, the centre of town is northeast and the big
+building stands westwards
+
+   The rain... will it ever stop?
+
+> ne
+You move northeast.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+> n
+You move north.
+
+Bourbon Avenue
+
+Bourbon Avenue
+You're on a pleasant, tree-lined avenue that leads through the northern part
+of town. Tall buildings loom on all sides, giving the impression of great
+wealth in this area, although there don't seem to be many people around. The
+avenue widens at one point and there is a fountain in the centre. Lying in a
+heap by the fountain, looking for all the world as if someone has given him
+one hell of a beating, is the biggest thug you have ever seen.
+
+Bourbon Avenue leads north and south
+
+> n
+Cemetery gates
+
+Cemetery Gates
+You're at the gates of an ancient, murky cemetery that looks like it hasn't
+seen any kind of maintenance in a long, long time. Through the gates you
+catch sight of open graves, corpses left out to rot, and several other things
+that chill you to the bone. Off to one side there is a small hut, probably
+the residence of the gravedigger.
+
+Bourbon Avenue lies south and the cemetery northeast
+
+> ne
+Cemetery
+
+Cemetery
+You're in the cemetery. And a more grim and desolate place you have never set
+eyes on! Either the local council went out of their way to make their
+cemetery the most unpleasant in the land or there are some seriously spooky
+corpses around. What can you see? Graves, dead bodies (a couple of whom are
+even buried), the small hut of the gravedigger, and a large crypt that looks
+like the final resting place of some rich nobleman.
+
+The rest of the world lies southwest whereas that crypt is to the east and
+the gravedigger's hut in
+
+   A zombie pops his head up through the soil, has a look around, then sinks
+back under.
+
+> open hut
+   The door swings open. A horrible smell wafts out of the hut.
+  You hear a weird sound off to one side but it doesn't look as if there's
+anything there.
+
+> in
+Gravedigger's hut
+
+Gravedigger's hut
+You find yourself in a grimy little hut where the gravedigger lives (and goes
+to the toilet judging by the smell of things in here). There is a small,
+filthy-looking bed crouched beneath the dirt-stained window, a chest at its
+base, a mirror and several other items that are too mundane to go into right
+now. Of the gravedigger himself there is no sign.
+
+Exits lead out
+
+> x bed
+   You find a filthy pillow, a filthy blanket, a couple of filthy socks and a
+filthy hanky. All in all, not really what you were hoping for.
+
+> x socks
+   Ferreting through the bottom of one of the socks, you come across another
+key.
+
+> open chest
+   You open it with the key. And find inside, quite shockingly, the decaying
+head of a zombie.
+
+> get head
+You take the zombie's head.
+
+> x items
+   Knowing that items labelled in such a cunning way in a room description
+have got to be more interesting than they sound, you spend a while examining
+said items. And discover that one of them happens to be yet another key which
+you decide to take with you.
+
+> out
+You move out.
+
+Cemetery
+
+Cemetery
+You're in the cemetery. And a more grim and desolate place you have never set
+eyes on! Either the local council went out of their way to make their
+cemetery the most unpleasant in the land or there are some seriously spooky
+corpses around. What can you see? Graves, dead bodies (a couple of whom are
+even buried), the small hut of the gravedigger, and a large crypt that looks
+like the final resting place of some rich nobleman.
+
+The rest of the world lies southwest whereas that crypt is to the east and
+the gravedigger's hut in
+
+   A zombie pops his head up through the soil, has a look around, then sinks
+back under.
+
+> sw
+You move southwest.
+
+Cemetery gates
+
+Cemetery Gates
+You're at the gates of an ancient, murky cemetery that looks like it hasn't
+seen any kind of maintenance in a long, long time. Through the gates you
+catch sight of open graves, corpses left out to rot, and several other things
+that chill you to the bone. Off to one side there is a small hut, probably
+the residence of the gravedigger.
+
+Bourbon Avenue lies south and the cemetery northeast
+
+> s
+You move south.
+
+Bourbon Avenue
+
+Bourbon Avenue
+You're on a pleasant, tree-lined avenue that leads through the northern part
+of town. Tall buildings loom on all sides, giving the impression of great
+wealth in this area, although there don't seem to be many people around. The
+avenue widens at one point and there is a fountain in the centre. Lying in a
+heap by the fountain, looking for all the world as if someone has given him
+one hell of a beating, is the biggest thug you have ever seen.
+
+Bourbon Avenue leads north and south
+
+> s
+You move south.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+   The rain... will it ever stop?
+
+> e
+You move east.
+
+East gates
+
+East Gates
+You've come to the east gates of town which, as is usual in these
+circumstances, are guarded by a couple of disreputable looking guards. The
+two here are rolling around on the ground in quite a bit of pain. They don't
+look half as frightening now someone has stood up to them. The gates
+themselves stand open but anyone attempting to pass through seems to do so
+only at the allowance of the guards - or not at all... Beyond lies the
+outside world.
+
+Exits lie east and west
+
+> e
+Crossroads
+
+Crossroads
+You're standing at a crossroads just outside town. For some reason there
+isn't the usual signpost here, but instead a scarecrow with a posterboard
+around his neck (you guess the locals are a little eccentric). His arms (of
+which he has four) point in the directions northeast, east, south and west.
+
+Exits lie pretty much as the scarecrow is indicating
+
+   Several birds are fluttering overhead. Remembering what happened last
+time, you keep an eye out for them.
+
+> ne
+You move northeast.
+
+Copse of trees
+
+Copse of trees
+You're standing in the middle of a thick copse of trees which seem to have
+sprouted up all around you. There is a particularly large tree in the centre
+of the copse around which are laid small tokens. Peering through the trees,
+you can just about make out a town, a field with a big tent and what looks
+like a rustic, country village.
+
+Exits out of the copse lie northeast, southeast and southwest
+
+> climb tree
+In the treetop
+
+In the treetop
+You're at the top of the tall tree in the copse. From here you have an
+amazing view of your surroundings which, unfortunately, just include more
+trees. The tree you have climbed is pretty much bare aside from a single
+bird's nest which is just so placed that you know it must have something to
+do with finishing the game or it wouldn't be here in the first place.
+
+Down lies the ground
+
+> x nest
+   Acting on a hunch, you have a quick look through the nest - and sure
+enough you come across several items that will no doubt be essential in
+completing the game.
+
+> get ring
+You take the silver ring.
+
+> wear ring
+You put on the silver ring.
+
+> d
+You move down.
+
+Copse of trees
+
+Copse of trees
+You're standing in the middle of a thick copse of trees which seem to have
+sprouted up all around you. There is a particularly large tree in the centre
+of the copse around which are laid small tokens. Peering through the trees,
+you can just about make out a town, a field with a big tent and what looks
+like a rustic, country village.
+
+Exits out of the copse lie northeast, southeast and southwest
+
+> sw
+You move southwest.
+
+Crossroads
+
+Crossroads
+You're standing at a crossroads just outside town. For some reason there
+isn't the usual signpost here, but instead a scarecrow with a posterboard
+around his neck (you guess the locals are a little eccentric). His arms (of
+which he has four) point in the directions northeast, east, south and west.
+
+Exits lie pretty much as the scarecrow is indicating
+
+> s
+You move south.
+
+Winding path
+
+Winding path
+You're following a winding path as it wends its way through rolling hills.
+Along the east side of the path, someone has built a large stone wall. It is
+broken in places but still would be a difficult task to climb. The top
+appears to be something like fifty feet off the ground though from your
+vantage point it's a little hard to tell exactly.
+
+The path leads north and southeast
+
+   Several birds fly past, each giving you a threatening look.
+
+> se
+You move southeast.
+
+More winding path
+
+More winding path
+The winding path you've been following curves here, and in the wall you
+notice a door. A Large door. It must stand fifteen feet tall and is so heavy
+you doubt you could open it even if it were unlocked (which it probably isn't
+because where would be the challenge in that?) There is a button in the wall
+to one side of the door but age has rusted it quite badly so it might not
+even work any more.
+
+The path leads northwest and south
+
+> pull button
+   Acting on a hunch, you pull the button-
+
+   Your surroundings change...
+
+Saldor's home
+
+Saldor's home
+You're in the home of Saldor the wizard, one of the most colourful characters
+in Harrenden. His home is a bizarre mishmash of all forms of junk that seem
+to be floating around the place, or are attached to the ceiling, or protrude
+from the walls at strange angles. There is a large mirror set into one wall
+which shows a faraway place under a hot, bitter sun. Even glancing at the
+mirror makes your eyes water and your head ache...
+
+A door leads out
+
+Saldor the wizard is here.
+   "Well, well," remarks Saldor. "I see not everyone in Harrenden these days
+is too stupid to pull a button. I'm afraid you'll just have to find your way
+out right now, I don't have time for visitors."
+
+> give batspawn to saldor
+   "Ah! Just what I've been looking for all these years. You've been most
+helpful."
+   Unfortunately, not helpful enough to warrant any kind of monetary reward
+it seems.
+
+> go mirror
+   You step into the mirror, fully expecting to be transported to the hot
+place under the sun - and instead find yourself back outside again.
+
+More winding path
+
+More winding path
+The winding path you've been following curves here, and in the wall you
+notice a door. A Large door. It must stand fifteen feet tall and is so heavy
+you doubt you could open it even if it were unlocked (which it probably isn't
+because where would be the challenge in that?) There is a button in the wall
+to one side of the door but age has rusted it quite badly so it might not
+even work any more.
+
+The path leads northwest and south
+
+> pull button
+You pull, but nothing happens.
+
+> show drawing to saldor
+   "Hmm? Oh, is that Grumble? I was friends with him once, a long time ago.
+Pray tell, where is the fellow these days?"
+   You explain a few things.
+   Saldor frowns. "That is most unfortunate. Most unfortunate indeed. I was
+planning to go visiting the fellow one of these days and now you tell me he's
+been kidnapped. Well, this will never do..." Saldor crosses to one wall and
+pulls out a spellbook. "Ah! This should do the trick." He closes his eyes,
+chants for a few moments, blows his nose a couple of times, and then emits an
+enormously foul-smelling fart. When the fumes have died down, he opens his
+eyes and says, "it seems your uncle is being kept in a large fortress to the
+east of here and there subjected to torments most foul and depraved. He must
+be rescued although attempting such a thing is almost certainly doomed to
+failure."
+   "Ah," you say. "Right. Well, I'll just be going then-"
+   "However, I believe I can help you." Saldor taps you on the head and
+mutters a word of magic. Strange symbols appear in your mind. "There. I have
+instilled in you a word of magic. Speak it, but only once mind, and your
+strength shall be restored to what it once was. The word is 'bedazzle' and be
+wary of saying it more than once because of the unpredictable effects of
+magic. Now, I believe you have everything you need to effect the rescue of my
+dear friend."
+   Saldor mutters a few more words of magic and you abruptly find yourself
+outside again.
+
+More winding path
+
+More winding path
+The winding path you've been following curves here, and in the wall you
+notice a door. A Large door. It must stand fifteen feet tall and is so heavy
+you doubt you could open it even if it were unlocked (which it probably isn't
+because where would be the challenge in that?) There is a button in the wall
+to one side of the door but age has rusted it quite badly so it might not
+even work any more.
+
+The path leads northwest and south
+
+   Several birds fly past, each giving you a threatening look.
+
+> s
+You move south.
+
+Train tracks (?)
+
+Train tracks (?)
+You appear to be standing on some train tracks. This is despite the fact that
+the train has yet to be invented in Harrenden and so what is supposed to run
+on the tracks you have no idea. Tied to them is a very pretty girl who is
+doing some very un-girl-like cursing. Casting a shadow over this bizarre
+scene is a huge block of stone which seems to sprout from the end of the
+train tracks.
+
+The north world lies just to the north
+
+> rub ring
+   You rub the silver ring - and feel a strange sensation wash over you.
+Everything goes dark for a second or two...
+
+   And then you're somewhere else.
+
+Block of stone
+
+Block of stone
+You're on top of the block of stone which sways from side to side quite
+alarmingly. The view from here is pretty magnificent, allowing you to see for
+miles in every direction. Off to the east, beyond a large dip in the land,
+you catch sight of a mighty fortress which fills you with dread.
+
+Exits? There are no exits!
+
+   Standing by the strange device is a tall, thin man dressed in red robes.
+He glances up and sees you standing there and does a doubletake. "How the
+hell did you get up here?" he thunders.
+   "My powers are mysterious," you say (which is a fancy way of saying that
+you don't really know).
+   The man shrugs, unimpressed. "You used a teleportation ring I see. Very
+interesting. Now, give me the ring and I'll let you depart. Otherwise," he
+shrugs again, "I'll kill you and take the ring from your corpse."
+
+> smash telescope
+   You dash past the man and kick at his prized telescope device.
+   "Stop, you maniac!" he cries. "That's a very valuable piece of equipment!"
+   He rushes over to stop you but you manage to duck aside at the last moment
+and give him a well-timed shove. With a cry he goes plummeting over the edge
+of the block of stone.
+   Down below, you hear a scream being abruptly cut off by a resounding thud.
+
+> rub ring
+   You rub the silver ring - and feel a strange sensation wash over you.
+Everything goes dark for a second or two...
+
+   And when you can see again, you're back down by the train tracks.
+
+Train tracks (?)
+
+Train tracks (?)
+You appear to be standing on some train tracks. This is despite the fact that
+the train has yet to be invented in Harrenden and so what is supposed to run
+on the tracks you have no idea. Tied to them is a very pretty girl who is
+doing some very un-girl-like cursing. Casting a shadow over this bizarre
+scene is a huge block of stone which seems to sprout from the end of the
+train tracks.
+
+The north world lies just to the north
+
+   "You killed him then?" says the girl tied to the train tracks. "Good. I
+knew he'd come to a sticky end. Untie me."
+
+> untie girl
+   You untie the girl who rubs some circulation back into her wrists and
+ankles before giving you a quick peck on the cheek!
+   "And don't think you're getting anything else!" she says quickly. "I mean,
+you might have saved my life and don't think I'm not grateful but, frankly,
+you're not my type."
+   "What type is that?" you ask.
+   "Rich. Preferably stinking rich but I'm easy. Fairly rich will do fine if
+stinking is beyond you. But you..." She casts a disparaging look at your
+attire. "Stinking is just about all you are right now. But, well, you did
+save my life so I guess I owe you a small favour." She snatches the ring off
+your finger, twiddles with it a bit, and hands it back. "There. That should
+sort out the little problem with it."
+   "What problem?" you ask as she starts to walk away.
+   "Oh, you'd never have finished the game without it," she calls over her
+shoulder. "Good luck rescuing your uncle!"
+
+> n
+You move north.
+
+More winding path
+
+More winding path
+The winding path you've been following curves here, and in the wall you
+notice a door. A Large door. It must stand fifteen feet tall and is so heavy
+you doubt you could open it even if it were unlocked (which it probably isn't
+because where would be the challenge in that?) There is a button in the wall
+to one side of the door but age has rusted it quite badly so it might not
+even work any more.
+
+The path leads northwest and south
+
+   Several birds fly past, each giving you a threatening look.
+
+> nw
+You move northwest.
+
+Winding path
+
+Winding path
+You're following a winding path as it wends its way through rolling hills.
+Along the east side of the path, someone has built a large stone wall. It is
+broken in places but still would be a difficult task to climb. The top
+appears to be something like fifty feet off the ground though from your
+vantage point it's a little hard to tell exactly.
+
+The path leads north and southeast
+
+> n
+You move north.
+
+Crossroads
+
+Crossroads
+You're standing at a crossroads just outside town. For some reason there
+isn't the usual signpost here, but instead a scarecrow with a posterboard
+around his neck (you guess the locals are a little eccentric). His arms (of
+which he has four) point in the directions northeast, east, south and west.
+
+Exits lie pretty much as the scarecrow is indicating
+
+   A little birdie flies down from the sky, flutters around your head for a
+while, then poops on your shoulder before flying away.
+
+> ne
+You move northeast.
+
+Copse of trees
+
+Copse of trees
+You're standing in the middle of a thick copse of trees which seem to have
+sprouted up all around you. There is a particularly large tree in the centre
+of the copse around which are laid small tokens. Peering through the trees,
+you can just about make out a town, a field with a big tent and what looks
+like a rustic, country village.
+
+Exits out of the copse lie northeast, southeast and southwest
+
+> se
+You move southeast.
+
+Village green
+
+Village green
+You're at the northern end of a village green. A short step south of here
+lies the village itself, a small cluster of wattle and daub huts arranged in
+a rough semicircle. It looks pretty much like your home village and, as such,
+a pretty uninteresting place. Nearby is a large building, perhaps the village
+hall, outside which are gathered a group of men with pitchforks.
+
+From here you can go northwest, southwest, south, east and in
+
+   Several birds are fluttering overhead. Remembering what happened last
+time, you keep an eye out for them.
+
+> in
+You move in.
+
+Village hall
+
+Village hall
+Rising not very majestically around you is the unimpressive village hall.
+Back home, this was the building the poorest farmer in the village would keep
+his least favourite pigs in (you, know, the ones that couldn't be trusted
+with a proper sty).  A row of benches line one wall and there is a podium for
+speakers to stand upon while they bore the villagers senseless with their
+latest proposition. Aside from that, there is very little to see here at all.
+
+A door leads outwards
+
+Mayor Boris is here.
+
+> give earwax to mayor
+   He takes the bottle, peers at it suspiciously for a few seconds, and then
+sticks a dollop of it in each ear. A satisfied smile spreads across his face.
+   "And what about a reward?" you inquire.
+   "Hmmm?" replies Boris, now completely unable to hear a word of what you
+are saying.
+
+> out
+You move out.
+
+Village green
+
+Village green
+You're at the northern end of a village green. A short step south of here
+lies the village itself, a small cluster of wattle and daub huts arranged in
+a rough semicircle. It looks pretty much like your home village and, as such,
+a pretty uninteresting place. Nearby is a large building, perhaps the village
+hall, outside which are gathered a group of men with pitchforks.
+
+From here you can go northwest, southwest, south, east and in
+
+> e
+You move east.
+
+Village path
+
+Village path
+You're following a winding little path that leads to a village green in one
+direction and a junction where several paths meet in the other. By the side
+of the road is a coach of quite amazing proportions, drawn by four jet-black
+horses. A coachman, wrapped in a sinister black cloak, sits atop the coach.
+His gaze does not look friendly.
+
+    The path leads off to the west and southeast and the coach lies inwards
+
+   A little birdie flies down from the sky, flutters around your head for a
+while, then poops on your shoulder before flying away.
+
+> se
+You move southeast.
+
+Junction
+
+Junction
+You've come to a junction where several paths meet. At the very centre of the
+junction someone has placed a large wooden chair upon which is sitting what
+appears to be a corpse clad in a long, red robe. The ground around the chair
+- and the corpse - are stained a peculiar red colour. There is a large hedge
+to the east, beyond which you can just make out a field.
+
+    From the junction you can go northwest, south and southeast
+
+Baribar the peasant is here.
+
+> give leg to barii
+   "My leg!" he cries joyously. "I thought I'd lost it for good!"
+   "But you've got a left leg," you point out quite truthfully. "Look, there
+it is on the end of your foot."
+   "No, no, that's just a replacement leg I picked up a few years ago because
+some bleeder had made off with my real leg. Oh, it's good to have it back."
+   He promptly removes his left leg and sews the new one into place (you
+manage to look away at the last moment and so miss all the gruesome details).
+   "Now, I imagine you're expecting a reward?" Baribar says.
+   "Well, if it's not too much trouble..."
+   Baribar shakes his head sadly. "Unfortunately it is. You see the problem
+is that I've not been able to do a proper job these last few years on account
+of having one leg longer than the other so I've never really been able to
+save up much in the way of cash or useful items that you might need. So I'm
+afraid the only reward you're likely to get here is my thanks. So thanks."
+   That's the last time, you decide, you do a favour for someone without
+making sure they're rich beforehand.
+   Several birds are fluttering overhead. Remembering what happened last
+time, you keep an eye out for them.
+
+> climb hedge
+Ploughed field
+
+Ploughed field
+You're in a ploughed field that looks somewhat like a battlesite. The
+dismembered bodies of at least half a dozen people (it's difficult to tell
+just how many there are considering how much dismembering has been going on)
+lie on the ground. Standing over them, looking very smug (assuming they can
+look smug) is the biggest, baddest and most foul-smelling bull you have ever
+seen. And he doesn't look at all pleased to see you either.
+
+The only exit is out over the hedge
+
+Rufus the killer bull is here.
+
+> kill rufus
+   Knowing there is nothing else for it, you and Vahla charge at Rufus - who
+gives a snort and charges at you!
+
+   He misses you by mere inches but slams into Vahla full on, throwing your
+loyal - but ultimately shallow - companion across the length of the field.
+You waste little time in mourning, however, and slam Bludrinker into Rufus'
+head.
+   The bull collapses dead at your feet.
+
+   Alas, a quick examination shows that Vahla is dead as well.
+
+> out
+You move out.
+
+Junction
+
+Junction
+You've come to a junction where several paths meet. At the very centre of the
+junction someone has placed a large wooden chair upon which is sitting what
+appears to be a corpse clad in a long, red robe. The ground around the chair
+- and the corpse - are stained a peculiar red colour. There is a large hedge
+to the east, beyond which you can just make out a field.
+
+    From the junction you can go northwest, south and southeast
+
+Baribar the peasant is here.
+
+> se
+You move southeast.
+
+Outside trading post
+
+Outside trading post
+You're at a bend in the road where some enterprising soul has founded a
+trading post. It looks to be a pretty dismal building (what with the boarded
+up windows, broken door and walls that creak and groan in the wind) but also
+one that is doing a fairly brisk trade. The road extends further eastwards
+from here before coming to what looks like an abrupt end.
+
+The trading post is inwards and the road leads northwest and east
+
+Old Bumble is here.
+
+> e
+East road
+
+East road
+You're on the east road, which runs, quite unsurprisingly, to the east. The
+land in these parts is pretty much desolate, leading to locations that are,
+for the most part, not very interesting at all. A few plants have been
+planted at the side of the road to give you something to look at if you
+really must.
+
+The road leasts east. Oh, and west
+
+   You hear a snort and out from behind a particularly large plant step three
+bearded men.
+   "Ho!" remarks one of them. "Bandits are we, fair and bold. Money we
+require from you. Money in great quantity. Hand over all your cash or never
+come here again."
+   The other two spread out to block off the way further east.
+
+> show head
+   You lift up the zombie's head (you knew you'd been carrying it around for
+a reason) in front of the bandits. The effect it has is instantaneous.
+   "Geez, a real corpse's 'ead!" Mike gasps.
+   "Der weirdo's carryin' 'round some bloke's 'ead 'ee's 'acked orf!" Steve
+grunts.
+   "Aaahahahshitaaashitaaaashit!" screams Ken.
+   They back nervously away then turn and run off as fast as their legs can
+carry them.
+
+> e
+You move east.
+
+Dip in the land
+
+Dip in the land
+You're standing at the very edge of a vast dip in the land. Before you, the
+world seems to be spread out pretty much like a jigsaw (there are even a
+couple of pieces missing). The only problem is getting down there - the drop
+looks to be just over a mile. There is a rope hanging down the side of the
+dip which someone has tied around a large stone. At the very edge of the dip
+is a tree that is growing precariously, its branches spread out over the
+edge.
+
+Exits lie west and (of course) down. A very long way down
+
+> jump
+   You throw yourself into space...
+
+   Now in normal circumstances this would be a surefire way to get yourself
+killed, but on this occasion it proves otherwise. After falling for a while
+(and watching the ground below becoming closer and closer) the wind suddenly
+fills your flares and you drift the remaining distance to the ground in
+(reasonable) comfort. Aside from a few twinges of mind-numbing agony brought
+on by a rapid influx of cold air to your, erm. privatearea, you come through
+pretty much unscathed.
+
+Gravel pit
+
+Gravel pit
+You're in a gravel pit at the base of a truly massive cliff which soars into
+the sky above you. The top is lost in the clouds and if you hadn't already
+been to the top of it you'd wonder if there even was a top. There is little
+to see in the gravel pit - aside from lots of gravel, of course - but rising
+to the east is what appears to be a large fortress. It is a little indistinct
+from this distance.
+
+The only exit is east
+
+> e
+You move east.
+
+Road to fortress
+
+Road to fortress
+You're following a wide, paved road which runs east to an imposing fortress
+and west to a gravel pit. The road is pitted and scarred in places,
+indicating that a battle has been fought here not so long ago. There are even
+a row of gravestones at one side of the road (although unlike similar places
+in this game the corpses appear to have been buried this time).
+
+The road leads east and west
+
+> e
+You move east.
+
+Fortress gates
+
+Fortress gates
+You've reached the end of the road (maybe the end of your road as well!)
+You're standing by a pair of massive, imposing gates set into the walls of a
+fortress of dark stone. The very air around the fortress seems oppressive and
+the men standing on guard here look unfriendly to say the least. Beyond the
+gates - which surprisingly are wide open - you can see a shadowy hallway. And
+nothing else.
+
+East to the fortress and west to the road. The choice is yours
+
+> wear uniform
+You put on the guard's uniform.
+
+> e
+   Wearing the uniform of a fortress guard, you stroll casually past the
+guards who, being rather dim, fail to notice you are a complete stranger.
+
+   Inside, you quickly duck into a little room before someone spots you...
+
+Antechamber
+
+Antechamber
+You're hiding in a little antechamber off to one side of the main
+entrancehall of the fortress. Dust is piled high on a table, two chairs and a
+bench, none of which look like anyone has used them in a long time. Standing
+by the far wall is a cabinet whose hinges are so rusty they probably wouldn't
+open even if the cabinet itself wasn't locked.
+
+A wooden door leads out to the entrancehall
+
+> out
+You move out.
+
+Entrancehall
+
+Entrancehall
+You're in the fortress entrancehall, a large and impressively-furnished
+chamber decorated with portraits of all the previous rulers of the fortress.
+None of whom look very friendly. There are also a couple of huge statues
+here, and is it your imagination or do their eyes follow you as you move
+about the room? Several passages branch off into the depths of the fortress.
+
+Those passages lead north, northeast, southeast and southwest and the outside
+world lies west. There is also a small antechamber inwards
+
+> sw
+Corridor
+
+Corridor
+You're in a corridor. There is a sign on one wall.
+
+The corridor leads northeast, southwest and southeast
+
+A guard is here.
+   As you enter, the guard takes one look at you and gasps, "blimey! I don't
+much like the look of this headcase! I'm off for reinforcements!"
+   He dashes off to the southwest.
+
+> se
+You move southeast.
+
+Marble hallway
+
+Marble hallway
+You're in a long, marble hallway, the sides of which are lined with tall,
+stone statues (all of whom, quite worryingly, are carrying swords and look
+like they could spring to life at any moment). Light streams through a window
+set high up in the south wall but even so this is a pretty dark and dismal
+place. There is a steel doorway barring the way to the east.
+
+The hallway extends northwest and east to that doorway
+
+> e
+Torture chamber
+
+Torture chamber
+You're in the nastiest location in the game by far (which is certainly saying
+something). Here you see items of torture, capable of inflicting the most
+terrible sorts of agony on the unsuspecting: exercise bikes, weights,
+skipping ropes, climbing frames... The list of depravity goes on. Suffice to
+say, you don't feel well after seeing all this.
+
+A door leads west
+
+Uncle Grumble is here.
+   "About bloody time you got here!" Grumble thunders upon seeing you. "Where
+the hell have you been?"
+   Of all the things you expected - praise, abject thanks, even a pitiful "ta
+very much" - this wasn't it.
+   "Hey!" you say. "I risked life and limb to rescue you! You could at least
+be a bit grateful!"
+   Grumble sneers. "Rescue me? You? You couldn't rescue a fart if your life
+depended on it! Ha! I was on the verge of escaping when you bumbled along
+there and made a damn great noise opening that door. You've probably alerted
+every guard in the place to my escape attempt, you flaming fool!"
+   Something about his tone, particularly after all the hassle you've been
+through to rescue him, gets to you. "Look here. I rescued you and that's all
+there is to it. I've trekked over half of Harrenden to find you. And if you
+don't mind me saying, you were locked in a torture chamber before I came
+along."
+   For a moment a look of unease passes across Grumble's face and he glances
+worriedly at the 'torture' machines. "They had me on that bloody bike twice a
+day, they did," he mutters. "Said they wanted to keep me 'fit'. Fit? Have you
+ever heard such a foul word? Well..." He shakes his head and the fire seems
+to come back into his tone. "They ain't gonna get away it, no sir! I'm gonna
+murder myself a couple of bastards before I'm finished with this place. You
+can lead the way, nephew, but make sure you keep clear when the bloodshed
+begins. Now, all I need is a weapon to get me started and I'll be well
+away..."
+
+> give bludrinker to grumble
+   "Ah, the old family heirloom!" Grumble says as he takes the weapon. "This
+oughta even the odds a bit."
+
+> w
+Marble hallway
+
+Marble hallway
+You're in a long, marble hallway, the sides of which are lined with tall,
+stone statues (all of whom, quite worryingly, are carrying swords and look
+like they could spring to life at any moment). Light streams through a window
+set high up in the south wall but even so this is a pretty dark and dismal
+place. There is a steel doorway barring the way to the east.
+
+The hallway extends northwest and east to that doorway
+
+   "Change of plan," announces Grumble. "I'll lead. You follow. Now, where
+can I exact a bit of revenge first off?"
+   He goes storming off to the northwest.
+
+> nw
+Corridor
+
+Corridor
+You're in a corridor. There is a sign on one wall.
+
+The corridor leads northeast, southwest and southeast
+
+Uncle Grumble is here.
+   You reach the corridor just in time to see Grumble launch himself at
+several guards. There follows a brief altercation interspersed by cries of
+"Ah! Me groin!", "Gerrim, gerrim, the evil sod!" and "Geez, that hurt!" at
+the end of which the tally stands at Grumble: 5, Guards: 0.
+   "Did you really have to kill them all, Uncle?" you ask.
+   Grumble nods. "I did at that. They had me on that bloody exercise bike for
+an hour a week, I tell you."
+   "You still haven't told me why they even kidnapped you in the first
+place."
+   Grumble gives you a funny look. "Kidnapped? Whoever said I'd been
+kidnapped?"
+   "But-"
+   "But me no buts, nephew. I'll explain everything once we're out of this
+hellhole. Now..." He peers off to the southwest and smiles coldly. "Time to
+even the odds a bit more."
+   He goes charging off screaming about revenge before you can stop him.
+
+> sw
+Guard room
+
+Guard room
+Well done, you've stumbled into the fortress guard room. Now this would
+normally be a bad thing (on account of the fact that guards aren't very nice
+people and would try to kill you given half the chance). But everything
+appears to be alright. You see dead bodies on the floor, bashed into walls,
+stuffed into corners... there are even a couple hanging from the ceiling
+though how they got up there is anyone's guess.
+
+A doorway leads northeast
+
+Uncle Grumble is here.
+   "Take that, yer swines!" Grumble cries as he attacks the guards.
+   At first they don't appear very impressed (there are 23,000 of them after
+all) but when Grumble whirls Bludrinker around his head and scythes down 284
+of them with a single blow they start to take notice.
+   "Block the door, nephew!" Grumble yells at one point. "Don't let any of
+the swine escape!"
+   Quite how you're expected to stop 22,716 guards from escaping is a mystery
+but fortunately it doesn't come to that. The guards don't have chance to
+escape.
+   "Kill him!" yells one guard, a moment before Grumble beheads him.
+   As the others are standing there looking a little worried at this
+unexpected turn of events, Grumble gives a great roar and throws himself at
+them.
+
+   You don't like to look at what happens next. But most of it involves
+Grumble chasing several thousand guards around the room, hacking out the legs
+from under them and jumping up and down on their dead bodies. He has a
+problem with the last thousand or so of them because they try to hide beneath
+the dead bodies of their recently fallen comrades, but he soon roots them
+out.
+
+   Afterwards, as Grumble is beheading the last few hundred survivors, he
+sees the expression on your face and sighs. "What now?"
+  "Was it really necessary to kill them all?" you ask, knowing you sound a
+bit wimpy for saying it but unable to help yourself. "I mean, couldn't you
+just have beat them up a bit or something?"
+   "Beat them up a bit? Or something?" Grumble shakes his head in amazement.
+"These scum put me on an exercise bike for an hour every day. They force fed
+me healthy food. They confiscated my fags and wouldn't let me anywhere booze
+no matter how much I begged!" He gives you a truly disgusted look. "And you
+talk about going easy on them? Geez, nephew, I always thought I'd raised a
+homicidal maniac with a deep-rooted desire to cause mayhem and destruction. I
+can see now I've failed." Your uncle finishes with the last of the guards and
+breathes a sigh of relief. "C'mon, let's get outta this dump. I'll tell you
+what happened to me outside and then we can go deal with the sonofabitch what
+dumped me in this hellhole. You lead the way. I'm done for now."
+
+> ne
+You move northeast.
+
+Corridor
+
+Corridor
+You're in a corridor. There is a sign on one wall. Lying by the sign, making
+a real mess on the floor, are the bodies of the guards Grumble killed.
+
+The corridor leads northeast, southwest and southeast
+
+> ne
+You move northeast.
+
+Entrancehall
+
+Entrancehall
+You're in the fortress entrancehall, a large and impressively-furnished
+chamber decorated with portraits of all the previous rulers of the fortress.
+None of whom look very friendly. There are also a couple of huge statues
+here, and is it your imagination or do their eyes follow you as you move
+about the room? Several passages branch off into the depths of the fortress.
+
+Those passages lead north, northeast, southeast and southwest and the outside
+world lies west. There is also a small antechamber inwards
+
+> w
+   You and Grumble sneak out of the fortress. Grumble takes the opportunity
+to brutally slaughter a couple of dozen guards on the way but finally you
+reach the outside world...
+
+Road to fortress
+
+Road to fortress
+You're following a wide, paved road which runs east to an imposing fortress
+and west to a gravel pit. The road is pitted and scarred in places,
+indicating that a battle has been fought here not so long ago. There are even
+a row of gravestones at one side of the road (although unlike similar places
+in this game the corpses appear to have been buried this time).
+
+The road leads east and west
+
+   "Okay, I guess it's explanation time," says Grumble.
+   "Will this take long?" you ask.
+   He shrugs. "A couple of screens or so depending on the font and screen
+size used." He sits down beside the road and begins his tale.
+
+   "It was a couple of years back now. I'd just been in the Land of Terrible
+Evil - friendly place, though the native cooking was terrible."
+   "I've heard about the local food in these places," you say.
+   Grumble sighs. "I didn't mean the food, numbskull. I meant the natives. I
+cooked a couple of 'em and man! I don't think I've ever tasted such awful
+bone marrow in my life...
+   "Anyway, I was just out of there and on my way to my annual visit to your
+little dump in the middle of nowhere when I happened across my old friend,
+White Chad. He used to be Black Chad but then political correctness hit
+Harrenden in a big way and so hence the name change. Took quite a few buckets
+of paint to complete the name change, though, and I thought Dirty Brown Chad
+would have been better, but he was insistent...
+   "Anyhows, I'm rambling. I met him in this bar and he commented on how we
+were good friends and ought to look out for each other. I listened to him
+because we were, after all, good friends. I'd have given my life for that
+man. And it also gave me the opportunity to pick his pockets when he was
+otherwise distracted.
+   "His idea about looking out for each other struck me as a good one. I
+visited his house a few weeks later during a blazing hot day in summer. I
+found the place really stuffy and so to relieve some of the heat I opened all
+of the doors and windows. I knew Chad would appreciate it. After all, I'd
+done it to help him out.
+   "Unfortunately, some ruffians happened along round about that time and
+robbed the place. For some reason Chad blamed me for it though I can't
+imagine why. After all, how was I supposed to know that leaving his doors and
+windows open in the middle of the Thief District of Robber Town was going to
+get him burgled? But Chad didn't see reason. He vowed he'd get revenge.
+   "And, a while ago, he did." Grumble pauses and picks his nose for a while.
+Apparently finding nothing of interest up there, he continues, "a couple of
+Chad's guards grabbed me some months back and took me to his fortress. Chad
+was there. He told me that he had forgiven me for what I had done with his
+house and could see that I had had his best intentions at heart. He also
+forgave me for drinking his entire collection of wine from the cellar of his
+house - something I'd done to cure him of his drinks problem. He also forgave
+me for stealing every last penny he had off him - I did that to cure him of
+his gambling problem. And he said he was going to repay me for doing those
+acts of kindness with an act of kindness himself.
+   "He was going to make me fit."
+   There is a burst of uncontrollable sobbing from your uncle at this point.
+   "Can you imagine how much the swine hated me, nephew? No, I didn't see it
+coming at all. He said he had seen the way I had been gaining weight in
+recent years and knew it wasn't doing my heart any good. So he was going to
+make me fit if it killed me. Those were his precise words. I spent two months
+in that cell doing exercises, eating healthy food, being told that fags and
+booze and life threatening drugs were not good for me. I wished I could die."
+He shakes his head sadly. "But something kept me going. The idea of revenge.
+Revenge on White Chad for inflicting such torment and agony upon me. And in
+the end I escaped."
+   You clear your throat.
+   "With a little help from you, I guess," says Grumble wearily. "But I'd
+have been out of that cell before too much longer. Doors like that become
+increasingly fragile as the years pass by and I reckon it would have crumbled
+altogether before another couple of centuries had gone...
+   "Anyway, none of that is relevant. What is relevant is that that swine
+Chad is still alive and I have to exact my revenge."
+   "Revenge for trying to do you a favour?"
+   Grumble considers this. "That's one way of looking at it, I guess, and
+probably quite a sensible one all things told. But I'd prefer to look at it
+from a different point of view: the bastard did me wrong and I intend to put
+him in the grave to set things right. Are you with me or not?"
+   The question hangs in the air.
+
+> no
+   Grumble's face falls. "You what? You ungrateful ingrate! You
+double-crossing swine! You evil animal! Why, I've a good mind to-"
+   "I just think it's wrong, uncle," you say. "Killing someone for trying to
+do you a favour."
+   "Why? I don't see what's wrong with it! Oh, hell with you. I'll do it
+myself. Wait for me in the Sleazepit when I'm finished."
+   Before you can say another word, Grumble storms off westwards, not looking
+back at you once.
+
+> w
+You move west.
+
+Gravel pit
+
+Gravel pit
+You're in a gravel pit at the base of a truly massive cliff which soars into
+the sky above you. The top is lost in the clouds and if you hadn't already
+been to the top of it you'd wonder if there even was a top. There is little
+to see in the gravel pit - aside from lots of gravel, of course - but rising
+to the east is what appears to be a large fortress. It is a little indistinct
+from this distance.
+
+The only exit is east
+
+> get gravel
+   You take yourself a few choice pieces.
+
+> rub ring
+   You rub the silver ring and experience a dizzying chill as you are
+suddenly teleported to the top of the dip in the land.
+
+Dip in the land
+
+Dip in the land
+You're standing at the very edge of a vast dip in the land. Before you, the
+world seems to be spread out pretty much like a jigsaw (there are even a
+couple of pieces missing). The only problem is getting down there - the drop
+looks to be just over a mile. There is a rope hanging down the side of the
+dip which someone has tied around a large stone. At the very edge of the dip
+is a tree that is growing precariously, its branches spread out over the
+edge.
+
+Exits lie west and (of course) down. A very long way down
+
+> w
+You move west.
+
+East road
+
+East road
+You're on the east road, which runs, quite unsurprisingly, to the east. The
+land in these parts is pretty much desolate, leading to locations that are,
+for the most part, not very interesting at all. A few plants have been
+planted at the side of the road to give you something to look at if you
+really must.
+
+The road leasts east. Oh, and west
+
+> w
+You move west.
+
+Outside trading post
+
+Outside trading post
+You're at a bend in the road where some enterprising soul has founded a
+trading post. It looks to be a pretty dismal building (what with the boarded
+up windows, broken door and walls that creak and groan in the wind) but also
+one that is doing a fairly brisk trade. The road extends further eastwards
+from here before coming to what looks like an abrupt end.
+
+The trading post is inwards and the road leads northwest and east
+
+Old Bumble is here.
+
+> nw
+You move northwest.
+
+Junction
+
+Junction
+You've come to a junction where several paths meet. At the very centre of the
+junction someone has placed a large wooden chair upon which is sitting what
+appears to be a corpse clad in a long, red robe. The ground around the chair
+- and the corpse - are stained a peculiar red colour. There is a large hedge
+to the east, beyond which you can just make out a field.
+
+    From the junction you can go northwest, south and southeast
+
+Baribar the peasant is here.
+   Several birds are fluttering overhead. Remembering what happened last
+time, you keep an eye out for them.
+
+> nw
+You move northwest.
+
+Village path
+
+Village path
+You're following a winding little path that leads to a village green in one
+direction and a junction where several paths meet in the other. By the side
+of the road is a coach of quite amazing proportions, drawn by four jet-black
+horses. A coachman, wrapped in a sinister black cloak, sits atop the coach.
+His gaze does not look friendly.
+
+    The path leads off to the west and southeast and the coach lies inwards
+
+> w
+You move west.
+
+Village green
+
+Village green
+You're at the northern end of a village green. A short step south of here
+lies the village itself, a small cluster of wattle and daub huts arranged in
+a rough semicircle. It looks pretty much like your home village and, as such,
+a pretty uninteresting place. Nearby is a large building, perhaps the village
+hall, outside which are gathered a group of men with pitchforks.
+
+From here you can go northwest, southwest, south, east and in
+
+   Several birds fly past, each giving you a threatening look.
+
+> nw
+You move northwest.
+
+Copse of trees
+
+Copse of trees
+You're standing in the middle of a thick copse of trees which seem to have
+sprouted up all around you. There is a particularly large tree in the centre
+of the copse around which are laid small tokens. Peering through the trees,
+you can just about make out a town, a field with a big tent and what looks
+like a rustic, country village.
+
+Exits out of the copse lie northeast, southeast and southwest
+
+> sw
+You move southwest.
+
+Crossroads
+
+Crossroads
+You're standing at a crossroads just outside town. For some reason there
+isn't the usual signpost here, but instead a scarecrow with a posterboard
+around his neck (you guess the locals are a little eccentric). His arms (of
+which he has four) point in the directions northeast, east, south and west.
+
+Exits lie pretty much as the scarecrow is indicating
+
+   A little birdie flies down from the sky, flutters around your head for a
+while, then poops on your shoulder before flying away.
+
+> w
+You move west.
+
+East gates
+
+East Gates
+You've come to the east gates of town which, as is usual in these
+circumstances, are guarded by a couple of disreputable looking guards. The
+two here are rolling around on the ground in quite a bit of pain. They don't
+look half as frightening now someone has stood up to them. The gates
+themselves stand open but anyone attempting to pass through seems to do so
+only at the allowance of the guards - or not at all... Beyond lies the
+outside world.
+
+Exits lie east and west
+
+   The rain seems to let up for a moment then comes down worse than ever.
+
+> w
+You move west.
+
+Vildung Square
+
+Vildung Square
+You're standing just outside the Sleazepit in Vildung Square. There seems to
+be little going on at this late hour and the Square is a seriously shady
+place in any event, hardly the sort of place you would be found in were you
+not on a mission. Several town criers are hard at work here, polluting the
+air with their pointless yelling.
+
+Roads lie north, east, southeast and southwest and the Sleazepit lies in
+
+> in
+You move in.
+
+Oscoe's Sleazepit
+
+Oscoe's Sleazepit
+You're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar
+in Stipplemoore (a reputation it easily lives up to). A singer stands on a
+stage off to one side, murdering some Elvis song. A couple of orcs lie dead
+on the floor, victims of mindless violence (or you, to be more precise). Over
+by the bar, several dubious looking individuals throw back pints of beer, a
+couple of whom look vary familar from somewhere...
+
+A flight of winding steps lead upwards, a door leads out and a corridor leads
+east
+
+Vulgur the bartender, Tarquin and Boswell are here.
+
+> wait
+   Grumble thunders in from outside.
+   "Damn!" he curses. "I must have got lost somewhere. Still, no problem. I
+can always deal with Chad once I've had a drink or two..."
+   He goes straight to the bar, pointedly ignoring you, and proceeds to knock
+back several pints of beer.
+
+> give nulgas potion to grumble
+   "What's this rubbish?" Grumble mutters as he throws another beer down
+himself (you guess he wants to stay sober otherwise he'd probably drink the
+stuff).
+   "A potion to grant you super strength for getting the better of Chad," you
+lie.
+   "Hmm?" Grumble takes the potion, peers at it suspiciously for a moment,
+then downs it in one go. Then he frowns. "Funny. I don't feel any stronger."
+   "Maybe you have to wait for it to take effect-"
+   "Wait schmait!" Grumble says. "I'm off to see Chad now!"
+   He shakes off your attempts to stop him and heads off up the stairs,
+leaving you to wonder if Nulga has somehow betrayed you.
+
+> u
+
+White Chad's room
+This looks surprisingly like your own room (which isn't surprising really
+because it is your room just a different name). The decor appears to have
+changed since you were last here with ornate tapestries now decorating the
+walls, chests of jewels sitting discarded in corners, musicians playing
+bagpipes in the corner...   Strange, very strange.
+
+A flight of winding steps lead down
+
+   "Isn't there any way we can talk this thing through, Grumble?" Chad asks.
+   Grumble shakes his head. "'Fraid not, Chad, old man. There's only one
+thing to be done now."
+   "Uncle," you say, hoping to avoid a massacre. "Maybe you should talk it
+over-"
+   Grumble pushes you to one side. He then rushes over to Chad who rises to
+meet him, his glowing sword moving upwards - and then stopping in shock as
+Grumble cries out, "my dear friend, my dear old friend!" and grabs Chad in a
+bear hug.
+   You watch in amazement as the two old friends slap each other on the back,
+laugh uproariously over their little "misunderstanding" and decide to have a
+big, slap-up drinking session to "bury the hatchet". "But not," Grumble adds,
+"in the back of your head, old friend." Which leads the two of them to more
+outrageous laughter.
+   You just stand there with a bemused expression on your face. One way or
+another, it seems you have rescued Grumble and prevented him killing his best
+friend. Whatever you gave him must have had the desired effect.
+
+   Later...
+
+   You sit in the main room of the Sleazepit and nurse your latest beer. This
+is one of the many that either Grumble or Chad bought you (you forget which)
+in recognition of your "sterling efforts in reuniting a couple of friends who
+had a little falling out". Nothing seems to be mentioned of the 23,000 guards
+that Grumble slew or the expense that Chad went to in hiring them. Strange as
+it seems, the two of them are best of friends again and little thing like
+"logic" and "common sense" don't seem to matter a whole lot to them.
+   You sip at your beer and reflect on a job well done...
+
+   But how well did you do? Your score is 208. If this is less than the
+maximum for your character (see the instructions at the start of the game for
+more information on this) you might want to try again. Or maybe you're just
+happy to have got through it in one piece.
+   Either way... well done!!!
 
 > score
-Your score is 6 out of a maximum of 404.  (1%)
+Your score is 208 out of a maximum of 404.  (51%)
 
 > quit
 Do you really want to quit? [Y/N]

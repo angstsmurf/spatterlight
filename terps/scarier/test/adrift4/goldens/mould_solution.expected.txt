@@ -2314,7 +2314,1812 @@ the gate. You are not sure why you know that it is endless. You cannot see an
 end on either side, but you also cannot see very far in the mist. It is only
 instinctive, but it does feel right that it is endless.
 
-> y
-I don't understand what you mean!
+> n
+You do not feel like wandering along the endless path, but you wonder what is
+on the other side of the gate. As you walk through, you feel the world change
+around you.
 
->
+The central grove
+A circle of trees surrounds the area. Dense bushes block any view of outside
+this circle. There is no escape from the grove, although there are four gates
+that lead nowhere obvious to the north, south, east and west. Luckily, you
+don't desperately feel the need to escape, as this is a quiet and peaceful
+place. In the centre of the grove is an empty pedestal. Nothing sits on the
+pedestal and there are no markings to suggest its purpose.
+
+As you enter, a ghostly female figure floats out of the pedestal . You
+recognise the ghost. It looks exactly like that photo you found in the safe.
+The ghost approaches and says, "You are not doing well enough, Handmade. You
+think too much of the power and not enough of the responsibility. I'm
+disappointed in you, as I had such high hopes, when I trained you. As I know
+you personally, I have been nominated by the amulet to tell you that you are
+on your last chance. You must pay attention and prove yourself tonight, or
+the amulet will find a new wielder. If you have any questions, ask now, or
+proceed to the north, east or west for tests."
+
+> e
+As you walk through the gateway, you feel yourself changing and becoming
+younger. As you enter the living room at your parent's house, you sit down on
+the couch, ready to watch the television. The situation seems very familiar.
+
+The first testing area
+You only focus on the television, which is showing repeatedly a clip of a
+blue thing changing rapidly into a variety of different forms to rescue
+people trapped in a burning building. You have never seen anything quite like
+it before. A text message flashes continuously along the bottom of the
+screen, saying "Call the Mould's hotline on 72459854 now to report a crime,
+or just offer your support to our city's new hero!". In your periphery
+vision, is a small table with a phone on it, next to you, and a strange
+closed gate to the west.
+
+> get phone
+You pick up the phone and decide to dial the number on the television screen
+for fun. You are not sure what you want to say, but you can think of two
+broad possibilities:
+
+1 - Offer your support to the Mould.
+2 - Make a prank phone call.
+
+> 1
+You leave a quick message on the phone, telling the Mould that it is doing a
+good job, and to keep it up. Strangely, a ghostly female voice answers back,
+"I know that this is what you should have done, but it is not what was done.
+The past cannot be changed , and you must accept that in order to be ready
+for the present and future. However, even though the past cannot be changed,
+people do change from their past for better or worse. I'm sure that you would
+never be as silly now. Keep that in mind."
+
+With that, you feel a strange wind blow heavily through the room, and you fly
+out through the gate.
+
+The central grove
+A circle of trees surrounds the area. Dense bushes block any view of outside
+this circle. There is no escape from the grove, although there are four gates
+that lead nowhere obvious to the north, south, east and west. Luckily, you
+don't desperately feel the need to escape, as this is a quiet and peaceful
+place. In the centre of the grove is an empty pedestal. Nothing sits on the
+pedestal and there are no markings to suggest its purpose.
+The ghost of the Mould floats in the area.
+
+> w
+The second testing area
+You are standing in an alleyway at night. You do not know which alleyway and
+it could be anywhere within the city. Behind you, to the east, is a strange
+out of place closed gate. In front of you are two people, seemingly moving in
+very slow motion. A terrified looking woman, shielding her belongings with
+her arms, is running away from a very aggressive looking man. They are barely
+moving, so either you are moving very fast, or they are moving very slow. It
+doesn't really matter, as it will give you an advantage to calm down this
+situation and stop the criminal. You cannot see much else around here, with a
+nearby flickering lamp post providing the only light source.
+
+> stop woman
+You jump out in between the woman and the man. As you begin to move, the two
+people return to moving at full speed. You grab hold of the woman and hug her
+to you, as the man runs straight into your back. The man bounces off and then
+thanks you for catching the woman. He tells her to drop his wallet, which she
+does. The man picks up the wallet and then begins screaming at her for being
+a criminal. You feel that the situation is getting out of hand, so you tell
+the man to leave the woman for now and you will deal with her. The man
+reluctantly agrees, and when he is gone, you let the woman go. She still
+looks scared and immediately runs off.
+
+Suddenly a female ghostly voice tells you, "The woman was in the wrong, but
+the man's reaction could have ended up being just as wrong. People aren't
+just good or bad and you won't always get it right. You just have to do your
+best."
+
+With that, you feel a strange wind blow heavily through the room, and you fly
+out through the gate.
+
+The central grove
+A circle of trees surrounds the area. Dense bushes block any view of outside
+this circle. There is no escape from the grove, although there are four gates
+that lead nowhere obvious to the north, south, east and west. Luckily, you
+don't desperately feel the need to escape, as this is a quiet and peaceful
+place. In the centre of the grove is an empty pedestal. Nothing sits on the
+pedestal and there are no markings to suggest its purpose.
+The ghost of the Mould floats in the area.
+
+> n
+The third testing area
+The dark cave is only lit by a few torches up on the walls. The atmosphere is
+almost claustrophobic, as there is no escape with walls in every direction. A
+strange closed gate on the south wall does not appear to have anything, but
+further cave wall behind it. The torch light focuses attention on a cauldron
+in the centre of the cave. The cauldron is bubbling, with a strange blue
+liquid inside. This liquid does not look drinkable, and you hope that it is
+not someone's cooking.
+
+Behind the cauldron is the female ghost from the grove outside. You wonder
+how she got in here before you did.
+
+The ghost tells you to look in the cauldron to see one of your possible
+futures.
+
+> x cauldron
+As you look in the cauldron, a picture emerges in the blue liquid. It is of a
+blue figure who looks like the Mould, lying very still at the bottom of a
+body of water. The figure looks like it has drowned, and you wonder why it
+did not change forms.
+
+The ghost tells you to look again for another possible future.
+
+> x cauldron
+As you look in the cauldron, a second picture emerges in the blue liquid. A
+large earthen beast stamps on some buildings as it enters the city from the
+north. It looks like the land has risen up to destroy the city. The land does
+look a bit familiar, but you can't place it right now.
+
+The ghost tells you to look again for a last possible future.
+
+> x cauldron
+As you look in the cauldron, a third picture emerges in the blue liquid. A
+blue figure who looks like the Mould, is kneeling over the dead body of the
+Potter with an angry look in its eyes.
+
+The ghost says, "When I saw images of the future when I took on the mantle of
+the Mould, I always thought that I would avoid my possible fates. I knew that
+there was a possibility of failure, which is why I laid contingency plans for
+you to take over. These futures are not mutually exclusive, and it is fairly
+certain that at least one will occur. Are you happy to accept your fate?"
+
+> no
+The ghost smiles and says, "Good. I'm glad you will fight your fate. I'm sure
+that you can change it if you try, but you will have to do better than me. I
+know that you can do it."
+
+With that, you feel a strange wind blow heavily through the room, and you fly
+out through the gate.
+
+When you return to the grove, you notice that the ghost has again arrived
+before you. She smiles on your arrival and says, "I hope that you have
+learned something today. The amulet is now willing to grant you its full
+powers and transform you permanently. You must not get too arrogant though,
+or your powers might dissipate. I know you want to take on the Potter, and by
+now you should have enough pieces of the puzzle to find and take him down. I
+can't do much, as a faint memory trapped in an amulet, but I love you, and I
+will do my best to always protect you."
+
+The ghost gives you a quick kiss on one cheek, and a last quick comment,
+"Just remember that everything changes, not just you."
+
+With that, everything begins to fade and you suddenly wake up.
+
+(Press a key)
+
+As you find yourself awake, lying on the mat in the meditation room, you
+reflect on the dream. You think carefully about the big monster you saw in
+the vision of the future. Suddenly it dawns on you. That peak reminded you of
+the large mountain to the north of town. You know that there is a deep
+largely unexplored cave system high up on the mountain, where it is difficult
+to reach. If the Potter is trying to wake up the mountain, maybe he is hiding
+there.
+
+You decide to investigate the mountain, to see if there is any sign of the
+Potter there. You know that you are not ready to take on the Potter yet,
+although when you look down at yourself you see that you are now a fully
+transformed version of the Mould. You open the balcony door, turn yourself
+into a bird and fly off towards the mountain. It is the first time you have
+been outside in months, and you land on an observation point near to the
+mountain.
+
+Observation point
+This is a good observation point of the mountain to the north. You are
+standing on the roof of a large hotel, located on the edge of the nearby
+national park that includes the mountain peak. You had heard rumours that the
+hotel was struggling for business, as people were not as willing to travel up
+the mountain at the moment. You had previously assumed that this was because
+of the new attractions on the other side of town that had opened up recently.
+Maybe that is not the only reason though, and something is scaring people off
+the mountain as well. You really hope that this is the case, and the Potter
+is hidden somewhere nearby.
+
+> mould
+You mould yourself into a telescope, to spy on what is happening on the
+mountain.
+
+The mountain (through the telescope)
+You can see the mountain a lot more clearly now, but you are not sure what to
+focus on. The mountain is rather tall, and it is too hard to focus on more
+than one spot. Forests surround the base of the mountain, but they stop at
+the sheer cliff, formed by an earthquake long ago. It is difficult to climb,
+and only the birds you see flying upwards can traverse it easily. Above the
+cliff is a steep rocky slope where the caves into the mountain can be found.
+There are two lakes in the area. The lower lake is next to the forest, and
+the upper lake is at the top of the mountain. There is no obvious connection
+on the outside of the mountain between the two lakes.
+
+> x bird
+You watch as a bird flies up the cliff face. Suddenly you realise your sense
+of proportion has failed, and that bird is far too large. As you zoom in
+closer you see that it is the clay hawk you remember from the shopping
+centre. The hawk flies towards the caves and enters one.
+
+It looks like you were right, but you need more practice with your new powers
+first before you can confront the Potter. You also need to sort out another
+problem. Whilst watching for signs of the Potter here, another idea has
+occurred to you. You fly back to the Mould's apartment and check up on some
+facts through the computer systems. You soon identify and locate what you are
+looking for. Another quick flight leads you to a different location.
+
+Outside a house
+This house is a fairly ordinary home. Normally you would just drive, or in
+your case now fly, past without even a second glance. However, you have a
+special reason to be here right now.  In front of you is the front door,
+which is currently closed. Next to the door is a doorbell.
+
+> ring bell
+You decide to ring the doorbell to announce your presence. After a lengthy
+delay, the overweight scientist, who you rescued from the fire at the lab,
+answers the door. He does not look happy to see you, but you grab the door
+before he can slam it in your face. He grumpily asks, "What do you want?"
+
+> talk scientist
+What do you want to say?
+1 - "You are going to help me."
+2 - "I need a favour."
+
+> 1
+"And why am I going to help you?"
+
+What do you want to say?
+1 - "Because I helped you nine months ago."
+2 - "Because I know too much about you."
+
+> 1
+"Oh wait, I remember the Mould and some kid helped me out of that fire. That
+doesn't mean I owe you though. I don't do debts. Still, I might help you, if
+you can interest me."
+
+What do you want to say?
+1 - "I want a powerful acid that I can wear during battle."
+2 - "I want the design specifications for your most powerful acid."
+
+> 1
+"A wearable powerful acid. For humans, I don't think that would be good for
+the skin. But for you, it might be possible. Give me a few days to think
+about it, then come back for some tests."
+
+With the scientist agreeing to your plan, you return back home to figure out
+the remaining details. For three months you train and deal with the
+scientist, until both you and he are ready. Earlier on this night, you picked
+up the acid and bathed yourself in it to gain an advantage for the fights
+ahead. Hopefully these clay creatures will be affected in a similar manner to
+those in the shopping centre. It is time for the plots of the Potter to be
+defeated. It will be a lot more dangerous than your previous fights, but you
+are confident.
+
+(Press a key)
+
+Outside a cave
+After flying stealthily up to the cave, you located the first cave entrance
+that you could find in the moonlight. If it wasn't night it would not be easy
+to see, but the cave to the north is lit up deep inside, past a curve. The
+initial part has not been lit up to make the cave not stand out, but you can
+see electric lighting further in. The electricity is a giveaway that there is
+something strange about the caves. That is good, as you were hoping that you
+knew what you were doing. There is nowhere else you can go without taking
+flight from here. The slopes are slippery with too many loose rocks. And you
+really don't want to slip, with the nearby cliff having a long drop
+downwards.
+
+> n
+You move north.
+
+The tunnel entrance
+From outside, up to the first curve, the cave appears normal, but around this
+corner it dramatically changes. There is electrical lighting, so there is no
+need for anyone to stumble around in darkness. What is even more surprising
+is that it would be difficult to stumble around here. The walls and floor are
+all smooth. Something has carved a near perfect tunnel, removing any signs of
+a natural cave. The only discrepancy is a very small hole near the floor
+leading southeast. The tunnel continues to the east, with the cave exit to
+the south.
+
+You are not alone in this location, as a huge clay golem is blocking your
+path to the east. It looks almost like a statue from here.
+
+> mould
+What do you want to turn into?
+1 - knight
+2 - elven archer
+3 - mouse
+
+> 1
+You mould into a knight, with a sword and armour.
+
+> attack golem
+You attack the golem with your sword. The acid on the sword gives it an
+advantage, as the clay of the golem cracks open when the sword slices
+through. The golem moves towards you and tries to slam its fist down. You
+reach up with your sword and cut the fist off, before it reaches you. You
+then continue to cut the golem apart, until nothing is left, but a pile of
+clay on the floor.
+
+> e
+You move east.
+
+Outside the large doors
+The tunnel suddenly widens out into a large chamber. This chamber is not as
+smooth as the tunnel and it looks likes some of a natural cavern has been
+left intact here. It just emphasises what has already been destroyed.
+Environmentalists are not going to be happy when they find out about the
+desecration of these caves.  Tunnels lead to the west and south, but the main
+exit from this room looks to be behind a large set of closed doors to the
+north. A set of tracks lead from the doors to the southern tunnel exit.
+
+The large clay hawk perches on a ledge above the doors.
+
+> mould
+What do you want to turn into?
+1 - normal
+2 - elven archer
+3 - pterodactyl
+
+> 3
+You mould into a pterodactyl.
+
+> fly
+You take off and launch yourself into the air.
+
+> hit hawk
+The hawk sees you staring towards it, and it launches itself at you in
+response to the challenge. Its talons try to claw into you, but as they grip
+tightly, the acid on your skin begins to break them down. The hawk lets go in
+surprise, and you take advantage by launching an attack of your own. The acid
+gives you an edge, and as you claw and bite at the hawk, it begins to
+completely crack. Soon its remains fall from the air into a pile of clay on
+the floor.
+
+> s
+You change back to normal, as the wings of the pterodactyl will not be an
+advantage in the confined space of the tunnel. In the tunnel you walk past
+the drill creature and it does not disturb you.
+
+The tunnel still in development
+At the moment this tunnel does not head anywhere, as it just ends in a cave
+wall. This is likely to change in the future, as it is obvious that this
+tunnel is gradually becoming longer. You are not sure where this tunnel is
+heading, although if it continues in this direction, it will soon become
+another exit to this cave system. The walls in this room are still not
+natural, but are not as smooth as in the earlier tunnel. There are a few
+cracks, with the most notable leading in a northwest direction. The only exit
+to the tunnel is to the north.
+
+A cart filled with rocks sits on some tracks, facing towards the north.
+
+A drill creature, made of clay, is working on the walls of this tunnel.
+
+> mould
+What do you want to turn into?
+1 - knight
+2 - elven archer
+3 - mouse
+
+> 1
+You mould into a knight, with a sword and armour.
+
+> hit drill
+You wait until the drill creature is looking the other way, and then charge
+at it with your sword. It might not be as brave, but it is more effective, as
+shown when you slice off one of the drills right away. The other drill moves
+towards you, but you dodge under it and cut off that drill as well. From
+there it is a simple matter of cutting the creature into pieces, leaving only
+a pile of clay on the floor.
+
+> push lever
+The cart moves forwards, heading towards the room in the north.
+
+> n
+You move north.
+
+Outside the large doors
+The tunnel suddenly widens out into a large chamber. This chamber is not as
+smooth as the tunnel and it looks likes some of a natural cavern has been
+left intact here. It just emphasises what has already been destroyed.
+Environmentalists are not going to be happy when they find out about the
+desecration of these caves.  Tunnels lead to the west and south, but the main
+exit from this room looks to be behind a large set of closed doors to the
+north. A set of tracks lead from the doors to the southern tunnel exit.
+
+A cart filled with rocks sits on some tracks, facing towards the north.
+
+Only a pile of clay from the hawk remains.
+
+> push lever
+An electronic signal opens the large doors, and the cart passes through. The
+doors do not immediately shut afterwards. Possibly it is waiting for any
+other creatures that need to pass through with the cart.
+
+> n
+You return to your normal shape and walk through the doors.
+
+Top of the downward slope
+The tracks on the floor of this room travel from the south, through the open
+large doors, to the north, down a steep slope. There are another two tunnels,
+sloping upwards to the east and west. The strange slopes make this an awkward
+arrangement for a room design, but when your tunnels are based on expanding
+the original cave structures, then you guess there is sometimes little
+choice. The tunnel to the north only has minimal lighting, so it is difficult
+to see what is down there. A red button is beside the doors to the south.
+
+A cart filled with rocks sits on some tracks, facing towards the north.
+
+The doors shut behind you.
+
+The mysterious girl is standing at the top of the eastern slope. She calls
+down to you and says, "Don't think that you can get in here, without anyone
+noticing that you have destroyed some of the clay guards. Nothing escapes our
+notice. And aren't you dead?"
+
+What do you want to say?
+1 - "Apparently not. I used to be Handmade though, and I only became the new
+Mould recently."
+2 - "My powers evolved recently, from just my hand to the rest of me."
+
+> 1
+"I guess you do kind of look not dead from this angle."
+
+What do you want to say?
+1 - "Come with me, and I'll get you out of here."
+2 - "Why don't you try to escape?"
+
+> 1
+"Why would I want to go? I've got a nice home here. Have you seen the view
+outside? It's great. And it's the first time in years that I have been able
+to spend time with my father."
+
+What do you want to say?
+1 - "He can't be your real father though, can he?"
+2 - "Are we talking in a biological or spiritual sense?"
+
+> 1
+"Why not? Everyone has to have a father. I only got to see him occasionally
+for years after the divorce, but now I can see him all the time. It's great,
+as I really missed him."
+
+What do you want to say?
+1 - "But he tied you up and abandoned you at the fire."
+2 - "But he is a criminal."
+
+> 1
+"My father didn't abandon me. The only reason he tied me up was because I
+couldn't stay still enough to not distract the clay snake that was protecting
+me from the fire. He had to improvise, as he hadn't been expecting me that
+day. He only did it because he cared. So, you can shut up, as I don't want to
+listen to you any more. This will shut you up."
+
+The girl presses down on something and suddenly metal walls spring down,
+blocking both the east and west paths. This cannot be good. Before you can do
+anything, the ceiling opens up, and a huge amount of water floods into the
+area. The water picks up the cart and washes it away down the tunnel to the
+north. Rushing water rapidly fills the whole area. Unfortunately, there is
+nothing to hold on to, and you soon follow the cart. Luckily you can hold
+your breath underwater for a while as the Mould, but not forever. You reach
+out and somehow manage to grab hold of something.
+
+Midway down the slope
+In this location, the tunnel slopes down rapidly from the south to the north.
+The steep slope, unsmooth floor and walls, and minimal lighting make this a
+place where you would normally walk carefully. However in your current
+situation, this is not a problem, as you can barely touch the walls, and are
+grateful for any discrepancies in the smoothness to grab onto. You would
+guess that this location is only really designed for the carts to travel
+down, with the tracks continuing along the floor. It has only minimum safety
+requirements for anyone to walk through this tunnel. A large stone pillar has
+been left near the track, which is possibly holding up the ceiling. You don't
+want to be nearby if it falls down.
+
+You are barely holding on to the pillar at the moment.
+
+> n
+You allow yourself to be pulled to the north.
+
+The base of the slope, at the edge
+The downward slope heading from the south of this location ends here in a
+steep cliff. The hole downwards looks very dark and very deep. It is not
+somewhere you would like to fall down. Unfortunately with the rushing water
+you may not have much choice. You don't like your chances of surviving intact
+though. The tracks, from the south, finish at the edge, and it is obvious
+that the carts empty themselves down the hole in this location. You remember
+now that the water has been falling in the lower lake recently, and you
+wonder if this is due to the dumped dirt and rocks blocking tunnels between
+the two lakes. A door on the eastern wall provides an exit from this
+location.  You can see the pillar back up the tunnel to the south.
+
+You have managed to grab hold of the tracks next to the door, but you are
+barely holding on.
+
+> mould
+What do you want to turn into?
+1 - octopus
+2 - fish
+3 - normal (but able to fire a grappling hook on one arm)
+
+> 1
+You mould into an octopus.
+
+> open door
+You turn the doorknob and open the door with one of your spare appendages.
+Inside the door you can see a small room, with a ladder attached to the wall
+leading upwards.
+
+> mould
+What do you want to turn into?
+1 - normal
+2 - fish
+3 - normal (but able to fire a grappling hook on one arm)
+
+> 3
+You mould your arm, so it can now fire a grappling hook.
+
+> e
+You shoot the grappling hook at the ladder, and it grabs hold. You pull
+yourself into the next room, quickly shutting the door behind you, as you
+enter. You mould back to normal afterwards.
+
+Midway down the ladder
+This room is not large in size, and serves little purpose apart from acting
+as a mid-point along the length of the ladder. The ladder is attached to the
+wall, and progresses a long way downwards through a hole in the floor, and
+also a long way upwards through a hole in the ceiling. It is difficult to
+tell where the ladder heads to on either end from here. The only other exit
+from this room is a door that leads to the slope in the west. The door is
+currently closed, and given the water on the slope, it should probably stay
+that way for the time being. This room is a little damp from the water that
+flooded in when you entered this room through that door earlier.
+
+> d
+You move down.
+
+The base of the ladder
+The Potter's hideout is not as developed this far down in the mountain. This
+location seems more like the cave you expected when you first entered, apart
+from the fact that there is a thin layer of clay over everything. The
+dirtiness of the clay ruins any admiration you may have felt for your more
+natural surroundings. Attached to one wall is a ladder, which leads upwards.
+There are two other exits, to the north and south.  The exit to the south is
+much smaller, but you should have no trouble moving through it.
+
+> s
+You move south.
+
+The crawlspace
+There is not much room for you to move in this tunnel. Walking is impossible,
+as you are too tall, so instead, you are forced to crawl. Crawling isn't too
+hard in your Mould body, as your skin is tougher and can easily put up with
+strange positions. You wonder if this tunnel is natural or drilled through.
+You cannot see the walls, so it is difficult to tell. The clay is
+significantly thicker in this area and coats everything. There are only two
+exits to this location; in the north and south.
+
+> s
+You move south.
+
+A multitude of tunnels, next to the lift
+This chamber is filled with tunnels going everywhere. However, most of them
+are too small for you to easily fit through. Peering through the holes it
+does not look like they are heading anywhere interesting. The clay covering
+everything makes it difficult to see, but it looks like they just head into
+different parts of the cave system. The largest tunnel is to the north,
+although this tunnel is not very large. The more interesting part of this
+chamber is the lift that can be entered to the east. It is a far more modern
+feature than anything else on this level of the Potter's hideout.
+
+As you enter the room, the lift opens up and a clay creature walks out. You
+are not sure what it is meant to be, but you know that it is very unstable as
+it is shedding clay everywhere. Before you can react, something small and
+blue flies rapidly out of one of the other tunnels and accidentally hits the
+creature. It sinks under the surface of the clay and is trapped inside.
+
+Unfortunately, you have just realised that any acid you were wearing has been
+washed off by the water.
+
+> n
+You move north.
+
+The crawlspace
+There is not much room for you to move in this tunnel. Walking is impossible,
+as you are too tall, so instead, you are forced to crawl. Crawling isn't too
+hard in your Mould body, as your skin is tougher and can easily put up with
+strange positions. You wonder if this tunnel is natural or drilled through.
+You cannot see the walls, so it is difficult to tell. The clay is
+significantly thicker in this area and coats everything. There are only two
+exits to this location; in the north and south.
+
+The unstable clay creature follows you, but it looks smaller with all the
+clay it has shed.
+
+> n
+You move north.
+
+The base of the ladder
+The Potter's hideout is not as developed this far down in the mountain. This
+location seems more like the cave you expected when you first entered, apart
+from the fact that there is a thin layer of clay over everything. The
+dirtiness of the clay ruins any admiration you may have felt for your more
+natural surroundings. Attached to one wall is a ladder, which leads upwards.
+There are two other exits, to the north and south.  The exit to the south is
+much smaller, but you should have no trouble moving through it.
+
+The unstable clay creature follows you, but it looks smaller with all the
+clay it has shed.
+
+> n
+You move north.
+
+Next to a river
+A river flows rapidly on the north side of this chamber from east to west. At
+least it does not take up the whole of the chamber, so you are not in danger
+of being washed away like earlier. The southern section of this chamber is
+not much more than a ledge looking out over the river. Clay covers the ledge,
+and has even been washed into the river, giving it a not very drinkable
+appearance. To the south is the only exit that you can reach by not swimming,
+and after almost being swept away earlier, you do not really fancy swimming
+right now.
+
+By the time the creature enters this room, it is virtually gone, as it has
+lost too much clay. The creature collapses, with clay oozing around your feet
+into the river. You are now safe from the clay creature, but not from the
+blue imp that emerges from the wreckage.
+
+The imp looks at you, and says, "Hi there. I saw you sneaking around outside
+and thought I would check out this place as well. It's not like I have
+anything better to do. Without the full Mould form, I can't really achieve
+anything useful and my life is all round pretty useless. So I might as well
+have some fun and watch you making a fool of yourself."
+
+> s
+You move south.
+
+The base of the ladder
+The Potter's hideout is not as developed this far down in the mountain. This
+location seems more like the cave you expected when you first entered, apart
+from the fact that there is a thin layer of clay over everything. The
+dirtiness of the clay ruins any admiration you may have felt for your more
+natural surroundings. Attached to one wall is a ladder, which leads upwards.
+There are two other exits, to the north and south.
+
+You can no longer progress to the south, as the tunnel has been blocked by
+the clay left behind by the unstable creature.
+
+The imp continues to follow you.
+
+> mould
+What do you want to turn into?
+1 - mole
+2 - knight
+3 - miner
+
+> 1
+You mould into a mole.
+
+> dig
+You slowly burrow through the blockage until it is gone. Luckily it is not
+the whole tunnel that is blocked, it is only the section near the entrance on
+this side. The imp refuses to help, apart from offering suggestions on how
+you could do it faster.
+
+> s
+You move south.
+
+The crawlspace
+There is not much room for you to move in this tunnel. It is a lot easier to
+traverse this tunnel as a mole, as you would not be able to walk upright in
+your normal form. You are not a small mole though, so you don't have too much
+room. You wonder if this tunnel is natural or drilled through. You cannot see
+the walls, so it is difficult to tell. The clay is significantly thicker in
+this area and coats everything. There are only two exits to this location; in
+the north and south.
+
+The imp continues to follow you.
+
+> s
+You move south.
+
+A multitude of tunnels, next to the lift
+This chamber is filled with tunnels going everywhere. However, most of them
+are too small for you to easily fit through. Peering through the holes it
+does not look like they are heading anywhere interesting. The clay covering
+everything makes it difficult to see, but it looks like they just head into
+different parts of the cave system. The largest tunnel is to the north,
+although this tunnel is not very large. The more interesting part of this
+chamber is the lift that can be entered to the east. It is a far more modern
+feature than anything else on this level of the Potter's hideout.
+
+The imp continues to follow you.
+
+> e
+You mould back to normal, as you enter the lift.
+
+Inside the lift (bottom floor)
+The lift is a simple plain design, which was built for functionality rather
+than comfort. The lift could be cleaner, as the floor is covered with clay.
+You guess that the main users of this lift are the clay creatures. There are
+not many controls, with one button having UP printed on it, and the other
+button having DOWN printed. It almost seems like cheating to use a lift
+rather than climbing up through the complex system of caves. It is a lot
+easier and quicker though. The exit to the lift is to the west.
+
+The imp continues to follow you.
+
+The imp laughs for some unknown reason.
+
+> u
+You push the up button, and the lift moves to the top floor.
+
+Inside the lift (top floor)
+The lift is a simple plain design, which was built for functionality rather
+than comfort. The lift could be cleaner, as the floor is covered with clay.
+You guess that the main users of this lift are the clay creatures. There are
+not many controls, with one button having UP printed on it, and the other
+button having DOWN printed. It almost seems like cheating to use a lift
+rather than climbing down through the complex system of caves. It is a lot
+easier and quicker though. The exit to the lift is to the west.
+
+The imp continues to follow you.
+
+> w
+You move west.
+
+The clay creature-making machine
+This room is mainly filled by a single large machine, which consists of a few
+components. There is a large container that is filled with clay. This is
+connected to the main body of the machine, which you cannot see the inner
+workings of, but it does have a control panel on the side. A funnel curves
+from the top of the main body to facing downwards. Underneath, the floor is
+covered with clay, which leads to the lift in the east. You guess that this
+is where the unstable creature was made, so it was created by a machine, not
+the Potter personally. You are glad that the Potter has not yet managed to
+create a machine that produces perfect replicas of clay creatures, but its
+very existence worries you. The Potter is no longer needed in the process and
+mass production may soon be possible.
+
+A closed door leads to the north. Next to the door is a red button labelled
+EMERGENCY OPEN.
+A clay dog is wandering around the area, following you.
+
+The imp continues to follow you.
+
+> push red
+After you push the button, the door opens.
+
+> n
+You move north.
+
+Hallway, south of the ladder
+A ladder can be seen down the hallway in the location north of where you are
+currently standing. In this location, the main features of the hallway are
+two doors, which lead to the east and south. The eastern door is labelled
+STAIRS, whilst the southern door is labelled MACHINERY - DON'T ENTER. In your
+mind any place that is labelled DON'T ENTER in a secret hideout really means
+PLEASE ENTER. The only potential issue is that both doors have slots next to
+them for cards to be swiped through.   At the moment, the eastern door is
+closed,  and the southern door is open.
+
+The imp continues to follow you.  The clay dog follows you from the south.
+
+> close south
+You close the southern door, and it locks behind you.
+
+> n
+You move north.
+
+The top of the ladder
+A ladder leading downwards is positioned on a wall at the northern end of
+this hallway. You can tell by the look of this hallway that you are nearing
+the proper hideout of the Potter. Near the entrance, it looked like the walls
+were just the rocky cave walls smoothed out, but it is different here. The
+walls look no different to if you were in a building. There is no way to tell
+that you are underground. There are not even any windows showing underground
+views. The hallway leads to the south.
+
+The imp continues to follow you.  The clay dog follows you from the south.
+
+The imp laughs for some unknown reason.
+
+> d
+The clay dog cannot climb the ladder.
+
+Midway down the ladder
+This room is not large in size, and serves little purpose apart from acting
+as a mid-point along the length of the ladder. The ladder is attached to the
+wall, and progresses a long way downwards through a hole in the floor, and
+also a long way upwards through a hole in the ceiling. It is difficult to
+tell where the ladder heads to on either end from here. The only other exit
+from this room is a door that leads to the slope in the west. The door is
+currently closed, and given the water on the slope, it should probably stay
+that way for the time being. This room is a little damp from the water that
+flooded in when you entered this room through that door earlier.
+
+The imp continues to follow you.
+
+> d
+You move down.
+
+The base of the ladder
+The Potter's hideout is not as developed this far down in the mountain. This
+location seems more like the cave you expected when you first entered, apart
+from the fact that there is a thin layer of clay over everything. The
+dirtiness of the clay ruins any admiration you may have felt for your more
+natural surroundings. Attached to one wall is a ladder, which leads upwards.
+There are two other exits, to the north and south.  The exit to the south is
+much smaller, but you should have no trouble moving through it.
+
+The imp continues to follow you.
+
+> s
+You move south.
+
+The crawlspace
+There is not much room for you to move in this tunnel. Walking is impossible,
+as you are too tall, so instead, you are forced to crawl. Crawling isn't too
+hard in your Mould body, as your skin is tougher and can easily put up with
+strange positions. You wonder if this tunnel is natural or drilled through.
+You cannot see the walls, so it is difficult to tell. The clay is
+significantly thicker in this area and coats everything. There are only two
+exits to this location; in the north and south.
+
+The imp continues to follow you.
+
+> s
+You move south.
+
+A multitude of tunnels, next to the lift
+This chamber is filled with tunnels going everywhere. However, most of them
+are too small for you to easily fit through. Peering through the holes it
+does not look like they are heading anywhere interesting. The clay covering
+everything makes it difficult to see, but it looks like they just head into
+different parts of the cave system. The largest tunnel is to the north,
+although this tunnel is not very large. The more interesting part of this
+chamber is the lift that can be entered to the east. It is a far more modern
+feature than anything else on this level of the Potter's hideout.
+
+The imp continues to follow you.
+
+> e
+You move east.
+
+Inside the lift (bottom floor)
+The lift is a simple plain design, which was built for functionality rather
+than comfort. The lift could be cleaner, as the floor is covered with clay.
+You guess that the main users of this lift are the clay creatures. There are
+not many controls, with one button having UP printed on it, and the other
+button having DOWN printed. It almost seems like cheating to use a lift
+rather than climbing up through the complex system of caves. It is a lot
+easier and quicker though. The exit to the lift is to the west.
+
+The imp continues to follow you.
+
+> u
+You move up.
+
+Inside the lift (top floor)
+The lift is a simple plain design, which was built for functionality rather
+than comfort. The lift could be cleaner, as the floor is covered with clay.
+You guess that the main users of this lift are the clay creatures. There are
+not many controls, with one button having UP printed on it, and the other
+button having DOWN printed. It almost seems like cheating to use a lift
+rather than climbing down through the complex system of caves. It is a lot
+easier and quicker though. The exit to the lift is to the west.
+
+The imp continues to follow you.
+
+The imp reverts into a hand and crashes to the ground. It soon turns back
+into its normal form and flies back up.
+
+> w
+You move west.
+
+The clay creature-making machine
+This room is mainly filled by a single large machine, which consists of a few
+components. There is a large container that is filled with clay. This is
+connected to the main body of the machine, which you cannot see the inner
+workings of, but it does have a control panel on the side. A funnel curves
+from the top of the main body to facing downwards. Underneath, the floor is
+covered with clay, which leads to the lift in the east. You guess that this
+is where the unstable creature was made, so it was created by a machine, not
+the Potter personally. You are glad that the Potter has not yet managed to
+create a machine that produces perfect replicas of clay creatures, but its
+very existence worries you. The Potter is no longer needed in the process and
+mass production may soon be possible.
+
+A closed door leads to the north. Next to the door is a red button labelled
+EMERGENCY OPEN.
+
+The imp continues to follow you.
+
+> mould
+What do you want to turn into?
+1 - dwarven axe-wielder
+2 - kid elephant
+3 - normal (but with a sledgehammer on one arm)
+
+> 1
+You mould into a dwarven axe-wielder. You never realised how short dwarves
+really were before.
+
+> hit machine
+You smash your axe against the glass container and it shatters, with clay
+leaking out all over the floor. Just taking away the clay is only a short
+term setback, as clay is easily replaced. You want a longer term setback, so
+you smash the control panel as well. Sparks fly everywhere, which means that
+you are starting to get somewhere. You dent the main body of the machine as
+much as you can and destroy the funnel. Eventually the body cracks, revealing
+the machine's inside. You hack away wildly at what you can see inside, with
+metal flying everywhere. By the time you are finished it is going to take a
+lot of work to get this machine operational again. You mould back to normal
+whilst you appreciate your work.
+
+Amidst the destruction, you notice and pick up a keycard that was previously
+hidden under the machine. Someone must have lost it there.
+
+> push red
+After you push the button, the door opens.
+
+The clay dog rushes down the hallway through the open door to greet you.
+
+> n
+You move north.
+
+Hallway, south of the ladder
+A ladder can be seen down the hallway in the location north of where you are
+currently standing. In this location, the main features of the hallway are
+two doors, which lead to the east and south. The eastern door is labelled
+STAIRS, whilst the southern door is labelled MACHINERY - DON'T ENTER. In your
+mind any place that is labelled DON'T ENTER in a secret hideout really means
+PLEASE ENTER. The only potential issue is that both doors have slots next to
+them for cards to be swiped through.   At the moment, the eastern door is
+closed,  and the southern door is open.
+
+The imp continues to follow you.  The clay dog follows you from the south.
+
+> swipe card
+You swipe the card through the eastern slot, and the eastern door opens.
+You suddenly notice that a vicious growl is emerging from behind you.
+
+You turn around too slowly to stop the wolf from jumping at you. The dog has
+somehow transformed itself and it looks like it is playing no longer. Luckily
+for you the blue imp saw what was happening and dived down in front of the
+wolf. Instead of biting a chunk out of you, the wolf's mouth clamps down on
+the imp. The imp screams in agony and looks up at you sadly.
+
+The bottom half of the imp suddenly explodes taking the wolf's head with it.
+The rest of the wolf collapses into a pile of clay on the ground. The imp
+looks in bad shape and it slowly whispers to you, "A month ago I figured out
+how I could feel complete. I've always resented you for already feeling
+complete and hated the solution, but I really want to feel whole myself. Pick
+me up and absorb me into you. I came from you originally, and I want to
+become part of you again. If I can't be complete myself, I can become part of
+a whole. Or you can leave me. Your choice."
+
+The imp reverts to part of a hand and lies on the floor dying.
+
+> take imp
+You pick up the imp, and let it slowly entwine with your own body. Your body
+accepts the offering and soon it cannot be distinguished. You do not know
+where it has gone, but it is part of you now.
+
+> e
+You walk up the stairs to the next level.
+
+Top of the stairs, in a hallway
+The hallway leading from the north to the southeast is only interrupted by
+stairs to the east, which lead down to the floor below. That floor looked
+less inhabited than where you are now. However, there are no obvious signs
+that this is true, so there is some subjectivity in this judgement.
+Everything here is slightly more worn though, and the length of this hallway
+does make you think that it is one of the major hallways on the main floor of
+the hideout.
+
+> se
+You move southeast.
+
+Diverging hallway
+The hallway diverges into three directions from its southern-most location.
+The hallway must be nearing the outside of the mountain to the south, so it
+cannot expand any further in that direction. A long hallway lies in each of
+the three directions, with all three looking equally important. To the
+hallway in the northwest is the staircase leading down to the floor below. To
+the hallways in the north and northeast it is unknown what lies in either
+direction.
+
+The mysterious girl is walking down the northeast hallway and sees you. She
+frowns and walks towards you, asking, "I thought that you were gone from
+here."
+
+What do you want to say?
+1 - "I can't believe you tried to kill me!"
+2 - "You can't get rid of me that easily."
+
+> 1
+"I didn't try to kill you. You can swim, can't you. You should have been able
+to survive that easily. I just wanted you gone."
+
+What do you want to say?
+1 - "Why won't you listen to me."
+2 - "You can't trust your father."
+
+> 1
+"Because you are not going to say anything I want to hear. You are going to
+tell me stuff about my father, which may or may not be true. You will
+probably say something about the clay creatures, which is more likely true.
+You just have to understand that it doesn't matter to me."
+
+What do you want to say?
+1 - "So can I expect another trap right about now?"
+2 - "You had better start caring, or you will be in trouble."
+
+> 1
+"No. I don't know any traps around here, but I wouldn't use one even if I
+did. You don't deserve to be hurt, you just need to go away and don't come
+back."
+
+The girl turns away from you and begins to head back up the northeast
+hallway. Suddenly something thumps you from behind, and you think you see the
+clay orangutan before everything goes black.
+
+(Press a key)
+
+When you wake up everything is still black. You seem to be missing the
+keycard as well.
+
+An enclosed dark place
+There is no light in this place. You could wonder if you had been blinded,
+but it is unlikely that your powers would allow this. Feeling around the
+area, there is not much space here. Walls surround you closely on all sides.
+The walls feel like that they may consist of clay. There does not appear to
+be a lack of breathable air in here, and this could be explained by the
+occasional bubble you feel flow through the wall. The bubble does not extend
+to the outside of the clay wall though. A small box of unknown purpose is on
+one wall. There is no obvious escape from this place.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+A female voice from somewhere calls out your name. You look around, but see
+no one in the darkness. The voice soon continues speaking, and you recognise
+the voice is that of the previous Mould. She says, "I didn't think I would
+get the chance to speak to you again, but some of my spirit allowed that imp
+to live, and when you absorbed it, you absorbed some of me. I just wanted to
+say that you are doing great. Things may not look at their best right now,
+but you need to be strong, and not give in to either despair or anger.
+Self-belief is a powerful tool, as is the help of allies. You may want to try
+to stop the Potter by yourself, but you don't need to do this alone."
+
+The voice fades, and you wish you could have had one last opportunity to see
+her, not just hear her talk.
+
+The box crackles, and the voice of the mysterious girl comes through it. She
+asks, "Are you all right in there. I really didn't mean for you to get
+trapped."
+
+What do you want to say?
+1 - "It doesn't matter what you meant. I'm still trapped."
+2 - "That's all right. I know you didn't mean it."
+
+> 2
+"It's not all right. These holding containers should have been got rid of
+months ago. I'm sure that my father isn't still interested in you. But maybe
+he is. No, I can't be wrong."
+
+What do you want to say?
+1 - "Let me out."
+2 - "No one can change easily."
+3 - "What are these containers?"
+
+> 2
+"It hasn't been easy. He was so consumed by his experiments that he never had
+time to think anything through in the past. Since he has been forced to stay
+in here and figured out the clay's secrets, he has finally had time. He knows
+that he has done wrong. That's what he keeps telling me, although he won't
+leave this hole."
+
+What do you want to say?
+1 - "Let me out."
+2 - "You can't just say that you have been wrong, you have to face the
+consequences. He killed my parents and he should be in jail."
+3 - "What are these containers?"
+
+> 2
+"I'd forgotten that. I've tried to forget that night. Being in jail wouldn't
+be that different to here though."
+
+What do you want to say?
+1 - "Let me out."
+2 - "It would be very different. He can still carry out experiments, have
+nice accommodation, and have you around."
+3 - "What are these containers?"
+
+> 2
+"I suppose you're right. Anyone would like to have me around. I should talk
+to him and find out why he hasn't given himself up. No, maybe we should talk
+to him. If he has to face you, he has to admit to himself what he has done."
+
+The container around you opens and you find yourself in a normal room.
+
+The heroes storage room
+The main features of this room are two clay containers. One of them, which
+previously held you is open. The other container is still closed. You can see
+bubbles of air entering the container, which is strangely compelling to
+watch. On top of each container is a switch and a box. You do not want to be
+trapped in the container again, as it is too claustrophobic in the darkness.
+It is almost too claustrophobic just being underground now, but you have
+business to finish before you can leave. A hallway is to the south of this
+room.
+
+The mysterious girl is standing next to you.
+
+> push switch
+The second container opens up when you press the switch on it. Inside is
+Waterfall. She smiles up at you ruefully and says, "I kind of followed you
+here, but it didn't go so well for me and I was trapped in here. I'm glad
+that you rescued me, so we can now go and finish what we started a year ago."
+
+> s
+You walk all the way down the hallway, until you come to a number of
+different paths.
+
+Diverging hallway
+The hallway diverges into three directions from its southern-most location.
+The hallway must be nearing the outside of the mountain to the south, so it
+cannot expand any further in that direction. A long hallway lies in each of
+the three directions, with all three looking equally important. To the
+hallway in the northwest is the staircase leading down to the floor below. To
+the hallway in the north is the room where you were trapped. To the hallway
+in the northeast it is unknown what lies in that direction.
+
+The girl says, "We just need to follow this hallway all the way through the
+northwest path."
+
+The mysterious girl and Waterfall are following you.
+
+> nw
+You move northwest.
+
+Top of the stairs, in a hallway
+The hallway leading from the north to the southeast is only interrupted by
+stairs to the east, which lead down to the floor below. That floor looked
+less inhabited than where you are now. However, there are no obvious signs
+that this is true, so there is some subjectivity in this judgement.
+Everything here is slightly more worn though, and the length of this hallway
+does make you think that it is one of the major hallways on the main floor of
+the hideout.
+
+The mysterious girl and Waterfall are following you.
+
+> n
+You move north.
+
+The curving hallway
+The hallway curves around here from the south to the west. At least it would
+if there wasn't a metal wall blocking the hallway. This is probably one of
+the walls that came crashing down when the mysterious girl tried to wash you
+out of the hideout. You are finally nearing back where you started and are
+back on track after a few diversions. Next to the metal wall is a panel,
+which looks like it is fingerprint activated.
+
+The mysterious girl puts her hand on the panel, and the metal wall disappears
+into the ceiling.
+
+The mysterious girl and Waterfall are following you.
+
+> w
+You move west.
+
+Top of the downward slope
+The tracks on the floor of this room travel from the south, behind the closed
+large doors, to the north, down a steep slope. There are another two tunnels,
+sloping upwards to the east and west. The strange slopes make this an awkward
+arrangement for a room design, but when your tunnels are based on expanding
+the original cave structures, then you guess there is sometimes little
+choice. The tunnel to the north only has minimal lighting, so it is difficult
+to see what is down there. A red button is beside the doors to the south.
+
+The mysterious girl and Waterfall are following you.
+
+> w
+You move west.
+
+Outside the Potter's lair
+The hallway from the top of the slope in the east leads past a number of
+other hallways and rooms, which the mysterious girl informed you related to
+the Potter's experiments. The Potter has experimented with all types of
+geological constructs and reactions. Apparently there are even sections of
+this hideout upstairs that are forbidden for the girl to enter after some
+experiments went badly wrong. At the end of the hallway is a room to the
+north, which is the control room for this hideout. The mysterious girl has
+told you that this is where the Potter can usually be found. It is time to
+finally confront the Potter.
+
+The mysterious girl and Waterfall are following you.
+
+> n
+You move north.
+
+Control room
+The control room is possibly the most impressive room you have seen in this
+hideout. It is definitely the largest. The room extends upwards right up to a
+glass ceiling that allows you to see the starry sky outside. A walkway midway
+up the wall around the outside of the room provides a second level, but there
+is no obvious way to reach it from this level. On the walls under the walkway
+are monitors, showing various locations around the hideout. You recognise
+some of the locations from where you have been. In the centre of this room is
+a throne, with panels surrounding it, which you guess controls devices around
+this hideout. The exit is to the south.
+
+The Potter is sitting on the throne, watching you.
+
+The Potter says, "Welcome, I have been expecting, although not wanting, to
+see you. It seems that no matter what I do, I cannot get rid of you. All I
+ever wanted was to be left alone, but I knew that you would never rest until
+I was caught, so I had to protect myself. Now it's all going wrong."
+
+What do you want to say?
+1 - "Give yourself up to the authorities."
+2 - "I can't forgive you for killing my parents."
+3 - "What is going wrong?"
+4 - "Why have you left me alone so far in this hideout?"
+
+> 1
+"I really don't want to do that. Can't you just let me live in peace here."
+
+What do you want to say?
+1 - "You can't just stay here!"
+2 - "I can't forgive you for killing my parents."
+3 - "What is going wrong?"
+4 - "Why have you left me alone so far in this hideout?"
+
+> 4
+"I thought that the others would be sufficient to deal with you. Besides,
+believe it or not, I have more important worries than you right now."
+
+What do you want to say?
+1 - "You can't just stay here!"
+2 - "I can't forgive you for killing my parents."
+3 - "What is going wrong?"
+
+> 2
+"Ah, so you're the kid, not the original. I wondered how you had come back
+from the dead. As for the death of your parents, it is all your fault, not
+mine. As I told you before I killed them because they knew too much, but they
+knew too much about you, not too much about me. I couldn't allow anyone who
+knew that much about where you came from survive."
+
+What do you want to say?
+1 - "You can't just stay here!"
+2 - "What do you know about where I came from?"
+3 - "What is going wrong?"
+
+> 2
+"Your parents were too willing to boast about their son, and I heard the
+story once. I recognised it too. Five years ago I wasn't employed at the
+laboratory. No one believed in what I said I could do, and without any money,
+I could not show them that what I said was true. So, I needed some money, and
+I robbed a bank. I never repeated this crime, as it was enough to get me
+started, but I could never escape the consequences."
+
+What do you want to say?
+1 - "You can't just stay here!"
+2 - "Wait, what did you say about five years ago?"
+3 - "What is going wrong?"
+
+> 2
+"Yes, it was me who made you who you were, and once I knew that, I also knew
+I was in trouble. If the Mould ever found out, well, with his abilities he
+could change into any number of torture devices. You never saw the hate in
+his eyes, when he found your dead parents. It would have been even worse if
+he knew the whole truth. All I ever wanted to be was safe, so I had to stop
+him before he could find the truth. I had nightmares every night, until
+finally that fire, when it finally became all right again. I've almost been
+happy for most of this last year. I've never felt scared of you, as you are
+only a child."
+
+What do you want to say?
+1 - "You can't just stay here!"
+2 - "The Mould wasn't that mean."
+3 - "What is going wrong?"
+
+> 3
+"I had some big master plan to finally rid this town of any traces of you and
+my old life. I'd seeded this mountain with clay, and I was going to give it
+life. Then I could destroy everything. But, now I'm not so sure. I like it
+here, and if I start destroying stuff, then I will not have any peace. Also,
+I'm not sure whether I can control it."
+
+What do you want to say?
+1 - "You can't just stay here!"
+2 - "The Mould wasn't that mean."
+3 - "Why couldn't you control the mountain?"
+
+> 3
+"I shouldn't tell you this, but the clay is growing more sentient. It is
+exciting that I am creating a whole new lifeform, but I wish that I could
+have used someone more subservient than myself as a template for the mind. I
+could never follow orders well."
+
+(Press a key)
+
+Suddenly a clay figure jumps down from the walkway above. It jumps down right
+on top of the throne. You can see that it is the clay orangutan, but before
+you can react, it grabs the Potter by the neck and twists it to a horrific
+angle. The orangutan picks up and throws the body in the direction of the
+mysterious girl. It then jumps down from the throne and changes form into a
+large clay gorilla.
+
+You and Waterfall rush towards the gorilla, but it just knocks you both hard
+against the wall. The impact leaves you lying on the ground, struggling to
+get up. The gorilla turns to the girl and surprisingly starts to talk. It
+says, "What are you going to do, girl? Are you just going to end up like your
+father?"
+
+The girl rushes towards her father and takes the gloves from his hands. She
+puts them on and threatens the gorilla, "I've seen my father use these enough
+to know how to tear you apart."
+
+The girl waves her hands around but nothing happens. The gorilla smirks and
+says, "You are not strong enough yet, but I will make you stronger. I can
+control you better than your father."
+
+The gorilla hits the girl, knocking her out. It then changes back into the
+orangutan and grabs the girl. With an impossibly high leap it reaches the
+walkway and leaves the area rapidly with the girl.
+
+(Press a key)
+
+You finally manage to struggle to your feet. You walk over to the Potter and
+kneel over him to check his pulse. He is definitely dead. How can anything be
+so callous in regard to a human being? That orangutan cannot be allowed to go
+free.
+
+Waterfall is also starting to stand up by now. She turns to you and says,
+"You know, I was glad when you gave up crime fighting, as I was always afraid
+that I might fail you like I did the Mould. At least this time we're both
+still alive. Let's go after the girl and rescue her. I will do better next
+time."
+
+> mould
+What do you want to turn into?
+1 - pterodactyl
+2 - magic carpet
+3 - normal (but able to fire a grappling hook on one arm)
+
+> 2
+You mould into a magic carpet.
+
+> u
+You fly yourself and Waterfall up to the walkway.
+
+Control room, on the walkway
+The walkway is midway up the wall of the control room. From here you can see
+the throne, controls and monitors below. They all seem a lot smaller and
+insignificant from up here. You are closer to the glass ceiling as well, with
+the full moon shining through the window. The glass looks tinted to prevent
+people from looking in. The only exit from here, apart from down below, is to
+the north.
+
+Waterfall is following you.
+
+> n
+You return to normal, as you explore the hallways beyond this room.
+Eventually you find a forbidden area, where you think the orangutan is
+hiding.
+
+Outside the forbidden area
+The broken tape that is stretched across the corridor to the north has DON'T
+ENTER repeatedly written on it. The fact that it has been broken suggests
+that someone has ignored this warning. The clay that you can see inside
+should be even more of a warning, but for you it acts more as an invitation
+to enter. You guess that this is where you will find the mysterious girl. You
+just hope that her warning about the forbidden areas isn't true and any
+danger has dissipated. Knowing your luck, it's probably increased though. The
+hallway to the south eventually leads back to the control room.
+
+Waterfall is following you.
+
+> n
+You move north.
+
+South end of the clay corridor
+Just after the entrance to the forbidden area, the corridor is completely
+covered with clay. It is almost as if you have entered the throat of a clay
+beast, as the clay ripples and moves around you.  The liveliness of the
+corridor worries you, but there is no other way to enter this area. And you
+need to get through, as you cannot abandon the mysterious girl to those
+monsters. The clay corridor continues to the north, and the exit to the
+forbidden area is to the south.
+
+As you enter the corridor, the ceiling of this section begins to lower and
+move towards you.
+
+Waterfall is following you.
+
+> n
+You move north.
+
+North end of the clay corridor
+The north end of this clay corridor is not much different to the south end,
+apart from that the ceiling does not seem to be moving down here. The clay is
+still moving though, with the wall even spitting small bits in your
+direction. None of the bits hit you and they are quickly re-absorbed into the
+floor, but it makes you feel uncomfortable. The clay stops to the north of
+where you are standing, and a normal hallway continues. The clay corridor
+continues to the south.
+
+Waterfall is following you.
+
+The ceiling in the section of the corridor you just left picks up speed, as
+it lowers. You are glad that you are no longer inside.
+
+> n
+The clay floor opens up under you and Waterfall, revealing a deep pit.
+
+Falling, in a pit
+Currently, you are falling rapidly in mid-air, which is not the best position
+to be in. In fact, if you don't do something quickly, it is fairly certain
+that you are going to come to an unpleasant end with a loud splat. The walls
+of the pit show that this is from the original cave system. However, there
+are no real grips on the rock. Above you, the entrance to this pit can be
+seen, but the clay ceiling is slowly moving back across to prevent your
+escape.
+
+Waterfall is following you.
+
+You hear a loud crash from the ceiling crashing to the floor in another area
+of the corridor. A whirring as the ceiling immediately rises again can also
+be heard.
+
+> mould
+What do you want to turn into?
+1 - knight
+2 - magic carpet
+3 - normal (but able to fire a grappling hook on one arm)
+
+> 2
+You mould into a magic carpet. Waterfall jumps on top of you, as you fly back
+up through the hole, just escaping in time, as the clay floor closes back up.
+You land and mould back to normal, north of where the pit was.
+
+North end of the clay corridor
+The north end of this clay corridor is not much different to the south end,
+apart from that the ceiling does not seem to be moving down here. The clay is
+still moving though, with the wall even spitting small bits in your
+direction. None of the bits hit you and they are quickly re-absorbed into the
+floor, but it makes you feel uncomfortable. The clay stops to the north of
+where you are standing, and a normal hallway continues. The clay corridor
+continues to the south.
+
+Waterfall is following you.
+
+> n
+You move north.
+
+The guarded door
+The clay corridor to the south has ended. Instead around you is a normal
+hallway that finishes at a closed door to the north. You feel that you are
+nearing the hiding place of the clay orangutan, where you hope to find the
+mysterious girl. This view is reinforced by the fact the door is guarded.
+Guards are usually a sign that the contents of a hidden room are important,
+or that you are walking into a trap. Hopefully, it isn't another trap.
+
+A clay tiger and a clay bear, stand in front of the door.
+
+Waterfall is following you.
+
+> s
+You move south.
+
+North end of the clay corridor
+The north end of this clay corridor is not much different to the south end,
+apart from that the ceiling does not seem to be moving down here. The clay is
+still moving though, with the wall even spitting small bits in your
+direction. None of the bits hit you and they are quickly re-absorbed into the
+floor, but it makes you feel uncomfortable. The clay stops to the north of
+where you are standing, and a normal hallway continues. The clay corridor
+continues to the south.
+
+Waterfall is following you.
+
+The clay tiger and the clay bear enter from the north.
+
+> mould
+What do you want to turn into?
+1 - knight
+2 - magic carpet
+3 - normal (but able to fire a grappling hook on one arm)
+
+> 2
+You mould into a magic carpet.
+
+The tiger's claws come close, but you manage to dodge the attack.
+
+> s
+As you fly south, a pit opens up under the bear and the tiger. The bear falls
+into the pit, disappearing from view, but the tiger manages to leap over the
+collapsing floor and escape.
+
+South end of the clay corridor
+Just after the entrance to the forbidden area, the corridor is completely
+covered with clay. It is almost as if you have entered the throat of a clay
+beast, as the clay ripples and moves around you.  The liveliness of the
+corridor worries you, but there is no other way to enter this area. And you
+need to get through, as you cannot abandon the mysterious girl to those
+monsters. The clay corridor continues to the north, and the exit to the
+forbidden area is to the south.
+
+As you enter the corridor, the ceiling of this section begins to lower and
+move towards you.
+
+Waterfall is following you.
+
+The clay tiger enters from the north.
+
+> z
+Time passes...
+
+The tiger tries to bite the end of the carpet, but you manage to knock it
+away.
+
+> z
+Time passes...
+
+The ceiling picks up speed, as it lowers. Waterfall looks concerned and says,
+"I don't think we should stay here any longer."
+
+> s
+You and Waterfall rush south just as the ceiling collapses behind you. The
+tiger is not as lucky and is caught by the trap. You can see clay oozing out
+of the corridor.
+
+As you wait as the ceiling slowly rises back up, Waterfall says, "That was
+fun. Dangerous, but fun. It really reminds me of the old days when I teamed
+with the Mould. You really do remind me of him."
+
+Outside the forbidden area
+The broken tape that is stretched across the corridor to the north has DON'T
+ENTER repeatedly written on it. The fact that it has been broken suggests
+that someone has ignored this warning. The clay that you can see inside
+should be even more of a warning, but for you it acts more as an invitation
+to enter. You guess that this is where you will find the mysterious girl. You
+just hope that her warning about the forbidden areas isn't true and any
+danger has dissipated. Knowing your luck, it's probably increased though. The
+hallway to the south eventually leads back to the control room.
+
+Waterfall is following you.
+
+> n
+You move north.
+
+South end of the clay corridor
+Just after the entrance to the forbidden area, the corridor is completely
+covered with clay. It is almost as if you have entered the throat of a clay
+beast, as the clay ripples and moves around you.  The liveliness of the
+corridor worries you, but there is no other way to enter this area. And you
+need to get through, as you cannot abandon the mysterious girl to those
+monsters. The clay corridor continues to the north, and the exit to the
+forbidden area is to the south.
+
+As you enter the corridor, the ceiling of this section begins to lower and
+move towards you.
+
+Waterfall is following you.
+
+> n
+You move north.
+
+North end of the clay corridor
+The north end of this clay corridor is not much different to the south end,
+apart from that the ceiling does not seem to be moving down here. The clay is
+still moving though, with the wall even spitting small bits in your
+direction. None of the bits hit you and they are quickly re-absorbed into the
+floor, but it makes you feel uncomfortable. The clay stops to the north of
+where you are standing, and a normal hallway continues. The clay corridor
+continues to the south.
+
+Waterfall is following you.
+
+> n
+You move north.
+
+The guarded door
+The clay corridor to the south has ended. Instead around you is a normal
+hallway that finishes at a closed door to the north. You feel that you are
+nearing the hiding place of the clay orangutan, where you hope to find the
+mysterious girl. This view is reinforced by the fact the door was guarded.
+Guards are usually a sign that the contents of a hidden room are important,
+or that you are walking into a trap. Hopefully, it isn't another trap.
+
+Waterfall is following you.
+
+> open door
+You return to normal, open the door and step inside a large chamber covered
+with clay. The chamber seems to be separated into two parts by a wall and you
+can see through an entrance into the other half of the chamber. Inside it the
+clay orangutan is confronting the mysterious girl. The girl puts the gloves
+to the floor, and pulls the clay up to make a small puppy. The orangutan
+looks angry, and stamps on the puppy, until the clay returns to the floor it
+came from. It slaps the girl, toppling her on to the ground.
+
+The orangutan shouts, "That is not good enough. You are not nearly angry
+enough yet to wake up this mountain. Don't you hate me for what I did to your
+father? Obviously not, so I need to make you angrier."
+
+The orangutan looks around and sees you. It smiles and rushes towards you,
+changing into the gorilla midway. The gorilla is slower, but looks a lot
+stronger. The gorilla greets you, "Welcome to the heart of the mountain. I'm
+glad to see you here."
+
+The mountain's heart, right half
+After the clay gorilla has pointed it out, it is easy to see that this
+chamber actually does resemble a heart in shape. It looks like you are in the
+right half and you can see through a western entrance in the wall to the left
+half where the mysterious girl is. The walls here are completely covered with
+clay. Even the doorway where you entered the room is covered with clay, and
+it has somehow closed, so you cannot distinguish it anymore. The most
+worrying fact about this location is the occasional rumbling in the ground,
+which is almost as if the heart is slowly pumping, even though there is
+nothing to pump. You do not want it to speed up any further.
+
+The clay gorilla moves towards you menacingly, with a smile on its face.
+Waterfall moves up to attack the gorilla, and it smacks her with one hand
+against the wall. It looks like Waterfall may be out of the battle already.
+
+What do you want to turn into?
+1 - knight
+2 - pterodactyl
+3 - boulder
+4 - elven archer
+5 - rabbit
+
+> 5
+You mould into a rabbit and begin hopping around the chamber. The gorilla
+tries to pound you, but it is far too slow. You occasionally manage to hit it
+from behind. Unfortunately, you don't do much damage but every little bit of
+clay clawed off has to help. The gorilla gradually becomes closer and closer
+with its punches, as it begins to anticipate your movements.
+
+You can hear someone crying, and you look over to see the mysterious girl
+sobbing in the other half.
+
+What do you want to turn into?
+1 - knight
+2 - pterodactyl
+3 - boulder
+4 - elven archer
+5 - (retain rabbit)
+
+> 2
+You mould into a pterodactyl and take off into the higher parts of this
+chamber, out of the immediate reach of the gorilla. You swoop down on the
+gorilla, knocking it over with one of your wings before it can grab hold of
+you. You successfully manage this attack for a second time, but the gorilla
+was much closer on this attempt.
+
+Waterfall begins to wake up, but she is not moving enough to fight yet.
+
+The gorilla is clearly frustrated at not being able to get close enough to
+really hit you. It turns back into the orangutan, which is a more agile, but
+much weaker form.
+
+What do you want to turn into?
+1 - knight
+2 - (retain pterodactyl)
+3 - boulder
+4 - elven archer
+5 - rabbit
+
+> 3
+You mould into a boulder, sitting still and waiting for the orangutan to come
+to you. The orangutan soon begins its attack, but it is not nearly as strong
+as it was as a gorilla. The attacks have little effect, and the orangutan
+pauses to think. You take advantage by rolling yourself onto the orangutan.
+It dives out of the way, but you manage to catch one of its feet.
+Unfortunately, the foot is not badly damaged. That trick probably won't work
+again.
+
+Waterfall is muttering something about, "I failed him before. I won't let him
+die again."
+
+What do you want to turn into?
+1 - knight
+2 - pterodactyl
+3 - (retain boulder)
+4 - elven archer
+5 - rabbit
+
+> 1
+After moulding into a knight, you move up to attack the orangutan with your
+sword, immediately slashing down when it comes into range. You sword dents
+the clay a little, but it is barely noticeable. The orangutan responds by
+hitting out, but your armour protects you from the worst of the blow. The two
+of you continue thumping each other with little effect. You are causing some
+damage, but you are gradually getting the worse of the contest.
+
+As you mould back to normal to consider your next move, Waterfall finally
+gets up and staggers towards the orangutan. Its pre-occupation with you means
+that it does not notice her approach. She is still mumbling about how she is
+going to do better and looks fairly out of it. When Waterfall gets close, she
+suddenly unleashes a torrent of water, tightly aimed at the orangutan.
+
+The water hits one of the orangutan's arms and the arm somehow explodes under
+the pressure. The clay covers Waterfall and the surrounding area. The
+orangutan is knocked backwards, where it lies on the floor trying to recover.
+Waterfall reverts to her fully human form, and looks completely exhausted.
+The clay covers any areas of her that may be distracting, which is probably a
+good thing right now as you need to concentrate and rescue the mysterious
+girl.
+
+The mountain's heart, right half
+After the clay gorilla has pointed it out, it is easy to see that this
+chamber actually does resemble a heart in shape. It looks like you are in the
+right half and you can see through a western entrance in the wall to the left
+half where the mysterious girl is. The walls here are completely covered with
+clay. Even the doorway where you entered the room is covered with clay, and
+it has somehow closed, so you cannot distinguish it anymore. The most
+worrying fact about this location is the occasional rumbling in the ground,
+which is almost as if the heart is slowly pumping, even though there is
+nothing to pump. You do not want it to speed up any further.
+
+Waterfall and the clay orangutan are both lying still on the ground. Neither
+is dead, but they both need time to recover.
+
+> w
+You walk through the gap into the other half of the mountain's heart. Inside,
+you find the mysterious girl crying and curled up on the floor. You quickly
+walk over and try to comfort her. She looks up and says, "I don't know what
+to do. I don't want to help it, but if I try to get rid of it, I'll help it
+instead. Please tell me what I should do."
+
+What do you want to say?
+1 - "I'd like to help, but despair is probably a good strategy to keep the
+orangutan from achieving what it wants. Without your help, it cannot
+succeed."
+2 - "The orangutan wants you to use your powers and you should. You should
+have self-confidence and be strong, just not angry."
+3 - "Become angry and wake up this mountain. You will control it, not the
+orangutan, and the power from the whole mountain will overwhelm it."
+
+> 2
+The girl nods in understanding, then sits up and begins meditating. You look
+around and see the orangutan beginning to stir in the other half. The whole
+chamber begins to shake, as it has frequently, but this time the girl places
+her hands on the ground. The shaking gradually slows, as the mountain calms
+down. The calmness has defused the problem, but it has also made it easier
+for the orangutan to find its footing.
+
+The orangutan stumbles in your direction, with a look of utter hatred as it
+stares at you. The girl stands up and says to you, "It is lucky that I never
+told you my name before, as I think I am going to change it now. You can call
+me the Potter. I know my father misused the name, but I believe I can make it
+better. I'm going to use these powers to help other people against evil."
+
+She punctuates her point, by clapping her hands together. In response, the
+orangutan falls to pieces, as if it never existed. The two of you walk back
+to the other half of the chamber where you try to wake up Waterfall.
+Eventually her eyes open and her powers switch back on. All the clay is
+washed off, as she returns to her water-based form. You tell Waterfall, "The
+new Potter here is going to help up stamp out all the crime in this city.
+Nothing can stop us."
+
+Waterfall's response is a rueful smile and a comment of, "Just what I need.
+Another kid to look after. Although, does that mean we get to keep this
+place. It is rather nice, apart from that it is a little dirty."
+
+The three of you contemplate the future, which looks much brighter now.
+
+THE END
+Congratulations on winning The Potter and the Mould
+
+You have scored 150 out of 150 points.
+
+Please quit, restore or restart.
+
+> quit
+Do you really want to quit? [Y/N]

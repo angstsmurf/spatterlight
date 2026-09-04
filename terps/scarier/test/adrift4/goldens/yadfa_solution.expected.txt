@@ -1363,5 +1363,2390 @@ note, a medallion, a feather, the pretty damn big key, a dwarf called Otto
 (who is following you), a dog called Grarrrrr (who is following you),
 Princess Isabella's ring, a remote control and a shield.
 
+> talk beggar
+   "Is it safe?" asks the beggar in a quizzical voice. "Tell me, is it safe?"
+
+> no
+   "No, I didn't think so," says the beggar. "Oh, well, I guess I'll just
+have to make do without. Anyway, if you're wondering: the word is actually
+spelt backwards."
+   "What word?"
+   "The word. The six letter word. Oh, I'm forgetting, you might not have
+found the item with it on. But suffice to say, if you have then all you need
+to know is that the word is spelt backwards and that's the way you'll have to
+type it in."
+   "What word?" you ask again but the beggar seems not to have heard you.
+
+> score
+At this moment in time your score appears to be 93 out of a maximum of 231.
+(40%)
+
+> nw
+You move northwest.
+
+Outside the castle walls
+Outside the castle walls
+The walls of Castle Bloodheart rise majestically above you into the early
+morning sky. You have always found something a little fearful about them -
+perhaps it is the sheer immensity of them, perhaps it is the drab blocks of
+stone they are carved from, or perhaps it is simply the dead bodies that have
+been nailed to the side of the castle as a grim reminder of what happens to
+anyone King Bloodheart takes a dislike to. You're not sure.
+
+Paths wind away north, south and southeast
+
+> n
+You move north.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards are leaning against the castle wall, clutching their groins. They
+don't look like they'll be giving anyone trouble. Off to one side there is
+what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> nw
+You move northwest.
+
+Market
+The Market
+As markets go, this one isn't bad (maybe because you don't smell like a
+walking sewer now people aren't as reluctant to come near you). There are
+quite a variety of stalls selling all manner of items. Standing by a stall
+selling various sorts of hats, you see a small fellow in a long overcoat who
+appears to be regarding you curiously. The ground here is immensely muddy
+(what with the rain) and immensely dungy (what with the pigs). It almost
+makes you feel at home.
+
+Paths lead off north, south, west and southeast
+
+> gather mud
+   You grab an oozing lump of it. It squelches between your fingers quite
+disgustingly but you manage to keep hold of it.
+
+> s
+You move south.
+
+Bakery
+A bakery
+You're in a quaint little bakery with rows and rows of cakes and bread rolls
+lining the walls. A table with further bread rolls atop spans the centre of
+the shop. There are a few customers in here moaning about the state of the
+world today.
+
+The doorway lies north
+
+Agnes the baker is here.
+
+> talk agnes
+   "Ah got a bread roll, ah cake and ah bun fer sale," Agnes chirps in an
+atrociously bad accent.
+
+> buy bread
+   Agnes takes the money and hands over what appears to be a bread roll.
+
+> buy bun
+   Agnes takes the money and gives you a measly little bun.
+
+> buy cake
+   Agnes takes the money and hands over a (for want of a better word) cake.
+
+> i
+You are carrying some twine, a needle, a lump of mud, your money, a bent
+nail, a fish, a curious little whistle, a bread roll, a bun, a cake, the
+bodyguard's journal, a quaint little trumpet, a note, a medallion, a feather,
+the pretty damn big key, a dwarf called Otto (who is following you), a dog
+called Grarrrrr (who is following you), Princess Isabella's ring, a remote
+control and a shield.
+
+> score
+At this moment in time your score appears to be 93 out of a maximum of 231.
+(40%)
+
+> n
+You move north.
+
+Market
+The Market
+As markets go, this one isn't bad (maybe because you don't smell like a
+walking sewer now people aren't as reluctant to come near you). There are
+quite a variety of stalls selling all manner of items. Standing by a stall
+selling various sorts of hats, you see a small fellow in a long overcoat who
+appears to be regarding you curiously. The ground here is immensely muddy
+(what with the rain) and immensely dungy (what with the pigs). It almost
+makes you feel at home.
+
+Paths lead off north, south, west and southeast
+
+> se
+You move southeast.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards are leaning against the castle wall, clutching their groins. They
+don't look like they'll be giving anyone trouble. Off to one side there is
+what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> s
+You move south.
+
+Outside the castle walls
+Outside the castle walls
+The walls of Castle Bloodheart rise majestically above you into the early
+morning sky. You have always found something a little fearful about them -
+perhaps it is the sheer immensity of them, perhaps it is the drab blocks of
+stone they are carved from, or perhaps it is simply the dead bodies that have
+been nailed to the side of the castle as a grim reminder of what happens to
+anyone King Bloodheart takes a dislike to. You're not sure.
+
+Paths wind away north, south and southeast
+
+> se
+You move southeast.
+
+By a signpost
+By a signpost
+You're at a junction where several paths meet, at which point a signpost has
+been erected. Amidst colourful graffiti, you see signs pointing northwest to
+'That Way', south to 'Some Other Way' and southeast to 'The Land Of Torturous
+Agony'. There is a beggar sitting by the signpost smoking a pipe.
+
+Exits are pretty much as the signpost has just said
+
+> se
+You move southeast.
+
+Village outskirts
+Village outskirts
+The road comes to an abrupt end at a village where mud is obviously a very
+big deal judging by the huge piles of it scattered around the place. From
+where you are standing there appears to be a statue of a gigantic man made of
+mud in the centre of the village, around which several rather mad villagers
+are dancing.
+
+The road leads northwest and the centre of the village southeast
+
+> se
+You move southeast.
+
+Village
+The village
+You're in the centre of the village, standing not five feet away from the
+statue of the giant mud man. Around you caper the villagers, none of whom
+seem to be wearing a lot of clothes and even fewer of whom seem in any way
+sane. There isn't a lot to see in the village (aside from what you've already
+seen) but a few buildings seem to still be open.
+
+Paths lie northwest, northeast, east and south
+
+> pray
+   You offer up a prayer to the giant mud man.
+   Several of the villagers are very impressed by your show of piety and give
+you a reward of several gold coins by way of thanks.
+
+> give mud
+   The villagers fall silent as you hold out the mud.
+   "I come in peace," you say, something you have been waiting your whole
+life to say.
+   "Mud!" yells a villager seizing it from your hands. "The finest mud in the
+world! With this our God is restored!"
+   There is a frantic scrabble for ladders and then the villagers mount the
+statue and fix its damaged nose. It is quite a glorious sight. (Marred only
+by the unfortunate deaths of three villagers who slip from their ladders and
+crack their heads open on the ground but that's not important right now.)
+   Afterwards, the villagers take up their dance again, this time in a ritual
+of celebration at their 'God' being restored to his 'perfect form'.
+
+> ne
+You move northeast.
+
+Charnel hut
+Charnel hut
+You are in the village charnel hut, a lovely little place where the villagers
+bring their dead before burial. They obviously don't get around to much in
+the way of burial in these parts judging by the fact that the place is
+jam-packed with dead bodies. All in all, one grisly place.
+
+The way out is southwest
+
+> x bodies
+   You spend a while rooting through the corpses for anything interesting
+that might catch your eye.
+
+   Finally something does.
+
+   You are now the proud owner of a head.
+
+> sw
+You move southwest.
+
+Village
+The village
+You're in the centre of the village, standing not five feet away from the
+statue of the giant mud man. Around you caper the villagers, none of whom
+seem to be wearing a lot of clothes and even fewer of whom seem in any way
+sane. There isn't a lot to see in the village (aside from what you've already
+seen) but a few buildings seem to still be open.
+
+Paths lie northwest, northeast, east and south
+
+> e
+You move east.
+
+Village Chief's hut
+Village Chief's hut
+You're in the village elder's hut, which is at least twice the size of any
+other hut in the village and made from the best quality mud money can buy.
+The chief's chair is a throne shaped from what appear to be the bodies of
+several goblins. The Chief himself is seated on a humble stool by his throne
+and doesn't look at all pleased to see you.
+
+The way out is west
+
+The Chief is here.
+
+> talk chief
+   "Me hungry," remarks the Chief and does a poor impression of a man rubbing
+his capacious stomach in desperate need of food.
+
+> give bread
+   The Chief takes the bread roll and stuffs it down. "More!" he cries,
+spraying you with crumbs.
+
+> give bun
+   The Chief takes the bun and eats it in one go. "More!" he cries, spraying
+you with crumbs.
+
+> give cake
+   The Chief takes the cake and gobbles it all. "More!" he cries, spitting it
+all over the place in his hunger/greed.
+
+> talk chief
+   "Me still hungry," says the Chief.
+   "Well, you're not getting anything else, you greedy sod," you say firmly.
+   A murderous light fills the Chief's eyes but fades a moment later and he
+sags on his stool. "Okay, okay. Gotta save some room for breakfast, dinner,
+lunch, luncheon, tea, supper and various snacks in between I guess. I suppose
+you'll be wanting help in finishing your quest as a result of your
+generosity?"
+   You nod eagerly.
+   "What if I was to tell you that I don't know anything and that you've just
+wasted three perfectly good items that you'll no doubt need later on and now,
+as a result of this, you've lost the game and you might as well start again?"
+The Chief breaks off into gales of hysterical laughter. However he soon stops after seeing your expression. "Okay, okay. You've not
+wasted your items. Geez, some people have got no sense of humour... My men
+have explored the area you'll be travelling through and found a few nasty
+traps. I can tell you this..."
+   He goes on relate a tale about various tricks and traps you'll come across
+and you make a special note of them so that when the time comes you'll be
+ready for them.
+
+> kill chief
+   "I've come for your head, Chief," you announce.
+   "Over my dead body!" cries the Chief.
+   "That's the general idea," you reply and lunge for him.
+
+   Unfortunately the Chief is quite a bit tougher than he looks and it takes
+all three of you to bring him down. And your side don't come out of the melee
+unscathed. Otto gets his head bashed in, Grarrrrr gets a nasty kick to the
+head which leaves him dazed and the less said about what the Chief's
+steel-tipped boots do your groin the better. Suffice to say, kids are off the
+menu for at least a while.
+
+> i
+You are carrying some twine, a needle, your money, a bent nail, a fish, a
+curious little whistle, the bodyguard's journal, a quaint little trumpet, a
+note, a medallion, a peasant's head, a feather, the pretty damn big key, a
+dwarf called Otto (who is following you), a dog called Grarrrrr (who is
+following you), Princess Isabella's ring, a remote control and a shield.
+
+> score
+At this moment in time your score appears to be 112 out of a maximum of 231.
+(48%)
+
+> look
+
+Village Chief's hut
+Village Chief's hut
+You're in the village elder's hut, which is at least twice the size of any
+other hut in the village and made from the best quality mud money can buy.
+The chief's chair is a throne shaped from what appear to be the bodies of
+several goblins. The Chief himself lies dead on the floor in a puddle of his
+own blood. By his side lies your faithful companion, Otto.
+
+The way out is west
+
+You can also see Otto's axe and the Chief's head.
+
+> take axe
+You take Otto's axe.
+
+> take chief's head
+You take the Chief's head.
+
+> i
+You are carrying some twine, a needle, your money, a bent nail, a fish, a
+curious little whistle, Otto's axe, the bodyguard's journal, a quaint little
+trumpet, a note, a medallion, the Chief's head, a peasant's head, a feather,
+the pretty damn big key, a dwarf called Otto (who is following you), a dog
+called Grarrrrr (who is following you), Princess Isabella's ring, a remote
+control and a shield.
+
+> w
+You move west.
+
+Village
+The village
+You're in the centre of the village, standing not five feet away from the
+statue of the giant mud man. Around you caper the villagers, none of whom
+seem to be wearing a lot of clothes and even fewer of whom seem in any way
+sane. There isn't a lot to see in the village (aside from what you've already
+seen) but a few buildings seem to still be open.
+
+Paths lie northwest, northeast, east and south
+
+> s
+You move south.
+
+Wise man's hut
+Wise man's hut
+You're in a small muddy hut, home of the village wise man. Ornate tapestries
+adorn the walls, most of which seem to depict scenes of mud. By a fire in the
+centre of the floor are a ring of skulls which don't look at all friendly.
+The way they're clacking, as if still alive, is unsettling to say the least.
+
+Exits lie north
+
+Slayer is here.
+
+> talk slayer
+   "They will all die," says Slayer. "All of them, the miserable lowlives."
+   "That's all very interesting," you lie. "But I'm here about the Princess
+who was kidnapped. I was hoping you might be able to tell me something
+useful."
+   Slayer spits. That he does so all over your feet is probably just
+coincidental. "Pah! I know where she is, I do! I seen the scum take her, and
+I seen where they's taken her! But I'll only tell you if you kill him for
+me."
+   "Him?" you ask.
+   "The chief of this miserable village. Bring me his head and the location
+of the Princess you shall know."
+
+> give head
+   You give head to the wise man (please, no jokes!)
+   "Very good," says Slayer. "Very good indeed."
+   "That didn't come easy," you say, remembering poor Otto. "Now tell me
+where the Princess is."
+   "Take the southeast road out of the village and head along there till you
+reach the crossroads. You'll know which way to go from the signpost."
+   You frown. "What southeast road? I never saw one before."
+   "It wasn't there before," Slayer says. "But it is now."
+
+> give head
+   You give head to the wise man (please, no jokes!)
+   "Very good," says Slayer, apparently not noticing that the head isn't the
+one he asked you for. "Very good indeed."
+   "That didn't come easy," you say, remembering all those dead bodies you
+had to search through for that head. "Now tell me where the Princess is."
+   "Take the southeast road out of the village and head along there till you
+reach the crossroads. You'll know which way to go from the signpost."
+   You frown. "What southeast road? I never saw one before."
+   "It wasn't there before," Slayer says. "But it is now."
+
+> score
+At this moment in time your score appears to be 122 out of a maximum of 231.
+(52%)
+
+> n
+You move north.
+
+Village
+The village
+You're in the centre of the village, standing not five feet away from the
+statue of the giant mud man. Around you caper the villagers, none of whom
+seem to be wearing a lot of clothes and even fewer of whom seem in any way
+sane. There isn't a lot to see in the village (aside from what you've already
+seen) but a few buildings seem to still be open.
+
+Paths lie northwest, northeast, east, southeast and south
+
+> se
+You move southeast.
+
+Dimly-lit path
+A dimly-lit path
+You're wandering along a very dimly-lit path to the southeast of the village.
+It is dark here (something you should probably take for granted in a
+dimly-lit location) but not so dark that you don't get the impression that
+there is something lurking in the undergrowth, watching you.
+
+The path winds northwest and southeast
+
+> se
+You move southeast.
+
+Another dimly-lit path
+Another dimly-lit path
+You're on another dimly-lit path winding your way through the forest. Tall
+trees loom on all sides making the place distinctly uncomfortable. Things are
+still dim here although it looks like it might brighten up a bit further to
+the south.
+
+The path winds northwest, south and east through the trees
+
+> e
+   You venture east along the path, and manage to sidestep a particularly
+nasty tripwire which sends poisonous darts firing in all directions. Good job
+the Chief warned you about that one.
+
+Yet another dimly-lit path
+Yet another dimly-lit path
+The dimly-lit path you have been following reaches a kind of clearing here.
+The sun breaks through the branches in places, illuminating a stone idol set
+in the centre of the clearing. The thing looks impossibly ancient. You doubt
+anyone has set foot here in a long, long time (except yourself, of course).
+
+Paths lead south, west and east
+
+> x idol
+   It is roughly man-shaped but over ten feet tall. You would guess it is
+well over a thousand years old and no doubt dates back to the time when this
+whole area was a land of pagan rituals and sorcery. There appears to be a
+band around the idol's left wrist. You also notice a collection of flowers
+lying at its base, almost like an offering...
+
+> e
+You move east.
+
+Still another dimly-lit path
+Still another dimly-lit path
+This path is pretty much the same as all the other ones around here: tall
+trees all over the place, menace lurking in the air, etc, etc.
+
+The path winds off northeast, west and south
+
+> ne
+You move northeast.
+
+Gribbly's snack bar
+Gribbly's snack bar
+You have reached the end of the path you were following and find yourself
+before, of all things, a snack bar! It seems to be run by a small, blue
+monkey with a hat on its head and a sign over to one side proclaims:
+Gribbly's Snack Bar!
+
+A path leads southwest
+
+Gribbly is here.
+
+> talk gribbly
+   "Lots for sale, boss" Gribbly says, rubbing his hands together eagerly at
+the thought of seriously ripping you off. "Just ask me for a list."
+
+> list
+   "Hokey-dokey," says Gribbly in a very poor cockney accent. "The way it
+goes is this: you say the name of an item and I tells you whether I got it or
+now. Then we haggle, at which point I flog you some piece of crap for ten
+times its proper value. Okay, get going."
+
+> say to gribbly companion
+   "Hmmm. No doubt you're thinking that would be really useful for exploring
+the ruined city with? Good thinking. Very good thinking indeed. Unfortunately
+I ain't got one. But have a point for asking anyway."
+
+> buy map
+   Gribbly snatches the money off you and hands over a fairly tattered map.
+
+> sw
+You move southwest.
+
+Still another dimly-lit path
+Still another dimly-lit path
+This path is pretty much the same as all the other ones around here: tall
+trees all over the place, menace lurking in the air, etc, etc.
+
+The path winds off northeast, west and south
+
+> w
+You move west.
+
+Yet another dimly-lit path
+Yet another dimly-lit path
+The dimly-lit path you have been following reaches a kind of clearing here.
+The sun breaks through the branches in places, illuminating a stone idol set
+in the centre of the clearing. The thing looks impossibly ancient. You doubt
+anyone has set foot here in a long, long time (except yourself, of course).
+
+Paths lead south, west and east
+
+> w
+You move west.
+
+Another dimly-lit path
+Another dimly-lit path
+You're on another dimly-lit path winding your way through the forest. Tall
+trees loom on all sides making the place distinctly uncomfortable. Things are
+still dim here although it looks like it might brighten up a bit further to
+the south.
+
+The path winds northwest, south and east through the trees
+
+> nw
+You move northwest.
+
+Dimly-lit path
+A dimly-lit path
+You're wandering along a very dimly-lit path to the southeast of the village.
+It is dark here (something you should probably take for granted in a
+dimly-lit location) but not so dark that you don't get the impression that
+there is something lurking in the undergrowth, watching you.
+
+The path winds northwest and southeast
+
+> nw
+You move northwest.
+
+Village
+The village
+You're in the centre of the village, standing not five feet away from the
+statue of the giant mud man. Around you caper the villagers, none of whom
+seem to be wearing a lot of clothes and even fewer of whom seem in any way
+sane. There isn't a lot to see in the village (aside from what you've already
+seen) but a few buildings seem to still be open.
+
+Paths lie northwest, northeast, east, southeast and south
+
+> nw
+You move northwest.
+
+Village outskirts
+Village outskirts
+The road comes to an abrupt end at a village where mud is obviously a very
+big deal judging by the huge piles of it scattered around the place. From
+where you are standing there appears to be a statue of a gigantic man made of
+mud in the centre of the village, around which several rather mad villagers
+are dancing.
+
+The road leads northwest and the centre of the village southeast
+
+> nw
+You move northwest.
+
+By a signpost
+By a signpost
+You're at a junction where several paths meet, at which point a signpost has
+been erected. Amidst colourful graffiti, you see signs pointing northwest to
+'That Way', south to 'Some Other Way' and southeast to 'The Land Of Torturous
+Agony'. There is a beggar sitting by the signpost smoking a pipe.
+
+Exits are pretty much as the signpost has just said
+
+> nw
+You move northwest.
+
+Outside the castle walls
+Outside the castle walls
+The walls of Castle Bloodheart rise majestically above you into the early
+morning sky. You have always found something a little fearful about them -
+perhaps it is the sheer immensity of them, perhaps it is the drab blocks of
+stone they are carved from, or perhaps it is simply the dead bodies that have
+been nailed to the side of the castle as a grim reminder of what happens to
+anyone King Bloodheart takes a dislike to. You're not sure.
+
+Paths wind away north, south and southeast
+
+> n
+You move north.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards are leaning against the castle wall, clutching their groins. They
+don't look like they'll be giving anyone trouble. Off to one side there is
+what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> nw
+You move northwest.
+
+Market
+The Market
+As markets go, this one isn't bad (maybe because you don't smell like a
+walking sewer now people aren't as reluctant to come near you). There are
+quite a variety of stalls selling all manner of items. Standing by a stall
+selling various sorts of hats, you see a small fellow in a long overcoat who
+appears to be regarding you curiously. The ground here is immensely muddy
+(what with the rain) and immensely dungy (what with the pigs). It almost
+makes you feel at home.
+
+Paths lead off north, south, west and southeast
+
+> talk fellow
+   "So you discovered my trick with the cows in the field, did you?" the
+figure says.
+   You have no idea what he's talking about but just nod in a knowledgeable
+sort of way.
+   "Damn, I knew it was only a matter of time before someone figured out I
+was using magic to teleport from side of the chasm to the other. I suppose
+leaving those damned cows there was a bad idea. Clever animals, cows."
+   You merely nod again.
+   "Anyway, I'd appreciate you keeping quiet about this. In fact, I
+insist..." He reaches into his pocket and pulls out a small mirror. "Take
+this. It might come in handy. Then again it might not. Now, if you don't
+mind..."
+   Whether you mind or not is a largely rhetorical question because he snaps
+his fingers at this point and disappears. Leaving you holding the small
+mirror. Very strange indeed.
+
+> se
+You move southeast.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards are leaning against the castle wall, clutching their groins. They
+don't look like they'll be giving anyone trouble. Off to one side there is
+what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> ne
+You move northeast.
+
+Muddy ground
+Muddy ground
+You're on a patch of muddy ground at one side of the castle. There is a deep
+moat here, and a broken drawbridge that once spanned the moat. On the other
+side is the remains of a door. One good jump...
+
+A path winds leads back to the southwest and another goes northwards.
+
+> n
+You move north.
+
+Highway
+Highway
+You're on a wide, four-lane highway which cuts through the countryside in a
+very anachronistic way indeed. There are farms on either side, and the
+occasional field, but nothing much worth noting. The highway stretches as far
+as the eye can see.
+
+You can go northeast and south
+
+> ne
+You move northeast.
+
+More highway
+More highway
+You find yourself at a bend in the highway where someone has built a tavern.
+It is an old and rickety structure and the sign above the door is anything
+but politically correct. The place appears rundown, as if few people have
+come here in years.
+
+The highway stretches northeast and southwest and a door leads in
+
+Theef the trader is here.
+
+> ne
+You move northeast.
+
+Edge of chasm
+Edge of chasm
+You appear to have reached the edge of a mighty chasm which splits the land
+in two. The bottom is lost in shadow although you fancy it is quite a way
+down, and not an easy climb either. There are what looks like the remains of
+a rope bridge on the far side but nothing here.
+
+The highway leads back southwest.
+
+> blow whistle
+   You give a quick toot! on the whistle. You hear absolutely nothing.
+
+   But then a few seconds later, an eagle appears out of nowhere, grabs you
+and Otto by the scruff of the neck (eliciting a cry of "Oi, yer bugger! Sod
+off!" from Otto), seizes Grarrrrr in a claw, and carries you all over the
+chasm. It circles around for a while, perhaps debating whether to drop you
+somewhere nice and safe or just drop you, before finally flying down and
+depositing you in a field.
+
+Field
+A field
+You're in an idyllic little field with a babbling brook off to one side and a
+herd of cows to the other. Birds fly by your head and butterflies flutter
+around brightly-coloured flowers. All of this is so twee you begin to feel a
+litle ill. Not far from here is what appears to be a massive castle that
+rises majestically on the northern horizon. The other way lies the chasm.
+
+Paths lead north, south, east and west
+
+> w
+You move west.
+
+Babbling brook
+By the babbling brook
+You're by a brook that is babbling. Nearby is a small stone bridge which
+spans a fast-flowing river but there doesn't seem to be anything on the other
+side aside from more fields. A patch of strange flowers grow by the brook,
+their colours bizarre. Lying in the flowers is a dead body.
+
+Paths leads off west and east
+
+> pick flower
+   You pick a single flower from beside the brook.
+
+> enter opening
+Under the bridge
+Under the bridge
+You're under the bridge in a grimy little grotto that some troll has made its
+home. The place fairly reeks and it's all you can do not to collapse in
+disgust. There is a pile of garbage here (for garbage read "the troll's
+privy" if you're thinking about searching it) and a large steel cage.
+
+The only way out is out
+
+> kick cage
+   As if by magic (or maybe just a rusty lock) the cage door springs open as
+soon as you kick it!
+
+> x cage
+   You find several items, all of which appear to be absolutely useless.
+
+> take nugget
+You take the nugget.
+
+> throw nugget
+   You throw it out of the grotto.
+
+> out
+Babbling brook
+By the babbling brook
+You're by a brook that is babbling. Nearby is a small stone bridge which
+spans a fast-flowing river but there doesn't seem to be anything on the other
+side aside from more fields. A patch of strange flowers grow by the brook,
+their colours bizarre. Lying in the flowers is a dead body.
+
+Paths leads off west and east
+
+You can also see a nugget.
+
+> take nugget
+You take the nugget.
+
+> i
+You are carrying some twine, a needle, your money, a bent nail, a fish, a
+curious little whistle, Otto's axe, the bodyguard's journal, a quaint little
+trumpet, a note, a medallion, a flower, Gribbly's map, a feather, the pretty
+damn big key, a small mirror, a dwarf called Otto (who is following you), a
+dog called Grarrrrr (who is following you), Princess Isabella's ring, a
+nugget, a remote control and a shield.
+
+> e
+You move east.
+
+Field
+A field
+You're in an idyllic little field with a babbling brook off to one side and a
+herd of cows to the other. Birds fly by your head and butterflies flutter
+around brightly-coloured flowers. All of this is so twee you begin to feel a
+litle ill. Not far from here is what appears to be a massive castle that
+rises majestically on the northern horizon. The other way lies the chasm.
+
+Paths lead north, south, east and west
+
+> n
+You move north.
+
+Toll booth
+Toll booth
+You are at a toll booth manned by several disreputable people: a human (or
+vaguely so at any rate), a mishapen dwarf, a centaur and two goblins. The
+dwarf gives you a friendly nod and indicates the path leading north, now
+mercifully free of gates in the way.
+
+The paths leads north and south
+
+> n
+You move north.
+
+Valley of Certain Death
+Valley of Certain Death
+You appear to have reached your first goal: the entrance to the Valley of
+Certain Death. Through the mists ahead you can just about make out what
+appears to be a large open gate hung between two vast trees.
+
+Paths lead north (if you dare) and south
+
+> n
+You move north.
+
+In the valley
+In the valley
+You're in the valley which, considering its reputation, doesn't look to be
+too bad a place. True, there's the graveyard off to one side, and the pile of
+skulls to the other, and the dead body nailed to the tree in front of you,
+and the pit, but you were expecting something a bit more frightening than all
+that...
+
+Paths wend through here to the northwest, northeast, west and south and the
+pit leads down
+
+> wait
+   You wait for a while...
+
+   Abruptly there is a grunting sound from the pit and a hideous, bat-winged
+creature lurches into view. It takes one look at you, murmurs "ah! Dinner!"
+and starts towards you.
+
+> kill creature
+   You and Otto charge at the creature and hack it down mercilessly.
+   A quick search of it afterwards reveals 18 gold coins which you and Otto
+split between you.
+
+> w
+You move west.
+
+Graveyard
+Graveyard
+Actually graveyard is a bit of a misnomer. It implies graves. What you
+actually have here is just a lot of dead bodies that are lying around in a
+mess. Judging by the state of them, they appear to have met a particularly
+nasty and brutal end - and recently too. You count fifteen corpses, not one
+of which looks to have been here for more than a few hours.
+
+A path leads northwest and east
+
+> nw
+You move northwest.
+
+Outside a cave
+Outside a cave
+You're standing outside a cave mouth from which emerge gruesome grunting
+sounds. Every now and then you overhear what appears to be the sound of
+someone howling in pain - or maybe it's an opera music fan. You're never sure
+of the difference.
+
+The cave leads in while a path winds away southeast
+
+> in
+Lair of the Bugha
+Lair of the Bugha
+You're in a dark, dismal cave, home of the fearsome Bugha (please - no
+jokes). There are dead bodies lying all over the cave, and the very air reeks
+of madness and death. Strange paintings dominate the walls and in the centre
+there is a pit from which issue cyan flames.
+
+A path leads out of the cave
+
+The Bugha is here.
+
+> x painting
+   None appear to be works of high art. One has an adventurer gives lots of
+food to a man in a mud hut and being given sound advice as a result; another
+has the same adventurer looking around a charnel hut for a severed head;
+another has a monkey with a hat on giving the adventurer a key...
+   Very strange.
+
+> out
+You move out.
+
+Outside a cave
+Outside a cave
+You're standing outside a cave mouth from which emerge gruesome grunting
+sounds. Every now and then you overhear what appears to be the sound of
+someone howling in pain - or maybe it's an opera music fan. You're never sure
+of the difference.
+
+The cave leads in while a path winds away southeast
+
+> se
+You move southeast.
+
+Graveyard
+Graveyard
+Actually graveyard is a bit of a misnomer. It implies graves. What you
+actually have here is just a lot of dead bodies that are lying around in a
+mess. Judging by the state of them, they appear to have met a particularly
+nasty and brutal end - and recently too. You count fifteen corpses, not one
+of which looks to have been here for more than a few hours.
+
+A path leads northwest and east
+
+> e
+You move east.
+
+In the valley
+In the valley
+You're in the valley which, considering its reputation, doesn't look to be
+too bad a place. True, there's the graveyard off to one side, and the pile of
+skulls to the other, and the dead body nailed to the tree in front of you,
+and the pit, but you were expecting something a bit more frightening than all
+that... By the pit is the hideous, bat-winged creature you killed.
+
+Paths wend through here to the northwest, northeast, west and south and the
+pit leads down
+
+> ne
+You move northeast.
+
+Ruins
+Ruins
+You're standing at the entrance to a ruined fortress which appears to be
+desserted. Ragged curtains flap in the broken windows, giving the eerie
+impression that there is someone still in residence. A yawning hole in one
+wall leads inside. Could this be the dreaded Fortress of Painful Madness?
+
+The fortress lies inwards while a path leads off southwest
+
+> in
+You move in.
+
+In the ruins
+In the ruins...
+You find yourself in a small, rubble-strewn chamber that has a look of
+serious neglect to it. Weeds have grown up through the flagstones in many
+places and all the windows here are smashed. On one wall is a map of the
+fortress which you imagine must be hopelessly out of date by now. There is
+also a sturdy cabinet here. It seems no one has been here for a long, long
+time.
+
+A corridor leads east and a hole in the wall leads out
+
+> e
+You move east.
+
+Old church
+Old church
+You're in a deserted hall which looks somewhat like a church. There is a font
+in the middle of the chamber and tapestries (though ragged and tatty with
+age) depict religious events that you would probably know more about if you
+had spent your time doing something more constructive than mucking out the
+pigs. Two flights of steps lead lead further into the fortress.
+
+There are staircases to the northeast and northwest and a corridor leads west
+
+> pray
+   "AH, BACK AGAIN. GOOD. I HAVE MUCH ELSE TO TELL YOU. YOU WILL FIND A
+CHAMBER IN THIS FORTRESS WHICH CONTAINS AN ITEM OF INFORMATION WHICH, WHILST
+YOU DO NOT NEED IT TO COMPLETE YOUR MISSION, WOULD COME IN VERY HANDY ALL THE
+SAME."
+
+> pray
+   "IF YOU ENCOUNTER A WITCH ABOUT TO BE BURNT AT THE STAKE: INTERVENE! DO
+NOT LET THE POOR HAG CRISP FOR SHE KNOWS MUCH OF VALUE FOR YOU."
+
+> pray
+   "IF YOU HAVE SPOKEN TO A MAN WHOSE NAME IS A GOOD DESCRIPTION OF JUST WHAT
+HE IS AND HAVE DECIDED HE IS NOTHING BUT WHAT HIS NAME IMPLIES, THINK AGAIN:
+HE KNOWS MUCH, AND CAN BE VERY USEFUL. WHAT HE SELLS IS OF FAR GREATER VALUE
+THAN YOU WOULD AT FIRST IMAGINE."
+
+> pray
+   "THAT'S YOUR LOT. I'M OFF!"
+
+> pray
+   "ACTUALLY I WAS LYING ABOUT THEEF. ALL HE SELLS IS CRAP. BUT IF YOU WANT
+TO WASTE YOUR MONEY ON HIM FEEL FREE!"
+
+> nw
+You move northwest.
+
+First staircase
+First staircase
+You're partway up a staircase at the northwestern edge of the chamber.
+However, there are strange stains on the steps here and the air seems charged
+with energy. Something tells you it would not be a good idea to venture any
+further...
+
+The stairs leads up and the rest of the chamber is southeast
+
+> u
+Circular chamber
+Circular chamber
+You're in a circular chamber with several dead goblins lying on the floor
+making a real mess of the place. It looks like there has been a big fight
+here recently, judging from the carnage, and that whoever the other force was
+they won by quite a margin. The only corpses appear to be those of goblins.
+
+Stairs lead down and a corridor leads north
+
+> x goblins
+   All of them are well and truly dead. And as your father was fond of
+saying: "The only good Goblin's a dead 'un!" A quick search of the goblins
+reveals nothing more exciting than a piece of paper.
+
+> read paper
+The word is: Janrat
+
+> n
+You move north.
+
+Council chamber
+Council chamber
+Back in the days when the fortress was in occupation, this was where the
+leading members of the fortress met to discuss business. Now it is just a
+grimy little chamber that hasn't been cleaned in a long, long time. Rows of
+tables and chairs lie smashed all over the place, indicating that a pretty
+big fight took place here not long ago. There is also a dead body lying by a
+window in the east wall.
+
+A corridor leads south
+
+> x chair
+   From one of the chairs you salvage a leg and fashion it into a club using
+techniques learnt on your farm long ago (you quite often used to get in
+trouble for breaking the furniture up as weaponry to attack your friends
+with).
+
+> s
+You move south.
+
+Circular chamber
+Circular chamber
+You're in a circular chamber with several dead goblins lying on the floor
+making a real mess of the place. It looks like there has been a big fight
+here recently, judging from the carnage, and that whoever the other force was
+they won by quite a margin. The only corpses appear to be those of goblins.
+
+Stairs lead down and a corridor leads north
+
+> d
+You move down.
+
+First staircase
+First staircase
+You're partway up a staircase at the northwestern edge of the chamber.
+However, there are strange stains on the steps here and the air seems charged
+with energy. Something tells you it would not be a good idea to venture any
+further...
+
+The stairs leads up and the rest of the chamber is southeast
+
+> se
+You move southeast.
+
+Old church
+Old church
+You're in a deserted hall which looks somewhat like a church. There is a font
+in the middle of the chamber and tapestries (though ragged and tatty with
+age) depict religious events that you would probably know more about if you
+had spent your time doing something more constructive than mucking out the
+pigs. Two flights of steps lead lead further into the fortress.
+
+There are staircases to the northeast and northwest and a corridor leads west
+
+> w
+You move west.
+
+In the ruins
+In the ruins...
+You find yourself in a small, rubble-strewn chamber that has a look of
+serious neglect to it. Weeds have grown up through the flagstones in many
+places and all the windows here are smashed. On one wall is a map of the
+fortress which you imagine must be hopelessly out of date by now. There is
+also a sturdy cabinet here. It seems no one has been here for a long, long
+time.
+
+A corridor leads east and a hole in the wall leads out
+
+> out
+You move out.
+
+Ruins
+Ruins
+You're standing at the entrance to a ruined fortress which appears to be
+desserted. Ragged curtains flap in the broken windows, giving the eerie
+impression that there is someone still in residence. A yawning hole in one
+wall leads inside. Could this be the dreaded Fortress of Painful Madness?
+
+The fortress lies inwards while a path leads off southwest
+
+> sw
+You move southwest.
+
+In the valley
+In the valley
+You're in the valley which, considering its reputation, doesn't look to be
+too bad a place. True, there's the graveyard off to one side, and the pile of
+skulls to the other, and the dead body nailed to the tree in front of you,
+and the pit, but you were expecting something a bit more frightening than all
+that... By the pit is the hideous, bat-winged creature you killed.
+
+Paths wend through here to the northwest, northeast, west and south and the
+pit leads down
+
+> s
+You move south.
+
+Valley of Certain Death
+Valley of Certain Death
+You appear to have reached your first goal: the entrance to the Valley of
+Certain Death. Through the mists ahead you can just about make out what
+appears to be a large open gate hung between two vast trees.
+
+Paths lead north (if you dare) and south
+
+> s
+You move south.
+
+Toll booth
+Toll booth
+You are at a toll booth manned by several disreputable people: a human (or
+vaguely so at any rate), a mishapen dwarf, a centaur and two goblins. The
+dwarf gives you a friendly nod and indicates the path leading north, now
+mercifully free of gates in the way.
+
+The paths leads north and south
+
+> s
+You move south.
+
+Field
+A field
+You're in an idyllic little field with a babbling brook off to one side and a
+herd of cows to the other. Birds fly by your head and butterflies flutter
+around brightly-coloured flowers. All of this is so twee you begin to feel a
+litle ill. Not far from here is what appears to be a massive castle that
+rises majestically on the northern horizon. The other way lies the chasm.
+
+Paths lead north, south, east and west
+
+> e
+You move east.
+
+Amidst cows
+Amidst cows
+You're in a field surrounded by a nasty-looking bunch of cows. None of these
+specimens look very friendly and the way they're chewing the grass gives you
+the impression they might mean you serious harm. A large tree stands to one
+side, its shadow flickering eerily across the ground.
+
+A path leads back to the west
+
+> moo!
+   Beams of light shoot from the tree and for a moment you are blinded...
+
+Outside the castle walls
+Outside the castle walls
+The walls of Castle Bloodheart rise majestically above you into the early
+morning sky. You have always found something a little fearful about them -
+perhaps it is the sheer immensity of them, perhaps it is the drab blocks of
+stone they are carved from, or perhaps it is simply the dead bodies that have
+been nailed to the side of the castle as a grim reminder of what happens to
+anyone King Bloodheart takes a dislike to. You're not sure.
+
+Paths wind away north, south and southeast
+
+   Strange! How did you get here?
+
+> n
+You move north.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards are leaning against the castle wall, clutching their groins. They
+don't look like they'll be giving anyone trouble. Off to one side there is
+what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> ne
+You move northeast.
+
+Muddy ground
+Muddy ground
+You're on a patch of muddy ground at one side of the castle. There is a deep
+moat here, and a broken drawbridge that once spanned the moat. On the other
+side is the remains of a door. One good jump...
+
+A path winds leads back to the southwest and another goes northwards.
+
+> n
+You move north.
+
+Highway
+Highway
+You're on a wide, four-lane highway which cuts through the countryside in a
+very anachronistic way indeed. There are farms on either side, and the
+occasional field, but nothing much worth noting. The highway stretches as far
+as the eye can see.
+
+You can go northeast and south
+
+> ne
+You move northeast.
+
+More highway
+More highway
+You find yourself at a bend in the highway where someone has built a tavern.
+It is an old and rickety structure and the sign above the door is anything
+but politically correct. The place appears rundown, as if few people have
+come here in years.
+
+The highway stretches northeast and southwest and a door leads in
+
+Theef the trader is here.
+
+> sell ring
+   "Not bad, not bad at all" Theef remarks. "Here, have some cash."
+
+> sell nugget
+   "Not bad," Theef remarks. "Here, have some cash."
+
+> sw
+You move southwest.
+
+Highway
+Highway
+You're on a wide, four-lane highway which cuts through the countryside in a
+very anachronistic way indeed. There are farms on either side, and the
+occasional field, but nothing much worth noting. The highway stretches as far
+as the eye can see.
+
+You can go northeast and south
+
+> s
+You move south.
+
+Muddy ground
+Muddy ground
+You're on a patch of muddy ground at one side of the castle. There is a deep
+moat here, and a broken drawbridge that once spanned the moat. On the other
+side is the remains of a door. One good jump...
+
+A path winds leads back to the southwest and another goes northwards.
+
+> sw
+You move southwest.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards are leaning against the castle wall, clutching their groins. They
+don't look like they'll be giving anyone trouble. Off to one side there is
+what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> s
+You move south.
+
+Outside the castle walls
+Outside the castle walls
+The walls of Castle Bloodheart rise majestically above you into the early
+morning sky. You have always found something a little fearful about them -
+perhaps it is the sheer immensity of them, perhaps it is the drab blocks of
+stone they are carved from, or perhaps it is simply the dead bodies that have
+been nailed to the side of the castle as a grim reminder of what happens to
+anyone King Bloodheart takes a dislike to. You're not sure.
+
+Paths wind away north, south and southeast
+
+> se
+You move southeast.
+
+By a signpost
+By a signpost
+You're at a junction where several paths meet, at which point a signpost has
+been erected. Amidst colourful graffiti, you see signs pointing northwest to
+'That Way', south to 'Some Other Way' and southeast to 'The Land Of Torturous
+Agony'. There is a beggar sitting by the signpost smoking a pipe.
+
+Exits are pretty much as the signpost has just said
+
+> se
+You move southeast.
+
+Village outskirts
+Village outskirts
+The road comes to an abrupt end at a village where mud is obviously a very
+big deal judging by the huge piles of it scattered around the place. From
+where you are standing there appears to be a statue of a gigantic man made of
+mud in the centre of the village, around which several rather mad villagers
+are dancing.
+
+The road leads northwest and the centre of the village southeast
+
+> se
+You move southeast.
+
+Village
+The village
+You're in the centre of the village, standing not five feet away from the
+statue of the giant mud man. Around you caper the villagers, none of whom
+seem to be wearing a lot of clothes and even fewer of whom seem in any way
+sane. There isn't a lot to see in the village (aside from what you've already
+seen) but a few buildings seem to still be open.
+
+Paths lie northwest, northeast, east, southeast and south
+
+> se
+You move southeast.
+
+Dimly-lit path
+A dimly-lit path
+You're wandering along a very dimly-lit path to the southeast of the village.
+It is dark here (something you should probably take for granted in a
+dimly-lit location) but not so dark that you don't get the impression that
+there is something lurking in the undergrowth, watching you.
+
+The path winds northwest and southeast
+
+> se
+You move southeast.
+
+Another dimly-lit path
+Another dimly-lit path
+You're on another dimly-lit path winding your way through the forest. Tall
+trees loom on all sides making the place distinctly uncomfortable. Things are
+still dim here although it looks like it might brighten up a bit further to
+the south.
+
+The path winds northwest, south and east through the trees
+
+> e
+You move east.
+
+Yet another dimly-lit path
+Yet another dimly-lit path
+The dimly-lit path you have been following reaches a kind of clearing here.
+The sun breaks through the branches in places, illuminating a stone idol set
+in the centre of the clearing. The thing looks impossibly ancient. You doubt
+anyone has set foot here in a long, long time (except yourself, of course).
+
+Paths lead south, west and east
+
+> drop flower
+   You place the flower at the idol's feet along with the others. Nothing
+apparent seems to happen but you get the distinct impression that something
+has changed.
+
+> s
+You move south.
+
+Murky path
+Murky path
+You're on a murky path cutting through the forest. Tall ferns stand to the
+east and west and the path meanders a little further ahead of you. To the
+south you can make out what appears to be a large fire.
+
+The path leads north and south
+
+> s
+You move south.
+
+Bonfire
+By a bonfire
+You're standing in a clearing, in the centre of which there is a large
+bonfire.  In the middle of all this, looking quite a bit worse for wear, is a
+woman dressed in black clothes and with a black hat on her head. She's
+yelling at a group of men who are dancing around the bonfire carrying
+torches.
+
+The path leads north
+
+> blow trumpet
+   The moment you blow the trumpet, all the men in the clearing fall to their
+knees in abject terror! The woman - or witch as she probably is - breaks free
+of her bonds and flees into the forest.
+   A moment passes then one of the men raises his head fearfully, sees you
+standing there, and remarks, "you arse."
+
+> n
+You move north.
+
+Murky path
+Murky path
+You're on a murky path cutting through the forest. Tall ferns stand to the
+east and west and the path meanders a little further ahead of you. To the
+south you can make out what appears to be a large fire.
+
+The path leads north and south
+
+   You hear a rustle in the undergrowth and a moment later the witch steps
+into view.
+   "Thanks for saving me back there," she says. "The buggers snuck into my
+castle while I was in the middle of an incantation to summon the Devil and
+end the world and managed to overpower me due to my weakened state."
+   "You really are a witch then?" you say uneasily.
+   She nods viorously. "Oh yes. Flying around on brooms, sacrificing virgins
+- bloody difficult job these days, I can tell you - spells and the like. But
+don't worry. Most of the things they tell you about witches are a load of old
+cobblers. Why, I haven't killed anyone for a whole week now." She casts a
+wary eye back down the southern path. "But I might soon change all that..."
+She looks back to you. "Anyway, to show my gratitude I've decided to teach
+you a spell."
+   "A spell?" you say."
+   "A spell indeed. The next time you're in trouble - and big trouble besides
+because this spell will only save you once - just say "abracadabra" and
+you'll be safe again. But no messing around with it 'cos it only works once."
+   You open your mouth to thank the witch but find yourself talking to thin
+air. She has disappeared in a puff of smoke.
+
+> n
+You move north.
+
+Yet another dimly-lit path
+Yet another dimly-lit path
+The dimly-lit path you have been following reaches a kind of clearing here.
+The sun breaks through the branches in places, illuminating a stone idol set
+in the centre of the clearing. The thing looks impossibly ancient. You doubt
+anyone has set foot here in a long, long time (except yourself, of course).
+
+Paths lead south, west and east
+
+> e
+You move east.
+
+Still another dimly-lit path
+Still another dimly-lit path
+This path is pretty much the same as all the other ones around here: tall
+trees all over the place, menace lurking in the air, etc, etc.
+
+The path winds off northeast, west and south
+
+> ne
+You move northeast.
+
+Gribbly's snack bar
+Gribbly's snack bar
+You have reached the end of the path you were following and find yourself
+before, of all things, a snack bar! It seems to be run by a small, blue
+monkey with a hat on its head and a sign over to one side proclaims:
+Gribbly's Snack Bar!
+
+A path leads southwest
+
+Gribbly is here.
+
+> buy key
+   Gribbly snatches the money off you and hands over the key.
+
+> sw
+You move southwest.
+
+Still another dimly-lit path
+Still another dimly-lit path
+This path is pretty much the same as all the other ones around here: tall
+trees all over the place, menace lurking in the air, etc, etc.
+
+The path winds off northeast, west and south
+
+> s
+You move south.
+
+The last dimly-lit path
+The last dimly-lit path
+You're at the end of a long (very long) dimly-lit path. Before you rise a
+pair of majestic gates set into a wall that towers into the sky. Whether this
+is the wall to a city or just a great big chunk of stone someone decided to
+drop in the middle of nowhere for a laugh, you aren't sure. But one thing is
+for sure: you're not getting in here without a pretty damn big key.
+
+A path leads north
+
+> open gate
+   Inserting the pretty damn big key in the pretty damn big gates, you unlock
+them, revealing an ancient city beyond.
+
+> in
+You move in.
+
+Ruined city
+Ruined city
+You're standing just inside the gateway of a ruined city which spreads out in
+a mazelike mess to the east and south. There doesn't seem to be a living soul
+in sight. Over to one side you see a sign which doesn't do wonders for your
+confidence right now.
+
+The gates lie out and paths leads off to the east and south
+
+> x map
+   It appears to have been scrawled on the back of a piece of toilet roll
+(and used toilet roll at that!) but it gives you a fairly detailed map of a
+ruined city. Including the entrance to a hidden temple which is said to be
+"at the centre of things", whatever that means.
+
+> x money
+   You have 20 coins remaining.
+
+> s
+You move south.
+
+In the ruined city
+In the ruined city...
+You're wandering through the ruined city. Is it just your imagination or do
+all the locations around here seem pretty much the same.
+
+Exits lead... in several different directions
+
+Mad Old Erik is here.
+
+> talk erik
+   Erik peers at you suspiciously. "Gor any junk, eh, eh, junk,
+knowwhatimean? Knowitdon'tya? Junk this, junk that, junk the other thing. Eh?
+Eh!!!"
+   Somewhere in the midst of that, you suspect there might be a question
+being asked.
+
+> give twine to erik
+   Erik makes a cackling noise and hides away what you have just given him
+within his gaping robes.
+
+> give needle to erik
+   Erik makes a cackling noise and hides away what you have just given him
+within his gaping robes.
+
+> give fish to erik
+   Erik makes a cackling noise and hides away what you have just given him
+within his gaping robes.
+
+> give note to erik
+   Erik makes a cackling noise and hides away what you have just given him
+within his gaping robes.
+
+> give journal to erik
+   Erik makes a cackling noise and hides away what you have just given him
+within his gaping robes.
+
+> give trumpet to erik
+   Erik makes a cackling noise and hides away what you have just given him
+within his gaping robes.
+
+> talk erik
+   The light of insanity graces Erik's eyes for a moment. "Ah, you freed me
+momentarily from the curse that held me in check, my good man," he says in a
+different tone to the one he was using a moment ago. "Spiffing! Right, listen
+up because I don't have time to say all this twice..."
+
+   "A great evil has befallen this city and it lies dormant beneath the
+ground even as we speak."
+   "Crikey!" you breathe.
+   Erik nods. "Indeed. The sacrifice of a virgin Princess - Isabella in this
+instance - will free the evil and allow it to manifest itself in the physical
+form. Understand?"
+   You shake your head. "Not a word of it."
+   "That doesn't matter right now. What does matter is that you still have
+time to stop the sacrifice. Go ask that fool Gribbly for a map and then tell
+him I sent you and he'll give you the rocket launcher you need to finish the
+job. But try not to kill the Princess when you kill Malgor - that'll unleash
+the evil as sure as anything. One final point..."
+   "Yes?"
+   "Beware the cat with the green eyes! Cursed it is! Cursed indeed! I, Erik,
+have seen it! Ahahahahahahah!!!"
+
+   Oh dear. It seems his temporary grasp on sanity has given in once more.
+
+> n
+You move north.
+
+Ruined city
+Ruined city
+You're standing just inside the gateway of a ruined city which spreads out in
+a mazelike mess to the east and south. There doesn't seem to be a living soul
+in sight. Over to one side you see a sign which doesn't do wonders for your
+confidence right now.
+
+The gates lie out and paths leads off to the east and south
+
+> out
+You move out.
+
+The last dimly-lit path
+The last dimly-lit path
+You're at the end of a long (very long) dimly-lit path. Before you rise a
+pair of majestic gates set into a wall that towers into the sky. Whether this
+is the wall to a city or just a great big chunk of stone someone decided to
+drop in the middle of nowhere for a laugh, you aren't sure. But one thing is
+for sure: you're not getting in here without a pretty damn big key.
+
+Paths lead north and in
+
+> n
+You move north.
+
+Still another dimly-lit path
+Still another dimly-lit path
+This path is pretty much the same as all the other ones around here: tall
+trees all over the place, menace lurking in the air, etc, etc.
+
+The path winds off northeast, west and south
+
+> ne
+You move northeast.
+
+Gribbly's snack bar
+Gribbly's snack bar
+You have reached the end of the path you were following and find yourself
+before, of all things, a snack bar! It seems to be run by a small, blue
+monkey with a hat on its head and a sign over to one side proclaims:
+Gribbly's Snack Bar!
+
+A path leads southwest
+
+Gribbly is here.
+
+> say to gribbly erik
+   "So the ol' bugger's not dead, then?" Gribbly says.
+   "He didn't seem to be when I spoke to him," you say.
+   "Hmmm. Interesting. An' he's sent you for the rocket launcher as well,
+which is even more interesting because, strictly speaking, the rocket
+launcher hasn't even been invented in this world for a good six hundred years
+yet. But seeing as it's for Erik, I'll let you have this one." He reaches
+under his stall and pulls out a brand new rocket launcher which he hands over
+to you. "Just don't let anyone know where you got it from, okay?"
+
+> sw
+You move southwest.
+
+Still another dimly-lit path
+Still another dimly-lit path
+This path is pretty much the same as all the other ones around here: tall
+trees all over the place, menace lurking in the air, etc, etc.
+
+The path winds off northeast, west and south
+
+> s
+You move south.
+
+The last dimly-lit path
+The last dimly-lit path
+You're at the end of a long (very long) dimly-lit path. Before you rise a
+pair of majestic gates set into a wall that towers into the sky. Whether this
+is the wall to a city or just a great big chunk of stone someone decided to
+drop in the middle of nowhere for a laugh, you aren't sure. But one thing is
+for sure: you're not getting in here without a pretty damn big key.
+
+Paths lead north and in
+
+> in
+You move in.
+
+Ruined city
+Ruined city
+You're standing just inside the gateway of a ruined city which spreads out in
+a mazelike mess to the east and south. There doesn't seem to be a living soul
+in sight. Over to one side you see a sign which doesn't do wonders for your
+confidence right now.
+
+The gates lie out and paths leads off to the east and south
+
+> s
+You move south.
+
+In the ruined city
+In the ruined city...
+You're wandering through the ruined city. Is it just your imagination or do
+all the locations around here seem pretty much the same.
+
+Exits lead... in several different directions
+
+Mad Old Erik is here.
+
+> s
+You move south.
+
+In the ruined city
+In the ruined city...
+You're wandering through the ruined city. Is it just your imagination or do
+all the locations around here seem pretty much the same.
+
+Exits lead... in several different directions and there is also a temple
+lying inwards
+
+> in
+You move in.
+
+Temple
+Temple
+You're in an ancient temple which has long since fallen into ruin. Stone
+idols, once no doubt worshipped by the people of the city, lie broken on the
+floor. In the centre of the temple are an imposing flight of stone steps
+leading downwards...
+
+Exits lie out and down
+
+> d
+You move down.
+
+The Dungeon
+The Dungeon
+You're at the entrance to the Dungeon of Dead Adventurers, a bleak and
+miserable place that even someone with a serious death wish would do well to
+avoid. The walls of the Dungeon are caked in blood and grime and even the air
+has a menacing feel to it.
+
+A passageway leads north and steps lead up
+
+> n
+You move north.
+
+A junction
+A junction
+You're at a junction where several passages meet. Flickering torches light
+the way, allowing you to see someway down each of the passages. Alas, they
+all look pretty much the same. Puddles of muddy water dot the ground. Menace
+hangs in the air.
+
+Passages lead north, northeast and south
+
+> get torch
+   You break one out of the bracket holding it to the wall.
+
+> n
+You move north.
+
+End of passage
+End of passage
+You have reached the end of the passage and find yourself facing a wooden
+door which appears to be both solid and stoutly locked.
+
+The passage leads back south
+
+> open door
+   Using the key you bought from Gribbly, you open the door.
+
+> ne
+You move northeast.
+
+Cell
+Cell
+You're in a dismal little cell that looks like it has gone for a couple of
+centuries at least without a good clea. Rats scurry across the ground. There
+are a couple of skeletons chained to the walls and a further pile of bones
+arranged in a vaguely human shape in the corner.
+
+> x bones
+   The moment you touch the bones, a mad, half-naked figure jumps from their
+midst!
+   "Back, yer devil, back!" he cries, waving around a thighbone madly.
+"You'll never take me alive! You'll never eat me the way you ate old Cedric!
+You'll never carve me up as a three course meal for your cronies the way you
+did to old Cedric! You'll never-"
+   "But I don't even know old Cedric," you say.
+   The figure frowns. "You don't?"
+   You shake your head. "No."
+   "Oh. I feel like a bit of a berk now, going on like that. Still..." He
+perks up. "I don't suppose you've seen a great big ogre around here have you?
+Vicious bugger he is! Seven feet tall and with a dead body under one arm?"
+   You give another shake of your head.
+  "He's around here somewhere," says the madman. "He might have got old
+Cedric but he won't get me. No, I'll show him."
+   He goes charging off out of the door, waving the thighbone madly around
+his head like a sword.
+
+> sw
+You move southwest.
+
+End of passage
+End of passage
+You have reached the end of the passage and find yourself facing a wooden
+door which is standing wide open, revealing a grimy room beyond.
+
+The passage leads back south and the room lies northeast
+
+> s
+You move south.
+
+A junction
+A junction
+You're at a junction where several passages meet. Flickering torches light
+the way, allowing you to see someway down each of the passages. Alas, they
+all look pretty much the same. Puddles of muddy water dot the ground. Menace
+hangs in the air.
+
+Passages lead north, northeast and south
+
+   You hear the sounds of fighting somewhere to the east and the cry of "take
+that for old Cedric, you bastard!" is shouted time and again.
+
+> ne
+You move northeast.
+
+Edge of pit
+Edge of pit
+You're on the northwestern edge of a large pit which is spanned by a very
+narrow bridge of stone. Glowing globes hang in midair by the side of the
+bridge, illuminating this area and allowing you to see that on the far side
+of the bridge is another path leading away into darkness. The pit itself
+seems immensely deep. Lying sprawled on the floor are the dead bodies of the
+prisoner you saw before in the cell and a massive ogre.
+
+A passage lies southwest and the bridge southeast
+
+You can also see a thighbone.
+
+> se
+You move southeast.
+
+On the bridge
+On the bridge
+You're on the (very!) narrow bridge spanning the pit. The bridge is barely a
+foot wide and seems to sway chillingly as you move along it. Several glowing
+globes hang suspended in midair just out of reach. The pit below you seems to
+extend downwards for a long, long way...
+
+The bridge extends northwest and southeast
+
+> jump
+   You throw yourself off the bridge in an obvious attempt to commit suicide.
+
+   But find, strangely enough, that the feather slows your fall. Obviously it
+must be magic of some kind.
+
+Bottom of pit
+Bottom of pit
+You're at a bottom of a deep pit, the floor of which seems to be made from
+some kind of wet, spongy substance (rather like the inside of some gigantic
+creature's mouth if you're wondering). A dim passage leads away to one side.
+
+The passage leads north
+
+> n
+You move north.
+
+Circular chamber
+Circular chamber
+You're in the middle of a circular chamber far beneath the ground. To one
+side is a balcony overlooking what appears to be a sacrificial chamber, to
+the other a strange, shimmering gateway. Two archways are also set into the
+walls. Hanging above a passage to the north is a painted sign.
+
+The archways lie northeast and northwest, the balcony east, the shimmering
+gateway west and passages are north and south
+
+> e
+You move east.
+
+Balcony
+Balcony
+You're standing on a balcony overlooking a sarificial chamber. In the chamber
+itself, you see your arch enemy, Malgor the Mad, and several of his cronies
+crowded around an altar. Strapped to the altar is none other than the
+Princess Isabella, the true love of your life (even if she is completely
+unaware of it.
+
+A circular chamber lies west
+
+> list
+   Voices drift up from below:
+  "They are dealt with then - the other heroes?"
+   "Dealt with indeed. Me and the lads killed them all. Including those pesky
+goblin agents of Spiridon's. Now, there's the simple matter of our fee..."
+
+> w
+You move west.
+
+Circular chamber
+Circular chamber
+You're in the middle of a circular chamber far beneath the ground. To one
+side is a balcony overlooking what appears to be a sacrificial chamber, to
+the other a strange, shimmering gateway. Two archways are also set into the
+walls. Hanging above a passage to the north is a painted sign.
+
+The archways lie northeast and northwest, the balcony east, the shimmering
+gateway west and passages are north and south
+
+> n
+You move north.
+
+Top of stairs
+Top of stairs
+You're at the top of a winding flight of stairs which lead down to the
+sacrificial chamber. Glowing panels line the walls, providing enough light to
+see by.
+
+Exits lie south and down
+
+   From the bottom of the stairs, you hear the sound of "something" very big
+starting to move up the stairs.
+
+> drop torch
+   You throw the torch down into the darkness - and at once there is an
+almighty howl of pain! Something lurches into view for a second - a hideous
+beast that looks like a massively deformed troll (no doubt Malgor's
+bodyguard) - and then it plunges down the stairs, its head aflame. There is a
+sickening thud! from below then everything goes quiet.
+
+> wait
+   From the bottom of the stairs you hear a familiar sounding voice saying,
+"blimey! The bleeder's got the better of ol' Malgor's bodyguard! Up and get
+him, lads!"
+   "It's that sonofabitch Gladrin!" Otto curses. "I always knew there was
+something about the fellow I didn't like."
+   "Shouldn't we be making a run for it?" you say nervously. "Rather than
+just standing here waiting for them?"
+   Otto shrugs. "Your decision, kid. Me, I'd just as soon wait for the swine
+here and hack 'em down as they come up!"
+
+> s
+You move south.
+
+Circular chamber
+Circular chamber
+You're in the middle of a circular chamber far beneath the ground. To one
+side is a balcony overlooking what appears to be a sacrificial chamber, to
+the other a strange, shimmering gateway. Two archways are also set into the
+walls. Hanging above a passage to the north is a painted sign.
+
+The archways lie northeast and northwest, the balcony east, the shimmering
+gateway west and passages are north and south
+
+   From the north you hear the sound of footsteps. It seems whoever you heard
+at the bottom of the stairs has now reached the top. You don't have much
+time!
+
+> nw
+You move northwest.
+
+First archway
+First archway
+You're standing by a dark archway, beyond which nothing can be seen. The only
+question here is: do you want to pass through and see what lies on the other
+side?
+
+The circular chamber lies southeast
+
+   As you reach the archway, you see several figures entering the chamber to
+the southeast. One of them you recognise. It is Gladrin, one of the
+mercenaries hired by the King to rescue his daughter.
+
+> enter archway
+   You step through the archway - and at once find yourself standing at the
+opposite end of the chamber!
+
+Second archway
+Second archway
+You're standing by a dark archway, beyond which little can be seen. The only
+question here is: are you brave enough to step through and find out what lies
+on the other side?
+
+The rest of the chamber lies southwest
+
+   The moment you emerge from the archway you see that Gladrin and his mob
+are surrounding you. At once you invoke the spell the witch told you. Magical
+fire blasts from your fingertips. Gladrin and his men are blasted to ash.
+
+> sw
+You move southwest.
+
+Circular chamber
+Circular chamber
+You're in the middle of a circular chamber far beneath the ground. To one
+side is a balcony overlooking what appears to be a sacrificial chamber, to
+the other a strange, shimmering gateway. Two archways are also set into the
+walls. Hanging above a passage to the north is a painted sign.
+
+The archways lie northeast and northwest, the balcony east, the shimmering
+gateway west and passages are north and south
+
+> n
+You move north.
+
+Top of stairs
+Top of stairs
+You're at the top of a winding flight of stairs which lead down to the
+sacrificial chamber. Glowing panels line the walls, providing enough light to
+see by.
+
+Exits lie south and down
+
+> d
+You move down.
+
+Bottom of stairs
+Bottom of stairs
+You're at the bottom of the stairs, in a little antechamber off to one side
+of the sacrificial chamber. There is a lot of broken furniture here along
+with the corpses of several of the mercenaries you remember seeing in the
+King's throneroom. Does that mean only you are left? The body of Malgor's
+bodyguard lies sprawled amidst the broken furniture.
+
+The sacrificial chamber lies to the south and stairs lead up
+
+You can also see a torch.
+
+> s
+You move south.
+
+Sacrificial chamber
+Sacrificial chamber
+You're in the sacrificial chamber of Malgor the Mad. There is very little to
+be seen here aside from an altar of black stone, on top of which is tied
+Princess Isabella.
+
+The way out lies to the north
+
+Princess Isabella and Malgor the Mad are here.
+
+   "Ah," says Malgor. "So the brave 'heroes' made it after all."
+   "We're here for the Princess, pal," snaps Otto, axe at the ready. "So be a
+good fellow and let her go, okay?"
+  Malgor chuckles. He pulls a long, elaborately carved knife from his robes.
+"I think not. The ancient evil beneath this city, my master of old, must be
+awakened. I fully intend to see to that happening this very day." He gestures
+to the Princess who is struggling vainly against her bonds. "With her death I
+shall achieve what I desire." He chuckles again. "Stop me if you can."
+
+> fire rocket launcher
+   You fire the rocket launcher at Malgor who disappears amidst the smoke and
+flame.
+   But when you can see again, you find he is still alive. Worse still, he
+doesn't even appear to be too badly injured.
+   "My magic is strong," says Malgor, his voice harsh and grating. "You'll
+have to do better than that to get the better of me."
+
+> use mirror
+   You raise the small mirror a moment before Malgor casts a deadly spell at
+you. The spell lashes out at you with lightning speed - and then bounces back
+off the mirror.
+   "NO!" Malgor cries. "THAT'S IMPOSS-"
+   Impossible or not, his spell rebounds on him. Malgor falls to the ground,
+wreathed in magical fire. For a moment you dare to hope he is well and truly
+finished, but he soon rises once more to his feet. He leans heavily on his
+staff now, though, so you sense the end is not far off.
+
+> kill malgor
+   You and Otto attack the wounded Malgor and pound him into the ground. Otto
+then proceeds to pound him still further into the ground until all that
+remains of Malgor the Mad is a bloody stain on the floor.
+   "Well, you can't be too careful with these bloody spellcasters, kid," he
+explains, and proceeds to do a little dance on Malgor's chopped apart
+remains.
+
+> untie isabella
+   You free Isabella from the altar.
+   "Hmmm," she says after giving you a quick once over. "I expected a bit
+more of a macho hero to come to my rescue than you. What are you, a dragon
+slayer?"
+   "A dung scraper, Your Highness," you say proudly.
+   Isabella frowns. "Ah," she says.
+
+> untie princess
+   You quickly untie her. "About damn time, too!" she mutters. "My frigging
+dress is ruined!"
+
+> isabella follow me
+   "Of course," she says. "Let's just get out of this miserable place and
+home again."
+
+> n
+You move north.
+
+Bottom of stairs
+Bottom of stairs
+You're at the bottom of the stairs, in a little antechamber off to one side
+of the sacrificial chamber. There is a lot of broken furniture here along
+with the corpses of several of the mercenaries you remember seeing in the
+King's throneroom. Does that mean only you are left? The body of Malgor's
+bodyguard lies sprawled amidst the broken furniture.
+
+The sacrificial chamber lies to the south and stairs lead up
+
+You can also see a torch.
+
+> u
+You move up.
+
+Top of stairs
+Top of stairs
+You're at the top of a winding flight of stairs which lead down to the
+sacrificial chamber. Glowing panels line the walls, providing enough light to
+see by.
+
+Exits lie south and down
+
+> s
+You move south.
+
+Circular chamber
+Circular chamber
+You're in the middle of a circular chamber far beneath the ground. To one
+side is a balcony overlooking what appears to be a sacrificial chamber, to
+the other a strange, shimmering gateway. Two archways are also set into the
+walls. Hanging above a passage to the north is a painted sign.
+
+The archways lie northeast and northwest, the balcony east, the shimmering
+gateway west and passages are north and south
+
+> w
+You move west.
+
+Gateway
+Gateway
+You're at one end of a circular chamber, standing just by a shimmering
+gateway which hangs suspended in midair. The gateway holds an image of a
+faraway, mystical place which looses focus every few seconds. Something about
+the whole thing chills you...
+
+The rest of the chamber lies east
+
+> enter gateway
+   At once, you find yourself elsewhere...
+
+Temple
+Temple
+You're in an ancient temple which has long since fallen into ruin. Stone
+idols, once no doubt worshipped by the people of the city, lie broken on the
+floor. In the centre of the temple are an imposing flight of stone steps
+leading downwards...
+
+Exits lie out and down
+
+> out
+You move out.
+
+In the ruined city
+In the ruined city...
+You're wandering through the ruined city. Is it just your imagination or do
+all the locations around here seem pretty much the same.
+
+Exits lead... in several different directions and there is also a temple
+lying inwards
+
+> n
+You move north.
+
+In the ruined city
+In the ruined city...
+You're wandering through the ruined city. Is it just your imagination or do
+all the locations around here seem pretty much the same.
+
+Exits lead... in several different directions
+
+Mad Old Erik is here.
+
+> n
+You move north.
+
+Ruined city
+Ruined city
+You're standing just inside the gateway of a ruined city which spreads out in
+a mazelike mess to the east and south. There doesn't seem to be a living soul
+in sight. Over to one side you see a sign which doesn't do wonders for your
+confidence right now.
+
+The gates lie out and paths leads off to the east and south
+
+> out
+You move out.
+
+The last dimly-lit path
+The last dimly-lit path
+You're at the end of a long (very long) dimly-lit path. Before you rise a
+pair of majestic gates set into a wall that towers into the sky. Whether this
+is the wall to a city or just a great big chunk of stone someone decided to
+drop in the middle of nowhere for a laugh, you aren't sure. But one thing is
+for sure: you're not getting in here without a pretty damn big key.
+
+Paths lead north and in
+
+> n
+You move north.
+
+Still another dimly-lit path
+Still another dimly-lit path
+This path is pretty much the same as all the other ones around here: tall
+trees all over the place, menace lurking in the air, etc, etc.
+
+The path winds off northeast, west and south
+
+> w
+You move west.
+
+Yet another dimly-lit path
+Yet another dimly-lit path
+The dimly-lit path you have been following reaches a kind of clearing here.
+The sun breaks through the branches in places, illuminating a stone idol set
+in the centre of the clearing. The thing looks impossibly ancient. You doubt
+anyone has set foot here in a long, long time (except yourself, of course).
+
+Paths lead south, west and east
+
+> w
+You move west.
+
+Another dimly-lit path
+Another dimly-lit path
+You're on another dimly-lit path winding your way through the forest. Tall
+trees loom on all sides making the place distinctly uncomfortable. Things are
+still dim here although it looks like it might brighten up a bit further to
+the south.
+
+The path winds northwest, south and east through the trees
+
+> nw
+You move northwest.
+
+Dimly-lit path
+A dimly-lit path
+You're wandering along a very dimly-lit path to the southeast of the village.
+It is dark here (something you should probably take for granted in a
+dimly-lit location) but not so dark that you don't get the impression that
+there is something lurking in the undergrowth, watching you.
+
+The path winds northwest and southeast
+
+> nw
+You move northwest.
+
+Village
+The village
+You're in the centre of the village, standing not five feet away from the
+statue of the giant mud man. Around you caper the villagers, none of whom
+seem to be wearing a lot of clothes and even fewer of whom seem in any way
+sane. There isn't a lot to see in the village (aside from what you've already
+seen) but a few buildings seem to still be open.
+
+Paths lie northwest, northeast, east, southeast and south
+
+> nw
+You move northwest.
+
+Village outskirts
+Village outskirts
+The road comes to an abrupt end at a village where mud is obviously a very
+big deal judging by the huge piles of it scattered around the place. From
+where you are standing there appears to be a statue of a gigantic man made of
+mud in the centre of the village, around which several rather mad villagers
+are dancing.
+
+The road leads northwest and the centre of the village southeast
+
+> nw
+You move northwest.
+
+By a signpost
+By a signpost
+You're at a junction where several paths meet, at which point a signpost has
+been erected. Amidst colourful graffiti, you see signs pointing northwest to
+'That Way', south to 'Some Other Way' and southeast to 'The Land Of Torturous
+Agony'. There is a beggar sitting by the signpost smoking a pipe.
+
+Exits are pretty much as the signpost has just said
+
+> nw
+You move northwest.
+
+Outside the castle walls
+Outside the castle walls
+The walls of Castle Bloodheart rise majestically above you into the early
+morning sky. You have always found something a little fearful about them -
+perhaps it is the sheer immensity of them, perhaps it is the drab blocks of
+stone they are carved from, or perhaps it is simply the dead bodies that have
+been nailed to the side of the castle as a grim reminder of what happens to
+anyone King Bloodheart takes a dislike to. You're not sure.
+
+Paths wind away north, south and southeast
+
+> n
+You move north.
+
+Castle gates
+Castle gates
+You are just outside the main gates of the castle, fifty foot structures of
+steel that keep the populace of the land (i.e. the poor peasants) from the
+sight of the aristocracy (i.e. everyone else). A couple of nasty-looking
+guards are leaning against the castle wall, clutching their groins. They
+don't look like they'll be giving anyone trouble. Off to one side there is
+what appears to be a market.
+
+From here you can travel northeast, northwest, south and east
+
+> e
+You move east.
+
+Courtyard
+Castle courtyard
+You find yourself in the coutyard of Castle Bloodheart. Men at arms are in
+training here - most of which appears to consist of drinking large pints of
+ale, falling over and getting into fights with each other. At the far end of
+the courtyard is a doorway leading into the castle itself.
+
+Exits lie east and west
+
+> e
+You move east.
+
+Outside throne room
+Outside the King's throne room
+You're in a lavishly appointed chamber just outside the King's throne room.
+Tapestry-adorned walls mark this out as a place of great wealth, as do the
+stylish works of art in glass cases. Pride of place is given to a majestic
+statue of the King set atop a block of marble in the centre of the chamber.
+Several sizeable guards are lounging around the room looking unpleasant.
+
+Doorways lie to the east and west and there are corridors to the north,
+northwest, south and a flight of stairs lead upwards
+
+> e
+You move east.
+
+Throne room
+Throne room
+You're in the majestic throne room of Castle Bloodheart. This is a chamber of
+truly vast proportions, stretching as it does for well over two hundred
+metres. The King's throne is raised on a dais at the far end and flanked on
+either side by a pair of stone golems which are reputed to animate only when
+a threat to the King's life becomes apparent. The ceiling of this gigantic
+room is lost in shadows but you fancy you hear strange murmurings from
+somewhere up there...
+   The throne room is pretty much empty aside from a few servants scrubbing
+at a patch of blood on the floor.
+
+A doorway leads west
+
+Spiridon and The King are here.
+
+   "My daughter!" cries the King as he catches sight of Isabella.
+   "Daddy!" she cries.
+   She runs across the throneroom and throws herself into his arms. It's
+quite a touching moment.
+
+   "Of course, a reward is called for," says the King to you later on that
+day. There are celebrations going on outside which seem to include most of
+the King's court drinking as much as they can and being violently ill in a
+corner.
+   "I was thinking of her hand," you reply (this being the top of your list
+of priorities. Further down comes a life time of riches, a castle, and -
+right at the bottom - a new pen for the pigs back home.)
+   The King shudders slightly. "Uh, no. Barbaric custom. Went out years ago.
+I mean, if I chop her hand off she'll die." The King goes on before you can
+explain fully what you meant, "what I was thinking of was more along the
+lines of Stroppenheim Castle. I'm sure you've heard of the place."
+   "Is this the same Stroppenheim Castle that is supposed to be haunted and
+whose previous ten owners have met bloody and brutal deaths, Your Highness?"
+you hazard a guess.
+   The King claps his hands. "I knew you'd be interested, smart fellow like
+you. When can you move in...?"
+
+   So it seems your dreams of marrying Princess Isabella have not come to
+fruition after all (but then, did you really think they would?) but you have
+gained yourself a nice (haunted) castle. Not bad for a day's work.
+
+At this moment in time your score appears to be 243
+
+   If you achieved less than 231 points you might like to try again. If you
+did better than that you obviously did really well.
+   Simply hit the restart key if you want to try again...
+
 > quit
 Do you really want to quit? [Y/N]

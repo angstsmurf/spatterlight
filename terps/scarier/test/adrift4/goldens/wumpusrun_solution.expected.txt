@@ -1,0 +1,160 @@
+Loading game...
+
+The Wumpus Run
+
+Wumpus Hunting will never become "the sport of Kings" ... too many risks
+involved for royalty (although, they have been known to allow any number of
+fools, er, adventurers, to partake on their behalf). Let's not be under any
+delusions here ... this is one tough, but very lucrative, occupation ... for
+those with the guts and caving savvy to attempt "The Run". Winning this
+biannual event will enable you to retire quite comfortably and live off the
+winnings for many years to come.
+
+The objective of the competition is quite simple really ... get the Wumpus
+before it gets you. There are a significant number of statistical analyses
+available, for you to consult at your leisure, on the performance of
+previous participants ... however, for the sake of expediency, to sum up:
+"you either make it or you don't!"
+
+This is a contest as much about using your wits as it is about defeating an
+enemy, So use them and keep an accurate map of where you go and where you've
+been as the tunnels and passage can twist and turn and can be quite
+disorienting ... you don't map, you don't live! Simple!
+
+The rules are very simple ...
+1: You enter a cavern complex of about 20 locations with a lantern, a
+starblade and possibly your last meal.
+
+2: You must move through the network of tunnels and caves (trying to be as
+quiet as possible), sneak up on the Wumpus and kill it by throwing the
+starblade at it.
+
+3: Return to the rope ladder (where you entered the complex), before your
+lantern runs out to claim your prize ... remember, no one has yet returned
+after losing their light!
+
+For clarification of potential hazards, please refer to your contract.
+
+That's about it really ... are you up for the challenge?
+
+PS: Hints are available if you need them.
+
+ ***
+ ***
+ ***
+ *****
+ ***
+ *
+
+Well, this is it! This is your big chance to make a lot of money in a very
+short space of time (the faster you do this the more you will earn) OR die in
+an equally short timeframe. The choice is yours ...
+
+The long climb down has left you a bit shaky, but then that could also be
+just an increase in adreneline. The sounds of the cheering crowd have long
+since faded into the distance, along with the only remaining sunlight from
+the entrance hole.
+
+Your starblade is securely attached to your belt, you have a small amount of
+food in your pouch and a full lantern burning brightly in your hand. OK, the
+lantern isn't going to last all day so you'd better have at it, hmmm? Have a
+look and see what you have let yourself in for ...
+
+The long rope ladder is hauled up into the gloom above ... your only link to
+the outside world is now out of your reach.
+
+> south
+You advance cautiously to the south.
+
+Bog of Eternal Stench
+Methinks it may be wise to watch one's step around here ... hmmmm, who or
+what died in here?
+
+Possible exits: north, northeast and northwest.
+
+> northeast
+You proceed northeast.
+
+Twisty Passage
+A maze of twisty passages ... all alike.
+
+Possible exits: north, west and southwest.
+
+There's an awful smell coming from somewhere close by.
+
+> throw starblade west
+
+The sound of a very large beast crying out in agony echoes throughout the
+caverns.
+
+You slump to the ground emotionally and physically spent for a few moments
+... but this is not yet over!
+
+> west
+You boldly go west.
+
+Rectangular Cavern
+This cavern looks like a large rectangular box with extremely high ceilings.
+
+You can see a legendary starblade.
+Oops! An humungus Wumpus is here!
+
+Possible exits: east, southwest and northwest.
+
+> drop lantern
+You place the lantern on the floor of the cavern. However, carrying the
+lantern will significantly increase your life span, Cheryl!
+
+> cut mane
+With utmost care you cut a large tuft of mane from the dead Wumpus.
+
+> take lantern
+The lantern's glow provides a little comfort against the dark unknown of the
+Run.
+
+> east
+You proceed east.
+
+Twisty Passage
+A maze of twisty passages ... all alike.
+
+Possible exits: north, west and southwest.
+
+> southwest
+You proceed southwest.
+
+Bog of Eternal Stench
+Methinks it may be wise to watch one's step around here ... hmmmm, who or
+what died in here?
+
+Possible exits: north, northeast and northwest.
+
+> north
+You advance cautiously to the north.
+
+Burial Chamber
+In the past some hapless adventurer didn't survive past here. Fortunately, a
+compassionate companion had the time to create a burial mound.
+
+You can see a rope ladder.
+
+Possible exits: south, northeast and northwest.
+
+> climb ladder
+You can't climb the rope ladder.
+As you struggle up the last few feet of the ladder you are greeted by the
+thunderous cheers of the spectators from the stands. You hold the tuft of
+Wumpus mane high in the air as the crowd roars its approval.
+
+You are ushered to the judge's table as an eerie hush descends around the
+arena. The judges take their time, examining the evidence with great care and
+deliberation. One by one they raise their green flags, indicating that indeed
+you have slain the Wumpus.
+
+Again the crowd goes wild, chanting "Cheryl, Cheryl ..." as you turn, holding
+the Wumpus Mane high for all to see. You have earned the right to the title
+of "Grand Wumpus Hunter" until the next Wumpus Run.
+
+You are escorted from the arena to enjoy the fruits of your labours ... a
+nice bath, an excellent meal, a fat bank account (totalling 306900 gold
+pieces) and a little bit (or whatever else) on the side ...

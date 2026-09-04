@@ -1,0 +1,248 @@
+open door
+n
+n
+look
+get lamp
+s
+e
+look
+get logs
+move box
+light lamp
+d
+look
+x wall
+dig wall
+dig wall
+x hole
+x pile
+x ceiling
+u
+i
+w
+look
+x ninette
+x box
+open box
+ask ninette about will
+ask ninette about battle creek
+ask ninette about grandfather
+ask ninette about holly
+give document to ninette
+x document
+x envelope
+open envelope
+read will
+i
+s
+enter car
+e
+e
+look
+x path
+s
+look
+s
+look
+s
+look
+leave car
+d
+look
+d
+look
+e
+look
+e
+n
+get iron bar
+s
+s
+untie rope
+get container
+n
+w
+n
+lubricate drawer
+open drawer
+read newspaper
+i
+s
+e
+e
+e
+s
+x registry
+x bell
+open door
+x posters
+ninette wait here
+u
+x floor
+get shovel
+x wall
+x stairs
+u
+x board
+unlock door
+open door
+ninette follow
+i
+look
+n
+w
+w
+s
+u
+e
+e
+insert bar in hole
+open door 103
+e
+open bathroom door
+out
+open door 105
+look
+out
+w
+w
+w
+d
+fill lamp
+get grease
+n
+e
+e
+e
+n
+e
+read marker
+read marker
+read marker
+read marker
+dig grave
+x grave
+open casket
+x skeleton
+move casket
+x material
+get material
+wait
+dig grave
+x grave
+open hand
+x skeleton
+x hand
+w
+s
+w
+w
+w
+s
+u
+e
+e
+insert bar in hole
+open door 103
+move closet
+x plank
+move plank
+x compartment
+get mattress
+get rope
+reach in compartment
+x knife
+out
+w
+open door 101
+move bed
+x closet
+get blanket
+prepare bed
+out
+w
+d
+n
+w
+n
+move debris
+get wooden box
+get dynamite
+s
+e
+e
+e
+e
+n
+e
+dig grave
+x body
+open hand
+w
+s
+ninette wait here
+s
+x gun rack
+get bullet
+e
+tie rope to cell door
+w
+throw rope in hole
+climb down rope
+move safe
+blow up safe
+climb up rope
+wait
+wait
+wait
+wait
+wait
+climb down rope
+get gun
+climb up rope
+dissolve grease
+lubricate gun
+load gun
+out
+ninette follow
+w
+w
+w
+s
+u
+e
+open door 101
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+sleep
+sleep
+shoot montana

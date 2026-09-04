@@ -1,0 +1,32 @@
+take bone
+press red stone
+south
+examine wall
+take nugget
+up
+east
+give bone to snarl
+west
+take key
+unlock door with key
+north
+search couch
+look black book
+open bible
+take bottle
+up
+throw string out window
+search under bed
+down
+south
+take egg
+cut paw
+east
+search doghouse
+west
+north
+east
+wash paw in sink
+down
+give paw to priest
+stats

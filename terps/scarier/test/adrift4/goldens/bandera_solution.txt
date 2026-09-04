@@ -1,0 +1,39 @@
+mirar
+inventario
+observar
+x cabo
+hablar con cabo
+x television
+n
+x teniente
+hablar con teniente
+e
+x dibujo
+x fotos
+x figura
+x libreria
+mover libreria
+coger linterna
+o
+o
+x marife
+hablar con marife
+besar a marife
+e
+s
+dar bolsa a cabo
+n
+n
+x radiocassette
+x puerta
+abrir puerta con llave
+x sacos
+x tiendas
+x chalecos
+coger mochila
+ponerme mochila
+romper cajas
+coger cinta
+subir
+o
+poner cinta radiocassette

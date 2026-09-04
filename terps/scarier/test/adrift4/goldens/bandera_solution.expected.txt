@@ -1,0 +1,224 @@
+Loading game...
+
+BANDERA
+   "Hoy sábado, tú,  Genaro Expósito García, soldado de infantería ligera,
+has entrado de guardia en tu acuartelamiento. Intenta pasar este servicio lo
+mejor que puedas....y simplemente.... déjate llevar....."
+
+             --BANDERA--  Es una aventura creada por pipo98.
+
+ Pulsa una tecla...
+
+CUERPO DE GUARDIA
+ Te encuentras en el Cuerpo de Guardia del Acuartelamiento.   El Cabo de
+guardia está mirando una revista de tunning y un soldado juega con su móvil.
+
+> mirar
+
+CUERPO DE GUARDIA
+ Te encuentras en el Cuerpo de Guardia del Acuartelamiento.   El Cabo de
+guardia está mirando una revista de tunning y un soldado juega con su móvil.
+
+> inventario
+ No llevas nada.
+
+> observar
+ Paredes embaldosadas hasta la mitad, mesas alargadas, unas literas al fondo
+de la habitación y una televisión en la pared.
+La televisión está encendida.
+
+> x cabo
+Kike Morales, un pistolín que llegó hace un año de una de esas unidades en
+las que lo único que se hace es contar cacillos.
+
+> hablar con cabo
+Que pasa tio!, me han llamado de la cantina debes pasarte por allí a recoger
+una bolsa de comida para la guardia.
+
+> x television
+Es una de esas televisiones Panamonic.Un documental del pingüino tigre
+ameniza la estancia.
+
+> n
+Vas al norte.
+
+PATIO DE ARMAS
+El pequeño patio de armas del acuartelamiento está delante tuyo. Rodeado de
+banderines de gloriosas unidades que un día se alojaron en este cuartel.
+El Teniente de tu sección está aquí.
+
+> x teniente
+Es el teniente Montalvo, jefe de tu sección.  Teniente  está llevando una
+divisa de cabo.
+
+> hablar con teniente
+Buenos días Genaro. Toma la divisa que te has ganado durante estos cinco
+años.
+ El teniente Montalvo te da una divisa de cabo y se aleja,  orgulloso de su
+cachorro.
+
+> e
+Vas al este.
+
+1ª COMPAÑÍA
+Estás en la primera compañía de fusiles, un dibujo de un impresionante águila
+se encuentra en la entrada de la nave. Puedes ver algunas fotos colgadas en
+la pared.
+
+> x dibujo
+ Un gran águila azorada, una frase adorna el dibujo, puedes leer  "hasta el
+final".
+
+> x fotos
+ Instantáneas de la compañía en misiones humanitarias... en Bosnia, Kosovo,
+Congo, Líbano....Puedes ver también una figura.
+
+> x figura
+  Un impresionante soldado, barbudo y mirada cansada, perteneciente a los
+antiguos tercios de Flandes. La talla en blanco mármol refleja el color caoba
+de una  vieja librería situada a tus espaldas.
+
+> x libreria
+  Múltiples manuales de infantería llenan las baldas de este mueble.
+
+> mover libreria
+   Un presentimiento te hace levantar los brazos y empujas la librería con
+todas tus fuerzas.   Una pequeña linterna aparece de detrás del mueble.
+
+> coger linterna
+Coges una linterna.
+
+> o
+Vas al oeste.
+
+PATIO DE ARMAS
+El pequeño patio de armas del acuartelamiento está delante tuyo. Rodeado de
+banderines de gloriosas unidades que un día se alojaron en este cuartel.
+
+> o
+Vas al oeste.
+
+CANTINA
+  Abres las puertas de  la cantina, o mejor dicho, el "hogar del soldado".
+Para ser Sábado no está mal, un binomio de la 1ª Compañía echando una partida
+al Cabal y en la barra, como siempre, está la mejor camarera de toda la
+OTAN... Marifé....
+Marifé está aquí.
+
+> x marife
+Una excelente camarera y muy atractiva...  Marifé  está llevando una bolsa.
+
+> hablar con marife
+  Hace un rato llamó tu Cabo de guardia, y me dijo que preparara esta bolsa
+de comida para vosotros.
+
+> besar a marife
+MMMMuuuuaaaaa!!!, no te olvides que mañana hemos quedado con mi madre, para
+ver que cortinas ponemos en el piso.
+Marifé con  gesto cariñoso y un guiño de ojo te da una bolsa.
+
+> e
+Vas al este.
+
+PATIO DE ARMAS
+El pequeño patio de armas del acuartelamiento está delante tuyo. Rodeado de
+banderines de gloriosas unidades que un día se alojaron en este cuartel.
+
+> s
+Vas al sur.
+
+CUERPO DE GUARDIA
+ Te encuentras en el Cuerpo de Guardia del Acuartelamiento.    Paredes
+embaldosadas hasta la mitad, mesas alargadas, unas literas al fondo de la
+habitación y una televisión en la pared.
+
+> dar bolsa a cabo
+¡Bien! chaval, ¡bien!. Coge esta llave, y hazte tu responsable de ella.
+Kike Morales te da una llave.
+
+> n
+Vas al norte.
+
+PATIO DE ARMAS
+El pequeño patio de armas del acuartelamiento está delante tuyo. Rodeado de
+banderines de gloriosas unidades que un día se alojaron en este cuartel.
+
+> n
+Vas al norte.
+
+2ª COMPAÑÍA
+Entras en la segunda compañía de fusiles la más condecorada de toda la
+división por sus actuaciones en innumerables hechos de armas...Flandes,
+Sicilia, Tetuán, Filipinas...
+
+> x radiocassette
+ Te percatas que el radiocassette está conectado a la megafonía del
+acuartelamiento.
+
+> x puerta
+Una puerta metálica. Un pequeño cartel en ella indica que se trata de la
+Furrieleria.   una puerta está cerrada.
+
+> abrir puerta con llave
+La puerta se abre.
+
+FURRIELERÍA
+Estanterías desde el suelo hasta el techo a lo largo de toda la estancia.
+Sacos de dormir apilados, tiendas de campaña, chalecos antifragmentos,
+cascos... Todo perfectamente ordenado.
+
+También hay  una mochila.
+
+> x sacos
+  Limpios e impolutos, a la espera de las próximas maniobras.
+
+> x tiendas
+  Las míticas tiendas Aneco, ¡ Cúantas veces te han protegido de la lluvia y
+del frio!!
+
+> x chalecos
+  Incómodos y pesados.
+
+> coger mochila
+Coges una mochila.
+
+> ponerme mochila
+ En el momento en que te cuelgas la mochila en tu espalda, sientes un fuerte
+temblor bajo tus pies.... el suelo se unde y caes por un agujero oscuro.
+
+SÓTANO
+ Un viejo sótano que la humedad hace que nunca sea visitado. Una grieta en
+una pequeña ventana, a la altura de tu cabeza, deja pasar una gélida brisa
+montañera.
+
+> romper cajas
+ ¡¡¡Zassss!!! . En ese instante una cinta, de radiocassette, SoNyC cae cerca
+de tus pies.
+
+> coger cinta
+Coges una cinta.
+
+> subir
+Vas arriba.
+
+FURRIELERÍA
+Estanterías desde el suelo hasta el techo a lo largo de toda la estancia.
+Sacos de dormir apilados, tiendas de campaña, chalecos antifragmentos,
+cascos... Todo perfectamente ordenado.
+
+> o
+Vas al oeste.
+
+2ª COMPAÑÍA
+Entras en la segunda compañía de fusiles la más condecorada de toda la
+división por sus actuaciones en innumerables hechos de armas...Flandes,
+Sicilia, Tetuán, Filipinas...
+
+> poner cinta radiocassette
+  El sol de atardecer, enrojeciendo las densas nubes, da paso a un toque de
+bandera y oración, perdiéndose la música que sale por esos viejos altavoces
+en el infinito montañero.......Tu guardia ha terminado.....
+
+ Tu puntuación es de 100  de un máximo de 100!
+ Eso es un 100%  del juego!
+Well done - you puntosd maximum points!

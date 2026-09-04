@@ -1712,7 +1712,8 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # `Get rucksack` refusal that follows from the failed `Say`.
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
-# WIN with the FULL 95/95 in 90 commands.  downloaded/CrimeAdventure_walkthrough.sol
+# WIN in 90 commands, scoring 65/95 -- and 65 is the real ceiling in a 3.8
+# Runner, not a missed puzzle.  downloaded/CrimeAdventure_walkthrough.sol
 # is a 29-line prose sketch by "sasi" that describes an EARLIER build: it wants
 # you to read a computer in an "IBM" room for the stew recipe (there is none --
 # the recipe is the cookery book in the kitchen), to dig a coin out of the
@@ -1721,38 +1722,52 @@ humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner..
 # shovel, hairpin, fortune cookie, hat, picture, diary, painting, mirror and
 # advertisement are all unused; the gypsy and the arcade-machine/street deaths
 # are pure flavour.  What the route really needs, none of it in the .sol:
-#   * TWO scored tasks are shadowed by unscored duplicates that sort first, so
-#     each has to be issued TWICE.  `wear *shoes*` (task 14, 0 pts) shadows
-#     `wear *golf* shoes` (task 15, 10 pts) -- so: wear, REMOVE, wear again.
-#     `give *food* to mr fenwick` (task 12, 10 pts, alt `give *stew*...`)
-#     shadows `give *stew* to mr fenwick` (task 17, 10 pts), and task 12's own
-#     action drops the saucepan on the dining-room floor -- so: give, pick the
-#     saucepan back up, give again.  Both pairs are needed for 95; a player who
-#     types each command once tops out at 75.
+#   * A scored task is shadowed by an unscored duplicate that sorts first, so
+#     it has to be issued TWICE.  `give *food* to mr fenwick` (task 12, 10 pts,
+#     alt `give *stew*...`) shadows `give *stew* to mr fenwick` (task 17, 10
+#     pts), and task 12's own action drops the saucepan on the dining-room
+#     floor -- so: give, pick the saucepan back up, give again.  The same shape
+#     applies to `wear *shoes*` (task 14, 0 pts) shadowing `wear *golf* shoes`
+#     (task 15, 10 pts), which is why the route still types wear/remove/wear --
+#     but see the cash note below: in 3.8 neither of those ever fires.
 #   * `get cash` in the arcade (task 19, 5 pts) prints "You grab the GBP30.00
-#     from the machine" and does NOT move the object.  A second `get cash`
-#     actually takes it -- and the cash is what task 15/16 check for.
+#     from the machine" and does NOT move the object.  Only a library take can
+#     move it, and the cash (obj26) sits INSIDE the casino (obj25) -- a dynamic
+#     container.  Pre-3.9 refuses a take out of a dynamic container the player
+#     is not holding or wearing (run380 insides() @446CAB/446CFB, the jb2000
+#     row), and the casino is class 4 = burden 7 against this game's MaxCarried
+#     5, so it can never be held: "Your hands are full." even with empty hands.
+#     The cash is therefore UNREACHABLE in 3.8, and with it tasks 13/14/15/16
+#     (all `RESTR type=0 obj26=[cash] v2=1`, "held") and task 20 `putt golf
+#     ball` (needs the shoes worn).  That is 5 + 10 + 15 = 30 points dead, and
+#     65/95 is the true maximum.  A 3.90/4.00 Runner has no such gate and would
+#     score the full 95 -- this is a version divergence, not an author bug.
 #   * This is a 3.8 game, so the pooled burden model applies: limit 5, putter
-#     costs 3, everything else 1.  Putter + ball + worn shoes is exactly 5, so
-#     the cash has to be dropped in the kitchen and the ball has to be dropped
-#     before the saucepan can be picked up for the second `give`.  Get this
-#     wrong and the game answers "Your hands are full."
+#     costs 3, everything else 1.  The route still drops the ball before the
+#     saucepan can be picked up for the second `give`.  Get this wrong and the
+#     game answers "Your hands are full."
 #   * 3.8 also only fills a dynamic container the player is HOLDING, so the
 #     stew is loaded with the saucepan in hand (`get saucepan` first, and the
 #     later one after `switch off cooker` is then redundant).  Cooking it does
 #     not need the saucepan on the floor.  Measured in run380 on this very
 #     game 2026-08-03: `put carrots in saucepan` with the saucepan where the
 #     author left it answers "You are not holding a saucepan."
-# No score is printed at the ending, so the route runs `score` (75/95) on the
+# The solution file is kept EXACTLY as measured -- it is byte-identical to
+# ~/adrift-battle/runner/wine/cmdfile_w_crime.txt -- so the five commands that
+# the 3.8 gate kills (`get cash` #2, `buy shoes`, `wear golf shoes` x2,
+# `remove shoes`, `putt golf ball`, `drop cash`) are left in deliberately:
+# they are the row's record of the divergence, and every one of their refusals
+# is verbatim run380 text.  Do not "tidy" them away.
+# No score is printed at the ending, so the route runs `score` (45/95) on the
 # turn before the winning `stand on chair`, which banks the last 20.
 # 3.80, despite sitting in the 3.90 block.  Re-blessed 2026-08-24 with the
 # other eighteen pre-3.9 rows; see the comment block above the akron row.
 # Measured 2026-09-04 in run380 (`Adven_1_crime.rtf`, the whole solution,
 # Save Transcript at the penultimate command): every command echoed, ZERO
 # engine differences once the 3.80 `take` -> `get` rewrite (jb2000 row) was
-# in.  Re-blessed the same day: the finish is now 65/95 -- the `score`
-# before `stand on chair` is not an administrative turn in 3.8 (haunt row),
-# and the re-worded `take` lines went with the rewrite.  Still wins.
+# in -- including "You are not holding a casino.", "You don't have enough
+# money", "You aren't wearing the right clothing." and the 45/95 `score`.
+# Golden re-blessed 2026-09-04 at 65/95; still wins.
 crime_adventure_solution.txt|Crime_Adventure.taf|Mrs Fenwick was in no danger at all, it was a friend
 # The Sisters (Andy Joel / "Mad Monk") -- ADRIFT 4.00, 50 rooms, 123 tasks,
 # 9 events.  WIN with the FULL 109/109 in 151 commands.  All 109 points live in
@@ -5796,42 +5811,60 @@ paint_solution.txt|Paint.taf|Well done! You've reached the best ending in the ga
 # there's always tomorrow." (the "Vick usurps with Fembot" ending, reached
 # with the crown, documents and a repaired Fembot all delivered).
 hcw_solution.txt|hcw.taf|Well, you didn't conquer the world today. But there's always tomorrow.|SCR_SKIP_WAITKEY=1
-# YADFA.TAF ("Yet Another Damsel in Fantasy Adventure"): a comic fantasy in
-# which a farm boy (with recruited companions Otto the dwarf and Grarrrrr
-# the dog) sets out from Castle Bloodheart to rescue kidnapped Princess
-# Isabella from the sorcerer Malgor. Derived via taf_pattern_scan.py text
-# dump plus interactive replay against harness/scare (SCR_ECHO_INPUT=1
-# SCR_SKIP_WAITKEY=1). Progress verified so far (partial walkthrough, NOT
-# a full win):
-#   - Market: `gather mud`, then at the Castle gates `throw mud at guards`
-#     to get past them; `take needle` off the spat-out needle.
-#   - Well: mend the leaky bucket with the needle and twine (`turn handle`/
-#     `mend bucket`/`turn handle` x2/`wash`) to draw clean water.
-#   - Inn: recruit the dwarf Otto by giving him a steak (`give steak to
-#     dwarf`) after talking to the bartender Bernard.
-#   - Tavern "The Black Midget": defeat the nobleman's retinue with `kill
-#     nobleman`, then -- strictly between that first kill and finishing him
-#     off -- `talk nobleman` (unlocks a task-state gate) and `nod` to accept
-#     his shield, then `kill nobleman` again to finish him.
-#   - Bribe the lance-corporal (`bribe lance`) to cross into the chasm/
-#     valley area; `blow whistle` to part flowers and find a body; `x body`
-#     then `mend shield` combines the shield with a repair kit taken off
-#     the corpse, once both are visible, into a repaired shield needed
-#     later for the final boss.
-#   - Feed the giant Bugha (`give nuts to grarrrrr` earlier recruits the
-#     dog; later at its lair `talk to bugha`), `pray` at a shrine for gold,
-#     and `pay toll` at the toll booth to proceed toward the signpost.
-#   - Ends at "By a signpost" (room past the toll booth/valley/graveyard
-#     loop) with the shield repaired, the feather secured (needed later for
-#     a pit-crossing shortcut), Otto and Grarrrrr both following, and
-#     Princess Isabella's ring and a remote control already picked up along
-#     the way.
-# 117 commands, SCR_SKIP_WAITKEY=1. Final run (partial progress, not a
-# win): score 83 out of a maximum of 231 (35%), stopped at "By a signpost"
-# with the `score` command's own output used as the reproducible marker
-# below -- the Village/Dungeon/Malgor-fight/ending portion of the game was
-# analyzed but not yet live-verified, so is not included in this walkthrough.
-yadfa_solution.txt|YADFA.TAF|your score appears to be 83 out of a maximum of 231|SCR_SKIP_WAITKEY=1
+# YADFA.TAF ("YADFA - Yet Another Damn Fantasy Adventure", David Whyld): a
+# comic fantasy in which a farm boy (with recruited companions Otto the dwarf and
+# Grarrrrr the dog) sets out from Castle Bloodheart to rescue kidnapped
+# Princess Isabella from the sorcerer Malgor the Mad. Derived via
+# taf_pattern_scan.py text dump plus SCR_DUMP_TASKS structural analysis and
+# interactive replay against harness/scare. Full win, 341 commands. The
+# route, in outline:
+#   - Castle/village: `gather mud`, `throw mud at guards` at the Castle
+#     gates, `take needle`; mend the leaky bucket at the Well with the
+#     needle and twine and `wash`; sell the knife to the elves (refusing
+#     their first offer); recruit Otto in the Inn with a steak and Grarrrrr
+#     with the nuts.
+#   - Tavern "The Black Midget": `kill nobleman`, then -- strictly between
+#     that first kill and finishing him off -- `talk nobleman`/`nod` to
+#     accept his shield, then `kill nobleman` again.
+#   - `bribe lance` to cross into the chasm/valley area; `blow whistle`,
+#     `x body`, `mend shield` (the mended shield is required to survive the
+#     final fight); take the feather (required for the pit crossing); Bugha,
+#     the shrine `pray`s, the toll booth and the graveyard/goblin loop.
+#   - Gold: `kill creature` in the valley, and sell the ring and the gold
+#     nugget to Theef -- the knife having been sold early, this is the only
+#     way to afford Gribbly's map (5) and key (3).
+#   - Idol clearing: `drop flower` as an offering; south to the witch-
+#     burning and `blow trumpet` to scatter the mob, then `n` -- the rescued
+#     witch teaches the one-shot "abracadabra" spell that is the only way to
+#     survive Gladrin's ambush at the archway later.
+#   - Gribbly's snack bar: `buy map`/`buy key`, `x map`; Mad Old Erik in the
+#     ruined city wants five pieces of junk (`give <junk> to erik` x5,
+#     he refuses the bent nail) before `talk erik` unlocks
+#     `say to gribbly erik`, which yields the rocket launcher.
+#   - Temple/dungeon: `get torch`, `open door` with Gribbly's key, `x bones`
+#     in the Cell to release the mad prisoner -- then simply walking `s`
+#     from the End of passage has *him* kill the ogre, which preserves both
+#     Otto and Grarrrrr (killing the ogre yourself costs both companions and
+#     the maximum score, and the rocket launcher's single shell is needed
+#     for Malgor).
+#   - `jump` off the bridge with the feather; `list` on the Balcony; then
+#     the timed stairs sequence: `drop torch` on Malgor's bodyguard, `wait`,
+#     `s`, `nw`, `enter archway` (the spell fires automatically and destroys
+#     Gladrin's mob -- without it this is death).
+#   - Sacrificial chamber: `fire rocket launcher` then `use mirror` (each
+#     weakens Malgor by 3; `kill malgor` below 6 is death), `kill malgor`
+#     with Otto and the mended shield, `untie isabella`, `untie princess`,
+#     `isabella follow me`.
+#   - Home via the shimmering gateway back to the Temple and the long walk
+#     to the Castle courtyard; `e` into the throne room with both Isabella
+#     and Otto ends the game.
+# 341 commands, SCR_SKIP_WAITKEY=1. Final score 243 out of a declared
+# maximum of 231 (105%) -- the declared maximum is simply wrong (93 scoring
+# tasks sum to 314 with overlapping/exclusive awards), and the ending text
+# itself allows for it: "If you did better than that you obviously did
+# really well." The win marker is the closing line of the King's reward
+# scene (wrapped, so only the tail of it is matched).
+yadfa_solution.txt|YADFA.TAF|gained yourself a nice (haunted) castle. Not bad for a day's work.|SCR_SKIP_WAITKEY=1
 # Requiem (IF Comp 2006, David Whyld): a noir psychological thriller. PI Chris
 # Chandler is hired by client Sophia Montague to investigate Martin Cairns, an
 # ex-lover who (she claims) cannot be killed. No score/MaxScore is authored
@@ -5889,45 +5922,64 @@ withoutaclue_solution.txt|WithoutAClue.taf|you've managed to finish the game|SCR
 # Cowboy Blues (comedic Western): the player wanders the town of Deadwood
 # Gulch collecting items and running dialogue trees to help NPCs, working
 # toward a showdown with the outlaw "Mad Jake" and his three cronies
-# (Scabies, Gragg, Herman) at OK's Coral. The game has NO scripted EndGame
-# action anywhere in its 735 tasks -- it is a pure open-ended
-# score-accumulation game with no win/lose ending, so as with the YADFA
-# row above this is a deliberately PARTIAL walkthrough using the engine's
-# own `score` output as the reproducible marker. Progress: buys a beer and
-# trades favors around town (badge, crowbar, slippers, lolly, will) to
-# raise cash and reputation, then dispatches all three of Jake's cronies --
-# Scabies via the bank double-encounter, Gragg via the warehouse
-# board-trap (open the warehouse, pull the board, let him chase and fall),
-# and Herman via the Murder Avenue double walk-in trigger (`ne` twice from
-# Stonetomb Square) followed by knocking him out with `push barrel` to
-# rescue his kidnap victim Alissa and reunite her with her father for
-# points. The deflection helmet obtained from Dyanne's cabinet is handed
-# over to Egbert's dwarf gang (`give helmet`) to defuse their Slaughter Row
-# ambush peacefully, at the cost of forfeiting the item needed to survive
-# Mad Jake's "Herokiller" gun -- so the much larger OK's Coral boss
-# confrontation is NOT attempted here. 213 commands, no waitkey pauses
-# encountered. Final score 68 out of a maximum of 401 (16%).
-cowboyblues_solution.txt|CowboyBlues.taf|Your score is 68 out of a maximum of 401|
+# (Scabies, Gragg, Herman) at OK's Coral. WINNABLE -- and this row is a full
+# win, not the partial checkpoint it used to be. The earlier verdict ("no
+# scripted EndGame action anywhere in its 735 tasks, so no ending exists")
+# was wrong in exactly the way the YADFA row above was: the game ends by
+# moving the player into a terminal ROOM, not by an `ACT type=6`. Task 591
+# ("- end game", fired by task 590) drops the player into room 35, the
+# Mayor's House, whose only exit is refused by task 606 with "Game is over,
+# dear boy"; tasks 603/604/605 print the difficulty-scaled epilogue and
+# award the closing bonus (+10 easy / +20 medium / +30 hard). Route: the
+# original 213-command tour (badge, crowbar, slippers, lolly, will; Scabies
+# via the bank double-encounter, Gragg via the warehouse board-trap, Herman
+# via the Murder Avenue double walk-in and `push barrel` to free Alissa),
+# then the endgame chain. Eccles trades the voucher for the whistle;
+# Speckle trades a bought beer for the marble; `x pile` then `x mark` at the
+# Dry River Bed (needs the easy setting) reveals that waiting outside the
+# saloon drops a mattress on the long dusty road; the arcade kids unlock the
+# manager's office once the sheriff has recruited you (`talk kid`, `2`, `1`)
+# and the Lucy chase (n/s/e out of Babbage Street) is what actually carries
+# the player through that door, where `x house` spots the battery outside
+# and `arrest lucy` banks +5. Mattress + marble + battery bought from Shem
+# at the river bed yield the map, without which task 1 walks you in circles
+# in the Smugglers Cave forever. Then Murder Avenue -> Outside OK's Coral ->
+# the Coral -> the floor gives way into the Smugglers Cave (needs Gragg
+# dead) -> Winding Tunnel (needs Scabies dead) -> Mad Jake's Hideout, where
+# event 4 kills you on the second turn, so `blow whistle` must be the first
+# command in the room. The deflection helmet was given away to Egbert's
+# dwarf gang early on, which would be fatal on the helmet branch (tasks
+# 581/582) but is irrelevant on the whistle branch task 590 takes on the
+# easy setting. 271 commands, no waitkey pauses. Final score 113 out of a
+# maximum of 401 (28%) -- the easy setting caps the closing bonus at +10,
+# and the many optional side-quests are left on the table.
+cowboyblues_solution.txt|CowboyBlues.taf|how does it feel to be a hero then, Fingle Bodge?|
 # Whatever Happened to Uncle Grumble (comedic fantasy, hero "a" = tall and
-# strapping): the player must rescue Uncle Grumble from a fortress, working
-# through a long chain of mandatory prerequisites (a church "deed of purity"
-# errand, a package delivery, a horn-for-chest-combination trade with Lord
-# Boore, a witch's-cottage broom-for-potion/spellbook-for-key exchange, and
-# a mandatory travelling companion -- Lughead or Vahla) before the fortress
-# rescue and ending sequence can even be attempted. Static analysis via
-# SCR_DUMP_TASKS mapped the full 82-room connectivity graph and the entire
-# fortress-escape state machine, but the full route was NOT completed live
-# before this run was checkpointed -- this is a deliberately PARTIAL
-# walkthrough covering only the live-verified opening: select hero "a", kill
-# the two orcs menacing the dwarf in Oscoe's Sleazepit (no companion
-# required for this fight), loot their corpses for 4 gold, and buy a mug of
-# wine (spending 1 of the resulting 6 gold) -- the item needed to recruit
-# Vahla as a companion, though the recruitment command itself was not yet
-# resolved (the parser needs a noun for her that hasn't been found: neither
-# "vahla" nor "swordfist" -- her object's alias/prefix in the dump -- match
-# before she's somehow introduced). 9 commands, no waitkey pauses
-# encountered. Final score 6 out of a maximum of 404 (1%).
-grumble_solution.txt|Whatever_Happened_to_Uncle_Grumble.taf|Your score is 6 out of a maximum of 404|SCR_SKIP_WAITKEY=1
+# strapping): rescue Uncle Grumble from Chad Sinister-Sinister's fortress
+# before he murders his oldest friend. A long chain of mandatory
+# prerequisites gates the endgame -- a church "deed of purity" errand that
+# pays out a horn and a guard uniform, a package delivery to Gobbold that
+# yields a bomb, a horn-for-chest-combination trade with Lord Boore, a
+# witch's-cottage broom-for-potion / spellbook-for-key exchange, the Copse
+# treetop and train-tracks subquest for the teleport ring (without it the
+# gravel pit is a one-way trap), and a travelling companion (Vahla,
+# recruited with a mug of wine). Full 260-command win: pick hero "a", clear
+# the orcs in Oscoe's Sleazepit, work the town errands, take the fortress
+# via the locked-door bug at the west wall, free Grumble and end on the
+# healing-potion reconciliation ("no" -> "wait" -> give nulgas potion),
+# which is worth +10 and lets the true love go to the street kids instead.
+# Scores 208 out of the header's nominal 404 -- and past the 195 the intro
+# claims is hero "a"'s maximum, so that claimed per-hero maximum is wrong.
+# Notable author bugs met on the way, all documented in
+# notes/WALKTHROUGH_TODO.md: Farmer Haggis' two field tasks have their
+# task-done restrictions mutually contradictory, so hero "a" can only ever
+# be beaten and stripped, making "sw" at the field route-fatal; leaving
+# Merrick Row east after handing over the bomb but before the true love
+# docks a silent -50; and "x orcs" (+1) is permanently shadowed by a
+# lower-indexed task that claims the same command.
+# 260 commands, SCR_SKIP_WAITKEY=1. Final score 208 out of a maximum of 404
+# (51%).
+grumble_solution.txt|Whatever_Happened_to_Uncle_Grumble.taf|Your score is 208 out of a maximum of 404|SCR_SKIP_WAITKEY=1
 # magicshow.taf (AIF, adult content -- see /goldens/.gitignore): a hypnosis/
 # stage-magic themed game. The player (stage magician "Justin") performs a
 # theatre act (hat/rabbit, card, sawing-a-girl-in-half, hypnosis/table, and
@@ -5953,21 +6005,45 @@ grumble_solution.txt|Whatever_Happened_to_Uncle_Grumble.taf|Your score is 6 out 
 # maximum of 67 (73%), stopped at the Roof of Tower with Morgana's duel not
 # yet attempted.
 magicshow_solution.txt|magicshow.taf|Your overall score is 49 out|
-# mould.taf: superhero-origin story ("Handmade", sidekick to "the Mould",
-# whose power is a shapeshifting hand/body). SCR_DUMP_TASKS confirmed ZERO
-# ACT type=6 (EndGame) actions anywhere in its 1121 tasks -- no scripted
-# win/lose ending exists at all, so this is a deliberately PARTIAL
-# walkthrough checkpointed mid-play rather than driven to a final screen.
-# Live-verified through: training with the Mould, the parents'-lab rescue
+# goblin.taf (AIF, adult content -- see /goldens/.gitignore): "A Goblin's
+# Life" (Burnout/BBBen, 2007 AIF Mini-comp 2nd place; ADRIFT 3.9). The
+# bind-and-capture route to the "King" ending -- see the comment header in
+# goldens/goblin_solution.txt for the full derivation (the empty-camp
+# patrol window, and stealing the antidote bottle before poisoning the
+# stew, which is the fatal trap this route avoids). No numeric score
+# system; win confirmed by the engine's own "Well done - you scored maximum
+# points!" line. NOT to be confused with goblinhunt.taf, a different game
+# already wired above.
+goblin_solution.txt|goblin.taf|Oh, and before we forget- Congratulations, gobbo. Or, should we say...|
+# mould.taf ("The Potter and the Mould"): superhero-origin story
+# ("Handmade", sidekick to "the Mould", whose power is a shapeshifting
+# hand/body). The game has ZERO ACT type=6 (EndGame) actions in its 1121
+# tasks -- it ends instead by moving the player into ROOM 103 [THE END],
+# a terminal room, so the win marker is the congratulation line rather
+# than a scored EndGame summary. WON 150/150 in 333 commands.
+# Act 1: training with the Mould, the parents'-lab rescue
 # (cage/mouse/snake/rope puzzles), the Mould's apparent death, the "NINE
 # MONTHS AGO" shopping-centre flashback (rescuing Waterfall's girl, the
 # clay-bat fight via stereo+CD+orange-juice tank, the clay-eagle fight via
 # thrown vinegar), and the Mould's-apartment finale (safe combination from
 # the letter, the shapeshifting-imp mini-battle for the key, unlocking the
-# meditation room and taking the amulet). Ends cleanly (no error text) at
-# the "Gate on the endless path" scene transition, score 60/150 (40%) at
-# last measurement. 195 commands, no waitkey pauses left unresolved.
-mould_solution.txt|mould.taf|Gate on the endless path|
+# meditation room and taking the amulet).
+# Act 2: the dream grove's three gates (past/present/future tests), the
+# telescope, the scientist's house, then the mountain hideout -- golem,
+# hawk, drill/cart, the girl's flood, the octopus/grapple water sequence,
+# the unstable clay creature led north to dissolve, the mole dig.
+# Key mechanic: the clay dog must be ditched (lead it up to ROOM 77 and
+# climb down the ladder, having first CLOSED the south door of ROOM 78)
+# before "hit machine" will fire in ROOM 84 and yield the keycard.
+# Endgame: absorb the blue imp, the Potter conversation, the orangutan's
+# murder of the Potter, magic-carpet up to the walkway, the clay corridor
+# (fly south to pit the bear, wait two turns then flee south to crush the
+# tiger under the ceiling), and the ROOM 101 boss: two DIFFERENT options
+# from {5,2,4} then two DIFFERENT options from {1,3} -- repeating one is
+# instant death. Final answer at ROOM 102 must be 2; 1 and 3 both kill.
+# Two "(Press a key)" pauses are absorbed by throwaway `look` commands;
+# SCR_SKIP_WAITKEY must NOT be used here (it breaks the imp fight).
+mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould|
 # blood.taf ("Fire in the Blood" by Richard Otter, ADRIFT 4, whodunit
 # murder mystery). The player's wife has been murdered by one of four
 # guilty men (Frank Lovell, Jed Peters, Rick Dawson, Ben Crosby); the
@@ -6116,21 +6192,340 @@ onnafa_solution.txt|ONNAFA.TAF|your score turned out at 76|SCR_SKIP_WAITKEY=1
 # herb again in the very same turn -- Dining, where the kettle is, is
 # two moves away, so no route was found to carry live thyme there.
 house_solution.txt|House.taf|The house plan swings open to reveal a safe.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
-# Partial-progress checkpoint, NOT a win: David Whyld's studio-director comedy
-# sim "TO THE MOON AND BACK" (in-game title "Lights, Camera, Action!"). This
-# walkthrough gets the trident to Witherspoon Nash (so he relocates to the
-# Film Set to await the shoot) after solving the office-desk/crowbar chain,
-# the vending-machine "search glass" SYNONYM-collision workaround, the
-# two-stage "talk daisy" (first attempt is flavour-only, the second opens the
-# real menu) needed to unlock PC Plod's canteen interrogation, and the
-# badge/Grunch disguise chain to reach the car for the camera and veal. It
-# stops there: still pending (traced via SCR_DUMP_TASKS but not yet
-# live-verified) are the Ross/cup/Acctors-Gide fetch for Ogden Buckett, the
-# push-garbage/press-catch/x-side fetches for Smiffy's coin/tape/goggles, the
-# 88th-copy-script handoff to Violetta, and the four "talk violetta" scene
-# triggers before the final "give bar to zara" win. 72 commands, zero
-# unmatched/refusal lines in the transcript.
-lca_solution.txt|Lights_Camera_Action.taf|Still wittering to himself, Witherspoon departs.|SCR_SKIP_WAITKEY=1
+# Full win (85/85, best ending, top rank "So good you must have cheated"):
+# David Whyld's studio-director comedy sim "TO THE MOON AND BACK" (in-game
+# title "Lights, Camera, Action!"). The film has to be shot on four sets in
+# order, and every point comes from the author's own "scor" variable -- the
+# game has no EndGame action at all, so the win marker is the good-ending
+# text. Prep: the office-desk/crowbar chain, the vending-machine "search
+# glass" SYNONYM-collision workaround, the two-stage "talk daisy" (the first
+# attempt is flavour-only, the second opens the real menu) that unlocks PC
+# Plod's canteen interrogation, and the badge/Grunch disguise chain to reach
+# the car for the camera and the veal. Then the fetch quests: mop -> magnet
+# -> "open cabinet" (the magnet is refused until var12 [drawer] is 1) ->
+# paperweight; bench -> axe -> chop tree; "shake tree" x3 -> "kick saucer" ->
+# "pull creeper" (this order matters: task452 needs var16 [saucer] == 2, and
+# without it Petty Morgan is never revealed and both "give ring" and "smash
+# paperweight" fall through to the no-score alternatives); "push garbage" x3
+# for Smiffy's 50p; the car for the beer and the veal; Ross (give watch ->
+# option 6 summons Madam Zara to the Film Set, option 1 sends him off for
+# tea) for the film and the ring; Smiffy's tape/goggles/scissors/50p for the
+# 88th copy of the script; Spivvy's genre pick plus the rewrite (var40
+# [amended] = 1, worth +2 at scene 3) and Grunch's genre pick (each upgrades
+# its scene from +1 to +2); the cup filled at the car-park puddle and poured
+# on the grass for the Acctors Gide that Ogden Buckett wants. The murder
+# subplot has to be solved before scene 4 or task702/task703 route the
+# ending into task710 "! death": give the copy to Violetta -> task446's
+# scream moves PC Plod to Hell -> answer his interrogation 1/1/1/1 -> "talk
+# god" -> "x body" in the car park (letter p) and "x cabinet" in the office
+# (letter m) -> "show scrabble" to Plod -> re-enter the jungle for task494,
+# which sets var45 [solved murder] and makes scene 4 score task704 (+2)
+# instead. Two ordering traps: recruiting Petty Morgan into the film instead
+# (task470) leads to the same "! death"; and "ne" out of Hell fires task237,
+# which sends Witherspoon and Daisy off to the film archive store for good,
+# so "give trident to witherspoon" (which is what puts him on the Film Set
+# for scene 1) has to come after the second haunted-house trip, and task237's
+# own point is collected on the way to the desert once scene 1 is done.
+# Finally the shoot itself: "talk violetta" then "wait" on the Film Set, the
+# Moon, the desert and the ocean, then "give bar to zara" back on the Film
+# Set. 261 commands.
+lca_solution.txt|Lights_Camera_Action.taf|best ending in the game!|SCR_SKIP_WAITKEY=1
+mutaydid_solution.txt|mutaydid.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
+# ADayAtTheSeaside.taf (ADRIFT 4). Small 18-room errand game in Portobello,
+# Edinburgh: get the bucket & spade (West beach) to build a sandcastle and
+# dig up a penny (East beach); trade the penny for a pound coin at the
+# Arcade's `play game`; feed the pound coin into the Photo booth's slot
+# (`insert coin`) for a passport photo; collect a pen (Bingo, upstairs from
+# the Arcade) and a leisure-access-card form (Municipal Baths); `do form`
+# (prints the library's own default "I don't understand what you want me
+# to do with the completed form." fallback text -- TASK3 has no authored
+# COMPLETE= message, but its restrictions/actions DO run: `score` before
+# and after confirms +1 and the completed-form object exists for the next
+# task, so this is a faithful, deterministic game-authoring quirk, not a
+# desync); `give form`/`swim` at the Baths; and `buy camera` at the
+# Chemist. The scenic photo (`take photo`, East end of the beach) is
+# time-gated: SCR_DUMP_TASKS's two EVENTs looked like a single-turn
+# window (pre-sunset start=29..29 marks TASK8 done, sunset start=30..30
+# marks TASK6 done, and TASK7 requires TASK8 done + TASK6 undone), but a
+# per-turn probe (repeating `take photo` every turn from turn 6) showed
+# it actually succeeds for 10 consecutive turns, 29 through 38 -- so the
+# route just needs the camera in hand and the player at the East beach
+# sometime in that window, landing on turn 36 here. `get bus` at the Town
+# Hall then ends the game. Reaches every one of the 9 ACT type=4 scoring
+# tasks (sandcastle, dig, play game, insert coin, do form, give form,
+# swim, buy camera, take photo) for the true maximum: "You scored 9 out
+# of the maximum 9!  That is 100% of the game!  Well done - you scored
+# maximum points!" 40 commands, zero unmatched/refusal lines other than
+# the do-form quirk above.
+seaside_solution.txt|ADayAtTheSeaside.taf|Well done - you scored maximum points!
+reluctantvampire_solution.txt|The_Reluctant_Vampire.taf|you achieved a score of 103 out of a possible of|SCR_SKIP_WAITKEY=1
+# ss whore.taf (AIF, adult content -- see /goldens/.gitignore): WWII-fantasy
+# breeding/fetish AIF (OSS spy "Agent Gale" infiltrates Castle von
+# Bonerstein disguised as an "SS whore" to steal Operation Rheinmaiden's
+# plans). All 7 ACT type=4 score points are reachable in one run: break the
+# ashtray and cut the ropes with the shard (Klaus's cell), pour the acid
+# flask on the cell lock, get Klaus to reveal the escape plan (`ask klaus
+# about execution` before `ask klaus about orders`, unlocking `give orders
+# to klaus` -- asking about orders first soft-locks that exchange), dress
+# in the SS-whore outfit and `tell klaus i'm ready` to be moved to Oberst's
+# Chambers, then `turn around` / `crawl to bonerstein` / `lay across
+# bonerstein's lap` and repeat `suck cock` (a "his meter" counter, var66,
+# needs to reach 12) until the engine auto-fires the climax and awards the
+# after-sex point. The messenger's satchel (with the vial of Klaus's
+# elixir) arrives 4 turns later; the schnapps bottle is in the Radio
+# Room's locked trunk (key: the skeleton key found by searching the
+# uniform); the snifter is in the Oberst's own desk. `remodulate
+# transmitter` (Radio Room, no restriction) before mixing schnapps +
+# elixir in the snifter and giving it to Bonerstein makes the following
+# `suck cock` (a separate, higher-priority task once the snifter is in its
+# "served" state) zombify him outright (statevb -> 23) instead of just
+# resetting for another round. While zombified, `search behind portrait`
+# reveals a wall safe, `ask bonerstein about combination` gets him to
+# recite it, and `use combination` (or its literal "37 right 25 left 37
+# right" alt-command) opens it for the plans (the second score point).
+# Finally, `order bonerstein to write execution order for siemens` (needs
+# the blank stationery from his desk) kills von Siemens off-screen for the
+# third and last point; an event fires Klaus's tunnel rescue 4 turns later,
+# and `enter tunnel` is the winning final action. 136 commands,
+# `SCR_SKIP_WAITKEY=1` (a `<waitkey>` inside the first spanking scene
+# otherwise eats a scripted command). Final: "You scored 7 out of the
+# maximum 7!  That is 100% of the game!  Well done - you scored maximum
+# points!"
+sswhore_solution.txt|ss whore.taf|You scored 7 out of the maximum 7!|SCR_SKIP_WAITKEY=1
+# warlord.taf ("The Warlord, The Princess & The Bulldog" by David Whyld,
+# ADRIFT 4, release 46). A comedy-fantasy castle-infiltration romp. The
+# game ships its own in-fiction `megacheat` command (TASK 2039) that
+# prints the ENTIRE author walkthrough as HTML-tagged prose in 5 parts --
+# no third-party walkthrough exists online -- which was extracted and
+# reflowed to one command per line and used as the derivation's starting
+# point. Two mechanics needed live-testing fixes beyond the raw megacheat
+# text: (1) the kitchen stove's gear (Room 14) only has generic
+# "move gear" (no directional raise/lower), and its extreme-to-middle
+# transition is deterministic but middle-to-extreme is a genuine
+# scr_randomint() roll (TASK 1207-1212), so recipes 2 and 4 needed
+# brute-force-verified repeat counts (3x "move gear" each, not the
+# original's 1x) to land the gear correctly before `kick stove`; and (2)
+# the globe must be `unwrap`ped (not "take globe from handkerchief",
+# which doesn't match TASK 9's *hanki* *globe* pattern) before
+# `put globe on stove` for recipe 4. A separate bug in the megacheat's
+# own script sent a stray digit ("6") into the second computer menu
+# (`type access` after `put disc in computer`), which only has 5 items;
+# fixed to "1 2 3 4 5". The barrel-guard puzzle (Rooms 26/27/32/33,
+# TASK 1787-1806) needed full live re-derivation: `push barrel` rolls a
+# fresh scr_randomint(1,6) every time (RESTR type=4's v1 addresses a
+# named VAR at v1-2, NOT raw -- unlike ACT type=3's v1, which is raw --
+# so what first looked like a deterministic "given Ogbert a gift" gate
+# was actually the real, random per-push roll), so the walkthrough
+# instead uses the game's own `b1` shortcut (from the `shortcuts`
+# command: "the barrel will roll around randomly ... to make it roll in
+# the way it's intended, simply type b1") once the barrel has been
+# chased into the Large Hall (Room 26): push/follow it
+# Ogbert's Chamber -> w -> Bend In The Passage -> push/nw -> Large Hall
+# -> push/e -> Portrait Gallery -> push/w -> Large Hall, then `b1`
+# unconditionally detonates it on the guards (the scored "deal with
+# guards using barrel" outcome) without depending on the roll. Wearing
+# the Armoury's bowler hat then gets the player mistaken for Baron
+# Grishtak by the Communications Centre guard, who auto-enters the door
+# code; `x monitor` there opens an unrelated single-letter password
+# sub-prompt that swallows subsequent commands (recoverable with `x` to
+# cancel it, but simplest to just never issue `x monitor`/`touch screen`
+# and go straight to `push green key`/`push red key`). 356 commands,
+# `SCR_SKIP_WAITKEY=1`. Reaches the true 100/100 maximum score (rank "The
+# Ultimate Soldier"), zero parser-error/refusal lines anywhere in the
+# transcript.
+warlord_solution.txt|warlord.taf|you've successfully completed The Warlord,|SCR_SKIP_WAITKEY=1
+# Tic-Tac-Toe (small joke game): the trial-by-tic-tac-toe against an Undead
+# Rob Zombie. Three leading filler lines (any text) are silently swallowed by
+# hidden waitkey prompts during the intro/rules screens before "play game"
+# starts the match; picking cells 1, 3, 5, 7 wins immediately via the 3-5-7
+# anti-diagonal (Zombie gets 2, 4, 6) before its 4th move. No numeric score
+# track (always "0 out of a maximum of 0"); the win is the only ending state.
+# A swear-jar Easter egg exists (`fuck ...` etc triggers a comedic refusal)
+# but is unused here since it's not needed for progress.
+tictactoe_solution.txt|Tic-Tac-Toe.taf|Congratulations, you won!|
+# El ascensor (Spanish, one-room short game, MaxScore=0/no scoring): a bitter
+# office worker slams the elevator's green garage button and gets stuck
+# between floors. Examining the carpet reveals the boss's dropped silver
+# pen; taking it, examining it, and disassembling it (desmontar) yields a
+# sharp cap (tapa) plus flavor-text reflection monologues triggered by
+# examining the mirror/speaker/carpet. Climbing onto the armrest
+# (subirme al reposabrazos) lets the player reach the ceiling hatch
+# (trampilla); opening it with the pen cap unscrews all four screws in a
+# multi-page nostalgic monologue and ends the game (Type-6 EndGame action --
+# confirmed the interpreter stops responding to further input right after).
+# Only ending state in the game; win text quoted verbatim minus its
+# accented characters so grep -F byte-matches the ISO-8859-1 golden under
+# LC_ALL=C.
+elascensor_solution.txt|El ascensor.taf|tornillo cae al suelo|SCR_SKIP_WAITKEY=1
+# The White Singularity (large plot-driven game, MaxScore=0/no scoring track --
+# "score" reports 0 out of a maximum of 0 throughout): naturalist Dr. Christian
+# Esguerra and his wife Irene build an antigravity ship powered by a reverse
+# singularity (NESCA's antimatter refinement of his own black-hole theorem) and
+# pilot it to the Earth's core. `talk to irene` in the office triggers the
+# initial exposition cutscene; at the ship-naming menu, choosing 2) "Go to the
+# Core!" immediately (rather than stalling on option 3, which forces a worse
+# delayed/Marianas-trench branch later) skips straight to the voyage. `down`
+# descends through the mantle; NESCA's "friend or tool" loyalty question is
+# answered literally with `a friend`. On reaching the core the ship finds an
+# unexpected black hole (created two years earlier by the player's own
+# plutonium experiment, never actually evaporating as assumed); of the two
+# fix choices, `use your antigravity forcefield` (starving it via containment,
+# vs. releasing the reverse singularity into it) leads to NESCA sedating and
+# ejecting the player to safety in the escape pod while she stays to run the
+# forcefield. As backup generators fail one by one, `pull out the life support
+# generator` (not the communications one -- NESCA is a machine and doesn't
+# need life support) is the correct sacrifice; the black hole fully evaporates,
+# NESCA survives and resurfaces, and the game ends on the "saved the world,
+# Nobel prize, kid on the way" epilogue -- the best/winning ending found. Only
+# 6 commands; interpreter stops responding to input right after (Type-6
+# EndGame), confirmed via a trailing `score` producing no further output.
+whitesingularity_solution.txt|The White Singularity.taf|You've gone to the core, saved the world, earned a Nobel prize with|
+# igor.taf -- tiny one-room Frankenstein pastiche (22 commands). Reveal
+# chain: look wall -> press boil (get Book) -> look apparatus (get Elixir)
+# -> give elixir to master (get key) -> pull curtain (reveals coffin +
+# wardrobe) -> unlock/open wardrobe (reveals corpse + Coat inside) -> look
+# corpse -> get/give brain -> get coat/look in coat (reveals Note) -> press
+# switches 5,1,2,3,4 in that order (3rd switch is a deliberate no-op red
+# herring). Ends on "The MONSTER LIVES !" with the game's own WinText.
+# Final score 1100/1000 (110%) -- the author's own point totals exceed
+# their declared MaxScore; this is the game's actual maximum, not a
+# harness artifact.
+igor_solution.txt|igor.taf|You are now REDUNDANT ! !|
+# MikeDesert_SuburbanProdigy3.taf -- small suburban-house game, 4 treasures
+# worth 20 points each (max 80). Skeleton in the well holds a bone (take it,
+# not the note) and a "press the red stone" (per the in-game HINT) opens a
+# secret passage south/up into the front yard. Giving the bone to Snarl the
+# dog sends him running from the back yard into the front yard, where he
+# incidentally reveals the buried house key (`take key` there afterwards).
+# Unlocking the front door leads inside: the living-room couch yields string,
+# and opening the bible (examine "black book" first) reveals Mom's hidden
+# whiskey bottle. Upstairs, throwing the string out the bedroom window sends
+# the cat Pazuzu leaping after it -- the resulting "crash" both lets you
+# safely search under the bed (pearl) and, unseen until you return to the
+# front yard, kills Snarl there, letting you take the egg from the front-yard
+# nest, cut off Snarl's paw, and (once Snarl is gone) search his back-yard
+# doghouse for a golden necklace. A hidden-passage wall yields a golden
+# nugget. Washing the paw in the kitchen sink (Mom's presence doesn't block
+# this) before giving it to the voodoo priest in the celler gives the true
+# "you are the winner" ending; giving it unwashed, or giving the priest the
+# pearl/egg/bone instead, are the game's other (losing/lesser) endings.
+# `STATS` at the end prints the score summary. Reaches the true 80/80 (100%)
+# maximum score. A swear-jar Easter egg exists (typing profanity triggers a
+# comedic refusal) but is unused here since it's not needed for progress.
+suburbanprodigy3_solution.txt|MikeDesert_SuburbanProdigy3.taf|Well done - you scored maximum points!|
+# Egg_Hunt.taf -- small Easter-themed Bible-trivia hunt across 10 rooms (large
+# .taf file is almost entirely embedded graphics; decoded game text is tiny).
+# Collect all 10 named eggs: Saphire/Crystal (on the ground at Holy City and
+# the Temple), Ruby (pull/push the loose brick behind the Temple curtain),
+# Marble (use the Tongs -- found at Old Tombs -- on the House fire), Pearl and
+# Bronze (look net, then look boat, at the Shore of Galilee, each revealing an
+# egg dropped in the water), Gold (give the Crown -- found On a Road -- to the
+# Angel at the Garden of Gethsemene, which also unlocks north into the Cave),
+# Emerald and the Burial Cloth (lying in the Cave), Silver (look trough/manger
+# in the Cave, after the Angel has opened it), and Topaz (give the sign --
+# from Golgotha -- to Thomas at the Shore for the upper-room Key, unlock/open
+# the House door, go up, then give the cloth to Jesus there). Holding all 10
+# eggs and typing the game's own required phrase EASTER IS ABOUT WHAT GOD DID
+# FOR THE WORLD wins. Reaches 950 out of the declared MaxScore of 1000 (95%)
+# -- the sum of every scored task in the .taf is only 950; the remaining 50
+# points are not obtainable by any task/action in the game (author's declared
+# MaxScore exceeds the actual scorable total), confirmed via the game's own
+# "You finished 50 points short." end-of-game line.
+egghunt_solution.txt|Egg_Hunt.taf|You scored 950 out of the maximum 1000!|
+# Bandera.taf (Spanish, "Bandera" = flag) -- one guard-duty Saturday at a
+# barracks. Talk to the Cabo, get sent to the Cantina for a food bag (talk to
+# Marife, kiss her for the bag), give the bag to the Cabo for a storeroom key,
+# move the bookcase in 1a Compania to find a torch (also unlocks north from
+# Patio de Armas into 2a Compania), unlock the storeroom door, put on the
+# backpack there to fall into the Sotano, break the crates for a cassette
+# tape, then put the tape in the 2a Compania radiocassette to end the game.
+# `observar`/`examinar cuerpo` in the starting room is also a scored action.
+# Reaches the true 100/100 maximum score ("Well done - you got maximum
+# points!"), zero parser-error/refusal lines anywhere in the transcript.
+bandera_solution.txt|Bandera.taf|Well done - you puntosd maximum points!|SCR_SKIP_WAITKEY=1
+# wumpusRun.taf (IF-Comp 2006, "The Wumpus Run") -- a Hunt-the-Wumpus themed
+# cave crawl: 20 rooms, no numeric score (MaxScore 0). Clue rooms report a
+# smell (Wumpus in an adjacent room) or a racket (bats in an adjacent room);
+# cross-referencing two clue rooms' shared neighbour pinpoints the Wumpus
+# without ever entering its room. Here smell-clues at Twisty Passage(13) and
+# Mushroom Mecca(15) share only Rectangular Cavern(14) as a neighbour, so
+# `throw starblade west` from 13 kills the Wumpus at range. Must then walk
+# into its room, drop the lantern (holding it blocks the mane-cutting
+# restriction), `cut mane`, retake the lantern, and return to the entry
+# ladder at Burial Chamber to `climb ladder` and win -- 11 turns total, well
+# inside the 120-turn lantern-fuel budget. Ends with "You have earned the
+# right to the title of \"Grand Wumpus Hunter\"".
+wumpusrun_solution.txt|competition2006__adrift__wumpusrun__wumpusRun.taf|You have earned the right to the title|
+# Il Golem.taf (Italian, CAT 2010 entry by Tristano Ajmone) -- get the bone
+# and letter in the Salotto, read the letter at the Gabinetto mirror for the
+# Sgabuzzino combination, move the shelf there for the light switch, turn it
+# off to enter the Cucina safely, feed Diablo the bone while inside, then
+# race back (exactly 3 moves) to flip the switch on within his chewing
+# window to electrocute him. Toggle the switch off again, move the fridge,
+# unplug its live cord for permanent kitchen safety, then switch back on
+# (needed later for the tritatutto/blender). Spray insetticida on the black
+# widow in the Camera Da Letto for a brass key, open the Ufficio and its
+# desk for a machete, cut nonno's hand off in the Salotto and pick up the
+# severed hand, then `apri il laboratorio` (it auto-uses the hand on the
+# biometric lock). In the Laboratorio: the exact 6-step flask-pouring
+# sequence from the game's own hint (G>M, M>P, P>G, M>P, G>M, M>P) leaves
+# Grande=2L/Media=2L/Piccola=3L; grind the mandragora in the Cucina
+# tritatutto and bring it back, then pour Grande into the vasino, add the
+# mandragora, and pour Piccola into the vasino (any other order/quantity
+# explodes and ends the game). Pour the finished unguento into the Bagno's
+# floor hole to kill the Golem, then `esamina tavolo` in the now-unlocked
+# Sala Da Pranzo to reveal the book on it, take and read it to win. 89
+# commands, `SCR_SKIP_WAITKEY=1`. Reaches 42/45 (93%); the remaining 3
+# points are the game's own optional "unusual verb" Easter-egg actions
+# (petting/examining Diablo, playing the record, swearing, etc.), not
+# required to finish the story.
+ilgolem_solution.txt|Il Golem.taf|Complimenti, hai completato l'avventura!|SCR_SKIP_WAITKEY=1
+# Ghost town v1,05.taf -- large (~400KB decoded text) ADRIFT 4.0 murder-mystery
+# set in the ghost town of Battle Creek; scoreless (max is 0/0), so the win
+# marker is a line from the closing scene rather than a score line. Dig out of
+# the opening cliffside cave, read grandfather's will with Ninette, drive the
+# car into town. Day 1: untie the saloon chandelier rope (that one action
+# drops the kerosene container, a rope and the lump of hard grease onto the
+# saloon floor), lubricate and pry open the general store's stuck drawer and
+# read the newspaper inside it (Evidence 1 of 4; obj138, resolved via
+# SCR_DUMP_OBJLOC: parent=115, the drawer), take the bank's loose iron bar,
+# and at the Hotel tell Ninette to stay with "ninette wait here" (the ALTCMD;
+# "tell ninette to wait" is swallowed by the ASK/TELL library verb first) so
+# the stairs collapse under you into the dark cellar: feel out the shovel,
+# read a skeleton key off a nailed board by touch, unlock and open the door
+# back into the lobby, then "ninette follow".
+#   Everything after that is a day/night route. EVENT 2 and EVENT 3 make Day
+# 40 turns long and Night 35, and the four Evidence sources are deliberately
+# split across the two halves: the newspaper (any time), "open door 105" in
+# the Saloon's corridor 3 at night (TASK282, which only becomes reachable
+# after "open bathroom door", TASK277), "x knife" (TASK33) on the knife from
+# the room-103 secret compartment -- Day-only, because TASK249 gates the
+# iron-bar-in-the-missing-door-handle business on daybreak -- and "open hand"
+# at Boot Hill at night (TASK376). Boot Hill also wants the grave marker read
+# exactly four times first: "read marker" cycles VAR 12 [Boot_hill] 0..8 and
+# every dig there is restricted to Boot_hill == 4. Then dig, open the casket,
+# "move casket", a Day dig (TASK363) and finally the Night dig (TASK372) that
+# uncovers Holly and lets "open hand" take the button.
+#   The revolver: "move debris" then "get wooden box" in the burned down shop
+# spills the stick of dynamite (the box disintegrates, so it is never opened),
+# and EVENT 4 kills the player 40 turns after picking the stick up unless the
+# safe has been blown by then. TASK391 needs the player ALONE, so Ninette is
+# parked one room away, at the east end of Main street. Tie the room-103 rope
+# to a cell door for a usable length of rope, throw it in the hole in the
+# sheriff's office floor, climb down, "move safe", "blow up safe" and climb
+# straight back up: TASK398, the instant death, is room-45-only, so leaving
+# the hole dodges it while EVENT 9 opens the safe six turns later. Then "get
+# gun", "dissolve grease" (needs VAR 15 [Kerosene], which only "fill lamp" in
+# the saloon sets), "lubricate gun" and "load gun" with the bullet found by
+# examining the sheriff's gun rack.
+#   Finally back up to Saloon room 101: "move bed", "x closet" to reveal the
+# blanket (obj159 starts inside obj158 and is unreferenceable until the closet
+# is examined), "prepare bed", wait out the day, then "sleep" twice -- the
+# second sleep is TASK244, which with Evidence == 4 lets EVENT 6 fire
+# #MONTANA APPEARS# -- and "shoot montana" wins. 248 commands; needs
+# SCR_SKIP_WAITKEY=1 -- the opening cutscene's <waitkey> prompt otherwise eats
+# the first scripted "open door".
+ghosttown_solution.txt|Ghost town v1,05.taf|Slowly two figures are seen shimmering in the air. One of a pretty young girl|SCR_SKIP_WAITKEY=1
 EOF
 }
 

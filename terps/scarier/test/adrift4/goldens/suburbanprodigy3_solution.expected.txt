@@ -1,0 +1,163 @@
+Loading game...
+
+***********************************
+
+> take bone
+EeeeeeeWWW! OK...I'll just take one.
+
+> press red stone
+It works!  A passageway opens behind you to the South.
+
+> south
+You move south.
+
+Hidden passage
+The old stones had a bit of life in them yet and moved fairly smooth for you.
+The walls are slimy and cold . A ladder leads up.
+
+> examine wall
+There's some gold on the wall...as Iggy Pop said: "Let's tap a vein!".
+
+> take nugget
+Awesome!
+
+> up
+You move up.
+
+Front yard
+You're standing in the front yard of your house. It's not Versailles, but
+it's not Amityville either. The back yard is to the East.
+
+> east
+You move east.
+
+Back Yard
+You're in your back yard. Snarl's doghouse is here.
+Snarl is here.
+
+> give bone to snarl
+Snarl grabs the gross bone from you and runs off!
+
+> west
+You move west.
+
+Front yard
+You're standing in the front yard of your house. It's not Versailles, but
+it's not Amityville either. The back yard is to the East.
+
+> take key
+Got it! Whew, that was hard.
+
+> unlock door with key
+With a delightful *click*, you're in!
+
+> north
+You move north.
+
+Living room
+This is your living room, nothing here but a couch and some books. The
+kitchen's East and your bedroom is upstairs.
+
+> search couch
+You found some string! It's not worth very much, but you'll take what you can
+get these days. You shove the string into your pocket.
+
+> look black book
+It's your mom's bible!
+
+> open bible
+Mom's secret stash!
+
+> take bottle
+You take the bottle...heh heh heh.
+
+> up
+You move up.
+
+Bedroom
+It's a pretty boring computerless bedroom. Mom never let you have cool
+posters or video games.
+
+> throw string out window
+You throw the string out the window! Pazuzu chases the enticing string and
+leaps out. A huge crash comes from outside. Maybe that wasn't such a good
+idea...
+
+> search under bed
+It's pretty dusty down here...hey, what's this? It's a pearl!! And it's all
+yours! you cram it into your pocket.
+
+> down
+You move down.
+
+Living room
+This is your living room, nothing here but a couch and some books. The
+kitchen's East and your bedroom is upstairs.
+
+> south
+You move south.
+
+Front yard
+Front of your house...dear God! Why??
+
+A golden egg sits in a bird's nest...well that's not so bad!.
+
+> take egg
+stepping over the corpse of your family dog, you snatch it up.
+
+> cut paw
+This is the third grossest thing you've ever done...
+
+> east
+You move east.
+
+Back Yard
+You're in your back yard. Snarl's not here.
+
+> search doghouse
+There's a golden necklace here! You greedily snatch it up.
+
+> west
+You move west.
+
+Front yard
+You're standing in the front yard of your house. The back yard is to the
+East.
+
+> north
+You move north.
+
+Living room
+This is your living room, nothing here but a couch and some books. The
+kitchen's East and your bedroom is upstairs.
+
+> east
+You move east.
+
+The kitchen
+Your mom is in the kitchen doing the dishes in the sink. A staircase winds
+down into the celler.
+Mom is here.
+
+> wash paw in sink
+You rinse the blood and grime from the paw. MAN this is gross...
+
+> down
+You move down.
+
+Celler
+You're in the celler. Every house in adventure games has one!  For some
+reason a voodoo priest is here. In your celler.
+The voodoo priest waits patiently.
+
+> give paw to priest
+You hand over the paw to the voodoo priest and he says: Huzzah! You are the
+winner!   He also says for winning he will buy a TV for your bedroom as well
+as a brand new commodore 64 computer!! Type STATS to see how you did!
+
+> stats
+Celler | Score: 80
+
+You scored 80 out of the maximum 80!
+That is 100% of the game!
+Well done - you scored maximum points!

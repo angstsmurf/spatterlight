@@ -1,0 +1,328 @@
+Loading game...
+
+Easter Egg Hunt
+Once upon a time . . .  There were 3 large trees.
+
+The 1st Tree wished to be made into the Throne of the greatest King ever. But
+ended up becoming an animal trough!
+
+The 2nd Tree wished to be made into a pulpit that the most wise of all men
+would speak from. But ended up becoming a cheap boat!.
+
+The 3rd Tree wished to be made into the most important Sign post in the
+world. But ended up becoming large disguarded planks!
+
+Can you find all 3 trees that were made into various objects..
+AND can you find ALL 10 valuable Eggs?
+
+House
+
+Also here is a door and a fire.
+
+You can only move north.
+
+> n
+You move north.
+
+The Holy City
+
+Also here is a Saphire Egg.
+
+You can move north, south and west.
+
+> get saphire
+You take the Saphire Egg.
+
+> n
+You move north.
+
+Old Tombs
+Lots of dead people came to life from here on the same day that Jesus was
+raised from the dead ! (Matthew 27 verse 52)
+
+Also here is a pair of Tongs.
+
+You can move north and south.
+
+> get tongs
+You take the pair of Tongs.
+
+> n
+You move north.
+
+On a Road
+
+Also here is a Crown.
+
+You can move north, east, south and west.
+
+> get crown
+You take the Crown.
+
+> n
+You move north.
+
+Golgotha (The Place of The Skull)
+
+Also here is a sign and a crucifix.
+
+You can only move south.
+
+> get sign
+You take the sign.
+
+> look crucifix
+Remember . . . The 3rd Tree wished to be made into the most important Sign
+post in the world. But ended up becoming large disguarded planks!
+
+ Well done, you have discovered that this tree actually became the crucifix
+that the savior of the world died on. This is the most important sign post
+from God to mankind. It shows God's love for all of us, that he was willing
+to die for us so that we can go to heaven and be with him when we die! . . .
+If we thank him for doing this and seek him !!
+
+> s
+You move south.
+
+On a Road
+
+You can move north, east, south and west.
+
+> s
+You move south.
+
+Old Tombs
+Lots of dead people came to life from here on the same day that Jesus was
+raised from the dead ! (Matthew 27 verse 52)
+
+You can move north and south.
+
+> s
+You move south.
+
+The Holy City
+
+You can move north, south and west.
+
+> w
+You move west.
+
+The Temple
+
+Also here is a Crystal Egg.
+
+You can only move east.
+
+> pull brick
+You have found a Ruby egg !
+
+> get ruby
+You take the Ruby Egg.
+
+> get crystal
+You take the Crystal Egg.
+
+> e
+You move east.
+
+The Holy City
+
+You can move north, south and west.
+
+> s
+You move south.
+
+House
+
+Also here is a door and a fire.
+
+You can only move north.
+
+> use tongs
+You manage to lift the Marble Egg from the fire.....it falls to the ground.
+
+> get marble
+You take the Marble Egg.
+
+> n
+You move north.
+
+The Holy City
+
+You can move north, south and west.
+
+> n
+You move north.
+
+Old Tombs
+Lots of dead people came to life from here on the same day that Jesus was
+raised from the dead ! (Matthew 27 verse 52)
+
+You can move north and south.
+
+> n
+You move north.
+
+On a Road
+
+You can move north, east, south and west.
+
+> w
+You move west.
+
+The Shore of Galilee
+
+Also here is a Boat and a Net.
+Thomas is here.
+
+You can only move east.
+
+> look net
+It did have 100s of fish in it, but they are all gone now.... Something just
+dropped into the water !
+
+> look boat
+Something just fell into the water . . .
+Remember . . . The 2nd Tree wished to be made into a pulpit that the most
+wise of all men would speak from. But ended up becoming a cheap boat !
+
+ Well done, you have discovered that this Boat was actually the very boat
+Jesus stood on to teach his apostles and many others all about God stuff.
+
+> get pearl
+You take the Pearl Egg.
+
+> get bronze
+You take the Bronze Egg.
+
+> give sign to thomas
+You now have the key to the upper room.
+
+> e
+You move east.
+
+On a Road
+
+You can move north, east, south and west.
+
+> e
+You move east.
+
+The Garden of Gethsemene
+Angel is here.
+
+You can only move west.
+
+> give crown to angel
+The Angel opens the cave ...now you can go North. He hands you a Gold Egg.
+
+> n
+You move north.
+
+Cave
+
+Also here is a Emerald Egg and a Burial Cloth.
+
+You can only move south.
+
+> get emerald
+You take the Emerald Egg.
+
+> get cloth
+You take the Burial Cloth.
+
+> look cave
+You find an animal trough (Manger).
+
+> look trough
+A hen startles you and runs out of the cave . . . And a Silver Egg falls to
+the ground !
+
+Remember . . . The 1st Tree wished to be made into the Throne of the greatest
+King ever. But ended up becoming an animal trough! . .
+
+Well done ! . . . You have found out that this is actually the very trough
+(manger) that Jesus the Christ sat in.
+
+> get silver
+You take the Silver Egg.
+
+> s
+You move south.
+
+The Garden of Gethsemene
+Angel is here.
+
+You can move north and west.
+
+> w
+You move west.
+
+On a Road
+
+You can move north, east, south and west.
+
+> s
+You move south.
+
+Old Tombs
+Lots of dead people came to life from here on the same day that Jesus was
+raised from the dead ! (Matthew 27 verse 52)
+
+You can move north and south.
+
+> s
+You move south.
+
+The Holy City
+
+You can move north, south and west.
+
+> s
+You move south.
+
+House
+
+Also here is a door and a fire.
+
+You can only move north.
+
+> unlock door with key
+You unlock the door with the Key.
+
+> open door
+You open the door.
+
+> u
+You move up.
+
+The Upstairs Room
+
+Also here is a door.
+Jesus is here.
+
+You can only move down.
+
+> look jesus
+He has holes in his hands !  Jesus says " If you want to complete the game
+then you must hold ALL 10 eggs and then type "EASTER IS ABOUT WHAT GOD DID
+FOR THE WORLD".
+
+> give cloth to jesus
+Jesus hands you a Topaz Egg.
+
+> i
+You are carrying a Bronze Egg, a Silver Egg, a Topaz Egg, a Ruby Egg, a
+Crystal Egg, a Gold Egg, a Saphire Egg, a Pearl Egg, a Emerald Egg, a Marble
+Egg, a Burial Cloth, a Key and a pair of Tongs.
+
+> score
+Your score is 800 out of a maximum of 1000.  (80%)
+
+> EASTER IS ABOUT WHAT GOD DID FOR THE WORLD
+Well done, you have completed the game !
+Well done ! . . .  You have won the game, and maybe learned about the most
+important historical fact that effects all mankind !?
+You scored 950 out of the maximum 1000!
+That is 95% of the game!
+You finished 50 points short.

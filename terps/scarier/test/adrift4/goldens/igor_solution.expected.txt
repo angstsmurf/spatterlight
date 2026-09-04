@@ -1,0 +1,100 @@
+Loading game...
+
+igor
+You are "igor", servant of  "The Master".
+
+The Master warns you not to try to "get all" things . . .
+ or it may result in the mixing of dangerous chemicals in the lab!
+
+Ask the Master for instructions....
+
+Laboratory
+
+Also here is complicated Apparatus, a Table and a wall.
+Master is here.
+
+> look wall
+You see a very small window. . . and . . . a painting lit up by a flaming
+torch.
+
+> press boil
+You have found (and now hold) the Master's instruction Book.
+
+> read book
+1st Switch = Activates lightning rod.
+2nd Switch = Charges the Elixir of Life.
+3rd Switch = ?
+4th Switch = Brings the Master's Creation to Life.
+5th Switch = Gives power to the other switches.
+
+> look apparatus
+It is all too complicated and technical to understand . . .
+Only the Master knows what does what ! . . .
+ Ahhhh,  you have found something special ! . . .
+You have the Elixir !
+
+> give elixir to master
+The Master carefully takes the elixir from you and hands you a key.
+
+> pull curtain
+The curtain is too heavy to carry. You have found a coffin and a wardrobe.
+
+> open coffin
+The Coffin is already open!
+
+> unlock wardrobe
+You unlock the wardrobe with the key.
+
+> open wardrobe
+You open the wardrobe.  A Coat and a corpse are inside the wardrobe.
+
+> look corpse
+It is a  corpse with a fresh brain hanging out of it !
+
+> get brain
+You take the Brain from the corpse.
+
+> give brain to master
+The Master carefully grabs the Brain from you with a big smile!
+
+> get coat
+You take the Coat from the wardrobe.
+
+> wear coat
+You put on the Coat.
+
+> look in coat
+This is the Master's (Bright Pink !!!) Coat.  A Note is inside the Coat.
+
+> get note
+You take the Note from the Coat.
+
+> read note
+THE MASTER'S SHOPPING LIST : (1) Find and give me the magnificent
+Brain..........
+(2) Find the Elixir of life..........then give it to me.
+(3) Find and read my Book of switch instructions.
+(4) Find the control panel of switches and press each one in the correct
+order.
+
+> press 5th switch
+All the other switches are now lit up and have power !
+
+> press 1st switch
+The Lightning rod is now active !
+
+> press 2nd switch
+The Elixir of life is now charged !
+
+> press 3rd switch
+You press, but nothing happens.
+
+> press 4th switch
+The MONSTER LIVES !
+Well done, The Master has created a better servant than igor . . .
+A Monster !!!!
+
+  You are now REDUNDANT ! !
+You scored 1100 out of the maximum 1000!
+That is 110% of the game!
+You finished -100 points short.

@@ -1,0 +1,89 @@
+guarda
+n
+e
+prendi osso
+prendi lettera
+o
+n
+o
+leggi lettera allo specchio
+e
+n
+prendi insetticida
+sposta scaffale
+spegni interruttore
+s
+s
+o
+dai osso a diablo
+e
+n
+n
+accendi interruttore
+spegni interruttore
+s
+s
+o
+sposta frigo
+stacca spina frigo
+e
+n
+n
+accendi interruttore
+s
+u
+o
+spruzza insetticida su vedova nera
+e
+s
+apri l'ufficio
+o
+apri scrivania
+prendi machete
+e
+n
+d
+s
+e
+taglia mano al nonno
+prendi mano mozzata del nonno
+o
+n
+u
+s
+apri il laboratorio
+e
+prendi mandragora
+o
+n
+d
+s
+o
+metti mandragora in tritatutto
+accendi tritatutto
+prendi mandragora
+e
+n
+u
+s
+e
+versa beuta grande in beuta media
+versa beuta media in beuta piccola
+versa beuta piccola in beuta grande
+versa beuta media in beuta piccola
+versa beuta grande in beuta media
+versa beuta media in beuta piccola
+versa beuta grande in vasino
+metti mandragora in vasino
+versa beuta piccola in vasino
+prendi vasino
+o
+n
+e
+versa unguento nel buco
+o
+d
+e
+esamina tavolo
+prendi libro
+leggi libro

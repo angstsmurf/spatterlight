@@ -1,0 +1,10 @@
+examinar ascensor
+pulsar boton verde
+examinar alfombra
+coger boligrafo
+examinar boligrafo
+desmontar boligrafo
+examinar tapa
+subirme al reposabrazos
+examinar trampilla
+abrir trampilla con la tapa del boligrafo

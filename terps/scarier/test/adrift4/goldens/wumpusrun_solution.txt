@@ -1,0 +1,11 @@
+south
+northeast
+throw starblade west
+west
+drop lantern
+cut mane
+take lantern
+east
+southwest
+north
+climb ladder

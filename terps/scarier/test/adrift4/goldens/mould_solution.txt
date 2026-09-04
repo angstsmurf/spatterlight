@@ -193,3 +193,141 @@ w
 s
 e
 open door
+look
+n
+e
+get phone
+1
+w
+stop woman
+n
+x cauldron
+x cauldron
+x cauldron
+no
+look
+mould
+x bird
+ring bell
+talk scientist
+1
+1
+1
+look
+n
+mould
+1
+attack golem
+e
+mould
+3
+fly
+hit hawk
+s
+mould
+1
+hit drill
+push lever
+n
+push lever
+n
+1
+1
+1
+1
+n
+mould
+1
+open door
+mould
+3
+e
+d
+s
+s
+n
+n
+n
+s
+mould
+1
+dig
+s
+s
+e
+u
+w
+push red
+n
+close south
+n
+d
+d
+s
+s
+e
+u
+w
+mould
+1
+hit machine
+push red
+n
+swipe card
+take imp
+e
+se
+1
+1
+1
+look
+z
+z
+z
+2
+2
+2
+2
+push switch
+s
+nw
+n
+w
+w
+n
+1
+4
+2
+2
+2
+3
+3
+look
+look
+mould
+2
+u
+n
+n
+n
+n
+mould
+2
+n
+s
+mould
+2
+s
+z
+z
+s
+n
+n
+n
+open door
+5
+2
+3
+1
+w
+2

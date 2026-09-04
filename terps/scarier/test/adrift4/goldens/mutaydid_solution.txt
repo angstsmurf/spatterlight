@@ -1,0 +1,28 @@
+in
+put the corned beef on the table
+out
+in
+x grease
+out
+x package
+open package
+x mystery meat
+in
+take mystery meat
+put mystery meat on block
+butcher mystery meat
+butcher mystery meat
+butcher mystery meat
+butcher mystery meat
+butcher mystery meat
+butcher mystery meat
+x grease
+out
+attack mystery meat with cleaver
+attack mystery meat with cleaver
+attack mystery meat with cleaver
+score
+w
+s
+clrtybrtysmwichsalami
+eat meat

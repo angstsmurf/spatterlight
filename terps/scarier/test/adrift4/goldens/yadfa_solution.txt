@@ -115,3 +115,227 @@ moo!
 se
 score
 i
+talk beggar
+no
+score
+nw
+n
+nw
+gather mud
+s
+talk agnes
+buy bread
+buy bun
+buy cake
+i
+score
+n
+se
+s
+se
+se
+se
+pray
+give mud
+ne
+x bodies
+sw
+e
+talk chief
+give bread
+give bun
+give cake
+talk chief
+kill chief
+i
+score
+look
+take axe
+take chief's head
+i
+w
+s
+talk slayer
+give head
+give head
+score
+n
+se
+se
+e
+x idol
+e
+ne
+talk gribbly
+list
+say to gribbly companion
+buy map
+sw
+w
+w
+nw
+nw
+nw
+nw
+nw
+n
+nw
+talk fellow
+se
+ne
+n
+ne
+ne
+blow whistle
+w
+pick flower
+enter opening
+kick cage
+x cage
+take nugget
+throw nugget
+out
+take nugget
+i
+e
+n
+n
+n
+wait
+kill creature
+w
+nw
+in
+x painting
+out
+se
+e
+ne
+in
+e
+pray
+pray
+pray
+pray
+pray
+nw
+u
+x goblins
+read paper
+n
+x chair
+s
+d
+se
+w
+out
+sw
+s
+s
+s
+e
+moo!
+n
+ne
+n
+ne
+sell ring
+sell nugget
+sw
+s
+sw
+s
+se
+se
+se
+se
+se
+e
+drop flower
+s
+s
+blow trumpet
+n
+n
+e
+ne
+buy key
+sw
+s
+open gate
+in
+x map
+x money
+s
+talk erik
+give twine to erik
+give needle to erik
+give fish to erik
+give note to erik
+give journal to erik
+give trumpet to erik
+talk erik
+n
+out
+n
+ne
+say to gribbly erik
+sw
+s
+in
+s
+s
+in
+d
+n
+get torch
+n
+open door
+ne
+x bones
+sw
+s
+ne
+se
+jump
+n
+e
+list
+w
+n
+drop torch
+wait
+s
+nw
+enter archway
+sw
+n
+d
+s
+fire rocket launcher
+use mirror
+kill malgor
+untie isabella
+untie princess
+isabella follow me
+n
+u
+s
+w
+enter gateway
+out
+n
+n
+out
+n
+w
+w
+nw
+nw
+nw
+nw
+nw
+n
+e
+e
+e

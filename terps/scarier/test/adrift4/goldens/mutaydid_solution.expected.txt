@@ -1,0 +1,396 @@
+Loading game...
+
+Attack of the Mutaydid Meat Monsters
+
+*                *                *                *                *
+Attack
+of the
+Mutaydid Meat
+Monsters
+*                *                *                *                *
+
+By Duncan Bowsman.
+
+For credits, type about and press enter.
+For help with playing, type help and press enter.
+For hints, type hint and press enter.
+
+Please make sure your interpreter is in verbose mode.
+
+[press almost any key to continue]
+
+DAY 1:
+harvest
+
+[press almost any key to continue]
+
+Cramden Residence, Outside
+Before you stands an unimplemented two-story Tudor home belonging to you, old
+man Ezekiel Cramden.  It could probably house an orphanage comfortably, but
+serves only you.  That's just fine by you because you despise orphans-- the
+poor, wretched things, always bothering you.
+
+Plenty of time to murmur bitterly about that to yourself later, though.  For
+now, better just take in the groceries-- you feel the deadly need of a corned
+beef sandwich.  The unimplemented front door leads in.
+
+> in
+You move in.
+
+Cramden Residence, Kitchen
+Past the foyer and down the unimplemented hallway of fine parquet lies your
+kitchen, the sundry elements of which will go unmentioned aside from the
+large marbletop table.  It's the perfect place to set down the groceries...
+perhaps put the corned beef on the table, make a sandwich, et cetera.  Yes,
+you have a strong desire to do just that.
+
+The unimplemented front door leads out.
+
+> put the corned beef on the table
+Just as the corned beef meats the surface of the table, some sort of ominous
+noises erupt from outside... a series of wet, meaty slurpings of varied,
+growling pitches and unknown portents...
+
+"Must be one of those accursed orphans," you mutter scornfully.  You ought to
+go check outside and give them a good yelling-at, maybe threaten a thrashing
+or two and experiment with some new, vile epithets of no less than eight
+syllables just for good measure.  Indeed, going out to give them what-for is
+the only action you consider prudent at the moment.
+
+> out
+You move out.
+
+Cramden Residence, Outside
+Before you stands an unimplemented two-story Tudor home belonging to you, old
+man Ezekiel Cramden.  It could probably house an orphanage comfortably, but
+serves only you.  That's just fine by you because you despise orphans-- the
+poor, wretched things, always bothering you.
+
+Funny.  You felt so incredibly ready to belt it out at those devilish,
+parentless monsters, yet you see no such thing.  You thought for certain you
+heard something out here.  They must be gone... or else they want you to
+think that they're gone, those compulsively impetuous hooligans!
+
+Cautiously, you sniff at the air and catch a sinister whiff of... sausage.
+Hmm... you must be getting hungry.  Best go back in and get on with that
+sandwich.
+
+> in
+You move in.
+
+Cramden Residence, Kitchen
+Past the foyer and down the unimplemented hallway of fine parquet lies your
+kitchen, the sundry elements of which will go unmentioned aside from the
+large marbletop table.  But something is amiss!
+
+The corned beef has gone from the table, leaving only a sinister trail of
+grease.  The unimplemented front door leads out.
+
+> x grease
+A grotesque, piddling stream of bodily oiliness that could only come from the
+careless dragging of still-moist meat...
+
+You laboriously crane yourself downward, extending a solitary finger to
+question the trail's existence with a touch when a great shadow looms up
+behind you!
+
+With a frightened yelp, you fall helplessly to the floor.  You spin your
+nidering head just in time to scream at the sight of horror before it
+descends upon you...
+
+"Y-You're no orphan!  No, NO...!"
+
+[press almost any key to continue]
+
+DAY 2:
+posthumous process
+
+[press almost any key to continue]
+
+Dawn arrives on beef tips cooked rare.  Last night you suffered the same
+nightmare that has haunted you forever, only amplified since that meteor
+shower when the moon hung full and bloody as a freshly slaughtered pepperoni.
+ In the awful dream, man does not eat meat... meat eats man!  Planet Earth is
+overrun with repulsive things... those... those meat monsters that give
+grisly second lives to the progeny of the abatoir and eat everyone &
+everything, turning our blue-green planet red.  Yet in that dream you do not
+find yourself on planet Earth, but upon some loathsome meat planet... every
+time, just before the moment you are devoured, you wake up screaming.
+
+You know that dream belongs in such horrific form only to certain butchers.
+Your grandfather used to say at old family barbeques that the dream absorbs
+the sleeping thoughts of those catering to throngs packed like a
+slaughterhouse that refuse to ponder their own victuals, but only consume,
+and that at its root is a secret deemed hideous which some butchers may long
+to forget-- that we are all meat.  Even the brain which begets our vaunted
+capacity for thought is only so much spongy foodstuffs, no more than would
+feed another man once.  You shudder, knowing as only you may that all
+butchery hides under the shadow of anthropophagy.
+
+You try to forget about it, as usual, recurl your mustache, as usual, and
+head out to work.  Yet the dream persists in the background of your mind: an
+absurd notion... a grinding fear... a premonition...
+
+[press almost any key to continue]
+
+Butcher Shop
+You stand inside the local Meat-N-Eat butcher shop, which is yours.  Various
+unimplemented hooks hang on the walls, awaiting meats for storage and
+salting.  The block upon which you butcher carnivorous comestibles stands off
+to one side.  The unimplemented front door leads south, while the
+unimplemented back door leads out.
+
+For several anxious hours have you awaited your new meat supply when finally
+there come three ponderous knocks at the back door.  That must be it!  You
+ought to go out to receive the package.
+
+> out
+You move out.
+
+Outside the Butcher Shop
+Unimplemented garbage cans and blown-by newspapers litter the crumbling,
+corrupted alleyway.  Sporadic rustlings and shifting, half-hidden contours
+haunt the pestilential darkness.  You really ought to find a better location
+for your shop.  An unimplemented door leads in.  The alley opens onto to the
+main road to the west.
+
+In the murkiest depths of alley shadow lurks your meat deliveryman, The
+Stranger.
+
+"What took you so long?" you demand.  "I've been waiting almost all day for
+this."
+
+"Very sorry, Master," replies The Stranger.  He sweeps his black robes open
+to reveal a parcel and holds it forth slowly.  "This meat is... special.
+Much better.  Fresher."
+
+Figuring nothing can be done about it and grateful only to have some product,
+you take the parcel from your odd deliveryman with a nod.  "Well, uh... don't
+let it happen again."
+
+The Stranger slinks off, bowing and chanting, "Yes, Master, never again.
+Never again, yes, Master..."
+
+Well, his parents didn't name him The Stranger for nothin'.
+
+> x package
+A large, plain cardboard box.  Smeared with grease stains, it appears
+slightly scuffed but otherwise fine.  The unmarked package is closed.
+
+> open package
+You open the unmarked package.  Some mystery meat is inside the unmarked
+package.
+
+> x mystery meat
+An unidentifiable hunk of unprocessed dead animal stuff.  It looks misshapen
+and swollen.  Assorted odd bits either cover or poke out from it, probably
+the result of an experiment with some new growth hormone.
+
+You can probably butcher the meat into some more edible form, perhaps even
+more appealing, so long as the ineffable slab really is meat.
+
+> in
+You move in.
+
+Butcher Shop
+You stand inside the local Meat-N-Eat butcher shop, which is yours.  Various
+unimplemented hooks hang on the walls, awaiting meats for storage and
+salting.  The block upon which you butcher carnivorous comestibles stands off
+to one side.  The unimplemented front door leads south, while the
+unimplemented back door leads out.
+
+> take mystery meat
+You remove the mystery meat from the unmarked package.  It feels awfully
+lumpy, like it has bones in places where they shouldn't be.
+
+> put mystery meat on block
+You put the mystery meat onto the table.
+
+> butcher mystery meat
+You slice a chunk off the mystery meat.  With skill, some patience, and a
+couple well-placed thwacks, you craft the chunk of meat into a ham, which you
+set aside.
+
+There's still plenty of the mystery meat left, though.  You could probably
+still get something out of it if you butchered it again.
+
+> butcher mystery meat
+You hack at some weird protrusions in the meat and for a moment get a little
+carried away!  You calm yourself whispering oaths, then break long, hefty
+shanks off the brisket.  Using fine edgework you reveal some drumsticks from
+underneath a mess of leathery sinews and lay them aside.
+
+Still some left.  One last shot ought to do it.
+
+> butcher mystery meat
+With a great, final heave of your cleaver you rend the last of the mystery
+meat into two thin, inscrutable slices of corned beef...
+
+That's it for today.  You wipe a single rivulet of sweat from your brow,
+close up the shop, and head home.
+
+Yet the dreams still torment you at night.  Meat gnaws mockingly upon your
+helpless body in your dreams, stoking the hideous, forbidden, urgent thoughts
+of meat as if that depraved destiny were now more imminent than ever
+before...
+
+[press almost any key to continue]
+
+DAY 3:
+hideous revelations
+
+[press almost any key to continue]
+
+When you return to your shop the following morning...
+
+Butcher Shop
+This is your shop, the Meat-N-Eat, but something is wrong.  Almost all of
+your products have disappeared!  All the meatloaf is missing, the pastrami is
+absent, and the sausages are gone.  A bit of grease drips off the table's
+edge and leads out the back door...
+
+> butcher mystery meat
+You can't see the mystery meat.
+
+> butcher mystery meat
+You can't see the mystery meat.
+
+> butcher mystery meat
+You can't see the mystery meat.
+
+> x grease
+A grotesque, piddling stream of bodily oiliness that could only come from the
+careless dragging of still-moist meat...
+
+> out
+You move out.
+
+Outside the Butcher Shop
+Unimplemented garbage cans and blown-by newspapers litter the crumbling,
+corrupted alleyway.  Sporadic rustlings and shifting, half-hidden contours
+haunt the pestilential darkness.  You really ought to find a better location
+for your shop.  An unimplemented door leads in.  The alley opens onto to the
+main road to the west.
+
+Huddled in a neglected corner of the alley, the mystery meat pulses and
+quavers strangely, seeming to breathe... squirm... and grow!
+
+Odd cuts of flesh and pulped organs surrounding the mystery meat pulsate and
+fixate their eyeless gazes upon you!
+
+> attack mystery meat with cleaver
+With frantic, wide swings you cleave a ham from off the mystery meat, but it
+continues to move!
+
+Cold cuts and ground stomach stuffs congeal onto the surface of the growling
+mystery meat!
+
+> attack mystery meat with cleaver
+Your fear gives way to a newfound fervor.  With a yell you hack, hack, hack
+away at the unnameable abomination of flesh.  In your fury you rip some
+drumsticks off and throw them away from the mystery meat, but it continues to
+move!
+
+With a guttural roar, the mystery meat rises to its full height.
+
+...better act fast!
+
+> attack mystery meat with cleaver
+Fury unfettered, you forcibly flay the final fleshliness from the foul meat
+freak.  Unimplemented blood splatters upon your face and your apron.  You
+compose yourself with ragged breaths until your jaw relaxes from its taut
+gritting.
+
+After a moment or two, a map flutters by on a dull breeze.  You pick it up
+without adding it to your inventory.  You can use it to leave this area and
+track down The Stranger.  You've some questions for him, largely regarding
+meat... indeed, you might want to ask The Stranger about meat.
+
+> score
+Your score is 600 out of a maximum of 1300.  (46%)
+
+> w
+You move west.
+
+MAP
+
+   ( N ^  )
+a map of Northeastern Peppero:
+        all you need to know!
+
+                                  shop
+                                 |
+                                 |
+                                 |
+shack---------------                ----------Cramden
+                                /
+                             /
+                            /
+        meteor hill
+
+North: Meat-N-Eat
+West: The Stranger's Shack
+East: Cramden Residence
+South: Meteor Hill
+
+> s
+You move south.
+
+Meteor Hill
+A meteor burrowed a steaming crater atop the hill, flattening it into a
+plateau.  Or should you call it a... meateor?
+
+> clrtybrtysmwichsalami
+You say the word once.  When nothing happens, you repeat it.  And then again.
+ And again, until it has no meaning but sound...
+
+[press almost any key to continue]
+
+A reverie steals over you as you chant the word.  Your head feels an uncanny
+lightness, followed by the rest of your body.  Your vision tunnels and then
+explodes into the blinding light of suprahyperbolic space.  Everything spins
+too fast-- no you never the dream they slaughtered the things! braincase
+closing in meat meat meat meat zucchini heart butterfly!
+
+DAY X:
+mortality mutaydid
+
+[press almost any key to continue]
+
+Planet Mutaydid
+No doubt this is the scene of your nightmare.  A landscape of raw meat
+pulsates beneath your feet, sticky and soupy with blood.  Unimplemented
+obelisks of ground beef and turkey skewer the reddish sky, dwarfing you.
+Deli meats that should never join adhere together in towering, wicked rings,
+blood pudding forms whole lakes beyond plateaus of pulverized pork.  The
+growl of freshly slaughtered creatures pervades the place like lasting echoes
+of thunder.  It is unbearably hot.
+Harbinger of carnivorous oblivion, the Mother Meat looms before you on
+misshapen legs of chicken parts and uncut calamari!  It stares emptily,
+hungrily into the deepest hidden parts of your mind, reminding you that your
+body, too, is nothing but wholly edible.
+
+The creature from your nightmare wraps its beefy arms around you, and pulls
+you toward it for a bite!  You fight to resist... but how long can you hold
+your ground against nerve shattering terror?
+
+> eat meat
+Dazed by fear & anger, a primalistic defense instinct overcomes you.  You
+surrender your two month run at vegetarianism and clamp your teeth upon the
+murderous meat monster like a madman, ripping and chewing at bits of it,
+spitting them out.
+
+It screams in torment, somehow stunned to incapacitation by its own meaty
+edibility!  No-one should be able to eat so much meat, but once you break
+your oath to fruits & vegetables a terrible want for it takes over and you
+devour every last bit beyond what the fullness of your stomach should allow.
+
+When the Mother Meat is no more, Planet Mutaydid disintegrates.  You find
+yourself laying-- stomach somehow empty, but mouth corners stained with meat
+juices-- next to an empty crater on Meteor Hill.
+
+You feel ready for a barbeque.
+
+You scored 1300 out of the maximum 1300!
+That is 100% of the game!
+Well done - you scored maximum points!

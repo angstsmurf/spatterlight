@@ -70,4 +70,192 @@ n
 ne
 use camera
 sw
+ne
+x bench
+get axe
+x implement
+n
+get mop
+get mop
+s
+sw
 give trident to witherspoon
+s
+se
+e
+x body
+s
+shake tree
+shake tree
+shake tree
+kick saucer
+chop tree
+n
+n
+push garbage
+push garbage
+push garbage
+get coin
+ne
+in
+look under passenger seat
+out
+sw
+s
+w
+nw
+pull creeper
+se
+s
+open cabinet
+use magnet
+n
+w
+w
+give veal to violetta
+give fry to violetta
+give crisps to violetta
+e
+sw
+talk smiffy
+4
+1
+w
+give watch to ross
+talk ross
+6
+1
+1
+x film
+e
+ne
+nw
+talk spivvy
+4
+2
+give photo to spivvy
+put change in tin
+put credit in tin
+eat kit kat
+se
+e
+nw
+n
+n
+x belly
+pray
+n
+talk god
+give beer
+s
+s
+s
+nw
+x side
+w
+x mark
+press catch
+press catch
+e
+se
+se
+w
+sw
+talk smiffy
+w
+e
+ne
+e
+e
+s
+wait
+n
+n
+ne
+fill cup
+sw
+s
+se
+pour water
+nw
+w
+nw
+n
+give gide to ogden
+s
+se
+w
+sw
+give tape to smiffy
+give goggles to smiffy
+give scissors to smiffy
+give 50p to smiffy
+ne
+e
+e
+w
+w
+nw
+talk spivvy
+1
+2
+1
+se
+e
+nw
+give ring to petty
+smash paperweight
+se
+w
+w
+give copy to violetta
+1
+1
+1
+1
+n
+n
+n
+talk god
+s
+s
+s
+se
+e
+n
+ne
+x body
+talk grunch
+1
+2
+2
+1
+sw
+s
+w
+s
+x cabinet
+n
+nw
+n
+show scrabble
+s
+se
+talk violetta
+wait
+nw
+nw
+talk violetta
+wait
+se
+n
+ne
+n
+talk violetta
+wait
+s
+sw
+n
+talk violetta
+n
+give bar to zara

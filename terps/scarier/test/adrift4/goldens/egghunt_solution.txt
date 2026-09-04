@@ -1,0 +1,52 @@
+n
+get saphire
+n
+get tongs
+n
+get crown
+n
+get sign
+look crucifix
+s
+s
+s
+w
+pull brick
+get ruby
+get crystal
+e
+s
+use tongs
+get marble
+n
+n
+n
+w
+look net
+look boat
+get pearl
+get bronze
+give sign to thomas
+e
+e
+give crown to angel
+n
+get emerald
+get cloth
+look cave
+look trough
+get silver
+s
+w
+s
+s
+s
+unlock door with key
+open door
+u
+look jesus
+give cloth to jesus
+i
+score
+EASTER IS ABOUT WHAT GOD DID FOR THE WORLD
+score
