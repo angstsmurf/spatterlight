@@ -1584,10 +1584,28 @@ uip_compare_reference (const scr_char *words)
 
       /*
        * If at space, advance over whitespace in words list.  Stop when we
-       * hit the end of the words list.
+       * hit the end of the words list -- unless the whitespace itself runs
+       * to the end.
+       *
+       * Whitespace at the very end of a name is not forgiven: the real
+       * Runner's c() matches the RAW stored Short/Alias with InStr and
+       * requires the character after the match to be a space, comma or
+       * end-of-input (run380.bas '429048; run390's c() LCases but keeps the
+       * same shape; the 4.0 strict comparator above already refuses), so a
+       * name authored with a trailing space can only match input holding
+       * two consecutive spaces -- which scr_normalize_string() never
+       * delivers.  Measured live 2026-08-31 on superliam.taf (3.80): object
+       * Short "necko wafers " makes `take necko wafers` answer "Take
+       * what?" in run380.exe, while the (task-matched) `eat necko wafers`
+       * still works.
        */
-      while (scr_isspace (words[wpos]) && words[wpos] != NUL)
-        wpos++;
+      if (scr_isspace (words[wpos]) && words[wpos] != NUL)
+        {
+          while (scr_isspace (words[wpos]) && words[wpos] != NUL)
+            wpos++;
+          if (words[wpos] == NUL)
+            return 0;
+        }
       if (words[wpos] == NUL)
         break;
 

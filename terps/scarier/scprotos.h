@@ -326,6 +326,7 @@ extern void pf_buffer_paragraph_line (scr_filterref_t filter,
                                       const scr_char *string);
 extern void pf_buffer_paragraph_break (scr_filterref_t filter);
 extern scr_bool pf_undo_auto_break (scr_filterref_t filter);
+extern void pf_note_trailing_auto_break (scr_filterref_t filter);
 extern void pf_buffer_pspace (scr_filterref_t filter);
 extern scr_bool pf_ends_with_double_space (scr_filterref_t filter);
 extern void pf_buffer_join (scr_filterref_t filter,
@@ -584,6 +585,8 @@ extern scr_bool lib_cmd_print_room_exits (scr_gameref_t game);
 extern void lib_print_room_exits (scr_gameref_t game, scr_int room);
 extern scr_bool lib_cmd_wait (scr_gameref_t game);
 extern scr_bool lib_cmd_wait_number (scr_gameref_t game);
+extern scr_bool lib_cmd_wait_390 (scr_gameref_t game);
+extern scr_bool lib_cmd_wait_number_390 (scr_gameref_t game);
 extern scr_bool lib_cmd_examine_self (scr_gameref_t game);
 extern scr_bool lib_cmd_examine_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_examine_object (scr_gameref_t game);

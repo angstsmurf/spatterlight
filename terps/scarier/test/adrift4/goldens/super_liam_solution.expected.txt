@@ -234,7 +234,7 @@ Also here is a pack of necko wafers .
 You can only move out.  The Mermaid follows you from outside.
 
 > take necko wafers
-You pick up the pack of necko wafers .
+Take what?
 
 > eat necko wafers
 you eat the necko wafers.  You then see a flash of light.  And on the floor
@@ -631,8 +631,7 @@ You can only move west.  The Mermaid follows you from the west.
 > press button
 zoom You are carried away.  You land in a dark room
 You are standing in a dark room.  You can see a ladder.  So all you can do is
-climb up.
-a cat runs out of a door, and sings a song  The Mermaid follows you.
+climb up.    The Mermaid follows you.
 
 > up
 Oh no!  You are being sucked up threw a tunnel.  You stand in a room.  A huge
@@ -640,9 +639,7 @@ robot comes forward and says.  Ha Ha, I am going to enjoy killing you Liam.
 Ha! Ha!.  He then aims his hand at the mermaid, and she explodes.  You are
 filled with a rage that is unimaginable.
 You are standing in a torch lit room.  Rite now you need to focus on beating
-x1.
-X1 raising his gunlike arms and aims at you.  Do something now!  The Mermaid
-follows you.
+x1.    The Mermaid follows you.
 
 > shoot x1
 there is a huge explosion that shakes the whole room.  The next instant x1 is

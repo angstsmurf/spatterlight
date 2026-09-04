@@ -2045,6 +2045,17 @@ task_show_room_desc (scr_gameref_t game, scr_int task)
    * task-driven room displays include it too.
    */
   lib_print_room_exits (game, showroomdesc - 1);
+
+  /*
+   * The newline terminating the block above is ours, not the Runner's --
+   * their flat output string simply stops where the description stopped, so
+   * run380's AdditionalMessage double-space test (see
+   * task_suppresses_additional_message()) reads the description's own tail.
+   * Note the terminator so pf_ends_with_double_space() can look through it.
+   * Measured live on superliam.taf (run380, 2026-08-31): tasks 23/24 show
+   * rooms whose Long ends "  ", and the Runner drops both AdditionalMessages.
+   */
+  pf_note_trailing_auto_break (gs_get_filter (game));
   return TRUE;
 }
 

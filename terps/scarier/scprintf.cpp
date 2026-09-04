@@ -1607,6 +1607,32 @@ pf_undo_auto_break (scr_filterref_t filter)
 
 
 /*
+ * pf_note_trailing_auto_break()
+ *
+ * Record a newline already at the end of the buffer as a terminator of our
+ * own, as if pf_buffer_paragraph_line() had just supplied it, so that
+ * pf_ends_with_double_space() can look through it at the text the Runner
+ * really assembled.  Needed for the task ShowRoomDesc block: the pre-4.0
+ * Runners store no break after a room description -- the next piece is glued
+ * on by the two-space separator logic -- so the newline SCARIER's room
+ * printer adds there stands where the Runner's string simply stopped.
+ * Measured live on superliam.taf in run380 (2026-08-31): tasks 23 ("press
+ * button") and 24 ("up") show rooms whose Long ends in two spaces, and the
+ * real Runner suppresses both AdditionalMessages ("a cat runs out of a
+ * door...", "X1 raising his gunlike arms...") where SCARIER printed them.
+ */
+void
+pf_note_trailing_auto_break (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  if (!filter->buffer.empty ()
+      && filter->buffer[filter->buffer.size () - 1] == '\n')
+    filter->auto_break_at = (scr_int) filter->buffer.size ();
+}
+
+
+/*
  * pf_ends_with_double_space()
  *
  * TRUE if the text buffered so far ends in two spaces, ignoring a trailing
