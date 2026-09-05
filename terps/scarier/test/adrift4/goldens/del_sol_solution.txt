@@ -1,113 +1,57 @@
+# Del Sol (Del Sol.taf) -- "DeL SoL MADNESS", ADRIFT 4.00.  Four school
+# periods on a fixed clock: Wood shop 1-25, Physics 25-50, PE 50-75, Chemistry
+# 75-80, then the chemistry nightmare.  There is no navigation and no puzzle
+# chain -- every point is a one-shot task typed in the right classroom, so the
+# route is "say each scoring word once per period, then wait out the bell".
+# `z` advances three ticks, ordinary commands one; an unparsed command is an
+# administrative turn and does not advance the clock at all.
+#
+# 26 out of 46 is the whole of the reachable pool -- see the harness comment
+# on this row for the two ten-point tasks the game can never run.
+work
+work
+work
+work
+work
+work
+work
+work
+work
+work
+work
+work
+work
 work
 help
 yes
 make out with jarvin
+z
+z
+z
 take notes
 pay attention
-no
 pass note
 write note to hina
-gamble
-chill out
-practice
-check out
-make out
-work
+no
 help
-yes
-make out with jarvin
-take notes
-pay attention
-no
-pass note
-write note to hina
 gamble
+z
+z
+z
+z
+z
+z
 chill out
 practice
 check out
 make out
-work
-help
-yes
-make out with jarvin
-take notes
-pay attention
-no
-pass note
-write note to hina
-gamble
-chill out
-practice
-check out
-make out
-work
-help
-yes
-make out with jarvin
-take notes
-pay attention
-no
-pass note
-write note to hina
-gamble
-chill out
-practice
-check out
-make out
-work
-help
-yes
-make out with jarvin
-take notes
-pay attention
-no
-pass note
-write note to hina
-gamble
-chill out
-practice
-check out
-make out
-work
-help
-yes
-make out with jarvin
-take notes
-pay attention
-no
-pass note
-write note to hina
-gamble
-chill out
-practice
-check out
-make out
-work
-help
-yes
-make out with jarvin
-take notes
-pay attention
-no
-pass note
-write note to hina
-gamble
-chill out
-practice
-check out
-make out
-work
-help
-yes
-make out with jarvin
-take notes
-pay attention
-no
-pass note
-write note to hina
-gamble
-chill out
-practice
-check out
-make out
+z
+z
+z
+z
+z
+z
+z
+z
+z
 score

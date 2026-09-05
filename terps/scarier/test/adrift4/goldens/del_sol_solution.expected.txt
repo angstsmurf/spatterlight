@@ -35,6 +35,52 @@ refuse such stupidity?
 > work
 You set to work on your project.  This is going to be the best slingshot ever
 
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+More weed dude?, asks Harry.
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+The best weed ever!!! exclaims Harry
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+"Hey Noslen, help me out will ya, I don't know how to turn this machine
+on..." asks  Bob.
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+
+> work
+You set to work on your project.  This is going to be the best slingshot ever
+Man, all of Noslen's hard work has paid off.  He holds in his hand one of the
+sweetest slingshots known to man.
+"Hey, Noslen, make out with me some more" says Jarvin
+
 > help
 Grudgingly, you go over to where Bob is and help him figure out whatever he
 was rambling about.
@@ -46,257 +92,17 @@ The weed makes you feel loopy.   This not the best stuff you've had.
 Ah man, this is good stuff!  There's nothing like some sweet woodshop lovin!
 You better hope that Hina doesn't catch wind of this or else she really will
 drop you forever
-
-> take notes
-Take what?
-
-> pay attention
-I don't understand what you mean!
-
-> no
-That's interesting, but it doesn't mean much.
-More weed dude?, asks Harry.
-
-> pass note
-I don't understand what you mean!
-
-> write note to hina
-I don't understand what you mean!
-
-> gamble
-I don't understand what you mean!
-
-> chill out
-I don't understand what you mean!
-
-> practice
-I don't understand what you mean!
-
-> check out
-I don't understand what you mean!
-
-> make out
-Ah man, this is good stuff!  There's nothing like some sweet woodshop lovin!
-You better hope that Hina doesn't catch wind of this or else she really will
-drop you forever
-
-> work
-You set to work on your project.  This is going to be the best slingshot ever
-The best weed ever!!! exclaims Harry
-
-> help
-Grudgingly, you go over to where Bob is and help him figure out whatever he
-was rambling about.
-
-> yes
-That's interesting, but it doesn't mean much.
-
-> make out with jarvin
-Ah man, this is good stuff!  There's nothing like some sweet woodshop lovin!
-You better hope that Hina doesn't catch wind of this or else she really will
-drop you forever
-"Hey Noslen, help me out will ya, I don't know how to turn this machine
-on..." asks  Bob.
-
-> take notes
-Take what?
-
-> pay attention
-I don't understand what you mean!
-
-> no
-That's interesting, but it doesn't mean much.
-
-> pass note
-I don't understand what you mean!
-
-> write note to hina
-I don't understand what you mean!
-
-> gamble
-I don't understand what you mean!
-
-> chill out
-I don't understand what you mean!
-
-> practice
-I don't understand what you mean!
-
-> check out
-I don't understand what you mean!
-
-> make out
-Ah man, this is good stuff!  There's nothing like some sweet woodshop lovin!
-You better hope that Hina doesn't catch wind of this or else she really will
-drop you forever
-"Hey, Noslen, make out with me some more" says Jarvin
-
-> work
-You set to work on your project.  This is going to be the best slingshot ever
-
-> help
-Grudgingly, you go over to where Bob is and help him figure out whatever he
-was rambling about.
-
-> yes
-That's interesting, but it doesn't mean much.
 "Noslen, you are the best!", says Jarvin.  Lets make out some more.
 "Noslen, you are the best.  help me with this wood will ya" asks Bob
 
-> make out with jarvin
-Ah man, this is good stuff!  There's nothing like some sweet woodshop lovin!
-You better hope that Hina doesn't catch wind of this or else she really will
-drop you forever
+> z
+Time passes...
 
-> take notes
-Take what?
+> z
+Time passes...
 
-> pay attention
-I don't understand what you mean!
-
-> no
-That's interesting, but it doesn't mean much.
-Wood shop stinks.
-Wish there was something exciting to do...
-You find a corner of a room where no one is at and decide to sleep through
-the rest of class.
-Hmmm....sleepy
-
-WoODsHoP
-The room looks normal, all the kids are working away at some machine, working
-on their projects.  The teacher is in his office playing solitaire and Noslen
-doesn't seem to have any clothes on.  How embarrassing!  Finding some planks
-of wood, he fashions himself a skirt to cover his midsection.  No one seems
-to notice, though.
-"I'm almost done with my bookcase," exclaims Daniel to himself.  "Just one
-more piece left."  As Daniel looks around for his plank of wood, he notices
-Noslen wearing it. This of course makes Daniel extremely mad.  Going to the
-wall to get a power drill, Daniel charges at Noslen.  The other student in
-the room look over and decide that it sounds fun.  Jarvin has a electric saw
-and Vivian an screwdriver.  They all want a piece of wood…
-Daniel want to kill you, suck your eyes out and digest your spleen.  Jarvin
-and her powertools are here, ready to cut you to pieces.  Vivian and her
-screwdriver are here.  She wants to skewer Noslen.
-You manage to avoid DaNiEl's attack.
-You manage to avoid JaRvIn's attack.
-
-> pass note
-I don't understand what you mean!
-
-> write note to hina
-I don't understand what you mean!
-
-> gamble
-I don't understand what you mean!
-
-> chill out
-I don't understand what you mean!
-
-> practice
-I don't understand what you mean!
-
-> check out
-I don't understand what you mean!
-
-> make out
-I don't understand what you mean!
-
-> work
-I don't understand what you mean!
-
-> help
-These are some of the typical commands used in this adventure:
-
-  [N]orth, [E]ast, [S]outh, [W]est, [U]p, [D]own, [In], [O]ut, [L]ook,
-[Exits]
-  E[x]amine <object>, [Get <object>], [Drop <object>], [...it], [...all]
-  [Where is <object>]
-  [Give <object> to  <character>], [Open...], [Close...], [Ask <character>
-about <subject>]
-  [Wear <object>], [Remove <object>], [I]nventory
-  [Put <object> into <object>], [Put <object> onto <object>]
-
-Use the Save, Restore, Undo, and Quit commands to save and restore games,
-undo a move, and leave the  game.  Use History and Redo to view and repeat
-recent game commands.
-
-The Hint command displays any game hints, Notify provides score change
-notification, and Verbose and Brief control room descriptions.
-
-Use License to view SCARIER's licensing terms and conditions, and Version to
-print both SCARIER's and the game's version number.
-
-> yes
-That's interesting, but it doesn't mean much.
-You manage to avoid DaNiEl's attack.
-You manage to avoid JaRvIn's attack.
-
-> make out with jarvin
-I don't understand what you want to do with JaRvIn.
-You manage to avoid DaNiEl's attack.
-You manage to avoid JaRvIn's attack.
-
-> take notes
-Take what?
-You manage to avoid DaNiEl's attack.
-You manage to avoid JaRvIn's attack.
-
-> pay attention
-I don't understand what you mean!
-
-> no
-That's interesting, but it doesn't mean much.
-You manage to avoid DaNiEl's attack.
-You manage to avoid JaRvIn's attack.
-
-> pass note
-I don't understand what you mean!
-
-> write note to hina
-I don't understand what you mean!
-
-> gamble
-I don't understand what you mean!
-
-> chill out
-I don't understand what you mean!
-
-> practice
-I don't understand what you mean!
-
-> check out
-I don't understand what you mean!
-
-> make out
-I don't understand what you mean!
-
-> work
-I don't understand what you mean!
-
-> help
-These are some of the typical commands used in this adventure:
-
-  [N]orth, [E]ast, [S]outh, [W]est, [U]p, [D]own, [In], [O]ut, [L]ook,
-[Exits]
-  E[x]amine <object>, [Get <object>], [Drop <object>], [...it], [...all]
-  [Where is <object>]
-  [Give <object> to  <character>], [Open...], [Close...], [Ask <character>
-about <subject>]
-  [Wear <object>], [Remove <object>], [I]nventory
-  [Put <object> into <object>], [Put <object> onto <object>]
-
-Use the Save, Restore, Undo, and Quit commands to save and restore games,
-undo a move, and leave the  game.  Use History and Redo to view and repeat
-recent game commands.
-
-The Hint command displays any game hints, Notify provides score change
-notification, and Verbose and Brief control room descriptions.
-
-Use License to view SCARIER's licensing terms and conditions, and Version to
-print both SCARIER's and the game's version number.
-
-> yes
-That's interesting, but it doesn't mean much.
+> z
+Time passes...
 The bell rings and everyone leaves the class.
 
 Physics
@@ -306,9 +112,6 @@ this class will be the most difficult.  The walls are full of science posters
 and apart from a couple of mass sets, the only thing of interest is the
 blackboard, that is if math is anything exciting.
 The hottest girl in the universe is sitting beside you.
-
-> make out with jarvin
-I don't understand what you mean!
 
 > take notes
 Staring at the direction of the teacher, you write the stuff you see on the
@@ -320,11 +123,6 @@ above and not below.  Whatever that means...
 > pay attention
 You nod your head as Mr. Ech rambles off some physics junk.
 
-> no
-"You are such a LIAR, Noslen.  I know that you made out with Hina!  you
-deserve to have your brain sucked out!"  Hina screams.   Man life isn't going
-to well...
-
 > pass note
 Noslen grabs the note and passes it on.
 
@@ -332,156 +130,47 @@ Noslen grabs the note and passes it on.
 You write Hina a note.  "hey Hina, do you like me?"  Underneath, you draw to
 boxes that are labeled YES  and NO.  You ask some kid to pass it to her.
 
-> gamble
-Sweet!  Playing with these morons you can win big money!
-
-> chill out
-I don't understand what you mean!
-
-> practice
-I don't understand what you mean!
-
-> check out
-I don't understand what you mean!
-
-> make out
-I don't understand what you mean!
-
-> work
-I don't understand what you mean!
+> no
+"You are such a LIAR, Noslen.  I know that you made out with Hina!  you
+deserve to have your brain sucked out!"  Hina screams.   Man life isn't going
+to well...
 
 > help
 You look at Joshuas' notes and try and make some sense of it all.  Joshua
 really is a moron.  Mr Ech is teaching the kids how to add...He needs help on
 this?
 
-> yes
-"well at least you're honest...meet me after school so we can talk about this
-weekend...
+> gamble
+Sweet!  Playing with these morons you can win big money!
 "Noslen...come win some big money... lets GAMBLE" the gamblers tell you.
 
-> make out with jarvin
-I don't understand what you mean!
-
-> take notes
-Staring at the direction of the teacher, you write the stuff you see on the
-board.
-
-> pay attention
-You nod your head as Mr. Ech rambles off some physics junk.
-
-> no
-That's interesting, but it doesn't mean much.
+> z
+Time passes...
 "Hey Noslen,  pass up this note will ya?"  Some girl asks.
 
-> pass note
-Noslen grabs the note and passes it on.
-
-> write note to hina
-I don't understand what you want to do with HIna.
+> z
+Time passes...
 "Big money...Big money...win big money..."  The gamblers want you to come and
 GAMBLE.
-
-> gamble
-Sweet!  Playing with these morons you can win big money!
 "Pass this note will Noslen?"  some boy asks.
 
-> chill out
-I don't understand what you mean!
+> z
+Time passes...
 
-> practice
-I don't understand what you mean!
-
-> check out
-I don't understand what you mean!
-
-> make out
-I don't understand what you mean!
-
-> work
-I don't understand what you mean!
-
-> help
-You look at Joshuas' notes and try and make some sense of it all.  Joshua
-really is a moron.  Mr Ech is teaching the kids how to add...He needs help on
-this?
-
-> yes
-That's interesting, but it doesn't mean much.
-
-> make out with jarvin
-I don't understand what you mean!
-
-> take notes
-Staring at the direction of the teacher, you write the stuff you see on the
-board.
-
-> pay attention
-You nod your head as Mr. Ech rambles off some physics junk.
+> z
+Time passes...
 "Hey Noslen, be a sweetie will ya and pass this note to the boy behind you."
 asks some boy by you
 
-> no
-That's interesting, but it doesn't mean much.
+> z
+Time passes...
 
-> pass note
-Noslen grabs the note and passes it on.
-
-> write note to hina
-I don't understand what you want to do with HIna.
-
-> gamble
-Sweet!  Playing with these morons you can win big money!
-
-> chill out
-I don't understand what you mean!
-
-> practice
-I don't understand what you mean!
-
-> check out
-I don't understand what you mean!
-
-> make out
-I don't understand what you mean!
-
-> work
-I don't understand what you mean!
-
-> help
-You look at Joshuas' notes and try and make some sense of it all.  Joshua
-really is a moron.  Mr Ech is teaching the kids how to add...He needs help on
-this?
-
-> yes
-That's interesting, but it doesn't mean much.
-
-> make out with jarvin
-I don't understand what you mean!
-
-> take notes
-Staring at the direction of the teacher, you write the stuff you see on the
-board.
-
+> z
+Time passes...
 Physical Education
 The gym is large, but not large enough for the 50 kids that are all supposed
 to play basketball at the same time.  The teacher, Ms. Rasmussen, is trying
 to organize some kind of practice, but half the kids aren't paying attention.
-
-> pay attention
-I don't understand what you mean!
-
-> no
-That's interesting, but it doesn't mean much.
-
-> pass note
-I don't understand what you mean!
-
-> write note to hina
-I don't understand what you mean!
-
-> gamble
-I don't understand what you mean!
 
 > chill out
 You go to the back and chill out with the loosers at the back of the room.
@@ -498,6 +187,89 @@ trying to do, blow the rating?!...she is nice though.
 > make out
 You go witht the random hot chick under the bleachers and start to
 smooch....mmm.its so nice...home Hina doesn't find out about this...
+
+> z
+Time passes...
+
+> z
+Time passes...
+"Noslen, lets MAKE OUT under the bleachers...asks some random hot chick.
+
+> z
+Time passes...
+Practice...Practice...Practice....Noslen thinks.
+"MAKE OUT with me Noslen..." asks some random hot chick
+
+> z
+Time passes...
+"CHECK OUT that girl Noslen.  Imagine what you could do with her..."says your
+perverted friends.
+"CHECK OUT that blond chick, Noslen.."  Says your perverted friend.
+"The brunnette chick is so hot...CHECK OUT her moves!" says your perverted
+friend.
+
+> z
+Time passes...
+Perfect practice makes perfect....
+Awesome students practice....
+"No man....The best thing to do is to come over here and CHILL OUT" say the
+loosers in the back
+"CHILL OUT with us Noslen..." say the loosers in the back.
+"CHILL OUT with us Noslen..."say the loosers in the back.
+"MAKE OUT with me Noslen" asks some random hot chick.
+
+> z
+Time passes...
+
+> z
+Time passes...
+The bell rings
+
+Chemistry
+Ms. Moreland has some weird experiment running in the front room, but she can
+be really finicky about touching stuff.  Science posters abound in the room,
+probably so that the establishment teaches something to the kids that stare
+off blindly.
+Moreland is here.
+
+> z
+Time passes...
+WOW.  Ms moreland just accidentally knocked over the lab stuff in front of
+the class...She  turning evil...Chemistry is going to destroy everything!
+hmmm not even sleepy this time but the space time continuum is changing...
+
+CHeMisTrY
+Everyone has turned into fantastic looking sponges.  The problem is that as
+you look at all the students, everything they touch melts.  AHH  Acidic
+Sponges from Satan!
+
+Also here is a bottle of acid and a bottle of base.
+MoReLaND is here.
+The acidic sponges want to melt your face off.
+You manage to avoid DaNiEl's attack.
+You manage to avoid JaRvIn's attack.
+You manage to avoid Sigma's attack.
+MoReLaND hits you, but it doesn't seem to do any damage.
+You manage to avoid Sponges's attack.
+You manage to avoid DaNiEl's attack.
+You manage to avoid JaRvIn's attack.
+You manage to avoid Sigma's attack.
+
+> z
+Time passes...
+You manage to avoid DaNiEl's attack.
+You manage to avoid JaRvIn's attack.
+You manage to avoid Sigma's attack.
+You manage to avoid MoReLaND's attack.
+You manage to avoid Sponges's attack.
+You manage to avoid DaNiEl's attack.
+You manage to avoid JaRvIn's attack.
+You manage to avoid Sigma's attack.
+You manage to avoid Sponges's attack.
+You manage to avoid DaNiEl's attack.
+You manage to avoid JaRvIn's attack.
+You manage to avoid Sigma's attack.
+You manage to avoid MoReLaND's attack.
 
 > score
 Your score is 26 out of a maximum of 46.  (56%)

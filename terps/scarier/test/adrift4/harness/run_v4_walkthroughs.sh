@@ -629,6 +629,25 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 # door/task gates) and lists them, "can't go in that direction, but ...".
 # Measured on humbug (Adrift_4_humbug.txt line 1596, `W`).
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
+# Del Sol's 46 is 20 points larger than anything the game can actually hand
+# out, and the two missing tens are both author bugs.  Task 14 -- answering
+# `no` to Hina's note, +10 -- is restricted to kissing_jarvin == 0, but the
+# game initialises kissing_jarvin to 1 (VARTRACE on turn 1, before any command
+# runs) and the only action that lowers it is PE's `practice` (-2), a period
+# later than the Physics-only task that reads it.  Every `no` therefore falls
+# through to task 18's "You are such a LIAR, Noslen" twin, which scores
+# nothing.  Task 27 (`# bring hina`, +10) is orphaned outright: no event's
+# affTask and no type-5 exec action names it, and its `#` command is not
+# reachable from the parser, so it can never run.  26 is the entire scorable
+# pool and the route below takes all of it -- surveyed 2026-09-05.
+#
+# The game cannot be won either.  Its one EndGame is task 26 (`# super win`),
+# gated to room 6, the chemistry nightmare; the only NPC that carries it as a
+# KilledTask is the *waking* Ms Moreland, who spends the whole game in room 3
+# and is never moved, so killing her dispatches nothing (verified live in
+# run400 -- see battle_kill() in scbattle.cpp).  The nightmare's own MoReLaND
+# has no KilledTask, and with every combatant missing every swing the closing
+# battle is a stalemate, so the walkthrough ends on `score`.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
 les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.|SCR_SEED=138 SCR_SKIP_WAITKEY=1
