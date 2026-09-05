@@ -10,6 +10,9 @@ disappeared in a blackout from, presumably, to much booze. You have an
 alarming feeling that you are supposed to do something. And that it needs to
 be done right away. But what is it?
 
+> get up
+You stand up from the Bed.
+
 > look under bed
 You find an old dirty trouser here.
 
@@ -22,9 +25,9 @@ shirts, pants and sweaters.  The alarm clock is on the dresser.
 
 > take alarm clock
 You take the alarm clock from the dresser.
+"Turn that damn buzzer off" your landlord screams from the ground floor.
 
 > w
-(Getting off the Bed first)
 You move west.
 
 Living room
@@ -36,7 +39,6 @@ a real pig). A bookshelf. contains the books from your education.  What is
 really puzzling is the beautiful naked woman sleeping on the couch. Her
 clothes lies strewn around on the floor. You can go east to the bedroom, or
 north to the kitchen.  The alarm clock buzzes.
-"Turn that damn buzzer off" your landlord screams from the ground floor.
 The buzzing of the clock doesn't seem to have any effect on the woman.
 
 > put trouser on woman
@@ -59,10 +61,10 @@ forget it."
 > eat woman
 "You never get enough, do you?", she grunts. "I'm to tired. You can eat me
 out some other time."
+"Turn it off or I'll have you evicted.", your landlord seems serious.
 
 > fuck woman
 "I'm to tired", she says. "We can do it again some other time."
-"Turn it off or I'll have you evicted.", your landlord seems serious.
 
 > turn off alarm clock
 You turn off your buzzer.
@@ -186,13 +188,13 @@ You are hereby in.it.d t.....
 ..nas and Anette
 Something is handwritten on the back:
 Don't forget to bri.. th. .i...
-
-> x business card
-The womans business card.
 You hear someone coming up the stairs from first floor. You rush over to the
 kitchen door, and out steps your girlfriend, Hanna. Thank God, you think. If
 you hadn't made your lover leave you'd be in a wad load of trouble. But you
 can tell she suspect something. She is in a really bad mood.
+
+> x business card
+The womans business card.
 
 > x window
 It's a bright sunny morning out there. People rushing of to work. Perhaps you

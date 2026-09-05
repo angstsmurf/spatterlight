@@ -3172,6 +3172,17 @@ ms_mobius_solution.txt|ms_mobius.taf|That little TV screen for the inside of you
 # at 35, and the wedding leaves without you at 55 -- so the route is timed
 # throughout.  The +3 requires leaving the alarm ON one turn longer than a
 # player would, and `wash me` locks out the moment Hanna is forgiven.
+# Measured against run390 2026-09-05 (Adrift_9_morning.txt): 53 commands, all
+# 53 echoed, every turn but the tail identical.  It cost an engine port to get
+# there.  The game starts the player ON the Bed, and pre-4.0 refuses to reach
+# into or onto any other object while you are on one: run390 `insides` (463EEC,
+# loc_4631D0..4631FF) answers `take alarm clock` with "You can't reach the
+# dresser from the Bed!", and the same for the suit on the chair, so the
+# original route never got dressed and the landlord evicted it at 5/115.  The
+# literal " can't reach " is in run370/380/390's pools and ABSENT from run400,
+# which is the version gate; see lib_cannot_reach_container() in sclibrar.cpp.
+# The route therefore opens with `get up`, and the one-turn shift still meets
+# all four deadlines above.
 morning_headache_solution.txt|A_Morning_with_a_Headache.taf|This has turned out to be an altogether OK morning.
 # Sleaze City: 100/100, every ACT type=4 in the file.  A ten-room slum with
 # no NPCs, no events and no clock -- the only real constraint is a four-link

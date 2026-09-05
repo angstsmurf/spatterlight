@@ -518,6 +518,17 @@ lines -- which is the point: it is cheap to be wrong here for a long time.
   diary` (2026-09-05, suppressed library *output*).  Deliberate deviation, not
   a bug to fix; screen for it so the diff is expected rather than alarming.
 
+- **Does the game start the player on or in something?**  Pre-4.0 refuses to
+  reach into or onto any *other* object while you are on one.  run390 `insides`
+  (463EEC, `loc_4631D0..4631FF`) tests `player.on = &HFF Or player.on =
+  container` and otherwise prints `<You> can't reach the <container> from the
+  <thing you are on>!`, both names in the definite form with the author's
+  capitalisation.  The literal `" can't reach "` is in run370/380/390's constant
+  pools and **absent from run400**, which is the version gate.  Ported
+  2026-09-05 as `lib_cannot_reach_container()`; screen for it by checking
+  whether the walkthrough's opening turns take anything before standing up
+  (`A_Morning_with_a_Headache.taf` needed a leading `get up`).
+
 - **Fresh process per measurement.** Adventure → Restart game does not
   reliably reset NPC walk state.
 - Feed with `drive_ckpt.sh`, which echo-verifies each line. Wine mangles
@@ -611,6 +622,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `as.taf` (Asylum) | 3.90 | full run390 replay, `Adrift_9_asylum.txt` (feed `cmdfile_w_asylum.txt` -- 27 commands plus four blank-line Returns for the mid-game waitkeys, PRE=0) | 27/27 echoed; zero engine divergences -- the two unequal turns are the `[Press any key to end]` tail and one `<cls>` welded between two sentences with no `<br>` (see the bullet above).  0 events and one non-walking NPC; both sides finish 0/0 on the game's `<br><br>` WINTEXT |
 | `sleaze.taf` | 3.90 | full run390 replay, `Adrift_9_sleaze.txt` (feed `cmdfile_w_sleaze.txt` -- 43 commands, PRE=0) | 43/43 echoed; zero engine divergences and no artifacts either -- 42 of 43 turns byte-identical and the 43rd, the winning `serve`, differs only by the Runner's `[Press any key to end]`.  0 events and 0 NPCs; 100/100 |
 | `everything.taf` | 3.90 | full run390 replay, `Adrift_9_everything.txt` (feed `cmdfile_w_everything.txt` -- 38 commands, PRE=2) | 38/38 echoed; ONE divergence, a known deliberate deviation -- `read diary` matches TASK 14, which has no completion text at all, and run390 lets the silent match claim the command and prints the game's DontUnderstand string, so the diary's read text is unreachable in the real Runner while Scarier falls through to the library `read` and prints it (same family as the Hangover cabinet, not ported).  Both sides still set `%opinion%` to 5 and finish on ending5; the only other unequal turn is the `[Press any key to end]` tail |
+| `A_Morning_with_a_Headache.taf` | 3.90 | full run390 replay, `Adrift_9_morning.txt` (feed `cmdfile_w_morning.txt` -- 53 commands, PRE=0) | 53/53 echoed; zero engine divergences after one port -- 52 of the 53 turns identical and the 53rd, the winning `open door`, differs only by the Runner's `[Press any key to end]`.  The port is the **pre-4.0 reach rule**: the game starts the player on the Bed and run390 answers `take alarm clock` with "You can't reach the dresser from the Bed!", so the route now opens with `get up`.  Eight events, none rollable; three non-walking NPCs; 115/115 both sides |
 | `superliam.taf` | 3.80 | full run380 replay, `Adven_1_superliam.rtf` (feed `cmdfile_w_superliam.txt` -- 86 commands, Save Transcript at the 85th) | 85/85 echoed; three divergent turns, two engine rules, both FIXED: the run380 **AdditionalMessage double-space suppression reaches through a ShowRoomDesc room description**, and **names are matched RAW** -- object Short `"necko wafers "` (trailing space) is unreferenceable, `take necko wafers` answers "Take what?".  After the fixes every echoed turn matches; both sides win 3250/3250.  Measured 2026-08-31 |
 | `cave.taf` | 3.80 | three full run380 replays, `Adven_1_cave.rtf` / `Adven_1_cave2.rtf` / `Adven_1_cave3.rtf` (final feed `cmdfile_w_cave3.txt` -- 216 commands, Save Transcript flow) | 215/215 echoed each time; FOUR engine findings, all FIXED: `z` is not 3.80 vocabulary (whole-line `= "z"` test only exists from run390_3 45FCB0 -- seven `z` -> `wait`); 3.8 substitutes "There is nothing of interest here." into empty room Longs at LOAD (447FEE), so it prints BEFORE LastDesc alts; a 3.8 task can never move the PLAYER to the game's FIRST room (tasks() 44D1D4 stores Var2 pre-decremented behind "If Var2 > 1" -- second `climb down` re-derived to `down`; 3.7's encoding sits one higher so run370 441E55 is correct, arlo the counterexample; is_v370 gate in sctafpar.cpp); and the single-named held-take refusal is "You've already got X!" pre-4.0 (43E03E -- 4.0's "already carrying" @462D25 gated on lib_is_version_400, four 3.9 goldens re-blessed -- thewoods' own ALR "I've already got the" -> "<br>I'm already carrying the" confirms the base from the game side).  Third drive replays CLEAN: every comparable turn identical, `score` at 900/1000 both sides; only the winning `read parchment` is uncapturable in the Save-at-end flow (Scarier finishes 1000/1000).  Still open from the pre-fix stuck-tail census (never reached by the corrected feed): 3.8 answers a matched-task-wrong-room with "You can't do that here." (21x) and names unseen/unheld objects in refusals ("You can't see X from here!" / "You don't have X!") where Scarier says "Take what?" etc -- a 3.8 referenceability/where-fail model not yet ported.  Measured 2026-08-31 |
 | `haunt.taf` | 3.80 | full run380 replay, `Adven_1_haunt.rtf` (feed `cmdfile_w_haunt.txt` -- 85 commands, `measure38.sh`: Save Transcript at the 84th, the winning `down` sent after it) | 84/84 echoed; 40 divergent turns, then 1, then 0 -- two pre-3.9 engine rules, both fixed: **no startup event tick before 3.90** (a StarterType 2 delay of N starts on turn N, uncompensated) and **no administrative turns before 3.90** (`score` ticks NPCs and events).  Seven 3.80 goldens re-blessed, wrecked re-pinned to seed 106; full suite 428/428 PASS. |
@@ -843,7 +855,7 @@ The four best targets, by walks x length:
 | `Chosen.taf` | `chosen` | 123 | 0 | 0 | 0 | yes | [Chosen_walkthrough](Chosen_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); 52 real commands, not 123 |
 | `Renuntio.taf` | `renuntio` | 118 | 0 | 0 | 3 | yes | [Renuntio_walkthrough](Renuntio_walkthrough.md) -- **measured 2026-09-05**, clean (tail + one wrap artifact); 39 real commands, not 118 |
 | `as.taf` | `asylum` | 102 | 0 | 1 | 0 | yes | [Asylum_walkthrough](Asylum_walkthrough.md) -- **measured 2026-09-05**, clean (tail + one `<cls>` artifact); 27 real commands, not 102 |
-| `A_Morning_with_a_Headache.taf` | `morning_headache` | 88 | 0 | 3 | 8 | -- | [A_Morning_with_a_Headache_walkthrough](A_Morning_with_a_Headache_walkthrough.md) |
+| `A_Morning_with_a_Headache.taf` | `morning_headache` | 88 | 0 | 3 | 8 | -- | [A_Morning_with_a_Headache_walkthrough](A_Morning_with_a_Headache_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) after porting the pre-4.0 reach rule; 53 real commands, not 88 |
 | `sleaze.taf` | `sleaze` | 86 | 0 | 0 | 0 | -- | [Sleaze_City_walkthrough](Sleaze_City_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); 43 real commands, not 86 |
 | `Wheel105.taf` | `wheels_must_turn` | 77 | 0 | 4 | 15 | yes | [The_Wheels_Must_Turn_walkthrough](The_Wheels_Must_Turn_walkthrough.md) |
 | `tq3.taf` | `tq3` | 76 | 0 | 2 | 4 | -- | [The_Quest_Moody_walkthrough](The_Quest_Moody_walkthrough.md) |
@@ -5285,3 +5297,101 @@ eight events all have degenerate ranges (`start=1..2` and `1..1`, `time1=15
 time2=15`, `time1=1 time2=1`, `time1=10 time2=10`), so not one of them rolls.
 Three NPCs, none of them walkers -- the woman leaves by an event text, not a
 WALK.  PRE to be read off the Runner's own title screen at drive time.
+
+## A_Morning_with_a_Headache.taf (A Morning with a Headache, 3.90) -- 2026-09-05, run390
+
+`Adrift_9_morning.txt` from `cmdfile_w_morning.txt`, 53 commands, PRE=0.  All
+53 echoed.  One unequal turn, the last one's `[Press any key to end]`.  Both
+sides win on "This has turned out to be an altogether OK morning." at 115/115.
+
+Clean -- but only after an engine port, and the first drive was anything but.
+
+### The pre-4.0 reach rule
+
+The game starts the player **on the Bed**.  The old route's second command was
+`take alarm clock`, and run390 answered:
+
+```
+run390    You can't reach the dresser from the Bed!
+scarier   You take the alarm clock from the dresser.
+```
+
+and the same for `take suit` (on the chair), so the Runner's run never got
+dressed, never made the wedding, and the landlord evicted it at 5/115 while
+Scarier sailed on to 115.  Not a divergence in one turn: a divergence that
+forked the whole game.
+
+The rule is in run390 `insides` (463EEC, `run390_3.bas:49360`), at
+`loc_4631D0..4631FF`:
+
+```
+If player.on = &HFF Or player.on = container Then
+    <proceed>
+Else
+    <You> & " can't reach " & the(container) & " from " & the(player.on) & "!"
+```
+
+Both names go through the definite helper, i.e. `"the " & Short` with whatever
+capitalisation the author gave the object -- hence "the dresser" but "the Bed".
+`&HFF` is the not-on-anything sentinel (and note the decompiler's signed-byte
+trap: this really is -1, see `adrift-decompile-signed-byte-literals`).
+
+The version gate came from the string census rather than from a second drive:
+`" can't reach "` is present in run370's, run380's and run390's UTF-16 constant
+pools and **absent from run400's**.  4.0 dropped the rule.  So the port is
+gated `< TAF_VERSION_400`, exactly like the take wording and the empty-room
+refusal it sits next to.
+
+Ported as `lib_cannot_reach_container()` / `lib_print_cannot_reach()` in
+`sclibrar.cpp`, checked in `lib_take_backend_common()`'s per-object loop right
+after the existing unheld-container gate.  Two orderings are inferred rather
+than measured and are flagged as such in the code comment: where the refusal
+sits relative to a *game* task that would also match, and relative to 3.7/3.8's
+"not holding" gate.  Corpus after the port: **428 PASS, 1 FAIL**, the single
+failure being the row that discovered it -- zero collateral damage across the
+other 427.
+
+The route was then re-derived with `get up` prepended.  The one-turn shift
+costs nothing: all four fatal deadlines (the buzzer eviction at turn 15, the
+girlfriend at 30, her arrival at 35, the wedding at 55) are still met, the +3
+still lands with the buzzer on, `wash me` still beats Hanna's arrival, and the
+score is still 115/115.  Golden re-blessed.
+
+Worth re-checking: the note in `adrift39-silent-task-dontunderstand` that
+run390 "refuses examining room objects while the player is still on the bed
+(Hangover turn 1 needs `stand up`)".  In this drive `x dresser` and `x chair`
+both answered normally from the Bed.  That Hangover observation was almost
+certainly this reach rule on a *container* command, not an examine rule.
+
+### And a harness fix: a dead Runner leaks keystrokes
+
+The first drive desynced at command 31 (pre-`get up`, the game had already
+ended in eviction) and the Runner exited on its own `[Press any key to end]`.
+`drive_ckpt_safe.sh` kept going: `focus` failed silently and `type_line.py`
+typed the remaining twenty lines of the cmdfile into whatever window was
+frontmost -- which was the terminal driving this session.  Twenty game commands
+arrived through the user-message channel.  Fixed by a liveness guard at the top
+of the per-command body:
+
+```sh
+  if ! kill -0 "$PID" 2>/dev/null; then
+    echo "ABORT at cmd $n: the Runner (pid $PID) is gone"
+    exit 1
+  fi
+```
+
+Secondary lesson: `pkill -f 'measure.sh <game>'` kills the parent but **not**
+its child `drive_ckpt_safe.sh`, so the leak ran to the end of the file anyway.
+Kill the drive script by name too.
+
+Also new this round: `harness/screen_wine_candidate.py`, which runs the
+pre-flight checklist for a row -- version, real command count, events and which
+of them can roll, NPCs and whether any walk, and silent typeable tasks -- so the
+screening above is one command instead of five.
+
+Next candidate: `mhpquest.taf` (3.90; 53 real commands of the table's 68).  It
+is the most informative row left in the 3.90 table because it is a *predicted*
+divergence: the screener flags a silent typeable task `feed *clover* to
+*crystal*`, and the walkthrough types exactly that at golden line 68.  A third
+confirmation of the silent-task rule -- and a chance to check it in a family we
+have not seen it in yet, a task with a two-noun pattern.

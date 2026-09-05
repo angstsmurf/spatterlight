@@ -6358,6 +6358,63 @@ lib_print_not_holding (scr_gameref_t game, scr_int container,
   pf_buffer_string (filter, suffix);
 }
 
+/*
+ * lib_cannot_reach_container()
+ *
+ * Pre-4.0 refuses to reach into a container or onto a surface while the
+ * player is sitting, standing or lying on some OTHER object.
+ *
+ * run390's insides() (463EEC) tests the player record's +16 byte -- the
+ * object the player is on or in, &HFF when free -- against the container
+ * being reached into, and prints the refusal unless it is one or the other
+ * (loc_4631D0..4631E1):
+ *
+ *     If player.on = &HFF Or player.on = container Then ok
+ *     Else <You> & " can't reach " & the(container) & " from " &
+ *          the(player.on) & "!"
+ *
+ * Both names come out of the definite-name helper, so it is "the " & Short
+ * with the author's capitalisation kept: "You can't reach the dresser from
+ * the Bed!"
+ *
+ * Measured 2026-09-05 on A_Morning_with_a_Headache.taf (3.90) in run390: the
+ * game starts the player in bed, and `take alarm clock` -- the clock sits on
+ * the dresser -- is refused exactly that way, as is `take suit` off the
+ * chair.  The literal " can't reach " is in run370, run380 and run390's
+ * constant pools and is ABSENT from run400's, so 4.0 dropped the rule
+ * outright; the gate is < 4.00 rather than the usual 3.9 split.
+ *
+ * Two things here are inferred rather than measured, and are noted in
+ * notes/WINE-TRANSCRIPTS-TODO.md: whether a game task for the same command
+ * would run first (nothing in that game claims `take alarm clock`), and how
+ * this orders against 3.7/3.8's own "not holding" gate, which is why it sits
+ * after lib_take_container_unheld() rather than before it.
+ */
+static scr_bool
+lib_cannot_reach_container (scr_gameref_t game, scr_int container)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+    return FALSE;
+
+  return gs_playerparent (game) != -1 && gs_playerparent (game) != container;
+}
+
+static void
+lib_print_cannot_reach (scr_gameref_t game, scr_int container)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                         "You can't reach ",
+                                         "I can't reach ",
+                                         "%player% can't reach "));
+  lib_print_object_np (game, container);
+  pf_buffer_string (filter, " from ");
+  lib_print_object_np (game, gs_playerparent (game));
+  pf_buffer_string (filter, "!");
+}
+
 static void
 lib_take_backend_common (scr_gameref_t game, scr_int associate,
                          scr_bool is_associate_object, scr_bool is_associate_npc)
@@ -6404,6 +6461,23 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
           scr_int index_;
 
           lib_print_not_holding (game, gs_object_parent (game, object), ".");
+          for (index_ = 0; index_ < object_count; index_++)
+            game->object_references[index_] = FALSE;
+          return;
+        }
+
+      /*
+       * And pre-4.0 refuses it outright while the player is on or in some
+       * other object; see lib_cannot_reach_container().
+       */
+      if ((gs_object_position (game, object) == OBJ_IN_OBJECT
+           || gs_object_position (game, object) == OBJ_ON_OBJECT)
+          && lib_cannot_reach_container (game,
+                                         gs_object_parent (game, object)))
+        {
+          scr_int index_;
+
+          lib_print_cannot_reach (game, gs_object_parent (game, object));
           for (index_ = 0; index_ < object_count; index_++)
             game->object_references[index_] = FALSE;
           return;

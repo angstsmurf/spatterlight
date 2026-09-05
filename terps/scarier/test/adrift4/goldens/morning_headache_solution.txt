@@ -34,6 +34,16 @@
 #    only once Hanna has explained the invitation -- which is also the only
 #    way to reach the shoes (they start on the Staircase).
 # No <waitkey> anywhere (checked with SCR_MARK_WAITKEY=1).
+#
+# `get up` FIRST, added 2026-09-05.  The game starts the player on the Bed,
+# and pre-4.0 refuses to reach into or onto any other object while you are:
+# run390 answers `take alarm clock` with "You can't reach the dresser from
+# the Bed!" and `take suit` with the same about the chair, so the old route
+# never got dressed and the landlord evicted it at 5/115.  Scarier had no
+# such rule until the same day; see lib_cannot_reach_container().  The
+# one-turn shift costs nothing -- every deadline above is still met, and the
+# score is still 115/115.
+get up
 look under bed
 take trouser
 x dresser
