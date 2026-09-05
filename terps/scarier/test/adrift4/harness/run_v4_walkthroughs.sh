@@ -805,6 +805,12 @@ ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possibl
 cleft_solution.txt|cleft.taf|You scored 100 out of the maximum 100!
 # Measured 2026-08-29 in run400 under Wine: 36/36 commands identical (Adrift_1_Tear.txt).
 Tear_solution.txt|Tear.taf|Suddenly the world seems a brighter place, and you feel there is a good
+# tq3's declared maximum of 2400 is fiction: the game has fifteen tasks, and
+# the only five that carry a ChangeScore action are `open door` (+15),
+# `shicknaw` (+5), `tie rope to rock` (+5), `push river button` (+20) and
+# `give water to unicorn` (+15).  60 is therefore the entire scorable total
+# and this route takes all of it -- surveyed 2026-09-05, the row is complete
+# despite the "60 out of 2400" the summary prints.
 tq3_solution.txt|tq3.taf|Please forward your comments to chris@jons.org.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
@@ -837,6 +843,13 @@ Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.|SCR_SKIP_WAI
 JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH|SCR_SKIP_WAITKEY=1
 mysteryofcaves_solution.txt|mysteryofcaves.taf|Your finishing rank is: Godlike Adventurer.|SCR_SKIP_WAITKEY=1
 chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms with Sharon Elson.|SCR_SKIP_WAITKEY=1
+# fantasyworld's 0 out of 500 is not an unfinished route: every one of the
+# game's 71 ChangeScore actions (490 points of the declared 500) hangs off an
+# adult sub-quest task -- `kiss <NPC>`, `fuck <NPC>` and the rest, one +4 per
+# scene.  Nothing on the quest line scores at all.  The route below opens with
+# the game's own NOSEX switch, which disables those scenes wholesale, so a
+# perfect quest-line run scores exactly zero by construction.  Surveyed
+# 2026-09-05; the row is complete and the score will stay 0.
 fantasyworld_solution.txt|fantasyworld.taf|You scored 0 out of the maximum 500!
 # Grumble's arrival is missing from 12 turns of these two goldens ON PURPOSE:
 # sa.taf carries 65 ALRs whose Original spans the two-space join and deletes
@@ -1488,6 +1501,8 @@ mortality_solution.txt|mortality.taf|one of the two good endings|SCR_SKIP_WAITKE
 # No waitkeys: the transcript is byte-identical with and without
 # SCR_SKIP_WAITKEY, so the row carries no env.  The score reads 96/97 one
 # command before the end and the last `salle du bigboard` is the 97th point.
+# Measured 2026-09-05 in run390 (Adrift_3_largo_winch.txt, all 323 commands):
+# 323/323 echoed, every turn identical but the Runner's press-any-key tail.
 largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de 97!
 # Three Monkeys, One Cage (Robert Goodwin, 2003) -- WIN, 98/100, and 98 is the
 # ceiling: every one of the game's 23 scoring actions is banked.  The author
@@ -3567,6 +3582,9 @@ journ2_solution.txt|Journ2.taf|Your score is 30 out of a maximum of 90.
 # one where the answer still had to come out of the `cmd=`/`ALTCMD=` patterns.
 # Accusing wrong is a losing ending: T64 `accuse rick` and T65 `accuse ross`
 # are both `ACT type=6 v1=1`, and only T66 `accuse ken` is `v1=0`.
+# Measured 2026-09-05 in run390 (Adrift_3_murder_great_falls.txt, all 103
+# commands, name/gender via the Runner's dialogs): 101/101 echoed, every turn
+# identical; the winning turn is cut at the Runner's endgame pause.
 murder_great_falls_solution.txt|mudergreatfalls.taf|Ken is found guilty of triple homicide.|SCR_SKIP_WAITKEY=1
 # The Vampire With A Conscience -- ADRIFT 3.90, Ole Olsen, 63,183 bytes.
 # WIN, 100/100, the file's declared maximum, in 57 lines.  You are a vampire
