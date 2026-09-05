@@ -6004,21 +6004,45 @@ grumble_solution.txt|Whatever_Happened_to_Uncle_Grumble.taf|Your score is 208 ou
 # (Victoria) with the magic wand and climbs a hidden spiral staircase to
 # confront the villain Morgana, who has hypnotized and bound Tiffany atop
 # the tower as part of a god-ascension ritual.
-#   - This is a deliberately PARTIAL walkthrough: it reaches the Morgana
-#     rooftop confrontation (score 49/67, 35/47 magic rating) but does NOT
-#     resolve the final duel. SCR_DUMP_TASKS structural analysis found the
-#     "true" win (`tap deck of cards with wand` knocking Morgana off the
-#     tower) requires possessing the deck of cards at the climax, but the
-#     Act 1 card trick (task 27) always returns the cards to Tiffany when
-#     she is on stage -- and screstrs.cpp's restr_pass_task_char (RESTR
-#     type=3) confirms the alternate keep-the-cards task (28) is gated on
-#     Tiffany having already left the stage, which does not happen during
-#     Act 1 under any command ordering tried (including stalling with
-#     `wait`). This blocker was not resolved before the run was checkpointed.
-# 115 commands, no waitkey pauses encountered. Final score 49 out of a
-# maximum of 67 (73%), stopped at the Roof of Tower with Morgana's duel not
-# yet attempted.
-magicshow_solution.txt|magicshow.taf|Your overall score is 49 out|
+#   - FULL WIN, 67/67 and a 47/47 magic rating ("Well done - you scored
+#     maximum points!"). Supersedes the earlier 49/67 partial checkpoint,
+#     whose header claimed the card ending was unreachable; it is not.
+#   - The card blocker: tasks 27 and 28 are both `tap deck of cards with
+#     wand` and differ only in a RESTR type=3 (screstrs.cpp
+#     restr_pass_task_char) on Tiffany's presence -- 27 (v2=0, she is on
+#     stage) confiscates the deck back to her, 28 (v2=1, she is gone) lets
+#     the player keep it. She leaves on EVENT 0 "Assistant leaves stage"
+#     (time 27, affTask=22 = task 21 "#Tiffany leaves stage"), so the fix is
+#     simply to stall on stage: 18 `z` after `take hoops`, THEN do the card
+#     trick. Leaving the stage afterwards still works -- task 19 (`south`
+#     with Tiffany absent) only wants magic >= 6.
+#   - The deck then rides inside the top hat, not in the open inventory. Any
+#     scene that takes the hat away takes the cards with it, which is what
+#     makes the climax fail silently ("You're not holding your deck of
+#     cards") several hundred turns later.
+#   - Dinosaur Room: `climb dinosaur` (task 182) is the crude escape from
+#     Cynthia's knives and scores only +1, and it knocks her unconscious so
+#     she can never be questioned. The full-credit route is task 12,
+#     `get rabbit from hat` (+4 score, +4 magic): the rabbit draws her fire
+#     while the player manacles her. It needs the hat off and tapped open
+#     (`remove hat` / `tap hat with wand`), and it leaves the hat -- and the
+#     deck -- on the floor, so `take hat` / `wear hat` afterwards is
+#     load-bearing for the ending. With her manacled, `take watch` /
+#     `hypnotize cynthia` (task 160, +2) / `ask cynthia about plan` (task
+#     174, +2) follow, and the scene then costs one extra `down` (the first
+#     one is consumed by the leave-Cynthia cutscene).
+#   - Other points the 49-point run missed: `say abracadabra` at the very
+#     start, `ask amy about wish` (task 271, which is what eventually puts
+#     Gwen backstage for `hypnotize gwen` / `ask gwen about dress`),
+#     `take poster`, `read napkin`, and `ask susan about document` (task
+#     212 -> 423) in the Large Office.
+#   - Ending: `watch eyes` / `close eyes` (task 257; below magic 35 you get
+#     the losing task 256 instead) / `tap tiffany with wand` (task 377, +2)
+#     / `tap cards with wand` (task 384, +2, EndGame win). `take scarab`
+#     with eyes closed (task 276) is a rival ending worth only +1, so it is
+#     deliberately not taken.
+# 152 commands. Final score 67 out of a maximum of 67 (100%).
+magicshow_solution.txt|magicshow.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
 # goblin.taf (AIF, adult content -- see /goldens/.gitignore): "A Goblin's
 # Life" (Burnout/BBBen, 2007 AIF Mini-comp 2nd place; ADRIFT 3.9). The
 # bind-and-capture route to the "King" ending -- see the comment header in

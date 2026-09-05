@@ -2411,12 +2411,13 @@ future revisit, same footing as `YADFA.TAF` above:
   87 commands, 140/140, marker `You managed to score 140 out of 140.`**
 - **`mind of master.taf`** — WON. Reached "You are victorious, whoever you
   might [become]" in 29 commands, `SCR_SKIP_WAITKEY=1`.
-- **`magicshow.taf`** — a **partial-progress checkpoint**: score 49 (of the
-  game's own out-of total) after 115 commands. The rooftop confrontation
-  scene was never reached; the derivation agent documented a card-retention
-  parser/task blocker (an item the game expects kept across a scene the
-  script never got to) as the likely next obstacle. 115 commands, no env
-  vars, gitignored (AIF).
+- **`magicshow.taf`** — was a **partial-progress checkpoint** (score 49
+  after 115 commands, rooftop confrontation not resolved, blamed on a
+  card-retention blocker); **revisited and WON 2026-09-05 with a perfect
+  score, 67/67 and a 47/47 magic rating in 152 commands** — see the dated
+  section at the end of this file. The blocker was real but not
+  unresolvable: stall on stage until the assistant leaves, then do the card
+  trick. `SCR_SKIP_WAITKEY=1`, gitignored (AIF).
 - **`Whatever_Happened_to_Uncle_Grumble.taf`** — was a **partial-progress
   checkpoint** (score 6 out of a maximum of 404, 10 commands, blocked on a
   companion-recruitment noun the parser wouldn't resolve); **revisited and
@@ -5593,3 +5594,93 @@ Suite after this: **428 rows, 428 PASS, exit 0.**
 
 Still open after this: `magicshow.taf` (49 points, AIF terms — row committed,
 solution and golden gitignored). That is the last open item in this file.
+
+
+## `magicshow.taf` — 67/67, a perfect score (2026-09-05)
+
+The last open item in this file. The previous run left a 49/67 checkpoint
+whose harness header stated the true ending was unreachable:
+
+> SCR_DUMP_TASKS structural analysis found the "true" win (`tap deck of
+> cards with wand` knocking Morgana off the tower) requires possessing the
+> deck of cards at the climax, but the Act 1 card trick (task 27) always
+> returns the cards to Tiffany when she is on stage […] This blocker was
+> not resolved before the run was checkpointed.
+
+The diagnosis was right and the conclusion wrong. Tasks 27 and 28 are both
+`tap deck of cards with wand` and differ in exactly one restriction —
+`RESTR type=3 v1=0 v2=0 v3=3` (player in the same room as NPC 1, Tiffany)
+selects 27, which does `ACT type=0 v1=9 v2=3 obj6=[cards]` and hands the
+deck back; `v2=1` (the negated form) selects 28, which lets the player keep
+it. Tiffany is not a fixture: EVENT 0 "Assistant leaves stage"
+(`startTask=1` → task 0, the walk-on; `affTask=22` → task 21 "#Tiffany
+leaves stage"; time 27) removes her on schedule. So the whole blocker
+dissolves into *wait for her to go*: **18 `z` after `take hoops`, then
+`take cards` / `tap cards with wand`.** Leaving the stage afterwards is
+unaffected — task 19 (`south` with Tiffany absent) only requires magic ≥ 6.
+
+Two further traps, both of which make the ending fail silently hundreds of
+turns later:
+
+- **The deck rides inside the top hat**, not in the open inventory (`i`
+  never lists it). Anything that separates the player from the hat also
+  takes the deck.
+- Task 12, `get rabbit from hat` in the Dinosaur Room, is exactly such a
+  scene: *"You place your hat on the ground and pull your rabbit out."* It
+  never gives the hat back. `take hat` / `wear hat` after that scene is
+  load-bearing; without it the climax answers *"You're not holding your
+  deck of cards."*
+
+### The Dinosaur Room is where most of the missing points were
+
+Cynthia pins the player behind the tyrannosaurus with thrown knives. The
+obvious escape, `climb dinosaur` (task 182), scores **+1** and topples the
+exhibit onto her — which knocks her unconscious, and the game says so:
+*"Nuts, I would have liked to question her."* That closes off four more
+points. The full-credit route is task 12:
+
+| step | task | points |
+|---|---|---|
+| `remove hat` / `tap hat with wand` | 3 (opens the hat so the rabbit is referenceable) | — |
+| `get rabbit from hat` | 12 | +4 score, +4 magic |
+| `take hat` / `wear hat` | — | — (but see above) |
+| `take watch` (it goes back in the pocket after every hypnosis) | — | — |
+| `hypnotize cynthia` | 160 | +2 |
+| `ask cynthia about plan` | 174 | +2 |
+
+Task 12 requires the rabbit object inside the hat, the hat open, and the
+manacles held; it runs the rabbit out as a decoy, manacles Cynthia (which
+is what satisfies task 160's `RESTR type=0 v1=10 v2=2 v3=11` "manacles worn
+by Cynthia"), and execs task 308 "#Stop Cynthia attacking". Leaving the room
+afterwards costs **one extra `down`** — the first one is consumed by the
+"give Cynthia her final instructions" cutscene.
+
+### The rest of the eighteen points
+
+- `say abracadabra` as the very first command.
+- `ask amy about wish` (task 271) inside the sawing trick. This is the head
+  of a chain the 49-point run never started: 271 → task 272 "#Amy knocks
+  over drink" (exec'd by task 32, `saw box in half`) → task 331 "#Gwen
+  backstage", without which `hypnotize gwen` answers *"You can't see Amy's
+  friends."* `hypnotize gwen` / `ask gwen about dress` follow.
+- `take poster` and `read napkin` on the way out of the theatre.
+- `ask susan about document` in the Large Office (task 212 → task 423).
+
+### Ending
+
+`watch eyes` → `close eyes` → `tap tiffany with wand` (task 377, +2) →
+`tap cards with wand` (task 384, +2, `ACT type=6 v1=0` EndGame win). The
+`close eyes` step is version-forked on the magic rating: task 257 needs
+magic ≥ 35 and frees the player, task 256 is the losing variant below it —
+so the score push is not cosmetic, it gates the ending. `take scarab` with
+the eyes closed (task 276) is a rival ending that also wins but is worth
+only **+1**, so the tap pair is strictly better and 276 is deliberately not
+taken.
+
+Final: 152 commands, `SCR_SKIP_WAITKEY=1`, marker `Well done - you scored
+maximum points!`, *"Your magic performance rating was 47 out of 47"*,
+*"You scored 67 out of the maximum 67!"*, *"That is 100% of the game!"*.
+
+Suite after this: **428 rows, 428 PASS, exit 0.**
+
+**With this, every item in this file is closed.**
