@@ -662,6 +662,19 @@ xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 # has no KilledTask, and with every combatant missing every swing the closing
 # battle is a stalemate, so the walkthrough ends on `score`.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
+#
+# inverness: 75 of 205, and 75 is the whole scorable pool.  The witches' box
+# poses one riddle, chosen once at start-up: task 43 $initriddle (Repeatable
+# 0) rolls variable 8 to a value in 10..23, and tasks 29-42 are fourteen
+# alternative answers -- fire, mushroom, shadow, bookmark, nothing, step,
+# board, cold, m, r, coffin, darkness, e, mirror -- each worth +10 and each
+# restricted to one of those fourteen values, with a second restriction that
+# the box still be closed.  Exactly one can ever fire, so 130 of the declared
+# 205 belong to riddles this playthrough is never asked.  The route takes
+# everything else: torch (+10), painting (+10), search (+10), eavesdrop
+# (+10), statue (+5), the fifth knock (+5), the seeded riddle (+10, bookmark
+# at the default seed), asking the witches (+5), unlocking the desk (+5) and
+# opening it (+5).  Surveyed 2026-09-05.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
 #
 # Les Feux de l'enfer: 75 of 115, and 75 is the ceiling this build can reach.
