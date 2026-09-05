@@ -4362,7 +4362,6 @@ With Blerk in the room and the vehicles in the garage disabled and Strauss ready
 You better be superconfident about this.  One wrong code and you'll likely have a swarm of Dingoes all over the garage.  (In other words, please save before continuing!  If you are unsure of the code, type 'abort', and think carefully about your password)
 
 You walk over to the panel and enter:
-A voice booms over the loud speakers, "The art of using troops is this:  If in all respects unequal, be capable of eluding him."
 > D@15IN&33GO$62!
 You carefully punch in D@15IN&33GO$62! and hit enter.  After a few seconds you hear the grinding of heavy gears far above you and the garage door slowly opens.
 A faint beeping can be heard as the garage door rises.  Bustling sounds can be heard in the compound and a loud voice booms over the loud speaker:

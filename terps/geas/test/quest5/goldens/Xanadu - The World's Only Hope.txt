@@ -1912,10 +1912,6 @@ This is the guard barracks.  You are currently surrounded by Dingo's evil henchm
 
 > wait
 Time passes.
-> wait
-
-> wait
-Time passes.
 
 You begin to do that but are stopped immediately when a searing pain creeps across the back of your skull.  You crumble forward and collapse onto the ground.  You look up trying to see who it was who clobbered you from behind.
 

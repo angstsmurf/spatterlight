@@ -408,7 +408,7 @@ what `1 —or— 2` (sent verbatim) triggered before the extractor fix.
 
 ## Oracle vs goldens at the pinned revision
 
-`./check_golden.sh` against v6.0.0-beta.57 (2026-09-05): **83 passed, 3 failed**.
+`./check_golden.sh` against v6.0.0-beta.57 (2026-09-05): **85 passed, 1 failed**.
 The goldens are the *native* engine's transcripts, so every failure is a
 native/oracle disagreement with a known owner:
 
@@ -426,10 +426,22 @@ native/oracle disagreement with a known owner:
   exit revealed after they entered it — the issue's Woo Rebooted case — else
   seed it alone at the origin of a fresh z layer). The golden therefore has no
   error lines there and the oracle's five are the expected diff.
-- *Xanadu — In the Compound — Revenge* (one random loud-speaker quote) and
-  *Xanadu — The World's Only Hope* (two `> wait` echoes) — RNG-stream and
-  wait-echo placement differences carried over from the previous pin; not
-  investigated.
+
+The two *Xanadu* games (*In the Compound — Revenge*, *The World's Only Hope*)
+used to fail here too, and were long mislabelled "RNG-stream and wait-echo
+placement differences". Neither was RNG (every random pick before the
+divergence matched line for line); both were the FinishTurn ordering the broad
+callback gate fixed (see "Suspensions and the turn boundary"), and their goldens
+were simply stale. *Compound*: an every-tenth-turn turnscript prints a random
+Sun Tzu quote; `use panel` prompts and does a `get input`, and the old engine
+ran FinishTurn before the input callback, so the quote landed between the prompt
+and the answer. Quest defers FinishTurn past the callback, whose first act is
+`DisableTurnScript` on that turnscript, so the quote is never printed. *Hope*:
+`push loose section` nests two `wait`s and then moves the player into the Guard
+Barracks, whose enter script does `SetTurnTimeout (2)`; with FinishTurn deferred
+past both waits the push turn itself is the timeout's first turn, so the capture
+fires after ONE `wait` — the old engine ran FinishTurn mid-callback, before the
+turnscript existed, and needed two. Re-blessed 2026-09-05; both byte-equal.
 
 Going from the previous floating build (7afad59, post-#2182, pre-#2188) to the pin
 cleared seven more: *The Gift of the Magi*, *Warriors*, *Escape From the Mechanical
