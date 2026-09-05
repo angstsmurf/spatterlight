@@ -853,18 +853,24 @@ private:
     // the turnscripts DO tick for that turn (just deferred). Replayed after the
     // frames, before the owed pane refresh. Core's RunTurnScripts self-guards on
     // IsGameRunning(), so an owed FinishTurn on a finished game no-ops the ticks.
-    void run_deferred_finish_turn();
+    void try_finish_turn(Context &ctx);           // TryFinishTurnAsync
+    void try_finish_turn_or_defer(Context &ctx);  // ... or set the flag below
+    void run_deferred_finish_turn();              // RunDeferredFinishTurnAsync
 
     bool parked_owes_finishturn_ = false;
 
-    // A `wait` registered during this command's HandleCommand, so the turn is
-    // parked on the player rather than finished. Legacy Quest 5 runs the game
-    // on its own thread and blocks it inside `wait`, so the stack survives and
-    // FinishTurn -- every turnscript -- runs AFTER the wait callback; the async
-    // model returns from `wait` immediately and would race FinishTurn ahead of
-    // it, firing turnscripts in a room the callback is about to leave. Set here
-    // and discharged by finish_wait (pre-v580 only, matching the version gate
-    // on the FinishTurn call itself).
+    // WorldModel._finishTurnDeferred: a command/event turn ended with a wait /
+    // get input / ask / show menu still outstanding (pending_callback_count_ >
+    // 0), so its FinishTurn -- every turnscript -- is owed at the turn
+    // boundary instead. Legacy Quest 5.8.0 did exactly this for all four:
+    // TryFinishTurn skipped FinishTurn while m_callbacks.AnyOutstanding(), and
+    // every resolution ran RunCallbackAndFinishTurn (callback, then
+    // FinishTurn, then UpdateLists); the async port raced FinishTurn ahead of
+    // the callback, firing turnscripts in a room the callback was about to
+    // leave (Quest Viva #2177 / #2182 restored the legacy order). Set by
+    // try_finish_turn_or_defer, discharged by end_pending_callback once the
+    // count is back to zero (pre-v580 only, matching the version gate on the
+    // FinishTurn call itself).
     bool finish_turn_deferred_ = false;
 };
 

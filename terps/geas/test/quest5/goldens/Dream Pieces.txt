@@ -59,10 +59,11 @@ You are in your bedroom.  You looked at the clock. It's 3:14 in the morning and 
 You can see the bed, the box, the chair, the floor mat, the desk and the clock.
 Please type your birthdate (mm:dd:yyyy):
 
-* If you're confused, type HELP or ABOUT*
-
 > 01012000
 Done.  The goal is to destroy things.  Some of them by making tools first.  To learn how, try the  TUTORIAL.
+
+* If you're confused, type HELP or ABOUT*
+
 > about
 
 > about

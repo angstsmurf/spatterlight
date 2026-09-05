@@ -196,11 +196,6 @@ God! What a terrifying sound!
 > wait
 
 Another step closer to eternity.
-> wait
-
-> wait
-
-Another step closer to eternity.
 The beating of wings draws nearer!
 > wait
 
@@ -216,11 +211,11 @@ And...this is no dream!
 
 Another step closer to eternity.
 A crescendo of noise! Hundreds of birds outside! Flying in circles in the night! Wheeling in a crazed frenzy! I see their eyes! How can evil be in their eyes!!
-> unlock door
+> wait
 
-> unlock door
+> wait
 
-I can't see that. (door)
+Another step closer to eternity.
 They crash against the window! Battering their bodies to a bloody pulp against the glass! They are trying to get in!....They want to get in!
 
 The noise is unbearable! Wings beating a tattoo of death on the window! Screams of their frenzied attack shatter my mind!...
@@ -228,6 +223,11 @@ The window becomes encrusted with bits of bone sticking to the smears of blood!
 Then....they go! In a moment they dart away into the shadows of the night!
 I fall back into bed, mentally drained.
 It is morning at last! I stir through my slumber.. I have slept as though drugged... no more dreams or apparitions..perhaps it was all a dream..ah well! I hastily arrive and dress. Today should see me to my destination!
+> unlock door
+
+> unlock door
+
+I can't see that. (door)
 > open door
 
 > open door
@@ -563,6 +563,7 @@ You can see a cloth.
 > get cloth
 
 You pick it up.
+Time is passing. I must shave. Damn! I have no mirror!
 > polish tray
 
 > polish tray
@@ -1385,7 +1386,6 @@ We talk for an hour and I give him all the facts. Then he says something which s
 
 "Yes, I know where the boxes went. To your new neighbour at the Carfax Estate!"
 
-"Can't say as I know them Sir, you sure they be around 'ere? Now think again, who do yer wish t'visit?"
 My heart races. I leave immediately. While on the train, I recall a lecturer from my student days....Dr Van Helsing, of Amsterdam.
 The occult was his hobby. I write a note explaining all, asking him to join me in England. I arrive back in Purfleet, posting my letter in the station postbox.
 Then I leave the station.
@@ -1393,6 +1393,7 @@ Then I leave the station.
 The crossroads.
 More of a junction really as the road only goes a little way North, while South is the rail-way ticket office...West leads through the village.
 
+I'm tired.
 > w
 
 > w
@@ -1400,7 +1401,6 @@ More of a junction really as the road only goes a little way North, while South 
 I am in the village. North is the general store. East is a cross-roads.
 
 I'm tired.
-"Can't say as I know them Sir, you sure they be around 'ere? Now think again, who do yer wish t'visit?"
 > w
 
 > w
@@ -1598,7 +1598,6 @@ I am totally spellbound!
 
 "And so, Renfield is desciple of Count Dracula! His activity of recent days confirms that Ze Counr is near!....In, or close to the Carfax mansion. Find ze boxes John,und place some of this blessed corn in zem. He will not be able to rest there again. Then you must kill him! To kill an undead is hard! You must pierce the heart with a wooden stake....then behead him! My friend, you now haf ze knowledge. For our friend Jonathan Harker, haf ze courage! I, alas am old and must return home. So! Alone you will challenge evil and you must win!"
 
-Van Helsing is hiding.
 Van Helsing follows you.
 After a night's rest I have seen Van Helsing to the station and am in my study. I put on my monocle and read my notes. Obviously, Carfax house is my next port of call... God knows what awaits me there!
 
@@ -2116,7 +2115,7 @@ Somewhere I hear a bird singing.
 
  THE END
 
-You have taken 290 turns.
+You have taken 289 turns.
  END OF GAME
 Do you want to try again?
 1: Yes

@@ -192,14 +192,16 @@ callback resolution goes through `RunCallbackAndFinishTurn` (5.8.0
 `FinishWait`). So section 6 is retired (it only checks the upstream mechanism is
 present) and the oracle now follows legacy.
 
-**The native engine still gates on the wait alone**, so three goldens (native
-output) diverge from the oracle by exactly that ordering: *Dracula* (turnscript
-lines around its `show menu`s, and the turn count), *Dream Pieces* (the "type HELP
-or ABOUT" nag prints before the birthdate `get input` in native, after it on
-legacy/oracle) and *Lost in the Shadows of Time* ("What are you going to do?"
-around its menus). Porting the broader gate to `aslx-runtime.cc` and regenerating
-those three is the open follow-up; until then they are expected `check_golden.sh`
-failures.
+The native engine gates the same way since 2026-09-05: `try_finish_turn_or_defer`
+in `aslx-runtime.cc` sets `finish_turn_deferred_` whenever `pending_callback_count_
+> 0` after `HandleCommand` (and after a timer's `SendEvent`), and
+`end_pending_callback` runs the deferred `FinishTurn` -- after the deferred
+`on ready` flush -- once the count is back to zero, whether the callback resolved
+or was cancelled. *Dracula*, *Dream Pieces* and *Lost in the Shadows of Time*
+were the three goldens that changed with the port (turnscript lines around
+`show menu`s and the turn count; the "type HELP or ABOUT" nag now after the
+birthdate `get input`; "What are you going to do?" around menus), and all three
+now match the oracle byte for byte.
 
 *The Legend of Robin Hood* is the case that proved the wait half — its win is
 unreachable under the racing order (see `overrides/README.md`). The deferral is
@@ -406,12 +408,10 @@ what `1 —or— 2` (sent verbatim) triggered before the extractor fix.
 
 ## Oracle vs goldens at the pinned revision
 
-`./check_golden.sh` against v6.0.0-beta.57 (2026-09-05): **80 passed, 6 failed**.
+`./check_golden.sh` against v6.0.0-beta.57 (2026-09-05): **83 passed, 3 failed**.
 The goldens are the *native* engine's transcripts, so every failure is a
 native/oracle disagreement with a known owner:
 
-- *Dracula*, *Dream Pieces*, *Lost in the Shadows of Time* — native's wait-only
-  `FinishTurn` gate vs legacy's any-suspension gate (above). Native is wrong.
 - *The Acreage (pub 6.29 revision)* — Quest Viva issue #2189 (rooms reached only
   by scripted moves never get grid coordinates). Both engines error; only the
   error *text* differs, because upstream's #2167 guard now reports "Cannot use

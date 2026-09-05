@@ -1451,6 +1451,90 @@ static void test_attribute_names_deep() {
     CHECK(w.errors.empty());
 }
 
+// A pre-v580 command turn owes FinishTurn (Core's turnscripts) as a step after
+// HandleCommand. Legacy Quest 5.8.0 skipped it while ANY callback was
+// outstanding -- wait, get input, ask or show menu -- and ran it after the
+// callback (RunCallbackAndFinishTurn); Quest Viva #2177/#2182 restored that
+// order. The engine used to defer only across `wait`, which put Dream Pieces'
+// "type HELP" turnscript nag before its birthdate `get input` instead of after.
+static void test_finish_turn_deferred_across_prompts() {
+    const char *xml =
+        "<asl version=\"550\">"
+        "<game name=\"g\"/>"
+        "<function name=\"FinishTurn\">msg (\"FT\")</function>"
+        "<function name=\"HandleCommand\" parameters=\"command, metadata\">"
+        "if (command = \"input\") {\n"
+        "  get input {\n"
+        "    msg (\"cb:\" + result)\n"
+        "  }\n"
+        "}\n"
+        "else if (command = \"menu\") {\n"
+        "  options = NewStringList()\n"
+        "  list add (options, \"red\")\n"
+        "  show menu (\"Pick\", options, false) {\n"
+        "    msg (\"cb:\" + result)\n"
+        "  }\n"
+        "}\n"
+        "else if (command = \"ask\") {\n"
+        "  ask (\"Sure?\") {\n"
+        "    msg (\"cb:\" + result)\n"
+        "  }\n"
+        "}\n"
+        "else if (command = \"nap\") {\n"
+        "  wait {\n"
+        "    msg (\"cb\")\n"
+        "  }\n"
+        "}\n"
+        "else {\n"
+        "  msg (\"cmd:\" + command)\n"
+        "}\n"
+        "</function>"
+        "</asl>";
+    World w;
+    CHECK(load_aslx_buffer(xml, std::strlen(xml), w, "", ""));
+    Interp in(w);
+    auto out = [&] {
+        std::string o = in.output();
+        while (!o.empty() && o.back() == '\n') o.pop_back();
+        in.clear_output();
+        return o;
+    };
+    auto cmd = [&](const char *c) { in.clear_output(); in.send_command(c); return out(); };
+
+    // No prompt: FinishTurn follows the command, same turn.
+    CHECK_STR(cmd("plain"), "cmd:plain\nFT");
+    // get input: FinishTurn waits for the answer line.
+    CHECK_STR(cmd("input"), "");
+    CHECK(in.command_override());
+    CHECK_STR(cmd("hello"), "cb:hello\nFT");
+    CHECK(!in.command_override());
+    // show menu: the caption prints now; FinishTurn after the choice.
+    CHECK_STR(cmd("menu"), "Pick");
+    CHECK(in.pending_menu() != nullptr);
+    {
+        std::string key = "red";
+        in.set_menu_response(&key);
+        CHECK_STR(out(), " - red\ncb:red\nFT");
+    }
+    // ask: FinishTurn after the answer.
+    CHECK_STR(cmd("ask"), "");
+    CHECK(in.pending_question() != nullptr);
+    in.set_question_response(true);
+    CHECK_STR(out(), "cb:True\nFT");
+    // wait: FinishTurn after the keypress (the case Robin Hood proved).
+    CHECK_STR(cmd("nap"), "");
+    CHECK(in.pending_wait());
+    in.finish_wait();
+    CHECK_STR(out(), "cb\nFT");
+    // A cancelled prompt (a new one of the same kind replacing it) still
+    // discharges the deferred FinishTurn, once, at the boundary.
+    CHECK_STR(cmd("nap"), "");
+    CHECK_STR(cmd("nap"), "FT");  // the first wait's cancel ends its callback
+    in.finish_wait();
+    CHECK_STR(out(), "cb\nFT");
+    CHECK(w.errors.empty());
+}
+
 // firsttime baking of one-line blocks: get_script strips the braces off a
 // single-line `{ ... }`, so the baker must find bodies the way the parser
 // does (after the keyword/parameter), not at the first '{' -- otherwise a
@@ -1691,6 +1775,7 @@ int main() {
     test_number_parse_oracle();
     test_parser_depth_caps();
     test_attribute_names_deep();
+    test_finish_turn_deferred_across_prompts();
     test_firsttime_bake_oneliners();
     test_save_degenerate_state();
     test_save_restore_native();

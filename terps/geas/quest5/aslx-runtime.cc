@@ -1571,10 +1571,15 @@ void Interp::run_nested_on_ready_queue() {
 
 void Interp::end_pending_callback() {
     --pending_callback_count_;
-    // WorldModel.EndPendingCallbackAsync: flush deferred on-ready (and the
-    // FinishTurn deferral lives with the host-side finish_wait path in our
-    // port) only at the true turn boundary -- pending back at zero.
-    if (pending_callback_count_ == 0) flush_deferred_on_ready_queue();
+    // WorldModel.EndPendingCallbackAsync: only at the true turn boundary --
+    // pending back at zero -- flush the deferred on-ready queue, then run any
+    // FinishTurn a command/event deferred past the suspension that just
+    // resolved (or was cancelled: BeginPrompt's cancel reaches the same
+    // finally, so a deferred FinishTurn is never stranded).
+    if (pending_callback_count_ == 0) {
+        flush_deferred_on_ready_queue();
+        run_deferred_finish_turn();
+    }
 }
 
 void Interp::flush_deferred_on_ready_queue() {
@@ -1744,7 +1749,13 @@ void Interp::send_command(const std::string &command) {
             park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/1);
             return;
         }
-        end_pending_callback();
+        try {
+            // The turn boundary: end_pending_callback runs the FinishTurn the
+            // `get input` command deferred (legacy RunCallbackAndFinishTurn).
+            end_pending_callback();
+        } catch (TurnSuspended &ts) {
+            park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
+        }
         return;
     }
     Context ctx;
@@ -1773,26 +1784,11 @@ void Interp::send_command(const std::string &command) {
         if (world_.asl_version < 580) {
             owes_ft = false;  // reached the call; if FinishTurn itself parks,
                               // its frames carry the tail (not re-owed here)
-            if (wait_pending_) {
-                // A `wait` parked the turn on the player. Legacy Quest blocks
-                // the game thread inside `wait`, so FinishTurn lands after the
-                // callback -- defer it (see finish_turn_deferred_).
-                finish_turn_deferred_ = true;
-            } else {
-                Element *ft = world_.find("FinishTurn");
-                if (ft && ft->kind == ElemKind::Function) {
-                    try {
-                        call_function("FinishTurn", {}, &ctx);
-                    } catch (const std::exception &err) {
-                        // TryFinishTurnAsync's catch: LogException-only.
-                        log_exception(err.what());
-                    }
-                }
-            }
+            try_finish_turn_or_defer(ctx);
         }
         // HandleCommandAsyncInternal ends the turn with a pane refresh (its
         // std::exception throws are LogException'd inside update_lists). A
-        // deferred FinishTurn owes the refresh too, so finish_wait does both.
+        // deferred FinishTurn owes the refresh too (run_deferred_finish_turn).
         if (!world_.finished && !finish_turn_deferred_) update_lists();
     } catch (TurnSuspended &ts) {
         // Synchronous `play sound` mid-command: the rest of the turn --
@@ -1832,9 +1828,11 @@ void Interp::set_menu_response(const std::string *key) {
         park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/1);
         return;
     }
-    end_pending_callback();
-    // WorldModel.SetMenuResponse: pane refresh once the chain resolved.
+    // WorldModel.SetMenuResponse: the turn boundary (end_pending_callback runs any
+    // FinishTurn the command deferred past this prompt), then a pane refresh
+    // once the chain resolved. A park inside either defers the rest.
     try {
+        end_pending_callback();
         if (!world_.finished) update_lists();
     } catch (TurnSuspended &ts) {
         park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
@@ -1856,29 +1854,56 @@ void Interp::set_question_response(bool response) {
         park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/1);
         return;
     }
-    end_pending_callback();
-    // WorldModel.SetQuestionResponse: pane refresh once the chain resolved.
+    // WorldModel.SetQuestionResponse: the turn boundary (end_pending_callback runs any
+    // FinishTurn the command deferred past this prompt), then a pane refresh
+    // once the chain resolved. A park inside either defers the rest.
     try {
+        end_pending_callback();
         if (!world_.finished) update_lists();
     } catch (TurnSuspended &ts) {
         park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
     }
 }
 
-void Interp::run_deferred_finish_turn() {
-    // The FinishTurn a `wait` deferred off its command turn (see
-    // finish_turn_deferred_). Mirrors TryFinishTurnAsync, including its
-    // LogException-only catch. Core's RunTurnScripts self-guards on
-    // IsGameRunning(), so this no-ops once the game has finished.
-    if (world_.asl_version >= 580) return;
+void Interp::try_finish_turn(Context &ctx) {
+    // WorldModel.TryFinishTurnAsync: LogException-only. Core's RunTurnScripts
+    // self-guards on IsGameRunning(), so this no-ops once the game has finished.
     Element *ft = world_.find("FinishTurn");
     if (!ft || ft->kind != ElemKind::Function) return;
-    Context tctx;
     try {
-        call_function("FinishTurn", {}, &tctx);
+        call_function("FinishTurn", {}, &ctx);
     } catch (const std::exception &err) {
         log_exception(err.what());
     }
+}
+
+void Interp::try_finish_turn_or_defer(Context &ctx) {
+    // The post-handler step of a pre-v580 command/event turn (callers gate on
+    // the version). While a wait / get input / ask / show menu this turn
+    // registered is still outstanding, FinishTurn is deferred to the turn
+    // boundary -- end_pending_callback at zero -- rather than run now against
+    // state the callback hasn't reached (see finish_turn_deferred_).
+    if (pending_callback_count_ > 0) {
+        finish_turn_deferred_ = true;
+        return;
+    }
+    try_finish_turn(ctx);
+}
+
+void Interp::run_deferred_finish_turn() {
+    // WorldModel.RunDeferredFinishTurnAsync: the FinishTurn a command/event
+    // deferred past a suspension (see finish_turn_deferred_), then the pane
+    // refresh that turn skipped. Called from end_pending_callback once the
+    // pending count is back to zero, after the deferred on-ready flush --
+    // legacy TryFinishTurn ran TryRunOnFinallyScripts first, the same way
+    // round.
+    if (!finish_turn_deferred_) return;
+    finish_turn_deferred_ = false;
+    if (world_.asl_version < 580) {
+        Context tctx;
+        try_finish_turn(tctx);
+    }
+    if (!world_.finished) update_lists();
 }
 
 void Interp::finish_wait() {
@@ -1890,8 +1915,6 @@ void Interp::finish_wait() {
         return;
     }
     wait_pending_ = false;
-    bool owes_ft = finish_turn_deferred_;
-    finish_turn_deferred_ = false;
     PendingCallback cb = std::move(wait_cb_);
     wait_cb_ = PendingCallback{};
     // SignalCallbackResolving before the body (#2177): AddOnReady during
@@ -1901,18 +1924,19 @@ void Interp::finish_wait() {
         run_callback_boundary(cb.body, cb.ctx);
     } catch (TurnSuspended &ts) {
         // The callback parked on a sync sound; its AwaitWaitAndRunCallback
-        // finally (EndPendingCallback), any FinishTurn this wait deferred and
-        // the pane refresh are owed by the parked continuation.
-        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/1, owes_ft);
+        // finally (EndPendingCallback -- which discharges any FinishTurn the
+        // command deferred past this wait) and the pane refresh are owed by
+        // the parked continuation.
+        park_suspension(ts, /*owes_update=*/true, /*owes_endcb=*/1);
         return;
     }
-    end_pending_callback();
-    // WorldModel.FinishWait: the FinishTurn this wait deferred (turnscripts
-    // tick against the room the callback left the player in, not the one it
-    // left), then refresh the panes once the callback chain resolved (a park
-    // inside either defers the rest to the resume).
+    // WorldModel.FinishWait: the turn boundary -- end_pending_callback runs
+    // the FinishTurn the command deferred past this wait (turnscripts tick
+    // against the room the callback left the player in, not the one it
+    // left) -- then refresh the panes once the callback chain resolved (a
+    // park inside either defers the rest to the resume).
     try {
-        if (owes_ft) run_deferred_finish_turn();
+        end_pending_callback();
         if (!world_.finished) update_lists();
     } catch (TurnSuspended &ts) {
         park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
@@ -2025,19 +2049,12 @@ void Interp::resume_parked_tail() {
         if (owes_finishturn) {
             owes_finishturn = false;
             if (world_.asl_version < 580) {
-                Element *ft = world_.find("FinishTurn");
-                if (ft && ft->kind == ElemKind::Function) {
-                    Context tctx;
-                    try {
-                        call_function("FinishTurn", {}, &tctx);
-                    } catch (const std::exception &err) {
-                        // TryFinishTurnAsync's catch: LogException-only.
-                        log_exception(err.what());
-                    }
-                }
+                Context tctx;
+                try_finish_turn_or_defer(tctx);
             }
         }
-        if (owes_update && !world_.finished) update_lists();
+        if (owes_update && !world_.finished && !finish_turn_deferred_)
+            update_lists();
     } catch (TurnSuspended &ts) {
         park_suspension(ts, owes_update, owes_endcb, owes_finishturn);
     }
@@ -2057,17 +2074,8 @@ void Interp::send_event(const std::string &name, const std::string &param) {
         // 540..579 runs TryFinishTurnAsync (LogException-only, like
         // send_command); then the panes refresh.
         if (world_.asl_version < 540) return;
-        if (world_.asl_version < 580) {
-            Element *ft = world_.find("FinishTurn");
-            if (ft && ft->kind == ElemKind::Function) {
-                try {
-                    call_function("FinishTurn", {}, &ctx);
-                } catch (const std::exception &err) {
-                    log_exception(err.what());
-                }
-            }
-        }
-        if (!world_.finished) update_lists();
+        if (world_.asl_version < 580) try_finish_turn_or_defer(ctx);
+        if (!world_.finished && !finish_turn_deferred_) update_lists();
     } catch (TurnSuspended &ts) {
         // synchronous `play sound`: the rest of the event chain parks on the
         // wait slot (FinishTurn and the pane refresh are owed by the resume)
@@ -3318,14 +3326,10 @@ bool Interp::exec_statement_command(const std::string &name,
             if (wait_pending_) {
                 wait_pending_ = false;
                 wait_cb_ = PendingCallback{};
+                // (AwaitWaitAndRunCallbackAsync's finally still runs on a
+                // cancelled wait, so end_pending_callback discharges any
+                // FinishTurn deferred past it rather than stranding it.)
                 cancel_dormant_suspension();
-                // AwaitWaitAndRunCallbackAsync's finally still runs on a
-                // cancelled wait, so a FinishTurn it deferred is discharged
-                // here rather than stranded.
-                if (finish_turn_deferred_) {
-                    finish_turn_deferred_ = false;
-                    run_deferred_finish_turn();
-                }
             }
         }
         if (play_sound) {
@@ -3483,14 +3487,10 @@ bool Interp::exec_statement_command(const std::string &name,
             if (wait_pending_) {
                 wait_pending_ = false;
                 wait_cb_ = PendingCallback{};
+                // (AwaitWaitAndRunCallbackAsync's finally still runs on a
+                // cancelled wait, so end_pending_callback discharges any
+                // FinishTurn deferred past it rather than stranding it.)
                 cancel_dormant_suspension();
-                // AwaitWaitAndRunCallbackAsync's finally still runs on a
-                // cancelled wait, so a FinishTurn it deferred is discharged
-                // here rather than stranded.
-                if (finish_turn_deferred_) {
-                    finish_turn_deferred_ = false;
-                    run_deferred_finish_turn();
-                }
             }
             if (do_wait) do_wait();
         } else if (req == "Pause") {
