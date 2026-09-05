@@ -1,45 +1,114 @@
+# Les Feux de l'enfer (Les Feux de l'enfer.taf) -- French dungeon crawl,
+# ADRIFT 4.00, demo release.  75 of the declared 115 points; the other 40 are
+# unreachable in this build (see the harness comment for the proof).  The
+# route needs SCR_SEED=138: every fight length, the shop's guard roll and the
+# grappling-hook throw are all rolls off that one stream, so any inserted or
+# removed command reshuffles the hit counts downstream.
+#
+# 1/passer/2 pick the opening character options.  Rooms follow the map in
+# terps/scarier/test/adrift4/notes: 2 ENTREE -> 4 -> 5 JONCTION -> 3/31/32 ->
+# 6 -> 7 -> 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14/15 (island) -> 34 -> 33.
+#
+# Scoring stops: the dying woman (give her both potions), the assassin's
+# chest, `x objet` (+5, and it is what drops the grappin into room 32 -- take
+# it there, it is never listed anywhere else), the ogre, `Hors d'ici` + the
+# ghoul, the dread demon, two of the shop guards, `push bouton droit`, the
+# flute tune, and the hook throw.
+#
+# Three traps the route steps around.  Answer 2 (not 3) to the shopkeeper:
+# 3 completes task 99, which with the two guard kills satisfies task 105
+# ***2mobtuer*** -> task 106 ***mort du player***, an EndGame.  Kill only the
+# voyou and the voleur and walk away: this seed rolls four guards, and killing
+# the truant as well would complete task 102 and fire the same chain.  Leave
+# the silver mace in the tree house -- the player is over the carry weight
+# with the grappling hook, so `get corde` fails while holding it, and nothing
+# afterwards needs the mace (the room 29 golem only wakes on `x sabres`).
 1
 passer
 2
 s
 s
+w
+open sac
+give potion femme
+give guerison femme
+get pieces
+e
+e
+attack assassin
+attack assassin
+attack assassin
+attack assassin
+attack assassin
+open coffre
+x coffre
+get pieces
+get flute
+get clef rouge
+x objet
+get grappin
+w
 s
-ouvre coffre
+open coffre
 attack ogre
 attack ogre
 attack ogre
 attack ogre
-o
+get pieces
+w
 n
-look
+Hors d'ici
+x cadavre
+attack goule
+attack goule
 attack goule
 attack goule
 n
-look
-attack demon
-attack demon
-attack demon
-attack demon
-attack demon
-attack demon
 open porte
+attack demon
+attack demon
+attack demon
+attack demon
+attack demon
 n
-drink fiole bleue
 n
-look
 open porte
-examine petit homme
-1
+x petit homme
+2
 attack voyou
 attack voyou
 attack voyou
-attack voleur
-attack voleur
-attack voleur
+attack voyou
 attack voleur
 attack voleur
 attack voleur
 ne
+s
+push bouton droit
+n
 n
 get cristal
+w
+swim
+x branches
+climb corde
+search
+d
+get corde
+swim
+e
+s
+sw
+sw
+s
+jouer note mi mi
+jouer note si re
+jouer note do re
+jouer note mi do
+n
+w
+accrocher corde sur grappin
+throw grappin on rocher
+throw grappin on rocher
+throw grappin on rocher
 score

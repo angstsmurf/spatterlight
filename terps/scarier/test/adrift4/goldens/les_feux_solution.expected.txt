@@ -179,6 +179,201 @@ l'entrée du cachot souterrain.
 
 Sorties évidentes: nord, Est, Sud et Ouest.
 
+> w
+Vous vous déplacez vers l'Ouest.
+
+CAVERNE
+
+Vous arrivez dans une petite caverne faiblement éclairée. Quelques rats dodus
+innoffensifs
+trottent à travers la pièce. Les murs sont en pierres apparentes et l'endroit
+est assez frais.
+Vous avez du mal à discerner les angles de la pièce qui sont dans l'ombre.
+Une femme est assise dans un coin d'ombre.
+
+Vous pouvez seulement vous déplacer vers l'Est.
+
+> open sac
+Vous ouvrez un sac à dos.  Des potions de guérison est  dans un sac à dos.
+
+> give potion femme
+Ayant pitié de la femme, vous décidez de lui donner une potion de guérison.
+Elle boit avidement
+son contenu en vous remerciant des yeux. Certaines de ses blessures
+commencent rapidement
+à se refermer, mais elle est toujours en assez mauvaise état.
+La femme vous regarde avec un regard suppliant et dit:
+
+        "Pouvez vous m'en donner une autre s'il vous plaît ..."
+
+> give guerison femme
+À contre-coeur, vous donnez une autre potion de guérison précieuse.
+
+La femme la boit plus rapidement que la première. Presque toutes ses
+blessures guérissent
+complètement. Elle continue alors de vous remercier continuellement, presque
+au point de vous
+embarrasser. "Ça va, ça va!" dites vous pour accepter ces remerciements. La
+femme s'arrête
+finalement et vous regarde de haut en bas avant de dire: "Votre coeur est
+plein de bonté, guerrier,
+et vous êtes vraiment quelqu'un  d'honnête." En disant ces mots édifiants
+elle atteint une trappe
+secrête dans son armure et retire un miroir qu'elle vous tend: "C'est un
+miroir magique," dit-elle
+avec un large sourire, "il pourra peut-être sauver votre vie!" Vous lui
+souriez en retour. "Si vous
+soupçonnez un ennemi d'être une illusion dites seulement: "Hors d'ici" et si
+votre instinct est
+correct et que l'ennemi était bien une illusion, il disparaîtra aussitôt.
+
+Vous empochez le miroir et regardez la femme en disant: "J'ai peur de ne pas
+reconnaître les créatures
+illusoires dans cette endroit impie."
+Soudainement, la femme se met à trembler et commence à tousser en crachant du
+sang. Vous vous approchez
+pour l'aider, mais elle retient votre bras et continue: "Vous m'avez offert
+l'aide dont j'avais besoin, mais je crains
+que ce ne soit trop tard... je vous remercie d'avoir atténuer ma douleur..."
+
+Elle se laisse tomber lentement pour s'allonger sur le sol. Elle est morte.
+Vous fermez ses yeux et dites une courte prière en essayant d'ignorer les
+larmes dans vos yeux.
+
+> get pieces
+Vous prenez deux cents pièces d'or que vous mettez dans votre bourse.
+
+> e
+Vous vous déplacez vers l'Est.
+
+JONCTION
+Vous atteignez une intersection, qui part dans trois direction, Sud, Ouest et
+Est. Au Sud se trouve
+une petite pièce circulaire vivement éclairées qui a l'air de s'étendre un
+peu plus loin. La direction
+à l'Ouest est sombre et silencieuse. Tandis qu'à l'Est il fait très sombre et
+vous avez l'impression
+d'entendre un rire faible émanant de ces profondeurs obscurs. Au Nord, le
+tunnel remonte vers
+l'entrée du cachot souterrain.
+
+Sorties évidentes: nord, Est, Sud et Ouest.
+
+> e
+Vous vous déplacez vers l'Est.
+
+TUNNEL SOMBRE
+
+Vous marchez le long d'un tunnel sombre, l'écho de vos pas est insupportable,
+vous vous
+arrêtez pour regarder derrière vous pour vous assurer que personne ne vous
+suit. Les pierres
+qui constituent les murs et le sol sont grises et froides. Dans un coin de
+pénombre vous pouvez
+voir un coffre en bois.
+Un assassin est tapis dans l'ombre...
+
+Vous pouvez seulement vous déplacer vers l'Ouest.
+
+Vous arrivez à éviter le poignard de l'assassin.
+
+> attack assassin
+Vous tranchez l'assassin avec une épée longue.
+
+Vous arrivez à éviter le poignard de l'assassin.
+
+> attack assassin
+Vous tranchez l'assassin avec une épée longue.
+
+Vous arrivez à éviter le poignard de l'assassin.
+
+> attack assassin
+Vous tranchez l'assassin avec une épée longue.
+
+Vous arrivez à éviter le poignard de l'assassin.
+
+> attack assassin
+Vous tranchez l'assassin avec une épée longue.
+
+Vous arrivez à éviter le poignard de l'assassin.
+
+> attack assassin
+Vous tranchez l'assassin avec une épée longue.
+Dans un geste désespéré,
+l'assassin lance son poignard vers vous, mais son arme vient se briser
+contre le mur. Sans pitié, vous lui asséné un dernier coup. Vous êtes content
+d'avoir débarrassé le monde d'un tel être.
+
+Vous sentez que la chance est avec vous...
+
+> open coffre
+Vous allez vers le coffre pour l'ouvrir, il s'avère être plutôt vieux et
+n'est pas trop impressionnant,
+mais qui sait quels trésors pourrait-il cacher ?
+Faisant attention à ce qu'il n'y est pas de pièges, vous ouvrez soigneusement
+le coffre avec le bout
+de votre arme, mais cela semble assez sûr. C'est alors que venant de Nulle
+part, vous entendez un
+hurlement aigu très déconcertant.
+
+> x coffre
+Ce coffre en bois est rectangulaire, un couvercle le recouvre.
+Il a été fabriqué à la main avec des planches cloués entre-elles.
+  Un coffre en bois est ouvert(e).   Dans un coffre en bois est une clef
+rouge, une flûte en ivoire et 3 pièces d'or.
+
+Des cris strident retentissent...
+Les cris stridents deviennent de plus en plus pénibles et forts...
+
+> get pieces
+Vous prenez trois pièces d'or que vous mettez dans votre bourse.
+
+Des cris strident retentissent...
+Les cris stridents deviennent de plus en plus pénibles et forts...
+
+> get flute
+Vous prenez une flûte en ivoire d'un coffre en bois.
+
+Des cris strident retentissent...
+Les cris stridents deviennent de plus en plus pénibles et forts...
+
+> get clef rouge
+Vous prenez une clef rouge d'un coffre en bois.
+
+Des cris strident retentissent...
+Les cris stridents deviennent de plus en plus pénibles et forts...
+
+> x objet
+Vous vous déplacez vers le coffre pour examiner l'objet,
+C'est un grappin...
+
+Des cris strident retentissent...
+Les cris stridents deviennent de plus en plus pénibles et forts...
+
+> get grappin
+Vous prenez un grappin.
+
+Des cris strident retentissent...
+Les cris stridents deviennent de plus en plus pénibles et forts...
+
+> w
+Vous vous déplacez vers l'Ouest.
+
+JONCTION
+Vous atteignez une intersection, qui part dans trois direction, Sud, Ouest et
+Est. Au Sud se trouve
+une petite pièce circulaire vivement éclairées qui a l'air de s'étendre un
+peu plus loin. La direction
+à l'Ouest est sombre et silencieuse. Tandis qu'à l'Est il fait très sombre et
+vous avez l'impression
+d'entendre un rire faible émanant de ces profondeurs obscurs. Au Nord, le
+tunnel remonte vers
+l'entrée du cachot souterrain.
+
+Sorties évidentes: nord, Est, Sud et Ouest.
+
+Des cris strident retentissent...
+
 > s
 Vous vous déplacez vers le Sud.
 
@@ -198,7 +393,9 @@ réconfortant !
 
 Sorties évidentes: Nord et Ouest.
 
-> ouvre coffre
+Des cris strident retentissent...
+
+> open coffre
 Alors que vous touchez le coffre fort, le couvercle vole en éclat ! Un grand
 chauve
 humanoïde bien laid passe à travers - vous reconnaissez de suite que c'est un
@@ -208,20 +405,28 @@ demande-t-il sadiquement avec une voix brusque, “maintenant je vais vous
 montrer ce qu'il fait à
 l'homme!” il se précipite vers vous et vous frappe avec un grand club !
 
-Vous arrivez à éviter l'attaque de l'ogre.
-
-> attack ogre
-Vous tranchez un ogre avec une épée longue.
+Des cris strident retentissent...
 
 Vous arrivez à éviter l'attaque de l'ogre.
 
 > attack ogre
 Vous tranchez un ogre avec une épée longue.
 
+Des cris strident retentissent...
+
 Vous arrivez à éviter l'attaque de l'ogre.
 
 > attack ogre
 Vous tranchez un ogre avec une épée longue.
+
+Des cris strident retentissent...
+
+Vous arrivez à éviter l'attaque de l'ogre.
+
+> attack ogre
+Vous tranchez un ogre avec une épée longue.
+
+Des cris strident retentissent...
 
 Vous arrivez à éviter l'attaque de l'ogre.
 
@@ -229,7 +434,14 @@ Vous arrivez à éviter l'attaque de l'ogre.
 Vous tranchez un ogre avec une épée longue.
 Votre coup est fatal pour l'ogre qui s'éffondre sur le sol.
 
-> o
+Des cris strident retentissent...
+
+> get pieces
+Vous rammassez 2 pièces d'or.
+
+Des cris strident retentissent...
+
+> w
 Vous vous déplacez vers l'ouest.
 
 CAVERNE STERILE
@@ -240,6 +452,8 @@ et au nord
 un long tunnel qui serpente au loin. A l'est se trouve la pièce circulaire.
 
 Sorties évidentes: nord, Est, sud, Ouest et Nord-Est.
+
+Des cris strident retentissent...
 
 > n
 Vous vous déplacez vers le Nord.
@@ -258,7 +472,19 @@ est recouverte de larves se tortillant et des mouches grasses les survolent.
 
 Sorties évidentes: Nord et Sud.
 
-> look
+Des cris strident retentissent...
+
+> Hors d'ici
+Avec une vitesse étonnante, vous saisissez le miroir magique et dites en
+criant: "Hors d'ici",
+et la goule disparaît! C'était juste une illusion, seule votre croyance sur
+l'irréel avait donné la vie a ce corps.
+Vous regardez le sol et remarquez que l'illusion a laissé des objets sur le
+sol.
+
+Des cris strident retentissent...
+
+> x cadavre
 Plusieurs maladies pourraient infester ce cadavre antique... Cependant, vous
 vous dites qu'une recherche
 (quoi que un peu dégoûtante) pourrait rapporter certains objets utile. Donc
@@ -269,10 +495,28 @@ gorge et essaye de vous étrangler de ses doigts pourris. Vous vous retirez
 violemment, juste à temps. La Goule
 se lève et vous bloque dans un coin...
 
+Des cris strident retentissent...
+
 Vous arrivez à éviter l'attaque de la goule.
 
 > attack goule
 Vous tranchez une goule avec une épée longue.
+
+Des cris strident retentissent...
+
+Vous arrivez à éviter l'attaque de la goule.
+
+> attack goule
+Vous tranchez une goule avec une épée longue.
+
+Des cris strident retentissent...
+
+Vous arrivez à éviter l'attaque de la goule.
+
+> attack goule
+Vous tranchez une goule avec une épée longue.
+
+Des cris strident retentissent...
 
 Vous arrivez à éviter l'attaque de la goule.
 
@@ -298,18 +542,8 @@ Vous pouvez seulement vous déplacer vers le Sud.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
-> look
-
-TUNNEL SOMBRE
-
-Vous marchez le long d'un tunnel sombre qui part vers le Nord. Les murs sont
-fait
-de grosses pierres grises et vos pas résonne sur le sol de roche. Une porte
-se trouve
-à l'extrémité du couloir. Au sud vous distinguez la petite caverne.
-Un Démon d'éffroi est ici, prêt à vous attaquer !
-
-Vous pouvez seulement vous déplacer vers le Sud.
+> open porte
+Vous ouvrez la porte qui grince bruyemment...
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
@@ -319,7 +553,8 @@ Vous tranchez un démon avec une épée longue.
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > attack demon
-Vous tranchez un démon avec une épée longue.
+Vous tranchez un démon avec une épée longue,
+mais cela ne fait aucun domage.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
@@ -338,12 +573,6 @@ Vous tranchez un démon avec une épée longue.
 Le démon d'éffroi s'éffondre sur le sol et disparaît dans
 un nuage de fumée rouge. Ce qui reste du Démon est sur le sol, sur les murs,
 et sur vous. La chance vous sourit...
-
-> attack demon
-Je ne comprends pas votre commande !
-
-> open porte
-Vous ouvrez la porte qui grince bruyemment...
 
 > n
 Vous tirez votre épée durcie de sang et entrez prudemment. Vous n'êtes pas le
@@ -376,32 +605,8 @@ se trouve
 Sorties évidentes: Nord et Sud.
 Vous avez pris rapidement dans le sac une chaine en bronze.
 
-> drink fiole bleue
-Un grand frisson parcourt votre corps et vous vous sentez beaucoup mieux.
-
 > n
 Vous vous déplacez vers le Nord.
-
-PASSAGE
-
-Vous voyagez vers le Nord-Est dans le passage qui à une odeur plaisante. Peu
-de temps passe
-avant que vous ne croisiez la source de l'odeur bienveillante. Vous apercevez
-une accolade de
-bougies avec leurs flammes qui brûlent d'une couleur pourpres qui sont
-alignées contre les murs
-de cette place peu commune - le tunnel s'est métamorphosé en un joli couloir,
-complet avec des
-murs multicolores et un tapis épais rouge. Vous trouvez celà étrange, mais
-vous découvrez bientôt
-pourquoi; Vous êtes sur le chemin d'un magasin! Vous reconnaissez celà, parce
-que vous
-regardez fixement une pancarte ou il est écrit: "ouvert" sur une porte au
-sud.
-
-Sorties évidentes: Nord-Est et Sud-Ouest.
-
-> look
 
 PASSAGE
 
@@ -426,7 +631,7 @@ Sorties évidentes: Nord-Est et Sud-Ouest.
 Avant même que vous ne puissiez même toucher la porte, un petit homme faché
 l'ouvre et sort.
 
-> examine petit homme
+> x petit homme
 Il vous regarde de haut en bas avant de dire d'un air hautin:
         "le Bonjour à vous, puis-je demander pourquoi L'ENFER me fait dérangé
 ?"
@@ -438,14 +643,18 @@ votre magasin." d'une voix idiote?
         2. "Arrêtez d'être stupide." D'une voix ferme ?
         3: Oublier les plaisanteries et tirer votre arme ?
 
-> 1
-“Vous vous moquez de moi ?” dit le marchand en fureur. Il crie alors,
-“GARDES!”
-Deux gardes arrivent de nulle part !
+> 2
+        "Vous m'insultez!" Crie le commerçant, "je vais vous apprendre de
+quel bois je me chauffe!"
+Quatre gardes du chaos arrivent de nulle part.
 
 Vous arrivez à éviter l'attaque du voyou.
 
 Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
 Vous tranchez un voyou avec une épée longue.
@@ -453,6 +662,33 @@ Vous tranchez un voyou avec une épée longue.
 Vous arrivez à éviter l'attaque du voyou.
 
 Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+Vous arrivez à éviter l'attaque du truant.
+
+> attack voyou
+Vous tranchez un voyou avec une épée longue.
+
+Vous arrivez à éviter l'attaque du voyou.
+
+Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+Vous arrivez à éviter l'attaque du truant.
+
+> attack voyou
+Vous tranchez un voyou avec une épée longue,
+mais cela ne fait aucun domage.
+
+Vous arrivez à éviter l'attaque du voyou.
+
+Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
 Vous tranchez un voyou avec une épée longue.
@@ -460,34 +696,75 @@ Le voyou du chaos s'écroule par terre dans une marre de sang.
 
 Vous arrivez à éviter l'attaque du voleur.
 
-> attack voyou
-Je ne comprends pas votre commande !
+Vous arrivez à éviter l'attaque du skinned.
+
+Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
 Vous tranchez un voleur avec une épée longue.
 
 Vous arrivez à éviter l'attaque du voleur.
 
+Vous arrivez à éviter l'attaque du skinned.
+
+Vous arrivez à éviter l'attaque du truant.
+
 > attack voleur
 Vous tranchez un voleur avec une épée longue.
 
 Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
 Vous tranchez un voleur avec une épée longue.
 Le voleur du chaos tombe raide mort sur le sol.
 
-> attack voleur
-Je ne comprends pas votre commande !
+Vous arrivez à éviter l'attaque du skinned.
 
-> attack voleur
-Je ne comprends pas votre commande !
-
-> attack voleur
-Je ne comprends pas votre commande !
+Vous arrivez à éviter l'attaque du truant.
 
 > ne
 Vous vous déplacez vers le Nord-Est.
+
+PATTE D'OIE
+
+Le tunnel de pierre forme une patte d'oie à cet endroit. Des bruits de
+barbotage se font
+entendre au nord, le passage continue de manière identique à cette place vers
+le sud,
+tandis qu'au sud-ouest l'endroit semble beaucoup plus chic et agréable.
+
+Une petite roche traine au milieu du chemin.
+
+Sorties évidentes: nord, Sud et Sud-Ouest.
+
+> s
+Vous vous déplacez vers le Sud.
+
+IMPASSE
+
+Le tunnel tourne rapidement vers le sud et finit bientôt dans une impasse
+sans traits
+distinctifs. Une petite plaque en fer sur le mur attire votre attention.
+
+Vous pouvez seulement vous déplacer vers le Nord.
+
+> push bouton droit
+Avec un léger sentiment d'effroi, vous tendez une main tremblante vers le
+bouton droit et le
+poussez. rien ne se passe les première seconde. D'un seul coup un son de
+quelque chose
+de lourd se fait entendre, avec stupeur vous voyez le mur devant vous
+s'ouvrir ! Vous
+regardez fixement l'entrebaillement, qui finit par s'ouvrir complétement.
+Vous reconnaissez rapidement la caverne du cadavre! Vous êtes presque
+soulagé.
+
+> n
+Vous vous déplacez vers le Nord.
 
 PATTE D'OIE
 
@@ -526,8 +803,339 @@ sur vous en essuyant la sueur sur votre front
 
 Vous vous sentez plus agile...
 
+> w
+Vous vous déplacez vers l'Ouest.
+
+GROTTE NATURELLE
+
+Cette grotte est naturelle avec un grand bassin qui contient de l'eau sombre.
+Les clapotis
+que vous entendiez jusqu'à présent se sont arrêtés maintenant pour faire
+place au silence
+froid. Alors vous remarquez une île minuscule directement au coeur du lac
+sale. Vous pouvez
+voir trois sorties, une éclairée au nord, l'autre vers l'ouest dans un
+couloir sale et la dernière
+à l'est qui donne dans un tunnel.
+
+Sorties évidentes: nord, Est et Ouest.
+
+> swim
+
+Vous essayez de ne pas penser aux nombreux dangers invisibles qui pourraient
+être
+sous l'eau, vous entrez dans l'eau du bassin naturelle. Il est impossible de
+dire la profondeur
+du lac, mais une chose est sûr, c'est horrible. Vous n'êtes pas sûr que vous
+devriez nager
+avec tout votre équipement...
+
+Vous marchez dans l'eau malpropre et frissonnez à cause de sa froideur
+artificielle.
+Alors vous marchez jusqu'à ce que vous n'ayez plus pied et commencez à nager.
+Vous avez
+parfois l'impression que quelque chose frôle vos jambes. Mais il en est rien.
+Vous arrivez
+enfin à l'île
+
+                                        [Appuyez sur une touche pour
+continuer]
+
+PETITE ILE
+
+Vous êtes sur une petite île où plutôt ce qu'on pourrait appeler un îlot.
+D'un seul coup
+d'oeil vous pouvez voir ces extrémités qui sont bordés de caillasses. Les
+galets sous
+vos pieds sont tâchetés de sang et montrent que de nombreuses batailles ont
+eu lieu à
+cet endroit. Il y a très peu de végétation autour de vous, a part un arbre et
+quelques
+roseaux dans le lac.
+
+> x branches
+Une cabane se trouve dans les branches, vous remarquez une double corde
+astucieusement accrochées à une poulie. Celle-ci est fixée sur un bout de
+bois qui pointe au dessus du toit.
+
+> climb corde
+Vous vous accrochez à une des corde et tirez sur la seconde, vous vous
+hissez peu à peu en haut de l'arbre, jusqu'à atteindre une cabane en bois.
+
+                                [Appuyez sur une touche pour continuer]
+
+UNE CABANE DANS L'ARBRE
+
+Vous êtes dans l'unique pièce d'une cabane en bois qui a été construite dans
+un arbre. L'endroit est petit et offre le minimum de confort. Vous pouvez
+voir
+une table, une chaise et une paillasse dans le coin à gauche.
+
+Vous pouvez seulement vous déplacer vers le Bas.
+
+> search
+Vous chercher dans le tas de foin en disperçant la paille dans toute
+la pièce et vous trouvez une masse en argent !!!
+
+> d
+Vous vous déplacez vers le Bas.
+
+PETITE ILE
+
+Vous êtes sur une petite île où plutôt ce qu'on pourrait appeler un îlot.
+D'un seul coup
+d'oeil vous pouvez voir ces extrémités qui sont bordés de caillasses. Les
+galets sous
+vos pieds sont tâchetés de sang et montrent que de nombreuses batailles ont
+eu lieu à
+cet endroit. Il y a très peu de végétation autour de vous, a part un arbre et
+quelques
+roseaux dans le lac.
+
+> get corde
+Vous prenez une corde sur des branches.
+
+> swim
+Vous nagez dans le lac encore une fois et tout va bien, jusqu'à ce que à
+mi-chemin
+quelque chose saisit votre jambe et vous tire sous l'eau. La chose vous mord
+profondément.
+
+                                        [Appuyez sur une touche pour
+continuer]
+
+Vous réussissez à prendre la clef des champs de la menace aqueuse et remontez
+rapidement à la surface. Vous rejoignez le rivage et retrouvez la terre ferme
+de
+nouveau. La morsure à votre jambe vous fait mal et votre blessure saigne un
+peu plus,
+mais vous arrêtez bientôt le flux sangain avec un morceau de tissu de votre
+blouson.
+Vous vous retournez et regardez la scène;
+
+                                                [Appuyez sur une touche pour
+continuer]
+
+GROTTE NATURELLE
+
+Cette grotte est naturelle avec un grand bassin qui contient de l'eau sombre.
+Les clapotis
+que vous entendiez jusqu'à présent se sont arrêtés maintenant pour faire
+place au silence
+froid. Alors vous remarquez une île minuscule directement au coeur du lac
+sale. Vous pouvez
+voir trois sorties, une éclairée au nord, l'autre vers l'ouest dans un
+couloir sale et la dernière
+à l'est qui donne dans un tunnel.
+
+Sorties évidentes: nord, Est et Ouest.
+
+> e
+Vous vous déplacez vers l'Est.
+
+TUNNEL
+
+Le tunnel se referme un peu plus autour de vous et devient plus étroit au fur
+et
+à mesure que vous descendez. Le bruit de l'eau se fait entendre de plus en
+plus
+fort en direction de l'ouest tandis qu'au sud il s'assourdit. Directement
+devant
+vous, à demi-caché par la saleté et les ténèbres, se trouve un piège.
+
+Sorties évidentes: Sud et Ouest.
+
+> s
+Vous vous déplacez vers le Sud.
+
+PATTE D'OIE
+
+Le tunnel de pierre forme une patte d'oie à cet endroit. Des bruits de
+barbotage se font
+entendre au nord, le passage continue de manière identique à cette place vers
+le sud,
+tandis qu'au sud-ouest l'endroit semble beaucoup plus chic et agréable.
+
+Une petite roche traine au milieu du chemin.
+
+Sorties évidentes: nord, Sud et Sud-Ouest.
+
+> sw
+Vous vous déplacez vers le Sud-Ouest.
+
+PASSAGE
+
+Vous voyagez vers le Nord-Est dans le passage qui à une odeur plaisante. Peu
+de temps passe
+avant que vous ne croisiez la source de l'odeur bienveillante. Vous apercevez
+une accolade de
+bougies avec leurs flammes qui brûlent d'une couleur pourpres qui sont
+alignées contre les murs
+de cette place peu commune - le tunnel s'est métamorphosé en un joli couloir,
+complet avec des
+murs multicolores et un tapis épais rouge. Vous trouvez celà étrange, mais
+vous découvrez bientôt
+pourquoi; Vous êtes sur le chemin d'un magasin! Vous reconnaissez celà, parce
+que vous
+regardez fixement une pancarte ou il est écrit: "ouvert" sur une porte au
+sud.
+Un petit homme à l'air hautin est devant la porte.
+Un skinned est ici.  Un truant du chaos est ici, l'air menaçant.
+
+Sorties évidentes: Nord-Est et Sud-Ouest.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+Vous arrivez à éviter l'attaque du truant.
+
+> sw
+Vous vous déplacez vers le Sud-Ouest.
+
+CAVERNE STERILE
+Cette caverne est stérile mais une étrange odeur de combustion légère émane
+de l'ouest.
+Au Nord-est vous pouvez voir un couloir bien éclairé qui a une odeur de cire
+et au nord
+un long tunnel qui serpente au loin. A l'est se trouve la pièce circulaire.
+
+Sorties évidentes: nord, Est, sud, Ouest et Nord-Est.
+
+> s
+Vous vous déplacez vers le Sud.
+
+CAVERNE OBSCURE
+L'obscurité de cette pièce titille vos nerfs fragile en cet endroit. Malgrès
+vos sens aiguisés,
+aucun indice ne peut vous dire ce que compose cette caverne.
+
+Vous entendez un grognement grave quelque part devant vous.
+
+Vous trébuchez sur un objet doux !
+
+Vous pouvez seulement vous déplacer vers le Nord.
+
+> jouer note mi mi
+Vous jouez les notes: "MI MI"
+
+> jouer note si re
+Vous jouez les notes: "SI RE"
+
+> jouer note do re
+Vous jouez les notes: "DO RE"
+
+> jouer note mi do
+Vous jouez les notes: "MI DO"
+Le biffle imite derrière vous les notes que vous venez de jouer...
+
+Un long silence se prolonge, puis le sol se met à trembler légèrement ainsi
+que les murs autour de vous...
+
+Tout à coup, vous voyez le mur de roche à l'ouest qui commence à glisser pour
+s'ouvrir
+sur une alcove au mur crépis...
+
+Votre tentacule phosphorescente s'éteint peu à peu pour redevenir un simple
+morceau
+de cadavre. Maintenant inutile vous la jetée derrière vous.
+
+> n
+Vous vous déplacez vers le Nord.
+
+CAVERNE STERILE
+Cette caverne est stérile mais une étrange odeur de combustion légère émane
+de l'ouest.
+Au Nord-est vous pouvez voir un couloir bien éclairé qui a une odeur de cire
+et au nord
+un long tunnel qui serpente au loin. A l'est se trouve la pièce circulaire.
+
+Sorties évidentes: nord, Est, sud, Ouest et Nord-Est.
+
+> w
+Vous vous déplacez vers l'Ouest.
+
+AU BORD D'UN PRECIPICE
+
+Vous tendez vos oreilles pour détecter le signe d'un moindre danger. Vous
+attendez silencieusement
+dans la nuit, jusqu'à ce que vos yeux s'habitue à l'obscurité. vous regardez
+autour de vous, et examinez
+la scène avec soin; il ne semble pas y avoir d'ennemis de toute façon, ni de
+piège.
+Vous êtes debout au bord d'un précipice profond, sombre et venteux qui a une
+odeur légère de brûler
+qui vient des profondeurs. En regardant plus haut, vous découvrez qu'il y a
+un autre rebord semblable à celui
+où vous êtes, à plusieurs pieds dans l'obscurité et vous pouvez voir une
+grande peinture de quelqu'un et
+un sentier étroit à la gauche de ce rebord.
+
+Vous pouvez seulement vous déplacer vers l'Est.
+
+> accrocher corde sur grappin
+
+Vous accrocher la corde sur le grappin.
+
+> throw grappin on rocher
+Vous lancez le grappin sur l'autre rebord et essayez de viser le rocher...
+
+Le grappin s'élève dans les airs, tournoit quelques instant puis
+rejoint l'autre bord. Manque de peau il tape à coté du rocher
+et tombe dans le vide...
+
+D'un geste rapide, vous tirez la corde en arrière et remonter
+le grappin.
+
+> throw grappin on rocher
+Vous lancez le grappin sur l'autre rebord et essayez de viser le rocher...
+
+Le grappin s'élève dans les airs, tournoit quelques instant puis
+rejoint l'autre bord. Manque de peau il tape à coté du rocher
+et tombe dans le vide...
+
+D'un geste rapide, vous tirez la corde en arrière et remonter
+le grappin.
+
+> throw grappin on rocher
+Vous lancez le grappin sur l'autre rebord et essayez de viser le rocher...
+
+Le grappin s'élève dans les airs, restant bien dans l'axe du rocher
+qui se trouve sur l'autre rebord. D'un coup sec il s'accroche et se
+fixe sur les aspérités de la pierre.
+
+Vous tirez la corde pour la tendre et vérifier qu'elle puisse supporter
+votre poids. Rassuré, vous vous préparez pour le grand saut...
+
+                                [Appuyez sur une touche pour continuer]
+
+Vous vous élancez dans les airs en vous tenant fortement à la corde et en
+propulsant
+vos jambes vers l'avant pour faire balancier.
+Le saut ne dur que quelques secondes mais il vous parait durer des heures,
+pendant
+lesquels, vous vous imaginez toutes sortes de choses pas très rassurantes.
+Mais les dieux
+doivent être avec vous, car l'instant d'après, vos pieds touchent l'autre
+rebord en contrebas
+du gros rocher...
+
+**** VERSION DEMO ****
+
+Félicitation !!!
+
+C'est la fin de la version démonstration de ce jeu. J'espère que vous vous
+êtes bien
+amusé, et que vous l'avez apprécié. La version complète sera prête d'ici
+quelques
+mois, en attendant, vous pouvez "recommencer" le jeu si vous le souhaitez
+avec de
+nouveaux attributs, et peut-être recevoir certains objets, qui sont donnés
+aléatoirement.
+Vous pouvez aussi "charger" une partie sauvegarder, si vous pensez n'avoir
+pas fait
+toutes les pièces, où alors tout simplement "quitter" pour fermer le jeu.
+
 > score
-Votre score est 25 sur un maximum de 115.  (21%)
+Votre score est 75 sur un maximum de 115.  (65%)
 
 > quit
 Do you really want to quit? [Y/N]

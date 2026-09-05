@@ -663,7 +663,30 @@ xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 # battle is a stalemate, so the walkthrough ends on `score`.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
-les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 25 sur un maximum de 115.|SCR_SEED=138 SCR_SKIP_WAITKEY=1
+#
+# Les Feux de l'enfer: 75 of 115, and 75 is the ceiling this build can reach.
+# The route ends on the demo's own closing screen (task 211, the grappling
+# hook clearing the precipice, moves the player straight into room 30
+# **** VERSION DEMO ****), so there is no win marker to match beyond the
+# score line.  Forty points are dead:
+#
+#   * Task 116 ***disarmtrap1-2 (+10, room 12).  The five tasks that could
+#     reach it -- 113/114/115/118/119 -- all restrict on "object 30 is on top
+#     of surface index 2", but the game has only two surfaces, so Var3-1
+#     indexes past the end and screstrs.cpp evaluates every one of them FALSE.
+#     The author meant "inside container index 4", the piege itself.  `get
+#     cristal` (task 112) is the only way to lift the key and it scores
+#     nothing; the +10 cannot be collected by any command.
+#
+#   * Tasks 157/158/159 (+15), 166 (+10) and 178 (+5), all in rooms 19-30.
+#     The only door into that cluster is room 13's west exit to room 20, whose
+#     porte en chene wants Key: 37 = the clef bleue (object 66), and no task,
+#     event or NPC anywhere in the file ever creates that object.  No task
+#     moves the player into rooms 19-28 either, so the whole wing is sealed --
+#     which is consistent with this being the demo release.
+#
+# Everything else scorable is in the route.  Surveyed 2026-09-05.
+les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 75 sur un maximum de 115.|SCR_SEED=138 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-29: the Runner's generaltasks (run400 Proc_19_85_489F4C) resolves
 # the noun once, up front, with co() whole-word containment, and every generic verb
 # after it sees that object; Scarier's fallback verb table now gets the same
