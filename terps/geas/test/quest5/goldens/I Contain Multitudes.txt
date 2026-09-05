@@ -10,6 +10,14 @@ The door creaks open and Captain Bosch enters, looking quite out of place all th
 
 "Chandra. My quarters. I have something to discuss with you."
 
+You are in the Captain's Cabin.
+You can see a Walnut Desk.
+You can go northwest.
+
+The smell of the crisp sea air and light from the windows penetrates into the luxurious room. The captain's cabin is characterized by cherrywood paneling and a wax-shined wooden floor with a rug that squishes beneath your feet. There is the sort of elegance here that juxtaposes the captain's brusque manner, though his love for reading is apparent in the bookshelves built into the wall. A large bed sits on one side of the room, while the captain's desk and plush, upholstered chair occupies the other. There is a globe in a wooden cabinet with clawed feet in the corner.
+
+The exit to the Navigation Deck is to the northwest.
+
 You attend the captain in his quarters. You don't often go above deck, and the brief moments of light and the crisp sea air are a welcome panacea for your addled mind.
 
 The captain walks to his desk and removes a rare cigar, cuts the tip, and lights it.
@@ -18,14 +26,6 @@ The captain walks to his desk and removes a rare cigar, cuts the tip, and lights
 
 1: Yes
 2: No
-
-You are in the Captain's Cabin.
-You can see a Walnut Desk and Captain Bosch.
-You can go northwest.
-
-The smell of the crisp sea air and light from the windows penetrates into the luxurious room. The captain's cabin is characterized by cherrywood paneling and a wax-shined wooden floor with a rug that squishes beneath your feet. There is the sort of elegance here that juxtaposes the captain's brusque manner, though his love for reading is apparent in the bookshelves built into the wall. A large bed sits on one side of the room, while the captain's desk and plush, upholstered chair occupies the other. There is a globe in a wooden cabinet with clawed feet in the corner.
-
-The exit to the Navigation Deck is to the northwest.
 > 2
 
 "No."

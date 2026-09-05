@@ -226,13 +226,14 @@ public:
     Value call_function(const std::string &name, std::vector<Value> args,
                         Context *caller);
 
-    // Flush queued `on ready` callbacks, FIFO. With the QuestViva pending-
-    // callback model an `on ready` runs immediately unless a prompt callback
-    // (show menu / ask / get input / wait) is outstanding, so this only has
-    // work to do -- and only runs -- while no prompt is pending; resolving the
-    // prompt flushes the queue itself.
+    // Flush deferred `on ready` callbacks when nothing pends (hosts/tests).
+    // With the QuestViva model an `on ready` runs immediately unless a prompt
+    // is genuinely dormant, so this only has work while no prompt pends;
+    // resolving the prompt flushes the deferred queue itself.
     void drain_on_ready();
-    bool has_pending_on_ready() const { return !on_ready_.empty(); }
+    bool has_pending_on_ready() const {
+        return !deferred_on_ready_.empty() || !nested_on_ready_.empty();
+    }
 
     // -- input model (TODO §3) ------------------------------------------------
     // Engine-level prompts are fire-and-forget (QuestViva): the script command
@@ -739,20 +740,34 @@ private:
     bool script_errors_fatal_ = false;
     bool reporting_error_ = false;
 
-    // Deferred `on ready` callbacks: a pointer to the compiled callback body
-    // (owned by the never-freed script cache) plus a snapshot of the locals at
-    // queue time. Only populated while a prompt callback is outstanding
-    // (WorldModel._onReadyQueue); otherwise `on ready` runs immediately.
-    std::vector<std::pair<const std::vector<Stmt> *, Context>> on_ready_;
+    // Deferred `on ready` while a wait/ask/menu/get-input is genuinely dormant
+    // (WorldModel._deferredOnReadyQueue / Quest 5 m_onReadyCallbacks). Flushed
+    // only when pending_callback_count_ returns to zero -- the turn boundary.
+    std::vector<std::pair<const std::vector<Stmt> *, Context>> deferred_on_ready_;
+    // Nested `on ready` trampoline while running another `on ready`
+    // (WorldModel._nestedOnReadyQueue / #1779). Kept separate from the deferred
+    // queue so a stale turn-boundary item can't be drained mid-cascade (#2179).
+    std::vector<std::pair<const std::vector<Stmt> *, Context>> nested_on_ready_;
 
     // -- input model internals -----------------------------------------------
-    // WorldModel._pendingCallbackCount: >0 while a prompt callback (show menu /
-    // ask / get input / wait) is registered but unresolved; `on ready` defers
-    // until it returns to zero, at which point the queue flushes.
+    // WorldModel._pendingCallbackCount: elevated from Begin through the end of
+    // the resumed callback (FinishTurn deferral + deferred-on-ready flush).
     int pending_callback_count_ = 0;
+    // WorldModel._awaitingResolutionCount: only while a suspension is still
+    // dormant (awaiting a keypress/response). AddOnReady defers on this, not
+    // on pending_callback_count_ (#2176 / #2177).
+    int awaiting_resolution_count_ = 0;
+    bool is_running_on_ready_ = false;       // _isRunningOnReadyCallback
+    bool is_flushing_deferred_on_ready_ = false;  // _isFlushingOnReadyQueue
     void begin_pending_callback() { ++pending_callback_count_; }
+    void begin_dormant_suspension();
+    void signal_callback_resolving();
     void end_pending_callback();
-    // AddOnReady: run now (count == 0) or queue.
+    void run_nested_on_ready_queue();
+    void flush_deferred_on_ready_queue();
+    // Cancel a still-dormant wait/ask/menu/get-input without running its body.
+    void cancel_dormant_suspension();
+    // AddOnReady: defer if dormant, trampoline if nested, else run now.
     void add_on_ready(const std::vector<Stmt> *body, const Context &ctx);
     // Run a prompt/on-ready callback as its own script boundary (errors are
     // reported and the engine carries on), like drain_on_ready always did.
