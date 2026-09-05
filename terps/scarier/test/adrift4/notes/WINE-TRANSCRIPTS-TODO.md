@@ -1957,7 +1957,8 @@ So in arlo:
    `moves(broom)` -- which *replaces* the buffer with the exits sentence --
    and then, because the answer is not "... any direction!", **prints
    everything accumulated so far immediately and with no newline**
-   (`Sub_3_27(saved & "  ")`, @0003315C) and leaves the buffer holding
+   (`Sub_3_27` = run370 `4204C0`, called with `saved & "  "` from the
+   call site at @0003315C) and leaves the buffer holding
    **only** "You can move north and east."
 3. Task 72's Movements then put the player in room 0.
 4. `tasks(0)` runs the matcher again.  Task 72's Where gate now fails (the
