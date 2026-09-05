@@ -54,7 +54,7 @@ to the north the valley is blocked by a sheer wall of ice; an enormous
 glacier!
 
 > x me
-You are somewhat raggedy looking after your journey
+You are somewhat raggedy looking after your journey.
 
 > i
 You are carrying nothing.

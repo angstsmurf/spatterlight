@@ -542,6 +542,14 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `dragonshrine`, `through_time`, `invasion_shirts`, `qui_a_tue_dana`, `whitterscap`, `hyper_b_s`, `cibass`, `allhallowseve` | 4.00 | partial run400 replays -- a cutscene, real-time pause or waitkey eats a fed command part-way (rule 2) | identical up to the loss (105, 12, 13, 15, 13, 3, 3 and 3 turns respectively); nothing after it is comparable |
 | `Vardock Bates.taf` | 4.00 | full run400 replay (Adrift_1_vardock_bates.txt), then a checkpointed probe (Adrift_3_vardock_bates.txt) | `<waitkey 4>` is a zero-second wait; co() feeds the generic verbs; a finishing event's task re-checks LOWER-indexed events in the same tick; the SYNONYM table is a sequence of whole-string rewrites -- see the two FIXED 2026-08-29 sections |
 | `ECOD3.taf` | 3.90 | full run390 replay, `Adrift_3_ecod3.txt` (feed `cmdfile_w_ecod3.txt` -- 11 commands, the solution's 15 `#` comment lines stripped) | clean: 11/11 echoed, 10/11 turns identical and the Usher's walk in step; the 11th is the tail -- the transcript stops mid-epilogue at the final pause, so the alley arrival and score summary never flush.  Measured 2026-08-31 |
+| `largo-winch.taf` | 3.90 | full run390 replay, `Adrift_3_largo_winch.txt` (feed `cmdfile_w_largo_winch.txt` -- all 323 commands, `#save lw100`/`#save lw200` checkpoints, PRE=0) | clean: 323/323 echoed, 322/323 turns identical, all 42 NPCs and 22 events in step; the tail is the Runner's `[Press any key a end]` only.  Second drive: the first (`Adrift_3_largo_winch_drive1.txt`) desynced at command 204 because `composer "9002472832"` broke the AppleScript keystroke -- a driver bug, fixed |
+| `mudergreatfalls.taf` | 3.90 | full run390 replay, `Adrift_3_murder_great_falls.txt` (feed `cmdfile_w_mgf.txt` -- 103 commands, the golden's `Sam`/`male` answers stripped and given as `POPUP_ANSWERS="Sam|male"`, PRE=2; compare `--start 2`) | clean: 101/101 echoed, every turn identical; the tail is the winning `accuse ken` cut at the Runner's endgame pause |
+| `report.taf` | 3.90 | full run390 replay, `Adrift_3_report.txt` (feed `cmdfile_w_report2.txt` -- 165 commands, `Sam`/`male` via `POPUP_ANSWERS`, PRE=0; compare `--start 2`) | clean: 165/165 echoed, every turn identical but the `[Press any key to end]` tail; 100/100 |
+| `Archie's Birthday V 1-2.taf` | 3.90 | full run390 replay, `Adrift_3_archie.txt` (feed `cmdfile_w_archie.txt` -- 205 commands, PRE=0; .taf copied as `ArchiesBirthday.taf`) | 205/205 echoed; two engine divergences, both fixed: run390 echoes `(a camcorder)` on `take it` (Scarier's 3.9 gate was wrong) and appends `.` to a PlayerDesc that lacks one; clean after the fix but the `[Press any key to end]` tail; 50/50 |
+| `veteran.taf` | 3.90 | 5-command run390 probe, `Adrift_3_veteran_probe.txt` | `take it` then `open it` both echo `(a bag)`: 3.9 keeps the authored article after a take, unlike 4.0's `(the bag)` |
+| `yak_shaving.taf` | 4.00 | 1-command run400 probe, `Adrift_4_yak_probe.txt` | `x me` answers `...after your journey.` -- 4.0 appends the full stop too |
+| `croft.taf` | 3.90 | full run390 replay, `Adrift_5_croft.txt` (feed `cmdfile_w_croft.txt` -- 101 commands, PRE=0; the table's 193 counted the golden's comment lines) | 101/101 echoed; zero engine divergences -- the only diff is the Runner's `[Press any key to end]` after the final score summary; 150/150 |
+| `DarkTower.taf` | 3.90 | full run390 replay, `Adrift_6_darktower.txt` (feed `cmdfile_w_darktower.txt` -- 121 commands, PRE=0) | 121/121 echoed; zero engine divergences -- only the Runner's `[Press any key to end]` after the 0/0 score summary; "restored power to the building." |
 | `superliam.taf` | 3.80 | full run380 replay, `Adven_1_superliam.rtf` (feed `cmdfile_w_superliam.txt` -- 86 commands, Save Transcript at the 85th) | 85/85 echoed; three divergent turns, two engine rules, both FIXED: the run380 **AdditionalMessage double-space suppression reaches through a ShowRoomDesc room description**, and **names are matched RAW** -- object Short `"necko wafers "` (trailing space) is unreferenceable, `take necko wafers` answers "Take what?".  After the fixes every echoed turn matches; both sides win 3250/3250.  Measured 2026-08-31 |
 | `cave.taf` | 3.80 | three full run380 replays, `Adven_1_cave.rtf` / `Adven_1_cave2.rtf` / `Adven_1_cave3.rtf` (final feed `cmdfile_w_cave3.txt` -- 216 commands, Save Transcript flow) | 215/215 echoed each time; FOUR engine findings, all FIXED: `z` is not 3.80 vocabulary (whole-line `= "z"` test only exists from run390_3 45FCB0 -- seven `z` -> `wait`); 3.8 substitutes "There is nothing of interest here." into empty room Longs at LOAD (447FEE), so it prints BEFORE LastDesc alts; a 3.8 task can never move the PLAYER to the game's FIRST room (tasks() 44D1D4 stores Var2 pre-decremented behind "If Var2 > 1" -- second `climb down` re-derived to `down`; 3.7's encoding sits one higher so run370 441E55 is correct, arlo the counterexample; is_v370 gate in sctafpar.cpp); and the single-named held-take refusal is "You've already got X!" pre-4.0 (43E03E -- 4.0's "already carrying" @462D25 gated on lib_is_version_400, four 3.9 goldens re-blessed -- thewoods' own ALR "I've already got the" -> "<br>I'm already carrying the" confirms the base from the game side).  Third drive replays CLEAN: every comparable turn identical, `score` at 900/1000 both sides; only the winning `read parchment` is uncapturable in the Save-at-end flow (Scarier finishes 1000/1000).  Still open from the pre-fix stuck-tail census (never reached by the corrected feed): 3.8 answers a matched-task-wrong-room with "You can't do that here." (21x) and names unseen/unheld objects in refusals ("You can't see X from here!" / "You don't have X!") where Scarier says "Take what?" etc -- a 3.8 referenceability/where-fail model not yet ported.  Measured 2026-08-31 |
 | `haunt.taf` | 3.80 | full run380 replay, `Adven_1_haunt.rtf` (feed `cmdfile_w_haunt.txt` -- 85 commands, `measure38.sh`: Save Transcript at the 84th, the winning `down` sent after it) | 84/84 echoed; 40 divergent turns, then 1, then 0 -- two pre-3.9 engine rules, both fixed: **no startup event tick before 3.90** (a StarterType 2 delay of N starts on turn N, uncompensated) and **no administrative turns before 3.90** (`score` ticks NPCs and events).  Seven 3.80 goldens re-blessed, wrecked re-pinned to seed 106; full suite 428/428 PASS. |
@@ -549,6 +557,12 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `Crime_Adventure.taf` | 3.80 | full run380 replay, `Adven_1_crime.rtf` (whole solution, Save Transcript at the penultimate command) | every command echoed; 0 engine differences once the take->get rewrite was in.  Re-blessed: 65/95 finish (the `score` before `stand on chair` ticks the events in 3.8) |
 | `mikes.taf` | 3.80 | second full run380 replay, `Adven_1_mikesb.rtf` (feed `cmdfile_w_mikesb.txt`) | cmd 27 `take truck keys` -> `Which keys.  The mustang keys or the truck keys?` -- the end-of-turn co() prompt, now **PORTED for 3.7/3.8** (see the DIAGNOSED section's 2026-09-04 addendum); identical through cmd 52 after the port; the shift from cmd 53 on is the "auction" event's RANDOM 2..10 length, not a consequence of 27 |
 | `great.taf` | 3.80 | five run380 replays: `Adven_1_greatx1.rtf` (6-command probe), `_greatb` / `_greatc` (old walkthrough, survived the chase, 1240), `_greatd` (new walkthrough + dummy `look` after the winning `hide` -- the end-of-game modals wipe the scrollback, 2870-byte .rtf, useless), `_greate` (new walkthrough, DIED in the chase -- a death restarts the game and wipes the scrollback, 3240 bytes, useless), `_greatf` (feed `cmdfile_w_greatf.txt`: 121 commands up to `break into car`) | 121/121 echoed, **0 engine differences** (turns 5/102/109 differ only by the .rtf's `Â£` mojibake).  Line 41 is now `steal picasso`: the 3.80 take->get rewrite turns `take picasso` into `get picasso`, which matches none of the theft task's patterns and falls to "You can't take the picasso."  Everything after `break into car` is the car chase, whose four events roll RANDOM lengths (police arrival 1..6, small road 1..15, police 3 / police 4 1..5): greatc survived and greate died on the same feed, so the chase is unmeasurable and only the pre-chase turns count.  Even turn 121's tail shows the roll: the "sirens" event prints PrefText1 ("grows steadily louder", run380) or PrefText2 ("getting much closer", Scarier) on its start turn depending on the length it drew |
+| `akron.taf` | 3.80 | the 2026-08-24 run380 replay `Adven_7_akron.rtf` (feed `cmdfile_akron.txt`, 44 commands), re-compared 2026-09-05 with `compare_wine_transcript.py` against the engine as of 9c7c1691 | still clean: 43/43 echoed, 0 differences (the 44th, `knock`, wins and is never echoed).  No events in the game, so the 2026-09-04 tick changes could not have moved it |
+| `microwaveman.taf` | 3.80 | full run380 replay, `Adven_1_microwaveman.rtf` (feed `cmdfile_w_microwaveman.txt` -- the 9-command solution, Save Transcript at the 8th, the winning `shoot man` last) | clean: 8/8 echoed, 0 differences.  Its one event is fixed-length (5) and StarterType 3 |
+| `duck.taf` | 3.80 | full run380 replay, `Adven_1_duck.rtf` (feed `cmdfile_w_duck.txt` -- 13 commands, the winning `jump` last) | clean: 12/12 echoed, 0 differences |
+| `first.taf` | 3.80 | full run380 replay, `Adven_1_first.rtf` (feed `cmdfile_w_first.txt` -- the 18-command solution plus a dummy `look`, because `read book` prints the ending text without an EndGame, so the game is still at a prompt and the Save Transcript can follow it) | clean: 18/18 echoed, identical on every turn |
+| `haunted.taf` | 3.80 | full run380 replay, `Adven_1_haunted.rtf` (feed `cmdfile_w_haunted.txt` -- the 116-command solution, the winning `open gate` last) | clean: 115/115 echoed, 0 differences.  Both of its events (rain 15..20 delay / 10..15 length, chains 20..50 delay) are RNG-timed but carry no room list, so their texts never show; nothing to diverge on |
+| `castle.taf` | 3.70 | full run370 replay, `Adven_1_castle.rtf` (feed `cmdfile_w_castle.txt` -- the 17-command solution, the winning `take treasure chest` last; `measure38.sh ... run370.exe`) | clean: 16/16 echoed, 0 differences.  The older `Adven_3_castle_quest.rtf` (723 bytes, 2026-08-23, driven by hand before `measure38.sh`) holds no turns at all and is superseded |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -754,12 +768,12 @@ The four best targets, by walks x length:
 | `cleft.taf` | `cleft` | 115 | 1 | 2 | 1 | -- | [The_Cleft_in_the_Rock_walkthrough](The_Cleft_in_the_Rock_walkthrough.md) |
 | `ECOD3.taf` | `ecod3` | 26 | 1 | 1 | 0 | -- | [ECOD3_walkthrough](ECOD3_walkthrough.md) -- **measured 2026-08-31**, clean (tail only) |
 | `BobBobsly.taf` | `bob_bobsly` | 25 | 1 | 2 | 0 | -- | [Bob_Bobsly_walkthrough](Bob_Bobsly_walkthrough.md) |
-| `largo-winch.taf` | `largo_winch` | 323 | 0 | 42 | 22 | -- | [Largo_Winch_walkthrough](Largo_Winch_walkthrough.md) |
-| `mudergreatfalls.taf` | `murder_great_falls` | 255 | 0 | 0 | 0 | yes | [Murder_in_Great_Falls_walkthrough](Murder_in_Great_Falls_walkthrough.md) |
-| `report.taf` | `report` | 254 | 0 | 0 | 0 | -- | [Report_Espionage_walkthrough](Report_Espionage_walkthrough.md) |
-| `Archie's Birthday V 1-2.taf` | `archie` | 240 | 0 | 8 | 0 | yes | [Archies_Birthday_walkthrough](Archies_Birthday_walkthrough.md) |
-| `croft.taf` | `croft` | 193 | 0 | 4 | 1 | -- | -- |
-| `DarkTower.taf` | `darktower` | 174 | 0 | 0 | 0 | -- | [The_Dark_Tower_walkthrough](The_Dark_Tower_walkthrough.md) |
+| `largo-winch.taf` | `largo_winch` | 323 | 0 | 42 | 22 | -- | [Largo_Winch_walkthrough](Largo_Winch_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) |
+| `mudergreatfalls.taf` | `murder_great_falls` | 255 | 0 | 0 | 0 | yes | [Murder_in_Great_Falls_walkthrough](Murder_in_Great_Falls_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) |
+| `report.taf` | `report` | 254 | 0 | 0 | 0 | -- | [Report_Espionage_walkthrough](Report_Espionage_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) |
+| `Archie's Birthday V 1-2.taf` | `archie` | 240 | 0 | 8 | 0 | yes | [Archies_Birthday_walkthrough](Archies_Birthday_walkthrough.md) -- **measured 2026-09-05**, two engine fixes (3.9 pronoun echo, examine-self full stop) |
+| `croft.taf` | `croft` | 193 | 0 | 4 | 1 | -- | -- -- **measured 2026-09-05**, clean |
+| `DarkTower.taf` | `darktower` | 174 | 0 | 0 | 0 | -- | [The_Dark_Tower_walkthrough](The_Dark_Tower_walkthrough.md) -- **measured 2026-09-05**, clean |
 | `FarFromHome.taf` | `farfromhome` | 167 | 0 | 0 | 0 | yes | [Far_From_Home_walkthrough](Far_From_Home_walkthrough.md) |
 | `EnqueteAHautsRisques.taf` | `enquete_a_hauts_risques` | 145 | 0 | 13 | 7 | -- | -- |
 | `Captive.taf` | `captive` | 141 | 0 | 2 | 19 | -- | [Captive_Universe_walkthrough](Captive_Universe_walkthrough.md) |
@@ -798,27 +812,27 @@ The four best targets, by walks x length:
 | `Dreams.taf` | `dreamland` | 10 | 0 | 0 | 1 | -- | [Dreamland_walkthrough](Dreamland_walkthrough.md) |
 | `Matt's House.taf` | `matts_house` | 8 | 0 | 5 | 0 | -- | [Matts_House_walkthrough](Matts_House_walkthrough.md) |
 
-### 3.80 — 10 games
+### 3.80 — 10 games (ALL MEASURED as of 2026-09-05)
 
 | game | solution | cmds | walks | NPCs | events | waitkey | notes |
 |---|---|---:|---:|---:|---:|---|---|
 | `haunt.taf` | `haunt` | 88 | 5 | 4 | 3 | -- | **done** 2026-09-04 -- see "Measured so far" |
 | `superliam.taf` | `super_liam` | 86 | 5 | 11 | 0 | -- | **done** 2026-08-31 -- see "Measured so far" |
 | `cave.taf` | `cave` | 216 | 2 | 5 | 12 | -- | **done** 2026-08-31 -- see "Measured so far" |
-| `akron.taf` | `akron` | 44 | 2 | 4 | 0 | -- | -- |
+| `akron.taf` | `akron` | 44 | 2 | 4 | 0 | -- | **done** 2026-08-24 (`Adven_7_akron.rtf`, 0/44), re-checked 2026-09-05 against the current engine: still 43/43 identical -- see "Measured so far" |
 | `jb2000.taf` | `james_bond` | 20 | 1 | 1 | 0 | -- | **done** 2026-09-04 -- see "Measured so far" (take->get rewrite, 3.80 only) |
-| `haunted.taf` | `haunted_house` | 116 | 0 | 0 | 2 | -- | -- |
+| `haunted.taf` | `haunted_house` | 116 | 0 | 0 | 2 | -- | **done** 2026-09-05 -- clean, see "Measured so far" |
 | `Crime_Adventure.taf` | `crime_adventure` | 90 | 0 | 2 | 3 | -- | **done** 2026-09-04 -- see "Measured so far"; [Crime_Adventure_walkthrough](Crime_Adventure_walkthrough.md) |
-| `first.taf` | `fistandantalus` | 18 | 0 | 1 | 0 | -- | -- |
-| `duck.taf` | `duck_mccloud` | 13 | 0 | 0 | 0 | -- | -- |
-| `microwaveman.taf` | `microwave_man` | 9 | 0 | 1 | 1 | -- | -- |
+| `first.taf` | `fistandantalus` | 18 | 0 | 1 | 0 | -- | **done** 2026-09-05 -- clean, see "Measured so far" |
+| `duck.taf` | `duck_mccloud` | 13 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean, see "Measured so far" |
+| `microwaveman.taf` | `microwave_man` | 9 | 0 | 1 | 1 | -- | **done** 2026-09-05 -- clean, see "Measured so far" |
 
 ### 3.70 — 2 games
 
 | game | solution | cmds | walks | NPCs | events | waitkey | notes |
 |---|---|---:|---:|---:|---:|---|---|
 | `arlo.taf` | `alices_restaurant` | 85 | 11 | 9 | 9 | -- | [ADRIFT_370](ADRIFT_370.md) |
-| `castle.taf` | `castle_quest` | 17 | 0 | 1 | 0 | -- | [ADRIFT_370](ADRIFT_370.md) |
+| `castle.taf` | `castle_quest` | 17 | 0 | 1 | 0 | -- | **done** 2026-09-05 -- clean in run370, see "Measured so far"; [ADRIFT_370](ADRIFT_370.md) |
 
 `arlo.taf` is the single best target in the pre-4.0 half: 11 walks in 85
 commands, and 3.70 is the least-exercised parse schema in the engine. Across
@@ -4670,3 +4684,149 @@ both ported; one correction; one RNG dead end.
 
 **Parked here 2026-09-04.**  Next candidate is the next unmeasured row in
 the "### 3.80" table above; the harness is 428/428.
+
+## 2026-09-05 -- the rest of the 3.80 table (akron, microwaveman, duck, first, haunted): all clean
+
+Five rows, no engine finding.  akron's 2026-08-24 transcript re-compared
+against the engine as of 9c7c1691 (43/43); microwaveman (8/8), duck
+(12/12), first (18/18, dummy `look` after the non-EndGame ending) and
+haunted (115/115) each replayed fresh in run380 with `measure38.sh` and
+matched on every echoed turn.  The 3.80 candidate table is therefore
+complete: 10/10 measured, and the 2026-09-04 engine changes (no startup
+tick, admin turns tick, take->get rewrite, co() prompt) hold on all of them.
+
+**castle.taf followed the same day**: 16/16 clean in run370 (`Adven_1_castle.rtf`,
+`measure38.sh ... run370.exe` works unchanged for 3.70).  That closes the
+pre-4.0 half: every 3.70 and 3.80 candidate is measured, and the only
+pre-4.0 divergences left are arlo's two diagnosed, deliberately unported
+run370 ones (the walker departure lines and `get out of bus`; see the arlo
+bullet).  Next candidate: the first unmeasured row of the 3.90 table.
+
+## largo-winch.taf (Largo Winch, 3.90) -- 2026-09-05, run390
+
+Clean full replay, `Adrift_3_largo_winch.txt`: 323/323 commands echoed,
+322 turns byte-identical (French, CP1252), and the last differs only by the
+Runner's `[Press any key a end]` after the 97/97 score line.  No engine
+change.  `measure.sh ... run390.exe 0` unchanged; `#save` works in run390
+exactly as in run400 (dialog for the first save, silent re-save after).
+
+Two DRIVER findings on the way, both fixed in
+`~/adrift-battle/runner/wine/drive_ckpt_safe.sh` (now types every line
+through the new `type_line.py`):
+
+* **AppleScript `keystroke` drops accents.**  `regarder sous le canapé`
+  reached the Runner as `regarder sous le canape` (first drive's
+  FIRSTCHECK abort, `Adrift_3_lwprobe.txt`).  The Swedish layout's dead
+  keys DO reach Wine, so accented letters are now typed as dead key +
+  base letter (key code 24 = acute, shift = grave; key code 30 =
+  diaeresis, shift = circumflex; `ç` types as itself).  Probed live:
+  é è à û î ï ç all arrive as their CP1252 bytes.  **Caveat for the
+  earlier French drive**: `Adrift_1_qui_a_tue_dana.txt` lines 142/145
+  show `prendre telephone` / `x telephone` -- that run400 drive typed
+  the accents away too, and any accent-sensitive command in it was not
+  measured as fed.  Its rule-2 desync happened later anyway.
+* **Embedded double quotes broke the osascript** (`composer
+  "9002472832"` -> "A real number can't go after this" -> nothing typed,
+  an EMPTY command submitted, everything after it out of step).
+  `type_line.py` escapes quotes and backslashes.
+
+`compare_wine_transcript.py` needs no change: the transcript is CP1252 and
+it already decodes it.  The FIRSTCHECK grep in the driver now converts the
+UTF-8 feed line to CP1252 before looking for the echo.
+
+Next candidate: `mudergreatfalls.taf` (255 commands, 3.90).
+
+## mudergreatfalls.taf (Murder in Great Falls, 3.90) -- 2026-09-05, run390
+
+Clean: `Adrift_3_murder_great_falls.txt`, 101/101 echoed, all turns
+identical, the last (`accuse ken`) cut at the Runner's endgame pause.  The
+table's 255 is the golden's line count; the feed is 103 commands.  Two
+harness lessons, no engine finding:
+
+* The name/gender dialogs come **at load, before any intro text** (a black
+  window under the gender box), and `measure.sh` used to send the PRE
+  pause-dismissals before the popup answers, so they only hit the dialog.
+  The popup block now runs first; PRE=2 then dismisses the two intro
+  pauses as intended.
+* `type_line.py` called osascript with no script for a waitkey BLANK line,
+  and osascript read the rest of the command file from stdin as its
+  script -- the first drive (`Adrift_3_mgf_drive1.txt`) stopped dead at
+  the first blank.  Fixed (an empty line types nothing, stdin is
+  /dev/null).
+
+Next candidate: `report.taf` (3.90).
+
+## report.taf (Report of Espionage, 3.90) -- 2026-09-05, run390
+
+Clean: `Adrift_3_report.txt`, 165/165 echoed, every turn identical, the
+winning `burn report` differs only by the Runner's `[Press any key to end]`.
+Name/gender dialogs again (`POPUP_ANSWERS="Sam|male"`, feed stripped of
+the two answer lines, compare `--start 2`).
+
+## Archie's Birthday V 1-2.taf (3.90) -- 2026-09-05, run390
+
+`Adrift_3_archie.txt`, 205/205 echoed (the .taf copied into the prefix as
+`ArchiesBirthday.taf` -- the apostrophe and spaces do not survive the
+command line).  Two turns differed, and both were Scarier's fault:
+
+- **`x me` (turn 0):** the game's PlayerDesc is the ALR key
+  `[player=%player val%]`, and run390 printed the substituted paragraph
+  ending `...self-delusions.` where Scarier ended it without the stop.
+  run390 `examines()` @44C488 (loc_44C1F1-44C21E) appends `.` to the reply
+  when `Right$(text, 1) <> "."` -- tested on the raw text, before the ALR
+  pass, so the key gets the stop and the paragraph inherits it.  run400
+  `Proc_19_87_471F94` (loc_471C6D-471D40) does the same and also lets `!`,
+  `)`, `%` and `?` stand.  Ported to `lib_cmd_examine_self()` for 3.9+ (the
+  position clause already ends with `.`, so only the bare description
+  needs it).  The 4.0 half was then measured directly: a one-command run400
+  probe on `yak_shaving.taf` (`Adrift_4_yak_probe.txt`) answers `x me` with
+  `You are somewhat raggedy looking after your journey.` for a PlayerDesc
+  that has no stop.  3.7/3.8 build the reply from the position alone
+  (run370 @435C9C, run380 @43D5EC -- no PlayerDesc text at all in the
+  P-code) and are left as they were; see RUNNER_TESTS_TODO.md -- no 3.80
+  corpus game has a PlayerDesc and no pre-3.9 golden examines the player,
+  so nothing is exposed.
+- **`take it` (turn 8):** run390 printed `(a camcorder)` on its own line
+  before `You take a camcorder from the desk.`  Scarier's pronoun echo was
+  gated `< 3.90 || >= 4.00` on a misreading of run390 ("keeps showbrackets
+  only for the ask/talk-about rewrite").  run390 `Sub its()` @43D968 tests
+  `m_showbrackets` (loc_43D6C2 for `it`, 43D7BF `them`, 43D884 `one`) and
+  prints `"(" & MemVar_46811C & ")"`; the menu item is read from
+  `ADRIFT\Runner showbrackets` at loc_44526F with default True.  Gate
+  removed -- every Runner echoes.  The article is where 3.9 and 4.0 part:
+  3.9's `takes` (@455067) and `drops` (@445BE6) compose the antecedent in
+  mode 1 (authored Prefix), so there is no `(the X)` after a take.  Measured
+  on `veteran.taf` (run390 probe, `Adrift_3_veteran_probe.txt`): `x bag`,
+  `take it`, `open it` echo `(a bag)` both times, exactly the re-blessed
+  golden.  `uip_definite_form()` stays 4.00-only.
+
+Suite after the port: `archie`, `veteran`, `cruel` gain bracket lines
+(`(a camcorder)`, `(a bag)` x2, `(a jacket)`), `archie` and `yak_shaving`
+gain the full stop on `x me`; all four re-blessed, 428/428.
+
+Next candidate: `croft.taf` (3.90).
+
+## croft.taf (3.90) -- 2026-09-05, run390
+
+Full run390 replay, `Adrift_5_croft.txt` from `cmdfile_w_croft.txt` (101
+real commands -- the candidate table's 193 is the golden's line count
+including `#` comments; PromptName 0, PRE=0).  101/101 echoed.  Zero
+engine divergences: the compare's only diff is the Runner's own
+`[Press any key to end]` after the end-of-game score summary, which
+Scarier never prints.  The 3.9 examine-self full stop port from Archie's
+Birthday is not exercised here (the walkthrough never examines the
+player), but the PlayerDesc ends in `.` anyway.  Golden unchanged,
+150/150.
+
+Next candidate: `DarkTower.taf` (3.90).
+
+## DarkTower.taf (3.90) -- 2026-09-05, run390
+
+Full run390 replay, `Adrift_6_darktower.txt` from `cmdfile_w_darktower.txt`
+(121 commands, PromptName 0, PRE=0).  121/121 echoed.  Zero engine
+divergences: again only the Runner's `[Press any key to end]` after the
+end-of-game summary (a 0-of-0 game, so "100% ... maximum points" on both
+sides -- the summary wording for MaxScore 0 already matches).  Golden
+unchanged.
+
+Next candidate: `FarFromHome.taf` (3.90).

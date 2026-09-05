@@ -80,6 +80,7 @@ It's a brown and black suede jacket that says 'It's Funny 'Cuz You're Dead!'
 on the back.
 
 > take it
+(a jacket)
 You can't take the jacket.
 
 > x coffee

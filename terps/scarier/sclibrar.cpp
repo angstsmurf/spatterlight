@@ -3749,6 +3749,32 @@ lib_cmd_examine_self (scr_gameref_t game)
         }
       pf_buffer_character (filter, '.');
     }
+  else if (!scr_strempty (description)
+           && prop_get_taf_version (bundle) >= TAF_VERSION_390)
+    {
+      /*
+       * The Runner closes the description with a full stop if the author
+       * did not.  It looks at the raw text's last character BEFORE any ALR
+       * replacement: run390 examines() @44C488, loc_44C1F1-44C21E, appends
+       * "." when Right$(text, 1) <> "."; run400 Proc_19_87_471F94,
+       * loc_471C6D-471D40, also lets "!", ")", "%" and "?" stand.  (When
+       * the position clause above is printed its own "." satisfies the same
+       * test, so only the bare description needs it here.)  Measured on
+       * Archie's Birthday (3.90, run390, 2026-09-05): its PlayerDesc is the
+       * ALR key "[player=%player val%]", so the Runner appends "." to the
+       * key and the substituted paragraph ends "...self-delusions."; and on
+       * yak_shaving (4.00, run400, same day): `x me` answers "You are
+       * somewhat raggedy looking after your journey." for a PlayerDesc with
+       * no full stop.  3.7/3.8 (run370 examines @435C9C, run380 @43D5EC)
+       * build the reply differently and are not modelled.
+       */
+      const scr_char last = description[strlen (description) - 1];
+      const scr_bool closed = prop_get_taf_version (bundle) >= TAF_VERSION_400
+                              ? strchr (".!)%?", last) != NULL
+                              : last == '.';
+      if (!closed)
+        pf_buffer_character (filter, '.');
+    }
 
   /* Find and list each object worn by the player. */
   for (object = 0; object < gs_object_count (game); object++)

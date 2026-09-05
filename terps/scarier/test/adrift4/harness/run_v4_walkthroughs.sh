@@ -96,6 +96,9 @@ too_much_exercise_solution.txt|exercise.taf|much prefer that Sweet Shop option o
 # @48A409); a command that used the pronoun leaves it untouched; put never sets it.
 # Measured on humbug (Adrift_5_humbug.txt, 76 prompts; Adrift_4_humbug.txt full replay).  Scarier:
 # uip_definite_form() in scparser.cpp.
+# 1-command run400 probe 2026-09-05 (Adrift_4_yak_probe.txt): `x me` answers
+# "You are somewhat raggedy looking after your journey." -- the Runner appends
+# the full stop the PlayerDesc lacks (run400 Proc_19_87_471F94 @471C6D).
 yak_shaving_solution.txt|yak_shaving.taf|completed the Odd Competition|SCR_SKIP_WAITKEY=1
 buried_alive_solution.txt|buried.taf|Well done. You got to the end
 # Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
@@ -119,6 +122,10 @@ snakes_and_ladders_solution.txt|sandl.taf|made it to the end of the game|SCR_SEE
 # Adrift_22_xfiles.txt lines 187/233, `look at camera` / `look up byers` ->
 # "You see no such thing."  veteran, zombies and everything are the only three
 # goldens in the corpus that reach the line, and all three are 3.90.
+# 5-command run390 probe 2026-09-05 (Adrift_3_veteran_probe.txt): `x bag`,
+# `take it`, `open it` echo "(a bag)" both times -- 3.9 keeps the authored
+# article after a take, where 4.0 would say "(the bag)".  Golden re-blessed
+# with the two bracket lines.
 veteran_solution.txt|veteran.taf|fulfilling your destiny
 # Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
 # tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
@@ -272,6 +279,12 @@ mhpquest_solution.txt|mhpquest.taf|You have saved Crystal's life
 # Archie's Birthday is AIF: the game's text is sexually explicit, so its solution
 # and golden are deliberately NOT committed (they are in harness/.gitignore).  The
 # row stays so the regression runs where the files exist; elsewhere it NOSCRIPTs.
+# Measured 2026-09-05 in run390 (Adrift_3_archie.txt, all 205 commands):
+# 205/205 echoed.  Two turns differed and both were engine bugs, fixed the
+# same day: 3.9 DOES echo "(a camcorder)" on `take it` (run390 its() @43D968
+# behind showbrackets, default on), and `x me` gets a "." appended when the
+# PlayerDesc -- here the ALR key [player=%player val%] -- has none (run390
+# examines() @44C488).  Clean but the press-any-key tail after the port.
 archie_solution.txt|Archie's Birthday V 1-2.taf|To be continued|SCR_SKIP_WAITKEY=1
 # The adrift-battle corpus (the WALKTHROUGH_TODO.md games, banked 2026-06) --
 # wins first, then documented-max tours / sandboxes / demos.  Tour rows use the
@@ -3088,6 +3101,8 @@ lostmines_solution.txt|lostmines.taf|Congratulations, you have found the lost go
 # is pitch dark until you find the flashlight under the van.  The elevators,
 # the shafts and the entire black-van ending are unreachable: they all hang
 # off T8, which ends the game.  "To be continued................"
+# darktower: run390 full replay 2026-09-05 (Adrift_6_darktower.txt, 121/121
+# echoed), zero divergences -- see notes/WINE-TRANSCRIPTS-TODO.md.
 darktower_solution.txt|DarkTower.taf|restored power to the building.
 # Report Espionage: 100/100, and all 23 tasks fire.  Seven report cards, seven
 # owners, and the whole game is prising them loose -- including swinging a
@@ -3097,6 +3112,9 @@ darktower_solution.txt|DarkTower.taf|restored power to the building.
 # door` / w / `close door` / n; re-opening does not re-score.  Mrs Walsh is the
 # one wandering NPC and T10 needs her present, so the Correspondence Set is
 # handed over on the Deck at the exact turn she is standing there.
+# Measured 2026-09-05 in run390 (Adrift_3_report.txt, all 165 commands,
+# name/gender via the Runner's dialogs): 165/165 echoed, every turn identical
+# but the Runner's press-any-key tail.
 report_solution.txt|report.taf|You scored 100 out of the maximum 100!
 # Far From Home: 50/50 -- fourteen +3 tasks plus +8 for the riddle.  Two
 # <waitkey> pauses eat a script line, so the file starts with a bare `x`
@@ -3838,6 +3856,8 @@ vardock_bates_solution.txt|Vardock Bates.taf|HAS ELEGIDO LA INMORTALIDAD PARA SI
 # of quartz, the Aztec coin and the Lost Cave's hollowed-out rock altar are
 # author-confirmed red herrings and every carried item is taken away before
 # the Temple regardless of route, so the route ignores all four.
+# croft: run390 full replay 2026-09-05 (Adrift_5_croft.txt, 101/101 echoed),
+# zero divergences -- see notes/WINE-TRANSCRIPTS-TODO.md.
 croft_solution.txt|croft.taf|You scored 150 out of the maximum 150!
 # Doctor Who and the Vortex of Lust: 150/150, the fourth Cole game here.
 # 25 rooms, 209 tasks, 9 NPCs; 50 `ACT type=4` actions summing to exactly the

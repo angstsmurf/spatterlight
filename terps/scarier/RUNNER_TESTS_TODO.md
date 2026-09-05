@@ -3006,3 +3006,58 @@ game, against a change in the dispatch core.
 
 No engine change, no golden change. v4 corpus 261/261 after reverting the
 experiment.
+
+### 2026-09-05 — the 3.9 bracket echo was there all along, and `x me` gets its full stop
+
+Two findings from the first 3.90 replay with a pronoun in it (Archie's
+Birthday, run390, 205/205 echoed), both ported the same day, both then
+measured a second time on a purpose-built probe.
+
+**The 3.9 pronoun echo.** Scarier printed the `(a X)` reference line for
+3.7, 3.8 and 4.0 but not 3.9, on a reading of run390 that had it keeping
+`showbrackets` only for the "ask about"/"talk about" rewrite (loc_459036 /
+459107).  That reading missed `Sub its()` @43D968: it tests `m_showbrackets`
+at loc_43D6C2 (`it`), 43D7BF (`them`) and 43D884 (`one`) and prints
+`"(" & MemVar_46811C & ")"` through Proc_2_28_45CBD0, and the menu item is
+loaded from `ADRIFT\Runner showbrackets` at loc_44526F with default True
+(loc_44526B).  Measured: `x camcorder` then `take it` answers
+`(a camcorder)` before `You take a camcorder from the desk.`  Gate removed
+in `uip_assign_pronouns()` -- every Runner echoes.
+
+What 3.9 does NOT share with 4.0 is the article.  Its antecedent composer
+Proc_2_36_42B0E8 (mode, obj, out) has the same two modes as run400's
+448710 (1 = authored Prefix, 0 = tense'd "the"), but `takes` (@455067,
+4550F0) and `drops` (@445BE6, 445C6D) call it in mode 1, so a taken object
+stays "(a X)".  Measured on `veteran.taf`: `x bag`, `take it`, `open it`
+echo `(a bag)` both times where run400 would say `(the bag)` after the
+take.  `uip_definite_form()` therefore stays 4.00-only.  Two mode-0 / raw
+sites remain unmeasured in 3.9: `co()` @43B69E (mode 0, the
+obhere-and-seen branch) and @43B610 / @46031E (bare Short, no article).
+
+**The examine-self full stop.** Archie's PlayerDesc is the ALR key
+`[player=%player val%]`; run390 printed the substituted paragraph ending
+`...self-delusions.` and Scarier ended it bare.  run390 `examines()`
+@44C488, loc_44C1F1-44C21E: after the description and the position clause,
+`If Right$(text, 1) <> "." Then text = text & "."` -- on the raw text, so
+the key gets the stop and the ALR paragraph inherits it.  run400
+`Proc_19_87_471F94`, loc_471C6D-471D40: the same, exempting `!`, `)`, `%`
+and `?` as well.  Ported to `lib_cmd_examine_self()` for 3.9+, then the 4.0
+half measured directly: a one-command run400 probe on `yak_shaving.taf`
+answers `x me` with `You are somewhat raggedy looking after your journey.`
+for a PlayerDesc with no stop.
+
+Not ported: 3.7/3.8.  Their `examines` (run370 @435C9C, run380 @43D5EC)
+never touch the PlayerDesc text -- the player branch (run380 @43D3EC, run370
+@435A9B, `c("me") Or c("myself")` inside the empty-message fallback; dark
+room "can just make out that you are okay." @43D5C1/@435C70) is "as well
+as can be expected" + position + an unconditional `"."` (@43D53B/@435BEA)
+-- which, read literally,
+answers a plain `x me` with a lone `.`.  That is too odd to port from
+P-code; it needs a run380 probe (`x me` on any 3.80 game, plus a `look`
+so the .rtf holds it).  Corpus exposure today is nil: no 3.80 game in
+test/adrift4/games has a PlayerDesc, and none of the 13 goldens that
+examine the player is pre-3.9 (11 are 4.00, `archie` and `cybercow_win`
+3.90).
+
+Goldens: `archie`, `veteran`, `cruel` gain bracket lines, `archie` and
+`yak_shaving` the full stop; four re-blessed, v4 corpus 428/428.

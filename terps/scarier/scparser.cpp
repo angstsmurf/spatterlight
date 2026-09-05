@@ -2558,33 +2558,42 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
           replacement.append (name);
 
           /*
-           * 4.0 echoes the antecedent in round brackets on a line of its own
-           * before the command's response -- "(a trophy)" -- whenever
-           * Options -> Display & Media... -> "References in brackets" is
-           * ticked, the reference setting Scarier models.  run400
+           * Every Runner echoes the antecedent in round brackets on a line of
+           * its own before the command's response -- "(a trophy)".  4.0 does
+           * it whenever Options -> Display & Media... -> "References in
+           * brackets" is ticked, the reference setting Scarier models: run400
            * Proc_19_49_461F38 (him/he/her/she/it/them branches, e.g. "it" at
            * loc_461DA5) tests MemVar_4942BA then prints "(" & antecedent &
            * ")" & vbCrLf through Proc_21_19_47B568.  Measured on adrift_maze
            * (4.00) commands 24-25: "read it" answers "(a trophy)" then "It
            * has the following engraved on it."
            *
+           * 3.9 is the same line behind the same setting: run390 Sub its()
+           * @43D968 tests m_showbrackets (loc_43D6C2 for "it", 43D7BF "them",
+           * 43D884 "one") and prints "(" & MemVar_46811C & ")" through
+           * Proc_2_28_45CBD0; the menu item is read from ADRIFT\Runner
+           * "showbrackets" at loc_44526F with default True (loc_44526B).
+           * Measured on Archie's Birthday (3.90, run390, 2026-09-05): `x
+           * camcorder` then `take it` answers "(a camcorder)" then "You take
+           * a camcorder from the desk."; and on veteran (3.90, run390, same
+           * day) `x bag`, `take it`, `open it` echo "(a bag)" both times --
+           * 3.9's takes @455067 and drops @445BE6 compose the antecedent in
+           * mode 1 (authored Prefix), so unlike 4.0 there is no "the" form,
+           * which is why uip_definite_form() stays 4.00-only.  (An earlier
+           * reading of run390 had
+           * it keeping showbrackets only for the "ask about"/"talk about"
+           * rewrite at loc_459036/459107 and echoing nothing -- wrong.)
+           *
            * 3.7 and 3.8 print the same line UNGATED -- run370 Sub Form1.its
            * @2CA9C (loc_42CAFA ...) and run380 @326B4 have no Appearance menu
            * -- with the same antecedents: the NPC's Name, or tense(Prefix) &
            * " " & Short for an object, which is what 'replacement' holds.
            * From P-code only; no 3.7/3.8 replay has been measured for it.
-           * 3.9 alone prints nothing: run390 keeps showbrackets only for the
-           * "ask about"/"talk about" rewrite (loc_459036/459107) and has no
-           * pronoun echo at all.
            */
-          if (prop_get_taf_version (bundle) < TAF_VERSION_390
-              || prop_get_taf_version (bundle) >= TAF_VERSION_400)
-            {
-              pf_buffer_reference (gs_get_filter (game),
-                                   object == -1 && npc == -1
-                                   ? "Absolutely nothing"
-                                   : replacement.c_str ());
-            }
+          pf_buffer_reference (gs_get_filter (game),
+                               object == -1 && npc == -1
+                               ? "Absolutely nothing"
+                               : replacement.c_str ());
 
           /* Splice the replacement in for the matched extent. */
           buffer.replace (offset, extent, replacement);
