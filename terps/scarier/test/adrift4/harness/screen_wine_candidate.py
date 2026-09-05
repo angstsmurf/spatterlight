@@ -53,6 +53,10 @@ def rows():
     return out
 
 
+def solution(row):
+    return os.path.join(ROOT, "goldens", row[0])
+
+
 def dump(taf, row):
     env = dict(os.environ)
     for assignment in row[3:]:
@@ -63,9 +67,18 @@ def dump(taf, row):
     # as "0 events, 0 NPCs" for two games that have plenty (2026-09-05).
     env["SCR_SKIP_WAITKEY"] = "1"
     env["SCR_DUMP_TASKS"] = "1"
+    # The dump is emitted at the end of the first TURN, so the feed has to
+    # reach one.  A bare "look" does not for every game: Villains_And_Kings
+    # asks for a name and a gender first and swallows it, and the dump comes
+    # back empty (2026-09-05).  Replaying the row's own opening lines gets
+    # past any such prompt, whatever shape it takes.
+    opening = [l.rstrip("\n") for l in open(solution(row), encoding="latin-1")
+               if not l.startswith("#")][:8]
+    feed = "\n".join(opening + ["look"]) + "\n"
     done = subprocess.run([os.path.join(HERE, "scare"),
                            os.path.join(ROOT, "games", taf)],
-                          input=b"look\n", stdout=subprocess.DEVNULL,
+                          input=feed.encode("latin-1"),
+                          stdout=subprocess.DEVNULL,
                           stderr=subprocess.PIPE, env=env)
     return done.stderr.decode("latin-1").split("\n")
 
@@ -76,8 +89,7 @@ def screen(taf, row):
         return "%-32s EMPTY DUMP (does it load?)" % taf
     version = [l for l in lines if l.startswith("GAME ")][0].split()[1]
 
-    solution = os.path.join(ROOT, "goldens", row[0])
-    commands = sum(1 for l in open(solution, encoding="latin-1")
+    commands = sum(1 for l in open(solution(row), encoding="latin-1")
                    if l.strip() and not l.startswith("#"))
 
     events = [l for l in lines if l.startswith("EVENT ")]

@@ -275,6 +275,16 @@ masochists_heaven_solution.txt|1HRGAME.taf|You scored 15 out of the maximum 15!
 griswold_solution.txt|Griswold.taf|And there you have it: the intro|SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-31: pre-4.0 single-take held refusal is "You've
 # already got <object>!", not 4.0's "already carrying" (cave.taf row).
+# Measured against run390 2026-09-05 (Adrift_11_mhpquest.txt): 53 commands, all
+# 53 echoed, every turn but the tail identical.  Driven as a deliberate test of
+# the silent-task rule and it REFINED it.  The winning `feed clover to crystal`
+# is TASK 10, which has no COMPLETE= line -- on the everything.taf/Hangover
+# reading that predicts run390 answering with the game's DontUnderstand string.
+# It does not: the task's `ACT type=6` ends the game, the EndGame text prints,
+# and the Runner is content.  So the rule is not "a task with no completion
+# text" but "a task whose turn produced NO OUTPUT AT ALL" -- any action that
+# writes something, EndGame included, satisfies it.  See the notes' pre-flight
+# bullet, corrected the same day.
 mhpquest_solution.txt|mhpquest.taf|You have saved Crystal's life
 # Archie's Birthday is AIF: the game's text is sexually explicit, so its solution
 # and golden are deliberately NOT committed (they are in harness/.gitignore).  The
