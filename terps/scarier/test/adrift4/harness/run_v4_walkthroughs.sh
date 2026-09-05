@@ -419,6 +419,17 @@ donuts_intro_solution.txt|donuts_intro.taf|To be continued (maybe)..
 # the task-state (not counter) test in lib_get_npc_inroom_text().  The other
 # half, what a finished 4.0 walk's counter is stamped with, is pinned by
 # the_pk_girl instead; see that row.
+#
+# 310/410 is the reachable ceiling, not a partial run. The whole 410-point
+# pool is four ChangeScore actions: the ring (+110) and three +100 tasks that
+# all pay out for picking up the same hundred-dollar bill on the midway --
+# "take hundred dollars" (task 12, Where = room 0), "pick up money" (task 11,
+# Where = all rooms) and "take money" (task 10). The route deliberately types
+# the first two, because the author wired them as separate scoring tasks; the
+# third can never run at all, its Where is Type 0 (ROOMLIST_NO_ROOMS, see
+# task_where_allows_run() in sctasks.cpp), which is also true of seven other
+# tasks in this game (2, 5, 13, 14, 18, 19, 22, 30) and looks like a Generator
+# default the author never filled in.
 funhouse_solution.txt|FunHouse.taf|thank you for bravely protecting this important information
 gateway_solution.txt|gateway.taf|THE END
 # Measured 2026-08-29: run400 replay; identical up to the first battle round
