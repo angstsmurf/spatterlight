@@ -507,8 +507,20 @@ screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to g
 # Re-blessed 2026-08-31: pre-4.0 single-take held refusal is "You've
 # already got <object>!", not 4.0's "already carrying" (cave.taf row).
 secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
-# Measured 2026-08-29: run400 replay, all 133 commands echoed, 132 of 133
-# turns identical, the last differs only by the [Press any key to end] tail.
+# Measured 2026-08-29: run400 replay of the then-current 133-command route,
+# all 133 commands echoed, 132 of 133 turns identical, the last differing only
+# by the [Press any key to end] tail.
+#
+# Extended 2026-09-05 from 934/1374 to 1009, the ceiling for a run that never
+# repeats a scoring task: `read computer` in Wonder Dog's Room (+5), `install
+# bridge` in place of the library put (+30), the Main Office button behind the
+# Moon Base offices (+20), and `enter transporter` in the Moon Base Garage
+# (+50) instead of the red button (+30).  The solution header carries the
+# arithmetic; the short version is that the advertised 1374 is 55 more than
+# the game's own 1319-point pool, task 11's ice gloves are spelt
+# '{take\get}' and can never match, and task 72's +250 is the run400-measured
+# case that run_task_reachable_by_library_callback() in scrunner.cpp exists
+# for -- the library's drop claims "drop cape to the floor" outright.
 space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCITING EPISODES
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own

@@ -1,11 +1,30 @@
-# Space Boy's First Adventure (David Parish, 2005) — FULL WIN, 934/1374.
+# Space Boy's First Adventure (David Parish, 2005) - FULL WIN, 1009/1374.
 # Deterministic headless harness:  sh harness/play.sh games/"Space Boy's First Adventure.taf" harness/space_boy_solution.txt
 # Win marker: "STAY TUNED FOR MORE EXCITING EPISODES..." (task 46, EndGame var1=0).
-# All 4 power items (Boots/Gloves/Goggles/Belt) + cape recovered. (Ice-gloves
-# task-11 +30 is a dead author typo, shadowed by the library "take" — see
-# Space_Boy_walkthrough.md; true max <= 1344.)
+# All 4 power items (Boots/Gloves/Goggles/Belt) + cape recovered.
 #
+# 1009 is the ceiling for a run that never repeats a scoring task.  The 1374
+# the game advertises is 55 more than its own ChangeScore pool (1319), and
+# three chunks of that pool are unreachable:
+#   * task 11, ice gloves +30 -- the pattern is '{take\get} ... gloves', a
+#     backslash where the author meant a slash, so nothing can ever match it
+#     and the library's own take hands over the gloves for free.
+#   * task 72, "drop cape to the floor" +250 -- run400 lets the library's
+#     ordinary drop claim the command outright and the task never runs; see
+#     run_task_reachable_by_library_callback() in scrunner.cpp for the
+#     measurement (Adrift_8_pET2.txt / Adrift_10_pET4.txt, 2026-08-23).
+#   * one of the +30 transporter buttons.  Blue (task 53, room 10) is the
+#     only way to the Moon Base and red (task 54, room 69) the only way back
+#     by button, but the Moon Base Garage also holds task 52, "enter
+#     transporter" (+50), which returns you home for 20 points more.  Taking
+#     52 costs the red button; taking both would mean pressing the blue
+#     button a second time, and 53/54 are Repeatable, so that is score
+#     farming rather than a longer route.
+# 1319 - 30 - 250 - 30 = 1009.
 # --- Phase 1: Flight Boots (up the oak tree) ---
+n
+read computer
+s
 s
 sw
 s
@@ -115,7 +134,7 @@ w
 s
 in
 out
-put bridge in power plant
+install bridge
 in
 push blue button
 out
@@ -127,8 +146,12 @@ read paper
 take belt
 wear belt
 u
-in
-push red button
+w
+w
+press button
+e
+e
+enter transporter
 out
 sw
 w
@@ -140,6 +163,8 @@ n
 unlock door
 open room door
 take cape
+# Kept as in-transcript evidence for the task-72 note above: the library's
+# own drop claims this and the +250 task never runs.
 drop cape to the floor
 w
 read scribbled note

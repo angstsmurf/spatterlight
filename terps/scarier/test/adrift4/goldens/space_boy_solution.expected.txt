@@ -25,6 +25,27 @@ smallish living area. The furniture is destroyed and everything is a mess.
 There are exits to the North, South, and East.  A door prevents access to the
 west.
 
+> n
+You move north.
+
+Wonder Dog's Room
+This is Wonder Dog's Bedroom. It would appear that he is a neat freak.
+Everything has a place...and is in it! The bed is made, the desk is neat, and
+the computer screen is free of dust. The only exit is to the south.
+
+> read computer
+You read the computer..."be sure to pick-up the Transporter parts from the
+Mountain Top Garage...."
+
+> s
+You move south.
+
+Living Room
+You are standing in the home of Space Boy and Wonder Dog. This is a rather
+smallish living area. The furniture is destroyed and everything is a mess.
+There are exits to the North, South, and East.  A door prevents access to the
+west.
+
 > s
 You move south.
 
@@ -786,8 +807,8 @@ strangely absent. You notice several projects in various stages of
 completion...wires, parts, and pieces abound. There are exits to the north
 and southwest. You can get into the Transporter Unit here.
 
-> put bridge in power plant
-You put the Phased Ion Bridge inside the Transporter Power Plant.
+> install bridge
+You have installed the Phased Ion Bridge on the Transporter Power Plant!
 
 > in
 You move in.
@@ -878,26 +899,48 @@ Transporter Unit here.
 There is a Matter Transference Beam Generator located in the roof of the Moon
 Base Unit.
 
-> in
-You move in.
+> w
+You move west.
 
-Moon Base Transporter Room
-This is a Matter Scatterer Personal Unit 1600. This unit is an almost exact
-replica of your Home Unit.
+Outer Office
+This is the outer office of the Space Boy and Wonder Dog Office Complex.
+There are smaller offices to the north and south. You can return to the east.
+ To the west is an open door.
 
-The only difference is the button here is RED and marked "TO HOME."
+> w
+You move west.
 
-> push red button
-You press the red button and suddenly you are standing in the Home Base
-Transporter Unit.
+Main Office
+This room is bare save for a single, three legged table in the center of the
+room.
 
-The Transporter Unit
-This is a Matter Scatterer Personal Unit 1600. The unit is built like a giant
-round tube, not unlike the vacuum tube you find at the local bank drive
-through. Using Fusion power controlled by Phased Ions, it can transport
-anything to its twin location!
+On the table rests an odd looking device.
 
-The controls for the unit consist of one push button marked "TO THE MOON."
+> press button
+CLICK.......WHRRRRR....you here a faint noise from the Moon Base Garage.
+
+> e
+You move east.
+
+Outer Office
+This is the outer office of the Space Boy and Wonder Dog Office Complex.
+There are smaller offices to the north and south. You can return to the east.
+ To the west is an open door.
+
+> e
+You move east.
+
+Moon Base Garage
+This is a large parking garage. There is an exit to the east with a sign
+reading, "MESS HALL"; and a door leading west with a sign reading, "OFFICES".
+ There is an odd shaped hole in the ground here. You can enter your
+Transporter Unit here.
+
+There is a Matter Transference Beam Generator located in the roof of the Moon
+Base Unit.
+
+> enter transporter
+You are in the Transporter Unit.
 
 > out
 You move out.
@@ -1008,6 +1051,6 @@ the war.HAHAHAHAHAHAHAHAHAHA!!!!!!!!!!!!!!!!"
 
 STAY TUNED FOR MORE EXCITING EPISODES OF ACTION WITH SPACE BOY AND WONDER
 DOG!
-You scored 934 out of the maximum 1374!
-That is 67% of the game!
-You finished 440 points short.
+You scored 1009 out of the maximum 1374!
+That is 73% of the game!
+You finished 365 points short.

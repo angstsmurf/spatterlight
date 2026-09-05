@@ -1,12 +1,12 @@
-# Space Boy's First Adventure — walkthrough (**WON, 934/1374**, deterministic)
+# Space Boy's First Adventure — walkthrough (**WON, 1009/1374**, deterministic)
 
-> **DONE 2026-06-27.** Full win banked & verified 3× identical
-> (`goldens/space_boy_solution.txt`, 142 cmds). All four power items
-> (Flight Boots, Ice Gloves, Heat Goggles, **Strength Belt**) obtained, the cape
+> **DONE 2026-06-27; extended to the ceiling 2026-09-05.** Full win banked &
+> verified (`goldens/space_boy_solution.txt`). All four power items (Flight
+> Boots, Ice Gloves, Heat Goggles, **Strength Belt**) obtained, the cape
 > recovered, and the win ending reached (marker *"STAY TUNED FOR MORE EXCITING
-> EPISODES OF ACTION WITH SPACE BOY AND WONDER DOG!"*). **934/1374 (68%)** — the
-> win does not need max score; the unbanked points are repeatable/optional side
-> tasks (and the dead Ice-gloves +30 typo, so true max ≤ 1344).
+> EPISODES OF ACTION WITH SPACE BOY AND WONDER DOG!"*).
+> **1009/1374 (73%) is the ceiling for a run that never repeats a scoring
+> task** — see *Where the missing 365 points went* below.
 > Run: `sh harness/play.sh games/"Space Boy's First Adventure.taf" goldens/space_boy_solution.txt`
 
 
@@ -64,7 +64,7 @@ direction (nw↔se, ne↔sw, s↔n). Collect all 5 parts, `u`→70, `assemble st
 (+20), `put statue on base` (+35 — island rises S but a magma wall blocks),
 `freeze wall` (Ice Gloves, +15 — forms a bridge), `south`→25 *Treasure Island*,
 `take goggles` (+30; Fire God wakes, bridge melts). Exit: `fly northeast`→18,
-then `north`→hub. **Heat Goggles obtained.** *(Running total here: 275/1374.)*
+then `north`→hub. **Heat Goggles obtained.** *(Running total here: 280/1374.)*
 
 ### Return to the hub (from Treasure Island) ✅ SOLVED
 After `wear goggles` on Treasure Island (room 25 area), the magma bridge is gone
@@ -105,18 +105,22 @@ Two **elemental gates** block the spelling path — this is where the powers pay
 
 **Power the transporter.** Pushing the blue button fails until the bridge is in
 the **Transporter Power Plant** (an openable container in the Hangar Bay, *not*
-the transporter): `out` (→2), `put bridge in power plant`, `in` (→10),
-`push blue button` (+30) → **69 Moon Base Transporter Room**.
+the transporter): `out` (→2), `install bridge` (task 15, **+30**; the library `put bridge in power
+plant` also works but scores nothing), `in` (→10), `push blue button` (+30) →
+**69 Moon Base Transporter Room**.
 
 **Get the belt.** `out`→67 (Moon Base; a hole + Mess Hall E + Offices W).
 `e`→60 *Mess Hall*, `take fork`, `w`→67, `use fork on hole` (+50; the fork also
 powers the Beam Generator) → **66**: `read paper` (photo of a rock in a garden —
-the hint), `take belt` (+30), `wear belt`. **Strength Belt obtained — 514/1374.**
+the hint), `take belt` (+30), `wear belt`. **Strength Belt obtained — 549/1374.**
 
 ### Endgame (Room Key → Evil Man's lair → cape → win) ✅ SOLVED
-Return home through the Moon Base transporter: `u`→67, `in`→69,
-`push red button` (+30; needs the Beam Generator powered by the fork) → 10,
-`out`→2 Hangar Bay, `sw`→3 Back Porch, `w`→**4 Backyard Garden**.
+First collect the office button: `u`→67, `w`→61 *Outer Office*, `w`→**64 Main
+Office**, `press button` (task 41, **+20**), `e`, `e`→67. Then return home with
+`enter transporter` (task 52, **+50**) → 10. (`in`→69, `push red button` (+30)
+is the other way home and the one the author's own walkthrough uses; it is 20
+points worse and cannot be combined with 52 — see *Where the missing 365 points
+went*.) `out`→2 Hangar Bay, `sw`→3 Back Porch, `w`→**4 Backyard Garden**.
 
 `move huge rock` (task 43, +30; needs the belt **worn**) drops you into **71 Under
 the rock**; `take key` (+40, **Room Key**) bounces you back to 4. Now to the lair:
@@ -128,22 +132,37 @@ damage"* — `str−def ≤ 0`). Score the cape finale, then read the note:
 - `take cape` (task 45, **+105**) — *"the Power of Space returns to you"*; this
   also **drops your four power items** (their power drained), which is harmless at
   the endgame.
-- `drop cape to the floor` (task 72, **+250**) — a scripted, no-restriction
-  scoring task. (The library also echoes a cosmetic *"Drop what?"* because the
-  cape object was consumed by `take cape`; the **task still fires and scores** —
-  it is matched by command, not by an in-hand object.)
+- `drop cape to the floor` (task 72, **+250**) — **does not fire.** The command
+  is kept in the solution only as in-transcript evidence: run400 lets the
+  library's ordinary `drop` claim the line outright and the task never runs
+  (Adrift_8_pET2.txt / Adrift_10_pET4.txt, measured 2026-08-23; the engine side
+  is `run_task_reachable_by_library_callback()` in `scrunner.cpp`). The
+  transcript shows the library's *"You drop the red Cape."* and no score
+  change.
 - `w`→**65 Space Boy's Secret Hide-Out**, `read scribbled note` (task 46, **+200**,
   EndGame win) → **WIN**.
 
 ## Verified result
-- **WON, 1184/1374 (86%)**, all four power items obtained + cape recovered,
-  verified 3× identical (`goldens/space_boy_solution.txt`, 145 cmds). Win marker
-  *"STAY TUNED FOR MORE EXCITING EPISODES OF ACTION WITH SPACE BOY AND WONDER
-  DOG!"*
-- The win does **not** require max score — many scoring tasks are repeatable
-  side-content, and the Ice-gloves +30 (task 11) is a dead author typo
-  (`{take\get}` backslash, see below) so the true ceiling is ≤ 1344. 1184 is the
-  clean single-pass total of the full spine + both cape tasks.
+- **WON, 1009/1374 (73%)**, all four power items obtained + cape recovered.
+  Win marker *"STAY TUNED FOR MORE EXCITING EPISODES OF ACTION WITH SPACE BOY
+  AND WONDER DOG!"*
+
+## Where the missing 365 points went
+The game advertises **1374** but its own ChangeScore actions only add up to
+**1319** — the author's declared maximum is 55 points larger than anything the
+game can pay out. Of that 1319:
+
+| lost | why |
+| --- | --- |
+| **30** | task 11, the ice gloves: the pattern is `{take\get} ... gloves`, a backslash where the author meant a slash, so nothing can ever match it (see *Resolved findings*). |
+| **250** | task 72, `drop cape to the floor`: run400 lets the library's own `drop` claim the command and the task never runs. |
+| **30** | one of the two +30 transporter buttons. Blue (task 53, room 10) is the only way to the Moon Base and red (task 54, room 69) the only way home by button, but the Moon Base Garage also holds task 52, `enter transporter` (**+50**), which gets you home for 20 points more. Taking 52 costs the red button; taking both would mean a second blue press, and 53/54 are `Repeatable`, so that is score farming, not a longer route. |
+
+`1319 − 30 − 250 − 30 = 1009`, which the golden reaches exactly. The four
+points the 2026-06-27 route left on the table were `read computer` in Wonder
+Dog's Room (+5), `install bridge` instead of the library `put` (+30), the Main
+Office button behind the Moon Base offices (+20) and `enter transporter` (+50,
+net +20 against the red button).
 
 ## Resolved findings
 1. **Ice-gloves +30 (task 11) is an author typo — unreachable for everyone, and
@@ -158,14 +177,14 @@ damage"* — `str−def ≤ 0`). Score the cape finale, then read the note:
    inside `{}`/`[]`; chr(92)/backslash is never special in any `.bas`). So `take
    gloves` falls through to the library take with no score in the original Runner
    too. SCARE's `.taf` decoder is not at fault (it renders `/` correctly for the
-   other 8 tasks). **Net: the +30 is lost to a shipped author bug; true max ≤ 1344.**
+   other 8 tasks). **Net: the +30 is lost to a shipped author bug.**
 
-## Optional follow-up (the win is complete; these are extra points only)
-- The banked 1184 is a clean spine; it leaves repeatable/side-content unpicked
-  (e.g. maze dead-end flavour, the `down`→wooden-stick task, multiple book/sign
-  reads). A true-max pass toward ≤ 1344 is possible but unnecessary — Space Boy's
-  combat is **harmless** (Evil Man does 0 damage), so there is no RNG-stream
-  caveat to tune; the route is fully deterministic.
+## Optional follow-up
+- Nothing is left that a non-repeating run can reach. Higher totals exist only
+  by re-pressing the repeatable blue/red buttons (+30 each, unlimited) or
+  re-reading the computer (+5, unlimited); the golden deliberately does neither.
+  Space Boy's combat is **harmless** (Evil Man does 0 damage), so there is no
+  RNG-stream caveat and the route is fully deterministic.
 - Author debug cheats exist (`gimme gimme gimme` = all 4 items, `shout spade` =
   the Phased Ion Bridge, `shout hobbit` = teleport to room 29) — **not used**;
   the banked route earns every item legitimately.
