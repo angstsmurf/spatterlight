@@ -140,29 +140,15 @@ else:
 # is an IDictionary and use key lookup; lists keep NCalc's native behaviour.
 ev = engine / "Expressions" / "NcalcExpressionEvaluator.cs"
 etext = ev.read_text()
-e_anchor = "        if (operatorName == null && !isEquality) return;"
-e_repl = """        // qvh patch: FLEE's `in` checked dictionary KEYS; NCalc's In enumerates
-        // KeyValuePairs so `key in dict` was always false (see patch_questviva.py section 5)
-        if (args.BinaryExpression.Type is BinaryExpressionType.In or BinaryExpressionType.NotIn)
-        {
-            var inRight = await args.RightValueAsync();
-            if (inRight is System.Collections.IDictionary inDict)
-            {
-                var inLeft = await args.LeftValueAsync();
-                var contains = inLeft != null && inDict.Contains(inLeft);
-                args.Result = args.BinaryExpression.Type == BinaryExpressionType.In ? contains : !contains;
-            }
-            return;
-        }
-
-        if (operatorName == null && !isEquality) return;"""
-if "inDict" in etext:
-    print("[patch] already patched: NcalcExpressionEvaluator.cs -> dictionary `in` operator")
-elif e_anchor in etext:
-    ev.write_text(etext.replace(e_anchor, e_repl, 1))
-    print("[patch] patched: NcalcExpressionEvaluator.cs -> dictionary `in` operator")
+#
+# Upstream fixed this natively (NcalcExpressionEvaluator routes an IDictionary
+# right operand through IDictionary.Contains(key)), so the patch is retired and
+# this section only checks the fix is still there.
+etext = (engine / "Expressions" / "NcalcExpressionEvaluator.cs").read_text()
+if "right is IDictionary" in etext:
+    print("[patch] upstream-native: NcalcExpressionEvaluator.cs -> dictionary `in` operator")
 else:
-    sys.exit("[patch] `in` anchor not found in NcalcExpressionEvaluator.cs (upstream changed?)")
+    sys.exit("[patch] dictionary `in` fix missing from NcalcExpressionEvaluator.cs (upstream changed?)")
 
 # 6. `wait` must suspend the TURN, not just the script. Legacy Quest 5 runs the
 # game on its own thread and blocks it inside `wait` (DoInNewThreadAndWait), so
@@ -182,94 +168,23 @@ else:
 # game with the failure ending — the win is unreachable. Under the legacy order
 # the player is already in the cloisters and the turnscript is out of scope.
 #
-# Fix: when a wait has parked the turn (BeginPendingCallback has run), defer
-# FinishTurn/UpdateLists and let WaitScript run them once its callback
-# completes. Turn-suspension signalling to the driver is unchanged.
+# Upstream fixed this natively (Quest Viva #2177 + #2182): HandleCommand and
+# the timer path set `_finishTurnDeferred` whenever `_pendingCallbackCount > 0`
+# and EndPendingCallbackAsync runs the deferred FinishTurn once the count is
+# back to zero. That gate is BROADER than the wait-only one this section used
+# to impose (it also covers `get input`, `ask` and `show menu`), and legacy
+# Quest 5.8.0 agrees with upstream: its TryFinishTurn skips FinishTurn while
+# `m_callbacks.AnyOutstanding()` (any of the four), and every callback
+# resolution goes through RunCallbackAndFinishTurn (WorldModel.cs 5.8.0:
+# SendCommand, SetMenuResponse, SetQuestionResponse, FinishWait). So the patch
+# is retired and this section only checks the upstream mechanism is present.
+# (The native Geas engine still gates on the wait alone -- see the harness
+# README for the goldens that diverge because of it.)
 wtext = wm.read_text()
-w6_anchor = """                if (Version < WorldModelVersion.v580)
-                {
-                    await TryFinishTurnAsync();
-                }
-
-                if (State != GameState.Finished)
-                {
-                    await UpdateListsAsync();
-                }"""
-w6_repl = """                if (Version < WorldModelVersion.v580 && _waitParkedTurn)
-                {
-                    // qvh patch: a `wait` parked this turn; legacy Quest ran FinishTurn
-                    // after the callback, so defer it (see patch_questviva.py section 6).
-                    // Gated to pre-580 games — the same gate that decides whether
-                    // FinishTurn runs from here at all — so anything authored against
-                    // modern (v580 / QuestViva-era) turn semantics keeps the stock path.
-                    _finishTurnDeferred = true;
-                }
-                else
-                {
-                    if (Version < WorldModelVersion.v580)
-                    {
-                        await TryFinishTurnAsync();
-                    }
-
-                    if (State != GameState.Finished)
-                    {
-                        await UpdateListsAsync();
-                    }
-                }"""
-w6_anchor2 = "    internal void BeginPendingCallback() => _pendingCallbackCount++;"
-w6_repl2 = """    // qvh patch: `_waitParkedTurn` is set while a `wait` holds the turn open
-    // (WaitScript sets it, its finally clears it); `_finishTurnDeferred` is the
-    // FinishTurn that wait pushed past its command turn. Gating on the wait
-    // itself rather than on _pendingCallbackCount matters: a menu / get input /
-    // `on ready` also raises that count, and deferring on those would strand the
-    // FinishTurn until some later, unrelated wait discharged it.
-    // (See patch_questviva.py section 6.)
-    internal bool _waitParkedTurn;
-    internal bool _finishTurnDeferred;
-
-    internal async Task RunDeferredFinishTurnAsync()
-    {
-        if (!_finishTurnDeferred) return;
-        _finishTurnDeferred = false;
-        await TryFinishTurnAsync();
-        if (State != GameState.Finished)
-        {
-            await UpdateListsAsync();
-        }
-    }
-
-    internal void BeginPendingCallback() => _pendingCallbackCount++;"""
-if "_finishTurnDeferred" in wtext:
-    print("[patch] already patched: WorldModel.cs -> deferred FinishTurn across `wait`")
-elif w6_anchor in wtext and w6_anchor2 in wtext:
-    wtext = wtext.replace(w6_anchor, w6_repl, 1).replace(w6_anchor2, w6_repl2, 1)
-    wm.write_text(wtext)
-    print("[patch] patched: WorldModel.cs -> deferred FinishTurn across `wait`")
+if "_finishTurnDeferred" in wtext and "_pendingCallbackCount > 0" in wtext:
+    print("[patch] upstream-native: WorldModel.cs -> FinishTurn deferred across every suspension")
 else:
-    sys.exit("[patch] FinishTurn anchors not found in WorldModel.cs (upstream changed?)")
-
-ws = engine / "Scripts" / "WaitScript.cs"
-wstext = ws.read_text()
-ws_anchor = """            await m_worldModel.EndPendingCallbackAsync();
-            m_worldModel.SignalTurnSuspended();"""
-ws_repl = """            await m_worldModel.EndPendingCallbackAsync();
-            // qvh patch: run the FinishTurn this wait deferred (section 6)
-            m_worldModel._waitParkedTurn = false;
-            await m_worldModel.RunDeferredFinishTurnAsync();
-            m_worldModel.SignalTurnSuspended();"""
-ws_anchor2 = """        m_worldModel.PlayerUi.DoWait();
-        WorldModel.BeginPrompt(ref m_worldModel._waitTcs);"""
-ws_repl2 = """        m_worldModel.PlayerUi.DoWait();
-        // qvh patch: this wait holds the turn open (section 6)
-        m_worldModel._waitParkedTurn = true;
-        WorldModel.BeginPrompt(ref m_worldModel._waitTcs);"""
-if "RunDeferredFinishTurnAsync" in wstext:
-    print("[patch] already patched: WaitScript.cs -> deferred FinishTurn")
-elif ws_anchor in wstext and ws_anchor2 in wstext:
-    ws.write_text(wstext.replace(ws_anchor, ws_repl, 1).replace(ws_anchor2, ws_repl2, 1))
-    print("[patch] patched: WaitScript.cs -> deferred FinishTurn")
-else:
-    sys.exit("[patch] anchor not found in WaitScript.cs (upstream changed?)")
+    sys.exit("[patch] deferred-FinishTurn mechanism missing from WorldModel.cs (upstream changed?)")
 
 # 7. changed<field> must fire only on a REAL value change. Quest 5 (branch v5)
 # fired changed<field> from a subscriber to Fields.AttributeChanged, and
@@ -283,28 +198,14 @@ else:
 # new dispatch site. (The native Geas engine carries the equivalent guard;
 # with this patch the oracle's Dracula/Iron John/The Acreage/Bony King/Xanadu
 # transcripts become byte-identical to native.)
-elem = engine / "Element.cs"
-eltext = elem.read_text()
-el_anchor = """        Fields.Set(fieldName, value);
-        if (!m_worldModel.EditMode)
-        {
-            var changedScriptName = "changed" + fieldName;"""
-el_repl = """        Fields.Set(fieldName, value);
-        if (!m_worldModel.EditMode)
-        {
-            // qvh patch: v5 fired changed<field> from the guarded
-            // Fields.AttributeChanged event; the rewrite fires it here
-            // unconditionally, so same-value writes recurse (section 7).
-            var qvhChanged = value == null ? oldValue != null : !value.Equals(oldValue);
-            if (!qvhChanged) return;
-            var changedScriptName = "changed" + fieldName;"""
-if "qvhChanged" in eltext:
-    print("[patch] already patched: Element.cs -> same-value changed<field> guard")
-elif el_anchor in eltext:
-    elem.write_text(eltext.replace(el_anchor, el_repl, 1))
-    print("[patch] patched: Element.cs -> same-value changed<field> guard")
+#
+# Upstream restored the guard natively (Element.SetFieldAsync computes
+# `changed` from oldValue before Fields.Set), so this only checks it is there.
+eltext = (engine / "Element.cs").read_text()
+if "!value.Equals(oldValue)" in eltext:
+    print("[patch] upstream-native: Element.cs -> same-value changed<field> guard")
 else:
-    sys.exit("[patch] anchor not found in Element.cs (upstream changed?)")
+    sys.exit("[patch] same-value changed<field> guard missing from Element.cs (upstream changed?)")
 
 # 8. Quest 4 RNG. The V4 engine has its own generator (`V4Game._random`) and its
 # own mapping, `Str(Int(Rnd * (b-a+1)) + a)` (V4Game.cs:6982-6988). Route it

@@ -17,11 +17,24 @@ export PATH="/opt/homebrew/bin:$PATH"
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ORACLE_HOME="${ORACLE_HOME:-$HOME/questviva-oracle}"
 QV="$ORACLE_HOME/questviva"
+# Pinned upstream revision: v6.0.0-beta.57 (2026-09-04), the first release with
+# the string-concat regression fix (#2188) on top of the on-ready/FinishTurn
+# rework (#2177, #2182). Override with QV_REV=<sha> to test another revision;
+# patch_questviva.py's anchors are checked against this one.
+QV_REV="${QV_REV:-1b129e7a916c01235c4508a5e45d0a1db06f482f}"
 
 mkdir -p "$ORACLE_HOME"
 if [ ! -d "$QV/.git" ]; then
-  echo "[build] cloning QuestViva (branch main) into $QV"
+  echo "[build] cloning QuestViva into $QV"
   git clone --depth 1 --filter=blob:none https://github.com/textadventures/quest "$QV"
+fi
+if [ "$(git -C "$QV" rev-parse HEAD)" != "$QV_REV" ]; then
+  # Drop the previous revision's patches (they are re-applied below) and move
+  # the shallow clone to the pinned commit.
+  echo "[build] moving QuestViva clone to $QV_REV"
+  git -C "$QV" checkout -q -- . && git -C "$QV" clean -fdq
+  git -C "$QV" fetch -q --depth 1 origin "$QV_REV"
+  git -C "$QV" checkout -q -f "$QV_REV"
 fi
 
 # Route QuestViva's RNG through the deterministic ErkyrathRandom (matches the

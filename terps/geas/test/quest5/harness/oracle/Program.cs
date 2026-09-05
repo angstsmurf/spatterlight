@@ -326,6 +326,7 @@ class HeadlessPlayer(Action<string> emit) : IPlayer
     public void ShowQuestion(string caption) => PendingQuestion = caption;
     public void DoWait() => IsWaiting = true;
     public void DoPause(int ms) => IsPausing = true;
+    public void SetTurnPending(bool pending) { }  // IPlayer (Quest Viva #2177); the driver reads the engine state directly
 
     public void WriteHTML(string html) => emit(html);
     // Quest 5 (v540+) delivers game text as JS calls: JS.addText(html) arrives

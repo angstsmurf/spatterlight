@@ -27,10 +27,19 @@ but not something to vendor), just like the FrankenDrift build the a5 oracle use
 ./build.sh
 ```
 
-Clones QuestViva into `$ORACLE_HOME` (default `~/questviva-oracle`), applies the
-deterministic-RNG patch (below), and builds `bin/Release/net10.0/qvh.dll`. With
-the .NET 10 SDK the checkout needs no retargeting. Override the location with
-`ORACLE_HOME=/path ./build.sh`.
+Clones QuestViva into `$ORACLE_HOME` (default `~/questviva-oracle`), moves the
+clone to the **pinned upstream revision** (`QV_REV` in `build.sh`, currently
+v6.0.0-beta.57 = `1b129e7a`), applies the harness patches (below), and builds
+`bin/Release/net10.0/qvh.dll`. With the .NET 10 SDK the checkout needs no
+retargeting. Override the location with `ORACLE_HOME=/path ./build.sh`, the
+revision with `QV_REV=<sha>`; an existing clone on another revision is reset to
+the pin (its patches are re-applied) on the next build.
+
+Why pin: upstream moves fast and `patch_questviva.py` anchors on exact source
+lines, so a floating `main` broke the build twice in one week (Quest Viva #2177
+added `IPlayer.SetTurnPending`; #2177/#2182/#2188 rewrote the turn-boundary code
+the old section 6 patched). Bump the pin deliberately, re-run `./check_golden.sh`,
+and record what moved here.
 
 ## Run one game
 
@@ -160,27 +169,43 @@ from the raw walkthrough); `run_corpus.sh` uses it verbatim in place of the
 extractor+preamble. `overrides/README.md` tabulates why each exists
 (all win except I Contain Multitudes, best-effort, documented above). The nine games whose raw walkthroughs already win have no override.
 
-### `wait` and the turn boundary
+### Suspensions and the turn boundary
 
 Legacy Quest 5 runs the game on its own thread and blocks it inside `wait`, so the
 stack survives the prompt and Core's `FinishTurn` — hence every turnscript — runs
-*after* the wait callback. QuestViva's async port returns from `wait` immediately
-(`WaitScript.ExecuteAsync` fire-and-forgets its continuation), so
-`TryFinishTurnAsync` raced ahead of the callback and turnscripts ticked against the
-room the callback was about to leave. `patch_questviva.py` section 6 defers the
-`FinishTurn` (and pane refresh) of a wait-parked turn until the callback resolves;
-the native engine does the same (`finish_turn_deferred_` in `aslx-runtime.cc`).
+*after* the wait callback. QuestViva's first async port returned from `wait`
+immediately, so `TryFinishTurnAsync` raced ahead of the callback and turnscripts
+ticked against the room the callback was about to leave. `patch_questviva.py`
+section 6 used to defer the `FinishTurn` of a *wait*-parked turn until the
+callback resolved; the native engine does the same (`finish_turn_deferred_` /
+`wait_pending_` in `aslx-runtime.cc`).
 
-*The Legend of Robin Hood* is the case that proves it — its win is unreachable under
-the racing order (see `overrides/README.md`). Five other goldens moved, all for the
-better: *Dracula* and *Dream Pieces 2* stop firing coach/room turnscripts in rooms
-the player has already left (Dream Pieces 2 also stops dumping a bogus aggregate
-"Lab" room listing every object in the game *after* its "THE END"), and *Dream
-Pieces*, *Lost in the Shadows of Time* and *Xanadu — In the Compound* simply move a
-nag/quote line to the far side of the transition. No ending, score or error count
-changed. The deferral is gated to pre-v580 games — the same gate that decides
-whether the engine calls `FinishTurn` at all — so anything authored against modern
-QuestViva-era turn semantics keeps the stock path.
+Upstream has since fixed this natively (Quest Viva #2177, #2182): `HandleCommand`
+and the timer path set `_finishTurnDeferred` whenever `_pendingCallbackCount > 0`,
+and `EndPendingCallbackAsync` runs the deferred `FinishTurn` (after flushing the
+`on ready` queue) once the count is back to zero. That gate is **broader** than the
+wait-only one — it also covers `get input`, `ask` and `show menu` — and legacy
+Quest 5.8.0 agrees with upstream, not with us: its `TryFinishTurn` skips
+`FinishTurn` while `m_callbacks.AnyOutstanding()` (any of the four), and every
+callback resolution goes through `RunCallbackAndFinishTurn` (5.8.0
+`WorldModel.cs`: `SendCommand`, `SetMenuResponse`, `SetQuestionResponse`,
+`FinishWait`). So section 6 is retired (it only checks the upstream mechanism is
+present) and the oracle now follows legacy.
+
+**The native engine still gates on the wait alone**, so three goldens (native
+output) diverge from the oracle by exactly that ordering: *Dracula* (turnscript
+lines around its `show menu`s, and the turn count), *Dream Pieces* (the "type HELP
+or ABOUT" nag prints before the birthdate `get input` in native, after it on
+legacy/oracle) and *Lost in the Shadows of Time* ("What are you going to do?"
+around its menus). Porting the broader gate to `aslx-runtime.cc` and regenerating
+those three is the open follow-up; until then they are expected `check_golden.sh`
+failures.
+
+*The Legend of Robin Hood* is the case that proved the wait half — its win is
+unreachable under the racing order (see `overrides/README.md`). The deferral is
+gated to pre-v580 games — the same gate that decides whether the engine calls
+`FinishTurn` at all — so anything authored against modern QuestViva-era turn
+semantics keeps the stock path.
 
 ### `changed<attr>` fires only on a real value change
 
@@ -196,8 +221,10 @@ Pool)` in *L Too*, or the three mutually-`SwitchOn`ing game boards in *Eight
 characters, a number, and a happy ending*. Both wedge stock QuestViva (the
 depth-200 guard never trips — the recursion runs through queued `on ready`
 callbacks at depth 0 — so it just spins to the error breaker) but terminate on
-real Quest. `patch_questviva.py` section 7 restores the guard at the new dispatch
-site; the native engine carries the equivalent guard (`fire_changed_script` in
+real Quest. `patch_questviva.py` section 7 used to restore the guard at the new
+dispatch site; upstream has since restored it natively (`Element.SetFieldAsync`
+computes `changed` from `oldValue` before `Fields.Set`), so the section now only
+checks it is there. The native engine carries the equivalent guard (`fire_changed_script` in
 `aslx-runtime.cc`, gated on a `changed` flag computed the same way).
 
 Five goldens moved, all where the oracle had been *over*-firing and native was
@@ -377,14 +404,37 @@ what `1 —or— 2` (sent verbatim) triggered before the extractor fix.
    arrives as `IPlayer.RunScriptAsync("addText", [html])`, *not* through
    `PrintText`. The harness captures both channels (legacy path for ASL < v540).
 
+## Oracle vs goldens at the pinned revision
+
+`./check_golden.sh` against v6.0.0-beta.57 (2026-09-05): **80 passed, 6 failed**.
+The goldens are the *native* engine's transcripts, so every failure is a
+native/oracle disagreement with a known owner:
+
+- *Dracula*, *Dream Pieces*, *Lost in the Shadows of Time* — native's wait-only
+  `FinishTurn` gate vs legacy's any-suspension gate (above). Native is wrong.
+- *The Acreage (pub 6.29 revision)* — Quest Viva issue #2189 (rooms reached only
+  by scripted moves never get grid coordinates). Both engines error; only the
+  error *text* differs, because upstream's #2167 guard now reports "Cannot use
+  this value in a calculation because it has not been set" where the golden has
+  the older "The given key 'x' was not present" storm.
+- *Xanadu — In the Compound — Revenge* (one random loud-speaker quote) and
+  *Xanadu — The World's Only Hope* (two `> wait` echoes) — RNG-stream and
+  wait-echo placement differences carried over from the previous pin; not
+  investigated.
+
+Going from the previous floating build (7afad59, post-#2182, pre-#2188) to the pin
+cleared seven more: *The Gift of the Magi*, *Warriors*, *Escape From the Mechanical
+Bathhouse*, *Hawk the Hunter* and *Dream Pieces 2* were the #2188 string-concat
+regression (#2167's unset-attribute guard also fired on `+` with a null string),
+and *Iron John* / *The Tree* were stale goldens refreshed after Spatterlight #180.
+
 ## Determinism (RNG)
 
 The oracle replaces QuestViva's `Random` with `ErkyrathRandom` — a C# port of
 Spatterlight's `erkyrath_random()` (`terps/common_utils/randomness.c`): xoshiro128**
 seeded via SplitMix32, verified byte-identical to the C generator. `build.sh`
-injects it via `patch_questviva.py` (idempotent; touches only the three RNG lines
-in `ExpressionOwner.cs` plus a new `ErkyrathRandom.cs`), so the clone stays
-otherwise pristine.
+injects it via `patch_questviva.py` (idempotent; the RNG part touches only the
+three RNG lines in `ExpressionOwner.cs` plus a new `ErkyrathRandom.cs`).
 
 Seed defaults to **1234** (Spatterlight determinism convention); override with
 `QVH_SEED=<n>`. `GetRandomInt(min,max)` uses the inclusive-range mapping from
