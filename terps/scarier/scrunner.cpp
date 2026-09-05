@@ -2649,7 +2649,8 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
 static scr_bool
 run_all_commands (scr_gameref_t game, const scr_char *string)
 {
-  scr_bool status;
+  scr_bool status, ask_echo;
+  scr_int prior_npc;
 
   /*
    * Adrift command matching is just weird, perhaps broken.  In theory, a
@@ -2745,6 +2746,18 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   run_co_pending_input = string;
   run_co_task_claimed = FALSE;
   run_tasks_ran_this_command.assign (gs_task_count (game), FALSE);
+  /*
+   * The "(<npc>)" an "ask about" / "talk about" echoes comes out ahead of
+   * everything, task matching included; see uip_print_ask_echo().  The
+   * characters this line names are noted here too: run400 notes them inside
+   * characters(), which every line reaches (48B56E is below the task
+   * dispatch's exits), so a task-answered line names its characters just
+   * the same.  Both read the register before the noting, so remember what
+   * it held for the rewrite further down.
+   */
+  prior_npc = game->last_npc;
+  ask_echo = uip_print_ask_echo (game, string);
+  uip_note_named_npcs (game, string);
   status = run_game_commands_in_parser_context (game, string, FALSE, TRUE);
   if (!status)
     status = run_priority_commands (game, string);
@@ -2762,22 +2775,23 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
        * tasks at 48A481 (Proc_19_24_44CCE0), well before the give rewrite at
        * loc_48A98A and the Proc_19_0_480674 call at 48B56E that holds the
        * ask/talk rewrite, and a matched task jumps past both (GoTo 48B4E3).
-       * run370's generaltasks() is the same shape: tasks(0) at 43B97F, the
-       * "(to " rewrite at 43BED8.  So "Sommeril"'s literal task "ask about
-       * glass framed page" keeps answering even with the Gargoyle as the
-       * last-named character; rewriting first turned it into "ask gargoyle
-       * about ..." and lost the task to the library's generic reply.
+       * So "Sommeril"'s literal task "ask about glass framed page" keeps
+       * answering even with the Gargoyle as the last-named character;
+       * rewriting first turned it into "ask gargoyle about ..." and lost the
+       * task to the library's generic reply.  Its "(GARGOYLE)" is printed
+       * all the same, up at the top of this routine -- only the rewritten
+       * STRING is the library's; see uip_print_ask_echo().
        *
-       * The Runner also records the characters a line names inside
-       * Proc_19_0 (loc_47F3A2), i.e. only on lines that reach the library
-       * fallback; a task-answered "give orb to gargoyle" leaves the register
-       * alone.  Noting happens after the rewrite there too, so a rewrite
-       * always sees the register as the previous library line left it.
+       * The Runner records the characters a line names inside Proc_19_0
+       * (loc_47F3A2) as well, after both rewrites -- so a rewrite always
+       * sees the register as the previous command left it.  That noting is
+       * done up at the top of this routine now, because characters() runs
+       * on every line; see uip_note_named_npcs().
        */
-      scr_owned_string rewritten (uip_rewrite_references (game, string));
+      scr_owned_string rewritten (uip_rewrite_references (game, string,
+                                                         prior_npc, ask_echo));
       const scr_char *const library_string =
           rewritten ? rewritten.get () : string;
-      uip_note_named_npcs (game, library_string);
       run_dispatch_input = library_string;
       /*
        * Pre-4.0 the already-done refusal outranks the standard library; see

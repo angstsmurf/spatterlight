@@ -269,6 +269,8 @@ thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
 # tree's crowbar is never listed; the route gained one `look`.
 # Measured 2026-08-29: run400 replay, all 26 commands echoed, 25 of 26 turns
 # identical, the last differs only by the [Press any key to end] tail.
+# Measured 2026-09-05 in run400 under Wine (Adrift_74_renegade.txt, feed
+# cmdfile_w_renegade_brainwave.txt): clean, 26/26 echoed, tail only.
 renegade_brainwave_solution.txt|Renegade_Brainwave.taf|planet Earth has been averted!
 # ---------------------------------------------------------------------------
 # MEASURED 2026-08-25 on run400 (Adrift_1_goldilocks.txt), 252 commands, all
@@ -345,6 +347,10 @@ circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED
 colony_solution.txt|Colony.taf|You scored 200 out of the maximum 200!
 # Measured 2026-08-29: run400 replay, all 20 commands echoed, 19 of 20 turns
 # identical, the last differs only by the [Press any key to end] tail.
+# Measured 2026-09-05 in run400 under Wine (Adrift_72_cyber.txt, feed
+# cmdfile_w_cyber.txt): clean, 20/20 echoed, 150/150 both sides.  The one
+# apparent difference at the ending ("OH NO!!!!!!!!!!!!THE END") is the
+# <waitkey> transcript-join artifact.
 cyber_solution.txt|cyber.taf|THE END,or is it?
 # 2026-08-25: one line moves with the "The"-prefix fix (the Runner's tense
 # has no "the" branch -- see the xfiles block below).
@@ -900,6 +906,10 @@ thetest_win_solution.txt|thetest.taf|Well done!  You won!|SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29: run400 replay, 12 commands echoed and all 12 identical
 # before a real-time <wait> pause ate the next one; a cmdfile with #sleep lines
 # for those pauses is the follow-up.
+# Measured 2026-09-05 in run400 under Wine (Adrift_71_throughtime.txt, feed
+# cmdfile_w_through_time.txt): clean on game text.  The only difference is how
+# many feed lines each side's pauses swallowed -- the feed wants one more
+# filler line if it is re-driven.
 through_time_solution.txt|Through time.taf|This is as far as this adventure will take you at this point.
 to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town of Oran.
 # The assisted To-Hell row needs BOTH aids: the game's combat data is all-zero
@@ -953,6 +963,11 @@ wes_ghn_solution.txt|WesGHN.taf|You've Won the Game!
 # escape ending is byte-identical up to [Press any key to end], 98/125 both
 # sides.
 argh_solution.txt|ARGH_sGreatEscape.taf|You scored 98 out of the maximum 125!
+# Measured 2026-09-05 in run400 under Wine (Adrift_77_spam.txt, feed
+# cmdfile_w_spam.txt): 15/15 echoed, one divergence found and FIXED.  run400
+# prints the "(Nobody)" of `ask about ingredients` BEFORE the wildcard task's
+# text: the echo comes out ahead of task matching, so it is hoisted into
+# uip_print_ask_echo() and only the REWRITE stays on the library path.
 spam_solution.txt|SPAM.taf|Spam King|SCR_SKIP_WAITKEY=1
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_47_wreckage.txt,
 # feed cmdfile_w_wreckage.txt, 11 commands, PRE=0).  11/11 echoed, tail only;
@@ -1000,6 +1015,18 @@ adriftorama_solution.txt|adriftorama.taf|*****You Win!*****|SCR_SEED=18 SCR_SKIP
 # The seventeen games swept out of the Key & Compass ADRIFT index (2026-08-02);
 # see the per-game notes/*_walkthrough.md for where each .taf came from.
 wax_worx_solution.txt|wax_worx.taf|[PRESS ANY KEY TO DIE]
+# Measured 2026-09-05 in run400 under Wine (Adrift_78_sommeril.txt, feed
+# cmdfile_w_sommeril.txt, plus probes Adrift_79/Adrift_80): 79/79 echoed,
+# three findings.  Two are fixed: the "(GARGOYLE)" echo ordering (same fix as
+# SPAM, and here under a LITERAL task, which proves tasks match the typed
+# line while only the rewrite is the library's), and the last-named-character
+# register, which run400 updates on EVERY line (characters() at 48B56E is
+# below the dispatch's exits) -- so a task-answered `give orb to gargoyle`
+# does set it.  The third is the trailing-space rule: task 3 spells "get
+# placemat " and run400 answers `get placemat` from the library, so line 45
+# of the solution is now `take placemat` (5 points recovered).  Still OPEN:
+# `put fish in fountain`, where run400 falls to the library and we fire task
+# 18, whose only restriction (FISH held by the player) reads as satisfied.
 sommeril_solution.txt|sommeril.taf|www.angelfire.com/games5/sommeril
 # Measured 2026-08-29: run400 replay of 116 commands; the first 105 turns are
 # identical, then the long cutscene after "read incantation" (turn 106)
@@ -1151,6 +1178,8 @@ yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR
 # Several of these are deliberately unwinnable or end in the player's death;
 # the marker is the game's own final line in each case, not a victory string.
 # 1st One-Hour Game Competition
+# Measured 2026-09-05 in run400 under Wine (Adrift_76_frog.txt, feed
+# cmdfile_w_frog.txt): clean, 10/10 echoed, tail only.
 frog_solution.txt|frog.taf|So you hop away with your fairy princess, to live hoppily ever after.
 chicken_solution.txt|chicken.taf|That was the last time either of you threw a brick at something.
 endgame_solution.txt|endgame.taf|Really really.
@@ -1517,6 +1546,8 @@ beanstalk_solution.txt|Beanstalk.taf|*** You have won ***
 # --offset 0 for this row; its auto-detect picked scarier turn 6.
 black_sheeps_gold_solution.txt|BlackSheepsGold.taf|You've beaten Black Sheep's Gold!|SCR_SKIP_WAITKEY=1
 doomed_xycanthus_solution.txt|xycanthus.taf|Then the gem flickers like a guttering candle and goes
+# Measured 2026-09-05 in run400 under Wine (Adrift_70_dancingevenhim.txt, feed
+# cmdfile_w_dancing_even_him.txt): clean, 17/17 echoed, tail only.
 dancing_even_him_solution.txt|dancingevenhim.taf|it is an anagram of Vending Machine|SCR_SKIP_WAITKEY=1
 # The Demon Hunter (2003) -- WIN, 200/200, after two repairs to the delron list.
 #   1. `south` -> `s`.  TASK 1 (where=1 room=6, the Armory) has cmd=[s] with
@@ -3115,6 +3146,8 @@ fugitive_solution.txt|Fugitive.taf|This is the proof of innocence|SCR_SKIP_WAITK
 # way past the foyer.  SCR_SKIP_WAITKEY=1 for the dream intro and the ending.
 # 2026-08-29: the silent End-Game task on `w` no longer swallows the move into
 # Freedom; the walk now precedes the ending (silent-End-Game rule).
+# Measured 2026-09-05 in run400 under Wine (Adrift_60_mammoth.txt, feed
+# cmdfile_w_mammoth.txt): clean, 11/11 echoed, tail only.
 mammoth_solution.txt|MammothVacuum.taf|After many testing trials|SCR_SKIP_WAITKEY=1
 # I Was a Teenage Headless Experiment (Duncan Bowsman, EctoComp 2010, 4th).  Ten commands.  The
 # waitkey flag is mandatory for a reason that is easy to misread: the game
@@ -3124,6 +3157,8 @@ mammoth_solution.txt|MammothVacuum.taf|After many testing trials|SCR_SKIP_WAITKE
 # `put head on body` (TASK 57/58) restricts Formula X to *held*, not merely
 # present, so `get syringe` has to follow `kill gerchis`; the ClubFloyd log
 # gets stuck here for pages.
+# Measured 2026-09-05 in run400 under Wine (Adrift_59_headless.txt, feed
+# cmdfile_w_headless.txt): clean, 10/10 echoed, tail only.
 headless_solution.txt|headless.taf|as a teenage headless experiment|SCR_SKIP_WAITKEY=1
 # Cut the Red Wire! No, the Blue Wire! (David Whyld, InsideADRIFT #41,
 # 2012) -- a one-move joke
@@ -3136,6 +3171,11 @@ headless_solution.txt|headless.taf|as a teenage headless experiment|SCR_SKIP_WAI
 # back to the warehouse -- so the transcript keeps going past the win and the
 # appended `quit`/`y` are answered by the game, not by the library.  That is
 # in the golden on purpose; the win marker is the score line.
+# Measured 2026-09-05 in run400 under Wine (Adrift_52.txt, feed
+# cmdfile_w_redwire.txt): clean, 1/1.  The one `undo` turn wins the game and
+# matches to the last word; the Runner then offers "Press RETURN if you feel
+# like giving it another go." and restarts, which is where its transcript
+# keeps going and ours stops.
 redwire_solution.txt|Cut_the_Red_Wire.taf|a maximum possible of 1. Well done.|SCR_SKIP_WAITKEY=1
 # I am the Law (djchallis, The Odd Competition 2010, 2nd).  No score, so the ending is the
 # only measure.  The endgame is a small variable machine: `make verdict` sets
@@ -3150,6 +3190,8 @@ redwire_solution.txt|Cut_the_Red_Wire.taf|a maximum possible of 1. Well done.|SC
 # little state machine: TASK 5 needs variable 4 == 1 and sets it to 2, TASK 6
 # (`grant`) needs 2 and sets 3, and TASK 7 -- pattern `*`, i.e. literally
 # anything else -- resets it to 1, so a wrong guess drops you out silently.
+# Measured 2026-09-05 in run400 under Wine (Adrift_75_law.txt, feed
+# cmdfile_w_law.txt): clean, 26/26 echoed, tail only.
 law_solution.txt|I am the Law.taf|out for Enterprise Research.|SCR_SKIP_WAITKEY=1
 # In Memory (Jacqueline A. Lott, Indigo New Language Speed IF 2011).  Fifteen commands.  Not a puzzle game: you are
 # an unconscious dying person named Alex and the whole of it is TASK 178,
@@ -3161,6 +3203,10 @@ law_solution.txt|I am the Law.taf|out for Enterprise Research.|SCR_SKIP_WAITKEY=
 # seven noun/answer pairs, and the answers chosen here are simply the first
 # option of each set (happy / english / casual / smile / rock / fantasy /
 # mountains) -- any other legal answer wins too, with different prose.
+# Measured 2026-09-05 in run400 under Wine (Adrift_66_inmemory.txt, feed
+# cmdfile_w_inmemory.txt): clean, 15/15 echoed.  The two apparent differences
+# ("voices.Sam?") are the <waitkey> transcript-join artifact: the Runner's
+# live transcript continues on the same line after a keypress.
 inmemory_solution.txt|InMemory.taf|had ceased to beep.|SCR_SKIP_WAITKEY=1
 # Happy Valley (Jacqueline H. as "Lumin", 2008-07-02) -- downloaded/HappyValley_hints.txt IS a
 # command list, but it does not run: it is written against a later revision.
@@ -4618,12 +4664,17 @@ foggybanana_solution.txt|The Foggy Banana Adventure.taf|SPIDERS have been captur
 # drawer for a bible, return to the Vault) is entirely bypassable -- the
 # win task ("read bible" in the starting room) has zero restrictions, so it
 # fires with no setup at all. Authoring bug; 1 command.
+# Measured 2026-09-05 in run400 under Wine (Adrift_51.txt, feed
+# cmdfile_w_vault.txt): clean.  The single `read bible` turn, the opening of
+# the vault and the whole "Inside" room are identical.
 vault_solution.txt|The Vault.taf|And as if  the gods have answered you, the vault door begins to open.
 # Pilfers (3727 bytes, 4.00): two-room escape/logic-puzzle skin, 107/107 max.
 # Blue Room quiz answers are flavor-only; DOOR:2 not DOOR:1 (an unconditional
 # death trap). Red Room bonus content, then task 18's RestrMask is AND, not
 # OR -- both `throw rock at window` and `push bed to window` are required to
 # climb out. 16 commands.
+# Measured 2026-09-05 in run400 under Wine (Adrift_68_pilfers.txt, feed
+# cmdfile_w_pilfers.txt): clean, 16/16 echoed, 107/107 both sides.
 pilfers_solution.txt|Pilfers.taf|You scored 107 out of the maximum 107!|SCR_SKIP_WAITKEY=1
 # Witness: Demon vs. Vampire (3849 bytes, 4.00): two rooms, no score. The
 # game ships its own hint system giving away the solution: matches + oil +
@@ -4631,6 +4682,8 @@ pilfers_solution.txt|Pilfers.taf|You scored 107 out of the maximum 107!|SCR_SKIP
 # vampire with holy water, lure the demon east into the pentagram, light a
 # match. Order matters -- holy water before the pentagram is a death trap.
 # 13 commands.
+# Measured 2026-09-05 in run400 under Wine (Adrift_65_witnessdemon.txt, feed
+# cmdfile_w_witnessdemon.txt): clean, 13/13 echoed, tail only.
 witnessdemon_solution.txt|Witness_Demon_vs_Vampire.taf|You have saved your church from the horrors of the two monsters fighting over|SCR_SKIP_WAITKEY=1
 # The Stowaway (3785 bytes, 4.00): 10000/10000 max. Climb to the crow's
 # nest, dialogue a ghostly Strange Kid three times (catching him early is an
@@ -4655,6 +4708,9 @@ blast_solution.txt|blast.taf|You exit the building.  You have won!!!!
 # surviving the doom-timer to Ending Two, and equally a clean win since the
 # game has no score to maximize. Two leading blank lines page past the
 # intro's [MORE] prompts.
+# Measured 2026-09-05 in run400 under Wine (Adrift_53.txt, feed
+# cmdfile_w_hiker.txt): clean -- `kill the hitchhiker` reaches Ending Three of
+# Three identically.
 hiker_solution.txt|hiker.taf|You have found Ending Three of Three.
 # Just Another Day (2886 bytes, 4.00): Groundhog-Day time-loop game, no
 # score. A task21 AND gate requires four side-quest flags (pet the wolf,
@@ -4678,10 +4734,14 @@ wayout_solution.txt|Way Out.taf|You're alive! But you'll never be the same...
 flyhuman_solution.txt|The Fly Human.taf|Still... I guess this is the end.
 # zombiecow (5-room comedy, 100/130 max: two mutually-exclusive +30 endings
 # both count toward the declared 130 max but only one is ever reachable).
+# Measured 2026-09-05 in run400 under Wine (Adrift_58.txt, feed
+# cmdfile_w_zombiecow.txt): clean, 7/7 echoed, tail only.
 zombiecow_solution.txt|zombiecow.taf|You are a free cow now.|SCR_SKIP_WAITKEY=1
 # raccoon (6-room, no scoring): trip yard traps, splice dog's leash onto the
 # garbage-can lid cord to yank the guarding rock away during an automatic
 # chase sequence, then loop back and open the unguarded can.
+# Measured 2026-09-05 in run400 under Wine (Adrift_69_raccoon.txt, feed
+# cmdfile_w_raccoon.txt): clean, 16/16 echoed, tail only.
 raccoon_solution.txt|raccoon.taf|You dive headfirst into the can, easily shredding thin plastic bags with your|SCR_SKIP_WAITKEY=1
 # outline (3-room detective puzzle, 5/5): push bookcase to reveal a hidden
 # passage, lever a floorboard with a ruler, fill a mug via a pipe to wash
@@ -4710,14 +4770,25 @@ longbarrow_solution.txt|longbarrow.taf|That'll show 'em (and maybe even bag you 
 asteroidafter_solution.txt|asteroid_after.taf|All satellites correctly aligned.|SCR_SKIP_WAITKEY=1
 # Existence (IntroComp 2009, 3-room ghost vignette, no scoring): use the fan
 # to be sucked through and empowered, then use the pencil to win.
+# Measured 2026-09-05 in run400 under Wine (Adrift_56.txt, feed
+# cmdfile_w_existence.txt): clean, 4/4 identical.  Adrift_55.txt is the same
+# drive cut short at the closing [Press a key...], which is why it looked as
+# though the Runner never printed the IntroComp sign-off.
 existence_solution.txt|Existence.taf|Congratulations!  You've made it through the ADRIFT IntroComp 2009 version of|SCR_SKIP_WAITKEY=1
 # P2P (steeplechase reflex race, 30/30 max): jump the Pine Stand, talk to
 # George to spook a blocking rival horse at the Wretched Curve, jump the
 # Harlequin Pond log pile, then turn to swerve past Tom's horse.
+# Measured 2026-09-05 in run400 under Wine (Adrift_54.txt, feed
+# cmdfile_w_p2p.txt): clean, 4/4 echoed, maximum points both sides.
 p2p_solution.txt|P2P.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
 # Zack Smackfoot (3-room teaser demo, no scoring, single unconditional stop
 # ending): open the penknife, jam it in the cargo door's emergency slot to
 # release the jam, then exit the wreck with the briefcase for the better text.
+# Measured 2026-09-05 in run400 under Wine (Adrift_57.txt, feed
+# cmdfile_w_zacksmackfoot.txt): 5/5 echoed, one divergence still OPEN.  On
+# `put knife in slot` run400 prints the library refusal "Your penknife is too
+# big to fit inside the slot." and THEN the task's text; we print the task's
+# text alone.  Needs a live probe; see notes/WINE-TRANSCRIPTS-TODO.md.
 zacksmackfoot_solution.txt|zacksmackfoot.taf|THE END . . . . . for now!|SCR_SKIP_WAITKEY=1
 # Boiled Eggs (no scoring, single win ending): pump Louise's dialogue tree
 # for the spare-key location and Joe's box, unlock the front door, hide
@@ -4736,6 +4807,8 @@ shufflingroom_solution.txt|The_Shuffling_Room.taf|your powerful discovery.
 # them to Heaven one at a time via a "predator conflicts with both" swap.
 # Measured 2026-08-29: run400 replay, all 25 commands echoed, 24 of 25 turns
 # identical, the last differs only by the [Press any key to end] tail.
+# Measured 2026-09-05 in run400 under Wine (Adrift_73_angeldevil.txt, feed
+# cmdfile_w_angeldevilhuman.txt): clean, 25/25 echoed, tail only.
 angeldevilhuman_solution.txt|The Angel the Devil and the Human.taf|Have a peanut.
 # herrdoktor (3-room comedy puzzle, no scoring): bait a fishing pole with an
 # acorn to lure a squirrel, strap on a jetpack fueled by a de-linted
@@ -4762,10 +4835,16 @@ herrdoktor_solution.txt|herrdoktor.taf|Mein tiny jetpack ist ein success!
 # Rolling the Dough (drunk sneak-into-bed comedy, 50/50 max, sudden-death
 # heavy): shoes off before the creaky stairs, stash them in the bathroom,
 # throw the rolling pin out the bedroom window, then lie on the bed.
+# Measured 2026-09-05 in run400 under Wine (Adrift_64_rollingthedough.txt, feed
+# cmdfile_w_rollingthedough.txt): clean, 13/13 echoed, maximum points both
+# sides.
 rollingthedough_solution.txt|rollingthedough.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
 # MurderMansionntro (3-room promo teaser, no scoring, no win condition): work
 # through the intro menu, examine the stoop objects, then bang the knocker to
 # reach the demo's fixed closing-credit screen -- the fullest reachable content.
+# Measured 2026-09-05 in run400 under Wine (Adrift_67_murdermansion.txt, feed
+# cmdfile_w_murdermansionntro.txt): clean, every one of the Runner's 15 turns
+# identical.
 murdermansionntro_solution.txt|MurderMansionntro.taf|Thank you for trying my Intro to Murder Mansion|SCR_SKIP_WAITKEY=1
 # Whitterscap's Key (Q-key running-gag comedy, 2/2 max): give the button to
 # Charles, decode Brelgan's runes, pick the Zenes spell, steal the key from
@@ -4785,6 +4864,8 @@ whitterscap_solution.txt|whitterscap.taf|You win with the best score and stuff, 
 # change, refuse trucker Harold's ride, then let Chris reveal the back exit.
 # 2026-08-29: "You can't go in any direction!" now precedes the ending
 # (silent-End-Game rule).
+# Measured 2026-09-05 in run400 under Wine (Adrift_63_dangers.txt, feed
+# cmdfile_w_dangersdrivingnight.txt): clean, 11/11 echoed, tail only.
 dangersdrivingnight_solution.txt|The Dangers of Driving at Night.taf|no longer bothering to hide his long, curved fangs|SCR_SKIP_WAITKEY=1
 # All Hallows Eve (3-room Halloween vignette, 23/26 true max -- 3 pts belong
 # to a mutually exclusive alternate ending): brew a love potion from toad
@@ -4844,6 +4925,11 @@ sandy_solution.txt|Sandy.taf|You see no such thing.
 # Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
 # Re-blessed 2026-08-29: `look in toilet` is a nothing-found examine_other refusal, so hist
 # reports "turn 6" instead of "turn 7" (inferred from the rule, not measured on Sandy).
+# Measured 2026-09-05 in run400 under Wine (Adrift_61_sandy_meta.txt, feed
+# cmdfile_w_sandy_meta_number.txt): 10/10 echoed, two DELIBERATE differences.
+# `wait 2` answers "Time passes..." in run400 and `hist 2` answers "I don't
+# understand what you mean!" -- neither `wait <n>` nor `hist <n>` exists in
+# the Runner; they are SCARE's own meta-commands.
 sandy_meta_number_solution.txt|Sandy.taf|You see no such thing.
 # PTGOOD 8*10^23 (2006 minicomp, 4.00, 9 rooms, 2 tasks, no score). Open the
 # Front Desk window to unlock a room-exit shortcut, reach Slan's Bench,
@@ -4851,6 +4937,8 @@ sandy_meta_number_solution.txt|Sandy.taf|You see no such thing.
 # Measured 2026-08-29: run400 replay, all 6 commands echoed, 5 of 6 identical,
 # the last differs only by the [Press any key to end] tail.
 # Measured 2026-08-29 in run400 under Wine: 6/6 identical (and ptgood_again 7/7).
+# Measured 2026-09-05 in run400 under Wine (Adrift_62_ptgood.txt, feed
+# cmdfile_w_ptgood.txt): clean, 6/6 echoed, tail only.
 ptgood_solution.txt|competition2006__adrift__ptgood__PTGOOD.taf|You win! Yay!
 # Pick up the phone booth and Cry (1372 bytes, 4.00): one room, no score.
 # `x me` silently completes the hidden "cried yet" gate, then `take phone

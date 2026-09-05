@@ -27,7 +27,7 @@ put nose on clown
 n
 x floorboards
 hit floorboards with axe
-d
+down
 creepy crawl
 u
 give marie to dog

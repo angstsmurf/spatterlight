@@ -711,7 +711,7 @@ fine.
 Now you just have to work out how to get off this strange new planet, and
 back to Earth.
 
-> in
+> go in
 You carefully step into the ruins of the alien cottage.
 
 Alien Cottage

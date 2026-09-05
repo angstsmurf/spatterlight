@@ -160,16 +160,40 @@ def main():
               "  intro-wait=%ds  sleeps=%d" % (pre, waits[0], sum(waits[1:])))
         return
     pre = pauses[0]
+    # Index `order` by PROMPT, not by command.  Under SKIP a blank line in the
+    # solution is an empty command: Scarier prompts for it, so it advances the
+    # prompt counter -- but it is not sent to the Runner (the compare tool
+    # re-aligns the offset that leaves).  Indexing by the command's position
+    # instead silently lost every marker after the first blank line.
+    # Existence.taf is the case: its solution opens with one blank, so the
+    # <waitkey> in its ENDING landed in order[5] while the loop only reached
+    # order[4], no Return was emitted for it, and the Runner's transcript broke
+    # off mid-ending at "[Press a key when you're ready to continue.]"
+    # (2026-09-05).
+    numbered = []
+    prompt = 0
+    seen = 0
+    for line in raw:
+        if line.lstrip().startswith("#"):
+            continue
+        prompt += 1
+        if not line.strip():
+            continue
+        seen += 1
+        if seen <= popups:
+            continue
+        numbered.append((prompt, line))
     lines = []
-    for i, cmd in enumerate(cmds):
+    for at, cmd in numbered:
         lines.append(cmd)
         # everything the NEXT span prints, interleaved as it was printed: a
         # blank Return answers a pause, a #sleep waits out a real-time <wait>.
-        for kind, seconds in (order[i + 1] if i + 1 < len(order) else []):
+        for kind, seconds in (order[at] if at < len(order) else []):
             lines.append("" if kind == "key" else "#sleep %d" % (seconds + 1))
     with open(out, "w") as fh:
         fh.write("\n".join(lines) + "\n")
-    tail = pauses[len(cmds)] if len(pauses) > len(cmds) else 0
+    last = numbered[-1][0] if numbered else 0
+    tail = pauses[last] if last < len(pauses) else 0
     print("PRE=%d  commands=%d  mid-game pauses=%d  after-last=%d  intro-wait=%ds  sleeps=%d"
           % (pre, len(cmds), sum(pauses[1:len(cmds)]), tail, waits[0], sum(waits[1:])))
 

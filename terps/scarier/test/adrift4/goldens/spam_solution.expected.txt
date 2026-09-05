@@ -80,6 +80,7 @@ You are at a desk. There is a receptionist here, typing away at a computer.
 The Receptionist is here.
 
 > ask about ingredients
+(Nobody)
 The receptionist looks up at you. "Did you say...." "Say what," you say, "
 Ingredients?\”  She gasps, and hits a button. An alarm starts going off! Gas
 starts to fill the room, and the next thing you know, you are in a cell

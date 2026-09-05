@@ -700,6 +700,33 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `SRSintro.taf` | 4.00 | full run400 replay, `Adrift_48_srsintro.txt` (feed `cmdfile_w_srsintro.txt` -- 12 commands, PRE=0) | clean: **identical on every turn**, tail included -- the ending does not stop for a keypress |
 | `All Hallows Eve.taf` | 4.00 | full run400 replay, `Adrift_49_allhallowseve.txt` (feed `cmdfile_w_allhallowseve.txt` -- 16 commands, PRE=8, `LOAD_SLEEP=30`, staged as `allhallowseve.taf`) | clean: 16/16 echoed, tail only; 23/26 both sides.  measure.sh warned "2 pause-dismiss Return(s) sent -- PRE was wrong" but RULE 2 shows every command echoed and every turn aligned, so the extra Returns fell in the opening and cost nothing |
 | `whitterscap.taf` | 4.00 | full run400 replay, `Adrift_50_whitterscap.txt` (feed `cmdfile_w_whitterscap.txt` -- 21 commands, PRE=0) | clean: 21/21 echoed, tail only; 2/2 and "ending 2 of 2" both sides.  The game's TYPED silent tasks (`* s *`, `* south *`) never fire because the wired route spells the direction out |
+| `The Vault.taf` | 4.00 | full run400 replay, `Adrift_51.txt` (feed `cmdfile_w_vault.txt` -- 1 command, PRE=0) | clean: the single `read bible` turn, the opening of the vault and the whole "Inside" room are identical |
+| `Cut_the_Red_Wire.taf` | 4.00 | full run400 replay, `Adrift_52.txt` (feed `cmdfile_w_redwire.txt` -- 1 command, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: the one `undo` turn wins the game and matches to the last word, 1/1 both sides.  The Runner then prints "Press RETURN if you feel like giving it another go." and restarts into the intro, which is where its transcript keeps going and ours stops |
+| `hiker.taf` | 4.00 | full run400 replay, `Adrift_53.txt` (feed `cmdfile_w_hiker.txt` -- 1 command, PRE=0) | clean: `kill the hitchhiker` reaches Ending Three of Three identically |
+| `P2P.taf` | 4.00 | full run400 replay, `Adrift_54.txt` (feed `cmdfile_w_p2p.txt` -- 4 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 4/4 echoed, tail only; maximum points both sides |
+| `Existence.taf` | 4.00 | full run400 replay, `Adrift_56.txt` (feed `cmdfile_w_existence.txt` -- 4 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 4/4 identical.  `Adrift_55.txt` is the same drive cut short -- it stops at the closing `[Press a key when you're ready to continue.]`, which is why it looks as though the Runner never printed the IntroComp sign-off; the re-drive shows it does |
+| `zacksmackfoot.taf` | 4.00 | full run400 replay, `Adrift_57.txt` (feed `cmdfile_w_zacksmackfoot.txt` -- 6 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | 5/5 echoed; ONE divergence, **OPEN** -- on `put knife in slot` run400 prints the library refusal `Your penknife is too big to fit inside the slot.` and *then* the task's text, where Scarier prints the task's text alone.  See "Still open" below |
+| `zombiecow.taf` | 4.00 | full run400 replay, `Adrift_58.txt` (feed `cmdfile_w_zombiecow.txt` -- 7 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 7/7 echoed, tail only |
+| `headless.taf` | 4.00 | full run400 replay, `Adrift_59_headless.txt` (feed `cmdfile_w_headless.txt` -- 10 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 10/10 echoed, tail only |
+| `MammothVacuum.taf` | 4.00 | full run400 replay, `Adrift_60_mammoth.txt` (feed `cmdfile_w_mammoth.txt` -- 11 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 11/11 echoed, tail only |
+| `Sandy.taf` (`sandy_meta_number`) | 4.00 | full run400 replay, `Adrift_61_sandy_meta.txt` (feed `cmdfile_w_sandy_meta_number.txt` -- 10 commands, PRE=0) | 10/10 echoed; TWO divergences, both **deliberate** -- `wait 2` answers `Time passes...` in run400 and `hist 2` answers `I don't understand what you mean!`.  Neither `wait <n>` nor `hist <n>` exists in the Runner at all: they are SCARE's own meta-commands.  This row was wired to pin exactly that, and it is also what the 2026-08-30 referenced-number fix was about -- the meta-commands no longer *set* `%number%`, they simply are not the Runner's |
+| `competition2006__adrift__ptgood__PTGOOD.taf` | 4.00 | full run400 replay, `Adrift_62_ptgood.txt` (feed `cmdfile_w_ptgood.txt` -- 6 commands, PRE=0) | clean: 6/6 echoed, tail only |
+| `The Dangers of Driving at Night.taf` | 4.00 | full run400 replay, `Adrift_63_dangers.txt` (feed `cmdfile_w_dangersdrivingnight.txt` -- 11 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 11/11 echoed, tail only |
+| `rollingthedough.taf` | 4.00 | full run400 replay, `Adrift_64_rollingthedough.txt` (feed `cmdfile_w_rollingthedough.txt` -- 13 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 13/13 echoed, tail only; maximum points both sides |
+| `Witness_Demon_vs_Vampire.taf` | 4.00 | full run400 replay, `Adrift_65_witnessdemon.txt` (feed `cmdfile_w_witnessdemon.txt` -- 13 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 13/13 echoed, tail only |
+| `InMemory.taf` | 4.00 | full run400 replay, `Adrift_66_inmemory.txt` (feed `cmdfile_w_inmemory.txt` -- 15 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 15/15 echoed.  The two apparent differences are the `<waitkey>` transcript-join artifact -- see the dated section |
+| `MurderMansionntro.taf` | 4.00 | full run400 replay, `Adrift_67_murdermansion.txt` (feed `cmdfile_w_murdermansionntro.txt` -- 19 lines, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: every one of the Runner's 15 turns is identical |
+| `Pilfers.taf` | 4.00 | full run400 replay, `Adrift_68_pilfers.txt` (feed `cmdfile_w_pilfers.txt` -- 16 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 16/16 echoed, tail only; 107/107 both sides |
+| `raccoon.taf` | 4.00 | full run400 replay, `Adrift_69_raccoon.txt` (feed `cmdfile_w_raccoon.txt` -- 16 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 16/16 echoed, tail only |
+| `dancingevenhim.taf` | 4.00 | full run400 replay, `Adrift_70_dancingevenhim.txt` (feed `cmdfile_w_dancing_even_him.txt` -- 17 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 17/17 echoed, tail only |
+| `Through time.taf` | 4.00 | full run400 replay, `Adrift_71_throughtime.txt` (feed `cmdfile_w_through_time.txt` -- 17 lines, PRE=0) | clean on game text; the only difference is in how many feed lines each side's pauses swallowed -- see the dated section |
+| `cyber.taf` | 4.00 | full run400 replay, `Adrift_72_cyber.txt` (feed `cmdfile_w_cyber.txt` -- 20 commands, PRE=0) | clean: 20/20 echoed; 150/150 both sides.  The one apparent difference at the ending is the `<waitkey>` transcript-join artifact |
+| `The Angel the Devil and the Human.taf` | 4.00 | full run400 replay, `Adrift_73_angeldevil.txt` (feed `cmdfile_w_angeldevilhuman.txt` -- 28 lines, PRE=0) | clean: 25/25 echoed, tail only |
+| `Renegade_Brainwave.taf` | 4.00 | full run400 replay, `Adrift_74_renegade.txt` (feed `cmdfile_w_renegade_brainwave.txt` -- 26 commands, PRE=0) | clean: 26/26 echoed, tail only |
+| `I am the Law.taf` | 4.00 | full run400 replay, `Adrift_75_law.txt` (feed `cmdfile_w_law.txt` -- 26 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | clean: 26/26 echoed, tail only |
+| `frog.taf` | 4.00 | full run400 replay, `Adrift_76_frog.txt` (feed `cmdfile_w_frog.txt` -- 10 commands, PRE=0) | clean: 10/10 echoed, tail only |
+| `SPAM.taf` | 4.00 | full run400 replay, `Adrift_77_spam.txt` (feed `cmdfile_w_spam.txt` -- 15 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | 15/15 echoed; ONE divergence, now **FIXED** -- `ask about ingredients` prints its `(Nobody)` echo BEFORE the task's text, not after.  See the dated section: the echo is a direct display call, the task text is buffered |
+| `sommeril.taf` | 4.00 | full run400 replay, `Adrift_78_sommeril.txt` (feed `cmdfile_w_sommeril.txt` -- 75 lines, PRE=0), plus two targeted probes, `Adrift_79_somm_npcprobe.txt` and `Adrift_80_somm_placemat.txt` | 79/79 echoed.  Three findings, two of them now **FIXED** -- the `(GARGOYLE)` echo ordering (same fix as `SPAM`), the every-line last-named-character register, and the **trailing space in a task command pattern**, which run400 requires the input to have.  Two divergences remain **OPEN**: `put fish in fountain` and the timing of two random event lines.  See the dated section |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -774,13 +801,13 @@ The four best targets, by walks x length:
 | `Oh_Human.taf` | `ohhuman` | 9 | 6 | 3 | 5 | -- | -- **measured** -- see "Measured so far" |
 | `TheCatintheTree.taf` | `the_cat_in_the_tree` | 8 | 5 | 4 | 1 | yes | **done** 2026-08-24 -- see "Measured so far" |
 | `Monsters_r2.taf` | `monsters` | 38 | 3 | 3 | 4 | -- | -- **measured** -- see "Measured so far" |
-| `The Angel the Devil and the Human.taf` | `angeldevilhuman` | 25 | 3 | 3 | 3 | -- | -- |
-| `Through time.taf` | `through_time` | 18 | 3 | 10 | 3 | -- | [Through_time_walkthrough](Through_time_walkthrough.md) |
+| `The Angel the Devil and the Human.taf` | `angeldevilhuman` | 25 | 3 | 3 | 3 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `Through time.taf` | `through_time` | 18 | 3 | 10 | 3 | -- | [Through_time_walkthrough](Through_time_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Vardock Bates.taf` | `vardock_bates` | 103 | 2 | 4 | 4 | yes | [Vardock_Bates_walkthrough](Vardock_Bates_walkthrough.md) **measured** -- see "Measured so far" |
 | `Professor.taf` | `professor` | 86 | 2 | 9 | 4 | -- | **done** -- the worked example |
 | `cyber2.taf` | `cyber2` | 29 | 2 | 8 | 1 | -- | [cyber2_walkthrough](cyber2_walkthrough.md) **measured** -- see "Measured so far" |
 | `ADRIFTMaze.taf` | `adrift_maze` | 26 | 2 | 5 | 5 | -- | [ADRIFT_Maze_walkthrough](ADRIFT_Maze_walkthrough.md) **measured** -- see "Measured so far" |
-| `cyber.taf` | `cyber` | 20 | 2 | 3 | 1 | -- | [Cyber_walkthrough](Cyber_walkthrough.md) |
+| `cyber.taf` | `cyber` | 20 | 2 | 3 | 1 | -- | [Cyber_walkthrough](Cyber_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `DragonShrineR43.taf` | `dragonshrine` | 136 | 1 | 1 | 7 | yes | [The_Curse_of_DragonShrine_walkthrough](The_Curse_of_DragonShrine_walkthrough.md) |
 | `BlackSheepsGold.taf` | `black_sheeps_gold` | 99 | 1 | 11 | 1 | yes | -- **measured** -- see "Measured so far" |
 | `QuiATueDana.taf` | `qui_a_tue_dana` | 63 | 1 | 4 | 0 | yes | -- |
@@ -789,11 +816,11 @@ The four best targets, by walks x length:
 | `Invasion of the Second-Hand Shirts.taf` | `invasion_shirts` | 39 | 1 | 3 | 0 | -- | [Invasion_of_the_Second-Hand_Shirts_walkthrough](Invasion_of_the_Second-Hand_Shirts_walkthrough.md) |
 | `Imagination.taf` | `imagination` | 35 | 1 | 1 | 0 | -- | [Just_My_Imagination_walkthrough](Just_My_Imagination_walkthrough.md) |
 | `hyper_b_s.taf` | `hyper_b_s` | 34 | 1 | 2 | 1 | -- | [hyper_b_s_walkthrough](hyper_b_s_walkthrough.md) |
-| `Renegade_Brainwave.taf` | `renegade_brainwave` | 25 | 1 | 5 | 3 | -- | [Renegade_Brainwave_walkthrough](Renegade_Brainwave_walkthrough.md) |
+| `Renegade_Brainwave.taf` | `renegade_brainwave` | 25 | 1 | 5 | 3 | -- | [Renegade_Brainwave_walkthrough](Renegade_Brainwave_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `whitterscap.taf` | `whitterscap` | 21 | 1 | 3 | 4 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `All Hallows Eve.taf` | `allhallowseve` | 16 | 1 | 4 | 0 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `SRSintro.taf` | `srsintro` | 13 | 1 | 2 | 3 | -- | [SRSintro_walkthrough](SRSintro_walkthrough.md) **done** 2026-09-05 -- clean in run400 (identical on every turn), see "Measured so far" |
-| `competition2006__adrift__ptgood__PTGOOD.taf` | `ptgood` | 6 | 1 | 1 | 0 | -- | -- |
+| `competition2006__adrift__ptgood__PTGOOD.taf` | `ptgood` | 6 | 1 | 1 | 0 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `The Plague - Redux.taf` | `plague` | 266 | 0 | 10 | 20 | yes | [The_Plague_Redux_walkthrough](The_Plague_Redux_walkthrough.md) |
 | `vetknow.taf` | `vetknow` | 228 | 0 | 15 | 38 | yes | [Veteran_Knowledge_walkthrough](Veteran_Knowledge_walkthrough.md) |
 | `TheCellar.taf` | `cellar` | 176 | 0 | 1 | 1 | yes | [TheCellar_walkthrough](TheCellar_walkthrough.md) |
@@ -839,9 +866,9 @@ The four best targets, by walks x length:
 | `togetyou.taf` | `togetyou` | 34 | 0 | 1 | 8 | yes | [We_Are_Coming_To_Get_You_walkthrough](We_Are_Coming_To_Get_You_walkthrough.md) |
 | `Griswold.taf` | `griswold` | 33 | 0 | 0 | 1 | yes | [Griswold_walkthrough](Griswold_walkthrough.md) |
 | `endgame.taf` | `endgame` | 32 | 0 | 1 | 0 | -- | [The_Game_To_End_All_Games_walkthrough](The_Game_To_End_All_Games_walkthrough.md) |
-| `frog.taf` | `frog` | 27 | 0 | 3 | 0 | -- | [The_Green_Princess_walkthrough](The_Green_Princess_walkthrough.md) |
-| `SPAM.taf` | `spam` | 27 | 0 | 2 | 3 | yes | [SPAM_walkthrough](SPAM_walkthrough.md) |
-| `I am the Law.taf` | `law` | 26 | 0 | 5 | 3 | yes | [IAmTheLaw_walkthrough](IAmTheLaw_walkthrough.md) |
+| `frog.taf` | `frog` | 27 | 0 | 3 | 0 | -- | [The_Green_Princess_walkthrough](The_Green_Princess_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `SPAM.taf` | `spam` | 27 | 0 | 2 | 3 | yes | [SPAM_walkthrough](SPAM_walkthrough.md) **done** 2026-09-05 -- run400 divergence found and FIXED, see "Measured so far" |
+| `I am the Law.taf` | `law` | 26 | 0 | 5 | 3 | yes | [IAmTheLaw_walkthrough](IAmTheLaw_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `topaz.taf` | `topaz` | 23 | 0 | 0 | 4 | yes | [Topaz_walkthrough](Topaz_walkthrough.md) **done** 2026-09-05 -- run400 found the exact-empty `InRoomDesc` rule (FIXED), then clean; see "Measured so far" |
 | `Wreckage.taf` | `wreckage` | 23 | 0 | 0 | 2 | -- | [Wreckage_walkthrough](Wreckage_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `ARGH_sGreatEscape.taf` | `argh` | 22 | 0 | 0 | 1 | -- | [ARGHs_Great_Escape_walkthrough](ARGHs_Great_Escape_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
@@ -851,44 +878,44 @@ The four best targets, by walks x length:
 | `longbarrow.taf` | `longbarrow` | 19 | 0 | 0 | 2 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Vagabond.taf` | `vagabond` | 19 | 0 | 3 | 2 | yes | [Vagabond_walkthrough](Vagabond_walkthrough.md) **done** 2026-09-05 -- run400 differs on ONE turn, the known ALR-over-a-joined-paragraph residual; see "Measured so far" |
 | `agent_4F[1].A.taf` | `agent4f` | 18 | 0 | 0 | 5 | -- | [Agent_4-F_from_Mars_walkthrough](Agent_4-F_from_Mars_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `dancingevenhim.taf` | `dancing_even_him` | 17 | 0 | 0 | 1 | yes | -- |
+| `dancingevenhim.taf` | `dancing_even_him` | 17 | 0 | 0 | 1 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Undefined1.taf` | `undefined` | 17 | 0 | 0 | 0 | -- | [Undefined_walkthrough](Undefined_walkthrough.md) **done** 2026-09-05 -- clean in run400 (POPUP_ANSWERS name dialog), see "Measured so far" |
 | `outline.taf` | `outline` | 16 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `Pilfers.taf` | `pilfers` | 16 | 0 | 0 | 1 | yes | -- |
+| `Pilfers.taf` | `pilfers` | 16 | 0 | 0 | 1 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `QuestI.taf` | `questi` | 16 | 0 | 0 | 1 | -- | [QuestI_walkthrough](QuestI_walkthrough.md) **done** 2026-09-05 -- clean in run400 through its death ending, see "Measured so far" |
-| `raccoon.taf` | `raccoon` | 16 | 0 | 0 | 0 | yes | -- |
+| `raccoon.taf` | `raccoon` | 16 | 0 | 0 | 0 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `The_Stowaway.taf` | `stowaway` | 16 | 0 | 2 | 2 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `herrdoktor.taf` | `herrdoktor` | 15 | 0 | 0 | 1 | -- | **done** 2026-09-05 -- run400 found the third-person conjugation bug (FIXED), then clean; see "Measured so far" |
-| `InMemory.taf` | `inmemory` | 15 | 0 | 0 | 9 | yes | [InMemory_walkthrough](InMemory_walkthrough.md) |
-| `MurderMansionntro.taf` | `murdermansionntro` | 15 | 0 | 0 | 0 | yes | -- |
+| `InMemory.taf` | `inmemory` | 15 | 0 | 0 | 9 | yes | [InMemory_walkthrough](InMemory_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `MurderMansionntro.taf` | `murdermansionntro` | 15 | 0 | 0 | 0 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Sandy.taf` | `sandy` | 15 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `shreddem.taf` | `shred_em` | 15 | 0 | 0 | 1 | -- | [Shred_Em_walkthrough](Shred_Em_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `rollingthedough.taf` | `rollingthedough` | 13 | 0 | 1 | 3 | yes | -- |
-| `Witness_Demon_vs_Vampire.taf` | `witnessdemon` | 13 | 0 | 0 | 0 | yes | -- |
+| `rollingthedough.taf` | `rollingthedough` | 13 | 0 | 1 | 3 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `Witness_Demon_vs_Vampire.taf` | `witnessdemon` | 13 | 0 | 0 | 0 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `TheAmulet.taf` | `the_amulet` | 12 | 0 | 0 | 3 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `The Dangers of Driving at Night.taf` | `dangersdrivingnight` | 11 | 0 | 4 | 0 | yes | -- |
-| `MammothVacuum.taf` | `mammoth` | 11 | 0 | 1 | 0 | yes | [MammothVacuumButtonOfDeath_walkthrough](MammothVacuumButtonOfDeath_walkthrough.md) |
-| `headless.taf` | `headless` | 10 | 0 | 4 | 4 | yes | [TeenageHeadlessExperiment_walkthrough](TeenageHeadlessExperiment_walkthrough.md) |
-| `Sandy.taf` | `sandy_meta_number` | 10 | 0 | 0 | 0 | -- | -- |
+| `The Dangers of Driving at Night.taf` | `dangersdrivingnight` | 11 | 0 | 4 | 0 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `MammothVacuum.taf` | `mammoth` | 11 | 0 | 1 | 0 | yes | [MammothVacuumButtonOfDeath_walkthrough](MammothVacuumButtonOfDeath_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `headless.taf` | `headless` | 10 | 0 | 4 | 4 | yes | [TeenageHeadlessExperiment_walkthrough](TeenageHeadlessExperiment_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `Sandy.taf` | `sandy_meta_number` | 10 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- two DELIBERATE differences (SCARE meta-commands), see "Measured so far" |
 | `The_Shuffling_Room.taf` | `shufflingroom` | 10 | 0 | 0 | 8 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `smote.taf` | `smote` | 9 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `The Foggy Banana Adventure.taf` | `foggybanana` | 8 | 0 | 3 | 1 | -- | -- |
 | `The Fly Human.taf` | `flyhuman` | 7 | 0 | 0 | 3 | -- | -- |
 | `hungry.taf` | `hungry` | 7 | 0 | 2 | 1 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `zombiecow.taf` | `zombiecow` | 7 | 0 | 0 | 2 | yes | -- |
+| `zombiecow.taf` | `zombiecow` | 7 | 0 | 0 | 2 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `asteroid_after.taf` | `asteroidafter` | 6 | 0 | 11 | 3 | yes | -- **measured** -- see "Measured so far" |
 | `door.taf` | `door` | 5 | 0 | 0 | 1 | -- | [Door_walkthrough](Door_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `Existence.taf` | `existence` | 5 | 0 | 1 | 1 | yes | -- |
+| `Existence.taf` | `existence` | 5 | 0 | 1 | 1 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Newton.taf` | `newton` | 5 | 0 | 0 | 1 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Way Out.taf` | `wayout` | 5 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean in run400 (staged as `wayout.taf`), see "Measured so far" |
-| `zacksmackfoot.taf` | `zacksmackfoot` | 5 | 0 | 0 | 2 | yes | -- |
-| `P2P.taf` | `p2p` | 4 | 0 | 0 | 4 | yes | -- |
-| `hiker.taf` | `hiker` | 3 | 0 | 1 | 5 | -- | -- |
+| `zacksmackfoot.taf` | `zacksmackfoot` | 5 | 0 | 0 | 2 | yes | **measured** 2026-09-05 -- one OPEN run400 divergence, see "Measured so far" |
+| `P2P.taf` | `p2p` | 4 | 0 | 0 | 4 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `hiker.taf` | `hiker` | 3 | 0 | 1 | 5 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `rift.taf` | `rift` | 3 | 0 | 0 | 1 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Phoneb.taf` | `phoneb` | 2 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `ptbad.taf` | `ptbad` | 1 | 0 | 1 | 0 | -- | **done** 2026-09-05 -- clean in run400, and the probe game for the three library-message corrections; see "Measured so far" |
-| `Cut_the_Red_Wire.taf` | `redwire` | 1 | 0 | 1 | 0 | yes | [CutTheRedWire_walkthrough](CutTheRedWire_walkthrough.md) |
-| `The Vault.taf` | `vault` | 1 | 0 | 1 | 1 | -- | -- |
+| `Cut_the_Red_Wire.taf` | `redwire` | 1 | 0 | 1 | 0 | yes | [CutTheRedWire_walkthrough](CutTheRedWire_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `The Vault.taf` | `vault` | 1 | 0 | 1 | 1 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 
 ### 3.90 — 54 games (ALL MEASURED or DEFERRED as of 2026-09-05)
 
@@ -6262,3 +6289,176 @@ Next candidate: `The Vault.taf` (4.00; 1 command), then up that short tier by
 command count.  Still deferred: `To_Hell_And_Beyond.taf` (19 rollable events),
 `Pieces of eden.taf`, `The Fly Human.taf` and `The Foggy Banana
 Adventure.taf`.
+
+## The short 4.00 tier, and a space at the end of a task command -- 2026-09-05, run400
+
+Driven end to end, in ascending command count: `The Vault`(1),
+`Cut_the_Red_Wire`(1), `hiker`(1), `P2P`(4), `Existence`(4),
+`zacksmackfoot`(5), `zombiecow`(7), `sandy_meta_number`(10), `headless`(10),
+`MammothVacuum`(11), `The Dangers of Driving at Night`(11),
+`rollingthedough`(13), `Witness_Demon_vs_Vampire`(13), `InMemory`(15),
+`MurderMansionntro`(15), `Pilfers`(16), `raccoon`(16), `dancingevenhim`(17),
+`Through time`(17), `cyber`(20), `ptgood`(6), `frog`(10),
+`The Angel the Devil and the Human`(25), `Renegade_Brainwave`(26),
+`I am the Law`(26), `SPAM`(15) and `sommeril`(79) -- 27 rows, `Adrift_51`
+through `Adrift_80`.
+
+Twenty-three are clean on every comparable turn.  `sandy_meta_number` differs
+only in SCARE's own meta-commands.  `SPAM` and `sommeril` each turned up a
+real engine difference, and both are fixed; `sommeril` turned up two more,
+one fixed and one still open, and `zacksmackfoot` one that is open.
+
+### The ask/talk echo comes out before task matching
+
+`SPAM` turn 11 types `ask about ingredients`, which the game answers from a
+`* ingredients *` wildcard task.  run400 (`Adrift_77_spam.txt`) prints
+
+    (Nobody)
+    You ask about the ingredients...
+
+and Scarier printed the two the other way round.  The `(<npc>)` is not part
+of the library fallback: run400 emits it from inside the parser, ahead of the
+whole task dispatch, so a task-answered line still carries it -- and carries
+it first.
+
+`sommeril` turn 36 pins down the other half.  Its task's command is the
+LITERAL string `ask about glass framed page`, and run400
+(`Adrift_78_sommeril.txt`) answers it with the task's text under a
+`(GARGOYLE)` echo.  A pattern spelled `ask about glass framed page` cannot
+match a rewritten `ask gargoyle about glass framed page`, so the rewrite is
+the library's alone: **only the echo is hoisted; tasks go on matching the
+line the player typed.**  That is now `uip_print_ask_echo()` in
+`scparser.cpp`, called from `run_all_commands()` before the dispatch, with
+`uip_rewrite_references()` keeping the splice (and the give rewrite, which
+really does live below the dispatch at run400 `loc_48A98A`) on the library
+path.
+
+### Every line names its characters, not just library lines
+
+The August reading had run400 noting the line's characters inside `Proc_19_0`
+"i.e. only on lines that reach the library fallback".  Half right: the noting
+is in `Proc_19_0`, but `characters()` is reached at **48B56E**, and the task
+dispatch's early exits jump to 48B4E3 -- which is still above it.  Every line
+notes its characters.
+
+Probed live (`Adrift_79_somm_npcprobe.txt`): in the gargoyle's street, `ask
+about zzz` echoes `(Nobody)` even with GARGOYLE named in the room
+description -- the register is set by the *typed line*, not by what is in the
+room -- and then the task-answered `give silver orb to gargoyle` makes the
+next `ask about zzz` echo `(GARGOYLE)`.  `uip_note_named_npcs()` therefore
+moved up beside the echo, and `run_all_commands()` remembers the index the
+register held before it so the rewrite still sees the previous command's
+value.
+
+### A trailing space in a task command is a space the input must have
+
+`sommeril` turn 11 is `get placemat`.  Task 3's commands are `get placemat `
+-- with a trailing space -- plus `take placemat`, `get placemat page` and
+three more.  run400 answers `get placemat` with the library's "Take what?"
+(the placemat is unlisted, hence unreferenceable -- see the *seen* model) and
+answers `take placemat` with the task, worth 5 points
+(`Adrift_80_somm_placemat.txt`).  The space is real: the pattern's trailing
+whitespace has to be consumed, the player's line is trimmed, so a pattern
+that ends in one matches nothing at all.  A second, independent instance in
+the same game: task 8 spells `x pile of dust ` and run400 duly answers `x
+pile of dust` from the library.
+
+Ported as `NODE_HARD_WHITESPACE`.  `uip_cleanse_string()` grew a
+`trim_trailing` flag -- FALSE for the pattern, TRUE for the input -- and
+`uip_parse_list()` marks a final whitespace node **only when the whole
+pattern is nothing but WORD and WHITESPACE nodes**.  That restriction is not
+tidiness; the corpus is emphatic.  `Woof`'s `[chase/hunt] [bizet/Bizet/cat] `
+has to answer `chase cat`, and eight further rows (`the_cat_in_the_tree`,
+`skydiver`, `apokalupsis`, `wax_worx`, `vendetta`, `hub`, `magicshow`,
+`house`, `valley`) fail the moment a group- or wildcard-terminated pattern is
+made to count its space.  The first attempt -- "hard after any WORD" -- took
+the suite to 425/3; the plain-literal rule is 428/428.
+
+Two walkthroughs were genuinely re-derived by the new rule, both because the
+command they used was the one spelling with the space:
+
+  * `JGrim` line 129, `in` -> `go in`.  Task 91's commands include the bare
+    `in ` (trailing space) but also `go in`, `south` and `s`.
+  * `wax_worx` line 30, `d` -> `down`.  Task 88 carries `down` among its 16
+    commands; `d ` does not.
+
+`sommeril` line 45 became `take placemat`, and with it the game recovers the
+5 points and the `x pile of dust` turn now gets the library's "A RING is
+inside the PILE OF DUST." -- both re-blessed.
+
+### `<waitkey>` joins lines in a live transcript
+
+Three rows (`InMemory`, `cyber`, `sommeril`) showed differences of the shape
+
+    run400   ...the whole of it...Floating in the void, you...
+    scarier  ...the whole of it...
+             Floating in the void, you...
+
+The Runner's live transcript keeps writing on the same line after a keypress,
+so text either side of a `<waitkey>` arrives joined; under
+`SCR_SKIP_WAITKEY=1` Scarier ends the line.  A transcript artifact, not an
+engine difference -- worth naming once so the next reader does not chase it.
+`InMemory` "voices.Sam?" and `cyber`'s "OH NO!!!!!!!!!!!!THE END" are the
+same thing.
+
+### `Through time`: the feed, not the game
+
+The only difference is how many feed lines each side's pauses swallowed:
+identical game text, different turn numbering.  The row is clean; the feed
+needs one more filler line if it is ever re-driven.
+
+### `sandy_meta_number`: two deliberate differences
+
+`wait 2` answers "Time passes..." in run400 and `hist 2` answers "I don't
+understand what you mean!".  Neither `wait <n>` nor `hist <n>` exists in the
+Runner: they are SCARE's own meta-commands, and the row is the reason the
+referenced-number leak was hunted down in the first place.  Recorded as
+deliberate, not a bug.
+
+### Still open
+
+Two divergences are measured, reproducible and **not** explained; both need a
+live probe, and both are on hold because the Mac's screen lock (secure input,
+loginwindow) makes further Wine driving impossible.
+
+`zacksmackfoot` turn 3:
+
+    === turn 3  put knife in slot
+    run400   Your penknife is too big to fit inside the slot. A quick push and
+             the button...
+    scarier  A quick push and the button...
+
+The Runner prints the library's *refusal* and then the task's text.  Compare
+the ordering finding above: this is a third shape -- a library reply that
+survives a matched task -- and it is not the `put` precedence rule already
+ported.
+
+`sommeril` turn 15:
+
+    === turn 15  put fish in fountain
+    run400   You put the FISH inside the FOUNTAIN. ...
+    scarier  The fish leaps from your grip into the dark water...
+
+run400 falls to the library where Scarier fires task 18.  Task 18's only
+restriction is Type 0 / `Var1 = 20` / `Var2 = 1` -- dynamic object 17 (the
+FISH) held by the player -- with an empty FailMessage, so it fails silently.
+Offline decoding says the restriction should hold: task 17 (`take fish`, turn
+4) is a `task_move_object` case 4 with `var3 == 0`, i.e.
+`gs_object_player_get`, in both engines, and `i` at turn 5 lists the fish in
+both transcripts.  Why run400 does not run task 18 is unknown.  The same
+drive also shows the two random event lines (the hooded man, the mice) 3
+turns apart, which is RNG and not comparable.
+
+### The 4.00 table after this round
+
+74 of its 124 rows now carry a verdict, and the short tier is exhausted --
+every 4.00 candidate at 20 commands or fewer has now been driven.
+
+Next candidate: `endgame.taf` (4.00; 13 commands, staged as `endgame.taf`),
+then `griswold`(18, PRE=4, `Griswold.taf`), `togetyou`(34, PRE=1),
+`imagination`(13, `POPUP_ANSWERS="Jenny"`, `Imagination.taf`), then
+`confession`, `pyramid`, `invasion_shirts`, `demonhunter`, `marlin_affair`
+and up the table by command count.  Feeds for the first four already exist in
+`~/adrift-battle/runner/wine/`.  Still deferred: `To_Hell_And_Beyond.taf` (19
+rollable events), `Pieces of eden.taf`, `The Fly Human.taf`, `The Foggy
+Banana Adventure.taf` and `hyper_b_s.taf`.

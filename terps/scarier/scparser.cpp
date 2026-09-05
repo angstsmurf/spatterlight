@@ -285,7 +285,8 @@ uip_current_token_value (void)
 typedef enum
 {
   NODE_UNUSED = 0,
-  NODE_CHOICE, NODE_OPTIONAL, NODE_WILDCARD, NODE_WHITESPACE, NODE_JOIN,
+  NODE_CHOICE, NODE_OPTIONAL, NODE_WILDCARD, NODE_WHITESPACE,
+  NODE_HARD_WHITESPACE, NODE_JOIN,
   NODE_CHARACTER_REFERENCE, NODE_OBJECT_REFERENCE, NODE_TEXT_REFERENCE,
   NODE_NUMBER_REFERENCE, NODE_WORD, NODE_VARIABLE, NODE_LIST, NODE_EOS
 } scr_pttype_t;
@@ -718,6 +719,7 @@ static void
 uip_parse_list (scr_ptnoderef_t list)
 {
   scr_ptnoderef_t child, node;
+  scr_bool literal_only = TRUE;
 
   /* Add elements until a list terminator token is encountered. */
   child = list;
@@ -745,6 +747,16 @@ uip_parse_list (scr_ptnoderef_t list)
           /* Fall through. */
 
         case TOK_EOS:
+          /*
+           * A space between the end of a plain literal pattern and the end
+           * of the pattern is a space the input must have; see
+           * uip_match_whitespace().  Groups and wildcards make it moot, so
+           * only a pattern of nothing but words carries the mark.
+           */
+          if (literal_only && child != list
+              && child->type == NODE_WHITESPACE)
+            child->type = NODE_HARD_WHITESPACE;
+
           /* Place EOS at the appropriate link and return. */
           node = uip_new_node (NODE_EOS);
           if (child == list)
@@ -756,6 +768,8 @@ uip_parse_list (scr_ptnoderef_t list)
         default:
           /* Add the next node at the appropriate link. */
           node = uip_parse_element ();
+          if (node->type != NODE_WORD && node->type != NODE_WHITESPACE)
+            literal_only = FALSE;
           if (child == list)
             {
               child->left_child = node;
@@ -854,6 +868,9 @@ uip_debug_dump_node (scr_ptnoderef_t node, scr_int depth)
           break;
         case NODE_WHITESPACE:
           scr_trace (", whitespace");
+          break;
+        case NODE_HARD_WHITESPACE:
+          scr_trace (", hard whitespace");
           break;
         case NODE_JOIN:
           scr_trace (", join");
@@ -1066,7 +1083,7 @@ uip_match_variable (scr_ptnoderef_t node)
 }
 
 static scr_bool
-uip_match_whitespace (void)
+uip_match_whitespace (scr_bool hard)
 {
   /* If next character is space, read whitespace and return. */
   if (scr_isspace (uip_string[uip_posn]))
@@ -1076,6 +1093,27 @@ uip_match_whitespace (void)
         uip_posn++;
       return TRUE;
     }
+
+  /*
+   * A space the author left after the last WORD of a pattern is a space the
+   * input has to have, and the player's line is trimmed, so such a pattern
+   * matches nothing at all.  "Sommeril" has a task whose commands are "get
+   * placemat " (trailing space), "take placemat", "get placemat page" and
+   * three more; run400 answers `take placemat` with the task and `get
+   * placemat` with the library's "Take what?", the placemat being unlisted
+   * and so unreferenceable (measured 2026-09-05, Adrift_80.txt).  Without
+   * this the end-of-string rule below matched the stray space and the task
+   * claimed both.
+   *
+   * Only after a word: a trailing space after a [] or {} group is ignored,
+   * and the corpus is emphatic about it -- "Woof"'s "[chase/hunt]
+   * [bizet/Bizet/cat] " has to answer `chase cat`, and eight more rows
+   * (the_cat_in_the_tree, skydiver, apokalupsis, wax_worx, vendetta, hub,
+   * magicshow, house, valley) fail the same way if the space is made to
+   * count there.  uip_parse_list() marks the ones that do count.
+   */
+  if (hard)
+    return FALSE;
 
   /*
    * No match.  However, if we're trying to match space, this is a word
@@ -2137,7 +2175,10 @@ uip_match_node (scr_ptnoderef_t node)
       match = uip_match_variable (node);
       break;
     case NODE_WHITESPACE:
-      match = uip_match_whitespace ();
+      match = uip_match_whitespace (FALSE);
+      break;
+    case NODE_HARD_WHITESPACE:
+      match = uip_match_whitespace (TRUE);
       break;
     case NODE_JOIN:
       match = uip_match_join ();
@@ -2185,7 +2226,8 @@ uip_match_node (scr_ptnoderef_t node)
  * buffer passed in), or call uip_free_cleansed_string.
  */
 static scr_char *
-uip_cleanse_string (const scr_char *original, scr_char *buffer, scr_int length)
+uip_cleanse_string (const scr_char *original, scr_char *buffer, scr_int length,
+                    scr_bool trim_trailing = TRUE)
 {
   scr_int required;
   scr_char *string;
@@ -2198,8 +2240,25 @@ uip_cleanse_string (const scr_char *original, scr_char *buffer, scr_int length)
   string = (required < length) ? buffer : (decltype(+buffer)) scr_malloc (required);
   strncpy (string, original, required);
 
-  /* Trim, and return the string. */
-  scr_trim_string (string);
+  /*
+   * Trim, and return the string.  A PATTERN keeps its trailing space: the
+   * Runner treats one as a space the input must have, so a task command
+   * spelled "get placemat " matches nothing (see uip_match_whitespace()).
+   * Leading space is dropped from both -- uip_match_whitespace() ignores a
+   * leading one in the pattern anyway.
+   */
+  if (trim_trailing)
+    scr_trim_string (string);
+  else
+    {
+      scr_char *const start = string;
+      scr_int skip = 0;
+
+      while (scr_isspace (start[skip]))
+        skip++;
+      if (skip > 0)
+        memmove (start, start + skip, strlen (start + skip) + 1);
+    }
   return string;
 }
 
@@ -2282,7 +2341,7 @@ uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
   else
     {
       /* Start tokenizer. */
-      cleansed = uip_cleanse_string (pattern, buffer, sizeof (buffer));
+      cleansed = uip_cleanse_string (pattern, buffer, sizeof (buffer), FALSE);
       if (uip_trace)
         scr_trace ("UIParser: pattern \"%s\"\n", cleansed);
       uip_tokenize_start (cleansed);
@@ -2702,15 +2761,15 @@ uip_npc_named (scr_gameref_t game, scr_int npc, const std::string &lowered)
  * same) -- as the Runner prints it.
  */
 static const scr_char *
-uip_last_npc_name (scr_gameref_t game)
+uip_last_npc_name (scr_gameref_t game, scr_int npc)
 {
   scr_vartype_t vt_key[3];
 
-  if (game->last_npc == -1)
+  if (npc == -1)
     return "Nobody";
 
   vt_key[0].string = "NPCs";
-  vt_key[1].integer = game->last_npc;
+  vt_key[1].integer = npc;
   vt_key[2].string = "Name";
   return prop_get_string (gs_get_bundle (game), "S<-sis", vt_key);
 }
@@ -2722,8 +2781,17 @@ uip_last_npc_name (scr_gameref_t game)
  * run400 Proc_19_0_480674 loc_47F2C5..47F3A2 walks the NPCs in index order
  * and assigns Name for every one Proc_21_40_45E99C finds in the line, so
  * the highest-indexed match wins; it runs AFTER the routine's own "ask
- * about" rewrite, which is why uip_rewrite_references() sees the previous
- * command's value.
+ * about" rewrite, which is why the rewrite sees the previous command's
+ * value (run_all_commands() keeps that by remembering the index it had
+ * before this ran).
+ *
+ * The loop is unconditional, and characters() itself is reached at 48B56E
+ * on EVERY line -- the task dispatch's early exits jump to 48B4E3, which is
+ * still above it -- so a line a task answered names its characters too.
+ * Measured 2026-09-05 (Adrift_79.txt, sommeril.taf): "ask about zzz" in the
+ * gargoyle's street echoes "(Nobody)" even with GARGOYLE listed in the room
+ * description, then the task-answered "give silver orb to gargoyle" makes
+ * the next "ask about zzz" echo "(GARGOYLE)".
  */
 void
 uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
@@ -2763,12 +2831,66 @@ uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
  *
  * Returns a fresh string if anything was rewritten, else NULL.
  */
+/*
+ * uip_ask_echo_skip()
+ *
+ * The length of the "ask about " / "talk about " prefix this line carries,
+ * or zero if it carries neither.
+ */
+static std::string::size_type
+uip_ask_echo_skip (const std::string &lowered)
+{
+  if (lowered.compare (0, 10, "ask about ") == 0)
+    return 10;
+  if (lowered.compare (0, 11, "talk about ") == 0)
+    return 11;
+  return 0;
+}
+
+
+/*
+ * uip_print_ask_echo()
+ *
+ * Print the "(<npc>)" the ask/talk rewrite echoes, and say whether it did.
+ *
+ * The echo comes out BEFORE task matching.  run400 prints it from inside the
+ * parser proper, and a task that answers the line still prints after it --
+ * measured 2026-09-05 on two opposite task shapes: `SPAM.taf` turn 11, whose
+ * `* ingredients *` wildcard task answers `ask about ingredients` under a
+ * bare "(Nobody)" (Adrift_77.txt), and `sommeril.taf` turn 36, whose LITERAL
+ * task `ask about glass framed page` answers under "(GARGOYLE)"
+ * (Adrift_78.txt).  The literal case is the interesting one: it proves the
+ * echo is not suppressed by an earlier typed-command dispatch, and -- since
+ * a pattern spelled `ask about glass framed page` cannot match the rewritten
+ * `ask gargoyle about glass framed page` -- that the REWRITTEN string is the
+ * library's alone.  Tasks go on matching the line the player typed.
+ *
+ * So only the echo is hoisted here; uip_rewrite_references() still splices
+ * the name in, on the library path, where the give rewrite also stays (that
+ * one lives at run400 loc_48A98A, after the typed-command dispatch at
+ * 48A481, and a matched task does jump past it).
+ */
+scr_bool
+uip_print_ask_echo (scr_gameref_t game, const scr_char *string)
+{
+  const std::string lowered = uip_lowered (string);
+
+  if (uip_ask_echo_skip (lowered) == 0)
+    return FALSE;
+
+  pf_buffer_reference (gs_get_filter (game),
+                       uip_last_npc_name (game, game->last_npc));
+  return TRUE;
+}
+
+
 scr_char *
-uip_rewrite_references (scr_gameref_t game, const scr_char *string)
+uip_rewrite_references (scr_gameref_t game, const scr_char *string,
+                        scr_int prior_npc, scr_bool echo_printed)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_int version = prop_get_taf_version (bundle);
-  const scr_char *name = uip_last_npc_name (game);
+  const scr_char *name = uip_last_npc_name (game, prior_npc);
   const std::string lowered_name = uip_lowered (name);
   std::string command (string);
   std::string lowered = uip_lowered (string);
@@ -2795,14 +2917,12 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string)
         }
     }
 
-  std::string::size_type skip = 0;
-  if (lowered.compare (0, 10, "ask about ") == 0)
-    skip = 10;
-  else if (lowered.compare (0, 11, "talk about ") == 0)
-    skip = 11;
+  const std::string::size_type skip = uip_ask_echo_skip (lowered);
   if (skip > 0)
     {
-      pf_buffer_reference (gs_get_filter (game), name);
+      /* The echo is printed up front now; see uip_print_ask_echo(). */
+      if (!echo_printed)
+        pf_buffer_reference (gs_get_filter (game), name);
       command = "ask " + lowered_name + " about " + command.substr (skip);
       modified = TRUE;
     }

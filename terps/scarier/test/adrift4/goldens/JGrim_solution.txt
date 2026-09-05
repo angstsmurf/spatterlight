@@ -38,8 +38,9 @@
 # bowl, boots, gloves and sunglasses -- all five of TASK 67's worn
 # requirements -- stay on, and only the sandwich, the oxygen tank and the
 # foil-wrapped dustbin need picking back up.
-# Act 6, the alien planet.  "in" is the cottage and "e" the cave; in the
-# hangar "up" matches TASK 94 (back to the valley) before TASK 97, so the way
+# Act 6, the alien planet.  "go in" is the cottage and "e" the cave (TASK 91
+# spells the bare "in " with a trailing space, which run400 will not match); in
+# the hangar "up" matches TASK 94 (back to the valley) before TASK 97, so the way
 # aboard has to be spelled "enter space-ship".
 # Act 7, the bridge.  Sit, then press the three buttons -- the third blows up
 # Jupiter and turns the alien murderous (EVENT 11, one turn).  The mirrored
@@ -126,7 +127,7 @@ take dustbin
 i
 put dustbin in chute
 enter dustbin
-in
+go in
 x hand
 take disc
 out

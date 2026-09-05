@@ -104,7 +104,7 @@ You can only move east.
 > x placemat
 The placemat is actually one of the pages from your book.
 
-> get placemat
+> take placemat
 The placemat slides from under the plate easily.
 
 > e
@@ -422,6 +422,7 @@ SHOPKEEPER is here.
 You can only move out.
 
 > ask about glass framed page
+(GARGOYLE)
 "Ah, I knew this would be important to SOMEONE around here. It is,..ah..not
 for sale, hehe, but I may be willing to TRADE it for something."
 
@@ -503,9 +504,7 @@ probably an inch deep in places, is spread under the corpse.
 You can only move south.
 
 > x pile of dust
-The pile of dust  is probably composed of dead skin, bone marrow and rotted
-cloth, and is almost an inch deep in places. There is a RING inside the PILE
-OF DUST.
+A RING is inside the PILE OF DUST.
 
 > x PILE OF DUST
 A RING is inside the PILE OF DUST.

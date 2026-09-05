@@ -301,7 +301,7 @@ skull. You jerk the blade free and bring it down again. Chips fly. Another
 blow and a board splinters. It doesn't take long until there's a jagged hole
 in the floor, leading down.
 
-> d
+> down
 You slide into darknes even colder than the empty room.  It is like slipping
 through a skin of ice, into black water. You lie on your stomach.
 

@@ -513,7 +513,11 @@ extern void uip_set_containment (scr_bool enabled);
 extern scr_char *uip_replace_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_assign_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_note_definite_reference (void);
-extern scr_char *uip_rewrite_references (scr_gameref_t game, const scr_char *string);
+extern scr_char *uip_rewrite_references (scr_gameref_t game,
+                                         const scr_char *string,
+                                         scr_int prior_npc,
+                                         scr_bool echo_printed);
+extern scr_bool uip_print_ask_echo (scr_gameref_t game, const scr_char *string);
 extern void uip_note_named_npcs (scr_gameref_t game, const scr_char *string);
 extern void uip_forget_game (const void *game);
 extern void uip_debug_trace (scr_bool flag);
