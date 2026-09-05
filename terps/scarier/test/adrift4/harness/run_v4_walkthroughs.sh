@@ -3185,6 +3185,12 @@ report_solution.txt|report.taf|You scored 100 out of the maximum 100!
 # the first command on the lighthouse's 4th floor.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
+# Measured 2026-09-05 in run390 (Adrift_8.txt, all 71 commands of the feed):
+# 71/71 echoed, zero divergences -- the Runner transcript just stops at the
+# <waitkey> inside the ending text.  An earlier drive of the same feed WITH
+# two #save checkpoints looked like six event/NPC divergences; each echoed
+# `> save` turn had cost one extra event tick, so never compare across a
+# checkpoint.  The tide lines are PrefText1/PrefText2, not Start/Finish text.
 farfromhome_solution.txt|FarFromHome.taf|You scored 50 out of the maximum 50!|SCR_SKIP_WAITKEY=1
 # S Tar Dus T: no score anywhere in the file, so the goal is the richest of
 # the four `sw` endings.  All four are gated on T31 (the magic words) and

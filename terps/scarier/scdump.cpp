@@ -823,6 +823,66 @@ scr_dump_structure_once (scr_gameref_t game)
                    stx && stx[0] ? 'S' : '-',
                    ltx && ltx[0] ? 'L' : '-',
                    ftx && ftx[0] ? 'F' : '-');
+          if (stx && stx[0]) fprintf (stderr, "   S: %s\n", stx);
+          if (ltx && ltx[0]) fprintf (stderr, "   L: %s\n", ltx);
+          if (ftx && ftx[0]) fprintf (stderr, "   F: %s\n", ftx);
+          /* PrefTime1/2 -- "show this N turns before the event ends", compared
+           * against the POST-decrement clock.  These are the only event texts
+           * that are neither Start, Look nor Finish, and a measurement that
+           * does not know an event carries one reads its wording as an
+           * unexplained divergence (FarFromHome 2026-09-05 spent a session on
+           * "The tide washes in" before finding it here). */
+          {
+            scr_int pt;
+            const scr_char *px;
+            int which;
+
+            for (which = 1; which <= 2; which++)
+              {
+                char field[16];
+
+                pt = 0; px = NULL;
+                snprintf (field, sizeof field, "PrefTime%d", which);
+                ek[2].string = field;
+                if (prop_get (bundle, "I<-sis", &evt, ek)) pt = evt.integer;
+                snprintf (field, sizeof field, "PrefText%d", which);
+                ek[2].string = field;
+                if (prop_get (bundle, "S<-sis", &evt, ek)) px = evt.string;
+                if (px && px[0])
+                  fprintf (stderr, "   P%d(at %ld): %s\n", which, pt, px);
+              }
+          }
+          /* The event's own room list, which gates every one of those texts. */
+          {
+            scr_vartype_t wk[5];
+            scr_int type, rc, r;
+
+            wk[0].string = "Events";
+            wk[1].integer = e;
+            wk[2].string = "Where";
+            wk[3].string = "Type";
+            type = prop_get (bundle, "I<-siss", &evt, wk) ? evt.integer : -1;
+            fprintf (stderr, "   where type=%ld", type);
+            if (type == ROOMLIST_ONE_ROOM)
+              {
+                wk[3].string = "Room";
+                if (prop_get (bundle, "I<-siss", &evt, wk))
+                  fprintf (stderr, " room=%ld", evt.integer);
+              }
+            else if (type == ROOMLIST_SOME_ROOMS)
+              {
+                wk[3].string = "Rooms";
+                rc = prop_get_child_count (bundle, "I<-siss", wk);
+                fprintf (stderr, " rooms[%ld]:", rc);
+                for (r = 0; r < rc; r++)
+                  {
+                    wk[4].integer = r;
+                    if (prop_get (bundle, "B<-sissi", &evt, wk) && evt.boolean)
+                      fprintf (stderr, " %ld", r);
+                  }
+              }
+            fprintf (stderr, "\n");
+          }
         }
       }
   }

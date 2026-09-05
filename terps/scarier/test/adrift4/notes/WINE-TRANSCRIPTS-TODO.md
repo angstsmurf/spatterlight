@@ -550,6 +550,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `yak_shaving.taf` | 4.00 | 1-command run400 probe, `Adrift_4_yak_probe.txt` | `x me` answers `...after your journey.` -- 4.0 appends the full stop too |
 | `croft.taf` | 3.90 | full run390 replay, `Adrift_5_croft.txt` (feed `cmdfile_w_croft.txt` -- 101 commands, PRE=0; the table's 193 counted the golden's comment lines) | 101/101 echoed; zero engine divergences -- the only diff is the Runner's `[Press any key to end]` after the final score summary; 150/150 |
 | `DarkTower.taf` | 3.90 | full run390 replay, `Adrift_6_darktower.txt` (feed `cmdfile_w_darktower.txt` -- 121 commands, PRE=0) | 121/121 echoed; zero engine divergences -- only the Runner's `[Press any key to end]` after the 0/0 score summary; "restored power to the building." |
+| `FarFromHome.taf` | 3.90 | full run390 replay, `Adrift_8.txt` (feed `cmdfile_w_ffh_nock.txt` -- 71 commands, `POPUP_ANSWERS="Sam"`, PRE=0); the earlier checkpointed drive `Adrift_7.txt` is superseded | 71/71 echoed; zero engine divergences -- the only diff is the Runner transcript stopping at the `<waitkey>` inside the ending text.  The checkpointed drive's six "divergences" (puff at p30, pirate at turn 39, four tide lines) were two extra event ticks, one at each `#save`; 50/50 |
 | `superliam.taf` | 3.80 | full run380 replay, `Adven_1_superliam.rtf` (feed `cmdfile_w_superliam.txt` -- 86 commands, Save Transcript at the 85th) | 85/85 echoed; three divergent turns, two engine rules, both FIXED: the run380 **AdditionalMessage double-space suppression reaches through a ShowRoomDesc room description**, and **names are matched RAW** -- object Short `"necko wafers "` (trailing space) is unreferenceable, `take necko wafers` answers "Take what?".  After the fixes every echoed turn matches; both sides win 3250/3250.  Measured 2026-08-31 |
 | `cave.taf` | 3.80 | three full run380 replays, `Adven_1_cave.rtf` / `Adven_1_cave2.rtf` / `Adven_1_cave3.rtf` (final feed `cmdfile_w_cave3.txt` -- 216 commands, Save Transcript flow) | 215/215 echoed each time; FOUR engine findings, all FIXED: `z` is not 3.80 vocabulary (whole-line `= "z"` test only exists from run390_3 45FCB0 -- seven `z` -> `wait`); 3.8 substitutes "There is nothing of interest here." into empty room Longs at LOAD (447FEE), so it prints BEFORE LastDesc alts; a 3.8 task can never move the PLAYER to the game's FIRST room (tasks() 44D1D4 stores Var2 pre-decremented behind "If Var2 > 1" -- second `climb down` re-derived to `down`; 3.7's encoding sits one higher so run370 441E55 is correct, arlo the counterexample; is_v370 gate in sctafpar.cpp); and the single-named held-take refusal is "You've already got X!" pre-4.0 (43E03E -- 4.0's "already carrying" @462D25 gated on lib_is_version_400, four 3.9 goldens re-blessed -- thewoods' own ALR "I've already got the" -> "<br>I'm already carrying the" confirms the base from the game side).  Third drive replays CLEAN: every comparable turn identical, `score` at 900/1000 both sides; only the winning `read parchment` is uncapturable in the Save-at-end flow (Scarier finishes 1000/1000).  Still open from the pre-fix stuck-tail census (never reached by the corrected feed): 3.8 answers a matched-task-wrong-room with "You can't do that here." (21x) and names unseen/unheld objects in refusals ("You can't see X from here!" / "You don't have X!") where Scarier says "Take what?" etc -- a 3.8 referenceability/where-fail model not yet ported.  Measured 2026-08-31 |
 | `haunt.taf` | 3.80 | full run380 replay, `Adven_1_haunt.rtf` (feed `cmdfile_w_haunt.txt` -- 85 commands, `measure38.sh`: Save Transcript at the 84th, the winning `down` sent after it) | 84/84 echoed; 40 divergent turns, then 1, then 0 -- two pre-3.9 engine rules, both fixed: **no startup event tick before 3.90** (a StarterType 2 delay of N starts on turn N, uncompensated) and **no administrative turns before 3.90** (`score` ticks NPCs and events).  Seven 3.80 goldens re-blessed, wrecked re-pinned to seed 106; full suite 428/428 PASS. |
@@ -774,7 +775,7 @@ The four best targets, by walks x length:
 | `Archie's Birthday V 1-2.taf` | `archie` | 240 | 0 | 8 | 0 | yes | [Archies_Birthday_walkthrough](Archies_Birthday_walkthrough.md) -- **measured 2026-09-05**, two engine fixes (3.9 pronoun echo, examine-self full stop) |
 | `croft.taf` | `croft` | 193 | 0 | 4 | 1 | -- | -- -- **measured 2026-09-05**, clean |
 | `DarkTower.taf` | `darktower` | 174 | 0 | 0 | 0 | -- | [The_Dark_Tower_walkthrough](The_Dark_Tower_walkthrough.md) -- **measured 2026-09-05**, clean |
-| `FarFromHome.taf` | `farfromhome` | 167 | 0 | 0 | 0 | yes | [Far_From_Home_walkthrough](Far_From_Home_walkthrough.md) |
+| `FarFromHome.taf` | `farfromhome` | 167 | 0 | 0 | 0 | yes | [Far_From_Home_walkthrough](Far_From_Home_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); do not checkpoint a measurement drive |
 | `EnqueteAHautsRisques.taf` | `enquete_a_hauts_risques` | 145 | 0 | 13 | 7 | -- | -- |
 | `Captive.taf` | `captive` | 141 | 0 | 2 | 19 | -- | [Captive_Universe_walkthrough](Captive_Universe_walkthrough.md) |
 | `The Screen Savers On Planet X.taf` | `screen_savers` | 133 | 0 | 10 | 19 | -- | [The_Screen_Savers_On_Planet_X_walkthrough](The_Screen_Savers_On_Planet_X_walkthrough.md) |
@@ -4830,3 +4831,62 @@ sides -- the summary wording for MaxScore 0 already matches).  Golden
 unchanged.
 
 Next candidate: `FarFromHome.taf` (3.90).
+
+## FarFromHome.taf (Far From Home, 3.90) -- 2026-09-05, run390
+
+Clean in the end, but only the second drive proved it, and the first one
+is the lesson.
+
+**Result.**  `Adrift_8.txt` from `cmdfile_w_ffh_nock.txt` (71 commands,
+PromptName 1 -- `POPUP_ANSWERS="Sam"` -- PRE=0): 71/71 echoed, zero engine
+divergences.  The compare's only diff is turn 70, the winning `lost`,
+where the Runner's transcript stops at the `<waitkey>` in the middle of
+the ending text ("...siphoned into it through his magic...") and never
+reaches the score summary -- a transcript tail, not a difference.  The
+golden stays 50/50.
+
+**The first drive lied.**  `Adrift_7.txt` came from the same feed with
+two `#save` checkpoints in it (`#save ffh25` after feed command 26,
+`#save ffh50` after 51) and showed six divergences: the seagull's
+`A puff of wind...` one prompt early, the pirate one walk step ahead at
+turn 39, and four tide lines (`The tide washes in`, `The tide is coming
+in fast`) shifted by one at turns 52/55/56/62.  All six are the same
+artefact: the two `> save` turns really are echoed turns in that
+transcript (72 echoes = 70 commands + 2 saves), and the event clock is
+exactly two ticks ahead of ours -- one gained in the window
+p21..p30, one in p32..p56, i.e. one at each checkpoint.  A single global
+shift was impossible, which is what gave it away: event 2 (the tide) does
+not start until p31, so the p30 puff and the p56 tide-in cannot both be
+explained by one offset.
+
+Do not compare turn-for-turn across a `#save` in a run390 drive.  The
+un-checkpointed re-drive is the measurement; the checkpointed one is only
+good for getting back to a position.
+
+**Not settled: why.**  run390_3.bas calls `opensave()` at loc_45FD7C,
+*before* the per-turn `Call characters()` / `Call events()` at
+460675/46067A, and `If opensave() Then GoTo loc_4608DE` jumps past them
+into the score-panel/map epilogue -- on paper `save` skips the tick.  The
+driver sends no stray Return either (there is not one bare `> ` line in
+`Adrift_7.txt`).  And `largo-winch.taf` was driven with the same two
+`#save` directives and came out 322/323 identical with 42 NPCs and 22
+events in step -- but its transcript contains no `> save` turn at all,
+so the two results do not actually contradict each other: where the save
+was echoed as a turn, the clock moved.  Worth one probe some day
+(`x`, `save`, `x` in a game with a 2-turn event); not worth blocking on.
+
+**Diagnostic added.**  `scdump.cpp`'s `SCR_DUMP_TASKS` event dump now
+prints **PrefTime1/PrefText1 and PrefTime2/PrefText2** and the event's own
+`Where` room list.  Those two texts are the only event strings that are
+neither Start, Look nor Finish -- they fire N turns before the event ends,
+against the post-decrement clock -- and a measurement that does not know
+an event carries one reads its wording as an unexplained divergence.  This
+session spent most of itself on "The tide washes in" before finding it
+there.  The room list matters for the same reason: FarFromHome's tide
+event is `SOME_ROOMS` = {12 The lighthouse, 24 Western Beach}, and the
+player stands in room 13 (Behind the lighthouse) at p52/p58/p62, so the
+Runner's shifted tide lines are simply not shown there.  (The old block
+also read the room list at the wrong prop path and wrote past the end of
+a 3-element `scr_vartype_t ek[3]`; both fixed.)
+
+Next candidate: `EnqueteAHautsRisques.taf` (3.90).
