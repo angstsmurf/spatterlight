@@ -2345,6 +2345,62 @@ run_task_has_catchall_command (scr_gameref_t game, scr_int task)
 }
 
 /*
+ * run_task_command_is_literal()
+ *
+ * TRUE if every forward command pattern of the task is a plain literal -- no
+ * `*` wildcard anywhere in it.
+ *
+ * This is what separates the already-done refusal that beats the standard
+ * library from the one that does not.  chicago.taf's `listen` (task 18,
+ * cmd=[listen]) is a bare literal and run390 answers the second typing with
+ * "You have already done that." rather than the library's "You hear nothing
+ * out of the ordinary."  Every corpus row that a blanket pre-library pass
+ * broke is the other shape: circus task 77 is `ask* barb* *tape`, and in
+ * inverness, journ2, vampire, merry_murders and mr_smith the hijacked
+ * commands are movement and ordinary library verbs swallowed by wildcard
+ * patterns -- eight walkthroughs, several of them stopping winning.
+ *
+ * That is the same line RUNNER_TESTS_TODO already draws twice: a done
+ * wildcard task claiming every later command is the inverness soft-lock we
+ * deliberately do not import, while the narrow exact-command case is real and
+ * ported.  Ordering is simply the other half of that distinction -- the narrow
+ * case outranks the library, the broad one does not.
+ */
+static scr_bool
+run_task_command_is_literal (scr_gameref_t game, scr_int task)
+{
+  const std::vector<const scr_char *> &patterns =
+      run_task_command_patterns (game, task, TRUE);
+
+  for (const scr_char *pattern : patterns)
+    {
+      if (strchr (pattern, '*'))
+        return FALSE;
+    }
+  return !patterns.empty ();
+}
+
+/*
+ * run_input_is_movement()
+ *
+ * TRUE if the input is one of the compass words, whether or not the move would
+ * succeed.  Runs no handler and prints nothing.
+ */
+static scr_bool
+run_input_is_movement (scr_gameref_t game, const scr_char *string)
+{
+  const scr_ref_number_guard ref_number (game);
+  scr_commandsref_t command = run_move_commands (gs_get_bundle (game));
+
+  for (; command->command; command++)
+    {
+      if (uip_match (command->command, string, game))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+/*
  * run_task_refusal()
  *
  * The Runners have two answers of their own for a command that matches a task
@@ -2402,8 +2458,33 @@ run_task_has_catchall_command (scr_gameref_t game, scr_int task)
  */
 enum { REFUSAL_NONE = 0, REFUSAL_ROOM, REFUSAL_DONE };
 
+/*
+ * The two halves do NOT sit at the same point in the dispatch order, and
+ * chicago.taf (3.90) is the measurement that separates them.  Its task 18 is
+ * `listen`, confined to rooms 2 and 8 and not repeatable, and the walkthrough
+ * types `listen` twice inside those rooms.  The second time run390 answers
+ * "You have already done that." -- not the library's "You hear nothing out of
+ * the ordinary.", which run390 certainly has (` hear nothing out of the
+ * ordinary.` is a UTF-16 literal in all four Runners, so this is not a
+ * vocabulary difference).  The already-done message therefore beats the
+ * standard library, exactly as the P-code shape says: the done half writes its
+ * message during the task scan, while the room half only raises a flag that
+ * `OUT = "" And FLAG = 1` later discards if anything else printed.
+ *
+ * So the done half runs BEFORE run_standard_commands() and the room half after
+ * it, and `done_only` selects which.  The scan itself is identical in both
+ * passes, because the room half still has to be tested first WITHIN a pass --
+ * probe task "theta" is done AND out of its room and run390 answers the room
+ * refusal.  The pre-library pass simply declines to emit a room refusal and
+ * leaves it to the post-library one.
+ *
+ * Pre-4.0 only.  4.0 has no already-done message at all, only RepeatText, and
+ * where RepeatText sits relative to the library is unmeasured -- so 4.0 keeps
+ * the single post-library pass it has always had (2026-09-05).
+ */
 static scr_bool
-run_task_refusal (scr_gameref_t game, const scr_char *string)
+run_task_refusal (scr_gameref_t game, const scr_char *string,
+                  scr_bool done_only)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_filterref_t filter = gs_get_filter (game);
@@ -2472,6 +2553,50 @@ run_task_refusal (scr_gameref_t game, const scr_char *string)
     refusal = REFUSAL_ROOM;
   if (refusal == REFUSAL_NONE)
     return FALSE;
+
+  /*
+   * The pre-library pass answers the already-done half and nothing else; a
+   * room refusal found here waits for the post-library pass, where the
+   * Runner's own "did anything print?" guard applies to it.
+   */
+  if (done_only)
+    {
+      const scr_char *repeat;
+
+      /*
+       * Three conditions, and all three are the bounds of what chicago.taf
+       * actually measured rather than rules proved in their own right:
+       *
+       *   - the refusal has to be the DONE half (the room half is guarded by
+       *     the Runner's own "did anything print?" test and stays late);
+       *   - the task's command must be a plain literal, or a done wildcard
+       *     task starts claiming movement and library verbs wholesale -- the
+       *     inverness soft-lock we already refuse to import;
+       *   - it must be the DEFAULT " have already done that." message, not an
+       *     authored RepeatText.  Different Runner paths: the default is
+       *     substituted into the game's message slot at LOAD (run390 openadv,
+       *     loc_465A8B..loc_465AB9, when the loaded string is empty), while
+       *     RepeatText is a per-task string that 4.0 kept.  `lair-of-the-
+       *     cybercow.taf` task 80 (`complete robot`/`fix robot`, literal, with
+       *     a RepeatText) keeps answering with the library's "I don't think
+       *     you can fix the robot.", so RepeatText does not outrank it.
+       *
+       * Movement is exempt on top of that: `Vampire.taf` task 61 is the
+       * literal `east` in room 11, done and non-repeatable, and the Runner
+       * still moves the player east on the next `e`.  The original 2026-08-10
+       * probe note said the same thing from the other side -- movement is
+       * answered first.
+       */
+      if (refusal != REFUSAL_DONE)
+        return FALSE;
+
+      repeat = prop_get_indexed_string (bundle, "Tasks", refused_task,
+                                        "RepeatText");
+      if (!run_task_command_is_literal (game, refused_task)
+          || !scr_strempty (repeat)
+          || run_input_is_movement (game, string))
+        return FALSE;
+    }
 
   /*
    * An authored RepeatText replaces the already-done message, and is the one
@@ -2654,9 +2779,16 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
           rewritten ? rewritten.get () : string;
       uip_note_named_npcs (game, library_string);
       run_dispatch_input = library_string;
-      status = run_standard_commands (game, library_string);
+      /*
+       * Pre-4.0 the already-done refusal outranks the standard library; see
+       * the note on run_task_refusal().  The room half still runs after it.
+       */
+      if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
+        status = run_task_refusal (game, library_string, TRUE);
       if (!status)
-        status = run_task_refusal (game, library_string);
+        status = run_standard_commands (game, library_string);
+      if (!status)
+        status = run_task_refusal (game, library_string, FALSE);
     }
   run_dispatch_input = NULL;
   run_tasks_ran_this_command.clear ();

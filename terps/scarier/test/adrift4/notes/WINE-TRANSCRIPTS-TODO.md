@@ -633,6 +633,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `everything.taf` | 3.90 | full run390 replay, `Adrift_9_everything.txt` (feed `cmdfile_w_everything.txt` -- 38 commands, PRE=2) | 38/38 echoed; ONE divergence, a known deliberate deviation -- `read diary` matches TASK 14, which has no completion text at all, and run390 lets the silent match claim the command and prints the game's DontUnderstand string, so the diary's read text is unreachable in the real Runner while Scarier falls through to the library `read` and prints it (same family as the Hangover cabinet, not ported).  Both sides still set `%opinion%` to 5 and finish on ending5; the only other unequal turn is the `[Press any key to end]` tail |
 | `A_Morning_with_a_Headache.taf` | 3.90 | full run390 replay, `Adrift_9_morning.txt` (feed `cmdfile_w_morning.txt` -- 53 commands, PRE=0) | 53/53 echoed; zero engine divergences after one port -- 52 of the 53 turns identical and the 53rd, the winning `open door`, differs only by the Runner's `[Press any key to end]`.  The port is the **pre-4.0 reach rule**: the game starts the player on the Bed and run390 answers `take alarm clock` with "You can't reach the dresser from the Bed!", so the route now opens with `get up`.  Eight events, none rollable; three non-walking NPCs; 115/115 both sides |
 | `mhpquest.taf` | 3.90 | full run390 replay, `Adrift_11_mhpquest.txt` (feed `cmdfile_w_mhpquest.txt` -- 53 commands, PRE=0) | 53/53 echoed; zero engine divergences -- 52 of the 53 turns identical and the 53rd, the winning `feed clover to crystal`, differs only by the Runner's `[Press any key to end]`.  Driven as a deliberate test of the silent-task rule and **refined it**: TASK 10 has no `COMPLETE=` line, but its `ACT type=6` EndGame prints, so run390 never reaches the DontUnderstand fallback.  The trigger is an empty *turn*, not a missing completion text.  0 events, two non-walking NPCs; 140/140 both sides |
+| `chicago.taf` | 3.90 | full run390 replay, `Adrift_9_chicago.txt` (feed `cmdfile_w_chicago.txt` -- 42 commands, PRE=0) | 42/42 echoed; one real engine divergence, now fixed -- a second `listen` where run390 says "You have already done that." and Scarier gave the library's "You hear nothing out of the ordinary.".  Pre-4.0 the **already-done refusal is tried before the standard library**; the port narrows that pass to literal patterns, the game's default message and non-movement input.  After the fix 41 of the 42 turns are identical and the 42nd, the winning `confront daisy`, differs only by `[Press any key to end]`.  0 events, three non-walking NPCs; 75/75 both sides |
 | `superliam.taf` | 3.80 | full run380 replay, `Adven_1_superliam.rtf` (feed `cmdfile_w_superliam.txt` -- 86 commands, Save Transcript at the 85th) | 85/85 echoed; three divergent turns, two engine rules, both FIXED: the run380 **AdditionalMessage double-space suppression reaches through a ShowRoomDesc room description**, and **names are matched RAW** -- object Short `"necko wafers "` (trailing space) is unreferenceable, `take necko wafers` answers "Take what?".  After the fixes every echoed turn matches; both sides win 3250/3250.  Measured 2026-08-31 |
 | `cave.taf` | 3.80 | three full run380 replays, `Adven_1_cave.rtf` / `Adven_1_cave2.rtf` / `Adven_1_cave3.rtf` (final feed `cmdfile_w_cave3.txt` -- 216 commands, Save Transcript flow) | 215/215 echoed each time; FOUR engine findings, all FIXED: `z` is not 3.80 vocabulary (whole-line `= "z"` test only exists from run390_3 45FCB0 -- seven `z` -> `wait`); 3.8 substitutes "There is nothing of interest here." into empty room Longs at LOAD (447FEE), so it prints BEFORE LastDesc alts; a 3.8 task can never move the PLAYER to the game's FIRST room (tasks() 44D1D4 stores Var2 pre-decremented behind "If Var2 > 1" -- second `climb down` re-derived to `down`; 3.7's encoding sits one higher so run370 441E55 is correct, arlo the counterexample; is_v370 gate in sctafpar.cpp); and the single-named held-take refusal is "You've already got X!" pre-4.0 (43E03E -- 4.0's "already carrying" @462D25 gated on lib_is_version_400, four 3.9 goldens re-blessed -- thewoods' own ALR "I've already got the" -> "<br>I'm already carrying the" confirms the base from the game side).  Third drive replays CLEAN: every comparable turn identical, `score` at 900/1000 both sides; only the winning `read parchment` is uncapturable in the Save-at-end flow (Scarier finishes 1000/1000).  Still open from the pre-fix stuck-tail census (never reached by the corrected feed): 3.8 answers a matched-task-wrong-room with "You can't do that here." (21x) and names unseen/unheld objects in refusals ("You can't see X from here!" / "You don't have X!") where Scarier says "Take what?" etc -- a 3.8 referenceability/where-fail model not yet ported.  Measured 2026-08-31 |
 | `haunt.taf` | 3.80 | full run380 replay, `Adven_1_haunt.rtf` (feed `cmdfile_w_haunt.txt` -- 85 commands, `measure38.sh`: Save Transcript at the 84th, the winning `down` sent after it) | 84/84 echoed; 40 divergent turns, then 1, then 0 -- two pre-3.9 engine rules, both fixed: **no startup event tick before 3.90** (a StarterType 2 delay of N starts on turn N, uncompensated) and **no administrative turns before 3.90** (`score` ticks NPCs and events).  Seven 3.80 goldens re-blessed, wrecked re-pinned to seed 106; full suite 428/428 PASS. |
@@ -872,7 +873,7 @@ The four best targets, by walks x length:
 | `mhpquest.taf` | `mhpquest` | 68 | 0 | 2 | 0 | -- | [MHP_Quest_walkthrough](MHP_Quest_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); refined the silent-task rule; 53 real commands, not 68 |
 | `everything.taf` | `everything` | 68 | 0 | 0 | 0 | yes | [Everything_Emanuelle_walkthrough](Everything_Emanuelle_walkthrough.md) -- **measured 2026-09-05**, one deliberate deviation (`read diary`, silent task); 38 real commands, not 68 |
 | `ECOD2.taf` | `ecod2` | 61 | 0 | 0 | 0 | yes | [ECOD2_walkthrough](ECOD2_walkthrough.md) |
-| `chicago.taf` | `chicago` | 60 | 0 | 3 | 0 | -- | [Chicago_walkthrough](Chicago_walkthrough.md) |
+| `chicago.taf` | `chicago` | 60 | 0 | 3 | 0 | -- | [Chicago_walkthrough](Chicago_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) after porting the pre-4.0 done-refusal ordering; 42 real commands, not 60 |
 | `hangover.taf` | `the_hangover` | 56 | 0 | 16 | 0 | -- | -- |
 | `veteran.taf` | `veteran` | 47 | 0 | 3 | 0 | -- | [Veteran_Experience_walkthrough](Veteran_Experience_walkthrough.md) |
 | `lostsouls.taf` | `lost_souls` | 47 | 0 | 0 | 0 | -- | [Lost_Souls_walkthrough](Lost_Souls_walkthrough.md) |
@@ -5488,3 +5489,64 @@ needs a look of its own.
 Next candidate: `chicago.taf` (3.90; 42 real commands of the table's 60).  The
 cleanest unscreened row left -- no events at all, so nothing can roll, and its
 three NPCs are the only per-turn output to account for.
+
+## chicago.taf (Chicago, 3.90) -- 2026-09-05, run390
+
+`Adrift_9_chicago.txt` from `cmdfile_w_chicago.txt`, 42 commands, PRE=0.  All
+42 echoed.  The first drive had one unequal turn that was not the tail, and it
+turned out to be a real engine bug.  Both sides win 75/75.
+
+### The finding: `listen` twice
+
+```
+turn 39  listen
+  run390   You have already done that.
+  scarier  You hear nothing out of the ordinary.
+```
+
+TASK 5 is `listen`, unrepeatable, and prints "That's some great jazz." the
+first time.  The walkthrough types `listen` again forty turns later.  run390
+answers with the game's already-done message; Scarier fell through to the
+standard library's `listen` handler.
+
+Vocabulary was ruled out first, by the string census (an offline substitute for
+another drive): all four Runner exes carry both `'listen'` in their verb pool
+and `' hear nothing out of the ordinary.'` in their message pool.  So run390
+*has* the library response and deliberately does not use it here.
+
+### Why: pre-4.0 tries the done-refusal before the library
+
+The game's default already-done string is substituted into the message table at
+LOAD, in run390 `openadv` (`loc_465A8B..loc_465AB9`, slot `var_534(200)`) --
+a different path from a task's own `RepeatText`, which is why a corpus grep for
+RepeatText found nothing to explain it.  With the message in the table, the
+refusal is available to the dispatcher before `run_standard_commands` runs.
+
+`run_task_refusal()` is now split into two passes: a **DONE pass before** the
+standard library, gated `< TAF_VERSION_400`, and the existing ROOM pass after
+it.  4.0 is unchanged -- run400 keeps the library first.
+
+### The three narrowing conditions, each with its counterexample
+
+A blanket reorder cost nine rows (419 of 428).  Each condition below was added
+because a specific game demanded it, and each is load-bearing:
+
+* **Literal command patterns only.**  A pattern with a `*` matches far too
+  much; letting a spent wildcard task claim input re-creates the inverness
+  soft-lock and breaks circus TASK 77.  `run_task_command_is_literal()`.
+* **The game's default message only.**  A task with its own `RepeatText` does
+  *not* win the pre-library pass -- cybercow TASK 80 has one and run390 still
+  prints the library response.
+* **Movement is exempt.**  Vampire TASK 61 is a literal `east` and the Runner
+  still moves the player.  `run_input_is_movement()` checks the input against
+  the Runner's own movement command table.
+
+With all three the corpus is back to 428/428 (`goldens/chicago_solution.expected.txt`
+re-blessed to show "You have already done that.") and the Runner diff is
+tail-only.
+
+Next candidate: `CAH.taf` (3.90; 30 real commands, 0 events, 0 NPCs, 0 silent
+tasks).  The cheapest screened-safe row left -- with nothing that can roll and
+nobody to walk, any divergence it produces is purely a parser/library one.  Its
+`take it` probe is already in "Measured so far", but the walkthrough has never
+been replayed end to end.

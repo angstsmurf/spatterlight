@@ -3124,6 +3124,18 @@ lost_souls_solution.txt|lostsouls.taf|You don't want to go down there.
 # Chicago: 75, the sum of every ACT type=4 (the status line's "maximum" is 0,
 # the author never set one).  `confront daisy` is the only winning end; the
 # other two `confront` tasks are instant losses.
+# Measured against run390 under Wine 2026-09-05: 42/42 commands echoed, and
+# the one divergence was a second `listen` -- run390 answered "You have already
+# done that.", Scarier the library's "You hear nothing out of the ordinary."
+# Not vocabulary: all four Runner exes carry both `'listen'` and the library
+# string.  Pre-4.0 the already-done refusal is tried BEFORE the standard
+# library (run390 openadv substitutes the game's default done message into
+# var_534(200) at LOAD, loc_465A8B..loc_465AB9 -- a different path from a
+# task's own RepeatText).  The pre-library pass is narrowed to what the corpus
+# proves: literal command patterns only (a wildcard task re-soft-locks
+# inverness/circus TASK 77), default message only (cybercow TASK 80 has a
+# RepeatText and the library still wins), and movement exempt (Vampire TASK 61
+# is a literal `east` and the Runner still moves).  See run_task_refusal().
 chicago_solution.txt|chicago.taf|Daisy was found guilty of double homicide
 # Everything Emanuelle: no score; `out` wins from turn one, so the marker locks
 # the ENDING -- %opinion%==5, the last of the four written ALTs.  Reading the

@@ -247,7 +247,7 @@ Donny's been getting suspicious. Don't you dare step foot in the office again
 or we'll both have you arrested."
 
 > listen
-You hear nothing out of the ordinary.
+You have already done that.
 
 > score
 Your score is 65 out of a maximum of 0.  (0%)
