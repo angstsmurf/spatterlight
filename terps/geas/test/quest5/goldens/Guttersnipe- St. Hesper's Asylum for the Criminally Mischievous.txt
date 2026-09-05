@@ -890,12 +890,12 @@ He pulls a shiny brass pocket watch on a fob out of his vest and dangles it in f
 
 "Sleep.  Sleep. Sleep."
 
-You suddenly wake up, back in your original cell, oddly refreshed after your sound slumber.  Goshdarnit! Looks like your brain isn't as sharp as you thought!
-
 You are in a cell.
 You can see a chamber pot, a cot and a clipboard.
 You can go east.
 This cell is NOT built for comfort. The bare stone walls are cold to the touch, and the only furnishings are a threadbare cot in the corner and a cracked chamberpot.  The only light comes from a  widow set high into the black basalt wall.  The iron door opens to a hallway to the east.
+
+You suddenly wake up, back in your original cell, oddly refreshed after your sound slumber.  Goshdarnit! Looks like your brain isn't as sharp as you thought!
 > e
 
 > e

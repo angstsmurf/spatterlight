@@ -2110,6 +2110,12 @@ You feel rough hands grab your shoulders as your emerge from the cellar and the 
 
 Darn it! You forgot that you're still in Sister Ursula's body. And you can't leave her body and reveal your true form with the nuns watching!
 
+You are in a cloister.
+You can see an abomination, Sister Grizelda, Mother Superior, Sister Heloise, Sister Hesperus and Sister Magdelena.
+You can go south, east, north or west.
+
+The cloister is a large open courtyard, paved with large irregular cobblestones and nothing above but the slate gray sky. There is a library door to the north and other exits to the south, east, and west.
+
 You are roughly shoved forward and led into the cloister, where you sense all the other nuns have already congregated in a large circle. You meekly take your station in the ring -- or rather what appears to have been Sister Ursula's station.
 
 "Finally, we're all here!" calls out the Mother Superior's voice. "Now the ritual can begin!"
@@ -2121,12 +2127,6 @@ The nuns murmur their agreement. You feel a sudden electric tingle in the air --
 Uh oh. The Mother Superior must be talking about Mom! She doesn't realize that, in fact, Mom isn't hers to sacrifice anymore; she doesn't know that you've released her and, if you could just get away, you're going to go down to meet her at the docks and get out of here!
 
 Even without the aid of eyes, you sense... something forming in the center of the courtyard.
-
-You are in a cloister.
-You can see an abomination, Sister Grizelda, Mother Superior, Sister Heloise, Sister Hesperus and Sister Magdelena.
-You can go south, east, north or west.
-
-The cloister is a large open courtyard, paved with large irregular cobblestones and nothing above but the slate gray sky. There is a library door to the north and other exits to the south, east, and west.
 
 > x abomination
 

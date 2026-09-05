@@ -1100,6 +1100,9 @@ It triggers nothing in your memory.
 
 You sigh and walk inside.
 
+The home of Casey Adams
+There is nothing here that jogs your memory.
+
 Suddenly a wave of exaustion overcomes you. You wander through the rooms until you find a bed and collapse onto it. You are alseep in a matter of seconds. Blackness swirls around your head.
 
 A bright light.
@@ -1190,15 +1193,6 @@ You stand up, angry now. "You listen here," you find yourself saying, surprised 
 You examine them closer. They are Triumph Motorcycle Keys. You raise your eyebrows and slip them into your pocket.
 
 Motorcycle Keys have been added to your inventory!
-
-Thomas Crossing
-The gated community of Thomas Crossing is where most of the wealthy people in Pineview call home. Non-residents must use the call box and dial the number of the home they wish to visit.
-
-There is a large community message board in the center of the roadway.
-
-To the right is the road that leads to Pineview University. To the left is Fortune Grounds, a less-respected neighborhood.
-
-You can go back to leave the residential area of town.
 
 Thomas Crossing
 The gated community of Thomas Crossing is where most of the wealthy people in Pineview call home. Non-residents must use the call box and dial the number of the home they wish to visit.

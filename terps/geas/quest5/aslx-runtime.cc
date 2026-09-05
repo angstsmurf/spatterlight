@@ -1328,26 +1328,26 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         if (wait_pending_) {
             wait_pending_ = false;
             wait_cb_ = PendingCallback{};
-            end_pending_callback();
+            cancel_dormant_suspension();
         }
         wait_pending_ = true;
         wait_cb_.body = &s.body;
         wait_cb_.ctx = ctx;
         wait_cb_.ctx.returned = false;
-        begin_pending_callback();
+        begin_dormant_suspension();
         return;
     }
     case Stmt::Kind::GetInput: {
         if (command_override_) {  // release the slot first; see Wait above
             command_override_ = false;
             command_cb_ = PendingCallback{};
-            end_pending_callback();
+            cancel_dormant_suspension();
         }
         command_override_ = true;
         command_cb_.body = &s.body;
         command_cb_.ctx = ctx;
         command_cb_.ctx.returned = false;
-        begin_pending_callback();
+        begin_dormant_suspension();
         return;
     }
     case Stmt::Kind::Ask: {
@@ -1357,14 +1357,14 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         if (question_pending_) {  // release the slot first; see Wait above
             question_pending_ = false;
             question_cb_ = PendingCallback{};
-            end_pending_callback();
+            cancel_dormant_suspension();
         }
         question_pending_ = true;
         question_ = caption;
         question_cb_.body = &s.body;
         question_cb_.ctx = ctx;
         question_cb_.ctx.returned = false;
-        begin_pending_callback();
+        begin_dormant_suspension();
         return;
     }
     case Stmt::Kind::ShowMenu: {
@@ -1393,14 +1393,14 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
         if (menu_pending_) {  // release the slot first; see Wait above
             menu_pending_ = false;
             menu_cb_ = PendingCallback{};
-            end_pending_callback();
+            cancel_dormant_suspension();
         }
         menu_pending_ = true;
         menu_ = std::move(md);
         menu_cb_.body = &s.body;
         menu_cb_.ctx = ctx;
         menu_cb_.ctx.returned = false;
-        begin_pending_callback();
+        begin_dormant_suspension();
         return;
     }
     case Stmt::Kind::Call: {
@@ -1495,46 +1495,109 @@ void Interp::run_callback_boundary(const std::vector<Stmt> *body, Context &ctx) 
     script_boundary(ctx, [&] { exec_block(*body, ctx); });
 }
 
-void Interp::add_on_ready(const std::vector<Stmt> *body, const Context &ctx) {
-    // WorldModel.AddOnReady: queue only while a prompt callback is
-    // outstanding; otherwise run immediately. The count is held >0 during the
-    // run so nested `on ready` statements queue instead of recursing.
-    if (pending_callback_count_ > 0) {
-        on_ready_.emplace_back(body, ctx);
-        return;
-    }
+void Interp::begin_dormant_suspension() {
+    // WorldModel.BeginDormantSuspension: pending + awaiting.
     begin_pending_callback();
-    Context c = ctx;
-    try {
-        run_callback_boundary(body, c);
-    } catch (...) {
-        // AddOnReady's finally: the pending count is released (and the queue
-        // flushed) even when the callback throws past its boundary -- the
-        // depth-cap throw and TurnSuspended both do -- then the throw
-        // continues to the enclosing boundary.
-        end_pending_callback();
-        throw;
-    }
+    ++awaiting_resolution_count_;
+}
+
+void Interp::signal_callback_resolving() {
+    // WorldModel.SignalCallbackResolving: the suspension is no longer dormant;
+    // its callback is about to run (or was cancelled without running).
+    if (awaiting_resolution_count_ > 0) --awaiting_resolution_count_;
+}
+
+void Interp::cancel_dormant_suspension() {
+    // Drop a still-dormant prompt without running its callback (BeginPrompt
+    // TrySetCanceled / play-sound claiming the wait slot).
+    signal_callback_resolving();
     end_pending_callback();
 }
 
-void Interp::end_pending_callback() {
-    --pending_callback_count_;
-    // EndPendingCallbackAsync: flush the on-ready queue, FIFO, while nothing
-    // pends. A flushed callback may itself register a prompt (show menu inside
-    // on ready) -- the count check stops the flush; resolving that prompt
-    // continues it.
-    while (pending_callback_count_ == 0 && !on_ready_.empty() &&
-           !world_.finished) {
-        auto item = on_ready_.front();
-        on_ready_.erase(on_ready_.begin());
+void Interp::add_on_ready(const std::vector<Stmt> *body, const Context &ctx) {
+    // WorldModel.AddOnReady (#2177 / #2182): dormancy wins over nesting
+    // (Quest 5 AnyOutstanding). Nested trampoline is Viva-only (#1779).
+    if (awaiting_resolution_count_ > 0) {
+        deferred_on_ready_.emplace_back(body, ctx);
+        return;
+    }
+    if (is_running_on_ready_) {
+        nested_on_ready_.emplace_back(body, ctx);
+        return;
+    }
+    is_running_on_ready_ = true;
+    begin_pending_callback();
+    Context c = ctx;
+    try {
+        try {
+            run_callback_boundary(body, c);
+        } catch (...) {
+            // Still drain whatever nested items were queued before rethrowing
+            // (OnEnterRoom cascade must not strand arrival text).
+            try {
+                run_nested_on_ready_queue();
+            } catch (...) {
+            }
+            throw;
+        }
+        run_nested_on_ready_queue();
+    } catch (...) {
+        is_running_on_ready_ = false;
+        end_pending_callback();
+        throw;
+    }
+    is_running_on_ready_ = false;
+    end_pending_callback();
+}
+
+void Interp::run_nested_on_ready_queue() {
+    // WorldModel.RunNestedOnReadyQueueAsync.
+    while (!nested_on_ready_.empty() && !world_.finished) {
+        if (awaiting_resolution_count_ > 0) {
+            // A nested item opened a new dormant suspension -- hand the rest
+            // to the turn-boundary queue rather than running ahead or stranding.
+            deferred_on_ready_.insert(deferred_on_ready_.end(),
+                                      nested_on_ready_.begin(),
+                                      nested_on_ready_.end());
+            nested_on_ready_.clear();
+            return;
+        }
+        auto item = nested_on_ready_.front();
+        nested_on_ready_.erase(nested_on_ready_.begin());
         Context ctx = item.second;
         run_callback_boundary(item.first, ctx);
     }
 }
 
+void Interp::end_pending_callback() {
+    --pending_callback_count_;
+    // WorldModel.EndPendingCallbackAsync: flush deferred on-ready (and the
+    // FinishTurn deferral lives with the host-side finish_wait path in our
+    // port) only at the true turn boundary -- pending back at zero.
+    if (pending_callback_count_ == 0) flush_deferred_on_ready_queue();
+}
+
+void Interp::flush_deferred_on_ready_queue() {
+    // WorldModel.FlushDeferredOnReadyQueueAsync.
+    if (is_flushing_deferred_on_ready_) return;
+    is_flushing_deferred_on_ready_ = true;
+    try {
+        while (!deferred_on_ready_.empty() && awaiting_resolution_count_ == 0 &&
+               !world_.finished) {
+            auto item = deferred_on_ready_.front();
+            deferred_on_ready_.erase(deferred_on_ready_.begin());
+            Context ctx = item.second;
+            run_callback_boundary(item.first, ctx);
+        }
+    } catch (...) {
+        is_flushing_deferred_on_ready_ = false;
+        throw;
+    }
+    is_flushing_deferred_on_ready_ = false;
+}
+
 void Interp::drain_on_ready() {
-    // Manual flush for hosts/tests. Anything still queued while no prompt
+    // Manual flush for hosts/tests. Anything still deferred while no prompt
     // pends runs now; with a prompt outstanding this is a no-op -- resolving
     // the prompt flushes the queue itself.
     //
@@ -1544,10 +1607,18 @@ void Interp::drain_on_ready() {
     // blocks, so a MoveObject that runs after `finish` (Defeating The Monster
     // kills you with the same blow that wins the game) must NOT go on to
     // print the new room -- QuestViva abandons those callbacks.
-    if (pending_callback_count_ > 0 || world_.finished) return;
-    while (!on_ready_.empty()) {
-        auto item = on_ready_.front();
-        on_ready_.erase(on_ready_.begin());
+    if (pending_callback_count_ > 0 || world_.finished) {
+        if (world_.finished) {
+            deferred_on_ready_.clear();
+            nested_on_ready_.clear();
+        }
+        return;
+    }
+    flush_deferred_on_ready_queue();
+    // Nested items should not linger with nothing running; drain defensively.
+    while (!nested_on_ready_.empty() && !world_.finished) {
+        auto item = nested_on_ready_.front();
+        nested_on_ready_.erase(nested_on_ready_.begin());
         Context ctx = item.second;
         run_callback_boundary(item.first, ctx);
         if (script_errors_fatal_) break;
@@ -1663,6 +1734,9 @@ void Interp::send_command(const std::string &command) {
         PendingCallback cb = std::move(command_cb_);
         command_cb_ = PendingCallback{};
         cb.ctx.locals["result"] = vstr(command);
+        // SignalCallbackResolving before the body: AddOnReady during the
+        // callback runs now (classic Pop), not deferred behind later statements.
+        signal_callback_resolving();
         try {
             run_callback_boundary(cb.body, cb.ctx);
         } catch (TurnSuspended &ts) {
@@ -1749,6 +1823,7 @@ void Interp::set_menu_response(const std::string *key) {
     } else {
         cb.ctx.locals["result"] = vnull();  // cancelled
     }
+    signal_callback_resolving();
     try {
         run_callback_boundary(cb.body, cb.ctx);
     } catch (TurnSuspended &ts) {
@@ -1773,6 +1848,7 @@ void Interp::set_question_response(bool response) {
     PendingCallback cb = std::move(question_cb_);
     question_cb_ = PendingCallback{};
     cb.ctx.locals["result"] = vbool(response);
+    signal_callback_resolving();
     try {
         run_callback_boundary(cb.body, cb.ctx);
     } catch (TurnSuspended &ts) {
@@ -1818,6 +1894,9 @@ void Interp::finish_wait() {
     finish_turn_deferred_ = false;
     PendingCallback cb = std::move(wait_cb_);
     wait_cb_ = PendingCallback{};
+    // SignalCallbackResolving before the body (#2177): AddOnReady during
+    // chained MoveObjects runs each room's cascade before the next move.
+    signal_callback_resolving();
     try {
         run_callback_boundary(cb.body, cb.ctx);
     } catch (TurnSuspended &ts) {
@@ -3239,7 +3318,7 @@ bool Interp::exec_statement_command(const std::string &name,
             if (wait_pending_) {
                 wait_pending_ = false;
                 wait_cb_ = PendingCallback{};
-                end_pending_callback();
+                cancel_dormant_suspension();
                 // AwaitWaitAndRunCallbackAsync's finally still runs on a
                 // cancelled wait, so a FinishTurn it deferred is discharged
                 // here rather than stranded.
@@ -3404,7 +3483,7 @@ bool Interp::exec_statement_command(const std::string &name,
             if (wait_pending_) {
                 wait_pending_ = false;
                 wait_cb_ = PendingCallback{};
-                end_pending_callback();
+                cancel_dormant_suspension();
                 // AwaitWaitAndRunCallbackAsync's finally still runs on a
                 // cancelled wait, so a FinishTurn it deferred is discharged
                 // here rather than stranded.

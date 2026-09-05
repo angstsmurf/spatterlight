@@ -461,6 +461,64 @@ static void test_realgame_constructs() {
     CHECK(!in.pending_wait());
     CHECK(w.errors.empty());
 
+    // #2177 / #2182: `on ready` inside a wait callback body runs immediately
+    // (after SignalCallbackResolving), while a trailing `on ready` registered
+    // while the wait was still dormant waits until the whole body finishes.
+    CHECK_STR(run(in,
+        "wait {\n"
+        "  msg (\"a\")\n"
+        "  on ready {\n"
+        "    msg (\"b\")\n"
+        "  }\n"
+        "  msg (\"c\")\n"
+        "}\n"
+        "on ready {\n"
+        "  msg (\"trailing\")\n"
+        "}\n"
+        "msg (\"after\")\n"),
+              "after");
+    CHECK(in.pending_wait());
+    in.clear_output();
+    in.finish_wait();
+    {
+        std::string phase2 = in.output();
+        while (!phase2.empty() && phase2.back() == '\n') phase2.pop_back();
+        CHECK_STR(phase2, "a\nb\nc\ntrailing");
+    }
+    CHECK(!in.pending_wait());
+    CHECK(w.errors.empty());
+
+    // #2179: a deferred `on ready` queued while a wait is dormant (sibling of
+    // the wait, still inside an outer on ready) must see state the wait
+    // callback left behind -- flushed at the turn boundary, not mid-body.
+    // Use an object attribute (not a local): queued callbacks snapshot Context.
+    run(in, "create (\"marker\")");
+    CHECK_STR(run(in,
+        "marker.stale_flag = 0\n"
+        "on ready {\n"
+        "  wait {\n"
+        "    on ready {\n"
+        "      msg (\"inner cascade\")\n"
+        "    }\n"
+        "    marker.stale_flag = 1\n"
+        "    msg (\"callback end\")\n"
+        "  }\n"
+        "  on ready {\n"
+        "    msg (\"stale: flag=\" + marker.stale_flag)\n"
+        "  }\n"
+        "}\n"),
+              "");
+    CHECK(in.pending_wait());
+    in.clear_output();
+    in.finish_wait();
+    {
+        std::string phase2 = in.output();
+        while (!phase2.empty() && phase2.back() == '\n') phase2.pop_back();
+        CHECK_STR(phase2, "inner cascade\ncallback end\nstale: flag=1");
+    }
+    CHECK(!in.pending_wait());
+    CHECK(w.errors.empty());
+
     // -- Robustness: a statement whose EXPRESSION fails to parse compiles to
     // a stub that errors only when it RUNS (QuestViva's NCalc expressions
     // parse lazily at evaluation): reached, it reports and aborts the body;
