@@ -2689,6 +2689,8 @@ super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 # counterexample, task-moving the player to room 0 In Front of the Church.
 # Guarded by the is_v370 flag in sctafpar.cpp parse_fixup_v380_movement.
 alices_restaurant_solution.txt|arlo.taf|recording an album that will be that hit record
+# Measured 2026-09-05 in run370 (`Adven_1_castle.rtf`, 17 commands, the
+# winning `take treasure chest` last): 16/16 echoed, 0 differences.
 castle_quest_solution.txt|castle.taf|Thanks for playing!
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- the `downloaded/` wiring run resumes: the ten walkthroughs in
@@ -6209,23 +6211,45 @@ alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # partial). 188 commands, zero unmatched/refusal lines in the full
 # transcript.
 onnafa_solution.txt|ONNAFA.TAF|your score turned out at 76|SCR_SKIP_WAITKEY=1
-# Partial-progress checkpoint, NOT a win: reaches score 20/30 (confirmed
-# max=30 via exhaustive audit of every ACT type=4 scoring task in the
-# SCR_DUMP_TASKS structural dump). Collects starting items, solves the
-# piano/snuffbox/ring-of-salt puzzle, fetches the cellar axe/chisel and
-# carves all six room shutters (Hall, Lounge, Bathroom, Master Bedroom,
-# Spare Room, Dining), lights the kitchen fire and boils the kettle, and
-# triggers the "house is safe" safe-reveal event on the final shutter.
-# Ends standing in the Master Bedroom. The remaining 10 points (kettle
-# "reveal thy secret" potion +2, safe combo +1, glass door +1, clock
-# hands +3, escape +3) were not reached: the potion recipe needs real
-# garden thyme, but entering the Garden (task "# ENTER GARDEN") always
-# converts the held desiccated herb into real thyme via an immediate
-# redirect to task357, and leaving the Garden (task "# LEAVE GARDEN")
-# just as immediately redirects to task355 and ages it straight back to
-# herb again in the very same turn -- Dining, where the kettle is, is
-# two moves away, so no route was found to carry live thyme there.
-house_solution.txt|House.taf|The house plan swings open to reveal a safe.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
+# Full win, 30/30 (confirmed max via exhaustive audit of every ACT type=4
+# scoring task in the SCR_DUMP_TASKS structural dump). Collects the starting
+# items, solves the piano/snuffbox/ring-of-salt puzzle, fetches the cellar
+# axe/chisel and carves all six room shutters (Hall, Lounge, Bathroom, Master
+# Bedroom, Spare Room, Dining), lights the kitchen fire and boils the kettle,
+# and triggers the "house is safe" safe-reveal event on the final shutter --
+# that was the old 20/30 checkpoint. The remaining 10 points were blocked on
+# the thyme puzzle: the potion needs real garden thyme, but "# ENTER GARDEN"
+# execs task357 to ripen the held desiccated herb into thyme and "# LEAVE
+# GARDEN" execs task355 ("# AGE THYME") to age it straight back in the very
+# same turn, and the kettle is two rooms away in the Dining room.
+#
+# The way through is the *charmed* snuff box. LEAVE GARDEN actually execs two
+# aging tasks: task355 requires the thyme held and NOT inside container idx 2
+# (obj99, the silver snuffbox), and task356 ("# AGE THYME IN SNUFF BOX")
+# handles the in-box case but carries the extra restriction
+# `RESTR type=4 v1=43 v2=2 v3=0`, i.e. var 41 ("snuff box charmed") == 0.
+# Charming the box -- task340, `noinimod on sah emit` said in the cellar,
+# itself gated on var 40 ("snuff box in ring") == 1 -- makes BOTH aging tasks
+# fail their restrictions, so thyme carried inside the charmed box survives
+# the walk to the Dining room. The box must be emptied first: obj100 (the
+# snuff) fills its capacity, so `get snuff` / `drop snuff` in the cellar,
+# otherwise `put thyme in snuffbox` answers "can't fit inside ... at the
+# moment". Because ADRIFT's "held by the player" also answers TRUE one level
+# down into a carried container, `put thyme in kettle` then works with the
+# thyme still nested in the box.
+#
+# The last 10 points: `reveal thy secret` (+2) over the star-chalked boiling
+# kettle with thyme+web+honey in it, `use pipette on notebook` to charm the
+# notebook (+1, and `examine notebook` -- `read notebook` is refused by the
+# game with a nudge to examine instead), the safe combination
+# `5 7 9 6 2 7 3 1 9` (+1), `unlock glass door with gold key` (+1),
+# `wind clock hands back` (+3), and escaping south out of the Hallway (+3,
+# ACT type=6 v1=0 = EndGame win). `wind clock hands back` ends on a
+# `<waitkey>` and the follow-up task consumes the next command via ALTCMD[*],
+# so the `look` after it is load-bearing padding, not a stray probe.
+# 284 commands, and no refusal lines beyond the handful of scripted
+# door-poking probes already present in the exploration prefix.
+house_solution.txt|House.taf|YOU HAVE COMPLETED HOUSE.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
 # Full win (85/85, best ending, top rank "So good you must have cheated"):
 # David Whyld's studio-director comedy sim "TO THE MOON AND BACK" (in-game
 # title "Lights, Camera, Action!"). The film has to be shot on four sets in

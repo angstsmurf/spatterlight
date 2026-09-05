@@ -2536,15 +2536,17 @@ directly and only credited once it came back with real, re-confirmed work.
   branch) in 188 commands, `SCR_SKIP_WAITKEY=1`. This is the agent whose
   first "completed" report had zero actual work behind it (see above); the
   second, redirected attempt produced a real, independently-verified win.
-- **`House.taf`** — a **partial-progress checkpoint**: score 20 out of a
-  confirmed maximum of 30, 249 commands, `SCR_SEED=1 SCR_SKIP_WAITKEY=1`.
-  Blocked on a hard-wired synchronous action chain: entering the Garden
-  converts a held desiccated herb into real thyme, but *leaving* the Garden
-  immediately ages it back to herb in the same turn, and the room that
-  needs live thyme (the kettle, two moves away) can't be reached before
-  that reversion fires. May be a genuine design dead-end in the original
-  game, or there's an unfound trick (e.g. a container that shields the
-  object) — flagged here for a future revisit.
+- **`House.taf`** — was a **partial-progress checkpoint** (20/30, 249
+  commands), blocked on a hard-wired synchronous action chain: entering the
+  Garden converts a held desiccated herb into real thyme, but *leaving* the
+  Garden immediately ages it back to herb in the same turn, and the room
+  that needs live thyme (the kettle, two moves away) can't be reached
+  before that reversion fires. The guess recorded here — "there's an
+  unfound trick (e.g. a container that shields the object)" — was right:
+  the container is the **charmed** snuff box.
+  **RESOLVED — see "`House.taf` — 30/30, the thyme reversion is beaten by
+  the charmed snuff box" at the end of this file: 284 commands, 30/30,
+  marker `YOU HAVE COMPLETED HOUSE.`, `SCR_SEED=1 SCR_SKIP_WAITKEY=1`.**
 - **`Lights_Camera_Action.taf`** — wired as a **partial-progress
   checkpoint**: 73 commands, ending with Witherspoon Nash departing for the
   film set after receiving the trident, and **extended to a full win, 261
@@ -5508,3 +5510,86 @@ Suite after this: **428 rows, 428 PASS, exit 0.**
 
 Still open after this: `magicshow.taf` (49, AIF terms — row committed, solution
 and golden gitignored) and `House.taf` (20/30).
+
+
+## `House.taf` — 30/30, the thyme reversion is beaten by the charmed snuff box
+
+*(2026-09-05.)* The 20/30 checkpoint is closed. `goldens/house_solution.txt`
+is now 284 commands and reaches the true ending:
+
+> CONGRATULATIONS.  YOU HAVE COMPLETED HOUSE. […]
+> You scored 30 out of the maximum 30!
+> That is 100% of the game!
+> Well done - you scored maximum points!
+
+Win marker: `YOU HAVE COMPLETED HOUSE.`, env `SCR_SEED=1 SCR_SKIP_WAITKEY=1`.
+
+### The blocker, restated precisely
+
+The potion needs *real* thyme in the kettle, and the kettle lives in the
+Dining room, two moves from the Garden. `# ENTER GARDEN` (task 354's
+counterpart) execs task 357 to ripen the held desiccated herb into thyme;
+`# LEAVE GARDEN` execs the aging chain in the very same turn, so the thyme
+never survives the walk. The earlier note assumed this was a synchronous
+chain with no escape and flagged it as a possible design dead-end.
+
+### The trick
+
+`# LEAVE GARDEN` execs **two** aging tasks, not one:
+
+- **task 355 `# AGE THYME`** — requires the thyme held *and* **not** inside
+  container idx 2 (obj99, the silver snuffbox).
+- **task 356 `# AGE THYME IN SNUFF BOX`** — the in-box case, and it carries
+  one extra restriction: `RESTR type=4 v1=43 v2=2 v3=0`, i.e. var 41
+  ("snuff box charmed") **== 0**.
+
+So charming the box makes *both* aging tasks fail their restrictions and the
+thyme survives. The box is charmed by task 340 — `noinimod on sah emit` said
+in the cellar — which is itself gated on var 40 ("snuff box in ring") == 1,
+i.e. the ring-of-salt ritual the 20/30 checkpoint already performed. The
+checkpoint had all the machinery; it just never carried the thyme *in* the
+charmed box.
+
+Two mechanical details make it work:
+
+- **Empty the box first.** obj100 (the snuff) fills the box's capacity, so
+  `put thyme in snuffbox` otherwise answers *"The thyme can't fit inside the
+  silver snuffbox at the moment."* `get snuff` / `drop snuff` in the cellar.
+  And `open snuffbox` — a closed box refuses the `put` outright.
+- **`put thyme in kettle` works with the thyme still nested in the box.**
+  ADRIFT's "held by the player" object test answers TRUE one level down into
+  a carried container (see the object-location restriction decoding in
+  `screstrs.cpp`), so the thyme never has to leave the box.
+
+### The remaining 10 points
+
+| step | command | pts |
+| --- | --- | --- |
+| brew the potion | `reveal thy secret` over the star-chalked boiling kettle holding thyme + web + honey | +2 |
+| charm the notebook | `use pipette on kettle`, `use pipette on notebook` | +1 |
+| open the safe | `open safe` → `5 7 9 6 2 7 3 1 9` | +1 |
+| open the clock | `unlock glass door with gold key` | +1 |
+| turn back time | `wind clock hands back` | +3 |
+| escape | `s` from the Hallway (`ACT type=6 v1=0` = EndGame win) | +3 |
+
+Score progression through the tail: 20 (safe revealed) → 22 (potion) → 27
+(notebook + safe + glass door + clock hands) → 30 (escape).
+
+Two wording traps worth recording:
+
+- `read notebook` is refused by the game itself — *"You can get all the
+  information you need by just examining the note book."* Use
+  `examine notebook`.
+- `wind clock hands back` ends on a `<waitkey>` and the follow-up task
+  consumes the next command via `ALTCMD[*]`, so the `look` immediately after
+  it is load-bearing padding, not a stray probe. Removing it eats the next
+  real command.
+
+The pre-existing `%drunk% west.` artifact (an unresolved variable
+substitution in the movement messages) is present in the old 20/30 golden
+too — it is the game's own bug, not a regression from this work.
+
+Suite after this: **428 rows, 428 PASS, exit 0.**
+
+Still open after this: `magicshow.taf` (49 points, AIF terms — row committed,
+solution and golden gitignored). That is the last open item in this file.

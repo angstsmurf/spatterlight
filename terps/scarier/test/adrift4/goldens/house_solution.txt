@@ -247,3 +247,38 @@ get pipette
 carve shutter with chisel
 score
 i
+e
+d
+w
+d
+get snuffbox
+open snuffbox
+get snuff
+drop snuff
+u
+n
+n
+put thyme in snuffbox
+s
+s
+put thyme in kettle
+put web in kettle
+put honey in kettle
+reveal thy secret
+use pipette on kettle
+use pipette on notebook
+examine notebook
+score
+e
+u
+w
+open safe
+5 7 9 6 2 7 3 1 9
+get gold key
+unlock glass door with gold key
+wind clock hands back
+look
+score
+e
+d
+s

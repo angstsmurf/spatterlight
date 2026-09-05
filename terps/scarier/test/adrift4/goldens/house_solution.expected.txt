@@ -1656,5 +1656,358 @@ a book entitled Defensor, a wood chisel, an old newspaper, a matchbox, some
 cobweb, a salt shaker, some desiccated herb, a notebook, a jar of honey, a
 piece of chalk and a pipette.
 
-> quit
-Do you really want to quit? [Y/N]
+> e
+%drunk% east.
+
+Landing
+There are three exits.  North leads to a bathroom.  East leads to a small
+bedroom and the master bedroom is to the west.  There is a square hole in the
+ceiling way above your head.
+
+> d
+%drunk% down.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a shuttered window.
+
+You can also see an old fashioned telephone.
+
+> w
+%drunk% west.
+
+Dining room
+This room is dominated by a huge fireplace.  A large shuttered window is set
+in the south wall and to the north is the kitchen door.  High up on one wall
+you notice a dent in the plaster.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a wooden trapdoor and an axe.
+
+> d
+You climb down into the cellar.
+
+Cellar
+A vast space that must extend far beyond the boundaries of the house.  The
+floor is smooth concrete.  On the floor is a ring of salt.
+
+A large workbench rests against one wall.
+
+Leaning against the workbench is what looks like some sort of modified rifle.
+ The car sits and seems to dare you to ask how it got there.
+
+You can also see a wooden stool, a wooden trapdoor, a silver snuffbox, a
+petrol can and a tuning fork.
+
+> get snuffbox
+You take the silver snuffbox.
+
+> open snuffbox
+You slip a fingernail under the lid of the snuffbox and prise it open.   A
+small quantity of snuff is inside the silver snuffbox.
+
+> get snuff
+You take the small quantity of snuff from the silver snuffbox.
+
+> drop snuff
+You drop the small quantity of snuff.
+
+> u
+%drunk% up.
+
+Dining room
+This room is dominated by a huge fireplace.  A large shuttered window is set
+in the south wall and to the north is the kitchen door.  High up on one wall
+you notice a dent in the plaster.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a wooden trapdoor and an axe.
+
+> n
+%drunk% north.
+
+Kitchen
+A small narrow room with the same bare floor as the rest of the house.  A gas
+pipe sticks out of one wall and a single cupboard is fixed to another.  Below
+the cupboard is the kitchen sink.  The back door is to the north.    A shaft
+of dazzling sunlight reaches in from the garden.
+
+> n
+Leaving the house is like stepping into a different time.
+
+Garden
+A large beach tree is the centre piece of this garden and various herbs and
+flowers send out luscious scents on the breeze.  A sundial stands in one
+corner.
+
+You can also see some thyme.
+
+You see Cathy grow younger and become a girl.
+
+> put thyme in snuffbox
+You put the thyme inside the silver snuffbox.
+
+> s
+You step back into the darkness.
+
+You watch fascinated as Cathy swiftly grows and becomes a woman.
+
+> s
+%drunk% south.
+
+Dining room
+This room is dominated by a huge fireplace.  A large shuttered window is set
+in the south wall and to the north is the kitchen door.  High up on one wall
+you notice a dent in the plaster.
+
+Someone has removed an old thredbare rug from its place on the floor, rolled
+it up and placed it to one side.
+
+You can also see a wooden trapdoor and an axe.
+
+> put thyme in kettle
+You drop the thyme into the boiling water.
+
+> put web in kettle
+You drop the cobweb into the boiling water.
+
+> put honey in kettle
+You pour some of the sticky honey into the boiling water.
+
+> reveal thy secret
+You take a deep breath and say,
+reveal thy secret
+reveal thy secret
+reveal thy secret
+The kettle boils over.  There is flash and a cloud of multi coloured smoke.
+The mixture in the kettle turns a bright turquoise colour.
+
+> use pipette on kettle
+You use the pipette to suck up some of the turquoise liquid.
+
+> use pipette on notebook
+You allow a drop of the turquoise liquid to fall  onto the note book.  Some
+of the letters begin to glow bright yellow.
+
+> examine notebook
+There are many complex reasons why I choose to inhabit this house.  I think
+in retrospect a tight corner may be turned into a fortress of defence.  In
+the interest of a grandfather to keep his granddaughter from harm there is
+very little pity.  As even a man of ninety years of age is expected to wound
+himself if it free his family from the foul visions that entertain him in the
+dead of night.  There is no reason.  There is no point to existence.  There
+is only infinite pain.  I must follow the example of the Arch Mage
+Daemoniacus.  He hid himself within the pages of a book so as to prolong his
+life and be there for the awakening of Kra' Annoth.  If I am to protect my
+granddaughter I must damn myself.
+
+> score
+Your score is 22 out of a maximum of 30.  (73%)
+
+> e
+%drunk% east.
+
+Hallway
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a shuttered window.
+
+You can also see an old fashioned telephone.
+
+> u
+%drunk% up.
+
+Landing
+There are three exits.  North leads to a bathroom.  East leads to a small
+bedroom and the master bedroom is to the west.  There is a square hole in the
+ceiling way above your head.
+
+> w
+%drunk% west.
+
+Master bedroom
+A large comfortable looking bed dominates this room.  It looks like it's
+owner was quite the scholar.  A small shuttered window is set into the south
+wall.
+
+There is a  jagged gash in the wall.  Every now and then a green spark shoots
+out of it.
+
+A tall and beautilfuly carved grandfather clock stands in the corner of the
+room.  Fixed to the wall is a framed blue print of the house.  Embeded in the
+wall is a safe that was once hidden by the house plan.  You notice a single
+page from a book lying just beneath the bed.
+
+You can also see a large bookcase.
+
+> open safe
+What is the combination?
+
+> 5 7 9 6 2 7 3 1 9
+You enter the combination and the safe opens.
+
+> get gold key
+As you grasp the gold key the eerie green light grows stronger and you hear
+Cathy's grandfather say, "OH...SO THAT'S WHERE I PUT IT.  NEVER MIND.  THE
+KEY IS OF NO  CONSEQUENCE.  THROW IT AWAY.  NOW THAT THE HOUSE IS SAFE IT
+WILL BECOME YOUR HOME.  YOU WILL BE PROTECTED HERE FOREVER.  WHEN AGE BEGINS
+TO TAKE ITS TOLL YOU WILL JOIN ME WITHIN ITS WALLS.  WE SHALL NEVER BE
+SEPARATED AGAIN".
+
+Cathy's eyes widen and she whispers, "Mad.....nutty as a fruit cake".
+
+> unlock glass door with gold key
+As you place the key in the lock the green light gets brighter and an angry
+voice says, "STOP THAT!  YOU DO NOT KNOW WHAT YOU ARE DOING!  I HAVE BROUGHT
+THIS HOUSE OUT OF TIME.  TO KEEP YOU SAFE.  TO KEEP HER SAFE".
+
+The key fits and you open the door.
+
+> wind clock hands back
+
+The clock hands move easily backwards.  Energy rushes through your body and
+you prepare for death when suddenly
+
+                 EVERYTHING
+
+                                          STARTS
+
+GOING
+
+SDRAWKCAB
+
+(PRESS ANY KEY)
+
+> look
+
+The room spins and you are thrown off your feet.  There is a grinding noise
+and the House seems to settle itself again.  The shutters fly open and
+blessed daylight floods the room.  You hear a loud creaking coming from
+downstairs that you pray is the front door opening.  Cathy races down to
+check.
+
+> score
+Your score is 27 out of a maximum of 30.  (90%)
+
+> e
+%drunk% east.
+
+Landing
+There are three exits.  North leads to a bathroom.  East leads to a small
+bedroom and the master bedroom is to the west.  There is a square hole in the
+ceiling way above your head.
+
+> d
+%drunk% down.
+
+Hallway
+The front door is wide open and sunlight dazzels your eyes.
+
+You can also see an old fashioned telephone.
+
+> s
+As you go to leave you see a strange sight.  Across the other side of the
+road and seemingly completely oblivious to anything walks.....Cathy!  She
+wears a rucksack on her back and a determined expression on her face.
+"It's me"!, gasps Cathy.  "You've taken us back to before this all started.
+I've got to stop myself from allowing Damien to do that ritual".
+And with that she rushes out towards herself.  You go to follow but tendrils
+of green energy wrap around your arms and legs and begin to pull you back.
+"SHE'S GONE!  YOU'VE TURNED HER AGAINST ME.  I'M GOING TO HURT YOU"!
+
+The light flares and pain twists your body.  As the front door rapidly closes
+you catch a glimpse of Cathy reaching out to her younger self.  (PRESS ANY
+KEY)
+
+And Cathy touches Cathy.
+
+And the house devours you.
+
+And Cathy touches Cathy.
+
+And the house devours you.
+
+And Cathy touches Cathy.
+
+And the house devours you.
+
+And Cathy touches Cathy.
+
+And the house devours you.
+
+And Cathy touches Cathy.
+
+And the house devours you.
+
+And Cathy touches Cathy.
+
+And the house devours you.
+
+And Cathy touches Cathy.
+
+And the house devours you.
+
+And Cathy touches Cathy.
+
+And the house devours you.
+
+And there is a dazzling explosion of white light.
+
+And there is a dazzling explosion of white light.
+
+And there is a dazzling explosion of white light.
+
+And there is a dazzling explosion of white light.
+
+And there is a dazzling explosion of white light.
+
+And there is a dazzling explosion of white light.
+
+And there is a dazzling explosion of white light.
+
+And there is a dazzling explosion of white light.
+
+And there is a dazzling explosion of white light.
+
+And there is a dazzling explosion of white light.
+
+(From the diary of Michael Black).
+
+As far as I know only Cathy and I remember the day the world ended.  It still
+seems impossible to believe that we changed the course of history.  We both
+woke up in Bellview Road next to an empty space where the house once stood.
+Neither of us were sorry to see the back of it.  I wanted to let the whole
+thing rest and try and live the rest of my life in a hole somewhere but Cathy
+is determined to find Damien and make him pay for what he almost did.
+Besides he has the Immortalis now.  Who knows what horrors he could summon
+with it.  And me?  Well I just want to stick close to Cathy.  Especially
+since the trail led us to Venice.  Sitting in a gondola, letting the ancient
+buildings and bridges pass slowly by I asked her the question that had been
+robbing me of sleep for days.  How can we go on with our lives knowing that
+reality is just an illusion, that those things are waiting around every
+corner, that the universe balances on a bloody knife edge?  She shrugged and
+said, "Look at it this way.  We've already seen the world end.  How much
+worse can it get"?  The oarsman gave a croaking chuckle at that point and
+said, "That you may well ask".  I looked up at the robed and hooded figure
+but it just chuckled again saying, "Don't worry lad.  This is just me day
+job".
+Then Cathy began to kiss me.  Long and hard and nothing else seemed to
+matter.
+
+CONGRATULATIONS.  YOU HAVE COMPLETED HOUSE.  IF YOU PLAY THIS GAME AGAIN TYPE
+LOVECRAFT AT THE MAIN MENU TO VIEW BONUS MATERIAL.
+
+MICHAEL BLACK WILL RETURN IN HOUSE II: RHYME AND UNREASON.
+
+(PRESS ANY KEY TO CONTINUE)
+
+You scored 30 out of the maximum 30!
+That is 100% of the game!
+Well done - you scored maximum points!
