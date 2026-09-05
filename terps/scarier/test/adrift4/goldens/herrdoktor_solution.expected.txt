@@ -46,7 +46,7 @@ the large oak tree.
 A man exclaims, "We've got to get her out of there!"
 
 > take acorn
-The good doctor takess the acorn from the large oak tree.
+The good doctor takes the acorn from the large oak tree.
 
 > tie acorn to pole
 The good doctor ponders something for a moment. "I haff ein idea!" he says.
@@ -73,7 +73,7 @@ the acorn, gobbles it up, and then starts making little contented squirrel
 sounds. It hops down onto the ground in front of the doctor.
 
 > take squirrel
-The good doctor takess the squirrel.
+The good doctor takes the squirrel.
 
 > attach cylinder to squirrel
 The good doctor raises the little squirrel's arms and attaches the tiny tube

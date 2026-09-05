@@ -173,6 +173,9 @@ trabula_solution.txt|Trabula.taf|given the gold coins to Trabula
 # @48A409); a command that used the pronoun leaves it untouched; put never sets it.
 # Measured on humbug (Adrift_5_humbug.txt, 76 prompts; Adrift_4_humbug.txt full replay).  Scarier:
 # uip_definite_form() in scparser.cpp.
+# Measured 2026-09-05 in run400 under Wine (Adrift_33_shreddem.txt, feed
+# cmdfile_w_shred_em.txt): 15/15 echoed, identical but the ending keypress;
+# 65/65 both sides.
 shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
@@ -464,6 +467,14 @@ light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=16
 # "I don't understand what you mean!" and the closing `main course` command is
 # refused.  Win marker deliberately removed -- the walkthrough is kept for its
 # transcript, not for a win.
+# Re-blessed 2026-09-05 for the third-person de-conjugation (see herrdoktor's
+# block): this game is Perspective 2 and carries no ALRs at all, which is what
+# made it the clean probe.  A 33-command run400 probe
+# (Adrift_35_maincourse_probe.txt, feed cmdfile_w_mcprobe.txt) shows listen,
+# sing, dance, sit down, stand up, lie down, take, drop, open, close, wear,
+# remove and eat all coming back BARE ("SoMorph sing a little song.",
+# "SoMorph open the bathroom door."), and `i` reading "SoMorph is carrying
+# nothing." with the copula spelled out.  Four lines here, all open/close.
 maincourse_solution.txt|Main Course.taf||SCR_SEED=17
 # The 3.9 half of the walk-announcement rewrite was measured on this game --
 # run390 under Wine, Adrift_37_melbourne_beach.txt, 2026-08-24.  See the arlo block.
@@ -917,6 +928,15 @@ spam_solution.txt|SPAM.taf|Spam King|SCR_SKIP_WAITKEY=1
 wreckage_solution.txt|Wreckage.taf|you've rescued yourself
 vagabond_solution.txt|Vagabond.taf|The End|SCR_SKIP_WAITKEY=1
 woof_solution.txt|Woof.taf|I'm back.
+# Measured 2026-09-05 in run400 under Wine (Adrift_26_undefined.txt, feed
+# cmdfile_w_undefined_drive.txt): 4/4 echoed, identical but the ending
+# keypress; 3/3 both sides.  The opening `Undef` here answers a BUILT-IN name
+# InputBox, which the Runner puts up at LOAD -- it belongs in measure.sh's
+# POPUP_ANSWERS, not in the command file, and typed at the game prompt it came
+# back "That's not going to help." and read as an engine divergence.  For the
+# same reason compare_wine_transcript.py has to be handed a --scarier replay
+# with the name prepended; its own replay would eat `define the room` as the
+# answer.
 undefined_solution.txt|Undefined1.taf|An end is defined.
 # RUNNER-MEASURED 2026-08-31 (run390 under Wine, Adrift_3_ecod3.txt, all 11
 # feed commands echoed): clean -- 10/11 turns identical, the Usher's walk in
@@ -925,6 +945,10 @@ undefined_solution.txt|Undefined1.taf|An end is defined.
 ecod3_solution.txt|ECOD3.taf|In an alley behind Denny's.
 goblinhunt_solution.txt|goblinhunt.taf|Tomorrow is the next goblin hunt.|SCR_SKIP_WAITKEY=1
 # 2026-08-29: "Time passes..." now precedes the ending (silent-End-Game rule).
+# Measured 2026-09-05 in run400 under Wine (Adrift_29_agent4f.txt, feed
+# cmdfile_w_agent4f.txt): 5/5 echoed, identical but the ending keypress --
+# which confirms the 2026-08-29 change above from the Runner side, the final
+# `z` printing "Time passes..." before the ending.
 agent4f_solution.txt|agent_4F[1].A.taf|You wake with a start.  What a terrible dream!
 # Measured 2026-08-29: run400 replay, 13 commands echoed and all 13 identical
 # before a real-time <wait> pause ate the next one; a cmdfile with #sleep lines
@@ -1072,6 +1096,12 @@ easter_solution.txt|easter.taf|***You have won***|
 # This walkthrough was re-derived for it: 1 `z` after x hamish.  Each
 # added line restores the old tick sequence (WaitTurns 1).  Trace with
 # SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
+# Re-blessed 2026-09-05 for the third-person de-conjugation, six lines, and
+# they cut both ways.  "Ye unlocketh"/"Ye putteth" came from the game's own
+# ALRs on `unlocks` and `puts` -- strings run400 never prints (its literals are
+# " unlock " and " put "), so those ALRs never fire and the Runner's bare
+# "Ye unlock" stands; meanwhile a different ALR on the bare "put " does fire,
+# which is why the same line now reads "Ye placeth".
 yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SKIP_WAITKEY=1
 # The twenty-one entries of the 1st, 2nd and 3rd ADRIFT One-Hour Game
 # Competitions (2003), swept in on 2026-08-03 -- see the per-game
@@ -1155,6 +1185,18 @@ ticktick_solution.txt|ticktick.taf|I'm afraid you are dead!
 # harvested off IFDB into test/adrift4/downloaded/ and whose .taf was
 # already on this machine.  See downloaded/INDEX.md for the provenance of each
 # walkthrough and the per-game notes/*_walkthrough.md.
+# Measured 2026-09-05 in run400 under Wine (Adrift_19_ptbad.txt, feed
+# cmdfile_w_ptbad.txt): 1/1 echoed, identical but the [Press any key to end]
+# tail.  This game is also the probe bed for the three library-message
+# corrections of 2026-09-05 (Adrift_36/37_ptbad_probe3/4.txt): an empty
+# `drop all` answers "You are carrying nothing!" in 4.0 (run400 name_object
+# 46E5A0) and "You are not carrying anything." before it (run390 445867);
+# `wear all` with nothing held answers "You don't have anything to wear.";
+# `remove all` wearing nothing answers "You are not wearing anything."  The
+# copula is spelled out because every Runner builds the line as
+# Ary(0) & " " & Ary(4) & <literal> -- no Runner holds "You're" here -- and
+# SCARE's " that can be worn." / " that can be removed." tails appear in none
+# of the four binaries.
 ptbad_solution.txt|ptbad.taf|You Win! Yay!
 # The four Richard Otter games replay command-for-command off delron.org.uk's
 # own walkthrus; each needs a leading "1" for the game's title menu (the
@@ -1578,6 +1620,10 @@ monsters_solution.txt|Monsters_r2.taf|You scored 40 out of the maximum 40!
 # too.  So the author trimmed the duplicate when writing the walkthrough up;
 # our transcript is the faithful one.  (`SCR_DUMP_TASKS` now prints a WINTEXT
 # line, which is what settled this.)
+# Measured 2026-09-05 in run400 under Wine (Adrift_30_theamulet.txt, feed
+# cmdfile_w_the_amulet.txt): 12/12 echoed, identical but the ending keypress --
+# which settles the paragraph above from the Runner side: the ending really
+# does carry the default "Congratulations!" after the game's own win text.
 the_amulet_solution.txt|TheAmulet.taf|Congratulations!
 # Locked Door with Water Trap (KF Mini-Comp 2001).  Verbatim replay of the
 # author's own session transcript, 21 commands, 1000/1000.  SCR_SKIP_WAITKEY=1
@@ -2285,6 +2331,9 @@ plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_W
 # attribution was pinned down by construction as well: suppress the empty
 # walk's precedence and the pre-fix route reproduces the pre-fix golden byte
 # for byte, change nothing else and it does not.
+# Re-blessed 2026-09-05 for the third-person de-conjugation, three lines:
+# "Irvine unclosess" -> "uncloses" and "Irvine sets downs" -> "sets down",
+# both of them the game's ALR patching what it saw the Runner print.
 iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- MANGIASAUR (DCBSupafly, ADRIFT Spring Comp 2011).  You are a
@@ -4285,6 +4334,14 @@ plunder_gargoyle_solution.txt|plunder_gargoyle.taf|Ye scored 10 out of the maxim
 #     himself the transformed Albert, so saying the word on his hill does
 #     nothing; he is hiding behind the bush at the booth).
 # Needs SCR_SKIP_WAITKEY: the two-page intro's keypresses otherwise eat commands.
+# Re-blessed 2026-09-05 for the third-person de-conjugation (three lines:
+# "unclosess", "picks ups" twice) and for the new %player_pronoun% token: the
+# inventory line now reads "... and he is carrying a red quill." where it used
+# to spell out "Tiberius Thingamus".  run400 reads Ary(5) -- "he" or "she" by
+# Globals/PlayerGender, no neuter form -- in six library messages; Scarier
+# resolves the token in var_get_system() (scvars.cpp).  Nothing pre-4.0 can
+# reach it: lib_get_perspective() clamps the third person away, and run390's
+# array has only the I / You branches.
 albert_is_lost_solution.txt|Albert is Lost! An Adventure in Real Life.taf|Tiberius and Albert went home happily|SCR_SKIP_WAITKEY=1
 # Target: 23 questions but tier-1 only, because the author deliberately shipped
 # no external walkthrough -- target.zip's walkthru.txt says "Each time Target is
@@ -4317,6 +4374,8 @@ target_solution.txt|target.taf|You managed to score 100 out of 100.
 # Door: `SummerCompGames08.zip` member `games/doordocs/walkthru.txt`, five
 # commands, and the whole joke is the puzzle -- "When is a door not a door?  When
 # it is a jar!!!"  No score; the marker is the escape line.
+# Measured 2026-09-05 in run400 under Wine (Adrift_24_door.txt, feed
+# cmdfile_w_door.txt): 5/5 echoed, identical on every turn.
 door_solution.txt|door.taf|You head south. You have escaped.
 # The Marlin Affair: Prologue: `SummerCompGames08.zip` member
 # `games/junedocs/june_walkthrough.txt` (the .taf is `junepro.taf` upstream).
@@ -4469,6 +4528,9 @@ wingman1_solution.txt|wingman1.taf|You scored 95 out of the maximum 121!
 # Newton (1291 bytes, 4.00): joke micro-game, one room, no score. An apple
 # falls off a tree on turn 4; `get apple` on the very next command is the
 # ONLY winning move (a bare wildcard and `examine apple` both lose).
+# Measured 2026-09-05 in run400 under Wine (Adrift_22_newton.txt, feed
+# cmdfile_w_newton.txt): 4/4 echoed, identical on every turn (the win text
+# leaves the game at a prompt, so there is not even a tail to discount).
 newton_solution.txt|Newton.taf|u dscvr gravity
 # Conversation With A Picture (2257 bytes, 4.00): one room, no score. Sit on
 # the bench, ask the talking Picture NPC about "bird" (unlocks "parrot"),
@@ -4478,11 +4540,15 @@ picture_solution.txt|Picture.taf|The title of the picture is "The Parrot's Cage"
 # Play the god Jimmy: get ice in Water World (smites it), carry it + the
 # Desert pyramid to pop the volcano (smites it), melt/carry the ice to
 # flood the Desert (smites it, wins). 9 commands.
+# Measured 2026-09-05 in run400 under Wine (Adrift_25_smote.txt, feed
+# cmdfile_w_smote.txt): 9/9 echoed, identical but the ending keypress.
 smote_solution.txt|smote.taf|smote all 3 worlds into submission
 # Rift (2606 bytes, 4.00): 3-room unfinished intro/demo, no score. `move` in
 # the Steel Room, `x the floorboards` (article required) reveals the Lab and
 # moves you there, `x the machine` is the win (author's own "unfinished demo"
 # disclaimer as WINTEXT). 3 commands.
+# Measured 2026-09-05 in run400 under Wine (Adrift_21_rift.txt, feed
+# cmdfile_w_rift.txt): 3/3 echoed, identical but the ending keypress.
 rift_solution.txt|rift.taf|Thanks for playing this intro.
 # The Foggy Banana Adventure (2745 bytes, 4.00): one room, no score. A strict
 # TALK/INSPECT/USE chain -- `use hoover`/`use phone` each consume a generic
@@ -4539,6 +4605,9 @@ justanotherday_solution.txt|Just Another Day.taf|Congratulations...You won the g
 # corridor north to the exit; optional look-left/-right side commands drain
 # a "sanity" variable toward a stop-game threshold but are entirely
 # avoidable. 5 lines (a leading "1" answers an opening prompt).
+# Measured 2026-09-05 in run400 under Wine (Adrift_28_wayout.txt, feed
+# cmdfile_w_wayout.txt; staged as wayout.taf -- the Runner's command line
+# cannot carry a space): 5/5 echoed, identical but the ending keypress.
 wayout_solution.txt|Way Out.taf|You're alive! But you'll never be the same...
 # The Fly Human (9-room linear corridor, 21 tasks, no ChangeScore/EndGame
 # actions anywhere in the data): unwinnable/unscoreable by design. The final
@@ -4558,6 +4627,8 @@ raccoon_solution.txt|raccoon.taf|You dive headfirst into the can, easily shreddi
 outline_solution.txt|outline.taf|Well done - you scored maximum points!
 # hungry (Ectocomp 2011, 9-room escape, no scoring): grab the pot from the
 # reception desk, head to the north office, smash the window with the pot.
+# Measured 2026-09-05 in run400 under Wine (Adrift_27_hungry.txt, feed
+# cmdfile_w_hungry.txt): 7/7 echoed, identical on every turn.
 hungry_solution.txt|hungry.taf|Escape. Freedom.
 # The Long Barrow (8-room dig/tunnel puzzle, no scoring): dig into the site,
 # fetch tools after the first collapse, light a torch, defuse the tunnel air
@@ -4586,6 +4657,9 @@ boiledeggs_solution.txt|boiled eggs.taf|You summon the willpower to keep the box
 # The Shuffling Room (horror vignette, no scoring): release shoulders before
 # hands, feel the dark for a hidden lightswitch (needs "use switch" twice),
 # open the revealed stone door, climb up, and join the circle to win.
+# Measured 2026-09-05 in run400 under Wine (Adrift_23_shufflingroom.txt, feed
+# cmdfile_w_shufflingroom.txt): 10/10 echoed, identical but the ending
+# keypress, with all 8 NPCs in step.
 shufflingroom_solution.txt|The_Shuffling_Room.taf|your powerful discovery.
 # The Angel the Devil and the Human (river-crossing puzzle, no scoring):
 # never leave the Devil unsupervised with the Angel or the Human; ferry
@@ -4596,6 +4670,24 @@ angeldevilhuman_solution.txt|The Angel the Devil and the Human.taf|Have a peanut
 # herrdoktor (3-room comedy puzzle, no scoring): bait a fishing pole with an
 # acorn to lure a squirrel, strap on a jetpack fueled by a de-linted
 # sweetroll, then launch it down the well to rescue the trapped girl.
+# Measured 2026-09-05 in run400 under Wine (Adrift_31_herrdoktor.txt, feed
+# cmdfile_w_herrdoktor.txt, plus the 2-command probe Adrift_34): the drive
+# that found the third-person conjugation bug.  `take acorn` came back
+# "The good doctor takess the acorn", because this game ships the ALR
+# [The good doctor take] -> [The good doctor takes] to patch the Runner's own
+# ungrammatical output, and SCARE was already printing "takes".
+# The Runner does NOT conjugate the third person: it keeps ONE literal per
+# library message in bare second-person form and prefixes it with a slot from
+# a seven-element pronoun array (run400 MemVar_4941D0, filled 48F60C-48F798;
+# run390 MemVar_468174).  Slot 6 is the conjugation "s", and it is read in
+# exactly twelve places in the whole library -- the player's own movement,
+# " move" & Ary(6) & " north." at 474C3C and its eleven siblings.  So 4.0 does
+# print "%player% take the acorn." and "%player% sing a little song.".
+# 31 string patterns de-conjugated in sclibrar.cpp (see lib_select_response's
+# comment block); "%player% moves " deliberately kept.  Corroborated on
+# Main Course.taf, which has no ALRs at all (Adrift_35_maincourse_probe.txt).
+# After the fix: 15/15 echoed, identical but the ending keypress.  Golden
+# re-blessed for the two "takess" lines.
 herrdoktor_solution.txt|herrdoktor.taf|Mein tiny jetpack ist ein success!
 # Rolling the Dough (drunk sneak-into-bed comedy, 50/50 max, sudden-death
 # heavy): shoes off before the creaky stairs, stash them in the bathroom,
@@ -4650,6 +4742,10 @@ ohhuman_solution.txt|Oh_Human.taf|Congratulations!  You beat the game!
 # counter the author meant), which `look in toilet` never supplies, so it
 # always fails and the EndGame task never runs. Ceiling: explore all six
 # look-in/under vignettes plus both "mom catches you" toilet lines.
+# Measured 2026-09-05 in run400 under Wine (Adrift_32_sandy.txt, feed
+# cmdfile_w_sandy.txt): 15/15 echoed, identical on every turn.  The Runner
+# refuses the same commands and ends on the same "You see no such thing.",
+# which is the unwinnability verdict above confirmed from the Runner side.
 sandy_solution.txt|Sandy.taf|You see no such thing.
 # Same game, guarding the referenced-number leak that once won it: Scarier's
 # own meta commands ("wait 2", "hist 2") match a %number% pattern, and before
@@ -4678,6 +4774,8 @@ ptgood_solution.txt|competition2006__adrift__ptgood__PTGOOD.taf|You win! Yay!
 # `x me` silently completes the hidden "cried yet" gate, then `take phone
 # booth` fires the win (death-flavored text but a type=6 v1=0 EndGame).
 # 2 commands; the game's own hinted `cry` first step is a red herring.
+# Measured 2026-09-05 in run400 under Wine (Adrift_20_phoneb.txt, feed
+# cmdfile_w_phoneb.txt): 2/2 echoed, identical but the ending keypress.
 phoneb_solution.txt|Phoneb.taf|Committing its final act of mercy
 # JINXTRON (2179 bytes, 4.00): one room, no score, no EndGame anywhere --
 # a pure dialogue toy (the childhood "jinx" game) with an 11-state VAR1

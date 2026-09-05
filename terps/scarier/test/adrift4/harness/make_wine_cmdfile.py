@@ -93,9 +93,38 @@ def main():
     with open(solpath, encoding="latin-1") as fh:
         raw = [l.rstrip("\r\n") for l in fh]
     cmds = [l for l in raw if l.strip() and not l.lstrip().startswith("#")]
+
+    # The two BUILT-IN questions.  Scarier asks them inline and reads the
+    # answers off stdin like any other command, so the walkthrough's first
+    # line or two are the answers -- but the Runner asks them in InputBox
+    # dialogs, AT LOAD, before the transcript exists.  Left in the command
+    # file they are typed at the game prompt instead: Undefined1.taf's name
+    # answer `Undef` came back "That's not going to help." and read as an
+    # engine divergence until the feed was re-cut (2026-09-05).  They belong
+    # in measure.sh's POPUP_ANSWERS, so say so and leave them out of the file.
+    spans = [text.split("\n>")[0]] + text.split("\n>")[1:]
+    popups = 0
+    for span in spans:
+        if ("Please enter your name" in span
+                or "Please choose the player's gender" in span):
+            popups += 1
+            continue
+        break
+    popup_answers = cmds[:popups]
+    cmds = cmds[popups:]
+    if popups:
+        print('POPUP_ANSWERS="%s"  (%d built-in question(s); these are NOT in'
+              " the command file)" % ("|".join(popup_answers), popups))
     if not skip:
         # the solution's own blank lines already stand in for the pauses
         lines = [l for l in raw if not l.lstrip().startswith("#")]
+        dropped = 0
+        while dropped < popups:
+            for i, l in enumerate(lines):
+                if l.strip():
+                    lines.pop(i)
+                    break
+            dropped += 1
         # Only the blanks that answer a REAL startup pause become PRE.  A
         # solution may open with blank lines that are ordinary empty commands
         # -- Insane.taf's padded cell answers three of them with "Ha, that's

@@ -203,7 +203,7 @@ furnishings hath been stuffed into ye corners.
 Ye can returneth to yon courtyard to ye north.
 
 > unlock table
-Ye unlocketh ye dirty table with ye grimy key.
+Ye unlock ye dirty table with ye grimy key.
 
 Sensing ye no longer requireth ye grimy key, ye discardeth of it in yon
 stewpot.  Man... ye betteth yon stew shall tasteth inexorably funky by now.
@@ -236,7 +236,7 @@ kind.  In ye corner there standeth yon belt resizing device.  Ye can
 returneth to yon courtyard to ye south.
 
 > put wheel on device
-Ye putteth ye resizing wheel cronkle onto yon belt resizing device.
+Ye placeth ye resizing wheel cronkle onto yon belt resizing device.
 
 Ye believeth ye hath fixed yon belt resizing device!
 
@@ -264,7 +264,7 @@ ye belt rack.  In ye corner of ye beltery doth stand yon belt resizing
 device.  Ye can returneth to yon courtyard to ye south.
 
 > put belt on device
-Ye putteth ye magic belt onto yon belt resizing device.
+Ye placeth ye magic belt onto yon belt resizing device.
 
 > pull lever
 Ye pulleth upon ye lever and yon belt resizer doth yon thing which is its--
@@ -1246,7 +1246,7 @@ hopper.  Ye trapdoor leadeth down from here (and yea, ye could also returneth
 to ye fountain room to ye west).
 
 > put grasses in hopper
-Ye putteth yon grasses inside ye hopper.
+Ye placeth yon grasses inside ye hopper.
 
 Yon hopper spurteth & emitteth yon sturnutative racket, sending yon grasses
 into ye trough!  Ye automatic trough openeth, automatonically, and yon bovine
@@ -1614,7 +1614,7 @@ Also here is ye golden key.
 Ye taketh ye golden key.
 
 > unlock door
-Ye unlocketh yon golden door with ye golden key.
+Ye unlock yon golden door with ye golden key.
 
 Thereafter ye discardeth ye golden key with nary a second thought.
 

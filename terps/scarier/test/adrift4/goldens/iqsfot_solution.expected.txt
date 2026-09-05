@@ -255,7 +255,7 @@ Irvine depresses the green button.
 Irvine depresses the blue button.
 
 > open cover
-Irvine unclosess the glass cover.
+Irvine uncloses the glass cover.
 
 > flick switch
 Irvine flicks the switch on.
@@ -333,7 +333,7 @@ Also here is a holopostcard.
 The door closes behind Irvine.  HiRBy hovers over from outside.
 
 > open compartment
-Irvine unclosess the small compartment.  A strip of papyr is inside the small
+Irvine uncloses the small compartment.  A strip of papyr is inside the small
 compartment.
 
 > get papyr
@@ -659,7 +659,7 @@ Grastor bears down on Irvine, glaring and growling while he recovers his
 book.  HiRBy hovers over.
 
 > drop traglenip
-Irvine sets downs the sprig of Traglenip.
+Irvine sets down the sprig of Traglenip.
 
 Grastor feints experimentally at Irvine with his paws.
 

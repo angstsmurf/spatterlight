@@ -1155,6 +1155,25 @@ var_get_system (scr_var_setref_t vars,
       return var_return_string (playername, type, vt_rvalue);
     }
 
+  else if (strcmp (name, "player_pronoun") == 0)
+    {
+      scr_int gender;
+
+      /*
+       * Not an ADRIFT variable: an internal token the 4.0 third-person
+       * library messages carry where the Runner reads Ary(5) rather than
+       * Ary(0).  run400 fills that slot at 48F76E/48F77F with "he" when
+       * Globals/PlayerGender is 0 and "she" otherwise -- there is no neuter
+       * form -- and uses it in ", and he is carrying ", ".  The most he can
+       * hold is ", " ... but he can move ", " somewhere he haven't been
+       * yet." and "Why would he want to run?".  The pre-4.0 Runners have no
+       * third person at all (lib_get_perspective() clamps it), so nothing
+       * outside those messages can reach this.
+       */
+      gender = prop_get_global_integer (bundle, "PlayerGender");
+      return var_return_string (gender == 0 ? "he" : "she", type, vt_rvalue);
+    }
+
   else if (strcmp (name, "room") == 0)
     {
       const scr_char *roomname;

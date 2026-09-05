@@ -43,8 +43,8 @@ blouse, some fancy pantaloons and a belt pouch.
 
 > i
 Tiberius Thingamus is wearing his Most Jauntily Plumed Beret, a floofy
-blouse, some fancy pantaloons and a belt pouch, and Tiberius Thingamus is
-carrying a red quill.
+blouse, some fancy pantaloons and a belt pouch, and he is carrying a red
+quill.
 
 > ask artist about albert
 "Good lady," says Tiberius. "Hath ye seen my brother Albert about ye
@@ -74,10 +74,10 @@ in a semi-circular pattern.
 "Forecast ye fortune, ONLY 1 Quarter!  Ask me ANYTHING!"
 
 > open pouch
-Tiberius unclosess the belt pouch.  A quarter is inside the belt pouch.
+Tiberius uncloses the belt pouch.  A quarter is inside the belt pouch.
 
 > get quarter
-Tiberius picks ups the quarter from the belt pouch.  Wally the Stray slinketh
+Tiberius picks up the quarter from the belt pouch.  Wally the Stray slinketh
 in from the south.
 
 > put quarter in coin slot
@@ -214,7 +214,7 @@ thread of paper in forever.  The change machine is open.  From inside there
 comes the blinding gleam of yon quarter motherload!
 
 > get motherload
-Tiberius picks ups yon quarter motherload from the change machine.  Wally the
+Tiberius picks up yon quarter motherload from the change machine.  Wally the
 Stray slinketh in from the south.
 
 HUZZAH!  Tiberius now has some treasure!

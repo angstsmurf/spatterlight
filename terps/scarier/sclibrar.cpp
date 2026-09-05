@@ -948,6 +948,26 @@ lib_get_death_message (scr_gameref_t game)
  *
  * Convenience functions for multiple handlers.  Returns the appropriate
  * response string for a game, based on perspective or object plurality.
+ *
+ * The third-person strings are NOT the second-person ones conjugated.  Every
+ * Runner keeps one literal per message and prefixes it with a slot from a
+ * seven-element pronoun array, filled at run400 48F60C-48F798: for the third
+ * person Ary(0) and Ary(2) are the player's name, Ary(1) and Ary(3) the name
+ * plus "'s", Ary(4) "is", Ary(5) "he" or "she" by Globals/PlayerGender, and
+ * Ary(6) "s".  The verb lives in the literal, in its second-person form, and
+ * only ONE message in the whole library appends Ary(6): the player's own
+ * movement, " move" & Ary(6) & " north." at 474C3C and its eleven siblings.
+ * So 4.0 really does print "%player% take the acorn." and "%player% sing a
+ * little song.", and games work around it -- herrdoktor.taf ships the ALRs
+ * "[The good doctor take] -> [The good doctor takes]" and "[doctor eat] ->
+ * [doctor eats]", which turned SCARE's already-conjugated "takes" into
+ * "takess" (2026-09-05).  Measured live against run400 on Main Course.taf
+ * (Perspective 2, no ALRs to confound it): listen, sing, dance, sit down,
+ * stand up and lie down all come back bare.
+ *
+ * Where a message reads Ary(5) rather than Ary(0) the third-person string
+ * carries the internal %player_pronoun% token instead (see scvars.cpp);
+ * pre-4.0 never reaches either, because lib_get_perspective() clamps.
  */
 static const scr_char *
 lib_select_response (scr_gameref_t game,
@@ -3304,7 +3324,7 @@ lib_go (scr_gameref_t game, scr_int direction)
                             lib_select_response (game,
                              "You can't go in that direction, but you can move ",
                              "I can't go in that direction, but I can move ",
-                             "%player% can't go in that direction, but can move "));
+                             "%player% can't go in that direction, but %player_pronoun% can move "));
         }
       lib_print_name_list (game, list, dirnames, " and ");
       pf_buffer_string (filter, ".\n");
@@ -5388,7 +5408,7 @@ lib_cmd_examine_object (scr_gameref_t game)
                         lib_select_response (game,
                                        "You see nothing special about ",
                                        "I see nothing special about ",
-                                       "%player% sees nothing special about "));
+                                       "%player% see nothing special about "));
           lib_print_object_np (game, object);
           pf_buffer_character (filter, '.');
         }
@@ -6094,14 +6114,14 @@ lib_cmd_count (scr_gameref_t game)
     {
       pf_buffer_string (filter,
                         lib_select_response (game, "You have ", "I have ",
-                                             "%player% has "));
+                                             "%player% have "));
       pf_buffer_integer (filter, lib_carried_burden (game));
       pf_buffer_string (filter, " objects");
       pf_buffer_string (filter,
                         lib_select_response (game,
                                              ".  The most you can hold is ",
                                              ".  The most I can hold is ",
-                                             ".  The most %player% can hold is "));
+                                             ".  The most %player_pronoun% can hold is "));
       pf_buffer_integer (filter, obj_get_player_burden_limit (game));
       pf_buffer_string (filter, ".\n");
 
@@ -6122,26 +6142,26 @@ lib_cmd_count (scr_gameref_t game)
   pf_buffer_string (filter, "Size:\t\t");
   pf_buffer_string (filter,
                     lib_select_response (game, "You have ", "I have ",
-                                         "%player% has "));
+                                         "%player% have "));
   pf_buffer_integer (filter, size);
   pf_buffer_string (filter,
                     lib_select_response (game,
                                          ".  The most you can hold is ",
                                          ".  The most I can hold is ",
-                                         ".  The most %player% can hold is "));
+                                         ".  The most %player_pronoun% can hold is "));
   pf_buffer_integer (filter, obj_get_player_size_limit (game));
   pf_buffer_string (filter, ".\n");
 
   pf_buffer_string (filter, "Weight:\t");
   pf_buffer_string (filter,
                     lib_select_response (game, "You have ", "I have ",
-                                         "%player% has "));
+                                         "%player% have "));
   pf_buffer_integer (filter, weight);
   pf_buffer_string (filter,
                     lib_select_response (game,
                                          ".  The most you can hold is ",
                                          ".  The most I can hold is ",
-                                         ".  The most %player% can hold is "));
+                                         ".  The most %player_pronoun% can hold is "));
   pf_buffer_integer (filter, obj_get_player_weight_limit (game));
   pf_buffer_string (filter, ".\n");
 
@@ -6661,17 +6681,17 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                                   ? lib_select_response (game,
                                                          "You take ",
                                                          "I take ",
-                                                         "%player% takes ")
+                                                         "%player% take ")
                                   : lib_select_response (game,
                                                          "You pick up ",
                                                          "I pick up ",
-                                                         "%player% picks up "));
+                                                         "%player% pick up "));
               else
                 pf_buffer_string (filter,
                                   lib_select_response (game,
                                                        "You take ",
                                                        "I take ",
-                                                       "%player% takes "));
+                                                       "%player% take "));
               lib_print_list (game, list,
                               parent == -1 || lib_is_version_400 (game)
                               || (prop_get_taf_version (gs_get_bundle (game))
@@ -6860,7 +6880,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
     has_printed |= lib_print_object_list (game, has_printed, list, " and ", '!',
                                           "You've already got ",
                                           "I've already got ",
-                                          "%player% already has ");
+                                          "%player%'ve already got ");
 
   list.clear ();
   for (object = 0; object < object_count; object++)
@@ -7253,7 +7273,7 @@ lib_take_from_unseen_refusal (scr_gameref_t game, scr_int associate)
                       lib_select_response (game,
                                            "You take ",
                                            "I take ",
-                                           "%player% takes "));
+                                           "%player% take "));
 }
 
 
@@ -7660,7 +7680,7 @@ lib_move_onto (scr_gameref_t game, scr_int object, scr_int target)
 
 static const lib_move_verb_t LIB_DROP_VERB = {
   lib_move_to_room, NULL,
-  {"You drop ", "I drop ", "%player% drops "},
+  {"You drop ", "I drop ", "%player% drop "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
   '.', FALSE,
   /* run380 @438E13: `MemVar_44F108(0) & " don't have " & ...` -- the
@@ -7670,7 +7690,7 @@ static const lib_move_verb_t LIB_DROP_VERB = {
 
 static const lib_move_verb_t LIB_REMOVE_VERB = {
   lib_move_to_player, NULL,
-  {"You remove ", "I remove ", "%player% removes "},
+  {"You remove ", "I remove ", "%player% remove "},
   {"You are not wearing ", "I am not wearing ", "%player% is not wearing "},
   '!', TRUE,
   {"You are not wearing ", "I am not wearing ", "%player% is not wearing "}, '!'
@@ -7678,7 +7698,7 @@ static const lib_move_verb_t LIB_REMOVE_VERB = {
 
 static const lib_move_verb_t LIB_PUT_ON_VERB = {
   lib_move_onto, " onto ",
-  {"You put ", "I put ", "%player% puts "},
+  {"You put ", "I put ", "%player% put "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
   '.', FALSE,
   {NULL, NULL, NULL}, '.'
@@ -7880,11 +7900,26 @@ lib_cmd_drop_all (scr_gameref_t game)
     lib_drop_backend (game);
   else
     {
+      /*
+       * Not a contraction, and 4.0 reworded it.  Every Runner assembles this
+       * from the pronoun array as Ary(0) & " " & Ary(4) & <literal>, so the
+       * copula is spelled out: run400 name_object 46E5A0 appends
+       * " carrying nothing!", run390 445867 (and its 3.7/3.8 twins)
+       * " not carrying anything.".  "carrying nothing!" is absent from all
+       * three pre-4.0 binaries and the contraction from all four.  Measured
+       * live 2026-09-05, run400 on ptbad.taf: a second `drop all` answers
+       * "You are carrying nothing!".
+       */
       pf_buffer_string (filter,
-                        lib_select_response (game,
-                                          "You're not carrying anything.",
-                                          "I'm not carrying anything.",
-                                          "%player%'s not carrying anything."));
+                        lib_is_version_400 (game)
+                        ? lib_select_response (game,
+                                          "You are carrying nothing!",
+                                          "I am carrying nothing!",
+                                          "%player% is carrying nothing!")
+                        : lib_select_response (game,
+                                          "You are not carrying anything.",
+                                          "I am not carrying anything.",
+                                          "%player% is not carrying anything."));
     }
 
   pf_buffer_character (filter, '\n');
@@ -7981,7 +8016,7 @@ lib_cmd_give_object_npc (scr_gameref_t game)
       lib_print_response_object (game,
                                  "You don't have ",
                                  "I don't have ",
-                                 "%player% doesn't have ",
+                                 "%player% don't have ",
                                  object, "!\n");
       return TRUE;
     }
@@ -8011,7 +8046,7 @@ lib_cmd_give_object (scr_gameref_t game)
       lib_print_response_object (game,
                                  "You don't have ",
                                  "I don't have ",
-                                 "%player% doesn't have ",
+                                 "%player% don't have ",
                                  object, "!\n");
       return TRUE;
     }
@@ -8082,7 +8117,7 @@ lib_wear_backend (scr_gameref_t game)
   has_printed |= lib_print_object_list (game, has_printed, list, " and ", '.',
                                         "You put on ",
                                         "I put on ",
-                                        "%player% puts on ",
+                                        "%player% put on ",
                                         prop_get_taf_version
                                         (gs_get_bundle (game))
                                         >= TAF_VERSION_390
@@ -8200,12 +8235,18 @@ lib_cmd_wear_all (scr_gameref_t game)
     lib_wear_backend (game);
   else
     {
+      /*
+       * " that can be worn." is SCARE's own: no Runner holds it, or any
+       * fragment of it.  All four print the one literal
+       * " don't have anything to wear." after Ary(0) -- un-conjugated, so
+       * the third person reads "%player% don't have ...".  Measured live
+       * 2026-09-05, run400 on ptbad.taf with an empty inventory.
+       */
       pf_buffer_string (filter,
                         lib_select_response (game,
-                                           "You're not carrying anything",
-                                           "I'm not carrying anything",
-                                           "%player%'s not carrying anything"));
-      pf_buffer_string (filter, " that can be worn.");
+                                           "You don't have anything to wear.",
+                                           "I don't have anything to wear.",
+                                           "%player% don't have anything to wear."));
     }
 
   pf_buffer_character (filter, '\n');
@@ -8322,12 +8363,16 @@ lib_cmd_remove_all (scr_gameref_t game)
     lib_remove_backend (game);
   else
     {
+      /*
+       * As above: " that can be removed." is SCARE's, and the Runners all
+       * assemble Ary(0) & " " & Ary(4) & " not wearing anything.".
+       * Measured live 2026-09-05, run400 on ptbad.taf.
+       */
       pf_buffer_string (filter,
                         lib_select_response (game,
-                                           "You're not wearing anything",
-                                           "I'm not wearing anything",
-                                           "%player%'s not wearing anything"));
-      pf_buffer_string (filter, " that can be removed.");
+                                           "You are not wearing anything.",
+                                           "I am not wearing anything.",
+                                           "%player% is not wearing anything."));
     }
 
   pf_buffer_character (filter, '\n');
@@ -8436,7 +8481,7 @@ lib_cmd_inventory (scr_gameref_t game)
                             lib_select_response (game,
                                             ", and you are carrying ",
                                             ", and I am carrying ",
-                                            ", and %player% is carrying "));
+                                            ", and %player_pronoun% is carrying "));
         }
       else
         {
@@ -8585,7 +8630,7 @@ lib_cmd_open_object (scr_gameref_t game)
                         lib_select_response (game,
                                              "You open ",
                                              "I open ",
-                                             "%player% opens "));
+                                             "%player% open "));
       lib_print_object_np (game, object);
       pf_buffer_character (filter, '.');
 
@@ -8675,7 +8720,7 @@ lib_cmd_close_object (scr_gameref_t game)
       lib_print_response_object (game,
                                  "You close ",
                                  "I close ",
-                                 "%player% closes ",
+                                 "%player% close ",
                                  object, ".\n");
 
       /* Set closed state. */
@@ -8814,7 +8859,7 @@ static const lib_lock_verb_t LIB_UNLOCK_VERB = {
   " anything to unlock ",
   {" is not locked!\n", " are not locked!\n"},
   {"You can't unlock ", "I can't unlock ", "%player% can't unlock "},
-  {"You unlock ", "I unlock ", "%player% unlocks "}
+  {"You unlock ", "I unlock ", "%player% unlock "}
 };
 
 static const lib_lock_verb_t LIB_LOCK_VERB = {
@@ -8824,7 +8869,7 @@ static const lib_lock_verb_t LIB_LOCK_VERB = {
   " anything to lock ",
   {" is already locked!\n", " are already locked!\n"},
   {"You can't lock ", "I can't lock ", "%player% can't lock "},
-  {"You lock ", "I lock ", "%player% locks "}
+  {"You lock ", "I lock ", "%player% lock "}
 };
 
 /* What lib_lock_check_openness() made of the object's current state. */
@@ -8979,7 +9024,7 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
                                   lib_select_response (game,
                                                        "You don't have",
                                                        "I don't have",
-                                                       "%player% doesn't have"));
+                                                       "%player% don't have"));
                 pf_buffer_string (filter, verb->nothing_to);
                 lib_print_object_np (game, object);
                 pf_buffer_string (filter, " with!\n");
@@ -9557,7 +9602,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
       lib_print_clause (game, has_printed,
                         "You put ",
                         "I put ",
-                        "%player% puts ");
+                        "%player% put ");
       lib_print_list (game, list, lib_print_object_np, " and ");
       pf_buffer_string (filter, " inside ");
       lib_print_object_np (game, container);
@@ -10451,7 +10496,7 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
       lib_print_response_npc (game,
                               "You swing at ",
                               "I swing at ",
-                              "%player% swings at ",
+                              "%player% swing at ",
                               npc, " with ");
       lib_print_object_np (game, object);
       pf_buffer_string (filter,
@@ -10726,7 +10771,7 @@ lib_cmd_wield (scr_gameref_t game)
   lib_print_response_object (game,
                              "You wield ",
                              "I wield ",
-                             "%player% wields ",
+                             "%player% wield ",
                              object, ".\n");
   return TRUE;
 }
@@ -11011,7 +11056,7 @@ lib_cmd_eat_object (scr_gameref_t game)
   lib_print_response_object (game,
                              "You eat ",
                              "I eat ",
-                             "%player% eats ",
+                             "%player% eat ",
                              object,
                              ".  Not bad, but it could do with a"
                              " pinch of salt!\n");
@@ -11148,7 +11193,7 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
       success_message = lib_select_response (game,
                                              "You stand on ",
                                              "I stand on ",
-                                             "%player% stands on ");
+                                             "%player% stand on ");
       position = 0;
       break;
 
@@ -11160,7 +11205,7 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
       success_message = lib_select_response (game,
                                              "You stand up",
                                              "I stand up",
-                                             "%player% stands up");
+                                             "%player% stand up");
       position = 0;
       break;
 
@@ -11173,12 +11218,12 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
         success_message = lib_select_response (game,
                                                "You sit up on ",
                                                "I sit up on ",
-                                               "%player% sits up on ");
+                                               "%player% sit up on ");
       else
         success_message = lib_select_response (game,
                                                "You sit down on ",
                                                "I sit down on ",
-                                               "%player% sits down on ");
+                                               "%player% sit down on ");
       position = 1;
       break;
 
@@ -11191,12 +11236,12 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
         success_message = lib_select_response (game,
                                            "You sit up on the ground.\n",
                                            "I sit up on the ground.\n",
-                                           "%player% sits up on the ground.\n");
+                                           "%player% sit up on the ground.\n");
       else
         success_message = lib_select_response (game,
                                          "You sit down on the ground.\n",
                                          "I sit down on the ground.\n",
-                                         "%player% sits down on the ground.\n");
+                                         "%player% sit down on the ground.\n");
       position = 1;
       break;
 
@@ -11208,7 +11253,7 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
       success_message = lib_select_response (game,
                                              "You lie down on ",
                                              "I lie down on ",
-                                             "%player% lies down on ");
+                                             "%player% lie down on ");
       position = 2;
       break;
 
@@ -11220,7 +11265,7 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
       success_message = lib_select_response (game,
                                          "You lie down on the ground.\n",
                                          "I lie down on the ground.\n",
-                                         "%player% lies down on the ground.\n");
+                                         "%player% lie down on the ground.\n");
       position = 2;
       break;
 
@@ -11370,7 +11415,7 @@ lib_cmd_get_off_object (scr_gameref_t game)
   lib_print_response_object (game,
                              "You get off ",
                              "I get off ",
-                             "%player% gets off ",
+                             "%player% get off ",
                              object, ".\n");
 
   /* Adjust player position and parent. */
@@ -11413,7 +11458,7 @@ lib_cmd_get_off (scr_gameref_t game)
   pf_buffer_string (filter,
                     lib_select_response (game,
                                          "You get off ", "I get off ",
-                                         "%player% gets off "));
+                                         "%player% get off "));
   lib_print_object_np (game, gs_playerparent (game));
   pf_buffer_string (filter, ".\n");
 
@@ -11675,7 +11720,7 @@ lib_cmd_locate_object (scr_gameref_t game)
                         lib_select_response (game,
                              " somewhere you haven't been yet.\n",
                              " somewhere I haven't been yet.\n",
-                             " somewhere %player% hasn't been yet.\n"));
+                             " somewhere %player_pronoun% haven't been yet.\n"));
       return TRUE;
     }
 
@@ -11745,7 +11790,7 @@ lib_cmd_locate_npc (scr_gameref_t game)
       lib_print_response_npc (game,
                               "You haven't seen ",
                               "I haven't seen ",
-                              "%player% hasn't seen ",
+                              "%player% haven't seen ",
                               npc, " yet!\n");
       return TRUE;
     }
@@ -11783,7 +11828,7 @@ lib_cmd_locate_npc (scr_gameref_t game)
                         lib_select_response (game,
                              " is somewhere that you haven't been yet.\n",
                              " is somewhere that I haven't been yet.\n",
-                             " is somewhere that %player% hasn't been yet.\n"));
+                             " is somewhere that %player_pronoun% haven't been yet.\n"));
       return TRUE;
     }
 
@@ -12048,7 +12093,7 @@ lib_cmd_status_npc (scr_gameref_t game)
       lib_print_response_npc (game,
                               "You haven't seen ",
                               "I haven't seen ",
-                              "%player% hasn't seen ",
+                              "%player% haven't seen ",
                               npc, " yet!\n");
       return TRUE;
     }
@@ -12200,7 +12245,7 @@ lib_cmd_dance (scr_gameref_t game)
   return lib_print_response_message (game,
                                      "You do a little dance.\n",
                                      "I do a little dance.\n",
-                                     "%player% does a little dance.\n");
+                                     "%player% do a little dance.\n");
 }
 
 scr_bool
@@ -12228,7 +12273,7 @@ lib_cmd_feel (scr_gameref_t game)
   return lib_print_response_message (game,
       "You feel nothing out of the ordinary.\n",
       "I feel nothing out of the ordinary.\n",
-      "%player% feels nothing out of the ordinary.\n");
+      "%player% feel nothing out of the ordinary.\n");
 }
 
 scr_bool
@@ -12254,7 +12299,7 @@ lib_cmd_hum (scr_gameref_t game)
   return lib_print_response_message (game,
                                      "You hum a little tune.\n",
                                      "I hum a little tune.\n",
-                                     "%player% hums a little tune.\n");
+                                     "%player% hum a little tune.\n");
 }
 
 scr_bool
@@ -12269,7 +12314,7 @@ lib_cmd_listen (scr_gameref_t game)
   return lib_print_response_message (game,
       "You hear nothing out of the ordinary.\n",
       "I hear nothing out of the ordinary.\n",
-      "%player% hears nothing out of the ordinary.\n");
+      "%player% hear nothing out of the ordinary.\n");
 }
 
 scr_bool
@@ -12293,7 +12338,7 @@ lib_cmd_run (scr_gameref_t game)
   return lib_print_response_message (game,
                                      "Why would you want to run?\n",
                                      "Why would I want to run?\n",
-                                     "Why would %player% want to run?\n");
+                                     "Why would %player_pronoun% want to run?\n");
 }
 
 scr_bool
@@ -12343,7 +12388,7 @@ lib_cmd_sing (scr_gameref_t game)
   return lib_print_response_message (game,
                                      "You sing a little song.\n",
                                      "I sing a little song.\n",
-                                     "%player% sings a little song.\n");
+                                     "%player% sing a little song.\n");
 }
 
 scr_bool
@@ -12373,7 +12418,7 @@ lib_cmd_whistle (scr_gameref_t game)
   return lib_print_response_message (game,
                                      "You whistle a little tune.\n",
                                      "I whistle a little tune.\n",
-                                     "%player% whistles a little tune.\n");
+                                     "%player% whistle a little tune.\n");
 }
 
 scr_bool
@@ -12557,7 +12602,7 @@ lib_cmd_ask_object (scr_gameref_t game)
   lib_print_response_object (game,
                              "You get no reply from ",
                              "I get no reply from ",
-                             "%player% gets no reply from ",
+                             "%player% get no reply from ",
                              object, ".\n");
   return TRUE;
 }

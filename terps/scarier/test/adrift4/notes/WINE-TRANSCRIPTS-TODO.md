@@ -670,6 +670,23 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `first.taf` | 3.80 | full run380 replay, `Adven_1_first.rtf` (feed `cmdfile_w_first.txt` -- the 18-command solution plus a dummy `look`, because `read book` prints the ending text without an EndGame, so the game is still at a prompt and the Save Transcript can follow it) | clean: 18/18 echoed, identical on every turn |
 | `haunted.taf` | 3.80 | full run380 replay, `Adven_1_haunted.rtf` (feed `cmdfile_w_haunted.txt` -- the 116-command solution, the winning `open gate` last) | clean: 115/115 echoed, 0 differences.  Both of its events (rain 15..20 delay / 10..15 length, chains 20..50 delay) are RNG-timed but carry no room list, so their texts never show; nothing to diverge on |
 | `castle.taf` | 3.70 | full run370 replay, `Adven_1_castle.rtf` (feed `cmdfile_w_castle.txt` -- the 17-command solution, the winning `take treasure chest` last; `measure38.sh ... run370.exe`) | clean: 16/16 echoed, 0 differences.  The older `Adven_3_castle_quest.rtf` (723 bytes, 2026-08-23, driven by hand before `measure38.sh`) holds no turns at all and is superseded |
+| `ptbad.taf` | 4.00 | full run400 replay, `Adrift_19_ptbad.txt` (feed `cmdfile_w_ptbad.txt` -- the 1-command solution) | clean: 1/1 echoed, tail only.  Later re-used as the library-message probe game -- see `Adrift_36_ptbad_probe3.txt` / `Adrift_37_ptbad_probe4.txt` below |
+| `Phoneb.taf` | 4.00 | full run400 replay, `Adrift_20_phoneb.txt` (feed `cmdfile_w_phoneb.txt` -- 2 commands) | clean: 2/2 echoed, tail only |
+| `rift.taf` | 4.00 | full run400 replay, `Adrift_21_rift.txt` (feed `cmdfile_w_rift.txt` -- 3 commands) | clean: 3/3 echoed, tail only |
+| `Newton.taf` | 4.00 | full run400 replay, `Adrift_22_newton.txt` (feed `cmdfile_w_newton.txt` -- 4 commands) | clean: identical on every turn, no ending keypress |
+| `The_Shuffling_Room.taf` | 4.00 | full run400 replay, `Adrift_23_shufflingroom.txt` (feed `cmdfile_w_shufflingroom.txt` -- 10 commands) | clean: 10/10 echoed, tail only.  8 NPCs and the circle-of-men text all in step |
+| `door.taf` | 4.00 | full run400 replay, `Adrift_24_door.txt` (feed `cmdfile_w_door.txt` -- 5 commands) | clean: identical on every turn |
+| `smote.taf` | 4.00 | full run400 replay, `Adrift_25_smote.txt` (feed `cmdfile_w_smote.txt` -- 9 commands) | clean: 9/9 echoed, tail only |
+| `Undefined1.taf` | 4.00 | full run400 replay, `Adrift_26_undefined.txt` (feed `cmdfile_w_undefined_drive.txt` -- 4 commands, `POPUP_ANSWERS="Undef"`) | clean: 4/4 echoed, tail only, 3/3 both sides.  The feed had to be re-cut first: the solution's opening `Undef` answers a **built-in** name InputBox the Runner asks AT LOAD, and left in the command file it was typed at the game prompt instead ("That's not going to help.") and read as an engine divergence.  `make_wine_cmdfile.py` now detects the built-in questions and prints them as `POPUP_ANSWERS` -- and `compare_wine_transcript.py` must then be given a `--scarier` replay with the answer prepended, or its own replay eats the first command as the name |
+| `hungry.taf` | 4.00 | full run400 replay, `Adrift_27_hungry.txt` (feed `cmdfile_w_hungry.txt` -- 7 commands) | clean: identical on every turn |
+| `Way Out.taf` | 4.00 | full run400 replay, `Adrift_28_wayout.txt` (feed `cmdfile_w_wayout.txt` -- 5 commands; staged as `wayout.taf`, the Runner's command line cannot carry a space) | clean: 5/5 echoed, tail only |
+| `agent_4F[1].A.taf` | 4.00 | full run400 replay, `Adrift_29_agent4f.txt` (feed `cmdfile_w_agent4f.txt` -- 5 commands; staged as `agent4f.taf`) | clean: 5/5 echoed, tail only |
+| `TheAmulet.taf` | 4.00 | full run400 replay, `Adrift_30_theamulet.txt` (feed `cmdfile_w_the_amulet.txt` -- 12 commands) | clean: 12/12 echoed, tail only |
+| `herrdoktor.taf` | 4.00 | full run400 replay, `Adrift_31_herrdoktor.txt` (feed `cmdfile_w_herrdoktor.txt` -- 15 commands), plus a 2-command probe `Adrift_34_herrdoktor_probe.txt` | 15/15 echoed; ONE engine finding, FIXED: the Runner's third-person library messages are **not conjugated**.  `take acorn` came back "The good doctor takess the acorn" because the game ships the ALR `[The good doctor take] -> [The good doctor takes]` to patch the Runner's own ungrammatical output, and Scarier was already saying "takes".  See "The pronoun array" below.  After the de-conjugation: 0 differences, tail only |
+| `Sandy.taf` | 4.00 | full run400 replay, `Adrift_32_sandy.txt` (feed `cmdfile_w_sandy.txt` -- 15 commands) | clean: identical on every turn.  Corroborates the "Sandy is unwinnable" verdict from the engine side: the Runner refuses the same commands and ends on the same "You see no such thing." |
+| `shreddem.taf` | 4.00 | full run400 replay, `Adrift_33_shreddem.txt` (feed `cmdfile_w_shred_em.txt` -- 15 commands) | clean: 15/15 echoed, tail only; 65/65 both sides |
+| `Main Course.taf` | 4.00 | live run400 probe, `Adrift_35_maincourse_probe.txt` (feed `cmdfile_w_mcprobe.txt` -- 33 commands chosen to hit one library message each) | the third-person probe: Perspective 2 with no ALRs to confound it.  `listen`, `sing`, `dance`, `sit down`, `stand up`, `lie down`, `take`, `drop`, `open`, `close`, `wear`, `remove`, `eat` all come back **bare** ("SoMorph sing a little song.", "SoMorph open the bathroom door."), and `i` reads "SoMorph is carrying nothing." with the copula spelled out.  31 string patterns de-conjugated in `sclibrar.cpp`; six more repointed at the new `%player_pronoun%` token (see below).  Two turns still differ, both absent-noun probes -- see "Still open" |
+| `ptbad.taf` probes 3 + 4 | 4.00 | live run400 probes, `Adrift_36_ptbad_probe3.txt` / `Adrift_37_ptbad_probe4.txt` (feeds `cmdfile_w_p3.txt` / `cmdfile_w_p4.txt`) | three **perspective-independent** message corrections, all FIXED: a second `drop all` answers "You are carrying nothing!" (4.0) / "You are not carrying anything." (pre-4.0), `wear all` with an empty inventory answers "You don't have anything to wear.", and `remove all` answers "You are not wearing anything."  SCARE's " that can be worn." and " that can be removed." tails are its own invention -- no Runner holds them, or any fragment of them |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -820,43 +837,43 @@ The four best targets, by walks x length:
 | `Pieces of eden.taf` | `pieces_of_eden` | 20 | 0 | 1 | 3 | -- | [Pieces_of_eden_walkthrough](Pieces_of_eden_walkthrough.md) |
 | `longbarrow.taf` | `longbarrow` | 19 | 0 | 0 | 2 | -- | -- |
 | `Vagabond.taf` | `vagabond` | 19 | 0 | 3 | 2 | yes | [Vagabond_walkthrough](Vagabond_walkthrough.md) |
-| `agent_4F[1].A.taf` | `agent4f` | 18 | 0 | 0 | 5 | -- | [Agent_4-F_from_Mars_walkthrough](Agent_4-F_from_Mars_walkthrough.md) |
+| `agent_4F[1].A.taf` | `agent4f` | 18 | 0 | 0 | 5 | -- | [Agent_4-F_from_Mars_walkthrough](Agent_4-F_from_Mars_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `dancingevenhim.taf` | `dancing_even_him` | 17 | 0 | 0 | 1 | yes | -- |
-| `Undefined1.taf` | `undefined` | 17 | 0 | 0 | 0 | -- | [Undefined_walkthrough](Undefined_walkthrough.md) |
+| `Undefined1.taf` | `undefined` | 17 | 0 | 0 | 0 | -- | [Undefined_walkthrough](Undefined_walkthrough.md) **done** 2026-09-05 -- clean in run400 (POPUP_ANSWERS name dialog), see "Measured so far" |
 | `outline.taf` | `outline` | 16 | 0 | 0 | 0 | -- | -- |
 | `Pilfers.taf` | `pilfers` | 16 | 0 | 0 | 1 | yes | -- |
 | `QuestI.taf` | `questi` | 16 | 0 | 0 | 1 | -- | [QuestI_walkthrough](QuestI_walkthrough.md) |
 | `raccoon.taf` | `raccoon` | 16 | 0 | 0 | 0 | yes | -- |
 | `The_Stowaway.taf` | `stowaway` | 16 | 0 | 2 | 2 | -- | -- |
-| `herrdoktor.taf` | `herrdoktor` | 15 | 0 | 0 | 1 | -- | -- |
+| `herrdoktor.taf` | `herrdoktor` | 15 | 0 | 0 | 1 | -- | **done** 2026-09-05 -- run400 found the third-person conjugation bug (FIXED), then clean; see "Measured so far" |
 | `InMemory.taf` | `inmemory` | 15 | 0 | 0 | 9 | yes | [InMemory_walkthrough](InMemory_walkthrough.md) |
 | `MurderMansionntro.taf` | `murdermansionntro` | 15 | 0 | 0 | 0 | yes | -- |
-| `Sandy.taf` | `sandy` | 15 | 0 | 0 | 0 | -- | -- |
-| `shreddem.taf` | `shred_em` | 15 | 0 | 0 | 1 | -- | [Shred_Em_walkthrough](Shred_Em_walkthrough.md) |
+| `Sandy.taf` | `sandy` | 15 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `shreddem.taf` | `shred_em` | 15 | 0 | 0 | 1 | -- | [Shred_Em_walkthrough](Shred_Em_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `rollingthedough.taf` | `rollingthedough` | 13 | 0 | 1 | 3 | yes | -- |
 | `Witness_Demon_vs_Vampire.taf` | `witnessdemon` | 13 | 0 | 0 | 0 | yes | -- |
-| `TheAmulet.taf` | `the_amulet` | 12 | 0 | 0 | 3 | -- | -- |
+| `TheAmulet.taf` | `the_amulet` | 12 | 0 | 0 | 3 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `The Dangers of Driving at Night.taf` | `dangersdrivingnight` | 11 | 0 | 4 | 0 | yes | -- |
 | `MammothVacuum.taf` | `mammoth` | 11 | 0 | 1 | 0 | yes | [MammothVacuumButtonOfDeath_walkthrough](MammothVacuumButtonOfDeath_walkthrough.md) |
 | `headless.taf` | `headless` | 10 | 0 | 4 | 4 | yes | [TeenageHeadlessExperiment_walkthrough](TeenageHeadlessExperiment_walkthrough.md) |
 | `Sandy.taf` | `sandy_meta_number` | 10 | 0 | 0 | 0 | -- | -- |
-| `The_Shuffling_Room.taf` | `shufflingroom` | 10 | 0 | 0 | 8 | -- | -- |
-| `smote.taf` | `smote` | 9 | 0 | 0 | 0 | -- | -- |
+| `The_Shuffling_Room.taf` | `shufflingroom` | 10 | 0 | 0 | 8 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `smote.taf` | `smote` | 9 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `The Foggy Banana Adventure.taf` | `foggybanana` | 8 | 0 | 3 | 1 | -- | -- |
 | `The Fly Human.taf` | `flyhuman` | 7 | 0 | 0 | 3 | -- | -- |
-| `hungry.taf` | `hungry` | 7 | 0 | 2 | 1 | -- | -- |
+| `hungry.taf` | `hungry` | 7 | 0 | 2 | 1 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `zombiecow.taf` | `zombiecow` | 7 | 0 | 0 | 2 | yes | -- |
 | `asteroid_after.taf` | `asteroidafter` | 6 | 0 | 11 | 3 | yes | -- **measured** -- see "Measured so far" |
-| `door.taf` | `door` | 5 | 0 | 0 | 1 | -- | [Door_walkthrough](Door_walkthrough.md) |
+| `door.taf` | `door` | 5 | 0 | 0 | 1 | -- | [Door_walkthrough](Door_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Existence.taf` | `existence` | 5 | 0 | 1 | 1 | yes | -- |
-| `Newton.taf` | `newton` | 5 | 0 | 0 | 1 | -- | -- |
-| `Way Out.taf` | `wayout` | 5 | 0 | 0 | 0 | -- | -- |
+| `Newton.taf` | `newton` | 5 | 0 | 0 | 1 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `Way Out.taf` | `wayout` | 5 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean in run400 (staged as `wayout.taf`), see "Measured so far" |
 | `zacksmackfoot.taf` | `zacksmackfoot` | 5 | 0 | 0 | 2 | yes | -- |
 | `P2P.taf` | `p2p` | 4 | 0 | 0 | 4 | yes | -- |
 | `hiker.taf` | `hiker` | 3 | 0 | 1 | 5 | -- | -- |
-| `rift.taf` | `rift` | 3 | 0 | 0 | 1 | -- | -- |
-| `Phoneb.taf` | `phoneb` | 2 | 0 | 0 | 0 | -- | -- |
-| `ptbad.taf` | `ptbad` | 1 | 0 | 1 | 0 | -- | -- |
+| `rift.taf` | `rift` | 3 | 0 | 0 | 1 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `Phoneb.taf` | `phoneb` | 2 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `ptbad.taf` | `ptbad` | 1 | 0 | 1 | 0 | -- | **done** 2026-09-05 -- clean in run400, and the probe game for the three library-message corrections; see "Measured so far" |
 | `Cut_the_Red_Wire.taf` | `redwire` | 1 | 0 | 1 | 0 | yes | [CutTheRedWire_walkthrough](CutTheRedWire_walkthrough.md) |
 | `The Vault.taf` | `vault` | 1 | 0 | 1 | 1 | -- | -- |
 
@@ -5947,3 +5964,172 @@ end of the 4.00 table -- `Phoneb.taf`(2), `rift.taf`(3), `Newton.taf`(4),
 `Sandy.taf`(15), `shreddem.taf`(15), `outline.taf`(16), `QuestI.taf`(16),
 `The_Stowaway.taf`(16), `longbarrow.taf`(19).  Defer `The Fly Human.taf` and
 `The Foggy Banana Adventure.taf`, which have a rollable event each.
+
+## Fifteen 4.00 rows, and the pronoun array -- 2026-09-05, run400
+
+The short end of the 4.00 table, driven end to end: `ptbad`(1), `Phoneb`(2),
+`rift`(3), `Newton`(4), `Way Out`(5), `Undefined1`(4 after the re-cut),
+`agent_4F`(5), `door`(5), `hungry`(7), `smote`(9), `The_Shuffling_Room`(10),
+`TheAmulet`(12), `herrdoktor`(15), `Sandy`(15), `shreddem`(15).  Fourteen are
+clean on every comparable turn -- the only differences are the Runner's
+`[Press any key to end]`, which Scarier does not print into a transcript.  The
+fifteenth, `herrdoktor`, found a rule that had been wrong in SCARE since
+before the fork.
+
+### The pronoun array: the Runner does NOT conjugate the third person
+
+`herrdoktor.taf` is written in the third person ("The good doctor"), and
+`take acorn` came back from run400 as
+
+    The good doctor takess the acorn from the large oak tree.
+
+Two esses.  The game ships the ALR `[The good doctor take] -> [The good doctor
+takes]`, and Scarier was already printing `takes`, so the ALR appended a
+second one.  The ALR is the clue: **an author only writes that ALR if the
+Runner prints "take".**
+
+It does.  Every Runner keeps exactly ONE literal per library message, in bare
+second-person form, and prefixes it with a slot from a seven-element pronoun
+array (`MemVar_4941D0` in run400, `MemVar_468174` in run390), filled at
+run400.bas **loc_48F60C-48F798**:
+
+| slot | first person | second person | third person |
+|---:|---|---|---|
+| 0 | `I` | `You` | *name* |
+| 1 | `my` | `your` | *name*`'s` |
+| 2 | `me` | `you` | *name* |
+| 3 | `My` | `Your` | *name*`'s` |
+| 4 | `am` | `are` | `is` |
+| 5 | `I` | `you` | `he` / `she`, by `Globals/PlayerGender` (48F76E / 48F77F) |
+| 6 | *(empty)* | *(empty)* | `s` |
+
+Slot 6 is the conjugation suffix, and it is used in exactly **twelve** places
+in the whole library.  That is not an eyeball count: a scan of `run400.bas`
+for every `push 6 'Long` / `push MemVar_4941D0` / `push from_stack_1(...)`
+triple returns twelve hits, and all twelve are the player's own movement --
+`" move" & Ary(6) & " north."` at 474C3C and its eleven compass siblings.
+
+So 4.0 really does print "%player% take the acorn." and "%player% sing a
+little song.".  Being *more* grammatical than the Runner is not a harmless
+improvement: it breaks the games that ALR-patch the Runner's own output, which
+is what `herrdoktor` had been doing for twenty years.
+
+Confirmed independently on `Main Course.taf` (Perspective 2, third person, and
+**no ALRs at all** to confound the reading) with a 33-command probe,
+`Adrift_35_maincourse_probe.txt`.  `listen`, `sing`, `dance`, `sit down`,
+`stand up`, `lie down`, `take`, `drop`, `open`, `close`, `wear`, `remove` and
+`eat` all come back bare.
+
+**Fixed** in `sclibrar.cpp`: 31 third-person string patterns de-conjugated
+(`%player% takes` -> `%player% take`, `%player% has` -> `%player% have`,
+`%player% doesn't have` -> `%player% don't have`, and so on), with
+`"%player% moves "` deliberately left alone -- it is the one Ary(6) message.
+The rule is written up in `lib_select_response()`'s comment block, because
+that is where the next person will look for it.
+
+### Six messages read slot 5, not slot 0
+
+A handful of messages say *he*/*she* rather than the name, because the Runner
+indexes `Ary(5)` there.  Scarier had no way to spell that, so those strings
+carried the player's name and read wrong:
+
+    ", and %player% is carrying "            ->  ", and %player_pronoun% is carrying "
+    ".  The most %player% can hold is "  x3  ->  ".  The most %player_pronoun% can hold is "
+    " somewhere %player% hasn't been yet."   ->  " somewhere %player_pronoun% haven't been yet."
+    " is somewhere that %player% hasn't ..." ->  " ... %player_pronoun% hasn't been yet."
+    "Why would %player% want to run?"        ->  "Why would %player_pronoun% want to run?"
+    "... can't go in that direction, but can move " -> "... but %player_pronoun% can move "
+
+`%player_pronoun%` is **not** an ADRIFT variable: it is an internal token,
+resolved in `var_get_system()` (scvars.cpp) to `he` when `Globals/PlayerGender`
+is 0 and `she` otherwise -- there is no neuter form in run400, which is why
+`Unknown` gender still says "he".  Nothing outside those six messages can
+reach it: `lib_get_perspective()` clamps any non-first-person to second below
+4.00, so the pre-4.0 Runners have no third person at all.  (run390's array has
+only the two branches, I / You, which is the confirmation of that clamp.)
+
+`albert_is_lost.taf` was the golden that showed it: its inventory line now
+reads "... and he is carrying a red quill." where it used to spell out
+"Tiberius Thingamus".
+
+### Three message corrections that have nothing to do with perspective
+
+Probed on `ptbad.taf` in plain second person
+(`Adrift_36_ptbad_probe3.txt` / `Adrift_37_ptbad_probe4.txt`):
+
+| command | run400 | SCARE was saying |
+|---|---|---|
+| `drop all`, inventory empty | `You are carrying nothing!` | `You're not carrying anything.` |
+| `wear all`, inventory empty | `You don't have anything to wear.` | `You're not carrying anything that can be worn.` |
+| `remove all`, wearing nothing | `You are not wearing anything.` | `You're not wearing anything that can be removed.` |
+
+Three separate things are wrong in those old strings.  The contraction: every
+Runner assembles the line as `Ary(0) & " " & Ary(4) & <literal>`, so the
+copula is spelled out and *no* Runner holds "You're" here at all.  The
+wording: `" carrying nothing!"` is 4.0's (run400 `name_object` 46E5A0) and
+`" not carrying anything."` is pre-4.0's (run390 445867 and its 3.7/3.8
+twins), so the drop-all line is version-split.  And the tails
+`" that can be worn."` / `" that can be removed."` are SCARE's own invention:
+neither string, nor any fragment of either, appears in any of the four
+binaries.
+
+All three fixed, with the third person spelled from the array rather than
+conjugated -- so wear-all's third person is "%player% don't have anything to
+wear.", ungrammatical exactly as the Runner has it.
+
+### What it cost in goldens
+
+Five: `maincourse`, `yonastoundingcastle`, `iqsfot`, `albert_is_lost`,
+`herrdoktor`.  Every one of the five changes is a game whose author had
+already noticed the Runner's grammar and papered over it with an ALR, so the
+diffs read as double conjugations disappearing:
+
+    The good doctor takess the acorn      ->  ... takes ...        (herrdoktor)
+    Irvine unclosess the glass cover      ->  Irvine uncloses ...  (iqsfot)
+    Irvine sets downs the sprig           ->  Irvine sets down ... (iqsfot)
+    Tiberius picks ups the quarter        ->  Tiberius picks up ...(albert_is_lost)
+    Ye unlocketh ye dirty table           ->  Ye unlock ...        (yonastoundingcastle)
+    Ye putteth ye magic belt onto ...     ->  Ye placeth ...       (yonastoundingcastle)
+    SoMorph opens the bathroom door       ->  SoMorph open ...     (maincourse)
+
+The `yonastoundingcastle` pair are worth a second look, because they cut the
+other way: the game's ALRs map `unlocks` and `puts`, which the Runner never
+prints, so those ALRs simply never fire and the Runner's own ungrammatical
+`unlock` survives -- while a *different* ALR, on the bare `put `, does fire and
+gives `placeth`.  Both are confirmed against the string dump: run400 holds
+`" unlock "` and `" put "` and holds no `"unlocks"` or `"puts"` anywhere.
+
+Full suite after the re-bless: **428/428 PASS**.
+
+### Still open: two absent-noun probes
+
+Both turned up in the Main Course probe and both reproduce in second person,
+so neither is a perspective question; both take TWO nouns the game has never
+heard of, which is a shape no corpus walkthrough types.  Recorded, not fixed:
+
+* `put zzz in yyy` -- run400 "I don't understand what you want to put things
+  inside." (literal 730), Scarier "It is not clear which object you are
+  referring to."
+* `ask zzz about yyy` -- run400 "You can't talk to that.", Scarier
+  `Use the format "ask [character] about [subject]".`  Scarier reaches
+  `lib_cmd_ask_other`; run400's `" can't talk to that."` is what it answers
+  when the thing asked *of* is not a character, and its format hint is only
+  for a missing SUBJECT.
+* (noted in passing) `wield zzz` -- run400 "Remove what?", Scarier the game's
+  DontUnderstand string.
+* (unmeasured) `put all in X` while carrying nothing -- Scarier emits
+  "You're not carrying anything" + an optional " else" + "."; run400 has no
+  `" else"` literal anywhere and one `" not carrying anything."` print in
+  `drops` (46F437).  Worth a probe next time the Runner is up.
+
+### The 4.00 table after this round
+
+34 of its 124 rows now carry a verdict.  The staged-and-fed tier that did not
+get driven this sitting is `outline.taf`(16), `QuestI.taf`(16),
+`The_Stowaway.taf`(16) and `longbarrow.taf`(19) -- feeds generated, games
+already copied into `pfx/drive_c/adrift/`.
+
+Next candidate: `outline.taf` (4.00; 16 commands), then `QuestI.taf`(16),
+`The_Stowaway.taf`(16), `longbarrow.taf`(19), and on up the 4.00 table by
+command count.  Still deferred: `The Fly Human.taf` and `The Foggy Banana
+Adventure.taf` (a rollable event each).

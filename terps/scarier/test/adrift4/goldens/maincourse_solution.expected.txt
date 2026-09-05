@@ -150,7 +150,7 @@ And have words with Brian.
 Take what?
 
 > open door
-SoMorph opens the bathroom door.
+SoMorph open the bathroom door.
 
 > east
 SoMorph moves east.
@@ -174,10 +174,10 @@ SoMorph see bathroom door open. Corridor to West.
 SoMorph can only move west.
 
 > close door
-SoMorph closes the bathroom door.
+SoMorph close the bathroom door.
 
 > open loo
-SoMorph opens the toilet.
+SoMorph open the toilet.
 
 > use toilet
 SoMorph not need toilet right now. Not before SoMorph eat something at least.
@@ -189,7 +189,7 @@ Wear what?
 nothing happens
 
 > open door
-SoMorph opens the bathroom door.
+SoMorph open the bathroom door.
 
 > west
 SoMorph moves west.
