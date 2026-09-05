@@ -226,6 +226,18 @@ shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadow
 # beats him with no unparsed command anywhere in the replay.
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=4
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
+# Measured 2026-09-05: full run400 replay under Wine (Adrift_46_topaz.txt,
+# feed cmdfile_w_topaz.txt, 23 commands, PRE=1).  23/23 echoed with ONE real
+# engine divergence, now fixed.  Turn 11 listed "Also here is a Topaz." into
+# the Darkness, whose own Long had just said "The sword lies on the floor, a
+# soft amber glow shining from the jewel in its hilt."  The sword is object 5
+# and its InRoomDesc is a single SPACE: run400 tests it with a bare `= ""`
+# (00472589 for the print inside viewroom, 00449B0C inside the "Also here is"
+# helper), so it prints the space -- invisibly -- and, having printed
+# something, leaves the object out of the fallback list.  Scarier gated on
+# scr_strempty(), which trims and so called " " empty.  Both gates now go
+# through lib_inroomdesc_is_absent() in sclibrar.cpp.  Golden re-blessed; the
+# replay is identical on every turn after the fix.
 topaz_solution.txt|topaz.taf|The two of you set out into the forest.|SCR_SKIP_WAITKEY=1
 thorn_solution.txt|Thorn.taf|You have chosen to look upon your own mortality.
 # ---------------------------------------------------------------------------
@@ -284,6 +296,9 @@ renegade_brainwave_solution.txt|Renegade_Brainwave.taf|planet Earth has been ave
 # turns are byte-identical and the 252nd differs only by [Press any key to end],
 # which is a waitkey mark by design.
 goldilocks_solution.txt|goldilocks.taf|Three Bears are no more
+# Measured 2026-09-05: full run400 replay under Wine (Adrift_43_1hrgame.txt,
+# feed cmdfile_w_masochists_heaven.txt, 13 commands, PRE=1).  13/13 echoed,
+# tail only; 15/15 both sides.
 masochists_heaven_solution.txt|1HRGAME.taf|You scored 15 out of the maximum 15!
 griswold_solution.txt|Griswold.taf|And there you have it: the intro|SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-31: pre-4.0 single-take held refusal is "You've
@@ -813,6 +828,13 @@ mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|You scored 90 out of the maxim
 # ends on `wealth` and the game never ends, so there is no keypress tail to
 # discount.  27 events (none rollable) and 17 NPCs stayed in step.
 phoenix_destiny_solution.txt|Phoenix_Destiny.taf|Gold: 100
+# Measured 2026-09-05: full run400 replay under Wine (Adrift_39_questi.txt,
+# feed cmdfile_w_questi.txt, PRE=0).  The game ends in death at turn 13 and
+# all 13 comparable turns are identical, both sides 10/10.  Past that the
+# Runner presses on through [Press any key to end] and RELOADS the game --
+# "Loading... Processing ALR...done." plus the whole intro -- so the feed's
+# trailing `z` went to the restarted game and was never echoed.  Not an
+# engine difference; Scarier's transcript simply stops at the summary.
 questi_solution.txt|QuestI.taf|Your score is 10 out of a maximum of 10.
 # 2026-08-29: the silent End-Game task on `ne` no longer swallows the move;
 # the walk into Outside (whose description carries the author's own
@@ -832,7 +854,10 @@ shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the 
 # elementals held.  50 of 95 is the ceiling.
 spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a maximum of 95.
 # Measured 2026-08-29: run400 replay, all 12 commands echoed, 12 of 12 turns
-# identical.
+# identical.  Re-driven 2026-09-05 against today's engine
+# (Adrift_48_srsintro.txt, feed cmdfile_w_srsintro.txt, PRE=0): still 12/12
+# and IDENTICAL ON EVERY TURN, tail included -- the ending stops for no
+# keypress, so there is not even a [Press any key to end] to discount.
 srsintro_solution.txt|SRSintro.taf|
 the_nonsense_machine_6000_solution.txt|The_Nonsense_Machine_6000.taf|
 # Marker 27 -> 26 on 2026-08-24 with the 4.0 output filter (see the humbug
@@ -923,9 +948,26 @@ wes_ghn_solution.txt|WesGHN.taf|You've Won the Game!
 # the Second-Hand Shirts has no EndGame action anywhere in its task table, so
 # its row is a tour to the last room.  (Woof prints "My score", not "Your
 # score" -- the corpus's usual tour marker would not have matched.)
+# Measured 2026-09-05: full run400 replay under Wine (Adrift_44_argh.txt,
+# feed cmdfile_w_argh.txt, 12 commands, PRE=0).  12/12 echoed, tail only; the
+# escape ending is byte-identical up to [Press any key to end], 98/125 both
+# sides.
 argh_solution.txt|ARGH_sGreatEscape.taf|You scored 98 out of the maximum 125!
 spam_solution.txt|SPAM.taf|Spam King|SCR_SKIP_WAITKEY=1
+# Measured 2026-09-05: full run400 replay under Wine (Adrift_47_wreckage.txt,
+# feed cmdfile_w_wreckage.txt, 11 commands, PRE=0).  11/11 echoed, tail only;
+# the winning `use the computer` matches to the last word.
 wreckage_solution.txt|Wreckage.taf|you've rescued yourself
+# Measured 2026-09-05: full run400 replay under Wine (Adrift_42_vagabond.txt,
+# feed cmdfile_w_vagabond.txt, 10 commands, PRE=0).  10/10 echoed with ONE
+# differing turn, and it is the known ALR-over-a-joined-paragraph residual
+# (RUNNER_TESTS_TODO.md section 3, the `thetest` entry), not a new finding.
+# Room 4's Long ends "A toolbox is here." and George's InRoomText is the
+# default `#`, so the Runner's joined paragraph reads
+# "A toolbox is here.  George is here." -- which is exactly this game's ALR
+# Original, rewritten to "A technician is hunched over a power conduit
+# here...".  Scarier emits "George is here." as its own section, the Original
+# cannot match, and both sentences survive.
 vagabond_solution.txt|Vagabond.taf|The End|SCR_SKIP_WAITKEY=1
 woof_solution.txt|Woof.taf|I'm back.
 # Measured 2026-09-05 in run400 under Wine (Adrift_26_undefined.txt, feed
@@ -1570,6 +1612,22 @@ enquete_a_hauts_risques_solution.txt|EnqueteAHautsRisques.taf|Votre score est de
 # hit the disambiguator, and `tire swing to tree` is a typo for `tie`).  They
 # are kept because ADRIFT's "Please be more clear" does NOT consume the next
 # line, so they cost nothing and the transcript stays faithful to the source.
+# Measured 2026-09-05: full run400 replay under Wine
+# (Adrift_45_shadricks.txt, feed cmdfile_w_shadricks_travels.txt, 22
+# commands, PRE=0).  22/22 echoed with ONE differing turn -- the first live
+# corpus sighting of the 2026-08-24 disambiguation wording:
+#     > climb tree
+#     run400   Which tree.  The old oak tree or the pine tree?
+#     scarier  Please be more clear, what do you want to climb? ...
+# This game has no ALR table at all, so that IS the Runner's raw library
+# wording, out of name_object (46E5D8) at loc_46E1FC; none of run370/380/390/
+# 400 holds the string "Please be more clear" anywhere, so SCARE invented it.
+# Not ported: Scarier's sentence carries no <term>, and producing one needs
+# run400's two-pass Short/alias narrowing, which is the expensive half.
+# The drive also confirms the note above -- `climb` is not one of the
+# handlers that owns the follow-up prompt (examine/read/look-in and
+# take/drop are), so run400 read `climb oak tree` as an ordinary command at
+# its own prompt, exactly as we do.
 shadricks_travels_solution.txt|ShadricksTravels.taf|You scored 100 out of the maximum 100!
 # Monsters (Release 2), Daniel Hiebert -- WIN, 40/40, which the SCR_DUMP_TASKS
 # ACT type=4 total (40 over 8 tasks) confirms is the maximum; all 8 fire here.
@@ -4579,6 +4637,10 @@ witnessdemon_solution.txt|Witness_Demon_vs_Vampire.taf|You have saved your churc
 # instant death), then during the lightning-storm timed event `use kid as a
 # shield` -- counter-intuitively the winning, max-score move is sacrificing
 # the kid as a lightning rod. 16 commands.
+# Measured 2026-09-05: full run400 replay under Wine (Adrift_40_stowaway.txt,
+# feed cmdfile_w_stowaway.txt, 16 commands, PRE=0).  16/16 echoed, tail only.
+# The ending arrives on a `wait`, so the whole "Time passes..." + lightning
+# event cascade is compared turn for turn and matches.
 stowaway_solution.txt|The_Stowaway.taf|Well done - you scored maximum points!
 # Blast (3447 bytes, 4.00): Ectocomp-2008 horror mini-game, no score. A
 # 100 HP demon roams 7 rooms on a deterministic turn-indexed patrol; four
@@ -4624,6 +4686,10 @@ raccoon_solution.txt|raccoon.taf|You dive headfirst into the can, easily shreddi
 # outline (3-room detective puzzle, 5/5): push bookcase to reveal a hidden
 # passage, lever a floorboard with a ruler, fill a mug via a pipe to wash
 # tweezers, pull a hairpin, pick the office lock; safe combo is in the bin.
+# Measured 2026-09-05: full run400 replay under Wine (Adrift_38_outline.txt,
+# feed cmdfile_w_outline.txt, 16 commands, PRE=0).  16/16 echoed and every
+# comparable turn identical; the only difference is the Runner's
+# [Press any key to end] after the win text.
 outline_solution.txt|outline.taf|Well done - you scored maximum points!
 # hungry (Ectocomp 2011, 9-room escape, no scoring): grab the pot from the
 # reception desk, head to the north office, smash the window with the pot.
@@ -4633,6 +4699,10 @@ hungry_solution.txt|hungry.taf|Escape. Freedom.
 # The Long Barrow (8-room dig/tunnel puzzle, no scoring): dig into the site,
 # fetch tools after the first collapse, light a torch, defuse the tunnel air
 # timer by digging a dark patch, then pry the final chamber's slab loose.
+# Measured 2026-09-05: full run400 replay under Wine
+# (Adrift_41_longbarrow.txt, feed cmdfile_w_longbarrow.txt, 19 commands,
+# PRE=0).  19/19 echoed, tail only; the eleven repeated `dig with trowel`
+# turns are byte-identical, so the dig counter and its event stay in step.
 longbarrow_solution.txt|longbarrow.taf|That'll show 'em (and maybe even bag you a raise).
 # Asteroid Aftermath (single-hub satellite-realignment puzzle, no scoring):
 # valve toggles silently relocate NPC satellites between camera rooms; a
@@ -4703,7 +4773,12 @@ murdermansionntro_solution.txt|MurderMansionntro.taf|Thank you for trying my Int
 # Measured 2026-08-29: run400 replay; 13 of the first 13 turns identical (the
 # compare tool flags turn 13 because the room name "Zenes" looks like an echo
 # of the later "zenes" command -- the transcripts themselves agree), then a
-# fed command is lost.
+# fed command is lost.  Re-driven end to end 2026-09-05 with a regenerated
+# feed (Adrift_50_whitterscap.txt, cmdfile_w_whitterscap.txt, 21 commands,
+# PRE=0): 21/21 echoed and every comparable turn identical, tail only.  Both
+# sides finish 2/2 on "ending 2 of 2".  The game's TYPED silent tasks
+# (`* s *`, `* south *`) never fire, because the wired route spells the
+# direction out.
 whitterscap_solution.txt|whitterscap.taf|You win with the best score and stuff, yeah!
 # The Dangers of Driving at Night (unscored horror vignette): drive north
 # through the accident event, pay the gas station clerk, spare Chris some
@@ -4714,6 +4789,13 @@ dangersdrivingnight_solution.txt|The Dangers of Driving at Night.taf|no longer b
 # All Hallows Eve (3-room Halloween vignette, 23/26 true max -- 3 pts belong
 # to a mutually exclusive alternate ending): brew a love potion from toad
 # eggs, purple beetles, and bird-bath water, then trap and ransom the cat.
+# Measured 2026-09-05: full run400 replay under Wine
+# (Adrift_49_allhallowseve.txt, feed cmdfile_w_allhallowseve.txt, 16
+# commands, PRE=8, LOAD_SLEEP=30, staged as a space-free allhallowseve.taf).
+# 16/16 echoed, tail only; 23/26 both sides.  measure.sh warned "2
+# pause-dismiss Return(s) sent -- PRE was wrong", but RULE 2 shows every
+# command echoed and every turn aligned, so the extra Returns fell in the
+# opening and cost nothing.
 allhallowseve_solution.txt|All Hallows Eve.taf|You scored 23 out of the maximum 26!|SCR_SKIP_WAITKEY=1
 # Gorxungula's Curse (unscored surreal fantasy): deliberately die walking west
 # to seed a gold coin on restart, trade the tub's tome to Clathering for

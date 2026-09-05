@@ -687,6 +687,19 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `shreddem.taf` | 4.00 | full run400 replay, `Adrift_33_shreddem.txt` (feed `cmdfile_w_shred_em.txt` -- 15 commands) | clean: 15/15 echoed, tail only; 65/65 both sides |
 | `Main Course.taf` | 4.00 | live run400 probe, `Adrift_35_maincourse_probe.txt` (feed `cmdfile_w_mcprobe.txt` -- 33 commands chosen to hit one library message each) | the third-person probe: Perspective 2 with no ALRs to confound it.  `listen`, `sing`, `dance`, `sit down`, `stand up`, `lie down`, `take`, `drop`, `open`, `close`, `wear`, `remove`, `eat` all come back **bare** ("SoMorph sing a little song.", "SoMorph open the bathroom door."), and `i` reads "SoMorph is carrying nothing." with the copula spelled out.  31 string patterns de-conjugated in `sclibrar.cpp`; six more repointed at the new `%player_pronoun%` token (see below).  Two turns still differ, both absent-noun probes -- see "Still open" |
 | `ptbad.taf` probes 3 + 4 | 4.00 | live run400 probes, `Adrift_36_ptbad_probe3.txt` / `Adrift_37_ptbad_probe4.txt` (feeds `cmdfile_w_p3.txt` / `cmdfile_w_p4.txt`) | three **perspective-independent** message corrections, all FIXED: a second `drop all` answers "You are carrying nothing!" (4.0) / "You are not carrying anything." (pre-4.0), `wear all` with an empty inventory answers "You don't have anything to wear.", and `remove all` answers "You are not wearing anything."  SCARE's " that can be worn." and " that can be removed." tails are its own invention -- no Runner holds them, or any fragment of them |
+| `outline.taf` | 4.00 | full run400 replay, `Adrift_38_outline.txt` (feed `cmdfile_w_outline.txt` -- 16 commands, PRE=0) | clean: 16/16 echoed, tail only -- the winning `x outline` differs by the Runner's `[Press any key to end]`; maximum points both sides |
+| `QuestI.taf` | 4.00 | full run400 replay, `Adrift_39_questi.txt` (feed `cmdfile_w_questi.txt` -- 16 commands, PRE=0) | clean through the death at turn 13: 13/13 identical, both sides 10/10.  The Runner then presses on past `[Press any key to end]` and **reloads the game** -- "Loading... Processing ALR...done." and the whole intro again -- which is why the feed's last `z` was never echoed.  Not an engine difference: Scarier's transcript simply stops at the summary |
+| `The_Stowaway.taf` | 4.00 | full run400 replay, `Adrift_40_stowaway.txt` (feed `cmdfile_w_stowaway.txt` -- 16 commands, PRE=0) | clean: 16/16 echoed, tail only.  The ending arrives on a `wait`, so the whole "Time passes..." + event cascade is compared and matches |
+| `longbarrow.taf` | 4.00 | full run400 replay, `Adrift_41_longbarrow.txt` (feed `cmdfile_w_longbarrow.txt` -- 19 commands, PRE=0) | clean: 19/19 echoed, tail only; the eleven repeated `dig with trowel` turns are byte-identical, so the dig counter and its event are in step |
+| `Vagabond.taf` | 4.00 | full run400 replay, `Adrift_42_vagabond.txt` (feed `cmdfile_w_vagabond.txt` -- 10 commands, PRE=0, `SCR_SKIP_WAITKEY=1`) | 10/10 echoed; ONE divergence, and it is the **known ALR-over-a-joined-paragraph residual** of section 3, not a new one.  Room 4's Long ends "A toolbox is here." and George's InRoomText is `#`, so the Runner's joined paragraph reads "A toolbox is here.  George is here." -- which is exactly the game's ALR Original, rewritten to "A technician is hunched over a power conduit here...".  Scarier puts "George is here." in its own section, the ALR cannot match, and both sentences survive.  Same entry as `thetest`; nothing new to fix |
+| `1HRGAME.taf` (`masochists_heaven`) | 4.00 | full run400 replay, `Adrift_43_1hrgame.txt` (feed `cmdfile_w_masochists_heaven.txt` -- 13 commands, PRE=1) | clean: 13/13 echoed, tail only; 15/15 both sides |
+| `ARGH_sGreatEscape.taf` | 4.00 | full run400 replay, `Adrift_44_argh.txt` (feed `cmdfile_w_argh.txt` -- 12 commands, PRE=0) | clean: 12/12 echoed, tail only; the escape ending is byte-identical up to `[Press any key to end]`; 98/125 both sides |
+| `ShadricksTravels.taf` | 4.00 | full run400 replay, `Adrift_45_shadricks.txt` (feed `cmdfile_w_shadricks_travels.txt` -- 22 commands, PRE=0) | 22/22 echoed; ONE divergence, the **first live corpus sighting of the 2026-08-24 disambiguation wording** -- `climb tree` answers `Which tree.  The old oak tree or the pine tree?` in run400 and `Please be more clear, what do you want to climb? ...` in Scarier.  The game has **no ALRs at all**, so that is the Runner's own raw wording, straight out of `name_object` (46E5D8 @ loc_46E1FC).  None of run370/380/390/400 contains the string "Please be more clear" anywhere: SCARE invented it.  Recorded, not ported -- see the MEASURED 2026-08-24 section.  The expensive half is the two-pass term narrowing that decides WHAT goes in `<term>`; Scarier's message carries no term at all, so the wording cannot be ported on its own.  This drive also **refines** the August finding: `climb` is not one of the handlers that owns a follow-up prompt, so run400 printed the message and read the next line as an ordinary command (`climb oak tree` got its own `>` prompt and its own answer) -- the answer-eating is examine/read/look-in and take/drop only |
+| `topaz.taf` | 4.00 | full run400 replay, `Adrift_46_topaz.txt` (feed `cmdfile_w_topaz.txt` -- 23 commands, PRE=1, `SCR_SKIP_WAITKEY=1`) | 23/23 echoed; ONE real engine divergence, now **FIXED** -- turn 11 listed "Also here is a Topaz." into a room whose own text had just described the sword.  The sword's `InRoomDesc` is a single SPACE, and the Runner's test is an exact `= ""` (00472589 for the print, 00449B0C inside the "Also here is" helper), so it prints the space -- invisibly -- and, having printed something, leaves the object out of the fallback list.  Scarier used `scr_strempty()`, which trims.  One golden re-blessed; 23/23 identical after the fix |
+| `Wreckage.taf` | 4.00 | full run400 replay, `Adrift_47_wreckage.txt` (feed `cmdfile_w_wreckage.txt` -- 11 commands, PRE=0) | clean: 11/11 echoed, tail only; the winning `use the computer` matches to the last word |
+| `SRSintro.taf` | 4.00 | full run400 replay, `Adrift_48_srsintro.txt` (feed `cmdfile_w_srsintro.txt` -- 12 commands, PRE=0) | clean: **identical on every turn**, tail included -- the ending does not stop for a keypress |
+| `All Hallows Eve.taf` | 4.00 | full run400 replay, `Adrift_49_allhallowseve.txt` (feed `cmdfile_w_allhallowseve.txt` -- 16 commands, PRE=8, `LOAD_SLEEP=30`, staged as `allhallowseve.taf`) | clean: 16/16 echoed, tail only; 23/26 both sides.  measure.sh warned "2 pause-dismiss Return(s) sent -- PRE was wrong" but RULE 2 shows every command echoed and every turn aligned, so the extra Returns fell in the opening and cost nothing |
+| `whitterscap.taf` | 4.00 | full run400 replay, `Adrift_50_whitterscap.txt` (feed `cmdfile_w_whitterscap.txt` -- 21 commands, PRE=0) | clean: 21/21 echoed, tail only; 2/2 and "ending 2 of 2" both sides.  The game's TYPED silent tasks (`* s *`, `* south *`) never fire because the wired route spells the direction out |
 
 Three of these -- `xfiles`, `wamk` and `humbug` -- are **not measurable by
 full replay**.  For `xfiles` and `wamk` the reason is RNG-timed event lines, so
@@ -777,9 +790,9 @@ The four best targets, by walks x length:
 | `Imagination.taf` | `imagination` | 35 | 1 | 1 | 0 | -- | [Just_My_Imagination_walkthrough](Just_My_Imagination_walkthrough.md) |
 | `hyper_b_s.taf` | `hyper_b_s` | 34 | 1 | 2 | 1 | -- | [hyper_b_s_walkthrough](hyper_b_s_walkthrough.md) |
 | `Renegade_Brainwave.taf` | `renegade_brainwave` | 25 | 1 | 5 | 3 | -- | [Renegade_Brainwave_walkthrough](Renegade_Brainwave_walkthrough.md) |
-| `whitterscap.taf` | `whitterscap` | 21 | 1 | 3 | 4 | -- | -- |
-| `All Hallows Eve.taf` | `allhallowseve` | 16 | 1 | 4 | 0 | yes | -- |
-| `SRSintro.taf` | `srsintro` | 13 | 1 | 2 | 3 | -- | [SRSintro_walkthrough](SRSintro_walkthrough.md) |
+| `whitterscap.taf` | `whitterscap` | 21 | 1 | 3 | 4 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `All Hallows Eve.taf` | `allhallowseve` | 16 | 1 | 4 | 0 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `SRSintro.taf` | `srsintro` | 13 | 1 | 2 | 3 | -- | [SRSintro_walkthrough](SRSintro_walkthrough.md) **done** 2026-09-05 -- clean in run400 (identical on every turn), see "Measured so far" |
 | `competition2006__adrift__ptgood__PTGOOD.taf` | `ptgood` | 6 | 1 | 1 | 0 | -- | -- |
 | `The Plague - Redux.taf` | `plague` | 266 | 0 | 10 | 20 | yes | [The_Plague_Redux_walkthrough](The_Plague_Redux_walkthrough.md) |
 | `vetknow.taf` | `vetknow` | 228 | 0 | 15 | 38 | yes | [Veteran_Knowledge_walkthrough](Veteran_Knowledge_walkthrough.md) |
@@ -829,22 +842,22 @@ The four best targets, by walks x length:
 | `frog.taf` | `frog` | 27 | 0 | 3 | 0 | -- | [The_Green_Princess_walkthrough](The_Green_Princess_walkthrough.md) |
 | `SPAM.taf` | `spam` | 27 | 0 | 2 | 3 | yes | [SPAM_walkthrough](SPAM_walkthrough.md) |
 | `I am the Law.taf` | `law` | 26 | 0 | 5 | 3 | yes | [IAmTheLaw_walkthrough](IAmTheLaw_walkthrough.md) |
-| `topaz.taf` | `topaz` | 23 | 0 | 0 | 4 | yes | [Topaz_walkthrough](Topaz_walkthrough.md) |
-| `Wreckage.taf` | `wreckage` | 23 | 0 | 0 | 2 | -- | [Wreckage_walkthrough](Wreckage_walkthrough.md) |
-| `ARGH_sGreatEscape.taf` | `argh` | 22 | 0 | 0 | 1 | -- | [ARGHs_Great_Escape_walkthrough](ARGHs_Great_Escape_walkthrough.md) |
-| `ShadricksTravels.taf` | `shadricks_travels` | 22 | 0 | 3 | 0 | -- | -- |
-| `1HRGAME.taf` | `masochists_heaven` | 20 | 0 | 0 | 0 | -- | [Masochists_Heaven_walkthrough](Masochists_Heaven_walkthrough.md) |
+| `topaz.taf` | `topaz` | 23 | 0 | 0 | 4 | yes | [Topaz_walkthrough](Topaz_walkthrough.md) **done** 2026-09-05 -- run400 found the exact-empty `InRoomDesc` rule (FIXED), then clean; see "Measured so far" |
+| `Wreckage.taf` | `wreckage` | 23 | 0 | 0 | 2 | -- | [Wreckage_walkthrough](Wreckage_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `ARGH_sGreatEscape.taf` | `argh` | 22 | 0 | 0 | 1 | -- | [ARGHs_Great_Escape_walkthrough](ARGHs_Great_Escape_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `ShadricksTravels.taf` | `shadricks_travels` | 22 | 0 | 3 | 0 | -- | **done** 2026-09-05 -- run400 differs on ONE turn, the disambiguation wording (recorded, not ported); see "Measured so far" |
+| `1HRGAME.taf` | `masochists_heaven` | 20 | 0 | 0 | 0 | -- | [Masochists_Heaven_walkthrough](Masochists_Heaven_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Pieces of eden.taf` | `pieces_of_eden` | 20 | 0 | 1 | 3 | -- | [Pieces_of_eden_walkthrough](Pieces_of_eden_walkthrough.md) |
-| `longbarrow.taf` | `longbarrow` | 19 | 0 | 0 | 2 | -- | -- |
-| `Vagabond.taf` | `vagabond` | 19 | 0 | 3 | 2 | yes | [Vagabond_walkthrough](Vagabond_walkthrough.md) |
+| `longbarrow.taf` | `longbarrow` | 19 | 0 | 0 | 2 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+| `Vagabond.taf` | `vagabond` | 19 | 0 | 3 | 2 | yes | [Vagabond_walkthrough](Vagabond_walkthrough.md) **done** 2026-09-05 -- run400 differs on ONE turn, the known ALR-over-a-joined-paragraph residual; see "Measured so far" |
 | `agent_4F[1].A.taf` | `agent4f` | 18 | 0 | 0 | 5 | -- | [Agent_4-F_from_Mars_walkthrough](Agent_4-F_from_Mars_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `dancingevenhim.taf` | `dancing_even_him` | 17 | 0 | 0 | 1 | yes | -- |
 | `Undefined1.taf` | `undefined` | 17 | 0 | 0 | 0 | -- | [Undefined_walkthrough](Undefined_walkthrough.md) **done** 2026-09-05 -- clean in run400 (POPUP_ANSWERS name dialog), see "Measured so far" |
-| `outline.taf` | `outline` | 16 | 0 | 0 | 0 | -- | -- |
+| `outline.taf` | `outline` | 16 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Pilfers.taf` | `pilfers` | 16 | 0 | 0 | 1 | yes | -- |
-| `QuestI.taf` | `questi` | 16 | 0 | 0 | 1 | -- | [QuestI_walkthrough](QuestI_walkthrough.md) |
+| `QuestI.taf` | `questi` | 16 | 0 | 0 | 1 | -- | [QuestI_walkthrough](QuestI_walkthrough.md) **done** 2026-09-05 -- clean in run400 through its death ending, see "Measured so far" |
 | `raccoon.taf` | `raccoon` | 16 | 0 | 0 | 0 | yes | -- |
-| `The_Stowaway.taf` | `stowaway` | 16 | 0 | 2 | 2 | -- | -- |
+| `The_Stowaway.taf` | `stowaway` | 16 | 0 | 2 | 2 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `herrdoktor.taf` | `herrdoktor` | 15 | 0 | 0 | 1 | -- | **done** 2026-09-05 -- run400 found the third-person conjugation bug (FIXED), then clean; see "Measured so far" |
 | `InMemory.taf` | `inmemory` | 15 | 0 | 0 | 9 | yes | [InMemory_walkthrough](InMemory_walkthrough.md) |
 | `MurderMansionntro.taf` | `murdermansionntro` | 15 | 0 | 0 | 0 | yes | -- |
@@ -6133,3 +6146,119 @@ Next candidate: `outline.taf` (4.00; 16 commands), then `QuestI.taf`(16),
 `The_Stowaway.taf`(16), `longbarrow.taf`(19), and on up the 4.00 table by
 command count.  Still deferred: `The Fly Human.taf` and `The Foggy Banana
 Adventure.taf` (a rollable event each).
+
+## Thirteen more 4.00 rows, and an InRoomDesc of one space -- 2026-09-05, run400
+
+Driven end to end: `outline`(16), `QuestI`(16), `The_Stowaway`(16),
+`longbarrow`(19), `Vagabond`(10), `1HRGAME`(13), `ARGH_sGreatEscape`(12),
+`ShadricksTravels`(22), `topaz`(23), `Wreckage`(11), `SRSintro`(12),
+`All Hallows Eve`(16), `whitterscap`(21).  Ten are clean on every comparable
+turn -- the only difference is the Runner's `[Press any key to end]`, which
+Scarier does not print into a transcript (`SRSintro` does not even have that:
+its ending stops for no key, so the two transcripts are identical to the last
+byte).  Of the other three, one is a real engine bug, one is a rule already
+recorded and deliberately not ported, and one is a known residual.
+
+### topaz: an `InRoomDesc` of a single SPACE is *present*
+
+`topaz.taf` turn 11 walks into the Darkness, whose Long already reads
+
+    The sword lies on the floor, a soft amber glow shining from the jewel in
+    its hilt.
+
+and Scarier followed it with `Also here is a Topaz.` while run400
+(`Adrift_46_topaz.txt`) printed nothing of the sort.
+
+The sword is object 5 and its `InRoomDesc` is `" "` -- one space.  That is a
+deliberate authoring trick and the Runner honours it exactly: the test in
+run400 is a bare `= ""` string comparison, both at **00472589** (the print
+itself, inside `viewroom`) and at **00449B0C** inside the "Also here is"
+helper that decides the fallback list.  So the Runner prints the space --
+invisibly -- and, *having printed something*, leaves the object out of the
+list.  The author gets an object the room text describes in prose and the
+lister never mentions.
+
+Scarier gated both places on `scr_strempty()` (scutils.cpp), which scans for a
+non-space character and therefore calls `" "` empty.  Both gates now go
+through a new `lib_inroomdesc_is_absent()` in `sclibrar.cpp`, which is the
+Runner's exact test and carries the reason in its comment block.
+`scr_strempty()` itself is unchanged -- it is right for its other callers.
+
+Cost: one golden, `topaz_solution.expected.txt`, which lost the two lines of
+the spurious listing and gained the blank line the now-printed space leaves
+behind.
+
+### ShadricksTravels: the disambiguation wording, seen live at last
+
+The 2026-08-24 MEASURED section derived run400's object-ambiguity prompt from
+probes and string dumps and left it unported.  `ShadricksTravels` is the first
+**corpus walkthrough** to walk into it:
+
+    > climb tree
+    run400   Which tree.  The old oak tree or the pine tree?
+    scarier  Please be more clear, what do you want to climb? The old oak tree
+             or the pine tree?
+
+This game has **no ALR table at all**, so there is nothing between the Runner
+and the transcript: `Which <term>.  <list>?` is the raw library wording, out
+of `name_object` (46E5D8) at loc_46E1FC.  Confirming the other half, none of
+run370, run380, run390 or run400 contains the substring "Please be more
+clear" anywhere -- SCARE invented that sentence.
+
+Still not ported, and for the same reason as in August: the wording is the
+cheap half of the change.  The other half is run400's two-pass Short/alias
+narrowing, which decides *what* goes in `<term>` -- and Scarier's sentence
+carries no term at all, so there is nothing to re-word until that lands.
+Corpus exposure of SCARE's wording remains small -- 4 goldens, 6 lines -- so
+the row is recorded, not fixed.
+
+The drive does **refine** the August finding in one useful direction.  That
+session recorded a follow-up prompt which eats the next typed line as the
+answer; here it did not fire.  `climb` is not one of the handlers that owns
+the prompt -- run400's disambiguation is per-handler, and only examine / read
+/ look-in and take / drop have it -- so the Runner printed the message and
+then read `climb oak tree` as an ordinary command, at its own `>` prompt,
+answering "You can't climb the old oak tree." exactly as Scarier does.  That
+is why the row is 22/22 echoed with a single differing turn instead of
+desynchronising, and it is worth knowing before the next probe file is cut.
+
+### Vagabond: the joined paragraph again, nothing new
+
+Turn 2 looked like a missing NPC-presence rewrite and is not.  Room 4's Long
+ends "A toolbox is here.", George's InRoomText is the default `#`, and the
+game ships
+
+    ALR Original: "A toolbox is here.  George is here."
+    ALR Replace:  "A technician is hunched over a power conduit here..."
+
+The Runner joins the whole turn's output into one paragraph with two spaces,
+so the Original matches and both sentences are replaced.  Scarier emits
+"George is here." as its own section, the Original cannot match, and both
+sentences survive.  That is exactly the standing section 3 / `thetest` entry
+in `RUNNER_TESTS_TODO.md`, reached from a second game.
+
+### QuestI: what the Runner does after the score summary
+
+Worth recording because it looks like a lost command.  `QuestI` ends in death
+at turn 13; run400 prints the summary, `[Press any key to end]`, and then
+**reloads the game** -- "Loading... Processing ALR...done. Indexing tasks..."
+and the full intro -- so the feed's trailing `z` went to the restarted game
+and was never echoed as turn 15.  All 13 comparable turns are identical and
+both sides score 10/10.
+
+### The 4.00 table after this round
+
+47 of its 124 rows now carry a verdict.  What remains at the short end is a
+tier the earlier sweeps skipped over rather than rejected: `The Vault`(1),
+`Cut_the_Red_Wire`(1), `hiker`(3), `P2P`(4), `Existence`(5),
+`zacksmackfoot`(5), `zombiecow`(7), the second `Sandy` row
+(`sandy_meta_number`, 10), `headless`(10), `MammothVacuum`(11), `The Dangers
+of Driving at Night`(11), `Witness_Demon_vs_Vampire`(13),
+`rollingthedough`(13), `InMemory`(15), `MurderMansionntro`(15),
+`Pilfers`(16), `raccoon`(16), `dancingevenhim`(17), `Through time`(18) and
+`cyber`(20).
+
+Next candidate: `The Vault.taf` (4.00; 1 command), then up that short tier by
+command count.  Still deferred: `To_Hell_And_Beyond.taf` (19 rollable events),
+`Pieces of eden.taf`, `The Fly Human.taf` and `The Foggy Banana
+Adventure.taf`.

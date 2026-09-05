@@ -96,8 +96,6 @@ The sword lies on the floor, a soft amber glow shining from the jewel in its
 hilt. It creates a small pool of light around you. Absolute darkness
 stretches beyond the glow.
 
-Also here is a Topaz.
-
 > x sword
 The sword is now clean of mud and dirt, and its blade is glinting from the
 light it gives off. The jewel in its golden shaft glows strangely, making the

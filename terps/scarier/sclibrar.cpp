@@ -1306,6 +1306,30 @@ lib_npc_text_is_default (const scr_char *description)
 
 
 /*
+ * lib_inroomdesc_is_absent()
+ *
+ * TRUE when an object has no in-room description at all.  The Runner's test
+ * is an exact `InRoomDesc = ""` (run400 @00472589 for the print, @00449B0C
+ * inside the helper that decides the "Also here is" list), NOT a
+ * whitespace-trimmed one, so an in-room description of a single SPACE counts
+ * as present: the Runner prints it -- invisibly -- and, because it printed
+ * it, leaves the object out of the fallback list.  Authors use exactly that
+ * to suppress an object the room's own long text already mentions.
+ *
+ * topaz.taf is the corpus case.  Its sword, object 5, sits in the Darkness
+ * where the room text already says "The sword lies on the floor, a soft amber
+ * glow shining from the jewel in its hilt", and its InRoomDesc is " ".
+ * scr_strempty() trims, so Scarier read that as no description and added
+ * "Also here is a Topaz." to a room that had just described the sword
+ * (measured in run400 under Wine 2026-09-05, Adrift_46.txt turn 11).
+ */
+static scr_bool
+lib_inroomdesc_is_absent (const scr_char *inroomdesc)
+{
+  return inroomdesc == NULL || inroomdesc[0] == NUL;
+}
+
+/*
  * lib_print_room_contents()
  *
  * Print a list of the contents of a room.
@@ -1351,7 +1375,7 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
           /* Find and print in room description. */
           vt_key[2].string = "InRoomDesc";
           inroomdesc = prop_get_string (bundle, "S<-sis", vt_key);
-          if (!scr_strempty (inroomdesc))
+          if (!lib_inroomdesc_is_absent (inroomdesc))
             {
               if (count == 0)
                 pf_buffer_character (filter, '\n');
@@ -1385,7 +1409,7 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
           inroomdesc = prop_get_string (bundle, "S<-sis", vt_key);
 
           if (!obj_shows_initial_description (game, object)
-              || scr_strempty (inroomdesc))
+              || lib_inroomdesc_is_absent (inroomdesc))
             {
               scr_bool listflag;
 
