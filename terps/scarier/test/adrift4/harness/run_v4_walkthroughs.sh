@@ -5359,7 +5359,26 @@ camelot15_solution.txt|Camelot 1,5.taf|Looks like the old Merlin did read your m
 # Bungo's fistfight round-counters are fully deterministic, no RNG --
 # kick/kick/insult/insult/headbutt x3 guarantees victory. `kill bungo` is a
 # confirmed-inert dead end (flavor text only, does not leave the dialogue
-# state machine). 127 commands, `SCR_SKIP_WAITKEY=1`.
+# state machine). The 352 "maximum" is a sum over mutually exclusive
+# alternatives: the eight endgame info-combination tasks 347-354 are one
+# choice (best +15), the five debrief-grade tasks 362-366 another (best
+# +25), and every conversation node exists in 2-4 copies, one per possible
+# previous menu state, so each node can only ever pay out once. Scoring the
+# reachable pool instead gives exactly 140: 45 for the seven unique +5
+# actions plus Bungo defeated (+10), +5 each for the bartender, Liza and
+# the three Bungo nodes, +5 for Bulgaria (tasks 216 and 218 are the chair
+# leg and the coke can, two ways to end one chase), +5 for the robbery wait
+# (task 273; 274 is the +2 consolation), then 15+10+10+25 at the debrief.
+# The bartender pays +5 once and only once: tasks 86-88 (robbers) and 93-96
+# (fart) both need Orinoko in the room, reaching the fart node needs the
+# Orinoko-absent path 82-85, and once either fires task 78 (RestrMask
+# '#O#') answers every further `talk bartender` with "Ain't got nothing
+# more to say". Charlie's +5 (tasks 235-237) is dead: `talk charlie` (task
+# 224) writes the conversation state into variable 5 "con" like every other
+# NPC, but all of Charlie's menu tasks read restriction Var1 6, i.e.
+# variable 4 "location", which never holds 50-53. 128 commands (the last is
+# a `score` in the Outer Office so the transcript records the 140),
+# `SCR_SKIP_WAITKEY=1`.
 jimpond_solution.txt|JimPond.taf|and I'll be wanting you to lead the attack.|SCR_SKIP_WAITKEY=1
 # Greek School Adventure.taf: comic college-life sim (a Greek-language
 # class). 185/275 (67%) is the true reachable maximum -- 90 points are

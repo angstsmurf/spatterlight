@@ -1529,5 +1529,8 @@ Outer Office
 I don't think I've even been in such a drab and dismal little room. There is
 nothing here aside from a small sign affixed to the wall.
 
+> score
+My score is 140 out of a maximum of 352.  (39%)
+
 > quit
 Do you really want to quit? [Y/N]
