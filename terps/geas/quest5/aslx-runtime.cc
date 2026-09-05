@@ -3038,6 +3038,8 @@ Value Interp::call_function(const std::string &name, std::vector<Value> args,
         error("Function not found: '" + name + "'");
         return vnull();
     }
+    if (args.size() == 2 && name == "Grid_CalculateMapCoordinates")
+        chart_uncharted_room(args[0], args[1]);
     Context local;
     const Value *pn = fn->field("paramnames");
     // A parameterless call to a function that declares parameters is an error
@@ -3068,6 +3070,95 @@ Value Interp::call_function(const std::string &name, std::vector<Value> args,
         frames_.pop_back();
     }
     return local.return_value;
+}
+
+// Quest Viva issue #2189 (open, filed 2026-09-04): CoreGrid only ever assigns
+// map coordinates by walking outward from a charted room -- exit.to for each
+// VISIBLE exit, plus room.parent -- and seeds exactly one origin, the starting
+// room. A room the player reaches any other way has no coordinates by any code
+// path: a scripted MovePlayer with no exit pointing at it (The Acreage's
+// TerminalRoom), or an exit revealed by MakeExitVisible after the player was
+// already standing in its parent (Woo Rebooted). The arrival pass then errors
+// out of Grid_GetGridCoordinateForPlayer eight times over (DictionaryItem on
+// the empty dictionary Grid_GetPlayerCoordinatesForRoom just created) and
+// paints nothing.
+//
+// Published games carry their own inlined copy of CoreGrid, so an upstream
+// library fix would never reach them; this is a deliberate deviation in the
+// engine instead (test/quest5/harness/oracle/README.md, "Oracle vs goldens").
+// Hooked on the arrival pass -- OnEnterRoom's
+// Grid_CalculateMapCoordinates(game.pov.parent, game.pov) -- for a room the
+// player's coordinate dictionary does not chart yet: first re-run the pass on
+// the room the player came from, so a now-visible exit charts the new room
+// where it belongs; if that found nothing, seed the room at the origin of a
+// fresh z layer (one above the highest charted), where it stands alone -- the
+// map shows one floor at a time -- rather than on top of the starting room.
+// Charted rooms and rooms the library seeds itself (the first pass, before
+// grid_coordinates exists) take the ordinary path; a game without CoreGrid's
+// functions is left alone.
+void Interp::chart_uncharted_room(const Value &roomv, const Value &playerv) {
+    Element *room = interp_eval_element(*this, roomv);
+    Element *player = interp_eval_element(*this, playerv);
+    if (!room || !player) return;
+    // The arrival pass only: the library recurses on room.parent and calls
+    // itself from its own seeding, always for a room it has just charted.
+    const Value *pp = resolve_field(player, "parent");
+    if (!pp || pp->type != Value::Type::ObjectRef || pp->str != room->name)
+        return;
+    std::string prev = last_charted_room_;
+    last_charted_room_ = room->name;
+    if (!resolve_field(player, "grid_coordinates") &&
+        !resolve_field(player, "grid_coordinates_delegate"))
+        return;  // first pass: Grid_GetPlayerCoordinateDictionary seeds it
+    for (const char *f : {"Grid_GetPlayerCoordinateDictionary",
+                          "Grid_SetGridCoordinateForPlayer"}) {
+        Element *e = world_.find(f);
+        if (!e || e->kind != ElemKind::Function) return;
+    }
+    // Charted = the room's entry carries all three coordinates (a lookup on
+    // the way to an error leaves an EMPTY entry behind).
+    auto charted = [&](const std::string &rname) {
+        Context c;
+        Value d = call_function("Grid_GetPlayerCoordinateDictionary",
+                                {playerv}, &c);
+        for (const auto &kv : d.dict()) {
+            if (kv.first != rname) continue;
+            int have = 0;
+            for (const auto &c2 : kv.second.dict())
+                if (c2.first == "x" || c2.first == "y" || c2.first == "z")
+                    ++have;
+            return have == 3;
+        }
+        return false;
+    };
+    if (charted(room->name)) return;
+    if (!prev.empty() && prev != room->name && world_.find(prev) &&
+        charted(prev)) {
+        Context c;
+        call_function("Grid_CalculateMapCoordinates", {vobj(prev), playerv},
+                      &c);
+        if (charted(room->name)) return;
+    }
+    double zmax = 0;
+    {
+        Context c;
+        Value d = call_function("Grid_GetPlayerCoordinateDictionary",
+                                {playerv}, &c);
+        for (const auto &kv : d.dict())
+            for (const auto &c2 : kv.second.dict())
+                if (c2.first == "z") {
+                    double z = c2.second.type == Value::Type::Int
+                                   ? (double)c2.second.integer
+                                   : c2.second.dbl;
+                    if (z + 1 > zmax) zmax = z + 1;
+                }
+    }
+    for (const auto &[axis, v] : {std::pair<const char *, double>{"x", 0.0},
+                                  {"y", 0.0}, {"z", zmax}}) {
+        Context c;
+        call_function("Grid_SetGridCoordinateForPlayer",
+                      {playerv, roomv, vstr(axis), vdouble(v)}, &c);
+    }
 }
 
 // -- reserved statement commands --------------------------------------------

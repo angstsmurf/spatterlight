@@ -412,11 +412,20 @@ what `1 —or— 2` (sent verbatim) triggered before the extractor fix.
 The goldens are the *native* engine's transcripts, so every failure is a
 native/oracle disagreement with a known owner:
 
-- *The Acreage (pub 6.29 revision)* — Quest Viva issue #2189 (rooms reached only
-  by scripted moves never get grid coordinates). Both engines error; only the
-  error *text* differs, because upstream's #2167 guard now reports "Cannot use
-  this value in a calculation because it has not been set" where the golden has
-  the older "The given key 'x' was not present" storm.
+- *The Acreage (pub 6.29 revision)* — a **deliberate deviation** for Quest Viva
+  issue #2189 (open, filed 2026-09-04): CoreGrid only charts rooms it reaches by
+  walking visible exits outward from the starting room, so a room entered by a
+  scripted `MovePlayer` with no exit pointing at it (the `TerminalRoom`) has no
+  map coordinates by any code path, and the arrival pass errors out of
+  `Grid_GetGridCoordinateForPlayer` — five lines on the oracle (four "The given
+  key 'x' was not present" plus the #2167 "Cannot use this value in a calculation"
+  guard), eight on the native engine before the fix. Published games carry their
+  own inlined CoreGrid, so an upstream library fix could never reach them; the
+  native engine instead charts such a room on arrival (`chart_uncharted_room` in
+  `aslx-runtime.cc`: re-run the pass from the room the player came from, for an
+  exit revealed after they entered it — the issue's Woo Rebooted case — else
+  seed it alone at the origin of a fresh z layer). The golden therefore has no
+  error lines there and the oracle's five are the expected diff.
 - *Xanadu — In the Compound — Revenge* (one random loud-speaker quote) and
   *Xanadu — The World's Only Hope* (two `> wait` echoes) — RNG-stream and
   wait-echo placement differences carried over from the previous pin; not

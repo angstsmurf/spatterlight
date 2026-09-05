@@ -1535,6 +1535,104 @@ static void test_finish_turn_deferred_across_prompts() {
     CHECK(w.errors.empty());
 }
 
+// Quest Viva #2189 (deliberate deviation, see chart_uncharted_room): a room
+// the CoreGrid pass never reached gets charted on arrival -- through a
+// now-visible exit from the room the player came from when there is one,
+// else alone at the origin of a fresh z layer -- instead of erroring out of
+// Grid_GetGridCoordinateForPlayer. The grid functions here are CoreGrid's own
+// bodies, with Grid_CalculateMapCoordinates cut down to eastward exits.
+static void test_uncharted_room_gets_map_coordinates() {
+    const char *xml =
+        "<asl version=\"550\">"
+        "<game name=\"g\"><pov type=\"object\">player</pov></game>"
+        "<object name=\"A\"><object name=\"player\"/>"
+        "<exit name=\"AtoB\" alias=\"east\" to=\"B\"><visible type=\"boolean\">false</visible></exit>"
+        "</object>"
+        "<object name=\"B\"/>"
+        "<object name=\"C\"/>"
+        "<function name=\"Grid_GetPlayerCoordinateDictionary\" parameters=\"playerobject\" type=\"dictionary\">"
+        "if (not HasAttribute(playerobject, \"grid_coordinates\")) {\n"
+        "  playerobject.grid_coordinates = NewDictionary()\n"
+        "  Grid_SetGridCoordinateForPlayer (playerobject, playerobject.parent, \"x\", 0)\n"
+        "  Grid_SetGridCoordinateForPlayer (playerobject, playerobject.parent, \"y\", 0)\n"
+        "  Grid_SetGridCoordinateForPlayer (playerobject, playerobject.parent, \"z\", 0)\n"
+        "  Grid_CalculateMapCoordinates (playerobject.parent, playerobject)\n"
+        "}\n"
+        "return (playerobject.grid_coordinates)\n"
+        "</function>"
+        "<function name=\"Grid_GetPlayerCoordinatesForRoom\" parameters=\"playerobject, room\" type=\"dictionary\">"
+        "coordinatedata = Grid_GetPlayerCoordinateDictionary(playerobject)\n"
+        "if (not DictionaryContains(coordinatedata, room.name)) {\n"
+        "  dictionary add (coordinatedata, room.name, NewDictionary())\n"
+        "}\n"
+        "return (DictionaryItem(coordinatedata, room.name))\n"
+        "</function>"
+        "<function name=\"Grid_GetGridCoordinateForPlayer\" parameters=\"playerobject, room, coordinate\" type=\"double\">"
+        "coordinates = Grid_GetPlayerCoordinatesForRoom(playerobject, room)\n"
+        "return (DictionaryItem(coordinates, coordinate))\n"
+        "</function>"
+        "<function name=\"Grid_SetGridCoordinateForPlayer\" parameters=\"playerobject, room, coordinate, value\">"
+        "coordinates = Grid_GetPlayerCoordinatesForRoom(playerobject, room)\n"
+        "if (DictionaryContains(coordinates, coordinate)) {\n"
+        "  dictionary remove (coordinates, coordinate)\n"
+        "}\n"
+        "dictionary add (coordinates, coordinate, value * 1.0)\n"
+        "</function>"
+        "<function name=\"Grid_CalculateMapCoordinates\" parameters=\"room, playerobject\">"
+        "foreach (exit, AllExits()) {\n"
+        "  if (exit.parent = room and exit.visible and exit.alias = \"east\") {\n"
+        "    Grid_SetGridCoordinateForPlayer (playerobject, exit.to, \"x\", Grid_GetGridCoordinateForPlayer(playerobject, room, \"x\") + 1)\n"
+        "    Grid_SetGridCoordinateForPlayer (playerobject, exit.to, \"y\", Grid_GetGridCoordinateForPlayer(playerobject, room, \"y\"))\n"
+        "    Grid_SetGridCoordinateForPlayer (playerobject, exit.to, \"z\", Grid_GetGridCoordinateForPlayer(playerobject, room, \"z\"))\n"
+        "  }\n"
+        "}\n"
+        "</function>"
+        "<function name=\"HandleCommand\" parameters=\"command, metadata\">"
+        "if (command = \"calc\") {\n"
+        "  Grid_CalculateMapCoordinates (player.parent, player)\n"
+        "}\n"
+        "else if (command = \"show\") {\n"
+        "  r = player.parent\n"
+        "  msg (Grid_GetGridCoordinateForPlayer(player, r, \"x\") + \" \" + Grid_GetGridCoordinateForPlayer(player, r, \"y\") + \" \" + Grid_GetGridCoordinateForPlayer(player, r, \"z\"))\n"
+        "}\n"
+        "else if (command = \"reveal\") {\n"
+        "  AtoB.visible = true\n"
+        "}\n"
+        "else {\n"
+        "  player.parent = GetObject(command)\n"
+        "}\n"
+        "</function>"
+        "</asl>";
+    World w;
+    CHECK(load_aslx_buffer(xml, std::strlen(xml), w, "", ""));
+    Interp in(w);
+    auto cmd = [&](const char *c) {
+        in.clear_output();
+        in.send_command(c);
+        std::string o = in.output();
+        while (!o.empty() && o.back() == '\n') o.pop_back();
+        return o;
+    };
+    // First pass: the library seeds the starting room itself.
+    cmd("calc");
+    CHECK_STR(cmd("show"), "0 0 0");
+    // An exit revealed after the player stood in A: arriving through it,
+    // the re-run of A's pass charts B east of A.
+    cmd("reveal");
+    cmd("B");
+    cmd("calc");
+    CHECK_STR(cmd("show"), "1 0 0");
+    // No exit leads to C: it gets the origin of a fresh layer.
+    cmd("C");
+    cmd("calc");
+    CHECK_STR(cmd("show"), "0 0 1");
+    // A charted room is untouched by a later pass.
+    cmd("A");
+    cmd("calc");
+    CHECK_STR(cmd("show"), "0 0 0");
+    CHECK(w.errors.empty());
+}
+
 // firsttime baking of one-line blocks: get_script strips the braces off a
 // single-line `{ ... }`, so the baker must find bodies the way the parser
 // does (after the keyword/parameter), not at the first '{' -- otherwise a
@@ -1776,6 +1874,7 @@ int main() {
     test_parser_depth_caps();
     test_attribute_names_deep();
     test_finish_turn_deferred_across_prompts();
+    test_uncharted_room_gets_map_coordinates();
     test_firsttime_bake_oneliners();
     test_save_degenerate_state();
     test_save_restore_native();

@@ -853,6 +853,15 @@ private:
     // the turnscripts DO tick for that turn (just deferred). Replayed after the
     // frames, before the owed pane refresh. Core's RunTurnScripts self-guards on
     // IsGameRunning(), so an owed FinishTurn on a finished game no-ops the ticks.
+    // Quest Viva #2189 deliberate deviation: chart a room the map pass
+    // could never reach (scripted move, late-revealed exit). See the
+    // definition. last_charted_room_ is where the previous arrival pass ran
+    // -- the room the player came from -- and is deliberately not part of
+    // the save state: after a restore the first uncharted arrival simply
+    // takes the fresh-layer fallback.
+    void chart_uncharted_room(const Value &room, const Value &player);
+    std::string last_charted_room_;
+
     void try_finish_turn(Context &ctx);           // TryFinishTurnAsync
     void try_finish_turn_or_defer(Context &ctx);  // ... or set the flag below
     void run_deferred_finish_turn();              // RunDeferredFinishTurnAsync

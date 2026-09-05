@@ -1402,14 +1402,6 @@ You walk around the desk, careful not to step in blood, and sit at the terminal.
 SYNAPSE: This should be easy. Just find the security settings for our ship.
 
 PRESS ANY KEY
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'z' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'x' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'y' was not present in the dictionary.
-Error running script: Error evaluating expression 'DictionaryItem(coordinates, coordinate)': The given key 'z' was not present in the dictionary.
 GasTechnin IntraWeb
 
 Please choose access node.
