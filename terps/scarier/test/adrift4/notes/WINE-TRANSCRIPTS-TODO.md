@@ -467,6 +467,57 @@ lines -- which is the point: it is cheap to be wrong here for a long time.
   Grep the `.taf` for `%var%` inside object descriptions if you are unsure --
   humbug's slate reads
   `The numerals read [lock1=%lock1%][lock2=%lock2%][lock3=%lock3%][lock4=%lock4%].`
+- **A `.taf` whose filename contains SPACES never loads.**  The Runner takes
+  its game from VB's `Command$`, which hands back the raw tail of the command
+  line with the quoting intact, so `"C:\adrift\The Screen Savers On Planet
+  X.taf"` is looked for under a name that includes the quotes and is not
+  found.  Nothing says so: the Runner sits there with an empty window, the
+  Adventure menu still opens, Start Transcript still creates its file, and the
+  drive types 133 commands into a game that was never opened -- surfacing as a
+  0-byte transcript and `drive_ckpt_safe.sh`'s "ABORT: first command never
+  reached the game", which reads like a stuck menu (2026-09-05, screen
+  savers).  Copy the game to a space-free name in `pfx/drive_c/adrift` and
+  drive that; `measure.sh` now refuses a spaced name up front.
+- **A `lo..hi` in the dump is only rollable when `hi - lo >= 2`.**  Event
+  lengths, StarterType=2 start delays and restart re-rolls are all drawn as
+  `lo + Int(Rnd*(hi-lo))` -- exclusive of the upper bound, measured in both
+  Runners on 2026-08-17 -- so `time1=0 time2=1` and `start=1..2` are degenerate
+  and always yield `lo`.  Only the RNG stream position moves, identically on
+  both sides.  `Captive.taf`'s `time1=3 time2=5` (which really does draw 3 or 4)
+  is the shape to screen for; and even a real spread is only a hazard if the
+  event's texts can reach a room the route visits while it is running.
+
+- **An unbreakable token longer than the harness's line is the one wrap that
+  normalisation cannot undo.**  `compare_wine_transcript.py` collapses every
+  whitespace run to one space, so the Runner's hard wrapping and the harness's
+  never matter -- both sides break at spaces that were there already.  A token
+  with no spaces in it is different: Renuntio's 90-asterisk scene divider goes
+  into the Runner's transcript whole and comes out of the harness as 78 + 12,
+  and the diff shows a space in the middle of the asterisks (2026-09-05).  It
+  is a harness-width artifact, not an engine difference; the real Glk front end
+  wraps at display time and never touches the text stream.
+
+- **`<cls>` with no `<br>` next to it shows up as a phantom space.**
+  `os_ansi.cpp` prints 25 newlines for `SCR_TAG_CLS`, which is how a scrolling
+  terminal fakes a screen clear; a real clear (`glk_window_clear()` in the Glk
+  port, and the Runner's own window) writes nothing into the transcript.
+  Normalisation turns the 25 newlines into one space, so any `<cls>` that sits
+  between two `<br>`-separated paragraphs is invisible -- both sides already had
+  whitespace there -- and any `<cls>` welded straight between two sentences is
+  not: `...yourself falling.<waitkey><cls>You land with a thud...` reads
+  "falling.You land" in the Runner and "falling. You land" here (2026-09-05,
+  asylum).  Harness presentation, not the engine.
+
+- **A task with no `COMPLETE=` line is a silent task, and pre-4.0 Runners let
+  it swallow the command.**  `grep '^TASK' -A1` the dump: any task whose next
+  line is not a `COMPLETE=` prints nothing when it matches, and run390 answers
+  with the game's DontUnderstand string instead of falling through to the
+  library.  Scarier does fall through, so the turn diverges whenever the
+  walkthrough types such a command -- see the Hangover filing cabinet
+  (2026-08-30, a suppressed library *action*) and `everything.taf`'s `read
+  diary` (2026-09-05, suppressed library *output*).  Deliberate deviation, not
+  a bug to fix; screen for it so the diff is expected rather than alarming.
+
 - **Fresh process per measurement.** Adventure → Restart game does not
   reliably reset NPC walk state.
 - Feed with `drive_ckpt.sh`, which echo-verifies each line. Wine mangles
@@ -553,6 +604,13 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `FarFromHome.taf` | 3.90 | full run390 replay, `Adrift_8.txt` (feed `cmdfile_w_ffh_nock.txt` -- 71 commands, `POPUP_ANSWERS="Sam"`, PRE=0); the earlier checkpointed drive `Adrift_7.txt` is superseded | 71/71 echoed; zero engine divergences -- the only diff is the Runner transcript stopping at the `<waitkey>` inside the ending text.  The checkpointed drive's six "divergences" (puff at p30, pirate at turn 39, four tide lines) were two extra event ticks, one at each `#save`; 50/50 |
 | `EnqueteAHautsRisques.taf` | 3.90 | full run390 replay, `Adrift_9_enquete.txt` (feed `cmdfile_w_enquete.txt` -- 145 commands, PRE=0, no popups, no waitkeys) | 145/145 echoed; zero engine divergences -- 144 of 145 turns byte-identical (French, CP1252) and the 145th, the winning `se coucher`, differs only by the Runner's `[Press any key a end]`.  All seven events are fixed-length and the game has no walks, so nothing on the path can roll; 59/59 |
 | `Captive.taf` | 3.90 | full run390 replay, `Adrift_9_captive.txt` (feed `cmdfile_w_captive.txt` -- 57 commands, PRE=0, no popups, no waitkeys) | 57/57 echoed; zero engine divergences -- 56 of 57 turns byte-identical and the 57th, the winning `put diamond on pedestal`, differs only by the Runner's `[Press any key to end]`.  The one rollable thing on the route, EVENT 12 [Serpent] (`time1=3 time2=5`, started by `tie rope to ledge`), is confined to rooms 25-27 and the next command climbs out of them, so neither side prints a Serpent line; 100/100 |
+| `The Screen Savers On Planet X.taf` | 3.90 | full run390 replay, `Adrift_9_screensavers.txt` (feed `cmdfile_w_ssavers.txt` -- 133 commands, PRE=0; driven as a space-free `screensavers.taf` copy, see below) | 133/133 echoed; zero engine divergences -- 132 of 133 turns byte-identical and the 133rd, the winning `look`, differs only by the Runner's `[Press any key to end]`.  All 19 events are `start=0..0 time1=1 time2=1` and the 10 NPCs never walk; 142/142 |
+| `thewoods.taf` | 3.90 | full run390 replay, `Adrift_9_thewoods.txt` (feed `cmdfile_w_thewoods.txt` -- 73 commands, PRE=1 for the title `<waitkey>`) | 73/73 echoed; zero engine divergences -- 72 of 73 turns byte-identical and the 73rd, the winning `take head`, differs only by the Runner's `[Press any key to end]`.  The Runner prints "I'm already carrying the brush!" verbatim, confirming the 2026-08-31 pre-4.0 held-take re-bless from the game side.  No events, no NPCs; 100/100 |
+| `Chosen.taf` | 3.90 | full run390 replay, `Adrift_9_chosen.txt` (feed `cmdfile_w_chosen.txt` -- 52 commands, PRE=1 for the title `<waitkey>`) | 52/52 echoed; zero engine divergences -- 51 of 52 turns byte-identical and the 52nd, the winning `plug t block`, differs only by the Runner's `[Press any key to end]`.  The dump has 0 events and 0 NPCs, so nothing on the route can roll.  The ending is a waitkey and the Runner writes the score summary only after that key is pressed; 300/300 |
+| `Renuntio.taf` | 3.90 | full run390 replay, `Adrift_9_renuntio.txt` (feed `cmdfile_w_renuntio.txt` -- 39 commands, PRE=0, no popups) | 39/39 echoed; zero engine divergences -- the three unequal turns are the Runner's `[Press any key to end]` and, twice, the 90-asterisk scene divider that the harness wraps 78 + 12 (an unbreakable token, the one wrap whitespace normalisation cannot undo).  0 NPCs and all three events fixed-length, so nothing on the route can roll; both sides finish on the ALR-mangled 0/0 summary |
+| `as.taf` (Asylum) | 3.90 | full run390 replay, `Adrift_9_asylum.txt` (feed `cmdfile_w_asylum.txt` -- 27 commands plus four blank-line Returns for the mid-game waitkeys, PRE=0) | 27/27 echoed; zero engine divergences -- the two unequal turns are the `[Press any key to end]` tail and one `<cls>` welded between two sentences with no `<br>` (see the bullet above).  0 events and one non-walking NPC; both sides finish 0/0 on the game's `<br><br>` WINTEXT |
+| `sleaze.taf` | 3.90 | full run390 replay, `Adrift_9_sleaze.txt` (feed `cmdfile_w_sleaze.txt` -- 43 commands, PRE=0) | 43/43 echoed; zero engine divergences and no artifacts either -- 42 of 43 turns byte-identical and the 43rd, the winning `serve`, differs only by the Runner's `[Press any key to end]`.  0 events and 0 NPCs; 100/100 |
+| `everything.taf` | 3.90 | full run390 replay, `Adrift_9_everything.txt` (feed `cmdfile_w_everything.txt` -- 38 commands, PRE=2) | 38/38 echoed; ONE divergence, a known deliberate deviation -- `read diary` matches TASK 14, which has no completion text at all, and run390 lets the silent match claim the command and prints the game's DontUnderstand string, so the diary's read text is unreachable in the real Runner while Scarier falls through to the library `read` and prints it (same family as the Hangover cabinet, not ported).  Both sides still set `%opinion%` to 5 and finish on ending5; the only other unequal turn is the `[Press any key to end]` tail |
 | `superliam.taf` | 3.80 | full run380 replay, `Adven_1_superliam.rtf` (feed `cmdfile_w_superliam.txt` -- 86 commands, Save Transcript at the 85th) | 85/85 echoed; three divergent turns, two engine rules, both FIXED: the run380 **AdditionalMessage double-space suppression reaches through a ShowRoomDesc room description**, and **names are matched RAW** -- object Short `"necko wafers "` (trailing space) is unreferenceable, `take necko wafers` answers "Take what?".  After the fixes every echoed turn matches; both sides win 3250/3250.  Measured 2026-08-31 |
 | `cave.taf` | 3.80 | three full run380 replays, `Adven_1_cave.rtf` / `Adven_1_cave2.rtf` / `Adven_1_cave3.rtf` (final feed `cmdfile_w_cave3.txt` -- 216 commands, Save Transcript flow) | 215/215 echoed each time; FOUR engine findings, all FIXED: `z` is not 3.80 vocabulary (whole-line `= "z"` test only exists from run390_3 45FCB0 -- seven `z` -> `wait`); 3.8 substitutes "There is nothing of interest here." into empty room Longs at LOAD (447FEE), so it prints BEFORE LastDesc alts; a 3.8 task can never move the PLAYER to the game's FIRST room (tasks() 44D1D4 stores Var2 pre-decremented behind "If Var2 > 1" -- second `climb down` re-derived to `down`; 3.7's encoding sits one higher so run370 441E55 is correct, arlo the counterexample; is_v370 gate in sctafpar.cpp); and the single-named held-take refusal is "You've already got X!" pre-4.0 (43E03E -- 4.0's "already carrying" @462D25 gated on lib_is_version_400, four 3.9 goldens re-blessed -- thewoods' own ALR "I've already got the" -> "<br>I'm already carrying the" confirms the base from the game side).  Third drive replays CLEAN: every comparable turn identical, `score` at 900/1000 both sides; only the winning `read parchment` is uncapturable in the Save-at-end flow (Scarier finishes 1000/1000).  Still open from the pre-fix stuck-tail census (never reached by the corrected feed): 3.8 answers a matched-task-wrong-room with "You can't do that here." (21x) and names unseen/unheld objects in refusals ("You can't see X from here!" / "You don't have X!") where Scarier says "Take what?" etc -- a 3.8 referenceability/where-fail model not yet ported.  Measured 2026-08-31 |
 | `haunt.taf` | 3.80 | full run380 replay, `Adven_1_haunt.rtf` (feed `cmdfile_w_haunt.txt` -- 85 commands, `measure38.sh`: Save Transcript at the 84th, the winning `down` sent after it) | 84/84 echoed; 40 divergent turns, then 1, then 0 -- two pre-3.9 engine rules, both fixed: **no startup event tick before 3.90** (a StarterType 2 delay of N starts on turn N, uncompensated) and **no administrative turns before 3.90** (`score` ticks NPCs and events).  Seven 3.80 goldens re-blessed, wrecked re-pinned to seed 106; full suite 428/428 PASS. |
@@ -780,17 +838,17 @@ The four best targets, by walks x length:
 | `FarFromHome.taf` | `farfromhome` | 167 | 0 | 0 | 0 | yes | [Far_From_Home_walkthrough](Far_From_Home_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); do not checkpoint a measurement drive |
 | `EnqueteAHautsRisques.taf` | `enquete_a_hauts_risques` | 145 | 0 | 13 | 7 | -- | **measured 2026-09-05**, clean (tail only) |
 | `Captive.taf` | `captive` | 141 | 0 | 2 | 19 | -- | [Captive_Universe_walkthrough](Captive_Universe_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); 57 real commands, not 141 |
-| `The Screen Savers On Planet X.taf` | `screen_savers` | 133 | 0 | 10 | 19 | -- | [The_Screen_Savers_On_Planet_X_walkthrough](The_Screen_Savers_On_Planet_X_walkthrough.md) |
-| `thewoods.taf` | `thewoods` | 133 | 0 | 0 | 0 | yes | [The_Woods_Are_Dark_walkthrough](The_Woods_Are_Dark_walkthrough.md) |
-| `Chosen.taf` | `chosen` | 123 | 0 | 0 | 0 | yes | [Chosen_walkthrough](Chosen_walkthrough.md) |
-| `Renuntio.taf` | `renuntio` | 118 | 0 | 0 | 3 | yes | [Renuntio_walkthrough](Renuntio_walkthrough.md) |
-| `as.taf` | `asylum` | 102 | 0 | 1 | 0 | yes | [Asylum_walkthrough](Asylum_walkthrough.md) |
+| `The Screen Savers On Planet X.taf` | `screen_savers` | 133 | 0 | 10 | 19 | -- | [The_Screen_Savers_On_Planet_X_walkthrough](The_Screen_Savers_On_Planet_X_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) |
+| `thewoods.taf` | `thewoods` | 133 | 0 | 0 | 0 | yes | [The_Woods_Are_Dark_walkthrough](The_Woods_Are_Dark_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); 73 real commands, not 133 |
+| `Chosen.taf` | `chosen` | 123 | 0 | 0 | 0 | yes | [Chosen_walkthrough](Chosen_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); 52 real commands, not 123 |
+| `Renuntio.taf` | `renuntio` | 118 | 0 | 0 | 3 | yes | [Renuntio_walkthrough](Renuntio_walkthrough.md) -- **measured 2026-09-05**, clean (tail + one wrap artifact); 39 real commands, not 118 |
+| `as.taf` | `asylum` | 102 | 0 | 1 | 0 | yes | [Asylum_walkthrough](Asylum_walkthrough.md) -- **measured 2026-09-05**, clean (tail + one `<cls>` artifact); 27 real commands, not 102 |
 | `A_Morning_with_a_Headache.taf` | `morning_headache` | 88 | 0 | 3 | 8 | -- | [A_Morning_with_a_Headache_walkthrough](A_Morning_with_a_Headache_walkthrough.md) |
-| `sleaze.taf` | `sleaze` | 86 | 0 | 0 | 0 | -- | [Sleaze_City_walkthrough](Sleaze_City_walkthrough.md) |
+| `sleaze.taf` | `sleaze` | 86 | 0 | 0 | 0 | -- | [Sleaze_City_walkthrough](Sleaze_City_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); 43 real commands, not 86 |
 | `Wheel105.taf` | `wheels_must_turn` | 77 | 0 | 4 | 15 | yes | [The_Wheels_Must_Turn_walkthrough](The_Wheels_Must_Turn_walkthrough.md) |
 | `tq3.taf` | `tq3` | 76 | 0 | 2 | 4 | -- | [The_Quest_Moody_walkthrough](The_Quest_Moody_walkthrough.md) |
 | `mhpquest.taf` | `mhpquest` | 68 | 0 | 2 | 0 | -- | [MHP_Quest_walkthrough](MHP_Quest_walkthrough.md) |
-| `everything.taf` | `everything` | 68 | 0 | 0 | 0 | yes | [Everything_Emanuelle_walkthrough](Everything_Emanuelle_walkthrough.md) |
+| `everything.taf` | `everything` | 68 | 0 | 0 | 0 | yes | [Everything_Emanuelle_walkthrough](Everything_Emanuelle_walkthrough.md) -- **measured 2026-09-05**, one deliberate deviation (`read diary`, silent task); 38 real commands, not 68 |
 | `ECOD2.taf` | `ecod2` | 61 | 0 | 0 | 0 | yes | [ECOD2_walkthrough](ECOD2_walkthrough.md) |
 | `chicago.taf` | `chicago` | 60 | 0 | 3 | 0 | -- | [Chicago_walkthrough](Chicago_walkthrough.md) |
 | `hangover.taf` | `the_hangover` | 56 | 0 | 16 | 0 | -- | -- |
@@ -4987,3 +5045,243 @@ transcript would have ended long before the epilogue.
 Next candidate: `The Screen Savers On Planet X.taf` (3.90 -- 133 commands, no
 comment lines this time, 0 walks, 10 NPCs, 19 events, and the dump says all
 nineteen are `start=0..0 time1=1 time2=1`, so nothing on that path can roll).
+
+## The Screen Savers On Planet X.taf (3.90) -- 2026-09-05, run390
+
+Clean.  `Adrift_9_screensavers.txt` from `cmdfile_w_ssavers.txt`, all 133
+commands, PRE=0: 133/133 echoed, 132 of 133 turns byte-identical, and the
+133rd -- the winning `look` -- differs only by the Runner's
+`[Press any key to end]` after the score summary.  Both sides score 142/142.
+Zero engine divergences; golden unchanged.  The pre-drive dump had already
+said this row could not surprise us: all nineteen events are
+`start=0..0 time1=1 time2=1` and none of the ten NPCs walks, so there is
+nothing on the path for the RNG to move.
+
+**The first drive of this row measured nothing at all, and said so in a
+misleading way.**  The Runner came up, the Adventure menu opened, Start
+Transcript created `Adrift_9.txt` -- and the game had never been loaded.  A
+`.taf` whose filename contains spaces cannot be opened by any of these
+Runners: the game path comes from VB's `Command$`, which returns the raw tail
+of the command line with the quoting intact, so `"C:\adrift\The Screen Savers
+On Planet X.taf"` is looked for under a name that includes the quote
+characters.  Nothing reports it.  What the harness saw instead was a 0-byte
+transcript and, forty seconds in, `drive_ckpt_safe.sh`'s
+
+    ABORT: first command 'n' never reached the game
+    (a menu was probably still open; the replay would be one turn behind)
+
+which points at the wrong culprit entirely -- the window list showed the
+normal two windows and no menu open.  The tell is the **0-byte transcript**:
+a loaded game writes its first turn within a second or two of the first
+command, and an empty file after a command has been typed means the typing
+had nowhere to land.  Driving a space-free `screensavers.taf` copy worked
+first time.  `measure.sh` now refuses a spaced game name before it launches
+anything, and the rule is in "Before measuring anything" above.
+
+Worth generalising from the two rows either side of it: `Captive.taf` cost
+two minutes because the dump said in advance nothing could roll, and this row
+cost an extra ten because a silent environment failure wore the costume of an
+engine-adjacent one.  The cheap checks -- read the header bytes, dump the
+events, count the cmdfile, and look at the transcript's SIZE before believing
+any abort message -- are between them worth more than any amount of staring
+at a diff.
+
+Next candidate: `thewoods.taf` (The Woods Are Dark, 3.90 -- the table's 133 is
+60 comment lines plus **73 real commands**; 0 walks, 0 NPCs, 0 events, so the
+game is one long deterministic dependency chain, and it needs
+`SCR_SKIP_WAITKEY=1` for the single title-text `<waitkey>`, i.e. PRE=1 under
+the Runner).
+
+## thewoods.taf (The Woods Are Dark, 3.90) -- 2026-09-05, run390
+
+Clean.  `Adrift_9_thewoods.txt` from `cmdfile_w_thewoods.txt`, 73 commands,
+PRE=1 for the single title-text `<waitkey>`: 73/73 echoed, 72 of 73 turns
+byte-identical, and the 73rd -- the winning `take head` and its long epilogue
+-- differs only by the Runner's `[Press any key to end]`.  Both sides score
+100/100.  Zero engine divergences; golden unchanged.  Another table row whose
+"133 commands" was mostly comments: 60 of them, 73 real.
+
+The row is worth more than a tick in a column, because it is the first time
+one of the **cave.taf wording fixes has been confirmed by a game other than
+the one it was derived from**.  The 2026-08-31 re-bless argued from the ALR
+table that this game's own rewrite (`"I've already got the"` ->
+`"<br>I'm already carrying the"`) only makes sense if the pre-4.0 base text is
+`"You've already got X!"`, and re-blessed the golden to the run390 shape
+without ever driving the game.  Line 101 of the Runner's own transcript now
+reads
+
+    I'm already carrying the brush!
+
+exactly as the re-blessed golden does.  The inference and the measurement
+agree, and the 4.0 "already carrying" text stays gated where cave.taf put it.
+
+With no events and no NPCs in the file, there was never anything here for the
+RNG to move, which is why the whole row cost about three minutes.
+
+## Chosen.taf (MiniComp 2001, 3.90) -- 2026-09-05, run390
+
+Clean.  `Adrift_9_chosen.txt` from `cmdfile_w_chosen.txt`, 52 commands, PRE=1
+for the title `<waitkey>`: 52/52 echoed, 51 of the 52 turns byte-identical, and
+the 52nd -- the winning `plug t block` with its two-screen epilogue -- differs
+only by the Runner's `[Press any key to end]`.  Both sides score 300/300.
+Zero engine divergences; golden unchanged.  The fourth table row in a row whose
+command count was mostly comments: 70 of the 123, 52 real.
+
+The dump is as inert as a 3.90 game gets -- **0 events and 0 NPCs** -- so the
+route has nothing rollable on it at all, and the whole measurement is a pure
+text-and-parser comparison of a game whose entire difficulty is task
+restriction ordering (the six blocks A, D, R, I, F, T, each restricted on the
+previous).  Every one of those orderings behaves in the Runner exactly as the
+derived route assumed, which is the real content of the row: the walkthrough
+was derived from the game file rather than from an author's command list, and
+the Runner has now replayed it move for move.
+
+One capture wrinkle worth writing down, because it looks like a missing line
+and is not:
+
+- **A game that ends on a waitkey writes its score summary only after the key
+  is pressed.**  Chosen's ending is "To be continued..." followed by `Press a
+  key...`, and the drive stops there -- so the live transcript ended one line
+  short of the 300/300 summary and the first comparison reported the summary as
+  a Scarier-only tail.  Sending a single Return to the still-open Runner
+  appended
+
+      You scored 300 out of the maximum 300!
+      That is 100% of the game!
+      Well done - you scored maximum points!
+
+      [Press any key to end]
+
+  to `Adrift_9.txt`, and the comparison came back to the usual tail-only diff.
+  When the last command is the winning one AND the game's ending text contains
+  a `<waitkey>`, press one key before archiving the transcript.
+
+## Renuntio.taf (Spanish, 3.90) -- 2026-09-05, run390
+
+Clean.  `Adrift_9_renuntio.txt` from `cmdfile_w_renuntio.txt`, 39 commands,
+PRE=0: 39/39 echoed, and **zero engine divergences**.  Both sides finish on the
+game's own ALR-mangled summary, "You puntosd 0 fuera of the maximum 0!" -- this
+game rewrites `scored` in the Runner's score line, which is itself a small
+confirmation that Scarier applies the ALR table to library text the same way
+the Runner does.
+
+Three turns compare unequal and none of them is the engine.  Turn 39 is the
+usual `[Press any key to end]`.  Turns 5 and 13 are new, and worth the bullet
+added to "Before measuring anything": the game's scene divider is a run of
+**90 asterisks with no spaces in it**.  The Runner writes it into the
+transcript whole; the harness wraps it 78 + 12.  Every other wrap on both sides
+is invisible to the comparison, because `compare_wine_transcript.py` collapses
+whitespace runs to a single space and both sides broke at a space that was
+already in the text -- but a break inside an unbreakable token *creates* a
+space, and normalisation has no way to tell it from an authored one.  The real
+Glk front end wraps at display time and never touches the text stream, so
+there is nothing to fix; it is a property of the headless harness's fixed
+78-column formatter.
+
+The screening was as quiet as the last few rows: 0 NPCs, and all three events
+fixed-length (`0 [Luz] start=5..5 time1=0 time2=0`, `1 [Gritos]` and
+`2 [Dedos]` both `start=0..0` with `time1=time2` of 3 and 5).  The table's
+"118 commands" was 79 comment lines -- 39 real.  The `PULSA C PARA CONTINUAR`
+pause that event 0 prints is not a `<waitkey>` at all but an in-game task, so
+`c` is simply line 5 of the feed and PRE stays 0.
+
+## as.taf (Asylum, 3.90) -- 2026-09-05, run390
+
+Clean.  `Adrift_9_asylum.txt` from `cmdfile_w_asylum.txt`, 27 commands plus the
+four blank-line Returns that answer the mid-game waitkeys, PRE=0: 27/27 echoed,
+**zero engine divergences**, both sides finishing 0/0 on the game's `<br><br>`
+WINTEXT.
+
+Two turns compare unequal.  Turn 27 is the `[Press any key to end]` tail.  Turn
+24, the ending's `d`, is a second artifact of the same family as Renuntio's
+asterisks, and it is now a bullet in "Before measuring anything": the ending
+text runs
+
+    ...you feel yourself falling.<waitkey><cls>You land with a thud...
+
+with no `<br>` on either side of the tags.  A real window clear writes nothing
+into a transcript, so the Runner's line reads `falling.You land` -- the two
+sentences welded together with no space at all.  `os_ansi.cpp` fakes the clear
+on a scrolling terminal by printing 25 newlines, and normalisation collapses
+those to one space.  The same text has two more `<cls>`, and neither shows up,
+because both are preceded by `<br><br>`: there was already whitespace there for
+normalisation to eat.  The Glk port calls `glk_window_clear()` and emits no
+text, so nothing needs fixing.
+
+Two rows running, then, where the whole diff was the harness's own
+presentation, and both of them the same shape: **normalisation hides a
+whitespace difference only when both sides already had whitespace.**  A wrap
+inside an unbreakable token and a `<cls>` between two sentences are the two
+ways to be outside that.
+
+## sleaze.taf (Sleaze City, 3.90) -- 2026-09-05, run390
+
+Clean, and the plainest row of the day: `Adrift_9_sleaze.txt` from
+`cmdfile_w_sleaze.txt`, 43 commands, PRE=0.  43/43 echoed, 42 of the 43 turns
+byte-identical, the 43rd -- the winning `serve` -- differing only by the
+Runner's `[Press any key to end]`.  Both sides 100/100.  No wrap artifact, no
+`<cls>`, nothing but the tail.  0 events and 0 NPCs.
+
+### Correction: `A_Morning_with_a_Headache.taf` is NOT a hazard
+
+The Asylum section above deferred it because `EVENT 5
+[WakeStripperWithBuzzer]` screens as `start=1..2`, which reads like a rolled
+start turn.  It is not.  ADRIFT's event rolls are **exclusive of the upper
+bound** -- `lo + Int(Rnd*(hi-lo))`, measured in both Runners on 2026-08-17 and
+ported as `scr_randomint_exclusive()` -- so `start=1..2` draws
+`1 + Int(Rnd*1)` and is always 1.  The event is as deterministic as a
+`start=1..1` one; only the RNG stream position moves, and it moves identically
+on both sides.
+
+The same correction applies to the screening rule itself, and it is worth
+stating once so no later row repeats the mistake: **a `lo..hi` in the dump is
+only rollable when `hi - lo >= 2`.**  A `time1=0 time2=1` (as in
+`everything.taf`'s two events) or a `start=1..2` is a degenerate range that
+always yields `lo`.  `Captive.taf`'s `time1=3 time2=5`, which really did draw
+3 or 4, is the shape to watch for.
+
+## everything.taf (Everything Emanuelle, 3.90) -- 2026-09-05, run390
+
+`Adrift_9_everything.txt` from `cmdfile_w_everything.txt`, 38 commands, PRE=2.
+All 38 echoed.  Two unequal turns: the last one's `[Press any key to end]`, and
+turn 36, `read diary`.
+
+`read diary` is the day's only real divergence, and it is one we have already
+decided not to port:
+
+```
+run390    I don't understand what you mean!
+scarier   There is much within its perfumed pages written in her sweet
+          scrawl. ... Who is Etienne? ...
+```
+
+The dump explains it.  `TASK 14 [## Read Diary]` has `ALTCMD[1]=[read * diary
+*]`, a repeat text, one action -- `ACT type=3 v1=2 v2=0 v3=5`, setting the
+`%opinion%` variable to 5 -- and **no completion text at all**.  run390 lets
+the silent match claim the command, finds nothing to print, and falls back on
+the game's DontUnderstand string; it never reaches the library.  The diary's
+own read text is therefore unreachable in the real Runner -- the game's
+centrepiece paragraph, the one that names Etienne and turns the story, is only
+visible because the author's ALR-driven ending betrays it.  Scarier runs the
+task and then falls through to the library `read`, which prints the object's
+read text.
+
+This is exactly the Hangover filing-cabinet rule measured on 2026-08-30 (a
+matched task claims the command even when it says nothing, and the empty output
+then gets the DontUnderstand text), and it stays a deliberate deviation.  Here
+it costs nothing: `%opinion%` is 5 on both sides, so both finish on `ending5`
+and the win marker.  Every other turn is equal.
+
+Worth noting for future rows: this is the first sighting of the rule where the
+suppressed output is *library* output rather than a library *action*.  In
+Hangover the cabinet stayed shut; here nothing about the world differs, only
+what the player is allowed to read.  A silent task is a screening hazard for
+any row whose walkthrough types a command that a task claims without answering
+-- grep the dump for a `TASK` with no `COMPLETE=` line before driving.
+
+Next candidate: `A_Morning_with_a_Headache.taf` (3.90 -- header `94 45 37`;
+**52 real commands** of the table's 88).  Cleared by the correction above: its
+eight events all have degenerate ranges (`start=1..2` and `1..1`, `time1=15
+time2=15`, `time1=1 time2=1`, `time1=10 time2=10`), so not one of them rolls.
+Three NPCs, none of them walkers -- the woman leaves by an event text, not a
+WALK.  PRE to be read off the Runner's own title screen at drive time.

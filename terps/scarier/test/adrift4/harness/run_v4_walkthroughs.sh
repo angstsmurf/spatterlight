@@ -517,6 +517,17 @@ orient_express_solution.txt|Orient_Express.taf|You successfully complete your as
 screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to get everyone to the set!
 # Re-blessed 2026-08-31: pre-4.0 single-take held refusal is "You've
 # already got <object>!", not 4.0's "already carrying" (cave.taf row).
+#
+# Measured 2026-09-05 against run390 (Adrift_9_screensavers.txt, feed
+# cmdfile_w_ssavers.txt -- all 133 commands, PRE=0).  133/133 echoed, 132 of
+# 133 turns byte-identical, and the 133rd -- the winning `look` -- differs only
+# by the Runner's own "[Press any key to end]" after the score summary; both
+# sides score 142/142.  Zero engine divergences.  All nineteen events are
+# start=0..0 time1=1 time2=1 and the ten NPCs never walk, so nothing on the
+# path can roll.  The Runner cannot open a game whose FILENAME CONTAINS SPACES
+# (VB Command$ keeps the quoting), so the drive used a screensavers.taf copy;
+# measure.sh now refuses such a name outright rather than driving 133 commands
+# into an empty window.
 secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
 # Measured 2026-08-29: run400 replay of the then-current 133-command route,
 # all 133 commands echoed, 132 of 133 turns identical, the last differing only
@@ -3005,6 +3016,15 @@ crimsondetritus_solution.txt|CD.taf|until the next victim comes along to take yo
 # and `up`), and the six blocks plugged in the order A, D, R, I, F, T, since
 # TASK 18-22 each restrict on the previous one.  The blocks answer only to
 # their full names ("take a-shaped metal block").
+# Measured 2026-09-05 against the real 3.90 Runner under Wine (run390.exe,
+# Verbose ON, all five Appearance boxes ticked): the whole 52-command route
+# driven into the Runner, transcript Adrift_9_chosen.txt.  All 52 echoed; 51 of
+# the 52 turns are byte-identical and the 52nd, the winning `plug t block`,
+# differs only by the Runner's own `[Press any key to end]` tail.  The dump has
+# 0 events and 0 NPCs, so there is nothing rollable on the route at all.  Note
+# that the game's ending is a waitkey ("Press a key...") and the Runner writes
+# the 300/300 score summary only AFTER that key: the transcript stops one line
+# short until you press it, which reads like a missing summary and is not.
 chosen_solution.txt|Chosen.taf|You plug the T-shaped block into the final socket in the door.|SCR_SKIP_WAITKEY=1
 # The Cellar (David Whyld, 2007): the ClubFloyd session of 12 June 2022 replayed
 # verbatim, all 132 commands including the typos, the dead ends and four
@@ -3102,6 +3122,17 @@ chicago_solution.txt|chicago.taf|Daisy was found guilty of double homicide
 # Re-blessed 2026-08-25, two lines, for the pre-4.0 `x <unknown noun>` answer
 # measured on the veteran row far above -- this is the corpus's only sighting of
 # the first-person form, "I see no such thing." -> "Nothing special."
+# Measured 2026-09-05 against run390 under Wine (Adrift_9_everything.txt): all
+# 38 commands echoed, every turn equal except the last one's "[Press any key to
+# end]" -- and turn 36, `read diary`.  TASK 14 "## Read Diary" has NO completion
+# text at all, only a repeat text and a single action setting %opinion% to 5.
+# run390 lets the silent match claim the command and then prints the game's
+# DontUnderstand string, "I don't understand what you mean!"; the diary's own
+# read text is never seen in the real Runner.  Scarier runs the task and falls
+# through to the library `read`, which prints it.  Same deliberate deviation as
+# the Hangover filing cabinet (see notes/WINE-TRANSCRIPTS-TODO.md) -- not ported,
+# and harmless here: %opinion% is 5 on both sides, so both reach ending5 and the
+# win marker.
 everything_solution.txt|everything.taf|I'll smile as I curse her name and everything Emanuelle.|SCR_SKIP_WAITKEY=1
 # Textident Evil: 100/100 (the game's own stated maximum).  TURN-CRITICAL --
 # four monster events run on a fixed global cadence and the zombie's WALKs
@@ -3148,6 +3179,13 @@ morning_headache_solution.txt|A_Morning_with_a_Headache.taf|This has turned out 
 # winning ticket to the landlord) plus the cafe door reversing direction:
 # EXIT room=6 N is gateTask=18 wantDone=0 and IN is wantDone=1, so `talk to
 # gimpy` closes the front entrance and opens the kitchen window behind you.
+# Measured 2026-09-05 against the real 3.90 Runner under Wine (run390.exe,
+# Verbose ON, all five Appearance boxes ticked): the whole 43-command route
+# driven into the Runner, transcript Adrift_9_sleaze.txt.  All 43 echoed and
+# ZERO unequal turns bar the last, which differs only by the Runner's own
+# `[Press any key to end]` -- no wrap artifact, no <cls>, nothing.  The dump has
+# 0 events and 0 NPCs, so the row is a pure text-and-parser comparison; both
+# sides score 100/100.
 sleaze_solution.txt|sleaze.taf|You scored 100 out of the maximum 100!
 # Albridge Manor: 50/50.  A 27-room haunted house whose endgame is a burial --
 # T26 `bury crucifix` carries six restrictions (crucifix + shovel held, and
@@ -3333,6 +3371,21 @@ wheels_must_turn_solution.txt|Wheel105.taf|That is it, Twenty-Three.|SCR_SKIP_WA
 # engine prints no "Congratulations!" and the whole ending is task text, the
 # mirror image of the ALR trick in the Wheels row above.  Ends on `asylum`,
 # the loop the title is about; `reality` is the other, equally-won ending.
+# Measured 2026-09-05 against the real 3.90 Runner under Wine (run390.exe,
+# Verbose ON, all five Appearance boxes ticked): the whole 27-command route --
+# plus the four blank-line Returns for the mid-game waitkeys -- driven into the
+# Runner, transcript Adrift_9_asylum.txt.  All 27 echoed and zero engine
+# divergences.  Two turns compare unequal and neither is the engine: turn 27 is
+# the `[Press any key to end]` tail, and turn 24 (`d`) is os_ansi.cpp's <cls>,
+# which prints 25 newlines to fake a screen clear on a scrolling terminal.  The
+# game's ending text runs `...yourself falling.<waitkey><cls>You land with a
+# thud...` with NO <br> either side, so the Runner's transcript reads
+# "falling.You land" -- a real window clear writes nothing -- while the harness
+# normalises those newlines to one space.  The other two <cls> in the same text
+# are preceded by <br><br> and so are invisible to the comparison.  The Glk
+# port calls glk_window_clear() and emits no text, so there is nothing to fix.
+# The dump has 0 events and one non-walking NPC, so nothing on the route rolls;
+# both sides finish 0/0 on the game's "<br><br>" WINTEXT.
 asylum_solution.txt|as.taf|A large plaque sat on the wall|SCR_SKIP_WAITKEY=1
 # Life: UNFINISHABLE, and wired the way `hangover` and `penrhyn` are -- as a
 # demonstration route, not a win.  There is not one `ACT type=6` in the file
@@ -3363,6 +3416,18 @@ life_solution.txt|life.taf|Health=%health%|SCR_SKIP_WAITKEY=1
 # fires four commands in with "PULSA C PARA CONTINUAR"; T3 is unrestricted so
 # the route could skip the wait, and deliberately does not.  Marker is pure
 # ASCII out of the (non-empty, so "Congratulations!"-suppressing) WINTEXT.
+# Measured 2026-09-05 against the real 3.90 Runner under Wine (run390.exe,
+# Verbose ON, all five Appearance boxes ticked): the whole 39-command route
+# driven into the Runner, transcript Adrift_9_renuntio.txt.  All 39 echoed and
+# zero engine divergences.  Three turns compare unequal and none of them is the
+# engine: turn 39 is the Runner's `[Press any key to end]` tail, and turns 5 and
+# 13 are the 90-asterisk scene divider, which the Runner writes whole into the
+# transcript while the harness wraps it 78 + 12 -- the one place whitespace
+# normalisation cannot undo a wrap, because the break falls INSIDE a token that
+# has no spaces in it.  The dump has 0 NPCs and all three events fixed-length
+# (0 [Luz] start=5..5 time1=time2=0, 1 [Gritos] and 2 [Dedos] start=0..0 with
+# time1=time2 of 3 and 5), so nothing on the route can roll; both sides finish
+# on the ALR-mangled "You puntosd 0 fuera of the maximum 0!".
 renuntio_solution.txt|Renuntio.taf|Yo-nos me alzo y estiendo mis-nos brazos|SCR_SKIP_WAITKEY=1
 # House Of Horror: a nine-treasure haunted-house crawl that WINS at 145/155,
 # and the missing 10 are a provable author bug rather than a route failure.
@@ -3777,6 +3842,15 @@ merry_murders_solution.txt|Merry_Murders.taf|You scored 135 out of the maximum 1
 # carrying the", so the correct run390-shaped base yields "I'm already
 # carrying the brush!" with a leading break -- the old golden's "I am already
 # carrying the brush." was the ALR mangling Scarier's wrong 4.0-style text.
+# Measured 2026-09-05 against run390 (Adrift_9_thewoods.txt, feed
+# cmdfile_w_thewoods.txt -- 73 commands, PRE=1 for the title <waitkey>; the
+# candidate table's 133 counted the golden's 60 comment lines).  73/73 echoed,
+# 72 of 73 turns byte-identical, and the 73rd -- the winning `take head` and
+# its whole epilogue -- differs only by the Runner's "[Press any key to end]";
+# both sides score 100/100.  Zero engine divergences, and the Runner prints
+# "I'm already carrying the brush!" verbatim, which confirms the 2026-08-31
+# re-bless from the game side as well as from the ALR table.  The file has no
+# events and no NPCs, so nothing here can roll.
 thewoods_solution.txt|thewoods.taf|You scored 100 out of the maximum 100!|SCR_SKIP_WAITKEY=1
 
 # Captive Universe -- ADRIFT 3.90, 74,568 bytes, after the Harry Harrison novel.
