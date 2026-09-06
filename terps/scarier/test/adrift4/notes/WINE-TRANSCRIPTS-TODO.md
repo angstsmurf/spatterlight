@@ -332,7 +332,7 @@ was re-blessed, with the evidence in the row's comment block in
 | `frog.taf` | 4.00 | `Adrift_76_frog.txt` | clean: 10/10 echoed, tail only |
 | `SPAM.taf` | 4.00 | `Adrift_77_spam.txt` | 15/15 echoed; ONE divergence, now **FIXED** -- `ask about ingredients` prints its `(Nobody)` echo BEFORE the task's text, not after.  See the dated section: the echo is a direct display call, the task text is buffered |
 | `sommeril.taf` | 4.00 | `Adrift_78_sommeril.txt`, `Adrift_79_somm_npcprobe.txt`, `Adrift_80_somm_placemat.txt` | 79/79 echoed.  Three findings, two of them now **FIXED** -- the `(GARGOYLE)` echo ordering (same fix as `SPAM`), the every-line last-named-character register, and the **trailing space in a task command pattern**, which run400 requires the input to have. … |
-| `House.taf` | 4.00 | `Adrift_91.txt`, `Adrift_92.txt`, `Adrift_93.txt` (checkpoint drives from a Scarier-made `.tas`, `#restore` after the title menu's `2`) | the put/task precedence model **confirmed** and one gate rule **corrected and FIXED**: at the fireplace with the wood on the floor and the axe in hand, `put wood in fireplace` / `place wood in fireplace` print `(Taking the wood first)` then `Your hands are full.  You are not holding the wood.`; with the wood held every spelling (`put`, `place`, `drop wood in fireplace`, `put some wood into the fire place`) is the library put, task 459 never fires, `light fire` refuses with `You need some wood or coal to make a proper fire.` -- **House is unwinnable in run400**.  Scarier used to skip the implicit take because take-flagged task 60 `* %object%` pre-matched: run400's pre-matcher is restriction-aware, and task 60's silently-failing restriction drops it.  Every move pops an `evaluate error - Out of stack space` alert (the `%drunk%` ALR loop, see "Deliberate deviations").  `get cathy` there was `Take what?` in run400 against the library's take-NPC line in Scarier: five more drives (`Adrift_94`-`98`) pinned it -- the first line naming Cathy after the checkpoint runs the once-only silent task 200 `*cathy*` (`# attention on cathy grave vision`), and a task having run for the line shuts the take/examine/where/attack/talk-to branches of the character handler (`MemVar_4941F8`; ask-about, give and kiss survive -- Humbug's silent `ask * hacker about * humbug` still answers), so `get cathy` falls to `Take what?` and `x cathy` to `You see no such thing.`; the second mention gets "I don't think girl would appreciate being handled." (Prefix + first Alias, not the Name) and her description.  Restore does NOT clear her seen byte.  Both rules **PORTED 2026-09-06** (see "Ported 2026-09-06: the task-ran NPC gate"); `Adrift_99` confirms `ask cathy about grave` answers on the first mention; `Adrift_100` (`kiss cathy` x2, `#restore`, `where is cathy` x2) pins the **one-task-per-line** rule: the first `kiss cathy` runs silent task 200 and then the LIBRARY's `I'm not sure she would appreciate that!`, never the game's kiss task 882 (`Cathy gently but firmly pushes you back` only on the second kiss); `where is cathy` is `I don't know where that is!` then `Cathy is dining room.  (Right next to you silly!)`.  **PORTED 2026-09-06** (see "Ported 2026-09-06: one task per typed line"); `Adrift_101` (`hit cathy` x2, `talk to cathy` x2) matches Scarier line for line with NO change: first `hit cathy` = `You hit, but nothing happens.` (attack branch shut, generaltasks_verbs fallback), second = task 881 `Cathy is awake now and looks capable of hitting you back if you tried.`; first `talk to cathy` = the talk-to-nobody line (one of three random replies, all ALR-mapped by House to `Use the format "ask Cathy about [subject] or "give Cathy [object]""`), second = the character handler's `Use the format "ask Cathy about [subject]".` |
+| `House.taf` | 4.00 | `Adrift_91.txt`, `Adrift_92.txt`, `Adrift_93.txt` (checkpoint drives from a Scarier-made `.tas`, `#restore` after the title menu's `2`) | the put/task precedence model **confirmed** and one gate rule **corrected and FIXED**: at the fireplace with the wood on the floor and the axe in hand, `put wood in fireplace` / `place wood in fireplace` print `(Taking the wood first)` then `Your hands are full.  You are not holding the wood.`; with the wood held every spelling (`put`, `place`, `drop wood in fireplace`, `put some wood into the fire place`) is the library put, task 459 never fires, `light fire` refuses with `You need some wood or coal to make a proper fire.` -- **House is unwinnable in run400**.  Scarier used to skip the implicit take because take-flagged task 60 `* %object%` pre-matched: run400's pre-matcher is restriction-aware, and task 60's silently-failing restriction drops it.  Every move pops an `evaluate error - Out of stack space` alert (the `%drunk%` ALR loop, see "Deliberate deviations").  `get cathy` there was `Take what?` in run400 against the library's take-NPC line in Scarier: five more drives (`Adrift_94`-`98`) pinned it -- the first line naming Cathy after the checkpoint runs the once-only silent task 200 `*cathy*` (`# attention on cathy grave vision`), and a task having run for the line shuts the take/examine/where/attack/talk-to branches of the character handler (`MemVar_4941F8`; ask-about, give and kiss survive -- Humbug's silent `ask * hacker about * humbug` still answers), so `get cathy` falls to `Take what?` and `x cathy` to `You see no such thing.`; the second mention gets "I don't think girl would appreciate being handled." (Prefix + first Alias, not the Name) and her description.  Restore does NOT clear her seen byte.  Both rules **PORTED 2026-09-06** (see "Ported 2026-09-06: the task-ran NPC gate"); `Adrift_99` confirms `ask cathy about grave` answers on the first mention; `Adrift_100` (`kiss cathy` x2, `#restore`, `where is cathy` x2) pins the **one-task-per-line** rule: the first `kiss cathy` runs silent task 200 and then the LIBRARY's `I'm not sure she would appreciate that!`, never the game's kiss task 882 (`Cathy gently but firmly pushes you back` only on the second kiss); `where is cathy` is `I don't know where that is!` then `Cathy is dining room.  (Right next to you silly!)`.  **PORTED 2026-09-06** (see "Ported 2026-09-06: one task per typed line"); `Adrift_101` (`hit cathy` x2, `talk to cathy` x2) matches Scarier line for line with NO change: first `hit cathy` = `You hit, but nothing happens.` (attack branch shut, generaltasks_verbs fallback), second = task 881 `Cathy is awake now and looks capable of hitting you back if you tried.`; first `talk to cathy` = the talk-to-nobody line (one of three random replies, all ALR-mapped by House to `Use the format "ask Cathy about [subject] or "give Cathy [object]""`), second = the character handler's `Use the format "ask Cathy about [subject]".`; `Adrift_102`-`104` (give): `give diary to cathy` answers on the FIRST mention (give is not task-ran gated), `give cathy diary` and `give diary cathy` give too (word-order-free give, **PORTED 2026-09-06** as two table rows), bare `give diary` echoes `(to Nobody)` / `(to Cathy)` from the last-named character (already ported), and a dropped diary gets `You don't have the diary!` in every order |
 
 
 ## Candidates
@@ -969,6 +969,57 @@ impressive.` / `Not surprisingly, no-one takes any notice of <you>.` /
 to the same text, so the seed cannot show).  Second mention: the game's
 task 881 for hit, and the handler's `Use the format "ask <npc> about
 [subject]".` for talk-to.
+
+## Ported 2026-09-06: give in any word order
+
+Three House checkpoint drives (`Adrift_102`-`104`, 2026-09-06):
+
+```
+> give diary to cathy            (first mention of Cathy after the restore)
+Cathy takes the diary off of you and flicks through the pages. ...
+> give cathy diary
+Cathy takes the diary off of you ...
+> give diary cathy
+Cathy takes the diary off of you ...
+> give diary                     (nobody named yet this game)
+(to Nobody)
+Give the diary to who?
+> x cathy / x cathy / give diary
+(to Cathy)
+Cathy takes the diary off of you ...
+> drop diary
+> give diary to cathy
+You don't have the diary!
+> give cathy diary
+You don't have the diary!
+```
+
+Give survives the task-ran NPC gate (the first `give diary to cathy` runs
+silent task 200 and still answers), and it is word-order free in every
+Runner: the character handler's give branch tests `c("give")`, a present
+NPC, and then EVERY object whose name appears anywhere in the line, held or
+worn -> "<npc> doesn't seem interested in <object>." (House ALR-maps that to
+Cathy's diary reply); run400 48022F-480384, run390 45A0BA, run380 440E8C,
+run370 438F79.  The not-held case is answered earlier by generaltasks_verbs
+(488A96: `<You> don't have <object>!`, with the bang), so the handler's own
+`don't have <object>.` (480338, full stop, buffer-empty gated) never
+prints for a named NPC.  Scarier only matched `give %object% to
+%character%` and answered `give cathy diary` with "Give the diary to who?";
+two rows, `give %character% %object%` and `give %object% %character%`,
+now route both orders to `lib_cmd_give_object_npc()`.
+One golden moved: the_hangover `give the doctor some french fries` now
+gets "Doctor doesn't seem interested in the french fries." instead of
+"Give the french fries to who?".  run390 itself runs the game's Where=0
+task there ("You can't do that here!", Adrift_1_hangover_run390.txt), the
+deliberate deviation already recorded in the harness; the new line is what
+its character handler prints once no task takes the line.
+
+The bare `give diary` completion was already ported: the input routine
+(run400 48A98A, run390 45FAB9, run380 44272C, run370 43BFC9) appends
+` to <last-named character>` and echoes `(to <name>)` when no character is
+named and the line has no `to`; the register starts as "Nobody" (45A7F5)
+and is set at 47F3A2 whenever a line names a character.  Scarier printed
+all three transcripts identically.
 
 ## Ported 2026-09-06: the 4.0 put/task precedence split
 

@@ -454,6 +454,17 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"read %object%", lib_cmd_read_object},
   {"read *", lib_cmd_read_other},
   {"give %object% to %character%", lib_cmd_give_object_npc},
+  /*
+   * The Runner's give is word-order free: the character handler tests
+   * c("give"), a present NPC, and then every object whose name appears
+   * anywhere in the line (run400 48022F-480384, run390 45A0BA, run380
+   * 440E8C, run370 438F79), so `give cathy diary` and `give diary cathy`
+   * both offer the diary.  House (4.00) Adrift_102 2026-09-06: `give cathy
+   * diary` gets the same reply as `give diary to cathy`.  Scarier used to
+   * fall to "Give the diary to who?".
+   */
+  {"give %character% %object%", lib_cmd_give_object_npc},
+  {"give %object% %character%", lib_cmd_give_object_npc},
   {"sit {down/up} [on/in] %object%", lib_cmd_sit_on_object},
   {"stand {up/down} [on/in] %object%", lib_cmd_stand_on_object},
   {"[lie/lay] on %object%", lib_cmd_lie_on_object},

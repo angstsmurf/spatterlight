@@ -1471,8 +1471,12 @@ mishmash_solution.txt|mishmash.taf|You have lived up to your name and survived a
 # containment pass (positional first, per row).  Measured on Vardock Bates
 # `tirar de la palanca` -> `pull de la palanca` (Adrift_1_vardock_bates.txt); this row
 # follows by the same rule, unmeasured:
-# `give the doctor some french fries` -> "Give the french fries to who?" (was "Give
-# what?"; run390 itself answers with the task's wrong-room message, see the note above).
+# `give the doctor some french fries` -> since 2026-09-06 "Doctor doesn't seem
+# interested in the french fries." (before that "Give the french fries to who?",
+# earlier still "Give what?"); run390 itself answers with the Where=0 task's
+# wrong-room message, see the note above.  The new line is what run390's own
+# character handler prints for a word-order-free give once no task takes the
+# line (House Adrift_102, run390 45A0BA).
 # 2026-08-30: UNWINNABLE confirmed in the real run390 under Wine
 # (Adrift_1_hangover_run390{,_standup,_cabinet}.txt).  Both Where=0 tasks
 # answer "You can't do that here!" there, and run390 tops out at the same
