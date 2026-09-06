@@ -332,7 +332,7 @@ was re-blessed, with the evidence in the row's comment block in
 | `frog.taf` | 4.00 | `Adrift_76_frog.txt` | clean: 10/10 echoed, tail only |
 | `SPAM.taf` | 4.00 | `Adrift_77_spam.txt` | 15/15 echoed; ONE divergence, now **FIXED** -- `ask about ingredients` prints its `(Nobody)` echo BEFORE the task's text, not after.  See the dated section: the echo is a direct display call, the task text is buffered |
 | `sommeril.taf` | 4.00 | `Adrift_78_sommeril.txt`, `Adrift_79_somm_npcprobe.txt`, `Adrift_80_somm_placemat.txt` | 79/79 echoed.  Three findings, two of them now **FIXED** -- the `(GARGOYLE)` echo ordering (same fix as `SPAM`), the every-line last-named-character register, and the **trailing space in a task command pattern**, which run400 requires the input to have. … |
-| `House.taf` | 4.00 | `Adrift_91.txt`, `Adrift_92.txt`, `Adrift_93.txt` (checkpoint drives from a Scarier-made `.tas`, `#restore` after the title menu's `2`) | the put/task precedence model **confirmed** and one gate rule **corrected and FIXED**: at the fireplace with the wood on the floor and the axe in hand, `put wood in fireplace` / `place wood in fireplace` print `(Taking the wood first)` then `Your hands are full.  You are not holding the wood.`; with the wood held every spelling (`put`, `place`, `drop wood in fireplace`, `put some wood into the fire place`) is the library put, task 459 never fires, `light fire` refuses with `You need some wood or coal to make a proper fire.` -- **House is unwinnable in run400**.  Scarier used to skip the implicit take because take-flagged task 60 `* %object%` pre-matched: run400's pre-matcher is restriction-aware, and task 60's silently-failing restriction drops it.  Every move pops an `evaluate error - Out of stack space` alert (the `%drunk%` ALR loop, see "Deliberate deviations").  `get cathy` there was `Take what?` in run400 against the library's take-NPC line in Scarier: five more drives (`Adrift_94`-`98`) pinned it -- the first line naming Cathy after the checkpoint runs the once-only silent task 200 `*cathy*` (`# attention on cathy grave vision`), and a task having run for the line shuts the take/examine/where/attack/talk-to branches of the character handler (`MemVar_4941F8`; ask-about, give and kiss survive -- Humbug's silent `ask * hacker about * humbug` still answers), so `get cathy` falls to `Take what?` and `x cathy` to `You see no such thing.`; the second mention gets "I don't think girl would appreciate being handled." (Prefix + first Alias, not the Name) and her description.  Restore does NOT clear her seen byte.  Both rules **PORTED 2026-09-06** (see "Ported 2026-09-06: the task-ran NPC gate"); `Adrift_99` confirms `ask cathy about grave` answers on the first mention; `Adrift_100` (`kiss cathy` x2, `#restore`, `where is cathy` x2) pins the **one-task-per-line** rule: the first `kiss cathy` runs silent task 200 and then the LIBRARY's `I'm not sure she would appreciate that!`, never the game's kiss task 882 (`Cathy gently but firmly pushes you back` only on the second kiss); `where is cathy` is `I don't know where that is!` then `Cathy is dining room.  (Right next to you silly!)`.  **PORTED 2026-09-06** (see "Ported 2026-09-06: one task per typed line"); `Adrift_101` (`hit cathy` x2, `talk to cathy` x2) matches Scarier line for line with NO change: first `hit cathy` = `You hit, but nothing happens.` (attack branch shut, generaltasks_verbs fallback), second = task 881 `Cathy is awake now and looks capable of hitting you back if you tried.`; first `talk to cathy` = the talk-to-nobody line (one of three random replies, all ALR-mapped by House to `Use the format "ask Cathy about [subject] or "give Cathy [object]""`), second = the character handler's `Use the format "ask Cathy about [subject]".`; `Adrift_102`-`104` (give): `give diary to cathy` answers on the FIRST mention (give is not task-ran gated), `give cathy diary` and `give diary cathy` give too (word-order-free give, **PORTED 2026-09-06** as two table rows), bare `give diary` echoes `(to Nobody)` / `(to Cathy)` from the last-named character (already ported), and a dropped diary gets `You don't have the diary!` in every order |
+| `House.taf` | 4.00 | `Adrift_91.txt`, `Adrift_92.txt`, `Adrift_93.txt` (checkpoint drives from a Scarier-made `.tas`, `#restore` after the title menu's `2`) | the put/task precedence model **confirmed** and one gate rule **corrected and FIXED**: at the fireplace with the wood on the floor and the axe in hand, `put wood in fireplace` / `place wood in fireplace` print `(Taking the wood first)` then `Your hands are full.  You are not holding the wood.`; with the wood held every spelling (`put`, `place`, `drop wood in fireplace`, `put some wood into the fire place`) is the library put, task 459 never fires, `light fire` refuses with `You need some wood or coal to make a proper fire.` -- **House is unwinnable in run400**.  Scarier used to skip the implicit take because take-flagged task 60 `* %object%` pre-matched: run400's pre-matcher is restriction-aware, and task 60's silently-failing restriction drops it.  Every move pops an `evaluate error - Out of stack space` alert (the `%drunk%` ALR loop, see "Deliberate deviations").  `get cathy` there was `Take what?` in run400 against the library's take-NPC line in Scarier: five more drives (`Adrift_94`-`98`) pinned it -- the first line naming Cathy after the checkpoint runs the once-only silent task 200 `*cathy*` (`# attention on cathy grave vision`), and a task having run for the line shuts the take/examine/where/attack/talk-to branches of the character handler (`MemVar_4941F8`; ask-about, give and kiss survive -- Humbug's silent `ask * hacker about * humbug` still answers), so `get cathy` falls to `Take what?` and `x cathy` to `You see no such thing.`; the second mention gets "I don't think girl would appreciate being handled." (Prefix + first Alias, not the Name) and her description.  Restore does NOT clear her seen byte.  Both rules **PORTED 2026-09-06** (see "Ported 2026-09-06: the task-ran NPC gate"); `Adrift_99` confirms `ask cathy about grave` answers on the first mention; `Adrift_100` (`kiss cathy` x2, `#restore`, `where is cathy` x2) pins the **one-task-per-line** rule: the first `kiss cathy` runs silent task 200 and then the LIBRARY's `I'm not sure she would appreciate that!`, never the game's kiss task 882 (`Cathy gently but firmly pushes you back` only on the second kiss); `where is cathy` is `I don't know where that is!` then `Cathy is dining room.  (Right next to you silly!)`.  **PORTED 2026-09-06** (see "Ported 2026-09-06: one task per typed line"); `Adrift_101` (`hit cathy` x2, `talk to cathy` x2) matches Scarier line for line with NO change: first `hit cathy` = `You hit, but nothing happens.` (attack branch shut, generaltasks_verbs fallback), second = task 881 `Cathy is awake now and looks capable of hitting you back if you tried.`; first `talk to cathy` = the talk-to-nobody line (one of three random replies, all ALR-mapped by House to `Use the format "ask Cathy about [subject] or "give Cathy [object]""`), second = the character handler's `Use the format "ask Cathy about [subject]".`; `Adrift_102`-`104` (give): `give diary to cathy` answers on the FIRST mention (give is not task-ran gated), `give cathy diary` and `give diary cathy` give too (word-order-free give, **PORTED 2026-09-06** as two table rows), bare `give diary` echoes `(to Nobody)` / `(to Cathy)` from the last-named character (already ported), and a dropped diary gets `You don't have the diary!` in every order; `Adrift_105`-`109` (throw, five drives, 39 lines): House has BattleSystem off, so `throw` is an unhandled verb (run400 only knows it inside dobattle 47F084, reached from 48A4A2 when MemVar_494282 = 1) and the line falls to the catch-all -- ONE present object named = `I don't understand what you want me to do with the diary.` (`throw diary at cathy`, `throw diary to cathy`, `wibble diary cathy`: an NPC is not a candidate), TWO present objects tied = NOTHING from the library, the game's `[error=%help_value%]` DontUnderstand (`throw diary at fireplace`, `throw fireplace diary`, `wibble diary fireplace`, `throw window at fireplace`, `throw hook at plaster`), and a typed Prefix word breaks the tie (`throw diary at the hook` -> the hook, `throw the plaster at fireplace` -> the plaster, `throw dining room window at fireplace` -> `dining room window` with no article, `throw a hook at diary` / `throw a diary at plaster` -> the diary).  An EMPTY Prefix is `a` (loader 4900EC), so `throw a diary at fireplace`, `throw diary at a fireplace`, `throw a fireplace at the hook` and `throw diary at the hook a` all tie; `an` is not `a` (`throw an diary at the hook` -> the hook).  **PORTED 2026-09-06** (see "Ported 2026-09-06: an unhandled verb naming two objects") |
 
 
 ## Candidates
@@ -1020,6 +1020,111 @@ The bare `give diary` completion was already ported: the input routine
 named and the line has no `to`; the register starts as "Nobody" (45A7F5)
 and is set at 47F3A2 whenever a line names a character.  Scarier printed
 all three transcripts identically.
+
+
+## Ported 2026-09-06: an unhandled verb naming two objects
+
+Five House checkpoint drives from the Dining-room fireplace (`Adrift_105`-
+`109`, 2026-09-06; diary held, Prefix `a`; fireplace Prefix empty, alias
+`fire`; hook and plaster Prefix `the`; window Prefix `dining room`; House's
+BattleSystem is off, so `throw` is unhandled -- run400 only knows it inside
+dobattle):
+
+```
+> throw diary at cathy                 I don't understand what you want me to do with the diary.
+> throw diary                          I don't understand what you want me to do with the diary.
+> wibble diary cathy                   I don't understand what you want me to do with the diary.
+> throw diary at fireplace             What?           (House's [error=6] DontUnderstand)
+> throw fireplace at diary             What?
+> wibble diary fireplace               What?
+> throw window at fireplace            What?
+> throw hook at plaster                What?
+> throw diary at the hook              I don't understand what you want me to do with the hook.
+> throw the plaster at fireplace       I don't understand what you want me to do with the plaster.
+> throw dining room window at fireplace
+                                       I don't understand what you want me to do with dining room window.
+> throw a hook at diary                I don't understand what you want me to do with the diary.
+> throw a diary at plaster             I don't understand what you want me to do with the diary.
+> throw a diary at fireplace           What?
+> throw diary at a fireplace           What?
+> throw a fireplace at the hook        What?
+> throw a diary at the hook            What?
+> throw diary at the hook a            What?
+> throw an diary at the hook           I don't understand what you want me to do with the hook.
+> wibble dining diary                  I don't understand what you want me to do with the diary.
+```
+
+generaltasks resolves the line's object ONCE, before any verb branch: 48A3F5
+calls the noun resolver Proc_21_58_463640 (mode 0, candidates = objects both
+present and seen; a second pass over every seen object only when the first
+finds no unique winner) and parks the answer in MemVar_4942F8.  Each
+candidate scores 1 for its Short as a whole word of the line (454CB0), PLUS 1
+for its first alias found as a whole word (the alias loop 4632D3 runs whether
+or not the Short hit -- corrected 2026-09-06 from Adrift_111/112, below), and
+then one more for EVERY word of its Prefix found anywhere in the line
+(4632A9-463387).  The unique maximum wins; two
+candidates with different names on the same score leave a negative index
+(4633C3-463405), and the catch-all at 48B1B0-48B236 (`I don't understand
+what you want me to do with X.`) needs MemVar_4942F8 > -1, so a tie prints
+nothing and the game's DontUnderstand text follows.  The loader stores `a`
+for an empty Prefix (4900EC) -- hence the fireplace ties the diary whenever
+`a` is typed, and the printed name is Prefix + Short through the definite
+tense (`the diary`, `dining room window`).  NPCs are never candidates.
+
+Scarier's `* %object% *` row spoke for the first object it bound.
+`lib_verb_object_resolve_400()` now runs the same scoring over the present,
+seen objects (empty Prefix = `a`) and `lib_cmd_verb_object()` returns FALSE
+on a tie, so the line reaches the game's DontUnderstand.  4.0-gated: run380
+442F5D walks the objects in index order and speaks for the first present,
+seen one (unmeasured).  The wording of House's DontUnderstand is task 887's
+`%help_value%` roll, so Scarier's `Huh?` / `Sorry I didn't understand what
+you just typed.` against run400's steady `What?` is RNG, not a divergence.
+### Measured 2026-09-06: Adrift_110-112 -- dobattle's "isn't here!" and the put prompt
+
+Three more checkpoint drives, each a Scarier-made `.tas` restored in run400:
+
+- **House `throw diary at margo` with Margo seen and elsewhere** (Adrift_110,
+  BattleSystem on in this probe): `Margo isn't here!  Seeker hums!` -- a REAL
+  turn.  dobattle `Proc_11_4_47F084` (entered when MemVar_494282 = 1) walks
+  every NPC whose Name is a whole word of the line (47EB46); one that is seen
+  (field 26, which 476FA3 restores) and not in the player's room, with no
+  named or referenced NPC present (var_92 = 0, var_8A = 0 after the 45E99C
+  loop), prints `<Name> isn't here!` (47EFE5) and the loop goes on to the next
+  such NPC; var_8A = 1 afterwards, so no "Who do you want to attack?".  An
+  NPC never yet seen is not named, and the line falls to the no-turn
+  DontUnderstand.  Ported as `lib_battle_absent_npc_400()`, called from the
+  bare and with-weapon attack handlers when no NPC binds (4.0-gated; 3.9
+  unmeasured).
+- **thelasthour `put bowl near spyhole`** (Adrift_111): `Where do you want to
+  put the spyhole?` -- the spyhole scores Short + Prefix `the` = 2 over the
+  bowl's 1, which is only consistent with the Short and the alias hit ADDING
+  (the alias loop 4632D3 runs after a Short hit; the earlier "else" reading
+  was wrong).  Scarier's `lib_verb_object_name_score()` is now additive.
+- **Shadowpeak `put sword near cell door`** (Adrift_112): `Where do you want
+  to put the sword?` -- "cell door" scores 0 (a two-word Short is never one
+  whole word), so the sword wins outright.
+
+The put prompt is the put/drop list parser `Proc_19_40_459DB4`'s branch
+46DC34-46DD2C, reached from generaltasks at 48A462 (before dobattle 48A4A2
+and the catch-all): the line holds whole-word `put`, no ` in ` / ` on `, no
+word `down`, no task pre-matches it; the noun resolver runs (46DCC7) and
+prints `Where do you want to put <the name>?` (46DCDB) or `...that?`
+(46DD19), then MemVar_494281 = 1 (46DD25) -- NOT a turn.  Ported as the
+`put *` runner row `lib_cmd_put_where_400()` plus the same check inside
+`lib_cmd_verb_object()`, `game->is_admin`.
+
+Corpus consequences (428/428 after 13 re-blesses): the "isn't here!" turn
+retired the Shadowpeak `attack X; z` self-sync trick (the `z` after such an
+attack dropped, attacks with no `z` dropped themselves; light_up lost 71 no-op
+attacks, wes_ghn 2; trabula only rewords), and the no-turn catch-all / put
+prompt needed a one-tick filler after `put batter in remote`, `activate orb`,
+`a cauldron`, `put bowl near spyhole`, `write on wall`, `peel wallpaper`,
+`search rubbish`, `water plant`, `do form`.  **Pitfall:** the filler is
+`look`, not `z`, in games whose `WaitTurns` global is 3 (COBL,
+TheADRIFTProject, ADayAtTheSeaside, Trabula, WesGHN) -- `z` ticks three times
+there.  The re-derivation was done one edit per iteration from the new
+engine's own transcript (`fixsol2.py`, scratchpad), consulting the OLD golden
+to decide whether a line had been a no-turn DontUnderstand.
 
 ## Ported 2026-09-06: the 4.0 put/task precedence split
 

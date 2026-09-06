@@ -520,12 +520,6 @@ You cut Hope with the Soul Scythe.
 "I...I'll never return to that box!!!" Hope says trembling as she takes a
 step back. A bright white light flashes and she is gone.
 
-> attack hope
-Your words... they're so unclear
-
-> attack hope
-Your words... they're so unclear
-
 > w
 You move west.
 

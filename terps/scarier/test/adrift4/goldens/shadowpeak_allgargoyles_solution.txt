@@ -26,6 +26,12 @@
 #
 # Run: SC_SEED=1 sh play.sh games/Shadowpeak.taf shadowpeak_allgargoyles_solution.txt
 # Lines beginning with '#' are comments (harness skips them); one command per line.
+# 2026-09-06: the self-sync trick changed.  run400's dobattle answers `attack X`
+# with "X isn't here!" when X has been SEEN and is elsewhere, and that IS a turn
+# (House Adrift_110, 47EFE5); only an X never yet seen falls to the game's no-turn
+# DontUnderstand.  Scarier now does the same, so the `z` after every such
+# `attack X` was dropped (the attack supplies the tick), and an attack with no
+# `z` to give up was dropped itself.  Same turn thread, same RNG, same win.
 s
 se
 u
@@ -234,13 +240,10 @@ z
 attack jarris
 z
 attack boris
-z
 attack boris
 z
 attack boris
-z
 attack boris
-z
 attack boris
 z
 attack boris
@@ -248,9 +251,7 @@ z
 attack boris
 z
 attack arthur
-z
 attack arthur
-z
 e
 e
 # ===== SESSION 7: village scoring cluster 130 -> 230/790 =====
@@ -333,7 +334,6 @@ z
 attack haraxis
 z
 attack haraxis
-z
 attack haraxis
 z
 attack haraxis
@@ -343,49 +343,27 @@ z
 attack haraxis
 z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 # --- Gypsy Grove (56): with the spider dead, Madam Evenov gives the fog spell
 # (give coin = T138+T139 +10) and a fortune card (one = T144 +5).
 d
@@ -745,10 +723,6 @@ e
 z
 z
 sleep
-attack edna
-attack edna
-attack edna
-attack edna
 attack edna
 attack edna
 attack edna

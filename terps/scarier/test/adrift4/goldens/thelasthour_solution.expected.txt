@@ -280,7 +280,10 @@ reach.
 Just straw to sleep on...
 
 > put bowl near spyhole
-I don't understand what you want me to do with the wooden bowl.
+Where do you want to put the spyhole?
+
+> z
+Time passes...
 
 "Supper! C'mon guys, supper!"
 

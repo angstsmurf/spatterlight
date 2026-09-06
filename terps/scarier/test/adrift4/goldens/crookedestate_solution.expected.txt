@@ -275,6 +275,9 @@ These words are not my own.
 > write on wall
 I don't understand what you want me to do with the walls.
 
+> z
+This stillness does not still me.
+
 > peel wallpaper
 I peel a sheaf of that nauseating, cobwebbed paper off the wall, only to
 reveal a further layer of it awaiting behind the shadows.
@@ -288,6 +291,9 @@ I feel my insides balling up tight.
 
 > peel wallpaper
 I don't understand what you want me to do with the walls.
+
+> z
+This stillness does not still me.
 
 > close jaw
 I reach out and gingerly tilt a puppet's jaw shut, yet upon removing my

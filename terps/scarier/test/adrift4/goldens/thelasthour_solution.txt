@@ -44,6 +44,7 @@ x door
 x window
 x straw bundle
 put bowl near spyhole
+z
 eat soup
 wait
 wait

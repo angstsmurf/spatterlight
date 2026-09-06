@@ -58,6 +58,7 @@ unlock box
 open it
 take remote
 put batter in remote
+look
 put battery in remote
 ne
 d
@@ -95,6 +96,7 @@ z
 z
 z
 activate orb
+look
 twist green orb
 where is sweeper
 n

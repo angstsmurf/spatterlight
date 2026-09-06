@@ -602,30 +602,6 @@ dissipates into the air. The wraith is no more.
 lost and the end is nigh, leave this place and reach for the sky."
 The writing then fades away.
 
-> attack alam nadeer
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack alam nadeer
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack alam nadeer
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack alam nadeer
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack alam nadeer
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack alam nadeer
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
 > stand on sarcophagus
 You stand on the sarcophagus.
 
@@ -1146,364 +1122,175 @@ Boris lumbers in from below.
 Seeker hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris drags himself off to the east.
+Jarris isn't here!  Boris drags himself off to the east.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Jarris isn't here!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Jarris isn't here!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Lazaraz rides over from the south.
+Jarris isn't here!  Lazaraz rides over from the south.
 Seeker Hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Jarris isn't here!
 Seeker Hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Lazaraz rides away to the east.
+Jarris isn't here!  Lazaraz rides away to the east.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Jarris isn't here!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Lazaraz rides over from the east.
+Jarris isn't here!  Lazaraz rides over from the east.
 Seeker Hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Jarris isn't here!
 Seeker Hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from the east.
+Jarris isn't here!  Boris lumbers in from the east.
 Seeker hums!
 Lazaraz rides away to the north.
 zombie hits you, but it doesn't seem to do any damage.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris drags himself off to the south.
+Jarris isn't here!  Boris drags himself off to the south.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from the south.
+Jarris isn't here!  Boris lumbers in from the south.
 Seeker hums!
 Lazaraz rides over from the north.
 Seeker Hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris drags himself off to the west.
+Jarris isn't here!  Boris drags himself off to the west.
 Seeker Hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from the west.
+Jarris isn't here!  Boris lumbers in from the west.
 Seeker hums!
 Lazaraz rides away to the south.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris drags himself off to the south.
+Jarris isn't here!  Boris drags himself off to the south.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Lazaraz rides over from the south.
+Jarris isn't here!  Lazaraz rides over from the south.
 Seeker Hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Jarris isn't here!
 Seeker Hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Lazaraz rides away to the north.
+Jarris isn't here!  Lazaraz rides away to the north.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Arthur pulls himself in from the south.
+Jarris isn't here!  Arthur pulls himself in from the south.
 You see a horrible sight. Arthur, one of the village zombies, is pulling
 himself along by his arms, as his legs have long since been eaten away.
 Seeker hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Arthur pulls himself away to the east.  Lazaraz rides over from the north.
+Jarris isn't here!  Arthur pulls himself away to the east.  Lazaraz rides
+over from the north.
 Seeker Hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Jarris isn't here!
 Seeker Hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Lazaraz rides away to the south.
+Jarris isn't here!  Lazaraz rides away to the south.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Jarris isn't here!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Jarris isn't here!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Arthur pulls himself in from the east.
+Jarris isn't here!  Arthur pulls himself in from the east.
 Seeker hums!
 You manage to avoid zombie's attack.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Arthur pulls himself away to the east.
+Jarris isn't here!  Arthur pulls himself away to the east.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Jarris isn't here!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Jarris isn't here!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Arthur pulls himself in from the east.
+Jarris isn't here!  Arthur pulls himself in from the east.
 Seeker hums!
 zombie hits you, but it doesn't seem to do any damage.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from the south.
+Jarris isn't here!  Boris lumbers in from the south.
 Seeker hums!
 Arthur pulls himself away to the west.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris drags himself off to below.  Arthur pulls himself in from the west.
+Jarris isn't here!  Boris drags himself off to below.  Arthur pulls himself
+in from the west.
 Seeker hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from below.
+Jarris isn't here!  Boris lumbers in from below.
 Seeker hums!
 Arthur pulls himself away to below.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris drags himself off to below.  Arthur pulls himself in from below.
+Jarris isn't here!  Boris drags himself off to below.  Arthur pulls himself
+in from below.
 Seeker hums!
 You manage to avoid zombie's attack.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from below.
+Jarris isn't here!  Boris lumbers in from below.
 Seeker hums!
 Arthur pulls himself away to the east.
 zombie hits you, but it doesn't seem to do any damage.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris drags himself off to the west.
+Jarris isn't here!  Boris drags himself off to the west.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from the west.
+Jarris isn't here!  Boris lumbers in from the west.
 Seeker hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris drags himself off to the south.  Arthur pulls himself in from the east.
+Jarris isn't here!  Boris drags himself off to the south.  Arthur pulls
+himself in from the east.
 Seeker hums!
 zombie hits you, but it doesn't seem to do any damage.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from the south.
+Jarris isn't here!  Boris lumbers in from the south.
 Seeker hums!
 Arthur pulls himself away to the west.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris drags himself off to below.  Arthur pulls himself in from the west.
+Jarris isn't here!  Boris drags himself off to below.  Arthur pulls himself
+in from the west.
 Seeker hums!
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from below.
+Jarris isn't here!  Boris lumbers in from below.
 Seeker hums!
 Arthur pulls himself away to below.
 zombie hits you, but it doesn't seem to do any damage.
 
 > attack jarris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Jarris staggers in from the south.
+Jarris isn't here!  Jarris staggers in from the south.
 Seeker hums!
 Boris drags himself off to the east.  Arthur pulls himself in from below.
 Seeker hums!
@@ -1565,29 +1352,14 @@ Seeker hums!
 zombie hits you, but it doesn't seem to do any damage.
 
 > attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Arthur pulls himself away to below.
+Boris isn't here!  Arthur pulls himself away to below.
 
 > attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Arthur pulls himself in from below.
+Boris isn't here!  Arthur pulls himself in from below.
 Seeker hums!
 
 > attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from the east.
+Boris isn't here!  Boris lumbers in from the east.
 Seeker hums!
 Arthur pulls himself away to the south.
 zombie hits you, but it doesn't seem to do any damage.
@@ -1599,19 +1371,10 @@ You stab zombie with the sword.  Boris drags himself off to the south.
 Time passes...
 
 > attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Boris isn't here!
 
 > attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from the south.
+Boris isn't here!  Boris lumbers in from the south.
 Seeker hums!
 
 > attack boris
@@ -1622,42 +1385,20 @@ Boris falls down, quite dead.
 Time passes...
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Arthur isn't here!
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Arthur isn't here!
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Arthur isn't here!
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Lazaraz rides over from the south.
+Arthur isn't here!  Lazaraz rides over from the south.
 Seeker Hums!
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Arthur pulls himself in from the south.
+Arthur isn't here!  Arthur pulls himself in from the south.
 Seeker hums!
 Seeker Hums!
 
@@ -2172,19 +1913,10 @@ Time passes...
 Haraxis skitters off to below.
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Haraxis skitters in.
+Haraxis isn't here!  Haraxis skitters in.
 Seeker hums!
 giant spider hits you, but it doesn't seem to do any damage.
 
@@ -2219,151 +1951,67 @@ creature is dead.
 Time passes...
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > d
 You move down.
@@ -3423,178 +3071,97 @@ You take the stake.
 Seeker hums!
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Gargoyle #1 flies in.
+Woody isn't here!  Gargoyle #1 flies in.
 Seeker hums!
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 A bat swoops down from above and darts off into the shadows.
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 Gargoyle #1 stabs you with the military fork.
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 
 > attack woody
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Woody isn't here!
 Seeker hums!
 You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
@@ -4499,10 +4066,6 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
-> attack fang
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
 > nw
 You move northwest.
 
@@ -4617,23 +4180,7 @@ The northern passage suddenly glows momentarily.
 Seeker hums!
 
 > attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Edna isn't here!
 Seeker hums!
 
 > z
@@ -5419,26 +4966,6 @@ You stab hound of hades with the sword.
 Cerberus yelps, and falls to the hot cavernous floor, dead. Its body slowly
 fades away.
 Seeker hums!
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
 
 > n
 You move north.

@@ -10853,7 +10853,62 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
  * for the Battle System falls through, leaving non-battle games' behaviour for
  * these words exactly as it was.
  */
+static /*
+ * lib_battle_absent_npc_400()
+ *
+ * The 4.0 battle parser dobattle (Proc_11_4_47F084, entered from
+ * generaltasks 48A4A2 whenever the Battle System is on) walks the NPCs in
+ * index order and, for each whose Name is a whole word of the line
+ * (47EB46), attacks it if it is in the player's room.  A named NPC who is
+ * NOT here (47EF5E-47EFF4) prints "<Name> isn't here!" (47EFE5) when the
+ * NPC has been seen (var_194(26) = 1), no earlier-named NPC was present
+ * (var_92 = 0) and no NPC the line refers to is present (45E99C loop,
+ * var_8A = 0).  Unlike the catch-all this is an ordinary turn: 494281 is
+ * left alone, and the walk+event tick runs.
+ *
+ * Measured 2026-09-06 on Shadowpeak (Adrift_110): `attack margo with
+ * sword` from the Torture Chamber, Margo seen and elsewhere, answers
+ * "Margo isn't here!  Seeker hums!" -- the walker's line proves the tick.
+ * The corpus's six `attack holga` lines are the same case.  Scarier used
+ * to fall through to the catch-all ("I don't understand what you want me
+ * to do with the body.") or the game's DontUnderstand text.
+ *
+ * Returns TRUE having printed for every such NPC; 3.9's battle parser is
+ * unmeasured, so the clause is 4.0-only.
+ */
 static scr_bool
+lib_battle_absent_npc_400 (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int index_;
+  scr_bool printed;
+
+  if (!lib_is_version_400 (game) || !battle_is_enabled (game) || !input)
+    return FALSE;
+
+  printed = FALSE;
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      const scr_char *name;
+
+      name = prop_get_indexed_string (bundle, "NPCs", index_, "Name");
+      if (!name || name[0] == NUL
+          || !lib_input_contains_word (input, name)
+          || !gs_npc_seen (game, index_)
+          || npc_in_room (game, index_, gs_playerroom (game)))
+        continue;
+
+      pf_buffer_string (filter, name);
+      pf_buffer_string (filter, " isn't here!\n");
+      printed = TRUE;
+    }
+
+  return printed;
+}
+
+scr_bool
 lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
                         scr_int method, scr_bool legacy)
 {
@@ -10868,7 +10923,12 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
   if (npc == -1)
-    return is_ambiguous;
+    {
+      /* 4.0: a seen NPC named in the line but elsewhere "isn't here!" */
+      if (!is_ambiguous && lib_battle_absent_npc_400 (game))
+        return TRUE;
+      return is_ambiguous;
+    }
 
   /* With the Battle System enabled, resolve a real attack. */
   if (battle_is_enabled (game))
@@ -10930,7 +10990,12 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
   if (npc == -1)
-    return is_ambiguous;
+    {
+      /* 4.0: a seen NPC named in the line but elsewhere "isn't here!" */
+      if (!is_ambiguous && lib_battle_absent_npc_400 (game))
+        return TRUE;
+      return is_ambiguous;
+    }
 
   /* Get the referenced object, and if none, consider complete. */
   object = lib_disambiguate_object (game, verb, NULL);
@@ -14090,6 +14155,198 @@ lib_cmd_unlock_what (scr_gameref_t game)
 }
 
 
+
+/*
+ * lib_verb_object_resolve_400()
+ *
+ * The 4.0 Runner decides which object an otherwise unhandled line is
+ * "about" before any verb runs: generaltasks calls the noun resolver
+ * Proc_21_58_463640 at 48A3F5 (mode 0: candidates are the objects both
+ * PRESENT and seen) and parks the answer in MemVar_4942F8.  The resolver
+ * scores every candidate by the words of its name the line contains --
+ * one for the Short as a whole word, one more for any alias (4632D3: the
+ * alias loop runs whether or not the Short hit), and one more for each
+ * word of the Prefix found (4632A9-463387, whole-word test
+ * Proc_21_38_454CB0) -- and keeps the unique maximum.  thelasthour's
+ * spyhole (Short "spyhole", alias "spyhole") outscores its bowl 2 to 1 on
+ * `put bowl near spyhole` (Adrift_111); Shadowpeak's "cell door" scores 0
+ * on `put sword near cell door`, "door" being no alias of it
+ * (Adrift_112).  Two candidates with different names and
+ * the same score leave it with a negative index (4633C3-463405), and the
+ * "I don't understand what you want me to do with" catch-all at
+ * 48B1B0-48B236 needs MemVar_4942F8 > -1, so a tie prints NOTHING and the
+ * line falls to the game's DontUnderstand text.
+ *
+ * Measured on House (4.00) from the fireplace, run400 Adrift_105/106
+ * 2026-09-06: `throw diary at cathy`, `throw diary at zzz`, `wibble diary`
+ * and `wibble diary cathy` all answer "I don't understand what you want
+ * me to do with the diary." (an NPC is not a candidate), while `throw
+ * diary at fireplace`, `throw fireplace at diary`, `throw diary at hook`,
+ * `throw fireplace diary` and `wibble diary fireplace` all print "What?",
+ * House's [error=6] DontUnderstand -- with the fireplace freshly examined
+ * or not.  Scarier used to speak for the first object its `* %object% *`
+ * row bound.
+ *
+ * Returns the resolver's object, -1 for a tie, -2 when nothing scored.
+ * 3.8 (run380 442F5D) instead walks the objects in index order and speaks
+ * for the first present, seen one -- unmeasured, and left to the caller's
+ * own choice.
+ */
+static scr_int
+lib_verb_object_name_score (scr_gameref_t game,
+                            scr_int object, const scr_char *input)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *shortname, *prefix;
+  scr_vartype_t vt_key[4];
+  scr_int alias_count, alias, score;
+  scr_char *copy, *word, *next;
+
+  score = 0;
+  shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  if (shortname && shortname[0] != NUL
+      && lib_input_contains_word (input, shortname))
+    score = 1;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Alias";
+  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  for (alias = 0; alias < alias_count; alias++)
+    {
+      const scr_char *alias_name;
+
+      vt_key[3].integer = alias;
+      alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (alias_name && alias_name[0] != NUL
+          && lib_input_contains_word (input, alias_name))
+        {
+          score++;
+          break;
+        }
+    }
+  if (score == 0)
+    return 0;
+
+  /*
+   * The 4.0 loader stores "a" for an empty Prefix (run400 4900EC), so an
+   * object authored without one scores the word "a" like any "a X" object:
+   * House's fireplace ties the diary on `throw a diary at fireplace` and
+   * `throw diary at a fireplace` (Adrift_107/108), and matches the hook's
+   * "the" on `throw a fireplace at the hook` (Adrift_109).
+   */
+  prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
+  if (!prefix || prefix[0] == NUL)
+    prefix = "a";
+
+  copy = (scr_char *) scr_malloc (strlen (prefix) + 1);
+  strcpy (copy, prefix);
+  for (word = copy; word; word = next)
+    {
+      next = strchr (word, ' ');
+      if (next)
+        *next++ = NUL;
+      if (word[0] != NUL && lib_input_contains_word (input, word))
+        score++;
+    }
+  scr_free (copy);
+  return score;
+}
+
+static scr_int
+lib_verb_object_resolve_400 (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int index_, object, best, best_count;
+
+  if (!input)
+    return -2;
+
+  object = -2;
+  best = 0;
+  best_count = 0;
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      scr_int score;
+
+      if (!gs_object_seen (game, index_)
+          || !obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+        continue;
+
+      score = lib_verb_object_name_score (game, index_, input);
+      if (score == 0)
+        continue;
+      if (score > best)
+        {
+          object = index_;
+          best = score;
+          best_count = 1;
+        }
+      else if (score == best)
+        best_count++;
+    }
+
+  return best_count > 1 ? -1 : object;
+}
+
+/*
+ * lib_put_where_400()
+ * lib_cmd_put_where_400()
+ *
+ * The 4.0 put parser (Proc 459DB4, branch 46DC34-46DD2C) takes a line
+ * that starts "put", has neither " in " nor " on " in it and no word
+ * "down", and that no task pre-matched (453C50 = 0): it asks the same noun
+ * resolver as the catch-all (46DCC7, mode 0) and answers "Where do you
+ * want to put <the object>?" for a unique winner (46DCDB) or "Where do
+ * you want to put that?" (46DD19) for a tie or nothing scoring.  Both set
+ * MemVar_494281 (46DD25), so like the catch-all the answer is not a turn.
+ *
+ * Measured 2026-09-06: thelasthour `put bowl near spyhole` answers "Where
+ * do you want to put the spyhole?" and no event fires (Adrift_111);
+ * Shadowpeak `put sword near cell door` answers "Where do you want to put
+ * the sword?" and Seeker stays quiet (Adrift_112).  Scarier's catch-all
+ * used to answer "I don't understand what you want me to do with the
+ * bowl." and tick.
+ *
+ * Only lines the can't-see clause above lets through get here, which is
+ * the Runner's order too (therest 4887C1 runs before the put parser: see
+ * lib_cmd_unclear_object).  A line with "into"/"onto" is left to the put
+ * handlers, as the Runner's " in "/" on " tests may be preceded by a
+ * rewrite we have not read.
+ */
+static scr_bool
+lib_put_where_400 (scr_gameref_t game, scr_int resolved)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+
+  if (!lib_is_version_400 (game) || !input)
+    return FALSE;
+  if (scr_strncasecmp (input, "put ", 4) != 0
+      || strstr (input, " in ") || strstr (input, " on ")
+      || strstr (input, " into ") || strstr (input, " onto ")
+      || lib_input_contains_word (input, "down"))
+    return FALSE;
+
+  if (resolved >= 0)
+    {
+      var_set_ref_object (gs_get_vars (game), resolved);
+      lib_print_wrapped_object (game, "Where do you want to put ",
+                                resolved, "?\n");
+    }
+  else
+    pf_buffer_string (filter, "Where do you want to put that?\n");
+
+  game->is_admin = TRUE;
+  return TRUE;
+}
+
+scr_bool
+lib_cmd_put_where_400 (scr_gameref_t game)
+{
+  return lib_put_where_400 (game, lib_verb_object_resolve_400 (game));
+}
+
 /*
  * lib_cmd_verb_object()
  * lib_cmd_verb_character()
@@ -14160,8 +14417,36 @@ lib_cmd_verb_object (scr_gameref_t game)
       return TRUE;
     }
 
+  /*
+   * 4.0: the object is the resolver's, not the first one our `* %object% *`
+   * row bound, and a tie between two present objects' names means the
+   * Runner says nothing here -- see lib_verb_object_resolve_400().
+   */
+  if (lib_is_version_400 (game))
+    {
+      const scr_int resolved = lib_verb_object_resolve_400 (game);
+
+      if (lib_put_where_400 (game, resolved))
+        return TRUE;
+      if (resolved == -1)
+        return FALSE;
+      if (resolved >= 0)
+        object = resolved;
+    }
+
   /* Save in variables. */
   var_set_ref_object (vars, object);
+
+  /*
+   * 4.0: this answer is not a turn.  The catch-all at run400 48B19A-48B30A
+   * stores 1 in MemVar_494281 (48B232), and the end-of-turn walk+event tick
+   * at 48B599 runs only while that flag is 0; the DontUnderstand path a tie
+   * takes (48B573) jumps past the tick too.  So neither answer moves an NPC
+   * or advances an event.  Shadowpeak's second `attack margo with sword`
+   * used to be followed by "Seeker hums!" here; run400 is silent.
+   */
+  if (lib_is_version_400 (game))
+    game->is_admin = TRUE;
 
   /*
    * Print don't understand message.  run400's generaltasks composes this

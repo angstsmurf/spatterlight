@@ -36,6 +36,12 @@
 # zombie-mob battle for Rex's +5 included).
 #
 # Lines beginning with '#' are comments (harness skips them); one command/line.
+# 2026-09-06: the self-sync trick changed.  run400's dobattle answers `attack X`
+# with "X isn't here!" when X has been SEEN and is elsewhere, and that IS a turn
+# (House Adrift_110, 47EFE5); only an X never yet seen falls to the game's no-turn
+# DontUnderstand.  Scarier now does the same, so the `z` after every such
+# `attack X` was dropped (the attack supplies the tick), and an attack with no
+# `z` to give up was dropped itself.  Same turn thread, same RNG, same win.
 s
 se
 u
@@ -94,12 +100,6 @@ open slab
 e
 open sarcophagus
 take vial
-attack alam nadeer
-attack alam nadeer
-attack alam nadeer
-attack alam nadeer
-attack alam nadeer
-attack alam nadeer
 attack alam nadeer
 attack alam nadeer
 stand on sarcophagus
@@ -176,87 +176,46 @@ z
 attack holga
 z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
-z
 attack jarris
 z
 attack jarris
@@ -266,29 +225,19 @@ z
 attack jarris
 z
 attack boris
-z
+attack boris
+attack boris
 attack boris
 z
 attack boris
-z
 attack boris
-z
-attack boris
-z
-attack boris
-z
 attack boris
 z
 attack arthur
-z
 attack arthur
-z
 attack arthur
-z
 attack arthur
-z
 attack arthur
-z
 attack arthur
 z
 e
@@ -370,7 +319,7 @@ z
 attack haraxis
 z
 attack haraxis
-z
+attack haraxis
 attack haraxis
 z
 attack haraxis
@@ -380,49 +329,26 @@ z
 attack haraxis
 z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
 attack haraxis
-z
-attack haraxis
-z
 d
 w
 give coin to madam evenov
@@ -548,45 +474,25 @@ s
 w
 take stake
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 attack woody
-z
 e
 n
 w
@@ -687,7 +593,6 @@ z
 z
 z
 z
-attack fang
 nw
 n
 unlock double doors with triangular piece of metal
@@ -706,10 +611,6 @@ attack edna
 attack edna
 attack edna
 attack edna
-attack edna
-attack edna
-attack edna
-z
 z
 z
 z
@@ -802,11 +703,6 @@ n
 unlock iron gate with black key
 open iron gate
 n
-attack cerberus
-attack cerberus
-attack cerberus
-attack cerberus
-attack cerberus
 attack cerberus
 attack cerberus
 attack cerberus

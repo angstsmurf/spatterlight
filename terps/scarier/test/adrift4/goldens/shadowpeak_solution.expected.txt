@@ -1363,12 +1363,7 @@ Time passes...
 Boris drags himself off to the west.
 
 > attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from the west.
+Boris isn't here!  Boris lumbers in from the west.
 Seeker hums!
 
 > attack boris
@@ -1397,54 +1392,25 @@ leads into the blacksmith’s, while west leads to the Village Square.
 You can move east and west.
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Arthur isn't here!
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Arthur isn't here!
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Arthur isn't here!
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Arthur isn't here!
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Arthur isn't here!
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Arthur isn't here!
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Arthur pulls himself in from the west.
+Arthur isn't here!  Arthur pulls himself in from the west.
 Seeker hums!
 
 > attack arthur
@@ -1891,19 +1857,10 @@ Time passes...
 Haraxis skitters off to below.
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Haraxis skitters in.
+Haraxis isn't here!  Haraxis skitters in.
 Seeker hums!
 
 > attack haraxis
@@ -1944,151 +1901,67 @@ creature is dead.
 Time passes...
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > d
 You move down.
@@ -4046,22 +3919,6 @@ The northern passage suddenly glows momentarily.
 Seeker hums!
 Gargoyle #2 attacks you with the halberd, but you manage to avoid it.
 
-> attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
 > take fleshy mound
 You take fleshy mound.
 Seeker hums!
@@ -4887,34 +4744,6 @@ Cerberus yelps, and falls to the hot cavernous floor, dead. Its body slowly
 fades away.
 Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack cerberus
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
 
 > n
 You move north.

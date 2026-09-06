@@ -61,6 +61,7 @@ give cash to boris
 wait
 fix desk
 water plant
+z
 wait
 wait
 wait

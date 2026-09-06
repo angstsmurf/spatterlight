@@ -1061,8 +1061,7 @@ Seeker hums!
 Boris drags himself off to below.
 
 > attack holga
-I don't understand what you want me to do with the dead Holga zombie.  Jarris
-lumbers off to below.  Boris lumbers in from below.
+Holga isn't here!  Jarris lumbers off to below.  Boris lumbers in from below.
 Seeker hums!
 Lazaraz rides over from the south.
 Seeker Hums!
@@ -1076,8 +1075,8 @@ Boris drags himself off to the east.
 Seeker Hums!
 
 > attack holga
-I don't understand what you want me to do with the dead Holga zombie.  Jarris
-lumbers off to the west.  Lazaraz rides away to the north.
+Holga isn't here!  Jarris lumbers off to the west.  Lazaraz rides away to the
+north.
 
 > z
 Time passes...
@@ -1086,8 +1085,8 @@ Seeker hums!
 You manage to avoid zombie's attack.
 
 > attack holga
-I don't understand what you want me to do with the dead Holga zombie.  Jarris
-lumbers off to the west.  Boris lumbers in from the east.
+Holga isn't here!  Jarris lumbers off to the west.  Boris lumbers in from the
+east.
 Seeker hums!
 Lazaraz rides over from the north.
 Seeker Hums!
@@ -1100,8 +1099,8 @@ Boris drags himself off to the west.
 Seeker Hums!
 
 > attack holga
-I don't understand what you want me to do with the dead Holga zombie.  Jarris
-lumbers off to the east.  Boris lumbers in from the west.
+Holga isn't here!  Jarris lumbers off to the east.  Boris lumbers in from the
+west.
 Seeker hums!
 Lazaraz rides away to the north.
 zombie hits you, but it doesn't seem to do any damage.
@@ -1111,8 +1110,7 @@ Time passes...
 Boris drags himself off to the south.
 
 > attack holga
-I don't understand what you want me to do with the dead Holga zombie.  Boris
-lumbers in from the south.
+Holga isn't here!  Boris lumbers in from the south.
 Seeker hums!
 Lazaraz rides over from the north.
 Seeker Hums!
@@ -1126,8 +1124,8 @@ Seeker Hums!
 You manage to avoid zombie's attack.
 
 > attack holga
-I don't understand what you want me to do with the dead Holga zombie.  Jarris
-lumbers off to the east.  Lazaraz rides away to the north.
+Holga isn't here!  Jarris lumbers off to the east.  Lazaraz rides away to the
+north.
 
 > z
 Time passes...
@@ -1139,9 +1137,8 @@ himself along by his arms, as his legs have long since been eaten away.
 Seeker hums!
 
 > attack holga
-I don't understand what you want me to do with the dead Holga zombie.  Jarris
-lumbers off to the west.  Arthur pulls himself away to below.  Lazaraz rides
-over from the north.
+Holga isn't here!  Jarris lumbers off to the west.  Arthur pulls himself away
+to below.  Lazaraz rides over from the north.
 Seeker Hums!
 
 > z
@@ -1154,8 +1151,8 @@ Seeker Hums!
 You manage to avoid zombie's attack.
 
 > attack holga
-I don't understand what you want me to do with the dead Holga zombie.  Jarris
-lumbers off to below.  Boris lumbers in from the south.
+Holga isn't here!  Jarris lumbers off to below.  Boris lumbers in from the
+south.
 Seeker hums!
 Arthur pulls himself away to the east.  Lazaraz rides away to the south.
 
@@ -1190,8 +1187,7 @@ his face.  Arthur pulls himself away to the south.
 Time passes...
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from the east.
+Jarris isn't here!  Boris lumbers in from the east.
 Seeker hums!
 
 > z
@@ -1199,8 +1195,7 @@ Time passes...
 Boris drags himself off to below.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from below.
+Jarris isn't here!  Boris lumbers in from below.
 Seeker hums!
 
 > z
@@ -1208,8 +1203,7 @@ Time passes...
 Boris drags himself off to the south.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from the south.
+Jarris isn't here!  Boris lumbers in from the south.
 Seeker hums!
 zombie hits you, but it doesn't seem to do any damage.
 
@@ -1218,8 +1212,7 @@ Time passes...
 Boris drags himself off to below.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from below.
+Jarris isn't here!  Boris lumbers in from below.
 Seeker hums!
 
 > z
@@ -1227,26 +1220,25 @@ Time passes...
 Boris drags himself off to the south.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
+Jarris isn't here!
 
 > z
 Time passes...
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
+Jarris isn't here!
 
 > z
 Time passes...
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
+Jarris isn't here!
 
 > z
 Time passes...
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from the south.
+Jarris isn't here!  Boris lumbers in from the south.
 Seeker hums!
 
 > z
@@ -1254,8 +1246,7 @@ Time passes...
 Boris drags himself off to below.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from below.
+Jarris isn't here!  Boris lumbers in from below.
 Seeker hums!
 zombie hits you, but it doesn't seem to do any damage.
 
@@ -1264,8 +1255,7 @@ Time passes...
 Boris drags himself off to the east.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from the east.
+Jarris isn't here!  Boris lumbers in from the east.
 Seeker hums!
 
 > z
@@ -1273,20 +1263,19 @@ Time passes...
 Boris drags himself off to the east.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
+Jarris isn't here!
 
 > z
 Time passes...
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
+Jarris isn't here!
 
 > z
 Time passes...
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from the east.
+Jarris isn't here!  Boris lumbers in from the east.
 Seeker hums!
 
 > z
@@ -1294,14 +1283,13 @@ Time passes...
 Boris drags himself off to the east.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
+Jarris isn't here!
 
 > z
 Time passes...
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from the east.
+Jarris isn't here!  Boris lumbers in from the east.
 Seeker hums!
 zombie hits you, but it doesn't seem to do any damage.
 
@@ -1312,8 +1300,7 @@ Seeker hums!
 You manage to avoid zombie's attack.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from the east.
+Jarris isn't here!  Boris lumbers in from the east.
 Seeker hums!
 Arthur pulls himself away to below.
 
@@ -1323,8 +1310,7 @@ Boris drags himself off to the east.  Arthur pulls himself in from below.
 Seeker hums!
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-Arthur pulls himself away to the south.
+Jarris isn't here!  Arthur pulls himself away to the south.
 
 > z
 Time passes...
@@ -1333,8 +1319,7 @@ Seeker hums!
 You manage to avoid zombie's attack.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-Arthur pulls himself away to below.
+Jarris isn't here!  Arthur pulls himself away to below.
 
 > z
 Time passes...
@@ -1342,8 +1327,7 @@ Arthur pulls himself in from below.
 Seeker hums!
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from the east.
+Jarris isn't here!  Boris lumbers in from the east.
 Seeker hums!
 Arthur pulls himself away to below.
 
@@ -1354,15 +1338,13 @@ Seeker hums!
 You manage to avoid zombie's attack.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-Arthur pulls himself away to the east.
+Jarris isn't here!  Arthur pulls himself away to the east.
 
 > z
 Time passes...
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from the east.
+Jarris isn't here!  Boris lumbers in from the east.
 Seeker hums!
 zombie hits you, but it doesn't seem to do any damage.
 
@@ -1371,7 +1353,7 @@ Time passes...
 Boris drags himself off to the south.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
+Jarris isn't here!
 
 > z
 Time passes...
@@ -1379,8 +1361,7 @@ Arthur pulls himself in from the east.
 Seeker hums!
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-Arthur pulls himself away to the west.
+Jarris isn't here!  Arthur pulls himself away to the west.
 
 > z
 Time passes...
@@ -1389,8 +1370,7 @@ Seeker hums!
 You manage to avoid zombie's attack.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-Arthur pulls himself away to the west.
+Jarris isn't here!  Arthur pulls himself away to the west.
 
 > z
 Time passes...
@@ -1398,8 +1378,7 @@ Arthur pulls himself in from the west.
 Seeker hums!
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from the south.
+Jarris isn't here!  Boris lumbers in from the south.
 Seeker hums!
 Arthur pulls himself away to below.
 
@@ -1410,8 +1389,7 @@ Seeker hums!
 You manage to avoid zombie's attack.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from below.
+Jarris isn't here!  Boris lumbers in from below.
 Seeker hums!
 Arthur pulls himself away to the west.
 
@@ -1421,8 +1399,7 @@ Boris drags himself off to the east.  Arthur pulls himself in from the west.
 Seeker hums!
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.  Boris
-lumbers in from the east.
+Jarris isn't here!  Boris lumbers in from the east.
 Seeker hums!
 Arthur pulls himself away to below.
 zombie hits you, but it doesn't seem to do any damage.
@@ -1434,8 +1411,7 @@ Seeker hums!
 You manage to avoid zombie's attack.
 
 > attack jarris
-I don't understand what you want me to do with the dead Jarris zombie.
-Arthur pulls himself away to below.
+Jarris isn't here!  Arthur pulls himself away to below.
 
 > z
 Time passes...
@@ -1443,12 +1419,7 @@ Arthur pulls himself in from below.
 Seeker hums!
 
 > attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from the east.
+Boris isn't here!  Boris lumbers in from the east.
 Seeker hums!
 Arthur pulls himself away to the west.
 
@@ -1463,19 +1434,10 @@ Time passes...
 Arthur pulls himself away to the east.
 
 > attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Boris isn't here!
 
 > attack boris
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Boris lumbers in from the south.
+Boris isn't here!  Boris lumbers in from the south.
 Seeker hums!
 
 > attack boris
@@ -1486,8 +1448,7 @@ Boris falls down, quite dead.
 Time passes...
 
 > attack boris
-I don't understand what you want me to do with the dead Boris zombie.  Arthur
-pulls himself in from the east.
+Boris isn't here!  Arthur pulls himself in from the east.
 Seeker hums!
 
 > z
@@ -1495,24 +1456,16 @@ Time passes...
 Arthur pulls himself away to the east.
 
 > attack boris
-I don't understand what you want me to do with the dead Boris zombie.
+Boris isn't here!
 
 > z
 Time passes...
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Arthur isn't here!
 
 > attack arthur
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Arthur isn't here!
 
 > e
 You move east.
@@ -1688,7 +1641,7 @@ You stab zombie with the sword.
 The poor child keels over and finally dies.
 
 > attack bambi
-I don't understand what you want me to do with the dead Bambi zombie.
+Bambi isn't here!
 
 > e
 You move east.
@@ -1973,12 +1926,7 @@ You stab giant spider with the sword.  Haraxis skitters off to below.
 Time passes...
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
-Haraxis skitters in.
+Haraxis isn't here!  Haraxis skitters in.
 Seeker hums!
 giant spider hits you, but it doesn't seem to do any damage.
 
@@ -2013,158 +1961,70 @@ creature is dead.
 Time passes...
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> z
-Time passes...
+Haraxis isn't here!
 
 > d
 You move down.
@@ -3397,7 +3257,7 @@ Seeker hums!
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 
 > attack margo with sword
-I don't understand what you want me to do with the The dead Margo.
+Margo isn't here!
 Seeker hums!
 
 > n
@@ -4220,22 +4080,6 @@ You stab construct with the sword.
 Edna keels over and collapses to the floor. The magical energy that held its
 body together pours out, leaving only a fleshy mound of rotten flesh.
 The northern passage suddenly glows momentarily.
-
-> attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
-> attack edna
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
 
 > take fleshy mound
 You take fleshy mound.

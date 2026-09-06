@@ -294,6 +294,22 @@ You take the remote control from the black box.
 > put batter in remote
 I don't understand what you want me to do with the remote control.
 
+> look
+
+Objectorium
+
+The walls of the Objectorium blend into most of the furnishings, nearly
+concealing a cabinet.  A very long purple sofa is securely fastened to the
+floor, and a titanium coffee table is likewise bolted down just a few feet
+away.  On the wall near the doorway is a lighted control panel that randomly
+flickers with bright colors. A larger window wraps its way around the outer
+perimeter of the Objectorium.  An open vent located near the door at ground
+level grabs your attention and has some writing just above it.
+
+There is a black box firmly attached to the outside of a cabinet.
+
+You can only move northeast.
+
 > put battery in remote
 You put the small battery inside the remote control.
 
@@ -532,6 +548,19 @@ Time passes...
 
 > activate orb
 I don't understand what you want me to do with the green Drift-O-Sphere.
+
+> look
+
+The Laboratory
+
+This room seems quite small for a laboratory and it’d certainly be crowded if
+three people occupied it at the same time.  There is large tube attached to
+the wall with a hole at the top and a tray at the bottom.  A sign on the wall
+is located right next to it, along with a button and dark box with some
+writing on it. A small vent is located in the bottom of the door that leads
+north from here. There is also a control panel on the wall, near the door.
+
+You can only move north.
 
 > twist green orb
 You twist the green Drift-O-Sphere until you hear a click.  It then begins to

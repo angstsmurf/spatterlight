@@ -3,6 +3,7 @@ n
 take cup
 look in bin
 search rubbish
+look
 look in rubbish
 get medicine
 s

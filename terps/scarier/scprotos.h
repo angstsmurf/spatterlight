@@ -827,6 +827,7 @@ extern scr_bool lib_cmd_xyzzy (scr_gameref_t game);
 extern scr_bool lib_cmd_egotistic (scr_gameref_t game);
 extern scr_bool lib_cmd_yes_or_no (scr_gameref_t game);
 extern scr_bool lib_cmd_verb_object (scr_gameref_t game);
+extern scr_bool lib_cmd_put_where_400 (scr_gameref_t game);
 extern scr_bool lib_cmd_verb_npc (scr_gameref_t game);
 extern void lib_debug_trace (scr_bool flag);
 

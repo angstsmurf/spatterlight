@@ -24,6 +24,7 @@ e
 in
 get form
 do form
+look
 give form
 swim
 out

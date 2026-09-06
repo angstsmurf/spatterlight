@@ -165,6 +165,7 @@ cruel_solution.txt|CAH.taf|destroyed our reality
 # NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
 # Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
 # Re-blessed 2026-08-29: `x trabula / x soldier / x troll (battle rolls move)` no longer ticks, so the events/RNG after it shift by one turn.
+# Re-blessed 2026-09-06: `attack X` naming a SEEN NPC who is elsewhere now answers "X isn't here!" (run400 dobattle 47EFE5, House Adrift_110) instead of falling to the game's DontUnderstand.  Both are turns here, so only the wording changed (~21 lines); no timing change.
 trabula_solution.txt|Trabula.taf|given the gold coins to Trabula
 # Re-blessed 2026-08-29: the 4.0 pronoun echo carries the ARTICLE of whichever handler
 # last set the antecedent -- examine composes "a X" (run400 mode 1 @471749), take/drop/
@@ -187,10 +188,12 @@ shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 # step, move included, runs only when counter == suffix_sum; measured live
 # in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
 # pre-move lines between stops disappeared; still wins.
+# Re-blessed 2026-09-06: `attack X` on a seen-but-absent X is a REAL turn in run400 ("X isn't here!", dobattle 47EFE5, House Adrift_110), not the no-turn DontUnderstand the header's self-sync trick assumed.  The `z` after each such attack was dropped (31, the attack now supplies the tick) and attacks with no `z` to give up were dropped themselves (Cerberus x7, Edna x4).  Same turn thread, still wins.
 shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=7
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
+# Re-blessed 2026-09-06: same "X isn't here!" turn as the shadowpeak row above (Adrift_110): 28 `z` and 4 no-op attacks dropped.  Still wins.
 shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=2326
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
@@ -198,6 +201,7 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  Battle rolls reorder.
+# Re-blessed 2026-09-06: same "X isn't here!" turn as the shadowpeak row above (Adrift_110): 95 `z` and 15 no-op attacks dropped.  Still wins.
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=48
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
@@ -481,6 +485,7 @@ gateway_solution.txt|gateway.taf|THE END
 # is lost.
 hyper_b_s_solution.txt|hyper_b_s.taf|The Flare Rat is dead! Mission complete!
 jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=11
+# Re-blessed 2026-09-06: 71 `attack riven/ozgat/higher` lines answered by DontUnderstand (no turn) became "X isn't here!" turns (run400 dobattle 47EFE5, House Adrift_110); dropped as pure no-ops so the turn thread is unchanged.  Still wins.
 light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=16
 # Measured live in run400 under Wine (2026-08-24), full replay, Verbose ON.
 # The game is NOT winnable in the real Runner: "Cat sheepishly enters from
@@ -952,6 +957,7 @@ villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 31 out of a
 # original dump because EVENT o2/o3 print RAW 1-based refs -- drops the severed
 # hand (ring attached) into the Waiting Room one turn later.  Full win, all 12
 # scoring tasks, Hope killed twice (#Hopedies + #Hopedies2).
+# Re-blessed 2026-09-06: two no-op `attack hope` lines (Hope seen, elsewhere) would now be "Hope isn't here!" turns (run400 47EFE5, Adrift_110); dropped.  Still wins.
 wes_ghn_solution.txt|WesGHN.taf|You've Won the Game!
 # The eleven .taf files that were sitting in games/ unwired (2026-08-02).  Nine
 # are winnable and use the game's own victory text as the marker; Invasion of
@@ -1045,6 +1051,7 @@ shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in vi
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
+# Re-blessed 2026-09-06: `put batter in remote` and `activate orb` are answered by run400's catch-all / put prompt, which set MemVar_494281 without ticking (48B232, 46DD25; Adrift_105-112).  A `look` follows each to keep the thread (WaitTurns is 3 here, so `z` would over-tick).
 TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you|SCR_SKIP_WAITKEY=1
 # 2026-09-06, after the 4.0 put precedence port: line 66 names the boulder,
 # `put medium boulder on medium plinth`.  A bare `boulder` is ambiguous in
@@ -4600,6 +4607,7 @@ gmylm_solution.txt|GMYLM_2010.taf|Victory! - - -|SCR_SKIP_WAITKEY=1
 # his exit announcements fire at the real moves (one joins the armoire
 # paragraph per the walk-announcement join rule).  The old bare "The butler
 # exits." lines were the per-tick re-drag bug.
+# Re-blessed 2026-09-06: `a cauldron` is run400's no-turn catch-all (48B232), so a `z` follows it to keep the thread.
 provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2006!!!|SCR_SKIP_WAITKEY=1
 
 # Professor Von Witt's Fabulous Flying Machine, from the game's own bundled
@@ -5322,6 +5330,7 @@ choosethreehour_solution.txt|Choose_Your_Own_Three_Hour_Adventure.taf|Overall, y
 # auto-take is suppressed, and the handler's not-holding refusal claims.
 # The knife is not needed for the ending; feed unchanged, still wins.
 # Model-derived, Wine candidate (a take-flag quirk worth measuring).
+# Re-blessed 2026-09-06: `put bowl near spyhole` is the 4.0 put prompt "Where do you want to put the spyhole?" (459DB4 @46DCDB, MEASURED Adrift_111: the spyhole scores Short + Prefix = 2 over the bowl's 1), not a turn (46DD25); a `z` follows it.
 thelasthour_solution.txt|thelasthour.taf|"Here we are... MY BROTHER."|
 # Sex is Mental.taf (AIF, 8373 bytes, 4.00): comedic explicit content between
 # two apparent adults (a psychiatric-ward patient and a nurse), a third
@@ -5352,6 +5361,7 @@ petespunkin_solution.txt|Pete's Punkin Junkinator.taf|You scored 505 out of the 
 # demonstration route exercising every implemented verb/scenery noun once.
 # 45 commands, `SCR_SKIP_WAITKEY=1` (an opening waitkey otherwise eats the
 # first scripted command).
+# Re-blessed 2026-09-06: `write on wall` and `peel wallpaper` are run400's no-turn catch-all (48B232); a `z` follows each.
 crookedestate_solution.txt|The Crooked Estate.taf|I quit momentarily, lying motionless, without any will. But, still, something|SCR_SKIP_WAITKEY=1
 # Alias Undercover Agent.taf (Alias-TV-tie-in spy game, 4.00): WON 35/35,
 # the true and declared maximum (four ACT type=4 awards: +10/+10/+10/+5).
@@ -5640,6 +5650,7 @@ will_solution.txt|Will.taf|Well done - you scored maximum points!|
 # does it show." -- 4.0 task matching is verb-literal, and a task that
 # matched-and-failed still owns the command; Scarier's library retry now
 # uses the typed verb (sclibrar.cpp lib_typed_verb) and agrees.
+# Re-blessed 2026-09-06: `search rubbish` is run400's no-turn catch-all (48B232); a `look` follows it (WaitTurns is 3 here).
 cobl_solution.txt|COBL.taf|Your score is 160 out of a maximum of 230.  (69%)|SCR_SKIP_WAITKEY=1
 # puzzlebox.taf (The Puzzle Box, Richard Otter, ORGComp 2007; 4.00): a
 # sequential 10-stage combination-lock puzzle box, no scoring system, single
@@ -6456,6 +6467,7 @@ bloodrelatives_solution.txt|Blood_Relatives.taf|you did find your bed|
 # interim `score` check just before the endgame cascade), landing on "Well
 # done! You've reached the best ending in the game!" after the -5 "rob not
 # here" endgame penalty (76-5=71, still >70).
+# Re-blessed 2026-09-06: `water plant` is run400's no-turn catch-all (48B232); a `z` follows it.
 paint_solution.txt|Paint.taf|Well done! You've reached the best ending in the game!|SCR_SKIP_WAITKEY=1
 # hcw.taf (AIF, adult content -- see /goldens/.gitignore): "How to Conquer the
 # World" by Jason Mac Innes, v2.0, 2014. Comic mad-scientist romp: amnesiac
@@ -7076,6 +7088,7 @@ mutaydid_solution.txt|mutaydid.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # of the maximum 9!  That is 100% of the game!  Well done - you scored
 # maximum points!" 40 commands, zero unmatched/refusal lines other than
 # the do-form quirk above.
+# Re-blessed 2026-09-06: `do form` is run400's no-turn catch-all (48B232); a `look` follows it (WaitTurns is 3 here).
 seaside_solution.txt|ADayAtTheSeaside.taf|Well done - you scored maximum points!
 reluctantvampire_solution.txt|The_Reluctant_Vampire.taf|you achieved a score of 103 out of a possible of|SCR_SKIP_WAITKEY=1
 # ss whore.taf (AIF, adult content -- see /goldens/.gitignore): WWII-fantasy

@@ -92,6 +92,16 @@ The bin is bright red.  Some rubbish is inside the McDonalds bin.
 > search rubbish
 I don't understand what you want me to do with the rubbish.
 
+> look
+
+Outside McDonalds
+
+Ah, the legend that is McDonalds. Townie Central. Even from here, the smell
+of the grease is making your mouth water...
+
+A large red bin is to the side.
+A group of chavs is leaning against the wall and smoking.
+
 > look in rubbish
 There is all sorts of rubbish in here... empty chip boxes and such. But
 you're not allowed any of that; that's cheating. A true Bag Lady only takes

@@ -36,9 +36,11 @@ open door
 go door
 write on wall
 write on wall
+z
 peel wallpaper
 peel wallpaper
 peel wallpaper
+z
 close jaw
 save
 scream

@@ -5415,6 +5415,9 @@ quite some time.  Though the heat and putrid smell suggest otherwise.
 > a cauldron
 I don't understand what you want me to do with the cauldron.
 
+> z
+Time passes...
+
 > x bench
 
 The workbench runs the entire length of the western wall.  A wide array of

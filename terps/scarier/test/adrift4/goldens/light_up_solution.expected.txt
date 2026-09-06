@@ -1883,9 +1883,6 @@ back, louder than ever.
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
 
@@ -1896,16 +1893,10 @@ I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
 
 The sound of knives scraping against glass reverberate across the landscape.
-
-> attack ozgat
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
@@ -1916,14 +1907,8 @@ engine is right next to me.
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
-
-> attack ozgat
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
@@ -1939,9 +1924,6 @@ My skin gets unusually warm for a second. It feels like it's burning.
 
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
-
-> attack ozgat
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
@@ -2010,9 +1992,6 @@ Lina hits Riven.
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
 
-> attack riven
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
 
@@ -2020,32 +1999,20 @@ I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
-> attack riven
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
-> attack riven
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
-
-> attack riven
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
-
-> attack riven
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
@@ -2058,9 +2025,6 @@ My skin gets unusually warm for a second. It feels like it's burning.
 
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
-
-> attack riven
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
@@ -2209,17 +2173,11 @@ Tippant hits Riven.
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
 
-> attack riven
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
-
-> attack ozgat
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
@@ -2227,17 +2185,11 @@ I am already carrying the lighter.
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
-> attack riven
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
-
-> attack ozgat
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
@@ -2247,26 +2199,17 @@ The sound of knives scraping against glass reverberate across the landscape.
 Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
 
-> attack riven
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
-
-> attack riven
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
@@ -2278,17 +2221,11 @@ I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
-
-> attack riven
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
@@ -2296,17 +2233,11 @@ I am already carrying the lighter.
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
-
-> attack riven
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
@@ -2317,9 +2248,6 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take lighter
 I am already carrying the lighter.
 
@@ -2327,9 +2255,6 @@ The sound of knives scraping against glass reverberate across the landscape.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
-
-> attack riven
-I don't understand what you mean.
 
 > take lighter
 I am already carrying the lighter.
@@ -2377,9 +2302,6 @@ same...but everything is so different. It is not clear where I can go.
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -2392,9 +2314,6 @@ desperation and I stand up.
 
 > take lighter
 I am already carrying the lighter.
-
-> attack riven
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -2413,9 +2332,6 @@ engine is right next to me.
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -2430,9 +2346,6 @@ I am already carrying the lighter.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
-
-> attack riven
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -2452,9 +2365,6 @@ back, louder than ever.
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -2462,9 +2372,6 @@ I am already carrying the double-lighter.
 I am already carrying the lighter.
 
 The sound of knives scraping against glass reverberate across the landscape.
-
-> attack riven
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -2481,9 +2388,6 @@ I am already carrying the lighter.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
-
-> attack ozgat
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -2503,9 +2407,6 @@ I am already carrying the lighter.
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
-> attack riven
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -2521,9 +2422,6 @@ I am already carrying the lighter.
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -2537,9 +2435,6 @@ is spreading all over my body.
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
-
-> attack riven
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -2556,9 +2451,6 @@ I am already carrying the lighter.
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -2572,9 +2464,6 @@ I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
-> attack riven
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -2586,9 +2475,6 @@ I am already carrying the lighter.
 
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
-
-> attack ozgat
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -2610,9 +2496,6 @@ floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
 
-> attack riven
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -2621,9 +2504,6 @@ toothpicks are trying to make their way into my body.
 
 > take lighter
 I am already carrying the lighter.
-
-> attack ozgat
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -2645,9 +2525,6 @@ I am already carrying the lighter.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
-
-> attack riven
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -2803,9 +2680,6 @@ body, and soon there is no trace of it.
 > take lighter
 I am already carrying the lighter.
 
-> attack riven
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -2820,9 +2694,6 @@ It thunders in the distance. Streaks of green lightning are in the sky.
 
 > take lighter
 I am already carrying the lighter.
-
-> attack riven
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -2844,9 +2715,6 @@ I am already carrying the lighter.
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
-> attack riven
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -2858,9 +2726,6 @@ I am already carrying the lighter.
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
-
-> attack riven
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -3032,9 +2897,6 @@ Scotty hits Higher.
 
 I no longer detect the Higher's presence.
 
-> attack higher
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -3043,9 +2905,6 @@ sand-like nature. I barely avoid it.
 
 > take lighter
 I am already carrying the lighter.
-
-> attack higher
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -3064,9 +2923,6 @@ floating. I am lifted almost two meters off of the ground before I stop
 floating and go crashing to the ground.
 
 My skin gets unusually warm for a second. It feels like it's burning.
-
-> attack higher
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -3434,9 +3290,6 @@ desperation and I stand up.
 Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 
-> attack ozgat
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -3483,9 +3336,6 @@ My skin gets unusually warm for a second. It feels like it's burning.
 Scotty hits Higher, but it doesn't seem to do any damage.
 Chip hits Higher, but it doesn't seem to do any damage.
 
-> attack riven
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -3504,9 +3354,6 @@ Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
-
-> attack ozgat
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -3552,9 +3399,6 @@ the ground. His head is nowhere in sight.
 I am already carrying the lighter.
 Scotty hits Higher, but it doesn't seem to do any damage.
 
-> attack riven
-I don't understand what you mean.
-
 > take double-lighter
 I am already carrying the double-lighter.
 
@@ -3582,9 +3426,6 @@ before...with a plastic gloss.
 It thunders in the distance. Streaks of green lightning are in the sky.
 Lina hits Higher.
 Scotty hits Higher.
-
-> attack ozgat
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -3624,9 +3465,6 @@ back, louder than ever.
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 Scotty hits Higher, but it doesn't seem to do any damage.
-
-> attack riven
-I don't understand what you mean.
 
 > take double-lighter
 I am already carrying the double-lighter.
@@ -3682,8 +3520,11 @@ islands of black-brown masses which stink like hell.
 
 I can go north.
 
-> attack higher
-I don't understand what you mean.
+> take double-lighter
+Take what?
+
+> take lighter
+Take what?
 
 > take double-lighter
 Take what?
@@ -3691,8 +3532,11 @@ Take what?
 > take lighter
 Take what?
 
-> attack riven
-I don't understand what you mean.
+> take double-lighter
+Take what?
+
+> take lighter
+Take what?
 
 > take double-lighter
 Take what?
@@ -3700,8 +3544,11 @@ Take what?
 > take lighter
 Take what?
 
-> attack ozgat
-I don't understand what you mean.
+> take double-lighter
+Take what?
+
+> take lighter
+Take what?
 
 > take double-lighter
 Take what?
@@ -3709,8 +3556,11 @@ Take what?
 > take lighter
 Take what?
 
-> attack higher
-I don't understand what you mean.
+> take double-lighter
+Take what?
+
+> take lighter
+Take what?
 
 > take double-lighter
 Take what?
@@ -3718,8 +3568,11 @@ Take what?
 > take lighter
 Take what?
 
-> attack riven
-I don't understand what you mean.
+> take double-lighter
+Take what?
+
+> take lighter
+Take what?
 
 > take double-lighter
 Take what?
@@ -3727,8 +3580,11 @@ Take what?
 > take lighter
 Take what?
 
-> attack ozgat
-I don't understand what you mean.
+> take double-lighter
+Take what?
+
+> take lighter
+Take what?
 
 > take double-lighter
 Take what?
@@ -3736,8 +3592,11 @@ Take what?
 > take lighter
 Take what?
 
-> attack higher
-I don't understand what you mean.
+> take double-lighter
+Take what?
+
+> take lighter
+Take what?
 
 > take double-lighter
 Take what?
@@ -3745,89 +3604,17 @@ Take what?
 > take lighter
 Take what?
 
-> attack riven
-I don't understand what you mean.
-
 > take double-lighter
 Take what?
 
 > take lighter
 Take what?
 
-> attack ozgat
-I don't understand what you mean.
-
 > take double-lighter
 Take what?
 
 > take lighter
 Take what?
-
-> attack higher
-I don't understand what you mean.
-
-> take double-lighter
-Take what?
-
-> take lighter
-Take what?
-
-> attack riven
-I don't understand what you mean.
-
-> take double-lighter
-Take what?
-
-> take lighter
-Take what?
-
-> attack ozgat
-I don't understand what you mean.
-
-> take double-lighter
-Take what?
-
-> take lighter
-Take what?
-
-> attack higher
-I don't understand what you mean.
-
-> take double-lighter
-Take what?
-
-> take lighter
-Take what?
-
-> attack riven
-I don't understand what you mean.
-
-> take double-lighter
-Take what?
-
-> take lighter
-Take what?
-
-> attack ozgat
-I don't understand what you mean.
-
-> take double-lighter
-Take what?
-
-> take lighter
-Take what?
-
-> attack higher
-I don't understand what you mean.
-
-> take double-lighter
-Take what?
-
-> take lighter
-Take what?
-
-> attack riven
-I don't understand what you mean.
 
 > take double-lighter
 Take what?

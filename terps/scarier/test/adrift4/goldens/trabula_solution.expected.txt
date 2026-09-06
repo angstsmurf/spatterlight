@@ -83,31 +83,31 @@ You stab a soldier with the sword.
 Soldier falls down, dead.
 
 > attack soldier
-I don't understand what you mean!
+Soldier isn't here!
 
 > attack soldier
-I don't understand what you mean!
+Soldier isn't here!
 
 > attack soldier
-I don't understand what you mean!
+Soldier isn't here!
 
 > attack soldier
-I don't understand what you mean!
+Soldier isn't here!
 
 > attack soldier
-I don't understand what you mean!
+Soldier isn't here!
 
 > attack soldier
-I don't understand what you mean!
+Soldier isn't here!
 
 > attack soldier
-I don't understand what you mean!
+Soldier isn't here!
 
 > attack soldier
-I don't understand what you mean!
+Soldier isn't here!
 
 > attack soldier
-I don't understand what you mean!
+Soldier isn't here!
 
 > take all
 You take the silver key and the rapier.
@@ -174,34 +174,34 @@ You stab a Troll with the sword.
 Troll falls down, dead.
 
 > attack troll
-I don't understand what you mean!
+Troll isn't here!
 
 > attack troll
-I don't understand what you mean!
+Troll isn't here!
 
 > attack troll
-I don't understand what you mean!
+Troll isn't here!
 
 > attack troll
-I don't understand what you mean!
+Troll isn't here!
 
 > attack troll
-I don't understand what you mean!
+Troll isn't here!
 
 > attack troll
-I don't understand what you mean!
+Troll isn't here!
 
 > attack troll
-I don't understand what you mean!
+Troll isn't here!
 
 > attack troll
-I don't understand what you mean!
+Troll isn't here!
 
 > attack troll
-I don't understand what you mean!
+Troll isn't here!
 
 > attack troll
-I don't understand what you mean!
+Troll isn't here!
 
 > take all
 You take the rusty key and the bar.

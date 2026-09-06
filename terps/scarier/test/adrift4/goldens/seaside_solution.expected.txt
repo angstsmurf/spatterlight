@@ -277,6 +277,16 @@ You take the leisure access card form.
 > do form
 I don't understand what you want me to do with the completed form.
 
+> look
+
+Municipal Baths
+Portobello's public baths serve the local population's civic swimming,
+turkish bathing and other exercise needs, under one Victorian roof. A sign on
+the wall indicates that it is only possible to partake of these facilities
+when one is the holder of a Leisure Access Card.
+
+You can only move out.
+
 > give form
 Finally, you are given a leisure access card.
 
