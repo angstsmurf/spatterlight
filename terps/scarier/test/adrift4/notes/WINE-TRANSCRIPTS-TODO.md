@@ -332,7 +332,7 @@ was re-blessed, with the evidence in the row's comment block in
 | `frog.taf` | 4.00 | `Adrift_76_frog.txt` | clean: 10/10 echoed, tail only |
 | `SPAM.taf` | 4.00 | `Adrift_77_spam.txt` | 15/15 echoed; ONE divergence, now **FIXED** -- `ask about ingredients` prints its `(Nobody)` echo BEFORE the task's text, not after.  See the dated section: the echo is a direct display call, the task text is buffered |
 | `sommeril.taf` | 4.00 | `Adrift_78_sommeril.txt`, `Adrift_79_somm_npcprobe.txt`, `Adrift_80_somm_placemat.txt` | 79/79 echoed.  Three findings, two of them now **FIXED** -- the `(GARGOYLE)` echo ordering (same fix as `SPAM`), the every-line last-named-character register, and the **trailing space in a task command pattern**, which run400 requires the input to have. … |
-| `House.taf` | 4.00 | `Adrift_91.txt`, `Adrift_92.txt`, `Adrift_93.txt` (checkpoint drives from a Scarier-made `.tas`, `#restore` after the title menu's `2`) | the put/task precedence model **confirmed** and one gate rule **corrected and FIXED**: at the fireplace with the wood on the floor and the axe in hand, `put wood in fireplace` / `place wood in fireplace` print `(Taking the wood first)` then `Your hands are full.  You are not holding the wood.`; with the wood held every spelling (`put`, `place`, `drop wood in fireplace`, `put some wood into the fire place`) is the library put, task 459 never fires, `light fire` refuses with `You need some wood or coal to make a proper fire.` -- **House is unwinnable in run400**.  Scarier used to skip the implicit take because take-flagged task 60 `* %object%` pre-matched: run400's pre-matcher is restriction-aware, and task 60's silently-failing restriction drops it.  Every move pops an `evaluate error - Out of stack space` alert (the `%drunk%` ALR loop, see "Deliberate deviations").  One NEW open divergence: `get cathy` there is `Take what?` in run400 and the library's "I don't think Cathy would appreciate being handled." in Scarier (see "Still open") |
+| `House.taf` | 4.00 | `Adrift_91.txt`, `Adrift_92.txt`, `Adrift_93.txt` (checkpoint drives from a Scarier-made `.tas`, `#restore` after the title menu's `2`) | the put/task precedence model **confirmed** and one gate rule **corrected and FIXED**: at the fireplace with the wood on the floor and the axe in hand, `put wood in fireplace` / `place wood in fireplace` print `(Taking the wood first)` then `Your hands are full.  You are not holding the wood.`; with the wood held every spelling (`put`, `place`, `drop wood in fireplace`, `put some wood into the fire place`) is the library put, task 459 never fires, `light fire` refuses with `You need some wood or coal to make a proper fire.` -- **House is unwinnable in run400**.  Scarier used to skip the implicit take because take-flagged task 60 `* %object%` pre-matched: run400's pre-matcher is restriction-aware, and task 60's silently-failing restriction drops it.  Every move pops an `evaluate error - Out of stack space` alert (the `%drunk%` ALR loop, see "Deliberate deviations").  `get cathy` there was `Take what?` in run400 against the library's take-NPC line in Scarier: five more drives (`Adrift_94`-`98`) pinned it -- the first line naming Cathy after the checkpoint runs the once-only silent task 200 `*cathy*` (`# attention on cathy grave vision`), and a task having run for the line shuts the take/examine/where/attack/talk-to branches of the character handler (`MemVar_4941F8`; ask-about, give and kiss survive -- Humbug's silent `ask * hacker about * humbug` still answers), so `get cathy` falls to `Take what?` and `x cathy` to `You see no such thing.`; the second mention gets "I don't think girl would appreciate being handled." (Prefix + first Alias, not the Name) and her description.  Restore does NOT clear her seen byte.  Both rules **PORTED 2026-09-06** (see "Ported 2026-09-06: the task-ran NPC gate") |
 
 
 ## Candidates
@@ -809,18 +809,84 @@ Engine leads, measured or half-measured, none blocking:
   (19 rollable events), `Pieces of eden`, `The Fly Human`, `The Foggy
   Banana Adventure`, `hyper_b_s`; `sophie` measured for its first fifty
   commands only, `CIBASS` partial, the `great.taf` car chase unmeasurable.
-- **House `get cathy` at the Dining room fireplace (Adrift_93 turn 3):**
-  run400 prints `Take what?`, Scarier the library's take-NPC line "I don't
-  think Cathy would appreciate being handled."  Tasks 190 (`*get *cathy* `,
-  trailing space) and 240 (`[get/take/...] [cathy]`) pattern-match on both
-  sides and fail their restrictions silently (empty FailMessage on the
-  failing one).  run400's characters handler (`Proc_19_0_480674` @47F710)
-  does accept `take`/`get`/`pick up` and prints the "handled" line only
-  when the NPC is in the current room AND `MemVar_4941F8 = 0`; which of the
-  two conditions fails here (Cathy displaced in the restored save, or a
-  flag left by the silent task) is not yet known.  Not the put question;
-  needs its own probe (`take cathy`, `x cathy`, `get cathy` in a fresh
-  room where Cathy is provably present).
+- (House `get cathy` at the Dining room fireplace, Adrift_93 turn 3: **resolved
+  and ported 2026-09-06**, see "Ported 2026-09-06: the task-ran NPC gate".)
+
+## Ported 2026-09-06: the task-ran NPC gate, and the take-NPC wording
+
+Five more House checkpoint drives (`Adrift_94`-`98`, each `2`, `#restore
+housewood`, then the commands; `ck_housewood2.tas` saved after the first
+mention).  The measured rule: after restoring the checkpoint, the FIRST
+line that names Cathy misfires whatever full turns come before it (`look`,
+`get fireplace`, `take fireplace`), and every later mention works:
+
+```
+> x cathy
+You see no such thing.
+> get cathy
+I don't think girl would appreciate being handled.
+> x cathy
+Cathy is a medium sized woman with long red hair. ...
+```
+
+Saving after that first mention and restoring the new save answers `x cathy`
+at once, so restore does not clear anything: the two saves differ (besides
+event timers and turn-driven variables) in exactly one task-done bit, plain
+line 1776 of the decoded stream = task 200 (0-based) `# attention on cathy
+grave vision`, patterns `*cathy*` / `* cathy *` / `examine cathy`, not
+repeatable, restrictions Cathy present and Damien absent, actions set
+`%grave_var%` and execute task 191 (which does not run there).  It runs
+silently on the first mention and is spent from then on.
+
+Why a silent task turns `get cathy` into `Take what?`: run400's character
+handler `Proc_19_0_480674` guards most of its NPC verb branches -- who
+(47F32C), hit/kill/kick/punch/attack (47F452), get/take/pick up (47F734),
+talk to/speak to (47F863), the ask-without-about hint (47FB93),
+where/find/locate (47FCB1), x/examine/look (47FE4F), take-from (4803DD) --
+with `MemVar_4941F8 = 0`.  That flag is cleared at the top of the input
+routine (489FF6) and set by `execute_task` (45A176) and by the execute-task
+action (48D5DA), i.e. it means "a task has run for this line".  The P-code
+at 47F710-47F73E is `(c("take") Or c("get") Or c("pick up")) And
+MemVar_4941F8 = 0` -- the Or's are folded before the And, so the flag gates
+all three verbs (an earlier reading of the same lines as `pick up And flag`
+was wrong).  With the NPC branches shut the line reaches the object take
+(`Proc_19_6_47C83C`) which, finding no object and no "from", says `Take
+what?`; the examine says `You see no such thing.`.  run390 guards the same
+branches with `MemVar_468198` (45939D, 459658); run370 has no flag at all
+(4386BC); run380's rendering (44054B) is too ambiguous to lean on, so the
+port gates at 3.90+.
+
+NOT every NPC branch, though -- a first, blanket port of this rule broke
+Humbug's `Ask hacker about humbug` (cmd 250 of the golden), where the
+silent scoring task 98 `ask * hacker about * humbug` runs and run400 STILL
+prints the hacker's topic reply (`Adrift_4_humbug.txt` lines 1068-1069).
+The branches that survive a task are reached by another route: give is
+handled in the input routine at 48A98A with no flag test; the `ask X about
+Y` branch at 47F900 is `npc present And ((4941F8 = 0 And 4942E0 = 0) Or
+buffer = "<player> can't talk to that.")`, and generaltasks_verbs seeds
+exactly that buffer at 488C65 whenever no object took the ask (buffer empty
+after a silent task), so the flag never bites -- run390 tests no flag at
+all at its ask head 4597FE; kiss (47F7E7) tests the buffer, not the flag;
+and the handler's closing "I don't understand what you want to do with"
+fallback (4805DA) only asks for an empty buffer and a present NPC.
+(`MemVar_4942E0`, the second flag in those tests, is "the pre-matcher found
+a task", set in task_prematch at 453FAF/454024 and cleared at 489FFE.)
+
+Ported in `run_try_command_table()` (scrunner.cpp): once
+`run_tasks_ran_this_command` records any task for the line, the library
+rows whose pattern names `%character%` are skipped, except give, `ask/talk
+to %character% about`, kiss, status and the last-resort `* %character% *`
+(`run_npc_row_blocked()`).  Scarier already ran the library after a silent
+task (the silent-literal peek work), so only the NPC rows needed the gate.
+Corpus 428/428 after the narrowing; the House drives replay exactly.
+
+The wording: the "handled" line names the NPC by Prefix + first Alias, not by
+Name -- run400 47F750-47F7BC and run390 45969B-4596C6 print `"I don't think
+" & [Prefix & " "] & Alias(0)` when the alias is set (the prefix only when
+it is too) and fall back to the Name when the alias is empty; run380 44057D
+and run370 4386EE always print `Prefix & " " & Alias(0)`.  Cathy (alias
+"girl", no prefix) gets "I don't think girl would appreciate being handled."
+Ported in `lib_cmd_take_npc()`.
 
 ## Ported 2026-09-06: the 4.0 put/task precedence split
 

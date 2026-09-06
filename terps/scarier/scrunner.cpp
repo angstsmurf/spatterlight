@@ -1049,14 +1049,51 @@ run_move_commands (const scr_prop_setref_t bundle)
  * Search a command table for a match to the string, returning TRUE on the
  * first matching command whose handler succeeds.
  */
+static scr_bool run_npc_library_blocked (scr_gameref_t game);
+static scr_bool run_npc_row_blocked (const scr_commands_t *command);
+
 static scr_bool
 run_try_command_table (scr_commandsref_t command,
                        scr_gameref_t game, const scr_char *string)
 {
   const scr_ref_number_guard ref_number (game);
+  const scr_bool npc_blocked = run_npc_library_blocked (game);
 
   for (; command->command; command++)
     {
+      /*
+       * Once a game task has run for this line, most of the Runner's
+       * character handler answers nothing: the who (47F32C), hit/kill/kick/
+       * punch/attack (47F452), get/take/pick up (47F734), talk to/speak to
+       * (47F863), ask-without-about hint (47FB93), where/find/locate
+       * (47FCB1), examine/look (47FE4F) and take-from (4803DD) branches of
+       * run400's Proc_19_0_480674 all test MemVar_4941F8 = 0, the flag
+       * execute_task sets at 45A176 and the input routine clears at 489FF6.
+       * run390 guards the same branches with MemVar_468198 (45939D,
+       * 459658); run370 has no such flag (4386BC), and run380's rendering
+       * of the test (44054B) is too ambiguous to lean on, so pre-3.9 keeps
+       * every row.  Measured live on House (4.00), 2026-09-06: the silent
+       * task "# attention on cathy grave vision" (`*cathy*`, once only) runs
+       * on the first `get cathy` and the library then says "Take what?"
+       * (Adrift_93/95); `x cathy` on that first mention gets "You see no
+       * such thing." (Adrift_98); with the task spent, both fall to the NPC
+       * handlers -- "I don't think girl would appreciate being handled."
+       * and her description.
+       *
+       * The rows that survive a task are the ones the Runner reaches by
+       * another route: give is handled in the input routine at 48A98A with
+       * no flag test; `ask X about Y` is re-opened at 47F922-47F935 by the
+       * "<player> can't talk to that." buffer that generaltasks_verbs seeds
+       * at 488C65 whenever no object took the ask (run390 tests no flag at
+       * all at 4597FE) -- Humbug's silent scoring task `ask * hacker about
+       * * humbug` still gets the hacker's reply (Adrift_4_humbug.txt);
+       * kiss (47F7E7) is gated on the buffer, not the flag; and the
+       * end-of-handler "I don't understand what you want to do with"
+       * fallback at 4805DA only asks for an empty buffer.
+       */
+      if (npc_blocked && run_npc_row_blocked (command))
+        continue;
+
       if (uip_match (command->command, string, game))
         {
           if (command->handler (game))
@@ -1396,6 +1433,46 @@ run_task_ran_this_command (scr_int task)
 {
   return (size_t) task < run_tasks_ran_this_command.size ()
          && run_tasks_ran_this_command[task];
+}
+
+/*
+ * run_npc_library_blocked()
+ *
+ * TRUE while the library's NPC rows are to be skipped: a 3.9+ game in which
+ * some task has already run for the current line.  See the note in
+ * run_try_command_table().
+ */
+static scr_bool
+run_npc_library_blocked (scr_gameref_t game)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return FALSE;
+  for (const scr_bool ran : run_tasks_ran_this_command)
+    {
+      if (ran)
+        return TRUE;
+    }
+  return FALSE;
+}
+
+/*
+ * run_npc_row_blocked()
+ *
+ * Whether a library row is one of the character-handler branches that the
+ * Runner skips once a task has run for this line.  See the comment at the
+ * call site in run_try_command_table() for the run400 addresses.
+ */
+static scr_bool
+run_npc_row_blocked (const scr_commands_t *command)
+{
+  if (strstr (command->command, "%character%") == NULL)
+    return FALSE;
+  return command->handler != lib_cmd_give_object_npc
+         && command->handler != lib_cmd_ask_npc_about
+         && command->handler != lib_cmd_talk_to_npc_about
+         && command->handler != lib_cmd_kiss_npc
+         && command->handler != lib_cmd_status_npc
+         && command->handler != lib_cmd_verb_npc;
 }
 
 /*

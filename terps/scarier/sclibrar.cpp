@@ -6509,9 +6509,58 @@ lib_cmd_take_npc (scr_gameref_t game)
   if (npc == -1)
     return is_ambiguous;
 
-  /* Reject this attempt. */
-  lib_print_wrapped_npc (game, "I don't think ",
-                         npc, " would appreciate being handled.\n");
+  /*
+   * Reject this attempt.  The Runner names the NPC by its Prefix and first
+   * Alias here, not its Name: run400 47F750-47F7BC and run390 45969B-4596C6
+   * print "I don't think " & [Prefix & " "] & Alias(0) when the alias is
+   * set (the prefix only when it is too), and fall back to the Name when it
+   * is empty; run380 44057D and run370 4386EE always print Prefix & " " &
+   * Alias(0), empty or not.  House (4.00), Cathy alias "girl", no prefix:
+   * "I don't think girl would appreciate being handled." (Adrift_95,
+   * 2026-09-06).
+   */
+  {
+    const scr_filterref_t filter = gs_get_filter (game);
+    const scr_prop_setref_t bundle = gs_get_bundle (game);
+    const scr_bool is_390_plus =
+        prop_get_taf_version (bundle) >= TAF_VERSION_390;
+    const scr_char *prefix, *alias = NULL;
+    scr_vartype_t vt_key[4];
+
+    prefix = prop_get_indexed_string (bundle, "NPCs", npc, "Prefix");
+    vt_key[0].string = "NPCs";
+    vt_key[1].integer = npc;
+    vt_key[2].string = "Alias";
+    if (prop_get_child_count (bundle, "I<-sis", vt_key) > 0)
+      {
+        vt_key[3].integer = 0;
+        alias = prop_get_string (bundle, "S<-sisi", vt_key);
+      }
+    if (!prefix)
+      prefix = "";
+    if (!alias)
+      alias = "";
+
+    pf_buffer_string (filter, "I don't think ");
+    if (!is_390_plus)
+      {
+        pf_buffer_string (filter, prefix);
+        pf_buffer_string (filter, " ");
+        pf_buffer_string (filter, alias);
+      }
+    else if (alias[0] != NUL)
+      {
+        if (prefix[0] != NUL)
+          {
+            pf_buffer_string (filter, prefix);
+            pf_buffer_string (filter, " ");
+          }
+        pf_buffer_string (filter, alias);
+      }
+    else
+      lib_print_npc_np (game, npc);
+    pf_buffer_string (filter, " would appreciate being handled.\n");
+  }
   return TRUE;
 }
 
