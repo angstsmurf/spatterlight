@@ -884,6 +884,7 @@ static std::string run_trace_last_input;
 
 static scr_bool run_priority_pass_active = FALSE;
 static scr_bool run_priority_deferred = FALSE;
+static scr_bool run_priority_refused = FALSE;
 
 scr_bool
 run_in_priority_pass (void)
@@ -896,6 +897,22 @@ run_priority_defer (void)
 {
   assert (run_priority_pass_active);
   run_priority_deferred = TRUE;
+}
+
+/*
+ * run_priority_refuse()
+ *
+ * A priority command has printed a refusal that does NOT claim the command:
+ * the 4.0 put whose every object was turned away on size or capacity.  The
+ * handler returns FALSE after calling this, the table walk stops, and
+ * run_all_commands() lets the task passes answer the same line, joined onto
+ * the refusal.  See the 4.0 put notes in run_all_commands().
+ */
+void
+run_priority_refuse (void)
+{
+  assert (run_priority_pass_active);
+  run_priority_refused = TRUE;
 }
 
 /*
@@ -960,6 +977,7 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
 
   run_priority_pass_active = TRUE;
   run_priority_deferred = FALSE;
+  run_priority_refused = FALSE;
   for (command = PRIORITY_COMMANDS; command->command; command++)
     {
       if (uip_match (command->command, string, game))
@@ -969,7 +987,7 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
               run_priority_pass_active = FALSE;
               return TRUE;
             }
-          if (run_priority_deferred)
+          if (run_priority_deferred || run_priority_refused)
             break;
         }
     }
@@ -977,6 +995,40 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
 
   /* Nothing matched the string.  Or if it did, its handler failed. */
   return FALSE;
+}
+
+/*
+ * run_is_put_command()
+ *
+ * TRUE if the string is one the priority table's put-in / put-on rows would
+ * match -- "put X in Y", "drop X on Y" and their all/except forms.  The
+ * probe binds object references as a side effect, so they are saved and put
+ * back, as run_task_reachable_by_library_callback() does for its own
+ * speculative matches.
+ */
+static scr_bool
+run_is_put_command (scr_gameref_t game, const scr_char *string)
+{
+  const scr_ref_number_guard ref_number (game);
+  std::vector<scr_bool> references (game->object_references);
+  scr_commandsref_t command;
+  scr_bool is_put = FALSE;
+
+  for (command = PRIORITY_COMMANDS; command->command && !is_put; command++)
+    {
+      if (command->handler != lib_cmd_put_all_in
+          && command->handler != lib_cmd_put_in_except_multiple
+          && command->handler != lib_cmd_put_in_multiple
+          && command->handler != lib_cmd_put_all_on
+          && command->handler != lib_cmd_put_on_except_multiple
+          && command->handler != lib_cmd_put_on_multiple)
+        continue;
+
+      is_put = uip_match (command->command, string, game);
+    }
+
+  game->object_references = references;
+  return is_put;
 }
 
 /*
@@ -1189,6 +1241,8 @@ typedef struct
   std::vector<const scr_char *> patterns[2];
 } scr_task_commands_t;
 
+static scr_bool run_task_passes_class_filter (scr_gameref_t game,
+                                              scr_int task);
 static const void *run_cache_game = NULL;
 static std::vector<scr_task_commands_t> run_cache;
 
@@ -1890,6 +1944,8 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
 
       if (!is_refusing && !task_can_run_task (game, task))
         continue;
+      if (!run_task_passes_class_filter (game, task))
+        continue;
 
       /*
        * Try matching forwards and reverse commands.  If there's a match for
@@ -2023,6 +2079,95 @@ run_game_commands_in_parser_context (scr_gameref_t game, const scr_char *string,
 }
 
 /*
+ * run_task_class_filter, run_set_task_class_filter()
+ * run_task_passes_class_filter()
+ *
+ * The 4.0 Runner's task pre-matcher (Proc_19_35_453C50) takes a mode byte and
+ * skips every task that Proc_21_57_4494FC rejects for it: mode 1 keeps only
+ * tasks whose record byte 104 is set, mode 2 only those with byte 105 set,
+ * mode 3 either.  Both bytes are computed once at LOAD (mdlSpreadTheLoad
+ * @4931B5 and @493225): byte 104 when any of the task's command patterns
+ * contains "get", "take" or "pick" as a substring, byte 105 when one contains
+ * "drop", "leave" or "put", and a pattern that is exactly "*" sets both
+ * (@493281-49328D).  The mode each caller passes is fixed: the put handler's
+ * implicit-take gate and the get handler's refusal exits pre-match with 1,
+ * the put and drop handlers' own look-ups (name_object's "Drop what?" and
+ * "It is not clear" gates, the insides handler's canonical rebuild, "drop
+ * all") with 2, and the insides handler's typed-line fallback with 0, no
+ * filter at all.
+ *
+ * The consequence is visible in House (House.taf): task 459
+ * "[put/place/drop] {some} [wood] {in/into/in to} {the} [fireplace/fire
+ * place]" carries the put flag only, so "put wood in fireplace" with the
+ * wood on the floor sails past the mode-1 take gate into "(Taking the wood
+ * first)", where the old unfiltered pre-match would have hit the task and
+ * suppressed the take.  The Runner's substring test is a binary-compare
+ * InStr on the stored pattern; ours is case-insensitive, which only differs
+ * for an author who capitalized a verb inside a pattern.
+ */
+static scr_int run_task_class_filter = 0;
+
+void
+run_set_task_class_filter (scr_int mode)
+{
+  assert (mode >= 0 && mode <= 3);
+  run_task_class_filter = mode;
+}
+
+static scr_bool
+run_pattern_contains (const scr_char *pattern, const scr_char *word)
+{
+  const size_t length = strlen (word);
+  const scr_char *cursor;
+
+  for (cursor = pattern; *cursor; cursor++)
+    {
+      if (scr_strncasecmp (cursor, word, length) == 0)
+        return TRUE;
+    }
+  return FALSE;
+}
+
+static scr_bool
+run_task_passes_class_filter (scr_gameref_t game, scr_int task)
+{
+  static const scr_char *const TAKE_WORDS[] = { "get", "take", "pick" };
+  static const scr_char *const PUT_WORDS[] = { "drop", "leave", "put" };
+  const std::vector<const scr_char *> &patterns =
+      run_task_command_patterns (game, task, TRUE);
+  scr_bool is_take = FALSE, is_put = FALSE;
+
+  if (run_task_class_filter == 0)
+    return TRUE;
+
+  for (const scr_char *pattern : patterns)
+    {
+      size_t index_;
+
+      if (strcmp (pattern, "*") == 0)
+        is_take = is_put = TRUE;
+      for (index_ = 0; index_ < 3; index_++)
+        {
+          if (run_pattern_contains (pattern, TAKE_WORDS[index_]))
+            is_take = TRUE;
+          if (run_pattern_contains (pattern, PUT_WORDS[index_]))
+            is_put = TRUE;
+        }
+    }
+
+  switch (run_task_class_filter)
+    {
+    case 1:
+      return is_take;
+    case 2:
+      return is_put;
+    default:
+      return is_take || is_put;
+    }
+}
+
+
+/*
  * run_does_command_match()
  *
  * Non-destructive probe: return TRUE if the input string matches a command of
@@ -2068,6 +2213,8 @@ run_does_command_match (scr_gameref_t game, const scr_char *string)
   for (task = 0; task < task_count; task++)
     {
       if (!task_can_run_task (game, task))
+        continue;
+      if (!run_task_passes_class_filter (game, task))
         continue;
 
       /* A match in either direction means the game claims this command. */
@@ -2649,7 +2796,8 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
 static scr_bool
 run_all_commands (scr_gameref_t game, const scr_char *string)
 {
-  scr_bool status, ask_echo;
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_bool status, ask_echo, put_first, refused;
   scr_int prior_npc;
 
   /*
@@ -2758,13 +2906,62 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   prior_npc = game->last_npc;
   ask_echo = uip_print_ask_echo (game, string);
   uip_note_named_npcs (game, string);
-  status = run_game_commands_in_parser_context (game, string, FALSE, TRUE);
-  if (!status)
+
+  /*
+   * 4.0 puts are the exception to the peek: the library's put-in / put-on
+   * gets the line BEFORE any task does, and a task only ever answers a put
+   * the library could not complete.  Measured with the PUT4-PUT7 arena
+   * probes (Adrift_81-87, 2026-09-05), each pairing a passing put task with
+   * reporter tasks restricted on "object is inside container": run400 puts
+   * the pill in the cup and the task never runs, whatever its spelling --
+   * wildcard, prefixed or literal -- while run390 on the 3.9 twin (put39.taf,
+   * Adrift_88) hands the line to the task and moves nothing.  Read off
+   * run400's insides handler (Proc_19_43_46639C): a completed move returns 1
+   * and the dispatcher stops there.  The peek pass would have handed the
+   * line to a non-silent matching task first, which is what cost "Sommeril"
+   * its `put fish in fountain` (task 18's text where the Runner puts the
+   * fish, Adrift_78) and left `take wet page` answered on the next turn
+   * where run400 says "Take what?".  Pre-4.0 keeps the peek order: Scarier
+   * matches run390 on the put39 probe as it stands.
+   *
+   * A put the 4.0 library REFUSES on size or capacity is different again:
+   * every message path of that handler exits without setting its return
+   * byte, so the refusal is printed but the line is not claimed, and the
+   * task passes then answer it as well, run straight on from the refusal
+   * with the two-space separator -- "The rock is too big to fit inside the
+   * slot.  PUTBIG." (PUT7, Adrift_87; Zack Smackfoot's `put knife in slot`,
+   * Adrift_57).  The handler signals that with run_priority_refuse(); the
+   * join is left pending so that a refusal no task follows stands alone.
+   * Either way the line is handled once the refusal is printed, so the
+   * standard table's duplicate put rows never print it a second time.
+   */
+  put_first = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+              && run_is_put_command (game, string);
+  status = FALSE;
+  refused = FALSE;
+  if (put_first)
+    {
+      status = run_priority_commands (game, string);
+      refused = !status && run_priority_refused;
+      if (refused)
+        {
+          pf_note_trailing_auto_break (filter);
+          pf_buffer_join_pending (filter);
+        }
+    }
+  if (!status && !refused)
+    status = run_game_commands_in_parser_context (game, string, FALSE, TRUE);
+  if (!status && !put_first)
     status = run_priority_commands (game, string);
   if (!status)
     status = run_game_commands_in_parser_context (game, string, FALSE, FALSE);
   if (!status && !run_defer_loud_tasks_to_movement (game, string))
     status = run_game_commands_in_parser_context (game, string, TRUE, FALSE);
+  if (refused)
+    {
+      pf_clear_join_pending (filter);
+      status = TRUE;
+    }
   if (!status)
     {
       /*
@@ -2829,6 +3026,11 @@ run_game_task_commands (scr_gameref_t game, const scr_char *string)
    */
   const scr_bool include_restrictions =
       run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;
+
+#ifdef SCARIER_DUMP_TOOLS
+  if (getenv ("SCR_TRACE_MATCH"))
+    fprintf (stderr, "DISPATCH input=[%s]\n", string);
+#endif
 
   return run_game_commands_common (game, string, include_restrictions, TRUE,
                                    FALSE);

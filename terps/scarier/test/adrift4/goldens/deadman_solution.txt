@@ -56,4 +56,4 @@ get axe
 chop off hand with axe
 get hand
 put hand on green plate
-put hand on green plate
+place hand on green plate

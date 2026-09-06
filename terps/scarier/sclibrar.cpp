@@ -5584,6 +5584,79 @@ lib_typed_verb (const scr_char *verb)
   return verb;
 }
 
+/*
+ * lib_definite_prefix()
+ *
+ * The prefix as run400's name builder Proc_21_31_448710 composes it in its
+ * normalizing mode 0: through tense (Proc_21_13_44F474), which rewrites a
+ * whole "a", "an" or "some" to "the" and a leading "a ", "an " or "some " to
+ * "the ", and leaves everything else alone.  An empty Prefix is already "a"
+ * by the time 4.0 has loaded the game (loader @4900EC), so it composes as
+ * "the" too.
+ */
+static const scr_char *
+lib_definite_prefix (const scr_char *prefix, scr_char *buffer, size_t size)
+{
+  static const scr_char *const ARTICLES[] = { "a", "an", "some" };
+  size_t index_;
+
+  if (scr_strempty (prefix))
+    return "the";
+  for (index_ = 0; index_ < sizeof (ARTICLES) / sizeof (ARTICLES[0]); index_++)
+    {
+      const scr_char *const article = ARTICLES[index_];
+      const size_t length = strlen (article);
+
+      if (scr_strcasecmp (prefix, article) == 0)
+        return "the";
+      if (scr_strncasecmp (prefix, article, length) == 0
+          && prefix[length] == ' ')
+        {
+          if (strlen (prefix) - length + 4 > size)
+            return prefix;
+          sprintf (buffer, "the%s", prefix + length);
+          return buffer;
+        }
+    }
+  return prefix;
+}
+
+/*
+ * lib_task_prematches_input()
+ *
+ * run400's task pre-matcher Proc_19_35_453C50 on the typed line: does any
+ * task pattern match it, restrictions ignored?  Object references are left
+ * exactly as they were.  class_filter is the pre-matcher's mode byte -- 1
+ * for the take-family look-ups, 2 for the put/drop family, 0 for none; see
+ * run_set_task_class_filter().
+ */
+static scr_bool
+lib_task_prematches_input (scr_gameref_t game, scr_int class_filter)
+{
+  scr_bool references_buffer[LIB_ALLOCATION_AVOIDANCE_SIZE];
+  scr_bool *references, status;
+  const scr_char *input;
+
+  input = run_get_dispatch_input ();
+  if (!input)
+    return FALSE;
+
+  references = lib_save_object_references (game, references_buffer,
+                                           LIB_ALLOCATION_AVOIDANCE_SIZE);
+  run_set_task_class_filter (class_filter);
+  status = run_does_command_match (game, input);
+  run_set_task_class_filter (0);
+#ifdef SCARIER_DUMP_TOOLS
+  if (getenv ("SCR_TRACE_MATCH"))
+    fprintf (stderr, "PREMATCH mode=%ld input=[%s] %s\n", (long) class_filter,
+             input, status ? "HIT" : "miss");
+#endif
+  lib_restore_object_references (game, references);
+  if (references != references_buffer)
+    scr_free (references);
+  return status;
+}
+
 static scr_bool
 lib_try_game_command_common (scr_gameref_t game,
                              const scr_char *verb, scr_int object,
@@ -5591,7 +5664,8 @@ lib_try_game_command_common (scr_gameref_t game,
                              scr_int associate,
                              scr_bool is_associate_object,
                              scr_bool is_associate_npc,
-                             scr_bool use_typed_verb)
+                             scr_bool use_typed_verb,
+                             scr_bool use_definite = FALSE)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
@@ -5621,6 +5695,7 @@ lib_try_game_command_common (scr_gameref_t game,
   if (is_associate_object || is_associate_npc)
     {
       const scr_char *associate_prefix, *associate_name;
+      scr_char definite_prefix[64], definite_associate_prefix[64];
       scr_int required;
 
       /* Get the associate's prefix and main name. */
@@ -5638,6 +5713,21 @@ lib_try_game_command_common (scr_gameref_t game,
                                                       associate, "Prefix");
           associate_name = prop_get_indexed_string (bundle, "NPCs", associate,
                                                     "Name");
+        }
+      /*
+       * 4.0's put handler composes both names in the name builder's
+       * normalizing mode 0 (run400 insides @465DED-465E51, two calls to
+       * Proc_21_31_448710 with mode 0), so its canonical line reads "put the
+       * bean in the jar", never "put a bean in a jar"; see
+       * lib_definite_prefix().
+       */
+      if (use_definite && is_associate_object)
+        {
+          prefix = lib_definite_prefix (prefix, definite_prefix,
+                                        sizeof (definite_prefix));
+          associate_prefix = lib_definite_prefix (associate_prefix,
+                                                  definite_associate_prefix,
+                                                  sizeof (definite_associate_prefix));
         }
 
       assert (preposition);
@@ -5665,8 +5755,17 @@ lib_try_game_command_common (scr_gameref_t game,
     }
   else
     {
+      scr_char definite_prefix[64];
       scr_int required;
 
+      /*
+       * The implicit take of 4.0's put (run400 Proc_19_39_46302C @462AED)
+       * pre-matches "get " & name(obj, mode 0) -- the definite form, one
+       * spelling, no prefix-less retry.
+       */
+      if (use_definite)
+        prefix = lib_definite_prefix (prefix, definite_prefix,
+                                      sizeof (definite_prefix));
       required = strlen (verb) + strlen (prefix) + strlen (name) + 3;
       command = required > (scr_int) sizeof (buffer)
                 ? (decltype(+buffer)) scr_malloc (required) : buffer;
@@ -5680,7 +5779,8 @@ lib_try_game_command_common (scr_gameref_t game,
        */
       sprintf (command, "%s %s %s", verb, prefix, name);
       status = run_game_task_commands (game, command);
-      if (!status && !lib_object_short_name_is_ambiguous (game, object))
+      if (!status && !use_definite
+          && !lib_object_short_name_is_ambiguous (game, object))
         {
           sprintf (command, "%s %s", verb, name);
           status = run_game_task_commands (game, command);
@@ -5722,6 +5822,36 @@ lib_try_game_command_short_canonical (scr_gameref_t game,
                                       NULL, -1, FALSE, FALSE, FALSE);
 }
 
+/*
+ * lib_try_game_command_take_definite()
+ *
+ * The task look-up inside 4.0's implicit take (run400 Proc_19_39_46302C,
+ * @462AED-462C85): "get " & name(obj, 0), or "get " & name(obj, 0) & " from "
+ * & name(holder, 0) when the object sits inside a container, both names in
+ * the normalizing mode 0 ("get the wood", "get the coin from the box").  A
+ * hit runs that line through the task dispatcher and claims; the library
+ * take only follows a miss.
+ */
+static scr_bool
+lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
+{
+  scr_bool status;
+
+  /* The take piece's look-ups run in the pre-matcher's mode 1 (@462B12,
+   * @462B84): only tasks carrying the take flag can answer. */
+  run_set_task_class_filter (1);
+  if (gs_object_position (game, object) == OBJ_IN_OBJECT)
+    status = lib_try_game_command_common (game, "get", object,
+                                          "from",
+                                          gs_object_parent (game, object),
+                                          TRUE, FALSE, FALSE, TRUE);
+  else
+    status = lib_try_game_command_common (game, "get", object,
+                                          NULL, -1, FALSE, FALSE, FALSE, TRUE);
+  run_set_task_class_filter (0);
+  return status;
+}
+
 static scr_bool
 lib_try_game_command_with_object (scr_gameref_t game,
                                   const scr_char *verb, scr_int object,
@@ -5731,6 +5861,60 @@ lib_try_game_command_with_object (scr_gameref_t game,
   return lib_try_game_command_common (game, verb, object,
                                       preposition, other_object, TRUE, FALSE,
                                       TRUE);
+}
+
+/*
+ * lib_try_game_command_with_object_400()
+ *
+ * The task look-up of 4.0's put-in / put-on handler (run400 insides
+ * Proc_19_43_46639C, body 465CA4-46639A).  With a target in hand it rebuilds
+ * the line in canonical form -- "put " & name(obj) & " " & Left(prep, 2) &
+ * " " & name(target), both names in the normalizing mode 0, so "put the bean
+ * in the jar" -- and pre-matches THAT with Proc_19_35_453C50 (@465CBB-465D39,
+ * restrictions ignored); the typed line is only consulted when there is no
+ * target (@465DC8, the drop and put-down forms).  On a hit the same rebuild
+ * goes to the task dispatcher Proc_19_24_44CCE0 at @465EB5, restriction-
+ * failure pass included, and a claim exits the handler with 2 before the
+ * possession, size and capacity tests.  No claim, and the handler carries
+ * on to its own refusal or move.  Here the pre-match and the dispatch are the
+ * one run_game_task_commands() call on the definite line.
+ *
+ * The definite form is what reconciles the measurements: `put * firewood in
+ * * fireplace` wins `put firewood in fireplace` in run400
+ * (Adrift_1_goldilocks.txt 383, prefixes "a pile of" / "the"), as does
+ * `put * battery * flashlight` (Adrift_1_Tear.txt), while the PUT5 arena
+ * probe's `put a bean in a jar`, `put * pill in cup` and `put coin in box`
+ * tasks (Adrift_82.txt, 2026-09-05) and sommeril's `put fish in fountain`
+ * (Adrift_78.txt, both prefixes empty) all lose to the library: none of
+ * those patterns matches "put the bean in the jar" / "put the FISH in the
+ * FOUNTAIN".  The typed spelling never reaches the tasks through this
+ * handler at all -- The ADRIFT Project's `put battery in charger` comes out
+ * of the synonym table as "put nickel-cadmium nickel-cadmium accumulator in
+ * charger", which no pattern of its `#Charge battery` task matches, and the
+ * author's own run400 transcript still shows the task firing: it is the
+ * rebuild "put the small battery in the battery charger" that `put * battery
+ * * charger *` claims.  Pre-4.0 keeps the authored-prefix retry of
+ * lib_try_game_command_with_object(), and there the typed line has already
+ * been through the tasks before the library sees it.
+ */
+static scr_bool
+lib_try_game_command_with_object_400 (scr_gameref_t game,
+                                      const scr_char *verb, scr_int object,
+                                      const scr_char *preposition,
+                                      scr_int other_object)
+{
+  scr_bool status;
+
+  assert (lib_is_version_400 (game));
+
+  /* The insides handler pre-matches its rebuilt line in mode 2 (@465D39):
+   * only tasks carrying the put/drop flag are consulted. */
+  run_set_task_class_filter (2);
+  status = lib_try_game_command_common (game, verb, object,
+                                        preposition, other_object, TRUE, FALSE,
+                                        FALSE, TRUE);
+  run_set_task_class_filter (0);
+  return status;
 }
 
 static scr_bool
@@ -9503,9 +9687,42 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
       return FALSE;
     }
 
+  /*
+   * The take is also skipped, silently, when the TYPED line pre-matches a
+   * task (run400 name_object Proc_19_41_46E5D8 @46E2C7: Proc_19_35_453C50
+   * on MemVar_49428C, the line as the synonym table left it, restrictions
+   * ignored); the object then reaches the put handler unheld and draws its
+   * "not holding" refusal, or -- if the handler's own canonical look-up
+   * claims -- the task.  The task the player spelled out is what the
+   * refusal hands the line to afterwards (see run_all_commands()).
+   */
+  if (lib_task_prematches_input (game, 1))
+    {
+      game->object_references[object] = FALSE;
+      game->multiple_references[object] = TRUE;
+      return FALSE;
+    }
+
   pf_buffer_string (filter, "(Taking ");
   lib_print_object_np (game, object);
   pf_buffer_string (filter, " first)\n");
+
+  /*
+   * The announcement is printed by name_object before the take piece runs
+   * (@46E2EA-46E30C, vbCrLf included), and the piece then gives the tasks
+   * "get the X" first (Proc_19_39_46302C @462AED); a claim ends the take
+   * there, and the put handler goes on to test possession as the task
+   * left it.
+   */
+  if (lib_try_game_command_take_definite (game, object))
+    {
+      if (obj_indirectly_held_by_player (game, object))
+        return TRUE;
+      game->object_references[object] = FALSE;
+      game->multiple_references[object] = TRUE;
+      *printed = TRUE;
+      return FALSE;
+    }
 
   if (lib_object_too_heavy (game, object))
     {
@@ -9539,6 +9756,78 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
 
 
 /*
+ * lib_put_outcome_t
+ * lib_output_length()
+ * lib_put_drop_statics_400()
+ *
+ * What a put backend has to tell its caller beyond the object moves.
+ * is_refusal_only is the 4.0 size/capacity refusal that leaves the line
+ * unclaimed (lib_put_in_refused()); is_silent says the backend printed
+ * nothing at all, which at 4.0 also leaves the line unclaimed, with no line
+ * ending of its own; is_tasks_only says everything it printed came from
+ * the task look-ups, whose output has already ended its line, so the
+ * caller's own newline would only add a blank one (shadowpeak `put bottle
+ * on altar`, pestilence `put brick on desk`, hub `put saucepan on hob`).
+ * Output is measured on the filter buffer, so a task's text counts however
+ * it was produced.
+ */
+typedef struct
+{
+  scr_bool is_refusal_only;
+  scr_bool is_silent;
+  scr_bool is_tasks_only;
+} lib_put_outcome_t;
+
+static scr_int
+lib_output_length (scr_gameref_t game)
+{
+  const scr_char *buffer = pf_get_buffer (gs_get_filter (game));
+
+  return buffer ? (scr_int) strlen (buffer) : 0;
+}
+
+/*
+ * A static object named in a 4.0 put still gets the handler's task look-up
+ * on the canonical line, and then nothing: run400's insides handler exits
+ * right after the task dispatch when obj.global_24 (Static) = 1 (@465ED7-
+ * 465EEB), with no message and no claim, before the possession test that
+ * would otherwise say "not holding".  So thelasthour's `put hands into hole`
+ * (the hand a static in the cell, task 15 `put {the} [hands/...] {into/in
+ * the/in} [hole]` pre-matching the typed line, so no implicit take either)
+ * prints nothing from the library and lets the task answer "Can't take the
+ * mouse. Too far." on its own.  The named filter has already routed such
+ * objects into multiple_references; take them out again here before the
+ * "not holding" report is composed.  (Without a pre-matching task the
+ * Runner would first announce "(Taking the hand first)" and try the take,
+ * a branch nothing in the corpus exercises and no probe has measured; it
+ * is left to the same silent drop.)  Returns TRUE if a task claimed.
+ */
+static scr_bool
+lib_put_drop_statics_400 (scr_gameref_t game, const scr_char *preposition,
+                          scr_int target)
+{
+  scr_int object;
+  scr_bool claimed = FALSE;
+
+  if (!lib_is_version_400 (game))
+    return FALSE;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (!game->multiple_references[object] || !obj_is_static (game, object))
+        continue;
+
+      game->multiple_references[object] = FALSE;
+      if (lib_try_game_command_with_object_400 (game, "put", object,
+                                                preposition, target))
+        claimed = TRUE;
+    }
+
+  return claimed;
+}
+
+
+/*
  * lib_put_in_backend()
  *
  * Common backend handler for placing objects in containers.  Places all
@@ -9548,12 +9837,14 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
  * Objects to action are flagged in object_references; objects requested but
  * deemed not actionable are flagged in multiple_references.
  */
-static void
+static lib_put_outcome_t
 lib_put_in_backend (scr_gameref_t game, scr_int container)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int object_count, object, count, capacity, free_space;
-  scr_bool has_printed;
+  scr_int length_before, length_after_tasks;
+  scr_bool has_printed, is_refusal_only, task_claimed;
+  lib_put_outcome_t outcome;
   lib_list_t list;
 
   /*
@@ -9561,7 +9852,9 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
    * remove that reference from the list.  At the same time, check for and
    * weed out any moves that result in infinite recursion.
    */
+  length_before = lib_output_length (game);
   has_printed = FALSE;
+  task_claimed = FALSE;
   object_count = gs_object_count (game);
   for (object = 0; object < object_count; object++)
     {
@@ -9576,11 +9869,23 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
           continue;
         }
 
-      if (lib_try_game_command_with_object (game,
-                                            "put", object, "in", container))
+      /*
+       * The tasks' turn.  At 4.0 this is the handler's own look-up, on the
+       * definite canonical line, ahead of the size and capacity tests; see
+       * lib_try_game_command_with_object_400().  A matching task it does
+       * not reach -- the typed spelling with no canonical twin -- gets the
+       * line from run_all_commands() only if the library then refuses the
+       * put, joined after the refusal (PUT4, Adrift_81.txt).
+       */
+      if (lib_is_version_400 (game)
+          ? lib_try_game_command_with_object_400 (game,
+                                                  "put", object, "in", container)
+          : lib_try_game_command_with_object (game,
+                                              "put", object, "in", container))
         {
           game->object_references[object] = FALSE;
           has_printed = TRUE;
+          task_claimed = TRUE;
           continue;
         }
 
@@ -9592,6 +9897,11 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
         has_printed |= take_printed;
       }
     }
+
+  /* Statics named in a 4.0 put: the task look-up, then a silent drop. */
+  if (lib_put_drop_statics_400 (game, "in", container))
+    has_printed = task_claimed = TRUE;
+  length_after_tasks = lib_output_length (game);
 
   /*
    * Retrieve the container's total volume, and the volume it has left.  The
@@ -9668,6 +9978,12 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
     }
 
   /*
+   * A put that moved nothing and said nothing so far is about to say only
+   * the size and capacity refusals below; see the return value.
+   */
+  is_refusal_only = !has_printed;
+
+  /*
    * Report objects not put in because of their size.  These objects remain in
    * standard references, as do objects rejected because of capacity limits.
    * By removing too large objects in this loop, we're left later on with just
@@ -9724,6 +10040,9 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
     }
   has_printed |= !list.empty ();
 
+  /* Refusals only if they were printed, and nothing before them. */
+  is_refusal_only = is_refusal_only && has_printed;
+
   /* Note any remaining multiple references left out of the operation. */
   list.clear ();
   for (object = 0; object < object_count; object++)
@@ -9739,6 +10058,77 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
                          "You are not holding ",
                          "I am not holding ",
                          "%player% is not holding ");
+
+  /*
+   * Refusal-only when the whole put came to nothing but size or capacity
+   * refusals: nothing moved, no task or implicit take spoke, nobody was
+   * "not holding" anything.  4.0 does not count that as handling the
+   * command; see lib_put_in_refused().
+   */
+  outcome.is_refusal_only = is_refusal_only && list.empty ();
+  outcome.is_silent = lib_output_length (game) == length_before;
+  outcome.is_tasks_only = task_claimed
+                          && lib_output_length (game) == length_after_tasks;
+  return outcome;
+}
+
+
+/*
+ * lib_put_in_refused()
+ *
+ * The put's line has been printed and terminated.  At 4.0, in the priority
+ * pass, a refusal-only put leaves the command unclaimed: run400's insides
+ * handler (Proc_19_43_46639C) exits every message path without setting its
+ * return byte, so "The rock is too big to fit inside the slot." is printed
+ * and a matching task then answers the same line, joined on with two spaces
+ * (arena probe PUT7, Adrift_87, 2026-09-05; Zack Smackfoot `put knife in
+ * slot`, Adrift_57).  Signal that to run_priority_commands() and report the
+ * handler's return.  Pre-4.0 the refusal claims the line, as it always has.
+ */
+static scr_bool
+lib_put_in_refused (scr_gameref_t game, scr_bool is_refusal_only)
+{
+  if (is_refusal_only && lib_is_version_400 (game) && run_in_priority_pass ())
+    {
+      run_priority_refuse ();
+      return FALSE;
+    }
+
+  return TRUE;
+}
+
+
+/*
+ * lib_put_in_finish()
+ * lib_put_on_finish()
+ *
+ * End the put's line and settle its claim from the backend's outcome; see
+ * lib_put_outcome_t.  A 4.0 put that printed nothing (statics only, see
+ * lib_put_drop_statics_400()) is left unclaimed with no line ending, for
+ * the task pass to answer.
+ */
+static scr_bool
+lib_put_in_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (outcome.is_silent && lib_is_version_400 (game))
+    return FALSE;
+  if (!outcome.is_tasks_only)
+    pf_buffer_character (filter, '\n');
+  return lib_put_in_refused (game, outcome.is_refusal_only);
+}
+
+static scr_bool
+lib_put_on_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (outcome.is_silent && lib_is_version_400 (game))
+    return FALSE;
+  if (!outcome.is_tasks_only)
+    pf_buffer_character (filter, '\n');
+  return TRUE;
 }
 
 
@@ -9859,6 +10249,7 @@ lib_cmd_put_all_in (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int container, objects;
   scr_bool is_ambiguous;
+  lib_put_outcome_t outcome;
 
   /* Get the referenced object, and if none, consider complete. */
   container = lib_disambiguate_object (game, "put that into", &is_ambiguous);
@@ -9875,8 +10266,9 @@ lib_cmd_put_all_in (scr_gameref_t game)
                               lib_put_in_not_container_filter,
                               container, FALSE, NULL);
   gs_clear_multiple_references (game);
+  outcome = {};
   if (objects > 0)
-    lib_put_in_backend (game, container);
+    outcome = lib_put_in_backend (game, container);
   else
     {
       pf_buffer_string (filter,
@@ -9889,8 +10281,7 @@ lib_cmd_put_all_in (scr_gameref_t game)
       pf_buffer_character (filter, '.');
     }
 
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_put_in_finish (game, outcome);
 }
 
 
@@ -9905,9 +10296,9 @@ lib_cmd_put_all_in (scr_gameref_t game)
 static scr_bool
 lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   scr_int container, objects, references;
   scr_bool is_ambiguous;
+  lib_put_outcome_t outcome;
 
   /* Get the referenced object, and if none, consider complete. */
   container = lib_disambiguate_object (game, "put that into", &is_ambiguous);
@@ -9938,13 +10329,13 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
                                         : lib_put_in_filter,
                               is_except ? container : -1, is_except,
                               &references);
+  outcome = {};
   if (objects > 0 || references > 0)
-    lib_put_in_backend (game, container);
+    outcome = lib_put_in_backend (game, container);
   else
     lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
 
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_put_in_finish (game, outcome);
 }
 
 
@@ -10030,18 +10421,21 @@ lib_check_put_on_recursion (scr_gameref_t game,
  * Objects to action are flagged in object_references; objects requested but
  * deemed not actionable are flagged in multiple_references.
  */
-static void
+static lib_put_outcome_t
 lib_put_on_backend (scr_gameref_t game, scr_int supporter)
 {
-  scr_int object_count, object;
-  scr_bool has_printed;
+  scr_int object_count, object, length_before, length_after_tasks;
+  scr_bool has_printed, task_claimed;
+  lib_put_outcome_t outcome;
 
   /*
    * Try game commands for all referenced objects first.  If any succeed,
    * remove that reference from the list.  At the same time, check for and
    * weed out any moves that result in infinite recursion.
    */
+  length_before = lib_output_length (game);
   has_printed = FALSE;
+  task_claimed = FALSE;
   object_count = gs_object_count (game);
   for (object = 0; object < object_count; object++)
     {
@@ -10056,11 +10450,16 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
           continue;
         }
 
-      if (lib_try_game_command_with_object (game,
-                                            "put", object, "on", supporter))
+      /* The tasks' turn; see lib_put_in_backend(). */
+      if (lib_is_version_400 (game)
+          ? lib_try_game_command_with_object_400 (game,
+                                                  "put", object, "on", supporter)
+          : lib_try_game_command_with_object (game,
+                                              "put", object, "on", supporter))
         {
           game->object_references[object] = FALSE;
           has_printed = TRUE;
+          task_claimed = TRUE;
           continue;
         }
 
@@ -10073,7 +10472,18 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
       }
     }
 
+  /* Statics named in a 4.0 put: the task look-up, then a silent drop. */
+  if (lib_put_drop_statics_400 (game, "on", supporter))
+    has_printed = task_claimed = TRUE;
+  length_after_tasks = lib_output_length (game);
+
   lib_move_backend (game, &LIB_PUT_ON_VERB, supporter, has_printed);
+
+  outcome.is_refusal_only = FALSE;
+  outcome.is_silent = lib_output_length (game) == length_before;
+  outcome.is_tasks_only = task_claimed
+                          && lib_output_length (game) == length_after_tasks;
+  return outcome;
 }
 
 
@@ -10142,6 +10552,7 @@ lib_cmd_put_all_on (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int supporter, objects;
   scr_bool is_ambiguous;
+  lib_put_outcome_t outcome;
 
   /* Get the referenced object, and if none, consider complete. */
   supporter = lib_disambiguate_object (game, "put that onto", &is_ambiguous);
@@ -10158,8 +10569,9 @@ lib_cmd_put_all_on (scr_gameref_t game)
                               lib_put_on_not_supporter_filter,
                               supporter, FALSE, NULL);
   gs_clear_multiple_references (game);
+  outcome = {};
   if (objects > 0)
-    lib_put_on_backend (game, supporter);
+    outcome = lib_put_on_backend (game, supporter);
   else
     {
       pf_buffer_string (filter,
@@ -10172,8 +10584,7 @@ lib_cmd_put_all_on (scr_gameref_t game)
       pf_buffer_character (filter, '.');
     }
 
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_put_on_finish (game, outcome);
 }
 
 
@@ -10187,9 +10598,9 @@ lib_cmd_put_all_on (scr_gameref_t game)
 static scr_bool
 lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   scr_int supporter, objects, references;
   scr_bool is_ambiguous;
+  lib_put_outcome_t outcome;
 
   /* Get the referenced object, and if none, consider complete. */
   supporter = lib_disambiguate_object (game, "put that onto", &is_ambiguous);
@@ -10220,13 +10631,13 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
                                         : lib_put_on_filter,
                               is_except ? supporter : -1, is_except,
                               &references);
+  outcome = {};
   if (objects > 0 || references > 0)
-    lib_put_on_backend (game, supporter);
+    outcome = lib_put_on_backend (game, supporter);
   else
     lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
 
-  pf_buffer_character (filter, '\n');
-  return TRUE;
+  return lib_put_on_finish (game, outcome);
 }
 
 

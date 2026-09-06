@@ -2456,7 +2456,7 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
-> put crystal in throat
+> put red crystal in throat
 You drop the crystal gingerly down the statue’s throat, wondering if you'll
 ever see it again. The crystal disappears down the stone throat and…
 ...press a key...
@@ -2557,7 +2557,7 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
-> put crystal in throat
+> put green crystal in throat
 Remembering what happened last time, you drop the crystal gingerly down the
 statue’s throat then duck back in case the beams shoot from the statue’s eyes
 again.
@@ -2678,7 +2678,7 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
-> put crystal in mouth
+> put blue crystal in mouth
 With a sense of the inevitable, you drop the crystal down the statue’s throat
 and then close your eyes, grit your teeth and wait.
    A minute later you're still waiting.
@@ -2763,7 +2763,7 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
-> put crystal in mouth
+> put yellow crystal in mouth
 Groaning inwardly, you drop the crystal into the statue’s throat and mutter,
 “c’mon, pal, get it over with.”
    As usual there is the wait before anything happens. Sounding like it is
@@ -2847,7 +2847,7 @@ something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
    Exits lie: north (to the short corridor).
 
-> put crystal in mouth
+> put pink crystal in mouth
 Plonk!!! goes the crystal as it drops down the statue’s throat. You watch it
 this time to see if you can see what happens to it. Instead you hear: ”THE
 CRYSTAL IS MINE, THE MAGIC IS YOURS! PREPARE TO RECEIVE YOUR FIFTH GIFT,
@@ -2879,8 +2879,8 @@ how to do that.
 > give sword to devil
 Give the sword to who?
 
-> put crystal in mouth
-You can't put anything inside the statue's mouth!
+> put black crystal in mouth
+It is not clear which object you are referring to.
 
 > begone
 The moment you speak the word, you find your surroundings changing. The walls

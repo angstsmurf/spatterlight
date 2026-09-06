@@ -1027,6 +1027,14 @@ wax_worx_solution.txt|wax_worx.taf|[PRESS ANY KEY TO DIE]
 # of the solution is now `take placemat` (5 points recovered).  Still OPEN:
 # `put fish in fountain`, where run400 falls to the library and we fire task
 # 18, whose only restriction (FISH held by the player) reads as satisfied.
+# Same handler, other arm: a put the library can COMPLETE returns 1 and claims
+# the line, so the task never runs -- which is also why run400 answers the
+# next turn's `take wet page` with "Take what?".
+# 2026-09-06, after the 4.0 put precedence port: turn 15 is now `put fish
+# in water`.  `put fish in fountain` is a completable library put in 4.0 and
+# beats task 18 (run400 Adrift_78, ported), while the water is no container,
+# so the handler refuses without claiming and the general pass gives the
+# task the line.  Model-derived, Wine candidate.
 sommeril_solution.txt|sommeril.taf|www.angelfire.com/games5/sommeril
 # Measured 2026-08-29: run400 replay of 116 commands; the first 105 turns are
 # identical, then the long cutscene after "read incantation" (turn 106)
@@ -1038,6 +1046,10 @@ shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in vi
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
 TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you|SCR_SKIP_WAITKEY=1
+# 2026-09-06, after the 4.0 put precedence port: line 66 names the boulder,
+# `put medium boulder on medium plinth`.  A bare `boulder` is ambiguous in
+# the put parser, and 4.0's "Which boulder.  ..." prompt has no task
+# pre-match and eats the next line.  Model-derived, Wine candidate.
 ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caught red handed in the vault|SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
 # tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
@@ -1140,6 +1152,15 @@ fantasyworld_solution.txt|fantasyworld.taf|You scored 0 out of the maximum 500!
 # that survive in them are sa.taf's untouched text, and they agree with
 # sophie_solution.expected.txt line for line.  The transcripts are named after
 # the GAME, not the .taf; check the row below before quoting one.
+# 2026-09-06, after the 4.0 put precedence port: the six statue puts name the
+# crystal colour (`put red crystal in throat` ... `put black crystal in
+# mouth`).  A bare `crystal` is ambiguous between the dark crystal and the
+# coloured one, and the game's ALR turns 4.0's "Which crystal" prompt into
+# "Please be more clear, what do you want to move?", which eats the next
+# line.  The comp build has no black crystal to hand at its last put, so
+# that line draws "It is not clear which object you are referring to." where
+# it used to draw the mouth refusal; the win is unaffected.  Model-derived,
+# Wine candidate.
 sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 # cursed: no seed of its own.  The same-tick lower-event re-check (run400
@@ -3057,6 +3078,11 @@ castle_quest_solution.txt|castle.taf|Thanks for playing!
 # scissors` (+5), `wear bandage on neck` (+3) and the security camera (+1) --
 # for **41/43**.  The last 2 points are TASK 19, `shoot myself`, which is a
 # death, so 41 is the winning ceiling.
+# 2026-09-06, after the 4.0 put precedence port: line 59 is `place hand on
+# green plate`.  `put hand on green plate` is a completable library put in
+# 4.0 ("You put the bloody hand onto the green plate.") and the task never
+# runs; `place` is not a put-parser entry word in this game (no synonym), so
+# the task gets the line.  Model-derived, Wine candidate.
 deadman_solution.txt|The Dead Man.taf|ABORT SUCSESFUL|SCR_SKIP_WAITKEY=1
 # Ba'Roo! -- delron's own command list, +2 lines: the capsule wants the
 # backpack *inside* it (TASK 258/286 restrict obj1 to "in capsule"), and the
@@ -4788,7 +4814,13 @@ p2p_solution.txt|P2P.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY
 # cmdfile_w_zacksmackfoot.txt): 5/5 echoed, one divergence still OPEN.  On
 # `put knife in slot` run400 prints the library refusal "Your penknife is too
 # big to fit inside the slot." and THEN the task's text; we print the task's
-# text alone.  Needs a live probe; see notes/WINE-TRANSCRIPTS-TODO.md.
+# text alone.  Read off the decompilation the same day: run400's put handler
+# (Proc_19_43_46639C) exits its refusal paths WITHOUT setting the result byte,
+# so a size-refused put prints and does not claim, and the general task match
+# still fires.  Needs a live probe (PUTBIG400); see
+# notes/WINE-TRANSCRIPTS-TODO.md.
+# 2026-09-06: PUTBIG400 measured and ported -- turn 3 prints the size
+# refusal and task 7's text on one line, re-blessed.
 zacksmackfoot_solution.txt|zacksmackfoot.taf|THE END . . . . . for now!|SCR_SKIP_WAITKEY=1
 # Boiled Eggs (no scoring, single win ending): pump Louise's dialogue tree
 # for the spare-key location and Joe's box, unlock the front door, hide
@@ -5278,6 +5310,14 @@ choosethreehour_solution.txt|Choose_Your_Own_Three_Hour_Adventure.taf|Overall, y
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
+# 2026-09-06, after the 4.0 put precedence port: `put knife in hole` with
+# the knife on the floor now answers "I am not holding the little knife."
+# and task 16 never runs.  The implicit-take gate pre-matches only
+# take-flagged tasks, and task 16 IS one: its alternate command `get {the}
+# [supper/soup/dinner] ...` carries "get", so the typed line hits it, the
+# auto-take is suppressed, and the handler's not-holding refusal claims.
+# The knife is not needed for the ending; feed unchanged, still wins.
+# Model-derived, Wine candidate (a take-flag quirk worth measuring).
 thelasthour_solution.txt|thelasthour.taf|"Here we are... MY BROTHER."|
 # Sex is Mental.taf (AIF, 8373 bytes, 4.00): comedic explicit content between
 # two apparent adults (a psychiatric-ward patient and a nurse), a third
@@ -6938,7 +6978,24 @@ onnafa_solution.txt|ONNAFA.TAF|your score turned out at 76|SCR_SKIP_WAITKEY=1
 # so the `look` after it is load-bearing padding, not a stray probe.
 # 284 commands, and no refusal lines beyond the handful of scripted
 # door-poking probes already present in the exploration prefix.
-house_solution.txt|House.taf|YOU HAVE COMPLETED HOUSE.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
+#
+# 2026-09-06, UNWINNABLE under the 4.0 put precedence model (marker
+# downgraded, feed kept).  The fire needs task 459, `[put/place/drop] {some}
+# [wood] {in/into/in to} {the} [fireplace/fire place]`, and no spelling
+# reaches it in 4.0: `place` is House's own synonym for `put`, so every
+# spelling enters the put parser.  Wood on the floor: the implicit-take gate
+# pre-matches only take-flagged tasks (mode 1) and hits task 60 `*take
+# *cathy*`/`# get objects while house spin`, so no auto-take, and the handler
+# prints "You are not holding the wood." and claims.  Wood held (needs a
+# hand freed first): the canonical rebuild is "put the wood in the
+# fireplace", which task 459 does not match ("the" before wood), so the
+# library put completes and the fire puzzle is dead ("You need some wood or
+# coal to make a proper fire.").  The author's four heavy-object fireplace
+# tasks say they saw 459 fire somewhere, so this is the TOP Wine candidate:
+# in run400, `use axe on dining table`, then `put wood in fireplace` with
+# and without a free hand.  Reached 30/30 before the port only through
+# Scarier's old silent-literal peek.
+house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
 # Full win (85/85, best ending, top rank "So good you must have cheated"):
 # David Whyld's studio-director comedy sim "TO THE MOON AND BACK" (in-game
 # title "Lights, Camera, Action!"). The film has to be shot on four sets in

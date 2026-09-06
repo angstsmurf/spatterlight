@@ -17,13 +17,21 @@ def build(cfg):
     s(cfg.get('persp', 2)); s(1); s(0); s(1); s(1)  # Persp ShowExits WaitTurns DispFirstRoom BattleSystem
     s(cfg.get('maxscore', 0))               # MaxScore (run400's end-of-game summary divides by it)
     s("Player"); s(0); s("A test fighter.")
-    s(0); s(0); s(0); s(0); s(100); s(100)  # Task Position ParentObject Gender MaxSize MaxWt
+    s(0); s(0); s(0); s(0)                  # Task Position ParentObject Gender
+    # MaxSize / MaxWt are packed the way every dimension in the file is:
+    # 'tens' times the scale factor raised to the 'units'.  100 = 10 x m^0.
+    s(cfg.get('maxsize', 100)); s(cfg.get('maxwt', 100))
     p = cfg['player']                       # (stam, strLo,strHi, accLo,accHi, defLo,defHi, agiLo,agiHi, recovery)
     s(p[0]); s(p[0])
     s(p[1]); s(p[2]); s(p[3]); s(p[4]); s(p[5]); s(p[6]); s(p[7]); s(p[8])
     s(p[9])                                 # Recovery
     s(0); s(0); s(0); s(0); s(0); s(0); s(0); s(0); s(0)  # compass..graphics
-    s(0); s(""); s(0); s(0); s(0)           # StatusBox txt iUnk1 iUnk2 Embedded
+    # The two "iUnk" globals are the per-game SIZE and WEIGHT scale factors
+    # (SizeMultiple / WeightMultiple).  The ADRIFT editor always writes 3;
+    # 0 is the historical default here and makes every scaled dimension
+    # collapse to 1 (index 0) or 0, which no probe before PUT4 cared about.
+    s(0); s("")                             # StatusBox txt
+    s(cfg.get('sizemult', 0)); s(cfg.get('weightmult', 0)); s(0)  # Embedded
 
     rooms = cfg['rooms']                    # list of (short, long, exits{dir_index: dest_room_0based})
     s(len(rooms))
@@ -47,9 +55,16 @@ def build(cfg):
         (pre, short, pos, wpn, prot, hv, meth, acc, wear) = o[:9]
         cont = o[9] if len(o) > 9 else 0
         parent = o[10] if len(o) > 10 else 0    # pos 2 = inside container `parent`
+        # SizeWeight packs the SIZE index in its tens and the WEIGHT index in
+        # its units; each is an exponent on the game's scale factor.  2 (size
+        # 3^0 = 1, weight 3^2 = 9) is what every probe before PUT4 used.
+        sw = o[11] if len(o) > 11 else 2
+        # Capacity is 'tens' objects' worth of size index 'units', multiplied
+        # out into one volume: 100 = 10 x m^0.
+        cap = o[12] if len(o) > 12 else (100 if cont else 0)
         s(pre); s(short); s(0); s(0)
         s("A probe object."); s(pos); s(0); s(0); s("")
-        s(cont); s(0); s(100 if cont else 0); s(wear); s(2); s(parent)
+        s(cont); s(0); s(cap); s(wear); s(sw); s(parent)
         s(0); s(0); s(0); s(0)
         s(wpn); s(0); s(0)
         s(prot); s(hv); s(meth); s(acc)
@@ -1681,6 +1696,162 @@ CONFIGS = {
                 actions=[(1,2,2,0)]),
            dict(commands=["eta"], complete="ETA.", showroomdesc=1,
                 actions=[(1,2,0,2)])]),
+
+    # PUT4 -- the PUTPASS400 / PUTBIG400 pair from
+    # notes/WINE-TRANSCRIPTS-TODO.md, in one game.  The offline reading of
+    # run400's `insides` (46639C) says the result byte var_86 is set to 1 only
+    # when the move COMPLETES and is never set at all on a refusal path, so:
+    #
+    #   put pill in cup   library completes it, returns 1, PUTPASS. never runs
+    #   put rock in slot  size refusal prints, returns 0, PUTBIG. follows it
+    #
+    # The run390 PUTPASS probe of 2026-08-02 said the opposite for the first
+    # line (task claimed, container left empty), which is the version-split
+    # question this probe exists to settle.
+    #
+    # This is the first probe to need real dimensions, so it sets the scale
+    # factors to the 3 the ADRIFT editor always writes.  pill is SizeWeight 0
+    # (size 3^0 = 1, weight 3^0 = 1) and fits the cup's capacity 100
+    # (10 x 3^0 = 10); rock is SizeWeight 30 (size 3^3 = 27) and cannot fit
+    # the slot's identical 10 -- 27 > the container TOTAL, which is the
+    # "is too big to fit inside" refusal rather than the "at the moment" one.
+    # Both movables start HELD so no implicit take runs first, and the player
+    # limits are raised to 902 (90 x 3^2 = 810) so carrying the rock is legal.
+    #
+    # zzput / zzbig are the aliveness controls: each is a second command on
+    # the same task, so if they print their text the task itself matches and
+    # its (empty) restrictions pass, and a silent `put ...` line can only mean
+    # the library took it.
+    # PUT4 -- the PUTPASS400 and PUTBIG400 probes the Wine notes asked for,
+    # in one game.  DRIVEN in run400 2026-09-05, transcript Adrift_81.txt:
+    #   put pill in cup   -> no output at all, but zzin1 says PILL IN CUP and
+    #                        zzput still prints PUTPASS, so the library
+    #                        completed the put and the PASSING task never ran.
+    #   put rock in slot  -> "The rock is too big to fit inside the slot.
+    #                        PUTBIG."  -- one line, library refusal then the
+    #                        task's text; the rock did not move.
+    # So: a put the library can COMPLETE claims the line even over a passing
+    # task, and a put it REFUSES prints and lets the task fire.  (The silence
+    # on the first line is a separate quirk -- see PUT7.)
+'PUT4': dict(name="Probe PUT4",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    sizemult=3, weightmult=3, maxsize=902, maxwt=902,
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    #        prefix short  pos wpn prot hv meth acc wear cont parent sw  cap
+    objects=[("a","pill",   1,  0,  0,  0,  0,  0,  0,   0,    0,    0),
+             ("a","cup",    4,  0,  0,  0,  0,  0,  0,   1,    0,    2,  100),
+             ("a","rock",   1,  0,  0,  0,  0,  0,  0,   0,    0,   30),
+             ("a","slot",   4,  0,  0,  0,  0,  0,  0,   1,    0,    2,  100)],
+    tasks=[dict(commands=["put pill in cup","zzput"], complete="PUTPASS."),
+           dict(commands=["put rock in slot","zzbig"], complete="PUTBIG."),
+           # State reporters, so "did the object actually move?" is answered
+           # by the game rather than by reading a room description.  Var1 is
+           # 3 + the dynamic object's 0-based index, Var2 4 is "inside", Var3
+           # is the 1-based index into the CONTAINER sublist (cup 1, slot 2).
+           dict(commands=["zzin1"], complete="PILL IN CUP.",
+                restrs=[(3,4,1,"PILL NOT IN CUP.")]),
+           dict(commands=["zzin2"], complete="ROCK IN SLOT.",
+                restrs=[(5,4,2,"ROCK NOT IN SLOT.")])]),
+
+    # PUT5 -- the follow-up PUT4 asked for, and the probe that killed the
+    # obvious explanation.  The reading under test was that the `tasks()` call
+    # inside `insides` (run400 465EB5) is made on the CANONICAL, fully-
+    # prefixed rebuild of the line -- "put a pill in a cup" -- not on what was
+    # typed, so a literal task spelled the way the player types it could never
+    # claim while a wildcarded or prefix-spelled one could.  Three pairs, one
+    # spelling each, all in one drive:
+    #   pill/cup   task `put * pill in cup`      wildcard
+    #   bean/jar   task `put a bean in a jar`    the canonical prefixed form
+    #   coin/box   task `put coin in box`        literal, as typed
+    # zzw / zzp / zzl are the aliveness controls, and zzin1-3 report where each
+    # movable actually ended up (Var3 indexes the container sublist: cup 1,
+    # jar 2, box 3).
+    #
+    # DRIVEN in run400 2026-09-05, Adrift_82.txt: ALL THREE moved, NONE of the
+    # three tasks claimed, and all three were still alive afterwards.  The
+    # in-handler tasks() call claims nothing in any spelling, so the rule is
+    # simply "a completable put wins, a refused put does not" -- and the
+    # silence on `put pill in cup` is something else again (see PUT7).
+'PUT5': dict(name="Probe PUT5",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    sizemult=3, weightmult=3, maxsize=902, maxwt=902,
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    objects=[("a","pill", 1, 0,0,0,0,0, 0, 0, 0, 0),
+             ("a","cup",  4, 0,0,0,0,0, 0, 1, 0, 2, 100),
+             ("a","bean", 1, 0,0,0,0,0, 0, 0, 0, 0),
+             ("a","jar",  4, 0,0,0,0,0, 0, 1, 0, 2, 100),
+             ("a","coin", 1, 0,0,0,0,0, 0, 0, 0, 0),
+             ("a","box",  4, 0,0,0,0,0, 0, 1, 0, 2, 100)],
+    tasks=[dict(commands=["put * pill in cup","zzw"], complete="WILDPASS."),
+           dict(commands=["put a bean in a jar","zzp"], complete="PREFPASS."),
+           dict(commands=["put coin in box","zzl"], complete="LITPASS."),
+           dict(commands=["zzin1"], complete="PILL IN CUP.",
+                restrs=[(3,4,1,"PILL NOT IN CUP.")]),
+           dict(commands=["zzin2"], complete="BEAN IN JAR.",
+                restrs=[(5,4,2,"BEAN NOT IN JAR.")]),
+           dict(commands=["zzin3"], complete="COIN IN BOX.",
+                restrs=[(7,4,3,"COIN NOT IN BOX.")])]),
+
+    # PUT6 -- control for PUT5.  Same six objects, same three puts, but NO
+    # task matches any put line: only the zzin reporters exist.  It separates
+    # "the Runner's put message is suppressed when a task pre-matched" from
+    # "the message is suppressed for this particular object pair".
+    #
+    # DRIVEN in run400 2026-09-05.  Adrift_84.txt: pill still silent with no
+    # tasks in sight, so tasks have nothing to do with it.  Adrift_85.txt
+    # (fed `put pill in jar` / `put bean in cup` instead) put the silence on
+    # the pill again in a different container, so it is not the container
+    # either.
+'PUT6': dict(name="Probe PUT6",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    sizemult=3, weightmult=3, maxsize=902, maxwt=902,
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    objects=[("a","pill", 1, 0,0,0,0,0, 0, 0, 0, 0),
+             ("a","cup",  4, 0,0,0,0,0, 0, 1, 0, 2, 100),
+             ("a","bean", 1, 0,0,0,0,0, 0, 0, 0, 0),
+             ("a","jar",  4, 0,0,0,0,0, 0, 1, 0, 2, 100),
+             ("a","coin", 1, 0,0,0,0,0, 0, 0, 0, 0),
+             ("a","box",  4, 0,0,0,0,0, 0, 1, 0, 2, 100)],
+    tasks=[dict(commands=["zzin1"], complete="PILL IN CUP.",
+                restrs=[(3,4,1,"PILL NOT IN CUP.")]),
+           dict(commands=["zzin2"], complete="BEAN IN JAR.",
+                restrs=[(5,4,2,"BEAN NOT IN JAR.")]),
+           dict(commands=["zzin3"], complete="COIN IN BOX.",
+                restrs=[(7,4,3,"COIN NOT IN BOX.")])]),
+
+    # PUT7 -- PUT6 with the object table permuted so that `bean` is dynamic
+    # object 1 and `pill` object 3.  PUT6 showed run400 doing the put but
+    # printing NO confirmation for `pill`, whichever container it went into,
+    # while `bean` and `coin` were announced normally; this asks whether that
+    # follows the object's NUMBER (1) or its name.
+    #
+    # DRIVEN in run400 2026-09-05.  Adrift_86.txt: bean, now object 1, is the
+    # silent one and pill prints -- so it is the NUMBER.  Adrift_87.txt drove
+    # the same game with `drop bean in jar` / `drop pill in cup`: same
+    # suppression, and the drop spelling yields the same "put ... inside ..."
+    # wording, so it is one handler.  Rule: run400 prints no confirmation for
+    # a completed put/drop-into when the moved object is dynamic object #1.
+    # Scarier prints all three; recorded, not ported.
+'PUT7': dict(name="Probe PUT7",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    sizemult=3, weightmult=3, maxsize=902, maxwt=902,
+    rooms=[("Test Arena","A bare arena.",{})],
+    npcs=[],
+    objects=[("a","bean", 1, 0,0,0,0,0, 0, 0, 0, 0),
+             ("a","jar",  4, 0,0,0,0,0, 0, 1, 0, 2, 100),
+             ("a","pill", 1, 0,0,0,0,0, 0, 0, 0, 0),
+             ("a","cup",  4, 0,0,0,0,0, 0, 1, 0, 2, 100),
+             ("a","coin", 1, 0,0,0,0,0, 0, 0, 0, 0),
+             ("a","box",  4, 0,0,0,0,0, 0, 1, 0, 2, 100)],
+    tasks=[dict(commands=["zzin1"], complete="BEAN IN JAR.",
+                restrs=[(3,4,1,"BEAN NOT IN JAR.")]),
+           dict(commands=["zzin2"], complete="PILL IN CUP.",
+                restrs=[(5,4,2,"PILL NOT IN CUP.")]),
+           dict(commands=["zzin3"], complete="COIN IN BOX.",
+                restrs=[(7,4,3,"COIN NOT IN BOX.")])]),
 }
 
 if __name__ == '__main__':

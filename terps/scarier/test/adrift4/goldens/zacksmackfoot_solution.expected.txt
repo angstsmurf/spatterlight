@@ -51,8 +51,9 @@ lashed up against the side of the plane.
 You open your penknife.
 
 > put knife in slot
-A quick push and the button in the slot operates a quick release allowing the
-cargo door to lower under it's own weight.
+Your penknife is too big to fit inside the slot.  A quick push and the button
+in the slot operates a quick release allowing the cargo door to lower under
+it's own weight.
 The door hit's the ground with a crash.
 
 > out

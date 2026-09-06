@@ -63,7 +63,7 @@ sw
 nw
 n
 w
-put boulder on medium plinth
+put medium boulder on medium plinth
 e
 s
 se

@@ -148,7 +148,7 @@ You can move north and south.
 > take silver orb
 You are already carrying the SILVER ORB.
 
-> put fish in fountain
+> put fish in water
 The fish leaps from your grip into the dark water and disappears from sight.
 After a few moments he reappears near the surface.
 The fish swims in small circles near the edge of the fountain. A wet page has

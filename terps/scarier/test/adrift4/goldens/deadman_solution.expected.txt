@@ -434,7 +434,7 @@ You take the bloody hand.
 > put hand on green plate
 You put the bloody hand onto the green plate.
 
-> put hand on green plate
+> place hand on green plate
 The green glass goes dark, them pulses with a soft pink light.  The words
 "ABORT SUCSESFUL" appear on the monitor in front of you.
 Hoping that you have made the right decision you face the door as if seeing

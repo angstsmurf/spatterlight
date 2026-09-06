@@ -1469,7 +1469,7 @@ all you produce some wood.
 A gust of air blows down the chimney.
 
 > put wood in fireplace
-You dump the wood into the fireplace.
+You are not holding the wood.
 
 > put newspaper under firewood
 You tear off some pages and stuff them into the fireplace.
@@ -1503,7 +1503,7 @@ you notice a dent in the plaster.
 Someone has removed an old thredbare rug from its place on the floor, rolled
 it up and placed it to one side.
 
-You can also see a wooden trapdoor and an axe.
+You can also see a wooden trapdoor, an axe and some wood.
 
 > put kettle on hook
 You hang the kettle back onto the hook.
@@ -1522,12 +1522,10 @@ You strike the match against the match box.  With a flash and a sulphurous
 smell it sputters into life.
 
 > light a fire in the fireplace
-The newspaper is dry and catches easily.  Its pages curl and flames begin to
-lick the wood.  In no time at all you have a decent fire going.
-Soon the water in the kettle begins to boil.
+You need some wood or coal to make a proper fire.
 
 > score
-Your score is 19 out of a maximum of 30.  (63%)
+Your score is 18 out of a maximum of 30.  (60%)
 
 > look
 
@@ -1539,11 +1537,11 @@ you notice a dent in the plaster.
 Someone has removed an old thredbare rug from its place on the floor, rolled
 it up and placed it to one side.
 
-You can also see a wooden trapdoor and an axe.
+You can also see a wooden trapdoor, an axe and some wood.
 Cathy studies you with interest.
 
 > score
-Your score is 19 out of a maximum of 30.  (63%)
+Your score is 18 out of a maximum of 30.  (60%)
 
 > i
 You are carrying a note, a diary, a small wooden key, a large metal key,
@@ -1641,14 +1639,8 @@ you are finished.  You stand back to gaze at your handy work and find that
 the runes are shining with silver light.  The shutter closes with a finality
 that makes you feel a bit more secure.
 
-The gash in the wall repairs itself and the glow illuminating the house
-increases.  You hear the voice of Cathy's grandfather say, "I HAVE RETURNED.
-THIS HOUSE IS SAFE".
-
-The house plan swings open to reveal a safe.
-
 > score
-Your score is 20 out of a maximum of 30.  (66%)
+Your score is 19 out of a maximum of 30.  (63%)
 
 > i
 You are carrying a note, a diary, a small wooden key, a large metal key,
@@ -1686,7 +1678,7 @@ you notice a dent in the plaster.
 Someone has removed an old thredbare rug from its place on the floor, rolled
 it up and placed it to one side.
 
-You can also see a wooden trapdoor and an axe.
+You can also see a wooden trapdoor, an axe and some wood.
 
 > d
 You climb down into the cellar.
@@ -1727,7 +1719,7 @@ you notice a dent in the plaster.
 Someone has removed an old thredbare rug from its place on the floor, rolled
 it up and placed it to one side.
 
-You can also see a wooden trapdoor and an axe.
+You can also see a wooden trapdoor, an axe and some wood.
 
 > n
 %drunk% north.
@@ -1769,33 +1761,34 @@ you notice a dent in the plaster.
 Someone has removed an old thredbare rug from its place on the floor, rolled
 it up and placed it to one side.
 
-You can also see a wooden trapdoor and an axe.
+You can also see a wooden trapdoor, an axe and some wood.
 
 > put thyme in kettle
-You drop the thyme into the boiling water.
+There is no boiling water in the kettle.
 
 > put web in kettle
-You drop the cobweb into the boiling water.
+There is no boiling water in the kettle.
 
 > put honey in kettle
-You pour some of the sticky honey into the boiling water.
+The jar of honey is too big to fit inside the large cast iron kettle.  There
+is no boiling water in the kettle.
 
 > reveal thy secret
 You take a deep breath and say,
 reveal thy secret
 reveal thy secret
 reveal thy secret
-The kettle boils over.  There is flash and a cloud of multi coloured smoke.
-The mixture in the kettle turns a bright turquoise colour.
+Nothing happens and you begin to wonder if you have missed something.
 
 > use pipette on kettle
-You use the pipette to suck up some of the turquoise liquid.
+What would be the point.  There is nothing magical in the kettle.
 
 > use pipette on notebook
-You allow a drop of the turquoise liquid to fall  onto the note book.  Some
-of the letters begin to glow bright yellow.
+There is nothing worth squirting from the pipette at the moment.
 
 > examine notebook
+This slim notebook has the words, Property of Herbert Philpot Lovecrawl
+written on the front.  Inside it begins,
 There are many complex reasons why I choose to inhabit this house.  I think
 in retrospect a tight corner may be turned into a fortress of defence.  In
 the interest of a grandfather to keep his granddaughter from harm there is
@@ -1807,8 +1800,11 @@ Daemoniacus.  He hid himself within the pages of a book so as to prolong his
 life and be there for the awakening of Kra' Annoth.  If I am to protect my
 granddaughter I must damn myself.
 
+It goes on like this for several pages but the writing gets so cramped and
+spidery that it becomes illegible.
+
 > score
-Your score is 22 out of a maximum of 30.  (73%)
+Your score is 19 out of a maximum of 30.  (63%)
 
 > e
 %drunk% east.
@@ -1841,60 +1837,45 @@ There is a  jagged gash in the wall.  Every now and then a green spark shoots
 out of it.
 
 A tall and beautilfuly carved grandfather clock stands in the corner of the
-room.  Fixed to the wall is a framed blue print of the house.  Embeded in the
-wall is a safe that was once hidden by the house plan.  You notice a single
-page from a book lying just beneath the bed.
+room.  Fixed to the wall is a framed blue print of the house.  You notice a
+single page from a book lying just beneath the bed.
 
 You can also see a large bookcase.
 
 > open safe
-What is the combination?
+What safe?
 
 > 5 7 9 6 2 7 3 1 9
 You enter the combination and the safe opens.
 
 > get gold key
-As you grasp the gold key the eerie green light grows stronger and you hear
-Cathy's grandfather say, "OH...SO THAT'S WHERE I PUT IT.  NEVER MIND.  THE
-KEY IS OF NO  CONSEQUENCE.  THROW IT AWAY.  NOW THAT THE HOUSE IS SAFE IT
-WILL BECOME YOUR HOME.  YOU WILL BE PROTECTED HERE FOREVER.  WHEN AGE BEGINS
-TO TAKE ITS TOLL YOU WILL JOIN ME WITHIN ITS WALLS.  WE SHALL NEVER BE
-SEPARATED AGAIN".
-
-Cathy's eyes widen and she whispers, "Mad.....nutty as a fruit cake".
+Take what?
 
 > unlock glass door with gold key
-As you place the key in the lock the green light gets brighter and an angry
-voice says, "STOP THAT!  YOU DO NOT KNOW WHAT YOU ARE DOING!  I HAVE BROUGHT
-THIS HOUSE OUT OF TIME.  TO KEEP YOU SAFE.  TO KEEP HER SAFE".
-
-The key fits and you open the door.
+You can't unlock the glass door as you are not holding the right key.
 
 > wind clock hands back
-
-The clock hands move easily backwards.  Energy rushes through your body and
-you prepare for death when suddenly
-
-                 EVERYTHING
-
-                                          STARTS
-
-GOING
-
-SDRAWKCAB
-
-(PRESS ANY KEY)
+You canot move the clock hands as they are behing the glass door.
 
 > look
 
-The room spins and you are thrown off your feet.  There is a grinding noise
-and the House seems to settle itself again.  The shutters fly open and
-blessed daylight floods the room.  You hear a loud creaking coming from
-downstairs that you pray is the front door opening.  Cathy races down to
-check.
+Master bedroom
+A large comfortable looking bed dominates this room.  It looks like it's
+owner was quite the scholar.  A small shuttered window is set into the south
+wall.
+
+There is a  jagged gash in the wall.  Every now and then a green spark shoots
+out of it.
+
+A tall and beautilfuly carved grandfather clock stands in the corner of the
+room.  Fixed to the wall is a framed blue print of the house.  You notice a
+single page from a book lying just beneath the bed.
+
+You can also see a large bookcase.
+Cathy looks tired but exhilarated.
 
 > score
-Your score is 27 out of a maximum of 30.  (90%)
+Your score is 20 out of a maximum of 30.  (66%)
 
 > e
 %drunk% east.
@@ -1908,106 +1889,15 @@ ceiling way above your head.
 %drunk% down.
 
 Hallway
-The front door is wide open and sunlight dazzels your eyes.
+A long uncarpeted passage ending in rickety looking stairs.  The floorboards
+are worn and the walls are bare plaster.  You guess that the door to the east
+leeds to the lounge while the door to the west leeds to the dining room.  The
+front door is behind you and stands beside a shuttered window.
 
 You can also see an old fashioned telephone.
 
 > s
-As you go to leave you see a strange sight.  Across the other side of the
-road and seemingly completely oblivious to anything walks.....Cathy!  She
-wears a rucksack on her back and a determined expression on her face.
-"It's me"!, gasps Cathy.  "You've taken us back to before this all started.
-I've got to stop myself from allowing Damien to do that ritual".
-And with that she rushes out towards herself.  You go to follow but tendrils
-of green energy wrap around your arms and legs and begin to pull you back.
-"SHE'S GONE!  YOU'VE TURNED HER AGAINST ME.  I'M GOING TO HURT YOU"!
+You can't go in that direction, but you can move east, west and up.
 
-The light flares and pain twists your body.  As the front door rapidly closes
-you catch a glimpse of Cathy reaching out to her younger self.  (PRESS ANY
-KEY)
-
-And Cathy touches Cathy.
-
-And the house devours you.
-
-And Cathy touches Cathy.
-
-And the house devours you.
-
-And Cathy touches Cathy.
-
-And the house devours you.
-
-And Cathy touches Cathy.
-
-And the house devours you.
-
-And Cathy touches Cathy.
-
-And the house devours you.
-
-And Cathy touches Cathy.
-
-And the house devours you.
-
-And Cathy touches Cathy.
-
-And the house devours you.
-
-And Cathy touches Cathy.
-
-And the house devours you.
-
-And there is a dazzling explosion of white light.
-
-And there is a dazzling explosion of white light.
-
-And there is a dazzling explosion of white light.
-
-And there is a dazzling explosion of white light.
-
-And there is a dazzling explosion of white light.
-
-And there is a dazzling explosion of white light.
-
-And there is a dazzling explosion of white light.
-
-And there is a dazzling explosion of white light.
-
-And there is a dazzling explosion of white light.
-
-And there is a dazzling explosion of white light.
-
-(From the diary of Michael Black).
-
-As far as I know only Cathy and I remember the day the world ended.  It still
-seems impossible to believe that we changed the course of history.  We both
-woke up in Bellview Road next to an empty space where the house once stood.
-Neither of us were sorry to see the back of it.  I wanted to let the whole
-thing rest and try and live the rest of my life in a hole somewhere but Cathy
-is determined to find Damien and make him pay for what he almost did.
-Besides he has the Immortalis now.  Who knows what horrors he could summon
-with it.  And me?  Well I just want to stick close to Cathy.  Especially
-since the trail led us to Venice.  Sitting in a gondola, letting the ancient
-buildings and bridges pass slowly by I asked her the question that had been
-robbing me of sleep for days.  How can we go on with our lives knowing that
-reality is just an illusion, that those things are waiting around every
-corner, that the universe balances on a bloody knife edge?  She shrugged and
-said, "Look at it this way.  We've already seen the world end.  How much
-worse can it get"?  The oarsman gave a croaking chuckle at that point and
-said, "That you may well ask".  I looked up at the robed and hooded figure
-but it just chuckled again saying, "Don't worry lad.  This is just me day
-job".
-Then Cathy began to kiss me.  Long and hard and nothing else seemed to
-matter.
-
-CONGRATULATIONS.  YOU HAVE COMPLETED HOUSE.  IF YOU PLAY THIS GAME AGAIN TYPE
-LOVECRAFT AT THE MAIN MENU TO VIEW BONUS MATERIAL.
-
-MICHAEL BLACK WILL RETURN IN HOUSE II: RHYME AND UNREASON.
-
-(PRESS ANY KEY TO CONTINUE)
-
-You scored 30 out of the maximum 30!
-That is 100% of the game!
-Well done - you scored maximum points!
+> quit
+Do you really want to quit? [Y/N]

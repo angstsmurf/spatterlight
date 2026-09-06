@@ -133,6 +133,10 @@ typedef struct scr_filter_s
      still the last thing buffered, pf_buffer_paragraph() leaves a leading
      break on the next text alone. */
   scr_int reference_at;
+  /* TRUE while the next text buffered is to be joined onto the current
+     end of the buffer with the Runner's two-space separator, taking back an
+     auto-break of ours first.  See pf_buffer_join_pending(). */
+  scr_bool join_pending;
 } scr_filter_t;
 
 
@@ -317,6 +321,7 @@ pf_create (void)
   filter->hard_break_at = -1;
   filter->hidden = 0;
   filter->reference_at = -1;
+  filter->join_pending = FALSE;
 
   return filter;
 }
@@ -1338,6 +1343,7 @@ pf_empty (scr_filterref_t filter)
   filter->hard_break_at = -1;
   filter->hidden = 0;
   filter->reference_at = -1;
+  filter->join_pending = FALSE;
 }
 
 
@@ -1433,6 +1439,15 @@ pf_buffer_string (scr_filterref_t filter, const scr_char *string)
     {
       size_t noted;
 
+      /* A pending join runs this text straight on from the last text, two
+         spaces between, as the Runner's string concatenation would. */
+      if (filter->join_pending)
+        {
+          filter->join_pending = FALSE;
+          pf_undo_auto_break (filter);
+          pf_buffer_pspace (filter);
+        }
+
       /* Note append start, then append the string to the buffer. */
       noted = filter->buffer.size ();
       pf_append_string (filter, string);
@@ -1518,6 +1533,7 @@ pf_buffer_paragraph (scr_filterref_t filter, const scr_char *string)
 
   buffered = pf_get_buffer (filter);
   if (buffered
+      && !filter->join_pending
       && pf_text_ends_with_break (buffered)
       && pf_text_leads_with_break (string)
       && !(filter->reference_at >= 0
@@ -1836,6 +1852,43 @@ pf_buffer_pspace (scr_filterref_t filter)
       && !pf_text_ends_with_break (filter->buffer.c_str ())
       && !pf_buffer_ends_with_two_spaces (filter))
     pf_append_string (filter, "  ");
+}
+
+
+/*
+ * pf_buffer_join_pending()
+ * pf_clear_join_pending()
+ *
+ * Arrange for the NEXT text buffered, whatever prints it, to be joined onto
+ * the text already there: our own trailing auto-break is taken back and the
+ * Runner's two-space separator put in its place (pf_buffer_pspace), and only
+ * then is the new text appended.  Nothing happens if nothing follows, which
+ * is what makes this a note rather than an immediate join: the caller does
+ * not yet know whether anything will.  Clear the note when the turn's
+ * dispatch is over.
+ *
+ * The one user is the 4.0 put refusal that does not claim its command: run400
+ * prints "The rock is too big to fit inside the slot." and then lets a
+ * matching task answer the same line, concatenated onto the refusal --
+ * "The rock is too big to fit inside the slot.  PUTBIG." (arena probe PUT7,
+ * Adrift_87, 2026-09-05; Zack Smackfoot's `put knife in slot`, Adrift_57).
+ * If no task claims, the refusal stands alone on its own line, exactly as
+ * buffered.
+ */
+void
+pf_buffer_join_pending (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  filter->join_pending = TRUE;
+}
+
+void
+pf_clear_join_pending (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  filter->join_pending = FALSE;
 }
 
 

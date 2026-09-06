@@ -521,7 +521,7 @@ of sorts.  Three stone plinths rise up from the guano covered floor, each one
 differing in height.  I can see a tall plinth, a medium plinth, and a short
 plinth. Wow, it really smells bad in here.
 
-> put boulder on medium plinth
+> put medium boulder on medium plinth
 "Mmmmgggphh. Oooh.  Oh.  Whoa! Almost dropped it.  A little more.  Come on.
 There!"
 

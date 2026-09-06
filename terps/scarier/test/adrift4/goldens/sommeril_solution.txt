@@ -47,7 +47,7 @@ e
 n
 n
 take silver orb
-put fish in fountain
+put fish in water
 take wet page
 read wet page
 n

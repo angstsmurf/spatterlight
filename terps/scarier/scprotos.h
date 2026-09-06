@@ -334,6 +334,8 @@ extern void pf_buffer_join (scr_filterref_t filter,
 extern void pf_buffer_join_always (scr_filterref_t filter,
                                   const scr_char *string);
 extern void pf_buffer_hard_break (scr_filterref_t filter);
+extern void pf_buffer_join_pending (scr_filterref_t filter);
+extern void pf_clear_join_pending (scr_filterref_t filter);
 extern void pf_prepend_string (scr_filterref_t filter,
                                const scr_char *string);
 extern void pf_new_sentence (scr_filterref_t filter);
@@ -849,11 +851,13 @@ extern void run_npc_walk_task (scr_gameref_t game, scr_int walktask);
 extern void run_event_task (scr_gameref_t game, scr_int eventtask);
 extern scr_bool run_does_command_match (scr_gameref_t game,
                                        const scr_char *string);
+extern void run_set_task_class_filter (scr_int mode);
 extern scr_bool run_in_priority_pass (void);
 extern const scr_char *run_get_dispatch_input (void);
 extern scr_bool lib_co_ambiguity_prompt (scr_gameref_t game,
                                         const scr_char *command);
 extern void run_priority_defer (void);
+extern void run_priority_refuse (void);
 extern scr_gameref_t run_create (scr_read_callbackref_t callback, void *opaque);
 extern void run_interpret (scr_gameref_t game);
 extern void run_destroy (scr_gameref_t game);

@@ -135,12 +135,12 @@ talk to birds
 talk to birds
 6
 out
-put crystal in throat
+put red crystal in throat
 open door 4
 smash skeletons
 x throne
 out
-put crystal in throat
+put green crystal in throat
 open door 2
 x planet
 x wall
@@ -148,27 +148,27 @@ x word
 x spaceship
 put helmet on body
 out
-put crystal in mouth
+put blue crystal in mouth
 open door 1
 get snowball
 wash hands
 climb web
 out
-put crystal in mouth
+put yellow crystal in mouth
 open door 3
 talk to figure
 give snowball to figure
 gamble
 get sword
 out
-put crystal in mouth
+put pink crystal in mouth
 open door 5
 talk to devil
 4
 1
 3
 give sword to devil
-put crystal in mouth
+put black crystal in mouth
 begone
 get crucifix
 get thimble

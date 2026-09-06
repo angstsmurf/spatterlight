@@ -387,8 +387,7 @@ No more soup...
 No more soup...
 
 > put knife in hole
-(Taking the little knife first)
-I put the little knife inside the little hole.
+I am not holding the little knife.
 
 > x door
 It's a wooden door in the western wall.  The spyhole is in the door.
@@ -448,8 +447,8 @@ I smile.
 " Yes, we did."
 
 > ask sly about knife
-"Jim, do you think that the brotherhood will help us?"
-"I hope so, Carl. Hope so."
+"Got a knife, Jim. Someone throw it through the window."
+"That's a good...  a good new... Carl."
 
 > ask sly about others
 "What about the others?"
