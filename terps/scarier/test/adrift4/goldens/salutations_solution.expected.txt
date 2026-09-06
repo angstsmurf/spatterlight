@@ -35,12 +35,10 @@ rising horror.
 Stuck in a Spider's Web
 The sticky web holds you tight, suspended just above the ground of the narrow
 and forgotten trail you followed deep into this forest, to this place of
-nightmares.
-
-Your pack lies abandoned nearby.  A large white bundle hangs to your right.
-The Spider is crouched in a tree overhead. Watching you. It clacks its
-mandibles and waves it front legs around in an agitated fashion whenever you
-thrash around too much.
+nightmares.  Your pack lies abandoned nearby.  A large white bundle hangs to
+your right.  The Spider is crouched in a tree overhead. Watching you. It
+clacks its mandibles and waves it front legs around in an agitated fashion
+whenever you thrash around too much.
 
 > remove jacket
 An idea strikes and you struggle to get loose from from your jacket...with it

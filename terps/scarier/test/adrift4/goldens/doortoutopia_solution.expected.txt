@@ -121,8 +121,7 @@ SHOE SHOP
 It's years since you last went into this shoe shop but nothing seems to have
 changed. The same shoes still sit on the same shelves, the same bored clerk
 stands behind the counter and the same poster hangs in the window. A door
-leads out of the shop to the east.
-Horace the clerk is here.
+leads out of the shop to the east.  Horace the clerk is here.
 
 > talk to horace
 "What can I do for you?" asks Horace in the voice of someone who really
@@ -241,8 +240,7 @@ feet but "as far as the eye can see" sounds more impressive). At each of them
 sits a bleary-eyed individual reminiscent of the living dead.
 
 A large window here overlooks the town square though something about it seems
-oddly wrong.
-Tom is here looking even more depressed than you feel.
+oddly wrong.  Tom is here looking even more depressed than you feel.
 
 > ask tom about receptionist
 "Oh, her name's Melissa."
@@ -336,8 +334,7 @@ feet but "as far as the eye can see" sounds more impressive). At each of them
 sits a bleary-eyed individual reminiscent of the living dead.
 
 A large window here overlooks the town square though something about it seems
-oddly wrong.
-Tom is here looking even more depressed than you feel.
+oddly wrong.  Tom is here looking even more depressed than you feel.
 
 > talk to tom
 "What can I do for you?" Tom asks, sounding less enthusiastic than you felt
@@ -528,8 +525,8 @@ You have fond memories of Melissa's bedroom. This is where you used to-
 It's a pretty sparse room all told, being empty aside from the bed, cupboard,
 closet, bureau, desk and wardrobe.
 
-A flight of stairs lead down to the rest of Melissa's house.
-Gunge the killer is here.
+A flight of stairs lead down to the rest of Melissa's house.  Gunge the
+killer is here.
 
 "What are you doing in here?" snarls Gunge, a sledgehammer in his hands.
 

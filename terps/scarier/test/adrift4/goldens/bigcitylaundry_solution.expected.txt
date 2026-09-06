@@ -88,9 +88,8 @@ fabric softener so you don't have to carry them back and forth!
 
 The laundry room is a basement room, so it's freezing cold and the cement
 floor is covered in a 1 inch thick layer of Big City sludge that comes up
-from one of the drains in the floor.
-
-Your detergent is conveniently stored in here as well!
+from one of the drains in the floor.  Your detergent is conveniently stored
+in here as well!
 
 > get detergent
 You take clothes detergent.
@@ -365,8 +364,8 @@ The Laundromat is big and smells like fabric softener.  "Aire Libre" scent
 most likely.  There are tons of serious laundry machines here, and even a
 folding area.  There is a note on the back wall, and a clock up on the wall.
 
-From here you can go east to your street.
-Old Foreign Lady is here, doing her laundry.
+From here you can go east to your street.  Old Foreign Lady is here, doing
+her laundry.
 
 > put clothes in washing machine
 You put cold and soapy but sort of dry clothes inside Industrial Washing

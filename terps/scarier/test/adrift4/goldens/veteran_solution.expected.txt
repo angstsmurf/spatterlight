@@ -21,9 +21,7 @@ before the matches even begin.
 
 Your locker room
 This room is empty apart from a bench along one wall. You can only head
-north.
-
-Also here is a bag.
+north.  Also here is a bag.
 
 > x bench
 A normal bench.
@@ -59,10 +57,8 @@ The Youth's locker room
 The Youth is preening himself in front of a mirror. Near him are the gifts
 from some female admirers. It is a long time since you had any females after
 you. In fact you don't think they ever were. They all preferred the Star and
-for that the Youth is going to pay. You can only head south.
-
-Also here is a bunch of flowers and a teddy bear.
-The Youth is here.
+for that the Youth is going to pay. You can only head south.  Also here is a
+bunch of flowers and a teddy bear.  The Youth is here.
 
 > x The Youth
 A second generation wrestler who is the handsome son of the Star, a former
@@ -154,8 +150,7 @@ You move north.
 The Monster's locker room
 The Monster is here, sitting on the floor brooding, in preparation for his
 title challenge. The light is broken, leaving the room near-dark apart from a
-few candles on the floor. You can only head south.
-The Monster is here.
+few candles on the floor. You can only head south.  The Monster is here.
 
 > x The Monster
 The Monster is a large fearsome beast who all the other wrestlers are wary
@@ -202,8 +197,7 @@ The High Flyer's locker room
 The High Flyer is here practicing his aerial maneuvers before the tournament
 on a mattress on the floor. You don't see that there is a place in wrestling
 for these flashy stupid moves and would gladly outlaw them. You can only head
-north.
-The High Flyer is here.
+north.  The High Flyer is here.
 
 > x The High Flyer
 The High Flyer is very popular and known for his tremendous jumping ability,
@@ -265,10 +259,8 @@ The Youth's locker room
 The Youth is preening himself in front of a mirror. Near him are the gifts
 from some female admirers. It is a long time since you had any females after
 you. In fact you don't think they ever were. They all preferred the Star and
-for that the Youth is going to pay. You can only head south.
-
-Also here is a bunch of flowers.
-The Youth is here.
+for that the Youth is going to pay. You can only head south.  Also here is a
+bunch of flowers.  The Youth is here.
 
 > throw acid at The Youth
 The Youth soon recognises you are not the High Flyer but it is still too

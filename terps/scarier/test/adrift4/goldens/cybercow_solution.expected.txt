@@ -77,9 +77,7 @@ Flowers and grass are all around you.  To the east you can see the well in
 the chapel yard, and beyond that your humble childhood home.  At the top of
 the hill, southeast of you, you can see the chapel with its steeple, and at
 the foot of the hill, northeast of you, you can just make out the sign of the
-bus stop.
-
-Also here is a snail.
+bus stop.  Also here is a snail.
 It is daytime.
 
 You can only move east.
@@ -165,9 +163,7 @@ You move down.
 Bottom of Bell Tower
 You are at the bottom of the bell tower.  A rickety spiral stairway leads up
 the inside of the tower -- a long way up.  West returns to the chapel proper.
- A huge cracked bell is here.
-
-Also here is the rope.
+ A huge cracked bell is here.  Also here is the rope.
 
 You can move west and up.
 
@@ -189,9 +185,8 @@ Chapel Yard
 You are at the well.  You have fond childhood memories of this well, although
 none of them are occurring to you right now.  Your humble abode is to the
 east.  Fields are to the west.  The chapel is on top of the hill to the
-south.  Down the hill to the north there is the bus stop.
-
-Also here are the heavy cross.
+south.  Down the hill to the north there is the bus stop.  Also here are the
+heavy cross.
 It is daytime.
 
 You can move north, east, south and west.
@@ -203,9 +198,8 @@ Chapel Yard
 You are at the well.   One end of the rope is tied to the well quite
 securely; the rest lies on the ground.  Your humble abode is to the east.
 Fields are to the west.  The chapel is on top of the hill to the south.  Down
-the hill to the north there is the bus stop.
+the hill to the north there is the bus stop.  Also here are the heavy cross.
 
-Also here are the heavy cross.
 It is daytime.
 
 You can move north, east, south and west.
@@ -261,9 +255,7 @@ You move out.
 Bottom of Bell Tower
 You are at the bottom of the bell tower.  A rickety spiral stairway leads up
 the inside of the tower -- a long way up.  West returns to the chapel proper.
- A huge cracked bell is here.
-
-Also here are the heavy cross.
+ A huge cracked bell is here.  Also here are the heavy cross.
 
 You can move west, up and in.
 
@@ -309,9 +301,7 @@ You move down.
 Cellar
 The work space around the well-lit table in the center of the room remains
 clear, although cobwebs and dirt have claimed the periphery of the room.  A
-ladder in one corner leads to the trapdoor.
-
-Also here is the robot.
+ladder in one corner leads to the trapdoor.  Also here is the robot.
 
 You can only move up.
 
@@ -396,9 +386,7 @@ You move east.
 Bottom of Bell Tower
 You are at the bottom of the bell tower.  A rickety spiral stairway leads up
 the inside of the tower -- a long way up.  West returns to the chapel proper.
- A huge cracked bell is here.
-
-Also here are the heavy cross.
+ A huge cracked bell is here.  Also here are the heavy cross.
 
 You can move west, up and in.
 
@@ -462,9 +450,7 @@ You move down.
 Bottom of Bell Tower
 You are at the bottom of the bell tower.  A rickety spiral stairway leads up
 the inside of the tower -- a long way up.  West returns to the chapel proper.
- A huge cracked bell is here.
-
-Also here are the heavy cross.
+ A huge cracked bell is here.  Also here are the heavy cross.
 
 You can move west, up and in.
 
@@ -538,9 +524,8 @@ You move down.
 Cellar
 The work space around the well-lit table in the center of the room remains
 clear, although cobwebs and dirt have claimed the periphery of the room.  A
-ladder in one corner leads to the trapdoor.
-
-Also here are the plans and the robot.
+ladder in one corner leads to the trapdoor.  Also here are the plans and the
+robot.
 
 You can only move up.
 

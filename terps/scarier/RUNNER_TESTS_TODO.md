@@ -2097,9 +2097,13 @@ warning and the click coordinates.
 What survives the closure is a spacing observation, and it is not new: with the
 box ticked the Runner emits **one** newline before the heading (none if the
 text already ends in one) and joins the object list on with two spaces, where
-Scarier opens paragraphs. That is the standing "the Runner joins a turn's
-output into one paragraph, Scarier prints sections" divergence in §3 — already
-accepted, deliberately, because the whole golden corpus is written in sections.
+Scarier opens paragraphs. That was the standing "the Runner joins a turn's
+output into one paragraph, Scarier prints sections" divergence in §3 —
+**closed 2026-09-07 for the room block**, which is now built as the Runner's
+one concatenated string (see "Ported 2026-09-07: the room block is one string,
+joined by pspace()" in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md). The
+divergence still stands for the rest of a turn's output, where a library
+message and a task's text remain separate strings.
 
 **2. A `some` prefix survives into the take message in 3.8.** Spotted in the
 run380 screenshot taken for the row above: `You pick up some aluminum
@@ -2582,8 +2586,8 @@ which answers every part of it at once:
 `lib_print_room_contents()` (sclibrar.cpp) now collects the joined list first,
 from both routes, and the custom-text loop skips whatever the list took. Two
 things had to be handled that the Runner never sees, because the Runner has no
-line breaks in a room block at all (§3, the standing section-vs-paragraph
-divergence):
+line breaks in a room block at all (§3, then the standing
+section-vs-paragraph divergence):
 
 - Authors routinely start a character's in-room text with `\n` or `<br>` so
   the character gets its own line. The custom-text loop already stripped those
@@ -2597,6 +2601,17 @@ divergence):
   group that now shares the block with the characters it belongs among should
   not be fenced off from them, and one list to a line is what the rest of the
   room block already does.
+
+**Both bullets were retired on 2026-09-07**, when the section-vs-paragraph
+divergence itself was closed: the room block is now the Runner's single
+concatenated string, so there is no Scarier-side line break for either bullet
+to reason about. `lib_skip_leading_breaks()` is gone — run400 tests
+`Right(text, 9) = " is here."` @004729A7 and trims `Left(text, Len - 9)`
+@004729FE on the raw text, so `<br>Delta is here.` really does contribute
+`<br>Delta`, and the author's break lands after the two separator spaces. The
+joined sentence is preceded by the Runner's own hard-coded `"  "` @0047295B.
+See "Ported 2026-09-07: the room block is one string, joined by pspace()" in
+test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
 
 Regression: 81 v4 goldens re-blessed, and every hunk in them is the fold, the
 reorder, or the line rewrapping those two cause — 547 of the deleted lines are

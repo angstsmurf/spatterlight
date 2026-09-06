@@ -178,8 +178,8 @@ a bird bath
 
 and nothing else......
 
-although  "nothing else"  looks really clean......weird.
-Swinging on her porch swing, Old Lady Coot hums a perfect little song.
+although  "nothing else"  looks really clean......weird.  Swinging on her
+porch swing, Old Lady Coot hums a perfect little song.
 
 > shake bush
 The beetles fall to the ground and you are able to easily pick them up!
@@ -234,8 +234,8 @@ a bird bath
 
 and nothing else......
 
-although  "nothing else"  looks really clean......weird.
-Swinging on her porch swing, Old Lady Coot hums a perfect little song.
+although  "nothing else"  looks really clean......weird.  Swinging on her
+porch swing, Old Lady Coot hums a perfect little song.
 
 > west
 You move west.
@@ -279,8 +279,8 @@ a bird bath
 
 and nothing else......
 
-although  "nothing else"  looks really clean......weird.
-Swinging on her porch swing, Old Lady Coot hums a perfect little song.
+although  "nothing else"  looks really clean......weird.  Swinging on her
+porch swing, Old Lady Coot hums a perfect little song.
 
 > fill cauldron with water
 You dip the cauldron into the bird bath and fill it up with water........

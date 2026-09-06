@@ -24,9 +24,7 @@ You are in the part of your ship where you slept and ate for the past 4 days
 in space , up  , because of the way the ship came down , is the bridge and
 down is the storage room for your suits and food and such . The power is
 playing hell , shooting sparks from the wires and making the air toxic with
-ozone .
-
-Also here is body armour.
+ozone .  Also here is body armour.
 
 You can move up and down.
 
@@ -45,7 +43,6 @@ stored , however because of the crash most of the food and drinks are bad or
 full of dirt . There is a huge door here thats used for entrance and exit of
 the ship that has fortunately stayed up with no breaches .  To your luck you
 see three space suits hanging on the wall that look... in not bad shape .
-
 Also here is a space suit and a colt 45.
 
 You can only move up.
@@ -90,8 +87,7 @@ Near the tunnel's upper exit
 You can see a pale green light coming from down from a room you can't quite
 see yet , you don't think its a mine because all the mines extend from the
 main building . The tunnel is made the same way execpt it has a very large
-crack in the aluminum .
-An alien is here.
+crack in the aluminum .  An alien is here.
 
 You can move south and up.
 An alien hits you, but it doesn't seem to do any damage.
@@ -101,9 +97,8 @@ You move up.
 
 In the waste disposal area
 You are now standing in one of the more unpleasant areas , the sewer . I
-don't think you want to know what it looks like !!
-
-Also here is climbing equipment.
+don't think you want to know what it looks like !!  Also here is climbing
+equipment.
 
 You can only move down.
 
@@ -117,8 +112,7 @@ Near the tunnel's upper exit
 You can see a pale green light coming from down from a room you can't quite
 see yet , you don't think its a mine because all the mines extend from the
 main building . The tunnel is made the same way execpt it has a very large
-crack in the aluminum .
-An alien is here.
+crack in the aluminum .  An alien is here.
 
 You can move south and up.
 An alien hits you, but it doesn't seem to do any damage.
@@ -191,8 +185,7 @@ On the roof
 You are on the roof that appears to be a launch pad for small ships , there
 is a large tower in the middle of the roof that has a small  door on it that
 looks almost rusted through . There are lights on the top of the tower that
-are still illuminated for some reason .
-A small alien is here.
+are still illuminated for some reason .  A small alien is here.
 
 You can move down and in.
 A streak of lightning flashes on the horizon and a whirl of flame spits from
@@ -221,10 +214,8 @@ You are in the door way of the top area of the tower , there are lots of
 computers here mainly for monitoring flights in and out of the mining colony
 . There are no lights that are on in here but you can see because of the
 flaming clouds outside , the window is busted and there is no air or pressure
-.
-
-Also here is a light helmet and explode on inmpact bullets.
-A large alien is here.
+.  Also here is a light helmet and explode on inmpact bullets.  A large alien
+is here.
 
 You can only move down.
 A large alien hits you.
@@ -290,8 +281,7 @@ Near the tunnel's upper exit
 You can see a pale green light coming from down from a room you can't quite
 see yet , you don't think its a mine because all the mines extend from the
 main building . The tunnel is made the same way execpt it has a very large
-crack in the aluminum .
-An alien is here.
+crack in the aluminum .  An alien is here.
 
 You can move south and up.
 An alien hits you, but it doesn't seem to do any damage.
@@ -364,8 +354,7 @@ On the roof
 You are on the roof that appears to be a launch pad for small ships , there
 is a large tower in the middle of the roof that has a small  door on it that
 looks almost rusted through . There are lights on the top of the tower that
-are still illuminated for some reason .
-A small alien is here.
+are still illuminated for some reason .  A small alien is here.
 
 You can move down and in.
 A small alien hits you, but it doesn't seem to do any damage.

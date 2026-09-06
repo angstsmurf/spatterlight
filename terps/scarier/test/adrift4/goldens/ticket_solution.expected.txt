@@ -35,9 +35,8 @@ You are at the front of Coltby Railway Station.  All the stations that
 belonged to this company where built of local stone in a sort of mock
 Georgian style.  Now many years later and after decades of neglect and
 vandalism it looks a very sad place.  You can see many spaces for waiting
-taxi's (all empty) and the main entrance to the station.
-
-Against one wall you can see one of those wire frame rubbish bins.
+taxi's (all empty) and the main entrance to the station.  Against one wall
+you can see one of those wire frame rubbish bins.
 
 To the north you can see the station entrance.
 
@@ -62,10 +61,8 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.  A cat is silently wandering
+probably).  You can also see a set of double doors with glass panels.  The
+Ticket Seller is looking at you expectantly.  A cat is silently wandering
 around.  You can see a young girl wandering around looking very lost.
 
 You appear to be able to move north, south and west.
@@ -198,10 +195,8 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  You can also see a set of double doors with glass panels.  The
+Ticket Seller is looking at you expectantly.
 
 You appear to be able to move north, south and west.
 
@@ -219,11 +214,9 @@ You move north.
 Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
-you can see a large clock and next to it is a poster.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.
+you can see a large clock and next to it is a poster.    You can also see a
+set of double doors with glass panels.  The Porter is here leaning against
+the wall.  A drunk is sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.
 
@@ -250,9 +243,8 @@ Waiting Room
 Hoping for something different to the rest of the station you are
 disappointed.  You now find yourself in the Waiting Room which is drab, dirty
 and a very depressing room.  Just the place to wait for trains at Coltby.
-
-You can also see a magazine and a vending machine.
-Mrs Peters is waiting for a train.
+You can also see a magazine and a vending machine.  Mrs Peters is waiting for
+a train.
 
 The door out of the room is west.
 
@@ -393,11 +385,9 @@ You move west.
 Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
-you can see a large clock and next to it is a poster.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.
+you can see a large clock and next to it is a poster.    You can also see a
+set of double doors with glass panels.  The Porter is here leaning against
+the wall.  A drunk is sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.
 
@@ -409,9 +399,8 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A cat is silently wandering around.  A Trainspotter dressed in wet weather
-gear is watching you.
+platforms.  A cat is silently wandering around.  A Trainspotter dressed in
+wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.  A cat strolls out to
 the south-east.
@@ -449,13 +438,9 @@ You move northeast.
 Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
-the door to the toilets.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
-A large pigeon is watching you from the canopy over the platform.  It is
-still raining very hard.
+the door to the toilets.  You can see a large poster with a picture of a
+policeman on it.  You can also see a payphone.  A large pigeon is watching
+you from the canopy over the platform.  It is still raining very hard.
 
 You appear to be able to move north, east and southwest.
 
@@ -466,9 +451,7 @@ Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
 fireplace but it is a long time since it held a fire.   The fireplace
-contains a nice vase of flowers.
-
-You can also see a desk and a telephone.
+contains a nice vase of flowers.  You can also see a desk and a telephone.
 The Station Master is standing to one side.  A bearded chap is pacing up and
 down.  It is still raining very hard.
 
@@ -587,14 +570,10 @@ You move west.
 Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
-the door to the toilets.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
-A large pigeon is watching you from the canopy over the platform.  You can
-see a young girl wandering around looking very lost.  It is still raining
-very hard.
+the door to the toilets.  You can see a large poster with a picture of a
+policeman on it.  You can also see a payphone.  A large pigeon is watching
+you from the canopy over the platform.  You can see a young girl wandering
+around looking very lost.  It is still raining very hard.
 
 You appear to be able to move north, east and southwest.
 The young girl says "how get donningby?"  A cat strolls in from the
@@ -679,11 +658,9 @@ You move east.
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
-fireplace but it is a long time since it held a fire.
-
-You can also see a desk and a telephone.
-The Station Master is standing to one side.  A cat is silently wandering
-around.
+fireplace but it is a long time since it held a fire.   You can also see a
+desk and a telephone.  The Station Master is standing to one side.  A cat is
+silently wandering around.
 
 The door out of the room is west.  A cat strolls out to the west.
 
@@ -699,14 +676,10 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
-A cat is silently wandering around.  A large pigeon is watching you from the
-canopy over the platform.  You can see a young girl wandering around looking
-very lost.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.  A cat is silently wandering around.  A large pigeon
+is watching you from the canopy over the platform.  You can see a young girl
+wandering around looking very lost.
 
 You appear to be able to move north, east and southwest.
 The young girl says "need help."  A cat strolls out to the east.  A young
@@ -720,9 +693,8 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.  You can see a
-young girl wandering around looking very lost.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.  You
+can see a young girl wandering around looking very lost.
 
 You appear to be able to move northeast and southeast.
 The young girl says "next train going to donningby?"
@@ -802,11 +774,9 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.
 The porter is looking at you shoulder. "I can see the pigeons aim is getting
@@ -825,10 +795,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 
@@ -841,12 +810,9 @@ belonged to this company where built of local stone in a sort of mock
 Georgian style.  Now many years later and after decades of neglect and
 vandalism it looks a very sad place.  You can see many spaces for waiting
 taxi's (all empty) and the main entrance to the station.  You can see several
-large puddles from all the rain.
-
-Against one wall you can see one of those wire frame rubbish bins.
-
-You can also see a crumbled newspaper.
-A bearded chap is pacing up and down.
+large puddles from all the rain.  Against one wall you can see one of those
+wire frame rubbish bins.  You can also see a crumbled newspaper.  A bearded
+chap is pacing up and down.
 
 To the north you can see the station entrance.
 
@@ -933,10 +899,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a banana skin and a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.  A cat is silently wandering
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a banana skin and a set of double doors with glass panels.  The
+Ticket Seller is looking at you expectantly.  A cat is silently wandering
 around.
 
 You appear to be able to move north, south and west.
@@ -953,9 +918,8 @@ It is probably the first time you have been in this cafe (and it will be the
 last).  You have the feeling that a visit from the local heath inspector is
 long overdue.  A counter is before you on which you can see an old tea urn, a
 display unit and the till.  The other extensive facilities consist of one
-table and one chair. On one wall you can see a small notice board.
-
-You can also see a bag of shopping.
+table and one chair. On one wall you can see a small notice board.  You can
+also see a bag of shopping.
 
 The door out of the cafe is east.  A cat strolls in from the east.
 
@@ -981,10 +945,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a banana skin and a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.  A cat is silently wandering
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a banana skin and a set of double doors with glass panels.  The
+Ticket Seller is looking at you expectantly.  A cat is silently wandering
 around.
 
 You appear to be able to move north, south and west.
@@ -998,11 +961,9 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.
 
@@ -1034,10 +995,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a banana skin and a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a banana skin and a set of double doors with glass panels.  The
+Ticket Seller is looking at you expectantly.
 
 You appear to be able to move north, south and west.  A cat strolls in from
 the west.
@@ -1053,10 +1013,8 @@ belonged to this company where built of local stone in a sort of mock
 Georgian style.  Now many years later and after decades of neglect and
 vandalism it looks a very sad place.  You can see many spaces for waiting
 taxi's (all empty) and the main entrance to the station.  You can see several
-large puddles from all the rain.
-
-Against one wall you can see one of those wire frame rubbish bins.
-A bearded chap is pacing up and down.
+large puddles from all the rain.  Against one wall you can see one of those
+wire frame rubbish bins.  A bearded chap is pacing up and down.
 
 To the north you can see the station entrance.
 
@@ -1081,10 +1039,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a banana skin and a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a banana skin and a set of double doors with glass panels.  The
+Ticket Seller is looking at you expectantly.
 
 You appear to be able to move north, south and west.  A cat strolls in from
 the south.
@@ -1105,10 +1062,8 @@ belonged to this company where built of local stone in a sort of mock
 Georgian style.  Now many years later and after decades of neglect and
 vandalism it looks a very sad place.  You can see many spaces for waiting
 taxi's (all empty) and the main entrance to the station.  You can see several
-large puddles from all the rain.
-
-Against one wall you can see one of those wire frame rubbish bins.
-A bearded chap is pacing up and down.
+large puddles from all the rain.  Against one wall you can see one of those
+wire frame rubbish bins.  A bearded chap is pacing up and down.
 
 To the north you can see the station entrance.
 
@@ -1122,10 +1077,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 
@@ -1136,12 +1090,10 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  You can see a young girl wandering around looking very
-lost.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.  You can see a young girl wandering
+around looking very lost.
 
 You appear to be able to move east, south and northwest.
 The young girl says "need train to donningby."
@@ -1178,8 +1130,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
@@ -1247,11 +1198,9 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A cat is silently wandering around.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.  A cat is silently wandering around.
 
 You appear to be able to move east, south and northwest.
 You can hear a small bell tinkling which sounds just like one of those bells
@@ -1298,8 +1247,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
@@ -1310,12 +1258,9 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
-A large pigeon is watching you from the canopy over the platform.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.  A large pigeon is watching you from the canopy over
+the platform.
 
 You appear to be able to move north, east and southwest.
 
@@ -1326,12 +1271,9 @@ Left Luggage
 Although the whole station has seen better days, this room certainly can't
 have seen any worse.  The paint is peeling from the brick walls, the ceiling
 looks like it leaks and floorboards look rotten.  Still a good place to store
-left luggage.
-
-You can see a green box on one wall with the words First Aid on it.  Near the
-first aid box you can see a light switch.
-
-You can also see a suitcase, a sweeping brush, a bucket and a manual.
+left luggage.  You can see a green box on one wall with the words First Aid
+on it.  Near the first aid box you can see a light switch.  You can also see
+a suitcase, a sweeping brush, a bucket and a manual.
 
 The door out of the left luggage room is south.
 
@@ -1354,12 +1296,9 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
-A large pigeon is watching you from the canopy over the platform.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.  A large pigeon is watching you from the canopy over
+the platform.
 
 You appear to be able to move north, east and southwest.
 
@@ -1390,10 +1329,8 @@ You move east.
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
-fireplace but it is a long time since it held a fire.
-
-You can also see a desk and a telephone.
-The Station Master is standing to one side.
+fireplace but it is a long time since it held a fire.   You can also see a
+desk and a telephone.  The Station Master is standing to one side.
 
 The door out of the room is west.
 The Station Master says "I'm not sure this station can take two
@@ -1413,11 +1350,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
@@ -1429,8 +1363,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 The Trainspotters says "I going on holiday soon.  I'm going on a five Railway
@@ -1447,11 +1380,10 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see an apple core and a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A cat is silently wandering around.
+very slippery from all the rain.  You can also see an apple core and a set of
+double doors with glass panels.  The Porter is here leaning against the wall.
+ A drunk is sleeping off a heavy night on a bench.  A cat is silently
+wandering around.
 
 You appear to be able to move east, south and northwest.
 You can hear a small bell tinkling which sounds just like one of those bells
@@ -1469,10 +1401,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 The Ticket Sellers looks and says "seen any good trains today." He then
@@ -1487,10 +1418,8 @@ belonged to this company where built of local stone in a sort of mock
 Georgian style.  Now many years later and after decades of neglect and
 vandalism it looks a very sad place.  You can see many spaces for waiting
 taxi's (all empty) and the main entrance to the station.  You can see several
-large puddles from all the rain.
-
-Against one wall you can see one of those wire frame rubbish bins.
-A bearded chap is pacing up and down.
+large puddles from all the rain.  Against one wall you can see one of those
+wire frame rubbish bins.  A bearded chap is pacing up and down.
 
 To the north you can see the station entrance.
 
@@ -1504,10 +1433,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.  A cat strolls in from
 the north.
@@ -1521,11 +1449,9 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.
 
@@ -1540,8 +1466,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
@@ -1556,11 +1481,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
@@ -1570,10 +1492,8 @@ You move east.
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
-fireplace but it is a long time since it held a fire.
-
-You can also see a desk and a telephone.
-The Station Master is standing to one side.
+fireplace but it is a long time since it held a fire.   You can also see a
+desk and a telephone.  The Station Master is standing to one side.
 
 The door out of the room is west.
 
@@ -1592,11 +1512,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
@@ -1632,10 +1549,8 @@ You move east.
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
-fireplace but it is a long time since it held a fire.
-
-You can also see a desk and a telephone.
-The Station Master is standing to one side.
+fireplace but it is a long time since it held a fire.   You can also see a
+desk and a telephone.  The Station Master is standing to one side.
 
 The door out of the room is west.
 
@@ -1649,11 +1564,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
@@ -1665,9 +1577,8 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A cat is silently wandering around.  A Trainspotter dressed in wet weather
-gear is watching you.
+platforms.  A cat is silently wandering around.  A Trainspotter dressed in
+wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
@@ -1684,11 +1595,9 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.  A cat strolls in
 from the north-west.
@@ -1746,8 +1655,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
@@ -1766,12 +1674,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
-A cat is silently wandering around.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.  A cat is silently wandering around.
 
 You appear to be able to move north, east and southwest.  A cat strolls out
 to the south-west.
@@ -1783,12 +1687,9 @@ Left Luggage
 Although the whole station has seen better days, this room certainly can't
 have seen any worse.  The paint is peeling from the brick walls, the ceiling
 looks like it leaks and floorboards look rotten.  Still a good place to store
-left luggage.
-
-You can see a green box on one wall with the words First Aid on it.  Near the
-first aid box you can see a light switch.
-
-You can also see a suitcase, a sweeping brush and a bucket.
+left luggage.  You can see a green box on one wall with the words First Aid
+on it.  Near the first aid box you can see a light switch.  You can also see
+a suitcase, a sweeping brush and a bucket.
 
 The door out of the left luggage room is south.
 
@@ -1805,11 +1706,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
@@ -1821,8 +1719,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.  A cat strolls in from
 the south-east.
@@ -1836,11 +1733,9 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.
 
@@ -1906,9 +1801,7 @@ Waiting Room
 Hoping for something different to the rest of the station you are
 disappointed.  You now find yourself in the Waiting Room which is drab, dirty
 and a very depressing room.  Just the place to wait for trains at Coltby.
-
-You can also see a vending machine.
-A rather stout Business Man is here.
+You can also see a vending machine.  A rather stout Business Man is here.
 
 The door out of the room is west.
 The business man says "Hello, I thought I saw a cat behind you.  Please tell
@@ -2038,11 +1931,9 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.
 The porter says "if you see the Station Master before I do can you tell him a
@@ -2056,8 +1947,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
@@ -2068,11 +1958,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
@@ -2083,12 +1970,9 @@ Left Luggage
 Although the whole station has seen better days, this room certainly can't
 have seen any worse.  The paint is peeling from the brick walls, the ceiling
 looks like it leaks and floorboards look rotten.  Still a good place to store
-left luggage.
-
-You can see a green box on one wall with the words First Aid on it.  Near the
-first aid box you can see a light switch.
-
-You can also see a suitcase, a sweeping brush, a bucket and a parcel.
+left luggage.  You can see a green box on one wall with the words First Aid
+on it.  Near the first aid box you can see a light switch.  You can also see
+a suitcase, a sweeping brush, a bucket and a parcel.
 
 The door out of the left luggage room is south.
 
@@ -2136,11 +2020,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
@@ -2150,10 +2031,8 @@ You move east.
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
-fireplace but it is a long time since it held a fire.
-
-You can also see a desk and a telephone.
-The Station Master is standing to one side.
+fireplace but it is a long time since it held a fire.   You can also see a
+desk and a telephone.  The Station Master is standing to one side.
 
 The door out of the room is west.
 
@@ -2198,11 +2077,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
@@ -2217,8 +2093,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
@@ -2229,11 +2104,9 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.
 
@@ -2284,10 +2157,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 
@@ -2319,10 +2191,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 
@@ -2335,11 +2206,9 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-A drunk is sleeping off a heavy night on a bench.  A tall business woman is
-looking at you.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  A drunk is sleeping off a heavy night on a bench.  A tall
+business woman is looking at you.
 
 You appear to be able to move east, south and northwest.
 
@@ -2396,8 +2265,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 The Trainspotter looks at your eye and says "nasty black eye you have."
@@ -2411,11 +2279,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone and a chocolate wrapper.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone and a chocolate wrapper.
 
 You appear to be able to move north, east and southwest.
 
@@ -2425,10 +2290,8 @@ You move east.
 Private
 The warm and cosy Station Master's office is a pleasant surprise from the
 rest of the station.  It even has wallpaper and a carpet. The room has a
-fireplace but it is a long time since it held a fire.
-
-You can also see a desk, a telephone and a parcel.
-The Station Master is standing to one side.
+fireplace but it is a long time since it held a fire.   You can also see a
+desk, a telephone and a parcel.  The Station Master is standing to one side.
 
 The door out of the room is west.
 
@@ -2453,11 +2316,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone and a chocolate wrapper.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone and a chocolate wrapper.
 
 You appear to be able to move north, east and southwest.
 
@@ -2472,8 +2332,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
@@ -2492,11 +2351,10 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A tall business woman is looking at you.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.  A tall business woman is looking at
+you.
 
 You appear to be able to move east, south and northwest.
 
@@ -2507,10 +2365,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 
@@ -2523,10 +2380,8 @@ belonged to this company where built of local stone in a sort of mock
 Georgian style.  Now many years later and after decades of neglect and
 vandalism it looks a very sad place.  You can see many spaces for waiting
 taxi's (all empty) and the main entrance to the station.  You can see several
-large puddles from all the rain.
-
-Against one wall you can see one of those wire frame rubbish bins.
-A bearded chap is pacing up and down.
+large puddles from all the rain.  Against one wall you can see one of those
+wire frame rubbish bins.  A bearded chap is pacing up and down.
 
 To the north you can see the station entrance.
 
@@ -2547,10 +2402,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 
@@ -2561,11 +2415,10 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A tall business woman is looking at you.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.  A tall business woman is looking at
+you.
 
 You appear to be able to move east, south and northwest.
 
@@ -2597,8 +2450,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 The Trainspotters says "If you would like to look at my notes I will be happy
@@ -2611,11 +2463,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
@@ -2626,12 +2475,9 @@ Left Luggage
 Although the whole station has seen better days, this room certainly can't
 have seen any worse.  The paint is peeling from the brick walls, the ceiling
 looks like it leaks and floorboards look rotten.  Still a good place to store
-left luggage.
-
-You can see a green box on one wall with the words First Aid on it.  Near the
-first aid box you can see a light switch.
-
-You can also see a suitcase, a sweeping brush and a bucket.
+left luggage.  You can see a green box on one wall with the words First Aid
+on it.  Near the first aid box you can see a light switch.  You can also see
+a suitcase, a sweeping brush and a bucket.
 
 The door out of the left luggage room is south.
 
@@ -2645,11 +2491,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 A train arrives at Platform 1.  You just manage to catch the name Thrumpton
@@ -2664,8 +2507,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
@@ -2681,11 +2523,9 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a single sock and a set of double doors with glass panels.
-A drunk is sleeping off a heavy night on a bench.  A tall business woman is
-looking at you.
+very slippery from all the rain.  You can also see a single sock and a set of
+double doors with glass panels.  A drunk is sleeping off a heavy night on a
+bench.  A tall business woman is looking at you.
 
 You appear to be able to move east, south and northwest.
 
@@ -2698,10 +2538,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 
@@ -2719,11 +2558,9 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a single sock and a set of double doors with glass panels.
-A drunk is sleeping off a heavy night on a bench.  A tall business woman is
-looking at you.
+very slippery from all the rain.  You can also see a single sock and a set of
+double doors with glass panels.  A drunk is sleeping off a heavy night on a
+bench.  A tall business woman is looking at you.
 
 You appear to be able to move east, south and northwest.
 
@@ -2744,10 +2581,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 
@@ -2760,9 +2596,8 @@ belonged to this company where built of local stone in a sort of mock
 Georgian style.  Now many years later and after decades of neglect and
 vandalism it looks a very sad place.  You can see many spaces for waiting
 taxi's (all empty) and the main entrance to the station.  You can see several
-large puddles from all the rain.
-
-Against one wall you can see one of those wire frame rubbish bins.
+large puddles from all the rain.  Against one wall you can see one of those
+wire frame rubbish bins.
 
 To the north you can see the station entrance.
 
@@ -2776,10 +2611,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 Somewhere in the distance you hear the siren of a police car or perhaps a
@@ -2792,11 +2626,10 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A tall business woman is looking at you.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.  A tall business woman is looking at
+you.
 
 You appear to be able to move east, south and northwest.
 
@@ -2813,8 +2646,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 The Trainspotter sees you and says "I've just seen a Policeman at the
@@ -2830,11 +2662,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
@@ -2883,10 +2712,8 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-
-You can also see a hamburger carton.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  You can also see a hamburger carton.  A Trainspotter dressed in
+wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
@@ -2907,11 +2734,10 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A tall business woman is looking at you.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.  A tall business woman is looking at
+you.
 
 You appear to be able to move east, south and northwest.
 
@@ -2925,10 +2751,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 
@@ -2941,10 +2766,8 @@ belonged to this company where built of local stone in a sort of mock
 Georgian style.  Now many years later and after decades of neglect and
 vandalism it looks a very sad place.  You can see many spaces for waiting
 taxi's (all empty) and the main entrance to the station.  You can see several
-large puddles from all the rain.
-
-Against one wall you can see one of those wire frame rubbish bins.
-A Policeman is watching you very carefully.
+large puddles from all the rain.  Against one wall you can see one of those
+wire frame rubbish bins.  A Policeman is watching you very carefully.
 
 To the north you can see the station entrance.
 
@@ -2958,10 +2781,9 @@ Ticket Hall
 You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
-probably).  The floor is wet in here; the rain must have been blown in.
-
-You can also see a set of double doors with glass panels.
-The Ticket Seller is looking at you expectantly.
+probably).  The floor is wet in here; the rain must have been blown in.  You
+can also see a set of double doors with glass panels.  The Ticket Seller is
+looking at you expectantly.
 
 You appear to be able to move north, south and west.
 
@@ -2972,11 +2794,10 @@ Wet Platform 1
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
-very slippery from all the rain.
-
-You can also see a set of double doors with glass panels.
-The Porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A tall business woman is looking at you.
+very slippery from all the rain.  You can also see a set of double doors with
+glass panels.  The Porter is here leaning against the wall.  A drunk is
+sleeping off a heavy night on a bench.  A tall business woman is looking at
+you.
 
 You appear to be able to move east, south and northwest.
 
@@ -2988,8 +2809,7 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.
-A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
@@ -3000,12 +2820,8 @@ Wet Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
-rain.
-
-You can see a large poster with a picture of a policeman on it.
-
-You can also see a payphone and a credit card.
-You can see John Tailer!.
+rain.  You can see a large poster with a picture of a policeman on it.  You
+can also see a payphone and a credit card.  You can see John Tailer!.
 
 You appear to be able to move north, east and southwest.
 

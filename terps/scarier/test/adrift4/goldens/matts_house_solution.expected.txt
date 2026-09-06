@@ -9,8 +9,7 @@ he does in an average day.
 You move north.
 
 Hallway
-The hallway
-Dozer is here.
+The hallway  Dozer is here.
 
 You can move north, east, south and west.
 

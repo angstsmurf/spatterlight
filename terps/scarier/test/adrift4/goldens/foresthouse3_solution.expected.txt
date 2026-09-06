@@ -69,8 +69,7 @@ the back yard. Destination: the Forest House.
 Porch
 The porch is a simple cement slab in the forest ground. You don't remember it
 being there before, but it adds a nice touch to the house. A welcome mat
-beckons you into the front door here.
-Susie is here.
+beckons you into the front door here.  Susie is here.
 
 > look under mat
 You move the welcome mat to reveal a key underneath, which you pick up.
@@ -590,8 +589,7 @@ You move south.
 
 Nowhere
 All around you is pure white nothing, save for fluctuating portals to the
-east and west.
-The Master is here.
+east and west.  The Master is here.
 The blackness fades to white and you find you are standing. Around you is a
 white nothingness, devoid of anything but yourself. All of your possessions
 have vanished.

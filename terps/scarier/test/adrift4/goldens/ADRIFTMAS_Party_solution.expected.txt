@@ -57,9 +57,8 @@ These stone steps lead up to a covered entry, just outside the front door. A
 light layer of snow covers each stair, and has small bushes to each side.
 You can hear party guests inside, along with some soft Christmas music.
 Though you can't see through the tall, arched windows, the colorful Christmas
-lights make you feel cheerful and bright.
-Mystery is talking with some Drifters, making sure everyone is having a good
-time.
+lights make you feel cheerful and bright.  Mystery is talking with some
+Drifters, making sure everyone is having a good time.
 
 You can only move north.
 
@@ -141,9 +140,8 @@ You move north.
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
-foyer.
-Astridian is here, resting in the shadows.  Ds490 is here, socializing with
-some of the Drifters.
+foyer.  Astridian is here, resting in the shadows.  Ds490 is here,
+socializing with some of the Drifters.
 
 You can move north, south, west, northeast, southeast and southwest.
 Astridian slips out to the south-west.  The Invisible Man sidles
@@ -170,9 +168,8 @@ is the bathroom, and a closet is to the south.  Back to the east is the
 laundry room, while the backdoor lies to the west.  The kitchen is to the
 north. (Be specific when referring to doors! You need to type in which door
 you are referring to. The bathroom door, the closet door, the laundry room
-door, or the back door?)
-Cowboy is leaning on a nearby wall, taking in the scenery.  KF stands
-hunched, trying not to be noticed.
+door, or the back door?)  Cowboy is leaning on a nearby wall, taking in the
+scenery.  KF stands hunched, trying not to be noticed.
 
 You can move north and northwest.
 
@@ -185,9 +182,8 @@ You move south.
 Kitchen Hall Closet
 Being in this small closet reminds you of the time that the elves locked you
 in the woodshed for two days.  It wasn't worth the long days of cleaning out
-the reindeer stalls that they had to do for four months.
-
-Also here is the broom and the bucket.
+the reindeer stalls that they had to do for four months.    Also here is the
+broom and the bucket.
 
 You can only move north.
 
@@ -209,8 +205,7 @@ is the bathroom, and a closet is to the south.  Back to the east is the
 laundry room, while the backdoor lies to the west.  The kitchen is to the
 north. (Be specific when referring to doors! You need to type in which door
 you are referring to. The bathroom door, the closet door, the laundry room
-door, or the back door?)
-KF stands hunched, trying not to be noticed.
+door, or the back door?)  KF stands hunched, trying not to be noticed.
 
 You can move north, south and northwest.
 
@@ -261,9 +256,8 @@ The walls are kind of WILD in here, as opposed to the rest of the house.  In
 the center of the room is a billiards table, not too far away from a
 dartboard.  In the northwest corner of the room is a hanging chair, and is
 just to the right of the fireplace on the west wall. There is also a bar
-complete with fancy barstools.
-Samantha is behind the bar making drinks.  MileOut stands in the corner of
-the room, lip-synching with others present.
+complete with fancy barstools.  Samantha is behind the bar making drinks.
+MileOut stands in the corner of the room, lip-synching with others present.
 
 You can move east, south and out.
 
@@ -307,8 +301,8 @@ Tall arched windows rise high on the north wall, breaking up the blue of the
 walls. Against the east wall is a modern looking bed accompanied by dual
 nightstands. A mirror hangs on the east wall while a couple of other pictures
 hang on the west wall, near a chest of drawers.  Plush carpet covers the
-floor-providing cushion underfoot.  A door leads west to the patio.
-EdS is here, looking for more silverware to sneak into his pockets.
+floor-providing cushion underfoot.  A door leads west to the patio.  EdS is
+here, looking for more silverware to sneak into his pockets.
 
 You can move southeast and southwest.
 
@@ -331,9 +325,9 @@ and plasma television.  Located at the end each end of the sofa is a couple
 of end tables and faux plants. On the north wall, next to the patio door, is
 a state of the art stereo system, located in front of two tall, arched
 windows.  The highlight of the room is the tall ADRIFTmas tree filling up the
-west wall.
-Astridian is here, resting in the shadows.  Ds490 is here, socializing with
-some of the Drifters.  The invisible man lurks nervously near an exit.
+west wall.  Astridian is here, resting in the shadows.  Ds490 is here,
+socializing with some of the Drifters.  The invisible man lurks nervously
+near an exit.
 Nick Grimson is here, standing somewhat separate from everyone else, lost
 deep in thought about how to finish his ADRIFT game.
 
@@ -351,9 +345,8 @@ The walls are kind of WILD in here, as opposed to the rest of the house.  In
 the center of the room is a billiards table, not too far away from a
 dartboard.  In the northwest corner of the room is a hanging chair, and is
 just to the right of the fireplace on the west wall. There is also a bar
-complete with fancy barstools.
-Samantha is behind the bar making drinks.  MileOut stands in the corner of
-the room, lip-synching with others present.
+complete with fancy barstools.  Samantha is behind the bar making drinks.
+MileOut stands in the corner of the room, lip-synching with others present.
 
 You can move east, south and out.  KF walks in from the south.
 
@@ -392,10 +385,9 @@ and plasma television.  Located at the end each end of the sofa is a couple
 of end tables and faux plants. On the north wall, next to the patio door, is
 a state of the art stereo system, located in front of two tall, arched
 windows.  The highlight of the room is the tall ADRIFTmas tree filling up the
-west wall.
-Astridian is here, resting in the shadows.  Woodfish, his spiky blue hair
-catching your attention, stands with his hands in his jeans pockets, looking
-comfortably around the room.
+west wall.  Astridian is here, resting in the shadows.  Woodfish, his spiky
+blue hair catching your attention, stands with his hands in his jeans
+pockets, looking comfortably around the room.
 
 You can move south and west.
 
@@ -416,12 +408,11 @@ Study
 A large corner desk takes up space on the north and eastern wall, accompanied
 by matching framed prints.  A high back leather chair sits before the desk.
 Sitting atop a plant stand in the southeast corner is a very large Venus'
-Flytrap, near two arched windows on the south wall.
-DuoDave is here.
-davidw is standing here looking for someone to antagonize.  JJ Sonick is
-here, and seems to be distracted by thoughts of anime chracters battling
-sentient, philosophical kiwi fruits.  Mystery is talking with some Drifters,
-making sure everyone is having a good time.
+Flytrap, near two arched windows on the south wall.  DuoDave is here.  davidw
+is standing here looking for someone to antagonize.  JJ Sonick is here, and
+seems to be distracted by thoughts of anime chracters battling sentient,
+philosophical kiwi fruits.  Mystery is talking with some Drifters, making
+sure everyone is having a good time.
 
 You can move west and northwest.  Davidw goes  to the north-west.
 
@@ -447,9 +438,8 @@ You move northwest.
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
-foyer.
-davidw is standing here looking for someone to antagonize.  Lancer Sykera,
-Sky Samuri, is present in the area.
+foyer.  davidw is standing here looking for someone to antagonize.  Lancer
+Sykera, Sky Samuri, is present in the area.
 
 You can move north, south, west, northeast, southeast and southwest.  Lancer
 Sykera floats away through the air to the west.
@@ -482,10 +472,9 @@ You move northeast.
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
-foyer.
-DuoDave is here.
-davidw is standing here looking for someone to antagonize.  Mystery is
-talking with some Drifters, making sure everyone is having a good time.
+foyer.    DuoDave is here.  davidw is standing here looking for someone to
+antagonize.  Mystery is talking with some Drifters, making sure everyone is
+having a good time.
 
 You can move north, south, west, northeast, southeast and southwest.
 
@@ -497,9 +486,9 @@ Tall arched windows rise high on the north wall, breaking up the blue of the
 walls. Against the east wall is a modern looking bed accompanied by dual
 nightstands. A mirror hangs on the east wall while a couple of other pictures
 hang on the west wall, near a chest of drawers.  Plush carpet covers the
-floor-providing cushion underfoot.  A door leads west to the patio.
-The Mad Monk chats amiably with the other partygoers while strategically
-balancing five platefuls of food about his person.
+floor-providing cushion underfoot.  A door leads west to the patio.  The Mad
+Monk chats amiably with the other partygoers while strategically balancing
+five platefuls of food about his person.
 
 You can move southeast and southwest.
 
@@ -569,9 +558,9 @@ Tall arched windows rise high on the north wall, breaking up the blue of the
 walls. Against the east wall is a modern looking bed accompanied by dual
 nightstands. A mirror hangs on the east wall while a couple of other pictures
 hang on the west wall, near a chest of drawers.  Plush carpet covers the
-floor-providing cushion underfoot.  A door leads west to the patio.
-The Mad Monk chats amiably with the other partygoers while strategically
-balancing five platefuls of food about his person.
+floor-providing cushion underfoot.  A door leads west to the patio.  The Mad
+Monk chats amiably with the other partygoers while strategically balancing
+five platefuls of food about his person.
 
 You can move southeast and southwest.
 
@@ -581,10 +570,9 @@ You move southwest.
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
-foyer.
-DuoDave is here.
-Woodfish, his spiky blue hair catching your attention, stands with his hands
-in his jeans pockets, looking comfortably around the room.
+foyer.    DuoDave is here.  Woodfish, his spiky blue hair catching your
+attention, stands with his hands in his jeans pockets, looking comfortably
+around the room.
 
 You can move north, south, west, northeast, southeast and southwest.
 

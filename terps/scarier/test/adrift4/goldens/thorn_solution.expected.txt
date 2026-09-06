@@ -94,9 +94,8 @@ leads up into the tower.
 You move up.
 
 Inside the Church Tower
-The tower is an empty shell, like the rest of the church.
-
-A book lies in one corner. Discarded and forgotten perhaps.
+The tower is an empty shell, like the rest of the church.   A book lies in
+one corner. Discarded and forgotten perhaps.
 
 > take book
 You take the composition book.

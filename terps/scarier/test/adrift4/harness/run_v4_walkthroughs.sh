@@ -5118,12 +5118,42 @@ secidenoddcomp_solution.txt|seciden_oddcomp.taf|You scored 102 out of the maximu
 # Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
 # Re-blessed 2026-08-29: `examine jonah` no longer ticks, so the events/RNG after it shift by one turn.
 # NOT the listing rule (checked 2026-09-06): T0's "' Also here is a gun. '"
-# ALR never fires because run400 builds the whole room description as ONE
-# string with a literal "  Also here" (@00472696) while Scarier emits
+# ALR never fired because run400 builds the whole room description as ONE
+# string with a literal "  Also here" (@00472696) while Scarier emitted
 # "\nAlso here is ...\n", so the ALR Original -- which carries a leading and a
-# trailing space -- has nothing to match.  Fixing it means aligning the room
-# lister's whitespace with the Runner's, which moves many goldens; deferred,
-# see WINE-TRANSCRIPTS-TODO.md.
+# trailing space -- had nothing to match.
+# PORTED 2026-09-07, and T0 now matches Adrift_240_perspectives.txt byte for
+# byte.  run400's viewroom (Proc_19_63_472CA4) never terminates anything: it
+# concatenates the description, the object InRoomDescs, the "Also here" list,
+# the joined "X is here." sentence, the characters' own in-room texts and the
+# event LookTexts onto one module string, MemVar_4941B0.  The joins are
+# pspace() @0044A9F4 -- CONDITIONAL two spaces, skipped when the string
+# already ends in "  ", Chr(10) or "<br>" -- except at the "Also here" list
+# (literal "  Also here" @00472696) and the joined sentence (literal "  "
+# @0047295B), where the two spaces go in unconditionally.  Scarier now does
+# the same: pf_buffer_join() at the InRoomDesc and custom-text loops,
+# pf_undo_auto_break() + a literal "  " at the other two, and one terminator
+# for the whole block, only if it wrote anything.  The same pass dropped
+# lib_skip_leading_breaks(): the Runner tests Right(text, 9) = " is here."
+# @004729A7 and trims Left(text, Len - 9) @004729FE on the RAW text, so a
+# character's leading "<br>" survives and lands after the separator spaces
+# (Adrift_226_spooked.txt 120-122, Adrift_306_videotapedecay.txt 514-516,
+# Adrift_1_cybercow.txt 230-231).
+# The pre-ALR T0 string is "...wooden planks.<br><br>" + "  Also here is a
+# gun." + "  " + "On the floor, bleeding profusely is a dark haired male. " +
+# "  " + "<br>Jonah is here, ...<br>"; the ALR eats the second space of the
+# first pair and the first of the next, which is exactly the one leading
+# space the transcript shows before "On top of..." and before "On the
+# floor...", and the three trailing spaces before Jonah's <br>.
+# 288 goldens re-blessed, 284 whitespace-only.  The other four are author
+# ALRs that could not fire before, the same class as this one: datewithdeath
+# (' Hrolf, Strug and Bark are here.' -> "Your loyal bodyguards - ..."),
+# circus (a family of '  Joe' -> '  The vendor' rules, two leading spaces
+# each, each followed by a lowercase generic so only the room-list occurrence
+# capitalises) and vagabond (room 4; Adrift_42_vagabond.txt contains "George
+# is here." zero times).  Suite 428/428, ADRIFT 5 unchanged, and the
+# 61-transcript compare_wine_transcript.py sweep gives identical verdicts
+# before and after.  perspectives: diff 2 -> endtail 1.
 perspectives_solution.txt|perspectives.taf|Congratulations, you achieved the Negotiation Style Ending!|SCR_SKIP_WAITKEY=1
 # Big City Laundry (8088 bytes, 4.00): WON, no score system at all (zero
 # ACT type=4 across 30 tasks) -- the game's one good ending (TASK 26; TASK 28

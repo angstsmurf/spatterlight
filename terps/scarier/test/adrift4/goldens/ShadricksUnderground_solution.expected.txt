@@ -49,9 +49,8 @@ This is it.  Home sweet home.  A small bed for me Mum and Dad, and an even
 smaller bunk for my brother and I.  Mum put a sheet up over a length of rope
 in the middle to divide where our bed and their bed is.  She says it is so’s
 maybe the sound of father’s snoring is a little muffled so we can get enough
-sleep.  I don’t think that is the real reason though.
-
-Also here is an old lantern.
+sleep.  I don’t think that is the real reason though.  Also here is an old
+lantern.
 
 > take lantern
 I take the old lantern.
@@ -299,9 +298,8 @@ here, which leads me to believe that someone was recently here.
 
 The old ladder doesn't quite reach all the way down to the floor, but it
 doesn't exactly reach all the way to the hole either.  If it were not
-attached to the wall, it would be far below the hole.
-
-Also here is an old ladder.
+attached to the wall, it would be far below the hole.  Also here is an old
+ladder.
 
 > climb ladder
 I'm steadying myself at the bottom and begin to climb upward, towards the
@@ -374,7 +372,7 @@ A Dark tunnel
 This narrow tunnel leads west and south, and is intoxicating to be in.  The
 floor is piled high with bat droppings, and the stench is quite nauseating.
 
-Also here is a small boulder.
+  Also here is a small boulder.
 
 > take boulder
 I take the small boulder.
@@ -457,7 +455,6 @@ It looks like another dead end.  The walls are real crumbly and the floor of
 the tunnel is littered with dirt from above.  The door that once existed to
 the west is gone.  It doesn't appear the bats have taken over this part of
 the tunnel just yet, thought the smell of guano lingers heavily in the air.
-
 Also here is a medium boulder.
 
 > take boulder
@@ -489,6 +486,7 @@ The tunnel divides into four different directions here.  It goes south, while
 three other tunnels lead north, northeast, and northwest.  A strong odor of
 ammonia fills the air.  It is likely coming from the bat guano that covers
 the ground.
+
 Bat's are are flying about everywhere.  A flock of bats flutter away to the
 north.
 
@@ -596,9 +594,7 @@ A Dark Tunnel
 It looks like the dark tunnel goes southeast and southwest from here.  A tall
 stone door rises up to the south, but it doesn't look like there is a way to
 open it.  The smell of guano fills the air, though there doesn't seem to be
-any droppings here.
-
-Also here is a large boulder.
+any droppings here.  Also here is a large boulder.
 
 > push boulder sw
 "Grrrr. Hhhrrrmmmmmmmmmppphhhh."
@@ -879,6 +875,7 @@ The lantern flickers slightly with an invisible breeze that moves through the
 tunnel, only making the stench of the bat droppings that much more
 nauseating.  I can see that the tunnel branches off to the northeast and
 northwest, as well as to the south.
+
 Bat's are are flying about everywhere.  Hanson follows me in from the
 north-west.  A flock of bats flutter away to the north-east.
 
@@ -979,9 +976,8 @@ A Dark Tunnel
 Did I mention how much I hate spiders!?   The walls,  the dry spots on the
 floor, everything is crawling with spiders.  I can see the tunnel turns east
 from here, a very large, but quite smashed, spider lies squished on the
-floor.  I can now go east or south.
-
-Also here is a brick.  Hanson follows me in from the east.
+floor.  I can now go east or south.  Also here is a brick.  Hanson follows me
+in from the east.
 
 > s
 I move south.

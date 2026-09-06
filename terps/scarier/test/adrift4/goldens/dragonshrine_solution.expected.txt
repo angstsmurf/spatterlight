@@ -296,9 +296,7 @@ SW Chamber
 
 The chamber is completely empty. It looks like one of the stone tiles is
 loose in the far corner of the chamber. There is a door to the west and to
-the south.
-
-Also here is a clear bottle.
+the south.  Also here is a clear bottle.
 
 > take bottle
 You take the clear bottle.
@@ -341,9 +339,7 @@ The chapel looks in disrepair.  The benches that would make seating have all
 been busted up and are now strewn about the room.  Their only purpose now
 would be for firewood.  On the far side of the room, a very large stained
 glass window fills the eastern wall. It appears to be illuminated somehow,
-but by what is unknown. The door is to the west.
-
-Also here is the wood.
+but by what is unknown. The door is to the west.  Also here is the wood.
 
 > take wood
 You take the wood.
@@ -453,9 +449,8 @@ You move west.
 Bed Chamber
 
 The bedchamber is quite small, holding a nothing but an old bed frame.  A
-door to the east is the only exit.
-
-An old piece of linen is lying on the floor.
+door to the east is the only exit.  An old piece of linen is lying on the
+floor.
 
 > take linen
 You take the old piece of linen.
@@ -636,9 +631,8 @@ cover the entire western wall. Something about the shelves catches your
 interest.  Two high-back chairs sit to one side of a very large wooden desk.
 Some of the books are carelessly tossed about the floor, desk, and chairs.
 It looks as if someone may have been looking for something.  A narrow door
-leads east.
-
-There is a large book sitting all by itself on one of the shelves.
+leads east.  There is a large book sitting all by itself on one of the
+shelves.
 
 > x shelf
 The bookshelves line the entire western wall and are filled with many books
@@ -682,9 +676,7 @@ from what appears to be the body of a young woman, lying at lakeside.  There
 are also several men and women armed with pitchforks, clubs, and swords.
 They are searching for you.  For the moment, you are safely hidden. The
 passage leads back to the west, while all other directions lead outside the
-cave.
-
-Also here is the young woman's body.
+cave.  Also here is the young woman's body.
 
 > take body
 
@@ -720,7 +712,6 @@ part of the bookcase is turned to the side, revealing a secret passage.  Two
 high-back chairs sit to one side of a very large wooden desk.  Some of the
 books are carelessly tossed about the floor, desk, and chairs.  It looks as
 if someone may have been looking for something.  A narrow door leads east.
-
 There is a large book sitting all by itself on one of the shelves.
 
 > e

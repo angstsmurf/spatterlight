@@ -361,9 +361,8 @@ Under a hawthorn tree
 This is a natural room about four feet high and six feet across, underneath a
 tall hawthorn tree. There are some large stone blocks on the ground.
 Vegetation surrounds it in all directions, except for an enlarged animal
-track heading North.
-
-Also here is a length of rope.  Kiya flies in from the north.
+track heading North.  Also here is a length of rope.  Kiya flies in from the
+north.
 
 > take rope
 You take the length of rope.
@@ -418,8 +417,7 @@ Bottom of the Lane
 This is the bottom of the lane leading down from the castle. A small walled
 village lies ahead. The lane heads up the hill to the North and towards the
 village to the West. The woods are slightly thinner to the South, and
-probably passable.
-The Rune Master is here.  Kiya flies in.
+probably passable.  The Rune Master is here.  Kiya flies in.
 
 > talk to master
 The Rune Master steps up to you and looks at you for a moment. 'I wondered
@@ -466,8 +464,8 @@ You are in the common room of the village inn. There are a few chairs and
 tables, a bar in the corner (with Fred the barman stood behind), a fire in
 the middle of the room, and a set of steps up to the bedrooms. The door
 leading to the village is to the southwest. There is a badly concealed door
-to the North to Fred's house.
-Fred the innkeeper is here.  Kiya flies in from above.
+to the North to Fred's house.  Fred the innkeeper is here.  Kiya flies in
+from above.
 
 > southwest
 You move southwest.
@@ -501,8 +499,8 @@ Shipyard Office
 This is the office for the shipyard. It has had money lavished on it. The
 desk surface is green slate and the chairs are comfortable. There is nobody
 at the desk at the moment. There is a door to the West leading to the
-drydocks and a door South to the docks themselves.
-The Rune Master is here.  Kiya flies in from the east.
+drydocks and a door South to the docks themselves.  The Rune Master is here.
+Kiya flies in from the east.
 
 > talk to master
 The Rune Master stands up. 'Ah, you're here. Good. I've been talking to the
@@ -550,12 +548,11 @@ Master. There is also a rear-facing ballista, the mainmast, and some sheets.
 The foredeck is to the west and a hatchway leads down to the hold. All around
 you are empty plains. Directly behind you, another landship, similar in
 length to your ship, but thinner, taller, and more heavily armed, is gaining
-rapidly.
-The Rune Master is here.  The air is filled with the hissing of ballista
-bolts, yelling voices, the crackle of flames, the crash of lightning, and
-other assorted spells, as the Rune Master simultaneously fends off enemy
-spells, incinerates ballista bolts before they hit, and barrages the pursuit
-vessel with spells.  Kiya flies in from below.
+rapidly.  The Rune Master is here.  The air is filled with the hissing of
+ballista bolts, yelling voices, the crackle of flames, the crash of
+lightning, and other assorted spells, as the Rune Master simultaneously fends
+off enemy spells, incinerates ballista bolts before they hit, and barrages
+the pursuit vessel with spells.  Kiya flies in from below.
 
 > string ballista
 You string the ballista.

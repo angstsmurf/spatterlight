@@ -268,9 +268,8 @@ The uppermost branches of the trees are thick with bright green foliage,
 little buds of pink, purple, and orange, and a multitude of creatures
 skittering, slinking, and flapping about.
 
-Down below you is the forest floor.
-
-A little caterpillar moth is flying around.
+Down below you is the forest floor.  A little caterpillar moth is flying
+around.
 The sun is making its way slowly to the horizon.
 One of the many little green & brown caterpillars in these treetops is
 feasting on a nearby leaf.
@@ -392,9 +391,8 @@ The uppermost branches of the trees are thick with bright green foliage,
 little buds of pink, purple, and orange, and a multitude of creatures
 skittering, slinking, and flapping about.
 
-Down below you is the forest floor.
-
-A little caterpillar moth is flying around.
+Down below you is the forest floor.  A little caterpillar moth is flying
+around.
 The sun may be sleeping, but your hunt for food will continue into the night.
 
 > chirp
@@ -502,11 +500,9 @@ see a small hard-shelled beetle crawling off your leg onto the grass.
 You move in.
 
 Small Adobe Hut
-This little dwelling is made of mud.
-
-The room is lit by a torch on the wall.  There is a woven rug in the center
-of the floor.
-A hut dweller is standing in here, wondering what you are.
+This little dwelling is made of mud.   The room is lit by a torch on the
+wall.  There is a woven rug in the center of the floor.  A hut dweller is
+standing in here, wondering what you are.
 
 > eat torch
 You snatch the torch off the wall and chomp it to bits.  You are just about
@@ -552,10 +548,9 @@ fill your stomach.
 You move in.
 
 Small Adobe Hut
-This little dwelling is made of mud.
-
-There is a small hole in the middle of the floor where the rug used to be.
-A hut dweller is standing in here, wondering what you are.
+This little dwelling is made of mud.   There is a small hole in the middle of
+the floor where the rug used to be.  A hut dweller is standing in here,
+wondering what you are.
 
 > d
 You can only move out.
@@ -704,9 +699,8 @@ Hall of Humans
 The Hall of Humans is unlike anything you've ever seen.  The room must occupy
 almost the entire volume of the mesa.  Little adobe dwellings hang from
 platforms in the ceiling and humans are everywhere!   There are more woven
-rugs in here than you would've though possible.
-A human with a fancy hat stands in front of you as though it expects you to
-do something.
+rugs in here than you would've though possible.  A human with a fancy hat
+stands in front of you as though it expects you to do something.
 The human with the fancy hat approaches you, and places a beautiful platter
 of delicacies in front of you.  It stands and studies your face.
 

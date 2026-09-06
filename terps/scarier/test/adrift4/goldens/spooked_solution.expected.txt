@@ -97,6 +97,7 @@ End of Hallway
 To the west lies your office and the Field Lab. Through the door to your
 north are a series of smaller labs filled with buzzing scientists. To the
 south is an empty classroom. The exit from the building is east.
+
 Dem, the robotic guard, stands on duty in front of the door to the other
 labs.
 
@@ -148,6 +149,7 @@ End of Hallway
 To the west lies your office and the Field Lab. Through the door to your
 north are a series of smaller labs filled with buzzing scientists. To the
 south is an empty classroom. The exit from the building is east.
+
 Dem now lies folded over on the floor.
 
 > south
@@ -177,6 +179,7 @@ End of Hallway
 To the west lies your office and the Field Lab. Through the door to your
 north are a series of smaller labs filled with buzzing scientists. To the
 south is an empty classroom. The exit from the building is east.
+
 Dem now lies folded over on the floor.
 
 > north
@@ -202,6 +205,7 @@ experiments going on all over the lab. On each of the many tables there are
 glass beakers, tubes, flasks, and other scientifical stuff you couldn't care
 less about. Around them are scientists in lab coats working hard at the
 newest impractical gizmo.
+
 Samuel, your scientist pal, is here.
 
 > talk to sam
@@ -268,6 +272,7 @@ End of Hallway
 To the west lies your office and the Field Lab. Through the door to your
 north are a series of smaller labs filled with buzzing scientists. To the
 south is an empty classroom. The exit from the building is east.
+
 Dem now lies folded over on the floor.
 
 > west

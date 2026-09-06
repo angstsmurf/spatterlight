@@ -151,8 +151,8 @@ markets, where local farmers sell their produce, composting materials, and
 delicious homemade salsas on the weekend.
 
 Over there is the vendor's trailer, next to a low billboard.  North is a
-shady part of the festival and the luncheon hill is to the west.
-A grumpy-looking vendor sits behind the trailer window, scratching and
+shady part of the festival and the luncheon hill is to the west.  A
+grumpy-looking vendor sits behind the trailer window, scratching and
 snarling.
 
 > ask grumpy about strange
@@ -167,8 +167,8 @@ Rhyming Dude & Bucket
 Upon this hill, festival-goers oft eat their lunch.  Howe'er, there is
 currently only one person here, a busker offering rhymes.  A buskin' bucket
 layeth upright here.  The sketch artist's booth lies on a slope north of
-here, whereas a food vendor's trailer is to the east.
-Wally the Stray sitteth about here, occasionally licking at his paws.
+here, whereas a food vendor's trailer is to the east.  Wally the Stray
+sitteth about here, occasionally licking at his paws.
 
 > n
 Tiberius prances north.

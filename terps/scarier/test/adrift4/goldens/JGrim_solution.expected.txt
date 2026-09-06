@@ -327,13 +327,10 @@ where the tunnel narrows even more, or down, back to the broken elevator. The
 tunnel itself is grimy and the walling dented, as if the workmen who did this
 were in a hurry. One particularly thick shard actually juts out from the
 wall. In the distance, at the tight, far end of the tunnel, you can make out
-a metal grill.
-
-Glinting in the metal grill is a bright silver tray. The tray is wedged
-between the bars of the grill.  Streaks of mud and grime litter all sides of
-the tunnel shaft. Some of it comes away in your hand.
-
-Also here is a pair of workmen's boots.
+a metal grill.  Glinting in the metal grill is a bright silver tray. The tray
+is wedged between the bars of the grill.  Streaks of mud and grime litter all
+sides of the tunnel shaft. Some of it comes away in your hand.  Also here is
+a pair of workmen's boots.
 
 > take boots
 You take the pair of workmen's boots.
@@ -402,12 +399,10 @@ that ends in a large trolley stacked with trays.  There is a fishtank
 although it isn't very big, by the front of the stage at the far end of the
 hall. A gift shop is off to the west, and there is an emergency staircase
 nearby. You could also squeeze back north into the ventilation shaft. There
-is a huge sign above the ventilation shaft.
-
-A large steel dustbin sits next to the trolley.
-A large-bodied woman sits despondently at the front of the stage, her head
-between her hands, seemingly oblivious to the microphone stand that rests
-beside her.
+is a huge sign above the ventilation shaft.  A large steel dustbin sits next
+to the trolley.  A large-bodied woman sits despondently at the front of the
+stage, her head between her hands, seemingly oblivious to the microphone
+stand that rests beside her.
 
 The use of the word 'luxury' has been stretched to a new low.
 
@@ -432,9 +427,8 @@ wastepaper basket in the corner. Other shoppers mill around the shop,
 seemingly oblivious to the chaos outside. A large window looks out onto the
 darkness of space, and the exit leads back to the east.
 
-Muzak plays softly in the background.
-A glamorous shop assistant ignores you.  A pretty spanish maid vacuums the
-floor.
+Muzak plays softly in the background.  A glamorous shop assistant ignores
+you.  A pretty spanish maid vacuums the floor.
 
 > drop mud
 You drop the mud on the carpet and step back, waiting.
@@ -479,8 +473,8 @@ side of them. Against one wall is a railed serving area, mercifully closed,
 that ends in a large trolley stacked with trays.  There is a a large space
 where the fishtank used to be. A gift shop is off to the west, and there is
 an emergency staircase nearby. You could also squeeze back north into the
-ventilation shaft. There is a huge sign above the ventilation shaft.
-A large-bodied woman sits despondently at the front of the stage, her head
+ventilation shaft. There is a huge sign above the ventilation shaft.  A
+large-bodied woman sits despondently at the front of the stage, her head
 between her hands, seemingly oblivious to the microphone stand that rests
 beside her.
 
@@ -495,10 +489,8 @@ englishly, to be allowed onto one of a number of southerly escape pods. A
 large robot stands at the front of the queue, checking tickets.  A purple
 rope separates you from the queue, and the pods. On your side of the rope you
 can see a long chute disappearing out into space, a large vending machine,
-and a flight of stairs leading down.
-
-A battered child's space-suit lies in a crumpled heap. It looks serviceable,
-if a little worn and on the small side.
+and a flight of stairs leading down.  A battered child's space-suit lies in a
+crumpled heap. It looks serviceable, if a little worn and on the small side.
 A large Robot blocks your path.
 
 > take space-suit
@@ -555,8 +547,8 @@ side of them. Against one wall is a railed serving area, mercifully closed,
 that ends in a large trolley stacked with trays.  There is a a large space
 where the fishtank used to be. A gift shop is off to the west, and there is
 an emergency staircase nearby. You could also squeeze back north into the
-ventilation shaft. There is a huge sign above the ventilation shaft.
-A large-bodied woman sits despondently at the front of the stage, her head
+ventilation shaft. There is a huge sign above the ventilation shaft.  A
+large-bodied woman sits despondently at the front of the stage, her head
 between her hands, seemingly oblivious to the microphone stand that rests
 beside her.
 
@@ -586,8 +578,7 @@ englishly, to be allowed onto one of a number of southerly escape pods. A
 large robot stands at the front of the queue, checking tickets.  A purple
 rope separates you from the queue, and the pods. On your side of the rope you
 can see a long chute disappearing out into space, a large vending machine,
-and a flight of stairs leading down.
-A large Robot blocks your path.
+and a flight of stairs leading down.  A large Robot blocks your path.
 
 > wear space-suit
 With great difficulty you fight you way into the child's battered space-suit.
@@ -694,9 +685,8 @@ Launch Pad Thisaway
 It points towards the monument, and the hole.
 
 Behind the valley wall looms the huge shape of the Cittian. It seems that you
-weren't the only thing to crash land here.
-
-Also here is a broken, empty oxygen tank.
+weren't the only thing to crash land here.  Also here is a broken, empty
+oxygen tank.
 
 Feeling hungry you pop the prawn sandwiches into your mouth and munch happily
 until they are gone.
@@ -754,9 +744,8 @@ Launch Pad Thisaway
 It points towards the monument, and the hole.
 
 Behind the valley wall looms the huge shape of the Cittian. It seems that you
-weren't the only thing to crash land here.
-
-Also here is a broken, empty oxygen tank.
+weren't the only thing to crash land here.  Also here is a broken, empty
+oxygen tank.
 
 > e
 You step gingerly into the mouth of the cave. After a few moments of
@@ -794,10 +783,8 @@ technology. An impressive-looking chair sits in the centre of the room,
 facing a large computer panel. In front of the panel is a huge bay window,
 from which you can see the inside of the hangar. The rest of the ship lies
 behind you, to the west, and there is some kind of shuttle off to the south.
-
-Also here is a transparent alien dustbin.
-The hideous alien waits patiently by a bank of computers. He watches you
-expectantly.
+ Also here is a transparent alien dustbin.  The hideous alien waits patiently
+by a bank of computers. He watches you expectantly.
 The hideous alien turns to face you. His mouth opens, and he emits a strange
 series of hight-pitched beeps and whistles.
 
@@ -815,10 +802,9 @@ technology. An impressive-looking chair sits in the centre of the room,
 facing a large computer panel. In front of the panel is a huge bay window,
 from which you can see the inside of the hangar. The rest of the ship lies
 behind you, to the west, and there is some kind of shuttle off to the south.
-
-Also here is a transparent alien dustbin.
-The hideous alien waits patiently by a bank of computers. He watches you
-expectantly.  The hideous alien gestures towards the large Captain's chair.
+ Also here is a transparent alien dustbin.  The hideous alien waits patiently
+by a bank of computers. He watches you expectantly.  The hideous alien
+gestures towards the large Captain's chair.
 
 > sit on chair
 You settle down in the Captain's chair. The hideous alien gives you a curt
@@ -837,11 +823,10 @@ rubbish chute, and what looks like a microwave break up the complex
 technology. An impressive-looking chair sits in the centre of the room,
 facing a large computer panel. In front of the panel is a huge bay window,
 from which you can see the planet Jupiter. The rest of the ship lies behind
-you, to the west, and there is some kind of shuttle off to the south.
-
-Also here is a transparent alien dustbin.
-The hideous alien waits patiently by a bank of computers. He watches you
-expectantly.  The hideous alien gestures towards the large Captain's chair.
+you, to the west, and there is some kind of shuttle off to the south.   Also
+here is a transparent alien dustbin.  The hideous alien waits patiently by a
+bank of computers. He watches you expectantly.  The hideous alien gestures
+towards the large Captain's chair.
 
 The ship floats in space, Jupiter just a planet beneath you.
 
@@ -1039,8 +1024,7 @@ technology. An impressive-looking chair sits in the centre of the room,
 facing a large computer panel. In front of the panel is a huge bay window,
 from which you can see the remains of the planet Jupiter. The rest of the
 ship lies behind you, to the west, and there are locked doors where the
-escape pod used to be.
-A hideous and headless alien corpse is here.
+escape pod used to be.   A hideous and headless alien corpse is here.
 
 The ship is disintegrating around you, the aliens obviously decided that they
 were going to take you, and it, with them.

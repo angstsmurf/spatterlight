@@ -38,9 +38,8 @@ You move north.
 tower was in service. The walls are plan grey stone bricks and strangly there
 are no windows in this guest room. The walls also have some mold on them.
 There in the corner is a bed  and a chest.  There seems to be some money on
-the chest and a note. There are exits to the south and the north.
-
-Also here is 500 gold and old note.
+the chest and a note. There are exits to the south and the north.  Also here
+is 500 gold and old note.
 
 > take gold
 You pick up 500 gold.
@@ -63,9 +62,8 @@ This hallway connects the quarters with the rest of the tower.  The walls are
 grey moldy brick stone. There is a small window on either side of the
 hallway. As you look out those windows you can see the startling wonderful
 courtyard with fine green grass and flowers.  Funny you though no one lived
-in this tower.There is an exit to the east and back to the west.
-Just as your looking back into the hallway you notice an old man in the
-corner.
+in this tower.There is an exit to the east and back to the west.  Just as
+your looking back into the hallway you notice an old man in the corner.
 
 > ask old man about the book of fistandantalus
  Hello my name is Rastlin Majiere. Yes the book well maybe I should start
@@ -93,9 +91,8 @@ You move east.
 This was clearly a kitchen.  There are about 5 stoves and countless numbers
 of cookware.  There is still some freash bread and some turkey and the
 stoves.  Clearly Rastlin Majiere cooks for himslef. There is an exit to the
-morth and west back to the library.
-
-Also here is fresh bread and fresh turkey.
+morth and west back to the library.  Also here is fresh bread and fresh
+turkey.
 
 > north
 You move north.
@@ -103,9 +100,7 @@ This is a storage room for all the food.  It is mostly barren. The cobwebs
 have certainly taken over in this room and there seems to be a very thick
 layer of dust on the floor.  You see a few rats scurry into there holes as
 you walk in. There is a chest in the corner and a note at your feet. The only
-exit is back where you came from.
-
-Also here is old note and old chest.
+exit is back where you came from.  Also here is old note and old chest.
 
 > read old note
 When you open the chest  your real test to see if your worthy of my book will
@@ -125,9 +120,7 @@ All of  a sudden a gost appers!  " Do not be alarmed.  I am fistandantalus.
 You have proven your self worthy of this book.  Tell the caretaker that I
 appreciate his help.  Now that I have someone to restart my studies with this
 book I can rest in peace.  Thank you so very much." As he vanashied a book
-appears on a barran table.
-
-Also here is old book.
+appears on a barran table.  Also here is old book.
 
 > take book
 You pick up old book.

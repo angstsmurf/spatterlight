@@ -50,11 +50,8 @@ Please enter your name:
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
-a crowd fills the street.
-
-Also here is a pile of rubbish.
-Kiris is here.  The street is busy with people walking, purchasing, and
-talking.
+a crowd fills the street.  Also here is a pile of rubbish.  Kiris is here.
+The street is busy with people walking, purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -74,9 +71,9 @@ Inside Hartho's Golden Tavern
 This is a brightly lit tavern. People are jammed in here, and Harthro is
 managing all of their orders. The smell of meat, work, and pure human
 entertainment fill your nostrils. If you're hungry or thirsty, ask Harthro
-about the menu. Also here is the dirty dish rack.
-Harthro is here.  Hartho's Golden Tavern is alive with laughter, joy, and an
-overall sense of loud peace.
+about the menu. Also here is the dirty dish rack.  Harthro is here.  Hartho's
+Golden Tavern is alive with laughter, joy, and an overall sense of loud
+peace.
 
 You can only move west.
 
@@ -113,11 +110,8 @@ You move west.
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
-a crowd fills the street.
-
-Also here is a pile of rubbish.
-Ormulus and Kiris are here.  The street is busy with people walking,
-purchasing, and talking.
+a crowd fills the street.  Also here is a pile of rubbish.  Ormulus and Kiris
+are here.  The street is busy with people walking, purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -125,8 +119,7 @@ You can move north, east, south and west.
 You move west.
 
 In Golapho's Armor
-You are in Golapho's Armor shop. There is a item sign here.
-Golapho is here.
+You are in Golapho's Armor shop. There is a item sign here.  Golapho is here.
 
 You can only move east.
 
@@ -153,11 +146,8 @@ You move east.
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
-a crowd fills the street.
-
-Also here is a pile of rubbish.
-Ormulus and Kiris are here.  The street is busy with people walking,
-purchasing, and talking.
+a crowd fills the street.  Also here is a pile of rubbish.  Ormulus and Kiris
+are here.  The street is busy with people walking, purchasing, and talking.
 
 You can move north, east, south and west.
 
@@ -178,8 +168,7 @@ You move south.
 In Calado's Metal Works
 This is shop where you can buy metal items, such as swords, shields, and
 knives. Ask Calado about any of those categories and he will tell you what he
-has available for sale.
-Calado is here.
+has available for sale.  Calado is here.
 
 You can only move north.
 
@@ -208,8 +197,7 @@ You move southeast.
 In Gralle's Inn
 This is Gralle's Inn, the place for newcomers to stay. Gralle is the young
 heir to the inn, after her father, Tullin, was killed in the hunting
-campaigns. You may ask Gralle about staying here.
-Gralle is here.
+campaigns. You may ask Gralle about staying here.  Gralle is here.
 
 You can only move northwest.
 
@@ -242,8 +230,8 @@ You move out.
 In Gralle's Inn
 This is Gralle's Inn, the place for newcomers to stay. Gralle is the young
 heir to the inn, after her father, Tullin, was killed in the hunting
-campaigns. You may ask Gralle about staying here.
-Gralle is here.  You currently have room rented at Gralle's Inn.
+campaigns. You may ask Gralle about staying here.  Gralle is here.  You
+currently have room rented at Gralle's Inn.
 
 You can move in and northwest.
 
@@ -264,11 +252,9 @@ You move north.
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
-a crowd fills the street.
-
-Also here is a pile of rubbish.
-Ormulus and Kiris are here.  The street is busy with people walking,
-purchasing, and talking.  You currently have room rented at Gralle's Inn.
+a crowd fills the street.  Also here is a pile of rubbish.  Ormulus and Kiris
+are here.  The street is busy with people walking, purchasing, and talking.
+You currently have room rented at Gralle's Inn.
 
 You can move north, east, south and west.
 
@@ -295,8 +281,8 @@ random bandit attacks. Everyone knows that these bandits, when killed, may
 carry small or large amounts of money. Therefore, as bandits find their
 source of money in harassing travelers, some people find their source of
 money hunting these bandits. (Hint- after killing a bandit, use the command
-'search for money' to search their dead bodies for money.
-There is a bandit here!!  You currently have room rented at Gralle's Inn.
+'search for money' to search their dead bodies for money.  There is a bandit
+here!!  You currently have room rented at Gralle's Inn.
 
 You can move north and south.
 
@@ -347,8 +333,8 @@ You move north.
 In the Northern Forest
 This is the Northern Forest. It is thick with trees, moss, rocks, and ferns.
 You spot various piles of deer droppings, letting you know that this is an
-area that deer pass by.
-Deer is here.  You currently have room rented at Gralle's Inn.
+area that deer pass by.  Deer is here.  You currently have room rented at
+Gralle's Inn.
 
 You can only move south.
 
@@ -402,11 +388,9 @@ You move south.
 In a busy street
 This is a busy street. You see the crowd here buzzing buy, murmuring to
 itself and buying things. There's a street lamp on the side of the road, and
-a crowd fills the street.
-
-Also here is a pile of rubbish.
-Ormulus and Kiris are here.  The street is busy with people walking,
-purchasing, and talking.  You currently have room rented at Gralle's Inn.
+a crowd fills the street.  Also here is a pile of rubbish.  Ormulus and Kiris
+are here.  The street is busy with people walking, purchasing, and talking.
+You currently have room rented at Gralle's Inn.
 
 You can move north, east, south and west.
 
@@ -417,9 +401,8 @@ At Poel's Plaza
 This is a small plaza of shops and stalls. It was named after the first
 Council Officer del Economica, Preu Poel. To the south is a metalsmith's
 shop, to the southeast is an inn, to the north is a crowded street, and to
-the west is a road.
-Pahlidro keeps a stern yet calm eye on the surrounding area.  You currently
-have room rented at Gralle's Inn.
+the west is a road.  Pahlidro keeps a stern yet calm eye on the surrounding
+area.  You currently have room rented at Gralle's Inn.
 
 You can move north, east, south, west and southeast.
 
@@ -437,8 +420,8 @@ You move south.
 
 Butcher Shop
 This is a butcher shop. You can see many dead carcasses hanging against the
-wall, behind the counter. The name of the butcher is Drako.
-Drako is here.  You currently have room rented at Gralle's Inn.
+wall, behind the counter. The name of the butcher is Drako.  Drako is here.
+You currently have room rented at Gralle's Inn.
 
 You can only move north.
 

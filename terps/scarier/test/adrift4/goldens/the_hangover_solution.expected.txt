@@ -43,9 +43,7 @@ You have a horrid hangover and no asprin in the apartment. This is your
 bedroom. Your ill-loking bed takes up most of the space. You have a closet
 and a bath robe on the floor. you should really take your robe and put it on.
 Its a good place to store things. To the east is your bathroom and to your
-west is the rest of your apartment.
-
-Also here is your bathrobe.
+west is the rest of your apartment.  Also here is your bathrobe.
 
 > take bathrobe
 You pick up your bathrobe.
@@ -68,8 +66,7 @@ everything else besides a bathroom. You have a kicthen counter and a fridge.
 There seems to be a table with three chairs. You have a TV and a couch as
 well... and a women is sleeping on the couch. How the hell did someone like
 you pull that off? She must have been drunk and by your headache so were you.
-To the north is the exit. To the east is Your Bedroom.
-The women is here.
+To the north is the exit. To the east is Your Bedroom.  The women is here.
 
 > n
 You move north.
@@ -81,9 +78,7 @@ raging pack of monkeys came through here. There seems to be an ample supply
 of posters about some rock concert. To the south is your apartment. Your mail
 is at your feet. To the north is the staircase. To the east would the an
 empty apartment but there seems to be police tape around it. Good thing your
-a hard sleeper I suppose.
-
-Also here is your mail.
+a hard sleeper I suppose.  Also here is your mail.
 
 > take mail
 You pick up your mail.
@@ -134,8 +129,7 @@ This is the bus stop. This is the real slum. There are more posters all over
 the bench, the sidewalk is wet and slimey, and there seems to be a bench. The
 sun continues to make your headache worse. To the east is Fredrick Avenue. To
 the west is Tennant Street.  There is a bum on the bench. You should really
-get him off the bench.
-The bum is here.
+get him off the bench.  The bum is here.
 
 > kick bum
 You have the kicked the bum right off the bench! He is in a terrible mood but
@@ -150,8 +144,7 @@ You are inside the bus. There is no one onboard except the bus driver who has
 overly large headphones. You take you seat on the pleather bus seat. The
 pleather seems to have been torn and is mostly gone. There is also a blood
 stain on the seat next to you. The roar of the engine is terrible for your
-headache. You should just wait and get this ride over with.
-Driver is here.
+headache. You should just wait and get this ride over with.  Driver is here.
 
 > wait
 The bus has now arrived at Corperate Street where every snooty business man
@@ -167,8 +160,7 @@ They all look the same except what sign is over the enternece. And you came
 here in your pajamas! These suites are going to eat you alive. The bus has
 left you. There is also a dog here. He seem's very hungry. If only you could
 give him some food. The only place to go now is the 42nd Bank of America to
-the north.
-That dog is here.
+the north.  That dog is here.
 
 > n
 You move north.
@@ -178,8 +170,7 @@ The lobby is covered in tile with waiting benches, a metal detector, and a
 secretary behind a rather large desk. The room smells rather odd and the
 secruity is sleeping. The benches are all occupied but random people in
 suites, forcing you to stand in your bathrobe. This could not be awkward. You
-should ask the secretary about debit card.
-Secretary is here.
+should ask the secretary about debit card.  Secretary is here.
 
 > ask secretary about mail
 You recieved a letter about your card in your mail. If you didn't bring your
@@ -198,8 +189,7 @@ front of you while the massive ammount of cubicles loom behind the single
 desk. Behind the single desk is a short man in a suite stamping some papers
 with a bluetooth earpiece in his ear. This is the sad image of bureaucracy.
 The vast ammount of typing is not helping your headache. His nameplate on the
-desk reads Walter. The Lobby is to the east.
-Walter is here.
+desk reads Walter. The Lobby is to the east.  Walter is here.
 
 > ask walter about debit card
 I cannot process this form. You need the Card Name Replacement Form Approval
@@ -215,8 +205,7 @@ The lobby is covered in tile with waiting benches, a metal detector, and a
 secretary behind a rather large desk. The room smells rather odd and the
 secruity is sleeping. The benches are all occupied but random people in
 suites, forcing you to stand in your bathrobe. This could not be awkward. You
-should ask the secretary about debit card.
-Secretary is here.
+should ask the secretary about debit card.  Secretary is here.
 
 > give the approval note to secretary
 Okay, the approval form office is downstairs in the cellar. No elevator goes
@@ -233,8 +222,7 @@ blocking off the cubicles and sitting, well, laying behind the desk on a
 small bean bag is a platypus. The nametag on the desk simply says "The
 Platypus - Director of Form Requests" Well, the upside is that the cellar is
 dark so your head doesn't hurt as bad. You should try to speak with the
-platypus. To the east is back to the lobby.
-Platypus is here.
+platypus. To the east is back to the lobby.  Platypus is here.
 
 > ask platypus about approval note
 Another person needs an approval form? Well, the certain form your looking,
@@ -306,8 +294,7 @@ You've made your way to the cafeteria. The entire room is white. The tables,
 plates, and clothes. The meal seems to be egg whites and milk. You and your
 terrible bathrobe stick out like a sore thumb. all the patients have name
 tags. There is a Larry, Moe, and Curly. There is also a doctor. You should
-probably talk to him.
-Curly, Larry and Doctor are here.
+probably talk to him.  Curly, Larry and Doctor are here.
 
 > ask doctor about approval form
 Its been awhile since someone has come thorugh here for the apporval form. If
@@ -370,8 +357,7 @@ here in your pajamas! These suites are going to eat you alive. The bus has
 left you. There is also a dog here. He seem's very hungry. If only you could
 give him some food. The only place to go now is the 42nd Bank of America to
 the north if you are wearing your robe. I highly doubt any of them would help
-you with a robe to cover up you pajamas.
-That dog is here.
+you with a robe to cover up you pajamas.  That dog is here.
 
 > wear bathrobe
 You put on your bathrobe.
@@ -387,8 +373,7 @@ The lobby is covered in tile with waiting benches, a metal detector, and a
 secretary behind a rather large desk. The room smells rather odd and the
 secruity is sleeping. The benches are all occupied but random people in
 suites, forcing you to stand in your bathrobe. This could not be awkward. You
-should ask the secretary about debit card.
-Secretary is here.
+should ask the secretary about debit card.  Secretary is here.
 
 > e
 You move east.
@@ -397,8 +382,7 @@ Form Process Office
 This is a massive room with many many cubicles. There is a single desk in
 front of you while the massive ammount of cubicles loom behind the single
 desk.  Except this time, the platypus is here. He seems happy. You give
-approval notes to platypus.
-Walter is here.
+approval notes to platypus.  Walter is here.
 
 > give approval notes to platypus
 Give what?

@@ -30,9 +30,8 @@ My bed is here, unmade and not without its own compliment of toys and stuffed
 animals.  There are shelves above the bed, and a chest of drawers beside it.
 A small window is set into the wall, between the shelves and above the bed,
 and its curtains are waving in the cool breeze.  My closet is to the south,
-and I can reach the second-floor hall by going west.
-
-Before me lies an interactive fiction magazine.
+and I can reach the second-floor hall by going west.  Before me lies an
+interactive fiction magazine.
 
 I can move south and west.
 
@@ -46,9 +45,8 @@ My Closet
 I have a walk-in-closet with lots of room for all my shoes, clothes, and
 whatnots.  Oddly enough, I never really keep my clothes in here.  Instead, I
 always put them in the chest of drawers in my room.  The closet serves other
-purposes, as it has many a use in my make-believes.
-
-Before me lies a broom and a dustpan.
+purposes, as it has many a use in my make-believes.  Before me lies a broom
+and a dustpan.
 
 I can only move north.
 
@@ -68,9 +66,8 @@ My bed is here, unmade and not without its own compliment of toys and stuffed
 animals.  There are shelves above the bed, and a chest of drawers beside it.
 A small window is set into the wall, between the shelves and above the bed,
 and its curtains are waving in the cool breeze.  My closet is to the south,
-and I can reach the second-floor hall by going west.
-
-Before me lies an interactive fiction magazine.
+and I can reach the second-floor hall by going west.  Before me lies an
+interactive fiction magazine.
 
 I can move south and west.
 
@@ -111,8 +108,8 @@ television with his beer-drinking buddies.  There is a television here, as
 well as a couch and a coffee table.  Stairs lead up from here to the upstairs
 hall.  The kitchen lies to the north of here, my parents' bedroom to the west
 (off-limits to me), and the bathroom is to the east.  A door leading to the
-outside is to the south, but I can't go that way yet.
-Dad is here, lounging on the couch and smoking a cigarette.
+outside is to the south, but I can't go that way yet.  Dad is here, lounging
+on the couch and smoking a cigarette.
 
 I can move north, east and up.
 
@@ -156,8 +153,8 @@ television with his beer-drinking buddies.  There is a television here, as
 well as a couch and a coffee table.  Stairs lead up from here to the upstairs
 hall.  The kitchen lies to the north of here, my parents' bedroom to the west
 (off-limits to me), and the bathroom is to the east.  A door leading to the
-outside is to the south, but I can't go that way yet.
-Dad is here, lounging on the couch and smoking a cigarette.
+outside is to the south, but I can't go that way yet.  Dad is here, lounging
+on the couch and smoking a cigarette.
 
 I can move north, east and up.
 
@@ -323,8 +320,8 @@ television with his beer-drinking buddies.  There is a television here, as
 well as a couch and coffee table.  Stairs lead up from here to the upstairs
 hall.  The kitchen lies to the north of here, my parents' bedroom to the west
 (off-limits to me), and the bathroom is to the east.  A door leading to the
-outside is to the south.
-Dad is here, lounging on the couch and smoking a cigarette.
+outside is to the south.  Dad is here, lounging on the couch and smoking a
+cigarette.
 
 I can move north, east, south and up.
 
@@ -407,8 +404,7 @@ This is where most people in town do their shopping.  You can get almost
 anything here, except for medicinal items, which one has to go all the way to
 Torncloth to buy.  There are several rows here stacked floor to ceiling with
 items.  While it's not exactly a Wal-mart, it is a pretty handy place to go
-when one needs something.
-Mystery is here, standing behind the counter.
+when one needs something.  Mystery is here, standing behind the counter.
 
 I can only move east.
 
@@ -450,8 +446,8 @@ is very well stocked.  Last year, my mom bought me a fish tank and some fish
 from here, as a test to see if I was ready for taking care of a pet.  I
 failed that test miserably, and my poor little goldfish are probably swimming
 in the sewers right now... belly up.  I like the owner, though.  He lets me
-browse through the merchandise all the time.
-Campbell is here, standing behind the counter.
+browse through the merchandise all the time.  Campbell is here, standing
+behind the counter.
 
 I can move east and west.
 
@@ -498,8 +494,8 @@ is very well stocked.  Last year, my mom bought me a fish tank and some fish
 from here, as a test to see if I was ready for taking care of a pet.  I
 failed that test miserably, and my poor little goldfish are probably swimming
 in the sewers right now... belly up.  I like the owner, though.  He lets me
-browse through the merchandise all the time.
-Campbell is here, standing behind the counter.
+browse through the merchandise all the time.  Campbell is here, standing
+behind the counter.
 
 I can move east and west.
 
@@ -582,8 +578,7 @@ and the mosquitoes to come out.  Then, protected by mosquito repellent, we
 rock back and forth on the porch swing and watch the mosquitoes get fried by
 the industrial sized bug zapper.  It's loads of fun when there is not much
 else to do, especially when one of the larger bugs makes it through the wire
-mesh of the zapper.
-Devon is here, sitting on the swing.
+mesh of the zapper.  Devon is here, sitting on the swing.
 
 I can move south and west.
 
@@ -615,9 +610,8 @@ Despite its outward appearance, things are rather well organized inside the
 toolshed.  Every tool has its own place, and every nail, screw, staple, and
 washer has its own jar.  What's more, several of the tools look brand new...
 not because they are, but because Devon's father is so adamant about cleaning
-and polishing them after each use.
-
-Before me lies a one-handed pickaxe and a zippo lighter.
+and polishing them after each use.  Before me lies a one-handed pickaxe and a
+zippo lighter.
 
 I can only move out.
 
@@ -654,8 +648,7 @@ and the mosquitoes to come out.  Then, protected by mosquito repellent, we
 rock back and forth on the porch swing and watch the mosquitoes get fried by
 the industrial sized bug zapper.  It's loads of fun when there is not much
 else to do, especially when one of the larger bugs makes it through the wire
-mesh of the zapper.
-Devon is here, sitting on the swing.
+mesh of the zapper.  Devon is here, sitting on the swing.
 
 I can move south and west.
 
@@ -916,7 +909,6 @@ I can hear the river in here, and it sounds like a freight train going
 through.  The walls of this cave amplify the sound in a way that is not found
 in any other part of these caverns.  The Snake River must be just above my
 head.  When I think about all that running water, it gives me the chills.
-
 Before me lies a sturdy rope.
 
 I can only move west.
@@ -934,9 +926,7 @@ Small Room
 This room branches off from the Hall of Vines, and it looks fairly
 unremarkable compared to some of the rooms I've seen so far.  There is a
 small wooden chair here, perhaps used by my great-grandfather himself those
-many years ago.
-
-Before me lies a pile of ash.
+many years ago.  Before me lies a pile of ash.
 
 I can move east and west.
 
@@ -994,9 +984,8 @@ Tiny Room
 Ugh!  I can't believe that I squeezed myself into this place.  I've never
 been in a place so cramped.  I guess that's why you've got to have nerves of
 steel to be a cave explorer.  I could have never imagined!  Oh, but there's
-more of those weird mushrooms in here, and I can see quite well.
-
-Before me lies an antique gold watch.
+more of those weird mushrooms in here, and I can see quite well.  Before me
+lies an antique gold watch.
 
 I can only move south.
 
@@ -1043,9 +1032,8 @@ This room gives me the creeps.  I feel as if there is some evil presence
 lurking in this room, but it could just be my mind playing tricks on me.
 Every time I turn my head, I catch a glimpse of something out of the corner
 of my eye.  I shall call this the "Cave of Evil," because that's a fitting
-name for it.  I really don't like the idea of staying here very long.
-
-Before me lies an antique cross.
+name for it.  I really don't like the idea of staying here very long.  Before
+me lies an antique cross.
 
 I can only move north.
 
@@ -1077,9 +1065,8 @@ The difference between a stalactite and a stalagmite is such; stalactites
 hang from the ceiling, and stalagmites reach up from the floor.  I was taught
 in school to think of it this way.  A stalactite is hanging on "tite" for
 dear life.  A stalagmite is hoping that it "mite" reach all the way to the
-ceiling some day.  This room is filled with stalactites.
-
-Before me lies an antique china plate.
+ceiling some day.  This room is filled with stalactites.  Before me lies an
+antique china plate.
 
 I can only move south.
 
@@ -1111,9 +1098,7 @@ Holy cripes!  A big frickin' rattlesnake sits in the corner of this room!
 I'm too scared to go anywhere but the way I entered from.  I've got to get
 rid of it somehow!
 
-...
-
-Before me lies the snake.
+...  Before me lies the snake.
 
 I can only move west.
 
@@ -1138,9 +1123,8 @@ Riki Tiki Cavern
 
 I now dub this room the Riki Tiki Cavern, in honor of the glorious battle
 that my mongoose fought.  I'm so proud of that little thing!  The rattlesnake
-is gone, and now I can explore further through the caves.
-
-Before me lies the snake.
+is gone, and now I can explore further through the caves.  Before me lies the
+snake.
 
 I can move east and west.
 
@@ -1216,9 +1200,7 @@ enough of a chance.  I can still escape, or I could always try to feed it
 something (besides myself).  Now what, besides little girls, do bears like to
 eat?
 
-...
-
-Before me lies the hungry cave bear.
+...  Before me lies the hungry cave bear.
 
 I can only move west.
 
@@ -1240,9 +1222,7 @@ The Bear's Lair
 In this room I narrowly escaped with my life, but I am now free to explore
 the rest of the cave.  The gold is near, I can feel it in my bones.  I'm just
 a little way away from becoming the richest kid in Splintered Rock!  I can't
-wait to find it!
-
-Before me lies the hungry cave bear.
+wait to find it!  Before me lies the hungry cave bear.
 
 I can move east and west.
 
@@ -1443,7 +1423,7 @@ police station, but the Antique Shop has a very inviting aura about it.  Tons
 of interesting items are scattered about the place, and the shopkeeper is a
 wise looking old man that doesn't seem as if he'll do me any harm.  Despite
 my situation, I probably wouldn't mind sticking around here for a little bit.
-Barlow is here, wishing someone might give him some antique items for trade.
+ Barlow is here, wishing someone might give him some antique items for trade.
 
 I can only move east.
 
@@ -1484,8 +1464,7 @@ I move east.
 The Police Station
 
 This is just the place I need to be.  The police can help me now, I've just
-got to tell them what happened.
-Sheriff Marcus is here.
+got to tell them what happened.  Sheriff Marcus is here.
 
 > talk to sheriff marcus
 

@@ -14,8 +14,7 @@ sheets on your bed were strewn all over the floor, along with other numerous
 small objects. Now your dresser has been cleaned off and the closet door is
 shut--not cracked slightly open--but completely shut for once. An array of
 candles have been set in the middle of the room, and provide light for the
-otherwise dark bedroom.
-Clara and Steve are here.
+otherwise dark bedroom. Clara and Steve are here.
 
 > z
 Time passes...
@@ -90,8 +89,8 @@ Hell can't be nearly as disorderly. It certainly has the heat of a
 nightmarish inferno, but with all the junk scattered all over the floors,
 you're afraid the underworld wins in the neatness department. The decrepit
 state of the 'inferno' is intensified by a roaring noise that comes from the
-back of the car. Seemingly all the makings of purgatory...to go.
-Clara and Steve are here.
+back of the car. Seemingly all the makings of purgatory...to go. Clara and
+Steve are here.
 
 > z
 Time passes...
@@ -748,8 +747,7 @@ backseat, one you wouldn't expect to find in the back of a squad car. In
 front of you is a sliding glass window that detaches you from the officer
 driving the car. On the side of you are two doors(which are locked) and two
 windows(which won't roll down). Behind you is the rear window(which certainly
-doesn't open). You have voluntarily trapped yourself.
-The policeman is here.
+doesn't open). You have voluntarily trapped yourself.  The policeman is here.
 
 > z
 Time passes...
@@ -1106,9 +1104,8 @@ Tunnel(east)
 The tunnel looks the same as it has since you've been here, although now it
 is a bit warm....and the walls look as if they can barely withstand the
 pressure above them. There's nothing particularly unique about this section
-of the tunnels. You can move west back to the intersection of passages.
-
-Also here is a cassette tape.
+of the tunnels. You can move west back to the intersection of passages.  Also
+here is a cassette tape.
 
 > take tape
 You take the cassette tape.

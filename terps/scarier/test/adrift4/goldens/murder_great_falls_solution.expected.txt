@@ -678,8 +678,7 @@ Trey's small apartment is filled with garbage and papers which are all strewn
 about the floor.   Trey is sitting on the couch in the middle of the room
 quickly scrawling words onto a piece of paper.  You can see a window and
 outside is a brick wall. You hope you'd never have to live in a place like
-this.
-Trey is here.
+this.  Trey is here.
 
 > ask trey about will
 "Dammit, I knew someone would find out eventually. I guess I'd better tell

@@ -1192,8 +1192,7 @@ there are perhaps two hundred people here, crowding up against the police
 barrier in order to catch a glimpse of the events unfolding.
 
 The street runs east and west while the front doors of the bank are to the
-north.
-Carl Marrington, my second-in-command, is here.
+north.  Carl Marrington, my second-in-command, is here.
 
 > talk to carl marrington
 "What's the situation?" I ask.

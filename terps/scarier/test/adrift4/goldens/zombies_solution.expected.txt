@@ -143,6 +143,7 @@ around the area, except for the driveway which led out into the street. A
 stone path led from the house entrance to the shed to the East, where you
 kept most of your tools. Following the path to the south would take you back
 to the house, while heading North would take you to the street.
+
 Stu stands around looking tough with his rifle
 
 > n
@@ -154,6 +155,7 @@ Wright Street
 Wright Street would be cool if it wasn't surrounded by zombies. But it is
 surounded by zombies, so it's terrifying. In fact, there's so many zombies,
 you can't even tell where you're going, it's like a maze of the undead.
+
 Stu stands around looking tough with his rifle
 
 The zombies are really getting close, they're reaching for your head!
@@ -182,6 +184,7 @@ You and Stu are standing outside Pete's Pets, the oldest pet store in town.
 The front door seems to be locked, and the large glass window that leads into
 the store is boarded up tight. The sidewalk outside the store isn't doing
 much better, it's cracked and covered in zombie blood.
+
 Stu stands around looking tough with his rifle
 
 > x door

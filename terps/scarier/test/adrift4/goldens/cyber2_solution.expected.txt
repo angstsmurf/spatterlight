@@ -11,9 +11,7 @@ You can move north, east, south and west.
 You move west.
 
 Your room
-you are in the place you sleep in.
-
-Also here is Electric Uniform.
+you are in the place you sleep in.  Also here is Electric Uniform.
 
 You can only move east.
 
@@ -33,8 +31,7 @@ You move north.
 
 Shop
 You are in a large shop that has all kinds of items. One item you have your
-eye on, the type 3 Wave Motion Cannon.
-Merchant is here.
+eye on, the type 3 Wave Motion Cannon.  Merchant is here.
 
 You can only move south.
 
@@ -96,8 +93,8 @@ You can only move northeast.
 You move northeast.
 
 Back Ally
-You are in the back ally of a famous pizza restorant.
-Hooded figrure is here.
+You are in the back ally of a famous pizza restorant.  Hooded figrure is
+here.
 
 You can move in and southwest.
 
@@ -111,8 +108,7 @@ you give him the electric suit and he looks better.
 You move in.
 
 Kitchen
-The place where the food is prepaired.
-Ninja Chef is prepared for battle!
+The place where the food is prepaired.  Ninja Chef is prepared for battle!
 
 You can move east and out.
 The Ninja Chef attacks you with Chinese Death Stars, but you manage to avoid
@@ -142,8 +138,7 @@ You can move north and in.
 You move north.
 
 Large Building
-A Large building that is surrounded by guards.
-A Couple of Guards are here.
+A Large building that is surrounded by guards.  A Couple of Guards are here.
 
 You can only move south.
 
@@ -194,8 +189,7 @@ Blinking on the computer screen: Password correct! you may pass.
 
 Mr. Bissoff's Room
 You are in the room with Mr. Bissoff! As soon as you get in, he snatches your
-weapon! All of a sudden, Lightning comes in!
-Mr. Bissoff is here.
+weapon! All of a sudden, Lightning comes in!  Mr. Bissoff is here.
 
 You can only move south.
 The Elemental Master manages to avoid Lightning's attack.

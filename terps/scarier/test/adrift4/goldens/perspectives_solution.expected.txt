@@ -40,8 +40,8 @@ Behind you is a [b]tub[/b]. In front of you is a medicine cabinet. On the
 floor is a number of curiously strewn items. A hammer, a toolbox, a number of
 nails, and a small pile of wooden planks.
 
-Also here is a gun.
-On the floor, bleeding profusely is a dark haired male.
+ On top of the medicine cabinet is a pistol.
+ On the floor, bleeding profusely is a dark haired male.
 Jonah is here, hammering nails desperately into planks of wood onto the
 bathroom door.
 
@@ -54,11 +54,10 @@ Behind you is a [b]tub[/b]. In front of you is a medicine cabinet. On the
 floor is a number of curiously strewn items. A hammer, a toolbox, a number of
 nails, and a small pile of wooden planks.
 
-Also here is a gun.
-On the floor, bleeding profusely is a dark haired male.
+ On top of the medicine cabinet is a pistol.
+ On the floor, bleeding profusely is a dark haired male.
 Jonah is here, hammering nails desperately into planks of wood onto the
 bathroom door.
-
 !!!
 With a morbid sounding gurgle, the body on the floor begins to thrash about
 uncontrollably then finally lays still.

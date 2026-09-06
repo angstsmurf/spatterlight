@@ -144,7 +144,7 @@ penetra dalla finestra rivelando un divano su cui giace, inerme, il corpo di
 tuo nonno. La parete è dominata da una libreria stracolma di libri e un
 quadro. Una porta, a ovest, conduce nell'ingresso.
 
-Vedi anche l' osso e la lettera.  Diablo ti segue nella stanza zampettando.
+  Vedi anche l' osso e la lettera.  Diablo ti segue nella stanza zampettando.
 
 > prendi osso
 Prendi l'osso, è coperto di bava e ti impiastriccia le mani.
@@ -706,11 +706,8 @@ mai entrato qui dentro prima d'oggi. Tra la penombra e i fumi che aleggiano
 nell'aria, riesci a intravedere un tavolo da lavoro su cui poggiano tre
 beute. A lato del tavolo si erge una grossa statua. Attaccata alla parete c'è
 una vecchia litografia, invecchiata dal tempo. Una porta, a ovest, conduce al
-pianerettolo.
-
-Vedi anche un vecchio disco abbandonato tra la polvere.
-
-Vedi anche la mandragora e il vasino.
+pianerettolo.  Vedi anche un vecchio disco abbandonato tra la polvere.  Vedi
+anche la mandragora e il vasino.
 
 > prendi mandragora
 Prendi la mandragora.
@@ -848,11 +845,8 @@ mai entrato qui dentro prima d'oggi. Tra la penombra e i fumi che aleggiano
 nell'aria, riesci a intravedere un tavolo da lavoro su cui poggiano tre
 beute. A lato del tavolo si erge una grossa statua. Attaccata alla parete c'è
 una vecchia litografia, invecchiata dal tempo. Una porta, a ovest, conduce al
-pianerettolo.
-
-Vedi anche un vecchio disco abbandonato tra la polvere.
-
-Vedi anche il vasino.
+pianerettolo.  Vedi anche un vecchio disco abbandonato tra la polvere.  Vedi
+anche il vasino.
 
 > versa beuta grande in beuta media
 Con estrema cautela, versi il contenuto della beuta grande nella media.

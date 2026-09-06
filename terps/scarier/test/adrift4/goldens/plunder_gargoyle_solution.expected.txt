@@ -13,9 +13,8 @@ Arrgh!  'Tis ye olde pirate ship, which ye sail with ye pirate buddy Ichabod.
  'Tis a good place to drinketh some grog and telleth ye pirate stories at
 sea.  Also, ye liketh to sail around in it plunderin', which is what maketh
 ye a pirate in ye first place.  From here ye can moveth east down ye
-gangplank to yon beach.  Or, when ye feeleth ready, ye might set sail.
-
-Also here is ye olde riddle scroll and ye cannon.
+gangplank to yon beach.  Or, when ye feeleth ready, ye might set sail.  Also
+here is ye olde riddle scroll and ye cannon.
 
 Lo, ye be Captain Somebody.  Ye looketh mighty piratey, because ye happen to
 a pirate.  Yarrgh, me hearties...!  Ye are wearing ye pirate clothes and
@@ -58,10 +57,8 @@ Ye Beach
 'Tis mighty sandy and tropical here.  Look, yon palm trees!  This island
 really knoweth how to do it.  Some day, 'twill probably maketh an incredible
 touristy attraction of some sort.  But today, 'twill leadeth ye to treasure.
-Yo ho!  Thar be some footprints in ye sand here.
-
-Also here is ye shovel.
-Ye helpful pirate buddy Ichabod standeth by, lookin' around.
+Yo ho!  Thar be some footprints in ye sand here.  Also here is ye shovel.  Ye
+helpful pirate buddy Ichabod standeth by, lookin' around.
 
 > get shovel
 Ye take ye shovel.
@@ -253,9 +250,8 @@ Arrgh!  'Tis ye olde pirate ship, which ye sail with ye pirate buddy Ichabod.
  'Tis a good place to drinketh some grog and telleth ye pirate stories at
 sea.  Also, ye liketh to sail around in it plunderin', which is what maketh
 ye a pirate in ye first place.  From here ye can moveth east down ye
-gangplank to yon beach.  Or, when ye feeleth ready, ye might set sail.
-
-Also here is ye olde riddle scroll and ye cannon.
+gangplank to yon beach.  Or, when ye feeleth ready, ye might set sail.  Also
+here is ye olde riddle scroll and ye cannon.
 
 > push cannon east
 Hi-ho!  Ye pusheth ye cannon eastward.
@@ -290,10 +286,8 @@ Ye Cliffside
 'Tis the top o' some big cliffs o'erlooking another beach.  Ye hath a good
 view of ye ocean from here, too.  A viney tree groweth at ye cliff's edge,
 from which dangleth ye mightily secure grappling hook.  Ye could go west back
-to ye olde ruins or down ye cliffside.
-
-Also here is yon treasure chest.
-Ye helpful pirate buddy Ichabod standeth by, lookin' around.
+to ye olde ruins or down ye cliffside.  Also here is yon treasure chest.  Ye
+helpful pirate buddy Ichabod standeth by, lookin' around.
 
 > shoot ghost ship
 Ye aimeth ye trusty cannon and let loose upon Captain Hookhead's boat,
@@ -362,9 +356,8 @@ Arrgh!  'Tis ye olde pirate ship, which ye sail with ye pirate buddy Ichabod.
  'Tis a good place to drinketh some grog and telleth ye pirate stories at
 sea.  Also, ye liketh to sail around in it plunderin', which is what maketh
 ye a pirate in ye first place.  From here ye can moveth east down ye
-gangplank to yon beach.  Or, when ye feeleth ready, ye might set sail.
-
-Also here is ye olde riddle scroll.
+gangplank to yon beach.  Or, when ye feeleth ready, ye might set sail.  Also
+here is ye olde riddle scroll.
 
 > set sail
 Aye, set sail!

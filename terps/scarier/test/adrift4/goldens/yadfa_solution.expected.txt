@@ -150,7 +150,7 @@ stand around debating over the price of cheese (a local custom you guess).
 
 A door leads out.
 
-Bertram the bartender is here.
+  Bertram the bartender is here.
 
    You start sneezing worse than ever. It seems you're sneezing your lungs
 out.
@@ -223,7 +223,7 @@ side is the remains of a door. One good jump...
 
 A path winds leads back to the southwest.
 
-Grarrrrr is here.
+  Grarrrrr is here.
 
 > give nuts to grarrrrr
    Grarrrrr eyes you suspiciously as you hand the nuts over then wolfs them
@@ -279,7 +279,7 @@ stand around debating over the price of cheese (a local custom you guess).
 
 A door leads out.
 
-Bertram the bartender is here.
+  Bertram the bartender is here.
 
 > talk to bernard
    "Bug-" Bernard starts to snap, then sees Grarrrrr and goes pale. "Bloody
@@ -583,7 +583,7 @@ come here in years.
 
 The highway stretches northeast and southwest and a door leads in
 
-Lance the cutthroat is here.
+  Lance the cutthroat is here.
 
 > talk to lance
    "Some folk in there," Lance nods to the tavern "plannin' ter do you harm,
@@ -665,7 +665,7 @@ come here in years.
 
 The highway stretches northeast and southwest and a door leads in
 
-Theef the trader is here.
+  Theef the trader is here.
 
    "Greetings!" cries a voice. "The name's Theef and I'm the best damn trader
 for miles around."
@@ -774,7 +774,7 @@ privy" if you're thinking about searching it) and a large steel cage.
 
 The only way out is out
 
-You can also see a feather.
+  You can also see a feather.
 
 > take feather
 You take the feather.
@@ -794,8 +794,8 @@ their colours bizarre. Lying in the flowers is a dead body.
 
 Paths leads off west and east
 
-You can also see the bodyguard's journal, a quaint little trumpet, a note and
-Princess Isabella's ring.
+  You can also see the bodyguard's journal, a quaint little trumpet, a note
+and Princess Isabella's ring.
 
 > i
 You are carrying some twine, a needle, your money, a bent nail, a fish, a
@@ -1440,7 +1440,7 @@ world today.
 
 The doorway lies north
 
-Agnes the baker is here.
+  Agnes the baker is here.
 
 > talk agnes
    "Ah got a bread roll, ah cake and ah bun fer sale," Agnes chirps in an
@@ -1612,7 +1612,7 @@ and doesn't look at all pleased to see you.
 
 The way out is west
 
-The Chief is here.
+  The Chief is here.
 
 > talk chief
    "Me hungry," remarks the Chief and does a poor impression of a man rubbing
@@ -1685,7 +1685,7 @@ own blood. By his side lies your faithful companion, Otto.
 
 The way out is west
 
-You can also see Otto's axe and the Chief's head.
+  You can also see Otto's axe and the Chief's head.
 
 > take axe
 You take Otto's axe.
@@ -1726,7 +1726,7 @@ The way they're clacking, as if still alive, is unsettling to say the least.
 
 Exits lie north
 
-Slayer is here.
+  Slayer is here.
 
 > talk slayer
    "They will all die," says Slayer. "All of them, the miserable lowlives."
@@ -1846,7 +1846,7 @@ Gribbly's Snack Bar!
 
 A path leads southwest
 
-Gribbly is here.
+  Gribbly is here.
 
 > talk gribbly
    "Lots for sale, boss" Gribbly says, rubbing his hands together eagerly at
@@ -2059,7 +2059,7 @@ come here in years.
 
 The highway stretches northeast and southwest and a door leads in
 
-Theef the trader is here.
+  Theef the trader is here.
 
 > ne
 You move northeast.
@@ -2141,7 +2141,7 @@ their colours bizarre. Lying in the flowers is a dead body.
 
 Paths leads off west and east
 
-You can also see a nugget.
+  You can also see a nugget.
 
 > take nugget
 You take the nugget.
@@ -2251,7 +2251,7 @@ there is a pit from which issue cyan flames.
 
 A path leads out of the cave
 
-The Bugha is here.
+  The Bugha is here.
 
 > x painting
    None appear to be works of high art. One has an adventurer gives lots of
@@ -2601,7 +2601,7 @@ come here in years.
 
 The highway stretches northeast and southwest and a door leads in
 
-Theef the trader is here.
+  Theef the trader is here.
 
 > sell ring
    "Not bad, not bad at all" Theef remarks. "Here, have some cash."
@@ -2835,7 +2835,7 @@ Gribbly's Snack Bar!
 
 A path leads southwest
 
-Gribbly is here.
+  Gribbly is here.
 
 > buy key
    Gribbly snatches the money off you and hands over the key.
@@ -2898,7 +2898,7 @@ all the locations around here seem pretty much the same.
 
 Exits lead... in several different directions
 
-Mad Old Erik is here.
+  Mad Old Erik is here.
 
 > talk erik
    Erik peers at you suspiciously. "Gor any junk, eh, eh, junk,
@@ -3002,7 +3002,7 @@ Gribbly's Snack Bar!
 
 A path leads southwest
 
-Gribbly is here.
+  Gribbly is here.
 
 > say to gribbly erik
    "So the ol' bugger's not dead, then?" Gribbly says.
@@ -3059,7 +3059,7 @@ all the locations around here seem pretty much the same.
 
 Exits lead... in several different directions
 
-Mad Old Erik is here.
+  Mad Old Erik is here.
 
 > s
 You move south.
@@ -3192,7 +3192,7 @@ prisoner you saw before in the cell and a massive ogre.
 
 A passage lies southwest and the bridge southeast
 
-You can also see a thighbone.
+  You can also see a thighbone.
 
 > se
 You move southeast.
@@ -3382,7 +3382,7 @@ bodyguard lies sprawled amidst the broken furniture.
 
 The sacrificial chamber lies to the south and stairs lead up
 
-You can also see a torch.
+  You can also see a torch.
 
 > s
 You move south.
@@ -3395,7 +3395,7 @@ Princess Isabella.
 
 The way out lies to the north
 
-Princess Isabella and Malgor the Mad are here.
+  Princess Isabella and Malgor the Mad are here.
 
    "Ah," says Malgor. "So the brave 'heroes' made it after all."
    "We're here for the Princess, pal," snaps Otto, axe at the ready. "So be a
@@ -3461,7 +3461,7 @@ bodyguard lies sprawled amidst the broken furniture.
 
 The sacrificial chamber lies to the south and stairs lead up
 
-You can also see a torch.
+  You can also see a torch.
 
 > u
 You move up.
@@ -3532,7 +3532,7 @@ all the locations around here seem pretty much the same.
 
 Exits lead... in several different directions
 
-Mad Old Erik is here.
+  Mad Old Erik is here.
 
 > n
 You move north.
@@ -3714,7 +3714,7 @@ at a patch of blood on the floor.
 
 A doorway leads west
 
-Spiridon and The King are here.
+  Spiridon and The King are here.
 
    "My daughter!" cries the King as he catches sight of Isabella.
    "Daddy!" she cries.

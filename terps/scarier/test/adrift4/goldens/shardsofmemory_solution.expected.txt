@@ -194,8 +194,8 @@ stages of completion around the room as if the sculpture was interrupted
 before he could finish even one of them. A row of pews lead back from a
 central podium; atop this, rather than a place for the priest to stand during
 sermons, is a mask some seven feet tall. Smaller masks, all built on a
-similar design, litter the floor. A door leads out.
-Father Marhon stands by the podium, regarding me with wary eyes.
+similar design, litter the floor. A door leads out.  Father Marhon stands by
+the podium, regarding me with wary eyes.
 
    "A… visitor?" murmurs Father Marhon, his eyes looking at mine. "Ah,
 greetings, child. I get so few…" he considers the word "… visitors these
@@ -346,8 +346,8 @@ stages of completion around the room as if the sculpture was interrupted
 before he could finish even one of them. A row of pews lead back from a
 central podium; atop this, rather than a place for the priest to stand during
 sermons, is a mask some seven feet tall. Smaller masks, all built on a
-similar design, litter the floor. A door leads out.
-Father Marhon stands by the podium, regarding me with wary eyes.
+similar design, litter the floor. A door leads out.  Father Marhon stands by
+the podium, regarding me with wary eyes.
 
 > talk to marhon
 His eyes brighten. "Ah, I see you have the staff! Give it to me, child, and I
@@ -580,9 +580,7 @@ from one horizon to the next. At its northern extremity I see a walled
 fortress; seen from this distance, little is visible of it aside from its
 sheer size. Southwards, the path leads into a shadowy wood while eastwards
 extends an open plain. Something about the trees unsettles me. They emanate a
-feeling of menace.
-
-A sword, a leather jerkin and a red coin lie by my feet.
+feeling of menace.   A sword, a leather jerkin and a red coin lie by my feet.
 
 So I have returned here again, to the place I awoke at following my hurried
 flight from the behemoth. The city to the north appears the same as before

@@ -23,8 +23,8 @@ town. Standing at the end of a long and high brick wall lined alley, it has a
 less than inviting appearance. About three floors in height and made from
 grey concrete blocks, the centre seems to be surrounded by various mounds of
 rubbish. A strong looking security door is to the north and the highway is
-back to the south.
-A wide-eyed hungry looking security guard is watching you.
+back to the south.  A wide-eyed hungry looking security guard is watching
+you.
 
 The pain from your headache is now much worse.  Although it is difficult to
 put into words it is like a piercing or maybe a burning pain. A bit like
@@ -279,8 +279,7 @@ somewhere to take a well earned rest and spend time chatting with friends and
 colleagues. Usually it can be one of the busiest places in any organisation;
 here though it is strangely quiet. The room is arranged with bench like seats
 either side of several long tables. To the west is a corridor and south is
-the kitchen.
-A discarded half eaten corpse is lying on the floor.
+the kitchen.  A discarded half eaten corpse is lying on the floor.
 
 > south
 You move south.
@@ -341,8 +340,7 @@ somewhere to take a well earned rest and spend time chatting with friends and
 colleagues. Usually it can be one of the busiest places in any organisation;
 here though it is strangely quiet. The room is arranged with bench like seats
 either side of several long tables. To the west is a corridor and south is
-the kitchen.
-A discarded half eaten corpse is lying on the floor.
+the kitchen.  A discarded half eaten corpse is lying on the floor.
 
 > west
 You move west.
@@ -421,8 +419,7 @@ twice that in length.  Either side of a small bunk is a stainless steel sink
 and toilet. You also notice that the walls and ceiling are completely bare,
 apart from an air vent and a bright fluorescent light. Written in chalk on
 the cell wall is the word 'Athena'. You seem to be able to go east out into a
-corridor.
-The body of a woman is lying here.
+corridor.  The body of a woman is lying here.
 
 > east
 You move east.
@@ -516,8 +513,8 @@ Store Room
 The long, low room smells of oil and something else which you can't quite
 place.  Nearly all the available space is filled with pipes, cables and
 junction boxes.  Pushed against one wall is a large wooden crate. To the
-north are some stairs leading up.
-A worried looking lab assistant is trying to hide.
+north are some stairs leading up.  A worried looking lab assistant is trying
+to hide.
 
 > give artemis to assistant
 You hand the jar filled with Artemis to the lab assistant. He shouts,

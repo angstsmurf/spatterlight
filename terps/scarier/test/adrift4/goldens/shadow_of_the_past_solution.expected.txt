@@ -133,9 +133,7 @@ are two suns, which are low in the sky.  The sky is a multitude of colors,
 pink, purple, green, yellow, green and blue.  This is not only the most
 unusual sunset you have ever seen, but also the most beautiful.  As you look
 down and notice the drop seems to never end, you see a tuning fork sitting on
-the ledge next to your foot.
-
-Also here is a tuning fork.
+the ledge next to your foot.  Also here is a tuning fork.
 
 > get tuning fork
 You now have the tuning fork.
@@ -232,9 +230,7 @@ the pale daylight at the end.
 
 The passage extends northeast to the outside world and southwest to an
 ancient gallery.  Saving the souls from the portraits has opened up a portal
-to the northeast.
-
-There is a small dagger lying on the stone floor.
+to the northeast.  There is a small dagger lying on the stone floor.
 
 > ne
 You move northeast.

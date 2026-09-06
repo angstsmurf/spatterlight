@@ -140,11 +140,10 @@ After your long and arduous journey it's hard not to be disappointed by the
 famous Sanctum Sanctorum of his Holiness the Dada Lama. Sure, incense burners
 and mandalas abound, but there's no getting away from the fact that this is
 nothing more than a shabby old trailer home with chipped Formica tables and
-seating that folds up to provide additional storage.
-His holiness the Dada Lama, Exalted Master of the Cerulean Mist, sits in the
-middle of a bubbling hot-tub surrounded by topless beauties.  The brunette
-massages the old man's scalp whilst the blonde lovingly soaps his scanty
-beard.
+seating that folds up to provide additional storage.  His holiness the Dada
+Lama, Exalted Master of the Cerulean Mist, sits in the middle of a bubbling
+hot-tub surrounded by topless beauties.  The brunette massages the old man's
+scalp whilst the blonde lovingly soaps his scanty beard.
 
 'I have been expecting you, oh faithful disciple!' says the Dada Lama as you
 enter.
@@ -301,9 +300,9 @@ Yak Shed
 Yak Shed
 The yak shed is a gloomy wooden structure of rickety construction. Enormous
 piles of dung take up most of the available floorspace; shafts of light from
-cracks in the ceiling illuminating thousands of buzzing flies.
-A solitary yak stands in the middle of the shed, its shaggy pelt illuminated
-by a shaft of sunlight.
+cracks in the ceiling illuminating thousands of buzzing flies.  A solitary
+yak stands in the middle of the shed, its shaggy pelt illuminated by a shaft
+of sunlight.
 
 > x yak
 This has to be far and away the hairiest beast you have ever set eyes on. Oh
@@ -353,7 +352,6 @@ dwarf the tallest skyscraper. For thousands of years it has followed this
 valley like the world's most dogged Slush Puppie. Scattered around are
 immense boulders deposited here by the glacier during its inexorable retreat.
 Who knows what else might have been swept up in this monstrous river of ice?
-
 Abandoned somewhat incongrously in a snow drift is a disposable razor,
 shocking pink.
 
@@ -411,9 +409,9 @@ Yak Shed
 Yak Shed
 The yak shed is a gloomy wooden structure of rickety construction. Enormous
 piles of dung take up most of the available floorspace; shafts of light from
-cracks in the ceiling illuminating thousands of buzzing flies.
-A solitary yak stands in the middle of the shed, its shaggy pelt illuminated
-by a shaft of sunlight.
+cracks in the ceiling illuminating thousands of buzzing flies.  A solitary
+yak stands in the middle of the shed, its shaggy pelt illuminated by a shaft
+of sunlight.
 
 > shave yak
 It takes you three days of painstaking work to denude the yak of every last
@@ -495,11 +493,10 @@ After your long and arduous journey it's hard not to be disappointed by the
 famous Sanctum Sanctorum of his Holiness the Dada Lama. Sure, incense burners
 and mandalas abound, but there's no getting away from the fact that this is
 nothing more than a shabby old trailer home with chipped Formica tables and
-seating that folds up to provide additional storage.
-His holiness the Dada Lama, Exalted Master of the Cerulean Mist, sits in the
-middle of a bubbling hot-tub surrounded by topless beauties.  The brunette
-massages the old man's scalp whilst the blonde lovingly soaps his scanty
-beard.
+seating that folds up to provide additional storage.  His holiness the Dada
+Lama, Exalted Master of the Cerulean Mist, sits in the middle of a bubbling
+hot-tub surrounded by topless beauties.  The brunette massages the old man's
+scalp whilst the blonde lovingly soaps his scanty beard.
 
 > x seating
 A sort of sofa runs around all three sides of one end of the caravan. The
@@ -613,9 +610,8 @@ Who knows what else might have been swept up in this monstrous river of ice?
 
 The small hole you have melted with the hairdryer connects with a natural
 fissure in the ice that seems to widen as it goes deeper. Wisps of icy vapour
-issue from within.
-The yeti is reclining against a rock, smoking a pipe containing a strange,
-aromatic weed.
+issue from within.  The yeti is reclining against a rock, smoking a pipe
+containing a strange, aromatic weed.
 
 > give eggs to yeti
 'Say, you couldn't give a paw with this jar, could you, man?' you say, 'It's
@@ -673,11 +669,10 @@ After your long and arduous journey it's hard not to be disappointed by the
 famous Sanctum Sanctorum of his Holiness the Dada Lama. Sure, incense burners
 and mandalas abound, but there's no getting away from the fact that this is
 nothing more than a shabby old trailer home with chipped Formica tables and
-seating that folds up to provide additional storage.
-His holiness the Dada Lama, Exalted Master of the Cerulean Mist, sits in the
-middle of a bubbling hot-tub surrounded by topless beauties.  The brunette
-massages the old man's scalp whilst the blonde lovingly soaps his scanty
-beard.
+seating that folds up to provide additional storage.  His holiness the Dada
+Lama, Exalted Master of the Cerulean Mist, sits in the middle of a bubbling
+hot-tub surrounded by topless beauties.  The brunette massages the old man's
+scalp whilst the blonde lovingly soaps his scanty beard.
 
 > give eggs to lama
 'I have opened your jar of pickled eggs, oh exalted master,' you say, holding

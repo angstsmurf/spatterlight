@@ -30,9 +30,7 @@ Luckily the cockpit was robust enough to protect you from the worst ravages
 of the crash. The emergency light above illuminates the controls in front of
 your seat look that look dead. Near to the seat is the side door to the
 aircraft and back, back through behind a curtain is the cargo area of the
-plane.
-
-A metal briefcase is slid down beside your seat.
+plane.  A metal briefcase is slid down beside your seat.
 
 > take briefcase
 You take the briefcase.
@@ -43,7 +41,6 @@ You move the curtain aside and go back to the cargo bay.
 Cargo bay
 A metal lined shell provides a good space for you to carry assorted goods
 around. You can go forward, through the dividing curtain, to the  cockpit.
-
 Beside the rear cargo door is a small control panel.  There is a bulky crate
 lashed up against the side of the plane.
 

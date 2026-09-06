@@ -24,8 +24,8 @@ pair of limp unhappy looking curtains sit either side of the window.   In the
 middle of the room stands a lopsided coffee table.  To the west you can see
 what looks like the hall.  The room has the usual things a bachelors place
 has namely an uncomfortable settee, a battered old armchair, narrow screen
-television and what looks like a dvd player.
-John is currently slumped in the armchair.
+television and what looks like a dvd player.  John is currently slumped in
+the armchair.
 
 "I'd better go and find Mark, to ask him about my keys," you think to
 yourself.
@@ -39,9 +39,7 @@ inviting place.  It is usually the first room visitors see and makes a good
 impression.  Well Mark's hall is nothing like that as it is cold, uninviting
 and dirty.  The front door is north and next to it is a small table.  You can
 see the lovely Lounge to the east and from the smell of it the kitchen is to
-the west.  Some stairs lead, well up.
-
-You can see a pair of boxer shorts.
+the west.  Some stairs lead, well up.  You can see a pair of boxer shorts.
 
 > west
 You move west.
@@ -93,9 +91,7 @@ Under the Floorboards
 You are in a small space under the floor about 4ft in height.  It feels very
 cold and damp down here, not the sort of place to linger. The floor under
 here is just bare earth.  Above your head you can see the small cupboard
-under the stairs.
-
-You can also see a pair of gloves.
+under the stairs.  You can also see a pair of gloves.
 
 > get gloves
 You take the pair of gloves.
@@ -184,9 +180,7 @@ inviting place.  It is usually the first room visitors see and makes a good
 impression.  Well Mark's hall is nothing like that as it is cold, uninviting
 and dirty.  The front door is north and next to it is a small table.  You can
 see the lovely Lounge to the east and from the smell of it the kitchen is to
-the west.  Some stairs lead, well up.
-
-You can see a pair of boxer shorts.
+the west.  Some stairs lead, well up.  You can see a pair of boxer shorts.
 
 > up
 You move up.
@@ -194,9 +188,7 @@ You move up.
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
 the Hall.  The carpet looks worn and the stairs move as you stand on them.
-On the wall is a gold framed picture.
-
-You can see a pair of old trousers.
+On the wall is a gold framed picture.  You can see a pair of old trousers.
 
 > up
 You move up.
@@ -206,8 +198,8 @@ You are on Marks landing.  This area has no window so it is quite dark here,
 the light is on but doesn't seem to help.  Even in the bad light you can see
 more terrible wallpaper and a very threadbare carpet. The main bedroom is to
 the north and the back bedroom is opposite.  You can just make out the
-bathroom to the east and you can go down to the hall.
-The small brown terrier is wandering around.
+bathroom to the east and you can go down to the hall.  The small brown
+terrier is wandering around.
 
 The small brown terrier wandering around is barking at you.
 
@@ -220,10 +212,8 @@ which at the moment has someone sleeping in it.  At the end of the room is
 the toilet and just next to it the sink.  A medicine cabinet is fixed to the
 wall over the sink.  The room is tiled in a sort of green mottled colour. The
 window in here has frosted glass (or maybe it is just very dirty). You can
-only go west from here back to the landing.
-
-You can also see a linen basket.
-Tom is currently sleeping in the bath.
+only go west from here back to the landing.  You can also see a linen basket.
+ Tom is currently sleeping in the bath.
 
 > open medicine cabinet
 You open the medicine cabinet.  A headache packet is inside the medicine
@@ -250,10 +240,8 @@ You are in Marks fairly small back bedroom.  The room has a small looking
 single bed with a cheap looking bedside cabinet next to it.  You expect the
 window to the south will look out onto the garden. Just inside the door is a
 three shelf bookcase. You can only go north from here back to the landing.
-
-You can see a dirty handkerchief.
-The small brown terrier is wandering around.  The small dog wanders out to
-the north.
+You can see a dirty handkerchief.  The small brown terrier is wandering
+around.  The small dog wanders out to the north.
 
 > x bookcase
 The bookcase is one of those cheap DIY jobs.  In this case though even a cut
@@ -272,9 +260,8 @@ You are on Marks landing.  This area has no window so it is quite dark here,
 the light is on but doesn't seem to help.  Even in the bad light you can see
 more terrible wallpaper and a very threadbare carpet. The main bedroom is to
 the north and the back bedroom is opposite.  You can just make out the
-bathroom to the east and you can go down to the hall.
-The small brown terrier is wandering around.  The small dog wanders out to
-the north.
+bathroom to the east and you can go down to the hall.  The small brown
+terrier is wandering around.  The small dog wanders out to the north.
 
 > down
 You move down.
@@ -282,9 +269,7 @@ You move down.
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
 the Hall.  The carpet looks worn and the stairs move as you stand on them.
-On the wall is a gold framed picture.
-
-You can see a pair of old trousers.
+On the wall is a gold framed picture.  You can see a pair of old trousers.
 
 > down
 You move down.
@@ -295,9 +280,7 @@ inviting place.  It is usually the first room visitors see and makes a good
 impression.  Well Mark's hall is nothing like that as it is cold, uninviting
 and dirty.  The front door is north and next to it is a small table.  You can
 see the lovely Lounge to the east and from the smell of it the kitchen is to
-the west.  Some stairs lead, well up.
-
-You can see a pair of boxer shorts.
+the west.  Some stairs lead, well up.  You can see a pair of boxer shorts.
 
 > west
 You move west.
@@ -325,9 +308,7 @@ inviting place.  It is usually the first room visitors see and makes a good
 impression.  Well Mark's hall is nothing like that as it is cold, uninviting
 and dirty.  The front door is north and next to it is a small table.  You can
 see the lovely Lounge to the east and from the smell of it the kitchen is to
-the west.  Some stairs lead, well up.
-
-You can see a pair of boxer shorts.
+the west.  Some stairs lead, well up.  You can see a pair of boxer shorts.
 
 > up
 You move up.
@@ -335,9 +316,7 @@ You move up.
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
 the Hall.  The carpet looks worn and the stairs move as you stand on them.
-On the wall is a gold framed picture.
-
-You can see a pair of old trousers.
+On the wall is a gold framed picture.  You can see a pair of old trousers.
 
 > up
 You move up.
@@ -357,9 +336,8 @@ You are in Marks fairly small back bedroom.  The room has a small looking
 single bed with a cheap looking bedside cabinet next to it.  You expect the
 window to the south will look out onto the garden. Just inside the door is a
 three shelf bookcase. You can only go north from here back to the landing.
-
-You can see a dirty handkerchief.
-The small brown terrier is wandering around.
+You can see a dirty handkerchief.  The small brown terrier is wandering
+around.
 
 The small brown terrier wandering around is whimpering at you.
 
@@ -384,9 +362,7 @@ You move down.
 On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
 the Hall.  The carpet looks worn and the stairs move as you stand on them.
-On the wall is a gold framed picture.
-
-You can see a pair of old trousers.
+On the wall is a gold framed picture.  You can see a pair of old trousers.
 
 > down
 You move down.
@@ -397,9 +373,7 @@ inviting place.  It is usually the first room visitors see and makes a good
 impression.  Well Mark's hall is nothing like that as it is cold, uninviting
 and dirty.  The front door is north and next to it is a small table.  You can
 see the lovely Lounge to the east and from the smell of it the kitchen is to
-the west.  Some stairs lead, well up.
-
-You can see a pair of boxer shorts.
+the west.  Some stairs lead, well up.  You can see a pair of boxer shorts.
 
 > west
 You move west.
@@ -413,8 +387,7 @@ machine next to it.  The window over the kitchen sink is just as clear as the
 rest of the windows in this house.  A table is positioned in the centre of
 the room and on the floor near the back door is a small dog basket.  The hall
 is to the east, the door to the back garden south and what looks like a
-cupboard under the stairs is southeast.
-The small brown dog is here.
+cupboard under the stairs is southeast.  The small brown dog is here.
 
 The small brown terrier wandering around is snarling at you.
 The dog is standing near the back door waiting to go out.
@@ -440,10 +413,8 @@ You are in Marks vegetable patch, minus any vegetables.  It does look like
 someone has been digging here as the patch is full of small holes and little
 mounds.  The garden is surrounded by a very tall garden fence. A path leads
 south to the garden shed and you can see that the door to the shed is closed.
-The back garden is east.
-
-You can also see a bone.
-The small brown dog is here.
+The back garden is east.  You can also see a bone.  The small brown dog is
+here.
 
 The small brown terrier wandering around is growling at you.
 You hear a door slamming shut.
@@ -543,9 +514,7 @@ inviting place.  It is usually the first room visitors see and makes a good
 impression.  Well Mark's hall is nothing like that as it is cold, uninviting
 and dirty.  The front door is north and next to it is a small table.  You can
 see the lovely Lounge to the east and from the smell of it the kitchen is to
-the west.  Some stairs lead, well up.
-
-You can see a pair of boxer shorts.
+the west.  Some stairs lead, well up.  You can see a pair of boxer shorts.
 You can hear a dog howling.
 
 > open door

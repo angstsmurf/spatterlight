@@ -22,8 +22,8 @@ papers. There's a filing cabinet lurking in the corner which seems to have
 been battered around recently with someone with a serious dislike for filing
 cabinets. There's your computer-
    No, someone stole that last week.
-   There's a door leading out to the main set to the north.
-Boris your assistant (now transformed into a monkey) is here.
+   There's a door leading out to the main set to the north.  Boris your
+assistant (now transformed into a monkey) is here.
 
 > n
 Boris dashes along after you, spraying bits of banana as he goes. You're not
@@ -137,8 +137,8 @@ put in their place. Oh, and she's had a skylight put in as well. At least,
 you're assuming that's what the huge hole in the ceiling is.
    Various members of her gargantuan entourage lounge around the dressing
 room, chatting, smoking, drinking.
-   East lies the canteen.
-World famous film star Violetta de Panino Derriere is here.
+   East lies the canteen.  World famous film star Violetta de Panino Derriere
+is here.
 
 "And about time," says Violetta, looking at you as if you're something she's
 just watched the cat drag in. "I require a drink or I shall not be able to
@@ -271,10 +271,8 @@ think that the daisy adds a certain element of class to the proceedings,
 although the overpowering smell of the sewage works off to the south doesn't
 help matters much.
    The area outside the studio is to the northwest and a tree which often
-doubles as an entire forest is to the west.
-
-Lying on the ground are some raggedy old gardening gloves.  Boris trots
-towards you from the north-west.
+doubles as an entire forest is to the west.  Lying on the ground are some
+raggedy old gardening gloves.  Boris trots towards you from the north-west.
 
 > get gloves
 You take the gardening gloves.
@@ -401,10 +399,9 @@ around in a river of flame which flows from Satan's throne of bone (or
 cardboard as bone thrones were a bit beyond the studio's admittedly limited
 budget).
    South is a jungle, north is the bottom of the ocean and northeast a
-haunted house.
-Oscar hopeful Witherspoon Nash is here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the south.
+haunted house.  Oscar hopeful Witherspoon Nash is here.  Former action hero
+turned "serious" actor, Ogden Buckett stands here, looking confused.  Boris
+trots towards you from the south.
 
 > x throne
 This bears a remarkable resemblance to the chair that once had pride of place
@@ -432,9 +429,8 @@ into budgeting problems after the tea girl bought top of the range milk
 instead of the more common variety, so the house was downgraded to a shed.
 This made for a very different film, although the part where the pretty model
 was decapitated with the garden rake still brings a smile to your face.
-   To the southwest lies Hell and over to the north is a desert.
-The ever alluring Daisy is here.  Boris trots towards you from the
-south-west.
+   To the southwest lies Hell and over to the north is a desert.  The ever
+alluring Daisy is here.  Boris trots towards you from the south-west.
 
 > force trunk
 You jam the crowbar under the edge of the trunk and heave.
@@ -517,10 +513,9 @@ around in a river of flame which flows from Satan's throne of bone (or
 cardboard as bone thrones were a bit beyond the studio's admittedly limited
 budget).
    South is a jungle, north is the bottom of the ocean and northeast a
-haunted house.
-Oscar hopeful Witherspoon Nash is here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the north-east.
+haunted house.  Oscar hopeful Witherspoon Nash is here.  Former action hero
+turned "serious" actor, Ogden Buckett stands here, looking confused.  Boris
+trots towards you from the north-east.
 
 > s
 
@@ -563,10 +558,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the east.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the east.
 
 > w
 
@@ -581,9 +574,8 @@ put in their place. Oh, and she's had a skylight put in as well. At least,
 you're assuming that's what the huge hole in the ceiling is.
    Various members of her gargantuan entourage lounge around the dressing
 room, chatting, smoking, drinking.
-   East lies the canteen.
-World famous film star Violetta de Panino Derriere is here.  Boris trots
-towards you from the east.
+   East lies the canteen.  World famous film star Violetta de Panino Derriere
+is here.  Boris trots towards you from the east.
 
 > give coca to violetta
 Violetta looks at the can you are holding out to her. "Coke?" she says. "Pray
@@ -620,10 +612,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the west.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the west.
 
 > e
 
@@ -652,8 +642,8 @@ aside from bleeding messily all over the ground.
    Off to the west is the entrance to the studio, north extends the area
 outside the studio, southeast is a patch of grass where romantic scenes are
 filmed, and south is a tree which often doubles as an entire forest when
-you're on a tight budget.
-An officer known as PC Plod is here, looking at you with suspicious eyes.
+you're on a tight budget.  An officer known as PC Plod is here, looking at
+you with suspicious eyes.
 
 "Ah, director," says PC Plod. "We seem to have had a little… accident."
    "Accident?" you say. "I'm not sure I follow you-"
@@ -760,11 +750,9 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.
-An officer known as PC Plod is here, looking at you with suspicious eyes.
-Boris trots towards you from the east.
+storage room.  There is some broken glass from the vending machine on the
+floor.  An officer known as PC Plod is here, looking at you with suspicious
+eyes.  Boris trots towards you from the east.
 
 "I see we have someone with violence in their hearts, director," says PC Plod
 as you step into the canteen.
@@ -816,8 +804,8 @@ put in their place. Oh, and she's had a skylight put in as well. At least,
 you're assuming that's what the huge hole in the ceiling is.
    Various members of her gargantuan entourage lounge around the dressing
 room, chatting, smoking, drinking.
-   East lies the canteen.
-World famous film star Violetta de Panino Derriere is here.
+   East lies the canteen.  World famous film star Violetta de Panino Derriere
+is here.
 
 "Good grief!" exclaims Violetta. "I rang for you positively ages ago. Where
 have you been?"
@@ -847,10 +835,9 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-You see a badge lying on the floor.  There is some broken glass from the
-vending machine on the floor.  Boris trots towards you from the west.
+storage room.  You see a badge lying on the floor.  There is some broken
+glass from the vending machine on the floor.  Boris trots towards you from
+the west.
 
 > get badge
 You take the badge.
@@ -1028,10 +1015,9 @@ around in a river of flame which flows from Satan's throne of bone (or
 cardboard as bone thrones were a bit beyond the studio's admittedly limited
 budget).
    South is a jungle, north is the bottom of the ocean and northeast a
-haunted house.
-Oscar hopeful Witherspoon Nash is here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the south.
+haunted house.  Oscar hopeful Witherspoon Nash is here.  Former action hero
+turned "serious" actor, Ogden Buckett stands here, looking confused.  Boris
+trots towards you from the south.
 
 > ne
 
@@ -1042,10 +1028,9 @@ into budgeting problems after the tea girl bought top of the range milk
 instead of the more common variety, so the house was downgraded to a shed.
 This made for a very different film, although the part where the pretty model
 was decapitated with the garden rake still brings a smile to your face.
-   To the southwest lies Hell and over to the north is a desert.
-The ever alluring Daisy is here.
-An officer known as PC Plod is here, looking at you with suspicious eyes.
-Boris trots towards you from the south-west.
+   To the southwest lies Hell and over to the north is a desert.  The ever
+alluring Daisy is here.  An officer known as PC Plod is here, looking at you
+with suspicious eyes.  Boris trots towards you from the south-west.
 
 As you enter the haunted house setting, you catch sight of Plod and Daisy
 conversing. Or, rather, Daisy is leaning forward in a rather provocative
@@ -1082,10 +1067,9 @@ around in a river of flame which flows from Satan's throne of bone (or
 cardboard as bone thrones were a bit beyond the studio's admittedly limited
 budget).
    South is a jungle, north is the bottom of the ocean and northeast a
-haunted house.
-Oscar hopeful Witherspoon Nash is here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the north-east.
+haunted house.  Oscar hopeful Witherspoon Nash is here.  Former action hero
+turned "serious" actor, Ogden Buckett stands here, looking confused.  Boris
+trots towards you from the north-east.
 
 > ne
 
@@ -1096,9 +1080,8 @@ into budgeting problems after the tea girl bought top of the range milk
 instead of the more common variety, so the house was downgraded to a shed.
 This made for a very different film, although the part where the pretty model
 was decapitated with the garden rake still brings a smile to your face.
-   To the southwest lies Hell and over to the north is a desert.
-The ever alluring Daisy is here.  Boris trots towards you from the
-south-west.
+   To the southwest lies Hell and over to the north is a desert.  The ever
+alluring Daisy is here.  Boris trots towards you from the south-west.
 
 > x bench
 "I don't think you should be looking around here," says Daisy.
@@ -1152,8 +1135,8 @@ into budgeting problems after the tea girl bought top of the range milk
 instead of the more common variety, so the house was downgraded to a shed.
 This made for a very different film, although the part where the pretty model
 was decapitated with the garden rake still brings a smile to your face.
-   To the southwest lies Hell and over to the north is a desert.
-The ever alluring Daisy is here.  Boris trots towards you from the north.
+   To the southwest lies Hell and over to the north is a desert.  The ever
+alluring Daisy is here.  Boris trots towards you from the north.
 
 > sw
 
@@ -1167,10 +1150,9 @@ around in a river of flame which flows from Satan's throne of bone (or
 cardboard as bone thrones were a bit beyond the studio's admittedly limited
 budget).
    South is a jungle, north is the bottom of the ocean and northeast a
-haunted house.
-Oscar hopeful Witherspoon Nash is here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the north-east.
+haunted house.  Oscar hopeful Witherspoon Nash is here.  Former action hero
+turned "serious" actor, Ogden Buckett stands here, looking confused.  Boris
+trots towards you from the north-east.
 
 > give trident to witherspoon
 "Oh, I say, what a frightfully decent trident this is," says Witherspoon,
@@ -1208,8 +1190,8 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash is here.  Boris trots towards you from the
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash is here.  Boris trots towards you from the
 north-west.
 
 > e
@@ -1426,9 +1408,8 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash is here.  Boris trots towards you from the
-east.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash is here.  Boris trots towards you from the east.
 
 > nw
 
@@ -1491,8 +1472,8 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash is here.  Boris trots towards you from the
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash is here.  Boris trots towards you from the
 north-west.
 
 > s
@@ -1533,9 +1514,8 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash is here.  Boris trots towards you from the
-south.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash is here.  Boris trots towards you from the south.
 
 > w
 
@@ -1551,10 +1531,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the east.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the east.
 
 > w
 
@@ -1569,9 +1547,8 @@ put in their place. Oh, and she's had a skylight put in as well. At least,
 you're assuming that's what the huge hole in the ceiling is.
    Various members of her gargantuan entourage lounge around the dressing
 room, chatting, smoking, drinking.
-   East lies the canteen.
-World famous film star Violetta de Panino Derriere is here.  Boris trots
-towards you from the east.
+   East lies the canteen.  World famous film star Violetta de Panino Derriere
+is here.  Boris trots towards you from the east.
 
 > give veal to violetta
 Violetta sniffs at the veal. "This smells decidedly strange," she says. "Are
@@ -1642,10 +1619,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the west.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the west.
 
 Boris chirps.
    "I know," you say.
@@ -1677,8 +1652,7 @@ and the sounds in this room, and it's easy to imagine it really is haunted.
 The black cloak which hovers a foot above the ground and is surrounded by a
 nimbus of glowing light doesn't help matters either.
    Off to the west is the film archive store while to the northeast is the
-canteen.
-Smiffy the filing clerk is here.  Boris trots towards you from the
+canteen.  Smiffy the filing clerk is here.  Boris trots towards you from the
 north-east.
 
 > talk smiffy
@@ -1734,9 +1708,8 @@ just ones that showed here one day that no one is really sure where they came
 from. Every surface is covered with old tapes, all of them dusty. There is
 even reputed to be a video player and a TV in here somewhere, but if so they
 must have been buried under the humungous collection of films many years ago.
-   Away to the east is a small storage room.
-Ross is here looking every bit as nerdy as usual.  Boris trots towards you
-from the east.
+   Away to the east is a small storage room.  Ross is here looking every bit
+as nerdy as usual.  Boris trots towards you from the east.
 
 > give watch to ross
 Ross takes the watch and presses it close to his chest.
@@ -1814,8 +1787,8 @@ and the sounds in this room, and it's easy to imagine it really is haunted.
 The black cloak which hovers a foot above the ground and is surrounded by a
 nimbus of glowing light doesn't help matters either.
    Off to the west is the film archive store while to the northeast is the
-canteen.
-Smiffy the filing clerk is here.  Boris trots towards you from the west.
+canteen.  Smiffy the filing clerk is here.  Boris trots towards you from the
+west.
 
 > ne
 
@@ -1831,10 +1804,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the south-west.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the south-west.
 
 > nw
 
@@ -1848,9 +1819,8 @@ two dozen bulbs cost a lot of money. There is, however, an overpowering smell
 which lingers over everything and makes you really glad you're not a minor
 film star but a director instead. A small collection tin has been nailed to
 the nearest wall.
-   Back to the southeast is the canteen.
-Some chap called Spivvy is here.  Boris trots towards you from the
-south-east.
+   Back to the southeast is the canteen.  Some chap called Spivvy is here.
+Boris trots towards you from the south-east.
 
 > talk spivvy
 "Yessir?" he says, eager to offload another fountain of wisdom (from his
@@ -1929,10 +1899,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the north-west.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the north-west.
 
 > e
 
@@ -1946,9 +1914,9 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
-here.  Boris trots towards you from the west.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash and the strange and unusual Madam Zara are here.
+Boris trots towards you from the west.
 
 Ross rushes into the film set, carrying a cup of tea (most of which he spills
 on the floor in his haste) and then goes charging off towards the canteen.
@@ -1980,9 +1948,9 @@ fairground ride (real), this makes for a surprisingly effective jungle. The
 heat is terrifying, leading you to suspect that either the studio have
 finally got something right… or the air conditioning is broken again.
    To the southeast is a film set which looks like a film set, while
-northwest lies the surface of the moon and north Hell itself.
-Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
-towards you from the south-east.
+northwest lies the surface of the moon and north Hell itself.  Famous actor
+(in his own mind anyway) Petty Morgan is here.  Boris trots towards you from
+the south-east.
 
 > n
 
@@ -1996,9 +1964,8 @@ around in a river of flame which flows from Satan's throne of bone (or
 cardboard as bone thrones were a bit beyond the studio's admittedly limited
 budget).
    South is a jungle, north is the bottom of the ocean and northeast a
-haunted house.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the south.
+haunted house.  Former action hero turned "serious" actor, Ogden Buckett
+stands here, looking confused.  Boris trots towards you from the south.
 
 > n
 
@@ -2042,8 +2009,8 @@ employees, this set was built as it was felt to be the best interpretation of
 the afterlife anyone could think of. You're not sure about the lapdancer's
 pole, personally, but the beer-laden bar running along the north wall is
 certainly a nice touch.
-   A short step south is the bottom of the ocean.
-A very unusual-looking God is here.  Boris trots towards you from the south.
+   A short step south is the bottom of the ocean.  A very unusual-looking God
+is here.  Boris trots towards you from the south.
 
 > talk god
 "Hey," says God, "is that my gold bar you're carrying?"
@@ -2091,9 +2058,8 @@ around in a river of flame which flows from Satan's throne of bone (or
 cardboard as bone thrones were a bit beyond the studio's admittedly limited
 budget).
    South is a jungle, north is the bottom of the ocean and northeast a
-haunted house.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the north.
+haunted house.  Former action hero turned "serious" actor, Ogden Buckett
+stands here, looking confused.  Boris trots towards you from the north.
 
 > s
 
@@ -2104,9 +2070,9 @@ fairground ride (real), this makes for a surprisingly effective jungle. The
 heat is terrifying, leading you to suspect that either the studio have
 finally got something right… or the air conditioning is broken again.
    To the southeast is a film set which looks like a film set, while
-northwest lies the surface of the moon and north Hell itself.
-Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
-towards you from the north.
+northwest lies the surface of the moon and north Hell itself.  Famous actor
+(in his own mind anyway) Petty Morgan is here.  Boris trots towards you from
+the north.
 
 > nw
 
@@ -2188,9 +2154,9 @@ fairground ride (real), this makes for a surprisingly effective jungle. The
 heat is terrifying, leading you to suspect that either the studio have
 finally got something right… or the air conditioning is broken again.
    To the southeast is a film set which looks like a film set, while
-northwest lies the surface of the moon and north Hell itself.
-Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
-towards you from the north-west.
+northwest lies the surface of the moon and north Hell itself.  Famous actor
+(in his own mind anyway) Petty Morgan is here.  Boris trots towards you from
+the north-west.
 
 > se
 
@@ -2204,9 +2170,9 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
-here.  Boris trots towards you from the north-west.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash and the strange and unusual Madam Zara are here.
+Boris trots towards you from the north-west.
 
 > w
 
@@ -2222,10 +2188,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the east.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the east.
 
 > sw
 
@@ -2239,8 +2203,7 @@ and the sounds in this room, and it's easy to imagine it really is haunted.
 The black cloak which hovers a foot above the ground and is surrounded by a
 nimbus of glowing light doesn't help matters either.
    Off to the west is the film archive store while to the northeast is the
-canteen.
-Smiffy the filing clerk is here.  Boris trots towards you from the
+canteen.  Smiffy the filing clerk is here.  Boris trots towards you from the
 north-east.
 
 > talk smiffy
@@ -2269,9 +2232,8 @@ just ones that showed here one day that no one is really sure where they came
 from. Every surface is covered with old tapes, all of them dusty. There is
 even reputed to be a video player and a TV in here somewhere, but if so they
 must have been buried under the humungous collection of films many years ago.
-   Away to the east is a small storage room.
-Ross is here looking every bit as nerdy as usual.  Boris trots towards you
-from the east.
+   Away to the east is a small storage room.  Ross is here looking every bit
+as nerdy as usual.  Boris trots towards you from the east.
 
 "Your tea, sir," says Ross, handing you… an empty cup.
    "It's empty, Ross," you point out.
@@ -2292,8 +2254,8 @@ and the sounds in this room, and it's easy to imagine it really is haunted.
 The black cloak which hovers a foot above the ground and is surrounded by a
 nimbus of glowing light doesn't help matters either.
    Off to the west is the film archive store while to the northeast is the
-canteen.
-Smiffy the filing clerk is here.  Boris trots towards you from the west.
+canteen.  Smiffy the filing clerk is here.  Boris trots towards you from the
+west.
 
 > ne
 
@@ -2309,10 +2271,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the south-west.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the south-west.
 
 > e
 
@@ -2326,9 +2286,9 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
-here.  Boris trots towards you from the west.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash and the strange and unusual Madam Zara are here.
+Boris trots towards you from the west.
 
 > e
 
@@ -2530,9 +2490,9 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
-here.  Boris trots towards you from the east.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash and the strange and unusual Madam Zara are here.
+Boris trots towards you from the east.
 
 > nw
 
@@ -2543,9 +2503,9 @@ fairground ride (real), this makes for a surprisingly effective jungle. The
 heat is terrifying, leading you to suspect that either the studio have
 finally got something right… or the air conditioning is broken again.
    To the southeast is a film set which looks like a film set, while
-northwest lies the surface of the moon and north Hell itself.
-Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
-towards you from the south-east.
+northwest lies the surface of the moon and north Hell itself.  Famous actor
+(in his own mind anyway) Petty Morgan is here.  Boris trots towards you from
+the south-east.
 
 > n
 
@@ -2559,9 +2519,8 @@ around in a river of flame which flows from Satan's throne of bone (or
 cardboard as bone thrones were a bit beyond the studio's admittedly limited
 budget).
    South is a jungle, north is the bottom of the ocean and northeast a
-haunted house.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the south.
+haunted house.  Former action hero turned "serious" actor, Ogden Buckett
+stands here, looking confused.  Boris trots towards you from the south.
 
 > give gide to ogden
 Ogden takes the Acctors Gide and his eyes light up. "Why…" he says. He seems
@@ -2587,9 +2546,9 @@ fairground ride (real), this makes for a surprisingly effective jungle. The
 heat is terrifying, leading you to suspect that either the studio have
 finally got something right… or the air conditioning is broken again.
    To the southeast is a film set which looks like a film set, while
-northwest lies the surface of the moon and north Hell itself.
-Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
-towards you from the north.
+northwest lies the surface of the moon and north Hell itself.  Famous actor
+(in his own mind anyway) Petty Morgan is here.  Boris trots towards you from
+the north.
 
 > se
 
@@ -2603,9 +2562,8 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
-here.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash and the strange and unusual Madam Zara are here.
 Former action hero turned "serious" actor, Ogden Buckett stands here, looking
 confused.  Boris trots towards you from the north-west.
 
@@ -2623,10 +2581,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the east.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the east.
 
 > sw
 
@@ -2640,8 +2596,7 @@ and the sounds in this room, and it's easy to imagine it really is haunted.
 The black cloak which hovers a foot above the ground and is surrounded by a
 nimbus of glowing light doesn't help matters either.
    Off to the west is the film archive store while to the northeast is the
-canteen.
-Smiffy the filing clerk is here.  Boris trots towards you from the
+canteen.  Smiffy the filing clerk is here.  Boris trots towards you from the
 north-east.
 
 > give tape to smiffy
@@ -2683,10 +2638,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the south-west.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the south-west.
 
 > e
 
@@ -2700,9 +2653,8 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
-here.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash and the strange and unusual Madam Zara are here.
 Former action hero turned "serious" actor, Ogden Buckett stands here, looking
 confused.  Boris trots towards you from the west.
 
@@ -2756,9 +2708,8 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
-here.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash and the strange and unusual Madam Zara are here.
 Former action hero turned "serious" actor, Ogden Buckett stands here, looking
 confused.  Boris trots towards you from the east.
 
@@ -2776,10 +2727,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the east.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the east.
 
 > nw
 
@@ -2793,9 +2742,8 @@ two dozen bulbs cost a lot of money. There is, however, an overpowering smell
 which lingers over everything and makes you really glad you're not a minor
 film star but a director instead. A small collection tin has been nailed to
 the nearest wall.
-   Back to the southeast is the canteen.
-Some chap called Spivvy is here.  Boris trots towards you from the
-south-east.
+   Back to the southeast is the canteen.  Some chap called Spivvy is here.
+Boris trots towards you from the south-east.
 
 > talk spivvy
 "Yessir?" he says, eager to offload another fountain of wisdom (from his
@@ -2878,10 +2826,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the north-west.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the north-west.
 
 > e
 
@@ -2895,9 +2841,8 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
-here.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash and the strange and unusual Madam Zara are here.
 Former action hero turned "serious" actor, Ogden Buckett stands here, looking
 confused.  Boris trots towards you from the west.
 
@@ -2910,9 +2855,9 @@ fairground ride (real), this makes for a surprisingly effective jungle. The
 heat is terrifying, leading you to suspect that either the studio have
 finally got something right… or the air conditioning is broken again.
    To the southeast is a film set which looks like a film set, while
-northwest lies the surface of the moon and north Hell itself.
-Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
-towards you from the south-east.
+northwest lies the surface of the moon and north Hell itself.  Famous actor
+(in his own mind anyway) Petty Morgan is here.  Boris trots towards you from
+the south-east.
 
 > give ring to petty
 "Ah, my ring," he says, snatching it off you and slipping it onto his finger.
@@ -2936,9 +2881,8 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash and the strange and unusual Madam Zara are
-here.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash and the strange and unusual Madam Zara are here.
 Former action hero turned "serious" actor, Ogden Buckett stands here, looking
 confused.  Boris trots towards you from the north-west.
 
@@ -2956,10 +2900,8 @@ You're not sure if it even does work, and considering the state of the goods
 within it, you're perhaps better off not finding out.
    Northwest lie a series of small dressing rooms, east the film set, west
 the dressing room of Violetta de Panina Derriere and southwest a small
-storage room.
-
-There is some broken glass from the vending machine on the floor.  Boris
-trots towards you from the east.
+storage room.  There is some broken glass from the vending machine on the
+floor.  Boris trots towards you from the east.
 
 > w
 
@@ -2974,9 +2916,8 @@ put in their place. Oh, and she's had a skylight put in as well. At least,
 you're assuming that's what the huge hole in the ceiling is.
    Various members of her gargantuan entourage lounge around the dressing
 room, chatting, smoking, drinking.
-   East lies the canteen.
-World famous film star Violetta de Panino Derriere is here.  Boris trots
-towards you from the east.
+   East lies the canteen.  World famous film star Violetta de Panino Derriere
+is here.  Boris trots towards you from the east.
 
 > give copy to violetta
 She takes the script between finger and thumb as if she suspects it might
@@ -3158,8 +3099,8 @@ fairground ride (real), this makes for a surprisingly effective jungle. The
 heat is terrifying, leading you to suspect that either the studio have
 finally got something right… or the air conditioning is broken again.
    To the southeast is a film set which looks like a film set, while
-northwest lies the surface of the moon and north Hell itself.
-Famous actor (in his own mind anyway) Petty Morgan is here.
+northwest lies the surface of the moon and north Hell itself.  Famous actor
+(in his own mind anyway) Petty Morgan is here.
 
 Boris comes rushing over and groans.
    "Yes," you say, "he was decidedly weird."
@@ -3181,9 +3122,8 @@ around in a river of flame which flows from Satan's throne of bone (or
 cardboard as bone thrones were a bit beyond the studio's admittedly limited
 budget).
    South is a jungle, north is the bottom of the ocean and northeast a
-haunted house.
-An officer known as PC Plod is here, looking at you with suspicious eyes.
-Boris trots towards you from the south.
+haunted house.  An officer known as PC Plod is here, looking at you with
+suspicious eyes.  Boris trots towards you from the south.
 
 > n
 
@@ -3208,8 +3148,8 @@ employees, this set was built as it was felt to be the best interpretation of
 the afterlife anyone could think of. You're not sure about the lapdancer's
 pole, personally, but the beer-laden bar running along the north wall is
 certainly a nice touch.
-   A short step south is the bottom of the ocean.
-A very unusual-looking God is here.  Boris trots towards you from the south.
+   A short step south is the bottom of the ocean.  A very unusual-looking God
+is here.  Boris trots towards you from the south.
 
 > talk god
 "I was wondering if I could ask you about the dead body in the car park," you
@@ -3253,9 +3193,8 @@ around in a river of flame which flows from Satan's throne of bone (or
 cardboard as bone thrones were a bit beyond the studio's admittedly limited
 budget).
    South is a jungle, north is the bottom of the ocean and northeast a
-haunted house.
-An officer known as PC Plod is here, looking at you with suspicious eyes.
-Boris trots towards you from the north.
+haunted house.  An officer known as PC Plod is here, looking at you with
+suspicious eyes.  Boris trots towards you from the north.
 
 > s
 
@@ -3266,9 +3205,9 @@ fairground ride (real), this makes for a surprisingly effective jungle. The
 heat is terrifying, leading you to suspect that either the studio have
 finally got something right… or the air conditioning is broken again.
    To the southeast is a film set which looks like a film set, while
-northwest lies the surface of the moon and north Hell itself.
-Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
-towards you from the north.
+northwest lies the surface of the moon and north Hell itself.  Famous actor
+(in his own mind anyway) Petty Morgan is here.  Boris trots towards you from
+the north.
 
 > se
 
@@ -3282,11 +3221,11 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash, The strange and unusual Madam Zara and world
-famous film star Violetta de Panino Derriere are here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the north-west.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash, The strange and unusual Madam Zara and world famous
+film star Violetta de Panino Derriere are here.  Former action hero turned
+"serious" actor, Ogden Buckett stands here, looking confused.  Boris trots
+towards you from the north-west.
 
 > e
 
@@ -3423,11 +3362,11 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash, The strange and unusual Madam Zara and world
-famous film star Violetta de Panino Derriere are here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the east.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash, The strange and unusual Madam Zara and world famous
+film star Violetta de Panino Derriere are here.  Former action hero turned
+"serious" actor, Ogden Buckett stands here, looking confused.  Boris trots
+towards you from the east.
 
 > s
 
@@ -3467,11 +3406,11 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash, The strange and unusual Madam Zara and world
-famous film star Violetta de Panino Derriere are here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the south.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash, The strange and unusual Madam Zara and world famous
+film star Violetta de Panino Derriere are here.  Former action hero turned
+"serious" actor, Ogden Buckett stands here, looking confused.  Boris trots
+towards you from the south.
 
 > nw
 
@@ -3482,9 +3421,9 @@ fairground ride (real), this makes for a surprisingly effective jungle. The
 heat is terrifying, leading you to suspect that either the studio have
 finally got something right… or the air conditioning is broken again.
    To the southeast is a film set which looks like a film set, while
-northwest lies the surface of the moon and north Hell itself.
-Famous actor (in his own mind anyway) Petty Morgan is here.  Boris trots
-towards you from the south-east.
+northwest lies the surface of the moon and north Hell itself.  Famous actor
+(in his own mind anyway) Petty Morgan is here.  Boris trots towards you from
+the south-east.
 
 > n
 
@@ -3498,9 +3437,8 @@ around in a river of flame which flows from Satan's throne of bone (or
 cardboard as bone thrones were a bit beyond the studio's admittedly limited
 budget).
    South is a jungle, north is the bottom of the ocean and northeast a
-haunted house.
-An officer known as PC Plod is here, looking at you with suspicious eyes.
-Boris trots towards you from the south.
+haunted house.  An officer known as PC Plod is here, looking at you with
+suspicious eyes.  Boris trots towards you from the south.
 
 > show scrabble
 You show the letter to PC Plod. At first he doesn't seem especially
@@ -3577,11 +3515,11 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-Oscar hopeful Witherspoon Nash, The strange and unusual Madam Zara and world
-famous film star Violetta de Panino Derriere are here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the north-west.
+is off to the northwest and a door leading outside is to the east.  Oscar
+hopeful Witherspoon Nash, The strange and unusual Madam Zara and world famous
+film star Violetta de Panino Derriere are here.  Former action hero turned
+"serious" actor, Ogden Buckett stands here, looking confused.  Boris trots
+towards you from the north-west.
 
 > talk violetta
 "Are we ready to begin shooting, Miss Panino de Derriere?" you ask.
@@ -3663,11 +3601,10 @@ Admittedly, you've never been much of an astronomy fan but you were always
 under the impression that the moon was kind of grey. And it doesn't have
 trees, does it? Palm trees? Well, at least the miniature replica of Sydney
 Opera House looks good.
-   To the west is the top of Mount Doom and southeast is a jungle.
-Oscar hopeful Witherspoon Nash and world famous film star Violetta de Panino
-Derriere are here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the south-east.
+   To the west is the top of Mount Doom and southeast is a jungle.  Oscar
+hopeful Witherspoon Nash and world famous film star Violetta de Panino
+Derriere are here.  Former action hero turned "serious" actor, Ogden Buckett
+stands here, looking confused.  Boris trots towards you from the south-east.
 
 > talk violetta
 "Are you ready for scene two, Miss Panino de Derriere?" you ask.
@@ -3776,8 +3713,8 @@ into budgeting problems after the tea girl bought top of the range milk
 instead of the more common variety, so the house was downgraded to a shed.
 This made for a very different film, although the part where the pretty model
 was decapitated with the garden rake still brings a smile to your face.
-   To the southwest lies Hell and over to the north is a desert.
-The ever alluring Daisy is here.
+   To the southwest lies Hell and over to the north is a desert.  The ever
+alluring Daisy is here.
 
 As you step into the haunted house set, you observe…
    Daisy unbuttoning her dress. "Are you sure there was a naked storm trooper
@@ -3807,10 +3744,10 @@ well known type of desert: the one that looks like a small storage room at a
 film studio that has previously contained cleaning supplies and a mop. The
 critics might have hated it but you're convinced Lawrence Of Arabia never
 looked better.
-   Southwards lies a haunted house.
-World famous film star Violetta de Panino Derriere is here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the south.
+   Southwards lies a haunted house.  World famous film star Violetta de
+Panino Derriere is here.  Former action hero turned "serious" actor, Ogden
+Buckett stands here, looking confused.  Boris trots towards you from the
+south.
 
 > talk violetta
 "Scene three on the ready, Miss Panino de Derriere," you say.
@@ -3900,10 +3837,10 @@ buckets of blue paint thrown liberally about which are supposed to convince
 the audience that the scene they're viewing is actually a thousand feet
 beneath the waves. Dribble some water down the camera lens and it's
 surprisingly realistic.
-   Hell lurks to the south with Heaven off to the north.
-World famous film star Violetta de Panino Derriere is here.
-Former action hero turned "serious" actor, Ogden Buckett stands here, looking
-confused.  Boris trots towards you from the south.
+   Hell lurks to the south with Heaven off to the north.  World famous film
+star Violetta de Panino Derriere is here.  Former action hero turned
+"serious" actor, Ogden Buckett stands here, looking confused.  Boris trots
+towards you from the south.
 
 > talk violetta
 "Scene four-" you start to say but Violetta interrupts you with, "how many
@@ -3990,8 +3927,8 @@ a stand (on which to put a camera) and several coils of rope and what looks
 to be a ceiling light that has fallen from the ceiling and now lies smashed
 on the floor.
    Your office is back to the south, the canteen is off to the west, a jungle
-is off to the northwest and a door leading outside is to the east.
-The strange and unusual Madam Zara is here.  Boris trots towards you from the
+is off to the northwest and a door leading outside is to the east.  The
+strange and unusual Madam Zara is here.  Boris trots towards you from the
 south.
 
 > give bar to zara

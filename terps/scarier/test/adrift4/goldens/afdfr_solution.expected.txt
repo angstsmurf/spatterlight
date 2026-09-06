@@ -46,7 +46,7 @@ you look presentable.
 
 Exits: East, South and West
 
-You can see some mail.
+  You can see some mail.
 
 > read mail
 
@@ -127,8 +127,8 @@ you're not using it.
 
 Exits: North
 
-You can see The Grim Reaper's Scythe.
-Horse waits here, looking quite majestic.
+  You can see The Grim Reaper's Scythe.  Horse waits here, looking quite
+majestic.
 
 > take scythe
 
@@ -254,7 +254,7 @@ dirty water.
 
 Exits: West
 
-You can see a sturdy branch.
+  You can see a sturdy branch.
 
 > take branch
 
@@ -294,7 +294,7 @@ new frontrunner in the "Most Uncomfortable I Have Ever Been" stakes.
 
 Exits:  East
 
-You can see a shovel blade.
+  You can see a shovel blade.
 
 Private Kline yawned.  Guard duty was so unbelievably boring.  He knew that
 he wouldn't have normally pulled this duty for six days in a row but recent
@@ -396,8 +396,7 @@ new frontrunner in the "Most Uncomfortable I Have Ever Been" stakes.
 
 Exits:  East
 
-You can see a shovel blade.
-Horse waits here, looking quite majestic.
+  You can see a shovel blade.  Horse waits here, looking quite majestic.
 
 > take blade
 
@@ -446,7 +445,7 @@ heavy door marked Armory.
 
 Exits: South and East
 
-You can see the cigarette lighter.
+  You can see the cigarette lighter.
 
 > push button
 
@@ -519,8 +518,8 @@ and objects that look suspiciously mechanical.
 
 Exits: Up
 
-You can see Ernest Busset's shoe.
-Thomas Brewer stands here, looking around the cellar thoughtfully.
+  You can see Ernest Busset's shoe.  Thomas Brewer stands here, looking
+around the cellar thoughtfully.
 
 "If this works we'll be famous!" chattered Ernest Busset, excitedly.
 
@@ -629,9 +628,8 @@ and objects that look suspiciously mechanical.
 
 Exits: Up
 
-You can see Ernest Busset's shoe.
-Horse waits here, looking quite majestic.  Thomas Brewer stands here, looking
-around the cellar thoughtfully.
+  You can see Ernest Busset's shoe.  Horse waits here, looking quite
+majestic.  Thomas Brewer stands here, looking around the cellar thoughtfully.
 
 > take shoe
 

@@ -142,9 +142,8 @@ cottage itself - small in appearance, but probably larger inside than you'd
 otherwise guess - looks cosy in the kind of way only a cottage in the heart
 of the English countryside can look. There are two floors, but only a single
 window is visible. From the bars across it, you doubt getting in there is
-going to be possible. A fence encircles the property.
-
-A metal bar lies on the ground.
+going to be possible. A fence encircles the property.  A metal bar lies on
+the ground.
 
 > smash gnome
 You smash the gnome to pieces, scattering it into a thousand and one pieces
@@ -227,9 +226,8 @@ lady of the house. The carpet underfoot has an unpleasant feel to it, as
 though it conceals something… unnatural. At the northern end, the corridor
 splits into two branches, one heading west, the other east while from the
 ceiling above you hangs an ornate and elaborate chandelier. At your back (to
-the south) is the front door via which you entered the cottage.
-
-There is a basket here.
+the south) is the front door via which you entered the cottage.  There is a
+basket here.
 
 > get basket
 You take the basket.
@@ -381,9 +379,8 @@ fairly groaning beneath it. A small window in one wall, barred, displays a
 desert scene beyond the cottage. Lurking in one corner is a single bookcase,
 alongside a cabinet and a wardrobe (a wardrobe in a study?) A panel in the
 far wall has opened, revealing a small cavity.
-   A doorway, minus a door, leads back to the hallway to the east.
-
-Lying on the floor is a shield.
+   A doorway, minus a door, leads back to the hallway to the east.  Lying on
+the floor is a shield.
 
 > get shield
 You take the shield.
@@ -769,9 +766,7 @@ climbing minus any handholds. A gap torn in the ceiling provides illumination
 but the gym is otherwise fairly dark.
    An empty doorway to the west leads back to the hallway while another to
 the north leads to the kitchen and there is a doorway with an actual door to
-the east marked "tech room".
-
-You see some charred material.
+the east marked "tech room".  You see some charred material.
 
 > n
 
@@ -784,9 +779,7 @@ kitchen counter, yet beside it is a fridge that wouldn't look out of place in
 Star Wars. The only thing the kitchen lacks is any windows, meaning the only
 light comes from the glowing fridge.
    A doorway to the south leads back to the gymnasium and a flight of stairs
-lead up to the cottage's second floor.
-
-There is some garlic here.
+lead up to the cottage's second floor.  There is some garlic here.
 
 > x fridge
 The fridge is tall, gleaming and somewhat out of place in the kitchen. In
@@ -962,9 +955,7 @@ climbing minus any handholds. A gap torn in the ceiling provides illumination
 but the gym is otherwise fairly dark.
    An empty doorway to the west leads back to the hallway while another to
 the north leads to the kitchen and there is a doorway with an actual door to
-the east marked "tech room".
-
-You see some charred material.
+the east marked "tech room".  You see some charred material.
 
 > w
 
@@ -1231,9 +1222,7 @@ climbing minus any handholds. A gap torn in the ceiling provides illumination
 but the gym is otherwise fairly dark.
    An empty doorway to the west leads back to the hallway while another to
 the north leads to the kitchen and there is a doorway with an actual door to
-the east marked "tech room".
-
-You see some charred material.
+the east marked "tech room".  You see some charred material.
 
 > n
 
@@ -1335,9 +1324,7 @@ cabinet floating around, seemingly oblivious to the laws of gravity. There's
 even a small pool in one corner of the room. One wall is given over to Mrs
 Moog's collection of diplomas, of which she seems to have more than just a
 few.
-   Southwards lies the upstairs landing.
-
-Also here is a wand.
+   Southwards lies the upstairs landing.  Also here is a wand.
 
 > get wand
 You take the wand.
@@ -1359,9 +1346,7 @@ cabinet floating around, seemingly oblivious to the laws of gravity. There's
 even a small pool in one corner of the room. One wall is given over to Mrs
 Moog's collection of diplomas, of which she seems to have more than just a
 few.
-   Southwards lies the upstairs landing.
-
-Also here is a bell.
+   Southwards lies the upstairs landing.  Also here is a bell.
 
 > get bell
 You take the bell.
@@ -1471,9 +1456,7 @@ is actually miles distant. The bathroom is off to the north. A feeble light
 is provided by a crackling panel set into the wall to your left while to your
 right is a portrait of none other than Mrs Moog herself. Her eyes seem to
 follow you around the corridor although you're sure this is just a flaw in
-the picture.
-
-Also here is a lens.
+the picture.   Also here is a lens.
 
 > get lens
 You take the lens.
@@ -1650,9 +1633,7 @@ climbing minus any handholds. A gap torn in the ceiling provides illumination
 but the gym is otherwise fairly dark.
    An empty doorway to the west leads back to the hallway while another to
 the north leads to the kitchen and there is a doorway with an actual door to
-the east marked "tech room".
-
-You see some charred material.
+the east marked "tech room".  You see some charred material.
 
 > e
 
@@ -1719,9 +1700,7 @@ climbing minus any handholds. A gap torn in the ceiling provides illumination
 but the gym is otherwise fairly dark.
    An empty doorway to the west leads back to the hallway while another to
 the north leads to the kitchen and there is a doorway with an actual door to
-the east marked "tech room".
-
-You see some charred material.
+the east marked "tech room".  You see some charred material.
 
 > w
 
@@ -1947,9 +1926,7 @@ climbing minus any handholds. A gap torn in the ceiling provides illumination
 but the gym is otherwise fairly dark.
    An empty doorway to the west leads back to the hallway while another to
 the north leads to the kitchen and there is a doorway with an actual door to
-the east marked "tech room".
-
-You see some charred material.
+the east marked "tech room".  You see some charred material.
 
 > n
 

@@ -104,9 +104,7 @@ You move down.
 Crypt
 The crypt is situated beneath the chapel. The room is filled with coffins
 piled up on each other. It's dark and musty here, but comparatively clean and
-tidy.
-
-Also here is a sword.
+tidy.  Also here is a sword.
 
 > take sword
 You take the sword. By accident you drop the plastic bag and a piece of

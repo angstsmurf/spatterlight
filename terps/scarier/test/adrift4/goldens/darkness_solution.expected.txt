@@ -152,9 +152,7 @@ The centre of the room is taken up by one enormous diesel engine, so you are
 obviously in the generator room.  It is in here that the electrical power is
 produced for the light and the rest of the lighthouse. You know from your
 last visit that this room can be an extremely noisy place. Some worn stone
-steps lead up and down.
-
-An old toolbox is sitting near the generator.
+steps lead up and down.  An old toolbox is sitting near the generator.
 
 > open toolbox
 You open the toolbox.  Inside the toolbox is a broken spark plug, a
@@ -176,9 +174,8 @@ racks, which contain everything you can think of. A large freezer stands just
 inside the door and is alongside some sacks of vegetables and boxes of
 foodstuffs.  Squeezed in between the racks is a petrol generator, although a
 much smaller unit than the one downstairs. Almost hidden in one corner is a
-battered old locker. Some stone steps lead up and down.
-
-You can also see a boat hook and a fire extinguisher.
+battered old locker. Some stone steps lead up and down.  You can also see a
+boat hook and a fire extinguisher.
 
 > open locker
 You open the old locker.  Inside the old locker is some ear defenders, a hard
@@ -201,9 +198,8 @@ The lowest level is a cupboard for storage of kit. The middle level consists
 of three bunk spaces, one of which seems to have been slept in. The top bunk
 also provides sleeping spaces, although you would need to be very agile to
 climb up and squeeze inside. Just inside the door is a wardrobe and nearby is
-a rusty panel heater.  Some stone steps lead up and down.
-
-You can also see a mattress and a vacuum cleaner.
+a rusty panel heater.  Some stone steps lead up and down.  You can also see a
+mattress and a vacuum cleaner.
 
 > open wardrobe
 You open the wardrobe.  A coat is inside the wardrobe.
@@ -279,9 +275,7 @@ Radio Room
 On one side of the room is work bench on which sits a radio, the remaining
 space is taken up with a dozen of more bright red gas bottles. To your right,
 sitting on the floor, is a blue metal box.  Some stone steps lead up and
-down.
-
-You can also see an old bucket.
+down.  You can also see an old bucket.
 
 You have the feeling you are not alone. You carefully examine the room, but
 find nothing.
@@ -410,9 +404,7 @@ You are on a metal walkway running around the outside of the lantern room.
 The panes of glass are covered by a thin layer of salt. Looking down to the
 rocks below the waves continually rise and fall in a boiling mass.  Attached
 to the side of the lighthouse is a box with is closed.  You can go southeast
-and southwest.
-
-You can also see a fuel can.
+and southwest.  You can also see a fuel can.
 
 > get fuel can
 You take the fuel can.
@@ -483,9 +475,7 @@ Radio Room
 On one side of the room is work bench on which sits a radio, the remaining
 space is taken up with a dozen of more bright red gas bottles. To your right,
 sitting on the floor, is a blue metal box.  Some stone steps lead up and
-down.
-
-You can also see an old bucket.
+down.  You can also see an old bucket.
 
 > d
 As you head down, your footsteps echo on the stone steps.
@@ -507,9 +497,8 @@ The lowest level is a cupboard for storage of kit. The middle level consists
 of three bunk spaces, one of which seems to have been slept in. The top bunk
 also provides sleeping spaces, although you would need to be very agile to
 climb up and squeeze inside. Just inside the door is a wardrobe and nearby is
-a rusty panel heater.  Some stone steps lead up and down.
-
-You can also see a mattress and a vacuum cleaner.
+a rusty panel heater.  Some stone steps lead up and down.  You can also see a
+mattress and a vacuum cleaner.
 
 > d
 As you head down, your footsteps echo on the stone steps.
@@ -521,9 +510,8 @@ racks, which contain everything you can think of. A large freezer stands just
 inside the door and is alongside some sacks of vegetables and boxes of
 foodstuffs.  Squeezed in between the racks is a petrol generator, although a
 much smaller unit than the one downstairs. Almost hidden in one corner is a
-battered old locker. Some stone steps lead up and down.
-
-You can also see a fire extinguisher.
+battered old locker. Some stone steps lead up and down.  You can also see a
+fire extinguisher.
 
 > d
 As you head down, your footsteps echo on the stone steps.
@@ -533,9 +521,7 @@ The centre of the room is taken up by one enormous diesel engine, so you are
 obviously in the generator room.  It is in here that the electrical power is
 produced for the light and the rest of the lighthouse. You know from your
 last visit that this room can be an extremely noisy place. Some worn stone
-steps lead up and down.
-
-An old toolbox is sitting near the generator.
+steps lead up and down.  An old toolbox is sitting near the generator.
 
 You have the feeling that someone is standing behind you. Looking over both
 shoulders you see nothing.
@@ -561,9 +547,7 @@ The centre of the room is taken up by one enormous diesel engine, so you are
 obviously in the generator room.  It is in here that the electrical power is
 produced for the light and the rest of the lighthouse. You know from your
 last visit that this room can be an extremely noisy place. Some worn stone
-steps lead up and down.
-
-An old toolbox is sitting near the generator.
+steps lead up and down.  An old toolbox is sitting near the generator.
 
 > x generator
 It appears that someone has been working on the very large diesel generator
@@ -583,9 +567,8 @@ racks, which contain everything you can think of. A large freezer stands just
 inside the door and is alongside some sacks of vegetables and boxes of
 foodstuffs.  Squeezed in between the racks is a petrol generator, although a
 much smaller unit than the one downstairs. Almost hidden in one corner is a
-battered old locker. Some stone steps lead up and down.
-
-You can also see a fire extinguisher.
+battered old locker. Some stone steps lead up and down.  You can also see a
+fire extinguisher.
 
 > mend generator
 You fill the generator with the fuel you are carrying.
@@ -612,9 +595,8 @@ The lowest level is a cupboard for storage of kit. The middle level consists
 of three bunk spaces, one of which seems to have been slept in. The top bunk
 also provides sleeping spaces, although you would need to be very agile to
 climb up and squeeze inside. Just inside the door is a wardrobe and nearby is
-a rusty panel heater.  Some stone steps lead up and down.
-
-You can also see a mattress and a vacuum cleaner.
+a rusty panel heater.  Some stone steps lead up and down.  You can also see a
+mattress and a vacuum cleaner.
 
 > u
 As you head up, your footsteps echo on the stone steps.
@@ -634,9 +616,7 @@ Radio Room
 On one side of the room is work bench on which sits a radio, the remaining
 space is taken up with a dozen of more bright red gas bottles. To your right,
 sitting on the floor, is a blue metal box.  Some stone steps lead up and
-down.
-
-You can also see an old bucket.
+down.  You can also see an old bucket.
 
 Just for a moment you hear a radio playing music.
 
@@ -660,9 +640,7 @@ Radio Room
 On one side of the room is work bench on which sits a radio, the remaining
 space is taken up with a dozen of more bright red gas bottles. To your right,
 sitting on the floor, is a blue metal box.  Some stone steps lead up and
-down.
-
-You can also see an old bucket.
+down.  You can also see an old bucket.
 
 > d
 As you head down, your footsteps echo on the stone steps.
@@ -684,9 +662,8 @@ The lowest level is a cupboard for storage of kit. The middle level consists
 of three bunk spaces, one of which seems to have been slept in. The top bunk
 also provides sleeping spaces, although you would need to be very agile to
 climb up and squeeze inside. Just inside the door is a wardrobe and nearby is
-a rusty panel heater.  Some stone steps lead up and down.
-
-You can also see a mattress and a vacuum cleaner.
+a rusty panel heater.  Some stone steps lead up and down.  You can also see a
+mattress and a vacuum cleaner.
 
 > d
 As you head down, your footsteps echo on the stone steps.
@@ -699,9 +676,8 @@ inside the door and is alongside some sacks of vegetables and boxes of
 foodstuffs.  Squeezed in between the racks is a petrol generator, although a
 much smaller unit than the one downstairs. Almost hidden in one corner is a
 battered old locker. Some stone steps lead up and down.  With the generator
-running it is very noisy in here.
-
-You can also see a fuel can and a fire extinguisher.
+running it is very noisy in here.  You can also see a fuel can and a fire
+extinguisher.
 
 > d
 As you head down, your footsteps echo on the stone steps.
@@ -711,9 +687,7 @@ The centre of the room is taken up by one enormous diesel engine, so you are
 obviously in the generator room.  It is in here that the electrical power is
 produced for the light and the rest of the lighthouse. You know from your
 last visit that this room can be an extremely noisy place. Some worn stone
-steps lead up and down.
-
-An old toolbox is sitting near the generator.
+steps lead up and down.  An old toolbox is sitting near the generator.
 
 You can hear something moving in the room above.
 
@@ -725,9 +699,7 @@ The fuel store for the lighthouse is completely taken up by two storage
 tanks, one large and one small.  The lighthouse is a very claustrophobic
 place at the best of times, but it feels even worse in here.  The room seems
 to be filled with the faint smell of petrol or maybe it is diesel. You can
-see some stone steps leading up and down.
-
-You can also see a spanner.
+see some stone steps leading up and down.  You can also see a spanner.
 
 > d
 As you head down, your footsteps echo on the stone steps.

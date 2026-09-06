@@ -36,7 +36,7 @@ a meeting in heaven - - - Back in 5 decades". Some imps are rushing (slightly
 charred) paperwork back and forth while the sexy succubus secretary (Ah!
 tongue twister!) is at the enquiries desk, leaning near a telephone.
 
-Devil, Angel and Human are here.
+  Devil, Angel and Human are here.
 
 > take devil
 The devil tags along in the off-chance of proquiring your soul.
@@ -89,7 +89,7 @@ a meeting in heaven - - - Back in 5 decades". Some imps are rushing (slightly
 charred) paperwork back and forth while the sexy succubus secretary (Ah!
 tongue twister!) is at the enquiries desk, leaning near a telephone.
 
-Angel and Human are here.
+  Angel and Human are here.
 
 > take angel
 The angel agrees to follow you.
@@ -115,8 +115,8 @@ tend to pleased looking retirees in the bar who are mostly eating salads with
 goat cheese. Fitness gyms as far as the eyes could bear to see show within
 them more old folks doing light excercises on treadmills, checking their
 heartrate and drinking water from a bottle before driving off in their
-Vauxhalls to their stately suburban homes. What a horrible existence!
-Devil is here.
+Vauxhalls to their stately suburban homes. What a horrible existence!  Devil
+is here.
 
 > leave angel
 The angel bows, says goodbye and that he hopes you consider converting.
@@ -145,7 +145,7 @@ a meeting in heaven - - - Back in 5 decades". Some imps are rushing (slightly
 charred) paperwork back and forth while the sexy succubus secretary (Ah!
 tongue twister!) is at the enquiries desk, leaning near a telephone.
 
-Human is here.
+  Human is here.
 
 > leave devil
 The devil makes one last feeble attempt at buying your soul before moving
@@ -176,8 +176,8 @@ tend to pleased looking retirees in the bar who are mostly eating salads with
 goat cheese. Fitness gyms as far as the eyes could bear to see show within
 them more old folks doing light excercises on treadmills, checking their
 heartrate and drinking water from a bottle before driving off in their
-Vauxhalls to their stately suburban homes. What a horrible existence!
-Angel is here.
+Vauxhalls to their stately suburban homes. What a horrible existence!  Angel
+is here.
 
 > leave human
 The human wanders of to gaze at the unique scenery.
@@ -203,7 +203,7 @@ a meeting in heaven - - - Back in 5 decades". Some imps are rushing (slightly
 charred) paperwork back and forth while the sexy succubus secretary (Ah!
 tongue twister!) is at the enquiries desk, leaning near a telephone.
 
-Devil is here.
+  Devil is here.
 
 > take devil
 The devil tags along in the off-chance of proquiring your soul.
@@ -229,8 +229,8 @@ tend to pleased looking retirees in the bar who are mostly eating salads with
 goat cheese. Fitness gyms as far as the eyes could bear to see show within
 them more old folks doing light excercises on treadmills, checking their
 heartrate and drinking water from a bottle before driving off in their
-Vauxhalls to their stately suburban homes. What a horrible existence!
-Angel and Human are here.
+Vauxhalls to their stately suburban homes. What a horrible existence!  Angel
+and Human are here.
 
 Suddenly, from the clouds emerge a podium similar to the one in The Price is
 Right, complete with big red plunger. I think you performed a winning action!

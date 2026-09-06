@@ -34,10 +34,8 @@ seperated by a thick iron grate. The only furnishing on your side seems to be
 a handful of musty straw. The other half didn't fare much better, getting
 only a crude table, chair, and the lamp -- but it does have a door, which is
 more than you can say for the northern part of the room. The only obvious
-exit here is a narrow hole in the ceiling.
-
-A thin stick leans against one wall.
-Nurgle is here, snoring loudly.
+exit here is a narrow hole in the ceiling.  A thin stick leans against one
+wall.  Nurgle is here, snoring loudly.
 
 > take stick
 You take the thin stick.
@@ -167,9 +165,8 @@ into the east tunnel, the floor suddenly tilts downward sharply. You keep
 your distance, as this slippery floor would undoubtably send you tumbling to
 a painful death. Even though you can't explore further, at least you have
 some company here: a tangled  human skeleton lies snagged on a sharp
-outcropping of rock.
-
-A crumbling wooden shield is attached to the skeleton's arm.
+outcropping of rock.  A crumbling wooden shield is attached to the skeleton's
+arm.
 
 > take shield
 You take the rotting shield.
@@ -245,10 +242,9 @@ arrogance on the outside has all the hallmarks of the Kings of Giir. If this
 really is one of the legendary tombs of a Girran King...well, you better not
 touch his stuff. You dwell briefly on all the hallmarks of the Kings of Giir:
 false modesty on the inside, impressive arrogance on the outside -- and
-enough death-traps to kill all tomb-robbers and their descendents.
-
-An ancient Girran blade rests on top of the sarcophagus. Unlike everything
-else here, there's not a speck of dust on it.
+enough death-traps to kill all tomb-robbers and their descendents.  An
+ancient Girran blade rests on top of the sarcophagus. Unlike everything else
+here, there's not a speck of dust on it.
 
 > get blade
 With a trembling hand, you carefully reach out...and grip the blade. The

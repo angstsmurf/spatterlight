@@ -176,9 +176,9 @@ profitability relies on its location near the wrestling arena to attract fans
 wanting to get drunk after the show. With your decision to keep yourself
 sober, you want to leave here as soon as possible to be further away from
 temptation. The bartender is behind the counter, waiting for orders. The exit
-is to the east.  A free stool is next to the counter.
-There is only one customer here and it is the Brawler, drinking his beer
-whilst sitting on his normal stool.
+is to the east.  A free stool is next to the counter.  There is only one
+customer here and it is the Brawler, drinking his beer whilst sitting on his
+normal stool.
 
 > put pills in beer
 When the Brawler puts the glass down, you point outside and ask him if he can
@@ -240,6 +240,7 @@ reputation, despite its friendly appearance. This is due to the fights that
 occur here, which take place most often after the wrestling shows at the
 arena. You find it good entertainment, as you cannot afford to watch the
 wrestling. The exit is to the west.
+
 The red shirted brat and the blue shirted brat are here, with the red shirted
 brat holding a can of oil.
 
@@ -608,8 +609,8 @@ The lone security guard for the arena can be normally found in this room. In
 the past there were more security guards, but the bad behaviour of the
 wrestlers led the other guards to quit. You were personally responsible for
 three guards deciding to leave. There are two exits. The hallway is to the
-east and the fireworks storeroom is to the south.
-The security guard is sitting at his desk, watching the small television.
+east and the fireworks storeroom is to the south.  The security guard is
+sitting at his desk, watching the small television.
 
 > talk to guard
 "Can I ask you a favour? I need someone to look after the room whilst I go to
@@ -665,9 +666,8 @@ with a doorway to the west. Unsurprisingly you are surrounded by cars as you
 wander through this enclosure. If you still had a car you could have parked
 here as well, but as you don't, this location is not much use to you. It does
 provide a little motivation by reminding you of what you have lost. Soon
-these losses will be turned around when you win the title.
-
-Also here is a red cigarette lighter.
+these losses will be turned around when you win the title.   Also here is a
+red cigarette lighter.
 
 > take lighter
 You take the red cigarette lighter.
@@ -724,9 +724,7 @@ This storeroom is empty apart from a table and two chairs sitting in the
 middle of the room. You remember from your time in the wrestling promotion
 that wrestlers who are not quite high enough in the pecking order to get
 their own room upstairs, often inhabit this storeroom. The exit is to the
-east.
-
-Also here is a crowbar.
+east.  Also here is a crowbar.
 
 > take crowbar
 You take the crowbar.
@@ -829,7 +827,6 @@ The Youth ignores you as he preens himself in front of a large mirror, which
 is attached to the north wall. A cupboard that is filled with the numerous
 outfits that he is trying on, sits next to the mirror. There are a few gifts
 from the Youth's female admirers stacked in a corner. The exit is east.
-
 Also here is a teddy bear and a bunch of flowers.
 
 > take teddy bear
@@ -1040,7 +1037,6 @@ The Youth ignores you as he preens himself in front of a large mirror, which
 is attached to the north wall. A cupboard that is filled with the numerous
 outfits that he is trying on, sits next to the mirror. There are a few gifts
 from the Youth's female admirers stacked in a corner. The exit is east.
-
 Also here is a bunch of flowers.
 
 > throw acid at youth

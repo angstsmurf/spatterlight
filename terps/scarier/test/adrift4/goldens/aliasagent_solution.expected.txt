@@ -69,8 +69,7 @@ Out in the Main Hall
 The floor is made of hard cement and the ceiling is very high above your
 head.  The walls are cement blocks painted a pale green.  There's a small
 doorway on the eastern wall of the hall.   North the hall branches off into a
-confusing maze of passages.
-Nerisa is here.
+confusing maze of passages.    Nerisa is here.
 
 > e
 You move east.
@@ -153,8 +152,8 @@ Out in the Main Hall
 The floor is made of hard cement and the ceiling is very high above your
 head.  The walls are cement blocks painted a pale green.  There's a small
 doorway on the eastern wall of the hall.   North the hall branches off into a
-confusing maze of passages.
-Charlie's come to pick up the trays.  Charlie sidles off to the east.
+confusing maze of passages.  Charlie's come to pick up the trays.  Charlie
+sidles off to the east.
 Charlie picks up the dinner trays.
 
 > in
@@ -163,9 +162,8 @@ You move in.
 A Small Office Area
 An entirely too cheerful calendar hangs on the far wall.  A desk seems to
 take up half of this narrow space and filing cabinets make up the entire left
-wall.  The space is simply too cramped for comfort.
-
-Fresh air ventilates the room from the overhead grate.
+wall.  The space is simply too cramped for comfort.   Fresh air ventilates
+the room from the overhead grate.
 
 > stand on desk
 You stand on the wooden desk.
@@ -197,8 +195,8 @@ You move out.
 
 Windowless Cell
 A sparse collection of lightbulbs cast illumination into the gloom.  There is
-a single chair here alongside an uncomfortable looking cot.
-Sydney Bristow is here.
+a single chair here alongside an uncomfortable looking cot.  Sydney Bristow
+is here.
 
 > ampule
 Sydney looks at you and smiles.  Sydney is sitting on the edge of her cot
@@ -253,9 +251,8 @@ You move down.
 A Small Office Area
 An entirely too cheerful calendar hangs on the far wall.  A desk seems to
 take up half of this narrow space and filing cabinets make up the entire left
-wall.  The space is simply too cramped for comfort.
-
-Fresh air ventilates the room from the overhead grate.
+wall.  The space is simply too cramped for comfort.   Fresh air ventilates
+the room from the overhead grate.
 
 > turn dial to 17
 You turn the dial.

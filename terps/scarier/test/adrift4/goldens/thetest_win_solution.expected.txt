@@ -125,9 +125,8 @@ You move east.
 The Orange Room
 This room is orange thus becoming the orange room.  Orange paint is painted
 on all the surfaces of this room including the floor except a small gap in
-the west wall which leads to another room.
-
-Scattered on the ground is a portable teleporter.
+the west wall which leads to another room.  Scattered on the ground is a
+portable teleporter.
 
 You can only move west.
 
@@ -301,8 +300,7 @@ You move west.
 The Room of Eternal Dialing
 You are in the room of eternal dialling.  There is a phone here.  It gives
 you the strange idea of using it to dial a number!  What a good idea!  There
-is another door to the east.  It's locked.
-A Robot Guard is here.
+is another door to the east.  It's locked.  A Robot Guard is here.
 
 You can move east and west.
 Robot Guard hits you with the robot's chain.
@@ -340,10 +338,8 @@ You move east.
 
 The Empty Room
 This room is completely empty and very plain.  Unless you count the dust, but
-even that is very plain.
-
-Scattered on the ground is a piece of paper.
-A Robot Guard is here.
+even that is very plain.  Scattered on the ground is a piece of paper.  A
+Robot Guard is here.
 
 You can only move west.
 Robot Guard hits you with the robot's chain.

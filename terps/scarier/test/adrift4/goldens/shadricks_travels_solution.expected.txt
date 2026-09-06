@@ -30,6 +30,7 @@ Near Father, east of the road
 of thick trees to the north.  There is a stump here, that father is using to
 split larger pieces of wood into smaller ones.  He has already chopped a
 small pile that lay on the ground near the stump."
+
 "Father is chopping wood, and starting to work up a good sweat.  Might want
 ot make sure I'm not down wind from him the rest of the trip."
 
@@ -61,8 +62,8 @@ Near Mum, who is setting up camp
 "The wagon is stopped nearby, and the horses tied to a tree further off.  Mum
 has taken a few things out of the wagon to prepare camp.  Our bedding lies
 scattered off to one side, while mum has already prepared a pit to build the
-fire for cooking."
-"Mum is getting a few things out of the wagon to prepare supper."
+fire for cooking."  "Mum is getting a few things out of the wagon to prepare
+supper."
 
 > x bedding
 "It is all piled together and hasn't been sorted out yet.  I'm sure mum will
@@ -103,9 +104,8 @@ bear that is standing between him and I.  I imagine the beehive in the pine
 tree above the bear is what the bear was interested in.  But why have a
 little honey when you can have Hanson instead.  I guess I had better do
 something before Hanson gets eaten.  I definitely wouldn’t be getting any
-supper if I let that happen."
-Hanson standing as far back as he can on a large rock, trying to keep his
-distance from the bear.
+supper if I let that happen."  Hanson standing as far back as he can on a
+large rock, trying to keep his distance from the bear.
 
 > climb tree
 Please be more clear, what do you want to climb?  The old oak tree or the
@@ -138,9 +138,8 @@ bear that is standing between him and I.  I imagine the beehive in the pine
 tree above the bear is what the bear was interested in.  But why have a
 little honey when you can have Hanson instead.  I guess I had better do
 something before Hanson gets eaten.  I definitely wouldn’t be getting any
-supper if I let that happen."
-Hanson standing as far back as he can on a large rock, trying to keep his
-distance from the bear.
+supper if I let that happen."  Hanson standing as far back as he can on a
+large rock, trying to keep his distance from the bear.
 
 > throw rock at hive
 "I throw the rock at the beehive and it falls to the ground.  Bees are

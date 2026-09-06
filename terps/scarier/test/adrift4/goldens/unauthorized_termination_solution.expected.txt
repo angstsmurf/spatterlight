@@ -60,8 +60,8 @@ Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
 standard hidden lighting set to a low level, most of the room is in gloom. A
 security monitor is on one side of the room, to your right the interrogator
-and virtually opposite is the teleporter.
-Zeta-Theta is standing against the wall.
+and virtually opposite is the teleporter.  Zeta-Theta is standing against the
+wall.
 
 > talk to zeta-theta
 You begin with, "Hail Zeta-Theta. A communication to attend has been
@@ -87,8 +87,8 @@ Domicile of Gamma-Sigma
 The domicile is appropriate to the victim's level of achievement and the
 metal room is 1.5m square and only 2m in height. On one side of the room is
 the recharger and opposite the communicator. On the wall in between is the
-teleporter. A typical domicile for a Series 3.
-The still form Gamma-Sigma is here.
+teleporter. A typical domicile for a Series 3.  The still form Gamma-Sigma is
+here.
 
 > b
 Logs
@@ -119,8 +119,8 @@ Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
 virtually opposite is the teleporter. With the standard hidden lighting set
-to a low level, most of the room is in shadow.
-Zeta-Theta is standing against the wall.
+to a low level, most of the room is in shadow.  Zeta-Theta is standing
+against the wall.
 
 > talk to zeta-theta
 You begin with, "Hail Zeta-Theta, Gamma-Sigma has been examined and it
@@ -144,8 +144,8 @@ Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
 standard hidden lighting seems to be set to a higher level than normal, it is
 certainly brighter than you prefer. A control panel is on one side of the
-room and right opposite is the teleporter.
-Mu-Nu is hovering in the centre of the room.
+room and right opposite is the teleporter.  Mu-Nu is hovering in the centre
+of the room.
 
 > talk to mu-nu
 Mu-Nu states, "Hail Epsilon-Beta, your appearance is unexpected but
@@ -178,8 +178,8 @@ Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
 virtually opposite is the teleporter. With the standard hidden lighting set
-to a low level, most of the room is in shadow.
-Zeta-Theta is standing against the wall.
+to a low level, most of the room is in shadow.  Zeta-Theta is standing
+against the wall.
 
 > talk to zeta-theta
 Zeta-Theta replies with, "Hail Epsilon-Beta."
@@ -252,8 +252,8 @@ Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
 virtually opposite is the teleporter. With the standard hidden lighting set
-to a low level, most of the room is in dullness.
-Zeta-Theta is standing against the wall.
+to a low level, most of the room is in dullness.  Zeta-Theta is standing
+against the wall.
 Zeta-Theta appears to be looking at the pebble you are carrying.
 
 > talk to zeta-theta
@@ -312,8 +312,8 @@ Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
 standard hidden lighting seems to be set to a higher level than normal, it is
 certainly brighter than you prefer. A control panel is on one side of the
-room and right opposite is the teleporter.
-Mu-Nu is hovering in the centre of the room.
+room and right opposite is the teleporter.  Mu-Nu is hovering in the centre
+of the room.
 Mu-Nu appears to be looking closely at the crystal you are carrying.
 
 As you appear Mu-Nu looks at the crystal you are carrying and exclaims, "That
@@ -383,8 +383,8 @@ The room slowly fades and is replaced with your destination.
 Tyr Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
 The place can only be described as monumental and you are extremely
-uncomfortable. To the north is the main assembly plant of the centre.
-Mu-Rho is hovering in the centre of the room.
+uncomfortable. To the north is the main assembly plant of the centre.  Mu-Rho
+is hovering in the centre of the room.
 
 As you enter the centre something strange happens, it is almost like a power
 overload and all your circuits seem to be overheating. The control over your
@@ -430,8 +430,8 @@ You move west.
 Tyr Stores
 The stores is a place much more suited to your tastes, it is 10m square with
 lower lighting levels. Against the wall, just inside the entrance, is a metal
-table. To the east is the assembly plant.
-The still form Gamma-Sigma is here.
+table. To the east is the assembly plant.  The still form Gamma-Sigma is
+here.
 
 > exam table
 The metal three legged table seems fairly aged.  A termination report is on
@@ -495,8 +495,8 @@ You move south.
 Tyr Centre of Creation
 The centre must be the largest and brightest places you have ever visited.
 The place can only be described as monumental and you are extremely
-uncomfortable. To the north is the main assembly plant of the centre.
-Mu-Rho is hovering in the centre of the room.
+uncomfortable. To the north is the main assembly plant of the centre.  Mu-Rho
+is hovering in the centre of the room.
 
 > 4
 The room slowly fades and is replaced with your destination.
@@ -505,8 +505,8 @@ Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
 standard hidden lighting seems to be set to a higher level than normal, it is
 certainly brighter than you prefer. A control panel is on one side of the
-room and right opposite is the teleporter.
-Mu-Nu is hovering in the centre of the room.
+room and right opposite is the teleporter.  Mu-Nu is hovering in the centre
+of the room.
 
 > give module to mu-nu
 You hand the memory module to Mu-Nu who hovers over to the control panel.
@@ -619,8 +619,8 @@ Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
 standard hidden lighting seems to be set to a higher level than normal, it is
 certainly brighter than you prefer. A control panel is on one side of the
-room and right opposite is the teleporter.
-Mu-Nu is hovering in the centre of the room.
+room and right opposite is the teleporter.  Mu-Nu is hovering in the centre
+of the room.
 
 > give chip to mu-nu
 You hand the recording chip to Mu-Nu who hovers over to the control panel.
@@ -751,8 +751,8 @@ You move east.
 Small Crater
 The small crater, which is an oval shape, is just deep enough to be hidden
 from the surface of the planet.  At one end of the crater is a wrecked
-machine. The only visible exit is to the west.
-The still form of Psi-Tau is here.
+machine. The only visible exit is to the west.  The still form of Psi-Tau is
+here.
 
 The tracer beeps and turns off.
 
@@ -865,8 +865,8 @@ Centre for Maintenance
 The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
 standard hidden lighting seems to be set to a higher level than normal, it is
 certainly brighter than you prefer. A control panel is on one side of the
-room and right opposite is the teleporter.
-Mu-Nu is hovering in the centre of the room.
+room and right opposite is the teleporter.  Mu-Nu is hovering in the centre
+of the room.
 
 > give module to mu-nu
 You hand the damaged memory module to Mu-Nu who hovers over to the control
@@ -910,8 +910,8 @@ Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
 virtually opposite is the teleporter. With the standard hidden lighting set
-to a low level, most of the room is in gloom.
-Zeta-Theta is standing against the wall.
+to a low level, most of the room is in gloom.  Zeta-Theta is standing against
+the wall.
 
 As you enter Zeta-Theta moves towards you and in a raised voice, "Why have
 you been continuing this investigation? This unit does not expect this type
@@ -947,8 +947,7 @@ appropriate to your level of achievement. Attached to the wall behind you is
 the all important recharger with the teleporter on the floor opposite. To
 your left is the communicator with your own personal storage shelf above it.
 With the lighting fixed on the lowest setting the place is in darkness, just
-how you prefer it.
-Someone is standing to one side of the room.
+how you prefer it.  Someone is standing to one side of the room.
 
 As you enter your domicile something at the edge of your vision moves.
 
@@ -1003,8 +1002,8 @@ Centre for Examination
 The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
 virtually opposite is the teleporter. With the standard hidden lighting set
-to a low level, most of the room is in gloom.
-Zeta-Theta is standing against the wall.
+to a low level, most of the room is in gloom.  Zeta-Theta is standing against
+the wall.
 
 As you enter Zeta-Theta looks surprised to see you and moves towards you.
 Pausing for several decsecs in a raised voice, "Why have you returned from

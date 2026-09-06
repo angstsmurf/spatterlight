@@ -212,9 +212,7 @@ Vous vous déplacez vers le Nord.
 Sur la terrasse
 Vous voilà de retour sur la terrasse. Jenny Lucas se tient debout près d'une
 rambarde. Vous pouvez voir un plantoir délaissé sur une des jardinières
-entourant la terrasse.
-
-Aussi voici un plantoir.
+entourant la terrasse.  Aussi voici un plantoir.
 
 > prendre le plantoir
 Vous ramassez le plantoir.
@@ -1348,9 +1346,8 @@ Vous vous déplacez vers le Nord.
 La salle de séjour
 Vous pénétrez dans une pièce moyennement spacieuse. Vous pouvez voir une
 table et un bureau sur lequel est posé un répondeur. Une cassette audio et
-une petite clé se trouvent par terre juste devant vous.
-
-Aussi voici une petite clé.
+une petite clé se trouvent par terre juste devant vous.  Aussi voici une
+petite clé.
 
 > prendre la petite clé
 Vous ramassez la petite clé. "On dirait une clé de boîte à lettres."
@@ -1818,9 +1815,8 @@ porte. Vous entrez dans une petite salle. Simon est là, entre les mains du
 boss. Vous dégainez votre pistolet: "Relâchez-le!" ordonnez-vous. "Baisses
 ton arme! Si tu tires, ton copain y passe!" réplique le boss. "Il faut que je
 trouve un moyen de nous sortir de là." pensez-vous. Vous pouvez voir une
-bouteille de Vodka et une liasse de billets.
-
-Aussi voici une bouteille de Vodka.
+bouteille de Vodka et une liasse de billets.  Aussi voici une bouteille de
+Vodka.
 "Je suis certain que pour ces mecs, l'argent est plus important que la vie
 d'un homme. Cela devrait jouer en ma faveur." pensez-vous.
 

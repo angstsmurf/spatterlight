@@ -74,9 +74,8 @@ deep into the rockface is before you.
 You move south.
 Pools of water collected along the uneven terrain reflect images of light
 orbs imbedded in the rock, which provide minimal lighting.  Occasionally
-droplets of water fall into the pools from the darkened ceiling above.
-
-Also here is a plastic pirate knife.
+droplets of water fall into the pools from the darkened ceiling above.  Also
+here is a plastic pirate knife.
 
 > look pools
 You notice that one of the pools does not cast a reflection.  Upon further
@@ -91,8 +90,8 @@ You move down.
 The light orbs reveal a barren area with exits leading out in all directions
 except down.  Currently however, all exits are being blocked off by heavy
 iron bars, which slid into place the moment you entered from the cavern.
-There is a cystal lock in the north passage, just out of reach.
-A monkey is here.
+There is a cystal lock in the north passage, just out of reach.  A monkey is
+here.
 
 > act like monkey
 You hunch over, arms drooping to your sides, and do your best monkey
@@ -136,8 +135,7 @@ leading east around the edge of the lake, to a barely visible waterfall.
 > w
 You move west.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.
-A monkey is here.
+except down.  A monkey is here.
 
 > s
 You move south.
@@ -145,9 +143,8 @@ Large rocks as scattered throughout the cave.  Exits lead in all directions.
 
 > down
 You move down.
-A narrow space underneath two converging masses of rock.
-
-Also here is a fishing pole.
+A narrow space underneath two converging masses of rock.  Also here is a
+fishing pole.
 
 > take pole
 You pick up the fishing pole.
@@ -159,8 +156,7 @@ Large rocks as scattered throughout the cave.  Exits lead in all directions.
 > n
 You move north.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.
-A monkey is here.
+except down.  A monkey is here.
 
 > e
 You move east.
@@ -181,15 +177,13 @@ remarks, as you haul in your catch, a metal toy car.
 > w
 You move west.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.
-A monkey is here.
+except down.  A monkey is here.
 
 > w
 You move west.
 Wells of fire are scattered throughout the cave, though the air remains cool
 despite the heat source.  On the far side of the cave, to the west,  you see
-what appears to be a huge petrified mushroom.
-A fire elemental is here.
+what appears to be a huge petrified mushroom.  A fire elemental is here.
 
 > throw wood at elemental
 "You throw the waterlogged piece of driftwood at the elemental.  It tries to
@@ -198,7 +192,6 @@ burn the wood, but ends up fizzling out, and fading away."
 > w
 You move west.
 The large fossil, is surrounded by smaller stone mushrooms along the ground.
-
 Also here is a wrist watch.
 
 > take watch
@@ -213,8 +206,7 @@ what appears to be a huge petrified mushroom.
 > e
 You move east.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.
-A monkey is here.
+except down.  A monkey is here.
 
 > n
 You move north.
@@ -236,10 +228,8 @@ candle-lit brass chandelier hangs from the ceiling, looming high above.
 > n
 You move north.
 Flames crackle in the fireplace, which is flanked by a long leather couch,
-and row of luxurious high-backed chairs.
-
-Also here is a fire poker.
-A ghost is here.
+and row of luxurious high-backed chairs.  Also here is a fire poker.  A ghost
+is here.
 
 For a second, a strong fragrance is in the air.  A fleeting image in your
 mind of another place and time is triggered by the smell, only to disappear
@@ -324,8 +314,7 @@ candelabra and surrounded by twenty or so chairs.
 > s
 You move south.
 Flames crackle in the fireplace, which is flanked by a long leather couch,
-and row of luxurious high-backed chairs.
-A ghost is here.
+and row of luxurious high-backed chairs.  A ghost is here.
 
 > s
 You move south.
@@ -428,8 +417,7 @@ candle-lit brass chandelier hangs from the ceiling, looming high above.
 > n
 You move north.
 Flames crackle in the fireplace, which is flanked by a long leather couch,
-and row of luxurious high-backed chairs.
-A ghost is here.
+and row of luxurious high-backed chairs.  A ghost is here.
 
 > ask ghost about suit
 "At the end of the war, each surviving member of my unit got one when we
@@ -555,8 +543,7 @@ side.
 
 > s
 You move south.
-The stairs lead up to the attic.
-A ghostly apparition is here.
+The stairs lead up to the attic.  A ghostly apparition is here.
 
 > use amulet
 Upon sight of the cystal amulet, the ghostly apparition howls in agony,
@@ -565,8 +552,7 @@ before disappearing.
 > up
 You move up.
 Dusty boxes of junk, and broken furniture fill the space between the rafters.
- Along the south wall there is a toy box.
-The Sentinel is here.
+ Along the south wall there is a toy box.  The Sentinel is here.
 
 > use dagger
 "What is this?!" The sentinel cries out, as the blade of light pierces his

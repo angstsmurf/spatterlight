@@ -11,9 +11,7 @@ direction your life-suit's compass tells you is west, is the small iceberg
 into which your shuttle crashed.  Ahead of you, just a short swim away, is
 the gigantic form of a space-craft's rear dorsal.  It juts out of the water
 by some two-hundred feet.  On it, below the Space-Corps insignia, is printed
-the ship's name: the Shetland.
-
-Also here is a small chunk of ice.
+the ship's name: the Shetland.  Also here is a small chunk of ice.
 
 > take ice
 You take the small chunk of ice.
@@ -62,9 +60,7 @@ This is a small room, from which three doors lead.  On the floor lie various
 tools, which have fallen from their hangings on the walls.  A door leads
 west, another leads south, and the last leads east.  Because of the way the
 Shetland has crashed, the floor tilts at an awkward angle, slanting downwards
-towards the north.
-
-Also here is a laser cutter and a welding torch.
+towards the north.  Also here is a laser cutter and a welding torch.
 
 > take laser cutter
 You take the laser cutter.
@@ -104,9 +100,8 @@ You move south.
 
 The engine access bay
 You are in a small chamber with doors at both ends, to the north and south.
-Two large computer terminals stand against the east wall.
-
-Also here is a large fuel tank.
+Two large computer terminals stand against the east wall.  Also here is a
+large fuel tank.
 
 > fill small canister from tank
 You refill the small fuel canister with MPF Fluid from the larger tank.
@@ -199,9 +194,8 @@ You move south.
 
 The engine access bay
 You are in a small chamber with doors at both ends, to the north and south.
-Two large computer terminals stand against the east wall.
-
-Also here is a large fuel tank.
+Two large computer terminals stand against the east wall.  Also here is a
+large fuel tank.
 
 > cut door with laser
 You cut through the south door with the laser cutter.

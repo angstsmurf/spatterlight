@@ -428,7 +428,6 @@ The sunlight cannot penetrate this clearing. What light there is illuminates
 an eerily life-like sculpture of a man, standing by a long-extinguished fire.
 He has one hand outstretched, as if reaching for something, and his face is
 contorted into an expression of helpless fear and despair.
-
    There is a pendant here.
 
 A flash of memory...
@@ -529,7 +528,6 @@ a gorge which drops away steeply to a river, far below; the distance so great
 that the sounds of the river are just a faint hum. The rope bridge sways back
 and forth, appearing barely capable of holding itself together let alone the
 weight of a fully grown man.
-
    There is a helm here.
    There is a branch here.
    There is a locket here.
@@ -890,7 +888,6 @@ ancient, from which hangs the dead and rotting body of a man. It swings back
 and forth in the light breeze, emitting a creaking sound which would be
 chilling even if not caused by such a grisly spectre. The corpse is clad in a
 worn black cloak.
-
    There is a large rock here.
 
 > score
@@ -933,7 +930,6 @@ ancient, from which hangs the dead and rotting body of a man. It swings back
 and forth in the light breeze, emitting a creaking sound which would be
 chilling even if not caused by such a grisly spectre. The corpse is clad in a
 worn black cloak.
-
    There is a large rock here.
 
 > untie corpse
@@ -970,7 +966,6 @@ The path ahead of you is covered by sand. Quicksand. Step into it and you
 could well be sucked down to an early and unpleasant grave. On the far side,
 you can see what looks like a fast-flowing river, just visible through the
 trees.
-
    There is a large rock here.
 
 > push rock e

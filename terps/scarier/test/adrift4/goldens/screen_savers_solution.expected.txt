@@ -35,8 +35,8 @@ Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
 to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
-  There's a huge pile of purple penguins here, as well as Megan's G4.
-Megan is here.
+  There's a huge pile of purple penguins here, as well as Megan's G4.  Megan
+is here.
 
 > e
 You move east.
@@ -45,9 +45,7 @@ Lab Area A
 This area is for hardware testing and experimentation.  The charred remains
 of some glorious experiments litter the floor .  The main hall is to the
 west, while an additional lab area is to the east.  A teleporter is set up
-here.
-
-Also here is a Linux disc and a music megaphone.
+here.  Also here is a Linux disc and a music megaphone.
 
 > take disc
 You pick up the Linux disc.
@@ -62,9 +60,8 @@ yourself in the TechTV offices.
 Meeting room
 This is the room where The Screen Savers shows are planned. The teleporter to
 take you back to Planet X is here.  North will take you to the The Screen
-Savers' office cubes.
-
-Also here are some meeting notes and some crumpled paper.
+Savers' office cubes.  Also here are some meeting notes and some crumpled
+paper.
 
 > n
 You move north.
@@ -80,9 +77,8 @@ You move east.
 
 Patrick's cube
 This is Patrick's cube.  West will take you back to being by the cubes, while
-to the north you spot Martin's cube.  Patrick's stuff fills the cube.
-
-Also here is a punk tape.
+to the north you spot Martin's cube.  Patrick's stuff fills the cube.  Also
+here is a punk tape.
 
 > take tape
 You pick up the punk tape.
@@ -92,9 +88,8 @@ You move north.
 
 Martin's cube
 This is Martin's cube.  A tad bit untidy, but nothing compared to Patrick's
-cube's natural state.  South will take you back to Patrick's cube.
-
-Also here is a video.
+cube's natural state.  South will take you back to Patrick's cube.  Also here
+is a video.
 
 > take video
 You pick up the video.
@@ -121,9 +116,8 @@ You move north.
 Kitchen
 The office kitchen is beset by a burned popcorn smell.   Apparently someone
 caught the microwave on fire again because it's gone.  There is, however, a
-refrigerator here.  South will take you back by the cubes.
-
-Also here is a banana peel.
+refrigerator here.  South will take you back by the cubes.    Also here is a
+banana peel.
 
 > take peel
 You pick up the banana peel.
@@ -143,9 +137,8 @@ You move south.
 Meeting room
 This is the room where The Screen Savers shows are planned. The teleporter to
 take you back to Planet X is here.  North will take you to the The Screen
-Savers' office cubes.
-
-Also here are some meeting notes and some crumpled paper.
+Savers' office cubes.  Also here are some meeting notes and some crumpled
+paper.
 
 > enter teleporter
 You climb inside the teleporter and with a blinding flash of light you find
@@ -162,8 +155,8 @@ Main hall
 You are standing in a long, white hall.  To the west is the Netcam Cineplex,
 to the east is the Lab area, to the north is the studio lobby, and the set is
 south.
-  There's a huge pile of purple penguins here, as well as Megan's G4.
-Megan is here.
+  There's a huge pile of purple penguins here, as well as Megan's G4.  Megan
+is here.
 
 > install disc
 You start to install Galaxy Linux on Megan's G4. The screen displays, "You
@@ -194,8 +187,7 @@ Snack room
 This is a small snack room.   West leads to outside the set.  Jessica is
 here, frantically drinking coffee.  Whenever she is about to finish, a
 servobot in the corner glides over, gives her a refill, and then returns to
-the corner.
-Jessica is here.
+the corner.  Jessica is here.
 
 > drop peel
 You put the banana peel on the floor.   Jessica almost finishes her coffee
@@ -270,8 +262,7 @@ uncomfortable.   When he spots you, he cups his hands around his mouth and
 shouts above the music, "Hey!  You've got to help me get out of here!  I
 never wanted to be part of this contest but these crazy aliens won't let me
 go!"   As he finishes speaking the aliens cheer and clap, apparently pleased
-with his speech.
-Martin is here.
+with his speech.  Martin is here.
 
 > play video
 You plop the video into the slot.  You immediately hear some clicking and
@@ -369,16 +360,14 @@ Hotel lobby
 This is the lobby of the Planet X Luxury Hotel.  West takes you back outside,
 while to the north you can see some kind of game room.  Through the open
 doors to the west you can see the bulldozer continuing its approach.  There
-is a glass case here.
-Joshua is here.
+is a glass case here.  Joshua is here.
 
 > n
 You move north.
 
 Game room
 This is the Planet X Luxury Hotel's game room.  South takes you back to the
-lobby.  There is an Asteroids game here.
-Darci is here.
+lobby.  There is an Asteroids game here.  Darci is here.
 
 > flip switch
 Darci is so engrossed that she doesn't notice you flipping the switch.
@@ -396,10 +385,9 @@ You move south.
 Hotel lobby
 This is the lobby of the Planet X Luxury Hotel.  West takes you back outside,
 while to the north you can see some kind of game room.  Through the open
-doors to the west you can see the bulldozer continuing its approach.
-
-Also here are the game tokens, a bazooka and broken glass.
-Joshua is here.  The Asteroids game is here.
+doors to the west you can see the bulldozer continuing its approach.  Also
+here are the game tokens, a bazooka and broken glass.  Joshua is here.  The
+Asteroids game is here.
 
 > take bazooka
 You pick up the bazooka.
@@ -472,8 +460,7 @@ After speaking, Tom falls back into frustrated contemplation.
 
 Dark Room
 You're in a room that is very dark except for a single shaft of light that
-descends from a slit in the ceiling.
-Tom is here.
+descends from a slit in the ceiling.  Tom is here.
 
 > search room
 You feel along the wall of the dark room and discover a shelf.  There's
@@ -530,10 +517,8 @@ will take you to the crossroads.
 You move north.
 
 Desert cafe
-You are inside the delightfully quaint Planet X Desert Cafe.
-
-Also here is Roger's ID.
-Roger is here.
+You are inside the delightfully quaint Planet X Desert Cafe.  Also here is
+Roger's ID.  Roger is here.
 
 > take ID
 You pick up Roger's ID.
@@ -608,8 +593,7 @@ will take you to the crossroads.
 You move north.
 
 Desert cafe
-You are inside the delightfully quaint Planet X Desert Cafe.
-Roger is here.
+You are inside the delightfully quaint Planet X Desert Cafe.  Roger is here.
 
 > show printout to Roger
 Roger yanks the printout from your hand and quickly scans it.   "Wow!  This
@@ -675,9 +659,8 @@ yourself in the TechTV offices.
 Meeting room
 This is the room where The Screen Savers shows are planned. The teleporter to
 take you back to Planet X is here.  North will take you to the The Screen
-Savers' office cubes.
-
-Also here are some meeting notes and some crumpled paper.
+Savers' office cubes.  Also here are some meeting notes and some crumpled
+paper.
 
 > n
 You move north.
@@ -726,9 +709,8 @@ You move south.
 Meeting room
 This is the room where The Screen Savers shows are planned. The teleporter to
 take you back to Planet X is here.  North will take you to the The Screen
-Savers' office cubes.
-
-Also here are some meeting notes and some crumpled paper.
+Savers' office cubes.  Also here are some meeting notes and some crumpled
+paper.
 
 > enter teleporter
 You climb inside the teleporter and with a blinding flash of light you find
@@ -776,9 +758,7 @@ Rocket Pad
 You are standing besides a gleaming Launch Pad, on which stands a small
 rocketship.  A sign by the rocket says, "Be sure to visit the Galactic Mart!
 Convieniently located in Sector 1119!"   North will take you pack to the
-Twisty Path.
-
-Also here is a spacesuit.
+Twisty Path.  Also here is a spacesuit.
 
 > take spacesuit
 You pick up the spacesuit.
@@ -1050,8 +1030,7 @@ You move east.
 
 Lab Area B
 This is the second of two rooms set up for equipment testing. West will take
-you back to Lab Area A.  UGM 3.0 is set up here.
-Yosh is here.
+you back to Lab Area A.  UGM 3.0 is set up here.  Yosh is here.
 
 > install modulator
 You install the Illdium PU-49 Space Modulator on UGM.  UGM's monitor suddenly

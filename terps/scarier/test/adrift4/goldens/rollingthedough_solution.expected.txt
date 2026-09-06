@@ -42,7 +42,6 @@ The Hall
 The hall is dark; you dare not turn on any lights. To the south is the front
 door and just to your right (east) is the even darker living room. Along the
 hall to the north are the creaky old stairs leading to the landing above.
-
 You can also see a small red torch.
 
 > remove shoes
@@ -82,8 +81,8 @@ Your Bedroom
 Your bedroom is the location of many a battle of the sexes (you always lose).
 You can see your marital bed and hear Miriam, who is snoring loudly. Next to
 the bed is a small cabinet and an open window is to the north. To the south
-is the way back to the landing.
-Miriam is lying in your bed, hopefully fast asleep.
+is the way back to the landing.  Miriam is lying in your bed, hopefully fast
+asleep.
 
 > x cabinet
 It is a very cheap bedside cabinet.  The rolling pin is on the cabinet.

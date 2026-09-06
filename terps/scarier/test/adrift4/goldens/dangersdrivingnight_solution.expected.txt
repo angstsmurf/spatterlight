@@ -89,10 +89,9 @@ in awhile, and blinding florescent lights starkly illuminate every bit of
 grime with unflattering effect, including the half-crushed and still
 twitching cricket just inside the door. A door in the alcove to the east
 seems to lead to the bathrooms, but judging by the state of the rest of the
-place you're not too eager to see them.
-A pale, gangly teenager stands in the alcove fiddling boredly with the arcade
-game.  The clerk is at the counter, looking utterly indifferent to your
-plight.
+place you're not too eager to see them.   A pale, gangly teenager stands in
+the alcove fiddling boredly with the arcade game.  The clerk is at the
+counter, looking utterly indifferent to your plight.
 
 > buy drink
 You pay for a large soda and $20 of gas, starting to tell the clerk the story

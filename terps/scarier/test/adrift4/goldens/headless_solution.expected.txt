@@ -74,10 +74,9 @@ LAB (upon a metal tray)
 This is where the doctor plots his evil schemes!  From your place on the
 metal tray, you can see that the room is filled with experimental equipment.
 Directly opposite of you is an old wooden door with a frosted glass window.
-It smells strongly of alcohol in here.
-
-Upon the floor here lies a glowing syringe of Formula X.
-Gerchis is here, shocked stiff by your still-standing body in the doorway.
+It smells strongly of alcohol in here.  Upon the floor here lies a glowing
+syringe of Formula X.  Gerchis is here, shocked stiff by your still-standing
+body in the doorway.
 
 > kill gerchis
 Crack!  You pank Gerchis's skull with the shovel and he falls to the floor,

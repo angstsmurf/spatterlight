@@ -130,9 +130,7 @@ You move north.
 
 Confrence Room
 A large confrence room, no one is in it. There is a large table and some
-chairs here, and a projector and projector screen.
-
-Also here is coffee mug.
+chairs here, and a projector and projector screen.  Also here is coffee mug.
 
 You can only move south.
 

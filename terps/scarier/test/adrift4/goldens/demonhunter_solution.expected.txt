@@ -141,10 +141,9 @@ A Field of Corn
 You are surrounded by several acres of corn field. Many years of harvest,
 drought, and erosion show here; the soil is crumbly and dry, and shreds of
 plant fiber lie around. A nasty aura fills the air here. The remains of the
-village are back east.
-A serpent-like demon lies coiled here, panting furiously as though out of
-breath, gigantic claws poised at the ready, fangs dripping with suphurous
-venom prepared to shred somebody.
+village are back east.  A serpent-like demon lies coiled here, panting
+furiously as though out of breath, gigantic claws poised at the ready, fangs
+dripping with suphurous venom prepared to shred somebody.
 The demon suddenly spots you. You brace yourself for its swooping attack, and
 roll to the side as its claw gouges the earth where you were a moment before.
 Springing to your feet, you dash off to the village. Not knowing why, you

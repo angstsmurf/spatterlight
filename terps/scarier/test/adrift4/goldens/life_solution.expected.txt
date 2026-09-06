@@ -91,8 +91,8 @@ there are trees in some of the gardens. Hindburg street goes both north and
 south. You can see kids returning home from school.
 Snow on the streets is so high that only the best fitted jeeps can drive
 through the streets while all other cars have to wait until the weather stops
-its rampage. Children are jumping from rooftops into heaps of snow.
-Anne is here.
+its rampage. Children are jumping from rooftops into heaps of snow.  Anne is
+here.
 
 > n
 You move north.
@@ -135,8 +135,8 @@ On the side of the street is a pet shop. It's open from 11:00 to 18:00.  The
 street goes east and west. You can see kids returning home from school.
 Snow on the streets is so high that only the best fitted jeeps can drive
 through the streets while all other cars have to wait until the weather stops
-its rampage. Children are jumping from rooftops into heaps of snow.
-Elise is here.
+its rampage. Children are jumping from rooftops into heaps of snow.  Elise is
+here.
 
 > in
 You enter the pet store.
@@ -204,8 +204,8 @@ there are trees in some of the gardens. Hindburg street goes both north and
 south. You can see kids returning home from school.
 Snow on the streets is so high that only the best fitted jeeps can drive
 through the streets while all other cars have to wait until the weather stops
-its rampage. Children are jumping from rooftops into heaps of snow.
-Anne is here.
+its rampage. Children are jumping from rooftops into heaps of snow.  Anne is
+here.
 
 > in
 You move in.
@@ -222,8 +222,8 @@ Kitchen
 You can see a dining table with a set of chairs.  A refridgerator is in one
 corner of the room with a counter to its side and there is a window above the
 counter. Three doors can be seen leading out of the room. One goes into your
-bedroom, another into your bathroom and the third into the living room.
-Your cat is here.
+bedroom, another into your bathroom and the third into the living room.  Your
+cat is here.
 
 > cat feeling
 Your cat is feeling

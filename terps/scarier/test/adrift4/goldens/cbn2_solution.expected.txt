@@ -118,7 +118,7 @@ girl polishing her nails and doing her level best to ignore the ringing phone
 an inch from her left ear.
    Exits lie: south (to the outside world) and up (to the first floor of the
 newspaper offices).
-Lisa and Snarf are here.
+  Lisa and Snarf are here.
 "Morning, Lisa," says Snarf with a nasty look on his face. "We ruined
 anyone's life today?"
    "A couple of schools got shut down 'cos of stories we wrote, boss," says
@@ -166,8 +166,7 @@ morning. The walls and desk fairly reek of his twisted evil and even the view
 through the window - onto a garbage-infested alley - reminds you of his
 curious aroma.
    Exits lie: south (to the main area).
-
-Also here is a match.
+  Also here is a match.
 
    No sign of Snarf. You guess he must have jumped out of the window in
 mortal fear that you were his dearly beloved wife.

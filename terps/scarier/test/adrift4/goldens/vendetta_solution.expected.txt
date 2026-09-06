@@ -63,9 +63,7 @@ are clearly in one of the more expensive suites. At one side of the room is a
 large bay window that stretches the entire length of the wall. In the corner,
 right next to the window is a small bookshelf, to the right of which is a
 videocom. In the middle of the room is a leather sofa and a small coffee
-table.
-
-Also here is the key card.
+table.   Also here is the key card.
 
 > wait
 Time passes...
@@ -230,9 +228,8 @@ which consists of hundreds of multicoloured tiles arranged into the shape of
 a majestic dragon. Set into the southern wall are a dozen lifts which are
 taking guests and residents to various floors, while a long line of glass
 doors lie to the north, all of which lead out onto the city streets. Running
-along the west wall is the reception desk.
-A cleaner is here, polishing the floor  The receptionist is here, standing
-behind the desk.
+along the west wall is the reception desk.  A cleaner is here, polishing the
+floor  The receptionist is here, standing behind the desk.
 
 As you exit the lift, out of the corner of your eye, you notice a man wearing
 dark glasses staring at you from outside, near the entrance. He is talking on
@@ -275,8 +272,8 @@ City Streets
 Multitudes of young people wait outside nightclubs and other entertainment
 venues as the night begins to draw in. There is still a bitter chill in the
 air, yet this does not seem to affect the atmosphere of the place. Along the
-busy roadside are several taxi posts, marked out in yellow.
-A policeman is here, watching people as they walk by.
+busy roadside are several taxi posts, marked out in yellow.  A policeman is
+here, watching people as they walk by.
 
 > x taxi post
 A taxi post is just a small electronic box with a single button on top,
@@ -419,8 +416,7 @@ outside, with powerful floodlights shining upwards from the ground that
 carefully pick out the carved images of cherubs, busts and theatrical masks
 that decorate the walls behind them. The entrance to this place lies to the
 north in the form of a huge archway. Either side of the entrance are the
-statues of two rampant lions on plinths.
-A thespian is here.
+statues of two rampant lions on plinths.  A thespian is here.
 A man in a fancy tuxedo, probably an actor, leans against the wall with a
 smug grin on his face.
 "Nice suitcase you got there." he calls out to you, gesturing with his foot.
@@ -462,8 +458,7 @@ Green Room
 Clothes, theatrical costumes, bags, personal items and musical instruments
 occupy most of the space in this small room. The rest is shared amongst the
 two dozen or so actors who are either talking, drinking, or picking at a
-neatly-prepared buffet in the corner of the room.
-Chloe and Sally are here.
+neatly-prepared buffet in the corner of the room.  Chloe and Sally are here.
 You see Sally first; she is hard to miss wearing that outfit. Sally is
 standing at the opposite side of the room, talking to Chloe, a close friend
 of hers.
@@ -554,8 +549,7 @@ room. Through this dome, you can see that the place you are in is surrounded
 by five giant, conical-shaped pillars, which you recognise as the "claws";
 part of the Dragon Lithoid's "right hand", presumably where the restaurant
 got its name from. There are very few people here at the moment, but then
-again, it is still quite early in the evening.
-Sally is here.
+again, it is still quite early in the evening.  Sally is here.
 The two of you are just waiting for your main course to arrive. Sally is
 sitting at the table opposite, laughing.
 "Oh yuck, that's gross. You're going to put me off my dinner, now." she says,
@@ -963,9 +957,7 @@ rest of the building, with white plaster walls and wooden flooring. In the
 corner of the room is a locker, about four feet to the right of which is a
 videocom. In the centre, an old sofa, while up against the north wall is an
 equally old fireplace full of burning logs. There is another door to the
-west, from which a cold draft blows.
-
-Also here is the gun case.
+west, from which a cold draft blows.  Also here is the gun case.
 
 > hit man
 
@@ -1197,9 +1189,7 @@ Guard House
 The inside of the guard house is the same colour as the outside. There are a
 set of security monitors on the wall furthest from you, each displaying a
 small section of the grounds that surround the Falcon Lithoid. The guard is
-dead.
-
-Also here is the mobile telephone.
+dead.  Also here is the mobile telephone.
 
 > get telephone
 You take the mobile telephone.
@@ -1390,8 +1380,7 @@ You peer around the doorframe briefly to see a lift protruding from the
 centre of the north wall. Also on this wall, to the right of the lift, is a
 videocom. But that is not all : The lift is being guarded by a man carrying a
 handgun and wearing body armour similar to that worn by infantry. You will
-need to get rid of him if you are to reach the lift.
-A guard is here.
+need to get rid of him if you are to reach the lift.  A guard is here.
 
 > dial 788
 As soon as you have finished dialing the number, the videocom on the wall
@@ -1410,9 +1399,7 @@ The main object of interest in here room is the lift, which protrudes from
 the centre of the north wall. This one, however, leads up to the next level;
 it does not appear to go down. Also on the north wall, alongside the lift, is
 a videocom. You may enter the lift without worry now that the guard has be
-neutralized.
-
-Also here is the hand gun.
+neutralized.  Also here is the hand gun.
 
 > drop telephone
 You drop the mobile telephone.
@@ -1635,8 +1622,7 @@ Balcony
 The balcony outside the Lithoid is made of steel tube and is so small it is
 barely large enough for two people to stand on. The wind is less ferocious
 now, but still carries a deathly chill. The guard is here too, standing with
-his back to you.
-A tall guard is here.
+his back to you.  A tall guard is here.
 The freezing wind howls around you.
 It is snowing.
 
@@ -1729,12 +1715,9 @@ You unlock the door and enter the Archive...
 Archive
 This room is filled with shelves that are packed full of printed company
 records, employee records and other similar material. There is also a box of
-disks over the other side of the room.
-
-It would take an age to sort through all of this, but you notice one
-particular folder marked 'GDV-T253' that stands alone from all of the others.
-
-Also here is the loose file.
+disks over the other side of the room.  It would take an age to sort through
+all of this, but you notice one particular folder marked 'GDV-T253' that
+stands alone from all of the others.  Also here is the loose file.
 There is a 'click' as the door locks behind you.
 
 > open box
@@ -1853,9 +1836,7 @@ The main object of interest in here room is the lift, which protrudes from
 the centre of the north wall. This one, however, leads up to the next level;
 it does not appear to go down. Also on the north wall, alongside the lift, is
 a videocom. You may enter the lift without worry now that the guard has be
-neutralized.
-
-Also here is the mobile telephone and the hand gun.
+neutralized.  Also here is the mobile telephone and the hand gun.
 
 > s
 You move south.
@@ -1977,9 +1958,7 @@ The main object of interest in here room is the lift, which protrudes from
 the centre of the north wall. This one, however, leads up to the next level;
 it does not appear to go down. Also on the north wall, alongside the lift, is
 a videocom. You may enter the lift without worry now that the guard has be
-neutralized.
-
-Also here is the mobile telephone and the hand gun.
+neutralized.  Also here is the mobile telephone and the hand gun.
 
 > in
 You get inside the lift and select the top floor. The doors close and the
@@ -2087,8 +2066,7 @@ This room is finely decorated from floor to ceiling; exquisite paintings
 cover every available space on the wall, while four medieval suits of armour
 stand in each corner of the room, facing you accusingly. Right in front of
 you is Natalia, sitting on a high chair in the middle of the room like a
-queen upon her throne.
-Sally is here.
+queen upon her throne.  Sally is here.
 She is stroking a large stuffed animal lying next to the chair that looks
 like a legendary griffon, about the size of a rhinoceros. It stares at you
 with its orange, eagle-like eyes, like a predator sizing up its prey. Sitting

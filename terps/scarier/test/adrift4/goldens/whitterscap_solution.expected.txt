@@ -41,9 +41,8 @@ To begin, type CHARLES to enter the Secret Passage!
 
 > charles
 
-Secret Passage!
-Charles is here.  You can ask him about buttons if you type "ask charles
-about buttons."
+Secret Passage!  Charles is here.  You can ask him about buttons if you type
+"ask charles about buttons."
 
 > ask charles about buttons
 "I need a button," says Charles.  "A big, shiny button.  Find one for me,
@@ -65,9 +64,8 @@ You take the shiny button.
 
 > charles
 
-Secret Passage!
-Charles is here.  You can ask him about buttons if you type "ask charles
-about buttons."
+Secret Passage!  Charles is here.  You can ask him about buttons if you type
+"ask charles about buttons."
 
 > give button to charles
 You offer Charles the shiny button.  He grabs it from you with completely
@@ -100,9 +98,7 @@ Oh, right the room.  Uh... you're in a... forest, I guess.
 You move south.
 
 There are some runes here.
-You could go north.  Don't go east.
-
-Also here is a rune decoder.
+You could go north.  Don't go east.  Also here is a rune decoder.
 
 > take decoder
 You take the rune decoder.
@@ -159,9 +155,8 @@ You need to wait for Whitterscap in the Secret Passage, first.
 
 > charles
 
-Secret Passage!
-Charles is here.  You can ask him about buttons if you type "ask charles
-about buttons."
+Secret Passage!  Charles is here.  You can ask him about buttons if you type
+"ask charles about buttons."
 Charles looks blankly at your rune for a second.
 
 > wait

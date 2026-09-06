@@ -1276,23 +1276,6 @@ lib_get_npc_inroom_text (scr_gameref_t game, scr_int npc)
  */
 enum { LIB_NPC_HERE_LENGTH = 9 };       /* strlen (" is here.") */
 
-/*
- * lib_skip_leading_breaks()
- *
- * Advance past any run of leading line breaks -- literal newlines or "<br>"
- * tags -- that an author put at the front of a character's in-room text so
- * that the character would start on a line of its own.  Scarier is already on
- * a line of its own there; see the note in lib_print_room_contents().
- */
-static const scr_char *
-lib_skip_leading_breaks (const scr_char *text)
-{
-  while (*text == '\n' || !scr_strncasecmp (text, "<br>", 4))
-    text += (*text == '\n') ? 1 : 4;
-
-  return text;
-}
-
 static scr_bool
 lib_npc_text_is_default (const scr_char *description)
 {
@@ -1339,8 +1322,10 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *entry_buffer = pf_get_buffer (filter);
+  const size_t entry_length = entry_buffer ? strlen (entry_buffer) : 0;
   scr_vartype_t vt_key[4];
-  scr_int object, npc, count;
+  scr_int object, npc;
   lib_list_t list;
 
   /*
@@ -1356,7 +1341,6 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
    * Pre-4.0 games have no InRoomDesc property at all, so the gate only ever
    * bites on version 4.0 games.
    */
-  count = 0;
   for (object = 0; object < gs_object_count (game); object++)
     {
       if (obj_directly_in_room (game, object, room))
@@ -1380,17 +1364,10 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
             continue;
           if (!lib_inroomdesc_is_absent (inroomdesc))
             {
-              if (count == 0)
-                pf_buffer_character (filter, '\n');
-              else
-                pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter, inroomdesc);
-              count++;
+              pf_buffer_join (filter, inroomdesc);
             }
         }
     }
-  if (count > 0)
-    pf_buffer_character (filter, '\n');
 
   /*
    * List dynamic objects directly located in the room, and not already listed
@@ -1427,12 +1404,20 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
     }
   if (!list.empty ())
     {
+      /*
+       * The two spaces are the Runner's own, hard-coded into the literal
+       * "  Also here" it appends (run400 @00472696) -- not a pspace() call,
+       * so they go in even after a description that already ended in a
+       * break.  Take back our section terminator first; it stands where the
+       * Runner's string simply carried on.
+       */
+      pf_undo_auto_break (filter);
       pf_buffer_string (filter,
                         lib_select_plurality (game, list[0],
-                                              "\nAlso here is ",
-                                              "\nAlso here are "));
+                                              "  Also here is ",
+                                              "  Also here are "));
       lib_print_list (game, list, lib_print_object, " and ");
-      pf_buffer_string (filter, ".\n");
+      pf_buffer_string (filter, ".");
     }
 
   /*
@@ -1477,11 +1462,17 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
         else
           {
             /*
-             * Drop any leading break the author wrote to put this character on
-             * a line of its own -- the joined sentence already is one -- and
-             * trim the suffix to get the name the Runner joins in.
+             * Trim the suffix to get the name the Runner joins in.  Both the
+             * test and the trim run on the text exactly as the author wrote
+             * it: run400 @004729A7 asks Right(text, 9) = " is here." and
+             * @004729FE takes Left(text, Len(text) - 9), and neither looks
+             * past a leading break.  So a character whose in-room text opens
+             * with "<br>" keeps that break, and it lands *after* the two
+             * separator spaces rather than instead of them --
+             * Adrift_226_spooked.txt lines 120-122 show the room
+             * description's trailing "  ", then the author's blank line, then
+             * "Samuel, your scientist pal, is here."
              */
-            description = lib_skip_leading_breaks (description);
             if (lib_npc_text_is_default (description))
               {
                 joined.push_back (std::string (description,
@@ -1493,30 +1484,15 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
 
     if (!joined.empty ())
       {
-        const scr_char *buffered;
         size_t index_;
 
         /*
-         * Start a line, but only one.  The Runner runs this straight on from
-         * the room description inside the turn's single paragraph, with the
-         * characters that have their own text following just as directly;
-         * Scarier prints the room block as sections, one list to a line, and
-         * this joins that convention -- the section-vs-paragraph difference is
-         * the standing one in RUNNER_TESTS_TODO.md section 3.  The same test
-         * the custom-text loop below makes, for the same reason: whatever came
-         * before usually ended with a break already, and a second one would
-         * open a gap the Runner has no counterpart for.
-         *
-         * This is a change for the "#" characters, whose sentence used to be
-         * preceded by an unconditional break and so by a blank line.  Back
-         * then the sentence could hold nothing else and always stood alone;
-         * now that the authors' own " is here." texts join it, a group set off
-         * by a blank line from the very characters it belongs with reads as an
-         * accident rather than a choice.
+         * Two spaces, hard-coded like the object list's (run400 @0047295B),
+         * and again not a pspace() call -- the Runner puts them in whatever
+         * the string already ends with.  Take back our own terminator first.
          */
-        buffered = pf_get_buffer (filter);
-        if (!(buffered && pf_text_ends_with_break (buffered)))
-          pf_buffer_character (filter, '\n');
+        pf_undo_auto_break (filter);
+        pf_buffer_string (filter, "  ");
         pf_new_sentence (filter);
         for (index_ = 0; index_ < joined.size (); index_++)
           {
@@ -1530,69 +1506,59 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
           }
         pf_buffer_string (filter,
                           joined.size () == 1 ? " is here" : " are here");
-        pf_buffer_string (filter, ".\n");
+        pf_buffer_string (filter, ".");
       }
   }
 
   /* List NPCs directly in the room that have an in room description. */
-  count = 0;
   for (npc = 0; npc < gs_npc_count (game); npc++)
     {
       if (npc_in_room (game, npc, room))
         {
           const scr_char *description;
 
-          /* Print any text not already folded into the sentence above. */
+          /*
+           * Print any text not already folded into the sentence above.  The
+           * test has to be the same one the collection loop made, on the same
+           * raw text, or a character would either be listed twice or vanish.
+           */
           description = lib_get_npc_inroom_text (game, npc);
           if (!scr_strempty (description)
               && scr_strcasecmp (description, "#")
-              && !lib_npc_text_is_default (lib_skip_leading_breaks
-                                             (description)))
+              && !lib_npc_text_is_default (description))
             {
-              const scr_char *buffered;
-              scr_bool buffer_has_break, desc_has_break;
-
               /*
                * Authors typically begin a character's InRoomText with a line
-               * break -- a literal newline or a "<br>" tag -- so that each
-               * character appears on its own line.  The ADRIFT runner simply
-               * concatenates these texts and lets that break do the spacing,
-               * rather than inserting separators of its own.  Mirror that as
-               * closely as we can:
-               *
-               *   - If the output already ends with a break (the room name or
-               *     description's trailing newline before the first character,
-               *     or a previous character's own trailing break) and this
-               *     description leads with one too, drop the leading break so
-               *     we don't print a spurious blank line.
-               *   - If neither side supplies a break, fall back to the old
-               *     two-space separator so successive descriptions written
-               *     without any "<br>" of their own don't run together.
+               * break -- a literal newline or a "<br>" tag -- so that the
+               * character appears on a line of its own.  The Runner keeps
+               * that break and adds nothing of its own beyond pspace()'s
+               * clause gap (run400 @00472B01 calls it, @00472B06 appends the
+               * text verbatim), so the break the author wrote is the one that
+               * does the spacing.  pf_buffer_join() is pspace(), plus taking
+               * back our own section terminator, which the Runner's string
+               * never had.
                */
-              buffered = pf_get_buffer (filter);
-              buffer_has_break = buffered && pf_text_ends_with_break (buffered);
-              desc_has_break = (*description == '\n')
-                               || !scr_strncasecmp (description, "<br>", 4);
-
-              if (buffer_has_break)
-                {
-                  while (desc_has_break)
-                    {
-                      description += (*description == '\n') ? 1 : 4;
-                      desc_has_break = (*description == '\n')
-                                       || !scr_strncasecmp (description, "<br>", 4);
-                    }
-                }
-              else if (count > 0 && !desc_has_break)
-                pf_buffer_string (filter, "  ");
-
-              pf_buffer_string (filter, description);
-              count++;
+              pf_buffer_join (filter, description);
             }
         }
     }
-  if (count > 0)
-    pf_buffer_character (filter, '\n');
+
+  /*
+   * Terminate the room block, and record the newline as ours: everything
+   * appended after it -- an event's LookText, a task's message, the next
+   * turn's text -- joins onto the Runner's single room string, so whoever
+   * comes next may take this break back again.
+   */
+  {
+    const scr_char *buffered = pf_get_buffer (filter);
+
+    if (buffered && strlen (buffered) > entry_length
+        && !pf_text_ends_with_break (buffered))
+      {
+        pf_buffer_character (filter, '\n');
+        pf_note_trailing_auto_break (filter);
+      }
+  }
 }
 
 
@@ -1778,11 +1744,16 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
   /*
    * Terminate the description block with a single line break.  Many ADRIFT
    * room descriptions already end with a trailing "<br>" of their own; if we
-   * unconditionally added a newline here it would double up with that break
-   * (and with the leading break the contents list adds of its own), leaving a
-   * stray blank line before "Also here is ...".  Add the break only when the
-   * buffer does not already end with one, so the description-to-contents gap
-   * matches the single blank line used between the other room sections.
+   * unconditionally added a newline here it would double up with that break,
+   * leaving a stray blank line before the contents.  Add the break only when
+   * the buffer does not already end with one.
+   *
+   * Record it as ours.  The Runner has no terminator here at all -- viewroom
+   * keeps concatenating onto the one room string, and the contents list joins
+   * straight on with the two spaces of its own literal "  Also here"
+   * (@00472696) -- so lib_print_room_contents() takes this newline back
+   * again the moment it has anything to say.  What is left standing is the
+   * room block's terminator for the case where it has nothing.
    */
   if (is_described)
     {
@@ -1790,6 +1761,7 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
 
       if (!(buffered && pf_text_ends_with_break (buffered)))
         pf_buffer_character (filter, '\n');
+      pf_note_trailing_auto_break (filter);
     }
 
   /*

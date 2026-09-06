@@ -18,10 +18,8 @@ An Alley
 This is an alley fifteen feet wide between two multi-story brick buildings to
 the east and west.  The alley dead-ends to the north and opens up onto a
 street to the south.  The city is oddly quiet and there is no movement of
-air.
-
-Next to the brick building stands a green dumpster.  A large pile of plastic
-trash bags and newspapers sits across from the dumpster.
+air.  Next to the brick building stands a green dumpster.  A large pile of
+plastic trash bags and newspapers sits across from the dumpster.
 
 > open dumpster
 You open the large green metal dumpster.  A scrawny black cat and the

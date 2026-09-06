@@ -151,6 +151,7 @@ The Central Room is east.
 The Great Lamp is in this room, which is where it belongs.
 
 The shoe is in this room.
+
 The teenager is lounging around the room.  Its baggy clothing is suspicious,
 but you are relieved that it at least did not bring its backpack.
 
@@ -178,6 +179,7 @@ the Lamp Room is west.  (The Entrance Hall is down from here, but you are not
 permitted to use it while the place is open.)
 
 The shoe is in this room.
+
 The children's mother is observing the premises.   That is, if she really is
 the kids' mother.  You hope so.  She looks innocent enough, which always
 makes you more suspicious.  It's not unlikely that, mother or not, she's a

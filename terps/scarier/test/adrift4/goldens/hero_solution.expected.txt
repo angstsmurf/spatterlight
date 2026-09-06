@@ -549,8 +549,8 @@ sink, sofa, fridge and washing machine. There used to be a TV but you had to
 sell it to pay for your Masked Defender costume. An archway to the south
 leads out into the hallway outside your apartment while another exit you
 sometimes use is the window in the western wall. The drop beyond it is a
-little dizzying but it's quicker than the stairs.
-Your ever reliable sidekick, Smelly the parrot, is here.
+little dizzying but it's quicker than the stairs.  Your ever reliable
+sidekick, Smelly the parrot, is here.
 
 > s
 You head to the door and take a look at the destinations currently available
@@ -749,9 +749,7 @@ leaning against one wall, a janitor's uniform hanging from a hook and a shelf
 on which are stacked a few towels. A locked door in the south wall is the
 only way you can see out of here.
    Mr Horror lies unconscious on the floor, his face a mask of terror even in
-his troubled sleep.
-
-Also here is a net.
+his troubled sleep.  Also here is a net.
 
 > get net
 You take the net.
@@ -881,8 +879,8 @@ sink, sofa, fridge and washing machine. There used to be a TV but you had to
 sell it to pay for your Masked Defender costume. An archway to the south
 leads out into the hallway outside your apartment while another exit you
 sometimes use is the window in the western wall. The drop beyond it is a
-little dizzying but it's quicker than the stairs.
-Your ever reliable sidekick, Smelly the parrot, is here.
+little dizzying but it's quicker than the stairs.  Your ever reliable
+sidekick, Smelly the parrot, is here.
 
    "Look what I found, Guv'nor," says Smelly and drops a doll and a toy
 soldier onto the floor.
@@ -1038,10 +1036,8 @@ sink, sofa, fridge and washing machine. There used to be a TV but you had to
 sell it to pay for your Masked Defender costume. An archway to the south
 leads out into the hallway outside your apartment while another exit you
 sometimes use is the window in the western wall. The drop beyond it is a
-little dizzying but it's quicker than the stairs.
-
-Also here is a doll and a toy soldier.
-Your ever reliable sidekick, Smelly the parrot, is here.
+little dizzying but it's quicker than the stairs.  Also here is a doll and a
+toy soldier.  Your ever reliable sidekick, Smelly the parrot, is here.
 You arrive back at your apartment.
 
 At Home In Your Less Than Glamorous Apartment
@@ -1050,10 +1046,8 @@ sink, sofa, fridge and washing machine. There used to be a TV but you had to
 sell it to pay for your Masked Defender costume. An archway to the south
 leads out into the hallway outside your apartment while another exit you
 sometimes use is the window in the western wall. The drop beyond it is a
-little dizzying but it's quicker than the stairs.
-
-Also here is a doll and a toy soldier.
-Your ever reliable sidekick, Smelly the parrot, is here.
+little dizzying but it's quicker than the stairs.  Also here is a doll and a
+toy soldier.  Your ever reliable sidekick, Smelly the parrot, is here.
 
    "Good job you got back when you did, guv'nor!" squawks Smelly. "I got some
 important information."
@@ -1148,8 +1142,8 @@ about amidst the benches and hot dog vendors but it is the strange figure
 weaving back and forth across the Boulevard which draws your attention. And
 your nose. Right now your sense of smell is going haywire and the desire to
 run screaming from this place is immensely strong.
-   The rest of the world lies back to the south.
-The Smell is here, polluting the very atmosphere with his unholy stench.
+   The rest of the world lies back to the south.  The Smell is here,
+polluting the very atmosphere with his unholy stench.
 
    "Buttons!" the Smell snaps when he catches sight of you approaching.
    "Buttons?" you say, one hand clasped firmly over your nose.
@@ -1198,10 +1192,8 @@ sink, sofa, fridge and washing machine. There used to be a TV but you had to
 sell it to pay for your Masked Defender costume. An archway to the south
 leads out into the hallway outside your apartment while another exit you
 sometimes use is the window in the western wall. The drop beyond it is a
-little dizzying but it's quicker than the stairs.
-
-Also here is a doll and a toy soldier.
-Your ever reliable sidekick, Smelly the parrot, is here.
+little dizzying but it's quicker than the stairs.  Also here is a doll and a
+toy soldier.  Your ever reliable sidekick, Smelly the parrot, is here.
 
 > s
 You head to the door and take a look at the destinations currently available
@@ -1361,10 +1353,8 @@ sink, sofa, fridge and washing machine. There used to be a TV but you had to
 sell it to pay for your Masked Defender costume. An archway to the south
 leads out into the hallway outside your apartment while another exit you
 sometimes use is the window in the western wall. The drop beyond it is a
-little dizzying but it's quicker than the stairs.
-
-Also here is a doll and a toy soldier.
-Your ever reliable sidekick, Smelly the parrot, is here.
+little dizzying but it's quicker than the stairs.  Also here is a doll and a
+toy soldier.  Your ever reliable sidekick, Smelly the parrot, is here.
 
 > s
 You head to the door and take a look at the destinations currently available

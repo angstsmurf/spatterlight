@@ -92,9 +92,8 @@ there is a corridor, is about a hundred and fifty feet away, and the floor is
 at least a thousand away...  This alcove is lit from the strange glow of the
 pit, and is bare of any furnishings.  Above, a steel cable runs upward from
 this alcove to the corridor in the opposite wall.  Also, a ladder runs down
-this side of the pit from this alcove to a second small alcove.
-
-Also here is a small key.
+this side of the pit from this alcove to a second small alcove.  Also here is
+a small key.
 
 > take key
 You pick up the small key.
@@ -118,9 +117,7 @@ In a round room
 This room is circular, with dark metal walls, and four corridors sprout from
 it.  The one to the south is merely a small alcove with a glowing yellow
 floor.  The others lead into darkness.  A wire leads from the room to the
-west to the room to the north.
-
-Also here is a battery.
+west to the room to the north.  Also here is a battery.
 
 > w
 You move west.
@@ -139,9 +136,7 @@ In a round room
 This room is circular, with dark metal walls, and four corridors sprout from
 it.  The one to the south is merely a small alcove with a glowing yellow
 floor.  The others lead into darkness.  A wire leads from the room to the
-west to the room to the north.
-
-Also here is a battery.
+west to the room to the north.  Also here is a battery.
 
 > n
 You move north.
@@ -166,9 +161,7 @@ In a round room
 This room is circular, with dark metal walls, and four corridors sprout from
 it.  The one to the south is merely a small alcove with a glowing yellow
 floor.  The others lead into darkness.  A wire leads from the room to the
-west to the room to the north.
-
-Also here is a battery.
+west to the room to the north.  Also here is a battery.
 
 > take battery
 You pick up the battery.
@@ -185,9 +178,7 @@ eerie glow.
 You move north.
 
 In a supply room of some sort...
-This room is small, and bare.
-
-Also here is a clip of bullets and a harpoon.
+This room is small, and bare.  Also here is a clip of bullets and a harpoon.
 
 > take bullets
 You pick up the clip of bullets.
@@ -253,9 +244,7 @@ You move east.
 In a little alcove above a pit of spikes
 You are in a small alcove above a pit of spikes.  There is a hole in the
 floor down which runs a ladder.  An alcove in the west wall has a glowing
-yellow floor.
-
-Also here is an I-shaped metal block and a piece of string.
+yellow floor.  Also here is an I-shaped metal block and a piece of string.
 
 > take i-shaped metal block
 You pick up the I-shaped metal block.

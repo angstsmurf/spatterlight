@@ -17,9 +17,7 @@ token dispenser is here.
 
 > south
 You move south.
-Gravel Parking lot
-
-Also here is an advertisement.
+Gravel Parking lot  Also here is an advertisement.
 
 > south
 You move south.
@@ -43,15 +41,11 @@ In the middle of a north-south street
 
 > west
 You move west.
-In the parking lot behind the restaurant
-
-Also here is a shovel.
+In the parking lot behind the restaurant  Also here is a shovel.
 
 > west
 You move west.
-In a restaurant
-
-Also here is a fortune cookie.
+In a restaurant  Also here is a fortune cookie.
 
 > get cookie
 You pick up the fortune cookie.
@@ -63,9 +57,7 @@ will then be in a underground world"
 
 > east
 You move east.
-In the parking lot behind the restaurant
-
-Also here is a shovel.
+In the parking lot behind the restaurant  Also here is a shovel.
 
 > east
 You move east.
@@ -85,21 +77,15 @@ On the porch of the Fenwick house
 
 > south
 You move south.
-In the Foyer of the Fenwick house
-
-Also here is a hat.
+In the Foyer of the Fenwick house  Also here is a hat.
 
 > west
 You move west.
-In the hallway of the Fenwick house
-
-Also here is a picture.
+In the hallway of the Fenwick house  Also here is a picture.
 
 > west
 You move west.
-In the master bedroom of the Fenwick house
-
-Also here is a diary.
+In the master bedroom of the Fenwick house  Also here is a diary.
 
 > read diary
 You turn to todays entry, it says "Today our phone went out of order so I'll
@@ -108,9 +94,7 @@ stew tonight."
 
 > east
 You move east.
-In the hallway of the Fenwick house
-
-Also here is a picture.
+In the hallway of the Fenwick house  Also here is a picture.
 
 > north
 You move north.
@@ -127,15 +111,11 @@ You take a golf ball from the dresser.
 
 > south
 You move south.
-In the hallway of the Fenwick house
-
-Also here is a picture.
+In the hallway of the Fenwick house  Also here is a picture.
 
 > east
 You move east.
-In the Foyer of the Fenwick house
-
-Also here is a hat.
+In the Foyer of the Fenwick house  Also here is a hat.
 
 > north
 You move north.
@@ -155,9 +135,7 @@ Concrete parking lot
 
 > north
 You move north.
-Gravel Parking lot
-
-Also here is an advertisement.
+Gravel Parking lot  Also here is an advertisement.
 
 > north
 You move north.
@@ -168,9 +146,7 @@ token dispenser is here.
 > north
 You move north.
 You are in a dirty, old arcade with a few decent machines including a Casino
-machine.
-
-Also here is a casino.
+machine.  Also here is a casino.
 
 > x casino
 Inside the casino is a cash.
@@ -197,9 +173,7 @@ On sidewalk infront of shoe store
 
 > north
 You move north.
-In the shoe store.
-
-Also here is a pair of golf shoes.
+In the shoe store.   Also here is a pair of golf shoes.
 
 > buy shoes
 You don't have enough money
@@ -225,9 +199,7 @@ token dispenser is here.
 
 > south
 You move south.
-Gravel Parking lot
-
-Also here is an advertisement.
+Gravel Parking lot  Also here is an advertisement.
 
 > south
 You move south.
@@ -247,15 +219,11 @@ On the porch of the Fenwick house
 
 > south
 You move south.
-In the Foyer of the Fenwick house
-
-Also here is a hat.
+In the Foyer of the Fenwick house  Also here is a hat.
 
 > west
 You move west.
-In the hallway of the Fenwick house
-
-Also here is a picture.
+In the hallway of the Fenwick house  Also here is a picture.
 
 > south
 You move south.
@@ -267,10 +235,8 @@ On the back porch of the Fenwick house
 
 > east
 You move east.
-In the kitchen of the Fenwick house
-
-Also here is a carrots, a onions, a meat, a potatoes, a kettle, a saucepan
-and a cookery book.
+In the kitchen of the Fenwick house  Also here is a carrots, a onions, a
+meat, a potatoes, a kettle, a saucepan and a cookery book.
 
 > read book
 It says "To stew - Find saucepan, get carrots, onions, potatoes, meat and put
@@ -318,10 +284,8 @@ You don't have a penny!
 
 > north
 You move north.
-In the dining room of the Fenwick House
-
-Also here is a putter.
-Mr Fenwick is here.
+In the dining room of the Fenwick House  Also here is a putter.  Mr Fenwick
+is here.
 
 > give food to mr fenwick
 You give the stew to Mr Fenwick. He enjoys it so much that he decides to give
@@ -363,9 +327,7 @@ You drop the golf ball.
 
 > down
 You move down.
-In a underground passage.
-
-Also here is a penny.
+In a underground passage.  Also here is a penny.
 
 > open door
 You open the door.
@@ -373,9 +335,7 @@ You open the door.
 > north
 You move north.
 You close the door behind you and enter this wierd room. There is a ceiling
-with a hole big enough for you.
-
-Also here is a chair.
+with a hole big enough for you.  Also here is a chair.
 
 > get chair
 You pick up the chair.

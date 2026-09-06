@@ -102,7 +102,6 @@ The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open
 vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
@@ -144,7 +143,6 @@ The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open
 vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
@@ -161,9 +159,8 @@ floor, and a titanium coffee table is likewise bolted down just a few feet
 away.  On the wall near the doorway is a lighted control panel that randomly
 flickers with bright colors. A larger window wraps its way around the outer
 perimeter of the Objectorium.  An open vent located near the door at ground
-level grabs your attention and has some writing just above it.
-
-There is a black box firmly attached to the outside of a cabinet.
+level grabs your attention and has some writing just above it.  There is a
+black box firmly attached to the outside of a cabinet.
 
 You can only move northeast.
 
@@ -192,12 +189,10 @@ The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open
 vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-DARWIN is intently working on something, but you can't make out what it is.
-It turns away from you each time you approach.  It doesn't seem to be
-concerned at all about your presence.
+fancy ship.  DARWIN is intently working on something, but you can't make out
+what it is. It turns away from you each time you approach.  It doesn't seem
+to be concerned at all about your presence.
 
 You can move north, south, southeast and southwest.
 
@@ -252,10 +247,8 @@ The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open
 vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-The ADRIFT-O-Sweep is zooming around the room.
+fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
 
 You can move north, south, southeast and southwest.
 
@@ -270,9 +263,8 @@ floor, and a titanium coffee table is likewise bolted down just a few feet
 away.  On the wall near the doorway is a lighted control panel that randomly
 flickers with bright colors. A larger window wraps its way around the outer
 perimeter of the Objectorium.  An open vent located near the door at ground
-level grabs your attention and has some writing just above it.
-
-There is a black box firmly attached to the outside of a cabinet.
+level grabs your attention and has some writing just above it.  There is a
+black box firmly attached to the outside of a cabinet.
 
 You can only move northeast.
 
@@ -302,9 +294,8 @@ floor, and a titanium coffee table is likewise bolted down just a few feet
 away.  On the wall near the doorway is a lighted control panel that randomly
 flickers with bright colors. A larger window wraps its way around the outer
 perimeter of the Objectorium.  An open vent located near the door at ground
-level grabs your attention and has some writing just above it.
-
-There is a black box firmly attached to the outside of a cabinet.
+level grabs your attention and has some writing just above it.  There is a
+black box firmly attached to the outside of a cabinet.
 
 You can only move northeast.
 
@@ -320,7 +311,6 @@ The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open
 vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
@@ -339,7 +329,6 @@ ADRIFT-O-Lift
 The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
@@ -367,10 +356,9 @@ ship parts, obviously torn apart by DARWIN.  The control panel in this room
 has also been destroyed, and the lever to the hatch has been bent so badly
 that it is doubtful it could open the hatch to expel the foul-smelling trash
 into space.  There is a little room left in the door for the ADRIFT-O-Sweep
-to continue dumping trash.
-DARWIN is intently working on something, but you can't make out what it is.
-It turns away from you each time you approach.  It doesn't seem to be
-concerned at all about your presence.
+to continue dumping trash.  DARWIN is intently working on something, but you
+can't make out what it is. It turns away from you each time you approach.  It
+doesn't seem to be concerned at all about your presence.
 
 You can only move north.  DARWIN exits to the north.
 
@@ -414,12 +402,10 @@ ADRIFT-O-Lift
 The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-DARWIN is intently working on something, but you can't make out what it is.
-It turns away from you each time you approach.  It doesn't seem to be
-concerned at all about your presence.
+fancy ship.  DARWIN is intently working on something, but you can't make out
+what it is. It turns away from you each time you approach.  It doesn't seem
+to be concerned at all about your presence.
 
 You can only move south.  DARWIN exits.
 
@@ -438,7 +424,6 @@ ADRIFT-O-Lift
 The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
@@ -595,7 +580,6 @@ The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open
 vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
@@ -614,10 +598,8 @@ ADRIFT-O-Lift
 The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-The ADRIFT-O-Sweep is zooming around the room.
+fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
 
 You can only move south.
 
@@ -642,10 +624,8 @@ ADRIFT-O-Lift
 The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-The ADRIFT-O-Sweep is zooming around the room.
+fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
 
 You can only move south.
 
@@ -677,10 +657,8 @@ The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open
 vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-The ADRIFT-O-Sweep is zooming around the room.
+fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
 
 You can move north, south, southeast and southwest.
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
@@ -787,7 +765,6 @@ The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open
 vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
@@ -806,7 +783,6 @@ ADRIFT-O-Lift
 The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
-
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 

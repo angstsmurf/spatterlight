@@ -10,8 +10,7 @@ Climb up there and bring 'im 'ere!"
 Galley
 The galley was empty, and the others were on duty, asleep or throwing up from
 the food in the galley. The rocking from the ship was rolling, and was making
-me slightly ill.
-Captain Milton was there at the time.
+me slightly ill.  Captain Milton was there at the time.
 
 > n
 I was cleaning up in there for so long, that I forgot what time it was. Eve

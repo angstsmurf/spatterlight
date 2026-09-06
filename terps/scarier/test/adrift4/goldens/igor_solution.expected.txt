@@ -9,9 +9,7 @@ The Master warns you not to try to "get all" things . . .
 Ask the Master for instructions....
 
 Laboratory
-
-Also here is complicated Apparatus, a Table and a wall.
-Master is here.
+  Also here is complicated Apparatus, a Table and a wall.  Master is here.
 
 > look wall
 You see a very small window. . . and . . . a painting lit up by a flaming

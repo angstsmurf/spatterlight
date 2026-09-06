@@ -56,9 +56,8 @@ You move west.
 
 In the powder room
 You are in the main level powder room.   This is a small guest bathroom with
-no shower.  The exit is to the east.
-
-You can also see a bottle of glass cleaner.
+no shower.  The exit is to the east.  You can also see a bottle of glass
+cleaner.
 
 > get cleaner
 You take the bottle of glass cleaner.
@@ -257,9 +256,7 @@ In Vinny's room
 You are in Vinny's room.   Vinny seems to be an enthusiastic athlete and
 sports fan, judging from the stuff in his room.  There are a dresser and a
 bed in the room.  The hallway is to the northeast.  There is a loose panel
-above you.
-
-You can also see an orange basketball.
+above you.  You can also see an orange basketball.
 
 > get basketball
 You take the orange basketball.
@@ -416,9 +413,7 @@ below you and exposed rafters above, but you can see signs that work will
 soon begin to make this into a game room.  The garage is to the west and the
 basement bathroom is to the northwest.  The laundry area is north of here.
 In addition, stairs lead up to the kitchen.    You can't help but admire your
-handiwork in fixing that broken stair.
-
-You can also see a screwdriver.
+handiwork in fixing that broken stair.  You can also see a screwdriver.
 
 > nw
 You move northwest.
@@ -442,9 +437,7 @@ below you and exposed rafters above, but you can see signs that work will
 soon begin to make this into a game room.  The garage is to the west and the
 basement bathroom is to the northwest.  The laundry area is north of here.
 In addition, stairs lead up to the kitchen.    You can't help but admire your
-handiwork in fixing that broken stair.
-
-You can also see a screwdriver.
+handiwork in fixing that broken stair.  You can also see a screwdriver.
 
 > u
 You move up.
@@ -611,7 +604,6 @@ You move east.
 In the master closet
 You are in the closet of the master bedroom.  The clothes and personal
 effects of the mistress of the house are here.  The bedroom is to the west.
-
 You can also see a dirty, comfortable-looking afghan.
 
 > get afghan
@@ -692,9 +684,7 @@ You move up.
 
 In the attic
 You are in a hot attic crawlspace.  The exit is through the hatch in the
-floor.
-
-You can also see an armload of firewood.
+floor.  You can also see an armload of firewood.
 
 > get firewood
 You take the armload of firewood.
@@ -706,9 +696,7 @@ In Vinny's room
 You are in Vinny's room.   Vinny seems to be an enthusiastic athlete and
 sports fan, judging from the stuff in his room.  There are a dresser and a
 bed in the room.  The hallway is to the northeast.  The panel leading up to
-the attic has been moved out of the way.
-
-You can also see a claw hammer.
+the attic has been moved out of the way.  You can also see a claw hammer.
 
 > ne
 You move northeast.
@@ -835,9 +823,7 @@ below you and exposed rafters above, but you can see signs that work will
 soon begin to make this into a game room.  The garage is to the west and the
 basement bathroom is to the northwest.  The laundry area is north of here.
 In addition, stairs lead up to the kitchen.    You can't help but admire your
-handiwork in fixing that broken stair.
-
-You can also see a screwdriver.
+handiwork in fixing that broken stair.  You can also see a screwdriver.
 
 > n
 You move north.
@@ -845,9 +831,8 @@ You move north.
 In the laundry area
 You are in the laundry area in the back of the basement.  There are some
 shelves here with several odds and ends on them.  There is also a washing
-machine and a dryer here.  The rest of the basement lies to the south.
-
-You can also see a bottle of laundry soap and a handwritten note.
+machine and a dryer here.  The rest of the basement lies to the south.  You
+can also see a bottle of laundry soap and a handwritten note.
 
 > put afghan in machine
 You put the dirty, comfortable-looking afghan inside the washing machine.
@@ -870,9 +855,7 @@ below you and exposed rafters above, but you can see signs that work will
 soon begin to make this into a game room.  The garage is to the west and the
 basement bathroom is to the northwest.  The laundry area is north of here.
 In addition, stairs lead up to the kitchen.    You can't help but admire your
-handiwork in fixing that broken stair.
-
-You can also see a screwdriver.
+handiwork in fixing that broken stair.  You can also see a screwdriver.
 
 > u
 You move up.
@@ -918,9 +901,8 @@ In the dining room
 You are in the dining room.  There is a bay window overlooking the hot tub on
 the back patio.  A large dining room table is here, as well as an antique
 radio.  There are six wooden chairs around the table.  The archway to the
-living room is south of you, and the kitchen is to the east.
-
-You can also see a box of dryer sheets and a fluffy bath towel.
+living room is south of you, and the kitchen is to the east.  You can also
+see a box of dryer sheets and a fluffy bath towel.
 
 > get sheets
 You take the box of dryer sheets.
@@ -1048,9 +1030,7 @@ below you and exposed rafters above, but you can see signs that work will
 soon begin to make this into a game room.  The garage is to the west and the
 basement bathroom is to the northwest.  The laundry area is north of here.
 In addition, stairs lead up to the kitchen.    You can't help but admire your
-handiwork in fixing that broken stair.
-
-You can also see a screwdriver.
+handiwork in fixing that broken stair.  You can also see a screwdriver.
 
 > n
 You move north.
@@ -1058,9 +1038,8 @@ You move north.
 In the laundry area
 You are in the laundry area in the back of the basement.  There are some
 shelves here with several odds and ends on them.  There is also a washing
-machine and a dryer here.  The rest of the basement lies to the south.
-
-You can also see a bottle of laundry soap and a handwritten note.
+machine and a dryer here.  The rest of the basement lies to the south.  You
+can also see a bottle of laundry soap and a handwritten note.
 
 >
 I don't understand what you mean!
@@ -1126,9 +1105,7 @@ below you and exposed rafters above, but you can see signs that work will
 soon begin to make this into a game room.  The garage is to the west and the
 basement bathroom is to the northwest.  The laundry area is north of here.
 In addition, stairs lead up to the kitchen.    You can't help but admire your
-handiwork in fixing that broken stair.
-
-You can also see a screwdriver.
+handiwork in fixing that broken stair.  You can also see a screwdriver.
 
 > u
 You move up.

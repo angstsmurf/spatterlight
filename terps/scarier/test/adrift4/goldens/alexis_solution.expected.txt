@@ -42,9 +42,8 @@ You put on the woven cloak.
 You move down.
 
 Cottage Cellar
-This dark little room has lots of shelves with little on them.
-
-You can also see a gold coin.
+This dark little room has lots of shelves with little on them.  You can also
+see a gold coin.
 
 > x shelves
 The wooden shelves don't look very strong but suit their purpose.  A bottle
@@ -87,10 +86,8 @@ You move east.
 Tonerith Pass
 This wide path continues to the East. You can see the hills of Forecarn north
 of here but there is no path running there. You can here the sound of rushing
-water in the distance.
-
-You can also see the Tonerith stone.
-There is a grey wolf circling you.
+water in the distance.  You can also see the Tonerith stone.  There is a grey
+wolf circling you.
 Wolf hits you.
 
 > attack wolf
@@ -120,8 +117,7 @@ water is almost deafening. A mist of spray from the river blows against your
 face. The bridge is covered in Ivy and moss. The bridge crosses the river
 towards Kedarn forest to the northeast. West will take you to Tonerith
 junction.  There is a large dwarven bridgekeeper blocking your way across the
-bridge.
-The Bridgekeeper is here.
+bridge.  The Bridgekeeper is here.
 
 > attack bridgekeeper
 You hit Bridgekeeper with the magic cube.
@@ -186,9 +182,8 @@ The winds sweeps round you as you squint your eyes, you appear to be in the
 centre of an open dessert. There is the sound of rushing water, but with the
 combination of wind and sand, it is difficult to tell where it is coming
 from. The sand whistles into your eyes but you can just see a small path to
-the East, otherwise you can retreat south.
-
-You can also see the Dusteron stone.  Serond follows you from the south.
+the East, otherwise you can retreat south.  You can also see the Dusteron
+stone.  Serond follows you from the south.
 
 > take dusteron stone
 You pick up the Dusteron stone.
@@ -243,8 +238,7 @@ This cave is huge and the walls glitter with the water trickling down. There
 is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
-blocked by a large troll.
-Narfild is here.  Serond follows you.
+blocked by a large troll.  Narfild is here.  Serond follows you.
 Serond shoots Narfild with the oak staff.
 Narfild hits you with the large club.
 
@@ -282,10 +276,8 @@ This cave is huge and the walls glitter with the water trickling down. There
 is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  There is a huge troll stretched
-out across the floor. He has large scratches all over his body.
-
-Also here are some grotty rags and a large club.  Serond follows you from the
-east.
+out across the floor. He has large scratches all over his body.  Also here
+are some grotty rags and a large club.  Serond follows you from the east.
 
 > w
 You move west.
@@ -328,10 +320,8 @@ This cave is huge and the walls glitter with the water trickling down. There
 is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  There is a huge troll stretched
-out across the floor. He has large scratches all over his body.
-
-Also here are some grotty rags and a large club.  Serond follows you from the
-west.
+out across the floor. He has large scratches all over his body.  Also here
+are some grotty rags and a large club.  Serond follows you from the west.
 
 > se
 You move southeast.
@@ -364,8 +354,7 @@ Tarin, the dwarf is here.  Serond follows you.
 Long Glaven path
 The path is long and will take you either northeast to a junction or
 southwest towards a cave.   Tarin the dwarf is barring your way northeast.
-Tarin, the dwarf is here.
-Serond is standing on your right.
+Tarin, the dwarf is here.  Serond is standing on your right.
 
 > give food to tarin
 Tarin takes the food eagerly. Tarin eats the food and then he bows his head
@@ -388,8 +377,8 @@ about 3 feet.  Just when you think there is nothing there, there is a chink.
 Glaven junction
 You are standing at the junction of four paths. One leaves west towards some
 caves. Another path leads towards some mountains northeast of here. A long
-path goes southwest. The last path is wide and goes southeast.
-Serond is standing on your right.
+path goes southwest. The last path is wide and goes southeast.  Serond is
+standing on your right.
 
 > se
 You move southeast.
@@ -398,9 +387,8 @@ Longmore junction
 This is the junction to four paths. The view is magnificent. North of here
 are snowcapped mountains. East of here, there is one huge mountain with a
 large castle near the top. Northwest will take you towards Glaven, near some
-caves, and southeast will take you into a marshy area.
-
-You can also see the Longmore stone.  Serond follows you.
+caves, and southeast will take you into a marshy area.  You can also see the
+Longmore stone.  Serond follows you.
 
 > take longmore stone
 You pick up the Longmore stone.
@@ -413,8 +401,7 @@ The ground is extremely boggy here. Every footstep is a difficult strain.
 With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
-direction.
-The Longmore marsh king is here.  Serond follows you.
+direction.  The Longmore marsh king is here.  Serond follows you.
 Serond shoots Longmore king with the oak staff.
 Longmore king stabs you with the pointy stick.
 
@@ -442,9 +429,8 @@ Elven water collection point
 There appears to be elven footprints all over the path. You are standing
 right next to the river. The water next to where the bank meets it is slower
 and cleaner than the rest of the river. Northeast will take you up a small
-path to a junction.
-
-You can also see a large pot and an ornate key.  Serond follows you.
+path to a junction.  You can also see a large pot and an ornate key.  Serond
+follows you.
 
 > take pot
 You pick up the large pot.
@@ -479,8 +465,8 @@ Elven village centre
 You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
-leads southwest towards the sea.
-Natalya is here.  Serond follows you from the west.
+leads southwest towards the sea.  Natalya is here.  Serond follows you from
+the west.
 
 > e
 You move east.
@@ -510,8 +496,8 @@ Elven village centre
 You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
-leads southwest towards the sea.
-Natalya is here.  Serond follows you from the east.
+leads southwest towards the sea.  Natalya is here.  Serond follows you from
+the east.
 
 > n
 You move north.
@@ -536,8 +522,8 @@ Elven village centre
 You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
-leads southwest towards the sea.
-Natalya is here.  Serond follows you from the north.
+leads southwest towards the sea.  Natalya is here.  Serond follows you from
+the north.
 
 > s
 You move south.
@@ -545,8 +531,7 @@ You move south.
 South wooden hut
 This hut appears to be an area for cooking and eating. There is a fire in the
 centre of the hut with a large metal pan hanging over it. There is a long
-table around the outside.
-Derek is here.  Serond follows you from the north.
+table around the outside.  Derek is here.  Serond follows you from the north.
 
 > put water in pan
 The river water sploshes into the metal pan and begins to boil.
@@ -558,8 +543,8 @@ Elven village centre
 You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
-leads southwest towards the sea.
-Natalya is here.  Serond follows you from the south.
+leads southwest towards the sea.  Natalya is here.  Serond follows you from
+the south.
 
 > se
 You move southeast.
@@ -591,8 +576,7 @@ Elven village centre
 You are in the centre of a easily distinguishable Elven camp. There are small
 wooden huts to the north, east,  southeast and south. The huts are covered
 with mud and branches. A wide path leads west to a junction. A small path
-leads southwest towards the sea.
-Natalya is here.  Serond follows you.
+leads southwest towards the sea.  Natalya is here.  Serond follows you.
 
 > w
 You move west.
@@ -616,10 +600,8 @@ You move southeast.
 Kedarn forest clearing
 You stand in the middle of a barren circle. All around the trees seem to be
 closing in. West will take you down a tiny path. Another clearer path leads
-northwest.
-
-You can also see the Kedarn stone.
-There is a Forester Goblin hanging from a tree here.  Serond follows you.
+northwest.  You can also see the Kedarn stone.  There is a Forester Goblin
+hanging from a tree here.  Serond follows you.
 Serond shoots Forester Goblin with the oak staff.
 Forester Goblin shoots you with the bow and arrow.
 
@@ -672,8 +654,7 @@ The ground is extremely boggy here. Every footstep is a difficult strain.
 With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
-direction.
-The Longmore marsh king is here.  Serond follows you.
+direction.  The Longmore marsh king is here.  Serond follows you.
 Serond shoots Longmore king with the oak staff.
 Longmore king stabs Serond with the pointy stick.
 
@@ -715,9 +696,7 @@ The ground is extremely boggy here. Every footstep is a difficult strain.
 With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
-direction.
-
-You can also see a pointy stick.  Serond follows you.
+direction.  You can also see a pointy stick.  Serond follows you.
 
 > nw
 You move northwest.
@@ -744,9 +723,8 @@ Somlost Ravine
 You are standing on the edge of a huge ravine. Below you the cliff drops
 about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
-will take you along a path.
-There is an eagle above you circling around your head.  Serond follows you
-from the west.
+will take you along a path.  There is an eagle above you circling around your
+head.  Serond follows you from the west.
 Serond shoots Eagle with the oak staff.
 Eagle hits you, but it doesn't seem to do any damage.
 
@@ -780,9 +758,8 @@ You move northwest.
 Glaven junction
 You are standing at the junction of four paths. One leaves west towards some
 caves. Another path leads towards some mountains northeast of here. A long
-path goes southwest. The last path is wide and goes southeast.
-
-You can also see a large hole.  Serond follows you.
+path goes southwest. The last path is wide and goes southeast.  You can also
+see a large hole.  Serond follows you.
 
 > ne
 You move northeast.
@@ -798,7 +775,7 @@ You move northeast.
 
 Nelone mountain pass
 This long path threads through the mountains east or to a junction southwest.
-There is a Narn here.  Serond follows you.
+ There is a Narn here.  Serond follows you.
 Serond shoots Kerfald with the oak staff.
 Kerfald hits Serond.
 
@@ -816,9 +793,8 @@ Nelone mountain junction
 The ground here is covered in a fine layer of snow. This junction leads away
 three ways. Impossible to tell where each one goes as they thread through
 mountains. The paths lead Northwest, West and East. The only way that can be
-sure is that west leads down into a valley.
-
-You can also see the Nelone stone.  Serond follows you.
+sure is that west leads down into a valley.  You can also see the Nelone
+stone.  Serond follows you.
 
 > take nelone stone
 You pick up the Nelone stone.
@@ -840,8 +816,7 @@ Nelone Bridge
 You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
 one side of the bridge, east to the other.  Larnt is standing in front of you
-barring the way.
-Larnt is here.  Serond follows you from the west.
+barring the way.  Larnt is here.  Serond follows you from the west.
 
 > give stones to larnt
 As you hand over the stones, Larnt's face breaks into an evil smile. As the
@@ -852,9 +827,8 @@ mountain.
 Nelone Bridge
 You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
-one side of the bridge, east to the other.
-Larnt is here.
-Serond is standing on your right.
+one side of the bridge, east to the other.  Larnt is here.  Serond is
+standing on your right.
 
 > e
 You move east.
@@ -879,8 +853,7 @@ You move northeast.
 Uron Dark Path
 The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
-take you up the mountain.
-There is a large Narn here.  Serond follows you.
+take you up the mountain.  There is a large Narn here.  Serond follows you.
 You get up and start walking again.
 Serond shoots Karurn with the oak staff.
 
@@ -928,9 +901,8 @@ Uron Castle Main Hall
 The hall is huge and has Gargoyles around the ceiling. When looking at one,
 another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
-corridor. East will take you into a smaller room.
-Larnt is here.  Serond follows you from the south.  Haron follows you from
-the south.
+corridor. East will take you into a smaller room.  Larnt is here.  Serond
+follows you from the south.  Haron follows you from the south.
 Serond shoots Larnt with the oak staff.
 Larnt cuts Serond with the blade from Uron.
 
@@ -964,10 +936,9 @@ Uron Castle Main Hall
 The hall is huge and has Gargoyles around the ceiling. When looking at one,
 another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
-corridor. East will take you into a smaller room.
-
-You can also see a blade from Uron.  Serond follows you from the north.
-Haron follows you from the north.
+corridor. East will take you into a smaller room.  You can also see a blade
+from Uron.  Serond follows you from the north.  Haron follows you from the
+north.
 
 > w
 You move west.
@@ -1017,10 +988,9 @@ Uron Castle Main Hall
 The hall is huge and has Gargoyles around the ceiling. When looking at one,
 another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
-corridor. East will take you into a smaller room.
-
-You can also see a blade from Uron.  Serond follows you from the west.  Haron
-follows you from the west.
+corridor. East will take you into a smaller room.  You can also see a blade
+from Uron.  Serond follows you from the west.  Haron follows you from the
+west.
 
 > n
 You move north.
@@ -1039,8 +1009,8 @@ Long room
 The room is very long and has a huge table down the centre of it. There are
 lots of chairs down the sides of the table. At the head of the table is a
 large chair almost like a throne. On the north wall is a stone door, but it
-is locked. South will take you into the Main Hall.
-Serond is standing on your right.  Haron is standingon your left.
+is locked. South will take you into the Main Hall.  Serond is standing on
+your right.  Haron is standingon your left.
 
 > open door
 The door scrapes open.

@@ -113,9 +113,7 @@ You are lost in the woods.  Tall trees surround you on every side, seeming to
 close in on you.  The sun has nearly set and the darkness threatens to
 swallow you up.  The muddy ground sucks at your feet.  Some ancient, primeval
 urge at the back of your mind screams at you, telling you that spending the
-night here would be a very bad idea indeed...
-
-Also here is a first aid box.
+night here would be a very bad idea indeed...  Also here is a first aid box.
 
 > get box
 You take the first aid box.
@@ -700,9 +698,7 @@ large Victorian fireplace over which hangs a wooden plaque detailing a list
 of names.  In the centre of the room is a tall pedestal, on which sits an
 elaborate, beautiful urn.
 
-The exit is to the east.
-
-Also here is a beautiful urn.
+The exit is to the east.  Also here is a beautiful urn.
 
 > x cabinets
 
@@ -766,9 +762,7 @@ You then notice your subconscious choice of words - '...used this study...had
 the tidiest mind...' - for you get the unmistakable feeling that, like the
 rest of this house, this room has been abandoned for some time.
 
-The exit is to the west.
-
-Also here is an old trophy.
+The exit is to the west.  Also here is an old trophy.
 
 > x papers
 
@@ -944,9 +938,8 @@ heaved down the stairs.  The floor creaks under your feet as you wonder
 around, pondering your next move.
 
 The front door of the house is to the east.  As well as the stairs leading
-up, you can also go north, west and south.
-
-Also here is a tied-up piece of parchment.
+up, you can also go north, west and south.  Also here is a tied-up piece of
+parchment.
 
 > take parchment
 
@@ -1052,7 +1045,6 @@ off-centre and pulled out slightly.  On a sideboard you notice a breadboard.
 
 An alcove takes you north back into the corridor.  There is a solid, metal
 door to the south and to the west you can see a back door leading outside.
-
 Also here is a tin opener and a packet of bread.
 
 > get tin opener
@@ -1111,9 +1103,7 @@ broken table sits in the centre of the room.  The carpet is covered in mouse
 droppings and the room smells quite foul.  You notice a mousehole in the
 skirting board along the north wall.
 
-The exit is to the north.
-
-Also here is a rusty mousetrap.
+The exit is to the north.  Also here is a rusty mousetrap.
 
 > get mousetrap
 You take the rusty mousetrap.
@@ -1229,7 +1219,6 @@ off-centre and pulled out slightly.  On a sideboard you notice a breadboard.
 
 An alcove takes you north back into the corridor.  There is a solid, metal
 door to the south and to the west you can see a back door leading outside.
-
 Also here is a packet of bread.
 
 > west
@@ -1390,7 +1379,6 @@ off-centre and pulled out slightly.  On a sideboard you notice a breadboard.
 
 An alcove takes you north back into the corridor.  There is a solid, metal
 door to the south and to the west you can see a back door leading outside.
-
 Also here is a packet of bread.
 
 You pause, a chill running down your spine.  Did you just hear a child
@@ -1592,7 +1580,6 @@ off-centre and pulled out slightly.  On a sideboard you notice a breadboard.
 
 An alcove takes you north back into the corridor.  There is a solid, metal
 door to the south and to the west you can see a back door leading outside.
-
 Also here is a packet of bread.
 
 > unlock metal door

@@ -17,9 +17,8 @@ You can move north and east.
 You move east.
 
 Clean Aire
-You have stepped beside a picnic table and gas grille.
-
-Also here is a shovel.
+You have stepped beside a picnic table and gas grille.  Also here is a
+shovel.
 
 You can move north and west.
 
@@ -153,10 +152,8 @@ You hear the sound of water being shut off abruptly.
 > north
 You move north.
 
-Kitchen
-
-There is a tidy kitchen faucet here.  There is an even tidier kitchen sink
-here.
+Kitchen  There is a tidy kitchen faucet here.  There is an even tidier
+kitchen sink here.
 
 You can move south and west.
 
@@ -188,9 +185,8 @@ You can move north, east, south and west.
 You move west.
 
 Living Room Stairway
-You are at the foot of a stairway going up to the top floor.
-
-There is a young girl sitting on the stairs.
+You are at the foot of a stairway going up to the top floor.  There is a
+young girl sitting on the stairs.
 
 You can move east and south.
 
@@ -279,9 +275,8 @@ You can move north, south and down.
 You move down.
 
 Living Room Stairway
-You are at the foot of a stairway going up to the top floor.
-
-There is a young girl sitting on the stairs.
+You are at the foot of a stairway going up to the top floor.  There is a
+young girl sitting on the stairs.
 
 You can move east, south and up.
 
@@ -369,9 +364,7 @@ You move north.
 TV Room
 The television is surrounded by brown sofa and two recliners, one orange and
 one matching the brown sofa. Two lovely panaramic windows gives you the view
-of a beautiful golf course across a major highway.
-
-Here is Father's Closet.
+of a beautiful golf course across a major highway.  Here is Father's Closet.
 
 You can only move south.
 
@@ -388,9 +381,7 @@ You move out.
 TV Room
 The television is surrounded by brown sofa and two recliners, one orange and
 one matching the brown sofa. Two lovely panaramic windows gives you the view
-of a beautiful golf course across a major highway.
-
-Here is Father's Closet.
+of a beautiful golf course across a major highway.  Here is Father's Closet.
 
 You can only move south.
 
@@ -413,10 +404,8 @@ You can move north and east.
 > east
 You move east.
 
-Kitchen
-
-There is a tidy kitchen faucet here.  There is an even tidier kitchen sink
-here.
+Kitchen  There is a tidy kitchen faucet here.  There is an even tidier
+kitchen sink here.
 
 You can move south and west.
 
@@ -523,9 +512,7 @@ You move north.
 TV Room
 The television is surrounded by brown sofa and two recliners, one orange and
 one matching the brown sofa. Two lovely panaramic windows gives you the view
-of a beautiful golf course across a major highway.
-
-Here is Father's Closet.
+of a beautiful golf course across a major highway.  Here is Father's Closet.
 
 You can only move south.
 
@@ -545,9 +532,7 @@ You move out.
 TV Room
 The television is surrounded by brown sofa and two recliners, one orange and
 one matching the brown sofa. Two lovely panaramic windows gives you the view
-of a beautiful golf course across a major highway.
-
-Here is Father's Closet.
+of a beautiful golf course across a major highway.  Here is Father's Closet.
 
 You can only move south.
 
@@ -571,9 +556,8 @@ You can move north, east, south and west.
 You move west.
 
 Living Room Stairway
-You are at the foot of a stairway going up to the top floor.
-
-There is a young girl sitting on the stairs.
+You are at the foot of a stairway going up to the top floor.  There is a
+young girl sitting on the stairs.
 
 You can move east, south and up.
 

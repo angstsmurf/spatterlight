@@ -47,8 +47,8 @@ You take a small pistol from some aluminum clothes.
 You move south.
 The kitchen, a wide and wonderful place compared to the dark isolation of the
 microwave.  There's a counter, a ceramic floor, a stove, a sink, and various
-other fixtures in a kitchen (you know what a kitchen looks like!).
-Coffee Man is here.
+other fixtures in a kitchen (you know what a kitchen looks like!).  Coffee
+Man is here.
 
 > shoot man
 You shoot Coffee Man with your gun.  You win the game.You have destroyed

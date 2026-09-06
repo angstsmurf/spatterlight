@@ -100,8 +100,8 @@ Le bureau de Yannick
 Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à
 votre bureau, à ceci près que la disposition du mobilier est quelque peu
 différente. Le bureau se trouve au Nord; un fauteuil est placé au Sud; un
-placard est situé à l'Ouest; la sortie se trouve à l'Est.
-Yannick Vilon est ici.
+placard est situé à l'Ouest; la sortie se trouve à l'Est.  Yannick Vilon est
+ici.
 
 > parler à yannick
 "Salut Yannick!" dites-vous en regardant votre ami. "Ah te voilà enfin!"
@@ -149,8 +149,8 @@ Le bureau de Yannick
 Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à
 votre bureau, à ceci près que la disposition du mobilier est quelque peu
 différente. Le bureau se trouve au Nord; un fauteuil est placé au Sud; un
-placard est situé à l'Ouest; la sortie se trouve à l'Est.
-Yannick Vilon est ici.
+placard est situé à l'Ouest; la sortie se trouve à l'Est.  Yannick Vilon est
+ici.
 
 > e
 Vous vous déplacez vers l'Est.
@@ -193,8 +193,7 @@ Le bureau du commissaire Guersant
 Vous êtes dans le bureau du commissaire Guersant. Cette pièce ressemble
 étrangement à votre bureau. A l'Ouest, vous pouvez voir un placard; le bureau
 du commissaire est placé au Nord; un fauteuil est situé à l'Est; la sortie se
-trouve au Sud.
-Guersant est ici.
+trouve au Sud.  Guersant est ici.
 
 > s
 Vous vous déplacez vers le Sud.
@@ -211,8 +210,7 @@ Vous vous déplacez vers l'Ouest.
 Le bureau du personnel
 Vous vous trouvez dans le bureau du personnel. Il s'agit d'une vaste pièce
 dans laquelle sont installés une dizaine de postes (bureaux et ordinateurs).
-La sortie se trouve à l'Est.
-Patrick Gini est ici.  Martin Viguier est ici.
+La sortie se trouve à l'Est.  Patrick Gini est ici.  Martin Viguier est ici.
 
 > parler à patrick
 Vous vous approchez de Patrick: "J'aurais besoin de toi Patrick."
@@ -661,8 +659,7 @@ premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez
 Le troisième étage
 Vous arrivez au troisième étage, un étage appelé "étage des cellules". Vous
 vous trouvez sur un palier. La porte menant aux cellules se trouve à l'Ouest;
-l'ascenseur est situé au Sud.
-Yannick Vilon est ici.  Roberto Amato est ici.
+l'ascenseur est situé au Sud.  Yannick Vilon est ici.  Roberto Amato est ici.
 
 > déverrouiller porte
 Vous ouvrez la porte puis vous vous retournez vers Yannick: "Le grand moment
@@ -1184,8 +1181,8 @@ Le bureau de Yannick
 Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à
 votre bureau, à ceci près que la disposition du mobilier est quelque peu
 différente. Le bureau se trouve au Nord; un fauteuil est placé au Sud; un
-placard est situé à l'Ouest; la sortie se trouve à l'Est.
-Yannick Vilon est ici.
+placard est situé à l'Ouest; la sortie se trouve à l'Est.  Yannick Vilon est
+ici.
 
 > e
 Vous vous déplacez vers l'Est.  Vous sortez du bureau de Yannick puis vous
@@ -1313,8 +1310,7 @@ femme: "C'est fini ma chérie." dites-vous en prenant Erica dans vos bras.
 La grande salle
 Vous êtes dans une grande salle, dont le mobilier est on ne peut plus
 inhabituel: seul un lit trône au centre de la pièce. La sortie se trouve au
-Sud.
-Erica est ici.
+Sud.  Erica est ici.
 
 > s
 Vous vous déplacez vers le Sud.  Vous sortez de la grande salle en compagnie

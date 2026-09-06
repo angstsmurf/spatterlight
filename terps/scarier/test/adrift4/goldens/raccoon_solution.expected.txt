@@ -14,9 +14,8 @@ safety of the dense brush to your west. Loose pebbles shift alarmingly
 beneath your paws, and the air is heavy with strange smells. The scent of
 humans is strong, as is the rank stench of a dog nearby. But above all,
 beckoning to you, is the intoxicating aroma of delicious food, just across
-the road to the east.
-
-A particularly shiny pebble has captured the attention of the moonlight.
+the road to the east.   A particularly shiny pebble has captured the
+attention of the moonlight.
 
 > take pebble
 You take the shiny pebble.
@@ -51,10 +50,9 @@ A flat, square platform, offering you just enough room to stand. You nearly
 swoon at the thought of all the heavenly delicacies seperated from you by
 nothing more than a hinged plastic lid. Though if you can muster the
 willpower to leave, the top of the fence is to the east, and you need only to
-jump down to reach the edge of the road.
-
-A large, heavy rock is sitting stubbornly on the lid of the can.  A long cord
-has been wrapped around and around the handle of the lid, tying it shut.
+jump down to reach the edge of the road.   A large, heavy rock is sitting
+stubbornly on the lid of the can.  A long cord has been wrapped around and
+around the handle of the lid, tying it shut.
 
 > chew cord
 Your sharp little teeth make short work of the cord, and you lay the remains
@@ -80,11 +78,8 @@ the yard in the past. The grass here is curiously short and uniform in size,
 offering no cover. Across this wide unprotected stretch is the giant
 sharp-angled structure the humans stay in, and much nearer to you an enormous
 dog snores next to a tree. At your back is the fence, and you reassure
-yourself that it only needs to be climbed to reach safety.
-
-A dog is sleeping here.
-
-Also here is a dangling cord.
+yourself that it only needs to be climbed to reach safety.     A dog is
+sleeping here.  Also here is a dangling cord.
 
 > tie leash to cord
 You deftly tie the ends of the cord and leash together with your nimble (and
@@ -129,10 +124,8 @@ the dog, assuming the lazy, half-deaf creature were to even wake up.
 
 Above you the object of your desires rises up out of the tall grass; the
 Tower of Leftovers, the Can of Plenty, and the Altar of Food, as it is
-variously referred to by the inhabitants of the thicket.
-
-The moonlight catches a gleam of metal from something hidden in the tall
-grass.
+variously referred to by the inhabitants of the thicket.  The moonlight
+catches a gleam of metal from something hidden in the tall grass.
 
 > climb fence
 Quickly, you scale the fence.

@@ -36,8 +36,8 @@ You move north.
 Filing
 In front of you is a counter which basically cuts the room into two halves.
 Behind the counter are row after row of filing cabinets. Offices are to the
-north and south. The Dining room is east. A trial of blood leads north.
-A demon is snarling at you.
+north and south. The Dining room is east. A trial of blood leads north.  A
+demon is snarling at you.
 The demon charges forward and bites you in the right leg. You lose 5 health
 points.
 The demon charges forward and bites you in the right arm. You lose 5 health

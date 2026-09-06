@@ -99,9 +99,7 @@ You move west.
 In a section of corridor
 You are in a section of north-south corridor.  At the south end, it curves
 around to head west.  There is a door in the east wall, and another in the
-north, which seems to be an elevator.
-
-Also here is a passcard.
+north, which seems to be an elevator.  Also here is a passcard.
 
 > s
 You move south.
@@ -130,9 +128,8 @@ You move north.
 
 In the maintenance supply cupboard
 You are in a small, dark cupboard.  Why isn't there any lighting in here?
-There are various maintenance implements here.
-
-Also here is a stepladder and a laser cutter.
+There are various maintenance implements here.  Also here is a stepladder and
+a laser cutter.
 
 > take stepladder
 You take the stepladder.
@@ -171,9 +168,7 @@ You move down.
 
 In the maintenance supply cupboard
 You are in a small, dark cupboard.  Why isn't there any lighting in here?
-There are various maintenance implements here.
-
-Also here is a stepladder.
+There are various maintenance implements here.  Also here is a stepladder.
 
 > s
 You move south.
@@ -182,9 +177,7 @@ In Station 13's central passage
 You are in a long corridor.  The docks are to the west, while doors lead
 north and south.  The corridor bends north at the east end, where there is
 another door in the east wall.    The door in the north wall is locked with
-an old-fashioned key mechanism.
-
-Also here is a small key.
+an old-fashioned key mechanism.  Also here is a small key.
 
 > e
 You move east.
@@ -221,9 +214,7 @@ You move north.
 In a section of corridor
 You are in a section of north-south corridor.  At the south end, it curves
 around to head west.  There is a door in the east wall, and another in the
-north, which seems to be an elevator.
-
-Also here is a passcard.
+north, which seems to be an elevator.  Also here is a passcard.
 
 > n
 You move north.
@@ -371,9 +362,7 @@ You move south.
 In a section of corridor
 You are in a section of north-south corridor.  At the south end, it curves
 around to head west.  There is a door in the east wall, and another in the
-north, which seems to be an elevator.
-
-Also here is a passcard.
+north, which seems to be an elevator.  Also here is a passcard.
 
 > s
 You move south.
@@ -389,18 +378,14 @@ In Station 13's central passage
 You are in a long corridor.  The docks are to the west, while doors lead
 north and south.  The corridor bends north at the east end, where there is
 another door in the east wall.    The door in the north wall is locked with
-an old-fashioned key mechanism.
-
-Also here is a small key.
+an old-fashioned key mechanism.  Also here is a small key.
 
 > n
 You move north.
 
 In the maintenance supply cupboard
 You are in a small, dark cupboard.  Why isn't there any lighting in here?
-There are various maintenance implements here.
-
-Also here is a stepladder.
+There are various maintenance implements here.  Also here is a stepladder.
 Something wet lands on your nose...
 
 > take stepladder
@@ -413,9 +398,7 @@ In Station 13's central passage
 You are in a long corridor.  The docks are to the west, while doors lead
 north and south.  The corridor bends north at the east end, where there is
 another door in the east wall.    The door in the north wall is locked with
-an old-fashioned key mechanism.
-
-Also here is a small key.
+an old-fashioned key mechanism.  Also here is a small key.
 
 > w
 You move west.
@@ -427,9 +410,7 @@ out into space.  To the south is a command booth, to the north, a corridor
 leads around a corner, and in the east of the bay is a large door leading
 into the rest of the station.  The wreckage of your transport ship and a red
 Astermoth jumpship are here.  The former is burning fiercely, and will be for
-a long time to come.
-
-Also here is your flak jacket and your backpack.
+a long time to come.  Also here is your flak jacket and your backpack.
 
 > n
 You move north.
@@ -445,9 +426,7 @@ You move north.
 
 In the gents' toilets
 You are in a small room.  There are two urinals built into the north wall,
-and there's a cubicle to the east.
-
-Also here is a marine's beret.
+and there's a cubicle to the east.  Also here is a marine's beret.
 
 > e
 You move east.
@@ -467,9 +446,7 @@ You move down.
 
 In the gents' cubicle
 You are in a small cubicle, in which there is a toilet.  There is a small
-air-vent in the ceiling.
-
-Also here is a stepladder.
+air-vent in the ceiling.  Also here is a stepladder.
 
 > take stepladder
 You take the stepladder.
@@ -479,9 +456,7 @@ You move west.
 
 In the gents' toilets
 You are in a small room.  There are two urinals built into the north wall,
-and there's a cubicle to the east.
-
-Also here is a marine's beret.
+and there's a cubicle to the east.  Also here is a marine's beret.
 
 > s
 You move south.

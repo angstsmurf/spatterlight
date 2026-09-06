@@ -14,9 +14,7 @@ Type 'About' for more information
 Version 1.0 / ADRIFT 3.90 Release 19
 
 A forest clearing
-You are in a forest clearing.
-
-You can also see a jagged rock.
+You are in a forest clearing.   You can also see a jagged rock.
 
 The shadowy horror shambles forward. You remember its attack, as if it were a
 dream, recall wrenching away from the deadly  grasp and falling onto the
@@ -222,6 +220,7 @@ Under the deadfall
 You are in a cramped hollow space  walled by tree trunks, sticks and other
 forest debris. A dark patch of shadow to the south might indicate an opening.
 You can also go back to the west.
+
 A small red snake fixes you with its sharp gaze.
 
 > kill snake with sword
@@ -406,9 +405,7 @@ The remains of a colonnaded thoroughfare, twice as wide as the Avenue of the
 Eternal Sun in Heliopoli. Now most of the bordering columns have fallen and
 street is littered with bits of marble and broken statues. To the south lies
 an expanse of bare cobbles. To the north you can see the foundation of some
-ruined structure.
-
-You can also see a marble bust.
+ruined structure.  You can also see a marble bust.
 
 > north
 You move north.
@@ -417,9 +414,8 @@ Ruined Villa
 Here the remains of a villa, little more than foundations, are laid out like
 a diagram on the ground. There is the outline of the dining hall, the
 courtyard, an office, a bedroom. No walls remain, only some mosaic floors.
-Gardens lie to the east. You can also move south.
-
-You can also see a paperweight.
+Gardens lie to the east. You can also move south.  You can also see a
+paperweight.
 
 > get paperweight
 You take the paperweight.
@@ -433,9 +429,8 @@ wild, the ornamental bushes have degenerated into stunted, twisted shapes.
 Still, with the rank vegetation and ruined walkways  silvered with moonlight,
 you can almost envision how it was. The most striking feature is a marble
 woman. An image of Aphrodite.  To the south the garden runs into darkness
-that not even the moonlight can penetrate. You can also move west.
-
-You can also see a gold dinner plate.
+that not even the moonlight can penetrate. You can also move west.  You can
+also see a gold dinner plate.
 
 > x woman
 A life sized marble statue of the love goddess one vanished civilization
@@ -663,9 +658,7 @@ The cavern leading out of the great dome has been transformed. In addition to
 the exit to the east, half the floor has fallen away taking whatever might
 have been there with it. Looking down through the gap you can see what appear
 to be the moonlit ruins of Xycanthus, moving beneath. No, it is the space
-you're standing in which is moving.
-
-You can also see a paperweight.
+you're standing in which is moving.  You can also see a paperweight.
 
 > get paperweight
 You take the paperweight.

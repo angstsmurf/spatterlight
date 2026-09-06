@@ -100,9 +100,7 @@ Armageddon.  Dominating the north wall is the communications console and its
 large monitor-viewer.  A utilitarian chair rests on casters in front of the
 console.  Along the east wall is a small locker, and to the west a large
 steel door leading to the rest of the complex. The dead eyes of Capt.
-Matingly stare across the room.
-
-A gun rests on the floor.
+Matingly stare across the room.  A gun rests on the floor.
 
 > get all
 BANG BANG

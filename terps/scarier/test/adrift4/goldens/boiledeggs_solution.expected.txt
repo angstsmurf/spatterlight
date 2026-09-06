@@ -100,9 +100,8 @@ house in the garden.
 Old Joe's garden
 The old stone path leads up to the window and the front door, where
 flowerpots, rocks, a doormat and so on leave any number of possible hiding
-places for the key.
-
-There's a stone here too, lying inconspicuously in the middle of the grass.
+places for the key.  There's a stone here too, lying inconspicuously in the
+middle of the grass.
 Now you've just got to find it...
 
 > lift the loose flagstone
@@ -182,9 +181,8 @@ You clamber out of the window as quietly as you can.
 Old Joe's garden
 The old stone path leads up to the window and the front door, where
 flowerpots, rocks, a doormat and so on leave any number of possible hiding
-places for the key.
-
-There's a stone here too, lying inconspicuously in the middle of the grass.
+places for the key.  There's a stone here too, lying inconspicuously in the
+middle of the grass.
 There's no sign of the dog...
 
 > open box

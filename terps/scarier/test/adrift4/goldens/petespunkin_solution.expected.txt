@@ -27,11 +27,9 @@ their hands on Pete's Premium Punkins.
 
 From here, you can go north across the street, south to the backyard, west to
 the punkin field, or east to your neighbor's cow pasture (but hold your
-nose).
-
-Your shotgun is lying on the porch under your rocking chair.  Your punkin
-carving knife is lying on the porch railing.
-A bunch of customers are standing around waiting for punkins.
+nose).  Your shotgun is lying on the porch under your rocking chair.  Your
+punkin carving knife is lying on the porch railing.  A bunch of customers are
+standing around waiting for punkins.
 
 > take knife
 You take carving knife.
@@ -59,9 +57,7 @@ Shed
 Light pours in from the open door and is devoured instantly by the creepiness
 of the shed's interior.  Any useful implements lean against the front door,
 everything is actually being consumed by the spiders that have webbed the
-place.
-
-A shovel leans on the shed among the spider webs and dust.
+place.  A shovel leans on the shed among the spider webs and dust.
 
 > take shovel
 You take the shovel.
@@ -126,10 +122,8 @@ their hands on Pete's Premium Punkins.
 
 From here, you can go north across the street, south to the backyard, west to
 the punkin field, or east to your neighbor's cow pasture (but hold your
-nose).
-
-Your shotgun is lying on the porch under your rocking chair.
-A bunch of customers are standing around waiting for punkins.
+nose).  Your shotgun is lying on the porch under your rocking chair.  A bunch
+of customers are standing around waiting for punkins.
 
 > n
 You move north.
@@ -167,8 +161,7 @@ at you, grinning.
 "How's business, Pete?"
 
 From here you can move north into Rinda's backyard cemetery, or south to the
-county road.
-Rinda is here.
+county road.  Rinda is here.
 
 > talk to rinda
 Rinda looks up from her book.  "I guess you're ready for a little help on
@@ -218,8 +211,7 @@ at you, grinning.
 "How's business, Pete?"
 
 From here you can move north into Rinda's backyard cemetery, or south to the
-county road.
-Rinda is here.
+county road.  Rinda is here.
 
 > s
 You move south.
@@ -248,10 +240,8 @@ their hands on Pete's Premium Punkins.
 
 From here, you can go north across the street, south to the backyard, west to
 the punkin field, or east to your neighbor's cow pasture (but hold your
-nose).
-
-Your shotgun is lying on the porch under your rocking chair.
-A bunch of customers are standing around waiting for punkins.
+nose).  Your shotgun is lying on the porch under your rocking chair.  A bunch
+of customers are standing around waiting for punkins.
 
 > w
 You move west.

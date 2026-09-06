@@ -296,6 +296,7 @@ I move east.
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
+
 A naked woman is here, chained to the ground.
 
 > east
@@ -348,6 +349,7 @@ I move west.
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (east).
+
 A naked woman is here, chained to the ground.
 
 > break chain
@@ -510,6 +512,7 @@ Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 A medallion is here.
+
 A woman is here, happy apparently.
 
 > look
@@ -519,6 +522,7 @@ Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
 
 A medallion is here.
+
 A woman is here, happy apparently.
 
 > take medallion
@@ -586,6 +590,7 @@ I move north.
 Field
 Yellow grass, about knee-high, all around me. There doesn't seem to be
 anything of interest for some distance (north).
+
 A woman is here.
 
 I see the woman. "Remember me, the one you spit on after saving your life?" I
@@ -880,9 +885,7 @@ your surroundings."
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a blanket.
+into the north wall. There is no visible door.  Also here is a blanket.
 
 I say, "Where is your voice coming from?"
 
@@ -894,18 +897,14 @@ Non-verbal communication is common knowledge here, even among us."
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a blanket.
+into the north wall. There is no visible door.  Also here is a blanket.
 
 > look
 
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a blanket.
+into the north wall. There is no visible door.  Also here is a blanket.
 
 "I don't know how you got here, but you haven't been killed yet; that means
 you can be of some use to us. This world has horrible politics. I'm sorry if
@@ -920,18 +919,14 @@ anything."
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a blanket.
+into the north wall. There is no visible door.  Also here is a blanket.
 
 > look
 
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a blanket.
+into the north wall. There is no visible door.  Also here is a blanket.
 
 "The beings that are non-sapient, some of them delight in our misery. Rivens,
 for instance, are higher than us on the food chain, but even higher beings
@@ -945,9 +940,7 @@ to need you to really understand that."
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a blanket.
+into the north wall. There is no visible door.  Also here is a blanket.
 
 "Enough talk. For your next task, kill whatever is in this next box."
 
@@ -958,9 +951,8 @@ A box appears in the corner.
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a red box and a blanket.
+into the north wall. There is no visible door.  Also here is a red box and a
+blanket.
 
 > take blanket
 I take the blanket.
@@ -970,63 +962,49 @@ I take the blanket.
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a red box.
+into the north wall. There is no visible door.  Also here is a red box.
 
 > look
 
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a red box.
+into the north wall. There is no visible door.  Also here is a red box.
 
 > look
 
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a red box.
+into the north wall. There is no visible door.  Also here is a red box.
 
 > look
 
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a red box.
+into the north wall. There is no visible door.  Also here is a red box.
 
 > look
 
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a red box.
+into the north wall. There is no visible door.  Also here is a red box.
 
 > look
 
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a red box.
+into the north wall. There is no visible door.  Also here is a red box.
 
 > look
 
 Cell 2
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 2 painted
-into the north wall. There is no visible door.
-
-Also here is a red box.
+into the north wall. There is no visible door.  Also here is a red box.
 
 > take red box
 I take the red box.
@@ -1136,144 +1114,112 @@ A box appears out of nowhere.
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > look
 
 Cell 3
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 3 painted
-into the north wall. There is no visible door.
-
-Also here is a purple box.
+into the north wall. There is no visible door.  Also here is a purple box.
 
 > open box
 I open the box.
@@ -1472,45 +1418,35 @@ When you are done, shout. And don't get it wrong, if you do."
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
-into the north wall. There is no visible door.
-
-Also here is a blank box.
+into the north wall. There is no visible door.  Also here is a blank box.
 
 > look
 
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
-into the north wall. There is no visible door.
-
-Also here is a blank box.
+into the north wall. There is no visible door.  Also here is a blank box.
 
 > look
 
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
-into the north wall. There is no visible door.
-
-Also here is a blank box.
+into the north wall. There is no visible door.  Also here is a blank box.
 
 > look
 
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
-into the north wall. There is no visible door.
-
-Also here is a blank box.
+into the north wall. There is no visible door.  Also here is a blank box.
 
 > look
 
 Cell 5
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 5 painted
-into the north wall. There is no visible door.
-
-Also here is a blank box.
+into the north wall. There is no visible door.  Also here is a blank box.
 
 > take blank box
 I take the blank box.
@@ -1645,9 +1581,7 @@ I think they are appearing out of thin air.
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
-into the north wall. There is no visible door.
-
-Also here is a green box.
+into the north wall. There is no visible door.  Also here is a green box.
 Chip hits you, but it doesn't seem to do any damage.
 
 > look
@@ -1655,9 +1589,8 @@ Chip hits you, but it doesn't seem to do any damage.
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
-into the north wall. There is no visible door.
+into the north wall. There is no visible door.  Also here is a green box.
 
-Also here is a green box.
 Chip is here.
 Chip hits you, but it doesn't seem to do any damage.
 
@@ -1666,9 +1599,8 @@ Chip hits you, but it doesn't seem to do any damage.
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
-into the north wall. There is no visible door.
+into the north wall. There is no visible door.  Also here is a green box.
 
-Also here is a green box.
 Chip is here.
 
 > look
@@ -1676,9 +1608,8 @@ Chip is here.
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
-into the north wall. There is no visible door.
+into the north wall. There is no visible door.  Also here is a green box.
 
-Also here is a green box.
 Chip is here.
 Chip hits you.
 
@@ -1687,9 +1618,8 @@ Chip hits you.
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
-into the north wall. There is no visible door.
+into the north wall. There is no visible door.  Also here is a green box.
 
-Also here is a green box.
 Chip is here.
 
 > look
@@ -1697,9 +1627,8 @@ Chip is here.
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
-into the north wall. There is no visible door.
+into the north wall. There is no visible door.  Also here is a green box.
 
-Also here is a green box.
 Chip is here.
 Chip hits you.
 
@@ -1708,9 +1637,8 @@ Chip hits you.
 Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
-into the north wall. There is no visible door.
+into the north wall. There is no visible door.  Also here is a green box.
 
-Also here is a green box.
 Chip is here.
 
 > take green box
@@ -1840,6 +1768,7 @@ couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
+
 An ozgat is here.
 
 The ground in front of me drops out, creating a swirling vortex of a
@@ -1940,8 +1869,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-A riven is here.
+same...but everything is so different. It is not clear where I can go.  A
+riven is here.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2049,8 +1978,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-Lina, Scotty, Tippant, Donna and Chip are here.
+same...but everything is so different. It is not clear where I can go.  Lina,
+Scotty, Tippant, Donna and Chip are here.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -2062,8 +1991,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-Lina, Scotty, Tippant, Donna and Chip are here.
+same...but everything is so different. It is not clear where I can go.  Lina,
+Scotty, Tippant, Donna and Chip are here.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -2078,8 +2007,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-Lina, Scotty, Tippant, Donna and Chip are here.
+same...but everything is so different. It is not clear where I can go.  Lina,
+Scotty, Tippant, Donna and Chip are here.
 
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
@@ -2094,6 +2023,7 @@ couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
+
 An ozgat and A riven are here.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
@@ -2292,9 +2222,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-
-Also here is a double-lighter.
+same...but everything is so different. It is not clear where I can go.  Also
+here is a double-lighter.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -2553,8 +2482,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-Red Riven and Blue Riven are here.
+same...but everything is so different. It is not clear where I can go.  Red
+Riven and Blue Riven are here.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -2765,6 +2694,7 @@ couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
+
 I feel a presence. A higher is here.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
@@ -2947,8 +2877,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-Lina, Scotty, Tippant, Donna and Chip are here.
+same...but everything is so different. It is not clear where I can go.  Lina,
+Scotty, Tippant, Donna and Chip are here.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -2962,8 +2892,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-Lina, Scotty, Tippant, Donna and Chip are here.
+same...but everything is so different. It is not clear where I can go.  Lina,
+Scotty, Tippant, Donna and Chip are here.
 
 > look
 
@@ -2972,8 +2902,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-Lina, Scotty, Tippant, Donna and Chip are here.
+same...but everything is so different. It is not clear where I can go.  Lina,
+Scotty, Tippant, Donna and Chip are here.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2992,8 +2922,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-Lina, Scotty, Tippant, Donna and Chip are here.
+same...but everything is so different. It is not clear where I can go.  Lina,
+Scotty, Tippant, Donna and Chip are here.
 
 > look
 
@@ -3002,8 +2932,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-Lina, Scotty, Tippant, Donna and Chip are here.
+same...but everything is so different. It is not clear where I can go.  Lina,
+Scotty, Tippant, Donna and Chip are here.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -3021,8 +2951,8 @@ Blue rays or light illuminate the landscape from underneath me. Above, a
 couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
-same...but everything is so different. It is not clear where I can go.
-Lina, Scotty, Tippant, Donna and Chip are here.
+same...but everything is so different. It is not clear where I can go.  Lina,
+Scotty, Tippant, Donna and Chip are here.
 
 > northeast
 I move northeast.
@@ -3033,6 +2963,7 @@ couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
+
 An ozgat, A higher and A riven are here.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
@@ -4138,6 +4069,7 @@ I move east.
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
+
 I feel a presence.
 
 You are here to find your son, correct?
@@ -4158,6 +4090,7 @@ things.
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
+
 I feel a presence.
 
 All the things you've been told about the world, all the things that 'voice'
@@ -4179,6 +4112,7 @@ here speak English. They don't. I have given you that ability.
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
+
 I feel a presence.
 
 The voice you heard was from a human/non-human hybrid named Klewis. He is one
@@ -4196,6 +4130,7 @@ within your ability. It's only ignorance and fear that stops you.
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
+
 I feel a presence.
 
 In another world, you're dead right now. In yet another, you never even
@@ -4212,6 +4147,7 @@ in this world, in another one.
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
+
 I feel a presence.
 
 You don't know your son's name, but you won't admit it. Your mind was
@@ -4228,6 +4164,7 @@ But I am here to end your worries. That, I can do.
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
+
 I feel a presence.
 
 I am tired of being talked to, I am tired of people telling me how the world
@@ -4253,6 +4190,7 @@ with him, in this world!" I shout.
 Waste Land
 Waste is the only thing here, for as far as I can see. There are big, long
 islands of black-brown masses which stink like hell.
+
 I feel a presence.
 
 I suspected that talking in terms of 'worlds' was a bad idea. It is a bad

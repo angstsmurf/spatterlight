@@ -83,9 +83,8 @@ Thunder rumbles ominously.
 You move east.
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
-dominates most of the room, the books being on shelves on the walls.
-
-Also here is black book.
+dominates most of the room, the books being on shelves on the walls.  Also
+here is black book.
 
 You can move south and west.
 The rain continues to batter down.
@@ -111,9 +110,8 @@ Thunder rumbles ominously.
 You move north.
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
-dominates most of the room, the books being on shelves on the walls.
-
-Also here is black book.
+dominates most of the room, the books being on shelves on the walls.  Also
+here is black book.
 
 You can move south and west.
 The rain continues to batter down.
@@ -176,9 +174,8 @@ A sudden crash of lightning makes you jump.
 You move north.
 The greenhouse is humid and steamy despite the cold of the night.  The
 greenhouse now has several broken windows. The plant lies brown and
-shrivelled, along with all the other plants in the greenhouse.
-
-Also here is rusty key.
+shrivelled, along with all the other plants in the greenhouse.  Also here is
+rusty key.
 
 You can only move south.
 Thunder rumbles ominously.
@@ -203,9 +200,8 @@ A sudden crash of lightning makes you jump.
 
 > e
 You move east.
-The tool shed is untidy and littered with all sorts of junk.
-
-Also here is iron hammer and folding ladder.
+The tool shed is untidy and littered with all sorts of junk.  Also here is
+iron hammer and folding ladder.
 
 You can only move west.
 Thunder rumbles ominously.
@@ -317,9 +313,8 @@ A sudden crash of lightning makes you jump.
 You move north.
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
-dominates most of the room, the books being on shelves on the walls.
-
-Also here is black book.
+dominates most of the room, the books being on shelves on the walls.  Also
+here is black book.
 
 You can move south and west.
 Thunder rumbles ominously.
@@ -404,10 +399,8 @@ potions and strange diagrams. It is the testament to an obsessed mind. The
 place is littered with sketches of the human body, some drawn horribly
 mangled yet still alive... A rung ladder leads back to the kitchen.  A green
 mixture bubbles merrily in a flask over a bunsen burner. It has been fixed to
-the spot by screws. Eggbert obviously wants it to stay put.
-
-Also here is rusty cog.
-Eggbert is here.
+the spot by screws. Eggbert obviously wants it to stay put.  Also here is
+rusty cog.  Eggbert is here.
 
 You can only move up.
 
@@ -505,9 +498,8 @@ Thunder rumbles ominously.
 You move east.
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
-dominates most of the room, the books being on shelves on the walls.
-
-Also here is black book.
+dominates most of the room, the books being on shelves on the walls.  Also
+here is black book.
 
 You can move south and west.
 The rain continues to batter down.
@@ -547,8 +539,7 @@ You hear the chiming of the grandfather clock.
 You move east.
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
-wall.
-Eggbert is here.
+wall.  Eggbert is here.
 
 You can move north and west.  Eggbert runs off to the west.
 The rain continues to batter down.
@@ -694,10 +685,7 @@ potions and strange diagrams. It is the testament to an obsessed mind. The
 place is littered with sketches of the human body, some drawn horribly
 mangled yet still alive... A rung ladder leads back to the kitchen.   The
 flask that once held Eggbert's prized potion is now empty. You pray he
-doesn't notice for a while.
-
-Also here is bottle of whisky.
-Eggbert is here.
+doesn't notice for a while.  Also here is bottle of whisky.  Eggbert is here.
 
 You can only move up.  Horace lurches in from above.
 You hear the chiming of the grandfather clock.You drop down into the

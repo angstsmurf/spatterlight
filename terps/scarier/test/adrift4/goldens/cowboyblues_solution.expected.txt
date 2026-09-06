@@ -111,7 +111,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > talk jeb
 "Yo!" says Jeb, his usual 'cool' greeting in full flow there.
@@ -153,7 +153,7 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-Speckle, Normal, Dyanne and Spam are here.
+  Speckle, Normal, Dyanne and Spam are here.
 
 > look
 
@@ -171,7 +171,7 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-Speckle, Normal, Dyanne and Spam are here.
+  Speckle, Normal, Dyanne and Spam are here.
 
 > score
 Your score is 7 out of a maximum of 401.  (1%)
@@ -327,7 +327,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > look
 
@@ -342,7 +342,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > sw
 You move southwest.
@@ -357,7 +357,7 @@ location. The road stretches off as far as the eye can see. You can go:
 southwest (to a long and dusty road) or northeast (to the corner of Fifth and
 Mason)
 
-Mauree is here, smiling an inane smile.
+  Mauree is here, smiling an inane smile.
 
 > look
 
@@ -371,7 +371,7 @@ location. The road stretches off as far as the eye can see. You can go:
 southwest (to a long and dusty road) or northeast (to the corner of Fifth and
 Mason)
 
-Mauree is here, smiling an inane smile.
+  Mauree is here, smiling an inane smile.
 
 > sw
 You move southwest.
@@ -469,7 +469,7 @@ the game other than to add a little background to a not very interesting
 location. The road stretches off as far as the eye can see. You can go:
 southwest (to a long and dusty road) or northeast (to a long and dusty road)
 
-Also here is a grenade.
+  Also here is a grenade.
 
 > get grenade
 You take the grenade.
@@ -503,7 +503,7 @@ location. The road stretches off as far as the eye can see. You can go:
 southwest (to a long and dusty road) or northeast (to the corner of Fifth and
 Mason)
 
-Mauree is here, smiling an inane smile.
+  Mauree is here, smiling an inane smile.
 
 > e
 You can't go in that direction, but you can move northeast and southwest.
@@ -523,7 +523,7 @@ location. The road stretches off as far as the eye can see. You can go:
 southwest (to a long and dusty road) or northeast (to the corner of Fifth and
 Mason)
 
-Mauree is here, smiling an inane smile.
+  Mauree is here, smiling an inane smile.
 
 > ne
 You move northeast.
@@ -539,7 +539,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > e
 You move east.
@@ -572,7 +572,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > look
 
@@ -590,7 +590,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > talk toby
 "Ah, my fine friend," says Toby. "What can I do for you on this most glorious
@@ -635,7 +635,7 @@ occasional dead body sprawled in the corner for no apparent reason...
 somewhere but you're never sure exactly where. You can go: north (to a broom
 closet), northeast (to the back room) and south (to Stonetomb Square)
 
-Higgold is here.
+  Higgold is here.
 "Ah," says Higgold, "our errant employee arrives at last. Where have you been
 this time, Bidge?"
    "That's Bodge, sir," you say.
@@ -665,7 +665,7 @@ several groaning tables. The east wall is taken up by a large glass window
 which allows anyone here an excellent look at the outside world (and vice
 versa). You can go: southwest (to the main room of the bank)
 
-Higgold is here.
+  Higgold is here.
 "You took your time in getting here," says Higgold. He fusses with his tie
 for a moment before adding, "we have a delicate situation at the bank,
 Blodge, and I feel you are the only one who can sort it out."
@@ -727,7 +727,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 As you exit the bank, a figure dressed in black and white clothing and a
 mask, carrying a gun in one hand and a bag marked "swag" in the other, pushes
 past.
@@ -868,7 +868,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > look
 
@@ -886,7 +886,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > se
 You move southeast.
@@ -900,7 +900,7 @@ now and the other where they lock the criminals up). A noticeboard off to one
 side displays a list of all the recent lawbreakers currently wanted by the
 sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
-Sheriff Calhoun is here.
+  Sheriff Calhoun is here.
 
 > look
 
@@ -913,7 +913,7 @@ now and the other where they lock the criminals up). A noticeboard off to one
 side displays a list of all the recent lawbreakers currently wanted by the
 sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
-Sheriff Calhoun is here.
+  Sheriff Calhoun is here.
 
 > i
 You are wearing a bullet proof vest, and you are carrying your wallet, a
@@ -977,7 +977,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > w
 You move west.
@@ -1007,7 +1007,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > look
 
@@ -1022,7 +1022,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > nw
 You move northwest.
@@ -1042,7 +1042,7 @@ admiring the female customers. Whitey is by the bar, currently slamming
 someone's head into it. You can go: southeast (to the corner of Fifth and
 Mason)
 
-Speckle, Normal, Dyanne and Spam are here.
+  Speckle, Normal, Dyanne and Spam are here.
 There is a sudden crash from one side of the saloon and an unconscious man is
 hurled across a table. At the same time, two people minding their own
 business at the bar have a block of wood slammed down on their heads.
@@ -1070,7 +1070,7 @@ admiring the female customers. Whitey is by the bar, currently slamming
 someone's head into it. You can go: southeast (to the corner of Fifth and
 Mason)
 
-Speckle, Normal, Dyanne and Spam are here.
+  Speckle, Normal, Dyanne and Spam are here.
 
 > i
 You are wearing a bullet proof vest, and you are carrying your wallet, a
@@ -1105,7 +1105,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > e
 You move east.
@@ -1138,7 +1138,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > se
 You move southeast.
@@ -1152,7 +1152,7 @@ now and the other where they lock the criminals up). A noticeboard off to one
 side displays a list of all the recent lawbreakers currently wanted by the
 sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
-Sheriff Calhoun is here.
+  Sheriff Calhoun is here.
 
 > talk calhoun
 "Yer back then, weirdo," says the sheriff with his usual charm (or lack of).
@@ -1189,7 +1189,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > w
 You move west.
@@ -1219,7 +1219,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > sw
 You move southwest.
@@ -1234,7 +1234,7 @@ location. The road stretches off as far as the eye can see. You can go:
 southwest (to a long and dusty road) or northeast (to the corner of Fifth and
 Mason)
 
-Mauree is here, smiling an inane smile.
+  Mauree is here, smiling an inane smile.
 
 > look
 
@@ -1248,7 +1248,7 @@ location. The road stretches off as far as the eye can see. You can go:
 southwest (to a long and dusty road) or northeast (to the corner of Fifth and
 Mason)
 
-Mauree is here, smiling an inane smile.
+  Mauree is here, smiling an inane smile.
 
 > talk mauree
 "Well, well, if it's isn't the town's one and only superhero," says Mauree.
@@ -1302,7 +1302,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > nw
 You move northwest.
@@ -1321,7 +1321,7 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-Speckle, Normal, Dyanne and Spam are here.
+  Speckle, Normal, Dyanne and Spam are here.
 
 > look
 
@@ -1339,7 +1339,7 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-Speckle, Normal, Dyanne and Spam are here.
+  Speckle, Normal, Dyanne and Spam are here.
 
 > give lolly to cestus
 Please be more clear, who do you want to give to?
@@ -1361,7 +1361,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > e
 You move east.
@@ -1394,7 +1394,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > s
 You move south.
@@ -1458,7 +1458,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > w
 You move west.
@@ -1488,7 +1488,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > sw
 You move southwest.
@@ -1503,7 +1503,7 @@ location. The road stretches off as far as the eye can see. You can go:
 southwest (to a long and dusty road) or northeast (to the corner of Fifth and
 Mason)
 
-Mauree is here, smiling an inane smile.
+  Mauree is here, smiling an inane smile.
 
 > look
 
@@ -1517,7 +1517,7 @@ location. The road stretches off as far as the eye can see. You can go:
 southwest (to a long and dusty road) or northeast (to the corner of Fifth and
 Mason)
 
-Mauree is here, smiling an inane smile.
+  Mauree is here, smiling an inane smile.
 
 > ne
 You move northeast.
@@ -1533,7 +1533,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > nw
 You move northwest.
@@ -1552,7 +1552,7 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.
+  Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.
 "Won't nobody help me?" Eccles is saying as he wanders back and forth across
 the saloon, clutching at people and begging for their assistance. "Would you
 let the poor man suffer just because he imprisoned some of your relatives for
@@ -1595,7 +1595,7 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.
+  Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.
 
 > talk cestus
 "Ah, I recognise you," says Cestus. "You're the troublecauser who woke me
@@ -1658,7 +1658,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > e
 You move east.
@@ -1691,7 +1691,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > se
 You move southeast.
@@ -1705,7 +1705,7 @@ now and the other where they lock the criminals up). A noticeboard off to one
 side displays a list of all the recent lawbreakers currently wanted by the
 sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
-Sheriff Calhoun is here.
+  Sheriff Calhoun is here.
 
 > give slippers to sheriff
 "Ah, my slippers!" cries the sheriff. "Been a while since I last saw these
@@ -1865,7 +1865,7 @@ now and the other where they lock the criminals up). A noticeboard off to one
 side displays a list of all the recent lawbreakers currently wanted by the
 sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
-Sheriff Calhoun is here.
+  Sheriff Calhoun is here.
 
 > nw
 You move northwest.
@@ -1884,7 +1884,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > w
 You move west.
@@ -1914,7 +1914,7 @@ wardrobe, desk, dining room table, kitchen sink, bath and various other
 sundry items.  A window looks out onto the street outside. You can go: south
 (through the front door)
 
-Lucy is here, looking a little anxious.
+  Lucy is here, looking a little anxious.
 As you step into your house, Lucy (who is currently going through your
 belongings and looking mightily disappointed at what she finds) looks up and
 gives a yelp.
@@ -1989,7 +1989,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > se
 You move southeast.
@@ -2003,7 +2003,7 @@ now and the other where they lock the criminals up). A noticeboard off to one
 side displays a list of all the recent lawbreakers currently wanted by the
 sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
-Sheriff Calhoun is here.
+  Sheriff Calhoun is here.
 
 > talk sheriff
 "I'll speak to you when you find me my darn slippers."
@@ -2028,7 +2028,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > w
 You move west.
@@ -2058,7 +2058,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > nw
 You move northwest.
@@ -2077,7 +2077,7 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.
+  Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.
 
 > give will to dyanne
 "My grandfather's will!" she cries, snatching it out of your hand. "Where did
@@ -2155,7 +2155,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > e
 You move east.
@@ -2188,7 +2188,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > e
 You move east.
@@ -2309,7 +2309,7 @@ river (or river bed actually) to the east is home to a strange and maniacal
 man. You can go: west (to Stonetomb Square), southwest (into the warehouse)
 and east (to the river bed)
 
-Egbert, Drongo and Gash are here.
+  Egbert, Drongo and Gash are here.
 "That's a mighty fine deflection helmet you've got there, friend," says
 Egbert, making the final word sound like a bitter insult. "I've been looking
 to acquire one just like it for some time now."
@@ -2356,7 +2356,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > ne
 You move northeast.
@@ -2392,7 +2392,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > ne
 You move northeast.
@@ -2464,8 +2464,7 @@ The only building that seems to still be in use is an old saloon to the north
 from which the sound of several fights emanates. You can go: north (to the
 saloon), south (to Murder Avenue) and down (the steps to the cellar)
 
-Alissa is here.
-Herman is here (looking angry).
+  Alissa is here.  Herman is here (looking angry).
 "Ouch!" yells Herman as Alissa gets a telling blow to his groin. "Geez, kid,
 you're really asking for a hole in the head, ain't you?"
    "You wouldn't dare!" Alissa yells, going for his eyes. "My daddy nails
@@ -2504,7 +2503,7 @@ Herman. Aside from the dent in his head where the barrel hit him there also
 appear to be several bootprints in his backside. You can go: up (to Scabbit
 Lane)
 
-Alissa is here.
+  Alissa is here.
 "Well, you took your bleeding time getting down here," Alissa snaps as you
 enter the cellar. "Geez, leaving me alone with the battered and bloody corpse
 of a man you brutally murdered in cold blood without a thought for my
@@ -2634,7 +2633,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > w
 You move west.
@@ -2664,7 +2663,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > nw
 You move northwest.
@@ -2683,7 +2682,7 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.
+  Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.
 
 > give voucher to eccles
 "Ah, excellent!" cries Eccles, almost jumping with delight. "Lord Dimm will
@@ -2749,7 +2748,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > e
 You move east.
@@ -2782,7 +2781,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > e
 You move east.
@@ -2859,7 +2858,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > w
 You move west.
@@ -2889,7 +2888,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > wait
 You wait and wonder if anything will happen.
@@ -2914,8 +2913,7 @@ location. The road stretches off as far as the eye can see. You can go:
 southwest (to a long and dusty road) or northeast (to the corner of Fifth and
 Mason)
 
-Also here is a mattress.
-Mauree is here, smiling an inane smile.
+  Also here is a mattress.  Mauree is here, smiling an inane smile.
 
 > get mattress
 You take the mattress.
@@ -2934,7 +2932,7 @@ piece of tree bark cunningly fashioned into a (vague) door shape leads
 inwards. You can go: east (to Babbage Street), southwest (to a long dusty
 road) and northwest (to the saloon)
 
-Jeb is here looking as cool as ever.
+  Jeb is here looking as cool as ever.
 
 > e
 You move east.
@@ -2965,7 +2963,7 @@ with her brush...
 your youth. You have never yet managed to get a look inside. You can go:
 north (to Babbage Street)
 
-Lucy is here, looking a little anxious.
+  Lucy is here, looking a little anxious.
 You duck into the arcade - and Lucy gives a yelp at seeing you!
    "Forsooth!" she cries. "The foul miscreant has followed me here! I must
 away before I am apprehended!"
@@ -3018,7 +3016,7 @@ buy yourself something with a bit more style.
 years of your mispent youth. You can go: north (to your house), south (to the
 arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
-Lucy is here, looking a little anxious.
+  Lucy is here, looking a little anxious.
 Leaving the arcade, you are just quick enough to see Lucy running into your
 house (with a cry of "verily I am damned!") but not quick enough to stop her.
 
@@ -3057,7 +3055,7 @@ shows you the front facade of your house - which looks every bit as
 uninviting from here as it does when you're actually inside it. You can go:
 west (to the arcade)
 
-Lucy is here, looking a little anxious.
+  Lucy is here, looking a little anxious.
 
    "Aw shucks!" says Lucy. "They only went and moved the hidden exit!"
    "What hidden exit?" you ask.
@@ -3090,7 +3088,7 @@ now and the other where they lock the criminals up). A noticeboard off to one
 side displays a list of all the recent lawbreakers currently wanted by the
 sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
-Sheriff Calhoun is here.
+  Sheriff Calhoun is here.
 "Well, well," says the sheriff. "If it isn't that thieving little vixen Lucy.
 You did well here, weirdo. She's a real hellcat that one and no mistake."
    "Mom says to tell you hi," says Lucy.
@@ -3126,7 +3124,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > w
 You move west.
@@ -3142,7 +3140,7 @@ buy yourself something with a bit more style.
 years of your mispent youth. You can go: north (to your house), south (to the
 arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
-Also here is a battery.
+  Also here is a battery.
 
 > get battery
 You take the battery.
@@ -3164,7 +3162,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > e
 You move east.
@@ -3192,7 +3190,7 @@ moulded to look like someone's home (or all things). Footprints in the mud
 around this pile indicate that someone is living here, or at least
 frequenting it from time to time. You can go: west (to Slaughter Row)
 
-Shem is here shambling back and forth and muttering to himself.
+  Shem is here shambling back and forth and muttering to himself.
 "Ah, the one who was foretold has returned!" proclaims Shem, standing knee
 deep in the mud of the dry river bed and holding his hands up as if welcoming
 back a long lost relative. "Glory be! The one who will free us from the evil
@@ -3284,7 +3282,7 @@ moulded to look like someone's home (or all things). Footprints in the mud
 around this pile indicate that someone is living here, or at least
 frequenting it from time to time. You can go: west (to Slaughter Row)
 
-Shem is here shambling back and forth and muttering to himself.
+  Shem is here shambling back and forth and muttering to himself.
 
 > give mattress
 "Ah, the mattress I requested," says Shem, and promptly stuffs it into his
@@ -3346,7 +3344,7 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-Toby is here, smiling happily as people rush by him on all sides.
+  Toby is here, smiling happily as people rush by him on all sides.
 
 > ne
 You move northeast.
@@ -3383,7 +3381,7 @@ on due to them either being boarded up or painted black, but you can sense
 the sheer nastiness emanating from this place. You can go: north (into OK's
 Coral) and west (to Murder Avenue)
 
-Lola is here.
+  Lola is here.
 
 > n
 You move north.
@@ -3488,7 +3486,7 @@ all. A door set in the east wall leads to the outside world and you find
 yourself yearning to step through and escape from this bewildering place...
 You can go: east (to... somewhere)
 
-Mayor Molby is here.
+  Mayor Molby is here.
 "Well done, well done," says the Mayor as he catches sight of you. He comes
 over, sloshing brandy from an overfilled glass in his hand all over the
 carpet. "Why, you look a little dazed."

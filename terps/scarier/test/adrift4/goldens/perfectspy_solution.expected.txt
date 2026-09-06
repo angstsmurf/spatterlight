@@ -220,9 +220,7 @@ You move west.
 Round Room
 A large, round room with seemingly nothing in it.  You suppose it is one of
 the parts of the facility that is still under construction.  Still, you might
-find something helpful here.
-
-There is a toolbox here.
+find something helpful here.  There is a toolbox here.
 
 > turn into mouse
 You press the buttons on your device for the change, which begins
@@ -256,8 +254,8 @@ You move north while the cat is distracted.
 
 Side Alley
 You are standing outside of the facility, with nothing between you and
-freedom but getting out of this alleyway.  You're almost there!
-A cat is here.
+freedom but getting out of this alleyway.  You're almost there!  A cat is
+here.
 
 > n
 You run away from the cat and out of the alley.  For the first few moments,

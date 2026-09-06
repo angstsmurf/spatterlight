@@ -92,9 +92,8 @@ You walk in.
 
 In the phone booth
 The phone booth is old and all sprayed up by the punkers. There's a phone and
-a metal desk where you could put your bag if you had one.
-
-There is also an ad.
+a metal desk where you could put your bag if you had one.  There is also an
+ad.
 
 You can only go out.
 
@@ -539,9 +538,8 @@ You walk in.
 
 Inside the gunshop
 The gunshop is a small room with all kinds of heavy artillery displayed in
-big glassy cases upon the walls.
-The shop assistant is standing behind the counter.  You are weakened by the
-hunger.
+big glassy cases upon the walls.  The shop assistant is standing behind the
+counter.  You are weakened by the hunger.
 
 You can only go out.
 
@@ -591,10 +589,10 @@ You walk west.
 
 On the Acacia Avenue
 The Acacia Avenue is a wide sunny alley framed with trees and bushes,
-enlightning the space before the old-fashioned houses.
-A punker is running down the street.  You are weakened by the hunger.  The
-road is full of trafficking cars, moving on and on restlessly.  People are
-rushing along, occasionally bumping into each other.
+enlightning the space before the old-fashioned houses.  A punker is running
+down the street.  You are weakened by the hunger.  The road is full of
+trafficking cars, moving on and on restlessly.  People are rushing along,
+occasionally bumping into each other.
 
 You can go north, east and west.
 
@@ -635,8 +633,8 @@ You walk in.
 
 Inside the restaurant
 The restaurant is convenient and pleasant, offering a hideaway and a restful
-place in otherwise busy city.
-The waiter is servicing the customers.  You are weakened by the hunger.
+place in otherwise busy city.  The waiter is servicing the customers.  You
+are weakened by the hunger.
 
 You can only go out.
 
@@ -692,8 +690,8 @@ You walk in.
 
 Inside the bookstore
 The bookstore is a small and dark room with bookshelves along each of the
-walls and a counter in the middle.
-The shop assistant is standing behind the counter.
+walls and a counter in the middle.  The shop assistant is standing behind the
+counter.
 
 You can only go out.
 
@@ -752,8 +750,8 @@ You walk west.
 
 In the park
 The park is full of tall trees which almost cover the sight of the sky, and
-many paths curving through the whole dark forest-like place.
-An old man is sitting on a bench, giving bread to pigeons.
+many paths curving through the whole dark forest-like place.  An old man is
+sitting on a bench, giving bread to pigeons.
 
 You can go east, south and west.
 
@@ -775,8 +773,8 @@ You walk east.
 
 In the park
 The park is full of tall trees which almost cover the sight of the sky, and
-many paths curving through the whole dark forest-like place.
-An old man is sitting on a bench, giving bread to pigeons.
+many paths curving through the whole dark forest-like place.  An old man is
+sitting on a bench, giving bread to pigeons.
 
 You can go east, south and west.
 
@@ -809,10 +807,9 @@ You walk west.
 On the Madison Avenue
 The Madison Avenue is a wide, clean and well maintained street, which could
 easily become the pride of any city. Tall and modern buildings frame the busy
-road.
-A policeman is guarding the street.  The road is full of trafficking cars,
-moving on and on restlessly.  People are rushing along, occasionally bumping
-into each other.
+road.  A policeman is guarding the street.  The road is full of trafficking
+cars, moving on and on restlessly.  People are rushing along, occasionally
+bumping into each other.
 
 You can go east, south and west.
 
@@ -831,8 +828,7 @@ You walk in.
 
 Inside the morgue
 The hall is all painted white and the whole place is solitary and deadly
-quiet.
-The doctor is walking through the corridor.
+quiet.  The doctor is walking through the corridor.
 
 You can only go out.
 
@@ -944,8 +940,8 @@ You walk north.
 
 In the park
 The park is full of tall trees which almost cover the sight of the sky, and
-many paths curving through the whole dark forest-like place.
-An old man is sitting on a bench, giving bread to pigeons.
+many paths curving through the whole dark forest-like place.  An old man is
+sitting on a bench, giving bread to pigeons.
 
 You can go east, south and west.
 
@@ -1325,8 +1321,8 @@ You walk west.
 
 On the Eden Avenue
 The Eden Avenue is a nice and quiet street, framed with low houses in colors
-of the sand. To the south there's a clean blue stream of the river.
-A fisherman is sitting by the river.  The road is occassionally crossed by a
+of the sand. To the south there's a clean blue stream of the river.  A
+fisherman is sitting by the river.  The road is occassionally crossed by a
 lonely car.  A dark figure walks alongside you and disappears behind the
 corner.
 
@@ -1348,8 +1344,7 @@ You walk in.
 Inside the gardens
 The gardens are large, with many kinds of flowers, trees and bushes. There's
 a big fountain in the center of the garden, spreading water on the plants and
-into the air.
-Bruce is watching you.
+into the air.  Bruce is watching you.
 
 You can only go out.
 
@@ -1384,8 +1379,8 @@ You walk south.
 
 On the Eden Avenue
 The Eden Avenue is a nice and quiet street, framed with low houses in colors
-of the sand. To the south there's a clean blue stream of the river.
-A fisherman is sitting by the river.  The road is occassionally crossed by a
+of the sand. To the south there's a clean blue stream of the river.  A
+fisherman is sitting by the river.  The road is occassionally crossed by a
 lonely car.  A dark figure walks alongside you and disappears behind the
 corner.
 
@@ -1428,9 +1423,8 @@ You walk in.
 
 Inside the bar
 The bar is a big room with lots of tables and stools and a good choice of
-drinks. There also is a performing stage.
-The bartender is standing behind the counter.  A drunk is sitting on a bar
-stool and drinking beer.
+drinks. There also is a performing stage.  The bartender is standing behind
+the counter.  A drunk is sitting on a bar stool and drinking beer.
 
 You can only go out.
 
@@ -1712,8 +1706,8 @@ You walk in.
 
 Inside the gunshop
 The gunshop is a small room with all kinds of heavy artillery displayed in
-big glassy cases upon the walls.
-The shop assistant is standing behind the counter.
+big glassy cases upon the walls.  The shop assistant is standing behind the
+counter.
 
 You can only go out.
 
@@ -1864,10 +1858,9 @@ You walk east.
 On the crossroads
 The crossroads divides Venice Street on the west, Topaz Road on the east and
 Riverside Road on the south. In the height there's a big clock on one of the
-lamps.
-A punker is running down the street.  The road is occassionally crossed by a
-lonely car.  A dark figure walks alongside you and disappears behind the
-corner.
+lamps.  A punker is running down the street.  The road is occassionally
+crossed by a lonely car.  A dark figure walks alongside you and disappears
+behind the corner.
 
 You can go east, south and west.
 
@@ -1877,10 +1870,9 @@ You walk south.
 On the Riverside Road
 The Riverside Road is an ordinary street, with tall and a bit too old houses,
 offering nothing pleasant to strangers. On the edge of the street stands a
-phone booth.
-A punker is running down the street.  The road is occassionally crossed by a
-lonely car.  A dark figure walks alongside you and disappears behind the
-corner.
+phone booth.  A punker is running down the street.  The road is occassionally
+crossed by a lonely car.  A dark figure walks alongside you and disappears
+behind the corner.
 
 You can go north, south, west and in.
 
@@ -1938,9 +1930,9 @@ You walk west.
 On the crossroads
 The crossroads divides Riverside Road on the north, Industrial Street on the
 east, Hyde Street on the south and Acacia Avenue on the west. In the height
-there's a big clock on one of the lamps.
-A drunk is staggering along.  The road is occassionally crossed by a lonely
-car.  A dark figure walks alongside you and disappears behind the corner.
+there's a big clock on one of the lamps.  A drunk is staggering along.  The
+road is occassionally crossed by a lonely car.  A dark figure walks alongside
+you and disappears behind the corner.
 
 You can go north, east, south and west.
 
@@ -1971,8 +1963,7 @@ Outside the church
 The ancient sign above the large iron gate says this is the "Trinity Church".
 The building is tall, built in gothic style many centuries ago. There's
 something about it which feels rather scary. To the south there's a gate to
-the cemetery.
-A nun is standing there, watching.
+the cemetery.  A nun is standing there, watching.
 
 You can go west and in.
 
@@ -1982,8 +1973,7 @@ You walk in.
 Inside the church
 The church is equipped with ancient but well-maintained furniture - two rows
 of solid wooden benches lead to a golden altar and the tall windows are
-painted with religious motives.
-The priest is kneeling before the altar.
+painted with religious motives.  The priest is kneeling before the altar.
 
 You can only go out.
 
@@ -2015,9 +2005,8 @@ You walk south.
 In the cemetery
 The cemeery is a dark and scary place, with sparse rays of moonlight falling
 onto the gravestones. You notice that one of the graves doesn't have a name
-on it.
-
-There is also a shovel.  A dark figure moves in the shadows and disappears.
+on it.  There is also a shovel.  A dark figure moves in the shadows and
+disappears.
 
 You can only go north.
 

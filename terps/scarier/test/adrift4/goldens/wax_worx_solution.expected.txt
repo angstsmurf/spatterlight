@@ -72,12 +72,9 @@ Except for the weird tableau in the center of the room, you might think
 you've walked into someone's garage workshop. You see the same  same jumble
 of tools on the wooden shelf that runs along one wall at waist level.  You
 notice blocks of beeswax and clay, oil paints, acrylics and gouache,  bags of
-plaster.
-
-You can also see a grating.
-The lump of wax that is Madame Tussaud puts the finishing touches on the head
-of Marie Antoinette.  Professor Wily works on the wax model of Madame
-Tussaud.
+plaster.  You can also see a grating.  The lump of wax that is Madame Tussaud
+puts the finishing touches on the head of Marie Antoinette.  Professor Wily
+works on the wax model of Madame Tussaud.
 
 > look under shelf
 You see nothing beneath the shelf but some boxes piled against the wall.

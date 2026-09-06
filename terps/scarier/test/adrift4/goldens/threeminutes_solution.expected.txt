@@ -57,8 +57,8 @@ of metal, firmly locked, and there is also a smaller closed inner panel
 leading to the locker.
 
 A large clock flashes its countdown warning. The huge wall screen is
-currently dead. The saw spins away to the right of the head of the slab.
-A dead coroner lies slumped in the corner.
+currently dead. The saw spins away to the right of the head of the slab.  A
+dead coroner lies slumped in the corner.
 
 Things don't look good.
 
@@ -247,10 +247,8 @@ of metal, standing wide open, and there is also a smaller open inner panel
 leading to the locker.
 
 A large clock flashes its countdown warning. The huge wall screen is
-currently dead. The saw spins away to the bottom left of the slab.
-
-Also here is a severed hand.
-A dead coroner lies slumped in the corner.
+currently dead. The saw spins away to the bottom left of the slab.   Also
+here is a severed hand.  A dead coroner lies slumped in the corner.
 
 > out
 You make your choice, and run. Out of the room, out of the building, as fast

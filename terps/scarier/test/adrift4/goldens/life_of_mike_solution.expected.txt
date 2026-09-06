@@ -194,9 +194,7 @@ You can move north and east.
 You move east.
 There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
-have the keys.
-
-Also here is a mustang and a piece of crap truck.
+have the keys.  Also here is a mustang and a piece of crap truck.
 
 You can move north, south and west.
 
@@ -248,9 +246,7 @@ You can move north and south.
 > south
 You move south.
 This is the parking lot of the grocery store you work at. There are many cars
-here.
-
-Also here is a mustang.
+here.  Also here is a mustang.
 
 You can only move north.
 
@@ -258,18 +254,15 @@ You can only move north.
 You drive back home
 There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
-have the keys.
-
-Also here is a piece of crap truck.
+have the keys.  Also here is a piece of crap truck.
 
 You can move north, south and west.
 
 > north
 You move north.
 This is the garage where your father spends time making stuff out of wood.
-Don't touch anything or he might get mad.
-
-Also here is a hammer, a pair of hedge clippers and a pressure cleaner.
+Don't touch anything or he might get mad.  Also here is a hammer, a pair of
+hedge clippers and a pressure cleaner.
 
 You can move south and west.
 
@@ -347,9 +340,7 @@ You can move north and east.
 You move east.
 There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
-have the keys.
-
-Also here is a mustang and a piece of crap truck.
+have the keys.  Also here is a mustang and a piece of crap truck.
 
 You can move north, south and west.
 
@@ -364,9 +355,7 @@ You can only move south.
 You move south.
 this is bob's drive way.The front door is south of here.  The drive was is
 covered with dirt, it was once white cement but is not blck ish brown, it
-needs to be cleaned.
-
-Also here is bob's car.
+needs to be cleaned.  Also here is bob's car.
 
 You can move north and south.
 
@@ -397,9 +386,8 @@ $135.00 for the job.
 > north
 You move north.
 This is the street leading to Bobs house. There are yellow lines in the
-center. toi the south is bob's Driveway
-
-Also here is a piece of crap truck and bob's car.
+center. toi the south is bob's Driveway  Also here is a piece of crap truck
+and bob's car.
 
 You can only move south.
 
@@ -407,9 +395,7 @@ You can only move south.
 You get in the truck and drive it home.
 There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
-have the keys.
-
-Also here is a mustang.
+have the keys.  Also here is a mustang.
 
 You can move north, south and west.
 
@@ -512,9 +498,7 @@ You take some brass balls from the neat carrying case.
 You move north.
 There are two cars in the drive way. Your Brother's  '94 Ford Mustang and
 your dad's  '85 Dodge Ram pickup. Hint: Type "drive [car] [location]"  If you
-have the keys.
-
-Also here is a mustang and a piece of crap truck.
+have the keys.  Also here is a mustang and a piece of crap truck.
 
 You can move north, south and west.
 
@@ -546,8 +530,8 @@ You can move north and west.
 
 > north
 You move north.
-Thereare about six cash registers here. Behind one you see Michelle
-You see Michelle here. Your heart skips a beat.
+Thereare about six cash registers here. Behind one you see Michelle  You see
+Michelle here. Your heart skips a beat.
 
 You can move north and south.
 

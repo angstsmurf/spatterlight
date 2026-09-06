@@ -23,8 +23,8 @@ Press ENTER to continue
 
 The Throat
 You are in a smooth, slippery tube with a shiny pink lining.  From here to
-you can go to the ear, nose, mouth or stomach.
-Millions of your relatives are here.
+you can go to the ear, nose, mouth or stomach.  Millions of your relatives
+are here.
 
 > x me
 You are basically a ball with spikes sticking out.
@@ -52,8 +52,7 @@ They are now Infected!
 The Infected Throat
 You are in a smooth, slippery tube with a shiny pink lining.  From here to
 you can go to the ear, nose, mouth or stomach.  The tonsils are red and
-swollen, tonsillitis!
-Millions of your relatives are here.
+swollen, tonsillitis!  Millions of your relatives are here.
 
 > stomach
 You head off to the stomach.
@@ -61,9 +60,7 @@ You head off to the stomach.
 The Stomach
 It holds all the food just eaten and is squeezed by the muscular walls, with
 a little help from some acid.  From here you can go to the ear, nose, mouth
-or throat
-
-Also here is some acid.
+or throat  Also here is some acid.
 
 > x acid
 Stomach acid! Lovely!
@@ -175,9 +172,8 @@ You head off to the stomach.
 The Infected Stomach
 It holds all the food just eaten and is squeezed by the muscular walls, with
 a little help from some acid.  From here you can go to the ear, nose, mouth
-or throat  A polyp growing on the stomach wall has been infected.
-
-Also here is some acid.
+or throat  A polyp growing on the stomach wall has been infected.  Also here
+is some acid.
 
 > eat acid
 Eating the acid tastes good! You will now be able to spit the acid.

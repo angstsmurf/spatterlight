@@ -80,9 +80,7 @@ You are sitting on a branch high up in the Oak Tree. You can see for miles in
 every direction. To the north you can see the old Castle; to the south are
 the Volcano Islands; to the east are the Tall Mountains; to the west is
 nothing but forest as far as you can see. It seems the only exit from here is
-straight down.
-
-There are a pair of shiny red boots here.
+straight down.  There are a pair of shiny red boots here.
 
 > take boots
 Taken.
@@ -197,9 +195,7 @@ You move east.
 Medium Hall
 This room is about half the size of the HUGE hall to the west. Looking about
 you notice that this room is very Spartan in décor; it is empty save for a
-desk and a chair.
-
-On the desk rests a single page torn from a book.
+desk and a chair.  On the desk rests a single page torn from a book.
 
 > take book page
 You take the book page.
@@ -225,10 +221,8 @@ You move south.
 Small Hall
 This is a Small Hall. It is quite a tight fit in here. It appears that this
 room was recently ransacked! Everything is in shards and splinters. You can
-see an exit to the north.
-
-As you sift through the rubble, your eyes catch the gleam off of a small
-bottle.
+see an exit to the north.  As you sift through the rubble, your eyes catch
+the gleam off of a small bottle.
 
 > take small bottle
 You take the Small Bottle.
@@ -258,11 +252,10 @@ The safe is open!
 You move in.
 
 The Safe
-This is a full-sized walk-in safe.
-
-You can see a pair of funny looking gloves here. There is a note on the wall:
-"These gloves are the property the Mr. Freezy IceCube Company. If found
-please return to......" The rest has been lost to time.
+This is a full-sized walk-in safe.   You can see a pair of funny looking
+gloves here. There is a note on the wall: "These gloves are the property the
+Mr. Freezy IceCube Company. If found please return to......" The rest has
+been lost to time.
 
 > take gloves
 You take the set of Ice Gloves.
@@ -373,9 +366,8 @@ You shout ach and from somewhere deep underground there is a rumble.
 You move northwest.
 
 ELL Room
-This room has been formed in the shape of an L.
-
-There seems to be a piece of statue here...it looks like a set of feet.
+This room has been formed in the shape of an L.  There seems to be a piece of
+statue here...it looks like a set of feet.
 
 > take feet
 You take the set of feet.
@@ -394,9 +386,8 @@ There is a door to the southwest open.  There is a door to the south open.
 You move northeast.
 
 AAY Room
-This room is carved from the rock in the shape of the letter A.
-
-There is a piece of statue here...they look like legs.
+This room is carved from the rock in the shape of the letter A.  There is a
+piece of statue here...they look like legs.
 
 > take legs
 You take the pair of legs.
@@ -415,9 +406,8 @@ There is a door to the southwest open.  There is a door to the south open.
 You move southeast.
 
 VEE Room
-Someone has created this room to resemble a large V.
-
-There is a piece of statue here...it looks like a chest.
+Someone has created this room to resemble a large V.  There is a piece of
+statue here...it looks like a chest.
 
 > take chest
 You take the chest.
@@ -437,7 +427,6 @@ You move southwest.
 
 AAY AAY Room
 This room is actually two rooms joined together making an odd aa shape.
-
 There is a piece of statue here...it looks like arms.
 
 > take arms
@@ -458,9 +447,7 @@ You move south.
 
 ACH Room
 Your view of this room indicates that it is constructed to look like the
-letter H.
-
-There is a piece of statue here...it looks like a head.
+letter H.  There is a piece of statue here...it looks like a head.
 
 > take head
 You take the head.
@@ -510,9 +497,7 @@ You move south.
 
 Treasure Island
 This small island is in the shape of a pentagon with a small raised platform
-in the middle.
-
-Resting on the platform is an odd looking pair of goggles.
+in the middle.  Resting on the platform is an odd looking pair of goggles.
 
 > take goggles
 As you take the goggles, the Fire God awakens and boy, is he mad! Some lowly
@@ -521,9 +506,8 @@ adventurer has stolen his most valued treasure...
 Treasure Island
 This small island is in the shape of a pentagon with a small raised platform
 in the middle.  The magma bridge melts and the wall of lava blocks your path
-to the north. You can see an island to the northeast.
-
-Resting on the platform is an odd looking pair of goggles.
+to the north. You can see an island to the northeast.  Resting on the
+platform is an odd looking pair of goggles.
 
 > wear goggles
 You put on the pair of Heat Goggles.
@@ -568,9 +552,8 @@ The Cave-In
 You are standing on a sandy area located on a small outcrop of rock perched
 high atop the mountains. The rubble of what used to be the Cave Entrance to
 the Garage is here. A small sign is laying at your feet. To the west you can
-barely make out the form of a small white house.
-
-There is a small shovel here.
+barely make out the form of a small white house.  There is a small shovel
+here.
 
 > take small shovel
 You have the shovel.
@@ -602,10 +585,9 @@ Under the Mountain
 You are standing in a cool, dark room deep under the mountain. You can almost
 feel the weight of the rocks bearing down all around you. You can see light
 streaming in from the doorway to the east; there may be more to see here but
-there is not enough light to see much of anything else.
-
-As your eyes ajust to the dim light, you notice a wooden stick resting in the
-corner.  There is a note etched into the rockface here.
+there is not enough light to see much of anything else.  As your eyes ajust
+to the dim light, you notice a wooden stick resting in the corner.  There is
+a note etched into the rockface here.
 
 > take stick
 You take the wooden stick.
@@ -731,11 +713,10 @@ You move north.
 Garage Office
 This is the office for the Mountain Top Garage's Manager. The chair behind
 the desk is so worn; you can see the padding beginning to fall out. You can
-exit to the south.
-
-There is a Phased Ion Bridge on the desk here.  There is a window here
-allowing a far view of the outside world.  The manager's desk is littered
-with diagrams, schematics, and repairs manuals for everything under the sun.
+exit to the south.  There is a Phased Ion Bridge on the desk here.  There is
+a window here allowing a far view of the outside world.  The manager's desk
+is littered with diagrams, schematics, and repairs manuals for everything
+under the sun.
 
 > take phased ion bridge
 As you grab the Bridge, a window opens over-looking the Garage Entrance.
@@ -794,9 +775,8 @@ The Transporter Unit
 This is a Matter Scatterer Personal Unit 1600. The unit is built like a giant
 round tube, not unlike the vacuum tube you find at the local bank drive
 through. Using Fusion power controlled by Phased Ions, it can transport
-anything to its twin location!
-
-The controls for the unit consist of one push button marked "TO THE MOON."
+anything to its twin location!  The controls for the unit consist of one push
+button marked "TO THE MOON."
 
 > out
 You move out.
@@ -817,18 +797,16 @@ The Transporter Unit
 This is a Matter Scatterer Personal Unit 1600. The unit is built like a giant
 round tube, not unlike the vacuum tube you find at the local bank drive
 through. Using Fusion power controlled by Phased Ions, it can transport
-anything to its twin location!
-
-The controls for the unit consist of one push button marked "TO THE MOON."
+anything to its twin location!  The controls for the unit consist of one push
+button marked "TO THE MOON."
 
 > push blue button
 As you press the BLUE button, you are wisked away to the Moon Base Unit.
 
 Moon Base Transporter Room
 This is a Matter Scatterer Personal Unit 1600. This unit is an almost exact
-replica of your Home Unit.
-
-The only difference is the button here is RED and marked "TO HOME."
+replica of your Home Unit.  The only difference is the button here is RED and
+marked "TO HOME."
 
 > out
 You move out.
@@ -837,19 +815,15 @@ Moon Base Garage
 This is a large parking garage. There is an exit to the east with a sign
 reading, "MESS HALL"; and a door leading west with a sign reading, "OFFICES".
  There is an odd shaped hole in the ground here. You can enter your
-Transporter Unit here.
-
-There is a Matter Transference Beam Generator located in the roof of the Moon
-Base Unit.
+Transporter Unit here.  There is a Matter Transference Beam Generator located
+in the roof of the Moon Base Unit.
 
 > e
 You move east.
 
 Mess Hall
 You are standing in the mess hall for the Moon Base. There are a few chairs
-and one table.
-
-There is a fork here.
+and one table.   There is a fork here.
 
 > take fork
 You take the Fork.
@@ -861,10 +835,8 @@ Moon Base Garage
 This is a large parking garage. There is an exit to the east with a sign
 reading, "MESS HALL"; and a door leading west with a sign reading, "OFFICES".
  There is an odd shaped hole in the ground here. You can enter your
-Transporter Unit here.
-
-There is a Matter Transference Beam Generator located in the roof of the Moon
-Base Unit.
+Transporter Unit here.  There is a Matter Transference Beam Generator located
+in the roof of the Moon Base Unit.
 
 > use fork on hole
 You insert the fork into the lock and it turns with ease. You are on an
@@ -872,9 +844,7 @@ elevator going down!
 
 Secret Basement
 This is the Secret Basement of the Moon Base. You can see an elevator going
-up.
-
-There is a strange belt here.  There is a paper tacked to the wall here.
+up.  There is a strange belt here.  There is a paper tacked to the wall here.
 
 > read paper
 This paper contains a photo of a large rock in a lovely garden and a
@@ -894,10 +864,8 @@ Moon Base Garage
 This is a large parking garage. There is an exit to the east with a sign
 reading, "MESS HALL"; and a door leading west with a sign reading, "OFFICES".
  There is an odd shaped hole in the ground here. You can enter your
-Transporter Unit here.
-
-There is a Matter Transference Beam Generator located in the roof of the Moon
-Base Unit.
+Transporter Unit here.  There is a Matter Transference Beam Generator located
+in the roof of the Moon Base Unit.
 
 > w
 You move west.
@@ -912,9 +880,7 @@ You move west.
 
 Main Office
 This room is bare save for a single, three legged table in the center of the
-room.
-
-On the table rests an odd looking device.
+room.  On the table rests an odd looking device.
 
 > press button
 CLICK.......WHRRRRR....you here a faint noise from the Moon Base Garage.
@@ -934,10 +900,8 @@ Moon Base Garage
 This is a large parking garage. There is an exit to the east with a sign
 reading, "MESS HALL"; and a door leading west with a sign reading, "OFFICES".
  There is an odd shaped hole in the ground here. You can enter your
-Transporter Unit here.
-
-There is a Matter Transference Beam Generator located in the roof of the Moon
-Base Unit.
+Transporter Unit here.  There is a Matter Transference Beam Generator located
+in the roof of the Moon Base Unit.
 
 > enter transporter
 You are in the Transporter Unit.
@@ -1016,9 +980,8 @@ Space Boy's Room
 This is your room! This place is the biggest mess you have ever seen! You
 desk is covered in old newspapers and you can't even see your bed under the
 dirty clothes piled on top. It is a wonder you can find your way out of here
-at all!
-Your arch-nemesis Evil Man is here. It would appear that he has been waiting
-for you to reach him. As you enter the room he stands to his feet and
+at all!  Your arch-nemesis Evil Man is here. It would appear that he has been
+waiting for you to reach him. As you enter the room he stands to his feet and
 pointing his hooked hand towards you he exclaims, "Now I will finish you once
 and for all!" He lunges out tying to remove your head with the tip of his
 sword.
@@ -1040,9 +1003,7 @@ You move west.
 
 Space Boy's Secret Hide-Out
 This is the secret base for our hero...it seem that someone has been in here
-recently.
-
-There is a note scribbled on the wall here!
+recently.   There is a note scribbled on the wall here!
 
 > read scribbled note
 "Dear Space Boy, You think you have won? I still have your flea-ridden mutt

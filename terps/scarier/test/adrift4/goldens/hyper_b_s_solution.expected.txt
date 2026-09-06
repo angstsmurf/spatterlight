@@ -271,9 +271,8 @@ Do you wish to:
 [M]editate
 
 Your HP: 97
-Flare Rat's HP: 27
-The Flare Rat glares menacingly at you, foaming at the mouth with a rare
-disease. The disease is known as "Combustial Rabies".
+Flare Rat's HP: 27  The Flare Rat glares menacingly at you, foaming at the
+mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
 
@@ -302,9 +301,8 @@ Do you wish to:
 [M]editate
 
 Your HP: 94
-Flare Rat's HP: 24
-The Flare Rat glares menacingly at you, foaming at the mouth with a rare
-disease. The disease is known as "Combustial Rabies".
+Flare Rat's HP: 24  The Flare Rat glares menacingly at you, foaming at the
+mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
 
@@ -333,9 +331,8 @@ Do you wish to:
 [M]editate
 
 Your HP: 91
-Flare Rat's HP: 21
-The Flare Rat glares menacingly at you, foaming at the mouth with a rare
-disease. The disease is known as "Combustial Rabies".
+Flare Rat's HP: 21  The Flare Rat glares menacingly at you, foaming at the
+mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
 
@@ -364,9 +361,8 @@ Do you wish to:
 [M]editate
 
 Your HP: 88
-Flare Rat's HP: 18
-The Flare Rat glares menacingly at you, foaming at the mouth with a rare
-disease. The disease is known as "Combustial Rabies".
+Flare Rat's HP: 18  The Flare Rat glares menacingly at you, foaming at the
+mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
 
@@ -395,9 +391,8 @@ Do you wish to:
 [M]editate
 
 Your HP: 85
-Flare Rat's HP: 15
-The Flare Rat glares menacingly at you, foaming at the mouth with a rare
-disease. The disease is known as "Combustial Rabies".
+Flare Rat's HP: 15  The Flare Rat glares menacingly at you, foaming at the
+mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
 
@@ -426,9 +421,8 @@ Do you wish to:
 [M]editate
 
 Your HP: 82
-Flare Rat's HP: 12
-The Flare Rat glares menacingly at you, foaming at the mouth with a rare
-disease. The disease is known as "Combustial Rabies".
+Flare Rat's HP: 12  The Flare Rat glares menacingly at you, foaming at the
+mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
 
@@ -457,9 +451,8 @@ Do you wish to:
 [M]editate
 
 Your HP: 79
-Flare Rat's HP: 9
-The Flare Rat glares menacingly at you, foaming at the mouth with a rare
-disease. The disease is known as "Combustial Rabies".
+Flare Rat's HP: 9  The Flare Rat glares menacingly at you, foaming at the
+mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
 
@@ -488,9 +481,8 @@ Do you wish to:
 [M]editate
 
 Your HP: 76
-Flare Rat's HP: 6
-The Flare Rat glares menacingly at you, foaming at the mouth with a rare
-disease. The disease is known as "Combustial Rabies".
+Flare Rat's HP: 6  The Flare Rat glares menacingly at you, foaming at the
+mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
 
@@ -519,9 +511,8 @@ Do you wish to:
 [M]editate
 
 Your HP: 73
-Flare Rat's HP: 3
-The Flare Rat glares menacingly at you, foaming at the mouth with a rare
-disease. The disease is known as "Combustial Rabies".
+Flare Rat's HP: 3  The Flare Rat glares menacingly at you, foaming at the
+mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
 
@@ -550,9 +541,8 @@ Do you wish to:
 [M]editate
 
 Your HP: 70
-Flare Rat's HP: 0
-The Flare Rat glares menacingly at you, foaming at the mouth with a rare
-disease. The disease is known as "Combustial Rabies".
+Flare Rat's HP: 0  The Flare Rat glares menacingly at you, foaming at the
+mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 The Flare Rat is dead! Mission complete!
 

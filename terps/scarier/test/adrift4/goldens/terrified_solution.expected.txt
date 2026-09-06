@@ -60,10 +60,7 @@ Courtyard
 The courtyard is enclosed on the three sides by various buildings and is open
 to the sky. To the north is a small park. You can see a sad looking bench.
 The building on the eastern side of the courtyard has a window, which has
-been boarded up.
-
-You can also see an old brick.
-An old man is here.
+been boarded up.  You can also see an old brick.  An old man is here.
 
 An old man with a dog resting on a bench, stands up for a moment and looks at
 you. His face changes from a blank expression to something like terror. He
@@ -163,9 +160,7 @@ You move east.
 
 Bare Room
 The floor is covered by an old stained carpet. You can only go west to the
-small courtyard.
-
-You can also see a spade.
+small courtyard.  You can also see a spade.
 
 > take spade
 You take the spade.

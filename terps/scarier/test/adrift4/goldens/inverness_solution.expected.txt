@@ -57,8 +57,7 @@ This is the entrance hall of Inverness Castle, which is lit by torches on the
 walls.  The walls are decorated in large tapestries.  The sitting room is to
 the east and the receiving hall is to the west.  A large stone staircase
 leads up to the upstairs hall.  You can also go north to the back hall, or
-leave the castle to the south.
-The porter is here.
+leave the castle to the south.  The porter is here.
 
 > n
 You move north.
@@ -102,8 +101,7 @@ This is the entrance hall of Inverness Castle, which is lit by torches on the
 walls.  The walls are decorated in large tapestries.  The sitting room is to
 the east and the receiving hall is to the west.  A large stone staircase
 leads up to the upstairs hall.  You can also go north to the back hall, or
-leave the castle to the south.
-The porter is here.
+leave the castle to the south.  The porter is here.
 
 > give bread to porter
 The porter takes the bread from you greedily, and heads north to the kitchen
@@ -148,8 +146,7 @@ This is the entrance hall of Inverness Castle, which is lit by torches on the
 walls.  The walls are decorated in large tapestries.  The sitting room is to
 the east and the receiving hall is to the west.  A large stone staircase
 leads up to the upstairs hall.  You can also go north to the back hall, or
-leave the castle to the south.
-The porter is here.
+leave the castle to the south.  The porter is here.
 
 > s
 You move south.
@@ -171,10 +168,9 @@ blasted heath to the south.
 You move south.
 
 A Blasted Heath near Forres
-This is a deserted, foul place.  You can go north to the road.
-Paddock the toad is here.
-Graymalkin the cat is here, skulking around.  Three Witches are here, dancing
-around a boiling cauldron.
+This is a deserted, foul place.  You can go north to the road.  Paddock the
+toad is here.  Graymalkin the cat is here, skulking around.  Three Witches
+are here, dancing around a boiling cauldron.
 
 > ask witches about box
 "Ah," says the first witch, looking at the box. "This is a riddle box."

@@ -79,8 +79,7 @@ You move west.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.
-Merchant is here.
+the stand is a merchant wearing colorful clothes.  Merchant is here.
 
 You can move east and west.
 
@@ -97,8 +96,7 @@ You move west.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
-can't tell.
-Old Man is here.
+can't tell.  Old Man is here.
 
 You can move east and west.
 
@@ -126,9 +124,7 @@ You move in.
 Outhouse
 It's really cramped in here. And it smells. Do you really have to go to the
 bathroom that bad? There is a hole here for doing your business, and a lever
-to flush with.
-
-Also here is some TP.
+to flush with.  Also here is some TP.
 
 You can only move out.
 
@@ -156,8 +152,7 @@ You move east.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
-can't tell.
-Old Man is here.
+can't tell.  Old Man is here.
 
 You can move east and west.
 
@@ -167,8 +162,7 @@ You move east.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.
-Merchant is here.
+the stand is a merchant wearing colorful clothes.  Merchant is here.
 
 You can move east and west.
 
@@ -188,8 +182,7 @@ You can move north, east, south and west.
 You move south.
 
 Tree
-There is a huge dead tree here.
-Squirrel is here.
+There is a huge dead tree here.  Squirrel is here.
 
 You can move north and south.
 
@@ -222,9 +215,7 @@ You move south.
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
 in what seems like the middle of nowhere. Looks like a good place to take a
-break. There is a sign here.
-
-Also here is a tea cup.
+break. There is a sign here.  Also here is a tea cup.
 
 You can move north and south.  Squirrel scampers up from the north.
 
@@ -477,9 +468,7 @@ Music Room
 This is where people come to play or practice music. It is neater than most
 of the other rooms in the mansion and seems to be not so badly kept. There is
 a piano here, and some music stands, and some instruments. There doesn't seem
-to be any actual music here, though.
-
-Also here is a flute.
+to be any actual music here, though.  Also here is a flute.
 
 You can only move east.  Squirrel scampers up from the east.
 
@@ -525,8 +514,7 @@ You move north.
 
 Mirror Ballroom
 How strange... It's just like the other ballroom, except creepier and
-backwards.
-Vampy is here.
+backwards.  Vampy is here.
 
 You can move east and south.  Squirrel scampers up from the south.
 
@@ -535,8 +523,7 @@ You move east.
 
 Corridor
 This is a cold, narrow, dead-end corridor that the ghost likes to haunt. The
-walls and floor are made of stone and it is dark and lonely.
-Ghost is here.
+walls and floor are made of stone and it is dark and lonely.  Ghost is here.
 
 You can only move west.  Squirrel scampers up from the west.
 
@@ -557,8 +544,7 @@ You move west.
 
 Mirror Ballroom
 How strange... It's just like the other ballroom, except creepier and
-backwards.
-Vampy is here.
+backwards.  Vampy is here.
 
 You can move east and south.  Squirrel scampers up from the east.
 
@@ -613,8 +599,7 @@ You move west.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.
-Merchant is here.
+the stand is a merchant wearing colorful clothes.  Merchant is here.
 
 You can move east and west.  Squirrel scampers up from the east.  Vampy
 glides in from the east.
@@ -624,8 +609,7 @@ You move west.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
-can't tell.
-Old Man is here.
+can't tell.  Old Man is here.
 
 You can move east and west.  Squirrel scampers up from the east.  Vampy
 glides in from the east.
@@ -661,8 +645,7 @@ You move east.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.
-Merchant is here.
+the stand is a merchant wearing colorful clothes.  Merchant is here.
 
 You can move east and west.  Squirrel scampers up from the west.  Vampy
 glides in from the west.  Old Man hobbles up from the west.
@@ -747,8 +730,7 @@ You move west.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.
-Merchant is here.
+the stand is a merchant wearing colorful clothes.  Merchant is here.
 
 You can move east and west.  Squirrel scampers up from the east.  Vampy
 glides in from the east.  Old Man hobbles up from the east.
@@ -817,8 +799,7 @@ You move east.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.
-Merchant is here.
+the stand is a merchant wearing colorful clothes.  Merchant is here.
 
 You can move east and west.  Squirrel scampers up from the west.  Vampy
 glides in from the west.  Old Man hobbles up from the west.

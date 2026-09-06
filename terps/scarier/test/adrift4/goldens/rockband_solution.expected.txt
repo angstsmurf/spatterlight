@@ -23,18 +23,16 @@ Living Room
 The hardwood floor of this living room serves to amplify the noise for the
 cranky neighbor downstairs. The kitchen lies to the north, separated by a
 bar-style counter. There are doors to both east and west bedrooms, and a
-bathroom is northwest, close to the front door.
-
-The only place to sit is a dingy white couch (ever since you discovered what
-that smell was in the matching sofa chair).  Your beautiful Xbox 360 Elite
-sits on the wood floor near the TV, and is turned off.  An awesome drum kit
-is set up near the TV.  Up in the ceiling is a fan, which you last left on.
-You left a pile of dirty dishes laying about, as usual.
+bathroom is northwest, close to the front door.  The only place to sit is a
+dingy white couch (ever since you discovered what that smell was in the
+matching sofa chair).  Your beautiful Xbox 360 Elite sits on the wood floor
+near the TV, and is turned off.  An awesome drum kit is set up near the TV.
+Up in the ceiling is a fan, which you last left on.  You left a pile of dirty
+dishes laying about, as usual.
 
 The hairs on the back of your neck stand up, as if being bombarded by an
-electron ray gun. Gigantor is watching. At the moment, it's off.
-
-Also here is a plastic guitar.
+electron ray gun. Gigantor is watching. At the moment, it's off.  Also here
+is a plastic guitar.
 
 > get guitar
 You take the plastic guitar.
@@ -190,19 +188,16 @@ You have to find a way to defeat Gigantor and save the world!
 You move north.
 
 Kitchen
-Good lord! What a disaster! The living room is south.
-
-A white refrigerator sits in the far corner.  You left a pile of dirty dishes
-laying about, as usual.  The door to the laundry closet is here and is
-currently closed.
+Good lord! What a disaster! The living room is south.  A white refrigerator
+sits in the far corner.  You left a pile of dirty dishes laying about, as
+usual.  The door to the laundry closet is here and is currently closed.
 
 > look
 
 Kitchen
 Where do I begin? There's a pile of cobwebbed dishes sitting next to a
-two-month old gift plate of stale Xmas cookies. The living room is south.
-
-A white refrigerator sits in the far corner.  You left a pile of dirty dishes
+two-month old gift plate of stale Xmas cookies. The living room is south.  A
+white refrigerator sits in the far corner.  You left a pile of dirty dishes
 laying about, as usual.  The door to the laundry closet is here and is
 currently closed.
 
@@ -214,11 +209,9 @@ closet door.
 
 Kitchen
 Yikes. Was this always a kitchen, or did it begin life as a biohazard waste
-dump? The living room is south.
-
-A white refrigerator sits in the far corner.  You left a pile of dirty dishes
-laying about, as usual.  The door to the laundry closet is here and is
-currently open.
+dump? The living room is south.  A white refrigerator sits in the far corner.
+ You left a pile of dirty dishes laying about, as usual.  The door to the
+laundry closet is here and is currently open.
 
 > get finger
 You take the mechanical finger from the laundry closet door.
@@ -230,13 +223,12 @@ Living Room
 The hardwood floor of this living room serves to amplify the noise for the
 cranky neighbor downstairs. The kitchen lies to the north, separated by a
 bar-style counter. There are doors to both east and west bedrooms, and a
-bathroom is northwest, close to the front door.
-
-The only place to sit is a dingy white couch (ever since you discovered what
-that smell was in the matching sofa chair).  Your beautiful Xbox 360 Elite
-sits on the wood floor near the TV, and is turned on.  An awesome drum kit is
-set up near the TV.  Up in the ceiling is a fan, which you last left on.  You
-left a pile of dirty dishes laying about, as usual.
+bathroom is northwest, close to the front door.  The only place to sit is a
+dingy white couch (ever since you discovered what that smell was in the
+matching sofa chair).  Your beautiful Xbox 360 Elite sits on the wood floor
+near the TV, and is turned on.  An awesome drum kit is set up near the TV.
+Up in the ceiling is a fan, which you last left on.  You left a pile of dirty
+dishes laying about, as usual.
 
 The hairs on the back of your neck stand up, as if being bombarded by an
 electron ray gun. Gigantor is watching. At the moment, it's on.

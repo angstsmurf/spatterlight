@@ -35,11 +35,10 @@ they've ceased their whirling, now that you can examine them, you know them
 to be memories from the life you've lived.
 
 Unconsciousness
-You are ensconced in the soothing indigo light.
-
-In the light, you can see the tiny stuffed rabbit, the child-sized desk, your
-Homecoming outfit, Sam's incredible smile, the set of favorite over-sized
-headphones, a hardcover book and the vista from back home.
+You are ensconced in the soothing indigo light.  In the light, you can see
+the tiny stuffed rabbit, the child-sized desk, your Homecoming outfit, Sam's
+incredible smile, the set of favorite over-sized headphones, a hardcover book
+and the vista from back home.
 
 In Memory by Jacqueline A. Lott - May 2011
 Released as part of the Indigo New Language Speed IF
@@ -78,11 +77,10 @@ Unfortunately, the image fades all too soon, and the pleasant feelings
 dissipate with it...
 
 Unconsciousness
-You are ensconced in the soothing indigo light.
-
-In the light, you can see the child-sized desk, your Homecoming outfit, Sam's
-incredible smile, the set of favorite over-sized headphones, a hardcover book
-and the vista from back home.
+You are ensconced in the soothing indigo light.  In the light, you can see
+the child-sized desk, your Homecoming outfit, Sam's incredible smile, the set
+of favorite over-sized headphones, a hardcover book and the vista from back
+home.
 
 > desk
 So small... did you ever fit in that seat?  Yes, long ago you did.  As you
@@ -112,11 +110,9 @@ key.
 The small desk and thoughts of school fade from view...
 
 Unconsciousness
-You are ensconced in the soothing indigo light.
-
-In the light, you can see your Homecoming outfit, Sam's incredible smile, the
-set of favorite over-sized headphones, a hardcover book and the vista from
-back home.
+You are ensconced in the soothing indigo light.  In the light, you can see
+your Homecoming outfit, Sam's incredible smile, the set of favorite
+over-sized headphones, a hardcover book and the vista from back home.
 
 > outfit
 Almost as if it were yesterday, you can see your Homecoming outfit lying
@@ -143,10 +139,9 @@ notice that you've dressed down.
 Memories of Chris and of the Homecoming night fade from view...
 
 Unconsciousness
-You are ensconced in the soothing indigo light.
-
-In the light, you can see Sam's incredible smile, the set of favorite
-over-sized headphones, a hardcover book and the vista from back home.
+You are ensconced in the soothing indigo light.  In the light, you can see
+Sam's incredible smile, the set of favorite over-sized headphones, a
+hardcover book and the vista from back home.
 
 > sam
 You think back to the best of days when Sam was seemingly always there by
@@ -174,10 +169,9 @@ Even you.
 The image of Sam fades...
 
 Unconsciousness
-You are ensconced in the soothing indigo light.
-
-Also here are the set of favorite over-sized headphones, a hardcover book and
-the vista from back home.
+You are ensconced in the soothing indigo light.  Also here are the set of
+favorite over-sized headphones, a hardcover book and the vista from back
+home.
 
 > headphones
 God yes, those headphones!  How they let you shut out the rest of the world,
@@ -204,9 +198,8 @@ time.
 The music fades from your memory...
 
 Unconsciousness
-You are ensconced in the soothing indigo light.
-
-In the light, you can see a hardcover book and the vista from back home.
+You are ensconced in the soothing indigo light.  In the light, you can see a
+hardcover book and the vista from back home.
 
 > book
 You remember how that book used to feel in your hands.  As you recall the
@@ -239,9 +232,8 @@ authors that lay it on thick.
 The book closes, and the memory fades...
 
 Unconsciousness
-You are ensconced in the soothing indigo light.
-
-In the light, you can see the vista from back home.
+You are ensconced in the soothing indigo light.  In the light, you can see
+the vista from back home.
 
 For just a moment, somewhere in the distance, it seems like you can hear
 voices and the beeping of machines... but then it's gone.

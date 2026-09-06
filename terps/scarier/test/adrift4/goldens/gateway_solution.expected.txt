@@ -122,8 +122,7 @@ running passed. A light blue pillar stands on either side of the doors
 leading into a worship room to the east. You look down and see a huge rug on
 the floor depicting a large planet with stars all around it in a dark blue
 emptiness.
-
-Here you can see the designed carpet.
+  Here you can see the designed carpet.
 
 EXITS:  north, east, south and west.
 
@@ -148,9 +147,8 @@ A soft breeze washes across the multi-coloured flowers of the temple garden.
 Many of the flowers look similar to the ones you know from your own world,
 but their colours and leaves are different making them look strange.  Many of
 the flowers are blooming with their petals spread wide to the sky.
-
-Here you can see a purple flower.
-The Temple Gardener is busy tending the gardens.
+  Here you can see a purple flower.  The Temple Gardener is busy tending the
+gardens.
 
 EXIT:   north.
 
@@ -179,8 +177,7 @@ running passed. A light blue pillar stands on either side of the doors
 leading into a worship room to the east. You look down and see a huge rug on
 the floor depicting a large planet with stars all around it in a dark blue
 emptiness.
-
-Here you can see the designed carpet.
+  Here you can see the designed carpet.
 
 EXITS:  north, east, south and west.
 
@@ -245,9 +242,8 @@ benches where three armoured soldiers are sitting and play cards. It appears
 that this is an extremely common way for these not-too-hansom men to pass the
 time. Torches placed in steel brackets easily light the stone room and its
 dirt floor.
-
-Here you can see a torch.
-Kadfast is playing cards with her follow soldiers.
+  Here you can see a torch.  Kadfast is playing cards with her follow
+soldiers.
 
 EXITS:  south and up.
 
@@ -276,7 +272,7 @@ The room is extremely dark, cold, and damp. This is not at all a comfortable
 place to spend a long time in. Some moldy hay piled in a corner of the room
 is supposed to be a bed. You think you see a rat scurry out from under the
 hay and hide in a dark corner. Very cosy, you think darkly.
-A Rapist is here.
+  A Rapist is here.
 
 EXIT:   west.
 
@@ -304,9 +300,8 @@ benches where three armoured soldiers are sitting and play cards. It appears
 that this is an extremely common way for these not-too-hansom men to pass the
 time. Torches placed in steel brackets easily light the stone room and its
 dirt floor.
-
-Here you can see a torch.
-Kadfast is playing cards with her follow soldiers.
+  Here you can see a torch.  Kadfast is playing cards with her follow
+soldiers.
 
 EXITS:  south and up.
 
@@ -350,8 +345,7 @@ running passed. A light blue pillar stands on either side of the doors
 leading into a worship room to the east. You look down and see a huge rug on
 the floor depicting a large planet with stars all around it in a dark blue
 emptiness.
-
-Here you can see the designed carpet.
+  Here you can see the designed carpet.
 
 EXITS:  north, east, south and west.
 

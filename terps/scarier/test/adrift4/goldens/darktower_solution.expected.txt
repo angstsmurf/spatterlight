@@ -19,9 +19,8 @@ Lobby
 This is the lobby.  To the west is the entrance.  There is a reception desk
 here with a phone.  To the east is a door with a key card slot marked
 "security".  The lobby continues to the north and south.    There is a solid
-metal security gate blocking the exit to the building.
-
-Also here is a gold key card and a memo.
+metal security gate blocking the exit to the building.  Also here is a gold
+key card and a memo.
 
 You can move north and south.
 
@@ -115,9 +114,7 @@ Gate House
 This is the gate house for the garage.  There are three button here.  One to
 raise and lower the entrance bar, one to raise and lower the exit bar, and
 one to raise and lower the garage gate.  There is a key hole next to the
-garage gate button.
-
-Also here is a red key card.
+garage gate button.  Also here is a red key card.
 
 You can only move north.
 
@@ -192,9 +189,8 @@ You move north.
 Suite 100
 Hoffman, Smith, & Brown, attorneys at law
 
-                              This is a large legal office.
-
-Also here is a power panel key and a blue key card.
+                              This is a large legal office.  Also here is a
+power panel key and a blue key card.
 
 You can only move south.
 
@@ -230,9 +226,8 @@ You move east.
 Security
 This is the security office.  There is a desk facing the west wall, which is
 covered in monitors.  There are about 25 monitors here, one for each camera
-in the building.    All the monitors are without power.
-
-Also here is piece of paper.
+in the building.    All the monitors are without power.  Also here is piece
+of paper.
 
 You can only move west.
 
@@ -282,9 +277,8 @@ You move south.
 Suite 101
 Charlie's
 
-                                               This is a bar and grill.
-
-Also here is a breaker switch and a elevator key.
+                                               This is a bar and grill.  Also
+here is a breaker switch and a elevator key.
 
 You can only move north.
 
@@ -359,9 +353,7 @@ Suite 200
 PowerTemp
 
                                                This is a temporary placement
-agency
-
-Also here is a power cable.
+agency  Also here is a power cable.
 
 You can only move south.
 
@@ -393,7 +385,6 @@ Suite 201
 Talent Shot
 
                                                    This is a talent agency.
-
 Also here is a green key card.
 
 You can only move west.
@@ -417,9 +408,7 @@ Suite 203
 Collector, Inc.
 
                                                    This is a collection
-agency.
-
-Also here is a transformer and a garage key.
+agency.  Also here is a transformer and a garage key.
 
 You can only move east.
 
@@ -482,7 +471,6 @@ Suite 300
 Video Surplus.
 
                                                  This is a video supplier.
-
 Also here is a patch kit.
 
 You can only move south.
@@ -512,9 +500,7 @@ You can move north, east, south and west.
 You move east.
 
 Suite 301
-This is a vacant office.
-
-Also here is a yellow key card.
+This is a vacant office.  Also here is a yellow key card.
 
 You can only move west.
 
@@ -537,9 +523,7 @@ Suite 303
 Engineerco
 
                                                   This is an engineering
-firm.
-
-Also here is a wire cutters.
+firm.  Also here is a wire cutters.
 
 You can only move east.
 
@@ -561,9 +545,8 @@ You move south.
 3rd Floor Hallway
 This is a hallway.  To the south is a door with a key card slot.  To the west
 is the elevator.  The hallway continues to the north.  The elevator can't be
-used until power has been restored to the building.
-
-Also here is a mysterious part 10.
+used until power has been restored to the building.  Also here is a
+mysterious part 10.
 
 You can move north and south.
 
@@ -574,9 +557,7 @@ Suite 302
 Ad Aware
 
                                                    This is an advertising
-firm.
-
-Also here is a gate key.
+firm.  Also here is a gate key.
 
 You can only move north.
 
@@ -589,9 +570,8 @@ You move north.
 3rd Floor Hallway
 This is a hallway.  To the south is a door with a key card slot.  To the west
 is the elevator.  The hallway continues to the north.  The elevator can't be
-used until power has been restored to the building.
-
-Also here is a mysterious part 10.
+used until power has been restored to the building.  Also here is a
+mysterious part 10.
 
 You can move north and south.
 
@@ -657,7 +637,6 @@ Suite 401
 Jones & White
 
                                                This is a small legal office.
-
 Also here is a black key card.
 
 You can only move west.
@@ -681,9 +660,7 @@ Suite 403
 Private Eyes
 
                                                   This is a private
-investigation agency.
-
-Also here is a diamond screwdriver.
+investigation agency.  Also here is a diamond screwdriver.
 
 You can only move east.
 
@@ -721,8 +698,7 @@ You move up.
 
 Stairs, 5th Floor
 The stairs lead up and down.  There is a door marked "5th Floor" to the east.
-
-Also here is a mysterious part 5.
+ Also here is a mysterious part 5.
 
 You can move east, up and down.
 
@@ -731,9 +707,8 @@ You move east.
 
 5th Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
-a key card slot.  The hallway continues to the south.
-
-Also here is a mysterious part 9.
+a key card slot.  The hallway continues to the south.  Also here is a
+mysterious part 9.
 
 You can move north, south and west.
 
@@ -744,9 +719,7 @@ Suite 500
 A to Z Graphics
 
                                                 This is a the graphics design
-company that you work for.
-
-Also here is a repair manual.
+company that you work for.  Also here is a repair manual.
 
 You can only move south.
 
@@ -758,9 +731,8 @@ You move south.
 
 5th Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
-a key card slot.  The hallway continues to the south.
-
-Also here is a mysterious part 9.
+a key card slot.  The hallway continues to the south.  Also here is a
+mysterious part 9.
 
 You can move north, south and west.
 
@@ -783,9 +755,7 @@ Suite 501
 Picture Perfect
 
                                                  This is a custom picture
-frame store.
-
-Also here is a power cord and a mysterious part 4.
+frame store.  Also here is a power cord and a mysterious part 4.
 
 You can only move west.
 
@@ -808,7 +778,6 @@ Suite 503
 Fly Away
 
                                                  This is a travel agency.
-
 Also here is a wrench.
 
 You can only move east.
@@ -842,7 +811,6 @@ Suite 502
 Gecko Insurance
 
                                               This is an insurance office.
-
 Also here is a phillips screwdriver.
 
 You can only move north.
@@ -874,9 +842,8 @@ You move north.
 
 5th Floor Hallway
 This is a hallway.  To the west are the stairs.  To the north is a door with
-a key card slot.  The hallway continues to the south.
-
-Also here is a mysterious part 9.
+a key card slot.  The hallway continues to the south.  Also here is a
+mysterious part 9.
 
 You can move north, south and west.
 
@@ -885,8 +852,7 @@ You move west.
 
 Stairs, 5th Floor
 The stairs lead up and down.  There is a door marked "5th Floor" to the east.
-
-Also here is a mysterious part 5.
+ Also here is a mysterious part 5.
 
 You can move east, up and down.
 
@@ -968,9 +934,7 @@ and there is a keyhole on the front.  On the left side of the panel there is
 a small lever marked "Power".  On the right side of the panel there is a
 switch marked "Generator".  In the center of the room is a small generator
 with an "out of order sign".  The lever is in the closed position.  The
-switch is in the closed position.
-
-Also here is a letter.
+switch is in the closed position.  Also here is a letter.
 
 You can only move east.
 

@@ -27,7 +27,6 @@ open.
    The cottage stands at the top of a narrow, wooded valley. A rough track
 leads south, away from your cottage, through the trees.
    Nearby is a large pile of wood that needs to be chopped.
-
    An axe lies at your feet.
 
 > take axe
@@ -99,7 +98,6 @@ the northern wall, with an unmarked wooden chest at the foot of it.
    You are seated at your desk, a scroll open before you. A single candle
 rests in a metal holder close by, giving light to your work, but casting
 leaping shadows around the rest of the room.
-
    Sitting on the desk near the scroll is a small cup.
 
 > drink liquid
@@ -275,7 +273,6 @@ curtains open, through which you can see the late afternoon sky.
 of rich green.
    A passage leads westwards, while the door back to the corridor stands open
 to the south.
-
    Prince Alsanter is standing on the rug, his face red with rage.
 
    "What is the meaning of this?" the prince demands almost before you've
@@ -340,7 +337,6 @@ You see all the things you expect to in the prince's rooms: the table and
 rug, the hearth, the chair and pillow, the curtains and window, the passage
 to the west, and the closed door to the south. But it all seems to fade into
 the background.
-
    The prince is lying face down on the rug, unmoving, with a dagger stuck in
 the middle of his back.
 
@@ -393,7 +389,6 @@ torches set in iron stands around the walls.
 of chairs mark a narrow corridor leading to the dais, and seated in them are
 all seven lords of the kingdom. A table stands just before the throne at the
 end of the corridor of judgement, and the wizard Rixomas stands beside it.
-
    A guard is approaching, here to take you to your execution.
 
 > z
@@ -560,7 +555,6 @@ cupboard, and next to it is the hearth where a fire is burning low.
 closed at the moment, while a passage southwards leads to the antechamber.
    A tall, basalt pedestal is positioned in the north-western corner of the
 room.
-
    On top of the pedestal is a large, ornamental vase.
 
    Your vulpine hearing detects some sounds -- voices on the other side of
@@ -643,7 +637,6 @@ cupboard, and next to it is the hearth where a fire is burning low.
 out to the courtyard, while a passage southwards leads to the antechamber.
    There is a tall, basalt pedestal lying on its side in the north-western
 corner of the room, next to which you can see a small hole in the floor.
-
    The area immediately in front of the pedestal is covered with the
 scattered shards of an ornamental vase.
 
@@ -689,7 +682,6 @@ of hay still to be stowed in a stall lies to one side, a pitchfork stuck in
 it forlornly. In front of the stable doors is a barrel, lying on its side.
    The southern end of the courtyard is towards the west, while to the
 northwest is the northern end, near the gatehouse.
-
    A horse is standing inside the stables but with its head sticking through
 the open stable door. It appears to be asleep.
 
@@ -730,7 +722,6 @@ meeting hall.
 discarded and empty crates, and a single wooden plank.
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
-
    There is a horse-drawn cart standing nearby, the driver idly holding the
 reins of a large, grey draught horse.
 
@@ -1044,7 +1035,6 @@ of his shop, looking around indifferently, and his presence keeps you from
 leaving the safety of the alley. The road runs east/west; it's hard to see
 where the westward direction goes, but to the east, past a line of shops and
 houses, you can see the city gates.
-
    Leaning up against the side of one of the buildings nearby is a rake.
    An old maple tree stands at the corner of the alley, looking a little sad
 and neglected, particularly with most of its foliage lost to autumn. Beneath
@@ -1093,7 +1083,6 @@ small corral, inside which is a herd of sheep, bleating nervously. In the
 building next to the corral is a plain, white door that has some blood-like
 stains near at the base. The alley continues to the northwest, and narrows to
 the south.
-
    Lying on the ground nearby is a rake.
 
 > drag rake se
@@ -1109,7 +1098,6 @@ of his shop, looking around indifferently, and his presence keeps you from
 leaving the safety of the alley. The road runs east/west; it's hard to see
 where the westward direction goes, but to the east, past a line of shops and
 houses, you can see the city gates.
-
    An old maple tree stands at the corner of the alley, looking a little sad
 and neglected, particularly with most of its foliage lost to autumn. Beneath
 it is an ragged, burlap sack, full to bursting with leaves.
@@ -1173,7 +1161,6 @@ small corral, inside which is a herd of sheep, bleating nervously. In the
 building next to the corral is a plain, white door that has some blood-like
 stains near at the base. The alley continues to the northwest, and narrows to
 the south.
-
    Lying on the ground nearby is a rake.
    The ground here is covered with autumn coloured leaves.
 
@@ -1213,7 +1200,6 @@ The alley runs into a road here and comes to an end. The road itself is
 empty, opening the way up for you to leave the safety of the alley. The road
 runs east/west; it's hard to see where the westward direction goes, but to
 the east, past a line of shops and houses, you can see the city gates.
-
    The ground here is carpeted with autumn-coloured leaves.
    An old maple tree stands at the corner of the alley, looking a little sad
 and neglected, particularly with most of its foliage lost to autumn. Beneath
@@ -1305,7 +1291,6 @@ The alley runs into a road here and comes to an end. The road itself is
 empty, opening the way up for you to leave the safety of the alley. The road
 runs east/west; it's hard to see where the westward direction goes, but to
 the east, past a line of shops and houses, you can see the city gates.
-
    The ground here is carpeted with autumn-coloured leaves.
    An old maple tree stands at the corner of the alley, looking a little sad
 and neglected, particularly with most of its foliage lost to autumn. Beneath
@@ -1391,9 +1376,7 @@ you are seated. Around the room are a number of candles, which add further
 light to the room. Next to your chair is a small table, while a small, silver
 stand is positioned next to the king's chair. The room is spacious and open,
 with the only exit being a door in the west wall.
-
    Your wooden staff is leaning against your chair within easy reach.
-
    The king is seated in his chair, staring into the fire.
 
 [ Use "TOPICS" at any time to view a list of subjects that King Rithusar
@@ -1998,7 +1981,6 @@ additional level of storage, which comes about halfway towards the front of
 the barn. At one end of the loft you spy a moveable ladder, which would
 provide access to the loft if it weren't in a stored position, tied up with a
 rope that looks to be out of reach.
-
    Leaning up against the rear wall is a pick.
 
 > chew bale
@@ -2096,7 +2078,6 @@ the pen. The other stalls are currently vacant and appear to have been so for
 some time.
    Looking to the north you can see a large barn and silo, while the village
 square lies to the northwest.
-
    A tangled mess of shredded rope lies on the ground near the gate.
 
 > open gate
@@ -2145,7 +2126,6 @@ additional level of storage, which comes about halfway towards the front of
 the barn. At one end of the loft you spy a moveable ladder which provides
 access to the loft. The bottom of the ladder now rests on the ground, with
 the rope that previously secured it hanging down beside the ladder.
-
    A wooden plank has been positioned on the hay bale underneath the loft,
 and a pick has been placed on one end of it.
 
@@ -2159,7 +2139,6 @@ down well out of reach, but there is little else to see here. A ladder
 leading down, located at the far end of the platform, is the only avenue for
 movement. You can see quite clearly into the barn area below, noting the barn
 door and the window above it, and the stack of hay bales beside the door.
-
    Lying on its side nearby is an empty barrel.
 
 > z
@@ -2211,7 +2190,6 @@ additional level of storage, which comes about halfway towards the front of
 the barn. At one end of the loft you spy a moveable ladder which provides
 access to the loft. The bottom of the ladder now rests on the ground, with
 the rope that previously secured it hanging down beside the ladder.
-
    Lying on its side nearby is an empty barrel.
    A wooden plank is lying on the ground here.
    The body of one of the Ralyon warriors lies on the floor just inside the
@@ -2486,7 +2464,6 @@ dark and still, reflecting the glowering clouds overhead with startling
 clarity, although the surface is regularly disturbed by the blustery wind.
 The trail follows the ridge-line west up the mountainside, and eastwards
 down.
-
    On the other side of the pool a vixen is standing, staring at you
 intently.
 
@@ -2645,7 +2622,6 @@ parchments, and a variety of small bowls and implements. There is a cupboard
 with a glass door in the far corner of the room which holds a number of pots
 and jars, the contents of which you can't determine. Next to this is a simple
 wooden bed, and a single door leads outside.
-
    Master Limos is here, seated on a stool next to the table, and regarding
 you with keen eyes.
 
@@ -2992,7 +2968,6 @@ through which the brown stream of runoff is flowing. You can hear it
 splashing far below. The grate is damaged, though; a large hole has been
 punched through the centre. Blood is smeared across the walls of the tunnel
 here.
-
    Near the blood-spattered walls lies a similarly blood-spattered saw.
 
 > drop all
@@ -3172,7 +3147,6 @@ accessible here through a small door that opens onto the garden. The limits
 of the garden are marked by the high, stone ramparts of the castle wall that
 you can see to the east and south, silhouetted against the black curtain of
 the night sky.
-
    An old, rather shabby-looking sack is lying on the ground here.
 
 > drag sack east
@@ -3185,7 +3159,6 @@ light that is seeping in through the doorway to the west. Tools are various
 kinds are hanging on the northern and southern walls, neatly arranged in
 functional groups. A wide workbench stands against the eastern wall, but it
 is too high to see on top of.
-
    An old, rather shabby-looking sack is lying on the ground here.
    Leaning up against the bench nearby is a long-handled spade.
 
@@ -3210,7 +3183,6 @@ accessible here through a small door that opens onto the garden. The limits
 of the garden are marked by the high, stone ramparts of the castle wall that
 you can see to the east and south, silhouetted against the black curtain of
 the night sky.
-
    An old, rather shabby-looking sack is lying on the ground here. Lying on
 top of the sack is a long-handled spade.
 
@@ -3245,10 +3217,8 @@ wall, just above the floor.
 spice rack, where a number of jars and containers are stored.
    There is a narrow passage visible to the east, while a door to the west
 stands open.
-
    A long-handled broom is leaning up against the side of the hearth, next to
 the spice rack.
-
    A large, hairy dog lies on the floor just inside the western door,
 sleeping.
 
@@ -3531,7 +3501,6 @@ the far wall with curtains drawn.
 of rich green which has been spoiled by a dark, sinister stain near the edge.
     A passage leads westwards, while the door back to the corridor stands
 open to the south.
-
    Lord Vonisor is standing nearby, with a determination in his stance as if
 he is ready to attack the first enemy to come into view.
 
@@ -3925,7 +3894,6 @@ parapets and crenels along the wall, or the marks in the stones that form the
 walkway. Here at the northern end there is a door that leads back down to the
 access corridor, while the battlements continue to the south. The castle
 courtyard is visible below, lit with the fading light of the sun.
-
    Standing next to a nearby parapet is Torrin, son of Bradda.
 
    As you walk through the door that leads onto the walkway you see Tholin

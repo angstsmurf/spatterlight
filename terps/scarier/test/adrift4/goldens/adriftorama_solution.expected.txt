@@ -421,9 +421,8 @@ Stacks of papers, books, and computer manuals are strewn about all over the
 place, along with bug reports from crazed Drifters.  Campbell is at the end
 of the course, sitting on a sofa, looking over some of the bug reports.  A
 little kitten is playing around, attacking a cable that runs across the
-course and out of sight.
-Campbell is, once again, sitting on the sofa looking over bug reports from
-users of ADRIFT.
+course and out of sight.  Campbell is, once again, sitting on the sofa
+looking over bug reports from users of ADRIFT.
 
 > put ball on marker
 You put the golf ball onto the marker.

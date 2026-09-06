@@ -112,8 +112,8 @@ You move north.
 
 Hudson Supermarket
 This is the Hudson Supermarket, there are counters all around and shelves of
-food. There is a menu which tells you all of the foods for sale.
-Lisa is leaning over the counter serving customers.
+food. There is a menu which tells you all of the foods for sale.  Lisa is
+leaning over the counter serving customers.
 
 You can only move south.
 

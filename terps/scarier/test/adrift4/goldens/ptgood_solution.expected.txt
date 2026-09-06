@@ -34,17 +34,15 @@ You move southeast.
 
 Lab
 You are in a workplace for scientists. There are lots of reagents lying
-around. West is the viral containment room. East is Slan's bench.
-
-Also here is a sign.
+around. West is the viral containment room. East is Slan's bench.   Also here
+is a sign.
 
 > e
 You move east.
 
 Slan's Bench
 You are at the bench where Slan Xorax works. It is messy and sloppily
-maintained.
-Xorax is here.
+maintained.  Xorax is here.
 
 > open vial
 You open the vial, releasing the virus into the air.

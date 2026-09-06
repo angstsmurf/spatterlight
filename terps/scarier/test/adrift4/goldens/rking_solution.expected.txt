@@ -474,9 +474,8 @@ side to you. There is a nasty crack down one side, perhaps the reason why the
 drawer was removed in the first place; whatever lies beyond is difficult to
 tell due to the angle of the crack.
 
-The only direction you can roll from here appears to be to the east.
-
-Also here is the pill.
+The only direction you can roll from here appears to be to the east.  Also
+here is the pill.
 
 > roll pill east
 The pill rolls along to the east.
@@ -496,8 +495,7 @@ Around the bell you see some writing quills - each ten times your size - and
 some paperwork.
 
 You can roll in all the main compass directions: north, south, east and west.
-
-Also here is the pill.
+ Also here is the pill.
 
 > roll pill south
 The pill rolls along to the south.
@@ -579,9 +577,8 @@ the final a creased piece of paper shaped to resemble some kind of flying
 creature. What they are doing here is a mystery. Bizarre toys of High
 Chancellor Verenor's perhaps?
 
-The only direction you can roll from here appears to be to the north.
-
-Also here is the pill.
+The only direction you can roll from here appears to be to the north.  Also
+here is the pill.
 
 > x cannon
 Identical in many respects to the full size cannon you have often seen on
@@ -689,9 +686,8 @@ The mantle is not a wide one but more than adequate for your present
 dimensions. It extends both east and west, with the north being blocked by an
 imposing wall (featureless save for a mouse hole) and to the south, it seems
 a great distance away, is the desk you left. A creased piece of paper in the
-form of a flying creature can be seen to the side of the scrolls.
-
-Also here is the pill.
+form of a flying creature can be seen to the side of the scrolls.  Also here
+is the pill.
 
 > x scrolls
 The scrolls are all alike in appearance but you manage to sort out five

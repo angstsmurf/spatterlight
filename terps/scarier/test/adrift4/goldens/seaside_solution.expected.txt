@@ -32,9 +32,7 @@ dog-walkers and metal detector enthusiasts, this end of the resort is home to
 the varied pursuits of indoor bowling, five-a-side football, and drinking in
 the newly refurbished "Tides Inn" pub/bar- a late night favourite for karaoke
 enthusiasts. The western end of the beach is also home to Portobello's
-repository of graffiti.
-
-Also here is a bucket and spade.
+repository of graffiti.  Also here is a bucket and spade.
 
 You can move north, east and south.
 
@@ -67,8 +65,8 @@ East end of the beach
 The eastern end of Portobello beach, where sand turns to rock and the
 promenade is book-ended by the welcoming sight of a public toilet and a
 chinese takeaway. Looking back west, the promenade, beach, sea and distant
-hills present themselves in an almost framed, postcard-esque setting
-A local photographer is here.
+hills present themselves in an almost framed, postcard-esque setting  A local
+photographer is here.
 
 You can move north, south and west.
 
@@ -126,9 +124,7 @@ Bingo
 A visit to Portobello is arguably complete *without* playing a game of Bingo,
 and if I had to argue the case for obligatory play, I would be struggling to
 come up with a reason. Nevertheless, you have wandered into a semi-automated
-Bingo room. A game is in progress.
-
-Also here is a pen.
+Bingo room. A game is in progress.  Also here is a pen.
 
 You can only move down.
 
@@ -265,9 +261,8 @@ Municipal Baths
 Portobello's public baths serve the local population's civic swimming,
 turkish bathing and other exercise needs, under one Victorian roof. A sign on
 the wall indicates that it is only possible to partake of these facilities
-when one is the holder of a Leisure Access Card.
-
-Also here is a leisure access card form.
+when one is the holder of a Leisure Access Card.  Also here is a leisure
+access card form.
 
 You can only move out.
 
@@ -364,8 +359,8 @@ East end of the beach
 The eastern end of Portobello beach, where sand turns to rock and the
 promenade is book-ended by the welcoming sight of a public toilet and a
 chinese takeaway. Looking back west, the promenade, beach, sea and distant
-hills present themselves in an almost framed, postcard-esque setting
-A local photographer is here.
+hills present themselves in an almost framed, postcard-esque setting  A local
+photographer is here.
 
 You can move north, south and west.
 

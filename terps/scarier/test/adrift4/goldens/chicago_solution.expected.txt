@@ -66,8 +66,8 @@ wall,they used to be filled with cheap cigars. There's a poster up on the
 wall for a boxing match back in '52, it wasn't even that good of a fight. You
 can a shoeshiner sitting at the edge of the alley, his eyes watching you
 carefully. You can hear the sound of sirens as police cars zoom off, probaly
-going to investigate a crime you'll be asked to solve tomorrow.
-Shoeshiner is here.
+going to investigate a crime you'll be asked to solve tomorrow.  Shoeshiner
+is here.
 
 > give money to shoeshiner
 "Thanks mister, now what could I do for ya today."
@@ -207,8 +207,7 @@ organized business men.Say the wrong thing here,and you could be swimming
 with the fishes.It's packed tonight,most customers have come to see Harry
 Dean,a trumpet player who had appeared out of nowhere and impressed the enire
 city.The bartender standing behind the bar walks over and asks in you need
-anything.
-Bartender is here.
+anything.  Bartender is here.
 
 > ask bartender about paper
 "That must be old. Donny paid me back, he always paid me back."
@@ -235,8 +234,7 @@ You're standing in Donny's small house. As soon as you enter the house you
 can see a large ashtray on the coffee table. Daisy is sitting on the small
 couch, smoking a cigarette. You can hear Ella Fitzgerald playing from the
 house next door. It seems that Donny didn't have that much money, it's an
-extremely small house.
-Daisy is here.
+extremely small house.  Daisy is here.
 
 > take note
 You grab the note out of the ashtray and stick it in your pocket.

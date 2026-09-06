@@ -25,17 +25,15 @@ do we leave?"
 
 The Camp Site
 Workers go about their business amongst the big white tents of the camp. Your
-tent is pitched nearby, and to the north, is the trail to the tomb.
-Rupert is here.
+tent is pitched nearby, and to the north, is the trail to the tomb.  Rupert
+is here.
 
 > in
 You move in.
 
 Your Tent
 Your temporary abode is simple, but functional, consisting solely of your
-bunk and a nightstand.
-
-Also here is your rucksack.
+bunk and a nightstand.  Also here is your rucksack.
 
 > take rucksack
 You pick up your rucksack.
@@ -456,9 +454,8 @@ The walls are made of a rough cut black rock, which makes the room darker
 then the others. Standing in each corner is a pillar, each painted a
 different colour, red, green, yellow and blue.  A large symmetrical design of
 abstract shapes has been carved into the floor, with an inscription drawn in
-the centre circle.
-
-Also here is the cat, the vulture, the snake and the dung beetle.
+the centre circle.  Also here is the cat, the vulture, the snake and the dung
+beetle.
 
 > take notebook
 You take a notebook from your rucksack.
@@ -509,8 +506,7 @@ The walls are made of a rough cut black rock, which makes the room darker
 then the others. Standing in each corner is a pillar, each painted a
 different colour, red, green, yellow and blue.  A large symmetrical design of
 abstract shapes has been carved into the floor. The inscription has broken,
-revealing a secret compartment.
-Rupert is here.
+revealing a secret compartment.  Rupert is here.
 
 > take ruby
 You pick up the ruby.
@@ -550,9 +546,8 @@ you shiver.
 
 The Bottom of the well
 You're standing up to your knees in stagnant water. The sides of the well are
-smooth and slippery, making them impossible to climb.
-
-Also here is the death mask.
+smooth and slippery, making them impossible to climb.  Also here is the death
+mask.
 
 > take mask
 You pick up the death mask.
@@ -574,9 +569,7 @@ The Well Room
 The ceiling is low, the air, chilled with moisture. The large, rough bricks
 of the walls are cold and wet to the touch, due to condensation. Moss grows
 rampantly upon the mortar between them. A stone well with a wooden frame has
-been built in the middle.
-
-Also here is your rucksack.
+been built in the middle.  Also here is your rucksack.
 
 > take rucksack
 You pick up your rucksack.

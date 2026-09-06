@@ -319,9 +319,9 @@ Professor Squick. Rumours abound that he's either a vampire or just someone
 with a real liking for long capes, pale skin and neck measurements. Murder
 Drive winds away past his house and you'll be pleased to get out of here.
    Exits lie: southwest (to murder Drive [2]), northwest (to outside
-Professor Squick's house) and northeast (to murder Drive [4]).
-Balfour is crouched at the side of the road looking... strange.  Lisa follows
-you from the south-west.
+Professor Squick's house) and northeast (to murder Drive [4]).  Balfour is
+crouched at the side of the road looking... strange.  Lisa follows you from
+the south-west.
 
 > give treat to balfour
 Wondering if you're making a really big mistake, you hand the treat over to
@@ -771,8 +771,7 @@ pushed against the far wall where you also see several jars in which look to
 be stored preserved body parts. All of this is quite gruesome and unsettling
 but nothing you haven't seen before on kids TV. A passage opposite the bank
 of machines leads further into the Professor's macabre dwelling.
-   Exits lie: west (to the passage).
-Professor Squick is here.
+   Exits lie: west (to the passage).  Professor Squick is here.
 
 "Now, the zombie glue," says Squick, extending one slim, pale hand. "Hand it
 over."
@@ -1045,8 +1044,7 @@ The colonel's house is surprisingly spartan and doesn't contain anywhere near
 as many weapons as you thought it might do. In fact, aside from the anti-tank
 gun resting on the sofa and the nuclear bomb (yes, it really is a nuclear
 bomb) on the shelf by the TV, there's precious little in here at all.
-   Exits lie: south (to outside the house).
-Colonel Haggard is here.
+   Exits lie: south (to outside the house).  Colonel Haggard is here.
 
 "Wahahahaaha!" Lisa wails. "'Elp me, bruv, he's gonna eat me! Ahahahahahahh!"
    But instead of eating you, the colonel merely sets you down on the floor.

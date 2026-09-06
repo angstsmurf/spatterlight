@@ -20,9 +20,7 @@ days because of your wild ideas.  There isn't much for comfort here, and you
 didn't expect there would be.  Bamboo rods keep you imprisoned in the small
 cave. A small hole, the size of a large dinosaur egg is located at the top of
 the cave.  Unfortunately is much too high for you to reach, and too small for
-you to fit through.
-
-Also here is a drumstick.
+you to fit through.  Also here is a drumstick.
 
 > take drumstick
 You take the drumstick.

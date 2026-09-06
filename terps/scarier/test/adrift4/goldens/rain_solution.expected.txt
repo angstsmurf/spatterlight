@@ -259,9 +259,8 @@ Road to Mountains
 You have been deposited at the very foot of the towering Feather Mountain,
 the narrow, ancient path that leads to its peak still clogged with a pile of
 heavy stones that block all access to the east. Above, the sky is clear,
-devoid of a single cloud. Your village lies to the west.
-
-An oddly colored rock lying at your feet catches your eye.
+devoid of a single cloud. Your village lies to the west.  An oddly colored
+rock lying at your feet catches your eye.
 
 > take rock
 You take the rock.

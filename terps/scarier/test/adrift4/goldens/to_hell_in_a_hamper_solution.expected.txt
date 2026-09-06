@@ -70,8 +70,8 @@ foothills of the Andes. Directly ahead of us is a glow in the sky; the
 heavens themselves seem to be ablaze as the wind carries us ever nearer to an
 erupting volcano! Attached to the ropes that hold the balloon aloft is a
 brass altimeter, the one and only piece of aeronautical equipment that has
-not been sacrificed.  The basket is otherwise completely empty.
-Hubert Booby stands in the corner of the basket, peering at me suspiciously.
+not been sacrificed.  The basket is otherwise completely empty.  Hubert Booby
+stands in the corner of the basket, peering at me suspiciously.
 
 > x hubert
 Hubert is a man of prodigious girth, pasty and unhealthy looking with slicked
@@ -238,12 +238,8 @@ foothills of the Andes. Directly ahead of us is a glow in the sky; the
 heavens themselves seem to be ablaze as the wind carries us ever nearer to an
 erupting volcano! Attached to the ropes that hold the balloon aloft is a
 brass altimeter, the one and only piece of aeronautical equipment that has
-not been sacrificed.
-
-Sitting on the floor of the basket is the most enormous carpetbag I have ever
-seen.
-
-Also here is a boomerang and a smudge stick.
+not been sacrificed.  Sitting on the floor of the basket is the most enormous
+carpetbag I have ever seen.  Also here is a boomerang and a smudge stick.
 Hubert Booby stands on the other side of the basket, watching me closely.  A
 St. Bernard dog is lying fast asleep on the floor of the basket, oblivious to
 the drama unfolding before him.

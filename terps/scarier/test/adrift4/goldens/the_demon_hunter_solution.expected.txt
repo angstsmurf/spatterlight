@@ -72,10 +72,8 @@ attempted to burn but abandoned partway through.
 
 A faint humming sound can be heard, emanating from somewhere in the chamber.
 
-A passage extends northwest and another to the east.
-
-Sifting through the rubble, all you can find is one fragile scrap of
-parchment.
+A passage extends northwest and another to the east.  Sifting through the
+rubble, all you can find is one fragile scrap of parchment.
 
 > move pile
 You manage to clear away part of the debris and in doing so reveal a small
@@ -94,10 +92,8 @@ That strange humming sound is quite a bit louder here and seems to be coming
 from the south.
 
 A small passage leads to the south and ladder rungs are hewn into one wall
-leading up.
-
-In the corner your eyes latch on to a newly cleaned and very well taken care
-of spear.
+leading up.  In the corner your eyes latch on to a newly cleaned and very
+well taken care of spear.
 
 > get spear
 You take the spear feeling its cool weight in your hands.
@@ -163,9 +159,7 @@ appears to be a large quantity of books and scrolls which someone has
 attempted to burn but abandoned partway through.
 
 A passage extends northwest and another to the east and a small hole leads
-down.
-
-Sifting through the rubble, all you can find is one fragile scrap of
+down.  Sifting through the rubble, all you can find is one fragile scrap of
 parchment.
 
 > northwest
@@ -219,9 +213,7 @@ appears to be a large quantity of books and scrolls which someone has
 attempted to burn but abandoned partway through.
 
 A passage extends northwest and another to the east and a small hole leads
-down.
-
-Sifting through the rubble, all you can find is one fragile scrap of
+down.  Sifting through the rubble, all you can find is one fragile scrap of
 parchment.
 
 > east

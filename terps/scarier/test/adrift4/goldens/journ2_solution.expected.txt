@@ -34,7 +34,6 @@ moonlight straining in between the blinds over the window.  The door to the
 bathroom to the north dangles on its hinge, leaving it almost half way open.
 The bedroom door to the east is shut completely.  The dressor mirror reflects
 the red glow of the clock menacingly, nagging at you to return to sleep.
-
 Also here is the mirror.
 
 > z
@@ -103,9 +102,7 @@ The Island
  The soft sediment beneath your bare feet relaxes you with a comfortable
 feeling that you are someplace protective. There seems to be nothing else of
 interest here, besides a small wishing well, made with large, smooth rocks
-and a tall palm.
-
-Also here is a long heavy rope.
+and a tall palm.  Also here is a long heavy rope.
 
 > take rope
 You pick up the long heavy rope.
@@ -140,8 +137,7 @@ majority of the space.  An enormous creature crouches in front of the hearth,
 watching flames from a roaring fire flicker across.  A large iron gate is
 locked shut in the northwestern corner of the room.  Three other exits lead
 out, one to the east, one to the west, and one to the south.  Each is so dark
-as to not give any clue where it leads.
-The creature stands and stairs.
+as to not give any clue where it leads.  The creature stands and stairs.
         The creature suddenly jolts himself to his feet and turns his gaze
 rapidly towards you.  With a blast of hot breath from his nose, his black
 eyes pierce through you and melt your soul with uneasiness.  He watches your
@@ -233,8 +229,7 @@ majority of the space.  An enormous creature crouches in front of the hearth,
 watching flames from a roaring fire flicker across.  A large iron gate is
 locked shut in the northwestern corner of the room.  Three other exits lead
 out, one to the east, one to the west, and one to the south.  Each is so dark
-as to not give any clue where it leads.
-The creature stands and stairs.
+as to not give any clue where it leads.  The creature stands and stairs.
 
 > w
 You move west.
@@ -272,9 +267,7 @@ the skin on your hand as you feel across it.  You are able to find a door to
 what you decide to call the south wall of the room, and to the north, you
 locate a tunnel, with its entrance framed with thorny brush.  On the west
 wall, you locate a small shaft of wood, like a short pole, mounted to the
-wall.
-
-Also here is the short shaft.
+wall.  Also here is the short shaft.
 
 > left
 You can't do that here!
@@ -294,9 +287,8 @@ the room.  It is made of rough, hand-carved stone that occasionally pierces
 the skin on your hand as you feel across it.  You are able to find a door to
 what you decide to call the south wall of the room, and to the north, you
 locate a tunnel, with its entrance framed with thorny brush.  As you move
-along the west wall, your foot kicks two small stones.
-
-Also here are two small stones.
+along the west wall, your foot kicks two small stones.  Also here are two
+small stones.
 
 > take stones
 You pick up two small stones.
@@ -319,9 +311,7 @@ darkness you have lost all sense of direction and have succumbed to a feeling
 of crippling fear at the prospect of not knowing your way.          With the
 torch in hand, you can see your small path well.  There are two trails that
 lead in circles, but the main path leads on through to a room to the north.
-A card dangles from one of the branches.
-
-Also here are the King of Spades.
+A card dangles from one of the branches.  Also here are the King of Spades.
 
 > get king of spades
 You pick up the King of Spades.
@@ -349,8 +339,7 @@ majority of the space.  An enormous creature crouches in front of the hearth,
 watching flames from a roaring fire flicker across.  A large iron gate is
 locked shut in the northwestern corner of the room.  Three other exits lead
 out, one to the east, one to the west, and one to the south.  Each is so dark
-as to not give any clue where it leads.
-The creature stands and stairs.
+as to not give any clue where it leads.  The creature stands and stairs.
 
 > give cards
 Give what?

@@ -12,9 +12,7 @@ The milatary car lot was directly above the lab so most of the cars and
 trucks are completely gone , or burned to the point where the engine is
 melted in . The ground is paved with black ashfalt and a fence souronds the
 area , not a very good fence.There is only one single truck that looks
-drivable .
-
-Also here is a swade breifcase.
+drivable .  Also here is a swade breifcase.
 
 You can move east and in.
 
@@ -50,8 +48,7 @@ You can move east, west and in.
 You move in.
 The bar has some people around it , there is a bar tender behind the bar ,
 and a couple of stools . The bar is very ill lit with one light in the middle
-of the room .
-Gorge and Tom are here.
+of the room .  Gorge and Tom are here.
 
 You can only move out.
 
@@ -96,8 +93,7 @@ You can move west and in.
 You move in.
 The lock smith is standing behind the order table , there are lots of
 machines here . The lighting is provided by two 60 watts light bulbs . There
-is also a pop machine and a couch here.
-Keymaker is here.
+is also a pop machine and a couch here.  Keymaker is here.
 
 You can only move out.
 

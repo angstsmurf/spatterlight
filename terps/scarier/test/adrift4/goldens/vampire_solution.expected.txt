@@ -51,8 +51,8 @@ You move west.
 Hall
 The hall has several doors to different rooms. A small table with red roses
 in a vase is here to cheer up the guests. The hall runs from north to south.
-To the north is the elevator.
-A guard appointed by the grand master vampire is here.
+To the north is the elevator.  A guard appointed by the grand master vampire
+is here.
 
 > take roses
 You take ten red roses from the vase.
@@ -123,9 +123,7 @@ Hotel back yard
 The back yard of the hotel is dark. A garbage container stand by the hotel
 wall. Also here is the Plaza's staff door, but you don't want to go back into
 the hotel yet. There doesen't seem to be any one around. To the north is a
-road to downtown Oslo.
-
-Also here is a stick.
+road to downtown Oslo.  Also here is a stick.
 
 > take stick
 You pick up the stick.
@@ -168,9 +166,8 @@ dull modern dichotheque style. You do like the place anyway, since there is
 not a single mirror in sight. The bar itself is large and covers an entire
 wall. You count 4 beer tabs along it, and an equal amount of bartenders. You
 can go east back to the street, and another door behind the bar to the west.
-
-Bartender and The Bozo Guard are here.
-A girl at a small table by the dancefloor eyes you closly.
+   Bartender and The Bozo Guard are here.  A girl at a small table by the
+dancefloor eyes you closly.
 
 > buy beer
 You order a beer from the bartender at the bar.
@@ -386,10 +383,8 @@ dull modern dichotheque style. You do like the place anyway, since there is
 not a single mirror in sight. The bar itself is large and covers an entire
 wall. You count 4 beer tabs along it, and an equal amount of bartenders. You
 can go east back to the street, and another door behind the bar to the west.
-
-Bartender and The Bozo Guard are here.
-A girl at a small table by the dancefloor eyes you closly.  Jon Simonsen
-enters from the east.
+   Bartender and The Bozo Guard are here.  A girl at a small table by the
+dancefloor eyes you closly.  Jon Simonsen enters from the east.
 
 > w
 You move west.
@@ -475,9 +470,8 @@ dull modern dichotheque style. You do like the place anyway, since there is
 not a single mirror in sight. The bar itself is large and covers an entire
 wall. You count 4 beer tabs along it, and an equal amount of bartenders. You
 can go east back to the street, and another door behind the bar to the west.
-
-Bartender and The Bozo Guard are here.  Jon Simonsen enters from the west.
-Anette follows you from the from the west.
+   Bartender and The Bozo Guard are here.  Jon Simonsen enters from the west.
+ Anette follows you from the from the west.
 
 > e
 You move east.

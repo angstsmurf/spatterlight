@@ -154,8 +154,8 @@ YOUR CELL
 You're in the cell you share with Hoggins, an obnoxious fellow who would fart
 for the Olympics if they had such an event. Fortunately he's not here right
 now. You see his bed, the dusty patch in the corner where you spend your
-nights, a shelf containing nothing, and a door to the north.
-Your cellmate, Hoggins, is here.
+nights, a shelf containing nothing, and a door to the north.  Your cellmate,
+Hoggins, is here.
 
    "Wotcha, Bob," grunts Hoggins, letting off an enormously foul fart. "Cor!
 That wuz a stinker and no mistake! Whew!"
@@ -315,9 +315,7 @@ Twenty feet of hard concrete surrounded by a high wall: that's the exercise
 yard for you. Several inmates are here, exercising or arguing with each
 other. THTerry lies unconscious on the ground. A door leading into the prison
 is to the east while the gates are to the north and a meeting room to the
-southwest.
-
-Lying on the ground is THTerry's gun.
+southwest.  Lying on the ground is THTerry's gun.
 
 > get gun
 You take the gun.

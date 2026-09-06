@@ -83,9 +83,9 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.  Hrolf, Strug
-and Bark enter from the north.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.  Hrolf, Strug and Bark enter
+from the north.
 
 > talk to bartimony
 
@@ -212,8 +212,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 > n
 
@@ -564,10 +564,8 @@ missing weeks before wandering dazedly through the gardens, clothes torn and
 speaking of attacks by ferocious beasts. High Chancellor Verenor seldom even
 allows you in here without a week's prior notice so he can have extra guards
 summoned to protect you against possible irate gorillas attacking you.
-   To the east is the Seat of Rulership.
-
-There is an uff seed here.
-Hrolf,Your loyal bodyguards - Strug and Bark - are here.
+   To the east is the Seat of Rulership.  There is an uff seed here. Your
+loyal bodyguards - Hrolf, Strug and Bark - are here.
 
 > plant seed
 Though no expert on gardening like your son, you know a thing or two about
@@ -846,9 +844,9 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.  Hrolf, Strug
-and Bark enter from the north.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.  Hrolf, Strug and Bark enter
+from the north.
 
 > talk to bartimony
 
@@ -935,8 +933,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 Suddenly there is an almighty groan from the direction of the garden! You
 can't say for certain but you'd bet your last million gold pieces that the
@@ -1052,9 +1050,8 @@ the walls. A single clerk oversees the entire place with the kind of
 permanently harassed look which would indicate he really wishes he was the
 clerk of somewhere else instead.
    To the west is the Palace Meeting Room, guarded by several rugged
-sentinels, and to the south is the Seat of Rulership.
-Cadmus of the city guard is here.  Hrolf, Strug and Bark enter from the
-south.
+sentinels, and to the south is the Seat of Rulership.  Cadmus of the city
+guard is here.  Hrolf, Strug and Bark enter from the south.
 
 Cadmus bows deeply as you arrive in the armoury. "Your Highness, it is a
 pleasure to finally meet you. I am Cadmus, your humble servant."
@@ -1473,8 +1470,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 > talk to bartimony
 
@@ -1561,8 +1558,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 > n
 
@@ -1803,10 +1800,9 @@ behind it), half a bed, a bureau, a framed painting of your dear wife, a
 marble sculpture, an indoor pool, a fetching pair of gold trousers, your old
 throne, a stuffed hedgehog, a suit of rusty old armour and, last but
 definitely not least, the mummified remains of your father.
-   To the west can be made out the Seat of Rulership.
-
-Sure enough, the scroll dropped by the scribe is resting in the middle of the
-floor.  Thugg enters from the west.
+   To the west can be made out the Seat of Rulership.   Sure enough, the
+scroll dropped by the scribe is resting in the middle of the floor.  Thugg
+enters from the west.
 
 > read scroll
 You unfurl the tattered scroll as best you can and read:
@@ -1918,9 +1914,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.  Thugg enters
-from the north.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.  Thugg enters from the north.
 
 > talk to bartimony
 
@@ -2059,8 +2054,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 > n
 
@@ -2124,10 +2119,8 @@ behind it), half a bed, a bureau, a framed painting of your dear wife, a
 marble sculpture, an indoor pool, a fetching pair of gold trousers, your old
 throne, a stuffed hedgehog, a suit of rusty old armour and, last but
 definitely not least, the mummified remains of your father.
-   To the west can be made out the Seat of Rulership.
-
-Sure enough, the scroll dropped by the scribe is resting in the middle of the
-floor.
+   To the west can be made out the Seat of Rulership.   Sure enough, the
+scroll dropped by the scribe is resting in the middle of the floor.
 
 > put hand in hole
 You reach into the hole in the wall - and something bites your hand!
@@ -2223,8 +2216,8 @@ allows you in here without a week's prior notice so he can have extra guards
 summoned to protect you against possible irate gorillas attacking you. An uff
 tree has grown out of the seed you planted. Remarkably fast growers are uff
 trees.
-   To the east is the Seat of Rulership.
-The famous explorer, Samuel Giggo, is here.
+   To the east is the Seat of Rulership.  The famous explorer, Samuel Giggo,
+is here.
 
 > talk to samuel
 Irrespective of what you say to him, Samuel responds with, "I'm very glad you
@@ -2809,9 +2802,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.  Thugg enters
-from the north.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.  Thugg enters from the north.
 
 > talk to bartimony
 
@@ -2887,8 +2879,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 > n
 
@@ -2940,10 +2932,8 @@ behind it), half a bed, a bureau, a framed painting of your dear wife, a
 marble sculpture, an indoor pool, a fetching pair of gold trousers, your old
 throne, a stuffed hedgehog, a suit of rusty old armour and, last but
 definitely not least, the mummified remains of your father.
-   To the west can be made out the Seat of Rulership.
-
-Sure enough, the scroll dropped by the scribe is resting in the middle of the
-floor.
+   To the west can be made out the Seat of Rulership.   Sure enough, the
+scroll dropped by the scribe is resting in the middle of the floor.
 
 You quickly glance around. No, you don't see the writings on necromancy
 anywhere. It seems the scribe has put them here somewhere, but apparently not
@@ -3039,8 +3029,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 > talk to bartimony
 
@@ -3101,8 +3091,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 > n
 
@@ -3178,10 +3168,8 @@ behind it), half a bed, a bureau, a framed painting of your dear wife, a
 marble sculpture, an indoor pool, a fetching pair of gold trousers, your old
 throne, a stuffed hedgehog, a suit of rusty old armour and, last but
 definitely not least, the mummified remains of your father.
-   To the west can be made out the Seat of Rulership.
-
-Sure enough, the scroll dropped by the scribe is resting in the middle of the
-floor.
+   To the west can be made out the Seat of Rulership.   Sure enough, the
+scroll dropped by the scribe is resting in the middle of the floor.
 
 > come forth
 "Come forth!" you cry. At once, the phial, the chalk and the canum disappear,
@@ -3418,10 +3406,8 @@ behind it), half a bed, a bureau, a framed painting of your dear wife, a
 marble sculpture, an indoor pool, a fetching pair of gold trousers, your old
 throne, a stuffed hedgehog, a suit of rusty old armour and, last but
 definitely not least, the mummified remains of your father.
-   To the west can be made out the Seat of Rulership.
-
-Sure enough, the scroll dropped by the scribe is resting in the middle of the
-floor.
+   To the west can be made out the Seat of Rulership.   Sure enough, the
+scroll dropped by the scribe is resting in the middle of the floor.
 
 It's to be hoped that you got everything you needed from your father during
 your brief chat with him. The materials you gathered together in order to
@@ -3451,9 +3437,9 @@ notice there are rather a lot of them. On one wall hangs a notice board.
    Passages leads away from the Seat of Rulership in the four cardinal
 compass directions: north to the armoury; east to your personal chambers;
 south to the palace archives; west to the palace gardens. A huge weight can
-be seen hanging from the ceiling, swaying precariously back and forth.
-Your loyal servant, Ibben, waits patiently by the throne for your command.
-Thugg enters from the east.
+be seen hanging from the ceiling, swaying precariously back and forth.   Your
+loyal servant, Ibben, waits patiently by the throne for your command.  Thugg
+enters from the east.
 
 > ibben hammer
 Ibben nods and goes running. He returns a minute later clutching a rather
@@ -3542,9 +3528,9 @@ notice there are rather a lot of them. On one wall hangs a notice board.
    Passages leads away from the Seat of Rulership in the four cardinal
 compass directions: north to the armoury; east to your personal chambers;
 south to the palace archives; west to the palace gardens. A huge weight can
-be seen hanging from the ceiling, swaying precariously back and forth.
-Your loyal servant, Ibben, waits patiently by the throne for your command.
-Thugg enters from the north.
+be seen hanging from the ceiling, swaying precariously back and forth.   Your
+loyal servant, Ibben, waits patiently by the throne for your command.  Thugg
+enters from the north.
 
 > w
 
@@ -3566,9 +3552,8 @@ allows you in here without a week's prior notice so he can have extra guards
 summoned to protect you against possible irate gorillas attacking you. An uff
 tree has grown out of the seed you planted. Remarkably fast growers are uff
 trees.
-   To the east is the Seat of Rulership.
-Volturnus stands closeby, an aura of power radiating around him.  Thugg
-enters from the east.
+   To the east is the Seat of Rulership.  Volturnus stands closeby, an aura
+of power radiating around him.  Thugg enters from the east.
 
 > give parchment to volturnus
 You expect Volturnus to be disappointed that all you found with Davien's
@@ -3626,9 +3611,9 @@ notice there are rather a lot of them. On one wall hangs a notice board.
    Passages leads away from the Seat of Rulership in the four cardinal
 compass directions: north to the armoury; east to your personal chambers;
 south to the palace archives; west to the palace gardens. A huge weight can
-be seen hanging from the ceiling, swaying precariously back and forth.
-Your loyal servant, Ibben, waits patiently by the throne for your command.
-Thugg enters from the west.
+be seen hanging from the ceiling, swaying precariously back and forth.   Your
+loyal servant, Ibben, waits patiently by the throne for your command.  Thugg
+enters from the west.
 
 > read notice board
 You study the current page of the notice board and see:
@@ -3662,9 +3647,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.  Thugg enters
-from the north.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.  Thugg enters from the north.
 
 > talk to bartimony
 
@@ -3734,8 +3718,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 > n
 
@@ -3760,8 +3744,8 @@ notice there are rather a lot of them. On one wall hangs a notice board.
    Passages leads away from the Seat of Rulership in the four cardinal
 compass directions: north to the armoury; east to your personal chambers;
 south to the palace archives; west to the palace gardens. A huge weight can
-be seen hanging from the ceiling, swaying precariously back and forth.
-Your loyal servant, Ibben, waits patiently by the throne for your command.
+be seen hanging from the ceiling, swaying precariously back and forth.   Your
+loyal servant, Ibben, waits patiently by the throne for your command.
 
 Faintly, you hear a bell ring. It seems another meeting is about to commence
 in the Meeting Room.
@@ -4185,9 +4169,9 @@ notice there are rather a lot of them. On one wall hangs a notice board.
    Passages leads away from the Seat of Rulership in the four cardinal
 compass directions: north to the armoury; east to your personal chambers;
 south to the palace archives; west to the palace gardens. A huge weight can
-be seen hanging from the ceiling, swaying precariously back and forth.
-Your loyal servant, Ibben, waits patiently by the throne for your command.
-Thugg enters from the north.
+be seen hanging from the ceiling, swaying precariously back and forth.   Your
+loyal servant, Ibben, waits patiently by the throne for your command.  Thugg
+enters from the north.
 
 > z
 Time passes...
@@ -4233,11 +4217,9 @@ behind it), half a bed, a bureau, a framed painting of your dear wife, a
 marble sculpture, an indoor pool, a fetching pair of gold trousers, your old
 throne, a stuffed hedgehog, a suit of rusty old armour and, last but
 definitely not least, the mummified remains of your father.
-   To the west can be made out the Seat of Rulership.
-
-Sure enough, the scroll dropped by the scribe is resting in the middle of the
-floor.
-Tavrin the mage hunter is here.  Thugg enters from the west.
+   To the west can be made out the Seat of Rulership.   Sure enough, the
+scroll dropped by the scribe is resting in the middle of the floor.  Tavrin
+the mage hunter is here.  Thugg enters from the west.
 
 "Well, well," says Tavrin the mage hunter (aka Simkin), "I'd say it was a
 pleasure to meet you, Your Highness, but that would be a lie."
@@ -4321,9 +4303,9 @@ notice there are rather a lot of them. On one wall hangs a notice board.
    Passages leads away from the Seat of Rulership in the four cardinal
 compass directions: north to the armoury; east to your personal chambers;
 south to the palace archives; west to the palace gardens. A huge weight can
-be seen hanging from the ceiling, swaying precariously back and forth.
-Your loyal servant, Ibben, waits patiently by the throne for your command.
-Thugg enters from the east.
+be seen hanging from the ceiling, swaying precariously back and forth.   Your
+loyal servant, Ibben, waits patiently by the throne for your command.  Thugg
+enters from the east.
 
 > w
 
@@ -4392,9 +4374,9 @@ notice there are rather a lot of them. On one wall hangs a notice board.
    Passages leads away from the Seat of Rulership in the four cardinal
 compass directions: north to the armoury; east to your personal chambers;
 south to the palace archives; west to the palace gardens. A huge weight can
-be seen hanging from the ceiling, swaying precariously back and forth.
-Your loyal servant, Ibben, waits patiently by the throne for your command.
-Thugg enters from the west.
+be seen hanging from the ceiling, swaying precariously back and forth.   Your
+loyal servant, Ibben, waits patiently by the throne for your command.  Thugg
+enters from the west.
 
 > e
 
@@ -4416,13 +4398,9 @@ behind it), half a bed, a bureau, a framed painting of your dear wife, a
 marble sculpture, an indoor pool, a fetching pair of gold trousers, your old
 throne, a stuffed hedgehog, a suit of rusty old armour and, last but
 definitely not least, the mummified remains of your father.
-   To the west can be made out the Seat of Rulership.
-
-Sure enough, the scroll dropped by the scribe is resting in the middle of the
-floor.
-
-Also here is a red herring, a net and a tuning fork.  Thugg enters from the
-west.
+   To the west can be made out the Seat of Rulership.   Sure enough, the
+scroll dropped by the scribe is resting in the middle of the floor.  Also
+here is a red herring, a net and a tuning fork.  Thugg enters from the west.
 
 > get net
 You take the net.
@@ -4644,12 +4622,9 @@ behind it), half a bed, a bureau, a framed painting of your dear wife, a
 marble sculpture, an indoor pool, a fetching pair of gold trousers, your old
 throne, a stuffed hedgehog, a suit of rusty old armour and, last but
 definitely not least, the mummified remains of your father.
-   To the west can be made out the Seat of Rulership.
-
-Sure enough, the scroll dropped by the scribe is resting in the middle of the
-floor.
-
-Also here is a red herring, a tome, a crown and some snuff.
+   To the west can be made out the Seat of Rulership.   Sure enough, the
+scroll dropped by the scribe is resting in the middle of the floor.  Also
+here is a red herring, a tome, a crown and some snuff.
 
 Hmmm... You notice several items have been dumped (you'll have to have a word
 with the staff about that) in an untidy pile in the middle of the floor. A
@@ -4783,8 +4758,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 "The Shatter ability, master Volturnus. In short: release a blast of magical
 energy at a specific object. Unfortunately, the crown has not been recharged
@@ -4916,8 +4891,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 "The Cheat Death ability, master Volturnus. In short: renders the wearer of
 the crown totally invulnerable to all harm, both physical and mental and
@@ -5104,12 +5079,9 @@ behind it), half a bed, a bureau, a framed painting of your dear wife, a
 marble sculpture, an indoor pool, a fetching pair of gold trousers, your old
 throne, a stuffed hedgehog, a suit of rusty old armour and, last but
 definitely not least, the mummified remains of your father.
-   To the west can be made out the Seat of Rulership.
-
-Sure enough, the scroll dropped by the scribe is resting in the middle of the
-floor.
-
-Also here is a red herring, a tome and some snuff.
+   To the west can be made out the Seat of Rulership.   Sure enough, the
+scroll dropped by the scribe is resting in the middle of the floor.  Also
+here is a red herring, a tome and some snuff.
 
 > shout
 You let out a piercing shout.
@@ -5335,9 +5307,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.  Thugg enters
-from the north.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.  Thugg enters from the north.
 
 The moment you enter the palace archives, Bartimony looks at you and frowns.
    Then smiles.
@@ -5421,8 +5392,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 > n
 
@@ -5469,12 +5440,9 @@ behind it), half a bed, a bureau, a framed painting of your dear wife, a
 marble sculpture, an indoor pool, a fetching pair of gold trousers, your old
 throne, a stuffed hedgehog, a suit of rusty old armour and, last but
 definitely not least, the mummified remains of your father.
-   To the west can be made out the Seat of Rulership.
-
-Sure enough, the scroll dropped by the scribe is resting in the middle of the
-floor.
-
-Also here is a red herring, a tome and some snuff.
+   To the west can be made out the Seat of Rulership.   Sure enough, the
+scroll dropped by the scribe is resting in the middle of the floor.  Also
+here is a red herring, a tome and some snuff.
 
 > blow whistle
 You blow the whistle long and loud.
@@ -5737,9 +5705,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.  Thugg enters
-from the north.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.  Thugg enters from the north.
 
 > talk to bartimony
 "I see the ritual is proceeding well, Your Highness," says Bartimony. "Your
@@ -5946,8 +5913,8 @@ the idea occurred to him.
    Where you're standing now offers an excellent view of a huge pile of
 scrolls, stacked haphazardly on top of each other and swaying alarmingly from
 side to side. There are paths through the piles to the southwest and
-southeast while the Seat of Rulership lies back to the north.
-Bartimony the Learned (chief scribe of the archives) is here.
+southeast while the Seat of Rulership lies back to the north.  Bartimony the
+Learned (chief scribe of the archives) is here.
 
 > n
 
@@ -6024,13 +5991,10 @@ behind it), half a bed, a bureau, a framed painting of your dear wife, a
 marble sculpture, an indoor pool, a fetching pair of gold trousers, your old
 throne, a stuffed hedgehog, a suit of rusty old armour and, last but
 definitely not least, the mummified remains of your father.
-   To the west can be made out the Seat of Rulership.
-
-Sure enough, the scroll dropped by the scribe is resting in the middle of the
-floor.
-
-Also here is a red herring, a tome and some snuff.
-Marla (AKA Death's secretary) is here.
+   To the west can be made out the Seat of Rulership.   Sure enough, the
+scroll dropped by the scribe is resting in the middle of the floor.  Also
+here is a red herring, a tome and some snuff.  Marla (AKA Death's secretary)
+is here.
 
 "Your Highness," says Marla, the secretary of Death, "I'd say it was a
 pleasure to meet you, but you've caused an unnecessary amount of extra work

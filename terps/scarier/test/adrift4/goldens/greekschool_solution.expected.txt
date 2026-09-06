@@ -198,8 +198,8 @@ You are standing just outside of the humble quad that you call home. A
 sidewalk passes in front of the door that  goes in front of each of the
 quads. The 1st Quad is to the west, and the Arch is to the east. There is
 also a bench here for seminarians to sit on while talking to each other or
-meditating on the truths of the universe.
-Paul is here, grumbling to himself and looking somewhat perplexed.
+meditating on the truths of the universe.  Paul is here, grumbling to himself
+and looking somewhat perplexed.
 
 You can move east and west.
 Paul gives you a look over, then resumes his searching.
@@ -243,8 +243,7 @@ The first part of the Seminary that you ever got to see, this parking lot
 holds about half of the student vehicles and can get quite full during the
 daytime. There is a stairwell that leads down to a basement underneath the
 building. To the south is the Arch, and a service door leads east into the
-Richards Center Kitchen.
-Jimmy is here.
+Richards Center Kitchen.  Jimmy is here.
 
 You can move south and down.
 
@@ -273,8 +272,7 @@ A great little place to get away from the seminary bubble, this little tavern
 has been a favorite of student's for years. The people are friendly, the
 chairs are comfortable, and the bar is stocked. What else could you want? The
 bathrooms are to the south, the parking lot is to the north, and there is a
-neat patio area to the west.
-Jimmy and Marie the bartender are here.
+neat patio area to the west.  Jimmy and Marie the bartender are here.
 
 You can move north, south and west.
 
@@ -326,8 +324,8 @@ You are standing just outside of the humble quad that you call home. A
 sidewalk passes in front of the door that  goes in front of each of the
 quads. The 1st Quad is to the west, and the Arch is to the east. There is
 also a bench here for seminarians to sit on while talking to each other or
-meditating on the truths of the universe.
-Paul is here, grumbling to himself and looking somewhat perplexed.
+meditating on the truths of the universe.  Paul is here, grumbling to himself
+and looking somewhat perplexed.
 
 You can move east and west.
 Paul gives you a look over, then resumes his searching.
@@ -388,8 +386,8 @@ Campbell Hall Lobby
 The furniture in here is so nice, you got a stern look from the president
 once just for sitting on it. Clearly designed more for the high-rollers than
 lowly M-Div students, this lobby has been mostly empty all summer. After all,
-who in their right mind would move to Atlanta in the summertime?
-Larry is here.
+who in their right mind would move to Atlanta in the summertime?  Larry is
+here.
 
 You can move north and south.
 
@@ -437,8 +435,8 @@ Campbell Hall Lobby
 The furniture in here is so nice, you got a stern look from the president
 once just for sitting on it. Clearly designed more for the high-rollers than
 lowly M-Div students, this lobby has been mostly empty all summer. After all,
-who in their right mind would move to Atlanta in the summertime?
-Larry is here.
+who in their right mind would move to Atlanta in the summertime?  Larry is
+here.
 
 You can move north and south.
 
@@ -475,8 +473,8 @@ CH 2nd floor north
 You are standing at the northern end of the 2nd floor hallway in Campbell
 Hall. To the west lies the main lecture hall where you would learn greek if
 you were so inclined. To the south lies the room where your small group
-meets, and the chapel. To the north is  the main stairwell.
-Mr. Deedles is here.
+meets, and the chapel. To the north is  the main stairwell.   Mr. Deedles is
+here.
 
 You can move north and south.
 
@@ -496,8 +494,8 @@ This is supposed to be education. The room is large, so as to accomodate the
 entire class, and the seats are on risers to aid the view. With the exception
 of a single seat, the room is also packed full. Wanting to take full
 advantage of this, your seat is in the back, as Professor Johnson refuses to
-teach you when you sit on the floor. To the east is the main hallway.
-Sarah is here.
+teach you when you sit on the floor. To the east is the main hallway.  Sarah
+is here.
 
 You can only move east.
 
@@ -524,8 +522,8 @@ CH 2nd floor north
 You are standing at the northern end of the 2nd floor hallway in Campbell
 Hall. To the west lies the main lecture hall where you would learn greek if
 you were so inclined. To the south lies the room where your small group
-meets, and the chapel. To the north is  the main stairwell.
-Sarah and Marc are here.
+meets, and the chapel. To the north is  the main stairwell.   Sarah and Marc
+are here.
 
 You can move north, south and west.
 
@@ -584,8 +582,7 @@ Prof. Johnson's office
 You've never seen so many books on greek language in one place... they're
 everywhere, written in many other languages that you also don't speak. In the
 middle of this shrine to a dead language is the professor's desk, which is
-covered in papers. The hallway lies to the east.
-Johnson is here.
+covered in papers. The hallway lies to the east.  Johnson is here.
 
 You can only move east.
 
@@ -690,8 +687,8 @@ CH 2nd floor north
 You are standing at the northern end of the 2nd floor hallway in Campbell
 Hall. To the west lies the main lecture hall where you would learn greek if
 you were so inclined. To the south lies the room where your small group
-meets, and the chapel. To the north is  the main stairwell.
-Sarah and Marc are here.
+meets, and the chapel. To the north is  the main stairwell.   Sarah and Marc
+are here.
 
 You can move north, south and west.
 
@@ -714,8 +711,7 @@ This cramped classroom plays host to your greek precept. Given your
 relationship with your preceptor, you spend as little time here as possible.
 There are a number of chairs here around the table, yours is the stool
 closest to the door. As usual, every other seat is taken by students eager to
-study.
-Chris is here.
+study.  Chris is here.
 
 You can only move west.
 
@@ -746,9 +742,7 @@ CH 2nd floor South
 You are at the south end of the 2nd floor hallway of Campbell hall. To the
 east is room CH 203, where your Greek Practicum meets. Further north off of
 the hallway is the main lecture hall and the main stairwell. South of here is
-the Chapel lobby.
-
-Also here is crumpled note.
+the Chapel lobby.   Also here is crumpled note.
 
 You can move north, east and south.
 
@@ -828,8 +822,8 @@ You are standing just outside of the humble quad that you call home. A
 sidewalk passes in front of the door that  goes in front of each of the
 quads. The 1st Quad is to the west, and the Arch is to the east. There is
 also a bench here for seminarians to sit on while talking to each other or
-meditating on the truths of the universe.
-Paul is here, grumbling to himself and looking somewhat perplexed.
+meditating on the truths of the universe.  Paul is here, grumbling to himself
+and looking somewhat perplexed.
 
 You can move east, west and up.
 Paul gives you a look over, then resumes his searching.
@@ -927,8 +921,8 @@ You are standing just outside of the humble quad that you call home. A
 sidewalk passes in front of the door that  goes in front of each of the
 quads. The 1st Quad is to the west, and the Arch is to the east. There is
 also a bench here for seminarians to sit on while talking to each other or
-meditating on the truths of the universe.
-Paul is here, grumbling to himself and looking somewhat perplexed.
+meditating on the truths of the universe.  Paul is here, grumbling to himself
+and looking somewhat perplexed.
 
 You can move east, west and up.
 Paul gives you a look over, then resumes his searching.
@@ -1019,8 +1013,7 @@ Prof. Johnson's office
 You've never seen so many books on greek language in one place... they're
 everywhere, written in many other languages that you also don't speak. In the
 middle of this shrine to a dead language is the professor's desk, which is
-covered in papers. The hallway lies to the east.
-Johnson is here.
+covered in papers. The hallway lies to the east.  Johnson is here.
 
 You can only move east.
 
@@ -1069,8 +1062,7 @@ You move north.
 More Dark
 You seem to have landed in the midst of endless void. Occasional flashes of
 light pass your vision but you have no real context for them... there seems
-to be nothing for them to illuminate.
-Descartes is here.
+to be nothing for them to illuminate.   Descartes is here.
 
 You can move north, east, south, west, up and down.
 
@@ -1095,8 +1087,7 @@ You move north.
 More Chaos
 Where once there was only emptiness, occasionally streaked with the odd bit
 of light, you know find yourself surrounded by light and color, dazzling and
-flying around in insane, impossible patterns and mixtures.
-Crusader is here.
+flying around in insane, impossible patterns and mixtures.  Crusader is here.
 
 You can move north, east, south, west, up and down.
 
@@ -1207,7 +1198,7 @@ You can see your bed, your desk, your dresser, and two doors, one leading
 west to your bathroom and the other south to the main hallway. The south door
 has a large mirror on it.
 
-Also here is Jimmy's note.
+  Also here is Jimmy's note.
 
 You can move south and west.
 
@@ -1251,8 +1242,8 @@ You are standing just outside of the humble quad that you call home. A
 sidewalk passes in front of the door that  goes in front of each of the
 quads. The 1st Quad is to the west, and the Arch is to the east. There is
 also a bench here for seminarians to sit on while talking to each other or
-meditating on the truths of the universe.
-Paul is here, grumbling to himself and looking somewhat perplexed.
+meditating on the truths of the universe.  Paul is here, grumbling to himself
+and looking somewhat perplexed.
 
 You can move east, west and up.
 Paul gives you a look over, then resumes his searching.
@@ -1264,8 +1255,7 @@ In front of the Arch
 You are standing at the south end of the famous Simons-Law Arch, a typical
 meeting place for almost any off-campus occasion. A path heading towards
 Campell Hall leads to the South, and a walkway in front of Simons-Law goes
-west and east. To the north is the Arch itself.
-Street Preacher is here.
+west and east. To the north is the Arch itself.  Street Preacher is here.
 
 You can move north, east, south and west.
 
@@ -1310,8 +1300,8 @@ Campbell Hall Lobby
 The furniture in here is so nice, you got a stern look from the president
 once just for sitting on it. Clearly designed more for the high-rollers than
 lowly M-Div students, this lobby has been mostly empty all summer. After all,
-who in their right mind would move to Atlanta in the summertime?
-Larry is here.
+who in their right mind would move to Atlanta in the summertime?  Larry is
+here.
 
 You can move north and south.
 
@@ -1359,8 +1349,8 @@ Campbell Hall Lobby
 The furniture in here is so nice, you got a stern look from the president
 once just for sitting on it. Clearly designed more for the high-rollers than
 lowly M-Div students, this lobby has been mostly empty all summer. After all,
-who in their right mind would move to Atlanta in the summertime?
-Larry is here.
+who in their right mind would move to Atlanta in the summertime?  Larry is
+here.
 
 You can move north and south.
 
@@ -1405,8 +1395,7 @@ In front of the Arch
 You are standing at the south end of the famous Simons-Law Arch, a typical
 meeting place for almost any off-campus occasion. A path heading towards
 Campell Hall leads to the South, and a walkway in front of Simons-Law goes
-west and east. To the north is the Arch itself.
-Street Preacher is here.
+west and east. To the north is the Arch itself.  Street Preacher is here.
 
 You can move north, east, south and west.
 
@@ -1450,8 +1439,8 @@ Richards Center Lobby
 This is the main lobby of the Richards Center. To the west is the bookstore,
 which has yet to be open since you arrived at the start of summer. To the
 north is the Refectory, the source of food and various forms of depression,
-and to the east is a TV lounge. There is also a strange statue here.
-Jesus and Deedles are here.
+and to the east is a TV lounge. There is also a strange statue here.  Jesus
+and Deedles are here.
 
 You can move north, east and south.
 
@@ -1471,9 +1460,7 @@ important campus documents. No one is really sure why.
 A small table has been placed by the door, holding a pile of take home tests.
 Looks like it's go time, Player.
 
-To the west is the lobby.
-
-Also here is take home exam.
+To the west is the lobby.  Also here is take home exam.
 
 You can only move west.
 
@@ -1487,8 +1474,8 @@ Richards Center Lobby
 This is the main lobby of the Richards Center. To the west is the bookstore,
 which has yet to be open since you arrived at the start of summer. To the
 north is the Refectory, the source of food and various forms of depression,
-and to the east is a TV lounge. There is also a strange statue here.
-Jesus and Deedles are here.
+and to the east is a TV lounge. There is also a strange statue here.  Jesus
+and Deedles are here.
 
 You can move north, east and south.
 
@@ -1532,8 +1519,7 @@ In front of the Arch
 You are standing at the south end of the famous Simons-Law Arch, a typical
 meeting place for almost any off-campus occasion. A path heading towards
 Campell Hall leads to the South, and a walkway in front of Simons-Law goes
-west and east. To the north is the Arch itself.
-Street Preacher is here.
+west and east. To the north is the Arch itself.  Street Preacher is here.
 
 You can move north, east, south and west.
 
@@ -1545,8 +1531,8 @@ You are standing just outside of the humble quad that you call home. A
 sidewalk passes in front of the door that  goes in front of each of the
 quads. The 1st Quad is to the west, and the Arch is to the east. There is
 also a bench here for seminarians to sit on while talking to each other or
-meditating on the truths of the universe.
-Paul is here, grumbling to himself and looking somewhat perplexed.
+meditating on the truths of the universe.  Paul is here, grumbling to himself
+and looking somewhat perplexed.
 
 You can move east, west and up.
 Paul gives you a look over, then resumes his searching.
@@ -1597,7 +1583,7 @@ You can see your bed, your desk, your dresser, and two doors, one leading
 west to your bathroom and the other south to the main hallway. The south door
 has a large mirror on it.
 
-Also here is Jimmy's note.
+  Also here is Jimmy's note.
 
 You can move south and west.
 

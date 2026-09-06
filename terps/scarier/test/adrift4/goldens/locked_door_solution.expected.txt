@@ -65,9 +65,8 @@ as the walls are smooth, but rippled.  The walls curve upward to form a
 ceiling.  The cavernous ceiling domes over a pool of murky green water.  To
 the east is a rectangular doorway.  Projecting from the western wall, set
 over the pool is large steel pipe.  To the east is a rectangular doorway,
-that is carved out of the soft rock.
-
-There is a heavy wooden table set next to the doorway.
+that is carved out of the soft rock.  There is a heavy wooden table set next
+to the doorway.
 
 > east
 You move east.
@@ -85,9 +84,8 @@ Iron Doorway
 This room is carved out of the soft limestone.  The walls have been carefully
 smoothed over.  In the northern wall of the room is a large iron door.  A set
 of shining metal chains hang from the ceiling next to the iron door.  The
-floor, cut from the same limestone, also has a smooth appearance.
-
-There is a small wooden bucket set on the floor.
+floor, cut from the same limestone, also has a smooth appearance.  There is a
+small wooden bucket set on the floor.
 
 > get bucket
 You pick up the wooden bucket.

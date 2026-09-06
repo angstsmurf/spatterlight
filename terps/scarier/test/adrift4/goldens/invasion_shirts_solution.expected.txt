@@ -52,8 +52,7 @@ You move east.
 Brook
 This is a brook, a creek, a crick.  Whatever you want to call it, it is a
 small body of running water.  The sound of the running water makes you want
-to pee.
-A giant leech is sitting on the shore, playing an accoustic guitar.
+to pee.  A giant leech is sitting on the shore, playing an accoustic guitar.
 
 > x brook
 You look more closely at the creek and notice a woman swimming in the water.
@@ -133,8 +132,7 @@ Sphere enters.
 
 Helium Balloon
 You're floating through the air above the trees.  There is a microwave oven
-here.
-The silver sphere is here.
+here.  The silver sphere is here.
 
 > quit
 Do you really want to quit? [Y/N]

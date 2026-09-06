@@ -40,12 +40,10 @@ feel a very sad place.  The platform is covered by a canopy which neither
 protects from the rain or wind.  Attached to the wall is a large clock with a
 poster stuck right next to it.  To the west is a bridge leading over the
 tracks to platform two and east is the waiting room. To the south is a set of
-double doors with glass panels.
-
-Against the wall you can see one of those wire frame rubbish bins.
-A porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A trainspotter dressed in wet weather gear is watching
-you.
+double doors with glass panels.  Against the wall you can see one of those
+wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
+is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
+weather gear is watching you.
 
 > exam bin
 You can see a wire rubbish (trash) basket with some of the wires are sticking
@@ -158,12 +156,10 @@ feel a very sad place.  The platform is covered by a canopy which neither
 protects from the rain or wind.  Attached to the wall is a large clock with a
 poster stuck right next to it.  To the west is a bridge leading over the
 tracks to platform two and east is the waiting room. To the south is a set of
-double doors with glass panels.
-
-Against the wall you can see one of those wire frame rubbish bins.
-A porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A trainspotter dressed in wet weather gear is watching
-you.
+double doors with glass panels.  Against the wall you can see one of those
+wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
+is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
+weather gear is watching you.
 
 You hear a door close.
 
@@ -183,14 +179,10 @@ feel a very sad place.  The platform is covered by a canopy which neither
 protects from the rain or wind.  Attached to the wall is a large clock with a
 poster stuck right next to it.  To the west is a bridge leading over the
 tracks to platform two and east is the waiting room. To the south is a set of
-double doors with glass panels.
-
-Against the wall you can see one of those wire frame rubbish bins.
-
-You can also see a booklet.
-A porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A trainspotter dressed in wet weather gear is watching
-you.
+double doors with glass panels.  Against the wall you can see one of those
+wire frame rubbish bins.  You can also see a booklet.  A porter is here
+leaning against the wall.  A drunk is sleeping off a heavy night on a bench.
+A trainspotter dressed in wet weather gear is watching you.
 The trainspotter looks at his watch and writes in his book.
 
 > get booklet
@@ -234,8 +226,8 @@ wide. The narrow bottom and wide flaring sides makes for easy rowing. They
 are used the world over in all weather conditions, although you hope to be
 home long before you put that to the test. In the bottom of the boat is an
 odd looking shape. You can see a wooden ladder which leads up to the jetty.
-The boat is currently tied to the ladder.
-A ghostly figure is floating in the bottom of the boat.
+The boat is currently tied to the ladder.  A ghostly figure is floating in
+the bottom of the boat.
 
 > talk to ghost
 In almost a whisper, "All is quiet, all is in darkness. Identify the location
@@ -290,12 +282,10 @@ feel a very sad place.  The platform is covered by a canopy which neither
 protects from the rain or wind.  Attached to the wall is a large clock with a
 poster stuck right next to it.  To the west is a bridge leading over the
 tracks to platform two and east is the waiting room. To the south is a set of
-double doors with glass panels.
-
-Against the wall you can see one of those wire frame rubbish bins.
-A porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A trainspotter dressed in wet weather gear is watching
-you.
+double doors with glass panels.  Against the wall you can see one of those
+wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
+is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
+weather gear is watching you.
 
 > east
 You move east, pushing through thick fog.
@@ -305,10 +295,9 @@ The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
 pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
-Road and the yard behind the pub is to the south.
-A cat is silently wandering around.  Colin Turner is standing at the bar.
-Fred Sutton is staring vacantly around.  Emma Taylor is standing behind the
-bar.
+Road and the yard behind the pub is to the south.  A cat is silently
+wandering around.  Colin Turner is standing at the bar.  Fred Sutton is
+staring vacantly around.  Emma Taylor is standing behind the bar.
 
 Looking at your manhood and smiling Emma remarks, "Hello love, you will catch
 a cold dressed like that!".
@@ -388,11 +377,9 @@ malevolent shadows, seeming to move with a life of their own, though these
 are glimpses seen from the corner of your eye that vanish the moment you look
 closely at them.
 
-Passages in the ruined walls of this place lie to the east and west.
-
-You can also see a pair of overalls.
-A cat is silently wandering around.  A small black and white cat strolls out
-to the west.
+Passages in the ruined walls of this place lie to the east and west.  You can
+also see a pair of overalls.  A cat is silently wandering around.  A small
+black and white cat strolls out to the west.
 
 > get jewel
 Using the rib, you prise the jewel from its resting place.  Now you have the
@@ -405,10 +392,8 @@ Storeroom
 The long, low room smells of oil and something else which you can't quite
 place.  Nearly all the available space is filled with pipes, cables and
 junction boxes.  Pushed against one wall is a large wooden crate. To the west
-are some stairs.
-
-You can also see a brick.
-A worried looking lab assistant is trying to hide.
+are some stairs.  You can also see a brick.  A worried looking lab assistant
+is trying to hide.
 
 > talk to assistant
 Looking around he says, "I think I'm infected with the Pestilence. I need the
@@ -443,9 +428,8 @@ malevolent shadows, seeming to move with a life of their own, though these
 are glimpses seen from the corner of your eye that vanish the moment you look
 closely at them.
 
-Passages in the ruined walls of this place lie to the east and west.
-
-You can also see a pair of overalls.
+Passages in the ruined walls of this place lie to the east and west.  You can
+also see a pair of overalls.
 
 > west
 You move west.
@@ -467,9 +451,9 @@ The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
 pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
-Road and the yard behind the pub is to the south.
-Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
- Emma Taylor is standing behind the bar.
+Road and the yard behind the pub is to the south.  Colin Turner is standing
+at the bar.  Fred Sutton is staring vacantly around.  Emma Taylor is standing
+behind the bar.
 Colin and Fred are talking about a boxing match on the television last night.
 
 > south
@@ -478,11 +462,10 @@ You move south.
 The Yard
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
-exits are through a metal gate to the south and back into the pub north.
-
-You can also see a photograph.
-A cat is silently wandering around.  Jed Peters is watching you carefully.  A
-small black and white cat strolls out to the north.
+exits are through a metal gate to the south and back into the pub north.  You
+can also see a photograph.  A cat is silently wandering around.  Jed Peters
+is watching you carefully.  A small black and white cat strolls out to the
+north.
 
 As you stand in the yard you realise how quiet a place it is, which must be
 something to do with the high walls surrounding it. Quietly to yourself, "If
@@ -506,8 +489,8 @@ looking curtains sit either side of the window.   In the middle of the room
 stands a lopsided coffee table.  The room has the usual things a bachelor's
 place has namely an uncomfortable settee, a battered old armchair, narrow
 screen television and what looks like a dvd player. To the east you can see
-what looks like the hall and from the smell of it the kitchen is west.
-John is currently slumped in the armchair.
+what looks like the hall and from the smell of it the kitchen is west.  John
+is currently slumped in the armchair.
 
 John looks up, "Boy, that was a heavy night". He yawns very noisily and
 noticing you, "Lost your clothes then?". He does not wait for an answer.
@@ -521,8 +504,7 @@ You move east.
 The Throat
 You are in a smooth, slippery tube with a shiny pink lining.  From here the
 mouth is west and the stomach east. On both sides of the throat are ball-like
-clumbs of tissue.
-Millions of your relatives are here.
+clumbs of tissue.  Millions of your relatives are here.
 
 > infect tonsils
 They are now Infected!
@@ -572,8 +554,8 @@ Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
 standard hidden lighting set to a low level, most of the room is in gloom. A
 security monitor is on one side of the room, to your right the interrogator
-and virtually opposite is the teleporter.
-Zeta-Theta is standing against the wall.
+and virtually opposite is the teleporter.  Zeta-Theta is standing against the
+wall.
 
 > talk to zeta-theta
 You begin with, "Hail Zeta-Theta. A communication to attend has been
@@ -611,8 +593,8 @@ looks like it could easily rain anytime. A large antenna is whipping in the
 wind to your right and the air conditioning equipment in front of you is
 making a very loud noise. A large sign is fastened to the roof here. Just at
 your feet is the closed door leading down to the roof exit. You can go north,
-northeast, east, southeast, south, southwest, west, northwest and down.
-A dirty, smelly old tramp is lying on the floor.
+northeast, east, southeast, south, southwest, west, northwest and down.  A
+dirty, smelly old tramp is lying on the floor.
 
 > talk to tramp
 You are about to talk to the Tramp when he starts to speak, "Hello! Any
@@ -688,9 +670,8 @@ stone rests upon its brow, a large jagged hole as centrepiece. About you lurk
 shadows, seeming to be standing watching you, though these are glimpses seen
 from the corner of your eye that vanish the moment you look closely at them.
 
-Passages in the ruined walls of this place lie to the east and west.
-
-You can also see a pair of overalls.
+Passages in the ruined walls of this place lie to the east and west.  You can
+also see a pair of overalls.
 
 > east
 You move east.
@@ -699,10 +680,8 @@ Storeroom
 The long, low room smells of oil and something else which you can't quite
 place.  Nearly all the available space is filled with pipes, cables and
 junction boxes.  Pushed against one wall is a large wooden crate. To the west
-are some stairs.
-
-You can also see a brick.
-A worried looking lab assistant is trying to hide.
+are some stairs.  You can also see a brick.  A worried looking lab assistant
+is trying to hide.
 
 > give artemis to assistant
 You hand the jar filled with Artemis to the Lab Assistant. He shouts,
@@ -720,9 +699,8 @@ stone rests upon its brow, a large jagged hole as centrepiece. About you lurk
 shadows, seeming to be standing watching you, though these are glimpses seen
 from the corner of your eye that vanish the moment you look closely at them.
 
-Passages in the ruined walls of this place lie to the east and west.
-
-You can also see a pair of overalls.
+Passages in the ruined walls of this place lie to the east and west.  You can
+also see a pair of overalls.
 
 > west
 You move west.
@@ -734,8 +712,7 @@ indicate the beast fought ferociously to escape its imprisonment, yet failed.
 And died.
 
 To the west there is a large chamber and to the east you can make out a
-statue.
-A cat is silently wandering around.
+statue.  A cat is silently wandering around.
 
 > west
 You move west.
@@ -745,9 +722,9 @@ The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
 pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
-Road and the yard behind the pub is to the south.
-Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
- Emma Taylor is standing behind the bar.
+Road and the yard behind the pub is to the south.  Colin Turner is standing
+at the bar.  Fred Sutton is staring vacantly around.  Emma Taylor is standing
+behind the bar.
 Emma is listening to Fred and Colin.
 
 > west
@@ -759,12 +736,10 @@ feel a very sad place.  The platform is covered by a canopy which neither
 protects from the rain or wind.  Attached to the wall is a large clock with a
 poster stuck right next to it.  To the west is a bridge leading over the
 tracks to platform two and east is the waiting room. To the south is a set of
-double doors with glass panels.
-
-Against the wall you can see one of those wire frame rubbish bins.
-A porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A trainspotter dressed in wet weather gear is watching
-you.
+double doors with glass panels.  Against the wall you can see one of those
+wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
+is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
+weather gear is watching you.
 
 A train thunders through the station and it doesn't sound like it is going to
 stop.
@@ -797,10 +772,8 @@ You move south.
 
 Post Office, G Deck
 The ship's post office houses a range of bags, bins and pigeonholes for
-sorting the mail. To your east is a corridor and some steps lead down.
-
-You can also see a sweeping brush.
-A postal clerk is busy sorting the mail.
+sorting the mail. To your east is a corridor and some steps lead down.  You
+can also see a sweeping brush.  A postal clerk is busy sorting the mail.
 You hear a door close.
 
 Stopping work for a moment, the postal clerk looks over at you and remarks,
@@ -824,10 +797,8 @@ You move down, pushing through thick fog.
 The Yard
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
-exits are through a metal gate to the south and back into the pub north.
-
-You can also see a photograph.
-Jed Peters is watching you carefully.
+exits are through a metal gate to the south and back into the pub north.  You
+can also see a photograph.  Jed Peters is watching you carefully.
 
 > give handout to jed peters
 You hand the handout to Jed Peters who, after studying it, replies, "Yeh,
@@ -841,10 +812,10 @@ The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
 pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
-Road and the yard behind the pub is to the south.
-A cat is silently wandering around.  Colin Turner is standing at the bar.
-Fred Sutton is staring vacantly around.  Emma Taylor is standing behind the
-bar.  A small black and white cat strolls out to the south.
+Road and the yard behind the pub is to the south.  A cat is silently
+wandering around.  Colin Turner is standing at the bar.  Fred Sutton is
+staring vacantly around.  Emma Taylor is standing behind the bar.  A small
+black and white cat strolls out to the south.
 Colin and Fred are talking about a soap that was on last night.
 
 > put money in jukebox
@@ -857,11 +828,10 @@ You move south.
 The Yard
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
-exits are through a metal gate to the south and back into the pub north.
-
-You can also see a photograph.
-A cat is silently wandering around.  Jed Peters is watching you carefully.  A
-small black and white cat strolls out to the north.
+exits are through a metal gate to the south and back into the pub north.  You
+can also see a photograph.  A cat is silently wandering around.  Jed Peters
+is watching you carefully.  A small black and white cat strolls out to the
+north.
 The jukebox inside the pub is loudly playing rock music.
 You can even hear the music playing in the pub out here; it will definitely
 drown out any noise in the yard.
@@ -880,12 +850,10 @@ feel a very sad place.  The platform is covered by a canopy which neither
 protects from the rain or wind.  Attached to the wall is a large clock with a
 poster stuck right next to it.  To the west is a bridge leading over the
 tracks to platform two and east is the waiting room. To the south is a set of
-double doors with glass panels.
-
-Against the wall you can see one of those wire frame rubbish bins.
-A porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A trainspotter dressed in wet weather gear is watching
-you.
+double doors with glass panels.  Against the wall you can see one of those
+wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
+is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
+weather gear is watching you.
 The drunk makes a sighing sound.
 
 Looking surprised the porter exclaims, "Solved six locations I hear". He
@@ -899,9 +867,7 @@ The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
 pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
-Road and the yard behind the pub is to the south.
-
-You can also see a bell.
+Road and the yard behind the pub is to the south.  You can also see a bell.
 Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
  Emma Taylor is standing behind the bar.  The body of a dead cat is lying
 here.
@@ -919,9 +885,8 @@ The Yard (Fire in the Blood)
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
 exits are through a metal gate to the south and back into the pub north. On
-the ground is a large red stain, it is Jed Peter's blood!
-
-You can also see a boat hook and a photograph.
+the ground is a large red stain, it is Jed Peter's blood!  You can also see a
+boat hook and a photograph.
 
 > get boat hook
 You take the boat hook.
@@ -952,9 +917,7 @@ The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
 pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
-Road and the yard behind the pub is to the south.
-
-You can also see a bell.
+Road and the yard behind the pub is to the south.  You can also see a bell.
 Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
  Emma Taylor is standing behind the bar.  The body of a dead cat is lying
 here.
@@ -969,12 +932,10 @@ feel a very sad place.  The platform is covered by a canopy which neither
 protects from the rain or wind.  Attached to the wall is a large clock with a
 poster stuck right next to it.  To the west is a bridge leading over the
 tracks to platform two and east is the waiting room. To the south is a set of
-double doors with glass panels.
-
-Against the wall you can see one of those wire frame rubbish bins.
-A porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A trainspotter dressed in wet weather gear is watching
-you.
+double doors with glass panels.  Against the wall you can see one of those
+wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
+is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
+weather gear is watching you.
 
 > west
 You move west.
@@ -1003,9 +964,7 @@ The Jetty
 The lighthouse jetty is made of stone with a metal handrail running around
 it.  You notice immediately that the handrail is damaged.  Down a wooden
 ladder you can see your boat and to the east is a path leading to the
-lighthouse.
-
-You can also see some card.
+lighthouse.  You can also see some card.
 
 > get card
 You take the card.
@@ -1018,10 +977,8 @@ The small row boat is a type known as a dory and is about 4.5m long and 1.2m
 wide. The narrow bottom and wide flaring sides makes for easy rowing. They
 are used the world over in all weather conditions, although you hope to be
 home long before you put that to the test. You can see a wooden ladder which
-leads up to the jetty. The boat is currently tied to the ladder.
-
-You can also see a rucksack.
-A ghostly figure is floating in the bottom of the boat.
+leads up to the jetty. The boat is currently tied to the ladder.  You can
+also see a rucksack.  A ghostly figure is floating in the bottom of the boat.
 
 > give hat to ghost
 You hand the hat to the ghost who stares at it for several seconds.  The
@@ -1047,12 +1004,10 @@ feel a very sad place.  The platform is covered by a canopy which neither
 protects from the rain or wind.  Attached to the wall is a large clock with a
 poster stuck right next to it.  To the west is a bridge leading over the
 tracks to platform two and east is the waiting room. To the south is a set of
-double doors with glass panels.
-
-Against the wall you can see one of those wire frame rubbish bins.
-A porter is here leaning against the wall.  A drunk is sleeping off a heavy
-night on a bench.  A trainspotter dressed in wet weather gear is watching
-you.
+double doors with glass panels.  Against the wall you can see one of those
+wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
+is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
+weather gear is watching you.
 
 A train thunders through the station and it doesn't sound like it is going to
 stop.
@@ -1076,9 +1031,7 @@ The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
 pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
-Road and the yard behind the pub is to the south.
-
-You can also see a bell.
+Road and the yard behind the pub is to the south.  You can also see a bell.
 The body of a dead cat is lying here.
 
 > south
@@ -1088,9 +1041,8 @@ The Yard (Fire in the Blood)
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
 exits are through a metal gate to the south and back into the pub north. On
-the ground is a large red stain, it is Jed Peter's blood!
-
-You can also see a photograph.
+the ground is a large red stain, it is Jed Peter's blood!  You can also see a
+photograph.
 
 > open gate
 You open the metal gate.
@@ -1105,8 +1057,8 @@ looking curtains sit either side of the window.   In the middle of the room
 stands a lopsided coffee table.  The room has the usual things a bachelor's
 place has namely an uncomfortable settee, a battered old armchair, narrow
 screen television and what looks like a dvd player. To the east you can see
-what looks like the hall and from the smell of it the kitchen is west.
-John is currently slumped in the armchair.
+what looks like the hall and from the smell of it the kitchen is west.  John
+is currently slumped in the armchair.
 
 > give letter to john
 You hand the letter to John who, after studying it, replies, "Correct, this
@@ -1140,8 +1092,8 @@ Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
 standard hidden lighting set to a low level, most of the room is in
 murkiness. A security monitor is on one side of the room, to your right the
-interrogator and virtually opposite is the teleporter.
-Zeta-Theta is standing next to the teleporter.
+interrogator and virtually opposite is the teleporter.  Zeta-Theta is
+standing next to the teleporter.
 
 > give card to zeta-theta
 You hand the card to Zeta-Theta who, after studying it, replies, "Correct,
@@ -1160,10 +1112,7 @@ in the wind to your right and the air conditioning equipment in front of you
 is making a very loud noise. A large sign is fastened to the roof here. Just
 at your feet is the closed door leading down to the roof exit. You can go
 north, northeast, east, southeast, south, southwest, west, northwest and
-down.
-
-You can also see a badge.
-The body of a dead tramp is lying here.
+down.  You can also see a badge.  The body of a dead tramp is lying here.
 
 > open door
 You open the door.
@@ -1188,9 +1137,7 @@ The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
 pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
-Road and the yard behind the pub is to the south.
-
-You can also see a bell.
+Road and the yard behind the pub is to the south.  You can also see a bell.
 The body of a dead cat is lying here.
 
 > west
@@ -1202,11 +1149,9 @@ canopy which neither protects from the rain or wind.  Attached to the wall is
 a large clock with a poster stuck right next to it.  To the west is a bridge
 leading over the tracks to platform two and east is the waiting room. To the
 south is a set of double doors with glass panels.  To the north a train is
-waiting in the station.
-
-Against the wall you can see one of those wire frame rubbish bins.
-A trainspotter dressed in wet weather gear is watching you.  The station
-master is standing near the wall.
+waiting in the station.  Against the wall you can see one of those wire frame
+rubbish bins.  A trainspotter dressed in wet weather gear is watching you.
+The station master is standing near the wall.
 Someone dressed like a Station Master wanders out of the waiting room.
 
 A train arrives on Platform One.  You just manage to catch the name
@@ -1222,8 +1167,7 @@ Train (doors open)
 You are on a Great Eastern Railways train.  The train has double hard looking
 seats either side of a very narrow gangway.  The train is already packed and
 you have no where to sit so I guess that means you will have to stand all the
-way.
-The guard is checking tickets.
+way.  The guard is checking tickets.
 You hear someone blowing a whistle, the doors close and the train on platform
 one pulls out of the station.
 

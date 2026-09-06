@@ -427,8 +427,8 @@ the gate guards rest between watches although neither of the forts seem very
 active. One look at the gates (which, incidentally, are locked tighter than
 your mother's purse on pocket money day) tells you that they're not going to
 be easy to get open.
-   Exits lie: south (to the marketplace).
-Snordy the guard is here, "protecting" the castle.
+   Exits lie: south (to the marketplace).  Snordy the guard is here,
+"protecting" the castle.
 
 Snordy looks at you as you approach and, after blowing his nose, says,
 "welcome one, welcome all, to the castle of Lord Grimmghoul, Lord of this
@@ -511,9 +511,8 @@ dusty floor are half a dozen tables at which a veritable Who's Who of shady
 looking characters are gathered. The bartender, a hulking fellow with the
 word 'Bast' scribbled on his tunic, lurks at the bar and seems on the verge
 of bursting into singing at any moment.
-   Exits lie: southwest (to Grimmghoul Marketplace).
-Pandora is here propping up the bar.  Professor Heretic is sitting on a
-stool.
+   Exits lie: southwest (to Grimmghoul Marketplace).  Pandora is here
+propping up the bar.  Professor Heretic is sitting on a stool.
 
 "Bartender, gimme beer and gimme beer now!" Grumble thunders, loud enough to
 make the walls of the tavern shake.
@@ -633,9 +632,9 @@ coloured all. Or even windows. In fact they're just gaping holes where
 windows used to be and the rest has to be left to your imagination. A
 pedestal at the far end of the "church" is where the priest stands to give
 speeches although it doesn't look to have received much use recently.
-   Exits lie: southwest (to Merridew Lane).
-Shamuel is here, cackling madly and geturing bizarelly.  Grumble complaining
-of beer deprivation staggers in from the south-west.
+   Exits lie: southwest (to Merridew Lane).  Shamuel is here, cackling madly
+and geturing bizarelly.  Grumble complaining of beer deprivation staggers in
+from the south-west.
 
 > talk to shamuel
 "Come to cast off some sins, have you?" says Shamuel. "Well, well, we don't
@@ -713,9 +712,8 @@ paying no attention to you whatsoever. By the far wall (which is crumbling
 and doesn't look at all safe), you see a battered old font, which hints that
 this used to be some kind of church a long time ago. The bustle of the
 outside world drifts in from the north.
-   Exits lie: north (to Merridew Lane).
-Lurch, Grunge and Moppet are here.  Grumble complaining of beer deprivation
-staggers in from the north.
+   Exits lie: north (to Merridew Lane).  Lurch, Grunge and Moppet are here.
+Grumble complaining of beer deprivation staggers in from the north.
 
 > talk to lurch
 "Hello-" you start to say then Moppet gives a yell.
@@ -810,9 +808,9 @@ dusty floor are half a dozen tables at which a veritable Who's Who of shady
 looking characters are gathered. The bartender, a hulking fellow with the
 word 'Bast' scribbled on his tunic, lurks at the bar and seems on the verge
 of bursting into singing at any moment.
-   Exits lie: southwest (to Grimmghoul Marketplace).
-Pandora is here propping up the bar.  Scab is here looking especially mean.
-Professor Heretic is sitting on a stool.
+   Exits lie: southwest (to Grimmghoul Marketplace).  Pandora is here
+propping up the bar.  Scab is here looking especially mean.  Professor
+Heretic is sitting on a stool.
 
 "Can you smell that beer?" says Grumble, a dazed look on his face. "No more
 beautiful smell in the world, is there?"
@@ -899,8 +897,8 @@ coloured all. Or even windows. In fact they're just gaping holes where
 windows used to be and the rest has to be left to your imagination. A
 pedestal at the far end of the "church" is where the priest stands to give
 speeches although it doesn't look to have received much use recently.
-   Exits lie: southwest (to Merridew Lane).
-Shamuel is here, cackling madly and geturing bizarelly.
+   Exits lie: southwest (to Merridew Lane).  Shamuel is here, cackling madly
+and geturing bizarelly.
 
 "You did well from what I hear," says Shamuel, rubbing his hands together in
 a most evil manner. "Put the fear of God into the thieving heathens and no
@@ -1162,7 +1160,6 @@ you feel more than a little afraid. One of the cave entrances looks familiar
 and you remember what Bast the bartender told you. This is where the monster
 has its lair.
    Exits lie: south (to the hills) and northwest (to the monster's lair).
-
 Also here is a crucifix and the holy handgrenade.  Grumble complaining of
 beer deprivation staggers in from the north-west.
 
@@ -1254,8 +1251,8 @@ the gate guards rest between watches although neither of the forts seem very
 active. One look at the gates (which, incidentally, are locked tighter than
 your mother's purse on pocket money day) tells you that they're not going to
 be easy to get open.
-   Exits lie: south (to the marketplace).
-Snordy the guard is here, "protecting" the castle.
+   Exits lie: south (to the marketplace).  Snordy the guard is here,
+"protecting" the castle.
 
 ...press a key...
 
@@ -1407,8 +1404,8 @@ has helpfully erected a signpost to point you in the right direction should
 you be lost. Grimmghoul squats to the west and looks every bit as unpleasant
 now as it was when you were inside it.
    Exits lie: west (to outside Grimmghoul), northeast (to a battlefield),
-east (to a dark forest path) and southeast (to a lake).
-Gribb is lurking by the side of the road.
+east (to a dark forest path) and southeast (to a lake).  Gribb is lurking by
+the side of the road.
 
 "Well, well," says Gribb, rubbing his hands together in a way you don't find
 all that welcoming. "A little adventurer and her little friend. Got anything
@@ -1760,10 +1757,10 @@ seems very bothered by this.
 several very stressed looking waitresses.
    Exits lie: northwest (to the road outside the Prancing Pratt), east (to
 the games room), southeast (to the fight pit) and south (to the strip den).
-Smiggles the bartender and Snark are here.
-Seated at a table in the corner of the room is Balfour.  Stiran is here,
-regarding the proceedings with disdain.  Grumble complaining of beer
-deprivation staggers in from the north-west.
+Smiggles the bartender and Snark are here.  Seated at a table in the corner
+of the room is Balfour.  Stiran is here, regarding the proceedings with
+disdain.  Grumble complaining of beer deprivation staggers in from the
+north-west.
 
 > talk to snark
 "Blimey!" gasps Snark. "You did it!"
@@ -1848,9 +1845,8 @@ seems very bothered by this.
 several very stressed looking waitresses.
    Exits lie: northwest (to the road outside the Prancing Pratt), east (to
 the games room), southeast (to the fight pit) and south (to the strip den).
-Smiggles the bartender is here.
-Seated at a table in the corner of the room is Balfour.  Stiran is here,
-regarding the proceedings with disdain.
+Smiggles the bartender is here.  Seated at a table in the corner of the room
+is Balfour.  Stiran is here, regarding the proceedings with disdain.
 
 As you enter the main room, you catch sight of a girl swiping someone's
 wallet and sneaking off southwards into the strip den.  Grumble complaining
@@ -1866,10 +1862,10 @@ nothings in the ears of several men who look surprisingly cheerful despite
 the murky atmosphere that pervades the place. Strangely no one seems to be
 paying much attention to you which you find kind of unusual but you're sure
 there's a perfectly good reason for it.
-   Exits lie: north (to the main room).
-Sylvie is here, moving alluringly about.  Bumble is here looking very
-cheerful.  Jodee is here doing her best to look annoyed with her lot in life.
- Grumble complaining of beer deprivation staggers in from the north.
+   Exits lie: north (to the main room).  Sylvie is here, moving alluringly
+about.  Bumble is here looking very cheerful.  Jodee is here doing her best
+to look annoyed with her lot in life.  Grumble complaining of beer
+deprivation staggers in from the north.
 
 > talk to jodee
 "Yah, boo sucks!" Jodee hisses. "Are you another of them wot's got it in for
@@ -1902,10 +1898,9 @@ seems very bothered by this.
 several very stressed looking waitresses.
    Exits lie: northwest (to the road outside the Prancing Pratt), east (to
 the games room), southeast (to the fight pit) and south (to the strip den).
-Smiggles the bartender is here.
-Seated at a table in the corner of the room is Balfour.  Stiran is here,
-regarding the proceedings with disdain.  Grumble complaining of beer
-deprivation staggers in from the south.
+Smiggles the bartender is here.  Seated at a table in the corner of the room
+is Balfour.  Stiran is here, regarding the proceedings with disdain.  Grumble
+complaining of beer deprivation staggers in from the south.
 
 > talk to smiggles
 "Ah, you have the evidence!" says Smiggles. "And the filthy, stinking thief
@@ -1937,10 +1932,8 @@ understand fully but it sure doesn't look like something you should be
 watching. A wardrobe that looks like it's gone one too many rounds with a
 first class boxer slouches in the corner and is the final nail in the coffin
 for the room's image as far as you're concerned.
-   Exits lie: down (to the main room).
-
-Also here is the Torrow Crystal.  Grumble complaining of beer deprivation
-staggers in from below.
+   Exits lie: down (to the main room).  Also here is the Torrow Crystal.
+Grumble complaining of beer deprivation staggers in from below.
 
 > get torrow crystal
 You take the Torrow Crystal.
@@ -1961,10 +1954,9 @@ seems very bothered by this.
 several very stressed looking waitresses.
    Exits lie: northwest (to the road outside the Prancing Pratt), east (to
 the games room), southeast (to the fight pit) and south (to the strip den).
-Smiggles the bartender is here.
-Seated at a table in the corner of the room is Balfour.  Stiran is here,
-regarding the proceedings with disdain.  Grumble complaining of beer
-deprivation staggers in from above.
+Smiggles the bartender is here.  Seated at a table in the corner of the room
+is Balfour.  Stiran is here, regarding the proceedings with disdain.  Grumble
+complaining of beer deprivation staggers in from above.
 
 > nw
 You move northwest.
@@ -2319,9 +2311,7 @@ statue with a wide open mouth and a sign clutched in its hands. It looks
 unbelievably old but there is a feeling of great power emanating from it and
 something tells you that no amount of brute force will do you any good here.
 The corridor you reached this room by is still open to the north.
-   Exits lie: north (to the short corridor).
-
-Also here is a chisel.
+   Exits lie: north (to the short corridor).  Also here is a chisel.
 
 > get chisel
 You take the chisel.
@@ -2711,9 +2701,7 @@ after all something made all these webs and cocoons.
    In the centre of the room is a statue every bit as large as you. Its eyes
 stare at you with coldness and you hope you never get to meet the thing this
 was modelled on.
-   Exits lie: out (to the Room of Challenges).
-
-Also here is a snowball.
+   Exits lie: out (to the Room of Challenges).  Also here is a snowball.
 
 > get snowball
 You take the snowball.
@@ -2789,9 +2777,7 @@ amounts of burning rock into a sky which is already a reddish colour. To say
 you're a little warm in this place would be a bit of an understatement.
    Standing directly before you, fully fifteen feet tall, is a figure made
 from living fire. It seems to be waiting for you to say or do something.
-   Exits lie: out (to the Room of Challenges).
-
-Also here is a sword.
+   Exits lie: out (to the Room of Challenges).  Also here is a sword.
 
 > talk to figure
 "The gift!" cries the figure. "Where is the gift that was promised?"
@@ -3065,8 +3051,8 @@ centre of the crossroads and several bodies are hanging from its rotting
 frame. They look to have been here for quite some time and the smell they
 give off isn't anything that's likely to be combated with a little air
 freshener.
-   Exits lie: northwest, northeast and south (along the paths).
-Merin is here, looking about very nervously indeed.
+   Exits lie: northwest, northeast and south (along the paths).  Merin is
+here, looking about very nervously indeed.
 
 > nw
 You move northwest.
@@ -3103,8 +3089,7 @@ long ago although they clearly haven't made much of an effort to tidy things
 up. A dust-covered table and several dust-covered chairs are arrayed in front
 of a dust-covered fireplace while a flight of steps lead up to the next
 floor.
-   Exits lie: south (to outside the farmhouse).
-Melissa is here.
+   Exits lie: south (to outside the farmhouse).  Melissa is here.
 
 The moment you step inside the farmhouse, you hear a sound that goes
 "aahahahahahaha!" and then a doll's head flies out of the shadows and bonks
@@ -3582,8 +3567,7 @@ a tunic and bowler hat stands in the centre of the room, a placard giving
 directions clutched in his bony fingers. On the west side of the room is an
 alcove of pure darkness which you can't see a thing beyond!
    Exits lie: west (to the dark alcove), north (to a gallery), east (to an
-art room) and south (to a balcony).
-Dimm the skeleton is here.
+art room) and south (to a balcony).  Dimm the skeleton is here.
 
 "Ah," says Dimm, "you encountered the dancing fools in the large room, no
 doubt?"
@@ -3642,9 +3626,9 @@ a tunic and bowler hat stands in the centre of the room, a placard giving
 directions clutched in his bony fingers. On the west side of the room is an
 alcove of pure darkness which you can't see a thing beyond!
    Exits lie: west (to the dark alcove), north (to a gallery), east (to an
-art room) and south (to a balcony).
-Dimm the skeleton is here.  Snitch seems ready for trouble as he enters from
-the south.  Arliss strides towards you from the south.
+art room) and south (to a balcony).  Dimm the skeleton is here.  Snitch seems
+ready for trouble as he enters from the south.  Arliss strides towards you
+from the south.
 
 > n
 You move north.
@@ -3687,8 +3671,8 @@ half-snake/half-woman creature with a big scimitar in her scaly hands. They
 look like the sort of things that would give you nightmares if you spent too
 long thinking about them.
    Exits lie: south (to the shadowy hall), northwest (to a corridor) and
-north (to a large open chamber).
-Benthem, Rudgutter, Srorg, Ilasera and Pulm are here.
+north (to a large open chamber).  Benthem, Rudgutter, Srorg, Ilasera and Pulm
+are here.
 
 "Ah: who might you be, girl?" asks Benthem. "Wandering around the bowels of
 this dark fortress with your band of merry companions. You look a little out
@@ -3888,9 +3872,9 @@ a tunic and bowler hat stands in the centre of the room, a placard giving
 directions clutched in his bony fingers. On the west side of the room is an
 alcove of pure darkness which you can't see a thing beyond!
    Exits lie: west (to the dark alcove), north (to a gallery), east (to an
-art room) and south (to a balcony).
-Dimm the skeleton is here.  Snitch seems ready for trouble as he enters from
-the north.  Arliss strides towards you from the north.
+art room) and south (to a balcony).  Dimm the skeleton is here.  Snitch seems
+ready for trouble as he enters from the north.  Arliss strides towards you
+from the north.
 
 > e
 You move east.
@@ -4151,9 +4135,9 @@ a tunic and bowler hat stands in the centre of the room, a placard giving
 directions clutched in his bony fingers. On the west side of the room is an
 alcove of pure darkness which you can't see a thing beyond!
    Exits lie: west (to the dark alcove), north (to a gallery), east (to an
-art room) and south (to a balcony).
-Dimm the skeleton is here.  Snitch seems ready for trouble as he enters from
-the east.  Arliss strides towards you from the east.
+art room) and south (to a balcony).  Dimm the skeleton is here.  Snitch seems
+ready for trouble as he enters from the east.  Arliss strides towards you
+from the east.
 
 > give orb
 "Ah," says Dimm, cradling the orb in his hands. "I had hoped to recover this

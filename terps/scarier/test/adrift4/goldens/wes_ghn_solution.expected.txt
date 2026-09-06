@@ -407,8 +407,7 @@ Cobwebs and thick dust coat every surface of the room and indicate that it
 has not seen much use. Statues of saints sit back in alcoves long forgotten
 and you can smell an unpleasantly dank odor rising from the pews. There is a
 moderate-sized wooden altar off to one side of the room, but overall this
-room holds little of interest.
-Hope is here.
+room holds little of interest.   Hope is here.
 
 You can only move west.
 
@@ -567,8 +566,7 @@ The stark whiteness of the room is unsettling. The walls are flat and
 scattered along them you see view screens of skeletons and bodies accompanied
 by enormous speakers. In the middle of the room there is a single chair.
 There is a sign high up above you that reads "Transmitting", but you're not
-sure what that pertains to.
-Dr. Micheals is here and looking pensive.
+sure what that pertains to.   Dr. Micheals is here and looking pensive.
 
 You can only move south.
 
@@ -684,8 +682,7 @@ capsules are more reminiscent of coffins than anything else. The entire
 northern face of the chamber is decorated by what appears to be a large
 monument of a woman's head and hands, the hands continuously pour water into
 the room while the head emits a moderate light. There is a door at the base
-of the figure.
-Charity Bell is here and eyeing you with a smile.
+of the figure.   Charity Bell is here and eyeing you with a smile.
 
 You can only move south.
 
@@ -851,10 +848,8 @@ and white while the duo colored walls are an austere white and gray. A strong
 medicinal smell clings to every surface that you find oddly comforting.
 However, the normality of the hall is deeply undermined by what you hear
 coming from behind its closed doors. The sound of children pleading, crying,
-and pounding on their doors to be let out.
-
-A letter is on the floor.  All of the doors in the hall have no knobs except
-for one at the end of the hall.
+and pounding on their doors to be let out.  A letter is on the floor.  All of
+the doors in the hall have no knobs except for one at the end of the hall.
 
 You can only move south.
 
@@ -878,9 +873,7 @@ capsules are more reminiscent of coffins than anything else. The entire
 northern face of the chamber is decorated by what appears to be a large
 monument of a woman's head and hands, the hands continuously pour water into
 the room while the head emits a moderate light. There is a door at the base
-of the figure.
-
-Also here is La Virgencita key.
+of the figure.   Also here is La Virgencita key.
 
 You can move north and south.
 
@@ -922,10 +915,8 @@ The stark whiteness of the room is unsettling. The walls are flat and
 scattered along them you see view screens of skeletons and bodies accompanied
 by enormous speakers. In the middle of the room there is a single chair.
 There is a sign high up above you that reads "Transmitting", but you're not
-sure what that pertains to.
-
-Also here is the Woebegotten scalpel.
-Dr. Micheals is here and looking pensive.
+sure what that pertains to.   Also here is the Woebegotten scalpel.  Dr.
+Micheals is here and looking pensive.
 
 You can only move south.
 
@@ -983,10 +974,8 @@ and white while the duo colored walls are an austere white and gray. A strong
 medicinal smell clings to every surface that you find oddly comforting.
 However, the normality of the hall is deeply undermined by what you hear
 coming from behind its closed doors. The sound of children pleading, crying,
-and pounding on their doors to be let out.
-
-A letter is on the floor.  All of the doors in the hall have no knobs except
-for one at the end of the hall.
+and pounding on their doors to be let out.  A letter is on the floor.  All of
+the doors in the hall have no knobs except for one at the end of the hall.
 
 You can only move south.
 
@@ -1152,9 +1141,8 @@ receptionist's opaque glass window, closed, with a filth covered sign next to
 it that reads "Ring the bell for Help". You also can't help but notice a
 young woman, blanketed in flowers of all kinds, sprawled out on a few of the
 chairs. Next to her is a table with magazines and a decorative journal on
-top.
-
-A vase of Sighing Prudence sits on the magazine table with an attached note.
+top.   A vase of Sighing Prudence sits on the magazine table with an attached
+note.
 
 You can move north and south.
 
@@ -1183,9 +1171,8 @@ The Halting Chapel
 Cobwebs and thick dust coat every surface of the room and indicate that it
 has not seen much use. Statues of saints sit back in alcoves long forgotten
 and you can smell an unpleasantly dank odor rising from the pews. There is a
-moderate-sized wooden altar off to one side of the room.
-
-A black shrine sits opposite the wooden altar.
+moderate-sized wooden altar off to one side of the room.  A black shrine sits
+opposite the wooden altar.
 
 You can only move west.
 

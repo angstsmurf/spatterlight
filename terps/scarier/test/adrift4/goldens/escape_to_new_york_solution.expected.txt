@@ -158,10 +158,9 @@ Crew Mess Hall, E Deck
 Unlike the passenger parts of the ship, the second-class crew mess hall is
 functional rather than palatial.  Not much larger than your cabin, it is
 basically a plain white painted room with metal tables and chairs. The
-corridor 'Scotland Road' is to the west.
-The ship's purser is talking to a steward.  The jovial ship's barber is
-nodding half asleep in one corner.  The dining room steward is listening
-attentively to the purser.
+corridor 'Scotland Road' is to the west.  The ship's purser is talking to a
+steward.  The jovial ship's barber is nodding half asleep in one corner.  The
+dining room steward is listening attentively to the purser.
 
 As you enter a steward and someone you think is the purser are leaving and
 you just catch the end of the conversation they are having.
@@ -257,8 +256,8 @@ You move down.
 Aft Staircase, G Deck
 The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. The staircase leads up to 'F' deck and heading south will take you
-onto 'G' deck.
-One of the crew (a man named Collins) is leaning against the wall.
+onto 'G' deck.  One of the crew (a man named Collins) is leaning against the
+wall.
 Collins picks his nose.
 
 > south
@@ -280,8 +279,7 @@ You move east.
 Post Office, G Deck
 The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
-lead down.
-A postal clerk is busy sorting the mail.
+lead down.  A postal clerk is busy sorting the mail.
 
 > down
 You go down the steps.
@@ -309,8 +307,7 @@ You move up.
 Post Office, G Deck
 The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
-lead down.
-A postal clerk is busy sorting the mail.
+lead down.  A postal clerk is busy sorting the mail.
 The postal clerk is reading the address on a parcel.
 
 > open suitcase
@@ -387,8 +384,7 @@ You move up.
 Post Office, G Deck
 The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
-lead down.
-A postal clerk is busy sorting the mail.
+lead down.  A postal clerk is busy sorting the mail.
 The postal clerk takes a parcel from a bin and puts it in one of the mail
 bags.
 
@@ -423,8 +419,8 @@ You move north.
 Aft Staircase, G Deck
 The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. The staircase leads up to 'F' deck and heading south will take you
-onto 'G' deck.
-One of the crew (a man named Collins) is leaning against the wall.
+onto 'G' deck.  One of the crew (a man named Collins) is leaning against the
+wall.
 Collins whistles.
 
 > up
@@ -484,9 +480,9 @@ board and leave the ship, through a large door to the south.  The walls are
 panelled in two contrasting veneers of maple and mahogany (you spent a couple
 of years working as a carpenter). The decorative mouldings and all the
 handrails look like they are bronze.  You can go west to a corridor, east to
-the forward staircase and to the southeast is a barber shop.
-Mr Jones seems to be watching your very carefully.  The concerned looking
-ship's barber is here.
+the forward staircase and to the southeast is a barber shop.  Mr Jones seems
+to be watching your very carefully.  The concerned looking ship's barber is
+here.
 
 A man called Jones is talking to the barber and keeping close to the wall you
 listen in on the conversation.
@@ -515,8 +511,8 @@ board and leave the ship, through a large door to the south.  The walls are
 panelled in two contrasting veneers of maple and mahogany (you spent a couple
 of years working as a carpenter). The decorative mouldings and all the
 handrails look like they are bronze.  You can go west to a corridor, east to
-the forward staircase and to the southeast is a barber shop.
-The concerned looking ship's barber is here.
+the forward staircase and to the southeast is a barber shop.  The concerned
+looking ship's barber is here.
 The barber winks at you.
 
 > talk to barber
@@ -580,8 +576,8 @@ board and leave the ship, through a large door to the south.  The walls are
 panelled in two contrasting veneers of maple and mahogany (you spent a couple
 of years working as a carpenter). The decorative mouldings and all the
 handrails look like they are bronze.  You can go west to a corridor, east to
-the forward staircase and to the southeast is a barber shop.
-The concerned looking ship's barber is here.
+the forward staircase and to the southeast is a barber shop.  The concerned
+looking ship's barber is here.
 The barber shakes his hand from side to side.
 
 > east
@@ -613,8 +609,8 @@ Infirmary, D Deck
 Bright, white, and clinical looking so it must be the Infirmary.  In the
 centre of the room is a typical hospital bed, probably hard and
 uncomfortable.  A desk is pushed again one wall with a medicine cabinet next
-to it. To the west is the forward staircase.
-Dr Simpson is standing to one side of the room, swaying ever so slightly.
+to it. To the west is the forward staircase.  Dr Simpson is standing to one
+side of the room, swaying ever so slightly.
 
 As you enter you get the tell tale aroma of gin.
 
@@ -680,8 +676,8 @@ with crimson upholstery and the tables are rectangular with swivel chairs
 fixed to the deck! You are either too far from the edge of the table or if
 you are fat, too close. There is a piano in one corner of the room which
 entertains diners and one of the dining tables is just to your right.  The
-door to the east leads to the forward staircase.
-A dining room steward is here.
+door to the east leads to the forward staircase.  A dining room steward is
+here.
 
 > exam piano
 It is by a company called Broadwood (it is written on the piano).  A cap is
@@ -814,9 +810,7 @@ inside the entrance for the weary passenger to rest. An excellent place for
 meeting fellow passengers you are hoping everyone is safely in their cabins.
 Heading either north or south will take you to one of the Promenade Decks on
 the ship. To the east is the forward staircase and west is the door of the
-Library.
-
-You can also see a purse.
+Library.  You can also see a purse.
 
 > east
 You move east.
@@ -832,8 +826,8 @@ You move up.
 Forward Staircase, B Deck
 You are on the second-class forward staircase, 'B' Deck.  Heading up the
 staircase will lead you to 'A' deck and down will take you to 'C' deck.  The
-western exit leads to the Smoking Room.
-The Master-at-Arms is stood watching you very carefully.
+western exit leads to the Smoking Room.  The Master-at-Arms is stood watching
+you very carefully.
 King looks at the suitcase and asks, "Are you moving house?" He doesn't seem
 to be expecting an answer and just chuckles to himself.
 
@@ -856,8 +850,7 @@ Might be worth a look tomorrow, you never know what some rich passenger might
 drop. To the north is the entrance to the staircase and at the rear of the
 promenade you can see the Well Deck below. On one side of the promenade are
 the rectangular windows of the smoking room; on the other over the side of
-the ship is open sea.
-A man and woman are in an embrace; kissing.
+the ship is open sea.  A man and woman are in an embrace; kissing.
 
 > exam man
 From the clothes the man must be from first class. He is kissing a beautiful
@@ -1016,8 +1009,7 @@ Much smaller than its forward cousin, the second class aft staircase still
 manages to achieve an elegant feel. The walls are oak panelled with
 silver-plated metal brackets holding oak handrails. Going down the staircase
 will take you to 'G' deck and east is another of the many corridors on the
-ship.
-Mr Jones seems to be watching your very carefully.
+ship.  Mr Jones seems to be watching your very carefully.
 
 Mr Jones stops you and asks, "Hello, can I see some identification please?"
 Sinking down into the overcoat and looking down at the floor, you show him
@@ -1067,10 +1059,8 @@ you are in a plain white painted corridor; piping and structural beams cover
 the ceiling. The Post Office is off to the east and north leads to the aft
 staircase.  A metal gate leading to a third class area is closed to the west.
 Attached to one wall is a wooden box with a glass front.  The floor of the
-corridor has developed quite a slope.
-
-You can also see a uniform.
-A group of third class passengers are caught behind the gate.
+corridor has developed quite a slope.  You can also see a uniform.  A group
+of third class passengers are caught behind the gate.
 
 The group of third class passengers are standing behind the locked metal gate
 are busy trying to get it open.
@@ -1099,8 +1089,8 @@ You move east.
 Post Office, G Deck
 The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
-lead down.  The room has developed quite a slope.
-The postal clerk is looking around and appears very worried.
+lead down.  The room has developed quite a slope.  The postal clerk is
+looking around and appears very worried.
 The postal clerk drags two heavy mail bags to the door.
 
 > down
@@ -1128,8 +1118,8 @@ You head up the stairs.
 Post Office, G Deck
 The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
-lead down.  The room has developed quite a slope.
-The postal clerk is looking around and appears very worried.
+lead down.  The room has developed quite a slope.  The postal clerk is
+looking around and appears very worried.
 
 > west
 You move west.
@@ -1140,10 +1130,8 @@ you are in a plain white painted corridor; piping and structural beams cover
 the ceiling. The Post Office is off to the east and north leads to the aft
 staircase.  A metal gate leading to a third class area is closed to the west.
 Attached to one wall is a wooden box with a glass front.  The floor of the
-corridor has developed quite a slope.
-
-You can also see an overcoat and a cap.
-A group of third class passengers are caught behind the gate.
+corridor has developed quite a slope.  You can also see an overcoat and a
+cap.  A group of third class passengers are caught behind the gate.
 
 > remove uniform
 You remove the uniform.
@@ -1213,9 +1201,8 @@ desperately hoping no one is about tonight. The walls are oak panelled with
 silver-plated metal brackets holding oak handrails. You can go either up to
 'D' deck or down the staircase to 'F' deck.  To the east is a crew corridor
 known as 'Scotland Road' and heading west will take you to the second class
-entrance.  The staircase has developed quite a slope.
-
-You can also see a key.
+entrance.  The staircase has developed quite a slope.  You can also see a
+key.
 
 > get key
 You take the key.
@@ -1250,9 +1237,8 @@ Cabin E82, E Deck
 This second class cabin is almost identical to yours in that it has mahogany
 furniture, a sofa-bed and a linoleum tiled floor. The cabin door to the north
 leads to a corridor and a porthole is to the south.  The floor of the cabin
-has developed quite a slope.
-
-You can also see a sapphire pendant and a chamber pot.
+has developed quite a slope.  You can also see a sapphire pendant and a
+chamber pot.
 
 > get pendant
 You take the sapphire pendant.
@@ -1388,9 +1374,8 @@ Forward Staircase, D Deck
 The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'C' deck or down the staircase to 'E'
 deck.  To the west is the door into the Dining Room and east is the
-Infirmary.  The staircase has developed quite a slope.
-The worried looking ship's purser is here.  Master-at-Arms King enters from
-the west.
+Infirmary.  The staircase has developed quite a slope.  The worried looking
+ship's purser is here.  Master-at-Arms King enters from the west.
 
 > give key to purser
 Coughing once you say to the Purser, "Excuse me, I think this belongs to
@@ -1450,9 +1435,8 @@ You move west.
 Entrance to Boat Deck
 You are in the second-class boat deck entrance. The forward staircase is to
 the east and the northern door leads to the boat deck.  The floor of the room
-has developed quite a slope.
-Donald Goodson is pacing backwards and forwards and has a worried look on his
-face.
+has developed quite a slope.  Donald Goodson is pacing backwards and forwards
+and has a worried look on his face.
 Goodson sighs.
 
 > talk to goodson
@@ -1529,9 +1513,7 @@ inside the entrance for the weary passenger to rest. An excellent place for
 meeting fellow passengers you are hoping everyone is safely in their cabins.
 Heading either north or south will take you to one of the Promenade Decks on
 the ship. To the east is the forward staircase and west is the door of the
-Library.  The room has developed quite a slope.
-
-You can also see a purse.
+Library.  The room has developed quite a slope.  You can also see a purse.
 
 > south
 You move south.
@@ -1563,9 +1545,7 @@ inside the entrance for the weary passenger to rest. An excellent place for
 meeting fellow passengers you are hoping everyone is safely in their cabins.
 Heading either north or south will take you to one of the Promenade Decks on
 the ship. To the east is the forward staircase and west is the door of the
-Library.  The room has developed quite a slope.
-
-You can also see a purse.
+Library.  The room has developed quite a slope.  You can also see a purse.
 
 > east
 You move east.
@@ -1610,9 +1590,8 @@ You move west.
 Entrance to Boat Deck
 You are in the second-class boat deck entrance. The forward staircase is to
 the east and the northern door leads to the boat deck.  The floor of the room
-has developed quite a slope.
-Donald Goodson is pacing backwards and forwards and has a worried look on his
-face.
+has developed quite a slope.  Donald Goodson is pacing backwards and forwards
+and has a worried look on his face.
 
 > give letter to goodson
 Donald grabs the letter and says, "Thanks." He hands you a ruby and then goes
@@ -1645,10 +1624,10 @@ of the seven or so wooden lifeboats on this side of the ship, it is attached
 to a couple of arms called davits. The door to the south leads to the boat
 deck entrance and a small metal locker is just to your right.  To the north
 the crew are busy loading one of the lifeboats. You can hear the band playing
-a lively ragtime tune.
-5th Officer Lowe is supervising the loading one of the lifeboats.  To one
-side is a large group of men, mostly first class passengers.  Some ladies and
-children are waiting near to the lifeboat ready to board the small boat.
+a lively ragtime tune.  5th Officer Lowe is supervising the loading one of
+the lifeboats.  To one side is a large group of men, mostly first class
+passengers.  Some ladies and children are waiting near to the lifeboat ready
+to board the small boat.
 5th Officer Lowe looks over at you for a moment and says, "You should really
 be wearing your lifebelt sir." He looks away.
 

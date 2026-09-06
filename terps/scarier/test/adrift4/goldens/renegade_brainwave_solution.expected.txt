@@ -43,9 +43,8 @@ peer out at drunken angles, ivy covered tombs and headstones lie abandoned
 and to the north are the moss-grown ruins of some ancient chapel, glowing
 with an eerie, greenish light! To the south an open gate leads back to the
 road and the safety of your patrol car. East and west, paths meander into the
-gloom.
-Officer Donald McRonald stands nearby, paying scant attention to what is
-going on.
+gloom.  Officer Donald McRonald stands nearby, paying scant attention to what
+is going on.
 
 > open handbag
 You open the Mary Quant handbag.  A gun and a seventeen-foot boa constrictor
@@ -92,11 +91,8 @@ Yew tree
 You stand under the spreading shadow of a vast yew tree, gnarled and twisted
 with age and knobbled with bulbous fungoid protusions. Hundreds of ragged
 crows wheel above the old tree. To the east a meandering pathway disappear
-into the gloom.
-
-Also here is a crowbar.
-Officer Donald McRonald stands nearby, paying scant attention to what is
-going on.
+into the gloom.  Also here is a crowbar.  Officer Donald McRonald stands
+nearby, paying scant attention to what is going on.
 
 > take crowbar
 You take the crowbar.
@@ -114,10 +110,8 @@ peer out at drunken angles, ivy covered tombs and headstones lie abandoned
 and to the north are the moss-grown ruins of some ancient chapel, glowing
 with an eerie, greenish light! To the south an open gate leads back to the
 road and the safety of your patrol car. East and west, paths meander into the
-gloom.
-
-Also here is a Mary Quant handbag.  Donald McRonald follows you from the
-west.
+gloom.  Also here is a Mary Quant handbag.  Donald McRonald follows you from
+the west.
 
 > north
 You move north.
@@ -136,9 +130,8 @@ This is a shady corner of the cemetary. There are a fair scattering of
 variously sized headstones to be seen, including a gigantic stone angel,
 alabaster white and entwined all around by the roots of some twisting tree.
 To the south is the yew tree, and to the east is the ruined chapel with its
-eerie green glow.
-A four-hundred pound gorilla leans nonchalently against a tombstone.  Donald
-McRonald follows you from the east.
+eerie green glow.  A four-hundred pound gorilla leans nonchalently against a
+tombstone.  Donald McRonald follows you from the east.
 The gorilla sees you arrive with gun in hand and immediately throws up his
 arms.
 
@@ -177,10 +170,8 @@ peer out at drunken angles, ivy covered tombs and headstones lie abandoned
 and to the north are the moss-grown ruins of some ancient chapel, glowing
 with an eerie, greenish light! To the south an open gate leads back to the
 road and the safety of your patrol car. East and west, paths meander into the
-gloom.
-
-Also here is a Mary Quant handbag.  Donald McRonald follows you from the
-north.
+gloom.  Also here is a Mary Quant handbag.  Donald McRonald follows you from
+the north.
 
 > east
 You move east.
@@ -244,10 +235,8 @@ peer out at drunken angles, ivy covered tombs and headstones lie abandoned
 and to the north are the moss-grown ruins of some ancient chapel, glowing
 with an eerie, greenish light! To the south an open gate leads back to the
 road and the safety of your patrol car. East and west, paths meander into the
-gloom.
-
-Also here is a Mary Quant handbag.  Donald McRonald follows you from the
-east.
+gloom.  Also here is a Mary Quant handbag.  Donald McRonald follows you from
+the east.
 
 > north
 You move north.
@@ -295,10 +284,9 @@ combined with the cosmic radiation absorbed by the module has opened up a
 rift between the dimensions.
 
 You wonder how you know all this stuff, but it is obviously the powerful
-atmosphere of cosmic background information.
-Sitting motionless in the flight seat is a space-suited astronaut, his
-features obscured by his mirrored helmet.  Donald McRonald follows you from
-outside.
+atmosphere of cosmic background information.  Sitting motionless in the
+flight seat is a space-suited astronaut, his features obscured by his
+mirrored helmet.  Donald McRonald follows you from outside.
 
 > throw bone at curtain
 You hurl the bone into the shimmering veil of light, whereupon it is swiftly

@@ -54,8 +54,7 @@ La Chambre de John
 C'est une chambre des plus démunie.
 Un lit, des habits jetés à la va-vite sur le sol, un gros cendrier rempli de
 mégots sur le sol à la tête du lit.
-
-Aussi voici Un jean et Un pull.
+  Aussi voici Un jean et Un pull.
 
 > se lever
 Vous vous levez.
@@ -90,9 +89,7 @@ poser vos objets superflus ou trouver ce que 'lon cherche. Derrière le bar,
 vous voyez de la vaisselle qui tient enpile par le doux hasard du
 Saint-Esprit.
 A votre gauche, au milieu d'un mur de tapisserie jaunie, une porte,
-certainement la sortie de chez vous.
-
-Un bar se dresse devant vous.
+certainement la sortie de chez vous.  Un bar se dresse devant vous.
 
 Sorties évidentes: Sud et out.
 
@@ -132,8 +129,8 @@ En voiture
 Vous vous trouvez maintenant aux côtés de votre fidèle adjoint MALKOWITCH.
 Vous filez à vive allure dans les rues de New York.
 MALKOWITCH sait toujours où vous devez aller.
-C'est une voiture de police traditionnelle américaine.
-MALKOWITCH est assis là.
+C'est une voiture de police traditionnelle américaine.  MALKOWITCH est assis
+là.
 
 > parler
 
@@ -165,8 +162,8 @@ En voiture
 Vous vous trouvez maintenant aux côtés de votre fidèle adjoint MALKOWITCH.
 Vous filez à vive allure dans les rues de New York.
 MALKOWITCH sait toujours où vous devez aller.
-C'est une voiture de police traditionnelle américaine.
-MALKOWITCH est assis là.
+C'est une voiture de police traditionnelle américaine.  MALKOWITCH est assis
+là.
 
 Vous pouvez seulement vous déplacer vers le Bas.
 
@@ -239,12 +236,9 @@ Vous reconnaissez là le lieu idéal d'une femme pour s'offrir un moment
 romantique avec son amant.
 Vous remarquez qu'il y a déjà bien du monde ici.
 Toutes ces personnes ont très certainement quelque chose à vous aprendre.
-
-Aussi voici Le corps inerte.
-Le Responsable de l'Enquête est ici.
+  Aussi voici Le corps inerte.  Le Responsable de l'Enquête est ici.
 La Médecin légiste est ici.
 La Chef scientifique est là.
-
 Un drap est ici.
 
 > parler
@@ -273,9 +267,8 @@ Vous reconnaissez là le lieu idéal d'une femme pour s'offrir un moment
 romantique avec son amant.
 Vous remarquez qu'il y a déjà bien du monde ici.
 Toutes ces personnes ont très certainement quelque chose à vous aprendre.
-
-Aussi voici Un drap et Le corps inerte.
-Le Responsable de l'Enquête est ici.
+  Aussi voici Un drap et Le corps inerte.  Le Responsable de l'Enquête est
+ici.
 La Médecin légiste est ici.
 La Chef scientifique est là.
 
@@ -312,8 +305,8 @@ En voiture
 Vous vous trouvez maintenant aux côtés de votre fidèle adjoint MALKOWITCH.
 Vous filez à vive allure dans les rues de New York.
 MALKOWITCH sait toujours où vous devez aller.
-C'est une voiture de police traditionnelle américaine.
-MALKOWITCH est assis là.
+C'est une voiture de police traditionnelle américaine.  MALKOWITCH est assis
+là.
 
 Sorties évidentes: Bas et in.
 Vous êtes maintenant arrivé au commissariat, entrez donc!
@@ -329,7 +322,6 @@ Des portes se suivent et se ressemblent.
 Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
 portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
 mèneront à d'autres couloirs.
-
 Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
@@ -345,7 +337,6 @@ Il y laisse toujours des papiers ou documents qui peuvent être très utiles
 pour vous.
 Votre adjoint est rarement dans son bureau ou alors, il y est très occupé.
 Beaucoup de gens le demandent!
-
 Un bureau se situe ici.
 
 Vous pouvez seulement vous déplacer vers l'Ouest.
@@ -385,7 +376,6 @@ Des portes se suivent et se ressemblent.
 Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
 portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
 mèneront à d'autres couloirs.
-
 Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
@@ -400,9 +390,8 @@ Un grand bureau trône au centre.
 Un confortable fauteuil se situe devant le bureau.
 Et, de l'autre côté, des chaises sont empilées.
 Vous distinguez à droite la sortie de votre bureau sur un couloir.
-
 Un beau bureau trône ici.
-  Un fauteuil est devant votre bureau.
+Un fauteuil est devant votre bureau.
 
 Vous pouvez seulement vous déplacer vers l'Est.
 
@@ -439,7 +428,6 @@ Des portes se suivent et se ressemblent.
 Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
 portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
 mèneront à d'autres couloirs.
-
 Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
@@ -455,7 +443,6 @@ Il y laisse toujours des papiers ou documents qui peuvent être très utiles
 pour vous.
 Votre adjoint est rarement dans son bureau ou alors, il y est très occupé.
 Beaucoup de gens le demandent!
-
 Un bureau se situe ici.
 
 Vous pouvez seulement vous déplacer vers l'Ouest.
@@ -490,7 +477,6 @@ Des portes se suivent et se ressemblent.
 Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
 portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
 mèneront à d'autres couloirs.
-
 Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
@@ -501,9 +487,8 @@ Vous vous déplacez vers le Nord.
 Salle de repos
 Ici, tous les policiers y viennent se détendre, fumer ou tuer le temps en
 attendant les rapports qui tardent à arriver. Il y a des fauteuils alignés au
-fond, des tables au milieu etsur le pan de mur gauche, des pathères.
-
-Une table est là.  Un fauteuil douillet est ici.
+fond, des tables au milieu etsur le pan de mur gauche, des pathères.  Une
+table est là.  Un fauteuil douillet est ici.
 
 Vous pouvez seulement vous déplacer vers le Sud.
 
@@ -531,7 +516,6 @@ Des portes se suivent et se ressemblent.
 Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
 portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
 mèneront à d'autres couloirs.
-
 Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
@@ -547,7 +531,6 @@ Il y laisse toujours des papiers ou documents qui peuvent être très utiles
 pour vous.
 Votre adjoint est rarement dans son bureau ou alors, il y est très occupé.
 Beaucoup de gens le demandent!
-
 Un bureau se situe ici.
 
 Vous pouvez seulement vous déplacer vers l'Ouest.
@@ -580,7 +563,6 @@ Des portes se suivent et se ressemblent.
 Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
 portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
 mèneront à d'autres couloirs.
-
 Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
@@ -595,9 +577,8 @@ Un grand bureau trône au centre.
 Un confortable fauteuil se situe devant le bureau.
 Et, de l'autre côté, des chaises sont empilées.
 Vous distinguez à droite la sortie de votre bureau sur un couloir.
-
 Un beau bureau trône ici.
-  Un fauteuil est devant votre bureau.
+Un fauteuil est devant votre bureau.
 
 Vous pouvez seulement vous déplacer vers l'Est.
 
@@ -690,7 +671,6 @@ Des portes se suivent et se ressemblent.
 Il est plutôt étroit et court, en fait, vous vous sentez vite entouré de
 portes. Certainement que ces ouvertures ouvrent sur différentes salles qui
 mèneront à d'autres couloirs.
-
 Une machine à café est là dans un coin du couloir.
 
 Sorties évidentes: nord, Est, Ouest et out.
@@ -706,9 +686,7 @@ Il y laisse toujours des papiers ou documents qui peuvent être très utiles
 pour vous.
 Votre adjoint est rarement dans son bureau ou alors, il y est très occupé.
 Beaucoup de gens le demandent!
-
 Un bureau se situe ici.
-
 MALKOWITCH est assis là.
 
 Vous pouvez seulement vous déplacer vers l'Ouest.
@@ -732,9 +710,7 @@ Il y laisse toujours des papiers ou documents qui peuvent être très utiles
 pour vous.
 Votre adjoint est rarement dans son bureau ou alors, il y est très occupé.
 Beaucoup de gens le demandent!
-
 Un bureau se situe ici.
-
 MALKOWITCH est assis là.
 
 Vous pouvez seulement vous déplacer vers l'Ouest.

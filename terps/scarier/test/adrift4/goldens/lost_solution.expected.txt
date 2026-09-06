@@ -57,6 +57,7 @@ You walk southeast.
 Fork in the path
 At the bottom of the hill the path forks, going east and south. The path runs
 back up the slope to the northwest.
+
 A gray squirrel digs through the leaves beside the path, oblivious to your
 presence..
 
@@ -142,9 +143,8 @@ Swamp
 The frozen swamp presents a bleak picture. Here and there  grassy hillocks
 are interspersed with dead trees. At the edge, cattails rattle in the breeze.
 There is a wooden post  here. The swamp is impassable.  You can reach the
-trail by walking northwest.  Nearby stands a dead sapling.
-
-Also here is a dead sapling.
+trail by walking northwest.  Nearby stands a dead sapling.  Also here is a
+dead sapling.
 
 > x sapling
 The swamp must have choked the life out of this  sapling long ago. It is
@@ -173,6 +173,7 @@ You walk west.
 Fork in the path
 At the bottom of the hill the path forks, going east and south. The path runs
 back up the slope to the northwest.
+
 A gray squirrel digs through the leaves beside the path, oblivious to your
 presence..
 
@@ -223,9 +224,8 @@ Using the walking stick you manage to balance yourself and continue.
 Far end of the pond
 At this end of the pond there is a gap in the hills, partly blocked by a
 boulder. The path is southeast. Thick laurel fills the gap, just beyond the
-boulder.  Fresh snow clings to the boulder.
-
-Also here is a faded orienteering flag.
+boulder.  Fresh snow clings to the boulder.  Also here is a faded
+orienteering flag.
 
 > get flag
 You take the orienteering flag.
@@ -317,9 +317,9 @@ You find yourself on a  massive outcropping of rock . Only a few withered and
 twisted birches cling here.  A biting wind has scoured the snow, revealing
 patches of moss. From one side of the outcropping a twisted path, a stairway
 of roots and ledges, leads upward.  Beyond the outcropping, far below, you
-can see the glint of black water, a pool.
-The ghost  is a vague undulating shape. No matter where you turn it seems to
-be in front of you, blocking your way.
+can see the glint of black water, a pool.  The ghost  is a vague undulating
+shape. No matter where you turn it seems to be in front of you, blocking your
+way.
 
 > x ghost
 

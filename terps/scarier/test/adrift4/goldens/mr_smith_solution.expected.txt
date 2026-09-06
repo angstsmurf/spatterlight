@@ -62,9 +62,8 @@ You move east.
 
 Study
 Here is the study. Many papers lay about it, and a fire burns in the
-fireplace.  It appears that someone in a hurry has been here recently.
-
-Also here is a fireplace poker and Colt .45 pistol.
+fireplace.  It appears that someone in a hurry has been here recently.  Also
+here is a fireplace poker and Colt .45 pistol.
 
 > take poker
 You pick up the fireplace poker.
@@ -94,9 +93,7 @@ You move down.
 Dungeon
 Accesed through the secret passage, the dungeon is several layers below
 ground. You can hardly see anything. You may not want to go any further
-unless you acquire a source of light.
-
-Also here is straw torch.
+unless you acquire a source of light.   Also here is straw torch.
 
 > take torch
 You pick up straw torch.
@@ -229,8 +226,7 @@ You move north.
 
 Observatory
 You enter the observatory. It is a dimly lit room with few candles and an
-open drawer.
-Watch out! A mobster is here, in this room!!!
+open drawer.   Watch out! A mobster is here, in this room!!!
 Fernelli shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
@@ -280,9 +276,7 @@ You shoot Fernelli with Colt .45 pistol.
 
 Observatory
 You enter the observatory. It is a dimly lit room with few candles and an
-open drawer.
-
-Also here is gold key and a Remington 410 shotgun.
+open drawer.   Also here is gold key and a Remington 410 shotgun.
 
 > take gold key
 You pick up gold key.
@@ -312,8 +306,8 @@ see about the room.
 You move south.
 
 Second dungeon
-Another dungeon. Nothing remarkable, only some old skeletons in the area.
-An old butler is here, chained against the wall.
+Another dungeon. Nothing remarkable, only some old skeletons in the area.  An
+old butler is here, chained against the wall.
 
 > unchain butler
 You have unchained the Butler. He falls to the floor in a slump. Perhaps he
@@ -413,9 +407,7 @@ You move north.
 Wine Cellar
 Mr. Smith must have had quite a bit of money, because he has some expensive
 wines in this chilly room. Racks and racks of them line the wall, and most
-are full.
-
-Also here is a wine bottle and an ID card.
+are full.  Also here is a wine bottle and an ID card.
 
 > w
 You move west.
@@ -431,9 +423,7 @@ You move north.
 Catacombs
 The scent of rotting flesh is all around you. So are some skeletons. This
 labyrnith of tunnels that appears to have been here long before the mansion
-was built is called the catacombs.
-
-Also here is an old bone.
+was built is called the catacombs.  Also here is an old bone.
 
 > take bone
 You pick up the old bone.
@@ -452,9 +442,7 @@ You move east.
 Wine Cellar
 Mr. Smith must have had quite a bit of money, because he has some expensive
 wines in this chilly room. Racks and racks of them line the wall, and most
-are full.
-
-Also here is a wine bottle and an ID card.
+are full.  Also here is a wine bottle and an ID card.
 
 > take bottle
 You pick up the wine bottle.
@@ -549,8 +537,7 @@ You move north.
 Front Yard
 You emerge from the house (finally), only to find Mr. Jones gone, and some
 old, dry footprints leading out into the road. It is midafternoon, and
-mountains loom in the distance.
-A vicious guard dog is in the yard.
+mountains loom in the distance.   A vicious guard dog is in the yard.
 Dog hits you, but it doesn't seem to do any damage.
 
 > give bone to dog
@@ -583,8 +570,7 @@ You move north.
 Mountain Path
 This is the path that leads from the road all the way up to the summit. You
 are surrounded by trees and can only move forward. There are footprints
-leading up the slope.
-A gigantic grizzley bear is here too, watch out!
+leading up the slope.   A gigantic grizzley bear is here too, watch out!
 Bear hits you.
 
 > n
@@ -593,9 +579,7 @@ You move north.
 Low Hills
 There are footprints still leading north here, but they are wet. You also
 think that you hear a chopping noise ahead. You can't move north yet, because
-your path is blocked by a boulder.
-
-Also here is a boulder.
+your path is blocked by a boulder.  Also here is a boulder.
 
 > destroy boulder
 After laying the dynamite you take cover behind a tree. You count to your

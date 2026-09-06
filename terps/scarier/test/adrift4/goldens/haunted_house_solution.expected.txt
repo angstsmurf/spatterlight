@@ -51,9 +51,7 @@ You move east.
 You are in the study.  There is a majestic looking desk in the middle, and an
 old chair, and at the side of the study is a large bookcase.  The
 conservatory is to the south, the hall to the west, and the lounge is to the
-north.
-
-Also here is a long pencil.
+north.  Also here is a long pencil.
 
 > take pencil
 You pick up the long pencil.
@@ -78,9 +76,8 @@ You move west.
 You are standing in the kitchen.  It is quite a bare kitchen, apart from an
 old stove in the corner, and a sink next to it.  The vinyl floor is all
 warped and really could do with being repaired.  The reception area is to the
-east, and there is a small doorway into the pantry.
-
-Also here is an empty pan and an old candle.
+east, and there is a small doorway into the pantry.  Also here is an empty
+pan and an old candle.
 
 > take candle
 You pick up the old candle.
@@ -104,9 +101,7 @@ You pick up the empty pan.
 > in
 You move in.
 You are standing in the pantry.  There are lots of shelves in here, but it is
-very sparse.
-
-Also here is some grains of rice.
+very sparse.  Also here is some grains of rice.
 
 > take rice
 You pick up some grains of rice.
@@ -116,9 +111,8 @@ You move out.
 You are standing in the kitchen.  It is quite a bare kitchen, apart from an
 old stove in the corner, and a sink next to it.  The vinyl floor is all
 warped and really could do with being repaired.  The reception area is to the
-east, and there is a small doorway into the pantry.
-
-Also here is a long pencil and a box of matches.
+east, and there is a small doorway into the pantry.  Also here is a long
+pencil and a box of matches.
 
 > e
 You move east.
@@ -139,9 +133,7 @@ staircase leading up.
 You move down.
 You are in a dark and dingy cellar.  A few mice run around by your feet.  You
 can see various pipes here, and there to one end of the cellar appears to be
-a large rack for wine.
-
-Also here is a bottle of wine.
+a large rack for wine.  Also here is a bottle of wine.
 
 > drop rice
 You drop the grains of rice.  One of the mice runs up and grabs it, before
@@ -174,9 +166,8 @@ You move west.
 You are standing in the kitchen.  It is quite a bare kitchen, apart from an
 old stove in the corner, and a sink next to it.  The vinyl floor is all
 warped and really could do with being repaired.  The reception area is to the
-east, and there is a small doorway into the pantry.
-
-Also here is a long pencil and a box of matches.
+east, and there is a small doorway into the pantry.  Also here is a long
+pencil and a box of matches.
 
 > fill pan
 You turn on the tap, and fill the pan with water.
@@ -200,7 +191,6 @@ few tiles lying around where they have blown off the roof.  There is a very
 large door in front of you.  There are windows in the house, but you can't
 see through them as they are too full of dust and cobwebs.  The garden
 stretches around to the east and west.  There is a closed gate to the south.
-
 Also here is a packet of fags.
 
 > w
@@ -230,7 +220,6 @@ few tiles lying around where they have blown off the roof.  There is a very
 large door in front of you.  There are windows in the house, but you can't
 see through them as they are too full of dust and cobwebs.  The garden
 stretches around to the east and west.  There is a closed gate to the south.
-
 Also here is a packet of fags.
 
 > in
@@ -281,9 +270,7 @@ and south, and a bathroom to your west.  A spiral staircase leads down.
 You move north.
 You are in the master bedroom.  There is a four poster bed here, completely
 covered in dust.  Beside this is a vanity unit.  The upstairs landing is to
-the south.
-
-Also here is a pink nail file.
+the south.  Also here is a pink nail file.
 
 > take nail file
 You pick up the pink nail file.
@@ -310,9 +297,7 @@ You move south.
 You are standing in the reception area of the house.  To your west is the
 kitchen.  The main hall is to your north.  To the east, is the conservatory.
 The front door leads outside.  High above your head is a fantastic
-chandelier.
-
-Also here is a small ball.
+chandelier.  Also here is a small ball.
 
 > out
 You move out.
@@ -322,7 +307,6 @@ few tiles lying around where they have blown off the roof.  There is a very
 large door in front of you.  There are windows in the house, but you can't
 see through them as they are too full of dust and cobwebs.  The garden
 stretches around to the east and west.  There is a closed gate to the south.
-
 Also here is a packet of fags.
 
 > e
@@ -348,9 +332,7 @@ You drop the fancy key.
 > in
 You move in.
 You are standing inside the shed.  It is very dirty in here.  There is a
-shelf, but it is empty.
-
-Also here is an old tattered teddy.
+shelf, but it is empty.  Also here is an old tattered teddy.
 
 > take teddy
 You pick up the old tattered teddy.
@@ -359,9 +341,8 @@ You pick up the old tattered teddy.
 You move out.
 You are standing at the east end of the garden.  To the west lies the old
 house.  There are thick bushes to your east which run all around the garden.
-The rear of the garden is to your north.  There is an old shed here.
-
-Also here is a pink nail file and a fancy key.
+The rear of the garden is to your north.  There is an old shed here.  Also
+here is a pink nail file and a fancy key.
 
 > w
 You move west.
@@ -371,7 +352,6 @@ few tiles lying around where they have blown off the roof.  There is a very
 large door in front of you.  There are windows in the house, but you can't
 see through them as they are too full of dust and cobwebs.  The garden
 stretches around to the east and west.  There is a closed gate to the south.
-
 Also here is a packet of fags.
 
 > in
@@ -379,9 +359,7 @@ You move in.
 You are standing in the reception area of the house.  To your west is the
 kitchen.  The main hall is to your north.  To the east, is the conservatory.
 The front door leads outside.  High above your head is a fantastic
-chandelier.
-
-Also here is a small ball.
+chandelier.  Also here is a small ball.
 
 > n
 You move north.
@@ -395,9 +373,7 @@ staircase leading up.
 You move down.
 You are in a dark and dingy cellar.  A few mice run around by your feet.  You
 can see various pipes here, and there to one end of the cellar appears to be
-a large rack for wine.
-
-Also here is a bottle of wine.
+a large rack for wine.  Also here is a bottle of wine.
 
 > take wine
 You pick up the bottle of wine.
@@ -415,9 +391,7 @@ You move south.
 You are standing in the reception area of the house.  To your west is the
 kitchen.  The main hall is to your north.  To the east, is the conservatory.
 The front door leads outside.  High above your head is a fantastic
-chandelier.
-
-Also here is a small ball.
+chandelier.  Also here is a small ball.
 
 > out
 You move out.
@@ -427,16 +401,14 @@ few tiles lying around where they have blown off the roof.  There is a very
 large door in front of you.  There are windows in the house, but you can't
 see through them as they are too full of dust and cobwebs.  The garden
 stretches around to the east and west.  There is a closed gate to the south.
-
 Also here is a packet of fags.
 
 > e
 You move east.
 You are standing at the east end of the garden.  To the west lies the old
 house.  There are thick bushes to your east which run all around the garden.
-The rear of the garden is to your north.  There is an old shed here.
-
-Also here is a pink nail file and a fancy key.
+The rear of the garden is to your north.  There is an old shed here.  Also
+here is a pink nail file and a fancy key.
 
 > n
 You move north.
@@ -463,9 +435,7 @@ chimney.
 > down
 You move down.
 There is nothing of interest here.  You are in the attic.  There is a
-trapdoor in the floor.
-
-Also here is a smooth stick.
+trapdoor in the floor.  Also here is a smooth stick.
 
 > take stick
 You pick up the smooth stick.
@@ -509,9 +479,7 @@ You are standing in the main hall.  There is a majestic rug in the centre of
 the room.  There is a large fireplace here.  There is a small doorway in one
 of the side walls leading down.  The reception area is to the south.  The
 dining room is to the north, the study to the east, and there is a spiral
-staircase leading up.
-
-Also here are some broken glass and a model boat.
+staircase leading up.  Also here are some broken glass and a model boat.
 
 > take boat
 You pick up the model boat.
@@ -524,9 +492,7 @@ You move south.
 You are standing in the reception area of the house.  To your west is the
 kitchen.  The main hall is to your north.  To the east, is the conservatory.
 The front door leads outside.  High above your head is a fantastic
-chandelier.
-
-Also here is a small ball.
+chandelier.  Also here is a small ball.
 
 > e
 You move east.
@@ -594,9 +560,7 @@ You are standing in the main hall.  There is a majestic rug in the centre of
 the room.  There is a large fireplace here.  There is a small doorway in one
 of the side walls leading down.  The reception area is to the south.  The
 dining room is to the north, the study to the east, and there is a spiral
-staircase leading up.
-
-Also here are some broken glass.
+staircase leading up.  Also here are some broken glass.
 
 > n
 You move north.
@@ -636,18 +600,14 @@ You are standing in the main hall.  There is a majestic rug in the centre of
 the room.  There is a large fireplace here.  There is a small doorway in one
 of the side walls leading down.  The reception area is to the south.  The
 dining room is to the north, the study to the east, and there is a spiral
-staircase leading up.
-
-Also here are some broken glass.
+staircase leading up.  Also here are some broken glass.
 
 > s
 You move south.
 You are standing in the reception area of the house.  To your west is the
 kitchen.  The main hall is to your north.  To the east, is the conservatory.
 The front door leads outside.  High above your head is a fantastic
-chandelier.
-
-Also here is a small ball.
+chandelier.  Also here is a small ball.
 
 > out
 You move out.
@@ -657,16 +617,14 @@ few tiles lying around where they have blown off the roof.  There is a very
 large door in front of you.  There are windows in the house, but you can't
 see through them as they are too full of dust and cobwebs.  The garden
 stretches around to the east and west.  There is a closed gate to the south.
-
 Also here is a packet of fags.
 
 > e
 You move east.
 You are standing at the east end of the garden.  To the west lies the old
 house.  There are thick bushes to your east which run all around the garden.
-The rear of the garden is to your north.  There is an old shed here.
-
-Also here is a pink nail file and a fancy key.
+The rear of the garden is to your north.  There is an old shed here.  Also
+here is a pink nail file and a fancy key.
 
 > n
 You move north.
@@ -693,9 +651,7 @@ You move west.
 You are standing in the west end of the garden.  The house is to the east,
 and there is a large hedge preventing you from going west.  The garden
 stretches north, and to the east.  There is a sinister looking statue in the
-garden here.
-
-Also here is an empty pan.
+garden here.  Also here is an empty pan.
 
 > e
 You move east.
@@ -705,7 +661,6 @@ few tiles lying around where they have blown off the roof.  There is a very
 large door in front of you.  There are windows in the house, but you can't
 see through them as they are too full of dust and cobwebs.  The garden
 stretches around to the east and west.  There is a closed gate to the south.
-
 Also here is a packet of fags.
 
 > score

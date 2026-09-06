@@ -26,8 +26,8 @@ northwest and it looks like it could easily rain this morning. A large
 antenna is whipping in the wind to your right and the air conditioning
 equipment in front of you is making a very loud noise. Just at your feet is
 the closed door leading down to the roof exit. You can go north, northeast,
-east, southeast, south, southwest, west, northwest and down.
-A dirty, smelly old tramp is lying on the floor.
+east, southeast, south, southwest, west, northwest and down.  A dirty, smelly
+old tramp is lying on the floor.
 
 > x me
 You are as well as can be expected, considering the circumstances.  You are
@@ -140,8 +140,8 @@ South end of the roof
 You are at the southern end of the building which overlooks Grange Street.
 In front of you is a low brick wall and as you examine below it seems to be
 the insurance part of town. The various buildings around you generate little
-interest. From here you can go north.
-A man is below you, standing in the street.
+interest. From here you can go north.  A man is below you, standing in the
+street.
 You can hear a police car; you stand still for a moment but it seems to be
 heading away.
 
@@ -183,8 +183,8 @@ northwest and it looks like it could easily rain this morning. A large
 antenna is whipping in the wind to your right and the air conditioning
 equipment in front of you is making a very loud noise. Just at your feet is
 the closed door leading down to the roof exit. You can go north, northeast,
-east, southeast, south, southwest, west, northwest and down.
-The body of a dead undercover policeman is lying here.
+east, southeast, south, southwest, west, northwest and down.  The body of a
+dead undercover policeman is lying here.
 
 Something hits the roof making a 'ffutt' sound.
 A very loud motorbike can be heard to the south.
@@ -196,10 +196,9 @@ Southwest end of the roof
 You are at the southwest end of the building which overlooks Cambridge Road.
 In front of you is a low brick wall and as you examine below it seems to be
 the gold centre part of town. None of the buildings around you arouse any
-interest. From here you can go north and northeast.
-
-A 9mm round for your JK54 rifle is lying on the floor.
-Below, you can see a man standing in the street.
+interest. From here you can go north and northeast.  A 9mm round for your
+JK54 rifle is lying on the floor.  Below, you can see a man standing in the
+street.
 
 > get bullet
 You pickup the 9mm round and load it into your weapon.
@@ -219,8 +218,8 @@ northwest and it looks like it could easily rain this morning. A large
 antenna is whipping in the wind to your right and the air conditioning
 equipment in front of you is making a very loud noise. Just at your feet is
 the closed door leading down to the roof exit. You can go north, northeast,
-east, southeast, south, southwest, west, northwest and down.
-The body of a dead undercover policeman is lying here.
+east, southeast, south, southwest, west, northwest and down.  The body of a
+dead undercover policeman is lying here.
 
 Something hits the roof making a 'ffutt' sound.
 
@@ -231,8 +230,8 @@ Northwest end of the roof
 You are at the northwest end of the building which overlooks Middle Street.
 In front of you is a low brick wall and as you examine below it seems to be
 the mobile phone part of town. About 300m away you can see the slightly
-taller Thompson Tower. From here you can go southeast.
-Standing in the street below, is a man.
+taller Thompson Tower. From here you can go southeast.  Standing in the
+street below, is a man.
 
 > x sniper
 The sniper is too far away, all you can see clearly through your gun sight is
@@ -257,8 +256,8 @@ northwest and it looks like it could easily rain this morning. A large
 antenna is whipping in the wind to your right and the air conditioning
 equipment in front of you is making a very loud noise. Just at your feet is
 the closed door leading down to the roof exit. You can go north, northeast,
-east, southeast, south, southwest, west, northwest and down.
-The body of a dead undercover policeman is lying here.
+east, southeast, south, southwest, west, northwest and down.  The body of a
+dead undercover policeman is lying here.
 
 > open door
 You open the door.

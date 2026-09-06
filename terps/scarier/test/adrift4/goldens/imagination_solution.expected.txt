@@ -57,9 +57,7 @@ In a dark tunnel
 You are in a dark tunnel that seems to have caved in when the little girl
 unexpectedly fell in.  A pile of dirt indicates where the tunnel once was.  A
 hole high above provides a tiny bit of light, but is far to high to climb
-back out.
-
-Also here is a small stick.
+back out.  Also here is a small stick.
 
 > take stick
 You take the small stick.
@@ -73,10 +71,8 @@ You move south.
 
 Underground water pipe
 You are at the underground water way.  There is a wooden spoon floating
-around in the water, that leads into darkness.
-
-Also here is a piece of dental floss and a small rock.  Jenny follows you
-from the north.
+around in the water, that leads into darkness.  Also here is a piece of
+dental floss and a small rock.  Jenny follows you  from the north.
 
 > take floss
 You take the piece of dental floss.

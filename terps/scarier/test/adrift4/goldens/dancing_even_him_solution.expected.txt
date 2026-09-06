@@ -46,9 +46,7 @@ The windowless and door-less room is about 5m square with metal walls. You
 cannot even guess at the height of the place as the ceiling is so high it is
 completely out of sight.  The only light source is from high above to one
 corner. You appear to be standing on some very large round objects. This
-place has no visible exits.
-
-You can also see an elastic band.
+place has no visible exits.  You can also see an elastic band.
 
 > get band
 You take the elastic band.
@@ -103,9 +101,7 @@ can, which falls to the floor.
 Metal Drum Room
 As far as you can see are row upon row of round metal objects, 4 metres in
 diameter. Each row has another row on top, and so on as far into the air as
-you can see.
-
-An enormous paperclip is laying on the floor.
+you can see.  An enormous paperclip is laying on the floor.
 
 > get paperclip
 You take the paperclip.

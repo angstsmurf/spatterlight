@@ -81,9 +81,8 @@ You move west.
 
 In the yoga room
 This is a large carpeted room with no furniture. Plants line the west wall,
-under the windows. There is a closet in the corner.
-
-You can also see a yoga mat.
+under the windows. There is a closet in the corner.  You can also see a yoga
+mat.
 
 You can go north, east and west.
 
@@ -208,8 +207,8 @@ dirt floor and unfinished walls. There is a furnace and a water heater down
 here, off to one side. In the little bit of space left over sits what appears
 to be a telephone booth. Computer and power cables snake from the top of the
 booth up into the ceiling. The booth has no door, and it looks like you could
-squeeze into it with no problem.
-A fly is buzzing around, bumping into things.
+squeeze into it with no problem.  A fly is buzzing around, bumping into
+things.
 
 You can go up and in.  The fly buzzes into the phone booth.
 
@@ -218,8 +217,7 @@ You move in.
 
 In the phone booth
 There is no phone in the booth, but where the phone would usually be is a
-flat metal panel.
-A fly is buzzing around, bumping into things.
+flat metal panel.  A fly is buzzing around, bumping into things.
 
 You can only go out.
 
@@ -503,8 +501,7 @@ You move west.
 In the swamp
 The path dead-ends here. There is a large structure off to the west, but you
 can't see a path to it through the swamp. There are some low hills to the
-north.
-A pile of ugly green goo is quivering on the path in front of you.
+north.  A pile of ugly green goo is quivering on the path in front of you.
 
 You can only go east.
 

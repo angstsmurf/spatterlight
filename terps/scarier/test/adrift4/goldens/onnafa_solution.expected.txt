@@ -105,7 +105,7 @@ at least upright.
 
 Exits lie: north, south, west and up
 
-Stimmons your bodyguard and Doris the maid are here.
+  Stimmons your bodyguard and Doris the maid are here.
    "Aah, me arm, me arm!" Doris wails. When no one pays her much attention,
 she wails a bit louder.
 
@@ -179,7 +179,7 @@ quite a few are blocked due to building work being underway.
 Exits lie: north, south, east, west, northeast, southeast, southwest, up and
 down
 
-Rancid the butler is here.
+  Rancid the butler is here.
 
 > open door
    Using the key you obtained from Stimmons, you open the door to the
@@ -202,7 +202,7 @@ weapons, rusted armour and all round litter.
 
 Exits lie: south
 
-Bill the guard and Ben the guard are here.
+  Bill the guard and Ben the guard are here.
 
 > talk to bill
    "Please don't make me fight that dragon, boss," says Bill in a whiny
@@ -275,8 +275,8 @@ quite a few are blocked due to building work being underway.
 Exits lie: north, south, east, west, northeast, southeast, southwest, up and
 down
 
-Rancid the butler is here.  Bill follows you from the north.  Ben follows you
-from the north.
+  Rancid the butler is here.  Bill follows you from the north.  Ben follows
+you from the north.
 
 > s
    You move south.
@@ -296,7 +296,7 @@ at least upright.
 
 Exits lie: north, south, west and up
 
-Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
+  Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
 the north.  Ben follows you from the north.
 
 > w
@@ -317,8 +317,8 @@ word that's censored to keep it from the ears of the impressionable.
 
 Exits lie: east
 
-Ned the stable boy is here.  Bill follows you from the east.  Ben follows you
-from the east.
+  Ned the stable boy is here.  Bill follows you from the east.  Ben follows
+you from the east.
 
 > x ned
    A local yokel with a grin as wide as his carrot-topped head, Ned is the
@@ -349,7 +349,7 @@ at least upright.
 
 Exits lie: north, south, west and up
 
-Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
+  Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
 the west.  Ben follows you from the west.
 
 > s
@@ -370,7 +370,7 @@ By the side of the road is a bored looking scarecrow.
 
 Exits lie: north and south
 
-Perry the pointless pedlar is here.  Bill follows you from the north.  Ben
+  Perry the pointless pedlar is here.  Bill follows you from the north.  Ben
 follows you from the north.
 
 > s
@@ -408,8 +408,8 @@ imagination).
 
 Exits lie: northwest, southeast and south
 
-Barnaby is here.  Bill follows you from the north-west.  Ben follows you from
-the north-west.
+  Barnaby is here.  Bill follows you from the north-west.  Ben follows you
+from the north-west.
 
 > se
       You move southeast.
@@ -474,7 +474,7 @@ south and indicates "Brothel".
 
 Exits lie: northwest, north, east, southwest, south and southeast
 
-Samson is here.  Bill follows you from the north.  Ben follows you from the
+  Samson is here.  Bill follows you from the north.  Ben follows you from the
 north.
 
 > sw
@@ -605,8 +605,8 @@ south and indicates "Brothel".
 
 Exits lie: northwest, north, east, southwest, south and southeast
 
-Samson is here.  Bill follows you from the south-west.  Ben follows you from
-the south-west.  Toto follows you from the south-west.
+  Samson is here.  Bill follows you from the south-west.  Ben follows you
+from the south-west.  Toto follows you from the south-west.
 
 > n
    You move north.
@@ -662,8 +662,8 @@ imagination).
 
 Exits lie: northwest, southeast and south
 
-Barnaby is here.  Bill follows you from the south-east.  Ben follows you from
-the south-east.  Toto follows you from the south-east.
+  Barnaby is here.  Bill follows you from the south-east.  Ben follows you
+from the south-east.  Toto follows you from the south-east.
 
 > nw
       You move northwest.
@@ -701,7 +701,7 @@ By the side of the road is a bored looking scarecrow.
 
 Exits lie: north and south
 
-Perry the pointless pedlar is here.  Bill follows you from the south.  Ben
+  Perry the pointless pedlar is here.  Bill follows you from the south.  Ben
 follows you from the south.  Toto follows you from the south.
 
 > talk to perry
@@ -772,8 +772,8 @@ you see a junction.
 
 Exits lie: northeast, southeast and southwest
 
-Borrible the Horrible - Scourge of the One Sea, Tyrant of the Trolls, Gouger
-of the Goblins - is here.
+  Borrible the Horrible - Scourge of the One Sea, Tyrant of the Trolls,
+Gouger of the Goblins - is here.
    "Wull, wull," grunts the man mountain that is Borrible the Horrible. He
 hefts the fearsome axx he has in his hand and stalks towards you. "You lok
 like your a rich fella, me lad. Wot say yous and over all yus items an mebbe
@@ -845,8 +845,8 @@ Trees stretch away as far as the eye can see.
 
 Exits lie: north and south
 
-Roden and Murphy are here.  Bill follows you from the north.  Ben follows you
-from the north.  Toto follows you from the north.
+  Roden and Murphy are here.  Bill follows you from the north.  Ben follows
+you from the north.  Toto follows you from the north.
 
 > s
    You move south.
@@ -919,7 +919,7 @@ Embedded in the side of a tree is a rusty axe.
 
 Exits lie: northwest and west
 
-Petunia is here.  Bill follows you from the west.  Ben follows you from the
+  Petunia is here.  Bill follows you from the west.  Ben follows you from the
 west.  Toto follows you from the west.
 
 > ask bill about axe
@@ -1005,8 +1005,8 @@ Trees stretch away as far as the eye can see.
 
 Exits lie: northwest and west
 
-Petunia is here.  Bill follows you from the north-west.  Ben follows you from
-the north-west.  Toto follows you from the north-west.
+  Petunia is here.  Bill follows you from the north-west.  Ben follows you
+from the north-west.  Toto follows you from the north-west.
 
 > w
    You move west.
@@ -1077,8 +1077,8 @@ Trees stretch away as far as the eye can see.
 
 Exits lie: north and south
 
-Roden and Murphy are here.  Bill follows you from the south.  Ben follows you
-from the south.  Toto follows you from the south.
+  Roden and Murphy are here.  Bill follows you from the south.  Ben follows
+you from the south.  Toto follows you from the south.
 
 > n
    You move north.
@@ -1170,8 +1170,8 @@ Trees stretch away as far as the eye can see.
 
 Exits lie: north
 
-Will the mystic is here, tending to some flowers.  Bill follows you from the
-north.  Ben follows you from the north.  Toto follows you from the north.
+  Will the mystic is here, tending to some flowers.  Bill follows you from
+the north.  Ben follows you from the north.  Toto follows you from the north.
 
 > give twig to will
    "Yip!" says Will. "That's the right one - yap!"
@@ -1299,8 +1299,8 @@ imagination).
 
 Exits lie: northwest, southeast and south
 
-Barnaby is here.  Bill follows you from the north-west.  Ben follows you from
-the north-west.  Toto follows you from the north-west.
+  Barnaby is here.  Bill follows you from the north-west.  Ben follows you
+from the north-west.  Toto follows you from the north-west.
 
 > s
    You move south.
@@ -1319,7 +1319,7 @@ room, as well as in a pit in the centre; over this pit is suspended an anvil.
 
 Exits lie: north
 
-Smith the smith is here.  Bill follows you from the north.  Ben follows you
+  Smith the smith is here.  Bill follows you from the north.  Ben follows you
 from the north.  Toto follows you from the north.
 
 > give broken axe to smith
@@ -1351,8 +1351,8 @@ imagination).
 
 Exits lie: northwest, southeast and south
 
-Barnaby is here.  Bill follows you from the south.  Ben follows you from the
-south.  Toto follows you from the south.
+  Barnaby is here.  Bill follows you from the south.  Ben follows you from
+the south.  Toto follows you from the south.
 
 > se
       You move southeast.
@@ -1408,7 +1408,7 @@ south and indicates "Brothel".
 
 Exits lie: northwest, north, east, southwest, south and southeast
 
-Samson is here.  Bill follows you from the north.  Ben follows you from the
+  Samson is here.  Bill follows you from the north.  Ben follows you from the
 north.  Toto follows you from the north.
 
 > nw
@@ -1426,7 +1426,7 @@ A ladder set into a hole in the ground winds away into the darkness.
 
 Exits lie: southeast and down
 
-Gondo the guard and Boris the guard are here.  Bill follows you from the
+  Gondo the guard and Boris the guard are here.  Bill follows you from the
 south-east.  Ben follows you from the south-east.  Toto follows you from the
 south-east.
 
@@ -1510,9 +1510,9 @@ A row of torches set around the walls illuminate events for you.
 
 Exits lie: up
 
-Alonzo the Magnaf- Magniff- Great! is here.
-Alice is tied to the altar here.  Bill follows you from above.  Ben follows
-you from above.  Toto follows you from above.
+  Alonzo the Magnaf- Magniff- Great! is here.  Alice is tied to the altar
+here.  Bill follows you from above.  Ben follows you from above.  Toto
+follows you from above.
 
 > kill alonzo
    "So," snarls Alonzo, "I see that you come here with murder in your hearts
@@ -1613,7 +1613,7 @@ A ladder set into a hole in the ground winds away into the darkness.
 
 Exits lie: southeast and down
 
-Gondo the guard and Boris the guard are here.
+  Gondo the guard and Boris the guard are here.
    "What went on down there?" says Gondo. "I heard the sounds of fighting."
    "Er, I had a slight disagreement with your boss," you say.
    "Is that slang for you chopped his head off?" asks Boris.
@@ -1655,8 +1655,8 @@ south and indicates "Brothel".
 
 Exits lie: northwest, north, east, southwest, south and southeast
 
-Samson is here.  Bill follows you from the north-west.  Ben follows you from
-the north-west.  Toto follows you from the north-west.
+  Samson is here.  Bill follows you from the north-west.  Ben follows you
+from the north-west.  Toto follows you from the north-west.
 
 > wear red wig
    You put on the red wig.
@@ -1739,8 +1739,8 @@ south and indicates "Brothel".
 
 Exits lie: northwest, north, east, southwest, south and southeast
 
-Samson is here.  Bill follows you from the south-east.  Ben follows you from
-the south-east.  Toto follows you from the south-east.
+  Samson is here.  Bill follows you from the south-east.  Ben follows you
+from the south-east.  Toto follows you from the south-east.
 
 > sw
       You move southwest.
@@ -1791,8 +1791,8 @@ south and indicates "Brothel".
 
 Exits lie: northwest, north, east, southwest, south and southeast
 
-Samson is here.  Bill follows you from the south-west.  Ben follows you from
-the south-west.  Toto follows you from the south-west.
+  Samson is here.  Bill follows you from the south-west.  Ben follows you
+from the south-west.  Toto follows you from the south-west.
 
 > n
    You move north.
@@ -1848,8 +1848,8 @@ imagination).
 
 Exits lie: northwest, southeast and south
 
-Barnaby is here.  Bill follows you from the south-east.  Ben follows you from
-the south-east.  Toto follows you from the south-east.
+  Barnaby is here.  Bill follows you from the south-east.  Ben follows you
+from the south-east.  Toto follows you from the south-east.
 
 > s
    You move south.
@@ -1868,7 +1868,7 @@ room, as well as in a pit in the centre; over this pit is suspended an anvil.
 
 Exits lie: north
 
-Smith the smith is here.  Bill follows you from the north.  Ben follows you
+  Smith the smith is here.  Bill follows you from the north.  Ben follows you
 from the north.  Toto follows you from the north.
 
 > give beer to smith
@@ -1898,8 +1898,8 @@ imagination).
 
 Exits lie: northwest, southeast and south
 
-Barnaby is here.  Bill follows you from the south.  Ben follows you from the
-south.  Toto follows you from the south.
+  Barnaby is here.  Bill follows you from the south.  Ben follows you from
+the south.  Toto follows you from the south.
 
 > se
       You move southeast.
@@ -1953,8 +1953,8 @@ thing here) by a greenish window above the table.
 
 Exits lie: south
 
-Aaaaaaaaaarg is here.  Bill follows you from the south.  Ben follows you from
-the south.  Toto follows you from the south.
+  Aaaaaaaaaarg is here.  Bill follows you from the south.  Ben follows you
+from the south.  Toto follows you from the south.
 
 > give axe to aaaaaaaaaarg
    "Ah, now this is a real piece of work and no mistake! I can well imagine
@@ -2041,7 +2041,7 @@ south and indicates "Brothel".
 
 Exits lie: northwest, north, east, southwest, south and southeast
 
-Samson is here.  Bill follows you from the north.  Ben follows you from the
+  Samson is here.  Bill follows you from the north.  Ben follows you from the
 north.  Toto follows you from the north.
 
 > se
@@ -2063,7 +2063,7 @@ shock of red hair - acolytes of the Holy One no doubt.
 
 Exits lie: northwest
 
-Thomas the Harryite is here.  Bill follows you from the north-west.  Ben
+  Thomas the Harryite is here.  Bill follows you from the north-west.  Ben
 follows you from the north-west.  Toto follows you from the north-west.
 
 > talk to thomas
@@ -2090,8 +2090,8 @@ south and indicates "Brothel".
 
 Exits lie: northwest, north, east, southwest, south and southeast
 
-Samson is here.  Bill follows you from the south-east.  Ben follows you from
-the south-east.  Toto follows you from the south-east.
+  Samson is here.  Bill follows you from the south-east.  Ben follows you
+from the south-east.  Toto follows you from the south-east.
 
 > se
       You move southeast.
@@ -2112,7 +2112,7 @@ shock of red hair - acolytes of the Holy One no doubt.
 
 Exits lie: northwest
 
-Thomas the Harryite and Red Harry are here.  Bill follows you from the
+  Thomas the Harryite and Red Harry are here.  Bill follows you from the
 north-west.  Ben follows you from the north-west.  Toto follows you from the
 north-west.
 
@@ -2178,8 +2178,8 @@ south and indicates "Brothel".
 
 Exits lie: northwest, north, east, southwest, south and southeast
 
-Samson is here.  Bill follows you from the south-east.  Ben follows you from
-the south-east.  Toto follows you from the south-east.
+  Samson is here.  Bill follows you from the south-east.  Ben follows you
+from the south-east.  Toto follows you from the south-east.
 
 > n
    You move north.
@@ -2273,8 +2273,8 @@ is a large building which looks about as old as Castle Stroppenheim.
 
 Exits lie: northeast, southeast and west
 
-Merton is here, mumbling inanely to himself.  Bill follows you.  Ben follows
-you.  Toto follows you.
+  Merton is here, mumbling inanely to himself.  Bill follows you.  Ben
+follows you.  Toto follows you.
 
 > ne
       You move northeast.
@@ -2532,7 +2532,7 @@ And inside the cot is the dragon egg you have been searching for.
 
 Exits lie: north
 
-Vorgon is here.
+  Vorgon is here.
    "Ah," says the large fellow in the armour, "you've arrived at last. I was
 wondering when you'd care to show up."
    "An' who the bloody 'ell are ye, pal?" snaps Toto. "Yer don't half look
@@ -2682,7 +2682,7 @@ is a large building which looks about as old as Castle Stroppenheim.
 
 Exits lie: northeast, southeast and west
 
-Merton is here, mumbling inanely to himself.  Bill follows you from the
+  Merton is here, mumbling inanely to himself.  Bill follows you from the
 north-east.  Ben follows you from the north-east.  Toto follows you from the
 north-east.
 
@@ -2779,7 +2779,7 @@ south and indicates "Brothel".
 
 Exits lie: northwest, north, east, southwest, south and southeast
 
-Samson is here.  Bill follows you from the north.  Ben follows you from the
+  Samson is here.  Bill follows you from the north.  Ben follows you from the
 north.  Toto follows you from the north.
 
 > se
@@ -2801,7 +2801,7 @@ shock of red hair - acolytes of the Holy One no doubt.
 
 Exits lie: northwest
 
-Red Harry is here.  Bill follows you from the north-west.  Ben follows you
+  Red Harry is here.  Bill follows you from the north-west.  Ben follows you
 from the north-west.  Toto follows you from the north-west.
 
 > give manuscripts to harry
@@ -2836,8 +2836,8 @@ south and indicates "Brothel".
 
 Exits lie: northwest, north, east, southwest, south and southeast
 
-Samson is here.  Bill follows you from the south-east.  Ben follows you from
-the south-east.  Toto follows you from the south-east.
+  Samson is here.  Bill follows you from the south-east.  Ben follows you
+from the south-east.  Toto follows you from the south-east.
 
 > n
    You move north.
@@ -2893,8 +2893,8 @@ imagination).
 
 Exits lie: northwest, southeast and south
 
-Barnaby is here.  Bill follows you from the south-east.  Ben follows you from
-the south-east.  Toto follows you from the south-east.
+  Barnaby is here.  Bill follows you from the south-east.  Ben follows you
+from the south-east.  Toto follows you from the south-east.
 
 > nw
       You move northwest.
@@ -2932,9 +2932,9 @@ By the side of the road is a bored looking scarecrow.
 
 Exits lie: north and south
 
-   You can also see a stuffed cat called Sam.
-Perry the pointless pedlar is here.  Bill follows you from the south.  Ben
-follows you from the south.  Toto follows you from the south.
+   You can also see a stuffed cat called Sam.  Perry the pointless pedlar is
+here.  Bill follows you from the south.  Ben follows you from the south.
+Toto follows you from the south.
 
 > n
    You move north.
@@ -2954,7 +2954,7 @@ at least upright.
 
 Exits lie: north, south, west and up
 
-Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
+  Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
 the south.  Ben follows you from the south.  Toto follows you from the south.
 
 > u
@@ -2979,7 +2979,7 @@ Below each window lies a heavy chest.
 
 Exits lie: down
 
-The dragon is here.
+  The dragon is here.
    "AH," roars the dragon, "SO YOU HAVE COME AFTER ALL. I HAD HALF EXPECTED
 YOU MIGHT DECIDE TO FLEE."
    "Fleeing's not in my nature," you say.

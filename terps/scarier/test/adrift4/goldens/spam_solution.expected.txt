@@ -31,9 +31,7 @@ Wow, now that's spam!
 
 Kitchen
 The usual refrigerator, stove, and the like are all here, along with
-groceries, and a can of SPAM©.
-
-Also here is a can of SPAM©.
+groceries, and a can of SPAM©.  Also here is a can of SPAM©.
 
 > take spam
 You take the can of SPAM©.
@@ -52,9 +50,7 @@ You move south.
 
 Kitchen
 The usual refrigerator, stove, and the like are all here, along with
-groceries, and a can of SPAM©.
-
-Oh, and your car keys are on the counter.
+groceries, and a can of SPAM©.  Oh, and your car keys are on the counter.
 
 > take keys
 You take car keys.

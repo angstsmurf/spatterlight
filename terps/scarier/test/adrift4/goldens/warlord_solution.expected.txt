@@ -287,9 +287,7 @@ judging from the state of the grounds you're guessing he's either not here
 any more or doesn't do a particularly good job.
 
 A path winds past the hut over to the northwest while southwest takes you
-back to the fortress grounds.
-
-There is a watch lying on the ground here.
+back to the fortress grounds.  There is a watch lying on the ground here.
 
 > get watch
 You take the watch.
@@ -412,9 +410,7 @@ anything useful and it looks like the hut has just been used to store all
 manner of junk over the years. There is a trapdoor in the floor. A window on
 one wall, dirty and begrimed, shows the side of the fortress but nothing more
 interesting than that. A doorway, where there previously was a door, leads
-outside.
-
-There is a watch lying on the ground here.
+outside.  There is a watch lying on the ground here.
 
 > get watch
 You take the watch.
@@ -564,9 +560,8 @@ grounds: several hundred feet of seemingly innocent looking flowers, weeds
 and bushes without a soldier, guard dog or security camera in sight.
 
 Paths lead north to the main door of the fortress and northeast and northwest
-around the sides of it. A further path leads away to the south.
-
-There is a pole lying on the ground.
+around the sides of it. A further path leads away to the south.  There is a
+pole lying on the ground.
 
 > get pole
 You take the pole.
@@ -689,10 +684,8 @@ the pole.
 
 The closed door of the fortress lies to the north (a hole has been blasted in
 it and trails of smoke trail wisp away from it) while the fortress grounds
-are back to the south.
-
-There is a pole lying on the ground.  There is a watch lying on the ground
-here.
+are back to the south.  There is a pole lying on the ground.  There is a
+watch lying on the ground here.
 
 The exploding watch certainly looks to have done its work here: a large hole
 has been blasted in the front door of the fortress. The edges are a little
@@ -2061,9 +2054,7 @@ you can see being a marble sculpture (again of the Baron) mounted on a
 pedestal in the middle of the room.
 
 A passage leads west, there is a wide open door to the north and an archway
-to the east.
-
-There is a rag on the floor.
+to the east.  There is a rag on the floor.
 
 > get rag
 You take the rag.
@@ -2803,10 +2794,8 @@ thinking about it. A single bulb, almost black in colour due to the dirt,
 hangs from the ceiling above a grime-encrusted table and stool. Due to the
 dirt upon it, it leaves the rest of the chamber in shadow.
 
-A passage leads away to the west.
-
-There is a large and heavy barrel here.
-A tall, thin fellow with filthy skin is here.
+A passage leads away to the west.  There is a large and heavy barrel here.  A
+tall, thin fellow with filthy skin is here.
 
 The tall, thin fellow with the filthy skin blinks at you as if surprised to
 see you. "Wh-what?" he gasps, spitting out something that looks vaguely like
@@ -2917,9 +2906,7 @@ leading away to the large hall to the northwest and another leading east to a
 room from which the sound of voices can be heard.
 
 The only light along this passage comes from a glowing patch of moss on one
-of the walls.
-
-There is a large and heavy barrel here.
+of the walls.  There is a large and heavy barrel here.
 
 > push barrel
 You give the barrel a shove. It rolls forward a bit then rolls along to the
@@ -2939,7 +2926,6 @@ giant.
 
 Passages leads away to the west, northwest and east while there is an archway
 to the south. The sound of voices emanate from the northwestern passage.
-
 There is a large and heavy barrel here.
 
 > push barrel
@@ -2960,9 +2946,7 @@ you can see being a marble sculpture (again of the Baron) mounted on a
 pedestal in the middle of the room.
 
 A passage leads west, there is a locked door to the north and an archway to
-the east.
-
-There is a large and heavy barrel here.
+the east.  There is a large and heavy barrel here.
 
 > push barrel
 You give the barrel a shove and it rolls off to the west.
@@ -2981,7 +2965,6 @@ giant.
 
 Passages leads away to the west, northwest and east while there is an archway
 to the south. The sound of voices emanate from the northwestern passage.
-
 There is a large and heavy barrel here.
 
 > b1
@@ -3293,9 +3276,7 @@ In The Tower
 You seem to be at the base of the tower, empty aside from a door to the south
 and a circular staircase leading up... and up... and up... and...
 
-A long way up, that's for certain.
-
-Also here is a silver coin.
+A long way up, that's for certain.  Also here is a silver coin.
 
 > get silver coin
 You take the silver coin.
@@ -3782,7 +3763,6 @@ The tower rises up before you, its upper reaches hidden in the clouds. A
 doorway leads inside the tower, the door having been smashed to pieces.
 
 To the south is a walkway spanning a void. On the far side is the fortress.
-
 Also here is a gold bar and a stick of dynamite.
 
 > get all

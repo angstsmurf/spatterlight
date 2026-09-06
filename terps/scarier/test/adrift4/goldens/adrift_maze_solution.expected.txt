@@ -70,8 +70,7 @@ You can move west and northeast.
 You move northeast.
 
 Maze D
-You are in a twisty maze, Section D.
-A powerful wizard is here.
+You are in a twisty maze, Section D.  A powerful wizard is here.
 
 You can move east, southwest and northwest.  Wizard vanishes to the
 north-west.
@@ -136,8 +135,7 @@ You can move east and south.
 You move east.
 
 Maze F
-You are in a twisty maze, Section F.
-A strange looking alien is here.
+You are in a twisty maze, Section F.  A strange looking alien is here.
 
 You can move east, south and west.
 
@@ -193,9 +191,7 @@ You can move north and south.
 You move south.
 
 Trophy Room
-You are in the ADRIFT Trophy Room.
-
-Also here is a trophy.
+You are in the ADRIFT Trophy Room.  Also here is a trophy.
 
 You can only move north.
 

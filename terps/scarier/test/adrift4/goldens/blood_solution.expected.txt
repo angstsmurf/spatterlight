@@ -65,8 +65,8 @@ and houses lining both sides of the road. You are very familiar with this
 area and know without looking that a pub called the Flying Horse is northeast
 and the place to the north is a tattoo parlour.  Dawson Street is to the
 southeast and London Road is to your west. From the wind that is blowing you
-can tell the cemetery is to the south.
-Terry Unsworth is busy sweeping the road.
+can tell the cemetery is to the south.  Terry Unsworth is busy sweeping the
+road.
 
 > w
 You move west.
@@ -92,9 +92,7 @@ front of the television, of dinner parties with friends, a place of
 happiness.  In the centre of the room is the battered old three seater settee
 you both loved and just in front of it the coffee table you always use as a
 foot rest. At the back of the room is a rather nice looking chest of drawers.
-The front door is to the north.
-
-You can also see a pair of gloves.
+The front door is to the north.  You can also see a pair of gloves.
 
 As you enter the house it suddenly all comes back to you. It is two months
 ago and you are late home from work.
@@ -137,8 +135,7 @@ Corner Shop
 The corner shop seems to be a very depressing place and could certainly do
 with a good clean.  Looking round you notice that it doesn't seem to have
 that much stock and the only real furniture in the shop is the counter in
-front of you. The exit is south.
-Charlie Hays is here looking very bored.
+front of you. The exit is south.  Charlie Hays is here looking very bored.
 
 Charlie looks at you for a brief moment and then resumes his work of looking
 bored.
@@ -175,8 +172,7 @@ Castle Avenue
 The houses are larger and the cars parked outside more expensive, so this is
 the better part of town but it still seems a very bleak place. London Road is
 to the east and a small park can just be seen to the west.  An alley is north
-and to the south is a betting shop.
-Alison Clarke is standing here.
+and to the south is a betting shop.  Alison Clarke is standing here.
 
 > give perfume to alison
 You hand the bottle of perfume to Alison who exclaims, "Elite! My favourite."
@@ -223,10 +219,8 @@ You move west.
 Pool Hall
 It is a slightly seedy pool hall but not the worst you have ever been in.  A
 pool table stands just to your right. The exit is east which leads to the
-back alley.
-
-You can also see a can of fly spray.
-Ray Millard is playing pool.
+back alley.  You can also see a can of fly spray.  Ray Millard is playing
+pool.
 
 Ray quickly looks up from his game and says, "Hi." His voice sounds like he
 has smoked far too many cigarettes in his life.
@@ -286,8 +280,8 @@ feels very 'crunchy' under foot.  You ask yourself how people can live like
 this and decide that you will need a shower later.  Against the opposite wall
 is an unmade bed and in the centre of the room is an armchair sited just in
 front of an old television. A lone picture is hanging at steep angle on one
-wall. Some steps lead down and away from this place.
-Frank Lovell is sitting in the armchair.
+wall. Some steps lead down and away from this place.  Frank Lovell is sitting
+in the armchair.
 
 Frank looks at you and says, "What are you doing in here, don't you know how
 to knock?"
@@ -367,9 +361,9 @@ place. It is quite obvious that the local council are now spending their
 money elsewhere. With its overgrown flower beds and wild bushes it has an air
 of neglect about it. You are standing next to one of the only wooden benches
 not to be vandalised and just at its side is a rubbish bin. Castle Avenue is
-to the east of you and a small path leads away to the south.
-Tom Addison is here.
-Mrs Ashworth is walking her dog, Timmy.  Mrs Ashworth exits to the south.
+to the east of you and a small path leads away to the south.  Tom Addison is
+here.  Mrs Ashworth is walking her dog, Timmy.  Mrs Ashworth exits to the
+south.
 
 Tom makes a terrible noise at the back of this throat and then spits on the
 ground.
@@ -385,7 +379,7 @@ You move south.
 Path
 The rutted and overgrown path leads north to the park and south to the old
 tennis courts. A tired looking tree stands forlornly at the side of the path.
-Mrs Ashworth is walking her dog, Timmy.
+ Mrs Ashworth is walking her dog, Timmy.
 
 > give bone to timmy
 You give the very large bone to Timmy, who immediately starts chewing it.
@@ -398,8 +392,8 @@ The old tennis court are now in a very bad state of repair and it would be
 impossible to have any sort of game here. Most of the fence which once
 surrounded the courts has gone, along with the fence posts which would have
 supported it. From the look of the court surface someone has been riding
-motorbikes in here. A path leads away to the north.
-Rick Dawson is nervously looking around.
+motorbikes in here. A path leads away to the north.  Rick Dawson is nervously
+looking around.
 
 > buy drug
 You give Rick £20 and he hands you a small packet.
@@ -451,10 +445,8 @@ The place looks clean enough but still somehow manages to feel grimy and
 dirty.  On the walls are various posters showing examples of different dragon
 tattoos. A white counter is located against the rear wall of the shop and you
 can see a certificate hanging on the wall just inside the door. The only exit
-from this miserable place is behind you to the south.
-
-You can see a discarded cigarette.
-Ben Crosby is standing here.
+from this miserable place is behind you to the south.  You can see a
+discarded cigarette.  Ben Crosby is standing here.
 Ben glances at you for a moment and with a look of distain looks away.
 
 > give packet to ben
@@ -512,9 +504,8 @@ You can only guess at the amount of money you have wasted on one 'sure bet'
 after another over the years. You had forgotten what a miserable place this
 betting shop is but it is all coming back to you now. You can see a counter
 behind which a woman is standing. The office for the shop is south and Castle
-Avenue is to the north.
-Doug Sage is here.
-Maggie Ford is looking at you expectantly.
+Avenue is to the north.  Doug Sage is here.  Maggie Ford is looking at you
+expectantly.
 
 Maggie smiles and mouths "Hello."
 
@@ -525,8 +516,7 @@ Betting Shop Office
 Like the rest of the betting shop, the office is a drab miserable looking
 place. The only furniture in the office is the desk and a metal cupboard just
 behind it. In the far corner is a large safe which is locked.  You can only
-go north to the betting shop.
-John Morley is watching you.
+go north to the betting shop.  John Morley is watching you.
 
 John seems to be on the telephone to someone, "Well Ben, I expected the money
 this morning." After listening to the answer he continues, "Well, I give you
@@ -548,9 +538,8 @@ You can only guess at the amount of money you have wasted on one 'sure bet'
 after another over the years. You had forgotten what a miserable place this
 betting shop is but it is all coming back to you now. You can see a counter
 behind which a woman is standing. The office for the shop is south and Castle
-Avenue is to the north.
-Doug Sage is here.
-Maggie Ford is looking at you expectantly.
+Avenue is to the north.  Doug Sage is here.  Maggie Ford is looking at you
+expectantly.
 Doug paces the room.
 
 You are suddenly overwhelmed by a complete feeling of depression and you
@@ -574,8 +563,8 @@ place. It is quite obvious that the local council are now spending their
 money elsewhere. With its overgrown flower beds and wild bushes it has an air
 of neglect about it. You are standing next to one of the only wooden benches
 not to be vandalised and just at its side is a rubbish bin. Castle Avenue is
-to the east of you and a small path leads away to the south.
-Tom Addison is here.
+to the east of you and a small path leads away to the south.  Tom Addison is
+here.
 
 > give wad to tom
 You hand the wad of money to Tom who just stares at it for a moment. He then
@@ -628,8 +617,8 @@ and houses lining both sides of the road. You are very familiar with this
 area and know without looking that a pub called the Flying Horse is northeast
 and the place to the north is a tattoo parlour.  Dawson Street is to the
 southeast and London Road is to your west. From the wind that is blowing you
-can tell the cemetery is to the south.
-Terry Unsworth is busy sweeping the road.
+can tell the cemetery is to the south.  Terry Unsworth is busy sweeping the
+road.
 
 > n
 You move north.
@@ -639,10 +628,8 @@ The place looks clean enough but still somehow manages to feel grimy and
 dirty.  On the walls are various posters showing examples of different dragon
 tattoos. A white counter is located against the rear wall of the shop and you
 can see a certificate hanging on the wall just inside the door. The only exit
-from this miserable place is behind you to the south.
-
-You can see a discarded cigarette.
-A dead body is lying on the floor.
+from this miserable place is behind you to the south.  You can see a
+discarded cigarette.  A dead body is lying on the floor.
 
 > x dead body
 You examine the body and it is indeed poor Ben Crosby. It looks like he
@@ -692,10 +679,9 @@ beer and cigarettes, not exactly a stomach churning experience but not that
 pleasant either.  The pubs narrow bar is in front of you and just inside the
 door is a dart board and a wall mounted jukebox. To the southwest is Albert
 Street, southeast is Draycot Road and the yard behind the pub is to the
-south.
-Colin Turner is standing at the bar.  Jed Peters is watching you carefully.
-Fred Sutton is staring vacantly around.  Emma Taylor is standing behind the
-bar.
+south.  Colin Turner is standing at the bar.  Jed Peters is watching you
+carefully.  Fred Sutton is staring vacantly around.  Emma Taylor is standing
+behind the bar.
 
 The barmaid, Emma, looks up and says cheerily, "Hello darling, you look a bit
 under the weather. I'm sure a drink will cheer you up a bit."
@@ -721,12 +707,9 @@ You move south.
 Yard
 The yard is just behind the pub and seems to be used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
-exits are through a metal gate to the south and back into the pub north.
-
-An old garden spade has been left here.
-
-You can also see some insecticide.
-Jed Peters is watching you carefully.
+exits are through a metal gate to the south and back into the pub north.  An
+old garden spade has been left here.  You can also see some insecticide.  Jed
+Peters is watching you carefully.
 The jukebox inside the pub is loudly playing some blues.
 You can even hear the music playing in the pub out here, it will definitely
 drown out any noise in the yard.
@@ -775,9 +758,8 @@ basically an alley lined by high brick walls. Albert Street is to the
 northwest, Draycot Road is northeast and the cemetery is west. The shop to
 the south has three golden balls hanging outside.  A metal gate to the north
 looks like it leads to a yard and you spot a narrow path to the east.  A road
-sweepers cart is parked at the side of the road.
-
-An old newspaper is lying nearby.
+sweepers cart is parked at the side of the road.  An old newspaper is lying
+nearby.
 
 > open cart
 You open the road sweepers cart.  Some black panties are inside the road
@@ -795,8 +777,7 @@ person leaving them does not pay up in time. You can only imagine the feeling
 of despair and despondency that brings people to a terrible place like this.
 With the dark painted walls, dirty ceiling and floors; it is a sad place to
 be sure. You can see a wooden counter and behind that a wooden shelf on the
-back wall. The shop exit is north.
-Chris Williams is standing here.
+back wall. The shop exit is north.  Chris Williams is standing here.
 
 > buy pendant
 You purchase the gold pendant for £20.
@@ -810,9 +791,8 @@ basically an alley lined by high brick walls. Albert Street is to the
 northwest, Draycot Road is northeast and the cemetery is west. The shop to
 the south has three golden balls hanging outside.  A metal gate to the north
 looks like it leads to a yard and you spot a narrow path to the east.  A road
-sweepers cart is parked at the side of the road.
-
-An old newspaper is lying nearby.
+sweepers cart is parked at the side of the road.  An old newspaper is lying
+nearby.
 
 > ne
 You move northeast.
@@ -823,8 +803,8 @@ called the Flying Horse is to the northwest and Dawson Street is southwest.
 The police station, which is only manned part-time, is east and the door is
 locked. You can see a small path leading southeast which you seem to remember
 leads to the canal. Thinking about the northeast which leads to Colesworth
-Road gives you a very strange feeling.
-Terry Unsworth is busy sweeping the road.
+Road gives you a very strange feeling.  Terry Unsworth is busy sweeping the
+road.
 
 > z
 Time passes...
@@ -850,8 +830,8 @@ Police station is rather a grand term for what is basically a single room no
 bigger than most spare bedrooms. This town only has one police officer and so
 this is a part time station. A counter is just in front of you, behind that
 is a table and on the right hand wall is a large noticeboard. To the west is
-Draycot Road and the door to the police station is open.
-Officer Coulton is watching you.
+Draycot Road and the door to the police station is open.  Officer Coulton is
+watching you.
 
 As you enter the policeman says, "Hello Mr Carling."
 "Oh, hello officer," you reply. He is one of the people working on your

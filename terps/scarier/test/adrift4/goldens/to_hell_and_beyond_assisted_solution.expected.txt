@@ -9,8 +9,7 @@ Entrance to beyond
 You are in a big cave. It's dark but you can clearly identify an exit to the
 south. You can see a figure (Zifan) near the exit. The exit is blocked by a
 big door. In the ceiling in the center of the room is a hole in wich you came
-through.
-Zifan is here.
+through.  Zifan is here.
 
 > greet zifan
 "I am Zifan. Any questions?" says Zifan.
@@ -24,8 +23,7 @@ You move south.
 Oran entrance
 You have entered the town of Oran. This place does not look very friendly.
 The houses are all scattered randomly accross the area. Some of them have
-collapsed, others are just on the verge of collapsing.
-Nekar is here.
+collapsed, others are just on the verge of collapsing.  Nekar is here.
 
 You can move east and south.
 
@@ -35,8 +33,7 @@ You move south.
 Oran 2
 You are standing on a crossroad. You see a few houses to the west, two men
 arguing over some matter in the east, the road just continues to the north
-and south. A man run towards you from the south.
-Tirdo is here.
+and south. A man run towards you from the south.  Tirdo is here.
 
 You can move north, east, south and west.
 
@@ -53,10 +50,8 @@ You can move north and east.
 You move north.
 
 Ilsar's house
-You have entered into an old house.  This is Ilsar's house.
-
-Also here is a hook.
-Ilsar is here.
+You have entered into an old house.  This is Ilsar's house.  Also here is a
+hook.  Ilsar is here.
 
 You can only move south.
 
@@ -104,9 +99,7 @@ You move east.
 
 Oran cliff
 You have arrived at a cliff. It´s not very big but it´s very steep. You can
-see a ledge just a meter out of your reach.
-
-Also here is a rope.
+see a ledge just a meter out of your reach.  Also here is a rope.
 
 You can only move west.
 
@@ -152,8 +145,7 @@ You move north.
 Oran entrance
 You have entered the town of Oran. This place does not look very friendly.
 The houses are all scattered randomly accross the area. Some of them have
-collapsed, others are just on the verge of collapsing.
-Nekar is here.
+collapsed, others are just on the verge of collapsing.  Nekar is here.
 
 You can move east and south.
 
@@ -169,8 +161,7 @@ You move east.
 
 Inn
 You enter the inn. This house, like all others in town, looks like it´s about
-to collapse any second.
-Petri is here.
+to collapse any second.   Petri is here.
 
 You can move west and up.
 
@@ -191,8 +182,7 @@ You move east.
 
 Tinev docks 1
 You have arrived at the docks. A dog is guarding the path to the east. There
-is a closed gate to the north.
-Dog is here.
+is a closed gate to the north.  Dog is here.
 
 You can move north and west.
 
@@ -208,8 +198,7 @@ You can move east and south.
 You move east.
 
 Tinev butcher
-You have entered into the butcher's shop.
-Kiren is here.
+You have entered into the butcher's shop.  Kiren is here.
 
 You can only move west.
 
@@ -230,8 +219,7 @@ You move south.
 
 Tinev docks 1
 You have arrived at the docks. A dog is guarding the path to the east. There
-is a closed gate to the north.
-Dog is here.
+is a closed gate to the north.  Dog is here.
 
 You can move north and west.
 
@@ -275,8 +263,7 @@ You move east.
 
 Tinev tavern
 You enter the tavern and your lungs are filled with smoke. You can see a few
-men sitting at the bar.
-Nimf is here.
+men sitting at the bar.  Nimf is here.
 
 You can only move west.
 
@@ -323,8 +310,7 @@ You move east.
 
 Tinev docks 1
 You have arrived at the docks. A dog is guarding the path to the east. There
-is a closed gate to the north.
-Dog is here.
+is a closed gate to the north.  Dog is here.
 
 You can move north and west.
 
@@ -340,8 +326,7 @@ You can move east and south.
 You move east.
 
 Tinev butcher
-You have entered into the butcher's shop.
-Kiren is here.
+You have entered into the butcher's shop.  Kiren is here.
 
 You can only move west.
 
@@ -361,8 +346,7 @@ You move south.
 
 Tinev docks 1
 You have arrived at the docks. A dog is guarding the path to the east. There
-is a closed gate to the north.
-Dog is here.
+is a closed gate to the north.  Dog is here.
 
 You can move north and west.
 
@@ -381,8 +365,7 @@ You can move east and west.
 You move east.
 
 Tinev docks 3
-You can see a manhole here.
-Trace is here.
+You can see a manhole here.  Trace is here.
 
 You can move north and west.
 
@@ -415,8 +398,7 @@ You can move south and up.
 You move up.
 
 In front of old mansion
-
-Also here is a crowbar.
+  Also here is a crowbar.
 
 You can move west, down and in.
 
@@ -448,8 +430,7 @@ You can move north and south.
 You move south.
 
 Tinev docks 3
-You can see a manhole here.
-Trace is here.
+You can see a manhole here.  Trace is here.
 
 You can move north and west.
 
@@ -501,8 +482,7 @@ You move east.
 
 Kitchen
 This is the kitchen. You can see a chair and a sink.  There's a cat in the
-sink.
-Koir and Cat are here.
+sink.  Koir and Cat are here.
 
 You can only move west.
 You sneak up on Koir and his friend and hear them talking.
@@ -613,9 +593,7 @@ You can move north, east and west.
 You move east.
 
 Kitchen
-This is the kitchen. You can see a chair and a sink.
-
-Also here is a key.
+This is the kitchen. You can see a chair and a sink.  Also here is a key.
 
 You can only move west.
 
@@ -756,9 +734,7 @@ You move south.
 Koir´s cabin
 You are now standing inside Koir´s cabin. He has tied you but you can still
 jump around. There's a candle on top of a drawer. There's a sword in the
-corner of the room.
-
-Also here is a sword.
+corner of the room.  Also here is a sword.
 
 > use sword
 You use the sword to cut the rope.
@@ -984,8 +960,7 @@ You can move north and south.
 You move north.
 
 Tunnel 3
-The path splits to the east and west.
-Big rat is here.
+The path splits to the east and west.  Big rat is here.
 
 You can move east, south and west.
 
@@ -1147,8 +1122,7 @@ You move in.
 Castle entrance
 This place is huge. To the north is a living room. To the south is the
 kitchen. To the north is a staircase leading up.  But what's important now is
-finding the mayor. Trace is a friend of his.
-Warth is here.
+finding the mayor. Trace is a friend of his.  Warth is here.
 
 You can move north, south, west and out.
 "Ah. It is you Trace. The guest bedroom is ready. The mayor is not at home.
@@ -1210,8 +1184,8 @@ You can move north, south, west and down.
 You move west.
 
 The mayor's bedroom
-This room is big. There's a huge, soft bed opposite to the door.
-Enevez is here.
+This room is big. There's a huge, soft bed opposite to the door.  Enevez is
+here.
 
 You can only move east.
 
@@ -1248,8 +1222,7 @@ You move east.
 Castle entrance
 This place is huge. To the north is a living room. To the south is the
 kitchen. To the north is a staircase leading up.  But what's important now is
-finding the mayor. Trace is a friend of his.
-Warth is here.
+finding the mayor. Trace is a friend of his.  Warth is here.
 
 You can move north, south, west and out.
 
@@ -1361,7 +1334,7 @@ You can move north, south, west and down.
 You move north.
 
 Grassland
-Big scorpion is here.
+  Big scorpion is here.
 
 You can move north and south.
 Trace hits Big scorpion with the Whip.
@@ -1372,8 +1345,7 @@ You kill the scorpion and collect your bounty. 75 gold coins.
 You move north.
 
 Grassland
-The path continues north.
-Thief is here.
+The path continues north.  Thief is here.
 
 You can move north and south.
 Trace hits Thief with the Whip.
@@ -1461,8 +1433,7 @@ You can move north, east and in.
 You move in.
 
 Weapons shop
-In here are many different weapons. Narjaje is here.
-Narjaje is here.
+In here are many different weapons. Narjaje is here.  Narjaje is here.
 
 You can only move out.
 
@@ -1504,8 +1475,7 @@ You can move north, east, south and in.
 You move in.
 
 Sulfan tavern
-You step inside the tavern.
-Trace and Enevez are here.
+You step inside the tavern.  Trace and Enevez are here.
 
 You can only move out.
 "We have decided to kill assassinate Koir. That way his troops won´t have a
@@ -1516,8 +1486,7 @@ You move west.
 
 Mika city 1
 It's very quiet. You can hear some men singing in the tavern nearby. Drunk
-soldiers.
-Soldier 1 is here.
+soldiers.  Soldier 1 is here.
 
 You can move east and west.
 
@@ -1525,8 +1494,7 @@ You can move east and west.
 You move west.
 
 Mika town square
-Just a little bit further and you'll be at the gates.
-Soldier 2 is here.
+Just a little bit further and you'll be at the gates.  Soldier 2 is here.
 
 You can move east and west.
 Trace hits Soldier 2 with the Whip.
@@ -1595,8 +1563,7 @@ You move west.
 
 The mayor's bedroom
 You enter the mayor's bedroom. You can see Koir standing there facing away
-from you.
-Koir is here.
+from you.  Koir is here.
 
 You can only move east.
 You run towards Koir and swing your sword but your sword catches nothing but

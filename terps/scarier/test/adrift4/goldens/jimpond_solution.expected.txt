@@ -162,9 +162,7 @@ large. As there are only three people who park here - myself, P and P's
 secretary, Mrs Assywassy - a parking lot the size of a football stadium is
 just a bit of overkill.
    I find the following exits available to me: in (to my car) and north (to a
-more interesting bit of the parking lot).
-
-Also here is a can of coke.
+more interesting bit of the parking lot).  Also here is a can of coke.
 
 > get coke
 I take the can of coke.
@@ -261,9 +259,8 @@ a pile of files is ringing to itself. The western part of the office is
 occupied by a large table on top of which is a detailed map of a bank vault.
 Behind this table, taking up most of the west wall, is a window with a rather
 large hole in the centre.
-   I find the following exits available to me: south (to the lobby).
-Orinoko is here.
-Bulgaria is here, a knife clutched in his hand.
+   I find the following exits available to me: south (to the lobby).  Orinoko
+is here.  Bulgaria is here, a knife clutched in his hand.
 
 I see a couple of men here, both oriental in appearance, struggling by the
 far wall.
@@ -369,10 +366,8 @@ a pile of files is ringing to itself. The western part of the office is
 occupied by a large table on top of which is a detailed map of a bank vault.
 Behind this table, taking up most of the west wall, is a window with a rather
 large hole in the centre.
-   I find the following exits available to me: south (to the lobby).
-
-Also here is a can of coke.
-Orinoko is here.
+   I find the following exits available to me: south (to the lobby).  Also
+here is a can of coke.  Orinoko is here.
 
 > i
 I am wearing a badge, and I am carrying some loose change, my gun (unloaded),
@@ -515,9 +510,8 @@ find the bank robbers so I narrow it down to a couple of possible start
 locations: the Alonzo Bar and a boat called The Corpse which is anchored
 nearby.
    I find the following exits available to me: northwest (to the Alonzo Bar),
-southwest (to The Corpse) and in (to my car).
-
-Also here is a newspaper.  Orinoko enters.
+southwest (to The Corpse) and in (to my car).  Also here is a newspaper.
+Orinoko enters.
 
 > look
 
@@ -531,9 +525,7 @@ find the bank robbers so I narrow it down to a couple of possible start
 locations: the Alonzo Bar and a boat called The Corpse which is anchored
 nearby.
    I find the following exits available to me: northwest (to the Alonzo Bar),
-southwest (to The Corpse) and in (to my car).
-
-Also here is a newspaper.
+southwest (to The Corpse) and in (to my car).  Also here is a newspaper.
 Orinoko is here.
 
 > nw
@@ -713,9 +705,8 @@ find the bank robbers so I narrow it down to a couple of possible start
 locations: the Alonzo Bar and a boat called The Corpse which is anchored
 nearby.
    I find the following exits available to me: northwest (to the Alonzo Bar),
-southwest (to The Corpse) and in (to my car).
-
-Also here is a newspaper.  Orinoko enters from the north-west.
+southwest (to The Corpse) and in (to my car).  Also here is a newspaper.
+Orinoko enters from the north-west.
 
 > score
 My score is 40 out of a maximum of 352.  (11%)
@@ -732,9 +723,7 @@ find the bank robbers so I narrow it down to a couple of possible start
 locations: the Alonzo Bar and a boat called The Corpse which is anchored
 nearby.
    I find the following exits available to me: northwest (to the Alonzo Bar),
-southwest (to The Corpse) and in (to my car).
-
-Also here is a newspaper.
+southwest (to The Corpse) and in (to my car).  Also here is a newspaper.
 Orinoko is here.
 
 > nw
@@ -773,8 +762,7 @@ shape of a ship.
 fishing nets, there's nothing to grab the attention here. Oh, aside from the
 cabin to the west.
    I find the following exits available to me: west (to the cabin) and
-northeast (to the docks).
-Orinoko is here.
+northeast (to the docks).  Orinoko is here.
 
 > score
 My score is 40 out of a maximum of 352.  (11%)
@@ -845,8 +833,7 @@ and die quietly.) Several streets lead away from to other parts of the heart
 of the city but it's the bank not five feet away from my parked car that
 draws my attention. A broad flight of steps lead inside the bank.
    I find the following exits available to me: north (into the bank), east
-and west (along Percy Street) and in (to my car).
-Orinoko is here.
+and west (along Percy Street) and in (to my car).  Orinoko is here.
 
 > score
 My score is 40 out of a maximum of 352.  (11%)
@@ -903,8 +890,7 @@ Clad in my Bahamas beach-ware I'm a little out of place.
 catch sight of it to the west. Nothing else of interest springs to mind
 although the strip den on the corner is at least… appealing.
    I find the following exits available to me: west (to the building),
-northeast (to the strip den) and in (to my car).
-Orinoko is here.
+northeast (to the strip den) and in (to my car).  Orinoko is here.
 
 > ne
 I move northeast.
@@ -1259,7 +1245,7 @@ sunlight is enough to evaporate their contents. The prices look a little
 steep for someone on my secret agent budget and the woman serving behind the
 bar doesn't look the sort to be giving out freebies.
    I find the following exits available to me: south (to the reception area).
-Bungo is here.
+ Bungo is here.
 
 I catch Bungo watching me as I enter the bar and suspect I might well have
 problems leaving.
@@ -1274,7 +1260,7 @@ sunlight is enough to evaporate their contents. The prices look a little
 steep for someone on my secret agent budget and the woman serving behind the
 bar doesn't look the sort to be giving out freebies.
    I find the following exits available to me: south (to the reception area).
-Bungo is here.
+ Bungo is here.
 
 > give wallet to bungo
 "Ah, my wallet is returned," says Bungo with obvious delight. "I was

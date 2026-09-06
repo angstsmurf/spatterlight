@@ -199,10 +199,8 @@ navigation computer to set a new course.
 
 An active emergency forcefield generator is sitting on the floor between the
 pilot's chair and a hatch leading to the thrumming engine room below, while
-the rest of the shuttle is to the south.
-
-A pair of blue gloves has been tucked into the net pouch on the back of the
-pilot's chair.
+the rest of the shuttle is to the south.    A pair of blue gloves has been
+tucked into the net pouch on the back of the pilot's chair.
 
 > turn off generator
 You crouch down and flip the switch. The forcefield flickers, then goes off.
@@ -250,11 +248,8 @@ A tiny, cramped compartment filled with no-doubt vital machinery you know
 nothing about and are none too eager to fool with. The engine itself appears
 to be in a seperate compartment a little ways north of here, but it'll be a
 tight squeeze between two connected pieces of equipment to get there. A hatch
-leads back up to the back of the shuttle.
-
-A screwench lies here.
-
-Also here are the handcuffs and a laser spinner.
+leads back up to the back of the shuttle.  A screwench lies here.  Also here
+are the handcuffs and a laser spinner.
 
 |"...oh damn, my lunch is here. Gotta go, babe." The recording goes silent,
 leaving you to reflect that was probably the weakest example of villainous
@@ -297,10 +292,8 @@ support and fuel.
 
 An inactive emergency forcefield generator is sitting on the floor between
 the pilot's chair and a hatch leading to the thrumming engine room below,
-while the rest of the shuttle is to the south.
-
-A pair of blue gloves has been tucked into the net pouch on the back of the
-pilot's chair.
+while the rest of the shuttle is to the south.   A pair of blue gloves has
+been tucked into the net pouch on the back of the pilot's chair.
 
 > x gloves
 A pair of bright blue gloves that look long enough to go up to your elbows,

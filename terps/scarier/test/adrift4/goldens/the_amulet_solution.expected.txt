@@ -59,7 +59,6 @@ Looking into the crypt you see...
 Crypt of Lord An
 Inside of an open stone sarcophagus, the ancient remains of Lord An stand.
 Clothed in tattered rags, Lord An's remains do not look as old as they are.
-
 Around his neck, the Lord An's blood red ruby amulet sparkles in the
 firelight.  Perched atop the stone sarcophagus is a mummified bat.  A thin
 unsheathed silver blade lies next to the remains.
@@ -72,10 +71,9 @@ legendary war mage.  The crypt can be seen to the north through an archway
 ten feet across.  Runic markings are engraved into the stones around the
 archway.  Light is provided by roaring flames held by iron stands to each
 side of the archway.  To the south is a stone stairway leading up to the
-crypt exit.  Runic markings are engraved around the doorway.
-
-A human skeleton lies half buried in the floor in the corner of the room.
-Perched atop the stone sarcophagus is a mummified bat.
+crypt exit.  Runic markings are engraved around the doorway.  A human
+skeleton lies half buried in the floor in the corner of the room.  Perched
+atop the stone sarcophagus is a mummified bat.
 
 > examine human skeleton
 Poking through the remains of the skeleton, you find some iron fittings and a
@@ -105,11 +103,10 @@ legendary war mage.  The crypt can be seen to the north through an archway
 ten feet across.  Runic markings are engraved into the stones around the
 archway.  Light is provided by roaring flames held by iron stands to each
 side of the archway.  To the south is a stone stairway leading up to the
-crypt exit.  Runic markings are engraved around the doorway.
-
-A human skeleton lies half buried in the floor in the corner of the room.
-Swooping back and forth in an agitated manner, an ancient mummified bat
-attempts to rake out your eyes and throat with each pass.
+crypt exit.  Runic markings are engraved around the doorway.  A human
+skeleton lies half buried in the floor in the corner of the room.  Swooping
+back and forth in an agitated manner, an ancient mummified bat attempts to
+rake out your eyes and throat with each pass.
 On the last pass, the mummified bat barely misses digging its claws into your
 eye socket.
 

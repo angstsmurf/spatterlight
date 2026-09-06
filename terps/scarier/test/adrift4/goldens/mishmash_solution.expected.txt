@@ -220,6 +220,7 @@ here. The square of rooms mainly concentrates on the development, maintenance
 and use of the cold suits. However, there is not much evidence of this here.
 There is only the door to the south leading to the storage room where you
 first escaped from.
+
 A security guard is currently in the location.  The security guard marches
 out to the west.
 
@@ -270,6 +271,7 @@ north and south.
 
 A passcard has been dropped unknowingly by one of the two people. It is
 almost hidden under the cupboard.
+
 A security guard is currently in the location.
 
 A man and woman are having a conversation here.  The security guard marches
@@ -292,6 +294,7 @@ recently, as the bin is nearly empty of rubbish. Alternatively, it could just
 be that there isn't much rubbish around. You don't actually remember much
 from your time playing through. Maybe the program edits out boring
 necessities. The hallway continues to the south and east.
+
 A security guard is currently in the location.  The security guard marches
 out to the east.
 
@@ -307,6 +310,7 @@ laboratory was seen as more important, with improvements to the cold suit
 thought of as the top priority. However, this will change very shortly once
 the impact of the current experiment begins to be considered. The hallway
 continues to the east and west.
+
 A security guard is currently in the location.  The security guard marches
 out to the east.
 
@@ -363,6 +367,7 @@ recently, as the bin is nearly empty of rubbish. Alternatively, it could just
 be that there isn't much rubbish around. You don't actually remember much
 from your time playing through. Maybe the program edits out boring
 necessities. The hallway continues to the south and east.
+
 A security guard is currently in the location.  The security guard marches
 out to the east.
 
@@ -615,6 +620,7 @@ purpose, and the area has been warmed by the huge heaters next to one wall.
 The walls of this room are made of glass, and you can see the night sky
 outside. The garden continues to the northeast, with an open door leading to
 the southwest. A slot is next to the door.
+
 A gardener is tending to the vegetable patch.
 
 The door closes behind you.
@@ -834,6 +840,7 @@ The hallway is bare, as it is currently being worked on in the renovation
 process. The workers have stopped working for the day and there is nothing
 notable in this area. The unfinished office is to the east. A closed door to
 the conference room is to the west. The hallway leads north and south.
+
 A guard is standing around, whose job is to remind people not to enter the
 renovation area.
 
@@ -855,6 +862,7 @@ The hallway is bare, as it is currently being worked on in the renovation
 process. The workers have stopped working for the day and there is nothing
 notable in this area. The unfinished office is to the east. A closed door to
 the conference room is to the west. The hallway leads north and south.
+
 A guard is standing around, whose job is to remind people not to enter the
 renovation area.
 
@@ -927,6 +935,7 @@ Luckily, the tendency of the program to skip through to important moments
 meant that you did not have to put up with the lack of privacy often. A
 second closed door leads east into the conference room. The hallway leads
 north and south.
+
 A guard stands in front of the door to the accommodation area.
 
 > s
@@ -1100,6 +1109,7 @@ important decisions about the future and everyone has made sure to turn up.
 This has left the other areas of this complex a bit emptier, which is helpful
 for you right now. Director Howard Johnson's office is to the east. The
 hallway continues to the north and south.
+
 The guard is in front of the conference room door, to prevent anyone from
 entering.
 
@@ -1337,6 +1347,7 @@ cold suit, have been progressing rapidly. The initial results are very
 promising in the increased control over the suit's functions. These results
 were what led to the meeting in the conference room. The hallway continues to
 the east and west.
+
 A guard stands outside the laboratory. Nobody is allowed in to see the
 technology unless they are participating in the experiments.
 
@@ -2244,6 +2255,7 @@ dots on a screen in the cold suit, rather than the death all around below.
 The cliff here looks like it could be climbed down. The rocks in the area
 prevent any other exits apart from back down the hill to the northeast, or
 across the top of the hill to the north.
+
 memoryblam is here and he want to finally end this duel.
 
 memoryblam calls out after you, "You have to come back up here sooner or

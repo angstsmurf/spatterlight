@@ -74,9 +74,8 @@ mechanism) it swings aside to reveal a hidden room beyond.
 To the southwest you go.
 
 Hidden grotto
-A small and grimy room with a few treasures. Exits lie: northeast.
-
-Also here is some armour and the Blocker's Ring.
+A small and grimy room with a few treasures. Exits lie: northeast.  Also here
+is some armour and the Blocker's Ring.
 
 > get all
 You take the armour and the Blocker's Ring.
@@ -232,10 +231,8 @@ You move west.
 
 Troll's cavern
 A fiendfish troll has made its lair in this cavern and every breath could be
-your last. Exits lie: east.
-
-Also here is some meat.
-Snugg the troll is here, looming massively you.
+your last. Exits lie: east.  Also here is some meat.  Snugg the troll is
+here, looming massively you.
 
 > get meat
 You take the meat.
@@ -274,7 +271,6 @@ To the east you go.
 Twisty passageway
 The main passageway continues on a northwest/southeast route with a smaller
 passage heading off to the west. Exits lie: northwest, southeast and west.
-
 Also here is some meat.
 
 > get meat
@@ -357,8 +353,7 @@ To the southeast you go.
 Lengthy passage
 This passage runs straight and smooth for as far as you can see to the
 northwest. In the other direction, it opens out into a series of twisty
-little passages. Exits lie: northwest and southeast.
-Cyana is here.
+little passages. Exits lie: northwest and southeast.  Cyana is here.
 
 > se
 To the southeast you go.
@@ -410,8 +405,7 @@ To the northwest you go.
 Lengthy passage
 This passage runs straight and smooth for as far as you can see to the
 northwest. In the other direction, it opens out into a series of twisty
-little passages. Exits lie: northwest and southeast.
-Cyana is here.
+little passages. Exits lie: northwest and southeast.  Cyana is here.
 
 > talk to cyana
 She wrinkles her pretty nose at you. "Oh my god, a human," she says, the last
@@ -628,9 +622,8 @@ To the east you go.
 
 Treasure trove
 You have reached the fabled treasure trove of the caves! Around you there is
-more wealth than you could ever hope to spend in a thousand lifetimes!
-
-Also here is a jewelled rod and a jade sceptre.
+more wealth than you could ever hope to spend in a thousand lifetimes!  Also
+here is a jewelled rod and a jade sceptre.
 
 > get treasure
 You take as much treasure as you can manage right now - 55 gold coins (gold

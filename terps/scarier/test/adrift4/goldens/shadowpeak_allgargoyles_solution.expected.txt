@@ -53,8 +53,7 @@ A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
 southeast, can still be followed. The wind blows from the west, and with it
 comes the stench of rotting vegetation.
-
-Also here is a fallen oak tree.
+  Also here is a fallen oak tree.
 
 You can move north, south, west, southeast and southwest.
 
@@ -78,8 +77,7 @@ Leaning tree.
 You get a better look at the village across the chasm. There are people
 moving about there, but they are too far away for them to hear any cries for
 help from you.
-
-Also here is a bird’s nest.
+  Also here is a bird’s nest.
 
 You can only move down.
 
@@ -115,9 +113,7 @@ A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
 southeast, can still be followed. The wind blows from the west, and with it
 comes the stench of rotting vegetation.
-
-Also here is a fallen oak tree.
-Fetlar the overly fetid is here.
+  Also here is a fallen oak tree.  Fetlar the overly fetid is here.
 
 You can move north, south, west, southeast and southwest.
 
@@ -138,8 +134,7 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-
-Also here is a body and a staff.
+  Also here is a body and a staff.
 
 You can move north, east, south and west.  Fetlar the overly fetid flutters
 down from the south.
@@ -178,7 +173,6 @@ Up a tree
 You see the surrounding area. Forest stretches off into all directions, apart
 from the south, which leads to a large chasm, beyond which a small village
 can be seen. To the southwest, a vast swamp swallows up much of the land.
-
 You see a pair of leather gloves hung over a branch of the tree.
 
 You can only move down.
@@ -210,9 +204,8 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-
-Also here is a body and a staff.
-Fetlar the overly fetid is here.  It is raining...
+  Also here is a body and a staff.  Fetlar the overly fetid is here.  It is
+raining...
 
 You can move north, east, south and west.
 
@@ -251,8 +244,7 @@ You move west.
 
 Shadow Forest.
 The impassable Kuskarian Range mountains can be seen to the north.
-
-Also here is a  very large log.
+  Also here is a  very large log.
 
 You can move north, east and west.
 
@@ -270,9 +262,7 @@ You move north.
 Druids grove.
 The sacred grove of the druids is surrounded by thick foliage and dense
 forest. It smells sweet here.
-
-Also here is a bed of flowers.
-Ajs the living tree is here.
+  Also here is a bed of flowers.  Ajs the living tree is here.
 
 You can only move south.
 
@@ -284,9 +274,7 @@ You move south.
 
 Shadow Forest.
 The impassable Kuskarian Range mountains can be seen to the north.
-
-Also here is a  very large log.
-Fang is here.
+  Also here is a  very large log.  Fang is here.
 
 You can move north, east and west.
 Seeker hums!
@@ -328,10 +316,8 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-
-Also here is a body and a staff.
-Rossi, the muck dweller, is here.  Reevling the Warrior is here.  It is
-raining...
+  Also here is a body and a staff.  Rossi, the muck dweller, is here.
+Reevling the Warrior is here.  It is raining...
 
 You can move north, east, south and west.
 Upon seeing you, Rossi gets a little excited and grunts the word "easy "
@@ -356,10 +342,8 @@ A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
 southeast, can still be followed. The wind blows from the west, and with it
 comes the stench of rotting vegetation.
-
-Also here is a fallen oak tree.
-Fetlar the overly fetid is here.  Reevling the Warrior is here.  It is
-raining...
+  Also here is a fallen oak tree.  Fetlar the overly fetid is here.  Reevling
+the Warrior is here.  It is raining...
 
 You can move north, south, west, southeast and southwest.
 Lightning lances the clouds above. The rumble of thunder can be heard over
@@ -385,8 +369,7 @@ You move west.
 
 Great Swamp.
 You see a chasm to the south.
-
-Also here is a sword.  It is raining...
+  Also here is a sword.  It is raining...
 
 You can move north, east, west, northeast and northwest.
 
@@ -407,7 +390,7 @@ You move northwest.
 
 Great Swamp.
 
-Also here is a statue of a fair maiden and a sign.  It is raining...
+  Also here is a statue of a fair maiden and a sign.  It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -419,8 +402,7 @@ You move west.
 Cave entrance.
 You see a large number of statues here. There is also a cave leading into the
 mountainside, to the west.
-
-Also here is a Statues and a sign.
+  Also here is a Statues and a sign.
 
 You can move east and west.
 Seeker hums!
@@ -448,8 +430,7 @@ You move east.
 Cave entrance.
 You see a large number of statues here. There is also a cave leading into the
 mountainside, to the west.
-
-Also here is a Statues and a sign.
+  Also here is a Statues and a sign.
 
 You can move east and west.
 A dark shadow appears from above. Something seems to be blocking out the
@@ -461,7 +442,7 @@ You move east.
 
 Great Swamp.
 
-Also here is a statue of a fair maiden and a sign.  It is raining...
+  Also here is a statue of a fair maiden and a sign.  It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -471,8 +452,8 @@ It stops raining...
 You move southeast.
 
 Great Swamp.
-You stand in the Great Swamp.
-Fetlar the overly fetid is here.  Rossi, the muck dweller, is here.
+You stand in the Great Swamp.  Fetlar the overly fetid is here.  Rossi, the
+muck dweller, is here.
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -497,8 +478,7 @@ A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
 southeast, can still be followed. The wind blows from the west, and with it
 comes the stench of rotting vegetation.
-
-Also here is a fallen oak tree.
+  Also here is a fallen oak tree.
 
 You can move north, south, west, southeast and southwest.
 
@@ -511,8 +491,7 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-
-Also here is a body and a staff.
+  Also here is a body and a staff.
 
 You can move north, east, south and west.
 
@@ -579,8 +558,7 @@ There is a crack in the stonework on the east wall; too small to climb
 through, though it does let a ray of sunlight in, which brightens the room a
 little.
 There is an iron handle sticking out of the ceiling.
-
-Also here is a sarcophagus.
+  Also here is a sarcophagus.
 A stone wall drops down behind you, blocking your exit from this building!
 
 > open sarcophagus
@@ -633,9 +611,7 @@ There is a crack in the stonework on the east wall; too small to climb
 through, though it does let a ray of sunlight in, which brightens the room a
 little.
 There is an iron handle sticking out of the ceiling.
-
-Also here is a sarcophagus.
-Alam Nadeer is here.
+  Also here is a sarcophagus.  Alam Nadeer is here.
 
 You can move north and west.
 Seeker hums!
@@ -770,8 +746,7 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-
-Also here is a body and a staff.  It is raining...
+  Also here is a body and a staff.  It is raining...
 
 You can move north, east, south and west.
 
@@ -783,8 +758,7 @@ A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
 southeast, can still be followed. The wind blows from the west, and with it
 comes the stench of rotting vegetation.
-
-Also here is a fallen oak tree.  It is raining...
+  Also here is a fallen oak tree.  It is raining...
 
 You can move north, south, west, southeast and southwest.
 
@@ -816,7 +790,7 @@ You move northwest.
 
 Great Swamp.
 
-Also here is a statue of a fair maiden and a sign.  It is raining...
+  Also here is a statue of a fair maiden and a sign.  It is raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -827,8 +801,7 @@ You move west.
 Cave entrance.
 You see a large number of statues here. There is also a cave leading into the
 mountainside, to the west.
-
-Also here is a Statues and a sign.
+  Also here is a Statues and a sign.
 
 You can move east and west.
 You hear the flutter of batlike wings.
@@ -839,8 +812,7 @@ You move west.
 The Basilisks cave.
 You are inside a cave leading into the mountainside. To the west, the cave
 goes deeper, but it is somewhat obscured by the large boulder blocking it.
-
-Also here is a stone basilisk.
+  Also here is a stone basilisk.
 
 You can only move east.
 
@@ -874,8 +846,7 @@ You move west.
 
 The cave end.
 The cave ends in a dead end.
-
-Also here is large wooden chest.
+  Also here is large wooden chest.
 
 You can only move east.
 
@@ -900,8 +871,7 @@ You move east.
 The Basilisks cave.
 You are inside a cave leading into the mountainside. To the west, the cave
 goes deeper, but it is somewhat obscured by the large boulder blocking it.
-
-Also here is a stone basilisk.
+  Also here is a stone basilisk.
 
 You can move east and west.
 
@@ -911,8 +881,7 @@ You move east.
 Cave entrance.
 You see a large number of statues here. There is also a cave leading into the
 mountainside, to the west.
-
-Also here is a Statues and a sign.
+  Also here is a Statues and a sign.
 
 You can move east and west.
 
@@ -921,7 +890,7 @@ You move east.
 
 Great Swamp.
 
-Also here is a statue of a fair maiden and a sign.
+  Also here is a statue of a fair maiden and a sign.
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
@@ -930,8 +899,7 @@ northwest.
 You move southeast.
 
 Great Swamp.
-You stand in the Great Swamp.
-Rossi, the muck dweller, is here.
+You stand in the Great Swamp.  Rossi, the muck dweller, is here.
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.  Fetlar the overly fetid flutters down.
@@ -955,8 +923,7 @@ A tree struck by lightning has fallen over the trail here.
 The tree seems quite easy to climb over, so the trail, which now leads
 southeast, can still be followed. The wind blows from the west, and with it
 comes the stench of rotting vegetation.
-
-Also here is a fallen oak tree.
+  Also here is a fallen oak tree.
 
 You can move north, south, west, southeast and southwest.
 It starts to rain...
@@ -1015,8 +982,7 @@ The Village Square.
 It looks like a typical village square, yet all the market stalls and shops
 appear abandoned. West leads to one such shop; east leads to a blacksmith’s,
 while south leads further into the village.
-
-Also here is a market stall and a Well.
+  Also here is a market stall and a Well.
 
 You can move north, east, south, west and down.  Jarris staggers in from the
 east.
@@ -1343,8 +1309,7 @@ You move east.
 Inside the blacksmith’s.
 It appears that the blacksmith isn’t home. It also appears that he has taken
 his wares with him, leaving very little for any would-be looters.
-
-Also here is an anvil and a cupboard.
+  Also here is an anvil and a cupboard.
 
 You can only move west.
 
@@ -1381,8 +1346,7 @@ The Village Square.
 It looks like a typical village square, yet all the market stalls and shops
 appear abandoned. West leads to one such shop; east leads to a blacksmith’s,
 while south leads further into the village.
-
-Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris
+  Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris
 zombie, a dead Boris zombie, a dead Arthur zombie and a garlic bud.
 
 You can move north, east, south, west and down.
@@ -1408,10 +1372,8 @@ The Inn.
 You enter the common room of the Inn of the Giggling Gargoyle. The place is a
 tip of broken chairs, tables, and various other miscellaneous junk. A doorway
 opens westward to the kitchen, while a creaky spiral staircase leads up.
-
 There is a picture, hanging behind the bar, of a giggling gargoyle.
-
-Also here is a bar and a shelf.
+  Also here is a bar and a shelf.
 
 You can move east, west and up.
 
@@ -1463,10 +1425,8 @@ The Inn.
 You enter the common room of the Inn of the Giggling Gargoyle. The place is a
 tip of broken chairs, tables, and various other miscellaneous junk. A doorway
 opens westward to the kitchen, while a creaky spiral staircase leads up.
-
 There is a picture, hanging behind the bar, of a giggling gargoyle.
-
-Also here is a bar and a shelf.
+  Also here is a bar and a shelf.
 
 You can move east, west and up.
 
@@ -1476,8 +1436,7 @@ You move west.
 The Inn’s kitchen.
 Apart from the rotting foodstuffs and shabby kitchen utensils, the kitchen
 doesn’t seem to be in that bad of a condition. Some salt is on the floor.
-
-Also here is a large wooden box.
+  Also here is a large wooden box.
 
 You can only move east.
 
@@ -1507,10 +1466,8 @@ The Inn.
 You enter the common room of the Inn of the Giggling Gargoyle. The place is a
 tip of broken chairs, tables, and various other miscellaneous junk. A doorway
 opens westward to the kitchen, while a creaky spiral staircase leads up.
-
 There is a picture, hanging behind the bar, of a giggling gargoyle.
-
-Also here is a bar and a shelf.
+  Also here is a bar and a shelf.
 
 You can move east, west and up.
 
@@ -1533,8 +1490,7 @@ The Village Square.
 It looks like a typical village square, yet all the market stalls and shops
 appear abandoned. West leads to one such shop; east leads to a blacksmith’s,
 while south leads further into the village.
-
-Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris
+  Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris
 zombie, a dead Boris zombie, a dead Arthur zombie and a garlic bud.
 
 You can move north, east, south, west and down.
@@ -1544,8 +1500,7 @@ You move down.
 
 The bottom of the well.
 It looks and smells quite fine.
-
-Also here is some water.
+  Also here is some water.
 
 You can only move up.
 
@@ -1562,8 +1517,7 @@ The Village Square.
 It looks like a typical village square, yet all the market stalls and shops
 appear abandoned. West leads to one such shop; east leads to a blacksmith’s,
 while south leads further into the village.
-
-Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris
+  Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris
 zombie, a dead Boris zombie, a dead Arthur zombie and a garlic bud.
 
 You can move north, east, south, west and down.
@@ -1628,8 +1582,7 @@ The village church.
 The church itself is gothic in appearance. It seems secure, though the roof
 could do with a bit of repair. You stand outside the main door to the church,
 which is south.
-
-Also here is church door.
+  Also here is church door.
 
 You can move west and northwest.
 
@@ -1643,8 +1596,7 @@ Inside the church.
 The interior of the church has rows of benches, with scant decoration. It
 does, however, have an aura of peace about it, and the faint smell of tobacco
 permeates the air.
-
-Also here is church door, a altar, a large open window and a bronze statue.
+  Also here is church door, a altar, a large open window and a bronze statue.
 
 You can only move north.
 
@@ -1688,8 +1640,7 @@ The village church.
 The church itself is gothic in appearance. It seems secure, though the roof
 could do with a bit of repair. You stand outside the main door to the church,
 which is south.
-
-Also here is church door.
+  Also here is church door.
 
 You can move south, west and northwest.
 
@@ -1718,9 +1669,7 @@ Gypsy Grove.
 The Webbed Woods thicken on all sides, making movement in certain directions
 either very difficult or impossible. There are numerous amounts of cobwebs
 here.
-
-Also here is a gypsy caravan and small table.
-Madam Evenov is here.
+  Also here is a gypsy caravan and small table.  Madam Evenov is here.
 
 You can move north, east, west, southeast and northwest.
 " Cross my palm with silver and I will help you " she croaks.
@@ -1732,8 +1681,7 @@ Webbed Woods east.
 The Webbed Woods thicken on all sides, making movement in certain directions
 either very difficult or impossible. There are numerous amounts of cobwebs
 here, and a large oak tree that towers above the rest.
-
-Also here is a dried husk and huge web.
+  Also here is a dried husk and huge web.
 
 You can move west and up.
 Seeker hums!
@@ -1886,8 +1834,7 @@ Webbed Woods east.
 The Webbed Woods thicken on all sides, making movement in certain directions
 either very difficult or impossible. There are numerous amounts of cobwebs
 here, and a large oak tree that towers above the rest.
-
-Also here is a dead giant spider and a dried husk.
+  Also here is a dead giant spider and a dried husk.
 
 You can move west and up.
 
@@ -1898,9 +1845,7 @@ Gypsy Grove.
 The Webbed Woods thicken on all sides, making movement in certain directions
 either very difficult or impossible. There are numerous amounts of cobwebs
 here.
-
-Also here is a gypsy caravan and small table.
-Madam Evenov is here.
+  Also here is a gypsy caravan and small table.  Madam Evenov is here.
 
 You can move north, east, west, southeast and northwest.
 
@@ -1994,8 +1939,7 @@ The castle courtyard.
 Covered in moss, the castle courtyard is very slippery after the rain. The
 castle’s front doors lie to the south, while to the northeast and the
 northwest stand the front watch towers of the castle.
-
-Also here are the castle’s front doors.
+  Also here are the castle’s front doors.
 
 You can move north, northeast and northwest.
 The castle’s front doors slowly creak open, as if they were expecting you.
@@ -2068,8 +2012,7 @@ You move south.
 The fountain room.
 The sound of running water fills this room, its source a large marble
 fountain that resides in its centre. To the north lies the main hall.
-
-Also here is gold coin.
+  Also here is gold coin.
 
 You can only move north.
 Seeker hums!
@@ -2094,8 +2037,7 @@ basin, you notice you’re in quite a different room.
 The hidden chapel.
 An air of tranquillity envelopes this small room with the rippling sound of
 water.
-
-Also here is a altar to Horamis.
+  Also here is a altar to Horamis.
 
 > put pipe on altar
 You put the smoking pipe and weed onto the altar to Horamis.
@@ -2105,8 +2047,7 @@ replaced by the unbroken staff of Borantha.
 The hidden chapel.
 An air of tranquillity envelopes this small room with the rippling sound of
 water.
-
-Also here is a altar to Horamis.
+  Also here is a altar to Horamis.
 
 > take staff
 You take the staff from the altar to Horamis.
@@ -2118,8 +2059,7 @@ arrive back in the fountain room.
 The fountain room.
 The sound of running water fills this room, its source a large marble
 fountain that resides in its centre. To the north lies the main hall.
-
-Also here is a sword, a Shield and gold coin.
+  Also here is a sword, a Shield and gold coin.
 
 You can only move north.
 
@@ -2157,9 +2097,7 @@ You move east.
 
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
-
-Also here is a table.
-Woody, the wererat, is here.
+  Also here is a table.  Woody, the wererat, is here.
 
 You can move east and west.
 Woody, the wererat, strokes his exceptionally long snout with one of his
@@ -2309,8 +2247,7 @@ Morac’s study is in disarray, Only one item of furniture has survived the
 ravage of time. What other furniture there once was has long since been eaten
 away by woodworm, leaving only the dusty remains. North leads back to the
 pentagram room, while from the south you can feel a cool breeze.
-
-Also here is a desk.
+  Also here is a desk.
 
 You can move north and south.
 Seeker hums!
@@ -2324,8 +2261,7 @@ You stand on an open air balcony overlooking the southern cliffs of
 Shadowpeak. The cliffs stretch down some five hundred feet. You can see the
 castle looming above you, but there is no way up from here. North leads back
 into the castle.
-
-Also here is a lantern.
+  Also here is a lantern.
 
 You can only move north.
 Seeker hums!
@@ -2346,8 +2282,7 @@ Morac’s study is in disarray, Only one item of furniture has survived the
 ravage of time. What other furniture there once was has long since been eaten
 away by woodworm, leaving only the dusty remains. North leads back to the
 pentagram room, while from the south you can feel a cool breeze.
-
-Also here is a desk.
+  Also here is a desk.
 
 You can move north and south.  Gargoyle #1 flies in.
 Seeker hums!
@@ -2388,8 +2323,7 @@ You move east.
 
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
-
-Also here is a table.
+  Also here is a table.
 
 You can move east and west.  Melvin waddles in from the east.
 Seeker hums!
@@ -2403,8 +2337,7 @@ You move east.
 The kitchen.
 This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
-
-Also here is a archway.
+  Also here is a archway.
 
 You can move south, west and down.
 Seeker hums!
@@ -2450,8 +2383,7 @@ You move south.
 A small box room.
 This room is also knee-high in water. The room itself is quite small, and a
 heap of rubble is in one corner. The only exit is from the way you came in.
-
-Also here is a pile of rubble.
+  Also here is a pile of rubble.
 
 You can only move north.
 Seeker hums!
@@ -2509,8 +2441,7 @@ You move up.
 The kitchen.
 This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
-
-Also here is a archway.
+  Also here is a archway.
 
 You can move south, west and down.
 Seeker hums!
@@ -2520,8 +2451,7 @@ You move west.
 
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
-
-Also here is a table.
+  Also here is a table.
 
 You can move east and west.
 Seeker hums!
@@ -2625,8 +2555,7 @@ walls, each one some twelve feet tall and about as wide. The frames of these
 paintings are large, thick golden frames, each with the crest of Shadowpeak
 embossed onto it. To the east lies the pentagram room, and another exit leads
 south.
-
-Also here is a painting #1, a painting #2, a painting #3, a painting #4, a
+  Also here is a painting #1, a painting #2, a painting #3, a painting #4, a
 painting #5, a painting #6 and a painting #7.  A faint mist swirls around
 you.
 
@@ -2674,8 +2603,7 @@ You move north.
 The hidden shrine.
 This cave is dank and dark. There is a lot of unholy religious paraphernalia
 here.
-
-Also here is a shrine.  A faint mist swirls around you.
+  Also here is a shrine.  A faint mist swirls around you.
 
 You can only move south.
 Seeker hums!
@@ -2700,8 +2628,7 @@ You move south.
 The witch’s cave.
 You stand in a glistening cave. The passage south will take you back behind
 the painting; another passage leads northward, further into the caverns.
-
-Also here is a Shadow, the dead black cat.  A faint mist swirls around you.
+  Also here is a Shadow, the dead black cat.  A faint mist swirls around you.
 
 You can move north and south.
 Seeker hums!
@@ -2726,8 +2653,7 @@ walls, each one some twelve feet tall and about as wide. The frames of these
 paintings are large, thick golden frames, each with the crest of Shadowpeak
 embossed onto it. To the east lies the pentagram room, and another exit leads
 south.
-
-Also here is a painting #1, a painting #2, a painting #3, a painting #4, a
+  Also here is a painting #1, a painting #2, a painting #3, a painting #4, a
 painting #5, a painting #6 and a painting #7.  A faint mist swirls around
 you.
 
@@ -2794,9 +2720,8 @@ You move up.
 
 Top of the stairs.
 You stand on the topmost step. There is a door on the north wall; light
-flickers from under it.
-
-Also here is steel door.  A faint mist swirls around you.
+flickers from under it.  Also here is steel door.  A faint mist swirls around
+you.
 
 You can only move down.  Gargoyle #1 flies in.
 Seeker hums!
@@ -2822,8 +2747,7 @@ You move north.
 The tower.
 You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
-
-Also here is steel door.
+  Also here is steel door.
 
 You can move north, east, south and west.
 Seeker hums!
@@ -2888,8 +2812,7 @@ You move south.
 The tower.
 You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
-
-Also here is steel door.
+  Also here is steel door.
 
 You can move north, east, south and west.
 Seeker hums!
@@ -2899,9 +2822,7 @@ You move south.
 
 Top of the stairs.
 You stand on the topmost step. There is a door on the north wall; light
-flickers from under it.
-
-Also here is steel door.
+flickers from under it.  Also here is steel door.
 
 You can move north and down.
 Seeker hums!
@@ -2934,8 +2855,7 @@ You move east.
 
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
-
-Also here is a table.
+  Also here is a table.
 
 You can move east and west.
 Strange, some more venison has just appeared on the table!
@@ -2963,8 +2883,7 @@ You move east.
 The kitchen.
 This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
-
-Also here is a archway.
+  Also here is a archway.
 
 You can move south, west and down.  Gargoyle #1 flies in.  Melvin waddles in
 from the west.
@@ -2986,8 +2905,7 @@ You move west.
 
 Servants’ quarters.
 Skeletons of the once-proud servants litter the floor in this room.
-
-Also here is a stake.
+  Also here is a stake.
 
 You can only move east.
 Seeker hums!
@@ -3014,9 +2932,7 @@ You move north.
 The kitchen.
 This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
-
-Also here is a archway.
-Gargoyle #1 is here.
+  Also here is a archway.  Gargoyle #1 is here.
 
 You can move south, west and down.
 Seeker hums!
@@ -3027,8 +2943,7 @@ You move west.
 
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
-
-Also here is a table.
+  Also here is a table.
 
 You can move east and west.
 Seeker hums!
@@ -3064,9 +2979,7 @@ You move south.
 The prison.
 This room is filled with barred cells; all are locked. It is very dusty and
 dirty in here.
-
-Also here is silver key and a cell door.
-Margo is here.
+  Also here is silver key and a cell door.  Margo is here.
 
 You can only move north.
 "Please set me free. I am Margo, a village maid. I was captured by Morac.
@@ -3201,9 +3114,7 @@ You move up.
 
 Top of the stairs.
 You stand on the topmost step. There is a door on the north wall; light
-flickers from under it.
-
-Also here is steel door.
+flickers from under it.  Also here is steel door.
 
 You can move north and down.
 Seeker hums!
@@ -3214,8 +3125,7 @@ You move north.
 The tower.
 You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
-
-Also here is steel door.
+  Also here is steel door.
 
 You can move north, east, south and west.
 Seeker hums!
@@ -3227,8 +3137,7 @@ The magical prison.
 This room feels very cold. There is a very becoming young lady here, who
 stands motionless in the centre of the room. Her golden hair flows down her
 shoulders. She is dressed in her wedding dress.
-
-Also here is iron chest.
+  Also here is iron chest.
 
 You can only move west.
 Seeker hums!
@@ -3264,8 +3173,7 @@ You move west.
 The tower.
 You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
-
-Also here is steel door.
+  Also here is steel door.
 
 You can move north, east, south and west.
 Seeker hums!
@@ -3284,8 +3192,7 @@ You move up.
 
 Atop of the iron steps.
 The steps end here at a single wooden door on the northern wall.
-
-Also here is wooden door.
+  Also here is wooden door.
 
 You can only move down.
 Seeker hums!
@@ -3306,9 +3213,7 @@ You move north.
 Morac’s laboratory.
 This room is full of laboratory equipment: glassware, bubbling pots, and
 burners, etc.There is a shuttered window on the north wall.
-
-Also here is wooden door.
-Morac is here.
+  Also here is wooden door.  Morac is here.
 
 You can only move south.
 Seeker hums!
@@ -3362,8 +3267,7 @@ Top of the northwest tower.
 Battlements man the top of this tower. From here you can see the ocean
 lapping up against the rocks, as well as the not-so-sleepy Village of
 Windthrush.
-
-Also here is a huge ballista.  Morac flies around the castle on his black
+  Also here is a huge ballista.  Morac flies around the castle on his black
 dragon.
 
 You can move south and down.
@@ -3429,9 +3333,7 @@ them. Blood drips down the poles from the heads. Your head is stuck on one of
 these poles; you have no body! You can see no exits from here. Melvin’s voice
 seems to come from a large, foghorn-like object sticking out of the wall. You
 cannot see the ceiling, as it disappears into darkness. A bell rope hangs
-from the darkness.
-
-Also here is a Reevling’s head.
+from the darkness.  Also here is a Reevling’s head.
 
 > z
 Time passes...
@@ -3452,8 +3354,7 @@ You move east.
 
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
-
-Also here is a table.
+  Also here is a table.
 
 You can move east and west.
 
@@ -3463,8 +3364,7 @@ You move east.
 The kitchen.
 This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
-
-Also here is a archway.
+  Also here is a archway.
 
 You can move south, west and down.
 
@@ -3475,8 +3375,7 @@ Storage room.
 The room is packed full to the ceiling with crates of rotting foodstuffs.
 There are, however, some small walkways leading you around the crates to the
 west, east, and south.
-
-Also here is a staff, a pair of leather gloves, a pair of thick leather
+  Also here is a staff, a pair of leather gloves, a pair of thick leather
 boots, a chain attached to a medallion, a sword, a Shield, brass key, a
 tinderbox, a rose, a queen of spades, a rotten garlic bud, some venison, a
 lantern, a chisel, a brooch, silver key, a sceptre, golden key, a triangular
@@ -3513,8 +3412,7 @@ You move north.
 The kitchen.
 This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
-
-Also here is a archway.
+  Also here is a archway.
 
 You can move south, west and down.
 You hear the shuffling of feet elsewhere in the castle.
@@ -3524,9 +3422,7 @@ You move west.
 
 The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
-
-Also here is a table.
-Melvin the Butler is here.
+  Also here is a table.  Melvin the Butler is here.
 
 You can move east and west.
 
@@ -3572,8 +3468,7 @@ You move north.
 The family crypt.
 This crypt has three stone coffins. Two of them are smashed to pieces; only
 one is fully intact.
-
-Also here is a coffin.
+  Also here is a coffin.
 
 You can only move south.
 As you open the coffin, you seem to have set off some type of spell. A
@@ -3590,9 +3485,7 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-
-Also here is a body.
-Fetlar the overly fetid is here.  Morac is here.
+  Also here is a body.  Fetlar the overly fetid is here.  Morac is here.
 There is a portal here.
 
 You can move north, east, south and west.
@@ -3705,8 +3598,7 @@ odds; their enemy the undead hordes of Morac. It looks to you that the
 Knights of Tesslesar are fighting with great skill, but all to no avail, as
 the undead hordes are overwhelming them.
 You think it would be dangerous to move any further east.
-
-Also here is an enormous stack of boulders.
+  Also here is an enormous stack of boulders.
 
 You can move east and west.
 The sky is filled with arrows and crossbow bolts. Men and undead alike fall
@@ -3829,9 +3721,8 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-
-Also here is a body.
-Fetlar the overly fetid is here.  It is raining...  There is a portal here.
+  Also here is a body.  Fetlar the overly fetid is here.  It is raining...
+There is a portal here.
 
 You can move north, east, south and west.
 
@@ -3860,8 +3751,7 @@ Doors in the mountains.
 You see the great Kuskarian Range mountains blocking your path northward,
 although those huge double doors may be of some use if you would happen to
 want to go in that direction.
-
-Also here is a double doors.  It is raining...
+  Also here is a double doors.  It is raining...
 
 You can move east, south, west, southeast and southwest.
 You hear the flutter of batlike wings.
@@ -3980,9 +3870,7 @@ You do so, and strangely feel a bit relieved.
 You move north.
 
 The northern end of the long passage.
-The passage ends here. There are no visible exits.
-
-Also here is a pedestal.
+The passage ends here. There are no visible exits.  Also here is a pedestal.
 
 You can only move south.
 
@@ -4062,8 +3950,7 @@ You move north.
 Behind the wall of fire.
 It appears that this is another bare room. An exit leads off to the north,
 while another leads south, the way you came.
-
-Also here is a yellow marble.
+  Also here is a yellow marble.
 
 You can move north and south.
 
@@ -4108,7 +3995,6 @@ You move east.
 
 Maze.
 You stand in a smooth-walled corridor.
-
 There is a iron button here.
 
 You can move north and west.
@@ -4129,8 +4015,7 @@ You move west.
 
 Maze.
 You stand in a smooth-walled corridor.
-
-Also here is a spear.
+  Also here is a spear.
 
 You can move north, east and west.
 
@@ -4163,7 +4048,6 @@ You move west.
 
 Maze.
 You stand in a smooth-walled corridor.
-
 There is a copper button here.
 
 You can move north and east.
@@ -4220,7 +4104,6 @@ You move north.
 
 Maze.
 You stand in a smooth-walled corridor.
-
 There is a stone button here.
 
 You can move east and south.
@@ -4250,9 +4133,7 @@ You move north.
 
 Maze.
 You stand in a smooth-walled corridor.
-
 There is a stone button here.
-
 Damastus, the minotaur, is here!
 
 You can move east and south.
@@ -4281,9 +4162,7 @@ You move north.
 
 Maze.
 You stand in a smooth-walled corridor.
-
 There is a stone button here.
-
 Damastus, the minotaur, is here!
 
 You can move east and south.
@@ -4341,7 +4220,6 @@ You move east.
 
 Maze.
 You stand in a smooth-walled corridor.
-
 There is a bronze button here.
 
 You can move south and west.
@@ -4379,8 +4257,7 @@ You move south.
 
 Minotaur’s lair.
 This room stinks of bovine excretion. Some spiral stairs lead upwards.
-
-Also here are chewed bones, a straw mat and some arm and leg greaves.
+  Also here are chewed bones, a straw mat and some arm and leg greaves.
 
 You can move north and up.
 
@@ -4444,10 +4321,8 @@ The sky is grey, and no sound of life can be heard in this strange land.
 There is a large scorch mark in the centre of the henge, surrounded by large,
 silent stones, which seem to have strange runes carved into them. A trail
 leads south, away from the henge, while another leads north into the forest.
-
-Also here is a body.
-Fetlar the overly fetid is here.  Rossi, the muck dweller, is here.  It is
-raining...  There is a portal here.
+  Also here is a body.  Fetlar the overly fetid is here.  Rossi, the muck
+dweller, is here.  It is raining...  There is a portal here.
 
 You can move north, east, south and west.
 Fetlar smiles and sniffs the air, as a foul smell erupts from him.
@@ -4479,9 +4354,7 @@ have come from, and you feel very alone.
 You move south.
 
 The River Styx.
-A river of lava cuts across the foul earth here.
-
-Also here is a headstone.
+A river of lava cuts across the foul earth here.  Also here is a headstone.
 
 You can only move north.
 
@@ -4524,8 +4397,7 @@ Wandering around the bottom of the pillar are thousands of lost souls.
 You move up.
 
 Atop the pillar of debris.
-
-Also here is black key.
+  Also here is black key.
 
 You can only move down.
 
@@ -4539,10 +4411,8 @@ Garden of Lost Souls.
 Here gravestones are piled on top of one another. Shattered and broken, they
 form a pillar of debris in the centre of this stone garden. The garden itself
 is, in turn, surrounded by the sea of lava.
-
-Also here is a ferry.
-Charon, the ferryman, is here.  Wandering around the bottom of the pillar are
-thousands of lost souls.
+  Also here is a ferry.  Charon, the ferryman, is here.  Wandering around the
+bottom of the pillar are thousands of lost souls.
 
 You can only move up.
 
@@ -4558,8 +4428,7 @@ The landscape here is scorched and black. Flames shoot up out of the foul
 earth, and all is lit by a deep red sky. To the east and west, the land
 itself is a sea of molten lava. It seems the only safe way to travel is past
 a rather large, black iron gate to the north, or south to a river of lava.
-
-Also here is a iron gate.
+  Also here is a iron gate.
 
 You can only move south.
 
@@ -4630,8 +4499,7 @@ You move north.
 North of the demon pit.
 The tunnel carries on from north to south. The heat here is still very hot.
 Every now and then, steam gushes out from cracks on the cavernous walls.
-
-Also here is a huge golden door.
+  Also here is a huge golden door.
 
 You can only move south.
 
@@ -4646,9 +4514,8 @@ Throne room of Asmodeus.
 This room is huge; some two hundred feet long and half as wide. Benches and
 cages line the side walls, while a large red carpet leads up the centre of
 the room towards a large stone throne.
-
-Asmodeus is here sitting on his throne.  There is a gathering of devils here
-sitting on the benches.
+   Asmodeus is here sitting on his throne.  There is a gathering of devils
+here sitting on the benches.
 Asmodeus speaks, "And so the brave knight finally arrives. Welcome, Loralang,
 welcome to my humble abode. You have been summoned here to witness an event
 of great importance to me. You see, Morac’s soul…" on saying this, he pulls a

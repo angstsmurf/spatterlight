@@ -18,10 +18,8 @@ you, if only you can figure out the steps you took to get here..."
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
-road to the village market starts off to the east.
-
-A huge green stump is in the garden.
-Your mother is here.
+road to the village market starts off to the east.  A huge green stump is in
+the garden.  Your mother is here.
 
 > chop beanstalk
 Quickly, you chopped down the beanstalk as fast as you could. Chop chop, and
@@ -69,8 +67,8 @@ Inside the castle
 Despite the hugeness of the castle, it looks cold and unfriendly to your
 eyes. There seems to be few furnishings or luxuries of any kind, excepting a
 huge stone chair and a black oven so large you could enter it without
-difficulty. The exit is to this cheerless place is to the south.
-A giant ogre is sleeping in his huge stone chair.
+difficulty. The exit is to this cheerless place is to the south.  A giant
+ogre is sleeping in his huge stone chair.
 
 > take harp
 You take the golden harp. If you can get this home, you'll be set for life.
@@ -120,8 +118,8 @@ You went into the castle, where the giantess serves you some breakfast.
 Top of the beanstalk
 Somehow, you're arrived at a heavily forested area in a far far away country.
 The top of the beanstalk pokes through a large hole in the ground here. More
-importantly, a tall castle with a huge door stands to the north.
-A giantess is standing in the doorway.
+importantly, a tall castle with a huge door stands to the north.  A giantess
+is standing in the doorway.
 
 > knock on door
 You knock on the door. Moments later, you hear heavy footsteps approaching.
@@ -153,10 +151,8 @@ You climbed up the beanstalk a few feet.
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
-road to the village market starts off to the east.
-
-A tall beanstalk dominates the garden.
-Your mother is here.
+road to the village market starts off to the east.  A tall beanstalk
+dominates the garden.  Your mother is here.
 
 As you reverse-climb off the beanstalk, the world fades and reforms. It looks
 like it's two years earlier. Mother and I have changed. And what am I
@@ -189,8 +185,8 @@ Inside the castle
 Despite the hugeness of the castle, it looks cold and unfriendly to your
 eyes. There seems to be few furnishings or luxuries of any kind, excepting a
 huge stone chair and a black oven so large you could enter it without
-difficulty. The exit is to this cheerless place is to the south.
-A giant ogre is sleeping in his huge stone chair.
+difficulty. The exit is to this cheerless place is to the south.  A giant
+ogre is sleeping in his huge stone chair.
 
 > take hen
 You take the brown hen. If you can get back home with it, you and your mother
@@ -241,8 +237,8 @@ You went into the castle, where the giantess serves you some breakfast.
 Top of the beanstalk
 Somehow, you're arrived at a heavily forested area in a far far away country.
 The top of the beanstalk pokes through a large hole in the ground here. More
-importantly, a tall castle with a huge door stands to the north.
-A giantess is standing in the doorway.
+importantly, a tall castle with a huge door stands to the north.  A giantess
+is standing in the doorway.
 
 > knock on door
 You knock on the door. Moments later, you hear heavy footsteps approaching.
@@ -275,10 +271,8 @@ You climbed up the beanstalk a few feet.
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
-road to the village market starts off to the east.
-
-A tall beanstalk dominates the garden.
-Your mother is here.
+road to the village market starts off to the east.  A tall beanstalk
+dominates the garden.  Your mother is here.
 
 As you reverse-climb off the beanstalk, the world fades and reforms. It looks
 like it's two years earlier. Mother and I have changed. And what am I
@@ -311,8 +305,8 @@ Inside the castle
 Despite the hugeness of the castle, it looks cold and unfriendly to your
 eyes. There seems to be few furnishings or luxuries of any kind, excepting a
 huge stone chair and a black oven so large you could enter it without
-difficulty. The exit is to this cheerless place is to the south.
-A giant ogre is sleeping in his huge stone chair.
+difficulty. The exit is to this cheerless place is to the south.  A giant
+ogre is sleeping in his huge stone chair.
 
 > take gold
 You take the bag of gold. If you can sneak out with it, you and your mother
@@ -363,8 +357,8 @@ You went into the castle, where the giantess serves you some breakfast.
 Top of the beanstalk
 Somehow, you're arrived at a heavily forested area in a far far away country.
 The top of the beanstalk pokes through a large hole in the ground here. More
-importantly, a tall castle with a huge door stands to the north.
-A giantess is standing in the doorway.
+importantly, a tall castle with a huge door stands to the north.  A giantess
+is standing in the doorway.
 
 > knock on door
 You knock on the door. Moments later, you hear heavy footsteps approaching.
@@ -397,10 +391,8 @@ You climbed up the beanstalk a few feet.
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
-road to the village market starts off to the east.
-
-A tall beanstalk dominates the garden.
-Your mother is here.
+road to the village market starts off to the east.  A tall beanstalk
+dominates the garden.  Your mother is here.
 
 Somewhere, a rooster crows.
 
@@ -449,10 +441,8 @@ You went west.
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
-road to the village market starts off to the east.
-
-The magic beans lie scattered in the garden where your mother threw them.
-Your mother is here.
+road to the village market starts off to the east.  The magic beans lie
+scattered in the garden where your mother threw them.  Your mother is here.
 
 > give beans to mother
 "I sold Milky, Mother. And I got a really good price for her too," you say.
@@ -481,8 +471,8 @@ You went west.
 
 On the road
 The road to the market is a long one. The market lies further east, and your
-home is back west.
-A stranger with a familiar-looking cow is standing by the road.
+home is back west.  A stranger with a familiar-looking cow is standing by the
+road.
 
 > sell cow
 "Well, Mother said to get a good price for Milky, and magic beans sound like
@@ -509,8 +499,7 @@ You went east.
 Outside your home
 You're outside the cottage you've lived in with your mother your entire life.
 There's a woodpile outside the door to the west and a small garden. The long
-road to the village market starts off to the east.
-Your mother is here.
+road to the village market starts off to the east.  Your mother is here.
 
 > take cow
 Later, outside the cottage, your mother and Milky are waiting for you. You

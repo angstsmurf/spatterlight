@@ -105,7 +105,7 @@ You move northeast.
 Corridor
 This shabby little corridor links the entrance to the rest of the building.
    Exits lie: southwest (to the entrance) and northeast (to an open area).
-Rudolph the guard is here.
+  Rudolph the guard is here.
    "Where'd you think you're going, Bob?" asks Rudolph.
    "Where I belong," you say.
    But Rudolph shakes his head. "Not in this life you're not. Get out and

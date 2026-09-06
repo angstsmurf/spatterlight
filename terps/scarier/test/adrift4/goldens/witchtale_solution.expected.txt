@@ -83,7 +83,6 @@ remember exactly why... something to do with a water leak in the kitchen, I
 think. The worst of it though is the silverware. Somehow silverware is
 everywhere, even in places I won't dare to look. I didn't think that much
 silverware could ever be contained in a kitchen, but apparently I'm wrong.
-
 There is a gloomy looking broom propped up against one of the tables, a
 dreadful reminder of the task on hand.
 
@@ -272,10 +271,9 @@ Ragoria's Den
 There's dust everywhere, and no use trying to brush it around - it's stuck
 onto everything. Stuffy old tomes fill most of the nooks and crannies in her
 den, stacked high and ready to topple at the slightest breeze. The only exit
-is the door that leads out to the forest.
-
-A recipe is rolled up like a scroll on the table, dusty as everything else.
-Ragoria the old witch is here, stirring the contents of her cauldron.
+is the door that leads out to the forest.  A recipe is rolled up like a
+scroll on the table, dusty as everything else.  Ragoria the old witch is
+here, stirring the contents of her cauldron.
 
 > take recipe
 I take the dilapidated scroll from the table. Ah, my first foray in
@@ -374,9 +372,8 @@ The trees tower like giants and extend everywhere. There is barely a hint of
 a trail at all, just fallen logs and boulders and the sea of trees. I can
 hear the river gurgling to the south back at Gorpi's bridge. To the north the
 trees open up into a clearing. Ragoria's den is here buried underneath the
-foliage, so I can go in as well.
-
-A large spider sits beside a displaced rock. What a frightful creature!
+foliage, so I can go in as well.  A large spider sits beside a displaced
+rock. What a frightful creature!
 A few birds glide by overhead, squawking.
 Leif the fairy dragon is here, resting on a high branch in a tree.
 
@@ -400,10 +397,9 @@ Forest Path
 The path cuts through a dense forest. A log has fallen over the path, covered
 in moss. A bubbling river winds around the trees, the only means across it is
 a bridge to the north. The trail forks to the west and leads towards the
-water.
-Gorpi the troll is here, rubbing his hairy belly and making a face that
-reminds me of a sickly raison. The little bugger must be hungry. I wounder
-what he likes to eat besides grues?
+water.  Gorpi the troll is here, rubbing his hairy belly and making a face
+that reminds me of a sickly raison. The little bugger must be hungry. I
+wounder what he likes to eat besides grues?
 I wish that I could just finish this already and get on to learning real
 spells...
 
@@ -416,8 +412,7 @@ The trail gives way to a wide river that snakes around the forest. The water
 is calm and lily pads float lazily with the light current. The bank makes
 travelling any further impossible - the only way to go is east towards the
 main path. A group of frogs are leaping and croaking and having a merry time.
-
-One frog is acting different than the rest.
+  One frog is acting different than the rest.
 
 > take frog
 I reach down and scoop up the frog. He doesn't seem to mind at all.
@@ -429,10 +424,9 @@ Forest Path
 The path cuts through a dense forest. A log has fallen over the path, covered
 in moss. A bubbling river winds around the trees, the only means across it is
 a bridge to the north. The trail forks to the west and leads towards the
-water.
-Gorpi the troll is here, rubbing his hairy belly and making a face that
-reminds me of a sickly raison. The little bugger must be hungry. I wounder
-what he likes to eat besides grues?
+water.  Gorpi the troll is here, rubbing his hairy belly and making a face
+that reminds me of a sickly raison. The little bugger must be hungry. I
+wounder what he likes to eat besides grues?
 
 > give spider to gorpi
 I take the foul looking spider and give it to Gorpi, who snatches it up
@@ -461,10 +455,8 @@ The trees tower like giants and extend everywhere. There is barely a hint of
 a trail at all, just fallen logs and boulders and the sea of trees. I can
 hear the river gurgling to the south back at Gorpi's bridge. To the north the
 trees open up into a clearing. Ragoria's den is here buried underneath the
-foliage, so I can go in as well.
-
-Some sprite dust has fallen on the ground.  Rain is tumbling down, turning
-this place into a bog.
+foliage, so I can go in as well.  Some sprite dust has fallen on the ground.
+Rain is tumbling down, turning this place into a bog.
 I can hear animals rustling the foliage around me.
 Leif the fairy dragon is here, flying in wild loops.
 
@@ -539,9 +531,8 @@ Forest Path
 The path cuts through a dense forest. A log has fallen over the path, covered
 in moss. A bubbling river winds around the trees, the only means across it is
 a bridge to the north. The trail forks to the west and leads towards the
-water.
-Gorpi the troll is here, freshly fed and guarding his bridge proudly.  Rain
-is tumbling down, turning this place into a bog.
+water.  Gorpi the troll is here, freshly fed and guarding his bridge proudly.
+ Rain is tumbling down, turning this place into a bog.
 The rain begins to ease up, and now there is nothing but a light drizzle
 dripping from the forest canopy.
 
@@ -551,9 +542,8 @@ Forest Path
 The path cuts through a dense forest. A log has fallen over the path, covered
 in moss. A bubbling river winds around the trees, the only means across it is
 a bridge to the north. The trail forks to the west and leads towards the
-water.
-Gorpi the troll is here, freshly fed and guarding his bridge proudly.  Rain
-is tumbling down, turning this place into a bog.
+water.  Gorpi the troll is here, freshly fed and guarding his bridge proudly.
+ Rain is tumbling down, turning this place into a bog.
 Breathing in the magical air of this place, I let out a sneeze.
 
 > wait
@@ -575,10 +565,8 @@ Forest Path
 The path cuts through a dense forest. A log has fallen over the path, covered
 in moss. A bubbling river winds around the trees, the only means across it is
 a bridge to the north. The trail forks to the west and leads towards the
-water.
-
-Some mushrooms have grown near the bridge.
-Gorpi the troll is here, freshly fed and guarding his bridge proudly.
+water.  Some mushrooms have grown near the bridge.  Gorpi the troll is here,
+freshly fed and guarding his bridge proudly.
 
 > take mushroom
 I pluck the glowing, feminine mushrooms from the soil.
@@ -607,8 +595,8 @@ Ragoria's Den
 There's dust everywhere, and no use trying to brush it around - it's stuck
 onto everything. Stuffy old tomes fill most of the nooks and crannies in her
 den, stacked high and ready to topple at the slightest breeze. The only exit
-is the door that leads out to the forest.
-Ragoria the old witch is here, stirring the contents of her cauldron.
+is the door that leads out to the forest.  Ragoria the old witch is here,
+stirring the contents of her cauldron.
 My hair falls in my face (I get so annoyed when that happens). I brush it out
 of the way.
 
@@ -618,8 +606,8 @@ Ragoria's Den
 There's dust everywhere, and no use trying to brush it around - it's stuck
 onto everything. Stuffy old tomes fill most of the nooks and crannies in her
 den, stacked high and ready to topple at the slightest breeze. The only exit
-is the door that leads out to the forest.
-Ragoria the old witch is here, stirring the contents of her cauldron.
+is the door that leads out to the forest.  Ragoria the old witch is here,
+stirring the contents of her cauldron.
 
 > mix ingredients
 "Are you ready, dearie?"

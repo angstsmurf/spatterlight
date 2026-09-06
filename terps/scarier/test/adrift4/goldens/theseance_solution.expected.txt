@@ -321,7 +321,7 @@ In light
 There is literally nothing here. It is as if you are in a great white expanse
 of light. No sky. No floor. There is just emptiness here...
 
-Emily is here.
+  Emily is here.
 
 > yes
 

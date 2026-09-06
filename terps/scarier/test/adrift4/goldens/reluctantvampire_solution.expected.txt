@@ -258,8 +258,8 @@ ever have cause to visit as it contains nothing more than the marriage
 guidance counsellor's office (to the south), a Christian bookshop (to the
 north)  and the town's most unprofitable bank (to the northeast). Even the
 homeless have better taste than to try begging for money here. Morping Street
-itself runs east and west to more interesting places.
-Your arch-nemesis, the leader of the FVH, Norbert van Helsing, is here.
+itself runs east and west to more interesting places.  Your arch-nemesis, the
+leader of the FVH, Norbert van Helsing, is here.
 
 "No doubt you left a dozen corpses in there, you foul spawn of the undead,"
 says Norbert van Helsing, speaking in the kind of strident tones that carry
@@ -292,10 +292,8 @@ residence inside and butchered the workers; another rumour claims it was
 striking sewage workers who, fed up of the 11p they were getting an hour,
 demanded an increase to 13p and threatened to torch the place if they didn't
 get what they wanted. Either way, it's a bleak and miserable place and one
-you've always avoided in the past.
-
-There is a rock lying on the ground.  Norbert van Helsing rushes after you
-from the north.
+you've always avoided in the past.  There is a rock lying on the ground.
+Norbert van Helsing rushes after you from the north.
 
 > get rock
 You take the rock.
@@ -593,7 +591,6 @@ dining table is now a handy storage space for your coffin, filled with soil
 from your own back garden to boot, and the chairs which once surrounded it
 have been moved into the attic to create more space. On one wall is a dark
 patch where a mirror once hung. Doors lead west and northwest from here.
-
 There is a letter, lying on the floor as if it had been callously discarded.
 
 Ah. Home sweet home. Home is where the heart is. A man's house is his own
@@ -799,9 +796,7 @@ Your house narrows as it gets higher, so the second floor is a bit smaller
 than the first and contains just this little area you're standing in now,
 your old bedroom to the west and your bathroom to the east. Stairs leads down
 to the hallway and there is an open trapdoor in the ceiling leading to your
-attic.
-
-Also here are some mints, your watch, a lolly, a note and some gum.
+attic.  Also here are some mints, your watch, a lolly, a note and some gum.
 
 > change
 You change into a vampire bat... and everything you're carrying drops to the
@@ -885,9 +880,9 @@ window (painted black to keep out the prying rays of the sun) used to show
 your back garden but now it just shows... well, not a lot to be honest. There
 is a table in the middle of the floor with a single stool at it, while to the
 east is a doorway leading into another room, to the southwest a door leading
-to your back garden and downwards is your cellar.
-Jemma is sitting on the stool, eating some ice cream. Some of it even manages
-to make its way into her mouth.
+to your back garden and downwards is your cellar.  Jemma is sitting on the
+stool, eating some ice cream. Some of it even manages to make its way into
+her mouth.
 
 > e
 
@@ -900,7 +895,6 @@ dining table is now a handy storage space for your coffin, filled with soil
 from your own back garden to boot, and the chairs which once surrounded it
 have been moved into the attic to create more space. On one wall is a dark
 patch where a mirror once hung. Doors lead west and northwest from here.
-
 There is a letter, lying on the floor as if it had been callously discarded.
 
 > nw
@@ -920,9 +914,7 @@ Your house narrows as it gets higher, so the second floor is a bit smaller
 than the first and contains just this little area you're standing in now,
 your old bedroom to the west and your bathroom to the east. Stairs leads down
 to the hallway and there is an open trapdoor in the ceiling leading to your
-attic.
-
-Also here are some mints, your watch, a lolly, a note and some gum.
+attic.  Also here are some mints, your watch, a lolly, a note and some gum.
 
 > change
 You change into a vampire bat... and everything you're carrying drops to the
@@ -1063,9 +1055,7 @@ Your house narrows as it gets higher, so the second floor is a bit smaller
 than the first and contains just this little area you're standing in now,
 your old bedroom to the west and your bathroom to the east. Stairs leads down
 to the hallway and there is an open trapdoor in the ceiling leading to your
-attic.
-
-Also here are some mints, your watch, a lolly, a note and some gum.
+attic.  Also here are some mints, your watch, a lolly, a note and some gum.
 
 > get all
 You take the mints, your watch, the lolly, the note and the gum.
@@ -1090,7 +1080,6 @@ dining table is now a handy storage space for your coffin, filled with soil
 from your own back garden to boot, and the chairs which once surrounded it
 have been moved into the attic to create more space. On one wall is a dark
 patch where a mirror once hung. Doors lead west and northwest from here.
-
 There is a letter, lying on the floor as if it had been callously discarded.
 
 > w
@@ -1104,9 +1093,9 @@ window (painted black to keep out the prying rays of the sun) used to show
 your back garden but now it just shows... well, not a lot to be honest. There
 is a table in the middle of the floor with a single stool at it, while to the
 east is a doorway leading into another room, to the southwest a door leading
-to your back garden and downwards is your cellar.
-Jemma is sitting on the stool, eating some ice cream. Some of it even manages
-to make its way into her mouth.
+to your back garden and downwards is your cellar.  Jemma is sitting on the
+stool, eating some ice cream. Some of it even manages to make its way into
+her mouth.
 
 > open freezer
 You open the freezer.  Some jam and a bottle are inside the freezer.
@@ -1304,9 +1293,8 @@ around you, some topped with lavish gravestones, others with nothing more
 than a chunk of stone with their name crudely scribbled on (in biro in a
 couple of cases). Paths wind through the graves to the west and north, deeper
 into the graveyard, and south, to the entrance. A light shines from somewhere
-over to the northeast but there is no path in that direction.
-Jemma is here, watching you with anxious eyes and probably thinking about ice
-cream.
+over to the northeast but there is no path in that direction.  Jemma is here,
+watching you with anxious eyes and probably thinking about ice cream.
 
 > x graves
 You glance over the graves, noting the names on them, the inscriptions, the-
@@ -1612,8 +1600,8 @@ cosy if not for the fact that there are several graves interspersed with the
 furniture, which quite spoils the 'homey' feel. A sign in the middle of this
 area indicates 'HARRY TEH ZOMBEE'S DENN' in big bold letters, no doubt
 erected by someone with considerably more enthusiasm than spelling ability.
-     There is a path leading away to the south.
-A zombie by the name of Harry is here.  Jemma enters from the south.
+     There is a path leading away to the south.  A zombie by the name of
+Harry is here.  Jemma enters from the south.
 
 > talk to harry
 "You here again?" Harry says with a groan. "And I see you bought the annoying
@@ -1651,8 +1639,8 @@ around you, some topped with lavish gravestones, others with nothing more
 than a chunk of stone with their name crudely scribbled on (in biro in a
 couple of cases). Paths wind through the graves to the west and north, deeper
 into the graveyard, and south, to the entrance. A light shines from somewhere
-over to the northeast but there is no path in that direction.
-A zombie by the name of Harry is here.
+over to the northeast but there is no path in that direction.  A zombie by
+the name of Harry is here.
 
 "Try and keep up," mutters Harry. "I ain't got all day."
      He heads to the west.  Jemma enters from the north.
@@ -1678,8 +1666,8 @@ lll Hidden Path lll
 Due to the thick, encroaching bushes, this path is actually hidden from the
 rest of the graveyard to the south. In fact, if not for Harry showing you the
 way, you doubt you'd have ever stumbled across it.
-     It heads north to some kind of clearing.
-A zombie by the name of Harry is here.
+     It heads north to some kind of clearing.  A zombie by the name of Harry
+is here.
 
 "Just north of here," says Harry and heads in that direction.  Jemma enters
 from the south.

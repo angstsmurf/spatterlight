@@ -98,11 +98,9 @@ I stood in the north end of the attic, where the ladder led down to the
 landing below me.  The attic itself stretched to the south.  I was surrounded
 by a collection of flotsam and jetsam; the fruit of my Uncle's travels and
 the consequence of a heritage of material wealth.  Against one of the walls,
-a sheet covered some unidentifiable object.
-
-Against the east wall stood a thin bookcase, crammed with papers and books.
-If I recall correctly, just by the entrance to the attic there was a pile of
-mouldy and rotting rags.
+a sheet covered some unidentifiable object.  Against the east wall stood a
+thin bookcase, crammed with papers and books.  If I recall correctly, just by
+the entrance to the attic there was a pile of mouldy and rotting rags.
 
 > s
 I move south.
@@ -112,11 +110,10 @@ The Attic (south)
 The piles of clutter were scarcer this end of the attic, but no less
 intimidating.  A small lamp on the wall offered enough light by which I could
 find my way and investigate this area.  The attic stretched back to the
-north, where the ladder led down to the landing.
-
-An interesting looking casket rested on the floor.  Resting just underneath
-the lamp was a large painting.  A small packing crate was located here.  A
-tall, portrait mirror was also propped up here.
+north, where the ladder led down to the landing.  An interesting looking
+casket rested on the floor.  Resting just underneath the lamp was a large
+painting.  A small packing crate was located here.  A tall, portrait mirror
+was also propped up here.
 
 > turn first dial
 I turned the first dial.  With a click, the number changed to 1.

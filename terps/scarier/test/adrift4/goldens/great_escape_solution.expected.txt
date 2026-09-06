@@ -47,9 +47,8 @@ Your house is (let's face it) pretty rubbish. In your living room is a cheap
 sofa and a small mahogany table.  From here you can go either east or up.
 East to the kitchen (and the horrors that lie within) or up to your upstairs
 landing. You feel that it would be innappropriate to venture out of the house
-at this point without at least a pair of well-washed trousers.
-
-Also here is the wallet, the letter and the mobile-phone.
+at this point without at least a pair of well-washed trousers.  Also here is
+the wallet, the letter and the mobile-phone.
 
 > take wallet
 You pick up the wallet.
@@ -91,7 +90,6 @@ Your bedroom has a small bed in it and an ageing, rickety chair in the corner
 of the room. There are piles of clothes on the floor. The windows look out
 over another dreary day.   From here you can go either east to the lands of
 fresh minty flavour (aka your bathroom) or west to your upstairs landing.
-
 Also here are the pair of trousers and the t-shirt.
 
 > get trousers
@@ -172,17 +170,14 @@ Your house is (let's face it) pretty rubbish. In your living room is a cheap
 sofa and a small mahogany table.  From here you can go either east or up.
 East to the kitchen (and the horrors that lie within) or up to your upstairs
 landing. You feel that it would be innappropriate to venture out of the house
-at this point without at least a pair of well-washed trousers.
-
-Also here is the letter.
+at this point without at least a pair of well-washed trousers.  Also here is
+the letter.
 
 > e
 You move east.
 Your kitchen has the usual fridge/freezer, oven etc. There is a washing
 machine as well but apart from that It is pretty plain.  From here, you can
-only go west to your living room.
-
-Also here is the cheque-book.
+only go west to your living room.  Also here is the cheque-book.
 
 > wash trousers
 You wash the trousers. They come out of the washing-machine with a new lease
@@ -196,11 +191,9 @@ Your house is (let's face it) pretty rubbish. In your living room is a cheap
 sofa and a small mahogany table.  From here you can go either east or up.
 East to the kitchen (and the horrors that lie within) or up to your upstairs
 landing. You feel that it would be innappropriate to venture out of the house
-at this point without at least a pair of well-washed trousers.
-
-Also here is the letter.
-First Thug and Second Thug are here.  Two enormous men crash through your
-door. They both look quite dangerous
+at this point without at least a pair of well-washed trousers.  Also here is
+the letter.  First Thug and Second Thug are here.  Two enormous men crash
+through your door. They both look quite dangerous
 The men catch you and grab you. The first one shouts at you "You owe Mr
 Malloney some friggin' money!" You try to splutter a reply but they smash
 your head against the wall before you can react. Lying on the floor you
@@ -240,10 +233,8 @@ The living room is a testament to Mrs Walters complete lack of colour
 co-ordination. The widescreen TV seems to always be tuned into the soap opera
 channel. On the floor are the remnents of TV and microwave dinners that have
 been long since forgotten.  Mounted on the wall is a huge painting. From here
-you can move west to the street or east to Mrs Walters' kitchen.
-
-Also here is the burger-phone.
-Mrs Walters is here.
+you can move west to the street or east to Mrs Walters' kitchen.  Also here
+is the burger-phone.  Mrs Walters is here.
 
 > give chocolate to mrs walters
 You give the bar to Mrs Walters. She takes it and eats it quickly, completely
@@ -340,10 +331,8 @@ Your house is (let's face it) pretty rubbish. In your living room is a cheap
 sofa and a small mahogany table.  From here you can go either east, up or
 west. East to the kitchen (and the horrors that lie within), up to your
 upstairs landing or west to the outside world and all it's myriad wonders
-(choke!)
-
-Also here is the letter.
-Unconscious First Thug, Unconscious Second Thug and Julie are here.
+(choke!)  Also here is the letter.  Unconscious First Thug, Unconscious
+Second Thug and Julie are here.
 
 > converse with julie
 You talk to Julie. You tell her all about your current situation and she is
@@ -400,8 +389,8 @@ The cheapoland clothes department is a testament to man-made fibres, PVC in
 particular. The clothes on the shelves are not so much cheap as cheap and
 nasty. On all sides customers mill past you.   From here you can go either
 north to the bargain basement or take a southerly stroll to the entrance of
-the shopping centre.
-Hundreds of customers are here, milling all over the place.
+the shopping centre.  Hundreds of customers are here, milling all over the
+place.
 
 > n
 You move north.
@@ -426,8 +415,8 @@ The cheapoland clothes department is a testament to man-made fibres, PVC in
 particular. The clothes on the shelves are not so much cheap as cheap and
 nasty. On all sides customers mill past you.   From here you can go either
 north to the bargain basement or take a southerly stroll to the entrance of
-the shopping centre.
-Hundreds of customers are here, milling all over the place.
+the shopping centre.  Hundreds of customers are here, milling all over the
+place.
 
 > s
 You move south.
@@ -442,16 +431,15 @@ nearly every book known to man, except of course, the one you're looking for.
 An important-looking notice hangs on one of the walls.  From here you can
 move north, east, west or down. North leads to the 'useless book section',
 east leads to the 'foreign book section', west leads to the 'modern fiction'
-section and down leads back down to the shopping centre entrance.
-Betty is here.
+section and down leads back down to the shopping centre entrance.  Betty is
+here.
 
 > w
 You move west.
 The modern fiction section of the bookshop is a fairly ordinary room. Posters
 of different bestsellers adorn the walls.  From here you can either move west
-to the 'classic fiction' section or east to the main bookshop area.
-
-Also here are the bottle of pills.
+to the 'classic fiction' section or east to the main bookshop area.  Also
+here are the bottle of pills.
 
 > get bottle of pills
 You pick up the bottle of pills.
@@ -463,8 +451,8 @@ nearly every book known to man, except of course, the one you're looking for.
 An important-looking notice hangs on one of the walls.  From here you can
 move north, east, west or down. North leads to the 'useless book section',
 east leads to the 'foreign book section', west leads to the 'modern fiction'
-section and down leads back down to the shopping centre entrance.
-Betty is here.
+section and down leads back down to the shopping centre entrance.  Betty is
+here.
 
 > give pills to betty
 You give the bottle of pills to Betty and she snatches them off you greedily.
@@ -524,8 +512,7 @@ orangey liquid now occupies a large area of the floor in front of the desk.
 From here you can move north, east, west or down. North leads to the 'useless
 book section', east leads to the 'foreign book section', west leads to the
 'modern fiction' section and down leads back down to the shopping centre
-entrance.
-Betty is here.
+entrance.  Betty is here.
 
 > w
 You move west.
@@ -537,8 +524,8 @@ to the 'classic fiction' section or east to the main bookshop area.
 You move west.
 The Classic fiction section of the bookstore is concerned with old classics.
 The 'classic fiction' section can only be exited via the eastern door which
-leads to the 'modern fiction' section.
-Mr Broomfield is in the corner of the room, reading a book.
+leads to the 'modern fiction' section.  Mr Broomfield is in the corner of the
+room, reading a book.
 
 > converse with mr broomfield
 You approach Mr Broomfield. You introduce yourself to him, he seems quite
@@ -577,8 +564,7 @@ orangey liquid now occupies a large area of the floor in front of the desk.
 From here you can move north, east, west or down. North leads to the 'useless
 book section', east leads to the 'foreign book section', west leads to the
 'modern fiction' section and down leads back down to the shopping centre
-entrance.
-Betty is here.
+entrance.  Betty is here.
 
 > down
 You move down.
@@ -603,8 +589,7 @@ place is wrapped in a greenish aura. This probably has something to do with
 the wallpaper and the tablecloths and the chairs. In fact all of Giovanni's
 appears to be clothed in green, oh well. In spite of this, however, today the
 restaurant seems to be very empty.  From here you move west to the fragrant
-delights of Giovanni's kitchen or east to the street.
-Some diners are here.
+delights of Giovanni's kitchen or east to the street.  Some diners are here.
 
 > converse with diners
 You try to approach the diners but they appear busy and become flustered at
@@ -616,10 +601,9 @@ and an attempt to make the gaming environment more realistic. Or both.
 You move west.
 The room is filled with the latest state of the art kitchen equipment.  You
 have the choice of either moving east to the restaurant or down to the wine
-cellar.
-Giovanni paces the room, occasionally pausing to smack himself about the face
-with a wooden spoon.  Malcolm stands at the sink, washing the seemingly
-endless pile of dishes.
+cellar.  Giovanni paces the room, occasionally pausing to smack himself about
+the face with a wooden spoon.  Malcolm stands at the sink, washing the
+seemingly endless pile of dishes.
 
 > converse with giovanni
 Tired of complaining to Malcolm, Giovanni starts complaining to you. He tells
@@ -658,10 +642,9 @@ thats fine by me. You get yourself 5 points.
 You move up.
 The room is filled with the latest state of the art kitchen equipment.  You
 have the choice of either moving east to the restaurant or down to the wine
-cellar.
-Giovanni paces the room, occasionally pausing to smack himself about the face
-with a wooden spoon.  Malcolm stands at the sink, washing the seemingly
-endless pile of dishes.
+cellar.  Giovanni paces the room, occasionally pausing to smack himself about
+the face with a wooden spoon.  Malcolm stands at the sink, washing the
+seemingly endless pile of dishes.
 
 > e
 You move east.
@@ -674,8 +657,7 @@ place is wrapped in a greenish aura. This probably has something to do with
 the wallpaper and the tablecloths and the chairs. In fact all of Giovanni's
 appears to be clothed in green, oh well. In spite of this, however, today the
 restaurant seems to be very empty.  From here you move west to the fragrant
-delights of Giovanni's kitchen or east to the street.
-Some diners are here.
+delights of Giovanni's kitchen or east to the street.  Some diners are here.
 
 > e
 You move east.
@@ -719,8 +701,8 @@ enthusiastic young bank worker behind a rather manky looking desk/computer
 combo. Unfortunately for you, the bank worker happens to be Norwegian, a
 country whose language you have never been able to master.  Armed with your
 knowledge of Norwegian, you feel certain that you will be able to have a
-decnt conversation with Mr George. You can only move south from here.
-Norge George is here.
+decnt conversation with Mr George. You can only move south from here.  Norge
+George is here.
 
 > converse with norge george
 As soon as George realises that you are speaking in his native tongue he
@@ -812,8 +794,7 @@ The showroom is full of expensive sports cars and not so expensive second
 hand cars.  The Fullerton 'Hog' seems to call to you from it's space on the
 'cheapo car of the week' stand. From here, you can go north to the south end
 of the street or south to Matthews' office, although he usually keeps it
-locked.
-Matthews is here.
+locked.  Matthews is here.
 
 > converse with matthews
 Johnny seems loathe to talk to you but then puts on his smarmy know-it-all
@@ -834,9 +815,8 @@ You move south.
 Matthews' office is a small office with a few filing cabinets a desk and a
 rack of keys attached to the wall. There is also a gold name plate on the
 desk showing off Matthews' Phd (for research into toenail clippings.)  From
-here, you can only move northwards to the showroom.
-
-Also here is the car key.
+here, you can only move northwards to the showroom.  Also here is the car
+key.
 
 > get car key
 You pick up the car key.
@@ -847,8 +827,7 @@ The showroom is full of expensive sports cars and not so expensive second
 hand cars.  The Fullerton 'Hog' seems to call to you from it's space on the
 'cheapo car of the week' stand. From here, you can go north to the south end
 of the street or south to Matthews' office, newly accessable through the use
-of his key.
-Unconscious Matthews is here.
+of his key.  Unconscious Matthews is here.
 
 > enter car
 You climb through the back window of the car and into the driver's seat.
@@ -918,11 +897,11 @@ as you know that there isn't much time.
 You move west.
 This bit of country road is much like any other, surrounded by fields and
 badly signposted. But right now you've probably got more important things on
-your mind.  From here you can either move north, south or east.
-A flock of sheep is here. They appear to be taking as much time as possible
-to cross the road.  A shephard is here, he is nonchalantly chewing a piece of
-grass as he coaxes his sheep across.  You can't see the police car, but you
-can definitely hear it, and it's getting closer...
+your mind.  From here you can either move north, south or east.  A flock of
+sheep is here. They appear to be taking as much time as possible to cross the
+road.  A shephard is here, he is nonchalantly chewing a piece of grass as he
+coaxes his sheep across.  You can't see the police car, but you can
+definitely hear it, and it's getting closer...
 
 > shoot shephard
 You level the stun-gun at the innocent shephard and fire. He slumps to the

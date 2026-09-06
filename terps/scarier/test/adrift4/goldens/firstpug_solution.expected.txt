@@ -49,9 +49,8 @@ You move north.
 In the scullery
 The scullery is small and cramped, a place for storing things out of the way.
 The main feature here is a dresser, set against the wall. The kitchen is west
-of here, and the foyer is south.
-
-Also here is a little teapot, a frying pan and a broom.
+of here, and the foyer is south.  Also here is a little teapot, a frying pan
+and a broom.
 
 > take broom
 You take the broom.
@@ -154,9 +153,7 @@ In the master bedroom
 This is the largest bedroom in the house; windows facing west and south allow
 sunlight inside. The large double bed is neatly made, and the nightstand next
 to the bed is bare. The only exit leads back out onto the second floor
-landing, to the north.
-
-Also here is a scroll.
+landing, to the north.  Also here is a scroll.
 
 > search nightstand
 Remembering what Flash said, you hesitantly run the tips of your fingers

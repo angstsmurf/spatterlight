@@ -83,6 +83,7 @@ how you got here, but you assume that you have the Mould to thank. You don't
 think that you will be getting up for a while. There are a few flowers
 sitting in a vase on a nearby table. You can see no Doctors or nurses in this
 room, but you assume that they are somewhere beyond the closed door.
+
 The Mould is standing next to the bed, and he looks like he wants to talk to
 you.
 
@@ -249,6 +250,7 @@ cleared this area, but the fire will return soon. A broken window leads back
 outside to the south through some bars. A closed metal door blocks the proper
 exit back outside. The only other exit from this area is an office to the
 east.
+
 An overweight scientist is standing around here, looking at you expectantly.
 
 > score
@@ -359,6 +361,7 @@ cleared this area, but the fire will return soon. A broken window leads back
 outside to the south through some bars. A closed metal door blocks the proper
 exit back outside. The only other exit from this area is an office to the
 east.
+
 An overweight scientist is standing around here, looking at you expectantly.
 
 > hint
@@ -1489,6 +1492,7 @@ saying something, given the low quality of the shops in here. You suppose
 that they are not all low quality. It is just that none of the shops interest
 you at the current time. To the south is the escalator leading up to the next
 floor. To the east and west there are shops.
+
 The clay bat is hovering around the area.
 
 > w
@@ -1660,6 +1664,7 @@ specific location. It seems to be one of the few places where no shops have
 been crammed in. If you look closely, on the side of the escalator is an
 electrical outlet, and that is it. There is nothing else here. The car park
 entrance is to the south.
+
 The clay bat is hovering around the area.
 
 > plug stereo
@@ -2373,6 +2378,7 @@ that lead nowhere obvious to the north, south, east and west. Luckily, you
 don't desperately feel the need to escape, as this is a quiet and peaceful
 place. In the centre of the grove is an empty pedestal. Nothing sits on the
 pedestal and there are no markings to suggest its purpose.
+
 The ghost of the Mould floats in the area.
 
 > w
@@ -2413,6 +2419,7 @@ that lead nowhere obvious to the north, south, east and west. Luckily, you
 don't desperately feel the need to escape, as this is a quiet and peaceful
 place. In the centre of the grove is an empty pedestal. Nothing sits on the
 pedestal and there are no markings to suggest its purpose.
+
 The ghost of the Mould floats in the area.
 
 > n
@@ -3072,6 +3079,7 @@ mass production may soon be possible.
 
 A closed door leads to the north. Next to the door is a red button labelled
 EMERGENCY OPEN.
+
 A clay dog is wandering around the area, following you.
 
 The imp continues to follow you.

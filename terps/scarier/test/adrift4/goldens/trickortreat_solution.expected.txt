@@ -2176,9 +2176,7 @@ believe me, it was), someone has only gone and carved a large scowling face
 into it, giving it the added impression of menace. This definitely looks like
 the kind of door that would happily take your arm off if you tried knocking
 on it. There's another exit to the west, however, and this one doesn't have a
-big steel door blocking it.
-
-Also here is the baseball bat.
+big steel door blocking it.  Also here is the baseball bat.
 
 > get baseball bat
 You take the baseball bat.

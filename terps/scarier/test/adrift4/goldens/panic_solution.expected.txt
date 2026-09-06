@@ -236,10 +236,9 @@ edge, a modest table, swathed with a violet cloth, plays host to a decorative
 coffin; its wreath, and wilting carnations adding a further deterioration to
 the ambience. Peering in from his glass imprisonment, the exalted form of
 Christ warps the moonlight, wrapping its lustre over wood, stone, and textile
-without division.
-Father Wessels stands by the podium, rifling through a Bible as if composing
-his next sermon.  The old cleric holds a hand to his mouth, trying to
-suppress a painful cough.
+without division.  Father Wessels stands by the podium, rifling through a
+Bible as if composing his next sermon.  The old cleric holds a hand to his
+mouth, trying to suppress a painful cough.
 
 > e
 You move east.
@@ -340,10 +339,9 @@ edge, a modest table, swathed with a violet cloth, plays host to a decorative
 coffin; its wreath, and wilting carnations adding a further deterioration to
 the ambience. Peering in from his glass imprisonment, the exalted form of
 Christ warps the moonlight, wrapping its lustre over wood, stone, and textile
-without division.
-Father Wessels stands by the podium, rifling through a Bible as if composing
-his next sermon.  The old cleric holds a hand to his mouth, trying to
-suppress a painful cough.
+without division.  Father Wessels stands by the podium, rifling through a
+Bible as if composing his next sermon.  The old cleric holds a hand to his
+mouth, trying to suppress a painful cough.
 
 > x coffin
 Made from a dusty blue fibreglass the oversized casket sits uncomfortably
@@ -445,10 +443,9 @@ edge, a modest table, swathed with a violet cloth, plays host to a decorative
 coffin that lies open; its wreath, and wilting carnations adding a further
 deterioration to the ambience. Peering in from his glass imprisonment, the
 exalted form of Christ warps the moonlight, wrapping its lustre over wood,
-stone, and textile without division.
-Father Wessels stands by the podium, rifling through a Bible as if composing
-his next sermon.  The old cleric holds a hand to his mouth, trying to
-suppress a painful cough.
+stone, and textile without division.  Father Wessels stands by the podium,
+rifling through a Bible as if composing his next sermon.  The old cleric
+holds a hand to his mouth, trying to suppress a painful cough.
 
 > d
 You move down.

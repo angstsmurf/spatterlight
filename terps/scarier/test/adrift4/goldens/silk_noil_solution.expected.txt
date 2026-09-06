@@ -25,10 +25,10 @@ little variation, as if a single commerce program were assigned to the
 automatons collectively.  Tiny shadows scurry about in the deeper shadows and
 textile detritus between the booths.  Motes of dust wander in the air like
 subaqueous driftage.  Loose threads lie along the grout and in the spaces
-that separate the flagstones.
-The Tunnel is not crowded with overeager buyers, and the few customers that
-wander about appear to vibrate like the rapid flitter of hummingbirds' wings,
-grey and black figures smudged into the air with peculiar smoke.
+that separate the flagstones.  The Tunnel is not crowded with overeager
+buyers, and the few customers that wander about appear to vibrate like the
+rapid flitter of hummingbirds' wings, grey and black figures smudged into the
+air with peculiar smoke.
 
 > up
 You climb up awkwardly into the hanging forest of fabrics, grappling sturdy
@@ -45,11 +45,11 @@ Hanging with the Silk King
 This place is a clearing of sorts in the hanging maze, a huge cylinder of a
 space that extends down to expose the Tunnel's promenade far below.  The
 clearing is ceilinged with hanging bolts of fabric.  You cling to a sailcloth
-along the periphery like a drowning child.
-The Silk King is a bloated testicle of a man, his naked form girdled in bolts
-of blue fabric, contrasting vividly against the orange light, and suspended
-from the textile ceiling in the center of the clearing.  A silver tray of
-roasted beetles hangs beside the King.
+along the periphery like a drowning child.  The Silk King is a bloated
+testicle of a man, his naked form girdled in bolts of blue fabric,
+contrasting vividly against the orange light, and suspended from the textile
+ceiling in the center of the clearing.  A silver tray of roasted beetles
+hangs beside the King.
 
 > get key
 (You would like to have that key, indeed.  But the grotesque presence of the

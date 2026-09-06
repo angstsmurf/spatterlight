@@ -60,10 +60,8 @@ here, which is really cool because it means I can go to the park on my walk
 home every day.  The park has a creek, benches, tennis courts, and a lot of
 trees.
 To the west, behind a fir tree is my secret stash, where I keep cool stuff I
-find.  Hankin Elementary School is just east of here.
-
-The rock that sticks out over the creek here was the perfect spot to build my
-fortress.
+find.  Hankin Elementary School is just east of here.  The rock that sticks
+out over the creek here was the perfect spot to build my fortress.
 
 > w
 I move west.
@@ -182,7 +180,6 @@ garden leading up to the front door.  Just seeing my yard makes me feel
 safe... it means I got all the way home from school in one piece!
 
 The park is just south of here, and the foyer of my house is to the north.
-
 The front spigot sticks out of the side of the house by the garden.  A rubber
 garden hose is coiled up in a corner of the garden.
 
@@ -268,7 +265,6 @@ garden leading up to the front door.  Just seeing my yard makes me feel
 safe... it means I got all the way home from school in one piece!
 
 The park is just south of here, and the foyer of my house is to the north.
-
 The front spigot sticks out of the side of the house by the garden.  A rubber
 garden hose is coiled up in a corner of the garden.
 
@@ -285,10 +281,8 @@ here, which is really cool because it means I can go to the park on my walk
 home every day.  The park has a creek, benches, tennis courts, and a lot of
 trees.
 To the west, behind a fir tree is my secret stash, where I keep cool stuff I
-find.  Hankin Elementary School is just east of here.
-
-The rock that sticks out over the creek here was the perfect spot to build my
-fortress.
+find.  Hankin Elementary School is just east of here.  The rock that sticks
+out over the creek here was the perfect spot to build my fortress.
 
 > e
 I move east.
@@ -341,10 +335,8 @@ here, which is really cool because it means I can go to the park on my walk
 home every day.  The park has a creek, benches, tennis courts, and a lot of
 trees.
 To the west, behind a fir tree is my secret stash, where I keep cool stuff I
-find.  Hankin Elementary School is just east of here.
-
-The rock that sticks out over the creek here was the perfect spot to build my
-fortress.
+find.  Hankin Elementary School is just east of here.  The rock that sticks
+out over the creek here was the perfect spot to build my fortress.
 
 > n
 I move north.
@@ -355,7 +347,6 @@ garden leading up to the front door.  Just seeing my yard makes me feel
 safe... it means I got all the way home from school in one piece!
 
 The park is just south of here, and the foyer of my house is to the north.
-
 The front spigot sticks out of the side of the house by the garden.  A rubber
 garden hose is coiled up in a corner of the garden.
 
@@ -397,11 +388,9 @@ There's also the kitchen counter in here, which is pretty tall: only a little
 below my head.
 
 The eastern exit leads to the hall, with stairs, and the south goes into the
-dining room to eat.
-
-Besides that, it's really just the kitchen table, which isn't as big or fancy
-as the dining room table.  The spice rack the biggest thing on the counter
-right now.
+dining room to eat.  Besides that, it's really just the kitchen table, which
+isn't as big or fancy as the dining room table.  The spice rack the biggest
+thing on the counter right now.
 
 > x table
 The kitchen table is wooden.  It's big enough for all four of us.  Rotten
@@ -446,8 +435,8 @@ I'm not really supposed to go in here alone.  I've been in here before
 though.  Sis has a bunch of Rare Bears stuff on the walls, and some drawings
 that we made.
 
-There's a door to the north that leads back to the hall.
-Sis is napping away under her cozy Rare Bear sheets.
+There's a door to the north that leads back to the hall.  Sis is napping away
+under her cozy Rare Bear sheets.
 
 > x rare bears
 My sister's whole room is covered in Rare Bear stuff.
@@ -502,7 +491,6 @@ garden leading up to the front door.  Just seeing my yard makes me feel
 safe... it means I got all the way home from school in one piece!
 
 The park is just south of here, and the foyer of my house is to the north.
-
 The front spigot sticks out of the side of the house by the garden.
 
 > s
@@ -514,10 +502,8 @@ here, which is really cool because it means I can go to the park on my walk
 home every day.  The park has a creek, benches, tennis courts, and a lot of
 trees.
 To the west, behind a fir tree is my secret stash, where I keep cool stuff I
-find.  Hankin Elementary School is just east of here.
-
-The rock that sticks out over the creek here was the perfect spot to build my
-fortress.
+find.  Hankin Elementary School is just east of here.  The rock that sticks
+out over the creek here was the perfect spot to build my fortress.
 
 > e
 I move east.
@@ -541,9 +527,8 @@ sometimes.
 
 The only way out of the playground is west to the front of the school.
 
-For now, I need to set up my traps here on the playground.
-
-The bucket of mud is sitting up on top of the monkey bars.
+For now, I need to set up my traps here on the playground.  The bucket of mud
+is sitting up on top of the monkey bars.
 
 > set up watermelon
 Using the same double half-hitches as I had on the tree at home, I tie the
@@ -590,10 +575,8 @@ here, which is really cool because it means I can go to the park on my walk
 home every day.  The park has a creek, benches, tennis courts, and a lot of
 trees.
 To the west, behind a fir tree is my secret stash, where I keep cool stuff I
-find.  Hankin Elementary School is just east of here.
-
-The rock that sticks out over the creek here was the perfect spot to build my
-fortress.
+find.  Hankin Elementary School is just east of here.  The rock that sticks
+out over the creek here was the perfect spot to build my fortress.
 
 > n
 I move north.
@@ -604,7 +587,6 @@ garden leading up to the front door.  Just seeing my yard makes me feel
 safe... it means I got all the way home from school in one piece!
 
 The park is just south of here, and the foyer of my house is to the north.
-
 The front spigot sticks out of the side of the house by the garden.
 
 > n
@@ -649,9 +631,8 @@ My Room
 My room is pretty cool.  You can see the backyard from my window, and I have
 a big corner desk.
 
-The only exit here is south to the hallway.
-
-My dart gun is lying on the floor in the corner.
+The only exit here is south to the hallway.  My dart gun is lying on the
+floor in the corner.
 
 > go to bed
 Satisfied with my trap setups, I decide to call it a day.  After dinner with

@@ -71,9 +71,8 @@ everywhere, as are empty beer cans, books, posters, foreign coins of less
 value than the metal they are minted from, and lots of other items which
 don't really warrant a better description than 'lots of other items'. Amidst
 the carnage here is your bed and also a window although the location of
-either is a mystery to you right now. Exits lie south.
-
-Also here is a gold coin.
+either is a mystery to you right now. Exits lie south.  Also here is a gold
+coin.
 
 > tidy room
 You decide to tidy your room. Alas, exhaustion gets the better of you after

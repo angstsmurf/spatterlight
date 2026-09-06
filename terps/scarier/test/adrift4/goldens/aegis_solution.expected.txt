@@ -63,9 +63,9 @@ and if you look towards the shore you can see several more dotting the sandy
 cove before the Council Hall. Except for the shrine that houses the Aegis,
 this place is usually bare of furnishings, but it seems today someone
 actually managed to get a long table up here, laden with refreshments for
-after the ceremony.
-Elder Hanawi is here, seemingly lost in his thoughts.  Cayrith is here.
-Manaao is here.  Niowi is here.  Several of your fellow Guards are here.
+after the ceremony.    Elder Hanawi is here, seemingly lost in his thoughts.
+Cayrith is here.  Manaao is here.  Niowi is here.  Several of your fellow
+Guards are here.
 
 > go to the stables
 After some time spent enjoying small talk, congratulations, and toasts to
@@ -314,9 +314,8 @@ Rocky Island
 A bleak strip of rock and sand, hardly large enough to be called an island,
 without the hospitality of so much as a single scraggly palm. A barrel and a
 few other miscellaneous items have been strewn about next to a makeshift
-canvas tent.
-You hear loud snoring, and a man's booted feet are visible sticking out from
-a makeshift tent.
+canvas tent.  You hear loud snoring, and a man's booted feet are visible
+sticking out from a makeshift tent.
 
 > talk to sailor
 You clear your throat loudly. Then, "Hello, sir?"
@@ -416,8 +415,7 @@ stairs, but this is the main room where the guardsmembers generally meet,
 discussing the latest news and receiving missions.
 
 A pair of wide double doors open out to the rest of the city to the west, and
-a long hall east leads to the stables.
-Cayrith is here.
+a long hall east leads to the stables.  Cayrith is here.
 
 > talk to Cayrith
 The guardmaster wrinkles his brow thoughtfully as you relate the information
@@ -466,9 +464,8 @@ placed at intervals along the walls allow access to dozing drakes in
 hay-filled lofts, while doors open to the cove to the east. For drakes that
 may be needed more immediately by their riders, a row of tethering posts
 stands on each side of the west door leading to the Council Hall, saddles and
-gear hung nearby in neat rows.
-Janai is here humming a tune to himself while he works.  Oxblood is here,
-tied to a post.
+gear hung nearby in neat rows.  Janai is here humming a tune to himself while
+he works.  Oxblood is here, tied to a post.
 
 > untie Oxblood
 "I went ahead and saddled him up," Janai says as you struggle to make your
@@ -624,8 +621,8 @@ prisoners are kept to await their trials. This dungeon is very old, one of
 the only parts of the original building still remaining. The emergency armory
 is in a vault at the far end, and stairs lead up to the Council Hall.
 
-That's odd, you don't see the two thieves you arrested anywhere.
-Cayrith is here.
+That's odd, you don't see the two thieves you arrested anywhere.  Cayrith is
+here.
 
 > up
 You move up.
@@ -642,8 +639,8 @@ stairs, but this is the main room where the guardsmembers generally meet,
 discussing the latest news and receiving missions.
 
 A pair of wide double doors open out to the rest of the city to the west, and
-a long hall east leads to the stables.
-Elder Hanawi is here, seemingly lost in his thoughts.
+a long hall east leads to the stables.  Elder Hanawi is here, seemingly lost
+in his thoughts.
 
 > talk to the Elder
 The Elder nods. "Yes Journeyman, I have a special task for you. I'd like you
@@ -857,8 +854,8 @@ stairs, but this is the main room where the guardsmembers generally meet,
 discussing the latest news and receiving missions.
 
 A pair of wide double doors open out to the rest of the city to the west, and
-a long hall east leads to the stables.
-Elder Hanawi is here, seemingly lost in his thoughts.
+a long hall east leads to the stables.  Elder Hanawi is here, seemingly lost
+in his thoughts.
 
 > east
 You move east.
@@ -1123,9 +1120,8 @@ you wonder if the vandalism has spread there too or been isolated to just
 this room.
 
 A pair of wide double doors open out to the rest of the city to the west, and
-a long hall east leads to the stables.
-
-The horn of the smashed unicorn lies half-hidden under a bench.
+a long hall east leads to the stables.  The horn of the smashed unicorn lies
+half-hidden under a bench.
 
 > down
 "Celise!"
@@ -1352,9 +1348,8 @@ you wonder if the vandalism has spread there too or been isolated to just
 this room.
 
 A pair of wide double doors open out to the rest of the city to the west, and
-a long hall east leads to the stables.
-
-The horn of the smashed unicorn lies half-hidden under a bench.
+a long hall east leads to the stables.  The horn of the smashed unicorn lies
+half-hidden under a bench.
 
 > get horn
 You take the broken unicorn's horn.
@@ -1369,8 +1364,7 @@ placed at intervals along the walls allow access to dozing drakes in
 hay-filled lofts, while doors open to the cove to the east. For drakes that
 may be needed more immediately by their riders, a row of tethering posts
 stands on each side of the west door leading to the Council Hall, saddles and
-gear hung nearby in neat rows.
-Oxblood is here.
+gear hung nearby in neat rows.  Oxblood is here.
 
 > mount Oxblood
 "Sorry boy," you say, prodding Oxblood awake and climbing back into the
@@ -1413,8 +1407,8 @@ himself up straight and gazing at you in stony silence.
 Great Eyrie
 The Great Eyrie is a large circular platform surrounded by rails, resting on
 a pillar towering high over the water and looking more than anything like the
-crow's nest of a giant ship.
-Elder Hanawi is here, standing in front of the shrine that houses the Aegis.
+crow's nest of a giant ship.  Elder Hanawi is here, standing in front of the
+shrine that houses the Aegis.
 
 > arrest the Elder
 "What do you think you're doing, child?" Hanawi asks, as you step

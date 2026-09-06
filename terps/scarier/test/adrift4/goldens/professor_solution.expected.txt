@@ -23,8 +23,8 @@ Peabody's Grove
 Small, quaint looking houses line the shaded road.  There is Mr. Beakers
 house,  Mrs. Peabody's house is across from that. Next to her house is
 Milo's, maker of  Milo's Magnificent Mystery Meat.  The tool man lives just
-across from him.
-Burton is in front of his house, looking like he is up to no good.
+across from him.   Burton is in front of his house, looking like he is up to
+no good.
 
 > knock on peabody's door
 You knock on Mrs. Peabody's door and hear a muffled, "just a minute", come
@@ -54,8 +54,8 @@ Beaker Street Market
 The Beaker Street Market is the only market in these parts.  Since the fruit
 festival, it has been pretty low on fruits.  You can find all sorts of other
 essentials, though.  A large sign above the counter lists the current items
-on sale, while other items are located on the shelves along the isles.
-Mr. Beaker is stocking shelves nearby.
+on sale, while other items are located on the shelves along the isles.  Mr.
+Beaker is stocking shelves nearby.
 
 > give basket to mr beaker
 "Here you go, Professor.  It's the last bunch I have ready right now. So
@@ -88,8 +88,7 @@ quickly puts another in the empty space on the shelf.
 > west
 You move west.
 
-Whimsington Square
-Shelly is walking slowly, delivering the mail.
+Whimsington Square  Shelly is walking slowly, delivering the mail.
 
 > west
 You move west.
@@ -124,8 +123,7 @@ You take the portable doorknob from the shelves.
 > east
 You move east.
 
-Whimsington Square
-Shelly is walking slowly, delivering the mail.
+Whimsington Square  Shelly is walking slowly, delivering the mail.
 
 > give jasper's Jazzy Jungle Juice to shelly
 "Oh, thank you, Professor.  I am sure that I have something for you.  I will
@@ -168,8 +166,8 @@ Peabody's Grove
 Small, quaint looking houses line the shaded road.  There is Mr. Beakers
 house,  Mrs. Peabody's house is across from that. Next to her house is
 Milo's, maker of  Milo's Magnificent Mystery Meat.  The tool man lives just
-across from him.
-Burton is in front of his house, looking like he is up to no good.
+across from him.   Burton is in front of his house, looking like he is up to
+no good.
 
 > knock on peabody's door
 You knock on Mrs. Peabody's door and hear a muffled, "just a minute", come
@@ -211,8 +209,8 @@ with a sign and a bell.  All of the tools are kept in an area behind the
 counter.  You've been in here a couple times before, so you already know that
 you have to ask the clerk for the tools that you want.  There are also a
 couple of benches where customers can sit while they wait for their
-purchases.  A small table holds the Tools-R-R-Business catalog.
-Shelly is walking slowly, delivering the mail.
+purchases.  A small table holds the Tools-R-R-Business catalog.  Shelly is
+walking slowly, delivering the mail.
 
 > ring bell
 You ring the bell and the clerk pops up from behind the counter.
@@ -262,8 +260,7 @@ You take the pretty flowers from the window box.
 > north
 You move north.
 
-Whimsington Square
-Shelly is walking slowly, delivering the mail.
+Whimsington Square  Shelly is walking slowly, delivering the mail.
 
 > north
 You follow the worn path to the north until you reach Glen's Lookout.  You
@@ -338,8 +335,8 @@ Beaker Street Market
 The Beaker Street Market is the only market in these parts.  Since the fruit
 festival, it has been pretty low on fruits.  You can find all sorts of other
 essentials, though.  A large sign above the counter lists the current items
-on sale, while other items are located on the shelves along the isles.
-Mr. Beaker is stocking shelves nearby.
+on sale, while other items are located on the shelves along the isles.  Mr.
+Beaker is stocking shelves nearby.
 
 > examine shelves
 The shelves are a recently added feature to the market.  Mr. Beaker used to
@@ -357,8 +354,7 @@ You take the container of Reggie's Remedy Rust Resolvent from the shelves.
 > west
 You move west.
 
-Whimsington Square
-Shelly is walking slowly, delivering the mail.
+Whimsington Square  Shelly is walking slowly, delivering the mail.
 
 > west
 You move west.
@@ -424,11 +420,11 @@ IOCC sit.
 
 A small library, if you will, takes up the west wall, just around the corner
 from where the board members sit.  Many hours have you spent researching your
-'theories', here in the silence of the IOCC board room.
-Clayton Melborne Rogers is sitting behind the table.  It almost looks like he
-is napping.  Thomas Jules Whitney is sitting behind the large table.  He is
-keeping a close eye on the entry box.  Mortamer Ulysses Franklin is sitting
-behind the moon shaped table, watching your every move.
+'theories', here in the silence of the IOCC board room.  Clayton Melborne
+Rogers is sitting behind the table.  It almost looks like he is napping.
+Thomas Jules Whitney is sitting behind the large table.  He is keeping a
+close eye on the entry box.  Mortamer Ulysses Franklin is sitting behind the
+moon shaped table, watching your every move.
 
 > examine painting
 The painting depicts the founder of Wimsington, just outside of the old

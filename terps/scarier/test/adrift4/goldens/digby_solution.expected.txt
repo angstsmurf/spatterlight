@@ -1569,9 +1569,7 @@ magazine rack. A certificate hangs from the wall. A plush rug covers the
 floor, deep enough so that if you accidentally dropped your beer glass it
 won't shatter upon impact. The walls are blank for the most part but a
 pancake you threw there a while ago is still there. Off to the west is a door
-leading into the kitchen.
-
-Also here is a toolbox.
+leading into the kitchen.  Also here is a toolbox.
 
 > x certificate
 Seen only through the glasses, the certificate reads:

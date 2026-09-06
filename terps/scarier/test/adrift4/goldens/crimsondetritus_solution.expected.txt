@@ -23,11 +23,8 @@ Strange Planet
 as far as the eye can see.  A darkened sky twinkles with millions of stars,
 like diamonds on a sheet of black velvet.  A large building rises into the
 sky to the north with a high arched doorway that appears to be guarded by a
-strange creature.
-
-There is a tube lying on the ground nearby.
-There is a strange creature pacing back and forth in front of the arched
-doorway.
+strange creature.  There is a tube lying on the ground nearby.  There is a
+strange creature pacing back and forth in front of the arched doorway.
 
 >
 I don't understand what you mean!

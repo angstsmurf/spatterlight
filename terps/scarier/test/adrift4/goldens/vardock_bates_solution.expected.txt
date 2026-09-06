@@ -277,8 +277,7 @@ Calle
 
 Puede que no sea la mejor calle de Sibiu, pero tienes el presentimiento de
 que has estado allí otra vez. Está oscuro, aún así  puedes ver en una esquina
-a un viejo vagabundo.
-El vagabundo está aquí.
+a un viejo vagabundo.  El vagabundo está aquí.
 
 > sur
 Vas al sur.
@@ -311,8 +310,8 @@ Vas al oeste.
 ..Parque
 
 Has decidido adentrarte en el interior del parque. La inmensa cantidad de
-árboles y la oscura noche crea un lugar fácil de perder la orientación.
-Un lobo se encuentra haciendo círculos alrededor tuyo.
+árboles y la oscura noche crea un lugar fácil de perder la orientación.   Un
+lobo se encuentra haciendo círculos alrededor tuyo.
 
 > lanzar el adoquin al lobo
 
@@ -415,8 +414,7 @@ Calle
 
 Puede que no sea la mejor calle de Sibiu, pero tienes el presentimiento de
 que has estado allí otra vez. Está oscuro, aún así  puedes ver en una esquina
-a un viejo vagabundo.
-El vagabundo está aquí.
+a un viejo vagabundo.  El vagabundo está aquí.
 
 > este
 Vas al este.
@@ -460,9 +458,8 @@ Vas al sur.
 Laboratorio
 
 Tubos de ensayo, un mortero, embudos y vasos de precipitados...un minúsculo
-pero completo laboratorio, donde realizar cualquier estudio.
-
-También hay  un maletín.
+pero completo laboratorio, donde realizar cualquier estudio.    También hay
+un maletín.
 
 > examinar los tubos
 Casi todos están llenos de algún líquido.
@@ -488,9 +485,8 @@ Vas al norte.
 Laboratorio
 
 Tubos de ensayo, un mortero, embudos y vasos de precipitados...un minúsculo
-pero completo laboratorio, donde realizar cualquier estudio.
-
-También hay  un maletín.
+pero completo laboratorio, donde realizar cualquier estudio.    También hay
+un maletín.
 
 > examinar el maletin
 Un maletín de cuero marrón,  con   un cierto aire artesanal.
@@ -539,9 +535,7 @@ La noche estrellada ya ha caido en Egipto, noche sembrada de relucientes
 astros sobre un oscuro fondo, una media luna encabeza el nocturno escenario,
 dándole al tono azabache una minúscula claridad. Las dunas se pierden en el
 horizonte de espeso calor, corre una ligera brisa que hace agradable el
-momento.
-
-También hay  un caballo.
+momento.   También hay  un caballo.
 
 > examinar el caballo
 Es tu caballo, se trata de un caballo mestizo de sangre caliente, de color
@@ -607,8 +601,7 @@ Parada de taxis
 
 Una larga cola de taxis espera a que los turistas, gente de negocios y demás
 alquilen sus servicios. El primer taxista se encuentra leyendo un diario,
-sentado en el sillón de su vehículo.
-El taxista está aquí.
+sentado en el sillón de su vehículo.   El taxista está aquí.
 
 > examinar el taxi
 Un antiguo Merrcedes, puertas amarillas y resto en negro, típico de la ciudad

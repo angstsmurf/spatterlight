@@ -36,8 +36,7 @@ Akron Public Library is a small community library, with a relatively limited
 selection of books. You're in the front alcove, which contains only the
 checkout/return desk and a cart which seems to contain the books to be filed.
 What books they do have are in a room to the north. Southwards is Garbanzo
-Street.
-The librarian stands behind the checkout/return desk.
+Street.  The librarian stands behind the checkout/return desk.
 
 > show card to librarian
 The librarian looks at your card, and nods. Immediately, someone else comes
@@ -85,9 +84,7 @@ and you open it.
 You move south.
 This is a deserted men's clothing store. Empty racks are all around you -
 there seems to be no merchandise. Even the cash register is empty. This is
-not a very cheerful place.
-
-Also here is a spiffy tuxedo.
+not a very cheerful place.  Also here is a spiffy tuxedo.
 
 > take tuxedo
 You pick up the spiffy tuxedo.
@@ -133,9 +130,7 @@ Garbanzo Street is back west.
 You move south.
 There is next to nothing here. Some trash has been tossed into this area, but
 most of it is rotten. Looks like someone plans to build here eventually,
-though.
-
-Also here is the surveyor's stake.
+though.  Also here is the surveyor's stake.
 
 > take surveyor's stake
 You pick up the surveyor's stake.
@@ -205,8 +200,8 @@ You move north.
 This is the lobby of the Johnson automotive plant, employer of nearly
 everybody in this part of Akron. (It is, in fact, one of the only factories
 in Akron that doesn't deal with rubber.) Cars, mostly Plymouths, litter this
-area. A large desk is at the front, with a clerk behind it.
-The smiling desk clerk sits here, reading a Danielle Steele novel.
+area. A large desk is at the front, with a clerk behind it.  The smiling desk
+clerk sits here, reading a Danielle Steele novel.
 
 > show passcard to clerk
 The clerk looks at your passcard warily. "I'm not sure I should... oh well,
@@ -217,9 +212,7 @@ noticed.
 You step into the factory itself.
 Machines clang all around you. Workers bustle in every direction. Noise is
 shattering your ears. Better spend as little time here as you can. The exit
-into the lobby is back to the east.
-
-Also here is a wedding ring.
+into the lobby is back to the east.  Also here is a wedding ring.
 
 > take wedding ring
 You pick up the wedding ring.
@@ -233,8 +226,8 @@ This is the lobby of the Johnson automotive plant, employer of nearly
 everybody in this part of Akron. (It is, in fact, one of the only factories
 in Akron that doesn't deal with rubber.) Cars, mostly Plymouths, litter this
 area. A large desk is at the front, with a clerk behind it.  The westward
-door, into the factory itself, is invitingly open.
-The smiling desk clerk sits here, reading a Danielle Steele novel.
+door, into the factory itself, is invitingly open.  The smiling desk clerk
+sits here, reading a Danielle Steele novel.
 
 > south
 You move south.
@@ -261,8 +254,7 @@ You stand on the doorstep outside 37 Kumquat Avenue.  Officer Stanley Peters,
 of the Ohio Police Department, stands in front of the door. "Get out of
 here," he orders you. "There is serious police business going on inside."
 You're a little skeptical of that, as there's only one police car parked
-outside..
-Officer Stanley Peters stands guard in front of the door.
+outside..  Officer Stanley Peters stands guard in front of the door.
 
 > give thin book to officer
 Officer Peters looks at the Treatise on Crippled Shareware. "Wow!" he

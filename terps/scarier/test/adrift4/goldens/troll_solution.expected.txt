@@ -157,9 +157,8 @@ At the foot of the mountain, the path meets  the highway. The Inn is the only
 thing that breaks the flat, cold line of the horizion for miles. It is a
 wooden framed building, with walls of plaster and straw. A painted sign
 swings in the breeze just above the entrance, and by the side of the road
-stands a wooden post with a board nailed to it.
-
-Also here is the coach and a mangey horse.
+stands a wooden post with a board nailed to it.  Also here is the coach and a
+mangey horse.
 
 > give ticket to jack
 You hand Jack the ticket. He seems happy.
@@ -218,8 +217,7 @@ Inside Herbs' Herbs
 All manner of bottles and herbs and plants fill the place up and make it look
 very cluttered. Behind a counter with a copper top, stands Herb. The wall
 behind him is covered in shelves filled with big glass jars of almost every
-colour their is.
-Herb is here.
+colour their is.  Herb is here.
 Your stomach growls.
 Your throat is sore.
 
@@ -403,9 +401,8 @@ burned into it. A stone fireplace stands pride of place in the centre of the
 east wall, with logs burning brightly away. A wooden staircase on the
 northern wall leads upwards. Sounds can be heard from behind a hatch in the
 south wall, while a serving wrench flitters around, cleaning and tidying.
-Sitting at one of the tables is a elderly fellow, sipping from a cup.
-
-Also here is a tankard, a green bottle and a brown bottle.
+Sitting at one of the tables is a elderly fellow, sipping from a cup.  Also
+here is a tankard, a green bottle and a brown bottle.
 
 > sit at table
 You pick a nice sturdy table with a nice solid chair and sit yourself down at
@@ -580,9 +577,8 @@ tumbling down in an almighty crash.
 You move north.
 
 Inside the wall
-Chained by both arms and feet, a skeleton hangs, still wearing armour.
-
-Also here is a sword blade.
+Chained by both arms and feet, a skeleton hangs, still wearing armour.  Also
+here is a sword blade.
 
 > x skeleton
 It's been here for a long while.  An old helmet is on the skeleton.
@@ -735,9 +731,8 @@ burned into it. A stone fireplace stands pride of place in the centre of the
 east wall, with logs burning brightly away. A wooden staircase on the
 northern wall leads upwards. Sounds can be heard from behind a hatch in the
 south wall, while a serving wrench flitters around, cleaning and tidying.
-Sitting at one of the tables is a elderly fellow, sipping from a cup.
-
-Also here is a tankard, a green bottle, a brown bottle, an empty plate and an
+Sitting at one of the tables is a elderly fellow, sipping from a cup.  Also
+here is a tankard, a green bottle, a brown bottle, an empty plate and an
 empty cup.
 Sid picks up his mug and drinks.
 
@@ -925,7 +920,6 @@ burned into it. A stone fireplace stands pride of place in the centre of the
 east wall, with logs burning brightly away. A wooden staircase on the
 northern wall leads upwards. Sounds can be heard from behind a hatch in the
 south wall, while a serving wrench flitters around, cleaning and tidying.
-
 Also here is a tankard, a green bottle, a brown bottle, an empty plate and an
 empty cup.
 
@@ -950,9 +944,8 @@ Highway
 You're by the side of a wide, well worn track, stretching far off to the east
 and west. A large, gnarled tree with branches that hang like broken fingers
 grows by a path leading off to the north through a dense wood.  Freaky Jack
-is here, waiting to take you back.
-
-Also here is the coach, a room key and a mangey horse.
+is here, waiting to take you back.  Also here is the coach, a room key and a
+mangey horse.
 
 > get in coach
 Happy to be going home, you hop on the coach and knock on the roof to tell
@@ -974,9 +967,8 @@ The cieling is surprisingly low, with thick wooden beams jutting out from it.
 The far wall is lined with a dusty looking wooden counter, acting as the bar,
 the landlord stands behind it and the rest of the room is filled with
 decrepid tables and chairs. A cork board with notices pinned to it hangs on
-the wall to the right of the entrance.
-
-Also here is a cork and a pile of empty bottles and tankards.
+the wall to the right of the entrance.   Also here is a cork and a pile of
+empty bottles and tankards.
 The landlord blows his nose on the rag.
 
 > pay landlord

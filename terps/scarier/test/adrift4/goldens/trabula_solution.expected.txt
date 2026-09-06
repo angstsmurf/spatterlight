@@ -22,8 +22,7 @@ You move north.
 
 Trabula's
 Trabula's Emporium is more than just an equipment store, it seems like they
-have everything you could want!
-Trabula is here.
+have everything you could want!  Trabula is here.
 "Ah I'm so glad to see you," the man says.
 
 "There's some things across the bridge that were stolen from me.  A diamond
@@ -62,8 +61,8 @@ to the road.
 You move east.
 
 Middle Bridge
-The bridge is no more stable here.  It continues east and west.
-A soldier is here.
+The bridge is no more stable here.  It continues east and west.  A soldier is
+here.
 a soldier attacks you with the rapier, but you manage to avoid it.
 
 > x soldier
@@ -156,8 +155,8 @@ You move east.
 Under the Bridge
 Directly under the bridge is cold and muddy.  Your feet sink at least a
 couple of inches with each step, leading you to believe it's not so dry of a
-creek after all.  You can cross the creek to the east or west.
-A big fat ugly troll is here.
+creek after all.  You can cross the creek to the east or west.  A big fat
+ugly troll is here.
 a Troll attacks you with the bar, but you manage to avoid it.
 
 > x troll
@@ -359,8 +358,7 @@ You move north.
 
 Trabula's
 Trabula's Emporium is more than just an equipment store, it seems like they
-have everything you could want!
-Trabula is here.
+have everything you could want!  Trabula is here.
 
 > give diamond ring to trabula
 You've given the diamond ring to Trabula!  He rewards you handsomly.

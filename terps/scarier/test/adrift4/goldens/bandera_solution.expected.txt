@@ -44,8 +44,8 @@ Vas al norte.
 
 PATIO DE ARMAS
 El pequeño patio de armas del acuartelamiento está delante tuyo. Rodeado de
-banderines de gloriosas unidades que un día se alojaron en este cuartel.
-El Teniente de tu sección está aquí.
+banderines de gloriosas unidades que un día se alojaron en este cuartel.  El
+Teniente de tu sección está aquí.
 
 > x teniente
 Es el teniente Montalvo, jefe de tu sección.  Teniente  está llevando una
@@ -102,8 +102,7 @@ CANTINA
   Abres las puertas de  la cantina, o mejor dicho, el "hogar del soldado".
 Para ser Sábado no está mal, un binomio de la 1ª Compañía echando una partida
 al Cabal y en la barra, como siempre, está la mejor camarera de toda la
-OTAN... Marifé....
-Marifé está aquí.
+OTAN... Marifé....  Marifé está aquí.
 
 > x marife
 Una excelente camarera y muy atractiva...  Marifé  está llevando una bolsa.
@@ -165,9 +164,7 @@ La puerta se abre.
 FURRIELERÍA
 Estanterías desde el suelo hasta el techo a lo largo de toda la estancia.
 Sacos de dormir apilados, tiendas de campaña, chalecos antifragmentos,
-cascos... Todo perfectamente ordenado.
-
-También hay  una mochila.
+cascos... Todo perfectamente ordenado.  También hay  una mochila.
 
 > x sacos
   Limpios e impolutos, a la espera de las próximas maniobras.

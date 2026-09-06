@@ -41,8 +41,8 @@ Lit brightly with flourescent lights, windows surrounding the control room
 give an aerial view of the laboratory floor.  Shiny, white tile floors
 contrast with the black tabletop that rings the room.  Amid the clutter of
 documents on the tabletop is a computer workstation and  vidcom.  To the east
-is the exit to the control room patio.
-Mark is standing in the room with you.
+is the exit to the control room patio.  Mark is standing in the room with
+you.
 
 > use print pod
 Passing your hand over the touch pod, the control room doors have unlocked
@@ -54,10 +54,9 @@ You move east.
 Control Room Patio
 A large steel frame supports the control room above the laboratory floor.
 Here a large railed section is affectionately known as the patio.  To the
-west is the entrance door and a steel stairway leads downwards.
-
-A large white, polymer patio table appears cheesily inexpensive but lends
-itself to the informal and laid back atmosphere of the patio.
+west is the entrance door and a steel stairway leads downwards.  A large
+white, polymer patio table appears cheesily inexpensive but lends itself to
+the informal and laid back atmosphere of the patio.
 
 > d
 You move down.
@@ -102,9 +101,7 @@ You move southwest.
 
 Jeriah's PQ
 Jeriah spent most of his waking hours in the lab; thus the spartan furnishing
-of the room: a single bed.
-
-A clothes trunk sits at the foot of the bed.
+of the room: a single bed.  A clothes trunk sits at the foot of the bed.
 
 > open trunk
 You open the trunk.
@@ -241,9 +238,9 @@ You move north.
 Reception
 The orange carpet begins here around a central information booth and
 continues to the south and west.  The entrance doors to the north are shut.
-A doorway to the east is labelled, "Security".
-Nadine sits here in the reception booth welcoming guests, transferring
-communications and managing point for security.
+A doorway to the east is labelled, "Security".  Nadine sits here in the
+reception booth welcoming guests, transferring communications and managing
+point for security.
 
 > e
 You move east.
@@ -251,7 +248,7 @@ You move east.
 Security
 Security is the nerve center of the laboratory.  Walls filled with video
 monitors and computer terminals allow checking in on any area of the grounds.
-Malthew stands here at attention.
+ Malthew stands here at attention.
 
 > take grenade
 Taking a momentary opportunity while Malthew monitors the video cameras and
@@ -264,9 +261,9 @@ You move west.
 Reception
 The orange carpet begins here around a central information booth and
 continues to the south and west.  The entrance doors to the north are shut.
-A doorway to the east is labelled, "Security".
-Nadine sits here in the reception booth welcoming guests, transferring
-communications and managing point for security.
+A doorway to the east is labelled, "Security".  Nadine sits here in the
+reception booth welcoming guests, transferring communications and managing
+point for security.
 
 > s
 You move south.
@@ -301,11 +298,10 @@ You move up.
 Control Room Patio
 A large steel frame supports the control room above the laboratory floor.
 Here a large railed section is affectionately known as the patio.  To the
-west is the entrance door and a steel stairway leads downwards.
-
-A large white, polymer patio table appears cheesily inexpensive but lends
-itself to the informal and laid back atmosphere of the patio.
-Jeriah Eldon is pacing here musing over a notepad.
+west is the entrance door and a steel stairway leads downwards.  A large
+white, polymer patio table appears cheesily inexpensive but lends itself to
+the informal and laid back atmosphere of the patio.  Jeriah Eldon is pacing
+here musing over a notepad.
 
 > w
 You move west.
@@ -315,8 +311,8 @@ Lit brightly with flourescent lights, windows surrounding the control room
 give an aerial view of the laboratory floor.  Shiny, white tile floors
 contrast with the black tabletop that rings the room.  Amid the clutter of
 documents on the tabletop is a computer workstation and  vidcom.  To the east
-is the exit to the control room patio.
-Mark is standing in the room with you.
+is the exit to the control room patio.  Mark is standing in the room with
+you.
 
 > talk to mark
 "I'm finished with the DNA analysis," you tell Mark.
@@ -334,11 +330,10 @@ You move east.
 Control Room Patio
 A large steel frame supports the control room above the laboratory floor.
 Here a large railed section is affectionately known as the patio.  To the
-west is the entrance door and a steel stairway leads downwards.
-
-A large white, polymer patio table appears cheesily inexpensive but lends
-itself to the informal and laid back atmosphere of the patio.  Mark Eridian
-walks in from the west.
+west is the entrance door and a steel stairway leads downwards.  A large
+white, polymer patio table appears cheesily inexpensive but lends itself to
+the informal and laid back atmosphere of the patio.  Mark Eridian walks in
+from the west.
 
 > d
 You move down.
@@ -355,9 +350,8 @@ Genetics Lab
 This sprawling room is sectioned in two by a long, multi-level stainless
 steel table.  The main lab exit is to the east and the control stairwell is
 to the south.  Against the west wall is a large single piece of equipment,
-the DNA analysis computer, that takes up half the wall.
-Jeriah Eldon is pacing here musing over a notepad.  Mark Eridian walks in
-from the south.
+the DNA analysis computer, that takes up half the wall.  Jeriah Eldon is
+pacing here musing over a notepad.  Mark Eridian walks in from the south.
 A loud voice breaks into the room over the com system:  "All personnel.  We
 have incoming hostile Orgaan units.  Initiating code red.  Code Red".
 
@@ -506,9 +500,8 @@ You move south.
 
 Control Stairwell
 Underneath the steel framework that supports the control room above the
-laboratory floor, a stairwell leads up.  The lab floor is to the north.
-
-Also here is a dead Orgaan soldier and a dead Jeriah.  Skyrv runs in from the
+laboratory floor, a stairwell leads up.  The lab floor is to the north.  Also
+here is a dead Orgaan soldier and a dead Jeriah.  Skyrv runs in from the
 north.  Skynd runs in from the north.
 You manage to avoid Skyrv's attack.
 
@@ -534,11 +527,10 @@ You move up.
 Control Room Patio
 A large steel frame supports the control room above the laboratory floor.
 Here a large railed section is affectionately known as the patio.  To the
-west is the entrance door and a steel stairway leads downwards.
-
-A large white, polymer patio table appears cheesily inexpensive but lends
-itself to the informal and laid back atmosphere of the patio.  Skyrv runs in
-from below.  Skynd runs in from below.
+west is the entrance door and a steel stairway leads downwards.  A large
+white, polymer patio table appears cheesily inexpensive but lends itself to
+the informal and laid back atmosphere of the patio.  Skyrv runs in from
+below.  Skynd runs in from below.
 You manage to avoid Skyrv's attack.
 You manage to avoid Skynd's attack.
 
@@ -681,10 +673,8 @@ Reception
 The grenade blast has completely destroyed the reception desk.  Green, orange
 and greyish goo is mixed with wood and tile splinters.  The northern entrance
 is blocked by a collapsed ceiling.  To the south is the south/west hallway.
-An open door to the east is labelled, "Security."
-
-Also here is a dead Nadine.  Skyrv runs in from the west.  Skynd runs in from
-the west.
+An open door to the east is labelled, "Security."  Also here is a dead
+Nadine.  Skyrv runs in from the west.  Skynd runs in from the west.
 
 > get sample from nadine
 Pressing the genetic sampler to her arm, you take Nadine's genetic sample.
@@ -749,10 +739,9 @@ Reception
 The grenade blast has completely destroyed the reception desk.  Green, orange
 and greyish goo is mixed with wood and tile splinters.  The northern entrance
 is blocked by a collapsed ceiling.  To the south is the south/west hallway.
-An open door to the east is labelled, "Security."
-
-Also here is a dead Nadine.  Skyrv runs in from the east.  Skynd runs in from
-the east.  Malthew walks in from the east.
+An open door to the east is labelled, "Security."  Also here is a dead
+Nadine.  Skyrv runs in from the east.  Skynd runs in from the east.  Malthew
+walks in from the east.
 You manage to avoid Skyrv's attack.
 Skynd hits Malthew, but it doesn't seem to do any damage.
 Malthew hits Skyrv.

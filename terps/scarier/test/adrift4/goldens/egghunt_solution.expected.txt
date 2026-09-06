@@ -16,8 +16,7 @@ Can you find all 3 trees that were made into various objects..
 AND can you find ALL 10 valuable Eggs?
 
 House
-
-Also here is a door and a fire.
+  Also here is a door and a fire.
 
 You can only move north.
 
@@ -25,8 +24,7 @@ You can only move north.
 You move north.
 
 The Holy City
-
-Also here is a Saphire Egg.
+  Also here is a Saphire Egg.
 
 You can move north, south and west.
 
@@ -38,9 +36,7 @@ You move north.
 
 Old Tombs
 Lots of dead people came to life from here on the same day that Jesus was
-raised from the dead ! (Matthew 27 verse 52)
-
-Also here is a pair of Tongs.
+raised from the dead ! (Matthew 27 verse 52)  Also here is a pair of Tongs.
 
 You can move north and south.
 
@@ -51,8 +47,7 @@ You take the pair of Tongs.
 You move north.
 
 On a Road
-
-Also here is a Crown.
+  Also here is a Crown.
 
 You can move north, east, south and west.
 
@@ -63,8 +58,7 @@ You take the Crown.
 You move north.
 
 Golgotha (The Place of The Skull)
-
-Also here is a sign and a crucifix.
+  Also here is a sign and a crucifix.
 
 You can only move south.
 
@@ -108,8 +102,7 @@ You can move north, south and west.
 You move west.
 
 The Temple
-
-Also here is a Crystal Egg.
+  Also here is a Crystal Egg.
 
 You can only move east.
 
@@ -133,8 +126,7 @@ You can move north, south and west.
 You move south.
 
 House
-
-Also here is a door and a fire.
+  Also here is a door and a fire.
 
 You can only move north.
 
@@ -171,9 +163,7 @@ You can move north, east, south and west.
 You move west.
 
 The Shore of Galilee
-
-Also here is a Boat and a Net.
-Thomas is here.
+  Also here is a Boat and a Net.  Thomas is here.
 
 You can only move east.
 
@@ -209,7 +199,7 @@ You can move north, east, south and west.
 You move east.
 
 The Garden of Gethsemene
-Angel is here.
+  Angel is here.
 
 You can only move west.
 
@@ -220,8 +210,7 @@ The Angel opens the cave ...now you can go North. He hands you a Gold Egg.
 You move north.
 
 Cave
-
-Also here is a Emerald Egg and a Burial Cloth.
+  Also here is a Emerald Egg and a Burial Cloth.
 
 You can only move south.
 
@@ -251,7 +240,7 @@ You take the Silver Egg.
 You move south.
 
 The Garden of Gethsemene
-Angel is here.
+  Angel is here.
 
 You can move north and west.
 
@@ -282,8 +271,7 @@ You can move north, south and west.
 You move south.
 
 House
-
-Also here is a door and a fire.
+  Also here is a door and a fire.
 
 You can only move north.
 
@@ -297,9 +285,7 @@ You open the door.
 You move up.
 
 The Upstairs Room
-
-Also here is a door.
-Jesus is here.
+  Also here is a door.  Jesus is here.
 
 You can only move down.
 

@@ -42,6 +42,7 @@ providing a view down the hill overlooking Kakariko Village.
 
 An old shield lies on the ground, gathering dust.  Sitting on a pedestal is
 an old book marked "The Legend of Zelda".
+
 Impa stands nearby, deep in thought.
 
 > take shield
@@ -125,6 +126,7 @@ There is a drawbridge open to the west, with what looks like a tranquil
 garden to the east. Northwards lies the entrance to the inner palace. To the
 south is a quaint little shop with two wide open doors. Hanging from the shop
 near the doors is a sign.
+
 There is a palace guard here, making the night rounds.
 
 > n
@@ -176,6 +178,7 @@ This dome-like chamber is simply decked with precious gems and metals
 everywhere. The throne, of course, is the magnificent centerpiece. Nearby to
 the throne is a marble stair leading up. To the south is the Palace Entry
 Hall.
+
 Zelda is present.
 
 > s
@@ -201,6 +204,7 @@ There is a drawbridge open to the west, with what looks like a tranquil
 garden to the east. Northwards lies the entrance to the inner palace. To the
 south is a quaint little shop with two wide open doors. Hanging from the shop
 near the doors is a sign.
+
 A peasant woman is here, going for a late stroll.
 
 There is a palace guard here, making the night rounds.
@@ -246,9 +250,9 @@ Two lone torches flicker against the darkness of the cave, providing meager
 light. What you can see is of little interest: chests of old royal garb, odd
 artifacts gathered by Impa over the years of no value, and shelf after shelf
 of dusty books. Moonlight streams through the cave exit to the south,
-providing a view down the hill overlooking Kakariko Village.
+providing a view down the hill overlooking Kakariko Village.  Sitting on a
+pedestal is an old book marked "The Legend of Zelda".
 
-Sitting on a pedestal is an old book marked "The Legend of Zelda".
 Impa stands nearby, deep in thought.
 
 Impa spies Zelda entering the cave and grins in delight. "Ah, good! You
@@ -278,9 +282,9 @@ Two lone torches flicker against the darkness of the cave, providing meager
 light. What you can see is of little interest: chests of old royal garb, odd
 artifacts gathered by Impa over the years of no value, and shelf after shelf
 of dusty books. Moonlight streams through the cave exit to the south,
-providing a view down the hill overlooking Kakariko Village.
+providing a view down the hill overlooking Kakariko Village.  Sitting on a
+pedestal is an old book marked "The Legend of Zelda".
 
-Sitting on a pedestal is an old book marked "The Legend of Zelda".
 Impa stands nearby, deep in thought.
 
 > s
@@ -329,6 +333,7 @@ There is a drawbridge open to the west, with what looks like a tranquil
 garden to the east. Northwards lies the entrance to the inner palace. To the
 south is a quaint little shop with two wide open doors. Hanging from the shop
 near the doors is a sign.
+
 A peasant woman is here, going for a late stroll.
 
 There is a palace guard here, making the night rounds.
@@ -439,6 +444,7 @@ There is a drawbridge open to the west, with what looks like a tranquil
 garden to the east. Northwards lies the entrance to the inner palace. To the
 south is a quaint little shop with two wide open doors. Hanging from the shop
 near the doors is a sign.
+
 There is a palace guard here, making the night rounds.
 
 > w
@@ -485,6 +491,7 @@ would be full of activity. Most of the stucco-brick tudor houses are closed
 tight, their candles smothered. The windmill to the west is still running.
 Also, it looks like someone's still awake in the library, to the east. More
 village lies to the south, and the gate stands to the north.
+
 The night watch guard is on patrol, looking hugely alert (snicker).
 
 > e
@@ -499,6 +506,7 @@ much every subject. Katie the Librarian loves reading in the perfect quiet of
 night, so the library stays open will past sundown. The only exit is west.
 
 There is a beatiful portrait of Zelda on the wall near the hearth.
+
 Katie is here, reclining on a pile of old books.
 
 > examine back shelf
@@ -529,6 +537,7 @@ Most people don't come to this part of town, as it is just west of the
 graveyard. Business with the armory (to the east) brings a few brave souls
 around. There is more of the village to the north, and a dense forest to the
 south.
+
 There is a chicken here, pecking in the dust.
 
 The chicken inspects the ground, hoping for a treat.
@@ -633,10 +642,8 @@ Lava Island
 Waves of heat billow from the sea of melted rock. The island is nor more than
 10 feet wide, and is fairly hot itself. You can actually feel your boots
 warming up. There is a bridge here, leading south. Across the bridge you can
-see a large statue.
-
-There is a boulder here, near the center of the island.  Lying on the ground
-here is a super-hot key.
+see a large statue.  There is a boulder here, near the center of the island.
+Lying on the ground here is a super-hot key.
 
 > pour urn
 The water pours from the vessel and cools the key. It is now safe to take.
@@ -717,6 +724,7 @@ Most people don't come to this part of town, as it is just west of the
 graveyard. Business with the armory (to the east) brings a few brave souls
 around. There is more of the village to the north, and a dense forest to the
 south.
+
 There is a chicken here, pecking in the dust.
 
 > n
@@ -729,6 +737,7 @@ would be full of activity. Most of the stucco-brick tudor houses are closed
 tight, their candles smothered. The windmill to the west is still running.
 Also, it looks like someone's still awake in the library, to the east. More
 village lies to the south, and the gate stands to the north.
+
 The night watch guard is on patrol, looking hugely alert (snicker).
 
 > w
@@ -738,9 +747,8 @@ Windmill
 As you might expect, the windmill is nearly hollow on the inside. Down the
 center runs a great wood shaft, which connects the wind energy to gear system
 on the floor. Right now, the wind is fairly still, so the gears aren't
-turning. There is an exit east.
-The Windmill Man stands near the gear mechanism, cranking away on his
-phonograph.
+turning. There is an exit east.  The Windmill Man stands near the gear
+mechanism, cranking away on his phonograph.
 Zelda looks at the Windmill Man and rolls her eyes.
 
 > sell wind waker
@@ -761,6 +769,7 @@ would be full of activity. Most of the stucco-brick tudor houses are closed
 tight, their candles smothered. The windmill to the west is still running.
 Also, it looks like someone's still awake in the library, to the east. More
 village lies to the south, and the gate stands to the north.
+
 The night watch guard is on patrol, looking hugely alert (snicker).
 
 > n
@@ -809,6 +818,7 @@ There is a drawbridge open to the west, with what looks like a tranquil
 garden to the east. Northwards lies the entrance to the inner palace. To the
 south is a quaint little shop with two wide open doors. Hanging from the shop
 near the doors is a sign.
+
 A peasant woman is here, going for a late stroll.
 
 There is a palace guard here, making the night rounds.
@@ -823,6 +833,7 @@ room, making an odd barrage of manic color that almost makes you nervous. In
 the middle of the room is an odd little stool carved from a tree trunk. Just
 a few feet away, near the back wall, is a large display case. The double
 doors behind you open north, to the Palace Square.
+
 Standing near the display case is a shopkeeper. He is watching your every
 move.
 
@@ -847,6 +858,7 @@ There is a drawbridge open to the west, with what looks like a tranquil
 garden to the east. Northwards lies the entrance to the inner palace. To the
 south is a quaint little shop with two wide open doors. Hanging from the shop
 near the doors is a sign.
+
 There is a palace guard here, making the night rounds.
 
 > w
@@ -903,6 +915,7 @@ Most people don't come to this part of town, as it is just west of the
 graveyard. Business with the armory (to the east) brings a few brave souls
 around. There is more of the village to the north, and a dense forest to the
 south.
+
 The night watch guard is on patrol, looking hugely alert (snicker).
 
 There is a chicken here, pecking in the dust.
@@ -939,6 +952,7 @@ The gravestones here have lately sprung up here almost as quickly as they
 could be made. They surround you, and seem to be closing in on your location.
 It is very dark, as the field is almost carved into a hillside and the only
 light comes from the moon. There is an exit west.
+
 Zelda is present.  You have the feeling of being watched.
 You can almost feel some dark presence breathing down your neck.
 
@@ -976,9 +990,7 @@ You move north.
 Tunnel
 Darkness surrounds you in this tunnel that stretches south to east. Barely,
 with the slight moonbeam that streams in, you can make out evidence that some
-very slobbish creature has lived here.
-
-Also here is a shield.
+very slobbish creature has lived here.  Also here is a shield.
 
 > get shield
 You take the shield.
@@ -992,9 +1004,7 @@ The gravestones here have lately sprung up here almost as quickly as they
 could be made. They surround you, and seem to be closing in on your location.
 It is very dark, as the field is almost carved into a hillside and the only
 light comes from the moon. There is an exit west.  A secret passage into the
-underground is also visible north.
-
-Also here is a small key.
+underground is also visible north.  Also here is a small key.
 
 > get key
 You take the small key.
@@ -1015,7 +1025,7 @@ As you might expect, the windmill is nearly hollow on the inside. Down the
 center runs a great wood shaft, which connects the wind energy to gear system
 on the floor. Right now, the wind is fairly still, so the gears aren't
 turning. There is an exit east.  Also, there is a secret passage to the west.
-The Windmill Man stands near the gear mechanism, cranking away on his
+ The Windmill Man stands near the gear mechanism, cranking away on his
 phonograph.
 
 > e
@@ -1028,6 +1038,7 @@ would be full of activity. Most of the stucco-brick tudor houses are closed
 tight, their candles smothered. The windmill to the west is still running.
 Also, it looks like someone's still awake in the library, to the east. More
 village lies to the south, and the gate stands to the north.
+
 The night watch guard is on patrol, looking hugely alert (snicker).
 
 > s
@@ -1039,6 +1050,7 @@ Most people don't come to this part of town, as it is just west of the
 graveyard. Business with the armory (to the east) brings a few brave souls
 around. There is more of the village to the north, and a dense forest to the
 south.
+
 There is a chicken here, pecking in the dust.
 
 The chicken inspects the ground, hoping for a treat.
@@ -1100,6 +1112,7 @@ Wizrobe Room
 
 A large stone block lies on a plot of blue tile in this otherwise featureless
 room. There are doors west and east.
+
 There is a Wizrobe here, giving you a bitter scowl.
 
 > w
@@ -1135,10 +1148,8 @@ Lava Island
 Waves of heat billow from the sea of melted rock. The island is nor more than
 10 feet wide, and is fairly hot itself. You can actually feel your boots
 warming up. There is a bridge here, leading south. Across the bridge you can
-see a large statue.
-
-There is a boulder here, near the center of the island.  There is an iron key
-here, itching to go into your inventory.
+see a large statue.  There is a boulder here, near the center of the island.
+There is an iron key here, itching to go into your inventory.
 
 > get iron key
 You take the iron key.
@@ -1175,6 +1186,7 @@ Wizrobe Room
 
 A large stone block lies on a plot of blue tile in this otherwise featureless
 room. There are doors west and east.
+
 There is a Wizrobe here, giving you a bitter scowl.
 
 > push block
@@ -1424,11 +1436,10 @@ Lake Shore
 
 The eastern shore of Lake Hylia is far bleaker than the west. The beach is
 dirty, littered everywhere with bits of trash. Death Mountain looms bigger
-than ever to the east.
+than ever to the east.  There is an iron key here, itching to go into your
+inventory.  Also here is a shield, the hookshot, the raft and a sphere of
+jasper.
 
-There is an iron key here, itching to go into your inventory.
-
-Also here is a shield, the hookshot, the raft and a sphere of jasper.
 Zelda is present.
 
 > get jasper
@@ -1440,9 +1451,8 @@ Dead Wood
 This part of the forest is long dead, its life stolen by the forces of Ganon
 long ago. Fortunately, the forest to the north was spared before evil spread
 there too. A path to the south reveals a mine shaft. Lake Hylia is to the
-west, and Death Mountain stands east.
+west, and Death Mountain stands east.  Also here is a sphere of granite.
 
-Also here is a sphere of granite.
 There is a little girl here, busily nailing posters on dead trees.
 
 The little girl stops nailing and looks at you. Her cheeks are wet--she's
@@ -1489,9 +1499,7 @@ Mine Shaft
 
 Little light enters the opening tunnel of the mine shaft. The walls here are
 wet and gravelly, mortared with mud. The mine exit is north, and the tunnel
-continues south.
-
-Also here is a sphere of quartz.
+continues south.  Also here is a sphere of quartz.
 
 > s
 You move south.
@@ -1525,9 +1533,7 @@ vines and flowers have crept in on the pile of rubble. On top of the dust and
 cracked brick, a small tree has managed to take root, and is creeping up
 where it can get to the sun. A trickle of water pours down from the hole in
 the ceiling. There is a passage to the north, and it looks like you could
-climb the pile and go upwards.
-
-Also here is a sphere of sandstone.
+climb the pile and go upwards.  Also here is a sphere of sandstone.
 
 > get sphere of sandstone
 You take the sphere of sandstone.
@@ -1592,9 +1598,7 @@ Mine Shaft
 
 Little light enters the opening tunnel of the mine shaft. The walls here are
 wet and gravelly, mortared with mud. The mine exit is north, and the tunnel
-continues south.
-
-Also here is a sphere of quartz.
+continues south.  Also here is a sphere of quartz.
 
 > n
 You move north.
@@ -1605,6 +1609,7 @@ This part of the forest is long dead, its life stolen by the forces of Ganon
 long ago. Fortunately, the forest to the north was spared before evil spread
 there too. A path to the south reveals a mine shaft. Lake Hylia is to the
 west, and Death Mountain stands east.
+
 There is a little girl here, busily nailing posters on dead trees.
 
 > e
@@ -1646,9 +1651,7 @@ of a Gerudo property line. To the south is a little pueblo, obviously
 somebody's home. To the east you can make out what appears to be a human face
 carved in the cliffside. More desert lies to the north.
 
-Lying here in the dust is a red whistle.
-
-Also here is a sphere of onyx.
+Lying here in the dust is a red whistle.  Also here is a sphere of onyx.
 
 > get red whistle
 You take the red whistle.
@@ -1661,8 +1664,7 @@ Gerudo House
 The pueblo is half buried in sand. It almost appears as though the desert
 were trying to swallow it whole. Possessions of any sort are few--the Gerudo
 people are known for leading a spartan life. There is a trail in the sand
-leading back to the north.
-There is a Gerudo woman is here, looking deadly.
+leading back to the north.  There is a Gerudo woman is here, looking deadly.
 
 > ask woman about maze
 
@@ -1694,9 +1696,8 @@ Sandy Ridge
 Dead dry timber stretches from the ridge straight up, marking the beginning
 of a Gerudo property line. To the south is a little pueblo, obviously
 somebody's home. To the east you can make out what appears to be a human face
-carved in the cliffside. More desert lies to the north.
-
-Also here is a sphere of onyx.
+carved in the cliffside. More desert lies to the north.  Also here is a
+sphere of onyx.
 
 > e
 You move east.
@@ -1766,10 +1767,8 @@ Treasure Room
 
 Three corners define this pyramid-shaped room, flickering with recently-lit
 torches. Before you is a stone pedestal with a round indentation. A doorway
-leads north.
-
-Lying on the pedestal is a long wooden ladder.
-There is an angry octorock here, ready to strike you!
+leads north.  Lying on the pedestal is a long wooden ladder.  There is an
+angry octorock here, ready to strike you!
 
 > kill octorock
 
@@ -1846,9 +1845,8 @@ Sandy Ridge
 Dead dry timber stretches from the ridge straight up, marking the beginning
 of a Gerudo property line. To the south is a little pueblo, obviously
 somebody's home. To the east you can make out what appears to be a human face
-carved in the cliffside. More desert lies to the north.
-
-Also here is a sphere of onyx.
+carved in the cliffside. More desert lies to the north.  Also here is a
+sphere of onyx.
 
 > n
 You move north.
@@ -1880,6 +1878,7 @@ This part of the forest is long dead, its life stolen by the forces of Ganon
 long ago. Fortunately, the forest to the north was spared before evil spread
 there too. A path to the south reveals a mine shaft. Lake Hylia is to the
 west, and Death Mountain stands east.
+
 There is a little girl here, busily nailing posters on dead trees.
 
 > s
@@ -1889,9 +1888,7 @@ Mine Shaft
 
 Little light enters the opening tunnel of the mine shaft. The walls here are
 wet and gravelly, mortared with mud. The mine exit is north, and the tunnel
-continues south.
-
-Also here is a sphere of quartz.
+continues south.  Also here is a sphere of quartz.
 
 > s
 You move south.
@@ -1943,10 +1940,8 @@ Waterfall
 
 The stream has turned into a waterfall, flowing down the cliffs and becoming
 an explosive white mist on contact with the earth. The foliage is so thick
-here, it borders you on all sides but west.
-
-Also here is a sphere of limestone.
-King Zora sits in the waterfall, eyeing you suspiciously.
+here, it borders you on all sides but west.  Also here is a sphere of
+limestone.  King Zora sits in the waterfall, eyeing you suspiciously.
 
 "Well well," the King Zora says. "Who have we here?"
 
@@ -1994,9 +1989,9 @@ Waterfall
 
 The stream has turned into a waterfall, flowing down the cliffs and becoming
 an explosive white mist on contact with the earth. The foliage is so thick
-here, it borders you on all sides but west.
+here, it borders you on all sides but west.  Also here is a sphere of
+limestone and a pair of flippers.
 
-Also here is a sphere of limestone and a pair of flippers.
 Zelda is present.
 
 > get flippers
@@ -2057,9 +2052,7 @@ Mine Shaft
 
 Little light enters the opening tunnel of the mine shaft. The walls here are
 wet and gravelly, mortared with mud. The mine exit is north, and the tunnel
-continues south.
-
-Also here is a sphere of quartz.
+continues south.  Also here is a sphere of quartz.
 
 > n
 You move north.
@@ -2070,6 +2063,7 @@ This part of the forest is long dead, its life stolen by the forces of Ganon
 long ago. Fortunately, the forest to the north was spared before evil spread
 there too. A path to the south reveals a mine shaft. Lake Hylia is to the
 west, and Death Mountain stands east.
+
 There is a little girl here, busily nailing posters on dead trees.
 
 > n
@@ -2307,9 +2301,9 @@ Two lone torches flicker against the darkness of the cave, providing meager
 light. What you can see is of little interest: chests of old royal garb, odd
 artifacts gathered by Impa over the years of no value, and shelf after shelf
 of dusty books. Moonlight streams through the cave exit to the south,
-providing a view down the hill overlooking Kakariko Village.
+providing a view down the hill overlooking Kakariko Village.  Sitting on a
+pedestal is an old book marked "The Legend of Zelda".
 
-Sitting on a pedestal is an old book marked "The Legend of Zelda".
 Impa stands nearby, deep in thought.
 
 You find yourself on a makeshift bed in Impa's cave. Through bleary eyes you

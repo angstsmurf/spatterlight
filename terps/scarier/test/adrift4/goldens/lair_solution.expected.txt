@@ -1182,7 +1182,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Vadris is here.
+  Vadris is here.
 
    You stand yourself up in these strange new surroundings. Several things
 become apparent at once. All your items are gone. You are now clad in strange
@@ -1221,7 +1221,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Iridil is here.  Garrick walks towards you from the north.
+  Iridil is here.  Garrick walks towards you from the north.
 
 > west
 You move west.
@@ -1236,7 +1236,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Sokan is here.  Garrick walks towards you from the east.
+  Sokan is here.  Garrick walks towards you from the east.
 
 > give spear to sokan
    Sokan takes the spear and gives you a surprised look. "Impressive. You
@@ -1274,7 +1274,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Iridil is here.  Garrick walks towards you from the west.
+  Iridil is here.  Garrick walks towards you from the west.
 
 > give crown to iridil
    "Ah, my symbol of rulership is returned!" cries Iridil, snatching the
@@ -1314,7 +1314,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Sokan is here.  Garrick walks towards you from the east.
+  Sokan is here.  Garrick walks towards you from the east.
 
 > nw
 You move northwest.
@@ -1329,7 +1329,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Gabriel is here.  Garrick walks towards you from the south-east.
+  Gabriel is here.  Garrick walks towards you from the south-east.
 
 > give sword to gabriel
    Gabriel takes the sword and a slow smile spreads across his craggy face.
@@ -1367,7 +1367,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Sokan is here.  Garrick walks towards you from the north-west.
+  Sokan is here.  Garrick walks towards you from the north-west.
 
 > east
 You move east.
@@ -1382,7 +1382,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Iridil is here.  Garrick walks towards you from the west.
+  Iridil is here.  Garrick walks towards you from the west.
 
 > north
 You move north.
@@ -1397,7 +1397,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Vadris is here.  Garrick walks towards you from the south.
+  Vadris is here.  Garrick walks towards you from the south.
 
 > open coffin
    As you move towards the coffin, Vadris blocks your path - then shies back
@@ -1425,7 +1425,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Iridil is here.  Garrick walks towards you from the north.
+  Iridil is here.  Garrick walks towards you from the north.
 
 > west
 You move west.
@@ -1440,7 +1440,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Sokan is here.  Garrick walks towards you from the east.
+  Sokan is here.  Garrick walks towards you from the east.
 
 > nw
 You move northwest.
@@ -1455,7 +1455,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Gabriel is here.  Garrick walks towards you from the south-east.
+  Gabriel is here.  Garrick walks towards you from the south-east.
 
 > sw
 You move southwest.
@@ -1470,7 +1470,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Timon is here.  Garrick walks towards you from the north-east.
+  Timon is here.  Garrick walks towards you from the north-east.
 
 > give cross to timon
    "My faith is restored," says Timon as you hand him the cross. He cradles
@@ -1506,7 +1506,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Volroar is here.  Garrick walks towards you from the north-west.
+  Volroar is here.  Garrick walks towards you from the north-west.
 
 > give goblet to volroar
    "Hmmm, very nice," Volroar says upon sampling the content of the goblet.
@@ -1538,7 +1538,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Selphaza is here.  Garrick walks towards you from the west.
+  Selphaza is here.  Garrick walks towards you from the west.
 
 > give mirror to selphaza
    "My mirror!" cries Selphaza and snatches it from your hand. She peers into
@@ -1575,7 +1575,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Iridil is here.  Garrick walks towards you from the south-west.
+  Iridil is here.  Garrick walks towards you from the south-west.
 
 > north
 You move north.
@@ -1590,7 +1590,7 @@ and then the bright light of day...
 
 Exits lie:  in many directions
 
-Vadris is here.  Garrick walks towards you from the south.
+  Vadris is here.  Garrick walks towards you from the south.
 
 > give stake to vadris
    Vadris takes the stake with a smile. "And thus I am safe. There exists
@@ -1639,7 +1639,7 @@ Exits lie: north (to the library) and south (along the passageway)
    You can also see a picklock, a wallet, a silver marble, your journal, the
 worn, leather gloves, a crucifix, a gold ring, some smelling salts, the
 verdigris key, a vial of holy water, some herbs, a scroll and the cobalt key.
-Garrick is here.
+ Garrick is here.
 
 > get all
 You take the picklock, the wallet, the silver marble, your journal, the worn,
@@ -2830,7 +2830,7 @@ here.
 
 Exits lie: northeast (to the end of the corridor)
 
-Greera the cook is here, leaning on her staff.  Garrick walks towards you
+  Greera the cook is here, leaning on her staff.  Garrick walks towards you
 from the north-east.
 
 > give ring to greera
@@ -2909,7 +2909,7 @@ of the vampire.    In the corner is a large chest.
 
 Exits lie: west (to the ancient feasthall)
 
-Chad the vampire and Lara are here.
+  Chad the vampire and Lara are here.
 
    Chad looks up as you enter and presses a dagger hard against Lara's
 throat. "You've found me then? Now what are you going to do?"
@@ -3387,7 +3387,7 @@ this is.
 
 Exits lie: southwest (to the corridor) and north (to the shadowy archway)
 
-Torodim is here.
+  Torodim is here.
    Kneeling by the archway is a tall, powerfully-built figure clad in robes
 of darkest night. He appears to be studying something at the base of the
 statue but looks up at you enter.
@@ -3481,7 +3481,7 @@ nothing beyond it - only lifeless shadows.
 
 Exits lie: west (to the dark passageway)
 
-Garrick is here, crouched amidst the remains of the statue.
+  Garrick is here, crouched amidst the remains of the statue.
 
 YOUR JOURNAL HAS BEEN UPDATED - PAGE 18
 

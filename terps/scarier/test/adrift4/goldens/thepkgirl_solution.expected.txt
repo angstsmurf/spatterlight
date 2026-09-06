@@ -503,8 +503,7 @@ Street in Front of Bar
     The street continues on east and west.   The area north is occupied by a
 dingy bar.  To the south is an alley.  A solitary lamppost stands at a
 corner, partially lighting this darkened street.  It could do with some
-company.
-Laurie is waiting for you under the lamppost.
+company.  Laurie is waiting for you under the lamppost.
 
    Gradually Laurie tilts her head sideways and asks, "Are you done in there
 yet?  My sister is being held somewhere and there is no time for carousing."
@@ -851,9 +850,7 @@ You move north.
 Cellar Annex
     Light cast from the large room to the south permits some visibility in
 this dark cellar passageway that leads north.  Pipes hang from the ceiling.
-There is a door set in the east wall.
-
-Also here is the chest freezer.
+There is a door set in the east wall.  Also here is the chest freezer.
 
     Laurie follows you from the south.
 
@@ -1437,9 +1434,7 @@ You move east.
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
 living room, to the south is the kitchen, and a door stands before a bedroom
-to the east.
-
-An air freshener is on the wall here.
+to the east.  An air freshener is on the wall here.
 
 > south
 You move south.
@@ -1513,9 +1508,7 @@ You move north.
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
 living room, to the south is the kitchen, and a door stands before a bedroom
-to the east.
-
-An air freshener is on the wall here.
+to the east.  An air freshener is on the wall here.
 
 > west
 You move west.
@@ -1923,9 +1916,7 @@ You move east.
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
 living room, to the south is the kitchen, and a door stands before a bedroom
-to the east.
-
-An air freshener is on the wall here.
+to the east.  An air freshener is on the wall here.
 
 > south
 You move south.
@@ -2115,9 +2106,7 @@ You move north.
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
 living room, to the south is the kitchen, and a door stands before a bedroom
-to the east.
-
-An air freshener is on the wall here.
+to the east.  An air freshener is on the wall here.
 
 > east
 You move east.
@@ -2125,9 +2114,8 @@ You move east.
 Bedroom
     This small room contains only a bed and a nightstand with a mirror.  All
 has been kept clean.  Either Monika gets guests often or she simply doesn't
-need the spare room for herself.  The door is west.
-
-Also here is a foldable mattress.
+need the spare room for herself.  The door is west.  Also here is a foldable
+mattress.
     Laurie is standing here.
 
     Laurie has recently risen and is stretching her arms.  "I needed that
@@ -2139,9 +2127,7 @@ You move west.
 By the Stairs
     The stairway here ascends up to a second floor.  To the west is the
 living room, to the south is the kitchen, and a door stands before a bedroom
-to the east.
-
-An air freshener is on the wall here.
+to the east.  An air freshener is on the wall here.
 
     Laurie walks in from the east.
 
@@ -2889,9 +2875,7 @@ Center Plaza
     Colored cobblestones have been arranged on the ground so as to create a
 stylish image of a handsome tree, or at least that's how it appears from
 where you are.  The plaza continues east and west, and there is a tomato
-stand to the south.
-
-A statue in the likeness of a man stands here.
+stand to the south.  A statue in the likeness of a man stands here.
     An umbrella peddler is here.
 
 > give money to peddler
@@ -3137,9 +3121,7 @@ Research Lab C
 and machines both small and large.  There are tables and desks, including one
 table with shackles attached to its sides.  The walls are covered with
 cabinets full of vials and containers, as well as strange gear that you would
-never recognize.  The exit is north.
-
-Also here is a striped lab-book.
+never recognize.  The exit is north.  Also here is a striped lab-book.
 
 > x equipment
 You find two heavy magnets on the ground behind one of the machines!
@@ -3372,9 +3354,7 @@ Circular Corridor
 complex.  The wall, floor, and ceiling are of stained steel, and all look
 much the same.  A row of red dome-shaped lights lines the outer wall.
 Mounted where the wall and ceiling meet is a small camera.  The corridor
-continues west and south.
-
-A fire extinguisher is on one of the walls.
+continues west and south.  A fire extinguisher is on one of the walls.
 
 > get extinguisher
 You take the fire extinguisher.

@@ -62,8 +62,7 @@ You walk southeast.
 
 High Wizard'sTower
 The bottom part of the tower is open. Potions and books alike scatter the
-tables and shelves
-Kilfuno is here.
+tables and shelves  Kilfuno is here.
 
 You can only move northwest.
 
@@ -83,9 +82,7 @@ bottom of the shelf opens. You crawl in without Kilfuno spotting you.
 
 High Wizard's Tower Storeroom
 The storeroom only has one small window. However, it looks as though there is
-nothing much here.
-
-Also here is Volmor's Cake.
+nothing much here.  Also here is Volmor's Cake.
 
 You can only move out.
 
@@ -105,8 +102,7 @@ You move out.
 
 High Wizard'sTower
 The bottom part of the tower is open. Potions and books alike scatter the
-tables and shelves
-Kilfuno is here.
+tables and shelves  Kilfuno is here.
 
 You can only move northwest.
 
@@ -115,9 +111,8 @@ You walk northwest.
 
 The Stone Circle
 A large crater on top of the mountain has a large rock tablet in the middle.
-Five obelisks surround the tablet.  The place looks gloomy and dark
-
-Also here is The Spirit Dagger.
+Five obelisks surround the tablet.  The place looks gloomy and dark  Also
+here is The Spirit Dagger.
 
 You can move north and southeast.
 
@@ -159,8 +154,7 @@ You walk southwest.
 
 Whistle Hamlet
 The place is full of pine trees. Log-houses dot the area.  People are locked
-inside their homes, scared of the missing wind elemental.
-Fernipor is here.
+inside their homes, scared of the missing wind elemental.  Fernipor is here.
 
 You can move south and northeast.
 
@@ -169,8 +163,7 @@ You walk south.
 
 Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
-A fierce wind blows.
-Moyru is here.
+A fierce wind blows.  Moyru is here.
 Moyru hits you, but it doesn't seem to do any damage.
 
 > attack moyru
@@ -182,9 +175,7 @@ You walk south.
 
 Cliff Top
 The cliff is high up in the clouds.  The wind blows downwards towards a
-cavern. It whistles, "Come help me."
-
-Also here is piece of cheese.
+cavern. It whistles, "Come help me."  Also here is piece of cheese.
 
 You can move north and down.
 
@@ -208,8 +199,7 @@ You climb up.
 
 Ridge of Storms
 You emerge from the cavern to find yourself up in the clouds on a ridge. This
-must be the ridge of storms.
-Fergo is here.
+must be the ridge of storms.  Fergo is here.
 
 You can only move down.
 
@@ -240,8 +230,7 @@ You walk north.
 
 Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
-A steady wind blows.
-Morana is here.
+A steady wind blows.  Morana is here.
 
 You can only move south.
 Morana hits Lamanluie, but it doesn't seem to do any damage.
@@ -260,8 +249,7 @@ You walk north.
 Whistle Hamlet
 The place is full of pine trees. Log-houses dot the area.  People smile at
 you as you past, hopeful that soon the elementals will be returned to the
-Stone Circle.
-Fernipor is here.
+Stone Circle.  Fernipor is here.
 
 You can move south and northeast.
 
@@ -315,8 +303,8 @@ You walk south.
 The Merfolk's Domain
 The place is an amazing splendour of coral buildings and fish schools. The
 wind elemental does you a favour and allows you to breathe underwater.  The
-Merfolk are slightly agitated at the water's fierce churning
-Korishia is here.
+Merfolk are slightly agitated at the water's fierce churning  Korishia is
+here.
 
 You can move north and south.
 
@@ -324,8 +312,7 @@ You can move north and south.
 You walk south.
 
 Water Tunnel
-A thin tunnel under the water.
-Serpanern is here.
+A thin tunnel under the water.  Serpanern is here.
 
 You can only move north.
 Lamanluie cuts Serpanern with the old rusty broken blood-stained scimitar.
@@ -349,9 +336,8 @@ You can move east and down.
 You walk east.
 
 Cavern of Mirages
-The carvern is covered in translucent ice.  A mirror stands
-
-Also here is Bent Mirror.
+The carvern is covered in translucent ice.  A mirror stands  Also here is
+Bent Mirror.
 
 You can move west and down.
 
@@ -360,10 +346,7 @@ The mirror shatters easily with the use of The Spirit Dagger.
 
 Cavern of Mirages
 The carvern is covered in translucent ice.  Borken pieces of the mirror are
-on the floor.
-
-Also here is Bent Mirror.
-Lamanluie is here.
+on the floor.  Also here is Bent Mirror.  Lamanluie is here.
 
 You can move west and down.
 
@@ -373,8 +356,7 @@ You climb down.
 Sea Serpent's Cave
 The cave is full of drawings of mystical sea creatures. Stalactites of
 wondrous colour hang from the ceiling. Bleeched coral is growing in the far
-corner.
-Crynasalda is here.
+corner.  Crynasalda is here.
 Lamanluie cuts Crynasalda with the old rusty broken blood-stained scimitar.
 
 > attack crynasalda
@@ -394,9 +376,7 @@ You climb up.
 
 Cavern of Mirages
 The carvern is covered in translucent ice.  Borken pieces of the mirror are
-on the floor.
-
-Also here is A snow flake.
+on the floor.  Also here is A snow flake.
 
 You can move west and down.
 
@@ -422,8 +402,7 @@ You walk north.
 The Merfolk's Domain
 The place is an amazing splendour of coral buildings and fish schools. The
 wind elemental does you a favour and allows you to breathe underwater.  The
-Merfolk swim around happily.
-Korishia is here.
+Merfolk swim around happily.  Korishia is here.
 
 You can move north and south.
 
@@ -469,8 +448,7 @@ You walk north.
 
 Desert Path
 The path is dry and cracked. The sun beats down on you hard. The air is hot
-and dry.  A lizard is here.
-Slikerma is here.
+and dry.  A lizard is here.  Slikerma is here.
 
 You can only move west.
 
@@ -479,8 +457,7 @@ You walk west.
 
 Vulcan's Forge
 A small clearing with only a hut. It appears to be a blacksmith's.  The hut
-appears cold and silent.
-Afernoga is here.
+appears cold and silent.  Afernoga is here.
 
 You can move north and east.
 You feel cold.
@@ -511,8 +488,7 @@ You walk east.
 
 Core of Volcano
 The magma is oozing everywhere and your body breaks into a sweat. Each drop
-from your body drips onto the ground and sizzles mightily.
-Kelorano is here.
+from your body drips onto the ground and sizzles mightily.  Kelorano is here.
 
 You can only move west.
 Lamanluie cuts Kelorano with the old broken scimitar.
@@ -526,8 +502,8 @@ torch flies at you and you grab it.
 Core of Volcano
 The magma is oozing everywhere and your body breaks into a sweat. Each drop
 from your body drips onto the ground and sizzles mightily.  The magma looks
-as though it'll erupt any minute. It creeps ever so slowly at you.
-Lamanluie and Kelorano are here.
+as though it'll erupt any minute. It creeps ever so slowly at you.  Lamanluie
+and Kelorano are here.
 
 You can only move west.
 You feels as though you should leave quickly.
@@ -563,8 +539,7 @@ You walk south.
 
 Vulcan's Forge
 A small clearing with only a hut. It appears to be a blacksmith's.  The hut
-appears cold and silent.
-Afernoga is here.
+appears cold and silent.  Afernoga is here.
 
 You can move north and east.
 
@@ -573,8 +548,7 @@ You walk east.
 
 Desert Path
 The path is dry and cracked. The sun beats down on you hard. The air is hot
-and dry.  A lizard is hissing at you, blocking your way.
-Slikerma is here.
+and dry.  A lizard is hissing at you, blocking your way.  Slikerma is here.
 
 You can only move west.
 Lamanluie cuts Slikerma with the old scimitar.

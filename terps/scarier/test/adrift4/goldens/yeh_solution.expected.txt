@@ -8,10 +8,7 @@ Help us.
 You Jero are in your bedroom. A door is to the south.
 
 The room is your bedroom.
-The sword is on you now.
-
-Also here is A Chest.
-Leon is here.
+The sword is on you now.  Also here is A Chest.  Leon is here.
 
 You can only move south.
 
@@ -41,8 +38,7 @@ You can move north, east and south.
 You move south.
 
 A dirt path
-There is nothing of interest here.
-Ugly thing is here.
+There is nothing of interest here.  Ugly thing is here.
 
 You can move north, east and west.
 Ugly thing hits Leon, but it doesn't seem to do any damage.
@@ -81,10 +77,8 @@ You move up.
 
 Tower Floor 3
 A bow sits in the center of the room guarded by yet another vine. Another
-patch of moss leads up.
-
-Also here is A Bow of Icy Arrows.
-Animated Vine is here.
+patch of moss leads up.  Also here is A Bow of Icy Arrows.  Animated Vine is
+here.
 
 You can move up and down.
 Animated Vine hits Leon, but it doesn't seem to do any damage.
@@ -108,8 +102,7 @@ You move south.
 
 Room of portals
 The room has white walls and glowing doors are to the west south and east of
-you.
-Genesi is here.
+you.  Genesi is here.
 
 You can move north, east and south.
 
@@ -133,8 +126,7 @@ You move up.
 
 Final tower room.
 The tree has once again converted into a tower. A man with bushes all around
-him and vines for arms sits there.
-Tree Master is here.
+him and vines for arms sits there.  Tree Master is here.
 
 You can only move down.
 Tree Master hits Leon.

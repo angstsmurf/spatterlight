@@ -43,9 +43,8 @@ Looking down, you can see the moldy, partially caved-in roof of the shed.
 Right in front of you to the north is a small window looking into a room on
 the upper floor of the large house.  Oh, the house...  the place your family
 once served so well.  It is still standing, to be sure, but the occupants
-have most certainly neglected to keep it up to your family's standards.
-
-A small, wispy down feather lies innocently on the roof here.
+have most certainly neglected to keep it up to your family's standards.  A
+small, wispy down feather lies innocently on the roof here.
 
 > north
 You move north.

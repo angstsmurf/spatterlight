@@ -17,8 +17,7 @@ This is your home. A small cottage that you built for you and your daughter.
 Made from the wood of the surrounding trees, it blends in very well with the
 surroundings. The room is not well furnished. There is just a table, an old
 stove and two beds. In one of the beds lies your daughter, Crystal. Set in
-the south wall of the cottage is a small squage window.
-Crystal is here.
+the south wall of the cottage is a small squage window.  Crystal is here.
 
 >
 I don't understand what you mean!
@@ -57,9 +56,7 @@ You move west.
 
 Woodland
 You stand at the back of your house. The view is stunning. You can see right
-to the horizon between the trees.
-
-Also here is a sharp knife.
+to the horizon between the trees.  Also here is a sharp knife.
 
 > take knife
 You pick up the sharp knife.
@@ -106,8 +103,7 @@ You move east.
 East Road's End
 This is the end of the east road. Heading east will take you deep into a very
 dangeous looking wood. You feel very wary. Going west takes you back to the
-road.
-An angry Orc is here blocking your path to the east.
+road.  An angry Orc is here blocking your path to the east.
 
 > kill orc
 You thrust the knife deep into the heart of the orc. It screems and writhes
@@ -361,8 +357,7 @@ This is your home. A small cottage that you built for you and your daughter.
 Made from the wood of the surrounding trees, it blends in very well with the
 surroundings. The room is not well furnished. There is just a table, an old
 stove and two beds. In one of the beds lies your daughter, Crystal. Set in
-the south wall of the cottage is a small squage window.
-Crystal is here.
+the south wall of the cottage is a small squage window.  Crystal is here.
 
 > feed clover to crystal
 Well Done! You have saved Crystal's life. Even as you feed the clover leaves

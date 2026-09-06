@@ -36,9 +36,7 @@ You move east.
 The Bar
 This is the bar. There are some drunk people sitting on there bar stools
 guzzlin down on some martini's. The bartender is making drinks. There is a
-large wad of gum hanging off the table.
-
-Also here is wad of gum.
+large wad of gum hanging off the table.  Also here is wad of gum.
 
 You can only move west.
 

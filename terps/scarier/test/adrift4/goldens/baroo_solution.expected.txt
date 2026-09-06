@@ -83,7 +83,6 @@ Medieval Village
 The ruins you remember are in worse shape and occupied by peasants likened to
 medieval England.  Tents and shacks are scattered randomly as well as the
 villagers who are talking - in English!
-
 The villagers shout obscenities at you and yell praises to the wizard, while
 a few boldly throw rocks in your general area.  The wizard is here.
 
@@ -139,7 +138,6 @@ Medieval Village
 The ruins you remember are in worse shape and occupied by peasants likened to
 medieval England.  Tents and shacks are scattered randomly as well as the
 villagers who are talking - in English!
-
 The villagers are working their fields, and a few wave their hands at you.
 The wizard is here.
 The wizard starts to shake his head, blinking his eyes, as he begins to
@@ -156,7 +154,6 @@ you."  He walks toward the shack to the east, looking back at you hopefully.
 Wizard's House
 The shack is much like other impoverished shelters without any modern
 amenities.  A single bed and some pieces of furniture occupy the room.
-
 The wizard is here.
 "Thank you for sparing my humble life," the old man apologizes.  "Please,
 sit, and I will try to explain."
@@ -229,7 +226,7 @@ Parking Lot
 It was once solid concrete, but now many cracks with wildflowers and weeds
 cover the ground.  One solitary pickup sits with the hood open near the
 loading dock at the north end of the lot.  To the east is the hotel itself.
-The wizard is here.  Wizard strides off toward the hotel and enters it.
+  The wizard is here.  Wizard strides off toward the hotel and enters it.
 
 > e
 You move east.
@@ -241,7 +238,7 @@ faces is still intact.  The front desk counter is bare, the room mailboxes
 are empty, and all evidence indicates that the hotel hasn't functioned as a
 public building for quite some time.  To the north is, or was, the manager's
 office.  The main hall continues to the east.
-The wizard is here.  Wizard strides off to the east.
+  The wizard is here.  Wizard strides off to the east.
 
 > e
 You move east.
@@ -255,7 +252,7 @@ resilient and very easy on the feet.  The hall is "L" shaped with the long
 part extending east-west, then around the corner to the north.  Directly
 north of you is an open doorway to the dining hall, and to the west is the
 foyer.
-The wizard is here.  Wizard strides off to the north.
+  The wizard is here.  Wizard strides off to the north.
 
 > n
 You move north.
@@ -264,9 +261,8 @@ Dining Hall
 Large enough to hold parties of thirty, the hall is set up for only twelve
 people.  Light streams in from the picture window on the north wall.  The
 west wall has a pair of swinging doors leading to the kitchen.
-
-Seven wizards are here, talking to each other with animation.
-The wizard is here.
+Seven wizards are here, talking to each other with animation.  The wizard is
+here.
 
 > l
 The wizard from the village announces, "Ancient one, may I introduce our
@@ -366,8 +362,8 @@ You move south.
 
 Office
 The office are completely cleaned out of any business furniture.  The only
-things remaining is a single wooden chair and a small coffee table.
-The warlock is casually walking.  Warlock saunters out to the south.
+things remaining is a single wooden chair and a small coffee table.  The
+warlock is casually walking.  Warlock saunters out to the south.
 
 > s
 You move south.
@@ -402,8 +398,7 @@ Main Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 11 through
 14.  A stairwell near the corner goes up to the second floor.  To the east is
-room 10.
-The warlock is casually walking.  Warlock saunters out to the east.
+room 10.  The warlock is casually walking.  Warlock saunters out to the east.
 
 > e
 You move east.
@@ -524,7 +519,6 @@ Medieval Village
 The ruins you remember are in worse shape and occupied by peasants likened to
 medieval England.  Tents and shacks are scattered randomly as well as the
 villagers who are talking - in English!
-
 The villagers are working their fields, and a few wave their hands at you.
 
 > w
@@ -560,7 +554,6 @@ Medieval Village
 The ruins you remember are in worse shape and occupied by peasants likened to
 medieval England.  Tents and shacks are scattered randomly as well as the
 villagers who are talking - in English!
-
 The villagers are working their fields, and a few wave their hands at you.
 
 > x tents
@@ -616,7 +609,6 @@ You move down.
 Cliffside
 Directly above you is the overlook.  You easily negotiate the rockface and
 can reach into your backback if you needed to.
-
 A flash of green-ish light appears to be reflecting off something below you
 to your left.  Moving a little closer you see it is a green gemstone
 partially buried in the stone and dirt.
@@ -637,7 +629,6 @@ You move east.
 Cliffside
 The rock face is fairly easy for you to negotiate along.  However at this
 location the only accessible direction is to the west.
-
 A flash of greyish light appears to be reflecting off something above you to
 your left.  Moving a little closer you see it is a grey gemstone partially
 buried in the stone and dirt.
@@ -672,7 +663,6 @@ You move down.
 Cliffside
 The rock face is fairly easy for you to negotiate along, but to the west is a
 large rock outcropping that is impassible.
-
 A flash of light appears to be reflecting off something to your right.
 Moving a little closer you see it is a clear gemstone partially buried in the
 stone and dirt.
@@ -694,7 +684,6 @@ Cliffside
 The rockface is starting to increase in steepness and you consider getting
 ready to use your climbing tools, if you decide to continue downward.  A
 smooth outcropping blocks you from proceeding east.
-
 A flash of blue-ish light appears to be reflecting off something above you to
 your rightt.  Moving a little closer you see it is a blue gemstone partially
 buried in the stone and dirt.
@@ -708,7 +697,6 @@ You move down.
 Cliffside
 Hand holds are harder to find and you consider going back up, but after
 further examination you think you can rappel down to the next face.
-
 A flash of yellow-ish light appears to be reflecting off something above you
 to your left.  Moving a little closer you see it is a yellow gemstone
 partially buried in the stone and dirt.
@@ -744,7 +732,6 @@ The rocks on this wall are larger and more accessable for hand and footholds,
 in spite the vertical pitch.  Below you can see a small ledge outcropping
 that you can rest at.  Rappelling down here was easy, but the climb back up
 will be strenuous.
-
 A flash of brownish light appears to be reflecting off something directly
 below you.  Moving a little closer you see it is a brown gemstone partially
 buried in the stone and dirt.
@@ -770,7 +757,6 @@ Small cave
 In of itself, there is nothing special about it.  A small and narrow tunnel
 continues up into the rock southward.  An old firepit sits inside near one
 corner of the cave.
-
 There is a small pile of cloth tucked in a corner of the cave.
 
 > x cloth
@@ -999,8 +985,7 @@ Water from the drain tube accumulates into a pool of water about waist deep,
 which flows out north into a river.  There is enough stone not eroded
 partially surrounding the pool which you can walk on.    Thankfully you were
 able to avoid falling into the pool.
-
-A canoe is partly in the water.
+  A canoe is partly in the water.
 
 > move canoe into water
 The canoe is floating in the water.
@@ -1064,9 +1049,8 @@ Store Room
 The area near the door to the west is fairly barren, however the south and
 east walls are covered with shelving.  In the northeast corner of the room
 are stairs leading up.
-
-Several metal boxes sit on the middle of the floor.
-The warlock is sitting crosslegged on the floor near the metal boxes.
+Several metal boxes sit on the middle of the floor.  The warlock is sitting
+crosslegged on the floor near the metal boxes.
 
 > give ybco object to warlock
 "Good.  The YBCOVMR," she enunciates each letter.
@@ -1121,8 +1105,8 @@ You move south.
 
 Office
 The office are completely cleaned out of any business furniture.  The only
-things remaining is a single wooden chair and a small coffee table.
-The warlock is casually walking.  Warlock saunters out to the south.
+things remaining is a single wooden chair and a small coffee table.  The
+warlock is casually walking.  Warlock saunters out to the south.
 
 > s
 You move south.
@@ -1157,8 +1141,7 @@ Main Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 11 through
 14.  A stairwell near the corner goes up to the second floor.  To the east is
-room 10.
-The warlock is casually walking.  Warlock saunters out to above.
+room 10.  The warlock is casually walking.  Warlock saunters out to above.
 
 > u
 You move up.
@@ -1167,8 +1150,7 @@ Second Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 21 through
 24.  A stairwell near the corner goes down to the main floor.  To the east is
-room 20.
-The warlock is casually walking.  Warlock saunters out to the west.
+room 20.  The warlock is casually walking.  Warlock saunters out to the west.
 
 > n
 You move north.
@@ -1189,7 +1171,6 @@ beds.  The closet is open with several different silvery-white garments
 hanging up.  The door to the bathroom was removed, however there are no
 fixtures in the room, just drain holes.  Except for the missing toilet
 facilities, it looks much like a typical hotel room.
-
 Searching among the suits you find one that looks like it would fit you.
 
 > take suit
@@ -1232,10 +1213,8 @@ You move north.
 Conference Room
 Most of the north wall and the northern part of the east and west walls are
 missing and open to the air along with about a third of the ceiling.
-Otherwise the room is empty.
-
-Except for an object you can only guess as a capsule.
-
+Otherwise the room is empty.  Except for an object you can only guess as a
+capsule.
 The warlock is crouched near the open capsule.
 
 > l
@@ -1437,9 +1416,8 @@ special suit, you'd be freezing your tail off as you can see Antarctica from
 here.  Normally you would call this rocky terrain, but further examination
 make it seem almost wooden in texture.  Where the capsule landed is probably
 the smoothest spot around.  To the east is the tower, about five hundred
-meters to where you will seriously start to climb instead of walking.
-
-Also here is a capsule.
+meters to where you will seriously start to climb instead of walking.  Also
+here is a capsule.
 
 > remove backpack
 You remove the backpack.

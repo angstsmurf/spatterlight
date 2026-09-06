@@ -6,9 +6,7 @@ You wake up.  The cat is ticking!
 
 Bare Bedroom
 This is your bare bedroom.  There's room for a bed, barely. The living room
-is to the south.
-
-The cat is here, ticking.
+is to the south.  The cat is here, ticking.
 HURRY!  HURRY.  The Cat's Ticking.  It's about to EXPLODE!!! Get that cat out
 of here.
 

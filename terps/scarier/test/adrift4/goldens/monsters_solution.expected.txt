@@ -14,11 +14,10 @@ poster bed is along the west wall under the window.  Its two sliding doors
 long removed by Mom and Dad, the open closet doorway is along the south wall
 between our beds.  Next to the bedroom door is a light switch.  Boxes block
 off the space beneath Sissy's bed; however, I can also crawl into the space
-underneath my bed.  There is a wet slide of goo across the wood floor.
-
-A cozy coupe ride on awaits to take you to destinations unknown.
-Pooky stands nearby carefully watching for your next move.  Sissy is sleeping
-here on her bed.
+underneath my bed.  There is a wet slide of goo across the wood floor.  A
+cozy coupe ride on awaits to take you to destinations unknown.  Pooky stands
+nearby carefully watching for your next move.  Sissy is sleeping here on her
+bed.
 
 > jump to sissys bed
 Holding my breath, I bounce on the bed and leap over the several feet gap to
@@ -59,9 +58,8 @@ I move in.
 Under My Bed
 Enclosed by the day bed white, metal frame, the mattress is barely a foot and
 a half above the floor.  Under my bed, I can see everyone's feet as they walk
-around the room.  I can crawl out from here to the middle of the bedroom.
-
-A graham cracker lays against the wall in the corner.
+around the room.  I can crawl out from here to the middle of the bedroom.  A
+graham cracker lays against the wall in the corner.
 
 > take cracker
 I take the graham cracker.
@@ -75,9 +73,8 @@ poster bed is along the west wall under the window.  Its two sliding doors
 long removed by Mom and Dad, the open closet doorway is along the south wall
 between our beds.  Next to the bedroom door is a light switch.  Boxes block
 off the space beneath Sissy's bed; however, I can also crawl into the space
-underneath my bed.  There is a wet slide of goo across the wood floor.
-
-A cozy coupe ride on awaits to take you to destinations unknown.
+underneath my bed.  There is a wet slide of goo across the wood floor.  A
+cozy coupe ride on awaits to take you to destinations unknown.
 A hoarse whisper calls from the closet, "Chloe, come here.  Come into the
 closet...  Chloe, I've got something for you..."
 
@@ -115,10 +112,9 @@ I move south.
 
 Bedroom Closet
 Though Mom and Dad removed the closet sliding doors, the monsters like to
-hide in the corners where I can't see them until its too late.
-
-A small pink, plastic chair sits shoved up against the back of the closet.  A
-wooden chest of drawers sits in the back of the closet.
+hide in the corners where I can't see them until its too late.  A small pink,
+plastic chair sits shoved up against the back of the closet.  A wooden chest
+of drawers sits in the back of the closet.
 
 > take the chair
 I take the pink plastic chair.
@@ -155,9 +151,8 @@ poster bed is along the west wall under the window.  Its two sliding doors
 long removed by Mom and Dad, the open closet doorway is along the south wall
 between our beds.  Next to the bedroom door is a light switch.  Boxes block
 off the space beneath Sissy's bed; however, I can also crawl into the space
-underneath my bed.  There is a wet slide of goo across the wood floor.
-
-A cozy coupe ride on awaits to take you to destinations unknown.
+underneath my bed.  There is a wet slide of goo across the wood floor.  A
+cozy coupe ride on awaits to take you to destinations unknown.
 
 > drop the chair
 I drop the pink plastic chair.
@@ -182,9 +177,9 @@ bedroom door to the south is closed and locked.
 South End of Hallway
 My bedroom is at the end of a long dark hallway.  To the north is the front
 of the house while to the south west is back into my bedroom.  Mommy's
-bedroom door to the south is closed and locked.
-Pooky stands nearby carefully watching for your next move.  Sissy is standing
-here with sleep in her eyes.
+bedroom door to the south is closed and locked.  Pooky stands nearby
+carefully watching for your next move.  Sissy is standing here with sleep in
+her eyes.
 
 > sw
 I move southwest.
@@ -195,11 +190,9 @@ poster bed is along the west wall under the window.  Its two sliding doors
 long removed by Mom and Dad, the open closet doorway is along the south wall
 between our beds.  Next to the bedroom door is a light switch.  Boxes block
 off the space beneath Sissy's bed; however, I can also crawl into the space
-underneath my bed.  There is a wet slide of goo across the wood floor.
-
-A cozy coupe ride on awaits to take you to destinations unknown.
-
-You can also see a pink plastic chair.
+underneath my bed.  There is a wet slide of goo across the wood floor.  A
+cozy coupe ride on awaits to take you to destinations unknown.  You can also
+see a pink plastic chair.
 
 > ne
 I move northeast.
@@ -241,9 +234,9 @@ Mommy appears to ease into a peaceful slumber.
 
 Parent's Room
 My parents room is rather sparse with sky blue walls and a single cherry
-sleigh bed in the center of the room.  Mommy is sleeping in her bed.
-Pooky stands nearby carefully watching for your next move.  Sissy is standing
-here with sleep in her eyes.
+sleigh bed in the center of the room.  Mommy is sleeping in her bed.  Pooky
+stands nearby carefully watching for your next move.  Sissy is standing here
+with sleep in her eyes.
 
 > x mommy
 Mommy looks just like me.  Except older.  She is now sleeping peacefully.
@@ -265,11 +258,9 @@ poster bed is along the west wall under the window.  Its two sliding doors
 long removed by Mom and Dad, the open closet doorway is along the south wall
 between our beds.  Next to the bedroom door is a light switch.  Boxes block
 off the space beneath Sissy's bed; however, I can also crawl into the space
-underneath my bed.  There is a wet slide of goo across the wood floor.
-
-A cozy coupe ride on awaits to take you to destinations unknown.
-
-You can also see a pink plastic chair.
+underneath my bed.  There is a wet slide of goo across the wood floor.  A
+cozy coupe ride on awaits to take you to destinations unknown.  You can also
+see a pink plastic chair.
 
 > drive cozy coupe
 Sissy pedals down the hallway while I steer.  Swooping down on leathery black

@@ -238,8 +238,7 @@ Some people go for bathrooms with style, others for bathrooms with class.
 You, on the other hand, just decided "toilet, sink, that'll do me." You
 missed the bath out unfortunately but you can't be expected to think of
 everything. However, the door leading west to the hallway is fully functional
-(aside from not closing that is).
-Some chap called Bob is here.
+(aside from not closing that is).  Some chap called Bob is here.
 
    The moment you step into the bathroom, the singing cuts out and Bob looks
 at you. "Well, well, and who might you be, fellow? You look like someone the
@@ -262,8 +261,7 @@ Some people go for bathrooms with style, others for bathrooms with class.
 You, on the other hand, just decided "toilet, sink, that'll do me." You
 missed the bath out unfortunately but you can't be expected to think of
 everything. However, the door leading west to the hallway is fully functional
-(aside from not closing that is).
-Some chap called Bob is here.
+(aside from not closing that is).  Some chap called Bob is here.
 
 > x Bob
 Bob is kind of short for his height but remarkably ugly and definitely in
@@ -416,8 +414,7 @@ Some people go for bathrooms with style, others for bathrooms with class.
 You, on the other hand, just decided "toilet, sink, that'll do me." You
 missed the bath out unfortunately but you can't be expected to think of
 everything. However, the door leading west to the hallway is fully functional
-(aside from not closing that is).
-Some chap called Bob is here.
+(aside from not closing that is).  Some chap called Bob is here.
 
 > give tv to Bob
 "Hey, great," says Bob as you hand over the TV. "A genuine TV what don't even

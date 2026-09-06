@@ -30,10 +30,8 @@ sash window looks out on the front garden, screened by dainty net curtains,
 and shelves on the wall behind the sofa holds a variety of knick-knacks.
 There are a couple of paintings on the walls. Cream-carpeted stairs lead up
 to the next storey, and the kitchen is through an archway to the north. The
-front door is closed, and faces south.
-
-Also here is a bottle of tiger beer, a bottle of chardonnay and a bottle of
-cheap whiskey.
+front door is closed, and faces south.  Also here is a bottle of tiger beer,
+a bottle of chardonnay and a bottle of cheap whiskey.
 
 > take tiger
 I take the bottle of tiger beer.
@@ -95,9 +93,7 @@ drawers are below the counters, and two cupboards are above it. On the
 opposite wall are the ceramic hob and fan oven, and a retro fridge/freezer
 (which I do like quite a bit).
 
-There is a bad smell in here.
-
-Also here is the bin.
+There is a bad smell in here.  Also here is the bin.
 
 > put all in bin
 I drop the can of Foster's into the bin.
@@ -202,9 +198,8 @@ I move west.
 
 Bathroom
 The bathroom is small and pretty average. A toilet. A sink with a mirror
-above it. A shower. There's a hamper in the corner.
-
-Also here are some dirty clothes and some unrolled toilet paper.
+above it. A shower. There's a hamper in the corner.  Also here are some dirty
+clothes and some unrolled toilet paper.
 
 > sit on toilet
 I sit on the toilet, do my thing and flush.
@@ -241,11 +236,9 @@ shivering a bit.
 
 Bathroom
 The bathroom is small and pretty average. A toilet. A sink with a mirror
-above it. A shower. There's a hamper in the corner.
-
-Also here is my watch, the bin, some dirty clothes, some unrolled toilet
-paper, some toilet cleaner, a toilet brush, a photograph, my t-shirt, my
-jeans, my socks and my trainers.
+above it. A shower. There's a hamper in the corner.  Also here is my watch,
+the bin, some dirty clothes, some unrolled toilet paper, some toilet cleaner,
+a toilet brush, a photograph, my t-shirt, my jeans, my socks and my trainers.
 
 > take watch
 I take my watch.
@@ -498,9 +491,7 @@ Garden
 The garden is a good size, mostly lawn although there is a mulberry tree in
 one corner, an apple tree a bit further along, and some flower beds around
 the edges. A tall fence surrounds the garden, and I can't see anything beyond
-it. There's a shed to the east.
-
-Also here is a watering can.
+it. There's a shed to the east.  Also here is a watering can.
 
 > take watering can
 I take the watering can.
@@ -537,9 +528,7 @@ concrete floor. It is dark in here, although the sunshine pouring in through
 the door allows me to see shadowy piles of stuff. There are cobwebs hanging
 off the ceiling. The shed's normal musty odour pricks at my nose, but there's
 an overtone of some other smells. A couple wheelie bins stand to the side of
-the door.
-
-Also here is some pizza.
+the door.  Also here is some pizza.
 
 > take pizza
 I take the pizza.

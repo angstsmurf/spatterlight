@@ -22,8 +22,7 @@ A large wooden sign informs me that I'm in the Enchanted Forest. What it
 doesn't tell me is how the hell I get out! Everywhere I look there are trees,
 trees, trees. This place definately has a 'tree' theme going. A clearly
 marked path leads south and west, whilst in every other direction are, well,
-trees.
-An old pedlar is sitting on a log here, tending to his bunions.
+trees.  An old pedlar is sitting on a log here, tending to his bunions.
 
 I can move north, east and south.
 
@@ -74,11 +73,9 @@ I move north.
 On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
-front door is closed. Just south of me is the clearing in the forest.
-
-A battered old dustbin sits to one side of the porch.
-
-I can also see an empty milkbottle.
+front door is closed. Just south of me is the clearing in the forest.  A
+battered old dustbin sits to one side of the porch.  I can also see an empty
+milkbottle.
 
 I can only move south.
 
@@ -176,11 +173,8 @@ I'm in the potting shed, a ramshackle structure that was obviously cobbled
 together in five minutes some idle Sunday afternoon.  I didn't know bears had
 green fingers. In fact I didn't know they had fingers at all. Plant pots of
 all sizes are scattered about the shed untidily and the whole place is
-festooned with cobwebs.
-
-In the corner is an old metal trunk marked 'FISHING TACKLE.'
-
-I can also see a pair of secateurs and a ratty old paintbrush.
+festooned with cobwebs.  In the corner is an old metal trunk marked 'FISHING
+TACKLE.'  I can also see a pair of secateurs and a ratty old paintbrush.
 
 I can only move out.
 
@@ -203,9 +197,8 @@ I'm in the potting shed, a ramshackle structure that was obviously cobbled
 together in five minutes some idle Sunday afternoon.  I didn't know bears had
 green fingers. In fact I didn't know they had fingers at all. Plant pots of
 all sizes are scattered about the shed untidily and the whole place is
-festooned with cobwebs.
-
-In the corner is an old metal trunk marked 'FISHING TACKLE.'
+festooned with cobwebs.  In the corner is an old metal trunk marked 'FISHING
+TACKLE.'
 
 I can only move out.
 
@@ -244,8 +237,8 @@ In a small meadow
 I'm in a small meadow at the back of the cottage, separated from the forest
 by a rickety fence. In the middle of the meadow is what appears to be a
 homemade wind turbine! To the south, through the tangled pergola, is the
-garden.
-Daisy the cow is standing here, chewing disinterestedly on a mouthful of hay.
+garden.  Daisy the cow is standing here, chewing disinterestedly on a
+mouthful of hay.
 
 I can only move south.
 
@@ -313,8 +306,7 @@ A large wooden sign informs me that I'm in the Enchanted Forest. What it
 doesn't tell me is how the hell I get out! Everywhere I look there are trees,
 trees, trees. This place definately has a 'tree' theme going. A clearly
 marked path leads south and west, whilst in every other direction are, well,
-trees.
-An old pedlar is sitting on a log here, tending to his bunions.
+trees.  An old pedlar is sitting on a log here, tending to his bunions.
 
 I can move north, east and south.  Daisy the cow walks towards me from the
 south.
@@ -505,9 +497,8 @@ In the pantry
 I'm in the pantry, a small claustrophobic room which smells faintly of
 cinammon, honey and the mouse droppings that are liberally sprinkled across
 the tiled floor. There are some sturdy shelves on the wall and an upright
-freezer in the corner.
-
-Over in the corner of the pantry, underneath the shelves is a mousetrap.
+freezer in the corner.  Over in the corner of the pantry, underneath the
+shelves is a mousetrap.
 
 I can only move south.
 
@@ -565,10 +556,9 @@ I am in the bears' tiny kitchen, a cosy little room that could have come
 straight from the pages of Country Living. It's big on original features and
 totally lacking in "mod cons." A large dining table sits in the centre of the
 room and there is a dresser against the wall. Opposite the dresser is an
-enormous brick fireplace that seems to fill half the room.
-
-I can also see a spoon, a crumpled note, a broken bottle, a small packet, a
-gigantic bowl and a trowel.
+enormous brick fireplace that seems to fill half the room.  I can also see a
+spoon, a crumpled note, a broken bottle, a small packet, a gigantic bowl and
+a trowel.
 
 I can move north and east.
 
@@ -579,9 +569,7 @@ In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
-bedroom. The front door is closed.
-
-I can also see a bearskin rug.
+bedroom. The front door is closed.  I can also see a bearskin rug.
 
 I can move north, west and up.
 
@@ -658,8 +646,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-The Big Bad Wolf is here.
+an open trapdoor.  The Big Bad Wolf is here.
 
 I can move north, west, up, down and out.
 
@@ -670,11 +657,9 @@ In the bedroom
 I'm in the Three Bears' bedroom, a small attic room with steeply sloping
 walls. They have the weirdest sleeping arrangements. There's a tiny little
 bed, a medium-sized bed and a huge bed. A narrow staircase leads down to the
-hall.
-
-A tiny dormer window looks out onto the clearing.
-For some unaccountable reason, Sleeping Beauty is lying fast asleep on the
-tiny little bed.
+hall.  A tiny dormer window looks out onto the clearing.  For some
+unaccountable reason, Sleeping Beauty is lying fast asleep on the tiny little
+bed.
 
 I can only move down.
 
@@ -699,8 +684,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-The Big Bad Wolf is here.
+an open trapdoor.  The Big Bad Wolf is here.
 
 I can move north, west, up, down and out.
 
@@ -712,10 +696,9 @@ I am in the bears' tiny kitchen, a cosy little room that could have come
 straight from the pages of Country Living. It's big on original features and
 totally lacking in "mod cons." A large dining table sits in the centre of the
 room and there is a dresser against the wall. Opposite the dresser is an
-enormous brick fireplace that seems to fill half the room.
-
-I can also see a spoon, a crumpled note, a broken bottle, a small packet, a
-gigantic bowl and a trowel.
+enormous brick fireplace that seems to fill half the room.  I can also see a
+spoon, a crumpled note, a broken bottle, a small packet, a gigantic bowl and
+a trowel.
 
 I can move north and east.
 
@@ -743,8 +726,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-The Big Bad Wolf is here.
+an open trapdoor.  The Big Bad Wolf is here.
 
 I can move north, west, up, down and out.
 
@@ -763,9 +745,7 @@ On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
-forest.
-
-A battered old dustbin sits to one side of the porch.
+forest.  A battered old dustbin sits to one side of the porch.
 
 I can move south and in.  The Big Bad Wolf walks towards me from inside.
 
@@ -869,9 +849,7 @@ On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
-forest.
-
-A battered old dustbin sits to one side of the porch.
+forest.  A battered old dustbin sits to one side of the porch.
 
 I can move south and in.
 
@@ -966,9 +944,7 @@ I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
 the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
 archway leading out of the cellar to the west. A battered old wardrobe stands
-close to the archway.
-
-I can also see an old brass key.
+close to the archway.  I can also see an old brass key.
 
 I can move west and up.
 
@@ -1001,9 +977,8 @@ sitting room is a chintzy abomination of taste, the sort of room that would
 make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
-There's a low-pitched hum coming from somewhere.
-
-I can also see a bearskin rug and an antimacassar.
+There's a low-pitched hum coming from somewhere.  I can also see a bearskin
+rug and an antimacassar.
 
 I can only move south.
 
@@ -1034,9 +1009,7 @@ I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
 the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
 archway leading out of the cellar to the west. A battered old wardrobe stands
-close to the archway.
-
-I can also see a set of dumbells and an old brass key.
+close to the archway.  I can also see a set of dumbells and an old brass key.
 
 I can move west and up.
 
@@ -1064,9 +1037,8 @@ sitting room is a chintzy abomination of taste, the sort of room that would
 make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
-There's a low-pitched hum coming from somewhere.
-
-I can also see a bearskin rug and an antimacassar.
+There's a low-pitched hum coming from somewhere.  I can also see a bearskin
+rug and an antimacassar.
 
 I can only move south.
 
@@ -1089,9 +1061,7 @@ walls are plastered with posters of football teams and pin-ups from
 'Playbear.' A solid metal door, set into the western wall of the cave looks
 almost impenetrable. There's an electric socket in the wall next to the door.
  The large chair is now facing a television set and there's a fridge within
-easy reach of the chair.
-
-I can also see a TV remote control.
+easy reach of the chair.  I can also see a TV remote control.
 
    The jolt threw me out of the chair - I guess the mechanism was designed
 for someone much heavier than me!
@@ -1162,11 +1132,8 @@ On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
-forest.
-
-A battered old dustbin sits to one side of the porch.
-
-I can also see a package.
+forest.  A battered old dustbin sits to one side of the porch.  I can also
+see a package.
 
 I can move south and in.
 
@@ -1227,9 +1194,7 @@ I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
 the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
 archway leading out of the cellar to the west. A battered old wardrobe stands
-close to the archway.
-
-I can also see a set of dumbells and an old brass key.
+close to the archway.  I can also see a set of dumbells and an old brass key.
 
 I can move west and up.
 
@@ -1257,9 +1222,8 @@ sitting room is a chintzy abomination of taste, the sort of room that would
 make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
-There's a low-pitched hum coming from somewhere.
-
-I can also see a bearskin rug and an antimacassar.
+There's a low-pitched hum coming from somewhere.  I can also see a bearskin
+rug and an antimacassar.
 
 I can only move south.
 
@@ -1282,9 +1246,7 @@ walls are plastered with posters of football teams and pin-ups from
 'Playbear.' A solid metal door, set into the western wall of the cave looks
 almost impenetrable. There's an electric socket in the wall next to the door.
  The large chair is now facing a television set and there's a fridge within
-easy reach of the chair.
-
-I can also see a TV remote control.
+easy reach of the chair.  I can also see a TV remote control.
 
    The jolt threw me out of the chair - I guess the mechanism was designed
 for someone much heavier than me!
@@ -1331,9 +1293,7 @@ I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
 the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
 archway leading out of the cellar to the west. A battered old wardrobe stands
-close to the archway.
-
-I can also see a set of dumbells and an old brass key.
+close to the archway.  I can also see a set of dumbells and an old brass key.
 
 I can move west and up.
 
@@ -1369,9 +1329,8 @@ sitting room is a chintzy abomination of taste, the sort of room that would
 make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
-There's a low-pitched hum coming from somewhere.
-
-I can also see a bearskin rug and an antimacassar.
+There's a low-pitched hum coming from somewhere.  I can also see a bearskin
+rug and an antimacassar.
 
 I can only move south.
 
@@ -1392,9 +1351,7 @@ The cave has been completely devastated by the explosion! Where the door used
 to be there is now a gaping hole in the rock. The walls of the cave, melted
 by the intensive heat of my homemade atomic bomb are still glowing faintly.
 Of the television set there is no sign. The fridge is lying on its side,
-smoking slightly.
-
-I can also see a TV remote control.
+smoking slightly.  I can also see a TV remote control.
 
 I can only move west.
 
@@ -1407,10 +1364,9 @@ I move west.
 In Papa Bear's workshop
 This must be where Papa Bear does all his D.I.Y. It's a small but tidy
 workshop with a bench and an old filing cabinet in the corner. Pinned to the
-walls are what appear to be the blueprints for various devices.
-
-Sitting in the middle of the floor is a huge wooden crate, stencilled with
-the words: "DANGER: PROTOTYPE!"
+walls are what appear to be the blueprints for various devices.  Sitting in
+the middle of the floor is a huge wooden crate, stencilled with the words:
+"DANGER: PROTOTYPE!"
 
 I can only move east.
 
@@ -1448,9 +1404,7 @@ The cave has been completely devastated by the explosion! Where the door used
 to be there is now a gaping hole in the rock. The walls of the cave, melted
 by the intensive heat of my homemade atomic bomb are still glowing faintly.
 Of the television set there is no sign. The fridge is lying on its side,
-smoking slightly.
-
-I can also see a TV remote control.
+smoking slightly.  I can also see a TV remote control.
 
 I can only move west.
 
@@ -1483,11 +1437,8 @@ On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
-forest.
-
-A battered old dustbin sits to one side of the porch.
-
-I can also see a package, an overripe pumpkin and a pair of gardening gloves.
+forest.  A battered old dustbin sits to one side of the porch.  I can also
+see a package, an overripe pumpkin and a pair of gardening gloves.
 
 I can move south and in.
 
@@ -1547,11 +1498,8 @@ On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
-forest.
-
-A battered old dustbin sits to one side of the porch.
-
-I can also see a package, an overripe pumpkin and a pair of gardening gloves.
+forest.  A battered old dustbin sits to one side of the porch.  I can also
+see a package, an overripe pumpkin and a pair of gardening gloves.
 
 I can move south and in.
 
@@ -1574,13 +1522,9 @@ In the bedroom
 I'm in the Three Bears' bedroom, a small attic room with steeply sloping
 walls. They have the weirdest sleeping arrangements. There's a tiny little
 bed, a medium-sized bed and a full sized snooker table. A narrow staircase
-leads down to the hall.
-
-A tiny dormer window looks out onto the clearing.
-
-I can also see a rather thin blanket.
-For some unaccountable reason, Sleeping Beauty is lying fast asleep on the
-tiny little bed.
+leads down to the hall.  A tiny dormer window looks out onto the clearing.  I
+can also see a rather thin blanket.  For some unaccountable reason, Sleeping
+Beauty is lying fast asleep on the tiny little bed.
 
 I can only move down.
 
@@ -1631,11 +1575,8 @@ On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
-forest.
-
-A battered old dustbin sits to one side of the porch.
-
-I can also see a package, an overripe pumpkin and a pair of gardening gloves.
+forest.  A battered old dustbin sits to one side of the porch.  I can also
+see a package, an overripe pumpkin and a pair of gardening gloves.
 
 I can move south and in.
 
@@ -1664,12 +1605,8 @@ In the bedroom
 I'm in the Three Bears' bedroom, a small attic room with steeply sloping
 walls. They have the weirdest sleeping arrangements. There's a tiny little
 bed, a medium-sized bed and a full sized snooker table. A narrow staircase
-leads down to the hall.
-
-A tiny dormer window looks out onto the clearing.
-
-I can also see a rather thin blanket.
-My Fairy Godmother is here.
+leads down to the hall.  A tiny dormer window looks out onto the clearing.  I
+can also see a rather thin blanket.  My Fairy Godmother is here.
 
 I can only move down.
 
@@ -1739,9 +1676,8 @@ sitting room is a chintzy abomination of taste, the sort of room that would
 make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
-There's a low-pitched hum coming from somewhere.
-
-I can also see a bearskin rug and an antimacassar.
+There's a low-pitched hum coming from somewhere.  I can also see a bearskin
+rug and an antimacassar.
 
 I can only move south.
 
@@ -1762,9 +1698,7 @@ The cave has been completely devastated by the explosion! Where the door used
 to be there is now a gaping hole in the rock. The walls of the cave, melted
 by the intensive heat of my homemade atomic bomb are still glowing faintly.
 Of the television set there is no sign. The fridge is lying on its side,
-smoking slightly.
-
-I can also see a TV remote control.
+smoking slightly.  I can also see a TV remote control.
 
 I can only move west.
 
@@ -1777,13 +1711,11 @@ I move west.
 In Papa Bear's workshop
 This must be where Papa Bear does all his D.I.Y. It's a small but tidy
 workshop with a bench and an old filing cabinet in the corner. Pinned to the
-walls are what appear to be the blueprints for various devices.
-
-Sitting in the middle of the floor is a huge wooden crate, stencilled with
-the words: "DANGER: PROTOTYPE!"  Sitting amidst the wreckage of the crate is
-a magic porridge pot.
-
-I can also see a blackened metal poker and a tin of gold paint.
+walls are what appear to be the blueprints for various devices.  Sitting in
+the middle of the floor is a huge wooden crate, stencilled with the words:
+"DANGER: PROTOTYPE!"  Sitting amidst the wreckage of the crate is a magic
+porridge pot.  I can also see a blackened metal poker and a tin of gold
+paint.
 
 I can only move east.
 
@@ -1799,9 +1731,7 @@ The cave has been completely devastated by the explosion! Where the door used
 to be there is now a gaping hole in the rock. The walls of the cave, melted
 by the intensive heat of my homemade atomic bomb are still glowing faintly.
 Of the television set there is no sign. The fridge is lying on its side,
-smoking slightly.
-
-I can also see a TV remote control.
+smoking slightly.  I can also see a TV remote control.
 
 I can only move west.
 
@@ -1835,12 +1765,9 @@ I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
 the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
 archway leading out of the cellar to the west. A battered old wardrobe stands
-close to the archway.
-
-The magic porridge pot is sitting in the middle of the room.
-
-I can also see a set of dumbells, an old brass key, a "distressed" Laura
-Ashley dress and my underwear.
+close to the archway.  The magic porridge pot is sitting in the middle of the
+room.  I can also see a set of dumbells, an old brass key, a "distressed"
+Laura Ashley dress and my underwear.
 
 I can move west and up.
 
@@ -1874,9 +1801,8 @@ sitting room is a chintzy abomination of taste, the sort of room that would
 make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
-There's a low-pitched hum coming from somewhere.
-
-I can also see a bearskin rug and an antimacassar.
+There's a low-pitched hum coming from somewhere.  I can also see a bearskin
+rug and an antimacassar.
 
 I can only move south.
 
@@ -1912,12 +1838,9 @@ In the bedroom
 I'm in the Three Bears' bedroom, a small attic room with steeply sloping
 walls. They have the weirdest sleeping arrangements. There's a tiny little
 bed, a medium-sized bed and a full sized snooker table. A narrow staircase
-leads down to the hall.
-
-A tiny dormer window looks out onto the clearing.  Lying in the middle of the
-floor with all four legs pointing heavenward is a dead coach horse.
-
-I can also see a rather thin blanket.
+leads down to the hall.  A tiny dormer window looks out onto the clearing.
+Lying in the middle of the floor with all four legs pointing heavenward is a
+dead coach horse.  I can also see a rather thin blanket.
 
 I can only move down.
 

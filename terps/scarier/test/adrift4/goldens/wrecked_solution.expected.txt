@@ -45,10 +45,9 @@ other bus shelter's a Porsche.
 
 > west
 I move west.
-I am next to a large dog kennel, bizarrly in the middle of nowhere.
-
-Also here is a large shark hook.
-There is a very large dog here, tied up by the kennel.
+I am next to a large dog kennel, bizarrly in the middle of nowhere.  Also
+here is a large shark hook.  There is a very large dog here, tied up by the
+kennel.
 
 I can move north, east, south, west and in.
 
@@ -129,8 +128,7 @@ I can move north, west and in.
 > west
 I move west.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.
-Biff and Boff are here.
+the youth of Ambersville.  Biff and Boff are here.
 
 I can move north, east, west and in.
 
@@ -138,8 +136,7 @@ I can move north, east, west and in.
 I move in.
 I am inside a quaint little pub.  There is a bar over in one corner of the
 pub.  A number of tables are scattered around, and the floor looks as though
-it could do with a clean.
-Arthur is standing behind the bar, looking at me.
+it could do with a clean.  Arthur is standing behind the bar, looking at me.
 
 I can only move out.
 
@@ -154,8 +151,7 @@ I take a pint of lager from the bar.
 > out
 I move out.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.
-Biff and Boff are here.
+the youth of Ambersville.  Biff and Boff are here.
 
 I can move north, east, west and in.
 
@@ -185,8 +181,8 @@ I can move north, east, south and in.
 I move in.
 I am inside the post office.  There is a counter on the far wall, which has a
 glass screen in front of it, presumably protecting the workers from vicious
-members of society such as myself.  On another wall is a leaflet rack.
-Madge watches me intently from behind the glass screen.
+members of society such as myself.  On another wall is a leaflet rack.  Madge
+watches me intently from behind the glass screen.
 
 I can only move out.
 
@@ -228,10 +224,9 @@ I can move north, east, south and west.
 
 > east
 I move east.
-I am next to a large dog kennel, bizarrly in the middle of nowhere.
-
-Also here is a large shark hook.
-There is a very large dog here, tied up by the kennel.  It is raining.
+I am next to a large dog kennel, bizarrly in the middle of nowhere.  Also
+here is a large shark hook.  There is a very large dog here, tied up by the
+kennel.  It is raining.
 
 I can move north, east, south, west and in.
 The rain eases slightly.
@@ -253,10 +248,9 @@ I drop the marker pen.
 
 > west
 I move west.
-I am next to a large dog kennel, bizarrly in the middle of nowhere.
-
-Also here is a large shark hook.
-There is a very large dog here, tied up by the kennel.
+I am next to a large dog kennel, bizarrly in the middle of nowhere.  Also
+here is a large shark hook.  There is a very large dog here, tied up by the
+kennel.
 
 I can move north, east, south, west and in.
 
@@ -270,8 +264,7 @@ I can move north, west and in.
 > west
 I move west.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.
-Biff and Boff are here.
+the youth of Ambersville.  Biff and Boff are here.
 
 I can move north, east, west and in.
 
@@ -300,8 +293,7 @@ The train pulls in to a stop at Ambersville.
 > in
 I move in.
 The train looks like a normal train.  Lots of seats, big windows etc.  There
-is a cubicle near the rear of the carriage.
-Boris is here.
+is a cubicle near the rear of the carriage.  Boris is here.
 
 I can move in and out.
 "Can I see your ticket please sir?"
@@ -327,8 +319,7 @@ moves away from the station.
 > out
 I move out.
 The train looks like a normal train.  Lots of seats, big windows etc.  There
-is a cubicle near the rear of the carriage.
-Boris is here.
+is a cubicle near the rear of the carriage.  Boris is here.
 
 I can move in and out.
 "Can I see your ticket please sir?"
@@ -374,8 +365,8 @@ I can move north, east, south and in.
 I move in.
 I am inside the post office.  There is a counter on the far wall, which has a
 glass screen in front of it, presumably protecting the workers from vicious
-members of society such as myself.  On another wall is a leaflet rack.
-Madge watches me intently from behind the glass screen.
+members of society such as myself.  On another wall is a leaflet rack.  Madge
+watches me intently from behind the glass screen.
 
 I can only move out.
 
@@ -436,8 +427,7 @@ I move in.
 I am inside the village shop.  It actually appears to be much larger that I
 first thought.  There are shelves high up on every wall.  At the far end of
 the shop is a small counter.  In the shop window, I can see a very nice scuba
-outfit.
-Harold the shopkeeper is slouched behind the counter.
+outfit.  Harold the shopkeeper is slouched behind the counter.
 
 I can only move out.
 
@@ -487,10 +477,9 @@ I take a juicy pork chop from the small plaque.
 
 > east
 I move east.
-I am next to a large dog kennel, bizarrly in the middle of nowhere.
-
-Also here is a large shark hook.
-There is a very large dog here, tied up by the kennel.
+I am next to a large dog kennel, bizarrly in the middle of nowhere.  Also
+here is a large shark hook.  There is a very large dog here, tied up by the
+kennel.
 
 I can move north, east, south, west and in.
 
@@ -535,8 +524,7 @@ I can move north, east, south and west.
 > south
 I move south.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.
-Biff and Boff are here.  It is raining.
+the youth of Ambersville.  Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
 
@@ -617,8 +605,7 @@ I can move north, west and in.
 > west
 I move west.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.
-Biff and Boff are here.
+the youth of Ambersville.  Biff and Boff are here.
 
 I can move north, east, west and in.
 
@@ -629,8 +616,7 @@ I remove a scuba outfit.
 I move in.
 I am inside a quaint little pub.  There is a bar over in one corner of the
 pub.  A number of tables are scattered around, and the floor looks as though
-it could do with a clean.
-Arthur is standing behind the bar, looking at me.
+it could do with a clean.  Arthur is standing behind the bar, looking at me.
 
 I can only move out.
 
@@ -650,8 +636,7 @@ I take a small ticket from the tables.
 > out
 I move out.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.
-Biff and Boff are here.
+the youth of Ambersville.  Biff and Boff are here.
 
 I can move north, east, west and in.
 
@@ -695,8 +680,8 @@ I can move north, east, south, west and in.
 I move in.
 I am inside a rather run down motel.  The carpet has a rather disgusting
 flowery pattern.  There is a set of stairs leading upstairs, a desk against
-one wall, and a telephone on the wall next to the desk.
-Helga is sitting at the desk.  Everything looks a bit wobbly.
+one wall, and a telephone on the wall next to the desk.  Helga is sitting at
+the desk.  Everything looks a bit wobbly.
 
 I can move up and out.
 
@@ -759,8 +744,8 @@ I can move in and out.
 I move into the wardrobe.
 Whoosh!
 I am in a snowy land.  There are lots of trees about, casting eerie shadows
-all over the place.  There appears to be some sort of portal here.
-Mr Tumnus is here.
+all over the place.  There appears to be some sort of portal here.  Mr Tumnus
+is here.
 
 I can only move out.
 
@@ -800,9 +785,8 @@ I can move in and out.
 > out
 I move out.
 I am on the upstairs landing of the motel.  There are only two doors here,
-labelled 1 and 2.  There is a window at the end of the corridor.
-
-Also here is a room key.
+labelled 1 and 2.  There is a window at the end of the corridor.  Also here
+is a room key.
 
 I can move down and in.
 
@@ -810,8 +794,8 @@ I can move down and in.
 I move down.
 I am inside a rather run down motel.  The carpet has a rather disgusting
 flowery pattern.  There is a set of stairs leading upstairs, a desk against
-one wall, and a telephone on the wall next to the desk.
-Helga is sitting at the desk.
+one wall, and a telephone on the wall next to the desk.  Helga is sitting at
+the desk.
 
 I can move up and out.
 
@@ -839,8 +823,7 @@ I can move north, east, south, west and in.
 > east
 I move east.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.
-Biff and Boff are here.  It is raining.
+the youth of Ambersville.  Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
 
@@ -894,9 +877,7 @@ roof of the Post Office.
 > go up
 I move up.
 I am on the flat roof of the Post Office.  From here, I can see all the way
-out to sea.
-
-Also here is a small black cat.
+out to sea.  Also here is a small black cat.
 
 I can only move down.
 
@@ -907,8 +888,7 @@ I pick up the small black cat.
 I move down.
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
-
-Also here is the witch's magic wand and a statue of a pig.
+ Also here is the witch's magic wand and a statue of a pig.
 
 I can move north, east, south, up and in.
 
@@ -916,10 +896,9 @@ I can move north, east, south, up and in.
 I move in.
 I am inside the post office.  There is a counter on the far wall, which has a
 glass screen in front of it, presumably protecting the workers from vicious
-members of society such as myself.  On another wall is a leaflet rack.
-
-Also here is a manilla envelope.
-Madge watches me intently from behind the glass screen.
+members of society such as myself.  On another wall is a leaflet rack.  Also
+here is a manilla envelope.  Madge watches me intently from behind the glass
+screen.
 
 I can only move out.
 
@@ -933,8 +912,7 @@ removes the amulet from around her neck, and gives it to me
 I move out.
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
-
-Also here is the witch's magic wand and a statue of a pig.
+ Also here is the witch's magic wand and a statue of a pig.
 
 I can move north, east, south, up and in.
 
@@ -948,9 +926,8 @@ I can move north, east, south and west.
 > north
 I move north.
 I am in the middle of a paved area.  There is a drain in the middle of the
-pavings, sticking out like a sore thumb.  The drain is open.
-
-Also here is a large shark hook.
+pavings, sticking out like a sore thumb.  The drain is open.  Also here is a
+large shark hook.
 
 I can move north, east, south, west and down.
 
@@ -961,9 +938,7 @@ I drop the gold card.
 I move down.
 I am in the village sewer system.  The sides of the sewer walls are made from
 some sort of tiling.  It smells of chlorine in here.  One of the tiles has
-fallen off, presumably from the rush of water.
-
-Also here is a small anchor.
+fallen off, presumably from the rush of water.  Also here is a small anchor.
 
 I can only move up.
 
@@ -973,9 +948,8 @@ I pick up the small anchor.
 > up
 I move up.
 I am in the middle of a paved area.  There is a drain in the middle of the
-pavings, sticking out like a sore thumb.  The drain is open.
-
-Also here is a gold card and a large shark hook.
+pavings, sticking out like a sore thumb.  The drain is open.  Also here is a
+gold card and a large shark hook.
 
 I can move north, east, south, west and down.
 
@@ -1107,9 +1081,8 @@ I can move south and in.
 > south
 I move south.
 I am in the middle of a paved area.  There is a drain in the middle of the
-pavings, sticking out like a sore thumb.  The drain is open.
-
-Also here is a gold card and a large shark hook.  It is raining.
+pavings, sticking out like a sore thumb.  The drain is open.  Also here is a
+gold card and a large shark hook.  It is raining.
 
 I can move north, east, south, west and down.
 
@@ -1124,8 +1097,7 @@ The rain eases slightly.
 > south
 I move south.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.
-Biff and Boff are here.  It is raining.
+the youth of Ambersville.  Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
 
@@ -1174,8 +1146,7 @@ The train pulls in to a stop at Ambersville.
 > in
 I move in.
 The train looks like a normal train.  Lots of seats, big windows etc.  There
-is a cubicle near the rear of the carriage.
-Boris is here.
+is a cubicle near the rear of the carriage.  Boris is here.
 
 I can move in and out.
 "Can I see your ticket please sir?  Thanks, that seems fine."  Boris stamps
@@ -1227,8 +1198,7 @@ on in."
 > in
 I move in.
 I am inside a dimly lit room.  There are a couple of comfy seats and a table
-in the room.  Over in the corner sits a computer.
-Suzie is here.
+in the room.  Over in the corner sits a computer.  Suzie is here.
 
 I can only move out.
 
@@ -1274,8 +1244,7 @@ I can move east and in.
 > in
 I move in.
 The train looks like a normal train.  Lots of seats, big windows etc.  There
-is a cubicle near the rear of the carriage.
-Boris is here.
+is a cubicle near the rear of the carriage.  Boris is here.
 
 I can move in and out.
 
@@ -1316,8 +1285,7 @@ I can move north, east, south, west and in.
 > east
 I move east.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.
-Biff and Boff are here.
+the youth of Ambersville.  Biff and Boff are here.
 
 I can move north, east, west and in.
 
@@ -1330,16 +1298,15 @@ I can move north, east, south and west.
 
 > east
 I move east.
-I am next to a large dog kennel, bizarrly in the middle of nowhere.
-There is a very large dog here, tied up by the kennel.
+I am next to a large dog kennel, bizarrly in the middle of nowhere.  There is
+a very large dog here, tied up by the kennel.
 
 I can move north, east, south, west and in.
 
 > in
 I move in.
-It's pretty cramped in here, and it stinks of dog.
-
-Also here is a rather chewed stick.
+It's pretty cramped in here, and it stinks of dog.  Also here is a rather
+chewed stick.
 
 I can only move out.
 
@@ -1348,8 +1315,8 @@ I pick up the rather chewed stick.
 
 > out
 I move out.
-I am next to a large dog kennel, bizarrly in the middle of nowhere.
-There is a very large dog here, tied up by the kennel.
+I am next to a large dog kennel, bizarrly in the middle of nowhere.  There is
+a very large dog here, tied up by the kennel.
 
 I can move north, east, south, west and in.
 
@@ -1363,9 +1330,8 @@ I can move north, east, south and west.
 > north
 I move north.
 I am in the middle of a paved area.  There is a drain in the middle of the
-pavings, sticking out like a sore thumb.  The drain is open.
-
-Also here is a gold card and a large shark hook.
+pavings, sticking out like a sore thumb.  The drain is open.  Also here is a
+gold card and a large shark hook.
 
 I can move north, east, south, west and down.
 

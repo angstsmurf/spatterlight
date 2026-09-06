@@ -41,10 +41,8 @@ Basement
 The large, empty area with cement walls and floor make this unfinished
 basement feel more like a dungeon. You expect to see rusted manacles chained
 to the wall. Against the south wall is a workbench, the only furniture here.
-Stairs to the north lead up into the living room.
-
-A box of nails is resting on the workbench.  Under the workbench is a small,
-wooden stool.
+Stairs to the north lead up into the living room.  A box of nails is resting
+on the workbench.  Under the workbench is a small, wooden stool.
 
 > take nails
 You take the box of nails.
@@ -119,10 +117,9 @@ still spots of pale pink. Between this coloration and a magnificent rocking
 horse in the middle of the room you assume it was once a girl's playroom. You
 cannot help but feel appreciation for the horse, as it is a beautiful statue,
 more artwork than toy. To the north lies a doorway into a bedroom. The open
-window provides a way down to the kitchen.
-A girl about your age - sixteen, maybe seventeen - is standing here with a
-smile on her face.  A black-furred monstrosity with razor sharp fangs stands
-on four legs here, snarling at you.
+window provides a way down to the kitchen.  A girl about your age - sixteen,
+maybe seventeen - is standing here with a smile on her face.  A black-furred
+monstrosity with razor sharp fangs stands on four legs here, snarling at you.
 
 > shoot beast
 You pull the trigger and a shell unleashes in the beast's face, cutting
@@ -167,11 +164,9 @@ the bathroom to the west. The wall there is wooden, though it would fit the
 outside of a house better than the inside of a room - perhaps you have gone
 outside? The floor is some kind of unbroken stone which fades eastward and
 disappears into the void. You've never seen darkness of this kind outside.
-You must still be inside the house...
-
-A small, black key is lying on the floor here.
-An old man is standing flush against the wall. Only his eyes move, following
-your every motion.
+You must still be inside the house...  A small, black key is lying on the
+floor here.  An old man is standing flush against the wall. Only his eyes
+move, following your every motion.
 
 > take key
 You take the ornate key.

@@ -610,7 +610,7 @@ refuses to load it.
 | `paint` | Paint.taf | `Adrift_270_paint.txt` | diff 10 | T16 `call mertle`: run400 'You hear the sound of sighing down the corridor then the receptionist ' vs scarier 'You hear the sound of sighing down the corridor then the receptionist ' |
 | `patient7` | Patient7.taf | `Adrift_254_patient7.txt` | lost-cmd | 1 lost, first feed[57] `wait` |
 | `perfectspy` | The Perfect Spy.taf | `Adrift_272_perfectspy.txt` | endtail 1 | T19 `n`: run400 'You run away from the cat and out of the alley. For the first few mome' vs scarier 'You run away from the cat and out of the alley. For the first few mome' |
-| `perspectives` | perspectives.taf | `Adrift_240_perspectives.txt` | diff 2 (NOT the listing rule -- the ALR `' Also here is a gun. '` cannot match because run400 concatenates `"  Also here"` into one string; deferred, whitespace) | T0 `look`: run400 'Locked In A Bathroom It's a terribly small bathroom, with scarcely muc' vs scarier 'Locked In A Bathroom It's a terribly small bathroom, with scarcely muc' |
+| `perspectives` | perspectives.taf | `Adrift_240_perspectives.txt` | endtail 1 (was diff 2; FIXED 2026-09-07 -- the room lister now builds the Runner's one concatenated string, so the ALR `' Also here is a gun. '` matches) | T0 `look`: run400 'Locked In A Bathroom It's a terribly small bathroom, with scarcely muc' vs scarier 'Locked In A Bathroom It's a terribly small bathroom, with scarcely muc' |
 | `pestilence` | pestilence.taf | `Adrift_276_pestilence.txt` | diff 5 | T38 `read card`: run400 'The record card has lots of medical mumbo-jumbo but you can make out t' vs scarier 'The record card has lots of medical mumbo-jumbo but you can make out t' |
 | `petespunkin` | Pete's Punkin Junkinator.taf | `Adrift_208_petespunkin.txt` | endtail 1 | T26 `pull crank`: run400 'The sound makes you nervous, like stepping on broken glass, and the fe' vs scarier 'The sound makes you nervous, like stepping on broken glass, and the fe' |
 | `picture` | Picture.taf | `Adrift_121_picture.txt` | diff 2 | T0 `sit on bench`: run400 'You sit down on the wooden bench and hear a voice coming from the pict' vs scarier 'You sit down on the wooden bench and hear a voice coming from the pict' |
@@ -881,6 +881,15 @@ and decompile addresses are in the harness row comments and in git history.
   default OFF; 3.8 AdditionalMessage double-space drop; empty room
   description substitution (inverse census).
 - ShowRoomDesc prints BEFORE the task's actions.
+- The room block is ONE string, never sectioned: `viewroom` concatenates the
+  description, the object InRoomDescs, the "Also here" list, the joined
+  "X is here." sentence, the characters' own texts and the event LookTexts
+  onto `MemVar_4941B0`, joined by `pspace()` @0044A9F4 (a *conditional* two
+  spaces) except where the literals `"  Also here"` @00472696 and `"  "`
+  @0047295B put them in unconditionally.  A character's in-room text is
+  tested and trimmed raw, so its leading `<br>` survives.  This is what lets
+  an author's ALR Original carry the Runner's own separator spaces
+  (perspectives, circus, datewithdeath, Vagabond).  See "Ported 2026-09-07".
 - The room-content listing is decided by `Proc_19_75_449B6C` on the object's
   OnlyWhenNotMoved byte, not by "is the InRoomDesc empty": an unspent mode 1,
   or a mode 2 frozen to the object's start room, is handled by the
@@ -922,9 +931,11 @@ and decompile addresses are in the harness row comments and in git history.
 - **SCARE meta-commands** `wait N` / `hist N` / `redo N` do not exist in
   any Runner (sandy_meta_number).
 - **Empty-Prefix double space** in object listings.
-- **ALR Originals that span the joined paragraph** (Vagabond room 4,
-  thetest): the Runner joins the whole turn into one paragraph so a
-  two-sentence Original matches; Scarier sections the NPC line.
+- **ALR Originals that span the joined paragraph** (thetest `You remove
+  your clothes.  Nice try fish face`): the Runner joins the whole turn into
+  one paragraph so a two-sentence Original matches; Scarier still sections
+  the turn outside the room block.  The room block's half of this -- Vagabond
+  room 4 -- was ported 2026-09-07, see the last section.
 - **House's `%drunk%` ALR loop.**  House.taf rewrites "You move" to
   `%drunk%` and the string variable `drunk` is "You move", so every move in
   run400 pops an `evaluate error - Out of stack space` alert (dismissed,
@@ -1851,10 +1862,9 @@ written up here (see the batch-1 section), and so, after fix 5, is
   @00449B6C; an object whose OnlyWhenNotMoved byte is still unspent is never
   listed, even with an empty InRoomDesc, and the byte is spent by the library
   take AND by any task move action).  `perspectives` T0 turned out not to
-  belong here at all: its ALR Original `' Also here is a gun. '` cannot match
-  because run400 concatenates the literal `"  Also here"` (@00472696) into
-  one room string where scarier emits `"\nAlso here is ...\n"`.  That is a
-  whitespace question, deferred.
+  belong here at all -- it was the room lister's whitespace, and it was
+  DONE 2026-09-07; see "Ported 2026-09-07: the room block is one string,
+  joined by pspace()" below.
 - **An event line one side prints and the other does not, 6 rows.**
   `skydiver` T15 (`Pelican A pelican flocked toward me..` only in run400),
   `briefcase` T5 and `backhome` T36 (only in run400), `overtheedge` T1,
@@ -1965,8 +1975,8 @@ follow-up on rows that have been driven, in this order:
 3. **The room-content listing** -- DONE 2026-09-06.  `camelot15` T32 and
    `takeone` T4 match; ten goldens re-blessed, six measured rows improved.
    `perspectives` T0 was reclassified: not the listing rule, but the room
-   description's whitespace defeating an ALR -- still open, deferred until it
-   can have its own `DUMP_SCROLLBACK` measurement.
+   description's whitespace defeating an ALR -- and that was done in turn on
+   2026-09-07, see the last section.
 4. **Battle hit vs no-damage** -- `shadow_of_the_past` T18 and `del_sol` T44
    disagree in opposite directions on one turn each.  Two rows, and the pair
    pins the formula rather than the message.  `hyper_b_s` T4 (Flare Rat on 23
@@ -2358,11 +2368,118 @@ either a listing line replaced by an InRoomDesc or a listing line for an
 empty-InRoomDesc object disappearing.  Suite 428/428; ADRIFT 5 unchanged
 (MATCH 180, DIVERGE 17).
 
-**`perspectives` T0 is not this bug.**  Its ALR Original is
-`' Also here is a gun. '`, with a leading *and* a trailing space, and it never
-fires because run400 builds the whole room description as ONE string and
-appends the literal `"  Also here"` (@00472696) while scarier emits
-`"\nAlso here is ...\n"`.  Fixing it means aligning the room lister's
-whitespace with the Runner's, which moves many goldens and wants its own
-`DUMP_SCROLLBACK` measurement first.  Deferred, and re-filed as an
-ALR/whitespace row rather than a listing row.
+**`perspectives` T0 is not this bug**, but the room lister's whitespace --
+its ALR Original is `' Also here is a gun. '`, with a leading *and* a trailing
+space, and it could not fire while scarier emitted `"\nAlso here is ...\n"`.
+Ported the next day; see the section below.
+
+## Ported 2026-09-07: the room block is one string, joined by pspace()
+
+The last of the four `perspectives` leads, and the one that had been deferred
+twice.  Scarier printed the room block as *sections*, one list to a line:
+
+```
+<description>\n  \nAlso here is a gun.\n  <NPC sentence>\n
+```
+
+run400's `viewroom` (`Proc_19_63_472CA4`, @00472024-00472CA3) never emits a
+terminator at all.  It concatenates the entire block onto ONE module string,
+`MemVar_4941B0`, in seven appends:
+
+1. the room name block (`vbCrLf` guard, `"<b>" & Short & "</b>" & vbCrLf`);
+2. the Long / alternate descriptions;
+3. the object InRoomDesc loop @00472515 -- `pspace()` @00472591, then the
+   InRoomDesc verbatim @00472596;
+4. the "Also here" fallback list @00472690 -- the *hard-coded literal*
+   `"  Also here"` @00472696, `isare()` @0047273B, then `Prefix & " " & Short`
+   @0047274B-00472764, `", "` @00472784, `" and "` @00472798, `"."` @004727AC;
+5. the joined `X, Y and Z are here.` sentence @00472950 -- again a hard-coded
+   `"  "` @0047295B, then per character `Left(text, Len(text) - 9)` @004729FE,
+   `", "` @00472A2E, `" and "` @00472A42, `" is here."` / `" are here."`;
+6. the characters' own in-room texts @00472A93 -- `pspace()` @00472B01, then
+   the text verbatim @00472B06;
+7. the event LookTexts (already ported, already a `pf_buffer_join()`).
+
+`pspace()` is `Proc_21_50_44A9F4` @0044A9F4 (module `General`):
+
+```
+If s <> "" Then
+  If Right(s,2) <> "  " And Right(s,1) <> Chr(10) And Right(s,4) <> "<br>" Then
+    s = s & "  "
+```
+
+-- a *conditional* two-space clause gap, which is why a Long ending in one
+space comes out with three (`man_overboard`: `...off the ship.   Bob is
+standing...`), and why a Long ending in `<br>` gets no gap of its own.  Steps
+4 and 5 are the exception: their two spaces are literals, so they go in
+whatever the string already ends with.
+
+**Ported** as `pf_buffer_join()` (pspace + take back our own trailing
+newline) at steps 3 and 6, and `pf_undo_auto_break()` + a literal `"  "` at
+steps 4 and 5.  `lib_print_room_description()` now records its terminator via
+`pf_note_trailing_auto_break()` so the contents can take it back; the block
+gets one terminator at the very end, and only if it wrote anything.
+
+The same pass removed `lib_skip_leading_breaks()`.  The Runner's test is
+`Right(text, 9) = " is here."` @004729A7 and its trim `Left(text, Len - 9)`
+@004729FE, both on the raw text -- so a character whose in-room text opens
+with `<br>` keeps that break, and it lands *after* the two separator spaces
+rather than instead of them.
+
+**Ground truth.**  `Adrift_240_perspectives.txt` T0 now matches byte for
+byte; the pre-ALR string is
+
+```
+...wooden planks.<br><br>  Also here is a gun.  On the floor, bleeding
+profusely is a dark haired male.   <br>Jonah is here, hammering nails...
+```
+
+and the ALR ` Also here is a gun. ` eats the second space of the first pair
+and the first of the next, which is exactly the one leading space the
+transcript shows before `On top of...` and before `On the floor...`, and the
+three trailing spaces before Jonah's `<br>`.  Every space accounted for.
+
+Four more transcripts confirm the run-on shape directly, on games other than
+perspectives:
+
+- `Adrift_154_marlin_affair.txt`: `...back of the shuttle.  A screwench lies
+  here.  Also here are the handcuffs and a laser spinner.` -- step 3 into
+  step 4.
+- `Adrift_151_mysteryofcaves.txt`: `...Exits lie: east.  Also here is some
+  meat.  Snugg the troll is here, looming massively you.` -- step 4 into
+  step 6.
+- `Adrift_135_imagination.txt`: `...leads into darkness.  Also here is a
+  piece of dental floss and a small rock.  Jenny follows you  from the
+  north`.
+- `Adrift_226_spooked.txt` lines 120-122 and `Adrift_306_videotapedecay.txt`
+  lines 514-516: the description line ends in the two separator spaces, then
+  the author's own `<br><br>` opens a blank line, then `Samuel, your
+  scientist pal, is here.` -- the raw-text trim.
+- `Adrift_1_cybercow.txt` lines 230-231: one `<br>`, so one break.
+- `Adrift_42_vagabond.txt`: `George is here.` appears ZERO times; the Runner
+  prints the author's ALR replacement `A technician is hunched over a power
+  conduit here...` instead.  Scarier now agrees.
+
+**Four goldens changed content, all four of them an author ALR that could
+not fire before** -- the same class as `perspectives`, and the real proof
+that the Runner's separator spaces are part of the string authors write
+against:
+
+| game | ALR Original | was | now |
+| --- | --- | --- | --- |
+| `perspectives` | `' Also here is a gun. '` | list line unreplaced | `On top of the medicine cabinet is a pistol.` |
+| `datewithdeath` | `' Hrolf, Strug and Bark are here.'` | `Hrolf,Your loyal bodyguards - Strug and Bark - are here.` | `Your loyal bodyguards - Hrolf, Strug and Bark - are here.` |
+| `vagabond` | (room 4, spans the join) | `A toolbox is here.` / `George is here.` | the technician paragraph |
+| `circus` | `'  Joe'`, `'  Leo'`, ... each followed by a lowercase generic | `the vendor is here.` | `The vendor is here.` |
+
+`circus` is the clearest: the author wrote a whole family of `'  <Name>'` ->
+`'  The <role>'` ALRs, two leading spaces each, precisely so the room-list
+occurrence capitalises while the mid-sentence ones stay lowercase.  That only
+works against a room string with the Runner's separator in it.
+
+**Cost.**  288 goldens re-blessed, 284 of them whitespace-only.  Suite
+428/428; ADRIFT 5 unchanged (MATCH 180, DIVERGE 17); the 61-transcript
+`compare_wine_transcript.py` sweep gives identical verdicts before and after,
+which is the no-content-regression gate (that tool collapses whitespace, so
+it is blind to this change by construction and useful only as a gate).
+`perspectives` goes from `diff 2` to `endtail 1`.

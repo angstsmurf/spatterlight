@@ -37,8 +37,7 @@ behind a tree trunk so that nobody notices you. A guard sits on a tree stump
 next to a bush. He looks sleepily around, picking his nose while sipping from
 a hip flask of brandy. There doesn't seem to be anyway around him. He grunts
 a little as though he has heard something, peering into the darkness in your
-direction "Who goes there?"  he barks..
-Bert the guard is sitting here.
+direction "Who goes there?"  he barks..  Bert the guard is sitting here.
 
 You can only move south.
 
@@ -77,8 +76,8 @@ You move north.
 
 Village Centre
 You are standing in the middle of the village square. There is a finely
-carved statue in it's centre.  One of the eyes catches your attention.
-Perry the Ferryman is here.
+carved statue in it's centre.  One of the eyes catches your attention.  Perry
+the Ferryman is here.
 
 You can move north, east, south and west.
 
@@ -118,9 +117,7 @@ You move west.
 Garden
 A quaint little garden is at the back of the cottage. It has herbs and
 vegetables growing that are ripe for picking. The garden is surrounded by a
-sturdy brick wall.
-
-Also here is a well used spade and a long cane.
+sturdy brick wall.  Also here is a well used spade and a long cane.
 
 You can only move east.
 
@@ -147,8 +144,7 @@ You move east.
 
 Village Centre
 You are standing in the middle of the village square. There is a finely
-carved statue in it's centre.
-Perry the Ferryman is here.
+carved statue in it's centre.  Perry the Ferryman is here.
 
 You can move north, east, south and west.
 
@@ -157,8 +153,7 @@ You move north.
 
 Village Centre (north)
 Just a small clearing here. To the east is a cemetery, to the west is an inn,
-and to the north is a gate.
-Old Man Toomey is here.
+and to the north is a gate.  Old Man Toomey is here.
 
 You can move north, east, south and west.
 
@@ -204,7 +199,6 @@ A rat scurries past your feet!
 Cellar
 You are in a damp cellar. Barrels of ale are stored here along with hundreds
 of bottles of spirits. You see that to the south-east there is a passageway.
-
 Also here is a bottle of brandy.
 
 You can move up and southeast.
@@ -238,8 +232,7 @@ Shop Basement
 Loads of supplies are stored here. You peer upwards through the trapdoor and
 see Mrs. So working on her accounts. You get a quick glimpse up her skirt in
 the bargain, but you quietly step backwards so as not to attract attention...
-
-Also here is a new saw and a brand new lantern.
+ Also here is a new saw and a brand new lantern.
 
 You can only move northwest.
 
@@ -249,8 +242,7 @@ Shop Basement
 Loads of supplies are stored here. You peer upwards through the trapdoor and
 see Mrs. So working on her accounts. You get a quick glimpse up her skirt in
 the bargain, but you quietly step backwards so as not to attract attention...
-
-Also here is a new saw and a brand new lantern.
+ Also here is a new saw and a brand new lantern.
 
 You can only move northwest.
 
@@ -311,8 +303,7 @@ You move east.
 
 Village Centre (north)
 Just a small clearing here. To the east is a cemetery, to the west is an inn,
-and to the north is a gate.
-Old Man Toomey is here.
+and to the north is a gate.  Old Man Toomey is here.
 
 You can move north, east, south and west.
 
@@ -321,8 +312,7 @@ You move south.
 
 Village Centre
 You are standing in the middle of the village square. There is a finely
-carved statue in it's centre.
-Perry the Ferryman is here.
+carved statue in it's centre.  Perry the Ferryman is here.
 
 You can move north, east, south and west.
 
@@ -453,9 +443,7 @@ You move up.
 Light Room
 This room is surrounded by glass and houses the powerful lamp. The lamp has a
 big reflector behind it that creates the beam. The light misty fog makes the
-beam stand out like a solid rod of light.
-
-Also here is a can of oil.
+beam stand out like a solid rod of light.   Also here is a can of oil.
 
 You can only move down.
 
@@ -464,9 +452,7 @@ You can only move down.
 Light Room
 This room is surrounded by glass and houses the powerful lamp. The lamp has a
 big reflector behind it that creates the beam. The light misty fog makes the
-beam stand out like a solid rod of light.
-
-Also here is a can of oil.
+beam stand out like a solid rod of light.   Also here is a can of oil.
 
 You can only move down.
 
@@ -690,8 +676,7 @@ You move north.
 
 Village Centre
 You are standing in the middle of the village square. There is a finely
-carved statue in it's centre.
-Perry the Ferryman is here.
+carved statue in it's centre.  Perry the Ferryman is here.
 
 You can move north, east, south and west.
 
@@ -752,8 +737,7 @@ You move east.
 
 Village Centre
 You are standing in the middle of the village square. There is a finely
-carved statue in it's centre.
-Perry the Ferryman is here.
+carved statue in it's centre.  Perry the Ferryman is here.
 
 You can move north, east, south and west.
 
@@ -763,8 +747,7 @@ You move east.
 Church
 The church is a  friendly looking place adorned in brightly coloured drapes.
 There is the usual altar at one end and a holy water basin. You see that some
-stairs spiral upwards to the steeple.
-Gavin is here meditating.
+stairs spiral upwards to the steeple.  Gavin is here meditating.
 
 You can move west and up.
 
@@ -773,8 +756,7 @@ You can move west and up.
 Church
 The church is a  friendly looking place adorned in brightly coloured drapes.
 There is the usual altar at one end and a holy water basin. You see that some
-stairs spiral upwards to the steeple.
-Gavin is here meditating.
+stairs spiral upwards to the steeple.  Gavin is here meditating.
 
 You can move west and up.
 
@@ -820,8 +802,7 @@ You move down.
 Church
 The church is a  friendly looking place adorned in brightly coloured drapes.
 There is the usual altar at one end and a holy water basin. You see that some
-stairs spiral upwards to the steeple.
-Gavin is here meditating.
+stairs spiral upwards to the steeple.  Gavin is here meditating.
 
 You can move west and up.
 
@@ -830,8 +811,7 @@ You move west.
 
 Village Centre
 You are standing in the middle of the village square. There is a finely
-carved statue in it's centre.
-Perry the Ferryman is here.
+carved statue in it's centre.  Perry the Ferryman is here.
 
 You can move north, east, south and west.
 
@@ -840,8 +820,7 @@ You move north.
 
 Village Centre (north)
 Just a small clearing here. To the east is a cemetery, to the west is an inn,
-and to the north is a gate.
-Old Man Toomey is here.
+and to the north is a gate.  Old Man Toomey is here.
 
 You can move north, east, south and west.
 
@@ -885,9 +864,8 @@ You just fit inside the grave, scraping your shoulders between the muddy
 walls. You have accidentally broken through the lid of the coffin. The stench
 of the remains makes you gag. The remains, mostly bones,  of Sir Ronald lay
 before you. The laughing skull of the corpse stares up at you. You decide not
-to disturb the body any further in fear of being cursed.
-
-Also here is a shiny shield.
+to disturb the body any further in fear of being cursed.  Also here is a
+shiny shield.
 
 You can only move up.
 
@@ -904,9 +882,7 @@ some fresh and some so old the inscriptions cannot be seen any more. A fine
 mist covers the ground and glows in the light. There is one grave right in
 the middle. The stone is large and finely engraved with carvings of a sword
 and shield.  There is freshly dug grave in the middle of the cemetary. You
-can go down and enter the grave now.
-
-Also here is a well used spade.
+can go down and enter the grave now.  Also here is a well used spade.
 
 You can move west and down.
 
@@ -915,8 +891,7 @@ You move west.
 
 Village Centre (north)
 Just a small clearing here. To the east is a cemetery, to the west is an inn,
-and to the north is a gate.
-Old Man Toomey is here.
+and to the north is a gate.  Old Man Toomey is here.
 
 You can move north, east, south and west.
 
@@ -924,8 +899,8 @@ You can move north, east, south and west.
 You move north.
 
 Back Gate
-You see the a bridge leading to the mountains beyond this gate.
-A Dork is here on a long chain.
+You see the a bridge leading to the mountains beyond this gate.  A Dork is
+here on a long chain.
 
 You can only move south.
 
@@ -997,10 +972,8 @@ You move north.
 
 Orc Prison
 A horrible damp part of the cave that's used for the Orc's prisoners. You see
-one of the unfortunate residents, a skeleton, chained to one wall.
-
-Also here is an iron bar.
-Sara is here.
+one of the unfortunate residents, a skeleton, chained to one wall.  Also here
+is an iron bar.  Sara is here.
 
 You can only move south.
 
@@ -1028,8 +1001,8 @@ You move north.
 
 Orc Prison
 A horrible damp part of the cave that's used for the Orc's prisoners. You see
-one of the unfortunate residents, a skeleton, chained to one wall.
-Sara is here.
+one of the unfortunate residents, a skeleton, chained to one wall.  Sara is
+here.
 
 You can only move south.
 
@@ -1068,9 +1041,8 @@ stone floor. As quickly as it started, it finishes, leaving only silence.
 You move north.
 
 Orc Store
-Just looks like junk that the Orcs have stored over the years.
-
-Also here is a horn.
+Just looks like junk that the Orcs have stored over the years.  Also here is
+a horn.
 
 You can only move south.
 
@@ -1097,8 +1069,8 @@ You move east.
 
 Wolf Passage
 An icy passage is here with a carpet of soft snow. Giant icicles droop from
-little overhangs.
-Mountain Wolves are here, staring at you while licking their chops.
+little overhangs.  Mountain Wolves are here, staring at you while licking
+their chops.
 
 You can only move west.
 
@@ -1123,8 +1095,7 @@ Jeziah's House
 'Welcome to Jeziah's house' is written on the dormat. The house looks very
 ordered, with shelves creaking from tomes that are neatly indexed. The house
 is warmed by a roaring fire and warms your bones from the harsh elements
-outside.
-Jeziah The Wizard is here sitting by the fire.
+outside.  Jeziah The Wizard is here sitting by the fire.
 
 You can only move west.
 
@@ -1255,8 +1226,7 @@ You move south.
 
 Archery Range
 Just a few rotting targets are just about standing down one end of the range.
-
-Also here is an arrow shaft.
+ Also here is an arrow shaft.
 
 You can only move north.
 
@@ -1320,9 +1290,7 @@ Smoking Room
 This room was used for (you guessed it) smoking, with ashtrays and a cigar
 box on one table. It looks more comfortable than the other rooms in the
 castle. There is a large painting dominating one wall. Some stairs spiral up
-to the next floor.
-
-Also here is a cigar cutter.
+to the next floor.  Also here is a cigar cutter.
 
 You can move east, south, west and up.
 
@@ -1530,8 +1498,7 @@ Jeziah's House
 'Welcome to Jeziah's house' is written on the dormat. The house looks very
 ordered, with shelves creaking from tomes that are neatly indexed. The house
 is warmed by a roaring fire and warms your bones from the harsh elements
-outside.
-Jeziah The Wizard is here sitting by the fire.
+outside.  Jeziah The Wizard is here sitting by the fire.
 
 You can only move west.
 

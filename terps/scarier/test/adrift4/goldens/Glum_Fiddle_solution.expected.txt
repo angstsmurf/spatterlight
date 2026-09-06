@@ -19,7 +19,7 @@ of the cottage has two boards on it, one pointing at the cottage saying
 large cave, saying 'Caive'. The signs were painted in a rough hand with black
 paint.
 
-An Irish Wolfhound is by the tiny gatehouse
+  An Irish Wolfhound is by the tiny gatehouse
 
 The dog stands up, wagging his tail slowly, and walks into the path in front
 of you. He carefully takes a sturdy wide-legged stance. You consider patting
@@ -158,8 +158,8 @@ At least 20 feet high, the entrance to the cave has a massive wrought iron
 gate that spans it's width and reaches far above your head. The interior of
 the cave is pitch black, in stark contrast to the bright day outside.
 
-The tiny gatehouse is west, and giant's valley is east.
-An Ogre sits gloomily, his eyes shining redly.
+The tiny gatehouse is west, and giant's valley is east.  An Ogre sits
+gloomily, his eyes shining redly.
 
 The Ogre blinks, and the reddish light disappears for a moment.
 
@@ -438,9 +438,8 @@ Two pigs root and grunt in the mud, and several large barrels, presumably
 holding slops, are lined up on the outside of the sty.
 
 A cool breeze comes from the east, where a glacier terminates, pushing
-boulders ahead of it in its inexorable path down the mountain.
-
-Also here is a wooden plank.
+boulders ahead of it in its inexorable path down the mountain.  Also here is
+a wooden plank.
 
 > e
 Jubilant, you rush across the wooden plank, which creaks under your weight.
@@ -492,9 +491,8 @@ Two pigs root and grunt in the mud, and several large barrels, presumably
 holding slops, are lined up on the outside of the sty.
 
 A cool breeze comes from the east, where a glacier terminates, pushing
-boulders ahead of it in its inexorable path down the mountain.
-
-Also here is a wooden plank.
+boulders ahead of it in its inexorable path down the mountain.  Also here is
+a wooden plank.
 Pounding footsteps herald the coming of the giant. 'Teacher!' He warbles,
 'Time for my chess lesson!'
 

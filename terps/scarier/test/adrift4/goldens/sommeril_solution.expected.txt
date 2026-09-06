@@ -41,7 +41,6 @@ cobblestone streets.  The streets head north, northeast, and northwest. Gas
 street lights burn weakly providing the only light.  Behind you, the mist is
 thick and unending - very uninviting. You get the sense that large, monstrous
 shapes are moving about unseen in it.  It is twilight. The rest is silence.
-
 Also here is a BOOK COVER.
 
 You can move north, south, northeast and northwest.
@@ -78,9 +77,8 @@ You move north.
 
 Lower Faust Street
 This area of the street is dedicated mostly to an open air CAFE to the west.
-The wood SIDEWALK is lined with young TREES that bear PURPLE FRUIT.
-
-You can see the bulging silver form of a FISH in the gutter.
+The wood SIDEWALK is lined with young TREES that bear PURPLE FRUIT.  You can
+see the bulging silver form of a FISH in the gutter.
 
 You can move north, south and west.
 
@@ -94,10 +92,7 @@ Cafe
 Outside the entrance of a small edifice is a single circular TABLE and CHAIR
 on which has been placed a pristine white TABLECLOTH which flutters lightly
 in the breeze. It has a table setting for one person, with a shiny white
-PLATE on a PLACEMAT.
-
-Also here is a MENU.
-A WAITER is here.
+PLATE on a PLACEMAT.   Also here is a MENU.  A WAITER is here.
 
 You can only move east.
 
@@ -138,8 +133,7 @@ sandstone FOUNTAIN. At its center, on a dais, is a stone STATUE of a
 skeleton, sitting in the "Thinker" position. Water trickles from its eye
 sockets into the fountain below. The WATER is dark and brackish. The fountain
 also marks the entrance to a park further north.
-
-A SILVER ORB is held in the SKELETON's prone hand.
+   A SILVER ORB is held in the SKELETON's prone hand.
 
 You can move north and south.
 
@@ -213,10 +207,9 @@ Here is a small but most unusual park, perhaps a hundred yards wide. The
 entire effect is one of mind-reeling surrealism. CLOCKS are draped over
 marble slabs like pancakes, and all of them read 6:46. A giant fried EGG the
 size of a circus tent is propped up at each end on two tall poles. At the
-other end of the park, to the north, the stairs to the citadel await you.
-
-A large glass EYEBALL the size of a volkswagen is suspended from a dead tree
-by a string no thicker than a human hair.
+other end of the park, to the north, the stairs to the citadel await you.  A
+large glass EYEBALL the size of a volkswagen is suspended from a dead tree by
+a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
 A line of tiny naked mice, each with a perfectly formed human ear growing on
@@ -249,10 +242,8 @@ Middle Nemo Boulevard
 Many of the buildings are non-descript. Their WINDOWS dark panes of inky
 blackness. You note buildings of both wood and brick, some with fancy iron
 work and ornate doors. Here is a little house, its lawn littered with BONES.
-A sign over the door reads "Grave Little Tailor".
-
- A group of small childeren are playing with a ball in the street. They take
-no notice of you.
+A sign over the door reads "Grave Little Tailor".   A group of small
+childeren are playing with a ball in the street. They take no notice of you.
 
 You can move north, south and in.
 
@@ -273,9 +264,8 @@ You move south.
 Nemo Boulevard Junction
 This street is proclaimed by the sign beneath the gaslight as  "NEMO BLVD."
 Heading down the cobblestone street, buildings of strangely varied
-architectural eras crowd and hang over you. Their WINDOWS are black, mute.
-
-A crumpled page is on the street.
+architectural eras crowd and hang over you. Their WINDOWS are black, mute.  A
+crumpled page is on the street.
 
 You can move north and southeast.
 
@@ -325,9 +315,8 @@ The street sign here, a ornate but rusted affair that tilts drunkenly among a
 rubble of broken cobblestones, reads "ROMARICO  AVENUE". This used to be a
 gaslight street lamp, but now the jagged shards of the broken globe litter
 the street around the pole. half rotted HANDBILLS are plastered to the fronts
-of the buildings here.
-
-A muddy page with a footprint on it lies on the cobblestones.
+of the buildings here.  A muddy page with a footprint on it lies on the
+cobblestones.
 
 You can move north and southwest.
 
@@ -378,10 +367,8 @@ You move north.
 Middle Romarico Avenue
 The street is deserted. The few shops here are boarded up. You can hear the
 the rattle of a can as it rocks from side to side in the barely perceptible
-breeze.
-
-Among other discarded objects, yellowed paper trash and a several empty TIN
-CANS litter the GUTTER.
+breeze.  Among other discarded objects, yellowed paper trash and a several
+empty TIN CANS litter the GUTTER.
 
 You can move north and south.
 
@@ -416,8 +403,7 @@ metallic CASH REGISTER sits on top of it at one end. BOOKS of all shapes and
 sizes line the shelves from floor to ceiling, and great piles of them are
 stacked virtually in every available space as well. A DISPLAY TABLE occupies
 the center of the floor, and it holds a treasure of half-forgotten TOYS.  The
-Gargoyle smiles widely at you.
-SHOPKEEPER is here.
+Gargoyle smiles widely at you.  SHOPKEEPER is here.
 
 You can only move out.
 
@@ -481,10 +467,9 @@ Here is a small but most unusual park, perhaps a hundred yards wide. The
 entire effect is one of mind-reeling surrealism. CLOCKS are draped over
 marble slabs like pancakes, and all of them read 6:46. A giant fried EGG the
 size of a circus tent is propped up at each end on two tall poles. At the
-other end of the park, to the north, the stairs to the citadel await you.
-
-A large glass EYEBALL the size of a volkswagen is suspended from a dead tree
-by a string no thicker than a human hair.
+other end of the park, to the north, the stairs to the citadel await you.  A
+large glass EYEBALL the size of a volkswagen is suspended from a dead tree by
+a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
 
@@ -495,11 +480,9 @@ Citadel stairs
 Wide polished marble stairs lead up to two huge oak DOORS. The doors are
 inlaid with hand carved figures of writhing tortured souls. The door handles
 are gold set on silver plates, where a large keyhole stares out at you like a
-black eye.
-
-An ancient SKELETON, dressed in tattered rags and with one outstretched arm
-and hand, lies mere inches from touching the doors.  A grey PILE OF DUST,
-probably an inch deep in places, is spread under the corpse.
+black eye.  An ancient SKELETON, dressed in tattered rags and with one
+outstretched arm and hand, lies mere inches from touching the doors.  A grey
+PILE OF DUST,  probably an inch deep in places, is spread under the corpse.
 
 You can only move south.
 
@@ -529,10 +512,9 @@ Here is a small but most unusual park, perhaps a hundred yards wide. The
 entire effect is one of mind-reeling surrealism. CLOCKS are draped over
 marble slabs like pancakes, and all of them read 6:46. A giant fried EGG the
 size of a circus tent is propped up at each end on two tall poles. At the
-other end of the park, to the north, the stairs to the citadel await you.
-
-A large glass EYEBALL the size of a volkswagen is suspended from a dead tree
-by a string no thicker than a human hair.
+other end of the park, to the north, the stairs to the citadel await you.  A
+large glass EYEBALL the size of a volkswagen is suspended from a dead tree by
+a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
 
@@ -554,10 +536,8 @@ You move south.
 Middle Romarico Avenue
 The street is deserted. The few shops here are boarded up. You can hear the
 the rattle of a can as it rocks from side to side in the barely perceptible
-breeze.
-
-Among other discarded objects, yellowed paper trash and a several empty TIN
-CANS litter the GUTTER.
+breeze.  Among other discarded objects, yellowed paper trash and a several
+empty TIN CANS litter the GUTTER.
 
 You can move north and south.
 A line of tiny naked mice, each with a perfectly formed human ear growing on
@@ -579,10 +559,8 @@ You move in.
 
 Town Crier
 The interior of the little building is bare, except for a straightback chair
-in the middle of the wooden floor:
-
-A NEWSPAPAR lies on the floor between the legs of the chair.
-A BRIDE is here.
+in the middle of the wooden floor:  A NEWSPAPAR lies on the floor between the
+legs of the chair.  A BRIDE is here.
 
 You can only move out.
 
@@ -613,10 +591,8 @@ You move north.
 Middle Romarico Avenue
 The street is deserted. The few shops here are boarded up. You can hear the
 the rattle of a can as it rocks from side to side in the barely perceptible
-breeze.
-
-Among other discarded objects, yellowed paper trash and a several empty TIN
-CANS litter the GUTTER.
+breeze.  Among other discarded objects, yellowed paper trash and a several
+empty TIN CANS litter the GUTTER.
 
 You can move north and south.
 
@@ -640,10 +616,9 @@ Here is a small but most unusual park, perhaps a hundred yards wide. The
 entire effect is one of mind-reeling surrealism. CLOCKS are draped over
 marble slabs like pancakes, and all of them read 6:46. A giant fried EGG the
 size of a circus tent is propped up at each end on two tall poles. At the
-other end of the park, to the north, the stairs to the citadel await you.
-
-A large glass EYEBALL the size of a volkswagen is suspended from a dead tree
-by a string no thicker than a human hair.
+other end of the park, to the north, the stairs to the citadel await you.  A
+large glass EYEBALL the size of a volkswagen is suspended from a dead tree by
+a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
 
@@ -683,8 +658,7 @@ than a wood-shingled ROOF set over a open work area, with a few stalls in the
 rear. The tools of the trade - a BELLOWS, an ANVIL, various HAMMERS and TONGS
 - are collected in one central work area. Raw METAL of various shapes lies in
 a heap in one corner. In the STALL, straight ahead,  you can see a grey HORSE
-standing very, very still.
-BLACKSMITH is here.
+standing very, very still.  BLACKSMITH is here.
 
 You can move north and out.
 
@@ -702,9 +676,8 @@ Stall
 The stall is occupied by a large grey mare, which stands on a small wheeled
 trolly. The trolley is missing its back left wheel, and the HORSE and trolly
 tilt back slightly in the direction of the missing wheel. A RAT-CHEWED PAGE
-from your book is tacked over a hole in the bottom corner of the stall.
-
-You can't read it from here.
+from your book is tacked over a hole in the bottom corner of the stall.  You
+can't read it from here.
 
 You can only move south.
 
@@ -748,8 +721,7 @@ than a wood-shingled ROOF set over a open work area, with a few stalls in the
 rear. The tools of the trade - a BELLOWS, an ANVIL, various HAMMERS and TONGS
 - are collected in one central work area. Raw METAL of various shapes lies in
 a heap in one corner. In the STALL, straight ahead,  you can see a grey HORSE
-standing very, very still.
-BLACKSMITH is here.
+standing very, very still.  BLACKSMITH is here.
 
 You can move north and out.
 
@@ -786,10 +758,9 @@ Here is a small but most unusual park, perhaps a hundred yards wide. The
 entire effect is one of mind-reeling surrealism. CLOCKS are draped over
 marble slabs like pancakes, and all of them read 6:46. A giant fried EGG the
 size of a circus tent is propped up at each end on two tall poles. At the
-other end of the park, to the north, the stairs to the citadel await you.
-
-A large glass EYEBALL the size of a volkswagen is suspended from a dead tree
-by a string no thicker than a human hair.
+other end of the park, to the north, the stairs to the citadel await you.  A
+large glass EYEBALL the size of a volkswagen is suspended from a dead tree by
+a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
 A line of tiny naked mice, each with a perfectly formed human ear growing on
@@ -802,11 +773,9 @@ Citadel stairs
 Wide polished marble stairs lead up to two huge oak DOORS. The doors are
 inlaid with hand carved figures of writhing tortured souls. The door handles
 are gold set on silver plates, where a large keyhole stares out at you like a
-black eye.
-
-An ancient SKELETON, dressed in tattered rags and with one outstretched arm
-and hand, lies mere inches from touching the doors.  A grey PILE OF DUST,
-probably an inch deep in places, is spread under the corpse.
+black eye.  An ancient SKELETON, dressed in tattered rags and with one
+outstretched arm and hand, lies mere inches from touching the doors.  A grey
+PILE OF DUST,  probably an inch deep in places, is spread under the corpse.
 
 You can only move south.
 

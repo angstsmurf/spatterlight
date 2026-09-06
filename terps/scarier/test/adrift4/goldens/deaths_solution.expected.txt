@@ -32,9 +32,7 @@ You move west.
 Front door
 you are standing outside the front door to a 3 story building.  the door is
 to the south and you can go east up the drive way.  there isan intercom to
-the right of the door  the door is locked
-
-Also here is welcome mat.
+the right of the door  the door is locked   Also here is welcome mat.
 
 You can only move east.
 
@@ -88,8 +86,7 @@ you unlock number 3 and can now proceed into the apartment
 You move east.
 
 Red kitchen
-this is the kitchen of apartment number 3
-Jim is here.
+this is the kitchen of apartment number 3   Jim is here.
 
 You can only move west.
 Jim cuts you with long knife, but it doesn't seem to do any damage.
@@ -135,8 +132,7 @@ you unlock number 2 and swing open the door
 You move west.
 
 Lit dining room
-this is the dining room of apartment 2
-Ireen is here.
+this is the dining room of apartment 2   Ireen is here.
 
 You can only move east.
 Ireen hits you, but it doesn't seem to do any damage.
@@ -172,8 +168,7 @@ you unlock number 4 and open the door
 You move west.
 
 Dark closet
-this is a closet for apartment 4
-Rooth is here.
+this is a closet for apartment 4   Rooth is here.
 
 You can only move east.
 Rooth hits you, but it doesn't seem to do any damage.
@@ -227,8 +222,7 @@ You can move north, east, south and west.
 You move east.
 
 Hall1 west
-this is the hallway leading to the bedrooms of apartment 1
-Debbie is here.
+this is the hallway leading to the bedrooms of apartment 1   Debbie is here.
 
 You can only move west.
 Debbie hits you with frying pan, but it doesn't seem to do any damage.
@@ -250,8 +244,7 @@ You can move north and west.
 You move north.
 
 Guest room
-this is a guest room in the house of death
-Beth is here.
+this is a guest room in the house of death   Beth is here.
 
 You can only move south.
 Beth hits you with mettle spiked bat, but it doesn't seem to do any damage.
@@ -274,8 +267,7 @@ You can move north, south and west.
 You move south.
 
 Master bedroom
-this is the master bedroom in the house of death
-Ross is here.
+this is the master bedroom in the house of death   Ross is here.
 Ross hits you with metal glove, but it doesn't seem to do any damage.
 
 > kill ross
@@ -295,10 +287,8 @@ You can move north, south and west.  Joshua walks in  from the south.
 You move west.
 
 Hall1 west
-this is the hallway leading to the bedrooms of apartment 1
-
-Also here is frying pan.
-Debbie is here.
+this is the hallway leading to the bedrooms of apartment 1   Also here is
+frying pan.  Debbie is here.
 
 You can move east and west.  Joshua walks in  from the east.
 Debbie hits you, but it doesn't seem to do any damage.
@@ -335,8 +325,7 @@ You move up.
 
 Third floor
 this is the top floor of the building of death.  There are two doors on each
-side of the hallway.
-Demon is here.
+side of the hallway.    Demon is here.
 
 You can move east, west and down.  Joshua walks in  from below.
 Joshua stabs Demon with sword of hope.
@@ -349,8 +338,7 @@ the witch disappears with a laugh
 You move up.
 
 Attic
-this is the attic of the house of death
-Dark force is here.
+this is the attic of the house of death   Dark force is here.
 
 You can only move down.  Joshua walks in  from below.
 Dark force hits you.

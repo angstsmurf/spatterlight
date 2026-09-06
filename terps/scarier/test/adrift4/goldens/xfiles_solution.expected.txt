@@ -145,8 +145,7 @@ Parking Garage B
 This is the lower level of the official FBI Parking Garage.  The area is
 illuminated by the neon lights that line the ceiling alone.  It is somewhat
 dark, and smells of exhaust and cigarette smoke.  It may be unwise to pull a
-gun on this guy.
-Cancer Man awaits you in the shadows.
+gun on this guy.  Cancer Man awaits you in the shadows.
 
 You can only move up.
 
@@ -173,8 +172,7 @@ Parking Garage B
 This is the lower level of the official FBI Parking Garage.  The area is
 illuminated by the neon lights that line the ceiling alone.  It is somewhat
 dark, and smells of exhaust and cigarette smoke.  It may be unwise to pull a
-gun on this guy.
-Cancer Man awaits you in the shadows.
+gun on this guy.  Cancer Man awaits you in the shadows.
 
 You can move west and up.
 Cancerman has receded into the shadows and is watching you.  Cancerman
@@ -226,8 +224,7 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.
-Volunteer is here.
+wonder if you'll be able to hail a taxi.  Volunteer is here.
 
 You can move north, east, south and in.
 
@@ -261,9 +258,7 @@ on the other end of the phone.  "Try not to get too jolly, okay Mulder?"
 Garage 5
 The garage is empty.  It has been cleaned out recently.  Footprints in the
 inch-thick dust indicate that whoever did was in a hurry.  Take the knife
-with you.  It may come in handy.
-
-Also here is Small Pocket Knife.
+with you.  It may come in handy.  Also here is Small Pocket Knife.
 
 You can only move out.
 
@@ -286,8 +281,7 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.
-Volunteer is here.
+wonder if you'll be able to hail a taxi.  Volunteer is here.
 
 You can move north, east, south and in.
 
@@ -321,10 +315,8 @@ Welcome to the Red Bull Tavern, a nice establishment that you sometimes
 frequent with Ruth after work.  The owner and barkeep, Nick, always gives you
 drinks on the house in thanks for your rent.  The atmosphere here is always
 friendly, if somewhat darkly lit.  "What the hell are you doing in my
-establishment without any pants on?" Nick roars, "Get out of here!"
-
-Also here is A Jukebox Machine.
-Nick is here.
+establishment without any pants on?" Nick roars, "Get out of here!"  Also
+here is A Jukebox Machine.  Nick is here.
 
 You can move up and out.
 
@@ -383,10 +375,8 @@ Welcome to the Red Bull Tavern, a nice establishment that you sometimes
 frequent with Ruth after work.  The owner and barkeep, Nick, always gives you
 drinks on the house in thanks for your rent.  The atmosphere here is always
 friendly, if somewhat darkly lit.  "What the hell are you doing in my
-establishment without any pants on?" Nick roars, "Get out of here!"
-
-Also here is A Jukebox Machine.
-Nick is here.
+establishment without any pants on?" Nick roars, "Get out of here!"  Also
+here is A Jukebox Machine.  Nick is here.
 
 You can move up and out.
 
@@ -409,8 +399,7 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.
-Volunteer is here.
+wonder if you'll be able to hail a taxi.  Volunteer is here.
 
 You can move north, east, south, in and southwest.
 
@@ -453,8 +442,7 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.
-Volunteer is here.
+wonder if you'll be able to hail a taxi.  Volunteer is here.
 
 You can move north, east, south, west, in and southwest.
 
@@ -466,9 +454,7 @@ You stand at the bottom of a stairway located inconspiciously next to a
 nicely kept suburban house.  A camera records your movement as you note how
 well worn the steps are.  The door looks innocent enough until you note that
 it has been tampered with to provide extra security.  Don't strip here, this
-isn't the type of place it seems.
-
-Also here is VW Van.
+isn't the type of place it seems.  Also here is VW Van.
 
 You can move east and south.
 
@@ -481,8 +467,7 @@ Lair Of The LGM
 This is the private operating layer of the LGM News Service, printers of the
 infamous Magic Bullet Digest.  A network of computers fills the room.
 Shelves, boxes, and wires incorporate the rest.  The sight of their coffee
-machine gives you a nauseous feeling.
-Byers, Frohike and Skinner are here.
+machine gives you a nauseous feeling.  Byers, Frohike and Skinner are here.
 Langly is here.
 
 You can move up and out.
@@ -509,9 +494,7 @@ You stand at the bottom of a stairway located inconspiciously next to a
 nicely kept suburban house.  A camera records your movement as you note how
 well worn the steps are.  The door looks innocent enough until you note that
 it has been tampered with to provide extra security.  Don't strip here, this
-isn't the type of place it seems.
-
-Also here is VW Van.
+isn't the type of place it seems.  Also here is VW Van.
 
 You can move east, south and in.
 
@@ -548,8 +531,7 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.
-Volunteer is here.
+wonder if you'll be able to hail a taxi.  Volunteer is here.
 
 You can move north, east, south, west, in and southwest.
 
@@ -604,9 +586,7 @@ Welcome to Bellefleur, Oregon, the place your parents worked their first and
 last case together as partners in the FBI X-Files Division.  This is main
 street.  The town is very old-fashioned.  Throughout town, there's a post
 office, a hardware store, and a small diner.  There's a sheriff office here
-as well.
-
-Also here is VW Van.
+as well.  Also here is VW Van.
 
 You can move east, south, west, northeast, southeast, southwest and
 northwest.
@@ -628,9 +608,7 @@ Dean's Diner
 This is Dean's Diner.  It's decorated with memorabilia from the mid-twentieth
 century.  There's a trendy checkered theme with the flooring and the
 furniture here.  You can hear and indistinct song from the era playing in the
-backround.
-
-Also here is A Buzzer.
+backround.  Also here is A Buzzer.
 
 You can only move out.
 
@@ -656,9 +634,7 @@ Welcome to Bellefleur, Oregon, the place your parents worked their first and
 last case together as partners in the FBI X-Files Division.  This is main
 street.  The town is very old-fashioned.  Throughout town, there's a post
 office, a hardware store, and a small diner.  There's a sheriff office here
-as well.
-
-Also here is VW Van.
+as well.  Also here is VW Van.
 
 You can move east, south, west, northeast, southeast, southwest and
 northwest.
@@ -679,8 +655,7 @@ You move in.
 Arroway Hardware
 This is a small town hardware store that has recently been renovated.  Rows
 and rows of hardware equipment make up the shelves that line the walls.
-There's a counter here, too.
-Arroway is here.
+There's a counter here, too.  Arroway is here.
 
 > take directions
 You take the directions from Mr. Arroway and note them mentally.
@@ -703,10 +678,8 @@ Outside Arroway Hardware Store - Bellefleur, OR
 You stand outside of the only legitimate shop left in Bellefleur and it seems
 to be doing remarkably well.  The newer concrete building seems to dwarf its
 forgotten neighbors.  Wheelbarrows lean against the outside of this building.
-
-Also here is VW Van.
-Byers, Frohike and Skinner are here.
-Langly is here.   You notice a man sitting alone in a dark car.
+ Also here is VW Van.  Byers, Frohike and Skinner are here.  Langly is here.
+ You notice a man sitting alone in a dark car.
 
 You can move south, in and southwest.
 
@@ -730,10 +703,8 @@ Outside Arroway Hardware Store - Bellefleur, OR
 You stand outside of the only legitimate shop left in Bellefleur and it seems
 to be doing remarkably well.  The newer concrete building seems to dwarf its
 forgotten neighbors.  Wheelbarrows lean against the outside of this building.
-
-Also here is VW Van.
-Byers, Frohike and Skinner are here.
-Langly is here.   You notice a man sitting alone in a dark car.
+ Also here is VW Van.  Byers, Frohike and Skinner are here.  Langly is here.
+ You notice a man sitting alone in a dark car.
 
 You can move south, in and southwest.
 Frohike looks to you and your companions and you all get out of the van.
@@ -747,8 +718,7 @@ venture into the woods.
 Forest Clearing - Bellefleur, OR
 You stand in a small clearing made in the Oregon forest.  There's a small
 dwelling here that looks like a hunting cabin common to this area.  You feel
-like you're being watched.
-There's a soldier hidden in some foliage here.
+like you're being watched.  There's a soldier hidden in some foliage here.
 
 > ko
 The sentry, approaching you cooly and calmy, grips the barrel of his rifle

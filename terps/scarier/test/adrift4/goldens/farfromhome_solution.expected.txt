@@ -226,9 +226,7 @@ Behind the lighthouse, the masonry is less dilapidated. The tide only washes
 up to about within 10 feet of the tower, so it is not striking the stone back
 here. A lone tree sits to the west, oddly right on the edge of the ocean.
 You can see a gaping hole in the structure of the lighthouse, around the
-third floor.
-
-Also here is a pretty blue seashell.
+third floor.  Also here is a pretty blue seashell.
 
 > open seashell
 You open the pretty blue seashell.  A tiny pearl is inside the pretty blue
@@ -286,8 +284,8 @@ In the lighthouse- 4th floor
 The room is a complete mess. Clothes lie strewn about the floor, and a
 dresser has been tipped backwards. Shattered pieces of a glass lamp are
 scattered about the mayhem, making it a hazard to walk around. A tiny bed
-lies tucked into the corner, its sheets and blanket nowhere near made.
-An old pirate is here,searching through everything in the room, stopping and
+lies tucked into the corner, its sheets and blanket nowhere near made.  An
+old pirate is here,searching through everything in the room, stopping and
 cursing every so often. "Where is it, where IS it, !%@$^%?!"
 
 > z
@@ -368,7 +366,6 @@ Behind the lighthouse, the masonry is less dilapidated. The tide only washes
 up to about within 10 feet of the tower, so it is not striking the stone back
 here. A lone tree sits to the west, oddly right on the edge of the ocean.  A
 length of rope hangs down from the third floor, allowing you to climb up.
-
 Also here is a pretty blue seashell.
 
 > w
@@ -396,9 +393,7 @@ Western Beach
 You are standing at the base of a tall, rough-trunked palm tree. Seagulls fly
 incessantly over it, circling for ages and ages, almost as if it is a god to
 them... The wet sand smooshes around beneath your feet, making footprint
-molds that are washed away every so often.
-
-Also here is a rotten coconut.
+molds that are washed away every so often.  Also here is a rotten coconut.
 
 > take coconut
 You pick up the rotten coconut.
@@ -412,7 +407,6 @@ Behind the lighthouse, the masonry is less dilapidated. The tide only washes
 up to about within 10 feet of the tower, so it is not striking the stone back
 here. A lone tree sits to the west, oddly right on the edge of the ocean.  A
 length of rope hangs down from the third floor, allowing you to climb up.
-
 Also here is a pretty blue seashell.
 
 > u
@@ -444,7 +438,6 @@ Behind the lighthouse, the masonry is less dilapidated. The tide only washes
 up to about within 10 feet of the tower, so it is not striking the stone back
 here. A lone tree sits to the west, oddly right on the edge of the ocean.  A
 length of rope hangs down from the third floor, allowing you to climb up.
-
 Also here is a pretty blue seashell.
 
 > s
@@ -467,9 +460,7 @@ The lighthouse floorboards squeak under your feet as you walk around. Dust
 stirs up from an ancient table as you brush by it, walking about slowly.
 Sunlight shines in through a dusty window about seven feet over your head.
 You can see something on the window ledge, but you can't quite make out what
-it is in the dim light.
-
-Also here is a gold-laced box.
+it is in the dim light.  Also here is a gold-laced box.
 
 > take box
 You pick up the gold-laced box.
@@ -491,13 +482,11 @@ You move in.
 The Puzzlelord's realm
 The room is filled with a sense of foreboding. A large figure floats above
 the floor in the center of the room. His guards stand on either side of him,
-ready to defend him if needed.
-
-Also here is the help list.
-The man himself is a truly fearful sight. His skin glows with an awful,
-iridescent blueness that illuminates the room and reflects from the golden
-walls.  He is wearing a glass crown that is set with emeralds, sapphires, and
-rubies. It has a large "P" set in the center of it.
+ready to defend him if needed.  Also here is the help list.  The man himself
+is a truly fearful sight. His skin glows with an awful, iridescent blueness
+that illuminates the room and reflects from the golden walls.  He is wearing
+a glass crown that is set with emeralds, sapphires, and rubies. It has a
+large "P" set in the center of it.
 
 > ask man about riddle
 Before you can open your mouth, he begins to speak. "Hello, Sam. Yes, I do

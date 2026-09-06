@@ -28,11 +28,9 @@ Thanks for betatesting to: Woodfish, DavidW, Mystery, MorningStar, MyleStyle,
 Davide Centurione, Paolo Lucchesi and above all... Alberto Piva.
 
 The Cell
-A dirty, little, square cell.
-
-In the eastern wall there's a two-barred window.  A straw bundle for sleeping
-in one corner.  In the western wall there's a door.  On the floor, near the
-door, there's a little bowl.
+A dirty, little, square cell.  In the eastern wall there's a two-barred
+window.  A straw bundle for sleeping in one corner.  In the western wall
+there's a door.  On the floor, near the door, there's a little bowl.
 
 > remember
 "Hey Jack! Get that gun... Let's go to hunt!"

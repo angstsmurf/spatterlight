@@ -308,8 +308,7 @@ he not seem very friendly to SoMorph.
 
 SoMorph can go South to corridor.
 
-Also here is some catnip.
-Frank is here.
+  Also here is some catnip.  Frank is here.
 
 SoMorph can only move south.
 

@@ -64,9 +64,8 @@ You move west.
 Judy's bedroom
 This is Judy's bedroom.  She practices her trumpet in this room.  There is a
 waterbed here, with a bedside table.  Two windows are on the north wall.
-There is a bathroom to the west, and the hallway is to the east.
-
-Also here is an instrument case.
+There is a bathroom to the west, and the hallway is to the east.  Also here
+is an instrument case.
 
 > open case
 You open the instrument case.  Inside the instrument case is a small bottle,
@@ -90,8 +89,8 @@ You move east.
 Outside Bedrooms
 This is a long, white-tiled hallway lined with photographs. The guest room is
 to the east, David's room is to the north-east, a bathroom is to the north,
-Judy's bedroom is to the west. The hallway continues to the south.
-David is here.  David walks out to the north.
+Judy's bedroom is to the west. The hallway continues to the south.  David is
+here.  David walks out to the north.
 
 > s
 You move south.
@@ -121,8 +120,7 @@ the floor.  There are a variety of small appliances on the counter.  To the
 south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
-good.
-Judy is here, whistling happily.
+good.  Judy is here, whistling happily.
 
 > s
 You move south.
@@ -132,9 +130,7 @@ The eating area is where most of the family meals are eaten, around the
 round, glass-topped table.  Sitting at the table one can either look out the
 sliding glass door to the pool to the west, or look into the family room to
 the east, where there television can plainly be seen.  To the north is the
-kitchen.
-
-Also here is a leather purse.
+kitchen.  Also here is a leather purse.
 
 > open purse
 You open the leather purse.  A set of car keys is inside the leather purse.
@@ -151,8 +147,7 @@ the floor.  There are a variety of small appliances on the counter.  To the
 south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
-good.
-Judy is here, whistling happily.
+good.  Judy is here, whistling happily.
 
 > e
 You move east.
@@ -161,9 +156,7 @@ Laundry
 One of the smallest rooms in the house, this room has a washer and dryer in
 it.  On the floor you see the kitty's food, water and kitty litter.  To the
 east is the door leading to the garage, and west is the kitchen.  To the
-south is the half-bath.
-
-Also here is a laundry basket.
+south is the half-bath.  Also here is a laundry basket.
 
 > e
 You move east.
@@ -183,9 +176,8 @@ The car door is open.
 You move in.
 
 Car
-You're in a red & gray 1994 Chrysler Concorde.
-
-Also here is a folder and a garage-door opener.
+You're in a red & gray 1994 Chrysler Concorde.  Also here is a folder and a
+garage-door opener.
 
 > get folder
 You pick up the folder.
@@ -205,9 +197,7 @@ Laundry
 One of the smallest rooms in the house, this room has a washer and dryer in
 it.  On the floor you see the kitty's food, water and kitty litter.  To the
 east is the door leading to the garage, and west is the kitchen.  To the
-south is the half-bath.
-
-Also here is a laundry basket.
+south is the half-bath.  Also here is a laundry basket.
 
 > w
 You move west.
@@ -218,8 +208,7 @@ the floor.  There are a variety of small appliances on the counter.  To the
 south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
-good.
-Judy is here, whistling happily.  David sashays in.
+good.  Judy is here, whistling happily.  David sashays in.
 
 > give trumpet to judy
 You give the trumpet to Judy. She thanks you.
@@ -314,9 +303,7 @@ the floor.  There are a variety of small appliances on the counter.  To the
 south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
-good.
-David is here.
-Judy is here, whistling happily.
+good.  David is here.  Judy is here, whistling happily.
 
 > e
 You move east.
@@ -325,9 +312,7 @@ Laundry
 One of the smallest rooms in the house, this room has a washer and dryer in
 it.  On the floor you see the kitty's food, water and kitty litter.  To the
 east is the door leading to the garage, and west is the kitchen.  To the
-south is the half-bath.
-
-Also here is a laundry basket.
+south is the half-bath.  Also here is a laundry basket.
 
 > get dirty clothes
 You now have the dirty clothes.
@@ -378,9 +363,7 @@ the floor.  There are a variety of small appliances on the counter.  To the
 south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
-good.
-David is here.
-Judy is here, whistling happily.
+good.  David is here.  Judy is here, whistling happily.
 
 > get pot
 Take what?
@@ -411,9 +394,7 @@ The blue-carpeted living room features a large set of bookshelves on the east
 wall.  There are some chairs and a sofa-bed here.  Windows on the west wall
 look out on the swimming pool.  This room opens into the dining room and
 eventually the kitchen, to the south.  East is the hallway, and the entrance
-hall is to the south-east.
-
-Also here is a chess table.
+hall is to the south-east.  Also here is a chess table.
 
 > play chess
 David strolls into the room.  You two sit down and play chess. You lost the
@@ -451,8 +432,7 @@ the floor.  There are a variety of small appliances on the counter.  To the
 south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
-good.
-Judy is here, whistling happily.
+good.  Judy is here, whistling happily.
 
 > e
 You move east.
@@ -475,9 +455,8 @@ west wall, as is the garage door opener.  The car door is open.
 You move in.
 
 Car
-You're in a red & gray 1994 Chrysler Concorde.
-
-Also here is a garage-door opener.
+You're in a red & gray 1994 Chrysler Concorde.  Also here is a garage-door
+opener.
 
 > get opener
 You pick up the garage-door opener.

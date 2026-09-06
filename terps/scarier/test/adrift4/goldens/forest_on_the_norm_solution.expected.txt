@@ -37,8 +37,7 @@ I move east.
 
 Wood
 There is a chicken. Isn`t that the chicken, which has stolen my starship? The
-chicken is blocking your way.
-Chicken is here.
+chicken is blocking your way.  Chicken is here.
 
 > give easteregg to chicken
 Thank you.... uh, there was a key inside.
@@ -66,8 +65,8 @@ The Cave opens.....
 I move north.
 
 Cave
-I am in the cave. He.... I`ve seen him in space before: Roger W.
-Roger is here.
+I am in the cave. He.... I`ve seen him in space before: Roger W.  Roger is
+here.
 
 > ask roger about way
 Roger W. shows you the nothern way
@@ -76,8 +75,7 @@ Roger W. shows you the nothern way
 I move north.
 
 Big tree
-He, it looks like the biggest tree in RON!
-Big tree is here.
+He, it looks like the biggest tree in RON!  Big tree is here.
 
 > climb big tree
 Now you can go up.
@@ -101,9 +99,7 @@ OK, I am going to start diving! Now I can see a way up...
 I move up.
 
 YAHTZEEBRAND
-Oh, there is the shop.... and the clerk?
-
-Also here is a Needle.
+Oh, there is the shop.... and the clerk?  Also here is a Needle.
 
 > get needle
 Iget the needle and somebody opens the door behind me. I can go south now.

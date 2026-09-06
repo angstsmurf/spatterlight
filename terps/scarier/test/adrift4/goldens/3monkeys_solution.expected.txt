@@ -74,7 +74,6 @@ nearby corner facing east.  Your bed is here.
     You see to the north a high platform, to the northeast some sort of tree,
 and to the east a gate set in the wall.  The chimpanzee is northeast.  The
 mandrill is north.
-
     Lying on the ground here is a flint stone.
 
 > get stone
@@ -121,7 +120,6 @@ even growing, in this corner of the cage.  A short distance from the tree is
 a trough suspended in the air, stretching southward.
     You see to the south a gate set in the wall, to the southwest your bed,
 and to the west a high platform in the tree.
-
     Lying on the ground here is a barbecue fork.
     The mandrill is here.
 
@@ -185,10 +183,8 @@ a hornet's nest.
     You see to the east a coconut tree, to the southeast a gate, and to the
 south your bed.  The chimpanzee is east.  The mandrill is east.  Also to the
 south is the fire that you started.
-
     Smoke blown in from the south makes it slightly uncomfortable to breathe
 in this corner of the cage.
-
     Lying on the ground here is a banana.
 
     The mandrill's feelings towards you haven't changed, but he is avoiding
@@ -217,7 +213,6 @@ nearby corner blowing wind north.  Your bed is here.
     You see to the north a high platform, to the northeast some sort of tree,
 and to the east a gate set in the wall.  The chimpanzee is northeast in the
 tree.  The mandrill is northeast.
-
     The fire you started is burning here, smoke being blown towards the
 north.
 
@@ -259,7 +254,6 @@ from a point high up on the south wall is a long cylindrical bar.
     You see to the west your bed, to the northwest a platform, and to the
 north a coconut tree.  The chimpanzee is northwest on the platform.  The
 mandrill is north.  Also to the west is the fire that you started.
-
     Smoke blown in from the west makes it slightly uncomfortable to breathe
 in this corner of the cage.
 
@@ -341,7 +335,6 @@ nearby corner blowing wind east.  Your bed is here.
     You see to the north a high platform, to the northeast some sort of tree,
 and to the east a gate set in the wall.  The chimpanzee is northeast in the
 tree.  The mandrill is north.
-
     The fire you started is burning here, smoke being blown towards the east.
 
 You turn the fan so it is facing northeast.
@@ -358,7 +351,6 @@ a trough suspended in the air, stretching southward.
     You see to the south a gate set in the wall, to the southwest your bed,
 and to the west a high platform in the tree.  The mandrill is west.  Also to
 the southwest is the fire that you started.
-
     Smoke blown in from the southwest makes it slightly uncomfortable to
 breathe in this corner of the cage.
     The chimpanzee is up in the coconut tree.
@@ -512,7 +504,6 @@ nearby corner blowing wind northeast.  Your bed is here.
     You see to the north a high platform, to the northeast some sort of tree,
 and to the east a gate set in the wall.  The chimpanzee is northeast.  The
 mandrill is north.
-
     The fire you started is burning here, smoke being blown towards the
 northeast.
 
@@ -545,7 +536,6 @@ bucket.
     You see to the west your bed, to the northwest a platform, and to the
 north a coconut tree.  The chimpanzee is north.  The mandrill is northwest.
 Also to the west is the fire that you started.
-
     Smoke blown in from the west makes it slightly uncomfortable to breathe
 in this corner of the cage.
 
@@ -601,7 +591,6 @@ nearby corner blowing wind east.  Your bed is here.
     You see to the north a high platform, to the northeast some sort of tree,
 and to the east a gate set in the wall.  The chimpanzee is northeast in the
 tree.  The mandrill is north.
-
     The fire you started is burning here, smoke being blown towards the east.
 
 (first untying the cord from your waist)
@@ -628,7 +617,6 @@ a hornet's nest.
     You see to the east a coconut tree, to the southeast a gate, and to the
 south your bed.  The chimpanzee is east in the tree.  Also to the south is
 the fire that you started.
-
     Lying on the ground here is a banana peel.
     The mandrill is here.
 
@@ -656,7 +644,6 @@ nearby corner blowing wind east.  Your bed is here.
     You see to the north a high platform, to the northeast some sort of tree,
 and to the east a gate set in the wall.  The chimpanzee is northeast.  The
 mandrill is north.
-
     The fire you started is burning here, smoke being blown towards the east.
 
     A thick swarm of hornets fills the air.
@@ -692,11 +679,9 @@ from a point high up on the south wall is a long cylindrical bar.
     You see to the west your bed, to the northwest a platform, and to the
 north a coconut tree.  The chimpanzee is northwest.  Also to the west is the
 fire that you started.
-
     Smoke blown in from the west makes it slightly uncomfortable to breathe
 in this corner of the cage.
     A thick swarm of hornets fills the air.
-
     Lying on the ground here is a small hook and a bucket.
 
     The mandrill runs madly over to your west (from your northwest).
@@ -878,11 +863,9 @@ nearby corner blowing wind east.  Your bed is here.
     You see to the north a high platform, to the northeast some sort of tree,
 and to the east a gate set in the wall.  The chimpanzee is northeast.  The
 mandrill is east.
-
     The fire you started is burning here, smoke being blown towards the east.
 
     A thick swarm of hornets fills the air.
-
     Lying on the ground here is a coconut.
     The mandrill, harassed by the hornets, is running to and fro like a
 madman.
@@ -978,9 +961,7 @@ from a point high up on the south wall is a long cylindrical bar.
     You see to the west your bed, to the northwest a platform, and to the
 north a coconut tree.  The chimpanzee is west.  Also to the west is the fire
 that you started.
-
     A thick swarm of hornets fills the air.
-
     Lying on the ground here is a small hook and a bucket.
     The mandrill, harassed by the hornets, is running to and fro like a
 madman.

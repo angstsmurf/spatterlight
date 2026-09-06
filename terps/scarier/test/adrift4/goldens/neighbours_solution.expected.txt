@@ -72,9 +72,7 @@ You move south.
 Garden
 Your garden is a tangled overgrown mess full of tools and equipment that
 never get used. But it's still better than the Crumms' garden next door.
-   Exits lie: north and east.
-
-Also here is a pole.
+   Exits lie: north and east.  Also here is a pole.
 
 > get pole
 You take the pole.
@@ -182,9 +180,7 @@ this bad. There's food scattered all over the floor, rats running about and
 you cringe to see that the Crumms have even installed a toilet beside their
 sink! If this isn't enough to get them thrown in prison then nothing is. A
 flight of steps lead down into the cellar.
-   Exits lie: west, northeast and down.
-
-Also here is an ear.
+   Exits lie: west, northeast and down.  Also here is an ear.
 
 > ne
 You move northeast.
@@ -289,8 +285,7 @@ You move east.
 
 Corridor
 This short corridor links the landing and a small room.
-   Exits lie: west and east.
-Bob the alsatian is here.
+   Exits lie: west and east.  Bob the alsatian is here.
 
 > show photo
 Bob takes one at the photos of Mull Crumms and starts howling in disgust! He
@@ -339,9 +334,7 @@ Hallway
 The wallpaper is peeling off the walls here, revealing cheap, crumbly brick
 underneath. A light bulb overhead swings back and forth casting eerie shadows
 over everything. There is a small cabinet jammed into a corner here.
-   Exits lie: west and up.
-
-Also here is a ball and a glass eye.
+   Exits lie: west and up.  Also here is a ball and a glass eye.
 
 > open cabinet
 Using the key you open the cabinet. Inside there is a wig which you take with
@@ -439,9 +432,7 @@ Hallway
 The wallpaper is peeling off the walls here, revealing cheap, crumbly brick
 underneath. A light bulb overhead swings back and forth casting eerie shadows
 over everything. There is a small cabinet jammed into a corner here.
-   Exits lie: west and up.
-
-Also here is a ball and a glass eye.
+   Exits lie: west and up.  Also here is a ball and a glass eye.
 
 > w
 You move west.
@@ -462,9 +453,7 @@ this bad. There's food scattered all over the floor, rats running about and
 you cringe to see that the Crumms have even installed a toilet beside their
 sink! If this isn't enough to get them thrown in prison then nothing is. A
 flight of steps lead down into the cellar.
-   Exits lie: west, northeast and down.
-
-Also here is an ear.
+   Exits lie: west, northeast and down.  Also here is an ear.
 
 > w
 You move west.

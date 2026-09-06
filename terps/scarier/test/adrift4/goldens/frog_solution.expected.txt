@@ -36,7 +36,6 @@ You move east.
 The Shore
 Your web feet sink into the fragrant mud of the shore. You can't tell which
 of the openings int he weeds might be a path, or which direction to go in.
-
 Also here is a hat.
 
 > x mud
@@ -55,8 +54,7 @@ You hop closer to your battle with the princess.
 
 Castle gate.
 This is the entrance to the castle.  The castle lies to the south.  A guard
-blocks your way.
-Guard is here.
+blocks your way.  Guard is here.
 
 > s
 You move south.
@@ -65,8 +63,7 @@ The throne room
 You are in an elegant throne room that would probably impress you with its
 magnificance if you were into interior design rather than being a simple love
 lorn amphibian. Reggie lounges in  a corner. The princess is pointing a lugar
-at you. You had better do something. Fast.
-Reggie and Princess are here.
+at you. You had better do something. Fast.  Reggie and Princess are here.
 
 > flick tongue
 You lash out with your tongue. You weren't actually aiming at the Princess'

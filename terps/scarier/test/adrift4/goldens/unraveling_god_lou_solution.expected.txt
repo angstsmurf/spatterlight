@@ -224,8 +224,7 @@ sweatpants. A print of "Flaming June" decorates one wall, but Claudia has
 tucked tomorrow's to do list into the corner of the frame ("I always look at
 this painting when I get up, and this way I won't forget my list," she once
 told you.) The hall out into the apartment is to the east, and the master
-bathroom is to the south.
-Claudia is here.
+bathroom is to the south.  Claudia is here.
 
 > talk to claudia
 Running your hand further up her leg and over her stomach, you ask her what's
@@ -368,9 +367,8 @@ cage for Herb sits when he's here and not being suspended in the
 superconducting diamagnetic field. The two field generators, one larger than
 the other, take up the center of the room. Cables run from each across the
 floor to a row of computers sitting on a table. The hallway out of the MagLab
-is to the east.
-Claudia is here.
-Mike's loud voice makes it hard not to notice he's in the room.
+is to the east.  Claudia is here.  Mike's loud voice makes it hard not to
+notice he's in the room.
 
 > climb on machine
 You climb the rungs up the side of the large field generator and stand on the
@@ -464,8 +462,7 @@ way around the lab, except for one corner of the room where a cage for Herb,
 Justin's pet Rhesus monkey, sits when he's here and not floating in the
 superconducting diamagnetic field. A small field generator takes up the
 center of the room. Cables run from it across the floor to a computer sitting
-on a table. The hallway out of the MagLab is to the east.
-Justin is here.
+on a table. The hallway out of the MagLab is to the east.  Justin is here.
 
 > talk to justin
      "All right, Justin, what's all the excitement about?" You smile
@@ -610,9 +607,7 @@ Parking lot
 One of U of I's many parking lots, this one is relatively small and is
 reserved for the university faculty, which you qualify as, even if most of
 the other engineering professors have never heard of you. The MagLab is to
-the north.
-
-Your Ford Mustang is sitting here, looking damn good, as always.
+the north.  Your Ford Mustang is sitting here, looking damn good, as always.
 
 > get in car
 You climb inside the car and sit down on the fine leather of the driver's
@@ -638,9 +633,8 @@ You are in the short concrete driveway in front of your house. It's one in a
 row of two-story brick houses. You think it looks exactly the way a
 professor's home should look: a little old, a little run down, a little
 quaint. A sidewalk leads north from the driveway to the four concrete steps
-up to the front porch.
-
-Your Ford Mustang is sitting here, looking damn good, as always.
+up to the front porch.  Your Ford Mustang is sitting here, looking damn good,
+as always.
 
 You are thinking about the potential medical applications of magnetically
 "freezing" atoms in place, when, with an impact that literally makes you
@@ -818,8 +812,7 @@ The foyer of your house is really just a hallway. The lighting is dim enough
 to disguise the age of the hardwood floors and hide some of the faded spots
 on the walls. A rather striking stairway to the right leads upstairs, to the
 west is the living room, the kitchen is down the hallway to the north, and
-the door out of the house is to the south.
-Justin is here.
+the door out of the house is to the south.  Justin is here.
 
 > answer the door
 You open the front door. Claudia is standing there.

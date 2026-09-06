@@ -50,8 +50,8 @@ You move north.
 
 Some Place
 In front of you is a counter and an old filing cabinet. Places are to the
-north, south and east. A trail of blood leads north.
-A scared looking woman is staring wide eyed at you.
+north, south and east. A trail of blood leads north.  A scared looking woman
+is staring wide eyed at you.
 
 > n
 You move north. The female runs from the place screaming. You can almost feel

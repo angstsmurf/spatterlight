@@ -192,9 +192,7 @@ with window shutters straggling along beside then, and the smell of some
 faint substance that creeps along the edges of the walls; most importantly,
 the strange way the light filters through the jagged fractures of glass,
 twisting and rotating to create a ghostly apparition in the middle of the
-store.
-
-Also here is a bookbag.
+store.  Also here is a bookbag.
 
 > west
 You move west.
@@ -288,9 +286,7 @@ You move east.
 Arcade
 The arcade is preserved. Except for the torn green carpet, there is little
 blood to be found on the arcade machines. There is little chaos to be found
-in this place.
-
-Also here is a volleyball.
+in this place.  Also here is a volleyball.
 
 > take volleyball
 You take the volleyball.
@@ -330,9 +326,7 @@ Warehouse
 A plain bit of architecture. The warehouse is a large space with four walls
 and various windows. It appears to have been a factory of some sort (sweat
 shop most likely) and that accounts for its lack of personality. A myriad of
-cardboard boxes decorate the place.
-
-Also here is a shovel.
+cardboard boxes decorate the place.  Also here is a shovel.
 
 > take shovel
 You take the shovel.
@@ -439,9 +433,7 @@ Someone has shunned everything decent and orderly and civilized; there are
 blood on the walls! The vault is leaking open with traces of gray paper
 seeping from its wound. The counter where petrified clerks used to rest has
 been wiped clean of all the papers, documents, and insignificant items you
-would usually notice.
-
-Also here is paper money.
+would usually notice.  Also here is paper money.
 
 > take money
 You take paper money.
@@ -599,9 +591,7 @@ You move south.
 Police Department
 The difference now is that the corrupt policemen are gone, their desks and
 chairs and papers still remain on their desk. Little disorder has occurred in
-the transition from God to Man.
-
-Also here is a briefcase.
+the transition from God to Man.   Also here is a briefcase.
 
 > take briefcase
 You take the briefcase.
@@ -649,9 +639,7 @@ Museum
 A gallery of death? Perhaps? The paintings have all been destroyed and lie on
 the floor in a pool of dried red and gray substance. Sculptures remain,
 however, a testament to the goodness of whatever has been looking over this
-forsaken place.
-
-Also here is an orange relic.
+forsaken place.  Also here is an orange relic.
 
 > take orange relic
 You take the orange relic.
@@ -676,9 +664,7 @@ with window shutters straggling along beside then, and the smell of some
 faint substance that creeps along the edges of the walls; most importantly,
 the strange way the light filters through the jagged fractures of glass,
 twisting and rotating to create a ghostly apparition in the middle of the
-store.
-
-Also here is a bookbag.
+store.  Also here is a bookbag.
 
 > west
 You move west.
@@ -763,9 +749,8 @@ Wooden boards strut where they shouldn't. Walls are stripped of their paint.
 In the den, a television has been smashed and its wiring hide in the carpet.
 A knocked over trash can overflows.
 
-Blood is everywhere. It is the uniting theme of this house.
-
-Also here is an aluminum bat.
+Blood is everywhere. It is the uniting theme of this house.  Also here is an
+aluminum bat.
 
 > take bat
 You take the aluminum bat.
@@ -813,6 +798,7 @@ true.
 
 The sound system is the sole remainder of the past; it echoes the cries of
 past rebels.
+
 A decaying monster is here.
 
 > kill monster
@@ -909,9 +895,8 @@ Moldy acid, corroded bodies--that is the feature smell of this restaurant. It
 burns the eyes to look at the chairs and tables that have been turned into
 expensive splinters, the plates and glasses that have been nearly deconverted
 to sand, and the foaming substances that used to be food covering whole
-stretches of the floor, creating an organic carpet of infection.
-
-Also here is a plate of moldy food.
+stretches of the floor, creating an organic carpet of infection.  Also here
+is a plate of moldy food.
 
 > take food
 You take the plate of moldy food.
@@ -989,6 +974,7 @@ Decorations have been scattered everywhere. Vases broken. Flowers thrown from
 them, lying in pools in a bloody muck. The immense marble counter has been
 split in half, its rock been sprayed in all directions. Hundreds of travel
 brochures litter the floor.
+
 An obese woman fills a lounge chair and says: Feed Me.
 
 > give food to woman
@@ -1020,9 +1006,7 @@ The stink of the dead and dying aren't present here, instead, the antibiotic,
 detoxifying smell of man-made disinfectants rule the sphere. The floors are
 relatively clean; white tiles with the occassional splotch of blood on them.
 The windows and chairs are neat, untouched. Hell, the magazine rack is still
-full. It's almost as if a plague didn't occur here.
-
-Also here is a syringe.
+full. It's almost as if a plague didn't occur here.  Also here is a syringe.
 
 > take syringe
 You take the syringe.
@@ -1096,6 +1080,7 @@ Card Room
 The Sinner's Paradise; this card room has many poker tables. An abnormal
 amount of blood has been poured over each one, as if the sin flows heavier
 here, so much so that it is difficult to tell that they are poker tables.
+
 The spirit of a mad gambler is here.
 
 > give syringe to gambler

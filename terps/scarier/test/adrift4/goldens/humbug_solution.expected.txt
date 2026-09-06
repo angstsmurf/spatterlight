@@ -85,10 +85,8 @@ Exits are east, west and in.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a shovel and a can.
-Horace, Grandad's rather tubby gardener, is here.
+corner of the hut, beside a long wooden workbench.  Also here is a shovel and
+a can.  Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
 
@@ -211,9 +209,7 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  In the
-centre of the cellar there is a large wooden crate.
-
-Also here is a torch.
+centre of the cellar there is a large wooden crate.  Also here is a torch.
 There is a small chimpanzee here.
 
 I can only move up.
@@ -323,8 +319,7 @@ Second Floor
 I am standing on the second floor landing.  A low, squat doorway leads
 westward into the small spare bedroom.  There are locked doors to my east and
 north.  The rickety staircase continues its dangerous path in both up and
-down directions.
-There is a small tabby cat here, watching me intently.
+down directions.  There is a small tabby cat here, watching me intently.
 
 Exits are west, up and down.  Schrodinger wanders to below.
 
@@ -335,8 +330,7 @@ I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
 gentlemen. A narrow archway draped with wooden beads leads eastwards into a
 bedroom, whilst northwards is the bathroom. There is a locked door to my
-west.
-There is a small tabby cat here, watching me intently.
+west.  There is a small tabby cat here, watching me intently.
 
 Exits are north, east, up and down.  Schrodinger wanders to below.
 
@@ -454,7 +448,6 @@ access back to the bottom of the well.  Someone has taken the effort of
 installing a fluorescent light into the ceiling of the tunnel.  It flickers
 intermittently.  There is a strengthened door firmly set into the wall to my
 north.  An ornately carved lever sticks up through the mud on the floor.
-
 Also here is a crowbar.
 
 Exits are east, south and west.
@@ -552,9 +545,8 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
-Also here is a satchel, an envelope, a coin and a scarf.
-There is a small tabby cat here, watching me intently.
+Also here is a satchel, an envelope, a coin and a scarf.  There is a small
+tabby cat here, watching me intently.
 
 Exits are north, east, south, west and up.  Schrodinger wanders to the west.
 
@@ -576,8 +568,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  In the
-centre of the cellar there is a large wooden crate.
-There is a small chimpanzee here.
+centre of the cellar there is a large wooden crate.  There is a small
+chimpanzee here.
 
 Exits are east and up.
 
@@ -613,9 +605,8 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
-Also here is a satchel, an envelope, a coin and a scarf.
-There is a small tabby cat here, watching me intently.
+Also here is a satchel, an envelope, a coin and a scarf.  There is a small
+tabby cat here, watching me intently.
 
 Exits are north, east, south, west and up.  Schrodinger wanders to above.
 
@@ -632,8 +623,8 @@ Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
 Grandad's cellar.  To my south there is the main area of the hall.  A cord
-hangs from the ceiling of the alcove.
-There is a small tabby cat here, watching me intently.
+hangs from the ceiling of the alcove.  There is a small tabby cat here,
+watching me intently.
 
 Exits are south and down.  Schrodinger wanders to the south.
 
@@ -645,8 +636,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.
 
 Exits are east and up.
 
@@ -677,10 +668,9 @@ thud.
 
 Tunnel
 I am in the dingy red brick tunnel.  The tunnel continues its route to my
-east and west, whilst an ornate archway has been bricked up to my south.
-
-A wooden ladder leans against the wall.
-The body of the miner lies unconcious on the ground.
+east and west, whilst an ornate archway has been bricked up to my south.  A
+wooden ladder leans against the wall.  The body of the miner lies unconcious
+on the ground.
 
 Exits are east and west.
 
@@ -876,9 +866,8 @@ Okay.  I put the swimming cap onto the rectangular table.
 North Alcove
 I am standing in the north alcove next to a table shaped like an oval.  Just
 beyond reach there is a man-size gap in the ceiling above me.  Through the
-gap I can see the clear blue sky.  The central chamber is to my south.
-
-A wooden ladder leans against the wall.
+gap I can see the clear blue sky.  The central chamber is to my south.  A
+wooden ladder leans against the wall.
 
 Exits are south and up.
 
@@ -907,8 +896,7 @@ Exits are south and west.
 By Pub
 I am outside a public house.  A wooden sign hangs from the pub's
 pebble-dashed wall.  A dusty track leads off to the north.  It looks as
-though the pub is open.
-There is a horse and cart here.
+though the pub is open.  There is a horse and cart here.
 
 Exits are north and in.
 
@@ -923,9 +911,9 @@ rickety.  A coffin is on the cart.
 Frog and Ferret
 I am inside the Frog and Ferret public house.  It is a typical Victorian pub.
  In one corner there is a dusty dart board.  A large barman stands
-expectantly behind the bar.  It is not exactly hectic in here.
-A grave-digger stands nearby.  He is standing at the bar, looking vacantly
-into an empty glass.
+expectantly behind the bar.  It is not exactly hectic in here.  A
+grave-digger stands nearby.  He is standing at the bar, looking vacantly into
+an empty glass.
 
 An exit leads outside.
 
@@ -950,8 +938,7 @@ He burps loudly and immediately falls asleep.
 By Pub
 I am outside a public house.  A wooden sign hangs from the pub's
 pebble-dashed wall.  A dusty track leads off to the north.  It looks as
-though the pub is open.
-There is a horse and cart here.
+though the pub is open.  There is a horse and cart here.
 
 Exits are north and in.
 
@@ -969,8 +956,8 @@ Okay.  I close the coffin.
 Frog and Ferret
 I am inside the Frog and Ferret public house.  It is a typical Victorian pub.
  In one corner there is a dusty dart board.  A large barman stands
-expectantly behind the bar.  It is not exactly hectic in here.
-A grave-digger stands nearby.  He is slumped against the bar, snoring loudly.
+expectantly behind the bar.  It is not exactly hectic in here.  A
+grave-digger stands nearby.  He is slumped against the bar, snoring loudly.
 
 An exit leads outside.
 
@@ -982,8 +969,7 @@ I shake the grave-digger vigorously, and he wakes up.
 By Pub
 I am outside a public house.  A wooden sign hangs from the pub's
 pebble-dashed wall.  A dusty track leads off to the north.  It looks as
-though the pub is open.
-There is a horse and cart here.
+though the pub is open.  There is a horse and cart here.
 
 Exits are north and in.
 
@@ -1011,9 +997,8 @@ Exits are east and down.
 North Alcove
 I am standing in the north alcove next to a table shaped like an oval.  Just
 beyond reach there is a man-size gap in the ceiling above me.  Through the
-gap I can see the clear blue sky.  The central chamber is to my south.
-
-A wooden ladder leans against the wall.
+gap I can see the clear blue sky.  The central chamber is to my south.  A
+wooden ladder leans against the wall.
 
 Exits are south and up.
 
@@ -1051,8 +1036,8 @@ I can only move west.
 
 Tunnel
 I am in the dingy red brick tunnel.  The tunnel continues its route to my
-east and west, whilst an ornate archway has been bricked up to my south.
-The body of the miner lies unconcious on the ground.
+east and west, whilst an ornate archway has been bricked up to my south.  The
+body of the miner lies unconcious on the ground.
 
 Exits are east and west.
 
@@ -1089,8 +1074,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.
 
 Exits are east and up.
 
@@ -1110,7 +1095,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, a coin, a scarf, some
 gloves and a carrot.
 
@@ -1133,9 +1117,7 @@ I am in Grandad's study.  An elegant antique desk can be seen in one corner
 of the room; at least it would be seen if there weren't so many papers strewn
 all over it.  The rest of the room is taken up by hundreds of finely-bound
 books, arranged in an organised system of random piles and heaps.  There is a
-locked door to my east.
-
-Also here is a monocle.
+locked door to my east.  Also here is a monocle.
 
 I can only move south.
 
@@ -1223,9 +1205,7 @@ South Alcove
 I am standing in the south alcove.  The alcove is dominated by a large
 display case shaped like a crescent.  The case is covered in thick cobwebs.
 Hanging over the display case there is a small dial.  There is a strengthened
-door firmly set into the wall to my south.
-
-Also here is a mattress.
+door firmly set into the wall to my south.  Also here is a mattress.
 
 I can only move north.
 
@@ -1327,9 +1307,7 @@ I am in Grandad's study.  An elegant antique desk can be seen in one corner
 of the room; at least it would be seen if there weren't so many papers strewn
 all over it.  The rest of the room is taken up by hundreds of finely-bound
 books, arranged in an organised system of random piles and heaps.  There is
-an open door to my east.
-
-Also here is a monocle and a nailfile.
+an open door to my east.  Also here is a monocle and a nailfile.
 
 Exits are east and south.
 
@@ -1352,10 +1330,8 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, a coin, a scarf, some
-gloves and a carrot.
-There is a small tabby cat here, watching me intently.
+gloves and a carrot.  There is a small tabby cat here, watching me intently.
 
 Exits are north, east, south, west and up.  Schrodinger wanders to the north.
 
@@ -1379,8 +1355,8 @@ Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
 Grandad's cellar.  To my south there is the main area of the hall.  A cord
-hangs from the ceiling of the alcove.
-There is a small tabby cat here, watching me intently.
+hangs from the ceiling of the alcove.  There is a small tabby cat here,
+watching me intently.
 
 Exits are south and down.  Schrodinger wanders to the south.
 
@@ -1392,8 +1368,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.
 
 Exits are east and up.
 
@@ -1407,9 +1383,7 @@ I am in a low tunnel.  The floor is covered in bat droppings, and they
 squelch noisily beneath my impatient feet.  The walls of the tunnel have been
 made out of bright red brick, and look quite old.  As well as this a strange
 liquid is dripping down from a lead pipe running along the length of the
-tunnel.  All in all, it's lovely.
-
-Also here is a sweet.
+tunnel.  All in all, it's lovely.  Also here is a sweet.
 
 Exits are east and west.
 
@@ -1490,8 +1464,8 @@ Games Room
 I am in a softly lit room.  All sorts of games and puzzles litter the room.
 A round marble plinth stands in the middle of the room.  Built into the floor
 of the room there is a small drain.  On one of the walls there is a small
-official-looking sign.  There are thirteen sweets sitting on the plinth.
-A large octopus is sprawled over most of the room.
+official-looking sign.  There are thirteen sweets sitting on the plinth.  A
+large octopus is sprawled over most of the room.
 
 I can only move west.
 He extends a slippery tentacle in my direction and I hesitantly shake it.
@@ -1598,9 +1572,7 @@ I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
 On the west wall there is a strange pattern of ancient runes.  Beneath the
 runes there is a small socket.  A long extension lead runs along the tunnel
-floor to my south.
-
-Also here is a monocle.
+floor to my south.  Also here is a monocle.
 
 Exits are north, east and south.
 
@@ -1620,8 +1592,8 @@ Exits are north, east and south.
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
-heads off in an westerly direction.
-An aardvark is curled up on top of the washing machine.
+heads off in an westerly direction.  An aardvark is curled up on top of the
+washing machine.
 
 Exits are east, south and west.
 
@@ -1676,10 +1648,8 @@ I am at a turning in the tunnel.  A mass of electronic diodes and valves
 dominate the east wall of the tunnel.  It is virtually impossible to see the
 brickwork underneath.  A small button is hidden amid the wires and circuit
 boards.  A grubby computer sits on the floor, attached to the wall's
-circuitry through optical fibres.  There is a marble pedestal here.
-
-Also here is a humbug.
-A hacker stands beside the computer.
+circuitry through optical fibres.  There is a marble pedestal here.  Also
+here is a humbug.  A hacker stands beside the computer.
 
 Exits are north and west.
 
@@ -1735,9 +1705,7 @@ Okay.  I turn the torch on.
 Tunnel
 I am in the underground tunnel.  Crawling vines climb up the tunnel's walls.
 A large metal door prevents me from going east.  There is a small wooden
-stool here.
-
-Also here is a parchment.
+stool here.  Also here is a parchment.
 
 Exits are south and west.
 
@@ -1754,8 +1722,8 @@ metal door begins to slide open.
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
-heads off in an westerly direction.
-An aardvark is curled up on top of the washing machine.
+heads off in an westerly direction.  An aardvark is curled up on top of the
+washing machine.
 
 Exits are east, south and west.
 
@@ -1780,9 +1748,7 @@ I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
 On the west wall there is a strange pattern of ancient runes.  Beneath the
 runes there is a small socket.  A long extension lead runs along the tunnel
-floor to my south.
-
-Also here is a monocle.
+floor to my south.  Also here is a monocle.
 
 Exits are north, east and south.
 
@@ -1816,8 +1782,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.
 
 Exits are east and up.
 
@@ -1840,10 +1806,8 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a coin, a scarf, some gloves,
-a carrot and a claw.
-There is a small tabby cat here, watching me intently.
+a carrot and a claw.  There is a small tabby cat here, watching me intently.
 
 Exits are north, east, south, west and up.  Schrodinger wanders to the west.
 
@@ -2093,9 +2057,7 @@ Manor Grounds
 I am standing in the grounds, by a long hedge of brambles.  The brambles are
 very prickly and are covered in frosty cobwebs.  There is a small gap in the
 hedge to my west, with a small sign beside it.  A snowy track meanders its
-way northwards into a wooded copse.
-
-Also here is a parchment.
+way northwards into a wooded copse.  Also here is a parchment.
 
 Exits are north, east and west.
 
@@ -2106,8 +2068,8 @@ I am in a small clearing in a wooded copse in the manor grounds.  In the
 centre of the clearing, at the base of a dead tree, there is a small hole
 leading downwards.  I suppose if I really wanted to, I might just be able to
 squeeze down it.  All ways bar southwards out of this clearing are blocked by
-brambles and heavy snow.
-Nearby a baby bear cub scavenges around for food in the snow.
+brambles and heavy snow.  Nearby a baby bear cub scavenges around for food in
+the snow.
 
 Exits are south and down.
 
@@ -2125,8 +2087,8 @@ Warren
 I am in an underground rabbit warren.  Twisting earth tunnels lead off in all
 directions.  A sign hangs on the wall of the warren.  Something red sparkles
 brightly at the end of the burrow to my north.  There are two flowers here:
-one blue and one orange.
-A waistcoated rabbit leans drunkenly against a wall.
+one blue and one orange.  A waistcoated rabbit leans drunkenly against a
+wall.
 
 Exits are north, east, south, west, up and down.
 
@@ -2153,9 +2115,7 @@ Warren
 I am in an underground rabbit warren.  Twisting burrowed tunnels lead off in
 most directions.  Many generations of rabbits have left their mark on this
 part of the warren in the only way they know how: thousands upon thousands of
-droppings.  This really isn't my idea of a fun day out.
-
-Also here is a ruby.
+droppings.  This really isn't my idea of a fun day out.  Also here is a ruby.
 
 Exits are north, east, south, west and down.
 
@@ -2167,11 +2127,9 @@ Okay.  I have taken the ruby.
 Warren
 I am in an underground rabbit warren.  Twisting earth tunnels lead off in all
 directions.  A sign hangs on the wall of the warren.  There is a blue flower
-here.
-
-Also here are some trousers, a shirt, a shovel, a swimming cap, an emerald
-and some termites.
-A waistcoated rabbit leans drunkenly against a wall.
+here.  Also here are some trousers, a shirt, a shovel, a swimming cap, an
+emerald and some termites.  A waistcoated rabbit leans drunkenly against a
+wall.
 
 Exits are north, east, south, west, up and down.
 
@@ -2200,8 +2158,8 @@ I am in a small clearing in a wooded copse in the manor grounds.  In the
 centre of the clearing, at the base of a dead tree, there is a small hole
 leading downwards.  I suppose if I really wanted to, I might just be able to
 squeeze down it.  All ways bar southwards out of this clearing are blocked by
-brambles and heavy snow.
-Nearby a baby bear cub scavenges around for food in the snow.
+brambles and heavy snow.  Nearby a baby bear cub scavenges around for food in
+the snow.
 
 Exits are south and down.
 
@@ -2211,9 +2169,7 @@ Manor Grounds
 I am standing in the grounds, by a long hedge of brambles.  The brambles are
 very prickly and are covered in frosty cobwebs.  There is a small gap in the
 hedge to my west, with a small sign beside it.  A snowy track meanders its
-way northwards into a wooded copse.
-
-Also here is a parchment.
+way northwards into a wooded copse.  Also here is a parchment.
 
 Exits are north, east and west.
 
@@ -2255,7 +2211,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, an envelope, a torch, a coin, a scarf, some gloves, a
 claw and a jigsaw.
 
@@ -2282,8 +2237,8 @@ I am in the sitting room.  This room is full of archaeological bric-a-brac
 and paraphernalia.  To the north there is a locked door, looking out over the
 large back garden.  In a dingy corner of the room there is a voluminous
 armchair with an attractive paisley print.  An open fireplace is built into
-the east wall.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+the east wall.  The familiar figure of Grandad slouches in the armchair
+snoring loudly.
 
 I can only move west.
 
@@ -2363,7 +2318,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, a coin, a scarf, some
 gloves, a claw, a jigsaw, an emerald, some termites and a ruby.
 
@@ -2396,8 +2350,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.
 
 Exits are east and up.
 
@@ -2433,9 +2387,7 @@ I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
 On the west wall there is a strange pattern of ancient runes.  Beneath the
 runes there is a small socket.  A long extension lead runs along the tunnel
-floor to my south.
-
-Also here is a monocle.
+floor to my south.  Also here is a monocle.
 
 Exits are north, east and south.
 
@@ -2446,9 +2398,7 @@ I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
 majestic look.  Through the archway all I can see is a hazy mist.  Next to
 the archway there is a small fire alarm.  A long extension lead runs north
-and east along the ground.
-
-Also here is a hammer.
+and east along the ground.  Also here is a hammer.
 
 Exits are north, east and south.
 
@@ -2457,8 +2407,8 @@ Exits are north, east and south.
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
-heads off in an westerly direction.
-An aardvark is curled up on top of the washing machine.
+heads off in an westerly direction.  An aardvark is curled up on top of the
+washing machine.
 
 Exits are east, south and west.
 
@@ -2641,8 +2591,8 @@ Exits are north, east, south and west.
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
-heads off in an westerly direction.
-An aardvark is curled up on top of the washing machine.
+heads off in an westerly direction.  An aardvark is curled up on top of the
+washing machine.
 
 Exits are east, south and west.
 
@@ -2653,9 +2603,7 @@ I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
 majestic look.  Through the archway all I can see is a hazy mist.  Next to
 the archway there is a small fire alarm.  A long extension lead runs north
-and east along the ground.
-
-Also here is a hammer.
+and east along the ground.  Also here is a hammer.
 
 Exits are north, east and south.
 
@@ -2666,9 +2614,7 @@ I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
 On the west wall there is a strange pattern of ancient runes.  Beneath the
 runes there is a small socket.  A long extension lead runs along the tunnel
-floor to my south.
-
-Also here is a monocle.
+floor to my south.  Also here is a monocle.
 
 Exits are north, east and south.
 
@@ -2702,8 +2648,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.
 
 Exits are east and up.
 
@@ -2726,7 +2672,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a coin, a scarf, some gloves,
 a claw, a jigsaw, an emerald, a ruby and a hat.
 
@@ -2756,9 +2701,7 @@ I am in a long rectangular room with a heavy wooden table.  The walls are
 covered with pans, dishes and china plates.  There is a shallow doorway to my
 west labelled "Pantry", whist an open archway leads southwards back into the
 dining room.  A kennel sits in one corner of the kitchen.  There is a door to
-my east.
-
-Also here is a kettle.
+my east.  Also here is a kettle.
 
 Exits are south and west.
 From inside the kennel there is a deep growl.
@@ -2814,9 +2757,7 @@ I am in a long rectangular room with a heavy wooden table.  The walls are
 covered with pans, dishes and china plates.  There is a shallow doorway to my
 west labelled "Pantry", whist an open archway leads southwards back into the
 dining room.  A kennel sits in one corner of the kitchen.  There is a door to
-my east.
-
-Also here is a kettle.
+my east.  Also here is a kettle.
 
 Exits are east, south and west.
 
@@ -2864,7 +2805,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a coin, a scarf, some gloves,
 a claw, a jigsaw, an emerald, a ruby and a hat.
 
@@ -2937,8 +2877,7 @@ drags me out of the water.
 Viking Galley
 I am onboard the Viking longboat.  This seems to be some sort of galley area
 - boars hang up on hooks from the low beamed ceiling.  Blood slowly drips
-from the boars carcasses onto a large oval table.
-There is a Viking here.
+from the boars carcasses onto a large oval table.  There is a Viking here.
 
 Exits are north and south.
 He hands me a mug, "Here, this'll soon warm you up.."
@@ -3008,8 +2947,7 @@ I am standing on the small island in the middle of the iced-over lake.  In
 fact it is less of an island and more of a small patch of frozen land.  There
 is a run-down windmill here, casting an eerie shadow in the winter sunshine.
 A dispenser leans up against the windmill.  The Viking longboat is close to
-the island shore.
-Sitting nearby there is a rather overweight sea-lion.
+the island shore.  Sitting nearby there is a rather overweight sea-lion.
 
 Exits are north and up.
 
@@ -3119,7 +3057,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, a scarf, some gloves,
 a claw, an emerald, a ruby, a hat, a mousse, a kettle, a golden casket, a pot
 and a bone.
@@ -3143,7 +3080,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, a scarf, some gloves,
 a claw, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a
 kettle, a golden casket, a fish, a pot, a bone, a filofax, a mug, a sugar
@@ -3158,12 +3094,11 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, a scarf, some gloves,
 a claw, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a
 kettle, a golden casket, a fish, a pot, a bone, a filofax, a mug, a sugar
-lump, a bag of porridge and a ticket.
-There is a small tabby cat here, watching me intently.
+lump, a bag of porridge and a ticket.  There is a small tabby cat here,
+watching me intently.
 
 Exits are north, east, south, west and up.
 
@@ -3204,10 +3139,8 @@ I am in the pantry.  It is a small, dark room - the only source of light
 being a barred oval window built close to the ceiling in the west wall.  A
 definite niff of seaweed wafts around the shelves.  Small mountains of
 marzipan and icing sugar are liberally scattered across the damp stone floor.
-
-Also here is a caddy.
-A shark is leaning against one of the mounds of marzipan.  He gives me a
-knowing wink.
+ Also here is a caddy.  A shark is leaning against one of the mounds of
+marzipan.  He gives me a knowing wink.
 
 I can only move east.  Schrodinger wanders towards me from the east.
 
@@ -3218,10 +3151,9 @@ I am in the pantry.  It is a small, dark room - the only source of light
 being a barred oval window built close to the ceiling in the west wall.  A
 definite niff of seaweed wafts around the shelves.  Small mountains of
 marzipan and icing sugar are liberally scattered across the damp stone floor.
-
-Also here is a caddy.
-There is a small tabby cat here, watching me intently.  A shark is leaning
-against one of the mounds of marzipan.  He gives me a knowing wink.
+ Also here is a caddy.  There is a small tabby cat here, watching me
+intently.  A shark is leaning against one of the mounds of marzipan.  He
+gives me a knowing wink.
 
 I can only move east.
 A small mouse pokes its head around a mound of marzipan and squeaks at me.
@@ -3233,11 +3165,9 @@ I am in the pantry.  It is a small, dark room - the only source of light
 being a barred oval window built close to the ceiling in the west wall.  A
 definite niff of seaweed wafts around the shelves.  Small mountains of
 marzipan and icing sugar are liberally scattered across the damp stone floor.
-
-Also here is a caddy.
-There is a small tabby cat here, watching me intently.  A shark is leaning
-against one of the mounds of marzipan.  He gives me a knowing wink.  There is
-a small mouse here.
+ Also here is a caddy.  There is a small tabby cat here, watching me
+intently.  A shark is leaning against one of the mounds of marzipan.  He
+gives me a knowing wink.  There is a small mouse here.
 
 I can only move east.
 The cat pounces on the mouse, and swipes at it with a sharp claw.
@@ -3249,10 +3179,9 @@ I am in the pantry.  It is a small, dark room - the only source of light
 being a barred oval window built close to the ceiling in the west wall.  A
 definite niff of seaweed wafts around the shelves.  Small mountains of
 marzipan and icing sugar are liberally scattered across the damp stone floor.
-
-Also here is a caddy and a mouse.
-There is a small tabby cat here, watching me intently.  A shark is leaning
-against one of the mounds of marzipan.  He gives me a knowing wink.
+ Also here is a caddy and a mouse.  There is a small tabby cat here, watching
+me intently.  A shark is leaning against one of the mounds of marzipan.  He
+gives me a knowing wink.
 
 I can only move east.
 
@@ -3296,7 +3225,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, a scarf, some gloves,
 a claw, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a
 kettle, a golden casket, a fish, a pot, a bone, a filofax, a mug, a sugar
@@ -3325,8 +3253,7 @@ I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
 gentlemen. A narrow archway draped with wooden beads leads eastwards into a
 bedroom, whilst northwards is the bathroom. There is a locked door to my
-west.
-There is a small tabby cat here, watching me intently.
+west.  There is a small tabby cat here, watching me intently.
 
 Exits are north, east, up and down.  Schrodinger wanders to above.
 
@@ -3336,8 +3263,7 @@ Second Floor
 I am standing on the second floor landing.  A low, squat doorway leads
 westward into the small spare bedroom.  There are locked doors to my east and
 north.  The rickety staircase continues its dangerous path in both up and
-down directions.
-There is a small tabby cat here, watching me intently.
+down directions.  There is a small tabby cat here, watching me intently.
 
 Exits are west, up and down.  Schrodinger wanders to the west.
 
@@ -3357,9 +3283,7 @@ Exits are east, west and down.
 Laundry Room
 I am in the tiny laundry room.  The ageing boiler wheezes like a grumpus in
 its vain attempt to keep the manor warm.  A collection of warm towels hang
-over a large pipe coming out of the boiler's side.
-
-Also here is a hedgehog.
+over a large pipe coming out of the boiler's side.  Also here is a hedgehog.
 
 I can only move east.
 
@@ -3412,8 +3336,7 @@ I am in the attic.  It is really very cold in here.  I don't think Grandad
 can afford to heat this part of the manor.  The only light that manages to
 get in here is through the skylight in the roof.  It fails, however, to
 adequately light the gloomy east end of the attic.  Wooden rafters hold up
-the manor's roof.
-On one of the rafters there sits a barn owl.
+the manor's roof.  On one of the rafters there sits a barn owl.
 
 Exits are east, west and up.
 Clouds of steam billow from the kettle's spout and slowly drift upwards.
@@ -3441,9 +3364,7 @@ Exits are east and down.
 
 Roof
 I am standing on the snowy roof beside a brick chimney.  From here I can see
-far and wide over the Attervist manor estate.
-
-Also here is a balloon.
+far and wide over the Attervist manor estate.  Also here is a balloon.
 
 I can only move west.
 
@@ -3568,7 +3489,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, a scarf, a claw, a
 swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket,
 a fish, a pot, a bone, a filofax, a mug, a sugar lump, a bag of porridge, a
@@ -3593,8 +3513,7 @@ Laboratory
 I am in Grandad's laboratory.  This is where he does most of his inventing
 and experimentation.  The octagonal room is full of scientific equipment, I
 couldn't begin to make sense of it all.  A dusty old chest stands out on the
-far side of the room.
-A giant slug slurps around between me and the chest.
+far side of the room.  A giant slug slurps around between me and the chest.
 
 I can only move north.
 
@@ -3627,7 +3546,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, a scarf, a claw, a
 swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket,
 a fish, a pot, a bone, a filofax, a mug, a sugar lump, a bag of porridge, a
@@ -3752,7 +3670,6 @@ Back Garden
 I am in the grounds of the manor's back garden.  The entire area is covered
 with a thick, featureless blanket of snow.  There is a clothes line nearby,
 gently rocking in the breeze.  A weather-beaten bath rests in the snow here.
-
 There is the end of a long chain here.
 
 I can only move south.
@@ -3816,9 +3733,7 @@ I am in the large wooden hen-house.  At least I suppose it is large for
 chickens and other poultry.  I am finding it a bit cramped myself.  Messy
 bundles of hay and straw litter the floor of the hen-house.  At the back of
 the hen-house there is a small wooden door.  A small ramp leads out back to
-the yard.  A goose clucks quietly to itself nearby.
-
-Also here is a battery.
+the yard.  A goose clucks quietly to itself nearby.  Also here is a battery.
 
 Exits are north and out.
 
@@ -3844,9 +3759,7 @@ of the hedge there is a wide perspex tube rising about eight foot into the
 air.  The tube seems to continue deep down into the ground.  That certainly
 wasn't here last time I visited Grandad.  A side wall of the manor is to my
 west.  There is a gap in the high wire fence to my north.  Through the fence
-I can see a small dirt yard.
-
-Also here are some wire clippers.
+I can see a small dirt yard.  Also here are some wire clippers.
 
 Exits are north, south and down.
 
@@ -3887,7 +3800,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, an envelope, a torch, a scarf, some gloves, a claw, a
 swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket,
 a fish, a pot, a bone, a filofax, a mug, a sugar lump, a bag of porridge, a
@@ -3913,9 +3825,8 @@ I am in Grandad's bedroom.  The usual bedroom things are here: a large bed, a
 full length mirror and a Mark III sub-atomic particle accelerator.  A month's
 supply of longjohns have been carefully allowed to fester in one corner of
 the bedroom.  There is a narrow archway set into the west wall, draped in
-wooden beads.  A wooden chute has been built into one of the walls.
-
-Also here is a trombone.
+wooden beads.  A wooden chute has been built into one of the walls.  Also
+here is a trombone.
 
 I can only move west.
 
@@ -4012,7 +3923,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, an envelope, a torch, a scarf, some gloves, a claw, a
 swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket,
 a fish, a pot, a bone, a filofax, a mug, a sugar lump, a bag of porridge, a
@@ -4102,10 +4012,8 @@ I am in the sitting room.  This room is full of archaeological bric-a-brac
 and paraphernalia.  To the north there is a locked door, looking out over the
 large back garden.  In a dingy corner of the room there is a voluminous
 armchair with an attractive paisley print.  An open fireplace is built into
-the east wall.
-
-Also here is a document.
-The familiar figure of Grandad slouches in the armchair snoring loudly.
+the east wall.  Also here is a document.  The familiar figure of Grandad
+slouches in the armchair snoring loudly.
 
 I can only move west.
 
@@ -4150,8 +4058,7 @@ Passage
 I am in a dingy corridor leading from east to west.  The panelled walls here
 have recently been given a fresh lick of varnish, either that or Grandad has
 forgotten to feed the cat again.  There are doorways in both the north and
-south wall of the corridor.
-Grandad stands nearby.
+south wall of the corridor.  Grandad stands nearby.
 
 Exits are north, east, south and west.
 
@@ -4161,12 +4068,11 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, an envelope, some gloves, a swimming cap, a jigsaw,
 an emerald, a ruby, a mousse, a golden casket, a fish, a pot, a bone, a
 filofax, a mug, a bag of porridge, a sandwich, a hedgehog, a zircon, a
-balloon, a battery, some sheets and a plaster.
-There is a small tabby cat here, watching me intently.
+balloon, a battery, some sheets and a plaster.  There is a small tabby cat
+here, watching me intently.
 
 Exits are north, east, south, west and up.  Schrodinger wanders to the west.
 
@@ -4192,8 +4098,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.
 
 Exits are east and up.
 
@@ -4229,9 +4135,7 @@ I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
 On the west wall there is a strange pattern of ancient runes.  Beneath the
 runes there is a small socket.  A long extension lead runs along the tunnel
-floor to my south.
-
-Also here is a monocle.
+floor to my south.  Also here is a monocle.
 
 Exits are north, east and south.
 
@@ -4242,9 +4146,7 @@ I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
 majestic look.  Through the archway all I can see is a hazy mist.  Next to
 the archway there is a small fire alarm.  A long extension lead runs north
-and east along the ground.
-
-Also here is a hammer.
+and east along the ground.  Also here is a hammer.
 
 Exits are north, east and south.
 
@@ -4253,8 +4155,8 @@ Exits are north, east and south.
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
-heads off in an westerly direction.
-An aardvark is curled up on top of the washing machine.
+heads off in an westerly direction.  An aardvark is curled up on top of the
+washing machine.
 
 Exits are east, south and west.
 
@@ -4409,8 +4311,7 @@ to my south is covered in tinsel and bunting.  Amid the decorations there is
 a hastily chalked-up sign.  Through the doorway comes the sound of drunken
 song.  On the wall to my west there is a peculiar arrangement of buttons.  A
 large metal door prevents me from going west.  A burly bouncer stands by the
-doorway.
-Grandad stands nearby.
+doorway.  Grandad stands nearby.
 
 Exits are north, east, south and west.
 
@@ -4440,8 +4341,8 @@ Golden Gulp
 I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
-of creatures is gathered to the south, crowded around the bar.
-Grandad is sitting at one of the tables.
+of creatures is gathered to the south, crowded around the bar.  Grandad is
+sitting at one of the tables.
 
 Exits are north and south.
 
@@ -4451,8 +4352,8 @@ Golden Gulp
 I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
-of creatures is gathered to the south, crowded around the bar.
-Grandad is sitting at one of the tables.
+of creatures is gathered to the south, crowded around the bar.  Grandad is
+sitting at one of the tables.
 
 Exits are north and south.
 
@@ -4462,8 +4363,8 @@ Golden Gulp
 I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
-of creatures is gathered to the south, crowded around the bar.
-Grandad is sitting at one of the tables.
+of creatures is gathered to the south, crowded around the bar.  Grandad is
+sitting at one of the tables.
 
 Exits are north and south.
 
@@ -4473,8 +4374,8 @@ Golden Gulp
 I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
-of creatures is gathered to the south, crowded around the bar.
-Grandad is sitting at one of the tables.
+of creatures is gathered to the south, crowded around the bar.  Grandad is
+sitting at one of the tables.
 
 Exits are north and south.
 
@@ -4484,8 +4385,8 @@ Golden Gulp
 I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
-of creatures is gathered to the south, crowded around the bar.
-Grandad is sitting at one of the tables.
+of creatures is gathered to the south, crowded around the bar.  Grandad is
+sitting at one of the tables.
 
 Exits are north and south.
 
@@ -4495,8 +4396,8 @@ Golden Gulp
 I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
-of creatures is gathered to the south, crowded around the bar.
-Grandad is sitting at one of the tables.
+of creatures is gathered to the south, crowded around the bar.  Grandad is
+sitting at one of the tables.
 
 Exits are north and south.
 "A voice carries through the den, although it is hard to see where it comes
@@ -4519,8 +4420,8 @@ Golden Gulp
 I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
-of creatures is gathered to the south, crowded around the bar.
-Grandad is sitting at one of the tables.
+of creatures is gathered to the south, crowded around the bar.  Grandad is
+sitting at one of the tables.
 
 Exits are north and south.
 "And the winner of the third prize, the mystery package, is the holder of
@@ -4542,8 +4443,8 @@ Golden Gulp
 I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
-of creatures is gathered to the south, crowded around the bar.
-Grandad is sitting at one of the tables.
+of creatures is gathered to the south, crowded around the bar.  Grandad is
+sitting at one of the tables.
 
 Exits are north and south.
 "And the top prize tonight goes to blue 5!".  Grandad jumps up and down with
@@ -4559,8 +4460,8 @@ Golden Gulp
 I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla
 and home-made shepherd's pie fills the air.  Small hairy creatures sit at
 tables scattered around the room, drinking and singing loudly.  Another group
-of creatures is gathered to the south, crowded around the bar.
-Grandad is sitting at one of the tables.
+of creatures is gathered to the south, crowded around the bar.  Grandad is
+sitting at one of the tables.
 
 Exits are north and south.
 
@@ -4604,8 +4505,8 @@ I am in a small, square room with no windows.  On one wall there is a small
 blue telephone, whilst the rest of the wall is covered by posters.  There is
 an open doorway to my south, whilst the entire northern wall is taken up by a
 curious mist.  I can hear innocuous muzak being played gently in the
-background.  A wooden chute has been built into one of the walls.
-A Viking is slumped in the corner.
+background.  A wooden chute has been built into one of the walls.  A Viking
+is slumped in the corner.
 
 Exits are north and south.  Grandad enters from the north.
 
@@ -4616,8 +4517,8 @@ as being unusual, and then I realise: the lack of snow.
 Bus Stop
 I am standing by a bus stop in a rural country lane.  There is a windowless
 concrete building to my north.  The lane continues its twisty journey east
-and west for a while before disappearing into a strange thick mist.
-A strange-looking robot stands authoritatively beside the bus stop.
+and west for a while before disappearing into a strange thick mist.  A
+strange-looking robot stands authoritatively beside the bus stop.
 
 Exits are north, east and west.
 
@@ -4712,9 +4613,7 @@ of the hedge there is a wide perspex tube rising about eight foot into the
 air.  The tube seems to continue deep down into the ground.  That certainly
 wasn't here last time I visited Grandad.  A side wall of the manor is to my
 west.  There is a gap in the high wire fence to my north.  Through the fence
-I can see a small dirt yard.
-
-Also here are some wire clippers.
+I can see a small dirt yard.  Also here are some wire clippers.
 
 Exits are north, south and down.
 
@@ -4749,9 +4648,8 @@ is the back of a wooden hen house.  A small wooden door has been built into
 it.  In the rest of the garden all there is to see is never-ending snow.  A
 zig-zaggy pathway has been ploughed through the snow to my north.  A
 man-sized gap has been uncovered in the snow here, revealing a small
-underground room.  It is quite a jump down to the floor though.
-
-There is the end of a long chain here.
+underground room.  It is quite a jump down to the floor though.  There is the
+end of a long chain here.
 
 Exits are north, south and down.
 
@@ -4769,9 +4667,7 @@ I am standing next to an oval display case.  The case is doing its best to
 hold up a particularly derelict-looking wall.  A small metal dial is attached
 to the north wall.  I am carrying the end of a long chain.  There is a
 man-sized gap in the ceiling above me, looking out on the winter sky.  It is
-a little high to reach though.
-
-Also here is a mattress.
+a little high to reach though.  Also here is a mattress.
 
 I can only move south.
 
@@ -4856,9 +4752,8 @@ is an archway to my east.  A few bricks have fallen away to my west, allowing
 access back to the bottom of the well.  Someone has taken the effort of
 installing a fluorescent light into the ceiling of the tunnel.  It flickers
 intermittently.  There is an open door to my north.  An ornately carved lever
-sticks up through the mud on the floor.
-
-There is the end of a long chain here.
+sticks up through the mud on the floor.  There is the end of a long chain
+here.
 
 Exits are north, east, south and west.
 
@@ -4877,9 +4772,7 @@ of the hedge there is a wide perspex tube rising about eight foot into the
 air.  The tube seems to continue deep down into the ground.  That certainly
 wasn't here last time I visited Grandad.  A side wall of the manor is to my
 west.  There is a gap in the high wire fence to my north.  Through the fence
-I can see a small dirt yard.
-
-Also here are some wire clippers.
+I can see a small dirt yard.  Also here are some wire clippers.
 
 Exits are north, south and down.
 The ground shakes violently.
@@ -4921,7 +4814,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, an envelope, some gloves, a swimming cap, a jigsaw,
 an emerald, a ruby, a mousse, a golden casket, a fish, a pot, a bone, a
 filofax, a mug, a bag of porridge, a sandwich, a hedgehog, a zircon, a
@@ -4988,7 +4880,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, some gloves, a
 swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket,
 a fish, a pot, a bone, a filofax, a mug, a bag of porridge, a sandwich, a
@@ -5053,10 +4944,8 @@ I am in the pantry.  It is a small, dark room - the only source of light
 being a barred oval window built close to the ceiling in the west wall.  A
 definite niff of seaweed wafts around the shelves.  Small mountains of
 marzipan and icing sugar are liberally scattered across the damp stone floor.
-
-Also here is a caddy.
-A shark is leaning against one of the mounds of marzipan.  He gives me a
-knowing wink.
+ Also here is a caddy.  A shark is leaning against one of the mounds of
+marzipan.  He gives me a knowing wink.
 
 I can only move east.
 
@@ -5103,7 +4992,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, some gloves, a
 swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket,
 a fish, a pot, a bone, a filofax, a mug, a bag of porridge, a sandwich, a
@@ -5310,9 +5198,7 @@ Manor Grounds
 I am standing on the snow, just east of the road leading up to the manor's
 front door.  A long line of beechwood trees mark out the sides of the
 driveway.  There is a long bramble hedge covered in frosty cobwebs blocking
-my way further east.  There is a trapdoor here.
-
-Also here is a polaroid.
+my way further east.  There is a trapdoor here.  Also here is a polaroid.
 
 Exits are north, south and west.
 
@@ -5329,9 +5215,7 @@ Oily cave
 I am in a dark and damp cave.  There is barely enough room to stand up in
 here.  Large pools of oil splash around my feet.  There is a dark tunnel
 leading off to my south.  The walls of this hideous place are covered in some
-sort of thick, black tar.
-
-Also here is a wumpus.
+sort of thick, black tar.  Also here is a wumpus.
 
 I can only move up.
 
@@ -5376,7 +5260,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, some gloves, a
 swimming cap, a jigsaw, an emerald, a ruby, a hat, a golden casket, a fish, a
 pot, a bone, a filofax, a mug, a bag of porridge, a sandwich, a ticket, a
@@ -5430,8 +5313,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.
 
 Exits are east and up.
 
@@ -5467,9 +5350,7 @@ I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
 On the west wall there is a strange pattern of ancient runes.  Beneath the
 runes there is a small socket.  A long extension lead runs along the tunnel
-floor to my south.
-
-Also here is a monocle.
+floor to my south.  Also here is a monocle.
 
 Exits are north, east and south.
 
@@ -5480,9 +5361,7 @@ I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
 majestic look.  Through the archway all I can see is a hazy mist.  Next to
 the archway there is a small fire alarm.  A long extension lead runs north
-and east along the ground.
-
-Also here is a hammer.
+and east along the ground.  Also here is a hammer.
 
 Exits are north, east and south.
 
@@ -5493,8 +5372,8 @@ I am in a small, square room with no windows.  On one wall there is a small
 blue telephone, whilst the rest of the wall is covered by posters.  There is
 an open doorway to my south, whilst the entire northern wall is taken up by a
 curious mist.  I can hear innocuous muzak being played gently in the
-background.  A wooden chute has been built into one of the walls.
-A Viking is slumped in the corner.
+background.  A wooden chute has been built into one of the walls.  A Viking
+is slumped in the corner.
 
 Exits are north and south.
 Olaf hiccups, "Hic!"
@@ -5578,10 +5457,8 @@ I am at a turning in the tunnel.  A mass of electronic diodes and valves
 dominate the east wall of the tunnel.  It is virtually impossible to see the
 brickwork underneath.  A small button is hidden amid the wires and circuit
 boards.  A grubby computer sits on the floor, attached to the wall's
-circuitry through optical fibres.  There is a marble pedestal here.
-
-Also here is a humbug.
-A hacker stands beside the computer.
+circuitry through optical fibres.  There is a marble pedestal here.  Also
+here is a humbug.  A hacker stands beside the computer.
 
 Exits are north and west.
 
@@ -5680,8 +5557,8 @@ I am in a small, square room with no windows.  On one wall there is a small
 blue telephone, whilst the rest of the wall is covered by posters.  There is
 an open doorway to my south, whilst the entire northern wall is taken up by a
 curious mist.  I can hear innocuous muzak being played gently in the
-background.  A wooden chute has been built into one of the walls.
-A Viking is slumped in the corner.
+background.  A wooden chute has been built into one of the walls.  A Viking
+is slumped in the corner.
 
 Exits are north and south.
 
@@ -5758,10 +5635,8 @@ I am at a turning in the tunnel.  A mass of electronic diodes and valves
 dominate the east wall of the tunnel.  It is virtually impossible to see the
 brickwork underneath.  A small button is hidden amid the wires and circuit
 boards.  A grubby computer sits on the floor, attached to the wall's
-circuitry through optical fibres.  There is a marble pedestal here.
-
-Also here is a humbug and a filofax.
-A hacker stands beside the computer.
+circuitry through optical fibres.  There is a marble pedestal here.  Also
+here is a humbug and a filofax.  A hacker stands beside the computer.
 
 Exits are north and west.
 
@@ -5775,10 +5650,9 @@ Rubbish Tip
 I am in an enormous room, it could be almost as large as an aircraft hanger
 or a couple of football pitches.  Junk and garbage litter the floor for as
 far as I can see, in some places piled as high as small buildings.  In the
-high roof of the ceiling there is a large dark hole.
-
-Also here is a crowbar, some white powder and a raspberry.
-A fairy sits on a pile of junk nearby.  She doesn't look very happy.
+high roof of the ceiling there is a large dark hole.  Also here is a crowbar,
+some white powder and a raspberry.  A fairy sits on a pile of junk nearby.
+She doesn't look very happy.
 
 Exits are north, east, south and west.
 
@@ -5817,10 +5691,8 @@ Rubbish Tip
 I am in an enormous room, it could be almost as large as an aircraft hanger
 or a couple of football pitches.  Junk and garbage litter the floor for as
 far as I can see, in some places piled as high as small buildings.  In the
-high roof of the ceiling there is a large dark hole.
-
-Also here is a crowbar and a raspberry.
-A fairy sits on a pile of junk nearby.
+high roof of the ceiling there is a large dark hole.  Also here is a crowbar
+and a raspberry.  A fairy sits on a pile of junk nearby.
 
 Exits are north, east, south and west.
 
@@ -5850,10 +5722,8 @@ I am at a turning in the tunnel.  A mass of electronic diodes and valves
 dominate the east wall of the tunnel.  It is virtually impossible to see the
 brickwork underneath.  A small button is hidden amid the wires and circuit
 boards.  A grubby computer sits on the floor, attached to the wall's
-circuitry through optical fibres.  There is a marble pedestal here.
-
-Also here is a humbug and a filofax.
-A hacker stands beside the computer.
+circuitry through optical fibres.  There is a marble pedestal here.  Also
+here is a humbug and a filofax.  A hacker stands beside the computer.
 
 Exits are north and west.
 
@@ -5879,9 +5749,7 @@ slide open.
 Oubiette
 I am in a tiny, almost closet-like, room.  This is just the sort of place you
 could leave people you want to forget about.  A shiver runs down my spine at
-the thought of being stuck here.
-
-Also here is an amethyst.
+the thought of being stuck here.  Also here is an amethyst.
 
 I can only move west.
 
@@ -5902,8 +5770,8 @@ Exits are east, south and west.
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
-heads off in an westerly direction.
-An aardvark is curled up on top of the washing machine.
+heads off in an westerly direction.  An aardvark is curled up on top of the
+washing machine.
 
 Exits are east, south and west.
 
@@ -5947,9 +5815,7 @@ I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
 majestic look.  Through the archway all I can see is a hazy mist.  Next to
 the archway there is a small fire alarm.  A long extension lead runs north
-and east along the ground.
-
-Also here is a hammer.
+and east along the ground.  Also here is a hammer.
 
 Exits are north, east and south.
 
@@ -5960,9 +5826,7 @@ I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
 On the west wall there is a strange pattern of ancient runes.  Beneath the
 runes there is a small socket.  A long extension lead runs along the tunnel
-floor to my south.
-
-Also here is a monocle.
+floor to my south.  Also here is a monocle.
 
 Exits are north, east and south.
 
@@ -5996,8 +5860,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.
 
 Exits are east and up.
 
@@ -6020,12 +5884,11 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, some gloves, a swimming cap, a
 jigsaw, an emerald, a ruby, a hat, a golden casket, a fish, a pot, a bone, a
 mug, a sandwich, a ticket, a hedgehog, a zircon, a battery, a trombone, some
-sheets, a bus pass and a polaroid.
-There is a small tabby cat here, watching me intently.
+sheets, a bus pass and a polaroid.  There is a small tabby cat here, watching
+me intently.
 
 Exits are north, east, south, west and up.  Schrodinger wanders to the west.
 
@@ -6060,8 +5923,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.
 
 Exits are east and up.
 
@@ -6097,9 +5960,7 @@ I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
 On the west wall there is a strange pattern of ancient runes.  Beneath the
 runes there is a small socket.  A long extension lead runs along the tunnel
-floor to my south.
-
-Also here is a monocle.
+floor to my south.  Also here is a monocle.
 
 Exits are north, east and south.
 
@@ -6110,9 +5971,7 @@ I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
 majestic look.  Through the archway all I can see is a hazy mist.  Next to
 the archway there is a small fire alarm.  A long extension lead runs north
-and east along the ground.
-
-Also here is a hammer.
+and east along the ground.  Also here is a hammer.
 
 Exits are north, east and south.
 
@@ -6134,9 +5993,8 @@ Okay.  I have dropped the hammer.
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
-heads off in an westerly direction.
-An aardvark is curled up on top of the washing machine.  The fire alarm is
-ringing loudly.
+heads off in an westerly direction.  An aardvark is curled up on top of the
+washing machine.  The fire alarm is ringing loudly.
 
 Exits are east, south and west.
 
@@ -6261,11 +6119,8 @@ Tunnel
 I am in an underground tunnel.  The tunnel is constructed out of a bright red
 brick, and is rather unpleasant to the eye.  I hate to imagine what kind of
 creatures live down here.  A wooden chute has been built into one of the
-walls.
-
-Also here is a torch, some sheets, a biro and a form.
-Dennis the fireman lies unconscious on the ground.  The fire alarm is ringing
-loudly.
+walls.  Also here is a torch, some sheets, a biro and a form.  Dennis the
+fireman lies unconscious on the ground.  The fire alarm is ringing loudly.
 
 Exits are east, south and west.
 
@@ -6293,9 +6148,8 @@ Exits are north, east, south and west.
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
-heads off in an westerly direction.
-An aardvark is curled up on top of the washing machine.  The fire alarm is
-ringing loudly.
+heads off in an westerly direction.  An aardvark is curled up on top of the
+washing machine.  The fire alarm is ringing loudly.
 
 Exits are east, south and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
@@ -6307,9 +6161,8 @@ I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
 majestic look.  Through the archway all I can see is a hazy mist.  Next to
 the archway there is a small fire alarm.  A long extension lead runs north
-and east along the ground.
-
-Also here is a hammer.  The fire alarm is ringing loudly.
+and east along the ground.  Also here is a hammer.  The fire alarm is ringing
+loudly.
 
 Exits are north, east and south.
 "No time to lose," cries Dennis, "We've got a fire to put out."
@@ -6321,9 +6174,8 @@ I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
 On the west wall there is a strange pattern of ancient runes.  Beneath the
 runes there is a small socket.  A long extension lead runs along the tunnel
-floor to my south.
-
-Also here is a monocle.  The fire alarm is ringing loudly.
+floor to my south.  Also here is a monocle.  The fire alarm is ringing
+loudly.
 
 Exits are north, east and south.
 "No time to lose," cries Dennis, "We've got a fire to put out."
@@ -6360,8 +6212,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.  The fire alarm is ringing loudly.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.  The fire alarm is ringing loudly.
 
 Exits are east and up.
 
@@ -6374,8 +6226,8 @@ Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
 Grandad's cellar.  To my south there is the main area of the hall.  A cord
-hangs from the ceiling of the alcove.
-There is a small tabby cat here, watching me intently.
+hangs from the ceiling of the alcove.  There is a small tabby cat here,
+watching me intently.
 
 Exits are south and down.  Schrodinger wanders to the south.
 
@@ -6385,7 +6237,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, some gloves, a swimming cap, a
 jigsaw, an emerald, a ruby, a hat, a golden casket, a fish, a pot, a bone, a
 sandwich, a ticket, a hedgehog, a zircon, a battery, a trombone, a bus pass,
@@ -6460,9 +6311,8 @@ I am in Grandad's bedroom.  The usual bedroom things are here: a large bed, a
 full length mirror and a Mark III sub-atomic particle accelerator.  A month's
 supply of longjohns have been carefully allowed to fester in one corner of
 the bedroom.  There is a narrow archway set into the west wall, draped in
-wooden beads.  A wooden chute has been built into one of the walls.
-
-Also here is a clothes peg.
+wooden beads.  A wooden chute has been built into one of the walls.  Also
+here is a clothes peg.
 
 I can only move west.
 
@@ -6496,7 +6346,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a swimming cap, a jigsaw, a
 hat, a golden casket, a fish, a pot, a bone, a sandwich, a ticket, a
 trombone, a bus pass, a rucksack, a tooth and a polaroid.
@@ -6521,8 +6370,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.  The fire alarm is ringing loudly.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.  The fire alarm is ringing loudly.
 
 Exits are east and up.
 
@@ -6600,9 +6449,8 @@ I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
 On the west wall there is a strange pattern of ancient runes.  Beneath the
 runes there is a small socket.  A long extension lead runs along the tunnel
-floor to my south.
-
-Also here is a monocle.  The fire alarm is ringing loudly.
+floor to my south.  Also here is a monocle.  The fire alarm is ringing
+loudly.
 
 Exits are north, east and south.
 "No time to lose," cries Dennis, "We've got a fire to put out."
@@ -6614,9 +6462,8 @@ I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
 majestic look.  Through the archway all I can see is a hazy mist.  Next to
 the archway there is a small fire alarm.  A long extension lead runs north
-and east along the ground.
-
-Also here is a hammer.  The fire alarm is ringing loudly.
+and east along the ground.  Also here is a hammer.  The fire alarm is ringing
+loudly.
 
 Exits are north, east and south.
 "No time to lose," cries Dennis, "We've got a fire to put out."
@@ -6654,9 +6501,8 @@ I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
 majestic look.  Through the archway all I can see is a hazy mist.  Next to
 the archway there is a small fire alarm.  A long extension lead runs north
-and east along the ground.
-
-Also here is a hammer.  The fire alarm is ringing loudly.
+and east along the ground.  Also here is a hammer.  The fire alarm is ringing
+loudly.
 
 Exits are north, east and south.
 "No time to lose," cries Dennis, "We've got a fire to put out."
@@ -6666,9 +6512,8 @@ Exits are north, east and south.
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
-heads off in an westerly direction.
-An aardvark is curled up on top of the washing machine.  The fire alarm is
-ringing loudly.
+heads off in an westerly direction.  An aardvark is curled up on top of the
+washing machine.  The fire alarm is ringing loudly.
 
 Exits are east, south and west.
 "No time to lose," cries Dennis, "We've got a fire to put out."
@@ -6728,11 +6573,8 @@ Tunnel
 I am in an underground tunnel.  The tunnel is constructed out of a bright red
 brick, and is rather unpleasant to the eye.  I hate to imagine what kind of
 creatures live down here.  A wooden chute has been built into one of the
-walls.
-
-Also here are some sheets, a biro and a form.
-Dennis the fireman lies unconscious on the ground.  The fire alarm is ringing
-loudly.
+walls.  Also here are some sheets, a biro and a form.  Dennis the fireman
+lies unconscious on the ground.  The fire alarm is ringing loudly.
 
 Exits are east, south and west.
 
@@ -6755,9 +6597,8 @@ Dead End
 I am at a dead end in the underground tunnel.  The red brick walls here are
 virtually invisible beneath a thick layer of soot.  A small metal wheel is
 set into one of the walls.  A wooden chute has been built into one of the
-walls.  The fire alarm is ringing loudly.
-
-A pile of ash rests on the ground.  The fire alarm is ringing loudly.
+walls.  The fire alarm is ringing loudly.  A pile of ash rests on the ground.
+ The fire alarm is ringing loudly.
 
 I can only move north.
 
@@ -6780,11 +6621,8 @@ Tunnel
 I am in an underground tunnel.  The tunnel is constructed out of a bright red
 brick, and is rather unpleasant to the eye.  I hate to imagine what kind of
 creatures live down here.  A wooden chute has been built into one of the
-walls.
-
-Also here are some sheets, a biro and a form.
-Dennis the fireman lies unconscious on the ground.  The fire alarm is ringing
-loudly.
+walls.  Also here are some sheets, a biro and a form.  Dennis the fireman
+lies unconscious on the ground.  The fire alarm is ringing loudly.
 
 Exits are east, south and west.
 
@@ -6809,9 +6647,8 @@ moaning, Dennis walks off.
 Tunnel
 I am in a gloomy underground tunnel.  An antiquated washing machine sits by
 the north wall.  A long extension lead runs along the bottom of the wall.  It
-heads off in an westerly direction.
-An aardvark is curled up on top of the washing machine.  The fire alarm is
-ringing loudly.
+heads off in an westerly direction.  An aardvark is curled up on top of the
+washing machine.  The fire alarm is ringing loudly.
 
 Exits are east, south and west.
 
@@ -6822,9 +6659,8 @@ I am in a dark underground tunnel.  To my south there is an extremely ornate
 marble archway.  The crawling vines and twisting ivy give it an almost
 majestic look.  Through the archway all I can see is a hazy mist.  Next to
 the archway there is a small fire alarm.  A long extension lead runs north
-and east along the ground.
-
-Also here is a hammer.  The fire alarm is ringing loudly.
+and east along the ground.  Also here is a hammer.  The fire alarm is ringing
+loudly.
 
 Exits are north, east and south.
 
@@ -6835,9 +6671,8 @@ I am in a dark underground tunnel.  There is an archway to my east leading
 into a softly list room.  Beside the archway there is a small, dumpy robot.
 On the west wall there is a strange pattern of ancient runes.  Beneath the
 runes there is a small socket.  A long extension lead runs along the tunnel
-floor to my south.
-
-Also here is a monocle.  The fire alarm is ringing loudly.
+floor to my south.  Also here is a monocle.  The fire alarm is ringing
+loudly.
 
 Exits are north, east and south.
 
@@ -6890,8 +6725,8 @@ smell of damp fills the air, making it quite hard to breath down here.  In
 one corner a robot stands silently.  A rickety wooden staircase makes its way
 up between the bric-a-brac.  There is a narrow opening to my east, leading
 into darkness.  A wooden chute has been built into one of the walls.  A
-beechwood armchair sits in the middle of the cellar.
-There is a small chimpanzee here.  The fire alarm is ringing loudly.
+beechwood armchair sits in the middle of the cellar.  There is a small
+chimpanzee here.  The fire alarm is ringing loudly.
 
 Exits are east and up.
 
@@ -6959,7 +6794,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a swimming cap, a jigsaw, a
 hat, a golden casket, a fish, a pot, a bone, a sandwich, a ticket, a
 trombone, a bus pass, a rucksack, a tooth and a polaroid.
@@ -7010,10 +6844,7 @@ I am in Grandad's study.  An elegant antique desk can be seen in one corner
 of the room; at least it would be seen if there weren't so many papers strewn
 all over it.  The rest of the room is taken up by hundreds of finely-bound
 books, arranged in an organised system of random piles and heaps.  There is a
-locked door to my east.
-
-Also here is a nailfile.
-Jasper is snarling nearby.
+locked door to my east.  Also here is a nailfile.  Jasper is snarling nearby.
 
 I can only move south.
 
@@ -7033,7 +6864,6 @@ Hallway
 I am in the entrance hallway of the building.  A rickety stairway leads
 upwards into the gloom.  I can't say it looks particularly safe.  A large
 persian rug lies in a large circle before me. The front door is to my south.
-
 Also here is a satchel, a shovel, an envelope, a torch, a swimming cap, a
 jigsaw, a hat, a golden casket, a fish, a bone, a sandwich, a ticket, a bus
 pass, a rucksack and a tooth.
@@ -7078,9 +6908,7 @@ Manor Grounds
 I am standing in the grounds, by a long hedge of brambles.  The brambles are
 very prickly and are covered in frosty cobwebs.  There is a small gap in the
 hedge to my west, with a small sign beside it.  A snowy track meanders its
-way northwards into a wooded copse.
-
-Also here is a parchment.
+way northwards into a wooded copse.  Also here is a parchment.
 
 Exits are north, east and west.
 
@@ -7091,8 +6919,8 @@ I am in a small clearing in a wooded copse in the manor grounds.  In the
 centre of the clearing, at the base of a dead tree, there is a small hole
 leading downwards.  I suppose if I really wanted to, I might just be able to
 squeeze down it.  All ways bar southwards out of this clearing are blocked by
-brambles and heavy snow.
-Nearby a baby bear cub scavenges around for food in the snow.
+brambles and heavy snow.  Nearby a baby bear cub scavenges around for food in
+the snow.
 
 Exits are south and down.
 
@@ -7147,9 +6975,7 @@ Manor Grounds
 I am standing in the grounds, by a long hedge of brambles.  The brambles are
 very prickly and are covered in frosty cobwebs.  There is a small gap in the
 hedge to my west, with a small sign beside it.  A snowy track meanders its
-way northwards into a wooded copse.
-
-Also here is a parchment.
+way northwards into a wooded copse.  Also here is a parchment.
 
 Exits are north, east and west.
 
@@ -7194,10 +7020,8 @@ beneath me doesn't make the most comfortable bedding, so I quickly crawl out.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a paper aeroplane and a can.
-Horace, Grandad's rather tubby gardener, is here.
+corner of the hut, beside a long wooden workbench.  Also here is a paper
+aeroplane and a can.  Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
 
@@ -7209,9 +7033,7 @@ Okay.  I have taken the paper aeroplane.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7221,9 +7043,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7233,9 +7053,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7245,9 +7063,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7257,9 +7073,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7269,9 +7083,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7281,9 +7093,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7293,9 +7103,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7305,9 +7113,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7317,9 +7123,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7329,9 +7133,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7341,9 +7143,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7353,9 +7153,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7365,9 +7163,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7377,9 +7173,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7389,9 +7183,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7401,9 +7193,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7413,9 +7203,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7425,9 +7213,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7437,9 +7223,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7449,9 +7233,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7461,9 +7243,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7473,9 +7253,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7485,9 +7263,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7497,9 +7273,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7509,9 +7283,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7521,9 +7293,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7533,9 +7303,7 @@ An exit leads outside.
 Hut
 I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening
 equipment make it quite cramped in here.  A plastic dustbin sits in one
-corner of the hut, beside a long wooden workbench.
-
-Also here is a can.
+corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
 An exit leads outside.
@@ -7643,9 +7411,7 @@ of the hedge there is a wide perspex tube rising about eight foot into the
 air.  The tube seems to continue deep down into the ground.  That certainly
 wasn't here last time I visited Grandad.  A side wall of the manor is to my
 west.  There is a gap in the high wire fence to my north.  Through the fence
-I can see a small dirt yard.
-
-Also here are some wire clippers.
+I can see a small dirt yard.  Also here are some wire clippers.
 
 Exits are north, south and down.
 
@@ -7665,11 +7431,9 @@ access back to the bottom of the well.  Someone has taken the effort of
 installing a fluorescent light into the ceiling of the tunnel.  It flickers
 intermittently.  There is an open door to my north.  An ornately carved lever
 sticks up through the mud on the floor.  Through the bars I can see the
-familiar figure of Grandad.
-
-There is the end of a long chain here.
-He doesn't seem particularly bothered by his capture: he is sleeping beneath
-an ultraviolet light.  Huh, and I was so worried about him.
+familiar figure of Grandad.  There is the end of a long chain here.  He
+doesn't seem particularly bothered by his capture: he is sleeping beneath an
+ultraviolet light.  Huh, and I was so worried about him.
 
 Exits are north, east, south and west.
 
@@ -7705,9 +7469,7 @@ of the hedge there is a wide perspex tube rising about eight foot into the
 air.  The tube seems to continue deep down into the ground.  That certainly
 wasn't here last time I visited Grandad.  A side wall of the manor is to my
 west.  There is a gap in the high wire fence to my north.  Through the fence
-I can see a small dirt yard.
-
-Also here are some wire clippers.
+I can see a small dirt yard.  Also here are some wire clippers.
 
 Exits are north, south and down.
 

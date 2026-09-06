@@ -130,9 +130,7 @@ Quarters
 It's dark, but you can make out enough to see in the gloom. Bodies lie in
 cots all around you, surrounded by their trunks and possessions. Your own bed
 is directly in front of you, and the only exit is back out through the flap
-of material.
-
-A pillow rests against one wall.
+of material.     A pillow rests against one wall.
 
 > z
 Time passes...

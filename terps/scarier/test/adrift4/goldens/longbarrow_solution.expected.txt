@@ -30,10 +30,8 @@ You are in a depression filled with hard earth and stones. The top 10 inches
 of soil have been bulldozed away, but didn't make the digging any easier. You
 can't see the long barrow you are supposed to be excavating - you can't even
 hear the others. You can just about see the tops of the hills surrounding the
-narrow valley in the middle of nowhere in Wiltshire.
-
-Also here is a hammer, a pick-axe, your backpack, a galvanized bucket and a
-metal shovel.
+narrow valley in the middle of nowhere in Wiltshire.  Also here is a hammer,
+a pick-axe, your backpack, a galvanized bucket and a metal shovel.
 
 > dig with trowel
 You dig with the trowel. More stones. More hard dirt.
@@ -73,10 +71,8 @@ You are in a depression filled with hard earth and stones. The top 10 inches
 of soil have been bulldozed away, but didn't make the digging any easier. You
 can't see the long barrow you are supposed to be excavating - you can't even
 hear the others. You can just about see the tops of the hills surrounding the
-narrow valley in the middle of nowhere in Wiltshire.
-
-Also here is a hammer, a pick-axe, your backpack, a galvanized bucket and a
-metal shovel.
+narrow valley in the middle of nowhere in Wiltshire.  Also here is a hammer,
+a pick-axe, your backpack, a galvanized bucket and a metal shovel.
 
 > take hammer
 You take the hammer.
@@ -102,9 +98,8 @@ rock. Your orientation is excellent, and you know that's the direction the
 long barrow is in. There's a pile of rocks by one of the niches. A wall of
 bricks covers part of the earthen wall. Held together with ancient, crumbly
 mortor, these bricks must be much, much later than the chamber and its bones.
-They are soft and friable to the touch.
-
-Also here is a trowel and a large brush.
+They are soft and friable to the touch.  Also here is a trowel and a large
+brush.
 
 > take trowel
 You take the trowel.

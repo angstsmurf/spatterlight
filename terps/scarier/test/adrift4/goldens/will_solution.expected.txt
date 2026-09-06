@@ -53,8 +53,8 @@ the stairs, along with a small bench and a table. Selma often sat there to
 remove her shoes when she would return from outings, which wasn't often in
 her later years.
 Your relatives have scattered throughout the house, to search for Selma's
-Will.
-Bea is on the other side of the room, rummaging through Selmas' belongings.
+Will.  Bea is on the other side of the room, rummaging through Selmas'
+belongings.
 
 You can move north, south, west and up.
 
@@ -83,8 +83,7 @@ sofa reading the paper and eating newtons.
 marbles that Aunt Selma dug out of the attic. It would drive Mr. Rupert crazy
 when you'd roll the marbles down the stairs, but good old Selma never minded.
 Fond memories rush back of trying to swipe a candy or two from the dish on
-the coffee table.
-Elsa is wondering about.
+the coffee table.   Elsa is wondering about.
 
 You can move north and east.
 
@@ -142,8 +141,8 @@ the stairs, along with a small bench and a table. Selma often sat there to
 remove her shoes when she would return from outings, which wasn't often in
 her later years.
 Your relatives have scattered throughout the house, to search for Selma's
-Will.
-Bea is on the other side of the room, rummaging through Selmas' belongings.
+Will.  Bea is on the other side of the room, rummaging through Selmas'
+belongings.
 
 You can move north, south, west and up.
 
@@ -206,8 +205,8 @@ Kitchen
 This is the kitchen. Selma was still trying to think of a fancy name for it,
 the last time you saw her. The kitchen has several cabinets, and the usual
 appliances. Selma was never one for those fancy gadgets, like microwave ovens
-and blenders, and such. She was very simple in most ways.
-Ida is looking through the kitchen cabinets.
+and blenders, and such. She was very simple in most ways.  Ida is looking
+through the kitchen cabinets.
 
 You can move east, south and west.
 
@@ -220,8 +219,8 @@ any sun, and was surrounded by screens. I guess she needed to call the back
 porch something fancy. Boxes are piled up on the western wall, blocking the
 view of the west side of the house. There is a cabinet that Selma would keep
 her gardening tools in, over on the south wall. She'd spend hours in the
-garden, when she wasn't in the Great Room making cozies.
-Dale is over looking through the boxes on the west wall.
+garden, when she wasn't in the Great Room making cozies.  Dale is over
+looking through the boxes on the west wall.
 
 You can move north and west.
 
@@ -233,8 +232,8 @@ any sun, and was surrounded by screens. I guess she needed to call the back
 porch something fancy. Boxes are piled up on the western wall, blocking the
 view of the west side of the house. There is a cabinet that Selma would keep
 her gardening tools in, over on the south wall. She'd spend hours in the
-garden, when she wasn't in the Great Room making cozies.
-Dale is over looking through the boxes on the west wall.
+garden, when she wasn't in the Great Room making cozies.  Dale is over
+looking through the boxes on the west wall.
 
 You can move north and west.
 
@@ -272,8 +271,8 @@ Kitchen
 This is the kitchen. Selma was still trying to think of a fancy name for it,
 the last time you saw her. The kitchen has several cabinets, and the usual
 appliances. Selma was never one for those fancy gadgets, like microwave ovens
-and blenders, and such. She was very simple in most ways.
-Ida is looking through the kitchen cabinets.
+and blenders, and such. She was very simple in most ways.  Ida is looking
+through the kitchen cabinets.
 
 You can move east, south and west.
 
@@ -286,8 +285,7 @@ Thanksgiving when you were a kid. There used to be a large dining table in
 here, but Selma has since replaced it with a smaller table. Various plant
 holders still hang, but contain no living plants. Selma liked to have plants
 in the eating area. She said it made her feel like she was dining at a
-tropical island resort.
-CC is sitting under the table.
+tropical island resort.   CC is sitting under the table.
 
 You can move east and south.
 
@@ -299,8 +297,7 @@ Thanksgiving when you were a kid. There used to be a large dining table in
 here, but Selma has since replaced it with a smaller table. Various plant
 holders still hang, but contain no living plants. Selma liked to have plants
 in the eating area. She said it made her feel like she was dining at a
-tropical island resort.
-CC is sitting under the table.
+tropical island resort.   CC is sitting under the table.
 
 You can move east and south.
 
@@ -322,8 +319,8 @@ Kitchen
 This is the kitchen. Selma was still trying to think of a fancy name for it,
 the last time you saw her. The kitchen has several cabinets, and the usual
 appliances. Selma was never one for those fancy gadgets, like microwave ovens
-and blenders, and such. She was very simple in most ways.
-Ida is looking through the kitchen cabinets.
+and blenders, and such. She was very simple in most ways.  Ida is looking
+through the kitchen cabinets.
 
 You can move east, south and west.
 
@@ -402,8 +399,8 @@ the stairs, along with a small bench and a table. Selma often sat there to
 remove her shoes when she would return from outings, which wasn't often in
 her later years.
 Your relatives have scattered throughout the house, to search for Selma's
-Will.
-Bea is on the other side of the room, rummaging through Selmas' belongings.
+Will.  Bea is on the other side of the room, rummaging through Selmas'
+belongings.
 
 You can move north, south, west and up.
 
@@ -435,9 +432,8 @@ hang on the wall, seem to have been removed. The stairs lead down into the
 Grand Entrance. There is one of these old fashioned gumball machines. You
 would always make sure you had a handful of pennies when you came to visit,
 when you were a kid.  Buck and Henry are blocking your path to Selma's room,
-and won't let you pass.
-Buck looks like he is looking for trouble.  Henry looks like he's up to no
-good.
+and won't let you pass.  Buck looks like he is looking for trouble.  Henry
+looks like he's up to no good.
 
 You can move west and down.
 
@@ -449,9 +445,8 @@ hang on the wall, seem to have been removed. The stairs lead down into the
 Grand Entrance. There is one of these old fashioned gumball machines. You
 would always make sure you had a handful of pennies when you came to visit,
 when you were a kid.  Buck and Henry are blocking your path to Selma's room,
-and won't let you pass.
-Buck looks like he is looking for trouble.  Henry looks like he's up to no
-good.
+and won't let you pass.  Buck looks like he is looking for trouble.  Henry
+looks like he's up to no good.
 
 You can move west and down.
 
@@ -486,10 +481,8 @@ the stairs, along with a small bench and a table. Selma often sat there to
 remove her shoes when she would return from outings, which wasn't often in
 her later years.
 Your relatives have scattered throughout the house, to search for Selma's
-Will.
-
-Also here is a small, round penny.
-Bea is on the other side of the room, rummaging through Selmas' belongings.
+Will.  Also here is a small, round penny.  Bea is on the other side of the
+room, rummaging through Selmas' belongings.
 
 You can move north, south, west and up.
 
@@ -505,9 +498,8 @@ hang on the wall, seem to have been removed. The stairs lead down into the
 Grand Entrance. There is one of these old fashioned gumball machines. You
 would always make sure you had a handful of pennies when you came to visit,
 when you were a kid.  Buck and Henry are blocking your path to Selma's room,
-and won't let you pass.
-Buck looks like he is looking for trouble.  Henry looks like he's up to no
-good.
+and won't let you pass.  Buck looks like he is looking for trouble.  Henry
+looks like he's up to no good.
 
 You can move west and down.
 
@@ -538,8 +530,8 @@ Kitchen
 This is the kitchen. Selma was still trying to think of a fancy name for it,
 the last time you saw her. The kitchen has several cabinets, and the usual
 appliances. Selma was never one for those fancy gadgets, like microwave ovens
-and blenders, and such. She was very simple in most ways.
-Ida is looking through the kitchen cabinets.
+and blenders, and such. She was very simple in most ways.  Ida is looking
+through the kitchen cabinets.
 
 You can move east, south and west.
 
@@ -552,8 +544,8 @@ any sun, and was surrounded by screens. I guess she needed to call the back
 porch something fancy. Boxes are piled up on the western wall, blocking the
 view of the west side of the house. There is a cabinet that Selma would keep
 her gardening tools in, over on the south wall. She'd spend hours in the
-garden, when she wasn't in the Great Room making cozies.
-Dale is over looking through the boxes on the west wall.
+garden, when she wasn't in the Great Room making cozies.  Dale is over
+looking through the boxes on the west wall.
 
 You can move north and west.
 
@@ -566,8 +558,7 @@ brown, and patches of dirt are visible in several spots. There is no sign of
 the garden that Selma spent so much time in. Perhaps she just couldn't keep
 up with it, in her last few years. The clothesline still stands. Semla didn't
 like the idea of a clothes dryer. She said she loved the way the laundry
-smelled after being sun dried.
-Walter is swinging from the clothesline.
+smelled after being sun dried.  Walter is swinging from the clothesline.
 
 You can only move south.
 
@@ -579,8 +570,7 @@ brown, and patches of dirt are visible in several spots. There is no sign of
 the garden that Selma spent so much time in. Perhaps she just couldn't keep
 up with it, in her last few years. The clothesline still stands. Semla didn't
 like the idea of a clothes dryer. She said she loved the way the laundry
-smelled after being sun dried.
-Walter is swinging from the clothesline.
+smelled after being sun dried.  Walter is swinging from the clothesline.
 
 You can only move south.
 
@@ -609,8 +599,8 @@ any sun, and was surrounded by screens. I guess she needed to call the back
 porch something fancy. Boxes are piled up on the western wall, blocking the
 view of the west side of the house. There is a cabinet that Selma would keep
 her gardening tools in, over on the south wall. She'd spend hours in the
-garden, when she wasn't in the Great Room making cozies.
-Dale is over looking through the boxes on the west wall.
+garden, when she wasn't in the Great Room making cozies.  Dale is over
+looking through the boxes on the west wall.
 
 You can move north and west.
 
@@ -621,8 +611,8 @@ Kitchen
 This is the kitchen. Selma was still trying to think of a fancy name for it,
 the last time you saw her. The kitchen has several cabinets, and the usual
 appliances. Selma was never one for those fancy gadgets, like microwave ovens
-and blenders, and such. She was very simple in most ways.
-Ida is looking through the kitchen cabinets.
+and blenders, and such. She was very simple in most ways.  Ida is looking
+through the kitchen cabinets.
 
 You can move east, south and west.
 
@@ -632,8 +622,8 @@ Kitchen
 This is the kitchen. Selma was still trying to think of a fancy name for it,
 the last time you saw her. The kitchen has several cabinets, and the usual
 appliances. Selma was never one for those fancy gadgets, like microwave ovens
-and blenders, and such. She was very simple in most ways.
-Ida is looking through the kitchen cabinets.
+and blenders, and such. She was very simple in most ways.  Ida is looking
+through the kitchen cabinets.
 
 You can move east, south and west.
 
@@ -677,10 +667,8 @@ the stairs, along with a small bench and a table. Selma often sat there to
 remove her shoes when she would return from outings, which wasn't often in
 her later years.
 Your relatives have scattered throughout the house, to search for Selma's
-Will.
-
-Also here is a small, round penny.
-Bea is on the other side of the room, rummaging through Selmas' belongings.
+Will.  Also here is a small, round penny.  Bea is on the other side of the
+room, rummaging through Selmas' belongings.
 
 You can move north, south, west and up.
 
@@ -693,9 +681,8 @@ hang on the wall, seem to have been removed. The stairs lead down into the
 Grand Entrance. There is one of these old fashioned gumball machines. You
 would always make sure you had a handful of pennies when you came to visit,
 when you were a kid.  Buck and Henry are blocking your path to Selma's room,
-and won't let you pass.
-Buck looks like he is looking for trouble.  Henry looks like he's up to no
-good.
+and won't let you pass.  Buck looks like he is looking for trouble.  Henry
+looks like he's up to no good.
 
 You can move west and down.
 
@@ -705,9 +692,8 @@ You move west.
 Oswald's Room
 Oswald's room looks like it has already been cleaned out. There are only a
 few boxes that were left behind. Other than that, all the furniture is gone,
-the room is nearly empty.
-Tammi is sitting on the floor, looking through the boxes that were left
-behind.
+the room is nearly empty.  Tammi is sitting on the floor, looking through the
+boxes that were left behind.
 
 You can only move east.
 
@@ -716,9 +702,8 @@ You can only move east.
 Oswald's Room
 Oswald's room looks like it has already been cleaned out. There are only a
 few boxes that were left behind. Other than that, all the furniture is gone,
-the room is nearly empty.
-Tammi is sitting on the floor, looking through the boxes that were left
-behind.
+the room is nearly empty.  Tammi is sitting on the floor, looking through the
+boxes that were left behind.
 
 You can only move east.
 
@@ -747,9 +732,8 @@ hang on the wall, seem to have been removed. The stairs lead down into the
 Grand Entrance. There is one of these old fashioned gumball machines. You
 would always make sure you had a handful of pennies when you came to visit,
 when you were a kid.  Buck and Henry are blocking your path to Selma's room,
-and won't let you pass.
-Buck looks like he is looking for trouble.  Henry looks like he's up to no
-good.
+and won't let you pass.  Buck looks like he is looking for trouble.  Henry
+looks like he's up to no good.
 
 You can move west and down.
 
@@ -761,9 +745,8 @@ hang on the wall, seem to have been removed. The stairs lead down into the
 Grand Entrance. There is one of these old fashioned gumball machines. You
 would always make sure you had a handful of pennies when you came to visit,
 when you were a kid.  Buck and Henry are blocking your path to Selma's room,
-and won't let you pass.
-Buck looks like he is looking for trouble.  Henry looks like he's up to no
-good.
+and won't let you pass.  Buck looks like he is looking for trouble.  Henry
+looks like he's up to no good.
 
 You can move west and down.
 
@@ -799,9 +782,8 @@ hang on the wall, seem to have been removed. The stairs lead down into the
 Grand Entrance. There is one of these old fashioned gumball machines. You
 would always make sure you had a handful of pennies when you came to visit,
 when you were a kid.  Buck and Henry are at the top of the stairs, rolling
-marbles downstairs, in hopes that someone may fall on them.
-Buck looks like he is looking for trouble.  Henry looks like he's up to no
-good.
+marbles downstairs, in hopes that someone may fall on them.  Buck looks like
+he is looking for trouble.  Henry looks like he's up to no good.
 
 You can move north, west and down.
 
@@ -814,8 +796,7 @@ she made herself. Even the afghan on her bed, she made herself. The dresser
 was given to you, after Selma died, so it is no longer here. There is also a
 table and chair on the far side of the room. Selma sometimes liked to read
 weird stories before she turned in for the night.   Zeke is standing in front
-of a door to the north.
-Zeke is looking around, lazily.
+of a door to the north.  Zeke is looking around, lazily.
 
 You can only move south.
 
@@ -827,8 +808,7 @@ she made herself. Even the afghan on her bed, she made herself. The dresser
 was given to you, after Selma died, so it is no longer here. There is also a
 table and chair on the far side of the room. Selma sometimes liked to read
 weird stories before she turned in for the night.   Zeke is standing in front
-of a door to the north.
-Zeke is looking around, lazily.
+of a door to the north.  Zeke is looking around, lazily.
 
 You can only move south.
 
@@ -945,9 +925,9 @@ she made herself. Even the afghan on her bed, she made herself. The dresser
 was given to you, after Selma died, so it is no longer here. There is also a
 table and chair on the far side of the room. Selma sometimes liked to read
 weird stories before she turned in for the night.   Zeke is slobbering over
-the candy ball, and is no longer concerned with you.
-Zeke is looking around, lazily.  You can tell by the pinkish reflection on
-the walls that the sun is setting, FAST!
+the candy ball, and is no longer concerned with you.  Zeke is looking around,
+lazily.  You can tell by the pinkish reflection on the walls that the sun is
+setting, FAST!
 
 You can move north and south.
 
@@ -960,10 +940,9 @@ hang on the wall, seem to have been removed. The stairs lead down into the
 Grand Entrance. There is one of these old fashioned gumball machines. You
 would always make sure you had a handful of pennies when you came to visit,
 when you were a kid.  Buck and Henry are at the top of the stairs, rolling
-marbles downstairs, in hopes that someone may fall on them.
-Buck looks like he is looking for trouble.  Henry looks like he's up to no
-good.  You can tell by the pinkish reflection on the walls that the sun is
-setting, FAST!
+marbles downstairs, in hopes that someone may fall on them.  Buck looks like
+he is looking for trouble.  Henry looks like he's up to no good.  You can
+tell by the pinkish reflection on the walls that the sun is setting, FAST!
 
 You can move north, west and down.
 
@@ -979,9 +958,8 @@ The front porch is fairly small, and only has room enough for a couple chairs
 and a small table, which still sit here. On a hot summers day, Aunt Selma
 would make up a pitcher of lemonade, and you'd sit in the chair, which seems
 a lot smaller than it used to. You were barely tall enough to see over the
-porch rails.
-Oswald Rupert is looking down his nose at you.  You can tell by the pinkish
-reflection on the walls that the sun is setting, FAST!
+porch rails.  Oswald Rupert is looking down his nose at you.  You can tell by
+the pinkish reflection on the walls that the sun is setting, FAST!
 
 You can move north and south.
 

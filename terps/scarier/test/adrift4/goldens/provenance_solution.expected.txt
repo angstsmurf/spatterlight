@@ -950,8 +950,7 @@ an overhead arbor.  Through the gate to the south you can see the orchard
 while the main path lies to the north.  An impressive Victorian style home,
 betwixt beautiful gardens and greenery, dominates the view to the north.  A
 very large maple tree guards the orchard entrance.
-
-Also here is a large stone.
+  Also here is a large stone.
 
 > climb tree
 
@@ -1019,8 +1018,7 @@ betwixt beautiful gardens and greenery, dominates the view to the north.  A
 very large maple tree guards the orchard entrance.
   A sturdy Jute rope hangs down from one of the thick branches of the maple
 tree.
-
-Also here is a large stone, a strong knife and a small stick.
+  Also here is a large stone, a strong knife and a small stick.
 
 > untie rope
 
@@ -1076,8 +1074,7 @@ Victorian style home in the distance to the north.
 
 Set up in the grass, about forty feet away, is what appears to be a small pup
 tent.
-
-Also here is a Victorian bulldog.
+  Also here is a Victorian bulldog.
 
 > x tent
 
@@ -1426,6 +1423,7 @@ center of the room is a plush covered round table covered with tiny framed
 photographs.  In one corner stands an old phonograph.  The dining room is to
 the north while the main hall lies to the west through a large archway.  The
 foyer and front door are visible to the south.
+
 The butler is here.
 
 > n
@@ -1461,8 +1459,7 @@ servants to pass food through form the kitchen to the dining room, creating
 the minimum of intrusion and allowing the guests very little view of the
 working space of the house.  Surprisingly, considering the furnished state of
 the rest of the house, this room is entirely unfitted.
-
-Also here is an empty wooden canteen.
+  Also here is an empty wooden canteen.
 
 > get canteen
 You take the empty wooden canteen.
@@ -1636,9 +1633,7 @@ has been left for producing compost.  The main walkway that goes around the
 house exits the garden to the southwest.  There is a woodshed at the end of
 the garden to the west and a Victorian gazebo to the east.  Beside the
 woodshed is a sinister looking scarecrow.
-
-Also here is a small shovel.
-A mangy looking crow is here.
+  Also here is a small shovel.  A mangy looking crow is here.
 
 > w
 You duck into the woodshed to the west.
@@ -1650,8 +1645,7 @@ sloped roof.  There is about a cord of wood here in a stack measuring about
 four feet wide by four feet high by eight feet long.  On the ground beside
 the pile of wood there is an old wooden box.  A large stump protrudes from
 the earth beside the box.
-
-Also here is a large bucket.
+  Also here is a large bucket.
 
 > get bucket
 You take the large bucket.
@@ -1670,9 +1664,7 @@ has been left for producing compost.  The main walkway that goes around the
 house exits the garden to the southwest.  There is a woodshed at the end of
 the garden to the west and a Victorian gazebo to the east.  Beside the
 woodshed is a sinister looking scarecrow.
-
-Also here is a small shovel.
-A mangy looking crow is here.
+  Also here is a small shovel.  A mangy looking crow is here.
 
 > sw
 You move southwest following the footpath along the terrace on the side of
@@ -1946,8 +1938,7 @@ pathway leads into the maze to the north.  The hedge itself is constructed
 entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
 directions from the point of access.
 A large wooden sign is posted near the ingress.
-
-Also here is a strong knife, a rugged rucksack and the pup tent.
+   Also here is a strong knife, a rugged rucksack and the pup tent.
 
 > i
 You are wearing a brown tweed suit, and you are carrying a skeleton key, a
@@ -2189,8 +2180,7 @@ the outside.  Intricate designs on the wallpaper and a gold leaf border
 running along the top of the walls all around the room near the ceiling are
 featured prominently here.  The hardwood parquet flooring has been polished
 to a brilliant shine.
-
-Also here is a box of matches.
+   Also here is a box of matches.
 
 > get matches
 You take the box of matches.
@@ -2225,6 +2215,7 @@ center of the room is a plush covered round table covered with tiny framed
 photographs.  In one corner stands an old phonograph.  The dining room is to
 the north while the main hall lies to the west through a large archway.  The
 foyer and front door are visible to the south.
+
 The butler is here.
 The butler exits to the west.
 
@@ -2515,9 +2506,7 @@ has been left for producing compost.  The main walkway that goes around the
 house exits the garden to the southwest.  There is a woodshed at the end of
 the garden to the west and a Victorian gazebo to the east.  Beside the
 woodshed is a sinister looking scarecrow.
-
-Also here is a small shovel.
-A mangy looking crow is here.
+  Also here is a small shovel.  A mangy looking crow is here.
 
 > w
 You duck into the woodshed to the west.
@@ -2584,9 +2573,7 @@ has been left for producing compost.  The main walkway that goes around the
 house exits the garden to the southwest.  There is a woodshed at the end of
 the garden to the west and a Victorian gazebo to the east.  Beside the
 woodshed is a sinister looking scarecrow.
-
-Also here is a small shovel.
-A mangy looking crow is here.
+  Also here is a small shovel.  A mangy looking crow is here.
 
 > get shovel
 You take the small shovel.
@@ -2856,9 +2843,8 @@ pathway leads into the maze to the north.  The hedge itself is constructed
 entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
 directions from the point of access.
 A large wooden sign is posted near the ingress.
-
-Also here is a sturdy rope, a full wooden canteen, a strong knife, a rugged
-rucksack and the pup tent.
+   Also here is a sturdy rope, a full wooden canteen, a strong knife, a
+rugged rucksack and the pup tent.
 
 Church bells in the distance announce the arrival of ten o'clock at night.
 
@@ -3484,6 +3470,7 @@ center of the room is a plush covered round table covered with tiny framed
 photographs.  In one corner stands an old phonograph.  The dining room is to
 the north while the main hall lies to the west through a large archway.  The
 foyer and front door are visible to the south.
+
 The butler is here.
 
 Flames from the fireplace cast long shadows across the darkened parlor.
@@ -3630,8 +3617,7 @@ southwest.  To the north the grove thickens into a dense, inaccessible forest
 while the grove itself extends west and south from here.  Beneath one of the
 cherry trees is a large plot of earth that has been fenced off on three
 sides.  Within the plot is a large granite mausoleum.
-
-Also here are the iron chains and a broken padlock.
+  Also here are the iron chains and a broken padlock.
 
 The ground is covered in a miasma of grey mist; the nebulous fog shrouding
 all around you.
@@ -3681,8 +3667,7 @@ southwest.  To the north the grove thickens into a dense, inaccessible forest
 while the grove itself extends west and south from here.  Beneath one of the
 cherry trees is a large plot of earth that has been fenced off on three
 sides.  Within the plot is a large granite mausoleum.
-
-Also here are the iron chains and a broken padlock.
+  Also here are the iron chains and a broken padlock.
 
 The ground is covered in a miasma of grey mist; the nebulous fog shrouding
 all around you.
@@ -3839,8 +3824,7 @@ pathway leads into the maze to the north.  The hedge itself is constructed
 entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
 directions from the point of access.
 A large wooden sign is posted near the ingress.
-
-Also here is a sturdy rope, the splitting maul, a full wooden canteen, a
+   Also here is a sturdy rope, the splitting maul, a full wooden canteen, a
 strong knife, a small shovel, a rugged rucksack, the pup tent and a bosun's
 whistle.
 
@@ -4218,8 +4202,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-
-Also here is the foot stool.
+  Also here is the foot stool.
 
 > nw
 You move northwest.
@@ -4287,8 +4270,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-
-Also here is the foot stool.
+  Also here is the foot stool.
 
 > ne
 You move northeast.
@@ -4359,8 +4341,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-
-Also here is the foot stool.
+  Also here is the foot stool.
 
 > d
 You move down.
@@ -4535,8 +4516,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-
-Also here is the foot stool.
+  Also here is the foot stool.
 
 > ne
 You move northeast.
@@ -4572,8 +4552,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-
-Also here is the foot stool.
+  Also here is the foot stool.
 
 > stand on stool
 
@@ -4656,8 +4635,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-
-Also here is the foot stool.
+  Also here is the foot stool.
 The butler is here.
 
 > d
@@ -4856,8 +4834,7 @@ southwest.  To the north the grove thickens into a dense, inaccessible forest
 while the grove itself extends west and south from here.  Beneath one of the
 cherry trees is a large plot of earth that has been fenced off on three
 sides.  Within the plot is a large granite mausoleum.
-
-Also here are the iron chains and a broken padlock.
+  Also here are the iron chains and a broken padlock.
 
 The ground is covered in a miasma of grey mist; the nebulous fog shrouding
 all around you.
@@ -5017,8 +4994,7 @@ southwest.  To the north the grove thickens into a dense, inaccessible forest
 while the grove itself extends west and south from here.  Beneath one of the
 cherry trees is a large plot of earth that has been fenced off on three
 sides.  Within the plot is a large granite mausoleum.
-
-Also here are the iron chains and a broken padlock.
+  Also here are the iron chains and a broken padlock.
 
 The ground is covered in a miasma of grey mist; the nebulous fog shrouding
 all around you.
@@ -5175,8 +5151,7 @@ pathway leads into the maze to the north.  The hedge itself is constructed
 entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
 directions from the point of access.
 A large wooden sign is posted near the ingress.
-
-Also here is a sturdy rope, the splitting maul, a full wooden canteen, a
+   Also here is a sturdy rope, the splitting maul, a full wooden canteen, a
 strong knife, a small shovel, a rugged rucksack, the pup tent, the map of the
 caves, a raincoat and a bosun's whistle.
 
@@ -5540,8 +5515,7 @@ variety of different texts.  On the cobblestone floor is a large pentacle
 painted in some kind of red substance.  White candles stand at each of the
 five points of the star, providing sufficient light by which to see.  A
 choking, almost toxic, odour permeates the stale air in here.
-
-Also here is the leather bound book.
+  Also here is the leather bound book.
 
 > x pentagram
 
@@ -5621,8 +5595,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-
-Also here is the foot stool.
+  Also here is the foot stool.
 The butler is here.
 
 > d
@@ -6382,8 +6355,7 @@ a simple curtain provides privacy in the bathroom to the north.  The master
 bedroom, which dominates most of the upstairs, is visible to the south.  To
 the northwest is a boy's bedroom and a girl's bedroom is to the northeast.
 Above you is what appears to be an ingress to the attic.
-
-Also here is the foot stool.
+  Also here is the foot stool.
 The butler is here.
 
 > d
@@ -6758,8 +6730,7 @@ proper.  Pools of water dot the cavern floor and in many places cave coral
 coats the exposed rocks.  The tunnel extends further down and to the south
 through a very small opening that you might just be able to squeeze through.
 The mouth of the cave is up and to the north.
-
-Also here is a skeleton key, a pocket watch and a box of matches.
+  Also here is a skeleton key, a pocket watch and a box of matches.
 
 > get skeleton key
 You take the skeleton key.
@@ -7012,8 +6983,7 @@ pathway leads into the maze to the north.  The hedge itself is constructed
 entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
 directions from the point of access.
 A large wooden sign is posted near the ingress.
-
-Also here is a sturdy rope, the splitting maul, a full wooden canteen, a
+   Also here is a sturdy rope, the splitting maul, a full wooden canteen, a
 strong knife, a copper lantern, a small shovel, a rugged rucksack, a pair of
 binoculars, the pup tent, the map of the caves, a raincoat and a bosun's
 whistle.
@@ -7094,8 +7064,7 @@ pathway leads into the maze to the north.  The hedge itself is constructed
 entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
 directions from the point of access.
 A large wooden sign is posted near the ingress.
-
-Also here is a raincoat and a bosun's whistle.
+   Also here is a raincoat and a bosun's whistle.
 
 > n
 You move north.
@@ -8308,8 +8277,7 @@ pathway leads into the maze to the north.  The hedge itself is constructed
 entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
 directions from the point of access.
 A large wooden sign is posted near the ingress.
-
-Also here is a raincoat and a bosun's whistle.
+   Also here is a raincoat and a bosun's whistle.
 
 > look
 
@@ -8320,8 +8288,7 @@ pathway leads into the maze to the north.  The hedge itself is constructed
 entirely from Leyland Cypress and extends roughly fifty to sixty feet in both
 directions from the point of access.
 A large wooden sign is posted near the ingress.
-
-Also here is a raincoat and a bosun's whistle.
+   Also here is a raincoat and a bosun's whistle.
 
 > get raincoat
 You take the raincoat.

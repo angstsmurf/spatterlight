@@ -23,9 +23,8 @@ You move east.
 
 Connors page
 At last you reach a boys page,sadly connor is crazy! Move onto the next page
-and hurry!A small piece of paper lies at your feet...
-
-Also here is Piece of paper.
+and hurry!A small piece of paper lies at your feet...  Also here is Piece of
+paper.
 
 > take paper
 You pick up Piece of paper.
@@ -59,8 +58,7 @@ You are in a long dark hall Birna digits hover above you, it is a wonderfull
 site but to your horror Heralds friend Mrs Assface comes running towards you
 with a machine gun!!!!!!
  What do you do 1) take machine gun or
-2)duck!
-Mrs Assface is here.
+2)duck!  Mrs Assface is here.
 
 > 2
 You duck!BANG!

@@ -234,8 +234,8 @@ You move north.
 Bathroom
 You always get claustrophobic when you enter your bathroom. It's the smallest
 room in the apartment, even the staircase is bigger. A shower cabinet, a sink
-and a toilet barely fits in here. You can go south to the bedroom.
-Hanna is here.
+and a toilet barely fits in here. You can go south to the bedroom.  Hanna is
+here.
 
 > ask hanna about invitation
 "Have you spilled coffee on the invitation to Jonas and Anettes wedding? You
@@ -285,9 +285,7 @@ You move north.
 
 Staircase
 The staircase spirals down to the first floor.  You can go down to the hall,
-or south to the kitchen.
-
-Also here are the shoes.
+or south to the kitchen.  Also here are the shoes.
 
 > take shoes
 You pick up the shoes.
@@ -302,8 +300,8 @@ Hall
 A small hall which is the only place you risk running into your landlord.
 And he is here now. This morning has been nothing but bad luck!  "You're late
 with the rent again", he sounds angry. "I want it now!" You can go up the
-staircase, or west to the street if you open the front door.
-Your landlord is here. He looks as furious as ever.
+staircase, or west to the street if you open the front door.  Your landlord
+is here. He looks as furious as ever.
 
 > give bottle to landlord
 "Bushmills, eh?", he lightens up. "I love Bushmills! OK, if you give me this
