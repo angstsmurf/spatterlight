@@ -615,6 +615,9 @@ space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCIT
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
+# Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the clothes trunk is mode 1 and unspent, so its
+# InRoomDesc "A clothes trunk sits at the foot of the bed." replaces "Also here
+# is a clothes trunk."  Confirmed in Adrift_277_sun_empire line 36.
 sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 135 out of the maximum 145!
 # Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 # (Adrift_11_tcom.txt, feed cmdfile_w_tcom.txt, 13 commands): 13/13 echoed and
@@ -926,6 +929,9 @@ thetest_win_solution.txt|thetest.taf|Well done!  You won!|SCR_SKIP_WAITKEY=1
 # cmdfile_w_through_time.txt): clean on game text.  The only difference is how
 # many feed lines each side's pauses swallowed -- the feed wants one more
 # filler line if it is re-driven.
+# Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the old crumbled magazines are mode 1/2 with an
+# empty InRoomDesc, so the "Also here are some old crumbled magazines." line
+# goes away entirely.
 through_time_solution.txt|Through time.taf|This is as far as this adventure will take you at this point.
 to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town of Oran.
 # The assisted To-Hell row needs BOTH aids: the game's combat data is all-zero
@@ -2113,6 +2119,9 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # The transcript's later divergences are RNG, not engine: the filofax number
 # (010472195080 there, 010473736401 here), Olaf's aunty's number, and the
 # `Get rucksack` refusal that follows from the failed `Say`.
+# Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the wumpus in the Crypt is mode 1/2 with an empty
+# InRoomDesc -- the room text already says "There seems to be something trapped
+# inside the tube." -- so "Also here is a wumpus." goes away.
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
 # WIN in 90 commands, scoring 65/95 -- and 65 is the real ceiling in a 3.8
@@ -5108,6 +5117,13 @@ secidenoddcomp_solution.txt|seciden_oddcomp.taf|You scored 102 out of the maximu
 # NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
 # Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
 # Re-blessed 2026-08-29: `examine jonah` no longer ticks, so the events/RNG after it shift by one turn.
+# NOT the listing rule (checked 2026-09-06): T0's "' Also here is a gun. '"
+# ALR never fires because run400 builds the whole room description as ONE
+# string with a literal "  Also here" (@00472696) while Scarier emits
+# "\nAlso here is ...\n", so the ALR Original -- which carries a leading and a
+# trailing space -- has nothing to match.  Fixing it means aligning the room
+# lister's whitespace with the Runner's, which moves many goldens; deferred,
+# see WINE-TRANSCRIPTS-TODO.md.
 perspectives_solution.txt|perspectives.taf|Congratulations, you achieved the Negotiation Style Ending!|SCR_SKIP_WAITKEY=1
 # Big City Laundry (8088 bytes, 4.00): WON, no score system at all (zero
 # ACT type=4 across 30 tasks) -- the game's one good ending (TASK 26; TASK 28
@@ -5184,6 +5200,12 @@ shetland_solution.txt|The_Shetland_Enigma.taf|You scored 210 out of the maximum 
 # jewel (TASK 49) rather than catch the player (TASK 17, a `restart` loop,
 # not an ending) -- 8 explicit waits land on the threshold. 22 commands,
 # `SCR_SKIP_WAITKEY=1`.
+# Measured 2026-09-06 in run400 (Adrift_2_takeone, T4): the jewel is
+# OnlyWhenNotMoved = 2 with an empty InRoomDesc and is still in its initial
+# room, so run400's listing predicate (Proc_19_75_449B6C @00449B6C) treats it
+# as description-handled and omits "On the ground is a jewel." entirely.  See
+# the camelot15 row for the full rule and obj_shows_initial_description().
+# The 22-command replay is now identical bar the [Press any key to end] tail.
 takeone_solution.txt|takeone.taf|it only took 1 take|SCR_SKIP_WAITKEY=1
 # Tenebrae Semper (Seciden Mencarde, EctoComp 2010 "3 Hours", 9757 bytes,
 # 4.00): **unwinnable**, confirmed in the real run400 under Wine
@@ -5359,6 +5381,12 @@ choosethreehour_solution.txt|Choose_Your_Own_Three_Hour_Adventure.taf|Overall, y
 # The knife is not needed for the ending; feed unchanged, still wins.
 # Model-derived, Wine candidate (a take-flag quirk worth measuring).
 # Re-blessed 2026-09-06: `put bowl near spyhole` is the 4.0 put prompt "Where do you want to put the spyhole?" (459DB4 @46DCDB, MEASURED Adrift_111: the spyhole scores Short + Prefix = 2 over the bowl's 1), not a turn (46DD25); a `z` follows it.
+# Re-blessed 2026-09-06: `ask sly about interrogation` before Sly has
+# spoken is now "I can't talk to that." and not the "ask [character] about
+# [subject]" hint -- every Runner splits its ask/talk-to block on "about"
+# and only the branch WITHOUT it prints the hint (run400 loc_488B87,
+# seed at loc_488C65).  MEASURED at Adrift_297 turn 80, `ask sly about
+# him`: "(No male)" then "I can't talk to that.".
 thelasthour_solution.txt|thelasthour.taf|"Here we are... MY BROTHER."|
 # Sex is Mental.taf (AIF, 8373 bytes, 4.00): comedic explicit content between
 # two apparent adults (a psychiatric-ward patient and a nurse), a third
@@ -5528,6 +5556,9 @@ dayattheoffice_solution.txt|DayAtTheOffice.taf|I'll have a tea, black with two s
 # two endings..."). Digging in the outback Bush comes up empty; the win
 # path is `search dirt` there instead, finding a pouch that wins the game
 # outright. 80 commands, no env vars.
+# Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the woolly jumper prints its InRoomDesc "Strewn
+# amongst the debris is a wolly jumper." instead of being listed.  Confirmed in
+# Adrift_269_beer line 42.
 beer_solution.txt|beer.taf|You search the dirt and find a pouch.|
 # Mr_Fluffykins_Most_Harrowing_Misadventure.taf (4.00): a Choose-Your-Own-
 # Adventure gamebook wearing a parser -- one nominal room, three variables,
@@ -5852,7 +5883,9 @@ zelda_solution.txt|zelda.taf|Well done - you scored maximum points!|SCR_SKIP_WAI
 # Katie's death outside the house is scripted/unavoidable regardless of
 # phrasing (two redundant catch-all tasks). 165 commands,
 # `SCR_SKIP_WAITKEY=1` (a hidden mid-game `<waitkey>` otherwise eats a
-# queued command).
+# queued command). Wine-measured against run400 (Adrift_312_showtime.txt):
+# turn 59 `get her hand` prints "(No female)" -- the character pronoun
+# registers have no-antecedent seeds too; see uip_replace_pronouns().
 showtime_solution.txt|Showtime_at_the_Gallows.taf|I will STRIKE like the fucking Hand Of God.|SCR_SKIP_WAITKEY=1
 # The Old Church.taf: 10-room ghost-story puzzle, no score system, two
 # EndGame endings. Giving the sword straight to the sexton (task 3) is a
@@ -5897,6 +5930,9 @@ rockband_solution.txt|Rock Band.taf|You did it! You stopped Gigantor and saved t
 # (dead flavor text) since "throw the rope at the ship" already succeeds
 # unconditionally. 74 commands, `SCR_SKIP_WAITKEY=1` (many narrative
 # `<waitkey>` pauses).
+# Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the broken unicorn's horn prints "The horn of the
+# smashed unicorn lies half-hidden under a bench." both times.  Confirmed in
+# Adrift_265_aegis lines 573 and 690.
 aegis_solution.txt|Aegis.taf| END|SCR_SKIP_WAITKEY=1
 # warlock.taf (AIF): solution/golden gitignored (adult content depicting an
 # adult woman only -- an 1841-dated necromancer's-diary framing device
@@ -5987,6 +6023,20 @@ frustrated_solution.txt|frustrated.taf|Well done - you scored maximum points!|SC
 # shackle-pulling) are deliberate authoring patterns, not bugs. 56
 # commands, `SCR_SKIP_WAITKEY=1` (a "Press any key" prompt after the
 # kitchen cutscene otherwise eats the next scripted command).
+# Measured 2026-09-06 in run400 (Adrift_55_camelot15): the room-content listing is
+# governed by run400's Proc_19_75_449B6C @00449B6C, not by "is the InRoomDesc
+# empty".  An object whose "only when not moved" byte (o(132), the
+# OnlyWhenNotMoved field) is still 1, or equals room+1 (the loader freezes
+# mode 2 to o(26)+1 @00490B96), is handled by the description branch of
+# viewroom and is NEVER added to the "Also here" list -- so a mode-1/2 object
+# with an EMPTY InRoomDesc simply vanishes from the room text.  The byte is
+# spent (set to -1) by the library take (@0047BF66, @00463011) and by any task
+# move action on a dynamic object (@0048C377); after that the object lists
+# normally.  See obj_shows_initial_description() in scobjcts.cpp.
+# camelot15: the four cocktails behind the bar are mode 1 with an empty
+# InRoomDesc, so run400 prints no "Also here is the dragons delight, a arthurs
+# pleasure, ..." line at all.  T32 now matches; the whole 56-command replay is
+# identical bar the [Press any key to end] tail.
 camelot15_solution.txt|Camelot 1,5.taf|Looks like the old Merlin did read your mind correctly after all.|SCR_SKIP_WAITKEY=1
 # JimPond.taf: James-Bond spy-comedy parody. 140/352 (39%) is the true
 # achievable ceiling on this branch, not a partial run -- the game has zero
@@ -6806,6 +6856,8 @@ grumble_solution.txt|Whatever_Happened_to_Uncle_Grumble.taf|Your score is 208 ou
 #     with eyes closed (task 276) is a rival ending worth only +1, so it is
 #     deliberately not taken.
 # 152 commands. Final score 67 out of a maximum of 67 (100%).
+# Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the white cloth prints its InRoomDesc instead of
+# "You can also see a white cloth."  Confirmed in Adrift_351_magicshow line 242.
 magicshow_solution.txt|magicshow.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
 # goblin.taf (AIF, adult content -- see /goldens/.gitignore): "A Goblin's
 # Life" (Burnout/BBBen, 2007 AIF Mini-comp 2nd place; ADRIFT 3.9). The
@@ -6845,6 +6897,8 @@ goblin_solution.txt|goblin.taf|Oh, and before we forget- Congratulations, gobbo.
 # instant death. Final answer at ROOM 102 must be 2; 1 and 3 both kill.
 # Two "(Press a key)" pauses are absorbed by throwaway `look` commands;
 # SCR_SKIP_WAITKEY must NOT be used here (it breaks the imp fight).
+# Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the toy mouse and the catcher's outfit are mode 1/2
+# with an empty InRoomDesc, so their "You can also see ..." lines go away.
 mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould|
 # blood.taf ("Fire in the Blood" by Richard Otter, ADRIFT 4, revenge
 # thriller). The player's wife has been murdered by four guilty men
@@ -7406,6 +7460,9 @@ ilgolem_solution.txt|Il Golem.taf|Complimenti, hai completato l'avventura!|SCR_S
 # not-a-turn flag, so the turn ticks: the dusk event now fires after `ninette
 # follow` (Adrift_325 590) instead of one command later, the saloon is entered
 # in its night description (Adrift_325 628-634) and the tumbleweed line moves.
+# Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the kerosene lamp and the shovel (empty InRoomDesc)
+# drop out of the listing and the old mattress prints its own description; the
+# measured run400 replay drops from 22 differing turns to 18.
 ghosttown_solution.txt|Ghost town v1,05.taf|Slowly two figures are seen shimmering in the air. One of a pretty young girl|SCR_SKIP_WAITKEY=1
 EOF
 }

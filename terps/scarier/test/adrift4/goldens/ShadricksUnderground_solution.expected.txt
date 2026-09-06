@@ -682,6 +682,11 @@ differing in height.  I can see a tall plinth, a medium plinth, and a short
 plinth. Wow, it really smells bad in here.
 
 > put large boulder on short plinth
+(Taking the large boulder first)
+"Grrrrr! Hrrrrrmmmmp. EEEeeeeOooKaaaaay!"
+
+It's too heavy.  I can pick it up for a second, but that is about it.  I'll
+have to find another way to move it.
 "Mmmmgggphh. Uuuuugghhh.  Whoy boy.  Easy does it.  Oh!  Ahh!  Grrruuummmph.
 Ok."
 

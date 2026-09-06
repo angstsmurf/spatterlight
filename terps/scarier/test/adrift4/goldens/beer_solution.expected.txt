@@ -79,7 +79,7 @@ You are at the public water fountain.  You can go east to Fountain Avenue.
 The water coming out the fountain is yellow.  Several people are choking and
 blue bodies are all over the ground.
 
-Also here is a woolly jumper.
+Strewn amongst the debris is a wolly jumper.
 
 > take jumper
 You take the woolly jumper.

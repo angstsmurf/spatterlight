@@ -563,9 +563,6 @@ southern wall, leading into Guinevere's chamber, and a shiny faucet
 protruding from the wall a little above it.
 A modern bathtub in the midst of the darkest medieval age? This must be
 magic...
-
-Also here is the dragons delight, a arthurs pleasure, a summer breeze and a
-moonlight at midnight.
 You hear noise from the corridor as a squad of guards is approaching.
 
 > use dragons delight

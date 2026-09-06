@@ -1125,7 +1125,7 @@ this room.
 A pair of wide double doors open out to the rest of the city to the west, and
 a long hall east leads to the stables.
 
-Also here is a broken unicorn's horn.
+The horn of the smashed unicorn lies half-hidden under a bench.
 
 > down
 "Celise!"
@@ -1354,7 +1354,7 @@ this room.
 A pair of wide double doors open out to the rest of the city to the west, and
 a long hall east leads to the stables.
 
-Also here is a broken unicorn's horn.
+The horn of the smashed unicorn lies half-hidden under a bench.
 
 > get horn
 You take the broken unicorn's horn.

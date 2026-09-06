@@ -1111,47 +1111,108 @@ obj_indirectly_held_by_player (scr_gameref_t game, scr_int object)
 
 
 /*
- * scr_obj_shows_initial_description()
+ * obj_initial_location_code()
  *
- * Return TRUE if this object should be listed as room content.
+ * The Runner's o(26) exactly as its loader computes it (run400
+ * @00490255-@004902BD): the authored InitialPosition less one, with "in a
+ * container" and "on a surface" folded onto &HF6 and &HEC and everything
+ * above them losing a further two, so that a room ends up one-based.  Only
+ * obj_shows_initial_description() needs it, and there only the room and
+ * "held by the player" codes can ever match anything.
  */
-scr_bool
-obj_shows_initial_description (scr_gameref_t game, scr_int object)
+static scr_int
+obj_initial_location_code (scr_gameref_t game, scr_int object)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
-  scr_int onlywhennotmoved;
+  scr_int initialposition;
 
-  /* Get only when moved property. */
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "InitialPosition";
+  initialposition = prop_get_integer (bundle, "I<-sis", vt_key);
+
+  switch (initialposition)
+    {
+    case 0:                     /* Hidden. */
+      return -1;
+    case 1:                     /* Held. */
+      return 0;
+    case 2:                     /* In a container, run400's &HF6. */
+      return -10;
+    case 3:                     /* On a surface, run400's &HEC. */
+      return -20;
+    default:                    /* In a room, one-based. */
+      return initialposition - 3;
+    }
+}
+
+
+/*
+ * obj_shows_initial_description()
+ *
+ * Return TRUE if the room lister prints this object's in-room description
+ * INSTEAD of adding the object to the "Also here is" list.
+ *
+ * This is run400's Proc_19_75_449B6C @00449B6C, and both halves of viewroom
+ * @00472CA4 hang off it: the printing loop @00472515 takes the objects it
+ * says yes to, and the two listing loops @004725D0 and @004726A9 take
+ * exactly the ones it says no to.  Its shape is not "has the object been
+ * moved" at all.  The loader freezes the OnlyWhenNotMoved byte as it reads
+ * it (run400 @00490B96, `If o(132) = 2 Then o(132) = o(26) + 1`), so the
+ * three authored modes survive as three *values*, compared literally:
+ *
+ *   0  matches only on the branch where the InRoomDesc is non-empty
+ *   1  matches unconditionally -- until the library take handler spends it,
+ *      which is the ONLY write back to the byte in the whole of run400
+ *      (`takes` @0047BF66 turns a 1 into -1, and -1 never matches again)
+ *   2  has become the object's initial location code + 1, so it matches
+ *      only while the object still sits where it started
+ *
+ * so mode 1 is "until the player first picks it up" -- a drop, a put, a task
+ * moving the object, an NPC taking it all leave it showing -- and mode 0
+ * with an EMPTY InRoomDesc means "print nothing AND stay out of the list",
+ * which is how a 4.0 author silences an object the room's own long text
+ * already mentions.  Measured 2026-09-06 under Wine: camelot15's four
+ * bottles (mode 1, empty InRoomDesc) and takeone's jewel (mode 2, empty
+ * InRoomDesc, still in its initial room) are both invisible to run400's
+ * lister where Scarier used to list them, while zelda's shield (mode 1, a
+ * description, dropped back on the ground) is listed rather than described,
+ * because the take spent its byte.
+ *
+ * Pre-4.0 games carry neither property, and their defaults -- empty
+ * InRoomDesc, mode 0 -- land on "not shown, therefore listed", which is what
+ * they did before, so this needs no version gate.
+ */
+scr_bool
+obj_shows_initial_description (scr_gameref_t game, scr_int object,
+                               scr_int room, scr_bool inroomdesc_absent)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_int onlywhennotmoved, frozen;
+
+  /* Get the only-when-not-moved property, and freeze it as the loader does. */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
   vt_key[2].string = "OnlyWhenNotMoved";
   onlywhennotmoved = prop_get_integer (bundle, "I<-sis", vt_key);
 
-  /* Combine this with game in mysterious ways. */
-  switch (onlywhennotmoved)
-    {
-    case 0:
-      return TRUE;
+  if (onlywhennotmoved == 1)
+    frozen = gs_object_unmoved (game, object) ? 1 : -1;
+  else if (onlywhennotmoved == 2)
+    frozen = obj_initial_location_code (game, object) + 1;
+  else
+    frozen = onlywhennotmoved;
 
-    case 1:
-      return gs_object_unmoved (game, object);
+  /*
+   * Compare against the Runner's one-based location codes: its lister is
+   * handed room + 1, and tests the frozen byte against that plus one.
+   */
+  if (frozen == 1 || frozen == room + 2)
+    return TRUE;
 
-    case 2:
-      {
-        scr_int initialposition;
-
-        if (gs_object_unmoved (game, object))
-          return TRUE;
-
-        vt_key[2].string = "InitialPosition";
-        initialposition = prop_get_integer (bundle, "I<-sis", vt_key) - 3;
-        return gs_object_position (game, object) == initialposition;
-      }
-    }
-
-  /* What you talkin' 'bout, Willis? */
-  return FALSE;
+  return frozen == 0 && !inroomdesc_absent;
 }
 
 

@@ -2441,12 +2441,12 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
   while (current[offset] != NUL)
     {
       scr_int object, npc, extent;
-      const scr_char *prefix, *name;
+      const scr_char *prefix, *name, *echo;
       std::string definite;
 
       /* Initially, no object or NPC, no names, and a zero extent. */
       object = npc = -1;
-      prefix = name = NULL;
+      prefix = name = echo = NULL;
       extent = 0;
 
       /*
@@ -2578,12 +2578,49 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * Measured on ptgood_again (4.00) turns 5-6: `x it` with nothing
            * yet referenced answers "(Absolutely nothing)" then "You see no
            * such thing."; `g` repeats "(x it)", "(Absolutely nothing)".
-           * The character seeds ("Nobody"; 4.0 adds "No male" / "No female"
-           * at 494184/494188) are not measured and are left alone.
            */
           prefix = "";
           name = "nothing";
+          echo = "Absolutely nothing";
           extent = scr_compare_word (current + offset, "it", 2) ? 2 : 4;
+        }
+      else if (scr_compare_word (current + offset, "him", 3)
+               || scr_compare_word (current + offset, "he", 2)
+               || scr_compare_word (current + offset, "her", 3)
+               || scr_compare_word (current + offset, "she", 3))
+        {
+          /*
+           * The same thing for the character pronouns, and again the Runner
+           * has no "no reference" state -- the register is a seeded string,
+           * so him/he/her/she are rewritten even before anything has been
+           * referred to.  3.9 and 4.0 keep a register per gender, seeded
+           * "No male" and "No female" (run400 loc_45A7F9/45A800 in
+           * Proc_19_4_45AA98, run390 loc_434969/434970 in clear(); assigned
+           * the NPC's Name by gender byte at run400 loc_47F3B9/47F3D0 and
+           * run390 loc_4592D7/4592EE, which is Scarier's him_npc/her_npc).
+           * 3.7 and 3.8 have ONE character register for all four pronouns,
+           * seeded "Nobody" (run370 loc_42398D MemVar_4460B4, read by every
+           * branch of its() at 42CAFA/42CBC6/42CC9B/42CD67; run380
+           * loc_4289F1).  Unlike the object register there is no second
+           * lower-case copy: the echo and the text spliced into the command
+           * are the same string, and the whole command is lower-cased after
+           * the splice.
+           *
+           * Measured on showtime (4.00, Adrift_312_showtime.txt turn 59):
+           * `get her hand` with no female yet referenced answers
+           * "(No female)" and then runs the game's task, which survives
+           * because its command is the wildcard `get * hand` and the
+           * rewritten line is "get no female hand".
+           */
+          prefix = "";
+          if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
+            name = (scr_compare_word (current + offset, "him", 3)
+                    || scr_compare_word (current + offset, "he", 2))
+                   ? "No male" : "No female";
+          else
+            name = "Nobody";
+          echo = name;
+          extent = scr_compare_word (current + offset, "he", 2) ? 2 : 3;
         }
 
       /*
@@ -2650,9 +2687,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * From P-code only; no 3.7/3.8 replay has been measured for it.
            */
           pf_buffer_reference (gs_get_filter (game),
-                               object == -1 && npc == -1
-                               ? "Absolutely nothing"
-                               : replacement.c_str ());
+                               echo ? echo : replacement.c_str ());
 
           /* Splice the replacement in for the matched extent. */
           buffer.replace (offset, extent, replacement);

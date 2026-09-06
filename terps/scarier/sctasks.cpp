@@ -508,6 +508,24 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
     }
 
   /*
+   * A move action spends the object's "only when not moved" byte, exactly as
+   * the library take does.  run400's execute_action @0048C377-@0048C395 runs
+   * "If o(132) = 1 Then o(132) = &HFF" on the selected object immediately
+   * after the static refusal at @0048C371 and *before* the destination Select
+   * Case, so every destination spends it -- including a move back to the room
+   * the object started in, and including "to hidden".  Statics never reach it,
+   * their branch having jumped to the end of the action.
+   *
+   * zelda is the row that settled it: the small key is InitialPosition hidden
+   * with OnlyWhenNotMoved = 1 and a non-empty InRoomDesc, and the Like-Like
+   * task moves it into the Graveyard.  run400 answers "Also here is a small
+   * key." there, not the key's own description, because the move spent the
+   * byte.  See obj_shows_initial_description() in scobjcts.cpp for the other
+   * half of the model.
+   */
+  gs_set_object_unmoved (game, object, FALSE);
+
+  /*
    * The Runner's task mover does its own carried-total accounting
    * (Proc_19_10 in run400): if the object is currently in the player's
    * possession (held or worn, recursing through carried containers and

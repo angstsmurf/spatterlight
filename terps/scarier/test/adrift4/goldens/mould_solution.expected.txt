@@ -697,8 +697,6 @@ on top, just inside the lab. Your parents do not seem to be that close by,
 but maybe you can find a clue as to where they are located once you get
 inside the lab. The only exit is back to the west.
 
-You can also see a toy mouse.
-
 Waterfall has entered before you and cleared out any flames.
 
 > get mouse
@@ -1312,8 +1310,6 @@ and south.
 
 A crowd of people move around the shopping centre.
 
-You can also see a catcher's outfit.
-
 You have just pushed Waterfall to this location.
 
 Waterfall says, "It was terrible at first, not being able to move. In fact,
@@ -1456,8 +1452,6 @@ and a lot is wasted. Still, it has brought in customers, so it has good
 points for the business as well. The shopping centre continues to the west
 and south. The sporting gear shop has been closed with security doors
 blocking its entrances and windows.
-
-You can also see a catcher's outfit.
 
 > mould
 What do you want to turn your hand into?

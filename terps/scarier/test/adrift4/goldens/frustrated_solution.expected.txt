@@ -534,12 +534,15 @@ I could also see a tiny rock, a small rock and a medium rock.
 Fit, Source and Tife moved towards me from the north.
 
 > put small rock on left pan
+(Taking the small rock first)
 I put the small rock on the left pan.
 
 > put medium rock on left pan
+(Taking the medium rock first)
 I put the medium rock on the left pan.
 
 > put tiny rock on right pan
+(Taking the tiny rock first)
 I put the tiny rock on the right pan.
 
 > cut rope

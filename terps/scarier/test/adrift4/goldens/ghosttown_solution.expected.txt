@@ -79,8 +79,6 @@ A tall closet, one leg missing is leaning against a wall, its doors hanging
 by one hinge only, with old moldy pieces of clothing lying half way out and
 on to the floor.
 
-Also here is a rusty kerosene lamp.
-
 > look
 
 Bedroom
@@ -99,8 +97,6 @@ working condition.
 A tall closet, one leg missing is leaning against a wall, its doors hanging
 by one hinge only, with old moldy pieces of clothing lying half way out and
 on to the floor.
-
-Also here is a rusty kerosene lamp.
 
 > get lamp
 You reach out and pick up the only working kerosene lamp in the room.
@@ -1042,8 +1038,6 @@ take a hard (mental) hold of yourself.
 You carefully start to feel your way around, the first thing you realize is
 that the ground under you is made from dirt...
 
-Also here is a shovel.
-
 > x floor
 On hands and knees you slowly feel your way across the cellar floor, and
 after a little while your fingers touch a vertical surface which could be a
@@ -1853,9 +1847,7 @@ with dust, thrown there in great haste as someone has left the room in a
 hurry.
 
 A piece of rope lies in the corner, probably forgotten by some previous
-visitor.
-
-Also here is an old mattress.  Ninette is here.
+visitor.  Ninette is here.
 
 > move closet
 The closet is heavier than it looks and it takes quite an effort for you to

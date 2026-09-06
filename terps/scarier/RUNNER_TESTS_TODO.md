@@ -2709,7 +2709,10 @@ That was live, in two of the six games that have a dangling back-reference:
 
 The other four (`Dream Quest`, `To_Hell_And_Beyond`, `Orient_Express`,
 `The_Shuffling_Room`) embed no resources at all, so their chains had nothing to
-corrupt. `House` turns out to be one of them in practice — its `Embedded` flag
+corrupt.  (`Dream Quest`'s negative lengths are a red herring in a second way
+too: run400 refuses to open that game at all, and the reason is a command-less
+task, not a resource — see the `dreamquest` entry in
+`test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md`.) `House` turns out to be one of them in practice — its `Embedded` flag
 is off, so its offsets are never used — which leaves `MikeDesert` as the one
 game a player would have noticed, and only if they got to an ending.
 

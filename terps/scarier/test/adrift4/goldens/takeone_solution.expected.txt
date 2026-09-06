@@ -93,8 +93,6 @@ Passages in the ruined walls of this place lie to the north and west.
 Indianette Jones is all ready to get moving in this chase scene, but she is
 waiting for her next order.
 
-On the ground is a jewel.
-
 > use whip on jewel
 Indianette Jones cracks her whip at the jewel and misses. The second time she
 also misses, but on the third time the jewel is hit and it comes tumbling

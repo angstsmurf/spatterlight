@@ -540,7 +540,7 @@ refuses to load it.
 | `briefcase` | briefcase.taf | `Adrift_199_briefcase.txt` | diff 4 | T5 `z`: run400 'Time passes... A whine escapes the mouth of the dog - he seems to be b' vs scarier 'Time passes...' |
 | `bsg22` | BSG TWENTY TWO Final.taf | `Adrift_191_bsg22.txt` | diff 1 | T13 `fuck tricia's ass with spike`: run400 'You step back as Tricia turns around, sticking out her ass and leaning' vs scarier 'You step back as Tricia turns around, sticking out her ass and leaning' |
 | `businessasusual` | Business As Usual.taf | `Adrift_209_businessasusual.txt` | diff 9 | T3 `wait`: run400 'You wait a bit... Yellow lights flicker. Somebody grabbed the lamp!' vs scarier 'You wait a bit... Blue lights flash. The book has been taken!' |
-| `camelot15` | Camelot 1,5.taf | `Adrift_248_camelot15.txt` | diff 2 | T32 `go north`: run400 'You gently push the silk curtains aside and walk into the adjacent roo' vs scarier 'You gently push the silk curtains aside and walk into the adjacent roo' |
+| `camelot15` | Camelot 1,5.taf | `Adrift_248_camelot15.txt` | diff 1 (DONE 2026-09-06, room-content listing; only `[Press any key to end]` left) | T32 `go north`: run400 'You gently push the silk curtains aside and walk into the adjacent roo' vs scarier 'You gently push the silk curtains aside and walk into the adjacent roo' |
 | `choosethreehour` | Choose_Your_Own_Three_Hour_Adventure.taf | `Adrift_190_choosethreehour.txt` | clean |  |
 | `cluelessbob` | In_the_Claws_of_Clueless_Bob.taf | `Adrift_234_cluelessbob.txt` | clean |  |
 | `cobl` | COBL.taf | `Adrift_286_cobl.txt` | diff 22 | T0 `3`: run400 'After the ending of the last adventure game you played left you feelin' vs scarier 'After the ending of the last adventure game you played left you feelin' |
@@ -569,7 +569,7 @@ refuses to load it.
 | `foresthouse2` | TheForestHouse_2.taf | `Adrift_225_foresthouse2.txt` | endtail 1 | T33 `examine mirror`: run400 'The mirror is covered in dust. You wipe the dust away with your sleeve' vs scarier 'The mirror is covered in dust. You wipe the dust away with your sleeve' |
 | `foresthouse3` | ForestHouse3.taf | `Adrift_264_foresthouse3.txt` | diff 8 | T48 `d`: run400 'You continue to descend the stairs... You get the feeling that somethi' vs scarier 'You continue to descend the stairs...' -- golden re-blessed 2026-09-06 with SCR_SKIP_WAITKEY=1 (the old golden was a stuck-on-the-porch run); still diff 8, first at T48 |
 | `forum` | forum.taf | `Adrift_261_forum.txt` | endtail 1 | T19 `1`: run400 'You pull out Lancer Sykera from the depths of your pockets. Woodfish r' vs scarier 'You pull out Lancer Sykera from the depths of your pockets. Woodfish r' |
-| `frustrated` | frustrated.taf | `Adrift_274_frustrated.txt` | diff 4 | T53 `put small rock on left pan`: run400 '(Taking the small rock first) I put the small rock on the left pan.' vs scarier 'I put the small rock on the left pan.' |
+| `frustrated` | frustrated.taf | `Adrift_274_frustrated.txt` | endtail 1 | was diff 4; T53-T55 FIXED 2026-09-06 by moving the 4.0 implicit take ahead of the put handler's task look-up (see "Measured so far") |
 | `fullcircle` | Full_Circle.taf | `Adrift_322_fullcircle.txt` | diff 40 | T43 `get all`: run400 'You take the helm and the locket. You take the branch.' vs scarier 'You take the branch. You take the helm and the locket.' |
 | `ghosttown` | Ghost town v1,05.taf | `Adrift_325_ghosttown.txt` | diff 34 | T2 `n`: run400 'You move north. Bedroom As you enter the bedroom you are surprised by ' vs scarier 'You move north. Bedroom As you enter the bedroom you are surprised by ' -- diff 23 after the 2026-09-06 seen/resolver port (T2 is the kerosene-lamp listing, unchanged); `x posters` and the dusk-event tick now match |
 | `Glum_Fiddle` | Glum Fiddle.taf | `Adrift_289_Glum_Fiddle.txt` | lost-cmd | 1 lost, first feed[1] `say cow` |
@@ -610,7 +610,7 @@ refuses to load it.
 | `paint` | Paint.taf | `Adrift_270_paint.txt` | diff 10 | T16 `call mertle`: run400 'You hear the sound of sighing down the corridor then the receptionist ' vs scarier 'You hear the sound of sighing down the corridor then the receptionist ' |
 | `patient7` | Patient7.taf | `Adrift_254_patient7.txt` | lost-cmd | 1 lost, first feed[57] `wait` |
 | `perfectspy` | The Perfect Spy.taf | `Adrift_272_perfectspy.txt` | endtail 1 | T19 `n`: run400 'You run away from the cat and out of the alley. For the first few mome' vs scarier 'You run away from the cat and out of the alley. For the first few mome' |
-| `perspectives` | perspectives.taf | `Adrift_240_perspectives.txt` | diff 2 | T0 `look`: run400 'Locked In A Bathroom It's a terribly small bathroom, with scarcely muc' vs scarier 'Locked In A Bathroom It's a terribly small bathroom, with scarcely muc' |
+| `perspectives` | perspectives.taf | `Adrift_240_perspectives.txt` | diff 2 (NOT the listing rule -- the ALR `' Also here is a gun. '` cannot match because run400 concatenates `"  Also here"` into one string; deferred, whitespace) | T0 `look`: run400 'Locked In A Bathroom It's a terribly small bathroom, with scarcely muc' vs scarier 'Locked In A Bathroom It's a terribly small bathroom, with scarcely muc' |
 | `pestilence` | pestilence.taf | `Adrift_276_pestilence.txt` | diff 5 | T38 `read card`: run400 'The record card has lots of medical mumbo-jumbo but you can make out t' vs scarier 'The record card has lots of medical mumbo-jumbo but you can make out t' |
 | `petespunkin` | Pete's Punkin Junkinator.taf | `Adrift_208_petespunkin.txt` | endtail 1 | T26 `pull crank`: run400 'The sound makes you nervous, like stepping on broken glass, and the fe' vs scarier 'The sound makes you nervous, like stepping on broken glass, and the fe' |
 | `picture` | Picture.taf | `Adrift_121_picture.txt` | diff 2 | T0 `sit on bench`: run400 'You sit down on the wooden bench and hear a voice coming from the pict' vs scarier 'You sit down on the wooden bench and hear a voice coming from the pict' |
@@ -630,9 +630,9 @@ refuses to load it.
 | `secidenoddcomp` | seciden_oddcomp.taf | `Adrift_267_secidenoddcomp.txt` | diff 6 | T6 `n`: run400 'You move north. Living Room Though it still retains a feeling of empti' vs scarier 'You move north. Living Room Though it still retains a feeling of empti' |
 | `sexismental` | Sex is Mental.taf | `Adrift_223_sexismental.txt` | endtail 1 | T32 `fuck pussy`: run400 'You plant your lips on Mary before sliding you hands up her legs and a' vs scarier 'You plant your lips on Mary before sliding you hands up her legs and a' |
 | `shadow_of_the_past` | Shadow_Of_The_Past.taf | `Adrift_205_shadow_of_the_past.txt` | diff 2 | T19 `get crown`: run400 'As you grab the crown, you notice the beast inside start to stir. Your' vs scarier 'As you grab the crown, you notice the beast inside start to stir. Your' |
-| `ShadricksUnderground` | ShadricksUnderground.taf | `Adrift_285_ShadricksUnderground.txt` | diff 12 | T42 `ne`: run400 'I move northeast. A Dark Tunnel This tunnel is overrun with bat droppi' vs scarier 'I move northeast. A Dark Tunnel This tunnel is overrun with bat droppi' |
+| `ShadricksUnderground` | ShadricksUnderground.taf | `Adrift_285_ShadricksUnderground.txt` | diff 11 | T81 `put large boulder on short plinth` FIXED 2026-09-06 with `frustrated` T53; first difference now T42 `ne`: run400 'I move northeast. A Dark Tunnel This tunnel is overrun with bat droppi' vs scarier 'I move northeast. A Dark Tunnel This tunnel is overrun with bat droppi' |
 | `shetland` | The_Shetland_Enigma.taf | `Adrift_260_shetland.txt` | endtail 1 | T65 `mount bike`: run400 'You mount the little pod-bike, and draw its protective shield about yo' vs scarier 'You mount the little pod-bike, and draw its protective shield about yo' |
-| `showtime` | Showtime_at_the_Gallows.taf | `Adrift_312_showtime.txt` | diff 1 | T59 `get her hand`: run400 '(No female) "Katie!" you say as you throw your arm out to her. A smili' vs scarier '"Katie!" you say as you throw your arm out to her. A smiling Zero plun' |
+| `showtime` | Showtime_at_the_Gallows.taf | `Adrift_312_showtime.txt` | FIXED 2026-09-06 | T59 `get her hand` `(No female)`: ported, golden re-blessed.  A re-drive still reports a first difference at the same turn, but that is the feed's two blank `<waitkey>` lines drifting the streams (`z` re-synchronises two turns later), not the echo |
 | `sigurd` | Sigurd_Fafnesbane.taf | `Adrift_189_sigurd.txt` | endtail 1 | T11 `kill regin`: run400 'You kill your deceitful stepfather. Regin falls dead over his anvil. Y' vs scarier 'You kill your deceitful stepfather. Regin falls dead over his anvil. Y' |
 | `skydiver` | The_Skydiver.taf | `Adrift_246_skydiver.txt` | diff 2 | T15 `z`: run400 'Time passes... Pelican A pelican flocked toward me..' vs scarier 'Time passes...' |
 | `spooked` | Spooked_The_Wonders_of_Science.taf | `Adrift_226_spooked.txt` | clean |  |
@@ -642,7 +642,7 @@ refuses to load it.
 | `suburbanprodigy3` | MikeDesert_SuburbanProdigy3.taf | `Adrift_219_suburbanprodigy3.txt` | diff 1 | T31 `stats`: run400 'Listen dude, you've played these games before. Step it up! You scored ' vs scarier 'Celler \| Score: 80 You scored 80 out of the maximum 80! That is 100% o' |
 | `sun_empire` | Sun_Empire_Quest_For_The_Founders.taf | `Adrift_277_sun_empire.txt` | lost-cmd | 2 lost, first feed[82] `quit` |
 | `suzypowers` | competition2011__adrift__powers__how suzy got her powers.taf | `Adrift_216_suzypowers.txt` | diff 1 | T30 `lift beam`: run400 'You place one end of the trident under the beam and say to the woman, ' vs scarier 'You place one end of the trident under the beam and say to the woman, ' |
-| `takeone` | takeone.taf | `Adrift_202_takeone.txt` | diff 2 | T4 `s`: run400 'Indianette Jones moves south. Ruined Statue (on screen 3) Above Indian' vs scarier 'Indianette Jones moves south. Ruined Statue (on screen 3) Above Indian' |
+| `takeone` | takeone.taf | `Adrift_202_takeone.txt` | diff 1 (DONE 2026-09-06, room-content listing; only `[Press any key to end]` left) | T4 `s`: run400 'Indianette Jones moves south. Ruined Statue (on screen 3) Above Indian' vs scarier 'Indianette Jones moves south. Ruined Statue (on screen 3) Above Indian' |
 | `target` | target.taf | `Adrift_224_target.txt` | diff 18 | T0 `1`: run400 'Roof of the Building You are on the roof of the gothic revival Appleto' vs scarier 'Roof of the Building You are on the roof of the post-modern Bakewell I' |
 | `templeofthesun` | Temple_Of_The_Sun.taf | `Adrift_217_templeofthesun.txt` | endtail 1 | T30 `wear robes and headdress`: run400 'You quickly don the golden headdress and colorful robe. You finally ge' vs scarier 'You quickly don the golden headdress and colorful robe. You finally ge' |
 | `tenebraesemper` | TenebraeSemper.taf | `Adrift_227_tenebraesemper.txt` | clean |  |
@@ -651,7 +651,7 @@ refuses to load it.
 | `the_town_of_azra` | The_Town_Of_Azra.taf | `Adrift_339_the_town_of_azra.txt` | diff 9 | T6 `gulp the coffee`: run400 'You tip the cup back and take a medium-sized gulp of the coffee. There' vs scarier 'You tip the cup back and take a medium-sized gulp of the coffee. There' |
 | `TheADRIFTProject` | TheADRIFTProject.taf | `Adrift_341_TheADRIFTProject.txt` | lost-cmd | 11 lost, first feed[3] `open door` |
 | `thehunter` | The_Hunter.taf | `Adrift_347_thehunter.txt` | diff 1 | T59 `fire ballista`: run400 'The ballista fires with a bang, and the bolt soars through the air, th' vs scarier 'The ballista fires with a bang, and the bolt soars through the air, th' |
-| `thelasthour` | thelasthour.taf | `Adrift_297_thelasthour.txt` | lost-cmd | 6 lost, first feed[119] `wait` |
+| `thelasthour` | thelasthour.taf | `Adrift_297_thelasthour.txt` | lost-cmd | 6 lost, first feed[119] `wait`.  T80 `ask sly about him` gave up the ask/talk-to `about` split, FIXED 2026-09-06 |
 | `theroad` | the_road.taf | `Adrift_282_theroad.txt` | clean |  |
 | `theseance` | The_Seance.taf | `Adrift_195_theseance.txt` | endtail 1 | T17 `yes`: run400 '"I am so happy my love" Emily asks for your hand, and taking one final' vs scarier '"I am so happy my love" Emily asks for your hand, and taking one final' |
 | `thesisters` | TheSisters.taf | `Adrift_308_thesisters.txt` | diff 6 | T84 `get shoes`: run400 'You take the shoes from the tall wardrobe.' vs scarier 'You take the shoes from the tall wardrobe. You pause, a chill running ' |
@@ -796,6 +796,14 @@ and decompile addresses are in the harness row comments and in git history.
 **Parser and dispatch**
 - The `(<npc>)` ask/talk echo is printed before task matching, and every
   typed line notes its characters (SPAM, sommeril; `uip_print_ask_echo()`).
+- The character pronouns have no-antecedent seeds of their own: "No male" /
+  "No female" from 3.90, one "Nobody" below, echoed and spliced exactly as
+  "Absolutely nothing" is for `it`/`them` (showtime `get her hand`;
+  `uip_replace_pronouns()`).
+- Every Runner splits its `ask`/`talk to` block on `about`: only the branch
+  WITHOUT it prints the `ask [character] about [subject]` hint, and the
+  branch with it seeds "<You> can't talk to that." (thelasthour `ask sly
+  about him`; `lib_cmd_ask_about_nothing()`).
 - A trailing space in a task command must be present in the input, for
   all-literal patterns only (`NODE_HARD_WHITESPACE`; sommeril
   `get placemat `, JGrim `in `, wax_worx `d `).
@@ -873,10 +881,21 @@ and decompile addresses are in the harness row comments and in git history.
   default OFF; 3.8 AdditionalMessage double-space drop; empty room
   description substitution (inverse census).
 - ShowRoomDesc prints BEFORE the task's actions.
+- The room-content listing is decided by `Proc_19_75_449B6C` on the object's
+  OnlyWhenNotMoved byte, not by "is the InRoomDesc empty": an unspent mode 1,
+  or a mode 2 frozen to the object's start room, is handled by the
+  description branch and NEVER listed -- so with an empty InRoomDesc the
+  object vanishes from the room text.  The byte is spent by the library take
+  and by any task move action on a dynamic object (camelot15, takeone,
+  zelda; `obj_shows_initial_description()`).  See "Ported 2026-09-06".
 - 4.0 put/task precedence: a completable library put beats a passing task,
   a size/capacity refusal prints and lets the task follow on one line, the
   implicit take is gated on a mode-1 task pre-match, and the pre-matcher's
   take/put class filter (task bytes 104/105).  See "Ported 2026-09-06".
+- The 4.0 implicit take runs BEFORE the put handler's task look-up, so
+  `(Taking the X first)` (and a `get`-task that claims during it) precedes
+  the text of a task that goes on to claim the put (frustrated T53-T55,
+  ShadricksUnderground T81).  See "Ported 2026-09-06".
 - The task pre-matcher (`Proc_19_35_453C50`) is restriction-aware: pass one
   wants a runnable task whose restrictions PASS; the fallback wants the
   lowest failing restriction's FailMessage non-empty, or a spent task's
@@ -1674,6 +1693,40 @@ scrap of the "numbered-choice menu" lead, and it is gone.
 window.  Scarier loads and finishes it.  Six other rows raise a run-time
 `evaluate error - Subscript out of range` mid-game and keep going.
 
+**Why run400 will not open it (settled 2026-09-06).**  `Dream Quest.taf` is a
+perfectly ordinary ADRIFT 4.00 file -- exact V400 signature, serial
+`00026161`, zlib from offset 22, 15-byte `Wild` trailer, and tafpretty parses
+it to the last line with nothing left over (68 rooms, 101 objects, 58 tasks,
+11 events, 10 NPCs).  The file is fine; **run400 has a load-time bug**, and one
+single task trips it.
+
+Bisected under Wine by rebuilding the game with taftool and cutting it down
+(`try.sh` = launch run400, look for the 274x114 error dialog): rooms+objects
+alone load; adding the tasks fails; halving the task list narrows it to
+**task index 22** (0-based), the only task in the game with an **empty Command
+vector**.  That task is command-less on purpose -- it has `CompleteText`
+"You fall limply to the ground, drained. Boy were you suckered!", `Where` =
+room 63 and a single action, so it is only ever meant to be fired by another
+task or an event.  Rebuilt with one dummy command line added to that task and
+*nothing else changed*, the whole game opens in run400 and plays.
+
+The P-code says why.  openadv's task loop reads the Command count and then
+does a bare
+
+    ReDim cmd(0 To n - 1)        ' 490DA7-490DBE, no clamp
+
+so `n = 0` asks VB6 for `0 To -1`, which is error 9, "Subscript out of range" --
+raised at load stage &HA (490D26), hence the `[...,9,10]` in the dialog.  Every
+other string vector in the same record is clamped: ReverseCommand at
+490EAC-490EF5 wraps the bound in `Proc_21_0_442D10` (= `Max(a, b)`), which is
+why all 58 of this game's tasks having zero reverse commands, and 61 of its
+objects having zero aliases, cost nothing.  So an empty Command list is the
+one case ADRIFT 4.00's own Runner cannot load, and the Generator will happily
+write one.
+
+Consequence for this file: `dreamquest` can never be Runner-measured.  It is
+not in the "no transcript yet" backlog, it is out of reach permanently.
+
 ### Five tool fixes this batch forced
 
 1. **The startup gender form is not the Hiscore Table.**  ADRIFT asks
@@ -1771,15 +1824,11 @@ the ending tail** now; so is the whole "numbered-menu cluster" that was
 written up here (see the batch-1 section), and so, after fix 5, is
 `tictactoe`, which had been its last surviving member.
 
-- **An implicit-take announcement, `frustrated` T53.**  `put small rock on
-  left pan` -> run400 opens with `(Taking the small rock first) `, scarier
-  goes straight to the task text.  One turn, one prefix, and it is a library
-  rule rather than a game's wording.
-- **A pronoun-resolution echo, `showtime` T59.**  `get her hand` -> run400
-  opens with `(No female) `, scarier does not.  Same shape as `frustrated`:
-  a parenthesised parser aside emitted before the result.  Compare the
-  `adrift4-pronoun-echo-article` and `adrift4-ask-echo-before-tasks` rules --
-  this is a third member of that family.
+- ~~**A pronoun-resolution echo, `showtime` T59.**~~  DONE 2026-09-06; see
+  "Ported 2026-09-06: the character pronouns have no-antecedent seeds too"
+  below.  It was the third member of the `adrift4-pronoun-echo-article` /
+  `adrift4-ask-echo-before-tasks` family, and it dragged a second rule out
+  with it (`thelasthour` T80, the ask/talk-to `about` split).
 - **Battle damage wording, 2 rows.**  `shadow_of_the_past` T18 run400
   `Beast hits you.` / scarier `Beast hits you, but it doesn't seem to do any
   damage.`; `del_sol` T44 run400 `MoReLaND hits you, but it doesn't seem to
@@ -1796,11 +1845,16 @@ written up here (see the batch-1 section), and so, after fix 5, is
   `cbn` T6 and `cellar` T43: scarier marks something seen that run400 does
   not.  Four rows now point at one rule.
 - **An object list one side prints and the other does not, 3 rows.**
-  `camelot15` T32 and `takeone` T4: scarier appends `Also here is ...` /
-  `On the ground is a jewel.` to a room the Runner describes without them.
-  `perspectives` T0 is the mirror image (`On top of the ...` in run400,
-  `Also ...` in scarier).  This is the room-content listing, and it is the
-  largest coherent group in the batch.
+  DONE 2026-09-06 for the two real ones -- see "Ported 2026-09-06: the
+  room-content listing is o(132), not 'is the InRoomDesc empty'" below.
+  `camelot15` T32 and `takeone` T4 both match now (`Proc_19_75_449B6C`
+  @00449B6C; an object whose OnlyWhenNotMoved byte is still unspent is never
+  listed, even with an empty InRoomDesc, and the byte is spent by the library
+  take AND by any task move action).  `perspectives` T0 turned out not to
+  belong here at all: its ALR Original `' Also here is a gun. '` cannot match
+  because run400 concatenates the literal `"  Also here"` (@00472696) into
+  one room string where scarier emits `"\nAlso here is ...\n"`.  That is a
+  whitespace question, deferred.
 - **An event line one side prints and the other does not, 6 rows.**
   `skydiver` T15 (`Pelican A pelican flocked toward me..` only in run400),
   `briefcase` T5 and `backhome` T36 (only in run400), `overtheedge` T1,
@@ -1901,14 +1955,18 @@ follow-up on rows that have been driven, in this order:
    seen seed and the 463640 second pass" below): `asdfa` identical, `cbn` T6
    and `cellar` T43 match.  `bandera` T18 is an NPC and stays open (NPC seen
    model, unread).
-2. **Parenthesised parser asides** -- `frustrated` T53 `(Taking the small
-   rock first) ` and `showtime` T59 `(No female) `, both printed by run400
-   and by neither by scarier.  One turn each, and they extend a family of
-   rules already ported (`adrift4-ask-echo-before-tasks`,
-   `adrift4-pronoun-echo-article`).
-3. **The room-content listing** -- `camelot15` T32, `takeone` T4 (scarier
-   lists, run400 does not) and `perspectives` T0 (the mirror).  Three rows,
-   and the largest coherent group left.
+2. **Parenthesised parser asides** -- DONE 2026-09-06.  `showtime` T59
+   `(No female) ` is ported (see "Ported 2026-09-06: the character pronouns
+   have no-antecedent seeds too" below), and with it a second rule the fix
+   exposed, the ask/talk-to `about` split.  The other member, `frustrated`
+   T53 `(Taking the small rock first) `, was done the same day -- see
+   "Ported 2026-09-06: the 4.0 implicit take runs before the put handler's
+   task look-up" below.
+3. **The room-content listing** -- DONE 2026-09-06.  `camelot15` T32 and
+   `takeone` T4 match; ten goldens re-blessed, six measured rows improved.
+   `perspectives` T0 was reclassified: not the listing rule, but the room
+   description's whitespace defeating an ALR -- still open, deferred until it
+   can have its own `DUMP_SCROLLBACK` measurement.
 4. **Battle hit vs no-damage** -- `shadow_of_the_past` T18 and `del_sol` T44
    disagree in opposite directions on one turn each.  Two rows, and the pair
    pins the formula rather than the message.  `hyper_b_s` T4 (Flare Rat on 23
@@ -2025,3 +2083,276 @@ annotations.tsv` rows 457034 and 463640 corrected.
 Still open from this thread: `bandera` T18 `x marife` (NPC seen model),
 `cbn`'s second refusal, `cellar` T114 `take satchel` ("There is nothing worth
 taking here." vs "Take what?"), `ghosttown` T2.
+
+
+## Ported 2026-09-06: the 4.0 implicit take runs before the put handler's task look-up
+
+`frustrated` T53-T55 (`Adrift_274_frustrated.txt`) and
+`ShadricksUnderground` T81 (`Adrift_285_ShadricksUnderground.txt`) were the
+same bug, and it was an ORDERING bug, not a missing message.  Scarier already
+had the whole `(Taking the X first)` machinery (`lib_put_implicit_take()` in
+`sclibrar.cpp`, ported 2026-09-06 with the put/task precedence split); it just
+ran it in the wrong place.
+
+**What run400 does.**  `name_object` (`Proc_19_41_46E5D8`) loops over the
+objects the noun matched, and for each one, at `loc_46E2B5`:
+
+  * skips the take if the object is static (`Proc_21_46_44615C`), if its
+    parent already IS the target (`obj.global_46 <> var_92`), or if there is
+    no target (`var_92 > &HFF`, i.e. `>= 0` -- see
+    [[adrift-decompile-signed-byte-literals]]);
+  * asks the pre-matcher for a TAKE-family task on the typed line
+    (`Proc_19_35_453C50(MemVar_49428C, 1, 1)`, class-filter mode 1) and skips
+    the take on a hit;
+  * otherwise prints `"(Taking " & name & " first)" & vbCrLf`
+    (`loc_46E2EA`-`loc_46E30C`), then runs the take piece
+    (`Proc_19_39_46302C @loc_46E31F`), which gives the tasks `get the X`
+    first;
+
+and only THEN, at `loc_46E34F`, calls `insides` (`Proc_19_43_46639C`) -- which
+is where the canonical `put the X in/on the Y` line reaches the tasks
+(`loc_465EB5`), ahead of its own possession test (`loc_465EED`).
+
+So the announcement is emitted **even when a task goes on to claim the put**,
+and a `get`-task that claims during the take piece prints its text too, ahead
+of the put task's.
+
+**What Scarier did.**  `lib_put_in_backend()` / the `put on` loop tried
+`lib_try_game_command_with_object_400()` first and `continue`d on a claim, so
+`lib_put_implicit_take()` was only ever reached when no task wanted the line.
+
+**The fix** (`sclibrar.cpp`, both backends): call `lib_put_implicit_take()`
+before the task look-up, and let the look-up run even for an object the take
+could not acquire -- a claim then clears the object out of the "You are not
+holding ..." report (`multiple_references`), matching run400's order of
+`insides`' `tasks()` call ahead of its possession test.  No new gate, no
+version work: `lib_put_implicit_take()` still returns immediately for
+pre-4.0.
+
+**Evidence, both directions, straight from the Runner transcripts.**
+
+  * `frustrated` T53 `put small rock on left pan` matches task 511
+    `put*small*left*` (three commands, CompleteText `I put the small rock on
+    the left pan.`), and run400 still opens with `(Taking the small rock
+    first)`.  The mode-1 class filter is why: none of the three spellings
+    contains `get`/`take`/`pick`, so the take gate's pre-match finds nothing.
+    T53, T54 and T55 all match now; the row is `diff 4` -> `endtail 1`.
+  * `ShadricksUnderground` T81 `put large boulder on short plinth`
+    (transcript line 517) is the harder case -- announcement, then a
+    `get`-task claim, then the put task, with the put text JOINED to the
+    get-task refusal by the usual two spaces:
+
+        > put large boulder on short plinth
+        (Taking the large boulder first)
+        "Grrrrr! Hrrrrrmmmmp. EEEeeeeOooKaaaaay!"
+
+        It's too heavy.  I can pick it up for a second, but that is about
+        it.  I'll have to find another way to move it.  "Mmmmgggphh. ...
+
+    Scarier reproduces the whole turn, joining included; the row is
+    `diff 12` -> `diff 11` with the first difference unchanged at T42 (bat
+    walker drift).
+
+**Corpus 428/428** after re-blessing three goldens -- `frustrated`,
+`ShadricksUnderground` and `hcw`.  `hcw`'s `put susan in trunk` turn gained the
+same shape (`(Taking sleeping Susan first)` + the Fembot get-task + the put
+task); its own run400 transcript had already diverged well before that turn
+(T81 `turn on intercom`), so it is blessed on the rule, not on a measurement.
+Only four measured transcripts contain `(Taking ` at all -- `frustrated`,
+`ShadricksUnderground`, `Glum_Fiddle` (lost feed[1], unchanged) and
+`humbug` (already clean) -- so the blast radius of the reorder is exactly the
+three rows above.
+
+## Ported 2026-09-06: the character pronouns have no-antecedent seeds too
+
+`showtime` T59, `get her hand`, is the whole measurement:
+
+```
+> get her hand
+(No female)
+"Katie!" you say as you throw your arm out to her.
+```
+
+Scarier printed the task text with no aside.  It already knew that `it` and
+`them` with no antecedent resolve to the literal string "Absolutely nothing"
+and are echoed and spliced as such -- there is no "no reference" state in any
+Runner, only a seeded one.  What it did not know is that the *character*
+pronouns have the same treatment, from their own registers:
+
+- 4.0 keeps two, seeded at new-game with "No male" and "No female"
+  (run400 `loc_45A7F9` / `loc_45A800` in `Proc_19_4_45AA98`), reassigned by
+  the character's gender byte at `loc_47F3B9` / `loc_47F3D0`.
+- 3.9 is the same shape, seeds at run390 `loc_434969` / `loc_434970` in
+  `clear()`, assignment at `loc_4592D7` / `loc_4592EE`.
+- 3.7 and 3.8 keep ONE register for all four of `he`/`him`/`she`/`her`,
+  seeded "Nobody" (run370 `loc_42398D` -> `MemVar_4460B4`, read at
+  `42CAFA` / `42CBC6` / `42CC9B` / `42CD67`; run380 `loc_4289F1`).
+
+So the gate is `>= TAF_VERSION_390` for the two-register form, "Nobody"
+below it.  As with `it`, the echo and the splice are the same string, which
+is why the task still fires in run400: `get no female hand` still matches
+task 52's wildcard command `get * hand`.  `uip_replace_pronouns()` in
+`scparser.cpp` now carries an explicit `echo` alongside the replacement
+instead of special-casing "Absolutely nothing" at the `pf_buffer_reference()`
+call.
+
+### The rule the fix exposed: the ask/talk-to `about` split
+
+Blessing `showtime` broke `thelasthour`, whose T80 is `ask sly about him` in
+a game with no male character at all.  With the seed in place scarier echoed
+`(No male)` correctly and then answered
+
+```
+Use the format "ask [character] about [subject]".
+```
+
+where run400 (`Adrift_297_thelasthour.txt` line 402) answers
+
+```
+(No male)
+I can't talk to that.
+```
+
+Every Runner runs one `c("ask") Or c("talk to")` block (run400
+`loc_488B61`..`loc_488B71`) that immediately splits on `c("about")`
+(`loc_488B87`):
+
+- **with** "about": look for an object named anywhere in the line and answer
+  "<You> get no reply from <it>." (`loc_488BFA`); failing that, and only if
+  the response buffer is still empty, seed it with
+  `MemVar_4941D0(0) & " can't talk to that."` (`loc_488C65`).
+- **without** "about": the `ask [character] about [subject]` hint
+  (`loc_488CB3`), gated on `MemVar_4941F8 = 0`, i.e. no task ran.
+
+The hint scarier was printing is the *other* branch.  Same split at run380
+`loc_444039` (seed `loc_44410C`), run370 `loc_43E9B7` (seed `loc_43EAA8`),
+run390 `loc_45D8E5`; the string is in all four exes, so no version gate.
+It also explains why "No-one listens to your rabblings." never appears for
+`talk to X about Y`: that clause (`loc_488DB6`) fires only when the response
+buffer is still empty, and the seed has already filled it.
+
+`lib_cmd_ask_about_nothing()` in `sclibrar.cpp` prints it, wired into
+`STANDARD_FALLBACK_COMMANDS` as `ask * about *` and `talk to * about *`
+immediately above the `ask *` / `talk *` catch-alls -- so the character rows
+(`ask %character% about %text%`), the object row (`ask %object% *`) and any
+matched task all still outrank it, which is the Runner's order.
+
+Suite unchanged at 428 PASS; two goldens re-blessed (`showtime`,
+`thelasthour`).  `showtime` re-driven still reports a first difference at the
+same turn, but that is the feed's two blank `<waitkey>` lines drifting the
+streams -- the tool notes "re-synchronised, scarier turn +2" two turns later
+-- and not the echo, which now matches character for character.
+
+
+## Ported 2026-09-06: the room-content listing is o(132), not "is the InRoomDesc empty"
+
+`camelot15` T32 and `takeone` T4 -- item 3 of the "next candidates" list --
+were both scarier printing an `Also here is ...` / `On the ground is a jewel.`
+line that run400 does not print at all.
+
+The whole rule is one Runner function, `Proc_19_75_449B6C` @00449B6C, called
+four times inside `viewroom` @00472CA4 -- once from the description pass
+(@0047257C) and once from each of the three list passes (@0047260C,
+@0047264F, @0047270D, each under `Not(...)`).  It takes an object and a room
+and answers "this object's presence is handled by the description branch":
+
+```
+o = Objects(obj)
+If (o(26) = room And o(24) = 0 And o(127) = 0)          ' dynamic, ListFlag 0
+   Or (o(24) = 1 And o(127) = 1 And o(28)(room) = 1)    ' static, ListFlag 1
+Then
+  If o(128) = "" Then                                   ' InRoomDesc empty
+    If o(132) = 1 Or o(132) = room + 1 Then Result = True
+  Else
+    If o(132) = 0 Or o(132) = 1 Or o(132) = room + 1 Then Result = True
+  End If
+End If
+```
+
+`o(132)` is the OnlyWhenNotMoved field, read straight from the .taf
+(@00490B7A).  The loader immediately *freezes* mode 2 into a room number --
+`If o(132) = 2 Then o(132) = o(26) + 1` @00490B96 -- where `o(26)` is the
+location code it has just computed from InitialPosition (@00490255-@004902BD:
+0 hidden -> -1, 1 held -> 0, 2 in-container -> -10, 3 on-surface -> -20,
+>= 4 -> InitialPosition - 3).  So mode 2 means "show it only in the room it
+started in", and the comparison `o(132) = room + 1` is that frozen room.
+
+Mode 1 -- "only when not moved" -- is a *spendable byte*, not a live query of
+where the object is.  There are exactly two writes to it after the loader,
+and both say `If o(132) = 1 Then o(132) = &HFF`:
+
+- the library take, at @0047BF66 in `takes` @0047C83C and again at @00463011
+  in `Proc_19_39_46302C` (the "get the X" piece);
+- **any task move action on a dynamic object**, at @0048C377 in
+  `execute_action` @0048E860 -- immediately after the static refusal
+  @0048C371 (`If o(24) = 1 Then GoTo 48C98A`) and *before* the destination
+  Select Case, so every destination spends it, including "to hidden" and
+  including a move back to the room the object started in.
+
+Nothing else touches it: the event mover does not, `gs_object_move_into` /
+`_onto` / `_to_room` have no counterpart, and the other twelve `(132)`
+references in the four exes are the *room* struct's alt-description count.
+
+Two consequences scarier had backwards:
+
+- an object whose byte still matches is **never listed**, even when its
+  InRoomDesc is empty -- it simply vanishes from the room text.  That is
+  camelot15 (four cocktails, mode 1, empty InRoomDesc) and takeone (the
+  jewel, mode 2, empty InRoomDesc, still in its initial room).
+- an object whose byte still matches and *has* an InRoomDesc prints the
+  InRoomDesc rather than being listed, for as long as the byte is unspent --
+  which is longer than scarier's old "has it moved" test, because scarier was
+  clearing "unmoved" on every `gs_object_*` position change.
+
+`zelda` is the row that pinned the task-move spend: the small key is
+InitialPosition hidden, OnlyWhenNotMoved 1, non-empty InRoomDesc, and is never
+taken (an earlier `get key` answers "There is nothing worth taking here.").
+The Like-Like task moves it into the Graveyard and run400 then answers "Also
+here is a small key." -- because the move spent the byte.  Without the
+@0048C377 half, scarier printed the key's own description and `zelda` went
+from 5 differing turns to 6.
+
+Engine changes:
+
+- `scobjcts.cpp`: `obj_initial_location_code()` reproduces the loader's
+  `o(26)`, and `obj_shows_initial_description (game, object, room,
+  inroomdesc_absent)` is @00449B6C's tail.
+- `scgamest.cpp`: `unmoved` is now seeded from OnlyWhenNotMoved == 1 at
+  `gs_create()` and is no longer cleared by the eight `gs_object_*` movers --
+  it is the live half of the Runner's byte, not a position tracker.
+- `sclibrar.cpp`: both loops of `lib_print_room_contents()` ask the new
+  predicate, and the three library take sites spend the byte.
+- `sctasks.cpp`: `task_move_object()` spends it, after the static refusal.
+
+Measured against the archived run400 replays -- every one of the thirteen
+games with a transcript is at least as good as before, six are better:
+
+| game | before | after |
+| --- | --- | --- |
+| `camelot15` | 2 | 1 (only `[Press any key to end]`) |
+| `takeone` | 2 | 1 (only `[Press any key to end]`) |
+| `ghosttown` | 22 | 18 |
+| `aegis` | 4 | 2 |
+| `sun_empire` | 35 | 34 |
+| `beer` | 27 | 26 |
+| `through_time`, `ShadricksUnderground`, `baroo`, `zelda`, `magicshow`, `mould`, `suburbanprodigy3` | unchanged | unchanged |
+
+Direct line-for-line confirmations: `Adrift_277_sun_empire` line 36 (the
+clothes trunk's InRoomDesc), `Adrift_269_beer` line 42 (the woolly jumper),
+`Adrift_265_aegis` lines 573 and 690 (the unicorn's horn, twice),
+`Adrift_351_magicshow` line 242 (the white cloth).
+
+Ten goldens re-blessed -- `sun_empire`, `through_time`, `humbug`, `takeone`,
+`beer`, `aegis`, `camelot15`, `magicshow`, `mould`, `ghosttown` -- all of them
+either a listing line replaced by an InRoomDesc or a listing line for an
+empty-InRoomDesc object disappearing.  Suite 428/428; ADRIFT 5 unchanged
+(MATCH 180, DIVERGE 17).
+
+**`perspectives` T0 is not this bug.**  Its ALR Original is
+`' Also here is a gun. '`, with a leading *and* a trailing space, and it never
+fires because run400 builds the whole room description as ONE string and
+appends the literal `"  Also here"` (@00472696) while scarier emits
+`"\nAlso here is ...\n"`.  Fixing it means aligning the room lister's
+whitespace with the Runner's, which moves many goldens and wants its own
+`DUMP_SCROLLBACK` measurement first.  Deferred, and re-filed as an
+ALR/whitespace row rather than a listing row.

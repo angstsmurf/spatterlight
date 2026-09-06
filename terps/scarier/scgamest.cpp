@@ -511,6 +511,17 @@ gs_set_object_seen (scr_gameref_t gs, scr_int object, scr_bool seen)
   gs->objects[object].seen = seen;
 }
 
+/*
+ * "Unmoved" is narrower than it sounds, and is not a general move tracker.
+ * It is the live half of the Runner's OnlyWhenNotMoved byte, o(132): the
+ * loader stores the authored mode, and exactly one other place in the whole
+ * of run400 ever writes it back -- `takes` @0047BF66, which turns a 1 into
+ * -1 the moment the library take handler successfully picks the object up
+ * (`If o(132) = 1 Then o(132) = &HFF`).  Nothing else spends it: not a drop,
+ * not a put, not a task moving the object about, not an NPC taking it.  So
+ * the movers below leave the flag alone and the three library take paths in
+ * sclibrar.cpp clear it by hand.  See obj_shows_initial_description().
+ */
 void
 gs_set_object_unmoved (scr_gameref_t gs, scr_int object, scr_bool unmoved)
 {
@@ -748,7 +759,6 @@ gs_object_move_onto (scr_gameref_t gs, scr_int object, scr_int onto)
       || gs->objects[object].parent != onto)
     {
       gs_object_move_onto_unchecked (gs, object, onto);
-      gs->objects[object].unmoved = FALSE;
     }
 }
 
@@ -760,7 +770,6 @@ gs_object_move_into (scr_gameref_t gs, scr_int object, scr_int into)
       || gs->objects[object].parent != into)
     {
       gs_object_move_into_unchecked (gs, object, into);
-      gs->objects[object].unmoved = FALSE;
     }
 }
 
@@ -771,7 +780,6 @@ gs_object_make_hidden (scr_gameref_t gs, scr_int object)
   if (gs->objects[object].position != OBJ_HIDDEN)
     {
       gs_object_make_hidden_unchecked (gs, object);
-      gs->objects[object].unmoved = FALSE;
     }
 }
 
@@ -782,7 +790,6 @@ gs_object_player_get (scr_gameref_t gs, scr_int object)
   if (gs->objects[object].position != OBJ_HELD_PLAYER)
     {
       gs_object_player_get_unchecked (gs, object);
-      gs->objects[object].unmoved = FALSE;
     }
 }
 
@@ -794,7 +801,6 @@ gs_object_npc_get (scr_gameref_t gs, scr_int object, scr_int npc)
       || gs->objects[object].parent != npc)
     {
       gs_object_npc_get_unchecked (gs, object, npc);
-      gs->objects[object].unmoved = FALSE;
     }
 }
 
@@ -805,7 +811,6 @@ gs_object_player_wear (scr_gameref_t gs, scr_int object)
   if (gs->objects[object].position != OBJ_WORN_PLAYER)
     {
       gs_object_player_wear_unchecked (gs, object);
-      gs->objects[object].unmoved = FALSE;
     }
 }
 
@@ -817,7 +822,6 @@ gs_object_npc_wear (scr_gameref_t gs, scr_int object, scr_int npc)
       || gs->objects[object].parent != npc)
     {
       gs_object_npc_wear_unchecked (gs, object, npc);
-      gs->objects[object].unmoved = FALSE;
     }
 }
 
@@ -828,7 +832,6 @@ gs_object_to_room (scr_gameref_t gs, scr_int object, scr_int room)
   if (gs->objects[object].position != room + 1)
     {
       gs_object_to_room_unchecked (gs, object, room);
-      gs->objects[object].unmoved = FALSE;
     }
 }
 
@@ -1171,7 +1174,6 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   /* Set up initial object states. */
   for (index_ = 0; index_ < game->object_count; index_++)
     {
-      const scr_char *inroomdesc;
       scr_bool is_static, unmoved;
 
       vt_key[1].integer = index_;
@@ -1379,18 +1381,15 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
                               || position == OBJ_WORN_PLAYER);
         }
 
-      vt_key[2].string = "InRoomDesc";
-      inroomdesc = prop_get_string (bundle, "S<-sis", vt_key);
-      if (!scr_strempty (inroomdesc))
-        {
-          vt_key[2].string = "OnlyWhenNotMoved";
-          if (prop_get_integer (bundle, "I<-sis", vt_key) == 1)
-            unmoved = TRUE;
-          else
-            unmoved = FALSE;
-        }
-      else
-        unmoved = FALSE;
+      /*
+       * The Runner keeps the authored OnlyWhenNotMoved byte whatever the
+       * in-room description says -- mode 1 with an EMPTY description is a
+       * real and used combination, and it silences the object entirely
+       * (camelot15's four bottles).  Only mode 1 is ever spent, so that is
+       * all this flag tracks.
+       */
+      vt_key[2].string = "OnlyWhenNotMoved";
+      unmoved = prop_get_integer (bundle, "I<-sis", vt_key) == 1;
       gs_set_object_unmoved (game, index_, unmoved);
       gs_set_object_static_unmoved (game, index_, TRUE);
     }

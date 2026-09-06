@@ -708,6 +708,7 @@ extern scr_bool lib_cmd_dos_like (scr_gameref_t game);
 extern scr_bool lib_cmd_ask_object (scr_gameref_t game);
 extern scr_bool lib_cmd_ask_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_ask_other (scr_gameref_t game);
+extern scr_bool lib_cmd_ask_about_nothing (scr_gameref_t game);
 extern scr_bool lib_cmd_talk_to_npc_about (scr_gameref_t game);
 extern scr_bool lib_cmd_talk_to_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_talk_to_npc_pre_390 (scr_gameref_t game);
@@ -1019,7 +1020,9 @@ extern scr_int obj_container_index (scr_gameref_t game, scr_int object);
 extern scr_int obj_surface_index (scr_gameref_t game, scr_int object);
 extern scr_int obj_stateful_index (scr_gameref_t game, scr_int object);
 extern scr_char *obj_state_name (scr_gameref_t game, scr_int object);
-extern scr_bool obj_shows_initial_description (scr_gameref_t game, scr_int object);
+extern scr_bool obj_shows_initial_description (scr_gameref_t game,
+                                               scr_int object, scr_int room,
+                                               scr_bool inroomdesc_absent);
 extern void obj_turn_update (scr_gameref_t game);
 extern void obj_mark_room_objects_seen (scr_gameref_t game, scr_int room);
 extern void obj_mark_room_statics_seen (scr_gameref_t game, scr_int room);

@@ -104,7 +104,7 @@ Jeriah's PQ
 Jeriah spent most of his waking hours in the lab; thus the spartan furnishing
 of the room: a single bed.
 
-Also here is a clothes trunk.
+A clothes trunk sits at the foot of the bed.
 
 > open trunk
 You open the trunk.

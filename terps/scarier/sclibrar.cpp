@@ -1359,8 +1359,7 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
   count = 0;
   for (object = 0; object < gs_object_count (game); object++)
     {
-      if (obj_directly_in_room (game, object, room)
-          && obj_shows_initial_description (game, object))
+      if (obj_directly_in_room (game, object, room))
         {
           const scr_char *inroomdesc;
           scr_bool listflag;
@@ -1375,6 +1374,10 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
           /* Find and print in room description. */
           vt_key[2].string = "InRoomDesc";
           inroomdesc = prop_get_string (bundle, "S<-sis", vt_key);
+          if (!obj_shows_initial_description (game, object, room,
+                                              lib_inroomdesc_is_absent
+                                                (inroomdesc)))
+            continue;
           if (!lib_inroomdesc_is_absent (inroomdesc))
             {
               if (count == 0)
@@ -1408,8 +1411,9 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
           vt_key[2].string = "InRoomDesc";
           inroomdesc = prop_get_string (bundle, "S<-sis", vt_key);
 
-          if (!obj_shows_initial_description (game, object)
-              || lib_inroomdesc_is_absent (inroomdesc))
+          if (!obj_shows_initial_description (game, object, room,
+                                              lib_inroomdesc_is_absent
+                                                (inroomdesc)))
             {
               scr_bool listflag;
 
@@ -6874,6 +6878,9 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
 
               list.push_back (object);
               gs_object_player_get (game, object);
+              /* A successful library take spends OnlyWhenNotMoved mode 1
+               * (run400 `takes` @0047BF66).  Nothing else does. */
+              gs_set_object_unmoved (game, object, FALSE);
             }
 
           if (!list.empty ())
@@ -9079,8 +9086,10 @@ lib_attempt_key_acquisition (scr_gameref_t game, scr_int object)
       lib_print_wrapped_object (game, "(Picking up ", object, " first)\n");
     }
 
-  /* Take possession of the object. */
+  /* Take possession of the object.  The implicit take runs the Runner's
+   * own `takes`, so it spends OnlyWhenNotMoved mode 1 too. */
   gs_object_player_get (game, object);
+  gs_set_object_unmoved (game, object, FALSE);
 }
 
 
@@ -9793,6 +9802,7 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
        * put report that follows starts fresh rather than being joined on.
        */
       gs_object_player_get (game, object);
+      gs_set_object_unmoved (game, object, FALSE);
       return TRUE;
     }
 
@@ -9918,12 +9928,34 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
         }
 
       /*
+       * Version 4.0 picks up an object it has been asked to put down, and it
+       * does so BEFORE the handler's task look-up.  run400's name_object
+       * loop runs the take piece at loc_46E2B5 and only then hands the pair
+       * to insides (Proc_19_43_46639C @loc_46E34F), which is where the
+       * canonical line reaches the tasks -- so a task that goes on to claim
+       * the put still carries the announcement ahead of its own text.
+       * Measured on frustrated turns 53-55 (Adrift_274_frustrated.txt):
+       * `put small rock on left pan` matches task 511 `put*small*left*` and
+       * still opens "(Taking the small rock first)".
+       */
+      {
+        scr_bool take_printed = FALSE;
+
+        lib_put_implicit_take (game, object, container, &take_printed);
+        has_printed |= take_printed;
+      }
+
+      /*
        * The tasks' turn.  At 4.0 this is the handler's own look-up, on the
        * definite canonical line, ahead of the size and capacity tests; see
        * lib_try_game_command_with_object_400().  A matching task it does
        * not reach -- the typed spelling with no canonical twin -- gets the
        * line from run_all_commands() only if the library then refuses the
-       * put, joined after the refusal (PUT4, Adrift_81.txt).
+       * put, joined after the refusal (PUT4, Adrift_81.txt).  It runs even
+       * for an object the take above could not acquire: run400 reaches
+       * insides' tasks() call at loc_465EB5 before the possession test at
+       * loc_465EED, so a claim takes the object back out of the "You are
+       * not holding ..." report.
        */
       if (lib_is_version_400 (game)
           ? lib_try_game_command_with_object_400 (game,
@@ -9932,18 +9964,11 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
                                               "put", object, "in", container))
         {
           game->object_references[object] = FALSE;
+          game->multiple_references[object] = FALSE;
           has_printed = TRUE;
           task_claimed = TRUE;
           continue;
         }
-
-      /* Version 4.0 picks up an object it has been asked to put down. */
-      {
-        scr_bool take_printed = FALSE;
-
-        lib_put_implicit_take (game, object, container, &take_printed);
-        has_printed |= take_printed;
-      }
     }
 
   /* Statics named in a 4.0 put: the task look-up, then a silent drop. */
@@ -10498,6 +10523,24 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
           continue;
         }
 
+      /*
+       * Version 4.0 picks up an object it has been asked to put down, and it
+       * does so BEFORE the handler's task look-up.  run400's name_object
+       * loop runs the take piece at loc_46E2B5 and only then hands the pair
+       * to insides (Proc_19_43_46639C @loc_46E34F), which is where the
+       * canonical line reaches the tasks -- so a task that goes on to claim
+       * the put still carries the announcement ahead of its own text.
+       * Measured on frustrated turns 53-55 (Adrift_274_frustrated.txt):
+       * `put small rock on left pan` matches task 511 `put*small*left*` and
+       * still opens "(Taking the small rock first)".
+       */
+      {
+        scr_bool take_printed = FALSE;
+
+        lib_put_implicit_take (game, object, supporter, &take_printed);
+        has_printed |= take_printed;
+      }
+
       /* The tasks' turn; see lib_put_in_backend(). */
       if (lib_is_version_400 (game)
           ? lib_try_game_command_with_object_400 (game,
@@ -10506,18 +10549,11 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
                                               "put", object, "on", supporter))
         {
           game->object_references[object] = FALSE;
+          game->multiple_references[object] = FALSE;
           has_printed = TRUE;
           task_claimed = TRUE;
           continue;
         }
-
-      /* Version 4.0 picks up an object it has been asked to put down. */
-      {
-        scr_bool take_printed = FALSE;
-
-        lib_put_implicit_take (game, object, supporter, &take_printed);
-        has_printed |= take_printed;
-      }
     }
 
   /* Statics named in a 4.0 put: the task look-up, then a silent drop. */
@@ -13160,6 +13196,41 @@ lib_cmd_ask_other (scr_gameref_t game)
 {
   /* Incomplete ask command, so offer help and return. */
   return lib_print_message (game, lib_ask_format_character (game));
+}
+
+
+/*
+ * lib_cmd_ask_about_nothing()
+ *
+ * `ask ... about ...` that named neither a character nor an object.
+ *
+ * Every Runner splits its `c("ask") Or c("talk to")` block on `c("about")`
+ * (run370 loc_43E9B7, run380 loc_444039, run390 loc_45D8E5, run400
+ * loc_488B87).  The branch WITHOUT "about" is the per-character format hint
+ * -- what lib_cmd_ask_other() prints -- and the branch WITH it looks for a
+ * named, present object ("<You> get no reply from <it>.", lib_cmd_ask_object)
+ * and, failing that, seeds the response buffer with
+ *
+ *   MemVar_4941D0(0) & " can't talk to that."      run400 loc_488C65
+ *   MemVar_44F108(0) & " can't talk to that."      run380 loc_44410C
+ *
+ * so a line the character handler then answers -- a topic, "<npc> does not
+ * respond to your question.", "<npc> isn't here!" -- overwrites it, and a
+ * line nothing answers keeps it.  Scarier's grammar puts the character and
+ * object rows ahead of this one, which is the same order.
+ *
+ * Measured on thelasthour (4.00, Adrift_297_thelasthour.txt turn 80):
+ * `ask sly about him` -- "sly" is a task word, not a character, and the
+ * game has no male to fill "him" in -- answers "(No male)" and then "I
+ * can't talk to that." where Scarier used to print the format hint.
+ */
+scr_bool
+lib_cmd_ask_about_nothing (scr_gameref_t game)
+{
+  return lib_print_response_message (game,
+      "You can't talk to that.\n",
+      "I can't talk to that.\n",
+      "%player% can't talk to that.\n");
 }
 
 

@@ -4776,8 +4776,6 @@ upwards from the centre of the room and twists and turns until it eventually
 goes straight up through the brick ceiling.  To my west an archway leads back
 to the tunnel.  There seems to be something trapped inside the tube.
 
-Also here is a wumpus.
-
 I can only move west.
 
 > X tube

@@ -403,7 +403,7 @@ reach.
 Time passes...
 
 > ask sly about interrogation
-Use the format "ask [character] about [subject]".
+I can't talk to that.
 
 Sly is knocking on the other side of the wall...
 "Carl! Are you there?"
@@ -423,11 +423,8 @@ Jim cries on the other side of the wall...
 "Don't know, Carl. Don't know."
 
 > ask sly about him
-
-"How are you..."
-"Fine. Beaten me up."
-"Good. Don't worry. The brotherhood has some powerful friends. We'd get out
-of this fu**ing cell."
+(No male)
+I can't talk to that.
 
 > ask sly about hover
 Jim answers from the other side of the wall.

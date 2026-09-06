@@ -34,8 +34,6 @@ looking like a kitchen rag.
 A closed door in the western wall leads into the bedroom and a door opening
 to the south leads into the kitchen.
 
-Also here are some old crumbled magazines.
-
 > take magazines
 You take the old crumbled magazines.
 
