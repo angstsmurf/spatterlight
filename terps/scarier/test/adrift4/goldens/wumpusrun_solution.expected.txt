@@ -66,19 +66,17 @@ the outside world is now out of your reach.
 > south
 You advance cautiously to the south.
 
-Bog of Eternal Stench
-Methinks it may be wise to watch one's step around here ... hmmmm, who or
-what died in here?
+Slimy Cave
+This naturally-formed cave is small with a low ceiling. Water drips down the
+eastern wall (from some unknown source) allowing the wall to become slick
+with an odious slime (ugh!!).
 
-Possible exits: north, northeast and northwest.
+Possible exits: north, west and southeast.
+
+There's an awful smell coming from somewhere close by.
 
 > northeast
-You proceed northeast.
-
-Twisty Passage
-A maze of twisty passages ... all alike.
-
-Possible exits: north, west and southwest.
+You can't go in that direction, but you can move north, west and southeast.
 
 There's an awful smell coming from somewhere close by.
 
@@ -93,13 +91,13 @@ You slump to the ground emotionally and physically spent for a few moments
 > west
 You boldly go west.
 
-Rectangular Cavern
-This cavern looks like a large rectangular box with extremely high ceilings.
+Dead Boring
+Just another plain, boring and totally uninteresting cave!
 
 You can see a legendary starblade.
 Oops! An humungus Wumpus is here!
 
-Possible exits: east, southwest and northwest.
+Possible exits: north, east and southwest.
 
 > drop lantern
 You place the lantern on the floor of the cavern. However, carrying the
@@ -113,32 +111,30 @@ The lantern's glow provides a little comfort against the dark unknown of the
 Run.
 
 > east
-You proceed east.
+You depart to the east.
 
-Twisty Passage
-A maze of twisty passages ... all alike.
+Slimy Cave
+This naturally-formed cave is small with a low ceiling. Water drips down the
+eastern wall (from some unknown source) allowing the wall to become slick
+with an odious slime (ugh!!).
 
-Possible exits: north, west and southwest.
+Possible exits: north, west and southeast.
 
 > southwest
-You proceed southwest.
-
-Bog of Eternal Stench
-Methinks it may be wise to watch one's step around here ... hmmmm, who or
-what died in here?
-
-Possible exits: north, northeast and northwest.
+You can't go in that direction, but you can move north, west and southeast.
 
 > north
-You advance cautiously to the north.
+You set out to the north.
 
-Burial Chamber
-In the past some hapless adventurer didn't survive past here. Fortunately, a
-compassionate companion had the time to create a burial mound.
+Small Cave
+The dimensions of this cave are ridiculously small. Beware of the thick slime
+on the walls.
 
 You can see a rope ladder.
 
-Possible exits: south, northeast and northwest.
+Possible exits: east, south and northwest.
+
+You can feel a draft coming from one of the tunnels.
 
 > climb ladder
 You can't climb the rope ladder.
@@ -156,5 +152,5 @@ the Wumpus Mane high for all to see. You have earned the right to the title
 of "Grand Wumpus Hunter" until the next Wumpus Run.
 
 You are escorted from the arena to enjoy the fruits of your labours ... a
-nice bath, an excellent meal, a fat bank account (totalling 306900 gold
+nice bath, an excellent meal, a fat bank account (totalling 297000 gold
 pieces) and a little bit (or whatever else) on the side ...

@@ -1084,52 +1084,54 @@ the grunge. You guess Mrs Moog must have dropped it there while cooking one
 day.
 
 > sprinkle eye of toad into cauldron
-You sprinkle some of the eye of toad into the cauldron. The cauldron burbles.
+You sprinkle some of the eye of toad into the cauldron. The cauldron emits a
+gurgling sound.
 
 > sprinkle ear of bat into cauldron
-You sprinkle some of the ear of bat into the cauldron. The cauldron burbles.
+You sprinkle some of the ear of bat into the cauldron. The cauldron shudders.
 
 > stir cauldron
 You stir the unspeakable grunge with the wooden spoon.
    The cauldron shudders and a puff of green smoke is emitted from one side.
 
 > sprinkle toe of rat into cauldron
-You sprinkle some of the toe of rat into the cauldron. The cauldron burbles.
+You sprinkle some of the toe of rat into the cauldron. The cauldron vibrates
+from side to side.
 
 > sprinkle nose of shrew into cauldron
-You sprinkle some of the nose of shrew into the cauldron. The cauldron emits
-a gurgling sound.
+You sprinkle some of the nose of shrew into the cauldron. The cauldron
+vibrates from side to side.
 
 > stir cauldron
 You stir the unspeakable grunge with the wooden spoon.
    The cauldron shudders and a puff of orange smoke is emitted from one side.
 
 > sprinkle ear of bat into cauldron
-You sprinkle some of the ear of bat into the cauldron. The cauldron shakes
-violently.
+You sprinkle some of the ear of bat into the cauldron. The cauldron bubbles
+fiercely.
 
 > sprinkle toe of rat into cauldron
-You sprinkle some of the toe of rat into the cauldron. The cauldron emits a
-gurgling sound.
+You sprinkle some of the toe of rat into the cauldron. The cauldron shudders.
 
 > sprinkle beard of ferret into cauldron
 You sprinkle some of the beard of ferret into the cauldron. The cauldron
-shudders.
+vibrates from side to side.
 
 > stir cauldron
 You stir the unspeakable grunge with the wooden spoon.
    The cauldron shudders and a puff of blue smoke is emitted from one side.
 
 > sprinkle knee of horse into cauldron
-You sprinkle some of the knee of horse into the cauldron. The cauldron shakes
-violently.
+You sprinkle some of the knee of horse into the cauldron. The cauldron
+burbles.
 
 > sprinkle ankle of dog into cauldron
-You sprinkle some of the ankle of dog into the cauldron. The cauldron bubbles
-fiercely.
+You sprinkle some of the ankle of dog into the cauldron. The cauldron emits a
+gurgling sound.
 
 > sprinkle paw of cat into cauldron
-You sprinkle some of the paw of cat into the cauldron. The cauldron burbles.
+You sprinkle some of the paw of cat into the cauldron. The cauldron shakes
+violently.
 
 > stir cauldron
 You stir the unspeakable grunge with the wooden spoon.
@@ -1137,10 +1139,10 @@ You stir the unspeakable grunge with the wooden spoon.
 
 > sprinkle beard of ferret into cauldron
 You sprinkle some of the beard of ferret into the cauldron. The cauldron
-vibrates from side to side.
+shudders.
 
 > sprinkle ear of bat into cauldron
-You sprinkle some of the ear of bat into the cauldron. The cauldron shudders.
+You sprinkle some of the ear of bat into the cauldron. The cauldron burbles.
 
 > stir cauldron
 You stir the unspeakable grunge with the wooden spoon.

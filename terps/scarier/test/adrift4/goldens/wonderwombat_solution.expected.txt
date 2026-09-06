@@ -1652,37 +1652,23 @@ You burp.
 > n
 You move north.
 
-Maze
-You are standing in the green hedge maze, there are pathways leading in all
-directions. You are a bit lost.  Your spine is killing you.  It is raining
-heavily.
-
-You can only move south.
-
-> n
-You move along the maze, hoping to get out soon.
-
-> n
-You move north.
-
-Maze
-You are standing in the green hedge maze, there are pathways leading in all
-directions. You are a bit lost.  Your spine is killing you.  It is raining
-heavily.
-
-You can only move south.
-
-> n
-You move along the maze, hoping to get out soon.
-
-> n
-You move north.
-
 Inside The Rainy Express
 You are standing in a large bus, there are seats everywhere, and a few
 animals occupy them.
 Bob the Bull is sitting at the drivers seat.  Your spine is killing you.
 
+You can only move south.
+
+> n
+You can only move south.
+
+> n
+You can only move south.
+
+> n
+You can only move south.
+
+> n
 You can only move south.
 
 >

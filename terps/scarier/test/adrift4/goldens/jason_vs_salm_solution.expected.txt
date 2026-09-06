@@ -37,6 +37,8 @@ You can leave the house by going south.
 
 Salm aims his revolver at your head.
 
+Salm attacks you with the revolver, but you manage to avoid it.
+
 > attack salm
 You stab Salm with long blade.
 The final stab makes Salm fall backwards unto the floors. You stab him in his

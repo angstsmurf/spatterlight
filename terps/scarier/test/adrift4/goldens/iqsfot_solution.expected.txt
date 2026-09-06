@@ -622,11 +622,6 @@ A cleared plot is to the south.
 Drash the Guard stands at the ready here.  Grastor the Champion is here.
 HiRBy hovers over from the south.
 
-Drash appears distracted.
-
-Grastor eyes Irvine intensely and twitches, apparently exercising some
-restraint.
-
 > challenge grastor
 Irvine reaches up and slaps Grastor on the nose with a red herring.
 
@@ -704,6 +699,8 @@ where unseen eyes and disembodied hisses of constant spectres lurk and the
 very trees twist and blacken with malice.  The jungle is more tame to the
 south.  HiRBy hovers over from the east.
 
+Irvine's health recovers slightly.
+
 > s
 Irvine flees south.
 
@@ -718,8 +715,6 @@ shared the same root in the darkness itself.  A putrid-sweet, rotting smell
 fills the sickly air.  Cricketous whistling emits from somewhere nearby.  The
 sporadic rustling of the undergrowth throws Irvine's mind into a mess of
 frantic questions.  HiRBy hovers over from the north.
-
-Irvine's health recovers slightly.
 
 > s
 Irvine goes south.
@@ -753,6 +748,8 @@ running from north to south.  An ornately decorated gate rests in the wall.
 A cleared plot is to the south.
 Drash the Guard stands at the ready here.  HiRBy hovers over from the west.
 
+Irvine's health recovers slightly.
+
 > s
 Irvine goes south.
 
@@ -774,8 +771,6 @@ A way north leads back to Ki'parandazar.
 
 A wooden crate lies here.  A forcefield projector here is off, and quiet as a
 lump.  HiRBy hovers over from the north.
-
-Irvine's health recovers slightly.
 
 > push crate n
 Irvine pushes the crate north.
@@ -828,9 +823,6 @@ in a stunned monkey sort of way.  In its gawking, the monkey's grip loosens
 on the pack, so that it is hanging by just a few digits.  HiRBy gingerly
 relieves the monkey of it and cheerfully floats back down to Irvine's
 shoulder level.
-
-The HiRBy droid continues to hover with its arms deployed, bobbing up and
-down in the air contentedly.
 
 > get it
 (a pack)
@@ -1147,6 +1139,8 @@ bridge is forward from here.  The hall continues port and starboard towards
 crew quarters.  A flight of stairs leads down toward the lab and the
 artificial gravity core.  HiRBy hovers over from the north.
 
+Irvine's health recovers slightly.
+
 > d
 Irvine goes down.
 
@@ -1179,8 +1173,6 @@ prepapred for you.  It will tell you a little more about the organisms we
 hope to recover on this mission."
 
 Irvine picks up the specimen analysis.
-
-Irvine's health recovers slightly.
 
 > give flower to smitty
 "From Grashtor, you shay?" Smitty the Cat takes the flower from Irvine.  He
@@ -1229,6 +1221,8 @@ the port wall, to the left of which is an inconspicuous privacy button.
 
 Also here is a hairball.  HiRBy hovers over from inside.
 
+Irvine's health recovers slightly.
+
 > get hairball
 Irvine picks up the hairball.
   He disposes of it as quickly as possible and notices something inside of
@@ -1246,8 +1240,6 @@ ship.
 
 The door closes behind Irvine.  HiRBy hovers over from inside.
 
-Irvine's health recovers slightly.
-
 > up
 Irvine goes up.
 
@@ -1258,6 +1250,8 @@ crew quarters.  A flight of stairs leads down toward the lab and the
 artificial gravity core.
 The CAS droid is here.  CAS droid hovers off to the north.  HiRBy hovers over
 from below.
+
+Irvine's health recovers slightly.
 
 > port
 Irvine goes port.
@@ -1304,8 +1298,6 @@ formed by crooked trees gives sight to a dark, foreboding forest beyond,
 where unseen eyes and disembodied hisses of constant spectres lurk and the
 very trees twist and blacken with malice.  The jungle is more tame to the
 south.  HiRBy hovers over from the south.
-
-Irvine's health recovers slightly.
 
 > n
 Irvine goes north.
@@ -1382,8 +1374,6 @@ The metal door swings shut and locks behind Irvine!
 > punch sentinel
 Irvine socks the sentinel in his furry face, and he goes out cold.
 
-Irvine's health recovers slightly.
-
 > n
 Irvine crosses the room to the descending corridor.
 
@@ -1395,6 +1385,8 @@ EXITS: NORTH and SOUTH.
 
 A sentry is here, brandishing a beam weapon!  HiRBy hovers over from the
 south.
+
+Irvine's health recovers slightly.
 
 > punch sentry
 Irvine palm strikes the sentry in his furry face, knuckles him in the rib
@@ -1486,41 +1478,47 @@ EXITS: WEST.
 
 HiRBy hovers over from the west.
 
+A patrol charges in, brandishing cyborg fists!
+
 > x crates
 Stacks of big, impenetrable crates holding who-knows-what.  Keys, maybe?  An
 important-looking key is on the giant metal crates.
+
+The patrol strikes Irvine with a robotic arm.  Oof!
+
+Irvine's health recovers slightly.
 
 > deploy
 Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
 pincers unfold from inside HiRBy.
 
-A patrol charges in, brandishing cyborg fists!
+A guard charges in, brandishing a shock staff!
 
 > get key
 HiRBy takes the important-looking key in its pincers.
+
+The guard zaps Irvine with a shock staff.  Ow!
 
 The patrol strikes Irvine with a robotic arm.  Oof!
 
 > get key
 Irvine plucks the important-looking key from HiRBy's pincers.
 
+Irvine's health recovers slightly.
+
 > deploy
 Irvine presses HiRBy's deploy button.  HiRBy's arms fold back in.
 
+The guard zaps Irvine with a shock staff.  Ow!
+
 The patrol strikes Irvine with a robotic arm.  Oof!
-
-A soldier charges in, brandishing an electro ray!
-
-Irvine's health recovers slightly.
 
 > throw patrol
 Irvine grabs the patrol by the shoulders and throws him into the wall.
 
 The patrol doesn't get back up.
 
-The soldier shocks Irvine with an electro ray.  Ouch!
-
-A guard charges in, brandishing a shock staff!
+A soldier charges in, brandishing an electro ray!
 
 > kick guard
 Irvine leaps and kicks the guard in the chin, then lands and takes out the
@@ -1570,8 +1568,6 @@ EXITS: NORTH and SOUTH.
 
 HiRBy hovers over from the south.
 
-Irvine's health recovers slightly.
-
 > n
 Irvine goes north.
 
@@ -1595,6 +1591,8 @@ EXITS: NORTH and SOUTH.
 
 HiRBy hovers nearby.
 
+Irvine's health recovers slightly.
+
 > n
 Irvine goes north.
 
@@ -1616,11 +1614,11 @@ Irvine dodges behind the patrol, grabs him from the armpit, and flips him
 over his back onto the floor.
 A sentry charges in, brandishing a beam weapon!
 
+Irvine's health recovers slightly.
+
 > punch sentry
 Irvine strikes the sentry in the throat with his fingers, then takes him down
 to the ground with a backhand.
-
-Irvine's health recovers slightly.
 
 > n
 Irvine goes north.
@@ -1648,13 +1646,13 @@ Irvine's health recovers slightly.
 Irvine punches the soldier in the stomach, then takes him out with an
 uppercut.
 
+The elite burns Irvine with a heat gun.  The pain...!
+
 A guard charges in, brandishing a shock staff!
 
 > kick guard
 Irvine kicks the guard with a one-two combination, throwing his heel hard
 into the guard's ribs, then into his temple.  The guard goes down.
-
-The elite burns Irvine with a heat gun.  The pain...!
 
 > w
 Irvine goes west.
@@ -1691,6 +1689,8 @@ statement, Rrasharshan bolts off to the west.
 The fan servant stares agog at Irvine.  "Can I have your jacket...?"
   HiRBy hovers over from the east.
 
+Irvine's health recovers slightly.
+
 "So cool," says the fan.
 
 > teach fan karate
@@ -1698,8 +1698,6 @@ Irvine shows the fan how to punch and kick.
 
 The fan starts throwing out some goofy attacks, looking about as ridiculous
 as Irvine, but having a grand time of it.
-
-Irvine's health recovers slightly.
 
 "Just... awesome," adores the fan.
 
@@ -1776,8 +1774,6 @@ be Space Emperor!"
 matter.  Soon, I will declare them extinct or too endangered to save... and
 you will tell them that I actually built Dr. Voss's machine!"
 
-Irvine's health recovers slightly.
-
 > deploy
 Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
 pincers unfold from inside HiRBy.
@@ -1790,6 +1786,8 @@ will be our food, jewelry, glue, lubricants, pets..."
 
 Rrasharshan eyes HiRBy suspiciously.  "Don't think I'm not watching the both
 of you.  No sudden moves from the bot, either!"
+
+Irvine's health recovers slightly.
 
 > get mirror
 HiRBy makes a bee line for the mirror and just about has its pincers clamped
@@ -1823,8 +1821,6 @@ Rrasharshan fires a wave of focused microheat just over Irvine's head.
 "I'm warning you," the Fat Cat growls.  "I did not mean to miss.  You are
 next..."
 
-Irvine's health recovers slightly.
-
 > get mirror
 Irvine leans, leaps, and grabs the stylized mirror just as Fat Cat
 Rrasharshan lets loose a barrage of microwave rays which bounce off of the
@@ -1843,13 +1839,13 @@ The only surface to stand on in the gigantic, circular reservoir is a metal
 platform at the southern end of the room upon which stands an identical copy
 of Dr. Voss's cloning apparatus.
 
+Irvine's health recovers slightly.
+
 > x reservoir
 From its condition, there's no doubt the villainous chieftain once housed
 some sort of monster fish in here before hatching his current evil plan.  A
 tranquil Fish of Traglea and a drowsy Fish of Traglea are inside the
 reservoir.
-
-Irvine's health recovers slightly.
 
 > get drowsy fish
 Irvine scoops the drowsy Fish of Traglea out of the reservoir without a
@@ -1872,6 +1868,8 @@ the room, a fancy end table stands up against the eastern wall.
 The throne room is to the east.  North is a secret room.
 
 Also here are the broken glass, some wreckage and a top hat.
+
+Irvine's health recovers slightly.
 
 > e
 Irvine goes east.

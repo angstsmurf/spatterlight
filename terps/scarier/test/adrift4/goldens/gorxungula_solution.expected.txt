@@ -186,14 +186,15 @@ The only way out is to ascend to some new state of being.
 The revered wooden tub is the proper receptacle for all tribute to Elder
 Moose.  A tome is inside the revered wooden tub.
 
+Elder Moose strokes a hoof musingly at its beard.
+
 > take tome
 You take the tome from the revered wooden tub.
 
+The Great Antlered One ruminates on something far off in the void.
+
 > i
 You are carrying a gold coin and a tome.
-
-Elder Moose brushes its antlers on the void resulting in a brief musical
-sound.
 
 > u
 You ascend to the new state of being.
@@ -265,6 +266,8 @@ The Void of Elder Moose
 This is the solemn home of the great and wise Elder Moose where from out of
 the void-space before the Great Antlered One hovers the revered wooden tub.
 The only way out is to ascend to some new state of being.
+
+The Great Antlered One ruminates on something far off in the void.
 
 > put gold coin in tub
 You put the gold coin inside the revered wooden tub.

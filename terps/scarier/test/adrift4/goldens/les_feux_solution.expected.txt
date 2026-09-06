@@ -31,9 +31,9 @@ survivre jusqu'à ce que vous le rencontriez. Plus facile à dire qu'à faire...
 les caractéristiques de votre personnage:
 
 Mise à jour de vos points de compétence...
-Points de Compétence: 12
+Points de Compétence: 11
 Mise à jour de vos points d'endurance...
-Points d'endurance: 24
+Points d'endurance: 23
 Mise à jour de vos points de chance...
 Points de chance: 11
 
@@ -283,12 +283,7 @@ Vous tranchez l'assassin avec une épée longue.
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
-Vous tranchez l'assassin avec une épée longue.
-
-Vous arrivez à éviter le poignard de l'assassin.
-
-> attack assassin
-Vous tranchez l'assassin avec une épée longue.
+L'assassin se débrouille a  échapper à votre attaque avec une épée longue.
 
 Vous arrivez à éviter le poignard de l'assassin.
 
@@ -305,6 +300,9 @@ contre le mur. Sans pitié, vous lui asséné un dernier coup. Vous êtes content
 d'avoir débarrassé le monde d'un tel être.
 
 Vous sentez que la chance est avec vous...
+
+> attack assassin
+assassin n'est pas la!
 
 > open coffre
 Vous allez vers le coffre pour l'ouvrir, il s'avère être plutôt vieux et
@@ -418,21 +416,17 @@ Vous arrivez à éviter l'attaque de l'ogre.
 
 > attack ogre
 Vous tranchez un ogre avec une épée longue.
-
-Des cris strident retentissent...
-
-Vous arrivez à éviter l'attaque de l'ogre.
-
-> attack ogre
-Vous tranchez un ogre avec une épée longue.
-
-Des cris strident retentissent...
-
-Vous arrivez à éviter l'attaque de l'ogre.
-
-> attack ogre
-Vous tranchez un ogre avec une épée longue.
 Votre coup est fatal pour l'ogre qui s'éffondre sur le sol.
+
+Des cris strident retentissent...
+
+> attack ogre
+ogre n'est pas la!
+
+Des cris strident retentissent...
+
+> attack ogre
+ogre n'est pas la!
 
 Des cris strident retentissent...
 
@@ -507,7 +501,8 @@ Des cris strident retentissent...
 Vous arrivez à éviter l'attaque de la goule.
 
 > attack goule
-Vous tranchez une goule avec une épée longue.
+Vous tranchez une goule avec une épée longue,
+mais cela ne fait aucun domage.
 
 Des cris strident retentissent...
 
@@ -553,13 +548,13 @@ Vous tranchez un démon avec une épée longue.
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > attack demon
-Vous tranchez un démon avec une épée longue,
-mais cela ne fait aucun domage.
+Vous tranchez un démon avec une épée longue.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > attack demon
-Vous tranchez un démon avec une épée longue.
+Vous tranchez un démon avec une épée longue,
+mais cela ne fait aucun domage.
 
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
@@ -679,10 +674,8 @@ Vous arrivez à éviter l'attaque du skinned.
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
-Vous tranchez un voyou avec une épée longue,
-mais cela ne fait aucun domage.
-
-Vous arrivez à éviter l'attaque du voyou.
+Vous tranchez un voyou avec une épée longue.
+Le voyou du chaos s'écroule par terre dans une marre de sang.
 
 Vous arrivez à éviter l'attaque du voleur.
 
@@ -691,8 +684,7 @@ Vous arrivez à éviter l'attaque du skinned.
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
-Vous tranchez un voyou avec une épée longue.
-Le voyou du chaos s'écroule par terre dans une marre de sang.
+voyou n'est pas la!
 
 Vous arrivez à éviter l'attaque du voleur.
 
@@ -1078,26 +1070,6 @@ Vous accrocher la corde sur le grappin.
 > throw grappin on rocher
 Vous lancez le grappin sur l'autre rebord et essayez de viser le rocher...
 
-Le grappin s'élève dans les airs, tournoit quelques instant puis
-rejoint l'autre bord. Manque de peau il tape à coté du rocher
-et tombe dans le vide...
-
-D'un geste rapide, vous tirez la corde en arrière et remonter
-le grappin.
-
-> throw grappin on rocher
-Vous lancez le grappin sur l'autre rebord et essayez de viser le rocher...
-
-Le grappin s'élève dans les airs, tournoit quelques instant puis
-rejoint l'autre bord. Manque de peau il tape à coté du rocher
-et tombe dans le vide...
-
-D'un geste rapide, vous tirez la corde en arrière et remonter
-le grappin.
-
-> throw grappin on rocher
-Vous lancez le grappin sur l'autre rebord et essayez de viser le rocher...
-
 Le grappin s'élève dans les airs, restant bien dans l'axe du rocher
 qui se trouve sur l'autre rebord. D'un coup sec il s'accroche et se
 fixe sur les aspérités de la pierre.
@@ -1133,6 +1105,12 @@ aléatoirement.
 Vous pouvez aussi "charger" une partie sauvegarder, si vous pensez n'avoir
 pas fait
 toutes les pièces, où alors tout simplement "quitter" pour fermer le jeu.
+
+> throw grappin on rocher
+Je ne comprends pas ce que vous voulez faire avec un grappin.
+
+> throw grappin on rocher
+Je ne comprends pas ce que vous voulez faire avec un grappin.
 
 > score
 Votre score est 75 sur un maximum de 115.  (65%)

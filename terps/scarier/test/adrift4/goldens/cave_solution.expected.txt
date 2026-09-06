@@ -113,6 +113,7 @@ You pick up the squirmy worm.
 
 > turn wheel
 You turn the wheel.  Nothing appears to happen.
+A fish splashes in the river.
 
 > s
 You move south.

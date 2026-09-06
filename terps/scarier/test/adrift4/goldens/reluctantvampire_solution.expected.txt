@@ -204,7 +204,7 @@ discuss the future, shall we?"
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, Lord of the Unliving.]
+[Press a key, scion of the night.]
 
 The session ends and you and Maria shakes hands. The first time, you gave her
 an affectionate peck on the cheek but she thought you were trying to fang her
@@ -220,7 +220,7 @@ door behind you and glance across the street, that spring abruptly dies away
 and your heart grows much heavier. For there, standing on the other side of
 the street, is none other than Norbert van Helsing, the leader of the FVH.
 
-[Press a key, Lord of the Unliving.]
+[Press a key, scion of the night.]
 
 The Charter Of The Fearless Vampire Hunters
 (3rd edition)
@@ -247,7 +247,7 @@ thing. While they'd prefer to stake every vampire through the heart the
 moment they uncover one, they'd also be arrested for murder so they tend to
 wait, watch and take notes. One wrong move and it's staking time.
 
-[Press a key, Lord of the Unliving.]
+[Press a key, scion of the night.]
 
 lll Morping Street lll
 
@@ -580,7 +580,7 @@ him out. Sometime later, he apparently decides enough is enough and leaves.
      Either that or he's realised that the sun is setting and night is
 approaching. The time of the vampire is almost here.
 
-[Press a key, scion of the night.]
+[Press a key, if you would be so kind.]
 
 Part 2: Vampire About The House
 
@@ -637,7 +637,7 @@ light of day and not fear the fateful demise that awaits us now.
 appointed general. The reasons for this are manifold yet tend to boil down to
 a couple of salient points:
 
-[Press a key, Lord Sinister.]
+[Press a key, neck biting one.]
 
    1. I'm desperate.
    2. You are the only other vampire I know of (aside from my dear wife whom
@@ -765,7 +765,7 @@ genuine vampire's cape, it transforms with you.)
      Undaunted by this unfortunate setback, you quickly fly up to the ceiling
 by the dangling chain.
 
-[Press a key, scion of the night.]
+[Press a key, master of the darkness.]
 
 lll Hovering By The Chain lll
 
@@ -810,7 +810,7 @@ genuine vampire's cape, it transforms with you.)
      Undaunted by this, you quickly fly up into the attic and land there
 before reverting back to your human form.
 
-[Press a key, if you would be so kind.]
+[Press a key, oh Vampire.]
 
 lll Attic lll
 
@@ -1195,7 +1195,7 @@ some unspecified point in the future. Instead, you agreed to help her. If
 your heart was capable of beating, it would be beating very quickly indeed
 right now.)
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 It takes only a few minutes to get ready. You don't require any weapons
 yourself - being a vampire, you are a weapon - and Jemma, after glancing
@@ -1207,7 +1207,7 @@ on the head with the spoon.
      "It's a good weapon as well," she adds.
      As your head is currently ringing, you can't help but agree.
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 Part 3: The Vampire & The Little Girl
 
@@ -1223,7 +1223,7 @@ shroud. "Say, we goin' to pass any sweet shops on the way?"
 a clue where to start.
      "Dunno," she says.
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 "I fink… um… it's a building. A big building. Might be dis officey place wot
 counsels people… or a big security building… or one of those places you goes
@@ -1257,7 +1257,7 @@ had so far.
 > nw
 You and Jemma set off for the graveyard.
 
-[Press a key, master of the darkness.]
+[Press a key, if you would be so kind.]
 
 lll Graveyard Entrance lll
 
@@ -1394,7 +1394,7 @@ Found an old scrap yard nearby and helped myself to the choice items. Great
 TV. Classy mattress. Even a bedside cabinet which the Queen might appreciate.
 Like a little home away from home.
 
-[Press a key, Lord Sinister.]
+[Press a key, neck biting one.]
 
 Page 4:
 Settling in. Being dead isn't as bad as I thought it would be.
@@ -1412,7 +1412,7 @@ Some new blood came in today. Couple of hulking fellows carrying some
 unconscious bloke between them. Went west to the standing stones. Think I
 might follow.
 
-[Press a key, Lord Sinister.]
+[Press a key, neck biting one.]
 
 Page 8:
 Discovered the Tapping Ritual at the standing stones. Looks like if I tap
@@ -1525,7 +1525,7 @@ carrying rings again. "You got a nerve, kid," he rasps, his voice as wrecked
 as the rest of him. "Show some manners or I'll stick you over me knee and
 give you the spanking your momma never did."
 
-[Press a key, scion of the night.]
+[Press a key, Lord of the Unliving.]
 
 Jemma's hand goes for her spoon but you manage to grab her in time.
      "Who are you?" you ask the strange looking fellow.
@@ -1769,7 +1769,7 @@ thought-"
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, if you would be so kind.]
+[Press a key, scion of the night.]
 
 "It wasn't my fault... I was paid to do it. Paid I tell you! And a lot of
 money besides. I suppose I could have turned it down but I got a wife and
@@ -1786,7 +1786,7 @@ like this."
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, master of the darkness.]
+[Press a key, neck biting one.]
 
 "It wasn't my fault... I was paid to do it. Paid I tell you! And a lot of
 money besides. I suppose I could have turned it down but I got a wife and
@@ -1805,7 +1805,7 @@ like this."
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, oh Vampire.]
+[Press a key, Lord Sinister.]
 
 "It wasn't my fault... I was paid to do it. Paid I tell you! And a lot of
 money besides. I suppose I could have turned it down but I got a wife and
@@ -1819,7 +1819,7 @@ like this."
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, master of the darkness.]
+[Press a key, Lord Sinister.]
 
 "It wasn't my fault... I was paid to do it. Paid I tell you! And a lot of
 money besides. I suppose I could have turned it down but I got a wife and
@@ -1845,7 +1845,7 @@ ingrained I find myself obeying her in my sleep."
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, lifeless one.]
+[Press a key, Lord of the Unliving.]
 
 "Yeah, sweet little Angela. Most beautiful girl I ever saw. But she's one
 demanding one, let me tell you. She wants this, she wants that. Never gives
@@ -1862,7 +1862,7 @@ killer."
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, Lord of the Unliving.]
+[Press a key, neck biting one.]
 
 "Yeah, sweet little Angela. Most beautiful girl I ever saw. But she's one
 demanding one, let me tell you. She wants this, she wants that. Never gives
@@ -1879,7 +1879,7 @@ small time." Jeff shakes his head. "Aside from this one, I guess."
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, scion of the night.]
+[Press a key, neck biting one.]
 
 "Yeah, sweet little Angela. Most beautiful girl I ever saw. But she's one
 demanding one, let me tell you. She wants this, she wants that. Never gives
@@ -1903,7 +1903,7 @@ in The Teletubbies once. Man killin' his wifey." Back to Jeff: "so?"
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 "I ain't a killer. Not me. No way. Besides which, she's scary my wife is.
 Frightening in a beautiful centrefold kind of way. So I just bought her stuff
@@ -1916,7 +1916,7 @@ stealing things."
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, lifeless one.]
+[Press a key, Lord of the Unliving.]
 
 "I ain't a killer. Not me. No way. Besides which, she's scary my wife is.
 Frightening in a beautiful centrefold kind of way. So I just bought her stuff
@@ -1954,7 +1954,7 @@ not someun' who takes her clothies off in dirty books then?"
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, if you would be so kind.]
+[Press a key, oh Vampire.]
 
 "I ain't a killer. Not me. No way. Besides which, she's scary my wife is.
 Frightening in a beautiful centrefold kind of way. So I just bought her stuff
@@ -1971,7 +1971,7 @@ which'd be the real kicker."
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, Lord of the Unliving.]
+[Press a key, master of the darkness.]
 
 "I ain't a killer. Not me. No way. Besides which, she's scary my wife is.
 Frightening in a beautiful centrefold kind of way. So I just bought her stuff
@@ -2009,7 +2009,7 @@ really deadly."
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, lifeless one.]
+[Press a key, oh Vampire.]
 
 "Damn Erika. Every bit as beautiful as she is deadly. Sometimes I wish I'd
 never hooked up with her in the first place."
@@ -2026,7 +2026,7 @@ time."
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, scion of the night.]
+[Press a key, lifeless one.]
 
 "The truth is that I was hired by Maltormo to kidnap some guy. This kid's
 father, I guess. He never told me why, but then he's never been what you'd
@@ -2041,7 +2041,7 @@ this."
 
 "I don't know anything about that," says Jeff.
 
-[Press a key, oh Vampire.]
+[Press a key, Lord Sinister.]
 
 "The truth is that I was hired by Maltormo to kidnap some guy. This kid's
 father, I guess. He never told me why, but then he's never been what you'd
@@ -2068,7 +2068,7 @@ scares the living bejesus out of me."
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, Lord of the Unliving.]
+[Press a key, scion of the night.]
 
 "You wouldn't believe how strong he is. One night, a while back, someone said
 something he didn't like and Maltormo, he grabs this guy and throws him right
@@ -2300,7 +2300,7 @@ known at the bar if he ever went, just isn't the type of person who's easy
 with killing people when draining a pint or two of blood every now and then
 will suffice (priests notwithstanding).
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 Then, too, there was the worrying news that the FVH were planning to raid the
 bar one day and prove to the authorities just what it was that went on behind
@@ -2308,7 +2308,7 @@ those blood-red doors.
      All in all, being a vampire who went to the Cobrini was a sure fire way
 to get a good six inches of sharpened wood in the chest region.
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 You deposited Jemma back at home with the biggest pot of ice cream the local
 store had before setting off for the Cobrini. She wanted to come along, but
@@ -2318,7 +2318,7 @@ to take a five year girl. Then again, it's the last place you'd ever want to
 take anyone.
      Including yourself.
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 You travel by taxi. Flying there in bat form would be quicker, as would
 driving your own car, but the FVH will be watching the place and showing up
@@ -2328,7 +2328,7 @@ there to stop them.
      So to the Cobrini you go, taking with you the card you received through
 the post after your change from living to unliving…
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 lll Outside The Cobrini lll
 
@@ -2398,7 +2398,7 @@ aside.
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, oh Vampire.]
+[Press a key, neck biting one.]
 
 lll The Cobrini: Main Area lll
 
@@ -2549,7 +2549,7 @@ reached the alley out back he pounced on me. If I hadn't had my stake out
 already, he'd have killed me there and then. As it is, he just caught me on
 the neck. Painful but not too bad.
 
-[Press a key, scion of the night.]
+[Press a key, Lord Sinister.]
 
 Or so I thought at first. He didn't bite me so I figured I was okay, but it
 seems the scratch of certain vampires carries the taint as well as their
@@ -2582,7 +2582,7 @@ this seems like an ideal opportunity to find out what lies behind that door.
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 "Ah… you've arrived, Lord Sinister. Excellent. I've been expecting you."
 
@@ -2596,7 +2596,7 @@ Maybe there's some kind of built in speaker system.
 
 "Destiny, Lord Sinister, that we rule the world together."
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 You stop walking and frown. "Rule the world?"
 
@@ -2622,7 +2622,7 @@ Beautiful isn't quite the word you'd use. Deranged perhaps. Psychotic. Mad.
 once more, in an eerie approximation of the Evil Villain Laugh made famous by
 Hammer Horror. "I am Maltormo."
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 A tall, cloaked figure steps into view. Or maybe the darkness recedes from
 where he was standing. Maltormo is… unsettling. If you passed him on the
@@ -2640,7 +2640,7 @@ of mind is as complete as mine, you will never have to fear those fools who
 think they can hunt us. Us! The true masters of this world. We will crush
 them all.
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 "Of course," Maltormo adds, "before true world domination is ours, we need to
 dispose of our immediate rivals. Tonight I put into effect a plan to destroy
@@ -2661,7 +2661,7 @@ Maltormo and here is Maltormo himself, wanting your help in executing a
 member of the FVH. A man you've vowed to save. Of course, you never knew when
 you agreed to help Jemma that her father was a member of the FVH.
 
-[Press a key, neck biting one.]
+[Press a key, lifeless one.]
 
 "What say you, Lord Sinister?" asks Maltormo, sounding jovial. Or as close to
 jovial as a walking, talking skeleton can sound. "Are you with me or against
@@ -2707,6 +2707,20 @@ Change          Fang          Hypnotise
 
 > change
 You change into a bat!
+     Unfortunately, this doesn't give you any real advantage over Maltormo as
+he seems to have decided on the same mode of attack.
+     The two of you flutter around each other, trying to bite and claw, but
+ultimately not doing much more than ruggling the others wings.
+     After several fruitless minutes of non-combat, you break away from
+Maltormo and change back to your human form. Maltormo does the same. Or as
+close to human as he ever gets.
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+> change
+You change into a bat!
      Clearly Maltormo didn't anticipate this as he lunges towards where you
 were standing with his fangs poised to drain your blood - only, of course, to
 find you are no longer there. Instead, you're flitting behind his head and
@@ -2718,6 +2732,32 @@ blood for life and started drinking tomato ketchup would be tempted by it.
 and missing by a fraction of an inch. "I'll get you yet!"
      You swoop out of sight and then feel your control slipping and a moment
 later you are back in human form.
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+> change
+You change into a bat!
+     You manage to keep your eyes averted this time which saves you from
+Maltormo's hypnotic gaze, but without looking (and your sonic sense doesn't
+seem to work in this room), it's difficult to actually land a blow on him.
+     After half a minute of pointless fluttering around the room, you feel
+your control slipping and you revert back to human form.
+
+Choose a power to use:
+
+Change          Fang          Hypnotise
+
+> change
+You change into a bat!
+     Fixing Maltormo's position in your mind's eye, you fly straight at him
+with your eyes closed to shield you from his hypnotic gaze. You feel his
+claws miss you by the narrowest fraction of an inch then your own claws are
+digging into him and Maltormo is howling in pain and fury!
+     You open your eyes and fly away from him, reverting back to human form a
+few feet away. Maltormo's face is torn up, looking even worse than it did
+before.
 
 Choose a power to use:
 
@@ -2770,59 +2810,19 @@ Choose a power to use:
 
 Change          Fang          Hypnotise
 
-> change
-You change into a bat!
-     You manage to keep your eyes averted this time which saves you from
-Maltormo's hypnotic gaze, but without looking (and your sonic sense doesn't
-seem to work in this room), it's difficult to actually land a blow on him.
-     After half a minute of pointless fluttering around the room, you feel
-your control slipping and you revert back to human form.
-
-Choose a power to use:
-
-Change          Fang          Hypnotise
-
-> change
-You change into a bat!
-     Unfortunately, this doesn't give you any real advantage over Maltormo as
-he seems to have decided on the same mode of attack.
-     The two of you flutter around each other, trying to bite and claw, but
-ultimately not doing much more than ruggling the others wings.
-     After several fruitless minutes of non-combat, you break away from
-Maltormo and change back to your human form. Maltormo does the same. Or as
-close to human as he ever gets.
-
-Choose a power to use:
-
-Change          Fang          Hypnotise
-
-> change
-You change into a bat!
-     Fixing Maltormo's position in your mind's eye, you fly straight at him
-with your eyes closed to shield you from his hypnotic gaze. You feel his
-claws miss you by the narrowest fraction of an inch then your own claws are
-digging into him and Maltormo is howling in pain and fury!
-     You open your eyes and fly away from him, reverting back to human form a
-few feet away. Maltormo's face is torn up, looking even worse than it did
-before.
-
-Choose a power to use:
-
-Change          Fang          Hypnotise
-
 > fang
-You lunge at Maltormo, interrupting the hypnotic attack he was trying to
-make. His concentration lost, he can do nothing but try to beat you off-
-     To no avail. Your fangs sink into his throat and you drink deep of his
-dry-tasting blood.
-     Maltormo manages to force you away but you can sense your attack has
-weakened him.
+You lunge forward to fang Maltormo but he seems to have the same idea and the
+two of you crash into each other, fangs at the ready. Maltormo is the more
+experienced fighter but in your years as a used curtain ring salesman you got
+into a fight or two of your own and you manage to fang him in the throat at
+the same time as he fangs you in yours.
+     The two of you break apart, each bitterly cursing the other.
 
 Choose a power to use:
 
 Change          Fang          Hypnotise
 
-[Press a key, if you would be so kind.]
+[Press a key, scion of the night.]
 
 Maltormo goes staggering back a step, clutching at his side in sudden pain.
      "Damn you, Sinister!" he rasps. "Why do I waste my time fighting with
@@ -2835,7 +2835,7 @@ human form. A moment later, a metallic panel over the door slams shut.
 
 *** Your score has just increased by 5 points! ***
 
-[Press a key, if you would be so kind.]
+[Press a key, scion of the night.]
 
 lll Maltormo's Study lll
 
@@ -2908,7 +2908,7 @@ change into a bat in the first place. Deal with Maltormo now, cry out
 
 *** Your score has just increased by 1 point! ***
 
-[Press a key, master of the darkness.]
+[Press a key, if you would be so kind.]
 
 You fly up the vertical tunnel as fast as your wings can carry you. At every
 moment, you expect to see Maltormo's desiccated face looming over the top and
@@ -2927,7 +2927,7 @@ your dad's dead. It was just too much hassle trying to save him" so you grit
 your teeth (your human teeth, having just transformed back from your bat
 form) and decide to get on with it.
 
-[Press a key, master of the darkness.]
+[Press a key, if you would be so kind.]
 
 "Are you really going to fight me for this vermin, Lord Sinister?" Maltormo
 demands. "Kill one of your own kind to save one of them? He'll repay you with
@@ -2956,7 +2956,7 @@ strength and even a centuries old vampire is beginning to look pained.
 you're too strong and you throw him against the wall hard enough to break
 bones. Several of them. Maltormo collapses on the floor.
 
-[Press a key, neck biting one.]
+[Press a key, oh Vampire.]
 
 "He's not dead," says a voice.
      You look over to see Jemma's father has managed to chew through the gag.
@@ -2976,7 +2976,7 @@ lock onto yours as he tries to wrest the weapons from you-
      But fails. Your strength is greater than his.
      You hold the stake in place then bring the hammer striking down.
 
-[Press a key, neck biting one.]
+[Press a key, oh Vampire.]
 
 *** Your score has just increased by 16 points! ***
 It isn't especially easy for a man to walk out of the Cobrini without someone
@@ -3000,7 +3000,7 @@ step outside into the early morning light (fortunately the hated sun has yet
 to put in an appearance) and come face to face with Norbert van Helsing and
 thirty of his Fearless Vampire Hunters.
 
-[Press a key, neck biting one.]
+[Press a key, oh Vampire.]
 
 "Tom, you're alive!" cries Norbert. His gaze travels from Tom (the guy you've
 rescued obviously) to you. They go wide. "'Ware, vampire!"
@@ -3022,7 +3022,7 @@ I… seen…" He grips his cross hard enough to make his knuckles bone white.
 he pulls a small crossbow out of his robes, one fitted with a silver bolt,
 "he gets his just desserts-"
 
-[Press a key, neck biting one.]
+[Press a key, oh Vampire.]
 
 Tom steps forward as Norbert raises the crossbow.
      "Get out of the way, Tom!" Norbert says.
@@ -3051,7 +3051,7 @@ on the head with a stick of rock then proceeds to yell at him until she runs
 out of insults. (This takes quite some time.) After that, she kicks him in
 the shins until her father pulls her away.
 
-[Press a key, neck biting one.]
+[Press a key, oh Vampire.]
 
 "This…" Norbert tries to straighten his dishevelled robes. "This changes…
 nothing. That thing-" he points to you "-is still a vampire and I still-"
@@ -3075,7 +3075,7 @@ on the trigger of a silver bolt loaded crossbow. So you quickly flag down a
 taxi (changing into a bat would be too risky with Norbert still here) and a
 few minutes later you're on your way back home.
 
-[Press a key, neck biting one.]
+[Press a key, oh Vampire.]
 
    "We likely to arrive before sun up, cabbie?"
      "Only if I break every speed limit in the city."
@@ -3085,7 +3085,7 @@ say, is that a £50 note?"
      "It is."
      "In that case, we ought to be there in about five minutes."
 
-[Press a key, neck biting one.]
+[Press a key, oh Vampire.]
 
 Well done!
 

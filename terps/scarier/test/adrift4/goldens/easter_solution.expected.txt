@@ -52,10 +52,10 @@ metal and glass.  A newspaper and a lollipop are on the newspaper rack.
 > take lollipop
 You take the lollipop from the newspaper rack.
 
+You hear a clucking noise emanating from the window display.
+
 > put lollipop in basket
 You put the lollipop inside the Easter basket.
-
-You hear a clucking noise emanating from the window display.
 
 > take newspaper
 You take the newspaper from the newspaper rack.
@@ -73,9 +73,6 @@ R&G Financial Corp.                     RG(F)                1-2/3
 Oakley Inc.                                OO                1-2/2
 LS Starrett Co.                        S(CX)                1-1/3
 E*TRADE Financial Corp.                E(T)                1-1/2
-
-"You must be shopping for somebody pretty special, I'd say!"  The shopkeeper
-glances at you knowingly.
 
 > x window
 The window display consists of a large ceramic rabbit holding out a serving
@@ -98,6 +95,9 @@ some sort.
 
 > look up
 You see a large pinata hanging from the high ceiling of the candy store.
+
+"You must be shopping for somebody pretty special, I'd say!"  The shopkeeper
+glances at you knowingly.
 
 > hit pinata
 You're going to need some kind of tool to help you reach the pinata.  Right
@@ -127,6 +127,9 @@ Taken.
 A good-sized umbrella with a curved wooden handle.  Its swirls of black
 material are held in place with a loop of material and a snap when the
 umbrella is closed.  The umbrella is closed.
+The shopkeeper retrieves a wind-up chick from beneath the counter, winds it
+up, and sets it down.  The toy gyrates jubilantly across the wooden surface,
+while the whirring sound of the wind-up mechanism drones from inside it.
 
 > hit pinata with umbrella
 (with umbrella)  The pinata sways, suspended by a piece of twine.
@@ -154,20 +157,11 @@ counter.
 > take candy dots
 You take the strip of candy dots.
 
-"Once you have some candy in your basket, bring it to me and we'll check it
-against Max's list," the shopkeeper offers amiably.
-
-"Max's list???" you think.  Had you told the man your son's name?  Or what
-sort of candy he likes?
-
 > take egg
 You take the creme egg.
 
 > take eggs
 You take the tiny chocolate eggs.
-The shopkeeper retrieves a wind-up chick from beneath the counter, winds it
-up, and sets it down.  The toy gyrates jubilantly across the wooden surface,
-while the whirring sound of the wind-up mechanism drones from inside it.
 
 > take chicks
 You take the yellow marshmallow chicks.
@@ -208,9 +202,6 @@ You put the yellow marshmallow chicks inside the Easter basket.
 > put beans in basket
 You put the sack of jelly beans inside the Easter basket.
 
-Outside, a little girl tugs on her father's arm, straining in the direction
-of the candy store, but he hustles her along past the door.
-
 > i
 You are carrying a newspaper, an umbrella, an Easter basket, your wallet and
 a keychain.  Inside the Easter basket is a strip of candy dots, a creme egg,
@@ -224,6 +215,9 @@ that you haven't found yet.  Not to worry... 'well begun is half done,' as
 the old saying goes."
 
 "Here," he says, handing you Max's list.
+
+Outside, a little girl tugs on her father's arm, straining in the direction
+of the candy store, but he hustles her along past the door.
 
 > i
 You are carrying a newspaper, an umbrella, an Easter basket, your wallet, a
@@ -271,6 +265,12 @@ candy dots, a creme egg, the tiny chocolate eggs, the yellow marshmallow
 chicks, a sack of jelly beans and a lollipop.  A few bills and a couple of
 photographs are inside your wallet.
 
+"Once you have some candy in your basket, bring it to me and we'll check it
+against Max's list," the shopkeeper offers amiably.
+
+"Max's list???" you think.  Had you told the man your son's name?  Or what
+sort of candy he likes?
+
 > put macaroon in basket
 You put the macaroon inside the Easter basket.
 
@@ -314,6 +314,10 @@ inside the pay phone.
 
 > take candy coin
 Taken.
+
+"Don't forget to look up, if you haven't tried that yet.  You never know
+where things may be hiding in this store, so you'll have to look around
+carefully."  The shopkeeper's helpful voice rings out across the store.
 
 > take note
 Taken.
@@ -363,10 +367,6 @@ your wallet, a keychain and Max's list.  Inside the Easter basket is a strip
 of candy dots, a candy coin, a creme egg, the tiny chocolate eggs, the yellow
 marshmallow chicks, a sack of jelly beans, a macaroon and a lollipop.  A few
 bills and a couple of photographs are inside your wallet.
-
-"Don't forget to look up, if you haven't tried that yet.  You never know
-where things may be hiding in this store, so you'll have to look around
-carefully."  The shopkeeper's helpful voice rings out across the store.
 
 > ask shopkeeper about goose
 He leans forward conspiratorially, even though you and he are clearly the

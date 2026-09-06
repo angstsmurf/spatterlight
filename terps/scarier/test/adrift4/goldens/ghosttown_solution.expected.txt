@@ -843,7 +843,10 @@ charred beams of timber stretching towards the sky  as an accusing finger,
 and to the south is the old livery stable, walls almost caving in, bleached
 and dried by the merciless sun. Behind you, to the west, the trail continues
 away from the town, leading back up to the plateau from where you came.
-Ninette is here.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
 
 > n
 You move north.
@@ -863,7 +866,10 @@ that are left have avoided the flames.
 Different kinds of debris are scattered around the floor, and it's hard to
 see what is what, but you think that some of it was once shelves and
 cupboards.
-Ninette is here.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
 
 > lubricate drawer
 You carefully pour some of the kerosene into the cracks around the stuck
@@ -959,10 +965,7 @@ for supplies, and maybe a few necessary repairs, and once in a while a stage
 coach with mail and a few passengers.
 To the north of you a small street leads in between two buildings, and to the
 south a narrow alley leads out of town.
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > e
 You move east.
@@ -1186,7 +1189,10 @@ south, is the town Saloon, strangely enough almost undamaged, and the
 withered sign still intact. The building rises up above you, two storeys
 high, with only a few windows broken, looking like you could move in today if
 you wanted to.
-Ninette is here.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
 The chilly desert night engulfs the quiet town of Battle Creek.
 Everything is silent at first, but then slowly whispering voices are heard
 fading in and out, carried by the wind, unnaturally cold air, stinging like
@@ -1500,10 +1506,7 @@ To the south the gaping hole in the façade of the sheriff's office, and the
 metallic “clank” from the church bell high above you, suddenly becomes the
 noise of cell doors being opened and closed, and the whispering sound of the
 wind becoming the voices of the prisoners once held here.
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > n
 You move north.
@@ -1713,10 +1716,7 @@ back from the street, lies a small house, the wall facing you is collapsed
 and the roof is only supported by a few beams. To the west of you the street
 continues, and far out in the horizon you can see the steep hillside where
 you came from.
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > w
 You move west.
@@ -1731,10 +1731,7 @@ for supplies, and maybe a few necessary repairs, and once in a while a stage
 coach with mail and a few passengers.
 To the north of you a small street leads in between two buildings, and to the
 south a narrow alley leads out of town.
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > w
 You move west.

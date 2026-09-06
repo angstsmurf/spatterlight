@@ -77,6 +77,7 @@ into the room where you are to show your employers the device.  Several of
 your fellow scientists stand, waiting for you to go through the door.  The
 hallway leads back to the north, before turning west and east a few feet
 behind you.  The scientists around you fidget nervously.
+"Come one!" one of the scientists yells.  "Go on with it!"
 
 >
 I don't understand what you mean, please rephrase.

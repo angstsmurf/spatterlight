@@ -104,7 +104,7 @@ Fortune Teller 5000 prints out: "My reply is nay."
 Tiberius tosses out the fortune after reading it.
 
 > w
-Tiberius wanders west.
+Tiberius goes west.
 
 The Sketch Artist's Booth
 Here in the lukewarm shade of a windblown nut tree stands the open-air booth
@@ -122,7 +122,7 @@ To which the sketch artist responds, "Well... now that you mention it, I
 coulda sworn that tree looked different earlier today."
 
 > s
-Tiberius blunders off to the south.
+Tiberius goes south.
 
 Rhyming Dude & Bucket
 Upon this hill, festival-goers oft eat their lunch.  Howe'er, there is
@@ -141,7 +141,7 @@ Tiberius scratches his head o'er this.  "What phase?"  Wally the Stray
 slinketh in from the north.
 
 > e
-Tiberius prances east.
+Tiberius meanders east.
 
 Trailer-O-Foode (sic)
 Oh, the joy of Oldeland festival foods.  If vendors could deep fry pure sugar
@@ -161,7 +161,7 @@ snarling.
 The vendor looks at Tiberius, then at the sky.  "No."
 
 > w
-Tiberius wanders west.
+Tiberius meanders west.
 
 Rhyming Dude & Bucket
 Upon this hill, festival-goers oft eat their lunch.  Howe'er, there is
@@ -171,7 +171,7 @@ here, whereas a food vendor's trailer is to the east.
 Wally the Stray sitteth about here, occasionally licking at his paws.
 
 > n
-Tiberius meanders north.
+Tiberius prances north.
 
 The Sketch Artist's Booth
 Here in the lukewarm shade of a windblown nut tree stands the open-air booth
@@ -179,6 +179,9 @@ of a sketch artist.  She sits by her easel, playing idly with her drawing
 instruments.  A trail south leads to a little hill where buskers sometimes
 entertain people eating lunch, and a less-used one leads east to a secluded
 section of the festival.   Also nearby is yon stout bush.
+
+Tiberius mutters to himself, "Worrieth not, dear brother... I shan't letteth
+ye wizards get ye!"
 
 > x tree
 One of the first to lose its leaves at the approach of autumn.  A small pile
@@ -241,7 +244,7 @@ wizard who can teacheth ye if ye asketh 'em about MAGIC."
 Tiberius throws away the ticker tape when that's over.
 
 > w
-Tiberius blunders off to the west.
+Tiberius wanders west.
 
 The Sketch Artist's Booth
 Here in the lukewarm shade of a windblown nut tree stands the open-air booth
@@ -251,7 +254,7 @@ entertain people eating lunch, and a less-used one leads east to a secluded
 section of the festival.   Also nearby is yon stout bush.
 
 > s
-Tiberius prances south.
+Tiberius goes south.
 
 Rhyming Dude & Bucket
 Upon this hill, festival-goers oft eat their lunch.  Howe'er, there is
@@ -269,23 +272,28 @@ answer you all day!"
 "Pray tell," says Tiberius.  "What doth ye knoweth about practitioners of the
 wizardly arts, sir?"
 
-"If you're not careful, an evil wizard could turn you into a lizard!"
+"I give 'em a down with my thumb, 'cuz wizards are dumb."
+
+Tiberius gasps audibly, but chokes back any harsh words of disbelief.
 
 > ask simon about magic
 "Most honorable rhymesman," Tiberius begins.  "What doth ye knoweth about the
 casting of magic?"
 
-"Ah, there's a trick," answers Rhymin' Simon.  "To making your magic effects
-stick.  You need a verb to fit that's most superb- something like
-LOOKFROTHO!"
+"Just say a magic word," answers Rhymin' Simon.  "Something stupid you've
+never before heard- something like EXOR!"
 
- "An' how would I useth LOOKFROTHO so?"
+Tiberius's voice trembles at this seemingly deplorable advice.  "An' h-how
+would I useth EXOR so?"
 
- "Just say it ev'ry place ye go.  Surely when it works, ye'll know!"  Wally
-the Stray slinketh in from the north.
+"Just say it ev'ry place ye go," the busker sneers.  "Surely when it works,
+ye'll know!"
+
+Well... maybe Tiberius ought to give it a shot at least?  Wally the Stray
+slinketh in from the north.
 
 > n
-Tiberius goes north.
+Tiberius blunders off to the north.
 
 The Sketch Artist's Booth
 Here in the lukewarm shade of a windblown nut tree stands the open-air booth
@@ -293,9 +301,6 @@ of a sketch artist.  She sits by her easel, playing idly with her drawing
 instruments.  A trail south leads to a little hill where buskers sometimes
 entertain people eating lunch, and a less-used one leads east to a secluded
 section of the festival.   Also nearby is yon stout bush.
-
-Tiberius mutters to himself, "Worrieth not, dear brother... I shan't letteth
-ye wizards get ye!"
 
 > lookfrotho
 "LOOKFROTHO!" invoketh Tiberius...

@@ -44,6 +44,7 @@ right wall is a set of stairs leading downward and right next to it a wooden
 closet.
 
 You can move north, south, down and in.
+You hear the sound of water running.
 
 > down
 You move down.
@@ -52,6 +53,7 @@ Bottom of Main Stairway
 You are standing next to an ironing board on top of which is an Iron.
 
 You can move north and up.
+You hear the sound of water being shut off abruptly.
 
 > north
 You move north.
@@ -60,7 +62,6 @@ Passage
 You are in a junction of many passageways.
 
 You can move north, east, south and west.
-You hear the sound of water running.
 
 > east
 You move east.
@@ -69,19 +70,17 @@ Electrical Area
 You are in between a large fuse box and the utility room.
 
 You can move east, south and west.
-You hear the sound of water being shut off abruptly.
+You hear the sound of water running.
 
 > open box
 You open the metal box and look at the various circuit breakers. On the side
 of the door is clipped a flashlight.
-You hear the sound of water running.
 
 > take flashlight
 You take the flashlight.
 
 > turn flashlight on
 The flashlight is now on.
-You hear the sound of water being shut off abruptly.
 
 > east
 You move east.
@@ -91,7 +90,7 @@ There is a shelf containing camping equipment. You search the shelf and find
 more items like ski boots but eventually turn up nothing of interest.
 
 You can move west and up.
-You hear the sound of water running.
+You hear the sound of water being shut off abruptly.
 
 > up
 You move up.
@@ -100,7 +99,6 @@ Top Of Stairs
 You are at the top of the stairs. To your right is a door leading outside.
 
 You can move east, south and down.
-You hear the sound of water being shut off abruptly.
 
 > east
 You move east.
@@ -169,7 +167,6 @@ Family Dining Table
 You have entered a heavy traffic area. Dinner is served here daily.
 
 You can move north and east.
-You hear the sound of water running.
 
 > north
 You move north.
@@ -178,7 +175,6 @@ End of Short Passageway
 The passageway divides the TV Room and Family Dining Room here.
 
 You can move north, south and west.
-You hear the sound of water being shut off abruptly.
 
 > west
 You move west.
@@ -201,13 +197,14 @@ You can move east and south.
 > x girl
 She is seriously considering killing herself . She needs words of hope and
 promise.
-You hear the sound of water running.
 
 > read book
 The girl becomes inspired and hugs you.
+You hear the sound of water running.
 
 > up
 The girl lets you pass.
+You hear the sound of water being shut off abruptly.
 
 > south
 You move south.
@@ -216,6 +213,7 @@ TopFloorPassage(South)
 You are in between Ajoy's bedroom and the prayer, computer and study room.
 
 You can move north, east and west.
+You hear the sound of water running.
 
 > west
 You move west.
@@ -259,7 +257,6 @@ This is the bedroom of Lungu's brother and Lungu is Anjan the brother of
 Ajoy.
 
 You can move east and south.
-You hear the sound of water running.
 
 > east
 You move east.
@@ -268,6 +265,7 @@ TopFloorPassage(South)
 You are in between Ajoy's bedroom and the prayer, computer and study room.
 
 You can move north, east and west.
+You hear the sound of water running.
 
 > north
 You move north.
@@ -276,7 +274,6 @@ TopFloorPassage(Center)
 There are other rooms north and south of you.
 
 You can move north, south and down.
-You hear the sound of water being shut off abruptly.
 
 > down
 You move down.
@@ -295,7 +292,7 @@ Short Passageway
 You are in a junction of many passageways.
 
 You can move north, east, south and west.
-You hear the sound of water running.
+You hear the sound of water being shut off abruptly.
 
 > south
 You move south.
@@ -307,14 +304,14 @@ right wall is a set of stairs leading downward and right next to it a wooden
 closet.
 
 You can move north, south, down and in.
+You hear the sound of water running.
 
 > unlock closet with key
 You unlock the wooden closet with the metal key.
-You hear the sound of water being shut off abruptly.
 
 > open closet
 You open the wooden closet.
-You hear the sound of water running.
+You hear the sound of water being shut off abruptly.
 
 > in
 You move in.
@@ -333,7 +330,6 @@ hand.
 
 > take medal
 You are already carrying the bronze medal.
-You hear the sound of water being shut off abruptly.
 
 > i
 You are carrying a religious book, a shovel, a stick, a metal key, a
@@ -349,7 +345,6 @@ right wall is a set of stairs leading downward and right next to it a wooden
 closet.
 
 You can move north, south, down and in.
-You hear the sound of water running.
 
 > north
 You move north.
@@ -358,6 +353,7 @@ Short Passageway
 You are in a junction of many passageways.
 
 You can move north, east, south and west.
+You hear the sound of water running.
 
 > east
 You move east.
@@ -385,7 +381,6 @@ You open the doors and enter father's closet...
 > x safe
 The safe is locked. To unlock safe, type 'try' followed by a four digit
 number. For example, 'try 1234'.
-You hear the sound of water being shut off abruptly.
 
 > out
 You move out.
@@ -398,7 +393,6 @@ of a beautiful golf course across a major highway.
 Here is Father's Closet.
 
 You can only move south.
-You hear the sound of water running.
 
 > south
 You move south.
@@ -427,7 +421,7 @@ here.
 You can move south and west.
 
 > x sink
-The kitchen sink is three quarters full of water.
+The kitchen sink is quarter full of water.
 
 > search sink water
 You pick up a dripping wet hand-written note from the sink.

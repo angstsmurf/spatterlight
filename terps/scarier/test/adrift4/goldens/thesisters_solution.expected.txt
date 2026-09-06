@@ -848,9 +848,6 @@ You take the socks from the tall wardrobe.
 > get shoes
 You take the shoes from the tall wardrobe.
 
-You pause, a chill running down your spine.  Did you just hear a child
-giggling or was it your imagination?
-
 > east
 You move east.
 
@@ -892,6 +889,9 @@ You locate the cabinet belonging to Henry Wilson Chatfield and open the door.
 thing is going to collapse.  It doesn't, however, and you carefully place the
 trophy into the cabinet and shut it again.  That just seemed like the right
 thing to do.
+
+You feel something brush against your shoulder.  You spin round in shock.
+There's nothing there.
 
 > east
 You move east.
@@ -1037,9 +1037,6 @@ Thankfully, you are wearing shoes so traversing the corridor should be no
 problem.
 
 You can go east to the front hall and south into the kitchen.
-
-Your breath catches in your throat as you turn suddenly.  You swear that, out
-of the corner of your eye, you saw a man standing beside you.
 
 > south
 You move south.
@@ -1396,6 +1393,9 @@ door to the south and to the west you can see a back door leading outside.
 
 Also here is a packet of bread.
 
+You pause, a chill running down your spine.  Did you just hear a child
+giggling or was it your imagination?
+
 > north
 You move north.
 
@@ -1601,9 +1601,6 @@ You unlock the metal door with the large iron key.
 > open metal door
 You open the metal door.
 
-You feel something brush against your shoulder.  You spin round in shock.
-There's nothing there.
-
 > south
 You move south.
 
@@ -1761,8 +1758,6 @@ Time passes...
 "There's no way out!" screams Gerald Chatfield.  THUD!  THUD!
 
 THUD!  The door shakes.  THUD!
-
-"There's no way out!" screams Gerald Chatfield.  THUD!  THUD!
 
 > score
 Your score is 99 out of a maximum of 109.  (90%)

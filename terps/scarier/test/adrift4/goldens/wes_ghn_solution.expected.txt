@@ -786,15 +786,14 @@ Hope cuts you with the Stripper Sword.
 
 > attack hope
 You cut Hope with the Soul Scythe.
-Hope manages to avoid Charity Bell's attack.
 
 > attack hope
 You cut Hope with the Soul Scythe.
+Charity Bell hits Hope.
 Hope cuts you with the Stripper Sword, but it doesn't seem to do any damage.
 
 > attack hope
 You cut Hope with the Soul Scythe.
-Hope manages to avoid Charity Bell's attack.
 
 > attack hope
 You cut Hope with the Soul Scythe.

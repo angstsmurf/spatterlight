@@ -147,6 +147,12 @@ Time passes...
 > wait
 Time passes...
 
+    The shopkeeper is pacing back and forth behind the counter, performing
+various tasks.
+
+> wait
+Time passes...
+
     You can hear the girls talking, although you can't tell exactly what they
 are saying.
 
@@ -161,8 +167,6 @@ Time passes...
 > wait
 Time passes...
 
-    The shopkeeper is wiping the counter.
-
 > wait
 Time passes...
 
@@ -173,6 +177,9 @@ Time passes...
 
 > wait
 Time passes...
+
+    The shopkeeper is looking busy even though business seems to be slow
+today.
 
     In the corner of your vision you glimpse one of the girls eyeing you, but
 her head is turned by the time you take a look.
@@ -209,9 +216,6 @@ The golden-haired girl comes running up to you and grabs hold of your arm.
 1) "I'll do my best."
 2) "I'm sorry.  There's nothing I can do for you."
 3) "No time to chat, we've got to go after those men!"
-
-> wait
-Time passes...
 
 > wait
 Time passes...

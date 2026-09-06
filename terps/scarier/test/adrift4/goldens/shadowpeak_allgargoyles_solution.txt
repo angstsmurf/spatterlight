@@ -1,5 +1,10 @@
 # Shadowpeak "all four gargoyles" variant: deterministic WIN, 715/790 under
-# SCR_SEED=83 (2026-08-24: re-derived after the dead-NPC walk skip -- a corpse
+# SCR_SEED=30 (2026-09-06: the RNG first-draw warm-up fix in scutils.cpp
+# scr_congruential_rand -- the first draw after a reseed used to be pinned to
+# the top half of its range -- re-threaded every seeded stream.  New seed, and
+# the village zombie phase and the Damastus chase are re-derived below with
+# harness/shadowpeak_village.py and harness/shadowpeak_chase.py.  715 unchanged.
+# 2026-08-24: re-derived after the dead-NPC walk skip -- a corpse
 # no longer draws the room-group walk random each turn, which re-threads every
 # downstream walker and battle roll.  The village focus blocks went from
 # 11/17/23/15 attack-pairs to 10/30/7/2 and now all run in the square (Arthur
@@ -145,113 +150,111 @@ wear boots
 se
 fly
 # === VILLAGE (rooms 36-52): kill the 4 wandering named zombies, +40 -> 130 ===
-# Phase A re-tuned for the boots-shifted RNG. The named zombies oscillate in and
-# out of the Village Square (37) every turn. Camping with three attacks per cycle
-# scrambles the turn count (a landed attack advances time, a missed one does not),
-# which the boots detour desynced. Instead use a SELF-SYNCING single-target focus:
-# `attack X; z` does nothing (no turn) when X is absent and only `z` advances time,
-# so we step one turn at a time and hit X whenever it wanders in. Holga (12), then
-# Jarris (18, 100 stamina = many hits), then Boris last (24, he roams in slowly
-# from room 42). +40 -> 130.
+# The four named zombies oscillate in and out of the Village Square (37), so the
+# phase is derived turn by turn: stab whoever is standing here, else wait.  One
+# stab kills each of them.  +40 -> 130.
 s
-# Re-tuned 2026-08-24 for the dead-NPC walk skip (see the header): with the
-# corpses no longer drawing a walk random each turn the zombies converge on
-# the square much sooner, and Arthur now wanders in himself, so the whole
-# phase happens in room 37 and the two `e` steps to the blacksmith come
-# after it. Holga 10, Jarris 30, Boris 7, Arthur 2 attack-pairs.
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
+# Re-derived 2026-09-06 for the RNG first-draw warm-up fix (scutils.cpp
+# scr_congruential_rand: the first draw after a reseed used to be pinned to the
+# top half of its range, so every seeded stream re-threads).  Greedy phase from
+# the Village Square (37), one turn at a time: stab whichever named zombie has
+# wandered in, else wait -- harness/sp_village.py in the session scratchpad, the
+# same shape as harness/shadowpeak_chase.py.  33 turns of work, then `z` padding
+# back to the original 93-turn length so the downstream event timers (EVENT 92,
+# the Morac death timer) keep landing where the rest of the route expects.
 attack jarris
 z
-attack jarris
 z
-attack jarris
 z
-attack jarris
 z
-attack jarris
 z
-attack jarris
 z
-attack jarris
 z
-attack jarris
 z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack boris
-attack boris
-z
-attack boris
-attack boris
 attack boris
 z
 attack boris
 z
-attack boris
+z
+z
+attack holga
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
 z
 attack arthur
-attack arthur
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
 e
 e
 # ===== SESSION 7: village scoring cluster 130 -> 230/790 =====
@@ -796,23 +799,24 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED 2026-08-24 at SCR_SEED=83, after the dead-NPC walk
-# skip re-threaded the walkers.  Greedy BFS from the stone button (room 157):
-# attack when co-located, else BFS-step toward him.  Damastus dies in room 162,
-# stamina 14; the tail walks 162->151.
+# DAMASTUS chase RE-DERIVED 2026-09-06 at SCR_SEED=30, after the RNG first-draw
+# warm-up fix re-threaded the walkers.  Greedy BFS from the stone button (room
+# 157): attack when co-located, else BFS-step toward him.
 # Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
-e
-e
-e
+s
 attack damastus
-w
+attack damastus
+n
+attack damastus
+s
+attack damastus
+n
 attack damastus
 e
-attack damastus
 e
-attack damastus
 e
-attack damastus
+e
+e
 e
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg

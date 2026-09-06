@@ -73,13 +73,29 @@ It's starting! Get ready!
 
 Score: 0
 
-You see a green note!
+You see a red note!
 
-> use green button
-You hit green!
-You got it!
+> use red button
+You hit red!
+Superstar!!
 
 Score: 10
+
+You see a blue note!
+
+> use blue button
+You hit blue!
+You're a star!
+
+Score: 20
+
+You see a yellow note!
+
+> use yellow button
+You hit yellow!
+You're a star!
+
+Score: 30
 
 You see a yellow note!
 
@@ -87,29 +103,13 @@ You see a yellow note!
 You hit yellow!
 You nailed it!
 
-Score: 20
-
-You see a green note!
-
-> use green button
-You hit green!
-Superstar!!
-
-Score: 30
-
-You see a green note!
-
-> use green button
-You hit green!
-Superstar!!
-
 Score: 40
 
-You see a blue note!
+You see a yellow note!
 
-> use blue button
-You hit blue!
-Superstar!!
+> use yellow button
+You hit yellow!
+You nailed it!
 
 Score: 50
 
@@ -121,35 +121,35 @@ Perfect!
 
 Score: 60
 
+You see a green note!
+
+> use green button
+You hit green!
+Superstar!!
+
+Score: 70
+
 You see a blue note!
 
 > use blue button
 You hit blue!
 You're a star!
 
-Score: 70
-
-You see a yellow note!
-
-> use yellow button
-You hit yellow!
-You nailed it!
-
 Score: 80
 
-You see a yellow note!
+You see a green note!
 
-> use yellow button
-You hit yellow!
-You're a star!
+> use green button
+You hit green!
+You got it!
 
 Score: 90
 
-You see a red note!
+You see a green note!
 
-> use red button
-You hit red!
-Perfect!
+> use green button
+You hit green!
+You nailed it!
 
 ......Ten hours later...
 

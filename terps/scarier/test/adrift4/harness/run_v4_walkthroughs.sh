@@ -120,7 +120,7 @@ buried_alive_solution.txt|buried.taf|Well done. You got to the end
 # Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
 # Re-blessed 2026-08-29: `x lawyer` no longer ticks, so the events/RNG after it shift by one turn.
 confession_solution.txt|Confession(1).taf|Striking a plea deal|SCR_SKIP_WAITKEY=1
-snakes_and_ladders_solution.txt|sandl.taf|made it to the end of the game|SCR_SEED=2
+snakes_and_ladders_solution.txt|sandl.taf|made it to the end of the game|SCR_SEED=3
 # Re-blessed 2026-08-25, one line, for the pre-4.0 `x <unknown noun>` answer.
 # 4.0 rewrote the last line of the Runner's examines(): pre-4.0 answers the
 # flat, person-free "Nothing special." (run370 435BF4, verbatim in run370's
@@ -153,7 +153,7 @@ veteran_solution.txt|veteran.taf|fulfilling your destiny
 togetyou_solution.txt|togetyou.taf|another flesh-sack|SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-25, two lines, for the pre-4.0 `x <unknown noun>` answer
 # measured on the veteran row above.
-zombies_solution.txt|ZAC.taf|you and Stu were eaten by zombies|SCR_SKIP_WAITKEY=1
+zombies_solution.txt|ZAC.taf|you and Stu were eaten by zombies|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29: run400 replay of all 26 commands (Adrift_1_adrift_maze.txt,
 # name prompt answered through POPUP_ANSWERS, Verbose + brackets ON).  Turns
 # 24-25, "read it" / "x it", print "(a trophy)" on a line of its own before the
@@ -200,12 +200,12 @@ shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 # in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
 # pre-move lines between stops disappeared; still wins.
 # Re-blessed 2026-09-06: `attack X` on a seen-but-absent X is a REAL turn in run400 ("X isn't here!", dobattle 47EFE5, House Adrift_110), not the no-turn DontUnderstand the header's self-sync trick assumed.  The `z` after each such attack was dropped (31, the attack now supplies the tick) and attacks with no `z` to give up were dropped themselves (Cerberus x7, Edna x4).  Same turn thread, still wins.
-shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=7
+shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=101
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
 # Re-blessed 2026-09-06: same "X isn't here!" turn as the shadowpeak row above (Adrift_110): 28 `z` and 4 no-op attacks dropped.  Still wins.
-shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=2326
+shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=30
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
@@ -213,7 +213,7 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  Battle rolls reorder.
 # Re-blessed 2026-09-06: same "X isn't here!" turn as the shadowpeak row above (Adrift_110): 95 `z` and 15 no-op attacks dropped.  Still wins.
-shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=48
+shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=180
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
 #
@@ -239,8 +239,8 @@ shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadow
 # adjacent member), which moves the combat rolls under the old seed far
 # enough that Urgorn wins.  Seed 4 is the lowest at which the trimmed route
 # beats him with no unparsed command anywhere in the replay.
-alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=4
-alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn
+alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=3
+alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=2
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_46_topaz.txt,
 # feed cmdfile_w_topaz.txt, 23 commands, PRE=1).  23/23 echoed with ONE real
 # engine divergence, now fixed.  Turn 11 listed "Also here is a Topaz." into
@@ -495,9 +495,9 @@ gateway_solution.txt|gateway.taf|THE END
 # (turn 4, damage numbers are battle rolls, rule 3), after which a fed command
 # is lost.
 hyper_b_s_solution.txt|hyper_b_s.taf|The Flare Rat is dead! Mission complete!
-jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=11
+jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=2
 # Re-blessed 2026-09-06: 71 `attack riven/ozgat/higher` lines answered by DontUnderstand (no turn) became "X isn't here!" turns (run400 dobattle 47EFE5, House Adrift_110); dropped as pure no-ops so the turn thread is unchanged.  Still wins.
-light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=16
+light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=74
 # Measured live in run400 under Wine (2026-08-24), full replay, Verbose ON.
 # The game is NOT winnable in the real Runner: "Cat sheepishly enters from
 # the east." never appears (the cat's walk has expired), so `attack cat` gets
@@ -618,7 +618,7 @@ space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCIT
 # Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the clothes trunk is mode 1 and unspent, so its
 # InRoomDesc "A clothes trunk sits at the foot of the bed." replaces "Also here
 # is a clothes trunk."  Confirmed in Adrift_277_sun_empire line 36.
-sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 135 out of the maximum 145!
+sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 135 out of the maximum 145!|SCR_SEED=8
 # Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 # (Adrift_11_tcom.txt, feed cmdfile_w_tcom.txt, 13 commands): 13/13 echoed and
 # identical, tail only.  First row driven with the feed generator's new
@@ -792,7 +792,7 @@ del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 # (+10), statue (+5), the fifth knock (+5), the seeded riddle (+10, bookmark
 # at the default seed), asking the witches (+5), unlocking the desk (+5) and
 # opening it (+5).  Surveyed 2026-09-05.
-inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
+inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.|SCR_SEED=2
 #
 # Les Feux de l'enfer: 75 of 115, and 75 is the ceiling this build can reach.
 # The route ends on the demo's own closing screen (task 211, the grappling
@@ -816,7 +816,7 @@ inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.
 #     which is consistent with this being the demo release.
 #
 # Everything else scorable is in the route.  Surveyed 2026-09-05.
-les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 75 sur un maximum de 115.|SCR_SEED=138 SCR_SKIP_WAITKEY=1
+les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 75 sur un maximum de 115.|SCR_SEED=486 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-29: the Runner's generaltasks (run400 Proc_19_85_489F4C) resolves
 # the noun once, up front, with co() whole-word containment, and every generic verb
 # after it sees that object; Scarier's fallback verb table now gets the same
@@ -911,7 +911,7 @@ the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 26
 # bought with an engine bug, and GOAL 5 (a $7500 house) is unreachable: one
 # bandit purse + one carcass tops out at $959.68, and Stealth costs $800.  See
 # The_Town_Of_Azra_walkthrough.md.
-the_town_of_azra_v390_solution.txt|The Town Of Azra.taf|Number of turns passed: 58|SCR_SEED=26 SCR_SKIP_WAITKEY=1
+the_town_of_azra_v390_solution.txt|The Town Of Azra.taf|Number of turns passed: 58|SCR_SKIP_WAITKEY=1
 thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.|SCR_SKIP_WAITKEY=1
 # thetest IS winnable (2026-08-01, verified live in run390 to "Well done!  You
 # won!" at 20/25): the colour-door needs addything==3, i.e. two consecutive
@@ -921,7 +921,7 @@ thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.|SCR_SKI
 # the fixed seed; see thetest_walkthrough.md for the mechanism.  Re-derived
 # 2026-08-31 (191 commands): the exact-tick walk-move gate shifted the Robot
 # Guard's storms-in/out schedule, so every shout was re-timed; still 20/25.
-thetest_win_solution.txt|thetest.taf|Well done!  You won!|SCR_SKIP_WAITKEY=1
+thetest_win_solution.txt|thetest.taf|Well done!  You won!|SCR_SKIP_WAITKEY=1 SCR_SEED=8
 # Measured 2026-08-29: run400 replay, 12 commands echoed and all 12 identical
 # before a real-time <wait> pause ate the next one; a cmdfile with #sleep lines
 # for those pauses is the follow-up.
@@ -975,7 +975,7 @@ villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 31 out of a
 # hand (ring attached) into the Waiting Room one turn later.  Full win, all 12
 # scoring tasks, Hope killed twice (#Hopedies + #Hopedies2).
 # Re-blessed 2026-09-06: two no-op `attack hope` lines (Hope seen, elsewhere) would now be "Hope isn't here!" turns (run400 47EFE5, Adrift_110); dropped.  Still wins.
-wes_ghn_solution.txt|WesGHN.taf|You've Won the Game!
+wes_ghn_solution.txt|WesGHN.taf|You've Won the Game!|SCR_SEED=2
 # The eleven .taf files that were sitting in games/ unwired (2026-08-02).  Nine
 # are winnable and use the game's own victory text as the marker; Invasion of
 # the Second-Hand Shirts has no EndGame action anywhere in its task table, so
@@ -1007,7 +1007,7 @@ wreckage_solution.txt|Wreckage.taf|you've rescued yourself
 # here...".  Scarier emits "George is here." as its own section, the Original
 # cannot match, and both sentences survive.
 vagabond_solution.txt|Vagabond.taf|The End|SCR_SKIP_WAITKEY=1
-woof_solution.txt|Woof.taf|I'm back.
+woof_solution.txt|Woof.taf|I'm back.|SCR_SEED=5
 # Measured 2026-09-05 in run400 under Wine (Adrift_26_undefined.txt, feed
 # cmdfile_w_undefined_drive.txt): 4/4 echoed, identical but the ending
 # keypress; 3/3 both sides.  The opening `Undef` here answers a BUILT-IN name
@@ -1098,7 +1098,7 @@ ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caug
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  RNG order only.
-ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SEED=10 SCR_SKIP_WAITKEY=1
+ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
 # Measured in run390 under Wine, twice.  The first pair of drives found the
@@ -1227,7 +1227,7 @@ easter_solution.txt|easter.taf|***You have won***|
 # " unlock " and " put "), so those ALRs never fire and the Runner's bare
 # "Ye unlock" stands; meanwhile a different ALR on the bare "put " does fire,
 # which is why the same line now reads "Ye placeth".
-yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SKIP_WAITKEY=1
+yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SEED=5 SCR_SKIP_WAITKEY=1
 # The twenty-one entries of the 1st, 2nd and 3rd ADRIFT One-Hour Game
 # Competitions (2003), swept in on 2026-08-03 -- see the per-game
 # notes/*_walkthrough.md for where each .taf came from.
@@ -1387,7 +1387,7 @@ unauthorized_termination_solution.txt|unauthorized.taf|Assignment Status: You ha
 # transcript keeps the postfixed form, "A large knife and a jar of coffee are
 # inside the kitchen unit."  Same 1/2/3+ selector as run400's single lister at
 # 0006A418; before TAF_VERSION_390 only the prefixed form exists.
-where_are_my_keys_solution.txt|WhereAreMyKeys.taf|You start the car and head home.|SCR_SKIP_WAITKEY=1
+where_are_my_keys_solution.txt|WhereAreMyKeys.taf|You start the car and head home.|SCR_SEED=5 SCR_SKIP_WAITKEY=1
 # To Hell in a Hamper: the IF-Archive walkthrough desyncs badly on this release.
 # It has to be re-derived around a carry-weight limit ("too heavy for me to carry
 # at the moment"), so the trombone/mallet/scissors/smudge stick all go overboard
@@ -1937,7 +1937,7 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # so the freeze at the nested task's completion leaves the raw token on screen
 # and shifts every later signal message one back.  run400 does exactly that --
 # measured on the game (Adrift_16.txt), not inferred from the probes.
-3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!
+3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!|SCR_SEED=123
 # Humbug (Graham Cluley 1990/1997, converted to ADRIFT 4.00 by Campbell Wild)
 # -- WIN with the FULL 2000/2000, "a winner.. or a cheat", in 1048 commands.
 # The route is pjg's step-by-step solution for the ORIGINAL v5.0 game
@@ -2488,7 +2488,7 @@ plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_W
 # Re-blessed 2026-09-05 for the third-person de-conjugation, three lines:
 # "Irvine unclosess" -> "uncloses" and "Irvine sets downs" -> "sets down",
 # both of them the game's ALR patching what it saw the Runner print.
-iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SCR_SKIP_WAITKEY=1
+iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SCR_SEED=31 SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- MANGIASAUR (DCBSupafly, ADRIFT Spring Comp 2011).  You are a
 # dinosaur and the entire verb set is EAT.  87 commands, WIN, 63/74.
@@ -3158,7 +3158,7 @@ baroo_solution.txt|baroo.taf|You scored 16 out of the maximum 16!
 # This walkthrough was re-derived for it: 3 `z` lines after x vardo, x coffin, x shelves (nothing-found refusals).  Each
 # added line restores the old tick sequence (WaitTurns 1, so `z` = one tick).  Trace with
 # SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
-lair_solution.txt|Lair of the Vampire.taf|the lord of the vampires, lies dead|SCR_SKIP_WAITKEY=1
+lair_solution.txt|Lair of the Vampire.taf|the lord of the vampires, lies dead|SCR_SEED=4 SCR_SKIP_WAITKEY=1
 
 # The Fugitive -- derived from scratch (the downloaded walkthrough is prose-only
 # and stops at the city gate).  656/666, which is every point the game can
@@ -3381,7 +3381,7 @@ cellar_solution.txt|TheCellar.taf|And so The Cellar has ended. Many thanks for p
 # refusal (475638) counts the exits it can take right now (454684 reads the
 # door/task gates) and lists them, "can't go in that direction, but ...".
 # Measured on humbug (Adrift_4_humbug.txt line 1596, `W`).
-panic_solution.txt|panic.taf|Your rating is Messiah.|SCR_SKIP_WAITKEY=1
+panic_solution.txt|panic.taf|Your rating is Messiah.|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # --- 2026-08-11: unwired 3.9 games, smallest first -------------------------
 # I... (Christopher Cole) -- one-room, no scoring system.  The whole game is a
 # four-link event chain: `feel pulse` starts Memory 1, and each memory event
@@ -3496,7 +3496,7 @@ everything_solution.txt|everything.taf|I'll smile as I curse her name and everyt
 # step, move included, runs only when counter == suffix_sum; measured live
 # in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
 # pre-move lines between stops disappeared; still wins.
-textident_evil_solution.txt|Textident_Evil.taf|Congratulations! You've successfully beaten Textident Evil.|SCR_SEED=4
+textident_evil_solution.txt|Textident_Evil.taf|Congratulations! You've successfully beaten Textident Evil.
 # Impulso: a Spanish conversation piece with no map, no objects and no
 # score -- 12 tasks, all unrestricted, chained by ACT type=1 moves.  You
 # reconstruct three murders for a journalist and the only failure mode is
@@ -3937,7 +3937,7 @@ salutations_solution.txt|salutations.taf|you'll decline to answer.|SCR_SKIP_WAIT
 # `tirar de la palanca` -> `pull de la palanca` (Adrift_1_vardock_bates.txt); this row
 # follows by the same rule, unmeasured:
 # `turn on tv` -> "You can't turn the 32-inch television." (was the I-don't-understand line).
-iachini_solution.txt|iachini.taf|You settle down in front of the TV.
+iachini_solution.txt|iachini.taf|You settle down in front of the TV.|SCR_SEED=1430
 # La hija del relojero ("Nano", Spanish, 4.00) is the smallest 4.00 file left
 # after Salutations: ONE room, 8 tasks, 12 objects, no NPCs, and no score at
 # all -- `score` answers "Your puntos is 0 fuera of a maximum of 0", the
@@ -4099,7 +4099,7 @@ losttomb_solution.txt|losttombv2.taf|you and Rupert start the trek back to camp.
 # bare `*` pattern claims every command, "You have already done that."), so
 # its ceiling is 5/90; the 30 here exists only because Scarier does not import
 # the pre-4.0 spent-task claim rule.  Unwinnable either way.
-journ2_solution.txt|Journ2.taf|Your score is 30 out of a maximum of 90.
+journ2_solution.txt|Journ2.taf|Your score is 30 out of a maximum of 90.|SCR_SEED=2
 # Murder in Great Falls (no author recorded anywhere -- no author byte-field
 # in the .taf and none in games.manifest.tsv; released 24 Nov 2001) is a
 # three-day police procedural: Donald Wisker is found dead behind the college,
@@ -4297,7 +4297,7 @@ captive_solution.txt|Captive.taf|You scored 100 out of the maximum 100!|
 # different matcher); and maze rooms 32-41 answer every compass direction with
 # TASK 63, a move-to-RANDOM-room action, so the maze cannot be mapped -- the 12
 # norths in the route are simply what the seeded harness needs.
-wonderwombat_solution.txt|wonderwombat.taf|THUMPER KICKS ASS!!!|SCR_SKIP_WAITKEY=1
+wonderwombat_solution.txt|wonderwombat.taf|THUMPER KICKS ASS!!!|SCR_SEED=3 SCR_SKIP_WAITKEY=1
 
 # Vardock Bates -- ADRIFT 4.00, 2,928,980 bytes, "Pipo98" v1.0.2, in SPANISH.
 # 39 rooms, 68 tasks, 77 objects, 4 NPCs, 4 events, 1 variable.  The file
@@ -4520,7 +4520,7 @@ plunder_gargoyle_solution.txt|plunder_gargoyle.taf|Ye scored 10 out of the maxim
 # resolves the token in var_get_system() (scvars.cpp).  Nothing pre-4.0 can
 # reach it: lib_get_perspective() clamps the third person away, and run390's
 # array has only the I / You branches.
-albert_is_lost_solution.txt|Albert is Lost! An Adventure in Real Life.taf|Tiberius and Albert went home happily|SCR_SKIP_WAITKEY=1
+albert_is_lost_solution.txt|Albert is Lost! An Adventure in Real Life.taf|Tiberius and Albert went home happily|SCR_SEED=221 SCR_SKIP_WAITKEY=1
 # Target: 23 questions but tier-1 only, because the author deliberately shipped
 # no external walkthrough -- target.zip's walkthru.txt says "Each time Target is
 # played certain key facts will change; so an external walkthru is not possible.
@@ -4543,7 +4543,7 @@ albert_is_lost_solution.txt|Albert is Lost! An Adventure in Real Life.taf|Tiberi
 # NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
 # Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
 # Re-blessed 2026-08-29: `x tramp / x man` no longer ticks, so the events/RNG after it shift by one turn.
-target_solution.txt|target.taf|You managed to score 100 out of 100.
+target_solution.txt|target.taf|You managed to score 100 out of 100.|SCR_SEED=1078
 # The next three are replays of walkthroughs the authors bundled INSIDE the comp
 # archives rather than publishing separately, which is why the IFDB harvest never
 # saw them (same story as Silk Noil and The Wheels Must Turn).  Copies kept in
@@ -5045,7 +5045,7 @@ jinxtron_solution.txt|JINXTRON.taf|You're unjinxed now.
 # still no ending: zero type-4 (score) and zero type-6 (EndGame) actions in the
 # whole file.  The word to echo back is seed-dependent -- it is EDAM under the
 # harness's fixed RNG, so this row is only deterministic there.
-jinxtron_full_solution.txt|JINXTRON.taf|I'm free!  Bwa hahaha!
+jinxtron_full_solution.txt|JINXTRON.taf|I'm free!  Bwa hahaha!|SCR_SEED=19
 # Sixth batch (2026-08-29), smallest-first through the manifest's remaining
 # unwired titles, skipping the vocab-flagged `Sex is Mental.taf` for separate
 # triage. All eight derived in parallel, one background agent per game, and
@@ -5475,7 +5475,7 @@ theseance_solution.txt|The_Seance.taf|Towards eternity with your love...|SCR_SKI
 # choice resolve to the conversation instead of the computer's action. 11
 # commands, `SCR_SKIP_WAITKEY=1` (three opening waitkeys otherwise eat
 # scripted input).
-reactor1_solution.txt|reactor_1.taf|Congratulations, You saved the ship!|SCR_SKIP_WAITKEY=1
+reactor1_solution.txt|reactor_1.taf|Congratulations, You saved the ship!|SCR_SEED=4 SCR_SKIP_WAITKEY=1
 # Motion.taf (4.00): WON 100/100, the true maximum (three ACT type=4 awards
 # of 25+25+50 across 68 tasks). A three-stage rocket minigame (launch, land,
 # drive-to-recover) driven almost entirely by bare-Enter "wait" moves plus a
@@ -5486,7 +5486,7 @@ reactor1_solution.txt|reactor_1.taf|Congratulations, You saved the ship!|SCR_SKI
 # shared "Won!" room. 137 commands (115 blank Enter presses + 10 `f` + 8
 # `next` + 2 `r` + 2 `l`), `SCR_SKIP_WAITKEY=1` (Stage 3's ASCII-art
 # animation waitkeys otherwise eat scripted input).
-motion_solution.txt|Motion.taf|You scored 100 out of the maximum 100!|SCR_SKIP_WAITKEY=1
+motion_solution.txt|Motion.taf|You scored 100 out of the maximum 100!|SCR_SEED=1041 SCR_SKIP_WAITKEY=1
 # tophat.taf (4.00): the game's only ending, reached in three commands --
 # no scoring system (zero ACT type=4). A one-room vignette narrated from
 # inside a magician's top hat; the assistant pops up (`up`) three times in a
@@ -5505,7 +5505,7 @@ tophat_solution.txt|tophat.taf|But will the next show go the same way?|
 # reliance on RNG. Reconfirms the object-*seen* model: `take jack`/`take
 # ace` fail until `x table` first makes them referenceable. 28 commands,
 # `SCR_SKIP_WAITKEY=1` (an intro waitkey otherwise eats scripted input).
-threeminutes_solution.txt|3 minutes1.0.taf|But not a hero anymore.|SCR_SKIP_WAITKEY=1
+threeminutes_solution.txt|3 minutes1.0.taf|But not a hero anymore.|SCR_SEED=8 SCR_SKIP_WAITKEY=1
 # neighbours.taf (4.00): WON 100/100 via a custom evidence variable (no
 # built-in ADRIFT score/EndGame actions) -- six score-band `call police`
 # tasks dispatch on the final tally. An old-bones dig task (+3) is
@@ -5633,7 +5633,7 @@ caidalibre_solution.txt|Caida libre.taf|You puntosd 0 fuera of the maximum 0!|
 # and headdress worn) satisfied on the same turn. 31 commands,
 # `SCR_SKIP_WAITKEY=1` (intro waitkey otherwise eats the first command and
 # desyncs the whole route).
-templeofthesun_solution.txt|Temple_Of_The_Sun.taf|It is good to see that you didn't lose your head about this!|SCR_SKIP_WAITKEY=1
+templeofthesun_solution.txt|Temple_Of_The_Sun.taf|It is good to see that you didn't lose your head about this!|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # Wolves_at_the_Door.taf (4.00): a real-time survival puzzle -- a fixed
 # turn-counter kills the player by wolves once o_turns>24 unless it lands
 # exactly on turn 25, which fires a scripted "rescue" event/task pair (there
@@ -5798,7 +5798,7 @@ ynkaboom_solution.txt|YNKaboom.taf|***WHOA!  YOU TOTALLY JUST WON!***|
 # command must be issued twice (first call is a no-op flavor task). 14
 # commands, `SCR_SKIP_WAITKEY=1` (a mid-scene [More] pause otherwise eats
 # the final command).
-bsg22_solution.txt|BSG TWENTY TWO Final.taf|YOU HAVE WON!|SCR_SKIP_WAITKEY=1
+bsg22_solution.txt|BSG TWENTY TWO Final.taf|YOU HAVE WON!|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # jailbreakbob.taf: WINNABLE (verdict corrected 2026-08-30, proved in the
 # real run400.exe under Wine -- see notes/WINE-TRANSCRIPTS-TODO.md). The
 # earlier "UNWINNABLE" reading mis-indexed task 35's NPC move: leaving the
@@ -6243,7 +6243,7 @@ deardiary2_solution.txt|Dear Diary 2.taf|Well done - you scored maximum points!|
 # this solution completes) are all confirmed via matching SCORE deltas
 # during derivation. 222 commands, `SCR_SKIP_WAITKEY=1` (multiple
 # `<waitkey>`-driven "press a key to continue" cutscenes throughout).
-fullcircle_solution.txt|Full_Circle.taf|Full Circle has ended.|SCR_SKIP_WAITKEY=1
+fullcircle_solution.txt|Full_Circle.taf|Full Circle has ended.|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # HalloweenHijinks.taf: Halloween comedy -- a kid (dressed as a scarecrow)
 # and little sister Lisa (a wasp) go trick-or-treating on aptly-named Murder
 # Drive, visiting a string of deranged neighbours (Mrs Thumpp, Barney
@@ -6415,7 +6415,7 @@ deadreckoning_solution.txt|DeadReckoning.taf|this is the best of the lot. Well d
 #     ACT block at all) and must not be attempted.
 # 34 commands, no env vars. Final run: score 30 out of the maximum 30 (100%),
 # ending "Well done - you scored maximum points!"
-cldone_solution.txt|cldone.taf|Well done - you scored maximum points!|
+cldone_solution.txt|cldone.taf|Well done - you scored maximum points!|SCR_SEED=2
 # Scandal.taf (AIF, adult content -- see /goldens/.gitignore): "Scandal on
 # the Seven Seas" by Faraday, v1.1, May 2007. Regency-era pirate romp:
 # aboard "Cutlass" Liz's ship, the player boards and duels the captain of a
@@ -6423,34 +6423,54 @@ cldone_solution.txt|cldone.taf|Well done - you scored maximum points!|
 # out to be Lady Penelope Byng travelling incognito. The game has no score
 # ("There is no score, but you can lose") -- the win condition is reaching
 # one of its endings without dying. Derived via SCR_DUMP_TASKS structural
-# dump plus interactive replay through harness/scare. Notable subsystems:
-#   - Sea battle: `close` (close to boarding range) then `single shot`
-#     repeatedly has no reload cooldown, so firing it 20 times in a row
-#     drives the enemy captain's hidden health variable (`croatoan`) deeply
-#     negative before ever boarding.
-#   - Duel: `board` starts a swordfight where Liz's duel-start health is
-#     computed as `liz + croatoan`; having driven `croatoan` to -34 first
-#     makes that sum deeply negative, so the very first `thrust` wins
-#     instantly with zero damage taken. Skipping the `single shot` grind
-#     still wins the duel eventually, but risks player-health loss across
-#     several rounds -- this walkthrough takes the zero-risk path.
-#   - After `west` (into Penelope's cabin) and `victorious`, a Proper
-#     Conversation minigame gates access to Penelope's affections: two
-#     hidden accumulators, seemliness (`sl`) and amusement (`am`), are each
-#     nudged by a random amount (`changesl`/`changeam`) every turn depending
-#     on which of three remark verbs is used -- `neutral remark` (favours
-#     `am`), `personal remark` (balanced), `sexy remark` (favours both, more
-#     strongly). `sl<=0` or `am<=0` on any turn is an immediate, permanent
-#     EndGame loss ("cross"/"bored" flavour tasks) -- there is no recovery.
-#     `am>=6` reaches the "hanging from your lips" good state, which is
-#     required before `ask penelope about tea` will succeed. `ask penelope
-#     about the weather` is a one-time-only safety valve that unconditionally
-#     resets both accumulators (am=1, sl=4) and was used once mid-sequence
-#     here to recover safety margin. This walkthrough's 16-remark sequence
-#     was derived by an exhaustive backtracking search over the three remark
-#     verbs (plus the one-time reset) against the engine's fixed RNG seed,
-#     rejecting any branch that would cross either accumulator's zero
-#     threshold, until `am` first reaches 6.
+# dump plus SCR_TRACE_VARS-guided search through harness/scare. The game has
+# no events at all: all three of its subsystems are `#`-prefixed pseudo-tasks
+# the author executes by hand from the player-facing ones.
+#   - Sea battle (tasks 16-30). A player command sets `range` or fires, then
+#     chains into `#check croatoan`, which rolls `sailorshoot = rand(0,1)`
+#     and `hitormiss = rand(1,%range%)`: on 1 she veers off (and re-rolls
+#     `range` to rand(1,3)), on 0 she fires, hitting when `hitormiss` is 1.
+#     Both sides deal `(4-%range%) + %broadorsingle%`, so range is the whole
+#     game -- at `close` (range 1) `rand(1,1)` is always 1, so every shot she
+#     takes is a guaranteed 3-4 point hit against the "Bully Hayes"'s 5, and
+#     two of them sink you. At `long` (range 3) she connects on 1/6 of turns
+#     for 1-2. This walkthrough therefore fires only from range 3 and spends
+#     a turn on `long` whenever her veer-off has dragged the range back in;
+#     it takes no damage at all (`bully` stays 5 for all 16 battle turns).
+#     A move command sets the new range BEFORE `#check croatoan` runs, so
+#     `long` is strictly protective on the turn it is issued.
+#     NB the pre-2026-09-06 walkthrough opened with `close` and then ground
+#     out 20 `single shot`s to drive `croatoan` to -34, which (duel health is
+#     `liz + croatoan`) made the first `thrust` win instantly. That line only
+#     ever survived because of an RNG defect: the harness's congruential
+#     generator left the FIRST draw after seeding pinned to the top half of
+#     its range, so `sailorshoot` was 1 -- "she veers off" -- on turn 1 for
+#     every seed, and from close range the run never recovered the initiative.
+#     run400 fires on about half of those openings and sinks you on turn 2
+#     (Adrift_243_scandal.txt). See scutils.cpp scr_congruential_rand().
+#   - Duel (tasks 31-47). `board` needs range 1, which `#croatoan crippled`
+#     sets for you once `croatoan` hits 0. Liz starts at 5. `thrust` hits on
+#     rand(1, 2/%moveyou%) == 1 for 1 point, `cut` on rand(1, 4/%moveyou%)
+#     for 2, and `move` increments `moveyou` (any attack resets it to 1), so
+#     dancing first buys a better roll at the cost of a free swing for Liz,
+#     who rolls her own thrust/cut/move each turn. Won here in 5 commands
+#     (cut, thrust, thrust, move, cut) without losing a point of health.
+#   - Conversation (tasks 71-87). `west` into Penelope's cabin, then
+#     `victorious`, opens a Proper Conversation minigame over two hidden
+#     accumulators, seemliness (`sl`, starts 5) and amusement (`am`, starts
+#     1), each nudged every turn by `changesl`/`changeam` -- `neutral remark`
+#     doubles the `am` nudge and can only help `sl`, `personal remark` is
+#     balanced, `sexy remark` doubles both. `sl<=0` ("Penelope is cross") or
+#     `am<=0` ("Penelope is bored") on any turn is an immediate, permanent
+#     EndGame loss with no recovery. `am>=6` reaches the "hanging from your
+#     lips" state, which is what unlocks `ask penelope about tea`. `ask
+#     penelope about the weather` is a one-time-only safety valve that resets
+#     both accumulators (am=1, sl=4) and is used once here at turn 31, with
+#     `sl` down to 1. Each remark draws exactly two randoms, so a route's
+#     RNG position depends only on how many remarks precede it; the 13-remark
+#     sequence below is the shortest winning one, found by a breadth-first
+#     search over the three verbs plus the one-time reset, memoised on
+#     (remarks so far, am, sl, weather used) and read out of SCR_TRACE_VARS.
 #   - Once tea is unlocked, any affectionate/intimate command toward
 #     Penelope (kiss/hug/touch) attempted BEFORE `ask penelope about tea`
 #     has been issued is a separate, unrelated instant-death trap ("you jump
@@ -6459,10 +6479,11 @@ cldone_solution.txt|cldone.taf|Well done - you scored maximum points!|
 #     walkthrough's ending -- Penelope, Liz and the player become "the
 #     scourge of the British fleet" and Admiral Byng resigns in disgrace) or
 #     the alternative `don't tell`, not taken here.
-# 49 commands, no env vars. Final run: no numeric score (none exists in this
-# game); reaches the "tell penelope about byng" ending with the player's
-# health untouched throughout (no combat or accumulator-threshold damage
-# taken), closing on the game's own "Thanks for playing" credits.
+# 45 commands, no env vars (plain SCR_SEED=1). Final run: no numeric score
+# (none exists in this game); reaches the "tell penelope about byng" ending
+# with the player's health untouched throughout -- `bully` and `you` both
+# finish at their starting 5 -- closing on the game's own "Thanks for
+# playing" credits.
 scandal_solution.txt|Scandal.taf|Admiral Byng resigns from his|
 # Blood_Relatives.taf -- Sophie's family gathers for Aunt Petunia's funeral in
 # the Main room (room0) of Sophire Mansion; the game's designed win (drop a
@@ -6632,7 +6653,7 @@ paint_solution.txt|Paint.taf|Well done! You've reached the best ending in the ga
 # maximum 13 (84%), ending "Well, you didn't conquer the world today. But
 # there's always tomorrow." (the "Vick usurps with Fembot" ending, reached
 # with the crown, documents and a repaired Fembot all delivered).
-hcw_solution.txt|hcw.taf|Well, you didn't conquer the world today. But there's always tomorrow.|SCR_SKIP_WAITKEY=1
+hcw_solution.txt|hcw.taf|Well, you didn't conquer the world today. But there's always tomorrow.|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # YADFA.TAF ("YADFA - Yet Another Damn Fantasy Adventure", David Whyld): a
 # comic fantasy in which a farm boy (with recruited companions Otto the dwarf and
 # Grarrrrr the dog) sets out from Castle Bloodheart to rescue kidnapped
@@ -6899,7 +6920,7 @@ goblin_solution.txt|goblin.taf|Oh, and before we forget- Congratulations, gobbo.
 # SCR_SKIP_WAITKEY must NOT be used here (it breaks the imp fight).
 # Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the toy mouse and the catcher's outfit are mode 1/2
 # with an empty InRoomDesc, so their "You can also see ..." lines go away.
-mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould|
+mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould|SCR_SEED=221
 # blood.taf ("Fire in the Blood" by Richard Otter, ADRIFT 4, revenge
 # thriller). The player's wife has been murdered by four guilty men
 # (Frank Lovell, Jed Peters, Rick Dawson, Ben Crosby) and the game is
@@ -7187,7 +7208,7 @@ mutaydid_solution.txt|mutaydid.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # the do-form quirk above.
 # Re-blessed 2026-09-06: `do form` is run400's no-turn catch-all (48B232); a `look` follows it (WaitTurns is 3 here).
 seaside_solution.txt|ADayAtTheSeaside.taf|Well done - you scored maximum points!
-reluctantvampire_solution.txt|The_Reluctant_Vampire.taf|you achieved a score of 103 out of a possible of|SCR_SKIP_WAITKEY=1
+reluctantvampire_solution.txt|The_Reluctant_Vampire.taf|you achieved a score of 103 out of a possible of|SCR_SEED=6 SCR_SKIP_WAITKEY=1
 # ss whore.taf (AIF, adult content -- see /goldens/.gitignore): WWII-fantasy
 # breeding/fetish AIF (OSS spy "Agent Gale" infiltrates Castle von
 # Bonerstein disguised as an "SS whore" to steal Operation Rheinmaiden's
@@ -7262,7 +7283,7 @@ sswhore_solution.txt|ss whore.taf|You scored 7 out of the maximum 7!|SCR_SKIP_WA
 # `SCR_SKIP_WAITKEY=1`. Reaches the true 100/100 maximum score (rank "The
 # Ultimate Soldier"), zero parser-error/refusal lines anywhere in the
 # transcript.
-warlord_solution.txt|warlord.taf|you've successfully completed The Warlord,|SCR_SKIP_WAITKEY=1
+warlord_solution.txt|warlord.taf|you've successfully completed The Warlord,|SCR_SEED=33 SCR_SKIP_WAITKEY=1
 # Tic-Tac-Toe (small joke game): the trial-by-tic-tac-toe against an Undead
 # Rob Zombie. Three leading filler lines (any text) are silently swallowed by
 # hidden waitkey prompts during the intro/rules screens before "play game"
@@ -7384,7 +7405,7 @@ bandera_solution.txt|Bandera.taf|Well done - you puntosd maximum points!|SCR_SKI
 # ladder at Burial Chamber to `climb ladder` and win -- 11 turns total, well
 # inside the 120-turn lantern-fuel budget. Ends with "You have earned the
 # right to the title of \"Grand Wumpus Hunter\"".
-wumpusrun_solution.txt|competition2006__adrift__wumpusrun__wumpusRun.taf|You have earned the right to the title|
+wumpusrun_solution.txt|competition2006__adrift__wumpusrun__wumpusRun.taf|You have earned the right to the title|SCR_SEED=245
 # Il Golem.taf (Italian, CAT 2010 entry by Tristano Ajmone) -- get the bone
 # and letter in the Salotto, read the letter at the Gabinetto mirror for the
 # Sgabuzzino combination, move the shelf there for the light switch, turn it

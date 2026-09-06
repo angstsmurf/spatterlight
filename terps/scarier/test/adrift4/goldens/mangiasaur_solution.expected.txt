@@ -70,8 +70,6 @@ squirts out.
 The sugary nectar contained in the bud is a wonderful treat.  Though you were
 already full of food when you ate, your stomach makes room for the food.  You
 will never grow fat on these little treats though.
-Distension is a natural thing for a mangiasaur's belly, but you are aware of
-your stomach returning to normal as you process your excess of food.
 
 > eat bud
 You stoop to bite one off the branch and catch a whiff of the sweet pollen in
@@ -102,7 +100,6 @@ squirts out.
 The sugary nectar contained in the bud is a wonderful treat.  Though you were
 already full of food when you ate, your stomach makes room for the food.  You
 will never grow fat on these little treats though.
-Your stomach is still full and fat.  It's a good feeling.
 
 > eat bud
 You stoop to bite one off the branch and catch a whiff of the sweet pollen in
@@ -133,8 +130,6 @@ squirts out.
 The sugary nectar contained in the bud is a wonderful treat.  Though you were
 already full of food when you ate, your stomach makes room for the food.  You
 will never grow fat on these little treats though.
-One of the many little green & brown caterpillars in these treetops is
-feasting on a nearby leaf.
 
 > eat bud
 You stoop to bite one off the branch and catch a whiff of the sweet pollen in
@@ -165,44 +160,6 @@ syrupy nectar.
 The sugary nectar contained in the bud is a wonderful treat.  Though you were
 already full of food when you ate, your stomach makes room for the food.  You
 will never grow fat on these little treats though.
-
-> eat caterpillar
-The nearest caterpillar is enjoying a feast of its own as you approach.
-Whether it sees you or knows your purpose is unclear, but it keeps chewing on
-its leaf up until the moment you squish it in your capable jaws.
-The squirmy little critter is as satisfying to your stomach as it is to your
-palate.  Though you were already full of food when you ate, your stomach
-makes room for the food. While you digest the bug, your body grows a little
-bit larger.
-Some pollen from a flower bud floats by on a treetop breeze.  The scent of
-the pink dust is enough to make your mouth water.
-
-> eat caterpillar
-The nearest caterpillar is enjoying a feast of its own as you approach.
-Whether it sees you or knows your purpose is unclear, but it keeps chewing on
-its leaf up until the moment you squish it in your capable jaws.
-The squirmy little critter is as satisfying to your stomach as it is to your
-palate.  Though you were already full of food when you ate, your stomach
-makes room for the food. While you digest the bug, your body grows a little
-bit larger.
-
-> eat caterpillar
-The nearest caterpillar is enjoying a feast of its own as you approach.
-Whether it sees you or knows your purpose is unclear, but it keeps chewing on
-its leaf up until the moment you squish it in your capable jaws.
-The squirmy little critter is as satisfying to your stomach as it is to your
-palate.  Though you were already full of food when you ate, your stomach
-makes room for the food. While you digest the bug, your body grows a little
-bit larger.
-
-> eat caterpillar
-The nearest caterpillar is enjoying a feast of its own as you approach.
-Whether it sees you or knows your purpose is unclear, but it keeps chewing on
-its leaf up until the moment you squish it in your capable jaws.
-The squirmy little critter is as satisfying to your stomach as it is to your
-palate.  Though you were already full of food when you ate, your stomach
-makes room for the food. While you digest the bug, your body grows a little
-bit larger.
 You spot a nearby caterpillar behaving strangely; apparently having finished
 eating, it seems to be busy defecating!  It squirms around on its branch,
 excreting little grey blobs all around itself.  After watching for a short
@@ -217,7 +174,8 @@ The squirmy little critter is as satisfying to your stomach as it is to your
 palate.  Though you were already full of food when you ate, your stomach
 makes room for the food. While you digest the bug, your body grows a little
 bit larger.
-[hungerEveReport=-6]
+Distension is a natural thing for a mangiasaur's belly, but you are aware of
+your stomach returning to normal as you process your excess of food.
 
 > eat caterpillar
 The nearest caterpillar is enjoying a feast of its own as you approach.
@@ -243,6 +201,45 @@ moth flutters out.  The moth alights on a branch nearby, flapping its wings
 idly for a moment before taking off in flight.
 
 > eat caterpillar
+The nearest caterpillar is enjoying a feast of its own as you approach.
+Whether it sees you or knows your purpose is unclear, but it keeps chewing on
+its leaf up until the moment you squish it in your capable jaws.
+The squirmy little critter is as satisfying to your stomach as it is to your
+palate.  Though you were already full of food when you ate, your stomach
+makes room for the food. While you digest the bug, your body grows a little
+bit larger.
+Your stomach is still full and fat.  It's a good feeling.
+Looking closely at the foliage around you, you see a small green bird hiding
+in the leaves.
+
+> eat caterpillar
+The nearest caterpillar is enjoying a feast of its own as you approach.
+Whether it sees you or knows your purpose is unclear, but it keeps chewing on
+its leaf up until the moment you squish it in your capable jaws.
+The squirmy little critter is as satisfying to your stomach as it is to your
+palate.  Though you were already full of food when you ate, your stomach
+makes room for the food. While you digest the bug, your body grows a little
+bit larger.
+
+> eat caterpillar
+The nearest caterpillar is enjoying a feast of its own as you approach.
+Whether it sees you or knows your purpose is unclear, but it keeps chewing on
+its leaf up until the moment you squish it in your capable jaws.
+The squirmy little critter is as satisfying to your stomach as it is to your
+palate.  Though you were already full of food when you ate, your stomach
+makes room for the food. While you digest the bug, your body grows a little
+bit larger.
+
+> eat caterpillar
+The nearest caterpillar is enjoying a feast of its own as you approach.
+Whether it sees you or knows your purpose is unclear, but it keeps chewing on
+its leaf up until the moment you squish it in your capable jaws.
+The squirmy little critter is as satisfying to your stomach as it is to your
+palate.  Though you were already full of food when you ate, your stomach
+makes room for the food. While you digest the bug, your body grows a little
+bit larger.
+
+> eat caterpillar
 The only other caterpillar around is enjoying a feast of leaves as you
 approach.  Having witnessed the results of your previous caterpillar
 meetings, this one is watching you.  It sees your approach, and even seems to
@@ -252,7 +249,6 @@ The squirmy little critter is as satisfying to your stomach as it is to your
 palate.  Though you were already full of food when you ate, your stomach
 makes room for the food. While you digest the bug, your body grows a little
 bit larger.
-Your stomach is still full and fat.  It's a good feeling.
 
 > eat cocoon
 It's not like it can run away.  You scrape the dry little thing off its
@@ -264,8 +260,6 @@ larger from such a small bite, but you feel growth nonetheless...in your
 shoulders.  You bleed briefly and squirm from the pain, beginning to wish you
 had just left the little wad of bug alone until you realize ... you have not
 grown bigger, but you have grown wings.
-One of the many little green & brown caterpillars in these treetops is
-feasting on a nearby leaf.
 
 > look
 
@@ -277,9 +271,9 @@ skittering, slinking, and flapping about.
 Down below you is the forest floor.
 
 A little caterpillar moth is flying around.
-The air is cooling as the sun moves toward its resting place.
-Looking closely at the foliage around you, you see a small green bird hiding
-in the leaves.
+The sun is making its way slowly to the horizon.
+One of the many little green & brown caterpillars in these treetops is
+feasting on a nearby leaf.
 
 > eat bird
 You can't catch them in the air, but you can certainly catch one standing
@@ -288,6 +282,8 @@ You close your jaws on the feathery food before it even sees you.
 Under all the feathery fluff, you find a pretty good meal.  Though you were
 already full of food when you ate, your stomach makes room for the food. The
 nourishment fuels your growth even as you are licking your lips.
+Distension is a natural thing for a mangiasaur's belly, but you are aware of
+your stomach returning to normal as you process your excess of food.
 
 > d
 You glide down from your canopy birthplace into the dark forest floor below.
@@ -300,7 +296,6 @@ The cavern is damp and dark.  It's mossy walls dampen the sounds of all the
 cavern's creatures, digging, flapping, & chirping.
 
 The only way out is north to the forest floor.
-You hear a flapping of wings as a bat approaches.
 
 > eat bug
 It's not like to you need to know where these bugs are to eat them.  The air
@@ -308,6 +303,7 @@ is so saturated that you need only open your mouth to catch one.
 You crunch the tiny morsel to nothing and digest it in seconds.  Though you
 were already full of food when you ate, your stomach makes room for the food.
 Unfortunately, it's too little food to help you grow at all.
+Your stomach is still full and fat.  It's a good feeling.
 
 > eat moss
 You munch on a nearby patch of moss.
@@ -318,9 +314,17 @@ for the food.
 You munch on a nearby patch of moss.
 Though you were already full of food when you ate, your stomach makes room
 for the food.
-The bat is gone as quickly as it arrived.
-Little rodents scurry around in the darkness, digging in the dirt.
 The buzzing of bugs gets louder as a swarm of them moves closer to you.
+
+> eat moss
+You munch on a nearby patch of moss.
+Though you were already full of food when you ate, your stomach makes room
+for the food.
+
+> eat moss
+You munch on a nearby patch of moss.
+Though you were already full of food when you ate, your stomach makes room
+for the food.
 
 > eat moss
 You munch on a nearby patch of moss.
@@ -328,34 +332,26 @@ Though you were already full of food when you ate, your stomach makes room
 for the food.
 Distension is a natural thing for a mangiasaur's belly, but you are aware of
 your stomach returning to normal as you process your excess of food.
+You hear a flapping of wings as a bat approaches.
 
 > eat moss
 You munch on a nearby patch of moss.
 Though you were already full of food when you ate, your stomach makes room
 for the food.
+Little rodents scurry around in the darkness, digging in the dirt.
 The buzzing of bugs gets louder as a swarm of them moves closer to you.
 
 > eat moss
 You munch on a nearby patch of moss.
 Though you were already full of food when you ate, your stomach makes room
 for the food.
+The bat is gone as quickly as it arrived.
 
 > eat moss
 You munch on a nearby patch of moss.
 Though you were already full of food when you ate, your stomach makes room
 for the food.
 Your stomach is still full and fat.  It's a good feeling.
-
-> eat moss
-You munch on a nearby patch of moss.
-Though you were already full of food when you ate, your stomach makes room
-for the food.
-The buzzing of bugs gets louder as a swarm of them moves closer to you.
-
-> eat moss
-You munch on a nearby patch of moss.
-Though you were already full of food when you ate, your stomach makes room
-for the food.
 
 > eat bat
 You can tell they're all around you, but you can't find any near enough to
@@ -366,6 +362,7 @@ The hunger makes you crazy.  Try again.
 
 > eat rodent
 You can hear them moving around, but not well enough to catch one.
+The buzzing of bugs gets louder as a swarm of them moves closer to you.
 
 > n
 You move north.
@@ -382,8 +379,10 @@ that the foliage on the ground is constantly moving.
 
 From here you can go back up to the treetops, east into the valley, or south
 into the cavern.
-The moon is high in the sky, but provides a little light.
-You hear some kind of animal nearby dragging itself along the forest floor.
+The sun may be sleeping, but your hunt for food will continue into the night.
+Most of the moonlight is obstructed by the treetops, and so it is the low
+rumbling sound that warns me of another creature's approach.  It's some kind
+of vocalization.  It sounds like "NAMGUAGL".  It sounds hungry.
 
 > u
 You move up.
@@ -396,7 +395,7 @@ skittering, slinking, and flapping about.
 Down below you is the forest floor.
 
 A little caterpillar moth is flying around.
-The moon is high in the sky, but provides a little light.
+The sun may be sleeping, but your hunt for food will continue into the night.
 
 > chirp
 The hunger makes you crazy.  Try again.
@@ -404,8 +403,6 @@ The hunger makes you crazy.  Try again.
 > eat moth
 By the time you see the moth, it's no longer there.  They move too fast for
 you to eat them.
-Looking closely at the foliage around you, you see a small green bird hiding
-in the leaves.
 
 > d
 You move down.
@@ -422,19 +419,26 @@ that the foliage on the ground is constantly moving.
 
 From here you can go back up to the treetops, east into the valley, or south
 into the cavern.
-The moon has reached its peak on this short summer night.  The air is cool
-and the stars shine in the night sky.
-Distension is a natural thing for a mangiasaur's belly, but you are aware of
-your stomach returning to normal as you process your excess of food.
+The moon is high in the sky, but provides a little light.
+You hear some kind of animal nearby dragging itself along the forest floor.
 
 > eat slug
 You stoop to lap up a slimy little slug.
 It tastes digusting.  It does ease your hunger a little, but is it really
 worth it?
+The animal is getting closer.  You hear it disturbing leaves as it moves.
+Amidst the usual nighttime forest sounds, there is an usual rumbling animal
+call.  "NAMGUAGL" it sounds like.  Whatever this NAMGUAGL creature is, it
+does not sound friendly.
 
 > eat scale crawler
 You're not quite big enough to challenge on of these scaly beasts.  You'll
 have to look for food elsewhere first.
+A nasty little slug slimes around on a leaf near your feet.
+A scaly crawler beast with a wrinkly face is crawling around nearby, dragging
+its tail in the forest's debris.  It walks sometimes on two legs and
+sometimes on four.  It picks little slugs up from the ground and grimaces
+while eating them.
 
 > e
 You move east.
@@ -452,10 +456,6 @@ mountains around it, casting a dark shadow on much of the grassland through
 much of the day.
 The moon has reached its peak on this short summer night.  The air is cool
 and the stars shine in the night sky.
-While you're by no means starving, You could certainly fit a bit more food in
-there.
-You feel a little tickling on your legs, when you push the grass aside, you
-see a small hard-shelled beetle crawling off your leg onto the grass.
 
 > eat grass
 You munch it for a while.  It's no good, really.   Tough and devoid of
@@ -465,8 +465,6 @@ down the stalk, however, you notice some things beneath the grass.
 At the base of the grass stalks are some kind of air-filled sacs.
 
 Crawling all over those sacs are little hard shelled beetles.
-A smelly herd animal nearby lets out an intense fart.  You have little sense
-of smell, and you cannot eat a fart, so you ignore it.
 
 > eat beetles
 You slurp one up and chew.  It really doesn't have much flavor but after a
@@ -475,6 +473,10 @@ some out, you realize it's from your teeth!  The beetle's shell is so hard
 that it has actually managed to sharpen your teeth!  You can forget about
 swallowing one of those beetles, but if you were hoping to be able to eat
 tree bark then today's your lucky day!
+You feel a little tickling on your legs, when you push the grass aside, you
+see a small hard-shelled beetle crawling off your leg onto the grass.
+A smelly herd animal nearby lets out an intense fart.  You have little sense
+of smell, and you cannot eat a fart, so you ignore it.
 
 > eat bark
 With your newly sharpened teeth, it's a breeze.  You gnaw the bark raw on the
@@ -486,6 +488,8 @@ notice that a funny yellow sap is leaking from the porous wood.
 You lick up a bit of the sap.  You decide immediately that it's nowhere near
 as good a snack as the tree bark that held it in.  It's interesting though.
 It has an oiliness about it.  It's not very sticky though.
+Distension is a natural thing for a mangiasaur's belly, but you are aware of
+your stomach returning to normal as you process your excess of food.
 
 > eat herd beast
 They are stinky, true, but what's really keeping you from eating them is
@@ -503,26 +507,22 @@ This little dwelling is made of mud.
 The room is lit by a torch on the wall.  There is a woven rug in the center
 of the floor.
 A hut dweller is standing in here, wondering what you are.
-Distension is a natural thing for a mangiasaur's belly, but you are aware of
-your stomach returning to normal as you process your excess of food.
 
 > eat torch
 You snatch the torch off the wall and chomp it to bits.  You are just about
 finished eating it when you realize it's still lit!  Even as it makes it's
 way into your gut you feel its dull warmth.  You are no less hungry than you
 were, but now feel an incredible urge to burp.
+While you're by no means starving, You could certainly fit a bit more food in
+there.
 
 > eat food
 I don't understand what you are trying to eat.
-The hut dweller extends an offering to you.  It appears to be some kind of
-food.
 
 > eat rug
 You gobble up the rug.  It's only as good as its constituent parts, which
 aren't very good.  At least it got something in your stomach.  Then you
 notice the hole in the dirt floor under the rug.
-While you're by no means starving, You could certainly fit a bit more food in
-there.
 
 > dig
 Your feet are no good for digging.
@@ -555,7 +555,6 @@ Small Adobe Hut
 This little dwelling is made of mud.
 
 There is a small hole in the middle of the floor where the rug used to be.
-The hut dweller's food is sitting here waiting for you.
 A hut dweller is standing in here, wondering what you are.
 
 > d
@@ -563,11 +562,15 @@ You can only move out.
 
 > eat shrimp
 I don't understand what you are trying to eat.
-You give a nice burp as your belly digests its contents.  Always making room
-for more!
 
 > eat wispy stalk plant
 I don't understand what you are trying to eat.
+You give a nice burp as your belly digests its contents.  Always making room
+for more!
+
+> eat tentacle net
+I don't understand what you are trying to eat.
+Air is bubbling up in your gut, looking for an out.
 
 > eat tentacle net
 I don't understand what you are trying to eat.
@@ -575,15 +578,13 @@ I don't understand what you are trying to eat.
 > eat tentacle net
 I don't understand what you are trying to eat.
 You are hungry.  It is time to eat.
-Air is bubbling up in your gut, looking for an out.
-
-> eat tentacle net
-I don't understand what you are trying to eat.
-The hut dweller extends an offering to you.  It appears to be some kind of
-food.
 
 > eat shark
 I don't understand what you are trying to eat.
+It's been a little while since you ate that air sac from the valley grass,
+but it occurs to you, you haven't so much as inhaled since then!
+A mangiasaur should never be afraid to listen to its belly.  You are due for
+a belch.
 
 > out
 You move out.
@@ -599,19 +600,8 @@ The valley is level with the forest floor to the west, but the eastern wall
 of the valley is formed by a large plateau rising at least as high as the
 mountains around it, casting a dark shadow on much of the grassland through
 much of the day.
-The sun has reached its peak, at the top of the sky.  You can feel its
-pleasant warmth all around you.
-It's been a little while since you ate that air sac from the valley grass,
-but it occurs to you, you haven't so much as inhaled since then!
-You feel a little tickling on your legs, when you push the grass aside, you
-see a small hard-shelled beetle crawling off your leg onto the grass.
-A mangiasaur should never be afraid to listen to its belly.  You are due for
-a belch.
-
-> eat air sac
-These little brown sacs are really not much better than the grass they're
-attached to!  They're bland, and being full of air, they don't do much to
-fill your stomach.
+The sun has begun its descent, but the heat of the land has been building all
+day, and it's warm and bright.
 The force of your gasbag release is staggering.  The steaming blast is enough
 to burn skin.  Must be that torch you ate.
 Your lurch forward and regret it when you feel the hot blast bouncing off the
@@ -622,6 +612,15 @@ charred beetles.
 These little brown sacs are really not much better than the grass they're
 attached to!  They're bland, and being full of air, they don't do much to
 fill your stomach.
+A smelly herd animal nearby lets out an intense fart.  You have little sense
+of smell, and you cannot eat a fart, so you ignore it.
+
+> eat air sac
+These little brown sacs are really not much better than the grass they're
+attached to!  They're bland, and being full of air, they don't do much to
+fill your stomach.
+You feel a little tickling on your legs, when you push the grass aside, you
+see a small hard-shelled beetle crawling off your leg onto the grass.
 
 > eat air sac
 These little brown sacs are really not much better than the grass they're
@@ -632,14 +631,14 @@ fill your stomach.
 These little brown sacs are really not much better than the grass they're
 attached to!  They're bland, and being full of air, they don't do much to
 fill your stomach.
+You feel the need to breathe again!  The air sac's wind is leaving your
+lungs!
 
 > eat air sac
 These little brown sacs are really not much better than the grass they're
 attached to!  They're bland, and being full of air, they don't do much to
 fill your stomach.
 Your belly rumbles.  You are seriously hungry.
-You feel the need to breathe again!  The air sac's wind is leaving your
-lungs!
 
 > burp on sap
 The expulsion of hot gas singes your throat, but when it hits the exposed
@@ -656,14 +655,14 @@ mesa's top.
 
 The landing is rough, but you survive.  The rocket tree burns up after it's
 done spinning around in the red mesa dust.
+You inhale sharply after the last bit of air sac air leaves your nostrils.
+You take a deep breath.
 
 > eat slither hopper
 Their hides are tough, making them hard to disable, hard to chew, and hard to
 swallow.  What little bits of meat you get from them, though, are quite
 tasty!
 A good meal.  You'll be satisfied for a while now.
-You inhale sharply after the last bit of air sac air leaves your nostrils.
-You take a deep breath.
 
 > eat buzz bird
 You're really not big enough to tackle one of these, much less a whole

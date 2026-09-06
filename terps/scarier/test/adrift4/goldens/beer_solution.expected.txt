@@ -349,66 +349,6 @@ on the bar.  You can leave to the west to the town centre or go to the public
 toilets to the north.  Through a small, shabby back door you can go into the
 re-hab camp.
 Barry the barkeeper is serving behind the bar.
-
-> look
-
-Barry's Bar
-You are in the bar.  As usual, it does good business on hot days because of
-the cheap but functional air-con unit.  A infinitely large bowl of cress is
-on the bar.  You can leave to the west to the town centre or go to the public
-toilets to the north.  Through a small, shabby back door you can go into the
-re-hab camp.
-Barry the barkeeper is serving behind the bar.
-
-> look
-
-Barry's Bar
-You are in the bar.  As usual, it does good business on hot days because of
-the cheap but functional air-con unit.  A infinitely large bowl of cress is
-on the bar.  You can leave to the west to the town centre or go to the public
-toilets to the north.  Through a small, shabby back door you can go into the
-re-hab camp.
-Barry the barkeeper is serving behind the bar.
-
-> look
-
-Barry's Bar
-You are in the bar.  As usual, it does good business on hot days because of
-the cheap but functional air-con unit.  A infinitely large bowl of cress is
-on the bar.  You can leave to the west to the town centre or go to the public
-toilets to the north.  Through a small, shabby back door you can go into the
-re-hab camp.
-Barry the barkeeper is serving behind the bar.
-
-> look
-
-Barry's Bar
-You are in the bar.  As usual, it does good business on hot days because of
-the cheap but functional air-con unit.  A infinitely large bowl of cress is
-on the bar.  You can leave to the west to the town centre or go to the public
-toilets to the north.  Through a small, shabby back door you can go into the
-re-hab camp.
-Barry the barkeeper is serving behind the bar.
-
-> look
-
-Barry's Bar
-You are in the bar.  As usual, it does good business on hot days because of
-the cheap but functional air-con unit.  A infinitely large bowl of cress is
-on the bar.  You can leave to the west to the town centre or go to the public
-toilets to the north.  Through a small, shabby back door you can go into the
-re-hab camp.
-Barry the barkeeper is serving behind the bar.
-
-> look
-
-Barry's Bar
-You are in the bar.  As usual, it does good business on hot days because of
-the cheap but functional air-con unit.  A infinitely large bowl of cress is
-on the bar.  You can leave to the west to the town centre or go to the public
-toilets to the north.  Through a small, shabby back door you can go into the
-re-hab camp.
-Barry the barkeeper is serving behind the bar.
 You really need to empty your bladder.
 
 > look
@@ -512,6 +452,78 @@ re-hab camp.
 Barry the barkeeper is serving behind the bar.
 Without warning your bladder explodes and pops onto the floor in front of
 you.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+
+Lying deflated on the ground is a bladder.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+
+Lying deflated on the ground is a bladder.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+
+Lying deflated on the ground is a bladder.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+
+Lying deflated on the ground is a bladder.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+
+Lying deflated on the ground is a bladder.
+Barry the barkeeper is serving behind the bar.
+
+> look
+
+Barry's Bar
+You are in the bar.  As usual, it does good business on hot days because of
+the cheap but functional air-con unit.  A infinitely large bowl of cress is
+on the bar.  You can leave to the west to the town centre or go to the public
+toilets to the north.  Through a small, shabby back door you can go into the
+re-hab camp.
+
+Lying deflated on the ground is a bladder.
+Barry the barkeeper is serving behind the bar.
 
 > look
 

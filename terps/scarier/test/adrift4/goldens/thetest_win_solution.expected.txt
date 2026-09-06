@@ -75,351 +75,15 @@ the opposite wall.
 Time passes...
 
 > take key
-You take a blue key from the machine.
-
-> unlock door
-You insert the white key into the lock but instead of unlocking the door
-turns black.
-
-> unlock door
-You insert the white key into the lock but instead of unlocking the door
-turns bright orange.
-
-> unlock door
-You insert the bright orange key into the lock but instead of unlocking the
-door turns brown.
-
-> unlock door
-You insert the bright orange key into the lock but instead of unlocking the
-door turns bright orange.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-bright orange.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-red.
-
-> unlock door
-You insert the bright orange key into the lock but instead of unlocking the
-door turns violet.
-
-> unlock door
-You insert the bright orange key into the lock but instead of unlocking the
-door turns white.
-
-> unlock door
-You insert the white key into the lock but instead of unlocking the door
-turns weathered pewter.
-
-> unlock door
-You insert the white key into the lock but instead of unlocking the door
-turns brown.
-
-> unlock door
-You insert the white key into the lock but instead of unlocking the door
-turns bright orange.
-
-> unlock door
-You insert the white key into the lock but instead of unlocking the door
-turns brown.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-violet.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-brown.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns weathered pewter.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns brown.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns yellow.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns green.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns green.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns red.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-weathered pewter.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-black.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-bright orange.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-violet.
-
-> unlock door
-You insert the red key into the lock but instead of unlocking the door turns
-red.
-
-> unlock door
-You insert the red key into the lock but instead of unlocking the door turns
-yellow.
-
-> unlock door
-You insert the weathered pewter key into the lock but instead of unlocking
-the door turns red.
-
-> unlock door
-You insert the weathered pewter key into the lock but instead of unlocking
-the door turns red.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns black.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns brown.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns white.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns weathered pewter.
-
-> unlock door
-You insert the red key into the lock but instead of unlocking the door turns
-blue.
-
-> unlock door
-You insert the red key into the lock but instead of unlocking the door turns
-white.
-
-> unlock door
-You insert the black key into the lock but instead of unlocking the door
-turns black.
-
-> unlock door
-You insert the black key into the lock but instead of unlocking the door
-turns bright orange.
-
-> unlock door
-You insert the black key into the lock but instead of unlocking the door
-turns yellow.
-
-> unlock door
-You insert the black key into the lock but instead of unlocking the door
-turns bright orange.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns red.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns blue.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns white.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns blue.
+You take a yellow key from the machine.
 
 > unlock door
 You insert the yellow key into the lock but instead of unlocking the door
 turns bright orange.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns blue.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-black.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-brown.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
-turns bright orange.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
-turns blue.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns blue.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns blue.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
-turns yellow.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
-turns red.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns weathered pewter.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns bright orange.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
-turns yellow.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
-turns red.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns green.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns violet.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns black.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns red.
-
-> unlock door
-You insert the bright orange key into the lock but instead of unlocking the
-door turns blue.
-
-> unlock door
-You insert the bright orange key into the lock but instead of unlocking the
-door turns red.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-red.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-weathered pewter.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
-turns blue.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
-turns violet.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns black.
 
 > unlock door
 You insert the yellow key into the lock but instead of unlocking the door
 turns white.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns violet.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns green.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns bright orange.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns blue.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns blue.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns white.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns yellow.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns red.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
-turns green.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
-turns brown.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns green.
-
-> unlock door
-You insert the yellow key into the lock but instead of unlocking the door
-turns red.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns violet.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns brown.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns yellow.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns brown.
-
-> unlock door
-You insert the bright orange key into the lock but instead of unlocking the
-door turns weathered pewter.
-
-> unlock door
-You insert the bright orange key into the lock but instead of unlocking the
-door turns yellow.
 
 > unlock door
 You insert the white key into the lock but instead of unlocking the door
@@ -427,139 +91,11 @@ turns white.
 
 > unlock door
 You insert the white key into the lock but instead of unlocking the door
-turns yellow.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-white.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-brown.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-brown.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-green.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-bright orange.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-black.
-
-> unlock door
-You insert the red key into the lock but instead of unlocking the door turns
-bright orange.
-
-> unlock door
-You insert the red key into the lock but instead of unlocking the door turns
-bright orange.
-
-> unlock door
-You insert the white key into the lock but instead of unlocking the door
-turns black.
-
-> unlock door
-You insert the white key into the lock but instead of unlocking the door
-turns black.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns black.
-
-> unlock door
-You insert the violet key into the lock but instead of unlocking the door
-turns weathered pewter.
-
-> unlock door
-You insert the weathered pewter key into the lock but instead of unlocking
-the door turns black.
-
-> unlock door
-You insert the weathered pewter key into the lock but instead of unlocking
-the door turns green.
-
-> unlock door
-You insert the weathered pewter key into the lock but instead of unlocking
-the door turns white.
-
-> unlock door
-You insert the weathered pewter key into the lock but instead of unlocking
-the door turns violet.
-
-> unlock door
-You insert the white key into the lock but instead of unlocking the door
 turns white.
 
 > unlock door
 You insert the white key into the lock but instead of unlocking the door
-turns yellow.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
-turns brown.
-
-> unlock door
-You insert the brown key into the lock but instead of unlocking the door
 turns blue.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-black.
-
-> unlock door
-You insert the blue key into the lock but instead of unlocking the door turns
-white.
-
-> unlock door
-You insert the weathered pewter key into the lock but instead of unlocking
-the door turns blue.
-
-> unlock door
-You insert the weathered pewter key into the lock but instead of unlocking
-the door turns white.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns violet.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns blue.
-
-> unlock door
-You insert the weathered pewter key into the lock but instead of unlocking
-the door turns violet.
-
-> unlock door
-You insert the weathered pewter key into the lock but instead of unlocking
-the door turns white.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns brown.
-
-> unlock door
-You insert the green key into the lock but instead of unlocking the door
-turns bright orange.
-
-> unlock door
-You insert the bright orange key into the lock but instead of unlocking the
-door turns bright orange.
-
-> unlock door
-You insert the bright orange key into the lock but instead of unlocking the
-door turns bright orange.
-
-> unlock door
-You insert the bright orange key into the lock but instead of unlocking the
-door turns green.
 You hear the key fall into some storage space, and the door click open.  You
 walk through.
 
@@ -567,21 +103,19 @@ The Room of Eternal Dialing
 You are in the room of eternal dialling.  There is a phone here.  It gives
 you the strange idea of using it to dial a number!  What a good idea!  There
 is another door to the east.  It's locked.
-A Robot Guard is here.
 
 You can only move west.
-Robot Guard hits you with the robot's chain.
 
 > dial 987
 You: Who's there?
 The other end: The international number password company.
-Do you have the number for (you look at the serial number on the door) 50718?
-Them: Yes its 9303235.
+Do you have the number for (you look at the serial number on the door) 37846?
+Them: Yes its 8328337.
 You: Thank you.
-Them: Bye.  Robot Guard stamps out to the east.
+Them: Bye.
 
-> enter 9303235
-You enter 9303235 into the door panel, a click, and the door slides upwards
+> enter 8328337
+You enter 8328337 into the door panel, a click, and the door slides upwards
 into a slot in the wall above.  The door has gone.  You can now leave to the
 east.
 
@@ -594,21 +128,8 @@ on all the surfaces of this room including the floor except a small gap in
 the west wall which leads to another room.
 
 Scattered on the ground is a portable teleporter.
-A Robot Guard is here.
 
 You can only move west.
-
-> shout 1
-Why shout numbers now?
-
-> shout 1
-Why shout numbers now?
-
-> shout 1
-Why shout numbers now?
-
-> shout 1
-Why shout numbers now?
 
 > shout 1
 Why shout numbers now?
@@ -736,9 +257,37 @@ Robot Guard hits you with the robot's chain.
 > shout 21
 You shout 21 and the robot scurries off.
 
-> take key
+> shout 105
 Hey!  The secret calculator task is calculate triangle (number).  And also
 the robot guard just dropped his key.  Just thought you ought to know.
+
+> shout 105
+Why shout numbers now?
+
+> shout 105
+Why shout numbers now?
+
+> shout 105
+Why shout numbers now?
+
+> shout 105
+Why shout numbers now?
+
+> shout 105
+Why shout numbers now?
+
+> shout 105
+Why shout numbers now?
+
+> shout 105
+Why shout numbers now?
+
+> shout 105
+Why shout numbers now?  Robot Guard storms in.
+Robot Guard hits you with the robot's chain.
+
+> shout 105
+You shout 105 and the robot scurries off.
 
 > take key
 You pick up yet another key.
@@ -753,8 +302,10 @@ The Room of Eternal Dialing
 You are in the room of eternal dialling.  There is a phone here.  It gives
 you the strange idea of using it to dial a number!  What a good idea!  There
 is another door to the east.  It's locked.
+A Robot Guard is here.
 
 You can move east and west.
+Robot Guard hits you with the robot's chain.
 
 > teleport
 As I said, its broken.  The entire destination circuit has been broken off.
@@ -772,7 +323,7 @@ equipment has gone.  A slot forms part of the east wall.
 You say tiddlywinks.  Thick smoke swirls around the room.  You wait for what
 seems like half a minute before the smoke disappears.  The room is just the
 same as it was though your pocket feels slight heavier.  Robot Guard storms
-in from the east.
+in.
 Robot Guard hits you with the robot's chain.
 
 > take tiddlywink
@@ -782,7 +333,7 @@ Robot Guard hits you with the robot's chain.
 > put tiddlywink in slot
 You place the magic tiddlywink in the slot and it fits perfectly.  The slot
 glows blue then becomes a hole in the wall.  It expands leaving a new exit to
-the east.
+the east.  Robot Guard stamps out to the east.
 
 > east
 You move east.
@@ -792,12 +343,15 @@ This room is completely empty and very plain.  Unless you count the dust, but
 even that is very plain.
 
 Scattered on the ground is a piece of paper.
+A Robot Guard is here.
 
 You can only move west.
+Robot Guard hits you with the robot's chain.
 
 > push south
 You push the south wall, but instead of opening it swivels round, leaving yet
 another door!  On the right hand side of the door is a key hole.
+Robot Guard hits you with the robot's chain.
 
 > use key with keyhole
 You put yet another key into the keyhole then pull the brick wall towards

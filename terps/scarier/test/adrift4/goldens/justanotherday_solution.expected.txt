@@ -31,10 +31,10 @@ I press the button and I can here the elevator coming.
 
 > wait
 Time passes...
+The elevator doors open.
 
 > wait
 Time passes...
-The elevator doors open.
 
 > in
 I move in.
@@ -152,10 +152,10 @@ I press the button and I can here the elevator coming.
 
 > wait
 Time passes...
+The elevator doors open.
 
 > wait
 Time passes...
-The elevator doors open.
 
 > in
 I move in.
@@ -414,10 +414,10 @@ I press the button and I can here the elevator coming.
 
 > wait
 Time passes...
-The elevator doors open.
 
 > wait
 Time passes...
+The elevator doors open.
 
 > in
 I move in.

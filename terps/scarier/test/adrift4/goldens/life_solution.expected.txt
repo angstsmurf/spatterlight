@@ -212,8 +212,8 @@ You move in.
 
 Living room
 A rather ugly, purple sofa is in front of a small, black&white screen tv. A
-window looking out into the street is behind the tv. There is a soda can
-lying on the sofa.
+window looking out into the street is behind the tv. A soda can and an
+unfinished slice of pizza is on the sofa.
 
 > e
 You move east.
@@ -229,14 +229,14 @@ Your cat is here.
 Your cat is feeling
 Not peaceful and not aggressive
 
-At the moment your cat is thinking sad thoughts. Use this to judge whether
+At the moment your cat is thinking sleepy thoughts. Use this to judge whether
 you should stroke him or kick him. Stroking your cat shows it that you
 approve of these thoughts. Kicking it shows it that you disapprove of these
 thougths. These thougths may be aggressive, peaceful, sad or sleepy.
 
 > stroke cat
-You stroke your cat showing it that it is not alone. (type ''cat help' for
-more info)
+You stroke your cat showing it that you approve of it sleeping a bit more.
+(type ''cat help' for more info)
 
 > n
 You move north.

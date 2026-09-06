@@ -443,6 +443,11 @@ front.
 
 > wait
 Time passes...
+
+> wait
+Time passes...
+An elderly lady discusses the various merits of different types of
+elderflower honey.
 The maid vacuums away, but as the cleaner goes over the mud it makes an odd
 squawking noise and splutters to a stop.
 
@@ -452,23 +457,16 @@ cleaner apart, looking inside for the source of the blockage.
 
 > wait
 Time passes...
-An elderly lady discusses the various merits of different types of
-elderflower honey.
-
-> wait
-Time passes...
 One of the other shoppers drops a slip of paper on the floor. Too lazy, or
 too wealthy, to pick it up, they leave it where it lies.
 
 > take hose
 You take the slender vacuum hose.
 
-The maid notices something trapped within the vacuum.
-
 > take dollar
 You take the Cittian dollar.
-The maid wiggles her arm, her fingers lost in the depths of the vacuum
-cleaner.
+
+The maid notices something trapped within the vacuum.
 
 > e
 You leave the Gift Shop and return to the Luxury Dining Area.

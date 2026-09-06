@@ -142,6 +142,8 @@ place at the best of times, but it feels even worse in here.  The room seems
 to be filled with the faint smell of petrol or maybe it is diesel. You can
 see some stone steps leading up and down.
 
+What is that tapping sound?
+
 > u
 As you head up, your footsteps echo on the stone steps.
 
@@ -164,8 +166,6 @@ You take the spanner from the toolbox.
 > get spark plug
 You take the broken spark plug from the toolbox.
 
-You can hear something moving in the room above.
-
 > u
 As you head up, your footsteps echo on the stone steps.
 
@@ -187,6 +187,8 @@ hat, some safety guidelines and a flare gun.
 > get flare gun
 You take the flare gun from the old locker.
 
+You are sure you can hear voices.
+
 > get boat hook
 You take the boat hook.
 
@@ -205,8 +207,6 @@ You can also see a mattress and a vacuum cleaner.
 
 > open wardrobe
 You open the wardrobe.  A coat is inside the wardrobe.
-
-You hear the sound of running footsteps.
 
 > get coat
 You take the coat from the wardrobe.
@@ -236,10 +236,10 @@ sleeping in these bunks would need to do so in the foetal position.  The
 middle bunk is obviously the best accommodation as it has its own window.  A
 letter is on the bunk.
 
+What is that tapping sound?
+
 > get letter
 You take the letter from the bunk.
-
-For a second that sounded like a television playing.
 
 > u
 As you head up, your footsteps echo on the stone steps.
@@ -537,7 +537,8 @@ steps lead up and down.
 
 An old toolbox is sitting near the generator.
 
-You hear the sound of running footsteps.
+You have the feeling that someone is standing behind you. Looking over both
+shoulders you see nothing.
 
 > d
 As you head down, your footsteps echo on the stone steps.
@@ -615,9 +616,6 @@ a rusty panel heater.  Some stone steps lead up and down.
 
 You can also see a mattress and a vacuum cleaner.
 
-You have the feeling that someone is standing behind you. Looking over both
-shoulders you see nothing.
-
 > u
 As you head up, your footsteps echo on the stone steps.
 
@@ -639,6 +637,8 @@ sitting on the floor, is a blue metal box.  Some stone steps lead up and
 down.
 
 You can also see an old bucket.
+
+Just for a moment you hear a radio playing music.
 
 > u
 As you head up, your footsteps echo on the stone steps.
@@ -714,6 +714,8 @@ last visit that this room can be an extremely noisy place. Some worn stone
 steps lead up and down.
 
 An old toolbox is sitting near the generator.
+
+You can hear something moving in the room above.
 
 > d
 As you head down, your footsteps echo on the stone steps.

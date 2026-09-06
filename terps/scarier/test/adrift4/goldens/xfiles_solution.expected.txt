@@ -552,30 +552,28 @@ wonder if you'll be able to hail a taxi.
 Volunteer is here.
 
 You can move north, east, south, west, in and southwest.
-Your legs are sore.
 
 > n
 You move north.
 
-Town Square - Bellefleur, OR
-Welcome to Bellefleur, Oregon, the place your parents worked their first and
-last case together as partners in the FBI X-Files Division.  This is main
-street.  The town is very old-fashioned.  Throughout town, there's a post
-office, a hardware store, and a small diner.  There's a sheriff office here
-as well.
+Davis Storage Warehouse - Baltimore, MD
+You stand outside the garage that the warehouse key indicated.  Nothing seems
+out of place.  You left the key back in D.C., didn't you?
 
-Also here is VW Van.
-
-You can move east, south, west, northeast, southeast, southwest and
-northwest.
+You can move south and in.
 
 > in
-You can't go in that direction, but you can move east, south, west,
-northeast, southeast, southwest and northwest.
+You move in.
+
+Garage 5
+The garage is empty.  It has been cleaned out recently.  Footprints in the
+inch-thick dust indicate that whoever did was in a hurry.
+
+You can only move out.
+Your legs are sore.
 
 > u
-You can't go in that direction, but you can move east, south, west,
-northeast, southeast, southwest and northwest.
+You can't go in that direction, but you can move north, east, west and in.
 
 > touch labtop
 You can't touch that.
@@ -593,16 +591,25 @@ You can't open that.
 Have X-Ray vision, do you?
 
 > d
-You can't go in that direction, but you can move east, south, west,
-northeast, southeast, southwest and northwest.
+You can't go in that direction, but you can move north, east, west and in.
 
 > out
-You can't go in that direction, but you can move east, south, west,
-northeast, southeast, southwest and northwest.
+You can't go in that direction, but you can move north, east, west and in.
 
 > n
-You can't go in that direction, but you can move east, south, west,
-northeast, southeast, southwest and northwest.
+You move north.
+
+Town Square - Bellefleur, OR
+Welcome to Bellefleur, Oregon, the place your parents worked their first and
+last case together as partners in the FBI X-Files Division.  This is main
+street.  The town is very old-fashioned.  Throughout town, there's a post
+office, a hardware store, and a small diner.  There's a sheriff office here
+as well.
+
+Also here is VW Van.
+
+You can move east, south, west, northeast, southeast, southwest and
+northwest.
 
 > se
 You move southeast.

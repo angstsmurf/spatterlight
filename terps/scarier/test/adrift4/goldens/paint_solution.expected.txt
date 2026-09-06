@@ -227,13 +227,13 @@ stop bothering me?"
 just nod.
    "Back in a minute," she says and disappears.
 
-   The usual peaceful furore of the office is interrupted by a short, but
-violent, piece of humming from Ted.
-
 > paint floor
 Mr Ostinolypakalopodopous didn't hire you to paint the floor but you're sure
 he'll appreciate the gesture all the same. And it certainly looks more
 colourful after you've sloshed some paint onto it.
+
+   The usual peaceful furore of the office is interrupted by a short, but
+violent, piece of humming from Ted.
 
 > paint plant
 A few dabs of paint and the plant looks a bit more colourful.
@@ -341,9 +341,6 @@ victim and you're able to dispatch him with ease.
    "Blimey, boss," says Stan. "He wasn't the best employee in the world but
 couldn't you have just docked his pay instead?"
 
-   Ted begins to hum... but stops and goes very quiet the moment you look at
-him.
-
 > talk to ted
 "Ted!" you say. "You seem to be carrying a stapler!"
    Ted tries to shove said stapler into his pocket but as you've already seen
@@ -356,6 +353,9 @@ it he sighs and hands it over.
 with me on dates or anything."
    You look at him.
    Ted just looks embarrassed.
+
+   Ted begins to hum... but stops and goes very quiet the moment you look at
+him.
 
 > talk to ted
 "Ted!" you say. "You seem to be carrying a filofax!"
@@ -402,9 +402,6 @@ Time passes...
 > wait
 Time passes...
 
-> wait
-Time passes...
-
    There is a crash outside and a moment later in bursts a huge fellow
 carrying a VERY large hammer.
    "DAMNATION!" he roars (and, overhead, lightning crackles and thunder
@@ -421,10 +418,7 @@ fist the size of a battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK
 TWICE!" He points a fist the size of a battering ram and demands, "BEER! NOW!
 DON'T MAKE ME ASK TWICE!" He points a fist the size of a battering ram and
 demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a fist the size of a
-battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a
-fist the size of a battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK
-TWICE!" He points a fist the size of a battering ram and demands, "BEER! NOW!
-DON'T MAKE ME ASK TWICE!"
+battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!"
 
    "Blimey, boss!" gasps Ted. "Have you seen the size of that fellow?"
    "SULLY NOT THE FORM OF THOR WITH THY UNCLEAN EYES, MORTAL!" booms Thor.
@@ -432,9 +426,12 @@ DON'T MAKE ME ASK TWICE!"
 LICE-RIDDEN HEAD!"
    Ted frowns, puzzling things over.
    "I think he's threatening to kill you, Ted," you say.
-   Ted nods. "I had a feeling that might be the case.""""""""""""
+   Ted nods. "I had a feeling that might be the case.""""""""""
 
    Stan gawps at the figure.
+
+> wait
+Time passes...
 
 > wait
 Time passes...
@@ -681,9 +678,6 @@ Time passes...
 > wait
 Time passes...
 
-> wait
-Time passes...
-
    "Well, well, what have we here?" booms a voice from the doorway and you
 glance over in surprise to see a hulking fellow there. He's big and
 brutal-looking and has an air of concealed violence about him. Yep,
@@ -720,6 +714,9 @@ floor where he had fallen, and continues the questioning.
 simple yes or ow will suffice."
    You frown. "Don't you mean yes or no?"
    "I know what I mean."
+
+> wait
+Time passes...
 
 > wait
 Time passes...

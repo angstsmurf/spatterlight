@@ -41,6 +41,8 @@ you're holding one of them en route to replace it, that's okay, too.
 > wait
 You wait a bit...
 
+Yellow lights flicker.  Somebody grabbed the lamp!
+
 Blue lights flash.  The book has been taken!
 
 > wait
@@ -69,10 +71,6 @@ The Girl skips in from below.
 
 The Mother steps in from below.
 
-Red lights flash.  Someone nabbed the shoe!
-
-Yellow lights flicker.  Somebody grabbed the lamp!
-
 It's always the same people taking or placing the items, but sometimes the
 place they put it is different, and their timing is usually not the same each
 day.
@@ -89,6 +87,8 @@ The Old Hag creeps off to the west.
 
 > wait
 You wait a bit...
+
+Red lights flash.  Someone nabbed the shoe!
 
 > wait
 You wait a bit...
@@ -133,8 +133,6 @@ exclaim, "Guess what we call this room containing a book!"
 The Central Room is south.
 
 The book is missing.
-
-The lamp is in this room.
 
 The Old Hag stumbles in.
 

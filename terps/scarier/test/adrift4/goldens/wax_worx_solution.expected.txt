@@ -241,7 +241,7 @@ The figment of your fears has vanished. You see what tripped you up. A
 figure, lying on its belly beneath the bushes.
 
 > ask charlie about house
-Words form, not on the motionless lips, but in your mind.
+The wax figure speaks with the faint sound of your own rushing blood.
 
 "What a pad.  We checked it all out.  Creepy crawled the whole thing.
 Couldn't just sneak up, or lurk in the shadows. Creepy crawl. That was the
@@ -249,6 +249,7 @@ only way to get close enough.
 
 We were looking in the windows, on the other side of the glass, and they
 never knew."
+Marie's head talks to itself.
 
 > e
 You move east.
@@ -264,8 +265,6 @@ from the lawn beside the door is what looks like a for sale sign.
 
 In the middle of the lawn stands the wax figure of a clown, weirdly out of
 place in this patch of faux suburbia.
-The tip of Marie's wig tickles your chin as the head moves slightly.
-Accidentally, or to get your attention?
 
 > put nose on clown
 You squeeze the glob of wax into a slightly more spherical shape and stick it

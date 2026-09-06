@@ -1835,7 +1835,7 @@ You can only go out.
 
 > play
 You pull the lever and watch various images of fruit roll in the slots. Then
-they stop... After this game you have 496 dollars.
+they stop... After this game you have 443 dollars.
 
 > out
 You walk out.

@@ -698,6 +698,9 @@ The scrolls are all alike in appearance but you manage to sort out five
 likely suspects which you decide to think of as scroll one, scroll two,
 scroll three, scroll four and scroll five to avoid confusion.
 
+A little mouse pops its head out of the hole, sees you there, gives a
+frightened meep!  and ducks back inside.
+
 > read first scroll
 You read:
 
@@ -718,9 +721,6 @@ found…
 
 YOUR SCORE HAS INCREASED BY 1 POINT TO 33 OUT OF A MAXIMUM POSSIBLE SCORE OF
 100.
-
-You spy a little mouse peeking out of the hole at you. The moment it sees you
-looking back at it, it ducks back out of sight.
 
 > read second scroll
 You read:
@@ -757,6 +757,9 @@ borders…
 YOUR SCORE HAS INCREASED BY 1 POINT TO 35 OUT OF A MAXIMUM POSSIBLE SCORE OF
 100.
 
+A white blur rushes from the hole, goes meep!  very loudly at the side of
+you, then ducks back inside. It looked suspiciously like a mouse.
+
 > read fourth scroll
 You read:
 
@@ -785,9 +788,6 @@ borders…
 
 YOUR SCORE HAS INCREASED BY 1 POINT TO 36 OUT OF A MAXIMUM POSSIBLE SCORE OF
 100.
-
-A little mouse runs out of the hole, sees you there, emits a sound like nails
-being grated down a chalkboard, and flees back into the hole.
 
 > read fifth scroll
 You read:

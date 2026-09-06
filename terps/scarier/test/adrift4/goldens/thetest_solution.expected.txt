@@ -75,11 +75,11 @@ the opposite wall.
 Time passes...
 
 > take key
-You take a blue key from the machine.
+You take a yellow key from the machine.
 
 > unlock door
-You insert the white key into the lock but instead of unlocking the door
-turns black.
+You insert the weathered pewter key into the lock but instead of unlocking
+the door turns white.
 
 > east
 You can't go in any direction!

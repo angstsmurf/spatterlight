@@ -408,6 +408,8 @@ A Dark tunnel
 This narrow tunnel leads west and south, and is intoxicating to be in.  The
 floor is piled high with bat droppings, and the stench is quite nauseating.
 
+Bat's are are flying about everywhere.
+
 > s
 I move south.
 
@@ -417,7 +419,7 @@ The tunnel is dark and smells heavily of ammonia, likely from the guano that
 covers the floor.  There are no signs of water that I came across in some of
 the tunnels early on.  It almost seems like this tunnel is a little more
 narrow than the others I’ve been in.  It looks like the tunnel goes southeast
-and north.
+and north.  A flock of bats swoop in from the north.
 
 > se
 I move southeast.
@@ -437,8 +439,6 @@ A Dark Tunnel
 This tunnel is overrun with bat droppings so thick that the stench is enough
 to make me want to pass out.  The stinky tunnel leads to the north and to the
 southwest.
-Bat's are are flying about everywhere.  A flock of bats flutter away to the
-north.
 
 > n
 I move north.
@@ -447,7 +447,6 @@ A Dark Tunnel
 
 There is an opening in the east wall that wasn't there before.  The guano
 filled tunnel stretches east and south.
-Bat's are are flying about everywhere.
 
 > e
 I move east.
@@ -470,8 +469,7 @@ I move west.
 A Dark Tunnel
 
 There is an opening in the east wall that wasn't there before.  The guano
-filled tunnel stretches east and south.  A flock of bats swoop in from the
-south.
+filled tunnel stretches east and south.
 
 > s
 I move south.
@@ -491,6 +489,8 @@ The tunnel divides into four different directions here.  It goes south, while
 three other tunnels lead north, northeast, and northwest.  A strong odor of
 ammonia fills the air.  It is likely coming from the bat guano that covers
 the ground.
+Bat's are are flying about everywhere.  A flock of bats flutter away to the
+north.
 
 > nw
 I move northwest.
@@ -558,7 +558,6 @@ The tunnel divides into four different directions here.  It goes south, while
 three other tunnels lead north, northeast, and northwest.  A strong odor of
 ammonia fills the air.  It is likely coming from the bat guano that covers
 the ground.
-Bat's are are flying about everywhere.
 
 > n
 I move north.
@@ -567,7 +566,7 @@ A Dark Tunnel
 
 The tunnel narrows a little here, but I can see that it runs north and south
 from here.  The stench from the bat droppings that cover the tunnel floor is
-quite overwhelming.  A flock of bats swoop in from the south.
+quite overwhelming.
 
 > n
 I move north.
@@ -611,7 +610,7 @@ A Dark Tunnel
 The light from the lantern seems more calm now, but the stench from the guano
 covering the floor, hangs heavy in the air.  The stone wall that blocked the
 tunnel to the northeast is completely gone, without a trace.  The tunnel also
-goes off to the southeast.  A flock of bats swoop in from the south-east.
+goes off to the southeast.
 
 > push boulder se
 "Grrrr. Hhhrrrmmmmmmmmmppphhhh."
@@ -725,7 +724,7 @@ A Dark Tunnel
 The tunnel divides into four different directions here.  It goes south, while
 three other tunnels lead north, northeast, and northwest.  A strong odor of
 ammonia fills the air.  It is likely coming from the bat guano that covers
-the ground.
+the ground.  A flock of bats swoop in from the north.
 
 > n
 I move north.
@@ -737,7 +736,8 @@ from here.  The stench from the bat droppings that cover the tunnel floor is
 quite overwhelming.
 
 > ne
-I can't go in that direction, but I can move north and south.
+I can't go in that direction, but I can move north and south.  A flock of
+bats swoop in from the south.
 
 > n
 I move north.
@@ -758,8 +758,6 @@ The light from the lantern seems more calm now, but the stench from the guano
 covering the floor, hangs heavy in the air.  The stone wall that blocked the
 tunnel to the northeast is completely gone, without a trace.  The tunnel also
 goes off to the southeast.
-Bat's are are flying about everywhere.  A flock of bats flutter away to the
-south-east.
 
 > ne
 I move northeast.
@@ -880,8 +878,9 @@ A Dark Tunnel
 The lantern flickers slightly with an invisible breeze that moves through the
 tunnel, only making the stench of the bat droppings that much more
 nauseating.  I can see that the tunnel branches off to the northeast and
-northwest, as well as to the south.  Hanson follows me in from the
-north-west.
+northwest, as well as to the south.
+Bat's are are flying about everywhere.  Hanson follows me in from the
+north-west.  A flock of bats flutter away to the north-east.
 
 > s
 I move south.

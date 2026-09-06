@@ -412,52 +412,55 @@ glances off of Jeriah.  Exposed through the breach, the cafeteria room next
 door disappears in a cloud of  dust and debris.  There is the sound of
 shattering glass and wrenching metal as the steel support beam fails and
 crashes down into the laboratory control room.
-Mark Eridian hits Skynd, but it doesn't seem to do any damage.
-Skynd hits you, but it doesn't seem to do any damage.
+Skynd manages to avoid Mark Eridian's attack.
+You manage to avoid Skynd's attack.
 
 > z
 Time passes...
 You can hear the wail of a distant emergency siren.
 Mark Eridian hits Skyrv.
-You manage to avoid Skyrv's attack.
+Skyrv hits Mark Eridian.
+Mark Eridian manages to avoid Skynd's attack.
 
 > z
 Time passes...
 A previously non-descript red light blinks to life in the center of the
 ceiling.
+Skyrv manages to avoid Mark Eridian's attack.
+
+> z
+Time passes...
+You can hear the wail of a distant emergency siren.
 Skynd manages to avoid Mark Eridian's attack.
+Mark Eridian manages to avoid Skyrv's attack.
 Skynd hits Mark Eridian.
 
 > z
 Time passes...
+A previously non-descript red light blinks to life in the center of the
+ceiling.
+Mark Eridian hits Skynd.
+Mark Eridian manages to avoid Skyrv's attack.
+Skynd hits Mark Eridian, but it doesn't seem to do any damage.
+
+> z
+Time passes...
 You can hear the wail of a distant emergency siren.
-Skyrv manages to avoid Mark Eridian's attack.
-Skyrv hits Mark Eridian.
-You manage to avoid Skynd's attack.
+Skynd manages to avoid Mark Eridian's attack.
 
 > z
 Time passes...
 A previously non-descript red light blinks to life in the center of the
 ceiling.
-You manage to avoid Skyrv's attack.
-Skynd hits you.
-
-> z
-Time passes...
-You can hear the wail of a distant emergency siren.
-You manage to avoid Skynd's attack.
-
-> z
-Time passes...
-A previously non-descript red light blinks to life in the center of the
-ceiling.
-You manage to avoid Skyrv's attack.
+Mark Eridian hits Skyrv.
+Mark Eridian manages to avoid Skyrv's attack.
 You manage to avoid Skynd's attack.
 
 > take rifle
 You take the 401K Auto Rifle.
 You can hear the wail of a distant emergency siren.
-You manage to avoid Skyrv's attack.
+Skyrv manages to avoid Mark Eridian's attack.
+Mark Eridian manages to avoid Skynd's attack.
 
 > get sample from skyrv
 Pressing the genetic sampler to its arm, you take Skyrv's genetic sample.
@@ -466,8 +469,8 @@ it off and take it with you.
 
 A previously non-descript red light blinks to life in the center of the
 ceiling.
-Skyrv hits you, but it doesn't seem to do any damage.
-Skynd hits you, but it doesn't seem to do any damage.
+Mark Eridian hits Skyrv, but it doesn't seem to do any damage.
+Mark Eridian manages to avoid Skyrv's attack.
 
 > get sample from orgaan soldier
 Pressing the genetic sampler to its arm, you take that Orgaan's genetic
@@ -475,8 +478,8 @@ sample.  Examing the sampler, a cannister presents itself out of the head.
 You snap it off and take it with you.
 
 You can hear the wail of a distant emergency siren.
-Skyrv hits you.
-Skynd hits you, but it doesn't seem to do any damage.
+Skynd manages to avoid Mark Eridian's attack.
+Skynd hits Mark Eridian.
 
 > get sample from guard
 Pressing the genetic sampler to his arm, you take Mhentsh's genetic sample.
@@ -485,7 +488,9 @@ it off and take it with you.
 
 A previously non-descript red light blinks to life in the center of the
 ceiling.
-You manage to avoid Skyrv's attack.
+Skynd manages to avoid Mark Eridian's attack.
+Skyrv hits you.
+Skynd hits Mark Eridian.
 
 > get sample from mark
 Pressing the genetic sampler to his arm, you take Marks genetic sample.
@@ -493,8 +498,8 @@ Examing the sampler, a cannister presents itself out of the head.  You snap
 it off and take it with you.
 
 You can hear the wail of a distant emergency siren.
-You manage to avoid Skyrv's attack.
-Skynd hits you, but it doesn't seem to do any damage.
+Skyrv hits you.
+Skynd hits you.
 
 > s
 You move south.
@@ -505,7 +510,7 @@ laboratory floor, a stairwell leads up.  The lab floor is to the north.
 
 Also here is a dead Orgaan soldier and a dead Jeriah.  Skyrv runs in from the
 north.  Skynd runs in from the north.
-Skynd hits you, but it doesn't seem to do any damage.
+You manage to avoid Skyrv's attack.
 
 > get sample from jeriah
 Pressing the genetic sampler to his arm, you take Jeriah's genetic sample.
@@ -513,13 +518,15 @@ Examing the sampler, a cannister presents itself out of the head.  You snap
 it off and take it with you.
 
 You manage to avoid Skyrv's attack.
+Skynd hits you, but it doesn't seem to do any damage.
 
 > get sample from orgaan soldier
 Pressing the genetic sampler to its arm, you take that Orgaan's genetic
 sample.  Examing the sampler, a cannister presents itself out of the head.
 You snap it off and take it with you.
 
-You manage to avoid Skynd's attack.
+Skyrv hits you, but it doesn't seem to do any damage.
+Skynd hits you, but it doesn't seem to do any damage.
 
 > u
 You move up.
@@ -533,6 +540,7 @@ A large white, polymer patio table appears cheesily inexpensive but lends
 itself to the informal and laid back atmosphere of the patio.  Skyrv runs in
 from below.  Skynd runs in from below.
 You manage to avoid Skyrv's attack.
+You manage to avoid Skynd's attack.
 
 > w
 You move west.
@@ -577,13 +585,13 @@ The lab rocks slightly at the concusion of almost simultaneous grenade
 explosions.
 You can hear the wail of a distant emergency siren.
 You manage to avoid Skyrv's attack.
-You manage to avoid Skynd's attack.
 
 > open drawer
 You open the drawer.  A data chip is inside the drawer.
 A previously non-descript red light blinks to life in the center of the
 ceiling.
-Skyrv hits you, but it doesn't seem to do any damage.
+You manage to avoid Skyrv's attack.
+Skynd hits you, but it doesn't seem to do any damage.
 
 > take data chip
 You take the data chip from the drawer.
@@ -638,6 +646,7 @@ unblocked.  However, if you walk into the hallway, they'll see you long
 before you can escape past them.
 
 Skyrv runs in from the east.  Skynd runs in from the east.
+You manage to avoid Skyrv's attack.
 You manage to avoid Skynd's attack.
 
 > throw grenade
@@ -651,7 +660,7 @@ carries dust, debris and Orgaan parts past you in the hall.
 
 After a moment, all is quiet and you don't hear nor see any additional
 movement from the reception area.
-Skyrv hits you, but it doesn't seem to do any damage.
+You manage to avoid Skyrv's attack.
 You manage to avoid Skynd's attack.
 
 > n
@@ -663,6 +672,7 @@ in the hall. The reception area to the west of here appears destroyed.  To
 the south is the laboratory cafeteria.  Skyrv runs in from the south.  Skynd
 runs in from the south.
 You manage to avoid Skyrv's attack.
+You manage to avoid Skynd's attack.
 
 > e
 You move east.
@@ -675,15 +685,14 @@ An open door to the east is labelled, "Security."
 
 Also here is a dead Nadine.  Skyrv runs in from the west.  Skynd runs in from
 the west.
-You manage to avoid Skyrv's attack.
-Skynd hits you, but it doesn't seem to do any damage.
 
 > get sample from nadine
 Pressing the genetic sampler to her arm, you take Nadine's genetic sample.
 Examing the sampler, no cannister presents itself.  Then you remember that
 you cannot obtain a genetic sample off of Antonai.
 
-You manage to avoid Skyrv's attack.
+Skyrv hits you, but it doesn't seem to do any damage.
+You manage to avoid Skynd's attack.
 
 > e
 You move east.
@@ -695,9 +704,8 @@ monitors and computer terminals allow checking in on any area of the grounds.
 the attack has destroyed all of the electronic equipment in the room.
 Malthew stands here at attention.  Skyrv runs in from the west.  Skynd runs
 in from the west.
-You manage to avoid Skyrv's attack.
-Skynd hits Malthew, but it doesn't seem to do any damage.
-Skynd manages to avoid Malthew's attack.
+You manage to avoid Skynd's attack.
+Skyrv manages to avoid Malthew's attack.
 
 > talk to malthew
 Sitting down next to him, Malthew looks over at you.
@@ -722,6 +730,8 @@ but I'm not.  I'll get my turn to pay the Orgaans in kind for their deaths."
 
 You smile back at him, "Ok, now you're getting all chatty on me.  Let's get
 out of here."
+You manage to avoid Skyrv's attack.
+You manage to avoid Skynd's attack.
 Malthew hits Skynd, but it doesn't seem to do any damage.
 
 > get sample from malthew
@@ -729,9 +739,8 @@ Pressing the genetic sampler to his arm, you take Malthew's genetic sample.
 Examing the sampler, a cannister presents itself out of the head.  You snap
 it off and take it with you.
 
-Malthew manages to avoid Skyrv's attack.
-Malthew manages to avoid Skynd's attack.
-Skynd manages to avoid Malthew's attack.
+Skyrv hits you.
+Malthew hits Skyrv.
 
 > w
 You move west.
@@ -744,7 +753,8 @@ An open door to the east is labelled, "Security."
 
 Also here is a dead Nadine.  Skyrv runs in from the east.  Skynd runs in from
 the east.  Malthew walks in from the east.
-Skyrv hits you, but it doesn't seem to do any damage.
+You manage to avoid Skyrv's attack.
+Skynd hits Malthew, but it doesn't seem to do any damage.
 Malthew hits Skyrv.
 
 > w
@@ -776,13 +786,13 @@ of the desk.  Small pieces of Orgaan are blown everywhere in the reception
 area and the east/west hall.  Now you can see that the main entrance is
 blocked by a collapse of the ceiling.  Skynd runs in from the north.  Malthew
 walks in from the north.
-Malthew hits Skynd.
+Malthew hits Skynd, but it doesn't seem to do any damage.
 
 > shoot windows
 The 401K Auto Rifle chips away at the plasteel until finally with a
 satisfying crunch one of the windows gives way to an opening to the gardens.
-You manage to avoid Skynd's attack.
-Skynd manages to avoid Malthew's attack.
+Malthew manages to avoid Skynd's attack.
+Malthew hits Skynd, but it doesn't seem to do any damage.
 
 > w
 Rushing out into the western gardens, a few Orgaan soldiers from the interior

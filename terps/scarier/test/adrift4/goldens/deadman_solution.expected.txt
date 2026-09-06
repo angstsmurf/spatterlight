@@ -124,6 +124,11 @@ You take the gun.
 > load gun
 You put the bullets inside the gun.
 
+The dizziness overtakes you again, you put your hands against the Console for
+support.  Your breathing is labored.
+Staying upright is increasingly hard.
+[-00:56-]
+
 > shoot locker
 With a loud report the bullet grazes the lock causing it to swing.  Staring
 at it as it slows to a stop you take aim and fire again. This time it is a
@@ -144,11 +149,6 @@ You take the first aid kit from the locker.
 > open kit
 You open the first aid kit.  Among the usual things you would find in a first
 aid kit you notice a large bandage roll, a pair of scissors and a syringe.
-
-The pain in your head becomes over powering.  Gripping you neck with both
-hands, you lay on the floor in the fetal position until the pain becomes
-subsides.
-[-00:53-]
 
 > get scissors
 You take the pair of scissors from the first aid kit.
@@ -189,6 +189,8 @@ point pen are on the comunication console.
 
 > get all from console
 You take the code table and the ball point pen from the comunication console.
+Suddenly, you head spins and your knees weaken. You're thankful that you are
+not standing.
 
 > turn camera to camera 1
 You turn the dial to camera 1.  The screen flickers above you.
@@ -258,13 +260,13 @@ I repeat T Minus 43 minutes until Deadman Launch. Please respond.
 
 You continue to wait but there is no response.
 God, you wish someone would answer.
+
+> z
+Time passes...
+
+> z
+Time passes...
 A small rush fills you with pleasure.
-
-> z
-Time passes...
-
-> z
-Time passes...
 
 Suddenly your head begins to spin and the lights fades in and out, slowly at
 first, but soon working its way up to a frenzied strobe. Then darkness.
@@ -301,19 +303,19 @@ Time passes...
 
 > z
 Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
 A small rush fills you with pleasure.
-
-> z
-Time passes...
-
-> z
-Time passes...
-
-> z
-Time passes...
-
-> z
-Time passes...
 
 Suddenly your head begins to spin and the lights fades in and out, slowly at
 first, but soon working its way up to a frenzied strobe. Then darkness.
@@ -367,10 +369,6 @@ After a final flash of white. The darkness fades in.
 
 You awaken on the control room floor.
 
-> z
-Time passes...
-A small rush fills you with pleasure.
-
 A banging on the door startles you and you turn to stare at the cold steel.
 A muffled voice fills the quite room,
 Captain, let me in!, another pounding at the door.
@@ -400,13 +398,18 @@ Time passes...
 
 > z
 Time passes...
+A small rush fills you with pleasure.
+They're all dead, sir.
 
 > z
 Time passes...
-They're all dead, sir.
+
+> z
+Time passes...
 
 > stand
 You stand up.
+Captain, let me in! The pounding continues.
 
 > open door
 Slowly you unlatch the steel door and pull it open just a crack.  Not seeing
@@ -420,7 +423,6 @@ inside.
 
 > get axe
 You take the axe.
-A small rush fills you with pleasure.
 
 > chop off hand with axe
 With a wild swing the axe arcs down at the wrist of Capt. Mattingly.  You
@@ -433,6 +435,7 @@ You take the bloody hand.
 
 > put hand on green plate
 You put the bloody hand onto the green plate.
+A small rush fills you with pleasure.
 
 > place hand on green plate
 The green glass goes dark, them pulses with a soft pink light.  The words

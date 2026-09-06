@@ -168,10 +168,10 @@ Joe is tossing and turning.
 > wait
 Time passes...
 His breathing becomes slower and regular.
-It sounds as if Joe is asleep now.
 
 > stand up
 You stand up.
+It sounds as if Joe is asleep now.
 
 > take box
 You take the box.

@@ -54,10 +54,6 @@ roasted beetles hangs beside the King.
 > get key
 (You would like to have that key, indeed.  But the grotesque presence of the
 Silk King makes you hesitate.  If you don't first succeed...)
-Reclining in his harness, the King takes a pinch of roasted beetles from his
-tray, sprinkles the delicacy onto his outstretched tongue, and commences to
-chew noisily, his jowls quivering in salivary delight.  The movement reveals
-a glittering key at his throat, hanging from a thin chain.
 
 > get key
 (And the task of obtaining the key presents a severe problem of
@@ -71,6 +67,10 @@ to, little one?" he says warningly.  The somethings are tiny women, you
 realize, unclothed creatures traversing the grotesque geography of the Silk
 King.  You suddenly feel extremely vulnerable, hanging high above the
 promenade.  "Say hello to the little one, little ones."
+Reclining in his harness, the King takes a pinch of roasted beetles from his
+tray, sprinkles the delicacy onto his outstretched tongue, and commences to
+chew noisily, his jowls quivering in salivary delight.  The movement reveals
+a glittering key at his throat, hanging from a thin chain.
 
 > get key
 "You're not a paying customer!" the Silk King cries, clutching the key in a

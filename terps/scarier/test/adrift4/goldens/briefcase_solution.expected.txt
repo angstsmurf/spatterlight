@@ -88,10 +88,6 @@ Time passes...
 > z
 Time passes...
 
-> nw
-You take a few cautious steps along the corridor, but pause. There's no way
-you can get to the other end without disturbing the dog some way.
-
 A whine escapes the mouth of the dog - he seems to be bored with you now, and
 turns around to wander downstairs. You listen to his paw-steps padding down
 the stairs, and then let out the breath you've been holding. Now - back to
@@ -103,6 +99,9 @@ You follow the corridor around the corner.
 End of Corridor
 The corridor finishes at a closed wooden door, leading further north-west.
 Behind you, the corridor leads back to the south-east.
+
+> nw
+The door is closed.
 
 > pick lock
 You insert the pick into the keyhole, and it clicks into place. There is a

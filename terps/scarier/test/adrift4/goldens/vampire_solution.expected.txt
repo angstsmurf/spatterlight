@@ -140,6 +140,7 @@ this time of night, but a few cars  roars past you.  You look around, but
 can't see any bus stops or taxi cabs around. To the south is the Oslo Plaza
 back yard.
 You sense that you can not stay in your mist form for much longer.
+A green porche drives past you
 
 > change back
 You change back to your human form.

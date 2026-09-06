@@ -209,7 +209,7 @@ the north and the back bedroom is opposite.  You can just make out the
 bathroom to the east and you can go down to the hall.
 The small brown terrier is wandering around.
 
-The small brown terrier wandering around is growling at you.
+The small brown terrier wandering around is barking at you.
 
 > east
 You move east.
@@ -274,7 +274,7 @@ more terrible wallpaper and a very threadbare carpet. The main bedroom is to
 the north and the back bedroom is opposite.  You can just make out the
 bathroom to the east and you can go down to the hall.
 The small brown terrier is wandering around.  The small dog wanders out to
-below.
+the north.
 
 > down
 You move down.
@@ -285,9 +285,6 @@ the Hall.  The carpet looks worn and the stairs move as you stand on them.
 On the wall is a gold framed picture.
 
 You can see a pair of old trousers.
-The small brown terrier is wandering around.
-
-The small brown terrier wandering around is whimpering at you.
 
 > down
 You move down.
@@ -364,7 +361,7 @@ three shelf bookcase. You can only go north from here back to the landing.
 You can see a dirty handkerchief.
 The small brown terrier is wandering around.
 
-The small brown terrier wandering around is snarling at you.
+The small brown terrier wandering around is whimpering at you.
 
 > give bone to dog
 
@@ -448,7 +445,7 @@ The back garden is east.
 You can also see a bone.
 The small brown dog is here.
 
-The small brown terrier wandering around is whimpering at you.
+The small brown terrier wandering around is growling at you.
 You hear a door slamming shut.
 The dog has been digging a hole for its bone and has unearthed something - a
 single slipper and  your car keys!  The dog must have buried them.
@@ -456,7 +453,7 @@ single slipper and  your car keys!  The dog must have buried them.
 > open shed door
 You open the shed door.
 
-The small brown terrier wandering around is snarling at you.
+The small brown terrier wandering around is whimpering at you.
 
 > throw mouse
 You throw the toy mouse which goes into the shed.  The dog chases after the
@@ -536,7 +533,6 @@ The mug now contains hot black coffee.
 
 > drink coffee
 You drink the mug of coffee. You feel a little better.
-You can hear a dog howling.
 
 > east
 You move east.
@@ -550,6 +546,7 @@ see the lovely Lounge to the east and from the smell of it the kitchen is to
 the west.  Some stairs lead, well up.
 
 You can see a pair of boxer shorts.
+You can hear a dog howling.
 
 > open door
 You open the front door.

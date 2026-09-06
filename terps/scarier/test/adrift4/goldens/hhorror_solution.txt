@@ -2,19 +2,32 @@
 # https://www.adrift.co/files/games/hhorror.taf
 # 36 rooms, 7 NPCs, 125 tasks, 46 events, 14 variables.  Max score 155.
 #
+# ***  DERIVED, NOT WRITTEN -- REGENERATE IT, DO NOT EDIT IT  ***
+# `open door` on the Porch runs T0, whose twenty-one `ACT type=0 ... v2=1`
+# actions each move one object to a **random room of a room group**.  Every
+# key, tool and treasure in this game is therefore somewhere different in
+# every RNG thread, and a hand-written route is worth exactly one thread.  So
+# this file is generated:
+#     python3 harness/hhorror_solve.py 1 > goldens/hhorror_solution.txt
+# The solver replays the game after every command, reads the world out of the
+# trace stream (SCR_TRACE_OBJ, SCR_TRACE_JUDY, SCR_TRACE_VARS=health) and
+# re-orders the puzzle chain around wherever this seed's scatter put things.
+# Roughly one seed in four is solvable at all; seed 1 is, and reaches the
+# ceiling.  See the script's docstring for the rest.
+#
 # ***  BEST POSSIBLE IS 145/155 -- THE LAST 10 POINTS ARE AN AUTHOR BUG  ***
 # The nine treasures are scored by T101-T109, each `RESTR type=0` on its own
 # object with `v2=0` ("in room") and `v3=36` (room 35, "Home Free!") -- except
 # **T109, the bag of doubloons, which has `v3=0`**.  In `restr_object_in_place`
 # (screstrs.cpp) the `var3 == 0` arm of case 0/6 does not test a room at all:
-# it tests `position == OBJ_HIDDEN`.  The doubloons start hidden (OBJLOC
-# obj=11 pos=-1) and T81 (the zombie shot) moves them **onto** the corpse
-# (`ACT type=0 v1=14 v2=3 v3=1` = onto surface 0), so from the moment they
-# become obtainable they are no longer hidden and T109 can never pass.
-# Leaving them hidden -- i.e. never shooting the zombie -- does score the +10,
-# but forfeits T81's +20, so that trade is 10 points worse.  145 is the
-# ceiling, and this route reaches it.  Compare the +2 stranded behind an
-# EndGame action in `threemonkeys_solution.txt`.
+# it tests `position == OBJ_HIDDEN`.  The doubloons start hidden and T81 (the
+# zombie shot) moves them **onto** the corpse (`ACT type=0 v1=14 v2=3 v3=1` =
+# onto surface 0), so from the moment they become obtainable they are no
+# longer hidden and T109 can never pass.  Leaving them hidden -- i.e. never
+# shooting the zombie -- does score the +10, but forfeits T81's +20, so that
+# trade is 10 points worse.  145 is the ceiling, and this route reaches it.
+# Compare the +2 stranded behind an EndGame action in
+# `threemonkeys_solution.txt`.
 #
 # THE SCORE TABLE.  Sixteen `ACT type=4` in the file, and that is all of it:
 #   T21  give poisoned cheese to rats        room 13   +5
@@ -35,35 +48,35 @@
 # nine scoring tasks run on the turn AFTER `drive`; EVENT 43 [Delay] runs T120
 # `Finish` (the file's only `ACT type=6`, v1=0 = win) on that same turn.  So
 # the route needs one real turn after `drive` -- here a `wait`.
-# `score` and `i` are meta-commands and do NOT tick events, which is why the
-# `score` two lines before the end still reads 65: the +80 has not happened
-# yet and there is no turn left afterwards on which to print 145.
 # WINTEXT is non-empty, so `Congratulations!` is suppressed and the
 # transcript ends on the game's own text -- the harness marker.
 #
 # CAPACITY IS EXACTLY 10 OBJECTS.  The endgame inventory has to be the nine
-# treasures plus the torch, so every tool is dropped the moment it is spent:
-# hook (after `open hatch`), bible (after `bless water`), whistle (after the
-# bats), holy water (after the skeleton), plunger (after the toilet), iron key
-# and sledge hammer (in the Bathroom), and the blunderbuss the turn after it
-# is fired.
+# treasures plus the torch, so the solver drops every tool the moment it is
+# spent: the hook after `open hatch`, the bible after `bless water`, the
+# whistle after the bats, the holy water after the skeleton, the plunger after
+# the toilet, the iron key after the Wine Cellar door, the sledge hammer after
+# `break wall` and the blunderbuss after the shot.
 #
-# *** ORDER TRAP 1: THE GHOST ROBBERY, TURNS 5-8. ***
+# *** ORDER TRAP 1: THE GHOST ROBBERY, AND WHY THE ROUTE STARTS OUTDOORS. ***
 # T48 `GHOST MOVING STUFF` is `rep=0`, gated on `RESTR type=3 v1=6` (the ghost
 # is in the player's room) and its action is `ACT type=0 v1=0 v2=1 v3=1` --
 # move ALL HELD to a random room of group 1.  It fires exactly once, whenever
-# you first share a room with the wandering ghost, and it scatters your entire
-# inventory across the house.  This route walks straight to Hallway<4> (room
-# 21) carrying **nothing**, meets the ghost there on turn 7, and picks the
-# torch up off the floor afterwards.  Do this first or it will happen later,
-# at the worst moment, with a full pack.
+# you first share a room with the wandering ghost, so the route spends it
+# deliberately and immediately: `drop torch` on the Porch, then chase the
+# ghost empty-handed (JUDYTRACE npc=4) until "A strange chill fills the air.",
+# then walk back for the torch.  It has to be the Porch or another outdoor
+# room -- rooms 1-28 and 30 are dark without the torch (T94 and the room ALTs,
+# `hide=1`), and a dark room hides its objects from `take`, so a torch dropped
+# indoors can never be picked up again.
 #
 # *** ORDER TRAP 2: THE MOLOTOV HAS AN 8-TURN FUSE. ***
-# `light molotov` (Kitchen, room 9 -- the hob) starts EVENT 1, which runs T26
+# `light molotov` (the Kitchen hob, room 9) starts EVENT 1, which runs T26
 # `KILLED BY MOLOTOV` (a death) if you are still holding it when it expires.
 # The walk from the Kitchen to the Toy Room (9 -> 5 -> 4 -> 1 -> 15 -> 17) is
-# five moves, so `throw molotov` on the sixth turn is the whole margin.  Light
-# it only once the cloth-and-vodka cocktail is already made.
+# five moves, so `throw molotov` on the sixth turn is the whole margin.  The
+# solver lights it only once the cloth-and-vodka cocktail is already made and
+# walks straight there.
 #
 # *** ORDER TRAP 3: DO NOT WASTE THE LOADED BLUNDERBUSS. ***
 # `* fire * blunderbuss *` matches seven tasks.  T81 is the one worth +20 and
@@ -72,41 +85,53 @@
 #   T70 / T76  room 11 (Conservatory) -- NO NPC restriction at all, so firing
 #              anywhere in the Conservatory silently burns the shot;
 #   T77  room 13 while the rats live, T78  room 27 while the bats live --
-#              both shadow T81, so kill those two first (this route does);
+#              both shadow T81;
 #   T74 / T79 / T80  need T85/T86 `hit door with hammer`, never done here.
-# The zombie wanders a 48-step path.  This route meets it on the Landing
-# (room 15) on the way down from the Bathroom; if your run diverges, fire
-# wherever you next meet it -- anywhere except room 11.
+# So the solver shoots the zombie first, before anything else, and simply
+# refuses to fire in rooms 11, 13 and 27.
 #
-# *** ORDER TRAP 4: THE CONSERVATORY REFUSES TO GIVE UP THE HAMMER. ***
-# T35 blocks `take` in room 11 until T49 (`pour weedkiller on plant`) is done,
-# and it costs health to try.  The weedkiller is in the Laboratory, which is
-# behind the iron-locked Wine Cellar door, which is behind the rats.  So the
-# cheese chain gates the hammer, which gates `break wall`, which gates the
-# Hidden Room and its +20.
+# *** ORDER TRAP 4: HEALTH IS A FOUR-POINT BUDGET. ***
+# VAR 0 `health` starts at 4 and T97 `ARE YOU DEAD` ends the game the moment
+# it reaches 0.  Two things spend it.  T32-T35 answer *any* `take` in the Toy
+# Room, Bathroom, Attic and Conservatory with a mauling (-1) while the puppet,
+# the slime monster, the bats and the plant live -- which is also why an
+# object scattered into one of those rooms is out of reach until its guardian
+# is dead.  And T95 `ZOMBIE ATTACK`, run by NPC 6's walk whenever it catches
+# up with the player, costs another point whenever VAR 4 `luck` rolls 1.
+# Shooting the zombie does NOT stop this: NPC 6 has `stopTask=0`, so the
+# corpse keeps stumbling into you for the rest of the game.  The solver
+# therefore steers each step around the zombie's current room, and holds the
+# first aid kit (T124 `use kit` sets health back to 4, once) as its one spare
+# life.
 #
-# THE PUZZLE CHAIN, in dependency order:
-#   open door (Porch)                      -> seeds the whole house
-#   hook (Master 24) -> open hatch (21)    -> Attic 27
-#   cheese (Landing 15) + poison (Closet 25) -> poison cheese, which also
-#     yields THE BOTTLE -> rats (+5) and unblocks 13 -> 14
+# *** ORDER TRAP 5: THE CONSERVATORY REFUSES TO GIVE UP ANYTHING. ***
+# T35 blocks `take` in room 11 until T49 (`pour weedkiller on plant`) is done.
+# The weedkiller is behind the iron-locked Wine Cellar door, which is behind
+# the rats.  So the cheese chain gates the plant, which gates the Conservatory
+# and the Garden beyond it -- and if this seed scattered something needed
+# earlier into room 11, that seed is simply unsolvable.
+#
+# THE PUZZLE CHAIN, in dependency order (rooms are fixed, the objects are not):
+#   open door (Porch)                      -> scatters the whole house
+#   hook -> open hatch (21)                -> Attic 27
+#   cheese + poison -> poison cheese, which also yields THE BOTTLE
+#     -> give poisoned cheese to rats (13) (+5) and unblocks 13 -> 14
 #   bottle -> turn tap / fill bottle (Toilet 6) -> water
-#   bible (Games 16) -> bless water        -> holy water
-#   iron key (Veg Patch 33, reached only through the En Suite window and the
-#     Ledge: `open window` in room 26 opens 26 <-> 34)
-#     -> unlock door (Wine Cellar 13) -> Laboratory 14 (braclet, weedkiller)
-#   weedkiller -> plant (+5) -> sledge hammer, and opens 11 <-> 31 Garden
-#     -> Shed 32: dish cloth
-#   vodka (Music 2) + dish cloth -> use vodka with cloth -> cocktail
+#   bible -> bless water                   -> holy water
+#   iron key -> unlock door (Wine Cellar 13) -> Laboratory 14
+#   weedkiller -> pour weedkiller on plant (11) (+5), which opens 11 <-> 31
+#     Garden -> Shed 32 and Vegetable Patch 33
+#   vodka + dish cloth -> use vodka with cloth -> cocktail
 #     -> light molotov (Kitchen hob) -> throw molotov (Toy Room 17) (+5)
-#   whistle (Library 8) -> blow whistle (Attic 27) (+5)
-#   hammer -> break wall (Attic) -> Hidden Room 28: holy water on the
-#     skeleton (+20), and the bleach
+#   whistle -> blow whistle (Attic 27) (+5)
+#   sledge hammer -> break wall (Attic) -> Hidden Room 28: holy water on the
+#     skeleton (+20)
 #   bleach -> pour bleach on monster (from Hallway<3> 19) (+5) -> Bathroom 20
-#     -> unblock toilet with the plunger (Guest<2> 22) -> the gold bar
+#     -> unblock toilet with the plunger -> the gold bar
 #   say live (Lounge 3) -> the blunderbuss appears in the fireplace;
-#     ball (Games 16) -> put ball in blunderbuss -> the zombie (+20), whose
-#     corpse carries the bag of doubloons
+#     ball (on the snooker table, Games 16) -> put ball in blunderbuss
+#     -> fire blunderbuss at the zombie (+20), whose corpse carries the bag of
+#     doubloons
 #
 # THE MAP (from the EXIT table).  `*` = gated.
 #   29 Driveway -N- 0 Porch -N- 1 Entrance Hall
@@ -129,151 +154,236 @@
 #   24 Master: E->26 En Suite  W->25 Walk in Closet
 #   26 En Suite: N->34 Ledge *T3 (open window)
 #   27 Attic: S->28 Hidden Room *T6 break wall  D->21
-# The Study (10), the Hole (30) and the Attic itself hold nothing, so the
-# brass key, the shovel and `dig dirt` are all optional and are skipped.
-#
-# 144 commands, zero parser failures, zero wasted turns.
+# The Study (10) and the Hole (30) hold nothing at any seed, so the brass key,
+# the shovel and `dig dirt` are all optional and are skipped.
 n
 open door
+drop torch
+wait
+wait
+wait
+wait
 n
 u
 n
 n
-look
+n
+wait
+w
+wait
+wait
+e
+s
+s
+n
+w
+wait
+e
+s
+s
+d
+s
 take torch
 n
-take hook
-w
-take poison
-e
-e
-open window
 n
-d
-take iron key
-u
-s
-w
-s
-open hatch
-drop hook
-w
-take plunger
 e
+take kit
 s
-s
-take cheese
-poison cheese
-w
-take bible
-take ball
-e
-d
-e
 say live
 take blunderbuss
-put ball in blunderbuss
 w
-n
-w
-turn tap
-fill bottle
-bless water
-drop bible
-e
-n
-w
-take whistle
-e
-e
-d
-give poisoned cheese to rats
-unlock door
-s
-take braclet
-take weedkiller
-n
 u
 w
+take ball
+put ball in blunderbuss
+e
+fire blunderbuss
+drop blunderbuss
+take doubloons
+d
+n
+w
+take weedkiller
+e
+n
 n
 pour weedkiller on plant
-take hammer
-n
-w
-take dish cloth
+take hook
+use kit
+s
 e
 s
 s
-s
-s
 w
-take vodka
-use vodka with cloth
-e
-n
-n
-e
-light molotov
-w
-s
-s
 u
+n
+n
+open hatch
+drop hook
+s
+s
+d
+n
 e
-throw molotov
+n
+n
+take whistle
+s
+s
+s
 w
+u
 n
 n
 u
 blow whistle
 drop whistle
+d
+s
+s
+d
+n
+n
+take hammer
+s
+s
+u
+n
+n
+u
 break wall
+drop hammer
+take dish cloth
+d
+s
+s
+d
+n
+n
+n
+n
+w
+take vodka
+use vodka with cloth
+e
+s
+s
+e
+light molotov
+s
+s
+w
+u
+e
+throw molotov
+take poison
+w
+n
+n
+n
+w
+take cheese
+poison cheese
+e
+s
+s
+s
+d
+n
+w
+turn tap
+fill bottle
+e
+e
+s
+take bible
+bless water
+drop bible
+w
+w
+take iron key
+e
+n
+n
+e
+d
+give poisoned cheese to rats
+unlock door
+drop iron key
+u
+s
+s
+w
+u
+n
+n
+u
 s
 pour holy water on skeleton
 drop holy water
-take bleach
 n
 d
 s
+s
+d
+n
+n
+e
+take bleach
+s
+s
+w
+u
+n
 pour bleach on monster
+s
+d
+n
+n
+e
+d
+take plunger
+u
+s
+s
+w
+u
+n
 e
 unblock toilet
 drop plunger
 take gold bar
-take emerald ring
-drop iron key
-drop hammer
-n
-w
-w
-take necklace
-e
-n
-e
 take money
-w
-s
-s
-s
-fire blunderbuss
-drop blunderbuss
-take doubloons
-d
-w
-take ring
-e
 n
-n
+w
 w
 take candlestick
 e
+n
 e
 take deed
+take braclet
 w
 s
 s
 s
+d
+n
+n
+w
+take diamond ring
+e
+e
+take necklace
+d
 s
-score
-i
+take emerald ring
+n
+u
+s
+s
+w
+s
+s
 drive
 wait

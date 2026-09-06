@@ -14,7 +14,7 @@ things moving just beyond the edges of your vision. A desk sits against one
 wall. A single window looks out onto the night. The study door is to the
 east.
 
-Wilkens frowns and sighs.
+Wilkens appears to study the flames in the fire.
 
 > ask wilkens about thorn
 "The Glastonbury Thorn is quite interesting. Supposedly, it blooms only at

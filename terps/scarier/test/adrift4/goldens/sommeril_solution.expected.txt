@@ -128,8 +128,6 @@ east side of this block you can hear the hammering of metal against metal,
 coming from a roofed open area under a large tree.
 
 You can move north, south and in.
- Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
-distance, but he disappears into the swirling fog.
 
 > n
 You move north.
@@ -204,6 +202,9 @@ me proud because my dad is a quiet man of few words and had never said
 anything like that to
 me before".
 
+ Somewhere in the distance, you can hear the low, flat toll of a bell. It
+sounds strangely warped and slow.
+
 > n
 You move north.
 
@@ -218,6 +219,8 @@ A large glass EYEBALL the size of a volkswagen is suspended from a dead tree
 by a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
+A line of tiny naked mice, each with a perfectly formed human ear growing on
+its back, runs across the street a few feet ahead of you.
 
 > sw
 You move southwest.
@@ -236,6 +239,8 @@ You can move south, in and northeast.
 You place the orb on the gargoyle's small perch and it exclaims
 "For me? Thank you! Now I can move about freely. I can go HOME!" The gargoyle
 flexes his wings and flies off like a bird from a roost.
+ Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
+distance, but he disappears into the swirling fog.
 
 > s
 You move south.
@@ -250,8 +255,6 @@ A sign over the door reads "Grave Little Tailor".
 no notice of you.
 
 You can move north, south and in.
-A line of tiny naked mice, each with a perfectly formed human ear growing on
-its back, runs across the street a few feet ahead of you.
 
 > s
 You move south.
@@ -263,8 +266,6 @@ stand almost frozen in place, offering you TRAYS of their WARES...The
 BUTCHER, the BAKER, the CANDLESTICK MAKER - Their heads are featureless.
 
 You can move north and south.
- Somewhere in the distance, you can hear the low, flat toll of a bell. It
-sounds strangely warped and slow.
 
 > s
 You move south.
@@ -303,9 +304,6 @@ sheet of paper. Then
 the orderly proceeded to flatten out the old man and use him like a paper
 towel to mop up the
 puddle on the floor. The smell of the urine burned my nostrils..."
-
- Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
-distance, but he disappears into the swirling fog.
 
 > se
 You move southeast.
@@ -392,6 +390,8 @@ A TIN CAN and a WHEEL are inside the GUTTER.
 
 > get wheel
 You take the WHEEL from the GUTTER.
+ Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
+distance, but he disappears into the swirling fog.
 
 > n
 You move north.
@@ -560,6 +560,8 @@ Among other discarded objects, yellowed paper trash and a several empty TIN
 CANS litter the GUTTER.
 
 You can move north and south.
+A line of tiny naked mice, each with a perfectly formed human ear growing on
+its back, runs across the street a few feet ahead of you.
 
 > s
 You move south.
@@ -571,8 +573,6 @@ your left, a building with a sign over the door reads "Town Crier" in Gothic
 letters.
 
 You can move north, south and in.
-A line of tiny naked mice, each with a perfectly formed human ear growing on
-its back, runs across the street a few feet ahead of you.
 
 > in
 You move in.
@@ -671,6 +671,8 @@ east side of this block you can hear the hammering of metal against metal,
 coming from a roofed open area under a large tree.
 
 You can move north, south and in.
+ Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
+distance, but he disappears into the swirling fog.
 
 > in
 You move in.

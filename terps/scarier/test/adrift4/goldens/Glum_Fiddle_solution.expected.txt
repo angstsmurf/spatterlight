@@ -21,32 +21,6 @@ paint.
 
 An Irish Wolfhound is by the tiny gatehouse
 
-> say cow
-
-'A cow.' You say.
-
-'Is that your final answer?'
-
-'Well, yes.' You think hard if there is some kind of a trick, but it does
-seem ridiculously easy.
-
-'Second question.' The dog pauses, looks down as if to gather strength, and
-says, 'What kind of witch lives on the beach?'
-
-You think. Hard.
-
-> say sandwich
-
-'A sandwich!' you exclaim triumphantly.
-
-'Very good for you. You are a very intellegent organism.' The dog sits down
-heavily. 'Last question:
-
-Mary had a little lamb,
-A little bread and a little jam,
-A little pie and a little cake,
-Then Mary had a stomach... what?
-
 The dog stands up, wagging his tail slowly, and walks into the path in front
 of you. He carefully takes a sturdy wide-legged stance. You consider patting
 him, but don't.
@@ -90,6 +64,32 @@ Press any key
 
 'What' asks the dog, 'Goes 'moo', produces milk, and eats grass?'
 (use format 'say ...')
+
+> say cow
+
+'A cow.' You say.
+
+'Is that your final answer?'
+
+'Well, yes.' You think hard if there is some kind of a trick, but it does
+seem ridiculously easy.
+
+'Second question.' The dog pauses, looks down as if to gather strength, and
+says, 'What kind of witch lives on the beach?'
+
+You think. Hard.
+
+> say sandwich
+
+'A sandwich!' you exclaim triumphantly.
+
+'Very good for you. You are a very intellegent organism.' The dog sits down
+heavily. 'Last question:
+
+Mary had a little lamb,
+A little bread and a little jam,
+A little pie and a little cake,
+Then Mary had a stomach... what?
 
 > say ache
 
@@ -212,8 +212,10 @@ large ring of stones encloses a smoldering fire.
 There's a pigsty to the north, a briar patch to the east, a patch of forest
 to the southeast, and a swamp to the south. The cave entrance is to the west.
 
-Glum, standing nearby, seems to be having a bright idea, face lighting up,
-finger in mid-air. But then it goes away, and he frowns.
+Glum is here, and looks up as you come near.'Little person - what are you
+doing here, again? I'm afraid I've completely forgotten.'
+
+He doesn't seem to require an answer, being distracted by his fingernails.
 
 As you and Glum face each other over the pile of boulders, he gives a mild
 grin and flourishes an arm. 'Please, sit in my parlor!' He exclaims, loudly
@@ -325,8 +327,8 @@ you can see of it between stands of some kind of swamp bush.
 The pile of boulders is visible to the north, and a stand of trees is to the
 east.
 
-Glum Fiddle is here, fiddling with his housecoat, under which he wears
-nothing.
+The giant, Glum Fiddle, stands nearby staring ponderingly into space,
+housecoat billowing in the breeze.
 
 > take slime in teapot
 You scoop up some slime from the marsh with the teapot.
@@ -537,6 +539,9 @@ Time passes...
 > wait
 Time passes...
 
+> wait
+Time passes...
+
 You take a quick peek in the direction from which Glum is coming, and see the
 top of his carroty head coming over the rise.
 
@@ -549,9 +554,6 @@ You hear a great roar as Glum, silly enough to step on the cracked plank
 instead of simply stepping over the chasm, falls into it's unknown depths.
 His continued roaring tells you he hasn't exactly died. He may not stay down
 there long.
-
-> wait
-Time passes...
 
 > wait
 Time passes...

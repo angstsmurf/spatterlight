@@ -387,8 +387,8 @@ Yon mysterious voice echoeth from somewhence.  "Beware of ye goblin!"
 Yon fountain doth bubble forth with ye waters of some effervescence.  Ye
 bottled boat is inside yon fountain.  Goblin Bob boundeth in from ye east.
 
-Ere ye can reacteth, ye goblin stunneth ye with yon flick-in-ye-nose, and
-stealeth ye intercontinental title from ye treasure sack!
+Ye goblin doth leapeth out at ye & snatcheth yon gem of some sort from ye
+treasure sack!
 
 It retreateth thereafter to some mysterious location, giggling uproariously
 to yonself.
@@ -564,9 +564,6 @@ rewarded with yon resounding click!
 Ye hath unlocked ye trapdoor!  It swingeth merrily open, allowing ye passage
 downwards.  Goblin Bob boundeth in from ye west.
 
-Ye goblin tryeth to burp out ye ABC's.  It doth not getteth very far before
-it noticeth ye are not paying attention.
-
 > d
 Ye moveth down.
 
@@ -579,29 +576,23 @@ may moveth upward.
 
 > x object
 It consisteth of several & various appendages blanketed with zounds of
-intricacies.  Goblin Bob boundeth in from above.
+intricacies.
 
 > x appendage
 They looketh astoundingly army.  There dangleth from ye appendages yon
 doodads.  Lo, one of ye appendages seemeth not to be any olde appendage, but
 a movable.  Another doth appear to groweth yon fruit of some kind.
 
-Ye goblin picketh its nose, but findeth nothing interesting.
-
 > x doodad
 Ineffable little buggers.  When ye squinteth, ye noticeth they doth sporteth
-yon novelties and ye glongenfrilschafible.  Goblin Bob hoppeth weirdly o'er
-to above.
+yon novelties and ye glongenfrilschafible.
 
 > x novelty
 Undoubtedly from ye olde castle gifte shoppe, which ye cannot wait to
 discovereth.  Ye bottle opener is on ye novelties.
 
 > get opener
-Ye taketh ye bottle opener from ye novelties.  Goblin Bob boundeth in from
-above.
-
-Ye goblin laugheth at ye for no apparent reason.
+Ye taketh ye bottle opener from ye novelties.
 
 > open bottle
 Ye openeth yon bottle with ye proper utensil, and out poppeth ye magic boat.
@@ -610,12 +601,6 @@ ye shoulder & it disappeareth.
 
 Verily, ye hath practiced that trick for some amount of time!  (See Puzzle
 Footnote 4)
-
-Ye goblin doth leapeth out at ye & snatcheth yon gem of some sort from ye
-treasure sack!
-
-It retreateth thereafter to some mysterious location, giggling uproariously
-to yonself.
 
 > get fruit
 Ye plucketh yon fruit from ye object.  Curious!  Another immediately groweth
@@ -980,6 +965,8 @@ ye marketry.  Ye baked goods come from ye oven of yon bakermen (& not from ye
 automated machine types), and be it known that ye sweat and joy of yon bakers
 infuseth ye breadstuffs with ye selfsame or some such.  To ye east is ye
 fountain room, and to ye delight of ye sweet tooth, ye cakery is to ye north.
+Also, ye goblin doth pranceth about in yon area.  Goblin Bob hoppeth weirdly
+o'er to ye east.
 
 > n
 Ye moveth north.
@@ -1060,7 +1047,7 @@ item" whilst in ye makery.
 > get fred
 Ye taketh yon melting wand.
 
-"We'll show the wooooorld what we're made of!" sayeth Fred.
+"Lemme at 'em!" sayeth Fred.
 
 > e
 Ye moveth east.
@@ -1089,8 +1076,6 @@ all dangerously at ye.  Ye entrance to ye rakery is to ye east, whilst
 another corridor leadeth ye north toward yon room which stinketh of ye goblin
 things.  Ye thinketh ye'll not be able to maketh yon northway until ye doth
 something to riddeth ye room of yon snake problem.
-Also, ye goblin doth pranceth about in yon area.  Goblin Bob hoppeth weirdly
-o'er to ye east.
 
 > sleep snakes
 Ye sprinkleth yon sleeping powders onto ye possibly poisonous serpents all
@@ -1109,14 +1094,11 @@ cometh ye faint, incessant ticking and ringing from beyond yon ironish door.
 
 > x trunk
 Yon trunkle appeareth to be of goblin construction (for, verily, it looketh
-pretty goblin-y).  'Tis open.  Ye intercontinental title and yon gem of some
-sort are inside yon takery trunkle.
+pretty goblin-y).  'Tis open.  Yon gem of some sort is inside yon takery
+trunkle.
 
 > get title
-Ye taketh ye intercontinental title from yon takery trunkle.
-Ye feeleth compleat again as ye returneth it to ye treasure sack.
-
-HUZZAH!  Ye hath reclaimed some treasure.
+Taketh what?
 
 > get gem
 Ye taketh yon gem of some sort from yon takery trunkle.
@@ -1152,8 +1134,7 @@ Ye Quakery
 Ye more or less standeth in ye olde quarry-like area with unquiet grounds.
 Lo, ye ages-old makery standeth to ye west & ye can also passeth to ye south
 toward a shed of some sort.
-Also, ye goblin doth pranceth about in yon area.  Ye olde man Hamish standeth
-here quite tremblingishly.  Goblin Bob hoppeth weirdly o'er to ye west.
+Ye olde man Hamish standeth here quite tremblingishly.
 
 > x hamish
 Ye olde man looketh a bit shaky.  Hamish is wearing ye magical spectacles.
@@ -1171,8 +1152,6 @@ maketh of many magical objecteries and other relique-type thingamabobs.  Ye
 supposeth ye could do ye same if ye typeth make item and presseth return.  Ye
 senseth some seismic disturbances to ye east, and surmiseth that direction
 must leadeth to ye quakery.
-Also, ye goblin doth pranceth about in yon area.  Goblin Bob hoppeth weirdly
-o'er to ye east.
 
 > s
 Ye set sail across ye lake in ye magic boat.
@@ -1214,6 +1193,8 @@ cake to e'er possibly consumeth of it all.  To ye south of ye cakery lieth ye
 more mundane bakery and to ye east is ye dakery.
 
 There is an enormous cake here.
+Also, ye goblin doth pranceth about in yon area.  Goblin Bob hoppeth weirdly
+o'er to ye east.
 
 > s
 Ye moveth south.

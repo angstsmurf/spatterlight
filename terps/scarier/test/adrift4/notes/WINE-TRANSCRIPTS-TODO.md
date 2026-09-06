@@ -1989,9 +1989,19 @@ follow-up on rows that have been driven, in this order:
    `datewithdeath` wants the `[MORE]` counted.  The other 13 batch-2 rows
    lost their commands *after the game ended* and will not improve with a
    better feed.
-9. **`scandal`** -- run400 kills the player at feed[1] and scores 0/0 where
-   scarier plays the walkthrough out.  It reads as a lost-command row but it
-   is the sharpest whole-game divergence in the batch.
+9. **`scandal`** -- SETTLED 2026-09-06, and it was an engine bug, not a lost
+   command.  run400 kills the player at feed[1] and scores 0/0 where scarier
+   played the walkthrough out because `Scandal.taf`'s opening battle turn is
+   the session's very first `scr_randomint` (the game has no events, so
+   nothing draws at load), and the first draw after `scr_reseed_random_sequence`
+   was pinned to the top half of every range for every seed below 127774:
+   `rand_state = seed*16807 + 2147483647` lands in `[2^31, 2^32)`, so the
+   `(rand * range) >> 31` mapping could only pick the upper half.  The
+   sailor's `random(0,1)` therefore never came up "she fires" -- 200 seeds,
+   200 veer-offs -- while run400 fires about half the time.  Fixed by one
+   warm-up step in the reseed branch of `scr_congruential_rand`; turn 1 is now
+   99/101 over 200 seeds.  See [[scarier-randomint-lowbit-fix]] for the
+   corpus fallout (every seeded transcript re-threaded).
 Before chasing any diff count in this file, check that it was produced after
 the 2026-09-06 alignment fixes (tool fixes 4 and 5 above).  Sixty of the
 batch-2 rows and five of batch 1's changed verdict on fix 4, six and two more

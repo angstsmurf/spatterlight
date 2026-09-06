@@ -562,8 +562,7 @@ complaints.
 
 Waterfall has entered before you and cleared out any flames.
 
-A spurt of water from Waterfall hits you. She apologises, saying, "Oops.
-Well, at least you do need to cool down, with the fire in here."
+Waterfall searches the area to make sure no flames are sneaking in.
 
 > w
 You move west.
@@ -662,7 +661,8 @@ objects.
 
 Waterfall has entered before you and cleared out any flames.
 
-Waterfall sprays some more water to dampen down the area.
+You try to thank Waterfall for her help, but she just tells you that it is
+fine, but please hurry up.
 
 > n
 You move north.
@@ -3038,7 +3038,7 @@ easier and quicker though. The exit to the lift is to the west.
 
 The imp continues to follow you.
 
-The imp laughs for some unknown reason.
+The imp says, "I reckon you don't have a clue what you are doing."
 
 > u
 You push the up button, and the lift moves to the top floor.
@@ -3111,8 +3111,6 @@ views. The hallway leads to the south.
 
 The imp continues to follow you.  The clay dog follows you from the south.
 
-The imp laughs for some unknown reason.
-
 > d
 The clay dog cannot climb the ladder.
 
@@ -3128,6 +3126,9 @@ that way for the time being. This room is a little damp from the water that
 flooded in when you entered this room through that door earlier.
 
 The imp continues to follow you.
+
+The imp pulls a face at you and with its Mould powers, it isn't a pleasant
+face.
 
 > d
 You move down.
@@ -3200,9 +3201,6 @@ easier and quicker though. The exit to the lift is to the west.
 
 The imp continues to follow you.
 
-The imp reverts into a hand and crashes to the ground. It soon turns back
-into its normal form and flies back up.
-
 > w
 You move west.
 
@@ -3223,6 +3221,8 @@ A closed door leads to the north. Next to the door is a red button labelled
 EMERGENCY OPEN.
 
 The imp continues to follow you.
+
+The imp laughs for some unknown reason.
 
 > mould
 What do you want to turn into?

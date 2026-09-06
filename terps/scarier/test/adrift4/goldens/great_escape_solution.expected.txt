@@ -201,15 +201,15 @@ at this point without at least a pair of well-washed trousers.
 Also here is the letter.
 First Thug and Second Thug are here.  Two enormous men crash through your
 door. They both look quite dangerous
-
-> converse with thugs
-You try to strike up a conversation between yourselves and the thugs but
-unfortunately they only seem interested in getting their hands on your money.
 The men catch you and grab you. The first one shouts at you "You owe Mr
 Malloney some friggin' money!" You try to splutter a reply but they smash
 your head against the wall before you can react. Lying on the floor you
 manage to say "I'll get the money straight away." The second thug says "You'd
 better, otherwise we're gonna bury you!" You quickly scramble to your feet.
+
+> converse with thugs
+You try to strike up a conversation between yourselves and the thugs but
+unfortunately they only seem interested in getting their hands on your money.
 
 > shoot thugs
 You shoot at the thugs with your Sparkomatic 500. They fall over unconscious
@@ -878,7 +878,7 @@ sound of the crash, however, was louder than you had hoped for and alerts
 several people in the street outside. You may not have much time to make good
 your escape.
 A distant siren sounds...
-The siren is getting much closer...
+The siren grows steadily louder...
 
 > drive
 You turn the key and start the car. You speed off, a sense of speed and
@@ -889,6 +889,7 @@ these things generally turn out. You must think fast in order to avoid
 capture. There is a long winding road with two turnings, you have the choice
 of either turning left or right.
 From behind you hear the sirens of the advancing police cars.
+The police cars are getting much closer...
 
 > turn left
 You turn left onto a small, winding road. You look ahead and your heart
@@ -897,6 +898,7 @@ sharply. The police car however is some way behind. You realise that there
 might be a way out of here. However time is ticking...
 The sirens that have dogged you over the last few miles are still audible in
 the distance.
+The sirens seem to get closer...
 
 > turn on radio
 You switch the radio onto Radio Piddlington. 'Accelerator' by Primal Scream
@@ -911,7 +913,6 @@ on! Hit the Accelerator! Hit the Accelerator!"
 > exit car
 You jump out of the car quickly and into the lane. Your heart is beating fast
 as you know that there isn't much time.
-The sirens seem to get closer...
 
 > w
 You move west.
@@ -927,6 +928,7 @@ can definitely hear it, and it's getting closer...
 You level the stun-gun at the innocent shephard and fire. He slumps to the
 floor unconscious. The sheep instictively begin going off in all directions,
 a few choosing to gnaw at the slumbering shephard's face.
+The sirens are getting louder and louder...
 
 > n
 You move north.
@@ -943,7 +945,6 @@ chase is over, but maybe you could still get away with it...
 
 > score
 Your score is 1360 out of a maximum of 1860.  (73%)
-The sirens are getting louder and louder...
 
 > hide
 As the sirens draw closer you hide yourself in the long grass of the field.

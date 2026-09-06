@@ -83,6 +83,8 @@ You can only move west.
 > change a dollar into cents
 You ask the store owner for some change. The owner agrees. You hand the owner
 a dollar coin and they give you 100 cents. You have $499 and 100 cents.
+Harthro scoops everything from the dirty dish rack into the sink of dirty
+dishes.
 
 > buy a coffee
 You holler out for a coffee in the loud, rambunctious tavern. Harthro hears
@@ -95,7 +97,6 @@ You take a mug of coffee from the bar.
 > gulp the coffee
 You tip the cup back and take a medium-sized gulp of the coffee. There is 85
 percent of the coffee left.
-Harthro booms, "Where's all the dirty dishes? C'mon! They gotta get cleaned!"
 
 > buy a steak
 You yell out to Harthro that you'd like to order his best steak for 8
@@ -320,7 +321,6 @@ Bandit hits you.
 
 > attack bandit
 You chop Bandit with the hunting sword.
-Bandit hits you.
 
 > attack bandit
 You chop Bandit with the hunting sword.
@@ -328,6 +328,7 @@ Bandit hits you.
 
 > attack bandit
 You chop Bandit with the hunting sword.
+Bandit hits you.
 
 > attack bandit
 You chop Bandit with the hunting sword.
@@ -336,10 +337,9 @@ Bandit hits you.
 > attack bandit
 You chop Bandit with the hunting sword.
 You kill the vile bandit! Hopefully he was carrying a lot of money.
-You have 12 hours left of your stay at Gralle's Inn.
 
 > search for money
-You search the dead body for some money. You now have $459 and 68 cents.
+You search the dead body for some money. You now have $723 and 137 cents.
 
 > n
 You move north.
@@ -453,7 +453,7 @@ he owes you and hands it to you.
 
 > wealth
 Money Status:                                                             You
-have $959.                                             You have ¢68.
+have $1223.                                             You have ¢137.
 
 > learn stealth from ormulus
 Ormulus says, "Great! After I teach you the basics, you'll be a terrific
@@ -463,8 +463,8 @@ methods of approach, and attack styles. "Something to keep in mind... when
 you're in stealth, you become tired. This means you can only stay in steath
 position for a limited amount of time."
  When he's finished, you pay him the requested amount, $800. You now know
-STEALTH! (Hint: type 'go stealth' to engage in stealth mode). You have $159
-and 68 cents.
+STEALTH! (Hint: type 'go stealth' to engage in stealth mode). You have $423
+and 137 cents.
 
 > go stealth
 You remember what Ormulus told you as you crouch and use stealth movements.
@@ -482,14 +482,14 @@ Agility:        0-0           0           0
 
 > stats
 These are your stats:
-Wealth: $159, and 68 cents.
+Wealth: $423, and 137 cents.
 Number of turns passed: 58
 
 For Stamina, Strength, and Defense values, type status.
 
 > wealth
 Money Status:                                                             You
-have $159.                                             You have ¢68.
+have $423.                                             You have ¢137.
 
 > quit
 Do you really want to quit? [Y/N]

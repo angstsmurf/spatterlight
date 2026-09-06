@@ -36,6 +36,11 @@
  *   SCR_TRACE_JUDY   per-turn one-line dump of every NPC's current room, for
  *                   pinning down a wandering NPC's deterministic walk.
  *
+ *   SCR_TRACE_OBJ    per-turn dump of object positions and states, either every
+ *                   object ("1"/"all") or a comma-separated index list.  The
+ *                   companion to SCR_DUMP_OBJLOC for games that move objects
+ *                   about at run time.
+ *
  *   SCR_TRACE_VARS   per-turn dump of the game's own named integer variables,
  *                   either all of them ("1"/"all") or a comma-separated
  *                   subset.  For games whose timers, NPC moods and progress
@@ -1182,18 +1187,50 @@ scr_dump_npc_trace (scr_gameref_t game)
   /* SCR_TRACE_PLAYER: just the player's room each turn (maze-mapping aid). */
   if (trace_player)
     {
-      fprintf (stderr, "PLAYERROOM room=%ld stamina=%ld",
+      fprintf (stderr, "PLAYERROOM room=%ld stamina=%ld\n",
                gs_playerroom (game), game->playerstamina);
-      {
-        const scr_char *ov = trace_obj;
-        if (ov)
-          {
-            scr_int oi = atol (ov);
-            fprintf (stderr, " obj%ld_pos=%ld state=%ld", oi,
-                     gs_object_position (game, oi), gs_object_state (game, oi));
-          }
-      }
-      fprintf (stderr, "\n");
+      fflush (stderr);
+    }
+
+  /*
+   * SCR_TRACE_OBJ: per-turn position and state of the objects named by a
+   * comma-separated index list, or of every object for "1"/"all".  Games that
+   * scatter their objects to random rooms at run time (House Of Horror opens
+   * its front door and re-rolls twenty of them) cannot be routed from the
+   * static OBJLOC dump at all; this is where the objects actually are.
+   */
+  if (trace_obj)
+    {
+      scr_bool all = (strcmp (trace_obj, "1") == 0
+                      || strcmp (trace_obj, "all") == 0);
+      scr_int count = gs_object_count (game), object;
+
+      for (object = 0; object < count; object++)
+        {
+          if (!all)
+            {
+              const scr_char *scan = trace_obj;
+              scr_bool wanted = FALSE;
+
+              /* Match `object` against one entry of the comma-separated list. */
+              while (scan && *scan)
+                {
+                  if (atol (scan) == object)
+                    {
+                      wanted = TRUE;
+                      break;
+                    }
+                  scan = strchr (scan, ',');
+                  if (scan)
+                    scan++;
+                }
+              if (!wanted)
+                continue;
+            }
+          fprintf (stderr, "OBJTRACE obj=%ld pos=%ld state=%ld\n", object,
+                   gs_object_position (game, object),
+                   gs_object_state (game, object));
+        }
       fflush (stderr);
     }
 

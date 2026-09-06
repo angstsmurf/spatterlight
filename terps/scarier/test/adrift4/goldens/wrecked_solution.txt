@@ -1,3 +1,9 @@
+# The Ambersville/Redstown train runs on a randomised event, so the three
+# `wait` blocks below are seed-dependent -- they are exactly long enough to
+# stand on the platform until "The train pulls in to a stop at ..." before
+# boarding or stepping off.  Re-tuned 2026-09-06 for SCR_SEED=106 after the
+# first-draw RNG pin was fixed (the old blocks over-waited by two turns and
+# the route rode straight past Redstown).
 look
 x shelter
 x graffiti
@@ -187,8 +193,6 @@ south
 south
 west
 west
-wait
-wait
 wait
 wait
 wait

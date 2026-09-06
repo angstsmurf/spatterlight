@@ -27,6 +27,8 @@ street.
 You open your closet.  Pair of socks and dirty laundry are inside your
 closet.
 
+Your feet are freezing!  Put some socks on!
+
 > get socks
 You take pair of socks from your closet.
 

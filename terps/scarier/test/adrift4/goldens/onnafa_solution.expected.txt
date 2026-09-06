@@ -106,6 +106,8 @@ at least upright.
 Exits lie: north, south, west and up
 
 Stimmons your bodyguard and Doris the maid are here.
+   "Aah, me arm, me arm!" Doris wails. When no one pays her much attention,
+she wails a bit louder.
 
 > talk to stimmons
    "An honour to serve, sir," remarks Stimmons and gives you a proud salute.

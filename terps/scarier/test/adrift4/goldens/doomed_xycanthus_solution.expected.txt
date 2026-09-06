@@ -56,7 +56,7 @@ surroundings.
 > x gem
 The gem is covered with a spiderweb of cracks. It must have struck a rock
 when you fell. However, beneath the cracks you can make out what appears to
-be a red  eye  The eye glares with malevolence.
+be a red  eye  The eye seems to squint, angrily.
 
 > x note
 The square of parchment bears a message penned in some strange ink which

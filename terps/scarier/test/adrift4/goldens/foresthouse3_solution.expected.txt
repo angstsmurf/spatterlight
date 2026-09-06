@@ -469,13 +469,7 @@ you. You immediately whirl to push at it but to no avail.
 Descent
 As you descend this brick staircase, you can feel the heat intensifying,
 coming from below.
-
-> d
-You continue to descend the stairs...
-You sense a dark presence nearby.
-
-> d
-You continue to descend the stairs...
+Heavy breathing comes from behind you.
 
 > d
 You continue to descend the stairs...
@@ -491,7 +485,13 @@ You continue to descend the stairs...
 
 > d
 You continue to descend the stairs...
-You sense a dark presence nearby.
+
+> d
+You continue to descend the stairs...
+Heavy breathing comes from behind you.
+
+> d
+You continue to descend the stairs...
 
 > d
 You continue to descend the stairs...
@@ -505,6 +505,7 @@ You move down.
 Underground
 This small cavern houses an enormous, old-fashioned furnace with a metal
 grating over it. Fire burns from the furnace, lighting and heating the area.
+A glimmer of motion catches the corner of your eye.
 
 > u
 You turn to go up the stairs but a solid wall has replaced them. Before the
@@ -519,7 +520,6 @@ head. It roars and lunges at you, but you dodge the attack.
 You circle around the beast. It looks ready to lunge. Just as it does, you
 dig a fist into its stomach - or where you think its stomach would be - and
 it slides into the far wall.
-For a moment you think you saw a shadow move.
 
 > attack beast
 You throw a kick at the beast's face but it latches its fangs onto your leg.
@@ -534,6 +534,7 @@ You shove the beast and it trips backward. It tries to brace itself but its
 arm falls into the furnace, igniting as it touches the coals. Slowly the
 entire beast is consumed in flames. When the fire has gone, the furnace is no
 longer lit.
+A glimmer of motion catches the corner of your eye.
 
 > get key
 You take the key from the furnace.
@@ -553,12 +554,12 @@ The walls and floor have been replaced with dark red brick and black cement.
 You can barely see anything, even with your flashlight, as if the walls are
 absorbing the light. A steel door is set sturdily into the eastern wall, but
 it lies open, beckoning...
-For a moment you think you saw a shadow move.
 
 > u
 You move up.
 
 Living Room
+For a moment you think you saw a shadow move.
 
 > s
 You move south.
@@ -580,7 +581,6 @@ go east to the dining room or up to the upper hall.
 
 > unlock door with key
 You unlock the front door with the key.
-Heavy breathing comes from behind you.
 
 > open door
 You open the front door.

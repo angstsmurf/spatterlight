@@ -50,9 +50,9 @@ You move out.
 The Footpath
 You are standing on the footpath. It is very busy here. To the west of you is
 the Imperial Agency building, where the bomb is supposed to be planted.  A
-bus stops in the boss zone and waits for people to board it.  A man in a
-hurry runs into you. He gives you a cold stare then walks off . There is a
-manhole here which leads in the sewers.
+ambulance with its sirens blazing zooms through a red light.  A man walks out
+of the Imperial Agency building to the west of you. There is a manhole here
+which leads in the sewers.
 
 You can move west and in.
 
@@ -246,9 +246,9 @@ You move east.
 The Footpath
 You are standing on the footpath. It is very busy here. To the west of you is
 the Imperial Agency building, where the bomb is supposed to be planted.  A
-taxi stops and picks up a young woman, then drives off.  An old man walks
-down the footpath and trips over, nearly losing balance. There is a manhole
-here which leads in the sewers.
+taxi stops and picks up a young woman, then drives off.  A lady turns into
+the Imperial Agency building to the west of you. There is a manhole here
+which leads in the sewers.
 
 You can move west, down and in.
 

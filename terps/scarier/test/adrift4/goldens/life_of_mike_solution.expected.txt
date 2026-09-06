@@ -316,11 +316,11 @@ you place a max bid of $300.00 on the Brass Balls.
 
 > wait
 Time passes...
+You Hear your computer say "You have mail" go to computer and type "read new
+mail"
 
 > wait
 Time passes...
-You Hear your computer say "You have mail" go to computer and type "read new
-mail"
 
 > read new mail
 You read your email... From: eBay To:Knukls82@aol.com Subject:eBay End of

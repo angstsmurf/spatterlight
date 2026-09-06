@@ -35,7 +35,7 @@ You take a pair of jeans from the dresser.
 > wear jeans
 OK, you're now wearing the jeans. They are a little snug but seem to fit for
 now.  The pair of jeans has four pockets you can put small items in.  Kitty
-saunters in from the west.
+slinks in from the west.
 
 > open closet
 You open the closet.  A shirt is inside the closet.
@@ -56,7 +56,7 @@ Outside Bedrooms
 This is a long, white-tiled hallway lined with photographs. The guest room is
 to the east, David's room is to the north-east, a bathroom is to the north,
 Judy's bedroom is to the west. The hallway continues to the south.  Kitty
-slinks in.
+arrives.
 
 > w
 You move west.
@@ -91,7 +91,7 @@ Outside Bedrooms
 This is a long, white-tiled hallway lined with photographs. The guest room is
 to the east, David's room is to the north-east, a bathroom is to the north,
 Judy's bedroom is to the west. The hallway continues to the south.
-David is here.  David retreats to the north.
+David is here.  David walks out to the north.
 
 > s
 You move south.
@@ -219,7 +219,7 @@ south there is an eating area, east is the laundry, north is the dining room,
 and north-east is the entrance hall.  You can see the pool and back porch
 through the west window.  There is a pot of hot coffee here, and it smells
 good.
-Judy is here, whistling happily.  David comes in.
+Judy is here, whistling happily.  David sashays in.
 
 > give trumpet to judy
 You give the trumpet to Judy. She thanks you.
@@ -387,7 +387,7 @@ Take what?
 
 > pour coffee
 You pour the coffee into the yellow coffee cup and pick it up. Mmm, it's nice
-and warm and smells nice.  Kitty saunters in.
+and warm and smells nice.  Kitty comes in.
 
 > drink coffee
 Mmm!  That sure tasted good.  You feel all warm inside.
@@ -427,8 +427,7 @@ You and David play a game of chess. You won the game.  Congratulations!
 Dave shakes your hand and says, "Good game. Next time, I'll be white, OK?"
 
 > play chess
-You and David play a game of chess. You lost the game.  Too bad.  Better luck
-next time!
+You and David play a game of chess. You won the game.  Congratulations!
 
 Dave shakes your hand and says, "Good game. Next time, I'll be black, OK?"
 

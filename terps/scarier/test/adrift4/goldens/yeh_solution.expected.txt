@@ -45,7 +45,7 @@ There is nothing of interest here.
 Ugly thing is here.
 
 You can move north, east and west.
-Ugly thing hits you.
+Ugly thing hits Leon, but it doesn't seem to do any damage.
 Leon hits Ugly thing.
 
 > e

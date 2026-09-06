@@ -179,7 +179,7 @@ level with the floor.
 > get crown
 As you grab the crown, you notice the beast inside start to stir. Your left
 index finger starts to tingle.  The Beast lunges at you.
-Beast hits you, but it doesn't seem to do any damage.
+You manage to avoid Beast's attack.
 
 > e
 You move east.

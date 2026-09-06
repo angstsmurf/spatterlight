@@ -743,8 +743,8 @@ of the cart.
    With a flick of the reins, the cart driver urges his horse on, and the
 cart makes its way north.
 
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
 
 > z
 You wait for something to happen.
@@ -763,68 +763,74 @@ whinnying in distress.
 
    You hear the sound of the portcullis being raised.
 
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
+   You can hear a horse neighing in distress coming from the northern end of
+the courtyard. You also hear hooves beating on the flagstones.
 
 > z
 You wait for something to happen.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
 
    You hear the sound of the portcullis being lowered.
 
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
 
 > z
 You wait for something to happen.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
-
-   Your vulpine hearing detects some sounds -- movement to the south.
-
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
    Your vulpine hearing detects some sounds -- movement to the south.
 
    You can hear a horse neighing in distress coming from the northern end of
 the courtyard. You also hear hooves beating on the flagstones.
+
+   Your vulpine hearing detects some sounds -- movement to the south.
+
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
 > z
 You wait for something to happen.
 
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
-
    You can hear a horse neighing in distress coming from the northern end of
 the courtyard. You also hear hooves beating on the flagstones.
+
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
    You hear the sound of the portcullis being raised.
 
-   From the northern end of the courtyard comes the sound of a horse
-whinnying in distress.
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
 > z
 You wait for something to happen.
 
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
-
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
+   From the northern end of the courtyard comes the sound of a horse
+whinnying in distress.
 
    From the northern end of the courtyard comes the sound of a horse
 whinnying in distress.
+
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
 > z
 You wait for something to happen.
@@ -843,8 +849,9 @@ storeroom.
 shouts of someone trying to calm the horse. The sounds are coming from the
 northern end of the courtyard.
 
-   You can hear a horse neighing in distress coming from the northern end of
-the courtyard. You also hear hooves beating on the flagstones.
+   To your ears comes the sound of a horse in distress, along with a few
+shouts of someone trying to calm the horse. The sounds are coming from the
+northern end of the courtyard.
 
    A servant appears from the west, grabs a sack from the cart and takes it
 away. He appears so focused on his work he doesn't seem to see you at all.
@@ -1248,11 +1255,11 @@ against the building. He looks nervous.
 
    A harsh, cold wind whistles by, making you shiver.
 
-   The scaffolding shakes alarmingly, and the workman, as if sensing imminent
-danger, begins his descent.
-
    Somewhere in the distance you hear the sound of voices raised in
 excitement, mingled with a few bleats from excited sheep.
+
+   The scaffolding shakes alarmingly, and the workman, as if sensing imminent
+danger, begins his descent.
 
    With a sickening creak, the scaffolding pulls away from the building. The
 workman, unable to reach the ground in time, grabs hold of a window ledge and
@@ -1268,6 +1275,9 @@ You wait for something to happen.
    A harsh, cold wind whistles by, making you shiver.
 
    "Help!" the workman cries, as he dangles from the window ledge. "Help!"
+
+   Somewhere in the distance you hear the sound of voices raised in
+excitement, mingled with a few bleats from excited sheep.
 
    Guards from the city gates rush to assist the man hanging from the window
 ledge. They don't even glance in your direction.
@@ -1300,9 +1310,6 @@ the east, past a line of shops and houses, you can see the city gates.
    An old maple tree stands at the corner of the alley, looking a little sad
 and neglected, particularly with most of its foliage lost to autumn. Beneath
 it is the remains of an old, burlap sack, lying on the ground in tatters.
-
-   Somewhere in the distance you hear the sound of voices raised in
-excitement, mingled with a few bleats from excited sheep.
 
    Your vulpine hearing detects some sounds -- movement to the west.
 

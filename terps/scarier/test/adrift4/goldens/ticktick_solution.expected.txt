@@ -11,7 +11,6 @@ is to the south.
 The cat is here, ticking.
 HURRY!  HURRY.  The Cat's Ticking.  It's about to EXPLODE!!! Get that cat out
 of here.
-TICK tick TICK tick TICK tick tick TICK TICK!!!!!!!!!!!
 
 > s
 You move south.
@@ -28,7 +27,7 @@ You move east.
 Kitchen
 Your cramped kitchen boasts all the usual ammenities and appliances, fridge,
 stove, oven, cupboards.The living room is to the west.
-There's NO TIME.  THERE'S NO TIME!!! FASTER!  FASTER! DITCH! THE CAT!!!!
+TICK tick TICK tick TICK tick tick TICK TICK!!!!!!!!!!!
 The scruffy ticking cat follows you.
 
 > open oven
@@ -37,9 +36,7 @@ The scruffy ticking cat follows you.
 
 > take tin
 You take the tin from the oven.
-Hurry.  Hurry.  The cat's about to go OFF!!!!!
-HURRY!  HURRY.  The Cat's Ticking.  It's about to EXPLODE!!! Get that cat out
-of here.
+There's NO TIME.  THERE'S NO TIME!!! FASTER!  FASTER! DITCH! THE CAT!!!!
 The scruffy ticking cat follows you.
 
 > feed cat

@@ -228,12 +228,12 @@ Some time passes...
 
 Some time passes...
 
+"I worry about you, you know.  You're a delicate fellow and your work seems
+so stressful," your mother comments.
+
 > z
 
 Some time passes...
-
-"I worry about you, you know.  You're a delicate fellow and your work seems
-so stressful," your mother comments.
 
 > e
 
@@ -493,6 +493,8 @@ switch just within reach.
 
 Exits:  Up and Down (Attic and Landing)
 
+You hear the telephone start ringing.
+
 > d
 You climb back down.
 
@@ -507,8 +509,6 @@ leads up to the attic.  An old ladder descends out of the darkness.
 
 Exits:  North, East, West and Up (Landing, Guest Room, Your Bedroom and
 Attic)
-
-You hear the telephone start ringing.
 
 > w
 You move west.

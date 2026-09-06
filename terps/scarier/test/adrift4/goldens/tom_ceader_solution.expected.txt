@@ -27,6 +27,7 @@ walter ppk pistol.
 
 > take money
 You take 150 dollars from the swade breifcase.
+You know there must be survivers so you should leave asap.
 
 > take gun
 You take walter ppk pistol from the swade breifcase.
@@ -119,7 +120,6 @@ some sort . The road is paved black , there are street lights near the road
 and the basic yellow markers .
 
 You can move west and in.
-You know there must be survivers so you should leave asap.
 
 > west
 You move west.

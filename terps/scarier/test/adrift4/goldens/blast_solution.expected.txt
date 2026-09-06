@@ -38,9 +38,9 @@ In front of you is a counter which basically cuts the room into two halves.
 Behind the counter are row after row of filing cabinets. Offices are to the
 north and south. The Dining room is east. A trial of blood leads north.
 A demon is snarling at you.
-The demon charges forward and bites you in the right hand. You lose 5 health
+The demon charges forward and bites you in the right leg. You lose 5 health
 points.
-The demon charges forward and bites you in the head. You lose 5 health
+The demon charges forward and bites you in the right arm. You lose 5 health
 points.
 
 > kill demon with gun
@@ -53,9 +53,9 @@ You move north.
 Office
 A plain office with very little furniture consisting only of a green desk.
 Filing is south. A trial of blood leads south.  Demon arrives from the south.
-The demon charges forward and bites you in the right arm. You lose 5 health
+The demon charges forward and bites you in the left hand. You lose 5 health
 points.
-The demon charges forward and bites you in the head. You lose 5 health
+The demon charges forward and bites you in the right arm. You lose 5 health
 points.
 
 > x desk
@@ -64,7 +64,7 @@ it is more like a table than a desk.  An AK-47 is on the desk.
 
 > get ak47
 You take the AK-47 from the desk.
-The demon charges forward and bites you in the left arm. You lose 5 health
+The demon charges forward and bites you in the right leg. You lose 5 health
 points.
 
 > kill demon with ak47
@@ -74,7 +74,7 @@ points.
 > kill demon with ak47
 You pull the trigger and feel the ak-47 recoil. The demon loses 10 health
 points.
-The demon charges forward and bites you in the left hand. You lose 5 health
+The demon charges forward and bites you in the head. You lose 5 health
 points.
 
 > s
@@ -85,13 +85,13 @@ In front of you is a counter which basically cuts the room into two halves.
 Behind the counter are row after row of filing cabinets. Offices are to the
 north and south. The Dining room is east. A trial of blood leads north.
 Demon arrives from the north.
-The demon charges forward and bites you in the left hand. You lose 5 health
+The demon charges forward and bites you in the head. You lose 5 health
 points.
 
 > x counter
 From the look of it, the battered old counter has been in the building some
 years.  A missile launcher is on the counter.
-The demon charges forward and bites you in the head. You lose 5 health
+The demon charges forward and bites you in the left leg. You lose 5 health
 points.
 
 > get missile launcher
@@ -100,7 +100,7 @@ You take the missile launcher from the counter.
 > kill demon with missile
 You pull the trigger and feel the launcher recoil. The demon loses 25 health
 points.
-The demon charges forward and bites you in the right hand. You lose 5 health
+The demon charges forward and bites you in the left hand. You lose 5 health
 points.
 
 > kill demon with ak47
@@ -115,9 +115,9 @@ Usually it can be one of the busiest places in any organisation; here though
 it is strangely quiet. The room is arranged with bench like seats either side
 of several long tables. To the south are the kitchens and west is Filing. A
 trial of blood leads west.  Demon arrives from the west.
-The demon charges forward and bites you in the right hand. You lose 5 health
+The demon charges forward and bites you in the right arm. You lose 5 health
 points.
-The demon charges forward and bites you in the right leg. You lose 5 health
+The demon charges forward and bites you in the left hand. You lose 5 health
 points.
 
 > kill demon with ak47
@@ -134,9 +134,9 @@ seems to be a fridge and a worktop fixed to the wall.  So it is likely that
 it is just a food preparation area rather than a traditional kitchen. To the
 north is the dining room and west is an office.  A trial of blood leads
 north.  Demon arrives from the north.
-The demon charges forward and bites you in the right hand. You lose 5 health
+The demon charges forward and bites you in the left arm. You lose 5 health
 points.
-The demon charges forward and bites you in the left leg. You lose 5 health
+The demon charges forward and bites you in the head. You lose 5 health
 points.
 
 > x worktop
@@ -159,9 +159,9 @@ Office
 A plain office with very little furniture consisting only of a green desk.
 The reception is south, Filing to north and the Kitchen east. A trial of
 blood leads south.  Demon arrives from the east.
-The demon charges forward and bites you in the right arm. You lose 5 health
+The demon charges forward and bites you in the head. You lose 5 health
 points.
-The demon charges forward and bites you in the right arm. You lose 5 health
+The demon charges forward and bites you in the left hand. You lose 5 health
 points.
 
 > kill demon with plasma

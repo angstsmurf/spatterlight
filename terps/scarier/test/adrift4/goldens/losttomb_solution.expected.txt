@@ -328,6 +328,12 @@ Another narrow passage, descending even further downward. The walls are
 covered in plaster and decorated with simple geometric shapes, repeated over
 and over again to form a pattern.
 
+An alarm clock rings from inside Rupert's bag.
+"Ah! Time for tiffin!" He exclaims, looking at the clock.
+
+He unpacks a teapot, some scones and a selection of different flavoured jams,
+all of which he holds haphazardly with his arms.
+
 > n
 You move north.
 
@@ -335,7 +341,7 @@ The Wall Room
 The room is dark and gloomy. Only the east and west walls have any sort of
 decoration upon them, a motif of dancing skeletons. The floor is covered with
 dried reeds, and to the north, an open doorway. A strange hole in the wall is
-beside it, low to the ground.
+beside it, low to the ground.  Rupert is having 'tiffin'
 
 > n
 
@@ -349,12 +355,17 @@ west walls begin to slowly move together.
 "Oops!" Says Rupert.
 The walls are 12 feet apart.
 
+Rupert slurps some tea, eats the scones and burps.
+"Oops, pardon me!" He says, brushing crumbs from his moustache.
+
 > ask rupert to put hand in hole
 "Need my help again what! Looks like a good thing I came along then doesn't
 it!" He says, crouching down to the hole and putting his arm in, up to his
 shoulder.
 "I can feel a something, yes, a wheel. I can turn it clockwise."He says.
 As he does so, you notice the northern door inching open.
+
+He packs it all back up and looks ready for more adventuring.
 
 > z
 Time passes...
@@ -397,12 +408,6 @@ The spear seems to be holding (for now).
 > z
 Time passes...
 
-An alarm clock rings from inside Rupert's bag.
-"Ah! Time for tiffin!" He exclaims, looking at the clock.
-
-He unpacks a teapot, some scones and a selection of different flavoured jams,
-all of which he holds haphazardly with his arms.
-
 > z
 Time passes...
 The spear begins to bend.
@@ -421,15 +426,10 @@ quality, takes centre stage in a large chamber, the walls of which are
 stunningly painted and carved. Mounted in an arch in one of the walls, is a
 large and impressive statue of a jackal.
 Three gold rimmed archways lead off in three directions, northwest, north and
-northeast.   Rupert is having 'tiffin'
-
-Rupert slurps some tea, eats the scones and burps.
-"Oops, pardon me!" He says, brushing crumbs from his moustache.
+northeast.
 
 > put cork in mouth
 You poke it in with your thumb. It makes a tight fit.
-
-He packs it all back up and looks ready for more adventuring.
 
 > ask rupert to open sarcophagus
 "Another one eh? Very well."

@@ -66,15 +66,15 @@ Time passes...
 
 > z
 Time passes...
-
-> z
-Time passes...
         As you are looking around the room, trying to gather an indication of
 what might be happening, you happen to glance across the mirror.  Something
 about the mirror pulls you towards it.  The glass loosens into elastic-like
 waves.  In fact, there appears not to be any glass anymore.  Silver waves
 undulate across the mirror, like an ocean of mercury with a genlte breeze
 rippling the surface.
+
+> z
+Time passes...
 
 > z
 Time passes...
@@ -88,10 +88,12 @@ The Mirror Portal
         You are in the midst of a vast silver ocean which extends in all
 directions for as far as you can see.  The mercury-like water ripples as a
 gentle breeze flows across it.  Voices whisper from somewhere distant,
-echoing all around you. "It's a boy!"  "It's your mother.  She isn't doing
-well."  "I don't care!  You shouldn't spend money we don't have!"  "Don't
-worry, honey.  I'm sure the dog hasn't gone far."   A warm light glows
-orange, like a brilliant sunset.  A small island lies to the distant north.
+echoing all around you. "Man!  I can't believe your gonna go out with the
+best lookin' girl in school!"  "I have bad news, son.  The dog's leg just
+isn't going to heal.  He needs to be somehwere he can be comfortable."  "I'll
+give you to the count of three or your gonna get a spankin'!"  "Where were
+you?  I tried everywhere I could think of!"   A warm light glows orange, like
+a brilliant sunset.  A small island lies to the distant north.
 
 > n
 You move north.
@@ -258,16 +260,6 @@ darkness you have lost all sense of direction and have succumbed to a feeling
 of crippling fear at the prospect of not knowing your way.
 
 > left
-        Now completely disoriented, you crawl in a direction you hope will
-lead you out.  After several minutes of crawling, you come to rest at a soft
-indentation in the ground.
-
-> left
-        Now completely disoriented, you crawl in a direction you hope will
-lead you out.  After several minutes of crawling, you come to rest at a soft
-indentation in the ground.
-
-> left
         Crawling along, you begin to feel the ground harden beneath your
 hands and knees.  A new surface presents itself, like smooth stone.  You
 suddenly no longer feel the thorny scrub of the mangled mass above you.  You
@@ -283,6 +275,12 @@ wall, you locate a small shaft of wood, like a short pole, mounted to the
 wall.
 
 Also here is the short shaft.
+
+> left
+You can't do that here!
+
+> left
+You can't do that here!
 
 > take shaft
 You pick up the short shaft.

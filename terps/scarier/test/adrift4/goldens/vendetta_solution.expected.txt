@@ -186,8 +186,7 @@ it looks like there is going to be a frost up here tonight...
 
 > open cargo hold
 You open the cargo hold.  Sally's suitcase is inside the cargo hold.
-An unexpectedly strong gust of wind roars across the landing pad, almost
-knocking you over.
+The freezing wind howls around you.
 
 > get suitcase
 You take Sally's suitcase from the cargo hold.
@@ -304,6 +303,7 @@ Time passes...
 
 > wait
 Time passes...
+The freezing wind howls around you.
 It is beginning to snow quite heavily, now.
 A green autocab pulls over near the young man and he hops inside. A few
 seconds later, the autocab starts moving again and rejoins the rest of the
@@ -323,7 +323,6 @@ It is snowing.
 
 > wait
 Time passes...
-The freezing wind howls around you.
 It is snowing.
 An autocab moves out of the main body of traffic and into the parking lane;
 it looks like it is going to pull up nearby.
@@ -468,9 +467,11 @@ Chloe and Sally are here.
 You see Sally first; she is hard to miss wearing that outfit. Sally is
 standing at the opposite side of the room, talking to Chloe, a close friend
 of hers.
+You hear the clinking of glasses.
 
 > talk to sally
 
+"Excuse me!" someone says, squeezing past you.
 You go over to greet Sally and her friend; her face lights up when she turns
 around and sees who it is. She throws her arms around you and then lets you
 go.
@@ -494,7 +495,6 @@ Chloe remains silent, deep in thought, glancing at you every now and again.
 
 > wait
 Time passes...
-You hear the clinking of glasses.
 Chloe suddenly sparks up. "Why do you put up with her?" she asks. "Don't
 worry, you can tell me...I won't say anything."
 "I put up with her because I admire her spirit. It's rare you find people
@@ -1637,6 +1637,7 @@ barely large enough for two people to stand on. The wind is less ferocious
 now, but still carries a deathly chill. The guard is here too, standing with
 his back to you.
 A tall guard is here.
+The freezing wind howls around you.
 It is snowing.
 
 > kill guard

@@ -259,7 +259,7 @@ You take the record card.
 
 > read card
 The record card has lots of medical mumbo-jumbo but you can make out two
-words -  'Artemis' and 'Hermes'.
+words -  'Artemis' and 'Demeter'.
 
 > east
 You move east.
@@ -317,7 +317,7 @@ You take the book from the counter.
 
 > read book
 The book is covered in blood, all you can make out are a few words - 'cure is
-called Artemis' and  'third chemical is Hera'.
+called Artemis' and  'third chemical is Hades'.
 
 > east
 You move east.
@@ -420,7 +420,7 @@ just wide enough that someone outstretched can touch the sides and is about
 twice that in length.  Either side of a small bunk is a stainless steel sink
 and toilet. You also notice that the walls and ceiling are completely bare,
 apart from an air vent and a bright fluorescent light. Written in chalk on
-the cell wall is the word 'Zeus'. You seem to be able to go east out into a
+the cell wall is the word 'Athena'. You seem to be able to go east out into a
 corridor.
 The body of a woman is lying here.
 
@@ -483,7 +483,7 @@ You take the apollo, the ares, the athena, the demeter, the hades, the
 helios, the hera, the hermes and the zeus from the shelf.
 
 > mix artemis
-You pour some Zeus, Hermes, Hera and Helios into the glass jar.
+You pour some Athena, Demeter, Hades and Helios into the glass jar.
 You notice that the liquid in the jar has changed colour.
 
 > east
@@ -528,7 +528,7 @@ Calmly he replies, "Thank you for the Artemis, I suggest you cure yourself
 and then we can talk more."
 
 > mix cure
-You pour some Zeus, Hermes, Hera and Helios into the glass jar.
+You pour some Athena, Demeter, Hades and Helios into the glass jar.
 You notice that the liquid in the jar has changed colour.
 
 > drink artemis

@@ -11,7 +11,7 @@ genre-painting depicting everyday life in a Dutch home in the 17th century.
 
 > sit on bench
 You sit down on the wooden bench and hear a voice coming from the picture:
- "How nice to get some company. Let's talk."
+ "Welcome to the museum. You will get all information you want."
 You can ask the picture - or just p - about several things. Anytime you can
 ask p about "topics", to get a list of appropriate subjects to discuss.
 

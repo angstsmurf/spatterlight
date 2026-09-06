@@ -10,9 +10,8 @@ ADRIFT 4 courtesy of Campbell Wild.
 For assistance on how to play, type how to play and press enter.
 
 You decide to go walking to the convenience store one day when all of a
-sudden a man approaches you!  You think he looks rather out of place, maybe
-even lost.  He removes an ascot from around his neck and says, "Hey, man.
-Wujalykan ASCOT?"
+sudden a man approaches you!  You think he looks rather dapper, really.  He
+removes an ascot from around his neck and says, "Hey, man.  Wujalykan ASCOT?"
 
 > banana
 Whoa, easy tiger!  You better just stick to just YES or NO, cuz you speak
@@ -39,7 +38,7 @@ to avoid overloading the poor thing.  And, y'know, it blowing up.
 > yes
 Of course you still want it!
 
-"Gimme that ascot lost-looking person!" you say.  He promptly hands it over
+"Gimme that ascot you Dapper Duckling!" you say.  He promptly hands it over
 and you proceed to your prior stated destination wearing your new overly
 formal accessory.
 
@@ -98,9 +97,9 @@ she's not doing what you think she's doing...
 "Psst!" she hisses.  "Frondwelbo... is that you?"
 
 > yes
-"Hmph, well, Frondwelbo..." says the old lady.  "I always thought you were an
-absent-minded buffoon.  Never mind, though.  Are you ready to finally claim
-your family's fortune, young master?"
+"Hmph, well, Frondwelbo..." says the old lady.  "I always thought you were
+incredibly dashing in your ascot, did you know that?  Never mind, though.
+Are you ready to finally claim your family's fortune, young master?"
 
 > yes
 The crone hunched in the greenery pulls up a section of roots, revealing a

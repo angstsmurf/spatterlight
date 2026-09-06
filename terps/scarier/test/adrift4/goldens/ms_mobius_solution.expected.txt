@@ -140,6 +140,12 @@ odd manner, so that the floor, open on top and bottom, has only one side.
 > x planet
 Far in the distance you can see the planet Serendipitous 6 gleaming with
 reflected light of the white dwarf star Momo.
+Suddenly, a great shuttle races through empty space and careens into the
+Belt, smashing a great hole in the side. Fortunately, the ship plugs the hole
+exactly, so that no air is released. How do they do that? Virgil, Chelsea,
+and Bo board the ship, and it's obvious that unless you want to die a
+horrible horrible death of oxygen deprivation when the ship leaves, you
+should board too.
 
 > x stars
 Stars surround the tube of the Mobius Belt, and continue in all directions
@@ -148,7 +154,8 @@ infinite number of stars in the universe? And, if so, can they really fill
 the infinite universe, that also stretches oh no I've gone cross-eyed.
 
 > x hole
-Nothing special.
+The ship has made a huge hole in the tube, but fortunately, the ship also
+plugged the huge hole it made. That was a close one.
 
 > look
 
@@ -160,8 +167,9 @@ be Serendipitous 6. A strip of paint runs up the corridor, and appears to
 come back and join to its other end. It covers both "top" and "bottom" of the
 floor without ever really leaving the ground--you see, the Mobius Belt has
 only one side. The aforementioned corridor runs north and south, but you'll
-have to float if you're going anywhere, as there's no gravity.
-Virgil, Chelsea and Bo are here.
+have to float if you're going anywhere, as there's no gravity.  A ship pokes
+through the outer wall of the Belt's surrounding glass shell, waiting for you
+to board.
 
 > look
 
@@ -173,8 +181,9 @@ be Serendipitous 6. A strip of paint runs up the corridor, and appears to
 come back and join to its other end. It covers both "top" and "bottom" of the
 floor without ever really leaving the ground--you see, the Mobius Belt has
 only one side. The aforementioned corridor runs north and south, but you'll
-have to float if you're going anywhere, as there's no gravity.
-Virgil, Chelsea and Bo are here.
+have to float if you're going anywhere, as there's no gravity.  A ship pokes
+through the outer wall of the Belt's surrounding glass shell, waiting for you
+to board.
 
 > score
 Your score is 2 out of a maximum of 3.  (66%)

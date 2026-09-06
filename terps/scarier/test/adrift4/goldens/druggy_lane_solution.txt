@@ -2,91 +2,92 @@
 
 
 look
-buy 3 crack
+buy 3 acid
 next day
-sell 3 crack
-buy 36 speed
+sell 3 acid
+buy 48 speed
 next day
-sell 36 speed
-buy 36 speed
+sell 48 speed
+buy 29 weed
 next day
-sell 36 speed
-deposit 14201
+sell 29 weed
+buy 14 acid
 next day
-withdraw 17213
-buy 76 speed
+sell 14 acid
+buy 262 speed
 next day
-sell 76 speed
-buy 23 hash
+sell 262 speed
+buy 66 crack
 next day
-sell 23 hash
-buy 2 coke
+sell 66 crack
+buy 95 acid
 next day
-sell 2 coke
-buy 468 speed
+sell 95 acid
+buy 2673 speed
 next day
-sell 468 speed
-deposit 177372
+sell 2673 speed
+buy 566 acid
 next day
-withdraw 214996
-buy 182 crack
+sell 566 acid
+buy 69 coke
 next day
-sell 182 crack
-buy 182 crack
+sell 69 coke
+buy 7568 speed
 next day
-sell 182 crack
-buy 2391 speed
+sell 7568 speed
+buy 4995 weed
 next day
-sell 2391 speed
-deposit 1076086
+sell 4995 weed
+buy 1725 acid
 next day
-withdraw 1304346
-buy 2080 weed
+sell 1725 acid
+buy 4488 crack
 next day
-sell 2080 weed
-buy 1285 acid
+sell 4488 crack
+buy 70253 speed
 next day
-sell 1285 acid
-buy 24682 speed
+sell 70253 speed
+buy 21240 crack
 next day
-sell 24682 speed
-buy 4279 acid
+sell 21240 crack
+buy 495063 speed
 next day
-sell 4279 acid
-buy 26984 weed
+sell 495063 speed
+buy 178492 hash
 next day
-sell 26984 weed
-buy 11909 crack
+sell 178492 hash
+buy 12729 coke
 next day
-sell 11909 crack
-buy 69508 weed
+sell 12729 coke
+buy 1708807 speed
 next day
-sell 69508 weed
-buy 40001 crack
+sell 1708807 speed
+buy 538931 crack
 next day
-sell 40001 crack
-deposit 83723544
+sell 538931 crack
+buy 8245188 speed
 next day
-withdraw 101483083
-buy 179616 weed
+sell 8245188 speed
+buy 118200 hash
 next day
-sell 179616 weed
-buy 1075519 speed
+sell 118200 hash
+buy 1 speed
 next day
-sell 1075519 speed
-buy 311470 crack
+sell 1 speed
+buy 1 coke
 next day
-sell 311470 crack
-buy 953650 weed
+sell 1 coke
+buy 1 hash
 next day
-sell 953650 weed
-buy 839212 crack
+sell 1 hash
+buy 1 speed
 next day
-sell 839212 crack
-buy 2123536 weed
+sell 1 speed
+buy 1 acid
 next day
-sell 2123536 weed
-look
+sell 1 acid
+buy 1 crack
 next day
+sell 1 crack
 pay back 56591
 next day

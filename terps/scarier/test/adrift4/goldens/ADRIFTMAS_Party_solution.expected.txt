@@ -68,8 +68,8 @@ You lay a Happy Holidays kiss on Mystery.  Turns out that Mystery didn't
 appreciate it much and belts you right in the kisser.
 
 > make snowball
-You gather a large handful of snow and form it into a loosly packed ball.
-Taking careful aim, you throw the ball at your intended target and miss.
+You scoop up some of the fresh fallen snow and pack it into a nice firm ball
+and pelt it at your intended taget, hitting it dead on.
 
 > make snowman
 You build a masterpiece in no time, but are disappointed that it doesn't seem

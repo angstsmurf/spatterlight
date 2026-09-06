@@ -1,4 +1,10 @@
-# Shadowpeak ADRIFT 4.0 walkthrough: deterministic WIN, 710/790 under SCR_SEED=7
+# Shadowpeak ADRIFT 4.0 walkthrough: deterministic WIN, 710/790 under
+# SCR_SEED=101 (2026-09-06: the RNG first-draw warm-up fix in scutils.cpp
+# scr_congruential_rand -- the first draw after a reseed used to be pinned to
+# the top half of its range -- re-threaded every seeded stream.  New seed and a
+# re-derived Damastus chase; the village block is untouched here, it still
+# lands all four kills at this seed.  710 unchanged.)
+# Earlier: SCR_SEED=7
 # (2026-08-24: re-derived after the dead-NPC walk skip -- the Runner's walk ticker
 # breaks out of the walk loop for an NPC the battle system has killed, so every
 # corpse stops consuming the `scr_randomint` that a room-group walk draws each
@@ -731,14 +737,15 @@ n
 n
 n
 press stone button
-# chase re-derived by shadowpeak_chase.py (SCR_SEED=7, after the dead-NPC walk
-# skip): Damastus dies in room 149, stamina 46; the tail walks 149->151.
+# DAMASTUS chase RE-DERIVED 2026-09-06 at SCR_SEED=101, after the RNG first-draw
+# warm-up fix re-threaded the walkers.  Greedy BFS from the stone button
+# (room 157): attack when co-located, else BFS-step toward him.
+# Damastus dies in room 149, stamina 37
+# Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
 e
 e
 e
 e
-e
-w
 attack damastus
 e
 attack damastus

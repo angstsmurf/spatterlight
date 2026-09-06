@@ -51,6 +51,8 @@ clinking sound.  You're not hurt too bad but there will be blood.  You close
 your fingers around the key and bring it down.  This looks like the key to
 your room at home.  You hope it unlocks the kitchen door.
 Your smarts have gained you 10 points.
+Electricity rips through your spine as your ears are attacked by one of Art's
+coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > unlock the kitchen door
 You slide the key into the lock and slowly turn it.  You  feel only slight
@@ -60,13 +62,9 @@ You've earned 5 points
 > pull the clothesline
 You grab hold of the clothesline just above the deck railing and pull it
 toward you bringing the white towel closer.
-Your ears are rudely awakened by the sound of a skill saw screaming and
-scraping through some lumber off  in the distance.
 
 > get towel from clothesline
 You take a white towel from the white clothesline.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > in
 You move in.
@@ -76,9 +74,9 @@ shallow.  In the kitchen is a refrigerator, the kitchen counter, the kitchen
 sink, a silverware drawer, a gas stove and a kitchen cupboard.
 
 Also here is a plastic garbage container, the kitchen table and the kitchen
-chairs.  The sound of a skill saw ripping through some lumber can be heard
-intermittantly off in the distance.
-The sound of a skill saw ripping lumber finally fades to  stillness.
+chairs.
+Electricity rips through your spine as your ears are attacked by one of Art's
+coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > open refrigerator
 You open the big white refrigerator.  Inside the big white refrigerator is an
@@ -94,11 +92,11 @@ You take all of the knives from the silverware drawer.
 > open kitchen cupboard
 You open the kitchen cupboard.  Inside the kitchen cupboard is yummy
 pop-tarts and a can of corn.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > get pop-tarts
 You take yummy pop-tarts from the kitchen cupboard.
+You hear a large dog barking off in the distance.  The sound seems to echo
+through the neighborhood.
 
 > w
 You move west.
@@ -153,6 +151,8 @@ roll-up blinds.
 
 Also here is a thin mattress.
 Kevin is here.
+Your ears are rudely awakened by the sound of a skill saw screaming and
+scraping through some lumber off  in the distance.
 
 > open storage chest
 You open the wooden storage chest.  Inside the wooden storage chest is a
@@ -160,6 +160,7 @@ skill saw, a crow bar, a crappy baseball glove and an old baseball bat.
 
 > get old baseball bat
 You take an old baseball bat from the wooden storage chest.
+The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > get crappy baseball glove
 You take a crappy baseball glove from the wooden storage chest.
@@ -176,8 +177,6 @@ wall is an antique clock , a small fuse box and a magazine rack.  There is
 also a crummy old couch there.  To the north is a stairway leading upstairs,
 the bathroom door and a corner seat.  A small plastic sea gull hangs on the
 end of the chain that dangles from the light above.
-You hear a large dog barking off in the distance.  The sound seems to echo
-through the neighborhood.
 
 > up
 You move up.
@@ -200,6 +199,8 @@ is a spider web-like tangle of string which leads to the 100 watt bulb
 hanging from the rafters in the center of the room.  Above the rafters are
 some thin sheets of plywood holding some stuffed plastic bags.  You have no
 idea what's in those bags.
+You hear a large dog barking off in the distance.  The sound seems to echo
+through the neighborhood.
 
 > examine the bed
 You poke around the bed for a while and notice the corner of what looks like
@@ -208,8 +209,6 @@ your head and you get somewhat excited.  You wish your stinky brother wasn't
 here.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
-Your ears are rudely awakened by the sound of a skill saw screaming and
-scraping through some lumber off  in the distance.
 
 > get the magazine
 You grab the corner of the magazine and pull it from under the mattress.  You
@@ -226,10 +225,7 @@ painted the same yucky yellow as is the living room.  There is a small hinged
 tool cupboard above your head where the stairway ceiling and upstairs wall
 meet.
 
-Also here is an orange frisbee and an old trackball game set.  The sound of a
-skill saw ripping through some lumber can be heard intermittantly off in the
-distance.
-The sound of a skill saw ripping lumber finally fades to  stillness.
+Also here is an orange frisbee and an old trackball game set.
 
 > down
 You move down.
@@ -252,6 +248,8 @@ To the east is a small shower stall.  To the west is a toilet and a vanity.
 (You have quite cleverly avoided being emprisoned with the old "knife trick"
 by taking  all the knives from the silverware drawer.)
 Hovey is here.
+Electricity rips through your spine as your ears are attacked by one of Art's
+coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > get grandpa's shoes
 You are able to convince grandpa to give you his shoes.  You sit down and
@@ -268,8 +266,6 @@ Also here is a soap-on-a-rope and strawberry shampoo.
 
 > get soap
 You pick up the soap-on-a-rope.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > get shampoo
 You pick up strawberry shampoo.
@@ -283,19 +279,17 @@ To the east is a small shower stall.  To the west is a toilet and a vanity.
 by taking  all the knives from the silverware drawer.)
 Hovey and The faint odor of snappers are here.  Hovey shuffles off to the
 south.
-You hear a large dog barking off in the distance.  The sound seems to echo
-through the neighborhood.
 
 > pull my pants down
 You cleverly pull your pants down.  You are quite proud of yourself.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > piss
 You close your eyes and relieve yourself right here and now.  A feeling of
 total relief overcomes you.
 You are awarded 5 points for good hygene.  The faint odor of snappers wafts
 off to the south.
+Your ears are rudely awakened by the sound of a skill saw screaming and
+scraping through some lumber off  in the distance.
 
 > s
 You move south.
@@ -307,7 +301,8 @@ wall is an antique clock , a small fuse box and a magazine rack.  There is
 also a crummy old couch there.  To the north is a stairway leading upstairs,
 the bathroom door and a corner seat.  A small plastic sea gull hangs on the
 end of the chain that dangles from the light above.
-The faint odor of snappers is here.
+The faint odor of snappers is here.  The sound of a skill saw ripping through
+some lumber can be heard intermittantly off in the distance.
 
 > e
 You move east.
@@ -318,8 +313,12 @@ sink, a silverware drawer, a gas stove and a kitchen cupboard.
 
 Also here is a plastic garbage container, the kitchen table and the kitchen
 chairs.
-Hovey is here.  Hovey shuffles off outside.  The faint odor of snappers wafts
-towards you from the west.
+Hovey is here.  The sound of a skill saw ripping through some lumber can be
+heard intermittantly off in the distance.  Hovey shuffles off outside.  The
+faint odor of snappers wafts towards you from the west.
+Electricity rips through your spine as your ears are attacked by one of Art's
+coughing fits.  It ends after several seconds and you wonder if he's dead.
+The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > out
 You move out.
@@ -331,8 +330,6 @@ front door.  There is a yellow bug light above the kitchen window and a
 clothes line running from a large silver colored pulley up to the telephone
 pole near the road.
 Hovey is here.
-Your ears are rudely awakened by the sound of a skill saw screaming and
-scraping through some lumber off  in the distance.
 
 > s
 You move south.
@@ -340,9 +337,8 @@ You are standing in the road in front of the palacial summer estate of 4
 Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
 running from it.  There is an old tree stump directly in front of the
-cottage.  Uncle George's cottage is on the south side of the road.  The sound
-of a skill saw ripping through some lumber can be heard intermittantly off in
-the distance.  Hovey shuffles towards you from the north.
+cottage.  Uncle George's cottage is on the south side of the road.  Hovey
+shuffles towards you from the north.
 Your grandfather eye's you and says, "Hey Timmy, would you run up to the
 store and get the paper and a box of plain donuts?  Just tell 'em 'paper for
 Reid'.  OK?"  You nod and say, "Ok Grandpa".
@@ -354,9 +350,7 @@ set of concrete steps leading steeply up to the front porch.  There is a
 vague cloud of smoke billowing up from the porch door.  They live here year
 round and have for as long as you can remember.  There is a very deep and
 wide rut to the left of the stairs where Puppy has dug out a bed.
-Puppy is here.  The sound of a skill saw ripping through some lumber can be
-heard intermittantly off in the distance.
-The sound of a skill saw ripping lumber finally fades to  stillness.
+Puppy is here.
 
 > feed the dog
 You reach into your pocket and pull out the old sandwich meat.  When you hold
@@ -364,8 +358,6 @@ it out, Puppy lifts himself off of his haunches and rips it from your hand.
 He chews it ravinously, all the time eyeing you.  To your surprise, the
 colossal dog seems to smile at you.  The old dog nuzzles your hand, turns and
 prances up the concrete steps out of sight.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > e
 You move east.
@@ -375,6 +367,8 @@ old beat up telephone pole in front of the cottage with a clothes line
 running from it.  There is an old tree stump directly in front of the
 cottage.  Uncle George's cottage is on the south side of the road.
 The faint odor of snappers is here.
+You hear a large dog barking off in the distance.  The sound seems to echo
+through the neighborhood.
 
 > e
 You move east.
@@ -382,6 +376,8 @@ You are standing on Oakland Ave at the top of the cottage side yard.  To the
 south is the ball field behind the Salvation Army building.
 Hovey is here.  Hovey shuffles off to the north.  The faint odor of snappers
 wafts towards you from the west.
+Electricity rips through your spine as your ears are attacked by one of Art's
+coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > n
 You move north.
@@ -390,8 +386,6 @@ their cars when they stay at the cottage.  You can usually fit two cars in
 here.  The grass is very long and is in need of whackin'.  Somebody should be
 out here cuttin' the grass with the bladed golf club.
 Hovey is here.
-You hear a large dog barking off in the distance.  The sound seems to echo
-through the neighborhood.
 
 > n
 You move north.
@@ -404,8 +398,6 @@ Dad is here.  Hovey shuffles towards you from the south.
 Your grandfather eye's you and says, "Hey Timmy, would you run up to the
 store and get the paper and a box of plain donuts?  Just tell 'em 'paper for
 Reid'.  OK?"  You nod and say, "Ok Grandpa".
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > in
 You move in.
@@ -423,6 +415,8 @@ dislodged one of the cottage supports.  You bend over and look behind the
 panels and discover that an old shovel has fallen from it's position on some
 nails when you moved the boards.  Phew!!!
 Your score has gone up by 10.
+Your ears are rudely awakened by the sound of a skill saw screaming and
+scraping through some lumber off  in the distance.
 
 > get shovel
 You pick up the beat up shovel.
@@ -431,6 +425,7 @@ You pick up the beat up shovel.
 You pick up the old ratty stepladder.
 Electricity rips through your spine as your ears are attacked by one of Art's
 coughing fits.  It ends after several seconds and you wonder if he's dead.
+The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > get golf club
 You pick up the bladed golf club.
@@ -452,8 +447,8 @@ fourth, leaving a trail of long green organic confetti.  In no time at all,
 you have cut the grass on the side and back yards.  Dad will be so proud of
 you.
 Your score has gone up by 5 for helping your father out.
-Your ears are rudely awakened by the sound of a skill saw screaming and
-scraping through some lumber off  in the distance.
+You hear a large dog barking off in the distance.  The sound seems to echo
+through the neighborhood.
 
 > drop golf club
 You drop the bladed golf club.
@@ -462,10 +457,7 @@ You drop the bladed golf club.
 You move south.
 This is the side yard of the cottage.  This is where people sometimes park
 their cars when they stay at the cottage.  You can usually fit two cars in
-here.  The grass is freshly cut and your father is quite proud of you.  The
-sound of a skill saw ripping through some lumber can be heard intermittantly
-off in the distance.
-The sound of a skill saw ripping lumber finally fades to  stillness.
+here.  The grass is freshly cut and your father is quite proud of you.
 
 > s
 You move south.
@@ -523,8 +515,6 @@ You pick up the usable baseball glove.
 You move east.
 You are standing in front of the Salvation Army building just north of Union
 Ave.  A path leads north to the corner of Oakland Ave.
-You hear a large dog barking off in the distance.  The sound seems to echo
-through the neighborhood.
 
 > in
 You move in.
@@ -597,9 +587,7 @@ that leads to the rest rooms and the gymnasium.
 > out
 You move out.
 You are standing in front of the Salvation Army building just north of Union
-Ave.  A path leads north to the corner of Oakland Ave.  The sound of a skill
-saw ripping through some lumber can be heard intermittantly off in the
-distance.
+Ave.  A path leads north to the corner of Oakland Ave.
 
 > s
 You move south.
@@ -668,13 +656,17 @@ You've just earned 15 points for being ballsey.
 You move out.
 You are standing in a grove of large pine trees.  Intermingled between the
 trees are some long wooden benches.  They are painted dark green and are
-blotched by pine sap stains.  There are pine needles littered about.
+blotched by pine sap stains.  There are pine needles littered about.  The
+sound of a skill saw ripping through some lumber can be heard intermittantly
+off in the distance.
 
 > e
 You move east.
 You are standing at the arched walkway which leads from the Band Shell to
 Washington Ave.  The sidewalk is about 20 slabs long and is very worn and
-cracked.  There is sand on everything.
+cracked.  There is sand on everything.  The sound of a skill saw ripping
+through some lumber can be heard intermittantly off in the distance.
+The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > n
 You move north.
@@ -925,6 +917,11 @@ one of  the one that happened to be misfortunate enough to catch the fry and
 rips it from it's beak.  The rest of the gulls fly down and pick up the
 scraps.  They seem unappreciative yet satisfied.
 You score 5 points for being a good guy.
+Your ears pick up the faint sound of a single engine prop plane.  You look
+towards the source of the noise, squint through the blazine sun and see a
+small red prop plane slowly following the coastline.  It is trailing a long
+tail of a sign which reads "Breakfast buffet $1.49 - The Golden Rooster,
+Saco".
 
 > w
 You move west.
@@ -932,7 +929,13 @@ You are standing on western end of the pier.  There is a Dairy Twirl soft
 serve ice cream stand here.  On a day like today, an ice cream would do
 wonders.  There is a spin art booth here also.  A bunch of little mcgrubbits
 crowd around the booth trying to get a turn.  There are some seagulls
-circling the area.
+circling the area.  The airplane is a red piper cub with a white stripe going
+down the body.  The engine sounds like an old pick truck driving up a steep
+grade.  The sign which it is draggins is approximately 20 feet long and is
+standing pretty straight out behind the plane. The sign reads "Breakfast
+buffet $1.49 - The Golden Rooster, Saco".
+The small plane chuggs slowly by and fades out of sight toward the pier.
+It'll be back again before you know it.
 
 > w
 You move west.
@@ -1274,15 +1277,17 @@ side of the street.  There is a soda machine just outside of Wortman's.
 You move south.
 You are standing at the arched walkway which leads from the Band Shell to
 Washington Ave.  The sidewalk is about 20 slabs long and is very worn and
-cracked.  There is sand on everything.
+cracked.  There is sand on everything.  The sound of a skill saw ripping
+through some lumber can be heard intermittantly off in the distance.
 
 > w
 You move west.
 You are standing in a grove of large pine trees.  Intermingled between the
 trees are some long wooden benches.  They are painted dark green and are
-blotched by pine sap stains.  There are pine needles littered about.
-Your ears are rudely awakened by the sound of a skill saw screaming and
-scraping through some lumber off  in the distance.
+blotched by pine sap stains.  There are pine needles littered about.  The
+sound of a skill saw ripping through some lumber can be heard intermittantly
+off in the distance.
+The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > w
 You move west.
@@ -1290,23 +1295,17 @@ You are standing on the corner of Oakland Ave. near the grove.  The cottage
 can be seen to the west and the band shell can be seen to the north east.
 There is a pathway leading south to the front of the Salvation Army building.
  That is also the way to the convenience store where grandpa gets his
-newspaper and donuts every day.  The sound of a skill saw ripping through
-some lumber can be heard intermittantly off in the distance.  You can see
-Billy casually riding his bike on the road near the cottage.  He's quite
-shakey due to the slow speed and tight turns but he doesn't falter.
+newspaper and donuts every day.  You can see Billy casually riding his bike
+on the road near the cottage.  He's quite shakey due to the slow speed and
+tight turns but he doesn't falter.
 
 > w
 You move west.
 You are standing on Oakland Ave at the top of the cottage side yard.  To the
 south is the ball field behind the Salvation Army building.
-Hovey and Billy are here.  The sound of a skill saw ripping through some
-lumber can be heard intermittantly off in the distance.  You can see Billy
-casually riding his bike on the road near the cottage.  He's quite shakey due
-to the slow speed and tight turns but he doesn't falter.  Hovey shuffles off
-to the north.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
-The sound of a skill saw ripping lumber finally fades to  stillness.
+Hovey and Billy are here.  You can see Billy casually riding his bike on the
+road near the cottage.  He's quite shakey due to the slow speed and tight
+turns but he doesn't falter.  Hovey shuffles off to the north.
 
 > w
 You move west.
@@ -1328,6 +1327,8 @@ cottage.  Uncle George's cottage is on the south side of the road.
 Jon is here.  You can see Billy casually riding his bike on the road near the
 cottage.  He's quite shakey due to the slow speed and tight turns but he
 doesn't falter.
+Electricity rips through your spine as your ears are attacked by one of Art's
+coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > look
 
@@ -1366,6 +1367,8 @@ slow speed and tight turns but he doesn't falter.
 You grab the thumb wrestler, skeleton key and wiffle ball from your stash and
 shove them into the red bag.  The faint odor of snappers wafts off to the
 east.
+Your ears are rudely awakened by the sound of a skill saw screaming and
+scraping through some lumber off  in the distance.
 
 > put the items into the orange bag
 You deftly shove the garage key, sour grapes and usable glove into the orange
@@ -1376,12 +1379,13 @@ coughing fits.  It ends after several seconds and you wonder if he's dead.
 > put the items into the yellow bag
 You take the new baseball, many flags and beat up shovel and cram them into
 the yellow bag.
-You hear a large dog barking off in the distance.  The sound seems to echo
-through the neighborhood.
+The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > put the items into the green bag
 You take the medical kit, soap-on-a-rope and strawberry shampoo and cram them
 into the green bag.
+You hear a large dog barking off in the distance.  The sound seems to echo
+through the neighborhood.
 
 > put the items into the blue bag
 You take the white towel, push broom and tennis ball and cram them into the
@@ -1394,10 +1398,14 @@ reluctantly place them into the purple bag.
 > put the items into the black bag
 You gently pick up your guitar, the playboy magazine and the incredible
 edibles and shove them into the black bag.
+Electricity rips through your spine as your ears are attacked by one of Art's
+coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > put the bags into the glass box
 You carefully take the red, orange and yellow bags and one-by-one, place them
 into the colorful glass box and close it.
+Your ears are rudely awakened by the sound of a skill saw screaming and
+scraping through some lumber off  in the distance.
 
 > put the bags into the metal box
 You take the green and blue bags and stuff them into the colorful metal box
@@ -1406,10 +1414,7 @@ and close it.
 > put the bags into the wooden box
 You take the full purple and black bags, shove them into the wooden box and
 close it.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
-Your ears are rudely awakened by the sound of a skill saw screaming and
-scraping through some lumber off  in the distance.
+The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > put the boxes into the garbage container
 You lift each box, one by one, into the garbage container and close the lid.
@@ -1429,9 +1434,8 @@ brown nose or something...  Your score has gone up by 5 for good citizenship.
 > climb up the ladder
 You check that the footing is solid and proceed gingerly up to the top of the
 ladder.  Your fear of heights begins to bother you a little.
-The sound of a skill saw ripping lumber finally fades to  stillness.
-You hear a large dog barking off in the distance.  The sound seems to echo
-through the neighborhood.
+Electricity rips through your spine as your ears are attacked by one of Art's
+coughing fits.  It ends after several seconds and you wonder if he's dead.
 
 > up
 You reach a hand up and to your surprise, you feel an invisible solid ledge.

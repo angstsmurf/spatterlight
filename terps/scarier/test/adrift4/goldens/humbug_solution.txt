@@ -165,7 +165,7 @@ Drop nailfile
 E
 D
 X dial
-Turn dial to 3
+Turn dial to 4
 E
 E
 X dial
@@ -173,12 +173,12 @@ Turn dial to 4
 W
 S
 X dial
-Turn dial to 4
+Turn dial to 6
 Get mattress
 N
 N
 X dial
-Turn dial to 6
+Turn dial to 9
 Drop mattress
 S
 X case
@@ -350,15 +350,9 @@ S
 Turn off torch
 X buttons
 Read display
-push button 0
-push button 2
 push button 4
 push button 5
 push button 6
-push button 7
-Read display
-push button 0
-push button 2
 push button 7
 Read display
 push button 0
@@ -370,6 +364,13 @@ push button 7
 Read display
 push button 0
 push button 1
+push button 2
+push button 3
+push button 4
+push button 5
+push button 7
+Read display
+push button 0
 push button 2
 push button 3
 push button 4
@@ -461,6 +462,8 @@ N
 Remove cap
 Drop all
 Get sandwich
+Look
+Look
 W
 N
 W
@@ -783,9 +786,9 @@ i
 Give package to hacker
 X computer
 Read filofax
-Type 010473736401 on computer
+Type 010476204368 on computer
 X computer
-Type 60318897 on computer
+Type 34706513 on computer
 X computer
 Drop filofax
 Type Log Off on computer
@@ -794,7 +797,7 @@ W
 N
 W
 S
-Say 010473470651
+Say 010473736401
 Get rucksack
 Open rucksack
 Get powder
@@ -962,7 +965,7 @@ W
 W
 Turn off torch
 Drop gloves
-Say Jisanajen
+Say Tevobicab
 Get map
 X map
 U

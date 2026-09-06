@@ -156,6 +156,8 @@ surounded by zombies, so it's terrifying. In fact, there's so many zombies,
 you can't even tell where you're going, it's like a maze of the undead.
 Stu stands around looking tough with his rifle
 
+The zombies are really getting close, they're reaching for your head!
+
 > x zombies
 You love zombies in movies, but zombies in real life are real douchebags.
 
@@ -213,8 +215,6 @@ the window to the pet shop.
 > in
 You enter the pet shop.
 
-That dog is SO ready to pounce and eat you.
-
 > look
 
 Pet Shop
@@ -225,7 +225,7 @@ that'd really suck. You better stop him, and you better do it fast.
 > x dog
 Zombie dogs. Why did it have to be zombie dogs.
 
-The zombie dog jumps up and eats your face in one bite. What a douche.
+That dog is SO ready to pounce and eat you.
 
 > blow whistle
 With no other options, you pull out the toy whistle and blow on it. The high

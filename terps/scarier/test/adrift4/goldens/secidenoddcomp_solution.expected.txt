@@ -78,14 +78,13 @@ You drop the stool.
 
 > stand on stool
 You stand on the stool.
+You hear the faint sound of cackling laughter - is it real?
 
 > take shotgun
 You reach up and grab the shotgun.
-You hear the faint sound of cackling laughter - is it real?
 
 > load shotgun with shells
 You crack open the shotgun, push in the two shells, and snap it shut.
-Something howls in the distance.
 
 > w
 (Getting off the stool first)
@@ -101,6 +100,7 @@ doors are missing, their interiors empty and decaying. Even the stove and a
 doorway to the east are without doors. Above the western counter lies a
 window from which the moon's rays light the room, illuminating the many holes
 in the floor.
+Something howls in the distance.
 
 > shoot window with shotgun
 You pull the trigger and unleash a blast of force, shattering the window.
@@ -175,6 +175,7 @@ your every motion.
 
 > take key
 You take the ornate key.
+Something howls in the distance.
 
 > e
 You venture out into the void, the ornate key clasped strongly in your fist.

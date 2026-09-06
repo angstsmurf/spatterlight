@@ -685,12 +685,6 @@ Time passes...
 
 > wait
 Time passes...
-
-> wait
-Time passes...
-
-> wait
-Time passes...
 Baxter, Vick, and Theodore approach.
 
 "Hey kid!"  shouts Vick as they push through the audience.  "You ready to pay
@@ -702,6 +696,18 @@ fist. For once, I'm not worried.
 Theodore is the first to step toward me, and he walks right into the path of
 my first trap.  Now is the time to pull a string and activate one of my
 traps!
+
+> wait
+Time passes...
+
+The bullies are moving towards my position.  Now is the time to pull a string
+for a trap!
+
+> wait
+Time passes...
+
+The bullies are moving towards my position.  Now is the time to pull a string
+for a trap!
 
 > wait
 Time passes...

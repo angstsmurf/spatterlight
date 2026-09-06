@@ -485,20 +485,20 @@ you stand.
 > x meter
 The pH meter looks much like a mercury thermometer.  It ranges between 1 and
 14, with a green line at 7.  The pH meter says that the pH of the hot tub is
-currently at 10.
-
-> add acid
-You drop an acidic tablet into the hot tub.  After a few moments of bubbling,
-it dissolves completely into the water and is mixed by the tub's own bubbles.
-
-> add acid
-You drop an acidic tablet into the hot tub.  After a few moments of bubbling,
-it dissolves completely into the water and is mixed by the tub's own bubbles.
+currently at 8.
 
 > add acid
 You drop an acidic tablet into the hot tub.  After a few moments of bubbling,
 it dissolves completely into the water and is mixed by the tub's own bubbles.
  The pH meter now reads 7.  You have successfully balanced the pH!
+
+> add acid
+Adding more acid to the hot tub would move the pH farther away from 7 -- you
+probably don't want to do that.
+
+> add acid
+Adding more acid to the hot tub would move the pH farther away from 7 -- you
+probably don't want to do that.
 
 > x meter
 The pH meter looks much like a mercury thermometer.  It ranges between 1 and
@@ -1099,10 +1099,10 @@ Time passes...
 > z
 Time passes...
 The dryer's motion is slowing.
+The dryer slows to a stop.  Your laundry is done!
 
 > z
 Time passes...
-The dryer slows to a stop.  Your laundry is done!
 
 > z
 Time passes...

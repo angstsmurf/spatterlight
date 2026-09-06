@@ -1224,7 +1224,7 @@ You put the foul-smelling globe onto the iron stove.
 You lower the left lever.
 
 > move gear
-You move the gear into the upright position.
+You move the gear into the downward position.
 
 > move gear
 You move the gear into the middle position.

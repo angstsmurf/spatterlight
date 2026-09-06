@@ -159,6 +159,7 @@ Also here is a sign.  The walls appear as if they are being shook by a small
 earthquake.
 
 You can move north, east, south and west.
+You hear the trains whistle blow loudly.
 
 > s
 You move south.
@@ -171,23 +172,22 @@ booth with a large table.  The walls appear as if they are being shook by a
 small earthquake.
 
 You can only move north.
+You are thrown backward as the train begins to pull away from the station.
 
 > read menu
 You gaze at the menu.
+You feel the vibration of the train as it slowly picks up speed. A low rumble
+can be heard from the advancing train.
 
 > take spoon
 For some reason you feel compelled to take the spoon from the table.
-You hear the trains whistle blow loudly.
 
 > order tea
 You tell the waiter what you'd like. He looks at you kind of funny then walks
 away.  Gimme Atip walks off.
-You are thrown backward as the train begins to pull away from the station.
 
 > give coin to waiter
 You toss the coin to the waiter. "Now I give you tip, don't eat food."
-You feel the vibration of the train as it slowly picks up speed. A low rumble
-can be heard from the advancing train.
 
 > give waiter tip
 You being a wise guy decide to give the waiter a tip. You look at him and say
@@ -352,8 +352,6 @@ back to him. He hands you the bag and says "There's a little something in it
 for you, sweetie." as he pats Ivanna on the buns.
 You hear a car approaching. You assume that some one is coming to make a
 purchase.
-You look at Ivanna, and shove her to the ground. She screams in horror as the
-bullets leave holes in the side of the Booze barn.
 
 > examine ivanna
 You quickly check to se if Ivanna is alright. You can tell right away that
@@ -364,6 +362,8 @@ nev...er.......w..w..wanted  it...to  be like.....th...this. Sh....Shh....She
 is in....An....Anita....is in the......" With her last ounce of strength, she
 looks at you with caring eyes. Or maybe drunken eye's.  Ivanna goes limp in
 your arms.  Moments later Habibo  takes Ivanna's lifeless body away.
+You look at Ivanna, and shove her to the ground. She screams in horror as the
+bullets leave holes in the side of the Booze barn.
 
 > w
 You move west.

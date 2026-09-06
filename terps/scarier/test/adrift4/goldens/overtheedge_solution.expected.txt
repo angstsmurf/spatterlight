@@ -31,7 +31,8 @@ trench is long, narrow and continues to the east. Behind you, through a
 dirty-green canopy, lie the beds. The men mill around you, leaning on their
 rifles, talking in quiet whispers.
 
-The Captain rests his hand gently on your shoulder. 'Not long now Billy.'
+'We're at the edge, men,' Captain Harrison tells you hoarsely, 'we're at the
+edge.'
 
 > x men
 The men mill around, leaning on their rifles, talking in low voices. They are
@@ -39,7 +40,7 @@ all here - Jones, Simpson, Johnson, Winstanley, Phillips, Howarth, Smith, and
 others that you do not recognise. Sometimes you wonder how they fit them all
 in.
 
-The Captain rests his hand gently on your shoulder. 'Not long now Billy.'
+The Captain looks up at the greying sky, ears straining for the bugle call.
 
 > e
 You move east.
@@ -105,11 +106,11 @@ hand over the glinting something in his left.
 
 You hear a soft 'thud'.
 
+You hear a soft 'thud'.
+
 > x cots
 Each of the men lies on his bed, not moving. You don't look too closely but
 you think they are sleeping, or . . . yes. They are sleeping.
-
-You hear a soft 'thud'.
 
 > x your bed
 Someone is sleeping in your bed. They don't move, they hardly breathe, and

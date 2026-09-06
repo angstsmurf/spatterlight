@@ -1212,29 +1212,6 @@ logbook, perhaps belonging to the owner of this ship.
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 3
-
-... abominations. At first it seemed they were monsters of the island, warped
-by the magic here, but on one we found coins in a pouch of Kandish make;
-another wore clothes, tattered rags though they were. The abominations are,
-or once were, humans, though none of us like to speculate on how they
-suffered such a change. Does a similar fate await...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 5
-
-... my actions seem circular. Repetitious. Everything I do, every move I
-make, every decision I reach, seems one I have made before. I found my helm,
-buried where I had buried it for reasons unknown to me now; my cloak, on the
-corpse of Halstings; my sword... which I threw into the quicksand, putting it
-forever beyond my reach. Its blade is red with blood – who I have killed and
-then forgotten?...
-
-> read logbook
-You open the logbook to a random page and read:
-
 Entry 7
 
 ... Halstings believes we are dead and this island simply a figment of our
@@ -1250,6 +1227,28 @@ though I can hardly sail the ship home on my own...
 > read logbook
 You open the logbook to a random page and read:
 
+Entry 4
+
+... communication device, shaped like a pendant, has failed, a thing I was
+told was impossible. Magic powers it, and it is self-repairing, and can last
+a lifetime. Yet within days of arriving in this strange place, it has ceased
+to function altogether. I lack the means to repair it, a device of magic and
+science which I do not fully understand. We are trapped here...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 10
+
+... the design is Kandish. The temple. Of course, I should have expected it.
+The rhyme in the clearing was Kandish, the totem pole Kandish, why should the
+temple now be Kandish, too, even though it lies on the far side of the world
+from Kandor? I feel not that I am discovering something new, but simply
+returning to a place I have already visited many, many times before...
+
+> read logbook
+You open the logbook to a random page and read:
+
 Entry 8
 
 ... my memories are confused, contradictory. I remember, clearly, a fight
@@ -1258,6 +1257,17 @@ why I did this. I also remember, clearly, Halstings leaping to his death over
 a waterfall, insisting we were all dead so it didn't matter anyway. I further
 remember, equally as clearly, the beast that Carson became tearing Halstings
 apart. How can all of these be true? Or are none of them? Am I simply mad?...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 3
+
+... abominations. At first it seemed they were monsters of the island, warped
+by the magic here, but on one we found coins in a pouch of Kandish make;
+another wore clothes, tattered rags though they were. The abominations are,
+or once were, humans, though none of us like to speculate on how they
+suffered such a change. Does a similar fate await...
 
 > read logbook
 You open the logbook to a random page and read:
@@ -1273,14 +1283,22 @@ science which I do not fully understand. We are trapped here...
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 8
+Entry 10
 
-... my memories are confused, contradictory. I remember, clearly, a fight
-with Halstings when I stabbed him through the chest, though I do not remember
-why I did this. I also remember, clearly, Halstings leaping to his death over
-a waterfall, insisting we were all dead so it didn't matter anyway. I further
-remember, equally as clearly, the beast that Carson became tearing Halstings
-apart. How can all of these be true? Or are none of them? Am I simply mad?...
+... the design is Kandish. The temple. Of course, I should have expected it.
+The rhyme in the clearing was Kandish, the totem pole Kandish, why should the
+temple now be Kandish, too, even though it lies on the far side of the world
+from Kandor? I feel not that I am discovering something new, but simply
+returning to a place I have already visited many, many times before...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 9
+
+... ship moored here? Why here? It is in a river, not far north of a
+waterfall. How did it come to be here, miles away from the cove where it was
+anchored? What kind of magic could do such a thing? No one knows...
 
 > read logbook
 You open the logbook to a random page and read:
@@ -1296,34 +1314,13 @@ science which I do not fully understand. We are trapped here...
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 2
+Entry 4
 
-... a spike of darkness. Of jet blackness. Of the night sky. But this was no
-weapon, despite its appearance. A door would be found, and a key would be
-needed. The spike would serve as the key...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 5
-
-... my actions seem circular. Repetitious. Everything I do, every move I
-make, every decision I reach, seems one I have made before. I found my helm,
-buried where I had buried it for reasons unknown to me now; my cloak, on the
-corpse of Halstings; my sword... which I threw into the quicksand, putting it
-forever beyond my reach. Its blade is red with blood – who I have killed and
-then forgotten?...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 6
-
-... Halstings does not believe the cave is simply the former home of pirates
-or bandits. He points to the mirror, the grate we have been unable to open,
-the strange barrier which sometimes forms over the mouth – these are not the
-work of pirates or bandits. He is right as well. The barrier is a form of
-magic I have seen my mentor employ often. A form he once taught to me...
+... communication device, shaped like a pendant, has failed, a thing I was
+told was impossible. Magic powers it, and it is self-repairing, and can last
+a lifetime. Yet within days of arriving in this strange place, it has ceased
+to function altogether. I lack the means to repair it, a device of magic and
+science which I do not fully understand. We are trapped here...
 
 > score
 You have a score of 26 out of 52.
@@ -1363,45 +1360,6 @@ this torch for any length of time.}
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 7
-
-... Halstings believes we are dead and this island simply a figment of our
-collective imaginations. He points to the things we both cannot be, and yet
-are. The cave, the totem pole, the bridge which repairs itself... other
-things... I have ordered him to keep his mad delusions to himself, lest he
-incite a panic in the crew, but here, in this place, far from the power of my
-mentor, he seems to have grown brave. I could punish him, but he is popular
-amongst the crew and they have been pushed far already. The last thing I need
-is a mutiny as I would be forced to kill them. Something I can do easily,
-though I can hardly sail the ship home on my own...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 7
-
-... Halstings believes we are dead and this island simply a figment of our
-collective imaginations. He points to the things we both cannot be, and yet
-are. The cave, the totem pole, the bridge which repairs itself... other
-things... I have ordered him to keep his mad delusions to himself, lest he
-incite a panic in the crew, but here, in this place, far from the power of my
-mentor, he seems to have grown brave. I could punish him, but he is popular
-amongst the crew and they have been pushed far already. The last thing I need
-is a mutiny as I would be forced to kill them. Something I can do easily,
-though I can hardly sail the ship home on my own...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 2
-
-... a spike of darkness. Of jet blackness. Of the night sky. But this was no
-weapon, despite its appearance. A door would be found, and a key would be
-needed. The spike would serve as the key...
-
-> read logbook
-You open the logbook to a random page and read:
-
 Entry 3
 
 ... abominations. At first it seemed they were monsters of the island, warped
@@ -1413,41 +1371,27 @@ suffered such a change. Does a similar fate await...
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 2
+Entry 1
 
-... a spike of darkness. Of jet blackness. Of the night sky. But this was no
-weapon, despite its appearance. A door would be found, and a key would be
-needed. The spike would serve as the key...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 2
-
-... a spike of darkness. Of jet blackness. Of the night sky. But this was no
-weapon, despite its appearance. A door would be found, and a key would be
-needed. The spike would serve as the key...
+... primitives would worship of the skull. Golden in colour it was, and the
+size of that of a child, though for certain it came from no child of human
+descent. Prayers would be offered with the skull in the possession of the
+worshipper, and, on occasion, or so it seemed, they would be answered...
 
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 9
+Entry 7
 
-... ship moored here? Why here? It is in a river, not far north of a
-waterfall. How did it come to be here, miles away from the cove where it was
-anchored? What kind of magic could do such a thing? No one knows...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 8
-
-... my memories are confused, contradictory. I remember, clearly, a fight
-with Halstings when I stabbed him through the chest, though I do not remember
-why I did this. I also remember, clearly, Halstings leaping to his death over
-a waterfall, insisting we were all dead so it didn't matter anyway. I further
-remember, equally as clearly, the beast that Carson became tearing Halstings
-apart. How can all of these be true? Or are none of them? Am I simply mad?...
+... Halstings believes we are dead and this island simply a figment of our
+collective imaginations. He points to the things we both cannot be, and yet
+are. The cave, the totem pole, the bridge which repairs itself... other
+things... I have ordered him to keep his mad delusions to himself, lest he
+incite a panic in the crew, but here, in this place, far from the power of my
+mentor, he seems to have grown brave. I could punish him, but he is popular
+amongst the crew and they have been pushed far already. The last thing I need
+is a mutiny as I would be forced to kill them. Something I can do easily,
+though I can hardly sail the ship home on my own...
 
 > read logbook
 You open the logbook to a random page and read:
@@ -1463,13 +1407,49 @@ returning to a place I have already visited many, many times before...
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 6
+Entry 2
 
-... Halstings does not believe the cave is simply the former home of pirates
-or bandits. He points to the mirror, the grate we have been unable to open,
-the strange barrier which sometimes forms over the mouth – these are not the
-work of pirates or bandits. He is right as well. The barrier is a form of
-magic I have seen my mentor employ often. A form he once taught to me...
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 2
+
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 2
+
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 2
+
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 10
+
+... the design is Kandish. The temple. Of course, I should have expected it.
+The rhyme in the clearing was Kandish, the totem pole Kandish, why should the
+temple now be Kandish, too, even though it lies on the far side of the world
+from Kandor? I feel not that I am discovering something new, but simply
+returning to a place I have already visited many, many times before...
 
 > read logbook
 You open the logbook to a random page and read:
@@ -1481,13 +1461,19 @@ size of that of a child, though for certain it came from no child of human
 descent. Prayers would be offered with the skull in the possession of the
 worshipper, and, on occasion, or so it seemed, they would be answered...
 
-You lower the logbook, understanding finally dawning. You recognise the
-handwriting because it is your handwriting. This is your logbook. The ship
-you found it on was your ship. But...
-   But you don't remember writing a word of it.
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 4
+
+... communication device, shaped like a pendant, has failed, a thing I was
+told was impossible. Magic powers it, and it is self-repairing, and can last
+a lifetime. Yet within days of arriving in this strange place, it has ceased
+to function altogether. I lack the means to repair it, a device of magic and
+science which I do not fully understand. We are trapped here...
 
 > score
-You have a score of 28 out of 52.
+You have a score of 26 out of 52.
 
 > i
 You are carrying:
@@ -1524,7 +1510,7 @@ this torch for any length of time.}
 > u
 
 Deck
-[Score: 28/50] [Locations visited: 22/43] [Fragments of memory recovered:
+[Score: 26/50] [Locations visited: 22/43] [Fragments of memory recovered:
 6/12] [Decisions made: 123]
 
 EXITS: West, Down
@@ -1553,7 +1539,7 @@ has returned to his face.
 > d
 
 Cabin
-[Score: 29/50] [Locations visited: 22/43] [Fragments of memory recovered:
+[Score: 27/50] [Locations visited: 22/43] [Fragments of memory recovered:
 6/12] [Decisions made: 125]
 
 EXITS: Up, Down
@@ -1567,7 +1553,7 @@ down.
 > d
 
 Hold
-[Score: 29/50] [Locations visited: 22/43] [Fragments of memory recovered:
+[Score: 27/50] [Locations visited: 22/43] [Fragments of memory recovered:
 6/12] [Decisions made: 126]
 
 EXITS: Out, Up
@@ -1595,7 +1581,7 @@ The memory fades.
 .. press a key to continue...
 
 By a Wrecked Ship
-[Score: 30/50] [Locations visited: 22/43] [Fragments of memory recovered:
+[Score: 28/50] [Locations visited: 22/43] [Fragments of memory recovered:
 7/12] [Decisions made: 127]
 
 EXITS: North, Southeast, In
@@ -1608,7 +1594,7 @@ side, though the entire structure of the ship looks less than safe.
 > n
 
 River Bank
-[Score: 30/50] [Locations visited: 22/43] [Fragments of memory recovered:
+[Score: 28/50] [Locations visited: 22/43] [Fragments of memory recovered:
 7/12] [Decisions made: 128]
 
 EXITS: North, South, West
@@ -1620,7 +1606,7 @@ river runs while away to the west is a patch of quicksand.
 > n
 
 By a Broken Bridge
-[Score: 30/50] [Locations visited: 23/43] [Fragments of memory recovered:
+[Score: 28/50] [Locations visited: 23/43] [Fragments of memory recovered:
 7/12] [Decisions made: 129]
 
 EXITS: North, South, East
@@ -1632,7 +1618,7 @@ river runs north to south.
 > n
 
 Riverside Path
-[Score: 30/50] [Locations visited: 24/43] [Fragments of memory recovered:
+[Score: 28/50] [Locations visited: 24/43] [Fragments of memory recovered:
 7/12] [Decisions made: 130]
 
 EXITS: Northwest, South
@@ -1643,7 +1629,7 @@ south. The river continues as far north as the eye can see.
 > nw
 
 Grotto
-[Score: 30/50] [Locations visited: 25/43] [Fragments of memory recovered:
+[Score: 28/50] [Locations visited: 25/43] [Fragments of memory recovered:
 7/12] [Decisions made: 131]
 
 EXITS: Southeast
@@ -1672,7 +1658,7 @@ dislodged from its chest when it attacked you.
 You take the black spike.
 
 > score
-You have a score of 31 out of 52.
+You have a score of 29 out of 52.
 
 > i
 You are carrying:
@@ -1705,7 +1691,7 @@ this torch for any length of time.}
 > look
 
 Grotto
-[Score: 31/50] [Locations visited: 25/43] [Fragments of memory recovered:
+[Score: 29/50] [Locations visited: 25/43] [Fragments of memory recovered:
 7/12] [Decisions made: 136]
 
 EXITS: Southeast
@@ -1745,7 +1731,7 @@ you have discovered its secrets."
 The memory fades.
 
 Riverside Path
-[Score: 32/50] [Locations visited: 25/43] [Fragments of memory recovered:
+[Score: 30/50] [Locations visited: 25/43] [Fragments of memory recovered:
 8/12] [Decisions made: 137]
 
 EXITS: Northwest, South
@@ -1763,7 +1749,7 @@ missed now stand out to you; sounds are also more vibrant.
 > s
 
 By a Broken Bridge
-[Score: 32/50] [Locations visited: 25/43] [Fragments of memory recovered:
+[Score: 30/50] [Locations visited: 25/43] [Fragments of memory recovered:
 8/12] [Decisions made: 139]
 
 EXITS: North, South, East
@@ -1793,7 +1779,7 @@ on the far side of the river a few moments later.
 .. press a key to continue...
 
 Eastern River Bank
-[Score: 33/50] [Locations visited: 25/43] [Fragments of memory recovered:
+[Score: 31/50] [Locations visited: 25/43] [Fragments of memory recovered:
 9/12] [Decisions made: 140]
 
 EXITS: East, West
@@ -1827,7 +1813,7 @@ have gone, too. You are back to normal again.
 > e
 
 Outside the Temple
-[Score: 33/50] [Locations visited: 27/43] [Fragments of memory recovered:
+[Score: 31/50] [Locations visited: 27/43] [Fragments of memory recovered:
 9/12] [Decisions made: 141]
 
 EXITS: West
@@ -1853,7 +1839,7 @@ inside the temple.
 .. press a key to continue...
 
 Temple Entrance
-[Score: 34/50] [Locations visited: 27/43] [Fragments of memory recovered:
+[Score: 32/50] [Locations visited: 27/43] [Fragments of memory recovered:
 10/12] [Decisions made: 143]
 
 EXITS: North, South
@@ -1888,12 +1874,12 @@ Your hair is long and in the torchlight it appears grey. But...
 The memory fades.
 
 > score
-You have a score of 34 out of 52.
+You have a score of 32 out of 52.
 
 > look
 
 Temple Entrance
-[Score: 34/50] [Locations visited: 28/43] [Fragments of memory recovered:
+[Score: 32/50] [Locations visited: 28/43] [Fragments of memory recovered:
 10/12] [Decisions made: 145]
 
 EXITS: North, South
@@ -1908,7 +1894,7 @@ stone door to the west is closed.
 > n
 
 Dusty Passageway
-[Score: 34/50] [Locations visited: 28/43] [Fragments of memory recovered:
+[Score: 32/50] [Locations visited: 28/43] [Fragments of memory recovered:
 10/12] [Decisions made: 146]
 
 EXITS: South, East
@@ -1950,7 +1936,7 @@ You approach the wall and pass through, as if it is not there at all.
 .. press a key to continue...
 
 Mirror Room
-[Score: 37/50] [Locations visited: 29/43] [Fragments of memory recovered:
+[Score: 35/50] [Locations visited: 29/43] [Fragments of memory recovered:
 10/12] [Decisions made: 151]
 
 EXITS: South
@@ -1976,7 +1962,7 @@ yet, bizarrely, you fancy you see a similarity there, too.
 > s
 
 Dusty Passageway
-[Score: 38/50] [Locations visited: 30/43] [Fragments of memory recovered:
+[Score: 36/50] [Locations visited: 30/43] [Fragments of memory recovered:
 10/12] [Decisions made: 153]
 
 EXITS: North, South, East
@@ -1987,7 +1973,7 @@ pungent aroma is emitted from them which makes your nose itch.
 > e
 
 Well
-[Score: 38/50] [Locations visited: 30/43] [Fragments of memory recovered:
+[Score: 36/50] [Locations visited: 30/43] [Fragments of memory recovered:
 10/12] [Decisions made: 154]
 
 EXITS: East, West
@@ -1999,7 +1985,7 @@ has struck and shattered it.
 > e
 
 Dark Passageway
-[Score: 38/50] [Locations visited: 31/43] [Fragments of memory recovered:
+[Score: 36/50] [Locations visited: 31/43] [Fragments of memory recovered:
 10/12] [Decisions made: 155]
 
 EXITS: South, West
@@ -2011,7 +1997,7 @@ seldom mirror your movements.
 > s
 
 Disused Gallery
-[Score: 38/50] [Locations visited: 32/43] [Fragments of memory recovered:
+[Score: 36/50] [Locations visited: 32/43] [Fragments of memory recovered:
 10/12] [Decisions made: 156]
 
 EXITS: North, South
@@ -2043,7 +2029,7 @@ disappearing from sight in a matter of seconds.
 > n
 
 Dark Passageway
-[Score: 39/50] [Locations visited: 33/43] [Fragments of memory recovered:
+[Score: 37/50] [Locations visited: 33/43] [Fragments of memory recovered:
 10/12] [Decisions made: 158]
 
 EXITS: South, West
@@ -2055,7 +2041,7 @@ seldom mirror your movements.
 > w
 
 Well
-[Score: 39/50] [Locations visited: 33/43] [Fragments of memory recovered:
+[Score: 37/50] [Locations visited: 33/43] [Fragments of memory recovered:
 10/12] [Decisions made: 159]
 
 EXITS: East, West
@@ -2070,7 +2056,7 @@ It drops out of sight, landing somewhere unseen a few seconds later.
 > w
 
 Dusty Passageway
-[Score: 40/50] [Locations visited: 33/43] [Fragments of memory recovered:
+[Score: 38/50] [Locations visited: 33/43] [Fragments of memory recovered:
 10/12] [Decisions made: 161]
 
 EXITS: North, South, East
@@ -2081,7 +2067,7 @@ pungent aroma is emitted from them which makes your nose itch.
 > s
 
 Temple Entrance
-[Score: 40/50] [Locations visited: 33/43] [Fragments of memory recovered:
+[Score: 38/50] [Locations visited: 33/43] [Fragments of memory recovered:
 10/12] [Decisions made: 162]
 
 EXITS: North, South
@@ -2096,7 +2082,7 @@ stone door to the west is closed.
 > s
 
 Prayer Room
-[Score: 40/50] [Locations visited: 33/43] [Fragments of memory recovered:
+[Score: 38/50] [Locations visited: 33/43] [Fragments of memory recovered:
 10/12] [Decisions made: 163]
 
 EXITS: North, East
@@ -2122,12 +2108,12 @@ knocking you to the floor and leaving you gasping and shuddering.
    The presence fades away.
 
 > score
-You have a score of 41 out of 52.
+You have a score of 39 out of 52.
 
 > look
 
 Prayer Room
-[Score: 41/50] [Locations visited: 34/43] [Fragments of memory recovered:
+[Score: 39/50] [Locations visited: 34/43] [Fragments of memory recovered:
 10/12] [Decisions made: 167]
 
 EXITS: North, East
@@ -2143,7 +2129,7 @@ You rise to your feet and move east.
 .. press a key to continue...
 
 Echoing Chamber
-[Score: 41/50] [Locations visited: 34/43] [Fragments of memory recovered:
+[Score: 39/50] [Locations visited: 34/43] [Fragments of memory recovered:
 10/12] [Decisions made: 168]
 
 EXITS: East, West
@@ -2175,7 +2161,7 @@ heard before in your visions. The one you call your mentor.
 > e
 
 A Bend in the Passage
-[Score: 42/50] [Locations visited: 35/43] [Fragments of memory recovered:
+[Score: 40/50] [Locations visited: 35/43] [Fragments of memory recovered:
 10/12] [Decisions made: 171]
 
 EXITS: North, West
@@ -2211,7 +2197,7 @@ of dots as follows:
 > n
 
 Disused Gallery
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 175]
 
 EXITS: North, South
@@ -2224,7 +2210,7 @@ immense sadness hangs over the place.
 > n
 
 Dark Passageway
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 176]
 
 EXITS: South, West
@@ -2236,7 +2222,7 @@ seldom mirror your movements.
 > w
 
 Well
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 177]
 
 EXITS: East, West
@@ -2251,7 +2237,7 @@ You give a shout which echoes through the dusty passageways of the temple.
 > w
 
 Dusty Passageway
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 179]
 
 EXITS: North, South, East
@@ -2262,7 +2248,7 @@ pungent aroma is emitted from them which makes your nose itch.
 > s
 
 Temple Entrance
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 180]
 
 EXITS: North, South
@@ -2283,7 +2269,7 @@ You give a shout which echoes through the dusty passageways of the temple.
 > s
 
 Prayer Room
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 182]
 
 EXITS: North, East
@@ -2296,7 +2282,7 @@ if they were respectful enough, their God would answer them.
 > e
 
 Echoing Chamber
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 183]
 
 EXITS: East, West
@@ -2310,7 +2296,7 @@ You give a shout which echoes through the dusty passageways of the temple.
 > e
 
 A Bend in the Passage
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 185]
 
 EXITS: North, West
@@ -2321,7 +2307,7 @@ whereas before they were blank.
 > n
 
 Disused Gallery
-[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 41/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 186]
 
 EXITS: North, South
@@ -2339,7 +2325,7 @@ a shadowy... something... darting away to the north.
 > n
 
 Dark Passageway
-[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 42/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 188]
 
 EXITS: South, West
@@ -2360,7 +2346,7 @@ awaits..."
 > w
 
 Well
-[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 42/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 190]
 
 EXITS: East, West
@@ -2376,7 +2362,7 @@ moving away to the west.
 > w
 
 Dusty Passageway
-[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 42/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 191]
 
 EXITS: North, South, East
@@ -2390,7 +2376,7 @@ others and gestures you to follow it to the south.
 > s
 
 Temple Entrance
-[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 42/50] [Locations visited: 36/43] [Fragments of memory recovered:
 10/12] [Decisions made: 192]
 
 EXITS: North, South
@@ -2441,12 +2427,12 @@ runes, when you look at them once more, appear foreign to you. Whatever
 understanding the shadow afforded you is gone, too.
 
 > score
-You have a score of 45 out of 52.
+You have a score of 43 out of 52.
 
 > look
 
 Temple Entrance
-[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
 11/12] [Decisions made: 195]
 
 EXITS: North, South
@@ -2480,7 +2466,7 @@ this torch for any length of time.}
 > n
 
 Dusty Passageway
-[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
 11/12] [Decisions made: 197]
 
 EXITS: North, South, East
@@ -2491,7 +2477,7 @@ pungent aroma is emitted from them which makes your nose itch.
 > e
 
 Well
-[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
 11/12] [Decisions made: 198]
 
 EXITS: East, West
@@ -2503,7 +2489,7 @@ has struck and shattered it.
 > e
 
 Dark Passageway
-[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
 11/12] [Decisions made: 199]
 
 EXITS: South, West
@@ -2515,7 +2501,7 @@ seldom mirror your movements.
 > s
 
 Disused Gallery
-[Score: 45/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 43/50] [Locations visited: 36/43] [Fragments of memory recovered:
 11/12] [Decisions made: 200]
 
 EXITS: North, South
@@ -2541,12 +2527,12 @@ Enter, servant of the Fallen One."
    The wall behind the gargoyle opens, revealing another chamber to the east.
 
 > score
-You have a score of 46 out of 52.
+You have a score of 44 out of 52.
 
 > look
 
 Disused Gallery
-[Score: 46/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered:
 11/12] [Decisions made: 204]
 
 EXITS: North, South, East
@@ -2560,7 +2546,7 @@ the east wall. There is an opening to one side of it.
 > e
 
 Crypt
-[Score: 46/50] [Locations visited: 36/43] [Fragments of memory recovered:
+[Score: 44/50] [Locations visited: 36/43] [Fragments of memory recovered:
 11/12] [Decisions made: 205]
 
 EXITS: West
@@ -2591,12 +2577,12 @@ nowhere, the voice of your mentor. "I had hoped the intruder was you. Come,
 visit me. The way is now open."
 
 > score
-You have a score of 47 out of 52.
+You have a score of 45 out of 52.
 
 > look
 
 Crypt
-[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered:
 11/12] [Decisions made: 209]
 
 EXITS: West
@@ -2629,7 +2615,7 @@ this torch for any length of time.}
 > w
 
 Disused Gallery
-[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered:
 11/12] [Decisions made: 211]
 
 EXITS: North, South, East
@@ -2643,7 +2629,7 @@ the east wall. There is an opening to one side of it.
 > n
 
 Dark Passageway
-[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered:
 11/12] [Decisions made: 212]
 
 EXITS: South, West
@@ -2655,7 +2641,7 @@ seldom mirror your movements.
 > w
 
 Well
-[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered:
 11/12] [Decisions made: 213]
 
 EXITS: East, West
@@ -2667,7 +2653,7 @@ has struck and shattered it.
 > w
 
 Dusty Passageway
-[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered:
 11/12] [Decisions made: 214]
 
 EXITS: North, South, East
@@ -2678,7 +2664,7 @@ pungent aroma is emitted from them which makes your nose itch.
 > s
 
 Temple Entrance
-[Score: 47/50] [Locations visited: 37/43] [Fragments of memory recovered:
+[Score: 45/50] [Locations visited: 37/43] [Fragments of memory recovered:
 11/12] [Decisions made: 215]
 
 EXITS: North, South
@@ -2697,12 +2683,12 @@ Welcome back."
    "Come," speaks the voice of your master. "We have much to discuss."
 
 > score
-You have a score of 48 out of 52.
+You have a score of 46 out of 52.
 
 > look
 
 Temple Entrance
-[Score: 48/50] [Locations visited: 37/43] [Fragments of memory recovered:
+[Score: 46/50] [Locations visited: 37/43] [Fragments of memory recovered:
 11/12] [Decisions made: 218]
 
 EXITS: North, South
@@ -2779,7 +2765,7 @@ type SCORE.
 Many thanks for playing.
 
 > score
-You have a score of 51 out of 52.
+You have a score of 49 out of 52.
 
 > look
 That cannot be done here.

@@ -69,7 +69,7 @@ work. This makes the park an ideal meeting place for no-good vagabonds...
 such as yourself. There is a large duck pond in the centre of the park, and a
 bench at the side.
 A ginger cat is strolling about casually.  The ginger cat ambles away to the
-south.
+north.
 
 > n
 You move north.
@@ -81,13 +81,15 @@ of the grease is making your mouth water...
 
 An empty polystyrene cup is lying helplessly in the gutter.  A large red bin
 is to the side.
-A group of chavs is leaning against the wall and smoking.
+A group of chavs is leaning against the wall and smoking.  A ginger cat is
+strolling about casually.
 
 > take cup
 You take the polystyrene cup.
 
 > look in bin
-The bin is bright red.  Some rubbish is inside the McDonalds bin.
+The bin is bright red.  Some rubbish is inside the McDonalds bin.  The ginger
+cat ambles away to the west.
 
 > search rubbish
 I don't understand what you want me to do with the rubbish.
@@ -109,7 +111,8 @@ important things from bins or rubbish from the streets.  A jar of mind
 medicine is inside the rubbish.
 
 > get medicine
-You take the jar of mind medicine from the rubbish.
+You take the jar of mind medicine from the rubbish.  The ginger cat saunters
+towards you from the west.
 
 > s
 You move south.
@@ -136,7 +139,9 @@ subtlety.
 Mad Cat Lady is here. So are many cats. Many, many cats.
 
 > talk to mad cat lady
-"Byeyoraghaaaarahargh munuuhbreayoragh!"
+A hideous smile crosses her toothless old face. This sadly doesn't affect the
+nonsense that comes out of her mouth. "Byehurghimrrrpurghahay!
+Lraghahaghaleyeohargh!"
 
 > give medicine to mad cat lady
 Although it pains you to give away one of your precious items, you do need to
@@ -147,9 +152,8 @@ take them, but you'll bet she is. And... yes, she swallows all the pills in
 one!
 
 > talk to mad cat lady
-The drugs seem to be taking some time to kick in... "Yep, feisty felines... I
-don't even, but we were, and, and, and, and and andandandand... anyway..."
-maybe a drink would help...
+"Well anyway yes but she oh oh ohhh no we were... hmmmm... and anyway. You
+were. I. We was, hmmmm...." What a waste of perfectly good drugs.
 
 > give water to mad cat lady
 Mad Cat Lady grabs the drink from your hand and downs it. You shudder to
@@ -382,6 +386,7 @@ Street Corner
 It's a fairly uninteresting street corner, as far as street corners go. I
 mean, usually there woudl be a lamppost to loiter around, but not here. Here
 we just have: pavement, road, pavement. Very dull indeed.
+A ginger cat is strolling about casually.
 
 > s
 You move south.
@@ -424,7 +429,7 @@ such as yourself. There is a large duck pond in the centre of the park, and a
 bench at the side.
 Scary Mumbling Man is shuffling about here.  Miscellaneous Hobos and Hobinas
 are loitering all over the park.  Ollie the Magic Hobo is standing with the
-other hobos.
+other hobos.  The ginger cat saunters towards you from the south.
 
 > look
 
@@ -436,7 +441,7 @@ such as yourself. There is a large duck pond in the centre of the park, and a
 bench at the side.
 Scary Mumbling Man is shuffling about here.  Miscellaneous Hobos and Hobinas
 are loitering all over the park.  Ollie the Magic Hobo is standing with the
-other hobos.
+other hobos.  A ginger cat is strolling about casually.
 
 > score
 Your score is 110 out of a maximum of 230.  (47%)
@@ -481,7 +486,7 @@ one of them.
 You are wearing a woolly hat and your old, grey coat, and you are carrying an
 old lighter, a cinema ticket, an empty cigarette box, a trashy romance novel,
 a biro, a beige computer keyboard, the sacred crowbar, some rope, some catnip
-and the whistle.
+and the whistle.  The ginger cat ambles away to the south.
 
 > score
 Your score is 110 out of a maximum of 230.  (47%)
@@ -656,7 +661,7 @@ There are a few people milling about noncommitally.
 Shop Guy is stacking the shelves.
 
 > talk to shop guy
-"If it's not on the shelf we ain't got it."
+"I'm sorry, I don't think I can help you with that."
 
 > w
 You move west.
@@ -719,6 +724,7 @@ Street Corner
 It's a fairly uninteresting street corner, as far as street corners go. I
 mean, usually there woudl be a lamppost to loiter around, but not here. Here
 we just have: pavement, road, pavement. Very dull indeed.
+A ginger cat is strolling about casually.
 
 > n
 You move north.
@@ -727,6 +733,7 @@ Riverbank
 
 The river winds away to the south. It's completely unbridged, which could
 well be because there isn't actually anything on the other side. Funny, that.
+ The ginger cat saunters towards you from the south.
 
 > e
 You move east.
@@ -802,6 +809,7 @@ Riverbank
 
 The river winds away to the south. It's completely unbridged, which could
 well be because there isn't actually anything on the other side. Funny, that.
+A ginger cat is strolling about casually.
 
 > n
 You move north.
@@ -811,7 +819,7 @@ Riverbank
 The beautiful, sparkling river is a very healthy shade of brown. When you
 found a fishing rod about a month ago, you were here from dawn till dusk
 catching boots; but then one fought back and took your rod with it.  The
-ginger cat saunters towards you from the east.
+ginger cat saunters towards you from the south.
 
 > x cat
 The cat sniffs the small pouch you hold out to it, and decides that following

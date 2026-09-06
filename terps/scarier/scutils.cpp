@@ -304,17 +304,48 @@ scr_platform_rand (scr_uint new_seed)
     }
 }
 
+static scr_uint congruential_state = 1;
+
+/*
+ * congruential_step()
+ *
+ * Advance the random state, using constants from Park & Miller (1988).
+ * To keep the values the same for both 32 and 64 bit longs, mask out any
+ * bits above the bottom 32.  The cycle length is 2^30.
+ */
+static void
+congruential_step (void)
+{
+  congruential_state = (congruential_state * 16807 + 2147483647) & 0xffffffff;
+}
+
 static scr_int
 scr_congruential_rand (scr_uint new_seed)
 {
   static scr_bool is_seeded = FALSE;
-  static scr_uint rand_state = 1;
 
   /* If reseeding, seed with the value supplied, and note seeded. */
   if (new_seed > 0)
     {
-      rand_state = new_seed;
+      congruential_state = new_seed;
       is_seeded = TRUE;
+
+      /*
+       * Discard one value before returning any, so that the seed itself is
+       * never one step away from the first result.  The generator's additive
+       * constant is 2147483647, so for every seed below 127774 the state after
+       * a single step lands in [2^31, 2^32) -- the top bit is pinned to 1, and
+       * scr_randomint()'s multiply-shift then maps that to the TOP HALF of
+       * whatever range it is given, whatever the seed.  Before this warm-up the
+       * first draw of a session was therefore constant: rand(0,1) returned 1
+       * for all of seeds 1..127773, rand(1,6) never returned 1-3, and so on.
+       * Games whose very first roll is a coin flip had that flip decided for
+       * them -- Scandal.taf's opening sea-battle turn could never come up "the
+       * Croatoan fires", where run400 fires about half the time.  One step is
+       * enough; from the second draw on every range tested is uniform across
+       * seeds.
+       */
+      congruential_step ();
       return 0;
     }
   else
@@ -322,22 +353,18 @@ scr_congruential_rand (scr_uint new_seed)
       /* If not explicitly seeded yet, generate a seed from time(). */
       if (!is_seeded)
         {
-          rand_state = (scr_uint) time (NULL);
+          congruential_state = (scr_uint) time (NULL);
           is_seeded = TRUE;
+          congruential_step ();
         }
 
-      /*
-       * Advance random state, using constants from Park & Miller (1988).
-       * To keep the values the same for both 32 and 64 bit longs, mask out
-       * any bits above the bottom 32.
-       */
-      rand_state = (rand_state * 16807 + 2147483647) & 0xffffffff;
+      congruential_step ();
 
       /*
        * Discard the lowest bit as a way to map 32-bits unsigned to a 32-bit
        * positive signed.
        */
-      return rand_state >> 1;
+      return congruential_state >> 1;
     }
 }
 

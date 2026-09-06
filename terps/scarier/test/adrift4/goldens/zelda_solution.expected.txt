@@ -834,7 +834,6 @@ The shopkeeper polishes the display case glass.
 
 > wear ganon mask
 You put on the Ganon mask.
-The shopkeeper polishes the display case glass.
 
 > n
 You move north.

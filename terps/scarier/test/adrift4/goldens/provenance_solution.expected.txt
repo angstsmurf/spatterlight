@@ -101,6 +101,9 @@ what appears to be a well and a gazebo.
 
 A trail of blood drops follows along the brick path towards the house.
 
+As the late autumn afternoon light begins to fade, distant church bells
+announce four o'clock in the afternoon.
+
 > g
 (follow the blood)
 You follow the drops of blood northwest along the brick path.
@@ -115,9 +118,6 @@ the west, hangs overhead.
 
 A trail of large blood drops follows the brick walkway northwest towards the
 house.
-
-As the late autumn afternoon light begins to fade, distant church bells
-announce four o'clock in the afternoon.
 
 > g
 (follow the blood)
@@ -1610,6 +1610,8 @@ the west.  A wide variety of perennials have been planted in the hillside
 providing a vivid display of colours.  Beneath the veranda is some scrubby
 brush along the western wall of the house.
 
+Distant church bells announce that it is seven o'clock in the evening.
+
 > n
 You move north onto a small footpath that leads through the backyard.
 
@@ -1619,8 +1621,6 @@ This is a small walkway that runs the entire length of the western side of
 the house.  A garden terrace set into the landscape is visible south of here.
  The path turns around the corner of the house to the northeast leading to
 the backyard.
-
-Distant church bells announce that it is seven o'clock in the evening.
 
 > ne
 You follow the footpath to the northwest and into the vegetable garden.
@@ -1953,9 +1953,6 @@ Also here is a strong knife, a rugged rucksack and the pup tent.
 You are wearing a brown tweed suit, and you are carrying a skeleton key, a
 pocket watch, a sturdy rope, a large stone and a full wooden canteen.
 
-The lonely sound of distant church bells signals eight o'clock in the
-evening.
-
 > drop rope
 You drop the sturdy rope.
 
@@ -1971,6 +1968,9 @@ The imposing wall of the massive hedge begins to open here providing relief
 from the constant hanging pressure created by the entangled union of the
 forest with the hedge.  A large wooden sign visible just to the east while a
 narrow passage leads west gradually widening as it does so.
+
+The lonely sound of distant church bells signals eight o'clock in the
+evening.
 
 > w
 You move west.
@@ -2473,9 +2473,6 @@ the west.  A wide variety of perennials have been planted in the hillside
 providing a vivid display of colours.  Beneath the veranda is some scrubby
 brush along the western wall of the house.
 
-The still of the night is interrupted momentarily as the church bells in the
-distance announce nine o'clock.
-
 > x brush
 
 The dense foliage fills the area beneath the veranda and runs almost the
@@ -2490,6 +2487,9 @@ You can't open the cellar door as it is locked with a padlock.
 > unlock it
 (the cellar door)
 The cellar door is not locked!
+
+The still of the night is interrupted momentarily as the church bells in the
+distance announce nine o'clock.
 
 > n
 You move north onto a small footpath that leads through the backyard.
@@ -2827,8 +2827,6 @@ to the south close in around you.  Far in the distance to the west you can
 see a small footbridge.  The front of the main house is just barely visible
 from here.
 
-Church bells in the distance announce the arrival of ten o'clock at night.
-
 > e
 You move east.
 
@@ -2861,6 +2859,8 @@ A large wooden sign is posted near the ingress.
 
 Also here is a sturdy rope, a full wooden canteen, a strong knife, a rugged
 rucksack and the pup tent.
+
+Church bells in the distance announce the arrival of ten o'clock at night.
 
 > i
 You are wearing a brown tweed suit, and you are carrying a skeleton key, a
@@ -3159,8 +3159,6 @@ off to the north along the eastern side of the house.  A water well is
 visible at the top of a small hill to the northeast and there is a small
 wooden footbridge arching over a small stream to the east.
 
-As the night marches on, eleven gongs of the distant church bells sound out.
-
 > w
 You proceed west along the brick path toward the front of the house.
 
@@ -3218,6 +3216,8 @@ center of the room is a plush covered round table covered with tiny framed
 photographs.  In one corner stands an old phonograph.  The dining room is to
 the north while the main hall lies to the west through a large archway.  The
 foyer and front door are visible to the south.
+
+As the night marches on, eleven gongs of the distant church bells sound out.
 
 > x the photographs
 
@@ -3465,11 +3465,6 @@ Time passes...
 > z
 Time passes...
 
-You pause for a moment as the eerie sound of distant church bells announce
-the arrival of midnight.
-
-It is now the next day.
-
 > i
 You are wearing a brown tweed suit, and you are carrying a skeleton key, a
 pocket watch, a copper lantern, a box of matches, a crystal ball, the map of
@@ -3507,6 +3502,11 @@ first entering the home.  Keeping in accordance with the opulent nature of
 Victorian decor, matte-finished tiles with hand carved tulips have been laid
 on the floor in place of a traditional welcome mat.  The main portion of the
 house lies to the north.
+
+You pause for a moment as the eerie sound of distant church bells announce
+the arrival of midnight.
+
+It is now the next day.
 
 > climb out
 You climb through the window onto the veranda.
@@ -3874,9 +3874,6 @@ The hedge and the forest are almost one at this point.  The hedge extends far
 to the west toward the main house while in the distance to the east you can
 see a large wooden sign staked in the ground.
 
-The single ring of a distant church bell pierces the night signalling one
-o'clock in the morning.
-
 > w
 You move west.
 
@@ -3914,6 +3911,9 @@ You are standing on a brick path that leads from a small foot bridge to the
 west along the front of a very large hedge.  A small stream flows just north
 and cuts its way through the property along the front of the house.  Across
 the stream you can see a small stable set in amongst some trees.
+
+The single ring of a distant church bell pierces the night signalling one
+o'clock in the morning.
 
 > w
 You move west.
@@ -4391,9 +4391,6 @@ the minimum of intrusion and allowing the guests very little view of the
 working space of the house.  Surprisingly, considering the furnished state of
 the rest of the house, this room is entirely unfitted.
 
-You hear the faraway ringing of the church bells indicating that it is two
-o'clock in the morning.
-
 > e
 You pass through the butler's pantry and into the dining room.
 
@@ -4441,6 +4438,9 @@ bust.
 > unlock it
 (the large desk)
 You unlock the large desk with the skeleton key.
+
+You hear the faraway ringing of the church bells indicating that it is two
+o'clock in the morning.
 
 > open it
 (the large desk)
@@ -4826,9 +4826,6 @@ The path splits off from here leading northwest towards some wooden
 structures in the distance and to the southeast to a small stable.  A grove
 of cherry trees stands in the northeastern corner of the yard.
 
-You can barely hear the church bells ringing out three o'clock in the
-morning.
-
 > n
 You move north into the grove of cherry trees.
 
@@ -4903,6 +4900,9 @@ crypt.  Cautiously, you make your way to where the sarcophagus stood.  It is
 still there on its pyramid base, but the capstone has disintegrated exposing
 the interior of the stone casket.  Bewildered, you peer inside and discover a
 spiral staircase that descends down into a dark and unknown void.
+
+You can barely hear the church bells ringing out three o'clock in the
+morning.
 
 > d
 
@@ -5249,9 +5249,6 @@ Along A Hedge
 You are walking along the front of a large hedge.  Thick impenetrable forest
 lies south of here while a small brick path leads west toward the house.
 
-Four o'clock in the morning is indicated by the faint ringing of church bells
-in the distance.
-
 > w
 You move west.
 
@@ -5295,6 +5292,9 @@ entrance to the house lies to the north on the veranda.  The main branch of
 the path meanders off to the south onto a small footbridge that spans a small
 creek towards the front lawn and orchard.  The path also leads to the east
 and west along the front of the house.
+
+Four o'clock in the morning is indicated by the faint ringing of church bells
+in the distance.
 
 > n
 You climb the stairs of the porch to the front door of the house.

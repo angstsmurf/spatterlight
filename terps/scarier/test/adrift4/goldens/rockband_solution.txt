@@ -4,16 +4,20 @@ get guitar
 turn on television
 turn on xbox
 play the game
-use green button
-use yellow button
-use green button
-use green button
-use blue button
-use blue button
-use blue button
-use yellow button
-use yellow button
+# The song is ten randomly coloured notes -- the game prints "You see a X
+# note!" and only `use X button` scores -- so this block is valid for one RNG
+# thread only.  Re-derived 2026-09-06 at SCR_SEED=1 (the row's default) for the
+# scutils.cpp first-draw warm-up fix, with harness/rockband_notes.py.
 use red button
+use blue button
+use yellow button
+use yellow button
+use yellow button
+use blue button
+use green button
+use blue button
+use green button
+use green button
 north
 look
 open closet door

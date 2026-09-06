@@ -168,6 +168,8 @@ But I soon realise it is only the sound of the wallpaper crackling.
 > ask puppets
 I ask, but silence answers nothing.
 
+I feel an overwhelming urge to escape this place.
+
 > ask puppets
 Talking to puppets... I must be mad.
 
@@ -206,14 +208,14 @@ from the shadows.
 Did it whisper something? Does it know my plan? Or was that just the
 wallpaper...?
 
-I feel an overwhelming urge to escape this place.
-
 > down
 I only make it down the darkness of the uneven steps by sense of touch. The
 stairway has no consistent width, and I must wedge myself through narrow
 passages. Here and there, I feel odd, triangular shapes etched into the
 walls. Just as I feel it might mean something, I emerge back into another
 gallery.
+
+I feel an overwhelming urge to escape this place.
 
 > down
 I feel my way down. Strange etching on the walls. I wedge myself through a
@@ -245,10 +247,10 @@ out to the same space.
 > close door
 I close the door.
 
-I feel an overwhelming urge to escape this place.
-
 > open door
 I open the door again, with inexplicable trepidation. Nothing has changed.
+
+I feel an overwhelming urge to escape this place.
 
 > go door
 
@@ -284,6 +286,8 @@ reveal a further layer of it awaiting behind the shadows.
 
 Something inside me feels desperately tangled & unravelling all at once.
 
+I feel an overwhelming urge to escape this place.
+
 > peel wallpaper
 I rip another, but another layer hides behind that. And another. And another.
 
@@ -299,8 +303,6 @@ This stillness does not still me.
 I reach out and gingerly tilt a puppet's jaw shut, yet upon removing my
 finger, it falls mutely open again. Then the jaw of another falls open next
 to it.
-
-I feel an overwhelming urge to escape this place.
 
 > save
 The estate is decayed beyond saving. No memory lasts in here.

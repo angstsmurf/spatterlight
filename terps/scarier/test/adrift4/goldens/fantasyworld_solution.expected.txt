@@ -1051,6 +1051,9 @@ and you could climb it if you wished.. The stench of debris is almost
 overpowering though you have a feeling of something drafting against your
 legs.   The ground here is littered with rubbish.
 
+You have a sudden feeling of doom, as if something dire is happening to the
+village.
+
 > d
 You move down.
 
@@ -1067,9 +1070,6 @@ Thieves and Marissa are here.
 > train climb
 Marissa looks at you and grins pressing her body against you.  "You want to
 learn the secrets to be a master climer huh?  Well let's get started."
-
-You have a sudden feeling of doom, as if something dire is happening to the
-village.
 
 > train climb
 Marissa looks at you and then nods once as she leads the way to the climbing
@@ -1873,7 +1873,7 @@ damage.
 Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
 damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
-Skull Collector hits Mat, but it doesn't seem to do any damage.
+Skull Collector hits Aline.
 
 > w
 You move west.
@@ -1919,7 +1919,7 @@ Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
 damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
 Shade hits Skull Collector.
-Skull Collector hits Aline.
+Skull Collector hits Gail, but it doesn't seem to do any damage.
 
 > wait
 Time passes...
@@ -1941,7 +1941,7 @@ Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
 damage.
 Gail hits Skull Collector, but it doesn't seem to do any damage.
 Shade hits Skull Collector.
-Skull Collector hits Aline.
+Skull Collector hits Gail, but it doesn't seem to do any damage.
 
 > wait
 Time passes...

@@ -158,6 +158,9 @@ You can also see a shovel.
 > take shovel
 You pick up the shovel.
 
+You suddenly feel a chill in the air, and hear a whispery voice say "Sam!".
+You spin around, but no one is there!
+
 > s
 You move south.
 
@@ -232,8 +235,6 @@ You move east.
 Closet
 It is dark here. You cannot see anything.
 
-Somewhere in the house you hear a door bang shut.
-
 > search shelf
 You search the shelf and discover an old brass key buried in the dust.
 
@@ -255,14 +256,10 @@ It is dark here. You cannot see anything.
 > search bed
 You find an old necklace underneath the bed!
 
-A ghostly figure of a little boy runs by you. He stops and looks back at you.
-"Did you steal my ball?" he asks, and then fades away.
+You hear the wind picking up outside, and thunder in the distance.
 
 > take necklace
 You pick up the necklace.
-
-You suddenly feel a chill in the air, and hear a whispery voice say "Sam!".
-You spin around, but no one is there!
 
 > e
 You move east.
@@ -343,7 +340,7 @@ tucked in one of the drawer slots.
 > take doll
 You pick up the doll.
 
-You hear the wind picking up outside, and thunder in the distance.
+Somewhere in the house you hear a door bang shut.
 
 > w
 You move west.
@@ -419,6 +416,9 @@ Secret Alcove
 This is a small alcove hidden behind the wooden panelling underneath the
 stairs. There is a small table here.
 
+A ghostly figure of a little boy runs by you. He stops and looks back at you.
+"Did you steal my ball?" he asks, and then fades away.
+
 > x small table
 This is a tall end table with a small surface. It is covered with cobwebs.  A
 pipe and an ashtray are on the small table.
@@ -466,6 +466,9 @@ This is a small wine cellar. There is a wine rack along one wall.  The dust
 on the floor has been recently disturbed, as if something was dragged or
 scraped along it. The place is damp and smells musty.
 
+You suddenly feel a chill in the air, and hear a whispery voice say "Sam!".
+You spin around, but no one is there!
+
 > move rack
 You search behind the wine rack and discover a secret passage to the south!
 
@@ -485,9 +488,6 @@ You use the shovel to bury the necklace.
 
 > bury pipe
 You use the shovel to bury the pipe.
-
-You suddenly feel a chill in the air, and hear a whispery voice say "Sam!".
-You spin around, but no one is there!
 
 > bury ball
 You use the shovel to bury the ball.

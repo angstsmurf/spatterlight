@@ -245,11 +245,16 @@ Your score is 3 out of a maximum of 30.  (10%)
 > i
 You are carrying a note and a diary.
 
+You begin to realise how cold it is here.  Everything is covered in a layer
+of frost.
+
 > open dining room door
 The dining room door is already open!
 
 > open lounge door
 As you reach out towards the door it slowly creaks open of its own accord.
+
+Your breath becomes fog as the warmth slowly leaches from your body.
 Cathy lets go of your arm and wanders off towards the Dining room.  You hear
 her voice echoing through the house saying, "Cold...so cold.....".  Soon she
 stops talking altogether.
@@ -269,9 +274,6 @@ it up and placed it to one side.
 You can also see a dining room table and a wooden trapdoor.
 Cathy seems to have gone catatonic.
 
-You begin to realise how cold it is here.  Everything is covered in a layer
-of frost.
-
 > look
 
 Dining room
@@ -286,10 +288,10 @@ it up and placed it to one side.
 You can also see a dining room table and a wooden trapdoor.
 Cathy seems to have gone catatonic.
 
+It is freezing.  You begin to shiver involuntarily.
+
 > i
 You are carrying a note and a diary.
-
-Your breath becomes fog as the warmth slowly leaches from your body.
 
 > e
 %drunk% east.
@@ -315,8 +317,6 @@ shutters are fixed either side.  In one corner is a mouse hole.
 An upright piano stands against one wall.
 
 You can also see a wooden tea chest, a rocking chair and a lounge table.
-
-It is freezing.  You begin to shiver involuntarily.
 
 > look
 
@@ -1539,7 +1539,7 @@ Someone has removed an old thredbare rug from its place on the floor, rolled
 it up and placed it to one side.
 
 You can also see a wooden trapdoor, an axe and some wood.
-Cathy studies you with interest.
+Cathy looks tired but exhilarated.
 
 > score
 Your score is 18 out of a maximum of 30.  (60%)

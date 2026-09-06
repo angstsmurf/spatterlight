@@ -128,7 +128,7 @@ east
 Vulgur the bartender, Fosk, Tarquin and Boswell are here.
 
 > talk fosk
-   "I have nothing to say to the likes of you, peasant," he replies coldly.
+   "Begone! I am busy!" he remarks.
 
 > wait
    You hang around the bar, waiting for something to happen...
