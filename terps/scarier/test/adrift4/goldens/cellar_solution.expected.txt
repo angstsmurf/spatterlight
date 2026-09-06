@@ -271,7 +271,7 @@ It seems your father has found a better hiding place for the key to the
 cellar.
 
 > x dust
-You can't see the dust from here!
+You see no such thing.
 
 > close box
 You close the dusty box up.

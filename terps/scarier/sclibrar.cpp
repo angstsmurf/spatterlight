@@ -3979,8 +3979,8 @@ lib_disambiguate_npc (scr_gameref_t game,
  * 30 commands later (run380 under Wine, Adven_8_mikes.rtf and the
  * 2026-09-04 re-drive; an earlier note that the keys were NOT taken was
  * wrong).  The next command is not eaten as an answer -- `east` after the
- * prompt simply moves east.  4.0 narrows differently (co(i,3)/co(i,4) and
- * a word-score pass, see lib_absent_seen_object()) and never raises this
+ * prompt simply moves east.  4.0 narrows differently (the up-front word
+ * score of Proc_21_58_463640, see lib_absent_seen_object()) and never raises this
  * prompt from the dispatcher, so the port stops at 3.9.
  */
 static scr_bool
@@ -4467,35 +4467,17 @@ lib_input_contains_word (const scr_char *input, const scr_char *word)
 }
 
 /*
- * The Runner's tie-break for a noun that several seen-but-absent objects
- * answer to: how many of the object's Short-name words the player typed.
+ * The score is run400's noun score, Proc_21_58_463640 4632AC-463387,
+ * shared with the unhandled-verb resolver below: 1 if the object's Short
+ * name is whole-phrase in the typed line, +1 if ANY alias is (the alias
+ * loop leaves at its first hit, 463304), then +1 for every Prefix word
+ * present.  A multi-word Short scores only as the whole phrase -- "east
+ * wall" earns nothing from `x wall`; it is the alias "wall" that scores.
+ * 0 means the object was never a candidate at all (var_9E).
  */
-static scr_int
-lib_absent_object_word_score (scr_gameref_t game,
-                              scr_int object, const scr_char *input)
-{
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_char *shortname;
-  scr_char *copy, *word, *next;
-  scr_int score;
-
-  shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
-  copy = (scr_char *) scr_malloc (strlen (shortname) + 1);
-  strcpy (copy, shortname);
-
-  score = 0;
-  for (word = copy; word; word = next)
-    {
-      next = strchr (word, ' ');
-      if (next)
-        *next++ = NUL;
-      if (lib_input_contains_word (input, word))
-        score++;
-    }
-
-  scr_free (copy);
-  return score;
-}
+static scr_int lib_verb_object_name_score (scr_gameref_t game,
+                                           scr_int object,
+                                           const scr_char *input);
 
 static scr_int
 lib_absent_seen_object (scr_gameref_t game)
@@ -4507,23 +4489,30 @@ lib_absent_seen_object (scr_gameref_t game)
     return -1;
 
   /*
-   * Several seen candidates are not an ambiguity prompt: co() (run400
-   * Proc_21_39_46486C) counts only PRESENT matches towards "Which ...?"
-   * (464355-46437E: obhere OR mode 4, AND seen).  The examine handler
-   * instead calls the resolver Proc_19_88_457034, which after the present
-   * (co(i,3)) and unique-seen (co(i,4)) passes falls to a third one
-   * (456F5D-45702E): split each candidate's Short name on " ", count the
-   * words whole-word-present in the typed line (Proc_21_38_454CB0), and
-   * take the unique maximum; a tie yields &HFE, which examine treats as
-   * nothing found ("<player> see no such thing.").  A single seen candidate
-   * wins outright.
+   * This is run400's up-front resolver Proc_21_58_463640, called once per
+   * line from generaltasks (48A3F5, mode 0) and read back by the examine
+   * resolver Proc_19_88_457034 before anything else (456DFC).  Pass 1
+   * scores objects that are present AND seen (463119-463137); only when
+   * that leaves no unique winner does the re-entry at 46360D-46363B run
+   * pass 2 over every SEEN object (463143-463156), present or not.  The
+   * winner is the unique maximum score; equal scores tie (4633C3-46341F
+   * encodes the tie as a negative result), and a tie or no candidate falls
+   * back to 457034's own pass A, co(i, 3), which needs a same-named object
+   * PRESENT and so answers &HFF, "<player> see no such thing."  There is no
+   * further seen-object pass in 457034: its var_90 set is the present
+   * matches only, and the "co(i, 4)" at 456E6A is a single vestigial call,
+   * not a loop (P-code checked 2026-09-06).
    *
-   * Measured on humbug (4.00, Adrift_4_humbug.txt lines 1602-1604): `X
-   * machine` with the washing machine (81, Short "machine") and two
-   * "dispenser" objects aliased "machine" (110, 135) all seen and all
-   * elsewhere answers "I can't see the washing machine from here!", while
-   * `X chute` against six seen chutes all with Short "chute" ties and
-   * prints the game's ALR'd "Nothing Special.".
+   * Measured on cowboyblues (4.00, Adrift_330_cowboyblues.txt line 1070):
+   * `x wall` in the Sheriff's Office after visiting the Back Room ("east
+   * wall" 91, alias "wall") and Blood Alley ("walls" 96, alias "wall")
+   * answers "You see no such thing." -- both score 1 on the alias and tie.
+   * The old Short-word count here gave "east wall" 1 and "walls" 0 and
+   * wrongly picked 91.  Measured on humbug (Adrift_4_humbug.txt lines
+   * 1602-1604): `X machine` with only the washing machine (81, Short
+   * "machine") seen answers "I can't see the washing machine from here!",
+   * and `X chute` against several seen "chute"s ties and prints the ALR'd
+   * "Nothing Special.".
    */
   input = run_get_dispatch_input ();
   object = -1;
@@ -4543,8 +4532,11 @@ lib_absent_seen_object (scr_gameref_t game)
       if (!gs_object_seen (game, index_))
         continue;
 
-      score = input ? lib_absent_object_word_score (game, index_, input) : 0;
-      if (object == -1 || score > best)
+      score = input ? lib_verb_object_name_score (game, index_, input) : 0;
+      if (score == 0)
+        continue;
+
+      if (score > best)
         {
           object = index_;
           best = score;

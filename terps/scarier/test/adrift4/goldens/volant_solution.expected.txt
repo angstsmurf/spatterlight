@@ -164,7 +164,7 @@ Time passes...
 You are not about to leave the Bridge now.
 
 > x racks
-You can't see the equipment racks from here!
+That isn't of any concern to you at the moment.
 
 > get all from racks
 You either can't have it, or don't need it at this moment.

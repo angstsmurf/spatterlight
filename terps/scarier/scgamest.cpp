@@ -1334,31 +1334,41 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
                               prop_get_integer (bundle, "I<-sis", vt_key));
 
       /*
-       * openadv seeds the seen byte straight from the location field it has
-       * just built (@004909B5): it clears the byte, then sets it when the
+       * openadv seeds the seen byte straight from the location field [26] it
+       * has just built (@004909B5): it clears the byte, then sets it when the
        * location is 0 (held by the player) or &H9C (worn by the player).
        *
-       * A static never reaches that mapping's dynamic cases, but it does go
-       * through the same "location = InitialPosition - 1" step at @00490270,
-       * so a static whose Where/Type is ONE_ROOM (1) lands on 0 and starts
-       * *seen*.  Statics in some or all rooms (2 and 3, remapped to &HF6 and
-       * &HEC), part-of-character statics (&HE2) and everything hidden (-1)
-       * all start unseen.  The Runner reuses the dynamic mapping here and
-       * plainly never noticed it was labelling single-room statics "held".
+       * That location field is built from #InitialPosition, and from nothing
+       * else -- @00490255 reads it for EVERY object, static or not, right
+       * after $Description, and @00490268 maps it: `location = InitialPosition
+       * - 1`, then 1 -> &HF6 (in object), 2 -> &HEC (on object), and anything
+       * above 2 loses a further 2 to land on `room + 1`.  So location 0 means
+       * InitialPosition 1, "held by the player", and nothing else.  The worn
+       * remap to &H9C is @004907A3, INSIDE the `If Static = 0` block that runs
+       * from @0049059C to @004907C0, so a static can never carry it either.
        *
-       * The quirk is load-bearing: it is what lets a game with DispFirstRoom
-       * off -- ZAC.taf, 1HRGAME.taf, secret_of_lost_world -- answer
-       * `x sand` on turn one although tstart (@0044D68F) only calls viewroom
-       * when that flag is set, so no room description has ever run and no
-       * lister has revealed anything.
+       * A static's Where/Type never reaches [26]: the static branch
+       * (@0049031A) writes only the per-room presence array [28].  A static
+       * therefore starts seen only if its #InitialPosition is 1 -- and no
+       * object in the 350-game corpus has that, statics being written with
+       * #InitialPosition 0 (or, in a few hundred cases, the room they sit in,
+       * 4 + room), so in practice **no static ever starts seen**.
+       *
+       * This corrects the reading this port shipped with on 2026-08-24, which
+       * had the static branch's Where/Type reaching the dynamic mapping and so
+       * marked every ONE_ROOM static seen at load.  Measured live: `x cauldron`
+       * on turn 2 of asdfa (Adrift_143), `x desk` in CBN (Adrift_149), `x dust`
+       * in The Cellar (Adrift_172) -- all three ONE_ROOM statics the player has
+       * not been shown, all three answered "You see no such thing." by run400
+       * where Scarier reached its second, seen-object pass and said "You can't
+       * see the <X> from here!".
        */
       if (is_static)
         {
-          vt_key[2].string = "Where";
-          vt_key[3].string = "Type";
+          vt_key[2].string = "InitialPosition";
           gs_set_object_seen (game, index_,
-                              prop_get_integer (bundle, "I<-siss", vt_key)
-                                == ROOMLIST_ONE_ROOM);
+                              prop_get_integer (bundle, "I<-sis", vt_key)
+                                == 1);
         }
       else
         {
@@ -1577,6 +1587,67 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    * arms gs_carried_track() for subsequent moves.
    */
   gs_carried_recompute (game);
+
+  /*
+   * afteroa's start-room seen sweep.
+   *
+   * The loader above stamps the seen byte for held and worn objects only, so
+   * on its own it leaves every static unseen -- and that cannot be the whole
+   * rule, because TenebraeSemper.taf (4.00, DispFirstRoom off, so tstart
+   * @0044D68F never calls viewroom and no lister has run) answers `open desk`
+   * on turn ONE with "You open your desk.  The pens are inside your desk.",
+   * although the desk is a Static in the start room with #InitialPosition 0.
+   * The noun resolver co() (@0046486C) needs the byte -- @00464372 ANDs it
+   * into the match -- so something must set it before the first prompt.
+   *
+   * That something is afteroa, the routine the Runner runs between openadv
+   * and tstart.  run400's is at 0046F0B4, and its second loop (@0046EDA5 to
+   * @0046EDE6) walks the whole object table and sets the seen byte
+   * (@0046EDCE) on every object for which Proc_21_53_44B578 (@0044B578) is
+   * true.  That predicate is exactly this port's obj_indirectly_in_room()
+   * against the player's room: obhere() first, then the object is visible if
+   * it is a static that is present (@0044B4CD), or a dynamic held or worn by
+   * the player or an NPC or lying in the room (@0044B4D8-@0044B508), or on
+   * another visible object (@0044B514), or inside one whose openness is below
+   * 6 (@0044B534).  Nothing else in the Runner reveals an object at load.
+   *
+   * run390's afteroa (@00441A54) has the same sweep but a much narrower
+   * predicate, inline at @004418FF-@0044193C: static flag set AND the
+   * presence array covers the player room AND isdark(playerroom) = 0.
+   * Dynamics are not touched there, and neither Runner sweeps before 3.90 --
+   * co() does not read the byte at all in run370 (@004261B4) or run380
+   * (@0042DE60) -- so the sweep is gated at 3.90 and narrowed to statics
+   * below 4.00.  This port has no darkness model, so the isdark term, which
+   * only ever *removes* a stamp, is not carried.
+   *
+   * The reading this port shipped with on 2026-08-24 had a static whose
+   * Where/Type was ONE_ROOM starting seen, which is the same answer as this
+   * sweep for a static in the start room but a wrong one for a ONE_ROOM
+   * static anywhere else.  That is the asdfa/CBN/Cellar divergence:
+   * `x cauldron` (Adrift_143), `x desk` (Adrift_149) and `x dust`
+   * (Adrift_172) are all ONE_ROOM statics of some *other* room, all answered
+   * "You see no such thing." by run400 where Scarier had reached its second,
+   * seen-object pass and said "You can't see the <X> from here!".
+   */
+  {
+    const scr_int taf_version = prop_get_taf_version (bundle);
+
+    if (taf_version >= TAF_VERSION_390)
+      {
+        for (index_ = 0; index_ < game->object_count; index_++)
+          {
+            if (gs_object_seen (game, index_))
+              continue;
+
+            if (taf_version < TAF_VERSION_400
+                && !obj_is_static (game, index_))
+              continue;
+
+            if (obj_indirectly_in_room (game, index_, game->playerroom))
+              gs_set_object_seen (game, index_, TRUE);
+          }
+      }
+  }
 }
 
 scr_gameref_t

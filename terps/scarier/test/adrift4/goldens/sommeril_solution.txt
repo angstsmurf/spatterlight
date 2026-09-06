@@ -31,7 +31,9 @@
 # take, so nothing after it reaches the parser (verified with probe tokens) and
 # there is no "out" to Your Fate, no quit prompt.  Win marker = the closing
 # website line, the last text the game ever prints.
-# Four blank lines below satisfy the four intro <waitkey> pauses.
+# The four blank lines below are EMPTY COMMANDS, not pause answers: the
+# game has no <waitkey> anywhere, and both engines answer each of them
+# with "Much like a dream, that never happened."
 
 
 

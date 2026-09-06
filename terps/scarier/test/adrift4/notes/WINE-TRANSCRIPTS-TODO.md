@@ -387,12 +387,12 @@ The four best targets, by walks x length:
 
 | game | solution | cmds | walks | NPCs | events | waitkey | notes |
 |---|---|---:|---:|---:|---:|---|---|
-| `To_Hell_And_Beyond.taf` | `to_hell_and_beyond` | 3 | 19 | 41 | 7 | -- | [To_Hell_And_Beyond_walkthrough](To_Hell_And_Beyond_walkthrough.md) |
+| `To_Hell_And_Beyond.taf` | `to_hell_and_beyond` | 3 | 19 | 41 | 7 | -- | [To_Hell_And_Beyond_walkthrough](To_Hell_And_Beyond_walkthrough.md) **done** 2026-09-06 -- clean in run400 (Adrift_124_to_hell_and_beyond.txt) |
 | `goldilocks.taf` | `goldilocks` | 252 | 8 | 6 | 10 | -- | [Goldilocks_walkthrough](Goldilocks_walkthrough.md) **measured** -- see "Measured so far" |
 | `CIBASS.taf` | `cibass` | 40 | 8 | 2 | 8 | yes | [CIBASS_walkthrough](CIBASS_walkthrough.md) **measured** -- see "Measured so far" |
 | `FunHouse.taf` | `funhouse` | 18 | 8 | 9 | 0 | -- | **done** 2026-08-24 -- see "Measured so far" |
 | `sa.taf` | `sophie` | 255 | 7 | 73 | 13 | yes | **partly done** 2026-08-25 (first 50 commands) -- see "Measured so far"; [Sophies_Adventure_walkthrough](Sophies_Adventure_walkthrough.md) |
-| `sophie.taf` | `sophie_comp` | 255 | 6 | 72 | 13 | yes | [Sophies_Adventure_walkthrough](Sophies_Adventure_walkthrough.md) |
+| `sophie.taf` | `sophie_comp` | 255 | 6 | 72 | 13 | yes | [Sophies_Adventure_walkthrough](Sophies_Adventure_walkthrough.md) **measured** 2026-09-06 -- desyncs early, stream misaligned (Adrift_173_sophie_comp.txt), see "Measured 2026-09-06" |
 | `Oh_Human.taf` | `ohhuman` | 9 | 6 | 3 | 5 | -- | -- **measured** -- see "Measured so far" |
 | `TheCatintheTree.taf` | `the_cat_in_the_tree` | 8 | 5 | 4 | 1 | yes | **done** 2026-08-24 -- see "Measured so far" |
 | `Monsters_r2.taf` | `monsters` | 38 | 3 | 3 | 4 | -- | -- **measured** -- see "Measured so far" |
@@ -403,64 +403,64 @@ The four best targets, by walks x length:
 | `cyber2.taf` | `cyber2` | 29 | 2 | 8 | 1 | -- | [cyber2_walkthrough](cyber2_walkthrough.md) **measured** -- see "Measured so far" |
 | `ADRIFTMaze.taf` | `adrift_maze` | 26 | 2 | 5 | 5 | -- | [ADRIFT_Maze_walkthrough](ADRIFT_Maze_walkthrough.md) **measured** -- see "Measured so far" |
 | `cyber.taf` | `cyber` | 20 | 2 | 3 | 1 | -- | [Cyber_walkthrough](Cyber_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `DragonShrineR43.taf` | `dragonshrine` | 136 | 1 | 1 | 7 | yes | [The_Curse_of_DragonShrine_walkthrough](The_Curse_of_DragonShrine_walkthrough.md) |
+| `DragonShrineR43.taf` | `dragonshrine` | 136 | 1 | 1 | 7 | yes | [The_Curse_of_DragonShrine_walkthrough](The_Curse_of_DragonShrine_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_152_dragonshrine.txt) |
 | `BlackSheepsGold.taf` | `black_sheeps_gold` | 99 | 1 | 11 | 1 | yes | -- **measured** -- see "Measured so far" |
-| `QuiATueDana.taf` | `qui_a_tue_dana` | 63 | 1 | 4 | 0 | yes | -- |
-| `plunder_gargoyle.taf` | `plunder_gargoyle` | 43 | 1 | 3 | 4 | -- | [Pirates_Plunder_walkthrough](Pirates_Plunder_walkthrough.md) |
-| `demonhunter.taf` | `demonhunter` | 40 | 1 | 2 | 2 | -- | [Apprentice_of_the_Demonhunter_walkthrough](Apprentice_of_the_Demonhunter_walkthrough.md) |
-| `Invasion of the Second-Hand Shirts.taf` | `invasion_shirts` | 39 | 1 | 3 | 0 | -- | [Invasion_of_the_Second-Hand_Shirts_walkthrough](Invasion_of_the_Second-Hand_Shirts_walkthrough.md) |
-| `Imagination.taf` | `imagination` | 35 | 1 | 1 | 0 | -- | [Just_My_Imagination_walkthrough](Just_My_Imagination_walkthrough.md) |
-| `hyper_b_s.taf` | `hyper_b_s` | 34 | 1 | 2 | 1 | -- | [hyper_b_s_walkthrough](hyper_b_s_walkthrough.md) |
+| `QuiATueDana.taf` | `qui_a_tue_dana` | 63 | 1 | 4 | 0 | yes | **driven** 2026-09-06 -- the Runner lost a feed command (Adrift_162_qui_a_tue_dana.txt); re-feed before reading anything into it, see "Measured 2026-09-06" |
+| `plunder_gargoyle.taf` | `plunder_gargoyle` | 43 | 1 | 3 | 4 | -- | [Pirates_Plunder_walkthrough](Pirates_Plunder_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_156_plunder_gargoyle.txt) |
+| `demonhunter.taf` | `demonhunter` | 40 | 1 | 2 | 2 | -- | [Apprentice_of_the_Demonhunter_walkthrough](Apprentice_of_the_Demonhunter_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_137_demonhunter.txt) |
+| `Invasion of the Second-Hand Shirts.taf` | `invasion_shirts` | 39 | 1 | 3 | 0 | -- | [Invasion_of_the_Second-Hand_Shirts_walkthrough](Invasion_of_the_Second-Hand_Shirts_walkthrough.md) **done** 2026-09-06 -- clean in run400 (Adrift_131_invasion_shirts.txt) |
+| `Imagination.taf` | `imagination` | 35 | 1 | 1 | 0 | -- | [Just_My_Imagination_walkthrough](Just_My_Imagination_walkthrough.md) **measured** 2026-09-06 -- clean but for the ending tail (Adrift_135_imagination.txt); compare with `--popup Jenny` |
+| `hyper_b_s.taf` | `hyper_b_s` | 34 | 1 | 2 | 1 | -- | [hyper_b_s_walkthrough](hyper_b_s_walkthrough.md) **driven** 2026-09-06 -- the Runner lost a feed command (Adrift_145_hyper_b_s.txt); re-feed before reading anything into it, see "Measured 2026-09-06" |
 | `Renegade_Brainwave.taf` | `renegade_brainwave` | 25 | 1 | 5 | 3 | -- | [Renegade_Brainwave_walkthrough](Renegade_Brainwave_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `whitterscap.taf` | `whitterscap` | 21 | 1 | 3 | 4 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `All Hallows Eve.taf` | `allhallowseve` | 16 | 1 | 4 | 0 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `SRSintro.taf` | `srsintro` | 13 | 1 | 2 | 3 | -- | [SRSintro_walkthrough](SRSintro_walkthrough.md) **done** 2026-09-05 -- clean in run400 (identical on every turn), see "Measured so far" |
 | `competition2006__adrift__ptgood__PTGOOD.taf` | `ptgood` | 6 | 1 | 1 | 0 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `The Plague - Redux.taf` | `plague` | 266 | 0 | 10 | 20 | yes | [The_Plague_Redux_walkthrough](The_Plague_Redux_walkthrough.md) |
-| `vetknow.taf` | `vetknow` | 228 | 0 | 15 | 38 | yes | [Veteran_Knowledge_walkthrough](Veteran_Knowledge_walkthrough.md) |
-| `TheCellar.taf` | `cellar` | 176 | 0 | 1 | 1 | yes | [TheCellar_walkthrough](TheCellar_walkthrough.md) |
-| `mysteryofcaves.taf` | `mysteryofcaves` | 146 | 0 | 6 | 1 | yes | [mysteryofcaves_walkthrough](mysteryofcaves_walkthrough.md) |
+| `The Plague - Redux.taf` | `plague` | 266 | 0 | 10 | 20 | yes | [The_Plague_Redux_walkthrough](The_Plague_Redux_walkthrough.md) **measured** 2026-09-06 -- desyncs early, stream misaligned (Adrift_174_plague.txt), see "Measured 2026-09-06" |
+| `vetknow.taf` | `vetknow` | 228 | 0 | 15 | 38 | yes | [Veteran_Knowledge_walkthrough](Veteran_Knowledge_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_170_vetknow.txt) |
+| `TheCellar.taf` | `cellar` | 176 | 0 | 1 | 1 | yes | [TheCellar_walkthrough](TheCellar_walkthrough.md) **driven** 2026-09-06 -- the Runner lost a feed command (Adrift_172_cellar.txt); re-feed before reading anything into it, see "Measured 2026-09-06" |
+| `mysteryofcaves.taf` | `mysteryofcaves` | 146 | 0 | 6 | 1 | yes | [mysteryofcaves_walkthrough](mysteryofcaves_walkthrough.md) **done** 2026-09-06 -- clean in run400 (Adrift_151_mysteryofcaves.txt) |
 | `Space Boy's First Adventure.taf` | `space_boy` | 145 | 0 | 1 | 1 | -- | [Space_Boy_walkthrough](Space_Boy_walkthrough.md) **measured** -- see "Measured so far" |
-| `vetknow2.taf` | `vetknow2` | 141 | 0 | 15 | 38 | yes | [Veteran_Knowledge_walkthrough](Veteran_Knowledge_walkthrough.md) |
-| `shardsofmemory.taf` | `shardsofmemory` | 122 | 0 | 6 | 5 | yes | [Shards_of_Memory_walkthrough](Shards_of_Memory_walkthrough.md) |
+| `vetknow2.taf` | `vetknow2` | 141 | 0 | 15 | 38 | yes | [Veteran_Knowledge_walkthrough](Veteran_Knowledge_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_171_vetknow2.txt) |
+| `shardsofmemory.taf` | `shardsofmemory` | 122 | 0 | 6 | 5 | yes | [Shards_of_Memory_walkthrough](Shards_of_Memory_walkthrough.md) **measured** 2026-09-06 -- desyncs early, stream misaligned (Adrift_169_shardsofmemory.txt), see "Measured 2026-09-06" |
 | `man overboard.taf` | `man_overboard` | 99 | 0 | 5 | 0 | yes | [Man_Overboard_walkthrough](Man_Overboard_walkthrough.md) **measured** -- see "Measured so far" |
-| `relojero.taf` | `relojero` | 88 | 0 | 0 | 2 | -- | [La_hija_del_relojero_walkthrough](La_hija_del_relojero_walkthrough.md) |
-| `salutations.taf` | `salutations` | 88 | 0 | 3 | 2 | yes | [Salutations_walkthrough](Salutations_walkthrough.md) |
-| `CBN.taf` | `cbn` | 82 | 0 | 1 | 0 | yes | [The_Revenge_Of_Clueless_Bob_Newbie_walkthrough](The_Revenge_Of_Clueless_Bob_Newbie_walkthrough.md) |
-| `forum2.taf` | `forum2` | 82 | 0 | 1 | 0 | yes | [Forum_2_walkthrough](Forum_2_walkthrough.md) |
-| `asdfa.taf` | `asdfa` | 80 | 0 | 4 | 0 | yes | [ASDFA_walkthrough](ASDFA_walkthrough.md) |
-| `mortality.taf` | `mortality` | 78 | 0 | 4 | 5 | yes | [Mortality_walkthrough](Mortality_walkthrough.md) |
+| `relojero.taf` | `relojero` | 88 | 0 | 0 | 2 | -- | [La_hija_del_relojero_walkthrough](La_hija_del_relojero_walkthrough.md) **measured** 2026-09-06 -- 1 turn differs (Adrift_133_relojero.txt), see "Measured 2026-09-06" |
+| `salutations.taf` | `salutations` | 88 | 0 | 3 | 2 | yes | [Salutations_walkthrough](Salutations_walkthrough.md) **measured** 2026-09-06 -- 4 turns differ (Adrift_129_salutations.txt), see "Measured 2026-09-06" |
+| `CBN.taf` | `cbn` | 82 | 0 | 1 | 0 | yes | [The_Revenge_Of_Clueless_Bob_Newbie_walkthrough](The_Revenge_Of_Clueless_Bob_Newbie_walkthrough.md) **measured** 2026-09-06 -- 5 turns differ (Adrift_149_cbn.txt), see "Measured 2026-09-06" |
+| `forum2.taf` | `forum2` | 82 | 0 | 1 | 0 | yes | [Forum_2_walkthrough](Forum_2_walkthrough.md) **done** 2026-09-06 -- clean in run400 (Adrift_140_forum2.txt) |
+| `asdfa.taf` | `asdfa` | 80 | 0 | 4 | 0 | yes | [ASDFA_walkthrough](ASDFA_walkthrough.md) **measured** 2026-09-06 -- 1 turn differs (Adrift_143_asdfa.txt), see "Measured 2026-09-06" |
+| `mortality.taf` | `mortality` | 78 | 0 | 4 | 5 | yes | [Mortality_walkthrough](Mortality_walkthrough.md) **driven** 2026-09-06 -- the Runner lost a feed command (Adrift_168_mortality.txt); re-feed before reading anything into it, see "Measured 2026-09-06" |
 | `princess1.taf` | `princess_in_the_tower` | 78 | 0 | 4 | 1 | -- | [Princess_In_The_Tower_walkthrough](Princess_In_The_Tower_walkthrough.md) **measured** -- see "Measured so far" |
-| `Private Eye.taf` | `private_eye` | 74 | 0 | 0 | 0 | yes | [Private_Eye_walkthrough](Private_Eye_walkthrough.md) |
-| `AFDFR.taf` | `afdfr` | 73 | 0 | 32 | 17 | yes | [A_Fine_Day_For_Reaping_walkthrough](A_Fine_Day_For_Reaping_walkthrough.md) |
-| `chooseyourown.taf` | `chooseyourown` | 72 | 0 | 0 | 0 | yes | [chooseyourown_walkthrough](chooseyourown_walkthrough.md) |
+| `Private Eye.taf` | `private_eye` | 74 | 0 | 0 | 0 | yes | [Private_Eye_walkthrough](Private_Eye_walkthrough.md) **measured** 2026-09-06 -- desyncs early, stream misaligned (Adrift_167_private_eye.txt), see "Measured 2026-09-06" |
+| `AFDFR.taf` | `afdfr` | 73 | 0 | 32 | 17 | yes | [A_Fine_Day_For_Reaping_walkthrough](A_Fine_Day_For_Reaping_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_165_afdfr.txt) |
+| `chooseyourown.taf` | `chooseyourown` | 72 | 0 | 0 | 0 | yes | [chooseyourown_walkthrough](chooseyourown_walkthrough.md) **measured** 2026-09-06 -- desyncs early, stream misaligned (Adrift_160_chooseyourown.txt), see "Measured 2026-09-06" |
 | `hauntedhouse.taf` | `hauntedhouse` | 72 | 0 | 4 | 1 | -- | [The_Haunted_House_of_Hideous_Horror_walkthrough](The_Haunted_House_of_Hideous_Horror_walkthrough.md) **measured** -- see "Measured so far" |
-| `valley.taf` | `valley` | 72 | 0 | 6 | 0 | yes | [HappyValley_walkthrough](HappyValley_walkthrough.md) |
+| `valley.taf` | `valley` | 72 | 0 | 6 | 0 | yes | [HappyValley_walkthrough](HappyValley_walkthrough.md) **done** 2026-09-06 -- clean in run400 (Adrift_166_valley.txt) |
 | `yak_shaving.taf` | `yak_shaving` | 71 | 0 | 5 | 3 | yes | [Yak_Shaving_walkthrough](Yak_Shaving_walkthrough.md) **measured** -- see "Measured so far" |
-| `unravel.taf` | `unraveling_god_lou` | 70 | 0 | 4 | 10 | yes | -- |
-| `unravel.taf` | `unraveling_god` | 70 | 0 | 4 | 10 | yes | -- |
-| `lobster.taf` | `lobster` | 65 | 0 | 1 | 4 | -- | -- |
-| `Tear.taf` | `Tear` | 62 | 0 | 0 | 3 | -- | [Tears_of_a_Tough_Man_walkthrough](Tears_of_a_Tough_Man_walkthrough.md) |
-| `cbn2.taf` | `cbn2` | 60 | 0 | 2 | 0 | yes | [The_Revenge_Of_Clueless_Bob_Newbie_2_walkthrough](The_Revenge_Of_Clueless_Bob_Newbie_2_walkthrough.md) |
-| `imagi.taf` | `imagidroids` | 60 | 0 | 0 | 7 | yes | [ImagiDroids_walkthrough](ImagiDroids_walkthrough.md) |
-| `saffire.taf` | `saffire` | 58 | 0 | 0 | 1 | -- | [Saffire_walkthrough](Saffire_walkthrough.md) |
-| `CD.taf` | `crimsondetritus` | 53 | 0 | 1 | 0 | yes | [CrimsonDetritus_walkthrough](CrimsonDetritus_walkthrough.md) |
-| `exercise.taf` | `too_much_exercise` | 51 | 0 | 0 | 0 | -- | [Too_Much_Exercise_walkthrough](Too_Much_Exercise_walkthrough.md) |
-| `marika.taf` | `marika` | 50 | 0 | 0 | 1 | yes | -- |
-| `second chance.taf` | `second_chance` | 50 | 0 | 23 | 9 | yes | [Second_Chance_walkthrough](Second_Chance_walkthrough.md) |
+| `unravel.taf` | `unraveling_god_lou` | 70 | 0 | 4 | 10 | yes | **done** 2026-09-06 -- clean in run400 (Adrift_164_unraveling_god_lou.txt) |
+| `unravel.taf` | `unraveling_god` | 70 | 0 | 4 | 10 | yes | **done** 2026-09-06 -- clean in run400 (Adrift_163_unraveling_god.txt) |
+| `lobster.taf` | `lobster` | 65 | 0 | 1 | 4 | -- | **measured** 2026-09-06 -- 6 turns differ (Adrift_161_lobster.txt), see "Measured 2026-09-06" |
+| `Tear.taf` | `Tear` | 62 | 0 | 0 | 3 | -- | [Tears_of_a_Tough_Man_walkthrough](Tears_of_a_Tough_Man_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_147_Tear.txt) |
+| `cbn2.taf` | `cbn2` | 60 | 0 | 2 | 0 | yes | [The_Revenge_Of_Clueless_Bob_Newbie_2_walkthrough](The_Revenge_Of_Clueless_Bob_Newbie_2_walkthrough.md) **measured** 2026-09-06 -- 1 turn differs (Adrift_138_cbn2.txt), see "Measured 2026-09-06" |
+| `imagi.taf` | `imagidroids` | 60 | 0 | 0 | 7 | yes | [ImagiDroids_walkthrough](ImagiDroids_walkthrough.md) **measured** 2026-09-06 -- 9 turns differ (Adrift_139_imagidroids.txt), see "Measured 2026-09-06" |
+| `saffire.taf` | `saffire` | 58 | 0 | 0 | 1 | -- | [Saffire_walkthrough](Saffire_walkthrough.md) **driven** 2026-09-06 -- the Runner lost a feed command (Adrift_134_saffire.txt); re-feed before reading anything into it, see "Measured 2026-09-06" |
+| `CD.taf` | `crimsondetritus` | 53 | 0 | 1 | 0 | yes | [CrimsonDetritus_walkthrough](CrimsonDetritus_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_136_crimsondetritus.txt) |
+| `exercise.taf` | `too_much_exercise` | 51 | 0 | 0 | 0 | -- | [Too_Much_Exercise_walkthrough](Too_Much_Exercise_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_157_too_much_exercise.txt) |
+| `marika.taf` | `marika` | 50 | 0 | 0 | 1 | yes | **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_158_marika.txt) |
+| `second chance.taf` | `second_chance` | 50 | 0 | 23 | 9 | yes | [Second_Chance_walkthrough](Second_Chance_walkthrough.md) **measured** 2026-09-06 -- desyncs early, stream misaligned (Adrift_159_second_chance.txt), see "Measured 2026-09-06" |
 | `Beanstalk.taf` | `beanstalk` | 49 | 0 | 3 | 1 | -- | -- **measured** -- see "Measured so far" |
-| `goblinhunt.taf` | `goblinhunt` | 48 | 0 | 2 | 0 | yes | [Goblin_Hunt_walkthrough](Goblin_Hunt_walkthrough.md) |
-| `shore.taf` | `shore` | 46 | 0 | 1 | 1 | -- | [The_Farthest_Shore_walkthrough](The_Farthest_Shore_walkthrough.md) |
-| `chicken.taf` | `chicken` | 45 | 0 | 2 | 0 | -- | [The_Evil_Chicken_of_Doom_walkthrough](The_Evil_Chicken_of_Doom_walkthrough.md) |
-| `buried.taf` | `buried_alive` | 43 | 0 | 1 | 1 | -- | [Buried_Alive_walkthrough](Buried_Alive_walkthrough.md) |
-| `Percy.taf` | `percy` | 41 | 0 | 1 | 1 | -- | [The_Saga_of_Percy_the_Viking_walkthrough](The_Saga_of_Percy_the_Viking_walkthrough.md) |
-| `marlin_affair.taf` | `marlin_affair` | 40 | 0 | 0 | 1 | yes | [Marlin_Affair_Prologue_walkthrough](Marlin_Affair_Prologue_walkthrough.md) |
-| `microbe_willie.taf` | `microbe_willie` | 40 | 0 | 2 | 2 | -- | [Microbe_Willie_vs_The_Rat_walkthrough](Microbe_Willie_vs_The_Rat_walkthrough.md) |
-| `pyramid.taf` | `pyramid` | 38 | 0 | 0 | 2 | yes | [The_Pyramid_of_Hamaratum_walkthrough](The_Pyramid_of_Hamaratum_walkthrough.md) |
-| `Confession(1).taf` | `confession` | 37 | 0 | 1 | 3 | yes | [Confession_walkthrough](Confession_walkthrough.md) |
-| `togetyou.taf` | `togetyou` | 34 | 0 | 1 | 8 | yes | [We_Are_Coming_To_Get_You_walkthrough](We_Are_Coming_To_Get_You_walkthrough.md) |
-| `Griswold.taf` | `griswold` | 33 | 0 | 0 | 1 | yes | [Griswold_walkthrough](Griswold_walkthrough.md) |
-| `endgame.taf` | `endgame` | 32 | 0 | 1 | 0 | -- | [The_Game_To_End_All_Games_walkthrough](The_Game_To_End_All_Games_walkthrough.md) |
+| `goblinhunt.taf` | `goblinhunt` | 48 | 0 | 2 | 0 | yes | [Goblin_Hunt_walkthrough](Goblin_Hunt_walkthrough.md) **measured** 2026-09-06 -- 6 turns differ (Adrift_144_goblinhunt.txt), see "Measured 2026-09-06" |
+| `shore.taf` | `shore` | 46 | 0 | 1 | 1 | -- | [The_Farthest_Shore_walkthrough](The_Farthest_Shore_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_153_shore.txt) |
+| `chicken.taf` | `chicken` | 45 | 0 | 2 | 0 | -- | [The_Evil_Chicken_of_Doom_walkthrough](The_Evil_Chicken_of_Doom_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_141_chicken.txt) |
+| `buried.taf` | `buried_alive` | 43 | 0 | 1 | 1 | -- | [Buried_Alive_walkthrough](Buried_Alive_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_155_buried_alive.txt) |
+| `Percy.taf` | `percy` | 41 | 0 | 1 | 1 | -- | [The_Saga_of_Percy_the_Viking_walkthrough](The_Saga_of_Percy_the_Viking_walkthrough.md) **done** 2026-09-06 -- clean in run400 (Adrift_125_percy.txt) |
+| `marlin_affair.taf` | `marlin_affair` | 40 | 0 | 0 | 1 | yes | [Marlin_Affair_Prologue_walkthrough](Marlin_Affair_Prologue_walkthrough.md) **done** 2026-09-06 -- clean in run400 (Adrift_154_marlin_affair.txt) |
+| `microbe_willie.taf` | `microbe_willie` | 40 | 0 | 2 | 2 | -- | [Microbe_Willie_vs_The_Rat_walkthrough](Microbe_Willie_vs_The_Rat_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_132_microbe_willie.txt) |
+| `pyramid.taf` | `pyramid` | 38 | 0 | 0 | 2 | yes | [The_Pyramid_of_Hamaratum_walkthrough](The_Pyramid_of_Hamaratum_walkthrough.md) **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_128_pyramid.txt) |
+| `Confession(1).taf` | `confession` | 37 | 0 | 1 | 3 | yes | [Confession_walkthrough](Confession_walkthrough.md) **driven** 2026-09-06 -- the Runner lost a feed command (Adrift_148_confession.txt); re-feed before reading anything into it, see "Measured 2026-09-06" |
+| `togetyou.taf` | `togetyou` | 34 | 0 | 1 | 8 | yes | [We_Are_Coming_To_Get_You_walkthrough](We_Are_Coming_To_Get_You_walkthrough.md) **measured** 2026-09-06 -- 2 turns differ (Adrift_146_togetyou.txt), see "Measured 2026-09-06" |
+| `Griswold.taf` | `griswold` | 33 | 0 | 0 | 1 | yes | [Griswold_walkthrough](Griswold_walkthrough.md) **done** 2026-09-06 -- clean in run400 (Adrift_150_griswold.txt) |
+| `endgame.taf` | `endgame` | 32 | 0 | 1 | 0 | -- | [The_Game_To_End_All_Games_walkthrough](The_Game_To_End_All_Games_walkthrough.md) **driven** 2026-09-06 -- the Runner lost a feed command (Adrift_127_endgame.txt); re-feed before reading anything into it, see "Measured 2026-09-06" |
 | `frog.taf` | `frog` | 27 | 0 | 3 | 0 | -- | [The_Green_Princess_walkthrough](The_Green_Princess_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `SPAM.taf` | `spam` | 27 | 0 | 2 | 3 | yes | [SPAM_walkthrough](SPAM_walkthrough.md) **done** 2026-09-05 -- run400 divergence found and FIXED, see "Measured so far" |
 | `I am the Law.taf` | `law` | 26 | 0 | 5 | 3 | yes | [IAmTheLaw_walkthrough](IAmTheLaw_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
@@ -469,7 +469,7 @@ The four best targets, by walks x length:
 | `ARGH_sGreatEscape.taf` | `argh` | 22 | 0 | 0 | 1 | -- | [ARGHs_Great_Escape_walkthrough](ARGHs_Great_Escape_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `ShadricksTravels.taf` | `shadricks_travels` | 22 | 0 | 3 | 0 | -- | **done** 2026-09-05 -- run400 differs on ONE turn, the disambiguation wording (recorded, not ported); see "Measured so far" |
 | `1HRGAME.taf` | `masochists_heaven` | 20 | 0 | 0 | 0 | -- | [Masochists_Heaven_walkthrough](Masochists_Heaven_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `Pieces of eden.taf` | `pieces_of_eden` | 20 | 0 | 1 | 3 | -- | [Pieces_of_eden_walkthrough](Pieces_of_eden_walkthrough.md) |
+| `Pieces of eden.taf` | `pieces_of_eden` | 20 | 0 | 1 | 3 | -- | [Pieces_of_eden_walkthrough](Pieces_of_eden_walkthrough.md) **driven** 2026-09-06 -- the Runner lost a feed command (Adrift_130_pieces_of_eden.txt); re-feed before reading anything into it, see "Measured 2026-09-06" |
 | `longbarrow.taf` | `longbarrow` | 19 | 0 | 0 | 2 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Vagabond.taf` | `vagabond` | 19 | 0 | 3 | 2 | yes | [Vagabond_walkthrough](Vagabond_walkthrough.md) **done** 2026-09-05 -- run400 differs on ONE turn, the known ALR-over-a-joined-paragraph residual; see "Measured so far" |
 | `agent_4F[1].A.taf` | `agent4f` | 18 | 0 | 0 | 5 | -- | [Agent_4-F_from_Mars_walkthrough](Agent_4-F_from_Mars_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
@@ -494,8 +494,8 @@ The four best targets, by walks x length:
 | `Sandy.taf` | `sandy_meta_number` | 10 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- two DELIBERATE differences (SCARE meta-commands), see "Measured so far" |
 | `The_Shuffling_Room.taf` | `shufflingroom` | 10 | 0 | 0 | 8 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `smote.taf` | `smote` | 9 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `The Foggy Banana Adventure.taf` | `foggybanana` | 8 | 0 | 3 | 1 | -- | -- |
-| `The Fly Human.taf` | `flyhuman` | 7 | 0 | 0 | 3 | -- | -- |
+| `The Foggy Banana Adventure.taf` | `foggybanana` | 8 | 0 | 3 | 1 | -- | **done** 2026-09-06 -- clean in run400 but the ending tail (Adrift_123_foggybanana.txt) |
+| `The Fly Human.taf` | `flyhuman` | 7 | 0 | 0 | 3 | -- | **done** 2026-09-06 -- clean in run400 (Adrift_126_flyhuman.txt) |
 | `hungry.taf` | `hungry` | 7 | 0 | 2 | 1 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `zombiecow.taf` | `zombiecow` | 7 | 0 | 0 | 2 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `asteroid_after.taf` | `asteroidafter` | 6 | 0 | 11 | 3 | yes | -- **measured** -- see "Measured so far" |
@@ -511,6 +511,182 @@ The four best targets, by walks x length:
 | `ptbad.taf` | `ptbad` | 1 | 0 | 1 | 0 | -- | **done** 2026-09-05 -- clean in run400, and the probe game for the three library-message corrections; see "Measured so far" |
 | `Cut_the_Red_Wire.taf` | `redwire` | 1 | 0 | 1 | 0 | yes | [CutTheRedWire_walkthrough](CutTheRedWire_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `The Vault.taf` | `vault` | 1 | 0 | 1 | 1 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
+
+### 4.00 — 165 more games (found in the corpus 2026-09-06, all driven)
+
+Every 4.00 row in `run_v4_walkthroughs.sh` that the 124-game table above did
+not list, less the 11 `SCR_SEED` and 2 `SCR_ASSUME` rows.  Feeds are
+`cmdfile_q_<solution>.txt`; `dreamquest` has no transcript because run400
+refuses to load it.
+
+| solution | .taf | transcript | verdict | first difference |
+|---|---|---|---|---|
+| `ADRIFTMAS_Party` | ADRIFTMAS_Party.taf | `Adrift_287_ADRIFTMAS_Party.txt` | diff 2 | T2 `make snowball`: run400 'You scoop up some of the fresh fallen snow and pack it into a nice fir' vs scarier 'You gather a large handful of snow and form it into a loosly packed ba' |
+| `aegis` | Aegis.taf | `Adrift_265_aegis.txt` | diff 4 | T24 `examine netting`: run400 'A tangled pile of netting, most of it damaged past repair. An old net ' vs scarier 'A tangled pile of netting, most of it damaged past repair. An old net ' |
+| `albert_is_lost` | Albert is Lost! An Adventure in Real Life.taf | `Adrift_214_albert_is_lost.txt` | diff 22 | T3 `e`: run400 'Tiberius goes east. Fortune Teller 5000 Tiberius has now ventured into' vs scarier 'Tiberius blunders off to the east. Fortune Teller 5000 Tiberius has no' |
+| `aliasagent` | Alias Undercover Agent.taf | `Adrift_346_aliasagent.txt` | lost-cmd | 1 lost, first feed[39] `score` |
+| `amy` | amy.taf | `Adrift_348_amy.txt` | diff 1 | T17 `fuck amy's pussy`: run400 'You take Amy in your arms and lay her down on the bed. She looks up at' vs scarier 'You take Amy in your arms and lay her down on the bed. She looks up at' |
+| `apokalupsis` | apokalupsis.taf | `Adrift_241_apokalupsis.txt` | endtail 1 | T45 `go west`: run400 'Thank you for playing the introduction to Apokalupsis. I hope that you' vs scarier 'Thank you for playing the introduction to Apokalupsis. I hope that you' |
+| `backhome` | Back Home.taf | `Adrift_247_backhome.txt` | diff 4 | T36 `d`: run400 'You move down. On the Ladder to the Attic You are perched on a ladder,' vs scarier 'You move down. On the Ladder to the Attic You are perched on a ladder,' |
+| `bandera` | Bandera.taf | `Adrift_232_bandera.txt` | diff 2 | T18 `x marife`: run400 'No ves tal cosa.' vs scarier 'Una excelente camarera y muy atractiva... Marifé está llevando una bol' -- re-checked 2026-09-06 after the seen/resolver port: unchanged; Marifé is an NPC, not the object resolver |
+| `barneysproblem` | BarneysProblem.taf | `Adrift_302_barneysproblem.txt` | diff 6 | T9 `w`: run400 'You move west. Front Room Your front room is every bit as dismal and g' vs scarier 'You move west. Front Room Your front room is every bit as dismal and g' |
+| `baroo` | baroo.taf | `Adrift_314_baroo.txt` | diff 4 | T33 `ask brogo about temple`: run400 'Brogo looks at the wizard from the village, "Did you not tell the anci' vs scarier 'Brogo looks at the wizard from the village, "Did you not tell the anci' |
+| `beer` | beer.taf | `Adrift_269_beer.txt` | diff 22 | T9 `west`: run400 'You move west. Fountain You are at the public water fountain. You can ' vs scarier 'You move west. Fountain You are at the public water fountain. You can ' |
+| `bigcitylaundry` | Big City Laundry.taf | `Adrift_292_bigcitylaundry.txt` | diff 2 | T1 `get socks`: run400 'You take pair of socks from your closet.' vs scarier 'You take pair of socks from your closet. Your feet are freezing! Put s' |
+| `blast` | blast.taf | `Adrift_204_blast.txt` | diff 10 | T3 `n`: run400 'You move north. Filing In front of you is a counter which basically cu' vs scarier 'You move north. Filing In front of you is a counter which basically cu' |
+| `blood` | blood.taf | `Adrift_278_blood.txt` | diff 34 | T2 `w`: run400 'You move west. London Road Lined by sad little houses you cannot help ' vs scarier 'You move west. London Road Lined by sad little houses you cannot help ' |
+| `bloodrelatives` | Blood_Relatives.taf | `Adrift_179_bloodrelatives.txt` | ws-only | separator only; transcript writer drops <centre> breaks |
+| `boiledeggs` | boiled eggs.taf | `Adrift_198_boiledeggs.txt` | endtail 1 | T18 `open box`: run400 'You open the box. You summon the willpower to keep the box shut until ' vs scarier 'You open the box. You summon the willpower to keep the box shut until ' |
+| `briefcase` | briefcase.taf | `Adrift_199_briefcase.txt` | diff 4 | T5 `z`: run400 'Time passes... A whine escapes the mouth of the dog - he seems to be b' vs scarier 'Time passes...' |
+| `bsg22` | BSG TWENTY TWO Final.taf | `Adrift_191_bsg22.txt` | diff 1 | T13 `fuck tricia's ass with spike`: run400 'You step back as Tricia turns around, sticking out her ass and leaning' vs scarier 'You step back as Tricia turns around, sticking out her ass and leaning' |
+| `businessasusual` | Business As Usual.taf | `Adrift_209_businessasusual.txt` | diff 9 | T3 `wait`: run400 'You wait a bit... Yellow lights flicker. Somebody grabbed the lamp!' vs scarier 'You wait a bit... Blue lights flash. The book has been taken!' |
+| `camelot15` | Camelot 1,5.taf | `Adrift_248_camelot15.txt` | diff 2 | T32 `go north`: run400 'You gently push the silk curtains aside and walk into the adjacent roo' vs scarier 'You gently push the silk curtains aside and walk into the adjacent roo' |
+| `choosethreehour` | Choose_Your_Own_Three_Hour_Adventure.taf | `Adrift_190_choosethreehour.txt` | clean |  |
+| `cluelessbob` | In_the_Claws_of_Clueless_Bob.taf | `Adrift_234_cluelessbob.txt` | clean |  |
+| `cobl` | COBL.taf | `Adrift_286_cobl.txt` | diff 22 | T0 `3`: run400 'After the ending of the last adventure game you played left you feelin' vs scarier 'After the ending of the last adventure game you played left you feelin' |
+| `cowboyblues` | CowboyBlues.taf | `Adrift_330_cowboyblues.txt` | lost-cmd | 12 lost, first feed[248] `nw` -- T143 `x wall` "You see no such thing." (tie) matched 2026-09-06, see the harness row |
+| `crookedestate` | The Crooked Estate.taf | `Adrift_242_crookedestate.txt` | lost-cmd | 1 lost, first feed[44] `save` |
+| `cursed` | cursed.taf | `Adrift_334_cursed.txt` | diff 40 | T57 `z`: run400 'You wait for something to happen. Your vulpine hearing detects some so' vs scarier 'You wait for something to happen. Your vulpine hearing detects some so' |
+| `darkness` | darkness.taf | `Adrift_290_darkness.txt` | lost-cmd | 11 lost, first feed[100] `z` |
+| `datewithdeath` | datewithdeath.taf | `Adrift_333_datewithdeath.txt` | lost-cmd | 1 lost, first feed[5] `book` |
+| `dayattheoffice` | DayAtTheOffice.taf | `Adrift_231_dayattheoffice.txt` | clean |  |
+| `deadman` | The Dead Man.taf | `Adrift_252_deadman.txt` | diff 13 | T11 `open kit`: run400 'You open the first aid kit. Among the usual things you would find in a' vs scarier 'You open the first aid kit. Among the usual things you would find in a' |
+| `deadreckoning` | DeadReckoning.taf | `Adrift_218_deadreckoning.txt` | clean |  |
+| `del_sol` | Del Sol.taf | `Adrift_249_del_sol.txt` | diff 2 | T44 `z`: run400 'Time passes... WOW. Ms moreland just accidentally knocked over the lab' vs scarier 'Time passes... WOW. Ms moreland just accidentally knocked over the lab' |
+| `digby` | For_Love_of_Digby.taf | `Adrift_284_digby.txt` | clean |  |
+| `donuts_intro` | donuts_intro.taf | `Adrift_176_donuts_intro.txt` | lost-cmd | 1 lost, first feed[1] `hide` |
+| `doortoutopia` | Door to Utopia, The.taf | `Adrift_253_doortoutopia.txt` | endtail 1 | T58 `w`: run400 'You step into the doorway and find yourself in a wonderful place: the ' vs scarier 'You step into the doorway and find yourself in a wonderful place: the ' |
+| `dreamquest` | Dream Quest.taf | `Adrift_315_dreamquest.txt` | lost-cmd | 20 lost, first feed[0] `n` |
+| `drinks` | Drinks.taf | `Adrift_239_drinks.txt` | endtail 1 | T17 `open casket`: run400 'The lock of the casket quietly clicked open, and I lifted the lid curi' vs scarier 'The lock of the casket quietly clicked open, and I lifted the lid curi' |
+| `dusk` | dusk.taf | `Adrift_221_dusk.txt` | endtail 1 | T32 `x sapling`: run400 'You decide to look more closely, take another step toward the sapling.' vs scarier 'You decide to look more closely, take another step toward the sapling.' |
+| `easter` | easter.taf | `Adrift_273_easter.txt` | diff 12 | T5 `x newspaper rack`: run400 'The newspaper rack is clearly more functional than aesthetic, construc' vs scarier 'The newspaper rack is clearly more functional than aesthetic, construc' |
+| `egghunt` | Egg_Hunt.taf | `Adrift_245_egghunt.txt` | lost-cmd | 1 lost, first feed[51] `score` |
+| `elascensor` | El ascensor.taf | `Adrift_184_elascensor.txt` | endtail 1 | T9 `abrir trampilla con la tapa del boligrafo`: run400 '¡Pues la verdad es que no es mala idea!... haciendo equilibrio sobre e' vs scarier '¡Pues la verdad es que no es mala idea!... haciendo equilibrio sobre e' |
+| `escape_to_new_york` | EscapeToNewYork.taf | `Adrift_323_escape_to_new_york.txt` | diff 40 | T18 `east`: run400 'You move east. Crew Mess Hall, E Deck Unlike the passenger parts of th' vs scarier 'You move east. Crew Mess Hall, E Deck Unlike the passenger parts of th' |
+| `finalquestion` | The_Final_Question.taf | `Adrift_193_finalquestion.txt` | clean |  |
+| `firstpug` | The First To Arise Alone With A Pug.taf | `Adrift_215_firstpug.txt` | endtail 1 | T30 `open front door with danthil`: run400 'Summoning Danthil's power to enhance your strength, you tug at the jam' vs scarier 'Summoning Danthil's power to enhance your strength, you tug at the jam' |
+| `fluffykins` | Mr_Fluffykins_Most_Harrowing_Misadventure.taf | `Adrift_178_fluffykins.txt` | clean |  |
+| `foresthouse2` | TheForestHouse_2.taf | `Adrift_225_foresthouse2.txt` | endtail 1 | T33 `examine mirror`: run400 'The mirror is covered in dust. You wipe the dust away with your sleeve' vs scarier 'The mirror is covered in dust. You wipe the dust away with your sleeve' |
+| `foresthouse3` | ForestHouse3.taf | `Adrift_264_foresthouse3.txt` | diff 8 | T48 `d`: run400 'You continue to descend the stairs... You get the feeling that somethi' vs scarier 'You continue to descend the stairs...' -- golden re-blessed 2026-09-06 with SCR_SKIP_WAITKEY=1 (the old golden was a stuck-on-the-porch run); still diff 8, first at T48 |
+| `forum` | forum.taf | `Adrift_261_forum.txt` | endtail 1 | T19 `1`: run400 'You pull out Lancer Sykera from the depths of your pockets. Woodfish r' vs scarier 'You pull out Lancer Sykera from the depths of your pockets. Woodfish r' |
+| `frustrated` | frustrated.taf | `Adrift_274_frustrated.txt` | diff 4 | T53 `put small rock on left pan`: run400 '(Taking the small rock first) I put the small rock on the left pan.' vs scarier 'I put the small rock on the left pan.' |
+| `fullcircle` | Full_Circle.taf | `Adrift_322_fullcircle.txt` | diff 40 | T43 `get all`: run400 'You take the helm and the locket. You take the branch.' vs scarier 'You take the branch. You take the helm and the locket.' |
+| `ghosttown` | Ghost town v1,05.taf | `Adrift_325_ghosttown.txt` | diff 34 | T2 `n`: run400 'You move north. Bedroom As you enter the bedroom you are surprised by ' vs scarier 'You move north. Bedroom As you enter the bedroom you are surprised by ' -- diff 23 after the 2026-09-06 seen/resolver port (T2 is the kerosene-lamp listing, unchanged); `x posters` and the dusk-event tick now match |
+| `Glum_Fiddle` | Glum Fiddle.taf | `Adrift_289_Glum_Fiddle.txt` | lost-cmd | 1 lost, first feed[1] `say cow` |
+| `gmylm` | GMYLM_2010.taf | `Adrift_259_gmylm.txt` | endtail 1 | T64 `pull strings`: run400 'I look around, and am pleased to see the bullies are done. It's clear ' vs scarier 'I look around, and am pleased to see the bullies are done. It's clear ' |
+| `gorxungula` | gorxungula.taf | `Adrift_343_gorxungula.txt` | diff 10 | T3 `w`: run400 'You blunder off to the west.' vs scarier 'You blunder off to the west. You are dead! I'm afraid you are dead! Yo' |
+| `greekschool` | Greek School Adventure.taf | `Adrift_349_greekschool.txt` | diff 40 | T0 `get up`: run400 'You stand up from that.' vs scarier 'You stand up from your bed.' |
+| `grumble` | Whatever_Happened_to_Uncle_Grumble.taf | `Adrift_329_grumble.txt` | lost-cmd | 1 lost, first feed[262] `y` |
+| `halloweenhijinks` | HalloweenHijinks.taf | `Adrift_280_halloweenhijinks.txt` | clean |  |
+| `hcw` | hcw.taf | `Adrift_326_hcw.txt` | diff 40 | T81 `turn on intercom`: run400 'You can't see the intercom.' vs scarier 'You can't turn that.' |
+| `helsing` | Helsing.taf | `Adrift_181_helsing.txt` | endtail 1 | T7 `put beads on dance floor`: run400 'You shake the beads in your fist like a pair of lucky dice and roll th' vs scarier 'You shake the beads in your fist like a pair of lucky dice and roll th' |
+| `hero` | competition2004__adrift__hero__hero.taf | `Adrift_294_hero.txt` | diff 7 | T38 `undo`: run400 'Undone. Time passes...' vs scarier 'Inside The Shadowy Milk Factory On Chabbow Street [The previous turn h' |
+| `howitstarted` | howitstarted.taf | `Adrift_212_howitstarted.txt` | lost-cmd | 1 lost, first feed[28] `score` |
+| `hub` | hub.taf | `Adrift_293_hub.txt` | diff 16 | T35 `take watch`: run400 'I take my watch. I'm beginning to wish I was fully clothed.' vs scarier 'I take my watch.' |
+| `iachini` | iachini.taf | `Adrift_327_iachini.txt` | diff 21 | T27 `read card in mirror`: run400 'You hold the index card up to the mirror and read the reflection. You ' vs scarier 'You hold the index card up to the mirror and read the reflection. You ' |
+| `icecream` | IceCream.taf | `Adrift_177_icecream.txt` | diff 3 | T0 `take cone`: run400 'You already have an empty cone.' vs scarier 'You are already carrying the cone.' |
+| `igor` | igor.taf | `Adrift_201_igor.txt` | endtail 1 | T21 `press 4th switch`: run400 'The MONSTER LIVES ! Well done, The Master has created a better servant' vs scarier 'The MONSTER LIVES ! Well done, The Master has created a better servant' |
+| `ilgolem` | Il Golem.taf | `Adrift_281_ilgolem.txt` | endtail 1 | T88 `leggi libro`: run400 'Apri il libro Golem per Dummies, sulla prima pagina c'è una dedica di ' vs scarier 'Apri il libro Golem per Dummies, sulla prima pagina c'è una dedica di ' |
+| `jailbreakbob` | jailbreakbob.taf | `Adrift_233_jailbreakbob.txt` | endtail 1 | T30 `n`: run400 'As you approach the gate with the gun, you experience a moment's worry' vs scarier 'As you approach the gate with the gun, you experience a moment's worry' |
+| `JGrim` | JGrim1.0.taf | `Adrift_310_JGrim.txt` | diff 5 | T48 `wait`: run400 'Time passes...' vs scarier 'Time passes... The maid vacuums away, but as the cleaner goes over the' |
+| `jimpond` | JimPond.taf | `Adrift_300_jimpond.txt` | diff 1 | T29 `look under desk`: run400 'The underside of the desk seems strangely empty now I've removed the b' vs scarier 'Two desks, both of them smashed beyond repair. Whatever was on top of ' |
+| `jinxtron` | JINXTRON.taf | `Adrift_344_jinxtron.txt` | diff 1 | T6 `jinxtron`: run400 'No, don't even think about sayin' jinx until we say the same word at t' vs scarier 'No, don't even think about sayin' jinx until we say the same word at t' |
+| `jinxtron_full` | JINXTRON.taf | `Adrift_345_jinxtron_full.txt` | diff 6 | T7 `EDAM`: run400 'PLATYPUS' vs scarier 'Oh, man, I hope you don't jinx me.' |
+| `justanotherday` | Just Another Day.taf | `Adrift_303_justanotherday.txt` | clean |  |
+| `lair` | Lair of the Vampire.taf | `Adrift_332_lair.txt` | diff 40 | T9 `open door`: run400 'The door appears already open. > Try something different.' vs scarier 'Sitting slumped against the cold stone wall, Vardo is not a well man. ' |
+| `lca` | Lights_Camera_Action.taf | `Adrift_328_lca.txt` | diff 2 | T91 `chop tree`: run400 'Which tree. The tree or the tree?' vs scarier 'Whatever you're trying to do, you can't. Either check out the Film Dir' |
+| `magicshow` | magicshow.taf | `Adrift_351_magicshow.txt` | diff 30 | T0 `say abracadabra`: run400 '"Abracadabra!" You feel reality shift ever so slightly. [Your magic ra' vs scarier '"Abracadabra!" You feel reality shift ever so slightly. [Your magic ra' |
+| `mangiasaur` | Mangiasaur.taf | `Adrift_279_mangiasaur.txt` | diff 40 | T11 `eat bud`: run400 'You stoop to bite one off the branch and catch a whiff of the sweet po' vs scarier 'You stoop to bite one off the branch and catch a whiff of the sweet po' |
+| `mindofmaster` | competition2007__adrift__mindofmaster__mind of master.taf | `Adrift_213_mindofmaster.txt` | clean |  |
+| `mishmash` | mishmash.taf | `Adrift_318_mishmash.txt` | diff 2 | T191 `z`: run400 'Time passes... You hear memoryblam call out from the west, "We don't h' vs scarier 'Time passes... You hear memoryblam call out from the west, "Let's fini' |
+| `motion` | Motion.taf | `Adrift_305_motion.txt` | diff 15 | T7 `next`: run400 'The Rocket Launch Fuel Remaining: [ \| ! ] [ ! \| ! ] [ ! \| ! ] [ ! \| ! ' vs scarier 'The Rocket Launch Fuel Remaining: [ \| ! ] [ ! \| ! ] [ ! \| ! ] [ ! \| ! ' |
+| `mould` | mould.taf | `Adrift_335_mould.txt` | lost-cmd | 20 lost, first feed[18] `y` |
+| `mustescape` | mustescape.taf | `Adrift_271_mustescape.txt` | lost-cmd | 20 lost, first feed[2] `punch` |
+| `mutaydid` | mutaydid.taf | `Adrift_210_mutaydid.txt` | diff 3 | T20 `attack mystery meat with cleaver`: run400 'With frantic, wide swings you cleave a ham from off the mystery meat, ' vs scarier 'With frantic, wide swings you cleave a ham from off the mystery meat, ' |
+| `neighbours` | neighbours.taf | `Adrift_258_neighbours.txt` | clean |  |
+| `oldchurch` | The Old Church.taf | `Adrift_194_oldchurch.txt` | endtail 1 | T17 `give sword to mouse`: run400 'You give the sword to the mouse. She says: "Thank you. Let's hope for ' vs scarier 'You give the sword to the mouse. She says: "Thank you. Let's hope for ' |
+| `onnafa` | ONNAFA.TAF | `Adrift_316_onnafa.txt` | diff 40 | T13 `talk to stimmons`: run400 '"An honour to serve, sir," remarks Stimmons and gives you a proud salu' vs scarier '"An honour to serve, sir," remarks Stimmons and gives you a proud salu' |
+| `overtheedge` | Over the Edge1.0.taf | `Adrift_263_overtheedge.txt` | diff 2 | T1 `x men`: run400 'The men mill around, leaning on their rifles, talking in low voices. T' vs scarier 'The men mill around, leaning on their rifles, talking in low voices. T' |
+| `paint` | Paint.taf | `Adrift_270_paint.txt` | diff 10 | T16 `call mertle`: run400 'You hear the sound of sighing down the corridor then the receptionist ' vs scarier 'You hear the sound of sighing down the corridor then the receptionist ' |
+| `patient7` | Patient7.taf | `Adrift_254_patient7.txt` | lost-cmd | 1 lost, first feed[57] `wait` |
+| `perfectspy` | The Perfect Spy.taf | `Adrift_272_perfectspy.txt` | endtail 1 | T19 `n`: run400 'You run away from the cat and out of the alley. For the first few mome' vs scarier 'You run away from the cat and out of the alley. For the first few mome' |
+| `perspectives` | perspectives.taf | `Adrift_240_perspectives.txt` | diff 2 | T0 `look`: run400 'Locked In A Bathroom It's a terribly small bathroom, with scarcely muc' vs scarier 'Locked In A Bathroom It's a terribly small bathroom, with scarcely muc' |
+| `pestilence` | pestilence.taf | `Adrift_276_pestilence.txt` | diff 5 | T38 `read card`: run400 'The record card has lots of medical mumbo-jumbo but you can make out t' vs scarier 'The record card has lots of medical mumbo-jumbo but you can make out t' |
+| `petespunkin` | Pete's Punkin Junkinator.taf | `Adrift_208_petespunkin.txt` | endtail 1 | T26 `pull crank`: run400 'The sound makes you nervous, like stepping on broken glass, and the fe' vs scarier 'The sound makes you nervous, like stepping on broken glass, and the fe' |
+| `picture` | Picture.taf | `Adrift_121_picture.txt` | diff 2 | T0 `sit on bench`: run400 'You sit down on the wooden bench and hear a voice coming from the pict' vs scarier 'You sit down on the wooden bench and hear a voice coming from the pict' |
+| `provenance` | provenance.taf | `Adrift_342_provenance.txt` | diff 40 | T3 `g`: run400 '(follow the blood) You follow the drops of blood northwest along the b' vs scarier '(follow the blood) You follow the drops of blood northwest along the b' |
+| `puzzlebox` | puzzlebox.taf | `Adrift_275_puzzlebox.txt` | diff 40 | T7 `push button`: run400 'You carefully press the red button. Nothing seems to happen.' vs scarier 'You carefully press the red button. You hear a click from within the b' |
+| `r2dc` | R2DC.taf | `Adrift_185_r2dc.txt` | endtail 1 | T10 `climb down cable`: run400 'You grab a hold of the cable and slide down to the great hall below in' vs scarier 'You grab a hold of the cable and slide down to the great hall below in' |
+| `rain` | rain.taf | `Adrift_222_rain.txt` | endtail 1 | T32 `unlock the shackles`: run400 'Rain gazes at you with renewed hope, her eyes now clear and gleaming a' vs scarier 'Rain gazes at you with renewed hope, her eyes now clear and gleaming a' |
+| `reactor1` | reactor_1.taf | `Adrift_186_reactor1.txt` | diff 1 | T10 `1`: run400 'A quick glance at the computer tells you that the vent mechanism has b' vs scarier 'A quick glance at the console tells you that the vent mechanism has be' |
+| `regrets` | Regrets.taf | `Adrift_188_regrets.txt` | clean |  |
+| `reluctantvampire` | The_Reluctant_Vampire.taf | `Adrift_317_reluctantvampire.txt` | lost-cmd | 1 lost, first feed[189] `fang` |
+| `requiem` | competition2006__adrift__requiem__requiem.taf | `Adrift_266_requiem.txt` | clean |  |
+| `riding_home` | Riding_Home.taf | `Adrift_350_riding_home.txt` | lost-cmd | 6 lost, first feed[11] `wait` |
+| `rking` | rking.taf | `Adrift_291_rking.txt` | lost-cmd | 1 lost, first feed[18] `nudge something odd` |
+| `rockband` | Rock Band.taf | `Adrift_203_rockband.txt` | diff 12 | T6 `use green button`: run400 'You hit green! You got it! Score: 10 You see a red note!' vs scarier 'You hit green! You got it! Score: 10 You see a yellow note!' |
+| `scandal` | Scandal.taf | `Adrift_243_scandal.txt` | lost-cmd | 20 lost, first feed[2] `single shot` |
+| `seaside` | ADayAtTheSeaside.taf | `Adrift_236_seaside.txt` | diff 6 | T25 `do form`: run400 'You must be in the same room as the leisure access card form to be abl' vs scarier 'I don't understand what you want me to do with the completed form.' |
+| `secidenoddcomp` | seciden_oddcomp.taf | `Adrift_267_secidenoddcomp.txt` | diff 6 | T6 `n`: run400 'You move north. Living Room Though it still retains a feeling of empti' vs scarier 'You move north. Living Room Though it still retains a feeling of empti' |
+| `sexismental` | Sex is Mental.taf | `Adrift_223_sexismental.txt` | endtail 1 | T32 `fuck pussy`: run400 'You plant your lips on Mary before sliding you hands up her legs and a' vs scarier 'You plant your lips on Mary before sliding you hands up her legs and a' |
+| `shadow_of_the_past` | Shadow_Of_The_Past.taf | `Adrift_205_shadow_of_the_past.txt` | diff 2 | T19 `get crown`: run400 'As you grab the crown, you notice the beast inside start to stir. Your' vs scarier 'As you grab the crown, you notice the beast inside start to stir. Your' |
+| `ShadricksUnderground` | ShadricksUnderground.taf | `Adrift_285_ShadricksUnderground.txt` | diff 12 | T42 `ne`: run400 'I move northeast. A Dark Tunnel This tunnel is overrun with bat droppi' vs scarier 'I move northeast. A Dark Tunnel This tunnel is overrun with bat droppi' |
+| `shetland` | The_Shetland_Enigma.taf | `Adrift_260_shetland.txt` | endtail 1 | T65 `mount bike`: run400 'You mount the little pod-bike, and draw its protective shield about yo' vs scarier 'You mount the little pod-bike, and draw its protective shield about yo' |
+| `showtime` | Showtime_at_the_Gallows.taf | `Adrift_312_showtime.txt` | diff 1 | T59 `get her hand`: run400 '(No female) "Katie!" you say as you throw your arm out to her. A smili' vs scarier '"Katie!" you say as you throw your arm out to her. A smiling Zero plun' |
+| `sigurd` | Sigurd_Fafnesbane.taf | `Adrift_189_sigurd.txt` | endtail 1 | T11 `kill regin`: run400 'You kill your deceitful stepfather. Regin falls dead over his anvil. Y' vs scarier 'You kill your deceitful stepfather. Regin falls dead over his anvil. Y' |
+| `skydiver` | The_Skydiver.taf | `Adrift_246_skydiver.txt` | diff 2 | T15 `z`: run400 'Time passes... Pelican A pelican flocked toward me..' vs scarier 'Time passes...' |
+| `spooked` | Spooked_The_Wonders_of_Science.taf | `Adrift_226_spooked.txt` | clean |  |
+| `spot_of_bother` | A_Spot_of_Bother.taf | `Adrift_331_spot_of_bother.txt` | diff 12 | T138 `sprinkle eye of toad into cauldron`: run400 'You sprinkle some of the eye of toad into the cauldron. The cauldron s' vs scarier 'You sprinkle some of the eye of toad into the cauldron. The cauldron b' |
+| `sswhore` | ss whore.taf | `Adrift_304_sswhore.txt` | lost-cmd | 1 lost, first feed[135] `score` |
+| `stationxiii` | Station_XIII.taf | `Adrift_283_stationxiii.txt` | diff 4 | T25 `take laser cutter`: run400 'You take the laser cutter.' vs scarier 'You take the laser cutter. Something wet lands on your nose...' |
+| `suburbanprodigy3` | MikeDesert_SuburbanProdigy3.taf | `Adrift_219_suburbanprodigy3.txt` | diff 1 | T31 `stats`: run400 'Listen dude, you've played these games before. Step it up! You scored ' vs scarier 'Celler \| Score: 80 You scored 80 out of the maximum 80! That is 100% o' |
+| `sun_empire` | Sun_Empire_Quest_For_The_Founders.taf | `Adrift_277_sun_empire.txt` | lost-cmd | 2 lost, first feed[82] `quit` |
+| `suzypowers` | competition2011__adrift__powers__how suzy got her powers.taf | `Adrift_216_suzypowers.txt` | diff 1 | T30 `lift beam`: run400 'You place one end of the trident under the beam and say to the woman, ' vs scarier 'You place one end of the trident under the beam and say to the woman, ' |
+| `takeone` | takeone.taf | `Adrift_202_takeone.txt` | diff 2 | T4 `s`: run400 'Indianette Jones moves south. Ruined Statue (on screen 3) Above Indian' vs scarier 'Indianette Jones moves south. Ruined Statue (on screen 3) Above Indian' |
+| `target` | target.taf | `Adrift_224_target.txt` | diff 18 | T0 `1`: run400 'Roof of the Building You are on the roof of the gothic revival Appleto' vs scarier 'Roof of the Building You are on the roof of the post-modern Bakewell I' |
+| `templeofthesun` | Temple_Of_The_Sun.taf | `Adrift_217_templeofthesun.txt` | endtail 1 | T30 `wear robes and headdress`: run400 'You quickly don the golden headdress and colorful robe. You finally ge' vs scarier 'You quickly don the golden headdress and colorful robe. You finally ge' |
+| `tenebraesemper` | TenebraeSemper.taf | `Adrift_227_tenebraesemper.txt` | clean |  |
+| `terrified` | Terrified.taf | `Adrift_251_terrified.txt` | clean |  |
+| `the_demon_hunter` | TheDemonHunter.taf | `Adrift_229_the_demon_hunter.txt` | diff 4 | T30 `kill hajar`: run400 'You swing your spear high above your head and swing down hard, strikin' vs scarier 'Lashing out with all your might, you slice a deep gash in Hajar's side' |
+| `the_town_of_azra` | The_Town_Of_Azra.taf | `Adrift_339_the_town_of_azra.txt` | diff 9 | T6 `gulp the coffee`: run400 'You tip the cup back and take a medium-sized gulp of the coffee. There' vs scarier 'You tip the cup back and take a medium-sized gulp of the coffee. There' |
+| `TheADRIFTProject` | TheADRIFTProject.taf | `Adrift_341_TheADRIFTProject.txt` | lost-cmd | 11 lost, first feed[3] `open door` |
+| `thehunter` | The_Hunter.taf | `Adrift_347_thehunter.txt` | diff 1 | T59 `fire ballista`: run400 'The ballista fires with a bang, and the bolt soars through the air, th' vs scarier 'The ballista fires with a bang, and the bolt soars through the air, th' |
+| `thelasthour` | thelasthour.taf | `Adrift_297_thelasthour.txt` | lost-cmd | 6 lost, first feed[119] `wait` |
+| `theroad` | the_road.taf | `Adrift_282_theroad.txt` | clean |  |
+| `theseance` | The_Seance.taf | `Adrift_195_theseance.txt` | endtail 1 | T17 `yes`: run400 '"I am so happy my love" Emily asks for your hand, and taking one final' vs scarier '"I am so happy my love" Emily asks for your hand, and taking one final' |
+| `thesisters` | TheSisters.taf | `Adrift_308_thesisters.txt` | diff 6 | T84 `get shoes`: run400 'You take the shoes from the tall wardrobe.' vs scarier 'You take the shoes from the tall wardrobe. You pause, a chill running ' |
+| `thorn` | Thorn.taf | `Adrift_230_thorn.txt` | endtail 1 | T27 `x thorn`: run400 'You see what you feared, on what had been the bare branches of the tho' vs scarier 'You see what you feared, on what had been the bare branches of the tho' |
+| `threeminutes` | 3 minutes1.0.taf | `Adrift_211_threeminutes.txt` | diff 2 | T8 `press button`: run400 'You reach out and press the blue button. The saw whines loudly, then r' vs scarier 'You reach out and press the blue button. The saw whines loudly, then r' |
+| `ticktick` | ticktick.taf | `Adrift_220_ticktick.txt` | diff 9 | T0 `s`: run400 'You move south. Living Room This sparsely furnished room is where you ' vs scarier 'You move south. Living Room This sparsely furnished room is where you ' |
+| `tictactoe` | Tic-Tac-Toe.taf | `Adrift_183_tictactoe.txt` | endtail 1 | T7 `7`: run400 'filled 7 Gathering Of The Gods You are in the gathering of the Gods. T' vs scarier 'filled 7 Gathering Of The Gods You are in the gathering of the Gods. T' |
+| `to_hell_in_a_hamper` | Hamper.taf | `Adrift_262_to_hell_in_a_hamper.txt` | diff 3 | T30 `look`: run400 'In the basket of a balloon I am in the basket of the balloon, high, th' vs scarier 'In the basket of a balloon I am in the basket of the balloon, high, th' |
+| `tophat` | tophat.taf | `Adrift_175_tophat.txt` | endtail 1 | T2 `up`: run400 'I leap out of the hat to get just one more word to Boss, but trip on t' vs scarier 'I leap out of the hat to get just one more word to Boss, but trip on t' |
+| `trabula` | Trabula.taf | `Adrift_268_trabula.txt` | diff 3 | T8 `e`: run400 'You move east. Middle Bridge The bridge is no more stable here. It con' vs scarier 'You move east. Middle Bridge The bridge is no more stable here. It con' |
+| `trickortreat` | Trick or Treat.taf | `Adrift_321_trickortreat.txt` | clean |  |
+| `unauthorized_termination` | unauthorized.taf | `Adrift_288_unauthorized_termination.txt` | diff 9 | T5 `2`: run400 'The room slowly fades and is replaced with your destination. Centre fo' vs scarier 'The room slowly fades and is replaced with your destination. Centre fo' |
+| `unfortunately` | Unfortunately.taf | `Adrift_255_unfortunately.txt` | clean |  |
+| `vague` | vague.taf | `Adrift_298_vague.txt` | diff 40 | T0 `1`: run400 'Nothingness, then you are here. With amnesia it is quite possible to h' vs scarier 'Nothingness, then you are here. With amnesia it is quite possible to h' |
+| `vendetta` | Vendetta.taf | `Adrift_320_vendetta.txt` | diff 23 | T19 `open cargo hold`: run400 'You can't open that. There is a bleeping sound coming from the videoco' vs scarier 'You can't see the cargo hold. There is a bleeping sound coming from th' |
+| `videotapedecay` | Video_Tape_Decay.taf | `Adrift_306_videotapedecay.txt` | endtail 1 | T138 `north`: run400 'As you move north, you wonder what life will be like with your daughte' vs scarier 'As you move north, you wonder what life will be like with your daughte' |
+| `viewtohome` | A View to a Home.taf | `Adrift_295_viewtohome.txt` | diff 22 | T5 `north`: run400 'You move north. Passage You are in a junction of many passageways. You' vs scarier 'You move north. Passage You are in a junction of many passageways. You' |
+| `volant` | volant.taf | `Adrift_256_volant.txt` | lost-cmd | 1 lost, first feed[5] `z` -- `x racks` re-blessed 2026-09-06 (DontUnderstand, Adrift_256 125-126) |
+| `warlord` | warlord.taf | `Adrift_337_warlord.txt` | lost-cmd | 2 lost, first feed[307] `x artefacts` |
+| `wax_worx` | wax_worx.taf | `Adrift_244_wax_worx.txt` | diff 2 | T15 `ask charlie about house`: run400 'The voice that replies might be your own breathing. "What a pad. We ch' vs scarier 'Words form, not on the motionless lips, but in your mind. "What a pad.' |
+| `wes_ghn` | WesGHN.taf | `Adrift_307_wes_ghn.txt` | diff 8 | T46 `take candle`: run400 '"Why, Wes, shugah, what do you think you are doin'?" Hope says with a ' vs scarier '"Why, Wes, shugah, what do you think you are doin'?" Hope says with a ' |
+| `whitesingularity` | The White Singularity.taf | `Adrift_180_whitesingularity.txt` | endtail 1 | T5 `pull out the life support generator`: run400 'You chew your lip, agonizing over the decision. Suddenly, a brilliant ' vs scarier 'You chew your lip, agonizing over the decision. Suddenly, a brilliant ' |
+| `wilkins` | The_Strange_Tale_of_Dr_Wilkins.taf | `Adrift_313_wilkins.txt` | diff 34 | T1 `take base tincture`: run400 'I take the base tincture.' vs scarier 'I take the base tincture. I quickly jot down everything so far, so I c' |
+| `will` | Will.taf | `Adrift_296_will.txt` | lost-cmd | 1 lost, first feed[123] `score` |
+| `witchtale` | A Witch Tale.taf | `Adrift_238_witchtale.txt` | endtail 1 | T43 `mix ingredients`: run400 '"Are you ready, dearie?" I dump all the strange ingredients into the c' vs scarier '"Are you ready, dearie?" I dump all the strange ingredients into the c' |
+| `withoutaclue` | WithoutAClue.taf | `Adrift_299_withoutaclue.txt` | clean |  |
+| `wolvesatthedoor` | Wolves_at_the_Door.taf | `Adrift_207_wolvesatthedoor.txt` | clean |  |
+| `woof` | Woof.taf | `Adrift_340_woof.txt` | diff 1 | T24 `z`: run400 'Time passes... "Rex!!!! I'm back." Du dum... Well done, Rex! You score' vs scarier 'Time passes... "Rex!!!! I'm back." Woooooooof! Well done! You scored 3' |
+| `worstgame` | WorstGameInTheWorld.taf | `Adrift_196_worstgame.txt` | diff 1 | T10 `z`: run400 'Time passes... u cri out in agonee as the bomer its u a few times-' vs scarier 'Time passes... "uguggkgggk" u screm as the bomer whaks u in the ead!!!' |
+| `wumpusrun` | competition2006__adrift__wumpusrun__wumpusRun.taf | `Adrift_187_wumpusrun.txt` | diff 11 | T0 `south`: run400 'You press on to the south. One Big Empty This cavern is completely emp' vs scarier 'You advance cautiously to the south. Bog of Eternal Stench Methinks it' |
+| `yadfa` | YADFA.TAF | `Adrift_336_yadfa.txt` | diff 1 | T86 `in`: run400 'Lair of the Bugha Lair of the BughaYou're in a dark, dismal cave, home' vs scarier 'Lair of the Bugha Lair of the Bugha You're in a dark, dismal cave, hom' |
+| `ynkaboom` | YNKaboom.taf | `Adrift_206_ynkaboom.txt` | endtail 1 | T24 `yes`: run400 'Frantically you toss your interpreter at the Eagle Beast. It catches i' vs scarier 'Frantically you toss your interpreter at the Eagle Beast. It catches i' |
+| `yonastoundingcastle` | yonastoundingcastle.taf | `Adrift_324_yonastoundingcastle.txt` | diff 22 | T39 `x fount`: run400 'Yon fountain doth bubble forth with ye waters of some effervescence. Y' vs scarier 'Yon fountain doth bubble forth with ye waters of some effervescence. Y' |
+| `zelda` | zelda.taf | `Adrift_319_zelda.txt` | diff 5 | T60 `buy ganon mask`: run400 '"Excellent choice, sir. You'll be very happy with your new mask." The ' vs scarier '"Excellent choice, sir. You'll be very happy with your new mask." The ' |
+
 
 ### 3.90 — 54 games (ALL MEASURED or DEFERRED as of 2026-09-05)
 
@@ -1311,13 +1487,541 @@ Two of these reverse working models earlier sessions were built on.
 
 
 
+## Measured 2026-09-06: all 51 pending 4.00 rows, driven through fast.sh/par.sh
+
+Every 4.00 row in the "Candidates" table that had never been driven was
+driven, in four `par.sh` batches, up to **8 Runners at once** and entirely
+in the background (the message driver does not need the foreground -- see
+the `wine-fast-message-driver` memory).  2621 feed lines, ~9 minutes of
+wall clock for the lot.  Feeds were regenerated fresh with
+`harness/make_wine_cmdfile.py` into `~/adrift-battle/runner/wine/cmdfile_p_<solution>.txt`;
+25 games were staged as `pfx/drive_c/adrift/w_<solution>.taf`.  Transcripts
+are `Adrift_123..174_<solution>.txt` in `pfx/drive_c/adrift/`.
+
+Scoring is `harness/compare_wine_transcript.py`.  **These verdicts are the
+2026-09-06 RE-SCORE**, after all five alignment fixes described under "Five
+tool fixes" in the 165-row section below.  The first pass scored seven of
+these rows as long desyncs that were entirely an artefact of the comparison.
+
+- **35 rows clean** -- 16 identical outright, 19 identical apart from the
+  `[Press any key to end]` tail the Runner writes and the headless engine
+  does not.  These need nothing.
+- **8 rows diverge** with every command echoed: five of them on a single
+  turn, none on more than five.
+- **8 rows lost a feed command** in the Runner, so everything after the loss
+  is out of step and is not evidence until the feed is fixed and the row is
+  re-driven.
+
+### Clean (16) -- identical on every turn
+
+| solution | transcript |
+|---|---|
+| `chooseyourown` | `Adrift_160_chooseyourown.txt` |
+| `flyhuman` | `Adrift_126_flyhuman.txt` |
+| `forum2` | `Adrift_140_forum2.txt` |
+| `griswold` | `Adrift_150_griswold.txt` |
+| `imagidroids` | `Adrift_139_imagidroids.txt` |
+| `invasion_shirts` | `Adrift_131_invasion_shirts.txt` |
+| `marlin_affair` | `Adrift_154_marlin_affair.txt` |
+| `mysteryofcaves` | `Adrift_151_mysteryofcaves.txt` |
+| `percy` | `Adrift_125_percy.txt` |
+| `plague` | `Adrift_174_plague.txt` |
+| `private_eye` | `Adrift_167_private_eye.txt` |
+| `shardsofmemory` | `Adrift_169_shardsofmemory.txt` |
+| `to_hell_and_beyond` | `Adrift_124_to_hell_and_beyond.txt` |
+| `unraveling_god` | `Adrift_163_unraveling_god.txt` |
+| `unraveling_god_lou` | `Adrift_164_unraveling_god_lou.txt` |
+| `valley` | `Adrift_166_valley.txt` |
+
+### Clean but for the ending tail (19)
+
+`Tear` (`Adrift_147`), `afdfr` (165), `buried_alive` (155), `chicken` (141),
+`crimsondetritus` (136), `demonhunter` (137), `dragonshrine` (152),
+`foggybanana` (123), `goblinhunt` (144), `imagination` (135), `lobster`
+(161), `marika` (158), `microbe_willie` (132), `plunder_gargoyle` (156),
+`pyramid` (128), `shore` (153), `too_much_exercise` (157), `vetknow` (170),
+`vetknow2` (171).
+
+The only difference is the Runner's `[Press any key to end]` after the last
+line.  That is a property of the ending, not a law -- see "Before measuring
+anything".
+
+`buried_alive` and `lobster` joined this group in the final re-score, from 40
+and 6 differing turns: both are not-SKIP-wired rows, and both were misread by
+the comparison rather than by the engine (fix 5 below).  42/42 and 60/60
+echoed, offset 0, every turn identical.
+
+### Diverging, every command echoed (8)
+
+| solution | transcript | diffs | symptom |
+|---|---|---:|---|
+| `asdfa` | `Adrift_143` | 1 | T2 `x cauldron`: run400 "You see no such thing.", Scarier "You can't see the cauldron from here!" -- FIXED 2026-09-06, identical on every turn |
+| `cbn2` | `Adrift_138` | 1 | T17 `light match`: run400 prints the task text **and then** a second refusal ("...that was a strange command..."); Scarier prints only the task text |
+| `relojero` | `Adrift_133` | 1 | T10 `arreglar fenix`: run400 prefixes the task with "Disculpa pero no te entiendo."; Scarier prefixes "Extraños pensamientos afloran en mi mente a proposito de..." (same family as `cbn2` -- which refusal accompanies a task) |
+| `second_chance` | `Adrift_159` | 1 | T49 `s`: Scarier appends the END GAME text run400 does not reach |
+| `sophie_comp` | `Adrift_173` | 1 | T169 `put black crystal in mouth`: run400 "You can't", Scarier "It is not clear which object you're referring to" -- the 4.0 put prompt |
+| `togetyou` | `Adrift_146` | 2 | T16: the room short name is "The Infected Ear" in run400, "The Ear" in Scarier -- a task-driven room-name change Scarier does not apply |
+| `salutations` | `Adrift_129` | 4 | the sack event fires one turn earlier in run400 (T6 vs Scarier's T7) |
+| `cbn` | `Adrift_149` | 5 | T6 `x desk`: run400 "You see no such thing." plus a second refusal; the `cbn2`/`asdfa` pair again -- T6 `x desk` FIXED 2026-09-06; the second refusal ("> Clueless Bob is confused!") remains |
+
+Seven rows left this table in the two re-scores.  `chooseyourown`,
+`private_eye`, `shardsofmemory`, `plague` and `imagidroids` (at 40, 40, 40,
+40 and 9 differing turns) are now **clean**; `buried_alive` (40) and `lobster`
+(6) are clean but for the ending tail.  The "numbered-choice menu answer
+Scarier does not consume" that the first five were said to share **did not
+exist**: they were misaligned by the comparison, one turn per pause.
+`goblinhunt` likewise dropped from 6 differing turns to the ending tail
+alone.  Nothing in this batch is now longer than five differing turns.
+
+### Lost a feed command (8) -- re-feed before reading anything into them
+
+| solution | transcript | lost | also seen before the loss |
+|---|---|---|---|
+| `cellar` | `Adrift_172` | `feed[119] undo` | T43 `x dust`: run400 "You see no such thing." vs Scarier "You can't see the dust from here!" -- the same divergence as `asdfa` -- FIXED 2026-09-06; the row's first diff is now T114 `take satchel`: run400 "There is nothing worth taking here." vs Scarier "Take what?" |
+| `confession` | `Adrift_148` | `feed[16..36]`, 21 `z` in a row | the Runner stopped echoing after 16 turns; the row needs `#sleep` pacing |
+| `endgame` | `Adrift_127` | `feed[9] z` | T8 `turn on pc`: Scarier prefixes "You have trouble controlling yourself..." |
+| `hyper_b_s` | `Adrift_145` | `feed[20,21,23,24,26,27]`, the `a`/`p` battle keys | T5 `p`: the Flare Rat is on 23 HP in run400, 27 in Scarier, and the player on 94 against 97 -- a real **battle** divergence, and it is before the first loss |
+| `mortality` | `Adrift_168` | `feed[33] e` | -- |
+| `pieces_of_eden` | `Adrift_130` | `feed[3] x officer` | re-synchronises afterwards |
+| `qui_a_tue_dana` | `Adrift_162` | `feed[20] parler` | 62/63 echoed; T21 run400 prints the refusal **twice** where Scarier prints it once |
+| `saffire` | `Adrift_134` | `feed[5] turn on torch` | everything after is out of step |
+
+`mortality` used to carry the note "Scarier answers every numbered choice
+with *Stephanie is expecting an answer*".  That was the blank-line drift, not
+the menu; after the fix its only problem is the one lost `e`.
+
+### The seen-model finding
+
+`asdfa` T2 (`x cauldron`) and `cellar` T43 (`x dust`) are the same bug and
+the most concrete result of the batch.  run400 says **"You see no such
+thing."**; Scarier says **"You can't see the &lt;X&gt; from here!"**.  Per
+`sclibrar.cpp:4383-4420` that second wording is 4.0's second matcher pass
+over everything the player has *seen* (`lib_absent_seen_object()` /
+`lib_cant_see_absent_object()`).  So the rule is ported correctly and the
+divergence is in the **seen model**: Scarier is marking these objects seen
+where run400 has not.  Chase the seen marking, not the message.
+
+### Two harness traps found and fixed while driving
+
+- **`drive.exe`'s `ClaimName()` is not atomic across processes.**  At 8-way,
+  `griswold` and `shore` both claimed `Adrift_142.txt` and one overwrote the
+  other (the wreck is kept as `Adrift_142_COLLIDED_griswold_shore.txt`).
+  `par.sh` now picks the transcript name itself before dispatching a row --
+  a `next_free` scan plus an immediately created placeholder file, passed to
+  `fast.sh` as `TRANSCRIPT=` -- so the name is decided in one process.
+  Renumbering batch 3 (153-174) also came out of this.
+- **The compare tool and the driver disagreed on the feed's encoding.**
+  `drive.cs` reads the cmdfile as UTF-8; `compare_wine_transcript.py`'s
+  `read_feed` reads it as latin-1.  On `qui_a_tue_dana` that made the tool
+  mis-read its own feed and report three accented commands ("prendre
+  téléphone") as lost when the Runner had echoed them perfectly.  Compare
+  non-ASCII feeds against a CP1252 copy until `read_feed` is taught UTF-8.
+
+Three jobs (`griswold`, `mysteryofcaves`, `dragonshrine`) also failed with
+"transcript was not created" at 8-way and succeeded unchanged at 3-way, so
+8 is above this machine's comfortable ceiling for the Save-dialog step.  The
+0-byte stubs those failures left behind were then read by the comparison as
+"every command lost"; if a row reports total loss, check the transcript's
+size before believing it.
+
+## Measured 2026-09-06: 165 MORE 4.00 rows -- the corpus, not just the candidates
+
+The "Candidates" table was never the whole 4.00 pool.  `run_v4_walkthroughs.sh`
+has 351 rows; 186 of them are 4.00 games (`.taf` header byte 10 = 0x3e) that
+the table had never listed.  Of those, 11 are `SCR_SEED` rows and 2 are
+`SCR_ASSUME_COMBAT`/`SCR_ASSUME_MOVES` rows -- both classes are unmeasurable
+against the Runner, which reseeds itself and has no assist flags -- and 8 had
+already been driven under another name.  **The remaining 165 were all driven**,
+5 Runners at a time, 15417 commands, one hard failure.
+
+    cd ~/adrift-battle/runner/wine && ./par.sh jobs_q.txt 5    # 165 rows
+    ./par.sh jobs_r.txt 5                                      # the 14 re-drives
+
+Feeds are `cmdfile_q_<solution>.txt`, games are staged as
+`w_<solution>.taf`, transcripts are `Adrift_175..~351_<solution>.txt`.
+Scoring is `harness/compare_wine_transcript.py` (see the five tool fixes
+below); the per-row verdicts are the table in "### 4.00 -- 165 more games".
+
+| verdict | rows |
+|---|---|
+| clean -- identical on every turn | 21 |
+| clean but for the `[Press any key to end]` tail | 31 |
+| clean but for whitespace | 1 |
+| diverging, 1-9 differing turns | 53 |
+| diverging, 10+ differing turns | 34 |
+| lost a feed command (not evidence yet) | 25 (incl. `dreamquest`) |
+
+These are the **twice re-scored** numbers (2026-09-06, after tool fixes 4 and
+5 below).  The first pass through the same transcripts read 11 clean / 24
+endtail / 104 diverging: sixty rows changed verdict on fix 4, all but three
+of them for the better, because the comparison -- not the engine and not the
+drive -- was feeding scarier one extra empty command per pause.  Fifteen rows
+went straight from "diff 40, desynced from turn 0" to clean.  Fix 5 moved six
+more: `foresthouse3` 40 -> 8, `iachini` 40 -> 21, `wes_ghn` 40 -> 8,
+`the_town_of_azra` 16 -> 9, `tictactoe` 5 -> the ending tail alone.  (The
+end-tail test also learned to match the Runner's tail by its BRACKETS rather
+than by the English inside them, which recovered `ilgolem`'s
+`[ Game over ... premi un tasto]` and `elascensor`'s
+`[Pulsa cualquier tecla para terminar]`.)  Any diff count
+written down before those fixes is worthless; re-score before quoting one.
+
+`tictactoe` going clean matters beyond its own row: its T0 (`1` answered
+"... What?" in run400 while scarier started the game) was the last surviving
+scrap of the "numbered-choice menu" lead, and it is gone.
+
+`dreamquest` is not a harness failure: run400 answers
+`Error loading adventure - [Subscript out of range,9,10]` and never opens a
+window.  Scarier loads and finishes it.  Six other rows raise a run-time
+`evaluate error - Subscript out of range` mid-game and keep going.
+
+### Five tool fixes this batch forced
+
+1. **The startup gender form is not the Hiscore Table.**  ADRIFT asks
+   "Please choose player gender" in a VB form (`ThunderRT6FormDC`), the same
+   window class as the end-of-game Hiscore Table, so `drive.cs` read it as
+   "the game has ended" and aborted five rows at command 1.  There is now a
+   gender branch before the Hiscore branch; it answers from the same
+   `POPUP_ANSWERS` queue the name InputBox draws from (so a game with both
+   wants `POPUP_ANSWERS="<name>|male"`) and clicks the button with
+   **`BM_CLICK`** -- a VB command button ignores the `WM_COMMAND` id that
+   works on a `#32770` dialog.
+2. **`POPUP_ANSWERS` is not optional.**  `make_wine_cmdfile.py` prints it and
+   leaves the name/gender answers OUT of the command file; 20 rows were driven
+   without it, so the Runner got an empty name and every later `%player%`
+   diverged.  Worse, the compare tool replays the *command file* through
+   scarier, which asks the same questions on stdin -- so even a correctly
+   driven row scored wrong.  `compare_wine_transcript.py` now takes
+   `--popup ANSWER` (repeatable) and prepends them to scarier's stdin.  This
+   alone turned batch 1's `imagination` from "DIFF13, Scarier starts in a
+   different state" into a clean row.
+3. **`timeout` does not exist on macOS.**  A comparison sweep wrapped in it
+   wrote `command not found` into all 53 outputs, and the classifier scored
+   every one of them "clean" because they contained zero turn blocks.  Use
+   `perl -e 'alarm 420; exec @ARGV' sh ...`, and make the classifier report an
+   empty output as NORUN rather than as agreement.
+4. **The comparison was feeding scarier the Runner's pause Returns.**  This
+   was the big one, and it invalidated the whole first scoring pass.
+   `make_wine_cmdfile.py` puts one BLANK line in the command file per
+   `<waitkey>` the game reaches, because the Runner has no
+   `SCR_SKIP_WAITKEY` and each pause eats a keystroke.  `read_feed` drops
+   those blanks on the Runner side -- but `run_scarier` kept them, and forced
+   `SCR_SKIP_WAITKEY=1` on top, so scarier saw each one as an **empty
+   command**: it prompts, and it ticks the events.  The two streams therefore
+   drifted by one more turn after every pause in the game, cumulatively, and
+   no single `--offset` could hold them together.  `run_scarier` now drops
+   the blanks when the row is SKIP-wired and keeps them when it is not (a
+   non-SKIP row's blanks are the solution's own pause answers, which scarier
+   really does eat), and no longer forces the flag on -- the caller passes
+   the row's real env.  `zelda` went from 200 scarier turns at offset 8,
+   diverging from turn 0, to 188 turns at offset 0 with a single real
+   divergence at turn 60.
+5. **...and then, on a not-SKIP-wired row, scarier's own pauses ate the
+   commands.**  Fix 4 was half a fix.  Replaying a non-SKIP row without the
+   flag makes scarier stop at every `<waitkey>` and READ A LINE -- but the
+   command file has no line for the startup pauses to read, because
+   `make_wine_cmdfile.py` hands those to the driver's `PRE` and strips the
+   blanks.  scarier's startup pauses therefore swallowed the first real
+   commands, scarier turn 0 became `feed[PRE]`, and no forward `--offset`
+   could put the two sides back together: that is the whole of
+   `iachini`/`the_town_of_azra`/`wes_ghn` reading as whole-game divergences
+   from turn 0.  The replay now **always** forces `SCR_SKIP_WAITKEY=1` (a
+   pause is pure output; skipping one changes no game state) and is fed the
+   FEED rather than the file, so feed[i] is scarier turn i by construction.
+   What is left is deciding which blank lines are feed entries, and that is
+   measured, not assumed: `read_feed` replays the candidate feed with
+   `SCR_MARK_WAITKEY=1`, counts the pauses each command printed, lets each
+   pause eat the blank that follows it, and iterates to a fixed point.  Both
+   answers occur -- `lobster`'s ten blanks all answer real pauses, while
+   `sommeril` has no `<waitkey>` at all and its four blanks are real empty
+   commands the Runner echoes as `> ` -- so a rule either way is wrong.
+   A pause sitting on a NON-blank line is left in the feed on purpose: the
+   Runner ate that command too, and the lost-command report should say so.
+
+### The `<centre>` join is a TRANSCRIPT artefact, not an engine difference
+
+Six rows (`cowboyblues` 40/40, `onnafa` 36/40, `yadfa` 30/40, `grumble`
+25/40, `bloodrelatives`, `deadman`, and single turns in `threeminutes`,
+`warlord`, `worstgame`) differed only in whether a separator exists.  YADFA
+is the clean case: the room Long is `<ding0>Market<ding1>As markets go...`
+where the ALRs expand `<ding0>` to `<b><centre><font ...>` and `<ding1>` to
+`<font size=12></centre><font ...>`.  The Runner's `Adrift_N.txt` has
+`The MarketAs markets go` with nothing between them; scarier emits a newline.
+
+Settled by reading the Runner's own RichTextBox instead of its transcript --
+`fast.sh` now takes `DUMP_SCROLLBACK=<file>` (drive.exe `--dump-scrollback`,
+UTF-16 out):
+
+    DUMP_SCROLLBACK=/tmp/yscroll.txt ./fast.sh w_yadfa.taf /tmp/ydump.txt run400.exe 0
+
+The control holds `Outside the castle walls\nThe walls of Castle...`.  **The
+Runner does break the line; its transcript writer drops a break that exists
+only as a paragraph-alignment change.**  scarier is right, and none of those
+rows is a bug.  `compare_wine_transcript.py` now reports a whitespace-only
+turn under its own heading and counts it separately -- it does not hide it,
+because a genuinely missing join looks identical from the transcript alone
+(cf. `adrift-walk-announcement-join`); `DUMP_SCROLLBACK` settles any one case.
+
+### The sharpest new leads
+
+Re-derived from the post-fix scoring (2026-09-06), and unchanged by the
+second re-score -- none of the six rows fix 5 moved is on this list.  Ordered
+by how small the reproduction is.  `oldchurch` T17 and `thorn` T26, listed
+here before the re-score as a task-matching pair, are both **clean but for
+the ending tail** now; so is the whole "numbered-menu cluster" that was
+written up here (see the batch-1 section), and so, after fix 5, is
+`tictactoe`, which had been its last surviving member.
+
+- **An implicit-take announcement, `frustrated` T53.**  `put small rock on
+  left pan` -> run400 opens with `(Taking the small rock first) `, scarier
+  goes straight to the task text.  One turn, one prefix, and it is a library
+  rule rather than a game's wording.
+- **A pronoun-resolution echo, `showtime` T59.**  `get her hand` -> run400
+  opens with `(No female) `, scarier does not.  Same shape as `frustrated`:
+  a parenthesised parser aside emitted before the result.  Compare the
+  `adrift4-pronoun-echo-article` and `adrift4-ask-echo-before-tasks` rules --
+  this is a third member of that family.
+- **Battle damage wording, 2 rows.**  `shadow_of_the_past` T18 run400
+  `Beast hits you.` / scarier `Beast hits you, but it doesn't seem to do any
+  damage.`; `del_sol` T44 run400 `MoReLaND hits you, but it doesn't seem to
+  do any damage.` / scarier `You manage to avoid MoReLaND's attack.`  Two
+  rows, one turn each, and they disagree in *opposite* directions -- so this
+  is the hit/damage split in the battle formulas, not the messages.
+- **`icecream`, 3 turns, 3 commands in.**  T0 `take cone` run400 `You already
+  have an empty cone.` / scarier `You are already carrying the cone.` -- the
+  Runner used the object's alternate description where scarier used its
+  name.  T2 `put ice cream in cone` run400 `I don't understand what you want
+  to do with the cone.` / scarier runs the task.
+- **The seen model again, `bandera` T18.**  `x marife` -> run400 `No ves tal
+  cosa.`, scarier describes her.  Same shape as batch 1's `asdfa` T2,
+  `cbn` T6 and `cellar` T43: scarier marks something seen that run400 does
+  not.  Four rows now point at one rule.
+- **An object list one side prints and the other does not, 3 rows.**
+  `camelot15` T32 and `takeone` T4: scarier appends `Also here is ...` /
+  `On the ground is a jewel.` to a room the Runner describes without them.
+  `perspectives` T0 is the mirror image (`On top of the ...` in run400,
+  `Also ...` in scarier).  This is the room-content listing, and it is the
+  largest coherent group in the batch.
+- **An event line one side prints and the other does not, 6 rows.**
+  `skydiver` T15 (`Pelican A pelican flocked toward me..` only in run400),
+  `briefcase` T5 and `backhome` T36 (only in run400), `overtheedge` T1,
+  `bigcitylaundry` T1 and `stationxiii` T25 (only in scarier).  All six are
+  one event firing a tick early or late, and the split down the middle says
+  it is the tick, not a missing event.
+- **`suburbanprodigy3` T31 `stats`** -- run400 runs a game task, scarier
+  answers with a built-in status line (`Celler | Score: 80`).  `stats` looks
+  like a scarier meta-command the Runner does not have.
+- **`reactor1` T10** -- run400 `A quick glance at the computer` and
+  `Initializing ... failed!`, scarier `at the console` and `... done!`.  A
+  referenced-object / variable substitution, not a wording table.
+- **`lca` T91** -- `chop tree` -> run400 asks `Which tree.  The tree or the
+  tree?`, scarier refuses outright.  A disambiguation prompt over two
+  identically-named objects; see `adrift4-disambiguation-and-alr-oracle`.
+- **`wax_worx` T15** -- `ask charlie about house` opens with a different
+  sentence on each side; the rest of the answer matches.
+- **`trabula` T8 and `threeminutes` T8** are one character each: a leading
+  `A`/`a` on a joined sentence, and a counter reading 46 vs 53.
+- **RNG rows, do not chase.**  `jinxtron` T6 differs only in a randomly
+  chosen word (`HOOSELDORF` vs `EIGHT`); `worstgame` T10 and `woof` T24 pick
+  different members of a random message list.  The Runner reseeds itself, so
+  these are unmeasurable by construction.
+
+### Rows that lost a feed command (25) -- but half of them are not feed bugs
+
+`aliasagent`, `cowboyblues`, `crookedestate`, `darkness`, `datewithdeath`,
+`donuts_intro`, `dreamquest`, `egghunt`, `Glum_Fiddle`, `grumble`,
+`howitstarted`, `mould`, `mustescape`, `patient7`, `reluctantvampire`,
+`riding_home`, `rking`, `scandal`, `sswhore`, `sun_empire`,
+`TheADRIFTProject`, `thelasthour`, `volant`, `warlord`, `will`.
+
+`dreamquest` is the trivial one: its transcript is a zero-byte file because
+run400 never opened a window (see the load error above), so every command is
+"lost".  Checking where the other transcripts stop splits them in two:
+
+- **The game had ENDED (13 rows)** -- `aliasagent`, `darkness`,
+  `donuts_intro`, `egghunt`, `howitstarted`, `patient7`, `rking`, `scandal`,
+  `sswhore`, `sun_empire`, `volant`, `will`, `TheADRIFTProject`.  The Runner
+  stops taking input at `[Press any key to end]`, so every remaining
+  walkthrough line is unechoed *by design*.  Six of them lose exactly one
+  command and it is a trailing `score` or `quit`.  These are not feed bugs
+  and re-driving will not change them; they are the Runner side of
+  `adrift4-actions-after-endgame`.  Two are worth a second look because the
+  game ended EARLY: `scandal` dies at feed[1] (`I'm afraid you are dead!`,
+  score 0/0) where scarier plays on, and `darkness` finishes at feed[99]
+  with 11 walkthrough lines still to go.  `TheADRIFTProject` is a Runner
+  crash -- `Run-time error '401': Can't show non-modal form when modal form
+  is displayed` at command 92.
+- **Stopped mid-game (11 rows)** -- `cowboyblues`, `crookedestate`,
+  `datewithdeath`, `Glum_Fiddle`, `grumble`, `mould`, `mustescape`,
+  `reluctantvampire`, `riding_home`, `thelasthour`, `warlord`.  These are
+  the real feed problems.  `datewithdeath` stops on an unanswered `[MORE]`
+  (a pause `make_wine_cmdfile.py` did not count), `crookedestate` on `save`
+  (a file dialog), `mould` on `hint` (a hint window).  `mustescape`'s
+  transcript is full of ASCII art and echoed 99 prompts, so its "20 lost from
+  feed[2]" is probably the echo matcher losing the art, not the Runner losing
+  keys.
+
+### Measured 2026-09-06: sommeril re-driven, both model-derived turns hold
+
+`sommeril` was the last row still carrying an unsettled model-derived edit.
+Re-driven with `cmdfile_s_sommeril.txt` (79 lines, `take placemat` at line
+45 and `put fish in water` at line 16) into `Adrift_353_sommeril.txt`:
+
+    python3 harness/make_wine_cmdfile.py sommeril ~/adrift-battle/runner/wine/cmdfile_s_sommeril.txt
+    ./fast.sh sommeril.taf cmdfile_s_sommeril.txt run400.exe 0
+
+**79/79 echoed, offset 0, and neither edited turn is among the differences.**
+Both changes -- the trailing-space rule that made `get placemat ` unreachable
+by `get placemat`, and the 4.0 put/task precedence that makes `put fish in
+water` reach task 18 -- are now measured, not model-derived.
+
+What remains is ten turns of atmospheric events, and all three of them are
+random-interval: `SCR_DUMP_TASKS=1` gives `EVENT 0 [bells] starter=2
+restart=2 start=15..25`, `EVENT 1 [Hooded Man] start=10..20`,
+`EVENT 2 [mice] start=15..20`.  The Runner reseeds itself, so the hooded man,
+the mice and the bell land on different turns on the two sides and nothing
+else does.  The row is clean.
+
+This drive is also what turned up tool fix 5: the game has NO `<waitkey>`
+anywhere, so its four opening blank lines are empty commands -- run400 echoes
+`> ` and answers each with "Much like a dream, that never happened." -- and
+the comparison had been dropping them, reporting an offset of four and ten
+false event-timing divergences.  The stale comment in the solution that
+called them "the four intro `<waitkey>` pauses" is corrected.
+
 ## Next candidates
 
-4.00, by command count: `endgame.taf` (13), `griswold` (18, PRE=4,
-`Griswold.taf`), `togetyou` (34, PRE=1), `imagination` (13,
-`POPUP_ANSWERS="Jenny"`, `Imagination.taf`), then `confession`, `pyramid`,
-`colony`, `marlin_affair`, `villains_and_kings`, `marika`, `second_chance`,
-`crimsondetritus`, `goblinhunt` and on up the table.  Feeds for all of these
-already exist in `~/adrift-battle/runner/wine/`.  `sommeril` also wants a
-re-drive with the corrected `take placemat` feed (`cmdfile_w_sommeril.txt`,
-79 lines).  Wine driving needs the Mac's screen unlocked.
+The 4.00 pool is now **fully driven**: 124 candidate rows plus the 165 corpus
+rows found on 2026-09-06, 289 in all, minus the 13 `SCR_SEED`/`SCR_ASSUME`
+rows that cannot be measured against the Runner and `dreamquest`, which
+run400 refuses to load.  There is nothing left to *drive*; what is left is
+follow-up on rows that have been driven, in this order:
+
+1. **The seen model** -- `asdfa` T2, `cbn` T6, `cellar` T43, `bandera` T18.
+   DONE 2026-09-06 for the object rows (see "Ported 2026-09-06: the faithful
+   seen seed and the 463640 second pass" below): `asdfa` identical, `cbn` T6
+   and `cellar` T43 match.  `bandera` T18 is an NPC and stays open (NPC seen
+   model, unread).
+2. **Parenthesised parser asides** -- `frustrated` T53 `(Taking the small
+   rock first) ` and `showtime` T59 `(No female) `, both printed by run400
+   and by neither by scarier.  One turn each, and they extend a family of
+   rules already ported (`adrift4-ask-echo-before-tasks`,
+   `adrift4-pronoun-echo-article`).
+3. **The room-content listing** -- `camelot15` T32, `takeone` T4 (scarier
+   lists, run400 does not) and `perspectives` T0 (the mirror).  Three rows,
+   and the largest coherent group left.
+4. **Battle hit vs no-damage** -- `shadow_of_the_past` T18 and `del_sol` T44
+   disagree in opposite directions on one turn each.  Two rows, and the pair
+   pins the formula rather than the message.  `hyper_b_s` T4 (Flare Rat on 23
+   HP vs 27) is the same area, from batch 1.
+5. **A single event one tick out** -- `skydiver` T15, `briefcase` T5,
+   `backhome` T36 (run400 prints it) against `overtheedge` T1,
+   `bigcitylaundry` T1, `stationxiii` T25 (scarier prints it).  Six rows,
+   split evenly, so this is the tick and not a missing event.
+6. **`icecream`** (3 commands in: the take refusal uses the alternate
+   description, and `put ice cream in cone` runs in scarier and is refused by
+   run400) and **`suburbanprodigy3`** (`stats` is a scarier meta-command the
+   Runner does not have).
+7. **The refusal that accompanies a task** (`cbn2` T17, `relojero` T10,
+   `qui_a_tue_dana` T21) -- one rule about which library message survives.
+8. **Re-feed the 19 rows that really lost a command** -- 8 from batch 1
+   (`cellar`, `confession`, `endgame`, `hyper_b_s`, `mortality`,
+   `pieces_of_eden`, `qui_a_tue_dana`, `saffire`) and the 11 mid-game rows
+   from batch 2 listed above.  `confession` (21 consecutive `z`) and
+   `hyper_b_s` (the `a`/`p` battle keys) want `#sleep` pacing;
+   `datewithdeath` wants the `[MORE]` counted.  The other 13 batch-2 rows
+   lost their commands *after the game ended* and will not improve with a
+   better feed.
+9. **`scandal`** -- run400 kills the player at feed[1] and scores 0/0 where
+   scarier plays the walkthrough out.  It reads as a lost-command row but it
+   is the sharpest whole-game divergence in the batch.
+Before chasing any diff count in this file, check that it was produced after
+the 2026-09-06 alignment fixes (tool fixes 4 and 5 above).  Sixty of the
+batch-2 rows and five of batch 1's changed verdict on fix 4, six and two more
+on fix 5, and everything the earlier scoring said about "numbered-choice
+menus" was that bug.
+
+Feeds live in `~/adrift-battle/runner/wine/` as `cmdfile_p_<solution>.txt`
+(batch 1) and `cmdfile_q_<solution>.txt` (batch 2).  Drive with `par.sh` at
+3-5 Runners; 8 lost three Save dialogs.  A row with a name or gender question
+needs `POPUP_ANSWERS` on BOTH sides -- `par.sh`'s sixth field for the drive,
+`--popup` for `compare_wine_transcript.py`.  Wine driving does not need the
+Mac's screen unlocked: the message driver never takes the foreground.
+
+## Ported 2026-09-06: the faithful seen seed and the 463640 second pass
+
+Two engine changes, both from the "seen model" item above, landed together:
+
+1. `scgamest.cpp`: the load-time seed in `gs_populate()` is the loader's
+   @004909B5 -- dynamics start seen only when held or worn, statics only when
+   `InitialPosition == 1` -- followed by run400's `afteroa` sweep @0046F0B4
+   (loop @0046EDA5, stamp @0046EDCE) marking seen everything present and
+   reachable in the start room (`Proc_21_53_44B578`).  Gated `>= 3.90`; below
+   4.00 statics only, as run390's inline sweep @004418FF.  Nothing before 3.90
+   (run370 co() @004261B4 and run380 co() @0042DE60 never read the byte).
+2. `sclibrar.cpp lib_absent_seen_object()`: the 4.0 seen-but-absent resolver
+   now scores with the Runner's noun score (`lib_verb_object_name_score()`,
+   shared with the unhandled-verb catch-all) instead of a count of Short-name
+   words.
+
+**The crux the parked note pointed at is settled.**  `Proc_19_88_457034` is
+NOT the examine resolver: the P-code (`~/Adrift_decompile/run400/
+run400.p32dasm.txt` exists; the earlier claim that it was missing was wrong)
+shows the "co(i, 4)" at @00456E6A is one vestigial call with no loop around
+it, and pass A @00456E2D (`co(i, 3)`) needs a *present* match.  What examine
+actually reads first (@00456DFC) is `MemVar_4942F8`, the result of the
+up-front resolver `Proc_21_58_463640(line, 0, 0)` that generaltasks calls
+once per line at @0048A3F5:
+
+    pass 1  @00463119-137   candidates = obhere() AND seen
+    score   @004632AC-387   Short whole-phrase 1, + first alias 1 (loop exits
+                            at 463304), + 1 per Prefix word; no Short/alias
+                            hit -> not a candidate (var_9E)
+    best    @004633C3-443   higher score -> new best; equal -> tie, var_86 =
+                            -i-2, Me(424) = -1
+    pass 2  @0046360D-63B   only if pass 1 left no unique winner: GoTo 4630BC
+                            over EVERY seen object (@00463143-156), present or
+                            not; var_94 (best score) is NOT reset
+    result                  >= 0 unique object, -1 none, <= -2 tie
+
+A tie or none falls to 457034's pass A, finds nothing present, and answers
+&HFF -- "<player> see no such thing." (@004719D9).  A unique winner that is
+not present answers "<player> can't see <it> from here!" (@00471958), and
+that branch does NOT set `MemVar_494281`, so it is a real turn; only the
+"see no such thing" tail (@00471F02) is administrative.
+
+Evidence, all archived run400 transcripts:
+
+- `cowboyblues` Adrift_330 line 1070, T143 `x wall` in the Sheriff's Office:
+  the Back Room's "east wall" (obj 91, alias "wall", visited at line 432) and
+  Blood Alley's "walls" (obj 96, alias "wall") both score 1 on the alias and
+  tie -> "You see no such thing."  The old Short-word count gave 91 one point
+  and 96 none and printed "You can't see the east wall from here!".
+- `humbug` Adrift_4 lines 1602-1604 still hold: `X machine` -> the washing
+  machine alone is seen -> "I can't see the washing machine from here!";
+  `X chute` -> several seen chutes tie -> the ALR'd "Nothing Special.".
+- `cellar` Adrift_172 163-164 `x dust` -> "You see no such thing." (the dust
+  is a static in a room never visited; the old seed had it seen).
+- `volant` Adrift_256 125-126 `x racks` -> the game's DontUnderstand "That
+  isn't of any concern to you at the moment." (racks unseen).
+- `ghosttown` Adrift_325 520-521 `x posters` -> "You can't see the torn
+  pictures from here!", and because that is a turn the dusk event now fires
+  after `ninette follow` (Adrift_325 590) as run400 does, the saloon is
+  entered in its night text (628-634) and the tumbleweed line moves.  The
+  row's diff count against Adrift_325 is 23, down from 34; T2 (the kerosene
+  lamp "Also here is") is untouched by this and is the next thing there.
+- `foresthouse3`: the four changed lines were all in a golden that had been
+  a stuck-on-the-porch run -- the two opening `[Press a key]` prompts ate
+  `look under mat` and `unlock door with key`, and the timed ending still
+  printed the win marker.  The row now sets `SCR_SKIP_WAITKEY=1`; its
+  command list matches Adrift_264 exactly and the first diff is still T48.
+- `asdfa` Adrift_143 is now identical on every turn; `cbn` T6 matches.
+
+Re-blessed: `cellar` (1 line), `volant` (1 line), `ghosttown` (event shift),
+`foresthouse3` (whole golden).  `cowboyblues` and `humbug` unchanged.  Suite
+428/428.  Memories `adrift4-absent-noun-resolution` and
+`adrift4-object-seen-model` corrected; `~/Adrift_decompile/index/
+annotations.tsv` rows 457034 and 463640 corrected.
+
+Still open from this thread: `bandera` T18 `x marife` (NPC seen model),
+`cbn`'s second refusal, `cellar` T114 `take satchel` ("There is nothing worth
+taking here." vs "Take what?"), `ghosttown` T2.

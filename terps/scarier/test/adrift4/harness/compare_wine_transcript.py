@@ -47,20 +47,152 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
-def read_lines(path):
-    with open(os.path.expanduser(path), encoding="latin-1") as handle:
+def read_lines(path, encoding="latin-1"):
+    with open(os.path.expanduser(path), encoding=encoding) as handle:
         text = handle.read()
     return text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
 
 
-def read_feed(path):
-    """The commands as they were driven in, blank lines and comments dropped."""
-    feed = []
-    for line in read_lines(path):
-        stripped = line.strip()
-        if stripped and not stripped.startswith("#"):
-            feed.append(stripped)
-    return feed
+def read_cmdfile_lines(path):
+    """A Wine cmdfile as drive.exe reads it -- UTF-8, latin-1 only as a fallback.
+
+    drive.cs does File.ReadAllLines(cmds, Encoding.UTF8); reading the same file
+    as latin-1 here turned an accented command into mojibake and made the
+    comparison report commands the Runner had echoed perfectly as lost
+    (qui_a_tue_dana, 2026-09-06).
+    """
+    try:
+        return read_lines(path, "utf-8")
+    except UnicodeDecodeError:
+        return read_lines(path)
+
+
+def cmdfile_lines(path):
+    """The command file as scarier is fed it: comments dropped, blanks kept.
+
+    Returns (lines, encoding) so pauses_eat() can hand the very same bytes
+    back to the harness.
+    """
+    for encoding in ("utf-8", "latin-1"):
+        try:
+            with open(os.path.expanduser(path), encoding=encoding) as handle:
+                text = handle.read()
+        except UnicodeDecodeError:
+            continue
+        lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+        return [l for l in lines if not l.strip().startswith("#")], encoding
+    raise SystemExit("cannot decode %s" % path)
+
+
+def scarier_run(taf, feed, encoding, env_extra, popup_answers, markers=False):
+    """Replay a list of commands through harness/scare, one prompt per entry.
+
+    SCR_SKIP_WAITKEY is forced ON.  A <waitkey> is pure output -- skipping it
+    changes no game state -- but it READS A LINE, and the command file has no
+    line for it to read: make_wine_cmdfile.py hands the Runner's startup
+    pauses to the driver's PRE and strips those blanks from the file.  Replayed
+    without SKIP, scarier's own startup pauses then swallow the first real
+    commands instead, scarier turn 0 is feed[PRE], and no forward --offset can
+    put the two sides back together.  Forcing SKIP makes scarier consume
+    exactly one line per prompt, so feed[i] is always scarier turn i
+    (2026-09-06; it is why iachini, the_town_of_azra and wes_ghn all read as
+    whole-game divergences from turn 0).
+    """
+    scare = os.path.join(HERE, "scare")
+    if not os.path.exists(scare):
+        sys.exit("no harness at %s -- run `sh build.sh` first" % scare)
+    env = dict(os.environ)
+    for assignment in env_extra:
+        name, _, value = assignment.partition("=")
+        env[name] = value
+    env["SCR_SKIP_WAITKEY"] = "1"
+    if markers:
+        env["SCR_MARK_WAITKEY"] = "1"
+    # The two built-in questions are asked by the Runner in InputBox dialogs
+    # before the transcript exists, so make_wine_cmdfile.py keeps them OUT of
+    # the command file and reports them as POPUP_ANSWERS instead.  scarier
+    # asks them inline and reads the answers off stdin like any other command,
+    # so replaying the command file alone answers them with an empty line and
+    # the whole game runs in a different state -- which is exactly how
+    # imagination's "Jenny" read as a turn-0 engine divergence (2026-09-06).
+    # Put them back at the head of scarier's stdin; the offset auto-detection
+    # absorbs the extra prompts they create.
+    stdin = "\n".join(list(popup_answers) + list(feed)).encode(encoding, "replace")
+    done = subprocess.run([scare, os.path.expanduser(taf)], input=stdin,
+                          stdout=subprocess.PIPE,
+                          stderr=subprocess.STDOUT if markers
+                          else subprocess.DEVNULL, env=env)
+    return done.stdout.decode("latin-1").replace("\r\n", "\n").split("\n")
+
+
+def pause_counts(lines, popups):
+    """How many <waitkey> pauses each command's own output printed.
+
+    SCR_MARK_WAITKEY prints "[WAITKEY]" on stderr in transcript order, so with
+    stderr folded in the markers fall inside the span of the command that
+    printed them -- starting ON the prompt line itself, because a pause printed
+    by the first line of a turn's output lands there (Vardock Bates' newspaper,
+    2026-08-29).
+    """
+    counts = []
+    for line in lines:
+        if line.startswith(">"):
+            counts.append(0)
+        if counts:
+            counts[-1] += len(re.findall(r"\[WAITKEY\]", line))
+    return counts[popups:]
+
+
+def read_feed(path, taf=None, env_extra=(), popup_answers=(), skip_wired=True):
+    """The commands as they were driven in: what the Runner treated as a turn.
+
+    A blank line in the command file is a bare Return, and what that IS depends
+    on where it lands.  When a <waitkey> is waiting for a key the Return
+    answers the pause -- the Runner never prompts for it, so it is not a turn
+    and not a feed entry.  When nothing is waiting it is a REAL EMPTY TURN:
+    run400 echoes "> " and answers it.
+
+    Under SKIP the question does not arise: make_wine_cmdfile.py ADDED one
+    blank per pause purely so the Runner has a key to eat, and every one of
+    them is a pause answer.  Without SKIP the blanks are the solution's own and
+    can be either -- lobster's ten all answer real pauses, sommeril's four are
+    empty commands ("Much like a dream, that never happened.") in a game with
+    no pauses at all -- so measure it: replay the candidate feed with markers,
+    see how many pauses each command printed, and let those pauses eat the
+    blanks that follow.  Iterated to a fixed point, because dropping a blank
+    changes the replay that classifies the next one (all 2026-09-06).
+    """
+    lines, encoding = cmdfile_lines(path)
+    if skip_wired or taf is None:
+        return [l.strip() for l in lines if l.strip()], encoding
+    feed = None
+    candidate = [l.strip() for l in lines]
+    while candidate and not candidate[-1]:
+        candidate.pop()
+    for _ in range(6):
+        if candidate == feed:
+            break
+        feed = candidate
+        counts = pause_counts(scarier_run(taf, feed, encoding, env_extra,
+                                          popup_answers, markers=True),
+                              len(popup_answers))
+        candidate, index, prompt = [], 0, 0
+        while index < len(lines):
+            candidate.append(lines[index].strip())
+            index += 1
+            # a pause eats the next line -- but only if it is blank; a pause
+            # sitting on a real command is a mis-wired solution, and the
+            # Runner will have eaten it too, so leave it in the feed and let
+            # the lost-command report say so
+            for _ in range(counts[prompt] if prompt < len(counts) else 0):
+                if index < len(lines) and not lines[index].strip():
+                    index += 1
+                else:
+                    break
+            prompt += 1
+        while candidate and not candidate[-1]:
+            candidate.pop()
+    return feed, encoding
 
 
 def normalise(text):
@@ -109,7 +241,10 @@ def split_runner(lines, feed, lookahead, start=0):
             pending.append(line)
             continue
         hit = None
-        if stripped:
+        # An empty prompt is a real turn, but only a prompted transcript can
+        # tell one from an ordinary blank line of game text -- so match it
+        # only there, and only against a blank feed entry.
+        if stripped or prompted:
             for ahead in range(0, lookahead + 1):
                 if index + ahead >= len(feed):
                     break
@@ -127,7 +262,8 @@ def split_runner(lines, feed, lookahead, start=0):
         pending = []
 
         for lost in range(index, hit):
-            losses.append((lost, feed[lost]))
+            if feed[lost]:
+                losses.append((lost, feed[lost]))
         index = hit + 1
 
     if intro is None:
@@ -136,7 +272,8 @@ def split_runner(lines, feed, lookahead, start=0):
         turns[index - 1] = "\n".join(pending)
 
     for lost in range(index, len(feed)):
-        losses.append((lost, feed[lost]))
+        if feed[lost]:
+            losses.append((lost, feed[lost]))
 
     return intro, turns, losses
 
@@ -169,32 +306,6 @@ def split_scarier(lines):
     return intro, turns
 
 
-def run_scarier(taf, feed_path, env_extra):
-    scare = os.path.join(HERE, "scare")
-    if not os.path.exists(scare):
-        sys.exit("no harness at %s -- run `sh build.sh` first" % scare)
-    env = dict(os.environ)
-    env["SCR_SKIP_WAITKEY"] = "1"
-    for assignment in env_extra:
-        name, _, value = assignment.partition("=")
-        env[name] = value
-    # `#sleep N` is a directive to the DRIVER, not a command: measure.sh
-    # sleeps on it so the Runner does not drop keystrokes during a real-time
-    # <wait>.  Piping it into scare types it at the game, which answers "I
-    # don't understand what you mean!" and shifts every later turn by one --
-    # which is exactly how lostsouls first read as an engine divergence
-    # (2026-09-05).  Blank lines are kept: they are real empty commands here,
-    # because SCR_SKIP_WAITKEY is on and nothing eats them.
-    with open(os.path.expanduser(feed_path), "rb") as handle:
-        raw = handle.read()
-    kept = b"\n".join(l for l in raw.replace(b"\r\n", b"\n").split(b"\n")
-                      if not l.strip().startswith(b"#"))
-    done = subprocess.run([scare, os.path.expanduser(taf)],
-                          input=kept, stdout=subprocess.PIPE,
-                          stderr=subprocess.DEVNULL, env=env)
-    return done.stdout.decode("latin-1").replace("\r\n", "\n").split("\n")
-
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--feed", required=True,
@@ -203,6 +314,10 @@ def main():
                         help="the Runner's Adrift_N.txt transcript")
     parser.add_argument("--taf", help="game to replay through harness/scare")
     parser.add_argument("--scarier", help="a replay you already have")
+    parser.add_argument("--popup", action="append", default=[],
+                        help="answer to a built-in name/gender question, in"
+                             " order; make_wine_cmdfile.py prints these as"
+                             " POPUP_ANSWERS and leaves them out of the feed")
     parser.add_argument("--env", action="append", default=[],
                         help="NAME=VALUE for the scarier replay, repeatable")
     parser.add_argument("--start", type=int, default=0,
@@ -219,14 +334,19 @@ def main():
     if not args.taf and not args.scarier:
         sys.exit("need --taf to replay, or --scarier for a replay you have")
 
-    feed = read_feed(args.feed)
+    # The Runner side and the scarier side must index the same way, so a blank
+    # line counts as a turn only where no pause eats it.
+    skip_wired = any(a.split("=", 1)[0] == "SCR_SKIP_WAITKEY" for a in args.env)
+    feed, encoding = read_feed(args.feed, args.taf, args.env, args.popup,
+                               skip_wired)
     runner_intro, runner_turns, losses = split_runner (
         read_lines(args.runner), feed, args.lookahead, args.start)
 
     if args.scarier:
         scarier_lines = read_lines(args.scarier)
     else:
-        scarier_lines = run_scarier(args.taf, args.feed, args.env)
+        scarier_lines = scarier_run(args.taf, feed, encoding, args.env,
+                                    args.popup)
     scarier_intro, scarier_turns = split_scarier(scarier_lines)
 
     # scarier's stream can open with prompts of its own -- a skipped waitkey,
@@ -234,7 +354,7 @@ def main():
     # the shift that lines the most turns up rather than assuming one.
     if args.offset is None:
         best, args.offset = -1, 0
-        for offset in range(0, 8):
+        for offset in range(0, 12):
             score = 0
             for index in range(0, min(len(feed), len(scarier_turns) - offset)):
                 if runner_turns[index] is None:
@@ -265,6 +385,7 @@ def main():
         print()
 
     differences = 0
+    whitespace_only = 0
     first_loss = losses[0][0] if losses else len(feed)
     shift = args.offset
 
@@ -301,6 +422,29 @@ def main():
         if runner_text == scarier_text:
             continue
 
+        # Whitespace-only, after the wrap-collapse above, means one side put a
+        # separator where the other put none.  That is USUALLY not an engine
+        # difference: the Runner's .txt transcript is written by its own tag
+        # converter, which drops a line break that exists only as a paragraph
+        # alignment change -- `<centre>X</centre>Y` reaches the file as "XY"
+        # while the RichTextBox itself holds "X\nY".  Measured on YADFA with
+        # fast.sh's DUMP_SCROLLBACK, 2026-09-06; six 4.00 rows were reading as
+        # divergences on nothing else.  It is not ALWAYS harmless -- a real
+        # missing join looks the same -- so say so and count it apart rather
+        # than hiding it; DUMP_SCROLLBACK settles any individual case.
+        if runner_text.replace(" ", "") == scarier_text.replace(" ", ""):
+            whitespace_only += 1
+            if whitespace_only <= 3:
+                print("turn %d  %s -- WHITESPACE ONLY (a separator one side has"
+                      " and the other has not).  The .txt transcript drops"
+                      " alignment-only breaks; re-check with fast.sh"
+                      " DUMP_SCROLLBACK before calling it an engine bug."
+                      % (index, feed[index]))
+                print("  run400   %s" % runner_text)
+                print("  scarier  %s" % scarier_text)
+                print()
+            continue
+
         differences += 1
         if differences > args.limit:
             print("... stopping after %d differing turns" % args.limit)
@@ -317,12 +461,20 @@ def main():
         print("  scarier  %s" % scarier_text)
         print()
 
+    if whitespace_only:
+        print("%d turn(s) differed by whitespace only%s -- see the note above."
+              % (whitespace_only,
+                 " (%d not shown)" % (whitespace_only - 3)
+                 if whitespace_only > 3 else ""))
+        print()
+
     if normalise(runner_intro) != normalise(scarier_intro):
         print("(the openings differ too -- banner, graphics notice or the")
         print(" Runner's own startup lines; usually not an engine difference)")
 
     if differences == 0 and not losses:
-        print("identical on every turn.")
+        print("identical on every turn%s."
+              % (" apart from whitespace" if whitespace_only else ""))
         return 0
     return 1
 

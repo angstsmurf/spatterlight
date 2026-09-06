@@ -1013,7 +1013,7 @@ registry.
 You can't open the door as it is locked!
 
 > x posters
-This is not interesting to you.
+You can't see the torn pictures from here!
 
 > ninette wait here
 You tell Ninette to wait, and even though she is not too happy about being
@@ -1124,6 +1124,11 @@ Ninette is here.
 > ninette follow
 You ask Ninette to come with you...
 She is a bit annoyed being told what to do, but follows you anyway.
+The sun is slowly settling behind the distant mountains and the grey dusk is
+descending upon the town of Battle Creek.
+A frightening chill runs down your spine as ghostlike clouds of white mist
+begin appearing in the streets as if the long gone habitants of the town are
+returning.
 
 > i
 You are wearing well worn jeans, a pair of sneakers and a T-shirt, and you
@@ -1131,11 +1136,6 @@ are carrying a book of matches, a small metal box, an official looking
 document, an old envelope, your great grandfather's will, an empty kerosene
 lamp, a drawer, a kerosene container, a shovel and a rusty Iron bar.  An old
 newspaper is inside the drawer.
-The sun is slowly settling behind the distant mountains and the grey dusk is
-descending upon the town of Battle Creek.
-A frightening chill runs down your spine as ghostlike clouds of white mist
-begin appearing in the streets as if the long gone habitants of the town are
-returning.
 
 > look
 
@@ -1177,10 +1177,7 @@ for supplies, and maybe a few necessary repairs, and once in a while a stage
 coach with mail and a few passengers.
 To the north of you a small street leads in between two buildings, and to the
 south a narrow alley leads out of town.
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > w
 You move west.
@@ -1196,30 +1193,6 @@ withered sign still intact. The building rises up above you, two storeys
 high, with only a few windows broken, looking like you could move in today if
 you wanted to.
 Ninette is here.
-
-> s
-The rusty hinges on the saloon swinging doors squeak ghostly behind you as
-you step into what was once the center of entertainment of Battle Creek.
-
-The saloon
-The little sunlight that manages to shine through the dirty windows gives the
-room a dusky atmosphere. Tiny flakes of dust swirls in the air creating
-strange forms as they move about changing patterns with every move you make,
-and an unpleasant feeling of not being alone creeps over you as you look
-around.   Press any key
-
-To the south, leading up, is a stairway, and on top of the stairway you can
-see the beginning of a corridor disappearing into the darkness. In front of
-you is the bar, the big mirror, although broken now, shows a hideous
-distorted reflection of you. The shelves behind the bar are empty now, dusty
-cobwebs covering them. But once a long row of bottles stood there, ready for
-any thirsty Cowboy with a dollar burning in his pocket. There are still a few
-tables and chairs left scattered around the room. A single wagon wheels with
-kerosene lamps attached hangs suspended from the ceiling, the other lies
-scattered on the floor, the glass from the kerosene lamp and some wooden
-remains laying around it.
-
-Also here is A lump of hard grease.  Ninette is here.
 The chilly desert night engulfs the quiet town of Battle Creek.
 Everything is silent at first, but then slowly whispering voices are heard
 fading in and out, carried by the wind, unnaturally cold air, stinging like
@@ -1228,6 +1201,29 @@ Although the excitement is like a shot of adrenaline straight in your veins,
 you can't help but feel that your body is demanding some rest...
 Maybe it would be a good idea to find a place where you and Ninette can bunk
 down for the night.
+
+> s
+The rusty hinges on the saloon swinging doors squeak ghostly behind you as
+you step into what was once the center of entertainment of Battle Creek.
+
+The saloon
+The Saloon swinging doors move frictionless back and forth behind you with a
+soft "clacking" sound as you enter the Saloon. Almost immediately you feel a
+cold icy feeling all through your body as if held tight by ghostly arms that
+wrap themselves around you...
+Somehow the light in the chandelier has been turned on but shines only with a
+faint glow hardly lighting up the Saloon.  Here and there you see vague
+shades walking amongst the tables and vague human like shapes are standing at
+the bar, but showing no reflections in the now unbroken bar mirror. Although
+the place seems empty, you can hear faint music from an out-of-tune piano and
+muffled voices from the unseen presence of people long gone as if it was
+reaching you over the past decades. The scent of smoke from cigars and
+cigarettes mingled with cheap perfume and sweaty bodies, tickles your
+nostrils.
+The stairway leading up to the first floor is now dimly lit by a burning
+kerosene lamp as is the corridor on the first floor.
+
+Also here is A lump of hard grease.  Ninette is here.
 
 > u
 You move up.
@@ -1493,10 +1489,7 @@ Everything is quiet here, the sounds from the Saloon, now only a faint
 whisper in the air, you are able to hear the quiet "clank" from the church
 tower as the bell is slowly swinging in the wind as if touched by an unseen
 hand.
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > e
 You move east.
@@ -1513,7 +1506,10 @@ To the south the gaping hole in the façade of the sheriff's office, and the
 metallic “clank” from the church bell high above you, suddenly becomes the
 noise of cell doors being opened and closed, and the whispering sound of the
 wind becoming the voices of the prisoners once held here.
-Ninette is here.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
 
 > n
 You move north.
@@ -1596,6 +1592,11 @@ Once again you look into the grave, staring at the old withered coffin.
 It strikes you as odd that this pine box has been buried here for over a
 hundred years and is still in a fairly good condition. Maybe the dry prairie
 soil has preserved it through the years?
+Dawn approaches. The life giving rays of the sun are gradually becoming
+visible from behind the peaks of the distant mountains.
+An almost inaudible sigh is heard, whispering through the silent air as the
+light mist, the souls long gone, once again vanish from the streets and
+dissolve in the pale morning light.
 
 > open casket
 Carefully you press the shovel in under the lid of the coffin and with a
@@ -1608,11 +1609,6 @@ be, a lot of bones that once was a human being.
 As you reach up to climb up from the grave again, you almost lose your
 balance as the coffin slides a little under you, settling into the obvious
 soft ground underneath it.
-Dawn approaches. The life giving rays of the sun are gradually becoming
-visible from behind the peaks of the distant mountains.
-An almost inaudible sigh is heard, whispering through the silent air as the
-light mist, the souls long gone, once again vanish from the streets and
-dissolve in the pale morning light.
 
 > x skeleton
 There is nothing interesting about this skeleton. It is obviously the earthly
@@ -1632,12 +1628,12 @@ perhaps that has been buried here for a century?
 > get material
 The red material is somehow stuck in the ground...
 Is someone holding on to it??
-
-> wait
-Time passes...
 The sun rises above the mountains. The last of the ghostly shadows of the
 night vanishes in the bright sunlight with a sad sigh. Once again the streets
 of Battle Creek are silent, the ghosts awaiting another night.
+
+> wait
+Time passes...
 
 > dig grave
 With the coffin out of the way, you continue digging in the soft dirt.
@@ -1723,7 +1719,10 @@ back from the street, lies a small house, the wall facing you is collapsed
 and the roof is only supported by a few beams. To the west of you the street
 continues, and far out in the horizon you can see the steep hillside where
 you came from.
-Ninette is here.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
 
 > w
 You move west.
@@ -1738,7 +1737,10 @@ for supplies, and maybe a few necessary repairs, and once in a while a stage
 coach with mail and a few passengers.
 To the north of you a small street leads in between two buildings, and to the
 south a narrow alley leads out of town.
-Ninette is here.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
 
 > w
 You move west.
@@ -2039,6 +2041,11 @@ kerosene lamps attached hangs suspended from the ceiling, the other lies
 scattered on the floor, the glass from the kerosene lamp and some wooden
 remains laying around it.
 Ninette is here.
+The sun is slowly settling behind the distant mountains and the grey dusk is
+descending upon the town of Battle Creek.
+A frightening chill runs down your spine as ghostlike clouds of white mist
+begin appearing in the streets as if the long gone habitants of the town are
+returning.
 
 > n
 You move north.
@@ -2054,11 +2061,6 @@ withered sign still intact. The building rises up above you, two storeys
 high, with only a few windows broken, looking like you could move in today if
 you wanted to.
 Ninette is here.
-The sun is slowly settling behind the distant mountains and the grey dusk is
-descending upon the town of Battle Creek.
-A frightening chill runs down your spine as ghostlike clouds of white mist
-begin appearing in the streets as if the long gone habitants of the town are
-returning.
 
 > w
 You move west.
@@ -2105,12 +2107,6 @@ No sooner have you lifted it from the ground before it disintegrates between
 your hands, adding another little pile of debris to the floor.
 Something falls from the box as it disintegrates between your hands, and
 lands softly on the floor.
-
-> get dynamite
-With little drops of sweat forming on your forehead you kneel down and
-carefully pick up the old stick of dynamite.
-It appears to be very old and you have no idea how safe it is, tiny drops of
-nitro has "sweated" though the paper and sparkles like diamonds.
 The chilly desert night engulfs the quiet town of Battle Creek.
 Everything is silent at first, but then slowly whispering voices are heard
 fading in and out, carried by the wind, unnaturally cold air, stinging like
@@ -2119,6 +2115,12 @@ Although the excitement is like a shot of adrenaline straight in your veins,
 you can't help but feel that your body is demanding some rest...
 Maybe it would be a good idea to find a place where you and Ninette can bunk
 down for the night.
+
+> get dynamite
+With little drops of sweat forming on your forehead you kneel down and
+carefully pick up the old stick of dynamite.
+It appears to be very old and you have no idea how safe it is, tiny drops of
+nitro has "sweated" though the paper and sparkles like diamonds.
 
 > s
 You move south.
@@ -2163,10 +2165,7 @@ The flickering pale ghostly light from the Saloon behind you makes you cast a
 macabre shadow on the ground as you slowly walk on.  Is this the Devil's
 playground, or is it just the wind whispering as it sweeps through the
 corners of the houses?
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > e
 You move east.
@@ -2470,6 +2469,11 @@ Time passes...
 
 > wait
 Time passes...
+Dawn approaches. The life giving rays of the sun are gradually becoming
+visible from behind the peaks of the distant mountains.
+An almost inaudible sigh is heard, whispering through the silent air as the
+light mist, the souls long gone, once again vanish from the streets and
+dissolve in the pale morning light.
 The ground shakes under you and a deafening crash of thunder hammers against
 your poor unprotected eardrums as the dynamite explodes.
 The explosion echoes through the houses and here and there planks are falling
@@ -2491,11 +2495,6 @@ wall consists of loose dirt which looks like it is ready to cave in at the
 slightest touch.
 
 Also here is a length of rope.
-Dawn approaches. The life giving rays of the sun are gradually becoming
-visible from behind the peaks of the distant mountains.
-An almost inaudible sigh is heard, whispering through the silent air as the
-light mist, the souls long gone, once again vanish from the streets and
-dissolve in the pale morning light.
 
 > get gun
 You reach into the safe and grap the gun.
@@ -2536,15 +2535,15 @@ work. Then when you are satisfied with the result, you use the grease you got
 from the wagon wheel and lubricate all the moving parts. It takes a while and
 has to be done carefully, but finally you have a working gun with all the
 vital parts moving.
+The sun rises above the mountains. The last of the ghostly shadows of the
+night vanishes in the bright sunlight with a sad sigh. Once again the streets
+of Battle Creek are silent, the ghosts awaiting another night.
 
 > load gun
 With the revolver all cleaned and lubricated it's as good as new (almost..
 You still have absolutely NO clue whatsoever what's going to happen when you
 fire the thing.) You open the drum and slide the cartridge into the hole,
 feeling a whole lot better now that you at least have a weapon.
-The sun rises above the mountains. The last of the ghostly shadows of the
-night vanishes in the bright sunlight with a sad sigh. Once again the streets
-of Battle Creek are silent, the ghosts awaiting another night.
 
 > out
 You leave teh sheriffs office and walk out into the empty street.
@@ -2593,10 +2592,7 @@ for supplies, and maybe a few necessary repairs, and once in a while a stage
 coach with mail and a few passengers.
 To the north of you a small street leads in between two buildings, and to the
 south a narrow alley leads out of town.
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > w
 You move west.
@@ -2762,9 +2758,6 @@ Time passes...
 
 > wait
 Time passes...
-
-> wait
-Time passes...
 The sun is slowly settling behind the distant mountains and the grey dusk is
 descending upon the town of Battle Creek.
 A frightening chill runs down your spine as ghostlike clouds of white mist
@@ -2793,6 +2786,9 @@ Although the excitement is like a shot of adrenaline straight in your veins,
 you can't help but feel that your body is demanding some rest...
 Maybe it would be a good idea to find a place where you and Ninette can bunk
 down for the night.
+
+> wait
+Time passes...
 
 > sleep
 You slowly drift into what becomes a restless sleep and the bumpy mattress

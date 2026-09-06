@@ -1051,7 +1051,18 @@ wax_worx_solution.txt|wax_worx.taf|[PRESS ANY KEY TO DIE]
 # in water`.  `put fish in fountain` is a completable library put in 4.0 and
 # beats task 18 (run400 Adrift_78, ported), while the water is no container,
 # so the handler refuses without claiming and the general pass gives the
-# task the line.  Model-derived, Wine candidate.
+# task the line.  RE-DRIVEN and SETTLED the same day
+# (Adrift_353_sommeril.txt, feed cmdfile_s_sommeril.txt): 79/79 echoed,
+# offset 0, and neither `take placemat` nor `put fish in water` is among the
+# differing turns -- both model-derived changes hold in run400.  What is left
+# is only the three atmospheric events (hooded man, mice, bell), all three
+# random-interval (SCR_DUMP_TASKS: starter=2 restart=2, start=15..25, 10..20,
+# 15..20), so they land on different turns in the two engines and nothing
+# else does.  The four blank lines at the head of the solution are NOT pause
+# answers -- the game has no <waitkey> at all; they are empty commands, and
+# run400 echoes "> " and answers each with "Much like a dream, that never
+# happened."  Reading them as pause answers is what made the first comparison
+# report ten event-timing divergences at an offset of four.
 sommeril_solution.txt|sommeril.taf|www.angelfire.com/games5/sommeril
 # Measured 2026-08-29: run400 replay of 116 commands; the first 105 turns are
 # identical, then the long cutscene after "read incantation" (turn 106)
@@ -2090,9 +2101,11 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # "Which chute" ever appeared.  What the replay did turn up, all ported:
 #   * `X machine` with three seen-but-absent candidates is "I can't see the
 #     washing machine from here!" (line 1604) while `X chute` against six
-#     seen chutes is the ALR'd "Nothing Special." (1602): the examine resolver
-#     (457034) scores each candidate by Short-name words present in the typed
-#     line and takes a unique maximum, a tie being nothing found.
+#     seen chutes is the ALR'd "Nothing Special." (1602): the up-front noun
+#     resolver (463640, second pass over every SEEN object) scores each by
+#     Short phrase + first alias + Prefix words present in the typed line and
+#     takes a unique maximum, a tie being nothing found (corrected 2026-09-06;
+#     the earlier "457034 pass 3" reading was wrong, see the cowboyblues row).
 #   * `W` into a blocked exit lists the open ones (1596), see the row notes
 #     above on xfiles/mangiasaur/fugitive/panic.
 #   * `Put powder in chute` with the powder never taken is "It is not clear
@@ -3331,6 +3344,10 @@ chosen_solution.txt|Chosen.taf|You plug the T-shaped block into the final socket
 # "FIXED 2026-08-25 -- the 4.0 seen-but-absent resolver".
 # Measured 2026-08-29: `x papers` is found through containment (the containment pass now
 # runs before the catch-all refusals, as run400 does).
+# Re-blessed 2026-09-06, one line (274, `x dust`): "You see no such thing.", as
+# run400 Adrift_172 lines 163-164.  The seen model now seeds statics only when
+# InitialPosition == 1 plus the afteroa start-room sweep (run400 46F0B4), so the
+# dust in the unvisited room is not seen and the 4.0 second pass has nothing.
 cellar_solution.txt|TheCellar.taf|And so The Cellar has ended. Many thanks for playing.|SCR_SKIP_WAITKEY=1
 # Panic! (Stewart J. McAbney, ADRIFT 3.90): the author's own walkthrough
 # transcript replayed verbatim, all 69 commands, no repairs.  The first command
@@ -5493,7 +5510,12 @@ firstpug_solution.txt|The First To Arise Alone With A Pug.taf|You scored 100 out
 # follows by the same rule, unmeasured:
 # `open case with screwdriver` -> the seen-but-absent trophy case: "You can't see the
 # trophy case." (was "You can't open that.").
-foresthouse3_solution.txt|ForestHouse3.taf|between your gorgeous wife and beautiful son, you find that you are|
+# Re-blessed 2026-09-06 with SCR_SKIP_WAITKEY=1: the two opening [Press a key]
+# prompts had been eating `look under mat` and `unlock door with key`, so the old
+# golden was a stuck-on-the-porch run that only "won" because the ending is timed.
+# The command list now matches run400 Adrift_264 exactly; first real diff is still
+# T48 `d` (an RNG-picked flavour line), see notes/WINE-TRANSCRIPTS-TODO.md.
+foresthouse3_solution.txt|ForestHouse3.taf|between your gorgeous wife and beautiful son, you find that you are|SCR_SKIP_WAITKEY=1
 # DayAtTheOffice.taf (4.00): WON, an intentional overachievement ending --
 # the in-game `score` command tops out at "47/52 out of a possible of 60"
 # during play, but the closing narrative separately tracks a 1-7
@@ -6061,6 +6083,10 @@ trickortreat_solution.txt|Trick or Treat.taf|You flee to freedom.|SCR_SKIP_WAITK
 # `talk to techthon` inserted, the rest of the hint plays back verbatim
 # with zero failed commands, ending on `flee` for the "You have won! Good
 # for you!" ending (task 158). 60 commands, no env vars.
+# Re-blessed 2026-09-06, one line (167, `x racks`): the racks are in a room never
+# visited, so with the faithful seen seed they are unseen and the line falls to the
+# game's DontUnderstand "That isn't of any concern to you at the moment." -- run400
+# Adrift_256 lines 125-126.
 volant_solution.txt|volant.taf|You have won! Good for you!|
 # Dear Diary.taf by Wotan-Anubis (AIF): a 3.90 coming-out romance -- dump
 # Erik, fall for his sister Erin, win her over across a swim/dinner/movie
@@ -6699,6 +6725,12 @@ withoutaclue_solution.txt|WithoutAClue.taf|you've managed to finish the game|SCR
 # easy setting. 271 commands, no waitkey pauses. Final score 113 out of a
 # maximum of 401 (28%) -- the easy setting caps the closing bonus at +10,
 # and the many optional side-quests are left on the table.
+# Measured 2026-09-06 (Adrift_330 line 1070): T143 `x wall` in the Sheriff's Office
+# with the Back Room's "east wall" (obj 91, alias "wall") and Blood Alley's "walls"
+# (96, alias "wall") both seen answers "You see no such thing." -- run400's second
+# resolver pass (463640) scores both 1 on the alias, ties, and a tie is nothing.
+# Scarier's old Short-word count picked 91 ("You can't see the east wall from
+# here!"); the scorer is now the Runner's.  Golden unchanged by the fix.
 cowboyblues_solution.txt|CowboyBlues.taf|how does it feel to be a hero then, Fingle Bodge?|
 # Whatever Happened to Uncle Grumble (comedic fantasy, hero "a" = tall and
 # strapping): rescue Uncle Grumble from Chad Sinister-Sinister's fortress
@@ -7368,6 +7400,12 @@ ilgolem_solution.txt|Il Golem.taf|Complimenti, hai completato l'avventura!|SCR_S
 # #MONTANA APPEARS# -- and "shoot montana" wins. 248 commands; needs
 # SCR_SKIP_WAITKEY=1 -- the opening cutscene's <waitkey> prompt otherwise eats
 # the first scripted "open door".
+# Re-blessed 2026-09-06: `x posters` (the torn pictures, seen in the hotel but
+# examined from elsewhere) is "You can't see the torn pictures from here!" as run400
+# Adrift_325 lines 520-521, and that branch (examines 471958) does not set the
+# not-a-turn flag, so the turn ticks: the dusk event now fires after `ninette
+# follow` (Adrift_325 590) instead of one command later, the saloon is entered
+# in its night description (Adrift_325 628-634) and the tumbleweed line moves.
 ghosttown_solution.txt|Ghost town v1,05.taf|Slowly two figures are seen shimmering in the air. One of a pretty young girl|SCR_SKIP_WAITKEY=1
 EOF
 }

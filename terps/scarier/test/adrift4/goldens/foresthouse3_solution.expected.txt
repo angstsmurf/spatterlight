@@ -72,212 +72,581 @@ being there before, but it adds a nice touch to the house. A welcome mat
 beckons you into the front door here.
 Susie is here.
 
-> open door
-You can't open the front door as it is locked!
-
-> n
-You can't go in any direction!
-
-> u
-You can't go in any direction!
-
-> w
-You can't go in any direction!
-
-> n
-You can't go in any direction!
-
-> n
-You can't go in any direction!
-
-> s
-You can't go in any direction!
-
-> e
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> e
-You can't go in any direction!
-
-> n
-You can't go in any direction!
-
-> s
-You can't go in any direction!
-
-> open cabinet
-You can't see the china cabinet.
-
-> take knife
-Take what?
-
-> n
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> x workbench
-You can't see the workbench from here!
-
-> take toolbox
-Take what?
-
-> open toolbox with knife
-You have no toolbox.
-
-> x toolbox
-Either it's not here or it isn't anything out of the ordinary.
-
-> take screwdriver
-Take what?
-
-> u
-You can't go in any direction!
-
-> open case with screwdriver
-You can't see the trophy case.
-
-> x case
-You can't see the trophy case from here!
-
-> take book
-Take what?
-
-> read book
-You have no book.
-
-> w
-You can't go in any direction!
-
-> s
-You can't go in any direction!
-
-> u
-You can't go in any direction!
-
-> n
-You can't go in any direction!
-
-> read symbols
-Either it's not here or it isn't anything out of the ordinary.
-
-> s
-You can't go in any direction!
-
-> w
-You can't go in any direction!
-
-> n
-You can't go in any direction!
-
-> n
-You can't go in any direction!
-
-> s
-You can't go in any direction!
-
-> s
-You can't go in any direction!
-
-> e
-You can't go in any direction!
-
-> n
-You can't go in any direction!
-
-> s
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> e
-You can't go in any direction!
-
-> n
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> e
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> d
-You can't go in any direction!
-
-> u
-You can't go in any direction!
-
-> attack beast
-I don't understand what you mean!
-
-> attack beast
-I don't understand what you mean!
-
-> attack beast
-I don't understand what you mean!
-
-> push beast into furnace
-You push, but nothing happens.
-
-> get key
-Take what?
-
-> u
-You can't go in any direction!
-
-> w
-You can't go in any direction!
-
-> u
-You can't go in any direction!
-
-> s
-You can't go in any direction!
-
-> w
-You can't go in any direction!
+> look under mat
+You move the welcome mat to reveal a key underneath, which you pick up.
 
 > unlock door with key
-Please be more clear, what do you want to unlock that with?
+You unlock the front door with the key.
 
 > open door
-You can't open the front door as it is locked!
+You open the front door.
+
+> n
+You move north.
+
+Foyer
+The foyer is in amazing shape. For once the place looks like an actual house,
+sans dilapidation. Stairs run up to the upper hallway here, while a passage
+north leads to the kitchen and a passage east leads to the dining room.
+Susie enters from the south.
+
+> u
+You move up.
+
+Upper Hall
+This hall is a sort of mezzanine though it closes on the east and west sides.
+A door to the north lies open into the guest room. To the east is a bedroom
+which you now know is Susie's, while to the west is the playroom. Downstairs
+is the foyer.  Susie enters from below.
+
+> w
+You move west.
+
+Playroom
+The walls of this now-familiar playroom are painted pale pink. The
+centerpiece of the room is a beautiful rocking horse which seems to get more
+detailed every time you see it. Moonlight shines into the room from a window
+to the west. A doorway to the north leads into what you now know is Uncle's
+bedroom while a door to the east leads into the hallway.  Susie enters from
+the east.
+
+> n
+You move north.
+
+Susie looks around the room. "I guess Uncle isn't here," she says. "Let's try
+the secret room."
+
+Uncle's Bedroom
+Though this is the master bedroom of the house, it is rather sparsely
+outfitted. A king-sized bed takes up most of the space. A dresser stands next
+to a bookshelf across from the bed, and a radio rests on a table. To the
+south is the playroom and the bathroom lies north.  Susie enters from the
+south.
+
+> n
+As you enter the bathroom, Susie heads straight for the sink. She pulls a pen
+from her pocket and sticks it inside the drain. You hear the click of the
+lever mechanism, but nothing happens. Susie appears perplexed.
+
+"This used to work," she says. She folds her arms across her chest and checks
+the eastern wall. "Well, I know there is at least one other way in, though I
+don't know what it is. Why don't you go find it. I'll stay here, see if I can
+find a way in."
+
+You nod and return to Uncle's bedroom.
 
 > s
-You can't go in any direction!
+You move south.
+
+Playroom
+The walls of this now-familiar playroom are painted pale pink. The
+centerpiece of the room is a beautiful rocking horse which seems to get more
+detailed every time you see it. Moonlight shines into the room from a window
+to the west. A doorway to the north leads into what you now know is Uncle's
+bedroom while a door to the east leads into the hallway.
+
+> e
+You move east.
+
+Upper Hall
+This hall is a sort of mezzanine though it closes on the east and west sides.
+A door to the north lies open into the guest room. To the east is a bedroom
+which you now know is Susie's, while to the west is the playroom. Downstairs
+is the foyer.
+
+> d
+You move down.
+
+Foyer
+The foyer is in amazing shape. For once the place looks like an actual house,
+sans dilapidation. Stairs run up to the upper hallway here, while a passage
+north leads to the kitchen and a passage east leads to the dining room.
+
+> e
+You move east.
+
+Dining Room
+A naked table takes up most of this room's space, surrounded by a dozen
+chairs. Against one wall is a rather empty china cabinet. To the north you
+can see the living room while the foyer lies to the west.
+
+> n
+You move north.
+
+Living Room
+Against the north wall of this room is a grand trophy case that is mostly
+empty. Above the trophy case are hooks, but nothing is resting on them. In
+the center of the room is a grand oriental rug. To the west is the kitchen
+and to the south is the dining room. Stairs here lead down into the basement.
+
+> s
+You move south.
+
+Dining Room
+A naked table takes up most of this room's space, surrounded by a dozen
+chairs. Against one wall is a rather empty china cabinet. To the north you
+can see the living room while the foyer lies to the west.
+
+> open cabinet
+You open the china cabinet.  The knife is inside the china cabinet.
+
+> take knife
+You take the knife from the china cabinet.
+
+> n
+You move north.
+
+Living Room
+Against the north wall of this room is a grand trophy case that is mostly
+empty. Above the trophy case are hooks, but nothing is resting on them. In
+the center of the room is a grand oriental rug. To the west is the kitchen
+and to the south is the dining room. Stairs here lead down into the basement.
+
+> d
+You move down.
+
+Basement
+The cement walls and floor of the basement make it very cool. It is rather
+empty except for a workbench against one wall and the stairs leading up into
+the living room.
+
+> x workbench
+A bench cemented into the southern wall.  The toolbox is on the workbench.
+
+> take toolbox
+You take the toolbox from the workbench.
+
+> open toolbox with knife
+You jam the knife into the toolbox's latch and pry it open.
+
+> x toolbox
+A red toolbox with a latch. Looking more closely you see that it is almost
+entirely rusted shut.  The toolbox is open.  The screwdriver is inside the
+toolbox.
+
+> take screwdriver
+You take the screwdriver from the toolbox.
+
+> u
+You move up.
+
+Living Room
+Against the north wall of this room is a grand trophy case that is mostly
+empty. Above the trophy case are hooks, but nothing is resting on them. In
+the center of the room is a grand oriental rug. To the west is the kitchen
+and to the south is the dining room. Stairs here lead down into the basement.
+
+> open case with screwdriver
+You remove the screw on the trophy case with the screwdriver and it pops
+open.
+
+> x case
+A grand trophy case that could be filled with many things but instead houses
+a single book. The trophy case's door is screwed tightly shut.  The trophy
+case is open.  The book of Renarin is inside the trophy case.
+
+> take book
+You take the book of Renarin from the trophy case.
+
+> read book
+You read the Book of Renarin and discover the meanings of many symbols.
+Oddly, you are able to recall every facet of its contents once you are done
+reading.
+
+> w
+You move west.
+
+Kitchen
+This is an old kitchen with a countertop running along the west and north
+walls. All of the usual appliances are here: an oven, a four-burner (gas)
+stove, and a refrigerator. The foyer lies to the south while to the east is
+the living room.
+
+> s
+You move south.
+
+Foyer
+The foyer is in amazing shape. For once the place looks like an actual house,
+sans dilapidation. Stairs run up to the upper hallway here, while a passage
+north leads to the kitchen and a passage east leads to the dining room.
+
+> u
+You move up.
+
+Upper Hall
+This hall is a sort of mezzanine though it closes on the east and west sides.
+A door to the north lies open into the guest room. To the east is a bedroom
+which you now know is Susie's, while to the west is the playroom. Downstairs
+is the foyer.
+
+> n
+You move north.
+
+Guest Room
+Though this room is lacking in windows, it works as a quaint bedroom for
+anyone who wishes to stay in the house. A king-sized bed lies against the
+western wall, across from which is a dresser. Painted on the north wall is an
+incredibly realistic door. To the south, a doorway leads into the hall.
+
+> read symbols
+You can now understand the symbols perfectly. They say:
+
+Only one whose blood this house begets shall make that which is drawn be
+real.
+
+> s
+You move south.
+
+Upper Hall
+This hall is a sort of mezzanine though it closes on the east and west sides.
+A door to the north lies open into the guest room. To the east is a bedroom
+which you now know is Susie's, while to the west is the playroom. Downstairs
+is the foyer.
+
+> w
+You move west.
+
+Playroom
+The walls of this now-familiar playroom are painted pale pink. The
+centerpiece of the room is a beautiful rocking horse which seems to get more
+detailed every time you see it. Moonlight shines into the room from a window
+to the west. A doorway to the north leads into what you now know is Uncle's
+bedroom while a door to the east leads into the hallway.
+
+> n
+You move north.
+
+Uncle's Bedroom
+Though this is the master bedroom of the house, it is rather sparsely
+outfitted. A king-sized bed takes up most of the space. A dresser stands next
+to a bookshelf across from the bed, and a radio rests on a table. To the
+south is the playroom and the bathroom lies north.
+
+> n
+As you enter the room, Susie looks up. "Did you find anything?"
+
+"Yeah," you say. "This cryptic message says something about how it can only
+be opened by someone from this house."
+
+She puts a finger to her chin. "Where?"
+
+"In the guest room."
+
+"Oh." She rolls her head back. "That was it. I remember now. The door, yes?"
+
+"Yeah."
+
+"Well, let's go then."
+
+> s
+You move south.
+
+Uncle's Bedroom
+Though this is the master bedroom of the house, it is rather sparsely
+outfitted. A king-sized bed takes up most of the space. A dresser stands next
+to a bookshelf across from the bed, and a radio rests on a table. To the
+south is the playroom and the bathroom lies north.  Susie enters from the
+north.
+
+> s
+You move south.
+
+Playroom
+The walls of this now-familiar playroom are painted pale pink. The
+centerpiece of the room is a beautiful rocking horse which seems to get more
+detailed every time you see it. Moonlight shines into the room from a window
+to the west. A doorway to the north leads into what you now know is Uncle's
+bedroom while a door to the east leads into the hallway.  Susie enters from
+the north.
+
+> e
+You move east.
+
+Upper Hall
+This hall is a sort of mezzanine though it closes on the east and west sides.
+A door to the north lies open into the guest room. To the east is a bedroom
+which you now know is Susie's, while to the west is the playroom. Downstairs
+is the foyer.  Susie enters from the west.
+
+> n
+
+Susie walks to the other end of the room and looks at the door. "Yes, I know
+this is it. What do you think?"
+
+"According to the symbols, you should be able to open it." You shrug. "I
+don't know, seems silly to me."
+
+She nods and turns toward the door, clutching at the knob with her right
+hand. As she rotates her hand, the knob - and the door - become solid, and
+she pulls it open. She looks back at you. "Well, come on then."
+
+You accompany her through the door into the secret room beyond. The room
+feels colder than it did when you visited two decades ago. It's a little
+different than it had been then. The half-floor is brick, disappearing into
+the Void to the east.
+
+Susie lets out a shriek and drops to the floor. You follow her motion with
+your eyes and see that Uncle is laying on the ground there. His legs are
+manacled to the walls, his arms outstretched and wrists slit. Rivers of blood
+flow from his arms into the void.
+
+"Susie?" he says. His voice is weak. You move to check the manacles, but he
+shakes his head. "No, I am well beyond saving."
+
+"Uncle," Susie says. "Who did this to you?"
+
+"A man who called himself the Master. I had finally sealed the Void when he
+broke through. He wields the Dark Arts which are not of this world," he looks
+at you, "and not of yours. This 'master' performed one such ritual here to
+summon the Beast. I do not know how much longer it will be until the ritual
+is complete, but you must get out of here! Save yourselves and seal this
+house from your world.
+
+"Know this, Jonathan," he says as his breath slows: "Only you can decide your
+fate."
+
+His breath stops and his body stiffens. Susie weeps into his arm and you
+touch her shoulder to comfort her. "Come," you say. "We have to do what he
+said."
+
+As your words are spoken, the spilt blood begins to travel in separate
+streams, going in impossible directions. It darkens to black and climbs up
+the walls, covering them. You reach for the door just as the darkness
+consumes it and slams it shut. Soon all is black, and you feel yourself
+falling...
+
+You wake in a familiar room, sitting on the floor. The comfortable
+furnishings have gone, the mattress and cushions, but by the bedframe and the
+skeletal remains of a dresser you can tell this is the guest room. Susie is
+nowhere in sight. You stand up and brush yourself off.
+
+> s
+You move south.
+
+Upper Hall
+Veins of red appear to flow along the rotting floor here. You have to watch
+your step: some holes have appeared in the floor and in the stairs. You can
+still descend into the foyer. To the north is the guest room, to the east is
+Susie's room, and to the west is the playroom.
+
+> d
+You move down.
+
+Foyer
+Planks are missing from the floor here, replaced with black, empty void. The
+front door is stained a dark red that appears to be pulsing, though this may
+be a trick of the light. Your passage to the kitchen is blocked, but you can
+go east to the dining room or up to the upper hall.
+
+> e
+You move east.
+
+Dining Room
+Where once was the dining room table is now an enormous, dark red stain in
+the floor. Black veins run through it, spreading into a smear of brighter
+reds where each chair once stood. To the west is the foyer, while to the
+north lies the living room.
+
+> n
+You move north.
+
+Living Room
+
+> d
+You move down.
+
+Basement
+The walls and floor have been replaced with dark red brick and black cement.
+You can barely see anything, even with your flashlight, as if the walls are
+absorbing the light. A steel door is set sturdily into the eastern wall, but
+it lies open, beckoning...
+
+> e
+You move east.
+As soon as you step beyond the threshold of the door, it slams shut behind
+you. You immediately whirl to push at it but to no avail.
+
+Descent
+As you descend this brick staircase, you can feel the heat intensifying,
+coming from below.
+
+> d
+You continue to descend the stairs...
+You sense a dark presence nearby.
+
+> d
+You continue to descend the stairs...
+
+> d
+You continue to descend the stairs...
+
+> d
+You continue to descend the stairs...
+
+> d
+You continue to descend the stairs...
+
+> d
+You continue to descend the stairs...
+
+> d
+You continue to descend the stairs...
+You sense a dark presence nearby.
+
+> d
+You continue to descend the stairs...
+
+> d
+You continue to descend the stairs...
+
+> d
+You move down.
+
+Underground
+This small cavern houses an enormous, old-fashioned furnace with a metal
+grating over it. Fire burns from the furnace, lighting and heating the area.
+
+> u
+You turn to go up the stairs but a solid wall has replaced them. Before the
+wall stands the beast, its orange eyes glaring at you, tiny specks in its
+coat of pure darkness.
+
+> attack beast
+You step within arm's reach of the beast and punch it in the side of the
+head. It roars and lunges at you, but you dodge the attack.
+
+> attack beast
+You circle around the beast. It looks ready to lunge. Just as it does, you
+dig a fist into its stomach - or where you think its stomach would be - and
+it slides into the far wall.
+For a moment you think you saw a shadow move.
+
+> attack beast
+You throw a kick at the beast's face but it latches its fangs onto your leg.
+You're tossed into the air and slammed into the floor. You twist your body to
+kick it with your other foot, causing it to drop you. The beast charges when
+you're back on your feet but you dodge and kick it in the back as it goes by.
+With your added momentum, the beast goes head-first into the furnace,
+breaking open the furnace door.
+
+> push beast into furnace
+You shove the beast and it trips backward. It tries to brace itself but its
+arm falls into the furnace, igniting as it touches the coals. Slowly the
+entire beast is consumed in flames. When the fire has gone, the furnace is no
+longer lit.
+
+> get key
+You take the key from the furnace.
+
+> u
+You move up.
+
+Descent
+As you descend this brick staircase, you can feel the heat intensifying,
+coming from below.
+
+> w
+You move west.
+
+Basement
+The walls and floor have been replaced with dark red brick and black cement.
+You can barely see anything, even with your flashlight, as if the walls are
+absorbing the light. A steel door is set sturdily into the eastern wall, but
+it lies open, beckoning...
+For a moment you think you saw a shadow move.
+
+> u
+You move up.
+
+Living Room
+
+> s
+You move south.
+
+Dining Room
+Where once was the dining room table is now an enormous, dark red stain in
+the floor. Black veins run through it, spreading into a smear of brighter
+reds where each chair once stood. To the west is the foyer, while to the
+north lies the living room.
+
+> w
+You move west.
+
+Foyer
+Planks are missing from the floor here, replaced with black, empty void. The
+front door is stained a dark red that appears to be pulsing, though this may
+be a trick of the light. Your passage to the kitchen is blocked, but you can
+go east to the dining room or up to the upper hall.
+
+> unlock door with key
+You unlock the front door with the key.
+Heavy breathing comes from behind you.
+
+> open door
+You open the front door.
+
+> s
+You move south.
+
+Nowhere
+All around you is pure white nothing, save for fluctuating portals to the
+east and west.
+The Master is here.
+The blackness fades to white and you find you are standing. Around you is a
+white nothingness, devoid of anything but yourself. All of your possessions
+have vanished.
+Across from you stands a man. He's tall and lanky, with oval-shaped glasses
+over blue eyes and short, brown hair. After a moment you realize: he is you.
+
+"I am the Master," he says. "I am the one who has summoned you here."
+
+"But... you're me!" you stammer. "How is this possible?"
+
+He smiles, an evil grin, full of malice. "You see, it is you who has brought
+yourself here. Your... suppression, shall we say, of certain events. For
+these three decades you have known that you would have to face them some
+day."
+
+"No," you say. "It wasn't my fault! I was just a child."
+
+"A party to murder, we were. There were so many possibilities for you then,
+so many choices you could have made. We knew it was coming. We saw it
+approaching, and we did nothing about it."
+
+"No! My father made the decision, he made the mistake," you say. "I was not
+in control."
+
+"Nonsense. We are all in control of our own fates. We could have alerted him,
+we could have shouted, we could have even grabbed the wheel."
+
+"I was just a child!" you shout.
+
+"Aren't we all children, Jonathan? In the end there is still so much we do
+not know. We cannot use this as an excuse to do evil, for then we excuse evil
+itself."
+
+The vision returns to you: the bright headlights charging across in front of
+you, the uncontrollable spin, the scream of your younger sister from the back
+seat. Your neck begins to ache as you recall the pain of waking up,
+paramedics rushing around as you slowly regained consciousness. "Sarah..."
+you say. "I'm sorry..."
+
+The Master laughs. "We are sorry, aren't we! And now we will pay for our
+sins. Your wife and son are here in this world of nothing." He points
+eastward. "There lies your wife." He points westward. "And there lies your
+son. Make your choice."
+
+"You bastard!"
+
+"Here," he says. A handgun appears in the nothingness, floating between you
+and him. "This gun contains a single bullet with which you can make another
+decision." Now go, before I lose patience."
+
+You grab the gun and immediately aim it at the Master's forehead.
+
+He puts one finger up and shakes it. "Ah-ah, Jonathan. I'm not really here.
+Now hurry, you wouldn't want any harm to come to them." He vanishes into the
+nothingness, leaving you with your decision.
 
 > shoot self
 You put the gun against your head and pull the trigger. Before you can
