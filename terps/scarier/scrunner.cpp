@@ -1443,16 +1443,22 @@ run_task_ran_this_command (scr_int task)
  * run_try_command_table().
  */
 static scr_bool
-run_npc_library_blocked (scr_gameref_t game)
+run_any_task_ran_this_command (void)
 {
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
-    return FALSE;
   for (const scr_bool ran : run_tasks_ran_this_command)
     {
       if (ran)
         return TRUE;
     }
   return FALSE;
+}
+
+static scr_bool
+run_npc_library_blocked (scr_gameref_t game)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return FALSE;
+  return run_any_task_ran_this_command ();
 }
 
 /*
@@ -1973,6 +1979,29 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
    * first loop in the second.  If we're using the second, that is.  The cache
    * stays empty when restrictions are off (the second loop is then skipped).
    */
+  /*
+   * The Runner dispatches ONE task per typed line.  run400's dispatcher
+   * Proc_19_24_44CCE0 asks the pre-matcher (Proc_19_66_454EF0) for a single
+   * task, runs it, and returns "handled" only if the message buffer is
+   * non-empty (44CCC0); the restriction-failure pass (Proc_19_68_45404C)
+   * runs only when no task was found at all (44CCA5).  A silent task
+   * therefore lets the LIBRARY run, but never a second task.  run390's
+   * tasks() (42BDC4) is the same shape: checktask picks one task, execute_task
+   * runs it.  Scarier reaches the same line in several passes (peek, no
+   * restrictions, restrictions), and the later passes used to re-scan from
+   * task 0 with the first task now spent: House (4.00, 2026-09-06,
+   * Adrift_100) `kiss cathy` as the first line naming Cathy runs the silent
+   * once-only task 200 `*cathy*`, and run400 then prints the library's
+   * "I'm not sure she would appreciate that!" -- the game's own kiss task
+   * 882 `[hug/kiss/touch/shake] [her/cathy]` only runs on the SECOND kiss.
+   * Scarier ran 200 and then 882 on the first line.  Library callbacks
+   * (is_library) are left alone: those model the Runner's own pre-matcher
+   * look-ups from inside the library handlers, which happen after the
+   * dispatcher regardless.
+   */
+  if (!is_library && run_any_task_ran_this_command ())
+    return FALSE;
+
   task_count = gs_task_count (game);
   std::vector<scr_bool> is_matching;
   if (include_restrictions)

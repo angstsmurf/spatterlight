@@ -225,7 +225,12 @@ The only apparent way out is up or down the stairway, or else through the
 door.
 
 > open door
-I open the door again, with inexplicable trepidation. Nothing has changed.
+I open the door, and vertigo nearly floors me. The door is not right. It's
+not right. It can't be.
+
+I look away, for my own selfish sake. I may wish to examine the door again,
+but if what it says is true then there is no escape from the gallery or the
+estate in any physical direction.
 
 > go door
 

@@ -332,7 +332,7 @@ was re-blessed, with the evidence in the row's comment block in
 | `frog.taf` | 4.00 | `Adrift_76_frog.txt` | clean: 10/10 echoed, tail only |
 | `SPAM.taf` | 4.00 | `Adrift_77_spam.txt` | 15/15 echoed; ONE divergence, now **FIXED** -- `ask about ingredients` prints its `(Nobody)` echo BEFORE the task's text, not after.  See the dated section: the echo is a direct display call, the task text is buffered |
 | `sommeril.taf` | 4.00 | `Adrift_78_sommeril.txt`, `Adrift_79_somm_npcprobe.txt`, `Adrift_80_somm_placemat.txt` | 79/79 echoed.  Three findings, two of them now **FIXED** -- the `(GARGOYLE)` echo ordering (same fix as `SPAM`), the every-line last-named-character register, and the **trailing space in a task command pattern**, which run400 requires the input to have. … |
-| `House.taf` | 4.00 | `Adrift_91.txt`, `Adrift_92.txt`, `Adrift_93.txt` (checkpoint drives from a Scarier-made `.tas`, `#restore` after the title menu's `2`) | the put/task precedence model **confirmed** and one gate rule **corrected and FIXED**: at the fireplace with the wood on the floor and the axe in hand, `put wood in fireplace` / `place wood in fireplace` print `(Taking the wood first)` then `Your hands are full.  You are not holding the wood.`; with the wood held every spelling (`put`, `place`, `drop wood in fireplace`, `put some wood into the fire place`) is the library put, task 459 never fires, `light fire` refuses with `You need some wood or coal to make a proper fire.` -- **House is unwinnable in run400**.  Scarier used to skip the implicit take because take-flagged task 60 `* %object%` pre-matched: run400's pre-matcher is restriction-aware, and task 60's silently-failing restriction drops it.  Every move pops an `evaluate error - Out of stack space` alert (the `%drunk%` ALR loop, see "Deliberate deviations").  `get cathy` there was `Take what?` in run400 against the library's take-NPC line in Scarier: five more drives (`Adrift_94`-`98`) pinned it -- the first line naming Cathy after the checkpoint runs the once-only silent task 200 `*cathy*` (`# attention on cathy grave vision`), and a task having run for the line shuts the take/examine/where/attack/talk-to branches of the character handler (`MemVar_4941F8`; ask-about, give and kiss survive -- Humbug's silent `ask * hacker about * humbug` still answers), so `get cathy` falls to `Take what?` and `x cathy` to `You see no such thing.`; the second mention gets "I don't think girl would appreciate being handled." (Prefix + first Alias, not the Name) and her description.  Restore does NOT clear her seen byte.  Both rules **PORTED 2026-09-06** (see "Ported 2026-09-06: the task-ran NPC gate"); `Adrift_99` confirms `ask cathy about grave` answers on the first mention |
+| `House.taf` | 4.00 | `Adrift_91.txt`, `Adrift_92.txt`, `Adrift_93.txt` (checkpoint drives from a Scarier-made `.tas`, `#restore` after the title menu's `2`) | the put/task precedence model **confirmed** and one gate rule **corrected and FIXED**: at the fireplace with the wood on the floor and the axe in hand, `put wood in fireplace` / `place wood in fireplace` print `(Taking the wood first)` then `Your hands are full.  You are not holding the wood.`; with the wood held every spelling (`put`, `place`, `drop wood in fireplace`, `put some wood into the fire place`) is the library put, task 459 never fires, `light fire` refuses with `You need some wood or coal to make a proper fire.` -- **House is unwinnable in run400**.  Scarier used to skip the implicit take because take-flagged task 60 `* %object%` pre-matched: run400's pre-matcher is restriction-aware, and task 60's silently-failing restriction drops it.  Every move pops an `evaluate error - Out of stack space` alert (the `%drunk%` ALR loop, see "Deliberate deviations").  `get cathy` there was `Take what?` in run400 against the library's take-NPC line in Scarier: five more drives (`Adrift_94`-`98`) pinned it -- the first line naming Cathy after the checkpoint runs the once-only silent task 200 `*cathy*` (`# attention on cathy grave vision`), and a task having run for the line shuts the take/examine/where/attack/talk-to branches of the character handler (`MemVar_4941F8`; ask-about, give and kiss survive -- Humbug's silent `ask * hacker about * humbug` still answers), so `get cathy` falls to `Take what?` and `x cathy` to `You see no such thing.`; the second mention gets "I don't think girl would appreciate being handled." (Prefix + first Alias, not the Name) and her description.  Restore does NOT clear her seen byte.  Both rules **PORTED 2026-09-06** (see "Ported 2026-09-06: the task-ran NPC gate"); `Adrift_99` confirms `ask cathy about grave` answers on the first mention; `Adrift_100` (`kiss cathy` x2, `#restore`, `where is cathy` x2) pins the **one-task-per-line** rule: the first `kiss cathy` runs silent task 200 and then the LIBRARY's `I'm not sure she would appreciate that!`, never the game's kiss task 882 (`Cathy gently but firmly pushes you back` only on the second kiss); `where is cathy` is `I don't know where that is!` then `Cathy is dining room.  (Right next to you silly!)`.  **PORTED 2026-09-06** (see "Ported 2026-09-06: one task per typed line") |
 
 
 ## Candidates
@@ -896,6 +896,54 @@ it is too) and fall back to the Name when the alias is empty; run380 44057D
 and run370 4386EE always print `Prefix & " " & Alias(0)`.  Cathy (alias
 "girl", no prefix) gets "I don't think girl would appreciate being handled."
 Ported in `lib_cmd_take_npc()`.
+
+## Ported 2026-09-06: one task per typed line
+
+`Adrift_100` (House checkpoint, `2`, `#restore housewood`, `kiss cathy`,
+`kiss cathy`, `#restore housewood`, `where is cathy`, `where is cathy`):
+
+```
+> kiss cathy
+I'm not sure she would appreciate that!
+> kiss cathy
+Cathy gently but firmly pushes you back ...
+> where is cathy
+I don't know where that is!
+> where is cathy
+Cathy is dining room.  (Right next to you silly!)
+```
+
+The first `kiss cathy` is the first line naming Cathy, so it runs the
+once-only silent task 200 `*cathy*` -- and then NOTHING else from the game:
+task 882 `[hug/kiss/touch/shake] [her/cathy]` (restrictions pass, it fires
+on the second kiss) is skipped and the library's kiss line prints.  Scarier
+ran 200 and then 882 on the same line.
+
+The Runner dispatches exactly ONE task per typed line.  run400's dispatcher
+`Proc_19_24_44CCE0` (called at 48A481 as `Proc_19_24_44CCE0(1,4)`; TRUE
+sends 48A481 past the library to 48B4E3) asks the pre-matcher
+`Proc_19_66_454EF0(arg_10,1)` for a single task, runs it forwards
+(`execute_task` 45A3EC) or in reverse (`Proc_19_51_443DC8`), and its final
+result at 44CCC0 is FALSE when the message buffer is still empty -- a silent
+task lets the library run, but no second task; the restriction-failure pass
+`Proc_19_68_45404C` runs only when no task was found at all (44CCA5).
+run390's `tasks()` 42BDC4 is the same shape (checktask picks one task,
+execute_task runs it, -1 when a task executed even silently), so a silent
+task claims the line in 3.9 too -- with the library still reachable through
+the character/object handlers' own pre-matcher look-ups.
+
+Ported as a guard at the top of `run_game_commands_common()`: once any task
+has run for the line (`run_tasks_ran_this_command`), the later passes (no
+restrictions, restrictions) return without scanning.  Library callbacks
+(`is_library`) are exempt: they model the handlers' own look-ups.  Four
+goldens re-blessed, each an old Scarier double-dispatch:
+
+| game | old | new | why the new text is right |
+|---|---|---|---|
+| `Rock Band.taf` | living-room `look` text for counter 2 | counter 1 | the repeatable silent `l{ook} {living room}` task 60 (`%RM-living_ex%+1 mod 5`) ran TWICE per look (no-restrictions pass, then the restrictions pass); once per line now, as the Runner |
+| `3monkeys.taf` | `The mandrill closes in towards you` (looms=2) | `The mandrill looms dangerously near` (looms=1) | run400 `Adrift_16_3monkeys.txt` line 173 prints the looms=1 text after the first move, so task 797 (`n`/`s`/... silent, `if(%looms%=3,3,%looms%+1)`) runs once per move |
+| `baroo.taf` | task 128's restriction failure `The equipment is still operating and will not open.` | `The machine is now opened.` | silent task 112 opens the machine and the LIBRARY then complains `The machine is already open!`, which the author ALR-remaps to `The machine is now opened.` -- the author saw exactly this fall-through; the old restrictions pass reached task 128 instead |
+| `The Crooked Estate.taf` | first `open door` says `I open the door again, with inexplicable trepidation` | `I open the door, and vertigo nearly floors me` | once-only silent task 41 and repeatable silent task 43 both match `* open * door *`; 43 (sets `%door_open%` to the "again" text) ran on the SAME first line, now only after 41 is spent |
 
 ## Ported 2026-09-06: the 4.0 put/task precedence split
 

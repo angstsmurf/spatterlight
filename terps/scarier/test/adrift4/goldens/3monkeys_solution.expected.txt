@@ -649,8 +649,9 @@ the fire that you started.
     Lying on the ground here is a banana peel.
     The mandrill is here.
 
-    The mandrill closes in towards you, ready to pounce.  (What do you mean
-you've never seen a mandrill "pounce" before?)
+    The mandrill looms dangerously near, if you'll allow me to use the word
+"looms".  What I mean is that the brute stirs nearby, spreading his arms,
+lowering his head, and I don't think he means for you to pet him.
 
     The fire is still going strong.
 

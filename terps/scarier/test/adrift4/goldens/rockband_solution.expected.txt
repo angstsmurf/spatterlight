@@ -20,10 +20,10 @@ overhead.
 > look
 
 Living Room
-The walls of the living room are a pasty white, textured to give the
-appearance that more than a spray gun was used. The kitchen lies to the
-north, separated by a bar-style counter. There are doors to both east and
-west bedrooms, and a bathroom is northwest, close to the front door.
+The hardwood floor of this living room serves to amplify the noise for the
+cranky neighbor downstairs. The kitchen lies to the north, separated by a
+bar-style counter. There are doors to both east and west bedrooms, and a
+bathroom is northwest, close to the front door.
 
 The only place to sit is a dingy white couch (ever since you discovered what
 that smell was in the matching sofa chair).  Your beautiful Xbox 360 Elite
@@ -199,8 +199,8 @@ currently closed.
 > look
 
 Kitchen
-Yikes. Was this always a kitchen, or did it begin life as a biohazard waste
-dump? The living room is south.
+Where do I begin? There's a pile of cobwebbed dishes sitting next to a
+two-month old gift plate of stale Xmas cookies. The living room is south.
 
 A white refrigerator sits in the far corner.  You left a pile of dirty dishes
 laying about, as usual.  The door to the laundry closet is here and is
@@ -213,7 +213,8 @@ closet door.
 > look
 
 Kitchen
-My eyes! MY EYES! Don't make me look anymore! The living room is south.
+Yikes. Was this always a kitchen, or did it begin life as a biohazard waste
+dump? The living room is south.
 
 A white refrigerator sits in the far corner.  You left a pile of dirty dishes
 laying about, as usual.  The door to the laundry closet is here and is
@@ -226,10 +227,10 @@ You take the mechanical finger from the laundry closet door.
 You move south.
 
 Living Room
-The walls of the living room are a pasty white, textured to give the
-appearance that more than a spray gun was used. The kitchen lies to the
-north, separated by a bar-style counter. There are doors to both east and
-west bedrooms, and a bathroom is northwest, close to the front door.
+The hardwood floor of this living room serves to amplify the noise for the
+cranky neighbor downstairs. The kitchen lies to the north, separated by a
+bar-style counter. There are doors to both east and west bedrooms, and a
+bathroom is northwest, close to the front door.
 
 The only place to sit is a dingy white couch (ever since you discovered what
 that smell was in the matching sofa chair).  Your beautiful Xbox 360 Elite

@@ -927,7 +927,7 @@ the machine that is still operational.  The machine is closed.
 STANDBY
 
 > open machine
-The equipment is still operating and will not open.
+The machine is now opened.
 
 > put all gemstones in machine
 You place all the gemstones you've found into the machine.
