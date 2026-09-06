@@ -357,10 +357,11 @@
                            hint:(NSUInteger)hint
                          result:(NSInteger *)result {
 
+    // Measure the style table only (theme +/- stylehints applied at window
+    // creation), not live zcolor or reverse video — same model as Gargoyle.
+    NSDictionary *attributes = [gwindow baseAttributesForStyle:style];
+
     if (hint == stylehint_TextColor || hint == stylehint_BackColor) {
-        // Measure the style table only (theme +/- stylehints), not live
-        // zcolor or reverse video — same model as Gargoyle.
-        NSDictionary *attributes = [gwindow baseAttributesForStyle:style];
         NSColor *color = nil;
         if (hint == stylehint_TextColor) {
             color = attributes[NSForegroundColorAttributeName];
@@ -375,6 +376,28 @@
         if (color) {
             *result = color.integerColor;
             return YES;
+        }
+    }
+
+    if (hint == stylehint_Weight || hint == stylehint_Oblique || hint == stylehint_Proportional) {
+        NSFont *font = attributes[NSFontAttributeName];
+        if (!font)
+            return NO;
+
+        NSFontTraitMask traits = [[NSFontManager sharedFontManager] traitsOfFont:font];
+        switch (hint) {
+            case stylehint_Weight:
+                // Glk: 1 bold, 0 normal, -1 light. Report bold vs not (as Gargoyle does).
+                *result = (traits & NSBoldFontMask) ? 1 : 0;
+                return YES;
+            case stylehint_Oblique:
+                *result = (traits & NSItalicFontMask) ? 1 : 0;
+                return YES;
+            case stylehint_Proportional:
+                *result = ((traits & NSFixedPitchFontMask) || font.isFixedPitch) ? 0 : 1;
+                return YES;
+            default:
+                break;
         }
     }
 
