@@ -56,12 +56,20 @@ def main():
     # (pauses[0] = before the first prompt).
     # waits[i] = seconds of real-time <wait N> pauses in the same span; the
     # Runner drops keystrokes typed while one runs, so the feed must sleep.
+    # order[i] is the same span's markers IN THE ORDER THEY WERE PRINTED, as
+    # ("key", None) / ("wait", seconds).  Counting the two kinds separately is
+    # not enough: Wheel105's `z` prints its [WAITKEY] BEFORE its 22 seconds of
+    # <wait>, so emitting the sleep first left the Runner parked on the pause
+    # through the sleep, answered it late, and then typed the next six
+    # commands into the waits, which dropped every one of them (2026-09-05).
     pauses = [0]
     waits = [0]
+    order = [[]]
     for line in text.split("\n"):
         if line.startswith(">"):
             pauses.append(0)
             waits.append(0)
+            order.append([])
             # and fall through: a pause printed by the very first line of a
             # turn's output lands on the prompt line itself (Vardock Bates'
             # newspaper, ">puedes leer en uno de ellos...[WAITKEY]"); losing
@@ -71,20 +79,32 @@ def main():
             # The markers land wherever the interpreter's output cursor is,
             # often mid-line after unterminated text, so search rather than
             # anchor.  A tag's Val() can be fractional; round up.
-            pauses[-1] += len(re.findall(r"\[WAITKEY\]", line))
-            for arg in re.findall(r"\[WAIT ([^\]]*)\]", line):
-                try:
-                    waits[-1] += int(math.ceil(float(arg)))
-                except ValueError:
-                    waits[-1] += 1
+            for marker in re.finditer(r"\[WAITKEY\]|\[WAIT ([^\]]*)\]", line):
+                if marker.group(1) is None:
+                    pauses[-1] += 1
+                    order[-1].append(("key", None))
+                else:
+                    try:
+                        seconds = int(math.ceil(float(marker.group(1))))
+                    except ValueError:
+                        seconds = 1
+                    waits[-1] += seconds
+                    order[-1].append(("wait", seconds))
     with open(solpath, encoding="latin-1") as fh:
         raw = [l.rstrip("\r\n") for l in fh]
     cmds = [l for l in raw if l.strip() and not l.lstrip().startswith("#")]
     if not skip:
         # the solution's own blank lines already stand in for the pauses
         lines = [l for l in raw if not l.lstrip().startswith("#")]
+        # Only the blanks that answer a REAL startup pause become PRE.  A
+        # solution may open with blank lines that are ordinary empty commands
+        # -- Insane.taf's padded cell answers three of them with "Ha, that's
+        # a good one." -- and moving those to PRE sends them before Start
+        # Transcript, so three turns vanish from the measurement (2026-09-05).
+        # pauses[0] is what SCR_MARK_WAITKEY actually counted before the
+        # first prompt; never strip more than that.
         pre = 0
-        while lines and not lines[0].strip():
+        while lines and not lines[0].strip() and pre < pauses[0]:
             lines.pop(0); pre += 1
         # the harness eats a line per pause, so command i is prompt i only
         # while no pause has eaten a blank; sleeps are keyed by prompt index
@@ -95,6 +115,16 @@ def main():
             prompt += 1
             if prompt < len(waits) and waits[prompt]:
                 outl.append("#sleep %d" % (waits[prompt] + 1))
+        # The span AFTER the last prompt has no blank of its own -- the
+        # solution simply ends -- but the Runner still stops on every pause in
+        # it, and the transcript then breaks off mid-ending.  lostsouls' win
+        # text is three <waitkey><cls> beats long and the first drive recorded
+        # `> open door` and nothing after it (2026-09-05).
+        # order[-1] rather than order[prompt]: without SKIP the marker run's
+        # pauses eat lines, so its prompt count and the file's line count are
+        # not the same index space.  The last span is the tail either way.
+        for kind, seconds in order[-1]:
+            outl.append("" if kind == "key" else "#sleep %d" % (seconds + 1))
         with open(out, "w") as fh:
             fh.write("\n".join(outl) + "\n")
         print("PRE=%d (solution not SKIP-wired; its own blank lines kept)"
@@ -103,11 +133,11 @@ def main():
     pre = pauses[0]
     lines = []
     for i, cmd in enumerate(cmds):
-        if i > 0 and i < len(pauses):
-            lines.extend([""] * pauses[i])
         lines.append(cmd)
-        if i + 1 < len(waits) and waits[i + 1]:
-            lines.append("#sleep %d" % (waits[i + 1] + 1))
+        # everything the NEXT span prints, interleaved as it was printed: a
+        # blank Return answers a pause, a #sleep waits out a real-time <wait>.
+        for kind, seconds in (order[i + 1] if i + 1 < len(order) else []):
+            lines.append("" if kind == "key" else "#sleep %d" % (seconds + 1))
     with open(out, "w") as fh:
         fh.write("\n".join(lines) + "\n")
     tail = pauses[len(cmds)] if len(pauses) > len(cmds) else 0

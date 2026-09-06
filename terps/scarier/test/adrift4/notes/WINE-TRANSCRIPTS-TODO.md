@@ -591,7 +591,7 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `tcom.taf` | 3.90 | full run390 replay, `Adrift_3_tcom.txt` (feed `cmdfile_tcom.txt`) | 13/13 identical but the tail; the three walk scenes line up |
 | `windy2.taf` | 3.90 | full run390 replay, `Adrift_3_windy2.txt` (POPUP_ANSWERS name dialog, feed `cmdfile_windy2.txt` -- 147 commands) | 147/147 identical but the tail; 8 NPCs, both walks and the fixed skinny-dip event all in step |
 | `Richard.taf` | 3.90 | full run390 replay, `Adrift_3_richard.txt` (feed `cmdfile_richard.txt` -- 70 commands) | 70/70 identical but the tail -- once the 3.9 WinText pspace join below landed; 1000/1000 |
-| `cleft.taf` | 3.90 | full run390 replays, `Adrift_3_cleft.txt` + `Adrift_3_cleft2.txt` (feed `cmdfile_cleft.txt`) | first drive 90/90 echoed with 3 divergent turns -- the 3.9 event-move seen-byte split below; re-drive with the `look` added 91/91 identical but the tail, Runner wins 100/100 |
+| `cleft.taf` | 3.90 | full run390 replays, `Adrift_3_cleft.txt` + `Adrift_3_cleft2.txt` (feed `cmdfile_cleft.txt`) | first drive 90/90 echoed with 3 divergent turns -- the 3.9 event-move seen-byte split below; re-drive with the `look` added 91/91 identical but the tail, Runner wins 100/100.  **Re-driven 2026-09-05** against today's engine (`Adrift_25_cleft.txt`, feed `cmdfile_w_cleft.txt` -- 91 commands, PRE=0): 91/91 echoed, zero content differences, tail only, both sides 100/100 |
 | `sa.taf` (`sophie`) | 4.00 | live run400 replay, `Adrift_41_sophie.txt`..`Adrift_45_sophie.txt` (five runs of the solution's first fifty commands), plus the game's own 488-entry ALR table | the walk announcement is **joined into the turn's paragraph**, so 12 of sa.taf's 65 join-spanning ALRs fire and delete the arrivals they match -- see the FIXED section below |
 | `p4WALKALR` (built probe) | 4.00 | run400 replay, `Adrift_47_p4walkalr.txt` | the join itself, in isolation: an ALR whose Original starts with the two-space separator matches |
 | `The_X-Files_A_New_Beginning.taf` (`xfiles`) | 4.00 | live run400 replay of the solution's first 40-odd commands, `Adrift_22_xfiles.txt` | a **"The" prefix is never lower-cased**, and **what is *on* an object is listed before what is *in* it, in one sentence** -- see the two FIXED sections below.  Also closed the `knock` lead (a feed artefact) and pinned `burn memo` on the 4.0 `%object%` case rule (FIXED) |
@@ -634,6 +634,29 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `A_Morning_with_a_Headache.taf` | 3.90 | full run390 replay, `Adrift_9_morning.txt` (feed `cmdfile_w_morning.txt` -- 53 commands, PRE=0) | 53/53 echoed; zero engine divergences after one port -- 52 of the 53 turns identical and the 53rd, the winning `open door`, differs only by the Runner's `[Press any key to end]`.  The port is the **pre-4.0 reach rule**: the game starts the player on the Bed and run390 answers `take alarm clock` with "You can't reach the dresser from the Bed!", so the route now opens with `get up`.  Eight events, none rollable; three non-walking NPCs; 115/115 both sides |
 | `mhpquest.taf` | 3.90 | full run390 replay, `Adrift_11_mhpquest.txt` (feed `cmdfile_w_mhpquest.txt` -- 53 commands, PRE=0) | 53/53 echoed; zero engine divergences -- 52 of the 53 turns identical and the 53rd, the winning `feed clover to crystal`, differs only by the Runner's `[Press any key to end]`.  Driven as a deliberate test of the silent-task rule and **refined it**: TASK 10 has no `COMPLETE=` line, but its `ACT type=6` EndGame prints, so run390 never reaches the DontUnderstand fallback.  The trigger is an empty *turn*, not a missing completion text.  0 events, two non-walking NPCs; 140/140 both sides |
 | `chicago.taf` | 3.90 | full run390 replay, `Adrift_9_chicago.txt` (feed `cmdfile_w_chicago.txt` -- 42 commands, PRE=0) | 42/42 echoed; one real engine divergence, now fixed -- a second `listen` where run390 says "You have already done that." and Scarier gave the library's "You hear nothing out of the ordinary.".  Pre-4.0 the **already-done refusal is tried before the standard library**; the port narrows that pass to literal patterns, the game's default message and non-movement input.  After the fix 41 of the 42 turns are identical and the 42nd, the winning `confront daisy`, differs only by `[Press any key to end]`.  0 events, three non-walking NPCs; 75/75 both sides |
+| `CAH.taf` | 3.90 | full run390 replay, `Adrift_9_cah.txt` (feed `cmdfile_w_cah.txt` -- 30 commands, PRE=0) | 30/30 echoed, tail only.  0 events, 0 NPCs, 0 silent tasks -- a pure parser/library row, and it passes clean |
+| `forest.taf` | 3.90 | full run390 replay, `Adrift_9_forest.txt` (feed `cmdfile_w_forest_on_the_norm.txt` -- 27 commands, PRE=0) | 27/27 echoed and **identical on every turn**, tail included; the ending does not stop for a keypress.  Four NPCs, no events |
+| `amonkeytoomany.taf` | 3.90 | full run390 replay, `Adrift_9_amonkey.txt` (feed `cmdfile_w_amonkeytoomany.txt` -- 12 commands, PRE=0) | 12/12 echoed, tail only; 25/25 both sides |
+| `Toxically_Earth.taf` | 3.90 | full run390 replay, `Adrift_9_toxically.txt` (feed `cmdfile_w_toxically_earth.txt` -- 11 commands, PRE=0) | 11/11 echoed, tail only.  Seventeen NPCs, none of whom speaks on the route; third confirmation that a silent task with a bare `ACT type=6` prints and so never reaches the DontUnderstand fallback |
+| `Insane.taf` | 3.90 | full run390 replay, `Adrift_9_insane.txt` (feed `cmdfile_w_insane.txt` -- 16 lines, PRE=0) | 16/16 echoed, tail only; 1000/1000 both sides.  Exposed a harness bug: the solution's three leading blanks are **empty commands**, not startup pauses, and `make_wine_cmdfile.py` was moving them to PRE, which would have sent them before Start Transcript |
+| `tq3.taf` | 3.90 | full run390 replay, `Adrift_9_tq3.txt` (feed `cmdfile_w_tq3.txt` -- 51 commands, PRE=0) | 51/51 echoed, tail only.  Four events, none rollable, two NPCs; 60/2400 both sides |
+| `DFU.taf` | 3.90 | full run390 replay, `Adrift_9_dfu.txt` (feed `cmdfile_w_dfu.txt` -- 21 commands, PRE=0) | 21/21 echoed, tail only; 999999999/999999999 both sides |
+| `CRM.taf` | 3.90 | full run390 replay, `Adrift_9_crm.txt` (feed `cmdfile_w_crm.txt` -- 21 commands plus two blank Returns for the mid-game waitkeys, PRE=0) | 21/21 echoed, tail only; 25/25 both sides |
+| `ECOD2.taf` | 3.90 | full run390 replay, `Adrift_9_ecod2.txt` (feed `cmdfile_w_ecod2.txt` -- 24 commands, PRE=3) | 24/24 echoed, tail only |
+| `lostsouls.taf` | 3.90 | full run390 replay, `Adrift_10_lostsouls.txt` (feed `cmdfile_w_lost_souls2.txt` -- 21 commands, PRE=0) | 21/21 echoed; the only differences are the `[Press any key to end]` tail and the known `<waitkey><cls>` butt-join.  The first drive broke off at `> open door` because the three-beat ending's pauses were not in the feed at all; `make_wine_cmdfile.py` now emits the trailing span's markers |
+| `Wheel105.taf` | 3.90 | full run390 replay, `Adrift_9_wheel105.txt` (feed `cmdfile_w_wheels_must_turn2.txt` -- 19 commands, PRE=1) | 19/19 echoed; the only differences are the ending's `[Game ended]` -- this game does not say `[Press any key to end]` -- and three `<waitkey><cls>` butt-joins.  Fifteen events, none rollable.  The first drive lost six commands because `z` prints its `<waitkey>` BEFORE its 22 seconds of `<wait>` and the generator emitted the `#sleep` first; markers are now interleaved in printed order |
+| `veteran.taf` | 3.90 | full run390 replay, `Adrift_9_veteran.txt` (feed `cmdfile_w_veteran.txt` -- 47 commands, PRE=0) | 47/47 echoed, **zero content differences**; the only difference is the ending's `[Press any key to end]`.  No events at all, three NPCs, no silent tasks; both sides finish 0/0 at 100% |
+| `BobBobsly.taf` | 3.90 | full run390 replay, `Adrift_10_bobbobsly.txt` (feed `cmdfile_w_bob_bobsly.txt` -- 25 commands, PRE=0) | 25/25 echoed, **zero content differences**; tail only.  Includes a `yes` answering the game's own question and a `beam me up scotty` easter egg; both sides win 155/155 |
+| `tcom.taf` | 3.90 | full run390 replay, `Adrift_11_tcom.txt` (feed `cmdfile_w_tcom.txt` -- 13 commands + four trailing `#sleep`s, PRE=0) | 13/13 echoed, **zero content differences**; tail only.  First row to prove the new trailing-span emission: the ending is four real-time `<wait>`s long and the feed's `#sleep`s held the drive there long enough to record all of it |
+| `lifesimulation.taf` | 3.90 | full run390 replay, `Adrift_12_lifesim.txt` (feed `cmdfile_w_lifesimulation2.txt` -- 15 commands, `POPUP_ANSWERS="Hero\|male"`) | 15/15 echoed; **one divergence, the known deliberate deviation**: `turn off tv` is the *ReverseCommand* of task 10 `turn on tv` and its ReverseMessage is empty, so the turn prints nothing and run390 answers with the game's DontUnderstand string (`I don't understand what you mean!`) where Scarier prints the library's `You can't turn your tv.`  First time the silent-task rule has been reached through a reverse command rather than a forward one |
+| `LOST.TAF` (`lost`) | 3.90 | full run390 replay, `Adrift_18_lost.txt` (feed `cmdfile_w_lost.txt` -- 38 commands, PRE=1) | 38/38 echoed, **zero content differences**; tail only.  Eleven events, none rollable, a ghost NPC and five `z` waits in a row: the richest per-turn machinery measured clean so far |
+| `LOST.TAF` (`lost_down`) | 3.90 | full run390 replay, `Adrift_19_lost_down.txt` (feed `cmdfile_w_lost_down.txt` -- 38 commands, PRE=1) | 38/38 echoed, **zero content differences**; tail only.  Same route, the other ending (`down` instead of `up` at the last command) |
+| `Matt's House.taf` | 3.90 | full run390 replay, `Adrift_20_matts.txt` (feed `cmdfile_w_matts_house.txt` -- 8 commands, PRE=0) | 8/8 echoed, **identical on EVERY turn, the last included**: the golden ends on `score`, so there is no EndGame and no `[Press any key to end]`.  Third such row, after `forest.taf` and `Wheel105.taf`.  Must be driven as the space-free copy `matts.taf` |
+| `Richard.taf` | 3.90 | full run390 replay, `Adrift_21_richard.txt` (feed `cmdfile_w_richard.txt` -- 70 commands, PRE=0) | 70/70 echoed, **zero content differences**; tail only.  Thirteen events, five NPCs; both sides win 1000/1000 |
+| `windy2.taf` | 3.90 | full run390 replay, `Adrift_22_windy2.txt` (feed `cmdfile_w_windy2_drive.txt` -- 147 commands, `POPUP_ANSWERS="Sam"`) | 147/147 echoed, **zero content differences**; tail only.  400 tasks, eight NPCs, 17 variables -- the longest 3.90 row measured, and the second POPUP game after `lifesimulation.taf` |
+| `impulso.taf` | 3.90 | full run390 replay, `Adrift_23_impulso.txt` (feed `cmdfile_w_impulso.txt` -- 8 commands, PRE=0) | 8/8 echoed, **zero content differences**; tail only.  Screened as a guaranteed silent-task divergence and was not one: its CompleteText-less `atacar * chico` has `srd=5`, so the turn prints a room description |
+| `Dreams.taf` | 3.90 | full run390 replay, `Adrift_24_dreams.txt` (feed `cmdfile_w_dreamland.txt` -- 9 commands, PRE=1) | 9/9 echoed, **zero content differences**; tail only.  Screened the same way and was also not a divergence: its CompleteText-less win task ends the game, and the game's win text prints |
+| `Phoenix_Destiny.taf` | 3.90 | full run390 replay, `Adrift_18_phoenix.txt` (POPUP_ANSWERS name+gender dialogs, feed `cmdfile_w_phoenix_drive.txt` -- 18 commands, PRE=13 at `PRE_SLEEP=2.5`) | 18/18 echoed, **identical on every turn** -- and on the last one too: the walkthrough ends on `wealth`, the game never ends, so there is no `[Press any key to end]` tail.  27 events (none rollable) and 17 NPCs all in step.  Measured 2026-09-05 |
 | `superliam.taf` | 3.80 | full run380 replay, `Adven_1_superliam.rtf` (feed `cmdfile_w_superliam.txt` -- 86 commands, Save Transcript at the 85th) | 85/85 echoed; three divergent turns, two engine rules, both FIXED: the run380 **AdditionalMessage double-space suppression reaches through a ShowRoomDesc room description**, and **names are matched RAW** -- object Short `"necko wafers "` (trailing space) is unreferenceable, `take necko wafers` answers "Take what?".  After the fixes every echoed turn matches; both sides win 3250/3250.  Measured 2026-08-31 |
 | `cave.taf` | 3.80 | three full run380 replays, `Adven_1_cave.rtf` / `Adven_1_cave2.rtf` / `Adven_1_cave3.rtf` (final feed `cmdfile_w_cave3.txt` -- 216 commands, Save Transcript flow) | 215/215 echoed each time; FOUR engine findings, all FIXED: `z` is not 3.80 vocabulary (whole-line `= "z"` test only exists from run390_3 45FCB0 -- seven `z` -> `wait`); 3.8 substitutes "There is nothing of interest here." into empty room Longs at LOAD (447FEE), so it prints BEFORE LastDesc alts; a 3.8 task can never move the PLAYER to the game's FIRST room (tasks() 44D1D4 stores Var2 pre-decremented behind "If Var2 > 1" -- second `climb down` re-derived to `down`; 3.7's encoding sits one higher so run370 441E55 is correct, arlo the counterexample; is_v370 gate in sctafpar.cpp); and the single-named held-take refusal is "You've already got X!" pre-4.0 (43E03E -- 4.0's "already carrying" @462D25 gated on lib_is_version_400, four 3.9 goldens re-blessed -- thewoods' own ALR "I've already got the" -> "<br>I'm already carrying the" confirms the base from the game side).  Third drive replays CLEAN: every comparable turn identical, `score` at 900/1000 both sides; only the winning `read parchment` is uncapturable in the Save-at-end flow (Scarier finishes 1000/1000).  Still open from the pre-fix stuck-tail census (never reached by the corrected feed): 3.8 answers a matched-task-wrong-room with "You can't do that here." (21x) and names unseen/unheld objects in refusals ("You can't see X from here!" / "You don't have X!") where Scarier says "Take what?" etc -- a 3.8 referenceability/where-fail model not yet ported.  Measured 2026-08-31 |
 | `haunt.taf` | 3.80 | full run380 replay, `Adven_1_haunt.rtf` (feed `cmdfile_w_haunt.txt` -- 85 commands, `measure38.sh`: Save Transcript at the 84th, the winning `down` sent after it) | 84/84 echoed; 40 divergent turns, then 1, then 0 -- two pre-3.9 engine rules, both fixed: **no startup event tick before 3.90** (a StarterType 2 delay of N starts on turn N, uncompensated) and **no administrative turns before 3.90** (`score` ticks NPCs and events).  Seven 3.80 goldens re-blessed, wrecked re-pinned to seed 106; full suite 428/428 PASS. |
@@ -713,23 +736,23 @@ The four best targets, by walks x length:
 | game | solution | cmds | walks | NPCs | events | waitkey | notes |
 |---|---|---:|---:|---:|---:|---|---|
 | `To_Hell_And_Beyond.taf` | `to_hell_and_beyond` | 3 | 19 | 41 | 7 | -- | [To_Hell_And_Beyond_walkthrough](To_Hell_And_Beyond_walkthrough.md) |
-| `goldilocks.taf` | `goldilocks` | 252 | 8 | 6 | 10 | -- | [Goldilocks_walkthrough](Goldilocks_walkthrough.md) |
-| `CIBASS.taf` | `cibass` | 40 | 8 | 2 | 8 | yes | [CIBASS_walkthrough](CIBASS_walkthrough.md) |
+| `goldilocks.taf` | `goldilocks` | 252 | 8 | 6 | 10 | -- | [Goldilocks_walkthrough](Goldilocks_walkthrough.md) **measured** -- see "Measured so far" |
+| `CIBASS.taf` | `cibass` | 40 | 8 | 2 | 8 | yes | [CIBASS_walkthrough](CIBASS_walkthrough.md) **measured** -- see "Measured so far" |
 | `FunHouse.taf` | `funhouse` | 18 | 8 | 9 | 0 | -- | **done** 2026-08-24 -- see "Measured so far" |
 | `sa.taf` | `sophie` | 255 | 7 | 73 | 13 | yes | **partly done** 2026-08-25 (first 50 commands) -- see "Measured so far"; [Sophies_Adventure_walkthrough](Sophies_Adventure_walkthrough.md) |
 | `sophie.taf` | `sophie_comp` | 255 | 6 | 72 | 13 | yes | [Sophies_Adventure_walkthrough](Sophies_Adventure_walkthrough.md) |
-| `Oh_Human.taf` | `ohhuman` | 9 | 6 | 3 | 5 | -- | -- |
+| `Oh_Human.taf` | `ohhuman` | 9 | 6 | 3 | 5 | -- | -- **measured** -- see "Measured so far" |
 | `TheCatintheTree.taf` | `the_cat_in_the_tree` | 8 | 5 | 4 | 1 | yes | **done** 2026-08-24 -- see "Measured so far" |
-| `Monsters_r2.taf` | `monsters` | 38 | 3 | 3 | 4 | -- | -- |
+| `Monsters_r2.taf` | `monsters` | 38 | 3 | 3 | 4 | -- | -- **measured** -- see "Measured so far" |
 | `The Angel the Devil and the Human.taf` | `angeldevilhuman` | 25 | 3 | 3 | 3 | -- | -- |
 | `Through time.taf` | `through_time` | 18 | 3 | 10 | 3 | -- | [Through_time_walkthrough](Through_time_walkthrough.md) |
-| `Vardock Bates.taf` | `vardock_bates` | 103 | 2 | 4 | 4 | yes | [Vardock_Bates_walkthrough](Vardock_Bates_walkthrough.md) |
+| `Vardock Bates.taf` | `vardock_bates` | 103 | 2 | 4 | 4 | yes | [Vardock_Bates_walkthrough](Vardock_Bates_walkthrough.md) **measured** -- see "Measured so far" |
 | `Professor.taf` | `professor` | 86 | 2 | 9 | 4 | -- | **done** -- the worked example |
-| `cyber2.taf` | `cyber2` | 29 | 2 | 8 | 1 | -- | [cyber2_walkthrough](cyber2_walkthrough.md) |
-| `ADRIFTMaze.taf` | `adrift_maze` | 26 | 2 | 5 | 5 | -- | [ADRIFT_Maze_walkthrough](ADRIFT_Maze_walkthrough.md) |
+| `cyber2.taf` | `cyber2` | 29 | 2 | 8 | 1 | -- | [cyber2_walkthrough](cyber2_walkthrough.md) **measured** -- see "Measured so far" |
+| `ADRIFTMaze.taf` | `adrift_maze` | 26 | 2 | 5 | 5 | -- | [ADRIFT_Maze_walkthrough](ADRIFT_Maze_walkthrough.md) **measured** -- see "Measured so far" |
 | `cyber.taf` | `cyber` | 20 | 2 | 3 | 1 | -- | [Cyber_walkthrough](Cyber_walkthrough.md) |
 | `DragonShrineR43.taf` | `dragonshrine` | 136 | 1 | 1 | 7 | yes | [The_Curse_of_DragonShrine_walkthrough](The_Curse_of_DragonShrine_walkthrough.md) |
-| `BlackSheepsGold.taf` | `black_sheeps_gold` | 99 | 1 | 11 | 1 | yes | -- |
+| `BlackSheepsGold.taf` | `black_sheeps_gold` | 99 | 1 | 11 | 1 | yes | -- **measured** -- see "Measured so far" |
 | `QuiATueDana.taf` | `qui_a_tue_dana` | 63 | 1 | 4 | 0 | yes | -- |
 | `plunder_gargoyle.taf` | `plunder_gargoyle` | 43 | 1 | 3 | 4 | -- | [Pirates_Plunder_walkthrough](Pirates_Plunder_walkthrough.md) |
 | `demonhunter.taf` | `demonhunter` | 40 | 1 | 2 | 2 | -- | [Apprentice_of_the_Demonhunter_walkthrough](Apprentice_of_the_Demonhunter_walkthrough.md) |
@@ -745,23 +768,23 @@ The four best targets, by walks x length:
 | `vetknow.taf` | `vetknow` | 228 | 0 | 15 | 38 | yes | [Veteran_Knowledge_walkthrough](Veteran_Knowledge_walkthrough.md) |
 | `TheCellar.taf` | `cellar` | 176 | 0 | 1 | 1 | yes | [TheCellar_walkthrough](TheCellar_walkthrough.md) |
 | `mysteryofcaves.taf` | `mysteryofcaves` | 146 | 0 | 6 | 1 | yes | [mysteryofcaves_walkthrough](mysteryofcaves_walkthrough.md) |
-| `Space Boy's First Adventure.taf` | `space_boy` | 145 | 0 | 1 | 1 | -- | [Space_Boy_walkthrough](Space_Boy_walkthrough.md) |
+| `Space Boy's First Adventure.taf` | `space_boy` | 145 | 0 | 1 | 1 | -- | [Space_Boy_walkthrough](Space_Boy_walkthrough.md) **measured** -- see "Measured so far" |
 | `vetknow2.taf` | `vetknow2` | 141 | 0 | 15 | 38 | yes | [Veteran_Knowledge_walkthrough](Veteran_Knowledge_walkthrough.md) |
 | `shardsofmemory.taf` | `shardsofmemory` | 122 | 0 | 6 | 5 | yes | [Shards_of_Memory_walkthrough](Shards_of_Memory_walkthrough.md) |
-| `man overboard.taf` | `man_overboard` | 99 | 0 | 5 | 0 | yes | [Man_Overboard_walkthrough](Man_Overboard_walkthrough.md) |
+| `man overboard.taf` | `man_overboard` | 99 | 0 | 5 | 0 | yes | [Man_Overboard_walkthrough](Man_Overboard_walkthrough.md) **measured** -- see "Measured so far" |
 | `relojero.taf` | `relojero` | 88 | 0 | 0 | 2 | -- | [La_hija_del_relojero_walkthrough](La_hija_del_relojero_walkthrough.md) |
 | `salutations.taf` | `salutations` | 88 | 0 | 3 | 2 | yes | [Salutations_walkthrough](Salutations_walkthrough.md) |
 | `CBN.taf` | `cbn` | 82 | 0 | 1 | 0 | yes | [The_Revenge_Of_Clueless_Bob_Newbie_walkthrough](The_Revenge_Of_Clueless_Bob_Newbie_walkthrough.md) |
 | `forum2.taf` | `forum2` | 82 | 0 | 1 | 0 | yes | [Forum_2_walkthrough](Forum_2_walkthrough.md) |
 | `asdfa.taf` | `asdfa` | 80 | 0 | 4 | 0 | yes | [ASDFA_walkthrough](ASDFA_walkthrough.md) |
 | `mortality.taf` | `mortality` | 78 | 0 | 4 | 5 | yes | [Mortality_walkthrough](Mortality_walkthrough.md) |
-| `princess1.taf` | `princess_in_the_tower` | 78 | 0 | 4 | 1 | -- | [Princess_In_The_Tower_walkthrough](Princess_In_The_Tower_walkthrough.md) |
+| `princess1.taf` | `princess_in_the_tower` | 78 | 0 | 4 | 1 | -- | [Princess_In_The_Tower_walkthrough](Princess_In_The_Tower_walkthrough.md) **measured** -- see "Measured so far" |
 | `Private Eye.taf` | `private_eye` | 74 | 0 | 0 | 0 | yes | [Private_Eye_walkthrough](Private_Eye_walkthrough.md) |
 | `AFDFR.taf` | `afdfr` | 73 | 0 | 32 | 17 | yes | [A_Fine_Day_For_Reaping_walkthrough](A_Fine_Day_For_Reaping_walkthrough.md) |
 | `chooseyourown.taf` | `chooseyourown` | 72 | 0 | 0 | 0 | yes | [chooseyourown_walkthrough](chooseyourown_walkthrough.md) |
-| `hauntedhouse.taf` | `hauntedhouse` | 72 | 0 | 4 | 1 | -- | [The_Haunted_House_of_Hideous_Horror_walkthrough](The_Haunted_House_of_Hideous_Horror_walkthrough.md) |
+| `hauntedhouse.taf` | `hauntedhouse` | 72 | 0 | 4 | 1 | -- | [The_Haunted_House_of_Hideous_Horror_walkthrough](The_Haunted_House_of_Hideous_Horror_walkthrough.md) **measured** -- see "Measured so far" |
 | `valley.taf` | `valley` | 72 | 0 | 6 | 0 | yes | [HappyValley_walkthrough](HappyValley_walkthrough.md) |
-| `yak_shaving.taf` | `yak_shaving` | 71 | 0 | 5 | 3 | yes | [Yak_Shaving_walkthrough](Yak_Shaving_walkthrough.md) |
+| `yak_shaving.taf` | `yak_shaving` | 71 | 0 | 5 | 3 | yes | [Yak_Shaving_walkthrough](Yak_Shaving_walkthrough.md) **measured** -- see "Measured so far" |
 | `unravel.taf` | `unraveling_god_lou` | 70 | 0 | 4 | 10 | yes | -- |
 | `unravel.taf` | `unraveling_god` | 70 | 0 | 4 | 10 | yes | -- |
 | `lobster.taf` | `lobster` | 65 | 0 | 1 | 4 | -- | -- |
@@ -773,7 +796,7 @@ The four best targets, by walks x length:
 | `exercise.taf` | `too_much_exercise` | 51 | 0 | 0 | 0 | -- | [Too_Much_Exercise_walkthrough](Too_Much_Exercise_walkthrough.md) |
 | `marika.taf` | `marika` | 50 | 0 | 0 | 1 | yes | -- |
 | `second chance.taf` | `second_chance` | 50 | 0 | 23 | 9 | yes | [Second_Chance_walkthrough](Second_Chance_walkthrough.md) |
-| `Beanstalk.taf` | `beanstalk` | 49 | 0 | 3 | 1 | -- | -- |
+| `Beanstalk.taf` | `beanstalk` | 49 | 0 | 3 | 1 | -- | -- **measured** -- see "Measured so far" |
 | `goblinhunt.taf` | `goblinhunt` | 48 | 0 | 2 | 0 | yes | [Goblin_Hunt_walkthrough](Goblin_Hunt_walkthrough.md) |
 | `shore.taf` | `shore` | 46 | 0 | 1 | 1 | -- | [The_Farthest_Shore_walkthrough](The_Farthest_Shore_walkthrough.md) |
 | `chicken.taf` | `chicken` | 45 | 0 | 2 | 0 | -- | [The_Evil_Chicken_of_Doom_walkthrough](The_Evil_Chicken_of_Doom_walkthrough.md) |
@@ -823,7 +846,7 @@ The four best targets, by walks x length:
 | `The Fly Human.taf` | `flyhuman` | 7 | 0 | 0 | 3 | -- | -- |
 | `hungry.taf` | `hungry` | 7 | 0 | 2 | 1 | -- | -- |
 | `zombiecow.taf` | `zombiecow` | 7 | 0 | 0 | 2 | yes | -- |
-| `asteroid_after.taf` | `asteroidafter` | 6 | 0 | 11 | 3 | yes | -- |
+| `asteroid_after.taf` | `asteroidafter` | 6 | 0 | 11 | 3 | yes | -- **measured** -- see "Measured so far" |
 | `door.taf` | `door` | 5 | 0 | 0 | 1 | -- | [Door_walkthrough](Door_walkthrough.md) |
 | `Existence.taf` | `existence` | 5 | 0 | 1 | 1 | yes | -- |
 | `Newton.taf` | `newton` | 5 | 0 | 0 | 1 | -- | -- |
@@ -837,21 +860,21 @@ The four best targets, by walks x length:
 | `Cut_the_Red_Wire.taf` | `redwire` | 1 | 0 | 1 | 0 | yes | [CutTheRedWire_walkthrough](CutTheRedWire_walkthrough.md) |
 | `The Vault.taf` | `vault` | 1 | 0 | 1 | 1 | -- | -- |
 
-### 3.90 — 54 games
+### 3.90 — 54 games (ALL MEASURED or DEFERRED as of 2026-09-05)
 
 | game | solution | cmds | walks | NPCs | events | waitkey | notes |
 |---|---|---:|---:|---:|---:|---|---|
-| `Merry_Murders.taf` | `merry_murders` | 181 | 8 | 8 | 2 | yes | [Merry_Murders_walkthrough](Merry_Murders_walkthrough.md) |
+| `Merry_Murders.taf` | `merry_murders` | 181 | 8 | 8 | 2 | yes | [Merry_Murders_walkthrough](Merry_Murders_walkthrough.md) **measured 2026-08-31** (dated section below) |
 | `Vampire.taf` | `vampire` | 205 | 7 | 11 | 11 | yes | [The_Vampire_With_A_Conscience_walkthrough](The_Vampire_With_A_Conscience_walkthrough.md) -- **measured 2026-08-31**, Runner walls at 70/100 (T61 spent-claim), see section below |
-| `gamma.taf` | `gamma` | 315 | 4 | 10 | 0 | -- | -- |
-| `S_Tar_Dus.taf` | `stardust` | 199 | 4 | 6 | 0 | -- | [S_Tar_Dus_T_walkthrough](S_Tar_Dus_T_walkthrough.md) |
-| `wingman1.taf` | `wingman1` | 33 | 3 | 3 | 0 | -- | -- |
-| `tcom.taf` | `tcom` | 13 | 3 | 1 | 0 | -- | [tcom_walkthrough](tcom_walkthrough.md) |
-| `windy2.taf` | `windy2` | 200 | 2 | 8 | 1 | -- | -- |
-| `Richard.taf` | `richard` | 189 | 2 | 5 | 13 | yes | [WhereIsRichard_walkthrough](WhereIsRichard_walkthrough.md) |
-| `cleft.taf` | `cleft` | 115 | 1 | 2 | 1 | -- | [The_Cleft_in_the_Rock_walkthrough](The_Cleft_in_the_Rock_walkthrough.md) |
+| `gamma.taf` | `gamma` | 315 | 4 | 10 | 0 | -- | -- **measured** (`Adrift_3_gamma.txt`, 185/185) |
+| `S_Tar_Dus.taf` | `stardust` | 199 | 4 | 6 | 0 | -- | [S_Tar_Dus_T_walkthrough](S_Tar_Dus_T_walkthrough.md) **measured** (`Adrift_38_stardust.txt`, all 129 walk lines) |
+| `wingman1.taf` | `wingman1` | 33 | 3 | 3 | 0 | -- | -- **measured** (`Adrift_3_wingman1.txt`, 32/32) |
+| `tcom.taf` | `tcom` | 13 | 3 | 1 | 0 | -- | [tcom_walkthrough](tcom_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); the trailing-span `#sleep`s captured its four-`<wait>` ending |
+| `windy2.taf` | `windy2` | 200 | 2 | 8 | 1 | -- | **measured 2026-09-05**, clean (tail only), 147/147; needs `POPUP_ANSWERS="Sam"` for its name InputBox |
+| `Richard.taf` | `richard` | 189 | 2 | 5 | 13 | yes | [WhereIsRichard_walkthrough](WhereIsRichard_walkthrough.md) -- **measured 2026-09-05**, clean (tail only), 70/70, 1000/1000 both sides |
+| `cleft.taf` | `cleft` | 115 | 1 | 2 | 1 | -- | [The_Cleft_in_the_Rock_walkthrough](The_Cleft_in_the_Rock_walkthrough.md) **measured**, re-measured 2026-09-05 |
 | `ECOD3.taf` | `ecod3` | 26 | 1 | 1 | 0 | -- | [ECOD3_walkthrough](ECOD3_walkthrough.md) -- **measured 2026-08-31**, clean (tail only) |
-| `BobBobsly.taf` | `bob_bobsly` | 25 | 1 | 2 | 0 | -- | [Bob_Bobsly_walkthrough](Bob_Bobsly_walkthrough.md) |
+| `BobBobsly.taf` | `bob_bobsly` | 25 | 1 | 2 | 0 | -- | [Bob_Bobsly_walkthrough](Bob_Bobsly_walkthrough.md) -- **measured 2026-09-05**, clean (tail only), 155/155 both sides |
 | `largo-winch.taf` | `largo_winch` | 323 | 0 | 42 | 22 | -- | [Largo_Winch_walkthrough](Largo_Winch_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) |
 | `mudergreatfalls.taf` | `murder_great_falls` | 255 | 0 | 0 | 0 | yes | [Murder_in_Great_Falls_walkthrough](Murder_in_Great_Falls_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) |
 | `report.taf` | `report` | 254 | 0 | 0 | 0 | -- | [Report_Espionage_walkthrough](Report_Espionage_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) |
@@ -868,33 +891,33 @@ The four best targets, by walks x length:
 | `as.taf` | `asylum` | 102 | 0 | 1 | 0 | yes | [Asylum_walkthrough](Asylum_walkthrough.md) -- **measured 2026-09-05**, clean (tail + one `<cls>` artifact); 27 real commands, not 102 |
 | `A_Morning_with_a_Headache.taf` | `morning_headache` | 88 | 0 | 3 | 8 | -- | [A_Morning_with_a_Headache_walkthrough](A_Morning_with_a_Headache_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) after porting the pre-4.0 reach rule; 53 real commands, not 88 |
 | `sleaze.taf` | `sleaze` | 86 | 0 | 0 | 0 | -- | [Sleaze_City_walkthrough](Sleaze_City_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); 43 real commands, not 86 |
-| `Wheel105.taf` | `wheels_must_turn` | 77 | 0 | 4 | 15 | yes | [The_Wheels_Must_Turn_walkthrough](The_Wheels_Must_Turn_walkthrough.md) |
-| `tq3.taf` | `tq3` | 76 | 0 | 2 | 4 | -- | [The_Quest_Moody_walkthrough](The_Quest_Moody_walkthrough.md) |
+| `Wheel105.taf` | `wheels_must_turn` | 77 | 0 | 4 | 15 | yes | [The_Wheels_Must_Turn_walkthrough](The_Wheels_Must_Turn_walkthrough.md) -- **measured 2026-09-05**, clean (`[Game ended]` tail plus three `<waitkey><cls>` butt-joins); exposed the pause/`#sleep` ordering bug |
+| `tq3.taf` | `tq3` | 76 | 0 | 2 | 4 | -- | [The_Quest_Moody_walkthrough](The_Quest_Moody_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) |
 | `mhpquest.taf` | `mhpquest` | 68 | 0 | 2 | 0 | -- | [MHP_Quest_walkthrough](MHP_Quest_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); refined the silent-task rule; 53 real commands, not 68 |
 | `everything.taf` | `everything` | 68 | 0 | 0 | 0 | yes | [Everything_Emanuelle_walkthrough](Everything_Emanuelle_walkthrough.md) -- **measured 2026-09-05**, one deliberate deviation (`read diary`, silent task); 38 real commands, not 68 |
-| `ECOD2.taf` | `ecod2` | 61 | 0 | 0 | 0 | yes | [ECOD2_walkthrough](ECOD2_walkthrough.md) |
+| `ECOD2.taf` | `ecod2` | 61 | 0 | 0 | 0 | yes | [ECOD2_walkthrough](ECOD2_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) |
 | `chicago.taf` | `chicago` | 60 | 0 | 3 | 0 | -- | [Chicago_walkthrough](Chicago_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) after porting the pre-4.0 done-refusal ordering; 42 real commands, not 60 |
-| `hangover.taf` | `the_hangover` | 56 | 0 | 16 | 0 | -- | -- |
-| `veteran.taf` | `veteran` | 47 | 0 | 3 | 0 | -- | [Veteran_Experience_walkthrough](Veteran_Experience_walkthrough.md) |
-| `lostsouls.taf` | `lost_souls` | 47 | 0 | 0 | 0 | -- | [Lost_Souls_walkthrough](Lost_Souls_walkthrough.md) |
-| `CRM.taf` | `crm` | 46 | 0 | 0 | 0 | -- | [That_Crazy_Radioactive_Monkey_walkthrough](That_Crazy_Radioactive_Monkey_walkthrough.md) |
-| `Villains_And_Kings.taf` | `villains_and_kings` | 44 | 0 | 0 | 0 | -- | [Villains_And_Kings_walkthrough](Villains_And_Kings_walkthrough.md) |
-| `DFU.taf` | `dfu` | 44 | 0 | 1 | 0 | -- | [Dance_Fever_USA_walkthrough](Dance_Fever_USA_walkthrough.md) |
-| `impulso.taf` | `impulso` | 43 | 0 | 0 | 0 | -- | [Impulso_walkthrough](Impulso_walkthrough.md) |
-| `Colony.taf` | `colony` | 40 | 0 | 3 | 3 | -- | [Colony_walkthrough](Colony_walkthrough.md) |
-| `LOST.TAF` | `lost` | 38 | 0 | 3 | 11 | yes | [Albert_is_Lost_walkthrough](Albert_is_Lost_walkthrough.md) |
-| `LOST.TAF` | `lost_down` | 38 | 0 | 3 | 11 | yes | -- |
-| `amonkeytoomany.taf` | `amonkeytoomany` | 34 | 0 | 1 | 0 | -- | [A_Monkey_Too_Many_walkthrough](A_Monkey_Too_Many_walkthrough.md) |
-| `Phoenix_Destiny.taf` | `phoenix_destiny` | 33 | 0 | 0 | 0 | -- | [Phoenix_Destiny_walkthrough](Phoenix_Destiny_walkthrough.md) |
-| `CAH.taf` | `cruel` | 30 | 0 | 0 | 0 | -- | [Cruel_and_Hilarious_Punishment_walkthrough](Cruel_and_Hilarious_Punishment_walkthrough.md) |
-| `forest.taf` | `forest_on_the_norm` | 27 | 0 | 4 | 0 | -- | [Forest_On_The_Norm_walkthrough](Forest_On_The_Norm_walkthrough.md) |
-| `Locked_door_with_water_trap.taf` | `locked_door` | 21 | 0 | 0 | 0 | yes | -- |
-| `Theannihilationofthink2.taf` | `think2` | 19 | 0 | 0 | 0 | -- | [Theannihilationofthink2_walkthrough](Theannihilationofthink2_walkthrough.md) |
-| `lifesimulation.taf` | `lifesimulation` | 19 | 0 | 0 | 0 | -- | [lifesimulation_walkthrough](lifesimulation_walkthrough.md) |
-| `Insane.taf` | `escape_from_insanity` | 16 | 0 | 0 | 0 | -- | [Escape_from_Insanity_walkthrough](Escape_from_Insanity_walkthrough.md) |
-| `Toxically_Earth.taf` | `toxically_earth` | 11 | 0 | 17 | 0 | -- | [Toxically_Earth_walkthrough](Toxically_Earth_walkthrough.md) |
-| `Dreams.taf` | `dreamland` | 10 | 0 | 0 | 1 | -- | [Dreamland_walkthrough](Dreamland_walkthrough.md) |
-| `Matt's House.taf` | `matts_house` | 8 | 0 | 5 | 0 | -- | [Matts_House_walkthrough](Matts_House_walkthrough.md) |
+| `hangover.taf` | `the_hangover` | 56 | 0 | 16 | 0 | -- | -- **measured 2026-08-30**; one known deliberate deviation (the filing cabinet's silent task) |
+| `veteran.taf` | `veteran` | 47 | 0 | 3 | 0 | -- | [Veteran_Experience_walkthrough](Veteran_Experience_walkthrough.md) -- **measured 2026-09-05**, clean (tail only), 47/47 turns identical |
+| `lostsouls.taf` | `lost_souls` | 47 | 0 | 0 | 0 | -- | [Lost_Souls_walkthrough](Lost_Souls_walkthrough.md) -- **measured 2026-09-05**, clean (tail plus the known `<waitkey><cls>` butt-join); exposed the missing trailing-span pauses |
+| `CRM.taf` | `crm` | 46 | 0 | 0 | 0 | -- | [That_Crazy_Radioactive_Monkey_walkthrough](That_Crazy_Radioactive_Monkey_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) |
+| `Villains_And_Kings.taf` | `villains_and_kings` | 44 | 0 | 0 | 0 | -- | [Villains_And_Kings_walkthrough](Villains_And_Kings_walkthrough.md) **deferred**: combat RNG |
+| `DFU.taf` | `dfu` | 44 | 0 | 1 | 0 | -- | [Dance_Fever_USA_walkthrough](Dance_Fever_USA_walkthrough.md) -- **measured 2026-09-05**, clean (tail only) |
+| `impulso.taf` | `impulso` | 43 | 0 | 0 | 0 | -- | [Impulso_walkthrough](Impulso_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); its CompleteText-less `atacar * chico` prints a room description, so the turn is not silent |
+| `Colony.taf` | `colony` | 40 | 0 | 3 | 3 | -- | [Colony_walkthrough](Colony_walkthrough.md) **deferred**: rollable event ("planetary holocaust") |
+| `LOST.TAF` | `lost` | 38 | 0 | 3 | 11 | yes | [Albert_is_Lost_walkthrough](Albert_is_Lost_walkthrough.md) -- **measured 2026-09-05**, clean (tail only), 38/38 |
+| `LOST.TAF` | `lost_down` | 38 | 0 | 3 | 11 | yes | **measured 2026-09-05**, clean (tail only), 38/38; the other ending of the same route |
+| `amonkeytoomany.taf` | `amonkeytoomany` | 34 | 0 | 1 | 0 | -- | [A_Monkey_Too_Many_walkthrough](A_Monkey_Too_Many_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); 12 real commands, not 34 |
+| `Phoenix_Destiny.taf` | `phoenix_destiny` | 33 | 0 | 0 | 0 | -- | [Phoenix_Destiny_walkthrough](Phoenix_Destiny_walkthrough.md) **measured 2026-09-05** |
+| `CAH.taf` | `cruel` | 30 | 0 | 0 | 0 | -- | [Cruel_and_Hilarious_Punishment_walkthrough](Cruel_and_Hilarious_Punishment_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); the 2026-08-29 `take it` probe is now a full 30-command replay |
+| `forest.taf` | `forest_on_the_norm` | 27 | 0 | 4 | 0 | -- | [Forest_On_The_Norm_walkthrough](Forest_On_The_Norm_walkthrough.md) -- **measured 2026-09-05**, identical on EVERY turn, tail included |
+| `Locked_door_with_water_trap.taf` | `locked_door` | 21 | 0 | 0 | 0 | yes | -- **deferred**: rollable event ("Water Rises!") |
+| `Theannihilationofthink2.taf` | `think2` | 19 | 0 | 0 | 0 | -- | [Theannihilationofthink2_walkthrough](Theannihilationofthink2_walkthrough.md) -- **deferred 2026-09-05**: six mid-game `<waitkey>` pauses, the CIBASS desync shape |
+| `lifesimulation.taf` | `lifesimulation` | 19 | 0 | 0 | 0 | -- | [lifesimulation_walkthrough](lifesimulation_walkthrough.md) -- **measured 2026-09-05**, one deliberate deviation: `turn off tv` is a silent **ReverseCommand** (see section below) |
+| `Insane.taf` | `escape_from_insanity` | 16 | 0 | 0 | 0 | -- | [Escape_from_Insanity_walkthrough](Escape_from_Insanity_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); its three leading blanks are empty commands, not startup pauses |
+| `Toxically_Earth.taf` | `toxically_earth` | 11 | 0 | 17 | 0 | -- | [Toxically_Earth_walkthrough](Toxically_Earth_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); third confirmation of the refined silent-task rule |
+| `Dreams.taf` | `dreamland` | 10 | 0 | 0 | 1 | -- | [Dreamland_walkthrough](Dreamland_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); its CompleteText-less win task ends the game, which prints |
+| `Matt's House.taf` | `matts_house` | 8 | 0 | 5 | 0 | -- | [Matts_House_walkthrough](Matts_House_walkthrough.md) -- **measured 2026-09-05**, **identical on every turn including the last** (the golden ends on `score`, not an EndGame); drive it as the space-free copy `matts.taf` |
 
 ### 3.80 — 10 games (ALL MEASURED as of 2026-09-05)
 
@@ -911,11 +934,11 @@ The four best targets, by walks x length:
 | `duck.taf` | `duck_mccloud` | 13 | 0 | 0 | 0 | -- | **done** 2026-09-05 -- clean, see "Measured so far" |
 | `microwaveman.taf` | `microwave_man` | 9 | 0 | 1 | 1 | -- | **done** 2026-09-05 -- clean, see "Measured so far" |
 
-### 3.70 — 2 games
+### 3.70 — 2 games (ALL MEASURED as of 2026-09-05)
 
 | game | solution | cmds | walks | NPCs | events | waitkey | notes |
 |---|---|---:|---:|---:|---:|---|---|
-| `arlo.taf` | `alices_restaurant` | 85 | 11 | 9 | 9 | -- | [ADRIFT_370](ADRIFT_370.md) |
+| `arlo.taf` | `alices_restaurant` | 85 | 11 | 9 | 9 | -- | [ADRIFT_370](ADRIFT_370.md) **measured** (`Adven_6_arlo.rtf`; the three differing turns are the 3.7 walk departure lines, fixed) |
 | `castle.taf` | `castle_quest` | 17 | 0 | 1 | 0 | -- | **done** 2026-09-05 -- clean in run370, see "Measured so far"; [ADRIFT_370](ADRIFT_370.md) |
 
 `arlo.taf` is the single best target in the pre-4.0 half: 11 walks in 85
@@ -5550,3 +5573,377 @@ tasks).  The cheapest screened-safe row left -- with nothing that can roll and
 nobody to walk, any divergence it produces is purely a parser/library one.  Its
 `take it` probe is already in "Measured so far", but the walkthrough has never
 been replayed end to end.
+
+## Five clean 3.90 rows in one sitting -- 2026-09-05, run390
+
+`CAH.taf`, `forest.taf`, `amonkeytoomany.taf`, `Toxically_Earth.taf` and
+`Insane.taf`, driven back to back after the chicago fix landed.  All five were
+screened first (`screen_wine_candidate.py`), all five have PRE=0, and all five
+came back clean:
+
+| game | commands | result |
+|---|---|---|
+| `CAH.taf` | 30 | tail only |
+| `forest.taf` | 27 | **identical on every turn**, tail included |
+| `amonkeytoomany.taf` | 12 | tail only, 25/25 |
+| `Toxically_Earth.taf` | 11 | tail only |
+| `Insane.taf` | 16 | tail only, 1000/1000 |
+
+Nothing needed an engine change.  Three things are worth keeping.
+
+### forest.taf has no ending keypress
+
+Its win text runs straight into the score summary and the Runner exits without
+`[Press any key to end]`, so the transcript matches the replay on the last turn
+too.  The "tail only" non-difference is a property of the game's ending, not a
+law of the Runner -- do not treat a differing last turn as automatically
+benign, and do not treat an identical one as suspicious.
+
+### Toxically_Earth is the third silent-task confirmation
+
+Seventeen NPCs and five `down` tasks with no `CompleteText`, each carrying a
+bare `ACT type=6`.  The EndGame text prints, the turn is not empty, and run390
+never reaches its DontUnderstand fallback -- exactly the mhpquest shape.  With
+Hangover and `everything.taf` on the other side (score-only and variable-only
+tasks, which cannot print), the refined rule now has three confirmations each
+way.
+
+### A leading blank line is not always a startup pause
+
+`Insane.taf`'s solution opens with three blank lines and
+`make_wine_cmdfile.py` reported `PRE=3`.  It is wrong: `SCR_MARK_WAITKEY=1`
+counts **zero** waitkeys in the whole game.  The blanks are ordinary empty
+commands, and the padded cell answers each with "Ha, that's a good one. You
+were joking, weren't you?".  Sending them as measure.sh PRE returns would have
+dismissed them before Start Transcript and silently dropped three turns from
+the comparison.
+
+Fixed at the source: the non-SKIP branch now strips at most `pauses[0]`
+leading blanks -- the startup waitkeys actually measured -- instead of every
+one it finds.  Re-checked against `cruel`, `forest_on_the_norm`,
+`amonkeytoomany`, `toxically_earth`, `morning_headache`, `gamma` and
+`richard`; only `escape_from_insanity` changes, from PRE=3 to PRE=0, and the
+generated feed now equals the hand-built one that was actually driven.
+
+### Deferred
+
+`Theannihilationofthink2.taf` screens as 16 commands and no events, but
+`SCR_MARK_WAITKEY=1` finds **six** mid-game pauses.  That is the CIBASS shape,
+where waitkey prompts desynchronise the script; it needs the blank-line feed
+treatment and a careful echo count, so it is not a cheap row and is left for
+later.
+
+Next candidate: `Villains_And_Kings.taf` (3.90; 43 real commands, 4 events none
+rollable, 8 NPCs, 2 silent tasks that the walkthrough never types).  It is the
+biggest screened-safe 3.90 row left, and its name-and-gender startup prompt is
+the same POPUP_ANSWERS shape already handled for `wingman1`, `gamma` and
+`windy2`.
+## Six more 3.90 rows, and two feed-generator bugs -- 2026-09-05, run390
+
+`tq3.taf`, `DFU.taf`, `CRM.taf`, `ECOD2.taf`, `lostsouls.taf` and
+`Wheel105.taf`, driven back to back.  All six are clean -- no engine change
+came out of any of them -- but the last two each found a bug in
+`make_wine_cmdfile.py`, and one of those first read as an engine divergence.
+
+| game | commands | PRE | result |
+|---|---|---|---|
+| `tq3.taf` | 51 | 0 | tail only, 60/2400 |
+| `DFU.taf` | 21 | 0 | tail only, 999999999/999999999 |
+| `CRM.taf` | 21 | 0 | tail only, 25/25 |
+| `ECOD2.taf` | 24 | 3 | tail only |
+| `lostsouls.taf` | 21 | 0 | tail + one `<waitkey><cls>` butt-join |
+| `Wheel105.taf` | 19 | 1 | `[Game ended]` tail + three butt-joins |
+
+### The trailing span's pauses were never in the feed
+
+`lostsouls`' first drive recorded `> open door` and then nothing: no output for
+the winning turn, and no `[Press any key to end]`.  Nothing was wrong with the
+game.  Its ending is
+`<centre>...darkness...</centre><waitkey><cls><wait8>I glanced up...<waitkey><cls>`
+-- three pauses after the last prompt -- and the feed had no lines left to
+answer them, so the Runner sat on the first one until the drive timed out.
+
+The generator only ever emitted a span's markers *before* the next command.
+The span after the **last** command has no next command, so its markers were
+silently dropped.  Fixed: the non-SKIP branch now appends `order[-1]` (the
+tail span) after the last line.  Note it must be `order[-1]` and not
+`order[prompt]` -- without SKIP the pauses consume feed lines, so the prompt
+counter and the line index are not the same index space; the tail is the last
+entry either way.
+
+### `#sleep` is a directive to the driver, not a command
+
+With the ending answered, `lostsouls` then read as a real divergence: Scarier
+answered "I don't understand what you mean!" and every later turn was off by
+one.  `compare_wine_transcript.py` was piping the feed straight into `scare`,
+`#sleep 9` included, so the comparison typed a driver directive at the game.
+`run_scarier()` now strips `#` lines.  Blank lines are deliberately kept --
+under `SCR_SKIP_WAITKEY=1` they are real empty commands.
+
+That still leaves one turn of skew on this row, and it is expected: the blank
+that answers a mid-game pause in the Runner *is* a turn for Scarier, so the
+single global `--offset` cannot hold across it.  `--start 20 --offset 1`
+shows the tail matching apart from the butt-join.
+
+### A `<waitkey>` can be printed before a `<wait>`
+
+`Wheel105`'s first drive lost six commands outright -- `feed[13]` through
+`feed[18]` never echoed.  The cause is an ordering assumption, not a timing
+one: the generator counted a span's pauses and its `<wait>` seconds
+separately, then emitted the sleeps first and the blank Returns after.  On
+this game's `z`, the `[WAITKEY]` is printed **before** 22 seconds of `<wait>`.
+So the Runner was parked on the keypress prompt for the whole 23-second sleep,
+answered it late, and the next six commands were typed into the real-time
+waits, where the Runner drops keystrokes.
+
+Fixed by recording markers in an ordered list, `("key", None)` /
+`("wait", seconds)`, in the order `SCR_MARK_WAITKEY` / `SCR_MARK_WAIT` printed
+them, and emitting a blank or a `#sleep` per entry in that order.  The
+re-drive echoed 19/19.
+
+Regression-checked the two generator changes against every feed measured so
+far: `forest_on_the_norm`, `amonkeytoomany`, `toxically_earth`, `crm`,
+`ecod2`, `dfu`, `tq3` and `chicago` regenerate byte-identical;
+`escape_from_insanity` and `mhpquest` gain leading blanks, which is the
+correct outcome in both cases (both are real empty commands, and mhpquest's
+old `PRE=1` was already known to be wrong).
+
+### `Wheel105.taf` does not say `[Press any key to end]`
+
+It ends with `[Game ended]` instead.  Together with `forest.taf`, which has no
+ending prompt at all, that is the second game to prove the "tail only"
+non-difference is a property of the ending, not a law of the Runner.
+
+Next candidate: `veteran.taf` (3.90; 47 commands, no rollable events, three
+NPCs, no silent tasks).  `Villains_And_Kings.taf` is **deferred**, superseding
+the "next candidate" line in the previous section: its `attack guy` is a real
+combat exchange, which is RNG, and it opens with a name-and-gender POPUP
+prompt -- neither cheap nor deterministic.
+
+## Four more 3.90 rows, and a silent task hiding in a ReverseCommand -- 2026-09-05, run390
+
+| game | feed | transcript | result |
+| --- | --- | --- | --- |
+| `veteran.taf` | `cmdfile_w_veteran.txt` (47) | `Adrift_9_veteran.txt` | 47/47, tail only |
+| `BobBobsly.taf` | `cmdfile_w_bob_bobsly.txt` (25) | `Adrift_10_bobbobsly.txt` | 25/25, tail only |
+| `tcom.taf` | `cmdfile_w_tcom.txt` (13 + 4 `#sleep`) | `Adrift_11_tcom.txt` | 13/13, tail only |
+| `lifesimulation.taf` | `cmdfile_w_lifesimulation2.txt` (15) | `Adrift_12_lifesim.txt` | 15/15 echoed, one divergence |
+
+Three of the four are clean on every echoed turn, with only the ending's
+`[Press any key to end]` between them.  `tcom.taf` is the first row to exercise
+the trailing-span emission added in the previous section: its ending is four
+real-time `<wait>`s long, and before the fix the transcript would have broken
+off at `open wooden door`.
+
+`lifesimulation.taf` needs `POPUP_ANSWERS="Hero|male"` -- it opens with two
+InputBox dialogs, so the two answers must NOT be in the command file (and the
+main window's geometry has to be re-read after they are dismissed).  Its
+golden also ends `quit` / `y`, which would close the Runner before the
+transcript is saved; the driven feed stops at `score`.
+
+### `turn off tv`: a silent task reached through its ReverseCommand
+
+The one divergence is at turn 6:
+
+    > turn off tv
+    run390   I don't understand what you mean!
+    scarier  You can't turn your tv.
+
+Five run390 probe drives could not find a rule in it.  `turn off tv now`,
+`turn off television`, `turn off your tv`, `turn xyz tv`, `turn off couch`,
+`turn off watch`, `push off tv` and `x off tv` all behave normally on both
+sides, and `chicago.taf`'s `turn off desk` -- the obvious "is it a general
+`off <object>` rule?" control -- is unaffected.  Only the exact literal
+`turn off tv` diverges.
+
+The reason is that it is not a *command* at all.  Task 10's Command is `turn
+on tv`; the task is **Reversible**, its ReverseCommand is the bare literal
+`turn off tv`, and its **ReverseMessage is empty**.  So the reverse run
+matches, un-does the task and prints nothing, which makes the whole turn
+silent -- and a pre-4.0 Runner answers a silent task with the game's
+DontUnderstand string instead of falling through to the library.  That is the
+already-documented silent-task rule and Scarier's deliberate deviation from
+it; this is simply the first time it has been reached through a reverse
+command rather than a forward one.  `SCR_TRACE_TASKS=1` shows it:
+
+    Task: task 10 finished, return true, depth 0
+    You press the button and your TV turns on. ...
+    Task: running task 10 backwards, depth 0
+    ...
+    You can't turn your tv.
+
+and the un-doing is real: a following `channel 1` answers `The TV isn't on!`
+on both sides.  No engine change, no re-bless -- the golden already passes.
+
+### The dump and the screener now show reverse commands
+
+The five wasted probe drives were the cost of a blind spot: `scdump.cpp`
+printed a task's ReverseMessage but never its Reversible flag or its
+ReverseCommand list, so a reversible task looked like an ordinary one-way
+task, and `screen_wine_candidate.py` counted a task as "silent" only when it
+had no CompleteText at all.  Task 10 has a perfectly good CompleteText.
+
+Both are fixed.  The dump now emits, for every reversible task:
+
+    REVERSIBLE rcmds=1
+    REVCMD[0]=[turn off tv]
+
+and the screener counts a reversible task with an empty ReverseMessage as
+silent, its ReverseCommands as typeable.  It also gained a **TYPED** note:
+a silent pattern the wired solution never types cannot diverge, and that is
+what separates a measurable row from a guaranteed one.  Checked against the
+three divergences already measured, it reproduces all three and stays quiet on
+the rows that measured clean:
+
+    lifesimulation.taf  silent=6  SILENT-TYPEABLE: ...; turn off tv; ...  TYPED: turn off tv
+    hangover.taf        silent=1  SILENT-TYPEABLE: open the filing cabinet; ...  TYPED: open the filing cabinet
+    everything.taf      silent=1  SILENT-TYPEABLE: read * diary *  TYPED: read * diary *
+    mhpquest.taf        silent=1  SILENT-TYPEABLE: feed *clover* to *crystal*
+    veteran.taf         silent=0
+
+mhpquest's silent task is the control: it exists, it is typeable, the
+walkthrough never types it, and the row measured clean.
+
+Next candidate: `LOST.TAF` (3.90; 38 commands, 11 events none rollable, three
+NPCs, three silent tasks none of them typed).  Then `Matt's House.taf` (8
+commands; must be driven under a space-free copy, `matts.taf`), `Richard.taf`
+(70 commands, 13 events none rollable) and `windy2.taf` (148 commands, one
+silent task the solution never types).  `impulso.taf` and `Dreams.taf` both
+**type** a silent pattern (`atacar * chico`, `pour * water * from * waterskin
+into * basin`), so both are guaranteed instances of the same deliberate
+deviation and are worth measuring only to confirm nothing ELSE differs.
+`Colony.taf` and `Locked_door_with_water_trap.taf` stay deferred on a rollable
+event, `Villains_And_Kings.taf` on combat RNG plus a POPUP prompt, and
+`Theannihilationofthink2.taf` on six mid-game waitkeys.
+
+## Seven more 3.90 rows, all clean, and what "silent" actually means -- 2026-09-05, run390
+
+| game | feed | transcript | result |
+| --- | --- | --- | --- |
+| `LOST.TAF` (`lost`) | `cmdfile_w_lost.txt` (38) | `Adrift_18_lost.txt` | 38/38, tail only |
+| `LOST.TAF` (`lost_down`) | `cmdfile_w_lost_down.txt` (38) | `Adrift_19_lost_down.txt` | 38/38, tail only |
+| `Matt's House.taf` | `cmdfile_w_matts_house.txt` (8) | `Adrift_20_matts.txt` | 8/8, **identical everywhere** |
+| `Richard.taf` | `cmdfile_w_richard.txt` (70) | `Adrift_21_richard.txt` | 70/70, tail only |
+| `windy2.taf` | `cmdfile_w_windy2_drive.txt` (147) | `Adrift_22_windy2.txt` | 147/147, tail only |
+| `impulso.taf` | `cmdfile_w_impulso.txt` (8) | `Adrift_23_impulso.txt` | 8/8, tail only |
+| `Dreams.taf` | `cmdfile_w_dreamland.txt` (9) | `Adrift_24_dreams.txt` | 9/9, tail only |
+
+Not one content difference in 358 echoed turns.  `windy2.taf` is the longest
+3.90 row measured -- 147 commands through 400 tasks, eight NPCs and 17
+variables -- and it needs `POPUP_ANSWERS="Sam"` for its opening name InputBox,
+the second such game after `lifesimulation.taf`.  `Matt's House.taf` joins
+`forest.taf` and `Wheel105.taf` as a row that is identical on the last turn
+too: its golden ends on `score`, so nothing ends the game and there is no
+`[Press any key to end]`.  It also has to be driven as the space-free copy
+`matts.taf` -- the Runner cannot open a .taf whose name contains spaces.
+
+`LOST.TAF` is driven twice because the two wired routes are the same 38
+commands with a different last one (`up` / `down`), and each ending is a
+different piece of authored text.  Eleven events and a ghost NPC that walks,
+talks and dissolves over five consecutive `z` turns, and every turn matches.
+
+### `impulso.taf` and `Dreams.taf`: the screener was wrong, twice
+
+Both were screened as **guaranteed** silent-task divergences -- each types a
+pattern belonging to a task with no CompleteText -- and both measured clean.
+The rule is not about CompleteText.  It is about whether the TURN printed
+anything, and a task with no CompleteText can still print:
+
+  * `impulso.taf` task 8 `atacar * chico` has `srd=5`: it shows a room
+    description, so the turn is full of output.
+  * `Dreams.taf` task 1 `pour * water * from * waterskin into * basin` has an
+    End game action, and the game's own win text prints.  That is exactly why
+    `Toxically_Earth.taf` measured clean too, which was already recorded and
+    should have been the warning.
+
+`screen_wine_candidate.py` now excludes both shapes, and with that it
+reproduces the measured reality on every game it has been checked against:
+
+    lifesimulation.taf  silent=6  TYPED: turn off tv           diverges
+    hangover.taf        silent=1  TYPED: open the filing cabinet  diverges
+    everything.taf      silent=1  TYPED: read * diary *        diverges
+    impulso.taf         silent=0                               clean
+    Dreams.taf          silent=0                               clean
+    mhpquest.taf        silent=0                               clean
+    Toxically_Earth.taf silent=0                               clean
+
+The flag is still a *candidate*, not a verdict -- a task can print from other
+actions too -- but it no longer cries wolf on the two shapes we have measured.
+
+Next candidate: `cleft.taf` (3.90; 91 commands, one event not rollable, two
+NPCs, two silent tasks whose commands are empty strings and therefore not
+typeable).  After that the 3.90 table is down to `hangover.taf` (whose one
+divergence is already known and recorded) and the deferred rows:
+`Villains_And_Kings.taf` (combat RNG plus a POPUP prompt),
+`Theannihilationofthink2.taf` (six mid-game waitkeys), and `Colony.taf` /
+`Locked_door_with_water_trap.taf` (a rollable event each).
+`Phoenix_Destiny.taf` still screens as EMPTY DUMP and needs looking at.
+Then the 4.00 table, 124 games.
+
+## The 3.90 table closed out, and the EMPTY DUMP that was the screener's own -- 2026-09-05, run390
+
+Two rows and one tool bug.
+
+**`cleft.taf` re-driven.**  It was measured back when the 3.9 event-move
+seen-byte split was found, and a lot of engine has landed since.  Re-driven
+against today's build with the same 91-command feed (`cmdfile_w_cleft.txt`,
+PRE=0, transcript `Adrift_25_cleft.txt`): 91/91 echoed, zero content
+differences, `[Press any key to end]` on the tail only, both sides 100/100.
+The row stands.
+
+**`Phoenix_Destiny.taf` measured, and it had been sitting behind a tool bug.**
+The screener called it EMPTY DUMP for a week, which reads as "does it load?"
+and had it filed with the unmeasurable.  It loads fine.  What did not work was
+`screen_wine_candidate.py`'s own dump feed: it forced `SCR_SKIP_WAITKEY=1` on
+every game so that a startup pause could not eat the single turn the dump
+needs.  That is the wrong default for a solution that is *not* SKIP-wired,
+because such a solution answers those pauses with blank lines of its own --
+and with the pauses skipped, every one of those blanks becomes an empty
+command.  Phoenix opens with a thirteen-pause prologue, so the twelve leading
+blanks walked it straight off the end of the prologue and the process exited
+before reaching any turn at all.  The screener now runs the opening the way
+the ROW runs it and only falls back to forcing the skip if that reaches no
+turn, and reads sixteen opening lines rather than eight.  Re-screened, the
+seven games whose silent-task counts are already known come back unchanged,
+and Phoenix comes back `version=390 cmds=20 events=27 rollable=0 npcs=17
+silent=7`, with none of the seven typeable.  (`Villains_And_Kings.taf`, the
+other EMPTY DUMP, now screens too -- 4 events, 8 NPCs -- but stays deferred
+for its combat RNG.)
+
+Driven: the Runner asks the name and the gender in InputBoxes **at load**, the
+way murdergreatfalls does and not the way Scarier's inline prompts suggest, so
+`POPUP_ANSWERS="Hero|male"` and the feed starts at the third line.  Thirteen
+PRE Returns threaded through 24 s of real-time `<wait>` need more than the
+1.5 s the PRE loop allowed, so `measure.sh` grew a `PRE_SLEEP` knob; at 2.5 s
+the drive still came up one pause short, which is harmless -- the retry loop's
+stray Return is spent before Start Transcript -- and the transcript opens
+cleanly on `> Human`.  18/18 echoed, **identical on every turn**, including
+the last: the walkthrough ends on `wealth` and the game never ends, so there
+is no `[Press any key to end]` to discount.  27 events and 17 NPCs stayed in
+step throughout.
+
+**The pre-4.0 tables are done.**  3.70 (2 games), 3.80 (10) and now 3.90 (54)
+carry a measured or deferred verdict on every row.  What is deferred is
+deferred for a reason that will not go away by trying again: `Colony.taf` and
+`Locked_door_with_water_trap.taf` each have a rollable event on the route,
+`Villains_And_Kings.taf` has combat RNG, and
+`Theannihilationofthink2.taf` has six mid-game waitkeys.  `hangover.taf`,
+`lifesimulation.taf` and `everything.taf` are measured *and* divergent, all
+three on the same deliberate deviation (a silent task claims the command and a
+pre-4.0 Runner answers with the game's DontUnderstand string).
+
+That leaves the 4.00 table.  Of its 124 rows, 19 now carry a verdict -- four
+already did, and fifteen more were in "Measured so far" all along without the
+candidate row ever being annotated.  105 rows have never been driven.  These
+are the easier half in one respect: the pre-4.0 silent-task rule does not
+apply at 4.0, so a SILENT flag from the screener is not a predicted
+divergence there.
+
+Next candidate: `ptbad.taf` (4.00; 1 command), and then the rest of the short
+end of the 4.00 table -- `Phoneb.taf`(2), `rift.taf`(3), `Newton.taf`(4),
+`Way Out.taf`(5, needs a space-free copy), `Undefined1.taf`(5),
+`agent_4F[1].A.taf`(5), `door.taf`(5), `hungry.taf`(7), `smote.taf`(9),
+`The_Shuffling_Room.taf`(10), `TheAmulet.taf`(12), `herrdoktor.taf`(15),
+`Sandy.taf`(15), `shreddem.taf`(15), `outline.taf`(16), `QuestI.taf`(16),
+`The_Stowaway.taf`(16), `longbarrow.taf`(19).  Defer `The Fly Human.taf` and
+`The Foggy Banana Adventure.taf`, which have a rollable event each.

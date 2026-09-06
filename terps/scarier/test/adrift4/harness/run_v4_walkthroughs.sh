@@ -126,6 +126,11 @@ snakes_and_ladders_solution.txt|sandl.taf|made it to the end of the game|SCR_SEE
 # `take it`, `open it` echo "(a bag)" both times -- 3.9 keeps the authored
 # article after a take, where 4.0 would say "(the bag)".  Golden re-blessed
 # with the two bracket lines.
+# Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
+# (Adrift_9_veteran.txt, feed cmdfile_w_veteran.txt, 47 commands): all 47 turns
+# echoed and IDENTICAL, the only difference being the ending's
+# "[Press any key to end]".  No events at all and no silent tasks; both sides
+# finish 0/0 at 100%.  See notes/WINE-TRANSCRIPTS-TODO.md.
 veteran_solution.txt|veteran.taf|fulfilling your destiny
 # Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
 # tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
@@ -147,6 +152,11 @@ adrift_maze_solution.txt|ADRIFTMaze.taf|You WIN!
 # Measured 2026-08-29 in run390 under Wine (CAH.taf is 3.90, Adrift_1_cruelprobe.txt):
 # `take it` answers "You can't take the jacket." -- the 3.9 pronoun resolves to the
 # last referenced object, as ported.
+# Full run390 replay 2026-09-05, Adrift_9_cah.txt (30 commands, PRE=0):
+# 30/30 echoed, 29 of the 30 turns identical, the winning `cut cord`
+# differing only by the Runner's `[Press any key to end]`.  0 events, 0
+# NPCs, 0 silent tasks -- so this row is purely a parser/library check,
+# and it passes clean.  Both sides score 0 of a maximum of 0 at 100%.
 cruel_solution.txt|CAH.taf|destroyed our reality
 # Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
 # tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
@@ -558,8 +568,20 @@ space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCIT
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
 sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 135 out of the maximum 145!
+# Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
+# (Adrift_11_tcom.txt, feed cmdfile_w_tcom.txt, 13 commands): 13/13 echoed and
+# identical, tail only.  First row driven with the feed generator's new
+# trailing-span emission -- the ending is four real-time <wait>s long, and
+# without the #sleeps after the last command the transcript broke off at
+# "open wooden door".  See notes/WINE-TRANSCRIPTS-TODO.md.
 tcom_solution.txt|tcom.taf|the file entitled "tcom2"
 think2_solution.txt|Theannihilationofthink2.taf|Think.com has been restored
+# Full run390 replay 2026-09-05, Adrift_9_toxically.txt (11 commands, PRE=0):
+# 11/11 echoed, 10 of the 11 turns identical, tail only.  Seventeen NPCs
+# and none of them speaks on the route.  Also a third confirmation of the
+# refined silent-task rule: the five `down` tasks have no CompleteText but
+# carry a bare ACT type=6, so the EndGame text prints and run390 never
+# reaches its DontUnderstand fallback.
 toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICALLY EARTH
 # Measured live in run400 under Wine (2026-08-24).  Two findings:
 #
@@ -751,9 +773,34 @@ les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 75 sur un maximum 
 # `tirar de la palanca` -> `pull de la palanca` (Adrift_1_vardock_bates.txt); this row
 # follows by the same rule, unmeasured:
 # `turn off tv` -> "You can't turn your tv." (was "... turn that.").
+# Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
+# (Adrift_12_lifesim.txt, feed cmdfile_w_lifesimulation2.txt, 15 commands,
+# POPUP_ANSWERS="Hero|male" for the two opening InputBoxes): 15/15 echoed with
+# ONE divergence, and it is the known deliberate deviation.  "turn off tv" is
+# not a command of its own: it is the ReverseCommand of task 10 "turn on tv",
+# whose ReverseMessage is EMPTY, so the reverse run prints nothing and the
+# whole turn is silent -- run390 then answers with the game's DontUnderstand
+# string ("I don't understand what you mean!") where we print the library's
+# "You can't turn your tv."  Same rule as the Hangover filing cabinet, reached
+# through a reverse command for the first time.  Everything else matches.
+# See notes/WINE-TRANSCRIPTS-TODO.md.
 lifesimulation_solution.txt|lifesimulation.taf|Your score is 0 out of a maximum of 0.
+# Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
+# (Adrift_20_matts.txt, feed cmdfile_w_matts_house.txt, 8 commands): 8/8
+# echoed and IDENTICAL ON EVERY TURN, the last included -- the walkthrough
+# ends on `score`, so nothing ends the game and the Runner never prints
+# "[Press any key to end]".  The Runner cannot open a .taf whose name contains
+# spaces, so it is driven as the space-free copy matts.taf.
+# See notes/WINE-TRANSCRIPTS-TODO.md.
 matts_house_solution.txt|Matt's House.taf|Your score is 5 out of a maximum of 5.
 mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|You scored 90 out of the maximum 100!
+# Measured 2026-09-05 in run390 under Wine: Adrift_18_phoenix.txt, feed
+# cmdfile_w_phoenix_drive.txt (18 commands), POPUP_ANSWERS="Hero|male" for
+# the name and gender InputBoxes -- the Runner asks both AT LOAD, so they
+# are not in the feed -- and PRE=13 at PRE_SLEEP=2.5 for the prologue.
+# 18/18 echoed, IDENTICAL ON EVERY TURN including the last: the walkthrough
+# ends on `wealth` and the game never ends, so there is no keypress tail to
+# discount.  27 events (none rollable) and 17 NPCs stayed in step.
 phoenix_destiny_solution.txt|Phoenix_Destiny.taf|Gold: 100
 questi_solution.txt|QuestI.taf|Your score is 10 out of a maximum of 10.
 # 2026-08-29: the silent End-Game task on `ne` no longer swallows the move;
@@ -914,6 +961,11 @@ ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caug
 ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SEED=10 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
+# Measured in run390 under Wine, twice.  The first pair of drives found the
+# 3.9 event-move seen-byte split (three divergent turns, fixed); re-driven
+# 2026-09-05 against the current engine, Adrift_25_cleft.txt, feed
+# cmdfile_w_cleft.txt (91 commands, PRE=0): 91/91 echoed, zero content
+# differences, [Press any key to end] on the tail only, both sides 100/100.
 cleft_solution.txt|cleft.taf|You scored 100 out of the maximum 100!
 # Measured 2026-08-29 in run400 under Wine: 36/36 commands identical (Adrift_1_Tear.txt).
 Tear_solution.txt|Tear.taf|Suddenly the world seems a brighter place, and you feel there is a good
@@ -923,6 +975,9 @@ Tear_solution.txt|Tear.taf|Suddenly the world seems a brighter place, and you fe
 # `give water to unicorn` (+15).  60 is therefore the entire scorable total
 # and this route takes all of it -- surveyed 2026-09-05, the row is complete
 # despite the "60 out of 2400" the summary prints.
+# Full run390 replay 2026-09-05, Adrift_9_tq3.txt (51 commands, PRE=0):
+# 51/51 echoed, tail only.  Four events, none of them rollable, and two
+# NPCs; 60/2400 both sides.
 tq3_solution.txt|tq3.taf|Please forward your comments to chris@jons.org.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
@@ -1058,15 +1113,25 @@ endgame_solution.txt|endgame.taf|Really really.
 # superseded except for the two engine bugs it found.
 hauntedhouse_solution.txt|hauntedhouse.taf|you congraulate yourself on a job well done.
 microbe_willie_solution.txt|microbe_willie.taf|pestilence (basically, more of your kind) throughout the world.
+# Full run390 replay 2026-09-05, Adrift_9_amonkey.txt (12 commands, PRE=0):
+# 12/12 echoed, 11 of the 12 turns identical, `unlock door with key`
+# differing only by `[Press any key to end]`.  25/25 both sides.
 amonkeytoomany_solution.txt|amonkeytoomany.taf|Hooray! You've made it through the game!
 # 2nd One-Hour Game Competition
+# Full run390 replay 2026-09-05, Adrift_9_dfu.txt (21 commands, PRE=0):
+# 21/21 echoed, tail only.  999999999/999999999 both sides.
 dfu_solution.txt|DFU.taf|Thank you, and good night.
 percy_solution.txt|Percy.taf|prince among vikings
 forum_solution.txt|forum.taf|You Won!|SCR_SKIP_WAITKEY=1
 # 3rd One-Hour Game Competition
 cbn_solution.txt|CBN.taf|you excelled yourself|SCR_SKIP_WAITKEY=1
 cbn2_solution.txt|cbn2.taf|the archives room goes up in flames|SCR_SKIP_WAITKEY=1
+# Full run390 replay 2026-09-05, Adrift_9_crm.txt (21 commands + 2 blank
+# Returns for the mid-game waitkeys, PRE=0): 21/21 echoed, tail only.
+# 25/25 both sides.
 crm_solution.txt|CRM.taf|You take a long bow as the curtains close for the show, and the dead body
+# Full run390 replay 2026-09-05, Adrift_9_ecod2.txt (24 commands, PRE=3):
+# 24/24 echoed, tail only.
 ecod2_solution.txt|ECOD2.taf|has been captured|SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29: run400 replay (name prompt via POPUP_ANSWERS), all 14
 # commands echoed, 12 of 14 identical: turn 0 is the echoed name, turn 13 the
@@ -1180,7 +1245,17 @@ to_hell_in_a_hamper_solution.txt|Hamper.taf|reached the incredible altitude of 3
 # anything but "There is no phantom here", and `talk to ghost` only parses in
 # the Rocky outcropping (task 28, where=room 17) -- so it is five waits, two
 # follows, then `x ghost` and exactly four talks before the ghost dissolves.
+# Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
+# (Adrift_18_lost.txt, feed cmdfile_w_lost.txt, 38 commands, PRE=1): 38/38
+# echoed and identical, tail only.  Eleven events, a ghost NPC that walks,
+# talks and dissolves over five consecutive `z` turns, and every turn matches.
+# See notes/WINE-TRANSCRIPTS-TODO.md.
 lost_solution.txt|LOST.TAF|place your foot on the path leading up the crumbling cliff|SCR_SKIP_WAITKEY=1
+# Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
+# (Adrift_19_lost_down.txt, feed cmdfile_w_lost_down.txt, 38 commands, PRE=1):
+# 38/38 echoed and identical, tail only.  Same route as the row above with a
+# different last command -- `down` instead of `up` -- and so the game's other
+# ending.  See notes/WINE-TRANSCRIPTS-TODO.md.
 lost_down_solution.txt|LOST.TAF|has shown you a doorway back to that brighter world.|SCR_SKIP_WAITKEY=1
 # Marika the Offering is a one-room siege: the walkthru is prose ("there are
 # five ways for The Count to get into the room") and names no commands, so the
@@ -3091,16 +3166,30 @@ i_solution.txt|i.taf|I am dead.
 # `fill waterskin with water` then `pour ... into basin` is the whole game;
 # everything else is scenery, and EVENT 0 kills you on turn 35.  The leading
 # blank line answers the intro's "Click any button".
+# Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
+# (Adrift_24_dreams.txt, feed cmdfile_w_dreamland.txt, 9 commands, PRE=1): 9/9
+# echoed and identical, tail only.  Screened as a guaranteed silent-task
+# divergence and was not one: the win task has no CompleteText but an End game
+# action, so the game's own win text prints -- the same reason
+# Toxically_Earth.taf measured clean.  See notes/WINE-TRANSCRIPTS-TODO.md.
 dreamland_solution.txt|Dreams.taf|You have saved the Dreamworld
 # Forest On The Norm (Tobias Schmitt, RON 2002) -- a 16-room corridor whose
 # every door is gated on one task in the room before it, and no score at all
 # (`My score is 0 out of a maximum of 0`).  TASK 15 `show end` prints the
 # closing credits but has no EndGame action, so the marker is that text.
+# Full run390 replay 2026-09-05, Adrift_9_forest.txt (27 commands, PRE=0):
+# 27/27 echoed and IDENTICAL on every turn, tail included -- the game's
+# ending does not stop for a keypress.  Four NPCs, no events.
 forest_on_the_norm_solution.txt|forest.taf|Thank you for playing my Aliengame
 # The Adventures of Bob Bobsly -- 155/155, every one of the ten scoring tasks.
 # `take gum` in The Bar is the one non-obvious step: `chew gum` is a
 # where=anywhere task that just answers "You don't have the right equipment"
 # until you are holding the wad, and the coin it yields is the only money.
+# Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
+# (Adrift_10_bobbobsly.txt, feed cmdfile_w_bob_bobsly.txt, 25 commands): 25/25
+# echoed and identical, tail only -- including the "yes" that answers the
+# game's own question and the "beam me up scotty" easter egg.  Both sides win
+# 155/155.  See notes/WINE-TRANSCRIPTS-TODO.md.
 bob_bobsly_solution.txt|BobBobsly.taf|You scored 155 out of the maximum 155!
 # Druggy Lane -- a Dope Wars clone: one room, 23 variables, 30 days.  Prices
 # are re-randomised by `next day`, so the route is a seed-specific trading
@@ -3114,12 +3203,28 @@ druggy_lane_solution.txt|druggy_lane.taf|You have managed to deal your way to fr
 # `use rock on button` is typed twice on purpose: TASK 11 claims it first and
 # pops the button off the wall, and only once TASK 11 is done (rep=0) does
 # TASK 12 get the same pattern and cut the knife out of it.
+# Full run390 replay 2026-09-05, Adrift_9_insane.txt (16 lines, PRE=0):
+# 16/16 echoed, 15 of the 16 turns identical, tail only.  1000/1000 both
+# sides.  The three blank lines the solution opens with are ordinary EMPTY
+# COMMANDS, not startup pauses -- the padded cell answers each with "Ha,
+# that's a good one." -- so they belong in the feed, not in measure.sh's
+# PRE argument; make_wine_cmdfile.py now caps PRE at the waitkeys actually
+# measured before the first prompt.
 escape_from_insanity_solution.txt|Insane.taf|Congratulations psychopath, you're now a pyro.
 # Lost Souls: the trunk in the Attic is guarded by two same-pattern tasks --
 # TASK 16 (unrestricted, repeatable, "it's locked") shadows TASK 17 (needs the
 # key) for every `open ... trunk` phrasing.  Only TASK 17's extra alternatives
 # `unlock trunk` / `use key on trunk` reach it, and the scrap of paper it
 # yields is what unlocks `d` in the Kitchen.  See notes/Lost_Souls_walkthrough.md.
+# Full run390 replay 2026-09-05, Adrift_10_lostsouls.txt (21 commands, PRE=0):
+# 21/21 echoed; the only differences are the `[Press any key to end]` tail
+# and the known <waitkey><cls> butt-join -- the win text is
+# `<centre>...darkness...</centre><waitkey><cls><wait8>I glanced up`, and
+# the Runner's transcript joins the two with nothing at all where we break
+# the paragraph.  The FIRST drive stopped dead at `> open door`: the ending
+# is three <waitkey><cls> beats long and nothing was left in the feed to
+# answer them, so the Runner sat on the first pause.  make_wine_cmdfile.py
+# now emits the trailing span's pauses too.
 lost_souls_solution.txt|lostsouls.taf|You don't want to go down there.
 # Chicago: 75, the sum of every ACT type=4 (the status line's "maximum" is 0,
 # the author never set one).  `confront daisy` is the only winning end; the
@@ -3172,6 +3277,12 @@ textident_evil_solution.txt|Textident_Evil.taf|Congratulations! You've successfu
 # the runner's untranslated "You can't do that here!".  Every command below
 # is the ASCII-only alternative of an accented pattern, so the solution file
 # stays 7-bit even though the .taf is CP1252.
+# Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
+# (Adrift_23_impulso.txt, feed cmdfile_w_impulso.txt, 8 commands): 8/8 echoed
+# and identical, tail only.  Screened as a guaranteed silent-task divergence
+# and was not one: task 8 `atacar * chico` has no CompleteText but srd=5, so
+# the turn prints a room description and the pre-4.0 silent-task rule never
+# applies.  See notes/WINE-TRANSCRIPTS-TODO.md.
 impulso_solution.txt|impulso.taf|Solo una cosa. Me di cuenta hace un cuarto de hora
 # Montahue Scott and the Mobius Belt: 3/3 in one room.  Two order traps in
 # eighteen tasks -- T3/T9/T10 all require task 8 NOT done, so Chelsea and Bo
@@ -3392,6 +3503,14 @@ silk_noil_solution.txt|SILKNOIL.TAF|The Silk King sprays his crotch liberally wi
 # it to two spaces (as it does the score line, the percentage line and the
 # press-any-key line).  A game can ALR every stock Runner message out of
 # existence, so a win marker must come from the game's own text.
+# Full run390 replay 2026-09-05, Adrift_9_wheel105.txt (19 commands, PRE=1):
+# 19/19 echoed; the only differences are the ending's `[Game ended]` and
+# three <waitkey><cls> butt-joins.  Fifteen events, none rollable.  The
+# FIRST drive lost six commands: `z` prints its <waitkey> BEFORE its 22
+# seconds of <wait>, and make_wine_cmdfile.py was emitting the #sleep first,
+# so the Runner sat on the pause through the sleep and then took the next
+# six commands during the waits.  The generator now interleaves pauses and
+# sleeps in the order the markers were printed.
 wheels_must_turn_solution.txt|Wheel105.taf|That is it, Twenty-Three.|SCR_SKIP_WAITKEY=1
 # Asylum: no score, no events, and a strictly linear gate chain -- screwdriver
 # -> unplug the TV (frees the office door) -> break Dr. Walsh's chair (frees
@@ -3504,6 +3623,10 @@ hhorror_solution.txt|hhorror.taf|It has been a long and frightful night|SCR_SKIP
 # pail and the pick.
 # Re-blessed 2026-08-25, fourteen lines: the empty room description recorded on
 # the yeh_solution.txt row above.  These two are the corpus's only exposure.
+# Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
+# (Adrift_21_richard.txt, feed cmdfile_w_richard.txt, 70 commands): 70/70
+# echoed and identical, tail only.  Thirteen events and five NPCs; both sides
+# win 1000/1000.  See notes/WINE-TRANSCRIPTS-TODO.md.
 richard_solution.txt|Richard.taf|You scored 1000 out of the maximum 1000!|SCR_SKIP_WAITKEY=1
 # Camp Windy Lake : Part 2 is AIF (Christopher Cole again, the author of
 # diarystrip.taf), so like Diary of a Stripper and Archie's Birthday its
@@ -3527,6 +3650,12 @@ richard_solution.txt|Richard.taf|You scored 1000 out of the maximum 1000!|SCR_SK
 # `open door` cannot reach the score and the solution spells both out.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
+# Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
+# (Adrift_22_windy2.txt, feed cmdfile_w_windy2_drive.txt, 147 commands,
+# POPUP_ANSWERS="Sam" for the opening name InputBox): 147/147 echoed and
+# identical, tail only.  The longest 3.90 row measured -- 400 tasks, eight
+# NPCs, 17 variables -- and the second game driven through a popup prompt.
+# See notes/WINE-TRANSCRIPTS-TODO.md.
 windy2_solution.txt|windy2.taf|You spin and see Liz running out of the woods towards you.
 # Salutations (Lumin, Ectocomp 2008) is the smallest 4.00 file in the corpus
 # and a one-room speed-IF: 17 tasks, 2 events, no score at all, so the marker

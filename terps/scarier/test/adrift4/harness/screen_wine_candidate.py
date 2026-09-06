@@ -15,13 +15,31 @@ SCR_DUMP_TASKS dump rather than by eye:
             texts can reach the route is the one thing that makes a row
             unmeasurable.
   npcs      characters, which is the other source of per-turn output
-  silent    tasks with NO CompleteText.  Pre-4.0 Runners let such a task
+  silent    tasks that print NOTHING when they run: no CompleteText, no
+            ShowRoomDesc, and no End game action.  A task that shows a room
+            description prints (impulso.taf's `atacar * chico`, srd=5), and
+            so does one that ends the game -- the game's own win or lose text
+            (Dreams.taf's `pour * water * ... into * basin`, and
+            Toxically_Earth before it).  Both measured CLEAN.  Pre-4.0 Runners let such a task
             claim the command and then print the game's DontUnderstand
             string instead of falling through to the library; Scarier falls
             through.  A silent task whose pattern the walkthrough actually
             TYPES is a guaranteed (deliberate) divergence -- see the Hangover
             filing cabinet and everything.taf's `read diary`.  Patterns
             beginning with `!` or `#` are task names, not typeable commands.
+            A REVERSIBLE task counts twice: its ReverseCommand patterns are
+            typeable as well, and when its ReverseMessage is empty the reverse
+            run is the silent one even though the forward run has a
+            CompleteText.  lifesimulation's task 10 `turn on tv` reverses on
+            the literal `turn off tv` and says nothing; that cost five probe
+            drives to find because the dump showed neither the flag nor the
+            reverse commands (2026-09-05).
+
+The TYPED note is the one that matters: a silent pattern the solution never
+types cannot diverge.  The converse is not a verdict, only a candidate: what
+the rule turns on is whether the TURN printed anything, and a task can print
+from its actions as well as from its CompleteText.  Wildcards are matched loosely (`*` is any run of
+words), so `* channel 1 *` counts as typed by `channel 1`.
 
 Usage:
     python3 screen_wine_candidate.py <game.taf> [<game.taf> ...]
@@ -58,29 +76,68 @@ def solution(row):
 
 
 def dump(taf, row):
-    env = dict(os.environ)
-    for assignment in row[3:]:
-        name, _, value = assignment.partition("=")
-        env[name] = value
-    # A startup <waitkey> would eat the single turn the dump needs to be
-    # emitted at all, and the dump would come back empty -- which once read
-    # as "0 events, 0 NPCs" for two games that have plenty (2026-09-05).
-    env["SCR_SKIP_WAITKEY"] = "1"
-    env["SCR_DUMP_TASKS"] = "1"
     # The dump is emitted at the end of the first TURN, so the feed has to
     # reach one.  A bare "look" does not for every game: Villains_And_Kings
     # asks for a name and a gender first and swallows it, and the dump comes
     # back empty (2026-09-05).  Replaying the row's own opening lines gets
     # past any such prompt, whatever shape it takes.
     opening = [l.rstrip("\n") for l in open(solution(row), encoding="latin-1")
-               if not l.startswith("#")][:8]
-    feed = "\n".join(opening + ["look"]) + "\n"
-    done = subprocess.run([os.path.join(HERE, "scare"),
-                           os.path.join(ROOT, "games", taf)],
-                          input=feed.encode("latin-1"),
-                          stdout=subprocess.DEVNULL,
-                          stderr=subprocess.PIPE, env=env)
-    return done.stderr.decode("latin-1").split("\n")
+               if not l.startswith("#")][:16]
+    feed = ("\n".join(opening + ["look"]) + "\n").encode("latin-1")
+
+    def attempt(skip):
+        env = dict(os.environ)
+        for assignment in row[3:]:
+            name, _, value = assignment.partition("=")
+            env[name] = value
+        if skip:
+            env["SCR_SKIP_WAITKEY"] = "1"
+        env["SCR_DUMP_TASKS"] = "1"
+        done = subprocess.run([os.path.join(HERE, "scare"),
+                               os.path.join(ROOT, "games", taf)],
+                              input=feed, stdout=subprocess.DEVNULL,
+                              stderr=subprocess.PIPE, env=env)
+        return done.stderr.decode("latin-1").split("\n")
+
+    # Run the opening the way the ROW runs it first.  Forcing
+    # SCR_SKIP_WAITKEY on every game looks like the safe choice -- a startup
+    # <waitkey> otherwise eats the single turn the dump needs -- but it is not:
+    # a solution that is not SKIP-wired answers those pauses with blank lines
+    # of its own, and skipping the pauses turns each of those blanks into an
+    # empty command.  Phoenix_Destiny.taf opens with twelve pauses, and with
+    # them skipped the twelve blanks walk it straight off the end of its
+    # prologue and the process exits before any turn at all -- which is why it
+    # read as EMPTY DUMP for a week (2026-09-05).  Only if the row's own way
+    # reaches no turn is the skip worth trying.
+    lines = attempt("SCR_SKIP_WAITKEY" in " ".join(row[3:]))
+    if not any(l.startswith("GAME ") for l in lines):
+        lines = attempt(True)
+    return lines
+
+
+def types_pattern(row, pattern):
+    """True if the wired solution types a command this pattern would match.
+
+    Cheap stand-in for the real matcher: `*` and `%text%`/`%object%` stand for
+    anything at all (including nothing -- everything.taf's `read * diary *` is
+    typed as a bare `read diary`), everything else has to appear literally.
+    It only has to be good enough to say "look at this one before driving it".
+    """
+    rx, previous = r"^\s*", None
+    for token in pattern.split():
+        if token == "*" or (token.startswith("%") and token.endswith("%")):
+            rx, previous = rx + ".*", "wild"
+            continue
+        if previous == "literal":
+            rx += r"\s+"
+        rx, previous = rx + re.escape(token), "literal"
+    matcher = re.compile(rx + r"\s*$", re.I)
+    for line in open(solution(row), encoding="latin-1"):
+        if line.startswith("#"):
+            continue
+        if matcher.match(line.rstrip("\n")):
+            return True
+    return False
 
 
 def screen(taf, row):
@@ -106,20 +163,44 @@ def screen(taf, row):
         while j < len(lines) and lines[j].startswith("    "):
             body.append(lines[j])
             j += 1
-        if any(b.startswith("    COMPLETE=") for b in body):
-            continue
-        patterns = [line.split("cmd=")[-1].strip("[]")]
-        patterns += [b.split("=", 1)[1].strip()[1:-1]
-                     for b in body if b.strip().startswith("ALTCMD")]
-        silent.append([p for p in patterns if p[:1] not in ("!", "#")])
+        # A task that shows a room description prints even with no
+        # CompleteText, so its turn is not silent.  impulso.taf's task 8
+        # `atacar * chico` has no CompleteText and srd=5, and the row measured
+        # CLEAN against run390 -- without this the screener called it a
+        # guaranteed divergence (2026-09-05).
+        shows_room = " srd=0 " not in line
+        # An End game action (ACT type=6) prints the game's own win or lose
+        # text, so that turn is not silent either -- Dreams.taf's task 1
+        # `pour * water * from * waterskin into * basin` has no CompleteText,
+        # ends the game, and measured CLEAN, exactly like Toxically_Earth
+        # (2026-09-05).
+        ends_game = any(b.startswith("    ACT type=6 ") for b in body)
+        # forward half: no CompleteText at all
+        if not shows_room and not ends_game \
+                and not any(b.startswith("    COMPLETE=") for b in body):
+            patterns = [line.split("cmd=")[-1].strip("[]")]
+            patterns += [b.split("=", 1)[1].strip()[1:-1]
+                         for b in body if b.strip().startswith("ALTCMD")]
+            silent.append([p for p in patterns
+                           if p.strip() and p[:1] not in ("!", "#")])
+        # reverse half: reversible with an empty ReverseMessage
+        if (any(b.startswith("    REVERSIBLE ") for b in body)
+                and not any(b.startswith("    REVERSE=") for b in body)):
+            patterns = [b.split("=", 1)[1].strip()[1:-1]
+                        for b in body if b.strip().startswith("REVCMD")]
+            silent.append([p for p in patterns
+                           if p.strip() and p[:1] not in ("!", "#")])
 
     typeable = [p for group in silent for p in group]
+    typed = [p for p in typeable if types_pattern(row, p)]
     note = ""
     if rollable:
         note += "  ROLLABLE: " + "; ".join(
             l.split("[")[1].split("]")[0] for l in rollable)
     if typeable:
         note += "  SILENT-TYPEABLE: " + "; ".join(typeable[:6])
+    if typed:
+        note += "  TYPED: " + "; ".join(typed[:6])
     return ("%-32s %s cmds=%-4d events=%-3d rollable=%-3d npcs=%-3d "
             "silent=%d%s" % (taf, version, commands, len(events),
                              len(rollable), len(npcs), len(silent), note))

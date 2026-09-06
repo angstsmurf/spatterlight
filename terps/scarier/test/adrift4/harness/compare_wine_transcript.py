@@ -178,10 +178,20 @@ def run_scarier(taf, feed_path, env_extra):
     for assignment in env_extra:
         name, _, value = assignment.partition("=")
         env[name] = value
+    # `#sleep N` is a directive to the DRIVER, not a command: measure.sh
+    # sleeps on it so the Runner does not drop keystrokes during a real-time
+    # <wait>.  Piping it into scare types it at the game, which answers "I
+    # don't understand what you mean!" and shifts every later turn by one --
+    # which is exactly how lostsouls first read as an engine divergence
+    # (2026-09-05).  Blank lines are kept: they are real empty commands here,
+    # because SCR_SKIP_WAITKEY is on and nothing eats them.
     with open(os.path.expanduser(feed_path), "rb") as handle:
-        done = subprocess.run([scare, os.path.expanduser(taf)],
-                              stdin=handle, stdout=subprocess.PIPE,
-                              stderr=subprocess.DEVNULL, env=env)
+        raw = handle.read()
+    kept = b"\n".join(l for l in raw.replace(b"\r\n", b"\n").split(b"\n")
+                      if not l.strip().startswith(b"#"))
+    done = subprocess.run([scare, os.path.expanduser(taf)],
+                          input=kept, stdout=subprocess.PIPE,
+                          stderr=subprocess.DEVNULL, env=env)
     return done.stdout.decode("latin-1").replace("\r\n", "\n").split("\n")
 
 

@@ -655,6 +655,34 @@ scr_dump_structure_once (scr_gameref_t game)
           fprintf (stderr, "    ALTCMD[%ld]=[%s]\n", ci, ac ? ac : "");
         }
 
+      /* The reverse half of a reversible task.  A reversible task matches its
+       * ReverseCommand patterns as well as its Command ones, so those strings
+       * are typeable too -- and when the ReverseMessage is empty the reverse
+       * run prints nothing, which makes the whole turn silent and sends a
+       * pre-4.0 Runner to the game's DontUnderstand string instead of the
+       * library (see silent-task rule).  lifesimulation's task 10 "turn on tv"
+       * is the worked example: its ReverseCommand is the bare literal "turn
+       * off tv" with no ReverseMessage, and only that exact string diverges,
+       * which is why five probe drives could not find a pattern in it
+       * (2026-09-05).  The dump used to show neither the flag nor the reverse
+       * commands, so the task looked like an ordinary one-way task. */
+      if (prop_get_indexed_boolean (bundle, "Tasks", t, "Reversible"))
+        {
+          scr_int rc, rccount;
+
+          k[2].string = "ReverseCommand";
+          rccount = prop_get_child_count (bundle, "I<-sis", k);
+          fprintf (stderr, "    REVERSIBLE rcmds=%ld\n", rccount);
+          for (rc = 0; rc < rccount; rc++)
+            {
+              const scr_char *rcs;
+              k[2].string = "ReverseCommand";
+              k[3].integer = rc;
+              rcs = prop_get_string (bundle, "S<-sisi", k);
+              fprintf (stderr, "    REVCMD[%ld]=[%s]\n", rc, rcs ? rcs : "");
+            }
+        }
+
       for (i = 0; i < rcount; i++)
         {
           scr_int rtype, v1, v2, v3, obj;
